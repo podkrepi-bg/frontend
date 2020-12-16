@@ -6,7 +6,7 @@ on:
     branches: [master]
 
 jobs:
-  build-packages:
+  build-image:
     runs-on: ubuntu-latest
 
     env:
