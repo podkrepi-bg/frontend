@@ -33,6 +33,7 @@ ln -s .env.example .env
 ## Development
 
 ```shell
+yarn
 yarn dev
 ```
 
