@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  frontend:
+    container_name: ${COMPOSE_PROJECT_NAME?}-frontend
+
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      target: ${TARGET_ENV}
+      args:
+        NODE_ENV: ${NODE_ENV}
+
+    networks:
+      - net-frontend
+
+    ports:
+      - '${APP_PORT}:3040'
+
+    volumes:
+      # Local:Container mounting points
+      - ./src:/app/src
+      - ./public:/app/public
+
+    environment:
+      API_URL: ${API_URL}
+
+networks:
+  net-frontend:
+    driver: bridge
