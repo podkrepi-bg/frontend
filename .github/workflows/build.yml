@@ -6,7 +6,7 @@ on:
     branches: [master]
 
 jobs:
-  build-packages:
+  build-codebase:
     runs-on: ubuntu-latest
 
     steps:
