@@ -1,0 +1,25 @@
+name: Build docker image
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [master]
+
+jobs:
+  build-packages:
+    runs-on: ubuntu-latest
+
+    env:
+      IMAGE_NAME: frontend
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build frontend
+        run: |
+          docker build . \
+            --file ./Dockerfile \
+            --target production \
+            --build-arg NODE_ENV=production \
+            --tag $IMAGE_NAME \
+            --tag $IMAGE_NAME:ci-run
