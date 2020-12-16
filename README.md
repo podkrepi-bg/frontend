@@ -3,7 +3,8 @@
 ![Lint](https://github.com/daritelska-platforma/frontend/workflows/Lint/badge.svg)
 ![Build](https://github.com/daritelska-platforma/frontend/workflows/Build/badge.svg)
 ![Build docker image](https://github.com/daritelska-platforma/frontend/workflows/Build%20docker%20image/badge.svg)
-![Dependencies](https://david-dm.org/daritelska-platforma/frontend.svg)
+![Dependencies](https://img.shields.io/david/daritelska-platforma/frontend)
+![Dev Dependencies](https://img.shields.io/david/dev/daritelska-platforma/frontend)
 
 ## What's in the box
 
