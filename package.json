@@ -4,9 +4,9 @@
   "license": "MIT",
   "repository": "https://github.com/orgs/daritelska-platforma",
   "scripts": {
-    "dev": "next -p 3040",
+    "dev": "yarn && next -p 3040",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3040",
     "lint": "eslint . --fix --ext=ts,tsx",
     "lint:styles": "stylelint **.scss",
     "format": "prettier --write .",
