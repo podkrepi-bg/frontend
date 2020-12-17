@@ -8,7 +8,7 @@ _What problem are you trying to solve?_
 
 ## Solution
 
-_How did you solve the problem?_x
+_How did you solve the problem?_
 ## Motivation and Context
 <!--- Why is this change required? What problem does it solve? -->
 <!--- If it fixes an open issue, please link to the issue here. -->
