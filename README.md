@@ -17,6 +17,8 @@
 - [ESlint](https://eslint.org/)
 - [Prettier](https://prettier.io/)
 - [Stylelint](https://stylelint.io/)
+- [Lint Staged](https://github.com/okonet/lint-staged)
+- [Husky](https://github.com/typicode/husky)
 - [Github Actions](https://docs.github.com/en/free-pro-team@latest/actions/reference)
 - [Docker Compose](https://docs.docker.com/compose/)
 
