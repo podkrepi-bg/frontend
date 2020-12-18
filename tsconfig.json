@@ -21,6 +21,7 @@
     "noImplicitThis": true,
     "strictBindCallApply": true,
     "strictFunctionTypes": true,
+    "strictNullChecks": true,
     "jsx": "preserve",
     "baseUrl": "./src"
   },
