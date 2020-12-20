@@ -48,7 +48,9 @@
   },
   "lint-staged": {
     "*.{ts,tsx,js}": [
-      "yarn run lint",
+      "yarn run lint"
+    ],
+    "*.{ts,tsx,js,md,json}": [
       "yarn run format"
     ],
     "*.scss": "yarn run lint:styles"
