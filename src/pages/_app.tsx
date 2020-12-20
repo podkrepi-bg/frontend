@@ -3,11 +3,16 @@ import Head from 'next/head'
 import { AppProps } from 'next/app'
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
+import { useRouter } from 'next/router'
+import { i18nextInit } from '../i18n'
 
 import theme from 'common/theme'
 
 export default function CustomApp(props: AppProps) {
   const { Component, pageProps } = props
+  const nextRouter = useRouter()
+
+  i18nextInit(nextRouter, pageProps.i18nNamespaces)
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
