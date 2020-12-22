@@ -1,9 +1,10 @@
 import AboutPage from 'components/about/AboutPage'
 import { GetStaticProps } from 'next'
+import { getTranslations } from '../i18n'
 
-export const getStaticProps: GetStaticProps = async () => ({
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
-    i18nNamespaces: ['common', 'about'],
+    i18nResources: await getTranslations(locale, ['common', 'about']),
   },
 })
 

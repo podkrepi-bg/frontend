@@ -12,7 +12,7 @@ export default function CustomApp(props: AppProps) {
   const { Component, pageProps } = props
   const nextRouter = useRouter()
 
-  i18nextInit(nextRouter, pageProps.i18nNamespaces)
+  i18nextInit(nextRouter, pageProps.i18nResources)
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
