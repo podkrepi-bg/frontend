@@ -1,10 +1,13 @@
 import Layout from 'components/layout/Layout'
+import { useTranslation } from 'react-i18next'
 
 import styles from './about.module.scss'
 
 export default function AboutPage() {
+  const { t } = useTranslation()
+
   return (
-    <Layout title="About">
+    <Layout title={t('about:ABOUT')}>
       <div className={styles.page}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras euismod feugiat fringilla.
         Mauris sed elit facilisis, consequat nisi quis, sagittis diam. Morbi tincidunt sollicitudin
