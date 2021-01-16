@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Footer from './footer/Footer'
 import { Box, Container, Typography } from '@material-ui/core'
 
 import Nav from 'components/layout/Nav'
@@ -20,6 +21,7 @@ export default function Layout({ title, children }: LayoutProps) {
         </Typography>
         {children}
       </Box>
+      <Footer />
     </Container>
   )
 }
