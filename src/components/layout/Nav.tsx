@@ -11,12 +11,13 @@ export default function Nav() {
       <ButtonGroup
         disableRipple
         variant="text"
-        color="primary"
+        component="nav"
+        color="secondary"
         aria-label="text primary button group">
-        <LinkButton href={routes.index}>{t('ONE')}</LinkButton>
-        <LinkButton href={routes.about}>{t('TWO')}</LinkButton>
-        <LinkButton href={routes.login}>Login</LinkButton>
-        <LinkButton href={routes.register}>Register</LinkButton>
+        <LinkButton href={routes.index}>{t('nav.home')}</LinkButton>
+        <LinkButton href={routes.about}>{t('nav.about')}</LinkButton>
+        <LinkButton href={routes.login}>{t('nav.login')}</LinkButton>
+        <LinkButton href={routes.register}>{t('nav.register')}</LinkButton>
       </ButtonGroup>
     </Box>
   )
