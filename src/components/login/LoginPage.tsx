@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Container, Grid, TextField, Button } from '@material-ui/core'
+
 import Layout from 'components/layout/Layout'
-import { Typography, Container, Grid, TextField, Button } from '@material-ui/core'
 
 export default function LoginPage() {
+  const { t } = useTranslation()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -11,11 +14,8 @@ export default function LoginPage() {
   }
 
   return (
-    <Layout>
+    <Layout title={t('nav.login')}>
       <Container maxWidth="xs">
-        <Typography align="center" variant="h5" color="primary" paragraph={true}>
-          Login
-        </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
