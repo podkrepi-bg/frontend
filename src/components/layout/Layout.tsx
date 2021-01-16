@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { Box, Container, createStyles, makeStyles, Typography } from '@material-ui/core'
 
 import Nav from 'components/layout/Nav'
-import Footer from './Footer'
+import Footer from 'components/layout/Footer'
 
 type LayoutProps = React.PropsWithChildren<{
   title?: string
@@ -29,14 +29,16 @@ export default function Layout({ title, children }: LayoutProps) {
       </Head>
       <Box py={4} pb={8}>
         <Nav />
-        <Typography
-          className={styles.pageTitle}
-          variant="h3"
-          component="h1"
-          align="center"
-          paragraph>
-          {title}
-        </Typography>
+        {title && (
+          <Typography
+            className={styles.pageTitle}
+            variant="h3"
+            component="h1"
+            align="center"
+            paragraph>
+            {title}
+          </Typography>
+        )}
         {children}
       </Box>
       <Footer />

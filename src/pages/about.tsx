@@ -1,10 +1,10 @@
 import { GetStaticProps } from 'next'
 import AboutPage from 'components/about/AboutPage'
-import { getTranslations } from 'common/useNextLocale'
+import { serverSideTranslations } from 'common/useNextLocale'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
-    i18nResources: await getTranslations(locale, ['common', 'about']),
+    i18nResources: await serverSideTranslations(locale, ['common', 'about']),
   },
 })
 

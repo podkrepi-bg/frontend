@@ -1,7 +1,9 @@
 {
   "nav": {
     "home": "Начало",
-    "about": "За нас"
+    "about": "За нас",
+    "login": "Вход",
+    "register": "Регистрация"
   },
   "values": {
     "voluntary": {

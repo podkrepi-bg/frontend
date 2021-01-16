@@ -1,5 +1,5 @@
 import { GetStaticProps } from 'next'
-import IndexPage from 'components/IndexPage'
+import RegisterPage from 'components/register/RegisterPage'
 import { serverSideTranslations } from 'common/useNextLocale'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
@@ -8,4 +8,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   },
 })
 
-export default IndexPage
+export default RegisterPage

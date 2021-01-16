@@ -1,5 +1,5 @@
 import { GetStaticProps } from 'next'
-import IndexPage from 'components/IndexPage'
+import LoginPage from 'components/login/LoginPage'
 import { serverSideTranslations } from 'common/useNextLocale'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
@@ -8,4 +8,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   },
 })
 
-export default IndexPage
+export default LoginPage
