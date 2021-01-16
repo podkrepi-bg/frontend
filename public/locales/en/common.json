@@ -1,7 +1,9 @@
 {
   "nav": {
     "home": "Home",
-    "about": "About"
+    "about": "About",
+    "login": "Login",
+    "register": "Register"
   },
   "values": {
     "voluntary": {

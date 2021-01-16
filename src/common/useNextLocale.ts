@@ -64,7 +64,7 @@ export default function useNextLocale({
   return { locale }
 }
 
-export async function getTranslations(locale: string | undefined, namespaces: string[]) {
+export async function serverSideTranslations(locale: string | undefined, namespaces: string[]) {
   const translations: Translations = {}
 
   for (const ns of namespaces) {
