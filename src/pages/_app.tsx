@@ -1,20 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
 import { AppProps } from 'next/app'
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { useRouter } from 'next/router'
-import { i18nextInit } from '../i18n'
 
 import theme from 'common/theme'
+import useNextLocale from 'common/useNextLocale'
 
 export default function CustomApp(props: AppProps) {
   const { Component, pageProps } = props
-  const nextRouter = useRouter()
 
-  i18nextInit(nextRouter, pageProps.i18nResources)
+  useNextLocale({ i18nResources: pageProps.i18nResources })
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side')
     if (jssStyles && jssStyles.parentElement) {

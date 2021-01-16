@@ -1,6 +1,6 @@
-import AboutPage from 'components/about/AboutPage'
 import { GetStaticProps } from 'next'
-import { getTranslations } from '../i18n'
+import AboutPage from 'components/about/AboutPage'
+import { getTranslations } from 'common/useNextLocale'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
