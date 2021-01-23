@@ -15,17 +15,17 @@ export default function RegisterPage() {
   return (
     <Layout>
       <Container maxWidth="xs">
-        <Typography align="center" variant="h5" color="primary" paragraph={true}>
+        <Typography variant="h5" align="center" color="primary" gutterBottom>
           Register
         </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
               <TextField
+                type="text"
                 fullWidth
                 label="First Name"
                 name="firstName"
-                type="text"
                 size="small"
                 variant="outlined"
                 autoFocus
@@ -35,10 +35,10 @@ export default function RegisterPage() {
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
+                type="text"
                 fullWidth
                 label="Last Name"
                 name="lastName"
-                type="text"
                 size="small"
                 variant="outlined"
                 value={lastName}
@@ -47,10 +47,10 @@ export default function RegisterPage() {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                type="text"
                 fullWidth
                 label="Email"
                 name="email"
-                type="text"
                 size="small"
                 variant="outlined"
                 value={email}
@@ -59,10 +59,10 @@ export default function RegisterPage() {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                type="password"
                 fullWidth
                 label="Password"
                 name="password"
-                type="password"
                 size="small"
                 variant="outlined"
                 value={password}
@@ -70,7 +70,7 @@ export default function RegisterPage() {
               />
             </Grid>
             <Grid item xs={12}>
-              <Button fullWidth type="submit" color="primary" variant="contained">
+              <Button type="submit" fullWidth color="primary" variant="contained">
                 Register
               </Button>
             </Grid>
