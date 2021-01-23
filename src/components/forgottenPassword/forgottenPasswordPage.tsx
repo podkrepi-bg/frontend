@@ -1,13 +1,9 @@
 import React, { useState } from 'react'
-import { routes } from 'common/routes'
 import Layout from 'components/layout/Layout'
-import Link from 'components/shared/Link'
 import { Typography, Container, Grid, TextField, Button } from '@material-ui/core'
-import styles from './login.module.scss'
 
-export default function LoginPage() {
+export default function ForgottenPasswordPage() {
   const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault()
@@ -17,9 +13,13 @@ export default function LoginPage() {
     <Layout>
       <Container maxWidth="xs">
         <Typography variant="h5" align="center" color="primary" gutterBottom>
-          Login
+          Forgotten password?
         </Typography>
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <form onSubmit={handleSubmit}>
+          <Typography paragraph>
+            To reset your password, please type your email address below. We will then send you an
+            email with instructions to follow.
+          </Typography>
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <TextField
@@ -29,33 +29,17 @@ export default function LoginPage() {
                 name="email"
                 size="small"
                 variant="outlined"
-                autoFocus
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
-              <TextField
-                type="password"
-                fullWidth
-                label="Password"
-                name="password"
-                size="small"
-                variant="outlined"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12}>
               <Button fullWidth type="submit" color="primary" variant="contained">
-                Log in
+                Send
               </Button>
             </Grid>
           </Grid>
         </form>
-        <Grid container justify="flex-end">
-          <Link href={routes.forgottenPassword}>Forgotten password?</Link>
-        </Grid>
       </Container>
     </Layout>
   )

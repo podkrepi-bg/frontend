@@ -1,0 +1,3 @@
+import forgottenPasswordPage from 'components/forgottenPassword/forgottenPasswordPage'
+
+export default forgottenPasswordPage
