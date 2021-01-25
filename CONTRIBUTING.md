@@ -312,7 +312,7 @@ There are three common ways to style a component:
     
 1. **Styles using `something.module.scss`**
     
-    :sun_with_face: Nice when dealing with complex nested structure that
+    :sun_with_face: Nice when dealing with complex nested structures that are scoped in a single component. When dealing with sub-components we're not sure if some of the rules will be left unused.
     
     ```scss
     @import 'styles/variables';
@@ -329,6 +329,14 @@ There are three common ways to style a component:
         }
       }
     }
+    ```
+    
+    ```tsx
+    import styles from './about.module.scss'
+
+    <Box className={styles.page}>
+      <p>{t('nav.forgottenPassword')}</p>
+    </Box>
     ```
     
     :partly_sunny: Too verbose for simple use cases, if it contains less than 2 css rules in a dedicated file. __Use `Box` instead__
