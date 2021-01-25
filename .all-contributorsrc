@@ -1,0 +1,29 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "kachar",
+      "name": "Ilko",
+      "avatar_url": "https://avatars.githubusercontent.com/u/893608?v=4",
+      "profile": "https://stackoverflow.com/users/668245/kachar",
+      "contributions": [
+        "code",
+        "doc",
+        "review",
+        "maintenance",
+        "bug",
+        "example"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "frontend",
+  "projectOwner": "daritelska-platforma",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
