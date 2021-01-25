@@ -102,13 +102,18 @@ Good branch names: :sun_with_face:
 - `nice-kebab-cased-titles`
 - `fixes-footer-links`
 - `4411290-setup-state-management-integration`
+- `feature/new-design`
+- `hotfix/db-connection`
+- `release-1.2.3`
 
 Bad branch names: :partly_sunny:
 
-- `patch-1`
-- `camelCasedBranchNames`
-- `PascalCasedBranchNames`
-- `long-titles-above-80-chars-{.....}`
+- `patch-1` - not enough context
+- `camelCasedBranchNames` - camel case
+- `PascalCasedBranchNames` - pascal case
+- `long-titles-above-80-chars-{.....}` - too long
+
+
 
 Branching model|Merges
 ---|---
