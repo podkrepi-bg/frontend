@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Container, Grid, TextField, Button } from '@material-ui/core'
+
 import Layout from 'components/layout/Layout'
-import { Typography, Container, Grid, TextField, Button } from '@material-ui/core'
 
 export default function RegisterPage() {
+  const { t } = useTranslation()
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
@@ -13,11 +16,8 @@ export default function RegisterPage() {
   }
 
   return (
-    <Layout>
+    <Layout title={t('nav.register')}>
       <Container maxWidth="xs">
-        <Typography variant="h5" align="center" color="primary" gutterBottom>
-          Register
-        </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
