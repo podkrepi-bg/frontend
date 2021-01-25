@@ -3,7 +3,9 @@
     "home": "Home",
     "about": "About",
     "login": "Login",
-    "register": "Register"
+    "register": "Register",
+    "changePassword": "Change your password",
+    "forgottenPassword": "Forgotten password?"
   },
   "values": {
     "voluntary": {
