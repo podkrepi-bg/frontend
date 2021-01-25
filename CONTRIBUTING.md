@@ -112,7 +112,8 @@ import { useTranslation } from 'react-i18next'
 import Nav from 'components/layout/Nav'
 import Layout from 'components/layout/Layout'
 
-import
+import SimpleForm from './SimpleForm'
+import styles from './advanced.module.scss'
 ```
 
 ### File structure
