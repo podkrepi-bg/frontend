@@ -18,6 +18,18 @@
         "bug",
         "example"
       ]
+    },
+    {
+      "login": "StanislavSt",
+      "name": "StanislavSt",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12186099?v=4",
+      "profile": "http://stackoverflow.com/users/6163171/stanleys?tab=profile",
+      "contributions": [
+        "code",
+        "doc",
+        "review",
+        "tool"
+      ]
     }
   ],
   "contributorsPerLine": 7,
