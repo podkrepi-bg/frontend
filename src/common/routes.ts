@@ -3,6 +3,6 @@ export const routes = {
   about: '/about',
   login: '/login',
   register: '/register',
-  forgottenPassword: '/forgottenPassword',
-  changePasswordPage: '/changePassword',
+  changePassword: '/change-password',
+  forgottenPassword: '/forgotten-password',
 }

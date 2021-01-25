@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
-import Layout from 'components/layout/Layout'
+import { useTranslation } from 'react-i18next'
 import { Typography, Container, Grid, TextField, Button } from '@material-ui/core'
 
+import Layout from 'components/layout/Layout'
+
 export default function ForgottenPasswordPage() {
+  const { t } = useTranslation()
   const [email, setEmail] = useState('')
 
   function handleSubmit(event: React.FormEvent) {
@@ -10,22 +13,18 @@ export default function ForgottenPasswordPage() {
   }
 
   return (
-    <Layout>
+    <Layout title={t('nav.forgottenPassword')}>
       <Container maxWidth="xs">
-        <Typography variant="h5" align="center" color="primary" gutterBottom>
-          Forgotten password?
-        </Typography>
         <form onSubmit={handleSubmit}>
-          <Typography paragraph>
-            To reset your password, please type your email address below. We will then send you an
-            email with instructions to follow.
+          <Typography variant="body1" paragraph>
+            {t('auth:pages.forgotten-password.instructions')}
           </Typography>
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <TextField
                 type="text"
                 fullWidth
-                label="Email"
+                label={t('auth:fields.email')}
                 name="email"
                 size="small"
                 variant="outlined"
@@ -35,7 +34,7 @@ export default function ForgottenPasswordPage() {
             </Grid>
             <Grid item xs={12}>
               <Button fullWidth type="submit" color="primary" variant="contained">
-                Send
+                {t('auth:cta.send')}
               </Button>
             </Grid>
           </Grid>

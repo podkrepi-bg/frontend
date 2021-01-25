@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Container, Grid, TextField, Button } from '@material-ui/core'
+
 import Layout from 'components/layout/Layout'
-import { Typography, Container, Grid, TextField, Button } from '@material-ui/core'
 
 export default function ChangePasswordPage() {
+  const { t } = useTranslation()
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
@@ -11,18 +14,15 @@ export default function ChangePasswordPage() {
   }
 
   return (
-    <Layout>
+    <Layout title={t('nav.changePassword')}>
       <Container maxWidth="xs">
-        <Typography variant="h5" align="center" color="primary" gutterBottom>
-          Change your password
-        </Typography>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <TextField
                 type="password"
                 fullWidth
-                label="Password"
+                label={t('auth:fields.password')}
                 name="password"
                 size="small"
                 variant="outlined"
@@ -34,7 +34,7 @@ export default function ChangePasswordPage() {
               <TextField
                 type="password"
                 fullWidth
-                label="Confirm Password"
+                label={t('auth:fields.confirm-password')}
                 name="confirmPassword"
                 size="small"
                 variant="outlined"
@@ -44,7 +44,7 @@ export default function ChangePasswordPage() {
             </Grid>
             <Grid item xs={12}>
               <Button type="submit" fullWidth color="primary" variant="contained">
-                Reset
+                {t('auth:cta.reset')}
               </Button>
             </Grid>
           </Grid>
