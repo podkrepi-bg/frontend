@@ -97,13 +97,13 @@ All PRs must:
 
 Inherits the process from <https://nvie.com/posts/a-successful-git-branching-model/>
 
-Good branch names:
+Good branch names: :sun_with_face:
 
 - `nice-kebab-cased-titles`
 - `fixes-footer-links`
 - `4411290-setup-state-management-integration`
 
-Bad branch names:
+Bad branch names: :partly_sunny:
 
 - `patch-1`
 - `camelCasedBranchNames`
