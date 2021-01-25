@@ -63,16 +63,22 @@ Branching model|Merges
 
 ## Translations (i18n)
 
-### Translation domains
+### Translation namespaces
 
-Common translations that are used on all pages (Nav, etc) are stored at `frontend/public/locales/{locale}/common.json`
+Default namespace is called `common` and contains translations used on *all pages* (Layout, Nav, etc) and is stored at `frontend/public/locales/{locale}/common.json`
 
-Scopes (domains) are stored in separate json files at `frontend/public/locales/{locale}/{domain}.json`
-One scope can combine the translations keys from several pages with common reusable strings ex. `auth` scope collects keys for `login` and `register` pages. 
+Namespaces (scopes, domains) are stored in separate json files at `frontend/public/locales/{locale}/{namespace}.json`
+One namespace can combine the translations keys from several pages with common reusable strings ex. `auth` scope collects keys for `login` and `register` pages. 
 
 ### Translation keys
 
 It is preferred to use [kebab-case](https://en.wiktionary.org/wiki/kebab_case) for translation keys and extract another level of nesting when the common prefix of the keys is above 3 or makes sense to be separated as new keys might be added in the future.
+
+- Namespace is separated with `:`
+- Translation nesting levels are separated with `.`
+- Words in a translation key are separated with `-`
+
+`domain:pages.nested-level.another-nested-level.translation-key`
 
 ```json
 {
@@ -91,8 +97,48 @@ It is preferred to use [kebab-case](https://en.wiktionary.org/wiki/kebab_case) f
   },
   "pages": {
     "forgotten-password": {
-      "instructions": "To reset your password, please type your email address below. We will then send you an email with instructions to follow."
+      "instructions": "To reset your password, please type your email address below.",
+      "greeting": "Hello {{name}}!"
     }
   }
 }
+```
+
+### Usage in React
+
+Usage of translation hook `useTranslation` is preferred over usage of `<Trans />` component, whenever possible.
+
+#### Usage in pages
+
+```tsx
+import { useTranslation } from 'react-i18next'
+
+export default function CustomPage() {
+  const { t } = useTranslation()
+
+  return (
+    <div>
+      <h1>{t('nav.custom-page')}</h1>
+      <h2>{t('auth:pages.forgotten-password.greeting', {name: 'Interpolation'} )}</h2>
+      <p>{t('auth:pages.forgotten-password.instructions')}</p>
+    </div>
+  )
+}
+```
+
+#### SSR preloading i18n in pages
+
+```tsx
+import { GetStaticProps } from 'next'
+import { serverSideTranslations } from 'common/useNextLocale'
+
+import Page from 'components/forgottenPassword/ForgottenPasswordPage'
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    i18nResources: await serverSideTranslations(locale, ['common', 'auth']), // List used namespaces
+  },
+})
+
+export default Page
 ```
