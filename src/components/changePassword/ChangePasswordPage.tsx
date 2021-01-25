@@ -22,7 +22,7 @@ export default function ChangePasswordPage() {
               <TextField
                 type="password"
                 fullWidth
-                label="Password"
+                label={t('auth:fields.password')}
                 name="password"
                 size="small"
                 variant="outlined"
@@ -34,7 +34,7 @@ export default function ChangePasswordPage() {
               <TextField
                 type="password"
                 fullWidth
-                label="Confirm Password"
+                label={t('auth:fields.confirm-password')}
                 name="confirmPassword"
                 size="small"
                 variant="outlined"
@@ -44,7 +44,7 @@ export default function ChangePasswordPage() {
             </Grid>
             <Grid item xs={12}>
               <Button type="submit" fullWidth color="primary" variant="contained">
-                Reset
+                {t('auth:cta.reset')}
               </Button>
             </Grid>
           </Grid>

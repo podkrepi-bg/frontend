@@ -26,7 +26,7 @@ export default function LoginPage() {
               <TextField
                 type="text"
                 fullWidth
-                label="Email"
+                label={t('auth:fields.email')}
                 name="email"
                 size="small"
                 variant="outlined"
@@ -39,7 +39,7 @@ export default function LoginPage() {
               <TextField
                 type="password"
                 fullWidth
-                label="Password"
+                label={t('auth:fields.password')}
                 name="password"
                 size="small"
                 variant="outlined"
@@ -49,13 +49,13 @@ export default function LoginPage() {
             </Grid>
             <Grid item xs={12}>
               <Button fullWidth type="submit" color="primary" variant="contained">
-                Log in
+                {t('auth:cta.login')}
               </Button>
             </Grid>
           </Grid>
         </form>
         <Grid container justify="flex-end">
-          <Link href={routes.forgottenPassword}>Forgotten password?</Link>
+          <Link href={routes.forgottenPassword}>{t('nav.forgottenPassword')}</Link>
         </Grid>
       </Container>
     </Layout>

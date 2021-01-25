@@ -16,16 +16,15 @@ export default function ForgottenPasswordPage() {
     <Layout title={t('nav.forgottenPassword')}>
       <Container maxWidth="xs">
         <form onSubmit={handleSubmit}>
-          <Typography paragraph>
-            To reset your password, please type your email address below. We will then send you an
-            email with instructions to follow.
+          <Typography variant="body1" paragraph>
+            {t('auth:pages.forgotten-password.instructions')}
           </Typography>
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <TextField
                 type="text"
                 fullWidth
-                label="Email"
+                label={t('auth:fields.email')}
                 name="email"
                 size="small"
                 variant="outlined"
@@ -35,7 +34,7 @@ export default function ForgottenPasswordPage() {
             </Grid>
             <Grid item xs={12}>
               <Button fullWidth type="submit" color="primary" variant="contained">
-                Send
+                {t('auth:cta.send')}
               </Button>
             </Grid>
           </Grid>
