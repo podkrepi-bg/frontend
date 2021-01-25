@@ -167,7 +167,7 @@ export default Page
 
 We're integrated with <https://allcontributors.org/> bot 
 
-Comment on Issue or Pull Request, asking @all-contributors to add a contributor:
+Comment on [this issue](https://github.com/daritelska-platforma/frontend/issues/2), asking @all-contributors bot to add a contributor:
 
 ```
 @all-contributors please add @<username> for <contributions>
