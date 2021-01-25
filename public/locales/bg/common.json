@@ -4,8 +4,8 @@
     "about": "За нас",
     "login": "Вход",
     "register": "Регистрация",
-    "changePassword": "Change your password",
-    "forgottenPassword": "Forgotten password?"
+    "changePassword": "Смяна на парола",
+    "forgottenPassword": "Забравена парола?"
   },
   "values": {
     "voluntary": {

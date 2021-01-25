@@ -24,7 +24,7 @@ export default function RegisterPage() {
               <TextField
                 type="text"
                 fullWidth
-                label="First Name"
+                label={t('auth:fields.first-name')}
                 name="firstName"
                 size="small"
                 variant="outlined"
@@ -37,7 +37,7 @@ export default function RegisterPage() {
               <TextField
                 type="text"
                 fullWidth
-                label="Last Name"
+                label={t('auth:fields.last-name')}
                 name="lastName"
                 size="small"
                 variant="outlined"
@@ -49,7 +49,7 @@ export default function RegisterPage() {
               <TextField
                 type="text"
                 fullWidth
-                label="Email"
+                label={t('auth:fields.email')}
                 name="email"
                 size="small"
                 variant="outlined"
@@ -61,7 +61,7 @@ export default function RegisterPage() {
               <TextField
                 type="password"
                 fullWidth
-                label="Password"
+                label={t('auth:fields.password')}
                 name="password"
                 size="small"
                 variant="outlined"
@@ -71,7 +71,7 @@ export default function RegisterPage() {
             </Grid>
             <Grid item xs={12}>
               <Button type="submit" fullWidth color="primary" variant="contained">
-                Register
+                {t('auth:cta.register')}
               </Button>
             </Grid>
           </Grid>
