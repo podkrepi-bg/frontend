@@ -242,9 +242,9 @@ There are three common ways to style a component:
     </Box>
     ```
 
-    :partly_sunny: Not the best for custom scenarios with more than _six_ props passed to it. __Use `useStyles` hook instead__
+    :partly_sunny: Not the best for custom scenarios with more than _six_ props passed to it. __Use `hooks` instead__
     
-    :partly_sunny: Not nice when the children have clear nesting structure of more than _three_ levels. __Use `scss` instead__
+    :partly_sunny: Not nice when the children have clear nesting structure of more than _three_ levels. __Use `hooks` or `scss` instead__
     ```tsx
     <Box component="nav" px={5} pb={12} mt={2} mb={4} lineHeight={2} letterSpacing={none} fontSize={20}>
       <Box component="span" px={5} pb={12} mt={2} mb={4} lineHeight={2} letterSpacing={none} fontSize={17}>
