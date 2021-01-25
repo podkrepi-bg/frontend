@@ -1,13 +1,14 @@
 # Дарителска Платформа - Frontend
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ![Lint](https://github.com/daritelska-platforma/frontend/workflows/Lint/badge.svg)
 ![Build](https://github.com/daritelska-platforma/frontend/workflows/Build/badge.svg)
 ![Build docker image](https://github.com/daritelska-platforma/frontend/workflows/Build%20docker%20image/badge.svg)
 ![Dependencies](https://img.shields.io/david/daritelska-platforma/frontend)
 ![Dev Dependencies](https://img.shields.io/david/dev/daritelska-platforma/frontend)
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## What's in the box
 
@@ -44,52 +45,17 @@ yarn dev
 
 Visit <http://localhost:3040/>
 
-### Run via Docker Compose
-
-Install the binary via <https://docs.docker.com/compose/install/>
-
-#### Start the container in foreground
-
-```shell
-docker-compose up
-```
-
-#### Start the container in background
-
-```shell
-docker-compose up -d
-docker-compose logs -f
-```
-
-Stop the docker container with `docker-compose down`
-
-## Linting
-
-```shell
-yarn lint
-yarn lint:styles
-yarn format
-yarn type-check
-```
-
-## Production
-
-### Build frontend
-
-```shell
-yarn build
-```
-
-### Build Docker image
-
-```shell
-docker build . \
-    --file ./Dockerfile \
-    --target production \
-    --build-arg NODE_ENV=production
-```
 
 ## Contributors ✨
+
+Please check [contributors guide](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md) for:
+
+- [Development setup](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#development)
+- [Linting](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#linting)
+- [Production setup](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#production)
+- [Pull requests guidelines](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#pull-requests)
+- [Branching strategy](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#branching-strategy)
+- [Translation guidelines](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#translations-i18n)
 
 Thanks goes to these wonderful people:
 
