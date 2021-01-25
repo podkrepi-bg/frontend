@@ -51,6 +51,25 @@ yarn format
 yarn type-check
 ```
 
+
+## Production
+
+### Build frontend
+
+```shell
+yarn build
+```
+
+### Build Docker image
+
+```shell
+docker build . \
+    --file ./Dockerfile \
+    --target production \
+    --build-arg NODE_ENV=production
+```
+
+
 ## Pull requests
 
 All PRs must: 
