@@ -49,13 +49,30 @@ yarn format
 yarn type-check
 ```
 
-## PRs
+## Pull requests
 
-All PRs must pass all checks before they will be considered for review.
+All PRs must: 
+
+- pass all checks before they will be considered for review
+- have proper title and description
+- have at least one screenshot if the changeset leads to visual difference
 
 ## Branching strategy
 
-Inherits the rules from <https://nvie.com/posts/a-successful-git-branching-model/>
+Inherits the process from <https://nvie.com/posts/a-successful-git-branching-model/>
+
+Good branch names:
+
+- `nice-kebab-cased-titles`
+- `fixes-footer-links`
+- `4411290-setup-state-management-integration
+
+Bad branch names:
+
+- `patch-1`
+- `camelCasedBranchNames`
+- `PascalCasedBranchNames`
+- `long-titles-above-128-chars-{.....}`
 
 Branching model|Merges
 ---|---
