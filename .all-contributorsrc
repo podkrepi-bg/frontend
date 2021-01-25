@@ -63,6 +63,17 @@
         "doc",
         "tool"
       ]
+    },
+    {
+      "login": "arthas168",
+      "name": "Pete Pavlovski",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32264020?v=4",
+      "profile": "https://petkopavlovski.com/",
+      "contributions": [
+        "code",
+        "doc",
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7,
