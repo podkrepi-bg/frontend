@@ -256,60 +256,60 @@ There are three common ways to style a component:
   Single component that inherits all sizing props from MUI https://material-ui.com/system/basics/#all-inclusive
 
   :sun_with_face: Nice for quick layouts that should follow the theme
-  
-    ```tsx
-    <Box component="nav" px={5} mt={2}>
-      <a>{t('nav.forgottenPassword')}</p>
-    </Box>
-    ```
+
+  ```tsx
+  <Box component="nav" px={5} mt={2}>
+    <a>{t('nav.forgottenPassword')}</p>
+  </Box>
+  ```
 
   :partly_sunny: Not the best for custom scenarios with more than _six_ props passed to it. __Use `hooks` instead__
     
   :partly_sunny: Not nice when the children have clear nesting structure of more than _three_ levels. __Use `hooks` or `scss` instead__
-  
-    ```tsx
-    <Box component="nav" px={5} pb={12} mt={2} mb={4} lineHeight={2} letterSpacing={none} fontSize={20}>
-      <Box component="span" px={5} pb={12} mt={2} mb={4} lineHeight={2} letterSpacing={none} fontSize={17}>
-        <a>{t('nav.forgottenPassword')}</p>
-      </Box>
-      <Box component="span" px={5} pb={12} mt={2} mb={4} lineHeight={2} letterSpacing={none} fontSize={13}>
-        <a>{t('nav.forgottenPassword')}</p>
-      </Box>
+
+  ```tsx
+  <Box component="nav" px={5} pb={12} mt={2} mb={4} lineHeight={2} letterSpacing={none} fontSize={20}>
+    <Box component="span" px={5} pb={12} mt={2} mb={4} lineHeight={2} letterSpacing={none} fontSize={17}>
+      <a>{t('nav.forgottenPassword')}</p>
     </Box>
-    ```
+    <Box component="span" px={5} pb={12} mt={2} mb={4} lineHeight={2} letterSpacing={none} fontSize={13}>
+      <a>{t('nav.forgottenPassword')}</p>
+    </Box>
+  </Box>
+  ```
     
 #### Styles using `useStyles()` hook
   
   :sun_with_face: Nice for very specific styling that levereges `theme` methods and props
 
-    ```tsx
-    const useStyles = makeStyles((theme) =>
-      createStyles({
-        pageTitle: {
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          padding: theme.spacing(4),
-          margin: theme.spacing(5, 3, 4),
-          color: theme.palette.secondary.main,
-          backgroundColor: theme.palette.primary.main,
-          '&:hover': {
-            color: theme.palette.secondary.dark,
-          }
-        },
-        // ...
-      }),
+  ```tsx
+  const useStyles = makeStyles((theme) =>
+    createStyles({
+      pageTitle: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: theme.spacing(4),
+        margin: theme.spacing(5, 3, 4),
+        color: theme.palette.secondary.main,
+        backgroundColor: theme.palette.primary.main,
+        '&:hover': {
+          color: theme.palette.secondary.dark,
+        }
+      },
+      // ...
+    }),
+  )
+
+  export default function SomeBox() {
+    const classes = useStyles()
+    return (
+      <Box className={classes.pageTitle}>
+        <p>{t('nav.forgottenPassword')}</p>
+      </Box>
     )
-    
-    export default function SomeBox() {
-      const classes = useStyles()
-      return (
-        <Box className={classes.pageTitle}>
-          <p>{t('nav.forgottenPassword')}</p>
-        </Box>
-      )
-    }
-    ```
+  }
+  ```
     
   :partly_sunny: Too verbose for simple use cases, if it contains less than 2 css rules. __Use `Box` instead__
     
@@ -320,40 +320,40 @@ There are three common ways to style a component:
     
   :sun_with_face: Nice when dealing with complex nested structures that are scoped in a single component. When dealing with sub-components we're not sure if some of the rules will be left unused.
     
-    ```scss
-    @import 'styles/variables';
+  ```scss
+  @import 'styles/variables';
 
-    .page {
-      color: $text-color;
-      
-      .nav {
-        background-color: $nav-color;
-        
-        a {
-          text-decoration: none;
-          text-transform: uppercase;
-        }
+  .page {
+    color: $text-color;
+
+    .nav {
+      background-color: $nav-color;
+
+      a {
+        text-decoration: none;
+        text-transform: uppercase;
       }
     }
-    ```
+  }
+  ```
     
-    ```tsx
-    import styles from './about.module.scss'
+  ```tsx
+  import styles from './about.module.scss'
 
-    <Box className={styles.page}>
-      <p>{t('nav.forgottenPassword')}</p>
-    </Box>
-    ```
+  <Box className={styles.page}>
+    <p>{t('nav.forgottenPassword')}</p>
+  </Box>
+  ```
     
   :partly_sunny: Too verbose for simple use cases, if it contains less than 2 css rules in a dedicated file. __Use `Box` instead__
     
-    ```scss
-    @import 'styles/variables';
+  ```scss
+  @import 'styles/variables';
 
-    a {
-       text-decoration: none;
-    }
-    ```
+  a {
+     text-decoration: none;
+  }
+  ```
     
   :cloud_with_lightning_and_rain: Cannot use theme support or theme variables __Use `hook` instead__
 
