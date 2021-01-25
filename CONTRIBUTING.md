@@ -115,12 +115,116 @@ import Layout from 'components/layout/Layout'
 import
 ```
 
+### File structure
+
+#### Naming convention react components
+
+  Pascal cased file names `src/components/GenericForm.tsx`
+  
+  ```tsx
+  export default function GenericForm() {
+  }
+  ```
+  
+  Filename and default component of the file should have the same name.
+
+#### Naming convention non react components
+
+  Camel cased file names `src/utils/hooks/useUser.ts`
+
+#### Naming convention folders
+
+  Lowercase kebab cased folders `src/components/common/password-reset/ResetForm.tsx`
+
+#### Naming convention pages
+
+  Lowercase kebab cased files located in `src/pages/sample-page.tsx` which correspond to `/sample-page` url.
+
+
+### Types
+
+  The common convention is that the main type of the component's props is called after the component itself with suffic `-Props`.
+  Prop types of `AdvancedForm` becomes `AdvancedFormProps`.
+
+  ```tsx
+  type AdvancedFormProps = React.PropsWithChildren({
+    title?: string
+    age?: number
+  })
+  
+  export default function AdvancedForm({ title = 'Nice', children, age }: AdvancedFormProps) {
+    return (
+      <div title={title} data-age={age}>
+        {children}
+      </div>
+    )
+  }
+  ```
+
 ### Components
 
-```tsx
-export default function RegisterPage() {
 
-```
+#### Preferred export style :sun_with_face:
+
+  - Nice IDE support and readability
+
+  ```tsx
+  export default function RegisterPage() {
+    return <div>page</div>
+  }
+  ```
+
+#### Alternative export styles
+
+- Named function
+  
+  :partly_sunny: Allows attaching static props to the function
+
+  ```tsx
+  function RegisterPage() {
+    return <div>page</div>
+  }
+  
+  Register.getInitialProps = async (ctx) => {
+    return { stars: 128 }
+  }
+  
+  export default RegisterPage
+  ```
+  
+- Const arrow function 
+
+  :partly_sunny: Nice for locally defined components
+
+  ```tsx
+  const RegisterForm = () => <form>page</form>
+
+  export default function RegisterPage() {
+    return <RegisterForm />
+  }
+  ```
+
+- Unnamed arrow function :cloud_with_lightning_and_rain:
+  
+  __Discouraged__
+
+  https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/display-name.md
+
+  ```tsx
+  export default () => <div>page</div>
+  ```
+  
+- Class components :cloud_with_lightning_and_rain:
+
+  __Discouraged__ as hooks cannot be used inside the class components
+
+  ```tsx
+  class Page extends React.Component {
+    render() {
+      return <div>page</div>
+    }
+  }
+  ```
 
 ### Styles
 
