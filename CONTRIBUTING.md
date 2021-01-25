@@ -141,6 +141,10 @@ import styles from './advanced.module.scss'
 
 ### File structure
 
+Inherits AirBnb naming convention https://github.com/airbnb/javascript/tree/master/react#naming
+
+Use PascalCase for React components and camelCase for their instances
+
 #### Naming convention react components
 
   Pascal cased file names `src/components/GenericForm.tsx`
