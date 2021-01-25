@@ -101,7 +101,7 @@ Good branch names:
 
 - `nice-kebab-cased-titles`
 - `fixes-footer-links`
-- `4411290-setup-state-management-integration
+- `4411290-setup-state-management-integration`
 
 Bad branch names:
 
