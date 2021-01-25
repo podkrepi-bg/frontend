@@ -218,7 +218,7 @@ import styles from './advanced.module.scss'
   
 - Const arrow function 
 
-  :partly_sunny: Nice for locally defined components
+  :sun_with_face: Nice for locally defined components
 
   ```tsx
   const RegisterForm = () => <form>page</form>
@@ -227,6 +227,14 @@ import styles from './advanced.module.scss'
     return <RegisterForm />
   }
   ```
+  :partly_sunny: Okay for default exports, but not preferred
+
+  ```tsx
+  const RegisterPage = () => <form>page</form>
+
+  export default RegisterPage
+  ```
+
 
 - Unnamed arrow function :cloud_with_lightning_and_rain:
   
