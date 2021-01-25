@@ -108,12 +108,12 @@ It is preferred to use [kebab-case](https://en.wiktionary.org/wiki/kebab_case) f
 
 Usage of translation hook `useTranslation` is preferred over usage of `<Trans />` component, whenever possible.
 
-#### Usage in pages
+#### Usage in components
 
 ```tsx
 import { useTranslation } from 'react-i18next'
 
-export default function CustomPage() {
+export default function CustomComponent() {
   const { t } = useTranslation()
 
   return (
