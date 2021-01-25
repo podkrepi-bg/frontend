@@ -1,6 +1,8 @@
 # Contributing
 
-## Setup local dev environment
+## Development
+
+### Setup local dev environment
 
 ```shell
 git clone git@github.com:daritelska-platforma/frontend.git
@@ -13,7 +15,7 @@ ln -s .env.example .env
 yarn
 ```
 
-## Development
+### Start development server
 
 ```shell
 yarn dev
@@ -21,17 +23,17 @@ yarn dev
 
 Visit <http://localhost:3040/>
 
-## Run via Docker Compose
+### Start dev server via Docker Compose
 
 Install the binary via <https://docs.docker.com/compose/install/>
 
-### Start the container in foreground
+#### Start the container in foreground
 
 ```shell
 docker-compose up
 ```
 
-### Start the container in background
+#### Start the container in background
 
 ```shell
 docker-compose up -d
@@ -159,3 +161,17 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
 
 export default Page
 ```
+
+
+## Recognizing contributions
+
+We're integrated with <https://allcontributors.org/> bot 
+
+Comment on Issue or Pull Request, asking @all-contributors to add a contributor:
+
+```
+@all-contributors please add @<username> for <contributions>
+```
+
+<contribution>: See the [Emoji Key (Contribution Types Reference)](https://allcontributors.org/docs/en/emoji-key) for a list of valid contribution types.
+
