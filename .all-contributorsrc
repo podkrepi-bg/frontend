@@ -52,6 +52,17 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "Nikola-Andreev",
+      "name": "Nikola Andreev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19424332?v=4",
+      "profile": "https://github.com/Nikola-Andreev",
+      "contributions": [
+        "code",
+        "doc",
+        "tool"
+      ]
     }
   ],
   "contributorsPerLine": 7,
