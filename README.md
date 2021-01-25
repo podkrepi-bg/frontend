@@ -55,7 +55,13 @@ Please check [contributors guide](https://github.com/daritelska-platforma/fronte
 - [Production setup](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#production)
 - [Pull requests guidelines](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#pull-requests)
 - [Branching strategy](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#branching-strategy)
-- [Translation guidelines](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#translations-i18n)
+- [React guidelines](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#react-guidelines)
+  - [Imports](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#imports)
+  - [File structure](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#file-structure)
+  - [Types](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#types)
+  - [Components definition](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#components)
+  - [Styles](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#styles)
+  - [Translations](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#translations-i18n)
 
 Thanks goes to these wonderful people:
 
