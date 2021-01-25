@@ -30,6 +30,18 @@
         "review",
         "tool"
       ]
+    },
+    {
+      "login": "sotir-ls",
+      "name": "Sotir",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4455130?v=4",
+      "profile": "https://github.com/sotir-ls",
+      "contributions": [
+        "code",
+        "doc",
+        "review",
+        "tool"
+      ]
     }
   ],
   "contributorsPerLine": 7,
