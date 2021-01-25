@@ -299,10 +299,14 @@ There are three common ways to style a component:
       }),
     )
     
-    const styles = useStyles()
-    <Box className={classes.pageTitle}>
-      <p>{t('nav.forgottenPassword')}</p>
-    </Box>
+    export default function SomeBox() {
+      const classes = useStyles()
+      return (
+        <Box className={classes.pageTitle}>
+          <p>{t('nav.forgottenPassword')}</p>
+        </Box>
+      )
+    }
     ```
     
     :partly_sunny: Too verbose for simple use cases, if it contains less than 2 css rules. __Use `Box` instead__
