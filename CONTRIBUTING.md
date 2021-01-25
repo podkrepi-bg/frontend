@@ -173,5 +173,5 @@ Comment on [this issue](https://github.com/daritelska-platforma/frontend/issues/
 @all-contributors please add @<username> for <contributions>
 ```
 
-<contribution>: See the [Emoji Key (Contribution Types Reference)](https://allcontributors.org/docs/en/emoji-key) for a list of valid contribution types.
+`<contribution>`: See the [Emoji Key (Contribution Types Reference)](https://allcontributors.org/docs/en/emoji-key) for a list of valid contribution types.
 
