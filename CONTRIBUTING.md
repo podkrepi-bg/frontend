@@ -251,7 +251,7 @@ import styles from './advanced.module.scss'
 
 There are three common ways to style a component:
 
-1. Styles using the [`<Box />` component](https://material-ui.com/components/box/)
+1. **Styles using the [`<Box />` component](https://material-ui.com/components/box/)**
 
     Single component that inherits all sizing props from MUI https://material-ui.com/system/basics/#all-inclusive
 
@@ -276,7 +276,7 @@ There are three common ways to style a component:
     </Box>
     ```
     
-1. Styles using `useStyles()` hook
+1. **Styles using `useStyles()` hook**
   
     :sun_with_face: Nice for very specific styling that levereges `theme` methods and props
 
@@ -310,7 +310,7 @@ There are three common ways to style a component:
     :partly_sunny: Not the best when dealing with stlying of deep nested structures within the same component. __Use `scss` instead__
     
     
-1. Styles using `something.module.scss`
+1. **Styles using `something.module.scss`**
     
     :sun_with_face: Nice when dealing with complex nested structure that
     
