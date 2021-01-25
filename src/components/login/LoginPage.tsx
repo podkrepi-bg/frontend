@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Container, Grid, TextField, Button } from '@material-ui/core'
+import { Container, Grid, TextField, Button, Box } from '@material-ui/core'
 
 import { routes } from 'common/routes'
 import Layout from 'components/layout/Layout'
 import Link from 'components/shared/Link'
-
-import styles from './login.module.scss'
 
 export default function LoginPage() {
   const { t } = useTranslation()
@@ -20,13 +18,13 @@ export default function LoginPage() {
   return (
     <Layout title={t('nav.login')}>
       <Container maxWidth="xs">
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <form onSubmit={handleSubmit}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
               <TextField
                 type="text"
                 fullWidth
-                label="Email"
+                label={t('auth:fields.email')}
                 name="email"
                 size="small"
                 variant="outlined"
@@ -39,7 +37,7 @@ export default function LoginPage() {
               <TextField
                 type="password"
                 fullWidth
-                label="Password"
+                label={t('auth:fields.password')}
                 name="password"
                 size="small"
                 variant="outlined"
@@ -49,13 +47,15 @@ export default function LoginPage() {
             </Grid>
             <Grid item xs={12}>
               <Button fullWidth type="submit" color="primary" variant="contained">
-                Log in
+                {t('auth:cta.login')}
               </Button>
             </Grid>
           </Grid>
         </form>
         <Grid container justify="flex-end">
-          <Link href={routes.forgottenPassword}>Forgotten password?</Link>
+          <Box mt={2}>
+            <Link href={routes.forgottenPassword}>{t('nav.forgottenPassword')}</Link>
+          </Box>
         </Grid>
       </Container>
     </Layout>
