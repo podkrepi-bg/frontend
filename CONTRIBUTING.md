@@ -1,5 +1,14 @@
 # Contributing
 
+Table of contents:
+
+- [Development setup](#development)
+- [Linting](#linting)
+- [Production setup](#production)
+- [Pull requests guidelines](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#pull-requests)
+- [Branching strategy](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#branching-strategy)
+- [Translation guidelines](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#translations-i18n)
+
 ## Development
 
 ### Setup local dev environment
