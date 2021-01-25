@@ -3,7 +3,9 @@
     "home": "Начало",
     "about": "За нас",
     "login": "Вход",
-    "register": "Регистрация"
+    "register": "Регистрация",
+    "changePassword": "Change your password",
+    "forgottenPassword": "Forgotten password?"
   },
   "values": {
     "voluntary": {
