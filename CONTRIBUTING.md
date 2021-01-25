@@ -119,7 +119,7 @@ export default function CustomComponent() {
   return (
     <div>
       <h1>{t('nav.custom-page')}</h1>
-      <h2>{t('auth:pages.forgotten-password.greeting', {name: 'Interpolation'} )}</h2>
+      <h2>{t('auth:pages.forgotten-password.greeting', { name: 'Interpolation' })}</h2>
       <p>{t('auth:pages.forgotten-password.instructions')}</p>
     </div>
   )
