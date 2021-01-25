@@ -108,7 +108,7 @@ Bad branch names:
 - `patch-1`
 - `camelCasedBranchNames`
 - `PascalCasedBranchNames`
-- `long-titles-above-128-chars-{.....}`
+- `long-titles-above-80-chars-{.....}`
 
 Branching model|Merges
 ---|---
