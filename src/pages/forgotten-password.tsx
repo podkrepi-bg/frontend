@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next'
-import LoginPage from 'components/login/LoginPage'
 import { serverSideTranslations } from 'common/useNextLocale'
+import Page from 'components/forgottenPassword/ForgottenPasswordPage'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
@@ -8,4 +8,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   },
 })
 
-export default LoginPage
+export default Page

@@ -22,10 +22,10 @@ export default function RegisterPage() {
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
               <TextField
-                fullWidth
-                label="First Name"
-                name="firstName"
                 type="text"
+                fullWidth
+                label={t('auth:fields.first-name')}
+                name="firstName"
                 size="small"
                 variant="outlined"
                 autoFocus
@@ -35,10 +35,10 @@ export default function RegisterPage() {
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
-                fullWidth
-                label="Last Name"
-                name="lastName"
                 type="text"
+                fullWidth
+                label={t('auth:fields.last-name')}
+                name="lastName"
                 size="small"
                 variant="outlined"
                 value={lastName}
@@ -47,10 +47,10 @@ export default function RegisterPage() {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                fullWidth
-                label="Email"
-                name="email"
                 type="text"
+                fullWidth
+                label={t('auth:fields.email')}
+                name="email"
                 size="small"
                 variant="outlined"
                 value={email}
@@ -59,10 +59,10 @@ export default function RegisterPage() {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                fullWidth
-                label="Password"
-                name="password"
                 type="password"
+                fullWidth
+                label={t('auth:fields.password')}
+                name="password"
                 size="small"
                 variant="outlined"
                 value={password}
@@ -70,8 +70,8 @@ export default function RegisterPage() {
               />
             </Grid>
             <Grid item xs={12}>
-              <Button fullWidth type="submit" color="primary" variant="contained">
-                Register
+              <Button type="submit" fullWidth color="primary" variant="contained">
+                {t('auth:cta.register')}
               </Button>
             </Grid>
           </Grid>
