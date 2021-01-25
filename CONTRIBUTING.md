@@ -13,6 +13,9 @@ Table of contents:
   - [Types](#types)
   - [Components definition](#components)
   - [Styles](#styles)
+    - [Box model](#styles-using-the-box--component)
+    - [JSS Hook](#styles-using-usestyles-hook)
+    - [SCSS](#styles-using-somethingmodulescss)
   - [Translations](#translations-i18n)
 
 ## Development
@@ -316,7 +319,11 @@ There are three common ways to style a component:
   :partly_sunny: Not the best when dealing with stlying of deep nested structures within the same component. __Use `scss` instead__
     
     
-#### Styles using `something.module.scss`
+#### Styles using SCSS files
+    
+  Next.js supports [SCSS](https://sass-lang.com/) out of the box. Read more at <https://nextjs.org/docs/basic-features/built-in-css-support#sass-support>
+    
+  File convention is based on a suffix `.module.scss` (ex. `about.module.scss`)
     
   :sun_with_face: Nice when dealing with complex nested structures that are scoped in a single component. When dealing with sub-components we're not sure if some of the rules will be left unused.
     
