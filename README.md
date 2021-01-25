@@ -7,7 +7,7 @@
 ![Dev Dependencies](https://img.shields.io/david/dev/daritelska-platforma/frontend)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## What's in the box
@@ -69,6 +69,7 @@ Thanks goes to these wonderful people:
     <td align="center"><a href="https://github.com/sotir-ls"><img src="https://avatars.githubusercontent.com/u/4455130?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Sotir</b></sub></a><br /><a href="https://github.com/daritelska-platforma/frontend/commits?author=sotir-ls" title="Code">💻</a> <a href="https://github.com/daritelska-platforma/frontend/commits?author=sotir-ls" title="Documentation">📖</a> <a href="https://github.com/daritelska-platforma/frontend/pulls?q=is%3Apr+reviewed-by%3Asotir-ls" title="Reviewed Pull Requests">👀</a> <a href="#tool-sotir-ls" title="Tools">🔧</a></td>
     <td align="center"><a href="https://github.com/ani-kalpachka"><img src="https://avatars.githubusercontent.com/u/14351733?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ani</b></sub></a><br /><a href="https://github.com/daritelska-platforma/frontend/commits?author=ani-kalpachka" title="Code">💻</a> <a href="https://github.com/daritelska-platforma/frontend/commits?author=ani-kalpachka" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/Nikola-Andreev"><img src="https://avatars.githubusercontent.com/u/19424332?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nikola Andreev</b></sub></a><br /><a href="https://github.com/daritelska-platforma/frontend/commits?author=Nikola-Andreev" title="Code">💻</a> <a href="https://github.com/daritelska-platforma/frontend/commits?author=Nikola-Andreev" title="Documentation">📖</a> <a href="#tool-Nikola-Andreev" title="Tools">🔧</a></td>
+    <td align="center"><a href="https://petkopavlovski.com/"><img src="https://avatars.githubusercontent.com/u/32264020?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Pete Pavlovski</b></sub></a><br /><a href="https://github.com/daritelska-platforma/frontend/commits?author=arthas168" title="Code">💻</a> <a href="https://github.com/daritelska-platforma/frontend/commits?author=arthas168" title="Documentation">📖</a> <a href="https://github.com/daritelska-platforma/frontend/pulls?q=is%3Apr+reviewed-by%3Aarthas168" title="Reviewed Pull Requests">👀</a></td>
   </tr>
 </table>
 
