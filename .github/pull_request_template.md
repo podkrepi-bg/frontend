@@ -1,29 +1,29 @@
 <!--- Provide a general summary of your changes in the Title above -->
 
-## Problem
+## Motivation and context
 
-_What problem are you trying to solve?_
-
-- _Link_ to ora.pm - `https://ora.pm/project/xxxxxxx/kanban/task/xxxxxx`
-
-## Solution
-
-_How did you solve the problem?_
-
-## Motivation and Context
-
-<!--- Why is this change required? What problem does it solve? -->
+<!--- Why is this change required? -->
 <!--- If it fixes an open issue, please link to the issue here. -->
+<!--- Any links to external sources of documentation -->
+<!--- Any links to internal designs -->
+<!--- What problem are you trying to solve? -->
+<!--- How did you solve the problem? -->
+<!--- Provide link to ora.pm task if any -->
 
-Any links to the documentation/designs
+## Screenshots:
 
-## How Has This Been Tested?
+Before|After
+---|---
+[before screenshot]|[after screenshot]
 
+## Testing
+
+<!--- Specify test requirements (environment, dependencies, design reviews) -->
 <!--- Please describe in detail how you tested your changes. -->
-<!--- Include details of your testing environment, tests ran to see how -->
-<!--- your change affects other areas of the code, etc. -->
+<!--- Include links to the related pages -->
+<!--- Include details of your testing environment -->
+<!--- Impact of your change to other areas of the code -->
 
-Specify test requirements (environment, dependencies, design reviews)
 **New environment variables**:
 
 - `env var` : env var details
@@ -36,10 +36,3 @@ Specify test requirements (environment, dependencies, design reviews)
 
 - `dependency` : dependency details
 
-## Screenshots (if appropriate):
-
-**BEFORE**:
-[insert screenshot here]
-
-**AFTER**:
-[insert screenshot here]
