@@ -5,9 +5,15 @@ Table of contents:
 - [Development setup](#development)
 - [Linting](#linting)
 - [Production setup](#production)
-- [Pull requests guidelines](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#pull-requests)
-- [Branching strategy](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#branching-strategy)
-- [Translation guidelines](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#translations-i18n)
+- [Pull requests guidelines](#pull-requests)
+- [Branching strategy](#branching-strategy)
+- [React guidelines](#react-guidelines)
+  - [Imports](#imports)
+  - [File structure](#file-structure)
+  - [Types](#types)
+  - [Components definition](#components)
+  - [Styles](#styles)
+  - [Translations](#translations-i18n)
 
 ## Development
 
