@@ -99,6 +99,126 @@ Branching model|Merges
 ---|---
 ![](https://nvie.com/img/git-model@2x.png)|![](https://nvie.com/img/merge-without-ff@2x.png)
 
+## React guidelines
+
+### Imports
+
+A common way to sort the imports in the file is by their source: `external`, `absolute`, `relative` separated by an empty line. Each of those groups can be sorted by line length, but that's not super important.
+
+```tsx
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
+import Nav from 'components/layout/Nav'
+import Layout from 'components/layout/Layout'
+
+import
+```
+
+### Components
+
+```tsx
+export default function RegisterPage() {
+
+```
+
+### Styles
+
+There are three common ways to style a component:
+
+1. Styles using the [`<Box />` component](https://material-ui.com/components/box/)
+
+    Single component that inherits all sizing props from MUI https://material-ui.com/system/basics/#all-inclusive
+
+    :sun_with_face: Nice for quick layouts that should follow the theme
+    ```tsx
+    <Box component="nav" px={5} mt={2}>
+      <a>{t('nav.forgottenPassword')}</p>
+    </Box>
+    ```
+
+    :partly_sunny: Not the best for custom scenarios with more than _six_ props passed to it. __Use `useStyles` hook instead__
+    
+    :partly_sunny: Not nice when the children have clear nesting structure of more than _three_ levels. __Use `scss` instead__
+    ```tsx
+    <Box component="nav" px={5} pb={12} mt={2} mb={4} lineHeight={2} letterSpacing={none} fontSize={20}>
+      <Box component="span" px={5} pb={12} mt={2} mb={4} lineHeight={2} letterSpacing={none} fontSize={17}>
+        <a>{t('nav.forgottenPassword')}</p>
+      </Box>
+      <Box component="span" px={5} pb={12} mt={2} mb={4} lineHeight={2} letterSpacing={none} fontSize={13}>
+        <a>{t('nav.forgottenPassword')}</p>
+      </Box>
+    </Box>
+    ```
+    
+1. Styles using `useStyles()` hook
+  
+    :sun_with_face: Nice for very specific styling that levereges `theme` methods and props
+
+    ```tsx
+    const useStyles = makeStyles((theme) =>
+      createStyles({
+        pageTitle: {
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          padding: theme.spacing(4),
+          margin: theme.spacing(5, 3, 4),
+          color: theme.palette.secondary.main,
+          backgroundColor: theme.palette.primary.main,
+          '&:hover': {
+            color: theme.palette.secondary.dark,
+          }
+        },
+        // ...
+      }),
+    )
+    
+    const styles = useStyles()
+    <Box className={classes.pageTitle}>
+      <p>{t('nav.forgottenPassword')}</p>
+    </Box>
+    ```
+    
+    :partly_sunny: Too verbose for simple use cases, if it contains less than 2 css rules. __Use `Box` instead__
+    
+    :partly_sunny: Not the best when dealing with stlying of deep nested structures within the same component. __Use `scss` instead__
+    
+    
+1. Styles using `something.module.scss`
+    
+    :sun_with_face: Nice when dealing with complex nested structure that
+    
+    ```scss
+    @import 'styles/variables';
+
+    .page {
+      color: $text-color;
+      
+      .nav {
+        background-color: $nav-color;
+        
+        a {
+          text-decoration: none;
+          text-transform: uppercase;
+        }
+      }
+    }
+    ```
+    
+    :partly_sunny: Too verbose for simple use cases, if it contains less than 2 css rules in a dedicated file. __Use `Box` instead__
+    
+    ```scss
+    @import 'styles/variables';
+
+    a {
+       text-decoration: none;
+    }
+    ```
+    
+    :cloud_with_lightning_and_rain: Cannot use theme support or theme variables __Use `hook` instead__
+
+
 ## Translations (i18n)
 
 ### Translation namespaces
