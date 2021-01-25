@@ -72,7 +72,7 @@ One scope can combine the translations keys from several pages with common reusa
 
 ### Translation keys
 
-It is preferred to use kebab-case for translation keys and extract another level of nesting when the common prefix of the keys is above 3 or makes sense to be separated as new keys might be added in the future.
+It is preferred to use [kebab-case](https://en.wiktionary.org/wiki/kebab_case) for translation keys and extract another level of nesting when the common prefix of the keys is above 3 or makes sense to be separated as new keys might be added in the future.
 
 ```json
 {
