@@ -1,4 +1,7 @@
 import { action, computed, makeObservable, observable } from 'mobx'
+import { enableStaticRendering } from 'mobx-react'
+
+enableStaticRendering(typeof window === 'undefined')
 
 interface Alert {
   id: number
