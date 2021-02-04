@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import { Box, Container, createStyles, makeStyles, Typography } from '@material-ui/core'
-
 import Nav from 'components/layout/Nav'
 import Footer from 'components/layout/Footer'
+import Snackbar from 'components/layout/Snackbar'
 
 type LayoutProps = React.PropsWithChildren<{
   title?: string
@@ -41,6 +41,7 @@ export default function Layout({ title, children }: LayoutProps) {
         )}
         {children}
       </Box>
+      <Snackbar />
       <Footer />
     </Container>
   )
