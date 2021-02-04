@@ -5,6 +5,7 @@ import { Container, Grid, TextField, Button, Box } from '@material-ui/core'
 import { routes } from 'common/routes'
 import Layout from 'components/layout/Layout'
 import Link from 'components/shared/Link'
+import { AlertStore } from '../../stores/AlertStore'
 
 export default function LoginPage() {
   const { t } = useTranslation()
@@ -13,6 +14,9 @@ export default function LoginPage() {
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault()
+  }
+  function showAlert() {
+    AlertStore.show(t('auth:alerts.invalid-login'), 'error')
   }
 
   return (
@@ -46,7 +50,12 @@ export default function LoginPage() {
               />
             </Grid>
             <Grid item xs={12}>
-              <Button fullWidth type="submit" color="primary" variant="contained">
+              <Button
+                fullWidth
+                type="submit"
+                color="primary"
+                variant="contained"
+                onClick={() => showAlert()}>
                 {t('auth:cta.login')}
               </Button>
             </Grid>
