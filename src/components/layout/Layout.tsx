@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { Box, Container, createStyles, makeStyles, Typography } from '@material-ui/core'
+
 import Nav from 'components/layout/Nav'
 import Footer from 'components/layout/Footer'
 import Snackbar from 'components/layout/Snackbar'
