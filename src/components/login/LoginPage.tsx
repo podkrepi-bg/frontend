@@ -5,7 +5,7 @@ import { Container, Grid, TextField, Button, Box } from '@material-ui/core'
 import { routes } from 'common/routes'
 import Layout from 'components/layout/Layout'
 import Link from 'components/shared/Link'
-import { AlertStore } from '../../stores/AlertStore'
+import { AlertStore } from 'stores/AlertStore'
 
 export default function LoginPage() {
   const { t } = useTranslation()
