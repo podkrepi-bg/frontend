@@ -2,7 +2,7 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { Snackbar } from '@material-ui/core'
 import { Alert } from '@material-ui/lab'
-import { AlertStore } from '../../stores/AlertStore'
+import { AlertStore } from 'stores/AlertStore'
 
 function SnackBar() {
   const { getAlerts } = AlertStore
