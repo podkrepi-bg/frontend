@@ -1,24 +1,43 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Container, Grid, TextField, Button } from '@material-ui/core'
+import { useFormik } from 'formik'
+import * as yup from 'yup'
 
 import Layout from 'components/layout/Layout'
 
 export default function RegisterPage() {
   const { t } = useTranslation()
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
 
-  function handleSubmit(event: React.FormEvent) {
-    event.preventDefault()
-  }
+  const RegisterSchema = yup.object().shape({
+    firstName: yup.string().required(t('auth:validation.required')),
+    lastName: yup.string().required(t('auth:validation.required')),
+    email: yup.string().email(t('auth:validation.email')).required(t('auth:validation.required')),
+    password: yup
+      .string()
+      .min(6, t('auth:validation.password-min', { count: 6 }))
+      .required(t('auth:validation.required')),
+  })
+
+  const formik = useFormik({
+    initialValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+    },
+    validationSchema: RegisterSchema,
+    validateOnChange: false,
+    validateOnBlur: false,
+    onSubmit: (values) => {
+      return
+    },
+  })
 
   return (
     <Layout title={t('nav.register')}>
       <Container maxWidth="xs">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={formik.handleSubmit}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -29,8 +48,11 @@ export default function RegisterPage() {
                 size="small"
                 variant="outlined"
                 autoFocus
-                value={firstName}
-                onChange={(event) => setFirstName(event.target.value)}
+                error={!!formik.errors && !!formik.errors.firstName}
+                helperText={formik.errors && formik.errors.firstName}
+                value={formik.values.firstName}
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -41,8 +63,11 @@ export default function RegisterPage() {
                 name="lastName"
                 size="small"
                 variant="outlined"
-                value={lastName}
-                onChange={(event) => setLastName(event.target.value)}
+                error={!!formik.errors && !!formik.errors.lastName}
+                helperText={formik.errors && formik.errors.lastName}
+                value={formik.values.lastName}
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -53,8 +78,11 @@ export default function RegisterPage() {
                 name="email"
                 size="small"
                 variant="outlined"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
+                error={!!formik.errors && !!formik.errors.email}
+                helperText={formik.errors && formik.errors.email}
+                value={formik.values.email}
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -65,8 +93,11 @@ export default function RegisterPage() {
                 name="password"
                 size="small"
                 variant="outlined"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
+                error={!!formik.errors && !!formik.errors.password}
+                helperText={formik.errors && formik.errors.password}
+                value={formik.values.password}
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
               />
             </Grid>
             <Grid item xs={12}>
