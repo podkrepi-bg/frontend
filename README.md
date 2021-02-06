@@ -18,6 +18,7 @@
 - [Next.js](https://nextjs.org/)
 - [MaterialUI](https://material-ui.com/)
 - [MobX](https://mobx.js.org/)
+- [Formik](https://formik.org/)
 - [SCSS](https://sass-lang.com/)
 - [SCSS Guidelines](https://github.com/bjankord/stylelint-config-sass-guidelines)
 - [ESlint](https://eslint.org/)
