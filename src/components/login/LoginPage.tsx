@@ -30,6 +30,7 @@ export default function LoginPage() {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: (values) => {
+      console.log(values)
       AlertStore.show(t('auth:alerts.invalid-login'), 'error')
     },
   })
@@ -71,12 +72,7 @@ export default function LoginPage() {
               />
             </Grid>
             <Grid item xs={12}>
-              <Button
-                fullWidth
-                type="submit"
-                color="primary"
-                variant="contained"
-                onClick={() => showAlert()}>
+              <Button fullWidth type="submit" color="primary" variant="contained">
                 {t('auth:cta.login')}
               </Button>
             </Grid>
