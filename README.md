@@ -86,6 +86,6 @@ Thanks goes to these wonderful people:
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-If you want to be added or removed from this list please follow up on https://github.com/daritelska-platforma/frontend/issues/2
+If you want to be added or removed from this list please follow up on [this issue](https://github.com/daritelska-platforma/frontend/issues/2).
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!
