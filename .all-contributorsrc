@@ -74,6 +74,18 @@
         "doc",
         "review"
       ]
+    },
+    {
+      "login": "uzuntonev",
+      "name": "Georgi Uzuntonev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/51097961?v=4",
+      "profile": "https://github.com/uzuntonev",
+      "contributions": [
+        "code",
+        "doc",
+        "review",
+        "tool"
+      ]
     }
   ],
   "contributorsPerLine": 7,
