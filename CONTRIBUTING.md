@@ -69,7 +69,6 @@ yarn format
 yarn type-check
 ```
 
-
 ## Production
 
 ### Build frontend
@@ -87,10 +86,9 @@ docker build . \
     --build-arg NODE_ENV=production
 ```
 
-
 ## Pull requests
 
-All PRs must: 
+All PRs must:
 
 - pass all checks before they will be considered for review
 - have proper title and description
@@ -116,11 +114,9 @@ Bad branch names: :partly_sunny:
 - `PascalCasedBranchNames` - pascal case
 - `long-titles-above-80-chars-{.....}` - too long
 
-
-
-Branching model|Merges
----|---
-![](https://nvie.com/img/git-model@2x.png)|![](https://nvie.com/img/merge-without-ff@2x.png)
+| Branching model                            | Merges                                            |
+| ------------------------------------------ | ------------------------------------------------- |
+| ![](https://nvie.com/img/git-model@2x.png) | ![](https://nvie.com/img/merge-without-ff@2x.png) |
 
 ## React guidelines
 
@@ -147,80 +143,77 @@ Use PascalCase for React components and camelCase for their instances
 
 #### Naming convention react components
 
-  Pascal cased file names `src/components/GenericForm.tsx`
-  
-  ```tsx
-  export default function GenericForm() {
-  }
-  ```
-  
-  Filename and default component of the file should have the same name.
+Pascal cased file names `src/components/GenericForm.tsx`
+
+```tsx
+export default function GenericForm() {}
+```
+
+Filename and default component of the file should have the same name.
 
 #### Naming convention non react components
 
-  Camel cased file names `src/utils/hooks/useUser.ts`
+Camel cased file names `src/utils/hooks/useUser.ts`
 
 #### Naming convention folders
 
-  Lowercase kebab cased folders `src/components/common/password-reset/ResetForm.tsx`
+Lowercase kebab cased folders `src/components/common/password-reset/ResetForm.tsx`
 
 #### Naming convention pages
 
-  Lowercase kebab cased files located in `src/pages/sample-page.tsx` which correspond to `/sample-page` url.
-
+Lowercase kebab cased files located in `src/pages/sample-page.tsx` which correspond to `/sample-page` url.
 
 ### Types
 
-  The common convention is that the main type of the component's props is called after the component itself with suffic `-Props`.
-  Prop types of `AdvancedForm` becomes `AdvancedFormProps`.
+The common convention is that the main type of the component's props is called after the component itself with suffic `-Props`.
+Prop types of `AdvancedForm` becomes `AdvancedFormProps`.
 
-  ```tsx
-  type AdvancedFormProps = React.PropsWithChildren({
-    title?: string
-    age?: number
-  })
-  
-  export default function AdvancedForm({ title = 'Nice', children, age }: AdvancedFormProps) {
-    return (
-      <div title={title} data-age={age}>
-        {children}
-      </div>
-    )
-  }
-  ```
+```tsx
+type AdvancedFormProps = React.PropsWithChildren({
+  title?: string
+  age?: number
+})
+
+export default function AdvancedForm({ title = 'Nice', children, age }: AdvancedFormProps) {
+  return (
+    <div title={title} data-age={age}>
+      {children}
+    </div>
+  )
+}
+```
 
 ### Components
 
-
 #### Preferred export style :sun_with_face:
 
-  - Nice IDE support and readability
+- Nice IDE support and readability
 
-  ```tsx
-  export default function RegisterPage() {
-    return <div>page</div>
-  }
-  ```
+```tsx
+export default function RegisterPage() {
+  return <div>page</div>
+}
+```
 
 #### Alternative export styles
 
 - Named function
-  
+
   :partly_sunny: Allows attaching static props to the function
 
   ```tsx
   function RegisterPage() {
     return <div>page</div>
   }
-  
+
   Register.getInitialProps = async (ctx) => {
     return { stars: 128 }
   }
-  
+
   export default RegisterPage
   ```
-  
-- Const arrow function 
+
+- Const arrow function
 
   :sun_with_face: Nice for locally defined components
 
@@ -231,6 +224,7 @@ Use PascalCase for React components and camelCase for their instances
     return <RegisterForm />
   }
   ```
+
   :partly_sunny: Okay for default exports, but not preferred
 
   ```tsx
@@ -239,20 +233,19 @@ Use PascalCase for React components and camelCase for their instances
   export default RegisterPage
   ```
 
-
 - Unnamed arrow function :cloud_with_lightning_and_rain:
-  
-  __Discouraged__
+
+  **Discouraged**
 
   https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/display-name.md
 
   ```tsx
   export default () => <div>page</div>
   ```
-  
+
 - Class components :cloud_with_lightning_and_rain:
 
-  __Discouraged__ as hooks cannot be used inside the class components
+  **Discouraged** as hooks cannot be used inside the class components
 
   ```tsx
   class Page extends React.Component {
@@ -268,123 +261,120 @@ There are three common ways to style a component:
 
 #### Styles using the [`<Box />` component](https://material-ui.com/components/box/)
 
-  Single component that inherits all sizing props from MUI https://material-ui.com/system/basics/#all-inclusive
+Single component that inherits all sizing props from MUI https://material-ui.com/system/basics/#all-inclusive
 
-  :sun_with_face: Nice for quick layouts that should follow the theme
+:sun_with_face: Nice for quick layouts that should follow the theme
 
-  ```tsx
-  <Box component="nav" px={5} mt={2}>
+```tsx
+<Box component="nav" px={5} mt={2}>
+  <a>{t('nav.forgottenPassword')}</p>
+</Box>
+```
+
+:partly*sunny: Not the best for custom scenarios with more than \_six* props passed to it. **Use `hooks` instead**
+
+:partly*sunny: Not nice when the children have clear nesting structure of more than \_three* levels. **Use `hooks` or `scss` instead**
+
+```tsx
+<Box component="nav" px={5} pb={12} mt={2} mb={4} lineHeight={2} letterSpacing={none} fontSize={20}>
+  <Box component="span" px={5} pb={12} mt={2} mb={4} lineHeight={2} letterSpacing={none} fontSize={17}>
     <a>{t('nav.forgottenPassword')}</p>
   </Box>
-  ```
-
-  :partly_sunny: Not the best for custom scenarios with more than _six_ props passed to it. __Use `hooks` instead__
-    
-  :partly_sunny: Not nice when the children have clear nesting structure of more than _three_ levels. __Use `hooks` or `scss` instead__
-
-  ```tsx
-  <Box component="nav" px={5} pb={12} mt={2} mb={4} lineHeight={2} letterSpacing={none} fontSize={20}>
-    <Box component="span" px={5} pb={12} mt={2} mb={4} lineHeight={2} letterSpacing={none} fontSize={17}>
-      <a>{t('nav.forgottenPassword')}</p>
-    </Box>
-    <Box component="span" px={5} pb={12} mt={2} mb={4} lineHeight={2} letterSpacing={none} fontSize={13}>
-      <a>{t('nav.forgottenPassword')}</p>
-    </Box>
+  <Box component="span" px={5} pb={12} mt={2} mb={4} lineHeight={2} letterSpacing={none} fontSize={13}>
+    <a>{t('nav.forgottenPassword')}</p>
   </Box>
-  ```
-    
+</Box>
+```
+
 #### Styles using `useStyles()` hook
-  
-  :sun_with_face: Nice for very specific styling that levereges `theme` methods and props
 
-  ```tsx
-  const useStyles = makeStyles((theme) =>
-    createStyles({
-      pageTitle: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        padding: theme.spacing(4),
-        margin: theme.spacing(5, 3, 4),
-        color: theme.palette.secondary.main,
-        backgroundColor: theme.palette.primary.main,
-        '&:hover': {
-          color: theme.palette.secondary.dark,
-        }
+:sun_with_face: Nice for very specific styling that levereges `theme` methods and props
+
+```tsx
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    pageTitle: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      padding: theme.spacing(4),
+      margin: theme.spacing(5, 3, 4),
+      color: theme.palette.secondary.main,
+      backgroundColor: theme.palette.primary.main,
+      '&:hover': {
+        color: theme.palette.secondary.dark,
       },
-      // ...
-    }),
+    },
+    // ...
+  }),
+)
+
+export default function SomeBox() {
+  const classes = useStyles()
+  return (
+    <Box className={classes.pageTitle}>
+      <p>{t('nav.forgottenPassword')}</p>
+    </Box>
   )
+}
+```
 
-  export default function SomeBox() {
-    const classes = useStyles()
-    return (
-      <Box className={classes.pageTitle}>
-        <p>{t('nav.forgottenPassword')}</p>
-      </Box>
-    )
-  }
-  ```
-    
-  :partly_sunny: Too verbose for simple use cases, if it contains less than 2 css rules. __Use `Box` instead__
-    
-  :partly_sunny: Not the best when dealing with stlying of deep nested structures within the same component. __Use `scss` instead__
-    
-    
+:partly_sunny: Too verbose for simple use cases, if it contains less than 2 css rules. **Use `Box` instead**
+
+:partly_sunny: Not the best when dealing with stlying of deep nested structures within the same component. **Use `scss` instead**
+
 #### Styles using SCSS files
-    
-  Next.js supports [SCSS](https://sass-lang.com/) out of the box. Read more at <https://nextjs.org/docs/basic-features/built-in-css-support#sass-support>
-    
-  File convention is based on a suffix `.module.scss` (ex. `about.module.scss`)
-    
-  :sun_with_face: Nice when dealing with complex nested structures that are scoped in a single component. When dealing with sub-components we're not sure if some of the rules will be left unused.
-    
-  ```scss
-  @import 'styles/variables';
 
-  .page {
-    color: $text-color;
+Next.js supports [SCSS](https://sass-lang.com/) out of the box. Read more at <https://nextjs.org/docs/basic-features/built-in-css-support#sass-support>
 
-    .nav {
-      background-color: $nav-color;
+File convention is based on a suffix `.module.scss` (ex. `about.module.scss`)
 
-      a {
-        text-decoration: none;
-        text-transform: uppercase;
-      }
+:sun_with_face: Nice when dealing with complex nested structures that are scoped in a single component. When dealing with sub-components we're not sure if some of the rules will be left unused.
+
+```scss
+@import 'styles/variables';
+
+.page {
+  color: $text-color;
+
+  .nav {
+    background-color: $nav-color;
+
+    a {
+      text-decoration: none;
+      text-transform: uppercase;
     }
   }
-  ```
-    
-  ```tsx
-  import styles from './about.module.scss'
+}
+```
 
-  <Box className={styles.page}>
-    <p>{t('nav.forgottenPassword')}</p>
-  </Box>
-  ```
-    
-  :partly_sunny: Too verbose for simple use cases, if it contains less than 2 css rules in a dedicated file. __Use `Box` instead__
-    
-  ```scss
-  @import 'styles/variables';
+```tsx
+import styles from './about.module.scss'
+;<Box className={styles.page}>
+  <p>{t('nav.forgottenPassword')}</p>
+</Box>
+```
 
-  a {
-     text-decoration: none;
-  }
-  ```
-    
-  :cloud_with_lightning_and_rain: Cannot use theme support or theme variables __Use `hook` instead__
+:partly_sunny: Too verbose for simple use cases, if it contains less than 2 css rules in a dedicated file. **Use `Box` instead**
 
+```scss
+@import 'styles/variables';
+
+a {
+  text-decoration: none;
+}
+```
+
+:cloud_with_lightning_and_rain: Cannot use theme support or theme variables **Use `hook` instead**
 
 ## Translations (i18n)
 
 ### Translation namespaces
 
-Default namespace is called `common` and contains translations used on *all pages* (Layout, Nav, etc) and is stored at `frontend/public/locales/{locale}/common.json`
+Default namespace is called `common` and contains translations used on _all pages_ (Layout, Nav, etc) and is stored at `frontend/public/locales/{locale}/common.json`
 
 Namespaces (scopes, domains) are stored in separate json files at `frontend/public/locales/{locale}/{namespace}.json`
-One namespace can combine the translations keys from several pages with common reusable strings ex. `auth` scope collects keys for `login` and `register` pages. 
+One namespace can combine the translations keys from several pages with common reusable strings ex. `auth` scope collects keys for `login` and `register` pages.
 
 ### Translation keys
 
@@ -459,10 +449,9 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
 export default Page
 ```
 
-
 ## Recognizing contributions
 
-We're integrated with <https://allcontributors.org/> bot 
+We're integrated with <https://allcontributors.org/> bot
 
 Comment on [this issue](https://github.com/daritelska-platforma/frontend/issues/2), asking @all-contributors bot to add a contributor:
 
@@ -471,4 +460,3 @@ Comment on [this issue](https://github.com/daritelska-platforma/frontend/issues/
 ```
 
 `<contribution>`: See the [Emoji Key (Contribution Types Reference)](https://allcontributors.org/docs/en/emoji-key) for a list of valid contribution types.
-

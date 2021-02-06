@@ -7,7 +7,9 @@
 ![Dev Dependencies](https://img.shields.io/david/dev/daritelska-platforma/frontend)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## What's in the box
@@ -44,7 +46,6 @@ yarn dev
 ```
 
 Visit <http://localhost:3040/>
-
 
 ## Contributors ✨
 
