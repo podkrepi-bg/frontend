@@ -7,6 +7,7 @@ import * as yup from 'yup'
 import { routes } from 'common/routes'
 import Layout from 'components/layout/Layout'
 import Link from 'components/shared/Link'
+import { AlertStore } from 'stores/AlertStore'
 
 export default function LoginPage() {
   const test = useTranslation()
@@ -29,7 +30,7 @@ export default function LoginPage() {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: (values) => {
-      return
+      AlertStore.show(t('auth:alerts.invalid-login'), 'error')
     },
   })
 
@@ -70,7 +71,12 @@ export default function LoginPage() {
               />
             </Grid>
             <Grid item xs={12}>
-              <Button fullWidth type="submit" color="primary" variant="contained">
+              <Button
+                fullWidth
+                type="submit"
+                color="primary"
+                variant="contained"
+                onClick={() => showAlert()}>
                 {t('auth:cta.login')}
               </Button>
             </Grid>
