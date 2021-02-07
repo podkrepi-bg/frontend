@@ -7,7 +7,9 @@
 ![Dev Dependencies](https://img.shields.io/david/dev/daritelska-platforma/frontend)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
+
+[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## What's in the box
@@ -16,8 +18,8 @@
 - [Next.js](https://nextjs.org/)
 - [MaterialUI](https://material-ui.com/)
 - [MobX](https://mobx.js.org/)
-- [SCSS](https://sass-lang.com/)
-- [SCSS Guidelines](https://github.com/bjankord/stylelint-config-sass-guidelines)
+- [Formik](https://formik.org/)
+- [SCSS](https://sass-lang.com/), [SCSS Guidelines](https://github.com/bjankord/stylelint-config-sass-guidelines)
 - [ESlint](https://eslint.org/)
 - [Prettier](https://prettier.io/)
 - [Stylelint](https://stylelint.io/)
@@ -44,7 +46,6 @@ yarn dev
 ```
 
 Visit <http://localhost:3040/>
-
 
 ## Contributors ✨
 
@@ -76,6 +77,7 @@ Thanks goes to these wonderful people:
     <td align="center"><a href="https://github.com/ani-kalpachka"><img src="https://avatars.githubusercontent.com/u/14351733?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ani</b></sub></a><br /><a href="https://github.com/daritelska-platforma/frontend/commits?author=ani-kalpachka" title="Code">💻</a> <a href="https://github.com/daritelska-platforma/frontend/commits?author=ani-kalpachka" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/Nikola-Andreev"><img src="https://avatars.githubusercontent.com/u/19424332?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nikola Andreev</b></sub></a><br /><a href="https://github.com/daritelska-platforma/frontend/commits?author=Nikola-Andreev" title="Code">💻</a> <a href="https://github.com/daritelska-platforma/frontend/commits?author=Nikola-Andreev" title="Documentation">📖</a> <a href="#tool-Nikola-Andreev" title="Tools">🔧</a></td>
     <td align="center"><a href="https://petkopavlovski.com/"><img src="https://avatars.githubusercontent.com/u/32264020?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Pete Pavlovski</b></sub></a><br /><a href="https://github.com/daritelska-platforma/frontend/commits?author=arthas168" title="Code">💻</a> <a href="https://github.com/daritelska-platforma/frontend/commits?author=arthas168" title="Documentation">📖</a> <a href="https://github.com/daritelska-platforma/frontend/pulls?q=is%3Apr+reviewed-by%3Aarthas168" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://github.com/uzuntonev"><img src="https://avatars.githubusercontent.com/u/51097961?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Georgi Uzuntonev</b></sub></a><br /><a href="https://github.com/daritelska-platforma/frontend/commits?author=uzuntonev" title="Code">💻</a> <a href="https://github.com/daritelska-platforma/frontend/commits?author=uzuntonev" title="Documentation">📖</a> <a href="https://github.com/daritelska-platforma/frontend/pulls?q=is%3Apr+reviewed-by%3Auzuntonev" title="Reviewed Pull Requests">👀</a> <a href="#tool-uzuntonev" title="Tools">🔧</a></td>
   </tr>
 </table>
 
@@ -84,6 +86,6 @@ Thanks goes to these wonderful people:
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-If you want to be added or removed from this list please follow up on https://github.com/daritelska-platforma/frontend/issues/2
+If you want to be added or removed from this list please follow up on [this issue](https://github.com/daritelska-platforma/frontend/issues/2).
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!
