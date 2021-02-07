@@ -7,6 +7,7 @@ import * as yup from 'yup'
 import { routes } from 'common/routes'
 import Layout from 'components/layout/Layout'
 import Link from 'components/shared/Link'
+import { AlertStore } from 'stores/AlertStore'
 
 export default function LoginPage() {
   const test = useTranslation()
@@ -29,7 +30,8 @@ export default function LoginPage() {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: (values) => {
-      return
+      console.log(values)
+      AlertStore.show(t('auth:alerts.invalid-login'), 'error')
     },
   })
 

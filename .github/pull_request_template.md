@@ -12,9 +12,9 @@
 
 ## Screenshots:
 
-Before|After
----|---
-[before screenshot]|[after screenshot]
+| Before              | After              |
+| ------------------- | ------------------ |
+| [before screenshot] | [after screenshot] |
 
 ## Testing
 
@@ -35,4 +35,3 @@ Before|After
 **New dev dependencies**:
 
 - `dependency` : dependency details
-
