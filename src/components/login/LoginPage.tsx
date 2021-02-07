@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Container, Grid, TextField, Button, Box } from '@material-ui/core'
 import { useFormik } from 'formik'
@@ -10,15 +10,22 @@ import Link from 'components/shared/Link'
 import { AlertStore } from 'stores/AlertStore'
 
 export default function LoginPage() {
-  const test = useTranslation()
-  console.log(test)
-  const t = test.t
+  const { t, i18n } = useTranslation()
+
+  yup.setLocale({
+    mixed: {
+      default: 'field is invalid',
+      required: () => t('auth:validation.required'),
+    },
+    string: {
+      min: ({ min }: { min: number }) => t('auth:validation.password-min', { count: min }),
+      email: () => t('auth:validation.email'),
+    },
+  })
+
   const LoginSchema = yup.object().shape({
-    email: yup.string().email(t('auth:validation.email')).required(t('auth:validation.required')),
-    password: yup
-      .string()
-      .min(6, t('auth:validation.password-min', { count: 6 }))
-      .required(t('auth:validation.required')),
+    email: yup.string().email().required(),
+    password: yup.string().min(6).required(),
   })
 
   const formik = useFormik({
@@ -32,8 +39,20 @@ export default function LoginPage() {
     onSubmit: (values) => {
       console.log(values)
       AlertStore.show(t('auth:alerts.invalid-login'), 'error')
+      return
     },
   })
+
+  useEffect(() => {
+    i18n.on('languageChanged', (lng) => {
+      formik.validateForm()
+    })
+    return () => {
+      i18n.off('languageChanged', (lng) => {
+        return
+      })
+    }
+  }, [formik.errors])
 
   return (
     <Layout title={t('nav.login')}>
