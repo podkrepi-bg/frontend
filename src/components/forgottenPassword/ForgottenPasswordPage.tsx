@@ -1,28 +1,25 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Typography, Container, Grid, TextField, Button } from '@material-ui/core'
-import { useFormik } from 'formik'
-import * as yup from 'yup'
 
 import Layout from 'components/layout/Layout'
+import useFormikHook from 'common/form/useFormikHook'
+import { ForgottenPasswordForm, ValidationSchema } from 'common/form/models'
 
 export default function ForgottenPasswordPage() {
   const { t } = useTranslation()
 
-  const ForgottenPasswordSchema = yup.object().shape({
-    email: yup.string().email(t('auth:validation.email')).required(t('auth:validation.required')),
-  })
+  const initialValues: ForgottenPasswordForm = {
+    email: '',
+  }
+  const onSubmitHandler = (values: ForgottenPasswordForm) => {
+    console.log(values)
+  }
 
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-    },
-    validationSchema: ForgottenPasswordSchema,
-    validateOnChange: false,
-    validateOnBlur: false,
-    onSubmit: (values) => {
-      return
-    },
+  const { formik } = useFormikHook({
+    initialValues,
+    onSubmitHandler,
+    schema: ValidationSchema.FORGOTTEN_PASSWORD,
   })
 
   return (
