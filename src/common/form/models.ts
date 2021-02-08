@@ -1,5 +1,3 @@
-import { string } from 'yup/lib/locale'
-
 export type LoginForm = {
   email: string
   password: string
@@ -24,5 +22,3 @@ export enum ValidationSchema {
   FORGOTTEN_PASSWORD = 'forgotten-password',
   CHANGE_PASSWORD = 'change-password',
 }
-
-export type FormValues = LoginForm | RegisterForm | ForgottenPasswordForm | ChangePasswordForm

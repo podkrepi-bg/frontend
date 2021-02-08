@@ -2,17 +2,16 @@ import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
-import { FormValues, ValidationSchema } from './models'
+import { ValidationSchema } from './models'
 import getValidationSchema from './schemas'
 
-export default function useFormikHook({
+export default function useFormikHook<T>({
   initialValues,
   onSubmitHandler,
   schema,
 }: {
-  //To return properly form values, errors etc.'initialValues' type should be the same as the type of particular form
-  initialValues: any
-  onSubmitHandler: (values: any) => void
+  initialValues: T
+  onSubmitHandler: (values: T) => void
   schema: ValidationSchema
 }) {
   const { t, i18n } = useTranslation()
