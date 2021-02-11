@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'common/useNextLocale'
-import Page from 'components/forgottenPassword/ForgottenPasswordPage'
+import Page from 'components/auth/forgottenPassword/ForgottenPasswordPage'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
