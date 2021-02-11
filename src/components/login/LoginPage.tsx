@@ -1,38 +1,30 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Container, Grid, TextField, Button, Box } from '@material-ui/core'
-import { useFormik } from 'formik'
-import * as yup from 'yup'
 
 import { routes } from 'common/routes'
 import Layout from 'components/layout/Layout'
 import Link from 'components/shared/Link'
 import { AlertStore } from 'stores/AlertStore'
+import { LoginForm, ValidationSchema } from 'common/form/models'
+import useFormikHook from 'common/form/useFormikHook'
 
 export default function LoginPage() {
-  const test = useTranslation()
-  console.log(test)
-  const t = test.t
-  const LoginSchema = yup.object().shape({
-    email: yup.string().email(t('auth:validation.email')).required(t('auth:validation.required')),
-    password: yup
-      .string()
-      .min(6, t('auth:validation.password-min', { count: 6 }))
-      .required(t('auth:validation.required')),
-  })
+  const { t } = useTranslation()
 
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-    },
-    validationSchema: LoginSchema,
-    validateOnChange: false,
-    validateOnBlur: false,
-    onSubmit: (values) => {
-      console.log(values)
-      AlertStore.show(t('auth:alerts.invalid-login'), 'error')
-    },
+  const initialValues: LoginForm = {
+    email: '',
+    password: '',
+  }
+  const onSubmitHandler = (values: LoginForm) => {
+    console.log(values)
+    AlertStore.show(t('auth:alerts.invalid-login'), 'error')
+  }
+
+  const { formik } = useFormikHook({
+    initialValues,
+    onSubmitHandler,
+    schema: ValidationSchema.LOGIN,
   })
 
   return (
