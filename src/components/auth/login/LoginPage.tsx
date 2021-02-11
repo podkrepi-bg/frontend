@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Container, Grid, Box } from '@material-ui/core'
 
 import { routes } from 'common/routes'
-import Link from 'components/shared/Link'
+import Link from 'components/common/Link'
 import Layout from 'components/layout/Layout'
 import LoginForm from 'components/auth/login/LoginForm'
 
