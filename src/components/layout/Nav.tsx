@@ -1,7 +1,8 @@
-import { Box, ButtonGroup } from '@material-ui/core'
-import { routes } from 'common/routes'
-import LinkButton from 'components/shared/LinkButton'
 import { useTranslation } from 'react-i18next'
+import { Box, ButtonGroup } from '@material-ui/core'
+
+import { routes } from 'common/routes'
+import LinkButton from 'components/common/LinkButton'
 
 export default function Nav() {
   const { t } = useTranslation()
