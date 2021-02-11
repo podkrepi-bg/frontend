@@ -1,37 +1,28 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Container, Grid, TextField, Button } from '@material-ui/core'
-import { useFormik } from 'formik'
-import * as yup from 'yup'
 
 import Layout from 'components/layout/Layout'
+import { RegisterForm, ValidationSchema } from 'common/form/models'
+import useFormikHook from 'common/form/useFormikHook'
 
 export default function RegisterPage() {
   const { t } = useTranslation()
 
-  const RegisterSchema = yup.object().shape({
-    firstName: yup.string().required(t('auth:validation.required')),
-    lastName: yup.string().required(t('auth:validation.required')),
-    email: yup.string().email(t('auth:validation.email')).required(t('auth:validation.required')),
-    password: yup
-      .string()
-      .min(6, t('auth:validation.password-min', { count: 6 }))
-      .required(t('auth:validation.required')),
-  })
+  const initialValues: RegisterForm = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+  }
+  const onSubmitHandler = (values: RegisterForm) => {
+    console.log(values)
+  }
 
-  const formik = useFormik({
-    initialValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-    },
-    validationSchema: RegisterSchema,
-    validateOnChange: false,
-    validateOnBlur: false,
-    onSubmit: (values) => {
-      return
-    },
+  const { formik } = useFormikHook({
+    initialValues,
+    onSubmitHandler,
+    schema: ValidationSchema.REGISTER,
   })
 
   return (
