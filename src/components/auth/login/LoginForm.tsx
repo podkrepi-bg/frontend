@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as yup from 'yup'
 import { useTranslation } from 'react-i18next'
-import { Grid, TextField, Button } from '@material-ui/core'
+import { Grid, TextField } from '@material-ui/core'
 
 import { AlertStore } from 'stores/AlertStore'
+import SubmitButton from 'components/common/form/SubmitButton'
 import useForm, { translateError, customValidators } from 'common/form/useForm'
 
 export type LoginFormData = {
@@ -28,10 +29,30 @@ export type LoginFormProps = { initialValues?: LoginFormData }
 
 export default function LoginForm({ initialValues = defaults }: LoginFormProps) {
   const { t } = useTranslation()
+  const [loading, setLoading] = useState(false)
 
-  const onSubmit = (values: LoginFormData) => {
-    console.log(values)
-    AlertStore.show(t('auth:alerts.invalid-login'), 'error')
+  const onSubmit = async (values: LoginFormData) => {
+    try {
+      setLoading(true)
+
+      const response = await fetch('/api/timeout', {
+        method: 'POST',
+        body: values && JSON.stringify(values),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      })
+
+      if (response.status !== 200) {
+        throw new Error(response.statusText)
+      }
+      AlertStore.show(t('auth:alerts.welcome'), 'success')
+      setLoading(false)
+    } catch (error) {
+      console.error(error)
+      AlertStore.show(t('auth:alerts.invalid-login'), 'error')
+      setLoading(false)
+    }
   }
 
   const { formik } = useForm({ initialValues, onSubmit, validationSchema })
@@ -71,9 +92,7 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
           />
         </Grid>
         <Grid item xs={12}>
-          <Button fullWidth type="submit" color="primary" variant="contained">
-            {t('auth:cta.login')}
-          </Button>
+          <SubmitButton fullWidth label="auth:cta.login" loading={loading} />
         </Grid>
       </Grid>
     </form>
