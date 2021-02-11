@@ -4,7 +4,7 @@ import Page from 'components/auth/changePassword/ChangePasswordPage'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
-    i18nResources: await serverSideTranslations(locale, ['common', 'auth']),
+    i18nResources: await serverSideTranslations(locale, ['common', 'auth', 'validation']),
   },
 })
 
