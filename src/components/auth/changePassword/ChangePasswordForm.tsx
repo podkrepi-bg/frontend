@@ -3,7 +3,7 @@ import * as yup from 'yup'
 import { useTranslation } from 'react-i18next'
 import { Grid, TextField, Button } from '@material-ui/core'
 
-import useForm, { translateError } from 'common/form/useForm'
+import useForm, { translateError, customValidators } from 'common/form/useForm'
 
 export type ChangePasswordFormData = {
   password: string
@@ -14,10 +14,10 @@ const validationSchema: yup.SchemaOf<ChangePasswordFormData> = yup
   .object()
   .defined()
   .shape({
-    password: yup.string().min(6, 'validation:password-min').required(),
+    password: yup.string().min(6, customValidators.passwordMin).required(),
     confirmPassword: yup
       .string()
-      .min(6, 'validation:password-min')
+      .min(6, customValidators.passwordMin)
       .required()
       .oneOf([yup.ref('password'), null], 'validation:password-match'),
   })

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Grid, TextField, Button } from '@material-ui/core'
 
 import { AlertStore } from 'stores/AlertStore'
-import useForm, { translateError } from 'common/form/useForm'
+import useForm, { translateError, customValidators } from 'common/form/useForm'
 
 export type LoginFormData = {
   email: string
@@ -16,7 +16,7 @@ const validationSchema: yup.SchemaOf<LoginFormData> = yup
   .defined()
   .shape({
     email: yup.string().email().required(),
-    password: yup.string().min(6, 'validation:password-min').required(),
+    password: yup.string().min(6, customValidators.passwordMin).required(),
   })
 
 const defaults: LoginFormData = {
