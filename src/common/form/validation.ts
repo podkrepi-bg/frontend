@@ -21,7 +21,10 @@ export const translateError = (
 // Default translations with interpolation:
 // return { key: 'validation:<key>', values: { min, max } }
 
-// Custom translations in validation schema
+// Custom translations in validation schema:
+// yup.string().min(6 customValidators.passwordMin)
+
+// Inline translations in validation schema:
 // yup.string().min(6, ({ min }) => ({ key: 'validation:password-min', values: { min } }))
 
 export const customValidators = {
