@@ -1,0 +1,16 @@
+name: deploy-staging
+on: [push]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Staging
+        uses: TapTap21/docker-remote-deployment-action@v1.0
+        with:
+          remote_docker_host: ${{ secrets.REMOTE_DOCKER_HOST }}
+          ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          stack_file_name: docker-compose.staging.yml
+          args: -p app-frontend-staging up -d --build
