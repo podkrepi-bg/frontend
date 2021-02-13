@@ -18,6 +18,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Setup environment
+        run: cp .env.example .env
+
       - name: Build frontend
         run: |
           docker build . \
