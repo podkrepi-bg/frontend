@@ -1,9 +1,10 @@
 import React from 'react'
 import * as yup from 'yup'
 import { useTranslation } from 'react-i18next'
-import { Grid, TextField, Button } from '@material-ui/core'
+import { Grid, TextField } from '@material-ui/core'
 
 import useForm, { translateError, customValidators } from 'common/form/useForm'
+import SubmitButton from 'components/common/form/SubmitButton'
 
 export type RegisterFormData = {
   firstName: string
@@ -104,9 +105,7 @@ export default function RegisterForm({ initialValues = defaults }: RegisterFormP
           />
         </Grid>
         <Grid item xs={12}>
-          <Button type="submit" fullWidth color="primary" variant="contained">
-            {t('auth:cta.register')}
-          </Button>
+          <SubmitButton fullWidth label="auth:cta.register" />
         </Grid>
       </Grid>
     </form>

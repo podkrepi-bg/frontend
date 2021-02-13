@@ -1,9 +1,10 @@
 import React from 'react'
 import * as yup from 'yup'
 import { useTranslation } from 'react-i18next'
-import { Typography, Grid, TextField, Button } from '@material-ui/core'
+import { Typography, Grid, TextField } from '@material-ui/core'
 
 import useForm, { translateError } from 'common/form/useForm'
+import SubmitButton from 'components/common/form/SubmitButton'
 
 export type ForgottenPasswordForm = {
   email: string
@@ -52,9 +53,7 @@ export default function ForgottenPasswordForm({
           />
         </Grid>
         <Grid item xs={12}>
-          <Button fullWidth type="submit" color="primary" variant="contained">
-            {t('auth:cta.send')}
-          </Button>
+          <SubmitButton fullWidth label="auth:cta.send" />
         </Grid>
       </Grid>
     </form>
