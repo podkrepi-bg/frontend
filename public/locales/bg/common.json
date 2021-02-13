@@ -3,6 +3,7 @@
     "home": "Начало",
     "about": "За нас",
     "login": "Вход",
+    "logout": "Изход",
     "register": "Регистрация",
     "changePassword": "Смяна на парола",
     "forgottenPassword": "Забравена парола?"

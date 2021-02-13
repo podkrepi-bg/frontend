@@ -3,6 +3,7 @@
     "home": "Home",
     "about": "About",
     "login": "Login",
+    "logout": "Logout",
     "register": "Register",
     "changePassword": "Change your password",
     "forgottenPassword": "Forgotten password?"
