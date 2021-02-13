@@ -5,7 +5,6 @@ export const translateError = (
   field: (string | undefined) | { key: string; values?: any },
 ): string | undefined => {
   const { t } = useTranslation()
-  console.log(field)
   if (!field) {
     return undefined
   }
