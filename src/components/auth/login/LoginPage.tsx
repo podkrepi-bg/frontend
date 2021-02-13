@@ -16,7 +16,6 @@ export default function LoginPage({ providers }: LoginPageProps) {
   return (
     <Layout title={t('nav.login')}>
       <Container maxWidth="xs">
-        {callbackUrl}
         <LoginForm />
         <Grid container justify="flex-end">
           <Box mt={2}>
