@@ -23,6 +23,7 @@ services:
 
     environment:
       API_URL: ${API_URL}
+      NEXTAUTH_URL: ${NEXTAUTH_URL}
 
 networks:
   net-frontend:
