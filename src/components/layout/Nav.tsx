@@ -12,12 +12,10 @@ const PrivateNav = () => {
   if (!session) {
     return null
   }
-
+  const title = `${session.user.name} (${session.user.email})`
   return (
     <>
-      {session.user.image && (
-        <Avatar alt={`${session.user.name} (${session.user.email})`} src={session.user.image} />
-      )}
+      {session.user.image && <Avatar title={title} alt={title} src={session.user.image} />}
       <Button key="logout" onClick={() => signOut()}>
         {t('nav.logout')}
       </Button>
