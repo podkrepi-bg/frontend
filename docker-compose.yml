@@ -20,6 +20,8 @@ services:
       # Local:Container mounting points
       - ./src:/app/src
       - ./public:/app/public
+      - /app/node_modules
+      - /app/.next
 
     environment:
       API_URL: ${API_URL}
