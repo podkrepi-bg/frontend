@@ -12,11 +12,11 @@ EXPOSE 3040
 ###########################
 FROM base AS dependencies
 # Install prod dependencies
-RUN yarn install --production
-# Cache prod dependencies
-RUN cp -R node_modules /prod_node_modules
-# Install dev dependencies
-RUN yarn install
+RUN yarn install --production && \
+  # Cache prod dependencies
+  cp -R node_modules /prod_node_modules && \
+  # Install dev dependencies
+  yarn install --production=false
 
 # Build target development #
 ############################
@@ -27,8 +27,9 @@ CMD [ "yarn", "dev" ]
 # Build target builder #
 ########################
 FROM base AS builder
+COPY --from=dependencies /app/node_modules /app/node_modules
 COPY . /app
-RUN yarn add --dev typescript @types/node && \
+RUN yarn lint && \
   yarn build && \
   rm -rf node_modules
 
