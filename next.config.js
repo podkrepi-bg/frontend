@@ -6,6 +6,7 @@ module.exports = {
   },
   publicRuntimeConfig: {
     API_URL: process.env.API_URL,
+    APP_URL: process.env.APP_URL,
   },
   i18n: {
     locales: ['en', 'bg'],

@@ -1,7 +1,6 @@
 name: deploy-staging
 on:
   workflow_dispatch:
-  push:
 
 jobs:
   deploy:
@@ -16,4 +15,4 @@ jobs:
           ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           stack_file_name: docker-compose.staging.yml
-          args: -p app-frontend-staging up -d --build
+          args: up -d --build

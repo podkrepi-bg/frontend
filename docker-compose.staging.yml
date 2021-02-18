@@ -13,7 +13,7 @@ services:
     networks:
       - app-network
     ports:
-      - "3041:3040"
+      - '3041:3040'
 networks:
   app-network:
     driver: bridge
