@@ -15,6 +15,7 @@ export const getServerSideProps: GetServerSideProps<LoginPageProps> = async (ctx
   if (session) {
     ctx.res.statusCode = 302
     ctx.res.setHeader('Location', routes.index)
+    ctx.res.end()
   }
 
   return {
