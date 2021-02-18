@@ -5,6 +5,8 @@ import { useSession, signOut } from 'next-auth/client'
 import { serverSideTranslations } from 'common/useNextLocale'
 import { routes, baseUrl } from 'common/routes'
 
+const callbackUrl = `${baseUrl}${routes.index}`
+
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
     i18nResources: await serverSideTranslations(locale, ['common', 'auth', 'validation']),
@@ -15,14 +17,8 @@ const Logout = () => {
   const [session] = useSession()
 
   useEffect(() => {
-    const url = `${baseUrl}${routes.index}`
-    console.log(url)
-    if (session) {
-      signOut({ callbackUrl: url })
-    } else {
-      window.location.replace(url)
-    }
-  }, [])
+    signOut({ callbackUrl })
+  }, [session])
 
   return null
 }
