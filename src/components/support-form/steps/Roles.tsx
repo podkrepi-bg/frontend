@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import { useTranslation } from 'react-i18next'
 import {
   Checkbox,
   FormControl,
@@ -10,20 +10,21 @@ import {
   Grid,
   TextField,
 } from '@material-ui/core'
-import { useTranslation } from 'react-i18next'
-import { translateError } from 'common/form/useForm'
-import * as yup from 'yup'
 import { FormikProps } from 'formik'
-import { SupportFormData } from './SupportForm'
+import * as yup from 'yup'
 
-export default function Roles({ formik }: { formik: FormikProps<SupportFormData> }) {
+import { translateError } from 'common/form/useForm'
+import { SupportFormData } from '../SupportForm'
+
+type RolesProps = { formik: FormikProps<SupportFormData> }
+export default function Roles({ formik }: RolesProps) {
   const { t } = useTranslation()
 
   return (
     <Grid container spacing={3}>
       <Grid item xs={6}>
         <FormControl required error={!!formik.errors.roles} component="fieldset">
-          <FormLabel component="legend">Как би подкрепил?</FormLabel>
+          <FormLabel component="legend">Как ви подкрепил?</FormLabel>
           <FormGroup>
             <FormControlLabel
               control={

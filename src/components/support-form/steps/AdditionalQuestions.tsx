@@ -1,4 +1,7 @@
 import React from 'react'
+import { FormikProps } from 'formik'
+
+import { SupportFormData } from '../SupportForm'
 
 export default function AdditionalQuestions({ formik }: { formik: FormikProps<SupportFormData> }) {
   return (

@@ -17,11 +17,10 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-export default function ThankYou({
-  setActiveStep,
-}: {
+type ThankYouProps = {
   setActiveStep: React.Dispatch<React.SetStateAction<number>>
-}) {
+}
+export default function ThankYou({ setActiveStep }: ThankYouProps) {
   const classes = useStyles()
   const handleReset = () => {
     setActiveStep(0)
@@ -29,11 +28,9 @@ export default function ThankYou({
 
   return (
     <div>
-      <Typography className={classes.instructions}>
-        All steps completed - you&apos;re finished
-      </Typography>
+      <Typography className={classes.instructions}>Благодаря Ви, че ни подкрепихте</Typography>
       <Button onClick={handleReset} className={classes.button}>
-        Reset
+        Начало
       </Button>
     </div>
   )
