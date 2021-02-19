@@ -3,8 +3,10 @@ import React, { useState } from 'react'
 import { Grid, TextField } from '@material-ui/core'
 import { useTranslation } from 'react-i18next'
 import { translateError } from 'common/form/useForm'
+import { FormikProps } from 'formik'
+import { SupportFormData } from './SupportForm'
 
-export default function GeneralInfo({ formik }: { formik: any }) {
+export default function GeneralInfo({ formik }: { formik: FormikProps<SupportFormData> }) {
   const { t } = useTranslation()
 
   return (

@@ -226,7 +226,7 @@ export default function Steppers() {
   const { formik } = useForm({ initialValues: defaults, onSubmit, validationSchema })
 
   return (
-    <Layout title={'Поткрепи'}>
+    <Layout title={'Подкрепи'}>
       <Container maxWidth="lg">
         <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
           {steps.map((label, index) => {

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function AdditionalQuestions({ formik }: { formik: any }) {
+export default function AdditionalQuestions({ formik }: { formik: FormikProps<SupportFormData> }) {
   return (
     <div>
       {Object.entries(formik.values.roles)

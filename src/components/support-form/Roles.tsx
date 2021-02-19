@@ -13,15 +13,17 @@ import {
 import { useTranslation } from 'react-i18next'
 import { translateError } from 'common/form/useForm'
 import * as yup from 'yup'
+import { FormikProps } from 'formik'
+import { SupportFormData } from './SupportForm'
 
-export default function Roles({ formik }: { formik: any }) {
+export default function Roles({ formik }: { formik: FormikProps<SupportFormData> }) {
   const { t } = useTranslation()
 
   return (
     <Grid container spacing={3}>
       <Grid item xs={6}>
-        <FormControl required error={formik.errors.roles} component="fieldset">
-          <FormLabel component="legend">Как би поткрепил?</FormLabel>
+        <FormControl required error={!!formik.errors.roles} component="fieldset">
+          <FormLabel component="legend">Как би подкрепил?</FormLabel>
           <FormGroup>
             <FormControlLabel
               control={
