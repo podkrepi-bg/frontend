@@ -1,22 +1,18 @@
 import React, { useState } from 'react'
-
-import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core/styles'
-import Stepper from '@material-ui/core/Stepper'
-import Step from '@material-ui/core/Step'
-import StepLabel from '@material-ui/core/StepLabel'
-import StepConnector from '@material-ui/core/StepConnector'
-import Button from '@material-ui/core/Button'
-import StepIcon from './StepperIcon'
-import GeneralInfo from './GeneralInfo'
-import AdditionalQuestions from './AdditionalQuestions'
-import ThankYou from './ThankYou'
-import useForm from 'common/form/useForm'
-import * as yup from 'yup'
-import Roles from './Roles'
-import { FormikErrors } from 'formik'
-import Layout from 'components/layout/Layout'
 import { useTranslation } from 'react-i18next'
-import { Checkbox, Container, FormControlLabel } from '@material-ui/core'
+import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core/styles'
+import { Container, Stepper, Step, StepLabel, StepConnector, Button } from '@material-ui/core'
+import { FormikErrors } from 'formik'
+import * as yup from 'yup'
+
+import useForm from 'common/form/useForm'
+import Layout from 'components/layout/Layout'
+import StepIcon from './StepperIcon'
+import GeneralInfo from './steps/GeneralInfo'
+import AdditionalQuestions from './steps/AdditionalQuestions'
+import ThankYou from './steps/ThankYou'
+import GDPR from './steps/GDRP'
+import Roles from './steps/Roles'
 
 const ColorlibConnector = withStyles({
   alternativeLabel: {
@@ -54,11 +50,19 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(1),
     },
+    stepper: {
+      backgroundColor: 'transparent',
+    },
   }),
 )
 
+type Step = {
+  label: string
+  component: JSX.Element
+}
+
 export type SupportFormData = {
-  policy: boolean
+  terms: boolean
   info: {
     email: string
     name: string
@@ -74,7 +78,16 @@ export type SupportFormData = {
 }
 
 const validationSchema: yup.SchemaOf<SupportFormData> = yup.object().shape({
-  policy: yup.bool().required(),
+  terms: yup
+    .bool()
+    .required()
+    .test('terms', 'Please check one checkbox', (value) => {
+      if (value) {
+        return true
+      }
+
+      return new yup.ValidationError('Please check one checkbox', null, 'terms')
+    }),
   info: yup
     .object()
     .shape({
@@ -132,7 +145,7 @@ const validationSchema: yup.SchemaOf<SupportFormData> = yup.object().shape({
 })
 
 const defaults: SupportFormData = {
-  policy: false,
+  terms: false,
   info: {
     email: '',
     name: '',
@@ -150,15 +163,17 @@ const defaults: SupportFormData = {
 export default function Steppers() {
   const { t } = useTranslation()
   const classes = useStyles()
-  const [activeStep, setActiveStep] = React.useState(0)
-  const steps = ['Роля', 'Допълнителни въпроси', 'Данни за контакти', 'GDPR', 'Благодарим']
+  const [activeStep, setActiveStep] = useState(0)
+  const [FailedStep, setFailedStep] = useState(-1)
 
   const handleNext = () => {
     if (activeStep === 0) {
       formik.validateForm().then((errors: FormikErrors<SupportFormData>) => {
         if (errors.roles) {
+          stepFailed(0)
           return
         }
+        stepFailed(-1)
         setActiveStep((prevActiveStep) => prevActiveStep + 1)
       })
     }
@@ -169,8 +184,10 @@ export default function Steppers() {
     if (activeStep === 2) {
       formik.validateForm().then((errors: FormikErrors<SupportFormData>) => {
         if (errors.info) {
+          stepFailed(2)
           return
         }
+        stepFailed(-1)
         setActiveStep((prevActiveStep) => prevActiveStep + 1)
       })
     }
@@ -187,83 +204,91 @@ export default function Steppers() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1)
   }
 
-  function getStepContent(step: number) {
-    switch (step) {
-      case 0:
-        return <Roles formik={formik} />
-      case 1:
-        return <AdditionalQuestions formik={formik} />
-      case 2:
-        return <GeneralInfo formik={formik} />
-      case 3:
-        return (
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={formik.values.policy}
-                onChange={formik.handleChange}
-                name="policy"
-              />
-            }
-            label="Съгласен съм"
-          />
-        )
-      default:
-        return 'Unknown step'
-    }
+  const stepFailed = (index: number) => {
+    setFailedStep(index)
   }
 
   const isStepFailed = (step: number) => {
-    return step === 1
+    return step === FailedStep
+  }
+
+  const isLastStep = (activeStep: number, steps: Step[]): boolean => {
+    return activeStep === steps.length - 2
+  }
+
+  const isThankYouStep = (activeStep: number, steps: Step[]): boolean => {
+    return activeStep === steps.length - 1
   }
 
   const onSubmit = () => {
-    console.log(formik.values)
-    console.log(formik.isValid)
-    handleNext()
+    formik.validateForm().then((errors: FormikErrors<SupportFormData>) => {
+      if (errors.terms) {
+        stepFailed(3)
+        return
+      }
+      console.log(formik.values)
+      console.log(formik.isValid)
+      handleNext()
+      stepFailed(-1)
+    })
   }
 
   const { formik } = useForm({ initialValues: defaults, onSubmit, validationSchema })
 
+  const steps = [
+    { label: 'Роля', component: <Roles formik={formik} /> },
+    { label: 'Допълнителни въпроси', component: <AdditionalQuestions formik={formik} /> },
+    { label: 'Данни за контакти', component: <GeneralInfo formik={formik} /> },
+    { label: 'GDPR', component: <GDPR formik={formik} /> },
+    { label: 'Благодарим', component: <ThankYou setActiveStep={setActiveStep} /> },
+  ]
+
+  const getStepContent = (step: number) => {
+    return steps[step].component || 'Unknown step'
+  }
+
   return (
     <Layout title={'Подкрепи'}>
       <Container maxWidth="lg">
-        <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
-          {steps.map((label, index) => {
-            const stepProps: { completed?: boolean } = {}
+        <Stepper
+          className={classes.stepper}
+          alternativeLabel
+          activeStep={activeStep}
+          connector={<ColorlibConnector />}>
+          {steps.map((step, index) => {
             const labelProps: { optional?: React.ReactNode; error?: boolean } = {}
 
             if (isStepFailed(index)) {
               labelProps.error = true
             }
             return (
-              <Step key={label}>
-                <StepLabel StepIconComponent={StepIcon}>{label}</StepLabel>
+              <Step key={step.label}>
+                <StepLabel {...labelProps} StepIconComponent={StepIcon}>
+                  {step.label}
+                </StepLabel>
               </Step>
             )
           })}
         </Stepper>
-        <div>
-          {activeStep === steps.length ? (
-            <ThankYou setActiveStep={setActiveStep} />
-          ) : (
+        {isThankYouStep(activeStep, steps) ? (
+          steps[steps.length - 1].component
+        ) : (
+          <>
+            <div className={classes.instructions}>{getStepContent(activeStep)}</div>
             <div>
-              <div className={classes.instructions}>{getStepContent(activeStep)}</div>
-              <div>
-                <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-                  Back
-                </Button>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={activeStep === steps.length - 1 ? onSubmit : handleNext}
-                  className={classes.button}>
-                  {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                </Button>
-              </div>
+              <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
+                Назад
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={isLastStep(activeStep, steps) ? onSubmit : handleNext}
+                className={classes.button}>
+                {isLastStep(activeStep, steps) ? 'Преключи' : 'Напред'}
+              </Button>
             </div>
-          )}
-        </div>
+          </>
+        )}
       </Container>
     </Layout>
   )

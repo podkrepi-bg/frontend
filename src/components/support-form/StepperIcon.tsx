@@ -5,6 +5,8 @@ import SettingsIcon from '@material-ui/icons/Settings'
 import GroupAddIcon from '@material-ui/icons/GroupAdd'
 import VideoLabelIcon from '@material-ui/icons/VideoLabel'
 import { StepIconProps } from '@material-ui/core/StepIcon'
+import { AccessibilityNew } from '@material-ui/icons'
+import SecurityIcon from '@material-ui/icons/Security'
 
 const useStepIconStyles = makeStyles({
   root: {
@@ -37,7 +39,8 @@ export default function StepIcon(props: StepIconProps) {
     1: <SettingsIcon />,
     2: <GroupAddIcon />,
     3: <VideoLabelIcon />,
-    4: <VideoLabelIcon />,
+    4: <SecurityIcon />,
+    5: <AccessibilityNew />,
   }
 
   return (
