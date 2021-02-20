@@ -1,6 +1,7 @@
 import clsx from 'clsx'
 import React from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { Menu } from '@material-ui/icons'
 import { useSession } from 'next-auth/client'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
@@ -60,6 +61,7 @@ type AppBarDeckProps = {
   navMenuToggle: () => void
 }
 export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
+  const { locale } = useRouter()
   const classes = useStyles()
   const [session] = useSession()
   const shrink = useScrollTrigger()
@@ -68,7 +70,7 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
       <Toolbar className={classes.toolbar}>
         <Link href={routes.index}>
           <a className={clsx(classes.logo, { shrink })}>
-            <PodkrepiLogo variant="adaptive" className="logotype" />
+            <PodkrepiLogo locale={locale} variant="adaptive" className="logotype" />
           </a>
         </Link>
         <Hidden smDown>
