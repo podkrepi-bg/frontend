@@ -14,7 +14,7 @@ import { FormikProps } from 'formik'
 import * as yup from 'yup'
 
 import { translateError } from 'common/form/useForm'
-import { SupportFormData } from '../SupportForm'
+import { SupportFormData } from '../types/SuportFormData'
 
 type RolesProps = { formik: FormikProps<SupportFormData> }
 export default function Roles({ formik }: RolesProps) {
@@ -22,16 +22,16 @@ export default function Roles({ formik }: RolesProps) {
 
   return (
     <Grid container spacing={3}>
-      <Grid item xs={6}>
+      <Grid item xs={'auto'} md={'auto'} lg={'auto'}>
         <FormControl required error={!!formik.errors.roles} component="fieldset">
-          <FormLabel component="legend">Как ви подкрепил?</FormLabel>
+          <h2>Как искате да ни подкрепите?</h2>
           <FormGroup>
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={formik.values.roles.donate}
+                  checked={formik.values.roles.benefactor}
                   onChange={formik.handleChange}
-                  name="roles.donate"
+                  name="roles.benefactor"
                 />
               }
               label="Дарител"
@@ -44,27 +44,37 @@ export default function Roles({ formik }: RolesProps) {
                   name="roles.partner"
                 />
               }
+              label="Партньор"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formik.values.roles.volunteer}
+                  onChange={formik.handleChange}
+                  name="roles.volunteer"
+                />
+              }
               label="Доброволец"
             />
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={formik.values.roles.media}
+                  checked={formik.values.roles.associationMember}
                   onChange={formik.handleChange}
-                  name="roles.media"
+                  name="roles.associationMember"
                 />
               }
-              label="Популяризация"
+              label="Член на сдружението"
             />
             <FormControlLabel
               control={
                 <Checkbox
-                  checked={formik.values.roles.other}
+                  checked={formik.values.roles.promoter}
                   onChange={formik.handleChange}
-                  name="roles.other"
+                  name="roles.promoter"
                 />
               }
-              label="Друго"
+              label="Промотиране"
             />
           </FormGroup>
           {formik.errors.roles ? <FormHelperText>Изберете поне една роля</FormHelperText> : ''}

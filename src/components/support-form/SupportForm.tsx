@@ -14,6 +14,8 @@ import ThankYou from './steps/ThankYou'
 import GDPR from './steps/GDRP'
 import Roles from './steps/Roles'
 
+import { SupportFormData } from './types/SuportFormData'
+
 const ColorlibConnector = withStyles({
   alternativeLabel: {
     top: 22,
@@ -61,22 +63,6 @@ type Step = {
   component: JSX.Element
 }
 
-export type SupportFormData = {
-  terms: boolean
-  info: {
-    email: string
-    name: string
-    phone: string
-    address: string
-  }
-  roles: {
-    donate: boolean
-    partner: boolean
-    media: boolean
-    other: boolean
-  }
-}
-
 const validationSchema: yup.SchemaOf<SupportFormData> = yup.object().shape({
   terms: yup
     .bool()
@@ -85,7 +71,6 @@ const validationSchema: yup.SchemaOf<SupportFormData> = yup.object().shape({
       if (value) {
         return true
       }
-
       return new yup.ValidationError('Please check one checkbox', null, 'terms')
     }),
   info: yup
@@ -100,10 +85,11 @@ const validationSchema: yup.SchemaOf<SupportFormData> = yup.object().shape({
   roles: yup
     .object()
     .shape({
-      donate: yup.bool(),
+      benefactor: yup.bool(),
       partner: yup.bool(),
-      media: yup.bool(),
-      other: yup.bool(),
+      volunteer: yup.bool(),
+      associationMember: yup.bool(),
+      promoter: yup.bool(),
     })
     .required()
     .test('isTruthy', 'Not include truthy value', function (this: any, value: any) {
@@ -113,35 +99,101 @@ const validationSchema: yup.SchemaOf<SupportFormData> = yup.object().shape({
       }
       return true
     }),
-  // questions: yup
-  //   .object()
-  //   .when('donate', {
-  //     is: true,
-  //     then: yup.object().shape({
-  //       quest1: yup.string(),
-  //       quest2: yup.string(),
-  //       quest3: yup.string(),
-  //     }),
-  //   })
-  //   .required()
-  //   .when('partner', {
-  //     is: true,
-  //     then: yup.object().shape({
-  //       quest21: yup.string(),
-  //       quest22: yup.string(),
-  //       quest23: yup.string(),
-  //     }),
-  //   })
-  //   .required()
-  //   .when('media', {
-  //     is: true,
-  //     then: yup.object().shape({
-  //       quest31: yup.string(),
-  //       quest32: yup.string(),
-  //       quest33: yup.string(),
-  //     }),
-  //   })
-  //   .required(),
+  benefactor: yup
+    .object()
+    .shape({
+      campaignBenefactor: yup.bool(),
+      platformBenefactor: yup.bool(),
+    })
+    .required()
+    .test('isTruthy', 'Not include truthy value', function (this: any, value: any) {
+      const { path, createError } = this
+      if (!Object.values(value).filter((value) => value).length) {
+        return createError({ path, message: 'Not include truthy value' })
+      }
+      return true
+    }),
+  associationMember: yup
+    .object()
+    .shape({
+      isMember: yup.bool(),
+    })
+    .required()
+    .test('isTruthy', 'Not include truthy value', function (this: any, value: any) {
+      const { path, createError } = this
+      console.log('Validating: ' + Object.values(value))
+      if (!Object.values(value).filter((value) => value).length) {
+        return createError({ path, message: 'Not include truthy value' })
+      }
+      return true
+    }),
+  partner: yup
+    .object()
+    .shape({
+      npo: yup.bool(),
+      bussiness: yup.bool(),
+      other: yup.bool(),
+      otherText: yup.string(),
+    })
+    .required()
+    .test('isTruthy', 'Not include truthy value', function (this: any, values: any) {
+      const { path, createError } = this
+      console.log('Validating: ' + Object.values(values))
+      const objValues = Object.values(values)
+      const selectedCount = objValues.filter((value) => value).length
+      const [npo, bussiness, otherCheckbox, otherCheckboxText] = objValues
+      if (!selectedCount) {
+        return createError({ path, message: 'required' })
+      }
+      if (selectedCount && otherCheckbox && !otherCheckboxText) {
+        return createError({ path, message: 'Other text is required' })
+      }
+
+      if (!npo && !bussiness && !otherCheckbox && otherCheckboxText) {
+        return createError({ path, message: 'Other checkbox is required' })
+      }
+      return true
+    }),
+  volunteer: yup
+    .object()
+    .shape({
+      areas: yup.array().of(yup.string()),
+    })
+    .required()
+    .test('isTruthy', 'Not include truthy value', function (this: any, values: any) {
+      const { path, createError } = this
+      if (!values.areas || !values.areas.length) {
+        return createError({ path, message: 'Not include truthy value' })
+      }
+      return true
+    }),
+  promoter: yup
+    .object()
+    .shape({
+      mediaPartner: yup.bool(),
+      ambassador: yup.bool(),
+      other: yup.bool(),
+      otherText: yup.string(),
+    })
+    .required()
+    .test('isTruthy', 'Not include truthy value', function (this: any, values: any) {
+      const { path, createError } = this
+      console.log('Validating: ' + Object.values(values))
+      const objValues = Object.values(values)
+      const selectedCount = objValues.filter((value) => value).length
+      const [mediaPartner, ambassador, otherCheckbox, otherCheckboxText] = objValues
+      if (!selectedCount) {
+        return createError({ path, message: 'required' })
+      }
+      if (selectedCount && otherCheckbox && !otherCheckboxText) {
+        return createError({ path, message: 'Other text is required' })
+      }
+
+      if (!mediaPartner && !ambassador && selectedCount && !otherCheckbox && otherCheckboxText) {
+        return createError({ path, message: 'Other checkbox is required' })
+      }
+      return true
+    }),
 })
 
 const defaults: SupportFormData = {
@@ -153,10 +205,33 @@ const defaults: SupportFormData = {
     address: '',
   },
   roles: {
-    donate: false,
+    benefactor: false,
     partner: false,
-    media: false,
+    associationMember: false,
+    promoter: false,
+    volunteer: false,
+  },
+  benefactor: {
+    campaignBenefactor: false,
+    platformBenefactor: false,
+  },
+  partner: {
+    npo: false,
+    bussiness: false,
     other: false,
+    otherText: '',
+  },
+  volunteer: {
+    areas: [],
+  },
+  associationMember: {
+    isMember: true,
+  },
+  promoter: {
+    mediaPartner: false,
+    ambassador: false,
+    other: false,
+    otherText: '',
   },
 }
 
@@ -164,7 +239,7 @@ export default function Steppers() {
   const { t } = useTranslation()
   const classes = useStyles()
   const [activeStep, setActiveStep] = useState(0)
-  const [FailedStep, setFailedStep] = useState(-1)
+  const [failedStep, setFailedStep] = useState(-1)
 
   const handleNext = () => {
     if (activeStep === 0) {
@@ -178,7 +253,21 @@ export default function Steppers() {
       })
     }
     if (activeStep === 1) {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1)
+      formik.validateForm().then((errors: FormikErrors<SupportFormData>) => {
+        console.log(errors)
+        if (
+          (errors.benefactor && formik.values.roles.benefactor) ||
+          (errors.associationMember && formik.values.roles.associationMember) ||
+          (errors.partner && formik.values.roles.partner) ||
+          (errors.promoter && formik.values.roles.promoter) ||
+          (errors.volunteer && formik.values.roles.volunteer)
+        ) {
+          stepFailed(1)
+          return
+        }
+        stepFailed(-1)
+        setActiveStep((prevActiveStep) => prevActiveStep + 1)
+      })
     }
 
     if (activeStep === 2) {
@@ -209,7 +298,7 @@ export default function Steppers() {
   }
 
   const isStepFailed = (step: number) => {
-    return step === FailedStep
+    return step === failedStep
   }
 
   const isLastStep = (activeStep: number, steps: Step[]): boolean => {
@@ -237,7 +326,10 @@ export default function Steppers() {
 
   const steps = [
     { label: 'Роля', component: <Roles formik={formik} /> },
-    { label: 'Допълнителни въпроси', component: <AdditionalQuestions formik={formik} /> },
+    {
+      label: 'Допълнителни въпроси',
+      component: <AdditionalQuestions formik={formik} failedStep={failedStep} />,
+    },
     { label: 'Данни за контакти', component: <GeneralInfo formik={formik} /> },
     { label: 'GDPR', component: <GDPR formik={formik} /> },
     { label: 'Благодарим', component: <ThankYou setActiveStep={setActiveStep} /> },
