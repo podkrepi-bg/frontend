@@ -19,8 +19,10 @@ type LocaleSetupProps = {
   fallback?: string
 }
 
+const defaultNamespace = 'common'
+
 export default function useNextLocale({
-  i18nResources = { translations: {}, namespaces: ['common'] },
+  i18nResources = { translations: {}, namespaces: [defaultNamespace] },
 }: LocaleSetupProps) {
   const router = useRouter()
   const { translations, namespaces } = i18nResources
@@ -31,12 +33,13 @@ export default function useNextLocale({
       preload: locale ? [locale] : [],
       ns: namespaces,
       supportedLngs: router.locales,
+      defaultNS: defaultNamespace,
       fallbackLng: router.defaultLocale,
       react: { useSuspense: false },
     })
   }
 
-  i18next.setDefaultNamespace(namespaces[0])
+  i18next.setDefaultNamespace(defaultNamespace)
 
   if (locale) {
     // Initialize language
