@@ -1,11 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 export type TimeoutResponse = {
-  input: any
+  input: unknown
   success: boolean
 }
 
-function delay(timeout: number, val?: any) {
+function delay(timeout: number, val?: unknown) {
   return new Promise(function (resolve) {
     setTimeout(function () {
       resolve(val)
