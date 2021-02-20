@@ -3,34 +3,31 @@ import React, { useEffect } from 'react'
 import { useSession } from 'next-auth/client'
 import { useTranslation } from 'react-i18next'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
-import { SwipeableDrawer, Hidden, Box, Grid } from '@material-ui/core'
+import { SwipeableDrawer, Hidden, Box, Grid, Divider } from '@material-ui/core'
 
 import { routes } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
+import PodkrepiIcon from 'components/brand/PodkrepiIcon'
 import CloseModalButton from 'components/common/CloseModalButton'
+
+import { navItems } from './MainNavMenu'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
-    root: {
-      '&&': {
-        // Mobile drawer should be above drawer.zIndex and under modal.zIndex
-        zIndex: `${theme.zIndex.drawer + 50} !important`,
-      },
-    },
     navMenuDrawer: {
       flexShrink: 0,
     },
     navMenuPaper: {
-      width: theme.spacing(10) * 3,
+      width: theme.spacing(10) * 4,
       [theme.breakpoints.down('xs')]: {
         width: '100%',
         flexShrink: 0,
       },
     },
-    searchIcon: {
-      position: 'absolute',
-      top: theme.spacing(1),
-      right: theme.spacing(1),
+    icon: {
+      fontSize: theme.spacing(10),
+      marginTop: theme.spacing(5),
+      marginBottom: theme.spacing(5),
     },
   }),
 )
@@ -66,10 +63,25 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
           ModalProps={{ keepMounted: true }}
           onOpen={() => setMobileOpen(true)}
           onClose={closeNavMenu}
-          classes={{ root: classes.root, paper: classes.navMenuPaper }}>
+          classes={{ paper: classes.navMenuPaper }}>
           <CloseModalButton edge="end" fontSize="default" onClose={closeNavMenu} />
-          <Box height="100%" display="flex" justifyContent="center" mt={10} px={2}>
+          <Box display="flex" justifyContent="center" px={2}>
             <Grid container justify="center" direction="column" spacing={2}>
+              <Grid item>
+                <Box width="100%" textAlign="center">
+                  <PodkrepiIcon className={classes.icon} />
+                </Box>
+              </Grid>
+              {navItems.map(({ href, label }, key) => (
+                <Grid item key={key}>
+                  <LinkButton fullWidth variant="outlined" href={href}>
+                    {t(label)}
+                  </LinkButton>
+                </Grid>
+              ))}
+              <Box my={4}>
+                <Divider />
+              </Box>
               {session ? (
                 <>
                   <Grid item>
