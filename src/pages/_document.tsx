@@ -1,7 +1,9 @@
 import React from 'react'
-import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/core/styles'
+import Document, { Html, Head, Main, NextScript } from 'next/document'
+
 import theme from 'common/theme'
+import FaviconMetadata from 'components/brand/FaviconMetadata'
 
 export default class CustomDocument extends Document {
   render() {
@@ -10,10 +12,12 @@ export default class CustomDocument extends Document {
         <Head>
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
+            href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poiret+One&display=swap"
             rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
+          <FaviconMetadata />
         </Head>
         <body>
           <Main />

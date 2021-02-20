@@ -8,15 +8,15 @@ const useStyles = makeStyles((theme) =>
       bottom: 0,
       left: 0,
       right: 0,
-      padding: theme.spacing(3, 0),
+      margin: theme.spacing(3, 0),
     },
   }),
 )
 
 export default function Footer() {
-  const styles = useStyles()
+  const classes = useStyles()
   return (
-    <footer className={styles.footer}>
+    <footer className={classes.footer}>
       <LocaleSwitcher />
     </footer>
   )
