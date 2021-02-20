@@ -44,7 +44,7 @@ export default function Layout({ title, children }: LayoutProps) {
         {title && (
           <Typography
             paragraph
-            variant="h1"
+            variant="h2"
             component="h1"
             align="center"
             className={classes.pageTitle}>

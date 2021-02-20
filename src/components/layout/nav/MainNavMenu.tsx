@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { routes } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
 
-export default function MainNavGrid() {
+export default function MainNavMenu() {
   const { t } = useTranslation()
   return (
     <Grid container direction="row" wrap="nowrap" spacing={2}>
@@ -29,7 +29,7 @@ export default function MainNavGrid() {
       </Grid>
       <Grid item>
         <LinkButton
-          href={routes.about}
+          href={routes.index}
           color="primary"
           style={{ whiteSpace: 'nowrap' }}
           variant="text">
@@ -38,7 +38,7 @@ export default function MainNavGrid() {
       </Grid>
       <Grid item>
         <LinkButton
-          href={routes.about}
+          href={routes.index}
           color="primary"
           style={{ whiteSpace: 'nowrap' }}
           variant="text">

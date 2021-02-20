@@ -14,9 +14,9 @@ const useStyles = makeStyles((theme) =>
 )
 
 export default function Footer() {
-  const styles = useStyles()
+  const classes = useStyles()
   return (
-    <footer className={styles.footer}>
+    <footer className={classes.footer}>
       <LocaleSwitcher />
     </footer>
   )

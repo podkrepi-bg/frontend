@@ -9,8 +9,8 @@ import { AppBar, Toolbar, IconButton, Grid, Hidden } from '@material-ui/core'
 
 import { routes } from 'common/routes'
 import PublicMenu from './nav/PublicMenu'
-import ProfileMenu from './nav/ProfileMenu'
-import MainNavGrid from './nav/MainNavGrid'
+import PrivateMenu from './nav/PrivateMenu'
+import MainNavMenu from './nav/MainNavMenu'
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 
 const useStyles = makeStyles((theme) =>
@@ -81,10 +81,10 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
             alignItems="center"
             className={classes.toolboxGrid}>
             <Grid item>
-              <MainNavGrid />
+              <MainNavMenu />
             </Grid>
             <Hidden mdDown>
-              <Grid item>{session ? <ProfileMenu /> : <PublicMenu />}</Grid>
+              <Grid item>{session ? <PrivateMenu /> : <PublicMenu />}</Grid>
             </Hidden>
           </Grid>
         </Hidden>
