@@ -4,7 +4,7 @@ import { FormLabel, Grid, TextField } from '@material-ui/core'
 import { FormikProps } from 'formik'
 
 import { translateError } from 'common/form/useForm'
-import { SupportFormData } from '../SupportForm'
+import { SupportFormData } from '../types/SuportFormData'
 
 type GeneralInfoProps = { formik: FormikProps<SupportFormData> }
 
@@ -13,7 +13,7 @@ export default function GeneralInfo({ formik }: GeneralInfoProps) {
 
   return (
     <>
-      <h2 component="legend">Как да се свържем с вас?</h2>
+      <h2>Как да се свържем с вас?</h2>
       <Grid container spacing={3}>
         <Grid item xs={6}>
           <TextField
