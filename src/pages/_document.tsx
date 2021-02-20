@@ -14,7 +14,7 @@ export default class CustomDocument extends Document {
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link
-            href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poiret+One&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap"
             rel="stylesheet"
           />
           <FaviconMetadata />
