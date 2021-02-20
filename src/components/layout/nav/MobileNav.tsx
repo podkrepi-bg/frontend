@@ -1,17 +1,13 @@
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
 import { useSession } from 'next-auth/client'
-import { SwipeableDrawer, Hidden, Box, Grid } from '@material-ui/core'
+import { useTranslation } from 'react-i18next'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
+import { SwipeableDrawer, Hidden, Box, Grid } from '@material-ui/core'
 
 import { routes } from 'common/routes'
-import Link from 'components/common/Link'
-import CloseModalButton from 'components/common/CloseModalButton'
-
-import PrivateMenu from './PrivateMenu'
-import PublicMenu from './PublicMenu'
 import LinkButton from 'components/common/LinkButton'
+import CloseModalButton from 'components/common/CloseModalButton'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
