@@ -1,10 +1,12 @@
 import React from 'react'
 import * as yup from 'yup'
 import { useTranslation } from 'react-i18next'
-import { Grid, TextField } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 
-import useForm, { translateError, customValidators } from 'common/form/useForm'
+import { customValidators } from 'common/form/useForm'
 import SubmitButton from 'components/common/form/SubmitButton'
+import GenericForm from 'components/common/form/GenericForm'
+import FormTextField from 'components/common/form/FormTextField'
 
 export type ChangePasswordFormData = {
   password: string
@@ -37,45 +39,32 @@ export default function ChangePasswordForm({ initialValues = defaults }: ChangeP
     console.log(values)
   }
 
-  const { formik } = useForm({ initialValues, onSubmit, validationSchema })
-
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <GenericForm
+      onSubmit={onSubmit}
+      initialValues={initialValues}
+      validationSchema={validationSchema}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <TextField
-            fullWidth
-            size="small"
+          <FormTextField
             type="password"
+            label={'auth:fields.password'}
             name="password"
-            variant="outlined"
-            label={t('auth:fields.password')}
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-            value={formik.values.password}
-            error={Boolean(formik.errors.password)}
-            helperText={translateError(formik.errors.password)}
+            translate={t}
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            fullWidth
-            size="small"
+          <FormTextField
             type="password"
-            variant="outlined"
+            label={'auth:fields.confirm-password'}
             name="confirmPassword"
-            label={t('auth:fields.confirm-password')}
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-            value={formik.values.confirmPassword}
-            error={Boolean(formik.errors.confirmPassword)}
-            helperText={translateError(formik.errors.confirmPassword)}
+            translate={t}
           />
         </Grid>
         <Grid item xs={12}>
           <SubmitButton fullWidth label="auth:cta.reset" />
         </Grid>
       </Grid>
-    </form>
+    </GenericForm>
   )
 }
