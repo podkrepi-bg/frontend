@@ -1,7 +1,9 @@
 import React from 'react'
-import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheets } from '@material-ui/core/styles'
+import Document, { Html, Head, Main, NextScript } from 'next/document'
+
 import theme from 'common/theme'
+import FaviconMetadata from 'components/brand/FaviconMetadata'
 
 export default class CustomDocument extends Document {
   render() {
@@ -15,6 +17,7 @@ export default class CustomDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Poiret+One&display=swap"
             rel="stylesheet"
           />
+          <FaviconMetadata />
         </Head>
         <body>
           <Main />
