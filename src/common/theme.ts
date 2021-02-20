@@ -1,23 +1,76 @@
-import { pink } from '@material-ui/core/colors'
-import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
+import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
+import { createMuiTheme, darken, responsiveFontSizes } from '@material-ui/core/styles'
 
-// https://material-ui.com/customization/default-theme/#default-theme
-const theme = createMuiTheme({
+const fontFamily = 'Poiret One'
+const colors = {
+  blue: {
+    light: '#F3FDFF',
+    main: '#4AC3FF',
+    mainDark: darken('#4AC3FF', 0.2),
+    dark: '#294E85',
+  },
+  yellow: {
+    main: '#FFCB57',
+  },
+}
+export const themeOptions: ThemeOptions = {
   palette: {
     type: 'light',
-    text: {
-      primary: 'rgba(0, 0, 0, 0.87)',
-      secondary: 'rgba(0, 0, 0, 0.54)',
-      disabled: 'rgba(0, 0, 0, 0.38)',
-      hint: 'rgba(0, 0, 0, 0.38)',
-    },
     primary: {
-      main: '#F19F25',
+      light: colors.blue.light,
+      main: colors.blue.main,
+      dark: colors.blue.dark,
     },
-    secondary: pink,
+    secondary: {
+      main: colors.yellow.main,
+    },
   },
   shape: {
-    borderRadius: 6,
+    borderRadius: 0,
   },
-})
+  props: {
+    MuiButtonBase: {
+      disableRipple: true,
+    },
+  },
+  overrides: {
+    MuiButton: {
+      textPrimary: {
+        '&:hover': {
+          color: colors.blue.mainDark,
+        },
+      },
+      outlinedPrimary: {
+        '&:hover': {
+          color: colors.blue.mainDark,
+          borderColor: colors.blue.mainDark,
+        },
+      },
+      containedPrimary: {
+        backgroundColor: colors.blue.dark,
+        color: colors.blue.light,
+        '&:hover': {
+          backgroundColor: darken(colors.blue.dark, 0.2),
+        },
+      },
+    },
+    MuiAppBar: {
+      root: {
+        paddingLeft: 15,
+        paddingRight: 15,
+      },
+    },
+  },
+  typography: {
+    h1: { fontFamily },
+    h2: { fontFamily },
+    h3: { fontFamily },
+    h4: { fontFamily },
+    h5: { fontFamily },
+    h6: { fontFamily },
+  },
+}
+
+// https://material-ui.com/customization/default-theme/#default-theme
+const theme = createMuiTheme(themeOptions)
 export default responsiveFontSizes(theme)

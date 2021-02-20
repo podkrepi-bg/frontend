@@ -32,7 +32,7 @@ export default function LoginPage({ providers }: LoginPageProps) {
                     color="default"
                     variant="outlined"
                     onClick={() => signIn(provider.id, { callbackUrl })}>
-                    Sign in with {provider.name}
+                    {t('nav.login-with')} {provider.name}
                   </Button>
                 </Grid>
               ))}
