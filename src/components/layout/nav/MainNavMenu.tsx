@@ -5,55 +5,55 @@ import { useTranslation } from 'react-i18next'
 import { routes } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
 
+type NavItem = {
+  href: string
+  label: string
+  variant: 'text' | 'outlined'
+}
+
+export const navItems: NavItem[] = [
+  {
+    href: routes.index,
+    label: 'nav.home',
+    variant: 'text',
+  },
+  {
+    href: routes.about,
+    label: 'nav.about',
+    variant: 'text',
+  },
+  {
+    href: routes.index,
+    label: 'nav.about-project',
+    variant: 'text',
+  },
+  {
+    href: routes.index,
+    label: 'nav.contacts',
+    variant: 'text',
+  },
+  {
+    href: routes.register,
+    label: 'nav.support-us',
+    variant: 'outlined',
+  },
+]
+
 export default function MainNavMenu() {
   const { t } = useTranslation()
   return (
     <Grid container direction="row" wrap="nowrap" spacing={2}>
-      <Grid item>
-        <LinkButton
-          href={routes.index}
-          color="primary"
-          style={{ whiteSpace: 'nowrap' }}
-          variant="text">
-          {t('nav.home')}
-        </LinkButton>
-      </Grid>
-      <Grid item>
-        <LinkButton
-          href={routes.about}
-          color="primary"
-          style={{ whiteSpace: 'nowrap' }}
-          variant="text">
-          {t('nav.about')}
-        </LinkButton>
-      </Grid>
-      <Grid item>
-        <LinkButton
-          href={routes.index}
-          color="primary"
-          style={{ whiteSpace: 'nowrap' }}
-          variant="text">
-          {t('nav.about-project')}
-        </LinkButton>
-      </Grid>
-      <Grid item>
-        <LinkButton
-          href={routes.index}
-          color="primary"
-          style={{ whiteSpace: 'nowrap' }}
-          variant="text">
-          {t('nav.contacts')}
-        </LinkButton>
-      </Grid>
-      <Grid item>
-        <LinkButton
-          href={routes.register}
-          color="primary"
-          style={{ whiteSpace: 'nowrap' }}
-          variant="outlined">
-          {t('nav.support-us')}
-        </LinkButton>
-      </Grid>
+      {navItems.map(({ href, label, variant }, key) => (
+        <Grid item key={key}>
+          <LinkButton
+            href={href}
+            color="primary"
+            style={{ whiteSpace: 'nowrap' }}
+            variant={variant}>
+            {t(label)}
+          </LinkButton>
+        </Grid>
+      ))}
     </Grid>
   )
 }
