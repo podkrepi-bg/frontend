@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) =>
       bottom: 0,
       left: 0,
       right: 0,
-      padding: theme.spacing(3, 0),
+      margin: theme.spacing(3, 0),
     },
   }),
 )

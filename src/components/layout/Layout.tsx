@@ -1,8 +1,9 @@
 import Head from 'next/head'
+import { useState } from 'react'
 import { Box, Container, createStyles, makeStyles, Typography } from '@material-ui/core'
 
-import Nav from 'components/layout/Nav'
 import Footer from 'components/layout/Footer'
+import AppNavBar from 'components/layout/AppNavBar'
 import Snackbar from 'components/layout/Snackbar'
 
 type LayoutProps = React.PropsWithChildren<{
@@ -18,25 +19,35 @@ const useStyles = makeStyles((theme) =>
     pageTitle: {
       padding: theme.spacing(4),
     },
+    offset: {
+      ...theme.mixins.toolbar,
+      marginBottom: theme.spacing(6),
+      [theme.breakpoints.down('md')]: {
+        marginBottom: theme.spacing(0),
+      },
+    },
   }),
 )
 
 export default function Layout({ title, children }: LayoutProps) {
-  const styles = useStyles()
+  const classes = useStyles()
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const navMenuToggle = () => setMobileOpen(!mobileOpen)
   return (
-    <Container maxWidth="md" className={styles.layout}>
+    <Container maxWidth="md" className={classes.layout}>
       <Head>
         <title>{title}</title>
       </Head>
-      <Box py={4} pb={8}>
-        <Nav />
+      <Box pt={4} pb={20}>
+        <AppNavBar navMenuToggle={navMenuToggle} />
+        <div className={classes.offset} />
         {title && (
           <Typography
-            className={styles.pageTitle}
-            variant="h3"
+            paragraph
+            variant="h1"
             component="h1"
             align="center"
-            paragraph>
+            className={classes.pageTitle}>
             {title}
           </Typography>
         )}
