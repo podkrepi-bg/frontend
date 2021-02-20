@@ -1,17 +1,16 @@
 import { setLocale } from 'yup'
-import { useTranslation } from 'react-i18next'
 
 export const translateError = (
   field: (string | undefined) | { key: string; values?: any },
+  translate: any,
 ): string | undefined => {
-  const { t } = useTranslation()
   if (!field) {
     return undefined
   }
   if (typeof field === 'string') {
-    return t(field)
+    return translate(field)
   }
-  return t(field.key, field.values)
+  return translate(field.key, field.values)
 }
 
 // Default translations:
