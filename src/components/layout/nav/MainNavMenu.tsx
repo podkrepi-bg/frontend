@@ -8,7 +8,7 @@ import LinkButton from 'components/common/LinkButton'
 type NavItem = {
   href: string
   label: string
-  variant: 'text' | 'outlined'
+  variant: 'text' | 'outlined' | 'contained'
 }
 
 export const navItems: NavItem[] = [
