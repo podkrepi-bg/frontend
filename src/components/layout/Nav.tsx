@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { Avatar, Box, Button, ButtonGroup } from '@material-ui/core'
-import { useSession, signOut } from 'next-auth/client'
+import { Box, ButtonGroup } from '@material-ui/core'
 
 import { routes } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
