@@ -1,10 +1,10 @@
 import { setLocale } from 'yup'
 import { TOptions } from 'i18next'
-import { useTranslation } from 'react-i18next'
+import { TFunction } from 'react-i18next'
 
 export const translateError = (
   field: (string | undefined) | { key: string; values?: TOptions },
-  translate: any,
+  translate: TFunction,
 ): string | undefined => {
   if (!field) {
     return undefined
