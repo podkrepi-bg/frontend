@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) =>
 type ParkhandsLogoProps = {
   variant?: 'fixed' | 'adaptive'
   size?: 'small' | 'large'
-  locale?: 'bg' | 'en'
+  locale?: string
   className?: string
 }
 const sizes = {

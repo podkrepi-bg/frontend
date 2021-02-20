@@ -3,8 +3,10 @@ import { useState } from 'react'
 import { Box, Container, createStyles, makeStyles, Typography } from '@material-ui/core'
 
 import Footer from 'components/layout/Footer'
-import AppNavBar from 'components/layout/AppNavBar'
 import Snackbar from 'components/layout/Snackbar'
+import AppNavBar from 'components/layout/AppNavBar'
+
+import MobileNav from './nav/MobileNav'
 
 type LayoutProps = React.PropsWithChildren<{
   title?: string
@@ -40,6 +42,7 @@ export default function Layout({ title, children }: LayoutProps) {
       </Head>
       <Box pt={4} pb={20}>
         <AppNavBar navMenuToggle={navMenuToggle} />
+        <MobileNav mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
         <div className={classes.offset} />
         {title && (
           <Typography
