@@ -70,7 +70,7 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
       <Toolbar className={classes.toolbar}>
         <Link href={routes.index}>
           <a className={clsx(classes.logo, { shrink })}>
-            <PodkrepiLogo locale={locale} variant="adaptive" className="logotype" />
+            <PodkrepiLogo locale={locale} variant="adaptive" />
           </a>
         </Link>
         <Hidden smDown>
