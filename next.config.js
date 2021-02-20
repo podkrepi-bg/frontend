@@ -9,7 +9,8 @@ module.exports = {
     APP_URL: process.env.APP_URL,
   },
   i18n: {
-    locales: ['en', 'bg'],
-    defaultLocale: 'en',
+    localeDetection: false,
+    locales: ['bg', 'en'],
+    defaultLocale: 'bg',
   },
 }

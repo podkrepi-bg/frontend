@@ -1,8 +1,9 @@
 import { setLocale } from 'yup'
+import { TOptions } from 'i18next'
 import { useTranslation } from 'react-i18next'
 
 export const translateError = (
-  field: (string | undefined) | { key: string; values?: any },
+  field: (string | undefined) | { key: string; values?: TOptions },
 ): string | undefined => {
   const { t } = useTranslation()
   if (!field) {
