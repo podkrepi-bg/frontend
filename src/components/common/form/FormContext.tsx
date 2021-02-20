@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
+import { FormikValues } from 'formik'
 const { Provider, Consumer } = React.createContext({})
 
-export type FormContext = {
-  value: any
-  children: any
+type FormProps = {
+  value: FormikValues
 }
 
-const FormContext = (props: FormContext) => {
+export type FormContextProps = PropsWithChildren<FormProps>
+
+const FormContext = (props: FormContextProps) => {
   return <Provider value={{ formik: props.value }}>{props.children}</Provider>
 }
 
