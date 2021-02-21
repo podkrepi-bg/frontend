@@ -1,12 +1,13 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import SettingsIcon from '@material-ui/icons/Settings'
+
 import GroupAddIcon from '@material-ui/icons/GroupAdd'
-import VideoLabelIcon from '@material-ui/icons/VideoLabel'
+import ContactMailIcon from '@material-ui/icons/ContactMail'
 import { StepIconProps } from '@material-ui/core/StepIcon'
 import { AccessibilityNew } from '@material-ui/icons'
 import SecurityIcon from '@material-ui/icons/Security'
+import HelpIcon from '@material-ui/icons/Help'
 
 const useStepIconStyles = makeStyles({
   root: {
@@ -34,9 +35,9 @@ export default function StepIcon(props: StepIconProps) {
   const { active, completed } = props
 
   const icons: { [index: string]: React.ReactElement } = {
-    1: <SettingsIcon />,
-    2: <GroupAddIcon />,
-    3: <VideoLabelIcon />,
+    1: <GroupAddIcon />,
+    2: <HelpIcon />,
+    3: <ContactMailIcon />,
     4: <SecurityIcon />,
     5: <AccessibilityNew />,
   }
