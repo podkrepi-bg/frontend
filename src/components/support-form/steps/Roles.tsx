@@ -32,6 +32,7 @@ export default function Roles({ formik }: RolesProps) {
                   checked={formik.values.roles.benefactor}
                   onChange={formik.handleChange}
                   name="roles.benefactor"
+                  color="primary"
                 />
               }
               label="Дарител"
@@ -42,6 +43,7 @@ export default function Roles({ formik }: RolesProps) {
                   checked={formik.values.roles.partner}
                   onChange={formik.handleChange}
                   name="roles.partner"
+                  color="primary"
                 />
               }
               label="Партньор"
@@ -52,6 +54,7 @@ export default function Roles({ formik }: RolesProps) {
                   checked={formik.values.roles.volunteer}
                   onChange={formik.handleChange}
                   name="roles.volunteer"
+                  color="primary"
                 />
               }
               label="Доброволец"
@@ -62,6 +65,7 @@ export default function Roles({ formik }: RolesProps) {
                   checked={formik.values.roles.associationMember}
                   onChange={formik.handleChange}
                   name="roles.associationMember"
+                  color="primary"
                 />
               }
               label="Член на сдружението"
@@ -72,6 +76,7 @@ export default function Roles({ formik }: RolesProps) {
                   checked={formik.values.roles.promoter}
                   onChange={formik.handleChange}
                   name="roles.promoter"
+                  color="primary"
                 />
               }
               label="Промотиране"

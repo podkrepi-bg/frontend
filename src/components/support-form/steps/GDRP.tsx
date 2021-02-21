@@ -1,7 +1,7 @@
 import { Checkbox, FormControl, FormControlLabel, FormLabel } from '@material-ui/core'
 import { FormikProps } from 'formik'
 import React from 'react'
-import { SupportFormData } from '../SupportForm'
+import { SupportFormData } from '../types/SuportFormData'
 
 type GDRPProps = { formik: FormikProps<SupportFormData> }
 export default function GDPR({ formik }: GDRPProps) {
@@ -10,7 +10,12 @@ export default function GDPR({ formik }: GDRPProps) {
       <FormLabel component="legend">GDPR</FormLabel>
       <FormControlLabel
         control={
-          <Checkbox checked={formik.values.terms} onChange={formik.handleChange} name="terms" />
+          <Checkbox
+            checked={formik.values.terms}
+            onChange={formik.handleChange}
+            name="terms"
+            color="primary"
+          />
         }
         label="Съгласен съм"
       />
