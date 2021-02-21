@@ -13,7 +13,7 @@ import {
 import { FormikProps } from 'formik'
 import * as yup from 'yup'
 
-import { SupportFormData } from '../types/SuportFormData'
+import { SupportFormData } from '../helpers/support-form.models'
 
 type RolesProps = { formik: FormikProps<SupportFormData> }
 export default function Roles({ formik }: RolesProps) {

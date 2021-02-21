@@ -4,7 +4,7 @@ import { FormLabel, Grid, TextField } from '@material-ui/core'
 import { FormikProps } from 'formik'
 
 import { translateError } from 'common/form/useForm'
-import { SupportFormData } from '../types/SuportFormData'
+import { SupportFormData } from '../helpers/support-form.models'
 
 type GeneralInfoProps = { formik: FormikProps<SupportFormData> }
 

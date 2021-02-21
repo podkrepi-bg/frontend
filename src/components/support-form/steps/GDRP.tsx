@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { FormikProps } from 'formik'
 import { Checkbox, FormControl, FormControlLabel, FormLabel } from '@material-ui/core'
 
-import { SupportFormData } from '../types/SuportFormData'
+import { SupportFormData } from '../helpers/support-form.models'
 
 type GDRPProps = { formik: FormikProps<SupportFormData> }
 export default function GDPR({ formik }: GDRPProps) {
