@@ -12,7 +12,7 @@ import {
   Select,
   TextField,
 } from '@material-ui/core'
-import { AdditionalQuestionsRenderHelper } from '../types/AdditionalQuestionsRenderHelper'
+import { RoleRenderObject } from '../types/AdditionalQuestionsRenderHelper'
 import { SupportFormData } from '../types/SuportFormData'
 
 export default function AdditionalQuestions({
@@ -22,7 +22,7 @@ export default function AdditionalQuestions({
   formik: FormikProps<SupportFormData>
   failedStep: number
 }) {
-  const RenderHelper = [
+  const RenderHelper:Array<RoleRenderObject> = [
     {
       key: 'benefactor',
       title: 'Дарител',
