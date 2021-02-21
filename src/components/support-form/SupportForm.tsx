@@ -49,10 +49,18 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     instructions: {
       marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(1),
+      marginBottom: theme.spacing(5),
     },
     stepper: {
       backgroundColor: 'transparent',
+    },
+    content: {
+      display: 'flex',
+      justifyContent: 'center',
+    },
+    actions: {
+      display: 'flex',
+      justifyContent: 'space-between',
     },
   }),
 )
@@ -195,7 +203,7 @@ export default function SupportForm(this: any) {
     { label: t('common:support-form.steps.role.title'), component: <Roles formik={formik} /> },
     {
       label: t('common:support-form.steps.addition-questions.title'),
-      component: <AdditionalQuestions formik={formik} failedStep={failedStep} />,
+      component: <AdditionalQuestions formik={formik} />,
     },
     {
       label: t('common:support-form.steps.info.title'),
@@ -238,25 +246,27 @@ export default function SupportForm(this: any) {
         {isThankYouStep(activeStep, steps) ? (
           steps[steps.length - 1].component
         ) : (
-          <>
-            <div className={classes.instructions}>{getStepContent(activeStep)}</div>
+          <div className={classes.content}>
             <div>
-              <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-                {t('common:support-form.cta.back')}
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={
-                  isLastStep(activeStep, steps) ? onSubmit : handleNext.bind(this, activeStep)
-                }
-                className={classes.button}>
-                {isLastStep(activeStep, steps)
-                  ? t('common:support-form.cta.submit')
-                  : t('common:support-form.cta.next')}
-              </Button>
+              <div className={classes.instructions}>{getStepContent(activeStep)}</div>
+              <div className={classes.actions}>
+                <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
+                  {t('common:support-form.cta.back')}
+                </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={
+                    isLastStep(activeStep, steps) ? onSubmit : handleNext.bind(this, activeStep)
+                  }
+                  className={classes.button}>
+                  {isLastStep(activeStep, steps)
+                    ? t('common:support-form.cta.submit')
+                    : t('common:support-form.cta.next')}
+                </Button>
+              </div>
             </div>
-          </>
+          </div>
         )}
       </Container>
     </Layout>
