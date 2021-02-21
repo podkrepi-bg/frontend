@@ -1,0 +1,16 @@
+{
+    "title": "Support",
+    "text-fields": {
+        "heading": "An online donation platform",
+        "heading-bold": "with a maximum degree of transparency",
+        "activity-section-title": "What do we do?",
+        "activity-section-text": "Podkrepi.BG is an association of professionals united by the idea of creating a free and completely transparent online donation platform, which can be used freely by citizens and organizations.",
+        "team-section-title": "Who are we?",
+        "team-section-text": "We are a group of volunteers united by the idea of improveing charity in Bulgaria and supporting good causes and the fight for a better life.",
+        "support-us-section-title": "Support us"
+    },
+    "cta": {
+      "support-us": "Support us"
+    }
+}
+  
