@@ -38,6 +38,9 @@ export const themeOptions: ThemeOptions = {
   },
   overrides: {
     MuiButton: {
+      root: {
+        lineHeight: 2,
+      },
       textPrimary: {
         '&:hover': {
           color: colors.blue.mainDark,
