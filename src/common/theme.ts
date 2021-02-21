@@ -26,7 +26,7 @@ export const themeOptions: ThemeOptions = {
     },
   },
   shape: {
-    borderRadius: 0,
+    borderRadius: 3,
   },
   props: {
     MuiButtonBase: {
@@ -38,6 +38,12 @@ export const themeOptions: ThemeOptions = {
       textPrimary: {
         '&:hover': {
           color: colors.blue.mainDark,
+        },
+      },
+      outlined: {
+        '&:hover': {
+          backgroundColor: colors.blue.dark,
+          color: colors.blue.light,
         },
       },
       outlinedPrimary: {

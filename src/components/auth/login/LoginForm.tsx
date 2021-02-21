@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import * as yup from 'yup'
 import { useTranslation } from 'react-i18next'
-import { Grid, TextField } from '@material-ui/core'
-
+import { Grid } from '@material-ui/core'
 import { AlertStore } from 'stores/AlertStore'
+
+import { customValidators } from 'common/form/useForm'
 import SubmitButton from 'components/common/form/SubmitButton'
-import useForm, { translateError, customValidators } from 'common/form/useForm'
+import GenericForm from 'components/common/form/GenericForm'
+import FormTextField from 'components/common/form/FormTextField'
 
 export type LoginFormData = {
   email: string
@@ -55,46 +57,27 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
     }
   }
 
-  const { formik } = useForm({ initialValues, onSubmit, validationSchema })
-
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <GenericForm
+      onSubmit={onSubmit}
+      initialValues={initialValues}
+      validationSchema={validationSchema}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <TextField
-            type="text"
-            fullWidth
-            label={t('auth:fields.email')}
-            name="email"
-            size="small"
-            variant="outlined"
-            autoFocus
-            error={Boolean(formik.errors.email)}
-            helperText={translateError(formik.errors.email)}
-            value={formik.values.email}
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-          />
+          <FormTextField type="text" label={'auth:fields.email'} name="email" translate={t} />
         </Grid>
         <Grid item xs={12}>
-          <TextField
+          <FormTextField
             type="password"
-            fullWidth
-            label={t('auth:fields.password')}
+            label={'auth:fields.password'}
             name="password"
-            size="small"
-            variant="outlined"
-            error={Boolean(formik.errors.password)}
-            helperText={translateError(formik.errors.password)}
-            value={formik.values.password}
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
+            translate={t}
           />
         </Grid>
         <Grid item xs={12}>
           <SubmitButton fullWidth label="auth:cta.login" loading={loading} />
         </Grid>
       </Grid>
-    </form>
+    </GenericForm>
   )
 }
