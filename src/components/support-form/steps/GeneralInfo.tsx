@@ -24,8 +24,10 @@ export default function GeneralInfo({ formik }: GeneralInfoProps) {
             size="small"
             variant="outlined"
             autoFocus
-            error={Boolean(formik.errors.info?.email)}
-            helperText={translateError(formik.errors.info?.email, t)}
+            error={Boolean(formik.errors.info?.email) && formik.touched.info?.email}
+            helperText={
+              formik.touched.info?.email ? translateError(formik.errors.info?.email, t) : ''
+            }
             value={formik.values.info.email}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
@@ -40,8 +42,10 @@ export default function GeneralInfo({ formik }: GeneralInfoProps) {
             size="small"
             variant="outlined"
             autoFocus
-            error={Boolean(formik.errors.info?.name)}
-            helperText={translateError(formik.errors.info?.name, t)}
+            error={Boolean(formik.errors.info?.name) && formik.touched.info?.name}
+            helperText={
+              formik.touched.info?.name ? translateError(formik.errors.info?.name, t) : ''
+            }
             value={formik.values.info.name}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
@@ -56,8 +60,10 @@ export default function GeneralInfo({ formik }: GeneralInfoProps) {
             size="small"
             variant="outlined"
             autoFocus
-            error={Boolean(formik.errors.info?.phone)}
-            helperText={translateError(formik.errors.info?.phone, t)}
+            error={Boolean(formik.errors.info?.phone) && formik.touched.info?.phone}
+            helperText={
+              formik.touched.info?.phone ? translateError(formik.errors.info?.phone, t) : ''
+            }
             value={formik.values.info.phone}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
@@ -72,8 +78,10 @@ export default function GeneralInfo({ formik }: GeneralInfoProps) {
             size="small"
             variant="outlined"
             autoFocus
-            error={Boolean(formik.errors.info?.address)}
-            helperText={translateError(formik.errors.info?.address, t)}
+            error={Boolean(formik.errors.info?.address) && formik.touched.info?.address}
+            helperText={
+              formik.touched.info?.address ? translateError(formik.errors.info?.address, t) : ''
+            }
             value={formik.values.info.address}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}

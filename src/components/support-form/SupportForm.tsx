@@ -233,15 +233,19 @@ export default function Steppers(this: any) {
       case Steps.QUESTIONS:
         {
           formik.validateForm().then((errors: FormikErrors<SupportFormData>) => {
+            let hasErrors = false
             const questions = Object.entries(formik.values.roles)
               .filter(([_, value]) => value)
               .map(([key, _]) => key)
             Object.keys(errors).forEach((error) => {
               if (questions.includes(error)) {
-                stepFailed(Steps.QUESTIONS)
-                return
+                hasErrors = true
               }
             })
+            if (hasErrors) {
+              stepFailed(Steps.QUESTIONS)
+              return
+            }
             setActiveStep((prevActiveStep) => prevActiveStep + 1)
             stepFailed(Steps.NONE)
           })
@@ -251,7 +255,7 @@ export default function Steppers(this: any) {
         {
           formik.validateForm().then((errors: FormikErrors<SupportFormData>) => {
             if (errors.info) {
-              stepFailed(Steps.ROLES)
+              stepFailed(Steps.INFO)
               return
             }
             setActiveStep((prevActiveStep) => prevActiveStep + 1)
