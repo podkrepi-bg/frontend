@@ -14,13 +14,14 @@ import {
 } from '@material-ui/core'
 import { AdditionalQuestionsRenderHelper } from '../types/AdditionalQuestionsRenderHelper'
 import { SupportFormData } from '../types/SuportFormData'
+import { Steps } from '../SupportForm'
 
 export default function AdditionalQuestions({
   formik,
   failedStep,
 }: {
   formik: FormikProps<SupportFormData>
-  failedStep: number
+  failedStep: Steps
 }) {
   const RenderHelper = [
     {
@@ -145,70 +146,68 @@ export default function AdditionalQuestions({
     if (renderObject) {
       return (
         <div style={{ marginBottom: 15 }}>
-          <FormControl>
-            <FormGroup>
-              <FormControl component="fieldset">
-                <FormLabel component="legend">{renderObject.title}</FormLabel>
-              </FormControl>
-              {(renderObject.options as any[]).map((option: any, index: number) =>
-                option.textFieldOptions ? (
-                  <>
-                    <FormControlLabel
-                      key={index}
-                      control={
-                        <Checkbox
-                          checked={option.value}
-                          onChange={formik.handleChange}
-                          name={option.name}
-                        />
-                      }
-                      label={option.label}
-                    />
-                    {option.value ? (
-                      <TextField
-                        key={index}
-                        value={option.textFieldOptions.value}
-                        name={option.textFieldOptions.name}
-                        placeholder={option.textFieldOptions.placeholder}
-                        onChange={formik.handleChange}
-                      />
-                    ) : null}
-                  </>
-                ) : option.type === 'dropdown' ? (
-                  <Select
-                    key={index}
-                    onChange={formik.handleChange}
-                    name={option.name}
-                    value={option.value}
-                    multiple={true}>
-                    {option.dropdownOptions.map((value: any, index: number) => (
-                      <MenuItem key={index} value={value.value}>
-                        {value.text}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                ) : (
+          <FormGroup>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">{renderObject.title}</FormLabel>
+            </FormControl>
+            {(renderObject.options as any[]).map((option: any, index: number) =>
+              option.textFieldOptions ? (
+                <React.Fragment key={index}>
                   <FormControlLabel
-                    key={index}
                     control={
                       <Checkbox
-                        key={index}
                         checked={option.value}
                         onChange={formik.handleChange}
                         name={option.name}
+                        color="primary"
                       />
                     }
                     label={option.label}
                   />
-                ),
-              )}
-            </FormGroup>
-            {renderObject.formikErrors && failedStep == 1 ? (
-              <FormHelperText>{renderObject.errorMessage}</FormHelperText>
-            ) : (
-              ''
+                  {option.value ? (
+                    <TextField
+                      value={option.textFieldOptions.value}
+                      name={option.textFieldOptions.name}
+                      placeholder={option.textFieldOptions.placeholder}
+                      onChange={formik.handleChange}
+                    />
+                  ) : null}
+                </React.Fragment>
+              ) : option.type === 'dropdown' ? (
+                <Select
+                  key={index}
+                  onChange={formik.handleChange}
+                  name={option.name}
+                  value={option.value}
+                  multiple={true}>
+                  {option.dropdownOptions.map((value: any, index: number) => (
+                    <MenuItem key={index} value={value.value}>
+                      {value.text}
+                    </MenuItem>
+                  ))}
+                </Select>
+              ) : (
+                <FormControlLabel
+                  key={index}
+                  control={
+                    <Checkbox
+                      key={index}
+                      checked={option.value}
+                      onChange={formik.handleChange}
+                      name={option.name}
+                      color="primary"
+                    />
+                  }
+                  label={option.label}
+                />
+              ),
             )}
-          </FormControl>
+          </FormGroup>
+          {renderObject.formikErrors ? (
+            <FormHelperText error={true}>{renderObject.errorMessage}</FormHelperText>
+          ) : (
+            ''
+          )}
         </div>
       )
     }
@@ -219,12 +218,12 @@ export default function AdditionalQuestions({
       <Grid item xs={6}>
         <FormControl required error={!!formik.errors.roles} component="fieldset">
           <h2>В каква роля искате да ни подкрепите?</h2>
+          {Object.entries(formik.values.roles)
+            .filter(([_, value]) => value)
+            .map(([key, _], index) => (
+              <div key={index}>{renderQuestion(key)}</div>
+            ))}
         </FormControl>
-        {Object.entries(formik.values.roles)
-          .filter(([_, value]) => value)
-          .map(([key, _], index) => (
-            <div key={index}>{renderQuestion(key)}</div>
-          ))}
       </Grid>
     </Grid>
   )
