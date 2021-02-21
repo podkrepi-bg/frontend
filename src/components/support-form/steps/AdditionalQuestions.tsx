@@ -13,9 +13,9 @@ import {
   Select,
   TextField,
 } from '@material-ui/core'
-import { RoleRenderObject } from '../types/AdditionalQuestionsRenderHelper'
-import { SupportFormData } from '../types/SuportFormData'
-import { Steps } from '../SupportForm'
+import { RoleRenderObject } from '../helpers/support-form.models'
+import { SupportFormData } from '../helpers/support-form.models'
+import { Steps } from '../helpers/support-form.models'
 
 export default function AdditionalQuestions({
   formik,
