@@ -15,15 +15,12 @@ import {
 } from '@material-ui/core'
 import { RoleRenderObject } from '../helpers/support-form.models'
 import { SupportFormData } from '../helpers/support-form.models'
-import { Steps } from '../helpers/support-form.models'
 
-export default function AdditionalQuestions({
-  formik,
-  failedStep,
-}: {
+type AdditionalQuestionsProps = {
   formik: FormikProps<SupportFormData>
-  failedStep: Steps
-}) {
+}
+
+export default function AdditionalQuestions({ formik }: AdditionalQuestionsProps) {
   const { t } = useTranslation()
   const RenderHelper: Array<RoleRenderObject> = [
     {
@@ -156,11 +153,9 @@ export default function AdditionalQuestions({
     const renderObject = RenderHelper.filter((obj) => obj.key == key)[0]
     if (renderObject) {
       return (
-        <div style={{ marginBottom: 15 }}>
+        <FormControl required error={!!formik.errors.roles} component="fieldset">
           <FormGroup>
-            <FormControl component="fieldset">
-              <FormLabel component="legend">{renderObject.title}</FormLabel>
-            </FormControl>
+            <FormLabel component="legend">{renderObject.title}</FormLabel>
             {(renderObject.options as any[]).map((option: any, index: number) =>
               option.textFieldOptions ? (
                 <React.Fragment key={index}>
@@ -219,23 +214,23 @@ export default function AdditionalQuestions({
           ) : (
             ''
           )}
-        </div>
+        </FormControl>
       )
     }
     return null
   }
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={6}>
-        <FormControl required error={!!formik.errors.roles} component="fieldset">
-          <h2>{t('common:support-form.steps.addition-questions.subtitle')}</h2>
-          {Object.entries(formik.values.roles)
-            .filter(([_, value]) => value)
-            .map(([key, _], index) => (
-              <div key={index}>{renderQuestion(key)}</div>
-            ))}
-        </FormControl>
+    <Grid container spacing={6}>
+      <Grid item xs={12} container justify="center">
+        <h2>{t('common:support-form.steps.addition-questions.subtitle')}</h2>
       </Grid>
+      {Object.entries(formik.values.roles)
+        .filter(([_, value]) => value)
+        .map(([key, _], index) => (
+          <Grid key={index} item xs={4} container>
+            {renderQuestion(key)}
+          </Grid>
+        ))}
     </Grid>
   )
 }
