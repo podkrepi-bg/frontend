@@ -22,14 +22,12 @@ const ColorlibConnector = withStyles({
   },
   active: {
     '& $line': {
-      backgroundImage:
-        'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
+      backgroundImage: 'linear-gradient( 95deg, #4AC3FF 0%, #29a2df 50%, #1b88be 100%)',
     },
   },
   completed: {
     '& $line': {
-      backgroundImage:
-        'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
+      backgroundImage: 'linear-gradient( 95deg, #4AC3FF 0%, #29a2df 50%, #1b88be 100%)',
     },
   },
   line: {
@@ -63,15 +61,29 @@ type Step = {
   component: JSX.Element
 }
 
+export enum Steps {
+  NONE = -1,
+  ROLES = 0,
+  QUESTIONS = 1,
+  INFO = 2,
+  GDPR = 3,
+}
+function checkboxChecked(this: any, value: { [key: string]: boolean }) {
+  const { path, createError } = this
+  if (!Object.values(value).filter((value) => value).length) {
+    return createError({ path, message: 'Must have at least one checked box' })
+  }
+  return true
+}
+
 const validationSchema: yup.SchemaOf<SupportFormData> = yup.object().shape({
   terms: yup
     .bool()
     .required()
-    .test('terms', 'Please check one checkbox', (value) => {
-      if (value) {
-        return true
-      }
-      return new yup.ValidationError('Please check one checkbox', null, 'terms')
+    .test('checkboxChecked', 'Please check one checkbox', (value) => {
+      return value
+        ? true
+        : new yup.ValidationError('Please check one checkbox', null, 'checkboxChecked')
     }),
   info: yup
     .object()
@@ -92,108 +104,71 @@ const validationSchema: yup.SchemaOf<SupportFormData> = yup.object().shape({
       promoter: yup.bool(),
     })
     .required()
-    .test('isTruthy', 'Not include truthy value', function (this: any, value: any) {
-      const { path, createError } = this
-      if (!Object.values(value).filter((value) => value).length) {
-        return createError({ path, message: 'Not include truthy value' })
-      }
-      return true
-    }),
-  benefactor: yup
-    .object()
-    .shape({
-      campaignBenefactor: yup.bool(),
-      platformBenefactor: yup.bool(),
-    })
-    .required()
-    .test('isTruthy', 'Not include truthy value', function (this: any, value: any) {
-      const { path, createError } = this
-      if (!Object.values(value).filter((value) => value).length) {
-        return createError({ path, message: 'Not include truthy value' })
-      }
-      return true
-    }),
-  associationMember: yup
-    .object()
-    .shape({
-      isMember: yup.bool(),
-    })
-    .required()
-    .test('isTruthy', 'Not include truthy value', function (this: any, value: any) {
-      const { path, createError } = this
-      console.log('Validating: ' + Object.values(value))
-      if (!Object.values(value).filter((value) => value).length) {
-        return createError({ path, message: 'Not include truthy value' })
-      }
-      return true
-    }),
-  partner: yup
-    .object()
-    .shape({
-      npo: yup.bool(),
-      bussiness: yup.bool(),
-      other: yup.bool(),
-      otherText: yup.string(),
-    })
-    .required()
-    .test('isTruthy', 'Not include truthy value', function (this: any, values: any) {
-      const { path, createError } = this
-      console.log('Validating: ' + Object.values(values))
-      const objValues = Object.values(values)
-      const selectedCount = objValues.filter((value) => value).length
-      const [npo, bussiness, otherCheckbox, otherCheckboxText] = objValues
-      if (!selectedCount) {
-        return createError({ path, message: 'required' })
-      }
-      if (selectedCount && otherCheckbox && !otherCheckboxText) {
-        return createError({ path, message: 'Other text is required' })
-      }
-
-      if (!npo && !bussiness && !otherCheckbox && otherCheckboxText) {
-        return createError({ path, message: 'Other checkbox is required' })
-      }
-      return true
-    }),
-  volunteer: yup
-    .object()
-    .shape({
+    .test('checkboxChecked', 'Must have at least one checked box', checkboxChecked),
+  benefactor: yup.object().when('roles.benefactor', {
+    is: true,
+    then: yup
+      .object()
+      .shape({
+        campaignBenefactor: yup.bool(),
+        platformBenefactor: yup.bool(),
+      })
+      .test('checkboxChecked', 'Must have at least one checked box', checkboxChecked),
+  }),
+  associationMember: yup.object().when('roles.associationMember', {
+    is: true,
+    then: yup
+      .object()
+      .shape({
+        isMember: yup.bool(),
+      })
+      .test('checkboxChecked', 'Must have at least one checked box', checkboxChecked),
+  }),
+  partner: yup.object().when('roles.partner', {
+    is: true,
+    then: yup
+      .object()
+      .shape({
+        npo: yup.bool(),
+        bussiness: yup.bool(),
+        other: yup.bool(),
+        otherText: yup.string().when('partner.other', {
+          is: true,
+          then: yup.string(),
+        }),
+      })
+      .test('checkboxChecked', 'Must have at least one checked box', checkboxChecked)
+      .test('CustomValidation', 'Custom validation', function (this: any, values: any) {
+        const { path, createError } = this
+        return values.other && !values.otherText
+          ? createError({ path, message: 'field is required' })
+          : true
+      }),
+  }),
+  volunteer: yup.object().when('roles.volunteer', {
+    is: true,
+    then: yup.object().shape({
       areas: yup.array().of(yup.string()),
-    })
-    .required()
-    .test('isTruthy', 'Not include truthy value', function (this: any, values: any) {
-      const { path, createError } = this
-      if (!values.areas || !values.areas.length) {
-        return createError({ path, message: 'Not include truthy value' })
-      }
-      return true
     }),
-  promoter: yup
-    .object()
-    .shape({
-      mediaPartner: yup.bool(),
-      ambassador: yup.bool(),
-      other: yup.bool(),
-      otherText: yup.string(),
-    })
-    .required()
-    .test('isTruthy', 'Not include truthy value', function (this: any, values: any) {
-      const { path, createError } = this
-      console.log('Validating: ' + Object.values(values))
-      const objValues = Object.values(values)
-      const selectedCount = objValues.filter((value) => value).length
-      const [mediaPartner, ambassador, otherCheckbox, otherCheckboxText] = objValues
-      if (!selectedCount) {
-        return createError({ path, message: 'required' })
-      }
-      if (selectedCount && otherCheckbox && !otherCheckboxText) {
-        return createError({ path, message: 'Other text is required' })
-      }
-
-      if (!mediaPartner && !ambassador && selectedCount && !otherCheckbox && otherCheckboxText) {
-        return createError({ path, message: 'Other checkbox is required' })
-      }
-      return true
-    }),
+  }),
+  promoter: yup.object().when('roles.promoter', {
+    is: true,
+    then: yup
+      .object()
+      .shape({
+        mediaPartner: yup.bool(),
+        ambassador: yup.bool(),
+        other: yup.bool(),
+        otherText: yup.string(),
+      })
+      .test('checkboxChecked', 'Must have at least one checked box', checkboxChecked)
+      .test('CustomValidation', 'Custom validation', function (this: any, values: any) {
+        const { path, createError } = this
+        return values.other && !values.otherText
+          ? createError({ path, message: 'field is required' })
+          : true
+      }),
+  }),
 })
 
 const defaults: SupportFormData = {
@@ -235,57 +210,57 @@ const defaults: SupportFormData = {
   },
 }
 
-export default function Steppers() {
+export default function Steppers(this: any) {
   const { t } = useTranslation()
   const classes = useStyles()
   const [activeStep, setActiveStep] = useState(0)
-  const [failedStep, setFailedStep] = useState(-1)
+  const [failedStep, setFailedStep] = useState(Steps.NONE)
 
-  const handleNext = () => {
-    if (activeStep === 0) {
-      formik.validateForm().then((errors: FormikErrors<SupportFormData>) => {
-        if (errors.roles) {
-          stepFailed(0)
-          return
+  const handleNext = (step: Steps | number) => {
+    switch (step) {
+      case Steps.ROLES:
+        {
+          formik.validateForm().then((errors: FormikErrors<SupportFormData>) => {
+            if (errors.roles) {
+              stepFailed(Steps.ROLES)
+              return
+            }
+            setActiveStep((prevActiveStep) => prevActiveStep + 1)
+            stepFailed(Steps.NONE)
+          })
         }
-        stepFailed(-1)
-        setActiveStep((prevActiveStep) => prevActiveStep + 1)
-      })
-    }
-    if (activeStep === 1) {
-      formik.validateForm().then((errors: FormikErrors<SupportFormData>) => {
-        console.log(errors)
-        if (
-          (errors.benefactor && formik.values.roles.benefactor) ||
-          (errors.associationMember && formik.values.roles.associationMember) ||
-          (errors.partner && formik.values.roles.partner) ||
-          (errors.promoter && formik.values.roles.promoter) ||
-          (errors.volunteer && formik.values.roles.volunteer)
-        ) {
-          stepFailed(1)
-          return
+        break
+      case Steps.QUESTIONS:
+        {
+          formik.validateForm().then((errors: FormikErrors<SupportFormData>) => {
+            const questions = Object.entries(formik.values.roles)
+              .filter(([_, value]) => value)
+              .map(([key, _]) => key)
+            Object.keys(errors).forEach((error) => {
+              if (questions.includes(error)) {
+                stepFailed(Steps.QUESTIONS)
+                return
+              }
+            })
+            setActiveStep((prevActiveStep) => prevActiveStep + 1)
+            stepFailed(Steps.NONE)
+          })
         }
-        stepFailed(-1)
-        setActiveStep((prevActiveStep) => prevActiveStep + 1)
-      })
-    }
-
-    if (activeStep === 2) {
-      formik.validateForm().then((errors: FormikErrors<SupportFormData>) => {
-        if (errors.info) {
-          stepFailed(2)
-          return
+        break
+      case Steps.INFO:
+        {
+          formik.validateForm().then((errors: FormikErrors<SupportFormData>) => {
+            if (errors.info) {
+              stepFailed(Steps.ROLES)
+              return
+            }
+            setActiveStep((prevActiveStep) => prevActiveStep + 1)
+            stepFailed(Steps.NONE)
+          })
         }
-        stepFailed(-1)
-        setActiveStep((prevActiveStep) => prevActiveStep + 1)
-      })
-    }
-
-    if (activeStep === 3) {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1)
-    }
-    if (activeStep === 4) {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1)
+        break
+      default:
+        return 'Unknown step'
     }
   }
 
@@ -293,11 +268,11 @@ export default function Steppers() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1)
   }
 
-  const stepFailed = (index: number) => {
-    setFailedStep(index)
+  const stepFailed = (step: Steps) => {
+    setFailedStep(step)
   }
 
-  const isStepFailed = (step: number) => {
+  const isStepFailed = (step: Steps | number): boolean => {
     return step === failedStep
   }
 
@@ -311,14 +286,15 @@ export default function Steppers() {
 
   const onSubmit = () => {
     formik.validateForm().then((errors: FormikErrors<SupportFormData>) => {
-      if (errors.terms) {
-        stepFailed(3)
+      if (!formik.isValid) {
+        stepFailed(Steps.GDPR)
         return
       }
+
       console.log(formik.values)
       console.log(formik.isValid)
-      handleNext()
-      stepFailed(-1)
+      setActiveStep((prevActiveStep) => prevActiveStep + 1)
+      stepFailed(Steps.NONE)
     })
   }
 
@@ -374,7 +350,9 @@ export default function Steppers() {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={isLastStep(activeStep, steps) ? onSubmit : handleNext}
+                onClick={
+                  isLastStep(activeStep, steps) ? onSubmit : handleNext.bind(this, activeStep)
+                }
                 className={classes.button}>
                 {isLastStep(activeStep, steps) ? 'Преключи' : 'Напред'}
               </Button>
