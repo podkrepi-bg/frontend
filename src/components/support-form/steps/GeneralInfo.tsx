@@ -13,19 +13,19 @@ export default function GeneralInfo({ formik }: GeneralInfoProps) {
 
   return (
     <>
-      <h2>Как да се свържем с вас?</h2>
+      <h2>{t('common:support-form.steps.info.subtitle')}</h2>
       <Grid container spacing={3}>
         <Grid item xs={6}>
           <TextField
             type="text"
             fullWidth
-            label={'Email'}
+            label={t('common:support-form.steps.info.email')}
             name="info.email"
             size="small"
             variant="outlined"
             autoFocus
             error={Boolean(formik.errors.info?.email)}
-            helperText={translateError(formik.errors.info?.email)}
+            helperText={translateError(formik.errors.info?.email, t)}
             value={formik.values.info.email}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
@@ -35,13 +35,13 @@ export default function GeneralInfo({ formik }: GeneralInfoProps) {
           <TextField
             type="text"
             fullWidth
-            label={'Name'}
+            label={t('common:support-form.steps.info.name')}
             name="info.name"
             size="small"
             variant="outlined"
             autoFocus
             error={Boolean(formik.errors.info?.name)}
-            helperText={translateError(formik.errors.info?.name)}
+            helperText={translateError(formik.errors.info?.name, t)}
             value={formik.values.info.name}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
@@ -51,13 +51,13 @@ export default function GeneralInfo({ formik }: GeneralInfoProps) {
           <TextField
             type="text"
             fullWidth
-            label={'Phone'}
+            label={t('common:support-form.steps.info.phone')}
             name="info.phone"
             size="small"
             variant="outlined"
             autoFocus
             error={Boolean(formik.errors.info?.phone)}
-            helperText={translateError(formik.errors.info?.phone)}
+            helperText={translateError(formik.errors.info?.phone, t)}
             value={formik.values.info.phone}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}
@@ -67,13 +67,13 @@ export default function GeneralInfo({ formik }: GeneralInfoProps) {
           <TextField
             type="text"
             fullWidth
-            label={'Address'}
+            label={t('common:support-form.steps.info.address')}
             name="info.address"
             size="small"
             variant="outlined"
             autoFocus
             error={Boolean(formik.errors.info?.address)}
-            helperText={translateError(formik.errors.info?.address)}
+            helperText={translateError(formik.errors.info?.address, t)}
             value={formik.values.info.address}
             onBlur={formik.handleBlur}
             onChange={formik.handleChange}

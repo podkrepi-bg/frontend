@@ -4,7 +4,7 @@ import { serverSideTranslations } from 'common/useNextLocale'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
-    i18nResources: await serverSideTranslations(locale, ['common', 'about']),
+    i18nResources: await serverSideTranslations(locale, ['common', 'about', 'validation']),
   },
 })
 
