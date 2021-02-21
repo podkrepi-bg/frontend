@@ -29,6 +29,9 @@ export const themeOptions: ThemeOptions = {
     borderRadius: 3,
   },
   props: {
+    MuiButton: {
+      disableElevation: true,
+    },
     MuiButtonBase: {
       disableRipple: true,
     },
