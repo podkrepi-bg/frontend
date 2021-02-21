@@ -13,7 +13,7 @@ import {
   Select,
   TextField,
 } from '@material-ui/core'
-import { AdditionalQuestionsRenderHelper } from '../types/AdditionalQuestionsRenderHelper'
+import { RoleRenderObject } from '../types/AdditionalQuestionsRenderHelper'
 import { SupportFormData } from '../types/SuportFormData'
 import { Steps } from '../SupportForm'
 
@@ -25,7 +25,7 @@ export default function AdditionalQuestions({
   failedStep: Steps
 }) {
   const { t } = useTranslation()
-  const RenderHelper = [
+  const RenderHelper: Array<RoleRenderObject> = [
     {
       key: 'benefactor',
       title: t('common:support-form.steps.addition-questions.benefactor.title'),
