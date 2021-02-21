@@ -13,26 +13,36 @@ export type SupportFormData = {
     associationMember: boolean
     promoter: boolean
   }
-  benefactor: {
-    campaignBenefactor: boolean
-    platformBenefactor: boolean
-  } | {}
-  partner: {
-    npo: boolean
-    bussiness: boolean
-    other: boolean
-    otherText: string
-  } | {}
-  volunteer: {
-    areas: Array<string>
-  } | {}
-  associationMember: {
-    isMember: boolean
-  } | {}
-  promoter: {
-    mediaPartner: boolean
-    ambassador: boolean
-    other: boolean
-    otherText: string
-  } | {}
+  benefactor:
+    | {
+        campaignBenefactor: boolean
+        platformBenefactor: boolean
+      }
+    | any
+  partner:
+    | {
+        npo: boolean
+        bussiness: boolean
+        other: boolean
+        otherText: string
+      }
+    | any
+  volunteer:
+    | {
+        areas: Array<string>
+      }
+    | any
+  associationMember:
+    | {
+        isMember: boolean
+      }
+    | any
+  promoter:
+    | {
+        mediaPartner: boolean
+        ambassador: boolean
+        other: boolean
+        otherText: string
+      }
+    | any
 }

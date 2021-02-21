@@ -286,7 +286,8 @@ export default function Steppers(this: any) {
 
   const onSubmit = () => {
     formik.validateForm().then((errors: FormikErrors<SupportFormData>) => {
-      if (!formik.isValid) {
+      const hasErrors = !!Object.keys(errors).length
+      if (hasErrors) {
         stepFailed(Steps.GDPR)
         return
       }
@@ -301,14 +302,20 @@ export default function Steppers(this: any) {
   const { formik } = useForm({ initialValues: defaults, onSubmit, validationSchema })
 
   const steps = [
-    { label: 'Роля', component: <Roles formik={formik} /> },
+    { label: t('common:support-form.steps.role.title'), component: <Roles formik={formik} /> },
     {
-      label: 'Допълнителни въпроси',
+      label: t('common:support-form.steps.addition-questions.title'),
       component: <AdditionalQuestions formik={formik} failedStep={failedStep} />,
     },
-    { label: 'Данни за контакти', component: <GeneralInfo formik={formik} /> },
-    { label: 'GDPR', component: <GDPR formik={formik} /> },
-    { label: 'Благодарим', component: <ThankYou setActiveStep={setActiveStep} /> },
+    {
+      label: t('common:support-form.steps.info.title'),
+      component: <GeneralInfo formik={formik} />,
+    },
+    { label: t('common:support-form.steps.gdpr.title'), component: <GDPR formik={formik} /> },
+    {
+      label: t('common:support-form.steps.thank-you.title'),
+      component: <ThankYou setActiveStep={setActiveStep} />,
+    },
   ]
 
   const getStepContent = (step: number) => {
@@ -316,7 +323,7 @@ export default function Steppers(this: any) {
   }
 
   return (
-    <Layout title={'Подкрепи'}>
+    <Layout title={t('common:support-form.title')}>
       <Container maxWidth="lg">
         <Stepper
           className={classes.stepper}
@@ -345,7 +352,7 @@ export default function Steppers(this: any) {
             <div className={classes.instructions}>{getStepContent(activeStep)}</div>
             <div>
               <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-                Назад
+                {t('common:support-form.cta.back')}
               </Button>
               <Button
                 variant="contained"
@@ -354,7 +361,9 @@ export default function Steppers(this: any) {
                   isLastStep(activeStep, steps) ? onSubmit : handleNext.bind(this, activeStep)
                 }
                 className={classes.button}>
-                {isLastStep(activeStep, steps) ? 'Преключи' : 'Напред'}
+                {isLastStep(activeStep, steps)
+                  ? t('common:support-form.cta.submit')
+                  : t('common:support-form.cta.next')}
               </Button>
             </div>
           </>

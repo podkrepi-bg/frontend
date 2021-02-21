@@ -42,5 +42,84 @@
       "heading": "Awareness",
       "content": "We are looking for the best solution and when we donate our work, we do it with the full awareness that not everything we do will come into use. If it so happens that your plan or proposal is not approved, you continue with a smile to the next task. If someone else is doing better in your role, you gladly recommend them to lead it, and you help them as much as you can."
     }
+  },
+  "support-form": {
+    "title": "Support",
+    "steps": {
+     "role": {
+       "title": "Role",
+       "subtitle": "How would you support us?",
+       "fields": {
+        "benefactor": "Benefactor",
+        "partner": "Partner",
+        "volunteer": "Volunteer",
+        "associationMember": "Association member",
+        "promoter": "Promoter"
+       }
+     },
+     "addition-questions": {
+      "title": "Additional questions",
+      "subtitle": "How would you support us?",
+      "benefactor": {
+        "title": "Benefactor",
+        "campaignBenefactor": "Campaign benefactor",
+        "platformBenefactor": "Platform benefactor"
+      },
+      "partner": {
+         "title": "Partner",
+         "npo": "NPO",
+         "bussiness": "Bussiness",
+         "other": "Other",
+         "otherText": "Please specify"
+      }
+      ,
+      "volunteer": {
+        "title": "Volunteer",
+        "label": "Please choose area",
+        "marketing": "Marketing",
+        "backend": "Backend",
+        "frontend": "Frontend",
+        "qa": "QA"
+      },
+      "associationMember": {
+        "title": "Association member",
+        "member": "Member"
+      },
+      "promoter": {
+        "title": "Promoter",
+        "mediaPartner": "Media partner",
+        "ambassador": "Ambassador",
+        "other": "Other",
+        "otherText": "Please specify"
+      }
+    },
+    "info": {
+      "title": "Contacts info",
+      "subtitle": "How contact with you?",
+      "email": "Email",
+      "name": "Name",
+      "phone": "Phone number",
+      "address": "Address"
+    },
+    "gdpr": {
+      "title": "GDPR",
+      "label": "GDPR",
+      "terms": "I agree"
+    },
+    "thank-you": {
+      "title": "Thank you",
+      "subtitle": "How would you support us?",
+      "fields": {
+
+      }
+    }
+  },
+    "cta": {
+      "next": "Next",
+      "back": "Back",
+      "reset": "Reset",
+      "submit": "Submit"
+    },
+    "helperText": "At least one checkbox should be checked"
   }
 }

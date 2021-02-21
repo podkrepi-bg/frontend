@@ -13,7 +13,6 @@ import {
 import { FormikProps } from 'formik'
 import * as yup from 'yup'
 
-import { translateError } from 'common/form/useForm'
 import { SupportFormData } from '../types/SuportFormData'
 
 type RolesProps = { formik: FormikProps<SupportFormData> }
@@ -24,7 +23,7 @@ export default function Roles({ formik }: RolesProps) {
     <Grid container spacing={3}>
       <Grid item xs={'auto'} md={'auto'} lg={'auto'}>
         <FormControl required error={!!formik.errors.roles} component="fieldset">
-          <h2>Как искате да ни подкрепите?</h2>
+          <h2>{t('common:support-form.steps.role.subtitle')}</h2>
           <FormGroup>
             <FormControlLabel
               control={
@@ -35,7 +34,7 @@ export default function Roles({ formik }: RolesProps) {
                   color="primary"
                 />
               }
-              label="Дарител"
+              label={t('common:support-form.steps.role.fields.benefactor')}
             />
             <FormControlLabel
               control={
@@ -46,7 +45,7 @@ export default function Roles({ formik }: RolesProps) {
                   color="primary"
                 />
               }
-              label="Партньор"
+              label={t('common:support-form.steps.role.fields.partner')}
             />
             <FormControlLabel
               control={
@@ -57,7 +56,7 @@ export default function Roles({ formik }: RolesProps) {
                   color="primary"
                 />
               }
-              label="Доброволец"
+              label={t('common:support-form.steps.role.fields.volunteer')}
             />
             <FormControlLabel
               control={
@@ -68,7 +67,7 @@ export default function Roles({ formik }: RolesProps) {
                   color="primary"
                 />
               }
-              label="Член на сдружението"
+              label={t('common:support-form.steps.role.fields.associationMember')}
             />
             <FormControlLabel
               control={
@@ -79,10 +78,14 @@ export default function Roles({ formik }: RolesProps) {
                   color="primary"
                 />
               }
-              label="Промотиране"
+              label={t('common:support-form.steps.role.fields.promoter')}
             />
           </FormGroup>
-          {formik.errors.roles ? <FormHelperText>Изберете поне една роля</FormHelperText> : ''}
+          {formik.errors.roles ? (
+            <FormHelperText>{t('common:support-form.helperText')}</FormHelperText>
+          ) : (
+            ''
+          )}
         </FormControl>
       </Grid>
     </Grid>

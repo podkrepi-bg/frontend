@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { FormikProps } from 'formik'
 import {
   Checkbox,
@@ -23,119 +24,129 @@ export default function AdditionalQuestions({
   formik: FormikProps<SupportFormData>
   failedStep: Steps
 }) {
+  const { t } = useTranslation()
   const RenderHelper = [
     {
       key: 'benefactor',
-      title: 'Дарител',
-      errorMessage: 'Изберете поне една роля',
+      title: t('common:support-form.steps.addition-questions.benefactor.title'),
+      errorMessage: t('common:support-form.helperText'),
       formikErrors: formik.errors.benefactor,
       options: [
         {
           type: 'checkbox',
           value: formik.values.benefactor.campaignBenefactor,
           name: 'benefactor.campaignBenefactor',
-          label: 'Дарител за кампании',
+          label: t('common:support-form.steps.addition-questions.benefactor.campaignBenefactor'),
         },
         {
           type: 'checkbox',
           value: formik.values.benefactor.platformBenefactor,
           name: 'benefactor.platformBenefactor',
-          label: 'Дарител за платформата',
+          label: t('common:support-form.steps.addition-questions.benefactor.platformBenefactor'),
         },
       ],
     },
     {
       key: 'associationMember',
-      title: 'Член на сдружението',
-      errorMessage: 'Изберете поне една роля',
+      title: t('common:support-form.steps.addition-questions.associationMember.title'),
+      errorMessage: t('common:support-form.helperText'),
       formikErrors: formik.errors.associationMember,
       options: [
         {
           type: 'checkbox',
           value: formik.values.associationMember.isMember,
           name: 'associationMember.isMember',
-          label: 'Член',
+          label: t('common:support-form.steps.addition-questions.associationMember.member'),
         },
       ],
     },
     {
       key: 'partner',
-      title: 'Партньор',
-      errorMessage: 'Изберете поне една роля',
+      title: t('common:support-form.steps.addition-questions.partner.title'),
+      errorMessage: t('common:support-form.helperText'),
       formikErrors: formik.errors.partner,
       options: [
         {
           type: 'checkbox',
           value: formik.values.partner.npo,
           name: 'partner.npo',
-          label: 'НПО',
+          label: t('common:support-form.steps.addition-questions.partner.npo'),
         },
         {
           type: 'checkbox',
           value: formik.values.partner.bussiness,
           name: 'partner.bussiness',
-          label: 'Бизнес',
+          label: t('common:support-form.steps.addition-questions.partner.bussiness'),
         },
         {
           type: 'checkbox',
           value: formik.values.partner.other,
           name: 'partner.other',
-          label: 'Друго',
+          label: t('common:support-form.steps.addition-questions.partner.other'),
           textFieldOptions: {
             value: formik.values.partner.otherText,
             name: 'partner.otherText',
-            placeholder: 'Моля уточнете',
+            placeholder: t('common:support-form.steps.addition-questions.partner.otherText'),
           },
         },
       ],
     },
     {
       key: 'volunteer',
-      title: 'Доброволец',
-      errorMessage: 'Изберете поне една сфера',
+      title: t('common:support-form.steps.addition-questions.volunteer.title'),
+      errorMessage: t('common:support-form.helperText'),
       formikErrors: formik.errors.volunteer,
       options: [
         {
           type: 'dropdown',
           value: formik.values.volunteer.areas,
           name: 'volunteer.areas',
-          label: 'Моля изберете област',
+          label: t('common:support-form.steps.addition-questions.volunteer.label'),
           dropdownOptions: [
-            { text: 'Маркетинг', value: 'marketing' },
-            { text: 'Backend', value: 'backend' },
-            { text: 'Frontend', value: 'frontend' },
-            { text: 'QA', value: 'qa' },
+            {
+              text: t('common:support-form.steps.addition-questions.volunteer.marketing'),
+              value: 'marketing',
+            },
+            {
+              text: t('common:support-form.steps.addition-questions.volunteer.backend'),
+              value: 'backend',
+            },
+            {
+              text: t('common:support-form.steps.addition-questions.volunteer.frontend'),
+              value: 'frontend',
+            },
+            { text: t('common:support-form.steps.addition-questions.volunteer.qa'), value: 'qa' },
           ],
         },
       ],
     },
     {
       key: 'promoter',
-      title: 'Промотиране',
-      errorMessage: 'Изберете поне една роля',
+      title: t('common:support-form.steps.addition-questions.promoter.title'),
+      errorMessage: t('common:support-form.helperText'),
       formikErrors: formik.errors.promoter,
       options: [
         {
           type: 'checkbox',
           value: formik.values.promoter.mediaPartner,
           name: 'promoter.mediaPartner',
-          label: 'Медиен партньор',
+          label: t('common:support-form.steps.addition-questions.promoter.mediaPartner'),
         },
         {
           type: 'checkbox',
           value: formik.values.promoter.ambassador,
           name: 'promoter.ambassador',
-          label: 'Амбасадор',
+          label: t('common:support-form.steps.addition-questions.promoter.ambassador'),
         },
         {
           type: 'checkbox',
           value: formik.values.promoter.other,
           name: 'promoter.other',
-          label: 'Друго',
+          label: t('common:support-form.steps.addition-questions.promoter.other'),
           textFieldOptions: {
             value: formik.values.promoter.otherText,
             name: 'promoter.otherText',
-            placeholder: 'Моля уточнете',
+            placeholder: t('common:support-form.steps.addition-questions.promoter.otherText'),
           },
         },
       ],
@@ -217,7 +228,7 @@ export default function AdditionalQuestions({
     <Grid container spacing={3}>
       <Grid item xs={6}>
         <FormControl required error={!!formik.errors.roles} component="fieldset">
-          <h2>В каква роля искате да ни подкрепите?</h2>
+          <h2>{t('common:support-form.steps.addition-questions.subtitle')}</h2>
           {Object.entries(formik.values.roles)
             .filter(([_, value]) => value)
             .map(([key, _], index) => (
