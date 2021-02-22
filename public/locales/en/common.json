@@ -46,74 +46,70 @@
   "support-form": {
     "title": "Support",
     "steps": {
-     "role": {
-       "title": "Role",
-       "subtitle": "How would you support us?",
-       "fields": {
-        "benefactor": "Benefactor",
-        "partner": "Partner",
-        "volunteer": "Volunteer",
-        "associationMember": "Association member",
-        "promoter": "Promoter"
-       }
-     },
-     "addition-questions": {
-      "title": "Additional questions",
-      "subtitle": "How would you support us?",
-      "benefactor": {
-        "title": "Benefactor",
-        "campaignBenefactor": "Campaign benefactor",
-        "platformBenefactor": "Platform benefactor"
+      "role": {
+        "title": "Role",
+        "subtitle": "How would you support us?",
+        "fields": {
+          "benefactor": "Benefactor",
+          "partner": "Partner",
+          "volunteer": "Volunteer",
+          "associationMember": "Association member",
+          "promoter": "Promoter"
+        }
       },
-      "partner": {
-         "title": "Partner",
-         "npo": "NPO",
-         "bussiness": "Bussiness",
-         "other": "Other",
-         "otherText": "Please specify"
-      }
-      ,
-      "volunteer": {
-        "title": "Volunteer",
-        "label": "Please choose area",
-        "marketing": "Marketing",
-        "backend": "Backend",
-        "frontend": "Frontend",
-        "qa": "QA"
+      "addition-questions": {
+        "title": "Additional questions",
+        "subtitle": "How would you support us?",
+        "benefactor": {
+          "title": "Benefactor",
+          "campaignBenefactor": "Campaign benefactor",
+          "platformBenefactor": "Platform benefactor"
+        },
+        "partner": {
+          "title": "Partner",
+          "npo": "NPO",
+          "bussiness": "Bussiness",
+          "other": "Other",
+          "otherText": "Please specify"
+        },
+        "volunteer": {
+          "title": "Volunteer",
+          "label": "Please choose area",
+          "marketing": "Marketing",
+          "backend": "Backend",
+          "frontend": "Frontend",
+          "qa": "QA"
+        },
+        "associationMember": {
+          "title": "Association member",
+          "member": "Member"
+        },
+        "promoter": {
+          "title": "Promoter",
+          "mediaPartner": "Media partner",
+          "ambassador": "Ambassador",
+          "other": "Other",
+          "otherText": "Please specify"
+        }
       },
-      "associationMember": {
-        "title": "Association member",
-        "member": "Member"
+      "info": {
+        "title": "Contacts info",
+        "subtitle": "How contact with you?",
+        "email": "Email",
+        "name": "Name",
+        "phone": "Phone number",
+        "address": "Address"
       },
-      "promoter": {
-        "title": "Promoter",
-        "mediaPartner": "Media partner",
-        "ambassador": "Ambassador",
-        "other": "Other",
-        "otherText": "Please specify"
+      "gdpr": {
+        "title": "GDPR",
+        "label": "GDPR",
+        "terms": "I agree"
+      },
+      "thank-you": {
+        "title": "Thank you",
+        "content": "Thanks for joining the supporters!"
       }
     },
-    "info": {
-      "title": "Contacts info",
-      "subtitle": "How contact with you?",
-      "email": "Email",
-      "name": "Name",
-      "phone": "Phone number",
-      "address": "Address"
-    },
-    "gdpr": {
-      "title": "GDPR",
-      "label": "GDPR",
-      "terms": "I agree"
-    },
-    "thank-you": {
-      "title": "Thank you",
-      "subtitle": "How would you support us?",
-      "fields": {
-
-      }
-    }
-  },
     "cta": {
       "next": "Next",
       "back": "Back",
