@@ -1,16 +1,29 @@
 {
-    "title": "Support",
-    "text-fields": {
-        "heading": "An online donation platform",
-        "heading-bold": "with a maximum degree of transparency",
-        "activity-section-title": "What do we do?",
-        "activity-section-text": "Podkrepi.BG is an association of professionals united by the idea of creating a free and completely transparent online donation platform, which can be used freely by citizens and organizations.",
-        "team-section-title": "Who are we?",
-        "team-section-text": "We are a group of volunteers united by the idea of improveing charity in Bulgaria and supporting good causes and the fight for a better life.",
-        "support-us-section-title": "Support us"
-    },
-    "cta": {
-      "support-us": "Support us"
-    }
+  "title": "Podkrepi",
+  "jumbotron": {
+    "heading": "An online donation platform",
+    "heading-bold": "with a maximum degree of transparency",
+    "support-us-button": "Support us"
+  },
+  "activity-section": {
+    "heading": "What do we do?",
+    "content": "Podkrepi.BG is an association of professionals united by the idea of creating a free and completely transparent online donation platform, which can be used freely by citizens and organizations."
+  },
+  "team-section": {
+    "heading": "Who are we?",
+    "content": "We are a group of volunteers united by the idea of improveing charity in Bulgaria and supporting good causes and the fight for a better life."
+  },
+  "support-us-section": {
+    "heading": "Support us",
+    "financial-support": "financially",
+    "labour-support": "with labour",
+    "media-support": "with media",
+    "become-a-partner": "become a partner"
+  },
+  "problems-to-solve-section": {
+    "heading": "What is the problem that we are trying to solve:",
+    "high-commissions": "High commissions",
+    "low-transparency": "Low (lack of) transparency",
+    "timeliness": "Donation timeliness"
+  }
 }
-  
