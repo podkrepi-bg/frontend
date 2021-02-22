@@ -261,7 +261,6 @@ export default function SupportForm(this: any) {
             ))}
           </Stepper>
         </Hidden>
-        {activeStep} / {maxStep}
         {isThankYouStep(activeStep, steps) ? (
           steps[steps.length - 1].component
         ) : (
