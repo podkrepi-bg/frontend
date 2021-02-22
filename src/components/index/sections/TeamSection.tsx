@@ -5,7 +5,7 @@ export default function TeamSection() {
   const { t } = useTranslation()
 
   return (
-    <Box component="section" mb={10} align="center">
+    <Box component="section" mb={10} textAlign="center">
       <Grid container direction="column" alignItems="center" justify="center">
         <Grid item>
           <Typography variant="h5" paragraph>
