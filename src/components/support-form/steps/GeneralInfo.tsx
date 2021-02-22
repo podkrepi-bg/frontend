@@ -18,7 +18,7 @@ export default function GeneralInfo({ formik }: GeneralInfoProps) {
           {t('common:support-form.steps.info.subtitle')}
         </Typography>
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12} sm={6}>
         <TextField
           type="text"
           fullWidth
@@ -37,7 +37,7 @@ export default function GeneralInfo({ formik }: GeneralInfoProps) {
           onChange={formik.handleChange}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12} sm={6}>
         <TextField
           type="text"
           fullWidth
@@ -53,7 +53,7 @@ export default function GeneralInfo({ formik }: GeneralInfoProps) {
           onChange={formik.handleChange}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12} sm={6}>
         <TextField
           type="text"
           fullWidth
@@ -71,7 +71,7 @@ export default function GeneralInfo({ formik }: GeneralInfoProps) {
           onChange={formik.handleChange}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={12} sm={6}>
         <TextField
           type="text"
           fullWidth
