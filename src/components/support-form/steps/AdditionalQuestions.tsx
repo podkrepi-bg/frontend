@@ -2,6 +2,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { FormikProps } from 'formik'
 import {
+  Box,
   Checkbox,
   FormControl,
   FormControlLabel,
@@ -12,7 +13,9 @@ import {
   MenuItem,
   Select,
   TextField,
+  Typography,
 } from '@material-ui/core'
+
 import { RoleRenderObject } from '../helpers/support-form.models'
 import { SupportFormData } from '../helpers/support-form.models'
 
@@ -180,18 +183,22 @@ export default function AdditionalQuestions({ formik }: AdditionalQuestionsProps
                   ) : null}
                 </React.Fragment>
               ) : option.type === 'dropdown' ? (
-                <Select
-                  key={index}
-                  onChange={formik.handleChange}
-                  name={option.name}
-                  value={option.value}
-                  multiple={true}>
-                  {option.dropdownOptions.map((value: any, index: number) => (
-                    <MenuItem key={index} value={value.value}>
-                      {value.text}
-                    </MenuItem>
-                  ))}
-                </Select>
+                <Box mt={1}>
+                  <Select
+                    multiple
+                    fullWidth
+                    key={index}
+                    variant="outlined"
+                    onChange={formik.handleChange}
+                    name={option.name}
+                    value={option.value}>
+                    {option.dropdownOptions.map((value: any, index: number) => (
+                      <MenuItem key={index} value={value.value}>
+                        {value.text}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </Box>
               ) : (
                 <FormControlLabel
                   key={index}
@@ -220,14 +227,16 @@ export default function AdditionalQuestions({ formik }: AdditionalQuestionsProps
     return null
   }
   return (
-    <Grid container spacing={6}>
-      <Grid item xs={12} container justify="center">
-        <h2>{t('common:support-form.steps.addition-questions.subtitle')}</h2>
+    <Grid container spacing={6} justify="center">
+      <Grid item xs={12}>
+        <Typography variant="h4" align="center">
+          {t('common:support-form.steps.addition-questions.subtitle')}
+        </Typography>
       </Grid>
       {Object.entries(formik.values.roles)
         .filter(([_, value]) => value)
-        .map(([key, _], index) => (
-          <Grid key={index} item xs={4} container>
+        .map(([key], index) => (
+          <Grid key={index} item xs={8}>
             {renderQuestion(key)}
           </Grid>
         ))}
