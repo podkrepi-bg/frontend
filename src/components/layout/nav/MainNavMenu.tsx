@@ -33,7 +33,7 @@ export const navItems: NavItem[] = [
     variant: 'text',
   },
   {
-    href: routes.register,
+    href: routes.support,
     label: 'nav.support-us',
     variant: 'outlined',
   },

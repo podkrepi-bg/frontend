@@ -1,6 +1,6 @@
 import React from 'react'
-
-import { Button, createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
+import { useTranslation } from 'react-i18next'
+import { createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,21 +17,18 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-type ThankYouProps = {
-  setActiveStep: React.Dispatch<React.SetStateAction<number>>
-}
-export default function ThankYou({ setActiveStep }: ThankYouProps) {
+export default function ThankYou() {
+  const { t } = useTranslation()
   const classes = useStyles()
-  const handleReset = () => {
-    setActiveStep(0)
-  }
 
   return (
-    <div>
-      <Typography className={classes.instructions}>Благодаря Ви, че ни подкрепихте</Typography>
-      <Button onClick={handleReset} className={classes.button}>
-        Начало
-      </Button>
-    </div>
+    <Grid container spacing={6} justify="center">
+      <Grid item xs={12}>
+        <Typography variant="h4" align="center"></Typography>
+      </Grid>
+      <Typography className={classes.instructions}>
+        {t('common:support-form.steps.thank-you.content')}
+      </Typography>
+    </Grid>
   )
 }
