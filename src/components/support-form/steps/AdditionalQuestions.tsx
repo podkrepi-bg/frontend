@@ -156,7 +156,7 @@ export default function AdditionalQuestions({ formik }: AdditionalQuestionsProps
     const renderObject = RenderHelper.filter((obj) => obj.key == key)[0]
     if (renderObject) {
       return (
-        <FormControl required error={!!formik.errors.roles} component="fieldset">
+        <FormControl fullWidth required error={!!formik.errors.roles} component="fieldset">
           <FormGroup>
             <FormLabel component="legend">{renderObject.title}</FormLabel>
             {(renderObject.options as any[]).map((option: any, index: number) =>
@@ -233,13 +233,17 @@ export default function AdditionalQuestions({ formik }: AdditionalQuestionsProps
           {t('common:support-form.steps.addition-questions.subtitle')}
         </Typography>
       </Grid>
-      {Object.entries(formik.values.roles)
-        .filter(([_, value]) => value)
-        .map(([key], index) => (
-          <Grid key={index} item xs={8}>
-            {renderQuestion(key)}
-          </Grid>
-        ))}
+      <Grid item xs={12} md={10}>
+        <Grid container spacing={6} justify="center">
+          {Object.entries(formik.values.roles)
+            .filter(([_, value]) => value)
+            .map(([key], index) => (
+              <Grid key={index} item xs={12} sm={10}>
+                {renderQuestion(key)}
+              </Grid>
+            ))}
+        </Grid>
+      </Grid>
     </Grid>
   )
 }

@@ -10,6 +10,8 @@ import {
   StepConnector,
   Button,
   Hidden,
+  Grid,
+  Box,
 } from '@material-ui/core'
 
 import useForm from 'common/form/useForm'
@@ -24,6 +26,7 @@ import AdditionalQuestions from './steps/AdditionalQuestions'
 import { validationSchema } from './helpers/validation-schema'
 import { SupportFormData } from './helpers/support-form.models'
 import { Steps, Step as StepType } from './helpers/support-form.models'
+import Actions from './Actions'
 
 const ColorlibConnector = withStyles({
   alternativeLabel: { top: 22 },
@@ -53,11 +56,9 @@ const StyledStepLabel = withStyles({
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: { width: '100%' },
-    button: { marginRight: theme.spacing(1) },
     instructions: { marginTop: theme.spacing(1), marginBottom: theme.spacing(5) },
     stepper: { backgroundColor: 'transparent' },
     content: { display: 'flex', justifyContent: 'center' },
-    actions: { display: 'flex', justifyContent: 'space-between' },
   }),
 )
 
@@ -265,25 +266,25 @@ export default function SupportForm(this: any) {
           steps[steps.length - 1].component
         ) : (
           <div className={classes.content}>
-            <div>
-              <div className={classes.instructions}>{getStepContent(activeStep)}</div>
-              <div className={classes.actions}>
-                <Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
-                  {t('common:support-form.cta.back')}
-                </Button>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={
+            <Grid container xs={12} md={8} justify="center">
+              <Grid item xs={12} className={classes.instructions}>
+                {getStepContent(activeStep)}
+              </Grid>
+              <Grid item xs={12}>
+                <Actions
+                  disableBack={activeStep === 0}
+                  onBack={handleBack}
+                  onNext={
                     isLastStep(activeStep, steps) ? onSubmit : handleNext.bind(this, activeStep)
                   }
-                  className={classes.button}>
-                  {isLastStep(activeStep, steps)
-                    ? t('common:support-form.cta.submit')
-                    : t('common:support-form.cta.next')}
-                </Button>
-              </div>
-            </div>
+                  nextLabel={
+                    isLastStep(activeStep, steps)
+                      ? t('common:support-form.cta.submit')
+                      : t('common:support-form.cta.next')
+                  }
+                />
+              </Grid>
+            </Grid>
           </div>
         )}
       </Container>

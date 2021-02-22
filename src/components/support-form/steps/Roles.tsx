@@ -18,9 +18,9 @@ export default function Roles({ formik }: RolesProps) {
   const { t } = useTranslation()
 
   return (
-    <Grid container spacing={3} justify="center">
-      <Grid item xs={12}>
-        <FormControl required error={!!formik.errors.roles} component="fieldset">
+    <Grid container spacing={6} justify="center">
+      <Grid item xs={12} md={8}>
+        <FormControl fullWidth required error={!!formik.errors.roles} component="fieldset">
           <Typography variant="h4" align="center" paragraph>
             {t('common:support-form.steps.role.subtitle')}
           </Typography>
