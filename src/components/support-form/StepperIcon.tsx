@@ -11,22 +11,25 @@ import HelpIcon from '@material-ui/icons/Help'
 
 const useStepIconStyles = makeStyles({
   root: {
-    backgroundColor: '#ccc',
-    zIndex: 1,
-    color: '#fff',
-    width: 50,
-    height: 50,
-    display: 'flex',
-    borderRadius: '50%',
-    justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#ccc',
+    borderRadius: '50%',
+    color: '#fff',
+    cursor: 'pointer',
+    display: 'flex',
+    height: 50,
+    justifyContent: 'center',
+    width: 50,
+    zIndex: 1,
   },
+
   active: {
-    backgroundImage: 'linear-gradient( 136deg, #4AC3FF 0%, #29a2df 50%, #1b88be 100%)',
-    boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
+    backgroundImage: 'linear-gradient(136deg, #4AC3FF 0%, #29a2df 50%, #1b88be 100%)',
+    boxShadow: '0 4px 10px 0 rgba(0, 0, 0, 0.25)',
   },
+
   completed: {
-    backgroundImage: 'linear-gradient( 136deg, #4AC3FF 0%, #29a2df 50%, #1b88be 100%)',
+    backgroundImage: 'linear-gradient(136deg, #4AC3FF 0%, #29a2df 50%, #1b88be 100%)',
   },
 })
 

@@ -1,26 +1,32 @@
-import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core/styles'
-import { Container, Stepper, Step, StepLabel, StepConnector, Button } from '@material-ui/core'
 import { FormikErrors } from 'formik'
+import { useTranslation } from 'react-i18next'
+import React, { useEffect, useState } from 'react'
+import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core/styles'
+import {
+  Container,
+  Stepper,
+  Step,
+  StepLabel,
+  StepConnector,
+  Button,
+  Hidden,
+} from '@material-ui/core'
 
 import useForm from 'common/form/useForm'
-import { validationSchema } from './helpers/validation-schema'
-import { Steps, Step as StepType } from './helpers/support-form.models'
 import Layout from 'components/layout/Layout'
-import StepIcon from './StepperIcon'
-import GeneralInfo from './steps/GeneralInfo'
-import AdditionalQuestions from './steps/AdditionalQuestions'
-import ThankYou from './steps/ThankYou'
+
 import GDPR from './steps/GDRP'
 import Roles from './steps/Roles'
-
+import StepIcon from './StepperIcon'
+import ThankYou from './steps/ThankYou'
+import GeneralInfo from './steps/GeneralInfo'
+import AdditionalQuestions from './steps/AdditionalQuestions'
+import { validationSchema } from './helpers/validation-schema'
 import { SupportFormData } from './helpers/support-form.models'
+import { Steps, Step as StepType } from './helpers/support-form.models'
 
 const ColorlibConnector = withStyles({
-  alternativeLabel: {
-    top: 22,
-  },
+  alternativeLabel: { top: 22 },
   active: {
     '& $line': {
       backgroundImage: 'linear-gradient( 95deg, #4AC3FF 0%, #29a2df 50%, #1b88be 100%)',
@@ -39,29 +45,19 @@ const ColorlibConnector = withStyles({
   },
 })(StepConnector)
 
+const StyledStepLabel = withStyles({
+  label: { cursor: 'pointer' },
+  iconContainer: { cursor: 'pointer' },
+})(StepLabel)
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      width: '100%',
-    },
-    button: {
-      marginRight: theme.spacing(1),
-    },
-    instructions: {
-      marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(5),
-    },
-    stepper: {
-      backgroundColor: 'transparent',
-    },
-    content: {
-      display: 'flex',
-      justifyContent: 'center',
-    },
-    actions: {
-      display: 'flex',
-      justifyContent: 'space-between',
-    },
+    root: { width: '100%' },
+    button: { marginRight: theme.spacing(1) },
+    instructions: { marginTop: theme.spacing(1), marginBottom: theme.spacing(5) },
+    stepper: { backgroundColor: 'transparent' },
+    content: { display: 'flex', justifyContent: 'center' },
+    actions: { display: 'flex', justifyContent: 'space-between' },
   }),
 )
 
@@ -109,6 +105,16 @@ export default function SupportForm(this: any) {
   const classes = useStyles()
   const [activeStep, setActiveStep] = useState(0)
   const [failedStep, setFailedStep] = useState(Steps.NONE)
+  const [maxStep, setMaxStep] = useState(0)
+
+  useEffect(() => {
+    setMaxStep((prev) => {
+      if (activeStep > prev) {
+        return activeStep
+      }
+      return prev
+    })
+  }, [activeStep])
 
   const handleNext = (step: Steps | number) => {
     switch (step) {
@@ -130,12 +136,14 @@ export default function SupportForm(this: any) {
             let hasErrors = false
             const questions = Object.entries(formik.values.roles)
               .filter(([_, value]) => value)
-              .map(([key, _]) => key)
+              .map(([key]) => key)
+
             Object.keys(errors).forEach((error) => {
               if (questions.includes(error)) {
                 hasErrors = true
               }
             })
+
             if (hasErrors) {
               stepFailed(Steps.QUESTIONS)
               return
@@ -182,6 +190,12 @@ export default function SupportForm(this: any) {
     return activeStep === steps.length - 1
   }
 
+  const goToStep = (step: number) => {
+    if (step <= maxStep) {
+      return () => setActiveStep(step)
+    }
+  }
+
   const onSubmit = () => {
     formik.validateForm().then((errors: FormikErrors<SupportFormData>) => {
       const hasErrors = !!Object.keys(errors).length
@@ -200,7 +214,10 @@ export default function SupportForm(this: any) {
   const { formik } = useForm({ initialValues: defaults, onSubmit, validationSchema })
 
   const steps = [
-    { label: t('common:support-form.steps.role.title'), component: <Roles formik={formik} /> },
+    {
+      label: t('common:support-form.steps.role.title'),
+      component: <Roles formik={formik} />,
+    },
     {
       label: t('common:support-form.steps.addition-questions.title'),
       component: <AdditionalQuestions formik={formik} />,
@@ -209,10 +226,13 @@ export default function SupportForm(this: any) {
       label: t('common:support-form.steps.info.title'),
       component: <GeneralInfo formik={formik} />,
     },
-    { label: t('common:support-form.steps.gdpr.title'), component: <GDPR formik={formik} /> },
+    {
+      label: t('common:support-form.steps.gdpr.title'),
+      component: <GDPR formik={formik} />,
+    },
     {
       label: t('common:support-form.steps.thank-you.title'),
-      component: <ThankYou setActiveStep={setActiveStep} />,
+      component: <ThankYou />,
     },
   ]
 
@@ -223,26 +243,25 @@ export default function SupportForm(this: any) {
   return (
     <Layout title={t('common:support-form.title')}>
       <Container maxWidth="lg">
-        <Stepper
-          className={classes.stepper}
-          alternativeLabel
-          activeStep={activeStep}
-          connector={<ColorlibConnector />}>
-          {steps.map((step, index) => {
-            const labelProps: { optional?: React.ReactNode; error?: boolean } = {}
-
-            if (isStepFailed(index)) {
-              labelProps.error = true
-            }
-            return (
-              <Step key={step.label}>
-                <StepLabel {...labelProps} StepIconComponent={StepIcon}>
+        <Hidden smDown>
+          <Stepper
+            alternativeLabel
+            activeStep={activeStep}
+            className={classes.stepper}
+            connector={<ColorlibConnector />}>
+            {steps.map((step, index) => (
+              <Step key={index}>
+                <StyledStepLabel
+                  onClick={goToStep(index)}
+                  error={isStepFailed(index)}
+                  StepIconComponent={StepIcon}>
                   {step.label}
-                </StepLabel>
+                </StyledStepLabel>
               </Step>
-            )
-          })}
-        </Stepper>
+            ))}
+          </Stepper>
+        </Hidden>
+        {activeStep} / {maxStep}
         {isThankYouStep(activeStep, steps) ? (
           steps[steps.length - 1].component
         ) : (
