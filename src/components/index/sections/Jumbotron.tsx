@@ -1,7 +1,8 @@
-import { Grid, Typography, Box } from '@material-ui/core'
 import { useTranslation } from 'react-i18next'
+import { Grid, Typography, Box } from '@material-ui/core'
 
-import SubmitButton from 'components/common/form/SubmitButton'
+import { routes } from 'common/routes'
+import LinkButton from 'components/common/LinkButton'
 
 export default function Index() {
   const { t } = useTranslation()
@@ -18,7 +19,9 @@ export default function Index() {
           </Typography>
         </Grid>
         <Grid item>
-          <SubmitButton variant="outlined" label="index:jumbotron.support-us-button" />
+          <LinkButton href={routes.support} variant="outlined" color="primary">
+            {t('index:jumbotron.support-us-button')}
+          </LinkButton>
         </Grid>
       </Grid>
     </Box>
