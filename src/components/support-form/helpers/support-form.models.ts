@@ -39,7 +39,10 @@ export type SupportFormData = {
     | any
   volunteer:
     | {
-        areas: Array<string>
+        backend: boolean
+        frontend: boolean
+        marketing: boolean
+        qa: boolean
       }
     | any
   associationMember:
