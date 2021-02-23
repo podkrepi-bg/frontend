@@ -186,6 +186,9 @@ export default function SupportForm(this: typeof SupportForm) {
   }
 
   const goToStep = (step: number) => {
+    if (isThankYouStep(activeStep, steps)) {
+      return undefined
+    }
     if (step <= maxStep) {
       return () => setActiveStep(step)
     }
