@@ -70,7 +70,10 @@ const partner: yup.SchemaOf<Partner> = yup
 const volunteer: yup.SchemaOf<Volunteer> = yup
   .object()
   .shape({
-    areas: yup.array().of(yup.string()),
+    backend: yup.bool(),
+    frontend: yup.bool(),
+    qa: yup.bool(),
+    marketing: yup.bool(),
   })
   .defined()
 
@@ -114,7 +117,11 @@ export const validationSchema: yup.SchemaOf<SupportFormData> = yup.object().shap
       )),
     otherwise: partner.notRequired().default(undefined),
   }),
-  volunteer: yup.object().when('roles.volunteer', { is: true, then: volunteer }),
+  volunteer: yup.object().when('roles.volunteer', {
+    is: true,
+    then: volunteer.required().test('checkboxChecked', checkboxError, checkboxChecked),
+    otherwise: volunteer.notRequired().default(undefined),
+  }),
   promoter: yup.object().when('roles.promoter', {
     is: true,
     then: promoter

@@ -30,7 +30,10 @@ export type Partner = {
   otherText?: string
 }
 export type Volunteer = {
-  areas: Array<string>
+  backend: boolean
+  frontend: boolean
+  marketing: boolean
+  qa: boolean
 }
 export type Member = {
   isMember: boolean
@@ -60,18 +63,12 @@ export interface TextFieldOptions {
   placeholder: string
 }
 
-export interface DropdownOption {
-  text: string
-  value: string
-}
-
 export interface Option {
   type: string
   value: string | string[] | boolean | undefined
   name: string
   label: string
   textFieldOptions?: TextFieldOptions
-  dropdownOptions?: DropdownOption[]
 }
 
 export interface RoleRenderObject {
