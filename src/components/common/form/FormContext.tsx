@@ -1,9 +1,9 @@
 import React, { PropsWithChildren } from 'react'
-import { FormikValues } from 'formik'
+import { FormikProps } from 'formik'
 const { Provider, Consumer } = React.createContext({})
 
 type FormProps = {
-  value: FormikValues
+  value: FormikProps<any>
 }
 
 export type FormContextProps = PropsWithChildren<FormProps>

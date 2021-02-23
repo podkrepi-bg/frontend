@@ -10,14 +10,8 @@ function checkboxChecked(this: any, value: { [key: string]: boolean }) {
 }
 
 export const validationSchema: yup.SchemaOf<SupportFormData> = yup.object().shape({
-  terms: yup
-    .bool()
-    .required()
-    .test('checkboxChecked', 'Please check one checkbox', (value) => {
-      return value
-        ? true
-        : new yup.ValidationError('Please check one checkbox', null, 'checkboxChecked')
-    }),
+  terms: yup.bool().required().oneOf([true], 'You must accept the terms and conditions'),
+  newsletter: yup.bool().required(),
   info: yup
     .object()
     .shape({
