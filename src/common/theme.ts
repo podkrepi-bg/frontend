@@ -1,7 +1,7 @@
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import { createMuiTheme, darken, responsiveFontSizes } from '@material-ui/core/styles'
 
-const fontFamily = 'Poiret One'
+const fontFamily = 'Montserrat'
 const colors = {
   blue: {
     light: '#F3FDFF',
