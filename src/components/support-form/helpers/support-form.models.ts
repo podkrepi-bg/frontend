@@ -47,11 +47,11 @@ export type SupportFormData = {
   newsletter: boolean
   info: Info
   roles: Roles
-  benefactor?: Benefactor | Record<string, unknown>
-  partner?: Partner | Record<string, unknown>
-  volunteer?: Volunteer | Record<string, unknown>
-  associationMember?: Member | Record<string, unknown>
-  promoter?: Promoter | Record<string, unknown>
+  benefactor?: Benefactor | Record<string, undefined>
+  partner?: Partner | Record<string, undefined>
+  volunteer?: Volunteer | Record<string, undefined>
+  associationMember?: Member | Record<string, undefined>
+  promoter?: Promoter | Record<string, undefined>
 }
 
 export interface TextFieldOptions {
