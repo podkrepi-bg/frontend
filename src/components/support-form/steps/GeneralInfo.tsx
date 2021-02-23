@@ -115,7 +115,7 @@ export default function GeneralInfo({ formik }: GeneralInfoProps) {
                 }
                 label={t('common:support-form.steps.info.terms')}
               />
-              {Boolean(formik.errors.terms) && Boolean(formik.touched.terms) && (
+              {Boolean(formik.errors.terms) && (
                 <FormHelperText error>{translateError(formik.errors.terms, t)}</FormHelperText>
               )}
             </FormControl>
