@@ -218,7 +218,7 @@ export default function AdditionalQuestions({ formik, failedStep }: AdditionalQu
       <Grid item xs={12} md={10}>
         <Grid container spacing={6} justify="center">
           {Object.entries(formik.values.roles)
-            .filter(([_, value]) => value)
+            .filter(([, value]) => value)
             .map(([key], index) => (
               <Grid key={index} item xs={12} sm={10}>
                 {renderQuestion(key)}
