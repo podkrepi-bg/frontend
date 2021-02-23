@@ -2,17 +2,7 @@ import { FormikErrors } from 'formik'
 import { useTranslation } from 'react-i18next'
 import React, { useEffect, useState } from 'react'
 import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core/styles'
-import {
-  Container,
-  Stepper,
-  Step,
-  StepLabel,
-  StepConnector,
-  Button,
-  Hidden,
-  Grid,
-  Box,
-} from '@material-ui/core'
+import { Container, Stepper, Step, StepLabel, StepConnector, Hidden, Grid } from '@material-ui/core'
 
 import useForm from 'common/form/useForm'
 import Layout from 'components/layout/Layout'
@@ -157,7 +147,7 @@ export default function SupportForm(this: any) {
       case Steps.INFO:
         {
           formik.validateForm().then((errors: FormikErrors<SupportFormData>) => {
-            if (errors.info) {
+            if (errors.info || errors.terms) {
               stepFailed(Steps.INFO)
               return
             }
