@@ -2,10 +2,10 @@ import { Grid, Typography, Box } from '@material-ui/core'
 import { useTranslation } from 'react-i18next'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
-import FinancesIcon from '../../icons/support-us-icons/FinancesIcon'
-import LabourIcon from '../../icons/support-us-icons/LabourIcon'
-import MediaIcon from '../../icons/support-us-icons/MediaIcon'
-import PartnershipIcon from '../../icons/support-us-icons/PartnershipIcon'
+import FinancesIcon from '../icons/support-us-icons/FinancesIcon'
+import LabourIcon from '../icons/support-us-icons/LabourIcon'
+import MediaIcon from '../icons/support-us-icons/MediaIcon'
+import PartnershipIcon from '../icons/support-us-icons/PartnershipIcon'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
