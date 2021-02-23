@@ -109,7 +109,7 @@ export default function GeneralInfo({ formik }: GeneralInfoProps) {
                   color="primary"
                 />
               }
-              label={t('common:support-form.steps.gdpr.terms')}
+              label={t('common:support-form.steps.info.terms')}
             />
           </FormControl>
           {formik.errors.terms ? (
