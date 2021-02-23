@@ -97,26 +97,29 @@ export default function GeneralInfo({ formik }: GeneralInfoProps) {
           onChange={formik.handleChange}
         />
       </Grid>
-      <Grid container direction="column" alignItems="flex-end">
-        <Grid item xs={12}>
-          <FormControl required error={!!formik.errors.terms} component="fieldset">
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={formik.values.terms}
-                  onChange={formik.handleChange}
-                  name="terms"
-                  color="primary"
-                />
-              }
-              label={t('common:support-form.steps.info.terms')}
-            />
-          </FormControl>
-          {formik.errors.terms ? (
-            <FormHelperText error={true}>{t('common:support-form.termsHelperText')}</FormHelperText>
-          ) : (
-            ''
-          )}
+      <Grid item xs={12} sm={6}>
+        <Grid container direction="column" alignItems="flex-start">
+          <Grid item xs={12}>
+            <FormControl
+              required
+              error={Boolean(formik.errors.terms) && Boolean(formik.touched.terms)}
+              component="fieldset">
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={formik.values.terms}
+                    onChange={formik.handleChange}
+                    name="terms"
+                    color="primary"
+                  />
+                }
+                label={t('common:support-form.steps.info.terms')}
+              />
+              {Boolean(formik.errors.terms) && Boolean(formik.touched.terms) && (
+                <FormHelperText error>{translateError(formik.errors.terms, t)}</FormHelperText>
+              )}
+            </FormControl>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>
