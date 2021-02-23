@@ -7,7 +7,7 @@ import { Container, Stepper, Step, StepLabel, StepConnector, Hidden, Grid } from
 import useForm from 'common/form/useForm'
 import Layout from 'components/layout/Layout'
 
-import GDPR from './steps/GDRP'
+import Newsletter from './steps/Newsletter'
 import Roles from './steps/Roles'
 import StepIcon from './StepperIcon'
 import ThankYou from './steps/ThankYou'
@@ -54,6 +54,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const defaults: SupportFormData = {
   terms: false,
+  newsletter: false,
   info: {
     email: '',
     name: '',
@@ -191,7 +192,7 @@ export default function SupportForm(this: any) {
     formik.validateForm().then((errors: FormikErrors<SupportFormData>) => {
       const hasErrors = !!Object.keys(errors).length
       if (hasErrors) {
-        stepFailed(Steps.GDPR)
+        stepFailed(Steps.NEWSLETTER)
         return
       }
 
@@ -218,8 +219,8 @@ export default function SupportForm(this: any) {
       component: <GeneralInfo formik={formik} />,
     },
     {
-      label: t('common:support-form.steps.gdpr.title'),
-      component: <GDPR formik={formik} />,
+      label: t('common:support-form.steps.newsletter.title'),
+      component: <Newsletter formik={formik} />,
     },
     {
       label: t('common:support-form.steps.thank-you.title'),

@@ -10,11 +10,12 @@ export enum Steps {
   ROLES = 0,
   QUESTIONS = 1,
   INFO = 2,
-  GDPR = 3,
+  NEWSLETTER = 3,
 }
 
 export type SupportFormData = {
   terms: boolean
+  newsletter: boolean
   info: {
     email: string
     name: string

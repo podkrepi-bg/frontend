@@ -98,12 +98,12 @@
         "email": "Email",
         "name": "Name",
         "phone": "Phone number",
-        "address": "Address"
+        "address": "Address",
+        "terms": "Agree to the Terms and Conditions"
       },
-      "gdpr": {
-        "title": "GDPR",
-        "label": "GDPR",
-        "terms": "I agree"
+      "newsletter": {
+        "title": "Newsletter",
+        "label": "Subscription"
       },
       "thank-you": {
         "title": "Thank you",
