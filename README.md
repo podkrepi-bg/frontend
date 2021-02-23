@@ -7,9 +7,7 @@
 ![Dev Dependencies](https://img.shields.io/david/dev/daritelska-platforma/frontend)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## What's in the box
@@ -78,6 +76,9 @@ Thanks goes to these wonderful people:
     <td align="center"><a href="https://github.com/Nikola-Andreev"><img src="https://avatars.githubusercontent.com/u/19424332?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nikola Andreev</b></sub></a><br /><a href="https://github.com/daritelska-platforma/frontend/commits?author=Nikola-Andreev" title="Code">💻</a> <a href="https://github.com/daritelska-platforma/frontend/commits?author=Nikola-Andreev" title="Documentation">📖</a> <a href="#tool-Nikola-Andreev" title="Tools">🔧</a></td>
     <td align="center"><a href="https://petkopavlovski.com/"><img src="https://avatars.githubusercontent.com/u/32264020?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Pete Pavlovski</b></sub></a><br /><a href="https://github.com/daritelska-platforma/frontend/commits?author=arthas168" title="Code">💻</a> <a href="https://github.com/daritelska-platforma/frontend/commits?author=arthas168" title="Documentation">📖</a> <a href="https://github.com/daritelska-platforma/frontend/pulls?q=is%3Apr+reviewed-by%3Aarthas168" title="Reviewed Pull Requests">👀</a></td>
     <td align="center"><a href="https://github.com/uzuntonev"><img src="https://avatars.githubusercontent.com/u/51097961?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Georgi Uzuntonev</b></sub></a><br /><a href="https://github.com/daritelska-platforma/frontend/commits?author=uzuntonev" title="Code">💻</a> <a href="https://github.com/daritelska-platforma/frontend/commits?author=uzuntonev" title="Documentation">📖</a> <a href="https://github.com/daritelska-platforma/frontend/pulls?q=is%3Apr+reviewed-by%3Auzuntonev" title="Reviewed Pull Requests">👀</a> <a href="#tool-uzuntonev" title="Tools">🔧</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/vikinatora"><img src="https://avatars.githubusercontent.com/u/29047760?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Viktor Todorov</b></sub></a><br /><a href="https://github.com/daritelska-platforma/frontend/commits?author=vikinatora" title="Code">💻</a> <a href="https://github.com/daritelska-platforma/frontend/commits?author=vikinatora" title="Documentation">📖</a> <a href="https://github.com/daritelska-platforma/frontend/pulls?q=is%3Apr+reviewed-by%3Avikinatora" title="Reviewed Pull Requests">👀</a> <a href="#tool-vikinatora" title="Tools">🔧</a></td>
   </tr>
 </table>
 
