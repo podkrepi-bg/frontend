@@ -1,9 +1,10 @@
 import React from 'react'
-import { FormikValues } from 'formik'
+import { FormikProps } from 'formik'
 import { TextField } from '@material-ui/core'
 import { FormContextConsumer } from 'components/common/form/FormContext'
 import { translateError } from 'common/form/useForm'
 import { TFunction } from 'react-i18next'
+import { TranslatableField } from 'common/form/validation'
 
 export type RegisterFormProps = {
   type: string
@@ -11,11 +12,13 @@ export type RegisterFormProps = {
   name: string
   translate: TFunction
 }
-
+type FormikType = {
+  [key: string]: FormikProps<any>
+}
 const FormTextField = ({ type, label, name, translate }: RegisterFormProps) => {
   return (
     <FormContextConsumer>
-      {({ formik }: FormikValues) => (
+      {({ formik }: FormikType) => (
         <TextField
           type={type}
           fullWidth
@@ -23,8 +26,12 @@ const FormTextField = ({ type, label, name, translate }: RegisterFormProps) => {
           name={name}
           size="small"
           variant="outlined"
-          error={Boolean(formik.errors[name])}
-          helperText={translateError(formik.errors[name], translate)}
+          error={Boolean(formik.errors[name]) && !!formik.touched[name]}
+          helperText={
+            formik.touched[name]
+              ? translateError(formik.errors[name] as TranslatableField, translate)
+              : ''
+          }
           value={formik.values[name]}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
