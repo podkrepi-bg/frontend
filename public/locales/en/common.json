@@ -98,12 +98,12 @@
         "email": "Email",
         "name": "Name",
         "phone": "Phone number",
-        "address": "Address"
+        "address": "Address",
+        "terms": "Agree to the Terms and Conditions"
       },
-      "gdpr": {
-        "title": "GDPR",
-        "label": "GDPR",
-        "terms": "I agree"
+      "newsletter": {
+        "title": "Newsletter",
+        "label": "Subscription"
       },
       "thank-you": {
         "title": "Thank you",
@@ -116,6 +116,7 @@
       "reset": "Reset",
       "submit": "Submit"
     },
-    "helperText": "At least one checkbox should be checked"
+    "helperText": "At least one checkbox should be checked",
+    "termsHelperText": "Please agree to the Terms and Conditions"
   }
 }

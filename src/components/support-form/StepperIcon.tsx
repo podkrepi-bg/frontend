@@ -6,7 +6,7 @@ import GroupAddIcon from '@material-ui/icons/GroupAdd'
 import ContactMailIcon from '@material-ui/icons/ContactMail'
 import { StepIconProps } from '@material-ui/core/StepIcon'
 import { AccessibilityNew } from '@material-ui/icons'
-import SecurityIcon from '@material-ui/icons/Security'
+import MailIcon from '@material-ui/icons/Mail'
 import HelpIcon from '@material-ui/icons/Help'
 
 const useStepIconStyles = makeStyles({
@@ -41,7 +41,7 @@ export default function StepIcon(props: StepIconProps) {
     1: <GroupAddIcon />,
     2: <HelpIcon />,
     3: <ContactMailIcon />,
-    4: <SecurityIcon />,
+    4: <MailIcon />,
     5: <AccessibilityNew />,
   }
 

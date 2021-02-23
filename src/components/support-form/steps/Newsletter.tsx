@@ -5,13 +5,13 @@ import { Checkbox, FormControl, FormControlLabel, FormLabel } from '@material-ui
 
 import { SupportFormData } from '../helpers/support-form.models'
 
-type GDRPProps = { formik: FormikProps<SupportFormData> }
-export default function GDPR({ formik }: GDRPProps) {
+type NewsletterProps = { formik: FormikProps<SupportFormData> }
+export default function Newsletter({ formik }: NewsletterProps) {
   const { t } = useTranslation()
 
   return (
-    <FormControl required error={!!formik.errors.terms} component="fieldset">
-      <FormLabel component="legend">{t('common:support-form.steps.gdpr.label')}</FormLabel>
+    <FormControl component="fieldset">
+      <FormLabel component="legend">{t('common:support-form.steps.newsletter.title')}</FormLabel>
       <FormControlLabel
         control={
           <Checkbox
@@ -21,7 +21,7 @@ export default function GDPR({ formik }: GDRPProps) {
             color="primary"
           />
         }
-        label={t('common:support-form.steps.gdpr.terms')}
+        label={t('common:support-form.steps.newsletter.label')}
       />
     </FormControl>
   )
