@@ -16,14 +16,15 @@ import {
   Typography,
 } from '@material-ui/core'
 
-import { RoleRenderObject } from '../helpers/support-form.models'
+import { RoleRenderObject, Steps } from '../helpers/support-form.models'
 import { SupportFormData } from '../helpers/support-form.models'
 
 type AdditionalQuestionsProps = {
   formik: FormikProps<SupportFormData>
+  failedStep: Steps
 }
 
-export default function AdditionalQuestions({ formik }: AdditionalQuestionsProps) {
+export default function AdditionalQuestions({ formik, failedStep }: AdditionalQuestionsProps) {
   const { t } = useTranslation()
   const RenderHelper: Array<RoleRenderObject> = [
     {
@@ -98,25 +99,28 @@ export default function AdditionalQuestions({ formik }: AdditionalQuestionsProps
       formikErrors: formik.errors.volunteer,
       options: [
         {
-          type: 'dropdown',
-          value: formik.values.volunteer.areas,
-          name: 'volunteer.areas',
-          label: t('common:support-form.steps.addition-questions.volunteer.label'),
-          dropdownOptions: [
-            {
-              text: t('common:support-form.steps.addition-questions.volunteer.marketing'),
-              value: 'marketing',
-            },
-            {
-              text: t('common:support-form.steps.addition-questions.volunteer.backend'),
-              value: 'backend',
-            },
-            {
-              text: t('common:support-form.steps.addition-questions.volunteer.frontend'),
-              value: 'frontend',
-            },
-            { text: t('common:support-form.steps.addition-questions.volunteer.qa'), value: 'qa' },
-          ],
+          type: 'checkbox',
+          value: formik.values.volunteer.backend,
+          name: 'volunteer.backend',
+          label: t('common:support-form.steps.addition-questions.volunteer.backend'),
+        },
+        {
+          type: 'checkbox',
+          value: formik.values.volunteer.frontend,
+          name: 'volunteer.frontend',
+          label: t('common:support-form.steps.addition-questions.volunteer.frontend'),
+        },
+        {
+          type: 'checkbox',
+          value: formik.values.volunteer.qa,
+          name: 'volunteer.qa',
+          label: t('common:support-form.steps.addition-questions.volunteer.qa'),
+        },
+        {
+          type: 'checkbox',
+          value: formik.values.volunteer.marketing,
+          name: 'volunteer.marketing',
+          label: t('common:support-form.steps.addition-questions.volunteer.marketing'),
         },
       ],
     },
@@ -216,7 +220,7 @@ export default function AdditionalQuestions({ formik }: AdditionalQuestionsProps
               ),
             )}
           </FormGroup>
-          {renderObject.formikErrors ? (
+          {renderObject.formikErrors && failedStep === Steps.QUESTIONS ? (
             <FormHelperText error={true}>{renderObject.errorMessage}</FormHelperText>
           ) : (
             ''

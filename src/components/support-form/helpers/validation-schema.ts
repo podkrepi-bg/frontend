@@ -74,9 +74,21 @@ export const validationSchema: yup.SchemaOf<SupportFormData> = yup.object().shap
   }),
   volunteer: yup.object().when('roles.volunteer', {
     is: true,
-    then: yup.object().shape({
-      areas: yup.array().of(yup.string()),
-    }),
+    then: yup
+      .object()
+      .shape({
+        backend: yup.bool(),
+        frontend: yup.bool(),
+        qa: yup.bool(),
+        marketing: yup.bool(),
+      })
+      .test('checkboxChecked', 'Must have at least one checked box', checkboxChecked)
+      .test('CustomValidation', 'Custom validation', function (this: any, values: any) {
+        const { path, createError } = this
+        return values.other && !values.otherText
+          ? createError({ path, message: 'field is required' })
+          : true
+      }),
   }),
   promoter: yup.object().when('roles.promoter', {
     is: true,

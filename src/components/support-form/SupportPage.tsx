@@ -79,7 +79,10 @@ const defaults: SupportFormData = {
     otherText: '',
   },
   volunteer: {
-    areas: [],
+    backend: false,
+    frontend: false,
+    marketing: false,
+    qa: false,
   },
   associationMember: {
     isMember: true,
@@ -212,11 +215,11 @@ export default function SupportForm(this: any) {
     },
     {
       label: t('common:support-form.steps.addition-questions.title'),
-      component: <AdditionalQuestions formik={formik} />,
+      component: <AdditionalQuestions failedStep={failedStep} formik={formik} />,
     },
     {
       label: t('common:support-form.steps.info.title'),
-      component: <GeneralInfo formik={formik} />,
+      component: <GeneralInfo failedStep={failedStep} formik={formik} />,
     },
     {
       label: t('common:support-form.steps.newsletter.title'),
