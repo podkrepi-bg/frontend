@@ -12,6 +12,10 @@ const useStyles = makeStyles((theme) =>
     icon: {
       fontSize: theme.spacing(10),
       fill: 'none',
+      marginBottom: '7px',
+    },
+    heading: {
+      marginBottom: '40px',
     },
   }),
 )
@@ -22,30 +26,30 @@ export default function SupportUsSection() {
 
   return (
     <Box component="section" mb={10} textAlign="center">
-      <Typography variant="h5" paragraph>
+      <Typography variant="h5" className={classes.heading}>
         {t('index:support-us-section.heading')}
       </Typography>
       <Grid container direction="row">
         <Box display="flex" justifyContent="space-between" flexWrap="wrap" width="100%">
-          <Box textAlign="center">
+          <Box>
             <FinancesIcon className={classes.icon} />
             <Typography variant="subtitle1" paragraph>
               {t('index:support-us-section.financial-support')}
             </Typography>
           </Box>
-          <Box textAlign="center">
+          <Box>
             <LabourIcon className={classes.icon} />
             <Typography variant="subtitle1" paragraph>
               {t('index:support-us-section.labour-support')}
             </Typography>
           </Box>
-          <Box textAlign="center">
+          <Box>
             <MediaIcon className={classes.icon} />
             <Typography variant="subtitle1" paragraph>
               {t('index:support-us-section.media-support')}
             </Typography>
           </Box>
-          <Box textAlign="center">
+          <Box>
             <PartnershipIcon className={classes.icon} />
             <Typography variant="subtitle1" paragraph>
               {t('index:support-us-section.become-a-partner')}

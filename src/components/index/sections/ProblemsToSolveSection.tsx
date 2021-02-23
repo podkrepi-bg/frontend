@@ -10,6 +10,10 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     icon: {
       fontSize: theme.spacing(10),
+      marginRight: '7px',
+    },
+    heading: {
+      marginBottom: '40px',
     },
   }),
 )
@@ -19,8 +23,8 @@ export default function SupportUsSection() {
   const { t } = useTranslation()
 
   return (
-    <Box component="section" mb={10} textAlign="center">
-      <Typography variant="h5" paragraph>
+    <Box component="section" mb={10}>
+      <Typography variant="h5" align="center" className={classes.heading}>
         {t('index:problems-to-solve-section.heading')}
       </Typography>
       <Grid container direction="row">
