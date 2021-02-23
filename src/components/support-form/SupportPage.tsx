@@ -257,7 +257,7 @@ export default function SupportForm(this: any) {
           steps[steps.length - 1].component
         ) : (
           <div className={classes.content}>
-            <Grid container xs={12} md={8} justify="center">
+            <Grid container justify="center">
               <Grid item xs={12} className={classes.instructions}>
                 {getStepContent(activeStep)}
               </Grid>
