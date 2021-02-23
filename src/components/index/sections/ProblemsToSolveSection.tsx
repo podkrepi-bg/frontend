@@ -2,9 +2,9 @@ import { Grid, Typography, Box } from '@material-ui/core'
 import { useTranslation } from 'react-i18next'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
-import CommissionsIcon from '../../icons/problems-to-solve-icons/CommissionsIcon'
-import TransparencyIcon from '../../icons/problems-to-solve-icons/TransparencyIcon'
-import TimelinessIcon from '../../icons/problems-to-solve-icons/TimelinessIcon'
+import CommissionsIcon from '../icons/problems-to-solve-icons/CommissionsIcon'
+import TransparencyIcon from '../icons/problems-to-solve-icons/TransparencyIcon'
+import TimelinessIcon from '../icons/problems-to-solve-icons/TimelinessIcon'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
