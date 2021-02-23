@@ -1,6 +1,14 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Grid, TextField, Typography } from '@material-ui/core'
+import {
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  Grid,
+  TextField,
+  Typography,
+} from '@material-ui/core'
 import { FormikProps } from 'formik'
 
 import { translateError } from 'common/form/useForm'
@@ -88,6 +96,28 @@ export default function GeneralInfo({ formik }: GeneralInfoProps) {
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
         />
+      </Grid>
+      <Grid container direction="column" alignItems="flex-end">
+        <Grid item xs={12}>
+          <FormControl required error={!!formik.errors.terms} component="fieldset">
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={formik.values.terms}
+                  onChange={formik.handleChange}
+                  name="terms"
+                  color="primary"
+                />
+              }
+              label={t('common:support-form.steps.gdpr.terms')}
+            />
+          </FormControl>
+          {formik.errors.terms ? (
+            <FormHelperText error={true}>{t('common:support-form.termsHelperText')}</FormHelperText>
+          ) : (
+            ''
+          )}
+        </Grid>
       </Grid>
     </Grid>
   )
