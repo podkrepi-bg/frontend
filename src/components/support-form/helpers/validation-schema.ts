@@ -82,13 +82,7 @@ export const validationSchema: yup.SchemaOf<SupportFormData> = yup.object().shap
         qa: yup.bool(),
         marketing: yup.bool(),
       })
-      .test('checkboxChecked', 'Must have at least one checked box', checkboxChecked)
-      .test('CustomValidation', 'Custom validation', function (this: any, values: any) {
-        const { path, createError } = this
-        return values.other && !values.otherText
-          ? createError({ path, message: 'field is required' })
-          : true
-      }),
+      .test('checkboxChecked', 'Must have at least one checked box', checkboxChecked),
   }),
   promoter: yup.object().when('roles.promoter', {
     is: true,
