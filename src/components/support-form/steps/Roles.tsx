@@ -11,10 +11,13 @@ import {
 } from '@material-ui/core'
 import { FormikProps } from 'formik'
 
-import { SupportFormData } from '../helpers/support-form.models'
+import { Steps, SupportFormData } from '../helpers/support-form.models'
 
-type RolesProps = { formik: FormikProps<SupportFormData> }
-export default function Roles({ formik }: RolesProps) {
+type RolesProps = {
+  formik: FormikProps<SupportFormData>
+  failedStep: Steps
+}
+export default function Roles({ formik, failedStep }: RolesProps) {
   const { t } = useTranslation()
 
   return (
@@ -81,10 +84,8 @@ export default function Roles({ formik }: RolesProps) {
               label={t('common:support-form.steps.role.fields.promoter')}
             />
           </FormGroup>
-          {formik.errors.roles ? (
+          {formik.errors.roles && failedStep === Steps.ROLES && (
             <FormHelperText>{t('common:support-form.helperText')}</FormHelperText>
-          ) : (
-            ''
           )}
         </FormControl>
       </Grid>
