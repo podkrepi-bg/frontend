@@ -3,7 +3,7 @@ import { FormikConfig, useFormik } from 'formik'
 export { translateError, customValidators } from 'common/form/validation'
 
 export default function useForm<T>({
-  validateOnChange = false,
+  validateOnChange = true,
   validateOnBlur = false,
   ...formikProps
 }: FormikConfig<T>) {

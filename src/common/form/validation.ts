@@ -2,8 +2,10 @@ import { setLocale } from 'yup'
 import { TOptions } from 'i18next'
 import { TFunction } from 'react-i18next'
 
+export type TranslatableField = (string | undefined) | { key: string; values?: TOptions }
+
 export const translateError = (
-  field: (string | undefined) | { key: string; values?: TOptions },
+  field: TranslatableField,
   translate: TFunction,
 ): string | undefined => {
   if (!field) {
