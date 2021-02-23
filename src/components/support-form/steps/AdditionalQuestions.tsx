@@ -2,7 +2,6 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { FormikProps } from 'formik'
 import {
-  Box,
   Checkbox,
   FormControl,
   FormControlLabel,
@@ -10,143 +9,145 @@ import {
   FormHelperText,
   FormLabel,
   Grid,
-  MenuItem,
-  Select,
   TextField,
   Typography,
 } from '@material-ui/core'
 
-import { RoleRenderObject, SupportFormData } from '../helpers/support-form.models'
+import { RoleRenderObject, Steps, SupportFormData } from '../helpers/support-form.models'
 
 type AdditionalQuestionsProps = {
   formik: FormikProps<SupportFormData>
+  failedStep: Steps
 }
 
-export default function AdditionalQuestions({ formik }: AdditionalQuestionsProps) {
+export default function AdditionalQuestions({ formik, failedStep }: AdditionalQuestionsProps) {
   const { t } = useTranslation()
   console.log(formik.errors)
   const RenderHelper: Array<RoleRenderObject> = [
     {
       key: 'benefactor',
-      title: t('common:support-form.steps.addition-questions.benefactor.title'),
-      errorMessage: t('common:support-form.helperText'),
+      title: 'common:support-form.steps.addition-questions.benefactor.title',
+      errorMessage: 'common:support-form.helperText',
       showError: Boolean(formik.errors.benefactor),
       options: [
         {
           type: 'checkbox',
           value: formik.values.benefactor?.campaignBenefactor,
           name: 'benefactor.campaignBenefactor',
-          label: t('common:support-form.steps.addition-questions.benefactor.campaignBenefactor'),
+          label: 'common:support-form.steps.addition-questions.benefactor.campaignBenefactor',
         },
         {
           type: 'checkbox',
           value: formik.values.benefactor?.platformBenefactor,
           name: 'benefactor.platformBenefactor',
-          label: t('common:support-form.steps.addition-questions.benefactor.platformBenefactor'),
+          label: 'common:support-form.steps.addition-questions.benefactor.platformBenefactor',
         },
       ],
     },
     {
       key: 'associationMember',
-      title: t('common:support-form.steps.addition-questions.associationMember.title'),
-      errorMessage: t('common:support-form.helperText'),
+      title: 'common:support-form.steps.addition-questions.associationMember.title',
+      errorMessage: 'common:support-form.helperText',
       showError: Boolean(formik.errors.associationMember),
       options: [
         {
           type: 'checkbox',
           value: formik.values.associationMember?.isMember,
           name: 'associationMember.isMember',
-          label: t('common:support-form.steps.addition-questions.associationMember.member'),
+          label: 'common:support-form.steps.addition-questions.associationMember.member',
         },
       ],
     },
     {
       key: 'partner',
-      title: t('common:support-form.steps.addition-questions.partner.title'),
-      errorMessage: t('common:support-form.helperText'),
+      title: 'common:support-form.steps.addition-questions.partner.title',
+      errorMessage: 'common:support-form.helperText',
       showError: Boolean(formik.errors.partner),
       options: [
         {
           type: 'checkbox',
           value: formik.values.partner?.npo,
           name: 'partner.npo',
-          label: t('common:support-form.steps.addition-questions.partner.npo'),
+          label: 'common:support-form.steps.addition-questions.partner.npo',
         },
         {
           type: 'checkbox',
           value: formik.values.partner?.bussiness,
           name: 'partner.bussiness',
-          label: t('common:support-form.steps.addition-questions.partner.bussiness'),
+          label: 'common:support-form.steps.addition-questions.partner.bussiness',
         },
         {
           type: 'checkbox',
           value: formik.values.partner?.other,
           name: 'partner.other',
-          label: t('common:support-form.steps.addition-questions.partner.other'),
+          label: 'common:support-form.steps.addition-questions.partner.other',
           textFieldOptions: {
             value: formik.values.partner?.otherText || '',
             name: 'partner.otherText',
-            placeholder: t('common:support-form.steps.addition-questions.partner.otherText'),
+            placeholder: 'common:support-form.steps.addition-questions.partner.otherText',
           },
         },
       ],
     },
     {
       key: 'volunteer',
-      title: t('common:support-form.steps.addition-questions.volunteer.title'),
-      errorMessage: t('common:support-form.helperText'),
+      title: 'common:support-form.steps.addition-questions.volunteer.title',
+      errorMessage: 'common:support-form.helperText',
       showError: Boolean(formik.errors.volunteer),
       options: [
         {
-          type: 'dropdown',
-          value: formik.values.volunteer?.areas,
-          name: 'volunteer.areas',
-          label: t('common:support-form.steps.addition-questions.volunteer.label'),
-          dropdownOptions: [
-            {
-              text: t('common:support-form.steps.addition-questions.volunteer.marketing'),
-              value: 'marketing',
-            },
-            {
-              text: t('common:support-form.steps.addition-questions.volunteer.backend'),
-              value: 'backend',
-            },
-            {
-              text: t('common:support-form.steps.addition-questions.volunteer.frontend'),
-              value: 'frontend',
-            },
-            { text: t('common:support-form.steps.addition-questions.volunteer.qa'), value: 'qa' },
-          ],
+          type: 'checkbox',
+          value: formik.values.volunteer?.backend,
+          name: 'volunteer.backend',
+          label: 'common:support-form.steps.addition-questions.volunteer.backend',
+        },
+        {
+          type: 'checkbox',
+          value: formik.values.volunteer?.frontend,
+          name: 'volunteer.frontend',
+          label: 'common:support-form.steps.addition-questions.volunteer.frontend',
+        },
+        {
+          type: 'checkbox',
+          value: formik.values.volunteer?.qa,
+          name: 'volunteer.qa',
+          label: 'common:support-form.steps.addition-questions.volunteer.qa',
+        },
+        {
+          type: 'checkbox',
+          value: formik.values.volunteer?.marketing,
+          name: 'volunteer.marketing',
+          label: 'common:support-form.steps.addition-questions.volunteer.marketing',
         },
       ],
     },
     {
       key: 'promoter',
-      title: t('common:support-form.steps.addition-questions.promoter.title'),
-      errorMessage: t('common:support-form.helperText'),
+      title: 'common:support-form.steps.addition-questions.promoter.title',
+      errorMessage: 'common:support-form.helperText',
       showError: Boolean(formik.errors.promoter),
       options: [
         {
           type: 'checkbox',
           value: formik.values.promoter?.mediaPartner,
           name: 'promoter.mediaPartner',
-          label: t('common:support-form.steps.addition-questions.promoter.mediaPartner'),
+          label: 'common:support-form.steps.addition-questions.promoter.mediaPartner',
         },
         {
           type: 'checkbox',
           value: formik.values.promoter?.ambassador,
           name: 'promoter.ambassador',
-          label: t('common:support-form.steps.addition-questions.promoter.ambassador'),
+          label: 'common:support-form.steps.addition-questions.promoter.ambassador',
         },
         {
           type: 'checkbox',
           value: formik.values.promoter?.other,
           name: 'promoter.other',
-          label: t('common:support-form.steps.addition-questions.promoter.other'),
+          label: 'common:support-form.steps.addition-questions.promoter.other',
           textFieldOptions: {
             value: formik.values.promoter?.otherText || '',
             name: 'promoter.otherText',
-            placeholder: t('common:support-form.steps.addition-questions.promoter.otherText'),
+            placeholder: 'common:support-form.steps.addition-questions.promoter.otherText',
           },
         },
       ],
@@ -160,7 +161,7 @@ export default function AdditionalQuestions({ formik }: AdditionalQuestionsProps
     return (
       <FormControl fullWidth required error={Boolean(formik.errors.roles)} component="fieldset">
         <FormGroup>
-          <FormLabel component="legend">{renderObject.title}</FormLabel>
+          <FormLabel component="legend">{t(renderObject.title)}</FormLabel>
           {renderObject.options.map((option, index) =>
             option.textFieldOptions ? (
               <React.Fragment key={index}>
@@ -173,33 +174,17 @@ export default function AdditionalQuestions({ formik }: AdditionalQuestionsProps
                       color="primary"
                     />
                   }
-                  label={option.label}
+                  label={t(option.label)}
                 />
                 {option.value ? (
                   <TextField
                     value={option.textFieldOptions.value}
                     name={option.textFieldOptions.name}
-                    placeholder={option.textFieldOptions.placeholder}
+                    placeholder={t(option.textFieldOptions.placeholder)}
                     onChange={formik.handleChange}
                   />
                 ) : null}
               </React.Fragment>
-            ) : option.type === 'dropdown' ? (
-              <Box mt={1} key={index}>
-                <Select
-                  multiple
-                  fullWidth
-                  variant="outlined"
-                  onChange={formik.handleChange}
-                  name={option.name}
-                  value={option.value}>
-                  {option.dropdownOptions?.map((value, index) => (
-                    <MenuItem key={index} value={value.value}>
-                      {value.text}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </Box>
             ) : (
               <FormControlLabel
                 key={index}
@@ -212,13 +197,13 @@ export default function AdditionalQuestions({ formik }: AdditionalQuestionsProps
                     color="primary"
                   />
                 }
-                label={option.label}
+                label={t(option.label)}
               />
             ),
           )}
         </FormGroup>
-        {renderObject.showError && (
-          <FormHelperText error={true}>{renderObject.errorMessage}</FormHelperText>
+        {renderObject.showError && failedStep === Steps.QUESTIONS && (
+          <FormHelperText error>{t(renderObject.errorMessage)}</FormHelperText>
         )}
       </FormControl>
     )

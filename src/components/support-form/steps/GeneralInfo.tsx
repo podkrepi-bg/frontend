@@ -12,11 +12,14 @@ import {
 import { FormikProps } from 'formik'
 
 import { translateError } from 'common/form/useForm'
-import { SupportFormData } from '../helpers/support-form.models'
+import { Steps, SupportFormData } from '../helpers/support-form.models'
 
-type GeneralInfoProps = { formik: FormikProps<SupportFormData> }
+type GeneralInfoProps = {
+  formik: FormikProps<SupportFormData>
+  failedStep: Steps
+}
 
-export default function GeneralInfo({ formik }: GeneralInfoProps) {
+export default function GeneralInfo({ formik, failedStep }: GeneralInfoProps) {
   const { t } = useTranslation()
 
   return (
@@ -115,8 +118,10 @@ export default function GeneralInfo({ formik }: GeneralInfoProps) {
                 }
                 label={t('common:support-form.steps.info.terms')}
               />
-              {Boolean(formik.errors.terms) && (
+              {Boolean(formik.errors.terms) && failedStep === Steps.INFO ? (
                 <FormHelperText error>{translateError(formik.errors.terms, t)}</FormHelperText>
+              ) : (
+                ''
               )}
             </FormControl>
           </Grid>
