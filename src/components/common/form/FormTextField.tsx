@@ -1,10 +1,11 @@
 import React from 'react'
-import { FormikProps } from 'formik'
+import { FormikValues } from 'formik'
 import { TextField } from '@material-ui/core'
-import { FormContextConsumer } from 'components/common/form/FormContext'
-import { translateError } from 'common/form/useForm'
 import { TFunction } from 'react-i18next'
+
+import { translateError } from 'common/form/useForm'
 import { TranslatableField } from 'common/form/validation'
+import { useFormContext } from 'components/common/form/FormContext'
 
 export type RegisterFormProps = {
   type: string
@@ -12,33 +13,30 @@ export type RegisterFormProps = {
   name: string
   translate: TFunction
 }
-type FormikType = {
-  [key: string]: FormikProps<any>
-}
-const FormTextField = ({ type, label, name, translate }: RegisterFormProps) => {
+
+export default function FormTextField<T extends FormikValues>({
+  type,
+  label,
+  name,
+  translate,
+}: RegisterFormProps) {
+  const { formik } = useFormContext<T>()
+  const helperText = formik.touched[name]
+    ? translateError(formik.errors[name] as TranslatableField, translate)
+    : ''
   return (
-    <FormContextConsumer>
-      {({ formik }: FormikType) => (
-        <TextField
-          type={type}
-          fullWidth
-          label={translate(label)}
-          name={name}
-          size="small"
-          variant="outlined"
-          error={Boolean(formik.errors[name]) && !!formik.touched[name]}
-          helperText={
-            formik.touched[name]
-              ? translateError(formik.errors[name] as TranslatableField, translate)
-              : ''
-          }
-          value={formik.values[name]}
-          onBlur={formik.handleBlur}
-          onChange={formik.handleChange}
-        />
-      )}
-    </FormContextConsumer>
+    <TextField
+      type={type}
+      fullWidth
+      label={translate(label)}
+      name={name}
+      size="small"
+      variant="outlined"
+      error={Boolean(formik.errors[name]) && Boolean(formik.touched[name])}
+      helperText={helperText}
+      value={formik.values[name]}
+      onBlur={formik.handleBlur}
+      onChange={formik.handleChange}
+    />
   )
 }
-
-export default FormTextField
