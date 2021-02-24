@@ -1,6 +1,5 @@
 import React from 'react'
 import * as yup from 'yup'
-import { useTranslation } from 'react-i18next'
 import { Grid } from '@material-ui/core'
 
 import { customValidators } from 'common/form/useForm'
@@ -34,8 +33,6 @@ const defaults: RegisterFormData = {
 export type RegisterFormProps = { initialValues?: RegisterFormData }
 
 export default function RegisterForm({ initialValues = defaults }: RegisterFormProps) {
-  const { t } = useTranslation()
-
   const onSubmit = (values: RegisterFormData) => {
     console.log(values)
   }
@@ -47,26 +44,16 @@ export default function RegisterForm({ initialValues = defaults }: RegisterFormP
       validationSchema={validationSchema}>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
-          <FormTextField
-            type="text"
-            label="auth:fields.first-name"
-            name="firstName"
-            translate={t}
-          />
+          <FormTextField type="text" label="auth:fields.first-name" name="firstName" />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <FormTextField type="text" label="auth:fields.last-name" name="lastName" translate={t} />
+          <FormTextField type="text" label="auth:fields.last-name" name="lastName" />
         </Grid>
         <Grid item xs={12}>
-          <FormTextField type="text" label="auth:fields.email" name="email" translate={t} />
+          <FormTextField type="text" label="auth:fields.email" name="email" />
         </Grid>
         <Grid item xs={12}>
-          <FormTextField
-            type="password"
-            label="auth:fields.password"
-            name="password"
-            translate={t}
-          />
+          <FormTextField type="password" label="auth:fields.password" name="password" />
         </Grid>
         <Grid item xs={12}>
           <SubmitButton fullWidth label="auth:cta.register" />

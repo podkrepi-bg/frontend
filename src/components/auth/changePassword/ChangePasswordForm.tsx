@@ -1,6 +1,5 @@
 import React from 'react'
 import * as yup from 'yup'
-import { useTranslation } from 'react-i18next'
 import { Grid } from '@material-ui/core'
 
 import { customValidators } from 'common/form/useForm'
@@ -33,8 +32,6 @@ const defaults: ChangePasswordFormData = {
 export type ChangePasswordFormProps = { initialValues?: ChangePasswordFormData }
 
 export default function ChangePasswordForm({ initialValues = defaults }: ChangePasswordFormProps) {
-  const { t } = useTranslation()
-
   const onSubmit = (values: ChangePasswordFormData) => {
     console.log(values)
   }
@@ -46,19 +43,13 @@ export default function ChangePasswordForm({ initialValues = defaults }: ChangeP
       validationSchema={validationSchema}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <FormTextField
-            type="password"
-            label="auth:fields.password"
-            name="password"
-            translate={t}
-          />
+          <FormTextField type="password" label="auth:fields.password" name="password" />
         </Grid>
         <Grid item xs={12}>
           <FormTextField
             type="password"
             label="auth:fields.confirm-password"
             name="confirmPassword"
-            translate={t}
           />
         </Grid>
         <Grid item xs={12}>
