@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { GetStaticProps } from 'next'
+import { GetServerSideProps } from 'next'
 import { useSession, signOut } from 'next-auth/client'
 
 import { serverSideTranslations } from 'common/useNextLocale'
@@ -7,7 +7,7 @@ import { routes, baseUrl } from 'common/routes'
 
 const callbackUrl = `${baseUrl}${routes.index}`
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   props: {
     i18nResources: await serverSideTranslations(locale, ['common', 'auth', 'validation']),
   },
