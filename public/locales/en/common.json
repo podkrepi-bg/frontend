@@ -70,7 +70,7 @@
           "npo": "NPO",
           "bussiness": "Bussiness",
           "other": "Other",
-          "otherText": "Please specify"
+          "otherText": ""
         },
         "volunteer": {
           "title": "Volunteer",
@@ -89,7 +89,7 @@
           "mediaPartner": "Media partner",
           "ambassador": "Ambassador",
           "other": "Other",
-          "otherText": "Please specify"
+          "otherText": ""
         }
       },
       "info": {
