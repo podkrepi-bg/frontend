@@ -49,26 +49,21 @@ export default function RegisterForm({ initialValues = defaults }: RegisterFormP
         <Grid item xs={12} sm={6}>
           <FormTextField
             type="text"
-            label={'auth:fields.first-name'}
+            label="auth:fields.first-name"
             name="firstName"
             translate={t}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <FormTextField
-            type="text"
-            label={'auth:fields.last-name'}
-            name="lastName"
-            translate={t}
-          />
+          <FormTextField type="text" label="auth:fields.last-name" name="lastName" translate={t} />
         </Grid>
         <Grid item xs={12}>
-          <FormTextField type="text" label={'auth:fields.email'} name="email" translate={t} />
+          <FormTextField type="text" label="auth:fields.email" name="email" translate={t} />
         </Grid>
         <Grid item xs={12}>
           <FormTextField
             type="password"
-            label={'auth:fields.password'}
+            label="auth:fields.password"
             name="password"
             translate={t}
           />

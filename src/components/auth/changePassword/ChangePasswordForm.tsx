@@ -48,7 +48,7 @@ export default function ChangePasswordForm({ initialValues = defaults }: ChangeP
         <Grid item xs={12}>
           <FormTextField
             type="password"
-            label={'auth:fields.password'}
+            label="auth:fields.password"
             name="password"
             translate={t}
           />
@@ -56,7 +56,7 @@ export default function ChangePasswordForm({ initialValues = defaults }: ChangeP
         <Grid item xs={12}>
           <FormTextField
             type="password"
-            label={'auth:fields.confirm-password'}
+            label="auth:fields.confirm-password"
             name="confirmPassword"
             translate={t}
           />

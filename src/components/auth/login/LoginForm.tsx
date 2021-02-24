@@ -64,12 +64,12 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
       validationSchema={validationSchema}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <FormTextField type="text" label={'auth:fields.email'} name="email" translate={t} />
+          <FormTextField type="text" label="auth:fields.email" name="email" translate={t} />
         </Grid>
         <Grid item xs={12}>
           <FormTextField
             type="password"
-            label={'auth:fields.password'}
+            label="auth:fields.password"
             name="password"
             translate={t}
           />
