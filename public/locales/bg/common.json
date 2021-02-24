@@ -70,7 +70,7 @@
           "npo": "НПО",
           "bussiness": "Бизнес",
           "other": "Друго",
-          "otherText": "Моля уточнете"
+          "otherText": ""
         },
         "volunteer": {
           "title": "Доброволец",
@@ -89,7 +89,7 @@
           "mediaPartner": "Медиен партньор",
           "ambassador": "Амбасадор",
           "other": "Друго",
-          "otherText": "Моля уточнете"
+          "otherText": ""
         }
       },
       "info": {
