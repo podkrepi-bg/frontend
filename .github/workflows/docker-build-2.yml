@@ -39,7 +39,7 @@ jobs:
           --build-arg NODE_ENV=production \
           --tag $IMAGE_NAME \
           --tag $IMAGE_NAME:ci-run \
-          ./
+          .
 
     - name: Push image to GitHub Container Registry
       id: push-images-container-registry
