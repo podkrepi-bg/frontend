@@ -7,16 +7,16 @@ import { Container, Stepper, Step, StepLabel, StepConnector, Hidden, Grid } from
 import useForm from 'common/form/useForm'
 import Layout from 'components/layout/Layout'
 
-import Newsletter from './steps/Newsletter'
+import Actions from './Actions'
 import Roles from './steps/Roles'
 import StepIcon from './StepperIcon'
 import ThankYou from './steps/ThankYou'
+import Newsletter from './steps/Newsletter'
 import GeneralInfo from './steps/GeneralInfo'
 import AdditionalQuestions from './steps/AdditionalQuestions'
 import { validationSchema } from './helpers/validation-schema'
 import { SupportFormData } from './helpers/support-form.models'
 import { Steps, Step as StepType } from './helpers/support-form.models'
-import Actions from './Actions'
 
 const ColorlibConnector = withStyles({
   alternativeLabel: { top: 22 },
@@ -95,7 +95,7 @@ const defaults: SupportFormData = {
   },
 }
 
-export default function SupportForm(this: any) {
+export default function SupportForm(this: typeof SupportForm) {
   const { t } = useTranslation()
   const classes = useStyles()
   const [activeStep, setActiveStep] = useState(0)
@@ -130,7 +130,7 @@ export default function SupportForm(this: any) {
           formik.validateForm().then((errors: FormikErrors<SupportFormData>) => {
             let hasErrors = false
             const questions = Object.entries(formik.values.roles)
-              .filter(([_, value]) => value)
+              .filter(([, value]) => value)
               .map(([key]) => key)
 
             Object.keys(errors).forEach((error) => {
@@ -186,6 +186,9 @@ export default function SupportForm(this: any) {
   }
 
   const goToStep = (step: number) => {
+    if (isThankYouStep(activeStep, steps)) {
+      return undefined
+    }
     if (step <= maxStep) {
       return () => setActiveStep(step)
     }
@@ -211,7 +214,7 @@ export default function SupportForm(this: any) {
   const steps = [
     {
       label: t('common:support-form.steps.role.title'),
-      component: <Roles formik={formik} />,
+      component: <Roles failedStep={failedStep} formik={formik} />,
     },
     {
       label: t('common:support-form.steps.addition-questions.title'),

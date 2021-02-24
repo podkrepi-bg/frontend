@@ -13,51 +13,48 @@ export enum Steps {
   NEWSLETTER = 3,
 }
 
+export type Info = {
+  email: string
+  name: string
+  phone: string
+  address: string
+}
+export type Benefactor = {
+  campaignBenefactor?: boolean
+  platformBenefactor?: boolean
+}
+export type Partner = {
+  npo?: boolean
+  bussiness?: boolean
+  other?: boolean
+  otherText?: string
+}
+export type Volunteer = {
+  backend?: boolean
+  frontend?: boolean
+  marketing?: boolean
+  qa?: boolean
+}
+export type Member = {
+  isMember?: boolean
+}
+export type Promoter = {
+  mediaPartner?: boolean
+  ambassador?: boolean
+  other?: boolean
+  otherText?: string
+}
+export type Roles = { [key in RoleTypes]: boolean }
 export type SupportFormData = {
   terms: boolean
   newsletter: boolean
-  info: {
-    email: string
-    name: string
-    phone: string
-    address: string
-  }
-  roles: { [key in RoleTypes]: boolean }
-  benefactor:
-    | {
-        campaignBenefactor: boolean
-        platformBenefactor: boolean
-      }
-    | any
-  partner:
-    | {
-        npo: boolean
-        bussiness: boolean
-        other: boolean
-        otherText: string
-      }
-    | any
-  volunteer:
-    | {
-        backend: boolean
-        frontend: boolean
-        marketing: boolean
-        qa: boolean
-      }
-    | any
-  associationMember:
-    | {
-        isMember: boolean
-      }
-    | any
-  promoter:
-    | {
-        mediaPartner: boolean
-        ambassador: boolean
-        other: boolean
-        otherText: string
-      }
-    | any
+  info: Info
+  roles: Roles
+  benefactor?: Benefactor
+  partner?: Partner
+  volunteer?: Volunteer
+  associationMember?: Member
+  promoter?: Promoter
 }
 
 export interface TextFieldOptions {
@@ -66,24 +63,17 @@ export interface TextFieldOptions {
   placeholder: string
 }
 
-export interface DropdownOption {
-  text: string
-  value: string
-}
-
 export interface Option {
   type: string
-  value: any
+  value: string | string[] | boolean | undefined
   name: string
   label: string
   textFieldOptions?: TextFieldOptions
-  dropdownOptions?: DropdownOption[]
 }
 
 export interface RoleRenderObject {
-  key: string
+  key: RoleTypes
   title: string
   errorMessage: string
-  formikErrors: any
   options: Option[]
 }

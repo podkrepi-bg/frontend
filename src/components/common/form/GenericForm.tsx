@@ -7,11 +7,11 @@ import { FormContextProvider } from 'components/common/form/FormContext'
 export type GenericFormProps<T> = PropsWithChildren<FormikConfig<T>>
 
 export default function GenericForm<T>({ children, ...formProps }: GenericFormProps<T>) {
-  const { formik } = useForm(formProps)
+  const { formik } = useForm<T>(formProps)
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <FormContextProvider value={formik}>{children}</FormContextProvider>
+      <FormContextProvider<T> formik={formik}>{children}</FormContextProvider>
     </form>
   )
 }

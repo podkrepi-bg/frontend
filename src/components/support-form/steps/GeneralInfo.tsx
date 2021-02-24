@@ -118,10 +118,8 @@ export default function GeneralInfo({ formik, failedStep }: GeneralInfoProps) {
                 }
                 label={t('common:support-form.steps.info.terms')}
               />
-              {Boolean(formik.errors.terms) && failedStep === Steps.INFO ? (
+              {Boolean(formik.errors.terms) && failedStep === Steps.INFO && (
                 <FormHelperText error>{translateError(formik.errors.terms, t)}</FormHelperText>
-              ) : (
-                ''
               )}
             </FormControl>
           </Grid>

@@ -15,9 +15,9 @@ export default function Newsletter({ formik }: NewsletterProps) {
       <FormControlLabel
         control={
           <Checkbox
-            checked={formik.values.terms}
+            checked={formik.values.newsletter}
             onChange={formik.handleChange}
-            name="terms"
+            name="newsletter"
             color="primary"
           />
         }
