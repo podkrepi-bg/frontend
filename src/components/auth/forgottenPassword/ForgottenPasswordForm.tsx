@@ -40,7 +40,7 @@ export default function ForgottenPasswordForm({
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <FormTextField type="text" label="auth:fields.email" name="email" translate={t} />
+          <FormTextField type="text" label="auth:fields.email" name="email" />
         </Grid>
         <Grid item xs={12}>
           <SubmitButton fullWidth label="auth:cta.send" />
