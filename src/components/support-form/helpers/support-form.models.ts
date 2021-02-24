@@ -72,9 +72,8 @@ export interface Option {
 }
 
 export interface RoleRenderObject {
-  key: string
+  key: RoleTypes
   title: string
   errorMessage: string
-  showError: boolean
   options: Option[]
 }

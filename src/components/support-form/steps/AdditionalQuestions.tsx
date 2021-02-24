@@ -27,7 +27,6 @@ export default function AdditionalQuestions({ formik, failedStep }: AdditionalQu
       key: 'benefactor',
       title: 'common:support-form.steps.addition-questions.benefactor.title',
       errorMessage: 'common:support-form.helperText',
-      showError: Boolean(formik.errors.benefactor),
       options: [
         {
           type: 'checkbox',
@@ -47,7 +46,6 @@ export default function AdditionalQuestions({ formik, failedStep }: AdditionalQu
       key: 'associationMember',
       title: 'common:support-form.steps.addition-questions.associationMember.title',
       errorMessage: 'common:support-form.helperText',
-      showError: Boolean(formik.errors.associationMember),
       options: [
         {
           type: 'checkbox',
@@ -61,7 +59,6 @@ export default function AdditionalQuestions({ formik, failedStep }: AdditionalQu
       key: 'partner',
       title: 'common:support-form.steps.addition-questions.partner.title',
       errorMessage: 'common:support-form.helperText',
-      showError: Boolean(formik.errors.partner),
       options: [
         {
           type: 'checkbox',
@@ -92,7 +89,6 @@ export default function AdditionalQuestions({ formik, failedStep }: AdditionalQu
       key: 'volunteer',
       title: 'common:support-form.steps.addition-questions.volunteer.title',
       errorMessage: 'common:support-form.helperText',
-      showError: Boolean(formik.errors.volunteer),
       options: [
         {
           type: 'checkbox',
@@ -124,7 +120,6 @@ export default function AdditionalQuestions({ formik, failedStep }: AdditionalQu
       key: 'promoter',
       title: 'common:support-form.steps.addition-questions.promoter.title',
       errorMessage: 'common:support-form.helperText',
-      showError: Boolean(formik.errors.promoter),
       options: [
         {
           type: 'checkbox',
@@ -187,7 +182,7 @@ export default function AdditionalQuestions({ formik, failedStep }: AdditionalQu
             </React.Fragment>
           ))}
         </FormGroup>
-        {renderObject.showError && failedStep === Steps.QUESTIONS && (
+        {Boolean(formik.errors[renderObject.key]) && failedStep === Steps.QUESTIONS && (
           <FormHelperText error>{t(renderObject.errorMessage)}</FormHelperText>
         )}
       </FormControl>
