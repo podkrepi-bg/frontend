@@ -8,7 +8,7 @@ export default function Index() {
   const { t } = useTranslation()
 
   return (
-    <Box component="section" mb={10} textAlign="center">
+    <Box component="section" mb={12} textAlign="center">
       <Grid container spacing={5} direction="column">
         <Grid item>
           <Typography variant="h5" paragraph>
