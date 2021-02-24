@@ -33,25 +33,25 @@ export default function SupportUsSection() {
         <Box display="flex" justifyContent="space-between" flexWrap="wrap" width="100%">
           <Box>
             <FinancesIcon className={classes.icon} />
-            <Typography variant="subtitle1" paragraph>
+            <Typography variant="body2" paragraph>
               {t('index:support-us-section.financial-support')}
             </Typography>
           </Box>
           <Box>
             <LabourIcon className={classes.icon} />
-            <Typography variant="subtitle1" paragraph>
+            <Typography variant="body2" paragraph>
               {t('index:support-us-section.labour-support')}
             </Typography>
           </Box>
           <Box>
             <MediaIcon className={classes.icon} />
-            <Typography variant="subtitle1" paragraph>
+            <Typography variant="body2" paragraph>
               {t('index:support-us-section.media-support')}
             </Typography>
           </Box>
           <Box>
             <PartnershipIcon className={classes.icon} />
-            <Typography variant="subtitle1" paragraph>
+            <Typography variant="body2" paragraph>
               {t('index:support-us-section.become-a-partner')}
             </Typography>
           </Box>

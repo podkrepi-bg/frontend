@@ -31,19 +31,19 @@ export default function SupportUsSection() {
         <Box display="flex" justifyContent="space-between" flexWrap="wrap" width="100%">
           <Box display="flex" alignItems="center" flexBasis="25%">
             <CommissionsIcon className={classes.icon} />
-            <Typography variant="subtitle1" paragraph>
+            <Typography variant="body2" paragraph>
               {t('index:problems-to-solve-section.high-commissions')}
             </Typography>
           </Box>
           <Box display="flex" alignItems="center" flexBasis="25%">
             <TransparencyIcon className={classes.icon} />
-            <Typography variant="subtitle1" paragraph>
+            <Typography variant="body2" paragraph>
               {t('index:problems-to-solve-section.low-transparency')}
             </Typography>
           </Box>
           <Box display="flex" alignItems="center" flexBasis="25%">
             <TimelinessIcon className={classes.icon} />
-            <Typography variant="subtitle1" paragraph>
+            <Typography variant="body2" paragraph>
               {t('index:problems-to-solve-section.timeliness')}
             </Typography>
           </Box>
