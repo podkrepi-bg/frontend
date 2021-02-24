@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     icon: {
       fontSize: theme.spacing(10),
-      marginRight: '7px',
+      marginRight: theme.spacing(1),
     },
     heading: {
       marginBottom: theme.spacing(5),

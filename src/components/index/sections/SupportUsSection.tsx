@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) =>
     icon: {
       fontSize: theme.spacing(10),
       fill: 'none',
-      marginBottom: '7px',
+      marginBottom: theme.spacing(1),
     },
     heading: {
       marginBottom: theme.spacing(5),
