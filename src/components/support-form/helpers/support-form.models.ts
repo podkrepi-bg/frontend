@@ -20,29 +20,29 @@ export type Info = {
   address: string
 }
 export type Benefactor = {
-  campaignBenefactor: boolean
-  platformBenefactor: boolean
+  campaignBenefactor?: boolean
+  platformBenefactor?: boolean
 }
 export type Partner = {
-  npo: boolean
-  bussiness: boolean
-  other: boolean
+  npo?: boolean
+  bussiness?: boolean
+  other?: boolean
   otherText?: string
 }
 export type Volunteer = {
-  backend: boolean
-  frontend: boolean
-  marketing: boolean
-  qa: boolean
+  backend?: boolean
+  frontend?: boolean
+  marketing?: boolean
+  qa?: boolean
 }
 export type Member = {
-  isMember: boolean
+  isMember?: boolean
 }
 export type Promoter = {
-  mediaPartner: boolean
-  ambassador: boolean
-  other: boolean
-  otherText: string
+  mediaPartner?: boolean
+  ambassador?: boolean
+  other?: boolean
+  otherText?: string
 }
 export type Roles = { [key in RoleTypes]: boolean }
 export type SupportFormData = {
@@ -50,11 +50,11 @@ export type SupportFormData = {
   newsletter: boolean
   info: Info
   roles: Roles
-  benefactor?: Benefactor | Record<string, undefined>
-  partner?: Partner | Record<string, undefined>
-  volunteer?: Volunteer | Record<string, undefined>
-  associationMember?: Member | Record<string, undefined>
-  promoter?: Promoter | Record<string, undefined>
+  benefactor?: Benefactor
+  partner?: Partner
+  volunteer?: Volunteer
+  associationMember?: Member
+  promoter?: Promoter
 }
 
 export interface TextFieldOptions {
