@@ -2,7 +2,10 @@
     "title": "Подкрепи",
     "jumbotron": {
       "heading": "Онлайн дарителска платформа",
-      "heading-bold": "с максимална степен на прозрачност",
+      "maximum-transparency": "с максимална степен на прозрачност",
+      "zero-commission": "с 0% комисионна",
+      "community-for-community": "създадена от общността за общността",
+      "open-source": "с отворен за ползване код",
       "support-us-button": "Подкрепи ни"
     },
     "activity-section": {
