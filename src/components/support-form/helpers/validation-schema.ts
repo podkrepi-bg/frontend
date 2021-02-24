@@ -95,12 +95,12 @@ export const validationSchema: yup.SchemaOf<SupportFormData> = yup.object().shap
   benefactor: yup.object().when('roles.benefactor', {
     is: true,
     then: benefactor.required().test('checkboxChecked', checkboxError, checkboxChecked),
-    otherwise: benefactor.notRequired().default(undefined),
+    otherwise: benefactor,
   }),
   associationMember: yup.object().when('roles.associationMember', {
     is: true,
     then: associationMember.required().test('checkboxChecked', checkboxError, checkboxChecked),
-    otherwise: associationMember.notRequired().default(undefined),
+    otherwise: associationMember,
   }),
   partner: yup.object().when('roles.partner', {
     is: true,
@@ -115,12 +115,12 @@ export const validationSchema: yup.SchemaOf<SupportFormData> = yup.object().shap
             : true
         }
       )),
-    otherwise: partner.notRequired().default(undefined),
+    otherwise: partner,
   }),
   volunteer: yup.object().when('roles.volunteer', {
     is: true,
     then: volunteer.required().test('checkboxChecked', checkboxError, checkboxChecked),
-    otherwise: volunteer.notRequired().default(undefined),
+    otherwise: volunteer,
   }),
   promoter: yup.object().when('roles.promoter', {
     is: true,
@@ -137,6 +137,6 @@ export const validationSchema: yup.SchemaOf<SupportFormData> = yup.object().shap
             : true
         },
       ),
-    otherwise: promoter.notRequired().default(undefined),
+    otherwise: promoter,
   }),
 })

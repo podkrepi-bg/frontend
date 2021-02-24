@@ -13,7 +13,7 @@ import {
   Typography,
 } from '@material-ui/core'
 
-import { RoleRenderObject, Steps, SupportFormData } from '../helpers/support-form.models'
+import { Option, RoleRenderObject, Steps, SupportFormData } from '../helpers/support-form.models'
 
 type AdditionalQuestionsProps = {
   formik: FormikProps<SupportFormData>
@@ -22,7 +22,6 @@ type AdditionalQuestionsProps = {
 
 export default function AdditionalQuestions({ formik, failedStep }: AdditionalQuestionsProps) {
   const { t } = useTranslation()
-  console.log(formik.errors)
   const RenderHelper: Array<RoleRenderObject> = [
     {
       key: 'benefactor',
@@ -162,45 +161,31 @@ export default function AdditionalQuestions({ formik, failedStep }: AdditionalQu
       <FormControl fullWidth required error={Boolean(formik.errors.roles)} component="fieldset">
         <FormGroup>
           <FormLabel component="legend">{t(renderObject.title)}</FormLabel>
-          {renderObject.options.map((option, index) =>
-            option.textFieldOptions ? (
-              <React.Fragment key={index}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      checked={Boolean(option.value)}
-                      onChange={formik.handleChange}
-                      name={option.name}
-                      color="primary"
-                    />
-                  }
-                  label={t(option.label)}
-                />
-                {option.value ? (
-                  <TextField
-                    value={option.textFieldOptions.value}
-                    name={option.textFieldOptions.name}
-                    placeholder={t(option.textFieldOptions.placeholder)}
-                    onChange={formik.handleChange}
-                  />
-                ) : null}
-              </React.Fragment>
-            ) : (
+          {renderObject.options.map((option: Option, index) => (
+            <React.Fragment key={index}>
               <FormControlLabel
-                key={index}
+                label={t(option.label)}
                 control={
                   <Checkbox
-                    key={index}
                     checked={Boolean(option.value)}
                     onChange={formik.handleChange}
                     name={option.name}
                     color="primary"
                   />
                 }
-                label={t(option.label)}
               />
-            ),
-          )}
+              {option.textFieldOptions && option.value ? (
+                <TextField
+                  size="small"
+                  variant="outlined"
+                  value={option.textFieldOptions.value}
+                  name={option.textFieldOptions.name}
+                  placeholder={t(option.textFieldOptions.placeholder)}
+                  onChange={formik.handleChange}
+                />
+              ) : null}
+            </React.Fragment>
+          ))}
         </FormGroup>
         {renderObject.showError && failedStep === Steps.QUESTIONS && (
           <FormHelperText error>{t(renderObject.errorMessage)}</FormHelperText>
