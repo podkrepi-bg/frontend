@@ -19,7 +19,16 @@ export default function Index() {
             <Typewriter
               onInit={(typewriter) => {
                 typewriter
-                  .typeString(t('index:jumbotron.heading-bold'))
+                  .typeString(t('index:jumbotron.maximum-transparency'))
+                  .pauseFor(1000)
+                  .deleteAll()
+                  .typeString(t('index:jumbotron.zero-commission'))
+                  .pauseFor(1000)
+                  .deleteAll()
+                  .typeString(t('index:jumbotron.community-for-community'))
+                  .pauseFor(1000)
+                  .deleteAll()
+                  .typeString(t('index:jumbotron.open-source'))
                   .pauseFor(1000)
                   .deleteAll()
                   .start()

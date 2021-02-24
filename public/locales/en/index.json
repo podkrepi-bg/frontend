@@ -2,7 +2,10 @@
   "title": "Podkrepi",
   "jumbotron": {
     "heading": "An online donation platform",
-    "heading-bold": "with a maximum degree of transparency",
+    "maximum-transparency": "with a maximum degree of transparency",
+    "zero-commission": "with 0% commission",
+    "community-for-community": "created by the community for the community",
+    "open-source": "open source",
     "support-us-button": "Support us"
   },
   "activity-section": {
