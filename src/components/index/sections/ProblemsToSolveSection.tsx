@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) =>
       marginRight: '7px',
     },
     heading: {
-      marginBottom: '40px',
+      marginBottom: theme.spacing(5),
     },
   }),
 )
@@ -23,7 +23,7 @@ export default function SupportUsSection() {
   const { t } = useTranslation()
 
   return (
-    <Box component="section" mb={10}>
+    <Box component="section" mb={12}>
       <Typography variant="h5" align="center" className={classes.heading}>
         {t('index:problems-to-solve-section.heading')}
       </Typography>
