@@ -1,10 +1,10 @@
-name: Build packages
+name: Build and push docker image
 
 on:
   workflow_dispatch:
   push:
     tags:
-      - '*-build'
+      - '*'
 
 jobs:
   build-packages:
