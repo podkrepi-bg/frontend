@@ -6,7 +6,7 @@ import { teamPieData, TeamPieData } from 'components/chart/pieData'
 const styles = {
   height: '380px',
   width: '100%',
-  'padding-top': '20px',
+  paddingTop: '20px',
 }
 
 const TeamPie = () => {
@@ -19,20 +19,49 @@ const TeamPie = () => {
     <div style={styles}>
       <ResponsivePie
         data={teamPieData}
-        margin={{
-          top: 30,
-          right: 0,
-          bottom: 30,
-          left: 0,
-        }}
+        margin={{ top: 30, right: 0, bottom: 30, left: 0 }}
         innerRadius={0.4}
         padAngle={0.7}
         radialLabelsLinkDiagonalLength={20}
         radialLabelsLinkHorizontalLength={20}
         sliceLabelsRadiusOffset={0.65}
-        colors={{ scheme: 'set3' }}
+        colors={{ scheme: 'set2' }}
         radialLabel="label"
         isInteractive={false}
+        defs={[
+          {
+            id: 'dots',
+            type: 'patternDots',
+            background: 'inherit',
+            color: 'rgba(255, 255, 255, 0.3)',
+            size: 4,
+            padding: 1,
+            stagger: true,
+          },
+          {
+            id: 'lines',
+            type: 'patternLines',
+            background: 'inherit',
+            color: 'rgba(255, 255, 255, 0.3)',
+            rotation: -45,
+            lineWidth: 6,
+            spacing: 10,
+          },
+        ]}
+        fill={[
+          { match: { id: 'back-end' }, id: 'dots' },
+          { match: { id: 'frontend' }, id: 'dots' },
+          { match: { id: 'full-stack' }, id: 'dots' },
+          { match: { id: 'dev-ops' }, id: 'dots' },
+          { match: { id: 'qa' }, id: 'lines' },
+          { match: { id: 'ngo' }, id: 'lines' },
+          { match: { id: 'design' }, id: 'dots' },
+          { match: { id: 'law' }, id: 'lines' },
+          { match: { id: 'management' }, id: 'dots' },
+          { match: { id: 'marketing' }, id: 'lines' },
+          { match: { id: 'accounting' }, id: 'lines' },
+          { match: { id: 'others' }, id: 'dots' },
+        ]}
       />
     </div>
   )
