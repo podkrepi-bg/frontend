@@ -7,7 +7,7 @@ on:
       - '*'
 
 jobs:
-  build-packages:
+  deploy:
     runs-on: ubuntu-latest
 
     strategy:
@@ -25,7 +25,7 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: ${{ github.repository_owner }}
+          username: ${{ secrets.GHCR_USERNAME }}
           password: ${{ secrets.GHCR_TOKEN }}
 
       - name: Build web
@@ -62,3 +62,15 @@ jobs:
 
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
+
+      - name: Start Deployment
+        uses: TapTap21/docker-remote-deployment-action@v1.0
+        with:
+          remote_docker_host: ${{ secrets.REMOTE_DOCKER_HOST }}
+          ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          stack_file_name: docker-compose.prod.yml
+          docker_login_user: ${{ secrets.GHCR_USERNAME }}
+          docker_login_password: ${{ secrets.GHCR_TOKEN }}
+          docker_login_registry: ghcr.io
+          args: up -d

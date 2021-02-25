@@ -1,0 +1,16 @@
+version: '3'
+services:
+  app:
+    image: ghcr.io/daritelska-platforma/frontend/web:deployment-changes
+    container_name: app-frontend-prod
+    restart: always
+    networks:
+      pub1:
+        ipv4_address: 172.14.0.4
+    healthcheck:
+      interval: 10s
+      timeout: 3s
+      retries: 3
+networks:
+  pub1:
+    external: true
