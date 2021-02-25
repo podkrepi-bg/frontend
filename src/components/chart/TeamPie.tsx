@@ -50,17 +50,17 @@ const TeamPie = () => {
         ]}
         fill={[
           { match: { id: 'back-end' }, id: 'dots' },
-          { match: { id: 'frontend' }, id: 'dots' },
+          { match: { id: 'frontend' }, id: 'lines' },
           { match: { id: 'full-stack' }, id: 'dots' },
-          { match: { id: 'dev-ops' }, id: 'dots' },
-          { match: { id: 'qa' }, id: 'lines' },
+          { match: { id: 'dev-ops' }, id: 'lines' },
+          { match: { id: 'qa' }, id: 'dots' },
           { match: { id: 'ngo' }, id: 'lines' },
           { match: { id: 'design' }, id: 'dots' },
           { match: { id: 'law' }, id: 'lines' },
           { match: { id: 'management' }, id: 'dots' },
-          { match: { id: 'marketing' }, id: 'lines' },
           { match: { id: 'accounting' }, id: 'lines' },
-          { match: { id: 'others' }, id: 'dots' },
+          { match: { id: 'marketing' }, id: 'dots' },
+          { match: { id: 'others' }, id: 'lines' },
         ]}
       />
     </div>
