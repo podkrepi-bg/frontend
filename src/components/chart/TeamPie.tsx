@@ -5,7 +5,7 @@ import { teamPieData, TeamPieData } from 'components/chart/pieData'
 
 const styles = {
   height: '380px',
-  width: '100%',
+  width: '99%',
   paddingTop: '20px',
 }
 
@@ -19,11 +19,11 @@ const TeamPie = () => {
     <div style={styles}>
       <ResponsivePie
         data={teamPieData}
-        margin={{ top: 30, right: 0, bottom: 30, left: 0 }}
+        margin={{ top: 30, right: 100, bottom: 30, left: 100 }}
         innerRadius={0.4}
         padAngle={0.7}
         radialLabelsLinkDiagonalLength={20}
-        radialLabelsLinkHorizontalLength={20}
+        radialLabelsLinkHorizontalLength={5}
         sliceLabelsRadiusOffset={0.65}
         colors={{ scheme: 'set2' }}
         radialLabel="label"
