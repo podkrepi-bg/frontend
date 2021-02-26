@@ -87,4 +87,4 @@ jobs:
           docker_login_user: ${{ secrets.GHCR_USERNAME }}
           docker_login_password: ${{ secrets.GHCR_TOKEN }}
           docker_login_registry: ghcr.io
-          args: up -d
+          args: --env-file .env.prod up -d
