@@ -4,15 +4,11 @@ import { useTranslation } from 'react-i18next'
 
 import { routes } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
-import LocaleMenu from 'components/layout/LocaleMenu'
 
 export default function PublicMenu() {
   const { t } = useTranslation()
   return (
-    <Grid container justify="flex-end" direction="row" wrap="nowrap" spacing={2}>
-      <Grid item>
-        <LocaleMenu />
-      </Grid>
+    <>
       <Grid item>
         <LinkButton variant="text" href={routes.login}>
           {t('nav.login')}
@@ -23,6 +19,6 @@ export default function PublicMenu() {
           {t('nav.register')}
         </LinkButton>
       </Grid>
-    </Grid>
+    </>
   )
 }
