@@ -10,15 +10,8 @@ services:
       args:
         NODE_ENV: ${NODE_ENV}
 
-    env_file:
-      - .env
-      - .env.local
-
-    networks:
-      - net-frontend
-
     ports:
-      - '3040:3040'
+      - '${APP_PORT}:3040'
 
     volumes:
       # Local:Container mounting points
@@ -33,6 +26,9 @@ services:
       JWT_SECRET: ${JWT_SECRET}
       DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID}
       DISCORD_CLIENT_SECRET: ${DISCORD_CLIENT_SECRET}
+
+    networks:
+      - net-frontend
 
 networks:
   net-frontend:

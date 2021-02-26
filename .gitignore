@@ -34,4 +34,5 @@ coverage
 !.vscode/extensions.json
 
 .env*.local
+!.env.example
 .actrc.secrets.local
