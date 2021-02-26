@@ -436,13 +436,13 @@ export default function CustomComponent() {
 
 ```tsx
 import { GetStaticProps } from 'next'
-import { serverSideTranslations } from 'common/useNextLocale'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import Page from 'components/forgottenPassword/ForgottenPasswordPage'
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+export const getStaticProps: GetStaticProps = async ({ locale = 'bg' }) => ({
   props: {
-    i18nResources: await serverSideTranslations(locale, ['common', 'auth']), // List used namespaces
+    ...(await serverSideTranslations(locale, ['common', 'auth'])), // List used namespaces
   },
 })
 
