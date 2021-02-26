@@ -11,6 +11,7 @@ import PodkrepiIcon from 'components/brand/PodkrepiIcon'
 import CloseModalButton from 'components/common/CloseModalButton'
 
 import { navItems } from './MainNavMenu'
+import LocaleSwitcher from '../LocaleSwitcher'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -80,7 +81,7 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
                 </Grid>
               ))}
               <Box my={4}>
-                <Divider />
+                <LocaleSwitcher />
               </Box>
               {session ? (
                 <>
