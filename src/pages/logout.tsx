@@ -7,9 +7,9 @@ import { routes, baseUrl } from 'common/routes'
 
 const callbackUrl = `${baseUrl}${routes.index}`
 
-export const getServerSideProps: GetServerSideProps = async ({ locale = 'bg' }) => ({
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['common', 'auth', 'validation'])),
+    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'auth', 'validation'])),
   },
 })
 
