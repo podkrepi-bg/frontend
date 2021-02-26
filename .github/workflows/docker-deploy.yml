@@ -41,14 +41,9 @@ jobs:
             --tag $IMAGE_NAME:ci-run \
             .
 
-      - name: Push image to GitHub Container Registry
-        id: push-images-container-registry
+      - name: Get the latest tag version
+        id: get-version
         run: |
-          IMAGE_ID=ghcr.io/${{ github.repository }}/$IMAGE_NAME
-
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-
           # Strip git ref prefix from version
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
 
@@ -57,6 +52,18 @@ jobs:
 
           # Use Docker `latest` tag convention
           [ "$VERSION" == "master" ] && VERSION=latest
+
+          echo $VERSION
+          echo ::set-output name=VERSION::$VERSION
+
+      - name: Push image to GitHub Container Registry
+        id: push-images-container-registry
+        run: |
+          IMAGE_ID=ghcr.io/${{ github.repository }}/$IMAGE_NAME
+
+          # Change all uppercase to lowercase
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+          VERSION=${{ steps.get-version.outputs.VERSION }}
 
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
@@ -69,6 +76,8 @@ jobs:
         env:
           JWT_SECRET: ${{ secrets.APP_JWT_SECRET }}
           DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
+          DEPLOY_TAG: ${{ steps.get-version.outputs.VERSION }}
+          HOST_IPV4_ADDRESS: "172.14.0.4"
         with:
           remote_docker_host: ${{ secrets.REMOTE_DOCKER_HOST }}
           ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
