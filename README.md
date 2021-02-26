@@ -7,9 +7,7 @@
 ![Dev Dependencies](https://img.shields.io/david/dev/daritelska-platforma/frontend)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## What's in the box
@@ -81,6 +79,7 @@ Thanks goes to these wonderful people:
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/vikinatora"><img src="https://avatars.githubusercontent.com/u/29047760?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Viktor Todorov</b></sub></a><br /><a href="https://github.com/daritelska-platforma/frontend/commits?author=vikinatora" title="Code">💻</a> <a href="https://github.com/daritelska-platforma/frontend/commits?author=vikinatora" title="Documentation">📖</a> <a href="https://github.com/daritelska-platforma/frontend/pulls?q=is%3Apr+reviewed-by%3Avikinatora" title="Reviewed Pull Requests">👀</a> <a href="#tool-vikinatora" title="Tools">🔧</a></td>
+    <td align="center"><a href="http://www.nimasystems.com"><img src="https://avatars.githubusercontent.com/u/126405?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Martin Kovachev</b></sub></a><br /><a href="https://github.com/daritelska-platforma/frontend/commits?author=miraclebg" title="Code">💻</a> <a href="https://github.com/daritelska-platforma/frontend/commits?author=miraclebg" title="Documentation">📖</a> <a href="#tool-miraclebg" title="Tools">🔧</a> <a href="#infra-miraclebg" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-miraclebg" title="Maintenance">🚧</a> <a href="#security-miraclebg" title="Security">🛡️</a></td>
   </tr>
 </table>
 
