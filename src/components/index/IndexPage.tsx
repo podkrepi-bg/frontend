@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import Jumbotron from './sections/Jumbotron'
 import ActivitySection from './sections/ActivitySection'
 import TeamSection from './sections/TeamSection'
+import TeamChartSection from './sections/TeamChartSection'
 import SupportUsSection from './sections/SupportUsSection'
 import ProblemsToSolveSection from './sections/ProblemsToSolveSection'
 
@@ -15,6 +16,7 @@ export default function Index() {
       <Jumbotron />
       <ActivitySection />
       <TeamSection />
+      <TeamChartSection />
       <SupportUsSection />
       <ProblemsToSolveSection />
     </Layout>
