@@ -3,9 +3,9 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import Page from 'components/auth/changePassword/ChangePasswordPage'
 
-export const getServerSideProps: GetServerSideProps = async ({ locale = 'bg' }) => ({
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['common', 'auth', 'validation'])),
+    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'auth', 'validation'])),
   },
 })
 

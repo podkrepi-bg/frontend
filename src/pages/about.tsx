@@ -3,9 +3,9 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import AboutPage from 'components/about/AboutPage'
 
-export const getServerSideProps: GetServerSideProps = async ({ locale = 'bg' }) => ({
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['common', 'about'])),
+    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'about'])),
   },
 })
 

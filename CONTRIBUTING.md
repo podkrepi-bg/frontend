@@ -440,9 +440,9 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import Page from 'components/forgottenPassword/ForgottenPasswordPage'
 
-export const getStaticProps: GetStaticProps = async ({ locale = 'bg' }) => ({
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['common', 'auth'])), // List used namespaces
+    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'auth'])), // List used namespaces
   },
 })
 

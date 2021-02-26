@@ -3,9 +3,9 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import SupportFormPage from 'components/support-form/SupportPage'
 
-export const getServerSideProps: GetServerSideProps = async ({ locale = 'bg' }) => ({
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ['common', 'about', 'validation'])),
+    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'about', 'validation'])),
   },
 })
 
