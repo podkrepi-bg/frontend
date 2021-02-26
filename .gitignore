@@ -33,5 +33,5 @@ coverage
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# Env
-.env
+.env*.local
+.actrc.secrets.local

@@ -9,7 +9,7 @@ on:
       - 'public/**'
 
 jobs:
-  build-image:
+  build-pr:
     runs-on: ubuntu-latest
 
     env:
