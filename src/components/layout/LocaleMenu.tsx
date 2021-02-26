@@ -27,7 +27,7 @@ export default function LocaleMenu() {
   return (
     <>
       <Button variant="text" size="small" onClick={handleMenu}>
-        {router.locale}
+        {router.locale.toUpperCase()}
       </Button>
       <Menu
         open={Boolean(anchorEl)}
