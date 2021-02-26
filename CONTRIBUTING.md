@@ -27,7 +27,7 @@ git clone git@github.com:daritelska-platforma/frontend.git
 cd frontend
 
 # Symlink dev environment
-ln -s .env.example .env
+ln -s .env.example .env.local
 
 # Install dependencies
 yarn
@@ -137,7 +137,7 @@ import styles from './advanced.module.scss'
 
 ### File structure
 
-Inherits AirBnb naming convention https://github.com/airbnb/javascript/tree/master/react#naming
+Inherits AirBnb naming convention <https://github.com/airbnb/javascript/tree/master/react#naming>
 
 Use PascalCase for React components and camelCase for their instances
 
@@ -185,7 +185,7 @@ export default function AdvancedForm({ title = 'Nice', children, age }: Advanced
 
 ### Components
 
-#### Preferred export style :sun_with_face:
+#### Preferred export style :sun_with_face
 
 - Nice IDE support and readability
 
@@ -237,7 +237,7 @@ export default function RegisterPage() {
 
   **Discouraged**
 
-  https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/display-name.md
+  <https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/display-name.md>
 
   ```tsx
   export default () => <div>page</div>
@@ -261,7 +261,7 @@ There are three common ways to style a component:
 
 #### Styles using the [`<Box />` component](https://material-ui.com/components/box/)
 
-Single component that inherits all sizing props from MUI https://material-ui.com/system/basics/#all-inclusive
+Single component that inherits all sizing props from MUI <https://material-ui.com/system/basics/#all-inclusive>
 
 :sun_with_face: Nice for quick layouts that should follow the theme
 

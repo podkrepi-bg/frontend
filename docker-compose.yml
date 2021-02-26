@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-  frontend:
+  app:
     container_name: ${COMPOSE_PROJECT_NAME?}-frontend
 
     build:
@@ -9,6 +9,10 @@ services:
       target: ${TARGET_ENV}
       args:
         NODE_ENV: ${NODE_ENV}
+
+    env_file:
+      - .env
+      - .env.local
 
     networks:
       - net-frontend
@@ -26,6 +30,9 @@ services:
     environment:
       API_URL: ${API_URL}
       NEXTAUTH_URL: ${NEXTAUTH_URL}
+      JWT_SECRET: ${JWT_SECRET}
+      DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID}
+      DISCORD_CLIENT_SECRET: ${DISCORD_CLIENT_SECRET}
 
 networks:
   net-frontend:
