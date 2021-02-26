@@ -98,6 +98,20 @@
         "review",
         "tool"
       ]
+    },
+    {
+      "login": "miraclebg",
+      "name": "Martin Kovachev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/126405?v=4",
+      "profile": "http://www.nimasystems.com",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "infra",
+        "maintenance",
+        "security"
+      ]
     }
   ],
   "contributorsPerLine": 7,
