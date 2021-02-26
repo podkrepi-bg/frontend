@@ -1,4 +1,4 @@
-import { Grid, Typography, Box } from '@material-ui/core'
+import { Grid, Typography } from '@material-ui/core'
 import { useTranslation } from 'react-i18next'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
@@ -8,12 +8,24 @@ import TimelinessIcon from '../icons/problems-to-solve-icons/TimelinessIcon'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
+    heading: {
+      margin: 'auto',
+      marginBottom: theme.spacing(5),
+      textAlign: 'center',
+      maxWidth: '50%',
+      color: '#284E84',
+    },
+    problem: {
+      display: 'flex',
+      alignItems: 'center',
+      flexBasis: '23%',
+    },
     icon: {
       fontSize: theme.spacing(10),
       marginRight: theme.spacing(1),
     },
-    heading: {
-      marginBottom: theme.spacing(5),
+    problemLabel: {
+      color: '#284E84',
     },
   }),
 )
@@ -23,32 +35,30 @@ export default function SupportUsSection() {
   const { t } = useTranslation()
 
   return (
-    <Box component="section" mb={12}>
-      <Typography variant="h5" align="center" className={classes.heading}>
+    <Grid container component="section">
+      <Typography variant="h5" className={classes.heading}>
         {t('index:problems-to-solve-section.heading')}
       </Typography>
-      <Grid container direction="row">
-        <Box display="flex" justifyContent="space-between" flexWrap="wrap" width="100%">
-          <Box display="flex" alignItems="center" flexBasis="25%">
-            <CommissionsIcon className={classes.icon} />
-            <Typography variant="body2" paragraph>
-              {t('index:problems-to-solve-section.high-commissions')}
-            </Typography>
-          </Box>
-          <Box display="flex" alignItems="center" flexBasis="25%">
-            <TransparencyIcon className={classes.icon} />
-            <Typography variant="body2" paragraph>
-              {t('index:problems-to-solve-section.low-transparency')}
-            </Typography>
-          </Box>
-          <Box display="flex" alignItems="center" flexBasis="25%">
-            <TimelinessIcon className={classes.icon} />
-            <Typography variant="body2" paragraph>
-              {t('index:problems-to-solve-section.timeliness')}
-            </Typography>
-          </Box>
-        </Box>
+      <Grid container direction="row" justify="space-between" alignItems="center">
+        <Grid item className={classes.problem}>
+          <CommissionsIcon className={classes.icon} />
+          <Typography variant="body2" className={classes.problemLabel}>
+            {t('index:problems-to-solve-section.high-commissions')}
+          </Typography>
+        </Grid>
+        <Grid item className={classes.problem}>
+          <TransparencyIcon className={classes.icon} />
+          <Typography variant="body2" className={classes.problemLabel}>
+            {t('index:problems-to-solve-section.low-transparency')}
+          </Typography>
+        </Grid>
+        <Grid item className={classes.problem}>
+          <TimelinessIcon className={classes.icon} />
+          <Typography variant="body2" className={classes.problemLabel}>
+            {t('index:problems-to-solve-section.timeliness')}
+          </Typography>
+        </Grid>
       </Grid>
-    </Box>
+    </Grid>
   )
 }
