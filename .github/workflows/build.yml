@@ -18,8 +18,5 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-      - name: Setup environment
-        run: cp .env.example .env
-
       - name: Build frontend
         run: yarn build
