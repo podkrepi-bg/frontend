@@ -4,10 +4,11 @@ import { AppProps } from 'next/app'
 import { Provider as SessionProvider } from 'next-auth/client'
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
+import { appWithTranslation } from 'next-i18next'
 
 import theme from 'common/theme'
 
-export default function CustomApp(props: AppProps) {
+function CustomApp(props: AppProps) {
   const { Component, pageProps } = props
 
   useEffect(() => {
@@ -34,3 +35,5 @@ export default function CustomApp(props: AppProps) {
     </React.Fragment>
   )
 }
+
+export default appWithTranslation(CustomApp)
