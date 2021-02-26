@@ -13,11 +13,7 @@ export default function LocaleSwitcher() {
   )
   return (
     <Box textAlign="center">
-      <ButtonGroup
-        disableRipple
-        variant="outlined"
-        color="primary"
-        aria-label="text primary button group">
+      <ButtonGroup disableRipple variant="outlined" aria-label="text primary button group">
         <Button onClick={changeLang('bg')}>{t('BG')}</Button>
         <Button onClick={changeLang('en')}>{t('EN')}</Button>
       </ButtonGroup>
