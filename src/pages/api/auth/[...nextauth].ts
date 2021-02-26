@@ -3,7 +3,7 @@ import getConfig from 'next/config'
 import Providers from 'next-auth/providers'
 
 const {
-  publicRuntimeConfig: { DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, JWT_SECRET },
+  serverRuntimeConfig: { DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, JWT_SECRET },
 } = getConfig()
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
