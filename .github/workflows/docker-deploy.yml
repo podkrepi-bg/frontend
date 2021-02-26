@@ -9,6 +9,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: prod
 
     strategy:
       matrix:
@@ -65,6 +66,9 @@ jobs:
 
       - name: Start Deployment
         uses: TapTap21/docker-remote-deployment-action@v1.0
+        env:
+          JWT_SECRET: ${{ secrets.APP_JWT_SECRET }}
+          DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
         with:
           remote_docker_host: ${{ secrets.REMOTE_DOCKER_HOST }}
           ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}

@@ -11,6 +11,9 @@ services:
       interval: 10s
       timeout: 3s
       retries: 3
+    environment:
+      JWT_SECRET: ${JWT_SECRET}
+      DISCORD_CLIENT_SECRET: ${DISCORD_CLIENT_SECRET}
 networks:
   pub1:
     external: true
