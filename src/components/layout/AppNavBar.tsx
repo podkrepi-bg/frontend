@@ -9,10 +9,12 @@ import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { AppBar, Toolbar, IconButton, Grid, Hidden } from '@material-ui/core'
 
 import { routes } from 'common/routes'
+import PodkrepiLogo from 'components/brand/PodkrepiLogo'
+
+import LocaleMenu from './LocaleMenu'
 import PublicMenu from './nav/PublicMenu'
 import PrivateMenu from './nav/PrivateMenu'
 import MainNavMenu from './nav/MainNavMenu'
-import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -36,13 +38,22 @@ const useStyles = makeStyles((theme) =>
       justifyContent: 'space-between',
     },
     toolboxGrid: {
-      marginTop: theme.spacing(0),
-      marginLeft: theme.spacing(5),
+      marginLeft: theme.spacing(2),
+      marginRight: theme.spacing(5),
+      [theme.breakpoints.up('lg')]: {
+        marginRight: theme.spacing(10),
+      },
     },
     logo: {
       transition: 'height .5s',
       height: theme.spacing(7.5),
+      minWidth: theme.spacing(15),
+      marginLeft: theme.spacing(5),
+      [theme.breakpoints.up('lg')]: {
+        marginLeft: theme.spacing(10),
+      },
       [theme.breakpoints.down('sm')]: {
+        marginLeft: 0,
         width: '100%',
         height: '50%',
       },
@@ -76,18 +87,18 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
         <Hidden smDown>
           <Grid
             container
-            spacing={1}
             wrap="nowrap"
             direction="row"
-            justify="space-around"
-            alignItems="center"
+            justify="flex-end"
             className={classes.toolboxGrid}>
             <Grid item>
-              <MainNavMenu />
+              <MainNavMenu>
+                <Grid item>
+                  <LocaleMenu />
+                </Grid>
+                {session ? <PrivateMenu /> : <PublicMenu />}
+              </MainNavMenu>
             </Grid>
-            <Hidden mdDown>
-              <Grid item>{session ? <PrivateMenu /> : <PublicMenu />}</Grid>
-            </Hidden>
           </Grid>
         </Hidden>
         <Hidden mdUp>
