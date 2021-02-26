@@ -78,7 +78,7 @@ jobs:
           DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
           DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
           DEPLOY_TAG: ${{ steps.get-version.outputs.VERSION }}
-          HOST_IPV4_ADDRESS: "172.14.0.4"
+          HOST_IPV4_ADDRESS: '172.14.0.4'
         with:
           remote_docker_host: ${{ secrets.REMOTE_DOCKER_HOST }}
           ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
