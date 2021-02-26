@@ -12,7 +12,10 @@ services:
       timeout: 3s
       retries: 3
     environment:
+      API_URL: ${API_URL}
+      NEXTAUTH_URL: ${NEXTAUTH_URL}
       JWT_SECRET: ${JWT_SECRET}
+      DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID}
       DISCORD_CLIENT_SECRET: ${DISCORD_CLIENT_SECRET}
 networks:
   pub1:
