@@ -18,7 +18,7 @@ services:
       - net-frontend
 
     ports:
-      - '${APP_PORT}:3040'
+      - '3040:3040'
 
     volumes:
       # Local:Container mounting points

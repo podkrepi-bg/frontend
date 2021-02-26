@@ -10,7 +10,11 @@
     "lint": "eslint . --fix --ext=ts,tsx",
     "lint:styles": "stylelint **.scss",
     "format": "prettier --write .",
-    "type-check": "tsc --project tsconfig.json --pretty --noEmit"
+    "type-check": "tsc --project tsconfig.json --pretty --noEmit",
+    "dc": "docker-compose --env-file .env.local",
+    "up": "yarn dc up -d && yarn logs",
+    "logs": "yarn dc logs -f",
+    "down": "yarn dc down"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.2",
