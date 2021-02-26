@@ -1,6 +1,7 @@
-import Layout from 'components/layout/Layout'
+import { Container } from '@material-ui/core'
 import { useTranslation } from 'react-i18next'
 
+import Layout from 'components/layout/Layout'
 import Jumbotron from './sections/Jumbotron'
 import ActivitySection from './sections/ActivitySection'
 import TeamSection from './sections/TeamSection'
@@ -12,13 +13,15 @@ export default function Index() {
   const { t } = useTranslation()
 
   return (
-    <Layout title={t('index:title')}>
+    <Layout maxWidth={false} title={t('index:title')}>
       <Jumbotron />
-      <ActivitySection />
-      <TeamSection />
-      <TeamChartSection />
-      <SupportUsSection />
-      <ProblemsToSolveSection />
+      <Container maxWidth="md">
+        <ActivitySection />
+        <TeamSection />
+        <TeamChartSection />
+        <SupportUsSection />
+        <ProblemsToSolveSection />
+      </Container>
     </Layout>
   )
 }
