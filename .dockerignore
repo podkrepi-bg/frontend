@@ -5,5 +5,5 @@ node_modules
 .git
 Dockerfile
 
-.env.local
-.env.**.local
+.env**
+!.env.example
