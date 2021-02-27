@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     heading: {
       marginBottom: theme.spacing(5),
-      color: '#284E84',
+      color: theme.palette.primary.dark,
     },
     container: {
       marginBottom: theme.spacing(12),

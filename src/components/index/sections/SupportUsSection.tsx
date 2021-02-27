@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     heading: {
       marginBottom: theme.spacing(5),
-      color: '#284E84',
+      color: theme.palette.primary.dark,
     },
     container: {
       marginBottom: theme.spacing(12),
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) =>
       width: '180px',
       height: '200px',
       '&:hover': {
-        backgroundColor: '#284E84',
+        backgroundColor: theme.palette.primary.dark,
         cursor: 'pointer',
       },
     },
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) =>
       marginBottom: theme.spacing(1),
     },
     supportOptionLabel: {
-      color: '#4AC3FF',
+      color: theme.palette.primary.main,
     },
   }),
 )
