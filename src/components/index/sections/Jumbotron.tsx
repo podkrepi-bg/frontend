@@ -17,17 +17,17 @@ const useStyles = makeStyles((theme) =>
       backgroundPosition: 'center',
       backgroundSize: 'cover',
       height: '910px',
-      color: '#ffffff',
+      color: theme.palette.common.white,
     },
     title: {
-      color: '#ffffff',
+      color: theme.palette.common.white,
     },
     typewriter: {
       marginBottom: theme.spacing(5),
     },
     podkrepiButton: {
-      color: '#ffffff',
-      borderColor: '#ffffff',
+      color: theme.palette.common.white,
+      borderColor: theme.palette.common.white,
     },
   }),
 )

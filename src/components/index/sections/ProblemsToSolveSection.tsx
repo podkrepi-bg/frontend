@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) =>
       marginBottom: theme.spacing(5),
       textAlign: 'center',
       maxWidth: '50%',
-      color: '#284E84',
+      color: theme.palette.primary.dark,
     },
     problem: {
       display: 'flex',
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) =>
       marginRight: theme.spacing(1),
     },
     problemLabel: {
-      color: '#284E84',
+      color: theme.palette.primary.dark,
     },
   }),
 )
