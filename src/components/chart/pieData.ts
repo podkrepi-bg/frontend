@@ -1,18 +1,52 @@
-import { DefaultRawDatum } from '@nivo/pie'
+import { Options } from 'highcharts'
 
-export type TeamPieData = DefaultRawDatum & { label?: string }
+export type TeamPieItem = { id: string; y: number; color: string; name?: string }
 
-export const teamPieData: TeamPieData[] = [
-  { id: 'back-end', value: 19.8 },
-  { id: 'frontend', value: 12.1 },
-  { id: 'full-stack', value: 11.1 },
-  { id: 'dev-ops', value: 10.6 },
-  { id: 'qa', value: 8.3 },
-  { id: 'ngo', value: 5.0 },
-  { id: 'design', value: 4.7 },
-  { id: 'law', value: 2.2 },
-  { id: 'management', value: 12.0 },
-  { id: 'accounting', value: 2.2 },
-  { id: 'marketing', value: 9.8 },
-  { id: 'others', value: 2.2 },
+export const teamPieData: Array<TeamPieItem> = [
+  { id: 'others', y: 2.2, color: '#F94144' },
+  { id: 'law', y: 2.2, color: '#F3722C' },
+  { id: 'accounting', y: 2.2, color: '#F8961E' },
+  { id: 'design', y: 4.7, color: '#F9844A' },
+  { id: 'ngo', y: 5.0, color: '#F9C74F' },
+  { id: 'qa', y: 8.3, color: '#90BE6D' },
+  { id: 'marketing', y: 9.8, color: '#43AA8B' },
+  { id: 'dev-ops', y: 10.6, color: '#4D908E' },
+  { id: 'full-stack', y: 11.1, color: '#577590' },
+  { id: 'management', y: 12.0, color: '#277DA1' },
+  { id: 'frontend', y: 12.1, color: '#219EBC' },
+  { id: 'back-end', y: 19.8, color: '#023047' },
 ]
+
+export const teamPieOptions: Options = {
+  chart: {
+    type: 'pie',
+    backgroundColor: '',
+  },
+  credits: {
+    enabled: false,
+  },
+  title: {
+    text: '',
+  },
+  plotOptions: {
+    pie: {
+      allowPointSelect: true,
+      cursor: 'pointer',
+      dataLabels: {
+        enabled: true,
+        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+      },
+      innerSize: '35%',
+    },
+  },
+  series: [
+    {
+      type: 'pie',
+      name: '',
+      data: teamPieData,
+      animation: {
+        duration: 2000,
+      },
+    },
+  ],
+}
