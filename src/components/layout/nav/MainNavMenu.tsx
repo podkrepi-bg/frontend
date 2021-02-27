@@ -13,11 +13,6 @@ type NavItem = {
 
 export const navItems: NavItem[] = [
   {
-    href: routes.index,
-    label: 'nav.home',
-    variant: 'text',
-  },
-  {
     href: routes.about,
     label: 'nav.about',
     variant: 'text',
@@ -39,10 +34,10 @@ export const navItems: NavItem[] = [
   },
 ]
 
-export default function MainNavMenu() {
+export default function MainNavMenu({ children }: { children?: React.ReactNode }) {
   const { t } = useTranslation()
   return (
-    <Grid container direction="row" wrap="nowrap" spacing={2}>
+    <Grid container direction="row" wrap="nowrap" alignItems="baseline" spacing={2}>
       {navItems.map(({ href, label, variant }, key) => (
         <Grid item key={key}>
           <LinkButton
@@ -54,6 +49,7 @@ export default function MainNavMenu() {
           </LinkButton>
         </Grid>
       ))}
+      {children}
     </Grid>
   )
 }
