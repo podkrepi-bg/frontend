@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) =>
     },
     offset: {
       ...theme.mixins.toolbar,
-      marginBottom: theme.spacing(8),
+      marginBottom: theme.spacing(6),
       [theme.breakpoints.down('md')]: {
         marginBottom: theme.spacing(0),
       },
