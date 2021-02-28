@@ -51,7 +51,7 @@ export default function Index() {
             {t('index:jumbotron.heading')}
           </Typography>
         </Typography>
-        <Typography variant="h4" component="h4" className={classes.typewriter}>
+        <Typography variant="h4" component="p" className={classes.typewriter}>
           <Typewriter
             onInit={(typewriter) => {
               typewriter
