@@ -18,6 +18,7 @@ import MobileNav from './nav/MobileNav'
 type LayoutProps = React.PropsWithChildren<
   ContainerProps & {
     title?: string
+    disableOffset?: boolean
   }
 >
 
@@ -43,6 +44,7 @@ const useStyles = makeStyles((theme) =>
 export default function Layout({
   title,
   children,
+  disableOffset = false,
   maxWidth = 'md',
   ...containerProps
 }: LayoutProps) {
@@ -57,7 +59,7 @@ export default function Layout({
       <Box pt={4} pb={20}>
         <AppNavBar navMenuToggle={navMenuToggle} />
         <MobileNav mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
-        <div className={classes.offset} />
+        {!disableOffset && <div className={classes.offset} />}
         {title && (
           <Typography
             paragraph

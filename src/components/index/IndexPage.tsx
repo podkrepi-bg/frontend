@@ -13,7 +13,7 @@ export default function Index() {
   const { t } = useTranslation()
 
   return (
-    <Layout maxWidth={false} title={t('index:title')}>
+    <Layout maxWidth={false} disableOffset>
       <Jumbotron />
       <Container maxWidth="md">
         <ActivitySection />

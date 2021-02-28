@@ -1,4 +1,4 @@
-import { Grid, Typography, Box } from '@material-ui/core'
+import { Grid, Typography } from '@material-ui/core'
 import { useTranslation } from 'react-i18next'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
@@ -6,6 +6,11 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     heading: {
       marginBottom: theme.spacing(5),
+      color: theme.palette.primary.dark,
+    },
+    container: {
+      marginBottom: theme.spacing(12),
+      textAlign: 'center',
     },
   }),
 )
@@ -15,17 +20,21 @@ export default function TeamSection() {
   const { t } = useTranslation()
 
   return (
-    <Box component="section" mb={12} textAlign="center">
-      <Grid container direction="column" alignItems="center" justify="center">
-        <Grid item>
-          <Typography variant="h5" className={classes.heading}>
-            {t('index:team-section.heading')}
-          </Typography>
-          <Typography variant="body2">{t('index:team-section.content')}</Typography>
-        </Grid>
+    <Grid
+      container
+      direction="column"
+      alignItems="center"
+      justify="center"
+      component="section"
+      className={classes.container}>
+      <Typography variant="h5" className={classes.heading}>
+        {t('index:team-section.heading')}
+      </Typography>
+      <Grid item>
+        <Typography variant="body2">{t('index:team-section.content')}</Typography>
       </Grid>
 
       {/* Team picture will be implemented here */}
-    </Box>
+    </Grid>
   )
 }
