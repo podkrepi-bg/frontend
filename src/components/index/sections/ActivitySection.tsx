@@ -21,7 +21,7 @@ export default function ActivitySection() {
 
   return (
     <Grid container direction="column" component="section" className={classes.container}>
-      <Typography variant="h5" className={classes.heading}>
+      <Typography variant="h5" component="h2" className={classes.heading}>
         {t('index:activity-section.heading')}
       </Typography>
       <Grid item>

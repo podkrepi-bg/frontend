@@ -19,15 +19,17 @@ const TeamChartSection = () => {
 
   return (
     <Box component="section" mb={10} textAlign="center">
-      <Grid container direction="column" alignItems="center" justify="center">
+      <Grid container direction="column" justify="center" spacing={3}>
         <Grid item>
-          <Typography variant="h5" paragraph className={classes.heading}>
+          <Typography variant="h5" component="h2" className={classes.heading}>
             {t('index:team-chart-section.heading')}
           </Typography>
-          <Typography variant="subtitle1" paragraph>
-            {t('index:team-chart-section.content')}
-          </Typography>
-          <TeamPie />
+          <Typography variant="body2">{t('index:team-chart-section.content')}</Typography>
+        </Grid>
+        <Grid item>
+          <Box textAlign="center" overflow="hidden">
+            <TeamPie />
+          </Box>
         </Grid>
       </Grid>
     </Box>
