@@ -118,5 +118,24 @@
     },
     "helperText": "Моля, изберете си роля",
     "termsHelperText": "Моля, приемете oбщите условия "
-  }
+  },
+  "footerLabels": {
+    "aboutUs": "За нас",
+    "aboutProject": "За проекта",
+    "contact": "Контакти",
+    "support": "Подкрепи ни",
+    "terms": "Общи условия",
+    "confidentiality": "Поверителност на данните",
+    "gdpr": "User Consent Manager / GDPR"
+  },
+  "footerLinks": {
+    "aboutUs": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "aboutProject": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "contact": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "support": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "terms": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "confidentiality": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "gdpr": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+  },
+  "footerCopyrights":"Podkrepi.bg©2021. Всички права запазени."
 }
