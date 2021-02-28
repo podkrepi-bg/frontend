@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import '../styles/global.css'
 import Head from 'next/head'
 import { AppProps } from 'next/app'
 import { Provider as SessionProvider } from 'next-auth/client'
