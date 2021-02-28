@@ -118,5 +118,24 @@
     },
     "helperText": "At least one checkbox should be checked",
     "termsHelperText": "Please agree to the Terms and Conditions"
-  }
+  },
+  "footerLabels": {
+    "aboutUs": "About us",
+    "aboutProject": "About the project",
+    "contact": "Contact us",
+    "support": "Support us",
+    "terms": "Common terms",
+    "confidentiality": "Data confidentiality",
+    "gdpr": "User Consent Manager / GDPR"
+  },
+  "footerLinks": {
+    "aboutUs": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "aboutProject": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "contact": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "support": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "terms": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "confidentiality": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "gdpr": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+  },
+  "footerCopyrights":"Podkrepi.bg©2021. Al rights reserved."
 }
