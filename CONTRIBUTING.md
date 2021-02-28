@@ -113,6 +113,7 @@ Bad branch names: :partly_sunny:
 - `camelCasedBranchNames` - camel case
 - `PascalCasedBranchNames` - pascal case
 - `long-titles-above-80-chars-{.....}` - too long
+- `#58/something` - shell understands it as comment
 
 | Branching model                            | Merges                                            |
 | ------------------------------------------ | ------------------------------------------------- |
