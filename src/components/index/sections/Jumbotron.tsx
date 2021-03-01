@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 
-import { Box, Grid, Typography } from '@material-ui/core'
+import { Grid, Typography } from '@material-ui/core'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
 import { routes } from 'common/routes'
@@ -10,14 +10,18 @@ import Typewriter from '../helpers/Typewriter'
 const useStyles = makeStyles((theme) =>
   createStyles({
     container: {
-      paddingTop: theme.spacing(35),
-      marginBottom: theme.spacing(15),
+      paddingTop: theme.spacing(15),
+      marginBottom: theme.spacing(12),
       textAlign: 'center',
       backgroundImage: 'url(img/header-image.png)',
       backgroundPosition: 'center',
       backgroundSize: 'cover',
       color: theme.palette.common.white,
-      height: '800px',
+      height: theme.spacing(81),
+      [theme.breakpoints.up('md')]: {
+        paddingTop: theme.spacing(35),
+        height: theme.spacing(100),
+      },
     },
     title: {
       color: theme.palette.common.white,
@@ -54,11 +58,9 @@ export default function Index() {
         <Typewriter />
       </Grid>
       <Grid item>
-        <Box mt={10}>
-          <LinkButton href={routes.support} variant="outlined" className={classes.podkrepiButton}>
-            {t('index:jumbotron.support-us-button')}
-          </LinkButton>
-        </Box>
+        <LinkButton href={routes.support} variant="outlined" className={classes.podkrepiButton}>
+          {t('index:jumbotron.support-us-button')}
+        </LinkButton>
       </Grid>
     </Grid>
   )
