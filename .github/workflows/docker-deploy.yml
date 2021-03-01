@@ -72,7 +72,7 @@ jobs:
           docker push $IMAGE_ID:$VERSION
 
       - name: Start Deployment
-        uses: TapTap21/docker-remote-deployment-action@v1.1
+        uses: TapTap21/docker-remote-deployment-action@v1.0
         env:
           JWT_SECRET: ${{ secrets.APP_JWT_SECRET }}
           DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
