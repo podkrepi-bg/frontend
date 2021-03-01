@@ -72,7 +72,7 @@ jobs:
           docker push $IMAGE_ID:$VERSION
 
       - name: Start Deployment
-        uses: miraclebg/docker-remote-deployment-action@v1.2
+        uses: TapTap21/docker-remote-deployment-action@v1.1
         env:
           JWT_SECRET: ${{ secrets.APP_JWT_SECRET }}
           DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
@@ -80,7 +80,7 @@ jobs:
           DEPLOY_TAG: ${{ steps.get-version.outputs.VERSION }}
           HOST_IPV4_ADDRESS: '172.14.0.4'
         with:
-          remote_docker_host: ${{ secrets.REMOTE_DOCKER_HOST }}
+          remote_docker_host: 'root@178.79.188.15'
           ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           stack_file_name: docker-compose.prod.yml
