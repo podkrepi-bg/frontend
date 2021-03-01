@@ -56,7 +56,7 @@ export default function Layout({
       <Head>
         <title>{title}</title>
       </Head>
-      <Box pt={4} pb={20}>
+      <Box pt={4} pb={10}>
         <AppNavBar navMenuToggle={navMenuToggle} />
         <MobileNav mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
         {!disableOffset && <div className={classes.offset} />}

@@ -11,12 +11,14 @@ const useStyles = makeStyles((theme) =>
     heading: {
       textAlign: 'center',
       color: theme.palette.primary.dark,
-      padding: theme.spacing(0, 4),
     },
     problem: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
+      textAlign: 'center',
+      [theme.breakpoints.up('md')]: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
     },
     icon: {
       fontSize: theme.spacing(10),
@@ -25,6 +27,10 @@ const useStyles = makeStyles((theme) =>
     },
     problemLabel: {
       color: theme.palette.primary.dark,
+      [theme.breakpoints.up('md')]: {
+        textAlign: 'left',
+        flexBasis: '25%',
+      },
     },
   }),
 )
@@ -40,30 +46,24 @@ export default function SupportUsSection() {
           {t('index:problems-to-solve-section.heading')}
         </Typography>
       </Grid>
-      <Grid item container>
-        <Grid item xs={12} sm={4}>
-          <div className={classes.problem}>
-            <CommissionsIcon className={classes.icon} />
-            <Typography variant="body2" className={classes.problemLabel}>
-              {t('index:problems-to-solve-section.high-commissions')}
-            </Typography>
-          </div>
+      <Grid item container justify="center" spacing={4}>
+        <Grid item xs={12} sm={4} d-md="flex" className={classes.problem}>
+          <CommissionsIcon className={classes.icon} />
+          <Typography variant="body2" className={classes.problemLabel}>
+            {t('index:problems-to-solve-section.high-commissions')}
+          </Typography>
         </Grid>
-        <Grid item xs={12} sm={4}>
-          <div className={classes.problem}>
-            <TransparencyIcon className={classes.icon} />
-            <Typography variant="body2" className={classes.problemLabel}>
-              {t('index:problems-to-solve-section.low-transparency')}
-            </Typography>
-          </div>
+        <Grid item xs={12} sm={4} d-md="flex" className={classes.problem}>
+          <TransparencyIcon className={classes.icon} />
+          <Typography variant="body2" className={classes.problemLabel}>
+            {t('index:problems-to-solve-section.low-transparency')}
+          </Typography>
         </Grid>
-        <Grid item xs={12} sm={4}>
-          <div className={classes.problem}>
-            <TimelinessIcon className={classes.icon} />
-            <Typography variant="body2" className={classes.problemLabel}>
-              {t('index:problems-to-solve-section.timeliness')}
-            </Typography>
-          </div>
+        <Grid item xs={12} sm={4} d-md="flex" className={classes.problem}>
+          <TimelinessIcon className={classes.icon} />
+          <Typography variant="body2" className={classes.problemLabel}>
+            {t('index:problems-to-solve-section.timeliness')}
+          </Typography>
         </Grid>
       </Grid>
     </Grid>
