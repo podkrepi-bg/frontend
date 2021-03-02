@@ -97,12 +97,14 @@ jobs:
           args: --env-file .env.prod up -d
 
       - name: Create Sentry Release
+        env:
+          SENTRY_RELEASE: ${{ steps.get-version.outputs.VERSION }}
         run: |
           # Install Sentry CLI
           curl -sL https://sentry.io/get-cli/ | bash
 
           # Create new Sentry release
-          export SENTRY_RELEASE=$(sentry-cli releases propose-version)
+          # export SENTRY_RELEASE=$(sentry-cli releases propose-version)
           sentry-cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE
           sentry-cli releases set-commits --auto $SENTRY_RELEASE
           sentry-cli releases finalize $SENTRY_RELEASE
