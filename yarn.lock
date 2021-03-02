@@ -566,6 +566,21 @@
     remark "^13.0.0"
     unist-util-find-all-after "^3.0.2"
 
+"@types/hoist-non-react-statics@^3.3.1":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#1124aafe5118cb591977aeb1ceaaed1070eb039f"
+  integrity sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==
+  dependencies:
+    "@types/react" "*"
+    hoist-non-react-statics "^3.3.0"
+
+"@types/i18next-fs-backend@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/i18next-fs-backend/-/i18next-fs-backend-1.0.0.tgz#3fb0374f4d376375b7cc1d3729bca663d104fa64"
+  integrity sha512-PotQ0NE17NavxXCsdyq9qIKZQOB7+A5O/2nDdvfbfm6/IgvvC1YUO6hxK3nIHASu+QGjO1QV5J8PJw4OL12LMQ==
+  dependencies:
+    i18next "^19.7.0"
+
 "@types/json-schema@^7.0.3":
   version "7.0.6"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.6.tgz#f4c7ec43e81b319a9815115031709f26987891f0"
@@ -2616,6 +2631,13 @@ i18next-fs-backend@^1.0.7:
   resolved "https://registry.yarnpkg.com/i18next-fs-backend/-/i18next-fs-backend-1.0.8.tgz#f03d911cac31d76bd6b0aa73fa9c7fc45a199e1d"
   integrity sha512-1TyOJEGBvwqdIu0vZo/pcAxPXe/0vqOX6/hgsgTnNpcGe0PyHJ/87ABDdwdwfKJSxbtM0j6Pue0NKFcx6rOeJg==
 
+i18next@^19.7.0:
+  version "19.9.1"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-19.9.1.tgz#7a072b75daf677aa51fd4ce55214f21702af3ffd"
+  integrity sha512-9Azzyb3DvMJUMd7sPhwVEs6PQcogvdHmLQTjMQ+P+h3XwW4O66/8lgZTmYShgkjPOCqTw4Fwl5LOp/VhZgPo5A==
+  dependencies:
+    "@babel/runtime" "^7.12.0"
+
 i18next@^19.8.4:
   version "19.9.0"
   resolved "https://registry.yarnpkg.com/i18next/-/i18next-19.9.0.tgz#0a8cdacac4c8fb384f81f1cfcce823772b37e5d3"
@@ -3525,11 +3547,13 @@ next-auth@^3.4.1:
     require_optional "^1.0.1"
     typeorm "^0.2.30"
 
-next-i18next@^8.0.2:
-  version "8.0.2"
-  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-8.0.2.tgz#8d594058a88b1dd843826df5454acea232eec8e4"
-  integrity sha512-8CNkDSivGa//aVFX6uYTTEPVqDfvIF0dIM7HmDx4fnzo0XcCvZ5OWJ6NvmeqykObIU8KL7H/x/kg3IUkl1JtPA==
+next-i18next@^8.0.6:
+  version "8.0.6"
+  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-8.0.6.tgz#879bcec40c6e06b48f8983d55f9c1cd1ef93244a"
+  integrity sha512-XvSWf1w71mdc6rFzfI7DkiJ25qq9F5QcLPOmyi7YUVjVl6wPh3wntXyEGtaFTKpegEPM1iDR0daG69jn75mW4A==
   dependencies:
+    "@types/hoist-non-react-statics" "^3.3.1"
+    "@types/i18next-fs-backend" "^1.0.0"
     core-js "^3"
     hoist-non-react-statics "^3.2.0"
     i18next "^19.8.4"
