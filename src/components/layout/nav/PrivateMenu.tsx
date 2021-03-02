@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/client'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { AccountCircle } from '@material-ui/icons'
 import { Avatar, Grid, IconButton, Menu, MenuItem } from '@material-ui/core'
 

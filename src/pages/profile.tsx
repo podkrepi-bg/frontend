@@ -1,9 +1,9 @@
 import { GetServerSideProps } from 'next'
 import { getSession, Session } from 'next-auth/client'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { routes } from 'common/routes'
 import ProfilePage from 'components/auth/profile/ProfilePage'
-import { serverSideTranslations } from 'common/useNextLocale'
 
 export type ProfilePageProps = { session: Session | null }
 
@@ -18,7 +18,7 @@ export const getServerSideProps: GetServerSideProps<ProfilePageProps> = async (c
 
   return {
     props: {
-      i18nResources: await serverSideTranslations(ctx.locale, ['common']),
+      ...(await serverSideTranslations(ctx.locale ?? 'bg', ['common'])),
       session,
     },
   }

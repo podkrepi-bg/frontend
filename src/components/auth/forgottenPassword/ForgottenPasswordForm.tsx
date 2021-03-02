@@ -1,6 +1,6 @@
 import React from 'react'
 import * as yup from 'yup'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { Typography, Grid } from '@material-ui/core'
 
 import SubmitButton from 'components/common/form/SubmitButton'

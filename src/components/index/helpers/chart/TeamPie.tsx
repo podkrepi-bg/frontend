@@ -2,7 +2,7 @@ import React from 'react'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import { teamPieData, teamPieOptions, TeamPieItem } from 'components/index/helpers/chart/pieData'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import handleViewport from 'react-in-viewport'
 
 export type TeamPieProps = {

@@ -20,7 +20,7 @@ module.exports = {
     node: true,
     jest: true,
   },
-  ignorePatterns: ['.eslintrc.js', 'next.config.js'],
+  ignorePatterns: ['.eslintrc.js', 'next.config.js', 'next-i18next.config.js'],
   rules: {
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
