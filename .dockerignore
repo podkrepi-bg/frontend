@@ -4,3 +4,6 @@ node_modules
 .github
 .git
 Dockerfile
+
+.env**
+!.env.example

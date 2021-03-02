@@ -80,6 +80,7 @@ export const themeOptions: ThemeOptions = {
     h4: { fontFamily },
     h5: { fontFamily },
     h6: { fontFamily },
+    button: { fontFamily, textTransform: 'initial' },
   },
 }
 
