@@ -74,6 +74,8 @@ jobs:
       - name: Start Deployment
         uses: TapTap21/docker-remote-deployment-action@v1.1
         env:
+          APP_URL: https://app.podkrepi.bg
+          NEXTAUTH_URL: https://app.podkrepi.bg
           JWT_SECRET: ${{ secrets.APP_JWT_SECRET }}
           DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
           DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
