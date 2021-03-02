@@ -18,11 +18,12 @@ const useStyles = makeStyles((theme) =>
 
 export default function Index() {
   const classes = useStyles()
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
 
   return (
     <Typography variant="h4" className={classes.typewriter}>
       <Typewriter
+        key={i18n.language}
         onInit={(typewriter) => {
           typewriter
             .typeString(t('index:jumbotron.maximum-transparency'))
