@@ -1,6 +1,6 @@
 import React from 'react'
 import { signIn } from 'next-auth/client'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { Container, Grid, Box, Button } from '@material-ui/core'
 
 import Link from 'components/common/Link'

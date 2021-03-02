@@ -1,5 +1,5 @@
 import { FormikErrors } from 'formik'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import React, { useEffect, useState } from 'react'
 import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core/styles'
 import { Container, Stepper, Step, StepLabel, StepConnector, Hidden, Grid } from '@material-ui/core'
