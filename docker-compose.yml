@@ -3,6 +3,7 @@ services:
   frontend:
     image: ${COMPOSE_PROJECT_NAME?}-frontend
     container_name: ${COMPOSE_PROJECT_NAME?}-frontend
+
     environment:
       API_URL: ${API_URL}
       APP_URL: ${APP_URL}
