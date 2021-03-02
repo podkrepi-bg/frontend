@@ -1,6 +1,6 @@
 import { setLocale } from 'yup'
 import { TOptions } from 'i18next'
-import { TFunction } from 'react-i18next'
+import { TFunction } from 'next-i18next'
 
 export type TranslatableField = (string | undefined) | { key: string; values?: TOptions }
 

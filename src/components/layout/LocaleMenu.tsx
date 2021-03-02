@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useCallback, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { Button, Menu, MenuItem } from '@material-ui/core'
 
 export default function LocaleMenu() {

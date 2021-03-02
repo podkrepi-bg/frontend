@@ -127,7 +127,7 @@ A common way to sort the imports in the file is by their source: `external`, `ab
 
 ```tsx
 import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 import Nav from 'components/layout/Nav'
 import Layout from 'components/layout/Layout'
@@ -418,7 +418,7 @@ Usage of translation hook `useTranslation` is preferred over usage of `<Trans />
 #### Usage in components
 
 ```tsx
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 export default function CustomComponent() {
   const { t } = useTranslation()
