@@ -16,6 +16,7 @@ import { routes } from 'common/routes'
 import Layout from 'components/layout/Layout'
 import { ProfilePageProps } from 'pages/profile'
 import LinkButton from 'components/common/LinkButton'
+import LocaleSwitcher from 'components/layout/LocaleSwitcher'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -62,6 +63,9 @@ export default function ProfilePage({ session }: ProfilePageProps) {
             <Typography variant="h6" align="center">
               {session.user.email}
             </Typography>
+          </Grid>
+          <Grid item>
+            <LocaleSwitcher />
           </Grid>
           <Grid item>
             <LinkButton fullWidth color="default" variant="outlined" href={routes.logout}>

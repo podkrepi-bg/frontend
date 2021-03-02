@@ -27,31 +27,29 @@ export default function PrivateMenu() {
 
   const title = `${session.user.name}\n(${session.user.email})`
   return (
-    <Grid container justify="flex-end" direction="row" wrap="nowrap" spacing={2}>
-      <Grid item>
-        <IconButton onClick={handleMenu}>
-          {session.user.image ? (
-            <Avatar title={title} alt={title} src={session.user.image} />
-          ) : (
-            <AccountCircle />
-          )}
-        </IconButton>
-        <Menu
-          open={Boolean(anchorEl)}
-          keepMounted
-          id="menu-appbar"
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-          transformOrigin={{ vertical: 'top', horizontal: 'right' }}>
-          <MenuItem href={routes.profile} component="a" onClick={goto(routes.profile)}>
-            {t('nav.profile')}
-          </MenuItem>
-          <MenuItem href={routes.logout} component="a" onClick={goto(routes.logout)}>
-            {t('nav.logout')}
-          </MenuItem>
-        </Menu>
-      </Grid>
+    <Grid item>
+      <IconButton onClick={handleMenu}>
+        {session.user.image ? (
+          <Avatar title={title} alt={title} src={session.user.image} />
+        ) : (
+          <AccountCircle />
+        )}
+      </IconButton>
+      <Menu
+        open={Boolean(anchorEl)}
+        keepMounted
+        id="menu-appbar"
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}>
+        <MenuItem href={routes.profile} component="a" onClick={goto(routes.profile)}>
+          {t('nav.profile')}
+        </MenuItem>
+        <MenuItem href={routes.logout} component="a" onClick={goto(routes.logout)}>
+          {t('nav.logout')}
+        </MenuItem>
+      </Menu>
     </Grid>
   )
 }
