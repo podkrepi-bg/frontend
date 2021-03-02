@@ -1,39 +1,43 @@
-import Typewriter from 'typewriter-effect'
 import { useTranslation } from 'react-i18next'
 
-import { Box, Grid, Typography } from '@material-ui/core'
+import { Grid, Typography } from '@material-ui/core'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
 import { routes } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
+import Typewriter from '../helpers/Typewriter'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     container: {
       paddingTop: theme.spacing(15),
-      marginBottom: theme.spacing(15),
+      marginBottom: theme.spacing(12),
       textAlign: 'center',
       backgroundImage: 'url(img/header-image.png)',
       backgroundPosition: 'center',
       backgroundSize: 'cover',
-      height: '910px',
       color: theme.palette.common.white,
+      height: theme.spacing(81),
+      [theme.breakpoints.up('md')]: {
+        paddingTop: theme.spacing(35),
+        height: theme.spacing(100),
+      },
     },
     title: {
       color: theme.palette.common.white,
-      textShadow: '1px 2px rgba(0, 0, 0, 0.35)',
+      textShadow: '0px 2px 3px #000',
+      fontWeight: 600,
     },
     subTitle: {
       marginTop: theme.spacing(3),
-    },
-    typewriter: {
-      marginBottom: theme.spacing(5),
-      textShadow: '1px 2px rgba(0, 0, 0, 0.35)',
+      textShadow: '0px 2px 2px #000',
+      fontWeight: 600,
     },
     podkrepiButton: {
       color: theme.palette.common.white,
       borderColor: theme.palette.common.white,
       padding: theme.spacing(2, 4),
+      fontWeight: 600,
     },
   }),
 )
@@ -44,47 +48,19 @@ export default function Index() {
 
   return (
     <Grid container direction="column" component="section" className={classes.container}>
-      <Grid item className={classes.title}>
-        <Typography gutterBottom variant="h1">
+      <Grid item>
+        <Typography variant="h1" className={classes.title}>
           {t('index:title')}
           <Typography variant="h5" component="p" className={classes.subTitle}>
             {t('index:jumbotron.heading')}
           </Typography>
         </Typography>
-        <Typography variant="h4" component="p" className={classes.typewriter}>
-          <Typewriter
-            onInit={(typewriter) => {
-              typewriter
-                .typeString(t('index:jumbotron.maximum-transparency'))
-                .pauseFor(1000)
-                .deleteAll(20)
-                .typeString(t('index:jumbotron.eliminate-misuse'))
-                .pauseFor(1000)
-                .deleteAll(20)
-                .typeString(t('index:jumbotron.zero-commission'))
-                .pauseFor(1000)
-                .deleteAll(20)
-                .typeString(t('index:jumbotron.improve-donation-culture'))
-                .pauseFor(1000)
-                .deleteAll(20)
-                .typeString(t('index:jumbotron.open-source'))
-                .pauseFor(1000)
-                .deleteAll(20)
-                .start()
-            }}
-            options={{
-              loop: true,
-              delay: 70,
-            }}
-          />
-        </Typography>
+        <Typewriter />
       </Grid>
       <Grid item>
-        <Box mt={25}>
-          <LinkButton href={routes.support} variant="outlined" className={classes.podkrepiButton}>
-            {t('index:jumbotron.support-us-button')}
-          </LinkButton>
-        </Box>
+        <LinkButton href={routes.support} variant="outlined" className={classes.podkrepiButton}>
+          {t('index:jumbotron.support-us-button')}
+        </LinkButton>
       </Grid>
     </Grid>
   )
