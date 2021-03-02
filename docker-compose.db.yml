@@ -1,0 +1,103 @@
+version: '3.8'
+services:
+  # crdb:
+  #   image: cockroachdb/cockroach:v20.2.5
+  #   ports:
+  #     - "26257:26257"
+  #     - "8080:8080"
+  #   command: start-single-node --certs-dir
+  #   volumes:
+  #     - "${PWD}/cockroach-data/crdb:/cockroach/cockroach-data"
+
+  roach-cert:
+    container_name: roach-cert
+    hostname: roach-cert
+    build: roach-cert
+    volumes:
+      - certs-roach-0:/certs/roach-0
+      - certs-roach-1:/certs/roach-1
+      - certs-roach-2:/certs/roach-2
+      - certs-client:/certs/client
+
+  roach-0:
+    container_name: roach-0
+    hostname: roach-0
+    image: cockroachdb/cockroach:latest
+    command: start-single-node --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --certs-dir=/certs --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257
+    volumes:
+      - certs-roach-0:/certs
+    depends_on:
+      - roach-cert
+    networks:
+      - net-frontend
+
+  lb:
+    container_name: lb
+    hostname: lb
+    image: timveil/dynamic-haproxy:latest
+    ports:
+      - '${DB_PORT}:26257'
+      - '3080:8080'
+      - '3081:8081'
+    environment:
+      - NODES=roach-0
+      # - NODES=roach-0 roach-1 roach-2
+    links:
+      - roach-0
+      # - roach-1
+      # - roach-2
+    networks:
+      - net-frontend
+
+  roach-init:
+    container_name: roach-init
+    hostname: roach-init
+    # https://github.com/cockroachlabs-field/cockroachdb-remote-client
+    image: timveil/cockroachdb-remote-client:latest
+    environment:
+      COCKROACH_HOST: lb:${DB_PORT}
+      COCKROACH_DATABASE: ${DB_NAME}
+      COCKROACH_INSECURE: 'false'
+      COCKROACH_CERTS_DIR: /certs
+      DATABASE_NAME: ${DB_NAME}
+      DATABASE_USER: ${DB_USER}
+      DATABASE_PASSWORD: ${DB_PASS}
+    volumes:
+      - certs-client:/certs
+    depends_on:
+      - lb
+      - roach-cert
+    networks:
+      - net-frontend
+
+  flyway:
+    container_name: flyway
+    hostname: flyway
+    image: flyway/flyway
+    # https://flywaydb.org/documentation/configuration/configfile#reference
+    # jdbc:postgresql://<host>:<port>/<database>?<key1>=<value1>&<key2>=<value2>...
+    command: -url=jdbc:postgresql://lb:${DB_PORT}/${DB_NAME} -schemas=app -user=${DB_USER} -password=${DB_PASS} -connectRetries=60 migrate
+    volumes:
+      - ./db/migrations:/flyway/sql
+    depends_on:
+      - lb
+    networks:
+      - net-frontend
+
+  app:
+    depends_on:
+      - lb
+    volumes:
+      - certs-client:/certs
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+
+volumes:
+  certs-roach-0:
+  certs-roach-1:
+  certs-roach-2:
+  certs-client:
