@@ -13,6 +13,9 @@
     "changePassword": "Change your password",
     "forgottenPassword": "Forgotten password?"
   },
+  "meta": {
+    "title": "Podkrepi BG"
+  },
   "values": {
     "voluntary": {
       "heading": "Voluntary and pro-bono",
