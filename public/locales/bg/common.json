@@ -13,6 +13,9 @@
     "changePassword": "Смяна на парола",
     "forgottenPassword": "Забравена парола?"
   },
+  "meta": {
+    "title": "Подкрепи БГ"
+  },
   "values": {
     "voluntary": {
       "heading": "Доброволно и про-боно",

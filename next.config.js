@@ -1,4 +1,5 @@
 const path = require('path')
+const { i18n } = require('./next-i18next.config')
 
 require('dotenv').config()
 
@@ -15,9 +16,5 @@ module.exports = {
     API_URL: process.env.API_URL,
     APP_URL: process.env.APP_URL,
   },
-  i18n: {
-    localeDetection: false,
-    locales: ['bg', 'en'],
-    defaultLocale: 'bg',
-  },
+  i18n,
 }
