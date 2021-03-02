@@ -23,7 +23,7 @@ export const navItems: NavItem[] = [
     variant: 'text',
   },
   {
-    href: routes.index,
+    href: routes.contact,
     label: 'nav.contacts',
     variant: 'text',
   },
