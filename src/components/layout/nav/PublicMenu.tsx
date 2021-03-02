@@ -5,8 +5,11 @@ import { useTranslation } from 'react-i18next'
 import { routes } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
 
-export default function PublicMenu() {
+export default function PublicMenu({ disableAuth = false }: { disableAuth?: boolean }) {
   const { t } = useTranslation()
+  if (disableAuth) {
+    return null
+  }
   return (
     <>
       <Grid item>
