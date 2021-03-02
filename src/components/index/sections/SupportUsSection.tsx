@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) =>
     icon: {
       fontSize: theme.spacing(10),
       fill: 'none',
-      marginBottom: theme.spacing(1),
+      padding: theme.spacing(1),
     },
     supportOptionLabel: {
       color: theme.palette.primary.main,
