@@ -47,19 +47,19 @@ export default function SupportUsSection() {
         </Typography>
       </Grid>
       <Grid item container justify="center" spacing={4}>
-        <Grid item xs={12} sm={4} d-md="flex" className={classes.problem}>
+        <Grid item xs={12} sm={4} className={classes.problem}>
           <CommissionsIcon className={classes.icon} />
           <Typography variant="body2" className={classes.problemLabel}>
             {t('index:problems-to-solve-section.high-commissions')}
           </Typography>
         </Grid>
-        <Grid item xs={12} sm={4} d-md="flex" className={classes.problem}>
+        <Grid item xs={12} sm={4} className={classes.problem}>
           <TransparencyIcon className={classes.icon} />
           <Typography variant="body2" className={classes.problemLabel}>
             {t('index:problems-to-solve-section.low-transparency')}
           </Typography>
         </Grid>
-        <Grid item xs={12} sm={4} d-md="flex" className={classes.problem}>
+        <Grid item xs={12} sm={4} className={classes.problem}>
           <TimelinessIcon className={classes.icon} />
           <Typography variant="body2" className={classes.problemLabel}>
             {t('index:problems-to-solve-section.timeliness')}
