@@ -18,6 +18,10 @@ jobs:
 
     env:
       IMAGE_NAME: ${{ matrix.image-name }}
+      SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+      SENTRY_PROJECT: app
+      SENTRY_DEPLOY_ENVIRONMENT: production
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
     steps:
       - uses: actions/checkout@v2
@@ -91,3 +95,17 @@ jobs:
           docker_login_password: ${{ secrets.GHCR_TOKEN }}
           docker_login_registry: ghcr.io
           args: --env-file .env.prod up -d
+
+      - name: Create Sentry Release
+        run: |
+          # Install Sentry CLI
+          curl -sL https://sentry.io/get-cli/ | bash
+
+          # Create new Sentry release
+          export SENTRY_RELEASE=$(sentry-cli releases propose-version)
+          sentry-cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE
+          sentry-cli releases set-commits --auto $SENTRY_RELEASE
+          sentry-cli releases finalize $SENTRY_RELEASE
+
+          # Create new deploy for this Sentry release
+          sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_DEPLOY_ENVIRONMENT
