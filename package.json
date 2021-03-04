@@ -63,7 +63,7 @@
     "*.{ts,tsx,js}": [
       "yarn run lint"
     ],
-    "*.{ts,tsx,js,md,json}": [
+    "*.{ts,tsx,js,json}": [
       "yarn run format"
     ],
     "*.scss": "yarn run lint:styles"
