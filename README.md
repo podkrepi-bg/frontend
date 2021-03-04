@@ -3,7 +3,7 @@
 ![Lint](https://github.com/daritelska-platforma/frontend/workflows/Lint/badge.svg)
 ![Build](https://github.com/daritelska-platforma/frontend/workflows/Build/badge.svg)
 ![Build docker image](https://github.com/daritelska-platforma/frontend/workflows/Build%20docker%20image/badge.svg)
-[![Production deploy](https://github.com/daritelska-platforma/frontend/actions/workflows/docker-deploy.yml/badge.svg)](https://github.com/daritelska-platforma/frontend/actions/workflows/docker-deploy.yml)
+[![Production deployment](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-production.yml/badge.svg)](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-production.yml)
 
 ![Dependencies](https://img.shields.io/david/daritelska-platforma/frontend)
 ![Dev Dependencies](https://img.shields.io/david/dev/daritelska-platforma/frontend)
