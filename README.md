@@ -19,19 +19,11 @@
 
 ## What's in the box
 
-- [Typescript](https://www.typescriptlang.org/)
-- [Next.js](https://nextjs.org/)
-- [MaterialUI](https://material-ui.com/)
-- [MobX](https://mobx.js.org/)
-- [Formik](https://formik.org/)
-- [SCSS](https://sass-lang.com/), [SCSS Guidelines](https://github.com/bjankord/stylelint-config-sass-guidelines)
-- [ESlint](https://eslint.org/)
-- [Prettier](https://prettier.io/)
-- [Stylelint](https://stylelint.io/)
-- [Lint Staged](https://github.com/okonet/lint-staged)
-- [Husky](https://github.com/typicode/husky)
-- [Github Actions](https://docs.github.com/en/free-pro-team@latest/actions/reference)
-- [Docker Compose](https://docs.docker.com/compose/)
+- [Typescript](https://www.typescriptlang.org/) / [Next.js](https://nextjs.org/) / [MaterialUI](https://material-ui.com/)
+- [Formik](https://formik.org/) / [MobX](https://mobx.js.org/)
+- [JSS](https://cssinjs.org/?v=v10.5.1#react-jss-example) / [SCSS](https://sass-lang.com/) / [SCSS Guidelines](https://github.com/bjankord/stylelint-config-sass-guidelines)
+- [ESlint](https://eslint.org/) / [Prettier](https://prettier.io/) / [Husky](https://github.com/typicode/husky) / [Stylelint](https://stylelint.io/) / [Lint Staged](https://github.com/okonet/lint-staged)
+- [Docker Compose](https://docs.docker.com/compose/) / [Github Actions](https://docs.github.com/en/free-pro-team@latest/actions/reference)
 - [Sentry](https://sentry.io/organizations/podkrepibg/)
 
 ## Initial setup
