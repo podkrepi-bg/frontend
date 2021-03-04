@@ -9,6 +9,7 @@ import TimelinessIcon from '../icons/problems-to-solve-icons/TimelinessIcon'
 const useStyles = makeStyles((theme) =>
   createStyles({
     heading: {
+      marginBottom: theme.spacing(5),
       textAlign: 'center',
       color: theme.palette.primary.dark,
     },
@@ -40,12 +41,10 @@ export default function SupportUsSection() {
   const { t } = useTranslation()
 
   return (
-    <Grid container component="section" justify="center" spacing={5}>
-      <Grid item>
-        <Typography variant="h5" component="h2" className={classes.heading}>
-          {t('index:problems-to-solve-section.heading')}
-        </Typography>
-      </Grid>
+    <Grid container component="section" justify="center">
+      <Typography variant="h5" component="h2" className={classes.heading}>
+        {t('index:problems-to-solve-section.heading')}
+      </Typography>
       <Grid item container justify="center" spacing={4}>
         <Grid item xs={12} sm={4} className={classes.problem}>
           <CommissionsIcon className={classes.icon} />
