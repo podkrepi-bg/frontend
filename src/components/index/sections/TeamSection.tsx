@@ -12,6 +12,11 @@ const useStyles = makeStyles((theme) =>
       marginBottom: theme.spacing(12),
       textAlign: 'center',
     },
+    teamImage: {
+      maxWidth: '100%',
+      marginTop: theme.spacing(3),
+      padding: theme.spacing(0, 2),
+    },
   }),
 )
 
@@ -30,11 +35,14 @@ export default function TeamSection() {
       <Typography variant="h5" className={classes.heading}>
         {t('index:team-section.heading')}
       </Typography>
-      <Grid item>
-        <Typography variant="body2">{t('index:team-section.content')}</Typography>
+      <Grid container>
+        <Grid item>
+          <Typography variant="body2">{t('index:team-section.content')}</Typography>
+        </Grid>
+        <Grid item>
+          <img src={`img/discord-team-image.png`} className={classes.teamImage} />
+        </Grid>
       </Grid>
-
-      {/* Team picture will be implemented here */}
     </Grid>
   )
 }
