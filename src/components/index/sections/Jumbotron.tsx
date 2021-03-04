@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     container: {
       height: theme.spacing(93),
-      paddingTop: theme.spacing(15),
+      padding: theme.spacing(15, 1, 0, 1),
       marginBottom: theme.spacing(12),
       textAlign: 'center',
       backgroundImage: 'url(img/header-image.png)',
