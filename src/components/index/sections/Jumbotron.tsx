@@ -10,6 +10,7 @@ import Typewriter from '../helpers/Typewriter'
 const useStyles = makeStyles((theme) =>
   createStyles({
     container: {
+      height: theme.spacing(93),
       paddingTop: theme.spacing(15),
       marginBottom: theme.spacing(12),
       textAlign: 'center',
@@ -17,16 +18,19 @@ const useStyles = makeStyles((theme) =>
       backgroundPosition: 'center',
       backgroundSize: 'cover',
       color: theme.palette.common.white,
-      height: theme.spacing(81),
       [theme.breakpoints.up('md')]: {
-        paddingTop: theme.spacing(35),
         height: theme.spacing(100),
+        paddingTop: theme.spacing(31),
+      },
+      [theme.breakpoints.up('1600')]: {
+        height: theme.spacing(119),
       },
     },
     title: {
       color: theme.palette.common.white,
       textShadow: '0px 2px 3px #000',
       fontWeight: 600,
+      marginBottom: theme.spacing(1),
     },
     subTitle: {
       marginTop: theme.spacing(3),
@@ -36,8 +40,9 @@ const useStyles = makeStyles((theme) =>
     podkrepiButton: {
       color: theme.palette.common.white,
       borderColor: theme.palette.common.white,
-      padding: theme.spacing(2, 4),
+      padding: theme.spacing(1.5, 5),
       fontWeight: 600,
+      fontSize: theme.spacing(2),
     },
   }),
 )
