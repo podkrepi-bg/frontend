@@ -8,7 +8,6 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     typewriter: {
       height: theme.spacing(21),
-      padding: theme.spacing(0, 2),
       textShadow: '0px 2px 2px #000',
       fontWeight: 600,
       [theme.breakpoints.up('md')]: {
