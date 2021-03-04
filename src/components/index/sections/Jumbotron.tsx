@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) =>
         height: theme.spacing(100),
         paddingTop: theme.spacing(31),
       },
-      [theme.breakpoints.up('1600')]: {
+      [theme.breakpoints.up(1600)]: {
         height: theme.spacing(119),
       },
     },
