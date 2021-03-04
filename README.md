@@ -32,6 +32,7 @@
 - [Husky](https://github.com/typicode/husky)
 - [Github Actions](https://docs.github.com/en/free-pro-team@latest/actions/reference)
 - [Docker Compose](https://docs.docker.com/compose/)
+- [Sentry](https://sentry.io/organizations/podkrepibg/)
 
 ## Initial setup
 
