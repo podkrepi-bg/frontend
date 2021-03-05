@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) =>
       },
     },
     icon: {
-      fontSize: theme.spacing(10),
+      fontSize: theme.typography.pxToRem(80),
       padding: theme.spacing(1),
       marginRight: theme.spacing(1),
     },

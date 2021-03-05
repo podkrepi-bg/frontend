@@ -10,7 +10,7 @@ import Typewriter from '../helpers/Typewriter'
 const useStyles = makeStyles((theme) =>
   createStyles({
     container: {
-      height: theme.spacing(93),
+      height: '730px',
       padding: theme.spacing(15, 1, 0, 1),
       marginBottom: theme.spacing(12),
       textAlign: 'center',
@@ -19,11 +19,10 @@ const useStyles = makeStyles((theme) =>
       backgroundSize: 'cover',
       color: theme.palette.common.white,
       [theme.breakpoints.up('md')]: {
-        height: theme.spacing(100),
         paddingTop: theme.spacing(31),
       },
       [theme.breakpoints.up(1600)]: {
-        height: theme.spacing(119),
+        height: '950px',
       },
     },
     title: {
@@ -42,7 +41,7 @@ const useStyles = makeStyles((theme) =>
       borderColor: theme.palette.common.white,
       padding: theme.spacing(1.5, 5),
       fontWeight: 600,
-      fontSize: theme.spacing(2),
+      fontSize: theme.typography.pxToRem(15),
     },
   }),
 )
