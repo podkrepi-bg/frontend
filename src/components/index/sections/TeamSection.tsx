@@ -32,7 +32,7 @@ export default function TeamSection() {
       justify="center"
       component="section"
       className={classes.container}>
-      <Typography variant="h5" className={classes.heading}>
+      <Typography variant="h5" component="h2" className={classes.heading}>
         {t('index:team-section.heading')}
       </Typography>
       <Grid container>
@@ -40,7 +40,7 @@ export default function TeamSection() {
           <Typography variant="body2">{t('index:team-section.content')}</Typography>
         </Grid>
         <Grid item>
-          <img src={`img/discord-team-image.png`} className={classes.teamImage} />
+          <img src="/img/discord-team-image.png" className={classes.teamImage} />
         </Grid>
       </Grid>
     </Grid>
