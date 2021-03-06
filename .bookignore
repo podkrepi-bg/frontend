@@ -1,0 +1,6 @@
+# https://gitbookio.gitbooks.io/documentation/content/format/ignore.html
+node_modules
+bin/*
+src/*
+public/*
+.github/*
