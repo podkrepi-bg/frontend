@@ -2,7 +2,7 @@
 
 ## Form definition
 
-```text
+```tsx
 import React from 'react'
 import * as yup from 'yup'
 import { useTranslation } from 'next-i18next'
@@ -68,7 +68,7 @@ export default function MyForm({ initialValues = defaults }: MyFormProps) {
 
 ## Form usage
 
-```text
+```tsx
 <MyForm />
 
 <MyForm initailValues={{email: 'test@example.com'}} />
@@ -80,14 +80,14 @@ export default function MyForm({ initialValues = defaults }: MyFormProps) {
 
 Simple strings are mapped directly to their respective translation
 
-```javascript
+```json
 {
   "invalid": "Field is invalid",
   "required": "Required field"
 }
 ```
 
-```text
+```tsx
 setLocale({
   mixed: {
     default: 'validation:invalid',
@@ -103,14 +103,14 @@ setLocale({
 
 Complex translation keys are being evaluated upon translation
 
-```javascript
+```json
 {
   "field-too-short": "Field should be at least {{min}} symbols",
   "field-too-long": "Field should be maximum {{max}} symbols"
 }
 ```
 
-```text
+```tsx
 setLocale({
   string: {
     min: ({ min }: { min: number }) => ({
@@ -129,7 +129,7 @@ setLocale({
 
 Commonly used translations with the same translation key
 
-```text
+```tsx
 yup.string().min(6 customValidators.passwordMin)
 ```
 
@@ -137,7 +137,7 @@ yup.string().min(6 customValidators.passwordMin)
 
 Custom translations with keys defined right next to the form
 
-```text
+```tsx
 const validationSchema: yup.SchemaOf<FormData> = yup
   .object()
   .defined()
@@ -148,4 +148,3 @@ const validationSchema: yup.SchemaOf<FormData> = yup
     })),
   })
 ```
-
