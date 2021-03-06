@@ -30,7 +30,12 @@ export default function AboutPlatform() {
   const { t } = useTranslation()
   const classes = useStyles()
   return (
-    <Grid container direction="column" component="section" className={classes.container}>
+    <Grid
+      container
+      direction="column"
+      component="section"
+      alignContent="center"
+      className={classes.container}>
       <Typography variant="h4" component="h2" className={classes.heading}>
         {t('about-project:aboutPlatformTitle')}
       </Typography>
