@@ -1,7 +1,7 @@
 import React from 'react'
 import { SvgIcon, SvgIconProps } from '@material-ui/core'
 
-export default function BenefactorsIcon({ ...props }: SvgIconProps) {
+export default function VolunteersIcon({ ...props }: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 68 69">
       <path

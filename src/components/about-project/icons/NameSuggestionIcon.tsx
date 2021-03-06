@@ -1,7 +1,7 @@
 import React from 'react'
 import { SvgIcon, SvgIconProps } from '@material-ui/core'
 
-export default function NameProposalIcon({ ...props }: SvgIconProps) {
+export default function NameSuggestionIcon({ ...props }: SvgIconProps) {
   return (
     <SvgIcon {...props} viewBox="0 0 58 67">
       <path
