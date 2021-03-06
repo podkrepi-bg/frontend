@@ -2,7 +2,6 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { createStyles, Grid, Hidden, makeStyles, Theme, Typography } from '@material-ui/core'
 
-import Layout from 'components/layout/Layout'
 import FlowGraphic from '../graphics/FlowGraphic'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -10,14 +9,19 @@ const useStyles = makeStyles((theme: Theme) =>
     heading: {
       marginBottom: theme.spacing(5),
       color: theme.palette.primary.dark,
+      fontSize: theme.spacing(5),
     },
     container: {
       marginBottom: theme.spacing(12),
       textAlign: 'center',
     },
+    content: {
+      fontSize: theme.spacing(2.2),
+      marginBottom: theme.spacing(5),
+    },
     graphic: {
-      height: theme.spacing(27), //221
-      width: theme.spacing(116), //932
+      height: theme.spacing(27),
+      width: theme.spacing(116),
     },
   }),
 )
@@ -27,14 +31,12 @@ export default function AboutPlatform() {
   const classes = useStyles()
   return (
     <Grid container direction="column" component="section" className={classes.container}>
-      <Typography variant="h5" component="h2" className={classes.heading}>
-        {'Какво представлява платформата Podkrepi.BG'}
+      <Typography variant="h4" component="h2" className={classes.heading}>
+        {t('about-project:aboutPlatformTitle')}
       </Typography>
       <Grid item>
-        <Typography variant="body2">
-          {
-            'Това, което искаме да създадем, е open-source технологично решение, което значителнодрастично намалява шансовете за каквито и да било злоупотреби с даренитенабраните средства както от организаторите на кампании, така и от вътрешния екип на дарителската платформа.'
-          }
+        <Typography variant="h5" className={classes.content}>
+          {t('about-project:aboutPlatformDescription')}
         </Typography>
       </Grid>
       <Hidden smDown>
