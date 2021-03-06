@@ -1,5 +1,5 @@
 import React from 'react'
-import { createStyles, Grid, makeStyles, SvgIconProps, Theme, Typography } from '@material-ui/core'
+import { createStyles, makeStyles, SvgIcon, Theme, Typography } from '@material-ui/core'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.primary.dark,
       '& > p': {
         fontSize: theme.spacing(2),
-        width: theme.spacing(17),
+        maxWidth: theme.spacing(20),
       },
       '& > span': {
         fontSize: theme.spacing(8),
@@ -26,23 +26,18 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 type ActivityIconProps = {
-  ComponentIcon: React.FC<SvgIconProps>
-  label: string
+  Icon: typeof SvgIcon
+  count?: string
   description: string
 }
-export default function ActivityIcon({
-  ComponentIcon,
-  label,
-  description,
-  ...props
-}: ActivityIconProps) {
+export default function ActivityIcon({ Icon, count, description, ...props }: ActivityIconProps) {
   const classes = useStyles()
 
   return (
     <div className={classes.activity}>
-      <ComponentIcon {...props} className={classes.icon} />
+      <Icon {...props} className={classes.icon} />
       <Typography variant="h4" component="span">
-        {label}
+        {count}
       </Typography>
       <Typography variant="body2" component="p">
         {description}

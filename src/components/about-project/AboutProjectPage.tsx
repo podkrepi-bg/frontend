@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Container, Typography } from '@material-ui/core'
+import { Container } from '@material-ui/core'
 
 import Layout from 'components/layout/Layout'
 import Timeline from './sections/Timeline'
@@ -12,7 +12,7 @@ export default function AboutProject() {
   const { t } = useTranslation()
 
   return (
-    <Layout title={'За проекта'}>
+    <Layout title={t('about-project:title')}>
       <Container maxWidth="lg">
         <AboutPlatform />
         <WhatIsDone />
