@@ -2,27 +2,27 @@
 
 Table of contents:
 
-- [Development setup](#development)
-- [Linting](#linting)
-- [Production setup](#production)
-- [Pull requests guidelines](#pull-requests)
-- [Branching strategy](#branching-strategy)
-- [React guidelines](#react-guidelines)
-  - [Imports](#imports)
-  - [File structure](#file-structure)
-  - [Types](#types)
-  - [Components definition](#components)
-  - [Styles](#styles)
-    - [Box model](#styles-using-the-box--component)
-    - [JSS Hook](#styles-using-usestyles-hook)
-    - [SCSS](#styles-using-somethingmodulescss)
-  - [Translations](#translations-i18n)
+* [Development setup](contributing.md#development)
+* [Linting](contributing.md#linting)
+* [Production setup](contributing.md#production)
+* [Pull requests guidelines](contributing.md#pull-requests)
+* [Branching strategy](contributing.md#branching-strategy)
+* [React guidelines](contributing.md#react-guidelines)
+  * [Imports](contributing.md#imports)
+  * [File structure](contributing.md#file-structure)
+  * [Types](contributing.md#types)
+  * [Components definition](contributing.md#components)
+  * [Styles](contributing.md#styles)
+    * [Box model](contributing.md#styles-using-the-box--component)
+    * [JSS Hook](contributing.md#styles-using-usestyles-hook)
+    * [SCSS](contributing.md#styles-using-somethingmodulescss)
+  * [Translations](contributing.md#translations-i18n)
 
 ## Development
 
 ### Setup local dev environment
 
-```shell
+```text
 git clone git@github.com:daritelska-platforma/frontend.git
 cd frontend
 
@@ -35,25 +35,25 @@ yarn
 
 ### Start development server
 
-```shell
+```text
 yarn dev
 ```
 
-Visit <http://localhost:3040/>
+Visit [http://localhost:3040/](http://localhost:3040/)
 
 ### Start dev server via Docker Compose
 
-Install the binary via <https://docs.docker.com/compose/install/>
+Install the binary via [https://docs.docker.com/compose/install/](https://docs.docker.com/compose/install/)
 
 #### Start the container in foreground
 
-```shell
+```text
 docker-compose up
 ```
 
 #### Start the container in background
 
-```shell
+```text
 docker-compose up -d
 docker-compose logs -f
 ```
@@ -62,7 +62,7 @@ Stop the docker container with `docker-compose down`
 
 ## Linting
 
-```shell
+```text
 yarn lint
 yarn lint:styles
 yarn format
@@ -73,13 +73,13 @@ yarn type-check
 
 ### Build frontend
 
-```shell
+```text
 yarn build
 ```
 
 ### Build Docker image
 
-```shell
+```text
 docker build . \
     --file ./Dockerfile \
     --target production \
@@ -90,33 +90,33 @@ docker build . \
 
 All PRs must:
 
-- pass all checks before they will be considered for review
-- have proper title and description
-- have at least one screenshot if the changeset leads to visual difference
+* pass all checks before they will be considered for review
+* have proper title and description
+* have at least one screenshot if the changeset leads to visual difference
 
 ## Branching strategy
 
-Inherits the process from <https://nvie.com/posts/a-successful-git-branching-model/>
+Inherits the process from [https://nvie.com/posts/a-successful-git-branching-model/](https://nvie.com/posts/a-successful-git-branching-model/)
 
-Good branch names: :sun_with_face:
+Good branch names: :sun\_with\_face:
 
-- `nice-kebab-cased-titles`
-- `fixes-footer-links`
-- `4411290-setup-state-management-integration`
-- `feature/new-design`
-- `hotfix/db-connection`
-- `release-1.2.3`
+* `nice-kebab-cased-titles`
+* `fixes-footer-links`
+* `4411290-setup-state-management-integration`
+* `feature/new-design`
+* `hotfix/db-connection`
+* `release-1.2.3`
 
-Bad branch names: :partly_sunny:
+Bad branch names: :partly\_sunny:
 
-- `patch-1` - not enough context
-- `camelCasedBranchNames` - camel case
-- `PascalCasedBranchNames` - pascal case
-- `long-titles-above-80-chars-{.....}` - too long
-- `#58/something` - shell understands it as comment
+* `patch-1` - not enough context
+* `camelCasedBranchNames` - camel case
+* `PascalCasedBranchNames` - pascal case
+* `long-titles-above-80-chars-{.....}` - too long
+* `#58/something` - shell understands it as comment
 
-| Branching model                            | Merges                                            |
-| ------------------------------------------ | ------------------------------------------------- |
+| Branching model | Merges |
+| :--- | :--- |
 | ![](https://nvie.com/img/git-model@2x.png) | ![](https://nvie.com/img/merge-without-ff@2x.png) |
 
 ## React guidelines
@@ -125,7 +125,7 @@ Bad branch names: :partly_sunny:
 
 A common way to sort the imports in the file is by their source: `external`, `absolute`, `relative` separated by an empty line. Each of those groups can be sorted by line length, but that's not super important.
 
-```tsx
+```text
 import React, { useState } from 'react'
 import { useTranslation } from 'next-i18next'
 
@@ -138,7 +138,7 @@ import styles from './advanced.module.scss'
 
 ### File structure
 
-Inherits AirBnb naming convention <https://github.com/airbnb/javascript/tree/master/react#naming>
+Inherits AirBnb naming convention [https://github.com/airbnb/javascript/tree/master/react\#naming](https://github.com/airbnb/javascript/tree/master/react#naming)
 
 Use PascalCase for React components and camelCase for their instances
 
@@ -146,7 +146,7 @@ Use PascalCase for React components and camelCase for their instances
 
 Pascal cased file names `src/components/GenericForm.tsx`
 
-```tsx
+```text
 export default function GenericForm() {}
 ```
 
@@ -166,10 +166,9 @@ Lowercase kebab cased files located in `src/pages/sample-page.tsx` which corresp
 
 ### Types
 
-The common convention is that the main type of the component's props is called after the component itself with suffic `-Props`.
-Prop types of `AdvancedForm` becomes `AdvancedFormProps`.
+The common convention is that the main type of the component's props is called after the component itself with suffic `-Props`. Prop types of `AdvancedForm` becomes `AdvancedFormProps`.
 
-```tsx
+```text
 type AdvancedFormProps = React.PropsWithChildren({
   title?: string
   age?: number
@@ -186,11 +185,11 @@ export default function AdvancedForm({ title = 'Nice', children, age }: Advanced
 
 ### Components
 
-#### Preferred export style :sun_with_face
+#### Preferred export style :sun\_with\_face
 
-- Nice IDE support and readability
+* Nice IDE support and readability
 
-```tsx
+```text
 export default function RegisterPage() {
   return <div>page</div>
 }
@@ -198,11 +197,11 @@ export default function RegisterPage() {
 
 #### Alternative export styles
 
-- Named function
+* Named function
 
-  :partly_sunny: Allows attaching static props to the function
+  :partly\_sunny: Allows attaching static props to the function
 
-  ```tsx
+  ```text
   function RegisterPage() {
     return <div>page</div>
   }
@@ -214,11 +213,11 @@ export default function RegisterPage() {
   export default RegisterPage
   ```
 
-- Const arrow function
+* Const arrow function
 
-  :sun_with_face: Nice for locally defined components
+  :sun\_with\_face: Nice for locally defined components
 
-  ```tsx
+  ```text
   const RegisterForm = () => <form>page</form>
 
   export default function RegisterPage() {
@@ -226,29 +225,29 @@ export default function RegisterPage() {
   }
   ```
 
-  :partly_sunny: Okay for default exports, but not preferred
+  :partly\_sunny: Okay for default exports, but not preferred
 
-  ```tsx
+  ```text
   const RegisterPage = () => <form>page</form>
 
   export default RegisterPage
   ```
 
-- Unnamed arrow function :cloud_with_lightning_and_rain:
+* Unnamed arrow function :cloud\_with\_lightning\_and\_rain:
 
   **Discouraged**
 
-  <https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/display-name.md>
+  [https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/display-name.md](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/display-name.md)
 
-  ```tsx
+  ```text
   export default () => <div>page</div>
   ```
 
-- Class components :cloud_with_lightning_and_rain:
+* Class components :cloud\_with\_lightning\_and\_rain:
 
   **Discouraged** as hooks cannot be used inside the class components
 
-  ```tsx
+  ```text
   class Page extends React.Component {
     render() {
       return <div>page</div>
@@ -262,21 +261,21 @@ There are three common ways to style a component:
 
 #### Styles using the [`<Box />` component](https://material-ui.com/components/box/)
 
-Single component that inherits all sizing props from MUI <https://material-ui.com/system/basics/#all-inclusive>
+Single component that inherits all sizing props from MUI [https://material-ui.com/system/basics/\#all-inclusive](https://material-ui.com/system/basics/#all-inclusive)
 
-:sun_with_face: Nice for quick layouts that should follow the theme
+:sun\_with\_face: Nice for quick layouts that should follow the theme
 
-```tsx
+```text
 <Box component="nav" px={5} mt={2}>
   <a>{t('nav.forgottenPassword')}</p>
 </Box>
 ```
 
-:partly*sunny: Not the best for custom scenarios with more than \_six* props passed to it. **Use `hooks` instead**
+:partly_sunny: Not the best for custom scenarios with more than \_six_ props passed to it. **Use `hooks` instead**
 
-:partly*sunny: Not nice when the children have clear nesting structure of more than \_three* levels. **Use `hooks` or `scss` instead**
+:partly_sunny: Not nice when the children have clear nesting structure of more than \_three_ levels. **Use `hooks` or `scss` instead**
 
-```tsx
+```text
 <Box component="nav" px={5} pb={12} mt={2} mb={4} lineHeight={2} letterSpacing={none} fontSize={20}>
   <Box component="span" px={5} pb={12} mt={2} mb={4} lineHeight={2} letterSpacing={none} fontSize={17}>
     <a>{t('nav.forgottenPassword')}</p>
@@ -289,9 +288,9 @@ Single component that inherits all sizing props from MUI <https://material-ui.co
 
 #### Styles using `useStyles()` hook
 
-:sun_with_face: Nice for very specific styling that levereges `theme` methods and props
+:sun\_with\_face: Nice for very specific styling that levereges `theme` methods and props
 
-```tsx
+```text
 const useStyles = makeStyles((theme) =>
   createStyles({
     pageTitle: {
@@ -320,19 +319,19 @@ export default function SomeBox() {
 }
 ```
 
-:partly_sunny: Too verbose for simple use cases, if it contains less than 2 css rules. **Use `Box` instead**
+:partly\_sunny: Too verbose for simple use cases, if it contains less than 2 css rules. **Use `Box` instead**
 
-:partly_sunny: Not the best when dealing with stlying of deep nested structures within the same component. **Use `scss` instead**
+:partly\_sunny: Not the best when dealing with stlying of deep nested structures within the same component. **Use `scss` instead**
 
 #### Styles using SCSS files
 
-Next.js supports [SCSS](https://sass-lang.com/) out of the box. Read more at <https://nextjs.org/docs/basic-features/built-in-css-support#sass-support>
+Next.js supports [SCSS](https://sass-lang.com/) out of the box. Read more at [https://nextjs.org/docs/basic-features/built-in-css-support\#sass-support](https://nextjs.org/docs/basic-features/built-in-css-support#sass-support)
 
-File convention is based on a suffix `.module.scss` (ex. `about.module.scss`)
+File convention is based on a suffix `.module.scss` \(ex. `about.module.scss`\)
 
-:sun_with_face: Nice when dealing with complex nested structures that are scoped in a single component. When dealing with sub-components we're not sure if some of the rules will be left unused.
+:sun\_with\_face: Nice when dealing with complex nested structures that are scoped in a single component. When dealing with sub-components we're not sure if some of the rules will be left unused.
 
-```scss
+```css
 @import 'styles/variables';
 
 .page {
@@ -349,16 +348,16 @@ File convention is based on a suffix `.module.scss` (ex. `about.module.scss`)
 }
 ```
 
-```tsx
+```text
 import styles from './about.module.scss'
 ;<Box className={styles.page}>
   <p>{t('nav.forgottenPassword')}</p>
 </Box>
 ```
 
-:partly_sunny: Too verbose for simple use cases, if it contains less than 2 css rules in a dedicated file. **Use `Box` instead**
+:partly\_sunny: Too verbose for simple use cases, if it contains less than 2 css rules in a dedicated file. **Use `Box` instead**
 
-```scss
+```css
 @import 'styles/variables';
 
 a {
@@ -366,28 +365,27 @@ a {
 }
 ```
 
-:cloud_with_lightning_and_rain: Cannot use theme support or theme variables **Use `hook` instead**
+:cloud\_with\_lightning\_and\_rain: Cannot use theme support or theme variables **Use `hook` instead**
 
-## Translations (i18n)
+## Translations \(i18n\)
 
 ### Translation namespaces
 
-Default namespace is called `common` and contains translations used on _all pages_ (Layout, Nav, etc) and is stored at `frontend/public/locales/{locale}/common.json`
+Default namespace is called `common` and contains translations used on _all pages_ \(Layout, Nav, etc\) and is stored at `frontend/public/locales/{locale}/common.json`
 
-Namespaces (scopes, domains) are stored in separate json files at `frontend/public/locales/{locale}/{namespace}.json`
-One namespace can combine the translations keys from several pages with common reusable strings ex. `auth` scope collects keys for `login` and `register` pages.
+Namespaces \(scopes, domains\) are stored in separate json files at `frontend/public/locales/{locale}/{namespace}.json` One namespace can combine the translations keys from several pages with common reusable strings ex. `auth` scope collects keys for `login` and `register` pages.
 
 ### Translation keys
 
 It is preferred to use [kebab-case](https://en.wiktionary.org/wiki/kebab_case) for translation keys and extract another level of nesting when the common prefix of the keys is above 3 or makes sense to be separated as new keys might be added in the future.
 
-- Namespace is separated with `:`
-- Translation nesting levels are separated with `.`
-- Words in a translation key are separated with `-`
+* Namespace is separated with `:`
+* Translation nesting levels are separated with `.`
+* Words in a translation key are separated with `-`
 
 `domain:pages.nested-level.another-nested-level.translation-key`
 
-```json
+```javascript
 {
   "cta": {
     "login": "Log In",
@@ -417,7 +415,7 @@ Usage of translation hook `useTranslation` is preferred over usage of `<Trans />
 
 #### Usage in components
 
-```tsx
+```text
 import { useTranslation } from 'next-i18next'
 
 export default function CustomComponent() {
@@ -435,7 +433,7 @@ export default function CustomComponent() {
 
 #### SSR preloading i18n in pages
 
-```tsx
+```text
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
@@ -452,12 +450,13 @@ export default Page
 
 ## Recognizing contributions
 
-We're integrated with <https://allcontributors.org/> bot
+We're integrated with [https://allcontributors.org/](https://allcontributors.org/) bot
 
 Comment on [this issue](https://github.com/daritelska-platforma/frontend/issues/2), asking @all-contributors bot to add a contributor:
 
-```
+```text
 @all-contributors please add @<username> for <contributions>
 ```
 
-`<contribution>`: See the [Emoji Key (Contribution Types Reference)](https://allcontributors.org/docs/en/emoji-key) for a list of valid contribution types.
+`<contribution>`: See the [Emoji Key \(Contribution Types Reference\)](https://allcontributors.org/docs/en/emoji-key) for a list of valid contribution types.
+
