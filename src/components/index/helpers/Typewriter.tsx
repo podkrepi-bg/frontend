@@ -7,11 +7,15 @@ import { makeStyles, createStyles } from '@material-ui/core/styles'
 const useStyles = makeStyles((theme) =>
   createStyles({
     typewriter: {
-      height: theme.spacing(16),
-      marginBottom: theme.spacing(5),
-      padding: theme.spacing(0, 2),
+      height: theme.spacing(21),
       textShadow: '0px 2px 2px #000',
       fontWeight: 600,
+      [theme.breakpoints.up('md')]: {
+        height: theme.spacing(15),
+      },
+      [theme.breakpoints.up('lg')]: {
+        height: theme.spacing(10),
+      },
     },
   }),
 )
