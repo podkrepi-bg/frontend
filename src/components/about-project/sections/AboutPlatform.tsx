@@ -40,7 +40,7 @@ export default function AboutPlatform() {
         {t('about-project:aboutPlatformTitle')}
       </Typography>
       <Grid item>
-        <Typography variant="h5" className={classes.content}>
+        <Typography variant="h5" component="p" className={classes.content}>
           {t('about-project:aboutPlatformDescription')}
         </Typography>
       </Grid>
