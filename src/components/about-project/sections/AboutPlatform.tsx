@@ -32,13 +32,11 @@ export default function AboutPlatform() {
   return (
     <Grid
       container
+      spacing={5}
       direction="column"
       component="section"
       alignContent="center"
       className={classes.container}>
-      <Typography variant="h4" component="h2" className={classes.heading}>
-        {t('about-project:aboutPlatformTitle')}
-      </Typography>
       <Grid item>
         <Typography variant="h5" component="p" className={classes.content}>
           {t('about-project:aboutPlatformDescription')}

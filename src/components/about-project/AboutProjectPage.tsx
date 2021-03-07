@@ -12,7 +12,7 @@ export default function AboutProject() {
   const { t } = useTranslation()
 
   return (
-    <Layout title={t('about-project:title')}>
+    <Layout title={t('about-project:aboutPlatformTitle')}>
       <Container maxWidth="lg">
         <AboutPlatform />
         <WhatIsDone />
