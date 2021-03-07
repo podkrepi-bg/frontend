@@ -18,7 +18,7 @@ export const navItems: NavItem[] = [
     variant: 'text',
   },
   {
-    href: routes.index,
+    href: routes.aboutProject,
     label: 'nav.about-project',
     variant: 'text',
   },
