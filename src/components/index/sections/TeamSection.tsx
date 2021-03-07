@@ -40,7 +40,11 @@ export default function TeamSection() {
           <Typography variant="body2">{t('index:team-section.content')}</Typography>
         </Grid>
         <Grid item>
-          <img src="/img/discord-team-image.png" className={classes.teamImage} />
+          <img
+            src="/img/discord-team-image.png"
+            className={classes.teamImage}
+            alt="Podkrepi BG team in Discord voice conference call"
+          />
         </Grid>
       </Grid>
     </Grid>

@@ -25,7 +25,7 @@ export default function Index() {
   const { i18n, t } = useTranslation()
 
   return (
-    <Typography variant="h4" className={classes.typewriter}>
+    <Typography variant="h4" component="p" className={classes.typewriter}>
       <Typewriter
         key={i18n.language}
         onInit={(typewriter) => {
