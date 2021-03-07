@@ -70,13 +70,11 @@ export default function SupportUsSection() {
       <Grid container spacing={2} className={classes.supportOptionsWrapper}>
         {items.map(({ label, Icon }, key) => (
           <Grid key={key} item xs={12} sm={6} md={3}>
-            <Link href={routes.support}>
-              <a className={classes.supportOption}>
-                <Icon className={classes.icon} />
-                <Typography variant="body2" className={classes.supportOptionLabel}>
-                  {t(label)}
-                </Typography>
-              </a>
+            <Link href={routes.support} className={classes.supportOption}>
+              <Icon className={classes.icon} />
+              <Typography variant="body2" className={classes.supportOptionLabel}>
+                {t(label)}
+              </Typography>
             </Link>
           </Grid>
         ))}
