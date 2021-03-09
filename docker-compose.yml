@@ -1,6 +1,6 @@
-version: '3.8'
+version: '3.7'
 services:
-  app:
+  frontend:
     container_name: ${COMPOSE_PROJECT_NAME?}-frontend
 
     build:
@@ -9,16 +9,16 @@ services:
       target: ${TARGET_ENV}
       args:
         NODE_ENV: ${NODE_ENV}
-
+    image: ${COMPOSE_PROJECT_NAME?}-frontend
     ports:
       - '${APP_PORT}:3040'
 
-    volumes:
-      # Local:Container mounting points
-      - ./src:/app/src
-      - ./public:/app/public
-      - /app/node_modules
-      - /app/.next
+    # volumes:
+    #   # Local:Container mounting points
+    #   - ./src:/app/src
+    #   - ./public:/app/public
+    #   - ./node_modules:/app/node_modules
+    #   - ./.next:/app/.next
 
     environment:
       API_URL: ${API_URL}
@@ -28,8 +28,8 @@ services:
       DISCORD_CLIENT_SECRET: ${DISCORD_CLIENT_SECRET}
 
     networks:
-      - net-frontend
+      - frontend-net
 
 networks:
-  net-frontend:
+  frontend-net:
     driver: bridge
