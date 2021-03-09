@@ -63,38 +63,40 @@ export default function ContactForm({ initialValues = defaults }: ContactFormPro
   }
 
   return (
-    <GenericForm
-      onSubmit={onSubmit}
-      initialValues={initialValues}
-      validationSchema={validationSchema}>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <Typography variant="h5" component="h2" className={classes.heading}>
-            {t('contact:form-heading')}
-          </Typography>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormTextField type="text" label="auth:fields.first-name" name="firstName" />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormTextField type="text" label="auth:fields.last-name" name="lastName" />
-        </Grid>
-        <Grid item xs={12}>
-          <FormTextField type="text" label="auth:fields.email" name="email" />
-        </Grid>
-        <Grid item xs={12}>
-          <FormTextField type="text" label="auth:fields.phone" name="phone" />
-        </Grid>
-        <Grid item xs={12}>
-          <FormTextField type="text" label="auth:fields.company" name="company" />
-        </Grid>
-        <Grid item xs={12}>
-          <FormTextField type="text" rows={4} label="auth:fields.message" name="message" />
-        </Grid>
-        <Grid item xs={12}>
-          <SubmitButton label="auth:cta.send" fullWidth />
-        </Grid>
+    <Grid container direction="column" component="section" className={classes.container}>
+      <Grid item xs={12}>
+        <Typography variant="h5" component="h2" className={classes.heading}>
+          {t('contact:form-heading')}
+        </Typography>
       </Grid>
-    </GenericForm>
+      <GenericForm
+        onSubmit={onSubmit}
+        initialValues={initialValues}
+        validationSchema={validationSchema}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <FormTextField type="text" label="auth:fields.first-name" name="firstName" />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormTextField type="text" label="auth:fields.last-name" name="lastName" />
+          </Grid>
+          <Grid item xs={12}>
+            <FormTextField type="text" label="auth:fields.email" name="email" />
+          </Grid>
+          <Grid item xs={12}>
+            <FormTextField type="text" label="auth:fields.phone" name="phone" />
+          </Grid>
+          <Grid item xs={12}>
+            <FormTextField type="text" label="auth:fields.company" name="company" />
+          </Grid>
+          <Grid item xs={12}>
+            <FormTextField type="text" rows={4} label="auth:fields.message" name="message" />
+          </Grid>
+          <Grid item xs={12}>
+            <SubmitButton label="auth:cta.send" fullWidth />
+          </Grid>
+        </Grid>
+      </GenericForm>
+    </Grid>
   )
 }

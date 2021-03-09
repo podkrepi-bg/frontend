@@ -59,11 +59,11 @@ export default function ActivitySection() {
   const { t } = useTranslation()
 
   return (
-    <Grid container>
+    <Grid container component="section">
       <Grid container direction="column" className={classes.container}>
         <Typography variant="h6">{t('contact:subtitle')}</Typography>
       </Grid>
-      <Grid container direction="column" component="section" className={classes.container}>
+      <Grid container direction="column" className={classes.container}>
         <Grid item>
           <Typography variant="h5" component="h2" className={classes.heading}>
             {t('contact:heading')}
@@ -99,12 +99,7 @@ export default function ActivitySection() {
           </Grid>
         </Grid>
       </Grid>
-      <Grid
-        container
-        component="section"
-        justify="center"
-        spacing={5}
-        className={classes.container}>
+      <Grid container justify="center" spacing={5} className={classes.container}>
         <Grid item container justify="center" spacing={4}>
           <Grid item xs={12} className={classes.contact}>
             <AddressIcon className={classes.contactIcon} />
