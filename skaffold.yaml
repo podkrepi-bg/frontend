@@ -4,26 +4,26 @@ metadata:
   name: frontend
 build:
   artifacts:
-  - image: podkrepi-frontend
-    docker:
-      dockerfile: Dockerfile
+    - image: podkrepi-frontend
+      docker:
+        dockerfile: Dockerfile
+        target: production
 deploy:
   kubectl:
     manifests:
-    - kubernetes/podkrepi-dev-namespace.yaml
-    - kubernetes/frontend-deployment.yaml
-    - kubernetes/frontend-net-networkpolicy.yaml
-    - kubernetes/frontend-service.yaml
-    - kubernetes/cockroachdb.yaml
+      - kubernetes/podkrepi-dev-namespace.yaml
+      - kubernetes/frontend-deployment.yaml
+      - kubernetes/frontend-net-networkpolicy.yaml
+      - kubernetes/frontend-service.yaml
+      - kubernetes/cockroachdb.yaml
     defaultNamespace: podkrepi-dev
     # flags:
     #   global: # additional flags passed on every command.
     #   - --namespace=podkrepi-dev
 
 portForward:
-- resourceType: Service
-  resourceName: frontend
-  namespace: podkrepi-dev
-  port: 3040
-  localPort: 3040
-  
+  - resourceType: Service
+    resourceName: frontend
+    namespace: podkrepi-dev
+    port: 3040
+    localPort: 3040
