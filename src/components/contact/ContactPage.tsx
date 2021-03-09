@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Container } from '@material-ui/core'
 
 import Layout from 'components/layout/Layout'
+import ContactInfo from 'components/contact/ContactInfo'
 import ContactForm from 'components/contact/ContactForm'
 
 export default function RegisterPage() {
@@ -10,7 +11,8 @@ export default function RegisterPage() {
 
   return (
     <Layout title={t('nav.contacts')}>
-      <Container maxWidth="xs">
+      <Container maxWidth="md">
+        <ContactInfo />
         <ContactForm />
       </Container>
     </Layout>
