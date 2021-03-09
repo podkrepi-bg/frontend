@@ -1,5 +1,5 @@
 import { Grid, Typography } from '@material-ui/core'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) =>
@@ -11,6 +11,11 @@ const useStyles = makeStyles((theme) =>
     container: {
       marginBottom: theme.spacing(12),
       textAlign: 'center',
+    },
+    teamImage: {
+      maxWidth: '100%',
+      marginTop: theme.spacing(3),
+      padding: theme.spacing(0, 2),
     },
   }),
 )
@@ -30,11 +35,18 @@ export default function TeamSection() {
       <Typography variant="h5" component="h2" className={classes.heading}>
         {t('index:team-section.heading')}
       </Typography>
-      <Grid item>
-        <Typography variant="body2">{t('index:team-section.content')}</Typography>
+      <Grid container>
+        <Grid item>
+          <Typography variant="body2">{t('index:team-section.content')}</Typography>
+        </Grid>
+        <Grid item>
+          <img
+            src="/img/discord-team-image.png"
+            className={classes.teamImage}
+            alt="Podkrepi BG team in Discord voice conference call"
+          />
+        </Grid>
       </Grid>
-
-      {/* Team picture will be implemented here */}
     </Grid>
   )
 }

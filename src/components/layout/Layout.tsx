@@ -1,5 +1,6 @@
 import Head from 'next/head'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
+import { useTranslation } from 'next-i18next'
 import {
   Box,
   Container,
@@ -49,12 +50,15 @@ export default function Layout({
   ...containerProps
 }: LayoutProps) {
   const classes = useStyles()
+  const { t } = useTranslation()
   const [mobileOpen, setMobileOpen] = useState(false)
   const navMenuToggle = () => setMobileOpen(!mobileOpen)
+  const suffix = t('meta.title')
+  const metaTitle = useMemo(() => (title ? `${title} | ${suffix}` : suffix), [title, suffix])
   return (
     <Container className={classes.layout} maxWidth={maxWidth} {...containerProps}>
       <Head>
-        <title>{title}</title>
+        <title>{metaTitle}</title>
       </Head>
       <Box pt={4} pb={10}>
         <AppNavBar navMenuToggle={navMenuToggle} />

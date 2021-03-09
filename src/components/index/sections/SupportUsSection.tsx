@@ -1,6 +1,9 @@
+import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@material-ui/core'
-import { useTranslation } from 'react-i18next'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
+
+import { routes } from 'common/routes'
+import Link from 'components/common/Link'
 
 import FinancesIcon from '../icons/support-us-icons/FinancesIcon'
 import LabourIcon from '../icons/support-us-icons/LabourIcon'
@@ -21,6 +24,8 @@ const useStyles = makeStyles((theme) =>
       padding: theme.spacing(2),
     },
     supportOption: {
+      display: 'block',
+      textDecoration: 'none',
       border: '1px solid #284E84',
       padding: theme.spacing(2),
       borderRadius: 3,
@@ -30,7 +35,7 @@ const useStyles = makeStyles((theme) =>
       },
     },
     icon: {
-      fontSize: theme.spacing(10),
+      fontSize: theme.typography.pxToRem(80),
       fill: 'none',
       padding: theme.spacing(1),
     },
@@ -39,6 +44,13 @@ const useStyles = makeStyles((theme) =>
     },
   }),
 )
+
+const items = [
+  { Icon: FinancesIcon, label: 'index:support-us-section.financial-support' },
+  { Icon: LabourIcon, label: 'index:support-us-section.labour-support' },
+  { Icon: MediaIcon, label: 'index:support-us-section.media-support' },
+  { Icon: PartnershipIcon, label: 'index:support-us-section.become-a-partner' },
+]
 
 export default function SupportUsSection() {
   const classes = useStyles()
@@ -56,38 +68,16 @@ export default function SupportUsSection() {
         {t('index:support-us-section.heading')}
       </Typography>
       <Grid container spacing={2} className={classes.supportOptionsWrapper}>
-        <Grid item xs={12} sm={6} md={3}>
-          <div className={classes.supportOption}>
-            <FinancesIcon className={classes.icon} />
-            <Typography variant="body2" className={classes.supportOptionLabel}>
-              {t('index:support-us-section.financial-support')}
-            </Typography>
-          </div>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <div className={classes.supportOption}>
-            <LabourIcon className={classes.icon} />
-            <Typography variant="body2" className={classes.supportOptionLabel}>
-              {t('index:support-us-section.labour-support')}
-            </Typography>
-          </div>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <div className={classes.supportOption}>
-            <MediaIcon className={classes.icon} />
-            <Typography variant="body2" className={classes.supportOptionLabel}>
-              {t('index:support-us-section.media-support')}
-            </Typography>
-          </div>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <div className={classes.supportOption}>
-            <PartnershipIcon className={classes.icon} />
-            <Typography variant="body2" className={classes.supportOptionLabel}>
-              {t('index:support-us-section.become-a-partner')}
-            </Typography>
-          </div>
-        </Grid>
+        {items.map(({ label, Icon }, key) => (
+          <Grid key={key} item xs={12} sm={6} md={3}>
+            <Link href={routes.support} className={classes.supportOption}>
+              <Icon className={classes.icon} />
+              <Typography variant="body2" className={classes.supportOptionLabel}>
+                {t(label)}
+              </Typography>
+            </Link>
+          </Grid>
+        ))}
       </Grid>
     </Grid>
   )

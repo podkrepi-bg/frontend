@@ -4,14 +4,12 @@ import { AppProps } from 'next/app'
 import { Provider as SessionProvider } from 'next-auth/client'
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
+import { appWithTranslation } from 'next-i18next'
 
 import theme from 'common/theme'
-import useNextLocale from 'common/useNextLocale'
 
-export default function CustomApp(props: AppProps) {
+function CustomApp(props: AppProps) {
   const { Component, pageProps } = props
-
-  useNextLocale({ i18nResources: pageProps.i18nResources })
 
   useEffect(() => {
     // Remove the server-side injected CSS.
@@ -37,3 +35,5 @@ export default function CustomApp(props: AppProps) {
     </React.Fragment>
   )
 }
+
+export default appWithTranslation(CustomApp)

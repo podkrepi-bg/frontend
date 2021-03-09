@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormikValues } from 'formik'
 import { TextField, TextFieldProps } from '@material-ui/core'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 import { translateError } from 'common/form/useForm'
 import { TranslatableField } from 'common/form/validation'

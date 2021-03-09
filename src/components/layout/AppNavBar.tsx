@@ -11,7 +11,7 @@ import { AppBar, Toolbar, IconButton, Grid, Hidden } from '@material-ui/core'
 import { routes } from 'common/routes'
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 
-import LocaleMenu from './LocaleMenu'
+import LocaleButton from './LocaleButton'
 import PublicMenu from './nav/PublicMenu'
 import PrivateMenu from './nav/PrivateMenu'
 import MainNavMenu from './nav/MainNavMenu'
@@ -94,9 +94,9 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
             <Grid item>
               <MainNavMenu>
                 <Grid item>
-                  <LocaleMenu />
+                  <LocaleButton />
                 </Grid>
-                {session ? <PrivateMenu /> : <PublicMenu />}
+                {session ? <PrivateMenu /> : <PublicMenu disableAuth />}
               </MainNavMenu>
             </Grid>
           </Grid>

@@ -3,8 +3,12 @@
 ![Lint](https://github.com/daritelska-platforma/frontend/workflows/Lint/badge.svg)
 ![Build](https://github.com/daritelska-platforma/frontend/workflows/Build/badge.svg)
 ![Build docker image](https://github.com/daritelska-platforma/frontend/workflows/Build%20docker%20image/badge.svg)
+[![Production deployment](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-production.yml/badge.svg)](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-production.yml)
+
 ![Dependencies](https://img.shields.io/david/daritelska-platforma/frontend)
 ![Dev Dependencies](https://img.shields.io/david/dev/daritelska-platforma/frontend)
+![](https://img.shields.io/github/license/daritelska-platforma/frontend)
+![](https://img.shields.io/github/issues/daritelska-platforma/frontend)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
@@ -14,19 +18,12 @@
 
 ## What's in the box
 
-- [Typescript](https://www.typescriptlang.org/)
-- [Next.js](https://nextjs.org/)
-- [MaterialUI](https://material-ui.com/)
-- [MobX](https://mobx.js.org/)
-- [Formik](https://formik.org/)
-- [SCSS](https://sass-lang.com/), [SCSS Guidelines](https://github.com/bjankord/stylelint-config-sass-guidelines)
-- [ESlint](https://eslint.org/)
-- [Prettier](https://prettier.io/)
-- [Stylelint](https://stylelint.io/)
-- [Lint Staged](https://github.com/okonet/lint-staged)
-- [Husky](https://github.com/typicode/husky)
-- [Github Actions](https://docs.github.com/en/free-pro-team@latest/actions/reference)
-- [Docker Compose](https://docs.docker.com/compose/)
+- [Typescript](https://www.typescriptlang.org/) / [Next.js](https://nextjs.org/) / [MaterialUI](https://material-ui.com/)
+- [JSS](https://cssinjs.org/?v=v10.5.1#react-jss-example) / [SCSS](https://sass-lang.com/) / [SCSS Guidelines](https://github.com/bjankord/stylelint-config-sass-guidelines)
+- [Formik](https://formik.org/) / [MobX](https://mobx.js.org/)
+- [ESlint](https://eslint.org/) / [Prettier](https://prettier.io/) / [Husky](https://github.com/typicode/husky) / [Stylelint](https://stylelint.io/) / [Lint Staged](https://github.com/okonet/lint-staged)
+- [Docker Compose](https://docs.docker.com/compose/) / [Github Actions](https://docs.github.com/en/free-pro-team@latest/actions/reference)
+- [Sentry](https://sentry.io/organizations/podkrepibg/)
 
 ## Initial setup
 

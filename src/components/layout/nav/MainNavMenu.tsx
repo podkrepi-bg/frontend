@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid } from '@material-ui/core'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 import { routes } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
@@ -13,12 +13,12 @@ type NavItem = {
 
 export const navItems: NavItem[] = [
   {
-    href: routes.about,
+    href: routes.index,
     label: 'nav.about',
     variant: 'text',
   },
   {
-    href: routes.index,
+    href: routes.aboutProject,
     label: 'nav.about-project',
     variant: 'text',
   },
