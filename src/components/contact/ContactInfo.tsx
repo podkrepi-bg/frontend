@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) =>
     infoLabel: {
       color: theme.palette.primary.dark,
     },
-    contactWrapper: {
+    contact: {
       textAlign: 'center',
       [theme.breakpoints.up('md')]: {
         display: 'flex',
@@ -106,21 +106,21 @@ export default function ActivitySection() {
         spacing={5}
         className={classes.container}>
         <Grid item container justify="center" spacing={4}>
-          <Grid item xs={12} className={classes.contactWrapper}>
+          <Grid item xs={12} className={classes.contact}>
             <AddressIcon className={classes.contactIcon} />
             <Grid item className={classes.contactText}>
               <Typography variant="body2">{t('contact:contact-options.address.key')}</Typography>
               <Typography variant="body2">{t('contact:contact-options.address.value')}</Typography>
             </Grid>
           </Grid>
-          <Grid item xs={12} className={classes.contactWrapper}>
+          <Grid item xs={12} className={classes.contact}>
             <PhoneIcon className={classes.contactIcon} />
             <Grid item className={classes.contactText}>
               <Typography variant="body2">{t('contact:contact-options.phone.key')}</Typography>
               <Typography variant="body2">{t('contact:contact-options.phone.value')}</Typography>
             </Grid>
           </Grid>
-          <Grid item xs={12} className={classes.contactWrapper}>
+          <Grid item xs={12} className={classes.contact}>
             <MailIcon className={classes.contactIcon} />
             <Grid item className={classes.contactText}>
               <Typography variant="body2">{t('contact:contact-options.other.key')}</Typography>
