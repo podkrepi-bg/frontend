@@ -1,9 +1,9 @@
 import { GetServerSideProps } from 'next'
 import { getSession, providers } from 'next-auth/client'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { routes } from 'common/routes'
 import LoginPage from 'components/auth/login/LoginPage'
-import { serverSideTranslations } from 'common/useNextLocale'
 
 type UnboxPromise<T extends Promise<unknown>> = T extends Promise<infer U> ? U : never
 
@@ -20,7 +20,7 @@ export const getServerSideProps: GetServerSideProps<LoginPageProps> = async (ctx
 
   return {
     props: {
-      i18nResources: await serverSideTranslations(ctx.locale, ['common', 'auth', 'validation']),
+      ...(await serverSideTranslations(ctx.locale ?? 'bg', ['common', 'auth', 'validation'])),
       providers: await providers(),
     },
   }

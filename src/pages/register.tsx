@@ -1,10 +1,11 @@
 import { GetServerSideProps } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
 import RegisterPage from 'components/auth/register/RegisterPage'
-import { serverSideTranslations } from 'common/useNextLocale'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   props: {
-    i18nResources: await serverSideTranslations(locale, ['common', 'auth', 'validation']),
+    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'auth', 'validation'])),
   },
 })
 

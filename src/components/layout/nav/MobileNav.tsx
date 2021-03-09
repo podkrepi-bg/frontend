@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { useSession } from 'next-auth/client'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { SwipeableDrawer, Hidden, Box, Grid } from '@material-ui/core'
 
@@ -11,7 +11,7 @@ import PodkrepiIcon from 'components/brand/PodkrepiIcon'
 import CloseModalButton from 'components/common/CloseModalButton'
 
 import { navItems } from './MainNavMenu'
-import LocaleSwitcher from '../LocaleSwitcher'
+import LocaleButton from '../LocaleButton'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) =>
       },
     },
     icon: {
-      fontSize: theme.spacing(10),
+      fontSize: theme.typography.pxToRem(80),
       marginTop: theme.spacing(5),
       marginBottom: theme.spacing(5),
     },
@@ -38,11 +38,46 @@ type NavDeckProps = {
   setMobileOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
+export const AuthLinks = () => {
+  const [session] = useSession()
+  const { t } = useTranslation()
+
+  if (session) {
+    return (
+      <>
+        <Grid item>
+          <LinkButton fullWidth variant="outlined" href={routes.profile}>
+            {t('nav.profile')}
+          </LinkButton>
+        </Grid>
+        <Grid item>
+          <LinkButton fullWidth variant="outlined" href={routes.logout}>
+            {t('nav.logout')}
+          </LinkButton>
+        </Grid>
+      </>
+    )
+  }
+  return (
+    <>
+      <Grid item>
+        <LinkButton fullWidth variant="outlined" href={routes.login}>
+          {t('nav.login')}
+        </LinkButton>
+      </Grid>
+      <Grid item>
+        <LinkButton fullWidth variant="outlined" href={routes.register}>
+          {t('nav.register')}
+        </LinkButton>
+      </Grid>
+    </>
+  )
+}
+
 export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
   const classes = useStyles()
   const router = useRouter()
   const { t } = useTranslation()
-  const [session] = useSession()
   const closeNavMenu = () => setMobileOpen(false)
 
   // Register route change event handlers
@@ -80,36 +115,9 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
                   </LinkButton>
                 </Grid>
               ))}
-              <Box my={4}>
-                <LocaleSwitcher />
+              <Box my={4} textAlign="center">
+                <LocaleButton />
               </Box>
-              {session ? (
-                <>
-                  <Grid item>
-                    <LinkButton fullWidth variant="outlined" href={routes.profile}>
-                      {t('nav.profile')}
-                    </LinkButton>
-                  </Grid>
-                  <Grid item>
-                    <LinkButton fullWidth variant="outlined" href={routes.logout}>
-                      {t('nav.logout')}
-                    </LinkButton>
-                  </Grid>
-                </>
-              ) : (
-                <>
-                  <Grid item>
-                    <LinkButton fullWidth variant="outlined" href={routes.login}>
-                      {t('nav.login')}
-                    </LinkButton>
-                  </Grid>
-                  <Grid item>
-                    <LinkButton fullWidth variant="outlined" href={routes.register}>
-                      {t('nav.register')}
-                    </LinkButton>
-                  </Grid>
-                </>
-              )}
             </Grid>
           </Box>
         </SwipeableDrawer>

@@ -15,6 +15,7 @@ export const routes = {
   support: '/support',
   profile: '/profile',
   register: '/register',
+  aboutProject: '/about-project',
   changePassword: '/change-password',
   forgottenPassword: '/forgotten-password',
 }

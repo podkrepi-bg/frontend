@@ -1,5 +1,5 @@
 import { Grid, Typography } from '@material-ui/core'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
 import CommissionsIcon from '../icons/problems-to-solve-icons/CommissionsIcon'
@@ -9,6 +9,7 @@ import TimelinessIcon from '../icons/problems-to-solve-icons/TimelinessIcon'
 const useStyles = makeStyles((theme) =>
   createStyles({
     heading: {
+      marginBottom: theme.spacing(5),
       textAlign: 'center',
       color: theme.palette.primary.dark,
     },
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) =>
       },
     },
     icon: {
-      fontSize: theme.spacing(10),
+      fontSize: theme.typography.pxToRem(80),
       padding: theme.spacing(1),
       marginRight: theme.spacing(1),
     },
@@ -40,12 +41,10 @@ export default function SupportUsSection() {
   const { t } = useTranslation()
 
   return (
-    <Grid container component="section" justify="center" spacing={5}>
-      <Grid item>
-        <Typography variant="h5" component="h2" className={classes.heading}>
-          {t('index:problems-to-solve-section.heading')}
-        </Typography>
-      </Grid>
+    <Grid container component="section" justify="center">
+      <Typography variant="h5" component="h2" className={classes.heading}>
+        {t('index:problems-to-solve-section.heading')}
+      </Typography>
       <Grid item container justify="center" spacing={4}>
         <Grid item xs={12} sm={4} className={classes.problem}>
           <CommissionsIcon className={classes.icon} />
