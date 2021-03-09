@@ -37,9 +37,6 @@ export const customValidators = {
   phone: () => ({ key: 'validation:phone' }),
 }
 
-export const phoneRegex = /^\+?\d+$/
-export const phone = string().min(10).max(25).matches(phoneRegex, customValidators.phone)
-
 setLocale({
   mixed: {
     default: 'validation:invalid',
@@ -57,3 +54,6 @@ setLocale({
     email: 'validation:email',
   },
 })
+
+export const phoneRegex = /^\+?\d+$/
+export const phone = string().matches(phoneRegex, customValidators.phone).min(10).max(25)
