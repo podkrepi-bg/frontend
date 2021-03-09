@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { Grid, Typography } from '@material-ui/core'
 
-import { customValidators } from 'common/form/useForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
@@ -13,6 +12,8 @@ export type ContactFormData = {
   firstName: string
   lastName: string
   email: string
+  company?: string
+  phone?: string
   message: string
 }
 
@@ -23,6 +24,8 @@ const validationSchema: yup.SchemaOf<ContactFormData> = yup
     firstName: yup.string().min(3).max(10).required(),
     lastName: yup.string().min(3).max(10).required(),
     email: yup.string().email().required(),
+    company: yup.string().min(3).max(50),
+    phone: yup.string(),
     message: yup.string().min(6).max(500).required(),
   })
 
@@ -30,6 +33,8 @@ const defaults: ContactFormData = {
   firstName: '',
   lastName: '',
   email: '',
+  company: '',
+  phone: '',
   message: '',
 }
 
@@ -84,13 +89,24 @@ export default function ContactForm({ initialValues = defaults }: ContactFormPro
             <FormTextField type="text" label="auth:fields.email" name="email" />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField type="text" label="auth:fields.phone" name="phone" />
+            <FormTextField type="tel" label="auth:fields.phone" name="phone" autoComplete="tel" />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField type="text" label="auth:fields.company" name="company" />
+            <FormTextField
+              type="text"
+              label="auth:fields.company"
+              name="company"
+              autoComplete="organization"
+            />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField type="text" rows={4} label="auth:fields.message" name="message" />
+            <FormTextField
+              type="text"
+              multiline
+              rows={4}
+              label="auth:fields.message"
+              name="message"
+            />
           </Grid>
           <Grid item xs={12}>
             <SubmitButton label="auth:cta.send" fullWidth />
