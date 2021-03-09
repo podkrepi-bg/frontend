@@ -9,6 +9,7 @@ import {
   SupportFormData,
   Volunteer,
 } from './support-form.models'
+import { phone } from 'common/form/validation'
 
 const checkboxError = 'Must have at least one checked box'
 
@@ -24,9 +25,9 @@ const info: yup.SchemaOf<Info> = yup
   .object()
   .shape({
     email: yup.string().email().required(),
-    name: yup.string().required(),
-    phone: yup.string().required(),
-    address: yup.string().required(),
+    name: yup.string().min(5).max(50).required(),
+    phone: phone.required(),
+    address: yup.string(),
   })
   .defined()
 

@@ -70,7 +70,7 @@ export default function GeneralInfo({ formik, failedStep }: GeneralInfoProps) {
           fullWidth
           label={t('common:support-form.steps.info.phone')}
           name="info.phone"
-          autoComplete="phone"
+          autoComplete="tel"
           size="small"
           variant="outlined"
           error={Boolean(formik.errors.info?.phone) && formik.touched.info?.phone}
