@@ -1,16 +1,11 @@
 import { GetServerSideProps } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import ContactPage from 'components/contact/ContactPage'
-import { serverSideTranslations } from 'common/useNextLocale'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   props: {
-    i18nResources: await serverSideTranslations(locale, [
-      'common',
-      'auth',
-      'validation',
-      'contact',
-    ]),
+    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'auth', 'validation', 'contact'])),
   },
 })
 
