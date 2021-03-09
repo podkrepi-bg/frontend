@@ -1,6 +1,7 @@
 import React from 'react'
 import * as yup from 'yup'
 import { useTranslation } from 'react-i18next'
+import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { Grid, Typography } from '@material-ui/core'
 
 import { customValidators } from 'common/form/useForm'
@@ -31,9 +32,21 @@ const defaults: ContactFormData = {
   email: '',
   message: '',
 }
+
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    heading: {
+      marginBottom: theme.spacing(5),
+      color: theme.palette.primary.dark,
+      textAlign: 'center',
+    },
+  }),
+)
+
 export type ContactFormProps = { initialValues?: ContactFormData }
 
 export default function ContactForm({ initialValues = defaults }: ContactFormProps) {
+  const classes = useStyles()
   const { t } = useTranslation()
 
   const onSubmit = async (values: ContactFormData) => {
@@ -55,8 +68,8 @@ export default function ContactForm({ initialValues = defaults }: ContactFormPro
       initialValues={initialValues}
       validationSchema={validationSchema}>
       <Grid container spacing={3}>
-        <Grid item xs={12} align="center">
-          <Typography variant="h5" component="h2">
+        <Grid item xs={12}>
+          <Typography variant="h5" component="h2" className={classes.heading}>
             {t('contact:form-heading')}
           </Typography>
         </Grid>
