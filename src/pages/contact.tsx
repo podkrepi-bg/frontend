@@ -5,7 +5,12 @@ import { serverSideTranslations } from 'common/useNextLocale'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   props: {
-    i18nResources: await serverSideTranslations(locale, ['common', 'auth', 'validation']),
+    i18nResources: await serverSideTranslations(locale, [
+      'common',
+      'auth',
+      'validation',
+      'contact',
+    ]),
   },
 })
 

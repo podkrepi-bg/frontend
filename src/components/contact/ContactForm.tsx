@@ -1,6 +1,7 @@
 import React from 'react'
 import * as yup from 'yup'
-import { Grid } from '@material-ui/core'
+import { useTranslation } from 'react-i18next'
+import { Grid, Typography } from '@material-ui/core'
 
 import { customValidators } from 'common/form/useForm'
 import SubmitButton from 'components/common/form/SubmitButton'
@@ -33,6 +34,8 @@ const defaults: ContactFormData = {
 export type ContactFormProps = { initialValues?: ContactFormData }
 
 export default function ContactForm({ initialValues = defaults }: ContactFormProps) {
+  const { t } = useTranslation()
+
   const onSubmit = async (values: ContactFormData) => {
     console.log(values)
 
@@ -52,6 +55,11 @@ export default function ContactForm({ initialValues = defaults }: ContactFormPro
       initialValues={initialValues}
       validationSchema={validationSchema}>
       <Grid container spacing={3}>
+        <Grid item xs={12} align="center">
+          <Typography variant="h5" component="h2">
+            {t('contact:form-heading')}
+          </Typography>
+        </Grid>
         <Grid item xs={12} sm={6}>
           <FormTextField type="text" label="auth:fields.first-name" name="firstName" />
         </Grid>
@@ -62,10 +70,16 @@ export default function ContactForm({ initialValues = defaults }: ContactFormPro
           <FormTextField type="text" label="auth:fields.email" name="email" />
         </Grid>
         <Grid item xs={12}>
+          <FormTextField type="text" label="auth:fields.phone" name="phone" />
+        </Grid>
+        <Grid item xs={12}>
+          <FormTextField type="text" label="auth:fields.company" name="company" />
+        </Grid>
+        <Grid item xs={12}>
           <FormTextField type="text" rows={4} label="auth:fields.message" name="message" />
         </Grid>
         <Grid item xs={12}>
-          <SubmitButton fullWidth />
+          <SubmitButton label="auth:cta.send" fullWidth />
         </Grid>
       </Grid>
     </GenericForm>
