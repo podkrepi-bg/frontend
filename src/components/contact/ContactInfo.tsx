@@ -61,7 +61,9 @@ export default function ActivitySection() {
   return (
     <Grid container component="section">
       <Grid container direction="column" className={classes.container}>
-        <Typography variant="h6">{t('contact:subtitle')}</Typography>
+        <Typography variant="h6" component="p">
+          {t('contact:subtitle')}
+        </Typography>
       </Grid>
       <Grid container direction="column" className={classes.container}>
         <Grid item>
