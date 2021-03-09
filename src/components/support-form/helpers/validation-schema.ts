@@ -27,7 +27,7 @@ const info: yup.SchemaOf<Info> = yup
     email: yup.string().email().required(),
     name: yup.string().min(5).max(50).required(),
     phone: phone.required(),
-    address: yup.string().required(),
+    address: yup.string(),
   })
   .defined()
 
