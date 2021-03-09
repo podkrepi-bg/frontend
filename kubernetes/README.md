@@ -30,11 +30,17 @@ kubectl get pods --namespace podkrepi-dev
 skaffold delete
 ```
 
-## Things to know about Cockroachdb install
+## Things to know about CockroachDB install
 
 - cockroachdb is installed in singlenode mode, without passwords to ease development
 - cockroachdb is recreated each time, if you don't want recreation, comment the manifest line in skaffold.yaml
 - portforwarding for cockroachdb won't work from the first run because it is slow to start. Just Ctrl+C and run skaffold dev again.
+
+### Connecting to CockroachDB
+
+```shell
+psql -h localhost -p 26257 -U root
+```
 
 ## Cleanup
 
@@ -56,3 +62,5 @@ skaffold dev --no-prune=false --cache-artifacts=false --no-prune-children=false 
 docker-compose -f ./docker-compose.yml --env-file=.env.example config > docker-compose-resolved.tmp \
   && skaffold init --compose-file docker-compose-resolved.tmp
 ```
+
+It's important not to include `docker-compose.dev.yml` as it generates local mounting volumes that have no effect over kubernetes cluster. By default dev yaml is included in `.env.example` within `COMPOSE_FILE` var.
