@@ -63,7 +63,7 @@ export default function ContactForm({ initialValues = defaults }: ContactFormPro
   }
 
   return (
-    <Grid container direction="column" component="section" className={classes.container}>
+    <Grid container direction="column" component="section">
       <Grid item xs={12}>
         <Typography variant="h5" component="h2" className={classes.heading}>
           {t('contact:form-heading')}
