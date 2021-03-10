@@ -8,7 +8,7 @@ spec:
     - from:
         - podSelector:
             matchLabels:
-              io.kompose.network/frontend-net: "true"
+              io.kompose.network/frontend-net: 'true'
   podSelector:
     matchLabels:
-      io.kompose.network/frontend-net: "true"
+      io.kompose.network/frontend-net: 'true'
