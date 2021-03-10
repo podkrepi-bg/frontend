@@ -21,7 +21,7 @@ spec:
         kompose.version: 1.22.0 (HEAD)
       creationTimestamp: null
       labels:
-        io.kompose.network/frontend-net: "true"
+        io.kompose.network/frontend-net: 'true'
         io.kompose.service: frontend
     spec:
       containers:
