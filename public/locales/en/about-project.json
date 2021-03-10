@@ -10,9 +10,9 @@
   "volunteers": "700+ volunteers in our Discord server",
   "meetings": "50+ internal team meetings",
   "infoSite": "We have created an informative site on the platform through which future donors (whether individuals or companies), volunteers, media or partners can sign up.",
-  "businessModel": "Choice of initial business model (membership fee + direct donations to the platform + merch)" ,
+  "businessModel": "Choice of initial business model (membership fee + direct donations to the platform + merch)",
   "organizationWork": "Work organization (discord, drive, github, ora.pm, division into teams, etc.)",
-  "hostingPartners":  "Partnerships with hosting companies (superhosting & icn or others)",
+  "hostingPartners": "Partnerships with hosting companies (superhosting & icn or others)",
   "nameSuggestions": "We collected 150+ name suggestions and voted internally.",
   "internalMeetings": "50+ internal team meetings",
   "npoConversations": "We conducted a series of talks with NGO representatives in order to better understand and define the problem we need to solve.",
@@ -26,7 +26,7 @@
   "officialLaunch": "Official Launch - Sep",
   "selfFinancingTitle": "Self-alimony model",
   "commission": "0% commission from the campaigns",
-  "donation": "direct donations to the association 'Podkrepi BG'",
+  "donation": "direct donations to the association Podkrepi.bg",
   "fees": "membership fee",
-  "applyingForProgram":"potential application for a European program"
+  "applyingForProgram": "potential application for a European program"
 }
