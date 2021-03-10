@@ -7,7 +7,7 @@ import { Grid, Typography } from '@material-ui/core'
 import SubmitButton from 'components/common/form/SubmitButton'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
-import { phone } from 'common/form/validation'
+import { name, phone } from 'common/form/validation'
 
 export type ContactFormData = {
   firstName: string
@@ -22,10 +22,10 @@ const validationSchema: yup.SchemaOf<ContactFormData> = yup
   .object()
   .defined()
   .shape({
-    firstName: yup.string().min(3).max(10).required(),
-    lastName: yup.string().min(3).max(10).required(),
+    firstName: name.required(),
+    lastName: name.required(),
     email: yup.string().email().required(),
-    company: yup.string().min(3).max(50),
+    company: name,
     phone: phone,
     message: yup.string().min(30).max(500).required(),
   })
