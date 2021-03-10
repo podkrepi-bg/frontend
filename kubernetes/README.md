@@ -38,9 +38,11 @@ skaffold delete
 
 ### Connecting to CockroachDB
 
+- directly from the shell
 ```shell
 psql -h localhost -p 26257 -U root
 ```
+- from the code - [see CockroachDB code specific client drivers](https://www.cockroachlabs.com/docs/v20.2/install-client-drivers?filters=c-sharp)
 
 ## Cleanup
 
