@@ -43,7 +43,7 @@ export default function TeamSection() {
           <img
             src="/img/discord-team-image.png"
             className={classes.teamImage}
-            alt="Podkrepi BG team in Discord voice conference call"
+            alt="Podkrepi.bg team in Discord voice conference call"
           />
         </Grid>
       </Grid>
