@@ -1,6 +1,6 @@
 version: '3'
 services:
-  app:
+  frontend:
     image: ghcr.io/daritelska-platforma/frontend/web:${DEPLOY_TAG}
     container_name: app-frontend-prod
     restart: always
