@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import '../styles/global.css'
 import Head from 'next/head'
 import { AppProps } from 'next/app'
 import { Provider as SessionProvider } from 'next-auth/client'
@@ -8,6 +7,8 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import { appWithTranslation } from 'next-i18next'
 
 import theme from 'common/theme'
+
+import 'styles/global.scss'
 
 function CustomApp(props: AppProps) {
   const { Component, pageProps } = props

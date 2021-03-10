@@ -10,11 +10,10 @@ import {
   Typography,
 } from '@material-ui/core'
 
-import Footer from 'components/layout/Footer'
 import Snackbar from 'components/layout/Snackbar'
 import AppNavBar from 'components/layout/AppNavBar'
-
 import MobileNav from './nav/MobileNav'
+import Footer from 'components/layout/Footer'
 
 type LayoutProps = React.PropsWithChildren<
   ContainerProps & {
