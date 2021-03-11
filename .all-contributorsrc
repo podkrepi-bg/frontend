@@ -113,6 +113,20 @@
         "maintenance",
         "security"
       ]
+    },
+    {
+      "login": "igoychev",
+      "name": "igoychev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7055304?v=4",
+      "profile": "https://github.com/igoychev",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "infra",
+        "maintenance",
+        "security"
+      ]
     }
   ],
   "contributorsPerLine": 7,
