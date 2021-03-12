@@ -8,6 +8,8 @@ import { appWithTranslation } from 'next-i18next'
 
 import theme from 'common/theme'
 
+import 'styles/global.scss'
+
 function CustomApp(props: AppProps) {
   const { Component, pageProps } = props
 

@@ -121,5 +121,15 @@
     },
     "helperText": "At least one checkbox should be checked",
     "termsHelperText": "Please agree to the Terms and Conditions"
-  }
+  },
+  "footerLabels": {
+    "aboutUs": "About us",
+    "aboutProject": "About the project",
+    "contact": "Contact us",
+    "support": "Support us",
+    "terms": "Common terms",
+    "confidentiality": "Data confidentiality",
+    "gdpr": "User Consent Manager / GDPR"
+  },
+  "footerCopyrights":"Podkrepi.bg ©2021 All rights reserved."
 }

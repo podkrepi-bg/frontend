@@ -121,5 +121,15 @@
     },
     "helperText": "Моля, изберете си роля",
     "termsHelperText": "Моля, приемете oбщите условия "
-  }
+  },
+  "footerLabels": {
+    "aboutUs": "За нас",
+    "aboutProject": "За проекта",
+    "contact": "Контакти",
+    "support": "Подкрепи ни",
+    "terms": "Общи условия",
+    "confidentiality": "Поверителност на данните",
+    "gdpr": "User Consent Manager / GDPR"
+  },
+  "footerCopyrights":"Podkrepi.bg ©2021 Всички права запазени."
 }
