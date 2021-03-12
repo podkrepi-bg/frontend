@@ -112,7 +112,7 @@ export default function Footer() {
   return (
     <Container component="footer" maxWidth="xl" disableGutters>
       <Grid container className={classes.footer}>
-        <Grid item xs={12} sm={8} md={6} className={classes.footer__left}>
+        <Grid item xs={12} sm={8} md={6}>
           <Link href={routes.index}>
             <a>
               <PodkrepiLogo locale={locale} size="large" variant="fixed" />
