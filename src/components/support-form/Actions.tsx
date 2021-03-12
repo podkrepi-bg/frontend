@@ -9,7 +9,7 @@ type ActionsProps = {
   onNext?: (event: MouseEvent) => void
 }
 
-export default function Actions({ onBack, onNext, nextLabel, disableBack = false }: ActionsProps) {
+export default function Actions({ onBack, nextLabel, disableBack = false }: ActionsProps) {
   const { t } = useTranslation()
   return (
     <Grid container justify="space-around">
@@ -19,7 +19,7 @@ export default function Actions({ onBack, onNext, nextLabel, disableBack = false
         </Button>
       </Grid>
       <Grid item>
-        <Button variant="contained" color="primary" onClick={onNext}>
+        <Button variant="contained" type="submit" color="primary">
           {nextLabel}
         </Button>
       </Grid>
