@@ -11,19 +11,26 @@ import { Instagram, Facebook, Twitter, LinkedIn, YouTube } from '@material-ui/ic
 const useStyles = makeStyles((theme) =>
   createStyles({
     footer: {
-      padding: theme.spacing(7),
       backgroundColor: theme.palette.primary.dark,
+      padding: theme.spacing(3),
+      textAlign: 'center',
+      [theme.breakpoints.up('sm')]: {
+        textAlign: 'left',
+      },
+      [theme.breakpoints.up('lg')]: {
+        padding: theme.spacing(7, 15),
+      },
     },
     footer__left: {
       display: 'flex',
       flexDirection: 'column',
     },
-    footer__logo: {
-      width: '70%',
+    footer__right: {
+      [theme.breakpoints.up('md')]: {
+        display: 'flex',
+      },
     },
     footer__socialContainer: {
-      display: 'flex',
-      flexDirection: 'row',
       padding: '10px 0',
     },
     footer__socialLink: {
@@ -71,14 +78,22 @@ const footerItems = [
     },
     {
       label: 'footerLabels.terms',
-      href: routes.terms,
+      // terms route is not implemented yet
+      // href: routes.terms,
       external: false,
     },
   ],
   [
     {
+      label: 'footerLabels.confidentiality',
+      // gdpr route is not implemented yet
+      // href: routes.gdpr,
+      external: false,
+    },
+    {
       label: 'footerLabels.gdpr',
-      href: routes.gdpr,
+      // gdpr route is not implemented yet
+      // href: routes.gdpr,
       external: false,
     },
   ],
@@ -87,72 +102,71 @@ const footerItems = [
 const socialLinks = {
   facebook: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
   twitter: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-  linkdin: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+  linkedin: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
   youtube: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
   instagram: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
 }
 
 export default function Footer() {
   const { t } = useTranslation()
-  console.log(t(footerItems[0][0].label))
-
-  const { locale } = useRouter()
   const classes = useStyles()
+  const { locale } = useRouter()
+
   return (
-    <Container component="footer" className={classes.footer} maxWidth="xl">
-      <Grid container>
-        <Grid item xs={6}>
-          <div className={classes.footer__left}>
-            <Link href={routes.index}>
-              <a className={classes.footer__logo}>
-                <PodkrepiLogo locale={locale} size="large" variant="fixed" />
+    <Container component="footer" maxWidth="xl">
+      <Grid container spacing={3} className={classes.footer}>
+        <Grid item xs={12} sm={8} md={6} className={classes.footer__left}>
+          <Link href={routes.index}>
+            <a>
+              <PodkrepiLogo locale={locale} size="large" variant="fixed" />
+            </a>
+          </Link>
+          <div className={classes.footer__socialContainer}>
+            <Link href={socialLinks.facebook}>
+              <a target="_blank">
+                <Facebook className={classes.footer__socialLink} />
               </a>
             </Link>
-            <div className={classes.footer__socialContainer}>
-              <Link href={socialLinks.facebook}>
-                <a target="_blank">
-                  <Facebook className={classes.footer__socialLink} />
-                </a>
-              </Link>
-              <Link href={socialLinks.twitter}>
-                <a target="_blank">
-                  <Twitter className={classes.footer__socialLink} />
-                </a>
-              </Link>
-              <Link href={socialLinks.linkdin}>
-                <a target="_blank">
-                  <LinkedIn className={classes.footer__socialLink} />
-                </a>
-              </Link>
-              <Link href={socialLinks.youtube}>
-                <a target="_blank">
-                  <YouTube className={classes.footer__socialLink} />
-                </a>
-              </Link>
-              <Link href={socialLinks.instagram}>
-                <a target="_blank">
-                  <Instagram className={classes.footer__socialLink} />
-                </a>
-              </Link>
-            </div>
-            <span className={classes.footer__copyrights}>{t('footerCopyrights')}</span>
+            <Link href={socialLinks.twitter}>
+              <a target="_blank">
+                <Twitter className={classes.footer__socialLink} />
+              </a>
+            </Link>
+            <Link href={socialLinks.linkedin}>
+              <a target="_blank">
+                <LinkedIn className={classes.footer__socialLink} />
+              </a>
+            </Link>
+            <Link href={socialLinks.youtube}>
+              <a target="_blank">
+                <YouTube className={classes.footer__socialLink} />
+              </a>
+            </Link>
+            <Link href={socialLinks.instagram}>
+              <a target="_blank">
+                <Instagram className={classes.footer__socialLink} />
+              </a>
+            </Link>
           </div>
+          <span className={classes.footer__copyrights}>{t('footerCopyrights')}</span>
         </Grid>
-        {footerItems.map((subarr, i) => (
-          <Grid key={Math.random() * i} item xs={2}>
-            <ul>
-              {subarr.map(({ label, href, external }, j) => (
-                <li key={Math.random() * j} className={classes.footer__link}>
-                  <Link href={t(href)}>
-                    <a target={external ? '_blank' : ''} className={classes.footer__link__inner}>
-                      {t(label)}
-                    </a>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </Grid>
-        ))}
+        <Grid item xs={12} sm={4} md={6} className={classes.footer__right}>
+          {footerItems.map((subarr, i) => (
+            <Grid key={Math.random() * i} item xs={12} md={4}>
+              <ul>
+                {subarr.map(({ label, href, external }, j) => (
+                  <li key={Math.random() * j} className={classes.footer__link}>
+                    <Link href={t(href)}>
+                      <a target={external ? '_blank' : ''} className={classes.footer__link__inner}>
+                        {t(label)}
+                      </a>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </Grid>
+          ))}
+        </Grid>
       </Grid>
     </Container>
   )
