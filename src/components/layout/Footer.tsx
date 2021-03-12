@@ -1,29 +1,27 @@
 import Link from 'next/link'
-import { createStyles, makeStyles, Grid, Container } from '@material-ui/core'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
 
+import { Grid, Container, createStyles, makeStyles } from '@material-ui/core'
+import { Instagram, Facebook, Twitter, LinkedIn, YouTube } from '@material-ui/icons'
+
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 import { routes } from 'common/routes'
-
-import { Instagram, Facebook, Twitter, LinkedIn, YouTube } from '@material-ui/icons'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     footer: {
       backgroundColor: theme.palette.primary.dark,
+      color: theme.palette.primary.main,
       padding: theme.spacing(3),
       textAlign: 'center',
       [theme.breakpoints.up('sm')]: {
         textAlign: 'left',
+        padding: theme.spacing(5),
       },
       [theme.breakpoints.up('lg')]: {
         padding: theme.spacing(7, 15),
       },
-    },
-    footer__left: {
-      display: 'flex',
-      flexDirection: 'column',
     },
     footer__right: {
       [theme.breakpoints.up('md')]: {
@@ -31,15 +29,14 @@ const useStyles = makeStyles((theme) =>
       },
     },
     footer__socialContainer: {
-      padding: '10px 0',
+      padding: theme.spacing(1, 0),
     },
     footer__socialLink: {
       color: theme.palette.primary.main,
-      marginRight: '5px',
-      cursor: 'pointer',
+      marginRight: theme.spacing(1),
     },
     footer__copyrights: {
-      fontSize: '16px',
+      fontSize: theme.typography.pxToRem(16),
       color: theme.palette.primary.main,
     },
     footer__link: {
@@ -113,8 +110,8 @@ export default function Footer() {
   const { locale } = useRouter()
 
   return (
-    <Container component="footer" maxWidth="xl">
-      <Grid container spacing={3} className={classes.footer}>
+    <Container component="footer" maxWidth="xl" disableGutters>
+      <Grid container className={classes.footer}>
         <Grid item xs={12} sm={8} md={6} className={classes.footer__left}>
           <Link href={routes.index}>
             <a>
@@ -157,7 +154,10 @@ export default function Footer() {
                 {subarr.map(({ label, href, external }, j) => (
                   <li key={Math.random() * j} className={classes.footer__link}>
                     <Link href={t(href)}>
-                      <a target={external ? '_blank' : ''} className={classes.footer__link__inner}>
+                      <a
+                        target={external ? '_blank' : ''}
+                        rel="noreferrer"
+                        className={classes.footer__link__inner}>
                         {t(label)}
                       </a>
                     </Link>
