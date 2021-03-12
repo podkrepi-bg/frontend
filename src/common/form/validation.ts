@@ -60,3 +60,4 @@ export const phoneRegex = /^\+?\d+$/
 export const noNumbersRegex = /^[^\d!@#$%^&*()\\/'"_]*$/gi
 export const phone = string().trim().matches(phoneRegex, customValidators.phone).min(10).max(25)
 export const name = string().trim().matches(noNumbersRegex, customValidators.name).min(2).max(50)
+export const companyName = string().trim().min(2).max(50)
