@@ -1,28 +1,15 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { FormikProps } from 'formik'
-import { Checkbox, FormControl, FormControlLabel, FormLabel } from '@material-ui/core'
+import { FormControl, FormLabel } from '@material-ui/core'
+import CheckboxField from 'components/common/form/CheckboxField'
 
-import { SupportFormData } from '../helpers/support-form.models'
-
-type NewsletterProps = { formik: FormikProps<SupportFormData> }
-export default function Newsletter({ formik }: NewsletterProps) {
+export default function Newsletter() {
   const { t } = useTranslation()
 
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">{t('common:support-form.steps.newsletter.title')}</FormLabel>
-      <FormControlLabel
-        control={
-          <Checkbox
-            checked={formik.values.newsletter}
-            onChange={formik.handleChange}
-            name="newsletter"
-            color="primary"
-          />
-        }
-        label={t('common:support-form.steps.newsletter.label')}
-      />
+      <CheckboxField label="common:support-form.steps.newsletter.label" name="newsletter" />
     </FormControl>
   )
 }

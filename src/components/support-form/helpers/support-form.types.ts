@@ -11,6 +11,7 @@ export enum Steps {
   QUESTIONS = 1,
   INFO = 2,
   NEWSLETTER = 3,
+  FINISH = 4,
 }
 
 export type Info = {
@@ -55,6 +56,26 @@ export type SupportFormData = {
   volunteer?: Volunteer
   associationMember?: Member
   promoter?: Promoter
+}
+export type SupportFormDataSteps = {
+  [Steps.NONE]: never
+  [Steps.ROLES]: {
+    roles: Roles
+  }
+  [Steps.QUESTIONS]: {
+    benefactor?: Benefactor
+    partner?: Partner
+    volunteer?: Volunteer
+    associationMember?: Member
+    promoter?: Promoter
+  }
+  [Steps.INFO]: {
+    info: Info
+    terms: boolean
+  }
+  [Steps.NEWSLETTER]: {
+    newsletter: boolean
+  }
 }
 
 export interface TextFieldOptions {
