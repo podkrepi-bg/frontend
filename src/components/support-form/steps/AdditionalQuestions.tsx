@@ -1,28 +1,57 @@
 import React from 'react'
+import { useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
-import { FormikProps } from 'formik'
 import {
-  Checkbox,
   FormControl,
-  FormControlLabel,
   FormGroup,
   FormHelperText,
   FormLabel,
   Grid,
-  TextField,
   Typography,
 } from '@material-ui/core'
 
-import { Option, RoleRenderObject, Steps, SupportFormData } from '../helpers/support-form.models'
+import { Option, RoleRenderObject, SupportFormData } from '../helpers/support-form.types'
+import CheckboxField from 'components/common/form/CheckboxField'
+import FormTextField from 'components/common/form/FormTextField'
 
-type AdditionalQuestionsProps = {
-  formik: FormikProps<SupportFormData>
-  failedStep: Steps
+type QuestionProps = {
+  question?: RoleRenderObject
+}
+const Question = ({ question }: QuestionProps) => {
+  const { t } = useTranslation()
+  const formik = useFormikContext<SupportFormData>()
+  if (!question) {
+    return null
+  }
+  return (
+    <FormControl fullWidth required error={Boolean(formik.errors.roles)} component="fieldset">
+      <FormGroup>
+        <FormLabel component="legend">{t(question.title)}</FormLabel>
+        {question.options.map((option: Option, index) => (
+          <React.Fragment key={index}>
+            <CheckboxField label={option.label} name={option.name} />
+            {option.textFieldOptions && option.value ? (
+              <FormTextField
+                type="text"
+                name={option.textFieldOptions.name}
+                label={option.textFieldOptions.placeholder}
+                placeholder={t(option.textFieldOptions.placeholder)}
+              />
+            ) : null}
+          </React.Fragment>
+        ))}
+      </FormGroup>
+      {Boolean(formik.errors[question.key]) && (
+        <FormHelperText error>{t(question.errorMessage)}</FormHelperText>
+      )}
+    </FormControl>
+  )
 }
 
-export default function AdditionalQuestions({ formik, failedStep }: AdditionalQuestionsProps) {
+export default function AdditionalQuestions() {
+  const formik = useFormikContext<SupportFormData>()
   const { t } = useTranslation()
-  const RenderHelper: Array<RoleRenderObject> = [
+  const questionsList: Array<RoleRenderObject> = [
     {
       key: 'benefactor',
       title: 'common:support-form.steps.addition-questions.benefactor.title',
@@ -147,47 +176,7 @@ export default function AdditionalQuestions({ formik, failedStep }: AdditionalQu
       ],
     },
   ]
-  const renderQuestion = (key: string) => {
-    const renderObject = RenderHelper.find((obj) => obj.key == key)
-    if (!renderObject) {
-      return null
-    }
-    return (
-      <FormControl fullWidth required error={Boolean(formik.errors.roles)} component="fieldset">
-        <FormGroup>
-          <FormLabel component="legend">{t(renderObject.title)}</FormLabel>
-          {renderObject.options.map((option: Option, index) => (
-            <React.Fragment key={index}>
-              <FormControlLabel
-                label={t(option.label)}
-                control={
-                  <Checkbox
-                    checked={Boolean(option.value)}
-                    onChange={formik.handleChange}
-                    name={option.name}
-                    color="primary"
-                  />
-                }
-              />
-              {option.textFieldOptions && option.value ? (
-                <TextField
-                  size="small"
-                  variant="outlined"
-                  value={option.textFieldOptions.value}
-                  name={option.textFieldOptions.name}
-                  placeholder={t(option.textFieldOptions.placeholder)}
-                  onChange={formik.handleChange}
-                />
-              ) : null}
-            </React.Fragment>
-          ))}
-        </FormGroup>
-        {Boolean(formik.errors[renderObject.key]) && failedStep === Steps.QUESTIONS && (
-          <FormHelperText error>{t(renderObject.errorMessage)}</FormHelperText>
-        )}
-      </FormControl>
-    )
-  }
+
   return (
     <Grid container spacing={6} justify="center">
       <Grid item xs={12}>
@@ -201,7 +190,7 @@ export default function AdditionalQuestions({ formik, failedStep }: AdditionalQu
             .filter(([, value]) => value)
             .map(([key], index) => (
               <Grid key={index} item xs={12} sm={10}>
-                {renderQuestion(key)}
+                <Question question={questionsList.find((obj) => obj.key == key)} />
               </Grid>
             ))}
         </Grid>
