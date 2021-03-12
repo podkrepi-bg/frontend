@@ -40,8 +40,8 @@ const useStyles = makeStyles((theme) =>
       color: theme.palette.primary.main,
     },
     footer__link: {
-      fontSize: theme.spacing(2),
-      padding: theme.spacing(0.5, 0, 0.5, 0),
+      fontSize: theme.typography.pxToRem(16),
+      padding: theme.spacing(0.5, 0),
     },
     footer__link__inner: {
       color: theme.palette.primary.main,
@@ -152,8 +152,8 @@ export default function Footer() {
             <Grid key={Math.random() * i} item xs={12} md={4}>
               <ul>
                 {subarr.map(({ label, href, external }, j) => (
-                  <li key={Math.random() * j} className={classes.footer__link}>
-                    <Link href={t(href)}>
+                  <li key={`${i}-${j}`} className={classes.footer__link}>
+                    <Link href={`${href}`}>
                       <a
                         target={external ? '_blank' : ''}
                         rel="noreferrer"
