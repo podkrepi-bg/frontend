@@ -83,7 +83,7 @@ const footerItems = [
   [
     {
       label: 'footerLabels.confidentiality',
-      // gdpr route is not implemented yet
+      // confidentiality route is not implemented yet
       // href: routes.gdpr,
       external: false,
     },
@@ -97,11 +97,11 @@ const footerItems = [
 ]
 
 const socialLinks = {
-  facebook: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-  twitter: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-  linkedin: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-  youtube: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-  instagram: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+  facebook: '',
+  twitter: '',
+  linkedin: '',
+  youtube: '',
+  instagram: '',
 }
 
 export default function Footer() {
