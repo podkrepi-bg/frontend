@@ -36,20 +36,23 @@ const useStyles = makeStyles((theme) =>
       marginRight: theme.spacing(1),
     },
     footer__copyrights: {
-      fontSize: theme.typography.pxToRem(16),
       color: theme.palette.primary.main,
     },
     footer__link: {
-      fontSize: theme.typography.pxToRem(16),
       padding: theme.spacing(0.5, 0),
+      whiteSpace: 'nowrap',
     },
     footer__link__inner: {
       color: theme.palette.primary.main,
     },
   }),
 )
-
-const footerItems = [
+type FooterLink = {
+  label: string
+  href?: string
+  external: boolean
+}
+const footerItems: FooterLink[][] = [
   [
     {
       label: 'footerLabels.aboutUs',
@@ -97,11 +100,11 @@ const footerItems = [
 ]
 
 const socialLinks = {
-  facebook: '',
-  twitter: '',
-  linkedin: '',
-  youtube: '',
-  instagram: '',
+  facebook: '/',
+  twitter: '/',
+  linkedin: '/',
+  youtube: '/',
+  instagram: '/',
 }
 
 export default function Footer() {
@@ -119,44 +122,34 @@ export default function Footer() {
             </a>
           </Link>
           <div className={classes.footer__socialContainer}>
-            <Link href={socialLinks.facebook}>
-              <a target="_blank">
-                <Facebook className={classes.footer__socialLink} />
-              </a>
-            </Link>
-            <Link href={socialLinks.twitter}>
-              <a target="_blank">
-                <Twitter className={classes.footer__socialLink} />
-              </a>
-            </Link>
-            <Link href={socialLinks.linkedin}>
-              <a target="_blank">
-                <LinkedIn className={classes.footer__socialLink} />
-              </a>
-            </Link>
-            <Link href={socialLinks.youtube}>
-              <a target="_blank">
-                <YouTube className={classes.footer__socialLink} />
-              </a>
-            </Link>
-            <Link href={socialLinks.instagram}>
-              <a target="_blank">
-                <Instagram className={classes.footer__socialLink} />
-              </a>
-            </Link>
+            <a href={socialLinks.facebook} target="_blank" rel="noreferrer noopener">
+              <Facebook className={classes.footer__socialLink} />
+            </a>
+            <a href={socialLinks.twitter} target="_blank" rel="noreferrer noopener">
+              <Twitter className={classes.footer__socialLink} />
+            </a>
+            <a href={socialLinks.linkedin} target="_blank" rel="noreferrer noopener">
+              <LinkedIn className={classes.footer__socialLink} />
+            </a>
+            <a href={socialLinks.youtube} target="_blank" rel="noreferrer noopener">
+              <YouTube className={classes.footer__socialLink} />
+            </a>
+            <a href={socialLinks.instagram} target="_blank" rel="noreferrer noopener">
+              <Instagram className={classes.footer__socialLink} />
+            </a>
           </div>
           <span className={classes.footer__copyrights}>{t('footerCopyrights')}</span>
         </Grid>
         <Grid item xs={12} sm={4} md={6} className={classes.footer__right}>
-          {footerItems.map((subarr, i) => (
-            <Grid key={Math.random() * i} item xs={12} md={4}>
+          {footerItems.map((subarr: FooterLink[], column) => (
+            <Grid key={column} item xs={12} md={4}>
               <ul>
-                {subarr.map(({ label, href, external }, j) => (
-                  <li key={`${i}-${j}`} className={classes.footer__link}>
-                    <Link href={`${href}`}>
+                {subarr.map(({ label, href, external }, row) => (
+                  <li key={`${column}-${row}`} className={classes.footer__link}>
+                    <Link href={href || routes.index}>
                       <a
-                        target={external ? '_blank' : ''}
-                        rel="noreferrer"
+                        rel={external ? 'noreferrer noopener' : undefined}
+                        target={external ? '_blank' : undefined}
                         className={classes.footer__link__inner}>
                         {t(label)}
                       </a>
