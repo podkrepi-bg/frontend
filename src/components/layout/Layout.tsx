@@ -55,27 +55,29 @@ export default function Layout({
   const suffix = t('meta.title')
   const metaTitle = useMemo(() => (title ? `${title} | ${suffix}` : suffix), [title, suffix])
   return (
-    <Container className={classes.layout} maxWidth={maxWidth} {...containerProps}>
-      <Head>
-        <title>{metaTitle}</title>
-      </Head>
-      <Box pt={4} pb={10}>
-        <AppNavBar navMenuToggle={navMenuToggle} />
-        <MobileNav mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
-        {!disableOffset && <div className={classes.offset} />}
-        {title && (
-          <Typography
-            paragraph
-            variant="h2"
-            component="h1"
-            align="center"
-            className={classes.pageTitle}>
-            {title}
-          </Typography>
-        )}
-        {children}
-      </Box>
-      <Snackbar />
+    <Container maxWidth="xl" disableGutters>
+      <Container className={classes.layout} maxWidth={maxWidth} {...containerProps}>
+        <Head>
+          <title>{metaTitle}</title>
+        </Head>
+        <Box pt={4} pb={10}>
+          <AppNavBar navMenuToggle={navMenuToggle} />
+          <MobileNav mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
+          {!disableOffset && <div className={classes.offset} />}
+          {title && (
+            <Typography
+              paragraph
+              variant="h2"
+              component="h1"
+              align="center"
+              className={classes.pageTitle}>
+              {title}
+            </Typography>
+          )}
+          {children}
+        </Box>
+        <Snackbar />
+      </Container>
       <Footer />
     </Container>
   )
