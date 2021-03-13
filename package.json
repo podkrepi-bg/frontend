@@ -12,6 +12,7 @@
     "format": "prettier --write .",
     "type-check": "tsc --project tsconfig.json --pretty --noEmit",
     "dc": "docker-compose --env-file .env.local",
+    "rebuild": "./bin/rebuild.sh",
     "up": "yarn dc up -d && yarn logs",
     "logs": "yarn dc logs -f",
     "down": "yarn dc down"

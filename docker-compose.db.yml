@@ -29,7 +29,7 @@ services:
     depends_on:
       - roach-cert
     networks:
-      - net-frontend
+      - frontend-net
 
   lb:
     container_name: lb
@@ -47,7 +47,7 @@ services:
       # - roach-1
       # - roach-2
     networks:
-      - net-frontend
+      - frontend-net
 
   roach-init:
     container_name: roach-init
@@ -68,7 +68,7 @@ services:
       - lb
       - roach-cert
     networks:
-      - net-frontend
+      - frontend-net
 
   flyway:
     container_name: flyway
@@ -82,9 +82,9 @@ services:
     depends_on:
       - lb
     networks:
-      - net-frontend
+      - frontend-net
 
-  app:
+  frontend:
     depends_on:
       - lb
     volumes:
