@@ -54,6 +54,31 @@ const useStyles = makeStyles((theme) =>
   }),
 )
 
+const infoIcons = [
+  { Icon: DonorsIcon, label: 'contact:info-options.donors' },
+  { Icon: CampaignApplicantsIcon, label: 'contact:info-options.campain-applicants' },
+  { Icon: OrganizationsIcon, label: 'contact:info-options.organizations' },
+  { Icon: VolunteersIcon, label: 'contact:info-options.volunteers' },
+]
+
+const contactIcons = [
+  {
+    Icon: AddressIcon,
+    labelKey: 'contact:contact-options.address.key',
+    labelValue: 'contact:contact-options.address.value',
+  },
+  {
+    Icon: PhoneIcon,
+    labelKey: 'contact:contact-options.phone.key',
+    labelValue: 'contact:contact-options.phone.value',
+  },
+  {
+    Icon: MailIcon,
+    labelKey: 'contact:contact-options.other.key',
+    labelValue: 'contact:contact-options.other.value',
+  },
+]
+
 export default function ActivitySection() {
   const classes = useStyles()
   const { t } = useTranslation()
@@ -75,55 +100,31 @@ export default function ActivitySection() {
           <Typography variant="body2">{t('contact:content')}</Typography>
         </Grid>
         <Grid container>
-          <Grid item xs={12} sm={6} md={3} className={classes.info}>
-            <DonorsIcon className={classes.infoIcon} />
-            <Typography variant="body2" className={classes.infoLabel}>
-              {t('contact:info-options.donors')}
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={6} md={3} className={classes.info}>
-            <CampaignApplicantsIcon className={classes.infoIcon} />
-            <Typography variant="body2" className={classes.infoLabel}>
-              {t('contact:info-options.campain-applicants')}
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={6} md={3} className={classes.info}>
-            <OrganizationsIcon className={classes.infoIcon} />
-            <Typography variant="body2" className={classes.infoLabel}>
-              {t('contact:info-options.organizations')}
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={6} md={3} className={classes.info}>
-            <VolunteersIcon className={classes.infoIcon} />
-            <Typography variant="body2" className={classes.infoLabel}>
-              {t('contact:info-options.volunteers')}
-            </Typography>
-          </Grid>
+          {infoIcons.map(({ label, Icon }, key) => (
+            <Grid item key={key} xs={12} sm={6} md={3} className={classes.info}>
+              <Icon className={classes.infoIcon} />
+              <Typography variant="body2" className={classes.infoLabel}>
+                {t(label)}
+              </Typography>
+            </Grid>
+          ))}
         </Grid>
       </Grid>
       <Grid container justify="center" spacing={5} className={classes.container}>
         <Grid item container justify="center" spacing={4}>
-          <Grid item xs={12} className={classes.contact}>
-            <AddressIcon className={classes.contactIcon} />
-            <Grid item className={classes.contactText}>
-              <Typography variant="body2">{t('contact:contact-options.address.key')}</Typography>
-              <Typography variant="body2">{t('contact:contact-options.address.value')}</Typography>
+          {contactIcons.map(({ Icon, labelKey, labelValue }, key) => (
+            <Grid item key={key} xs={12} className={classes.contact}>
+              <Icon className={classes.contactIcon} />
+              <Grid item className={classes.contactText}>
+                <Typography variant="body2" className={classes.contactText}>
+                  {t(labelKey)}
+                </Typography>
+                <Typography variant="body2" className={classes.contactText}>
+                  {t(labelValue)}
+                </Typography>
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid item xs={12} className={classes.contact}>
-            <PhoneIcon className={classes.contactIcon} />
-            <Grid item className={classes.contactText}>
-              <Typography variant="body2">{t('contact:contact-options.phone.key')}</Typography>
-              <Typography variant="body2">{t('contact:contact-options.phone.value')}</Typography>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} className={classes.contact}>
-            <MailIcon className={classes.contactIcon} />
-            <Grid item className={classes.contactText}>
-              <Typography variant="body2">{t('contact:contact-options.other.key')}</Typography>
-              <Typography variant="body2">{t('contact:contact-options.other.value')}</Typography>
-            </Grid>
-          </Grid>
+          ))}
         </Grid>
       </Grid>
     </Grid>
