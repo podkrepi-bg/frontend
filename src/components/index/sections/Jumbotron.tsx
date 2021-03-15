@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme) =>
       textShadow: '0px 2px 3px #000',
       fontWeight: 600,
       marginBottom: theme.spacing(1),
+      [theme.breakpoints.down('xs')]: {
+        fontSize: theme.typography.pxToRem(45),
+      },
     },
     subTitle: {
       marginTop: theme.spacing(3),
