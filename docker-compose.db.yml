@@ -23,7 +23,8 @@ services:
     container_name: roach-0
     hostname: roach-0
     image: cockroachdb/cockroach:latest
-    command: start-single-node --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --certs-dir=/certs --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257
+    command: start-single-node --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --insecure --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257
+    # command: start-single-node --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --certs-dir=/certs --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257
     volumes:
       - certs-roach-0:/certs
     depends_on:
