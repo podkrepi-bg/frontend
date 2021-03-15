@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) =>
     },
     icon: {
       fontSize: theme.typography.pxToRem(80),
-      fill: 'none',
+      fill: theme.palette.primary.main,
       padding: theme.spacing(1),
     },
     supportOptionLabel: {
