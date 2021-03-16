@@ -1,10 +1,10 @@
-package book
+package contact
 
 import (
 	"time"
 
 	"github.com/asaskevich/govalidator"
-	"github.com/daritelska-platforma/frontend/v2/database"
+	"github.com/daritelska-platforma/v2/database"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
 	_ "gorm.io/driver/postgres"
@@ -24,60 +24,64 @@ type Contact struct {
 	DeletedAt gorm.DeletedAt `gorm:"index" json:"deletedAt"`
 }
 
-func GetContacts(c *fiber.Ctx) error {
-	db := database.DBConn
-	var contacts []Contact
-	db.Find(&contacts)
-	return c.JSON(contacts)
+func GetContacts(db *database.Database) fiber.Handler {
+	return func(ctx *fiber.Ctx) error {
+		var contacts []Contact
+		db.Find(&contacts)
+		return ctx.JSON(contacts)
+	}
 }
 
-func GetContact(c *fiber.Ctx) error {
-	id := c.Params("id")
-	db := database.DBConn
-	var contact Contact
-	db.Find(&contact, "id = ?", id)
-	if contact.ID == uuid.Nil {
-		return c.Status(404).JSON(&fiber.Map{
-			"success": false,
-			"error":   "No contact found",
-		})
+func GetContact(db *database.Database) fiber.Handler {
+	return func(ctx *fiber.Ctx) error {
+		id := ctx.Params("id")
+		var contact Contact
+		db.Find(&contact, "id = ?", id)
+		if contact.ID == uuid.Nil {
+			return ctx.Status(404).JSON(&fiber.Map{
+				"success": false,
+				"error":   "No contact found",
+			})
+		}
+		return ctx.JSON(contact)
 	}
-	return c.JSON(contact)
 }
 
-func NewContact(c *fiber.Ctx) error {
-	db := database.DBConn
-	contact := new(Contact)
-	if err := c.BodyParser(contact); err != nil {
-		return c.Status(503).SendString(err.Error())
-	}
-	_, err := govalidator.ValidateStruct(contact)
-	if err != nil {
-		errs := err.(govalidator.Errors).Errors()
-		return c.Status(400).JSON(&fiber.Map{
-			"success": false,
-			"errors":  errs,
-		})
-	}
+func NewContact(db *database.Database) fiber.Handler {
+	return func(ctx *fiber.Ctx) error {
+		contact := new(Contact)
+		if err := ctx.BodyParser(contact); err != nil {
+			return ctx.Status(503).SendString(err.Error())
+		}
+		_, err := govalidator.ValidateStruct(contact)
+		if err != nil {
+			errs := err.(govalidator.Errors).Errors()
+			return ctx.Status(400).JSON(&fiber.Map{
+				"success": false,
+				"errors":  errs,
+			})
+		}
 
-	db.Create(&contact)
-	return c.JSON(contact)
+		db.Create(&contact)
+		return ctx.JSON(contact)
+	}
 }
 
-func DeleteContact(c *fiber.Ctx) error {
-	id := c.Params("id")
-	db := database.DBConn
+func DeleteContact(db *database.Database) fiber.Handler {
+	return func(ctx *fiber.Ctx) error {
+		id := ctx.Params("id")
 
-	var contact Contact
-	db.First(&contact, "id = ?", id)
-	if contact.ID == uuid.Nil {
-		return c.Status(404).JSON(&fiber.Map{
-			"success": false,
-			"error":   "No contact found",
+		var contact Contact
+		db.First(&contact, "id = ?", id)
+		if contact.ID == uuid.Nil {
+			return ctx.Status(404).JSON(&fiber.Map{
+				"success": false,
+				"error":   "No contact found",
+			})
+		}
+		db.Delete(&contact)
+		return ctx.Status(400).JSON(&fiber.Map{
+			"success": true,
 		})
 	}
-	db.Delete(&contact)
-	return c.Status(400).JSON(&fiber.Map{
-		"success": true,
-	})
 }
