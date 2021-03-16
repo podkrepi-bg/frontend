@@ -7,6 +7,7 @@ require (
 	github.com/gofiber/fiber/v2 v2.6.0
 	github.com/gofiber/session v1.2.5
 	github.com/google/uuid v1.2.0
+	github.com/jinzhu/gorm v1.9.16
 	github.com/spf13/viper v1.7.1
 	github.com/thomasvvugt/fiber-hashing v0.0.0-20200511145001-a62bb48860d5
 	gorm.io/driver/postgres v1.0.8

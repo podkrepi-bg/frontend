@@ -13,6 +13,7 @@ type DatabaseConfig struct {
 	Password string
 	Port     int
 	Database string
+	SSL      string
 	RootCert string
 	Cert     string
 	Key      string
@@ -31,7 +32,7 @@ func New(config *DatabaseConfig) (*Database, error) {
 		" dbname=" + config.Database +
 		" port=" + strconv.Itoa(config.Port) +
 		" TimeZone=UTC connect_timeout=0" +
-		" sslmode=verify-ca" +
+		" sslmode=" + config.SSL +
 		" sslrootcert=" + config.RootCert +
 		" sslcert=" + config.Cert +
 		" sslkey=" + config.Key

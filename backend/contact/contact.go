@@ -11,6 +11,15 @@ import (
 	"gorm.io/gorm"
 )
 
+type Tabler interface {
+	TableName() string
+}
+
+// TableName overrides
+func (Contact) TableName() string {
+	return "app.contacts"
+}
+
 type Contact struct {
 	ID        uuid.UUID      `gorm:"primaryKey;type:uuid;default:gen_random_uuid()"`
 	FirstName string         `json:"firstName" valid:"required,length(2|50)"`
