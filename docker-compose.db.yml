@@ -12,7 +12,7 @@ services:
   roach-cert:
     container_name: roach-cert
     hostname: roach-cert
-    build: roach-cert
+    build: db/cert
     volumes:
       - certs-roach-0:/certs/roach-0
       - certs-roach-1:/certs/roach-1
@@ -23,8 +23,8 @@ services:
     container_name: roach-0
     hostname: roach-0
     image: cockroachdb/cockroach:latest
-    # command: start-single-node --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257 --insecure
-    command: start-single-node --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257 --certs-dir=/certs
+    command: start-single-node --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257 --insecure
+    # command: start-single-node --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257 --certs-dir=/certs
     volumes:
       - certs-roach-0:/certs
     depends_on:
@@ -55,7 +55,8 @@ services:
     environment:
       COCKROACH_HOST: lb:${DB_PORT}
       COCKROACH_DATABASE: ${DB_NAME}
-      COCKROACH_INSECURE: 'false'
+      # COCKROACH_INSECURE: 'false'
+      COCKROACH_INSECURE: 'true'
       COCKROACH_CERTS_DIR: /certs
       DATABASE_NAME: ${DB_NAME}
       DATABASE_USER: ${DB_USER}
