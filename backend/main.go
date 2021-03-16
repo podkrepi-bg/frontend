@@ -39,20 +39,24 @@ func (app *App) initDatabase() {
 		Password: app.env.GetString("DB_PASS"),
 		Database: app.env.GetString("DB_NAME"),
 		Port:     app.env.GetInt("DB_PORT"),
+		SSL:      "disable",
+		// SSL:      "verify-ca",
 		RootCert: "/certs/ca.crt",
-		Cert:     "/certs/client.root.crt",
-		Key:      "/certs/client.root.key",
+		Cert:     "/certs/client.dp_user.crt",
+		Key:      "/certs/client.dp_user.key",
 	})
 
 	if err != nil {
 		panic("Failed to connect database")
 	}
+
 	fmt.Println("Connection Opened to Database")
 
-	db.AutoMigrate(&contact.Contact{})
+	// Add schema prefix to table
+	db.Table("app.contacts").AutoMigrate(&contact.Contact{})
+	fmt.Println("Database Migrated")
 
 	app.DB = db
-	fmt.Println("Database Migrated")
 }
 
 func main() {
