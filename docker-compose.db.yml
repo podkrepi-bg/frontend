@@ -23,8 +23,8 @@ services:
     container_name: roach-0
     hostname: roach-0
     image: cockroachdb/cockroach:latest
-    command: start-single-node --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --insecure --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257
-    # command: start-single-node --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --certs-dir=/certs --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257
+    # command: start-single-node --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257 --insecure
+    command: start-single-node --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257 --certs-dir=/certs
     volumes:
       - certs-roach-0:/certs
     depends_on:
@@ -35,6 +35,7 @@ services:
   lb:
     container_name: lb
     hostname: lb
+    # https://github.com/cockroachlabs-field/dynamic-haproxy
     image: timveil/dynamic-haproxy:latest
     ports:
       - '${DB_PORT}:26257'
@@ -43,10 +44,6 @@ services:
     environment:
       - NODES=roach-0
       # - NODES=roach-0 roach-1 roach-2
-    links:
-      - roach-0
-      # - roach-1
-      # - roach-2
     networks:
       - frontend-net
 
@@ -85,30 +82,20 @@ services:
     networks:
       - frontend-net
 
-  frontend:
+  api:
+    container_name: podkrepi-api
+    restart: unless-stopped
     depends_on:
       - lb
     volumes:
       - certs-client:/certs
     environment:
+      PORT: '5000'
       DB_HOST: ${DB_HOST}
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
       DB_PORT: ${DB_PORT}
       DB_NAME: ${DB_NAME}
-
-  api:
-    container_name: podkrepi-api
-    restart: unless-stopped
-    build:
-      context: ./backend
-      dockerfile: ./Dockerfile
-      target: ${TARGET_ENV}
-    environment:
-      DEBUG: 'true'
-      PORT: '5000'
-    volumes:
-      - ./backend:/app
     ports:
       - '5000:5000'
     networks:
