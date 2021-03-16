@@ -25,7 +25,7 @@ type Contact struct {
 	FirstName string         `json:"firstName" valid:"required,length(2|50)"`
 	LastName  string         `json:"lastName" valid:"required,length(2|50)"`
 	Email     string         `json:"email" valid:"required,email"`
-	Company   string         `json:"company" valid:"length(100)"`
+	Company   string         `json:"company" valid:"length(0|100)"`
 	Phone     string         `json:"phone" valid:"required,phone"`
 	Message   string         `json:"message" valid:"required,length(2|500)"`
 	CreatedAt time.Time      `json:"createdAt"`
