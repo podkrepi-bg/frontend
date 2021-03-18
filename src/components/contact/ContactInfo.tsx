@@ -17,8 +17,10 @@ const useStyles = makeStyles((theme) =>
       color: theme.palette.primary.dark,
     },
     container: {
-      marginBottom: theme.spacing(12),
+      display: 'grid',
+      justifyContent: 'center',
       textAlign: 'center',
+      marginBottom: theme.spacing(12),
     },
     info: {
       marginTop: theme.spacing(4),
@@ -33,13 +35,9 @@ const useStyles = makeStyles((theme) =>
       color: theme.palette.primary.dark,
     },
     contact: {
-      textAlign: 'center',
-      [theme.breakpoints.up('md')]: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'left',
-      },
+      display: 'flex',
+      textAlign: 'left',
+      alignItems: 'center',
     },
     contactIcon: {
       fontSize: theme.spacing(8),
@@ -48,7 +46,6 @@ const useStyles = makeStyles((theme) =>
       padding: theme.spacing(1),
     },
     contactText: {
-      flexBasis: '50%',
       color: theme.palette.primary.dark,
     },
   }),
@@ -111,21 +108,19 @@ export default function ActivitySection() {
         </Grid>
       </Grid>
       <Grid container justify="center" spacing={5} className={classes.container}>
-        <Grid item container justify="center" spacing={4}>
-          {contactIcons.map(({ Icon, labelKey, labelValue }, key) => (
-            <Grid item key={key} xs={12} className={classes.contact}>
-              <Icon className={classes.contactIcon} />
-              <Grid item className={classes.contactText}>
-                <Typography variant="body2" className={classes.contactText}>
-                  {t(labelKey)}
-                </Typography>
-                <Typography variant="body2" className={classes.contactText}>
-                  {t(labelValue)}
-                </Typography>
-              </Grid>
+        {contactIcons.map(({ Icon, labelKey, labelValue }, key) => (
+          <Grid item key={key} className={classes.contact}>
+            <Icon className={classes.contactIcon} />
+            <Grid item className={classes.contactText}>
+              <Typography variant="body2" className={classes.contactText}>
+                {t(labelKey)}
+              </Typography>
+              <Typography variant="body2" className={classes.contactText}>
+                {t(labelValue)}
+              </Typography>
             </Grid>
-          ))}
-        </Grid>
+          </Grid>
+        ))}
       </Grid>
     </Grid>
   )
