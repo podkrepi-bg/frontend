@@ -5,9 +5,10 @@ import (
 	"log"
 
 	"github.com/daritelska-platforma/v2/api"
-	configuration "github.com/daritelska-platforma/v2/config"
-	"github.com/daritelska-platforma/v2/contact"
+	"github.com/daritelska-platforma/v2/api/config"
 	"github.com/daritelska-platforma/v2/database"
+	"github.com/daritelska-platforma/v2/routes/contact"
+	"github.com/daritelska-platforma/v2/routes/healthcheck"
 
 	"github.com/asaskevich/govalidator"
 	"github.com/gofiber/fiber/v2"
@@ -17,22 +18,12 @@ import (
 
 type App struct {
 	*fiber.App
-	env *configuration.Config
+	env *config.Config
 	DB  *database.Database
 }
 
 func (app *App) setupRoutes() {
-	app.Get("/api/v1/healthcheck", func(ctx *fiber.Ctx) error {
-		if pinger, ok := app.DB.DB.ConnPool.(interface{ Ping() error }); ok {
-			err := pinger.Ping()
-			if err != nil {
-				return ctx.Status(fiber.StatusInternalServerError).JSON(&fiber.Map{
-					"status": fiber.StatusInternalServerError,
-				})
-			}
-		}
-		return ctx.JSON(&fiber.Map{"status": fiber.StatusOK})
-	})
+	app.Get("/api/v1/healthcheck", healthcheck.GetHealthcheck(app.DB))
 
 	app.Get("/api/v1/contact", contact.GetContacts(app.DB))
 	app.Get("/api/v1/contact/:id", contact.GetContact(app.DB))
@@ -73,7 +64,7 @@ func (app *App) initDatabase() *database.Database {
 }
 
 func main() {
-	config := configuration.New()
+	config := config.New()
 
 	app := App{
 		App: fiber.New(fiber.Config{

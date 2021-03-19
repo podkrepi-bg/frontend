@@ -1,9 +1,8 @@
-package configuration
+package config
 
 import (
 	"fmt"
 	"os"
-	"strconv"
 
 	"github.com/spf13/viper"
 
@@ -14,31 +13,6 @@ type Config struct {
 	*viper.Viper
 
 	errorHandler fiber.ErrorHandler
-}
-
-var defaultErrorHandler = func(c *fiber.Ctx, err error) error {
-	// Status code defaults to 500
-	code := fiber.StatusInternalServerError
-
-	// Set error message
-	message := err.Error()
-
-	// Check if it's a fiber.Error type
-	if e, ok := err.(*fiber.Error); ok {
-		code = e.Code
-		message = e.Message
-	}
-
-	// Return HTTP response
-	c.Set(fiber.HeaderContentType, fiber.MIMETextPlainCharsetUTF8)
-	c.Status(code)
-
-	// Render default error view
-	err = c.Render("errors/"+strconv.Itoa(code), fiber.Map{"message": message})
-	if err != nil {
-		return c.SendString(message)
-	}
-	return err
 }
 
 func New() *Config {
@@ -64,8 +38,6 @@ func New() *Config {
 			os.Exit(1)
 		}
 	}
-
-	config.SetErrorHandler(defaultErrorHandler)
 
 	return config
 }
