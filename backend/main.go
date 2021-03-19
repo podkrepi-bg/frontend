@@ -20,6 +20,10 @@ type App struct {
 }
 
 func (app *App) setupRoutes() {
+	app.Get("/api/v1/healthcheck", func(ctx *fiber.Ctx) error {
+		return ctx.JSON(&fiber.Map{"status": "OK"})
+	})
+
 	app.Get("/api/v1/contact", contact.GetContacts(app.DB))
 	app.Get("/api/v1/contact/:id", contact.GetContact(app.DB))
 	app.Post("/api/v1/contact", contact.NewContact(app.DB))

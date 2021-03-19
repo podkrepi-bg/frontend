@@ -97,12 +97,20 @@ services:
       DB_PASS: ${DB_PASS}
       DB_PORT: ${DB_PORT}
       DB_NAME: ${DB_NAME}
+
     ports:
       - '5000:5000'
+
     networks:
       frontend-net:
         aliases:
           - api.podkrepi.localhost
+
+    healthcheck:
+      test: curl --fail http://localhost:5000/api/v1/healthcheck || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 3
 
 volumes:
   certs-roach-0:
