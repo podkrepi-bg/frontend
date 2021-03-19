@@ -10,16 +10,16 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       color: theme.palette.primary.dark,
       '& > p': {
-        fontSize: theme.spacing(2),
+        fontSize: theme.typography.pxToRem(16),
         maxWidth: theme.spacing(20),
       },
       '& > span': {
-        fontSize: theme.spacing(8),
+        fontSize: theme.typography.pxToRem(64),
         fontWeight: 'bold',
       },
     },
     icon: {
-      fontSize: theme.spacing(10),
+      fontSize: theme.typography.pxToRem(80),
       padding: theme.spacing(1),
       marginRight: theme.spacing(1),
     },
