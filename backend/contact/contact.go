@@ -23,12 +23,12 @@ func (Contact) TableName() string {
 
 type Contact struct {
 	ID        uuid.UUID      `gorm:"primaryKey;type:uuid;default:gen_random_uuid()"`
-	FirstName string         `json:"firstName" valid:"required,length(2|50)"`
-	LastName  string         `json:"lastName" valid:"required,length(2|50)"`
-	Email     string         `json:"email" valid:"required,email~bad-email"`
-	Company   string         `json:"company" valid:"length(0|100)"`
-	Phone     string         `json:"phone" valid:"required,phone~validation:phone"`
-	Message   string         `json:"message" valid:"required,length(2|500)"`
+	FirstName string         `json:"firstName" valid:"required,minstringlength(2)~field-too-short,maxstringlength(50)~field-too-long"`
+	LastName  string         `json:"lastName" valid:"required,minstringlength(2)~field-too-short,maxstringlength(50)~field-too-long"`
+	Email     string         `json:"email" valid:"required,email"`
+	Company   string         `json:"company" valid:"maxstringlength(50)~field-too-long"`
+	Phone     string         `json:"phone" valid:"required,phone"`
+	Message   string         `json:"message" valid:"required,minstringlength(10)~field-too-short,maxstringlength(500)~field-too-long"`
 	CreatedAt time.Time      `json:"createdAt"`
 	UpdatedAt time.Time      `json:"updatedAt"`
 	DeletedAt gorm.DeletedAt `gorm:"index" json:"deletedAt"`
