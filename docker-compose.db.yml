@@ -100,7 +100,9 @@ services:
     ports:
       - '5000:5000'
     networks:
-      - frontend-net
+      frontend-net:
+        aliases:
+          - api.podkrepi.localhost
 
 volumes:
   certs-roach-0:
