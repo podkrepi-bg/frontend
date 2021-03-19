@@ -85,7 +85,7 @@ services:
 
   api:
     container_name: podkrepi-api
-    restart: unless-stopped
+    restart: always
     depends_on:
       - lb
     volumes:

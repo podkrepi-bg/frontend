@@ -1,6 +1,7 @@
 package contact
 
 import (
+	"errors"
 	"time"
 
 	"github.com/asaskevich/govalidator"
@@ -37,7 +38,11 @@ type Contact struct {
 func GetContacts(db *database.Database) fiber.Handler {
 	return func(ctx *fiber.Ctx) error {
 		var contacts []Contact
-		db.Find(&contacts)
+		err := db.Find(&contacts).Error
+		if err != nil {
+			return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		}
+
 		return ctx.JSON(contacts)
 	}
 }
@@ -46,12 +51,14 @@ func GetContact(db *database.Database) fiber.Handler {
 	return func(ctx *fiber.Ctx) error {
 		id := ctx.Params("id")
 		var contact Contact
-		db.Find(&contact, "id = ?", id)
+		err := db.Find(&contact, "id = ?", id).Error
+
+		if err != nil {
+			return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		}
+
 		if contact.ID == uuid.Nil {
-			return ctx.Status(404).JSON(&fiber.Map{
-				"success": false,
-				"error":   "No contact found",
-			})
+			return fiber.NewError(fiber.StatusNotFound, "No contact found")
 		}
 		return ctx.JSON(contact)
 	}
@@ -61,21 +68,23 @@ func NewContact(db *database.Database) fiber.Handler {
 	return func(ctx *fiber.Ctx) error {
 		contact := new(Contact)
 		if err := ctx.BodyParser(contact); err != nil {
-			return ctx.Status(503).JSON(&fiber.Map{
-				"success": false,
-				"error":   err.Error(),
-			})
+			return fiber.NewError(fiber.StatusBadRequest, err.Error())
 		}
 
 		_, err := govalidator.ValidateStruct(contact)
 		if err != nil {
-			return ctx.Status(400).JSON(&fiber.Map{
-				"success": false,
-				"errors":  api.Compile(err.(govalidator.Errors).Errors()),
-			})
+			panic(ctx.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
+				"status": fiber.StatusBadRequest,
+				"errors": api.Compile(err.(govalidator.Errors).Errors()),
+			}))
 		}
 
-		db.Create(&contact)
+		err = db.Create(&contact).Error
+
+		if err != nil {
+			return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		}
+
 		return ctx.JSON(contact)
 	}
 }
@@ -85,16 +94,25 @@ func DeleteContact(db *database.Database) fiber.Handler {
 		id := ctx.Params("id")
 
 		var contact Contact
-		db.First(&contact, "id = ?", id)
-		if contact.ID == uuid.Nil {
-			return ctx.Status(404).JSON(&fiber.Map{
-				"success": false,
-				"error":   "No contact found",
-			})
+		err := db.First(&contact, "id = ?", id).Error
+		if err != nil {
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				return fiber.NewError(fiber.StatusNotFound, "No contact found")
+			}
+			return fiber.NewError(fiber.StatusInternalServerError, err.Error())
 		}
-		db.Delete(&contact)
-		return ctx.Status(400).JSON(&fiber.Map{
-			"success": true,
+
+		if contact.ID == uuid.Nil {
+			return fiber.NewError(fiber.StatusNotFound, "No contact found")
+		}
+
+		err = db.Delete(&contact).Error
+		if err != nil {
+			return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+		}
+
+		return ctx.Status(fiber.StatusOK).JSON(&fiber.Map{
+			"status": fiber.StatusOK,
 		})
 	}
 }
