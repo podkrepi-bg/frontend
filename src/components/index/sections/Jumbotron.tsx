@@ -1,7 +1,10 @@
-import { useTranslation } from 'next-i18next'
+import React, { useRef } from 'react'
+
+import { useTranslation } from 'react-i18next'
 
 import { Grid, Typography } from '@material-ui/core'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 
 import { routes } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
@@ -10,6 +13,7 @@ import Typewriter from '../helpers/Typewriter'
 const useStyles = makeStyles((theme) =>
   createStyles({
     container: {
+      position: 'relative',
       height: '730px',
       padding: theme.spacing(15, 1, 0, 1),
       marginBottom: theme.spacing(12),
@@ -46,12 +50,34 @@ const useStyles = makeStyles((theme) =>
       fontWeight: 600,
       fontSize: theme.typography.pxToRem(15),
     },
+    scrollButton: {
+      marginTop: theme.spacing(8),
+      [theme.breakpoints.up(1600)]: {
+        marginTop: theme.spacing(15),
+      },
+    },
+    scrollButtonIcon: {
+      border: `1px solid ${theme.palette.common.white}`,
+      borderRadius: '50%',
+      width: '40px',
+      height: '40px',
+      '&:hover': {
+        cursor: 'pointer',
+        backgroundColor: theme.palette.primary.dark,
+      },
+    },
   }),
 )
 
 export default function Index() {
   const classes = useStyles()
   const { t } = useTranslation()
+
+  const executeScroll = () => {
+    window.scrollTo(scrollElement.current.offsetTop, window.innerWidth < 1600 ? 700 : 950)
+  }
+
+  const scrollElement = useRef(null)
 
   return (
     <Grid container direction="column" component="section" className={classes.container}>
@@ -68,6 +94,11 @@ export default function Index() {
         <LinkButton href={routes.support} variant="outlined" className={classes.podkrepiButton}>
           {t('index:jumbotron.support-us-button')}
         </LinkButton>
+      </Grid>
+      <Grid item className={classes.scrollButton}>
+        <a ref={scrollElement} onClick={executeScroll}>
+          <KeyboardArrowDownIcon className={classes.scrollButtonIcon} />
+        </a>
       </Grid>
     </Grid>
   )
