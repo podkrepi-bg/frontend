@@ -74,10 +74,10 @@ export default function Index() {
   const { t } = useTranslation()
 
   const executeScroll = () => {
-    window.scrollTo(scrollElement.current.offsetTop, window.innerWidth < 1600 ? 700 : 950)
+    window.scrollTo((scrollElement as any).current.offsetTop, window.innerWidth < 1600 ? 700 : 950)
   }
 
-  const scrollElement = useRef(document.createElement('div'))
+  const scrollElement = useRef()
 
   return (
     <Grid container direction="column" component="section" className={classes.container}>
