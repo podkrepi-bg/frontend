@@ -15,6 +15,12 @@ services:
     networks:
       - frontend-net
 
+    healthcheck:
+      test: curl --fail http://localhost:3040/api/healthcheck || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 3
+
 networks:
   frontend-net:
     driver: bridge
