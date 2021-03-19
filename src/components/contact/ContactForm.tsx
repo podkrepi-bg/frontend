@@ -78,7 +78,7 @@ export default function ContactForm({ initialValues = defaults }: ContactFormPro
 
   const onSubmit = async (
     values: ContactFormData,
-    { setFieldError }: FormikHelpers<ContactFormData>,
+    { setFieldError, resetForm }: FormikHelpers<ContactFormData>,
   ) => {
     console.log(values)
     try {
@@ -102,6 +102,7 @@ export default function ContactForm({ initialValues = defaults }: ContactFormPro
         throw new Error()
       }
       AlertStore.show(t('contact:alerts.message-sent'), 'success')
+      resetForm()
     } catch (error) {
       console.error(error)
       setLoading(false)
