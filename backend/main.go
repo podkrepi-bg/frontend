@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/daritelska-platforma/v2/api"
 	configuration "github.com/daritelska-platforma/v2/config"
 	"github.com/daritelska-platforma/v2/contact"
 	"github.com/daritelska-platforma/v2/database"
@@ -11,6 +12,7 @@ import (
 	"github.com/asaskevich/govalidator"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/recover"
 )
 
 type App struct {
@@ -21,7 +23,15 @@ type App struct {
 
 func (app *App) setupRoutes() {
 	app.Get("/api/v1/healthcheck", func(ctx *fiber.Ctx) error {
-		return ctx.JSON(&fiber.Map{"status": "OK"})
+		if pinger, ok := app.DB.DB.ConnPool.(interface{ Ping() error }); ok {
+			err := pinger.Ping()
+			if err != nil {
+				return ctx.Status(fiber.StatusInternalServerError).JSON(&fiber.Map{
+					"status": fiber.StatusInternalServerError,
+				})
+			}
+		}
+		return ctx.JSON(&fiber.Map{"status": fiber.StatusOK})
 	})
 
 	app.Get("/api/v1/contact", contact.GetContacts(app.DB))
@@ -36,7 +46,7 @@ func (app *App) initValidation() {
 	})
 }
 
-func (app *App) initDatabase() {
+func (app *App) initDatabase() *database.Database {
 	db, err := database.New(&database.DatabaseConfig{
 		Host:     app.env.GetString("DB_HOST"),
 		Username: app.env.GetString("DB_USER"),
@@ -59,21 +69,24 @@ func (app *App) initDatabase() {
 	// Add schema prefix to table
 	db.Table("app.contacts").AutoMigrate(&contact.Contact{})
 	fmt.Println("Database Migrated")
-
-	app.DB = db
+	return db
 }
 
 func main() {
 	config := configuration.New()
 
 	app := App{
-		App: fiber.New(),
+		App: fiber.New(fiber.Config{
+			ErrorHandler: api.ErrorHandler,
+		}),
 		env: config,
 	}
 
-	app.initDatabase()
 	app.Use(cors.New())
+	app.Use(recover.New())
 	app.initValidation()
+	app.DB = app.initDatabase()
 	app.setupRoutes()
+
 	log.Fatal(app.Listen(":" + config.GetString("PORT")))
 }
