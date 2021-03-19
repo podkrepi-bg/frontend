@@ -28,7 +28,7 @@
     "mobx-react": "^7.0.5",
     "next": "^10.0.5",
     "next-auth": "^3.4.1",
-    "next-i18next": "^8.0.6",
+    "next-i18next": "^8.1.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-in-viewport": "^1.0.0-alpha.16",
