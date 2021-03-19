@@ -77,7 +77,7 @@ export default function Index() {
     window.scrollTo(scrollElement.current.offsetTop, window.innerWidth < 1600 ? 700 : 950)
   }
 
-  const scrollElement = useRef(null)
+  const scrollElement = useRef(document.createElement('div'))
 
   return (
     <Grid container direction="column" component="section" className={classes.container}>
