@@ -18,13 +18,13 @@ services:
 
   api:
     build:
-      context: ./backend
+      context: ./backend/contact
       dockerfile: ./Dockerfile
       target: ${TARGET_ENV}
     environment:
       DEBUG: 'true'
     volumes:
-      - ./backend:/app
+      - ./backend/contact:/app
 
 networks:
   frontend-net:
