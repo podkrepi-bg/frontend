@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 
 import { useTranslation } from 'react-i18next'
 
@@ -74,10 +74,8 @@ export default function Index() {
   const { t } = useTranslation()
 
   const executeScroll = () => {
-    window.scrollTo((scrollElement as any).current.offsetTop, window.innerWidth < 1600 ? 700 : 950)
+    window.scroll({ top: window.innerWidth < 1600 ? 700 : 950, behavior: 'smooth' })
   }
-
-  const scrollElement = useRef()
 
   return (
     <Grid container direction="column" component="section" className={classes.container}>
@@ -96,7 +94,7 @@ export default function Index() {
         </LinkButton>
       </Grid>
       <Grid item className={classes.scrollButton}>
-        <a ref={scrollElement} onClick={executeScroll}>
+        <a onClick={executeScroll}>
           <KeyboardArrowDownIcon className={classes.scrollButtonIcon} />
         </a>
       </Grid>
