@@ -84,6 +84,7 @@ services:
       - frontend-net
 
   api:
+    image: ghcr.io/daritelska-platforma/frontend/api:${DEPLOY_TAG?}
     container_name: podkrepi-api
     restart: always
     depends_on:
@@ -100,9 +101,6 @@ services:
       SSL_CA: ${SSL_CA}
       SSL_KEY: ${SSL_KEY}
       SSL_CERT: ${SSL_CERT}
-
-    ports:
-      - '5000:5000'
 
     networks:
       frontend-net:
