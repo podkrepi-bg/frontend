@@ -70,16 +70,16 @@ const useStyles = makeStyles((theme) =>
 )
 
 type JumbotronProps = {
-  scrollElement: RefObject<HTMLAnchorElement>
+  scrollTo: RefObject<HTMLAnchorElement>
 }
-export default function Jumbotron({ scrollElement }: JumbotronProps) {
+export default function Jumbotron({ scrollTo }: JumbotronProps) {
   const classes = useStyles()
   const { t } = useTranslation()
 
   const executeScroll = () => {
-    if (scrollElement.current) {
+    if (scrollTo.current) {
       window.scroll({
-        top: scrollElement.current.offsetTop - 150, // AppBar offset
+        top: scrollTo.current.offsetTop - 150, // AppBar offset
         behavior: 'smooth',
       })
     }

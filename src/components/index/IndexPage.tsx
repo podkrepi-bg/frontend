@@ -14,7 +14,7 @@ export default function IndexPage() {
   const scrollElement = useRef<HTMLAnchorElement>(null)
   return (
     <Layout maxWidth={false} disableOffset disableGutters>
-      <Jumbotron scrollElement={scrollElement} />
+      <Jumbotron scrollTo={scrollElement} />
       <Container innerRef={scrollElement} maxWidth="md">
         <ActivitySection />
         <TeamSection />
