@@ -57,4 +57,9 @@ func (config *Config) setDefaults() {
 	config.SetDefault("DB_PASS", "password")
 	config.SetDefault("DB_PORT", 26257)
 	config.SetDefault("DB_NAME", "app")
+
+	config.SetDefault("SSL_MODE", "disable")
+	config.SetDefault("SSL_CA", "/certs/ca.crt")
+	config.SetDefault("SSL_CERT", "/certs/client.dp_user.crt")
+	config.SetDefault("SSL_KEY", "/certs/client.dp_user.key")
 }
