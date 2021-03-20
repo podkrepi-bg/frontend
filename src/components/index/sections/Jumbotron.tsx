@@ -79,7 +79,7 @@ export default function Jumbotron({ scrollElement }: JumbotronProps) {
   const executeScroll = () => {
     if (scrollElement.current) {
       window.scroll({
-        top: scrollElement.current?.offsetTop - 150, // AppBar offset
+        top: scrollElement.current.offsetTop - 150, // AppBar offset
         behavior: 'smooth',
       })
     }
