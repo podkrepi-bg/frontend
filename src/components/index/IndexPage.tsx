@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { Container } from '@material-ui/core'
 
 import Layout from 'components/layout/Layout'
@@ -9,11 +10,12 @@ import TeamChartSection from './sections/TeamChartSection'
 import SupportUsSection from './sections/SupportUsSection'
 import ProblemsToSolveSection from './sections/ProblemsToSolveSection'
 
-export default function Index() {
+export default function IndexPage() {
+  const scrollElement = useRef<HTMLAnchorElement>(null)
   return (
     <Layout maxWidth={false} disableOffset disableGutters>
-      <Jumbotron />
-      <Container maxWidth="md">
+      <Jumbotron scrollElement={scrollElement} />
+      <Container innerRef={scrollElement} maxWidth="md">
         <ActivitySection />
         <TeamSection />
         <TeamChartSection />
