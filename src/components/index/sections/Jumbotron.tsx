@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { RefObject } from 'react'
 
 import { useTranslation } from 'react-i18next'
 
@@ -69,12 +69,20 @@ const useStyles = makeStyles((theme) =>
   }),
 )
 
-export default function Index() {
+type JumbotronProps = {
+  scrollElement: RefObject<HTMLAnchorElement>
+}
+export default function Jumbotron({ scrollElement }: JumbotronProps) {
   const classes = useStyles()
   const { t } = useTranslation()
 
   const executeScroll = () => {
-    window.scroll({ top: window.innerWidth < 1600 ? 700 : 950, behavior: 'smooth' })
+    if (scrollElement.current) {
+      window.scroll({
+        top: scrollElement.current?.offsetTop - 150, // AppBar offset
+        behavior: 'smooth',
+      })
+    }
   }
 
   return (
