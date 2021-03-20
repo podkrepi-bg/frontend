@@ -59,8 +59,8 @@ const useStyles = makeStyles((theme) =>
     scrollButtonIcon: {
       border: `1px solid ${theme.palette.common.white}`,
       borderRadius: '50%',
-      width: '40px',
-      height: '40px',
+      width: theme.spacing(5),
+      height: theme.spacing(5),
       '&:hover': {
         cursor: 'pointer',
         backgroundColor: theme.palette.primary.dark,
