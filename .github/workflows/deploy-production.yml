@@ -85,6 +85,8 @@ jobs:
           DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
           DEPLOY_TAG: ${{ steps.get-version.outputs.VERSION }}
           HOST_IPV4_ADDRESS: '172.14.0.4'
+          DB_USER: root
+          DB_PASS: ${{ secrets.DB_PASS }}
         with:
           remote_docker_host: ${{ secrets.REMOTE_DOCKER_HOST }}
           ssh_port: ${{ secrets.SSH_PORT }}
