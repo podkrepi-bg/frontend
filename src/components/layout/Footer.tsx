@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme) =>
     },
     footer__link: {
       padding: theme.spacing(0.5, 0),
-      whiteSpace: 'nowrap',
     },
     footer__link__inner: {
       color: theme.palette.primary.main,
