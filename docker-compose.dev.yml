@@ -23,6 +23,8 @@ services:
       target: ${TARGET_ENV}
     environment:
       DEBUG: 'true'
+    ports:
+      - '5000:5000'
     volumes:
       - ./backend/contact:/app
 
