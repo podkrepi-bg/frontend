@@ -44,11 +44,10 @@ func (app *App) initDatabase() *database.Database {
 		Password: app.env.GetString("DB_PASS"),
 		Database: app.env.GetString("DB_NAME"),
 		Port:     app.env.GetInt("DB_PORT"),
-		SSL:      "disable",
-		// SSL:      "verify-ca",
-		RootCert: "/certs/ca.crt",
-		Cert:     "/certs/client.dp_user.crt",
-		Key:      "/certs/client.dp_user.key",
+		SSL:      app.env.GetString("SSL_MODE"),
+		RootCert: app.env.GetString("SSL_CA"),
+		Cert:     app.env.GetString("SSL_CERT"),
+		Key:      app.env.GetString("SSL_KEY"),
 	})
 
 	if err != nil {
@@ -79,5 +78,5 @@ func main() {
 	app.DB = app.initDatabase()
 	app.setupRoutes()
 
-	log.Fatal(app.Listen(":" + config.GetString("PORT")))
+	log.Fatal(app.Listen(config.GetString("APP_ADDR")))
 }
