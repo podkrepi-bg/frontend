@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) =>
       marginTop: theme.spacing(4),
     },
     infoIcon: {
-      fontSize: theme.spacing(10),
+      fontSize: theme.typography.pxToRem(80),
       fill: theme.palette.primary.main,
       stroke: theme.palette.primary.main,
       padding: theme.spacing(1),
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) =>
       alignItems: 'center',
     },
     contactIcon: {
-      fontSize: theme.spacing(8),
+      fontSize: theme.typography.pxToRem(64),
       fill: theme.palette.primary.main,
       stroke: theme.palette.primary.main,
       padding: theme.spacing(1),
