@@ -14,14 +14,14 @@ const useStyles = makeStyles((theme: Theme) =>
     heading: {
       marginBottom: theme.spacing(5),
       color: theme.palette.primary.dark,
-      fontSize: theme.spacing(5),
+      fontSize: theme.typography.pxToRem(40),
     },
     container: {
       marginBottom: theme.spacing(12),
       textAlign: 'center',
     },
     content: {
-      fontSize: theme.spacing(2.5),
+      fontSize: theme.typography.pxToRem(17.6),
       maxWidth: theme.spacing(20),
     },
   }),

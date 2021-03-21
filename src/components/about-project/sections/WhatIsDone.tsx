@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
     heading: {
       marginBottom: theme.spacing(5),
       color: theme.palette.primary.dark,
-      fontSize: theme.spacing(5),
+      fontSize: theme.typography.pxToRem(40),
     },
     container: {
       marginBottom: theme.spacing(12),
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(1),
       marginRight: theme.spacing(1),
       '& span': {
-        fontSize: theme.spacing(2.2),
+        fontSize: theme.typography.pxToRem(17.6),
         textAlign: 'start',
       },
     },
