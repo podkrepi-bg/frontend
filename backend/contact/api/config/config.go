@@ -52,7 +52,7 @@ func (config *Config) setDefaults() {
 	config.SetDefault("APP_ENV", "local")
 
 	// Set default database configuration
-	config.SetDefault("DB_HOST", "lb")
+	config.SetDefault("DB_HOST", "roach-lb")
 	config.SetDefault("DB_USER", "root")
 	config.SetDefault("DB_PASS", "password")
 	config.SetDefault("DB_PORT", 26257)
