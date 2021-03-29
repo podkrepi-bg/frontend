@@ -55,7 +55,8 @@ const footerItems: FooterLink[][] = [
   [
     {
       label: 'footerLabels.aboutUs',
-      href: routes.about,
+      //about route is not implemented yet
+      //href: routes.about,
       external: false,
     },
     {
