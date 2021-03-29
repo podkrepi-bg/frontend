@@ -53,11 +53,26 @@
         "title": "Role",
         "subtitle": "How would you support us?",
         "fields": {
-          "benefactor": "Benefactor",
-          "partner": "Partner",
-          "volunteer": "Volunteer",
-          "associationMember": "Association member",
-          "promoter": "Promoter"
+          "benefactor": {
+            "title": "Benefactor",
+            "description": "Benefactor..."
+          },
+          "partner": {
+            "title": "Partner",
+            "description": "Partner..."
+          },
+          "volunteer": {
+            "title": "Volunteer",
+            "description": "Volunteer..."
+          },
+          "associationMember": {
+            "title": "Association member",
+            "description": "Association member..."
+          },
+          "promoter": {
+            "title": "Promoter",
+            "description": "Promoter..."
+          }
         }
       },
       "addition-questions": {
@@ -131,5 +146,5 @@
     "confidentiality": "Data confidentiality",
     "gdpr": "User Consent Manager / GDPR"
   },
-  "footerCopyrights":"Podkrepi.bg ©2021 All rights reserved."
+  "footerCopyrights": "Podkrepi.bg ©2021 All rights reserved."
 }
