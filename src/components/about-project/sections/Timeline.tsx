@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core'
 import { Timeline as TimelineMaterial } from '@material-ui/lab'
 import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite'
-import CodeIcon from '@material-ui/icons/Code'
 import TelegramIcon from '@material-ui/icons/Telegram'
 import UpdateIcon from '@material-ui/icons/Update'
 
