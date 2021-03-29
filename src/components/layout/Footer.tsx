@@ -63,6 +63,11 @@ const footerItems: FooterLink[][] = [
       href: routes.aboutProject,
       external: false,
     },
+    {
+      label: 'footerLabels.docs',
+      href: 'https://docs.podkrepi.bg',
+      external: true,
+    },
   ],
   [
     {
