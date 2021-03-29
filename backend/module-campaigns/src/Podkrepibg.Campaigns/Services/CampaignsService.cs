@@ -13,7 +13,7 @@ namespace Podkrepibg.Campaigns
             _logger = logger;
         }
 
-        public override Task<CreateCampaignResponse> Create(CreateCampaignRequest request, ServerCallContext context)
+        public override Task<CreateCampaignResponse> CreateCampaign(CreateCampaignRequest request, ServerCallContext context)
         {
             return Task.FromResult(
               new CreateCampaignResponse
