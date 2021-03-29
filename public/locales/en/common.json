@@ -16,36 +16,6 @@
   "meta": {
     "title": "Podkrepi.bg"
   },
-  "values": {
-    "voluntary": {
-      "heading": "Voluntary and pro-bono",
-      "content": "We are building a donation platform for the benefit of those in need and the organizations that help them, without seeking financial or other benefits from it, apart from satisfaction with the implemented campaigns and the support of those in need."
-    },
-    "proactive": {
-      "heading": "Proactive approach",
-      "content": "You don't wait to be given a task, you take it directly. This, of course, is true by correcting the structure a bit, so that at the moment it is not very clear what exactly the tasks are. However, more experienced people can easily see exactly what is missing and generate tasks that make sense. Take action, do not wonder."
-    },
-    "transparent": {
-      "heading": "Transparency",
-      "content": "Donors trust us because we provide transparency through open source, open data / transactions, open solutions. Those in need trust us because we make applying fair, easy and transparent, through clear criteria. Society trusts us because everything is transparent, incl. our work process. We trust each other because there are clear and transparent principles for working between us."
-    },
-    "respect": {
-      "heading": "Respect",
-      "content": "We are kind and good to the people around us, we respect them and if we can we help them. Everyone's opinion matters, so we listen and try to understand what the other person is saying."
-    },
-    "expertise": {
-      "heading": "Expertise",
-      "content": "When we make choices or make difficult decisions, we base them on the opinion of experts with close experience in the specific topic."
-    },
-    "privacy": {
-      "heading": "Privacy",
-      "content": "We respect and protect the personal data of everyone in need, donating or helping in the process, as if they were our own. We clearly define who has rights to access production data, and the people developing the project will not have access to personal data."
-    },
-    "awareness": {
-      "heading": "Awareness",
-      "content": "We are looking for the best solution and when we donate our work, we do it with the full awareness that not everything we do will come into use. If it so happens that your plan or proposal is not approved, you continue with a smile to the next task. If someone else is doing better in your role, you gladly recommend them to lead it, and you help them as much as you can."
-    }
-  },
   "support-form": {
     "title": "Support",
     "steps": {
@@ -140,6 +110,7 @@
   "footerLabels": {
     "aboutUs": "About us",
     "aboutProject": "About the project",
+    "docs": "Documentation",
     "contact": "Contact us",
     "support": "Support us",
     "terms": "Common terms",
