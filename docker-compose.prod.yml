@@ -1,23 +1,18 @@
 version: '3'
 services:
-  app:
+  frontend:
     image: ghcr.io/daritelska-platforma/frontend/web:${DEPLOY_TAG}
     container_name: app-frontend-prod
     restart: always
-    networks:
-      pub1:
-        ipv4_address: ${HOST_IPV4_ADDRESS}
     healthcheck:
       interval: 10s
       timeout: 3s
       retries: 3
-    environment:
-      API_URL: ${API_URL}
-      APP_URL: ${APP_URL}
-      NEXTAUTH_URL: ${NEXTAUTH_URL}
-      JWT_SECRET: ${JWT_SECRET}
-      DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID}
-      DISCORD_CLIENT_SECRET: ${DISCORD_CLIENT_SECRET}
+
+    networks:
+      pub1:
+        ipv4_address: ${HOST_IPV4_ADDRESS}
+
 networks:
   pub1:
     external: true

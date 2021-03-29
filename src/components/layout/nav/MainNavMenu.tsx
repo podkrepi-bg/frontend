@@ -12,18 +12,18 @@ type NavItem = {
 }
 
 export const navItems: NavItem[] = [
-  {
-    href: routes.index,
-    label: 'nav.about',
-    variant: 'text',
-  },
+  // {
+  //   href: routes.index,
+  //   label: 'nav.about',
+  //   variant: 'text',
+  // },
   {
     href: routes.aboutProject,
     label: 'nav.about-project',
     variant: 'text',
   },
   {
-    href: routes.index,
+    href: routes.contact,
     label: 'nav.contacts',
     variant: 'text',
   },

@@ -2,6 +2,7 @@
   "invalid": "Field is invalid",
   "required": "Required field",
   "email": "Invalid email",
+  "phone": "Invalid phone number",
   "password-min": "Password should be at least {{min}} characters",
   "password-match": "Password doesn't match",
   "field-too-short": "Field should be at least {{min}} symbols",

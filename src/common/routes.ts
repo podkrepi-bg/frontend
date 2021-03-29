@@ -11,6 +11,7 @@ export const routes = {
   about: '/about',
   login: '/login',
   logout: '/logout',
+  contact: '/contact',
   support: '/support',
   profile: '/profile',
   register: '/register',

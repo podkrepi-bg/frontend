@@ -14,7 +14,7 @@
     "forgottenPassword": "Забравена парола?"
   },
   "meta": {
-    "title": "Подкрепи БГ"
+    "title": "Подкрепи.бг"
   },
   "values": {
     "voluntary": {
@@ -53,11 +53,26 @@
         "title": "Роля",
         "subtitle": "Как искате да ни подкрепите?",
         "fields": {
-          "benefactor": "Дарител",
-          "partner": "Партньор",
-          "volunteer": "Доброволец",
-          "associationMember": "Член на сдружението",
-          "promoter": "Промотиране"
+          "benefactor": {
+            "title": "Дарител",
+            "description": "Дарител..."
+          },
+          "partner": {
+            "title": "Партньор",
+            "description": "Партньор..."
+          },
+          "volunteer": {
+            "title": "Доброволец",
+            "description": "Доброволец..."
+          },
+          "associationMember": {
+            "title": "Член на сдружението",
+            "description": "Член на сдружението..."
+          },
+          "promoter": {
+            "title": "Промотиране",
+            "description": "Промотиране..."
+          }
         }
       },
       "addition-questions": {
@@ -121,5 +136,15 @@
     },
     "helperText": "Моля, изберете си роля",
     "termsHelperText": "Моля, приемете oбщите условия "
-  }
+  },
+  "footerLabels": {
+    "aboutUs": "За нас",
+    "aboutProject": "За проекта",
+    "contact": "Контакти",
+    "support": "Подкрепи ни",
+    "terms": "Общи условия",
+    "confidentiality": "Поверителност на данните",
+    "gdpr": "User Consent Manager / GDPR"
+  },
+  "footerCopyrights": "Podkrepi.bg ©2021 Всички права запазени."
 }

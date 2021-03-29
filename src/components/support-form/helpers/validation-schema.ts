@@ -6,9 +6,11 @@ import {
   Partner,
   Promoter,
   Roles,
-  SupportFormData,
   Volunteer,
-} from './support-form.models'
+  Steps,
+  SupportFormDataSteps,
+} from './support-form.types'
+import { name, phone } from 'common/form/validation'
 
 const checkboxError = 'Must have at least one checked box'
 
@@ -24,9 +26,9 @@ const info: yup.SchemaOf<Info> = yup
   .object()
   .shape({
     email: yup.string().email().required(),
-    name: yup.string().required(),
-    phone: yup.string().required(),
-    address: yup.string().required(),
+    name: name.required(),
+    phone: phone.required(),
+    address: yup.string(),
   })
   .defined()
 
@@ -87,56 +89,72 @@ const promoter: yup.SchemaOf<Promoter> = yup
   })
   .defined()
 
-export const validationSchema: yup.SchemaOf<SupportFormData> = yup.object().shape({
-  terms: yup.bool().required().oneOf([true], 'common:support-form.termsHelperText'),
-  newsletter: yup.bool().required(),
-  info: info.required(),
-  roles: roles.required().test('checkboxChecked', checkboxError, checkboxChecked),
-  benefactor: yup.object().when('roles.benefactor', {
-    is: true,
-    then: benefactor.required().test('checkboxChecked', checkboxError, checkboxChecked),
-    otherwise: benefactor,
+export const validationSchema: {
+  [key in Steps]?:
+    | yup.SchemaOf<SupportFormDataSteps[Steps.NONE]>
+    | yup.SchemaOf<SupportFormDataSteps[Steps.ROLES]>
+    | yup.SchemaOf<SupportFormDataSteps[Steps.QUESTIONS]>
+    | yup.SchemaOf<SupportFormDataSteps[Steps.INFO]>
+    | yup.SchemaOf<SupportFormDataSteps[Steps.NEWSLETTER]>
+} = {
+  [Steps.NONE]: undefined,
+  [Steps.ROLES]: yup.object().shape({
+    roles: roles.required().test('checkboxChecked', checkboxError, checkboxChecked),
   }),
-  associationMember: yup.object().when('roles.associationMember', {
-    is: true,
-    then: associationMember.required().test('checkboxChecked', checkboxError, checkboxChecked),
-    otherwise: associationMember,
+  [Steps.QUESTIONS]: yup.object().shape({
+    benefactor: yup.object().when('roles.benefactor', {
+      is: true,
+      then: benefactor.required().test('checkboxChecked', checkboxError, checkboxChecked),
+      otherwise: benefactor,
+    }),
+    associationMember: yup.object().when('roles.associationMember', {
+      is: true,
+      then: associationMember.required().test('checkboxChecked', checkboxError, checkboxChecked),
+      otherwise: associationMember,
+    }),
+    partner: yup.object().when('roles.partner', {
+      is: true,
+      then: partner
+        .required()
+        .test('checkboxChecked', checkboxError, checkboxChecked)
+        .test('CustomValidation', 'Custom validation', <yup.TestFunction>(
+          function (this: yup.TestContext, values: Partner) {
+            const { path, createError } = this
+            return values.other && !values.otherText
+              ? createError({ path, message: 'field is required' })
+              : true
+          }
+        )),
+      otherwise: partner,
+    }),
+    volunteer: yup.object().when('roles.volunteer', {
+      is: true,
+      then: volunteer.required().test('checkboxChecked', checkboxError, checkboxChecked),
+      otherwise: volunteer,
+    }),
+    promoter: yup.object().when('roles.promoter', {
+      is: true,
+      then: promoter
+        .required()
+        .test('checkboxChecked', checkboxError, checkboxChecked)
+        .test(
+          'CustomValidation',
+          'Custom validation',
+          function (this: yup.TestContext, values: Promoter) {
+            const { path, createError } = this
+            return values.other && !values.otherText
+              ? createError({ path, message: 'field is required' })
+              : true
+          },
+        ),
+      otherwise: promoter,
+    }),
   }),
-  partner: yup.object().when('roles.partner', {
-    is: true,
-    then: partner
-      .required()
-      .test('checkboxChecked', checkboxError, checkboxChecked)
-      .test('CustomValidation', 'Custom validation', <yup.TestFunction>(
-        function (this: yup.TestContext, values: Partner) {
-          const { path, createError } = this
-          return values.other && !values.otherText
-            ? createError({ path, message: 'field is required' })
-            : true
-        }
-      )),
-    otherwise: partner,
+  [Steps.INFO]: yup.object().shape({
+    terms: yup.bool().required().oneOf([true], 'common:support-form.termsHelperText'),
+    info: info.required(),
   }),
-  volunteer: yup.object().when('roles.volunteer', {
-    is: true,
-    then: volunteer.required().test('checkboxChecked', checkboxError, checkboxChecked),
-    otherwise: volunteer,
+  [Steps.NEWSLETTER]: yup.object().shape({
+    newsletter: yup.bool().required(),
   }),
-  promoter: yup.object().when('roles.promoter', {
-    is: true,
-    then: promoter
-      .required()
-      .test('checkboxChecked', checkboxError, checkboxChecked)
-      .test(
-        'CustomValidation',
-        'Custom validation',
-        function (this: yup.TestContext, values: Promoter) {
-          const { path, createError } = this
-          return values.other && !values.otherText
-            ? createError({ path, message: 'field is required' })
-            : true
-        },
-      ),
-    otherwise: promoter,
-  }),
-})
+}

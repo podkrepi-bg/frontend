@@ -14,7 +14,7 @@
     "forgottenPassword": "Forgotten password?"
   },
   "meta": {
-    "title": "Podkrepi BG"
+    "title": "Podkrepi.bg"
   },
   "values": {
     "voluntary": {
@@ -53,11 +53,26 @@
         "title": "Role",
         "subtitle": "How would you support us?",
         "fields": {
-          "benefactor": "Benefactor",
-          "partner": "Partner",
-          "volunteer": "Volunteer",
-          "associationMember": "Association member",
-          "promoter": "Promoter"
+          "benefactor": {
+            "title": "Benefactor",
+            "description": "Benefactor..."
+          },
+          "partner": {
+            "title": "Partner",
+            "description": "Partner..."
+          },
+          "volunteer": {
+            "title": "Volunteer",
+            "description": "Volunteer..."
+          },
+          "associationMember": {
+            "title": "Association member",
+            "description": "Association member..."
+          },
+          "promoter": {
+            "title": "Promoter",
+            "description": "Promoter..."
+          }
         }
       },
       "addition-questions": {
@@ -121,5 +136,15 @@
     },
     "helperText": "At least one checkbox should be checked",
     "termsHelperText": "Please agree to the Terms and Conditions"
-  }
+  },
+  "footerLabels": {
+    "aboutUs": "About us",
+    "aboutProject": "About the project",
+    "contact": "Contact us",
+    "support": "Support us",
+    "terms": "Common terms",
+    "confidentiality": "Data confidentiality",
+    "gdpr": "User Consent Manager / GDPR"
+  },
+  "footerCopyrights": "Podkrepi.bg ©2021 All rights reserved."
 }
