@@ -55,14 +55,18 @@ const footerItems: FooterLink[][] = [
   [
     {
       label: 'footerLabels.aboutUs',
-      //about route is not implemented yet
-      //href: routes.about,
+      href: routes.about,
       external: false,
     },
     {
       label: 'footerLabels.aboutProject',
       href: routes.aboutProject,
       external: false,
+    },
+    {
+      label: 'footerLabels.docs',
+      href: 'https://docs.podkrepi.bg',
+      external: true,
     },
   ],
   [
