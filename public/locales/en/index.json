@@ -4,7 +4,6 @@
     "heading": "An online donation platform",
     "maximum-transparency": "with a maximum degree of transparency",
     "eliminate-misuse": "aimed at eliminating misuses of donation campaigns",
-    "zero-commission": "with 0% commission",
     "improve-donation-culture": "aimed at improving the donation culture in Bulgaria",
     "open-source": "open source",
     "support-us-button": "Support us"
@@ -41,11 +40,5 @@
     "labour-support": "with labour",
     "media-support": "with media",
     "become-a-partner": "become a partner"
-  },
-  "problems-to-solve-section": {
-    "heading": "What is the problem that we are trying to solve:",
-    "high-commissions": "High commissions",
-    "low-transparency": "Lack of transparency",
-    "timeliness": "Donation timeliness"
   }
 }
