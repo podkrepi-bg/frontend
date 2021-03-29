@@ -6,9 +6,7 @@ ARG NODE_ENV=production
 ENV PATH=/app/node_modules/.bin:$PATH \
   NODE_ENV="$NODE_ENV"
 COPY package.json yarn.lock /app/
-RUN apk add --update-cache \
-  curl \
-  && rm -rf /var/cache/apk/*
+RUN apk add --no-cache curl
 EXPOSE 3040
 
 # Build target dependencies #

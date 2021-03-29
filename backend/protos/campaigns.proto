@@ -1,21 +1,22 @@
 syntax = "proto3";
 
 option csharp_namespace = "Podkrepibg.Campaigns";
+option go_package = "../graphql-gateway/pb/campaigns;campaigns";
 
 package podkrepibg;
 
 service Campaigns {
   // creates a new campaign
-  rpc Create (CreateCampaignRequest) returns (CreateCampaignResponse);
+  rpc CreateCampaign (CreateCampaignRequest) returns (CreateCampaignResponse);
 }
 
 message CreateCampaignRequest {
   string name = 1;
-  string organiserId = 2;
+  string organizerId = 2;
 }
 
 message CreateCampaignResponse {
   string campaignId = 1;
   int32 errorCode = 2;
-  string errorMessaga = 3;
+  string errorMessage = 3;
 }
