@@ -3,7 +3,7 @@ import { useField } from 'formik'
 import { useTranslation } from 'next-i18next'
 import { FormControl, FormGroup, FormHelperText, Grid, Typography } from '@material-ui/core'
 
-import CheckboxField from 'components/common/form/CheckboxField'
+import Role from './Role'
 
 export default function Roles() {
   const [, { error }] = useField('roles')
@@ -16,26 +16,28 @@ export default function Roles() {
             {t('common:support-form.steps.role.subtitle')}
           </Typography>
           <FormGroup>
-            <CheckboxField
-              label="common:support-form.steps.role.fields.benefactor"
+            <Role
               name="roles.benefactor"
-            />
-            <CheckboxField
-              label="common:support-form.steps.role.fields.partner"
+              label={t('common:support-form.steps.role.fields.benefactor.title')}
+              description={t(
+                'common:support-form.steps.role.fields.benefactor.description',
+              )}></Role>
+            <Role
+              label={t('common:support-form.steps.role.fields.partner.title')}
               name="roles.partner"
-            />
-            <CheckboxField
-              label="common:support-form.steps.role.fields.volunteer"
+              description={t('common:support-form.steps.role.fields.partner.description')}></Role>
+            <Role
+              label={t('common:support-form.steps.role.fields.volunteer.title')}
               name="roles.volunteer"
-            />
-            <CheckboxField
-              label="common:support-form.steps.role.fields.associationMember"
+              description={t('common:support-form.steps.role.fields.volunteer.description')}></Role>
+            <Role
+              label={t('common:support-form.steps.role.fields.associationMember.title')}
               name="roles.associationMember"
-            />
-            <CheckboxField
-              label="common:support-form.steps.role.fields.promoter"
+              description={t('common:support-form.steps.role.fields.volunteer.description')}></Role>
+            <Role
+              label={t('common:support-form.steps.role.fields.promoter.title')}
               name="roles.promoter"
-            />
+              description={t('common:support-form.steps.role.fields.promoter.description')}></Role>
           </FormGroup>
           {error && <FormHelperText>{t('common:support-form.helperText')}</FormHelperText>}
         </FormControl>
