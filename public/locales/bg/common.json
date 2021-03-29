@@ -53,11 +53,26 @@
         "title": "Роля",
         "subtitle": "Как искате да ни подкрепите?",
         "fields": {
-          "benefactor": "Дарител",
-          "partner": "Партньор",
-          "volunteer": "Доброволец",
-          "associationMember": "Член на сдружението",
-          "promoter": "Промотиране"
+          "benefactor": {
+            "title": "Дарител",
+            "description": "Дарител..."
+          },
+          "partner": {
+            "title": "Партньор",
+            "description": "Партньор..."
+          },
+          "volunteer": {
+            "title": "Доброволец",
+            "description": "Доброволец..."
+          },
+          "associationMember": {
+            "title": "Член на сдружението",
+            "description": "Член на сдружението..."
+          },
+          "promoter": {
+            "title": "Промотиране",
+            "description": "Промотиране..."
+          }
         }
       },
       "addition-questions": {
@@ -131,5 +146,5 @@
     "confidentiality": "Поверителност на данните",
     "gdpr": "User Consent Manager / GDPR"
   },
-  "footerCopyrights":"Podkrepi.bg ©2021 Всички права запазени."
+  "footerCopyrights": "Podkrepi.bg ©2021 Всички права запазени."
 }
