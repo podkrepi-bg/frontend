@@ -4,61 +4,35 @@ import { createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    title: { fontSize: theme.spacing(5), color: '#284E84' },
-    volunteers: {
-      paddingTop: theme.spacing(3.375),
-      fontSize: theme.spacing(2.5),
+    title: {
+      color: theme.palette.primary.dark,
+      paddingTop: theme.spacing(10),
+      paddingBottom: theme.spacing(7),
     },
-    mission: { paddingTop: theme.spacing(33.125), fontSize: theme.spacing(2.5) },
-    vision: {
-      paddingBottom: theme.spacing(2.5),
-      paddingTop: theme.spacing(2.5),
-      fontSize: theme.spacing(2.5),
-    },
-    manifesto: { paddingBottom: theme.spacing(11), fontSize: theme.spacing(2.5) },
   }),
 )
 export default function HowEverythingBegin() {
   const { t } = useTranslation()
   const classes = useStyles()
   return (
-    <Grid container>
+    <Grid container alignItems="center" spacing={4}>
       <Grid item>
-        <Typography variant="h2" component="p" className={classes.title}>
-          {t('about:howEverythingBegin.title')}
+        <Typography variant="h6" component="p" align="center">
+          {t('about:about.description')}
         </Typography>
       </Grid>
+      <Grid item></Grid>
       <Grid item>
-        <Typography variant="h5" component="p" className={classes.volunteers}>
-          {t('about:howEverythingBegin.volunteers')}
-        </Typography>
-      </Grid>
-      <Grid container item alignItems="center">
-        <Grid xs={12} item>
-          <Typography variant="h5" component="p" className={classes.mission}>
-            {t('about:howEverythingBegin.mission')}
-          </Typography>
-        </Grid>
-        <Grid xs={12} item>
-          <Typography variant="h5" component="p" className={classes.vision}>
-            {t('about:howEverythingBegin.vision')}
-          </Typography>
-        </Grid>
-        <Grid xs={12} item>
-          <Typography variant="h5" component="p" className={classes.manifesto}>
-            {t('about:howEverythingBegin.manifesto')}
-          </Typography>
-        </Grid>
+        <Typography component="p">{t('about:howEverythingBegin.volunteers')}</Typography>
+        <Typography component="p">{t('about:howEverythingBegin.vision')}</Typography>
       </Grid>
       <Grid xs={12} item>
-        <Typography variant="h2" component="p" align="center" className={classes.title}>
+        <Typography variant="h4" component="h2" align="center" className={classes.title}>
           {t('about:howEverythingBegin.title')}
         </Typography>
       </Grid>
-      <Grid item>
-        <Typography variant="h5" component="p" className={classes.mission}>
-          {t('about:howEverythingBegin.mission')}
-        </Typography>
+      <Grid xs={12} item>
+        <Typography component="p">{t('about:howEverythingBegin.mission')}</Typography>
       </Grid>
     </Grid>
   )
