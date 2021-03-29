@@ -1,44 +1,48 @@
 {
-  "about":{
+  "about": {
     "title": "За нас",
     "description": "Ние сме група доброволци с обща цел: да създадем прозрачна платформа за дарения, която да не взима комисионна от успешните кампании."
   },
-  "howEverythingBegin":{
+  "howEverythingBegin": {
     "title": "Как започна всичко?",
     "volunteers": "700 доброволеца от 1Т средите, юристи, счетоводители, маркетолози, медици, НПО представители",
     "mission": "Нашата мисия е да създадем напълно прозрачна онлайн платформа за дарения, издържаща се от дарения и членски внос към сдружението ни, а не % комисионна от кампаниите, които се организират през платформата.",
     "vision": "Визията ни е да подобрим драстично дарителската култура в Вългария като увеличим нивото на прозрачност и доверие в дарителските кампании и платформи.",
     "manifesto": "Manifesto - пълното е тук"
   },
-  "principlesThatUniteUs":{
-    "title":"Принципи, които ни обединяват",
-    "voluntarily":{
-      "heading": "ДОБРОВОЛНО И ПРО-БОНО",
-      "content": "Строим дарителска платформа в полза на нуждаещите се и организациите, които им помагат, без да търсим финансова или друга облага оттова, освен подкрепените нуждаещи се."
+  "principlesThatUniteUs": {
+    "title": "Our principles",
+    "voluntary": {
+      "heading": "Voluntary and pro-bono",
+      "content": "We are building a donation platform for the benefit of those in need and the organizations that help them, without seeking financial or other benefits from it, apart from satisfaction with the implemented campaigns and the support of those in need."
     },
-    "proactivity":{
-      "heading": "ПРОАКТИВНОСТ",
-      "content": "Не чакаш да ти дадат таск, а директно поемаш. Това разбира се важи, като пооправим малко струкryрата, че в момента не е много ясно кои точно са тасковете. Въпреки това, по-опитните хора без проблем могат да видят какво точно липсва и да генерират сами таскове, които са смислени. Действайте, няма какво да се чудите."
+    "proactive": {
+      "heading": "Proactive approach",
+      "content": "You don't wait to be given a task, you take it directly. This, of course, is true by correcting the structure a bit, so that at the moment it is not very clear what exactly the tasks are. However, more experienced people can easily see exactly what is missing and generate tasks that make sense. Take action, do not wonder."
     },
-    "transparency":{
-      "heading": "ПРОЗРАЧНОСТ",
-      "content": "Дарителите ни се доверяват, защото осиryряваме прозрачност чрез отворен код,отворени данни/транзакции,отворени решения.Нуждаещите ни се доверяват, защото правим кандидатсването честно, лесно и прозрачно, чрез ясни критерии. Обществото ни се доверява, защото всичко е прозрачно, вкл. работния ни процес. Ние си имамедоверие, защото има ясни и прозрачни принципи на работа по между ни."
+    "transparent": {
+      "heading": "Transparency",
+      "content": "Donors trust us because we provide transparency through open source, open data / transactions, open solutions. Those in need trust us because we make applying fair, easy and transparent, through clear criteria. Society trusts us because everything is transparent, incl. our work process. We trust each other because there are clear and transparent principles for working between us."
     },
-    "respect":{
-      "heading": "УВАЖЕНИЕ",
-      "content": "Мили и добри сме един към хората около нас,уважаваме ги и ако можеим им помагаме. Мнението на всеки има значение, затова се изслушваме и опитваме да вникнем в това, което казва другия."
+    "respect": {
+      "heading": "Respect",
+      "content": "We are kind and good to the people around us, we respect them and if we can we help them. Everyone's opinion matters, so we listen and try to understand what the other person is saying."
     },
-    "expertise":{
-      "heading": "ЕКСПЕРТНОСТ",
-      "content": "Когато правим избор или взимаме трудни решения, ги базираме на мненето на експерти с бпизък опит в конкретната тема."
+    "expertise": {
+      "heading": "Expertise",
+      "content": "When we make choices or make difficult decisions, we base them on the opinion of experts with close experience in the specific topic."
     },
-    "privacy":{
-      "heading": "ПОВЕРИТЕЛНОСТ",
-      "content": "Уважаваме и пазим личните данни на всеки нуждаещ се,даряващ или помагащ в процеса, все едно са нашите собствени. Ясно рефинираме кой има права за росгъп до продукционните данни, като хората, разработващи проекта, няма да имат ростъп до личните данни."
+    "privacy": {
+      "heading": "Privacy",
+      "content": "We respect and protect the personal data of everyone in need, donating or helping in the process, as if they were our own. We clearly define who has rights to access production data, and the people developing the project will not have access to personal data."
     },
-    "awareness":{
-      "heading": "ОСЪЗНАТОСТ",
-      "content": "Търсим най-доброто решение и когатодаряваме труда си, го правим с пъпното съзнание, че не всичко, което правим, ще влезе в употреба. Ако се случ и така, че да не се одобри планътили предложениетоти,продължаваш с усмивка към следващата задача. Ако някой друг се справя по-добре в ролята ти,то на драго сърце го/я препоръчваш да я оглави, а ти му/й помагаш с каквото можеш."
+    "awareness": {
+      "heading": "Awareness",
+      "content": "We are looking for the best solution and when we donate our work, we do it with the full awareness that not everything we do will come into use. If it so happens that your plan or proposal is not approved, you continue with a smile to the next task. If someone else is doing better in your role, you gladly recommend them to lead it, and you help them as much as you can."
+    },
+    "sharing": {
+      "heading": "Sharing knowledge",
+      "content": "When a project participant needs help or explanation, you can explain or share a link to the project documentation. People with less experience get involved and absorb knowledge from more experienced ones."
     }
   }
 }

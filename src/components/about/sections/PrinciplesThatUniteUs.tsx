@@ -3,21 +3,20 @@ import { useTranslation } from 'react-i18next'
 import { Grid, Typography, Theme, makeStyles, createStyles } from '@material-ui/core'
 
 import PrincipleCard from './PrincipleCard'
-import AwarenssIcon from '../icons/AwarenessIcon'
+import AwarenessIcon from '../icons/AwarenessIcon'
 import ExpertiseIcon from '../icons/ExpertiseIcon'
 import PrivacyIcon from '../icons/PrivacyIcon'
 import ProactiveIcon from '../icons/ProactiveIcon'
 import RespectIcon from '../icons/RespectIcon'
-import TranperancyIcon from '../icons/TransparencyIcon'
+import TransparencyIcon from '../icons/TransparencyIcon'
 import VoluntaryIcon from '../icons/VoluntaryIcon'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
-      paddingTop: theme.spacing(16.625),
+      color: theme.palette.primary.dark,
+      paddingTop: theme.spacing(10),
       paddingBottom: theme.spacing(7),
-      fontSize: theme.spacing(5),
-      color: '#284E84',
     },
   }),
 )
@@ -27,7 +26,7 @@ export default function PrinciplesThatUniteUs() {
   return (
     <Grid container spacing={1}>
       <Grid xs={12} item>
-        <Typography variant="h2" component="p" align="center" className={classes.title}>
+        <Typography variant="h4" component="h2" align="center" className={classes.title}>
           {t('about:principlesThatUniteUs.title')}
         </Typography>
       </Grid>
@@ -47,7 +46,7 @@ export default function PrinciplesThatUniteUs() {
       </Grid>
       <Grid item xs={12} sm={6}>
         <PrincipleCard
-          Icon={TranperancyIcon}
+          Icon={TransparencyIcon}
           heading={t('about:principlesThatUniteUs.transparency.heading')}
           content={t('about:principlesThatUniteUs.transparency.content')}
         />
@@ -75,9 +74,16 @@ export default function PrinciplesThatUniteUs() {
       </Grid>
       <Grid item xs={12} sm={6}>
         <PrincipleCard
-          Icon={AwarenssIcon}
+          Icon={AwarenessIcon}
           heading={t('about:principlesThatUniteUs.awareness.heading')}
           content={t('about:principlesThatUniteUs.awareness.content')}
+        />
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <PrincipleCard
+          Icon={AwarenessIcon}
+          heading={t('about:principlesThatUniteUs.sharing.heading')}
+          content={t('about:principlesThatUniteUs.sharing.content')}
         />
       </Grid>
     </Grid>

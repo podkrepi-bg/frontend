@@ -1,47 +1,39 @@
 import React from 'react'
-import clsx from 'clsx'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
-import { Typography, IconButton, Collapse, CardContent, CardHeader, Card } from '@material-ui/core'
-
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import SvgIcon from '@material-ui/icons/ExpandMore'
+import { Typography, CardContent, CardHeader, Card, SvgIcon } from '@material-ui/core'
 import { grey } from '@material-ui/core/colors'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    expand: {
-      padding: theme.spacing(0),
-      transform: 'rotate(180deg)',
-      transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-      }),
-    },
     container: { backgroundColor: grey[50] },
     contentContainer: {
       padding: theme.spacing(0),
+      margin: theme.spacing(2, 0),
       '&:last-child': {
         paddingBottom: theme.spacing(0),
       },
+    },
+    heading: {
+      color: '#4AC3FF',
+      display: 'block',
+      fontSize: theme.typography.pxToRem(18),
+    },
+    content: {
+      marginBottom: theme.spacing(0),
+    },
+    cardHeader: {
+      padding: theme.spacing(0),
     },
     cardHeaderAction: {
       margin: theme.spacing(0),
       alignSelf: 'center',
     },
-    heading: { fontSize: theme.spacing(3.125), color: '#4AC3FF' },
-    content: { fontSize: theme.spacing(2.5), marginBottom: theme.spacing(0) },
-    cardHeader: { padding: theme.spacing(0) },
-    expandOpen: {
-      transform: 'rotate(0deg)',
-    },
     cardHeaderTitleRoot: {
+      flexGrow: 1,
       flex: 0,
     },
     icon: {
-      fontSize: theme.spacing(10),
-    },
-    expandIcon: {
-      fontSize: theme.spacing(6),
-      color: '#4AC3FF',
+      fontSize: theme.spacing(5),
     },
   }),
 )
@@ -54,30 +46,13 @@ type PrincipleCardProps = {
 
 export default function PrincipleCard({ Icon, heading, content }: PrincipleCardProps) {
   const classes = useStyles()
-  const [expanded, setExpanded] = React.useState(true)
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded)
-  }
-
   return (
     <Card elevation={0} className={classes.container}>
       <CardHeader
         className={classes.cardHeader}
         avatar={<Icon className={classes.icon} />}
-        action={
-          <IconButton
-            className={clsx(classes.expand, {
-              [classes.expandOpen]: expanded,
-            })}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more">
-            <ExpandMoreIcon className={classes.expandIcon} />
-          </IconButton>
-        }
         title={
-          <Typography variant="h6" className={classes.heading}>
+          <Typography variant="body2" component="div" className={classes.heading}>
             {heading}
           </Typography>
         }
@@ -86,13 +61,9 @@ export default function PrincipleCard({ Icon, heading, content }: PrincipleCardP
           content: classes.cardHeaderTitleRoot,
         }}
       />
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent className={classes.contentContainer}>
-          <Typography variant="h2" paragraph className={classes.content}>
-            {content}
-          </Typography>
-        </CardContent>
-      </Collapse>
+      <CardContent className={classes.contentContainer}>
+        <Typography className={classes.content}>{content}</Typography>
+      </CardContent>
     </Card>
   )
 }
