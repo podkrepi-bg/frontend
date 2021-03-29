@@ -4,7 +4,6 @@
     "heading": "Онлайн дарителска платформа",
     "maximum-transparency": "с максимална степен на прозрачност",
     "eliminate-misuse": "целяща да елиминира злоупотребите с дарителски кампании",
-    "zero-commission": "с 0% комисионна",
     "improve-donation-culture": "целяща да подобри дарителската култура в България",
     "open-source": "с отворен за ползване код",
     "support-us-button": "Подкрепи ни"
@@ -41,11 +40,5 @@
     "labour-support": "с труд",
     "media-support": "медийно",
     "become-a-partner": "стани партньор"
-  },
-  "problems-to-solve-section": {
-    "heading": "Какъв е проблемът, който се опитваме да решим:",
-    "high-commissions": "Високи комисионни",
-    "low-transparency": "Липса на прозрачност",
-    "timeliness": "Закъснели дарения"
   }
 }

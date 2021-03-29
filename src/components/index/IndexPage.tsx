@@ -8,7 +8,6 @@ import ActivitySection from './sections/ActivitySection'
 import TeamSection from './sections/TeamSection'
 import TeamChartSection from './sections/TeamChartSection'
 import SupportUsSection from './sections/SupportUsSection'
-import ProblemsToSolveSection from './sections/ProblemsToSolveSection'
 
 export default function IndexPage() {
   const scrollElement = useRef<HTMLAnchorElement>(null)
@@ -20,7 +19,6 @@ export default function IndexPage() {
         <TeamSection />
         <TeamChartSection />
         <SupportUsSection />
-        <ProblemsToSolveSection />
       </Container>
     </Layout>
   )

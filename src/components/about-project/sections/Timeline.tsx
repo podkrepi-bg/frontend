@@ -38,11 +38,6 @@ export default function Timeline() {
       </Typography>
       <Grid item>
         <TimelineMaterial align="alternate">
-          <TimelineItem Icon={CodeIcon}>
-            <Typography variant="body2" component="span" className={classes.content}>
-              {t('about-project:hackaton')}
-            </Typography>
-          </TimelineItem>
           <TimelineItem Icon={PlayCircleFilledWhiteIcon}>
             <Typography variant="body2" component="span" className={classes.content}>
               {t('about-project:mvpLaunch')}
