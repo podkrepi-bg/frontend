@@ -6,7 +6,7 @@ import { Grid, Container, createStyles, makeStyles } from '@material-ui/core'
 import { Instagram, Facebook, Twitter, LinkedIn, YouTube } from '@material-ui/icons'
 
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
-import { routes } from 'common/routes'
+import { routes, staticUrls } from 'common/routes'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -65,7 +65,12 @@ const footerItems: FooterLink[][] = [
     },
     {
       label: 'footerLabels.docs',
-      href: 'https://docs.podkrepi.bg',
+      href: staticUrls.docs,
+      external: true,
+    },
+    {
+      label: 'GitHub',
+      href: staticUrls.github,
       external: true,
     },
   ],
