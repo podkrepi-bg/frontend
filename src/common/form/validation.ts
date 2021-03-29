@@ -1,4 +1,4 @@
-import { setLocale } from 'yup'
+import { setLocale, string } from 'yup'
 import { TOptions } from 'i18next'
 import { TFunction } from 'next-i18next'
 
@@ -24,7 +24,7 @@ export const translateError = (
 // return { key: 'validation:<key>', values: { min, max } }
 
 // Custom translations in validation schema:
-// yup.string().min(6 customValidators.passwordMin)
+// yup.string().min(6, customValidators.passwordMin)
 
 // Inline translations in validation schema:
 // yup.string().min(6, ({ min }) => ({ key: 'validation:password-min', values: { min } }))
@@ -34,6 +34,8 @@ export const customValidators = {
     key: 'validation:password-min',
     values: { min },
   }),
+  phone: () => ({ key: 'validation:phone' }),
+  name: () => ({ key: 'validation:invalid' }),
 }
 
 setLocale({
@@ -53,3 +55,9 @@ setLocale({
     email: 'validation:email',
   },
 })
+
+export const phoneRegex = /^\+?\d+$/
+export const noNumbersRegex = /^[^\d!@#$%^&*()\\/'"_]*$/gi
+export const phone = string().trim().matches(phoneRegex, customValidators.phone).min(10).max(25)
+export const name = string().trim().matches(noNumbersRegex, customValidators.name).min(2).max(50)
+export const companyName = string().trim().min(2).max(50)

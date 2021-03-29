@@ -78,8 +78,8 @@ jobs:
       - name: Start Deployment
         uses: TapTap21/docker-remote-deployment-action@v1.1
         env:
-          APP_URL: https://app.podkrepi.bg
-          NEXTAUTH_URL: https://app.podkrepi.bg
+          APP_URL: https://podkrepi.bg
+          NEXTAUTH_URL: https://podkrepi.bg
           JWT_SECRET: ${{ secrets.APP_JWT_SECRET }}
           DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
           DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
@@ -94,7 +94,7 @@ jobs:
           docker_login_user: ${{ secrets.GHCR_USERNAME }}
           docker_login_password: ${{ secrets.GHCR_TOKEN }}
           docker_login_registry: ghcr.io
-          args: --env-file .env.prod up -d
+          args: --env-file .env.prod up -d --remove-orphans
 
       - name: Create Sentry Release
         env:
