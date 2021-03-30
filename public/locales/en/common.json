@@ -91,7 +91,13 @@
       },
       "newsletter": {
         "title": "Newsletter",
-        "label": "Subscription"
+        "label": "Subscription",
+        "confirm": {
+          "title": "Are you sure you want to subscribe",
+          "content": "By subscribing you will recieve regular emails and info about us",
+          "confirmButtonLabel": "Yes I am",
+          "cancelButtonLabel": "Maybe not"
+        }
       },
       "thank-you": {
         "title": "Thank you",
