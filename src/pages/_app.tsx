@@ -4,14 +4,16 @@ import { AppProps } from 'next/app'
 import { Provider as SessionProvider } from 'next-auth/client'
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import { appWithTranslation } from 'next-i18next'
+import { appWithTranslation, useTranslation } from 'next-i18next'
 
 import theme from 'common/theme'
+import useGTM from 'common/util/useGTM'
 
 import 'styles/global.scss'
 
 function CustomApp(props: AppProps) {
   const { Component, pageProps } = props
+  const { i18n } = useTranslation()
 
   useEffect(() => {
     // Remove the server-side injected CSS.
@@ -19,6 +21,11 @@ function CustomApp(props: AppProps) {
     if (jssStyles && jssStyles.parentElement) {
       jssStyles.parentElement.removeChild(jssStyles)
     }
+
+    // Init GTM
+    useGTM().initialize({
+      events: { user_lang: i18n.language },
+    })
   }, [])
 
   return (
