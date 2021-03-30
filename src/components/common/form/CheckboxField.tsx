@@ -8,7 +8,7 @@ import { MouseEventHandler } from 'react'
 export type CheckboxFieldProps = {
   name: string
   label: string
-  onClick: MouseEventHandler
+  onClick?: MouseEventHandler
   preChecked?: boolean
 }
 
