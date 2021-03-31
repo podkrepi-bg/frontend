@@ -15,6 +15,8 @@ import AdditionalQuestions from './steps/AdditionalQuestions'
 import { validationSchema } from './helpers/validation-schema'
 import { SupportFormData } from './helpers/support-form.types'
 import { Steps, Step as StepType } from './helpers/support-form.types'
+import { FormikHelpers } from 'formik'
+import ConfirmationDialog from 'components/common/ConfirmationDialog'
 
 const ColorlibConnector = withStyles({
   alternativeLabel: { top: 22 },
@@ -116,12 +118,35 @@ const steps: StepType[] = [
   },
 ]
 
+export type NewsletterDialogProps = {
+  isOpen: boolean
+  handleConfirm: () => void
+  handleCancel: () => void
+}
+
+const NewsletterDialog = ({ isOpen, handleConfirm, handleCancel }: NewsletterDialogProps) => {
+  const { t } = useTranslation()
+  return (
+    <ConfirmationDialog
+      title={t('common:support-form.steps.newsletter.confirm.title')}
+      content={t('common:support-form.steps.newsletter.confirm.content')}
+      confirmButtonLabel={t('common:support-form.steps.newsletter.confirm.confirmButtonLabel')}
+      cancelButtonLabel={t('common:support-form.steps.newsletter.confirm.cancelButtonLabel')}
+      handleConfirm={handleConfirm}
+      handleCancel={handleCancel}
+      isOpen={isOpen}></ConfirmationDialog>
+  )
+}
+
 export default function SupportForm() {
   const { t } = useTranslation()
   const classes = useStyles()
   const [maxStep, setMaxStep] = useState<Steps>(Steps.ROLES)
   const [activeStep, setActiveStep] = useState<Steps>(Steps.ROLES)
   const [failedStep, setFailedStep] = useState<Steps>(Steps.NONE)
+  const [isNewsletterDialogOpen, setNewsletterDialogOpen] = useState<boolean>(false)
+  const [isNewsletterDialogOpened, setNewsletterDialogOpened] = useState<boolean>(false)
+  const [isNewsletterDialogConfirmed, setNewsletterDialogConfirmed] = useState<boolean>(false)
 
   useEffect(() => {
     setMaxStep((prev) => {
@@ -132,8 +157,90 @@ export default function SupportForm() {
     })
   }, [activeStep])
 
+  const handleNewsletterDialogCancel = () => {
+    setNewsletterDialogOpened(true)
+    setNewsletterDialogOpen(false)
+  }
+
+  const handleNewsletterDialogConfirm = () => {
+    setNewsletterDialogOpened(true)
+    setNewsletterDialogOpen(false)
+    setNewsletterDialogConfirmed(true)
+    console.log('confirm')
+  }
+
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1)
+  }
+
+  const handleSubmit = async (values: SupportFormData, actions: FormikHelpers<SupportFormData>) => {
+    if (isLastStep(activeStep, steps)) {
+      const isSubscribingToNewsletter = values.newsletter
+
+      if (!isSubscribingToNewsletter && !isNewsletterDialogOpened) {
+        setNewsletterDialogOpen(true)
+        return
+      }
+      const errors = await actions.validateForm()
+      const hasErrors = !!Object.keys(errors).length
+      if (hasErrors) {
+        setFailedStep(Steps.NEWSLETTER)
+        return
+      }
+      setActiveStep((prevActiveStep) => prevActiveStep + 1)
+      setFailedStep(Steps.NONE)
+    } else {
+      actions.setTouched({})
+      actions.setSubmitting(false)
+      switch (activeStep) {
+        case Steps.ROLES:
+          {
+            const errors = await actions.validateForm()
+            if (errors.roles) {
+              setFailedStep(Steps.ROLES)
+              return
+            }
+            setActiveStep((prevActiveStep) => prevActiveStep + 1)
+            setFailedStep(Steps.NONE)
+          }
+          break
+        case Steps.QUESTIONS:
+          {
+            const errors = await actions.validateForm()
+            let hasErrors = false
+            const questions = Object.entries(values.roles)
+              .filter(([, value]) => value)
+              .map(([key]) => key)
+
+            Object.keys(errors).forEach((error) => {
+              if (questions.includes(error)) {
+                hasErrors = true
+              }
+            })
+
+            if (hasErrors) {
+              setFailedStep(Steps.QUESTIONS)
+              return
+            }
+            setActiveStep((prevActiveStep) => prevActiveStep + 1)
+            setFailedStep(Steps.NONE)
+          }
+          break
+        case Steps.INFO:
+          {
+            const errors = await actions.validateForm()
+            if (errors.info || errors.terms) {
+              setFailedStep(Steps.INFO)
+              return
+            }
+            setActiveStep((prevActiveStep) => prevActiveStep + 1)
+            setFailedStep(Steps.NONE)
+          }
+          break
+        default:
+          return 'Unknown step'
+      }
+    }
   }
 
   const isStepFailed = (step: Steps | number): boolean => {
@@ -159,69 +266,7 @@ export default function SupportForm() {
 
   return (
     <GenericForm<SupportFormData>
-      onSubmit={async (values, actions) => {
-        if (isLastStep(activeStep, steps)) {
-          const errors = await actions.validateForm()
-          const hasErrors = !!Object.keys(errors).length
-          if (hasErrors) {
-            setFailedStep(Steps.NEWSLETTER)
-            return
-          }
-          setActiveStep((prevActiveStep) => prevActiveStep + 1)
-          setFailedStep(Steps.NONE)
-        } else {
-          actions.setTouched({})
-          actions.setSubmitting(false)
-          switch (activeStep) {
-            case Steps.ROLES:
-              {
-                const errors = await actions.validateForm()
-                if (errors.roles) {
-                  setFailedStep(Steps.ROLES)
-                  return
-                }
-                setActiveStep((prevActiveStep) => prevActiveStep + 1)
-                setFailedStep(Steps.NONE)
-              }
-              break
-            case Steps.QUESTIONS:
-              {
-                const errors = await actions.validateForm()
-                let hasErrors = false
-                const questions = Object.entries(values.roles)
-                  .filter(([, value]) => value)
-                  .map(([key]) => key)
-
-                Object.keys(errors).forEach((error) => {
-                  if (questions.includes(error)) {
-                    hasErrors = true
-                  }
-                })
-
-                if (hasErrors) {
-                  setFailedStep(Steps.QUESTIONS)
-                  return
-                }
-                setActiveStep((prevActiveStep) => prevActiveStep + 1)
-                setFailedStep(Steps.NONE)
-              }
-              break
-            case Steps.INFO:
-              {
-                const errors = await actions.validateForm()
-                if (errors.info || errors.terms) {
-                  setFailedStep(Steps.INFO)
-                  return
-                }
-                setActiveStep((prevActiveStep) => prevActiveStep + 1)
-                setFailedStep(Steps.NONE)
-              }
-              break
-            default:
-              return 'Unknown step'
-          }
-        }
-      }}
+      onSubmit={handleSubmit}
       initialValues={initialValues}
       validationSchema={validationSchema[activeStep]}>
       <Hidden smDown>
@@ -248,7 +293,11 @@ export default function SupportForm() {
         <div className={classes.content}>
           <Grid container justify="center">
             <Grid item xs={12} className={classes.instructions}>
-              {steps[activeStep].component}
+              {isLastStep(activeStep, steps) ? (
+                <Newsletter preChecked={isNewsletterDialogConfirmed} />
+              ) : (
+                steps[activeStep].component
+              )}
             </Grid>
             <Grid item xs={12}>
               <Actions
@@ -264,6 +313,10 @@ export default function SupportForm() {
           </Grid>
         </div>
       )}
+      <NewsletterDialog
+        isOpen={isNewsletterDialogOpen}
+        handleCancel={handleNewsletterDialogCancel}
+        handleConfirm={handleNewsletterDialogConfirm}></NewsletterDialog>
     </GenericForm>
   )
 }

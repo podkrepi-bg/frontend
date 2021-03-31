@@ -8,21 +8,21 @@ import { MouseEventHandler } from 'react'
 export type CheckboxFieldProps = {
   name: string
   label: string
-  onClick?: MouseEventHandler
   preChecked?: boolean
+  handleClick?: MouseEventHandler
 }
 
-export default function CheckboxField({ name, label, preChecked, onClick }: CheckboxFieldProps) {
+export default function CheckboxField({ name, label, preChecked }: CheckboxFieldProps) {
   const { t } = useTranslation()
   const [field, meta] = useField(name)
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
-  const checked =
-    preChecked === undefined ? Boolean(field.value) : Boolean(field.value && preChecked)
+  field.value = preChecked ? true : Boolean(field.value)
+  preChecked = false
   return (
     <FormControl required component="fieldset" error={Boolean(meta.error) && Boolean(meta.touched)}>
       <FormControlLabel
         label={typeof label === 'string' ? t(label) : label}
-        control={<Checkbox color="primary" onClick={onClick} checked={checked} {...field} />}
+        control={<Checkbox color="primary" checked={Boolean(field.value)} {...field} />}
       />
       {Boolean(meta.error) && <FormHelperText error>{helperText}</FormHelperText>}
     </FormControl>
