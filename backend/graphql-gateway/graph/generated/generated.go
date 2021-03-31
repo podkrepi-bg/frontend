@@ -203,7 +203,7 @@ func (ec *executionContext) introspectType(name string) (*introspection.Type, er
 }
 
 var sources = []*ast.Source{
-	{Name: "graph/schema.graphqls", Input: `# GraphQL schema example
+	{Name: "graph/schema.graphqls", Input: `# GraphQL schema
 #
 # https://gqlgen.com/getting-started/
 

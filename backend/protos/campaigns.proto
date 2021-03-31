@@ -3,9 +3,9 @@ syntax = "proto3";
 option csharp_namespace = "Podkrepibg.Campaigns";
 option go_package = "campaigns";
 
-package podkrepibg;
+package podkrepibg.campaigns;
 
-service Campaigns {
+service CampaignsService {
   // creates a new campaign
   rpc CreateCampaign (CreateCampaignRequest) returns (CreateCampaignResponse);
 }
