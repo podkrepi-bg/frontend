@@ -16,6 +16,18 @@ tasks:
     cmds:
       - go run server.go
 
+  run-accounts:
+    desc: Run Accounts service
+    silent: true
+    dir: ./module-accounts
+    sources:
+      - ./module-accounts/server.go
+    env:
+      PORT: '{{default "4040" .PORT}}'
+    cmds:
+      - echo 'Starting accounts service...'
+      - go run server.go
+
   build:
     silent: true
     desc: Build proto files to graphql
@@ -67,9 +79,9 @@ tasks:
     silent: true
     desc: Clean graphql generated files
     cmds:
-      - rm -f graphql-gateway/graph/model/models_gen.go
-      - rm -f graphql-gateway/graph/schema.resolvers.go
-      - rm -f graphql-gateway/graph/generated/generated.go
+      # - rm -f graphql-gateway/graph/model/models_gen.go
+      # - rm -f graphql-gateway/graph/schema.resolvers.go
+      # - rm -f graphql-gateway/graph/generated/generated.go
       - echo 'Clean graphql generated files done!'
 
   build-proto:
@@ -91,10 +103,11 @@ tasks:
         vars: { NAME: '{{.NAME}}' }
     cmds:
       - |
-        mkdir -p graphql-gateway/pb/{{.NAME}}
+        mkdir -p {graphql-gateway,module-accounts}/pb/{{.NAME}}
         protoc {{.NAME}}.proto \
           --proto_path={{.PROTO_PATH}} \
-          --go_out=plugins=grpc:graphql-gateway/pb/{{.NAME}}
+          --go_out=plugins=grpc:graphql-gateway/pb/{{.NAME}} \
+          --go_out=plugins=grpc:module-accounts/pb/{{.NAME}}
       #   --csharp_out=module-campaigns/src/generated/{{.NAME}}
       - echo 'Proto regen done!'
     sources:
