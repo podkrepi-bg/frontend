@@ -10,10 +10,13 @@ vars:
 
 tasks:
   build:
+    silent: true
     desc: Build proto files to graphql
     deps:
       - build-campaigns
       - build-graphql
+    cmds:
+      - echo 'Build done!'
 
   clean:
     desc: Clean all generated files
@@ -35,11 +38,16 @@ tasks:
 
   build-graphql:
     desc: Build graphql
+    silent: true
     preconditions:
       - which go
     dir: ./graphql-gateway
+    deps:
+      - task: clean-graphql
+        vars: { NAME: '{{.NAME}}' }
     cmds:
       - go run github.com/99designs/gqlgen
+      - echo 'GraphQL regen done!'
     sources:
       - graphql-gateway/graph/schema.graphqls
     generates:
@@ -49,25 +57,37 @@ tasks:
     method: none # checksum
 
   clean-graphql:
+    silent: true
     cmds:
       - rm -f graphql-gateway/graph/model/models_gen.go
       - rm -f graphql-gateway/graph/schema.resolvers.go
       - rm -f graphql-gateway/graph/generated/generated.go
+      - echo 'Clean graphql generated files done!'
 
   build-proto:
+    desc: Build proto file
+    summary: |
+      Pass variable `NAME=`
+      task build-proto NAME=test
+    silent: true
+    vars:
+      NAME: '{{default "test" .NAME}}'
+      PROTO_PATH: protos
     preconditions:
       - which go
       - which protoc
       - which protoc-gen-go
+      - test -f {{.PROTO_PATH}}/{{.NAME}}.proto
     deps:
       - task: clean-proto
         vars: { NAME: '{{.NAME}}' }
     cmds:
       - |
         protoc {{.NAME}}.proto \
-          --proto_path=protos \
+          --proto_path={{.PROTO_PATH}} \
           --go_out=plugins=grpc:graphql-gateway/pb/{{.NAME}}
       #   --csharp_out=module-campaigns/src/generated/{{.NAME}}
+      - echo 'Proto regen done!'
     sources:
       - protos/{{.NAME}}.proto
     generates:
@@ -75,5 +95,7 @@ tasks:
     method: none # checksum
 
   clean-proto:
+    silent: true
     cmds:
       - rm -f graphql-gateway/pb/{{.NAME}}/{{.NAME}}.pb.go
+      - echo 'Clean proto generated files done!'
