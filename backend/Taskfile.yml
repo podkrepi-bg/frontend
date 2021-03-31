@@ -83,6 +83,7 @@ tasks:
         vars: { NAME: '{{.NAME}}' }
     cmds:
       - |
+        mkdir -p graphql-gateway/pb/{{.NAME}}
         protoc {{.NAME}}.proto \
           --proto_path={{.PROTO_PATH}} \
           --go_out=plugins=grpc:graphql-gateway/pb/{{.NAME}}
