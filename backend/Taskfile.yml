@@ -67,6 +67,7 @@ tasks:
         protoc {{.NAME}}.proto \
           --proto_path=protos \
           --go_out=plugins=grpc:graphql-gateway/pb/{{.NAME}}
+      #   --csharp_out=module-campaigns/src/generated/{{.NAME}}
     sources:
       - protos/{{.NAME}}.proto
     generates:
