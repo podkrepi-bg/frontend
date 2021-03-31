@@ -9,6 +9,13 @@ vars:
     sh: git log -n 1 --format=%h
 
 tasks:
+  run-graphql:
+    desc: Run local GraphQL server
+    silent: true
+    dir: ./graphql-gateway
+    cmds:
+      - go run server.go
+
   build:
     silent: true
     desc: Build proto files to graphql
@@ -58,6 +65,7 @@ tasks:
 
   clean-graphql:
     silent: true
+    desc: Clean graphql generated files
     cmds:
       - rm -f graphql-gateway/graph/model/models_gen.go
       - rm -f graphql-gateway/graph/schema.resolvers.go
