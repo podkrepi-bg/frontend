@@ -12,11 +12,11 @@ import (
 )
 
 func (r *mutationResolver) CreateCampaign(ctx context.Context, input model.CreateCampaign) (*model.Campaign, error) {
-	panic(fmt.Errorf("not implemented"))
+	panic(fmt.Errorf("CreateCampaign not implemented"))
 }
 
 func (r *queryResolver) Campaigns(ctx context.Context) ([]*model.Campaign, error) {
-	panic(fmt.Errorf("not implemented"))
+	panic(fmt.Errorf("Campaigns not implemented"))
 }
 
 // Mutation returns generated.MutationResolver implementation.
