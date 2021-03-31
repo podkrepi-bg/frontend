@@ -1,0 +1,27 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+type Campaign {
+  id: ID!
+  name: String!
+  organizer: Account!
+}
+
+type Account {
+  id: ID!
+  name: String!
+}
+
+type Query {
+  campaigns: [Campaign!]!
+}
+
+input CreateCampaign {
+  name: String!
+  organizerId: String!
+}
+
+type Mutation {
+  createCampaign(input: CreateCampaign!): Campaign!
+}

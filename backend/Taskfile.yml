@@ -1,0 +1,73 @@
+# https://taskfile.dev
+# sudo snap install task --classic
+# vscode: ext install paulvarache.vscode-taskfile
+
+version: '3'
+
+vars:
+  GIT_COMMIT:
+    sh: git log -n 1 --format=%h
+
+tasks:
+  build:
+    desc: Build proto files to graphql
+    deps:
+      - build-campaigns
+      - build-graphql
+
+  clean:
+    desc: Clean all generated files
+    deps:
+      - clean-campaigns
+      - clean-graphql
+
+  build-campaigns:
+    desc: Build campaigns
+    deps:
+      - task: build-proto
+        vars: { NAME: campaigns }
+
+  clean-campaigns:
+    desc: Clean campaigns
+    deps:
+      - task: clean-proto
+        vars: { NAME: campaigns }
+
+  build-graphql:
+    desc: Build graphql
+    preconditions:
+      - which go
+    dir: ./graphql-gateway
+    cmds:
+      - go run github.com/99designs/gqlgen
+    sources:
+      - graphql-gateway/graph/schema.graphqls
+    generates:
+      - graphql-gateway/graph/model/models_gen.go
+      - graphql-gateway/graph/schema.resolvers.go
+      - graphql-gateway/graph/generated/generated.go
+    method: none # checksum
+
+  clean-graphql:
+    cmds:
+      - rm graphql-gateway/graph/model/models_gen.go
+      - rm graphql-gateway/graph/schema.resolvers.go
+      - rm graphql-gateway/graph/generated/generated.go
+
+  build-proto:
+    preconditions:
+      - which go
+      - which protoc
+      - which protoc-gen-go
+    dir: ./protos
+    cmds:
+      - protoc {{.NAME}}.proto --go_out=plugins=grpc:.
+    sources:
+      - protos/*.proto
+    generates:
+      - graphql-gateway/pb/{{.NAME}}/{{.NAME}}.pb.go
+    method: checksum
+
+  clean-proto:
+    cmds:
+      - rm graphql-gateway/pb/{{.NAME}}/{{.NAME}}.pb.go
