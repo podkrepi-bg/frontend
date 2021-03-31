@@ -59,8 +59,14 @@ tasks:
       - which go
       - which protoc
       - which protoc-gen-go
+    deps:
+      - task: clean-proto
+        vars: { NAME: '{{.NAME}}' }
     cmds:
-      - protoc {{.NAME}}.proto --go_out=plugins=grpc:. --proto_path=protos
+      - |
+        protoc {{.NAME}}.proto \
+          --proto_path=protos \
+          --go_out=plugins=grpc:graphql-gateway/pb/{{.NAME}}
     sources:
       - protos/{{.NAME}}.proto
     generates:

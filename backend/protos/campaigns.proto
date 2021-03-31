@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 option csharp_namespace = "Podkrepibg.Campaigns";
-option go_package = "graphql-gateway/pb/campaigns;campaigns";
+option go_package = "campaigns";
 
 package podkrepibg;
 
@@ -16,7 +16,8 @@ message CreateCampaignRequest {
 }
 
 message CreateCampaignResponse {
-  string campaignId = 1;
-  int32 errorCode = 2;
-  string errorMessage = 3;
+  string id = 1;
+  string name = 2;
+  int32 errorCode = 3;
+  string errorMessage = 4;
 }
