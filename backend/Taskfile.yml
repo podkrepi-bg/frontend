@@ -50,24 +50,23 @@ tasks:
 
   clean-graphql:
     cmds:
-      - rm graphql-gateway/graph/model/models_gen.go
-      - rm graphql-gateway/graph/schema.resolvers.go
-      - rm graphql-gateway/graph/generated/generated.go
+      - rm -f graphql-gateway/graph/model/models_gen.go
+      - rm -f graphql-gateway/graph/schema.resolvers.go
+      - rm -f graphql-gateway/graph/generated/generated.go
 
   build-proto:
     preconditions:
       - which go
       - which protoc
       - which protoc-gen-go
-    dir: ./protos
     cmds:
-      - protoc {{.NAME}}.proto --go_out=plugins=grpc:.
+      - protoc {{.NAME}}.proto --go_out=plugins=grpc:. --proto_path=protos
     sources:
-      - protos/*.proto
+      - protos/{{.NAME}}.proto
     generates:
       - graphql-gateway/pb/{{.NAME}}/{{.NAME}}.pb.go
-    method: checksum
+    method: none # checksum
 
   clean-proto:
     cmds:
-      - rm graphql-gateway/pb/{{.NAME}}/{{.NAME}}.pb.go
+      - rm -f graphql-gateway/pb/{{.NAME}}/{{.NAME}}.pb.go
