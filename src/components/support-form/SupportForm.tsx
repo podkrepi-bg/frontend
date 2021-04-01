@@ -165,7 +165,6 @@ export default function SupportForm() {
     setNewsletterDialogOpened(true)
     setNewsletterDialogOpen(false)
     setActiveStep((prevActiveStep) => prevActiveStep + 1)
-    console.log('confirm')
   }
 
   const handleBack = () => {

@@ -93,9 +93,9 @@
         "title": "Newsletter",
         "label": "Subscription",
         "confirm": {
-          "title": "Are you sure you want to subscribe",
-          "content": "By subscribing you will recieve regular emails and info about us",
-          "confirmButtonLabel": "Yes I am",
+          "title": "Are you really sure you don't want to subscribe ?",
+          "content": "By subscribing you will recieve regular useful and interesting info about us and our cause :)",
+          "confirmButtonLabel": "Yes I actually want to",
           "cancelButtonLabel": "Maybe not"
         }
       },
