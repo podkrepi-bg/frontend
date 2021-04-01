@@ -1,4 +1,4 @@
-version: '3.7'
+version: '2'
 services:
   frontend:
     image: ghcr.io/daritelska-platforma/frontend/web:${DEPLOY_TAG?}
