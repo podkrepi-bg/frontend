@@ -4,6 +4,8 @@ node_modules
 .github
 .git
 Dockerfile
+backend
+kubernetes
 
 .env**
 !.env.example
