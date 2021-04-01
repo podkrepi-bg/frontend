@@ -6,7 +6,7 @@ import { Grid, Container, createStyles, makeStyles } from '@material-ui/core'
 import { Instagram, Facebook, Twitter, LinkedIn, YouTube } from '@material-ui/icons'
 
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
-import { routes } from 'common/routes'
+import { routes, staticUrls } from 'common/routes'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme) =>
     },
     footer__link: {
       padding: theme.spacing(0.5, 0),
-      whiteSpace: 'nowrap',
     },
     footer__link__inner: {
       color: theme.palette.primary.main,
@@ -63,6 +62,16 @@ const footerItems: FooterLink[][] = [
       label: 'footerLabels.aboutProject',
       href: routes.aboutProject,
       external: false,
+    },
+    {
+      label: 'footerLabels.docs',
+      href: staticUrls.docs,
+      external: true,
+    },
+    {
+      label: 'GitHub',
+      href: staticUrls.github,
+      external: true,
     },
   ],
   [

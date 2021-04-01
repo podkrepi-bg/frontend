@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core'
 import { Timeline as TimelineMaterial } from '@material-ui/lab'
 import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite'
-import CodeIcon from '@material-ui/icons/Code'
 import TelegramIcon from '@material-ui/icons/Telegram'
 import UpdateIcon from '@material-ui/icons/Update'
 
@@ -14,14 +13,14 @@ const useStyles = makeStyles((theme: Theme) =>
     heading: {
       marginBottom: theme.spacing(5),
       color: theme.palette.primary.dark,
-      fontSize: theme.spacing(5),
+      fontSize: theme.typography.pxToRem(40),
     },
     container: {
       marginBottom: theme.spacing(12),
       textAlign: 'center',
     },
     content: {
-      fontSize: theme.spacing(2.5),
+      fontSize: theme.typography.pxToRem(17.6),
       maxWidth: theme.spacing(20),
     },
   }),
@@ -38,11 +37,6 @@ export default function Timeline() {
       </Typography>
       <Grid item>
         <TimelineMaterial align="alternate">
-          <TimelineItem Icon={CodeIcon}>
-            <Typography variant="body2" component="span" className={classes.content}>
-              {t('about-project:hackaton')}
-            </Typography>
-          </TimelineItem>
           <TimelineItem Icon={PlayCircleFilledWhiteIcon}>
             <Typography variant="body2" component="span" className={classes.content}>
               {t('about-project:mvpLaunch')}
