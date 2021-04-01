@@ -13,11 +13,9 @@ jobs:
 
     strategy:
       matrix:
-        web-image-name:
+        image-name:
           - web
-        api-image-name:
           - api
-        flyway-image-name:
           - flyway
 
     env:
@@ -149,18 +147,19 @@ jobs:
           docker_login_registry: ghcr.io
           args: --env-file .env.prod up -d --remove-orphans
 
-#      - name: Create Sentry Release
-#        env:
-#          SENTRY_RELEASE: ${{ steps.get-version.outputs.VERSION }}
-#        run: |
-#          # Install Sentry CLI
-#          curl -sL https://sentry.io/get-cli/ | bash
-#
-#          # Create new Sentry release
-#          # export SENTRY_RELEASE=$(sentry-cli releases propose-version)
-#          sentry-cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE
-#          sentry-cli releases set-commits --auto $SENTRY_RELEASE
-#          sentry-cli releases finalize $SENTRY_RELEASE
-#
-#          # Create new deploy for this Sentry release
-#          sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_DEPLOY_ENVIRONMENT
+      - name: Create Sentry Release
+        if: startsWith(github.ref, 'refs/tags/deploy/prod')
+        env:
+          SENTRY_RELEASE: ${{ steps.get-version.outputs.VERSION }}
+        run: |
+          # Install Sentry CLI
+          curl -sL https://sentry.io/get-cli/ | bash
+
+          # Create new Sentry release
+          # export SENTRY_RELEASE=$(sentry-cli releases propose-version)
+          sentry-cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE
+          sentry-cli releases set-commits --auto $SENTRY_RELEASE
+          sentry-cli releases finalize $SENTRY_RELEASE
+
+          # Create new deploy for this Sentry release
+          sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_DEPLOY_ENVIRONMENT
