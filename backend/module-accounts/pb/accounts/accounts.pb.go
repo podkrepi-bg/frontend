@@ -222,7 +222,7 @@ func init() {
 func init() { proto.RegisterFile("accounts.proto", fileDescriptor_e1e7723af4c007b7) }
 
 var fileDescriptor_e1e7723af4c007b7 = []byte{
-	// 228 bytes of a gzipped FileDescriptorProto
+	// 235 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x4b, 0x4c, 0x4e, 0xce,
 	0x2f, 0xcd, 0x2b, 0x29, 0xd6, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x2a, 0xc8, 0x4f, 0xc9,
 	0x2e, 0x4a, 0x2d, 0xc8, 0x4c, 0x4a, 0x57, 0x6a, 0x61, 0xe4, 0x12, 0x71, 0x2e, 0x4a, 0x4d, 0x2c,
@@ -233,11 +233,11 @@ var fileDescriptor_e1e7723af4c007b7 = []byte{
 	0x96, 0x13, 0x2c, 0xe2, 0x97, 0x98, 0x9b, 0x2a, 0x24, 0xcd, 0xc5, 0x99, 0x93, 0x08, 0x93, 0x65,
 	0x81, 0xe8, 0x05, 0x09, 0x80, 0x24, 0x95, 0x2a, 0xb9, 0x44, 0xd1, 0x5c, 0x51, 0x5c, 0x90, 0x9f,
 	0x57, 0x9c, 0x2a, 0xc4, 0xc7, 0xc5, 0x94, 0x99, 0x02, 0x75, 0x03, 0x53, 0x66, 0x0a, 0xc2, 0x59,
-	0x4c, 0xc8, 0xce, 0xa2, 0xc4, 0xea, 0x6c, 0x2e, 0x76, 0xa8, 0xa5, 0xb4, 0xb7, 0xcc, 0x28, 0x81,
-	0x8b, 0x03, 0x6a, 0x59, 0xb1, 0x50, 0x08, 0x17, 0x2f, 0x8a, 0x9f, 0x85, 0x14, 0xf4, 0x10, 0x11,
-	0xa3, 0x87, 0x2d, 0x52, 0xa4, 0x14, 0xf1, 0xa8, 0x80, 0x04, 0x98, 0x13, 0x57, 0x14, 0x07, 0x2c,
-	0xba, 0x93, 0xd8, 0xc0, 0xf1, 0x6d, 0x0c, 0x08, 0x00, 0x00, 0xff, 0xff, 0x01, 0x41, 0xd8, 0xdb,
-	0x01, 0x02, 0x00, 0x00,
+	0x4c, 0xc8, 0xce, 0xa2, 0xc4, 0xea, 0x6c, 0x2e, 0x76, 0xa8, 0xa5, 0xb4, 0xb7, 0xcc, 0x28, 0x9d,
+	0x8b, 0x1f, 0x6a, 0x59, 0x71, 0x70, 0x6a, 0x51, 0x59, 0x66, 0x72, 0xaa, 0x50, 0x08, 0x17, 0x2f,
+	0x8a, 0xd7, 0x85, 0x14, 0xf4, 0x10, 0xf1, 0xa3, 0x87, 0x2d, 0x6e, 0xa4, 0x14, 0xf1, 0xa8, 0x80,
+	0x84, 0x9b, 0x13, 0x57, 0x14, 0x07, 0x2c, 0xd6, 0x93, 0xd8, 0xc0, 0xd1, 0x6e, 0x0c, 0x08, 0x00,
+	0x00, 0xff, 0xff, 0x30, 0x05, 0xe7, 0x08, 0x08, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -248,72 +248,72 @@ var _ grpc.ClientConn
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
 
-// AccountsClient is the client API for Accounts service.
+// AccountsServiceClient is the client API for AccountsService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type AccountsClient interface {
+type AccountsServiceClient interface {
 	CreateAccount(ctx context.Context, in *CreateAccountRequest, opts ...grpc.CallOption) (*CreateAccountResponse, error)
 }
 
-type accountsClient struct {
+type accountsServiceClient struct {
 	cc *grpc.ClientConn
 }
 
-func NewAccountsClient(cc *grpc.ClientConn) AccountsClient {
-	return &accountsClient{cc}
+func NewAccountsServiceClient(cc *grpc.ClientConn) AccountsServiceClient {
+	return &accountsServiceClient{cc}
 }
 
-func (c *accountsClient) CreateAccount(ctx context.Context, in *CreateAccountRequest, opts ...grpc.CallOption) (*CreateAccountResponse, error) {
+func (c *accountsServiceClient) CreateAccount(ctx context.Context, in *CreateAccountRequest, opts ...grpc.CallOption) (*CreateAccountResponse, error) {
 	out := new(CreateAccountResponse)
-	err := c.cc.Invoke(ctx, "/podkrepibg.Accounts/CreateAccount", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/podkrepibg.AccountsService/CreateAccount", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// AccountsServer is the server API for Accounts service.
-type AccountsServer interface {
+// AccountsServiceServer is the server API for AccountsService service.
+type AccountsServiceServer interface {
 	CreateAccount(context.Context, *CreateAccountRequest) (*CreateAccountResponse, error)
 }
 
-// UnimplementedAccountsServer can be embedded to have forward compatible implementations.
-type UnimplementedAccountsServer struct {
+// UnimplementedAccountsServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedAccountsServiceServer struct {
 }
 
-func (*UnimplementedAccountsServer) CreateAccount(ctx context.Context, req *CreateAccountRequest) (*CreateAccountResponse, error) {
+func (*UnimplementedAccountsServiceServer) CreateAccount(ctx context.Context, req *CreateAccountRequest) (*CreateAccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAccount not implemented")
 }
 
-func RegisterAccountsServer(s *grpc.Server, srv AccountsServer) {
-	s.RegisterService(&_Accounts_serviceDesc, srv)
+func RegisterAccountsServiceServer(s *grpc.Server, srv AccountsServiceServer) {
+	s.RegisterService(&_AccountsService_serviceDesc, srv)
 }
 
-func _Accounts_CreateAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _AccountsService_CreateAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateAccountRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AccountsServer).CreateAccount(ctx, in)
+		return srv.(AccountsServiceServer).CreateAccount(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/podkrepibg.Accounts/CreateAccount",
+		FullMethod: "/podkrepibg.AccountsService/CreateAccount",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AccountsServer).CreateAccount(ctx, req.(*CreateAccountRequest))
+		return srv.(AccountsServiceServer).CreateAccount(ctx, req.(*CreateAccountRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-var _Accounts_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "podkrepibg.Accounts",
-	HandlerType: (*AccountsServer)(nil),
+var _AccountsService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "podkrepibg.AccountsService",
+	HandlerType: (*AccountsServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "CreateAccount",
-			Handler:    _Accounts_CreateAccount_Handler,
+			Handler:    _AccountsService_CreateAccount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
