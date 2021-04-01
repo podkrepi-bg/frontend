@@ -20,10 +20,6 @@ jobs:
 
     env:
       IMAGE_NAME: ${{ matrix.image-name }}
-      SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-      SENTRY_PROJECT: app
-      SENTRY_DEPLOY_ENVIRONMENT: production
-      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
 
     steps:
       - uses: actions/checkout@v2
@@ -99,7 +95,7 @@ jobs:
           docker push $IMAGE_ID:$VERSION
 
       - name: Start Deployment
-        if: startsWith(github.ref, 'refs/tags/deploy/prod')
+        if: ${{ matrix.image-name == 'web' }} && startsWith(github.ref, 'refs/tags/deploy/prod')
         uses: TapTap21/docker-remote-deployment-action@v1.1
         env:
           JWT_SECRET: ${{ secrets.APP_JWT_SECRET }}
@@ -107,6 +103,7 @@ jobs:
           DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
           DEPLOY_TAG: ${{ steps.get-version.outputs.VERSION }}
           DB_PASS: ${{ secrets.DB_PASS }}
+          COMPOSE_PROJECT_NAME: "podkrepi"
         with:
           remote_docker_host: ${{ secrets.REMOTE_DOCKER_HOST }}
           ssh_port: ${{ secrets.SSH_PORT }}
@@ -121,6 +118,10 @@ jobs:
       - name: Create Sentry Release
         if: ${{ matrix.image-name == 'web' }} && startsWith(github.ref, 'refs/tags/deploy/prod')
         env:
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: app
+          SENTRY_DEPLOY_ENVIRONMENT: production
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_RELEASE: ${{ steps.get-version.outputs.VERSION }}
         run: |
           # Install Sentry CLI
