@@ -20,14 +20,14 @@ export default function LocaleButton() {
 
   if (router.locale === 'bg') {
     return (
-      <Button variant="text" size="small" onClick={changeLang('en')}>
+      <Button variant="text" color="primary" size="small" onClick={changeLang('en')}>
         {t('EN')}
       </Button>
     )
   }
 
   return (
-    <Button variant="text" size="small" onClick={changeLang('bg')}>
+    <Button variant="text" color="primary" size="small" onClick={changeLang('bg')}>
       {t('BG')}
     </Button>
   )
