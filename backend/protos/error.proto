@@ -2,7 +2,7 @@ syntax = "proto3";
 
 option go_package = "error";
 
-package podkrepibg;
+package podkrepibg.error;
 
 message ErrorDetails {
   string key = 1;
