@@ -10,6 +10,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "protos", "protos", "{EB8A96
 		..\protos\campaigns.proto = ..\protos\campaigns.proto
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{46B30DB6-C76F-4AA6-B8B7-F1276789E1D8}"
+	ProjectSection(SolutionItems) = preProject
+		..\protos\common\nomenclatures.proto = ..\protos\common\nomenclatures.proto
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Podkrepibg.DataContracts", "Podkrepibg.DataContracts\Podkrepibg.DataContracts.csproj", "{D8F58F30-2089-4105-A23D-40FE88636DFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Podkrepibg.Campaigns.Data", "Podkrepibg.Campaigns.Data\Podkrepibg.Campaigns.Data.csproj", "{61817202-6C77-4A5B-8262-0FE1F26309F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,9 +29,20 @@ Global
 		{71447891-1395-4610-9697-E6CD158A005B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71447891-1395-4610-9697-E6CD158A005B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71447891-1395-4610-9697-E6CD158A005B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8F58F30-2089-4105-A23D-40FE88636DFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8F58F30-2089-4105-A23D-40FE88636DFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8F58F30-2089-4105-A23D-40FE88636DFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8F58F30-2089-4105-A23D-40FE88636DFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61817202-6C77-4A5B-8262-0FE1F26309F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61817202-6C77-4A5B-8262-0FE1F26309F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61817202-6C77-4A5B-8262-0FE1F26309F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61817202-6C77-4A5B-8262-0FE1F26309F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{46B30DB6-C76F-4AA6-B8B7-F1276789E1D8} = {EB8A96F2-BAB0-45D1-8BD8-71D94CD6154A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {91BA0327-64EB-4398-A16F-4858FC5207BF}
