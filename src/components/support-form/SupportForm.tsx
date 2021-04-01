@@ -146,7 +146,6 @@ export default function SupportForm() {
   const [failedStep, setFailedStep] = useState<Steps>(Steps.NONE)
   const [isNewsletterDialogOpen, setNewsletterDialogOpen] = useState<boolean>(false)
   const [isNewsletterDialogOpened, setNewsletterDialogOpened] = useState<boolean>(false)
-  const [isNewsletterDialogConfirmed, setNewsletterDialogConfirmed] = useState<boolean>(false)
 
   useEffect(() => {
     setMaxStep((prev) => {
@@ -165,7 +164,7 @@ export default function SupportForm() {
   const handleNewsletterDialogConfirm = () => {
     setNewsletterDialogOpened(true)
     setNewsletterDialogOpen(false)
-    setNewsletterDialogConfirmed(true)
+    setActiveStep((prevActiveStep) => prevActiveStep + 1)
     console.log('confirm')
   }
 
@@ -293,11 +292,7 @@ export default function SupportForm() {
         <div className={classes.content}>
           <Grid container justify="center">
             <Grid item xs={12} className={classes.instructions}>
-              {isLastStep(activeStep, steps) ? (
-                <Newsletter preChecked={isNewsletterDialogConfirmed} />
-              ) : (
-                steps[activeStep].component
-              )}
+              {steps[activeStep].component}
             </Grid>
             <Grid item xs={12}>
               <Actions
