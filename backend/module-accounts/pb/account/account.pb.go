@@ -150,6 +150,76 @@ func (m *CreateAccountResponse) GetLastName() string {
 	return ""
 }
 
+type ListAccountsRequest struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ListAccountsRequest) Reset()         { *m = ListAccountsRequest{} }
+func (m *ListAccountsRequest) String() string { return proto.CompactTextString(m) }
+func (*ListAccountsRequest) ProtoMessage()    {}
+func (*ListAccountsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8e28828dcb8d24f0, []int{2}
+}
+
+func (m *ListAccountsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListAccountsRequest.Unmarshal(m, b)
+}
+func (m *ListAccountsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListAccountsRequest.Marshal(b, m, deterministic)
+}
+func (m *ListAccountsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListAccountsRequest.Merge(m, src)
+}
+func (m *ListAccountsRequest) XXX_Size() int {
+	return xxx_messageInfo_ListAccountsRequest.Size(m)
+}
+func (m *ListAccountsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListAccountsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ListAccountsRequest proto.InternalMessageInfo
+
+type ListAccountsResponse struct {
+	Accounts             []*Account `protobuf:"bytes,1,rep,name=accounts,proto3" json:"accounts,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
+	XXX_unrecognized     []byte     `json:"-"`
+	XXX_sizecache        int32      `json:"-"`
+}
+
+func (m *ListAccountsResponse) Reset()         { *m = ListAccountsResponse{} }
+func (m *ListAccountsResponse) String() string { return proto.CompactTextString(m) }
+func (*ListAccountsResponse) ProtoMessage()    {}
+func (*ListAccountsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_8e28828dcb8d24f0, []int{3}
+}
+
+func (m *ListAccountsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListAccountsResponse.Unmarshal(m, b)
+}
+func (m *ListAccountsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListAccountsResponse.Marshal(b, m, deterministic)
+}
+func (m *ListAccountsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListAccountsResponse.Merge(m, src)
+}
+func (m *ListAccountsResponse) XXX_Size() int {
+	return xxx_messageInfo_ListAccountsResponse.Size(m)
+}
+func (m *ListAccountsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListAccountsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ListAccountsResponse proto.InternalMessageInfo
+
+func (m *ListAccountsResponse) GetAccounts() []*Account {
+	if m != nil {
+		return m.Accounts
+	}
+	return nil
+}
+
 type Account struct {
 	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Email                string   `protobuf:"bytes,2,opt,name=email,proto3" json:"email,omitempty"`
@@ -164,7 +234,7 @@ func (m *Account) Reset()         { *m = Account{} }
 func (m *Account) String() string { return proto.CompactTextString(m) }
 func (*Account) ProtoMessage()    {}
 func (*Account) Descriptor() ([]byte, []int) {
-	return fileDescriptor_8e28828dcb8d24f0, []int{2}
+	return fileDescriptor_8e28828dcb8d24f0, []int{4}
 }
 
 func (m *Account) XXX_Unmarshal(b []byte) error {
@@ -216,28 +286,34 @@ func (m *Account) GetLastName() string {
 func init() {
 	proto.RegisterType((*CreateAccountRequest)(nil), "podkrepibg.account.CreateAccountRequest")
 	proto.RegisterType((*CreateAccountResponse)(nil), "podkrepibg.account.CreateAccountResponse")
+	proto.RegisterType((*ListAccountsRequest)(nil), "podkrepibg.account.ListAccountsRequest")
+	proto.RegisterType((*ListAccountsResponse)(nil), "podkrepibg.account.ListAccountsResponse")
 	proto.RegisterType((*Account)(nil), "podkrepibg.account.Account")
 }
 
 func init() { proto.RegisterFile("account.proto", fileDescriptor_8e28828dcb8d24f0) }
 
 var fileDescriptor_8e28828dcb8d24f0 = []byte{
-	// 236 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x4d, 0x4c, 0x4e, 0xce,
-	0x2f, 0xcd, 0x2b, 0xd1, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x12, 0x2a, 0xc8, 0x4f, 0xc9, 0x2e,
-	0x4a, 0x2d, 0xc8, 0x4c, 0x4a, 0xd7, 0x83, 0xca, 0x28, 0xb5, 0x30, 0x72, 0x89, 0x38, 0x17, 0xa5,
-	0x26, 0x96, 0xa4, 0x3a, 0x42, 0x44, 0x82, 0x52, 0x0b, 0x4b, 0x53, 0x8b, 0x4b, 0x84, 0x44, 0xb8,
-	0x58, 0x53, 0x73, 0x13, 0x33, 0x73, 0x24, 0x18, 0x15, 0x18, 0x35, 0x38, 0x83, 0x20, 0x1c, 0x21,
-	0x29, 0x2e, 0x8e, 0x82, 0xc4, 0xe2, 0xe2, 0xf2, 0xfc, 0xa2, 0x14, 0x09, 0x26, 0xb0, 0x04, 0x9c,
-	0x2f, 0x24, 0xcb, 0xc5, 0x95, 0x96, 0x59, 0x54, 0x5c, 0x12, 0x9f, 0x97, 0x98, 0x9b, 0x2a, 0xc1,
-	0x0c, 0x96, 0xe5, 0x04, 0x8b, 0xf8, 0x25, 0xe6, 0xa6, 0x0a, 0x49, 0x73, 0x71, 0xe6, 0x24, 0xc2,
-	0x64, 0x59, 0x20, 0x7a, 0x41, 0x02, 0x20, 0x49, 0xa5, 0x4a, 0x2e, 0x51, 0x34, 0x57, 0x14, 0x17,
-	0xe4, 0xe7, 0x15, 0xa7, 0x0a, 0xf1, 0x71, 0x31, 0x65, 0xa6, 0x40, 0xdd, 0xc0, 0x94, 0x99, 0x82,
-	0x70, 0x16, 0x13, 0xb2, 0xb3, 0x28, 0xb1, 0x3a, 0x9b, 0x8b, 0x1d, 0x6a, 0x29, 0xed, 0x2d, 0x33,
-	0x2a, 0xe3, 0xe2, 0x83, 0x5a, 0x16, 0x9c, 0x5a, 0x54, 0x96, 0x99, 0x9c, 0x2a, 0x94, 0xc2, 0xc5,
-	0x8b, 0xe2, 0x73, 0x21, 0x0d, 0x3d, 0xcc, 0x68, 0xd2, 0xc3, 0x16, 0x45, 0x52, 0x9a, 0x44, 0xa8,
-	0x84, 0x04, 0xa3, 0x13, 0x67, 0x14, 0x3b, 0x54, 0x41, 0x12, 0x1b, 0x38, 0x31, 0x18, 0x03, 0x02,
-	0x00, 0x00, 0xff, 0xff, 0xa4, 0xaf, 0x38, 0x74, 0x1d, 0x02, 0x00, 0x00,
+	// 292 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x52, 0x4d, 0x4b, 0xc3, 0x40,
+	0x10, 0x25, 0xa9, 0xda, 0x66, 0xb4, 0x3d, 0x8c, 0x2d, 0x84, 0x14, 0xa1, 0xe4, 0x62, 0xbc, 0xe4,
+	0x50, 0x0f, 0x9e, 0xd5, 0xab, 0x28, 0xd4, 0x9b, 0x17, 0xd9, 0x26, 0xa3, 0x2c, 0x6d, 0xb2, 0xeb,
+	0xee, 0x56, 0xf1, 0xee, 0x9f, 0xf4, 0xdf, 0x48, 0x93, 0x69, 0x6d, 0x35, 0xa0, 0x20, 0x1e, 0xe7,
+	0xbd, 0x19, 0xde, 0x07, 0x03, 0x5d, 0x91, 0x65, 0x6a, 0x51, 0xba, 0x54, 0x1b, 0xe5, 0x14, 0xa2,
+	0x56, 0xf9, 0xcc, 0x90, 0x96, 0xd3, 0xc7, 0x94, 0x99, 0xf8, 0xcd, 0x83, 0xfe, 0xa5, 0x21, 0xe1,
+	0xe8, 0xbc, 0x46, 0x26, 0xf4, 0xb4, 0x20, 0xeb, 0xb0, 0x0f, 0xbb, 0x54, 0x08, 0x39, 0x0f, 0xbd,
+	0x91, 0x97, 0x04, 0x93, 0x7a, 0xc0, 0x08, 0x3a, 0x5a, 0x58, 0xfb, 0xa2, 0x4c, 0x1e, 0xfa, 0x15,
+	0xb1, 0x9e, 0xf1, 0x08, 0xe0, 0x41, 0x1a, 0xeb, 0xee, 0x4b, 0x51, 0x50, 0xd8, 0xaa, 0xd8, 0xa0,
+	0x42, 0xae, 0x45, 0x41, 0x38, 0x84, 0x60, 0x2e, 0x56, 0xec, 0x4e, 0x7d, 0xbb, 0x04, 0x96, 0x64,
+	0xfc, 0x0a, 0x83, 0x2f, 0x2e, 0xac, 0x56, 0xa5, 0x25, 0xec, 0x81, 0x2f, 0x73, 0xf6, 0xe0, 0xcb,
+	0xfc, 0xd3, 0x96, 0xbf, 0x69, 0xeb, 0x2f, 0xd2, 0x03, 0x38, 0xbc, 0x92, 0xd6, 0xb1, 0xb0, 0xe5,
+	0xfc, 0xf1, 0x0d, 0xf4, 0xb7, 0x61, 0x36, 0x74, 0x06, 0x1d, 0xee, 0xce, 0x86, 0xde, 0xa8, 0x95,
+	0xec, 0x8f, 0x87, 0xe9, 0xf7, 0x5e, 0xd3, 0x55, 0x8e, 0xf5, 0x72, 0x3c, 0x83, 0x36, 0x83, 0xff,
+	0x1f, 0x6a, 0xfc, 0xee, 0x41, 0x8f, 0xd5, 0x6e, 0xc9, 0x3c, 0xcb, 0x8c, 0x30, 0x87, 0xee, 0x56,
+	0xc5, 0x98, 0x34, 0xf9, 0x6e, 0xfa, 0x85, 0xe8, 0xe4, 0x17, 0x9b, 0x5c, 0x8f, 0x80, 0x83, 0xcd,
+	0xda, 0xf0, 0xb8, 0xe9, 0xb4, 0xa1, 0xef, 0x28, 0xf9, 0x79, 0xb1, 0x96, 0xb8, 0x08, 0xee, 0xda,
+	0xcc, 0x4f, 0xf7, 0xaa, 0xc7, 0x3e, 0xfd, 0x08, 0x00, 0x00, 0xff, 0xff, 0x3b, 0xf4, 0xc2, 0xa3,
+	0xe9, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -253,6 +329,7 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type AccountServiceClient interface {
 	CreateAccount(ctx context.Context, in *CreateAccountRequest, opts ...grpc.CallOption) (*CreateAccountResponse, error)
+	ListAccounts(ctx context.Context, in *ListAccountsRequest, opts ...grpc.CallOption) (*ListAccountsResponse, error)
 }
 
 type accountServiceClient struct {
@@ -272,9 +349,19 @@ func (c *accountServiceClient) CreateAccount(ctx context.Context, in *CreateAcco
 	return out, nil
 }
 
+func (c *accountServiceClient) ListAccounts(ctx context.Context, in *ListAccountsRequest, opts ...grpc.CallOption) (*ListAccountsResponse, error) {
+	out := new(ListAccountsResponse)
+	err := c.cc.Invoke(ctx, "/podkrepibg.account.AccountService/ListAccounts", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AccountServiceServer is the server API for AccountService service.
 type AccountServiceServer interface {
 	CreateAccount(context.Context, *CreateAccountRequest) (*CreateAccountResponse, error)
+	ListAccounts(context.Context, *ListAccountsRequest) (*ListAccountsResponse, error)
 }
 
 // UnimplementedAccountServiceServer can be embedded to have forward compatible implementations.
@@ -283,6 +370,9 @@ type UnimplementedAccountServiceServer struct {
 
 func (*UnimplementedAccountServiceServer) CreateAccount(ctx context.Context, req *CreateAccountRequest) (*CreateAccountResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAccount not implemented")
+}
+func (*UnimplementedAccountServiceServer) ListAccounts(ctx context.Context, req *ListAccountsRequest) (*ListAccountsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListAccounts not implemented")
 }
 
 func RegisterAccountServiceServer(s *grpc.Server, srv AccountServiceServer) {
@@ -307,6 +397,24 @@ func _AccountService_CreateAccount_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AccountService_ListAccounts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListAccountsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AccountServiceServer).ListAccounts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/podkrepibg.account.AccountService/ListAccounts",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AccountServiceServer).ListAccounts(ctx, req.(*ListAccountsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _AccountService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "podkrepibg.account.AccountService",
 	HandlerType: (*AccountServiceServer)(nil),
@@ -314,6 +422,10 @@ var _AccountService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateAccount",
 			Handler:    _AccountService_CreateAccount_Handler,
+		},
+		{
+			MethodName: "ListAccounts",
+			Handler:    _AccountService_ListAccounts_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

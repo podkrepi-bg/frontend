@@ -11,12 +11,20 @@ import (
 	"github.com/daritelska-platforma/graphql-gateway/graph/model"
 )
 
+func (r *mutationResolver) CreateAccount(ctx context.Context, input model.CreateAccount) (*model.Account, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
 func (r *mutationResolver) CreateCampaign(ctx context.Context, input model.CreateCampaign) (*model.Campaign, error) {
 	panic(fmt.Errorf("CreateCampaign not implemented"))
 }
 
 func (r *queryResolver) Campaigns(ctx context.Context) ([]*model.Campaign, error) {
 	panic(fmt.Errorf("Campaigns not implemented"))
+}
+
+func (r *queryResolver) Accounts(ctx context.Context) ([]*model.Account, error) {
+	panic(fmt.Errorf("not implemented"))
 }
 
 // Mutation returns generated.MutationResolver implementation.

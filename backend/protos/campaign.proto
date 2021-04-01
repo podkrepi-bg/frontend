@@ -20,6 +20,7 @@ message CreateCampaignRequest {
 message CreateCampaignResponse {
   string id = 1;
   string name = 2;
+  string organizerId = 3;
 }
 
 message ListCampaignsRequest {

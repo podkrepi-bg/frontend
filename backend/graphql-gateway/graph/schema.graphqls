@@ -11,10 +11,21 @@ type Campaign {
 type Account {
   id: ID!
   name: String!
+  email: String!
+  firstName: String!
+  lastName: String!
 }
 
 type Query {
   campaigns: [Campaign!]!
+  accounts: [Account!]!
+}
+
+input CreateAccount {
+  name: String!
+  email: String!
+  firstName: String!
+  lastName: String!
 }
 
 input CreateCampaign {
@@ -23,5 +34,6 @@ input CreateCampaign {
 }
 
 type Mutation {
+  createAccount(input: CreateAccount!): Account!
   createCampaign(input: CreateCampaign!): Campaign!
 }
