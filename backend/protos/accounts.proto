@@ -4,7 +4,7 @@ option go_package = "accounts";
 
 package podkrepibg;
 
-service Accounts {
+service AccountsService {
   rpc CreateAccount (CreateAccountRequest) returns (CreateAccountResponse);
 }
 

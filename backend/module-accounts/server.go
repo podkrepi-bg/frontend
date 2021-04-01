@@ -22,7 +22,7 @@ func main() {
 		panic(err)
 	}
 	srv := grpc.NewServer()
-	proto.RegisterAccountsServer(srv, &server{})
+	proto.RegisterAccountsServiceServer(srv, &server{})
 	reflection.Register(srv)
 
 	if e := srv.Serve(lis); e != nil {
