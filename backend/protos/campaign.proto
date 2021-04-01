@@ -1,22 +1,24 @@
 syntax = "proto3";
 
-option csharp_namespace = "Podkrepibg.Campaigns";
-option go_package = "campaigns";
+package podkrepibg.campaign;
 
-package campaigns;
+option csharp_namespace = "Podkrepibg.Campaigns";
+option go_package = "campaign";
 
 import "common/nomenclatures.proto";
 
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 
-service Campaigns {
+service CampaignService {
+  // creates a new campaign
+  rpc CreateCampaign (CreateCampaignRequest) returns (CreateCampaignResponse);
+  // list campaign
+  rpc ListCampaigns (ListCampaignsRequest) returns (ListCampaignsResponse);
 
-	rpc NewCampaign (CreateCampaignRequest) returns (NewCampaignReply) {};
+  rpc CampaignTypes (google.protobuf.Empty) returns (CampaignTypesReply) {};
 
-	rpc CampaignTypes (google.protobuf.Empty) returns (CampaignTypesReply) {};
-
-	rpc FilterCampaigns (FilterCampaignsRequest) returns (FilterCampaignsReply) {}
+  rpc FilterCampaigns (FilterCampaignsRequest) returns (FilterCampaignsReply) {}
 }
 
 message CreateCampaignRequest {
@@ -114,6 +116,17 @@ message FilterCampaignsReply {
 	repeated Donation donations = 15;
 }
 
+message CreateCampaignResponse {
+  string id = 1;
+  string name = 2;
+  string organizerId = 3;
+}
+
+message ListCampaignsRequest {
+}
+
+message ListCampaignsResponse {
+  repeated CreateCampaignResponse campaigns = 1;
 message Donation {
 	string donorDisplayName = 1;
 	uint32 amount = 2;
