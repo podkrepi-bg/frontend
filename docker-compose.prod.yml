@@ -1,4 +1,4 @@
-version: '2'
+version: '3.7'
 services:
   frontend:
     image: ghcr.io/daritelska-platforma/frontend/web:${DEPLOY_TAG?}
@@ -95,8 +95,8 @@ services:
       #volumes:
       #- certs-client:/certs
     depends_on:
-      roach-lb:
-        condition: service_healthy
+      - roach-lb:
+        #condition: service_healthy
     networks:
       - private1
 
