@@ -15,6 +15,8 @@ tasks:
     desc: Run local GraphQL server
     silent: true
     dir: ./graphql-gateway
+    env:
+      PORT: '{{default "5050" .PORT}}'
     cmds:
       - go run server.go
 
