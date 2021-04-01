@@ -3,41 +3,54 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Podkrepibg.Campaigns.Data;
 
 namespace Podkrepibg.Campaigns
 {
-    public class Startup
+  public class Startup
+  {
+    private IConfigurationRoot Configuration { get; set; }
+
+    public Startup(IWebHostEnvironment env)
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddGrpc();
-        }
+      var builder = new ConfigurationBuilder()
+          .SetBasePath(env.ContentRootPath)
+          .AddJsonFile("appsettings.json")
+          .AddJsonFile($"appsettings.{env.EnvironmentName}.json")
+          .AddEnvironmentVariables();
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.UseRouting();
-
-            app.UseEndpoints((Action<Microsoft.AspNetCore.Routing.IEndpointRouteBuilder>)(endpoints =>
-            {
-              GrpcEndpointRouteBuilderExtensions.MapGrpcService<CampaignsService>(endpoints);
-
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
-                });
-            }));
-        }
+      Configuration = builder.Build();
     }
+
+    public void ConfigureServices(IServiceCollection services)
+    {
+      services.AddGrpc();
+      services.AddOptions();
+      services.AddSingleton<IConfigurationRoot>(Configuration);
+      services.AddDbContext<CampaignsContext>(options =>
+          options.UseNpgsql(Configuration.GetConnectionString("CampaignDb")));
+    }
+
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    {
+      if (env.IsDevelopment())
+      {
+        app.UseDeveloperExceptionPage();
+      }
+
+      app.UseRouting();
+
+      app.UseEndpoints(endpoints =>
+      {
+        endpoints.MapGrpcService<Services.CampaignsService>();
+
+        endpoints.MapGet("/", async context =>
+        {
+          await context.Response.WriteAsync("Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
+        });
+      });
+    }
+  }
 }
