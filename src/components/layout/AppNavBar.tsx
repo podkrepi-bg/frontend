@@ -2,13 +2,13 @@ import clsx from 'clsx'
 import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Menu } from '@material-ui/icons'
+import { GitHub, Menu } from '@material-ui/icons'
 import { useSession } from 'next-auth/client'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { AppBar, Toolbar, IconButton, Grid, Hidden } from '@material-ui/core'
 
-import { routes } from 'common/routes'
+import { routes, staticUrls } from 'common/routes'
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 
 import LocaleButton from './LocaleButton'
@@ -95,6 +95,15 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
               <MainNavMenu>
                 <Grid item>
                   <LocaleButton />
+                </Grid>
+                <Grid item>
+                  <IconButton
+                    size="small"
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    href={staticUrls.github}>
+                    <GitHub fontSize="small" />
+                  </IconButton>
                 </Grid>
                 {session ? <PrivateMenu /> : <PublicMenu disableAuth />}
               </MainNavMenu>

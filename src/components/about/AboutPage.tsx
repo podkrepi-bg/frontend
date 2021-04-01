@@ -1,17 +1,15 @@
-import { Typography } from '@material-ui/core'
 import Layout from 'components/layout/Layout'
 import { useTranslation } from 'next-i18next'
 
-import styles from './about.module.scss'
+import HowEveryThingBegin from './sections/HowEverythingBegin'
+import PrinciplesThatUniteUs from './sections/PrinciplesThatUniteUs'
 
 export default function AboutPage() {
   const { t } = useTranslation()
-
   return (
-    <Layout title={t('about:about')}>
-      <Typography variant="body1" className={styles.page}>
-        {t('about:content')}
-      </Typography>
+    <Layout title={t('about:about.title')}>
+      <HowEveryThingBegin />
+      <PrinciplesThatUniteUs />
     </Layout>
   )
 }
