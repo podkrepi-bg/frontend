@@ -9,7 +9,6 @@ import {
   TimelineSeparator,
 } from '@material-ui/lab'
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos'
-import CodeIcon from '@material-ui/icons/Code'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
       transform: 'rotate(90deg)',
     },
     icon: {
-      fontSize: theme.spacing(5),
+      fontSize: theme.typography.pxToRem(40),
     },
     contentContainer: {
       textAlign: 'center',
