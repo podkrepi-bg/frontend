@@ -93,6 +93,7 @@ tasks:
     vars:
       NAME: '{{default "test" .NAME}}'
       PROTO_PATH: protos
+      CSHARP_PATH: module-campaigns/src/Podkrepibg.Campaigns/Generated
     preconditions:
       - which go
       - which protoc
@@ -105,10 +106,11 @@ tasks:
       - |
         mkdir -p {graphql-gateway,module-accounts}/pb/{{.NAME}}
         protoc {{.NAME}}.proto \
+          -I/usr/include \
           --proto_path={{.PROTO_PATH}} \
           --go_out=plugins=grpc:graphql-gateway/pb/{{.NAME}} \
-          --go_out=plugins=grpc:module-accounts/pb/{{.NAME}}
-      #   --csharp_out=module-campaigns/src/generated/{{.NAME}}
+          --go_out=plugins=grpc:module-accounts/pb/{{.NAME}} \
+          --csharp_out={{.CSHARP_PATH}}
       - echo -e '[{{.NAME}}] \t Proto regen done!'
     sources:
       - protos/{{.NAME}}.proto

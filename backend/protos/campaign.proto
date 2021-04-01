@@ -35,7 +35,7 @@ message CreateCampaignRequest {
 
 // The response message containing the greetings.
 message CreateCampaignResponse {
-	
+
 	string campaignId = 1;
 
   string name = 2;
@@ -49,12 +49,13 @@ message CreateCampaignResponse {
 	common.nomenclatures.CampaignState state = 6;
 }
 
+message CampaignTypesRequest {}
 message CampaignTypesReply {
 	repeated CampaignType campaignTypes = 1;
 }
 
 message CampaignType {
-	
+
 	string campaignTypeId = 1;
 
 	string campaignTypeName = 2;
@@ -65,12 +66,12 @@ message CampaignType {
 }
 
 message CampaignSubType {
-	
+
 	string campaignSubTypeId = 1;
 
 	string campaignSubTypeName = 2;
 
-	string campaignSubTypeDescr = 3; 
+	string campaignSubTypeDescr = 3;
 }
 
 message FilterCampaignsRequest {
@@ -89,7 +90,7 @@ message FilterCampaignsRequest {
 }
 
 message FilterCampaignsReply {
-	
+
 	string campaignId = 1;
 
 	string initiatorId = 2;
