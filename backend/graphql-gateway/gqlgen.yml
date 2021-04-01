@@ -43,6 +43,10 @@ autobind:
 # modelgen, the others will be allowed when binding to fields. Configure them to
 # your liking
 models:
+  # UUID:
+  #   model:
+  #     - github.com/google/uuid.UUID
+  #     - github.com/daritelska-platforma/graphql-gateway/graph.UUID
   ID:
     model:
       - github.com/99designs/gqlgen/graphql.ID

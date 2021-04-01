@@ -5,6 +5,12 @@
 version: '3'
 
 vars:
+  GRAPHQL_GATEWAY_PORT: 5050
+  GRAPHQL_GATEWAY_URL: 'http://localhost:{{.GRAPHQL_GATEWAY_PORT}}'
+  ACCOUNT_SERVICE_PORT: 4040
+  ACCOUNT_SERVICE_URL: 'http://localhost:{{.ACCOUNT_SERVICE_PORT}}'
+  CAMPAIGN_SERVICE_PORT: 4060
+  CAMPAIGN_SERVICE_URL: 'http://localhost:{{.CAMPAIGN_SERVICE_PORT}}'
   GIT_COMMIT:
     sh: git log -n 1 --format=%h
 
@@ -16,8 +22,9 @@ tasks:
     silent: true
     dir: ./graphql-gateway
     env:
-      PORT: '{{default "5050" .PORT}}'
+      PORT: '{{.GRAPHQL_GATEWAY_PORT}}'
     cmds:
+      - echo 'Starting graphql gateway at {{.GRAPHQL_GATEWAY_URL}}'
       - go run server.go
 
   run-accounts:
@@ -27,9 +34,9 @@ tasks:
     sources:
       - ./module-accounts/server.go
     env:
-      PORT: '{{default "4040" .PORT}}'
+      PORT: '{{.ACCOUNT_SERVICE_PORT}}'
     cmds:
-      - echo 'Starting accounts service...'
+      - echo 'Starting accounts service at {{.ACCOUNT_SERVICE_URL}}'
       - go run server.go
 
   ## Build tasks

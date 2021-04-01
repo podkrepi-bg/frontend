@@ -12,7 +12,7 @@ import (
 )
 
 func (r *mutationResolver) CreateAccount(ctx context.Context, input model.CreateAccount) (*model.Account, error) {
-	panic(fmt.Errorf("not implemented"))
+	panic(fmt.Errorf("CreateAccount not implemented"))
 }
 
 func (r *mutationResolver) CreateCampaign(ctx context.Context, input model.CreateCampaign) (*model.Campaign, error) {
