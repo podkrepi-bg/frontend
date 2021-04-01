@@ -13,12 +13,13 @@ import "google/protobuf/timestamp.proto";
 service CampaignService {
   // creates a new campaign
   rpc CreateCampaign (CreateCampaignRequest) returns (CreateCampaignResponse);
+
   // list campaign
   rpc ListCampaigns (ListCampaignsRequest) returns (ListCampaignsResponse);
 
-  rpc CampaignTypes (google.protobuf.Empty) returns (CampaignTypesReply) {};
+  rpc CampaignTypes (google.protobuf.Empty) returns (CampaignTypesReply);
 
-  rpc FilterCampaigns (FilterCampaignsRequest) returns (FilterCampaignsReply) {}
+  rpc FilterCampaigns (FilterCampaignsRequest) returns (FilterCampaignsReply);
 }
 
 message CreateCampaignRequest {
@@ -28,20 +29,24 @@ message CreateCampaignRequest {
 	string operatorId = 2;
 
 	string beneficiaryId = 3;
+
+  string name = 4;
 }
 
 // The response message containing the greetings.
-message NewCampaignReply {
+message CreateCampaignResponse {
 	
 	string campaignId = 1;
 
-	string initiatorId = 2;
+  string name = 2;
 
-	string operatorId = 3;
+	string initiatorId = 3;
 
-	string beneficiaryId = 4;
+	string operatorId = 4;
 
-	common.nomenclatures.CampaignState state = 5;
+	string beneficiaryId = 5;
+
+	common.nomenclatures.CampaignState state = 6;
 }
 
 message CampaignTypesReply {
@@ -116,17 +121,13 @@ message FilterCampaignsReply {
 	repeated Donation donations = 15;
 }
 
-message CreateCampaignResponse {
-  string id = 1;
-  string name = 2;
-  string organizerId = 3;
-}
-
 message ListCampaignsRequest {
 }
 
 message ListCampaignsResponse {
   repeated CreateCampaignResponse campaigns = 1;
+ }
+
 message Donation {
 	string donorDisplayName = 1;
 	uint32 amount = 2;

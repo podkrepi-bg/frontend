@@ -7,7 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Podkrepibg.Campaigns", "src
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "protos", "protos", "{EB8A96F2-BAB0-45D1-8BD8-71D94CD6154A}"
 	ProjectSection(SolutionItems) = preProject
-		..\protos\campaigns.proto = ..\protos\campaigns.proto
+		..\protos\campaign.proto = ..\protos\campaign.proto
+		..\protos\error.proto = ..\protos\error.proto
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{46B30DB6-C76F-4AA6-B8B7-F1276789E1D8}"
@@ -15,9 +16,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{46B30D
 		..\protos\common\nomenclatures.proto = ..\protos\common\nomenclatures.proto
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Podkrepibg.DataContracts", "Podkrepibg.DataContracts\Podkrepibg.DataContracts.csproj", "{D8F58F30-2089-4105-A23D-40FE88636DFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Podkrepibg.DataContracts", "Podkrepibg.DataContracts\Podkrepibg.DataContracts.csproj", "{D8F58F30-2089-4105-A23D-40FE88636DFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Podkrepibg.Campaigns.Data", "Podkrepibg.Campaigns.Data\Podkrepibg.Campaigns.Data.csproj", "{61817202-6C77-4A5B-8262-0FE1F26309F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Podkrepibg.Campaigns.Data", "Podkrepibg.Campaigns.Data\Podkrepibg.Campaigns.Data.csproj", "{61817202-6C77-4A5B-8262-0FE1F26309F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

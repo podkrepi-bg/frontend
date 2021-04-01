@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
@@ -9,7 +8,7 @@ using Podkrepibg.Nomenclatures;
 
 namespace Podkrepibg.Campaigns.Services
 {
-  public class CampaignsService : Campaigns.CampaignsBase
+  public class CampaignsService : CampaignService.CampaignServiceBase
   {
     private readonly ILogger<CampaignsService> _logger;
     private readonly CampaignsContext _db;
@@ -20,10 +19,10 @@ namespace Podkrepibg.Campaigns.Services
       _db = db;
     }
 
-    public override Task<NewCampaignReply> NewCampaign(CreateCampaignRequest request, ServerCallContext context)
+    public override Task<CreateCampaignResponse> CreateCampaign(CreateCampaignRequest request, ServerCallContext context)
     {
       return Task.FromResult(
-        new NewCampaignReply
+        new CreateCampaignResponse
         {
           BeneficiaryId = request.BeneficiaryId,
           CampaignId = Guid.NewGuid().ToString(),
@@ -41,6 +40,11 @@ namespace Podkrepibg.Campaigns.Services
     public override Task<FilterCampaignsReply> FilterCampaigns(FilterCampaignsRequest request, ServerCallContext context)
     {
       return base.FilterCampaigns(request, context);
+    }
+
+    public override Task<ListCampaignsResponse> ListCampaigns(ListCampaignsRequest request, ServerCallContext context)
+    {
+      return base.ListCampaigns(request, context);
     }
   }
 }

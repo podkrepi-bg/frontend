@@ -3,7 +3,7 @@ syntax = "proto3";
 option csharp_namespace = "Podkrepibg.Nomenclatures";
 option go_package = "common.nomenclatures";
 
-package common.nomenclatures;
+package podkrepibg.common.nomenclatures;
 
 enum CampaignState
 {
