@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "errors";
+option go_package = "error";
 
 package podkrepibg;
 

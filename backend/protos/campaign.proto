@@ -8,6 +8,8 @@ option go_package = "campaign";
 service CampaignService {
   // creates a new campaign
   rpc CreateCampaign (CreateCampaignRequest) returns (CreateCampaignResponse);
+  // list campaign
+  rpc ListCampaigns (ListCampaignsRequest) returns (ListCampaignsResponse);
 }
 
 message CreateCampaignRequest {
@@ -18,6 +20,11 @@ message CreateCampaignRequest {
 message CreateCampaignResponse {
   string id = 1;
   string name = 2;
-  int32 errorCode = 3;
-  string errorMessage = 4;
+}
+
+message ListCampaignsRequest {
+}
+
+message ListCampaignsResponse {
+  repeated CreateCampaignResponse campaigns = 1;
 }

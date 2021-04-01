@@ -74,8 +74,6 @@ func (m *CreateCampaignRequest) GetOrganizerId() string {
 type CreateCampaignResponse struct {
 	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	ErrorCode            int32    `protobuf:"varint,3,opt,name=errorCode,proto3" json:"errorCode,omitempty"`
-	ErrorMessage         string   `protobuf:"bytes,4,opt,name=errorMessage,proto3" json:"errorMessage,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -120,44 +118,104 @@ func (m *CreateCampaignResponse) GetName() string {
 	return ""
 }
 
-func (m *CreateCampaignResponse) GetErrorCode() int32 {
-	if m != nil {
-		return m.ErrorCode
-	}
-	return 0
+type ListCampaignsRequest struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *CreateCampaignResponse) GetErrorMessage() string {
+func (m *ListCampaignsRequest) Reset()         { *m = ListCampaignsRequest{} }
+func (m *ListCampaignsRequest) String() string { return proto.CompactTextString(m) }
+func (*ListCampaignsRequest) ProtoMessage()    {}
+func (*ListCampaignsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_dce769fb84410dc2, []int{2}
+}
+
+func (m *ListCampaignsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListCampaignsRequest.Unmarshal(m, b)
+}
+func (m *ListCampaignsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListCampaignsRequest.Marshal(b, m, deterministic)
+}
+func (m *ListCampaignsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListCampaignsRequest.Merge(m, src)
+}
+func (m *ListCampaignsRequest) XXX_Size() int {
+	return xxx_messageInfo_ListCampaignsRequest.Size(m)
+}
+func (m *ListCampaignsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListCampaignsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ListCampaignsRequest proto.InternalMessageInfo
+
+type ListCampaignsResponse struct {
+	Campaigns            []*CreateCampaignResponse `protobuf:"bytes,1,rep,name=campaigns,proto3" json:"campaigns,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                  `json:"-"`
+	XXX_unrecognized     []byte                    `json:"-"`
+	XXX_sizecache        int32                     `json:"-"`
+}
+
+func (m *ListCampaignsResponse) Reset()         { *m = ListCampaignsResponse{} }
+func (m *ListCampaignsResponse) String() string { return proto.CompactTextString(m) }
+func (*ListCampaignsResponse) ProtoMessage()    {}
+func (*ListCampaignsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_dce769fb84410dc2, []int{3}
+}
+
+func (m *ListCampaignsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListCampaignsResponse.Unmarshal(m, b)
+}
+func (m *ListCampaignsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListCampaignsResponse.Marshal(b, m, deterministic)
+}
+func (m *ListCampaignsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListCampaignsResponse.Merge(m, src)
+}
+func (m *ListCampaignsResponse) XXX_Size() int {
+	return xxx_messageInfo_ListCampaignsResponse.Size(m)
+}
+func (m *ListCampaignsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListCampaignsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ListCampaignsResponse proto.InternalMessageInfo
+
+func (m *ListCampaignsResponse) GetCampaigns() []*CreateCampaignResponse {
 	if m != nil {
-		return m.ErrorMessage
+		return m.Campaigns
 	}
-	return ""
+	return nil
 }
 
 func init() {
 	proto.RegisterType((*CreateCampaignRequest)(nil), "podkrepibg.campaign.CreateCampaignRequest")
 	proto.RegisterType((*CreateCampaignResponse)(nil), "podkrepibg.campaign.CreateCampaignResponse")
+	proto.RegisterType((*ListCampaignsRequest)(nil), "podkrepibg.campaign.ListCampaignsRequest")
+	proto.RegisterType((*ListCampaignsResponse)(nil), "podkrepibg.campaign.ListCampaignsResponse")
 }
 
 func init() { proto.RegisterFile("campaign.proto", fileDescriptor_dce769fb84410dc2) }
 
 var fileDescriptor_dce769fb84410dc2 = []byte{
-	// 237 bytes of a gzipped FileDescriptorProto
+	// 257 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x4b, 0x4e, 0xcc, 0x2d,
 	0x48, 0xcc, 0x4c, 0xcf, 0xd3, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x12, 0x2e, 0xc8, 0x4f, 0xc9,
 	0x2e, 0x4a, 0x2d, 0xc8, 0x4c, 0x4a, 0xd7, 0x83, 0x49, 0x29, 0xf9, 0x72, 0x89, 0x3a, 0x17, 0xa5,
 	0x26, 0x96, 0xa4, 0x3a, 0x43, 0x45, 0x82, 0x52, 0x0b, 0x4b, 0x53, 0x8b, 0x4b, 0x84, 0x84, 0xb8,
 	0x58, 0xf2, 0x12, 0x73, 0x53, 0x25, 0x18, 0x15, 0x18, 0x35, 0x38, 0x83, 0xc0, 0x6c, 0x21, 0x05,
 	0x2e, 0xee, 0xfc, 0xa2, 0xf4, 0xc4, 0xbc, 0xcc, 0xaa, 0xd4, 0x22, 0xcf, 0x14, 0x09, 0x26, 0xb0,
-	0x14, 0xb2, 0x90, 0x52, 0x1d, 0x97, 0x18, 0xba, 0x71, 0xc5, 0x05, 0xf9, 0x79, 0xc5, 0xa9, 0x42,
-	0x7c, 0x5c, 0x4c, 0x99, 0x29, 0x50, 0xd3, 0x98, 0x32, 0x53, 0xe0, 0xe6, 0x33, 0x21, 0x99, 0x2f,
-	0xc3, 0xc5, 0x99, 0x5a, 0x54, 0x94, 0x5f, 0xe4, 0x9c, 0x9f, 0x92, 0x2a, 0xc1, 0xac, 0xc0, 0xa8,
-	0xc1, 0x1a, 0x84, 0x10, 0x10, 0x52, 0xe2, 0xe2, 0x01, 0x73, 0x7c, 0x53, 0x8b, 0x8b, 0x13, 0xd3,
-	0x53, 0x25, 0x58, 0xc0, 0x3a, 0x51, 0xc4, 0x8c, 0x6a, 0xb8, 0xf8, 0x61, 0x36, 0x07, 0xa7, 0x16,
-	0x95, 0x65, 0x26, 0xa7, 0x0a, 0x65, 0x72, 0xf1, 0xa1, 0x3a, 0x49, 0x48, 0x4b, 0x0f, 0x4b, 0x48,
-	0xe8, 0x61, 0x0d, 0x06, 0x29, 0x6d, 0xa2, 0xd4, 0x42, 0xfc, 0xe8, 0xa4, 0x18, 0xc5, 0x01, 0x53,
-	0xb2, 0x8a, 0x49, 0x24, 0x00, 0xa1, 0x11, 0xa6, 0xb2, 0x38, 0x89, 0x0d, 0x1c, 0x17, 0xc6, 0x80,
-	0x00, 0x00, 0x00, 0xff, 0xff, 0x98, 0x6c, 0x31, 0x2c, 0x9d, 0x01, 0x00, 0x00,
+	0x14, 0xb2, 0x90, 0x92, 0x0d, 0x97, 0x18, 0xba, 0x71, 0xc5, 0x05, 0xf9, 0x79, 0xc5, 0xa9, 0x42,
+	0x7c, 0x5c, 0x4c, 0x99, 0x29, 0x50, 0xd3, 0x98, 0x32, 0x53, 0xe0, 0xe6, 0x33, 0x21, 0xcc, 0x57,
+	0x12, 0xe3, 0x12, 0xf1, 0xc9, 0x2c, 0x2e, 0x81, 0xe9, 0x2d, 0x86, 0xba, 0x45, 0x29, 0x89, 0x4b,
+	0x14, 0x4d, 0x1c, 0x6a, 0xa8, 0x27, 0x17, 0x27, 0xcc, 0x27, 0xc5, 0x12, 0x8c, 0x0a, 0xcc, 0x1a,
+	0xdc, 0x46, 0xda, 0x7a, 0x58, 0xbc, 0xa9, 0x87, 0xdd, 0x51, 0x41, 0x08, 0xdd, 0x46, 0x4f, 0x18,
+	0xb9, 0xf8, 0x61, 0xf2, 0xc1, 0xa9, 0x45, 0x65, 0x99, 0xc9, 0xa9, 0x42, 0x99, 0x5c, 0x7c, 0xa8,
+	0x1a, 0x85, 0xb4, 0x88, 0x32, 0x1d, 0xec, 0x6a, 0x29, 0x52, 0x5c, 0x22, 0x94, 0xc6, 0xc5, 0x8b,
+	0xe2, 0x45, 0x21, 0x4d, 0xac, 0xba, 0xb1, 0x05, 0x8f, 0x94, 0x16, 0x31, 0x4a, 0x21, 0xf6, 0x38,
+	0x29, 0x46, 0x71, 0xc0, 0x54, 0xac, 0x62, 0x12, 0x09, 0x40, 0xe8, 0x83, 0x2b, 0x4d, 0x62, 0x03,
+	0x27, 0x17, 0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0xaa, 0xbb, 0x24, 0x16, 0x40, 0x02, 0x00,
+	0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -174,6 +232,8 @@ const _ = grpc.SupportPackageIsVersion4
 type CampaignServiceClient interface {
 	// creates a new campaign
 	CreateCampaign(ctx context.Context, in *CreateCampaignRequest, opts ...grpc.CallOption) (*CreateCampaignResponse, error)
+	// list campaign
+	ListCampaigns(ctx context.Context, in *ListCampaignsRequest, opts ...grpc.CallOption) (*ListCampaignsResponse, error)
 }
 
 type campaignServiceClient struct {
@@ -193,10 +253,21 @@ func (c *campaignServiceClient) CreateCampaign(ctx context.Context, in *CreateCa
 	return out, nil
 }
 
+func (c *campaignServiceClient) ListCampaigns(ctx context.Context, in *ListCampaignsRequest, opts ...grpc.CallOption) (*ListCampaignsResponse, error) {
+	out := new(ListCampaignsResponse)
+	err := c.cc.Invoke(ctx, "/podkrepibg.campaign.CampaignService/ListCampaigns", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CampaignServiceServer is the server API for CampaignService service.
 type CampaignServiceServer interface {
 	// creates a new campaign
 	CreateCampaign(context.Context, *CreateCampaignRequest) (*CreateCampaignResponse, error)
+	// list campaign
+	ListCampaigns(context.Context, *ListCampaignsRequest) (*ListCampaignsResponse, error)
 }
 
 // UnimplementedCampaignServiceServer can be embedded to have forward compatible implementations.
@@ -205,6 +276,9 @@ type UnimplementedCampaignServiceServer struct {
 
 func (*UnimplementedCampaignServiceServer) CreateCampaign(ctx context.Context, req *CreateCampaignRequest) (*CreateCampaignResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCampaign not implemented")
+}
+func (*UnimplementedCampaignServiceServer) ListCampaigns(ctx context.Context, req *ListCampaignsRequest) (*ListCampaignsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ListCampaigns not implemented")
 }
 
 func RegisterCampaignServiceServer(s *grpc.Server, srv CampaignServiceServer) {
@@ -229,6 +303,24 @@ func _CampaignService_CreateCampaign_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CampaignService_ListCampaigns_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ListCampaignsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CampaignServiceServer).ListCampaigns(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/podkrepibg.campaign.CampaignService/ListCampaigns",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CampaignServiceServer).ListCampaigns(ctx, req.(*ListCampaignsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _CampaignService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "podkrepibg.campaign.CampaignService",
 	HandlerType: (*CampaignServiceServer)(nil),
@@ -236,6 +328,10 @@ var _CampaignService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateCampaign",
 			Handler:    _CampaignService_CreateCampaign_Handler,
+		},
+		{
+			MethodName: "ListCampaigns",
+			Handler:    _CampaignService_ListCampaigns_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
