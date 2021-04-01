@@ -1,8 +1,10 @@
 version: '3.7'
 services:
   frontend:
-    image: ${COMPOSE_PROJECT_NAME?}-frontend
+    image: ghcr.io/daritelska-platforma/frontend/web:${DEPLOY_TAG?}
     container_name: ${COMPOSE_PROJECT_NAME?}-frontend
+    restart: always
+
     environment:
       API_URL: ${API_URL}
       APP_URL: ${APP_URL}
@@ -13,6 +15,12 @@ services:
 
     networks:
       - frontend-net
+
+    healthcheck:
+      test: curl --fail http://localhost:3040/api/healthcheck || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 3
 
 networks:
   frontend-net:
