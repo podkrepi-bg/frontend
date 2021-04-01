@@ -117,6 +117,8 @@ tasks:
       - protos/{{.NAME}}.proto
     generates:
       - graphql-gateway/pb/{{.NAME}}/{{.NAME}}.pb.go
+      - module-accounts/pb/{{.NAME}}/{{.NAME}}.pb.go
+      - '{{.CSHARP_PATH}}/*.cs'
     method: none # checksum
 
   ## Clean-up tasks
