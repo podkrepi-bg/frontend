@@ -9,6 +9,8 @@ vars:
     sh: git log -n 1 --format=%h
 
 tasks:
+  ## Run tasks
+  ############
   run-graphql:
     desc: Run local GraphQL server
     silent: true
@@ -28,6 +30,8 @@ tasks:
       - echo 'Starting accounts service...'
       - go run server.go
 
+  ## Build tasks
+  ##############
   build:
     silent: true
     desc: Build proto files to graphql
@@ -39,29 +43,17 @@ tasks:
       - echo
       - echo 'Build done!'
 
-  clean:
-    desc: Clean all generated files
-    deps:
-      - clean-campaigns
-      - clean-graphql
-
   build-module-campaigns:
     desc: Build campaigns
     deps:
       - task: build-proto
-        vars: { NAME: campaigns }
+        vars: { NAME: campaign }
 
   build-module-accounts:
     desc: Build accounts
     deps:
       - task: build-proto
-        vars: { NAME: accounts }
-
-  clean-campaigns:
-    desc: Clean campaigns
-    deps:
-      - task: clean-proto
-        vars: { NAME: campaigns }
+        vars: { NAME: account }
 
   build-graphql:
     desc: Build graphql
@@ -82,15 +74,6 @@ tasks:
       - graphql-gateway/graph/schema.resolvers.go
       - graphql-gateway/graph/generated/generated.go
     method: none # checksum
-
-  clean-graphql:
-    silent: true
-    desc: Clean graphql generated files
-    cmds:
-      # - rm -f graphql-gateway/graph/model/models_gen.go
-      # - rm -f graphql-gateway/graph/schema.resolvers.go
-      # - rm -f graphql-gateway/graph/generated/generated.go
-      - echo -e '[graphql] \t Clean graphql generated files done!'
 
   build-proto:
     desc: Build proto file
@@ -124,8 +107,38 @@ tasks:
       - graphql-gateway/pb/{{.NAME}}/{{.NAME}}.pb.go
     method: none # checksum
 
+  ## Clean-up tasks
+  #################
+  clean:
+    desc: Clean all generated files
+    deps:
+      - clean-campaigns
+      - clean-accounts
+      - clean-graphql
+
   clean-proto:
     silent: true
     cmds:
       - rm -f graphql-gateway/pb/{{.NAME}}/{{.NAME}}.pb.go
       - echo -e '[{{.NAME}}] \t Clean proto generated files done!'
+
+  clean-campaigns:
+    desc: Clean campaigns
+    deps:
+      - task: clean-proto
+        vars: { NAME: campaign }
+
+  clean-accounts:
+    desc: Clean accounts
+    deps:
+      - task: clean-proto
+        vars: { NAME: account }
+
+  clean-graphql:
+    silent: true
+    desc: Clean graphql generated files
+    cmds:
+      # - rm -f graphql-gateway/graph/model/models_gen.go
+      # - rm -f graphql-gateway/graph/schema.resolvers.go
+      # - rm -f graphql-gateway/graph/generated/generated.go
+      - echo -e '[graphql] \t Clean graphql generated files done!'

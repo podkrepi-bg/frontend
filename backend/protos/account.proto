@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package podkrepibg.accounts;
+package podkrepibg.account;
 
-option go_package = "accounts";
+option go_package = "account";
 
-service AccountsService {
+service AccountService {
   rpc CreateAccount (CreateAccountRequest) returns (CreateAccountResponse);
 }
 

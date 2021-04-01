@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	proto "github.com/daritelska-platforma/accounts/v2/pb/accounts"
+	proto "github.com/daritelska-platforma/accounts/v2/pb/account"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
@@ -22,7 +22,7 @@ func main() {
 		panic(err)
 	}
 	srv := grpc.NewServer()
-	proto.RegisterAccountsServiceServer(srv, &server{})
+	proto.RegisterAccountServiceServer(srv, &server{})
 	reflection.Register(srv)
 
 	if e := srv.Serve(lis); e != nil {
