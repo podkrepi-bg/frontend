@@ -93,7 +93,7 @@ tasks:
     vars:
       NAME: '{{default "test" .NAME}}'
       PROTO_PATH: protos
-      CSHARP_PATH: module-campaigns/src/Podkrepibg.Campaigns/Generated
+      CSHARP_PATH: module-campaigns/src/Generated
     preconditions:
       - which go
       - which protoc
@@ -105,6 +105,7 @@ tasks:
     cmds:
       - |
         mkdir -p {graphql-gateway,module-accounts}/pb/{{.NAME}}
+        mkdir -p {{.CSHARP_PATH}}
         protoc {{.NAME}}.proto \
           -I/usr/include \
           --proto_path={{.PROTO_PATH}} \
