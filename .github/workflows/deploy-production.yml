@@ -19,9 +19,7 @@ jobs:
           - flyway
 
     env:
-      WEB_IMAGE_NAME: ${{ matrix.web-image-name }}
-      API_IMAGE_NAME: ${{ matrix.api-image-name }}
-      FLYWAY_IMAGE_NAME: ${{ matrix.flyway-image-name }}
+      IMAGE_NAME: ${{ matrix.image-name }}
       SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
       SENTRY_PROJECT: app
       SENTRY_DEPLOY_ENVIRONMENT: production
@@ -39,32 +37,35 @@ jobs:
 
       - name: Build WEB
         id: build-web
+        if: ${{ matrix.image-name == 'web' }}
         working-directory: .
         run: |
           docker build \
             --target production \
             --build-arg NODE_ENV=production \
-            --tag $WEB_IMAGE_NAME \
-            --tag $WEB_IMAGE_NAME:ci-run \
+            --tag $IMAGE_NAME \
+            --tag $IMAGE_NAME:ci-run \
             .
 
       - name: Build API
         id: build-api
+        if: ${{ matrix.image-name == 'api' }}
         working-directory: ./backend/contact
         run: |
           docker build \
             --target production \
-            --tag $API_IMAGE_NAME \
-            --tag $API_IMAGE_NAME:ci-run \
+            --tag $IMAGE_NAME \
+            --tag $IMAGE_NAME:ci-run \
             .
 
       - name: Build FLYWAY
         id: build-flyway
+        if: ${{ matrix.image-name == 'flyway' }}
         working-directory: .
         run: |
           docker build \
-            --tag $FLYWAY_IMAGE_NAME \
-            --tag $FLYWAY_IMAGE_NAME:ci-run \
+            --tag $IMAGE_NAME \
+            --tag $IMAGE_NAME:ci-run \
             .
 
       - name: Get the latest tag version
@@ -82,10 +83,10 @@ jobs:
           echo $VERSION
           echo ::set-output name=VERSION::$VERSION
 
-      - name: Push WEB image to GitHub Container Registry
-        id: push-web-image-to-registry
+      - name: Push image to GitHub Container Registry
+        id: push-image-to-registry
         run: |
-          IMAGE_ID=ghcr.io/${{ github.repository }}/$WEB_IMAGE_NAME
+          IMAGE_ID=ghcr.io/${{ github.repository }}/$IMAGE_NAME
 
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
@@ -94,37 +95,7 @@ jobs:
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
 
-          docker tag $WEB_IMAGE_NAME $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
-
-      - name: Push API image to GitHub Container Registry
-        id: push-api-image-to-registry
-        run: |
-          IMAGE_ID=ghcr.io/${{ github.repository }}/$API_IMAGE_NAME
-
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          VERSION=${{ steps.get-version.outputs.VERSION }}
-
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-
-          docker tag $API_IMAGE_NAME $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
-
-      - name: Push FLYWAY image to GitHub Container Registry
-        id: push-flyway-image-to-registry
-        run: |
-          IMAGE_ID=ghcr.io/${{ github.repository }}/$FLYWAY_IMAGE_NAME
-
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          VERSION=${{ steps.get-version.outputs.VERSION }}
-
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-
-          docker tag $FLYWAY_IMAGE_NAME $IMAGE_ID:$VERSION
+          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
 
       - name: Start Deployment
@@ -148,7 +119,7 @@ jobs:
           args: --env-file .env.prod up -d --remove-orphans
 
       - name: Create Sentry Release
-        if: startsWith(github.ref, 'refs/tags/deploy/prod')
+        if: ${{ matrix.image-name == 'web' }} && startsWith(github.ref, 'refs/tags/deploy/prod')
         env:
           SENTRY_RELEASE: ${{ steps.get-version.outputs.VERSION }}
         run: |
