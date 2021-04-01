@@ -51,7 +51,7 @@ services:
     image: cockroachdb/cockroach:latest
     command: start-single-node --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257 --insecure
       # command: start-single-node --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257 --certs-dir=/certs
-      #volumes:
+    #volumes:
     #- certs-roach-0:/certs
     #depends_on:
     #- roach-cert
@@ -95,8 +95,7 @@ services:
       #volumes:
       #- certs-client:/certs
     depends_on:
-      - roach-lb:
-        #condition: service_healthy
+      - roach-lb
     networks:
       - private1
 
