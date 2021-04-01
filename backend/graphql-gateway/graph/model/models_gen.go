@@ -3,14 +3,23 @@
 package model
 
 type Account struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
+	ID        string `json:"id"`
+	Email     string `json:"email"`
+	FirstName string `json:"firstName"`
+	LastName  string `json:"lastName"`
 }
 
 type Campaign struct {
 	ID        string   `json:"id"`
 	Name      string   `json:"name"`
 	Organizer *Account `json:"organizer"`
+}
+
+type CreateAccount struct {
+	Email     string  `json:"email"`
+	Password  *string `json:"password"`
+	FirstName string  `json:"firstName"`
+	LastName  string  `json:"lastName"`
 }
 
 type CreateCampaign struct {

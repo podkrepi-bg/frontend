@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option go_package = "error";
+
+package podkrepibg;
+
+message ErrorDetails {
+  string key = 1;
+  string message = 2;
+};
+
+message Error {
+  int32 code = 1;
+  string domain = 2;
+  string message = 3;
+  string trace = 4;
+  repeated ErrorDetails details = 5;
+}
