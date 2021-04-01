@@ -1,9 +1,9 @@
 syntax = "proto3";
 
+package podkrepibg.campaigns;
+
 option csharp_namespace = "Podkrepibg.Campaigns";
 option go_package = "campaigns";
-
-package podkrepibg.campaigns;
 
 service CampaignsService {
   // creates a new campaign
