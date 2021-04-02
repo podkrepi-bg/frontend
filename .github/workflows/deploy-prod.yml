@@ -106,6 +106,8 @@ jobs:
     needs: [ deploy-init ]
     runs-on: ubuntu-latest
     environment: prod
+    env:
+      DEPLOY_TAG: ${{needs.deploy-init.outputs.version}}
     steps:
       - uses: actions/checkout@v2
 
@@ -120,9 +122,9 @@ jobs:
         run: |
           cp .env.prod .env
           source <(sed -E -n 's/[^#]+/export &/ p' .env.prod)
-          export DEPLOY_TAG=${{needs.deploy-init.outputs.version}}
-          export
-          echo Deploy tag: $DEPLOY_TAG
+          #export DEPLOY_TAG=${{needs.deploy-init.outputs.version}}
+          #export
+          #echo Deploy tag: $DEPLOY_TAG
 
       - name: Start Deployment
         uses: TapTap21/docker-remote-deployment-action@v1.1
@@ -146,12 +148,14 @@ jobs:
     needs: [ deploy-run ]
     runs-on: ubuntu-latest
     environment: prod
+    env:
+      DEPLOY_TAG: ${{needs.deploy-init.outputs.version}}
     steps:
       - name: Env set
         run: |
-          export DEPLOY_TAG=${{needs.deploy-init.outputs.version}}
-          export
-          echo Deploy tag: $DEPLOY_TAG
+          #export DEPLOY_TAG=${{needs.deploy-init.outputs.version}}
+          #export
+          #echo Deploy tag: $DEPLOY_TAG
 
       - name: Create Sentry Release
         env:
