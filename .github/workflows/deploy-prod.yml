@@ -133,6 +133,7 @@ jobs:
           DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
           DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
           DB_PASS: ${{ secrets.DB_PASS }}
+          DEPLOY_TAG: $DEPLOY_TAG
         with:
           remote_docker_host: ${{ secrets.REMOTE_DOCKER_HOST }}
           ssh_port: ${{ secrets.SSH_PORT }}
