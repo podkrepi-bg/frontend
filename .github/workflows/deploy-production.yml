@@ -104,6 +104,7 @@ jobs:
   deploy-run:
     needs: [ deploy-build ]
     runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/deploy/prod')
     environment: prod
     steps:
       - uses: actions/checkout@v2
@@ -129,6 +130,7 @@ jobs:
   deploy-sentry:
     needs: [ deploy-init ]
     runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/deploy/prod')
     environment: prod
     steps:
       - name: Create Sentry Release
