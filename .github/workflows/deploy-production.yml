@@ -95,10 +95,9 @@ jobs:
       - name: Build FLYWAY
         id: build-flyway
         if: ${{ matrix.image-name == 'flyway' }}
-        working-directory: .
+        working-directory: ./flyway
         run: |
           docker build \
-            --file flyway/Dockerfile \
             --tag $IMAGE_NAME \
             --tag $IMAGE_NAME:ci-run \
             .
