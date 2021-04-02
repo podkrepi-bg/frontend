@@ -112,10 +112,6 @@ jobs:
       - name: Env set
         id: set-env
         run: |
-#          cp .env.prod .env
-#          source <(sed -E -n 's/[^#]+/export &/ p' .env.prod)
-#          export
-
           DEPLOY_TAG=${{needs.deploy-init.outputs.version}}
           echo DEPLOY_TAG=$DEPLOY_TAG
           echo ::set-output name=DEPLOY_TAG::$DEPLOY_TAG
