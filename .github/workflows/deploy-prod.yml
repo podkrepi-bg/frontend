@@ -127,7 +127,7 @@ jobs:
           DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
           DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
           DB_PASS: ${{ secrets.DB_PASS }}
-          #DEPLOY_TAG: "0.4.21"
+          DEPLOY_TAG: ${{ env.DEPLOY_TAG }}
           COMPOSE_PROJECT_NAME: podkrepi
           NODE_ENV: production
           TARGET_ENV: production
