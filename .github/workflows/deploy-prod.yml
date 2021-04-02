@@ -118,7 +118,7 @@ jobs:
 
       - name: Env set
         run: |
-          source .env.prod
+          source <(sed -E -n 's/[^#]+/export &/ p' ~/.env.prod)
 
           export
 
