@@ -53,39 +53,39 @@ jobs:
           username: ${{ secrets.GHCR_USERNAME }}
           password: ${{ secrets.GHCR_TOKEN }}
 
-      - name: Build WEB
-        id: build-web
-        if: ${{ matrix.image-name == 'web' }}
-        working-directory: .
-        run: |
-          docker build \
-            --target production \
-            --build-arg NODE_ENV=production \
-            --tag $IMAGE_NAME \
-            --tag $IMAGE_NAME:ci-run \
-            .
-
-      - name: Build API
-        id: build-api
-        if: ${{ matrix.image-name == 'api' }}
-        working-directory: ./backend/contact
-        run: |
-          docker build \
-            --target production \
-            --tag $IMAGE_NAME \
-            --tag $IMAGE_NAME:ci-run \
-            .
-
-      - name: Build FLYWAY
-        id: build-flyway
-        if: ${{ matrix.image-name == 'flyway' }}
-        working-directory: .
-        run: |
-          docker build \
-            --file flyway/Dockerfile \
-            --tag $IMAGE_NAME \
-            --tag $IMAGE_NAME:ci-run \
-            .
+#      - name: Build WEB
+#        id: build-web
+#        if: ${{ matrix.image-name == 'web' }}
+#        working-directory: .
+#        run: |
+#          docker build \
+#            --target production \
+#            --build-arg NODE_ENV=production \
+#            --tag $IMAGE_NAME \
+#            --tag $IMAGE_NAME:ci-run \
+#            .
+#
+#      - name: Build API
+#        id: build-api
+#        if: ${{ matrix.image-name == 'api' }}
+#        working-directory: ./backend/contact
+#        run: |
+#          docker build \
+#            --target production \
+#            --tag $IMAGE_NAME \
+#            --tag $IMAGE_NAME:ci-run \
+#            .
+#
+#      - name: Build FLYWAY
+#        id: build-flyway
+#        if: ${{ matrix.image-name == 'flyway' }}
+#        working-directory: .
+#        run: |
+#          docker build \
+#            --file flyway/Dockerfile \
+#            --tag $IMAGE_NAME \
+#            --tag $IMAGE_NAME:ci-run \
+#            .
 
       - name: Push image to GitHub Container Registry
         id: push-image-to-registry
@@ -118,6 +118,7 @@ jobs:
 
       - name: Env set
         run: |
+          cp .env.prod .env
           source <(sed -E -n 's/[^#]+/export &/ p' .env.prod)
 
           export
@@ -156,7 +157,7 @@ jobs:
           docker_login_user: ${{ secrets.GHCR_USERNAME }}
           docker_login_password: ${{ secrets.GHCR_TOKEN }}
           docker_login_registry: ghcr.io
-          args: up -d --remove-orphans
+          args: --env-file .env up -d --remove-orphans
 
   deploy-sentry:
     needs: [ deploy-run ]
