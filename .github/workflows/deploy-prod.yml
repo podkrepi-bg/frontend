@@ -112,7 +112,7 @@ jobs:
       - name: Env set
         id: set-env
         run: |
-          DEPLOY_TAG=${{needs.deploy-init.outputs.version}}
+          DEPLOY_TAG=0.4.21
           echo DEPLOY_TAG=$DEPLOY_TAG
           echo ::set-output name=DEPLOY_TAG::$DEPLOY_TAG
 
