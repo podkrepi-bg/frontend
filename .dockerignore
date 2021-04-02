@@ -7,5 +7,4 @@ Dockerfile
 backend
 kubernetes
 
-.env
-!.env.example
+.env**
