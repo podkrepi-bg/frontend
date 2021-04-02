@@ -38,13 +38,13 @@ func (s *server) CreateAccount(_ context.Context, request *account.CreateAccount
 	return &account.CreateAccountResponse{
 		Id:        uuid.NewString(),
 		Email:     request.GetEmail(),
-		FirstName: "Ilko",
-		LastName:  "Kacharov",
+		FirstName: request.FirstName,
+		LastName:  request.LastName,
 	}, nil
 }
 
 func (s *server) ListAccounts(_ context.Context, request *account.ListAccountsRequest) (*account.ListAccountsResponse, error) {
-	fmt.Println("Executing Accounts.ListAccounts with:", request)
+	fmt.Println("Executing Accounts.ListAccounts")
 
 	accounts := []*account.Account{
 		{
