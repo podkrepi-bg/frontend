@@ -103,7 +103,7 @@ jobs:
           docker push $IMAGE_ID:$VERSION
 
   deploy-run:
-    needs: [ deploy-init ]
+    needs: [ deploy-build ]
     runs-on: ubuntu-latest
     environment: prod
     steps:
@@ -155,7 +155,7 @@ jobs:
           args: up -d --remove-orphans
 
   deploy-sentry:
-    needs: [ deploy-init ]
+    needs: [ deploy-run ]
     runs-on: ubuntu-latest
     environment: prod
     env:
