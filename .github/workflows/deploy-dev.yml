@@ -1,33 +1,33 @@
-name: Production deployment
+name: Dev deployment
 
 on:
   workflow_dispatch:
   push:
     tags:
-      - 'deploy/prod/*'
+      - 'deploy/dev/*'
 
 jobs:
   deploy-init:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.get-version.outputs.VERSION }}
-#      env: ${{ steps.get-version.outputs.env }}
+    #      env: ${{ steps.get-version.outputs.env }}
     steps:
-#      - name: Set environment
-#        id: setenv
-#        run: |
-#          ENV=Dev
-#
-#          if [[ "${{github.base_ref}}" == "master" || "${{github.ref}}" == "refs/heads/master" ]]; then
-#            ENV=prod
-#          fi
-#
-#          if [[ "${{github.base_ref}}" == "staging" || "${{github.ref}}" == "refs/heads/staging" ]]; then
-#            ENV=stage
-#          fi
-#
-#          echo Environment: $ENV
-#          echo "::set-output name=env::$ENV"
+      #      - name: Set environment
+      #        id: setenv
+      #        run: |
+      #          ENV=Dev
+      #
+      #          if [[ "${{github.base_ref}}" == "master" || "${{github.ref}}" == "refs/heads/master" ]]; then
+      #            ENV=prod
+      #          fi
+      #
+      #          if [[ "${{github.base_ref}}" == "staging" || "${{github.ref}}" == "refs/heads/staging" ]]; then
+      #            ENV=stage
+      #          fi
+      #
+      #          echo Environment: $ENV
+      #          echo "::set-output name=env::$ENV"
       - name: Get the latest tag version
         id: get-version
         run: |
@@ -35,7 +35,7 @@ jobs:
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
 
           # Strip "v" prefix from tag name
-          [[ "${{ github.ref }}" == "refs/tags/deploy/prod/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+          [[ "${{ github.ref }}" == "refs/tags/deploy/dev/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
 
           # Use Docker `latest` tag convention
           [ "$VERSION" == "master" ] && VERSION=latest
@@ -57,7 +57,7 @@ jobs:
     env:
       IMAGE_NAME: ${{ matrix.image-name }}
 
-    environment: prod
+    environment: Dev
 
     steps:
       - uses: actions/checkout@v2
@@ -105,7 +105,7 @@ jobs:
       - name: Push image to GitHub Container Registry
         id: push-image-to-registry
         run: |
-          IMAGE_ID=ghcr.io/${{ github.repository }}/$IMAGE_NAME
+          IMAGE_ID=ghcr.io/${{ github.repository }}/dev/$IMAGE_NAME
 
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
@@ -120,7 +120,7 @@ jobs:
   deploy-run:
     needs: [ deploy-build ]
     runs-on: ubuntu-latest
-    environment: prod
+    environment: Dev
     steps:
       - uses: actions/checkout@v2
       - name: Start Deployment
@@ -145,13 +145,13 @@ jobs:
   deploy-sentry:
     needs: [ deploy-run ]
     runs-on: ubuntu-latest
-    environment: prod
+    environment: Dev
     steps:
       - name: Create Sentry Release
         env:
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: app
-          SENTRY_DEPLOY_ENVIRONMENT: production
+          SENTRY_DEPLOY_ENVIRONMENT: development
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_RELEASE: ${{needs.deploy-init.outputs.version}}
         run: |
