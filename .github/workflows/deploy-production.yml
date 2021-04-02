@@ -9,7 +9,6 @@ on:
 jobs:
   deploy-init:
     runs-on: ubuntu-latest
-    environment: prod
     outputs:
       version: ${{ steps.get-version.outputs.VERSION }}
     steps:
@@ -31,7 +30,6 @@ jobs:
   deploy-build:
     needs: [ deploy-init ]
     runs-on: ubuntu-latest
-    environment: prod
 
     strategy:
       matrix:
@@ -105,7 +103,6 @@ jobs:
     needs: [ deploy-build ]
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/deploy/prod')
-    environment: prod
     steps:
       - uses: actions/checkout@v2
       - name: Start Deployment
@@ -128,10 +125,9 @@ jobs:
           docker_login_registry: ghcr.io
           args: --env-file .env.prod up -d --remove-orphans
   deploy-sentry:
-    needs: [ deploy-init ]
+    needs: [ deploy-run ]
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/deploy/prod')
-    environment: prod
     steps:
       - name: Create Sentry Release
         env:
