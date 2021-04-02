@@ -115,7 +115,7 @@ jobs:
           source <(sed -E -n 's/[^#]+/export &/ p' .env.prod)
           export
 
-          DEPLOY_TAG=${{needs.deploy-init.outputs.version}}
+          DEPLOY_TAG=0.4.21
           echo DEPLOY_TAG=$DEPLOY_TAG
 
           export DEPLOY_TAG
