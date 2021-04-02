@@ -130,23 +130,6 @@ jobs:
           DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
           DEPLOY_TAG: ${{needs.deploy-init.outputs.version}}
           DB_PASS: ${{ secrets.DB_PASS }}
-          COMPOSE_PROJECT_NAME: $COMPOSE_PROJECT_NAME
-          NODE_ENV: $NODE_ENV
-          TARGET_ENV: $TARGET_ENV
-          API_URL: $API_URL
-          APP_URL: $APP_URL
-          APP_PORT: $APP_PORT
-          NEXTAUTH_URL: $NEXTAUTH_URL
-          DB_HOST: $DB_HOST
-          DB_USER: $DB_USER
-          DB_PORT: $DB_PORT
-          DB_NAME: $DB_NAME
-          SSL_MODE: $SSL_MODE
-          SSL_CA: $SSL_CA
-          SSL_KEY: $SSL_KEY
-          SSL_CERT: $SSL_CERT
-          FRONTEND_IPV4_ADDRESS: $FRONTEND_IPV4_ADDRESS
-          API_IPV4_ADDRESS: $API_IPV4_ADDRESS
         with:
           remote_docker_host: ${{ secrets.REMOTE_DOCKER_HOST }}
           ssh_port: ${{ secrets.SSH_PORT }}
