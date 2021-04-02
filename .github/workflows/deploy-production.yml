@@ -7,7 +7,29 @@ on:
       - 'deploy/prod/*'
 
 jobs:
-  deploy:
+  deploy-init:
+    runs-on: ubuntu-latest
+    environment: prod
+    outputs:
+      version: ${{ steps.get-version.outputs.VERSION }}
+    steps:
+      - name: Get the latest tag version
+        id: get-version
+        run: |
+          # Strip git ref prefix from version
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+
+          # Strip "v" prefix from tag name
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+
+          # Use Docker `latest` tag convention
+          [ "$VERSION" == "master" ] && VERSION=latest
+
+          echo $VERSION
+          echo ::set-output name=version::$VERSION
+
+  deploy-build:
+    needs: [ deploy-init ]
     runs-on: ubuntu-latest
     environment: prod
 
@@ -64,21 +86,6 @@ jobs:
             --tag $IMAGE_NAME:ci-run \
             .
 
-      - name: Get the latest tag version
-        id: get-version
-        run: |
-          # Strip git ref prefix from version
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-
-          # Strip "v" prefix from tag name
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-
-          # Use Docker `latest` tag convention
-          [ "$VERSION" == "master" ] && VERSION=latest
-
-          echo $VERSION
-          echo ::set-output name=VERSION::$VERSION
-
       - name: Push image to GitHub Container Registry
         id: push-image-to-registry
         run: |
@@ -86,7 +93,7 @@ jobs:
 
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          VERSION=${{ steps.get-version.outputs.VERSION }}
+          VERSION=${{needs.deploy-init.outputs.version}}
 
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
@@ -94,14 +101,19 @@ jobs:
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
 
+  deploy-run:
+    needs: [ deploy-build ]
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - uses: actions/checkout@v2
       - name: Start Deployment
-        if: ${{ matrix.image-name == 'web' }} && startsWith(github.ref, 'refs/tags/deploy/prod')
         uses: TapTap21/docker-remote-deployment-action@v1.1
         env:
           JWT_SECRET: ${{ secrets.APP_JWT_SECRET }}
           DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
           DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
-          DEPLOY_TAG: ${{ steps.get-version.outputs.VERSION }}
+          DEPLOY_TAG: ${{needs.deploy-init.outputs.version}}
           DB_PASS: ${{ secrets.DB_PASS }}
           COMPOSE_PROJECT_NAME: "podkrepi"
         with:
@@ -114,15 +126,18 @@ jobs:
           docker_login_password: ${{ secrets.GHCR_TOKEN }}
           docker_login_registry: ghcr.io
           args: --env-file .env.prod up -d --remove-orphans
-
+  deploy-sentry:
+    needs: [ deploy-init ]
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
       - name: Create Sentry Release
-        if: ${{ matrix.image-name == 'web' }} && startsWith(github.ref, 'refs/tags/deploy/prod')
         env:
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: app
           SENTRY_DEPLOY_ENVIRONMENT: production
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_RELEASE: ${{ steps.get-version.outputs.VERSION }}
+          SENTRY_RELEASE: ${{needs.deploy-init.outputs.version}}
         run: |
           # Install Sentry CLI
           curl -sL https://sentry.io/get-cli/ | bash
@@ -135,3 +150,4 @@ jobs:
 
           # Create new deploy for this Sentry release
           sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_DEPLOY_ENVIRONMENT
+
