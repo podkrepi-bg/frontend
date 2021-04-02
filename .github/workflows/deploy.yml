@@ -1,4 +1,4 @@
-name: Production deployment
+name: Deployment
 
 on:
   workflow_dispatch:
@@ -11,7 +11,23 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.get-version.outputs.VERSION }}
+      env: ${{ steps.get-version.outputs.env }}
     steps:
+      - name: Set environment
+        id: setenv
+        run: |
+          ENV=Dev
+
+          if [[ "${{github.base_ref}}" == "master" || "${{github.ref}}" == "refs/heads/master" ]]; then
+            ENV=prod
+          fi
+
+          if [[ "${{github.base_ref}}" == "staging" || "${{github.ref}}" == "refs/heads/staging" ]]; then
+            ENV=stage
+          fi
+
+          echo Environment: $ENV
+          echo "::set-output name=env::$ENV"
       - name: Get the latest tag version
         id: get-version
         run: |
@@ -24,7 +40,7 @@ jobs:
           # Use Docker `latest` tag convention
           [ "$VERSION" == "master" ] && VERSION=latest
 
-          echo $VERSION
+          echo Tag Version: $VERSION
           echo ::set-output name=version::$VERSION
 
   deploy-build:
@@ -40,6 +56,8 @@ jobs:
 
     env:
       IMAGE_NAME: ${{ matrix.image-name }}
+
+    environment: ${{needs.deploy-init.outputs.env}}
 
     steps:
       - uses: actions/checkout@v2
@@ -102,6 +120,7 @@ jobs:
   deploy-run:
     needs: [ deploy-build ]
     runs-on: ubuntu-latest
+    environment: ${{needs.deploy-init.outputs.env}}
     if: startsWith(github.ref, 'refs/tags/deploy/prod')
     steps:
       - uses: actions/checkout@v2
@@ -127,6 +146,7 @@ jobs:
   deploy-sentry:
     needs: [ deploy-run ]
     runs-on: ubuntu-latest
+    environment: ${{needs.deploy-init.outputs.env}}
     if: startsWith(github.ref, 'refs/tags/deploy/prod')
     steps:
       - name: Create Sentry Release
