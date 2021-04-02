@@ -6,16 +6,16 @@ services:
     restart: always
 
     environment:
-      API_URL: ${API_URL}
-      APP_URL: ${APP_URL}
-      NEXTAUTH_URL: ${NEXTAUTH_URL}
-      JWT_SECRET: ${JWT_SECRET}
-      DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID}
-      DISCORD_CLIENT_SECRET: ${DISCORD_CLIENT_SECRET}
+      API_URL: ${API_URL?}
+      APP_URL: ${APP_URL?}
+      NEXTAUTH_URL: ${NEXTAUTH_URL?}
+      JWT_SECRET: ${JWT_SECRET?}
+      DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID?}
+      DISCORD_CLIENT_SECRET: ${DISCORD_CLIENT_SECRET?}
 
     networks:
       pub1:
-        ipv4_address: ${FRONTEND_IPV4_ADDRESS}
+        ipv4_address: ${FRONTEND_IPV4_ADDRESS?}
 
     healthcheck:
       test: curl --fail http://localhost:3040/api/healthcheck || exit 1
@@ -33,7 +33,7 @@ services:
     networks:
       private1:
       pub1:
-        ipv4_address: ${API_IPV4_ADDRESS}
+        ipv4_address: ${API_IPV4_ADDRESS?}
     depends_on:
       - flyway
 
@@ -84,14 +84,14 @@ services:
     # https://github.com/cockroachlabs-field/cockroachdb-remote-client
     image: timveil/cockroachdb-remote-client:latest
     environment:
-      COCKROACH_HOST: roach-lb:${DB_PORT}
-      COCKROACH_DATABASE: ${DB_NAME}
+      COCKROACH_HOST: roach-lb:${DB_PORT?}
+      COCKROACH_DATABASE: ${DB_NAME?}
       # COCKROACH_INSECURE: 'false'
       COCKROACH_INSECURE: 'true'
       #COCKROACH_CERTS_DIR: /certs
-      DATABASE_NAME: ${DB_NAME}
-      DATABASE_USER: ${DB_USER}
-      DATABASE_PASSWORD: ${DB_PASS}
+      DATABASE_NAME: ${DB_NAME?}
+      DATABASE_USER: ${DB_USER?}
+      DATABASE_PASSWORD: ${DB_PASS?}
       #volumes:
       #- certs-client:/certs
     depends_on:
@@ -105,7 +105,7 @@ services:
     hostname: flyway
     # https://flywaydb.org/documentation/configuration/configfile#reference
     # jdbc:postgresql://<host>:<port>/<database>?<key1>=<value1>&<key2>=<value2>...
-    command: -url=jdbc:postgresql://roach-lb:${DB_PORT}/${DB_NAME} -schemas=app -user=${DB_USER} -password=${DB_PASS} -connectRetries=60 migrate
+    command: -url=jdbc:postgresql://roach-lb:${DB_PORT?}/${DB_NAME?} -schemas=app -user=${DB_USER?} -password=${DB_PASS?} -connectRetries=60 migrate
     depends_on:
       - roach-init
     networks:
