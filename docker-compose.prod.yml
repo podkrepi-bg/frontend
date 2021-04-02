@@ -29,6 +29,7 @@ services:
   api:
     image: ghcr.io/daritelska-platforma/frontend/api:${DEPLOY_TAG?}
     container_name: ${COMPOSE_PROJECT_NAME?}-api
+    restart: always
     networks:
       private1:
       pub1:
@@ -59,11 +60,11 @@ services:
       - private1
 
   roach-lb:
-    restart: always
-    container_name: ${COMPOSE_PROJECT_NAME?}-roach-lb
-    hostname: roach-lb
     # https://github.com/cockroachlabs-field/dynamic-haproxy
     image: timveil/dynamic-haproxy:latest
+    container_name: ${COMPOSE_PROJECT_NAME?}-roach-lb
+    restart: always
+    hostname: roach-lb
     environment:
       - NODES=roach-0
       # - NODES=roach-0 roach-1 roach-2
@@ -78,7 +79,6 @@ services:
       retries: 10
 
   roach-init:
-    restart: always
     container_name: ${COMPOSE_PROJECT_NAME?}-roach-init
     hostname: roach-init
     # https://github.com/cockroachlabs-field/cockroachdb-remote-client
