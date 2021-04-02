@@ -103,7 +103,7 @@ jobs:
           docker push $IMAGE_ID:$VERSION
 
   deploy-run:
-    needs: [ deploy-build ]
+    needs: [ deploy-init, deploy-build ]
     runs-on: ubuntu-latest
     environment: prod
     steps:
@@ -112,9 +112,9 @@ jobs:
       - name: Env set
         id: set-env
         run: |
-          DEPLOY_TAG=${{needs.deploy-init.outputs.version}}
-          echo DEPLOY_TAG=$DEPLOY_TAG
-          echo ::set-output name=DEPLOY_TAG::$DEPLOY_TAG
+          VERSION=${{needs.deploy-init.outputs.version}}
+          echo VERSION=$VERSION
+          echo ::set-output name=VERSION::$VERSION
 
       - name: Start Deployment
         uses: TapTap21/docker-remote-deployment-action@v1.1
@@ -123,7 +123,7 @@ jobs:
           DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
           DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
           DB_PASS: ${{ secrets.DB_PASS }}
-          DEPLOY_TAG: ${{ steps.set-env.outputs.DEPLOY_TAG }}
+          DEPLOY_TAG: ${{ steps.set-env.outputs.VERSION }}
           COMPOSE_PROJECT_NAME: podkrepi
           NODE_ENV: production
           TARGET_ENV: production
@@ -154,7 +154,7 @@ jobs:
           args: up -d --remove-orphans
 
   deploy-sentry:
-    needs: [ deploy-run ]
+    needs: [ deploy-init, deploy-run ]
     runs-on: ubuntu-latest
     environment: prod
     env:
@@ -163,9 +163,9 @@ jobs:
       - name: Env set
         id: set-env
         run: |
-          DEPLOY_TAG=${{needs.deploy-init.outputs.version}}
-          echo DEPLOY_TAG=$DEPLOY_TAG
-          echo ::set-output name=DEPLOY_TAG::$DEPLOY_TAG
+          VERSION=${{needs.deploy-init.outputs.version}}
+          echo VERSION=$VERSION
+          echo ::set-output name=VERSION::$VERSION
 
       - name: Create Sentry Release
         env:
@@ -173,7 +173,7 @@ jobs:
           SENTRY_PROJECT: app
           SENTRY_DEPLOY_ENVIRONMENT: production
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_RELEASE: ${{ steps.set-env.outputs.DEPLOY_TAG }}
+          SENTRY_RELEASE: ${{ steps.set-env.outputs.$VERSION }}
         run: |
           # Install Sentry CLI
           curl -sL https://sentry.io/get-cli/ | bash
