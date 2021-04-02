@@ -1,4 +1,4 @@
-name: Production deployment
+name: Prod deployment
 
 on:
   workflow_dispatch:
@@ -11,23 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.get-version.outputs.VERSION }}
-#      env: ${{ steps.get-version.outputs.env }}
     steps:
-#      - name: Set environment
-#        id: setenv
-#        run: |
-#          ENV=Dev
-#
-#          if [[ "${{github.base_ref}}" == "master" || "${{github.ref}}" == "refs/heads/master" ]]; then
-#            ENV=prod
-#          fi
-#
-#          if [[ "${{github.base_ref}}" == "staging" || "${{github.ref}}" == "refs/heads/staging" ]]; then
-#            ENV=stage
-#          fi
-#
-#          echo Environment: $ENV
-#          echo "::set-output name=env::$ENV"
       - name: Get the latest tag version
         id: get-version
         run: |
@@ -124,6 +108,14 @@ jobs:
     environment: prod
     steps:
       - uses: actions/checkout@v2
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.GHCR_USERNAME }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
       - name: Start Deployment
         uses: TapTap21/docker-remote-deployment-action@v1.1
         env:
@@ -132,7 +124,6 @@ jobs:
           DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
           DEPLOY_TAG: ${{needs.deploy-init.outputs.version}}
           DB_PASS: ${{ secrets.DB_PASS }}
-          COMPOSE_PROJECT_NAME: "podkrepi"
         with:
           remote_docker_host: ${{ secrets.REMOTE_DOCKER_HOST }}
           ssh_port: ${{ secrets.SSH_PORT }}
@@ -143,6 +134,7 @@ jobs:
           docker_login_password: ${{ secrets.GHCR_TOKEN }}
           docker_login_registry: ghcr.io
           args: --env-file .env.prod up -d --remove-orphans
+
   deploy-sentry:
     needs: [ deploy-run ]
     runs-on: ubuntu-latest

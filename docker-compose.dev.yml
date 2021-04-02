@@ -4,9 +4,9 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
-      target: ${TARGET_ENV}
+      target: ${TARGET_ENV?}
       args:
-        NODE_ENV: ${NODE_ENV}
+        NODE_ENV: ${NODE_ENV?}
     ports:
       - '${APP_PORT}:3040'
     volumes:
@@ -18,18 +18,18 @@ services:
     depends_on:
       - api
     environment:
-      API_URL: ${API_URL}
-      APP_URL: ${APP_URL}
-      NEXTAUTH_URL: ${NEXTAUTH_URL}
-      JWT_SECRET: ${JWT_SECRET}
-      DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID}
-      DISCORD_CLIENT_SECRET: ${DISCORD_CLIENT_SECRET}
+      API_URL: ${API_URL?}
+      APP_URL: ${APP_URL?}
+      NEXTAUTH_URL: ${NEXTAUTH_URL?}
+      JWT_SECRET: ${JWT_SECRET?}
+      DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID?}
+      DISCORD_CLIENT_SECRET: ${DISCORD_CLIENT_SECRET?}
 
   api:
     build:
       context: ./backend/contact
       dockerfile: ./Dockerfile
-      target: ${TARGET_ENV}
+      target: ${TARGET_ENV?}
     environment:
       DEBUG: 'true'
     ports:
@@ -55,7 +55,7 @@ services:
     # https://github.com/cockroachlabs-field/dynamic-haproxy
     image: timveil/dynamic-haproxy:latest
     ports:
-      - '${DB_PORT}:26257'
+      - '${DB_PORT?}:26257'
       - '3080:8080'
       - '3081:8081'
     environment:
@@ -77,13 +77,13 @@ services:
     # https://github.com/cockroachlabs-field/cockroachdb-remote-client
     image: timveil/cockroachdb-remote-client:latest
     environment:
-      COCKROACH_HOST: roach-lb:${DB_PORT}
-      COCKROACH_DATABASE: ${DB_NAME}
+      COCKROACH_HOST: roach-lb:${DB_PORT?}
+      COCKROACH_DATABASE: ${DB_NAME?}
       # COCKROACH_INSECURE: 'false'
       COCKROACH_INSECURE: 'true'
-      DATABASE_NAME: ${DB_NAME}
-      DATABASE_USER: ${DB_USER}
-      DATABASE_PASSWORD: ${DB_PASS}
+      DATABASE_NAME: ${DB_NAME?}
+      DATABASE_USER: ${DB_USER?}
+      DATABASE_PASSWORD: ${DB_PASS?}
     depends_on:
       roach-lb:
         condition: service_healthy
@@ -96,7 +96,7 @@ services:
     image: flyway/flyway
     # https://flywaydb.org/documentation/configuration/configfile#reference
     # jdbc:postgresql://<host>:<port>/<database>?<key1>=<value1>&<key2>=<value2>...
-    command: -url=jdbc:postgresql://roach-lb:${DB_PORT}/${DB_NAME} -schemas=app -user=${DB_USER} -password=${DB_PASS} -connectRetries=60 migrate
+    command: -url=jdbc:postgresql://roach-lb:${DB_PORT?}/${DB_NAME?} -schemas=app -user=${DB_USER?} -password=${DB_PASS?} -connectRetries=60 migrate
     volumes:
       - ./db/migrations:/flyway/sql
     depends_on:
