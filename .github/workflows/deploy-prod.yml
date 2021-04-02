@@ -110,15 +110,15 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Env set
+        id: set-env
         run: |
-          cp .env.prod .env
-          source <(sed -E -n 's/[^#]+/export &/ p' .env.prod)
-          export
+#          cp .env.prod .env
+#          source <(sed -E -n 's/[^#]+/export &/ p' .env.prod)
+#          export
 
           DEPLOY_TAG=${{needs.deploy-init.outputs.version}}
           echo DEPLOY_TAG=$DEPLOY_TAG
-
-          export DEPLOY_TAG
+          echo ::set-output name=DEPLOY_TAG::$DEPLOY_TAG
 
       - name: Start Deployment
         uses: TapTap21/docker-remote-deployment-action@v1.1
@@ -127,7 +127,7 @@ jobs:
           DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
           DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
           DB_PASS: ${{ secrets.DB_PASS }}
-          DEPLOY_TAG: "0.4.21"
+          DEPLOY_TAG: ${{ steps.set-env.outputs.DEPLOY_TAG }}
           COMPOSE_PROJECT_NAME: podkrepi
           NODE_ENV: production
           TARGET_ENV: production
