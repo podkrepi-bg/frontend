@@ -145,7 +145,7 @@ jobs:
           ssh_port: ${{ secrets.SSH_PORT }}
           ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          stack_file_name: docker-compose.yml -f docker-compose.prod.yml
+          stack_file_name: docker-compose.prod.yml
           docker_login_user: ${{ secrets.GHCR_USERNAME }}
           docker_login_password: ${{ secrets.GHCR_TOKEN }}
           docker_login_registry: ghcr.io
