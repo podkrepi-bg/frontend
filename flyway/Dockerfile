@@ -1,3 +1,3 @@
 FROM flyway/flyway
 WORKDIR /flyway/sql
-COPY ./migrations .
+COPY ./db/migrations .
