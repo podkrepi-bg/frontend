@@ -116,11 +116,9 @@ jobs:
           username: ${{ secrets.GHCR_USERNAME }}
           password: ${{ secrets.GHCR_TOKEN }}
 
-      - name: Test
+      - name: Env set
         run: |
-          export
-          echo -----------------------------
-          find . -ls
+          source .env.prod
 
       - name: Start Deployment
         uses: TapTap21/docker-remote-deployment-action@v1.1
@@ -139,7 +137,7 @@ jobs:
           docker_login_user: ${{ secrets.GHCR_USERNAME }}
           docker_login_password: ${{ secrets.GHCR_TOKEN }}
           docker_login_registry: ghcr.io
-          args: --env-file .env.prod up -d --remove-orphans
+          args: up -d --remove-orphans
 
   deploy-sentry:
     needs: [ deploy-run ]
