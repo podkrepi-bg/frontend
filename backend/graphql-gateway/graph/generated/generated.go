@@ -13,6 +13,7 @@ import (
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
 	"github.com/daritelska-platforma/graphql-gateway/graph/model"
+	"github.com/daritelska-platforma/graphql-gateway/pb/account"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
 )
@@ -46,7 +47,7 @@ type ComplexityRoot struct {
 	Account struct {
 		Email     func(childComplexity int) int
 		FirstName func(childComplexity int) int
-		ID        func(childComplexity int) int
+		Id        func(childComplexity int) int
 		LastName  func(childComplexity int) int
 	}
 
@@ -57,7 +58,7 @@ type ComplexityRoot struct {
 	}
 
 	Mutation struct {
-		CreateAccount  func(childComplexity int, input model.CreateAccount) int
+		CreateAccount  func(childComplexity int, input account.CreateAccountRequest) int
 		CreateCampaign func(childComplexity int, input model.CreateCampaign) int
 	}
 
@@ -68,12 +69,12 @@ type ComplexityRoot struct {
 }
 
 type MutationResolver interface {
-	CreateAccount(ctx context.Context, input model.CreateAccount) (*model.Account, error)
+	CreateAccount(ctx context.Context, input account.CreateAccountRequest) (*account.Account, error)
 	CreateCampaign(ctx context.Context, input model.CreateCampaign) (*model.Campaign, error)
 }
 type QueryResolver interface {
 	Campaigns(ctx context.Context) ([]*model.Campaign, error)
-	Accounts(ctx context.Context) ([]*model.Account, error)
+	Accounts(ctx context.Context) ([]*account.Account, error)
 }
 
 type executableSchema struct {
@@ -106,11 +107,11 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		return e.complexity.Account.FirstName(childComplexity), true
 
 	case "Account.id":
-		if e.complexity.Account.ID == nil {
+		if e.complexity.Account.Id == nil {
 			break
 		}
 
-		return e.complexity.Account.ID(childComplexity), true
+		return e.complexity.Account.Id(childComplexity), true
 
 	case "Account.lastName":
 		if e.complexity.Account.LastName == nil {
@@ -150,7 +151,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CreateAccount(childComplexity, args["input"].(model.CreateAccount)), true
+		return e.complexity.Mutation.CreateAccount(childComplexity, args["input"].(account.CreateAccountRequest)), true
 
 	case "Mutation.createCampaign":
 		if e.complexity.Mutation.CreateCampaign == nil {
@@ -301,10 +302,10 @@ var parsedSchema = gqlparser.MustLoadSchema(sources...)
 func (ec *executionContext) field_Mutation_createAccount_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 model.CreateAccount
+	var arg0 account.CreateAccountRequest
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNCreateAccount2githubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐCreateAccount(ctx, tmp)
+		arg0, err = ec.unmarshalNCreateAccount2githubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋpbᚋaccountᚐCreateAccountRequest(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -381,7 +382,7 @@ func (ec *executionContext) field___Type_fields_args(ctx context.Context, rawArg
 
 // region    **************************** field.gotpl *****************************
 
-func (ec *executionContext) _Account_id(ctx context.Context, field graphql.CollectedField, obj *model.Account) (ret graphql.Marshaler) {
+func (ec *executionContext) _Account_id(ctx context.Context, field graphql.CollectedField, obj *account.Account) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -399,7 +400,7 @@ func (ec *executionContext) _Account_id(ctx context.Context, field graphql.Colle
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.ID, nil
+		return obj.Id, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -416,7 +417,7 @@ func (ec *executionContext) _Account_id(ctx context.Context, field graphql.Colle
 	return ec.marshalNID2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Account_email(ctx context.Context, field graphql.CollectedField, obj *model.Account) (ret graphql.Marshaler) {
+func (ec *executionContext) _Account_email(ctx context.Context, field graphql.CollectedField, obj *account.Account) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -451,7 +452,7 @@ func (ec *executionContext) _Account_email(ctx context.Context, field graphql.Co
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Account_firstName(ctx context.Context, field graphql.CollectedField, obj *model.Account) (ret graphql.Marshaler) {
+func (ec *executionContext) _Account_firstName(ctx context.Context, field graphql.CollectedField, obj *account.Account) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -486,7 +487,7 @@ func (ec *executionContext) _Account_firstName(ctx context.Context, field graphq
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Account_lastName(ctx context.Context, field graphql.CollectedField, obj *model.Account) (ret graphql.Marshaler) {
+func (ec *executionContext) _Account_lastName(ctx context.Context, field graphql.CollectedField, obj *account.Account) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -621,9 +622,9 @@ func (ec *executionContext) _Campaign_organizer(ctx context.Context, field graph
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.Account)
+	res := resTmp.(*account.Account)
 	fc.Result = res
-	return ec.marshalNAccount2ᚖgithubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐAccount(ctx, field.Selections, res)
+	return ec.marshalNAccount2ᚖgithubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋpbᚋaccountᚐAccount(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createAccount(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -651,7 +652,7 @@ func (ec *executionContext) _Mutation_createAccount(ctx context.Context, field g
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CreateAccount(rctx, args["input"].(model.CreateAccount))
+		return ec.resolvers.Mutation().CreateAccount(rctx, args["input"].(account.CreateAccountRequest))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -663,9 +664,9 @@ func (ec *executionContext) _Mutation_createAccount(ctx context.Context, field g
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.Account)
+	res := resTmp.(*account.Account)
 	fc.Result = res
-	return ec.marshalNAccount2ᚖgithubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐAccount(ctx, field.Selections, res)
+	return ec.marshalNAccount2ᚖgithubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋpbᚋaccountᚐAccount(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createCampaign(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -775,9 +776,9 @@ func (ec *executionContext) _Query_accounts(ctx context.Context, field graphql.C
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*model.Account)
+	res := resTmp.([]*account.Account)
 	fc.Result = res
-	return ec.marshalNAccount2ᚕᚖgithubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐAccountᚄ(ctx, field.Selections, res)
+	return ec.marshalNAccount2ᚕᚖgithubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋpbᚋaccountᚐAccountᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1938,8 +1939,8 @@ func (ec *executionContext) ___Type_ofType(ctx context.Context, field graphql.Co
 
 // region    **************************** input.gotpl *****************************
 
-func (ec *executionContext) unmarshalInputCreateAccount(ctx context.Context, obj interface{}) (model.CreateAccount, error) {
-	var it model.CreateAccount
+func (ec *executionContext) unmarshalInputCreateAccount(ctx context.Context, obj interface{}) (account.CreateAccountRequest, error) {
+	var it account.CreateAccountRequest
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -1956,7 +1957,7 @@ func (ec *executionContext) unmarshalInputCreateAccount(ctx context.Context, obj
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("password"))
-			it.Password, err = ec.unmarshalOString2ᚖstring(ctx, v)
+			it.Password, err = ec.unmarshalOString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -2020,7 +2021,7 @@ func (ec *executionContext) unmarshalInputCreateCampaign(ctx context.Context, ob
 
 var accountImplementors = []string{"Account"}
 
-func (ec *executionContext) _Account(ctx context.Context, sel ast.SelectionSet, obj *model.Account) graphql.Marshaler {
+func (ec *executionContext) _Account(ctx context.Context, sel ast.SelectionSet, obj *account.Account) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, accountImplementors)
 
 	out := graphql.NewFieldSet(fields)
@@ -2436,11 +2437,11 @@ func (ec *executionContext) ___Type(ctx context.Context, sel ast.SelectionSet, o
 
 // region    ***************************** type.gotpl *****************************
 
-func (ec *executionContext) marshalNAccount2githubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐAccount(ctx context.Context, sel ast.SelectionSet, v model.Account) graphql.Marshaler {
+func (ec *executionContext) marshalNAccount2githubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋpbᚋaccountᚐAccount(ctx context.Context, sel ast.SelectionSet, v account.Account) graphql.Marshaler {
 	return ec._Account(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNAccount2ᚕᚖgithubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐAccountᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Account) graphql.Marshaler {
+func (ec *executionContext) marshalNAccount2ᚕᚖgithubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋpbᚋaccountᚐAccountᚄ(ctx context.Context, sel ast.SelectionSet, v []*account.Account) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -2464,7 +2465,7 @@ func (ec *executionContext) marshalNAccount2ᚕᚖgithubᚗcomᚋdaritelskaᚑpl
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNAccount2ᚖgithubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐAccount(ctx, sel, v[i])
+			ret[i] = ec.marshalNAccount2ᚖgithubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋpbᚋaccountᚐAccount(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -2477,7 +2478,7 @@ func (ec *executionContext) marshalNAccount2ᚕᚖgithubᚗcomᚋdaritelskaᚑpl
 	return ret
 }
 
-func (ec *executionContext) marshalNAccount2ᚖgithubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐAccount(ctx context.Context, sel ast.SelectionSet, v *model.Account) graphql.Marshaler {
+func (ec *executionContext) marshalNAccount2ᚖgithubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋpbᚋaccountᚐAccount(ctx context.Context, sel ast.SelectionSet, v *account.Account) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -2553,7 +2554,7 @@ func (ec *executionContext) marshalNCampaign2ᚖgithubᚗcomᚋdaritelskaᚑplat
 	return ec._Campaign(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNCreateAccount2githubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐCreateAccount(ctx context.Context, v interface{}) (model.CreateAccount, error) {
+func (ec *executionContext) unmarshalNCreateAccount2githubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋpbᚋaccountᚐCreateAccountRequest(ctx context.Context, v interface{}) (account.CreateAccountRequest, error) {
 	res, err := ec.unmarshalInputCreateAccount(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }

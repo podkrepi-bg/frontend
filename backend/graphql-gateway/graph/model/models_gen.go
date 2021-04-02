@@ -2,24 +2,14 @@
 
 package model
 
-type Account struct {
-	ID        string `json:"id"`
-	Email     string `json:"email"`
-	FirstName string `json:"firstName"`
-	LastName  string `json:"lastName"`
-}
+import (
+	"github.com/daritelska-platforma/graphql-gateway/pb/account"
+)
 
 type Campaign struct {
-	ID        string   `json:"id"`
-	Name      string   `json:"name"`
-	Organizer *Account `json:"organizer"`
-}
-
-type CreateAccount struct {
-	Email     string  `json:"email"`
-	Password  *string `json:"password"`
-	FirstName string  `json:"firstName"`
-	LastName  string  `json:"lastName"`
+	ID        string           `json:"id"`
+	Name      string           `json:"name"`
+	Organizer *account.Account `json:"organizer"`
 }
 
 type CreateCampaign struct {
