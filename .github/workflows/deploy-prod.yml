@@ -130,7 +130,7 @@ jobs:
           JWT_SECRET: ${{ secrets.APP_JWT_SECRET }}
           DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
           DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
-          DEPLOY_TAG: ${{needs.deploy-init.outputs.version}}
+          DEPLOY_TAG: "0.4.24"
           DB_PASS: ${{ secrets.DB_PASS }}
           COMPOSE_PROJECT_NAME: $COMPOSE_PROJECT_NAME
           NODE_ENV: $NODE_ENV
