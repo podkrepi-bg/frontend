@@ -19,25 +19,25 @@ namespace Podkrepibg.Campaigns.Services
       _db = db;
     }
 
-    public override Task<CreateCampaignResponse> CreateCampaign(CreateCampaignRequest request, ServerCallContext context)
+    public override Task<Campaign> CreateCampaign(CreateCampaignRequest request, ServerCallContext context)
     {
       return Task.FromResult(
-        new CreateCampaignResponse
+        new Campaign()
         {
           BeneficiaryId = request.BeneficiaryId,
-          CampaignId = Guid.NewGuid().ToString(),
+          Id = Guid.NewGuid().ToString(),
           InitiatorId = request.InitiatorId,
           OperatorId = request.OperatorId,
           State = CampaignState.Draft
         });
     }
 
-    public override Task<CampaignTypesReply> CampaignTypes(Empty request, ServerCallContext context)
+    public override Task<CampaignTypesResponse> CampaignTypes(Empty request, ServerCallContext context)
     {
       return base.CampaignTypes(request, context);
     }
 
-    public override Task<FilterCampaignsReply> FilterCampaigns(FilterCampaignsRequest request, ServerCallContext context)
+    public override Task<ListCampaignsResponse> FilterCampaigns(FilterCampaignsRequest request, ServerCallContext context)
     {
       return base.FilterCampaigns(request, context);
     }

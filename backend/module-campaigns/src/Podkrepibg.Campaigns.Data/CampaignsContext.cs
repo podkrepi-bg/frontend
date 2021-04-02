@@ -17,7 +17,7 @@ namespace Podkrepibg.Campaigns.Data
     {
       if (!optionsBuilder.IsConfigured)
       {
-        optionsBuilder.UseNpgsql("Host=Diana-PC;Port=26257;Database=campaigns;Username=root;Password=1234");
+        optionsBuilder.UseNpgsql("Host=localhost;Port=26257;Database=campaigns;Username=root;Password=1234");
       }
 
       base.OnConfiguring(optionsBuilder);
