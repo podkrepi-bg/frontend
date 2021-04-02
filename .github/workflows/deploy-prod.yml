@@ -157,8 +157,6 @@ jobs:
     needs: [ deploy-init, deploy-run ]
     runs-on: ubuntu-latest
     environment: prod
-    env:
-      DEPLOY_TAG: ${{needs.deploy-init.outputs.version}}
     steps:
       - name: Env set
         id: set-env
@@ -173,7 +171,7 @@ jobs:
           SENTRY_PROJECT: app
           SENTRY_DEPLOY_ENVIRONMENT: production
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_RELEASE: ${{ steps.set-env.outputs.$VERSION }}
+          SENTRY_RELEASE: ${{ steps.set-env.outputs.VERSION }}
         run: |
           # Install Sentry CLI
           curl -sL https://sentry.io/get-cli/ | bash
