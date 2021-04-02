@@ -109,8 +109,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Start Deployment
-        uses: TapTap21/docker-remote-deployment-action@v1.1
+      - name: Env set
         run: |
           cp .env.prod .env
           source <(sed -E -n 's/[^#]+/export &/ p' .env.prod)
@@ -120,6 +119,9 @@ jobs:
           echo DEPLOY_TAG=$DEPLOY_TAG
 
           export DEPLOY_TAG
+
+      - name: Start Deployment
+        uses: TapTap21/docker-remote-deployment-action@v1.1
         env:
           JWT_SECRET: ${{ secrets.APP_JWT_SECRET }}
           DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
