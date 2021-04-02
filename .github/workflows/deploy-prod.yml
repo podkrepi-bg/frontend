@@ -117,9 +117,10 @@ jobs:
           password: ${{ secrets.GHCR_TOKEN }}
 
       - name: Test
-        export
-        echo -----------------------------
-        find . -ls
+        run: |
+          export
+          echo -----------------------------
+          find . -ls
 
       - name: Start Deployment
         uses: TapTap21/docker-remote-deployment-action@v1.1
