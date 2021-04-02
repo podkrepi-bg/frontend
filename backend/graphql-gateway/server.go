@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -24,6 +25,7 @@ type Client struct {
 }
 
 func NewClient(url string) (*Client, error) {
+	fmt.Println("Dial: " + url)
 	conn, err := grpc.Dial(url, grpc.WithInsecure())
 	if err != nil {
 		return nil, err
@@ -51,7 +53,7 @@ func main() {
 	srv := handler.NewDefaultServer(generated.NewExecutableSchema(
 		generated.Config{
 			Resolvers: &graph.Resolver{
-				AccountClient: &accountClient.service,
+				AccountClient: accountClient.service,
 			},
 		}),
 	)

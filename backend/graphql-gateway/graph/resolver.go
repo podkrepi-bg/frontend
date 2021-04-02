@@ -7,5 +7,5 @@ import "github.com/daritelska-platforma/graphql-gateway/pb/account"
 // It serves as dependency injection for your app, add any dependencies you require here.
 
 type Resolver struct {
-	AccountClient *account.AccountServiceClient
+	AccountClient account.AccountServiceClient
 }
