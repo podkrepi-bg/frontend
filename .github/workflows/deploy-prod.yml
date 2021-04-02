@@ -146,7 +146,7 @@ jobs:
 #          args: up -d --remove-orphans
 
   deploy-sentry:
-    needs: [ deploy-run ]
+    needs: [ deploy-init ]
     runs-on: ubuntu-latest
     environment: prod
     env:
