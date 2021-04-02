@@ -26,27 +26,23 @@ namespace Podkrepibg.Account {
           string.Concat(
             "Cg1hY2NvdW50LnByb3RvEhJwb2RrcmVwaWJnLmFjY291bnQiXgoUQ3JlYXRl",
             "QWNjb3VudFJlcXVlc3QSDQoFZW1haWwYASABKAkSEAoIcGFzc3dvcmQYAiAB",
-            "KAkSEgoKZmlyc3RfbmFtZRgDIAEoCRIRCglsYXN0X25hbWUYBCABKAkiWQoV",
-            "Q3JlYXRlQWNjb3VudFJlc3BvbnNlEgoKAmlkGAEgASgJEg0KBWVtYWlsGAIg",
-            "ASgJEhIKCmZpcnN0X25hbWUYAyABKAkSEQoJbGFzdF9uYW1lGAQgASgJIhUK",
-            "E0xpc3RBY2NvdW50c1JlcXVlc3QiRQoUTGlzdEFjY291bnRzUmVzcG9uc2US",
-            "LQoIYWNjb3VudHMYASADKAsyGy5wb2RrcmVwaWJnLmFjY291bnQuQWNjb3Vu",
-            "dCJLCgdBY2NvdW50EgoKAmlkGAEgASgJEg0KBWVtYWlsGAIgASgJEhIKCmZp",
-            "cnN0X25hbWUYAyABKAkSEQoJbGFzdF9uYW1lGAQgASgJMtkBCg5BY2NvdW50",
-            "U2VydmljZRJkCg1DcmVhdGVBY2NvdW50EigucG9ka3JlcGliZy5hY2NvdW50",
-            "LkNyZWF0ZUFjY291bnRSZXF1ZXN0GikucG9ka3JlcGliZy5hY2NvdW50LkNy",
-            "ZWF0ZUFjY291bnRSZXNwb25zZRJhCgxMaXN0QWNjb3VudHMSJy5wb2RrcmVw",
-            "aWJnLmFjY291bnQuTGlzdEFjY291bnRzUmVxdWVzdBooLnBvZGtyZXBpYmcu",
-            "YWNjb3VudC5MaXN0QWNjb3VudHNSZXNwb25zZUIJWgdhY2NvdW50YgZwcm90",
-            "bzM="));
+            "KAkSEgoKZmlyc3RfbmFtZRgDIAEoCRIRCglsYXN0X25hbWUYBCABKAkiFQoT",
+            "TGlzdEFjY291bnRzUmVxdWVzdCJLCgdBY2NvdW50EgoKAmlkGAEgASgJEg0K",
+            "BWVtYWlsGAIgASgJEhIKCmZpcnN0X25hbWUYAyABKAkSEQoJbGFzdF9uYW1l",
+            "GAQgASgJIjwKC0FjY291bnRMaXN0Ei0KCGFjY291bnRzGAEgAygLMhsucG9k",
+            "a3JlcGliZy5hY2NvdW50LkFjY291bnQywgEKDkFjY291bnRTZXJ2aWNlElYK",
+            "DUNyZWF0ZUFjY291bnQSKC5wb2RrcmVwaWJnLmFjY291bnQuQ3JlYXRlQWNj",
+            "b3VudFJlcXVlc3QaGy5wb2RrcmVwaWJnLmFjY291bnQuQWNjb3VudBJYCgxM",
+            "aXN0QWNjb3VudHMSJy5wb2RrcmVwaWJnLmFjY291bnQuTGlzdEFjY291bnRz",
+            "UmVxdWVzdBofLnBvZGtyZXBpYmcuYWNjb3VudC5BY2NvdW50TGlzdEIJWgdh",
+            "Y2NvdW50YgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Podkrepibg.Account.CreateAccountRequest), global::Podkrepibg.Account.CreateAccountRequest.Parser, new[]{ "Email", "Password", "FirstName", "LastName" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Podkrepibg.Account.CreateAccountResponse), global::Podkrepibg.Account.CreateAccountResponse.Parser, new[]{ "Id", "Email", "FirstName", "LastName" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Podkrepibg.Account.ListAccountsRequest), global::Podkrepibg.Account.ListAccountsRequest.Parser, null, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Podkrepibg.Account.ListAccountsResponse), global::Podkrepibg.Account.ListAccountsResponse.Parser, new[]{ "Accounts" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Podkrepibg.Account.Account), global::Podkrepibg.Account.Account.Parser, new[]{ "Id", "Email", "FirstName", "LastName" }, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::Podkrepibg.Account.Account), global::Podkrepibg.Account.Account.Parser, new[]{ "Id", "Email", "FirstName", "LastName" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Podkrepibg.Account.AccountList), global::Podkrepibg.Account.AccountList.Parser, new[]{ "Accounts" }, null, null, null, null)
           }));
     }
     #endregion
@@ -333,286 +329,6 @@ namespace Podkrepibg.Account {
 
   }
 
-  public sealed partial class CreateAccountResponse : pb::IMessage<CreateAccountResponse>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<CreateAccountResponse> _parser = new pb::MessageParser<CreateAccountResponse>(() => new CreateAccountResponse());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<CreateAccountResponse> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Podkrepibg.Account.AccountReflection.Descriptor.MessageTypes[1]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CreateAccountResponse() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CreateAccountResponse(CreateAccountResponse other) : this() {
-      id_ = other.id_;
-      email_ = other.email_;
-      firstName_ = other.firstName_;
-      lastName_ = other.lastName_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public CreateAccountResponse Clone() {
-      return new CreateAccountResponse(this);
-    }
-
-    /// <summary>Field number for the "id" field.</summary>
-    public const int IdFieldNumber = 1;
-    private string id_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string Id {
-      get { return id_; }
-      set {
-        id_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "email" field.</summary>
-    public const int EmailFieldNumber = 2;
-    private string email_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string Email {
-      get { return email_; }
-      set {
-        email_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "first_name" field.</summary>
-    public const int FirstNameFieldNumber = 3;
-    private string firstName_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string FirstName {
-      get { return firstName_; }
-      set {
-        firstName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "last_name" field.</summary>
-    public const int LastNameFieldNumber = 4;
-    private string lastName_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string LastName {
-      get { return lastName_; }
-      set {
-        lastName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as CreateAccountResponse);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(CreateAccountResponse other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (Id != other.Id) return false;
-      if (Email != other.Email) return false;
-      if (FirstName != other.FirstName) return false;
-      if (LastName != other.LastName) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (Id.Length != 0) hash ^= Id.GetHashCode();
-      if (Email.Length != 0) hash ^= Email.GetHashCode();
-      if (FirstName.Length != 0) hash ^= FirstName.GetHashCode();
-      if (LastName.Length != 0) hash ^= LastName.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      if (Id.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(Id);
-      }
-      if (Email.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(Email);
-      }
-      if (FirstName.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(FirstName);
-      }
-      if (LastName.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteString(LastName);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Id.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(Id);
-      }
-      if (Email.Length != 0) {
-        output.WriteRawTag(18);
-        output.WriteString(Email);
-      }
-      if (FirstName.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(FirstName);
-      }
-      if (LastName.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteString(LastName);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (Id.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Id);
-      }
-      if (Email.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Email);
-      }
-      if (FirstName.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(FirstName);
-      }
-      if (LastName.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(LastName);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(CreateAccountResponse other) {
-      if (other == null) {
-        return;
-      }
-      if (other.Id.Length != 0) {
-        Id = other.Id;
-      }
-      if (other.Email.Length != 0) {
-        Email = other.Email;
-      }
-      if (other.FirstName.Length != 0) {
-        FirstName = other.FirstName;
-      }
-      if (other.LastName.Length != 0) {
-        LastName = other.LastName;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            Id = input.ReadString();
-            break;
-          }
-          case 18: {
-            Email = input.ReadString();
-            break;
-          }
-          case 26: {
-            FirstName = input.ReadString();
-            break;
-          }
-          case 34: {
-            LastName = input.ReadString();
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 10: {
-            Id = input.ReadString();
-            break;
-          }
-          case 18: {
-            Email = input.ReadString();
-            break;
-          }
-          case 26: {
-            FirstName = input.ReadString();
-            break;
-          }
-          case 34: {
-            LastName = input.ReadString();
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
   public sealed partial class ListAccountsRequest : pb::IMessage<ListAccountsRequest>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -625,7 +341,7 @@ namespace Podkrepibg.Account {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Podkrepibg.Account.AccountReflection.Descriptor.MessageTypes[2]; }
+      get { return global::Podkrepibg.Account.AccountReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -749,167 +465,6 @@ namespace Podkrepibg.Account {
 
   }
 
-  public sealed partial class ListAccountsResponse : pb::IMessage<ListAccountsResponse>
-  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      , pb::IBufferMessage
-  #endif
-  {
-    private static readonly pb::MessageParser<ListAccountsResponse> _parser = new pb::MessageParser<ListAccountsResponse>(() => new ListAccountsResponse());
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<ListAccountsResponse> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::Podkrepibg.Account.AccountReflection.Descriptor.MessageTypes[3]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ListAccountsResponse() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ListAccountsResponse(ListAccountsResponse other) : this() {
-      accounts_ = other.accounts_.Clone();
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public ListAccountsResponse Clone() {
-      return new ListAccountsResponse(this);
-    }
-
-    /// <summary>Field number for the "accounts" field.</summary>
-    public const int AccountsFieldNumber = 1;
-    private static readonly pb::FieldCodec<global::Podkrepibg.Account.Account> _repeated_accounts_codec
-        = pb::FieldCodec.ForMessage(10, global::Podkrepibg.Account.Account.Parser);
-    private readonly pbc::RepeatedField<global::Podkrepibg.Account.Account> accounts_ = new pbc::RepeatedField<global::Podkrepibg.Account.Account>();
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pbc::RepeatedField<global::Podkrepibg.Account.Account> Accounts {
-      get { return accounts_; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as ListAccountsResponse);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(ListAccountsResponse other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if(!accounts_.Equals(other.accounts_)) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      hash ^= accounts_.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      output.WriteRawMessage(this);
-    #else
-      accounts_.WriteTo(output, _repeated_accounts_codec);
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      accounts_.WriteTo(ref output, _repeated_accounts_codec);
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(ref output);
-      }
-    }
-    #endif
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      size += accounts_.CalculateSize(_repeated_accounts_codec);
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(ListAccountsResponse other) {
-      if (other == null) {
-        return;
-      }
-      accounts_.Add(other.accounts_);
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-      input.ReadRawMessage(this);
-    #else
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            accounts_.AddEntriesFrom(input, _repeated_accounts_codec);
-            break;
-          }
-        }
-      }
-    #endif
-    }
-
-    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
-            break;
-          case 10: {
-            accounts_.AddEntriesFrom(ref input, _repeated_accounts_codec);
-            break;
-          }
-        }
-      }
-    }
-    #endif
-
-  }
-
   public sealed partial class Account : pb::IMessage<Account>
   #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       , pb::IBufferMessage
@@ -922,7 +477,7 @@ namespace Podkrepibg.Account {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Podkrepibg.Account.AccountReflection.Descriptor.MessageTypes[4]; }
+      get { return global::Podkrepibg.Account.AccountReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -1181,6 +736,167 @@ namespace Podkrepibg.Account {
           }
           case 34: {
             LastName = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class AccountList : pb::IMessage<AccountList>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<AccountList> _parser = new pb::MessageParser<AccountList>(() => new AccountList());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<AccountList> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Podkrepibg.Account.AccountReflection.Descriptor.MessageTypes[3]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public AccountList() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public AccountList(AccountList other) : this() {
+      accounts_ = other.accounts_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public AccountList Clone() {
+      return new AccountList(this);
+    }
+
+    /// <summary>Field number for the "accounts" field.</summary>
+    public const int AccountsFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::Podkrepibg.Account.Account> _repeated_accounts_codec
+        = pb::FieldCodec.ForMessage(10, global::Podkrepibg.Account.Account.Parser);
+    private readonly pbc::RepeatedField<global::Podkrepibg.Account.Account> accounts_ = new pbc::RepeatedField<global::Podkrepibg.Account.Account>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::Podkrepibg.Account.Account> Accounts {
+      get { return accounts_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as AccountList);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(AccountList other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!accounts_.Equals(other.accounts_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= accounts_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      accounts_.WriteTo(output, _repeated_accounts_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      accounts_.WriteTo(ref output, _repeated_accounts_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      size += accounts_.CalculateSize(_repeated_accounts_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(AccountList other) {
+      if (other == null) {
+        return;
+      }
+      accounts_.Add(other.accounts_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            accounts_.AddEntriesFrom(input, _repeated_accounts_codec);
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 10: {
+            accounts_.AddEntriesFrom(ref input, _repeated_accounts_codec);
             break;
           }
         }

@@ -31,19 +31,19 @@ func main() {
 	}
 }
 
-func (s *server) CreateAccount(_ context.Context, request *account.CreateAccountRequest) (*account.CreateAccountResponse, error) {
+func (s *server) CreateAccount(_ context.Context, request *account.CreateAccountRequest) (*account.Account, error) {
 
 	fmt.Println("Executing Accounts.CreateAccount with:", request)
 
-	return &account.CreateAccountResponse{
+	return &account.Account{
 		Id:        uuid.NewString(),
-		Email:     request.GetEmail(),
+		Email:     request.Email,
 		FirstName: request.FirstName,
 		LastName:  request.LastName,
 	}, nil
 }
 
-func (s *server) ListAccounts(_ context.Context, request *account.ListAccountsRequest) (*account.ListAccountsResponse, error) {
+func (s *server) ListAccounts(_ context.Context, request *account.ListAccountsRequest) (*account.AccountList, error) {
 	fmt.Println("Executing Accounts.ListAccounts")
 
 	accounts := []*account.Account{
@@ -56,7 +56,7 @@ func (s *server) ListAccounts(_ context.Context, request *account.ListAccountsRe
 		{
 			Id:        uuid.NewString(),
 			Email:     fmt.Sprintf("%s%d%s", "ilko+", time.Now().UnixNano(), "@camplight.net"),
-			FirstName: "Stafan",
+			FirstName: "Stefan",
 			LastName:  "Kirov",
 		},
 		{
@@ -67,5 +67,5 @@ func (s *server) ListAccounts(_ context.Context, request *account.ListAccountsRe
 		},
 	}
 
-	return &account.ListAccountsResponse{Accounts: accounts}, nil
+	return &account.AccountList{Accounts: accounts}, nil
 }

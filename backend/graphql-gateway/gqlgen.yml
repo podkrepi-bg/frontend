@@ -58,3 +58,11 @@ models:
       - github.com/99designs/gqlgen/graphql.Int
       - github.com/99designs/gqlgen/graphql.Int64
       - github.com/99designs/gqlgen/graphql.Int32
+
+  ## AccountService
+  Account:
+    model: [github.com/daritelska-platforma/graphql-gateway/pb/account.Account]
+  CreateAccount:
+    model: [github.com/daritelska-platforma/graphql-gateway/pb/account.CreateAccountRequest]
+
+  ## CampaignService
