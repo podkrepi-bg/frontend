@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="..\..\protos\common\nomenclatures.proto">
+    <Protobuf Include="..\..\..\protos\common\nomenclatures.proto">
       <Link>nomenclatures.proto</Link>
     </Protobuf>
   </ItemGroup>
