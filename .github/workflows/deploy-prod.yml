@@ -22,7 +22,7 @@ jobs:
           [[ "${{ github.ref }}" == "refs/tags/deploy/prod/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
 
           # Use Docker `latest` tag convention
-          [ "$VERSION" == "master" ] && VERSION=latest
+          #[ "$VERSION" == "master" ] && VERSION=latest
 
           echo Tag Version: $VERSION
           echo ::set-output name=version::$VERSION
@@ -87,20 +87,20 @@ jobs:
 #            --tag $IMAGE_NAME:ci-run \
 #            .
 
-      - name: Push image to GitHub Container Registry
-        id: push-image-to-registry
-        run: |
-          IMAGE_ID=ghcr.io/${{ github.repository }}/$IMAGE_NAME
-
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          VERSION=${{needs.deploy-init.outputs.version}}
-
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-
-          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
+#      - name: Push image to GitHub Container Registry
+#        id: push-image-to-registry
+#        run: |
+#          IMAGE_ID=ghcr.io/${{ github.repository }}/$IMAGE_NAME
+#
+#          # Change all uppercase to lowercase
+#          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+#          VERSION=${{needs.deploy-init.outputs.version}}
+#
+#          echo IMAGE_ID=$IMAGE_ID
+#          echo VERSION=$VERSION
+#
+#          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+#          docker push $IMAGE_ID:$VERSION
 
   deploy-run:
     needs: [ deploy-build ]
