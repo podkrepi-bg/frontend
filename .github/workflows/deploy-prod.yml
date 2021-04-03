@@ -28,7 +28,7 @@ jobs:
           echo ::set-output name=version::$VERSION
 
   deploy-build:
-    needs: [deploy-init]
+    needs: [ deploy-init ]
     runs-on: ubuntu-latest
 
     strategy:
@@ -103,16 +103,19 @@ jobs:
           docker push $IMAGE_ID:$VERSION
 
   deploy-run:
-    needs: [deploy-init, deploy-build]
+    needs: [ deploy-init, deploy-build ]
     runs-on: ubuntu-latest
     environment: prod
     steps:
       - uses: actions/checkout@v2
-
+      - name: export env
+        uses: krisalay/export-env@v1.0.0
+        with:
+          filename: .env.prod
       - name: Env set
         id: set-env
         run: |
-          source <(sed -E -n 's/[^#]+/export &/ p' .env.prod)
+          #source <(sed -E -n 's/[^#]+/export &/ p' .env.prod)
           export
 
           VERSION=${{needs.deploy-init.outputs.version}}
@@ -178,7 +181,7 @@ jobs:
           args: up -d --remove-orphans
 
   deploy-sentry:
-    needs: [deploy-init, deploy-run]
+    needs: [ deploy-init, deploy-run ]
     runs-on: ubuntu-latest
     environment: prod
     steps:
