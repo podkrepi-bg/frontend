@@ -1,12 +1,121 @@
 version: '3.7'
 services:
   frontend:
-    container_name: app-frontend-prod
+    image: ghcr.io/daritelska-platforma/frontend/web:${DEPLOY_TAG?}
+    container_name: ${COMPOSE_PROJECT_NAME?}-frontend
+    restart: always
+
+    environment:
+      API_URL: ${API_URL?}
+      APP_URL: ${APP_URL?}
+      NEXTAUTH_URL: ${NEXTAUTH_URL?}
+      JWT_SECRET: ${JWT_SECRET?}
+      DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID?}
+      DISCORD_CLIENT_SECRET: ${DISCORD_CLIENT_SECRET?}
 
     networks:
       pub1:
-        ipv4_address: ${HOST_IPV4_ADDRESS}
+        ipv4_address: ${FRONTEND_IPV4_ADDRESS?}
+
+    healthcheck:
+      test: curl --fail http://localhost:3040/api/healthcheck || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 3
+
+    depends_on:
+      - api
+
+  api:
+    image: ghcr.io/daritelska-platforma/frontend/api:${DEPLOY_TAG?}
+    container_name: ${COMPOSE_PROJECT_NAME?}-api
+    restart: always
+    networks:
+      private1:
+      pub1:
+        ipv4_address: ${API_IPV4_ADDRESS?}
+    depends_on:
+      - flyway
+
+  #  roach-cert:
+  #    container_name: roach-cert
+  #    hostname: roach-cert
+  #    build: db/cert
+  #    volumes:
+  #      - certs-roach-0:/certs/roach-0
+  #      - certs-client:/certs/client
+
+  roach-0:
+    restart: always
+    container_name: ${COMPOSE_PROJECT_NAME?}-roach-0
+    hostname: roach-0
+    image: cockroachdb/cockroach:latest
+    command: start-single-node --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257 --insecure
+      # command: start-single-node --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257 --certs-dir=/certs
+    #volumes:
+    #- certs-roach-0:/certs
+    #depends_on:
+    #- roach-cert
+    networks:
+      - private1
+
+  roach-lb:
+    # https://github.com/cockroachlabs-field/dynamic-haproxy
+    image: timveil/dynamic-haproxy:latest
+    container_name: ${COMPOSE_PROJECT_NAME?}-roach-lb
+    restart: always
+    hostname: roach-lb
+    environment:
+      - NODES=roach-0
+      # - NODES=roach-0 roach-1 roach-2
+    networks:
+      - private1
+    depends_on:
+      - roach-0
+    healthcheck:
+      test: /bin/true
+      interval: 3s
+      timeout: 10s
+      retries: 10
+
+  roach-init:
+    container_name: ${COMPOSE_PROJECT_NAME?}-roach-init
+    hostname: roach-init
+    # https://github.com/cockroachlabs-field/cockroachdb-remote-client
+    image: timveil/cockroachdb-remote-client:latest
+    environment:
+      COCKROACH_HOST: roach-lb:${DB_PORT?}
+      COCKROACH_DATABASE: ${DB_NAME?}
+      # COCKROACH_INSECURE: 'false'
+      COCKROACH_INSECURE: 'true'
+      #COCKROACH_CERTS_DIR: /certs
+      DATABASE_NAME: ${DB_NAME?}
+      DATABASE_USER: ${DB_USER?}
+      DATABASE_PASSWORD: ${DB_PASS?}
+      #volumes:
+      #- certs-client:/certs
+    depends_on:
+      - roach-lb
+    networks:
+      - private1
+
+  flyway:
+    image: ghcr.io/daritelska-platforma/frontend/flyway:${DEPLOY_TAG?}
+    container_name: ${COMPOSE_PROJECT_NAME?}-flyway
+    hostname: flyway
+    # https://flywaydb.org/documentation/configuration/configfile#reference
+    # jdbc:postgresql://<host>:<port>/<database>?<key1>=<value1>&<key2>=<value2>...
+    command: -url=jdbc:postgresql://roach-lb:${DB_PORT?}/${DB_NAME?} -schemas=app -user=${DB_USER?} -password=${DB_PASS?} -connectRetries=60 migrate
+    depends_on:
+      - roach-init
+    networks:
+      - private1
+
+  #volumes:
+  #cert-client:
+  #certs-roach-0:
 
 networks:
+  private1:
   pub1:
     external: true

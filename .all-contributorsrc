@@ -126,6 +126,26 @@
         "maintenance",
         "security"
       ]
+    },
+    {
+      "login": "VPeykovski",
+      "name": "VPeykovski",
+      "avatar_url": "https://avatars.githubusercontent.com/u/22998082?v=4",
+      "profile": "https://github.com/VPeykovski",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "dimitur2204",
+      "name": "Dimitar Nizamov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/61479393?v=4",
+      "profile": "https://github.com/dimitur2204",
+      "contributions": [
+        "code",
+        "doc",
+        "tool"
+      ]
     }
   ],
   "contributorsPerLine": 7,
