@@ -115,10 +115,32 @@ jobs:
       - name: Env set
         id: set-env
         run: |
+          #source <(sed -E -n 's/[^#]+/export &/ p' .env.dev)
           export
-          VERSION=0.0.1
+
+          VERSION=${{needs.deploy-init.outputs.version}}
           echo VERSION=$VERSION
           echo ::set-output name=VERSION::$VERSION
+
+          echo ::set-output name=VERSION::$VERSION
+          echo ::set-output name=COMPOSE_PROJECT_NAME::${{ env.COMPOSE_PROJECT_NAME }}
+          echo ::set-output name=NODE_ENV::${{ env.NODE_ENV }}
+          echo ::set-output name=TARGET_ENV::${{ env.TARGET_ENV }}
+          echo ::set-output name=APP_ENV::${{ env.APP_ENV }}
+          echo ::set-output name=API_URL::${{ env.API_URL }}
+          echo ::set-output name=APP_URL::${{ env.APP_URL }}
+          echo ::set-output name=APP_PORT::${{ env.APP_PORT }}
+          echo ::set-output name=NEXTAUTH_URL::${{ env.NEXTAUTH_URL }}
+          echo ::set-output name=DB_HOST::${{ env.DB_HOST }}
+          echo ::set-output name=DB_USER::${{ env.DB_USER }}
+          echo ::set-output name=DB_PORT::${{ env.DB_PORT }}
+          echo ::set-output name=DB_NAME::${{ env.DB_NAME }}
+          echo ::set-output name=SSL_MODE::${{ env.SSL_MODE }}
+          echo ::set-output name=SSL_CA::${{ env.SSL_CA }}
+          echo ::set-output name=SSL_KEY::${{ env.SSL_KEY }}
+          echo ::set-output name=SSL_KEY::${{ env.SSL_CERT }}
+          echo ::set-output name=SSL_KEY::${{ env.FRONTEND_IPV4_ADDRESS }}
+          echo ::set-output name=SSL_KEY::${{ env.API_IPV4_ADDRESS }}
 
       - name: Start Deployment
         uses: TapTap21/docker-remote-deployment-action@v1.1
