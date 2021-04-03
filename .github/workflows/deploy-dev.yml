@@ -108,10 +108,10 @@ jobs:
     environment: Dev
     steps:
       - uses: actions/checkout@v2
-      - name: export env
-        uses: krisalay/export-env@v1.0.0
+      - name: dotenv
+        uses: falti/dotenv-action@v0.2.5
         with:
-          filename: .env.dev
+          path: .env.dev
       - name: Env set
         id: set-env
         run: |
