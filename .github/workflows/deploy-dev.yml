@@ -115,32 +115,33 @@ jobs:
       - name: Env set
         id: set-env
         run: |
-          #source <(sed -E -n 's/[^#]+/export &/ p' .env.dev)
-          export
+#          #source <(sed -E -n 's/[^#]+/export &/ p' .env.dev)
+#          export
 
-          VERSION=${{needs.deploy-init.outputs.version}}
+          VERSION=0.0.1
+#          VERSION=${{needs.deploy-init.outputs.version}}
           echo VERSION=$VERSION
           echo ::set-output name=VERSION::$VERSION
 
-          echo ::set-output name=VERSION::$VERSION
-          echo ::set-output name=COMPOSE_PROJECT_NAME::${{ env.COMPOSE_PROJECT_NAME }}
-          echo ::set-output name=NODE_ENV::${{ env.NODE_ENV }}
-          echo ::set-output name=TARGET_ENV::${{ env.TARGET_ENV }}
-          echo ::set-output name=APP_ENV::${{ env.APP_ENV }}
-          echo ::set-output name=API_URL::${{ env.API_URL }}
-          echo ::set-output name=APP_URL::${{ env.APP_URL }}
-          echo ::set-output name=APP_PORT::${{ env.APP_PORT }}
-          echo ::set-output name=NEXTAUTH_URL::${{ env.NEXTAUTH_URL }}
-          echo ::set-output name=DB_HOST::${{ env.DB_HOST }}
-          echo ::set-output name=DB_USER::${{ env.DB_USER }}
-          echo ::set-output name=DB_PORT::${{ env.DB_PORT }}
-          echo ::set-output name=DB_NAME::${{ env.DB_NAME }}
-          echo ::set-output name=SSL_MODE::${{ env.SSL_MODE }}
-          echo ::set-output name=SSL_CA::${{ env.SSL_CA }}
-          echo ::set-output name=SSL_KEY::${{ env.SSL_KEY }}
-          echo ::set-output name=SSL_KEY::${{ env.SSL_CERT }}
-          echo ::set-output name=SSL_KEY::${{ env.FRONTEND_IPV4_ADDRESS }}
-          echo ::set-output name=SSL_KEY::${{ env.API_IPV4_ADDRESS }}
+#          echo ::set-output name=VERSION::$VERSION
+#          echo ::set-output name=COMPOSE_PROJECT_NAME::${{ env.COMPOSE_PROJECT_NAME }}
+#          echo ::set-output name=NODE_ENV::${{ env.NODE_ENV }}
+#          echo ::set-output name=TARGET_ENV::${{ env.TARGET_ENV }}
+#          echo ::set-output name=APP_ENV::${{ env.APP_ENV }}
+#          echo ::set-output name=API_URL::${{ env.API_URL }}
+#          echo ::set-output name=APP_URL::${{ env.APP_URL }}
+#          echo ::set-output name=APP_PORT::${{ env.APP_PORT }}
+#          echo ::set-output name=NEXTAUTH_URL::${{ env.NEXTAUTH_URL }}
+#          echo ::set-output name=DB_HOST::${{ env.DB_HOST }}
+#          echo ::set-output name=DB_USER::${{ env.DB_USER }}
+#          echo ::set-output name=DB_PORT::${{ env.DB_PORT }}
+#          echo ::set-output name=DB_NAME::${{ env.DB_NAME }}
+#          echo ::set-output name=SSL_MODE::${{ env.SSL_MODE }}
+#          echo ::set-output name=SSL_CA::${{ env.SSL_CA }}
+#          echo ::set-output name=SSL_KEY::${{ env.SSL_KEY }}
+#          echo ::set-output name=SSL_KEY::${{ env.SSL_CERT }}
+#          echo ::set-output name=SSL_KEY::${{ env.FRONTEND_IPV4_ADDRESS }}
+#          echo ::set-output name=SSL_KEY::${{ env.API_IPV4_ADDRESS }}
 
       - name: Start Deployment
         uses: TapTap21/docker-remote-deployment-action@v1.1
@@ -150,24 +151,24 @@ jobs:
           DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
           DB_PASS: ${{ secrets.DB_PASS }}
           DEPLOY_TAG: ${{ steps.set-env.outputs.VERSION }}
-          COMPOSE_PROJECT_NAME: ${{ steps.set-env.outputs.COMPOSE_PROJECT_NAME }}
-          NODE_ENV: ${{ steps.set-env.outputs.NODE_ENV }}
-          TARGET_ENV: ${{ steps.set-env.outputs.TARGET_ENV }}
-          APP_ENV: ${{ steps.set-env.outputs.APP_ENV }}
-          API_URL: ${{ steps.set-env.outputs.API_URL }}
-          APP_URL: ${{ steps.set-env.outputs.APP_URL }}
-          APP_PORT: ${{ steps.set-env.outputs.APP_PORT }}
-          NEXTAUTH_URL: ${{ steps.set-env.outputs.NEXTAUTH_URL }}
-          DB_HOST: ${{ steps.set-env.outputs.DB_HOST }}
-          DB_USER: ${{ steps.set-env.outputs.DB_USER }}
-          DB_PORT: ${{ steps.set-env.outputs.DB_PORT }}
-          DB_NAME: ${{ steps.set-env.outputs.DB_NAME }}
-          SSL_MODE: ${{ steps.set-env.outputs.SSL_MODE }}
-          SSL_CA: ${{ steps.set-env.outputs.SSL_CA }}
-          SSL_KEY: ${{ steps.set-env.outputs.SSL_KEY }}
-          SSL_CERT: ${{ steps.set-env.outputs.SSL_CERT }}
-          FRONTEND_IPV4_ADDRESS: ${{ steps.set-env.outputs.FRONTEND_IPV4_ADDRESS }}
-          API_IPV4_ADDRESS: ${{ steps.set-env.outputs.API_IPV4_ADDRESS }}
+          COMPOSE_PROJECT_NAME: ${{ steps.dotenv.outputs.COMPOSE_PROJECT_NAME }}
+          NODE_ENV: ${{ steps.dotenv.outputs.NODE_ENV }}
+          TARGET_ENV: ${{ steps.dotenv.outputs.TARGET_ENV }}
+          APP_ENV: ${{ steps.dotenv.outputs.APP_ENV }}
+          API_URL: ${{ steps.dotenv.outputs.API_URL }}
+          APP_URL: ${{ steps.dotenv.outputs.APP_URL }}
+          APP_PORT: ${{ steps.dotenv.outputs.APP_PORT }}
+          NEXTAUTH_URL: ${{ steps.dotenv.outputs.NEXTAUTH_URL }}
+          DB_HOST: ${{ steps.dotenv.outputs.DB_HOST }}
+          DB_USER: ${{ steps.dotenv.outputs.DB_USER }}
+          DB_PORT: ${{ steps.dotenv.outputs.DB_PORT }}
+          DB_NAME: ${{ steps.dotenv.outputs.DB_NAME }}
+          SSL_MODE: ${{ steps.dotenv.outputs.SSL_MODE }}
+          SSL_CA: ${{ steps.dotenv.outputs.SSL_CA }}
+          SSL_KEY: ${{ steps.dotenv.outputs.SSL_KEY }}
+          SSL_CERT: ${{ steps.dotenv.outputs.SSL_CERT }}
+          FRONTEND_IPV4_ADDRESS: ${{ steps.dotenv.outputs.FRONTEND_IPV4_ADDRESS }}
+          API_IPV4_ADDRESS: ${{ steps.dotenv.outputs.API_IPV4_ADDRESS }}
 
         with:
           remote_docker_host: ${{ secrets.REMOTE_DOCKER_HOST }}
