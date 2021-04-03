@@ -122,17 +122,18 @@ jobs:
           JWT_SECRET: ${{ secrets.APP_JWT_SECRET }}
           DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
           DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
-          DB_PASS: ${{ secrets.DB_PASS }}
           DEPLOY_TAG: ${{ steps.set-env.outputs.VERSION }}
           COMPOSE_PROJECT_NAME: podkrepi
+          APP_ENV: production
           NODE_ENV: production
           TARGET_ENV: production
-          API_URL: "https://api.podkrepi.bg/"
+          API_URL: "https://api.podkrepi.bg"
           APP_URL: "https://podkrepi.bg"
           APP_PORT: 80
           NEXTAUTH_URL: "https://podkrepi.bg"
           DB_HOST: roach-lb
           DB_USER: root
+          DB_PASS: ${{ secrets.DB_PASS }}
           DB_PORT: 26257
           DB_NAME: app
           SSL_MODE: disable
@@ -147,7 +148,7 @@ jobs:
           ssh_port: ${{ secrets.SSH_PORT }}
           ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          stack_file_name: docker-compose.prod.yml
+          stack_file_name: docker-compose.yml -f docker-compose.prod.yml
           docker_login_user: ${{ secrets.GHCR_USERNAME }}
           docker_login_password: ${{ secrets.GHCR_TOKEN }}
           docker_login_registry: ghcr.io
