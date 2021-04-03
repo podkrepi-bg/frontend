@@ -108,11 +108,14 @@ jobs:
     environment: Dev
     steps:
       - uses: actions/checkout@v2
-
+      - name: export env
+        uses: krisalay/export-env@v1.0.0
+        with:
+          filename: .env.dev
       - name: Env set
         id: set-env
         run: |
-          source <(sed -E -n 's/[^#]+/export &/ p' .env.dev)
+          #source <(sed -E -n 's/[^#]+/export &/ p' .env.dev)
           export
 
           VERSION=${{needs.deploy-init.outputs.version}}
