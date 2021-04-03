@@ -115,11 +115,7 @@ jobs:
       - name: Env set
         id: set-env
         run: |
-#          #source <(sed -E -n 's/[^#]+/export &/ p' .env.dev)
-#          export
-
-          VERSION=0.0.1
-#          VERSION=${{needs.deploy-init.outputs.version}}
+          VERSION="0.0.1"
           echo VERSION=$VERSION
           echo ::set-output name=VERSION::$VERSION
 
