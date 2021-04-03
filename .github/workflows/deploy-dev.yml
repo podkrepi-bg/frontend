@@ -150,6 +150,7 @@ jobs:
           COMPOSE_PROJECT_NAME: ${{ steps.set-env.outputs.COMPOSE_PROJECT_NAME }}
           NODE_ENV: ${{ steps.set-env.outputs.NODE_ENV }}
           TARGET_ENV: ${{ steps.set-env.outputs.TARGET_ENV }}
+          APP_ENV: ${{ steps.set-env.outputs.APP_ENV }}
           API_URL: ${{ steps.set-env.outputs.API_URL }}
           APP_URL: ${{ steps.set-env.outputs.APP_URL }}
           APP_PORT: ${{ steps.set-env.outputs.APP_PORT }}
