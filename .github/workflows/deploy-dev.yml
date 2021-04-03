@@ -28,7 +28,7 @@ jobs:
           echo ::set-output name=version::$VERSION
 
   deploy-build:
-    needs: [ deploy-init ]
+    needs: [deploy-init]
     runs-on: ubuntu-latest
 
     strategy:
@@ -103,7 +103,7 @@ jobs:
           docker push $IMAGE_ID:$VERSION
 
   deploy-run:
-    needs: [ deploy-init, deploy-build ]
+    needs: [deploy-init, deploy-build]
     runs-on: ubuntu-latest
     environment: Dev
     steps:
@@ -178,7 +178,7 @@ jobs:
           args: up -d --remove-orphans
 
   deploy-sentry:
-    needs: [ deploy-init, deploy-run ]
+    needs: [deploy-init, deploy-run]
     runs-on: ubuntu-latest
     environment: Dev
     steps:
@@ -208,4 +208,3 @@ jobs:
 
           # Create new deploy for this Sentry release
           sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_DEPLOY_ENVIRONMENT
-
