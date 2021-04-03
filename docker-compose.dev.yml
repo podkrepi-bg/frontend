@@ -1,4 +1,5 @@
 version: '3.7'
+# Override service props from main `docker-compose.yml`
 services:
   frontend:
     build:
@@ -8,22 +9,13 @@ services:
       args:
         NODE_ENV: ${NODE_ENV?}
     ports:
-      - '${APP_PORT}:3040'
+      - '${APP_PORT?}:3040'
     volumes:
       # Local:Container mounting points
       - ./src:/app/src
       - ./public:/app/public
-      - ./node_modules:/app/node_modules
-      - ./.next:/app/.next
-    depends_on:
-      - api
-    environment:
-      API_URL: ${API_URL?}
-      APP_URL: ${APP_URL?}
-      NEXTAUTH_URL: ${NEXTAUTH_URL?}
-      JWT_SECRET: ${JWT_SECRET?}
-      DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID?}
-      DISCORD_CLIENT_SECRET: ${DISCORD_CLIENT_SECRET?}
+      - /app/.next
+      - /app/node_modules
 
   api:
     build:
@@ -33,77 +25,19 @@ services:
     environment:
       DEBUG: 'true'
     ports:
-      - '5000:5000'
+      - '${REST_API_PORT?}:5000'
     volumes:
       - ./backend/contact:/app
-    networks:
-      - frontend-net
-    depends_on:
-      - roach-init
-
-  roach-0:
-    container_name: roach-0
-    hostname: roach-0
-    image: cockroachdb/cockroach:latest
-    command: start-single-node --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257 --insecure
-    networks:
-      - frontend-net
 
   roach-lb:
-    container_name: roach-lb
-    hostname: roach-lb
-    # https://github.com/cockroachlabs-field/dynamic-haproxy
-    image: timveil/dynamic-haproxy:latest
     ports:
       - '${DB_PORT?}:26257'
       - '3080:8080'
       - '3081:8081'
-    environment:
-      - NODES=roach-0
-      # - NODES=roach-0 roach-1 roach-2
-    networks:
-      - frontend-net
-    depends_on:
-      - roach-0
-    healthcheck:
-      test: /bin/true
-      interval: 3s
-      timeout: 10s
-      retries: 10
-
-  roach-init:
-    container_name: roach-init
-    hostname: roach-init
-    # https://github.com/cockroachlabs-field/cockroachdb-remote-client
-    image: timveil/cockroachdb-remote-client:latest
-    environment:
-      COCKROACH_HOST: roach-lb:${DB_PORT?}
-      COCKROACH_DATABASE: ${DB_NAME?}
-      # COCKROACH_INSECURE: 'false'
-      COCKROACH_INSECURE: 'true'
-      DATABASE_NAME: ${DB_NAME?}
-      DATABASE_USER: ${DB_USER?}
-      DATABASE_PASSWORD: ${DB_PASS?}
-    depends_on:
-      roach-lb:
-        condition: service_healthy
-    networks:
-      - frontend-net
 
   flyway:
-    container_name: flyway
-    hostname: flyway
-    image: flyway/flyway
-    # https://flywaydb.org/documentation/configuration/configfile#reference
-    # jdbc:postgresql://<host>:<port>/<database>?<key1>=<value1>&<key2>=<value2>...
-    command: -url=jdbc:postgresql://roach-lb:${DB_PORT?}/${DB_NAME?} -schemas=app -user=${DB_USER?} -password=${DB_PASS?} -connectRetries=60 migrate
+    build:
+      context: .
+      dockerfile: ./flyway/Dockerfile
     volumes:
       - ./db/migrations:/flyway/sql
-    depends_on:
-      - roach-init
-    networks:
-      - frontend-net
-
-networks:
-  frontend-net:
-    driver: bridge
