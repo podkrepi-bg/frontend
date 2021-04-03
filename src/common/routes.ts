@@ -6,6 +6,11 @@ const {
 
 export const baseUrl = APP_URL
 
+export const staticUrls = {
+  github: 'https://github.com/daritelska-platforma/frontend',
+  docs: 'https://docs.podkrepi.bg/',
+}
+
 export const routes = {
   index: '/',
   about: '/about',

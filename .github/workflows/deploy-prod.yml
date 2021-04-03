@@ -1,0 +1,187 @@
+name: Prod deployment
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'deploy/prod/*'
+
+jobs:
+  deploy-init:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get-version.outputs.VERSION }}
+    steps:
+      - name: Get the latest tag version
+        id: get-version
+        run: |
+          # Strip git ref prefix from version
+          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+
+          # Strip "v" prefix from tag name
+          [[ "${{ github.ref }}" == "refs/tags/deploy/prod/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+
+          # Use Docker `latest` tag convention
+          #[ "$VERSION" == "master" ] && VERSION=latest
+
+          echo Tag Version: $VERSION
+          echo ::set-output name=version::$VERSION
+
+  deploy-build:
+    needs: [ deploy-init ]
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        image-name:
+          - web
+          - api
+          - flyway
+
+    env:
+      IMAGE_NAME: ${{ matrix.image-name }}
+
+    environment: prod
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.GHCR_USERNAME }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Build WEB
+        id: build-web
+        if: ${{ matrix.image-name == 'web' }}
+        working-directory: .
+        run: |
+          docker build \
+            --target production \
+            --build-arg NODE_ENV=production \
+            --tag $IMAGE_NAME \
+            --tag $IMAGE_NAME:ci-run \
+            .
+
+      - name: Build API
+        id: build-api
+        if: ${{ matrix.image-name == 'api' }}
+        working-directory: ./backend/contact
+        run: |
+          docker build \
+            --target production \
+            --tag $IMAGE_NAME \
+            --tag $IMAGE_NAME:ci-run \
+            .
+
+      - name: Build FLYWAY
+        id: build-flyway
+        if: ${{ matrix.image-name == 'flyway' }}
+        working-directory: .
+        run: |
+          docker build \
+            --file flyway/Dockerfile \
+            --tag $IMAGE_NAME \
+            --tag $IMAGE_NAME:ci-run \
+            .
+
+      - name: Push image to GitHub Container Registry
+        id: push-image-to-registry
+        run: |
+          IMAGE_ID=ghcr.io/${{ github.repository }}/$IMAGE_NAME
+
+          # Change all uppercase to lowercase
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+          VERSION=${{needs.deploy-init.outputs.version}}
+
+          echo IMAGE_ID=$IMAGE_ID
+          echo VERSION=$VERSION
+
+          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+          docker push $IMAGE_ID:$VERSION
+
+  deploy-run:
+    needs: [ deploy-init, deploy-build ]
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Env set
+        id: set-env
+        run: |
+          VERSION=${{needs.deploy-init.outputs.version}}
+          echo VERSION=$VERSION
+          echo ::set-output name=VERSION::$VERSION
+
+      - name: Start Deployment
+        uses: TapTap21/docker-remote-deployment-action@v1.1
+        env:
+          JWT_SECRET: ${{ secrets.APP_JWT_SECRET }}
+          DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
+          DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
+          DB_PASS: ${{ secrets.DB_PASS }}
+          DEPLOY_TAG: ${{ steps.set-env.outputs.VERSION }}
+          COMPOSE_PROJECT_NAME: podkrepi
+          NODE_ENV: production
+          TARGET_ENV: production
+          API_URL: "https://api.podkrepi.bg/"
+          APP_URL: "https://podkrepi.bg"
+          APP_PORT: 80
+          NEXTAUTH_URL: "https://podkrepi.bg"
+          DB_HOST: roach-lb
+          DB_USER: root
+          DB_PORT: 26257
+          DB_NAME: app
+          SSL_MODE: disable
+          SSL_CA: "/certs/ca.crt"
+          SSL_KEY: "/certs/client.dp_user.crt"
+          SSL_CERT: "/certs/client.dp_user.key"
+          FRONTEND_IPV4_ADDRESS: "172.14.0.41"
+          API_IPV4_ADDRESS: "172.14.0.42"
+
+        with:
+          remote_docker_host: ${{ secrets.REMOTE_DOCKER_HOST }}
+          ssh_port: ${{ secrets.SSH_PORT }}
+          ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          stack_file_name: docker-compose.prod.yml
+          docker_login_user: ${{ secrets.GHCR_USERNAME }}
+          docker_login_password: ${{ secrets.GHCR_TOKEN }}
+          docker_login_registry: ghcr.io
+          args: up -d --remove-orphans
+
+#  deploy-sentry:
+#    needs: [ deploy-init, deploy-run ]
+#    runs-on: ubuntu-latest
+#    environment: prod
+#    steps:
+#      - name: Env set
+#        id: set-env
+#        run: |
+#          VERSION=${{needs.deploy-init.outputs.version}}
+#          echo VERSION=$VERSION
+#          echo ::set-output name=VERSION::$VERSION
+#
+#      - name: Create Sentry Release
+#        env:
+#          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+#          SENTRY_PROJECT: app
+#          SENTRY_DEPLOY_ENVIRONMENT: production
+#          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+#          SENTRY_RELEASE: ${{ steps.set-env.outputs.VERSION }}
+#        run: |
+#          # Install Sentry CLI
+#          curl -sL https://sentry.io/get-cli/ | bash
+#
+#          # Create new Sentry release
+#          # export SENTRY_RELEASE=$(sentry-cli releases propose-version)
+#          sentry-cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE
+#          sentry-cli releases set-commits --auto $SENTRY_RELEASE
+#          sentry-cli releases finalize $SENTRY_RELEASE
+#
+#          # Create new deploy for this Sentry release
+#          sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_DEPLOY_ENVIRONMENT
+
