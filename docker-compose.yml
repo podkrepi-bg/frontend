@@ -76,6 +76,11 @@ services:
       # - NODES=roach-0 roach-1 roach-2
     networks:
       - backend-net
+    healthcheck:
+      test: /bin/true
+      interval: 3s
+      timeout: 10s
+      retries: 10
 
   roach-init:
     container_name: ${COMPOSE_PROJECT_NAME?}-roach-init
