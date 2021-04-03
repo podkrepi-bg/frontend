@@ -11,23 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.get-version.outputs.VERSION }}
-    #      env: ${{ steps.get-version.outputs.env }}
     steps:
-      #      - name: Set environment
-      #        id: setenv
-      #        run: |
-      #          ENV=Dev
-      #
-      #          if [[ "${{github.base_ref}}" == "master" || "${{github.ref}}" == "refs/heads/master" ]]; then
-      #            ENV=prod
-      #          fi
-      #
-      #          if [[ "${{github.base_ref}}" == "staging" || "${{github.ref}}" == "refs/heads/staging" ]]; then
-      #            ENV=stage
-      #          fi
-      #
-      #          echo Environment: $ENV
-      #          echo "::set-output name=env::$ENV"
       - name: Get the latest tag version
         id: get-version
         run: |
@@ -38,7 +22,7 @@ jobs:
           [[ "${{ github.ref }}" == "refs/tags/deploy/dev/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
 
           # Use Docker `latest` tag convention
-          [ "$VERSION" == "master" ] && VERSION=latest
+          #[ "$VERSION" == "master" ] && VERSION=latest
 
           echo Tag Version: $VERSION
           echo ::set-output name=version::$VERSION
@@ -106,7 +90,7 @@ jobs:
       - name: Push image to GitHub Container Registry
         id: push-image-to-registry
         run: |
-          IMAGE_ID=ghcr.io/${{ github.repository }}/dev/$IMAGE_NAME
+          IMAGE_ID=ghcr.io/${{ github.repository }}/$IMAGE_NAME
 
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
@@ -119,18 +103,41 @@ jobs:
           docker push $IMAGE_ID:$VERSION
 
   deploy-run:
-    needs: [ deploy-build ]
+    needs: [ deploy-init, deploy-build ]
     runs-on: ubuntu-latest
     environment: Dev
     steps:
       - uses: actions/checkout@v2
 
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ secrets.GHCR_USERNAME }}
-          password: ${{ secrets.GHCR_TOKEN }}
+      - name: Env set
+        id: set-env
+        run: |
+          source <(sed -E -n 's/[^#]+/export &/ p' .env.dev)
+          export
+
+          VERSION=${{needs.deploy-init.outputs.version}}
+          echo VERSION=$VERSION
+          echo ::set-output name=VERSION::$VERSION
+
+          echo ::set-output name=VERSION::$VERSION
+          echo ::set-output name=COMPOSE_PROJECT_NAME::${{ env.COMPOSE_PROJECT_NAME }}
+          echo ::set-output name=NODE_ENV::${{ env.NODE_ENV }}
+          echo ::set-output name=TARGET_ENV::${{ env.TARGET_ENV }}
+          echo ::set-output name=APP_ENV::${{ env.APP_ENV }}
+          echo ::set-output name=API_URL::${{ env.API_URL }}
+          echo ::set-output name=APP_URL::${{ env.APP_URL }}
+          echo ::set-output name=APP_PORT::${{ env.APP_PORT }}
+          echo ::set-output name=NEXTAUTH_URL::${{ env.NEXTAUTH_URL }}
+          echo ::set-output name=DB_HOST::${{ env.DB_HOST }}
+          echo ::set-output name=DB_USER::${{ env.DB_USER }}
+          echo ::set-output name=DB_PORT::${{ env.DB_PORT }}
+          echo ::set-output name=DB_NAME::${{ env.DB_NAME }}
+          echo ::set-output name=SSL_MODE::${{ env.SSL_MODE }}
+          echo ::set-output name=SSL_CA::${{ env.SSL_CA }}
+          echo ::set-output name=SSL_KEY::${{ env.SSL_KEY }}
+          echo ::set-output name=SSL_KEY::${{ env.SSL_CERT }}
+          echo ::set-output name=SSL_KEY::${{ env.FRONTEND_IPV4_ADDRESS }}
+          echo ::set-output name=SSL_KEY::${{ env.API_IPV4_ADDRESS }}
 
       - name: Start Deployment
         uses: TapTap21/docker-remote-deployment-action@v1.1
@@ -138,8 +145,26 @@ jobs:
           JWT_SECRET: ${{ secrets.APP_JWT_SECRET }}
           DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
           DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
-          DEPLOY_TAG: ${{needs.deploy-init.outputs.version}}
           DB_PASS: ${{ secrets.DB_PASS }}
+          DEPLOY_TAG: ${{ steps.set-env.outputs.VERSION }}
+          COMPOSE_PROJECT_NAME: ${{ steps.set-env.outputs.COMPOSE_PROJECT_NAME }}
+          NODE_ENV: ${{ steps.set-env.outputs.NODE_ENV }}
+          TARGET_ENV: ${{ steps.set-env.outputs.TARGET_ENV }}
+          API_URL: ${{ steps.set-env.outputs.API_URL }}
+          APP_URL: ${{ steps.set-env.outputs.APP_URL }}
+          APP_PORT: ${{ steps.set-env.outputs.APP_PORT }}
+          NEXTAUTH_URL: ${{ steps.set-env.outputs.NEXTAUTH_URL }}
+          DB_HOST: ${{ steps.set-env.outputs.DB_HOST }}
+          DB_USER: ${{ steps.set-env.outputs.DB_USER }}
+          DB_PORT: ${{ steps.set-env.outputs.DB_PORT }}
+          DB_NAME: ${{ steps.set-env.outputs.DB_NAME }}
+          SSL_MODE: ${{ steps.set-env.outputs.SSL_MODE }}
+          SSL_CA: ${{ steps.set-env.outputs.SSL_CA }}
+          SSL_KEY: ${{ steps.set-env.outputs.SSL_KEY }}
+          SSL_CERT: ${{ steps.set-env.outputs.SSL_CERT }}
+          FRONTEND_IPV4_ADDRESS: ${{ steps.set-env.outputs.FRONTEND_IPV4_ADDRESS }}
+          API_IPV4_ADDRESS: ${{ steps.set-env.outputs.API_IPV4_ADDRESS }}
+
         with:
           remote_docker_host: ${{ secrets.REMOTE_DOCKER_HOST }}
           ssh_port: ${{ secrets.SSH_PORT }}
@@ -149,20 +174,27 @@ jobs:
           docker_login_user: ${{ secrets.GHCR_USERNAME }}
           docker_login_password: ${{ secrets.GHCR_TOKEN }}
           docker_login_registry: ghcr.io
-          args: --env-file .env.dev up -d --remove-orphans
+          args: up -d --remove-orphans
 
   deploy-sentry:
-    needs: [ deploy-run ]
+    needs: [ deploy-init, deploy-run ]
     runs-on: ubuntu-latest
     environment: Dev
     steps:
+      - name: Env set
+        id: set-env
+        run: |
+          VERSION=${{needs.deploy-init.outputs.version}}
+          echo VERSION=$VERSION
+          echo ::set-output name=VERSION::$VERSION
+
       - name: Create Sentry Release
         env:
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: app
           SENTRY_DEPLOY_ENVIRONMENT: development
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_RELEASE: ${{needs.deploy-init.outputs.version}}
+          SENTRY_RELEASE: ${{ steps.set-env.outputs.VERSION }}
         run: |
           # Install Sentry CLI
           curl -sL https://sentry.io/get-cli/ | bash
