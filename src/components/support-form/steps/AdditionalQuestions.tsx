@@ -133,6 +133,36 @@ export default function AdditionalQuestions() {
         },
         {
           type: 'checkbox',
+          value: formik.values.volunteer?.designer,
+          name: 'volunteer.designer',
+          label: 'common:support-form.steps.addition-questions.volunteer.designer',
+        },
+        {
+          type: 'checkbox',
+          value: formik.values.volunteer?.projectManager,
+          name: 'volunteer.projectManager',
+          label: 'common:support-form.steps.addition-questions.volunteer.projectManager',
+        },
+        {
+          type: 'checkbox',
+          value: formik.values.volunteer?.devOps,
+          name: 'volunteer.devOps',
+          label: 'common:support-form.steps.addition-questions.volunteer.devOps',
+        },
+        {
+          type: 'checkbox',
+          value: formik.values.volunteer?.financesAndAccounts,
+          name: 'volunteer.financesAndAccounts',
+          label: 'common:support-form.steps.addition-questions.volunteer.financesAndAccounts',
+        },
+        {
+          type: 'checkbox',
+          value: formik.values.volunteer?.lawyer,
+          name: 'volunteer.lawyer',
+          label: 'common:support-form.steps.addition-questions.volunteer.lawyer',
+        },
+        {
+          type: 'checkbox',
           value: formik.values.volunteer?.qa,
           name: 'volunteer.qa',
           label: 'common:support-form.steps.addition-questions.volunteer.qa',
