@@ -20,7 +20,7 @@ jobs:
           # Strip git ref prefix from version
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
           echo ::set-output name=version::$VERSION
-      - name: Set branch-based environment variables
+      - name: Get branch-based environment variables
         id: get-branch-vars
         uses: iamtheyammer/branch-env-vars@v1.0.2
         with:
