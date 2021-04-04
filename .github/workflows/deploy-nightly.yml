@@ -97,6 +97,8 @@ jobs:
   deploy-run:
     needs: [ deploy-init, deploy-build ]
     runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/deploy/prod') ||
+      startsWith(github.ref, 'refs/tags/deploy/nightly')
     environment: Dev
     steps:
       - uses: actions/checkout@v2
@@ -106,38 +108,10 @@ jobs:
         with:
           path: .env.dev
       - name: Env set
-        id: set-env
+        id: setenv
         run: |
-          #source <(sed -E -n 's/[^#]+/export &/ p' .env.dev)
-          export
-
           DEPLOY_TAG=${{needs.deploy-init.outputs.DEPLOY_TAG}}
-
           echo ::set-output name=DEPLOY_TAG::$DEPLOY_TAG
-          echo ::set-output name=COMPOSE_PROJECT_NAME::${{ env.COMPOSE_PROJECT_NAME }}
-          echo ::set-output name=WEB_DEPLOY_IMAGE::${{ env.WEB_DEPLOY_IMAGE }}
-          echo ::set-output name=API_DEPLOY_IMAGE::${{ env.API_DEPLOY_IMAGE }}
-          echo ::set-output name=FLYWAY_DEPLOY_IMAGE::${{ env.FLYWAY_DEPLOY_IMAGE }}
-          echo ::set-output name=NODE_ENV::${{ env.NODE_ENV }}
-          echo ::set-output name=TARGET_ENV::${{ env.TARGET_ENV }}
-          echo ::set-output name=APP_ENV::${{ env.APP_ENV }}
-          echo ::set-output name=API_URL::${{ env.API_URL }}
-          echo ::set-output name=APP_URL::${{ env.APP_URL }}
-          echo ::set-output name=APP_PORT::${{ env.APP_PORT }}
-          echo ::set-output name=NEXTAUTH_URL::${{ env.NEXTAUTH_URL }}
-          echo ::set-output name=DB_HOST::${{ env.DB_HOST }}
-          echo ::set-output name=DB_USER::${{ env.DB_USER }}
-          echo ::set-output name=DB_PORT::${{ env.DB_PORT }}
-          echo ::set-output name=DB_NAME::${{ env.DB_NAME }}
-          echo ::set-output name=SSL_MODE::${{ env.SSL_MODE }}
-          echo ::set-output name=SSL_CA::${{ env.SSL_CA }}
-          echo ::set-output name=SSL_KEY::${{ env.SSL_KEY }}
-          echo ::set-output name=SSL_KEY::${{ env.SSL_CERT }}
-          echo ::set-output name=SSL_KEY::${{ env.FRONTEND_IPV4_ADDRESS }}
-          echo ::set-output name=SSL_KEY::${{ env.API_IPV4_ADDRESS }}
-
-          echo WEBDEP1: ${{ steps.dotenv.outputs.WEB_DEPLOY_IMAGE }}
-          echo WEBDEP2: $WEB_DEPLOY_IMAGE
 
       - name: Start Deployment
         uses: TapTap21/docker-remote-deployment-action@v1.1
@@ -149,7 +123,7 @@ jobs:
           WEB_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.WEB_DEPLOY_IMAGE }}
           FLYWAY_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.FLYWAY_DEPLOY_IMAGE }}
           DB_PASS: ${{ secrets.DB_PASS }}
-          DEPLOY_TAG: ${{ steps.set-env.outputs.DEPLOY_TAG }}
+          DEPLOY_TAG: ${{needs.deploy-init.outputs.DEPLOY_TAG}}
           COMPOSE_PROJECT_NAME: ${{ steps.dotenv.outputs.COMPOSE_PROJECT_NAME }}
           NODE_ENV: ${{ steps.dotenv.outputs.NODE_ENV }}
           TARGET_ENV: ${{ steps.dotenv.outputs.TARGET_ENV }}
