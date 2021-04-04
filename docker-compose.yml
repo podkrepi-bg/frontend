@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   frontend:
-    image: ghcr.io/daritelska-platforma/frontend/web:${DEPLOY_TAG?}
+    image: ${WEB_DEPLOY_IMAGE}:${DEPLOY_TAG?}
     container_name: ${COMPOSE_PROJECT_NAME?}-frontend
     restart: always
     environment:
@@ -24,7 +24,7 @@ services:
           - podkrepi.localhost
 
   api:
-    image: ghcr.io/daritelska-platforma/frontend/api:${DEPLOY_TAG?}
+    image: ${API_DEPLOY_IMAGE}:${DEPLOY_TAG?}
     container_name: ${COMPOSE_PROJECT_NAME?}-api
     restart: always
     networks:
@@ -104,7 +104,7 @@ services:
       - roach-lb
 
   flyway:
-    image: ghcr.io/daritelska-platforma/frontend/flyway:${DEPLOY_TAG?}
+    image: ${FLYWAY_DEPLOY_IMAGE}:${DEPLOY_TAG?}
     container_name: ${COMPOSE_PROJECT_NAME?}-flyway
     hostname: flyway
     # https://flywaydb.org/documentation/configuration/configfile#reference
