@@ -9,7 +9,7 @@ export default function Newsletter() {
   return (
     <FormControl component="fieldset">
       <FormLabel component="legend">{t('common:support-form.steps.newsletter.title')}</FormLabel>
-      <CheckboxField label="common:support-form.steps.newsletter.label" name="newsletter" />
+      <CheckboxField label={t('common:support-form.steps.newsletter.label')} name="newsletter" />
     </FormControl>
   )
 }
