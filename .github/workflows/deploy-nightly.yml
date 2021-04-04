@@ -9,7 +9,7 @@ jobs:
   deploy-init:
     runs-on: ubuntu-latest
     outputs:
-      DEPLOY_TAG: "0.0.14"
+      DEPLOY_TAG: ${{ steps.get-version.outputs.VERSION }}
     steps:
       - name: Get the latest tag version
         id: get-version
