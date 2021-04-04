@@ -17,136 +17,136 @@ jobs:
           # Strip git ref prefix from version
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
           echo ::set-output name=version::$VERSION
-#  deploy-build:
-#    needs: [ deploy-init ]
-#    runs-on: ubuntu-latest
-#
-#    strategy:
-#      matrix:
-#        image-name:
-#          - web
-#          - api
-#          - flyway
-#
-#    env:
-#      IMAGE_NAME: ${{ matrix.image-name }}
-#
-#    environment: Dev
-#
-#    steps:
-#      - uses: actions/checkout@v2
-#
-#      - name: Login to GitHub Container Registry
-#        uses: docker/login-action@v1
-#        with:
-#          registry: ghcr.io
-#          username: ${{secrets.GHCR_USERNAME}}
-#          password: ${{secrets.GHCR_TOKEN}}
-#
-#      - name: Build WEB
-#        id: build-web
-#        if: ${{ matrix.image-name == 'web' }}
-#        working-directory: .
-#        run: |
-#          docker build \
-#            --target production \
-#            --build-arg NODE_ENV=production \
-#            --tag $IMAGE_NAME \
-#            --tag $IMAGE_NAME:ci-run \
-#            .
-#
-#      - name: Build API
-#        id: build-api
-#        if: ${{ matrix.image-name == 'api' }}
-#        working-directory: ./backend/contact
-#        run: |
-#          docker build \
-#            --target production \
-#            --tag $IMAGE_NAME \
-#            --tag $IMAGE_NAME:ci-run \
-#            .
-#
-#      - name: Build FLYWAY
-#        id: build-flyway
-#        if: ${{ matrix.image-name == 'flyway' }}
-#        working-directory: .
-#        run: |
-#          docker build \
-#            --file flyway/Dockerfile \
-#            --tag $IMAGE_NAME \
-#            --tag $IMAGE_NAME:ci-run \
-#            .
-#
-#      - name: Push image to GitHub Container Registry
-#        id: push-image-to-registry
-#        run: |
-#          IMAGE_ID=ghcr.io/daritelska-platforma/frontend/nightly/$IMAGE_NAME
-#
-#          # Change all uppercase to lowercase
-#          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-#          DEPLOY_TAG=${{needs.deploy-init.outputs.DEPLOY_TAG}}
-#
-#          echo IMAGE_ID=$IMAGE_ID
-#          echo DEPLOY_TAG=$DEPLOY_TAG
-#
-#          docker tag $IMAGE_NAME $IMAGE_ID:$DEPLOY_TAG
-#          docker push $IMAGE_ID:$DEPLOY_TAG
-#
-#  deploy-run:
-#    needs: [ deploy-init, deploy-build ]
-#    runs-on: ubuntu-latest
-#    if: startsWith(github.ref, 'refs/tags/deploy/prod') ||
-#      startsWith(github.ref, 'refs/tags/deploy/nightly')
-#    environment: Dev
-#    steps:
-#      - uses: actions/checkout@v2
-#      - name: dotenv
-#        id: dotenv
-#        uses: falti/dotenv-action@v0.2.5
-#        with:
-#          path: .env.dev
-#      - name: Start Deployment
-#        uses: TapTap21/docker-remote-deployment-action@v1.1
-#        env:
-#          JWT_SECRET: ${{ secrets.APP_JWT_SECRET }}
-#          DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
-#          DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
-#          API_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.API_DEPLOY_IMAGE }}
-#          WEB_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.WEB_DEPLOY_IMAGE }}
-#          FLYWAY_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.FLYWAY_DEPLOY_IMAGE }}
-#          DB_PASS: ${{ secrets.DB_PASS }}
-#          DEPLOY_TAG: ${{needs.deploy-init.outputs.DEPLOY_TAG}}
-#          COMPOSE_PROJECT_NAME: ${{ steps.dotenv.outputs.COMPOSE_PROJECT_NAME }}
-#          NODE_ENV: ${{ steps.dotenv.outputs.NODE_ENV }}
-#          TARGET_ENV: ${{ steps.dotenv.outputs.TARGET_ENV }}
-#          APP_ENV: ${{ steps.dotenv.outputs.APP_ENV }}
-#          API_URL: ${{ steps.dotenv.outputs.API_URL }}
-#          APP_URL: ${{ steps.dotenv.outputs.APP_URL }}
-#          APP_PORT: ${{ steps.dotenv.outputs.APP_PORT }}
-#          NEXTAUTH_URL: ${{ steps.dotenv.outputs.NEXTAUTH_URL }}
-#          DB_HOST: ${{ steps.dotenv.outputs.DB_HOST }}
-#          DB_USER: ${{ steps.dotenv.outputs.DB_USER }}
-#          DB_PORT: ${{ steps.dotenv.outputs.DB_PORT }}
-#          DB_NAME: ${{ steps.dotenv.outputs.DB_NAME }}
-#          SSL_MODE: ${{ steps.dotenv.outputs.SSL_MODE }}
-#          SSL_CA: ${{ steps.dotenv.outputs.SSL_CA }}
-#          SSL_KEY: ${{ steps.dotenv.outputs.SSL_KEY }}
-#          SSL_CERT: ${{ steps.dotenv.outputs.SSL_CERT }}
-#          FRONTEND_IPV4_ADDRESS: ${{ steps.dotenv.outputs.FRONTEND_IPV4_ADDRESS }}
-#          API_IPV4_ADDRESS: ${{ steps.dotenv.outputs.API_IPV4_ADDRESS }}
-#        with:
-#          remote_docker_host: ${{ secrets.REMOTE_DOCKER_HOST }}
-#          ssh_port: ${{ secrets.SSH_PORT }}
-#          ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
-#          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-#          stack_file_name: docker-compose.yml -f docker-compose.prod.yml
-#          docker_login_user: ${{ secrets.GHCR_USERNAME }}
-#          docker_login_password: ${{ secrets.GHCR_TOKEN }}
-#          docker_login_registry: ghcr.io
-#          args: up -d --remove-orphans
+  deploy-build:
+    needs: [ deploy-init ]
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        image-name:
+          - web
+          - api
+          - flyway
+
+    env:
+      IMAGE_NAME: ${{ matrix.image-name }}
+
+    environment: Dev
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{secrets.GHCR_USERNAME}}
+          password: ${{secrets.GHCR_TOKEN}}
+
+      - name: Build WEB
+        id: build-web
+        if: ${{ matrix.image-name == 'web' }}
+        working-directory: .
+        run: |
+          docker build \
+            --target production \
+            --build-arg NODE_ENV=production \
+            --tag $IMAGE_NAME \
+            --tag $IMAGE_NAME:ci-run \
+            .
+
+      - name: Build API
+        id: build-api
+        if: ${{ matrix.image-name == 'api' }}
+        working-directory: ./backend/contact
+        run: |
+          docker build \
+            --target production \
+            --tag $IMAGE_NAME \
+            --tag $IMAGE_NAME:ci-run \
+            .
+
+      - name: Build FLYWAY
+        id: build-flyway
+        if: ${{ matrix.image-name == 'flyway' }}
+        working-directory: .
+        run: |
+          docker build \
+            --file flyway/Dockerfile \
+            --tag $IMAGE_NAME \
+            --tag $IMAGE_NAME:ci-run \
+            .
+
+      - name: Push image to GitHub Container Registry
+        id: push-image-to-registry
+        run: |
+          IMAGE_ID=ghcr.io/daritelska-platforma/frontend/nightly/$IMAGE_NAME
+
+          # Change all uppercase to lowercase
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+          DEPLOY_TAG=${{needs.deploy-init.outputs.DEPLOY_TAG}}
+
+          echo IMAGE_ID=$IMAGE_ID
+          echo DEPLOY_TAG=$DEPLOY_TAG
+
+          docker tag $IMAGE_NAME $IMAGE_ID:$DEPLOY_TAG
+          docker push $IMAGE_ID:$DEPLOY_TAG
+
+  deploy-run:
+    needs: [ deploy-init, deploy-build ]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/deploy/prod') ||
+      startsWith(github.ref, 'refs/tags/deploy/nightly')
+    environment: Dev
+    steps:
+      - uses: actions/checkout@v2
+      - name: dotenv
+        id: dotenv
+        uses: falti/dotenv-action@v0.2.5
+        with:
+          path: .env.dev
+      - name: Start Deployment
+        uses: TapTap21/docker-remote-deployment-action@v1.1
+        env:
+          JWT_SECRET: ${{ secrets.APP_JWT_SECRET }}
+          DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
+          DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
+          API_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.API_DEPLOY_IMAGE }}
+          WEB_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.WEB_DEPLOY_IMAGE }}
+          FLYWAY_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.FLYWAY_DEPLOY_IMAGE }}
+          DB_PASS: ${{ secrets.DB_PASS }}
+          DEPLOY_TAG: ${{needs.deploy-init.outputs.DEPLOY_TAG}}
+          COMPOSE_PROJECT_NAME: ${{ steps.dotenv.outputs.COMPOSE_PROJECT_NAME }}
+          NODE_ENV: ${{ steps.dotenv.outputs.NODE_ENV }}
+          TARGET_ENV: ${{ steps.dotenv.outputs.TARGET_ENV }}
+          APP_ENV: ${{ steps.dotenv.outputs.APP_ENV }}
+          API_URL: ${{ steps.dotenv.outputs.API_URL }}
+          APP_URL: ${{ steps.dotenv.outputs.APP_URL }}
+          APP_PORT: ${{ steps.dotenv.outputs.APP_PORT }}
+          NEXTAUTH_URL: ${{ steps.dotenv.outputs.NEXTAUTH_URL }}
+          DB_HOST: ${{ steps.dotenv.outputs.DB_HOST }}
+          DB_USER: ${{ steps.dotenv.outputs.DB_USER }}
+          DB_PORT: ${{ steps.dotenv.outputs.DB_PORT }}
+          DB_NAME: ${{ steps.dotenv.outputs.DB_NAME }}
+          SSL_MODE: ${{ steps.dotenv.outputs.SSL_MODE }}
+          SSL_CA: ${{ steps.dotenv.outputs.SSL_CA }}
+          SSL_KEY: ${{ steps.dotenv.outputs.SSL_KEY }}
+          SSL_CERT: ${{ steps.dotenv.outputs.SSL_CERT }}
+          FRONTEND_IPV4_ADDRESS: ${{ steps.dotenv.outputs.FRONTEND_IPV4_ADDRESS }}
+          API_IPV4_ADDRESS: ${{ steps.dotenv.outputs.API_IPV4_ADDRESS }}
+        with:
+          remote_docker_host: ${{ secrets.REMOTE_DOCKER_HOST }}
+          ssh_port: ${{ secrets.SSH_PORT }}
+          ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          stack_file_name: docker-compose.yml -f docker-compose.prod.yml
+          docker_login_user: ${{ secrets.GHCR_USERNAME }}
+          docker_login_password: ${{ secrets.GHCR_TOKEN }}
+          docker_login_registry: ghcr.io
+          args: up -d --remove-orphans
 
   deploy-sentry:
-    needs: [deploy-init]
+    needs: [ deploy-init, deploy-build ]
     runs-on: ubuntu-latest
     environment: development
     steps:
