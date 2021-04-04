@@ -113,12 +113,13 @@ jobs:
           #source <(sed -E -n 's/[^#]+/export &/ p' .env.prod)
           export
 
-          VERSION=${{needs.deploy-init.outputs.version}}
+          DEPLOY_TAG=${{needs.deploy-init.outputs.version}}
 
-          echo ::set-output name=VERSION::$VERSION
+          echo ::set-output name=DEPLOY_TAG::$DEPLOY_TAG
           echo ::set-output name=COMPOSE_PROJECT_NAME::${{ env.COMPOSE_PROJECT_NAME }}
           echo ::set-output name=WEB_DEPLOY_IMAGE::${{ env.WEB_DEPLOY_IMAGE }}
           echo ::set-output name=API_DEPLOY_IMAGE::${{ env.API_DEPLOY_IMAGE }}
+          echo ::set-output name=FLYWAY_DEPLOY_IMAGE::${{ env.FLYWAY_DEPLOY_IMAGE }}
           echo ::set-output name=NODE_ENV::${{ env.NODE_ENV }}
           echo ::set-output name=TARGET_ENV::${{ env.TARGET_ENV }}
           echo ::set-output name=API_URL::${{ env.API_URL }}
@@ -144,9 +145,10 @@ jobs:
           DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
           DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
           DB_PASS: ${{ secrets.DB_PASS }}
-          API_DEPLOY_IMAGE: ${{ secrets.API_DEPLOY_IMAGE }}
-          WEB_DEPLOY_IMAGE: ${{ secrets.WEB_DEPLOY_IMAGE }}
-          DEPLOY_TAG: ${{ steps.set-env.outputs.VERSION }}
+          API_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.API_DEPLOY_IMAGE }}
+          WEB_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.WEB_DEPLOY_IMAGE }}
+          FLYWAY_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.FLYWAY_DEPLOY_IMAGE }}
+          DEPLOY_TAG: ${{ steps.set-env.outputs.DEPLOY_TAG }}
           COMPOSE_PROJECT_NAME: ${{ steps.set-env.outputs.COMPOSE_PROJECT_NAME }}
           NODE_ENV: ${{ steps.set-env.outputs.NODE_ENV }}
           TARGET_ENV: ${{ steps.set-env.outputs.TARGET_ENV }}
