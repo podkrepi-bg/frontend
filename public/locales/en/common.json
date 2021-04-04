@@ -66,7 +66,12 @@
           "marketing": "Marketing",
           "backend": "Backend",
           "frontend": "Frontend",
-          "qa": "QA"
+          "qa": "QA",
+          "designer": "Designer",
+          "projectManager": "Project manager",
+          "devOps": "DevOps",
+          "financesAndAccounts": "Finances and accounts",
+          "lawyer": "Lawyer"
         },
         "associationMember": {
           "title": "Association member",

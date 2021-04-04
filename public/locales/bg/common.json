@@ -66,7 +66,12 @@
           "marketing": "Маркетинг",
           "backend": "Backend",
           "frontend": "Frontend",
-          "qa": "QA"
+          "qa": "QA",
+          "designer": "Дизайнер",
+          "projectManager": "Ръководител проект",
+          "devOps": "DevOps",
+          "financesAndAccounts": "Финанси и счетоводство",
+          "lawyer": "Адвокат"
         },
         "associationMember": {
           "title": "Член на сдружението",

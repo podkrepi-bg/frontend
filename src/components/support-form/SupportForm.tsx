@@ -80,6 +80,11 @@ const initialValues: SupportFormData = {
     backend: false,
     frontend: false,
     marketing: false,
+    designer: false,
+    projectManager: false,
+    devOps: false,
+    financesAndAccounts: false,
+    lawyer: false,
     qa: false,
   },
   associationMember: {
