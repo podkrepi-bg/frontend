@@ -4,7 +4,6 @@ on:
   workflow_dispatch:
   push:
     tags:
-      - 'deploy/prod/*'
       - 'deploy/nightly/*'
 jobs:
   deploy-init:
@@ -151,6 +150,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: development
     steps:
+      - uses: actions/checkout@v2
       - name: Create Sentry Release
         env:
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
