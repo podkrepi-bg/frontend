@@ -10,7 +10,7 @@ jobs:
   deploy-init:
     runs-on: ubuntu-latest
     outputs:
-      DEPLOY_TAG: ${{ steps.get-version.outputs.VERSION }}
+      DEPLOY_TAG: "0.0.14"
     steps:
       - name: Get the latest tag version
         id: get-version
@@ -146,34 +146,27 @@ jobs:
           docker_login_registry: ghcr.io
           args: up -d --remove-orphans
 
-#  deploy-sentry:
-#    needs: [deploy-init, deploy-run]
-#    runs-on: ubuntu-latest
-#    environment: Dev
-#    steps:
-#      - name: Env set
-#        id: set-env
-#        run: |
-#          DEPLOY_TAG=${{needs.deploy-init.outputs.DEPLOY_TAG}}
-#          echo DEPLOY_TAG=$DEPLOY_TAG
-#          echo ::set-output name=DEPLOY_TAG::$DEPLOY_TAG
-#
-#      - name: Create Sentry Release
-#        env:
-#          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-#          SENTRY_PROJECT: app
-#          SENTRY_DEPLOY_ENVIRONMENT: development
-#          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-#          SENTRY_RELEASE: ${{ steps.set-env.outputs.DEPLOY_TAG }}
-#        run: |
-#          # Install Sentry CLI
-#          curl -sL https://sentry.io/get-cli/ | bash
-#
-#          # Create new Sentry release
-#          # export SENTRY_RELEASE=$(sentry-cli releases propose-version)
-#          sentry-cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE
-#          sentry-cli releases set-commits --auto $SENTRY_RELEASE
-#          sentry-cli releases finalize $SENTRY_RELEASE
-#
-#          # Create new deploy for this Sentry release
-#          sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_DEPLOY_ENVIRONMENT
+  deploy-sentry:
+    needs: [deploy-init, deploy-run]
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+      - name: Create Sentry Release
+        env:
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: app
+          SENTRY_DEPLOY_ENVIRONMENT: development
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_RELEASE: ${{needs.deploy-init.outputs.DEPLOY_TAG}}
+        run: |
+          # Install Sentry CLI
+          curl -sL https://sentry.io/get-cli/ | bash
+
+          # Create new Sentry release
+          # export SENTRY_RELEASE=$(sentry-cli releases propose-version)
+          sentry-cli releases new -p $SENTRY_PROJECT $SENTRY_RELEASE
+          sentry-cli releases set-commits --auto $SENTRY_RELEASE
+          sentry-cli releases finalize $SENTRY_RELEASE
+
+          # Create new deploy for this Sentry release
+          sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_DEPLOY_ENVIRONMENT
