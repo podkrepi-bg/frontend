@@ -17,14 +17,6 @@ jobs:
         run: |
           # Strip git ref prefix from version
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-
-          # Strip "v" prefix from tag name
-          [[ "${{ github.ref }}" == "refs/tags/deploy/prod/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-
-          # Use Docker `latest` tag convention
-          #[ "$VERSION" == "master" ] && VERSION=latest
-
-          echo Tag Version: $VERSION
           echo ::set-output name=version::$VERSION
 
   deploy-build:
@@ -108,10 +100,13 @@ jobs:
     environment: prod
     steps:
       - uses: actions/checkout@v2
-      - name: export env
-        uses: krisalay/export-env@v1.0.0
+
+      - name: dotenv
+        id: dotenv
+        uses: falti/dotenv-action@v0.2.5
         with:
-          filename: .env.prod
+          path: .env.prod
+
       - name: Env set
         id: set-env
         run: |
@@ -119,11 +114,11 @@ jobs:
           export
 
           VERSION=${{needs.deploy-init.outputs.version}}
-          echo VERSION=$VERSION
-          echo ::set-output name=VERSION::$VERSION
 
           echo ::set-output name=VERSION::$VERSION
           echo ::set-output name=COMPOSE_PROJECT_NAME::${{ env.COMPOSE_PROJECT_NAME }}
+          echo ::set-output name=WEB_DEPLOY_IMAGE::${{ env.WEB_DEPLOY_IMAGE }}
+          echo ::set-output name=API_DEPLOY_IMAGE::${{ env.API_DEPLOY_IMAGE }}
           echo ::set-output name=NODE_ENV::${{ env.NODE_ENV }}
           echo ::set-output name=TARGET_ENV::${{ env.TARGET_ENV }}
           echo ::set-output name=API_URL::${{ env.API_URL }}
@@ -149,6 +144,8 @@ jobs:
           DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
           DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
           DB_PASS: ${{ secrets.DB_PASS }}
+          API_DEPLOY_IMAGE: ${{ secrets.API_DEPLOY_IMAGE }}
+          WEB_DEPLOY_IMAGE: ${{ secrets.WEB_DEPLOY_IMAGE }}
           DEPLOY_TAG: ${{ steps.set-env.outputs.VERSION }}
           COMPOSE_PROJECT_NAME: ${{ steps.set-env.outputs.COMPOSE_PROJECT_NAME }}
           NODE_ENV: ${{ steps.set-env.outputs.NODE_ENV }}

@@ -33,3 +33,5 @@ coverage
 .env*.local
 !.env.example
 .actrc.secrets.local
+
+.github/workflows-test**
