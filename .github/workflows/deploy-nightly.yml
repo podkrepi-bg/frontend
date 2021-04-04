@@ -10,7 +10,7 @@ jobs:
   deploy-init:
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.get-version.outputs.VERSION }}
+      DEPLOY_TAG: ${{ steps.get-version.outputs.VERSION }}
     steps:
       - name: Get the latest tag version
         id: get-version
@@ -19,106 +19,105 @@ jobs:
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
           echo ::set-output name=version::$VERSION
 
-#  deploy-build:
-#    needs: [deploy-init]
-#    runs-on: ubuntu-latest
-#
-#    strategy:
-#      matrix:
-#        image-name:
-#          - web
-#          - api
-#          - flyway
-#
-#    env:
-#      IMAGE_NAME: ${{ matrix.image-name }}
-#
-#    environment: Dev
-#
-#    steps:
-#      - uses: actions/checkout@v2
-#
-#      - name: Login to GitHub Container Registry
-#        uses: docker/login-action@v1
-#        with:
-#          registry: ghcr.io
-#          username: ${{ secrets.GHCR_USERNAME }}
-#          password: ${{ secrets.GHCR_TOKEN }}
-#
-#      - name: Build WEB
-#        id: build-web
-#        if: ${{ matrix.image-name == 'web' }}
-#        working-directory: .
-#        run: |
-#          docker build \
-#            --target production \
-#            --build-arg NODE_ENV=production \
-#            --tag $IMAGE_NAME \
-#            --tag $IMAGE_NAME:ci-run \
-#            .
-#
-#      - name: Build API
-#        id: build-api
-#        if: ${{ matrix.image-name == 'api' }}
-#        working-directory: ./backend/contact
-#        run: |
-#          docker build \
-#            --target production \
-#            --tag $IMAGE_NAME \
-#            --tag $IMAGE_NAME:ci-run \
-#            .
-#
-#      - name: Build FLYWAY
-#        id: build-flyway
-#        if: ${{ matrix.image-name == 'flyway' }}
-#        working-directory: .
-#        run: |
-#          docker build \
-#            --file flyway/Dockerfile \
-#            --tag $IMAGE_NAME \
-#            --tag $IMAGE_NAME:ci-run \
-#            .
-#
-#      - name: Push image to GitHub Container Registry
-#        id: push-image-to-registry
-#        run: |
-#          IMAGE_ID=ghcr.io/${{ github.repository }}/$IMAGE_NAME
-#
-#          # Change all uppercase to lowercase
-#          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-#          VERSION=${{needs.deploy-init.outputs.version}}
-#
-#          echo IMAGE_ID=$IMAGE_ID
-#          echo VERSION=$VERSION
-#
-#          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-#          docker push $IMAGE_ID:$VERSION
+  deploy-build:
+    needs: [ deploy-init ]
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        image-name:
+          - web
+          - api
+          - flyway
+
+    env:
+      IMAGE_NAME: ${{ matrix.image-name }}
+
+    environment: Dev
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.GHCR_USERNAME }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Build WEB
+        id: build-web
+        if: ${{ matrix.image-name == 'web' }}
+        working-directory: .
+        run: |
+          docker build \
+            --target production \
+            --build-arg NODE_ENV=production \
+            --tag $IMAGE_NAME \
+            --tag $IMAGE_NAME:ci-run \
+            .
+
+      - name: Build API
+        id: build-api
+        if: ${{ matrix.image-name == 'api' }}
+        working-directory: ./backend/contact
+        run: |
+          docker build \
+            --target production \
+            --tag $IMAGE_NAME \
+            --tag $IMAGE_NAME:ci-run \
+            .
+
+      - name: Build FLYWAY
+        id: build-flyway
+        if: ${{ matrix.image-name == 'flyway' }}
+        working-directory: .
+        run: |
+          docker build \
+            --file flyway/Dockerfile \
+            --tag $IMAGE_NAME \
+            --tag $IMAGE_NAME:ci-run \
+            .
+
+      - name: Push image to GitHub Container Registry
+        id: push-image-to-registry
+        run: |
+          IMAGE_ID=ghcr.io/daritelska-platforma/frontend/nightly/$IMAGE_NAME
+
+          # Change all uppercase to lowercase
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+          DEPLOY_TAG=${{needs.deploy-init.outputs.DEPLOY_TAG}}
+
+          echo IMAGE_ID=$IMAGE_ID
+          echo DEPLOY_TAG=$DEPLOY_TAG
+
+          docker tag $IMAGE_NAME $IMAGE_ID:$DEPLOY_TAG
+          docker push $IMAGE_ID:$DEPLOY_TAG
 
   deploy-run:
-    needs: [deploy-init]
+    needs: [ deploy-init, deploy-build ]
     runs-on: ubuntu-latest
     environment: Dev
     steps:
       - uses: actions/checkout@v2
-
       - name: dotenv
         id: dotenv
         uses: falti/dotenv-action@v0.2.5
         with:
           path: .env.dev
-
       - name: Env set
         id: set-env
         run: |
           #source <(sed -E -n 's/[^#]+/export &/ p' .env.dev)
           export
 
-          VERSION="0.0.1"
+          DEPLOY_TAG=${{needs.deploy-init.outputs.DEPLOY_TAG}}
 
-          echo ::set-output name=VERSION::$VERSION
+          echo ::set-output name=DEPLOY_TAG::$DEPLOY_TAG
           echo ::set-output name=COMPOSE_PROJECT_NAME::${{ env.COMPOSE_PROJECT_NAME }}
           echo ::set-output name=WEB_DEPLOY_IMAGE::${{ env.WEB_DEPLOY_IMAGE }}
           echo ::set-output name=API_DEPLOY_IMAGE::${{ env.API_DEPLOY_IMAGE }}
+          echo ::set-output name=FLYWAY_DEPLOY_IMAGE::${{ env.FLYWAY_DEPLOY_IMAGE }}
           echo ::set-output name=NODE_ENV::${{ env.NODE_ENV }}
           echo ::set-output name=TARGET_ENV::${{ env.TARGET_ENV }}
           echo ::set-output name=APP_ENV::${{ env.APP_ENV }}
@@ -137,16 +136,20 @@ jobs:
           echo ::set-output name=SSL_KEY::${{ env.FRONTEND_IPV4_ADDRESS }}
           echo ::set-output name=SSL_KEY::${{ env.API_IPV4_ADDRESS }}
 
+          echo WEBDEP1: ${{ steps.dotenv.outputs.WEB_DEPLOY_IMAGE }}
+          echo WEBDEP2: $WEB_DEPLOY_IMAGE
+
       - name: Start Deployment
         uses: TapTap21/docker-remote-deployment-action@v1.1
         env:
           JWT_SECRET: ${{ secrets.APP_JWT_SECRET }}
           DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
           DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
+          API_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.API_DEPLOY_IMAGE }}
+          WEB_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.WEB_DEPLOY_IMAGE }}
+          FLYWAY_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.FLYWAY_DEPLOY_IMAGE }}
           DB_PASS: ${{ secrets.DB_PASS }}
-          API_DEPLOY_IMAGE: ${{ secrets.API_DEPLOY_IMAGE }}
-          WEB_DEPLOY_IMAGE: ${{ secrets.WEB_DEPLOY_IMAGE }}
-          DEPLOY_TAG: ${{ steps.set-env.outputs.VERSION }}
+          DEPLOY_TAG: ${{ steps.set-env.outputs.DEPLOY_TAG }}
           COMPOSE_PROJECT_NAME: ${{ steps.dotenv.outputs.COMPOSE_PROJECT_NAME }}
           NODE_ENV: ${{ steps.dotenv.outputs.NODE_ENV }}
           TARGET_ENV: ${{ steps.dotenv.outputs.TARGET_ENV }}
@@ -185,9 +188,9 @@ jobs:
 #      - name: Env set
 #        id: set-env
 #        run: |
-#          VERSION=${{needs.deploy-init.outputs.version}}
-#          echo VERSION=$VERSION
-#          echo ::set-output name=VERSION::$VERSION
+#          DEPLOY_TAG=${{needs.deploy-init.outputs.DEPLOY_TAG}}
+#          echo DEPLOY_TAG=$DEPLOY_TAG
+#          echo ::set-output name=DEPLOY_TAG::$DEPLOY_TAG
 #
 #      - name: Create Sentry Release
 #        env:
@@ -195,7 +198,7 @@ jobs:
 #          SENTRY_PROJECT: app
 #          SENTRY_DEPLOY_ENVIRONMENT: development
 #          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-#          SENTRY_RELEASE: ${{ steps.set-env.outputs.VERSION }}
+#          SENTRY_RELEASE: ${{ steps.set-env.outputs.DEPLOY_TAG }}
 #        run: |
 #          # Install Sentry CLI
 #          curl -sL https://sentry.io/get-cli/ | bash

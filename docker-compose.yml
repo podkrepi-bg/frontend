@@ -104,7 +104,7 @@ services:
       - roach-lb
 
   flyway:
-    image: ghcr.io/daritelska-platforma/frontend/flyway:${DEPLOY_TAG?}
+    image: ${FLYWAY_DEPLOY_IMAGE}:${DEPLOY_TAG?}
     container_name: ${COMPOSE_PROJECT_NAME?}-flyway
     hostname: flyway
     # https://flywaydb.org/documentation/configuration/configfile#reference
