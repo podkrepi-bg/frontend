@@ -11,8 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       DEPLOY_TAG: ${{ steps.get-version.outputs.VERSION }}
-      GHCR_USERNAME: ${{ steps.get-branch-vars.outputs.GHCR_USERNAME }}
-      GHCR_TOKEN: ${{ steps.get-branch-vars.outputs.GHCR_TOKEN }}
     steps:
       - name: Get the latest tag version
         id: get-version
@@ -20,16 +18,6 @@ jobs:
           # Strip git ref prefix from version
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
           echo ::set-output name=version::$VERSION
-      - name: Get branch-based environment variables
-        id: get-branch-vars
-        uses: iamtheyammer/branch-env-vars@v1.0.2
-        with:
-          GHCR_USERNAME: |
-            master: ${{ secrets.GHCR_USERNAME }}
-            nightly: ${{ secrets.GHCR_USERNAME }}
-          GHCR_TOKEN: |
-            master: ${{ secrets.GHCR_TOKEN }}
-            nightly: ${{ secrets.GHCR_TOKEN }}
   deploy-build:
     needs: [ deploy-init ]
     runs-on: ubuntu-latest
@@ -53,8 +41,8 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: ${{needs.deploy-init.outputs.GHCR_USERNAME}}
-          password: ${{needs.deploy-init.outputs.GHCR_TOKEN}}
+          username: ${{secrets.GHCR_USERNAME}}
+          password: ${{secrets.GHCR_TOKEN}}
 
       - name: Build WEB
         id: build-web
