@@ -4,13 +4,15 @@ on:
   workflow_dispatch:
   push:
     tags:
+      - 'deploy/prod/*'
       - 'deploy/nightly/*'
-
 jobs:
   deploy-init:
     runs-on: ubuntu-latest
     outputs:
       DEPLOY_TAG: ${{ steps.get-version.outputs.VERSION }}
+      GHCR_USERNAME: ${{ steps.get-branch-vars.outputs.GHCR_USERNAME }}
+      GHCR_TOKEN: ${{ steps.get-branch-vars.outputs.GHCR_TOKEN }}
     steps:
       - name: Get the latest tag version
         id: get-version
@@ -18,7 +20,16 @@ jobs:
           # Strip git ref prefix from version
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
           echo ::set-output name=version::$VERSION
-
+      - name: Set branch-based environment variables
+        id: get-branch-vars
+        uses: iamtheyammer/branch-env-vars@v1.0.2
+        with:
+          GHCR_USERNAME: |
+            master: ${{ secrets.GHCR_USERNAME }}
+            nightly: ${{ secrets.GHCR_USERNAME }}
+          GHCR_TOKEN: |
+            master: ${{ secrets.GHCR_TOKEN }}
+            nightly: ${{ secrets.GHCR_TOKEN }}
   deploy-build:
     needs: [ deploy-init ]
     runs-on: ubuntu-latest
@@ -42,8 +53,8 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: ${{ secrets.GHCR_USERNAME }}
-          password: ${{ secrets.GHCR_TOKEN }}
+          username: ${{needs.deploy-init.outputs.GHCR_USERNAME}}
+          password: ${{needs.deploy-init.outputs.GHCR_TOKEN}}
 
       - name: Build WEB
         id: build-web
@@ -107,12 +118,6 @@ jobs:
         uses: falti/dotenv-action@v0.2.5
         with:
           path: .env.dev
-      - name: Env set
-        id: setenv
-        run: |
-          DEPLOY_TAG=${{needs.deploy-init.outputs.DEPLOY_TAG}}
-          echo ::set-output name=DEPLOY_TAG::$DEPLOY_TAG
-
       - name: Start Deployment
         uses: TapTap21/docker-remote-deployment-action@v1.1
         env:
@@ -142,7 +147,6 @@ jobs:
           SSL_CERT: ${{ steps.dotenv.outputs.SSL_CERT }}
           FRONTEND_IPV4_ADDRESS: ${{ steps.dotenv.outputs.FRONTEND_IPV4_ADDRESS }}
           API_IPV4_ADDRESS: ${{ steps.dotenv.outputs.API_IPV4_ADDRESS }}
-
         with:
           remote_docker_host: ${{ secrets.REMOTE_DOCKER_HOST }}
           ssh_port: ${{ secrets.SSH_PORT }}
