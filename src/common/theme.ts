@@ -2,17 +2,22 @@ import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import { createMuiTheme, darken, responsiveFontSizes } from '@material-ui/core/styles'
 
 const fontFamily = 'Montserrat'
+
+// Instead of exporting `colors` variable use theme:
+// import theme from 'common/theme'
+// <meta name="theme-color" content={theme.palette.primary.main} />
 const colors = {
   blue: {
     light: '#F3FDFF',
-    main: '#4AC3FF',
-    mainDark: darken('#4AC3FF', 0.2),
+    main: '#32A9FE',
+    mainDark: darken('#32A9FE', 0.2),
     dark: '#294E85',
   },
   yellow: {
     main: '#FFCB57',
   },
 }
+
 export const themeOptions: ThemeOptions = {
   palette: {
     type: 'light',

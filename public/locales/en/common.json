@@ -66,7 +66,12 @@
           "marketing": "Marketing",
           "backend": "Backend",
           "frontend": "Frontend",
-          "qa": "QA"
+          "qa": "QA",
+          "designer": "Designer",
+          "projectManager": "Project manager",
+          "devOps": "DevOps",
+          "financesAndAccounts": "Finances and accounts",
+          "lawyer": "Lawyer"
         },
         "associationMember": {
           "title": "Association member",
@@ -91,7 +96,13 @@
       },
       "newsletter": {
         "title": "Newsletter",
-        "label": "Subscription"
+        "label": "Subscription",
+        "confirm": {
+          "title": "Are you really sure you don't want to subscribe ?",
+          "content": "By subscribing you will recieve regular useful and interesting info about us and our cause :)",
+          "confirmButtonLabel": "Yes I actually want to",
+          "cancelButtonLabel": "Maybe not"
+        }
       },
       "thank-you": {
         "title": "Thank you",

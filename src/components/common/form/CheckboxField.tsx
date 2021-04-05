@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next'
 
 import { TranslatableField, translateError } from 'common/form/validation'
 
-export type AcceptTermsFieldProps = {
+export type CheckboxFieldProps = {
   name: string
   label: string
 }
 
-export default function CheckboxField({ name, label }: AcceptTermsFieldProps) {
+export default function CheckboxField({ name, label }: CheckboxFieldProps) {
   const { t } = useTranslation()
   const [field, meta] = useField(name)
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
