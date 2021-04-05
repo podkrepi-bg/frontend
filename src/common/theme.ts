@@ -2,11 +2,11 @@ import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
 import { createMuiTheme, darken, responsiveFontSizes } from '@material-ui/core/styles'
 
 const fontFamily = 'Montserrat'
-const colors = {
+export const colors = {
   blue: {
     light: '#F3FDFF',
-    main: '#4AC3FF',
-    mainDark: darken('#4AC3FF', 0.2),
+    main: '#32A9FE',
+    mainDark: darken('#32A9FE', 0.2),
     dark: '#294E85',
   },
   yellow: {

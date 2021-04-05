@@ -1,9 +1,13 @@
 import React from 'react'
 import { SvgIcon, SvgIconProps } from '@material-ui/core'
 
+import { colors } from 'common/theme'
+
 export default function PodkrepiIcon({ color = 'primary', ...props }: SvgIconProps) {
   const [foreground, background] =
-    color === 'primary' ? ['#4AC3FF', '#FFCB57'] : ['#FFCB57', '#4AC3FF']
+    color === 'primary'
+      ? [colors.blue.main, colors.yellow.main]
+      : [colors.yellow.main, colors.blue.main]
   return (
     <SvgIcon {...props}>
       <path
