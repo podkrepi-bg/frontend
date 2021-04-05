@@ -31,4 +31,4 @@ RUN apk --no-cache add ca-certificates
 ARG APP_PATH=/app
 WORKDIR $APP_PATH
 COPY --from=builder /app/dist/app .
-CMD ["./app"]
+CMD ["./dist/app"]
