@@ -7,7 +7,6 @@
 [![Dev deployment](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-dev.yml/badge.svg)](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-dev.yml)
 [![Prod deployment](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-prod.yml/badge.svg)](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-prod.yml)
 
-
 ![Dependencies](https://img.shields.io/david/daritelska-platforma/frontend)
 ![Dev Dependencies](https://img.shields.io/david/dev/daritelska-platforma/frontend)
 ![](https://img.shields.io/github/license/daritelska-platforma/frontend)
