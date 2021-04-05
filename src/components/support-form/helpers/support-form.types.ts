@@ -35,6 +35,11 @@ export type Volunteer = {
   frontend?: boolean
   marketing?: boolean
   qa?: boolean
+  designer?: boolean
+  projectManager?: boolean
+  devOps?: boolean
+  financesAndAccounts?: boolean
+  lawyer?: boolean
 }
 export type Member = {
   isMember?: boolean

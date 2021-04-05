@@ -31,7 +31,10 @@ coverage
 .env
 .env*.local
 !.env.example
+
+# Act
 .actrc.secrets.local
+.github/workflows-test**
 
 # Build results
 [Dd]ebug/
