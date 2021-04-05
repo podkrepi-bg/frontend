@@ -3,9 +3,7 @@ FROM golang:1.15-alpine as base
 ARG APP_PATH=/app
 ARG DB_MIGRATIONS_PATH=/db/migrations
 WORKDIR $APP_PATH
-RUN apk add --update-cache \
-  curl \
-  && rm -rf /var/cache/apk/*
+RUN apk --no-cache add curl
 COPY . $APP_PATH
 RUN go mod download && mkdir -p dist
 EXPOSE 5000
@@ -27,7 +25,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o dist/app main.go
 
 # Production Stage
 FROM alpine:latest as production
-RUN apk --no-cache add ca-certificates
+RUN apk --no-cache add ca-certificates curl
 ARG APP_PATH=/app
 WORKDIR $APP_PATH
 COPY --from=builder /app/dist/app .
