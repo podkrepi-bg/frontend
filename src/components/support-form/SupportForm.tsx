@@ -1,9 +1,13 @@
+import { FormikHelpers } from 'formik'
 import { useTranslation } from 'next-i18next'
 import React, { useEffect, useState } from 'react'
 import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core/styles'
 import { Stepper, Step, StepLabel, StepConnector, Hidden, Grid } from '@material-ui/core'
 
+import { ApiErrors } from 'common/api-routes'
+import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
+import ConfirmationDialog from 'components/common/ConfirmationDialog'
 
 import Actions from './Actions'
 import Roles from './steps/Roles'
@@ -15,8 +19,6 @@ import AdditionalQuestions from './steps/AdditionalQuestions'
 import { validationSchema } from './helpers/validation-schema'
 import { SupportFormData } from './helpers/support-form.types'
 import { Steps, Step as StepType } from './helpers/support-form.types'
-import { FormikHelpers } from 'formik'
-import ConfirmationDialog from 'components/common/ConfirmationDialog'
 
 const ColorlibConnector = withStyles({
   alternativeLabel: { top: 22 },
@@ -53,13 +55,13 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 const initialValues: SupportFormData = {
-  terms: false,
   newsletter: false,
-  info: {
+  person: {
     email: '',
     name: '',
     phone: '',
     address: '',
+    terms: false,
   },
   roles: {
     benefactor: false,
@@ -146,6 +148,7 @@ const NewsletterDialog = ({ isOpen, handleConfirm, handleCancel }: NewsletterDia
 export default function SupportForm() {
   const { t } = useTranslation()
   const classes = useStyles()
+  const [loading, setLoading] = useState(false)
   const [maxStep, setMaxStep] = useState<Steps>(Steps.ROLES)
   const [activeStep, setActiveStep] = useState<Steps>(Steps.ROLES)
   const [failedStep, setFailedStep] = useState<Steps>(Steps.NONE)
@@ -192,57 +195,88 @@ export default function SupportForm() {
       }
       setActiveStep((prevActiveStep) => prevActiveStep + 1)
       setFailedStep(Steps.NONE)
-    } else {
-      actions.setTouched({})
-      actions.setSubmitting(false)
-      switch (activeStep) {
-        case Steps.ROLES:
-          {
-            const errors = await actions.validateForm()
-            if (errors.roles) {
-              setFailedStep(Steps.ROLES)
-              return
-            }
-            setActiveStep((prevActiveStep) => prevActiveStep + 1)
-            setFailedStep(Steps.NONE)
-          }
-          break
-        case Steps.QUESTIONS:
-          {
-            const errors = await actions.validateForm()
-            let hasErrors = false
-            const questions = Object.entries(values.roles)
-              .filter(([, value]) => value)
-              .map(([key]) => key)
-
-            Object.keys(errors).forEach((error) => {
-              if (questions.includes(error)) {
-                hasErrors = true
-              }
+      console.log(values)
+      try {
+        setLoading(true)
+        const { person, ...support_data } = values
+        const response = await fetch('/api/support-request', {
+          method: 'POST',
+          body: values && JSON.stringify({ person, support_data }),
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+        })
+        setLoading(false)
+        console.log(response)
+        if (response.status >= 299) {
+          const json: ApiErrors = await response.json()
+          if ('errors' in json) {
+            json.errors?.map(({ field, validator, message, customMessage }) => {
+              actions.setFieldError(field, t(`validation:${customMessage ? message : validator}`))
             })
-
-            if (hasErrors) {
-              setFailedStep(Steps.QUESTIONS)
-              return
-            }
-            setActiveStep((prevActiveStep) => prevActiveStep + 1)
-            setFailedStep(Steps.NONE)
           }
-          break
-        case Steps.INFO:
-          {
-            const errors = await actions.validateForm()
-            if (errors.info || errors.terms) {
-              setFailedStep(Steps.INFO)
-              return
-            }
-            setActiveStep((prevActiveStep) => prevActiveStep + 1)
-            setFailedStep(Steps.NONE)
-          }
-          break
-        default:
-          return 'Unknown step'
+          throw new Error()
+        }
+        AlertStore.show(t('contact:alerts.message-sent'), 'success')
+        actions.resetForm()
+      } catch (error) {
+        console.error(error)
+        setLoading(false)
+        AlertStore.show(t('contact:alerts.error'), 'error')
       }
+
+      return
+    }
+
+    actions.setTouched({})
+    actions.setSubmitting(false)
+    switch (activeStep) {
+      case Steps.ROLES:
+        {
+          const errors = await actions.validateForm()
+          if (errors.roles) {
+            setFailedStep(Steps.ROLES)
+            return
+          }
+          setActiveStep((prevActiveStep) => prevActiveStep + 1)
+          setFailedStep(Steps.NONE)
+        }
+        break
+      case Steps.QUESTIONS:
+        {
+          const errors = await actions.validateForm()
+          let hasErrors = false
+          const questions = Object.entries(values.roles)
+            .filter(([, value]) => value)
+            .map(([key]) => key)
+
+          Object.keys(errors).forEach((error) => {
+            if (questions.includes(error)) {
+              hasErrors = true
+            }
+          })
+
+          if (hasErrors) {
+            setFailedStep(Steps.QUESTIONS)
+            return
+          }
+          setActiveStep((prevActiveStep) => prevActiveStep + 1)
+          setFailedStep(Steps.NONE)
+        }
+        break
+      case Steps.PERSON:
+        {
+          const errors = await actions.validateForm()
+          if (errors.person) {
+            setFailedStep(Steps.PERSON)
+            return
+          }
+          setActiveStep((prevActiveStep) => prevActiveStep + 1)
+          setFailedStep(Steps.NONE)
+        }
+        break
+      default:
+        return 'Unknown step'
     }
   }
 
@@ -302,10 +336,11 @@ export default function SupportForm() {
               <Actions
                 disableBack={activeStep === 0}
                 onBack={handleBack}
+                loading={loading}
                 nextLabel={
                   isLastStep(activeStep, steps)
-                    ? t('common:support-form.cta.submit')
-                    : t('common:support-form.cta.next')
+                    ? 'common:support-form.cta.submit'
+                    : 'common:support-form.cta.next'
                 }
               />
             </Grid>
