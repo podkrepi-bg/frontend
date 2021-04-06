@@ -48,6 +48,7 @@ jobs:
         if: ${{ matrix.image-name == 'web' }}
         working-directory: .
         run: |
+          cp .env.prod .env
           docker build \
             --target production \
             --build-arg NODE_ENV=production \
@@ -134,6 +135,11 @@ jobs:
           SSL_CERT: ${{ steps.dotenv.outputs.SSL_CERT }}
           FRONTEND_IPV4_ADDRESS: ${{ steps.dotenv.outputs.FRONTEND_IPV4_ADDRESS }}
           API_IPV4_ADDRESS: ${{ steps.dotenv.outputs.API_IPV4_ADDRESS }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_DSN: ${{ steps.dotenv.outputs.SENTRY_DSN }}
+          SENTRY_PROJECT: ${{ steps.dotenv.outputs.SENTRY_PROJECT }}
+          SENTRY_SERVER_ROOT_DIR: ${{ steps.dotenv.outputs.SENTRY_SERVER_ROOT_DIR }}
         with:
           remote_docker_host: ${{ secrets.REMOTE_DOCKER_HOST }}
           ssh_port: ${{ secrets.SSH_PORT }}
