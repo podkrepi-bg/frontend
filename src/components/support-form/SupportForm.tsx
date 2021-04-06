@@ -198,10 +198,15 @@ export default function SupportForm() {
       console.log(values)
       try {
         setLoading(true)
-        const { person, ...support_data } = values
+        const { person, newsletter, ...support_data } = values
         const response = await fetch('/api/support-request', {
           method: 'POST',
-          body: values && JSON.stringify({ person, support_data }),
+          body:
+            person &&
+            JSON.stringify({
+              person: { ...person, newsletter },
+              support_data,
+            }),
           headers: {
             'Content-Type': 'application/json; charset=UTF-8',
           },
