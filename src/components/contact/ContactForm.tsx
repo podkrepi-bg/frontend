@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { FormikHelpers } from 'formik'
 import * as yup from 'yup'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { Grid, Typography } from '@material-ui/core'
 

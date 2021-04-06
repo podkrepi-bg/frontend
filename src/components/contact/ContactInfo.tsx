@@ -1,5 +1,5 @@
 import { Grid, Typography } from '@material-ui/core'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
 import MailIcon from './icons/MailIcon'
