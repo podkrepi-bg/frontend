@@ -11,15 +11,16 @@ import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 
 service CampaignService {
+
   // creates a new campaign
   rpc CreateCampaign (CreateCampaignRequest) returns (Campaign);
 
-  // list campaign
-  rpc ListCampaigns (ListCampaignsRequest) returns (ListCampaignsResponse);
+  // list campaigns
+  rpc ListCampaigns (ListCampaignsRequest) returns (CampaignsResponse);
 
-  rpc CampaignTypes (google.protobuf.Empty) returns (CampaignTypesResponse);
+  rpc ListCampaignTypes (google.protobuf.Empty) returns (CampaignTypesResponse);
 
-  rpc FilterCampaigns (FilterCampaignsRequest) returns (ListCampaignsResponse);
+  rpc FilterCampaigns (FilterCampaignsRequest) returns (CampaignsResponse);
 }
 
 message CreateCampaignRequest {
@@ -30,7 +31,7 @@ message CreateCampaignRequest {
 
 	string beneficiary_id = 3;
 
-  string title = 4;
+  	string title = 4;
 }
 
 message CampaignTypesResponse {
@@ -115,6 +116,6 @@ message Donation {
 message ListCampaignsRequest {
 }
 
-message ListCampaignsResponse {
+message CampaignsResponse {
   repeated Campaign campaigns = 1;
 }

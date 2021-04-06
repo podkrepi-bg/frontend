@@ -2,7 +2,6 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Podkrepibg.Campaigns.Data.Types;
-using Podkrepibg.Nomenclatures;
 
 namespace Podkrepibg.Campaigns.Data.Entities
 {

@@ -15,8 +15,4 @@
     </Content>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Podkrepibg.DataContracts\Podkrepibg.DataContracts.csproj" />
-  </ItemGroup> 
-
 </Project>
