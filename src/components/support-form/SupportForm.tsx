@@ -15,7 +15,6 @@ import AdditionalQuestions from './steps/AdditionalQuestions'
 import { validationSchema } from './helpers/validation-schema'
 import { SupportFormData } from './helpers/support-form.types'
 import { Steps, Step as StepType } from './helpers/support-form.types'
-import useForm from 'common/form/useForm'
 
 const ColorlibConnector = withStyles({
   alternativeLabel: { top: 22 },
