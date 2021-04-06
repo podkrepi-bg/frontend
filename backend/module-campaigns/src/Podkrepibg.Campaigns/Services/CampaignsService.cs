@@ -32,17 +32,17 @@ namespace Podkrepibg.Campaigns.Services
         });
     }
 
-    public override Task<CampaignTypesResponse> CampaignTypes(Empty request, ServerCallContext context)
+    public override Task<CampaignTypesResponse> ListCampaignTypes(Empty request, ServerCallContext context)
     {
-      return base.CampaignTypes(request, context);
+      return base.ListCampaignTypes(request, context);
     }
 
-    public override Task<ListCampaignsResponse> FilterCampaigns(FilterCampaignsRequest request, ServerCallContext context)
+    public override Task<CampaignsResponse> FilterCampaigns(FilterCampaignsRequest request, ServerCallContext context)
     {
       return base.FilterCampaigns(request, context);
     }
 
-    public override Task<ListCampaignsResponse> ListCampaigns(ListCampaignsRequest request, ServerCallContext context)
+    public override Task<CampaignsResponse> ListCampaigns(ListCampaignsRequest request, ServerCallContext context)
     {
       return base.ListCampaigns(request, context);
     }
