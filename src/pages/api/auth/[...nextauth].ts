@@ -1,13 +1,13 @@
 import getConfig from 'next/config'
 import Providers from 'next-auth/providers'
-import NextAuth, { InitOptions } from 'next-auth'
+import NextAuth, { NextAuthOptions } from 'next-auth'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 const {
   serverRuntimeConfig: { DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, JWT_SECRET },
 } = getConfig()
 
-const authOptions: InitOptions = {
+const authOptions: NextAuthOptions = {
   session: { jwt: true },
   secret: JWT_SECRET,
   jwt: {
@@ -31,7 +31,7 @@ const authOptions: InitOptions = {
     },
     async session(session, user) {
       console.log('CB:session', { session, user })
-      return session
+      return { ...session }
     },
     async jwt(token, user, account, profile, isNewUser) {
       console.log('CB:jwt', { token, user, account, profile, isNewUser })

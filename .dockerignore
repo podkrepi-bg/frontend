@@ -6,5 +6,3 @@ node_modules
 Dockerfile
 backend
 kubernetes
-
-.env**

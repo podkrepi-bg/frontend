@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next'
-import { getSession, Session } from 'next-auth/client'
+import { Session } from 'next-auth'
+import { getSession } from 'next-auth/client'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import IndexPage from 'components/index/IndexPage'

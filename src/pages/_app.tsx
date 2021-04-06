@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react'
 import Head from 'next/head'
 import { AppProps } from 'next/app'
-import { Provider as SessionProvider } from 'next-auth/client'
-import { ThemeProvider } from '@material-ui/core/styles'
+import React, { useEffect } from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
+import { ThemeProvider } from '@material-ui/core/styles'
+import { Provider as SessionProvider } from 'next-auth/client'
 import { appWithTranslation, useTranslation } from 'next-i18next'
 
 import theme from 'common/theme'
 import useGTM from 'common/util/useGTM'
+import { initSentry } from 'common/sentry'
 
 import 'styles/global.scss'
+
+initSentry()
 
 function CustomApp(props: AppProps) {
   const { Component, pageProps } = props
