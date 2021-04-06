@@ -1,13 +1,12 @@
 BEGIN;
 
-CREATE TABLE IF NOT EXISTS campaign.campaigns (
+CREATE TABLE IF NOT EXISTS app.support_requests (
     id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name          TEXT,
+    person        JSONB,
+    support_data  JSONB,
     created_at    TIMESTAMPTZ DEFAULT now() NOT NULL,
     updated_at    TIMESTAMPTZ,
     deleted_at    TIMESTAMPTZ
-
-    CHECK (LENGTH(name) > 2)
 );
 
 COMMIT;
