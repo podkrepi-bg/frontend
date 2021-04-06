@@ -11,7 +11,7 @@ EXPOSE 5000
 # Development Stage
 FROM base as development
 RUN go get github.com/githubnemo/CompileDaemon
-ENTRYPOINT CompileDaemon --build="go build -o dist/app main.go" --command=./dist/app
+ENTRYPOINT CompileDaemon --build="go build -o dist/api main.go" --command=./dist/api
 
 # Test Stage
 FROM base as test
@@ -21,12 +21,10 @@ ENTRYPOINT make test
 FROM base as builder
 ARG APP_PATH=/app
 WORKDIR $APP_PATH
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o dist/app main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o dist/api main.go
 
 # Production Stage
 FROM alpine:latest as production
 RUN apk --no-cache add ca-certificates curl
-ARG APP_PATH=/app
-WORKDIR $APP_PATH
-COPY --from=builder /app/dist/app .
-CMD ["./dist/app"]
+COPY --from=builder /app/dist/api /app/dist/api
+CMD ["/app/dist/api"]
