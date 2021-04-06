@@ -27,6 +27,7 @@ services:
       - '${REST_API_PORT?}:5000'
     volumes:
       - ./backend/contact:/app
+      - /app/dist
 
   roach-lb:
     ports:
