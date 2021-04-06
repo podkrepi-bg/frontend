@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core'
 import { Timeline as TimelineMaterial } from '@material-ui/lab'
 import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite'

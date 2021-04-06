@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 import { Grid, Container, createStyles, makeStyles } from '@material-ui/core'
 import { Instagram, Facebook, Twitter, LinkedIn, YouTube } from '@material-ui/icons'

@@ -12,8 +12,7 @@ services:
       - '${APP_PORT?}:3040'
     volumes:
       # Local:Container mounting points
-      - ./src:/app/src
-      - ./public:/app/public
+      - .:/app
       - /app/.next
       - /app/node_modules
 
@@ -28,6 +27,7 @@ services:
       - '${REST_API_PORT?}:5000'
     volumes:
       - ./backend/contact:/app
+      - /app/dist
 
   roach-lb:
     ports:
