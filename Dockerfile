@@ -39,6 +39,7 @@ FROM base AS production
 COPY --from=builder /app/.next /app/.next
 COPY --from=builder /app/public /app/public
 COPY --from=dependencies /prod_node_modules /app/node_modules
+COPY next.config.js next-i18next.config.js /app/
 CMD [ "yarn", "start" ]
 
 HEALTHCHECK --interval=5s --timeout=3s --retries=3 CMD curl --fail http://localhost:3040 || exit 1
