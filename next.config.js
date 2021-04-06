@@ -4,6 +4,7 @@ const SentryWebpackPlugin = require('@sentry/webpack-plugin')
 const { i18n } = require('./next-i18next.config')
 
 const {
+  APP_ENV,
   NODE_ENV,
   DEPLOY_TAG,
   SENTRY_DSN,
