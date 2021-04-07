@@ -2,7 +2,6 @@ package support_request
 
 import (
 	"errors"
-	"time"
 
 	"github.com/asaskevich/govalidator"
 	"github.com/daritelska-platforma/v2/api"
@@ -22,16 +21,19 @@ func (SupportRequest) TableName() string {
 	return "app.support_requests"
 }
 
-type SupportRequestData struct {
-	Person struct {
-		Email      string `json:"email" valid:"required,email"`
-		Name       string `json:"name" valid:"required,minstringlength(2)~field-too-short,maxstringlength(50)~field-too-long"`
-		Phone      string `json:"phone" valid:"required,phone"`
-		Address    string `json:"address"`
-		Terms      bool   `json:"terms"`
-		Newsletter bool   `json:"newsletter"`
-	} `json:"person"`
-	Roles struct {
+type Person struct {
+	database.JSONB `json:"-"`
+	Email          string `json:"email" valid:"required,email"`
+	Name           string `json:"name" valid:"required,minstringlength(2)~field-too-short,maxstringlength(50)~field-too-long"`
+	Phone          string `json:"phone" valid:"required,phone"`
+	Address        string `json:"address"`
+	Terms          bool   `json:"terms"`
+	Newsletter     bool   `json:"newsletter"`
+}
+
+type SupportData struct {
+	database.JSONB `json:"-"`
+	Roles          struct {
 		Benefactor        bool `json:"benefactor"`
 		Partner           bool `json:"partner"`
 		AssociationMember bool `json:"associationMember"`
@@ -71,12 +73,10 @@ type SupportRequestData struct {
 }
 
 type SupportRequest struct {
-	ID          uuid.UUID      `gorm:"primaryKey;type:uuid;default:gen_random_uuid()"`
-	Person      database.JSONB `json:"person" sql:"type:jsonb"`
-	SupportData database.JSONB `json:"support_data" sql:"type:jsonb"`
-	CreatedAt   time.Time      `json:"createdAt"`
-	UpdatedAt   time.Time      `json:"updatedAt"`
-	DeletedAt   gorm.DeletedAt `gorm:"index" json:"deletedAt"`
+	database.PrimaryKeyUUID
+	Person      Person      `json:"person" sql:"type:jsonb"`
+	SupportData SupportData `json:"support_data" sql:"type:jsonb"`
+	database.TimeFields
 }
 
 func GetSupportRequests(db *database.Database) fiber.Handler {

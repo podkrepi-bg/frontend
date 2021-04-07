@@ -2,7 +2,6 @@ package contact
 
 import (
 	"errors"
-	"time"
 
 	"github.com/asaskevich/govalidator"
 	"github.com/daritelska-platforma/v2/api"
@@ -23,16 +22,14 @@ func (Contact) TableName() string {
 }
 
 type Contact struct {
-	ID        uuid.UUID      `gorm:"primaryKey;type:uuid;default:gen_random_uuid()"`
-	FirstName string         `json:"firstName" valid:"required,minstringlength(2)~field-too-short,maxstringlength(50)~field-too-long"`
-	LastName  string         `json:"lastName" valid:"required,minstringlength(2)~field-too-short,maxstringlength(50)~field-too-long"`
-	Email     string         `json:"email" valid:"required,email"`
-	Company   string         `json:"company" valid:"maxstringlength(50)~field-too-long"`
-	Phone     string         `json:"phone" valid:"required,phone"`
-	Message   string         `json:"message" valid:"required,minstringlength(10)~field-too-short,maxstringlength(500)~field-too-long"`
-	CreatedAt time.Time      `json:"createdAt"`
-	UpdatedAt time.Time      `json:"updatedAt"`
-	DeletedAt gorm.DeletedAt `gorm:"index" json:"deletedAt"`
+	database.PrimaryKeyUUID
+	FirstName string `json:"firstName" valid:"required,minstringlength(2)~field-too-short,maxstringlength(50)~field-too-long"`
+	LastName  string `json:"lastName" valid:"required,minstringlength(2)~field-too-short,maxstringlength(50)~field-too-long"`
+	Email     string `json:"email" valid:"required,email"`
+	Company   string `json:"company" valid:"maxstringlength(50)~field-too-long"`
+	Phone     string `json:"phone" valid:"required,phone"`
+	Message   string `json:"message" valid:"required,minstringlength(10)~field-too-short,maxstringlength(500)~field-too-long"`
+	database.TimeFields
 }
 
 func GetContacts(db *database.Database) fiber.Handler {
