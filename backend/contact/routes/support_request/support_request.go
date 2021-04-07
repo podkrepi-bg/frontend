@@ -102,7 +102,7 @@ func GetSupportRequest(db *database.Database) fiber.Handler {
 		}
 
 		if supportRequest.ID == uuid.Nil {
-			return fiber.NewError(fiber.StatusNotFound, "No supportRequest found")
+			return fiber.NewError(fiber.StatusNotFound, "No support request found")
 		}
 		return ctx.JSON(supportRequest)
 	}
