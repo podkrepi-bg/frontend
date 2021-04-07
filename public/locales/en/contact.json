@@ -1,5 +1,29 @@
 {
   "subtitle": "Do not hesitate to contact us!",
   "form-heading": "Send a message to Podkrepi.bg",
+  "info-options": {
+    "donors": "Donors",
+    "campain-applicants": "Campain Applicants",
+    "organizations": "NGOs and other organizations",
+    "volunteers": "Anyone who wish to support Podkrepi.bg with voluntary work or financial resources."
+  },
+  "contact-options": {
+    "address": {
+      "key": "Address",
+      "value": "Sofia, Bulgaria, bul. 'Cherni Vrah' 47, building A, floor 4"
+    },
+    "phone": {
+      "key": "Telephone",
+      "value": "00359878998778 (Office), 00359878887887 (Sales)"
+    },
+    "other": {
+      "key": "Other ways to contact us",
+      "value": "Email: info@youremail.com"
+    }
+  },
+  "alerts": {
+    "message-sent": "Your message has been sent!",
+    "error": "There was an error processing your message!"
+  },
   "email": "Email: info@podkrepi.bg"
 }

@@ -1,19 +1,137 @@
 version: '3.7'
 services:
   frontend:
-    image: ${COMPOSE_PROJECT_NAME?}-frontend
+    image: ${WEB_DEPLOY_IMAGE}:${DEPLOY_TAG?}
     container_name: ${COMPOSE_PROJECT_NAME?}-frontend
+    restart: always
     environment:
-      API_URL: ${API_URL}
-      APP_URL: ${APP_URL}
-      NEXTAUTH_URL: ${NEXTAUTH_URL}
-      JWT_SECRET: ${JWT_SECRET}
-      DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID}
-      DISCORD_CLIENT_SECRET: ${DISCORD_CLIENT_SECRET}
-
+      API_URL: ${API_URL?}
+      APP_URL: ${APP_URL?}
+      DEPLOY_TAG: ${DEPLOY_TAG?}
+      JWT_SECRET: ${JWT_SECRET?}
+      NEXTAUTH_URL: ${NEXTAUTH_URL?}
+      DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID?}
+      DISCORD_CLIENT_SECRET: ${DISCORD_CLIENT_SECRET?}
+      # Sentry
+      SENTRY_ORG: ${SENTRY_ORG?}
+      SENTRY_DSN: ${SENTRY_DSN?}
+      SENTRY_PROJECT: ${SENTRY_PROJECT?}
+      SENTRY_AUTH_TOKEN: ${SENTRY_AUTH_TOKEN}
+      SENTRY_SERVER_ROOT_DIR: ${SENTRY_SERVER_ROOT_DIR:-/app}
+    depends_on:
+      - api
+    healthcheck:
+      test: curl --fail http://localhost:3040/api/healthcheck || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 3
     networks:
-      - frontend-net
+      frontend-net:
+        aliases:
+          - podkrepi.localhost
+
+  api:
+    image: ${API_DEPLOY_IMAGE}:${DEPLOY_TAG?}
+    container_name: ${COMPOSE_PROJECT_NAME?}-api
+    restart: always
+    networks:
+      backend-net:
+        aliases:
+          - api.podkrepi.localhost
+      frontend-net:
+        aliases:
+          - api.podkrepi.localhost
+    depends_on:
+      - roach-init
+      - flyway
+    healthcheck:
+      test: curl --fail http://localhost:5000/api/v1/healthcheck || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 3
+
+  roach-0:
+    image: cockroachdb/cockroach:latest
+    container_name: ${COMPOSE_PROJECT_NAME?}-roach-0
+    restart: always
+    hostname: roach-0
+    command: start-single-node --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257 --insecure
+    # command: start-single-node --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257 --certs-dir=/certs
+    volumes:
+      - roach-0-data:/cockroach/cockroach-data
+    #   - certs-roach-0:/certs
+    # depends_on:
+    #   - roach-cert
+    networks:
+      - backend-net
+
+  # roach-cert:
+  #   container_name: roach-cert
+  #   hostname: roach-cert
+  #   build: db/cert
+  #   volumes:
+  #     - certs-roach-0:/certs/roach-0
+  #     - certs-client:/certs/client
+
+  roach-lb:
+    # https://github.com/cockroachlabs-field/dynamic-haproxy
+    image: timveil/dynamic-haproxy:latest
+    container_name: ${COMPOSE_PROJECT_NAME?}-roach-lb
+    restart: always
+    hostname: roach-lb
+    environment:
+      - NODES=roach-0
+      # - NODES=roach-0 roach-1 roach-2
+    networks:
+      - backend-net
+    depends_on:
+      - roach-0
+    healthcheck:
+      test: /bin/true
+      interval: 3s
+      timeout: 10s
+      retries: 10
+
+  roach-init:
+    container_name: ${COMPOSE_PROJECT_NAME?}-roach-init
+    hostname: roach-init
+    # https://github.com/cockroachlabs-field/cockroachdb-remote-client
+    image: timveil/cockroachdb-remote-client:latest
+    environment:
+      DATABASE_NAME: ${DB_NAME?}
+      DATABASE_USER: ${DB_USER?}
+      DATABASE_PASSWORD: ${DB_PASS?}
+      COCKROACH_HOST: roach-lb:${DB_PORT?}
+      COCKROACH_DATABASE: ${DB_NAME?}
+      COCKROACH_INSECURE: 'true'
+      # COCKROACH_INSECURE: 'false'
+      # COCKROACH_CERTS_DIR: /certs
+    # volumes:
+    #   - certs-client:/certs
+    networks:
+      - backend-net
+    depends_on:
+      - roach-lb
+
+  flyway:
+    image: ${FLYWAY_DEPLOY_IMAGE}:${DEPLOY_TAG?}
+    container_name: ${COMPOSE_PROJECT_NAME?}-flyway
+    hostname: flyway
+    # https://flywaydb.org/documentation/configuration/configfile#reference
+    # jdbc:postgresql://<host>:<port>/<database>?<key1>=<value1>&<key2>=<value2>...
+    command: migrate
+    entrypoint: flyway -url=jdbc:postgresql://${DB_HOST?}:${DB_PORT?}/${DB_NAME?} -schemas=app,campaign,account -user=${DB_USER?} -password=${DB_PASS?} -connectRetries=60
+    depends_on:
+      - roach-init
+    # volumes:
+    #   - cert-client
+    #   - certs-roach-0
+    networks:
+      - backend-net
+
+volumes:
+  roach-0-data:
 
 networks:
   frontend-net:
-    driver: bridge
+  backend-net:

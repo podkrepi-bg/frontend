@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     heading: {
-      color: '#4AC3FF',
+      color: theme.palette.primary.main,
       display: 'block',
       fontSize: theme.typography.pxToRem(18),
     },

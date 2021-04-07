@@ -1,15 +1,15 @@
 import { Checkbox, FormControl, FormControlLabel, FormHelperText } from '@material-ui/core'
 import { useField } from 'formik'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 import { TranslatableField, translateError } from 'common/form/validation'
 
-export type AcceptTermsFieldProps = {
+export type CheckboxFieldProps = {
   name: string
   label: string
 }
 
-export default function CheckboxField({ name, label }: AcceptTermsFieldProps) {
+export default function CheckboxField({ name, label }: CheckboxFieldProps) {
   const { t } = useTranslation()
   const [field, meta] = useField(name)
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''

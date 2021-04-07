@@ -3,7 +3,9 @@
 ![Lint](https://github.com/daritelska-platforma/frontend/workflows/Lint/badge.svg)
 ![Build](https://github.com/daritelska-platforma/frontend/workflows/Build/badge.svg)
 ![Build docker image](https://github.com/daritelska-platforma/frontend/workflows/Build%20docker%20image/badge.svg)
-[![Production deployment](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-production.yml/badge.svg)](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-production.yml)
+
+[![Dev deployment](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-dev.yml/badge.svg)](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-dev.yml)
+[![Prod deployment](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-prod.yml/badge.svg)](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-prod.yml)
 
 ![Dependencies](https://img.shields.io/david/daritelska-platforma/frontend)
 ![Dev Dependencies](https://img.shields.io/david/dev/daritelska-platforma/frontend)
@@ -11,7 +13,9 @@
 ![](https://img.shields.io/github/issues/daritelska-platforma/frontend)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## What's in the box

@@ -11,12 +11,12 @@ import LoginForm from 'components/auth/login/LoginForm'
 
 const callbackUrl = `${baseUrl}${routes.index}`
 
-export default function LoginPage({ providers }: LoginPageProps) {
+export default function LoginPage({ providers, csrfToken }: LoginPageProps) {
   const { t } = useTranslation()
   return (
     <Layout title={t('nav.login')}>
       <Container maxWidth="xs">
-        <LoginForm />
+        <LoginForm csrfToken={csrfToken || ''} />
         <Grid container justify="flex-end">
           <Box mt={2}>
             <Link href={routes.forgottenPassword}>{t('nav.forgottenPassword')}</Link>
@@ -25,17 +25,19 @@ export default function LoginPage({ providers }: LoginPageProps) {
         <Box mt={4}>
           <Grid container direction="column" spacing={1}>
             {providers &&
-              Object.values(providers).map((provider) => (
-                <Grid item key={provider.name}>
-                  <Button
-                    fullWidth
-                    color="default"
-                    variant="outlined"
-                    onClick={() => signIn(provider.id, { callbackUrl })}>
-                    {t('nav.login-with')} {provider.name}
-                  </Button>
-                </Grid>
-              ))}
+              Object.values(providers)
+                .filter((p) => p.name !== 'Credentials')
+                .map((provider) => (
+                  <Grid item key={provider.name}>
+                    <Button
+                      fullWidth
+                      color="default"
+                      variant="outlined"
+                      onClick={() => signIn(provider.id, { callbackUrl })}>
+                      {t('nav.login-with')} {provider.name}
+                    </Button>
+                  </Grid>
+                ))}
           </Grid>
         </Box>
       </Container>

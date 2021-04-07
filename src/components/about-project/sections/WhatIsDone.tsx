@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core'
 import CheckIcon from '@material-ui/icons/Check'
 
