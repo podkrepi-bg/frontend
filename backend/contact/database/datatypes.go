@@ -3,6 +3,10 @@ package database
 import (
 	"database/sql/driver"
 	"encoding/json"
+	"time"
+
+	"github.com/gofrs/uuid"
+	"gorm.io/gorm"
 )
 
 type JSONB map[string]interface{}
@@ -17,4 +21,14 @@ func (j *JSONB) Scan(value interface{}) error {
 		return err
 	}
 	return nil
+}
+
+type PrimaryKeyUUID struct {
+	ID uuid.UUID `gorm:"primaryKey;type:uuid;default:gen_random_uuid()"`
+}
+
+type TimeFields struct {
+	CreatedAt time.Time      `json:"createdAt"`
+	UpdatedAt time.Time      `json:"updatedAt"`
+	DeletedAt gorm.DeletedAt `gorm:"index" json:"deletedAt"`
 }
