@@ -11,6 +11,7 @@
     "noEmit": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "strictPropertyInitialization": false,
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,

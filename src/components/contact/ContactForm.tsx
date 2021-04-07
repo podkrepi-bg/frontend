@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { FormikHelpers } from 'formik'
 import * as yup from 'yup'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { Grid, Typography } from '@material-ui/core'
 
@@ -9,6 +10,7 @@ import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import { name, companyName, phone } from 'common/form/validation'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
+import { AlertStore } from 'stores/AlertStore'
 
 export type ContactFormData = {
   firstName: string
@@ -26,10 +28,10 @@ const validationSchema: yup.SchemaOf<ContactFormData> = yup
   .shape({
     firstName: name.required(),
     lastName: name.required(),
-    email: yup.string().email().required(),
+    email: yup.string().trim().email().required(),
     company: companyName,
-    phone: phone,
-    message: yup.string().min(30).max(500).required(),
+    phone: phone.required(),
+    message: yup.string().trim().min(10).max(500).required(),
     terms: yup.bool().required().oneOf([true], 'common:support-form.termsHelperText'),
   })
 
@@ -50,26 +52,62 @@ const useStyles = makeStyles((theme) =>
       color: theme.palette.primary.dark,
       textAlign: 'center',
     },
+    message: {
+      '& textarea': { resize: 'vertical' },
+    },
   }),
 )
 
 export type ContactFormProps = { initialValues?: ContactFormData }
 
+type ApiError = {
+  field: string
+  message: string
+  validator: string
+  customMessage: boolean
+}
+type ApiErrors = {
+  error?: ApiError
+  errors?: ApiError[]
+}
+
 export default function ContactForm({ initialValues = defaults }: ContactFormProps) {
   const classes = useStyles()
+  const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
 
-  const onSubmit = async (values: ContactFormData) => {
+  const onSubmit = async (
+    values: ContactFormData,
+    { setFieldError, resetForm }: FormikHelpers<ContactFormData>,
+  ) => {
     console.log(values)
-
-    const response = await fetch('/api/contact', {
-      method: 'POST',
-      body: values && JSON.stringify(values),
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    })
-    console.log(response)
+    try {
+      setLoading(true)
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        body: values && JSON.stringify(values),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      })
+      setLoading(false)
+      console.log(response)
+      if (response.status >= 299) {
+        const json: ApiErrors = await response.json()
+        if ('errors' in json) {
+          json.errors?.map(({ field, validator, message, customMessage }) => {
+            setFieldError(field, t(`validation:${customMessage ? message : validator}`))
+          })
+        }
+        throw new Error()
+      }
+      AlertStore.show(t('contact:alerts.message-sent'), 'success')
+      resetForm()
+    } catch (error) {
+      console.error(error)
+      setLoading(false)
+      AlertStore.show(t('contact:alerts.error'), 'error')
+    }
   }
 
   return (
@@ -91,33 +129,40 @@ export default function ContactForm({ initialValues = defaults }: ContactFormPro
             <FormTextField type="text" label="auth:fields.last-name" name="lastName" />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField type="text" label="auth:fields.email" name="email" />
-          </Grid>
-          <Grid item xs={12}>
-            <FormTextField type="tel" label="auth:fields.phone" name="phone" autoComplete="tel" />
+            <FormTextField inputMode="email" type="text" label="auth:fields.email" name="email" />
           </Grid>
           <Grid item xs={12}>
             <FormTextField
-              type="text"
-              label="auth:fields.company"
-              name="company"
-              autoComplete="organization"
+              type="tel"
+              name="phone"
+              inputMode="tel"
+              autoComplete="tel"
+              label="auth:fields.phone"
             />
           </Grid>
           <Grid item xs={12}>
             <FormTextField
               type="text"
-              multiline
+              name="company"
+              label="auth:fields.company"
+              autoComplete="organization"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <FormTextField
               rows={4}
-              label="auth:fields.message"
+              multiline
+              type="text"
               name="message"
+              label="auth:fields.message"
+              className={classes.message}
             />
           </Grid>
           <Grid item xs={12}>
             <AcceptTermsField name="terms" />
           </Grid>
           <Grid item xs={12}>
-            <SubmitButton label="auth:cta.send" fullWidth />
+            <SubmitButton fullWidth label="auth:cta.send" loading={loading} />
           </Grid>
         </Grid>
       </GenericForm>

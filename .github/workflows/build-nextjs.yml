@@ -29,4 +29,6 @@ jobs:
         if: steps.yarn-cache.outputs.cache-hit != 'true'
 
       - name: Build frontend
-        run: yarn build
+        run: |
+          cp .env.example .env
+          yarn build

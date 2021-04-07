@@ -1,10 +1,12 @@
 import React, { RefObject } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@material-ui/core'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
+
 import { routes } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
+
 import Typewriter from '../helpers/Typewriter'
 
 const useStyles = makeStyles((theme) =>
