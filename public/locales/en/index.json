@@ -6,6 +6,7 @@
     "eliminate-misuse": "aimed at eliminating misuses of donation campaigns",
     "improve-donation-culture": "aimed at improving the donation culture in Bulgaria",
     "open-source": "open source",
+    "about-project-button": "About the project",
     "support-us-button": "Support us"
   },
   "activity-section": {
@@ -18,7 +19,7 @@
   },
   "team-chart-section": {
     "heading": "How it all started?",
-    "content": "700 volunteers from the IT community, lawyers, accountants, marketers, medics, NGO representatives.",
+    "content": "736 volunteers from the IT community, lawyers, accountants, marketers, medics, NGO representatives, united by the idea of improving donation platforms in Bulgaria.",
     "data": {
       "back-end": "BACK-END (146)",
       "frontend": "FRONT-END (89)",
@@ -35,10 +36,11 @@
     }
   },
   "support-us-section": {
-    "heading": "Support us",
-    "financial-support": "financially",
-    "labour-support": "with labour",
-    "media-support": "with media",
-    "become-a-partner": "become a partner"
+    "heading": "Support us:",
+    "financial-support": "- financially",
+    "labour-support": "- with labour",
+    "media-support": "- with media",
+    "become-a-partner": "- become a partner",
+    "click-here-button": "Click here"
   }
 }

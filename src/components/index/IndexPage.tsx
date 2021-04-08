@@ -18,8 +18,8 @@ export default function IndexPage() {
         <ActivitySection />
         <TeamSection />
         <TeamChartSection />
-        <SupportUsSection />
       </Container>
+      <SupportUsSection />
     </Layout>
   )
 }
