@@ -1,6 +1,6 @@
-import { FormikContextType, FormikFormProps, FormikHelpers } from 'formik'
+import { FormikHelpers, FormikProps } from 'formik'
 import { useTranslation } from 'next-i18next'
-import React, { useEffect, useState, useRef, ElementRef, MutableRefObject } from 'react'
+import React, { useEffect, useState, useRef, RefObject } from 'react'
 import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core/styles'
 import { Stepper, Step, StepLabel, StepConnector, Hidden, Grid } from '@material-ui/core'
 
@@ -148,8 +148,8 @@ const NewsletterDialog = ({ isOpen, handleConfirm, handleCancel }: NewsletterDia
 export default function SupportForm() {
   const { t } = useTranslation()
   const classes = useStyles()
-  const formRef = useRef<FormikHelpers<SupportFormData>>()
-  const form = formRef.current
+  const formRef = useRef<FormikProps<SupportFormData>>() as RefObject<FormikProps<SupportFormData>>
+  const form = formRef?.current
   const [loading, setLoading] = useState(false)
   const [maxStep, setMaxStep] = useState<Steps>(Steps.ROLES)
   const [activeStep, setActiveStep] = useState<Steps>(Steps.ROLES)
