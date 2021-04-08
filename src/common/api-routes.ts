@@ -5,6 +5,6 @@ export type ApiError = {
   customMessage: boolean
 }
 export type ApiErrors = {
-  error?: ApiError
-  errors?: ApiError[]
+  error?: string
+  validation?: ApiError[]
 }
