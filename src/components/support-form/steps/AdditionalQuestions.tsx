@@ -55,7 +55,7 @@ export default function AdditionalQuestions() {
     {
       key: 'benefactor',
       title: 'support:steps.addition-questions.benefactor.title',
-      errorMessage: 'support:helperText',
+      errorMessage: 'validation:select-role',
       options: [
         {
           type: 'checkbox',
@@ -74,7 +74,7 @@ export default function AdditionalQuestions() {
     {
       key: 'associationMember',
       title: 'support:steps.addition-questions.associationMember.title',
-      errorMessage: 'support:helperText',
+      errorMessage: 'validation:select-role',
       options: [
         {
           type: 'checkbox',
@@ -87,7 +87,7 @@ export default function AdditionalQuestions() {
     {
       key: 'partner',
       title: 'support:steps.addition-questions.partner.title',
-      errorMessage: 'support:helperText',
+      errorMessage: 'validation:select-role',
       options: [
         {
           type: 'checkbox',
@@ -117,7 +117,7 @@ export default function AdditionalQuestions() {
     {
       key: 'volunteer',
       title: 'support:steps.addition-questions.volunteer.title',
-      errorMessage: 'support:helperText',
+      errorMessage: 'validation:select-role',
       options: [
         {
           type: 'checkbox',
@@ -178,7 +178,7 @@ export default function AdditionalQuestions() {
     {
       key: 'promoter',
       title: 'support:steps.addition-questions.promoter.title',
-      errorMessage: 'support:helperText',
+      errorMessage: 'validation:select-role',
       options: [
         {
           type: 'checkbox',

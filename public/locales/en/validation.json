@@ -7,5 +7,8 @@
   "password-match": "Password doesn't match",
   "field-too-short": "Field should be at least {{min}} symbols",
   "field-too-long": "Field should be maximum {{max}} symbols",
-  "one-of": "Invalid value"
+  "one-of": "Invalid value",
+  "select-role": "At least one checkbox should be checked",
+  "terms-of-use": "Please agree to the Terms and Conditions",
+  "agree-terms": "Agree to the Terms and Conditions"
 }

@@ -37,7 +37,7 @@ export default function Roles() {
               name="roles.promoter"
               description={t('support:steps.role.fields.promoter.description')}></Role>
           </FormGroup>
-          {error && <FormHelperText>{t('support:helperText')}</FormHelperText>}
+          {error && <FormHelperText>{t('validation:select-role')}</FormHelperText>}
         </FormControl>
       </Grid>
     </Grid>
