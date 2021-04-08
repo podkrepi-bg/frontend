@@ -9,6 +9,7 @@ import (
 	"github.com/daritelska-platforma/v2/database"
 	"github.com/daritelska-platforma/v2/routes/contact"
 	"github.com/daritelska-platforma/v2/routes/healthcheck"
+	"github.com/daritelska-platforma/v2/routes/support_request"
 
 	"github.com/asaskevich/govalidator"
 	"github.com/gofiber/fiber/v2"
@@ -23,12 +24,22 @@ type App struct {
 }
 
 func (app *App) setupRoutes() {
-	app.Get("/api/v1/healthcheck", healthcheck.GetHealthcheck(app.DB))
+	api := app.Group("/api/v1")
 
-	app.Get("/api/v1/contact", contact.GetContacts(app.DB))
-	app.Get("/api/v1/contact/:id", contact.GetContact(app.DB))
-	app.Post("/api/v1/contact", contact.NewContact(app.DB))
-	app.Delete("/api/v1/contact/:id", contact.DeleteContact(app.DB))
+	api.Get("/healthcheck", healthcheck.GetHealthcheck(app.DB))
+
+	contactGroup := api.Group("/contact")
+	contactGroup.Get("", contact.GetContacts(app.DB))
+	contactGroup.Get("/:id", contact.GetContact(app.DB))
+	contactGroup.Post("", contact.NewContact(app.DB))
+	contactGroup.Delete("/:id", contact.DeleteContact(app.DB))
+
+	support := api.Group("/support-request")
+	support.Get("", support_request.GetSupportRequests(app.DB))
+	support.Get("/:id", support_request.GetSupportRequest(app.DB))
+	support.Post("", support_request.NewSupportRequest(app.DB))
+	support.Delete("/:id", support_request.DeleteSupportRequest(app.DB))
+
 }
 
 func (app *App) initValidation() {
@@ -57,8 +68,8 @@ func (app *App) initDatabase() *database.Database {
 	fmt.Println("Connection Opened to Database")
 
 	// Add schema prefix to table
-	db.Table("app.contacts").AutoMigrate(&contact.Contact{})
-	fmt.Println("Database Migrated")
+	// db.Table("app.contacts").AutoMigrate(&contact.Contact{})
+	// fmt.Println("Database Migrated")
 	return db
 }
 

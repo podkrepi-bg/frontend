@@ -9,16 +9,17 @@ export enum Steps {
   NONE = -1,
   ROLES = 0,
   QUESTIONS = 1,
-  INFO = 2,
+  PERSON = 2,
   NEWSLETTER = 3,
   FINISH = 4,
 }
 
-export type Info = {
+export type Person = {
   email: string
   name: string
   phone: string
   address: string
+  terms: boolean
 }
 export type Benefactor = {
   campaignBenefactor?: boolean
@@ -52,9 +53,8 @@ export type Promoter = {
 }
 export type Roles = { [key in RoleTypes]: boolean }
 export type SupportFormData = {
-  terms: boolean
   newsletter: boolean
-  info: Info
+  person: Person
   roles: Roles
   benefactor?: Benefactor
   partner?: Partner
@@ -74,9 +74,8 @@ export type SupportFormDataSteps = {
     associationMember?: Member
     promoter?: Promoter
   }
-  [Steps.INFO]: {
-    info: Info
-    terms: boolean
+  [Steps.PERSON]: {
+    person: Person
   }
   [Steps.NEWSLETTER]: {
     newsletter: boolean
