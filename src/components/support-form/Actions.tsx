@@ -23,7 +23,7 @@ export default function Actions({
     <Grid container justify="space-around">
       <Grid item>
         <Button disabled={disableBack} onClick={onBack}>
-          {t('common:support-form.cta.back')}
+          {t('support:cta.back')}
         </Button>
       </Grid>
       <Grid item>

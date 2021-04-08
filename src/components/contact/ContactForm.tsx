@@ -33,7 +33,7 @@ const validationSchema: yup.SchemaOf<ContactFormData> = yup
     company: companyName,
     phone: phone.required(),
     message: yup.string().trim().min(10).max(500).required(),
-    terms: yup.bool().required().oneOf([true], 'common:support-form.termsHelperText'),
+    terms: yup.bool().required().oneOf([true], 'support:termsHelperText'),
   })
 
 const defaults: ContactFormData = {
@@ -91,12 +91,12 @@ export default function ContactForm({ initialValues = defaults }: ContactFormPro
         }
         throw new Error()
       }
-      AlertStore.show(t('contact:alerts.message-sent'), 'success')
+      AlertStore.show(t('common:alerts.message-sent'), 'success')
       resetForm()
     } catch (error) {
       console.error(error)
       setLoading(false)
-      AlertStore.show(t('contact:alerts.error'), 'error')
+      AlertStore.show(t('common:alerts.error'), 'error')
     }
   }
 

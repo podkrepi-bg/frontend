@@ -104,23 +104,23 @@ const initialValues: SupportFormData = {
 
 const steps: StepType[] = [
   {
-    label: 'common:support-form.steps.role.title',
+    label: 'support:steps.role.title',
     component: <Roles />,
   },
   {
-    label: 'common:support-form.steps.addition-questions.title',
+    label: 'support:steps.addition-questions.title',
     component: <AdditionalQuestions />,
   },
   {
-    label: 'common:support-form.steps.info.title',
+    label: 'support:steps.info.title',
     component: <GeneralInfo />,
   },
   {
-    label: 'common:support-form.steps.newsletter.title',
+    label: 'support:steps.newsletter.title',
     component: <Newsletter />,
   },
   {
-    label: 'common:support-form.steps.thank-you.title',
+    label: 'support:steps.thank-you.title',
     component: <ThankYou />,
   },
 ]
@@ -135,10 +135,10 @@ const NewsletterDialog = ({ isOpen, handleConfirm, handleCancel }: NewsletterDia
   const { t } = useTranslation()
   return (
     <ConfirmationDialog
-      title={t('common:support-form.steps.newsletter.confirm.title')}
-      content={t('common:support-form.steps.newsletter.confirm.content')}
-      confirmButtonLabel={t('common:support-form.steps.newsletter.confirm.confirmButtonLabel')}
-      cancelButtonLabel={t('common:support-form.steps.newsletter.confirm.cancelButtonLabel')}
+      title={t('support:steps.newsletter.confirm.title')}
+      content={t('support:steps.newsletter.confirm.content')}
+      confirmButtonLabel={t('support:steps.newsletter.confirm.confirmButtonLabel')}
+      cancelButtonLabel={t('support:steps.newsletter.confirm.cancelButtonLabel')}
       handleConfirm={handleConfirm}
       handleCancel={handleCancel}
       isOpen={isOpen}></ConfirmationDialog>
@@ -222,12 +222,12 @@ export default function SupportForm() {
           }
           throw new Error()
         }
-        AlertStore.show(t('contact:alerts.message-sent'), 'success')
+        AlertStore.show(t('common:alerts.message-sent'), 'success')
         actions.resetForm()
       } catch (error) {
         console.error(error)
         setLoading(false)
-        AlertStore.show(t('contact:alerts.error'), 'error')
+        AlertStore.show(t('common:alerts.error'), 'error')
       }
 
       return
@@ -343,9 +343,7 @@ export default function SupportForm() {
                 onBack={handleBack}
                 loading={loading}
                 nextLabel={
-                  isLastStep(activeStep, steps)
-                    ? 'common:support-form.cta.submit'
-                    : 'common:support-form.cta.next'
+                  isLastStep(activeStep, steps) ? 'support:cta.submit' : 'support:cta.next'
                 }
               />
             </Grid>

@@ -22,9 +22,5 @@
       "value": "Email: info@youremail.com"
     }
   },
-  "alerts": {
-    "message-sent": "Вашето съобщение беше изпратено успешно!",
-    "error": "Възникна грешка! Опитайте отново!"
-  },
   "email": "Email: info@podkrepi.bg"
 }
