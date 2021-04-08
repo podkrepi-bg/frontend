@@ -1,5 +1,6 @@
 import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@material-ui/core'
+import { Favorite } from '@material-ui/icons'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
 import { routes } from 'common/routes'
@@ -40,13 +41,6 @@ const useStyles = makeStyles((theme) =>
       margin: theme.spacing(4, 0),
       fontWeight: 500,
       fontSize: theme.typography.pxToRem(15),
-      '&::after': {
-        content: '"❤"',
-        color: theme.palette.primary.dark,
-        paddingLeft: theme.spacing(0.5),
-        fontSize: theme.typography.pxToRem(11),
-        height: theme.spacing(2),
-      },
       '&:hover': {
         '&::after': {
           color: theme.palette.common.white,
@@ -86,7 +80,11 @@ export default function SupportUsSection() {
           </Grid>
         ))}
         <Grid item>
-          <LinkButton href={routes.support} variant="outlined" className={classes.clickHereButton}>
+          <LinkButton
+            href={routes.support}
+            variant="outlined"
+            className={classes.clickHereButton}
+            endIcon={<Favorite />}>
             {t('index:support-us-section.click-here-button')}
           </LinkButton>
         </Grid>

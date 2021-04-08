@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@material-ui/core'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
+import { Favorite } from '@material-ui/icons'
 
 import { routes } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
@@ -17,14 +18,12 @@ const useStyles = makeStyles((theme) =>
       marginBottom: theme.spacing(12),
       marginTop: theme.spacing(6),
       textAlign: 'center',
-      backgroundImage: 'url(img/jumbotron-background-image-mobile.jpg)',
+      backgroundImage: 'url(/img/jumbotron-background-image-mobile.jpg)',
       backgroundPosition: 'center',
       backgroundSize: 'cover',
       color: theme.palette.common.white,
       [theme.breakpoints.up('sm')]: {
-        marginTop: theme.spacing(14),
-        paddingTop: theme.spacing(19),
-        backgroundImage: 'url(img/jumbotron-background-image-desktop.jpg)',
+        backgroundImage: 'url(/img/jumbotron-background-image-desktop.jpg)',
       },
       [theme.breakpoints.up(1600)]: {
         height: '950px',
@@ -60,14 +59,6 @@ const useStyles = makeStyles((theme) =>
       padding: theme.spacing(1.5, 5),
       fontWeight: 500,
       fontSize: theme.typography.pxToRem(15),
-      width: theme.spacing(27),
-      margin: theme.spacing(2),
-      '&::after': {
-        content: '"❤"',
-        paddingLeft: theme.spacing(0.5),
-        fontSize: theme.typography.pxToRem(11),
-        height: theme.spacing(2),
-      },
     },
     scrollButton: {
       marginTop: theme.spacing(7),
@@ -122,7 +113,11 @@ export default function Jumbotron({ scrollTo }: JumbotronProps) {
           className={classes.aboutProjectButton}>
           {t('index:jumbotron.about-project-button')}
         </LinkButton>
-        <LinkButton href={routes.support} variant="outlined" className={classes.podkrepiButton}>
+        <LinkButton
+          href={routes.support}
+          variant="outlined"
+          className={classes.podkrepiButton}
+          endIcon={<Favorite />}>
           {t('index:jumbotron.support-us-button')}
         </LinkButton>
       </Grid>
