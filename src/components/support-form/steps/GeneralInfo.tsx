@@ -19,7 +19,7 @@ export default function GeneralInfo() {
         <FormTextField
           autoFocus
           type="text"
-          name="info.email"
+          name="person.email"
           autoComplete="email"
           label="common:support-form.steps.info.email"
         />
@@ -27,7 +27,7 @@ export default function GeneralInfo() {
       <Grid item xs={12} sm={6}>
         <FormTextField
           type="text"
-          name="info.name"
+          name="person.name"
           autoComplete="name"
           label="common:support-form.steps.info.name"
         />
@@ -35,7 +35,7 @@ export default function GeneralInfo() {
       <Grid item xs={12} sm={6}>
         <FormTextField
           type="text"
-          name="info.phone"
+          name="person.phone"
           autoComplete="tel"
           label="common:support-form.steps.info.phone"
         />
@@ -43,7 +43,7 @@ export default function GeneralInfo() {
       <Grid item xs={12} sm={6}>
         <FormTextField
           type="text"
-          name="info.address"
+          name="person.address"
           autoComplete="address"
           label="common:support-form.steps.info.address"
         />
@@ -51,7 +51,7 @@ export default function GeneralInfo() {
       <Grid item xs={12} sm={6}>
         <Grid container direction="column" alignItems="flex-start">
           <Grid item xs={12}>
-            <AcceptTermsField name="terms" />
+            <AcceptTermsField name="person.terms" />
           </Grid>
         </Grid>
       </Grid>
