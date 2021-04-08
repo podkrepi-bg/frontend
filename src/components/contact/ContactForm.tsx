@@ -84,8 +84,8 @@ export default function ContactForm({ initialValues = defaults }: ContactFormPro
       console.log(response)
       if (response.status >= 299) {
         const json: ApiErrors = await response.json()
-        if ('errors' in json) {
-          json.errors?.map(({ field, validator, message, customMessage }) => {
+        if ('validation' in json) {
+          json.validation?.map(({ field, validator, message, customMessage }) => {
             setFieldError(field, t(`validation:${customMessage ? message : validator}`))
           })
         }
