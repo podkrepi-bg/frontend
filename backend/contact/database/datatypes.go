@@ -24,7 +24,7 @@ func (j *JSONB) Scan(value interface{}) error {
 }
 
 type PrimaryKeyUUID struct {
-	ID uuid.UUID `gorm:"primaryKey;type:uuid;default:gen_random_uuid()"`
+	ID uuid.UUID `json:"id" gorm:"primaryKey;type:uuid;default:gen_random_uuid()"`
 }
 
 type TimeFields struct {
