@@ -21,9 +21,5 @@
       "value": "Email: info@youremail.com"
     }
   },
-  "alerts": {
-    "message-sent": "Your message has been sent!",
-    "error": "There was an error processing your message!"
-  },
   "email": "Email: info@podkrepi.bg"
 }

@@ -54,153 +54,153 @@ export default function AdditionalQuestions() {
   const questionsList: Array<RoleRenderObject> = [
     {
       key: 'benefactor',
-      title: 'common:support-form.steps.addition-questions.benefactor.title',
-      errorMessage: 'common:support-form.helperText',
+      title: 'support:steps.addition-questions.benefactor.title',
+      errorMessage: 'support:helperText',
       options: [
         {
           type: 'checkbox',
           value: formik.values.benefactor?.campaignBenefactor,
           name: 'benefactor.campaignBenefactor',
-          label: 'common:support-form.steps.addition-questions.benefactor.campaignBenefactor',
+          label: 'support:steps.addition-questions.benefactor.campaignBenefactor',
         },
         {
           type: 'checkbox',
           value: formik.values.benefactor?.platformBenefactor,
           name: 'benefactor.platformBenefactor',
-          label: 'common:support-form.steps.addition-questions.benefactor.platformBenefactor',
+          label: 'support:steps.addition-questions.benefactor.platformBenefactor',
         },
       ],
     },
     {
       key: 'associationMember',
-      title: 'common:support-form.steps.addition-questions.associationMember.title',
-      errorMessage: 'common:support-form.helperText',
+      title: 'support:steps.addition-questions.associationMember.title',
+      errorMessage: 'support:helperText',
       options: [
         {
           type: 'checkbox',
           value: formik.values.associationMember?.isMember,
           name: 'associationMember.isMember',
-          label: 'common:support-form.steps.addition-questions.associationMember.member',
+          label: 'support:steps.addition-questions.associationMember.member',
         },
       ],
     },
     {
       key: 'partner',
-      title: 'common:support-form.steps.addition-questions.partner.title',
-      errorMessage: 'common:support-form.helperText',
+      title: 'support:steps.addition-questions.partner.title',
+      errorMessage: 'support:helperText',
       options: [
         {
           type: 'checkbox',
           value: formik.values.partner?.npo,
           name: 'partner.npo',
-          label: 'common:support-form.steps.addition-questions.partner.npo',
+          label: 'support:steps.addition-questions.partner.npo',
         },
         {
           type: 'checkbox',
           value: formik.values.partner?.bussiness,
           name: 'partner.bussiness',
-          label: 'common:support-form.steps.addition-questions.partner.bussiness',
+          label: 'support:steps.addition-questions.partner.bussiness',
         },
         {
           type: 'checkbox',
           value: formik.values.partner?.other,
           name: 'partner.other',
-          label: 'common:support-form.steps.addition-questions.partner.other',
+          label: 'support:steps.addition-questions.partner.other',
           textFieldOptions: {
             value: formik.values.partner?.otherText || '',
             name: 'partner.otherText',
-            placeholder: 'common:support-form.steps.addition-questions.partner.otherText',
+            placeholder: 'support:steps.addition-questions.partner.otherText',
           },
         },
       ],
     },
     {
       key: 'volunteer',
-      title: 'common:support-form.steps.addition-questions.volunteer.title',
-      errorMessage: 'common:support-form.helperText',
+      title: 'support:steps.addition-questions.volunteer.title',
+      errorMessage: 'support:helperText',
       options: [
         {
           type: 'checkbox',
           value: formik.values.volunteer?.backend,
           name: 'volunteer.backend',
-          label: 'common:support-form.steps.addition-questions.volunteer.backend',
+          label: 'support:steps.addition-questions.volunteer.backend',
         },
         {
           type: 'checkbox',
           value: formik.values.volunteer?.frontend,
           name: 'volunteer.frontend',
-          label: 'common:support-form.steps.addition-questions.volunteer.frontend',
+          label: 'support:steps.addition-questions.volunteer.frontend',
         },
         {
           type: 'checkbox',
           value: formik.values.volunteer?.designer,
           name: 'volunteer.designer',
-          label: 'common:support-form.steps.addition-questions.volunteer.designer',
+          label: 'support:steps.addition-questions.volunteer.designer',
         },
         {
           type: 'checkbox',
           value: formik.values.volunteer?.projectManager,
           name: 'volunteer.projectManager',
-          label: 'common:support-form.steps.addition-questions.volunteer.projectManager',
+          label: 'support:steps.addition-questions.volunteer.projectManager',
         },
         {
           type: 'checkbox',
           value: formik.values.volunteer?.devOps,
           name: 'volunteer.devOps',
-          label: 'common:support-form.steps.addition-questions.volunteer.devOps',
+          label: 'support:steps.addition-questions.volunteer.devOps',
         },
         {
           type: 'checkbox',
           value: formik.values.volunteer?.financesAndAccounts,
           name: 'volunteer.financesAndAccounts',
-          label: 'common:support-form.steps.addition-questions.volunteer.financesAndAccounts',
+          label: 'support:steps.addition-questions.volunteer.financesAndAccounts',
         },
         {
           type: 'checkbox',
           value: formik.values.volunteer?.lawyer,
           name: 'volunteer.lawyer',
-          label: 'common:support-form.steps.addition-questions.volunteer.lawyer',
+          label: 'support:steps.addition-questions.volunteer.lawyer',
         },
         {
           type: 'checkbox',
           value: formik.values.volunteer?.qa,
           name: 'volunteer.qa',
-          label: 'common:support-form.steps.addition-questions.volunteer.qa',
+          label: 'support:steps.addition-questions.volunteer.qa',
         },
         {
           type: 'checkbox',
           value: formik.values.volunteer?.marketing,
           name: 'volunteer.marketing',
-          label: 'common:support-form.steps.addition-questions.volunteer.marketing',
+          label: 'support:steps.addition-questions.volunteer.marketing',
         },
       ],
     },
     {
       key: 'promoter',
-      title: 'common:support-form.steps.addition-questions.promoter.title',
-      errorMessage: 'common:support-form.helperText',
+      title: 'support:steps.addition-questions.promoter.title',
+      errorMessage: 'support:helperText',
       options: [
         {
           type: 'checkbox',
           value: formik.values.promoter?.mediaPartner,
           name: 'promoter.mediaPartner',
-          label: 'common:support-form.steps.addition-questions.promoter.mediaPartner',
+          label: 'support:steps.addition-questions.promoter.mediaPartner',
         },
         {
           type: 'checkbox',
           value: formik.values.promoter?.ambassador,
           name: 'promoter.ambassador',
-          label: 'common:support-form.steps.addition-questions.promoter.ambassador',
+          label: 'support:steps.addition-questions.promoter.ambassador',
         },
         {
           type: 'checkbox',
           value: formik.values.promoter?.other,
           name: 'promoter.other',
-          label: 'common:support-form.steps.addition-questions.promoter.other',
+          label: 'support:steps.addition-questions.promoter.other',
           textFieldOptions: {
             value: formik.values.promoter?.otherText || '',
             name: 'promoter.otherText',
-            placeholder: 'common:support-form.steps.addition-questions.promoter.otherText',
+            placeholder: 'support:steps.addition-questions.promoter.otherText',
           },
         },
       ],
@@ -211,7 +211,7 @@ export default function AdditionalQuestions() {
     <Grid container spacing={6} justify="center">
       <Grid item xs={12}>
         <Typography variant="h4" align="center">
-          {t('common:support-form.steps.addition-questions.subtitle')}
+          {t('support:steps.addition-questions.subtitle')}
         </Typography>
       </Grid>
       <Grid item xs={12} md={10}>

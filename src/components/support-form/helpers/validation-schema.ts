@@ -31,7 +31,7 @@ const person: yup.SchemaOf<Person> = yup
     name: name.required(),
     phone: phone.required(),
     address: yup.string(),
-    terms: yup.bool().required().oneOf([true], 'common:support-form.termsHelperText'),
+    terms: yup.bool().required().oneOf([true], 'support:termsHelperText'),
   })
   .defined()
 

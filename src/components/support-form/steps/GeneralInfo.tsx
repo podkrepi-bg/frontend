@@ -12,7 +12,7 @@ export default function GeneralInfo() {
     <Grid container spacing={3}>
       <Grid item xs={12}>
         <Typography variant="h4" align="center" paragraph>
-          {t('common:support-form.steps.info.subtitle')}
+          {t('support:steps.info.subtitle')}
         </Typography>
       </Grid>
       <Grid item xs={12} sm={6}>
@@ -21,7 +21,7 @@ export default function GeneralInfo() {
           type="text"
           name="person.email"
           autoComplete="email"
-          label="common:support-form.steps.info.email"
+          label="support:steps.info.email"
         />
       </Grid>
       <Grid item xs={12} sm={6}>
@@ -29,7 +29,7 @@ export default function GeneralInfo() {
           type="text"
           name="person.name"
           autoComplete="name"
-          label="common:support-form.steps.info.name"
+          label="support:steps.info.name"
         />
       </Grid>
       <Grid item xs={12} sm={6}>
@@ -37,7 +37,7 @@ export default function GeneralInfo() {
           type="text"
           name="person.phone"
           autoComplete="tel"
-          label="common:support-form.steps.info.phone"
+          label="support:steps.info.phone"
         />
       </Grid>
       <Grid item xs={12} sm={6}>
@@ -45,7 +45,7 @@ export default function GeneralInfo() {
           type="text"
           name="person.address"
           autoComplete="address"
-          label="common:support-form.steps.info.address"
+          label="support:steps.info.address"
         />
       </Grid>
       <Grid item xs={12} sm={6}>

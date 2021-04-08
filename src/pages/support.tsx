@@ -5,7 +5,7 @@ import SupportFormPage from 'components/support-form/SupportPage'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'about', 'validation'])),
+    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'support', 'about', 'validation'])),
   },
 })
 
