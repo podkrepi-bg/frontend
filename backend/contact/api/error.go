@@ -15,19 +15,25 @@ type ValidationError struct {
 }
 
 type HttpError struct {
-	StatusCode int    `json:"statusCode"`
-	Error      string `json:"error"`
+	StatusCode       int               `json:"statusCode"`
+	Error            string            `json:"error"`
+	ValidationErrors []ValidationError `json:"validation,omitempty"`
 }
 
-func Compile(errs []error) []ValidationError {
+func Compile(errs govalidator.Errors) []ValidationError {
 	errors := make([]ValidationError, len(errs))
 
 	for i, err := range errs {
-		errors[i] = ValidationError{
-			Message:       err.Error(),
-			Field:         strings.Join(append(err.(govalidator.Error).Path, err.(govalidator.Error).Name), "."),
-			Validator:     err.(govalidator.Error).Validator,
-			CustomMessage: err.(govalidator.Error).CustomErrorMessageExists,
+		switch err2 := err.(type) {
+		case govalidator.Errors:
+			return Compile(err2)
+		case govalidator.Error:
+			errors[i] = ValidationError{
+				Message:       err.Error(),
+				Field:         strings.Join(append(err2.Path, err2.Name), "."),
+				Validator:     err2.Validator,
+				CustomMessage: err2.CustomErrorMessageExists,
+			}
 		}
 	}
 
@@ -44,8 +50,17 @@ func ErrorHandler(ctx *fiber.Ctx, err error) error {
 		code = e.Code
 	}
 
-	return ctx.Status(code).JSON(&HttpError{
-		StatusCode: code,
-		Error:      err.Error(),
-	})
+	switch err := err.(type) {
+	case govalidator.Errors:
+		return ctx.Status(fiber.StatusBadRequest).JSON(&HttpError{
+			StatusCode:       fiber.StatusBadRequest,
+			Error:            err.Error(),
+			ValidationErrors: Compile(err.Errors()),
+		})
+	default:
+		return ctx.Status(code).JSON(&HttpError{
+			StatusCode: code,
+			Error:      err.Error(),
+		})
+	}
 }

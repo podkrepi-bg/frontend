@@ -4,7 +4,6 @@ import (
 	"errors"
 
 	"github.com/asaskevich/govalidator"
-	"github.com/daritelska-platforma/v2/api"
 	"github.com/daritelska-platforma/v2/database"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
@@ -82,9 +81,10 @@ type SupportRequest struct {
 func GetSupportRequests(db *database.Database) fiber.Handler {
 	return func(ctx *fiber.Ctx) error {
 		var supportRequests []SupportRequest
+
 		err := db.Find(&supportRequests).Error
 		if err != nil {
-			return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+			panic(err)
 		}
 
 		return ctx.JSON(supportRequests)
@@ -95,10 +95,10 @@ func GetSupportRequest(db *database.Database) fiber.Handler {
 	return func(ctx *fiber.Ctx) error {
 		id := ctx.Params("id")
 		var supportRequest SupportRequest
-		err := db.Find(&supportRequest, "id = ?", id).Error
 
+		err := db.Find(&supportRequest, "id = ?", id).Error
 		if err != nil {
-			return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+			panic(err)
 		}
 
 		if supportRequest.ID == uuid.Nil {
@@ -112,21 +112,17 @@ func NewSupportRequest(db *database.Database) fiber.Handler {
 	return func(ctx *fiber.Ctx) error {
 		supportRequest := new(SupportRequest)
 		if err := ctx.BodyParser(supportRequest); err != nil {
-			return fiber.NewError(fiber.StatusBadRequest, err.Error())
+			panic(fiber.NewError(fiber.StatusBadRequest, err.Error()))
 		}
 
 		_, err := govalidator.ValidateStruct(supportRequest)
 		if err != nil {
-			panic(ctx.Status(fiber.StatusBadRequest).JSON(&fiber.Map{
-				"status": fiber.StatusBadRequest,
-				"errors": api.Compile(err.(govalidator.Errors).Errors()),
-			}))
+			panic(err)
 		}
 
 		err = db.Create(&supportRequest).Error
-
 		if err != nil {
-			return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+			panic(err)
 		}
 
 		return ctx.JSON(supportRequest)
@@ -143,7 +139,7 @@ func DeleteSupportRequest(db *database.Database) fiber.Handler {
 			if errors.Is(err, gorm.ErrRecordNotFound) {
 				return fiber.NewError(fiber.StatusNotFound, "No support request found")
 			}
-			return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+			panic(err)
 		}
 
 		if supportRequest.ID == uuid.Nil {
@@ -152,7 +148,7 @@ func DeleteSupportRequest(db *database.Database) fiber.Handler {
 
 		err = db.Delete(&supportRequest).Error
 		if err != nil {
-			return fiber.NewError(fiber.StatusInternalServerError, err.Error())
+			panic(err)
 		}
 
 		return ctx.Status(fiber.StatusOK).JSON(&fiber.Map{
