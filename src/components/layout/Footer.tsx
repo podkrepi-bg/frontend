@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { Grid, Container, createStyles, makeStyles } from '@material-ui/core'
+import { Grid, Container, createStyles, makeStyles, lighten } from '@material-ui/core'
 import { Instagram, Facebook, Twitter, LinkedIn, YouTube } from '@material-ui/icons'
 
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
@@ -12,7 +12,6 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     footer: {
       backgroundColor: theme.palette.primary.dark,
-      color: theme.palette.primary.main,
       padding: theme.spacing(3),
       textAlign: 'center',
       [theme.breakpoints.up('sm')]: {
@@ -22,30 +21,30 @@ const useStyles = makeStyles((theme) =>
       [theme.breakpoints.up('lg')]: {
         padding: theme.spacing(7, 15),
       },
+      '& a': {
+        color: lighten(theme.palette.primary.main, 0.75),
+      },
     },
-    footer__right: {
+    rightGrid: {
       [theme.breakpoints.up('md')]: {
         display: 'flex',
       },
     },
-    footer__socialContainer: {
+    socialContainer: {
       padding: theme.spacing(1, 0),
     },
-    footer__socialLink: {
-      color: theme.palette.primary.main,
+    socialLink: {
       marginRight: theme.spacing(1),
     },
-    footer__copyrights: {
-      color: theme.palette.primary.main,
+    copyrights: {
+      color: lighten(theme.palette.primary.main, 0.75),
     },
-    footer__link: {
+    link: {
       padding: theme.spacing(0.5, 0),
-    },
-    footer__link__inner: {
-      color: theme.palette.primary.main,
     },
   }),
 )
+
 type FooterLink = {
   label: string
   href?: string
@@ -66,6 +65,11 @@ const footerItems: FooterLink[][] = [
     {
       label: 'footerLabels.docs',
       href: staticUrls.docs,
+      external: true,
+    },
+    {
+      label: 'footerLabels.dev-docs',
+      href: staticUrls.devDocs,
       external: true,
     },
     {
@@ -130,36 +134,35 @@ export default function Footer() {
               <PodkrepiLogo locale={locale} size="large" variant="fixed" />
             </a>
           </Link>
-          <div className={classes.footer__socialContainer}>
+          <div className={classes.socialContainer}>
             <a href={socialLinks.facebook} target="_blank" rel="noreferrer noopener">
-              <Facebook className={classes.footer__socialLink} />
+              <Facebook className={classes.socialLink} />
             </a>
             <a href={socialLinks.twitter} target="_blank" rel="noreferrer noopener">
-              <Twitter className={classes.footer__socialLink} />
+              <Twitter className={classes.socialLink} />
             </a>
             <a href={socialLinks.linkedin} target="_blank" rel="noreferrer noopener">
-              <LinkedIn className={classes.footer__socialLink} />
+              <LinkedIn className={classes.socialLink} />
             </a>
             <a href={socialLinks.youtube} target="_blank" rel="noreferrer noopener">
-              <YouTube className={classes.footer__socialLink} />
+              <YouTube className={classes.socialLink} />
             </a>
             <a href={socialLinks.instagram} target="_blank" rel="noreferrer noopener">
-              <Instagram className={classes.footer__socialLink} />
+              <Instagram className={classes.socialLink} />
             </a>
           </div>
-          <span className={classes.footer__copyrights}>{t('footerCopyrights')}</span>
+          <span className={classes.copyrights}>{t('footerCopyrights')}</span>
         </Grid>
-        <Grid item xs={12} sm={4} md={6} className={classes.footer__right}>
+        <Grid item xs={12} sm={4} md={6} className={classes.rightGrid}>
           {footerItems.map((subarr: FooterLink[], column) => (
             <Grid key={column} item xs={12} md={4}>
               <ul>
                 {subarr.map(({ label, href, external }, row) => (
-                  <li key={`${column}-${row}`} className={classes.footer__link}>
+                  <li key={`${column}-${row}`} className={classes.link}>
                     <Link href={href || routes.index}>
                       <a
                         rel={external ? 'noreferrer noopener' : undefined}
-                        target={external ? '_blank' : undefined}
-                        className={classes.footer__link__inner}>
+                        target={external ? '_blank' : undefined}>
                         {t(label)}
                       </a>
                     </Link>

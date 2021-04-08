@@ -7,6 +7,7 @@ const useStyles = makeStyles((theme) =>
     heading: {
       marginBottom: theme.spacing(5),
       color: theme.palette.primary.dark,
+      fontWeight: 500,
     },
     container: {
       marginBottom: theme.spacing(12),

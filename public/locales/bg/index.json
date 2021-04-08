@@ -6,6 +6,7 @@
     "eliminate-misuse": "целяща да елиминира злоупотребите с дарителски кампании",
     "improve-donation-culture": "целяща да подобри дарителската култура в България",
     "open-source": "с отворен за ползване код",
+    "about-project-button": "За проекта",
     "support-us-button": "Подкрепи ни"
   },
   "activity-section": {
@@ -18,7 +19,7 @@
   },
   "team-chart-section": {
     "heading": "Как започна всичко?",
-    "content": "700 доброволеца от IT средите, юристи, счетоводители, маркетолози, медици, НПО представители",
+    "content": "736 доброволеца от IT средите, юристи, счетоводители, маркетолози, медици, НПО представители, обединени от идеята да подобрим платформите за дарения в България.",
     "data": {
       "back-end": "BACK-END (146)",
       "frontend": "FRONT-END (89)",
@@ -35,10 +36,11 @@
     }
   },
   "support-us-section": {
-    "heading": "Подкрепи ни",
-    "financial-support": "финансово",
-    "labour-support": "с труд",
-    "media-support": "медийно",
-    "become-a-partner": "стани партньор"
+    "heading": "Подкрепи ни:",
+    "financial-support": "- финансово",
+    "labour-support": "- с труд",
+    "media-support": "- медийно",
+    "become-a-partner": "- стани партньор",
+    "click-here-button": "Натисни тук"
   }
 }
