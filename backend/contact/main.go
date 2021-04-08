@@ -68,8 +68,8 @@ func (app *App) initDatabase() *database.Database {
 	fmt.Println("Connection Opened to Database")
 
 	// Add schema prefix to table
-	db.Table("app.contacts").AutoMigrate(&contact.Contact{})
-	fmt.Println("Database Migrated")
+	// db.Table("app.contacts").AutoMigrate(&contact.Contact{})
+	// fmt.Println("Database Migrated")
 	return db
 }
 
