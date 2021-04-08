@@ -11,6 +11,7 @@ import FormTextField from 'components/common/form/FormTextField'
 import { name, companyName, phone } from 'common/form/validation'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import { AlertStore } from 'stores/AlertStore'
+import { ApiErrors } from 'common/api-routes'
 
 export type ContactFormData = {
   firstName: string
@@ -60,17 +61,6 @@ const useStyles = makeStyles((theme) =>
 
 export type ContactFormProps = { initialValues?: ContactFormData }
 
-type ApiError = {
-  field: string
-  message: string
-  validator: string
-  customMessage: boolean
-}
-type ApiErrors = {
-  error?: ApiError
-  errors?: ApiError[]
-}
-
 export default function ContactForm({ initialValues = defaults }: ContactFormProps) {
   const classes = useStyles()
   const [loading, setLoading] = useState(false)
@@ -94,8 +84,8 @@ export default function ContactForm({ initialValues = defaults }: ContactFormPro
       console.log(response)
       if (response.status >= 299) {
         const json: ApiErrors = await response.json()
-        if ('errors' in json) {
-          json.errors?.map(({ field, validator, message, customMessage }) => {
+        if ('validation' in json) {
+          json.validation?.map(({ field, validator, message, customMessage }) => {
             setFieldError(field, t(`validation:${customMessage ? message : validator}`))
           })
         }

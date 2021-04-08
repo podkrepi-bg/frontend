@@ -7,9 +7,9 @@ const {
   },
 } = getConfig()
 
-export default async function ContactProxy(req: NextApiRequest, res: NextApiResponse) {
+export default async function SupportRequestProxy(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const response = await fetch(`${apiUrl}/api/v1/contact`, {
+    const response = await fetch(`${apiUrl}/api/v1/support-request`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(req?.body),
