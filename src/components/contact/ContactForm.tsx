@@ -33,7 +33,7 @@ const validationSchema: yup.SchemaOf<ContactFormData> = yup
     company: companyName,
     phone: phone.required(),
     message: yup.string().trim().min(10).max(500).required(),
-    terms: yup.bool().required().oneOf([true], 'support:termsHelperText'),
+    terms: yup.bool().required().oneOf([true], 'validation:terms-of-use'),
   })
 
 const defaults: ContactFormData = {

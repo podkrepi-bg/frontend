@@ -73,8 +73,7 @@
       "email": "Email",
       "name": "Name",
       "phone": "Phone number",
-      "address": "Address",
-      "terms": "Agree to the Terms and Conditions"
+      "address": "Address"
     },
     "newsletter": {
       "title": "Newsletter",
@@ -96,7 +95,5 @@
     "back": "Back",
     "reset": "Reset",
     "submit": "Submit"
-  },
-  "helperText": "At least one checkbox should be checked",
-  "termsHelperText": "Please agree to the Terms and Conditions"
+  }
 }
