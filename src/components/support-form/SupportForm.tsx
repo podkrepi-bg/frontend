@@ -1,6 +1,6 @@
-import { FormikHelpers } from 'formik'
+import { FormikHelpers, FormikProps } from 'formik'
 import { useTranslation } from 'next-i18next'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef, RefObject } from 'react'
 import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core/styles'
 import { Stepper, Step, StepLabel, StepConnector, Hidden, Grid } from '@material-ui/core'
 
@@ -148,6 +148,8 @@ const NewsletterDialog = ({ isOpen, handleConfirm, handleCancel }: NewsletterDia
 export default function SupportForm() {
   const { t } = useTranslation()
   const classes = useStyles()
+  const formRef = useRef<FormikProps<SupportFormData>>(null)
+  const form = formRef?.current
   const [loading, setLoading] = useState(false)
   const [maxStep, setMaxStep] = useState<Steps>(Steps.ROLES)
   const [activeStep, setActiveStep] = useState<Steps>(Steps.ROLES)
@@ -167,12 +169,14 @@ export default function SupportForm() {
   const handleNewsletterDialogCancel = () => {
     setNewsletterDialogOpened(true)
     setNewsletterDialogOpen(false)
+    form?.submitForm()
   }
 
   const handleNewsletterDialogConfirm = () => {
     setNewsletterDialogOpened(true)
     setNewsletterDialogOpen(false)
-    setActiveStep((prevActiveStep) => prevActiveStep + 1)
+    form?.setFieldValue('newsletter', true)
+    form?.submitForm()
   }
 
   const handleBack = () => {
@@ -195,7 +199,6 @@ export default function SupportForm() {
       }
       setActiveStep((prevActiveStep) => prevActiveStep + 1)
       setFailedStep(Steps.NONE)
-      console.log(values)
       try {
         setLoading(true)
         const { person, newsletter, ...support_data } = values
@@ -310,7 +313,8 @@ export default function SupportForm() {
     <GenericForm<SupportFormData>
       onSubmit={handleSubmit}
       initialValues={initialValues}
-      validationSchema={validationSchema[activeStep]}>
+      validationSchema={validationSchema[activeStep]}
+      innerRef={formRef}>
       <Hidden smDown>
         <Stepper
           alternativeLabel
