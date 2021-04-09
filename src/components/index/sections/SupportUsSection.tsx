@@ -12,40 +12,40 @@ const useStyles = makeStyles((theme) =>
       backgroundColor: '#eeeeee',
       paddingTop: theme.spacing(10),
     },
-    heading: {
-      marginBottom: theme.spacing(4),
-      color: theme.palette.primary.dark,
-      fontWeight: 500,
-    },
-    icon: {
-      fontSize: theme.typography.pxToRem(80),
-      fill: theme.palette.primary.main,
-      padding: theme.spacing(1),
-    },
-    supportOptionsWrapper: {
+    supportImageWrapper: {
       textAlign: 'center',
-      [theme.breakpoints.up('md')]: {
-        textAlign: 'left',
-      },
     },
     supportImage: {
-      width: '40%',
-      height: '100%',
+      maxWidth: '60%',
+      [theme.breakpoints.down('sm')]: {
+        marginBottom: theme.spacing(3),
+      },
+    },
+    supportOptionsWrapper: {
+      [theme.breakpoints.down('md')]: {
+        textAlign: 'center',
+      },
+    },
+    heading: {
+      marginBottom: theme.spacing(3),
+      color: theme.palette.primary.dark,
+      fontWeight: 500,
     },
     clickHereButton: {
       color: theme.palette.common.white,
       backgroundColor: theme.palette.primary.main,
       border: `2px solid ${theme.palette.primary.main}`,
       borderRadius: theme.spacing(3),
-      padding: theme.spacing(1, 5),
-      margin: theme.spacing(4, 0),
-      fontWeight: 500,
+      width: theme.spacing(25),
+      height: theme.spacing(6),
+      margin: theme.spacing(3, 0),
       fontSize: theme.typography.pxToRem(15),
-      '&:hover': {
-        '&::after': {
-          color: theme.palette.common.white,
-        },
-      },
+      fontWeight: 500,
+    },
+    icon: {
+      fontSize: theme.typography.pxToRem(80),
+      fill: theme.palette.primary.main,
+      padding: theme.spacing(1),
     },
   }),
 )
@@ -63,14 +63,14 @@ export default function SupportUsSection() {
 
   return (
     <Grid container component="section" className={classes.container}>
-      <Grid item xs={12} sm={6} className={classes.supportOptionsWrapper}>
+      <Grid item xs={12} md={6} className={classes.supportImageWrapper}>
         <img
           src="/img/support-us-image.png"
           className={classes.supportImage}
           alt="Support us image"
         />
       </Grid>
-      <Grid item xs={12} sm={6} className={classes.supportOptionsWrapper}>
+      <Grid item xs={12} md={6} className={classes.supportOptionsWrapper}>
         <Typography variant="h5" component="h2" className={classes.heading}>
           {t('index:support-us-section.heading')}
         </Typography>
