@@ -10,7 +10,10 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     container: {
       backgroundColor: '#eeeeee',
-      paddingTop: theme.spacing(10),
+      padding: theme.spacing(6, 0),
+      [theme.breakpoints.up('md')]: {
+        padding: theme.spacing(6, 0, 0),
+      },
     },
     supportImageWrapper: {
       textAlign: 'center',
@@ -22,7 +25,7 @@ const useStyles = makeStyles((theme) =>
       },
     },
     supportOptionsWrapper: {
-      [theme.breakpoints.down('md')]: {
+      [theme.breakpoints.down('sm')]: {
         textAlign: 'center',
       },
     },
@@ -38,7 +41,7 @@ const useStyles = makeStyles((theme) =>
       borderRadius: theme.spacing(3),
       width: theme.spacing(25),
       height: theme.spacing(6),
-      margin: theme.spacing(3, 0),
+      marginTop: theme.spacing(3),
       fontSize: theme.typography.pxToRem(15),
       fontWeight: 500,
     },
