@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) =>
       borderRadius: theme.spacing(3),
       fontWeight: 500,
       fontSize: theme.typography.pxToRem(15),
-      width: theme.spacing(27),
+      minWidth: theme.spacing(27),
       height: theme.spacing(7),
       margin: theme.spacing(2),
       [theme.breakpoints.up('sm')]: {
@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) =>
       borderRadius: theme.spacing(3),
       fontWeight: 500,
       fontSize: theme.typography.pxToRem(15),
-      width: theme.spacing(27),
+      minWidth: theme.spacing(27),
       height: theme.spacing(7),
       margin: theme.spacing(2),
       [theme.breakpoints.up('sm')]: {
