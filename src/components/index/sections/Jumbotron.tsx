@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) =>
       color: theme.palette.common.white,
       border: `2px solid ${theme.palette.primary.main}`,
       borderRadius: theme.spacing(3),
+      padding: theme.spacing(1.5, 4),
       fontWeight: 500,
       fontSize: theme.typography.pxToRem(15),
       minWidth: theme.spacing(27),
