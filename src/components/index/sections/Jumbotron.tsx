@@ -45,25 +45,33 @@ const useStyles = makeStyles((theme) =>
       color: theme.palette.common.white,
       border: `2px solid ${theme.palette.primary.main}`,
       borderRadius: theme.spacing(3),
-      padding: theme.spacing(1.5, 5),
       fontWeight: 500,
       fontSize: theme.typography.pxToRem(15),
-      width: theme.spacing(27),
+      minWidth: theme.spacing(27),
+      height: theme.spacing(7),
       margin: theme.spacing(2),
+      [theme.breakpoints.up('sm')]: {
+        margin: theme.spacing(3),
+      },
     },
     podkrepiButton: {
       color: theme.palette.common.white,
       backgroundColor: theme.palette.primary.main,
       border: `2px solid ${theme.palette.primary.main}`,
       borderRadius: theme.spacing(3),
-      padding: theme.spacing(1.5, 5),
       fontWeight: 500,
       fontSize: theme.typography.pxToRem(15),
+      minWidth: theme.spacing(27),
+      height: theme.spacing(7),
+      margin: theme.spacing(2),
+      [theme.breakpoints.up('sm')]: {
+        margin: theme.spacing(3),
+      },
     },
     scrollButton: {
       marginTop: theme.spacing(7),
       [theme.breakpoints.up(1600)]: {
-        marginTop: theme.spacing(15),
+        marginTop: theme.spacing(20),
       },
     },
     scrollButtonIcon: {
@@ -82,6 +90,7 @@ const useStyles = makeStyles((theme) =>
 type JumbotronProps = {
   scrollTo: RefObject<HTMLAnchorElement>
 }
+
 export default function Jumbotron({ scrollTo }: JumbotronProps) {
   const classes = useStyles()
   const { t } = useTranslation()
