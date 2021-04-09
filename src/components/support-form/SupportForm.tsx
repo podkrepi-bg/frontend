@@ -148,7 +148,7 @@ const NewsletterDialog = ({ isOpen, handleConfirm, handleCancel }: NewsletterDia
 export default function SupportForm() {
   const { t } = useTranslation()
   const classes = useStyles()
-  const formRef = useRef<FormikProps<SupportFormData>>() as RefObject<FormikProps<SupportFormData>>
+  const formRef = useRef<FormikProps<SupportFormData>>(null)
   const form = formRef?.current
   const [loading, setLoading] = useState(false)
   const [maxStep, setMaxStep] = useState<Steps>(Steps.ROLES)
