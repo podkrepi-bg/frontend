@@ -1,4 +1,4 @@
-# Дарителска Платформа - Frontend
+# Дарителска Платформа Подкрепи.бг
 
 ![Lint](https://github.com/daritelska-platforma/frontend/workflows/Lint/badge.svg)
 ![Build](https://github.com/daritelska-platforma/frontend/workflows/Build/badge.svg)
