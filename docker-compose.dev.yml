@@ -29,6 +29,16 @@ services:
       - ./backend/contact:/app
       - /app/dist
 
+  campaigns:
+    build:
+      context: ./backend/
+      dockerfile: ./module-campaigns/Dockerfile
+      # target: ${TARGET_ENV?}
+    environment:
+      DEBUG: 'true'
+    ports:
+      - '${CAMPAIGN_GRPC_PORT?}:4060'
+
   roach-lb:
     ports:
       - '${DB_PORT?}:26257'
