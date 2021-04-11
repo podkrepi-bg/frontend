@@ -50,6 +50,18 @@ services:
       timeout: 5s
       retries: 3
 
+  campaigns:
+    image: ${CAMPAIGN_DEPLOY_IMAGE}:${DEPLOY_TAG?}
+    container_name: ${COMPOSE_PROJECT_NAME?}-campaigns
+    restart: always
+    networks:
+      backend-net:
+        aliases:
+          - campaigns.podkrepi.localhost
+      frontend-net:
+        aliases:
+          - campaigns.podkrepi.localhost
+
   roach-0:
     image: cockroachdb/cockroach:latest
     container_name: ${COMPOSE_PROJECT_NAME?}-roach-0
