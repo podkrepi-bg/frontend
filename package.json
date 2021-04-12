@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start -p 3040",
     "lint": "eslint . --fix --ext=ts,tsx",
-    "lint:styles": "stylelint **.scss",
+    "lint:styles": "stylelint **.scss --fix",
     "format": "prettier --write .",
     "type-check": "tsc --project tsconfig.json --pretty --noEmit",
     "dc": "docker-compose --env-file .env.local",

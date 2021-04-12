@@ -88,6 +88,9 @@ export const themeOptions: ThemeOptions = {
     h4: { fontFamily },
     h5: { fontFamily },
     h6: { fontFamily },
+    body2: {
+      fontWeight: 'lighter',
+    },
     button: { fontFamily, textTransform: 'initial' },
   },
 }
