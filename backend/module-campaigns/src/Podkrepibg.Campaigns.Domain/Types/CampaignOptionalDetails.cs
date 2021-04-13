@@ -1,10 +1,7 @@
-using Newtonsoft.Json;
-
-namespace Podkrepibg.Campaigns.Data.Types
+namespace Podkrepibg.Campaigns.Domain.Types
 {
   public readonly struct CampaignOptionalDetails
   {
-    [JsonConstructor]
     public CampaignOptionalDetails(string videoUrl)
     {
       VideoUrl = videoUrl;
