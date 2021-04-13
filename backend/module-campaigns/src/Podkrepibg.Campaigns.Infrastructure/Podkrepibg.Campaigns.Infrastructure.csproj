@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,9 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Scripts\**\*.sql">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <ProjectReference Include="..\Podkrepibg.Campaigns.Domain\Podkrepibg.Campaigns.Domain.csproj" />
   </ItemGroup>
-
+  
 </Project>

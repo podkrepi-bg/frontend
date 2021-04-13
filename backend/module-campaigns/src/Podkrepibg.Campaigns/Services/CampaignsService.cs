@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
-using Podkrepibg.Campaigns.Data;
 using Podkrepibg.Nomenclatures;
 
 namespace Podkrepibg.Campaigns.Services
@@ -11,12 +10,10 @@ namespace Podkrepibg.Campaigns.Services
   public class CampaignsService : CampaignService.CampaignServiceBase
   {
     private readonly ILogger<CampaignsService> _logger;
-    private readonly CampaignsContext _db;
 
-    public CampaignsService(ILogger<CampaignsService> logger, CampaignsContext db)
+    public CampaignsService(ILogger<CampaignsService> logger)
     {
       _logger = logger;
-      _db = db;
     }
 
     public override Task<Campaign> CreateCampaign(CreateCampaignRequest request, ServerCallContext context)

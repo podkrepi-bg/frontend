@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using Podkrepibg.Campaigns.Data.Entities;
-using Podkrepibg.Campaigns.Data.Types;
+using Podkrepibg.Campaigns.Domain.Entities;
+using System.Reflection;
 
 namespace Podkrepibg.Campaigns.Data
 {
@@ -24,25 +23,10 @@ namespace Podkrepibg.Campaigns.Data
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+
+      modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
       base.OnModelCreating(modelBuilder);
-
-      modelBuilder.Entity<Campaign>()
-          .Property(x => x.Id)
-          .HasDefaultValueSql("gen_random_uuid()");
-
-      modelBuilder.Entity<Campaign>()
-          .Property(b => b.OptionalDetails)
-          .HasConversion(
-              v => JsonConvert.SerializeObject(v),
-              v => JsonConvert.DeserializeObject<CampaignOptionalDetails>(v));
-
-      modelBuilder.Entity<CampaignType>()
-          .Property(x => x.Id)
-          .HasDefaultValueSql("gen_random_uuid()");
-
-      modelBuilder.Entity<CampaignSubType>()
-          .Property(x => x.Id)
-          .HasDefaultValueSql("gen_random_uuid()");
     }
   }
 }
