@@ -54,6 +54,12 @@ services:
     image: ${CAMPAIGN_DEPLOY_IMAGE}:${DEPLOY_TAG?}
     container_name: ${COMPOSE_PROJECT_NAME?}-campaigns
     restart: always
+    environment:
+      - DB_HOST
+      - DB_USER
+      - DB_PASS
+      - DB_PORT
+      - DB_NAME
     networks:
       backend-net:
         aliases:
