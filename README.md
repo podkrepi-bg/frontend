@@ -32,8 +32,6 @@
   - [.Net C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
 - DevOps
   - [Docker Compose](https://docs.docker.com/compose/) / [Github Actions](https://docs.github.com/en/free-pro-team@latest/actions/reference)
-
-
 ## Initial setup
 
 ```shell
