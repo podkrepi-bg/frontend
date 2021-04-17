@@ -12,6 +12,14 @@ export const staticUrls = {
   devDocs: 'https://docs.podkrepi.bg/development',
 }
 
+export const socialUrls = {
+  facebook: 'https://www.facebook.com/podkrepi.bg',
+  twitter: '/',
+  linkedin: 'https://www.linkedin.com/company/podkrepibg',
+  youtube: 'https://www.youtube.com/channel/UCt5pYR0DkOCfjlY17awY8pA',
+  instagram: '/',
+}
+
 export const routes = {
   index: '/',
   about: '/about',

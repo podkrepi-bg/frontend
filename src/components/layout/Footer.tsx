@@ -1,12 +1,11 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-
 import { Grid, Container, createStyles, makeStyles, lighten } from '@material-ui/core'
 import { Instagram, Facebook, Twitter, LinkedIn, YouTube } from '@material-ui/icons'
 
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
-import { routes, staticUrls } from 'common/routes'
+import { routes, socialUrls, staticUrls } from 'common/routes'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -112,14 +111,6 @@ const footerItems: FooterLink[][] = [
   ],
 ]
 
-const socialLinks = {
-  facebook: '/',
-  twitter: '/',
-  linkedin: '/',
-  youtube: '/',
-  instagram: '/',
-}
-
 export default function Footer() {
   const { t } = useTranslation()
   const classes = useStyles()
@@ -135,21 +126,21 @@ export default function Footer() {
             </a>
           </Link>
           <div className={classes.socialContainer}>
-            <a href={socialLinks.facebook} target="_blank" rel="noreferrer noopener">
+            <a href={socialUrls.facebook} target="_blank" rel="noreferrer noopener">
               <Facebook className={classes.socialLink} />
             </a>
-            <a href={socialLinks.twitter} target="_blank" rel="noreferrer noopener">
+            {/* <a href={socialUrls.twitter} target="_blank" rel="noreferrer noopener">
               <Twitter className={classes.socialLink} />
-            </a>
-            <a href={socialLinks.linkedin} target="_blank" rel="noreferrer noopener">
+            </a> */}
+            <a href={socialUrls.linkedin} target="_blank" rel="noreferrer noopener">
               <LinkedIn className={classes.socialLink} />
             </a>
-            <a href={socialLinks.youtube} target="_blank" rel="noreferrer noopener">
+            <a href={socialUrls.youtube} target="_blank" rel="noreferrer noopener">
               <YouTube className={classes.socialLink} />
             </a>
-            <a href={socialLinks.instagram} target="_blank" rel="noreferrer noopener">
+            {/* <a href={socialUrls.instagram} target="_blank" rel="noreferrer noopener">
               <Instagram className={classes.socialLink} />
-            </a>
+            </a> */}
           </div>
           <span className={classes.copyrights}>{t('footerCopyrights')}</span>
         </Grid>
