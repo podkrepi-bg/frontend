@@ -16,13 +16,12 @@ const useStyles = makeStyles((theme) =>
       },
     },
     supportImageWrapper: {
+      minHeight: '20rem',
       textAlign: 'center',
-    },
-    supportImage: {
-      maxWidth: '60%',
-      [theme.breakpoints.down('sm')]: {
-        marginBottom: theme.spacing(3),
-      },
+      backgroundSize: 'contain',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'bottom center',
+      backgroundImage: 'url(/img/support-us-image.png)',
     },
     supportOptionsWrapper: {
       [theme.breakpoints.down('sm')]: {
@@ -66,13 +65,7 @@ export default function SupportUsSection() {
 
   return (
     <Grid container component="section" className={classes.container}>
-      <Grid item xs={12} md={6} className={classes.supportImageWrapper}>
-        <img
-          src="/img/support-us-image.png"
-          className={classes.supportImage}
-          alt="Support us image"
-        />
-      </Grid>
+      <Grid item xs={12} md={6} className={classes.supportImageWrapper}></Grid>
       <Grid item xs={12} md={6} className={classes.supportOptionsWrapper}>
         <Typography variant="h5" component="h2" className={classes.heading}>
           {t('index:support-us-section.heading')}
