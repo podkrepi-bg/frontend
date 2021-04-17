@@ -1,7 +1,7 @@
 import React, { RefObject } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@material-ui/core'
-import { makeStyles, createStyles } from '@material-ui/core/styles'
+import { makeStyles, createStyles, darken } from '@material-ui/core/styles'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import { Favorite } from '@material-ui/icons'
 
@@ -22,8 +22,9 @@ const useStyles = makeStyles((theme) =>
       backgroundPosition: 'center',
       backgroundSize: 'cover',
       color: theme.palette.common.white,
-      [theme.breakpoints.down(380)]: {
-        backgroundImage: 'url(/img/jumbotron-background-image-mobile.jpg)',
+      [theme.breakpoints.down('sm')]: {
+        backgroundImage: 'url(/img/header-image-mobile.jpg)',
+        backgroundSize: 'cover',
       },
       [theme.breakpoints.up(1600)]: {
         height: '950px',
@@ -42,9 +43,9 @@ const useStyles = makeStyles((theme) =>
       fontWeight: 400,
     },
     aboutProjectButton: {
-      color: theme.palette.common.white,
-      border: `2px solid ${theme.palette.primary.main}`,
-      borderRadius: theme.spacing(3),
+      color: darken(theme.palette.secondary.main, 0.8),
+      border: `none`,
+      borderRadius: '500px',
       padding: theme.spacing(1.5, 4),
       fontWeight: 500,
       fontSize: theme.typography.pxToRem(15),
@@ -56,10 +57,8 @@ const useStyles = makeStyles((theme) =>
       },
     },
     podkrepiButton: {
-      color: theme.palette.common.white,
-      backgroundColor: theme.palette.primary.main,
-      border: `2px solid ${theme.palette.primary.main}`,
-      borderRadius: theme.spacing(3),
+      border: `none`,
+      borderRadius: '500px',
       fontWeight: 500,
       fontSize: theme.typography.pxToRem(15),
       minWidth: theme.spacing(27),
@@ -82,7 +81,7 @@ const useStyles = makeStyles((theme) =>
       height: theme.spacing(5),
       '&:hover': {
         cursor: 'pointer',
-        backgroundColor: theme.palette.primary.dark,
+        color: theme.palette.secondary.main,
       },
     },
   }),
@@ -119,13 +118,15 @@ export default function Jumbotron({ scrollTo }: JumbotronProps) {
       <Grid item>
         <LinkButton
           href={routes.aboutProject}
-          variant="outlined"
+          variant="contained"
+          color="secondary"
           className={classes.aboutProjectButton}>
           {t('index:jumbotron.about-project-button')}
         </LinkButton>
         <LinkButton
           href={routes.support}
-          variant="outlined"
+          variant="contained"
+          color="primary"
           className={classes.podkrepiButton}
           endIcon={<Favorite />}>
           {t('index:jumbotron.support-us-button')}
