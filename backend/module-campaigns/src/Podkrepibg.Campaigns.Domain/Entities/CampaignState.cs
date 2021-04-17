@@ -1,27 +1,27 @@
 namespace Podkrepibg.Campaigns.Domain.Entities
 {
-  public enum CampaignState
-  {
-    UndefinedCampaign = 0,
+    public enum CampaignState
+    {
+        UndefinedCampaign = 0,
 
-    Draft = 1,
+        Draft = 1,
 
-    PendingValidation = 2,
+        PendingValidation = 2,
 
-    Approved = 3,
+        Approved = 3,
 
-    Rejected = 4,
+        Rejected = 4,
 
-    Active = 5,
+        Active = 5,
 
-    ActivePendingValidation = 6,
+        ActivePendingValidation = 6,
 
-    Suspended = 7,
+        Suspended = 7,
 
-    Complete = 8,
+        Complete = 8,
 
-    Disabled = 9,
+        Disabled = 9,
 
-    Error = 10
-  }
+        Error = 10
+    }
 }
