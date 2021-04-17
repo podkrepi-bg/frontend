@@ -37,7 +37,7 @@ services:
     environment:
       DEBUG: 'true'
     ports:
-      - '${CAMPAIGN_GRPC_PORT?}:4060'
+      - '${CAMPAIGN_GRPC_PORT?}:5001'
 
   roach-lb:
     ports:
