@@ -18,12 +18,12 @@ const useStyles = makeStyles((theme) =>
       marginBottom: theme.spacing(12),
       marginTop: theme.spacing(6),
       textAlign: 'center',
-      backgroundImage: 'url(/img/jumbotron-background-image-mobile.jpg)',
+      backgroundImage: 'url(/img/jumbotron-background-image-desktop.jpg)',
       backgroundPosition: 'center',
       backgroundSize: 'cover',
       color: theme.palette.common.white,
-      [theme.breakpoints.up('sm')]: {
-        backgroundImage: 'url(/img/jumbotron-background-image-desktop.jpg)',
+      [theme.breakpoints.down(380)]: {
+        backgroundImage: 'url(/img/jumbotron-background-image-mobile.jpg)',
       },
       [theme.breakpoints.up(1600)]: {
         height: '950px',
