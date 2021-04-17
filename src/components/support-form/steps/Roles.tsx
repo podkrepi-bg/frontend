@@ -13,33 +13,31 @@ export default function Roles() {
       <Grid item xs={12} md={8}>
         <FormControl fullWidth required error={!!error} component="fieldset">
           <Typography variant="h4" align="center" paragraph>
-            {t('common:support-form.steps.role.subtitle')}
+            {t('support:steps.role.subtitle')}
           </Typography>
           <FormGroup>
             <Role
               name="roles.benefactor"
-              label={t('common:support-form.steps.role.fields.benefactor.title')}
-              description={t(
-                'common:support-form.steps.role.fields.benefactor.description',
-              )}></Role>
+              label={t('support:steps.role.fields.benefactor.title')}
+              description={t('support:steps.role.fields.benefactor.description')}></Role>
             <Role
-              label={t('common:support-form.steps.role.fields.partner.title')}
+              label={t('support:steps.role.fields.partner.title')}
               name="roles.partner"
-              description={t('common:support-form.steps.role.fields.partner.description')}></Role>
+              description={t('support:steps.role.fields.partner.description')}></Role>
             <Role
-              label={t('common:support-form.steps.role.fields.volunteer.title')}
+              label={t('support:steps.role.fields.volunteer.title')}
               name="roles.volunteer"
-              description={t('common:support-form.steps.role.fields.volunteer.description')}></Role>
+              description={t('support:steps.role.fields.volunteer.description')}></Role>
             <Role
-              label={t('common:support-form.steps.role.fields.associationMember.title')}
+              label={t('support:steps.role.fields.associationMember.title')}
               name="roles.associationMember"
-              description={t('common:support-form.steps.role.fields.volunteer.description')}></Role>
+              description={t('support:steps.role.fields.volunteer.description')}></Role>
             <Role
-              label={t('common:support-form.steps.role.fields.promoter.title')}
+              label={t('support:steps.role.fields.promoter.title')}
               name="roles.promoter"
-              description={t('common:support-form.steps.role.fields.promoter.description')}></Role>
+              description={t('support:steps.role.fields.promoter.description')}></Role>
           </FormGroup>
-          {error && <FormHelperText>{t('common:support-form.helperText')}</FormHelperText>}
+          {error && <FormHelperText>{t('validation:select-role')}</FormHelperText>}
         </FormControl>
       </Grid>
     </Grid>

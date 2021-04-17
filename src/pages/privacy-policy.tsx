@@ -1,12 +1,11 @@
 import { GetServerSideProps } from 'next'
+import PrivacyPolicyPage from 'components/privacy-policy/PrivacyPolicyPage'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
-import SupportFormPage from 'components/support-form/SupportPage'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'support', 'about', 'validation'])),
+    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'privacy-policy'])),
   },
 })
 
-export default SupportFormPage
+export default PrivacyPolicyPage
