@@ -7,20 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="..\..\..\protos\campaign.proto" GrpcServices="Server" ProtoRoot="..\..\..\protos\" />
-    <Protobuf Include="..\..\..\protos\common\nomenclatures.proto" GrpcServices="Server" ProtoRoot="..\..\..\protos\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Grpc.AspNetCore" Version="2.35.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Podkrepibg.Campaigns.Application\Podkrepibg.Campaigns.Application.csproj" />
     <ProjectReference Include="..\Podkrepibg.Campaigns.Infrastructure\Podkrepibg.Campaigns.Infrastructure.csproj" />
   </ItemGroup>
 
