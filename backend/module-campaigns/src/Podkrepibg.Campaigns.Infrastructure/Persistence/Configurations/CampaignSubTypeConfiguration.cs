@@ -1,9 +1,9 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Podkrepibg.Campaigns.Domain.Entities;
-
 namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
 {
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using Podkrepibg.Campaigns.Domain.Entities;
+
     public class CampaignSubTypeConfiguration : IEntityTypeConfiguration<CampaignSubType>
     {
         public void Configure(EntityTypeBuilder<CampaignSubType> builder)

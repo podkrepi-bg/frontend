@@ -1,8 +1,8 @@
-using System;
-using Podkrepibg.Campaigns.Domain.Types;
-
 namespace Podkrepibg.Campaigns.Domain.Entities
 {
+    using System;
+    using Podkrepibg.Campaigns.Domain.Types;
+
     public class Campaign
     {
         public Guid Id { get; set; }

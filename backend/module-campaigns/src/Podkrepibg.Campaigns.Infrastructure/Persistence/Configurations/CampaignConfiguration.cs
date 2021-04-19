@@ -1,11 +1,11 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Newtonsoft.Json;
-using Podkrepibg.Campaigns.Domain.Entities;
-using Podkrepibg.Campaigns.Domain.Types;
-
 namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
 {
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using Newtonsoft.Json;
+    using Podkrepibg.Campaigns.Domain.Entities;
+    using Podkrepibg.Campaigns.Domain.Types;
+
     public class CampaignConfiguration : IEntityTypeConfiguration<Campaign>
     {
         public void Configure(EntityTypeBuilder<Campaign> builder)

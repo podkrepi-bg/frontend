@@ -1,37 +1,23 @@
-using System;
-using System.Threading.Tasks;
-using Google.Protobuf.WellKnownTypes;
-using Grpc.Core;
-using Microsoft.Extensions.Logging;
-using Podkrepibg.Nomenclatures;
-
 namespace Podkrepibg.Campaigns.Services
 {
+    using System;
+    using System.Threading.Tasks;
+    using Google.Protobuf.WellKnownTypes;
+    using Grpc.Core;
+
     public class CampaignsService : CampaignService.CampaignServiceBase
     {
-        private readonly ILogger<CampaignsService> _logger;
-
-        public CampaignsService(ILogger<CampaignsService> logger)
+        public CampaignsService()
         {
-            _logger = logger;
         }
 
-        public override Task<Campaign> CreateCampaign(CreateCampaignRequest request, ServerCallContext context)
+        public override Task<CreateCampaignResponse> CreateCampaign(CreateCampaignRequest request, ServerCallContext context)
         {
             return Task.FromResult(
-              new Campaign()
+              new CreateCampaignResponse()
               {
-                  BeneficiaryId = request.BeneficiaryId,
-                  Id = Guid.NewGuid().ToString(),
-                  InitiatorId = request.InitiatorId,
-                  OperatorId = request.OperatorId,
-                  State = CampaignState.Draft
+                  Id = Guid.NewGuid().ToString()
               });
-        }
-
-        public override Task<CampaignTypesResponse> ListCampaignTypes(Empty request, ServerCallContext context)
-        {
-            return base.ListCampaignTypes(request, context);
         }
 
         public override Task<CampaignsResponse> FilterCampaigns(FilterCampaignsRequest request, ServerCallContext context)
@@ -42,6 +28,16 @@ namespace Podkrepibg.Campaigns.Services
         public override Task<CampaignsResponse> ListCampaigns(ListCampaignsRequest request, ServerCallContext context)
         {
             return base.ListCampaigns(request, context);
+        }
+
+        public override Task<CampaignDetails> GetCampaignDetails(GetCampaignDetailsRequest request, ServerCallContext context)
+        {
+            return base.GetCampaignDetails(request, context);
+        }
+
+        public override Task<CampaignTypesResponse> ListCampaignTypes(Empty request, ServerCallContext context)
+        {
+            return base.ListCampaignTypes(request, context);
         }
     }
 }
