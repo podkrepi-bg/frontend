@@ -1,10 +1,11 @@
-using Microsoft.EntityFrameworkCore;
-using Podkrepibg.Campaigns.Domain.Entities;
-using System.Reflection;
-
-namespace Podkrepibg.Campaigns.Data
+namespace Podkrepibg.Campaigns.Infrastructure.Persistence
 {
-    public class CampaignsContext : DbContext
+    using System.Reflection;
+    using Microsoft.EntityFrameworkCore;
+    using Podkrepibg.Campaigns.Application.Data;
+    using Podkrepibg.Campaigns.Domain.Entities;
+
+    public class CampaignsContext : DbContext, IApplicationDbContext
     {
         public DbSet<CampaignType> CampaignTypes { get; set; }
         public DbSet<CampaignSubType> CampaignSubTypes { get; set; }

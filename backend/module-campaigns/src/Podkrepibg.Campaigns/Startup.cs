@@ -1,14 +1,14 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Podkrepibg.Campaigns.Data;
-
 namespace Podkrepibg.Campaigns
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Podkrepibg.Campaigns.Application.Configuration;
+    using Podkrepibg.Campaigns.Infrastructure.Configuration;
+
     public class Startup
     {
         private IConfigurationRoot Configuration { get; set; }
@@ -28,9 +28,9 @@ namespace Podkrepibg.Campaigns
         {
             services.AddGrpc();
             services.AddOptions();
-            services.AddSingleton<IConfigurationRoot>(Configuration);
-            services.AddDbContext<CampaignsContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("CampaignDb")));
+
+            services.AddApplication(Configuration);
+            services.AddInfrastructure(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

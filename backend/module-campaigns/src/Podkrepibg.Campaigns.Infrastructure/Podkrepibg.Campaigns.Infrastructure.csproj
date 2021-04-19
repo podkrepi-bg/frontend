@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net5</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Podkrepibg.Campaigns.Domain\Podkrepibg.Campaigns.Domain.csproj" />
+    <ProjectReference Include="..\Podkrepibg.Campaigns.Application\Podkrepibg.Campaigns.Application.csproj" />
   </ItemGroup>
   
 </Project>
