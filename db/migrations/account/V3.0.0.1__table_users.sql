@@ -1,6 +1,6 @@
 BEGIN;
 
-CREATE TABLE account.users (
+CREATE TABLE IF NOT EXISTS account.users (
     id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     email         TEXT,
     first_name    TEXT,

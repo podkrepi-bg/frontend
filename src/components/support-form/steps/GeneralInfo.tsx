@@ -12,46 +12,46 @@ export default function GeneralInfo() {
     <Grid container spacing={3}>
       <Grid item xs={12}>
         <Typography variant="h4" align="center" paragraph>
-          {t('common:support-form.steps.info.subtitle')}
+          {t('support:steps.info.subtitle')}
         </Typography>
       </Grid>
       <Grid item xs={12} sm={6}>
         <FormTextField
           autoFocus
           type="text"
-          name="info.email"
+          name="person.email"
           autoComplete="email"
-          label="common:support-form.steps.info.email"
+          label="support:steps.info.email"
         />
       </Grid>
       <Grid item xs={12} sm={6}>
         <FormTextField
           type="text"
-          name="info.name"
+          name="person.name"
           autoComplete="name"
-          label="common:support-form.steps.info.name"
+          label="support:steps.info.name"
         />
       </Grid>
       <Grid item xs={12} sm={6}>
         <FormTextField
           type="text"
-          name="info.phone"
+          name="person.phone"
           autoComplete="tel"
-          label="common:support-form.steps.info.phone"
+          label="support:steps.info.phone"
         />
       </Grid>
       <Grid item xs={12} sm={6}>
         <FormTextField
           type="text"
-          name="info.address"
+          name="person.address"
           autoComplete="address"
-          label="common:support-form.steps.info.address"
+          label="support:steps.info.address"
         />
       </Grid>
       <Grid item xs={12} sm={6}>
         <Grid container direction="column" alignItems="flex-start">
           <Grid item xs={12}>
-            <AcceptTermsField name="terms" />
+            <AcceptTermsField name="person.terms" />
           </Grid>
         </Grid>
       </Grid>

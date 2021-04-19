@@ -1,7 +1,10 @@
 import * as yup from 'yup'
+
+import { name, phone } from 'common/form/validation'
+
 import {
   Benefactor,
-  Info,
+  Person,
   Member,
   Partner,
   Promoter,
@@ -10,7 +13,6 @@ import {
   Steps,
   SupportFormDataSteps,
 } from './support-form.types'
-import { name, phone } from 'common/form/validation'
 
 const checkboxError = 'Must have at least one checked box'
 
@@ -22,13 +24,14 @@ function checkboxChecked(this: yup.TestContext, value: { [key: string]: boolean 
   return true
 }
 
-const info: yup.SchemaOf<Info> = yup
+const person: yup.SchemaOf<Person> = yup
   .object()
   .shape({
     email: yup.string().email().required(),
     name: name.required(),
     phone: phone.required(),
     address: yup.string(),
+    terms: yup.bool().required().oneOf([true], 'validation:terms-of-use'),
   })
   .defined()
 
@@ -99,7 +102,7 @@ export const validationSchema: {
     | yup.SchemaOf<SupportFormDataSteps[Steps.NONE]>
     | yup.SchemaOf<SupportFormDataSteps[Steps.ROLES]>
     | yup.SchemaOf<SupportFormDataSteps[Steps.QUESTIONS]>
-    | yup.SchemaOf<SupportFormDataSteps[Steps.INFO]>
+    | yup.SchemaOf<SupportFormDataSteps[Steps.PERSON]>
     | yup.SchemaOf<SupportFormDataSteps[Steps.NEWSLETTER]>
 } = {
   [Steps.NONE]: undefined,
@@ -155,9 +158,8 @@ export const validationSchema: {
       otherwise: promoter,
     }),
   }),
-  [Steps.INFO]: yup.object().shape({
-    terms: yup.bool().required().oneOf([true], 'common:support-form.termsHelperText'),
-    info: info.required(),
+  [Steps.PERSON]: yup.object().shape({
+    person: person.required(),
   }),
   [Steps.NEWSLETTER]: yup.object().shape({
     newsletter: yup.bool().required(),

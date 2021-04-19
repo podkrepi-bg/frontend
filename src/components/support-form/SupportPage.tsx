@@ -9,7 +9,7 @@ import SupportForm from './SupportForm'
 export default function SupportPage() {
   const { t } = useTranslation()
   return (
-    <Layout title={t('common:support-form.title')}>
+    <Layout title={t('support:title')}>
       <Container maxWidth="lg">
         <SupportForm />
       </Container>
