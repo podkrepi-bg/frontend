@@ -1,10 +1,10 @@
-# Дарителска Платформа - Frontend
+# Дарителска Платформа Подкрепи.бг
 
 ![Lint](https://github.com/daritelska-platforma/frontend/workflows/Lint/badge.svg)
 ![Build](https://github.com/daritelska-platforma/frontend/workflows/Build/badge.svg)
 ![Build docker image](https://github.com/daritelska-platforma/frontend/workflows/Build%20docker%20image/badge.svg)
 
-[![Dev deployment](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-dev.yml/badge.svg)](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-dev.yml)
+[![Nightly deployment](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-nightly.yml/badge.svg)](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-nightly.yml)
 [![Prod deployment](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-prod.yml/badge.svg)](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-prod.yml)
 
 ![Dependencies](https://img.shields.io/david/daritelska-platforma/frontend)
@@ -20,13 +20,18 @@
 
 ## What's in the box
 
-- [Typescript](https://www.typescriptlang.org/) / [Next.js](https://nextjs.org/) / [MaterialUI](https://material-ui.com/)
-- [JSS](https://cssinjs.org/?v=v10.5.1#react-jss-example) / [SCSS](https://sass-lang.com/) / [SCSS Guidelines](https://github.com/bjankord/stylelint-config-sass-guidelines)
-- [Formik](https://formik.org/) / [MobX](https://mobx.js.org/)
-- [ESlint](https://eslint.org/) / [Prettier](https://prettier.io/) / [Husky](https://github.com/typicode/husky) / [Stylelint](https://stylelint.io/) / [Lint Staged](https://github.com/okonet/lint-staged)
-- [Docker Compose](https://docs.docker.com/compose/) / [Github Actions](https://docs.github.com/en/free-pro-team@latest/actions/reference)
-- [Sentry](https://sentry.io/organizations/podkrepibg/)
-
+- Frontend
+  - [Typescript](https://www.typescriptlang.org/) / [Next.js](https://nextjs.org/) / [MaterialUI](https://material-ui.com/)
+  - [JSS](https://cssinjs.org/?v=v10.5.1#react-jss-example) / [SCSS](https://sass-lang.com/) / [SCSS Guidelines](https://github.com/bjankord/stylelint-config-sass-guidelines)
+  - [Formik](https://formik.org/) / [MobX](https://mobx.js.org/)
+  - [ESlint](https://eslint.org/) / [Prettier](https://prettier.io/) / [Husky](https://github.com/typicode/husky) / [Stylelint](https://stylelint.io/) / [Lint Staged](https://github.com/okonet/lint-staged)
+  - [Sentry](https://sentry.io/organizations/podkrepibg/)
+- Backend
+  - [GoFiber](https://gofiber.io/) / [GoValidator](https://github.com/asaskevich/govalidator)
+  - [Protocol Buffers](https://developers.google.com/protocol-buffers) / [GraphQL Gateway](https://gqlgen.com/) / [GRPC](https://grpc.io/)
+  - [.Net C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
+- DevOps
+  - [Docker Compose](https://docs.docker.com/compose/) / [Github Actions](https://docs.github.com/en/free-pro-team@latest/actions/reference)
 ## Initial setup
 
 ```shell

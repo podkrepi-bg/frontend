@@ -119,7 +119,7 @@ services:
       DATABASE_NAME: ${DB_NAME?}
       DATABASE_USER: ${DB_USER?}
       DATABASE_PASSWORD: ${DB_PASS?}
-      COCKROACH_HOST: roach-lb:${DB_PORT?}
+      COCKROACH_HOST: roach-0:${DB_PORT?}
       COCKROACH_DATABASE: ${DB_NAME?}
       COCKROACH_INSECURE: 'true'
       # COCKROACH_INSECURE: 'false'

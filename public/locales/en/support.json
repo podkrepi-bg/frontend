@@ -1,0 +1,99 @@
+{
+  "title": "Support",
+  "steps": {
+    "role": {
+      "title": "Role",
+      "subtitle": "How would you support us?",
+      "fields": {
+        "benefactor": {
+          "title": "Benefactor",
+          "description": "Benefactor..."
+        },
+        "partner": {
+          "title": "Partner",
+          "description": "Partner..."
+        },
+        "volunteer": {
+          "title": "Volunteer",
+          "description": "Volunteer..."
+        },
+        "associationMember": {
+          "title": "Association member",
+          "description": "Association member..."
+        },
+        "promoter": {
+          "title": "Promoter",
+          "description": "Promoter..."
+        }
+      }
+    },
+    "addition-questions": {
+      "title": "Additional questions",
+      "subtitle": "How would you support us?",
+      "benefactor": {
+        "title": "Benefactor",
+        "campaignBenefactor": "Campaign benefactor",
+        "platformBenefactor": "Platform benefactor"
+      },
+      "partner": {
+        "title": "Partner",
+        "npo": "NPO",
+        "bussiness": "Bussiness",
+        "other": "Other",
+        "otherText": ""
+      },
+      "volunteer": {
+        "title": "Volunteer",
+        "label": "Please choose area",
+        "marketing": "Marketing",
+        "backend": "Backend",
+        "frontend": "Frontend",
+        "qa": "QA",
+        "designer": "Designer",
+        "projectManager": "Project manager",
+        "devOps": "DevOps",
+        "financesAndAccounts": "Finances and accounts",
+        "lawyer": "Lawyer"
+      },
+      "associationMember": {
+        "title": "Association member",
+        "member": "Member"
+      },
+      "promoter": {
+        "title": "Promoter",
+        "mediaPartner": "Media partner",
+        "ambassador": "Ambassador",
+        "other": "Other",
+        "otherText": ""
+      }
+    },
+    "info": {
+      "title": "Contacts info",
+      "subtitle": "How contact with you?",
+      "email": "Email",
+      "name": "Name",
+      "phone": "Phone number",
+      "address": "Address"
+    },
+    "newsletter": {
+      "title": "Newsletter",
+      "label": "Subscription",
+      "confirm": {
+        "title": "Are you really sure you don't want to subscribe ?",
+        "content": "By subscribing you will recieve regular useful and interesting info about us and our cause :)",
+        "confirmButtonLabel": "Yes I actually want to",
+        "cancelButtonLabel": "Maybe not"
+      }
+    },
+    "thank-you": {
+      "title": "Thank you",
+      "content": "Thanks for joining the supporters!"
+    }
+  },
+  "cta": {
+    "next": "Next",
+    "back": "Back",
+    "reset": "Reset",
+    "submit": "Submit"
+  }
+}

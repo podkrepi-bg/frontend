@@ -1,0 +1,99 @@
+{
+  "title": "Подкрепи",
+  "steps": {
+    "role": {
+      "title": "Роля",
+      "subtitle": "Как искате да ни подкрепите?",
+      "fields": {
+        "benefactor": {
+          "title": "Дарител",
+          "description": "Дарител..."
+        },
+        "partner": {
+          "title": "Партньор",
+          "description": "Партньор..."
+        },
+        "volunteer": {
+          "title": "Доброволец",
+          "description": "Доброволец..."
+        },
+        "associationMember": {
+          "title": "Член на сдружението",
+          "description": "Член на сдружението..."
+        },
+        "promoter": {
+          "title": "Промотиране",
+          "description": "Промотиране..."
+        }
+      }
+    },
+    "addition-questions": {
+      "title": "Допълнителни въпроси",
+      "subtitle": "В каква роля искате да ни подкрепите?",
+      "benefactor": {
+        "title": "Дарител",
+        "campaignBenefactor": "Дарител за кампании",
+        "platformBenefactor": "Дарител за платформата"
+      },
+      "partner": {
+        "title": "Партньор",
+        "npo": "НПО",
+        "bussiness": "Бизнес",
+        "other": "Друго",
+        "otherText": ""
+      },
+      "volunteer": {
+        "title": "Доброволец",
+        "label": "Моля, изберете област",
+        "marketing": "Маркетинг",
+        "backend": "Backend",
+        "frontend": "Frontend",
+        "qa": "QA",
+        "designer": "Дизайнер",
+        "projectManager": "Ръководител проект",
+        "devOps": "DevOps",
+        "financesAndAccounts": "Финанси и счетоводство",
+        "lawyer": "Адвокат"
+      },
+      "associationMember": {
+        "title": "Член на сдружението",
+        "member": "Член"
+      },
+      "promoter": {
+        "title": "Промотиране",
+        "mediaPartner": "Медиен партньор",
+        "ambassador": "Амбасадор",
+        "other": "Друго",
+        "otherText": ""
+      }
+    },
+    "info": {
+      "title": "Данни за контакт",
+      "subtitle": "Как да се свържем с вас",
+      "email": "Имейл",
+      "name": "Име",
+      "phone": "Телефонен номер",
+      "address": "Адрес"
+    },
+    "newsletter": {
+      "title": "Бюлетин",
+      "label": "Искам да се абонирам",
+      "confirm": {
+        "title": "Наистина ли сте сигурни, че не искате да се абонирате ?",
+        "content": "Абонирането означава, че ще получавате редовна полезна и интересна информация за нас и нашата кауза :)",
+        "confirmButtonLabel": "Да, всъщност искам",
+        "cancelButtonLabel": "По-скоро не"
+      }
+    },
+    "thank-you": {
+      "title": "Участие",
+      "content": "Благодарим Ви, че ни подкрепихте!"
+    }
+  },
+  "cta": {
+    "next": "Напред",
+    "back": "Назад",
+    "reset": "Начало",
+    "submit": "Изпрати"
+  }
+}

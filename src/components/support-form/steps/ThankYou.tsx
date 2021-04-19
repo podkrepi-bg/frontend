@@ -27,7 +27,7 @@ export default function ThankYou() {
         <Typography variant="h4" align="center"></Typography>
       </Grid>
       <Typography className={classes.instructions}>
-        {t('common:support-form.steps.thank-you.content')}
+        {t('support:steps.thank-you.content')}
       </Typography>
     </Grid>
   )
