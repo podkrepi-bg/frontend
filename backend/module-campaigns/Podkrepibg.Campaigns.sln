@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31025.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Podkrepibg.Campaigns", "src\Podkrepibg.Campaigns\Podkrepibg.Campaigns.csproj", "{71447891-1395-4610-9697-E6CD158A005B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "protos", "protos", "{EB8A96F2-BAB0-45D1-8BD8-71D94CD6154A}"
+	ProjectSection(SolutionItems) = preProject
+		..\protos\campaign.proto = ..\protos\campaign.proto
+		..\protos\error.proto = ..\protos\error.proto
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{46B30DB6-C76F-4AA6-B8B7-F1276789E1D8}"
+	ProjectSection(SolutionItems) = preProject
+		..\protos\common\nomenclatures.proto = ..\protos\common\nomenclatures.proto
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Podkrepibg.Campaigns.Data", "src\Podkrepibg.Campaigns.Data\Podkrepibg.Campaigns.Data.csproj", "{85AC9F82-B4E3-43E9-AD68-BCA7924317F6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{71447891-1395-4610-9697-E6CD158A005B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71447891-1395-4610-9697-E6CD158A005B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71447891-1395-4610-9697-E6CD158A005B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71447891-1395-4610-9697-E6CD158A005B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85AC9F82-B4E3-43E9-AD68-BCA7924317F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85AC9F82-B4E3-43E9-AD68-BCA7924317F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85AC9F82-B4E3-43E9-AD68-BCA7924317F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85AC9F82-B4E3-43E9-AD68-BCA7924317F6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{46B30DB6-C76F-4AA6-B8B7-F1276789E1D8} = {EB8A96F2-BAB0-45D1-8BD8-71D94CD6154A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {91BA0327-64EB-4398-A16F-4858FC5207BF}
+	EndGlobalSection
+EndGlobal
