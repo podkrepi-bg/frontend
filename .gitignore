@@ -25,13 +25,25 @@ coverage
 *.launch
 .settings/
 *.sublime-workspace
-
-# IDE - VSCode
 .vscode/*
+.vs
 
 .env
 .env*.local
 !.env.example
-.actrc.secrets.local
 
+# Act
+.actrc.secrets.local
 .github/workflows-test**
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
