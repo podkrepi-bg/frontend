@@ -29,7 +29,7 @@ jobs:
         if: steps.yarn-cache.outputs.cache-hit != 'true'
 
       - name: Build frontend
-        working-directory: frontend
         run: |
-          cp .env.example .env
+          cp .env.example ./frontend/.env
+          cd frontend
           yarn build
