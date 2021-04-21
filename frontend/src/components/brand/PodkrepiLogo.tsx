@@ -7,7 +7,9 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     icon: { fill: theme.palette.primary.main },
     iconAccent: { fill: theme.palette.secondary.main },
-    letters: { fill: theme.palette.getContrastText(theme.palette.primary.main) },
+    letters: {
+      fill: theme.palette.getContrastText(theme.palette.primary.main),
+    },
   }),
 )
 

@@ -19,7 +19,9 @@ const defaults: ForgottenPasswordForm = {
   email: '',
 }
 
-export type ForgottenPasswordFormProps = { initialValues?: ForgottenPasswordForm }
+export type ForgottenPasswordFormProps = {
+  initialValues?: ForgottenPasswordForm
+}
 
 export default function ForgottenPasswordForm({
   initialValues = defaults,

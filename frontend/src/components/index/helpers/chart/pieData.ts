@@ -1,6 +1,11 @@
 import { Options } from 'highcharts'
 
-export type TeamPieItem = { id: string; y: number; color: string; name?: string }
+export type TeamPieItem = {
+  id: string
+  y: number
+  color: string
+  name?: string
+}
 
 export const teamPieData: Array<TeamPieItem> = [
   { id: 'others', y: 2.2, color: '#F94144' },

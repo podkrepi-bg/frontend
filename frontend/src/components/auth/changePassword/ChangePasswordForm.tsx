@@ -29,7 +29,9 @@ const defaults: ChangePasswordFormData = {
   confirmPassword: '',
 }
 
-export type ChangePasswordFormProps = { initialValues?: ChangePasswordFormData }
+export type ChangePasswordFormProps = {
+  initialValues?: ChangePasswordFormData
+}
 
 export default function ChangePasswordForm({ initialValues = defaults }: ChangePasswordFormProps) {
   const onSubmit = (values: ChangePasswordFormData) => {
