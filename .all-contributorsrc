@@ -172,6 +172,19 @@
         "platform",
         "review"
       ]
+    },
+    {
+      "login": "mayapeneva",
+      "name": "Mayya Peneva",
+      "avatar_url": "https://avatars.githubusercontent.com/u/25232447?v=4",
+      "profile": "https://github.com/mayapeneva",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "platform",
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7,
