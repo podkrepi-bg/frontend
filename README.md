@@ -40,14 +40,13 @@ git clone git@github.com:daritelska-platforma/frontend.git
 cd frontend
 
 # Symlink dev environment
-ln -s .env.local.example .env
+ln -s .env.example .env
 ```
 
 ## Development
 
 ```shell
-yarn
-yarn dev
+docker-compose up -d
 ```
 
 Visit <http://localhost:3040/>
