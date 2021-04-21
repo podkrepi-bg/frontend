@@ -5,8 +5,7 @@ on:
   pull_request:
     branches: [master]
     paths:
-      - 'src/**'
-      - 'public/**'
+      - "frontend/**"
 
 jobs:
   build-codebase:
@@ -25,10 +24,12 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install dependencies
+        working-directory: frontend
         run: yarn
         if: steps.yarn-cache.outputs.cache-hit != 'true'
 
       - name: Build frontend
+        working-directory: frontend
         run: |
           cp .env.example .env
           yarn build
