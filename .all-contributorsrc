@@ -146,6 +146,19 @@
         "doc",
         "tool"
       ]
+    },
+    {
+      "login": "xenry",
+      "name": "Andrey Marchev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/534600?v=4",
+      "profile": "https://github.com/xenry",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "platform",
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7,
