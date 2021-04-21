@@ -48,7 +48,10 @@ const StyledStepLabel = withStyles({
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: { width: '100%' },
-    instructions: { marginTop: theme.spacing(1), marginBottom: theme.spacing(5) },
+    instructions: {
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(5),
+    },
     stepper: { backgroundColor: 'transparent' },
     content: { display: 'flex', justifyContent: 'center' },
   }),

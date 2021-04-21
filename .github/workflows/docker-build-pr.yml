@@ -5,8 +5,7 @@ on:
   pull_request:
     branches: [master]
     paths:
-      - 'src/**'
-      - 'public/**'
+      - "frontend/**"
 
 jobs:
   build-pr:
@@ -19,6 +18,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build frontend
+        working-directory: frontend
         run: |
           docker build . \
             --file ./Dockerfile \

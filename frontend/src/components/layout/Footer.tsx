@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { Grid, Container, createStyles, makeStyles, lighten } from '@material-ui/core'
-import { Instagram, Facebook, Twitter, LinkedIn, YouTube } from '@material-ui/icons'
+import { Facebook, LinkedIn, YouTube } from '@material-ui/icons'
 
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 import { routes, socialUrls, staticUrls } from 'common/routes'
