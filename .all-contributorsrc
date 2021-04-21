@@ -159,6 +159,19 @@
         "platform",
         "review"
       ]
+    },
+    {
+      "login": "dianakarcheva",
+      "name": "dianakarcheva",
+      "avatar_url": "https://avatars.githubusercontent.com/u/47477592?v=4",
+      "profile": "https://github.com/dianakarcheva",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "platform",
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7,
