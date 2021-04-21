@@ -7,10 +7,10 @@
 [![Nightly deployment](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-nightly.yml/badge.svg)](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-nightly.yml)
 [![Prod deployment](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-prod.yml/badge.svg)](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-prod.yml)
 
-![Dependencies](https://img.shields.io/david/daritelska-platforma/frontend)
-![Dev Dependencies](https://img.shields.io/david/dev/daritelska-platforma/frontend)
-![](https://img.shields.io/github/license/daritelska-platforma/frontend)
-![](https://img.shields.io/github/issues/daritelska-platforma/frontend)
+![Dependencies](https://img.shields.io/david/daritelska-platforma/frontend?path=frontend)
+![Dev Dependencies](https://img.shields.io/david/dev/daritelska-platforma/frontend?path=frontend)
+![](https://img.shields.io/github/license/daritelska-platforma/frontend?path=frontend)
+![](https://img.shields.io/github/issues/daritelska-platforma/frontend?path=frontend)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-15-orange.svg?style=flat-square)](#contributors-)
