@@ -5,7 +5,9 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import IndexPage from 'components/index/IndexPage'
 
-export const getServerSideProps: GetServerSideProps<{ session: Session | null }> = async (ctx) => {
+export const getServerSideProps: GetServerSideProps<{
+  session: Session | null
+}> = async (ctx) => {
   const session = await getSession(ctx)
 
   return {

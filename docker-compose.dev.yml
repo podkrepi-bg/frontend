@@ -3,7 +3,7 @@ version: '3.7'
 services:
   frontend:
     build:
-      context: ./
+      context: ./frontend/
       dockerfile: ./Dockerfile
       target: ${TARGET_ENV?}
       args:
@@ -12,7 +12,7 @@ services:
       - '${APP_PORT?}:3040'
     volumes:
       # Local:Container mounting points
-      - .:/app
+      - ./frontend:/app
       - /app/.next
       - /app/node_modules
 
