@@ -13,7 +13,7 @@
 ![](https://img.shields.io/github/issues/daritelska-platforma/frontend)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-15-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## What's in the box
@@ -90,6 +90,9 @@ Thanks goes to these wonderful people:
     <td align="center"><a href="https://github.com/dimitur2204"><img src="https://avatars.githubusercontent.com/u/61479393?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dimitar Nizamov</b></sub></a><br /><a href="https://github.com/daritelska-platforma/frontend/commits?author=dimitur2204" title="Code">💻</a> <a href="https://github.com/daritelska-platforma/frontend/commits?author=dimitur2204" title="Documentation">📖</a> <a href="#tool-dimitur2204" title="Tools">🔧</a></td>
     <td align="center"><a href="https://github.com/xenry"><img src="https://avatars.githubusercontent.com/u/534600?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Andrey Marchev</b></sub></a><br /><a href="https://github.com/daritelska-platforma/frontend/commits?author=xenry" title="Code">💻</a> <a href="https://github.com/daritelska-platforma/frontend/commits?author=xenry" title="Documentation">📖</a> <a href="#tool-xenry" title="Tools">🔧</a> <a href="#platform-xenry" title="Packaging/porting to new platform">📦</a> <a href="https://github.com/daritelska-platforma/frontend/pulls?q=is%3Apr+reviewed-by%3Axenry" title="Reviewed Pull Requests">👀</a></td>
     <td align="center"><a href="https://github.com/dianakarcheva"><img src="https://avatars.githubusercontent.com/u/47477592?v=4?s=100" width="100px;" alt=""/><br /><sub><b>dianakarcheva</b></sub></a><br /><a href="https://github.com/daritelska-platforma/frontend/commits?author=dianakarcheva" title="Code">💻</a> <a href="https://github.com/daritelska-platforma/frontend/commits?author=dianakarcheva" title="Documentation">📖</a> <a href="#tool-dianakarcheva" title="Tools">🔧</a> <a href="#platform-dianakarcheva" title="Packaging/porting to new platform">📦</a> <a href="https://github.com/daritelska-platforma/frontend/pulls?q=is%3Apr+reviewed-by%3Adianakarcheva" title="Reviewed Pull Requests">👀</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/mayapeneva"><img src="https://avatars.githubusercontent.com/u/25232447?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mayya Peneva</b></sub></a><br /><a href="https://github.com/daritelska-platforma/frontend/commits?author=mayapeneva" title="Code">💻</a> <a href="https://github.com/daritelska-platforma/frontend/commits?author=mayapeneva" title="Documentation">📖</a> <a href="#tool-mayapeneva" title="Tools">🔧</a> <a href="#platform-mayapeneva" title="Packaging/porting to new platform">📦</a> <a href="https://github.com/daritelska-platforma/frontend/pulls?q=is%3Apr+reviewed-by%3Amayapeneva" title="Reviewed Pull Requests">👀</a></td>
   </tr>
 </table>
 
