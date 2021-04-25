@@ -30,7 +30,7 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
               .HasMaxLength(50);
 
             builder
-              .Property(c => c.DescriptionKey)
+              .Property(c => c.Description)
               .HasMaxLength(200);
         }
     }

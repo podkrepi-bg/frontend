@@ -19,11 +19,11 @@ namespace Podkrepibg.Campaigns.Domain.Entities
 
         public Guid CampaignSubTypeId { get; set; }
 
-        public string TitleKey { get; set; }
+        public string Title{ get; set; }
 
-        public string ShortDescriptionKey { get; set; }
+        public string ShortDescription { get; set; }
 
-        public string FullDescriptionKey { get; set; }
+        public string FullDescription { get; set; }
 
         public decimal TargetAmount { get; set; }
 

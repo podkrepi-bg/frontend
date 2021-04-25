@@ -11,6 +11,7 @@ namespace Podkrepibg.Campaigns.Infrastructure.Configuration
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<CampaignsContext>());
+            services.AddScoped<IApplicationReadOnlyDbContext>(provider => provider.GetService<CampaignsContext>());
 
             services.AddDbContext<CampaignsContext>(
                 options => options.UseNpgsql(configuration.GetConnectionString("CampaignDb")));
