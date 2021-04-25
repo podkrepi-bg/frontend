@@ -7,11 +7,11 @@ namespace Podkrepibg.Campaigns.Application.Data
 
     public interface IApplicationDbContext
     {
-        public DbSet<CampaignType> CampaignTypes { get; set; }
+        public DbSet<CampaignType> CampaignTypes { get; }
 
-        public DbSet<CampaignSubType> CampaignSubTypes { get; set; }
+        public DbSet<CampaignSubType> CampaignSubTypes { get; }
 
-        public DbSet<Campaign> Campaigns { get; set; }
+        public DbSet<Campaign> Campaigns { get; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

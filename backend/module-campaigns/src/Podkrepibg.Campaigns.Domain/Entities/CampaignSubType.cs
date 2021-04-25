@@ -8,7 +8,7 @@ namespace Podkrepibg.Campaigns.Domain.Entities
 
         public string Name { get; set; }
 
-        public string DescriptionKey { get; set; }
+        public string Description { get; set; }
 
         public Guid CampaignTypeId { get; set; }
 

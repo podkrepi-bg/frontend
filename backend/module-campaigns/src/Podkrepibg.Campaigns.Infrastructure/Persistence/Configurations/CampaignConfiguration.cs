@@ -53,17 +53,17 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
               .IsRequired();
 
             builder
-              .Property(c => c.TitleKey)
+              .Property(c => c.Title)
               .HasMaxLength(50)
               .IsRequired();
 
             builder
-              .Property(c => c.ShortDescriptionKey)
+              .Property(c => c.ShortDescription)
               .HasMaxLength(500)
               .IsRequired();
 
             builder
-              .Property(c => c.FullDescriptionKey)
+              .Property(c => c.FullDescription)
               .IsRequired();
 
             builder
