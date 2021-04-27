@@ -28,14 +28,19 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("Host=localhost;Port=26257;Database=campaigns;Username=root;Password=1234");
+                optionsBuilder.UseNpgsql("Host=localhost;Port=26257;Database=app;Username=root;Password=1234");
             }
+
+            optionsBuilder
+                .UseLowerCaseNamingConvention();
 
             base.OnConfiguring(optionsBuilder);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasDefaultSchema("campaign");
+
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(modelBuilder);
