@@ -2,7 +2,7 @@ namespace Podkrepibg.Campaigns.Domain.Entities
 {
     using System;
 
-    public class CampaignSubType
+    public class CampaignSubtype
     {
         public Guid Id { get; set; }
 

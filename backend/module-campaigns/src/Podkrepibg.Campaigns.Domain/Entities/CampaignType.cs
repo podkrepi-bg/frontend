@@ -11,6 +11,6 @@ namespace Podkrepibg.Campaigns.Domain.Entities
 
         public string Description { get; set; }
 
-        public virtual ICollection<CampaignSubType> CampaignSubTypes { get; set; }
+        public virtual ICollection<CampaignSubtype> CampaignSubtypes { get; set; }
     }
 }

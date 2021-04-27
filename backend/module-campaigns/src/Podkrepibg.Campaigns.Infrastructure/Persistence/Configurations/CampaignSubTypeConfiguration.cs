@@ -4,9 +4,9 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using Podkrepibg.Campaigns.Domain.Entities;
 
-    public class CampaignSubTypeConfiguration : IEntityTypeConfiguration<CampaignSubType>
+    public class CampaignSubtypeConfiguration : IEntityTypeConfiguration<CampaignSubtype>
     {
-        public void Configure(EntityTypeBuilder<CampaignSubType> builder)
+        public void Configure(EntityTypeBuilder<CampaignSubtype> builder)
         {
             builder
               .HasKey(c => c.Id);
@@ -16,9 +16,10 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
               .HasDefaultValueSql("gen_random_uuid()");
 
             builder
-              .HasOne<CampaignType>()
+              .HasOne(cst => cst.CampaignType)
               .WithMany()
-              .HasForeignKey("CampaignTypeId");
+              .HasForeignKey("CampaignTypeId")
+              .IsRequired();
 
             builder
               .Property(c => c.CampaignTypeId)
