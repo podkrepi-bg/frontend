@@ -17,7 +17,7 @@ namespace Podkrepibg.Campaigns.Domain.Entities
 
         public Guid CampaignTypeId { get; set; }
 
-        public Guid CampaignSubTypeId { get; set; }
+        public Guid CampaignSubtypeId { get; set; }
 
         public string Title{ get; set; }
 
@@ -29,18 +29,20 @@ namespace Podkrepibg.Campaigns.Domain.Entities
 
         public CurrencyCode Currency { get; set; }
 
-        public DateTime CreationDate { get; set; }
-
         public bool Verified { get; set; }
 
         public DateTime? Deadline { get; set; }
 
         public bool Recurring { get; set; }
 
+        public DateTime CreationDate { get; set; }
+
+        public DateTime UpdateDate { get; set; }
+
         public CampaignOptionalDetails OptionalDetails { get; set; }
 
         public CampaignType CampaignType { get; set; }
 
-        public CampaignSubType CampaignSubType { get; set; }
+        public CampaignSubtype CampaignSubtype { get; set; }
     }
 }

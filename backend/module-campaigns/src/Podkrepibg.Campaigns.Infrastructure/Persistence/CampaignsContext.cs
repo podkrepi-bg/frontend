@@ -10,7 +10,7 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence
     {
         public DbSet<CampaignType> CampaignTypes { get; set; }
 
-        public DbSet<CampaignSubType> CampaignSubTypes { get; set; }
+        public DbSet<CampaignSubtype> CampaignSubtypes { get; set; }
 
         public DbSet<Campaign> Campaigns { get; set; }
 
@@ -20,7 +20,7 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence
 
         public IQueryable<CampaignType> GetCampaignTypes() => CampaignTypes.AsNoTracking();
 
-        public IQueryable<CampaignSubType> GetCampaignSubTypes() => CampaignSubTypes.AsNoTracking();
+        public IQueryable<CampaignSubtype> GetCampaignSubtypes() => CampaignSubtypes.AsNoTracking();
 
         public IQueryable<Campaign> GetCampaigns() => Campaigns.AsNoTracking();
 
@@ -32,7 +32,7 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence
             }
 
             optionsBuilder
-                .UseLowerCaseNamingConvention();
+                .UseSnakeCaseNamingConvention();
 
             base.OnConfiguring(optionsBuilder);
         }

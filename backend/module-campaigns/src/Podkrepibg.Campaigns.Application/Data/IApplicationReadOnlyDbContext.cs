@@ -7,7 +7,7 @@ namespace Podkrepibg.Campaigns.Application.Data
     {
         public IQueryable<CampaignType> GetCampaignTypes();
 
-        public IQueryable<CampaignSubType> GetCampaignSubTypes();
+        public IQueryable<CampaignSubtype> GetCampaignSubtypes();
 
         public IQueryable<Campaign> GetCampaigns();
     }

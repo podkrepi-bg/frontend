@@ -12,8 +12,10 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
               .HasKey(c => c.Id);
 
             builder
-              .HasMany<CampaignSubType>()
-              .WithOne();
+              .HasMany(ct => ct.CampaignSubtypes)
+              .WithOne()
+              .HasForeignKey("CampaignTypeId")
+              .IsRequired();
 
             builder
               .Property(c => c.Id)

@@ -19,14 +19,16 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
               .HasDefaultValueSql("gen_random_uuid()");
 
             builder
-              .HasOne<CampaignType>()
+              .HasOne(c => c.CampaignType)
               .WithMany()
-              .HasForeignKey("CampaignTypeId");
+              .HasForeignKey("CampaignTypeId")
+              .IsRequired();
 
             builder
-              .HasOne<CampaignSubType>()
+              .HasOne(c => c.CampaignSubtype)
               .WithMany()
-              .HasForeignKey("CampaignSubTypeId");
+              .HasForeignKey("CampaignSubtypeId")
+              .IsRequired();
 
             builder
               .Property(c => c.State)
@@ -49,22 +51,17 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
               .IsRequired();
 
             builder
-              .Property(c => c.CampaignSubTypeId)
+              .Property(c => c.CampaignSubtypeId)
               .IsRequired();
 
             builder
               .Property(c => c.Title)
-              .HasMaxLength(50)
+              .HasMaxLength(200)
               .IsRequired();
 
             builder
               .Property(c => c.ShortDescription)
-              .HasMaxLength(500)
-              .IsRequired();
-
-            builder
-              .Property(c => c.FullDescription)
-              .IsRequired();
+              .HasMaxLength(500);
 
             builder
               .Property(c => c.TargetAmount)
@@ -72,10 +69,6 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
 
             builder
               .Property(c => c.Currency)
-              .IsRequired();
-
-            builder
-              .Property(c => c.Deadline)
               .IsRequired();
 
             builder
@@ -91,6 +84,14 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
                 .HasConversion(
                     v => JsonConvert.SerializeObject(v),
                     v => JsonConvert.DeserializeObject<CampaignOptionalDetails>(v));
+
+            builder
+                .Property(b => b.CreationDate)
+                .HasColumnName("created_at");
+
+            builder
+                .Property(b => b.UpdateDate)
+                .HasColumnName("updated_at");
         }
     }
 }

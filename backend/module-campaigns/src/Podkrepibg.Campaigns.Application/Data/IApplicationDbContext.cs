@@ -9,7 +9,7 @@ namespace Podkrepibg.Campaigns.Application.Data
     {
         public DbSet<CampaignType> CampaignTypes { get; }
 
-        public DbSet<CampaignSubType> CampaignSubTypes { get; }
+        public DbSet<CampaignSubtype> CampaignSubtypes { get; }
 
         public DbSet<Campaign> Campaigns { get; }
 
