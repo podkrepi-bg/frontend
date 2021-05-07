@@ -8,11 +8,8 @@ import { appWithTranslation, useTranslation } from 'next-i18next'
 
 import theme from 'common/theme'
 import useGTM from 'common/util/useGTM'
-import { initSentry } from 'common/sentry'
 
 import 'styles/global.scss'
-
-initSentry()
 
 function CustomApp(props: AppProps) {
   const { Component, pageProps } = props
