@@ -1,6 +1,15 @@
 import React from 'react'
 
-import { createStyles, makeStyles, Paper, SvgIcon, Theme } from '@material-ui/core'
+import {
+  createStyles,
+  makeStyles,
+  Card,
+  SvgIcon,
+  Theme,
+  Typography,
+  CardContent,
+  CardHeader,
+} from '@material-ui/core'
 import {
   TimelineConnector,
   TimelineContent,
@@ -20,17 +29,39 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     icon: {
       fontSize: theme.typography.pxToRem(40),
+      // backgroundColor: theme.palette.primary.dark,
+      padding: '.5rem',
+      // borderRadius: '50%',
+      boxSizing: 'content-box',
     },
-    contentContainer: {
-      textAlign: 'center',
+    contentContainer: {},
+    contentPaper: {
+      borderTop: `3px solid ${theme.palette.secondary.main}`,
+      textAlign: 'left',
+      padding: theme.spacing(2.5),
+    },
+    content: {
+      paddingTop: theme.spacing(1),
+      paddingRight: 0,
+      '&:last-child': {
+        paddingBottom: theme.spacing(1),
+      },
+      '& ul': {
+        listStyleType: 'disc',
+        paddingLeft: theme.spacing(2),
+      },
     },
   }),
 )
 type TimelineItemProps = React.PropsWithChildren<
-  TimelineItemPropsMaterial & { lastItem?: boolean; Icon: typeof SvgIcon }
+  TimelineItemPropsMaterial & {
+    title?: string
+    lastItem?: boolean
+    Icon: typeof SvgIcon
+  }
 >
 
-export default function TimelineItem({ children, lastItem, Icon }: TimelineItemProps) {
+export default function TimelineItem({ children, title, lastItem, Icon }: TimelineItemProps) {
   const classes = useStyles()
   return (
     <TimelineItemMaterial>
@@ -40,7 +71,14 @@ export default function TimelineItem({ children, lastItem, Icon }: TimelineItemP
         {lastItem ? <ArrowForwardIosIcon className={classes.arrowIcon} color="primary" /> : ''}
       </TimelineSeparator>
       <TimelineContent classes={{ root: classes.contentContainer }}>
-        <Paper className={classes.contentContainer}>{children}</Paper>
+        <Card variant="outlined" className={classes.contentPaper}>
+          {title && <CardHeader titleTypographyProps={{ color: 'textSecondary' }} title={title} />}
+          <CardContent className={classes.content}>
+            <Typography variant="body2" component="div">
+              {children}
+            </Typography>
+          </CardContent>
+        </Card>
       </TimelineContent>
     </TimelineItemMaterial>
   )
