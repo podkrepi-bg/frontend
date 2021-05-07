@@ -18,6 +18,7 @@ export const socialUrls = {
   linkedin: 'https://www.linkedin.com/company/podkrepibg',
   youtube: 'https://www.youtube.com/channel/UCt5pYR0DkOCfjlY17awY8pA',
   instagram: '/',
+  discord: 'https://discord.com/invite/nZAeCb9YzP',
 }
 
 export const routes = {
