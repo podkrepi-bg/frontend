@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import * as Sentry from '@sentry/node'
+import * as Sentry from '@sentry/nextjs'
 
 export const getServerSideProps = () => ({ props: {} })
 

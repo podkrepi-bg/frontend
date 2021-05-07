@@ -28,6 +28,8 @@ CMD [ "yarn", "dev" ]
 # Build target builder #
 ########################
 FROM base AS builder
+ARG SENTRY_AUTH_TOKEN
+ENV SENTRY_AUTH_TOKEN="$SENTRY_AUTH_TOKEN"
 COPY --from=dependencies /app/node_modules /app/node_modules
 COPY . /app
 RUN yarn build && \
