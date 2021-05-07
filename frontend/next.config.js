@@ -41,7 +41,7 @@ const SentryWebpackPluginOptions = {
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options.
   debug: ['staging', 'production'].includes(process.env.APP_ENV) || false,
-  dryRun: process.env.IS_CI,
+  dryRun: ['development', 'nightly'].includes(process.env.APP_ENV) || true,
   silent: true,
 }
 
