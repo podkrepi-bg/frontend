@@ -18,9 +18,13 @@ service CampaignService {
 
   rpc FilterCampaigns (FilterCampaignsRequest) returns (CampaignsResponse);
 
-  rpc ListCampaignTypes (google.protobuf.Empty) returns (CampaignTypesResponse);
-
   rpc GetCampaignDetails (GetCampaignDetailsRequest) returns (CampaignDetails);
+
+  // campaign types
+
+  rpc CreateCampaignType (CreateCampaignTypeRequest) returns (CreateCampaignTypeResponse);
+
+  rpc ListCampaignTypes (google.protobuf.Empty) returns (CampaignTypesResponse);
 }
 
 message CreateCampaignRequest {
@@ -29,6 +33,7 @@ message CreateCampaignRequest {
 	string operator_id = 2;
 	string beneficiary_id = 3;
   string title = 4;
+  string campaign_type_id = 5;
 }
 
 message CreateCampaignResponse {
@@ -54,14 +59,25 @@ message CampaignsResponse {
   repeated Campaign campaigns = 1;
 }
 
-message CampaignTypesResponse {
-
-	repeated CampaignTypeDetails campaign_types = 1;
-}
-
 message GetCampaignDetailsRequest {
 
   string id = 1;
+}
+
+message CreateCampaignTypeRequest {
+
+  string name = 1;
+  string description = 2;
+}
+
+message CreateCampaignTypeResponse {
+
+  string id = 1;
+}
+
+message CampaignTypesResponse {
+
+	repeated CampaignTypeDetails campaign_types = 1;
 }
 
 message CampaignType {

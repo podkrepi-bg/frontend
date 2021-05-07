@@ -1,4 +1,4 @@
-namespace Podkrepibg.Campaigns.Application.Queries.GetCampaigns
+namespace Podkrepibg.Campaigns.Application.Campaigns.Queries.GetCampaigns
 {
     using System;
     using FluentValidation;

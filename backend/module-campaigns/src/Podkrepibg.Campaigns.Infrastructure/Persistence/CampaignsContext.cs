@@ -1,5 +1,6 @@
 namespace Podkrepibg.Campaigns.Infrastructure.Persistence
 {
+    using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
     using Microsoft.EntityFrameworkCore;
@@ -32,7 +33,8 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence
             }
 
             optionsBuilder
-                .UseSnakeCaseNamingConvention();
+                .UseSnakeCaseNamingConvention()
+                .LogTo(message => Debug.WriteLine(message)).EnableSensitiveDataLogging().EnableDetailedErrors();
 
             base.OnConfiguring(optionsBuilder);
         }

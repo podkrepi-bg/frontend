@@ -27,8 +27,7 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
             builder
               .HasOne(c => c.CampaignSubtype)
               .WithMany()
-              .HasForeignKey("CampaignSubtypeId")
-              .IsRequired();
+              .HasForeignKey("CampaignSubtypeId");
 
             builder
               .Property(c => c.State)
@@ -51,10 +50,6 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
               .IsRequired();
 
             builder
-              .Property(c => c.CampaignSubtypeId)
-              .IsRequired();
-
-            builder
               .Property(c => c.Title)
               .HasMaxLength(200)
               .IsRequired();
@@ -64,22 +59,6 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
               .HasMaxLength(500);
 
             builder
-              .Property(c => c.TargetAmount)
-              .IsRequired();
-
-            builder
-              .Property(c => c.Currency)
-              .IsRequired();
-
-            builder
-              .Property(c => c.Verified)
-              .IsRequired();
-
-            builder
-              .Property(c => c.Recurring)
-              .IsRequired();
-
-            builder
                 .Property(b => b.OptionalDetails)
                 .HasConversion(
                     v => JsonConvert.SerializeObject(v),
@@ -87,7 +66,8 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
 
             builder
                 .Property(b => b.CreationDate)
-                .HasColumnName("created_at");
+                .HasColumnName("created_at")
+                .IsRequired();
 
             builder
                 .Property(b => b.UpdateDate)
