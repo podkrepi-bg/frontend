@@ -155,7 +155,7 @@ jobs:
           args: up -d --remove-orphans
 
   deploy-sentry:
-    needs: [deploy-init, deploy-build]
+    needs: [deploy-init, deploy-build, deploy-run]
     runs-on: ubuntu-latest
     environment: development
     steps:
