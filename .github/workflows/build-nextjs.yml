@@ -5,8 +5,7 @@ on:
   pull_request:
     branches: [master]
     paths:
-      - 'src/**'
-      - 'public/**'
+      - "frontend/**"
 
 jobs:
   build-codebase:
@@ -19,16 +18,17 @@ jobs:
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: |
-            node_modules
+            frontend/node_modules
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
 
       - name: Install dependencies
-        run: yarn
+        run: yarn --cwd frontend
         if: steps.yarn-cache.outputs.cache-hit != 'true'
 
       - name: Build frontend
         run: |
-          cp .env.example .env
+          cp .env.example ./frontend/.env
+          cd frontend
           yarn build

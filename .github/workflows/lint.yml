@@ -5,8 +5,7 @@ on:
   pull_request:
     branches: [master]
     paths:
-      - 'src/**'
-      - 'public/**'
+      - "frontend/**"
 
 jobs:
   run-lint:
@@ -16,10 +15,13 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install dependencies
+        working-directory: frontend
         run: yarn
 
       - name: Lint frontend
+        working-directory: frontend
         run: yarn lint
 
       - name: Lint styles
+        working-directory: frontend
         run: yarn lint:styles

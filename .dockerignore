@@ -1,8 +1,0 @@
-node_modules
-.next
-.dockerignore
-.github
-.git
-Dockerfile
-backend
-kubernetes

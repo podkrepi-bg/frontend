@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     tags:
-      - 'deploy/nightly/*'
+      - "deploy/nightly/*"
 jobs:
   deploy-init:
     runs-on: ubuntu-latest
@@ -47,14 +47,17 @@ jobs:
         id: build-web
         if: ${{ matrix.image-name == 'web' }}
         working-directory: .
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: |
-          cp .env.dev .env
+          cp .env.dev frontend/.env
           docker build \
             --target production \
             --build-arg NODE_ENV=production \
+            --build-arg SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN \
             --tag $IMAGE_NAME \
             --tag $IMAGE_NAME:ci-run \
-            .
+            frontend
 
       - name: Build API
         id: build-api
@@ -139,7 +142,6 @@ jobs:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_DSN: ${{ steps.dotenv.outputs.SENTRY_DSN }}
           SENTRY_PROJECT: ${{ steps.dotenv.outputs.SENTRY_PROJECT }}
-          SENTRY_SERVER_ROOT_DIR: ${{ steps.dotenv.outputs.SENTRY_SERVER_ROOT_DIR }}
         with:
           remote_docker_host: ${{ secrets.REMOTE_DOCKER_HOST }}
           ssh_port: ${{ secrets.SSH_PORT }}
