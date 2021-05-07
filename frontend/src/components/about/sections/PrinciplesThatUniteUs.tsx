@@ -33,8 +33,8 @@ export default function PrinciplesThatUniteUs() {
       <Grid item xs={12} sm={6}>
         <PrincipleCard
           Icon={VoluntaryIcon}
-          heading={t('about:principlesThatUniteUs.voluntarily.heading')}
-          content={t('about:principlesThatUniteUs.voluntarily.content')}
+          heading={t('about:principlesThatUniteUs.voluntary.heading')}
+          content={t('about:principlesThatUniteUs.voluntary.content')}
         />
       </Grid>
       <Grid item xs={12} sm={6}>

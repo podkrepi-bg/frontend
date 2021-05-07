@@ -1,14 +1,13 @@
 {
   "about": {
-    "title": "За нас",
-    "description": "Ние сме група доброволци с обща цел: да създадем прозрачна платформа за дарения, която да не взима комисионна от успешните кампании."
+    "title": "About us",
+    "description": "We are a group of volunteers with a common goal: to create a transparent platform for donations that does not take a commission from successful campaigns."
   },
   "howEverythingBegin": {
-    "title": "Как започна всичко?",
-    "volunteers": "700 доброволеца от 1Т средите, юристи, счетоводители, маркетолози, медици, НПО представители",
-    "mission": "Нашата мисия е да създадем напълно прозрачна онлайн платформа за дарения, издържаща се от дарения и членски внос към сдружението ни, а не % комисионна от кампаниите, които се организират през платформата.",
-    "vision": "Визията ни е да подобрим драстично дарителската култура в Вългария като увеличим нивото на прозрачност и доверие в дарителските кампании и платформи.",
-    "manifesto": "Manifesto - пълното е тук"
+    "title": "How everything started?",
+    "volunteers": "700+ IT volunteers, lawyers, accountants, marketers, medics, NGO representatives",
+    "mission": "Our mission is to create a fully transparent online platform for donations, supported by donations and membership fees to our association, and no commission from the campaigns that are organized through the platform.",
+    "vision": "Our vision is to drastically improve the donation culture in Bulgaria by increasing the level of transparency and trust in donation campaigns and platforms."
   },
   "principlesThatUniteUs": {
     "title": "Our principles",
@@ -16,11 +15,11 @@
       "heading": "Voluntary and pro-bono",
       "content": "We are building a donation platform for the benefit of those in need and the organizations that help them, without seeking financial or other benefits from it, apart from satisfaction with the implemented campaigns and the support of those in need."
     },
-    "proactive": {
+    "proactivity": {
       "heading": "Proactive approach",
       "content": "You don't wait to be given a task, you take it directly. This, of course, is true by correcting the structure a bit, so that at the moment it is not very clear what exactly the tasks are. However, more experienced people can easily see exactly what is missing and generate tasks that make sense. Take action, do not wonder."
     },
-    "transparent": {
+    "transparency": {
       "heading": "Transparency",
       "content": "Donors trust us because we provide transparency through open source, open data / transactions, open solutions. Those in need trust us because we make applying fair, easy and transparent, through clear criteria. Society trusts us because everything is transparent, incl. our work process. We trust each other because there are clear and transparent principles for working between us."
     },
