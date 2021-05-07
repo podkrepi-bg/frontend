@@ -51,14 +51,14 @@ jobs:
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: |
-          cp .env.prod .env
+          cp .env.prod frontend/.env
           docker build \
             --target production \
             --build-arg NODE_ENV=production \
             --build-arg SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN \
             --tag $IMAGE_NAME \
             --tag $IMAGE_NAME:ci-run \
-            .
+            frontend
 
       - name: Build API
         id: build-api
