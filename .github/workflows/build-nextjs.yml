@@ -24,8 +24,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install dependencies
-        working-directory: frontend
-        run: yarn
+        run: yarn --cwd frontend
         if: steps.yarn-cache.outputs.cache-hit != 'true'
 
       - name: Build frontend
