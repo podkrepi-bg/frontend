@@ -27,6 +27,7 @@ jobs:
           - web
           - api
           - flyway
+          - campaigns
 
     env:
       IMAGE_NAME: ${{ matrix.image-name }}
@@ -63,6 +64,17 @@ jobs:
         id: build-api
         if: ${{ matrix.image-name == 'api' }}
         working-directory: ./backend/contact
+        run: |
+          docker build \
+            --target production \
+            --tag $IMAGE_NAME \
+            --tag $IMAGE_NAME:ci-run \
+            .
+
+      - name: Build Campaigns
+        id: build-campaigns
+        if: ${{ matrix.image-name == 'campaigns' }}
+        working-directory: ./backend/module-campaigns
         run: |
           docker build \
             --target production \
