@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 services:
   frontend:
     image: ${WEB_DEPLOY_IMAGE}:${DEPLOY_TAG?}
@@ -15,9 +15,11 @@ services:
       # Sentry
       SENTRY_ORG: ${SENTRY_ORG?}
       SENTRY_DSN: ${SENTRY_DSN?}
+      SENTRY_RELEASE: ${DEPLOY_TAG?}
+      SENTRY_ENVIRONMENT: ${APP_ENV?}
       SENTRY_PROJECT: ${SENTRY_PROJECT?}
       SENTRY_AUTH_TOKEN: ${SENTRY_AUTH_TOKEN}
-      SENTRY_SERVER_ROOT_DIR: ${SENTRY_SERVER_ROOT_DIR:-/app}
+      NEXT_PUBLIC_SENTRY_DSN: ${SENTRY_DSN?}
     depends_on:
       - api
     healthcheck:
@@ -121,7 +123,7 @@ services:
       DATABASE_PASSWORD: ${DB_PASS?}
       COCKROACH_HOST: roach-0:${DB_PORT?}
       COCKROACH_DATABASE: ${DB_NAME?}
-      COCKROACH_INSECURE: 'true'
+      COCKROACH_INSECURE: "true"
       # COCKROACH_INSECURE: 'false'
       # COCKROACH_CERTS_DIR: /certs
     # volumes:
