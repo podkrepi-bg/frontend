@@ -74,9 +74,10 @@ jobs:
       - name: Build Campaigns
         id: build-campaigns
         if: ${{ matrix.image-name == 'campaigns' }}
-        working-directory: ./backend/module-campaigns
+        working-directory: ./backend
         run: |
           docker build \
+            -f module-campaigns/Dockerfile \
             --tag $IMAGE_NAME \
             --tag $IMAGE_NAME:ci-run \
             .
