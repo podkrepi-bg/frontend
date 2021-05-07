@@ -118,6 +118,7 @@ jobs:
           API_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.API_DEPLOY_IMAGE }}
           WEB_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.WEB_DEPLOY_IMAGE }}
           FLYWAY_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.FLYWAY_DEPLOY_IMAGE }}
+          CAMPAIGN_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.CAMPAIGN_DEPLOY_IMAGE }}
           DB_PASS: ${{ secrets.DB_PASS }}
           DEPLOY_TAG: ${{needs.deploy-init.outputs.DEPLOY_TAG}}
           COMPOSE_PROJECT_NAME: ${{ steps.dotenv.outputs.COMPOSE_PROJECT_NAME }}
