@@ -146,6 +146,45 @@
         "doc",
         "tool"
       ]
+    },
+    {
+      "login": "xenry",
+      "name": "Andrey Marchev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/534600?v=4",
+      "profile": "https://github.com/xenry",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "platform",
+        "review"
+      ]
+    },
+    {
+      "login": "dianakarcheva",
+      "name": "dianakarcheva",
+      "avatar_url": "https://avatars.githubusercontent.com/u/47477592?v=4",
+      "profile": "https://github.com/dianakarcheva",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "platform",
+        "review"
+      ]
+    },
+    {
+      "login": "mayapeneva",
+      "name": "Mayya Peneva",
+      "avatar_url": "https://avatars.githubusercontent.com/u/25232447?v=4",
+      "profile": "https://github.com/mayapeneva",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "platform",
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7,

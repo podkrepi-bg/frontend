@@ -1,0 +1,46 @@
+{
+  "title": "Podkrepi.bg",
+  "jumbotron": {
+    "heading": "An online donation platform",
+    "maximum-transparency": "with a maximum degree of transparency",
+    "eliminate-misuse": "aimed at eliminating misuses of donation campaigns",
+    "improve-donation-culture": "aimed at improving the donation culture in Bulgaria",
+    "open-source": "open source",
+    "about-project-button": "About the project",
+    "support-us-button": "Support us"
+  },
+  "activity-section": {
+    "heading": "What do we do?",
+    "content": "Podkrepi.bg is an association of professionals united by the idea of creating a free and completely transparent online donation platform, which can be used freely by citizens and organizations."
+  },
+  "team-section": {
+    "heading": "Who are we?",
+    "content": "We are a group of volunteers united by the idea of improveing charity in Bulgaria and supporting good causes and the fight for a better life."
+  },
+  "team-chart-section": {
+    "heading": "How it all started?",
+    "content": "736 volunteers from the IT community, lawyers, accountants, marketers, medics, NGO representatives, united by the idea of improving donation platforms in Bulgaria.",
+    "data": {
+      "back-end": "BACK-END (146)",
+      "frontend": "FRONT-END (89)",
+      "full-stack": "FULL-STACK (82)",
+      "dev-ops": "DEV-OPS (78)",
+      "qa": "QA (61)",
+      "design": "DESIGN (35)",
+      "law": "LAW (16)",
+      "management": "MANAGEMENT (88)",
+      "accounting": "ACCOUNTING AND FINANCE (16)",
+      "marketing": "MARKETING AND PR (72)",
+      "ngo": "NGO/VOLUNTEERING (37)",
+      "others": "OTHERS (16)"
+    }
+  },
+  "support-us-section": {
+    "heading": "Support us:",
+    "financial-support": "- financially",
+    "labour-support": "- with labour",
+    "media-support": "- with media",
+    "become-a-partner": "- become a partner",
+    "click-here-button": "Join us"
+  }
+}

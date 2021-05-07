@@ -5,8 +5,7 @@ on:
   pull_request:
     branches: [master]
     paths:
-      - 'src/**'
-      - 'public/**'
+      - "frontend/**"
 
 jobs:
   build-pr:
@@ -19,10 +18,14 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build frontend
+        working-directory: frontend
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: |
           docker build . \
             --file ./Dockerfile \
             --target production \
             --build-arg NODE_ENV=production \
+            --build-arg SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN \
             --tag $IMAGE_NAME \
             --tag $IMAGE_NAME:ci-run

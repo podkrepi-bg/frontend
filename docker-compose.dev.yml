@@ -1,18 +1,19 @@
-version: '3.7'
+version: "3.7"
 # Override service props from main `docker-compose.yml`
 services:
   frontend:
     build:
-      context: ./
+      context: ./frontend/
       dockerfile: ./Dockerfile
       target: ${TARGET_ENV?}
       args:
         NODE_ENV: ${NODE_ENV?}
+        SENTRY_AUTH_TOKEN: ${SENTRY_AUTH_TOKEN?}
     ports:
-      - '${APP_PORT?}:3040'
+      - "${APP_PORT?}:3040"
     volumes:
       # Local:Container mounting points
-      - .:/app
+      - ./frontend:/app
       - /app/.next
       - /app/node_modules
 
@@ -22,9 +23,9 @@ services:
       dockerfile: ./Dockerfile
       target: ${TARGET_ENV?}
     environment:
-      DEBUG: 'true'
+      DEBUG: "true"
     ports:
-      - '${REST_API_PORT?}:5000'
+      - "${REST_API_PORT?}:5000"
     volumes:
       - ./backend/contact:/app
       - /app/dist
@@ -35,15 +36,15 @@ services:
       dockerfile: ./module-campaigns/Dockerfile
       # target: ${TARGET_ENV?}
     environment:
-      DEBUG: 'true'
+      DEBUG: "true"
     ports:
-      - '${CAMPAIGN_GRPC_PORT?}:5001'
+      - "${CAMPAIGN_GRPC_PORT?}:5001"
 
   roach-lb:
     ports:
-      - '${DB_PORT?}:26257'
-      - '3080:8080'
-      - '3081:8081'
+      - "${DB_PORT?}:26257"
+      - "3080:8080"
+      - "3081:8081"
 
   flyway:
     build:

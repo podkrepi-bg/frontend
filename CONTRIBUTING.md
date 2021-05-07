@@ -186,7 +186,7 @@ export default function AdvancedForm({ title = 'Nice', children, age }: Advanced
 
 ### Components
 
-#### Preferred export style :sun_with_face
+#### Preferred export style :sun_with_face:
 
 - Nice IDE support and readability
 
