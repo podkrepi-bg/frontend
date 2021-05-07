@@ -5,9 +5,9 @@ const { i18n } = require('./next-i18next.config')
 
 const moduleExports = {
   i18n,
-  // future: {
-  //   webpack5: true,
-  // },
+  future: {
+    webpack5: true,
+  },
   sassOptions: {
     includePaths: [path.join(__dirname, 'src/styles')],
   },
@@ -40,8 +40,9 @@ const SentryWebpackPluginOptions = {
   //   urlPrefix, include, ignore
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options.
-  debug: ['staging', 'production'].includes(process.env.APP_ENV),
-  dryRun: ['development', 'nightly'].includes(process.env.APP_ENV),
+  debug: ['staging', 'production'].includes(process.env.APP_ENV) || false,
+  dryRun: ['development', 'nightly'].includes(process.env.APP_ENV) || true,
+  silent: true,
 }
 
 // Make sure adding Sentry options is the last code to run before exporting, to
