@@ -40,8 +40,8 @@ const SentryWebpackPluginOptions = {
   //   urlPrefix, include, ignore
   // For all available options, see:
   // https://github.com/getsentry/sentry-webpack-plugin#options.
-  debug: true,
-  dryRun: process.env.APP_ENV === 'development',
+  debug: ['staging', 'production'].includes(process.env.APP_ENV),
+  dryRun: ['development', 'nightly'].includes(process.env.APP_ENV),
 }
 
 // Make sure adding Sentry options is the last code to run before exporting, to
