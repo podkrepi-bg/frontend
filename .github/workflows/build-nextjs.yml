@@ -33,5 +33,4 @@ jobs:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: |
           cp .env.example ./frontend/.env
-          cd frontend
-          yarn build
+          yarn build --cwd frontend
