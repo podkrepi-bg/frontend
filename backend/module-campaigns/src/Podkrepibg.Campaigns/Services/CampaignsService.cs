@@ -1,11 +1,12 @@
 namespace Podkrepibg.Campaigns.Services
 {
-    using System;
     using System.Threading.Tasks;
     using Google.Protobuf.WellKnownTypes;
     using Grpc.Core;
     using MediatR;
-    using Podkrepibg.Campaigns.Application.Queries.GetCampaigns;
+    using Podkrepibg.Campaigns.Application.Campaigns.Commands.CreateCampaign;
+    using Podkrepibg.Campaigns.Application.Campaigns.Queries.GetCampaigns;
+    using Podkrepibg.Campaigns.Application.CampaignTypes.Commands.CreateCampaignType;
 
     public class CampaignsService : CampaignService.CampaignServiceBase
     {
@@ -18,11 +19,7 @@ namespace Podkrepibg.Campaigns.Services
 
         public override Task<CreateCampaignResponse> CreateCampaign(CreateCampaignRequest request, ServerCallContext context)
         {
-            return Task.FromResult(
-              new CreateCampaignResponse()
-              {
-                  Id = Guid.NewGuid().ToString()
-              });
+            return _mediator.Send(new CreateCampaignCommand(request));
         }
 
         public override Task<CampaignsResponse> FilterCampaigns(FilterCampaignsRequest request, ServerCallContext context)
@@ -38,6 +35,11 @@ namespace Podkrepibg.Campaigns.Services
         public override Task<CampaignDetails> GetCampaignDetails(GetCampaignDetailsRequest request, ServerCallContext context)
         {
             return _mediator.Send(new GetCampaignDetailsQuery(request.Id));
+        }
+
+        public override Task<CreateCampaignTypeResponse> CreateCampaignType(CreateCampaignTypeRequest request, ServerCallContext context)
+        {
+            return _mediator.Send(new CreateCampaignTypeCommand(request));
         }
 
         public override Task<CampaignTypesResponse> ListCampaignTypes(Empty request, ServerCallContext context)

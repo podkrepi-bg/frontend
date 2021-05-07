@@ -29,11 +29,7 @@ namespace Podkrepibg.Campaigns.Domain.Entities
 
         public CurrencyCode Currency { get; set; }
 
-        public bool Verified { get; set; }
-
         public DateTime? Deadline { get; set; }
-
-        public bool Recurring { get; set; }
 
         public DateTime CreationDate { get; set; }
 
