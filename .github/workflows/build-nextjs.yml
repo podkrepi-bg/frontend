@@ -25,7 +25,7 @@ jobs:
 
       - name: Install dependencies
         run: yarn --cwd frontend
-        if: steps.yarn-cache.outputs.cache-hit != 'true'
+        # if: steps.yarn-cache.outputs.cache-hit != 'true'
 
       - name: Build frontend
         env:
