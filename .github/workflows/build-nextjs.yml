@@ -28,10 +28,7 @@ jobs:
         if: steps.yarn-cache.outputs.cache-hit != 'true'
 
       - name: Build frontend
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: |
-          ls -la
-          ls -la frontend
           cp .env.example ./frontend/.env
-          yarn build --cwd frontend
+          cd frontend
+          yarn build
