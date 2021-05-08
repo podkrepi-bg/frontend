@@ -1,4 +1,4 @@
-namespace Podkrepibg.Campaigns.Domain.Entities
+namespace Podkrepibg.Campaigns.Domain.Types
 {
     public enum CampaignState
     {

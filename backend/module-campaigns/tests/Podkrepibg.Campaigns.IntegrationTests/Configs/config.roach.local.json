@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "CampaignDb": "Host=localhost;Port=26257;Database=app;Username=root;Password=1234"
+  }
+}
