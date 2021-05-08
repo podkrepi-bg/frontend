@@ -17,7 +17,7 @@ namespace Podkrepibg.Campaigns.Domain.Entities
 
         public Guid CampaignTypeId { get; set; }
 
-        public Guid CampaignSubtypeId { get; set; }
+        public Guid? CampaignSubtypeId { get; set; }
 
         public string Title{ get; set; }
 

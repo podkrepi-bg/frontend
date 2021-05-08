@@ -60,6 +60,7 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
 
             builder
                 .Property(b => b.OptionalDetails)
+                .HasColumnType("jsonb")
                 .HasConversion(
                     v => JsonConvert.SerializeObject(v),
                     v => JsonConvert.DeserializeObject<CampaignOptionalDetails>(v));

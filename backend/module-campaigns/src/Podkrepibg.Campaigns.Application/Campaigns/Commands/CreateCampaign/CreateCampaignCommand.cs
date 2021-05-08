@@ -6,8 +6,7 @@ namespace Podkrepibg.Campaigns.Application.Campaigns.Commands.CreateCampaign
     using MediatR;
     using Podkrepibg.Campaigns;
     using Podkrepibg.Campaigns.Application.Data;
-    using Podkrepibg.Campaigns.Domain.Entities;
-
+    using Podkrepibg.Campaigns.Domain.Types;
     using CampaignEntity = Domain.Entities.Campaign;
 
     public record CreateCampaignCommand(CreateCampaignRequest Request) : IRequest<CreateCampaignResponse>;
