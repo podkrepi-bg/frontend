@@ -47,8 +47,8 @@ namespace Podkrepibg.Campaigns.IntegrationTests.CampaignsServiceTests
             _campaignsService = _serviceProvider.GetRequiredService<CampaignsService>();
             _appDbContext = _serviceProvider.GetRequiredService<IApplicationDbContext>();
 
-            //await _postgresDataHelper.DeleteAllCampaigns();
-            //await _postgresDataHelper.DeleteAllCampaignTypes();
+            await _postgresDataHelper.DeleteAllCampaigns();
+            await _postgresDataHelper.DeleteAllCampaignTypes();
         }
 
         [TearDown]

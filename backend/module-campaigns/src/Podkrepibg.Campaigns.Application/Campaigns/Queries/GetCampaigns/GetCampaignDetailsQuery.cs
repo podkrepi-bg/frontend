@@ -23,6 +23,8 @@ namespace Podkrepibg.Campaigns.Application.Campaigns.Queries.GetCampaigns
         public async Task<CampaignDetails> Handle(GetCampaignDetailsQuery request, CancellationToken cancellationToken)
         {
             var campaign = await _dbContext.GetCampaigns()
+                .Include(c => c.CampaignType)
+                //.Include(c => c.CampaignSubtype)
                 .FirstOrDefaultAsync(c => c.Id.Equals(Guid.Parse(request.Id)), cancellationToken);
 
             return campaign.Adapt<CampaignDetails>();

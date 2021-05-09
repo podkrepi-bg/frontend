@@ -12,7 +12,7 @@ namespace Podkrepibg.Campaigns.IntegrationTests.Helpers
             _connectionString = connectionString;
         }
 
-        public Task DeleteAllCampaignTypes()
+        public async Task DeleteAllCampaignTypes()
         {
             using var conn = new NpgsqlConnection(_connectionString);
             conn.Open();
@@ -20,10 +20,10 @@ namespace Podkrepibg.Campaigns.IntegrationTests.Helpers
             using var command = conn.CreateCommand();
             command.CommandText = "DELETE FROM campaign.campaign_types";
 
-            return command.ExecuteNonQueryAsync();
+            await command.ExecuteNonQueryAsync();
         }
 
-        public Task DeleteAllCampaigns()
+        public async Task DeleteAllCampaigns()
         {
             using var conn = new NpgsqlConnection(_connectionString);
             conn.Open();
@@ -31,7 +31,7 @@ namespace Podkrepibg.Campaigns.IntegrationTests.Helpers
             using var command = conn.CreateCommand();
             command.CommandText = "DELETE FROM campaign.campaigns";
 
-            return command.ExecuteNonQueryAsync();
+            await command.ExecuteNonQueryAsync();
         }
     }
 }
