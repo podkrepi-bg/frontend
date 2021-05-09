@@ -16,12 +16,6 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
               .HasDefaultValueSql("gen_random_uuid()");
 
             builder
-              .HasOne(cst => cst.CampaignType)
-              .WithMany()
-              .HasForeignKey("CampaignTypeId")
-              .IsRequired();
-
-            builder
               .Property(c => c.CampaignTypeId)
               .IsRequired();
 
