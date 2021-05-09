@@ -7,7 +7,8 @@ namespace Podkrepibg.Campaigns.Application.Configuration
         public static void ConfigureMapper()
         {
             TypeAdapterConfig<Domain.Entities.Campaign, CampaignDetails>
-                .NewConfig();
+                .NewConfig()
+                .IgnoreNullValues(true);
         }
     }
 }
