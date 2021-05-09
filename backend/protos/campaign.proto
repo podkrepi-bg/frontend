@@ -47,7 +47,7 @@ message ListCampaignsRequest {
 message FilterCampaignsRequest {
 
 	string campaign_type_id = 1;
-	string campaign_sub_type_id = 2;
+	string campaign_subtype_id = 2;
 	common.nomenclatures.CampaignState state = 3;
 	string operator_id = 4;
 	string initiator_id = 5;
@@ -91,16 +91,16 @@ message CampaignTypeDetails {
 	string id = 1;
 	string name = 2;
 	string description = 3;
-	repeated CampaignSubTypeDetails sub_types = 4;
+	repeated CampaignSubtypeDetails subtypes = 4;
 }
 
-message CampaignSubType {
+message CampaignSubtype {
 
 	string id = 1;
 	string name = 2;
 }
 
-message CampaignSubTypeDetails {
+message CampaignSubtypeDetails {
 
 	string id = 1;
 	string name = 2;
@@ -115,7 +115,7 @@ message Campaign {
 	string beneficiary_id = 4;
 	common.nomenclatures.CampaignState state = 5;
 	CampaignType campaign_type = 6;
-	CampaignSubType campaignSubTypes = 7;
+	CampaignSubtype campaign_subtype = 7;
 	string title = 8;
 	string short_description = 9;
 	uint32 target_amount = 11;
@@ -132,7 +132,7 @@ message CampaignDetails {
 	string beneficiary_id = 4;
 	common.nomenclatures.CampaignState state = 5;
 	CampaignType campaign_type = 6;
-	CampaignSubType campaignSubTypes = 7;
+	CampaignSubtype campaign_subtype = 7;
 	string title = 8;
 	string short_description = 9;
 	string full_description = 10;

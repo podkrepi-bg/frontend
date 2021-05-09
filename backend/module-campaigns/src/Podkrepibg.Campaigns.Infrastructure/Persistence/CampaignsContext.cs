@@ -27,11 +27,6 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseNpgsql("Host=localhost;Port=26257;Database=app;Username=root;Password=1234");
-            }
-
             optionsBuilder
                 .UseSnakeCaseNamingConvention()
                 .LogTo(message => Debug.WriteLine(message)).EnableSensitiveDataLogging().EnableDetailedErrors();

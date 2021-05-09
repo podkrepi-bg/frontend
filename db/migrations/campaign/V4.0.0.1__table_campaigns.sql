@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS campaign.campaigns (
     target_amount       numeric NULL,
     currency            integer NULL,
     deadline            timestamptz NULL,
-    optional_details    json NULL,
+    optional_details    jsonb NULL,
     created_at          timestamptz DEFAULT now() NOT NULL,
     updated_at          timestamptz,
     deleted_at          timestamptz,

@@ -1,6 +1,8 @@
 namespace Podkrepibg.Campaigns.IntegrationTests.CampaignsServiceTests
 {
     using System;
+    using System.Collections.Generic;
+    using System.Threading;
     using System.Threading.Tasks;
     using FluentAssertions;
     using Grpc.Core;
@@ -57,7 +59,7 @@ namespace Podkrepibg.Campaigns.IntegrationTests.CampaignsServiceTests
         }
 
         [Test]
-        public async Task GetCampaignDetailsAfterCreateCampaign_WithRandomValidRequest_ShouldReturnCorrectCampaignDetails()
+        public async Task GetCampaignDetailsAfterCreateCampaign_WithRandomValidRequest_ShouldReturnCorrectResponse()
         {
             // Arrange
 
@@ -98,9 +100,69 @@ namespace Podkrepibg.Campaigns.IntegrationTests.CampaignsServiceTests
             campaignDetails.State.Should().Be(CampaignState.Draft);
             campaignDetails.CampaignType.Should().NotBeNull();
             campaignDetails.CampaignType.Name.Should().Be(createCampaignTypeRequest.Name);
-            campaignDetails.CampaignSubTypes.Should().BeNull();
+            campaignDetails.CampaignSubtype.Should().BeNull();
             campaignDetails.ShortDescription.Should().BeEmpty();
             campaignDetails.FullDescription.Should().BeEmpty();
+        }
+
+        [Test]
+        public async Task GetCampaignDetails_WithPrepopulatedDataInDb_ShouldReturnCorrectResponse()
+        {
+            // Arrange
+
+            var campaignSubtype = new Domain.Entities.CampaignSubtype
+            {
+                Name = _faker.Random.Utf16String(1, 50, true),
+                Description = _faker.Random.Utf16String(0, 200, true)
+            };
+
+            var campaignType = new Domain.Entities.CampaignType
+            {
+                Name = _faker.Random.Utf16String(1, 50, true),
+                Description = _faker.Random.Utf16String(0, 200, true),
+                CampaignSubtypes = new List<Domain.Entities.CampaignSubtype>()
+            };
+
+            campaignType.CampaignSubtypes.Add(campaignSubtype);
+
+            var campaign = new Domain.Entities.Campaign
+            {
+                InitiatorId = Guid.NewGuid(),
+                OperatorId = Guid.NewGuid(),
+                BeneficiaryId = Guid.NewGuid(),
+                CampaignType = campaignType,
+                CampaignSubtype = campaignSubtype,
+                State = CampaignState.PendingValidation,
+                Title = _faker.Random.Utf16String(1, 200, true),
+                ShortDescription = _faker.Random.Utf16String(0, 500, true),
+                FullDescription = _faker.Lorem.Sentences(5),
+                OptionalDetails = new CampaignOptionalDetails(
+                    videoUrl: _faker.Internet.Url())
+            };
+
+            _appDbContext.CampaignTypes.Add(campaignType);
+            var trackedCampaignEntity = _appDbContext.Campaigns.Add(campaign);
+            await _appDbContext.SaveChangesAsync(CancellationToken.None);
+
+            // Act
+            var campaignDetails = await _campaignsService.GetCampaignDetails(
+                new GetCampaignDetailsRequest { Id = trackedCampaignEntity.Entity.Id.ToString() }, Mock.Of<ServerCallContext>());
+
+            // Assert
+
+            campaignDetails.Should().NotBeNull();
+
+            campaignDetails.Title.Should().Be(campaign.Title);
+            campaignDetails.InitiatorId.Should().Be(campaign.InitiatorId.ToString());
+            campaignDetails.OperatorId.Should().Be(campaign.OperatorId.ToString());
+            campaignDetails.BeneficiaryId.Should().Be(campaign.BeneficiaryId.ToString());
+            campaignDetails.State.Should().Be(CampaignState.PendingValidation);
+            campaignDetails.CampaignType.Should().NotBeNull();
+            campaignDetails.CampaignType.Name.Should().Be(campaignType.Name);
+            campaignDetails.CampaignSubtype.Should().NotBeNull();
+            campaignDetails.CampaignSubtype.Name.Should().Be(campaignSubtype.Name);
+            campaignDetails.ShortDescription.Should().Be(campaign.ShortDescription);
+            campaignDetails.FullDescription.Should().Be(campaign.FullDescription);
         }
     }
 }

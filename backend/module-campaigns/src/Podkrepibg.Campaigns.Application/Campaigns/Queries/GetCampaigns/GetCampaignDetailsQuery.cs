@@ -24,7 +24,7 @@ namespace Podkrepibg.Campaigns.Application.Campaigns.Queries.GetCampaigns
         {
             var campaign = await _dbContext.GetCampaigns()
                 .Include(c => c.CampaignType)
-                //.Include(c => c.CampaignSubtype)
+                .Include(c => c.CampaignSubtype)
                 .FirstOrDefaultAsync(c => c.Id.Equals(Guid.Parse(request.Id)), cancellationToken);
 
             return campaign.Adapt<CampaignDetails>();
