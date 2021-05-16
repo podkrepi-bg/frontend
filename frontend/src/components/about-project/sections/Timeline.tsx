@@ -17,7 +17,7 @@ import GlobeIcon from '../icons/GlobeIcon'
 import DiscordIcon from '../icons/DiscordIcon'
 import ChecklistIcon from '../icons/ChecklistIcon'
 import PodkrepiIcon from 'components/brand/PodkrepiIcon'
-import { routes, socialUrls } from 'common/routes'
+import { socialUrls } from 'common/routes'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
