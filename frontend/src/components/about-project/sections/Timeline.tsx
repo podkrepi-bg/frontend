@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme: Theme) =>
     container: {
       textAlign: 'center',
     },
+    timelineWrapper: {
+      padding: 0,
+    },
   }),
 )
 
@@ -42,7 +45,7 @@ export default function Timeline() {
         {t('about-project:timeline')}
       </Typography>
       <Grid item>
-        <TimelineMaterial align="alternate">
+        <TimelineMaterial align="alternate" className={classes.timelineWrapper}>
           <TimelineItem Icon={PlayCircleFilledWhite} title={t('about-project:october-2020-title')}>
             <ul>
               <li>{t('about-project:platform-idea')}</li>
