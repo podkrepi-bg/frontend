@@ -27,7 +27,6 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: theme.typography.pxToRem(40),
     },
     container: {
-      marginBottom: theme.spacing(12),
       textAlign: 'center',
     },
   }),
@@ -44,72 +43,70 @@ export default function Timeline() {
       </Typography>
       <Grid item>
         <TimelineMaterial align="alternate">
-          <TimelineItem Icon={PlayCircleFilledWhite} title="Октомври 2020">
+          <TimelineItem Icon={PlayCircleFilledWhite} title={t('about-project:october-2020-title')}>
             <ul>
-              <li>Зараждане на идеята за изграждане на дарителска платформа от доброволци.</li>
-              <li>Събиране на екип от доброволци с разнообразна експертиза и опит.</li>
+              <li>{t('about-project:platform-idea')}</li>
+              <li>{t('about-project:team-gathering')}</li>
             </ul>
           </TimelineItem>
-          <TimelineItem Icon={DiscordIcon} title="Ноември 2020">
+          <TimelineItem Icon={DiscordIcon} title={t('about-project:november-2020-title')}>
             <ul>
               <li>
-                Стартиране на{' '}
+                {t('about-project:starting')}{' '}
                 <a href={socialUrls.discord} target="_blank" rel="noreferrer noopener">
                   Discord
                 </a>{' '}
-                сървър за проекта.
+                {t('about-project:project-server')}
               </li>
-              <li>Подготовка на манифесто на ценности и работни принципи.</li>
-              <li>Срещи и дискусии с експерти.</li>
-              <li>Онлайн панел с медици и НПО представители.</li>
+              <li>{t('about-project:manifesto-preparation')}</li>
+              <li>{t('about-project:meetings-discussions')}</li>
+              <li>{t('about-project:online-panel')}</li>
             </ul>
           </TimelineItem>
-          <TimelineItem Icon={Folder} title="Декември 2020">
+          <TimelineItem Icon={Folder} title={t('about-project:december-2020-title')}>
             <ul>
-              <li>Разпределение по експертни направелния и избор на лийдове.</li>
-              <li>Избор на име на платформата измежду 197 предложения.</li>
-              <li>Проучени бизнес модели за самоиздръка на платормата.</li>
+              <li>{t('about-project:distribution')}</li>
+              <li>{t('about-project:name-choice')}</li>
+              <li>{t('about-project:self-support')}</li>
             </ul>
           </TimelineItem>
-          <TimelineItem Icon={PodkrepiIcon} title="Януари 2021">
+          <TimelineItem Icon={PodkrepiIcon} title={t('about-project:january-2021-title')}>
             <ul>
-              <li>Подготовка на 270 User Stories за основа на платформата.</li>
-              <li>Избор на лого от предложени 150 варианта.</li>
-              <li>Запазена търговска марка.</li>
+              <li>{t('about-project:user-stories-preparation')}</li>
+              <li>{t('about-project:logo-choice')}</li>
+              <li>{t('about-project:trademarking')}</li>
             </ul>
           </TimelineItem>
-          <TimelineItem Icon={VerifiedUser} title="Февруари 2021">
+          <TimelineItem Icon={VerifiedUser} title={t('about-project:february-2021-title')}>
             <ul>
-              <li>Регистрация на сдружението. </li>
-              <li>
-                Старт на дейността на първите три основни екипа - фронтенд, плащания и кампании.
-              </li>
+              <li>{t('about-project:registration')}</li>
+              <li>{t('about-project:work-start')}</li>
             </ul>
           </TimelineItem>
-          <TimelineItem Icon={ChecklistIcon} title="Март 2021">
+          <TimelineItem Icon={ChecklistIcon} title={t('about-project:march-2021-title')}>
             <ul>
-              <li>Старт на информационния сайт на проекта.</li>
-              <li>Настройка на хостинга на платформата.</li>
+              <li>{t('about-project:start-info-site')}</li>
+              <li>{t('about-project:hosting-setup')}</li>
             </ul>
           </TimelineItem>
-          <TimelineItem Icon={GlobeIcon} title="Април 2021">
+          <TimelineItem Icon={GlobeIcon} title={t('about-project:april-2021-title')}>
             <ul>
-              <li>Старт на дейността на други основни екипи.</li>
-              <li>Откриване на банкови сметки.</li>
-              <li>Регистрация и настройка на платежни системи.</li>
+              <li>{t('about-project:involve-more-teams')}</li>
+              <li>{t('about-project:bank-accounts-opening')}</li>
+              <li>{t('about-project:payments')}</li>
             </ul>
           </TimelineItem>
-          <TimelineItem Icon={HandIcon} title="Май 2021">
-            Избор на бизнес модел за самоиздръжка на платформата
+          <TimelineItem Icon={HandIcon} title={t('about-project:may-2021-title')}>
+            {t('about-project:self-support-model')}
           </TimelineItem>
-          <TimelineItem Icon={Update} title="Юли 2021">
-            Пускане на пилотна версия на платформата.
+          <TimelineItem Icon={Update} title={t('about-project:july-2021-title')}>
+            {t('about-project:pilot-version-launch')}
           </TimelineItem>
-          <TimelineItem Icon={PlaylistAddCheck} title="Август 2021">
-            Извършване на тестове на платформата в реална среда.
+          <TimelineItem Icon={PlaylistAddCheck} title={t('about-project:august-2021-title')}>
+            {t('about-project:tests-performing')}
           </TimelineItem>
-          <TimelineItem Icon={Telegram} lastItem title="Септември 2021">
-            Пускане на бета версия на платформата.
+          <TimelineItem Icon={Telegram} lastItem title={t('about-project:september-2021-title')}>
+            {t('about-project:beta-version-launch')}
           </TimelineItem>
         </TimelineMaterial>
       </Grid>
