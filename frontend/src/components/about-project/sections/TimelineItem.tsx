@@ -51,6 +51,11 @@ const useStyles = makeStyles((theme: Theme) =>
         paddingLeft: theme.spacing(2),
       },
     },
+    timelineItem: {
+      [theme.breakpoints.down(800)]: {
+        display: 'block',
+      },
+    },
   }),
 )
 type TimelineItemProps = React.PropsWithChildren<
@@ -64,7 +69,7 @@ type TimelineItemProps = React.PropsWithChildren<
 export default function TimelineItem({ children, title, lastItem, Icon }: TimelineItemProps) {
   const classes = useStyles()
   return (
-    <TimelineItemMaterial>
+    <TimelineItemMaterial className={classes.timelineItem}>
       <TimelineSeparator>
         <Icon className={classes.icon} color="primary" />
         <TimelineConnector className={classes.connector} />
