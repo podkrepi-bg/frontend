@@ -17,6 +17,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@sentry/nextjs": "^6.3.5",
+    "classnames": "^2.3.1",
     "formik": "^2.2.6",
     "highcharts": "^9.0.1",
     "highcharts-react-official": "^3.0.0",
