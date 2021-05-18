@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) =>
         padding: theme.spacing(6, 0, 0),
       },
     },
-    supportImageWrapper: {
+    supportImage: {
       minHeight: '20rem',
       textAlign: 'center',
       backgroundSize: 'contain',
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) =>
       backgroundPosition: 'bottom center',
       backgroundImage: 'url(/img/support-us-image.png)',
     },
-    supportOptionsWrapper: {
+    supportText: {
       [theme.breakpoints.down('sm')]: {
         textAlign: 'center',
       },
@@ -32,8 +32,17 @@ const useStyles = makeStyles((theme) =>
       marginBottom: theme.spacing(3),
       color: theme.palette.primary.dark,
       fontWeight: 500,
+      [theme.breakpoints.down('sm')]: {
+        marginTop: theme.spacing(3),
+      },
     },
-    clickHereButton: {
+    supportOptions: {
+      [theme.breakpoints.down('sm')]: {
+        display: 'inline-block',
+        textAlign: 'left',
+      },
+    },
+    joinButton: {
       color: theme.palette.common.white,
       backgroundColor: theme.palette.primary.main,
       border: `2px solid ${theme.palette.primary.main}`,
@@ -65,21 +74,23 @@ export default function SupportUsSection() {
 
   return (
     <Grid container component="section" className={classes.container}>
-      <Grid item xs={12} md={6} className={classes.supportImageWrapper}></Grid>
-      <Grid item xs={12} md={6} className={classes.supportOptionsWrapper}>
+      <Grid item xs={12} md={6} className={classes.supportImage}></Grid>
+      <Grid item xs={12} md={6} className={classes.supportText}>
         <Typography variant="h5" component="h2" className={classes.heading}>
           {t('index:support-us-section.heading')}
         </Typography>
-        {items.map((items, key) => (
-          <Grid key={key} item>
-            <Typography variant="body2">{items}</Typography>
-          </Grid>
-        ))}
+        <Grid className={classes.supportOptions}>
+          {items.map((items, key) => (
+            <Grid key={key} item>
+              <Typography variant="body2">{items}</Typography>
+            </Grid>
+          ))}
+        </Grid>
         <Grid item>
           <LinkButton
             href={routes.support}
             variant="outlined"
-            className={classes.clickHereButton}
+            className={classes.joinButton}
             endIcon={<Favorite />}>
             {t('index:support-us-section.click-here-button')}
           </LinkButton>
