@@ -42,5 +42,14 @@
     "media-support": "- with media",
     "become-a-partner": "- become a partner",
     "click-here-button": "Join us"
+  },
+  "mission-vision-goals-section": {
+    "mission-title": "Mission",
+    "mission-text": "To create a completely transparent online donation platform, supported by donations and membership fees to our association, and not % commission from the companies.",
+    "vision-title": "Vision",
+    "vision-text": "To improve drastically the donation culture in Bulgaria by increasing the level of transparency and trust in donation campaigns and platforms.",
+    "goals-title": "Goals",
+    "goals-text-trust": "- To restore trust in donation.",
+    "goals-text-open-source": "- To create an open-source platform which reduces the chances of misuse."
   }
 }
