@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) =>
     },
     title: {
       color: theme.palette.common.white,
-      marginBottom: '25px',
+      marginBottom: theme.spacing(3),
     },
   }),
 )
