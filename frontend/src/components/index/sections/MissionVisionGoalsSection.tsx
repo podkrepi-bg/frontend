@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) =>
       color: '#ccc',
     },
     wrapper: {
-      minHeight: theme.spacing(53),
+      minHeight: theme.spacing(56),
       padding: theme.spacing(8, 5),
       backgroundSize: 'cover',
     },
