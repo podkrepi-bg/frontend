@@ -12,110 +12,141 @@ import "google/protobuf/timestamp.proto";
 
 service CampaignService {
 
-  // creates a new campaign
-  rpc CreateCampaign (CreateCampaignRequest) returns (Campaign);
+  rpc CreateCampaign (CreateCampaignRequest) returns (CreateCampaignResponse);
 
-  // list campaigns
   rpc ListCampaigns (ListCampaignsRequest) returns (CampaignsResponse);
 
-  rpc ListCampaignTypes (google.protobuf.Empty) returns (CampaignTypesResponse);
-
   rpc FilterCampaigns (FilterCampaignsRequest) returns (CampaignsResponse);
+
+  rpc GetCampaignDetails (GetCampaignDetailsRequest) returns (CampaignDetails);
+
+  // campaign types
+
+  rpc CreateCampaignType (CreateCampaignTypeRequest) returns (CreateCampaignTypeResponse);
+
+  rpc ListCampaignTypes (google.protobuf.Empty) returns (CampaignTypesResponse);
 }
 
 message CreateCampaignRequest {
 
 	string initiator_id = 1;
-
 	string operator_id = 2;
-
 	string beneficiary_id = 3;
-
-  	string title = 4;
+  string title = 4;
+  string campaign_type_id = 5;
 }
 
-message CampaignTypesResponse {
-	repeated CampaignType campaign_types = 1;
-}
-
-message CampaignType {
+message CreateCampaignResponse {
 
 	string id = 1;
-
-	string campaign_type_name = 2;
-
-	string campaign_type_descr = 3;
-
-	repeated CampaignSubType sub_types = 4;
-}
-
-message CampaignSubType {
-
-	string id = 1;
-
-	string campaign_sub_type_name = 2;
-
-	string campaign_sub_type_descr = 3;
-}
-
-message FilterCampaignsRequest {
-
-	CampaignType campaign_types = 1;
-
-	CampaignSubType campaign_sub_type = 2;
-
-	common.nomenclatures.CampaignState state = 3;
-
-	string operator_id = 4;
-
-	string initiator_id = 5;
-
-	string beneficiary_id = 6;
-}
-
-message Campaign {
-
-	string id = 1;
-
-	string initiator_id = 2;
-
-	string operator_id = 3;
-
-	string beneficiary_id = 4;
-
-	common.nomenclatures.CampaignState state = 5;
-
-	CampaignType campaign_type = 6;
-
-	CampaignSubType campaignSubTypes = 7;
-
-	string title = 8;
-
-	string short_description = 9;
-
-	string full_description = 10;
-
-	uint32 target_amount = 11;
-
-	common.nomenclatures.CurrencyCode currency = 12;
-
-	uint32 raised_funds = 13;
-
-	uint32 payed_out = 14;
-
-	repeated Donation donations = 15;
-}
-
-message Donation {
-	string donor_display_name = 1;
-	uint32 amount = 2;
-	string message = 3;
-	google.protobuf.Timestamp date = 4;
 }
 
 message ListCampaignsRequest {
 }
 
+message FilterCampaignsRequest {
+
+	string campaign_type_id = 1;
+	string campaign_subtype_id = 2;
+	common.nomenclatures.CampaignState state = 3;
+	string operator_id = 4;
+	string initiator_id = 5;
+	string beneficiary_id = 6;
+}
+
 message CampaignsResponse {
+
   repeated Campaign campaigns = 1;
+}
+
+message GetCampaignDetailsRequest {
+
+  string id = 1;
+}
+
+message CreateCampaignTypeRequest {
+
+  string name = 1;
+  string description = 2;
+}
+
+message CreateCampaignTypeResponse {
+
+  string id = 1;
+}
+
+message CampaignTypesResponse {
+
+	repeated CampaignTypeDetails campaign_types = 1;
+}
+
+message CampaignType {
+
+	string id = 1;
+	string name = 2;
+}
+
+message CampaignTypeDetails {
+
+	string id = 1;
+	string name = 2;
+	string description = 3;
+	repeated CampaignSubtypeDetails subtypes = 4;
+}
+
+message CampaignSubtype {
+
+	string id = 1;
+	string name = 2;
+}
+
+message CampaignSubtypeDetails {
+
+	string id = 1;
+	string name = 2;
+	string description = 3;
+}
+
+message Campaign {
+
+	string id = 1;
+	string initiator_id = 2;
+	string operator_id = 3;
+	string beneficiary_id = 4;
+	common.nomenclatures.CampaignState state = 5;
+	CampaignType campaign_type = 6;
+	CampaignSubtype campaign_subtype = 7;
+	string title = 8;
+	string short_description = 9;
+	uint32 target_amount = 11;
+	common.nomenclatures.CurrencyCode currency = 12;
+	uint32 raised_funds = 13;
+	uint32 payed_out = 14;
+}
+
+message CampaignDetails {
+
+	string id = 1;
+	string initiator_id = 2;
+	string operator_id = 3;
+	string beneficiary_id = 4;
+	common.nomenclatures.CampaignState state = 5;
+	CampaignType campaign_type = 6;
+	CampaignSubtype campaign_subtype = 7;
+	string title = 8;
+	string short_description = 9;
+	string full_description = 10;
+	uint32 target_amount = 11;
+	common.nomenclatures.CurrencyCode currency = 12;
+	uint32 raised_funds = 13;
+	uint32 payed_out = 14;
+	repeated Donation donations = 15;
+}
+
+message Donation {
+
+	string donor_display_name = 1;
+	uint32 amount = 2;
+	string message = 3;
+	google.protobuf.Timestamp date = 4;
 }
