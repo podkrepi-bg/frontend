@@ -7,6 +7,7 @@ import Jumbotron from './sections/Jumbotron'
 import ActivitySection from './sections/ActivitySection'
 import TeamSection from './sections/TeamSection'
 import TeamChartSection from './sections/TeamChartSection'
+import MissionVisionGoalsSection from './sections/MissionVisionGoalsSection'
 import SupportUsSection from './sections/SupportUsSection'
 
 export default function IndexPage() {
@@ -19,6 +20,7 @@ export default function IndexPage() {
         <TeamSection />
         <TeamChartSection />
       </Container>
+      <MissionVisionGoalsSection />
       <SupportUsSection />
     </Layout>
   )
