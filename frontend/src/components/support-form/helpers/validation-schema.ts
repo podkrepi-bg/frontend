@@ -82,6 +82,7 @@ const volunteer: yup.SchemaOf<Volunteer> = yup
     designer: yup.bool(),
     projectManager: yup.bool(),
     devOps: yup.bool(),
+    security: yup.bool(),
     financesAndAccounts: yup.bool(),
     lawyer: yup.bool(),
   })

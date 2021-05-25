@@ -1,5 +1,5 @@
 {
-  "title": "Support",
+  "title": "Support us",
   "steps": {
     "role": {
       "title": "Role",
@@ -49,9 +49,10 @@
         "backend": "Backend",
         "frontend": "Frontend",
         "qa": "QA",
+        "projectManager": "Project/product management",
         "designer": "Designer",
-        "projectManager": "Project manager",
         "devOps": "DevOps",
+        "security": "Security officer",
         "financesAndAccounts": "Finances and accounts",
         "lawyer": "Lawyer"
       },
@@ -77,10 +78,10 @@
     },
     "newsletter": {
       "title": "Newsletter",
-      "label": "Subscription",
+      "label": "I would like to be informed monthly about the progress",
       "confirm": {
         "title": "Are you really sure you don't want to subscribe ?",
-        "content": "By subscribing you will recieve regular useful and interesting info about us and our cause :)",
+        "content": "By subscribing you will receive regular useful and interesting info about us and our cause :)",
         "confirmButtonLabel": "Yes I actually want to",
         "cancelButtonLabel": "Maybe not"
       }

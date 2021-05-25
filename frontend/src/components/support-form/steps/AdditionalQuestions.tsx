@@ -121,6 +121,12 @@ export default function AdditionalQuestions() {
       options: [
         {
           type: 'checkbox',
+          value: formik.values.volunteer?.projectManager,
+          name: 'volunteer.projectManager',
+          label: 'support:steps.addition-questions.volunteer.projectManager',
+        },
+        {
+          type: 'checkbox',
           value: formik.values.volunteer?.backend,
           name: 'volunteer.backend',
           label: 'support:steps.addition-questions.volunteer.backend',
@@ -139,15 +145,15 @@ export default function AdditionalQuestions() {
         },
         {
           type: 'checkbox',
-          value: formik.values.volunteer?.projectManager,
-          name: 'volunteer.projectManager',
-          label: 'support:steps.addition-questions.volunteer.projectManager',
-        },
-        {
-          type: 'checkbox',
           value: formik.values.volunteer?.devOps,
           name: 'volunteer.devOps',
           label: 'support:steps.addition-questions.volunteer.devOps',
+        },
+        {
+          type: 'checkbox',
+          value: formik.values.volunteer?.security,
+          name: 'volunteer.security',
+          label: 'support:steps.addition-questions.volunteer.security',
         },
         {
           type: 'checkbox',

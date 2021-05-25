@@ -24,8 +24,6 @@ export default function ActivitySection() {
   const classes = useStyles()
   const { t, i18n } = useTranslation()
 
-  const desktopUrl = `/infographic-${i18n.language}.svg`
-  const mobileUrl = `/infographic-${i18n.language}-mobile.svg`
   return (
     <Grid container direction="column" component="section" className={classes.container}>
       <Typography variant="h5" component="h2" className={classes.heading}>
@@ -36,10 +34,10 @@ export default function ActivitySection() {
       </Grid>
       <Grid item className={classes.graphic}>
         <Hidden smUp>
-          <Image src={mobileUrl} width={320} height={1002} />
+          <Image src={`/infographic-${i18n.language}-mobile.svg`} width={320} height={1002} />
         </Hidden>
         <Hidden xsDown>
-          <Image src={desktopUrl} width={1096} height={1114.6} />
+          <Image src={`/infographic-${i18n.language}.svg`} width={1096} height={1114.6} />
         </Hidden>
       </Grid>
     </Grid>

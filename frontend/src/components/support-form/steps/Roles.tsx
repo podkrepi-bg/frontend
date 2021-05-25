@@ -16,26 +16,14 @@ export default function Roles() {
             {t('support:steps.role.subtitle')}
           </Typography>
           <FormGroup>
-            <Role
-              name="roles.benefactor"
-              label={t('support:steps.role.fields.benefactor.title')}
-              description={t('support:steps.role.fields.benefactor.description')}></Role>
-            <Role
-              label={t('support:steps.role.fields.partner.title')}
-              name="roles.partner"
-              description={t('support:steps.role.fields.partner.description')}></Role>
-            <Role
-              label={t('support:steps.role.fields.volunteer.title')}
-              name="roles.volunteer"
-              description={t('support:steps.role.fields.volunteer.description')}></Role>
+            <Role name="roles.benefactor" label={t('support:steps.role.fields.benefactor.title')} />
+            <Role label={t('support:steps.role.fields.volunteer.title')} name="roles.volunteer" />
             <Role
               label={t('support:steps.role.fields.associationMember.title')}
               name="roles.associationMember"
-              description={t('support:steps.role.fields.volunteer.description')}></Role>
-            <Role
-              label={t('support:steps.role.fields.promoter.title')}
-              name="roles.promoter"
-              description={t('support:steps.role.fields.promoter.description')}></Role>
+            />
+            <Role label={t('support:steps.role.fields.partner.title')} name="roles.partner" />
+            <Role label={t('support:steps.role.fields.promoter.title')} name="roles.promoter" />
           </FormGroup>
           {error && <FormHelperText>{t('validation:select-role')}</FormHelperText>}
         </FormControl>

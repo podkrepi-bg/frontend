@@ -56,6 +56,7 @@ type SupportData struct {
 		Designer            bool `json:"designer"`
 		ProjectManager      bool `json:"projectManager"`
 		DevOps              bool `json:"devOps"`
+		Security            bool `json:"security"`
 		FinancesAndAccounts bool `json:"financesAndAccounts"`
 		Lawyer              bool `json:"lawyer"`
 		Qa                  bool `json:"qa"`

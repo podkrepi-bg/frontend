@@ -51,8 +51,8 @@ export default function AboutPage() {
         <Typography variant="body2" component="p">
           Ако имате въпроси или неясноти относно обработването на личните Ви данни или желаете да
           упражните, което и да е от вашите права, можете да се свържете с нас на следните
-          координати: Адрес: ………………………….. e-mail: .................@................ Тел.:
-          …………………….. Интернет страница (уебсайт): www………………………
+          координати: <br /> E-mail: team@podkrepi.bg <br /> Интернет страница (уебсайт):
+          www.podkrepi.bg
         </Typography>
         <PrivacyPolicyTitle>Данни за контакт</PrivacyPolicyTitle>
         <Typography variant="body2" component="p">
@@ -696,7 +696,7 @@ export default function AboutPage() {
           </ul>
         </Typography>
         <Typography variant="body2" component="p">
-          Настоящата политика е приета на …………….2021 г. Всяка промяна в политиката ще бъде отразена
+          Настоящата политика е приета на 25.05.2021 г. Всяка промяна в политиката ще бъде отразена
           чрез публикуването ѝ в интернет сайта на ПОДКРЕПИ БГ.
         </Typography>
       </Box>

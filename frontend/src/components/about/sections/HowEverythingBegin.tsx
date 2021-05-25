@@ -2,6 +2,8 @@ import React from 'react'
 import { useTranslation } from 'next-i18next'
 import { createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core'
 
+import DiscordImage from '../DiscordImage'
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
@@ -33,6 +35,9 @@ export default function HowEverythingBegin() {
       </Grid>
       <Grid xs={12} item>
         <Typography component="p">{t('about:howEverythingBegin.mission')}</Typography>
+      </Grid>
+      <Grid xs={12} item>
+        <DiscordImage />
       </Grid>
     </Grid>
   )

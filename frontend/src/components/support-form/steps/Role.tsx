@@ -14,9 +14,11 @@ export default function Role({ name, label, description }: RoleProps) {
   return (
     <Box display="flex" justifyContent="flex-start" alignItems="center">
       <CheckboxField label={label} name={name} />
-      <Tooltip title={description?.toString() || ''}>
-        <InfoIcon color="primary" style={{ opacity: '0.45' }} />
-      </Tooltip>
+      {description && (
+        <Tooltip title={description}>
+          <InfoIcon color="primary" style={{ opacity: '0.45' }} />
+        </Tooltip>
+      )}
     </Box>
   )
 }

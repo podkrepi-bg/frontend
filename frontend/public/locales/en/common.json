@@ -20,6 +20,7 @@
     "message-sent": "Your message has been sent!",
     "error": "There was an error processing your message!"
   },
+  "link": "Линк",
   "footerLabels": {
     "aboutUs": "About us",
     "aboutProject": "About the project",
