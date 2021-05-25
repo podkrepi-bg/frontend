@@ -31,6 +31,7 @@ export const routes = {
   profile: '/profile',
   register: '/register',
   aboutProject: '/about-project',
+  privacyPolicy: '/privacy-policy',
   changePassword: '/change-password',
   forgottenPassword: '/forgotten-password',
 }

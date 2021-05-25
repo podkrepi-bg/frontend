@@ -1,12 +1,12 @@
-import { Checkbox, FormControl, FormControlLabel, FormHelperText } from '@material-ui/core'
 import { useField } from 'formik'
 import { useTranslation } from 'next-i18next'
+import { Checkbox, FormControl, FormControlLabel, FormHelperText } from '@material-ui/core'
 
 import { TranslatableField, translateError } from 'common/form/validation'
 
 export type CheckboxFieldProps = {
   name: string
-  label: string
+  label: string | React.ReactNode
 }
 
 export default function CheckboxField({ name, label }: CheckboxFieldProps) {

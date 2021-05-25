@@ -102,13 +102,13 @@ export default function Timeline() {
           <TimelineItem Icon={HandIcon} title={t('about-project:may-2021-title')}>
             {t('about-project:self-support-model')}
           </TimelineItem>
-          <TimelineItem Icon={Update} title={t('about-project:july-2021-title')}>
+          <TimelineItem Icon={Update} title={t('about-project:september-2021-title')}>
             {t('about-project:pilot-version-launch')}
           </TimelineItem>
-          <TimelineItem Icon={PlaylistAddCheck} title={t('about-project:august-2021-title')}>
+          <TimelineItem Icon={PlaylistAddCheck} title={t('about-project:october-2021-title')}>
             {t('about-project:tests-performing')}
           </TimelineItem>
-          <TimelineItem Icon={Telegram} lastItem title={t('about-project:september-2021-title')}>
+          <TimelineItem Icon={Telegram} lastItem title={t('about-project:december-2021-title')}>
             {t('about-project:beta-version-launch')}
           </TimelineItem>
         </TimelineMaterial>

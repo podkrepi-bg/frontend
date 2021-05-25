@@ -39,6 +39,7 @@ export type Volunteer = {
   designer?: boolean
   projectManager?: boolean
   devOps?: boolean
+  security?: boolean
   financesAndAccounts?: boolean
   lawyer?: boolean
 }

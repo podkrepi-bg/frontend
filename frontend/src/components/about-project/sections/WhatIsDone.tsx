@@ -6,8 +6,8 @@ import CheckIcon from '@material-ui/icons/Check'
 import VolunteersIcon from '../icons/VolunteersIcon'
 import MeetingsIcon from '../icons/MeetingsIcon'
 import InvestedHoursIcon from '../icons/InvestedHoursIcon'
-import NameSuggestionIcon from '../icons/NameSuggestionIcon'
 import ActivityIcon from '../icons/ActivityIcon'
+import ExternalLink from 'components/common/ExternalLink'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,35 +42,49 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-export default function WhatIsDone() {
+type CheckedLineProps = {
+  label: string
+  href?: string
+}
+
+const CheckedLine = ({ label, href }: CheckedLineProps) => {
   const { t } = useTranslation()
   const classes = useStyles()
-
-  const leftColumnLabels = [
-    t('about-project:volunteers'),
-    t('about-project:meetings'),
-    t('about-project:infoSite'),
-    t('about-project:businessModel'),
-    t('about-project:organizationWork'),
-    t('about-project:hostingPartners'),
-  ]
-  const rightColumnLabels = [
-    t('about-project:nameSuggestions'),
-    t('about-project:internalMeetings'),
-    t('about-project:npoConversations'),
-    t('about-project:featuresList'),
-    t('about-project:trademark'),
-    t('about-project:association'),
-  ]
-
-  const renderCheckedLine = (label: string, index: number) => (
-    <Grid key={index} item className={classes.checkedLine}>
+  return (
+    <Grid item className={classes.checkedLine}>
       <CheckIcon />
       <Typography variant="body2" component="span">
-        {label}
+        {t(label)}{' '}
+        {href && <ExternalLink href={href}>({t('link').toLocaleLowerCase()})</ExternalLink>}
       </Typography>
     </Grid>
   )
+}
+
+const leftColumnLabels: CheckedLineProps[] = [
+  { label: 'about-project:volunteers' },
+  { label: 'about-project:meetings' },
+  { label: 'about-project:infoSite' },
+  { label: 'about-project:businessModel' },
+  { label: 'about-project:organizationWork' },
+  { label: 'about-project:hostingPartners' },
+]
+const rightColumnLabels: CheckedLineProps[] = [
+  { label: 'about-project:nameSuggestions' },
+  { label: 'about-project:internalMeetings' },
+  { label: 'about-project:npoConversations' },
+  { label: 'about-project:featuresList' },
+  { label: 'about-project:trademark' },
+  { label: 'about-project:association' },
+  {
+    label: 'about-project:architecture',
+    href: 'https://docs.podkrepi.bg/general/arkhitektura/architecture',
+  },
+]
+
+export default function WhatIsDone() {
+  const { t } = useTranslation()
+  const classes = useStyles()
 
   return (
     <Grid container direction="column" component="section" className={classes.container}>
@@ -78,41 +92,38 @@ export default function WhatIsDone() {
         {t('about-project:whatIsDoneTitle')}
       </Typography>
       <Grid item container className={classes.icons}>
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} sm={4}>
           <ActivityIcon
             Icon={VolunteersIcon}
             count="700+"
             description={t('about-project:volunteersIcon')}
           />
         </Grid>
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} sm={4}>
           <ActivityIcon
             Icon={MeetingsIcon}
-            count="50+"
+            count="100+"
             description={t('about-project:meetingsIcon')}
           />
         </Grid>
-        <Grid item xs={12} sm={3}>
+        <Grid item xs={12} sm={4}>
           <ActivityIcon
             Icon={InvestedHoursIcon}
-            count="500+"
+            count="1000+"
             description={t('about-project:investedHoursIcon')}
-          />
-        </Grid>
-        <Grid item xs={12} sm={3}>
-          <ActivityIcon
-            Icon={NameSuggestionIcon}
-            count="150+"
-            description={t('about-project:nameSuggestionIcon')}
           />
         </Grid>
       </Grid>
       <Grid item container justify="space-between" className={classes.list}>
         <Grid item xs={12} sm={6}>
-          {leftColumnLabels.map(renderCheckedLine)}
+          {leftColumnLabels.map((props, key) => (
+            <CheckedLine key={key} {...props} />
+          ))}
         </Grid>
         <Grid item xs={12} sm={6}>
-          {rightColumnLabels.map(renderCheckedLine)}
+          {rightColumnLabels.map((props, key) => (
+            <CheckedLine key={key} {...props} />
+          ))}
         </Grid>
       </Grid>
     </Grid>

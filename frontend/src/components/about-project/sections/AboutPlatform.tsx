@@ -1,8 +1,7 @@
 import React from 'react'
+import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 import { createStyles, Grid, Hidden, makeStyles, Theme, Typography } from '@material-ui/core'
-
-import FlowGraphic from '../graphics/FlowGraphic'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export default function AboutPlatform() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const classes = useStyles()
   return (
     <Grid
@@ -42,10 +41,11 @@ export default function AboutPlatform() {
           {t('about-project:aboutPlatformDescription')}
         </Typography>
       </Grid>
-      <Hidden smDown>
-        <Grid item>
-          <FlowGraphic className={classes.graphic} />
-        </Grid>
+      <Hidden smUp>
+        <Image src={`/infographic-${i18n.language}-mobile.svg`} width={320} height={1002} />
+      </Hidden>
+      <Hidden xsDown>
+        <Image src={`/infographic-${i18n.language}.svg`} width={1096} height={1114.6} />
       </Hidden>
     </Grid>
   )

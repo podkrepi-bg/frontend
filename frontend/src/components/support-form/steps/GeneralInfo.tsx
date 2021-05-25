@@ -9,13 +9,13 @@ export default function GeneralInfo() {
   const { t } = useTranslation()
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={3} justify="center" direction="column" alignItems="center">
       <Grid item xs={12}>
         <Typography variant="h4" align="center" paragraph>
           {t('support:steps.info.subtitle')}
         </Typography>
       </Grid>
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12}>
         <FormTextField
           autoFocus
           type="text"
@@ -24,7 +24,7 @@ export default function GeneralInfo() {
           label="support:steps.info.email"
         />
       </Grid>
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12}>
         <FormTextField
           type="text"
           name="person.name"
@@ -32,7 +32,7 @@ export default function GeneralInfo() {
           label="support:steps.info.name"
         />
       </Grid>
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12}>
         <FormTextField
           type="text"
           name="person.phone"
@@ -40,15 +40,15 @@ export default function GeneralInfo() {
           label="support:steps.info.phone"
         />
       </Grid>
-      <Grid item xs={12} sm={6}>
+      {/* <Grid item xs={12} sm={6}>
         <FormTextField
           type="text"
           name="person.address"
           autoComplete="address"
           label="support:steps.info.address"
         />
-      </Grid>
-      <Grid item xs={12} sm={6}>
+      </Grid> */}
+      <Grid item xs={12}>
         <Grid container direction="column" alignItems="flex-start">
           <Grid item xs={12}>
             <AcceptTermsField name="person.terms" />

@@ -90,6 +90,7 @@ const initialValues: SupportFormData = {
     designer: false,
     projectManager: false,
     devOps: false,
+    security: false,
     financesAndAccounts: false,
     lawyer: false,
     qa: false,
