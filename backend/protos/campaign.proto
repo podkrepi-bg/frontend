@@ -25,7 +25,10 @@ service CampaignService {
   rpc CreateCampaignType (CreateCampaignTypeRequest) returns (CreateCampaignTypeResponse);
 
   rpc ListCampaignTypes (google.protobuf.Empty) returns (CampaignTypesResponse);
-}
+
+  // beneficiary
+  rpc CreateBeneficiary (CreateBeneficiaryRequest) returns (CreateBeneficiaryResponse);
+  }
 
 message CreateCampaignRequest {
 
@@ -149,4 +152,20 @@ message Donation {
 	uint32 amount = 2;
 	string message = 3;
 	google.protobuf.Timestamp date = 4;
+}
+
+message CreateBeneficiaryRequest {
+
+	string name = 1;
+	string beneficiary_type_id = 2;
+	common.nomenclatures.ISO2CountryCode country_iso_code = 3;
+  string city = 4;
+  string email = 5;
+  string phone = 6;
+  string website = 7;
+}
+
+message CreateBeneficiaryResponse {
+
+	string id = 1;
 }

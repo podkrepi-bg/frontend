@@ -46,5 +46,10 @@ namespace Podkrepibg.Campaigns.Services
         {
             return base.ListCampaignTypes(request, context);
         }
+
+        public override Task<CreateBeneficiaryResponse> CreateBeneficiary(CreateBeneficiaryRequest request, ServerCallContext context)
+        {
+            return _mediator.Send(new CreateCampaignCommand(request));
+        }
     }
 }
