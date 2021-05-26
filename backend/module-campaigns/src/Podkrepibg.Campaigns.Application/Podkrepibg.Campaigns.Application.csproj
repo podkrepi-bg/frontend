@@ -22,4 +22,8 @@
     <ProjectReference Include="..\Podkrepibg.Campaigns.Domain\Podkrepibg.Campaigns.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Beneficiaries\Queries\" />
+  </ItemGroup>
+
 </Project>
