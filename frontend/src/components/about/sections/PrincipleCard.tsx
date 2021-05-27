@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       marginBottom: theme.spacing(0),
+      paddingRight: theme.spacing(6),
     },
     cardHeader: {
       padding: theme.spacing(0),
