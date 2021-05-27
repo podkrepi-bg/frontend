@@ -16,8 +16,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     heading: {
       marginBottom: theme.spacing(5),
-      color: theme.palette.primary.dark,
-      fontSize: theme.typography.pxToRem(40),
     },
     container: {
       marginBottom: theme.spacing(12),
@@ -30,7 +28,6 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(1),
       marginRight: theme.spacing(1),
       '& span': {
-        fontSize: theme.typography.pxToRem(17.6),
         textAlign: 'start',
       },
     },
@@ -79,12 +76,6 @@ const BankAccount = () => (
 )
 
 const leftColumnLabels: CheckedLineProps[] = [
-  // { label: 'about-project:volunteers' },
-  // { label: 'about-project:meetings' },
-  // { label: 'about-project:infoSite' },
-  // { label: 'about-project:businessModel' },
-  // { label: 'about-project:organizationWork' },
-  // { label: 'about-project:hostingPartners' },
   {
     label:
       'Създадохме организация на работата (discord, drive, github, ora.pm, разделяне по екипи)',
@@ -106,16 +97,6 @@ const leftColumnLabels: CheckedLineProps[] = [
   },
 ]
 const rightColumnLabels: CheckedLineProps[] = [
-  // { label: 'about-project:nameSuggestions' },
-  // { label: 'about-project:internalMeetings' },
-  // { label: 'about-project:npoConversations' },
-  // { label: 'about-project:featuresList' },
-  // { label: 'about-project:trademark' },
-  // { label: 'about-project:association' },
-  // {
-  //   label: 'about-project:architecture',
-  //   href: 'https://docs.podkrepi.bg/general/arkhitektura/architecture',
-  // },
   {
     label:
       'Проведохме серия от разговори с НПО представители с цел по-добро разбиране и дефиниране на - проблема, който трябва да решим.',
@@ -135,7 +116,7 @@ const rightColumnLabels: CheckedLineProps[] = [
   { label: 'Проекта се разработва в Github', href: staticUrls.github },
   { label: 'Документацията на проекта поддържаме в GitBook', href: staticUrls.docs },
   {
-    label: 'Приготвили сме High-level архитектурнo/организационна карта на платформата тук',
+    label: 'Приготвили сме High-level архитектурнo/организационна карта на платформата',
     href: 'https://docs.podkrepi.bg/general/arkhitektura/architecture',
   },
 ]
@@ -146,7 +127,7 @@ export default function WhatIsDone() {
 
   return (
     <Grid container direction="column" component="section" className={classes.container}>
-      <Typography variant="h4" component="h2" className={classes.heading}>
+      <Typography variant="h3" component="h2" className={classes.heading}>
         {t('about-project:whatIsDoneTitle')}
       </Typography>
       <Grid item container className={classes.icons}>

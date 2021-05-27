@@ -38,13 +38,13 @@ export default function TechStack() {
   const classes = useStyles()
   return (
     <Box my={'5rem'}>
-      <Typography variant="h4" component="h2" align="center">
+      <Typography variant="h3" component="h2" align="center">
         {t('about-project:tech-stack.title')}
       </Typography>
       <Grid container direction="column" component="section">
         <Grid item container justify="center" spacing={2}>
           {rows.map(({ label, items }, section: number) => (
-            <Grid item xs={8} key={section}>
+            <Grid item xs={12} sm={8} key={section}>
               <Typography variant="subtitle1">{label}</Typography>
               <Grid item xs={12} component="ul" className={classes.list}>
                 {items.map((line: string, key: number) => (
