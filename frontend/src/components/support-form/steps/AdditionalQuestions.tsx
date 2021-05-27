@@ -181,7 +181,7 @@ export default function AdditionalQuestions() {
         },
       ],
     },
-    {
+    /* {
       key: 'promoter',
       title: 'support:steps.addition-questions.promoter.title',
       errorMessage: 'validation:select-role',
@@ -210,7 +210,7 @@ export default function AdditionalQuestions() {
           },
         },
       ],
-    },
+    }, */
   ]
 
   return (
