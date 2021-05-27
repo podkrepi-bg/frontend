@@ -81,8 +81,7 @@ const leftColumnLabels: CheckedLineProps[] = [
       'Създадохме организация на работата (discord, drive, github, ora.pm, разделяне по екипи)',
   },
   {
-    label:
-      'Имахме вътрешно гласуване и се спряхме на име (измежду 150 предложения), лого и дизайн.',
+    label: 'Избор на лого и дизайн.',
   },
   {
     label: 'Регистрирахме сдружение с нестопанска цел "Подкрепи БГ" и запазихме търговската марка.',
@@ -99,11 +98,11 @@ const leftColumnLabels: CheckedLineProps[] = [
 const rightColumnLabels: CheckedLineProps[] = [
   {
     label:
-      'Проведохме серия от разговори с НПО представители с цел по-добро разбиране и дефиниране на - проблема, който трябва да решим.',
+      'Проведохме серия от разговори с НПО представители с цел по-добро разбиране и дефиниране на проблема, който трябва да решим.',
   },
   {
     label:
-      'Разписахме 270 user story-та и сме избрали пътя към постигане на Minimum Lovable Product. ',
+      'Разписахме 270 user story-та и сме избрали пътя към постигане на Minimum Lovable Product.',
   },
   {
     label:
@@ -114,7 +113,11 @@ const rightColumnLabels: CheckedLineProps[] = [
       'Обединихме се около microservice architecture за да може да се включат повече хора с различни технологии',
   },
   { label: 'Проекта се разработва в Github', href: staticUrls.github },
-  { label: 'Документацията на проекта поддържаме в GitBook', href: staticUrls.docs },
+  {
+    label: 'Документацията на социалната част на проекта поддържаме в GitBook',
+    href: staticUrls.docs,
+  },
+  { label: 'Техническата документация', href: staticUrls.devDocs },
   {
     label: 'Приготвили сме High-level архитектурнo/организационна карта на платформата',
     href: 'https://docs.podkrepi.bg/general/arkhitektura/architecture',
@@ -132,11 +135,7 @@ export default function WhatIsDone() {
       </Typography>
       <Grid item container className={classes.icons}>
         <Grid item xs={12} sm={4}>
-          <ActivityIcon
-            Icon={VolunteersIcon}
-            count="700+"
-            description={t('about-project:volunteersIcon')}
-          />
+          <ActivityIcon Icon={VolunteersIcon} count="17" description={t('about-project:members')} />
         </Grid>
         <Grid item xs={12} sm={4}>
           <ActivityIcon
