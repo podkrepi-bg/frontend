@@ -60,5 +60,8 @@
   "october-2021-title": "October 2021",
   "tests-performing": "Performing tests on the platform on a real environment.",
   "december-2021-title": "December 2021",
-  "beta-version-launch": "Launch of a beta version of the platform."
+  "beta-version-launch": "Launch of a beta version of the platform.",
+  "tech-stack": {
+    "title": "Tech Stack"
+  }
 }
