@@ -23,8 +23,6 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     heading: {
       marginBottom: theme.spacing(5),
-      color: theme.palette.primary.dark,
-      fontSize: theme.typography.pxToRem(40),
     },
     container: {
       textAlign: 'center',
@@ -41,7 +39,7 @@ export default function Timeline() {
 
   return (
     <Grid container direction="column" component="section" className={classes.container}>
-      <Typography variant="h4" component="h2" className={classes.heading}>
+      <Typography variant="h3" component="h2" className={classes.heading}>
         {t('about-project:timeline')}
       </Typography>
       <Grid item>
