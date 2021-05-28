@@ -2,8 +2,8 @@ import { PropsWithChildren, ReactChildren } from 'react'
 
 import { Box, Grid, Typography } from '@material-ui/core'
 import Layout from 'components/layout/Layout'
+import Link from 'components/common/Link'
 import styles from './PrivacyPolicyPage.module.scss'
-
 export interface TitleProps {
   children: ReactChildren | string
 }
@@ -521,6 +521,22 @@ export default function AboutPage() {
           това се налага заради сложността или броя на исканията. В случай, че субектът на данни
           няма право да упражни исканото от него право, в срок от 2 месеца от получаване на
           искането, представител на ПОДКРЕПИ БГ изпраща до субекта на данни аргументиран отказ.
+        </Typography>
+        <Typography>
+          В случай, че не отговорим в предвидените срокове или не сте удовлетворени от получения
+          отговор и/ или считате, че са нарушени Ваши права, свързани със защитата на личните данни,
+          имате възможност да упражните правото си на защита по съдебен или административен ред.
+        </Typography>
+        <Typography>
+          Имате право по всяко време и независимо от комуникацията с ПОДКРЕПИ БГ да подадете жалба
+          до надзорен орган, който за Република България е Комисията за защита на личните данни, с
+          адрес: гр. София 1592, бул. „Проф. Цветан Лазаров” № 2; електронна поща:{' '}
+          <Link href={'mailto:kzld@cpdp.bg'}>kzld@cpdp.bg</Link>. Повече за дейността на Комисията
+          можете да откриете на{' '}
+          <Link href={'https://www.cpdp.bg/'} target="_blank">
+            https://www.cpdp.bg/
+          </Link>
+          .
         </Typography>
         <PrivacyPolicyTitle>Срокове за съхранение на личните данни</PrivacyPolicyTitle>
         <Typography variant="body2" component="p">
