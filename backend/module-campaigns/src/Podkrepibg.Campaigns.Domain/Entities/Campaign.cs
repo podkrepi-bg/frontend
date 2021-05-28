@@ -40,5 +40,7 @@ namespace Podkrepibg.Campaigns.Domain.Entities
         public CampaignType CampaignType { get; set; }
 
         public CampaignSubtype CampaignSubtype { get; set; }
+
+        public Beneficiary Beneficiary { get; set; }
     }
 }
