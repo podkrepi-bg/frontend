@@ -4,6 +4,7 @@ import { Grid, Typography } from '@material-ui/core'
 
 import FormTextField from 'components/common/form/FormTextField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
+import AcceptGDPRField from 'components/common/form/AcceptGDPRField'
 
 export default function GeneralInfo() {
   const { t } = useTranslation()
@@ -52,6 +53,9 @@ export default function GeneralInfo() {
         <Grid container direction="column" alignItems="flex-start">
           <Grid item xs={12}>
             <AcceptTermsField name="person.terms" />
+          </Grid>
+          <Grid item xs={12}>
+            <AcceptGDPRField name="person.gdpr" />
           </Grid>
         </Grid>
       </Grid>

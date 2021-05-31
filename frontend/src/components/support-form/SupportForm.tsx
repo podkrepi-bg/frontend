@@ -65,6 +65,7 @@ const initialValues: SupportFormData = {
     phone: '',
     address: '',
     terms: false,
+    gdpr: false,
   },
   roles: {
     benefactor: false,
