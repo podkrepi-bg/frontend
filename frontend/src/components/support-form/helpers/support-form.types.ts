@@ -20,6 +20,7 @@ export type Person = {
   phone: string
   address: string
   terms: boolean
+  gdpr: boolean
 }
 export type Benefactor = {
   campaignBenefactor?: boolean

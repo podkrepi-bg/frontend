@@ -32,6 +32,7 @@ const person: yup.SchemaOf<Person> = yup
     phone: phone.required(),
     address: yup.string(),
     terms: yup.bool().required().oneOf([true], 'validation:terms-of-use'),
+    gdpr: yup.bool().required().oneOf([true], 'validation:terms-of-service'),
   })
   .defined()
 
