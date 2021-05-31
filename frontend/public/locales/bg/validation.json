@@ -10,7 +10,9 @@
   "one-of": "Невалидна стойност",
   "select-role": "Моля, изберете си роля",
   "terms-of-use": "Моля, приемете oбщите условия",
+  "terms-of-service": "Моля, приемете GDPR",
   "agree-terms": "Съгласявам се с Общите условия",
   "agree-with": "Съгласявам се с",
-  "terms-and-conditions": "Общите условия"
+  "terms-and-conditions": "Общите условия",
+  "gdpr": "GDPR"
 }
