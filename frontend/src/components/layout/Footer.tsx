@@ -89,23 +89,15 @@ const footerItems: FooterLink[][] = [
       external: false,
     },
     {
-      label: 'footerLabels.terms',
-      // terms route is not implemented yet
-      // href: routes.terms,
+      label: 'footerLabels.privacyPolicy',
+      href: routes.privacyPolicy,
       external: false,
     },
   ],
   [
     {
-      label: 'footerLabels.confidentiality',
-      // confidentiality route is not implemented yet
-      // href: routes.gdpr,
-      external: false,
-    },
-    {
-      label: 'footerLabels.gdpr',
-      // gdpr route is not implemented yet
-      // href: routes.gdpr,
+      label: 'footerLabels.termsOfService',
+      href: routes.termsOfService,
       external: false,
     },
   ],
