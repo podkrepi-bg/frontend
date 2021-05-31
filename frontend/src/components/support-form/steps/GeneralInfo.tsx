@@ -17,19 +17,19 @@ export default function GeneralInfo() {
       </Grid>
       <Grid item xs={12}>
         <FormTextField
+          type="text"
+          name="person.name"
+          autoComplete="name"
+          label="support:steps.info.name"
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <FormTextField
           autoFocus
           type="text"
           name="person.email"
           autoComplete="email"
           label="support:steps.info.email"
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <FormTextField
-          type="text"
-          name="person.name"
-          autoComplete="name"
-          label="support:steps.info.name"
         />
       </Grid>
       <Grid item xs={12}>
