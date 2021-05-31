@@ -18,6 +18,7 @@ export default function GeneralInfo() {
       </Grid>
       <Grid item xs={12}>
         <FormTextField
+          autoFocus
           type="text"
           name="person.name"
           autoComplete="name"
@@ -26,7 +27,6 @@ export default function GeneralInfo() {
       </Grid>
       <Grid item xs={12}>
         <FormTextField
-          autoFocus
           type="text"
           name="person.email"
           autoComplete="email"
