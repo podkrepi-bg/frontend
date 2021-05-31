@@ -20,7 +20,6 @@
   },
   "team-chart-section": {
     "heading": "How it all started?",
-    "content": "736 volunteers from the IT community, lawyers, accountants, marketers, medics, NGO representatives, united by the idea of improving donation platforms in Bulgaria.",
     "data": {
       "back-end": "Backend (146)",
       "frontend": "Frontend (89)",
