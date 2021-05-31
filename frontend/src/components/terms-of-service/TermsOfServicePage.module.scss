@@ -31,12 +31,14 @@
   }
 }
 
-.wrapper ul {
-  list-style-type: disc;
-}
+.wrapper {
+  ul {
+    list-style-type: disc;
+  }
 
-.roman {
-  list-style-type: lower-roman;
+  .roman {
+    list-style-type: lower-roman;
+  }
 }
 
 .grid {

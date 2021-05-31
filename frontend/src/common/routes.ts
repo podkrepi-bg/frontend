@@ -33,6 +33,7 @@ export const routes = {
   register: '/register',
   aboutProject: '/about-project',
   privacyPolicy: '/privacy-policy',
+  termsOfService: '/terms-of-service',
   changePassword: '/change-password',
   forgottenPassword: '/forgotten-password',
 }
