@@ -12,12 +12,6 @@ export default function HowEverythingBegin() {
         <Typography variant="body1" paragraph>
           {t('about:howEverythingBegin.volunteers')}
         </Typography>
-        <Typography variant="body1" paragraph>
-          {t('about:howEverythingBegin.vision')}
-        </Typography>
-        <Typography variant="body1" paragraph>
-          {t('about:howEverythingBegin.mission')}
-        </Typography>
       </Grid>
       <Grid xs={12} item>
         <DiscordImage />
