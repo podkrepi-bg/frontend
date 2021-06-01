@@ -31,8 +31,10 @@
   }
 }
 
-.wrapper ul > li {
-  &::before {
+.wrapper ul {
+  font-weight: 400;
+
+  > li::before {
     content: '•';
     font-size: 22px;
     margin-right: theme-spacing(2);
