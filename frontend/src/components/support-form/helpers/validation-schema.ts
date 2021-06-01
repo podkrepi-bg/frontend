@@ -7,7 +7,7 @@ import {
   Person,
   Member,
   Partner,
-  Promoter,
+  Company,
   Roles,
   Volunteer,
   Steps,
@@ -43,7 +43,7 @@ const roles: yup.SchemaOf<Roles> = yup
     partner: yup.bool(),
     volunteer: yup.bool(),
     associationMember: yup.bool(),
-    promoter: yup.bool(),
+    company: yup.bool(),
   })
   .defined()
 
@@ -89,11 +89,11 @@ const volunteer: yup.SchemaOf<Volunteer> = yup
   })
   .defined()
 
-const promoter: yup.SchemaOf<Promoter> = yup
+const company: yup.SchemaOf<Company> = yup
   .object()
   .shape({
-    mediaPartner: yup.bool(),
-    ambassador: yup.bool(),
+    sponsor: yup.bool(),
+    volunteer: yup.bool(),
     other: yup.bool(),
     otherText: yup.string(),
   })
@@ -142,22 +142,22 @@ export const validationSchema: {
       then: volunteer.required().test('checkboxChecked', checkboxError, checkboxChecked),
       otherwise: volunteer,
     }),
-    promoter: yup.object().when('roles.promoter', {
+    company: yup.object().when('roles.company', {
       is: true,
-      then: promoter
+      then: company
         .required()
         .test('checkboxChecked', checkboxError, checkboxChecked)
         .test(
           'CustomValidation',
           'Custom validation',
-          function (this: yup.TestContext, values: Promoter) {
+          function (this: yup.TestContext, values: Company) {
             const { path, createError } = this
             return values.other && !values.otherText
               ? createError({ path, message: 'field is required' })
               : true
           },
         ),
-      otherwise: promoter,
+      otherwise: company,
     }),
   }),
   [Steps.PERSON]: yup.object().shape({

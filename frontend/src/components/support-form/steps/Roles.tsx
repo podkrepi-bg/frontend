@@ -23,7 +23,7 @@ export default function Roles() {
               name="roles.associationMember"
             />
             <Role label={t('support:steps.role.fields.partner.title')} name="roles.partner" />
-            {/* <Role label={t('support:steps.role.fields.promoter.title')} name="roles.promoter" /> */}
+            <Role label={t('support:steps.role.fields.company.title')} name="roles.company" />
           </FormGroup>
           {error && <FormHelperText>{t('validation:select-role')}</FormHelperText>}
         </FormControl>

@@ -21,9 +21,9 @@
           "title": "Association member",
           "description": "Association member..."
         },
-        "promoter": {
-          "title": "Promoter",
-          "description": "Promoter..."
+        "company": {
+          "title": "Company",
+          "description": "Company..."
         }
       }
     },
@@ -60,10 +60,10 @@
         "title": "Association member",
         "member": "Member"
       },
-      "promoter": {
-        "title": "Promoter",
-        "mediaPartner": "Media partner",
-        "ambassador": "Ambassador",
+      "company": {
+        "title": "Company",
+        "sponsor": "Company sponsor",
+        "volunteer": "Company volunteer",
         "other": "Other",
         "otherText": ""
       }
