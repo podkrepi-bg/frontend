@@ -117,7 +117,7 @@ export default function Jumbotron({ scrollTo }: JumbotronProps) {
       </Grid>
       <Grid item>
         <LinkButton
-          href={routes.aboutProject}
+          href={routes.support}
           variant="contained"
           color="secondary"
           className={classes.aboutProjectButton}
