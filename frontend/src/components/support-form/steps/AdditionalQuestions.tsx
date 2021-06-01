@@ -181,36 +181,36 @@ export default function AdditionalQuestions() {
         },
       ],
     },
-    /* {
-      key: 'promoter',
-      title: 'support:steps.addition-questions.promoter.title',
+    {
+      key: 'company',
+      title: 'support:steps.addition-questions.company.title',
       errorMessage: 'validation:select-role',
       options: [
         {
           type: 'checkbox',
-          value: formik.values.promoter?.mediaPartner,
-          name: 'promoter.mediaPartner',
-          label: 'support:steps.addition-questions.promoter.mediaPartner',
+          value: formik.values.company?.sponsor,
+          name: 'company.sponsor',
+          label: 'support:steps.addition-questions.company.sponsor',
         },
         {
           type: 'checkbox',
-          value: formik.values.promoter?.ambassador,
-          name: 'promoter.ambassador',
-          label: 'support:steps.addition-questions.promoter.ambassador',
+          value: formik.values.company?.volunteer,
+          name: 'company.volunteer',
+          label: 'support:steps.addition-questions.company.volunteer',
         },
         {
           type: 'checkbox',
-          value: formik.values.promoter?.other,
-          name: 'promoter.other',
-          label: 'support:steps.addition-questions.promoter.other',
+          value: formik.values.company?.other,
+          name: 'company.other',
+          label: 'support:steps.addition-questions.company.other',
           textFieldOptions: {
-            value: formik.values.promoter?.otherText || '',
-            name: 'promoter.otherText',
-            placeholder: 'support:steps.addition-questions.promoter.otherText',
+            value: formik.values.company?.otherText || '',
+            name: 'company.otherText',
+            placeholder: 'support:steps.addition-questions.company.otherText',
           },
         },
       ],
-    }, */
+    },
   ]
 
   return (
