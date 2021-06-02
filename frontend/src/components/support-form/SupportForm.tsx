@@ -64,6 +64,7 @@ const initialValues: SupportFormData = {
     name: '',
     phone: '',
     address: '',
+    comment: '',
     terms: false,
     gdpr: false,
   },

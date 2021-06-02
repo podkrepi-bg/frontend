@@ -19,6 +19,7 @@ export type Person = {
   name: string
   phone: string
   address: string
+  comment: string
   terms: boolean
   gdpr: boolean
 }
