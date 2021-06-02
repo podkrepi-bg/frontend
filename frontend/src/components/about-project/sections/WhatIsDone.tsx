@@ -65,68 +65,63 @@ const CheckedLine = ({ label, href }: CheckedLineProps) => {
   )
 }
 
-const BankAccount = () => (
-  <div>
-    Открихме дарителска сметка в <br />
-    <i>Уникредит Булбанк</i>
-    <br />
-    <strong>IBAN: {ibanNumber}</strong>
-    <br />с титуляр <strong>Сдружение Подкрепи БГ</strong>.
-  </div>
-)
-
-const leftColumnLabels: CheckedLineProps[] = [
-  {
-    label:
-      'Създадохме организация на работата (discord, drive, github, ora.pm, разделяне по екипи)',
-  },
-  {
-    label: 'Избор на лого и дизайн.',
-  },
-  {
-    label: 'Регистрирахме сдружение с нестопанска цел "Подкрепи БГ" и запазихме търговската марка.',
-  },
-  { label: 'Сключихме партньорства за безплатен хостинг със Superhosting и ICN.bg' },
-  {
-    label:
-      'За момента оперираме със следните модели за самоиздръжка - годишен членски внос, физически или корпоративни дарения към сдружението, потенциално мислим да кандидатстваме по някоя програма, но това в по-дългосрочен план.',
-  },
-  {
-    label: <BankAccount />,
-  },
-]
-const rightColumnLabels: CheckedLineProps[] = [
-  {
-    label:
-      'Проведохме серия от разговори с НПО представители с цел по-добро разбиране и дефиниране на проблема, който трябва да решим.',
-  },
-  {
-    label:
-      'Разписахме 270 user story-та и сме избрали пътя към постигане на Minimum Lovable Product.',
-  },
-  {
-    label:
-      'Имаме активни екипи работещи по фронтенда и по основните модули за създаване на кампании и управление на плащания',
-  },
-  {
-    label:
-      'Обединихме се около microservice architecture за да може да се включат повече хора с различни технологии',
-  },
-  { label: 'Проекта се разработва в Github', href: staticUrls.github },
-  {
-    label: 'Документацията на социалната част на проекта поддържаме в GitBook',
-    href: staticUrls.docs,
-  },
-  { label: 'Техническата документация', href: staticUrls.devDocs },
-  {
-    label: 'Приготвили сме High-level архитектурнo/организационна карта на платформата',
-    href: 'https://docs.podkrepi.bg/general/arkhitektura/architecture',
-  },
-]
-
 export default function WhatIsDone() {
   const { t } = useTranslation()
   const classes = useStyles()
+
+  const BankAccount = () => (
+    <div>
+      {t('about-project:opened-donations-account')} <br />
+      <i>{t('about-project:bank-name')}</i>
+      <br />
+      <strong>IBAN: {ibanNumber}</strong>
+      <br /> {t('about-project:with-holder')} <strong>{t('about-project:association-name')}</strong>
+      .
+    </div>
+  )
+
+  const leftColumnLabels: CheckedLineProps[] = [
+    {
+      label: t('about-project:work-organisation'),
+    },
+    {
+      label: t('about-project:choice-of-logo-and-design'),
+    },
+    {
+      label: t('about-project:register-association'),
+    },
+    { label: t('about-project:hosting-partnerships') },
+    {
+      label: t('about-project:self-sufficiency-measures'),
+    },
+    {
+      label: <BankAccount />,
+    },
+  ]
+  const rightColumnLabels: CheckedLineProps[] = [
+    {
+      label: t('about-project:ngo-talks'),
+    },
+    {
+      label: t('about-project:user-stories'),
+    },
+    {
+      label: t('about-project:active-teams'),
+    },
+    {
+      label: t('about-project:microservice-architecture'),
+    },
+    { label: t('about-project:github-project'), href: staticUrls.github },
+    {
+      label: t('about-project:documentation-social'),
+      href: staticUrls.docs,
+    },
+    { label: t('about-project:documentation-technical'), href: staticUrls.devDocs },
+    {
+      label: t('about-project:high-level-map'),
+      href: 'https://docs.podkrepi.bg/general/arkhitektura/architecture',
+    },
+  ]
 
   return (
     <Grid container direction="column" component="section" className={classes.container}>
