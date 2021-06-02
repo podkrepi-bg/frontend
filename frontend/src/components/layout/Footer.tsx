@@ -5,6 +5,7 @@ import { Grid, Container, createStyles, makeStyles, lighten } from '@material-ui
 import { Facebook, LinkedIn, YouTube } from '@material-ui/icons'
 
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
+import ExternalLink from 'components/common/ExternalLink'
 import { routes, socialUrls, staticUrls } from 'common/routes'
 
 const useStyles = makeStyles((theme) =>
@@ -46,7 +47,7 @@ const useStyles = makeStyles((theme) =>
 
 type FooterLink = {
   label: string
-  href?: string
+  href: string
   external: boolean
 }
 const footerItems: FooterLink[][] = [
@@ -118,21 +119,15 @@ export default function Footer() {
             </a>
           </Link>
           <div className={classes.socialContainer}>
-            <a href={socialUrls.facebook} target="_blank" rel="noreferrer noopener">
+            <ExternalLink href={socialUrls.facebook}>
               <Facebook className={classes.socialLink} />
-            </a>
-            {/* <a href={socialUrls.twitter} target="_blank" rel="noreferrer noopener">
-              <Twitter className={classes.socialLink} />
-            </a> */}
-            <a href={socialUrls.linkedin} target="_blank" rel="noreferrer noopener">
+            </ExternalLink>
+            <ExternalLink href={socialUrls.linkedin}>
               <LinkedIn className={classes.socialLink} />
-            </a>
-            <a href={socialUrls.youtube} target="_blank" rel="noreferrer noopener">
+            </ExternalLink>
+            <ExternalLink href={socialUrls.youtube}>
               <YouTube className={classes.socialLink} />
-            </a>
-            {/* <a href={socialUrls.instagram} target="_blank" rel="noreferrer noopener">
-              <Instagram className={classes.socialLink} />
-            </a> */}
+            </ExternalLink>
           </div>
           <span className={classes.copyrights}>{t('footerCopyrights')}</span>
         </Grid>
@@ -142,13 +137,13 @@ export default function Footer() {
               <ul>
                 {subarr.map(({ label, href, external }, row) => (
                   <li key={`${column}-${row}`} className={classes.link}>
-                    <Link href={href || routes.index}>
-                      <a
-                        rel={external ? 'noreferrer noopener' : undefined}
-                        target={external ? '_blank' : undefined}>
-                        {t(label)}
-                      </a>
-                    </Link>
+                    {external ? (
+                      <ExternalLink href={href}>{t(label)}</ExternalLink>
+                    ) : (
+                      <Link href={href}>
+                        <a>{t(label)}</a>
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

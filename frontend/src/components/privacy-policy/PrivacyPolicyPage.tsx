@@ -1,8 +1,10 @@
 import { PropsWithChildren, ReactChildren } from 'react'
-
 import { Box, Grid, Typography } from '@material-ui/core'
-import Layout from 'components/layout/Layout'
+
 import Link from 'components/common/Link'
+import Layout from 'components/layout/Layout'
+import ExternalLink from 'components/common/ExternalLink'
+
 import styles from './PrivacyPolicyPage.module.scss'
 export interface TitleProps {
   children: ReactChildren | string
@@ -533,10 +535,7 @@ export default function AboutPage() {
           адрес: гр. София 1592, бул. „Проф. Цветан Лазаров” № 2; електронна поща:{' '}
           <Link href={'mailto:kzld@cpdp.bg'}>kzld@cpdp.bg</Link>. Повече за дейността на Комисията
           можете да откриете на{' '}
-          <Link href={'https://www.cpdp.bg/'} target="_blank">
-            https://www.cpdp.bg/
-          </Link>
-          .
+          <ExternalLink href="https://www.cpdp.bg/">https://www.cpdp.bg/</ExternalLink>.
         </Typography>
         <PrivacyPolicyTitle>Срокове за съхранение на личните данни</PrivacyPolicyTitle>
         <Typography variant="body2" component="p">

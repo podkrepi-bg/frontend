@@ -11,13 +11,15 @@ import {
   VerifiedUser,
 } from '@material-ui/icons'
 
+import { socialUrls } from 'common/routes'
+import PodkrepiIcon from 'components/brand/PodkrepiIcon'
+import ExternalLink from 'components/common/ExternalLink'
+
 import HandIcon from '../icons/HandIcon'
 import TimelineItem from './TimelineItem'
 import GlobeIcon from '../icons/GlobeIcon'
 import DiscordIcon from '../icons/DiscordIcon'
 import ChecklistIcon from '../icons/ChecklistIcon'
-import PodkrepiIcon from 'components/brand/PodkrepiIcon'
-import { socialUrls } from 'common/routes'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -54,9 +56,7 @@ export default function Timeline() {
             <ul>
               <li>
                 {t('about-project:starting')}{' '}
-                <a href={socialUrls.discord} target="_blank" rel="noreferrer noopener">
-                  Discord
-                </a>{' '}
+                <ExternalLink href={socialUrls.discord}>Discord</ExternalLink>{' '}
                 {t('about-project:project-server')}
               </li>
               <li>{t('about-project:manifesto-preparation')}</li>

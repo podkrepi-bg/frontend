@@ -1,5 +1,7 @@
 import { makeStyles, createStyles, Theme } from '@material-ui/core'
+
 import { socialUrls } from 'common/routes'
+import ExternalLink from 'components/common/ExternalLink'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -14,12 +16,12 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function DiscordImage() {
   const classes = useStyles()
   return (
-    <a href={socialUrls.discord} target="_blank" rel="noreferrer noopener">
+    <ExternalLink href={socialUrls.discord}>
       <img
         src="/img/discord-team-image.png"
         className={classes.teamImage}
         alt="Podkrepi.bg team in Discord voice conference call"
       />
-    </a>
+    </ExternalLink>
   )
 }
