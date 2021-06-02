@@ -3,7 +3,7 @@
   "steps": {
     "role": {
       "title": "Role",
-      "subtitle": "How would you support us?",
+      "subtitle": "How would you like to help?",
       "fields": {
         "benefactor": {
           "title": "Benefactor",
@@ -29,7 +29,7 @@
     },
     "addition-questions": {
       "title": "Additional questions",
-      "subtitle": "How would you support us?",
+      "subtitle": "How would you like to help?",
       "benefactor": {
         "title": "Benefactor",
         "campaignBenefactor": "Campaign benefactor",
@@ -69,8 +69,8 @@
       }
     },
     "info": {
-      "title": "Contacts info",
-      "subtitle": "How contact with you?",
+      "title": "Keep in touch",
+      "subtitle": "How to keep in touch with you?",
       "email": "Email",
       "name": "Name",
       "phone": "Phone number",
