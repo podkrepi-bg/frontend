@@ -46,9 +46,9 @@ export default function PrinciplesThatUniteUs() {
       </Grid>
       <Grid item xs={12} sm={6}>
         <PrincipleCard
-          Icon={TransparencyIcon}
-          heading={t('about:principlesThatUniteUs.transparency.heading')}
-          content={t('about:principlesThatUniteUs.transparency.content')}
+          Icon={ExpertiseIcon}
+          heading={t('about:principlesThatUniteUs.expertise.heading')}
+          content={t('about:principlesThatUniteUs.expertise.content')}
         />
       </Grid>
       <Grid item xs={12} sm={6}>
@@ -60,9 +60,9 @@ export default function PrinciplesThatUniteUs() {
       </Grid>
       <Grid item xs={12} sm={6}>
         <PrincipleCard
-          Icon={ExpertiseIcon}
-          heading={t('about:principlesThatUniteUs.expertise.heading')}
-          content={t('about:principlesThatUniteUs.expertise.content')}
+          Icon={TransparencyIcon}
+          heading={t('about:principlesThatUniteUs.transparency.heading')}
+          content={t('about:principlesThatUniteUs.transparency.content')}
         />
       </Grid>
       <Grid item xs={12} sm={6}>

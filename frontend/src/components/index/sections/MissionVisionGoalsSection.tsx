@@ -9,9 +9,16 @@ const useStyles = makeStyles((theme) =>
       color: '#ccc',
     },
     wrapper: {
-      minHeight: theme.spacing(56),
-      padding: theme.spacing(8, 5),
+      width: '100%',
+      minHeight: theme.spacing(45),
+      padding: theme.spacing(8, 9),
       backgroundSize: 'cover',
+      [theme.breakpoints.up('lg')]: {
+        padding: theme.spacing(8, 14),
+      },
+      [theme.breakpoints.up(800)]: {
+        width: 'calc(100%/3)',
+      },
     },
     mission: {
       backgroundImage: 'url(/img/mission-background.jpg)',
@@ -21,15 +28,6 @@ const useStyles = makeStyles((theme) =>
     },
     goals: {
       backgroundImage: 'url(/img/goals-background.jpg)',
-    },
-    missionTextWrapper: {
-      float: 'right',
-    },
-    visionTextWrapper: {
-      margin: '0 auto',
-    },
-    goalsTextWrapper: {
-      float: 'left',
     },
     title: {
       color: theme.palette.common.white,
@@ -43,36 +41,25 @@ export default function MissionVisionGoalsSection() {
   const { t } = useTranslation()
 
   return (
-    <Grid
-      container
-      alignItems="center"
-      justify="center"
-      component="section"
-      className={classes.container}>
-      <Grid item xs={12} md={4} className={classNames(classes.mission, classes.wrapper)}>
-        <Grid item xs={10} sm={8} className={classes.missionTextWrapper}>
-          <Typography variant="h5" component="h2" className={classes.title}>
-            {t('index:mission-vision-goals-section.mission-title')}
-          </Typography>
-          <Typography>{t('index:mission-vision-goals-section.mission-text')}</Typography>
-        </Grid>
+    <Grid container justify="center" component="section" className={classes.container}>
+      <Grid item className={classNames(classes.mission, classes.wrapper)}>
+        <Typography variant="h5" component="h2" className={classes.title}>
+          {t('index:mission-vision-goals-section.mission-title')}
+        </Typography>
+        <Typography>{t('index:mission-vision-goals-section.mission-text')}</Typography>
       </Grid>
-      <Grid item xs={12} md={4} className={classNames(classes.vision, classes.wrapper)}>
-        <Grid item xs={10} sm={8} className={classes.visionTextWrapper}>
-          <Typography variant="h5" component="h2" className={classes.title}>
-            {t('index:mission-vision-goals-section.vision-title')}
-          </Typography>
-          <Typography>{t('index:mission-vision-goals-section.vision-text')}</Typography>
-        </Grid>
+      <Grid item className={classNames(classes.vision, classes.wrapper)}>
+        <Typography variant="h5" component="h2" className={classes.title}>
+          {t('index:mission-vision-goals-section.vision-title')}
+        </Typography>
+        <Typography>{t('index:mission-vision-goals-section.vision-text')}</Typography>
       </Grid>
-      <Grid item xs={12} md={4} className={classNames(classes.goals, classes.wrapper)}>
-        <Grid item xs={10} sm={8} className={classes.goalsTextWrapper}>
-          <Typography variant="h5" component="h2" className={classes.title}>
-            {t('index:mission-vision-goals-section.goals-title')}
-          </Typography>
-          <Typography>{t('index:mission-vision-goals-section.goals-text-trust')}</Typography>
-          <Typography>{t('index:mission-vision-goals-section.goals-text-open-source')}</Typography>
-        </Grid>
+      <Grid item className={classNames(classes.goals, classes.wrapper)}>
+        <Typography variant="h5" component="h2" className={classes.title}>
+          {t('index:mission-vision-goals-section.goals-title')}
+        </Typography>
+        <Typography>{t('index:mission-vision-goals-section.goals-text-trust')}</Typography>
+        <Typography>{t('index:mission-vision-goals-section.goals-text-open-source')}</Typography>
       </Grid>
     </Grid>
   )

@@ -5,6 +5,7 @@ const {
 } = getConfig()
 
 export const baseUrl = APP_URL
+export const defaultOgImage = `${baseUrl}/img/og-image.jpg`
 
 export const staticUrls = {
   github: 'https://github.com/daritelska-platforma/frontend',
@@ -32,6 +33,7 @@ export const routes = {
   register: '/register',
   aboutProject: '/about-project',
   privacyPolicy: '/privacy-policy',
+  termsOfService: '/terms-of-service',
   changePassword: '/change-password',
   forgottenPassword: '/forgotten-password',
 }

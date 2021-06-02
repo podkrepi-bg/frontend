@@ -25,7 +25,6 @@ const TeamChartSection = () => {
           <Typography variant="h5" component="h2" className={classes.heading}>
             {t('index:team-chart-section.heading')}
           </Typography>
-          <Typography variant="body2">{t('index:team-chart-section.content')}</Typography>
         </Grid>
         <Grid item>
           <Box textAlign="center" overflow="hidden">

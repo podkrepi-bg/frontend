@@ -64,13 +64,15 @@ const initialValues: SupportFormData = {
     name: '',
     phone: '',
     address: '',
+    comment: '',
     terms: false,
+    gdpr: false,
   },
   roles: {
     benefactor: false,
     partner: false,
     associationMember: false,
-    promoter: false,
+    company: false,
     volunteer: false,
   },
   benefactor: {
@@ -98,9 +100,9 @@ const initialValues: SupportFormData = {
   associationMember: {
     isMember: true,
   },
-  promoter: {
-    mediaPartner: false,
-    ambassador: false,
+  company: {
+    sponsor: false,
+    volunteer: false,
     other: false,
     otherText: '',
   },
