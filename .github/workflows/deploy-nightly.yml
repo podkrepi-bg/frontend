@@ -127,6 +127,8 @@ jobs:
           JWT_SECRET: ${{ secrets.APP_JWT_SECRET }}
           DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
           DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_KEY }}
           API_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.API_DEPLOY_IMAGE }}
           WEB_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.WEB_DEPLOY_IMAGE }}
           FLYWAY_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.FLYWAY_DEPLOY_IMAGE }}
