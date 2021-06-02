@@ -48,59 +48,23 @@ const useStyles = makeStyles((theme) =>
 type FooterLink = {
   label: string
   href: string
-  external: boolean
+  external?: boolean
 }
 const footerItems: FooterLink[][] = [
   [
-    {
-      label: 'footerLabels.aboutUs',
-      href: routes.about,
-      external: false,
-    },
-    {
-      label: 'footerLabels.aboutProject',
-      href: routes.aboutProject,
-      external: false,
-    },
-    {
-      label: 'footerLabels.docs',
-      href: staticUrls.docs,
-      external: true,
-    },
-    {
-      label: 'footerLabels.dev-docs',
-      href: staticUrls.devDocs,
-      external: true,
-    },
-    {
-      label: 'GitHub',
-      href: staticUrls.github,
-      external: true,
-    },
+    { label: 'footerLabels.aboutUs', href: routes.about },
+    { label: 'footerLabels.aboutProject', href: routes.aboutProject },
+    { label: 'footerLabels.support', href: routes.support },
+    { label: 'footerLabels.contact', href: routes.contact },
   ],
   [
-    {
-      label: 'footerLabels.contact',
-      href: routes.contact,
-      external: false,
-    },
-    {
-      label: 'footerLabels.support',
-      href: routes.support,
-      external: false,
-    },
-    {
-      label: 'footerLabels.privacyPolicy',
-      href: routes.privacyPolicy,
-      external: false,
-    },
+    { external: true, label: 'GitHub', href: staticUrls.github },
+    { external: true, label: 'footerLabels.docs', href: staticUrls.docs },
+    { external: true, label: 'footerLabels.dev-docs', href: staticUrls.devDocs },
   ],
   [
-    {
-      label: 'footerLabels.termsOfService',
-      href: routes.termsOfService,
-      external: false,
-    },
+    { label: 'footerLabels.privacyPolicy', href: routes.privacyPolicy },
+    { label: 'footerLabels.termsOfService', href: routes.termsOfService },
   ],
 ]
 
