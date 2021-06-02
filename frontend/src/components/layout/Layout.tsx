@@ -10,14 +10,16 @@ import {
   Typography,
 } from '@material-ui/core'
 
-import Snackbar from 'components/layout/Snackbar'
-import AppNavBar from 'components/layout/AppNavBar'
 import MobileNav from './nav/MobileNav'
 import Footer from 'components/layout/Footer'
+import { defaultOgImage } from 'common/routes'
+import Snackbar from 'components/layout/Snackbar'
+import AppNavBar from 'components/layout/AppNavBar'
 
 type LayoutProps = React.PropsWithChildren<
   ContainerProps & {
     title?: string
+    ogImage?: string
     disableOffset?: boolean
   }
 >
@@ -43,9 +45,10 @@ const useStyles = makeStyles((theme) =>
 
 export default function Layout({
   title,
+  ogImage,
   children,
-  disableOffset = false,
   maxWidth = 'md',
+  disableOffset = false,
   ...containerProps
 }: LayoutProps) {
   const classes = useStyles()
@@ -59,6 +62,10 @@ export default function Layout({
       <Container className={classes.layout} maxWidth={maxWidth} {...containerProps}>
         <Head>
           <title>{metaTitle}</title>
+          <meta key="og:title" property="og:title" content={metaTitle} />
+          <meta key="og:image" property="og:image" content={ogImage ?? defaultOgImage} />
+          <meta key="og:image:width" property="og:image:width" content="1910" />
+          <meta key="og:image:height" property="og:image:height" content="1000" />
         </Head>
         <Box pt={4} pb={disableOffset ? 0 : 10}>
           <AppNavBar navMenuToggle={navMenuToggle} />

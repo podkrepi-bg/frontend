@@ -28,9 +28,8 @@
     "dev-docs": "Technical Documentation",
     "contact": "Contact us",
     "support": "Support us",
-    "terms": "Common terms",
-    "confidentiality": "Data confidentiality",
-    "gdpr": "User Consent Manager / GDPR"
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of service"
   },
   "footerCopyrights": "Podkrepi.bg ©2021 All rights reserved."
 }

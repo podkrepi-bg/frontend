@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       marginBottom: theme.spacing(0),
+      paddingRight: theme.spacing(6),
     },
     cardHeader: {
       padding: theme.spacing(0),
@@ -62,7 +63,9 @@ export default function PrincipleCard({ Icon, heading, content }: PrincipleCardP
         }}
       />
       <CardContent className={classes.contentContainer}>
-        <Typography className={classes.content}>{content}</Typography>
+        <Typography className={classes.content} variant="body1">
+          {content}
+        </Typography>
       </CardContent>
     </Card>
   )

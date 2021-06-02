@@ -1,4 +1,4 @@
-type RoleTypes = 'benefactor' | 'partner' | 'volunteer' | 'associationMember' | 'promoter'
+type RoleTypes = 'benefactor' | 'partner' | 'volunteer' | 'associationMember' | 'company'
 
 export type Step = {
   label: string
@@ -19,7 +19,9 @@ export type Person = {
   name: string
   phone: string
   address: string
+  comment: string
   terms: boolean
+  gdpr: boolean
 }
 export type Benefactor = {
   campaignBenefactor?: boolean
@@ -46,13 +48,21 @@ export type Volunteer = {
 export type Member = {
   isMember?: boolean
 }
-export type Promoter = {
-  mediaPartner?: boolean
-  ambassador?: boolean
+export type Company = {
+  sponsor?: boolean
+  volunteer?: boolean
   other?: boolean
   otherText?: string
 }
 export type Roles = { [key in RoleTypes]: boolean }
+export type SupportRequestData = {
+  person: Person & { newsletter: boolean }
+  support_data: Pick<
+    SupportFormData,
+    'roles' | 'benefactor' | 'partner' | 'volunteer' | 'associationMember' | 'company'
+  >
+  environment: string
+}
 export type SupportFormData = {
   newsletter: boolean
   person: Person
@@ -61,7 +71,7 @@ export type SupportFormData = {
   partner?: Partner
   volunteer?: Volunteer
   associationMember?: Member
-  promoter?: Promoter
+  company?: Company
 }
 export type SupportFormDataSteps = {
   [Steps.NONE]: never
@@ -73,7 +83,7 @@ export type SupportFormDataSteps = {
     partner?: Partner
     volunteer?: Volunteer
     associationMember?: Member
-    promoter?: Promoter
+    company?: Company
   }
   [Steps.PERSON]: {
     person: Person

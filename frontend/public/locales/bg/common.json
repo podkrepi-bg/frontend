@@ -28,9 +28,8 @@
     "dev-docs": "Техническа  Документация",
     "contact": "Контакти",
     "support": "Подкрепи ни",
-    "terms": "Общи условия",
-    "confidentiality": "Поверителност на данните",
-    "gdpr": "User Consent Manager / GDPR"
+    "privacyPolicy": "Защита на лични данни",
+    "termsOfService": "Общи условия"
   },
   "footerCopyrights": "Podkrepi.bg ©2021 Всички права запазени."
 }

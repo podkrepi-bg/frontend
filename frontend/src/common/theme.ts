@@ -84,7 +84,7 @@ export const themeOptions: ThemeOptions = {
   typography: {
     h1: { fontFamily },
     h2: { fontFamily },
-    h3: { fontFamily },
+    h3: { fontFamily, color: colors.blue.dark },
     h4: { fontFamily },
     h5: { fontFamily },
     h6: { fontFamily },

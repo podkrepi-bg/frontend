@@ -20,20 +20,19 @@
   },
   "team-chart-section": {
     "heading": "How it all started?",
-    "content": "736 volunteers from the IT community, lawyers, accountants, marketers, medics, NGO representatives, united by the idea of improving donation platforms in Bulgaria.",
     "data": {
-      "back-end": "BACK-END (146)",
-      "frontend": "FRONT-END (89)",
-      "full-stack": "FULL-STACK (82)",
-      "dev-ops": "DEV-OPS (78)",
+      "back-end": "Backend (146)",
+      "frontend": "Frontend (89)",
+      "full-stack": "Full-Stack (82)",
+      "dev-ops": "DevOps (78)",
       "qa": "QA (61)",
-      "design": "DESIGN (35)",
-      "law": "LAW (16)",
-      "management": "MANAGEMENT (88)",
-      "accounting": "ACCOUNTING AND FINANCE (16)",
-      "marketing": "MARKETING AND PR (72)",
-      "ngo": "NGO/VOLUNTEERING (37)",
-      "others": "OTHERS (16)"
+      "design": "Design (35)",
+      "law": "Law (16)",
+      "management": "Management (88)",
+      "accounting": "Accounting and Finance (16)",
+      "marketing": "Marketing and PR (72)",
+      "ngo": "NGO/Volunteering (37)",
+      "others": "Others (16)"
     }
   },
   "support-us-section": {
