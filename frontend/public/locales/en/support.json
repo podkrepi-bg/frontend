@@ -74,7 +74,7 @@
       "email": "Email",
       "name": "Name",
       "phone": "Phone number",
-      "address": "Address"
+      "comment": "Additional notes"
     },
     "newsletter": {
       "title": "Newsletter",
