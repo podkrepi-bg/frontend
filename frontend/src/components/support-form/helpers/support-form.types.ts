@@ -55,6 +55,14 @@ export type Company = {
   otherText?: string
 }
 export type Roles = { [key in RoleTypes]: boolean }
+export type SupportRequestData = {
+  person: Person & { newsletter: boolean }
+  support_data: Pick<
+    SupportFormData,
+    'roles' | 'benefactor' | 'partner' | 'volunteer' | 'associationMember' | 'company'
+  >
+  environment: string
+}
 export type SupportFormData = {
   newsletter: boolean
   person: Person
