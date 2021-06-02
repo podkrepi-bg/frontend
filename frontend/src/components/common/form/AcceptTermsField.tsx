@@ -17,7 +17,7 @@ export default function AcceptTermsField({ name }: AcceptTermsFieldProps) {
       label={
         <Typography variant="body2">
           {t('validation:agree-with')}{' '}
-          <ExternalLink href={routes.privacyPolicy}>
+          <ExternalLink href={routes.termsOfService}>
             {t('validation:terms-and-conditions')}
           </ExternalLink>
         </Typography>

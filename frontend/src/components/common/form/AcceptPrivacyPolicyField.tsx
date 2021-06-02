@@ -9,15 +9,15 @@ export type AcceptGDPRFieldProps = {
   name: string
 }
 
-export default function AcceptGDPRField({ name }: AcceptGDPRFieldProps) {
+export default function AcceptPrivacyPolicyField({ name }: AcceptGDPRFieldProps) {
   const { t } = useTranslation()
   return (
     <CheckboxField
       name={name}
       label={
         <Typography variant="body2">
-          {t('validation:agree-with')}{' '}
-          <ExternalLink href={routes.termsOfService}>{t('validation:gdpr')}</ExternalLink>
+          {t('validation:informed-agree-with')}{' '}
+          <ExternalLink href={routes.privacyPolicy}>{t('validation:gdpr')}</ExternalLink>
         </Typography>
       }
     />
