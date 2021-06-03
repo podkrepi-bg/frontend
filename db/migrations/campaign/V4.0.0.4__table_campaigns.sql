@@ -22,9 +22,8 @@ CREATE TABLE IF NOT EXISTS campaign.beneficiaries (
     CONSTRAINT "FK_Beneficiaries_BeneficiaryType_BeneficiaryTypeId" FOREIGN KEY (beneficiary_type_id) REFERENCES campaign.beneficiary_type (id) ON DELETE CASCADE
 );
 
-ALTER TABLE campaign.campaigns (
-    CONSTRAINT "FK_Campaigns_Beneficiaries_BeneficiaryId" FOREIGN KEY (beneficiary_id) REFERENCES campaign.beneficiaries (id) ON DELETE CASCADE
-);
+ALTER TABLE campaign.campaigns
+ADD CONSTRAINT "FK_Campaigns_Beneficiaries_BeneficiaryId" FOREIGN KEY (beneficiary_id) REFERENCES campaign.beneficiaries (id) ON DELETE CASCADE;
 
 CREATE INDEX "IX_Beneficiaries_BeneficiaryTypeId" ON campaign.beneficiaries (beneficiary_type_id);
 
