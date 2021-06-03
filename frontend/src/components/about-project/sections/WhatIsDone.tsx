@@ -65,31 +65,34 @@ const CheckedLine = ({ label, href }: CheckedLineProps) => {
   )
 }
 
-const BankAccount = () => (
-  <div>
-    Открихме дарителска сметка в <br />
-    <i>Уникредит Булбанк</i>
-    <br />
-    <strong>IBAN: {ibanNumber}</strong>
-    <br />с титуляр <strong>Сдружение Подкрепи БГ</strong>.
-  </div>
-)
+const BankAccount = () => {
+  const { t } = useTranslation()
+
+  return (
+    <div>
+      {t('about-project:opened-donations-account')} <br />
+      <i>{t('about-project:bank-name')}</i>
+      <br />
+      <strong>IBAN: {ibanNumber}</strong>
+      <br /> {t('about-project:with-holder')} <strong>{t('about-project:association-name')}</strong>
+      .
+    </div>
+  )
+}
 
 const leftColumnLabels: CheckedLineProps[] = [
   {
-    label:
-      'Създадохме организация на работата (discord, drive, github, ora.pm, разделяне по екипи)',
+    label: 'about-project:work-organisation',
   },
   {
-    label: 'Избор на лого и дизайн.',
+    label: 'about-project:choice-of-logo-and-design',
   },
   {
-    label: 'Регистрирахме сдружение с нестопанска цел "Подкрепи БГ" и запазихме търговската марка.',
+    label: 'about-project:register-association',
   },
-  { label: 'Сключихме партньорства за безплатен хостинг със Superhosting и ICN.bg' },
+  { label: 'about-project:hosting-partnerships' },
   {
-    label:
-      'За момента оперираме със следните модели за самоиздръжка - годишен членски внос, физически или корпоративни дарения към сдружението, потенциално мислим да кандидатстваме по някоя програма, но това в по-дългосрочен план.',
+    label: 'about-project:self-sufficiency-measures',
   },
   {
     label: <BankAccount />,
@@ -97,29 +100,25 @@ const leftColumnLabels: CheckedLineProps[] = [
 ]
 const rightColumnLabels: CheckedLineProps[] = [
   {
-    label:
-      'Проведохме серия от разговори с НПО представители с цел по-добро разбиране и дефиниране на проблема, който трябва да решим.',
+    label: 'about-project:ngo-talks',
   },
   {
-    label:
-      'Разписахме 270 user story-та и сме избрали пътя към постигане на Minimum Lovable Product.',
+    label: 'about-project:user-stories',
   },
   {
-    label:
-      'Имаме активни екипи работещи по фронтенда и по основните модули за създаване на кампании и управление на плащания',
+    label: 'about-project:active-teams',
   },
   {
-    label:
-      'Обединихме се около microservice architecture за да може да се включат повече хора с различни технологии',
+    label: 'about-project:microservice-architecture',
   },
-  { label: 'Проекта се разработва в Github', href: staticUrls.github },
+  { label: 'about-project:github-project', href: staticUrls.github },
   {
-    label: 'Документацията на социалната част на проекта поддържаме в GitBook',
+    label: 'about-project:documentation-social',
     href: staticUrls.docs,
   },
-  { label: 'Техническата документация', href: staticUrls.devDocs },
+  { label: 'about-project:documentation-technical', href: staticUrls.devDocs },
   {
-    label: 'Приготвили сме High-level архитектурнo/организационна карта на платформата',
+    label: 'about-project:high-level-map',
     href: 'https://docs.podkrepi.bg/general/arkhitektura/architecture',
   },
 ]
