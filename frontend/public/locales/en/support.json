@@ -3,7 +3,7 @@
   "steps": {
     "role": {
       "title": "Role",
-      "subtitle": "How would you support us?",
+      "subtitle": "How would you like to help?",
       "fields": {
         "benefactor": {
           "title": "Benefactor",
@@ -21,15 +21,15 @@
           "title": "Association member",
           "description": "Association member..."
         },
-        "promoter": {
-          "title": "Promoter",
-          "description": "Promoter..."
+        "company": {
+          "title": "Company",
+          "description": "Company..."
         }
       }
     },
     "addition-questions": {
       "title": "Additional questions",
-      "subtitle": "How would you support us?",
+      "subtitle": "How would you like to help?",
       "benefactor": {
         "title": "Benefactor",
         "campaignBenefactor": "Campaign benefactor",
@@ -60,21 +60,21 @@
         "title": "Association member",
         "member": "Member"
       },
-      "promoter": {
-        "title": "Promoter",
-        "mediaPartner": "Media partner",
-        "ambassador": "Ambassador",
+      "company": {
+        "title": "Company",
+        "sponsor": "Company sponsor",
+        "volunteer": "Company volunteer",
         "other": "Other",
         "otherText": ""
       }
     },
     "info": {
-      "title": "Contacts info",
-      "subtitle": "How contact with you?",
+      "title": "Keep in touch",
+      "subtitle": "How to keep in touch with you?",
       "email": "Email",
       "name": "Name",
       "phone": "Phone number",
-      "address": "Address"
+      "comment": "Additional notes"
     },
     "newsletter": {
       "title": "Newsletter",

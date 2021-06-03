@@ -36,7 +36,7 @@ type SupportData struct {
 		Benefactor        bool `json:"benefactor"`
 		Partner           bool `json:"partner"`
 		AssociationMember bool `json:"associationMember"`
-		Promoter          bool `json:"promoter"`
+		Company          bool `json:"company"`
 		Volunteer         bool `json:"volunteer"`
 	} `json:"roles"`
 	Benefactor struct {
@@ -64,12 +64,12 @@ type SupportData struct {
 	AssociationMember struct {
 		IsMember bool `json:"isMember"`
 	} `json:"associationMember"`
-	Promoter struct {
-		MediaPartner bool   `json:"mediaPartner"`
-		Ambassador   bool   `json:"ambassador"`
+	Company struct {
+		Sponsor      bool   `json:"sponsor"`
+		Volunteer    bool   `json:"volunteer"`
 		Other        bool   `json:"other"`
 		OtherText    string `json:"otherText"`
-	} `json:"promoter"`
+	} `json:"company"`
 }
 
 type SupportRequest struct {

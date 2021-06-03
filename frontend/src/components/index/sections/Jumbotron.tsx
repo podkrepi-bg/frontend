@@ -117,19 +117,12 @@ export default function Jumbotron({ scrollTo }: JumbotronProps) {
       </Grid>
       <Grid item>
         <LinkButton
-          href={routes.aboutProject}
-          variant="contained"
-          color="secondary"
-          className={classes.aboutProjectButton}>
-          {t('index:jumbotron.about-project-button')}
-        </LinkButton>
-        <LinkButton
           href={routes.support}
           variant="contained"
-          color="primary"
-          className={classes.podkrepiButton}
-          endIcon={<Favorite />}>
-          {t('index:jumbotron.support-us-button')}
+          color="secondary"
+          className={classes.aboutProjectButton}
+          endIcon={<Favorite color="error" />}>
+          {t('index:support-us-section.click-here-button')}
         </LinkButton>
       </Grid>
       <Grid item className={classes.scrollButton}>

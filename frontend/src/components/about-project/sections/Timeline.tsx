@@ -11,20 +11,20 @@ import {
   VerifiedUser,
 } from '@material-ui/icons'
 
+import { socialUrls } from 'common/routes'
+import PodkrepiIcon from 'components/brand/PodkrepiIcon'
+import ExternalLink from 'components/common/ExternalLink'
+
 import HandIcon from '../icons/HandIcon'
 import TimelineItem from './TimelineItem'
 import GlobeIcon from '../icons/GlobeIcon'
 import DiscordIcon from '../icons/DiscordIcon'
 import ChecklistIcon from '../icons/ChecklistIcon'
-import PodkrepiIcon from 'components/brand/PodkrepiIcon'
-import { socialUrls } from 'common/routes'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     heading: {
       marginBottom: theme.spacing(5),
-      color: theme.palette.primary.dark,
-      fontSize: theme.typography.pxToRem(40),
     },
     container: {
       textAlign: 'center',
@@ -41,7 +41,7 @@ export default function Timeline() {
 
   return (
     <Grid container direction="column" component="section" className={classes.container}>
-      <Typography variant="h4" component="h2" className={classes.heading}>
+      <Typography variant="h3" component="h2" className={classes.heading}>
         {t('about-project:timeline')}
       </Typography>
       <Grid item>
@@ -56,9 +56,7 @@ export default function Timeline() {
             <ul>
               <li>
                 {t('about-project:starting')}{' '}
-                <a href={socialUrls.discord} target="_blank" rel="noreferrer noopener">
-                  Discord
-                </a>{' '}
+                <ExternalLink href={socialUrls.discord}>Discord</ExternalLink>{' '}
                 {t('about-project:project-server')}
               </li>
               <li>{t('about-project:manifesto-preparation')}</li>
