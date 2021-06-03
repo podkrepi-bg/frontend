@@ -5,9 +5,9 @@ const rows = [
   {
     label: 'DevOps',
     items: [
-      'Локален Docker Compose stack и план за Kubernetes в продуктова среда',
-      'CI/CD pipeline чрез Github Actions',
-      'Database: CockroachDB cluster + Flyway migrations',
+      'about-project:tech-stack.docker-kubernetes',
+      'about-project:tech-stack.ci-cd-pipeline',
+      'CockroachDB cluster + Flyway migrations',
     ],
   },
   {
@@ -17,9 +17,9 @@ const rows = [
   {
     label: 'Backend',
     items: [
-      'GraphQL Gateway using GoLang/GoFiber',
-      'GRPC/ProtoBuf за комуникация между microservices',
-      'Campaigns Мicroservice using C#/.Net',
+      'about-project:tech-stack.graphql-gateway-and-go',
+      'about-project:tech-stack.grpc-protobuf',
+      'about-project:tech-stack.dot-net',
     ],
   },
 ]
@@ -49,7 +49,7 @@ export default function TechStack() {
               <Grid item xs={12} component="ul" className={classes.list}>
                 {items.map((line: string, key: number) => (
                   <Typography key={key} variant="body2" component="li">
-                    {line}
+                    {t(line)}
                   </Typography>
                 ))}
               </Grid>

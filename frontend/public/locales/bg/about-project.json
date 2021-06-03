@@ -63,7 +63,12 @@
   "december-2021-title": "Декември 2021",
   "beta-version-launch": "Пускане на бета версия на платформата.",
   "tech-stack": {
-    "title": "Tech Stack"
+    "title": "Технологии",
+    "docker-kubernetes":"Локален Docker Compose stack и план за Kubernetes в продуктова среда",
+    "ci-cd-pipeline":"CI/CD pipeline чрез Github Actions",
+    "graphql-gateway-and-go":"GraphQL Gateway с GoLang/GoFiber",
+    "grpc-protobuf":"GRPC/ProtoBuf за комуникация между microservices",
+    "dot-net":"Campaigns Мicroservice със C#/.Net"
   },
   "work-organisation": "Създадохме организация на работата (discord, drive, github, ora.pm, разделяне по екипи)",
   "choice-of-logo-and-design": "Избор на лого и дизайн.",
