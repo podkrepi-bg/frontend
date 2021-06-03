@@ -1,3 +1,7 @@
+@import 'styles/variables';
+@import 'styles/functions';
+
+//Global normalizing styles
 a {
   text-decoration: none;
 
@@ -9,4 +13,42 @@ a {
 ul {
   list-style: none;
   padding-left: 0;
+}
+
+//Common styles for PrivacyPolicyPage and TermsOfServicePage
+.privacy-policy-gdpr {
+  h2 {
+    color: $theme-primary-dark;
+    margin: theme-spacing(4) 0;
+  }
+
+  p {
+    margin: theme-spacing(3) 0;
+  }
+
+  ul {
+    list-style-type: disc;
+  }
+
+  .lower-roman-ul {
+    list-style-type: lower-roman;
+  }
+
+  li {
+    margin-left: theme-spacing(4);
+  }
+
+  .bold-italic-text {
+    font-style: italic;
+    font-weight: bold;
+  }
+
+  .rights-table {
+    border: 1px solid $theme-primary-dark;
+    text-align: left;
+  }
+
+  .rights-table > * {
+    border: 1px solid $theme-primary-dark;
+  }
 }
