@@ -31,15 +31,14 @@
   }
 }
 
-.wrapper ul {
-  font-weight: 400;
+.wrapper {
+  ul {
+    font-weight: 400;
+    list-style-type: disc;
+  }
 
-  > li::before {
-    content: '•';
-    font-size: 22px;
-    margin-right: theme-spacing(2);
-    position: relative;
-    top: 4px;
+  .roman {
+    list-style-type: lower-roman;
   }
 }
 

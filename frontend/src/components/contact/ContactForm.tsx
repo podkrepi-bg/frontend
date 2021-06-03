@@ -34,6 +34,7 @@ const validationSchema: yup.SchemaOf<ContactFormData> = yup
     phone: phone.required(),
     message: yup.string().trim().min(10).max(500).required(),
     terms: yup.bool().required().oneOf([true], 'validation:terms-of-use'),
+    gdpr: yup.bool().required().oneOf([true], 'validation:terms-of-service'),
   })
 
 const defaults: ContactFormData = {

@@ -8,18 +8,18 @@ export type TeamPieItem = {
 }
 
 export const teamPieData: Array<TeamPieItem> = [
-  { id: 'others', y: 2.2, color: '#F94144' },
-  { id: 'law', y: 2.2, color: '#F3722C' },
-  { id: 'accounting', y: 2.2, color: '#F8961E' },
-  { id: 'design', y: 4.7, color: '#F9844A' },
-  { id: 'ngo', y: 5.0, color: '#F9C74F' },
-  { id: 'qa', y: 8.3, color: '#90BE6D' },
-  { id: 'marketing', y: 9.8, color: '#43AA8B' },
-  { id: 'dev-ops', y: 10.6, color: '#4D908E' },
-  { id: 'full-stack', y: 11.1, color: '#577590' },
-  { id: 'management', y: 12.0, color: '#277DA1' },
-  { id: 'frontend', y: 12.1, color: '#219EBC' },
-  { id: 'back-end', y: 19.8, color: '#023047' },
+  { id: 'others', y: 2.2, color: '#bb8bbc' },
+  { id: 'law', y: 2.2, color: '#3acbb0' },
+  { id: 'accounting', y: 2.2, color: '#b9c6cc' },
+  { id: 'design', y: 4.7, color: '#ffe149' },
+  { id: 'ngo', y: 5.0, color: '#58c7ff' },
+  { id: 'qa', y: 8.3, color: '#fe97dc' },
+  { id: 'marketing', y: 9.8, color: '#fdc781' },
+  { id: 'dev-ops', y: 10.6, color: '#9897ff' },
+  { id: 'full-stack', y: 11.1, color: '#7fffc0' },
+  { id: 'management', y: 12.0, color: '#d4caff' },
+  { id: 'frontend', y: 12.1, color: '#7ef4f4' },
+  { id: 'back-end', y: 19.8, color: '#ffa9a8' },
 ]
 
 export const teamPieOptions: Options = {
@@ -40,6 +40,11 @@ export const teamPieOptions: Options = {
       dataLabels: {
         enabled: true,
         format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+        style: {
+          fontFamily: 'Montserrat',
+          color: '#444444',
+          fontSize: '12px',
+        },
       },
       innerSize: '35%',
     },

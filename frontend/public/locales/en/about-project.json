@@ -4,6 +4,7 @@
   "aboutPlatformDescription": "What we want to create is an open-source technological solution that significantly drastically reduces the chances of any misuse of the donated funds raised by both the campaign organizers and the internal team of the donation platform.",
   "whatIsDoneTitle": "What has been done already",
   "volunteersIcon": "count of volunteers signed up",
+  "members": "members of the association",
   "meetingsIcon": "count of meetings held",
   "investedHoursIcon": "count of hours invested",
   "nameSuggestionIcon": "name suggestions",
@@ -60,5 +61,8 @@
   "october-2021-title": "October 2021",
   "tests-performing": "Performing tests on the platform on a real environment.",
   "december-2021-title": "December 2021",
-  "beta-version-launch": "Launch of a beta version of the platform."
+  "beta-version-launch": "Launch of a beta version of the platform.",
+  "tech-stack": {
+    "title": "Tech Stack"
+  }
 }

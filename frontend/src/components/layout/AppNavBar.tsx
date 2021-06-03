@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     appBar: {
       overflow: 'hidden',
-      transition: 'height .5s',
+      transition: 'height .5s, background-color .5s ease 0s',
       height: theme.spacing(14),
       lineHeight: theme.spacing(14),
       [theme.breakpoints.down('sm')]: {
@@ -29,8 +29,10 @@ const useStyles = makeStyles((theme) =>
       '&.shrink': {
         height: theme.spacing(10),
         lineHeight: theme.spacing(10),
+        backgroundColor: 'hsla(0,0%,100%,0.85)',
+        backdropFilter: 'saturate(180%) blur(5px)',
       },
-      background: theme.palette.common.white,
+      backgroundColor: theme.palette.common.white,
     },
     toolbar: {
       height: '100%',
