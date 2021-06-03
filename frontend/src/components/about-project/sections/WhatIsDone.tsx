@@ -65,11 +65,10 @@ const CheckedLine = ({ label, href }: CheckedLineProps) => {
   )
 }
 
-export default function WhatIsDone() {
+const BankAccount = () => {
   const { t } = useTranslation()
-  const classes = useStyles()
 
-  const BankAccount = () => (
+  return (
     <div>
       {t('about-project:opened-donations-account')} <br />
       <i>{t('about-project:bank-name')}</i>
@@ -79,49 +78,54 @@ export default function WhatIsDone() {
       .
     </div>
   )
+}
 
-  const leftColumnLabels: CheckedLineProps[] = [
-    {
-      label: t('about-project:work-organisation'),
-    },
-    {
-      label: t('about-project:choice-of-logo-and-design'),
-    },
-    {
-      label: t('about-project:register-association'),
-    },
-    { label: t('about-project:hosting-partnerships') },
-    {
-      label: t('about-project:self-sufficiency-measures'),
-    },
-    {
-      label: <BankAccount />,
-    },
-  ]
-  const rightColumnLabels: CheckedLineProps[] = [
-    {
-      label: t('about-project:ngo-talks'),
-    },
-    {
-      label: t('about-project:user-stories'),
-    },
-    {
-      label: t('about-project:active-teams'),
-    },
-    {
-      label: t('about-project:microservice-architecture'),
-    },
-    { label: t('about-project:github-project'), href: staticUrls.github },
-    {
-      label: t('about-project:documentation-social'),
-      href: staticUrls.docs,
-    },
-    { label: t('about-project:documentation-technical'), href: staticUrls.devDocs },
-    {
-      label: t('about-project:high-level-map'),
-      href: 'https://docs.podkrepi.bg/general/arkhitektura/architecture',
-    },
-  ]
+const leftColumnLabels: CheckedLineProps[] = [
+  {
+    label: 'about-project:work-organisation',
+  },
+  {
+    label: 'about-project:choice-of-logo-and-design',
+  },
+  {
+    label: 'about-project:register-association',
+  },
+  { label: 'about-project:hosting-partnerships' },
+  {
+    label: 'about-project:self-sufficiency-measures',
+  },
+  {
+    label: <BankAccount />,
+  },
+]
+const rightColumnLabels: CheckedLineProps[] = [
+  {
+    label: 'about-project:ngo-talks',
+  },
+  {
+    label: 'about-project:user-stories',
+  },
+  {
+    label: 'about-project:active-teams',
+  },
+  {
+    label: 'about-project:microservice-architecture',
+  },
+  { label: 'about-project:github-project', href: staticUrls.github },
+  {
+    label: 'about-project:documentation-social',
+    href: staticUrls.docs,
+  },
+  { label: 'about-project:documentation-technical', href: staticUrls.devDocs },
+  {
+    label: 'about-project:high-level-map',
+    href: 'https://docs.podkrepi.bg/general/arkhitektura/architecture',
+  },
+]
+
+export default function WhatIsDone() {
+  const { t } = useTranslation()
+  const classes = useStyles()
 
   return (
     <Grid container direction="column" component="section" className={classes.container}>
