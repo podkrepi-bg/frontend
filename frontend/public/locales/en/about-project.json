@@ -63,7 +63,12 @@
   "december-2021-title": "December 2021",
   "beta-version-launch": "Launch of a beta version of the platform.",
   "tech-stack": {
-    "title": "Tech Stack"
+    "title": "Tech Stack",
+    "docker-kubernetes":"Local Docker Compose stack and a plan for Kubernetes in production environment",
+    "ci-cd-pipeline":"CI/CD pipeline in Github Actions",
+    "graphql-gateway-and-go":"GraphQL Gateway using GoLang/GoFiber",
+    "grpc-protobuf":"GRPC/ProtoBuf for communication between microservices",
+    "dot-net":"Campaigns Мicroservice using C#/.Net"
   },
   "work-organisation": "Organized our work (discord, drive, github, ora.pm, splitting into teams).",
   "choice-of-logo-and-design": "Choice of logo and design.",
