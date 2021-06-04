@@ -1,17 +1,18 @@
-import React, { useState } from 'react'
-import { FormikHelpers } from 'formik'
 import * as yup from 'yup'
+import { FormikHelpers } from 'formik'
+import React, { useState } from 'react'
 import { useTranslation } from 'next-i18next'
-import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { Grid, Typography } from '@material-ui/core'
+import { makeStyles, createStyles } from '@material-ui/core/styles'
 
-import SubmitButton from 'components/common/form/SubmitButton'
-import GenericForm from 'components/common/form/GenericForm'
-import FormTextField from 'components/common/form/FormTextField'
-import { name, companyName, phone } from 'common/form/validation'
-import AcceptTermsField from 'components/common/form/AcceptTermsField'
-import { AlertStore } from 'stores/AlertStore'
 import { ApiErrors } from 'common/api-routes'
+import { AlertStore } from 'stores/AlertStore'
+import GenericForm from 'components/common/form/GenericForm'
+import SubmitButton from 'components/common/form/SubmitButton'
+import FormTextField from 'components/common/form/FormTextField'
+import AcceptTermsField from 'components/common/form/AcceptTermsField'
+import { name, companyName, phone, email } from 'common/form/validation'
+import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
 export type ContactFormData = {
   firstName: string
@@ -21,6 +22,7 @@ export type ContactFormData = {
   phone?: string
   message: string
   terms: boolean
+  gdpr: boolean
 }
 
 const validationSchema: yup.SchemaOf<ContactFormData> = yup
@@ -29,7 +31,7 @@ const validationSchema: yup.SchemaOf<ContactFormData> = yup
   .shape({
     firstName: name.required(),
     lastName: name.required(),
-    email: yup.string().trim().email().required(),
+    email: email.required(),
     company: companyName,
     phone: phone.required(),
     message: yup.string().trim().min(10).max(500).required(),
@@ -45,6 +47,7 @@ const defaults: ContactFormData = {
   phone: '',
   message: '',
   terms: false,
+  gdpr: false,
 }
 
 const useStyles = makeStyles((theme) =>
@@ -114,13 +117,29 @@ export default function ContactForm({ initialValues = defaults }: ContactFormPro
         validationSchema={validationSchema}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
-            <FormTextField type="text" label="auth:fields.first-name" name="firstName" />
+            <FormTextField
+              type="text"
+              label="auth:fields.first-name"
+              name="firstName"
+              autoComplete="first-name"
+            />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <FormTextField type="text" label="auth:fields.last-name" name="lastName" />
+            <FormTextField
+              type="text"
+              label="auth:fields.last-name"
+              name="lastName"
+              autoComplete="family-name"
+            />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField inputMode="email" type="text" label="auth:fields.email" name="email" />
+            <FormTextField
+              inputMode="email"
+              type="text"
+              label="auth:fields.email"
+              name="email"
+              autoComplete="email"
+            />
           </Grid>
           <Grid item xs={12}>
             <FormTextField
@@ -151,6 +170,7 @@ export default function ContactForm({ initialValues = defaults }: ContactFormPro
           </Grid>
           <Grid item xs={12}>
             <AcceptTermsField name="terms" />
+            <AcceptPrivacyPolicyField name="gdpr" />
           </Grid>
           <Grid item xs={12}>
             <SubmitButton fullWidth label="auth:cta.send" loading={loading} />
