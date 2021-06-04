@@ -28,14 +28,14 @@ ul {
 
   ul {
     list-style-type: disc;
+
+    li {
+      margin-left: theme-spacing(4);
+    }
   }
 
   .lower-roman-ul {
     list-style-type: lower-roman;
-  }
-
-  li {
-    margin-left: theme-spacing(4);
   }
 
   .bold-italic-text {
@@ -46,9 +46,9 @@ ul {
   .rights-table {
     border: 1px solid $theme-primary-dark;
     text-align: left;
-  }
 
-  .rights-table > * {
-    border: 1px solid $theme-primary-dark;
+    > * {
+      border: 1px solid $theme-primary-dark;
+    }
   }
 }
