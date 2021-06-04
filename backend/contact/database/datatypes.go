@@ -3,7 +3,8 @@ package database
 import (
 	"database/sql/driver"
 	"encoding/json"
-	"time"
+  "fmt"
+  "time"
 
 	"github.com/google/uuid"
 	"gorm.io/gorm"
@@ -17,7 +18,7 @@ func (j JSONB) Value() (driver.Value, error) {
 }
 
 func (j *JSONB) Scan(value interface{}) error {
-	if err := json.Unmarshal(value.([]byte), &j); err != nil {
+	if err := json.Unmarshal([]byte(fmt.Sprintf("%v", value)), &j); err != nil {
 		return err
 	}
 	return nil
