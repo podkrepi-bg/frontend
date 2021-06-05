@@ -31,6 +31,7 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
 
             builder
               .Property(c => c.State)
+              .HasConversion<int>()
               .IsRequired();
 
             builder

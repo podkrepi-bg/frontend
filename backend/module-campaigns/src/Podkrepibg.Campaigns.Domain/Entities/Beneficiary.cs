@@ -9,8 +9,8 @@ namespace Podkrepibg.Campaigns.Domain.Entities
         public Guid Id { get; set; }
 
         public string Name { get; set; }
-         
-        public Guid BeneficiaryTypeId { get; set; }
+
+        public BeneficiaryType Type { get; set; }
 
         public ISO2CountryCode ISO2CountryCode { get; set; }
 
@@ -21,8 +21,6 @@ namespace Podkrepibg.Campaigns.Domain.Entities
         public string Phone { get; set; }
 
         public string Website { get; set; }
-
-        public BeneficiaryType BeneficiaryType { get; set; }
 
         public virtual ICollection<Campaign> Campaigns { get; set; }
     }
