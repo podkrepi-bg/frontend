@@ -718,3 +718,9 @@ enum CurrencyCode {
 	ZMW = 178;
 	ZWL = 179;
 }
+
+enum BeneficiaryType{
+  Individual = 0;
+
+  Organisation = 1
+}

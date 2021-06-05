@@ -22,9 +22,8 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
               .IsRequired();
 
             builder
-              .HasOne(c => c.BeneficiaryType)
-              .WithMany()
-              .HasForeignKey("BeneficiaryTypeId")
+              .Property(c => c.Type)
+              .HasConversion<int>()
               .IsRequired();
 
             builder

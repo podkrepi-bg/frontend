@@ -15,8 +15,6 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence
 
         public DbSet<Campaign> Campaigns { get; set; }
 
-        public DbSet<BeneficiaryType> BeneficiaryTypes { get; set; }
-
         public DbSet<Beneficiary> Beneficiaries { get; set; }
 
         public CampaignsContext(DbContextOptions<CampaignsContext> options) : base(options)
@@ -28,8 +26,6 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence
         public IQueryable<CampaignSubtype> GetCampaignSubtypes() => CampaignSubtypes.AsNoTracking();
 
         public IQueryable<Campaign> GetCampaigns() => Campaigns.AsNoTracking();
-
-        public IQueryable<BeneficiaryType> GetBeneficiaryTypes() => BeneficiaryTypes.AsNoTracking();
 
         public IQueryable<Beneficiary> GetBeneficiaries() => Beneficiaries.AsNoTracking();
 

@@ -157,7 +157,7 @@ message Donation {
 message CreateBeneficiaryRequest {
 
 	string name = 1;
-	string beneficiary_type_id = 2;
+	uint32 type = 2;
 	common.nomenclatures.ISO2CountryCode country_iso_code = 3;
   string city = 4;
   string email = 5;
