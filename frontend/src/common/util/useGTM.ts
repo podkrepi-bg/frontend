@@ -3,7 +3,7 @@ import { default as TagManager, TagManagerArgs } from 'react-gtm-module'
 
 const gtmId = getConfig().publicRuntimeConfig.GTM_ID
 
-export type EventType = 'event_1' | 'change_language'
+export type EventType = 'event_1' | 'change_language' | 'page_view'
 
 export type DataEvent = { event: EventType; [key: string]: unknown }
 
