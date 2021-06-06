@@ -10,10 +10,11 @@
     "lint": "eslint . --fix --ext=ts,tsx",
     "lint:styles": "stylelint **.scss",
     "format": "prettier --write .",
-    "type-check": "tsc --project tsconfig.json --pretty --noEmit"
+    "type-check": "tsc --project tsconfig.json --pretty --noEmit",
+    "prepare": "husky install"
   },
   "dependencies": {
-    "@material-ui/core": "4.11.4",
+    "@devDependencies-ui/core": "4.11.4",
     "@material-ui/icons": "4.11.2",
     "@material-ui/lab": "4.0.0-alpha.58",
     "@sentry/nextjs": "6.5.1",
@@ -47,7 +48,7 @@
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-prettier": "3.4.0",
     "eslint-plugin-react": "7.24.0",
-    "husky": "4.3.8",
+    "husky": "^6.0.0",
     "lint-staged": "11.0.0",
     "prettier": "2.3.0",
     "stylelint": "13.13.1",
