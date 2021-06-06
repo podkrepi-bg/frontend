@@ -27,8 +27,6 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence
 
         public IQueryable<Campaign> GetCampaigns() => Campaigns.AsNoTracking();
 
-        public IQueryable<Beneficiary> GetBeneficiaries() => Beneficiaries.AsNoTracking();
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder

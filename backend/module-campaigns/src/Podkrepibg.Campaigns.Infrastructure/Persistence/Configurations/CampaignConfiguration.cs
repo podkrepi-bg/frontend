@@ -37,7 +37,7 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
             builder
               .Property(c => c.InitiatorId)
               .IsRequired();
-
+             
             builder
               .Property(c => c.BeneficiaryId)
               .IsRequired();

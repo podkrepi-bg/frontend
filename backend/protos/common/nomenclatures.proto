@@ -30,7 +30,8 @@ enum CampaignState
 	Error = 10;
 }
 
-enum ISO2CountryCode {
+enum ISO2CountryCode
+{
 	UNDEFINED_ISO2_CODE = 0;
 	AD = 1;
 	AE = 2;
@@ -536,7 +537,8 @@ enum ISO2CountryCode {
 	ZWE = 249;
 }*/
 
-enum CurrencyCode {
+enum CurrencyCode
+{
 	UNDEFINED_CURRENCY = 0;
 	AED = 1;
 	AFN = 2;
@@ -719,8 +721,9 @@ enum CurrencyCode {
 	ZWL = 179;
 }
 
-enum BeneficiaryType{
+enum BeneficiaryType
+{
   Individual = 0;
 
-  Organisation = 1
+  Organisation = 1;
 }

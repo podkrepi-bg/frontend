@@ -83,6 +83,22 @@ message CampaignTypesResponse {
 	repeated CampaignTypeDetails campaign_types = 1;
 }
 
+message CreateBeneficiaryRequest {
+
+	string name = 1;
+	common.nomenclatures.BeneficiaryType type = 2;
+	common.nomenclatures.ISO2CountryCode country_iso_code = 3;
+  string city = 4;
+  string email = 5;
+  string phone = 6;
+  string website = 7;
+}
+
+message CreateBeneficiaryResponse {
+
+	string id = 1;
+}
+
 message CampaignType {
 
 	string id = 1;
@@ -154,18 +170,14 @@ message Donation {
 	google.protobuf.Timestamp date = 4;
 }
 
-message CreateBeneficiaryRequest {
+message Beneficiary {
 
-	string name = 1;
-	uint32 type = 2;
-	common.nomenclatures.ISO2CountryCode country_iso_code = 3;
-  string city = 4;
-  string email = 5;
-  string phone = 6;
-  string website = 7;
-}
-
-message CreateBeneficiaryResponse {
-
-	string id = 1;
+  string id = 1;
+  string name = 2;
+	common.nomenclatures.BeneficiaryType type = 3;
+	common.nomenclatures.ISO2CountryCode country_iso_code = 4;
+  string city = 5;
+  string email = 6;
+  string phone = 7;
+  string website = 8;
 }
