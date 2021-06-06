@@ -27,6 +27,11 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
               .IsRequired();
 
             builder
+              .Property(c => c.ISO2CountryCode)
+              .HasConversion<int>()
+              .IsRequired();
+
+            builder
               .Property(c => c.City)
               .HasMaxLength(50)
               .IsRequired();
