@@ -37,10 +37,10 @@ namespace Podkrepibg.Campaigns.Domain.Entities
 
         public CampaignOptionalDetails OptionalDetails { get; set; }
 
+        public Beneficiary Beneficiary { get; set; }
+
         public CampaignType CampaignType { get; set; }
 
         public CampaignSubtype CampaignSubtype { get; set; }
-
-        public Beneficiary Beneficiary { get; set; }
     }
 }

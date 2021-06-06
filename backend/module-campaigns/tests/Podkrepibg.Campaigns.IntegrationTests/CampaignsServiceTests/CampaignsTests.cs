@@ -109,6 +109,13 @@ namespace Podkrepibg.Campaigns.IntegrationTests.CampaignsServiceTests
         public async Task GetCampaignDetails_WithPrepopulatedDataInDb_ShouldReturnCorrectResponse()
         {
             // Arrange
+            var beneficiary = new Domain.Entities.Beneficiary
+            {
+                Name = _faker.Random.Utf16String(1, 100, true),
+                Type = BeneficiaryType.Individual,
+                ISO2CountryCode = ISO2CountryCode.BG,
+                City = _faker.Random.Utf16String(1, 50, true)
+            };
 
             var campaignSubtype = new Domain.Entities.CampaignSubtype
             {
@@ -129,7 +136,7 @@ namespace Podkrepibg.Campaigns.IntegrationTests.CampaignsServiceTests
             {
                 InitiatorId = Guid.NewGuid(),
                 OperatorId = Guid.NewGuid(),
-                BeneficiaryId = Guid.NewGuid(),
+                Beneficiary = beneficiary,
                 CampaignType = campaignType,
                 CampaignSubtype = campaignSubtype,
                 State = CampaignState.PendingValidation,
@@ -140,6 +147,7 @@ namespace Podkrepibg.Campaigns.IntegrationTests.CampaignsServiceTests
                     videoUrl: _faker.Internet.Url())
             };
 
+            _appDbContext.Beneficiaries.Add(beneficiary);
             _appDbContext.CampaignTypes.Add(campaignType);
             var trackedCampaignEntity = _appDbContext.Campaigns.Add(campaign);
             await _appDbContext.SaveChangesAsync(CancellationToken.None);
@@ -155,7 +163,7 @@ namespace Podkrepibg.Campaigns.IntegrationTests.CampaignsServiceTests
             campaignDetails.Title.Should().Be(campaign.Title);
             campaignDetails.InitiatorId.Should().Be(campaign.InitiatorId.ToString());
             campaignDetails.OperatorId.Should().Be(campaign.OperatorId.ToString());
-            campaignDetails.BeneficiaryId.Should().Be(campaign.BeneficiaryId.ToString());
+            campaignDetails.BeneficiaryId.Should().Be(beneficiary.Id.ToString());
             campaignDetails.State.Should().Be(CampaignState.PendingValidation);
             campaignDetails.CampaignType.Should().NotBeNull();
             campaignDetails.CampaignType.Name.Should().Be(campaignType.Name);
