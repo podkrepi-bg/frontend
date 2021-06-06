@@ -3,7 +3,7 @@ BEGIN TRANSACTION;
 CREATE TABLE IF NOT EXISTS campaign.beneficiaries (
     id uuid NOT NULL DEFAULT (gen_random_uuid()),
     name character varying(100) NOT NULL,
-    type uuid NOT NULL,
+    type integer NOT NULL,
     iso2country_code integer NOT NULL,
     city character varying(50) NOT NULL,
     email character varying(100) NULL,
