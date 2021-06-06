@@ -11,7 +11,7 @@
     "lint:styles": "stylelint **.scss",
     "format": "prettier --write .",
     "type-check": "tsc --project tsconfig.json --pretty --noEmit",
-    "prepare": "husky install"
+    "prepare": "cd .. && husky install frontend/.husky"
   },
   "dependencies": {
     "@material-ui/core": "4.11.4",
