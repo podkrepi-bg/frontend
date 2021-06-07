@@ -24,14 +24,15 @@ function CustomApp(props: AppProps) {
     if (jssStyles && jssStyles.parentElement) {
       jssStyles.parentElement.removeChild(jssStyles)
     }
-  }, [])
 
-  useEffect(() => {
-    // Setup GTM
+    // Init GTM
     initialize({
       events: { user_lang: i18n.language },
     })
+  }, [])
 
+  // Register route change complete event handlers
+  useEffect(() => {
     const onRouteChange = (url: string) => {
       trackEvent({
         event: 'page_view',
