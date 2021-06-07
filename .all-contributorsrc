@@ -205,6 +205,18 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "cupakob",
+      "name": "Atanas Alexandrov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/56699232?v=4",
+      "profile": "https://atanas-alexandrov.de",
+      "contributions": [
+        "code",
+        "doc",
+        "test",
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
