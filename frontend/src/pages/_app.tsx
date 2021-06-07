@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { AppProps } from 'next/app'
+import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { ThemeProvider } from '@material-ui/core/styles'
@@ -13,7 +14,9 @@ import 'styles/global.scss'
 
 function CustomApp(props: AppProps) {
   const { Component, pageProps } = props
+  const router = useRouter()
   const { i18n } = useTranslation()
+  const { initialize, trackEvent } = useGTM()
 
   useEffect(() => {
     // Remove the server-side injected CSS.
@@ -23,10 +26,31 @@ function CustomApp(props: AppProps) {
     }
 
     // Init GTM
-    useGTM().initialize({
+    initialize({
       events: { user_lang: i18n.language },
     })
   }, [])
+
+  // Register route change complete event handlers
+  useEffect(() => {
+    const onRouteChange = (url: string) => {
+      trackEvent({
+        event: 'page_view',
+        user_lang: i18n.language,
+        page_title: document.title,
+        page_pathname: url,
+        page_location:
+          document.location.protocol +
+          '//' +
+          document.location.hostname +
+          document.location.pathname +
+          document.location.search,
+      })
+    }
+
+    router.events.on('routeChangeComplete', onRouteChange)
+    return () => router.events.off('routeChangeComplete', onRouteChange)
+  }, [i18n.language])
 
   return (
     <React.Fragment>

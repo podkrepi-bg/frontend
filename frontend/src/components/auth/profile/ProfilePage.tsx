@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) =>
 export default function ProfilePage({ session }: ProfilePageProps) {
   const classes = useStyles()
   const { t } = useTranslation()
-  if (!session) {
+  if (!session || !session.user) {
     throw new Error('No session')
   }
   const title = `${session.user.name}\n(${session.user.email})`

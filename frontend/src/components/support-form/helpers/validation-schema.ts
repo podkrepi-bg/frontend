@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-import { name, phone } from 'common/form/validation'
+import { name, phone, email } from 'common/form/validation'
 
 import {
   Benefactor,
@@ -27,10 +27,10 @@ function checkboxChecked(this: yup.TestContext, value: { [key: string]: boolean 
 const person: yup.SchemaOf<Person> = yup
   .object()
   .shape({
-    email: yup.string().email().required(),
+    email: email.required(),
     name: name.required(),
     phone: phone.required(),
-    address: yup.string(),
+    address: yup.string().trim(),
     comment: yup.string().trim().max(500),
     terms: yup.bool().required().oneOf([true], 'validation:terms-of-use'),
     gdpr: yup.bool().required().oneOf([true], 'validation:terms-of-service'),
