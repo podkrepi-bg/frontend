@@ -109,6 +109,7 @@ namespace Podkrepibg.Campaigns.IntegrationTests.CampaignsServiceTests
         public async Task GetCampaignDetails_WithPrepopulatedDataInDb_ShouldReturnCorrectResponse()
         {
             // Arrange
+
             var beneficiary = new Domain.Entities.Beneficiary
             {
                 Name = _faker.Random.Utf16String(1, 100, true),
@@ -153,6 +154,7 @@ namespace Podkrepibg.Campaigns.IntegrationTests.CampaignsServiceTests
             await _appDbContext.SaveChangesAsync(CancellationToken.None);
 
             // Act
+
             var campaignDetails = await _campaignsService.GetCampaignDetails(
                 new GetCampaignDetailsRequest { Id = trackedCampaignEntity.Entity.Id.ToString() }, Mock.Of<ServerCallContext>());
 
