@@ -63,6 +63,29 @@
   "december-2021-title": "December 2021",
   "beta-version-launch": "Launch of a beta version of the platform.",
   "tech-stack": {
-    "title": "Tech Stack"
-  }
+    "title": "Tech Stack",
+    "docker-kubernetes":"Local Docker Compose stack and a plan for Kubernetes in production environment",
+    "ci-cd-pipeline":"CI/CD pipeline in Github Actions",
+    "graphql-gateway-and-go":"GraphQL Gateway using GoLang/GoFiber",
+    "grpc-protobuf":"GRPC/ProtoBuf for communication between microservices",
+    "dot-net":"Campaigns Мicroservice using C#/.Net"
+  },
+  "work-organisation": "Organized our work (discord, drive, github, ora.pm, splitting into teams).",
+  "choice-of-logo-and-design": "Choice of logo and design.",
+  "register-association": "Registered a non-profit organization \"Podkrepi BG\" as well as a trademark.",
+  "hosting-partnerships": "Partnered with Superhosting and ICN.bg for free hosting services.",
+  "self-sufficiency-measures": "For now we utilise the following means of self-sufficiency  - yearly membership fee, individual and corporate donations for the association, potentially we're thinking of applying for a funding program, but that's for the long-term plan.",
+  "donations-bank-account": "Opened a donations bank account at UnicreditBulbank IBAN: BG66 UNCR 7000 1524 3490 32 with holder: Association Podkrepi BG.",
+  "ngo-talks": "Held a series of meetings with NGO representatives, in order to better understand and define the problem which we have to solve.",
+  "user-stories": "Wrote up 270 user stories and chose the path for achieving a Minimum Lovable Product.",
+  "active-teams": "We have active teams working on the frontend and on the key modules for creating campaigns and handling payments.",
+  "microservice-architecture": "We united around using a microservice architecture, so that more people with different technology backgrounds can take part.",
+  "github-project": "The project is being developed on Github.",
+  "documentation-social": "The documentation for the social aspect of the project is on GitBook.",
+  "documentation-technical": "Technical documentation",
+  "high-level-map": "Developed a High-level architectural/organisational map of the platform.",
+  "opened-donations-account":"Opened a donations account in",
+  "bank-name": "UniCredit Bulbank",
+  "with-holder":"with holder",
+  "association-name": "Association Podkrepi BG"
 }

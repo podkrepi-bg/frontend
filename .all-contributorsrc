@@ -185,6 +185,38 @@
         "platform",
         "review"
       ]
+    },
+    {
+      "login": "RRoussev88",
+      "name": "RRoussev88",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32360024?v=4",
+      "profile": "https://github.com/RRoussev88",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "marchev",
+      "name": "Martin Marchev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2691408?v=4",
+      "profile": "https://github.com/marchev",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "cupakob",
+      "name": "Atanas Alexandrov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/56699232?v=4",
+      "profile": "https://atanas-alexandrov.de",
+      "contributions": [
+        "code",
+        "doc",
+        "test",
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
