@@ -195,6 +195,16 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "marchev",
+      "name": "Martin Marchev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2691408?v=4",
+      "profile": "https://github.com/marchev",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
