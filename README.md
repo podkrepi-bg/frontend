@@ -39,6 +39,9 @@ cd frontend
 
 # Symlink dev environment
 ln -s .env.example .env
+
+# Symlink dev environment on Windows
+mklink .env .env.example
 ```
 
 ## Development
