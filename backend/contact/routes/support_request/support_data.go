@@ -3,8 +3,8 @@ package support_request
 import (
 	"database/sql/driver"
 	"encoding/json"
+	"fmt"
 )
-
 
 func (j SupportData) Value() (driver.Value, error) {
 	valueString, err := json.Marshal(j)
@@ -12,19 +12,15 @@ func (j SupportData) Value() (driver.Value, error) {
 }
 
 func (j *SupportData) Scan(value interface{}) error {
-	if err := json.Unmarshal(value.([]byte), &j); err != nil {
-		return err
-	}
-
-	return nil
+	return json.Unmarshal([]byte(fmt.Sprintf("%v", value)), &j)
 }
 
 type SupportData struct {
-	Roles          struct {
+	Roles struct {
 		Benefactor        bool `json:"benefactor"`
 		Partner           bool `json:"partner"`
 		AssociationMember bool `json:"associationMember"`
-		Company          bool `json:"company"`
+		Company           bool `json:"company"`
 		Volunteer         bool `json:"volunteer"`
 	} `json:"roles"`
 	Benefactor struct {
@@ -53,9 +49,9 @@ type SupportData struct {
 		IsMember bool `json:"isMember"`
 	} `json:"associationMember"`
 	Company struct {
-		Sponsor      bool   `json:"sponsor"`
-		Volunteer    bool   `json:"volunteer"`
-		Other        bool   `json:"other"`
-		OtherText    string `json:"otherText"`
+		Sponsor   bool   `json:"sponsor"`
+		Volunteer bool   `json:"volunteer"`
+		Other     bool   `json:"other"`
+		OtherText string `json:"otherText"`
 	} `json:"company"`
 }
