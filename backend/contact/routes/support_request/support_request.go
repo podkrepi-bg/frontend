@@ -70,7 +70,7 @@ func NewSupportRequest(db *database.Database) fiber.Handler {
 			panic(err)
 		}
 
-		err = db.Debug().Create(&supportRequest).Error
+		err = db.Create(&supportRequest).Error
 		if err != nil {
 			panic(err)
 		}
