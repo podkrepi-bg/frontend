@@ -5,6 +5,7 @@ import (
 
 	"github.com/asaskevich/govalidator"
 	"github.com/daritelska-platforma/v2/database"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
 	_ "gorm.io/driver/postgres"
@@ -20,62 +21,10 @@ func (SupportRequest) TableName() string {
 	return "app.support_requests"
 }
 
-type Person struct {
-	database.JSONB `json:"-"`
-	Email          string `json:"email" valid:"required,email"`
-	Name           string `json:"name" valid:"required,minstringlength(2)~field-too-short,maxstringlength(50)~field-too-long"`
-	Phone          string `json:"phone" valid:"required,phone"`
-	Address        string `json:"address"`
-	Terms          bool   `json:"terms"`
-	Newsletter     bool   `json:"newsletter"`
-}
-
-type SupportData struct {
-	database.JSONB `json:"-"`
-	Roles          struct {
-		Benefactor        bool `json:"benefactor"`
-		Partner           bool `json:"partner"`
-		AssociationMember bool `json:"associationMember"`
-		Company          bool `json:"company"`
-		Volunteer         bool `json:"volunteer"`
-	} `json:"roles"`
-	Benefactor struct {
-		CampaignBenefactor bool `json:"campaignBenefactor"`
-		PlatformBenefactor bool `json:"platformBenefactor"`
-	} `json:"benefactor"`
-	Partner struct {
-		Npo       bool   `json:"npo"`
-		Bussiness bool   `json:"bussiness"`
-		Other     bool   `json:"other"`
-		OtherText string `json:"otherText"`
-	} `json:"partner"`
-	Volunteer struct {
-		Backend             bool `json:"backend"`
-		Frontend            bool `json:"frontend"`
-		Marketing           bool `json:"marketing"`
-		Designer            bool `json:"designer"`
-		ProjectManager      bool `json:"projectManager"`
-		DevOps              bool `json:"devOps"`
-		Security            bool `json:"security"`
-		FinancesAndAccounts bool `json:"financesAndAccounts"`
-		Lawyer              bool `json:"lawyer"`
-		Qa                  bool `json:"qa"`
-	} `json:"volunteer"`
-	AssociationMember struct {
-		IsMember bool `json:"isMember"`
-	} `json:"associationMember"`
-	Company struct {
-		Sponsor      bool   `json:"sponsor"`
-		Volunteer    bool   `json:"volunteer"`
-		Other        bool   `json:"other"`
-		OtherText    string `json:"otherText"`
-	} `json:"company"`
-}
-
 type SupportRequest struct {
 	database.PrimaryKeyUUID
-	Person      Person      `json:"person" sql:"type:jsonb"`
-	SupportData SupportData `json:"support_data" sql:"type:jsonb"`
+	Person      Person  `json:"person" gorm:"type:jsonb;"`
+	SupportData SupportData `json:"support_data" gorm:"type:jsonb;"`
 	database.TimeFields
 }
 
@@ -121,7 +70,7 @@ func NewSupportRequest(db *database.Database) fiber.Handler {
 			panic(err)
 		}
 
-		err = db.Create(&supportRequest).Error
+		err = db.Debug().Create(&supportRequest).Error
 		if err != nil {
 			panic(err)
 		}
