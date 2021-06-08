@@ -2,7 +2,7 @@ package database_test
 
 import (
 	"fmt"
-	"github.com/daritelska-platforma/v2/database"
+	"github.com/daritelska-platforma/v2/routes/support_request"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -59,10 +59,10 @@ const payload = `{
 	}
 }`
 
-func TestJSONB_Scan(t *testing.T) {
+func TestPerson_Scan(t *testing.T) {
 	t.Run("should unmarshal payload successfully", func(t *testing.T) {
 		// given
-		jsonb := &database.JSONB{}
+		jsonb := &Person{}
 
 		// when
 		err := jsonb.Scan(payload)

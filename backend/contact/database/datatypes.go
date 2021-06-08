@@ -1,28 +1,28 @@
 package database
 
 import (
-	"database/sql/driver"
-	"encoding/json"
-  "fmt"
+// 	"database/sql/driver"
+// 	"encoding/json"
   "time"
 
 	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
-
-type JSONB map[string]interface{}
-
-func (j JSONB) Value() (driver.Value, error) {
-	valueString, err := json.Marshal(j)
-	return string(valueString), err
-}
-
-func (j *JSONB) Scan(value interface{}) error {
-	if err := json.Unmarshal([]byte(fmt.Sprintf("%v", value)), &j); err != nil {
-		return err
-	}
-	return nil
-}
+//
+// type JSONB map[string]interface{}
+//
+// func (j JSONB) Value() (driver.Value, error) {
+// 	valueString, err := json.Marshal(j)
+// 	return valueString, err
+// }
+//
+// func (j *JSONB) Scan(value interface{}) error {
+// 	if err := json.Unmarshal(value.([]byte), &j); err != nil {
+// 		return err
+// 	}
+//
+// 	return nil
+// }
 
 type PrimaryKeyUUID struct {
 	ID uuid.UUID `json:"id" gorm:"primaryKey;type:uuid;default:gen_random_uuid()"`
