@@ -23,6 +23,8 @@ type Person struct {
 	Name           string `json:"name" valid:"required,minstringlength(2)~field-too-short,maxstringlength(50)~field-too-long"`
 	Phone          string `json:"phone" valid:"required,phone"`
 	Address        string `json:"address"`
+	Comment        string `json:"comment"`
+	Gdpr           bool   `json:"gdpr"`
 	Terms          bool   `json:"terms"`
 	Newsletter     bool   `json:"newsletter"`
 }
