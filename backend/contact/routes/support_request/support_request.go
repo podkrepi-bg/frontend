@@ -23,8 +23,8 @@ func (SupportRequest) TableName() string {
 
 type SupportRequest struct {
 	database.PrimaryKeyUUID
-	Person      Person  `json:"person" gorm:"type:jsonb;"`
-	SupportData SupportData `json:"support_data" gorm:"type:jsonb;"`
+	Person      Person      `json:"person" gorm:"type:jsonb"`
+	SupportData SupportData `json:"support_data" gorm:"type:jsonb"`
 	database.TimeFields
 }
 
