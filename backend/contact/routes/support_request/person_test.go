@@ -1,10 +1,12 @@
-package database_test
+package support_request_test
 
 import (
 	"fmt"
-	"github.com/daritelska-platforma/v2/routes/support_request"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	//. "github.com/daritelska-platforma/v2/contact/routes/support_request"
+
+	"github.com/stretchr/testify/assert"
 )
 
 const payload = `{
@@ -19,7 +21,7 @@ const payload = `{
 	},
 	"support_data": {
 		"roles": {
-			"benefactor": false,
+			"benefactor": true,
 			"partner": false,
 			"associationMember": true,
 			"company": false,
@@ -72,10 +74,10 @@ func TestPerson_Scan(t *testing.T) {
 	})
 }
 
-func TestJSONB_Value(t *testing.T) {
+func TestPerson_Value(t *testing.T) {
 	t.Run("should marshall successfully", func(t *testing.T) {
 		// given
-		jsonb := &database.JSONB{}
+		jsonb := &Person{}
 		_ = jsonb.Scan(payload)
 
 		// when
