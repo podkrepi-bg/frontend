@@ -217,6 +217,18 @@
         "test",
         "bug"
       ]
+    },
+    {
+      "login": "tanyogeorgiev",
+      "name": "Tanyo Georgiev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17822617?v=4",
+      "profile": "https://github.com/tanyogeorgiev",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "platform"
+      ]
     }
   ],
   "contributorsPerLine": 7,
