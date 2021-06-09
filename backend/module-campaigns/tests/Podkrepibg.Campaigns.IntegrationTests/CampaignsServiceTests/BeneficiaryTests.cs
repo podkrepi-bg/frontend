@@ -16,7 +16,8 @@ namespace Podkrepibg.Campaigns.IntegrationTests.CampaignsServiceTests
 
             var createBeneficiaryRequest = new CreateBeneficiaryRequest
             {
-                Name = _faker.Name.FullName(),
+                FirstName = _faker.Name.FirstName(),
+                LastName = _faker.Name.LastName(),
                 Type = Nomenclatures.BeneficiaryType.Individual,
                 CountryIsoCode = Nomenclatures.ISO2CountryCode.Bg,
                 City = _faker.Address.City(),
@@ -35,7 +36,8 @@ namespace Podkrepibg.Campaigns.IntegrationTests.CampaignsServiceTests
             createBeneficiaryResponse.Should().NotBeNull();
 
             var beneficiaryFromDb = await _appDbContext.Beneficiaries.FindAsync(Guid.Parse(createBeneficiaryResponse.Id));
-            beneficiaryFromDb.Name.Should().Be(createBeneficiaryRequest.Name);
+            beneficiaryFromDb.FirstName.Should().Be(createBeneficiaryRequest.FirstName);
+            beneficiaryFromDb.LastName.Should().Be(createBeneficiaryRequest.LastName);
             beneficiaryFromDb.Type.Should().Be(createBeneficiaryRequest.Type);
             beneficiaryFromDb.ISO2CountryCode.Should().Be(createBeneficiaryRequest.CountryIsoCode);
             beneficiaryFromDb.City.Should().Be(createBeneficiaryRequest.City);

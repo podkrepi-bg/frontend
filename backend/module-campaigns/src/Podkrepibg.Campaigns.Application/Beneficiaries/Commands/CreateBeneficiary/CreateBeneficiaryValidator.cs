@@ -6,7 +6,10 @@ namespace Podkrepibg.Campaigns.Application.Beneficiaries.Commands.CreateBenefici
     {
         public CreateBeneficiaryValidator()
         {
-            RuleFor(c => c.Request.Name)
+            RuleFor(c => c.Request.FirstName)
+                .NotEmpty();
+
+            RuleFor(c => c.Request.LastName)
                 .NotEmpty();
 
             RuleFor(c => c.Request.Type)

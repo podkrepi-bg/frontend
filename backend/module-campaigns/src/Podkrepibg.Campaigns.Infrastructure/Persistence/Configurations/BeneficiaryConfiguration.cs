@@ -17,7 +17,12 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
               .HasDefaultValueSql("gen_random_uuid()");
 
             builder
-              .Property(c => c.Name)
+              .Property(c => c.FirstName)
+              .HasMaxLength(100)
+              .IsRequired();
+
+            builder
+              .Property(c => c.LastName)
               .HasMaxLength(100)
               .IsRequired();
 

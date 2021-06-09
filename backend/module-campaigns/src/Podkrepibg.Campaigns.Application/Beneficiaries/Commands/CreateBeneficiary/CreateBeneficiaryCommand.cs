@@ -23,7 +23,8 @@ namespace Podkrepibg.Campaigns.Application.Beneficiaries.Commands.CreateBenefici
             var beneficiaryRequest = request.Request;
             var beneficiary = new BeneficiaryEntity
             {
-                Name = beneficiaryRequest.Name,
+                FirstName = beneficiaryRequest.FirstName,
+                LastName = beneficiaryRequest.LastName,
                 Type = (BeneficiaryType)beneficiaryRequest.Type,
                 ISO2CountryCode = (ISO2CountryCode)beneficiaryRequest.CountryIsoCode,
                 City = beneficiaryRequest.City,
