@@ -35,8 +35,8 @@ message CreateCampaignRequest {
 	string initiator_id = 1;
 	string operator_id = 2;
 	string beneficiary_id = 3;
-  string title = 4;
-  string campaign_type_id = 5;
+	string title = 4;
+	string campaign_type_id = 5;
 }
 
 message CreateCampaignResponse {
@@ -59,23 +59,23 @@ message FilterCampaignsRequest {
 
 message CampaignsResponse {
 
-  repeated Campaign campaigns = 1;
+	repeated Campaign campaigns = 1;
 }
 
 message GetCampaignDetailsRequest {
 
-  string id = 1;
+	string id = 1;
 }
 
 message CreateCampaignTypeRequest {
 
-  string name = 1;
-  string description = 2;
+	string name = 1;
+	string description = 2;
 }
 
 message CreateCampaignTypeResponse {
 
-  string id = 1;
+	string id = 1;
 }
 
 message CampaignTypesResponse {
@@ -88,10 +88,10 @@ message CreateBeneficiaryRequest {
 	string name = 1;
 	common.nomenclatures.BeneficiaryType type = 2;
 	common.nomenclatures.ISO2CountryCode country_iso_code = 3;
-  string city = 4;
-  string email = 5;
-  string phone = 6;
-  string website = 7;
+	string city = 4;
+	string email = 5;
+	string phone = 6;
+	string website = 7;
 }
 
 message CreateBeneficiaryResponse {
@@ -172,12 +172,12 @@ message Donation {
 
 message Beneficiary {
 
-  string id = 1;
-  string name = 2;
+	string id = 1;
+	string name = 2;
 	common.nomenclatures.BeneficiaryType type = 3;
 	common.nomenclatures.ISO2CountryCode country_iso_code = 4;
-  string city = 5;
-  string email = 6;
-  string phone = 7;
-  string website = 8;
+	string city = 5;
+	string email = 6;
+	string phone = 7;
+	string website = 8;
 }
