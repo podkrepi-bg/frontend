@@ -85,13 +85,14 @@ message CampaignTypesResponse {
 
 message CreateBeneficiaryRequest {
 
-	string name = 1;
-	common.nomenclatures.BeneficiaryType type = 2;
-	common.nomenclatures.ISO2CountryCode country_iso_code = 3;
-	string city = 4;
-	string email = 5;
-	string phone = 6;
-	string website = 7;
+	string firstName = 1;
+  string lastName = 2;
+	common.nomenclatures.BeneficiaryType type = 3;
+	common.nomenclatures.ISO2CountryCode country_iso_code = 4;
+	string city = 5;
+	string email = 6;
+	string phone = 7;
+	string website = 8;
 }
 
 message CreateBeneficiaryResponse {
@@ -173,11 +174,12 @@ message Donation {
 message Beneficiary {
 
 	string id = 1;
-	string name = 2;
-	common.nomenclatures.BeneficiaryType type = 3;
-	common.nomenclatures.ISO2CountryCode country_iso_code = 4;
-	string city = 5;
-	string email = 6;
-	string phone = 7;
-	string website = 8;
+  string firstName = 2;
+	string lastName = 3;
+	common.nomenclatures.BeneficiaryType type = 4;
+	common.nomenclatures.ISO2CountryCode country_iso_code = 5;
+	string city = 6;
+	string email = 7;
+	string phone = 8;
+	string website = 9;
 }
