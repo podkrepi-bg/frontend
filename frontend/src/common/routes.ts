@@ -18,7 +18,7 @@ export const socialUrls = {
   twitter: '/',
   linkedin: 'https://www.linkedin.com/company/podkrepibg',
   youtube: 'https://www.youtube.com/channel/UCt5pYR0DkOCfjlY17awY8pA',
-  instagram: '/',
+  instagram: 'https://www.instagram.com/podkrepi.bg/',
   discord: 'https://discord.com/invite/nZAeCb9YzP',
 }
 
