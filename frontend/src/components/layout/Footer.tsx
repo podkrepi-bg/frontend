@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { Grid, Container, createStyles, makeStyles, lighten } from '@material-ui/core'
-import { Facebook, LinkedIn, YouTube } from '@material-ui/icons'
+import { Facebook, Instagram, LinkedIn, YouTube } from '@material-ui/icons'
 
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 import ExternalLink from 'components/common/ExternalLink'
@@ -91,6 +91,9 @@ export default function Footer() {
             </ExternalLink>
             <ExternalLink href={socialUrls.youtube}>
               <YouTube className={classes.socialLink} />
+            </ExternalLink>
+            <ExternalLink href={socialUrls.instagram}>
+              <Instagram className={classes.socialLink} />
             </ExternalLink>
           </div>
           <span className={classes.copyrights}>{t('footerCopyrights')}</span>
