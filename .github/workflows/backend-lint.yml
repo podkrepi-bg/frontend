@@ -14,23 +14,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Lint graphql-gateway
-        uses: golangci/golangci-lint-action@v2
-        with:
-          working-directory: backend/graphql-gateway
-          version: v1.32
-          args: --timeout=3m0s
-
-      - name: Lint module-accounts
-        uses: golangci/golangci-lint-action@v2
-        with:
-          working-directory: backend/module-accounts
-          version: v1.32
-          args: --timeout=3m0s
-
       - name: Lint contact
         uses: golangci/golangci-lint-action@v2
         with:
-          working-directory: backend/contact
+          working-directory: ./backend/contact
           version: v1.32
           args: --timeout=3m0s
