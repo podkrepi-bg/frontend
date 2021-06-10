@@ -1,6 +1,6 @@
 import { FormikHelpers, FormikProps } from 'formik'
 import { useTranslation } from 'next-i18next'
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core/styles'
 import { Stepper, Step, StepLabel, StepConnector, Hidden, Grid } from '@material-ui/core'
 
@@ -39,11 +39,6 @@ const ColorlibConnector = withStyles({
     borderRadius: 1,
   },
 })(StepConnector)
-
-const StyledStepLabel = withStyles({
-  label: { cursor: 'pointer' },
-  iconContainer: { cursor: 'pointer' },
-})(StepLabel)
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -157,20 +152,10 @@ export default function SupportForm() {
   const formRef = useRef<FormikProps<SupportFormData>>(null)
   const form = formRef?.current
   const [loading, setLoading] = useState(false)
-  const [maxStep, setMaxStep] = useState<Steps>(Steps.ROLES)
   const [activeStep, setActiveStep] = useState<Steps>(Steps.ROLES)
   const [failedStep, setFailedStep] = useState<Steps>(Steps.NONE)
   const [isNewsletterDialogOpen, setNewsletterDialogOpen] = useState<boolean>(false)
   const [isNewsletterDialogOpened, setNewsletterDialogOpened] = useState<boolean>(false)
-
-  useEffect(() => {
-    setMaxStep((prev) => {
-      if (activeStep > prev) {
-        return activeStep
-      }
-      return prev
-    })
-  }, [activeStep])
 
   const handleNewsletterDialogCancel = () => {
     setNewsletterDialogOpened(true)
@@ -221,7 +206,7 @@ export default function SupportForm() {
           },
         })
         setLoading(false)
-        console.log(response)
+
         if (response.status >= 299) {
           const json: ApiErrors = await response.json()
           if ('validation' in json) {
@@ -306,15 +291,6 @@ export default function SupportForm() {
     return activeStep === steps.length - 1
   }
 
-  const goToStep = (step: number) => {
-    if (isThankYouStep(activeStep, steps)) {
-      return undefined
-    }
-    if (step <= maxStep) {
-      return () => setActiveStep(step)
-    }
-  }
-
   return (
     <GenericForm<SupportFormData>
       onSubmit={handleSubmit}
@@ -329,12 +305,9 @@ export default function SupportForm() {
           connector={<ColorlibConnector />}>
           {steps.map((step, index) => (
             <Step key={index}>
-              <StyledStepLabel
-                onClick={goToStep(index)}
-                error={isStepFailed(index)}
-                StepIconComponent={StepIcon}>
+              <StepLabel error={isStepFailed(index)} StepIconComponent={StepIcon}>
                 {t(step.label)}
-              </StyledStepLabel>
+              </StepLabel>
             </Step>
           ))}
         </Stepper>
