@@ -15,7 +15,6 @@ const useStepIconStyles = makeStyles({
     backgroundColor: '#ccc',
     borderRadius: '50%',
     color: '#fff',
-    cursor: 'pointer',
     display: 'flex',
     height: 50,
     justifyContent: 'center',
