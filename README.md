@@ -13,7 +13,7 @@
 ![](https://img.shields.io/github/issues/daritelska-platforma/frontend?path=frontend)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-19-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-20-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## What's in the box
@@ -99,6 +99,7 @@ Thanks goes to these wonderful people:
     <td align="center"><a href="https://github.com/marchev"><img src="https://avatars.githubusercontent.com/u/2691408?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Martin Marchev</b></sub></a><br /><a href="https://github.com/daritelska-platforma/frontend/commits?author=marchev" title="Code">💻</a> <a href="https://github.com/daritelska-platforma/frontend/commits?author=marchev" title="Documentation">📖</a></td>
     <td align="center"><a href="https://atanas-alexandrov.de"><img src="https://avatars.githubusercontent.com/u/56699232?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Atanas Alexandrov</b></sub></a><br /><a href="https://github.com/daritelska-platforma/frontend/commits?author=cupakob" title="Code">💻</a> <a href="https://github.com/daritelska-platforma/frontend/commits?author=cupakob" title="Documentation">📖</a> <a href="https://github.com/daritelska-platforma/frontend/commits?author=cupakob" title="Tests">⚠️</a> <a href="https://github.com/daritelska-platforma/frontend/issues?q=author%3Acupakob" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/tanyogeorgiev"><img src="https://avatars.githubusercontent.com/u/17822617?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tanyo Georgiev</b></sub></a><br /><a href="https://github.com/daritelska-platforma/frontend/commits?author=tanyogeorgiev" title="Code">💻</a> <a href="https://github.com/daritelska-platforma/frontend/commits?author=tanyogeorgiev" title="Documentation">📖</a> <a href="#tool-tanyogeorgiev" title="Tools">🔧</a> <a href="#platform-tanyogeorgiev" title="Packaging/porting to new platform">📦</a></td>
+    <td align="center"><a href="https://github.com/stanimirdim92"><img src="https://avatars.githubusercontent.com/u/42135030?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Stanimir Dimitrov</b></sub></a><br /><a href="https://github.com/daritelska-platforma/frontend/commits?author=stanimirdim92" title="Code">💻</a> <a href="https://github.com/daritelska-platforma/frontend/commits?author=stanimirdim92" title="Documentation">📖</a> <a href="#tool-stanimirdim92" title="Tools">🔧</a> <a href="#platform-stanimirdim92" title="Packaging/porting to new platform">📦</a> <a href="https://github.com/daritelska-platforma/frontend/commits?author=stanimirdim92" title="Tests">⚠️</a> <a href="https://github.com/daritelska-platforma/frontend/pulls?q=is%3Apr+reviewed-by%3Astanimirdim92" title="Reviewed Pull Requests">👀</a></td>
   </tr>
 </table>
 
