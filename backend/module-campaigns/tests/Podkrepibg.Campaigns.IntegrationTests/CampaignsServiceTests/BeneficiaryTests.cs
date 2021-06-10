@@ -19,6 +19,7 @@ namespace Podkrepibg.Campaigns.IntegrationTests.CampaignsServiceTests
                 FirstName = _faker.Name.FirstName(),
                 LastName = _faker.Name.LastName(),
                 Type = Nomenclatures.BeneficiaryType.Individual,
+                OrganizerId = Guid.NewGuid().ToString(),
                 CountryIsoCode = Nomenclatures.ISO2CountryCode.Bg,
                 City = _faker.Address.City(),
                 Email = _faker.Internet.Email(),
@@ -39,6 +40,7 @@ namespace Podkrepibg.Campaigns.IntegrationTests.CampaignsServiceTests
             beneficiaryFromDb.FirstName.Should().Be(createBeneficiaryRequest.FirstName);
             beneficiaryFromDb.LastName.Should().Be(createBeneficiaryRequest.LastName);
             beneficiaryFromDb.Type.Should().Be(createBeneficiaryRequest.Type);
+            beneficiaryFromDb.OrganizerId.ToString().Should().Be(createBeneficiaryRequest.OrganizerId);
             beneficiaryFromDb.ISO2CountryCode.Should().Be(createBeneficiaryRequest.CountryIsoCode);
             beneficiaryFromDb.City.Should().Be(createBeneficiaryRequest.City);
         }

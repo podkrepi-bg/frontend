@@ -1,5 +1,6 @@
 namespace Podkrepibg.Campaigns.Application.Beneficiaries.Commands.CreateBeneficiary
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
@@ -26,6 +27,7 @@ namespace Podkrepibg.Campaigns.Application.Beneficiaries.Commands.CreateBenefici
                 FirstName = beneficiaryRequest.FirstName,
                 LastName = beneficiaryRequest.LastName,
                 Type = (BeneficiaryType)beneficiaryRequest.Type,
+                OrganizerId = Guid.Parse(beneficiaryRequest.OrganizerId),
                 ISO2CountryCode = (ISO2CountryCode)beneficiaryRequest.CountryIsoCode,
                 City = beneficiaryRequest.City,
                 Email = beneficiaryRequest.Email,

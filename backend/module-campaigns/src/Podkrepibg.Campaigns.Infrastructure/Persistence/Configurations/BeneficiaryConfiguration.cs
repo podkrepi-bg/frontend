@@ -9,48 +9,52 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Beneficiary> builder)
         {
             builder
-              .HasKey(c => c.Id);
+              .HasKey(b => b.Id);
 
             builder
-              .Property(c => c.Id)
+              .Property(b => b.Id)
               .IsRequired()
               .HasDefaultValueSql("gen_random_uuid()");
 
             builder
-              .Property(c => c.FirstName)
+              .Property(b => b.FirstName)
               .HasMaxLength(100)
               .IsRequired();
 
             builder
-              .Property(c => c.LastName)
+              .Property(b => b.LastName)
               .HasMaxLength(100)
               .IsRequired();
 
             builder
-              .Property(c => c.Type)
+              .Property(b => b.Type)
               .HasConversion<int>()
               .IsRequired();
 
             builder
-              .Property(c => c.ISO2CountryCode)
+                .Property(b => b.OrganizerId)
+                .IsRequired();
+
+            builder
+              .Property(b => b.ISO2CountryCode)
               .HasConversion<int>()
               .IsRequired();
 
             builder
-              .Property(c => c.City)
+              .Property(b => b.City)
               .HasMaxLength(50)
               .IsRequired();
 
             builder
-              .Property(c => c.Email)
+              .Property(b => b.Email)
               .HasMaxLength(100);
 
             builder
-              .Property(c => c.Phone)
+              .Property(b => b.Phone)
               .HasMaxLength(50);
 
             builder
-              .Property(c => c.Website)
+              .Property(b => b.Website)
               .HasMaxLength(500);
         }
     }

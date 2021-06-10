@@ -115,6 +115,7 @@ namespace Podkrepibg.Campaigns.IntegrationTests.CampaignsServiceTests
                 FirstName = _faker.Name.FirstName(),
                 LastName = _faker.Name.LastName(),
                 Type = BeneficiaryType.Individual,
+                OrganizerId = Guid.NewGuid(),
                 ISO2CountryCode = ISO2CountryCode.BG,
                 City = _faker.Random.Utf16String(1, 50, true)
             };

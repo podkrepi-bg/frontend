@@ -14,6 +14,8 @@ namespace Podkrepibg.Campaigns.Domain.Entities
 
         public BeneficiaryType Type { get; set; }
 
+        public Guid OrganizerId { get; set; }
+
         public ISO2CountryCode ISO2CountryCode { get; set; }
 
         public string City { get; set; }
