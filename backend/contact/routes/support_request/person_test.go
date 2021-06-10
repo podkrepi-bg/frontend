@@ -13,8 +13,8 @@ const personPayload = `{
 	"email": "test@example.com",
 	"name": "John Doe",
 	"phone": "+35983333333333",
-	"terms": true,
 	"gdpr": true,
+	"terms": true,
 	"newsletter": true
 }`
 
