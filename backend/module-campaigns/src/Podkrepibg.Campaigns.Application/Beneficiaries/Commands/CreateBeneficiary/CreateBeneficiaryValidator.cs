@@ -1,25 +1,30 @@
 namespace Podkrepibg.Campaigns.Application.Beneficiaries.Commands.CreateBeneficiary
 {
+    using System;
     using FluentValidation;
 
     public class CreateBeneficiaryValidator : AbstractValidator<CreateBeneficiaryCommand>
     {
         public CreateBeneficiaryValidator()
         {
-            RuleFor(c => c.Request.FirstName)
+            RuleFor(b => b.Request.FirstName)
                 .NotEmpty();
 
-            RuleFor(c => c.Request.LastName)
+            RuleFor(b => b.Request.LastName)
                 .NotEmpty();
 
-            RuleFor(c => c.Request.Type)
+            RuleFor(b => b.Request.Type)
                 .IsInEnum()
                 .WithMessage("not a valid beneficiary type provided");
 
-            RuleFor(c => c.Request.CountryIsoCode)
+            RuleFor(b => b.Request.OrganizerId)
+                .Must(id => Guid.TryParse(id, out var _))
+                .WithMessage("not a valid guid provided");
+
+            RuleFor(b => b.Request.CountryIsoCode)
                 .NotEmpty();
 
-            RuleFor(c => c.Request.City)
+            RuleFor(b => b.Request.City)
                 .NotEmpty();
         }
     }
