@@ -1,7 +1,7 @@
 import { Grid, Typography } from '@material-ui/core'
 import { useTranslation } from 'next-i18next'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
-import classNames from 'classnames'
+import Image from 'next/image'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -12,22 +12,16 @@ const useStyles = makeStyles((theme) =>
       width: '100%',
       minHeight: theme.spacing(45),
       padding: theme.spacing(8, 9),
-      backgroundSize: 'cover',
       [theme.breakpoints.up('lg')]: {
         padding: theme.spacing(8, 14),
       },
       [theme.breakpoints.up(800)]: {
         width: 'calc(100%/3)',
       },
+      position: 'relative',
     },
-    mission: {
-      backgroundImage: 'url(/img/mission-background.jpg)',
-    },
-    vision: {
-      backgroundImage: 'url(/img/vision-background.jpg)',
-    },
-    goals: {
-      backgroundImage: 'url(/img/goals-background.jpg)',
+    image: {
+      zIndex: -1,
     },
     title: {
       color: theme.palette.common.white,
@@ -42,19 +36,43 @@ export default function MissionVisionGoalsSection() {
 
   return (
     <Grid container justify="center" component="section" className={classes.container}>
-      <Grid item className={classNames(classes.mission, classes.wrapper)}>
+      <Grid item className={classes.wrapper}>
+        <Image
+          src="/img/mission-background.jpg"
+          alt="Podkrepi.bg mission"
+          layout="fill"
+          objectFit="cover"
+          objectPosition="top"
+          className={classes.image}
+        />
         <Typography variant="h5" component="h2" className={classes.title}>
           {t('index:mission-vision-goals-section.mission-title')}
         </Typography>
         <Typography>{t('index:mission-vision-goals-section.mission-text')}</Typography>
       </Grid>
-      <Grid item className={classNames(classes.vision, classes.wrapper)}>
+      <Grid item className={classes.wrapper}>
+        <Image
+          src="/img/vision-background.jpg"
+          alt="Podkrepi.bg vision"
+          layout="fill"
+          objectFit="cover"
+          objectPosition="top"
+          className={classes.image}
+        />
         <Typography variant="h5" component="h2" className={classes.title}>
           {t('index:mission-vision-goals-section.vision-title')}
         </Typography>
         <Typography>{t('index:mission-vision-goals-section.vision-text')}</Typography>
       </Grid>
-      <Grid item className={classNames(classes.goals, classes.wrapper)}>
+      <Grid item className={classes.wrapper}>
+        <Image
+          src="/img/goals-background.jpg"
+          alt="Podkrepi.bg goals"
+          layout="fill"
+          objectFit="cover"
+          objectPosition="top"
+          className={classes.image}
+        />
         <Typography variant="h5" component="h2" className={classes.title}>
           {t('index:mission-vision-goals-section.goals-title')}
         </Typography>
