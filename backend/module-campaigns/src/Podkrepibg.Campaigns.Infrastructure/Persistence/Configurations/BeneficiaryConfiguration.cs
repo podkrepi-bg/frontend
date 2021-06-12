@@ -46,6 +46,10 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
               .IsRequired();
 
             builder
+              .HasIndex(u => u.Email)
+              .IsUnique();
+
+            builder
               .Property(b => b.Email)
               .HasMaxLength(100);
 
