@@ -1,17 +1,19 @@
 BEGIN TRANSACTION;
 
 CREATE TABLE IF NOT EXISTS campaign.beneficiaries (
-    id uuid NOT NULL DEFAULT (gen_random_uuid()),
-    first_name character varying(100) NOT NULL,
-    last_name character varying(100) NOT NULL,
-    type integer NOT NULL,
-    iso2country_code integer NOT NULL,
-    city character varying(50) NOT NULL,
-    email character varying(100) NULL,
-    phone character varying(50) NULL,
-    website character varying(500) NULL,
+    id					uuid NOT NULL DEFAULT (gen_random_uuid()),
+    first_name			character varying(100) NOT NULL,
+    last_name			character varying(100) NOT NULL,
+    type				integer NOT NULL,
+	organizer_id		uuid NOT NULL,
+    iso2country_code	integer NOT NULL,
+    city				character varying(50) NOT NULL,
+    email				character varying(100) NULL,
+    phone				character varying(50) NULL,
+    website				character varying(500) NULL,
 	
-    CONSTRAINT "PK_Beneficiaries" PRIMARY KEY (id)
+    CONSTRAINT "PK_Beneficiaries" PRIMARY KEY (id),
+    CONSTRAINT "UC_Email" UNIQUE (email)
 );
 
 ALTER TABLE campaign.campaigns
