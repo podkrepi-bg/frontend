@@ -27,7 +27,7 @@ git clone git@github.com:daritelska-platforma/frontend.git
 cd frontend
 
 # Symlink dev environment
-ln -s .env.example .env
+ln -s .env.dev .env
 
 # Install dependencies
 yarn
