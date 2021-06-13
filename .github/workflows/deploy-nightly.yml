@@ -120,7 +120,7 @@ jobs:
         id: dotenv
         uses: falti/dotenv-action@v0.2.5
         with:
-          path: .env.dev
+          path: .env.staging
       - name: Start Deployment
         uses: TapTap21/docker-remote-deployment-action@v1.1
         env:
