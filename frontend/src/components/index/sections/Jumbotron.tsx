@@ -1,9 +1,11 @@
 import React, { RefObject } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@material-ui/core'
-import { makeStyles, createStyles, darken } from '@material-ui/core/styles'
+import { makeStyles, createStyles, darken, useTheme } from '@material-ui/core/styles'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import { Favorite } from '@material-ui/icons'
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Image from "next/image"
 
 import { routes } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
@@ -18,17 +20,14 @@ const useStyles = makeStyles((theme) =>
       marginBottom: theme.spacing(12),
       marginTop: theme.spacing(6),
       textAlign: 'center',
-      backgroundImage: 'url(/img/jumbotron-background-image-desktop.jpg)',
-      backgroundPosition: 'center',
-      backgroundSize: 'cover',
       color: theme.palette.common.white,
-      [theme.breakpoints.down('sm')]: {
-        backgroundImage: 'url(/img/header-image-mobile.jpg)',
-        backgroundSize: 'cover',
-      },
+      position: 'relative',
       [theme.breakpoints.up(1600)]: {
         height: '950px',
       },
+    },
+    image: {
+      zIndex: -1,
     },
     title: {
       color: theme.palette.common.white,
@@ -94,6 +93,11 @@ type JumbotronProps = {
 export default function Jumbotron({ scrollTo }: JumbotronProps) {
   const classes = useStyles()
   const { t } = useTranslation()
+  const theme = useTheme();
+  //Check if the media query is match and breakpoint is up sm device
+  const matches = useMediaQuery(theme.breakpoints.up('sm'));
+  const imgSource = matches ? '/img/jumbotron-background-image-desktop.jpg' :
+                              '/img/header-image-mobile.jpg';
 
   const executeScroll = () => {
     if (scrollTo.current) {
@@ -106,6 +110,13 @@ export default function Jumbotron({ scrollTo }: JumbotronProps) {
 
   return (
     <Grid container direction="column" component="section" className={classes.container}>
+      <Image
+        src={imgSource}
+        alt="Podkrepi.bg jumbotron heading"
+        layout="fill"
+        objectFit="cover"
+        className={classes.image}
+      />
       <Grid item>
         <Typography variant="h1" className={classes.title}>
           {t('index:title')}
