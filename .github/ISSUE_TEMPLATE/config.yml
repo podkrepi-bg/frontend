@@ -1,7 +1,7 @@
 blank_issues_enabled: true
 contact_links:
     - name: Ask Question
-      url: https://github.com/daritelska-platforma/frontend/discussions
+      url: https://github.com/podkrepi-bg/frontend/discussions
       about: Ask technical questions
     - name: Join Discord
       url: https://discord.gg/pwkfzvPBSm

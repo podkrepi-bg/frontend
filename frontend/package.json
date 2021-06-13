@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "0.0.1",
   "license": "MIT",
-  "repository": "https://github.com/orgs/daritelska-platforma",
+  "repository": "https://github.com/orgs/podkrepi-bg",
   "scripts": {
     "dev": "yarn && next -p 3040",
     "build": "next build",

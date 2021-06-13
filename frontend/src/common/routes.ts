@@ -8,7 +8,7 @@ export const baseUrl = APP_URL
 export const defaultOgImage = `${baseUrl}/img/og-image.jpg`
 
 export const staticUrls = {
-  github: 'https://github.com/daritelska-platforma/frontend',
+  github: 'https://github.com/podkrepi-bg/frontend',
   docs: 'https://docs.podkrepi.bg/',
   devDocs: 'https://docs.podkrepi.bg/development',
 }
