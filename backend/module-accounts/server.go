@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/daritelska-platforma/accounts/v2/pb/account"
+	"github.com/podkrepi-bg/accounts/v2/pb/account"
 	"github.com/google/uuid"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"

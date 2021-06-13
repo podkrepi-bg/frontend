@@ -1,4 +1,4 @@
-module github.com/daritelska-platforma/accounts/v2
+module github.com/podkrepi-bg/accounts/v2
 
 go 1.16
 

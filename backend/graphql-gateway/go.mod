@@ -1,4 +1,4 @@
-module github.com/daritelska-platforma/graphql-gateway
+module github.com/podkrepi-bg/graphql-gateway
 
 go 1.16
 

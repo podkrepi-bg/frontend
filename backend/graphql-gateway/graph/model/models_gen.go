@@ -3,7 +3,7 @@
 package model
 
 import (
-	"github.com/daritelska-platforma/graphql-gateway/pb/account"
+	"github.com/podkrepi-bg/graphql-gateway/pb/account"
 )
 
 type Campaign struct {

@@ -1,4 +1,4 @@
-module github.com/daritelska-platforma/v2
+module github.com/podkrepi-bg/v2
 
 go 1.16
 
