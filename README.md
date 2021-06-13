@@ -38,10 +38,10 @@ git clone git@github.com:daritelska-platforma/frontend.git
 cd frontend
 
 # Symlink dev environment
-ln -s .env.example .env
+ln -s .env.dev .env
 
 # Symlink dev environment on Windows
-mklink .env .env.example
+mklink .env .env.dev
 ```
 
 ## Development
