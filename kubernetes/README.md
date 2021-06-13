@@ -63,8 +63,8 @@ skaffold dev --no-prune=false --cache-artifacts=false --no-prune-children=false 
 ## How to configure from ground zero
 
 ```shell
-docker-compose -f ./docker-compose.yml --env-file=.env.example config > docker-compose-resolved.tmp \
+docker-compose -f ./docker-compose.yml --env-file=.env.dev config > docker-compose-resolved.tmp \
   && skaffold init --compose-file docker-compose-resolved.tmp
 ```
 
-It's important not to include `docker-compose.dev.yml` as it generates local mounting volumes that have no effect over kubernetes cluster. By default dev yaml is included in `.env.example` within `COMPOSE_FILE` var.
+It's important not to include `docker-compose.dev.yml` as it generates local mounting volumes that have no effect over kubernetes cluster. By default dev yaml is included in `.env.dev` within `COMPOSE_FILE` var.
