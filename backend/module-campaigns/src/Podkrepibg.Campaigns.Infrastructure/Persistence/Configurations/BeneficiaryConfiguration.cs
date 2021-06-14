@@ -20,12 +20,12 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
 
             builder
               .Property(b => b.FirstName)
-              .HasMaxLength(100)
+              .HasMaxLength(50)
               .IsRequired();
 
             builder
               .Property(b => b.LastName)
-              .HasMaxLength(100)
+              .HasMaxLength(50)
               .IsRequired();
 
             builder
