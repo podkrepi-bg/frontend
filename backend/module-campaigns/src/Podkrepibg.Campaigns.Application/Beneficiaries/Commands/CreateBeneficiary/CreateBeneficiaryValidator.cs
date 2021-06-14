@@ -8,10 +8,12 @@ namespace Podkrepibg.Campaigns.Application.Beneficiaries.Commands.CreateBenefici
         public CreateBeneficiaryValidator()
         {
             RuleFor(b => b.Request.FirstName)
-                .NotEmpty();
+                .NotEmpty()
+                .MaximumLength(50);
 
             RuleFor(b => b.Request.LastName)
-                .NotEmpty();
+                .NotEmpty()
+                .MaximumLength(50);
 
             RuleFor(b => b.Request.Type)
                 .IsInEnum()
@@ -22,13 +24,17 @@ namespace Podkrepibg.Campaigns.Application.Beneficiaries.Commands.CreateBenefici
                 .WithMessage("not a valid guid provided");
 
             RuleFor(b => b.Request.CountryIsoCode)
-                .NotEmpty();
+                .NotEmpty()
+                .IsInEnum()
+                .WithMessage("not a valid countryIso2Code type provided");
 
             RuleFor(b => b.Request.City)
-                .NotEmpty();
+                .NotEmpty()
+                .MaximumLength(50);
 
             RuleFor(b => b.Request.Email)
-                .EmailAddress();
+                .EmailAddress()
+                .MaximumLength(100);
         }
     }
 }

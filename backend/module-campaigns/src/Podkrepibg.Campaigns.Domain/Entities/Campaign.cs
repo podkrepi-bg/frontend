@@ -11,9 +11,9 @@ namespace Podkrepibg.Campaigns.Domain.Entities
 
         public Guid InitiatorId { get; set; }
 
-        public Guid BeneficiaryId { get; set; }
-
         public Guid OperatorId { get; set; }
+
+        public Guid BeneficiaryId { get; set; }
 
         public Guid CampaignTypeId { get; set; }
 
