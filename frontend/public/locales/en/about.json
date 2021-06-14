@@ -5,41 +5,41 @@
   },
   "howEverythingBegin": {
     "title": "How everything started?",
-    "volunteers": "We are a group of volunteers united by the idea of improveing charity in Bulgaria and supporting good causes and the fight for a better life."
+    "volunteers": "We are volunteers from the IT community, lawyers, accountants, marketers, medics, and NGO representatives. We are united by the desire to create an improved fundraising environment in Bulgaria by developing the most transparent platform for donations. The platform will support itself by membership fees and grants and not by charging a percentage of the funds raised for the campaigns that go through it."
   },
   "principlesThatUniteUs": {
     "title": "Our principles",
     "voluntary": {
       "heading": "Voluntary and pro-bono",
-      "content": "We are building a donation platform for the benefit of those in need and the organizations that help them, without seeking financial or other benefits from it, apart from satisfaction with the implemented campaigns and the support of those in need."
+      "content": "We are building a donation platform to benefit those in need and the organizations that help them. We are not seeking financial or other benefits from this initiative, except satisfaction with the implemented campaigns and the support of those in need."
     },
     "proactivity": {
-      "heading": "Proactive approach",
-      "content": "You don't wait to be given a task, you take it directly. This, of course, is true by correcting the structure a bit, so that at the moment it is not very clear what exactly the tasks are. However, more experienced people can easily see exactly what is missing and generate tasks that make sense. Take action, do not wonder."
+      "heading": "PROACTIVE APPROACH",
+      "content": "You should not wait for a task to be given to you; you take it directly! Competent display of free will, appropriate choice and execution of assignments without the need for someone to create and set them."
     },
     "transparency": {
-      "heading": "Transparency",
-      "content": "Donors trust us because we provide transparency through open source, open data / transactions, open solutions. Those in need trust us because we make applying fair, easy and transparent, through clear criteria. Society trusts us because everything is transparent, incl. our work process. We trust each other because there are clear and transparent principles for working between us."
+      "heading": "TRANSPARENCY",
+      "content": "Benefactors trust us because we provide transparency through open source, open data/transactions, open solutions. Those in need trust us because we make the application process fair, accessible and transparent, through clear criteria. Society trusts us because everything is transparent, including our work process. We trust each other because there are clear and transparent work principles established between us."
     },
     "respect": {
-      "heading": "Respect",
-      "content": "We are kind and good to the people around us, we respect them and if we can we help them. Everyone's opinion matters, so we listen and try to understand what the other person is saying."
+      "heading": "RESPECT",
+      "content": "We are kind and good to the people around us; we respect them and if we can we help them. Everyone's opinion matters, so we listen and try to understand what the other person is saying."
     },
     "expertise": {
-      "heading": "Expertise",
+      "heading": "EXPERTISE",
       "content": "When we make choices or make difficult decisions, we base them on the opinion of experts with close experience in the specific topic."
     },
     "privacy": {
-      "heading": "Privacy",
+      "heading": "PRIVACY",
       "content": "We respect and protect the personal data of everyone in need, donating or helping in the process, as if they were our own. We clearly define who has rights to access production data, and the people developing the project will not have access to personal data."
     },
     "awareness": {
-      "heading": "Awareness",
+      "heading": "AWARENESS",
       "content": "We are looking for the best solution and when we donate our work, we do it with the full awareness that not everything we do will come into use. If it so happens that your plan or proposal is not approved, you continue with a smile to the next task. If someone else is doing better in your role, you gladly recommend them to lead it, and you help them as much as you can."
     },
     "sharing": {
-      "heading": "Sharing knowledge",
-      "content": "When a project participant needs help or explanation, you can explain or share a link to the project documentation. People with less experience get involved and absorb knowledge from more experienced ones."
+      "heading": "SHARING KNOWLEDGE",
+      "content": "When a project participant needs help or explanation, you can explain or share a link to the project documentation. People with less experience get involved and absorb knowledge from more experienced team members."
     }
   }
 }
