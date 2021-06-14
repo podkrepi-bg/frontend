@@ -2,9 +2,8 @@ name: Nightly deployment
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - master
+  schedule:
+    - cron: '0 1 * * *'
 jobs:
   deploy-init:
     runs-on: ubuntu-latest
