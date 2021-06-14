@@ -24,7 +24,7 @@ namespace Podkrepibg.Campaigns.Domain.Entities
 
         public string Phone { get; set; }
 
-        public string Website { get; set; }
+        public BeneficiaryAdditionalDetails AdditionalDetails { get; set; }
 
         public virtual ICollection<Campaign> Campaigns { get; set; }
     }
