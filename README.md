@@ -1,16 +1,16 @@
 # Дарителска Платформа Подкрепи.бг
 
-![Lint](https://github.com/daritelska-platforma/frontend/workflows/Lint/badge.svg)
-![Build](https://github.com/daritelska-platforma/frontend/workflows/Build/badge.svg)
-![Build docker image](https://github.com/daritelska-platforma/frontend/workflows/Build%20docker%20image/badge.svg)
+![Lint](https://github.com/podkrepi-bg/frontend/workflows/Lint/badge.svg)
+![Build](https://github.com/podkrepi-bg/frontend/workflows/Build/badge.svg)
+![Build docker image](https://github.com/podkrepi-bg/frontend/workflows/Build%20docker%20image/badge.svg)
 
-[![Nightly deployment](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-nightly.yml/badge.svg)](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-nightly.yml)
-[![Prod deployment](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-prod.yml/badge.svg)](https://github.com/daritelska-platforma/frontend/actions/workflows/deploy-prod.yml)
+[![Nightly deployment](https://github.com/podkrepi-bg/frontend/actions/workflows/deploy-nightly.yml/badge.svg)](https://github.com/podkrepi-bg/frontend/actions/workflows/deploy-nightly.yml)
+[![Prod deployment](https://github.com/podkrepi-bg/frontend/actions/workflows/deploy-prod.yml/badge.svg)](https://github.com/podkrepi-bg/frontend/actions/workflows/deploy-prod.yml)
 
-![Dependencies](https://img.shields.io/david/daritelska-platforma/frontend?path=frontend)
-![Dev Dependencies](https://img.shields.io/david/dev/daritelska-platforma/frontend?path=frontend)
-![](https://img.shields.io/github/license/daritelska-platforma/frontend?path=frontend)
-![](https://img.shields.io/github/issues/daritelska-platforma/frontend?path=frontend)
+![Dependencies](https://img.shields.io/david/podkrepi-bg/frontend?path=frontend)
+![Dev Dependencies](https://img.shields.io/david/dev/podkrepi-bg/frontend?path=frontend)
+![](https://img.shields.io/github/license/podkrepi-bg/frontend?path=frontend)
+![](https://img.shields.io/github/issues/podkrepi-bg/frontend?path=frontend)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-22-orange.svg?style=flat-square)](#contributors-)
@@ -34,18 +34,27 @@
 ## Initial setup
 
 ```shell
-git clone git@github.com:daritelska-platforma/frontend.git
+git clone https://github.com/podkrepi-bg/frontend
 cd frontend
 
 # Symlink dev environment
-ln -s .env.dev .env
+ln -hfs .env.dev .env
 
 # Symlink dev environment on Windows
 mklink .env .env.dev
 ```
 
-## Development
+### NOTE! For existing clones update github remote to podkrepi-bg/frontend
+```
+# View existing remotes
+git remote -v
+# Change the 'origin' remote's URL
+git remote set-url origin https://github.com/podkrepi-bg/frontend
+# Check updated remotes
+git remote -v
+```
 
+## Development
 ```shell
 docker-compose up -d
 ```
@@ -54,20 +63,20 @@ Visit <http://localhost:3040/>
 
 ## Contributors ✨
 
-Please check [contributors guide](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md) for:
+Please check [contributors guide](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md) for:
 
-- [Development setup](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#development)
-- [Linting](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#linting)
-- [Production setup](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#production)
-- [Pull requests guidelines](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#pull-requests)
-- [Branching strategy](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#branching-strategy)
-- [React guidelines](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#react-guidelines)
-  - [Imports](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#imports)
-  - [File structure](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#file-structure)
-  - [Types](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#types)
-  - [Components definition](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#components)
-  - [Styles](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#styles)
-  - [Translations](https://github.com/daritelska-platforma/frontend/blob/master/CONTRIBUTING.md#translations-i18n)
+- [Development setup](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md#development)
+- [Linting](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md#linting)
+- [Production setup](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md#production)
+- [Pull requests guidelines](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md#pull-requests)
+- [Branching strategy](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md#branching-strategy)
+- [React guidelines](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md#react-guidelines)
+  - [Imports](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md#imports)
+  - [File structure](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md#file-structure)
+  - [Types](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md#types)
+  - [Components definition](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md#components)
+  - [Styles](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md#styles)
+  - [Translations](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md#translations-i18n)
 
 Thanks goes to these wonderful people:
 
@@ -112,6 +121,6 @@ Thanks goes to these wonderful people:
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-If you want to be added or removed from this list please follow up on [this issue](https://github.com/daritelska-platforma/frontend/issues/2).
+If you want to be added or removed from this list please follow up on [this issue](https://github.com/podkrepi-bg/frontend/issues/2).
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!

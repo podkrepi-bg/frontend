@@ -7,9 +7,9 @@ import (
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
-	"github.com/daritelska-platforma/graphql-gateway/graph"
-	"github.com/daritelska-platforma/graphql-gateway/graph/generated"
-	"github.com/daritelska-platforma/graphql-gateway/pb/account"
+	"github.com/podkrepi-bg/graphql-gateway/graph"
+	"github.com/podkrepi-bg/graphql-gateway/graph/generated"
+	"github.com/podkrepi-bg/graphql-gateway/pb/account"
 	"github.com/kelseyhightower/envconfig"
 	"google.golang.org/grpc"
 )

@@ -23,7 +23,7 @@ Table of contents:
 ### Setup local dev environment
 
 ```shell
-git clone git@github.com:daritelska-platforma/frontend.git
+git clone https://github.com/podkrepi-bg/frontend
 cd frontend
 
 # Symlink dev environment
@@ -31,6 +31,16 @@ ln -hfs .env.dev .env
 
 # Install dependencies
 yarn
+```
+
+### NOTE! For existing clones update github remote to podkrepi-bg/frontend
+```
+# View existing remotes
+git remote -v
+# Change the 'origin' remote's URL
+git remote set-url origin https://github.com/podkrepi-bg/frontend
+# Check updated remotes
+git remote -v
 ```
 
 ### Start development server
@@ -454,7 +464,7 @@ export default Page
 
 We're integrated with <https://allcontributors.org/> bot
 
-Comment on [this issue](https://github.com/daritelska-platforma/frontend/issues/2), asking @all-contributors bot to add a contributor:
+Comment on [this issue](https://github.com/podkrepi-bg/frontend/issues/2), asking @all-contributors bot to add a contributor:
 
 ```
 @all-contributors please add @<username> for <contributions>
