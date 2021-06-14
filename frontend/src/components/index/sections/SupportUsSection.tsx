@@ -2,6 +2,7 @@ import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@material-ui/core'
 import { Favorite } from '@material-ui/icons'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
+import Image from 'next/image'
 
 import { routes } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
@@ -18,10 +19,7 @@ const useStyles = makeStyles((theme) =>
     supportImage: {
       minHeight: '20rem',
       textAlign: 'center',
-      backgroundSize: 'contain',
-      backgroundRepeat: 'no-repeat',
-      backgroundPosition: 'bottom center',
-      backgroundImage: 'url(/img/support-us-image.png)',
+      position: 'relative',
     },
     supportText: {
       [theme.breakpoints.down('sm')]: {
@@ -74,7 +72,14 @@ export default function SupportUsSection() {
 
   return (
     <Grid container component="section" className={classes.container}>
-      <Grid item xs={12} md={6} className={classes.supportImage}></Grid>
+      <Grid item xs={12} md={6} className={classes.supportImage}>
+        <Image
+          src="/img/support-us-image.png"
+          alt="Podkrepi.bg support us"
+          layout="fill"
+          objectFit="contain"
+        />
+      </Grid>
       <Grid item xs={12} md={6} className={classes.supportText}>
         <Typography variant="h5" component="h2" className={classes.heading}>
           {t('index:support-us-section.heading')}

@@ -257,6 +257,17 @@
         "test",
         "review"
       ]
+    },
+    {
+      "login": "tvalchev",
+      "name": "tvalchev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7523222?v=4",
+      "profile": "https://github.com/tvalchev",
+      "contributions": [
+        "code",
+        "doc",
+        "tool"
+      ]
     }
   ],
   "contributorsPerLine": 7,
