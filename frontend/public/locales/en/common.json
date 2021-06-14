@@ -23,11 +23,11 @@
   "link": "Link",
   "footerLabels": {
     "aboutUs": "About us",
-    "aboutProject": "About the project",
+    "aboutProject": "The project",
     "docs": "Documentation",
     "dev-docs": "Technical Documentation",
-    "contact": "Contact us",
     "support": "Support us",
+    "contact": "Contact",
     "privacyPolicy": "Privacy Policy",
     "termsOfService": "Terms of service"
   },
