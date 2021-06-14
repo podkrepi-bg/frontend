@@ -3,8 +3,8 @@ name: Nightly deployment
 on:
   workflow_dispatch:
   push:
-    tags:
-      - "deploy/nightly/*"
+    branches:
+      - master
 jobs:
   deploy-init:
     runs-on: ubuntu-latest
