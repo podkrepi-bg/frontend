@@ -32,7 +32,7 @@ namespace Podkrepibg.Campaigns.Application.Beneficiaries.Commands.CreateBenefici
                 City = beneficiaryRequest.City,
                 Email = beneficiaryRequest.Email,
                 Phone = beneficiaryRequest.Phone,
-                Website = beneficiaryRequest.Website
+                AdditionalDetails = new BeneficiaryAdditionalDetails(beneficiaryRequest.Website)
             };
 
             var trackedEntity = _dbContext.Beneficiaries.Add(beneficiary);

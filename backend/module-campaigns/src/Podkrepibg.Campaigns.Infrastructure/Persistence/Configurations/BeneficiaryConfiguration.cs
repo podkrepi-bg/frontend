@@ -2,7 +2,9 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using Newtonsoft.Json;
     using Podkrepibg.Campaigns.Domain.Entities;
+    using Podkrepibg.Campaigns.Domain.Types;
 
     public class BeneficiaryConfiguration : IEntityTypeConfiguration<Beneficiary>
     {
@@ -58,8 +60,11 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
               .HasMaxLength(50);
 
             builder
-              .Property(b => b.Website)
-              .HasMaxLength(500);
+                .Property(b => b.AdditionalDetails)
+                .HasColumnType("jsonb")
+                .HasConversion(
+                    a => JsonConvert.SerializeObject(a),
+                    a => JsonConvert.DeserializeObject<BeneficiaryAdditionalDetails>(a));
         }
     }
 }

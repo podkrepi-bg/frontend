@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS campaign.beneficiaries (
     city				character varying(50) NOT NULL,
     email				character varying(100) NULL,
     phone				character varying(50) NULL,
-    website				character varying(500) NULL,
+    additional_details	jsonb NULL,
 	
     CONSTRAINT "PK_Beneficiaries" PRIMARY KEY (id),
     CONSTRAINT "UC_Email" UNIQUE (email)

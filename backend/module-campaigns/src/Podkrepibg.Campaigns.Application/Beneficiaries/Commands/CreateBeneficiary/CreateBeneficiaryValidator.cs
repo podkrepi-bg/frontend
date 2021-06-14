@@ -26,6 +26,9 @@ namespace Podkrepibg.Campaigns.Application.Beneficiaries.Commands.CreateBenefici
 
             RuleFor(b => b.Request.City)
                 .NotEmpty();
+
+            RuleFor(b => b.Request.Email)
+                .EmailAddress();
         }
     }
 }
