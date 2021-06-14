@@ -7,9 +7,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/daritelska-platforma/graphql-gateway/graph/generated"
-	"github.com/daritelska-platforma/graphql-gateway/graph/model"
-	"github.com/daritelska-platforma/graphql-gateway/pb/account"
+	"github.com/podkrepi-bg/graphql-gateway/graph/generated"
+	"github.com/podkrepi-bg/graphql-gateway/graph/model"
+	"github.com/podkrepi-bg/graphql-gateway/pb/account"
 )
 
 func (r *mutationResolver) CreateAccount(ctx context.Context, input account.CreateAccountRequest) (*account.Account, error) {

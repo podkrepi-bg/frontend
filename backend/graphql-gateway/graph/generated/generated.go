@@ -12,8 +12,8 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
-	"github.com/daritelska-platforma/graphql-gateway/graph/model"
-	"github.com/daritelska-platforma/graphql-gateway/pb/account"
+	"github.com/podkrepi-bg/graphql-gateway/graph/model"
+	"github.com/podkrepi-bg/graphql-gateway/pb/account"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
 )

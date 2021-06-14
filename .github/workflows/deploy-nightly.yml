@@ -95,7 +95,7 @@ jobs:
       - name: Push image to GitHub Container Registry
         id: push-image-to-registry
         run: |
-          IMAGE_ID=ghcr.io/daritelska-platforma/frontend/nightly/$IMAGE_NAME
+          IMAGE_ID=ghcr.io/podkrepi-bg/frontend/nightly/$IMAGE_NAME
 
           # Change all uppercase to lowercase
           IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')

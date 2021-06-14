@@ -4,7 +4,7 @@ import (
 	"errors"
 
 	"github.com/asaskevich/govalidator"
-	"github.com/daritelska-platforma/v2/database"
+	"github.com/podkrepi-bg/v2/database"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
 	_ "gorm.io/driver/postgres"
