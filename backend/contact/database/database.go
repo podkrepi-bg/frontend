@@ -36,7 +36,7 @@ func New(config *DatabaseConfig) (*Database, error) {
 		" sslrootcert=" + config.RootCert +
 		" sslcert=" + config.Cert +
 		" sslkey=" + config.Key
-	println(dsn)
+
 	db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	return &Database{db}, err
 }
