@@ -4,6 +4,7 @@ namespace Podkrepibg.Campaigns.Services
     using Google.Protobuf.WellKnownTypes;
     using Grpc.Core;
     using MediatR;
+    using Podkrepibg.Campaigns.Application.Beneficiaries.Commands.CreateBeneficiary;
     using Podkrepibg.Campaigns.Application.Campaigns.Commands.CreateCampaign;
     using Podkrepibg.Campaigns.Application.Campaigns.Queries.GetCampaigns;
     using Podkrepibg.Campaigns.Application.CampaignTypes.Commands.CreateCampaignType;
@@ -45,6 +46,11 @@ namespace Podkrepibg.Campaigns.Services
         public override Task<CampaignTypesResponse> ListCampaignTypes(Empty request, ServerCallContext context)
         {
             return base.ListCampaignTypes(request, context);
+        }
+
+        public override Task<CreateBeneficiaryResponse> CreateBeneficiary(CreateBeneficiaryRequest request, ServerCallContext context)
+        {
+            return _mediator.Send(new CreateBeneficiaryCommand(request));
         }
     }
 }

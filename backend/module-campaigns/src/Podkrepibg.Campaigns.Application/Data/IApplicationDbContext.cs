@@ -13,6 +13,8 @@ namespace Podkrepibg.Campaigns.Application.Data
 
         public DbSet<Campaign> Campaigns { get; }
 
+        public DbSet<Beneficiary> Beneficiaries { get; set; }
+
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }

@@ -6,7 +6,12 @@ namespace Podkrepibg.Campaigns.Application.CampaignTypes.Commands.CreateCampaign
     {
         public CreateCampaignTypeValidator()
         {
-            RuleFor(r => r.Name).NotEmpty();
+            RuleFor(c => c.Name)
+                .NotEmpty()
+                .MaximumLength(50);
+
+            RuleFor(c => c.Description)
+                .MaximumLength(200);
         }
     }
 }

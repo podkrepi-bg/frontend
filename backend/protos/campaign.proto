@@ -25,15 +25,18 @@ service CampaignService {
   rpc CreateCampaignType (CreateCampaignTypeRequest) returns (CreateCampaignTypeResponse);
 
   rpc ListCampaignTypes (google.protobuf.Empty) returns (CampaignTypesResponse);
-}
+
+  // beneficiary
+  rpc CreateBeneficiary (CreateBeneficiaryRequest) returns (CreateBeneficiaryResponse);
+  }
 
 message CreateCampaignRequest {
 
 	string initiator_id = 1;
 	string operator_id = 2;
 	string beneficiary_id = 3;
-  string title = 4;
-  string campaign_type_id = 5;
+	string title = 4;
+	string campaign_type_id = 5;
 }
 
 message CreateCampaignResponse {
@@ -56,28 +59,46 @@ message FilterCampaignsRequest {
 
 message CampaignsResponse {
 
-  repeated Campaign campaigns = 1;
+	repeated Campaign campaigns = 1;
 }
 
 message GetCampaignDetailsRequest {
 
-  string id = 1;
+	string id = 1;
 }
 
 message CreateCampaignTypeRequest {
 
-  string name = 1;
-  string description = 2;
+	string name = 1;
+	string description = 2;
 }
 
 message CreateCampaignTypeResponse {
 
-  string id = 1;
+	string id = 1;
 }
 
 message CampaignTypesResponse {
 
 	repeated CampaignTypeDetails campaign_types = 1;
+}
+
+message CreateBeneficiaryRequest {
+
+	string first_name = 1;
+  string last_name = 2;
+	common.nomenclatures.BeneficiaryType type = 3;
+  string organizer_id = 4;
+	common.nomenclatures.ISO2CountryCode country_iso_code = 5;
+	common.nomenclatures.City city = 6;
+	string email = 7;
+	string phone = 8;
+	string website = 9;
+}
+
+message CreateBeneficiaryResponse {
+
+	string id = 1;
 }
 
 message CampaignType {
@@ -149,4 +170,23 @@ message Donation {
 	uint32 amount = 2;
 	string message = 3;
 	google.protobuf.Timestamp date = 4;
+}
+
+message Beneficiary {
+
+	string id = 1;
+  string first_name = 2;
+	string last_name = 3;
+	common.nomenclatures.BeneficiaryType type = 4;
+  string organizer_id = 5;
+	common.nomenclatures.ISO2CountryCode country_iso_code = 6;
+	common.nomenclatures.City city = 7;
+	string email = 8;
+	string phone = 9;
+	BeneficiaryAdditionalDetails additional_details = 10;
+}
+
+message BeneficiaryAdditionalDetails{
+
+  string website = 1;
 }
