@@ -44,7 +44,7 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
 
             builder
               .Property(b => b.City)
-              .HasMaxLength(50)
+              .HasConversion<int>()
               .IsRequired();
 
             builder

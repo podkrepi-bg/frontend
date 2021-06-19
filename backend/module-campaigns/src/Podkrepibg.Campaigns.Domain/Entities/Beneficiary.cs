@@ -18,7 +18,7 @@ namespace Podkrepibg.Campaigns.Domain.Entities
 
         public ISO2CountryCode ISO2CountryCode { get; set; }
 
-        public string City { get; set; }
+        public City City { get; set; }
         
         public string Email { get; set; }
 

@@ -21,7 +21,7 @@ namespace Podkrepibg.Campaigns.IntegrationTests.CampaignsServiceTests
                 Type = Nomenclatures.BeneficiaryType.Individual,
                 OrganizerId = Guid.NewGuid().ToString(),
                 CountryIsoCode = Nomenclatures.ISO2CountryCode.Bg,
-                City = _faker.Address.City(),
+                City = Nomenclatures.City.Varna,
                 Email = _faker.Internet.Email(),
                 Phone = _faker.Phone.PhoneNumber(),
                 Website = _faker.Internet.Url()
