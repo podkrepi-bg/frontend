@@ -25,10 +25,10 @@ namespace Podkrepibg.Campaigns.Application.Campaigns.Commands.CreateCampaign
             var campaign = new CampaignEntity
             {
                 InitiatorId = Guid.Parse(request.Request.InitiatorId),
-                BeneficiaryId = Guid.Parse(request.Request.BeneficiaryId),
                 OperatorId = Guid.Parse(request.Request.OperatorId),
-                Title = request.Request.Title,
+                BeneficiaryId = Guid.Parse(request.Request.BeneficiaryId),
                 CampaignTypeId = Guid.Parse(request.Request.CampaignTypeId),
+                Title = request.Request.Title,
                 State = CampaignState.Draft,
                 CreationDate = DateTime.UtcNow
             };

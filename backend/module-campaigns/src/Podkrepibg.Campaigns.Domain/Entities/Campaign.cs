@@ -11,9 +11,9 @@ namespace Podkrepibg.Campaigns.Domain.Entities
 
         public Guid InitiatorId { get; set; }
 
-        public Guid BeneficiaryId { get; set; }
-
         public Guid OperatorId { get; set; }
+
+        public Guid BeneficiaryId { get; set; }
 
         public Guid CampaignTypeId { get; set; }
 
@@ -36,6 +36,8 @@ namespace Podkrepibg.Campaigns.Domain.Entities
         public DateTime UpdateDate { get; set; }
 
         public CampaignOptionalDetails OptionalDetails { get; set; }
+
+        public Beneficiary Beneficiary { get; set; }
 
         public CampaignType CampaignType { get; set; }
 

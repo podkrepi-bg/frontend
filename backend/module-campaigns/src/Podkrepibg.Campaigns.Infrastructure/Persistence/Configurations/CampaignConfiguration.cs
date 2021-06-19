@@ -31,6 +31,7 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
 
             builder
               .Property(c => c.State)
+              .HasConversion<int>()
               .IsRequired();
 
             builder
@@ -38,11 +39,11 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
               .IsRequired();
 
             builder
-              .Property(c => c.BeneficiaryId)
+              .Property(c => c.OperatorId)
               .IsRequired();
 
             builder
-              .Property(c => c.OperatorId)
+              .Property(c => c.BeneficiaryId)
               .IsRequired();
 
             builder
@@ -59,19 +60,19 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
               .HasMaxLength(500);
 
             builder
-                .Property(b => b.OptionalDetails)
+                .Property(c => c.OptionalDetails)
                 .HasColumnType("jsonb")
                 .HasConversion(
                     v => JsonConvert.SerializeObject(v),
                     v => JsonConvert.DeserializeObject<CampaignOptionalDetails>(v));
 
             builder
-                .Property(b => b.CreationDate)
+                .Property(c => c.CreationDate)
                 .HasColumnName("created_at")
                 .IsRequired();
 
             builder
-                .Property(b => b.UpdateDate)
+                .Property(c => c.UpdateDate)
                 .HasColumnName("updated_at");
         }
     }

@@ -12,7 +12,7 @@ namespace Podkrepibg.Campaigns.Infrastructure.Persistence.Configurations
               .HasKey(c => c.Id);
 
             builder
-              .Property(x => x.Id)
+              .Property(c => c.Id)
               .HasDefaultValueSql("gen_random_uuid()");
 
             builder
