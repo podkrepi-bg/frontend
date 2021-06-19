@@ -117,7 +117,7 @@ namespace Podkrepibg.Campaigns.IntegrationTests.CampaignsServiceTests
                 Type = BeneficiaryType.Individual,
                 OrganizerId = Guid.NewGuid(),
                 ISO2CountryCode = ISO2CountryCode.BG,
-                City = _faker.Random.Utf16String(1, 50, true)
+                City = City.Varna
             };
 
             var campaignSubtype = new Domain.Entities.CampaignSubtype

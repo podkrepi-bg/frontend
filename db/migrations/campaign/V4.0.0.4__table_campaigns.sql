@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS campaign.beneficiaries (
     type				integer NOT NULL,
 	organizer_id		uuid NOT NULL,
     iso2country_code	integer NOT NULL,
-    city				character varying(50) NOT NULL,
+    city				integer NOT NULL,
     email				character varying(100) NULL,
     phone				character varying(50) NULL,
     additional_details	jsonb NULL,

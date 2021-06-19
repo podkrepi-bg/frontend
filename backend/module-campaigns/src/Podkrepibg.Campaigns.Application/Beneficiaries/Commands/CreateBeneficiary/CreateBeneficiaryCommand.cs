@@ -29,7 +29,7 @@ namespace Podkrepibg.Campaigns.Application.Beneficiaries.Commands.CreateBenefici
                 Type = (BeneficiaryType)beneficiaryRequest.Type,
                 OrganizerId = Guid.Parse(beneficiaryRequest.OrganizerId),
                 ISO2CountryCode = (ISO2CountryCode)beneficiaryRequest.CountryIsoCode,
-                City = beneficiaryRequest.City,
+                City = (City)beneficiaryRequest.City,
                 Email = beneficiaryRequest.Email,
                 Phone = beneficiaryRequest.Phone,
                 AdditionalDetails = new BeneficiaryAdditionalDetails(beneficiaryRequest.Website)
