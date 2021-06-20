@@ -1,12 +1,12 @@
 import { PropsWithChildren, useState } from 'react'
 
-import { Typography as MaterialTypography, TypographyProps } from '@material-ui/core'
+import { Typography as MaterialTypography, Theme, TypographyProps } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import LinkIcon from '@material-ui/icons/Link'
 
 import LinkIconButton from 'components/common/LinkIconButton'
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     linkIcon: {
       transform: 'rotate(-45deg)',

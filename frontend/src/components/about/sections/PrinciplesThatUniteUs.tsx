@@ -29,7 +29,7 @@ export default function PrinciplesThatUniteUs() {
     <Grid container spacing={1}>
       <Grid xs={12} item>
         <Typography
-          id="test-id"
+          id="principles-that-unite-us"
           variant="h4"
           component="h2"
           align="center"

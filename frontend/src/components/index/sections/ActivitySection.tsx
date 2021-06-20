@@ -1,13 +1,16 @@
 import React from 'react'
-import { Grid, Hidden, Typography } from '@material-ui/core'
+import { Grid, Hidden } from '@material-ui/core'
 import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
+import Typography from 'components/common/Typography'
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     heading: {
-      marginBottom: theme.spacing(5),
+      paddingTop: theme.spacing(10),
+      paddingBottom: theme.spacing(7),
       color: theme.palette.primary.dark,
     },
     container: {
@@ -26,7 +29,7 @@ export default function ActivitySection() {
 
   return (
     <Grid container direction="column" component="section" className={classes.container}>
-      <Typography variant="h5" component="h2" className={classes.heading}>
+      <Typography id="what-we-do" variant="h5" component="h2" className={classes.heading} linkable>
         {t('index:activity-section.heading')}
       </Typography>
       <Grid item>
