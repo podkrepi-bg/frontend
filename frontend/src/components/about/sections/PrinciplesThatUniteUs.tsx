@@ -33,7 +33,8 @@ export default function PrinciplesThatUniteUs() {
           variant="h4"
           component="h2"
           align="center"
-          className={classes.title}>
+          className={classes.title}
+          linkable>
           {t('about:principlesThatUniteUs.title')}
         </Typography>
       </Grid>
