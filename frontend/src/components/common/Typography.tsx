@@ -21,9 +21,13 @@ const useStyles = makeStyles((theme) =>
   }),
 )
 
-type TypographyParams = PropsWithChildren<TypographyProps> & { id?: string; component?: string }
+type TypographyParams = PropsWithChildren<TypographyProps> & {
+  id?: string
+  linkable?: boolean
+  component?: string
+}
 
-export default function Typography({ children, id, ...props }: TypographyParams) {
+export default function Typography({ children, id, linkable, ...props }: TypographyParams) {
   const [linkIconIsShown, setlinkIconIsShown] = useState(false)
   const classes = useStyles()
 
@@ -34,9 +38,11 @@ export default function Typography({ children, id, ...props }: TypographyParams)
       onMouseLeave={() => setlinkIconIsShown(false)}>
       <MaterialTypography {...props}>
         {children}
-        <LinkIconButton href={`#${id}`} className={linkIconIsShown ? '' : classes.hideLinkIcon}>
-          <LinkIcon className={classes.linkIcon} />
-        </LinkIconButton>
+        {linkable && (
+          <LinkIconButton href={`#${id}`} className={linkIconIsShown ? '' : classes.hideLinkIcon}>
+            <LinkIcon className={classes.linkIcon} />
+          </LinkIconButton>
+        )}
       </MaterialTypography>
     </div>
   )
