@@ -24,8 +24,8 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME?}-roach-0
     restart: always
     hostname: roach-0
-    command: start-single-node --insecure --listen-addr=roach-0:${DB_PORT} 
-    # command: start-single-node --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257 --certs-dir=/certs
+    command: start --insecure --listen-addr=${DB_HOST?}:${DB_PORT?} 
+    # command: start --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257 --certs-dir=/certs
     volumes:
       - roach-0-data:/cockroach/cockroach-data
     #   - certs-roach-0:/certs
@@ -34,31 +34,26 @@ services:
     networks:
       - backend-net
 
-  roach-lb:
-    # https://github.com/cockroachlabs-field/dynamic-haproxy
-    image: timveil/dynamic-haproxy:latest
-    container_name: ${COMPOSE_PROJECT_NAME?}-roach-lb
+  roach-1:
+    image: cockroachdb/cockroach:latest
+    container_name: ${COMPOSE_PROJECT_NAME?}-roach-1
     restart: always
-    hostname: roach-lb
-    environment:
-      - NODES=roach-0
-      # - NODES=roach-0 roach-1 roach-2
-    ports:
-        - "${DB_PORT?}:26257"
-        - "3080:8080"
-        - "3081:8081"
-    networks:
-      - backend-net
+    hostname: roach-1
+    command: start --insecure --join=roach-0
+    # command: start --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --certs-dir=/certs
+    volumes:
+      - roach-1-data:/cockroach/cockroach-data
+    #   - certs-roach-0:/certs
     depends_on:
       - roach-0
-    healthcheck:
-      test: /bin/true
-      interval: 3s
-      timeout: 10s
-      retries: 10
+    #   - roach-cert
+    networks:
+      - backend-net
+
+volumes:
+  roach-1-data:
 
 networks:
   pub1:
     external: true
-
 
