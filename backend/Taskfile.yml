@@ -15,6 +15,15 @@ vars:
     sh: git log -n 1 --format=%h
 
 tasks:
+  ## Install ##
+  #############
+  install:
+    desc: Install local proto tools
+    cmds:
+      - sudo apt-get install -y protobuf-compiler
+      - go get -u google.golang.org/protobuf/cmd/protoc-gen-go
+      - export PATH="$PATH:$(go env GOPATH)/bin"
+
   ## Run tasks
   ############
   run-graphql:
@@ -110,8 +119,8 @@ tasks:
         protoc {{.NAME}}.proto \
           -I/usr/include \
           --proto_path={{.PROTO_PATH}} \
-          --go_out=plugins=grpc:graphql-gateway/pb/{{.NAME}} \
-          --go_out=plugins=grpc:module-accounts/pb/{{.NAME}} \
+          --plugin=plugins=grpc:graphql-gateway/pb/{{.NAME}} \
+          --plugin=plugins=grpc:module-accounts/pb/{{.NAME}} \
           --csharp_out={{.CSHARP_PATH}}
       - echo -e '[{{.NAME}}] \t Proto regen done!'
     sources:
