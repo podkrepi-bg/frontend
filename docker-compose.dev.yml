@@ -46,14 +46,3 @@ services:
       dockerfile: ./flyway/Dockerfile
     volumes:
       - ./db/migrations:/flyway/sql
-
-  roach-0:
-    image: cockroachdb/cockroach:latest
-    container_name: ${COMPOSE_PROJECT_NAME?}-roach-0
-    restart: always
-    hostname: roach-0
-    command: start-single-node --insecure --listen-addr=roach-0:${DB_PORT} 
-    volumes:
-      - roach-0-data:/cockroach/cockroach-data
-    networks:
-      - backend-net

@@ -81,24 +81,12 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME?}-roach-0
     restart: always
     hostname: roach-0
-    command: start-single-node --insecure --listen-addr=roach-0:${DB_PORT} 
-    # command: start-single-node --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257 --certs-dir=/certs
+    command: start-single-node --insecure --listen-addr=${DB_HOST?}:${DB_PORT?} 
     volumes:
       - roach-0-data:/cockroach/cockroach-data
-    #   - certs-roach-0:/certs
-    # depends_on:
-    #   - roach-cert
     networks:
       - backend-net
-
-  # roach-cert:
-  #   container_name: roach-cert
-  #   hostname: roach-cert
-  #   build: db/cert
-  #   volumes:
-  #     - certs-roach-0:/certs/roach-0
-  #     - certs-client:/certs/client
-
+  
   roach-init:
     container_name: ${COMPOSE_PROJECT_NAME?}-roach-init
     hostname: roach-init
@@ -108,7 +96,7 @@ services:
       DATABASE_NAME: ${DB_NAME?}
       DATABASE_USER: ${DB_USER?}
       DATABASE_PASSWORD: ${DB_PASS?}
-      COCKROACH_HOST: roach-0
+      COCKROACH_HOST: ${DB_HOST?}
       COCKROACH_PORT: ${DB_PORT?}
       COCKROACH_DATABASE: ${DB_NAME?}
       COCKROACH_INSECURE: "true"
