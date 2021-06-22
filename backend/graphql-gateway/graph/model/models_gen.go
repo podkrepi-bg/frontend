@@ -3,7 +3,7 @@
 package model
 
 import (
-	"github.com/podkrepi-bg/graphql-gateway/pb/account"
+	"github.com/podkrepi-bg/types/go-types/account"
 )
 
 type Campaign struct {
