@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 
-import Typography from 'components/common/Typography'
+import Heading from 'components/common/Heading'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,11 +29,11 @@ export default function ActivitySection() {
 
   return (
     <Grid container direction="column" component="section" className={classes.container}>
-      <Typography id="what-we-do" variant="h5" component="h2" className={classes.heading} linkable>
+      <Heading id="what-we-do" variant="h5" component="h2" className={classes.heading} linkable>
         {t('index:activity-section.heading')}
-      </Typography>
+      </Heading>
       <Grid item>
-        <Typography variant="body2">{t('index:activity-section.content')}</Typography>
+        <Heading variant="body2">{t('index:activity-section.content')}</Heading>
       </Grid>
       <Grid item className={classes.graphic}>
         <Hidden smUp>

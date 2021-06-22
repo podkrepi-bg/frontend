@@ -1,6 +1,6 @@
 import { PropsWithChildren, useState } from 'react'
 
-import { Typography as MaterialTypography, Theme, TypographyProps } from '@material-ui/core'
+import { Theme, Typography, TypographyProps } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import LinkIcon from '@material-ui/icons/Link'
 
@@ -21,13 +21,13 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-type TypographyParams = PropsWithChildren<TypographyProps> & {
+type HeadingParams = PropsWithChildren<TypographyProps> & {
   id?: string
   linkable?: boolean
   component?: string
 }
 
-export default function Typography({ children, id, linkable, ...props }: TypographyParams) {
+export default function Heading({ children, id, linkable, ...props }: HeadingParams) {
   const [linkIconIsShown, setlinkIconIsShown] = useState(false)
   const classes = useStyles()
 
@@ -36,14 +36,14 @@ export default function Typography({ children, id, linkable, ...props }: Typogra
       id={id}
       onMouseEnter={() => setlinkIconIsShown(true)}
       onMouseLeave={() => setlinkIconIsShown(false)}>
-      <MaterialTypography {...props}>
+      <Typography {...props}>
         {children}
         {linkable && (
           <LinkIconButton href={`#${id}`} className={linkIconIsShown ? '' : classes.hideLinkIcon}>
             <LinkIcon className={classes.linkIcon} />
           </LinkIconButton>
         )}
-      </MaterialTypography>
+      </Typography>
     </div>
   )
 }

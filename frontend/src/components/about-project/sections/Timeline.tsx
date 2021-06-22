@@ -14,7 +14,7 @@ import {
 import { socialUrls } from 'common/routes'
 import PodkrepiIcon from 'components/brand/PodkrepiIcon'
 import ExternalLink from 'components/common/ExternalLink'
-import Typography from 'components/common/Typography'
+import Heading from 'components/common/Heading'
 
 import HandIcon from '../icons/HandIcon'
 import TimelineItem from './TimelineItem'
@@ -43,7 +43,7 @@ export default function Timeline() {
 
   return (
     <Grid container direction="column" component="section" className={classes.container}>
-      <Typography
+      <Heading
         id="our-story"
         variant="h3"
         component="h2"
@@ -51,7 +51,7 @@ export default function Timeline() {
         className={classes.heading}
         linkable>
         {t('about-project:timeline')}
-      </Typography>
+      </Heading>
       <Grid item>
         <TimelineMaterial align="alternate" className={classes.timelineWrapper}>
           <TimelineItem Icon={PlayCircleFilledWhite} title={t('about-project:october-2020-title')}>

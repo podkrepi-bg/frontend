@@ -2,7 +2,7 @@ import { Grid, Box } from '@material-ui/core'
 import { useTranslation } from 'next-i18next'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
-import Typography from 'components/common/Typography'
+import Heading from 'components/common/Heading'
 import TeamPie from 'components/index/helpers/chart/TeamPie'
 
 const useStyles = makeStyles((theme) =>
@@ -24,14 +24,9 @@ const TeamChartSection = () => {
     <Box component="section" mb={10} textAlign="center">
       <Grid container direction="column" justify="center" spacing={3}>
         <Grid item>
-          <Typography
-            id="team-chart"
-            variant="h5"
-            component="h2"
-            className={classes.heading}
-            linkable>
+          <Heading id="team-chart" variant="h5" component="h2" className={classes.heading} linkable>
             {t('index:team-chart-section.heading')}
-          </Typography>
+          </Heading>
         </Grid>
         <Grid item>
           <Box textAlign="center" overflow="hidden">

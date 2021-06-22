@@ -3,7 +3,7 @@ import { Grid } from '@material-ui/core'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
 import DiscordImage from 'components/about/DiscordImage'
-import Typography from 'components/common/Typography'
+import Heading from 'components/common/Heading'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -32,12 +32,12 @@ export default function TeamSection() {
       justify="center"
       component="section"
       className={classes.container}>
-      <Typography id="who-we-are" variant="h5" component="h2" className={classes.heading} linkable>
+      <Heading id="who-we-are" variant="h5" component="h2" className={classes.heading} linkable>
         {t('index:team-section.heading')}
-      </Typography>
+      </Heading>
       <Grid container>
         <Grid item>
-          <Typography variant="body2">{t('index:team-section.content')}</Typography>
+          <Heading variant="body2">{t('index:team-section.content')}</Heading>
         </Grid>
         <Grid item>
           <DiscordImage />
