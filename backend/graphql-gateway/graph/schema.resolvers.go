@@ -9,7 +9,7 @@ import (
 
 	"github.com/podkrepi-bg/graphql-gateway/graph/generated"
 	"github.com/podkrepi-bg/graphql-gateway/graph/model"
-	"github.com/podkrepi-bg/graphql-gateway/pb/account"
+	"github.com/podkrepi-bg/types/go-types/account"
 )
 
 func (r *mutationResolver) CreateAccount(ctx context.Context, input account.CreateAccountRequest) (*account.Account, error) {

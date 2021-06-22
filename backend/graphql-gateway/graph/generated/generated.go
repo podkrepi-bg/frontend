@@ -13,7 +13,7 @@ import (
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
 	"github.com/podkrepi-bg/graphql-gateway/graph/model"
-	"github.com/podkrepi-bg/graphql-gateway/pb/account"
+	"github.com/podkrepi-bg/types/go-types/account"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
 )
@@ -305,7 +305,7 @@ func (ec *executionContext) field_Mutation_createAccount_args(ctx context.Contex
 	var arg0 account.CreateAccountRequest
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNCreateAccount2githubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋpbᚋaccountᚐCreateAccountRequest(ctx, tmp)
+		arg0, err = ec.unmarshalNCreateAccount2githubᚗcomᚋpodkrepiᚑbgᚋtypesᚋgoᚑtypesᚋaccountᚐCreateAccountRequest(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -320,7 +320,7 @@ func (ec *executionContext) field_Mutation_createCampaign_args(ctx context.Conte
 	var arg0 model.CreateCampaign
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNCreateCampaign2githubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐCreateCampaign(ctx, tmp)
+		arg0, err = ec.unmarshalNCreateCampaign2githubᚗcomᚋpodkrepiᚑbgᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐCreateCampaign(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -624,7 +624,7 @@ func (ec *executionContext) _Campaign_organizer(ctx context.Context, field graph
 	}
 	res := resTmp.(*account.Account)
 	fc.Result = res
-	return ec.marshalNAccount2ᚖgithubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋpbᚋaccountᚐAccount(ctx, field.Selections, res)
+	return ec.marshalNAccount2ᚖgithubᚗcomᚋpodkrepiᚑbgᚋtypesᚋgoᚑtypesᚋaccountᚐAccount(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createAccount(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -666,7 +666,7 @@ func (ec *executionContext) _Mutation_createAccount(ctx context.Context, field g
 	}
 	res := resTmp.(*account.Account)
 	fc.Result = res
-	return ec.marshalNAccount2ᚖgithubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋpbᚋaccountᚐAccount(ctx, field.Selections, res)
+	return ec.marshalNAccount2ᚖgithubᚗcomᚋpodkrepiᚑbgᚋtypesᚋgoᚑtypesᚋaccountᚐAccount(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createCampaign(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -708,7 +708,7 @@ func (ec *executionContext) _Mutation_createCampaign(ctx context.Context, field 
 	}
 	res := resTmp.(*model.Campaign)
 	fc.Result = res
-	return ec.marshalNCampaign2ᚖgithubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐCampaign(ctx, field.Selections, res)
+	return ec.marshalNCampaign2ᚖgithubᚗcomᚋpodkrepiᚑbgᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐCampaign(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_campaigns(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -743,7 +743,7 @@ func (ec *executionContext) _Query_campaigns(ctx context.Context, field graphql.
 	}
 	res := resTmp.([]*model.Campaign)
 	fc.Result = res
-	return ec.marshalNCampaign2ᚕᚖgithubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐCampaignᚄ(ctx, field.Selections, res)
+	return ec.marshalNCampaign2ᚕᚖgithubᚗcomᚋpodkrepiᚑbgᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐCampaignᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_accounts(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -778,7 +778,7 @@ func (ec *executionContext) _Query_accounts(ctx context.Context, field graphql.C
 	}
 	res := resTmp.([]*account.Account)
 	fc.Result = res
-	return ec.marshalNAccount2ᚕᚖgithubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋpbᚋaccountᚐAccountᚄ(ctx, field.Selections, res)
+	return ec.marshalNAccount2ᚕᚖgithubᚗcomᚋpodkrepiᚑbgᚋtypesᚋgoᚑtypesᚋaccountᚐAccountᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2437,11 +2437,11 @@ func (ec *executionContext) ___Type(ctx context.Context, sel ast.SelectionSet, o
 
 // region    ***************************** type.gotpl *****************************
 
-func (ec *executionContext) marshalNAccount2githubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋpbᚋaccountᚐAccount(ctx context.Context, sel ast.SelectionSet, v account.Account) graphql.Marshaler {
+func (ec *executionContext) marshalNAccount2githubᚗcomᚋpodkrepiᚑbgᚋtypesᚋgoᚑtypesᚋaccountᚐAccount(ctx context.Context, sel ast.SelectionSet, v account.Account) graphql.Marshaler {
 	return ec._Account(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNAccount2ᚕᚖgithubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋpbᚋaccountᚐAccountᚄ(ctx context.Context, sel ast.SelectionSet, v []*account.Account) graphql.Marshaler {
+func (ec *executionContext) marshalNAccount2ᚕᚖgithubᚗcomᚋpodkrepiᚑbgᚋtypesᚋgoᚑtypesᚋaccountᚐAccountᚄ(ctx context.Context, sel ast.SelectionSet, v []*account.Account) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -2465,7 +2465,7 @@ func (ec *executionContext) marshalNAccount2ᚕᚖgithubᚗcomᚋdaritelskaᚑpl
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNAccount2ᚖgithubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋpbᚋaccountᚐAccount(ctx, sel, v[i])
+			ret[i] = ec.marshalNAccount2ᚖgithubᚗcomᚋpodkrepiᚑbgᚋtypesᚋgoᚑtypesᚋaccountᚐAccount(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -2478,7 +2478,7 @@ func (ec *executionContext) marshalNAccount2ᚕᚖgithubᚗcomᚋdaritelskaᚑpl
 	return ret
 }
 
-func (ec *executionContext) marshalNAccount2ᚖgithubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋpbᚋaccountᚐAccount(ctx context.Context, sel ast.SelectionSet, v *account.Account) graphql.Marshaler {
+func (ec *executionContext) marshalNAccount2ᚖgithubᚗcomᚋpodkrepiᚑbgᚋtypesᚋgoᚑtypesᚋaccountᚐAccount(ctx context.Context, sel ast.SelectionSet, v *account.Account) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -2503,11 +2503,11 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
-func (ec *executionContext) marshalNCampaign2githubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐCampaign(ctx context.Context, sel ast.SelectionSet, v model.Campaign) graphql.Marshaler {
+func (ec *executionContext) marshalNCampaign2githubᚗcomᚋpodkrepiᚑbgᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐCampaign(ctx context.Context, sel ast.SelectionSet, v model.Campaign) graphql.Marshaler {
 	return ec._Campaign(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNCampaign2ᚕᚖgithubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐCampaignᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Campaign) graphql.Marshaler {
+func (ec *executionContext) marshalNCampaign2ᚕᚖgithubᚗcomᚋpodkrepiᚑbgᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐCampaignᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Campaign) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -2531,7 +2531,7 @@ func (ec *executionContext) marshalNCampaign2ᚕᚖgithubᚗcomᚋdaritelskaᚑp
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNCampaign2ᚖgithubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐCampaign(ctx, sel, v[i])
+			ret[i] = ec.marshalNCampaign2ᚖgithubᚗcomᚋpodkrepiᚑbgᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐCampaign(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -2544,7 +2544,7 @@ func (ec *executionContext) marshalNCampaign2ᚕᚖgithubᚗcomᚋdaritelskaᚑp
 	return ret
 }
 
-func (ec *executionContext) marshalNCampaign2ᚖgithubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐCampaign(ctx context.Context, sel ast.SelectionSet, v *model.Campaign) graphql.Marshaler {
+func (ec *executionContext) marshalNCampaign2ᚖgithubᚗcomᚋpodkrepiᚑbgᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐCampaign(ctx context.Context, sel ast.SelectionSet, v *model.Campaign) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -2554,12 +2554,12 @@ func (ec *executionContext) marshalNCampaign2ᚖgithubᚗcomᚋdaritelskaᚑplat
 	return ec._Campaign(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNCreateAccount2githubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋpbᚋaccountᚐCreateAccountRequest(ctx context.Context, v interface{}) (account.CreateAccountRequest, error) {
+func (ec *executionContext) unmarshalNCreateAccount2githubᚗcomᚋpodkrepiᚑbgᚋtypesᚋgoᚑtypesᚋaccountᚐCreateAccountRequest(ctx context.Context, v interface{}) (account.CreateAccountRequest, error) {
 	res, err := ec.unmarshalInputCreateAccount(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNCreateCampaign2githubᚗcomᚋdaritelskaᚑplatformaᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐCreateCampaign(ctx context.Context, v interface{}) (model.CreateCampaign, error) {
+func (ec *executionContext) unmarshalNCreateCampaign2githubᚗcomᚋpodkrepiᚑbgᚋgraphqlᚑgatewayᚋgraphᚋmodelᚐCreateCampaign(ctx context.Context, v interface{}) (model.CreateCampaign, error) {
 	res, err := ec.unmarshalInputCreateCampaign(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
