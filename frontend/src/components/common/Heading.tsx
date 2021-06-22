@@ -21,11 +21,14 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-type HeadingParams = PropsWithChildren<TypographyProps> & {
-  id?: string
-  linkable?: boolean
-  component?: string
-}
+type Linkable =
+  | {
+      id: string
+      linkable: true
+    }
+  | { linkable?: false }
+
+type HeadingParams = PropsWithChildren<TypographyProps & Linkable> & { component?: string }
 
 export default function Heading({ children, id, linkable, ...props }: HeadingParams) {
   const [linkIconIsShown, setlinkIconIsShown] = useState(false)
