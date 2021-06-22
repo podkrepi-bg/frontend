@@ -193,3 +193,16 @@ jobs:
 
           # Create new deploy for this Sentry release
           sentry-cli releases deploys $SENTRY_RELEASE new -e $SENTRY_DEPLOY_ENVIRONMENT
+
+  deploy-discord:
+    needs: [deploy-init, deploy-build, deploy-run]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: sarisia/actions-status-discord@v1
+        if: always()
+        with:
+          webhook: ${{ secrets.APP_DISCORD_WEBHOOK }}
+          title: "deploy"
+          description: "A new version of the website is deployed: https://podkrepi.bg/"
+          color: 0x26A641
