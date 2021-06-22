@@ -28,7 +28,9 @@ type Linkable =
     }
   | { linkable?: false }
 
-type HeadingParams = PropsWithChildren<TypographyProps & Linkable> & { component?: string }
+type HeadingParams = PropsWithChildren<TypographyProps & Linkable> & {
+  component?: React.ElementType
+}
 
 export default function Heading({ children, id, linkable, ...props }: HeadingParams) {
   const [linkIconIsShown, setlinkIconIsShown] = useState(false)
