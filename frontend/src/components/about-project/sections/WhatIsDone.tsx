@@ -1,12 +1,12 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
 import CheckIcon from '@material-ui/icons/Check'
-import { createStyles, Grid, makeStyles, Theme } from '@material-ui/core'
+import { createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core'
 
 import { ibanNumber } from 'common/iban'
 import { staticUrls } from 'common/routes'
 import ExternalLink from 'components/common/ExternalLink'
-import Typography from 'components/common/Typography'
+import Heading from 'components/common/Heading'
 
 import ActivityIcon from '../icons/ActivityIcon'
 import MeetingsIcon from '../icons/MeetingsIcon'
@@ -131,14 +131,9 @@ export default function WhatIsDone() {
 
   return (
     <Grid container direction="column" component="section" className={classes.container}>
-      <Typography
-        id="what-is-done"
-        variant="h3"
-        component="h2"
-        className={classes.heading}
-        linkable>
+      <Heading id="what-is-done" variant="h3" component="h2" className={classes.heading} linkable>
         {t('about-project:whatIsDoneTitle')}
-      </Typography>
+      </Heading>
       <Grid item container className={classes.icons}>
         <Grid item xs={12} sm={4}>
           <ActivityIcon Icon={VolunteersIcon} count="17" description={t('about-project:members')} />

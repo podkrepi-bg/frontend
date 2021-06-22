@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next'
-import { Box, createStyles, Grid, makeStyles, Theme } from '@material-ui/core'
+import { Box, createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core'
 
-import Typography from 'components/common/Typography'
+import Heading from 'components/common/Heading'
 
 const rows = [
   {
@@ -44,7 +44,7 @@ export default function TechStack() {
   const classes = useStyles()
   return (
     <Box my={'5rem'}>
-      <Typography
+      <Heading
         id="tech-stack"
         variant="h3"
         component="h2"
@@ -52,7 +52,7 @@ export default function TechStack() {
         className={classes.heading}
         linkable>
         {t('about-project:tech-stack.title')}
-      </Typography>
+      </Heading>
       <Grid container direction="column" component="section">
         <Grid item container justify="center" spacing={2}>
           {rows.map(({ label, items }, section: number) => (
