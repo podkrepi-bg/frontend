@@ -4,8 +4,8 @@ import { Grid, Typography } from '@material-ui/core'
 import { makeStyles, createStyles, darken, useTheme } from '@material-ui/core/styles'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import { Favorite } from '@material-ui/icons'
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import Image from "next/image"
+import useMediaQuery from '@material-ui/core/useMediaQuery'
+import Image from 'next/image'
 
 import { routes } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
@@ -93,11 +93,12 @@ type JumbotronProps = {
 export default function Jumbotron({ scrollTo }: JumbotronProps) {
   const classes = useStyles()
   const { t } = useTranslation()
-  const theme = useTheme();
+  const theme = useTheme()
   //Check if the media query is match and breakpoint is up sm device
-  const matches = useMediaQuery(theme.breakpoints.up('sm'));
-  const imgSource = matches ? '/img/jumbotron-background-image-desktop.jpg' :
-                              '/img/header-image-mobile.jpg';
+  const matches = useMediaQuery(theme.breakpoints.up('sm'))
+  const imgSource = matches
+    ? '/img/jumbotron-background-image-desktop.jpg'
+    : '/img/header-image-mobile.jpg'
 
   const executeScroll = () => {
     if (scrollTo.current) {

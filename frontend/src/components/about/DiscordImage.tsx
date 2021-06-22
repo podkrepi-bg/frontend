@@ -22,12 +22,11 @@ export default function DiscordImage() {
         <Image
           src="/img/discord-team-image.png"
           alt="Podkrepi.bg team in Discord voice conference call"
-          width = {880}
-          height = {475.475}
-          objectFit = "contain"
+          width={880}
+          height={475.475}
+          objectFit="contain"
         />
       </div>
-
     </ExternalLink>
   )
 }

@@ -1,6 +1,8 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { Grid, Typography, Theme, makeStyles, createStyles } from '@material-ui/core'
+import { Grid, Theme, makeStyles, createStyles } from '@material-ui/core'
+
+import Heading from 'components/common/Heading'
 
 import PrincipleCard from './PrincipleCard'
 import AwarenessIcon from '../icons/AwarenessIcon'
@@ -26,9 +28,15 @@ export default function PrinciplesThatUniteUs() {
   return (
     <Grid container spacing={1}>
       <Grid xs={12} item>
-        <Typography variant="h4" component="h2" align="center" className={classes.title}>
+        <Heading
+          id="principles-that-unite-us"
+          variant="h4"
+          component="h2"
+          align="center"
+          className={classes.title}
+          linkable>
           {t('about:principlesThatUniteUs.title')}
-        </Typography>
+        </Heading>
       </Grid>
       <Grid item xs={12} sm={6}>
         <PrincipleCard
