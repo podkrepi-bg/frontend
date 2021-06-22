@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import { teamPieData, teamPieOptions, TeamPieItem } from 'components/index/helpers/chart/pieData'
@@ -16,7 +16,22 @@ const TeamPie = ({ inViewport, forwardedRef, enterCount }: TeamPieProps) => {
   teamPieData.forEach((item: TeamPieItem): void => {
     item.name = t(`index:team-chart-section.data.${item.id}`)
   })
-  const runAnimation: boolean = inViewport || enterCount > 0
+
+  const [runAnimation, setRunAnimation] = useState(inViewport || enterCount > 0)
+
+  useEffect(() => {
+    setRunAnimation(inViewport || enterCount > 0)
+
+    function handleResize(): void {
+      setRunAnimation(false)
+      setRunAnimation(inViewport || enterCount > 0)
+    }
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  })
 
   return (
     <div ref={forwardedRef}>
