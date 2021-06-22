@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Hidden } from '@material-ui/core'
+import { Grid, Hidden, Typography } from '@material-ui/core'
 import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
@@ -33,7 +33,7 @@ export default function ActivitySection() {
         {t('index:activity-section.heading')}
       </Heading>
       <Grid item>
-        <Heading variant="body2">{t('index:activity-section.content')}</Heading>
+        <Typography variant="body2">{t('index:activity-section.content')}</Typography>
       </Grid>
       <Grid item className={classes.graphic}>
         <Hidden smUp>

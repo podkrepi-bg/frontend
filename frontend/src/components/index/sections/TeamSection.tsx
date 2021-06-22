@@ -1,5 +1,5 @@
 import { useTranslation } from 'next-i18next'
-import { Grid } from '@material-ui/core'
+import { Grid, Typography } from '@material-ui/core'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
 import DiscordImage from 'components/about/DiscordImage'
@@ -37,7 +37,7 @@ export default function TeamSection() {
       </Heading>
       <Grid container>
         <Grid item>
-          <Heading variant="body2">{t('index:team-section.content')}</Heading>
+          <Typography variant="body2">{t('index:team-section.content')}</Typography>
         </Grid>
         <Grid item>
           <DiscordImage />
