@@ -3,11 +3,13 @@ import { Grid, Typography } from '@material-ui/core'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
 import DiscordImage from 'components/about/DiscordImage'
+import Heading from 'components/common/Heading'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     heading: {
-      marginBottom: theme.spacing(5),
+      paddingTop: theme.spacing(10),
+      paddingBottom: theme.spacing(7),
       color: theme.palette.primary.dark,
       fontWeight: 500,
     },
@@ -30,9 +32,9 @@ export default function TeamSection() {
       justify="center"
       component="section"
       className={classes.container}>
-      <Typography variant="h5" component="h2" className={classes.heading}>
+      <Heading id="who-we-are" variant="h5" component="h2" className={classes.heading} linkable>
         {t('index:team-section.heading')}
-      </Typography>
+      </Heading>
       <Grid container>
         <Grid item>
           <Typography variant="body2">{t('index:team-section.content')}</Typography>

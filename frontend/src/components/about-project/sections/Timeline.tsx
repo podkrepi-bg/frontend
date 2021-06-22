@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core'
+import { createStyles, Grid, makeStyles, Theme } from '@material-ui/core'
 import { Timeline as TimelineMaterial } from '@material-ui/lab'
 import {
   Folder,
@@ -14,6 +14,7 @@ import {
 import { socialUrls } from 'common/routes'
 import PodkrepiIcon from 'components/brand/PodkrepiIcon'
 import ExternalLink from 'components/common/ExternalLink'
+import Heading from 'components/common/Heading'
 
 import HandIcon from '../icons/HandIcon'
 import TimelineItem from './TimelineItem'
@@ -24,7 +25,8 @@ import ChecklistIcon from '../icons/ChecklistIcon'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     heading: {
-      marginBottom: theme.spacing(5),
+      paddingTop: theme.spacing(10),
+      paddingBottom: theme.spacing(7),
     },
     container: {
       textAlign: 'center',
@@ -41,9 +43,15 @@ export default function Timeline() {
 
   return (
     <Grid container direction="column" component="section" className={classes.container}>
-      <Typography variant="h3" component="h2" className={classes.heading}>
+      <Heading
+        id="our-story"
+        variant="h3"
+        component="h2"
+        align="center"
+        className={classes.heading}
+        linkable>
         {t('about-project:timeline')}
-      </Typography>
+      </Heading>
       <Grid item>
         <TimelineMaterial align="alternate" className={classes.timelineWrapper}>
           <TimelineItem Icon={PlayCircleFilledWhite} title={t('about-project:october-2020-title')}>
