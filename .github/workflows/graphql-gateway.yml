@@ -17,7 +17,9 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Lint
+        working-directory: backend/graphql-gateway
         run: task lint
 
       - name: Build
+        working-directory: backend/graphql-gateway
         run: task build
