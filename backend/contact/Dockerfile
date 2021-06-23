@@ -1,5 +1,5 @@
 # Base Stage
-FROM golang:1.15-alpine as base
+FROM golang:1.16-alpine as base
 ARG APP_PATH=/app
 ARG DB_MIGRATIONS_PATH=/db/migrations
 WORKDIR $APP_PATH

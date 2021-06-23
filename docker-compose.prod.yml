@@ -11,6 +11,49 @@ services:
       pub1:
         ipv4_address: ${API_IPV4_ADDRESS?}
 
+# roach-cert:
+#   container_name: roach-cert
+#   hostname: roach-cert
+#   build: db/cert
+#   volumes:
+#     - certs-roach-0:/certs/roach-0
+#     - certs-client:/certs/client
+
+  roach-0:
+    image: cockroachdb/cockroach:latest
+    container_name: ${COMPOSE_PROJECT_NAME?}-roach-0
+    restart: always
+    hostname: roach-0
+    command: start --insecure --listen-addr=${DB_HOST?}:${DB_PORT?} 
+    # command: start --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257 --certs-dir=/certs
+    volumes:
+      - roach-0-data:/cockroach/cockroach-data
+    #   - certs-roach-0:/certs
+    # depends_on:
+    #   - roach-cert
+    networks:
+      - backend-net
+
+  roach-1:
+    image: cockroachdb/cockroach:latest
+    container_name: ${COMPOSE_PROJECT_NAME?}-roach-1
+    restart: always
+    hostname: roach-1
+    command: start --insecure --join=roach-0
+    # command: start --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --certs-dir=/certs
+    volumes:
+      - roach-1-data:/cockroach/cockroach-data
+    #   - certs-roach-0:/certs
+    depends_on:
+      - roach-0
+    #   - roach-cert
+    networks:
+      - backend-net
+
+volumes:
+  roach-1-data:
+
 networks:
   pub1:
     external: true
+

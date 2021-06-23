@@ -65,7 +65,7 @@ func (app *App) initDatabase() *database.Database {
 		panic("Failed to connect database")
 	}
 
-	fmt.Println("Connection Opened to Database")
+	fmt.Println("Connection Opened to Database host:", app.env.GetString("DB_HOST"), ", port:", app.env.GetInt("DB_PORT"))
 
 	// Add schema prefix to table
 	// db.Table("app.contacts").AutoMigrate(&contact.Contact{})

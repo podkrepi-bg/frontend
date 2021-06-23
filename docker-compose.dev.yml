@@ -40,12 +40,6 @@ services:
     ports:
       - "${CAMPAIGN_GRPC_PORT?}:5001"
 
-  roach-lb:
-    ports:
-      - "${DB_PORT?}:26257"
-      - "3080:8080"
-      - "3081:8081"
-
   flyway:
     build:
       context: .

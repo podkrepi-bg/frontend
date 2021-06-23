@@ -1,11 +1,7 @@
 package config
 
 import (
-	"fmt"
-	"os"
-
 	"github.com/spf13/viper"
-
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -28,17 +24,11 @@ func New() *Config {
 	config.SetConfigType("dotenv")
 	config.AddConfigPath(".")
 
-	// Automatically refresh environment variables
+	// Automatically update environment variables
+	// Note: This will load the env variables from the container into the config. 
+	// Note: The .env file is passed to the ENV from the docker-compose env_file parameter
 	config.AutomaticEnv()
-
-	// Read configuration
-	if err := config.ReadInConfig(); err != nil {
-		if _, ok := err.(viper.ConfigFileNotFoundError); !ok {
-			fmt.Println("failed to read configuration:", err.Error())
-			os.Exit(1)
-		}
-	}
-
+	
 	return config
 }
 
@@ -47,6 +37,9 @@ func (config *Config) SetErrorHandler(errorHandler fiber.ErrorHandler) {
 }
 
 func (config *Config) setDefaults() {
+	//Note: These are needed only for debug reasons
+	//Note: They will be updated by the call to config.AutomaticEnv()
+
 	// Set default App configuration
 	config.SetDefault("APP_ADDR", ":5000")
 	config.SetDefault("APP_ENV", "local")
