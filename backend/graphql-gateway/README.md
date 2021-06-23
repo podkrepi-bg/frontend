@@ -7,5 +7,12 @@ The module is configured to use [Visual Studio Code](https://code.visualstudio.c
  - Open the folder of the module in VS Code
  - Hit `Ctrl`/`Cmd` + `Shift` + `P` -> Remote-Containers: Reopen Folder in Container
 
-## Useful commands
-Check the `Taskfile.yml` for all the possible commands related to this module.
+Linting:
+```bash
+task lint
+```
+
+Building:
+```bash
+task build
+```
