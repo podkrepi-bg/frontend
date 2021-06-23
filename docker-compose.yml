@@ -40,6 +40,8 @@ services:
     image: ${API_DEPLOY_IMAGE}:${DEPLOY_TAG?}
     container_name: ${COMPOSE_PROJECT_NAME?}-api
     restart: always
+    env_file: 
+      - .env
     networks:
       backend-net:
         aliases:
@@ -79,43 +81,12 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME?}-roach-0
     restart: always
     hostname: roach-0
-    command: start-single-node --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257 --insecure
-    # command: start-single-node --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257 --certs-dir=/certs
+    command: start-single-node --insecure --listen-addr=${DB_HOST?}:${DB_PORT?} 
     volumes:
       - roach-0-data:/cockroach/cockroach-data
-    #   - certs-roach-0:/certs
-    # depends_on:
-    #   - roach-cert
     networks:
       - backend-net
-
-  # roach-cert:
-  #   container_name: roach-cert
-  #   hostname: roach-cert
-  #   build: db/cert
-  #   volumes:
-  #     - certs-roach-0:/certs/roach-0
-  #     - certs-client:/certs/client
-
-  roach-lb:
-    # https://github.com/cockroachlabs-field/dynamic-haproxy
-    image: timveil/dynamic-haproxy:latest
-    container_name: ${COMPOSE_PROJECT_NAME?}-roach-lb
-    restart: always
-    hostname: roach-lb
-    environment:
-      - NODES=roach-0
-      # - NODES=roach-0 roach-1 roach-2
-    networks:
-      - backend-net
-    depends_on:
-      - roach-0
-    healthcheck:
-      test: /bin/true
-      interval: 3s
-      timeout: 10s
-      retries: 10
-
+  
   roach-init:
     container_name: ${COMPOSE_PROJECT_NAME?}-roach-init
     hostname: roach-init
@@ -125,7 +96,8 @@ services:
       DATABASE_NAME: ${DB_NAME?}
       DATABASE_USER: ${DB_USER?}
       DATABASE_PASSWORD: ${DB_PASS?}
-      COCKROACH_HOST: roach-0:${DB_PORT?}
+      COCKROACH_HOST: ${DB_HOST?}
+      COCKROACH_PORT: ${DB_PORT?}
       COCKROACH_DATABASE: ${DB_NAME?}
       COCKROACH_INSECURE: "true"
       # COCKROACH_INSECURE: 'false'
@@ -135,7 +107,7 @@ services:
     networks:
       - backend-net
     depends_on:
-      - roach-lb
+      - roach-0
 
   flyway:
     image: ${FLYWAY_DEPLOY_IMAGE}:${DEPLOY_TAG?}
