@@ -2,6 +2,10 @@ name: Build graphql-gateway
 
 on:
   workflow_dispatch:
+  push:
+    branches: [master]
+    paths:
+      - "backend/graphql-gateway/**"
   pull_request:
     branches: [master]
     paths:

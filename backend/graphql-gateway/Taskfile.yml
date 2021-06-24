@@ -11,6 +11,15 @@ tasks:
     cmds:
       -  golangci-lint run --skip-files graph/schema.resolvers.go
 
+  watch:
+    desc: Run module
+    silent: false
+    deps:
+      - build_graphql
+    cmds:
+      - go get github.com/githubnemo/CompileDaemon
+      - CompileDaemon --build="go build -o output/ ." --command=./output/graphql-gateway
+
   build:
     desc: Build module
     silent: false

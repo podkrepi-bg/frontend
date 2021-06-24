@@ -24,3 +24,8 @@ Building:
 ```bash
 task build
 ```
+
+Watch task that will re-build and run the module as the Go files are modified:
+```bash
+task watch
+```
