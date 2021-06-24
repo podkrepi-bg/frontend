@@ -1,6 +1,6 @@
 package graph
 
-import "github.com/podkrepi-bg/graphql-gateway/pb/account"
+import "github.com/podkrepi-bg/types/go-types/account"
 
 // This file will not be regenerated automatically.
 //

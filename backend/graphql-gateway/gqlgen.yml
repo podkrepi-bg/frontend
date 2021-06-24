@@ -61,8 +61,8 @@ models:
 
   ## AccountService
   Account:
-    model: [github.com/podkrepi-bg/graphql-gateway/pb/account.Account]
+    model: [github.com/podkrepi-bg/types/go-types/account.Account]
   CreateAccount:
-    model: [github.com/podkrepi-bg/graphql-gateway/pb/account.CreateAccountRequest]
+    model: [github.com/podkrepi-bg/types/go-types/account.CreateAccountRequest]
 
   ## CampaignService
