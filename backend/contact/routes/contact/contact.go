@@ -4,9 +4,9 @@ import (
 	"errors"
 
 	"github.com/asaskevich/govalidator"
-	"github.com/podkrepi-bg/v2/database"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
+	"github.com/podkrepi-bg/contact/database"
 	_ "gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
