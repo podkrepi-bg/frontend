@@ -1,0 +1,48 @@
+# https://taskfile.dev
+# sudo snap install task --classic
+# vscode: ext install paulvarache.vscode-taskfile
+
+version: '3'
+
+tasks:
+  lint:
+    desc: Lint module
+    silent: false
+    cmds:
+      -  golangci-lint run --skip-files graph/schema.resolvers.go
+
+  build:
+    desc: Build module
+    silent: false
+    deps:
+      - build_graphql
+    cmds:
+      - go build -o output/ .
+    sources:
+      - ./**/*.go
+      - go.mod
+    generates:
+      - output/graphql-gateway
+    method: checksum
+
+  build_graphql:
+    desc: Build graphql
+    silent: false
+    cmds:
+      - go run github.com/99designs/gqlgen
+    sources:
+      - graph/schema.graphqls
+      - go.mod
+    generates:
+      - graph/model/models_gen.go
+      - graph/schema.resolvers.go
+      - graph/generated/generated.go
+    method: checksum
+
+  clean:
+    silent: true
+    desc: Clean graphql generated files
+    cmds:
+      - rm -f graphql-gateway/graph/model/models_gen.go
+      - rm -f graphql-gateway/graph/schema.resolvers.go
+      - rm -f graphql-gateway/graph/generated/generated.go

@@ -1,0 +1,25 @@
+name: Build graphql-gateway
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [master]
+    paths:
+      - "backend/graphql-gateway/**"
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/podkrepi-bg/go-devcontainer:v1.0.0
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Lint
+        working-directory: backend/graphql-gateway
+        run: task lint
+
+      - name: Build
+        working-directory: backend/graphql-gateway
+        run: task build
