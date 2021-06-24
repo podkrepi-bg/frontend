@@ -1,4 +1,4 @@
-module github.com/podkrepi-bg/v2
+module github.com/podkrepi-bg/contact
 
 go 1.16
 

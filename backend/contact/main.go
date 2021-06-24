@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/podkrepi-bg/v2/api"
-	"github.com/podkrepi-bg/v2/api/config"
-	"github.com/podkrepi-bg/v2/database"
-	"github.com/podkrepi-bg/v2/routes/contact"
-	"github.com/podkrepi-bg/v2/routes/healthcheck"
-	"github.com/podkrepi-bg/v2/routes/support_request"
+	"github.com/podkrepi-bg/contact/api"
+	"github.com/podkrepi-bg/contact/api/config"
+	"github.com/podkrepi-bg/contact/database"
+	"github.com/podkrepi-bg/contact/routes/contact"
+	"github.com/podkrepi-bg/contact/routes/healthcheck"
+	"github.com/podkrepi-bg/contact/routes/support_request"
 
 	"github.com/asaskevich/govalidator"
 	"github.com/gofiber/fiber/v2"
