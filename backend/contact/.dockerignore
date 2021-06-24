@@ -1,0 +1,7 @@
+.devcontainer/
+.task/
+output/
+.dockerignore
+.gitignore
+Dockerfile
+README.md

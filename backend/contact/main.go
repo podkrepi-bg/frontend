@@ -55,10 +55,10 @@ func (app *App) initDatabase() *database.Database {
 		Password: app.env.GetString("DB_PASS"),
 		Database: app.env.GetString("DB_NAME"),
 		Port:     app.env.GetInt("DB_PORT"),
-		SSL:      app.env.GetString("SSL_MODE"),
-		RootCert: app.env.GetString("SSL_CA"),
-		Cert:     app.env.GetString("SSL_CERT"),
-		Key:      app.env.GetString("SSL_KEY"),
+		SSL:      app.env.GetString("DB_SSL_MODE"),
+		RootCert: app.env.GetString("DB_SSL_CA"),
+		Cert:     app.env.GetString("DB_SSL_CERT"),
+		Key:      app.env.GetString("DB_SSL_KEY"),
 	})
 
 	if err != nil {

@@ -1,8 +1,8 @@
 package config
 
 import (
-	"github.com/spf13/viper"
 	"github.com/gofiber/fiber/v2"
+	"github.com/spf13/viper"
 )
 
 type Config struct {
@@ -25,10 +25,10 @@ func New() *Config {
 	config.AddConfigPath(".")
 
 	// Automatically update environment variables
-	// Note: This will load the env variables from the container into the config. 
+	// Note: This will load the env variables from the container into the config.
 	// Note: The .env file is passed to the ENV from the docker-compose env_file parameter
 	config.AutomaticEnv()
-	
+
 	return config
 }
 
@@ -42,17 +42,16 @@ func (config *Config) setDefaults() {
 
 	// Set default App configuration
 	config.SetDefault("APP_ADDR", ":5000")
-	config.SetDefault("APP_ENV", "local")
 
 	// Set default database configuration
 	config.SetDefault("DB_HOST", "roach-lb")
+	config.SetDefault("DB_PORT", 26257)
 	config.SetDefault("DB_USER", "root")
 	config.SetDefault("DB_PASS", "password")
-	config.SetDefault("DB_PORT", 26257)
 	config.SetDefault("DB_NAME", "app")
 
-	config.SetDefault("SSL_MODE", "disable")
-	config.SetDefault("SSL_CA", "/certs/ca.crt")
-	config.SetDefault("SSL_CERT", "/certs/client.dp_user.crt")
-	config.SetDefault("SSL_KEY", "/certs/client.dp_user.key")
+	config.SetDefault("DB_SSL_MODE", "disable")
+	config.SetDefault("DB_SSL_CA", "/certs/ca.crt")
+	config.SetDefault("DB_SSL_CERT", "/certs/client.dp_user.crt")
+	config.SetDefault("DB_SSL_KEY", "/certs/client.dp_user.key")
 }
