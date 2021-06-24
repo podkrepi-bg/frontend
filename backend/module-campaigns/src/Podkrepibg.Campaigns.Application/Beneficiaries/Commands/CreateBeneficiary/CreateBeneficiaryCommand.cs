@@ -3,9 +3,11 @@ namespace Podkrepibg.Campaigns.Application.Beneficiaries.Commands.CreateBenefici
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+    using DataContracts.Campaign;
     using MediatR;
     using Podkrepibg.Campaigns.Application.Data;
     using Podkrepibg.Campaigns.Domain.Types;
+    using BeneficiaryAdditionalDetails = Domain.Types.BeneficiaryAdditionalDetails;
     using BeneficiaryEntity = Domain.Entities.Beneficiary;
 
     public record CreateBeneficiaryCommand(CreateBeneficiaryRequest Request) : IRequest<CreateBeneficiaryResponse>;

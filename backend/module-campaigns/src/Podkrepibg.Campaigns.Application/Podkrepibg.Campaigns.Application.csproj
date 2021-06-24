@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -16,12 +16,8 @@
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.5" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="5.0.0" />
-    <PackageReference Include="Grpc.AspNetCore" Version="2.37.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Protobuf Include="..\..\..\protos\campaign.proto" GrpcServices="Server" ProtoRoot="..\..\..\protos\" />
-    <Protobuf Include="..\..\..\protos\common\nomenclatures.proto" GrpcServices="Server" ProtoRoot="..\..\..\protos\" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.38.0" />
+    <PackageReference Include="Podkrepibg.DataContracts" Version="0.3.0" />
   </ItemGroup>
 
   <ItemGroup>
