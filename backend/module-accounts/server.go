@@ -7,13 +7,15 @@ import (
 	"os"
 	"time"
 
-	"github.com/podkrepi-bg/accounts/v2/pb/account"
 	"github.com/google/uuid"
+	"github.com/podkrepi-bg/types/go-types/account"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
 
-type server struct{}
+type server struct {
+	account.UnimplementedAccountServiceServer
+}
 
 func main() {
 	port := os.Getenv("PORT")
