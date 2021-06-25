@@ -1,9 +1,8 @@
 package healthcheck
 
 import (
-	"github.com/podkrepi-bg/v2/database"
-
 	"github.com/gofiber/fiber/v2"
+	"github.com/podkrepi-bg/contact/database"
 )
 
 func GetHealthcheck(db *database.Database) fiber.Handler {
