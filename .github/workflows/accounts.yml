@@ -1,0 +1,29 @@
+name: Build accounts
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths:
+      - "backend/module-accounts/**"
+  pull_request:
+    branches: [master]
+    paths:
+      - "backend/module-accounts/**"
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/podkrepi-bg/go-devcontainer:v1.0.0
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Lint
+        working-directory: backend/module-accounts
+        run: task lint
+
+      - name: Build
+        working-directory: backend/module-accounts
+        run: task build
