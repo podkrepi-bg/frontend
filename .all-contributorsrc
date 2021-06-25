@@ -280,6 +280,17 @@
         "tool",
         "platform"
       ]
+    },
+    {
+      "login": "wessly",
+      "name": "Gottfrid Svartholm",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16501328?v=4",
+      "profile": "https://github.com/wessly",
+      "contributions": [
+        "code",
+        "doc",
+        "tool"
+      ]
     }
   ],
   "contributorsPerLine": 7,
