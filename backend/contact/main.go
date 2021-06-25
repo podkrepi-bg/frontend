@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/podkrepi-bg/v2/api"
-	"github.com/podkrepi-bg/v2/api/config"
-	"github.com/podkrepi-bg/v2/database"
-	"github.com/podkrepi-bg/v2/routes/contact"
-	"github.com/podkrepi-bg/v2/routes/healthcheck"
-	"github.com/podkrepi-bg/v2/routes/support_request"
+	"github.com/podkrepi-bg/contact/api"
+	"github.com/podkrepi-bg/contact/api/config"
+	"github.com/podkrepi-bg/contact/database"
+	"github.com/podkrepi-bg/contact/routes/contact"
+	"github.com/podkrepi-bg/contact/routes/healthcheck"
+	"github.com/podkrepi-bg/contact/routes/support_request"
 
 	"github.com/asaskevich/govalidator"
 	"github.com/gofiber/fiber/v2"
@@ -55,10 +55,10 @@ func (app *App) initDatabase() *database.Database {
 		Password: app.env.GetString("DB_PASS"),
 		Database: app.env.GetString("DB_NAME"),
 		Port:     app.env.GetInt("DB_PORT"),
-		SSL:      app.env.GetString("SSL_MODE"),
-		RootCert: app.env.GetString("SSL_CA"),
-		Cert:     app.env.GetString("SSL_CERT"),
-		Key:      app.env.GetString("SSL_KEY"),
+		SSL:      app.env.GetString("DB_SSL_MODE"),
+		RootCert: app.env.GetString("DB_SSL_CA"),
+		Cert:     app.env.GetString("DB_SSL_CERT"),
+		Key:      app.env.GetString("DB_SSL_KEY"),
 	})
 
 	if err != nil {

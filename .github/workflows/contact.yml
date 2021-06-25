@@ -12,25 +12,22 @@ on:
       - "backend/contact/**"
 
 jobs:
-  test:
+  build:
+    name: Build
     runs-on: ubuntu-latest
-    
+    container:
+      image: ghcr.io/podkrepi-bg/go-devcontainer:v1.0.0
     steps:
-    - name: checkout
-      uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Setup golang
-      uses: actions/setup-go@v2
-      with:
-        go-version: 1.16
+      - name: Lint
+        working-directory: backend/contact
+        run: task lint
 
-    - name: Lint 
-      uses: golangci/golangci-lint-action@v2
-      with:
-        working-directory: ./backend/contact
-        version: v1.32
-        args: --timeout=3m0s
+      - name: Test
+        working-directory: backend/contact
+        run: task test
 
-    - name: Run tests
-      working-directory: ./backend/contact
-      run: go test -v -race ./...
+      - name: Build
+        working-directory: backend/contact
+        run: task build
