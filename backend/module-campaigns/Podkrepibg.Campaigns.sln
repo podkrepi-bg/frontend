@@ -5,17 +5,6 @@ VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Podkrepibg.Campaigns", "src\Podkrepibg.Campaigns\Podkrepibg.Campaigns.csproj", "{71447891-1395-4610-9697-E6CD158A005B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "protos", "protos", "{EB8A96F2-BAB0-45D1-8BD8-71D94CD6154A}"
-	ProjectSection(SolutionItems) = preProject
-		..\protos\campaign.proto = ..\protos\campaign.proto
-		..\protos\error.proto = ..\protos\error.proto
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{46B30DB6-C76F-4AA6-B8B7-F1276789E1D8}"
-	ProjectSection(SolutionItems) = preProject
-		..\protos\common\nomenclatures.proto = ..\protos\common\nomenclatures.proto
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Podkrepibg.Campaigns.Domain", "src\Podkrepibg.Campaigns.Domain\Podkrepibg.Campaigns.Domain.csproj", "{85AC9F82-B4E3-43E9-AD68-BCA7924317F6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Podkrepibg.Campaigns.Infrastructure", "src\Podkrepibg.Campaigns.Infrastructure\Podkrepibg.Campaigns.Infrastructure.csproj", "{145BBFD4-A5B0-4E24-BCF8-6F713A79ABB4}"
@@ -24,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Podkrepibg.Campaigns.Applic
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C2D465C0-9B3E-49DC-B105-E3E2AD7F639D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Podkrepibg.Campaigns.IntegrationTests", "tests\Podkrepibg.Campaigns.IntegrationTests\Podkrepibg.Campaigns.IntegrationTests.csproj", "{9339C645-09E2-40E4-81F2-59439E0C1F82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Podkrepibg.Campaigns.IntegrationTests", "tests\Podkrepibg.Campaigns.IntegrationTests\Podkrepibg.Campaigns.IntegrationTests.csproj", "{9339C645-09E2-40E4-81F2-59439E0C1F82}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,7 +46,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{46B30DB6-C76F-4AA6-B8B7-F1276789E1D8} = {EB8A96F2-BAB0-45D1-8BD8-71D94CD6154A}
 		{9339C645-09E2-40E4-81F2-59439E0C1F82} = {C2D465C0-9B3E-49DC-B105-E3E2AD7F639D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
