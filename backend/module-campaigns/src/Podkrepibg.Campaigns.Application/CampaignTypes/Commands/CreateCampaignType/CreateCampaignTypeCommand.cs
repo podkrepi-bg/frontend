@@ -2,9 +2,9 @@ namespace Podkrepibg.Campaigns.Application.CampaignTypes.Commands.CreateCampaign
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using DataContracts.Campaign;
     using MediatR;
     using Podkrepibg.Campaigns.Application.Data;
-
     using CampaignTypeEntity = Domain.Entities.CampaignType;
 
     public record CreateCampaignTypeCommand(CreateCampaignTypeRequest Request) : IRequest<CreateCampaignTypeResponse>;
