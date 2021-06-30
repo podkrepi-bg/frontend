@@ -3,8 +3,8 @@ namespace Podkrepibg.Campaigns.Application.Campaigns.Commands.CreateCampaign
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+    using DataContracts.Campaign;
     using MediatR;
-    using Podkrepibg.Campaigns;
     using Podkrepibg.Campaigns.Application.Data;
     using Podkrepibg.Campaigns.Domain.Types;
     using CampaignEntity = Domain.Entities.Campaign;

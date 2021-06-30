@@ -4,6 +4,7 @@ namespace Podkrepibg.Campaigns.IntegrationTests.CampaignsServiceTests
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
+    using DataContracts.Campaign;
     using FluentAssertions;
     using Grpc.Core;
     using Moq;

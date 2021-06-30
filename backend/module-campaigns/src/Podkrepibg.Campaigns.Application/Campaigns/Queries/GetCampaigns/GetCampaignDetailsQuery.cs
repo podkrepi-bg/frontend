@@ -3,10 +3,10 @@ namespace Podkrepibg.Campaigns.Application.Campaigns.Queries.GetCampaigns
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+    using DataContracts.Campaign;
     using Mapster;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
-    using Podkrepibg.Campaigns;
     using Podkrepibg.Campaigns.Application.Data;
 
     public record GetCampaignDetailsQuery(string Id) : IRequest<CampaignDetails>;

@@ -8,6 +8,7 @@ namespace Podkrepibg.Campaigns.Services
     using Podkrepibg.Campaigns.Application.Campaigns.Commands.CreateCampaign;
     using Podkrepibg.Campaigns.Application.Campaigns.Queries.GetCampaigns;
     using Podkrepibg.Campaigns.Application.CampaignTypes.Commands.CreateCampaignType;
+    using Podkrepibg.DataContracts.Campaign;
 
     public class CampaignsService : CampaignService.CampaignServiceBase
     {

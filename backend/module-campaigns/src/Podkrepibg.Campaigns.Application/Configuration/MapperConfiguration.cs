@@ -1,5 +1,6 @@
 namespace Podkrepibg.Campaigns.Application.Configuration
 {
+    using DataContracts.Campaign;
     using Mapster;
 
     public static class MapperConfiguration

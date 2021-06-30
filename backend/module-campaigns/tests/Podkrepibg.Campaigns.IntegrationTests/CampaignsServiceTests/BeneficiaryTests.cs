@@ -2,6 +2,8 @@ namespace Podkrepibg.Campaigns.IntegrationTests.CampaignsServiceTests
 {
     using System;
     using System.Threading.Tasks;
+    using DataContracts.Campaign;
+    using DataContracts.Common.Nomenclatures;
     using FluentAssertions;
     using Grpc.Core;
     using Moq;
@@ -18,10 +20,10 @@ namespace Podkrepibg.Campaigns.IntegrationTests.CampaignsServiceTests
             {
                 FirstName = _faker.Name.FirstName(),
                 LastName = _faker.Name.LastName(),
-                Type = Nomenclatures.BeneficiaryType.Individual,
+                Type = BeneficiaryType.Individual,
                 OrganizerId = Guid.NewGuid().ToString(),
-                CountryIsoCode = Nomenclatures.ISO2CountryCode.Bg,
-                City = Nomenclatures.City.Varna,
+                CountryIsoCode = CountryCode.Bg,
+                City = City.Varna,
                 Email = _faker.Internet.Email(),
                 Phone = _faker.Phone.PhoneNumber(),
                 Website = _faker.Internet.Url()

@@ -1,5 +1,6 @@
 namespace Podkrepibg.Campaigns.Application.CampaignTypes.Commands.CreateCampaignType
 {
+    using DataContracts.Campaign;
     using FluentValidation;
 
     public class CreateCampaignTypeValidator : AbstractValidator<CreateCampaignTypeRequest>
