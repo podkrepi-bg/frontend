@@ -39,7 +39,6 @@ export default function NotFoundPage() {
             size="large"
             startIcon={<ArrowBackIcon />}
             variant="outlined"
-            color="white"
             onClick={() => router.replace('/')}>
             {t('errors:backButtonLabel')}
           </Button>
