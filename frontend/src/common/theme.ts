@@ -16,6 +16,9 @@ const colors = {
   yellow: {
     main: '#FFCB57',
   },
+  gray: {
+    main: '#F5F5F5',
+  },
 }
 
 export const themeOptions: ThemeOptions = {
@@ -28,6 +31,7 @@ export const themeOptions: ThemeOptions = {
     },
     secondary: {
       main: colors.yellow.main,
+      light: colors.gray.main,
     },
   },
   shape: {
