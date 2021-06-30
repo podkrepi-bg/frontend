@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       height: '100vh',
       margin: 0,
+      backgroundColor: theme.palette.secondary.light,
     },
   }),
 )
@@ -38,6 +39,7 @@ export default function NotFoundPage() {
             size="large"
             startIcon={<ArrowBackIcon />}
             variant="outlined"
+            color="white"
             onClick={() => router.replace('/')}>
             {t('errors:backButtonLabel')}
           </Button>
