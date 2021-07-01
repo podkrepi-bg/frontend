@@ -1,11 +1,13 @@
 import { useTranslation } from 'next-i18next'
-import { useRouter } from 'next/router'
 
-import { Button, Grid, Typography } from '@material-ui/core'
+import { Grid, Typography } from '@material-ui/core'
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
+import LinkButton from 'components/common/LinkButton'
 import Layout from 'components/layout/Layout'
+import { routes } from 'common/routes'
+
 import NotFoundIllustration from './assets/NotFoundIllustration'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -21,8 +23,6 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function NotFoundPage() {
   const { t } = useTranslation()
-  const router = useRouter()
-
   const classes = useStyles()
 
   return (
@@ -36,13 +36,14 @@ export default function NotFoundPage() {
             <Typography variant="body2">{t('errors:404Message')}</Typography>
           </Grid>
           <Grid container item alignItems="center" justify="center">
-            <Button
+            <LinkButton
               size="large"
               startIcon={<ArrowBackIcon />}
+              color="default"
               variant="outlined"
-              onClick={() => router.replace('/')}>
+              href={routes.index}>
               {t('errors:backButtonLabel')}
-            </Button>
+            </LinkButton>
           </Grid>
         </Grid>
       </Grid>
