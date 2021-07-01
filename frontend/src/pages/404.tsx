@@ -1,6 +1,12 @@
-import { NextPageContext } from 'next'
-import NextError from 'next/error'
+import { GetStaticProps } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export default function NotFound(ctx: NextPageContext) {
-  return <NextError statusCode={ctx.err?.statusCode || 404} />
-}
+import NotFoundPage from 'components/errors/NotFoundPage'
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'errors'])),
+  },
+})
+
+export default NotFoundPage
