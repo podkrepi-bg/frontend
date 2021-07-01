@@ -41,5 +41,3 @@ jobs:
       - name: Build docker image
         working-directory: backend/contact
         run: docker build .
-
- 
