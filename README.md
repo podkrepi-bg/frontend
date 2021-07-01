@@ -13,7 +13,7 @@
 ![](https://img.shields.io/github/issues/podkrepi-bg/frontend?path=frontend)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-24-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-25-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## What's in the box
@@ -115,6 +115,7 @@ Thanks goes to these wonderful people:
     <td align="center"><a href="https://github.com/tvalchev"><img src="https://avatars.githubusercontent.com/u/7523222?v=4?s=100" width="100px;" alt=""/><br /><sub><b>tvalchev</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=tvalchev" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=tvalchev" title="Documentation">📖</a> <a href="#tool-tvalchev" title="Tools">🔧</a></td>
     <td align="center"><a href="https://www.vmihov.com/"><img src="https://avatars.githubusercontent.com/u/37806520?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vladislav Mihov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=skilldeliver" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=skilldeliver" title="Documentation">📖</a> <a href="#tool-skilldeliver" title="Tools">🔧</a> <a href="#platform-skilldeliver" title="Packaging/porting to new platform">📦</a></td>
     <td align="center"><a href="https://github.com/wessly"><img src="https://avatars.githubusercontent.com/u/16501328?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Gottfrid Svartholm</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=wessly" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=wessly" title="Documentation">📖</a> <a href="#tool-wessly" title="Tools">🔧</a></td>
+    <td align="center"><a href="https://github.com/preslavgerchev"><img src="https://avatars.githubusercontent.com/u/11717082?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Preslav Gerchev</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=preslavgerchev" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=preslavgerchev" title="Documentation">📖</a> <a href="#tool-preslavgerchev" title="Tools">🔧</a> <a href="#platform-preslavgerchev" title="Packaging/porting to new platform">📦</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=preslavgerchev" title="Tests">⚠️</a> <a href="https://github.com/podkrepi-bg/frontend/pulls?q=is%3Apr+reviewed-by%3Apreslavgerchev" title="Reviewed Pull Requests">👀</a></td>
   </tr>
 </table>
 
