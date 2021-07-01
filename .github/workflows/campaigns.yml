@@ -16,5 +16,5 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build campaigns module
-        working-directory: frontend/backend
-        run: docker build . -f ./modules-campaigns/Dockerfile
+        working-directory: backend
+        run: docker build -f ./module-campaigns/Dockerfile .
