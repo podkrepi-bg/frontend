@@ -292,6 +292,20 @@
         "doc",
         "tool"
       ]
+    },
+    {
+      "login": "preslavgerchev",
+      "name": "Preslav Gerchev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11717082?v=4",
+      "profile": "https://github.com/preslavgerchev",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "platform",
+        "test",
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7,
