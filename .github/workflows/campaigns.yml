@@ -4,8 +4,12 @@ on:
   workflow_dispatch:
   push:
     branches: [master]
+    paths:
+      - "backend/module-campaigns/**"
   pull_request:
     branches: [master]
+    paths:
+      - "backend/module-campaigns/**"
 
 jobs:
   build-docker-image:
