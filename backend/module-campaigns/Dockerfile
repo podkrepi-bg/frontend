@@ -6,15 +6,7 @@ EXPOSE 5001
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 
-RUN apt-get update \
- && DEBIAN_FRONTEND=noninteractive \
-    apt-get install --no-install-recommends --assume-yes \
-      protobuf-compiler-grpc
-
-ENV PROTOBUF_PROTOC=/usr/bin/protoc
-
 COPY module-campaigns/src/ module-campaigns/src/
-COPY protos/ protos/
 
 WORKDIR /module-campaigns/src/Podkrepibg.Campaigns
 RUN dotnet build "Podkrepibg.Campaigns.csproj" -c Release -o /app/build
