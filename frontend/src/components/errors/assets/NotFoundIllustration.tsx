@@ -2,7 +2,7 @@ import React from 'react'
 
 import theme from 'common/theme'
 
-export default function NotFoundIllustratio() {
+export default function NotFoundIllustration() {
   const [handColor, fingerColor, darkBlue] = [
     theme.palette.primary.main,
     theme.palette.secondary.main,
