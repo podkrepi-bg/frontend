@@ -7,6 +7,7 @@ EXPOSE 5001
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 
 COPY module-campaigns/src/ module-campaigns/src/
+COPY module-campaigns/nuget.config module-campaigns/nuget.config
 
 WORKDIR /module-campaigns/src/Podkrepibg.Campaigns
 RUN dotnet build "Podkrepibg.Campaigns.csproj" -c Release -o /app/build
