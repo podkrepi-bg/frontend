@@ -1,0 +1,29 @@
+name: Build campaign module
+
+on:
+  workflow_dispatch:
+  push:
+    branches: "**"
+    paths:
+      - "backend/module-campaigns/**"
+      
+  pull_request:
+    branches: [master]
+    paths:
+      - "backend/module-campaigns/**"
+
+jobs:
+  build-docker-image:
+    runs-on: ubuntu-latest
+
+    env:
+      IMAGE_NAME: frontend
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build campaigns module
+        working-directory: frontend/backend
+        run: |
+          docker build . 
+            --file ./modules-campaigns/Dockerfile
