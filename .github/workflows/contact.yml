@@ -33,12 +33,13 @@ jobs:
         run: task build
         
   build-docker-image:
+    name: Build docker image
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build contacts module
-        working-directory: frontend/backend/contact
+      - name: Build docker image
+        working-directory: backend/contact
         run: docker build .
 
  
