@@ -14,16 +14,12 @@ on:
 
 jobs:
   build-docker-image:
+    name: Build docker image
     runs-on: ubuntu-latest
-
-    env:
-      IMAGE_NAME: frontend
 
     steps:
       - uses: actions/checkout@v2
 
       - name: Build campaigns module
         working-directory: frontend/backend
-        run: |
-          docker build . 
-            --file ./modules-campaigns/Dockerfile
+        run: docker build . -f ./modules-campaigns/Dockerfile
