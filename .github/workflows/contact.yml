@@ -4,12 +4,8 @@ on:
   workflow_dispatch:
   push:
     branches: [master]
-    paths:
-      - "backend/contact/**"
   pull_request:
     branches: [master]
-    paths:
-      - "backend/contact/**"
 
 jobs:
   build:

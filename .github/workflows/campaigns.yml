@@ -3,14 +3,9 @@ name: Build campaign module
 on:
   workflow_dispatch:
   push:
-    branches: "**"
-    paths:
-      - "backend/module-campaigns/**"
-      
+    branches: [master]
   pull_request:
     branches: [master]
-    paths:
-      - "backend/module-campaigns/**"
 
 jobs:
   build-docker-image:
