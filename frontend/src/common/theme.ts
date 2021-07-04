@@ -52,8 +52,10 @@ export const themeOptions: ThemeOptions = {
     MuiButton: {
       root: {
         lineHeight: 2,
+        borderRadius: '25px',
       },
       textPrimary: {
+        color: colors.blue.dark,
         '&:hover': {
           color: colors.blue.mainDark,
         },
@@ -65,6 +67,7 @@ export const themeOptions: ThemeOptions = {
         },
       },
       outlinedPrimary: {
+        color: colors.blue.dark,
         '&:hover': {
           color: colors.blue.mainDark,
           borderColor: colors.blue.mainDark,
