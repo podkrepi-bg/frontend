@@ -16,6 +16,7 @@ namespace Podkrepibg.Campaigns.Application.Beneficiaries.Commands.CreateBenefici
                 .MaximumLength(50);
 
             RuleFor(b => b.Request.Type)
+                .NotEmpty()
                 .IsInEnum()
                 .WithMessage("not a valid beneficiary type provided");
 
@@ -24,10 +25,12 @@ namespace Podkrepibg.Campaigns.Application.Beneficiaries.Commands.CreateBenefici
                 .WithMessage("not a valid guid provided");
 
             RuleFor(b => b.Request.CountryIsoCode)
+                .NotEmpty()
                 .IsInEnum()
                 .WithMessage("not a valid countryIso2Code provided");
 
             RuleFor(b => b.Request.City)
+                .NotEmpty()
                 .IsInEnum()
                 .WithMessage("not a valid city provided");
 
