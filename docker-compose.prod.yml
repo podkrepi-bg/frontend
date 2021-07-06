@@ -24,7 +24,8 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME?}-roach-0
     restart: always
     hostname: roach-0
-    command: start --insecure --listen-addr=${DB_HOST?}:${DB_PORT?}
+#    command: start --insecure --listen-addr=${DB_HOST?}:${DB_PORT?}
+    command: start-single-node --insecure --listen-addr=${DB_HOST?}:${DB_PORT?}
     # command: start --cluster-name=dp-crdb-cluster --logtostderr=WARNING --log-file-verbosity=WARNING --listen-addr=roach-0:26257 --advertise-addr=roach-0:26257 --certs-dir=/certs
     volumes:
       - roach-0-data:/cockroach/cockroach-data
