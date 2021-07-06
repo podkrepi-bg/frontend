@@ -44,7 +44,7 @@ func (config *Config) setDefaults() {
 	config.SetDefault("APP_ADDR", ":5000")
 
 	// Set default database configuration
-	config.SetDefault("DB_HOST", "roach-lb")
+	config.SetDefault("DB_HOST", "roach-0")
 	config.SetDefault("DB_PORT", 26257)
 	config.SetDefault("DB_USER", "root")
 	config.SetDefault("DB_PASS", "password")
