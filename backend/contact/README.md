@@ -7,7 +7,7 @@ The configuration settings for the contact module are set via environmental vari
 | Setting     | Description                                                                                        | Default value             |
 |-------------|----------------------------------------------------------------------------------------------------|---------------------------|
 | APP_ADDR    | The address on which the module binds.                                                             | :5000                     |
-| DB_HOST     | The database host.                                                                                 | roach-lb                  |
+| DB_HOST     | The database host.                                                                                 | roach-0                   |
 | DB_PORT     | The database port.                                                                                 | 26257                     |
 | DB_USER     | The database user.                                                                                 | root                      |
 | DB_PASS     | The database password.                                                                             | password                  |
