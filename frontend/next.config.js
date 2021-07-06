@@ -15,6 +15,8 @@ const moduleExports = {
     APP_ENV: process.env.APP_ENV,
     SENTRY_DSN: process.env.SENTRY_DSN,
     DEPLOY_TAG: process.env.DEPLOY_TAG,
+    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    NEXT_PUBLIC_SUPABASE_KEY: process.env.NEXT_PUBLIC_SUPABASE_KEY,
   },
   serverRuntimeConfig: {
     JWT_SECRET: process.env.JWT_SECRET,
