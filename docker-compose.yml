@@ -50,11 +50,11 @@ services:
     depends_on:
       - roach-init
       - flyway
-    healthcheck:
-      test: curl --fail http://localhost:5000/api/v1/healthcheck || exit 1
-      interval: 5s
-      timeout: 5s
-      retries: 3
+    #healthcheck:
+    #  test: curl --fail http://localhost:5000/api/v1/healthcheck || exit 1
+    #  interval: 5s
+    #  timeout: 5s
+    #  retries: 3
 
   campaigns:
     image: ${CAMPAIGN_DEPLOY_IMAGE}:${DEPLOY_TAG?}
