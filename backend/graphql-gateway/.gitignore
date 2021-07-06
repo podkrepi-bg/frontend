@@ -1,6 +1,0 @@
-output/
-.task
-
-graph/schema.resolvers.go
-graph/generated/
-graph/model/
