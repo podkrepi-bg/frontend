@@ -40,8 +40,6 @@ services:
     image: ${API_DEPLOY_IMAGE}:${DEPLOY_TAG?}
     container_name: ${COMPOSE_PROJECT_NAME?}-api
     restart: always
-    env_file: 
-      - .env
     networks:
       backend-net:
         aliases:
@@ -81,12 +79,12 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME?}-roach-0
     restart: always
     hostname: roach-0
-    command: start-single-node --insecure --listen-addr=${DB_HOST?}:${DB_PORT?} 
+    command: start-single-node --insecure --listen-addr=${DB_HOST?}:${DB_PORT?}
     volumes:
       - roach-0-data:/cockroach/cockroach-data
     networks:
       - backend-net
-  
+
   roach-init:
     container_name: ${COMPOSE_PROJECT_NAME?}-roach-init
     hostname: roach-init
