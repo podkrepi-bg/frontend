@@ -108,65 +108,65 @@ jobs:
           docker tag $IMAGE_NAME $IMAGE_ID:$DEPLOY_TAG
           docker push $IMAGE_ID:$DEPLOY_TAG
 
-  deploy-run:
-    needs: [deploy-init, deploy-build]
-    runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/deploy/prod') ||
-      startsWith(github.ref, 'refs/tags/deploy/nightly')
-    environment: prod
-    steps:
-      - uses: actions/checkout@v2
-      - name: dotenv
-        id: dotenv
-        uses: falti/dotenv-action@v0.2.5
-        with:
-          path: .env.prod
-      - name: Start Deployment
-        uses: TapTap21/docker-remote-deployment-action@v1.1
-        env:
-          JWT_SECRET: ${{ secrets.APP_JWT_SECRET }}
-          DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
-          DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_KEY }}
-          API_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.API_DEPLOY_IMAGE }}
-          WEB_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.WEB_DEPLOY_IMAGE }}
-          FLYWAY_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.FLYWAY_DEPLOY_IMAGE }}
-          CAMPAIGN_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.CAMPAIGN_DEPLOY_IMAGE }}
-          DB_PASS: ${{ secrets.DB_PASS }}
-          DEPLOY_TAG: ${{needs.deploy-init.outputs.DEPLOY_TAG}}
-          COMPOSE_PROJECT_NAME: ${{ steps.dotenv.outputs.COMPOSE_PROJECT_NAME }}
-          NODE_ENV: ${{ steps.dotenv.outputs.NODE_ENV }}
-          TARGET_ENV: ${{ steps.dotenv.outputs.TARGET_ENV }}
-          APP_ENV: ${{ steps.dotenv.outputs.APP_ENV }}
-          API_URL: ${{ steps.dotenv.outputs.API_URL }}
-          APP_URL: ${{ steps.dotenv.outputs.APP_URL }}
-          APP_PORT: ${{ steps.dotenv.outputs.APP_PORT }}
-          NEXTAUTH_URL: ${{ steps.dotenv.outputs.NEXTAUTH_URL }}
-          DB_HOST: ${{ steps.dotenv.outputs.DB_HOST }}
-          DB_USER: ${{ steps.dotenv.outputs.DB_USER }}
-          DB_PORT: ${{ steps.dotenv.outputs.DB_PORT }}
-          DB_NAME: ${{ steps.dotenv.outputs.DB_NAME }}
-          SSL_MODE: ${{ steps.dotenv.outputs.SSL_MODE }}
-          SSL_CA: ${{ steps.dotenv.outputs.SSL_CA }}
-          SSL_KEY: ${{ steps.dotenv.outputs.SSL_KEY }}
-          SSL_CERT: ${{ steps.dotenv.outputs.SSL_CERT }}
-          FRONTEND_IPV4_ADDRESS: ${{ steps.dotenv.outputs.FRONTEND_IPV4_ADDRESS }}
-          API_IPV4_ADDRESS: ${{ steps.dotenv.outputs.API_IPV4_ADDRESS }}
-          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_DSN: ${{ steps.dotenv.outputs.SENTRY_DSN }}
-          SENTRY_PROJECT: ${{ steps.dotenv.outputs.SENTRY_PROJECT }}
-        with:
-          remote_docker_host: ${{ secrets.REMOTE_DOCKER_HOST }}
-          ssh_port: ${{ secrets.SSH_PORT }}
-          ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          stack_file_name: docker-compose.yml -f docker-compose.prod.yml
-          docker_login_user: ${{ secrets.GHCR_USERNAME }}
-          docker_login_password: ${{ secrets.GHCR_TOKEN }}
-          docker_login_registry: ghcr.io
-          args: up -d --remove-orphans
+#  deploy-run:
+#    needs: [deploy-init, deploy-build]
+#    runs-on: ubuntu-latest
+#    if: startsWith(github.ref, 'refs/tags/deploy/prod') ||
+#      startsWith(github.ref, 'refs/tags/deploy/nightly')
+#    environment: prod
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: dotenv
+#        id: dotenv
+#        uses: falti/dotenv-action@v0.2.5
+#        with:
+#          path: .env.prod
+#      - name: Start Deployment
+#        uses: TapTap21/docker-remote-deployment-action@v1.1
+#        env:
+#          JWT_SECRET: ${{ secrets.APP_JWT_SECRET }}
+#          DISCORD_CLIENT_ID: ${{ secrets.APP_DISCORD_CLIENT_ID }}
+#          DISCORD_CLIENT_SECRET: ${{ secrets.APP_DISCORD_CLIENT_SECRET }}
+#          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+#          NEXT_PUBLIC_SUPABASE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_KEY }}
+#          API_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.API_DEPLOY_IMAGE }}
+#          WEB_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.WEB_DEPLOY_IMAGE }}
+#          FLYWAY_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.FLYWAY_DEPLOY_IMAGE }}
+#          CAMPAIGN_DEPLOY_IMAGE: ${{ steps.dotenv.outputs.CAMPAIGN_DEPLOY_IMAGE }}
+#          DB_PASS: ${{ secrets.DB_PASS }}
+#          DEPLOY_TAG: ${{needs.deploy-init.outputs.DEPLOY_TAG}}
+#          COMPOSE_PROJECT_NAME: ${{ steps.dotenv.outputs.COMPOSE_PROJECT_NAME }}
+#          NODE_ENV: ${{ steps.dotenv.outputs.NODE_ENV }}
+#          TARGET_ENV: ${{ steps.dotenv.outputs.TARGET_ENV }}
+#          APP_ENV: ${{ steps.dotenv.outputs.APP_ENV }}
+#          API_URL: ${{ steps.dotenv.outputs.API_URL }}
+#          APP_URL: ${{ steps.dotenv.outputs.APP_URL }}
+#          APP_PORT: ${{ steps.dotenv.outputs.APP_PORT }}
+#          NEXTAUTH_URL: ${{ steps.dotenv.outputs.NEXTAUTH_URL }}
+#          DB_HOST: ${{ steps.dotenv.outputs.DB_HOST }}
+#          DB_USER: ${{ steps.dotenv.outputs.DB_USER }}
+#          DB_PORT: ${{ steps.dotenv.outputs.DB_PORT }}
+#          DB_NAME: ${{ steps.dotenv.outputs.DB_NAME }}
+#          SSL_MODE: ${{ steps.dotenv.outputs.SSL_MODE }}
+#          SSL_CA: ${{ steps.dotenv.outputs.SSL_CA }}
+#          SSL_KEY: ${{ steps.dotenv.outputs.SSL_KEY }}
+#          SSL_CERT: ${{ steps.dotenv.outputs.SSL_CERT }}
+#          FRONTEND_IPV4_ADDRESS: ${{ steps.dotenv.outputs.FRONTEND_IPV4_ADDRESS }}
+#          API_IPV4_ADDRESS: ${{ steps.dotenv.outputs.API_IPV4_ADDRESS }}
+#          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+#          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+#          SENTRY_DSN: ${{ steps.dotenv.outputs.SENTRY_DSN }}
+#          SENTRY_PROJECT: ${{ steps.dotenv.outputs.SENTRY_PROJECT }}
+#        with:
+#          remote_docker_host: ${{ secrets.REMOTE_DOCKER_HOST }}
+#          ssh_port: ${{ secrets.SSH_PORT }}
+#          ssh_public_key: ${{ secrets.SSH_PUBLIC_KEY }}
+#          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+#          stack_file_name: docker-compose.yml -f docker-compose.prod.yml
+#          docker_login_user: ${{ secrets.GHCR_USERNAME }}
+#          docker_login_password: ${{ secrets.GHCR_TOKEN }}
+#          docker_login_registry: ghcr.io
+#          args: up -d --remove-orphans
 
   deploy-sentry:
     needs: [deploy-init, deploy-build, deploy-run]
