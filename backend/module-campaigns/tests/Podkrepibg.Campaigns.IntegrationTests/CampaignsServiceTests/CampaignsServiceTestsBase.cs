@@ -33,11 +33,10 @@ namespace Podkrepibg.Campaigns.IntegrationTests.CampaignsServiceTests
             _services = new ServiceCollection()
                 .AddOptions()
                 .AddApplication(configuration)
-                .AddInfrastructure(configuration)
+                .AddInfrastructure()
                 .AddScoped<CampaignsService>();
 
-            _postgresDataHelper = new PostgresDataHelper(
-                configuration.GetConnectionString("CampaignDb"));
+            _postgresDataHelper = new PostgresDataHelper(DbConfiguration.GetConnectionString());
         }
 
         [SetUp]
