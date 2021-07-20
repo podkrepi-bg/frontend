@@ -30,7 +30,7 @@ namespace Podkrepibg.Campaigns
             services.AddOptions();
 
             services.AddApplication(Configuration);
-            services.AddInfrastructure();
+            services.AddInfrastructure(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
