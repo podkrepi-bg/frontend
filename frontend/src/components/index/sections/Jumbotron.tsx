@@ -69,6 +69,7 @@ const useStyles = makeStyles((theme) =>
     },
     scrollButton: {
       marginTop: theme.spacing(7),
+      zIndex: 10,
       [theme.breakpoints.up(1600)]: {
         marginTop: theme.spacing(20),
       },
