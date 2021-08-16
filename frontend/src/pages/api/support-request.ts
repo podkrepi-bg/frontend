@@ -4,19 +4,19 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { SupportRequestData } from 'components/support-form/helpers/support-form.types'
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
-  process.env.NEXT_PUBLIC_SUPABASE_KEY || '',
-)
 const {
   serverRuntimeConfig: {
     services: { apiUrl },
   },
 } = getConfig()
 
-export default async function SupportRequestSupabase(req: NextApiRequest, res: NextApiResponse) {
+export async function SupportRequestSupabase(req: NextApiRequest, res: NextApiResponse) {
   try {
     const supportRequest = req?.body
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+      process.env.NEXT_PUBLIC_SUPABASE_KEY || '',
+    )
     const { data, error } = await supabase.from<SupportRequestData>('support_requests').insert([
       {
         ...supportRequest,
@@ -34,7 +34,7 @@ export default async function SupportRequestSupabase(req: NextApiRequest, res: N
   }
 }
 
-export async function SupportRequestProxy(req: NextApiRequest, res: NextApiResponse) {
+export default async function SupportRequestProxy(req: NextApiRequest, res: NextApiResponse) {
   try {
     const response = await fetch(`${apiUrl}/api/v1/support-request`, {
       method: 'POST',
