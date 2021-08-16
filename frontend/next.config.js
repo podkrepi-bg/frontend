@@ -5,9 +5,7 @@ const { i18n } = require('./next-i18next.config')
 
 const moduleExports = {
   i18n,
-  future: {
-    webpack5: true,
-  },
+  webpack5: true,
   sassOptions: {
     includePaths: [path.join(__dirname, 'src/styles')],
   },
