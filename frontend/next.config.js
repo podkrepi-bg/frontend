@@ -1,11 +1,15 @@
+// @ts-check
+
 const path = require('path')
 const { withSentryConfig } = require('@sentry/nextjs')
 
 const { i18n } = require('./next-i18next.config')
 
+/**
+ * @type {import('next').NextConfig}
+ */
 const moduleExports = {
   i18n,
-  webpack5: true,
   sassOptions: {
     includePaths: [path.join(__dirname, 'src/styles')],
   },

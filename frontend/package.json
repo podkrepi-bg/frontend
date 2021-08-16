@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start -p 3040",
     "lint": "eslint . --fix --ext=ts,tsx",
+    "lint:next": "next lint",
     "lint:styles": "stylelint **.scss",
     "format": "prettier --write .",
     "type-check": "tsc --project tsconfig.json --pretty --noEmit",
@@ -45,15 +46,17 @@
     "@typescript-eslint/eslint-plugin": "4.26.0",
     "@typescript-eslint/parser": "4.26.0",
     "eslint": "7.27.0",
+    "eslint-config-next": "^11.0.1",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-prettier": "3.4.0",
     "eslint-plugin-react": "7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "7.0.1",
     "lint-staged": "11.0.0",
     "prettier": "2.3.0",
     "stylelint": "13.13.1",
     "stylelint-config-sass-guidelines": "8.0.0",
-    "typescript": "4.3.2",
-    "husky": "6.0.0"
+    "typescript": "4.3.5"
   },
   "lint-staged": {
     "*.{ts,tsx,js}": [
