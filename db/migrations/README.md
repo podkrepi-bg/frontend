@@ -1,3 +1,7 @@
+# Database Requirements
+![](https://img.shields.io/badge/Postgresql-v13.0%20or%20higher-green)
+
+
 # DB Migrations
 
 - [Flyway](https://flywaydb.org/documentation/)
@@ -14,9 +18,9 @@ Each microservice schema is being versioned in dedicated directory and migration
 | Microservice                 | Schema     | Migrations dir             | Prefix     |
 | ---------------------------- | ---------- | -------------------------- | ---------- |
 | Init                         | -          | `./db/migrations/_init`    | `V1.x.y.z` |
-| General purpose / Versioning | `app`      | `./db/migrations/app`      | `V2.x.y.z` |
-| Campaigns                    | `campaign` | `./db/migrations/campaign` | `V3.x.y.z` |
-| Accounts                     | `account`  | `./db/migrations/account`  | `V4.x.y.z` |
+| General purpose / Versioning | `app`      | `./db/migrations/app` | `V3.x.y.z` |
+| Campaigns                    | `campaign` | `./db/migrations/campaign` | `V4.x.y.z` |
+| Contacts                     | `contacts`  | `./db/migrations/contacts`  | `V2.x.y.z` |
 
 ### Migration file naming convention
 
