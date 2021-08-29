@@ -6,7 +6,7 @@ import Layout from 'components/layout/Layout'
 import ContactInfo from 'components/contact/ContactInfo'
 import ContactForm from 'components/contact/ContactForm'
 
-export default function RegisterPage() {
+export default function ContactPage() {
   const { t } = useTranslation()
 
   return (
