@@ -25,7 +25,7 @@ const moduleExports = {
     DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
     DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
     services: {
-      apiUrl: 'http://api.podkrepi.localhost:5000',
+      apiUrl: process.env.API_URL + ':' + process.env.REST_API_PORT,
     },
   },
   publicRuntimeConfig: {
