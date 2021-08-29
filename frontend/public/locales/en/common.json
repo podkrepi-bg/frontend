@@ -4,6 +4,10 @@
     "about": "About us",
     "about-project": "The Project",
     "contacts": "Contacts",
+    "campaigns": {
+      "index": "Campaigns",
+      "create": "Create Campaign"
+    },
     "support-us": "Support us",
     "profile": "Profile",
     "login": "Login",
@@ -21,6 +25,7 @@
     "error": "There was an error processing your message!"
   },
   "link": "Link",
+  "edit-page": "Edit this page on GitHub",
   "footerLabels": {
     "aboutUs": "About us",
     "aboutProject": "The project",

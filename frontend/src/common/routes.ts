@@ -29,6 +29,10 @@ export const routes = {
   logout: '/logout',
   contact: '/contact',
   support: '/support',
+  campaigns: {
+    index: '/campaigns',
+    create: '/campaigns/create',
+  },
   profile: '/profile',
   register: '/register',
   aboutProject: '/about-project',

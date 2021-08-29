@@ -13,11 +13,6 @@ type NavItem = {
 
 export const navItems: NavItem[] = [
   {
-    href: routes.index,
-    label: 'nav.home',
-    variant: 'text',
-  },
-  {
     href: routes.about,
     label: 'nav.about',
     variant: 'text',
@@ -33,7 +28,12 @@ export const navItems: NavItem[] = [
     variant: 'text',
   },
   {
-    href: routes.support,
+    href: routes.campaigns.index,
+    label: 'Кампании',
+    variant: 'text',
+  },
+  {
+    href: routes.contact,
     label: 'nav.support-us',
     variant: 'outlined',
   },
