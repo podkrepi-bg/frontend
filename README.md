@@ -16,7 +16,6 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-25-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-
 ## What's in the box
 
 - Frontend
