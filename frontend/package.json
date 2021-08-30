@@ -33,6 +33,7 @@
     "react-gtm-module": "2.0.11",
     "react-in-viewport": "1.0.0-alpha.17",
     "sass": "1.34.1",
+    "sharp": "^0.29.0",
     "typewriter-effect": "2.17.0",
     "yup": "0.32.9"
   },
