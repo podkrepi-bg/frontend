@@ -2,8 +2,13 @@
   "nav": {
     "home": "Начало",
     "about": "За нас",
+    "blog": "Блог",
     "about-project": "За проекта",
     "contacts": "Контакти",
+    "campaigns": {
+      "index": "Кампании",
+      "create": "Създай кампания"
+    },
     "support-us": "Подкрепи ни",
     "profile": "Моят профил",
     "login": "Вход",
@@ -21,6 +26,7 @@
     "error": "Възникна грешка! Опитайте отново!"
   },
   "link": "Линк",
+  "edit-page": "Промени тази страница в GitHub",
   "footerLabels": {
     "aboutUs": "За нас",
     "aboutProject": "За проекта",

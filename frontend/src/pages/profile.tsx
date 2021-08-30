@@ -1,15 +1,14 @@
 import { GetServerSideProps } from 'next'
-import { Session } from 'next-auth'
-import { getSession } from 'next-auth/client'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { routes } from 'common/routes'
+import { Session } from 'common/util/useSession'
 import ProfilePage from 'components/auth/profile/ProfilePage'
 
 export type ProfilePageProps = { session: Session | null }
 
 export const getServerSideProps: GetServerSideProps<ProfilePageProps> = async (ctx) => {
-  const session = await getSession(ctx)
+  const session = null // TODO: Replace with proper session
 
   if (!session) {
     ctx.res.statusCode = 302

@@ -27,8 +27,8 @@ export default function NotFoundPage() {
 
   return (
     <Layout maxWidth={false} disableOffset disableGutters>
-      <Grid container className={classes.root} xs={12}>
-        <Grid container direction="column" alignItems="center" justify="center" spacing={4} xs={12}>
+      <Grid container className={classes.root}>
+        <Grid container direction="column" alignItems="center" justify="center" spacing={4}>
           <Grid container item xs={8} sm={6} lg={4}>
             <NotFoundIllustration />
           </Grid>

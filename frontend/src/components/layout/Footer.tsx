@@ -56,6 +56,7 @@ const footerItems: FooterLink[][] = [
     { label: 'footerLabels.aboutProject', href: routes.aboutProject },
     { label: 'footerLabels.support', href: routes.support },
     { label: 'footerLabels.contact', href: routes.contact },
+    { external: true, label: 'nav.blog', href: staticUrls.blog },
   ],
   [
     { external: true, label: 'GitHub', href: staticUrls.github },

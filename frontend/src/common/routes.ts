@@ -11,6 +11,7 @@ export const staticUrls = {
   github: 'https://github.com/podkrepi-bg/frontend',
   docs: 'https://docs.podkrepi.bg/',
   devDocs: 'https://docs.podkrepi.bg/development',
+  blog: 'https://blog.podkrepi.bg/',
 }
 
 export const socialUrls = {
@@ -29,6 +30,10 @@ export const routes = {
   logout: '/logout',
   contact: '/contact',
   support: '/support',
+  campaigns: {
+    index: '/campaigns',
+    create: '/campaigns/create',
+  },
   profile: '/profile',
   register: '/register',
   aboutProject: '/about-project',
