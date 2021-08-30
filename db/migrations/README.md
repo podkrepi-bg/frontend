@@ -20,7 +20,7 @@ Each microservice schema is being versioned in dedicated directory and migration
 | Init                         | -          | `./db/migrations/_init`    | `V1.x.y.z` |
 | General purpose / Versioning | `app`      | `./db/migrations/app` | `V3.x.y.z` |
 | Campaigns                    | `campaign` | `./db/migrations/campaign` | `V4.x.y.z` |
-| Contacts                     | `contacts`  | `./db/migrations/contacts`  | `V2.x.y.z` |
+| Contacts                     | `contact`  | `./db/migrations/contact`  | `V2.x.y.z` |
 
 ### Migration file naming convention
 
