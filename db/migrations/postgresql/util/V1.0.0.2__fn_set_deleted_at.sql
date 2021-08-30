@@ -17,9 +17,3 @@ REVOKE ALL PRIVILEGES ON FUNCTION campaign.soft_delete_record() FROM public;
 ALTER FUNCTION campaign.soft_delete_record() OWNER TO postgres;
 
 COMMIT;
-
-
-ALTER USER postgres SET search_path TO "$user", app, campaign, util;
-
-
-SET search_path TO  "$user", app, campaign, util;
