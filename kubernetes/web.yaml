@@ -44,14 +44,10 @@ spec:
           value: https://dev.podkrepi.bg
         - name: APP_PORT
           value: "3040"
-        - name: JWT_SECRET
-          value: "!Change__Me!"
         - name: API_URL
           value: http://contact-headless.contact.svc
         - name: REST_API_PORT
           value: "80"
-        - name: NEXTAUTH_URL
-          value: https://dev.podkrepi.bg
         ports:
         - containerPort: 3040
         livenessProbe:

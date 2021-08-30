@@ -30,10 +30,6 @@ spec:
               value: https://api.dp.localhost/
             - name: DISCORD_CLIENT_ID
             - name: DISCORD_CLIENT_SECRET
-            - name: JWT_SECRET
-              value: '!Change__Me!'
-            - name: NEXTAUTH_URL
-              value: https://localhost:3040
           image: podkrepi-frontend
           name: podkrepi-frontend
           ports:
