@@ -1,31 +1,19 @@
 import { GetServerSideProps } from 'next'
-import { csrfToken, getSession, providers } from 'next-auth/client'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { routes } from 'common/routes'
 import LoginPage from 'components/auth/login/LoginPage'
 
-type UnboxPromise<T extends Promise<unknown>> = T extends Promise<infer U> ? U : never
-
 export type LoginPageProps = {
-  providers: UnboxPromise<ReturnType<typeof providers>>
-  csrfToken: UnboxPromise<ReturnType<typeof csrfToken>>
+  providers: string[]
+  csrfToken: string
 }
 
 export const getServerSideProps: GetServerSideProps<LoginPageProps> = async (ctx) => {
-  const session = await getSession(ctx)
-
-  if (session) {
-    ctx.res.statusCode = 302
-    ctx.res.setHeader('Location', routes.index)
-    ctx.res.end()
-  }
-
   return {
     props: {
       ...(await serverSideTranslations(ctx.locale ?? 'bg', ['common', 'auth', 'validation'])),
-      csrfToken: await csrfToken(ctx),
-      providers: await providers(),
+      csrfToken: '',
+      providers: [],
     },
   }
 }

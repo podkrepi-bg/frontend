@@ -1,22 +1,18 @@
 import React from 'react'
-import { Grid } from '@material-ui/core'
+import { Button, Grid } from '@material-ui/core'
 import { useTranslation } from 'next-i18next'
 
-import { routes } from 'common/routes'
+import { routes, staticUrls } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
 
 type NavItem = {
   href: string
   label: string
   variant: 'text' | 'outlined' | 'contained'
+  target?: string
 }
 
 export const navItems: NavItem[] = [
-  {
-    href: routes.index,
-    label: 'nav.home',
-    variant: 'text',
-  },
   {
     href: routes.about,
     label: 'nav.about',
@@ -33,7 +29,12 @@ export const navItems: NavItem[] = [
     variant: 'text',
   },
   {
-    href: routes.support,
+    href: routes.campaigns.index,
+    label: 'Кампании',
+    variant: 'text',
+  },
+  {
+    href: routes.contact,
     label: 'nav.support-us',
     variant: 'outlined',
   },
@@ -54,6 +55,16 @@ export default function MainNavMenu({ children }: { children?: React.ReactNode }
           </LinkButton>
         </Grid>
       ))}
+      <Grid item>
+        <Button
+          variant="text"
+          target="_blank"
+          color="primary"
+          href={staticUrls.blog}
+          style={{ whiteSpace: 'nowrap' }}>
+          {t('nav.blog')}
+        </Button>
+      </Grid>
       {children}
     </Grid>
   )

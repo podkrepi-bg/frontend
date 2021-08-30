@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
-import { useSession } from 'next-auth/client'
 import { useTranslation } from 'next-i18next'
 import { AccountCircle } from '@material-ui/icons'
 import { Avatar, Grid, IconButton, Menu, MenuItem } from '@material-ui/core'
 
 import { routes } from 'common/routes'
+import { useSession } from 'common/util/useSession'
 
 export default function PrivateMenu() {
   const router = useRouter()
   const { t } = useTranslation()
-  const [session] = useSession()
+  const { session } = useSession()
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
 
   const handleMenu = (event: React.MouseEvent) => setAnchorEl(event.currentTarget)

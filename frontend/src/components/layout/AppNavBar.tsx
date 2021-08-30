@@ -3,7 +3,6 @@ import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { GitHub, Menu } from '@material-ui/icons'
-import { useSession } from 'next-auth/client'
 import useScrollTrigger from '@material-ui/core/useScrollTrigger'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { AppBar, Toolbar, IconButton, Grid, Hidden } from '@material-ui/core'
@@ -76,7 +75,7 @@ type AppBarDeckProps = {
 export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
   const { locale } = useRouter()
   const classes = useStyles()
-  const [session] = useSession()
+  const session = false // TODO: Add proper session check
   const shrink = useScrollTrigger()
   return (
     <AppBar position="fixed" className={clsx(classes.appBar, { shrink })}>

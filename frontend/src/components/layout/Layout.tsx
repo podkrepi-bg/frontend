@@ -10,16 +10,19 @@ import {
   Typography,
 } from '@material-ui/core'
 
-import MobileNav from './nav/MobileNav'
 import Footer from 'components/layout/Footer'
 import { defaultOgImage } from 'common/routes'
 import Snackbar from 'components/layout/Snackbar'
 import AppNavBar from 'components/layout/AppNavBar'
 
+import EditLink from './EditLink'
+import MobileNav from './nav/MobileNav'
+
 type LayoutProps = React.PropsWithChildren<
   ContainerProps & {
     title?: string
     ogImage?: string
+    editLink?: string
     disableOffset?: boolean
   }
 >
@@ -49,6 +52,7 @@ export default function Layout({
   children,
   maxWidth = 'md',
   disableOffset = false,
+  editLink,
   ...containerProps
 }: LayoutProps) {
   const classes = useStyles()
@@ -81,6 +85,7 @@ export default function Layout({
               {title}
             </Typography>
           )}
+          {editLink && <EditLink link={editLink} />}
           {children}
         </Box>
         <Snackbar />
