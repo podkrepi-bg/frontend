@@ -1,6 +1,6 @@
 BEGIN;
 
-CREATE TABLE IF NOT EXISTS "contacts"."support_requests" (
+CREATE TABLE IF NOT EXISTS "contact"."support_requests" (
     "id"            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     "person"        JSONB,
     "support_data"  JSONB,

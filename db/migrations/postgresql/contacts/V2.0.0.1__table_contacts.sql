@@ -1,6 +1,6 @@
 BEGIN;
 
-CREATE TABLE IF NOT EXISTS "contacts"."contacts" (
+CREATE TABLE IF NOT EXISTS "contact"."contacts" (
     "id"            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     "email"         CITEXT,
     "first_name"    varchar,
