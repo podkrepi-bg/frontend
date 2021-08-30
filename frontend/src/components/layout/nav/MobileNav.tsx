@@ -2,9 +2,9 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
-import { SwipeableDrawer, Hidden, Box, Grid } from '@material-ui/core'
+import { SwipeableDrawer, Hidden, Box, Grid, Button } from '@material-ui/core'
 
-import { routes } from 'common/routes'
+import { routes, staticUrls } from 'common/routes'
 import { useSession } from 'common/util/useSession'
 import LinkButton from 'components/common/LinkButton'
 import PodkrepiIcon from 'components/brand/PodkrepiIcon'
@@ -115,6 +115,14 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
                   </LinkButton>
                 </Grid>
               ))}
+              <Button
+                href={staticUrls.blog}
+                target="_blank"
+                color="primary"
+                style={{ whiteSpace: 'nowrap' }}
+                variant="text">
+                {t('nav.blog')}
+              </Button>
               <Box my={4} textAlign="center">
                 <LocaleButton />
               </Box>

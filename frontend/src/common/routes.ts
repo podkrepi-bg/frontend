@@ -11,6 +11,7 @@ export const staticUrls = {
   github: 'https://github.com/podkrepi-bg/frontend',
   docs: 'https://docs.podkrepi.bg/',
   devDocs: 'https://docs.podkrepi.bg/development',
+  blog: 'https://blog.podkrepi.bg/',
 }
 
 export const socialUrls = {
