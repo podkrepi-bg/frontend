@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
-import { useSession } from 'next-auth/client'
 import { useTranslation } from 'next-i18next'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { SwipeableDrawer, Hidden, Box, Grid } from '@material-ui/core'
 
 import { routes } from 'common/routes'
+import { useSession } from 'common/util/useSession'
 import LinkButton from 'components/common/LinkButton'
 import PodkrepiIcon from 'components/brand/PodkrepiIcon'
 import CloseModalButton from 'components/common/CloseModalButton'
@@ -39,7 +39,7 @@ type NavDeckProps = {
 }
 
 export const AuthLinks = () => {
-  const [session] = useSession()
+  const { session } = useSession()
   const { t } = useTranslation()
 
   if (session) {
