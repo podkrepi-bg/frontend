@@ -139,6 +139,7 @@ jobs:
           TARGET_ENV: ${{ steps.dotenv.outputs.TARGET_ENV }}
           APP_ENV: ${{ steps.dotenv.outputs.APP_ENV }}
           API_URL: ${{ steps.dotenv.outputs.API_URL }}
+          REST_API_PORT: ${{ steps.dotenv.outputs.REST_API_PORT }}
           APP_URL: ${{ steps.dotenv.outputs.APP_URL }}
           APP_PORT: ${{ steps.dotenv.outputs.APP_PORT }}
           NEXTAUTH_URL: ${{ steps.dotenv.outputs.NEXTAUTH_URL }}
