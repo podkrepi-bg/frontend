@@ -1,14 +1,15 @@
 import React from 'react'
-import { Grid } from '@material-ui/core'
+import { Button, Grid } from '@material-ui/core'
 import { useTranslation } from 'next-i18next'
 
-import { routes } from 'common/routes'
+import { routes, staticUrls } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
 
 type NavItem = {
   href: string
   label: string
   variant: 'text' | 'outlined' | 'contained'
+  target?: string
 }
 
 export const navItems: NavItem[] = [
@@ -54,6 +55,16 @@ export default function MainNavMenu({ children }: { children?: React.ReactNode }
           </LinkButton>
         </Grid>
       ))}
+      <Grid item>
+        <Button
+          variant="text"
+          target="_blank"
+          color="primary"
+          href={staticUrls.blog}
+          style={{ whiteSpace: 'nowrap' }}>
+          {t('nav.blog')}
+        </Button>
+      </Grid>
       {children}
     </Grid>
   )
