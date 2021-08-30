@@ -2,7 +2,7 @@ BEGIN;
 
 CREATE TABLE IF NOT EXISTS "contact"."contacts" (
     "id"            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    "email"         CITEXT,
+    "email"         public.CITEXT,
     "first_name"    varchar,
     "last_name"     varchar,
     "phone"         varchar,
