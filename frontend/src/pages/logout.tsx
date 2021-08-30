@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { GetServerSideProps } from 'next'
-import { useSession, signOut } from 'next-auth/client'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { routes, baseUrl } from 'common/routes'
+import { useSession } from 'common/util/useSession'
 
 const callbackUrl = `${baseUrl}${routes.index}`
 
@@ -14,10 +14,11 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
 })
 
 const Logout = () => {
-  const [session] = useSession()
+  const { session } = useSession()
 
   useEffect(() => {
-    signOut({ callbackUrl })
+    console.log({ callbackUrl })
+    // TODO: Logout the user
   }, [session])
 
   return null

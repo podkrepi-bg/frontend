@@ -4,7 +4,6 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { ThemeProvider } from '@material-ui/core/styles'
-import { Provider as SessionProvider } from 'next-auth/client'
 import { appWithTranslation, useTranslation } from 'next-i18next'
 
 import theme from 'common/theme'
@@ -61,9 +60,7 @@ function CustomApp(props: AppProps) {
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <SessionProvider session={pageProps.session}>
-          <Component {...pageProps} />
-        </SessionProvider>
+        <Component {...pageProps} />
       </ThemeProvider>
     </React.Fragment>
   )
