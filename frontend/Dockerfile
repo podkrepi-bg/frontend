@@ -6,7 +6,6 @@ ARG NODE_ENV=production
 ENV PATH=/app/node_modules/.bin:$PATH \
   NODE_ENV="$NODE_ENV"
 COPY package.json yarn.lock /app/
-RUN apk --no-cache add curl g++ make python
 EXPOSE 3040
 
 # Build target dependencies #
@@ -18,6 +17,8 @@ RUN yarn install --production && \
   cp -R node_modules /prod_node_modules && \
   # Install dev dependencies
   yarn install --production=false
+
+RUN apk --no-cache add curl g++ make python
 
 # Build target development #
 ############################
