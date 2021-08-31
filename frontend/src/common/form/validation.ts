@@ -57,7 +57,7 @@ setLocale({
 })
 
 export const phoneRegex = /^\+?(\d+\s)*\d+$/ // optional +, digits with single spaces
-export const noNumbersRegex = /^[^\d!@#$%^&*()\\/'"_]*$/gi
+export const noNumbersRegex = /^[^\d!@#$%^&*()\\/'"_.:=+~<>?{}[\];|]*$/gi
 export const email = string().trim().email()
 export const phone = string().trim().matches(phoneRegex, customValidators.phone).min(9).max(15)
 export const name = string().trim().matches(noNumbersRegex, customValidators.name).min(2).max(50)
