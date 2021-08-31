@@ -5,6 +5,6 @@ To deploy the module make sure you do the following:
 
 After that run:
 ```bash
-kubectl create namespace frontend
+kubectl create namespace podkrepi-frontend
 kubectl apply -f web.yaml
 ```

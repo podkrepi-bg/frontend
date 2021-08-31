@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: frontend-headless
-  namespace: frontend
+  namespace: podkrepi-frontend
 spec:
   selector:
     app: frontend
@@ -17,7 +17,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
-  namespace: frontend
+  namespace: podkrepi-frontend
   labels:
     app: frontend
 spec:
@@ -45,7 +45,7 @@ spec:
         - name: APP_PORT
           value: "3040"
         - name: API_URL
-          value: http://contact-headless.contact.svc
+          value: http://contact-headless.podkrepi-contact.svc
         - name: REST_API_PORT
           value: "80"
         ports:
