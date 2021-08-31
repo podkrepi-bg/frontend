@@ -9,8 +9,6 @@ services:
       API_URL: ${API_URL?}
       APP_URL: ${APP_URL?}
       DEPLOY_TAG: ${DEPLOY_TAG?}
-      JWT_SECRET: ${JWT_SECRET?}
-      NEXTAUTH_URL: ${NEXTAUTH_URL?}
       DISCORD_CLIENT_ID: ${DISCORD_CLIENT_ID?}
       DISCORD_CLIENT_SECRET: ${DISCORD_CLIENT_SECRET?}
       # Supabase
