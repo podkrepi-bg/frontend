@@ -34,7 +34,7 @@ export const navItems: NavItem[] = [
     variant: 'text',
   },
   {
-    href: routes.contact,
+    href: routes.support,
     label: 'nav.support-us',
     variant: 'outlined',
   },
