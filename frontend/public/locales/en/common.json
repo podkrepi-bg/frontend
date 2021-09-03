@@ -26,7 +26,9 @@
     "error": "There was an error processing your message!"
   },
   "link": "Link",
-  "edit-page": "Edit this page on GitHub",
+  "improve-this-page": "Improve this page:",
+  "github-link-text": "GitHub Source",
+  "figma-link-text": "Figma Design",
   "footerLabels": {
     "aboutUs": "About us",
     "aboutProject": "The project",
