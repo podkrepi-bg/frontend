@@ -35,4 +35,4 @@ jobs:
           push: true
           context: ./frontend
           target: production
-          tags: ghcr.io/podkrepi-bg/web:${{ steps.vars.outputs.tag }}
+          tags: ghcr.io/podkrepi-bg/frontend:${{ steps.vars.outputs.tag }}
