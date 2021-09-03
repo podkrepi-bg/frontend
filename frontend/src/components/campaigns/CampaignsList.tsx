@@ -1,14 +1,20 @@
-import { Box, Grid } from '@material-ui/core'
+import { useQuery } from '@apollo/client'
+import { Box, CircularProgress, Grid } from '@material-ui/core'
+
+import { ListCampaign, ListCampaigns } from 'gql/query/campaigns/ListCampaigns'
 
 import CampaignCard from './CampaignCard'
 
 export default function CampaignsList() {
+  const { loading, data } = useQuery<ListCampaign>(ListCampaigns)
   return (
     <Grid container justify="center" spacing={2}>
-      {[...Array(9).keys()].map((id) => (
-        <Grid key={id} item xs={12} sm={8} lg={6}>
+      {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
+      {loading && <CircularProgress size="large" />}
+      {data?.campaigns?.map((campaign, index) => (
+        <Grid key={index} item xs={12} sm={8} lg={4}>
           <Box textAlign="center">
-            <CampaignCard id={id} />
+            <CampaignCard campaign={campaign} />
           </Box>
         </Grid>
       ))}

@@ -17,8 +17,6 @@ const moduleExports = {
     APP_ENV: process.env.APP_ENV,
     SENTRY_DSN: process.env.SENTRY_DSN,
     DEPLOY_TAG: process.env.DEPLOY_TAG,
-    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
-    NEXT_PUBLIC_SUPABASE_KEY: process.env.NEXT_PUBLIC_SUPABASE_KEY,
   },
   serverRuntimeConfig: {
     DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
@@ -31,6 +29,7 @@ const moduleExports = {
     APP_ENV: process.env.APP_ENV,
     API_URL: process.env.API_URL,
     APP_URL: process.env.APP_URL,
+    GRAPHQL_URL: process.env.GRAPHQL_URL,
     GTM_ID: 'GTM-TWQBXM6',
   },
 }

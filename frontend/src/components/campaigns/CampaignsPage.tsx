@@ -10,7 +10,6 @@ import CampaignsList from './CampaignsList'
 
 export default function CampaignsPage() {
   const { t } = useTranslation()
-
   return (
     <Layout
       title={t('nav.campaigns.index')}
