@@ -112,7 +112,11 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
           </Grid>
         </Hidden>
         <Hidden mdUp>
-          <IconButton size="small" edge="end" onClick={navMenuToggle} aria-label="navigation menu">
+          <IconButton
+            size="small"
+            edge="end"
+            onClick={navMenuToggle}
+            aria-labelby="navigation menu">
             <Menu fontSize="large" />
           </IconButton>
         </Hidden>
