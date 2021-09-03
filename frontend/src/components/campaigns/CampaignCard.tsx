@@ -1,6 +1,3 @@
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
-import FavoriteIcon from '@material-ui/icons/Favorite'
 import {
   Grid,
   Card,
@@ -10,16 +7,23 @@ import {
   CardMedia,
   Button,
   Typography,
+  Box,
 } from '@material-ui/core'
+import React from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import FavoriteIcon from '@material-ui/icons/Favorite'
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
+
+import { Campaign } from 'gql/campaigns'
+
 import CampaignProgress from './CampaignProgress'
 
 const useStyles = makeStyles((theme) => ({
   media: {
     backgroundSize: 'contain',
     filter: 'grayscale(1)',
-    height: 320,
-    marginTop: theme.spacing(4),
+    height: 250,
+    margin: theme.spacing(0, 4),
     opacity: 0.2,
     transition: 'filter 0.3s, opacity 0.8s',
 
@@ -42,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
     color: '#fff',
     width: '100%',
 
+    /* stylelint-disable-next-line */
     '&.Mui-selected': {
       backgroundColor: '#e60550',
       border: '0',
@@ -67,17 +72,13 @@ const useStyles = makeStyles((theme) => ({
   },
 
   donate: {
-    backgroundColor: '#e60550',
+    backgroundColor: theme.palette.primary.main,
     border: '0',
     borderRadius: '0',
     boxShadow: '0 3px 2x 2px rgba(255, 105, 135, 0.3)',
-    color: '#fff',
+    color: theme.palette.primary.contrastText,
     padding: theme.spacing(1),
     width: '100%',
-
-    '&:hover': {
-      backgroundColor: '#c40444',
-    },
 
     '&:hover svg': {
       transform: 'scale(1.5)',
@@ -93,14 +94,10 @@ const useStyles = makeStyles((theme) => ({
   cardActions: {
     padding: '0',
   },
-
-  mt: {
-    marginTop: theme.spacing(3),
-  },
 }))
 
-type Props = { id: number }
-export default function CampaignCard({ id }: Props) {
+type Props = { campaign: Campaign }
+export default function CampaignCard({ campaign }: Props) {
   const classes = useStyles()
   const amounts = [20, 50, 100]
 
@@ -119,28 +116,29 @@ export default function CampaignCard({ id }: Props) {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Кампания {id + 1}
+            {campaign.title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Описание на примерна кампания
+            {campaign.shortDescription}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.cardActions}>
-        <Grid container className={classes.mt} justify="space-around">
-          <CampaignProgress raised="20,000" goal="20,000" percentage={100} />
+        <Grid container justify="space-around">
+          <Box p={2} width={1}>
+            <CampaignProgress raised="1,000" goal="20,000" percentage={Math.random() * 100} />
+          </Box>
           <Grid item xs={12}>
             <ToggleButtonGroup
-              value={alignment}
               exclusive
-              className={classes.amountButtonGroup}
+              value={alignment}
               onChange={handleAlignment}
               aria-label={alignment ?? undefined}>
               {amounts.map((amount, index) => {
                 return (
                   <ToggleButton
                     key={index}
-                    className={classes.amountButton}
+                    color="secondary"
                     value={amount.toString()}
                     aria-label={amount.toString() ?? undefined}>
                     {amount}
@@ -150,14 +148,16 @@ export default function CampaignCard({ id }: Props) {
             </ToggleButtonGroup>
           </Grid>
           <Grid item xs={12}>
-            <Button
-              fullWidth
-              size="small"
-              className={classes.donate}
-              variant="contained"
-              startIcon={<FavoriteIcon />}>
-              Дари
-            </Button>
+            <Box p={2}>
+              <Button
+                fullWidth
+                size="small"
+                color="primary"
+                variant="contained"
+                startIcon={<FavoriteIcon />}>
+                Дари
+              </Button>
+            </Box>
           </Grid>
         </Grid>
       </CardActions>

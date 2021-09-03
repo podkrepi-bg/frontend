@@ -6,13 +6,25 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import { ThemeProvider } from '@material-ui/core/styles'
 import { appWithTranslation, useTranslation } from 'next-i18next'
 
+import getConfig from 'next/config'
+
+const {
+  publicRuntimeConfig: { GRAPHQL_URL },
+} = getConfig()
+
+import withApollo from 'next-with-apollo'
+import { getDataFromTree } from '@apollo/react-ssr'
+import { ApolloProvider } from '@apollo/react-hooks'
+import ApolloClient, { InMemoryCache } from 'apollo-boost'
+
 import theme from 'common/theme'
 import useGTM from 'common/util/useGTM'
 
 import 'styles/global.scss'
 
 function CustomApp(props: AppProps) {
-  const { Component, pageProps } = props
+  // @ts-expect-error { apollo: ApolloClient<InMemoryCache> }
+  const { Component, pageProps, apollo } = props
   const router = useRouter()
   const { i18n } = useTranslation()
   const { initialize, trackEvent } = useGTM()
@@ -52,7 +64,7 @@ function CustomApp(props: AppProps) {
   }, [i18n.language])
 
   return (
-    <React.Fragment>
+    <ApolloProvider client={apollo}>
       <Head>
         <title>Podkrepi.bg</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
@@ -62,8 +74,16 @@ function CustomApp(props: AppProps) {
         <CssBaseline />
         <Component {...pageProps} />
       </ThemeProvider>
-    </React.Fragment>
+    </ApolloProvider>
   )
 }
 
-export default appWithTranslation(CustomApp)
+export default withApollo(
+  ({ initialState }) => {
+    return new ApolloClient({
+      uri: GRAPHQL_URL,
+      cache: new InMemoryCache().restore(initialState || {}),
+    })
+  },
+  { getDataFromTree },
+)(appWithTranslation(CustomApp))
