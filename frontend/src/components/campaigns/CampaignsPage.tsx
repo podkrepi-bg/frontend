@@ -14,7 +14,8 @@ export default function CampaignsPage() {
   return (
     <Layout
       title={t('nav.campaigns.index')}
-      editLink="https://github.com/podkrepi-bg/frontend/tree/master/frontend/src/components/campaigns/CampaignsPage.tsx">
+      githubUrl="https://github.com/podkrepi-bg/frontend/tree/master/frontend/src/components/campaigns/CampaignsPage.tsx"
+      figmaUrl="https://www.figma.com/file/MmvFKzUv6yE5U2wrOpWtwS/Podkrepi.bg?node-id=5100%3A21216">
       <Container maxWidth="lg">
         <Box textAlign="center" marginBottom={4}>
           <LinkButton href={routes.campaigns.create} variant="outlined" size="large">

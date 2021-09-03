@@ -12,7 +12,8 @@ export default function CreateCampaignPage() {
   return (
     <Layout
       title={t('nav.campaigns.index')}
-      editLink="https://github.com/podkrepi-bg/frontend/tree/master/frontend/src/components/campaigns/CreateCampaignPage.tsx">
+      githubUrl="https://github.com/podkrepi-bg/frontend/tree/master/frontend/src/components/campaigns/CreateCampaignPage.tsx"
+      figmaUrl="https://www.figma.com/file/MmvFKzUv6yE5U2wrOpWtwS/Podkrepi.bg?node-id=5055%3A21345">
       <Container maxWidth="sm">
         <CampaignForm />
       </Container>
