@@ -28,62 +28,72 @@ const useStyles = makeStyles((theme) => ({
       opacity: 1,
     },
   },
+
   amountButtonGroup: {
-    width: '100%',
     backgroundColor: '#e60550',
-    borderRadius: '0px',
-    border: '0px',
+    border: '0',
+    borderRadius: '0',
+    width: '100%',
   },
+
   amountButton: {
     backgroundColor: '#e60550',
-    color: '#FFFFFF',
+    border: '0',
+    color: '#fff',
     width: '100%',
-    border: '0px',
 
     '&.Mui-selected': {
       backgroundColor: '#e60550',
-      color: '#FFFFFF',
-      border: '0px',
+      border: '0',
+      color: '#fff',
 
       '&:active': {
         backgroundColor: '#c40444',
       },
+
       '&:hover': {
         backgroundColor: '#c40444',
       },
+
       '&:focus': {
         backgroundColor: '#c40444',
       },
+
       '&:selected': {
         backgroundColor: '#c40444',
-        color: '#FFFFFF',
+        color: '#fff',
       },
     },
   },
+
   donate: {
     backgroundColor: '#e60550',
-    boxShadow: '0 3px 2x 2px rgba(255, 105, 135, .3)',
-    color: '#FFFFFF',
-    width: '100%',
-    borderRadius: '0px',
+    border: '0',
+    borderRadius: '0',
+    boxShadow: '0 3px 2x 2px rgba(255, 105, 135, 0.3)',
+    color: '#fff',
     padding: theme.spacing(1),
-    border: '0px',
+    width: '100%',
 
     '&:hover': {
       backgroundColor: '#c40444',
     },
+
     '&:hover svg': {
-      transition: 'all .2s ease-out-in',
       transform: 'scale(1.5)',
+      transition: 'all 0.2s ease-out-in',
     },
-    '& svg': {
-      transition: 'all .2s ease-in-out',
+
+    svg: {
       transform: 'scale(1)',
+      transition: 'all 0.2s ease-in-out',
     },
   },
+
   cardActions: {
-    padding: '0px',
+    padding: '0',
   },
+
   mt: {
     marginTop: theme.spacing(3),
   },
@@ -125,14 +135,14 @@ export default function CampaignCard({ id }: Props) {
               exclusive
               className={classes.amountButtonGroup}
               onChange={handleAlignment}
-              aria-label={alignment}>
+              aria-label={alignment ?? undefined}>
               {amounts.map((amount, index) => {
                 return (
                   <ToggleButton
                     key={index}
                     className={classes.amountButton}
-                    value={amount}
-                    aria-label={amount}>
+                    value={amount.toString()}
+                    aria-label={amount.toString() ?? undefined}>
                     {amount}
                   </ToggleButton>
                 )
