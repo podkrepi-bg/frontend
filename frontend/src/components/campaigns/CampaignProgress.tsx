@@ -19,13 +19,14 @@ const BorderLinearProgress = withStyles((theme) => ({
 
 const useStyles = makeStyles((theme) => ({
   donationProgress: {
-    '& > div p': {
+    '> div p': {
       color: theme.palette.text.secondary,
       padding: theme.spacing(1),
     },
   },
+
   cardActions: {
-    padding: '0px',
+    padding: '0',
   },
 }))
 
@@ -43,12 +44,12 @@ export default function CampaignProgress({ raised, goal, percentage }: Props) {
         <BorderLinearProgress variant="determinate" value={percentage} />
       </Grid>
       <Grid item xs={6}>
-        <Typography gutterBottom={true} colorPrimary variant="body1" align="left">
+        <Typography gutterBottom={true} color="primary" variant="body1" align="left">
           {raised} Raised
         </Typography>
       </Grid>
       <Grid item xs={6}>
-        <Typography gutterBottom={true} colorPrimary variant="body1" align="right">
+        <Typography gutterBottom={true} color="primary" variant="body1" align="right">
           {goal} Goal
         </Typography>
       </Grid>
