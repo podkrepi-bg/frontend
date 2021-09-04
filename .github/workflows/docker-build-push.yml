@@ -35,4 +35,20 @@ jobs:
           push: true
           context: ./frontend
           target: production
+          build-args:
+            NODE_ENV=production
+            SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
           tags: ghcr.io/podkrepi-bg/frontend:${{ steps.vars.outputs.tag }}
+
+  # deploy-discord:
+  #   needs: [build-docker-image]
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - uses: sarisia/actions-status-discord@v1
+  #       if: always()
+  #       with:
+  #         webhook: ${{ secrets.APP_DISCORD_WEBHOOK }}
+  #         title: "deploy"
+  #         description: "A new version of the website is deployed: https://podkrepi.bg/"
+  #         color: 0x26A641
