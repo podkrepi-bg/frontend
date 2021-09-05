@@ -6,6 +6,15 @@ const { withSentryConfig } = require('@sentry/nextjs')
 const { i18n } = require('./next-i18next.config')
 
 /**
+ * @type {import('keycloak-js').KeycloakConfig}
+ */
+const keycloakConfig = {
+  url: 'https://keycloak-dev.podkrepi.bg/auth',
+  realm: process.env.KEYCLOAK_REALM, // ?? 'webapp-dev',
+  clientId: process.env.KEYCLOAK_CLIENT_ID, // ?? 'account',
+}
+
+/**
  * @type {import('next').NextConfig}
  */
 const moduleExports = {
@@ -31,6 +40,7 @@ const moduleExports = {
     APP_URL: process.env.APP_URL,
     GRAPHQL_URL: process.env.GRAPHQL_URL,
     GTM_ID: 'GTM-TWQBXM6',
+    keycloakConfig,
   },
 }
 

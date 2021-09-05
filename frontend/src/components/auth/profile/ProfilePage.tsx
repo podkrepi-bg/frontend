@@ -1,49 +1,86 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
 import {
-  Avatar,
-  Box,
+  // Avatar,
+  // Box,
+  // Divider,
+  // Typography,
+  // createStyles,
+  // makeStyles,
   Container,
   Grid,
-  Typography,
-  Divider,
-  createStyles,
-  makeStyles,
 } from '@material-ui/core'
-import { AccountCircle } from '@material-ui/icons'
+// import { AccountCircle } from '@material-ui/icons'
 
-import { routes } from 'common/routes'
+import { useKeycloak } from '@react-keycloak/ssr'
+import type { KeycloakInstance, KeycloakTokenParsed } from 'keycloak-js'
+
 import Layout from 'components/layout/Layout'
-import { ProfilePageProps } from 'pages/profile'
-import LinkButton from 'components/common/LinkButton'
-import LocaleSwitcher from 'components/layout/LocaleSwitcher'
+// import LinkButton from 'components/common/LinkButton'
+// import LocaleSwitcher from 'components/layout/LocaleSwitcher'
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    avatar: {
-      '&>*': {
-        margin: '0 auto',
-        height: theme.spacing(8),
-        width: theme.spacing(8),
-      },
-    },
-  }),
-)
+// const useStyles = makeStyles((theme) =>
+//   createStyles({
+//     avatar: {
+//       '&>*': {
+//         margin: '0 auto',
+//         height: theme.spacing(8),
+//         width: theme.spacing(8),
+//       },
+//     },
+//   }),
+// )
 
-export default function ProfilePage({ session }: ProfilePageProps) {
-  const classes = useStyles()
+type ParsedToken = KeycloakTokenParsed & {
+  email?: string
+  preferred_username?: string
+  given_name?: string
+  family_name?: string
+}
+
+export default function ProfilePage() {
+  // const classes = useStyles()
   const { t } = useTranslation()
-  if (!session || !session.user) {
-    throw new Error('No session')
+
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const parsedToken: ParsedToken | undefined = keycloak?.tokenParsed
+
+  if (!keycloak?.authenticated) {
+    return <Layout title={t('nav.profile')}>Not authenticated</Layout>
   }
-  const title = `${session.user.name}\n(${session.user.email})`
+
   return (
     <Layout title={t('nav.profile')}>
-      <Box my={6}>
-        <Divider />
-      </Box>
-      <Container maxWidth="xs">
-        <Grid container direction="column" spacing={5}>
+      <Container maxWidth="xl">
+        <Grid container direction="row" justify="space-between">
+          <Grid item>
+            <pre>JWT: {keycloak.token?.substring(0, 30)}...</pre>
+            <pre>{JSON.stringify(parsedToken, null, 2)}</pre>
+            <pre>{JSON.stringify(keycloak, null, 2)}</pre>
+          </Grid>
+          <Grid item>
+            <ul>
+              <li>
+                <span className="font-weight-bold mr-1">Email:</span>
+                <span className="text-muted">{parsedToken?.email ?? ''}</span>
+              </li>
+              <li>
+                <span className="font-weight-bold mr-1">Username:</span>
+                <span className="text-muted">{parsedToken?.preferred_username ?? ''}</span>
+              </li>
+              <li>
+                <span className="font-weight-bold mr-1">First Name:</span>
+                <span className="text-muted">{parsedToken?.given_name ?? ''}</span>
+              </li>
+              <li>
+                <span className="font-weight-bold mr-1">Last Name:</span>
+                <span className="text-muted">{parsedToken?.family_name ?? ''}</span>
+              </li>
+            </ul>
+          </Grid>
+        </Grid>
+
+        {/* <Grid container direction="column" spacing={5}>
           <Grid item>
             <Box textAlign="center" margin="0 auto" className={classes.avatar}>
               {session.user.image ? (
@@ -72,7 +109,7 @@ export default function ProfilePage({ session }: ProfilePageProps) {
               {t('nav.logout')}
             </LinkButton>
           </Grid>
-        </Grid>
+        </Grid> */}
       </Container>
     </Layout>
   )
