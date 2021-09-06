@@ -3,9 +3,7 @@
 ![Lint](https://github.com/podkrepi-bg/frontend/workflows/Lint/badge.svg)
 ![Build](https://github.com/podkrepi-bg/frontend/workflows/Build/badge.svg)
 ![Build docker image](https://github.com/podkrepi-bg/frontend/workflows/Build%20docker%20image/badge.svg)
-
-[![Nightly deployment](https://github.com/podkrepi-bg/frontend/actions/workflows/deploy-nightly.yml/badge.svg)](https://github.com/podkrepi-bg/frontend/actions/workflows/deploy-nightly.yml)
-[![Prod deployment](https://github.com/podkrepi-bg/frontend/actions/workflows/deploy-prod.yml/badge.svg)](https://github.com/podkrepi-bg/frontend/actions/workflows/deploy-prod.yml)
+[![Build production image](https://github.com/podkrepi-bg/frontend/actions/workflows/docker-build-push.yml/badge.svg)](https://github.com/podkrepi-bg/frontend/actions/workflows/docker-build-push.yml)
 
 ![Dependencies](https://img.shields.io/david/podkrepi-bg/frontend?path=frontend)
 ![Dev Dependencies](https://img.shields.io/david/dev/podkrepi-bg/frontend?path=frontend)
@@ -13,7 +11,9 @@
 ![](https://img.shields.io/github/issues/podkrepi-bg/frontend?path=frontend)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-25-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## What's in the box
@@ -34,17 +34,30 @@
 ## Initial setup
 
 ```shell
-git clone https://github.com/podkrepi-bg/frontend
+git clone git@github.com:podkrepi-bg/frontend.git
+
 cd frontend
 
-# Symlink dev environment
-ln -hfs .env.dev .env
+# Install dependencies
+yarn
+
+# Symlink dev environment on unix
+ln -hfs .env.local.example .env.local
 
 # Symlink dev environment on Windows
-mklink .env .env.dev
+mklink .env.local.example .env.local
 ```
 
+## Development
+
+```shell
+yarn dev
+```
+
+Visit <http://localhost:3040/>
+
 ### NOTE! For existing clones update github remote to podkrepi-bg/frontend
+
 ```
 # View existing remotes
 git remote -v
@@ -53,13 +66,6 @@ git remote set-url origin https://github.com/podkrepi-bg/frontend
 # Check updated remotes
 git remote -v
 ```
-
-## Development
-```shell
-docker-compose up -d
-```
-
-Visit <http://localhost:3040/>
 
 ## Contributors ✨
 
