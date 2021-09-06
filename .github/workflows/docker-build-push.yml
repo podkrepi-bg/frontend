@@ -37,9 +37,8 @@ jobs:
           context: ./frontend
           target: production
           build-args:
-            NODE_ENV=$NODE_ENV
             SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
-          tags: ghcr.io/podkrepi-bg/frontend/web:${{ steps.vars.outputs.tag }}
+          tags: ghcr.io/podkrepi-bg/frontend:${{ steps.vars.outputs.tag }}
 
   # deploy-discord:
   #   needs: [build-docker-image]
