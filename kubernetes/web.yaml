@@ -48,6 +48,10 @@ spec:
           value: http://contact-headless.podkrepi-contact.svc
         - name: REST_API_PORT
           value: "80"
+        - name: KEYCLOAK_REALM
+          value: "webapp-dev"
+        - name: KEYCLOAK_CLIENT_ID
+          value: "account"
         ports:
         - containerPort: 3040
         livenessProbe:
