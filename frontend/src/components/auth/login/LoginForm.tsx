@@ -6,6 +6,7 @@ import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
 
 import { AlertStore } from 'stores/AlertStore'
+import { baseUrl, routes } from 'common/routes'
 import { customValidators } from 'common/form/useForm'
 import FormInput from 'components/common/form/FormInput'
 import GenericForm from 'components/common/form/GenericForm'
@@ -14,7 +15,7 @@ import FormTextField from 'components/common/form/FormTextField'
 
 export type LoginFormData = {
   email: string
-  password: string
+  password?: string
   csrfToken?: string
 }
 
@@ -23,7 +24,7 @@ const validationSchema: yup.SchemaOf<LoginFormData> = yup
   .defined()
   .shape({
     email: yup.string().email().required(),
-    password: yup.string().min(6, customValidators.passwordMin).required(),
+    password: yup.string().min(6, customValidators.passwordMin), // .required(),
     csrfToken: yup.string(), // .required(),
   })
 
@@ -48,7 +49,10 @@ export default function LoginForm({ csrfToken, initialValues = defaults }: Login
     try {
       setLoading(true)
 
-      const result = await keycloak?.login({ loginHint: values.email })
+      const result = await keycloak?.login({
+        loginHint: values.email,
+        redirectUri: `${baseUrl}${routes.profile}`,
+      })
 
       // const { error, status, ok, url }: LoginResponse = await signIn('credentials', {
       //   username: values.email,
@@ -92,14 +96,14 @@ export default function LoginForm({ csrfToken, initialValues = defaults }: Login
         <Grid item xs={12}>
           <FormTextField type="text" label="auth:fields.email" name="email" />
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <FormTextField
             type="password"
             name="password"
             autoComplete="password"
             label="auth:fields.password"
           />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}>
           <SubmitButton fullWidth label="auth:cta.login" loading={loading} />
         </Grid>
