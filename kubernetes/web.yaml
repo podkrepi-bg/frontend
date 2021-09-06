@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: ghcr.io/podkrepi-bg/frontend/web:test
+        image: ghcr.io/podkrepi-bg/frontend:master
         env:
         - name: NODE_ENV
           value: production
