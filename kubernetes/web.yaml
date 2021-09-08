@@ -33,6 +33,7 @@ spec:
       containers:
       - name: frontend
         image: ghcr.io/podkrepi-bg/frontend:master
+        imagePullPolicy: Always
         env:
         - name: NODE_ENV
           value: production
