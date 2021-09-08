@@ -29,15 +29,18 @@
   "improve-this-page": "Improve this page:",
   "github-link-text": "GitHub Source",
   "figma-link-text": "Figma Design",
-  "footerLabels": {
-    "aboutUs": "About us",
-    "aboutProject": "The project",
-    "docs": "Documentation",
-    "dev-docs": "Technical Documentation",
-    "support": "Support us",
-    "contact": "Contact",
-    "privacyPolicy": "Privacy Policy",
-    "termsOfService": "Terms of service"
-  },
-  "footerCopyrights": "Podkrepi.bg ©2021 All rights reserved."
+  "components": {
+    "footer": {
+      "about-us": "About us",
+      "about-project": "The project",
+      "docs": "Documentation",
+      "dev-docs": "Technical Documentation",
+      "support": "Support us",
+      "contact": "Contact",
+      "privacy-policy": "Privacy Policy",
+      "terms-of-service": "Terms of service",
+      "hosting-partner": "Hosting partner:",
+      "copyrights": "Podkrepi.bg ©2021 All rights reserved."
+    }
+  }
 }

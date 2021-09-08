@@ -29,15 +29,18 @@
   "improve-this-page": "Подобри тази страница:",
   "github-link-text": "Гитхъб Код",
   "figma-link-text": "Фигма Дизайн",
-  "footerLabels": {
-    "aboutUs": "За нас",
-    "aboutProject": "За проекта",
-    "docs": "Документация",
-    "dev-docs": "Техническа  Документация",
-    "support": "Подкрепи ни",
-    "contact": "Контакти",
-    "privacyPolicy": "Защита на лични данни",
-    "termsOfService": "Общи условия"
-  },
-  "footerCopyrights": "Podkrepi.bg ©2021 Всички права запазени."
+  "components": {
+    "footer": {
+      "about-us": "За нас",
+      "about-project": "За проекта",
+      "docs": "Документация",
+      "dev-docs": "Техническа  Документация",
+      "support": "Подкрепи ни",
+      "contact": "Контакти",
+      "privacy-policy": "Защита на лични данни",
+      "terms-of-service": "Общи условия",
+      "hosting-partner": "Хостинг партньор:",
+      "copyrights": "Podkrepi.bg ©2021 Всички права запазени."
+    }
+  }
 }
