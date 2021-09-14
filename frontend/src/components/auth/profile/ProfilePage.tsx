@@ -46,37 +46,47 @@ export default function ProfilePage() {
   const parsedToken: ParsedToken | undefined = keycloak?.tokenParsed
 
   if (!keycloak?.authenticated) {
-    return <Layout title={t('nav.profile')}>Not authenticated</Layout>
+    return (
+      <Layout
+        title={t('nav.profile')}
+        githubUrl="https://github.com/podkrepi-bg/frontend/tree/master/frontend/src/components/auth/ProfilePage.tsx"
+        figmaUrl="https://www.figma.com/file/MmvFKzUv6yE5U2wrOpWtwS/Podkrepi.bg?node-id=5987%3A21094">
+        Not authenticated
+      </Layout>
+    )
   }
 
   return (
-    <Layout title={t('nav.profile')}>
+    <Layout
+      title={t('nav.profile')}
+      githubUrl="https://github.com/podkrepi-bg/frontend/tree/master/frontend/src/components/auth/ProfilePage.tsx"
+      figmaUrl="https://www.figma.com/file/MmvFKzUv6yE5U2wrOpWtwS/Podkrepi.bg?node-id=5987%3A21094">
       <Container maxWidth="xl">
         <Grid container direction="row" justify="space-between">
+          <Grid item>
+            <ul>
+              <li>
+                <span className="font-weight-bold mr-1">Username: </span>
+                <span className="text-muted">{parsedToken?.preferred_username ?? ''}</span>
+              </li>
+              <li>
+                <span className="font-weight-bold mr-1">Email: </span>
+                <span className="text-muted">{parsedToken?.email ?? ''}</span>
+              </li>
+              <li>
+                <span className="font-weight-bold mr-1">First Name: </span>
+                <span className="text-muted">{parsedToken?.given_name ?? ''}</span>
+              </li>
+              <li>
+                <span className="font-weight-bold mr-1">Last Name: </span>
+                <span className="text-muted">{parsedToken?.family_name ?? ''}</span>
+              </li>
+            </ul>
+          </Grid>
           <Grid item>
             <pre>JWT: {keycloak.token?.substring(0, 30)}...</pre>
             <pre>{JSON.stringify(parsedToken, null, 2)}</pre>
             <pre>{JSON.stringify(keycloak, null, 2)}</pre>
-          </Grid>
-          <Grid item>
-            <ul>
-              <li>
-                <span className="font-weight-bold mr-1">Email:</span>
-                <span className="text-muted">{parsedToken?.email ?? ''}</span>
-              </li>
-              <li>
-                <span className="font-weight-bold mr-1">Username:</span>
-                <span className="text-muted">{parsedToken?.preferred_username ?? ''}</span>
-              </li>
-              <li>
-                <span className="font-weight-bold mr-1">First Name:</span>
-                <span className="text-muted">{parsedToken?.given_name ?? ''}</span>
-              </li>
-              <li>
-                <span className="font-weight-bold mr-1">Last Name:</span>
-                <span className="text-muted">{parsedToken?.family_name ?? ''}</span>
-              </li>
-            </ul>
           </Grid>
         </Grid>
 
