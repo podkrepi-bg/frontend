@@ -1,7 +1,20 @@
 {
   "subtitle": "Help a person in need",
-  "form-heading": "Create campaign",
+  "form-heading": "Create new campaign",
   "cta": {
-    "save": "Save"
+    "save": "Create <Not Implemented>"
+  },
+  "campaign": {
+    "title": "Title",
+    "amount": "Target Amount",
+    "type": "Campaign Type",
+    "types": {
+      "type1": "For medical case",
+      "type2": "For people in risk",
+      "type3": "For better communities"
+    },
+    "description": "Description (max 500 chars",
+    "start-date": "Start Date",
+    "end-date": "End Date"
   }
 }
