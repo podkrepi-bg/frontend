@@ -3,6 +3,9 @@ import { FormikHelpers } from 'formik'
 import React, { useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@material-ui/core'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
 import { ApiErrors } from 'common/api-routes'
@@ -10,44 +13,32 @@ import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
-import AcceptTermsField from 'components/common/form/AcceptTermsField'
-import { name, companyName, phone, email } from 'common/form/validation'
-import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
 export type CampaignFormData = {
-  firstName: string
-  lastName: string
-  email: string
-  company?: string
-  phone?: string
-  message: string
-  terms: boolean
-  gdpr: boolean
+  title: string
+  type: string
+  targetAmount: number
+  startDate: string
+  endDate: string
+  description: string
 }
 
-const validationSchema: yup.SchemaOf<CampaignFormData> = yup
-  .object()
-  .defined()
-  .shape({
-    firstName: name.required(),
-    lastName: name.required(),
-    email: email.required(),
-    company: companyName,
-    phone: phone.required(),
-    message: yup.string().trim().min(10).max(500).required(),
-    terms: yup.bool().required().oneOf([true], 'validation:terms-of-use'),
-    gdpr: yup.bool().required().oneOf([true], 'validation:terms-of-service'),
-  })
+const validationSchema: yup.SchemaOf<CampaignFormData> = yup.object().defined().shape({
+  title: yup.string().trim().required(), //Add .min(20).max(100) when finished with implementation
+  type: yup.string().required(),
+  targetAmount: yup.number().required(),
+  startDate: yup.string().required(),
+  endDate: yup.string().required(),
+  description: yup.string().trim().required(), //Add .min(150).max(500) when finished with implementation
+})
 
 const defaults: CampaignFormData = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  company: '',
-  phone: '',
-  message: '',
-  terms: false,
-  gdpr: false,
+  title: '',
+  type: '',
+  targetAmount: 1000,
+  startDate: '',
+  endDate: '',
+  description: '',
 }
 
 const useStyles = makeStyles((theme) =>
@@ -116,64 +107,66 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
         initialValues={initialValues}
         validationSchema={validationSchema}>
         <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <FormTextField
+              type="text"
+              label="campaigns:campaign.title"
+              name="title"
+              autoComplete="title"
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Select
+              displayEmpty
+              fullWidth
+              label={t('campaigns:campaign.type')}
+              defaultValue=""
+              name="type">
+              <MenuItem value="" disabled>
+                <em>{t('campaigns:campaign.type')}</em>
+              </MenuItem>
+              <MenuItem value={1}>{t('campaigns:campaign.types.type1')}</MenuItem>
+              <MenuItem value={2}>{t('campaigns:campaign.types.type2')}</MenuItem>
+              <MenuItem value={3}>{t('campaigns:campaign.types.type3')}</MenuItem>
+            </Select>
+          </Grid>
           <Grid item xs={12} sm={6}>
             <FormTextField
-              type="text"
-              label="auth:fields.first-name"
-              name="firstName"
-              autoComplete="first-name"
+              type="number"
+              name="targetAmount"
+              autoComplete="target-amount"
+              label="campaigns:campaign.amount"
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormTextField
-              type="text"
-              label="auth:fields.last-name"
-              name="lastName"
-              autoComplete="family-name"
+              type="date"
+              name="startDate"
+              label="campaigns:campaign.start-date"
+              helperText={null}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormTextField
+              type="date"
+              name="endDate"
+              label="campaigns:campaign.end-date"
+              helperText={null}
             />
           </Grid>
           <Grid item xs={12}>
             <FormTextField
-              inputMode="email"
-              type="text"
-              label="auth:fields.email"
-              name="email"
-              autoComplete="email"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormTextField
-              type="tel"
-              name="phone"
-              inputMode="tel"
-              autoComplete="tel"
-              label="auth:fields.phone"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormTextField
-              type="text"
-              name="company"
-              label="auth:fields.company"
-              autoComplete="organization"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormTextField
-              rows={4}
+              rows={5}
               multiline
               type="text"
-              name="message"
-              label="auth:fields.message"
+              name="description"
+              label="campaigns:campaign.description"
+              autoComplete="description"
               className={classes.message}
             />
           </Grid>
           <Grid item xs={12}>
-            <AcceptTermsField name="terms" />
-            <AcceptPrivacyPolicyField name="gdpr" />
-          </Grid>
-          <Grid item xs={12}>
-            <SubmitButton fullWidth label="campaigns:cta.save" loading={loading} />
+            <SubmitButton fullWidth label="campaigns:cta.save" loading={loading} disabled />
           </Grid>
         </Grid>
       </GenericForm>

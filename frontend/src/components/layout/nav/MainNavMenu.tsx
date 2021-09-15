@@ -30,7 +30,7 @@ export const navItems: NavItem[] = [
   },
   {
     href: routes.campaigns.index,
-    label: 'Кампании',
+    label: 'nav.campaigns.index',
     variant: 'text',
   },
   {
