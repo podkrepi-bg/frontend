@@ -14,6 +14,7 @@ import {
   CardMedia,
   Typography,
   Box,
+  Link,
 } from '@material-ui/core'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
@@ -110,17 +111,19 @@ export default function CampaignCard({ campaign }: Props) {
   return (
     <Card variant="outlined">
       <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image="/podkrepi-icon.svg"
-          title="campaign image placeholder"
-        />
+        <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)}>
+          <CardMedia
+            className={classes.media}
+            image="/podkrepi-icon.svg"
+            title="campaign image placeholder"
+          />
+        </Link>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {campaign.title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {campaign.shortDescription}
+            {campaign.excerpt}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -151,7 +154,7 @@ export default function CampaignCard({ campaign }: Props) {
           <Grid item xs={12}>
             <Box p={2}>
               <LinkButton
-                href={routes.campaigns.campaign}
+                href={routes.campaigns.viewCampaignBySlug(campaign.slug)}
                 fullWidth
                 size="small"
                 color="primary"

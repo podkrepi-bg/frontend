@@ -1,6 +1,6 @@
 import { Box, CircularProgress, Grid } from '@material-ui/core'
 
-import useCampaignList from 'common/hooks/useCampaignList'
+import { useCampaignList } from 'common/hooks/campaigns'
 
 import CampaignCard from './CampaignCard'
 
