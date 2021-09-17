@@ -9,8 +9,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query, locale }) 
   const { slug } = query
   const client = new QueryClient()
   await client.prefetchQuery(`/campaign/${slug}`, queryFn)
-  console.log(client)
-  console.log(dehydrate(client))
   return {
     props: {
       slug,
