@@ -1,10 +1,9 @@
 import Head from 'next/head'
-import getConfig from 'next/config'
 import { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { appWithTranslation, useTranslation } from 'next-i18next'
-import { Hydrate, QueryClient, QueryClientProvider, QueryFunction } from 'react-query'
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 
 // MaterialUI
 // import { LinearProgress } from '@material-ui/core'
@@ -14,19 +13,11 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 // Keycloak
 // import { SSRKeycloakProvider, SSRCookies } from '@react-keycloak/ssr'
 
-const {
-  publicRuntimeConfig: { API_URL },
-} = getConfig()
-
 import theme from 'common/theme'
 import useGTM from 'common/util/useGTM'
+import { queryFn } from 'common/query-fn'
 
 import 'styles/global.scss'
-
-const queryFn: QueryFunction = async function ({ queryKey }) {
-  const resp = await fetch(`${API_URL}/api${queryKey[0]}`)
-  return resp.json()
-}
 
 function CustomApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
