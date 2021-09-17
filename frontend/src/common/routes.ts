@@ -34,6 +34,7 @@ export const routes = {
   campaigns: {
     index: '/campaigns',
     create: '/campaigns/create',
+    campaign: '/campaigns/campaign',
   },
   profile: '/profile',
   register: '/register',

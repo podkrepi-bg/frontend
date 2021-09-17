@@ -1,3 +1,10 @@
+import React from 'react'
+import { useTranslation } from 'next-i18next'
+import { makeStyles } from '@material-ui/core/styles'
+import { routes } from 'common/routes'
+import LinkButton from 'components/common/LinkButton'
+import { Campaign } from 'gql/campaigns'
+import CampaignProgress from './CampaignProgress'
 import {
   Grid,
   Card,
@@ -5,18 +12,11 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  Button,
   Typography,
   Box,
 } from '@material-ui/core'
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
-
-import { Campaign } from 'gql/campaigns'
-
-import CampaignProgress from './CampaignProgress'
 
 const useStyles = makeStyles((theme) => ({
   media: {
@@ -99,6 +99,7 @@ const useStyles = makeStyles((theme) => ({
 type Props = { campaign: Campaign }
 export default function CampaignCard({ campaign }: Props) {
   const classes = useStyles()
+  const { t } = useTranslation()
   const amounts = [20, 50, 100]
 
   const [alignment, setAlignment] = React.useState<string | null>('left')
@@ -149,14 +150,15 @@ export default function CampaignCard({ campaign }: Props) {
           </Grid>
           <Grid item xs={12}>
             <Box p={2}>
-              <Button
+              <LinkButton
+                href={routes.campaigns.campaign}
                 fullWidth
                 size="small"
                 color="primary"
                 variant="contained"
                 startIcon={<FavoriteIcon />}>
-                Дари
-              </Button>
+                {t('campaigns:cta.donate')}
+              </LinkButton>
             </Box>
           </Grid>
         </Grid>
