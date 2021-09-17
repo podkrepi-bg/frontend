@@ -1,13 +1,12 @@
 import { GetServerSideProps } from 'next'
+import { dehydrate, QueryClient } from 'react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import CampaignsPage from 'components/campaigns/CampaignsPage'
-// import { addApolloState, createApolloClient } from 'gql/apollo-client'
-// import { ListCampaign, ListCampaigns } from 'gql/query/campaigns/ListCampaigns'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-  // const client = createApolloClient()
-  // await client.query<ListCampaign>({ query: ListCampaigns })
+  const client = new QueryClient()
+  await client.prefetchQuery('/campaign/list')
   return {
     props: {
       ...(await serverSideTranslations(locale ?? 'bg', [
@@ -16,6 +15,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
         'validation',
         'campaigns',
       ])),
+      dehydratedState: dehydrate(client),
     },
   }
 }
