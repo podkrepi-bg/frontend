@@ -6,7 +6,11 @@ import { ListCampaign, ListCampaigns } from 'gql/query/campaigns/ListCampaigns'
 import CampaignCard from './CampaignCard'
 
 export default function CampaignsList() {
-  const { loading, data } = useQuery<ListCampaign>(ListCampaigns)
+  // const { loading, data } = useQuery<ListCampaign>(ListCampaigns)
+  const loading = false
+  const data = {
+    campaigns: [],
+  }
   return (
     <Grid container justify="center" spacing={2}>
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
