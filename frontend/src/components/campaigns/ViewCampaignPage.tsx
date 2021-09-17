@@ -11,7 +11,7 @@ export default function ViewCampaignPage({ slug }: Props) {
   const { t } = useTranslation()
   const { data, isLoading } = useViewCampaign(slug)
 
-  if (!data) return <NotFoundPage />
+  if (!data || !data.campaign) return <NotFoundPage />
 
   const { campaign } = data
   return (
