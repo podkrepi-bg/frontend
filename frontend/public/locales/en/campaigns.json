@@ -2,10 +2,11 @@
   "subtitle": "Help a person in need",
   "form-heading": "Create new campaign",
   "cta": {
-    "save": "Create <Not Implemented>"
+    "save": "Create <Not Implemented>",
+    "donate": "Donate"
   },
   "campaign": {
-    "title": "Title",
+    "title": "Campaign Name",
     "amount": "Target Amount",
     "type": "Campaign Type",
     "types": {
@@ -15,6 +16,8 @@
     },
     "description": "Description (max 500 chars",
     "start-date": "Start Date",
-    "end-date": "End Date"
+    "end-date": "End Date",
+    "tag": "Tag:",
+    "date": "Date:"
   }
 }
