@@ -4,17 +4,18 @@ import { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { appWithTranslation, useTranslation } from 'next-i18next'
+import { Hydrate, QueryClient, QueryClientProvider, QueryFunction } from 'react-query'
 
 // MaterialUI
-import { LinearProgress } from '@material-ui/core'
+// import { LinearProgress } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
 // Keycloak
-import { SSRKeycloakProvider, SSRCookies } from '@react-keycloak/ssr'
+// import { SSRKeycloakProvider, SSRCookies } from '@react-keycloak/ssr'
 
 const {
-  publicRuntimeConfig: { keycloakConfig },
+  publicRuntimeConfig: { API_URL },
 } = getConfig()
 
 import theme from 'common/theme'
@@ -22,10 +23,18 @@ import useGTM from 'common/util/useGTM'
 
 import 'styles/global.scss'
 
+const queryFn: QueryFunction = async function ({ queryKey }) {
+  const resp = await fetch(`${API_URL}/api${queryKey[0]}`)
+  return resp.json()
+}
+
 function CustomApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
   const { i18n } = useTranslation()
   const { initialize, trackEvent } = useGTM()
+  const [queryClient] = React.useState(
+    () => new QueryClient({ defaultOptions: { queries: { queryFn } } }),
+  )
 
   useEffect(() => {
     // Remove the server-side injected CSS.
@@ -75,7 +84,11 @@ function CustomApp({ Component, pageProps }: AppProps) {
           onEvent={(e, err) => console.log(e, err)}
           keycloakConfig={keycloakConfig}
           persistor={SSRCookies(pageProps?.keyCookies ?? {})}> */}
-        <Component {...pageProps} />
+        <QueryClientProvider client={queryClient}>
+          <Hydrate state={pageProps.dehydratedState}>
+            <Component {...pageProps} />
+          </Hydrate>
+        </QueryClientProvider>
         {/* </SSRKeycloakProvider> */}
       </ThemeProvider>
     </React.Fragment>
