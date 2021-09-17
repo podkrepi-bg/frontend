@@ -9,7 +9,7 @@ const { i18n } = require('./next-i18next.config')
  * @type {import('keycloak-js').KeycloakConfig}
  */
 const keycloakConfig = {
-  url: process.env.KEYCLOAK_URL ?? 'https://keycloak-dev.podkrepi.bg/auth',
+  url: process.env.KEYCLOAK_URL ?? 'https://keycloak.podkrepi.bg/auth',
   realm: process.env.KEYCLOAK_REALM ?? 'webapp-dev',
   clientId: process.env.KEYCLOAK_CLIENT_ID ?? 'account',
 }
