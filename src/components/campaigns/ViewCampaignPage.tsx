@@ -11,32 +11,9 @@ const useStyles = makeStyles((theme: Theme) =>
     campaignDescription: {
       marginTop: theme.spacing(3),
     },
-    outlinedButton: {
-      color: theme.palette.primary.dark,
-      border: `2px solid ${theme.palette.primary.dark}`,
+    progressCardWrapper: {
+      backgroundColor: '#c6eed6',
       borderRadius: theme.spacing(3),
-      width: '100%',
-      whiteSpace: 'nowrap',
-      height: theme.spacing(6),
-      marginTop: theme.spacing(3),
-      fontSize: theme.typography.pxToRem(15),
-      fontWeight: 500,
-    },
-    donateNowButton: {
-      color: theme.palette.common.white,
-      backgroundColor: theme.palette.primary.main,
-      border: `2px solid ${theme.palette.primary.main}`,
-      borderRadius: theme.spacing(3),
-      width: '100%',
-      height: theme.spacing(6),
-      marginTop: theme.spacing(3),
-      fontSize: theme.typography.pxToRem(15),
-      fontWeight: 500,
-    },
-    buttonWrapper: {
-      display: 'inline-flex',
-      width: '100%',
-      gap: '12px',
     },
   }),
 )
@@ -60,7 +37,7 @@ export default function ViewCampaignPage({ slug }: Props) {
           </Typography>
           <Typography className={classes.campaignDescription}>{campaign.description}</Typography>
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={4} className={classes.progressCardWrapper}>
           <ViewCampaignProgressCard />
         </Grid>
       </Grid>

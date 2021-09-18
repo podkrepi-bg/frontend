@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
     buttonWrapper: {
       display: 'inline-flex',
       width: '100%',
-      gap: '12px',
+      gap: theme.spacing(2),
     },
   }),
 )
