@@ -2,8 +2,6 @@ import React from 'react'
 import { useTranslation } from 'next-i18next'
 import CheckIcon from '@material-ui/icons/Check'
 import { createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core'
-
-import { ibanNumber } from 'common/iban'
 import { staticUrls } from 'common/routes'
 import ExternalLink from 'components/common/ExternalLink'
 import Heading from 'components/common/Heading'
@@ -12,6 +10,7 @@ import ActivityIcon from '../icons/ActivityIcon'
 import MeetingsIcon from '../icons/MeetingsIcon'
 import VolunteersIcon from '../icons/VolunteersIcon'
 import InvestedHoursIcon from '../icons/InvestedHoursIcon'
+import { BankAccount } from '../../common/BankAccount'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -64,21 +63,6 @@ const CheckedLine = ({ label, href }: CheckedLineProps) => {
         )}
       </Typography>
     </Grid>
-  )
-}
-
-const BankAccount = () => {
-  const { t } = useTranslation()
-
-  return (
-    <div>
-      {t('about-project:opened-donations-account')} <br />
-      <i>{t('about-project:bank-name')}</i>
-      <br />
-      <strong>IBAN: {ibanNumber}</strong>
-      <br /> {t('about-project:with-holder')} <strong>{t('about-project:association-name')}</strong>
-      .
-    </div>
   )
 }
 
