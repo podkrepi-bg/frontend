@@ -3,15 +3,16 @@
 ![Lint](https://github.com/podkrepi-bg/frontend/workflows/Lint/badge.svg)
 ![Build](https://github.com/podkrepi-bg/frontend/workflows/Build/badge.svg)
 ![Build docker image](https://github.com/podkrepi-bg/frontend/workflows/Build%20docker%20image/badge.svg)
-[![Build production image](https://github.com/podkrepi-bg/frontend/actions/workflows/docker-build-push.yml/badge.svg)](https://github.com/podkrepi-bg/frontend/actions/workflows/docker-build-push.yml)
 
-![Dependencies](https://img.shields.io/david/podkrepi-bg/frontend?path=frontend)
-![Dev Dependencies](https://img.shields.io/david/dev/podkrepi-bg/frontend?path=frontend)
-![](https://img.shields.io/github/license/podkrepi-bg/frontend?path=frontend)
-![](https://img.shields.io/github/issues/podkrepi-bg/frontend?path=frontend)
+![Dependencies](https://img.shields.io/david/podkrepi-bg/frontend)
+![Dev Dependencies](https://img.shields.io/david/dev/podkrepi-bg/frontend)
+![](https://img.shields.io/github/license/podkrepi-bg/frontend)
+![](https://img.shields.io/github/issues/podkrepi-bg/frontend)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-26-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## What's in the box
@@ -22,48 +23,30 @@
   - [Formik](https://formik.org/) / [MobX](https://mobx.js.org/)
   - [ESlint](https://eslint.org/) / [Prettier](https://prettier.io/) / [Husky](https://github.com/typicode/husky) / [Stylelint](https://stylelint.io/) / [Lint Staged](https://github.com/okonet/lint-staged)
   - [Sentry](https://sentry.io/organizations/podkrepibg/)
-- Backend
-  - [GoFiber](https://gofiber.io/) / [GoValidator](https://github.com/asaskevich/govalidator)
-  - [Protocol Buffers](https://developers.google.com/protocol-buffers) / [GraphQL Gateway](https://gqlgen.com/) / [GRPC](https://grpc.io/)
-  - [.Net C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
-- DevOps
-  - [Docker Compose](https://docs.docker.com/compose/) / [Github Actions](https://docs.github.com/en/free-pro-team@latest/actions/reference)
 
 ## Initial setup
 
 ```shell
 git clone git@github.com:podkrepi-bg/frontend.git
-
 cd frontend
-
-# Install dependencies
-yarn
 
 # Symlink dev environment on unix
 ln -hfs .env.local.example .env.local
 
 # Symlink dev environment on Windows
 mklink .env.local.example .env.local
-```
 
-## Development
-
-```shell
+# Start the project
 yarn dev
 ```
 
 Visit <http://localhost:3040/>
 
-### NOTE! For existing clones update github remote to podkrepi-bg/frontend
+## Starting the backend
 
-```
-# View existing remotes
-git remote -v
-# Change the 'origin' remote's URL
-git remote set-url origin https://github.com/podkrepi-bg/frontend
-# Check updated remotes
-git remote -v
-```
+In order to use the frontend together with the API for it you need to clone and start the backend project.
+
+Follow API instructions at <https://github.com/podkrepi-bg/api#setup-development-environment>
 
 ## Contributors ✨
 

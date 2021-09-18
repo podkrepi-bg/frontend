@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "podkrepi-bg-frontend",
   "version": "0.0.1",
   "license": "MIT",
   "repository": "https://github.com/orgs/podkrepi-bg",
@@ -12,7 +12,7 @@
     "lint:styles": "stylelint **.scss",
     "format": "prettier --write .",
     "type-check": "tsc --project tsconfig.json --pretty --noEmit",
-    "prepare": "cd .. && husky install frontend/.husky"
+    "prepare": "husky install"
   },
   "dependencies": {
     "@apollo/react-hooks": "^4.0.0",
