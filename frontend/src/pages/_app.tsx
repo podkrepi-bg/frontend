@@ -1,21 +1,26 @@
 import Head from 'next/head'
 import { AppProps } from 'next/app'
+import getConfig from 'next/config'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { appWithTranslation, useTranslation } from 'next-i18next'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 
 // MaterialUI
-// import { LinearProgress } from '@material-ui/core'
+import { LinearProgress } from '@material-ui/core'
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
 // Keycloak
-// import { SSRKeycloakProvider, SSRCookies } from '@react-keycloak/ssr'
+import { SSRKeycloakProvider, SSRCookies } from '@react-keycloak/ssr'
 
 import theme from 'common/theme'
 import useGTM from 'common/util/useGTM'
 import { queryFn } from 'common/query-fn'
+
+const {
+  publicRuntimeConfig: { keycloakConfig },
+} = getConfig()
 
 import 'styles/global.scss'
 
@@ -70,17 +75,17 @@ function CustomApp({ Component, pageProps }: AppProps) {
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        {/* <SSRKeycloakProvider
+        <SSRKeycloakProvider
           LoadingComponent={<LinearProgress />}
           onEvent={(e, err) => console.log(e, err)}
           keycloakConfig={keycloakConfig}
-          persistor={SSRCookies(pageProps?.keyCookies ?? {})}> */}
-        <QueryClientProvider client={queryClient}>
-          <Hydrate state={pageProps.dehydratedState}>
-            <Component {...pageProps} />
-          </Hydrate>
-        </QueryClientProvider>
-        {/* </SSRKeycloakProvider> */}
+          persistor={SSRCookies(pageProps?.keyCookies ?? {})}>
+          <QueryClientProvider client={queryClient}>
+            <Hydrate state={pageProps.dehydratedState}>
+              <Component {...pageProps} />
+            </Hydrate>
+          </QueryClientProvider>
+        </SSRKeycloakProvider>
       </ThemeProvider>
     </React.Fragment>
   )
