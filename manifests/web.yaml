@@ -9,9 +9,9 @@ spec:
     app: frontend
   clusterIP: None
   ports:
-  - name: http
-    port: 80
-    targetPort: 3040
+    - name: http
+      port: 80
+      targetPort: 3040
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -31,39 +31,39 @@ spec:
         app: frontend
     spec:
       containers:
-      - name: frontend
-        image: ghcr.io/podkrepi-bg/frontend:master
-        imagePullPolicy: Always
-        env:
-        - name: NODE_ENV
-          value: production
-        - name: TARGET_ENV
-          value: production
-        - name: APP_ENV
-          value: production
-        - name: APP_URL
-          value: https://dev.podkrepi.bg
-        - name: APP_PORT
-          value: "3040"
-        - name: API_URL
-          value: http://contact-headless.podkrepi-contact.svc
-        - name: REST_API_PORT
-          value: "80"
-        - name: KEYCLOAK_REALM
-          value: "webapp-dev"
-        - name: KEYCLOAK_CLIENT_ID
-          value: "account"
-        ports:
-        - containerPort: 3040
-        livenessProbe:
-          httpGet:
-            path: /api/healthcheck
-            port: 3040
-          initialDelaySeconds: 10
-          periodSeconds: 5
-        readinessProbe:
-          httpGet:
-            path: /api/healthcheck
-            port: 3040
-          initialDelaySeconds: 5
-          periodSeconds: 5
+        - name: frontend
+          image: ghcr.io/podkrepi-bg/frontend:master
+          imagePullPolicy: Always
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: TARGET_ENV
+              value: production
+            - name: APP_ENV
+              value: production
+            - name: APP_URL
+              value: https://dev.podkrepi.bg
+            - name: APP_PORT
+              value: '3040'
+            - name: API_URL
+              value: http://contact-headless.podkrepi-contact.svc
+            - name: REST_API_PORT
+              value: '80'
+            - name: KEYCLOAK_REALM
+              value: 'webapp-dev'
+            - name: KEYCLOAK_CLIENT_ID
+              value: 'account'
+          ports:
+            - containerPort: 3040
+          livenessProbe:
+            httpGet:
+              path: /api/healthcheck
+              port: 3040
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /api/healthcheck
+              port: 3040
+            initialDelaySeconds: 5
+            periodSeconds: 5

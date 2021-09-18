@@ -34,6 +34,7 @@ yarn
 ```
 
 ### NOTE! For existing clones update github remote to podkrepi-bg/frontend
+
 ```
 # View existing remotes
 git remote -v
