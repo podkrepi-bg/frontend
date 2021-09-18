@@ -4,6 +4,7 @@
   "license": "MIT",
   "repository": "https://github.com/orgs/podkrepi-bg",
   "scripts": {
+    "predev": "shx test -e .env.local && exit 0 || shx echo 'You need to create .env.local file. Please check README.md!' && exit 1",
     "dev": "yarn && next dev -p 3040",
     "build": "next build",
     "start": "next start -p 3040",
@@ -67,6 +68,7 @@
     "prettier": "2.3.0",
     "stylelint": "13.13.1",
     "stylelint-config-sass-guidelines": "8.0.0",
+    "shx": "^0.3.3",
     "typescript": "4.3.5"
   },
   "lint-staged": {
