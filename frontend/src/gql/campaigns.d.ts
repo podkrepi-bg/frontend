@@ -3,14 +3,35 @@ export type CampaignType = {
   name: string
 }
 
+export enum CampaignState {
+  initial,
+  draft,
+  pendingvalidation,
+  approved,
+  rejected,
+  active,
+  activependingvalidation,
+  suspended,
+  complete,
+  disabled,
+  error,
+}
+
 export type Campaign = {
   id: UUID
+  state: CampaignState
+  slug: string
   title: string
-  state: string
-  currency: string
-  shortDescription: string
-  operatorId: UUID
-  initiatorId: UUID
+  excerpt: string
+  coordinatorId: UUID
   beneficiaryId: UUID
-  campaignType: CampaignType
+  campaignTypeId: UUID
+  description: string
+  targetAmount: string
+  currency: string
+  startDate: Date | null
+  endDate: Date | null
+  createdAt: Date
+  updatedAt: Date | null
+  deletedAt: Date | null
 }

@@ -2,7 +2,8 @@
   "subtitle": "Помогнете на нуждаещ се",
   "form-heading": "Създай нова кампания",
   "cta": {
-    "save": "Създай <Not Implemented>"
+    "save": "Създай <Not Implemented>",
+    "donate": "Дари"
   },
   "campaign": {
     "title": "Име на кампанията",
@@ -15,6 +16,8 @@
     },
     "description": "Описание (макс 500 символа)",
     "start-date": "Начална дата",
-    "end-date": "Крайна дата"
+    "end-date": "Крайна дата",
+    "tag": "Таг:",
+    "date": "Дата:"
   }
 }

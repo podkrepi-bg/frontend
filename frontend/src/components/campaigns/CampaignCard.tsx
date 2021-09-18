@@ -1,3 +1,10 @@
+import React from 'react'
+import { useTranslation } from 'next-i18next'
+import { makeStyles } from '@material-ui/core/styles'
+import { routes } from 'common/routes'
+import LinkButton from 'components/common/LinkButton'
+import { Campaign } from 'gql/campaigns'
+import CampaignProgress from './CampaignProgress'
 import {
   Grid,
   Card,
@@ -5,18 +12,12 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  Button,
   Typography,
   Box,
+  Link,
 } from '@material-ui/core'
-import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
-
-import { Campaign } from 'gql/campaigns'
-
-import CampaignProgress from './CampaignProgress'
 
 const useStyles = makeStyles((theme) => ({
   media: {
@@ -99,6 +100,7 @@ const useStyles = makeStyles((theme) => ({
 type Props = { campaign: Campaign }
 export default function CampaignCard({ campaign }: Props) {
   const classes = useStyles()
+  const { t } = useTranslation()
   const amounts = [20, 50, 100]
 
   const [alignment, setAlignment] = React.useState<string | null>('left')
@@ -109,17 +111,19 @@ export default function CampaignCard({ campaign }: Props) {
   return (
     <Card variant="outlined">
       <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image="/podkrepi-icon.svg"
-          title="campaign image placeholder"
-        />
+        <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)}>
+          <CardMedia
+            className={classes.media}
+            image="/podkrepi-icon.svg"
+            title="campaign image placeholder"
+          />
+        </Link>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {campaign.title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {campaign.shortDescription}
+            {campaign.excerpt}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -149,14 +153,15 @@ export default function CampaignCard({ campaign }: Props) {
           </Grid>
           <Grid item xs={12}>
             <Box p={2}>
-              <Button
+              <LinkButton
+                href={routes.campaigns.viewCampaignBySlug(campaign.slug)}
                 fullWidth
                 size="small"
                 color="primary"
                 variant="contained"
                 startIcon={<FavoriteIcon />}>
-                Дари
-              </Button>
+                {t('campaigns:cta.donate')}
+              </LinkButton>
             </Box>
           </Grid>
         </Grid>
