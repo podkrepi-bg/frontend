@@ -1,4 +1,5 @@
 import * as yup from 'yup'
+import { format, parse, isDate } from 'date-fns'
 import { FormikHelpers } from 'formik'
 import React, { useState } from 'react'
 import { useTranslation } from 'next-i18next'
@@ -18,26 +19,42 @@ export type CampaignFormData = {
   title: string
   type: string
   targetAmount: number
-  startDate: string
-  endDate: string
+  startDate: Date | undefined | string
+  endDate: Date | undefined | string
   description: string
 }
 
-const validationSchema: yup.SchemaOf<CampaignFormData> = yup.object().defined().shape({
-  title: yup.string().trim().required(), //Add .min(20).max(100) when finished with implementation
-  type: yup.string().required(),
-  targetAmount: yup.number().required(),
-  startDate: yup.string().required(),
-  endDate: yup.string().required(),
-  description: yup.string().trim().required(), //Add .min(150).max(500) when finished with implementation
-})
+const formatString = 'yyyy-MM-dd'
+
+const parseDateString = (value: string, originalValue: string) => {
+  const parsedDate = isDate(originalValue)
+    ? originalValue
+    : parse(originalValue, formatString, new Date())
+
+  return parsedDate
+}
+
+const validationSchema: yup.SchemaOf<CampaignFormData> = yup
+  .object()
+  .defined()
+  .shape({
+    title: yup.string().trim().required(), //Add .min(20).max(100) when finished with implementation
+    type: yup.string().required(),
+    targetAmount: yup.number().required(),
+    startDate: yup.date().transform(parseDateString).required(),
+    endDate: yup
+      .date()
+      .transform(parseDateString)
+      .min(yup.ref('startDate'), `end date can't be before start date`),
+    description: yup.string().trim().required(), //Add .min(150).max(500) when finished with implementation
+  })
 
 const defaults: CampaignFormData = {
   title: '',
   type: '',
   targetAmount: 1000,
-  startDate: '',
-  endDate: '',
+  startDate: format(new Date(), formatString),
+  endDate: format(new Date(), formatString),
   description: '',
 }
 

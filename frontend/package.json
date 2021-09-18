@@ -26,6 +26,7 @@
     "@supabase/supabase-js": "1.13.1",
     "apollo-boost": "^0.4.9",
     "classnames": "2.3.1",
+    "date-fns": "^2.24.0",
     "formik": "2.2.9",
     "graphql": "^15.5.2",
     "highcharts": "9.1.0",
