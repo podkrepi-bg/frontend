@@ -3,7 +3,11 @@
   "form-heading": "Създай нова кампания",
   "cta": {
     "save": "Създай <Not Implemented>",
-    "donate": "Дари"
+    "donate": "Дари",
+    "share": "Сподели",
+    "donate-now": "Дари сега",
+    "see-all": "Виж всички",
+    "see-top-10": "Виж ТОП 10"
   },
   "campaign": {
     "title": "Име на кампанията",

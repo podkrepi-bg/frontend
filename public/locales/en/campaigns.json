@@ -3,7 +3,11 @@
   "form-heading": "Create new campaign",
   "cta": {
     "save": "Create <Not Implemented>",
-    "donate": "Donate"
+    "donate": "Donate",
+    "share": "Share",
+    "donate-now": "Donate now",
+    "see-all": "See all",
+    "see-top-10": "See TOP 10"
   },
   "campaign": {
     "title": "Campaign Name",
