@@ -1,3 +1,7 @@
+# compiled output Next.js
+.next
+node_modules
+
 # Logs
 logs
 *.log
