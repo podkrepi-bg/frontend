@@ -8,7 +8,7 @@ import { Grid, createStyles, makeStyles, Theme, Typography } from '@material-ui/
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    campaignDescription: {
+    marginTop: {
       marginTop: theme.spacing(3),
     },
     progressCardWrapper: {
@@ -28,14 +28,17 @@ export default function ViewCampaignPage({ slug }: Props) {
 
   const { campaign } = data
   return (
-    <Layout title={campaign.title}>
-      <Grid container spacing={7}>
+    <Layout>
+      <Grid container spacing={7} className={classes.marginTop}>
         <Grid item xs={12} md={8}>
-          <Typography>{t('campaigns:campaign.tag')}</Typography>
+          <Typography variant="h2" component="h2">
+            {campaign.title}
+          </Typography>
+          <Typography className={classes.marginTop}>{t('campaigns:campaign.tag')}</Typography>
           <Typography>
             {t('campaigns:campaign.date')} {campaign.startDate}
           </Typography>
-          <Typography className={classes.campaignDescription}>{campaign.description}</Typography>
+          <Typography className={classes.marginTop}>{campaign.description}</Typography>
         </Grid>
         <Grid item xs={12} md={4} className={classes.progressCardWrapper}>
           <ViewCampaignProgressCard />
