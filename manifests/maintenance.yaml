@@ -9,9 +9,9 @@ spec:
     app: frontend-maintenance
   clusterIP: None
   ports:
-  - name: http
-    port: 80
-    targetPort: 80
+    - name: http
+      port: 80
+      targetPort: 80
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -31,20 +31,19 @@ spec:
         app: frontend-maintenance
     spec:
       containers:
-      - name: frontend
-        image: ghcr.io/podkrepi-bg/frontend/maintenance:master
-        ports:
-        - containerPort: 80
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 10
-          periodSeconds: 5
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 5
-          periodSeconds: 5
-
+        - name: frontend
+          image: ghcr.io/podkrepi-bg/frontend/maintenance:master
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5

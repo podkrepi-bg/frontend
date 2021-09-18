@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [master]
     paths:
-      - "frontend/**"
+      - 'frontend/**'
 
 jobs:
   build-pr:
