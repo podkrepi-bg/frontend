@@ -306,6 +306,17 @@
         "test",
         "review"
       ]
+    },
+    {
+      "login": "gonaumov",
+      "name": "George Naumov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4079371?v=4",
+      "profile": "http://georgi-naumov.blogspot.com/",
+      "contributions": [
+        "code",
+        "doc",
+        "tool"
+      ]
     }
   ],
   "contributorsPerLine": 7,
