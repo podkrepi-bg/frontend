@@ -1,5 +1,0 @@
-{
-  "ConnectionStrings": {
-    "CampaignDb": "Host=localhost;Port=5432;Database=app;Username=test;Password=test;Include Error Detail=true"
-  }
-}
