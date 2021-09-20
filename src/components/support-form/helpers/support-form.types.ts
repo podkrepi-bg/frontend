@@ -10,18 +10,19 @@ export enum Steps {
   ROLES = 0,
   QUESTIONS = 1,
   PERSON = 2,
-  NEWSLETTER = 3,
-  FINISH = 4,
+  FINISH = 3,
 }
 
 export type Person = {
   email: string
-  name: string
+  firstName: string
+  lastName: string
   phone: string
   address: string
   comment: string
   terms: boolean
   gdpr: boolean
+  newsletter: boolean
 }
 export type Benefactor = {
   campaignBenefactor?: boolean
@@ -55,16 +56,8 @@ export type Company = {
   otherText?: string
 }
 export type Roles = { [key in RoleTypes]: boolean }
-export type SupportRequestData = {
-  person: Person & { newsletter: boolean }
-  support_data: Pick<
-    SupportFormData,
-    'roles' | 'benefactor' | 'partner' | 'volunteer' | 'associationMember' | 'company'
-  >
-  environment: string
-}
+
 export type SupportFormData = {
-  newsletter: boolean
   person: Person
   roles: Roles
   benefactor?: Benefactor
@@ -88,9 +81,6 @@ export type SupportFormDataSteps = {
   [Steps.PERSON]: {
     person: Person
   }
-  [Steps.NEWSLETTER]: {
-    newsletter: boolean
-  }
 }
 
 export interface TextFieldOptions {
@@ -112,4 +102,13 @@ export interface RoleRenderObject {
   title: string
   errorMessage: string
   options: Option[]
+}
+
+export type SupportRequest = {
+  id: string
+  personId: string
+}
+export type SupportRequestInput = {
+  person: Person
+  supportData: Omit<SupportFormData, 'newsletter' | 'person'>
 }

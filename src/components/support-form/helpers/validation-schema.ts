@@ -28,10 +28,12 @@ const person: yup.SchemaOf<Person> = yup
   .object()
   .shape({
     email: email.required(),
-    name: name.required(),
+    firstName: name.required(),
+    lastName: name.required(),
     phone: phone.required(),
     address: yup.string().trim(),
     comment: yup.string().trim().max(500),
+    newsletter: yup.bool().required(),
     terms: yup.bool().required().oneOf([true], 'validation:terms-of-use'),
     gdpr: yup.bool().required().oneOf([true], 'validation:terms-of-service'),
   })
@@ -106,7 +108,6 @@ export const validationSchema: {
     | yup.SchemaOf<SupportFormDataSteps[Steps.ROLES]>
     | yup.SchemaOf<SupportFormDataSteps[Steps.QUESTIONS]>
     | yup.SchemaOf<SupportFormDataSteps[Steps.PERSON]>
-    | yup.SchemaOf<SupportFormDataSteps[Steps.NEWSLETTER]>
 } = {
   [Steps.NONE]: undefined,
   [Steps.ROLES]: yup.object().shape({
@@ -163,8 +164,5 @@ export const validationSchema: {
   }),
   [Steps.PERSON]: yup.object().shape({
     person: person.required(),
-  }),
-  [Steps.NEWSLETTER]: yup.object().shape({
-    newsletter: yup.bool().required(),
   }),
 }

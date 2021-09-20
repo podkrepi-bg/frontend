@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { dehydrate, QueryClient } from 'react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { queryFn } from 'common/query-fn'
+import { queryFn } from 'common/rest'
 import CampaignsPage from 'components/campaigns/CampaignsPage'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {

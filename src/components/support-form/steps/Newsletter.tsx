@@ -12,7 +12,7 @@ export default function Newsletter() {
       <Grid item xs={12}>
         <FormControl component="fieldset">
           <FormLabel component="legend">{t('support:steps.newsletter.title')}</FormLabel>
-          <CheckboxField label={t('support:steps.newsletter.label')} name="newsletter" />
+          <CheckboxField label={t('support:steps.newsletter.label')} name="person.newsletter" />
         </FormControl>
       </Grid>
     </Grid>

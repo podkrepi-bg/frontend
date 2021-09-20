@@ -1,29 +1,22 @@
+import React from 'react'
 import * as yup from 'yup'
+import { AxiosError, AxiosResponse } from 'axios'
 import { FormikHelpers } from 'formik'
-import React, { useState } from 'react'
+import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@material-ui/core'
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
-import { ApiErrors } from 'common/api-routes'
 import { AlertStore } from 'stores/AlertStore'
+import { createContactRequest } from 'common/rest'
+import { isAxiosError, ApiErrors, matchValidator } from 'common/api-errors'
+import { ContactFormData, ContactRequest, ContactRequestInput } from 'gql/contact'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import { name, companyName, phone, email } from 'common/form/validation'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
-
-export type ContactFormData = {
-  firstName: string
-  lastName: string
-  email: string
-  company?: string
-  phone?: string
-  message: string
-  terms: boolean
-  gdpr: boolean
-}
 
 const validationSchema: yup.SchemaOf<ContactFormData> = yup
   .object()
@@ -67,40 +60,31 @@ export type ContactFormProps = { initialValues?: ContactFormData }
 
 export default function ContactForm({ initialValues = defaults }: ContactFormProps) {
   const classes = useStyles()
-  const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
+  const mutation = useMutation<
+    AxiosResponse<ContactRequest>,
+    AxiosError<ApiErrors>,
+    ContactRequestInput
+  >({
+    mutationFn: createContactRequest,
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
+  })
 
   const onSubmit = async (
     values: ContactFormData,
     { setFieldError, resetForm }: FormikHelpers<ContactFormData>,
   ) => {
-    console.log(values)
     try {
-      setLoading(true)
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        body: values && JSON.stringify(values),
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-      })
-      setLoading(false)
-      console.log(response)
-      if (response.status >= 299) {
-        const json: ApiErrors = await response.json()
-        if ('validation' in json) {
-          json.validation?.map(({ field, validator, message, customMessage }) => {
-            setFieldError(field, t(`validation:${customMessage ? message : validator}`))
-          })
-        }
-        throw new Error()
-      }
-      AlertStore.show(t('common:alerts.message-sent'), 'success')
+      await mutation.mutateAsync(values)
       resetForm()
     } catch (error) {
-      console.error(error)
-      setLoading(false)
-      AlertStore.show(t('common:alerts.error'), 'error')
+      if (isAxiosError(error)) {
+        const { response } = error as AxiosError<ApiErrors>
+        response?.data.message.map(({ property, constraints }) => {
+          setFieldError(property, t(matchValidator(constraints)))
+        })
+      }
     }
   }
 
@@ -173,7 +157,7 @@ export default function ContactForm({ initialValues = defaults }: ContactFormPro
             <AcceptPrivacyPolicyField name="gdpr" />
           </Grid>
           <Grid item xs={12}>
-            <SubmitButton fullWidth label="auth:cta.send" loading={loading} />
+            <SubmitButton fullWidth label="auth:cta.send" loading={mutation.isLoading} />
           </Grid>
         </Grid>
       </GenericForm>
