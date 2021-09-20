@@ -468,7 +468,7 @@
   dependencies:
     react-fast-compare "^3.2.0"
 
-"@react-keycloak/ssr@^3.3.0":
+"@react-keycloak/ssr@3.3.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@react-keycloak/ssr/-/ssr-3.3.0.tgz#e757a686efd3156ecfa3a73b03b2ebb97eeea03c"
   integrity sha512-S+QArvPgM34rb84M7/+0jf2nSxOzG3vrAwkuaiXb19FosomMSYBaTrpPjXS45eUzHQuX4IOWdUTx9SZY4EmLTw==
@@ -480,7 +480,7 @@
     js-base64 "^3.4.5"
     js-cookie "^2.2.1"
 
-"@react-keycloak/web@^3.4.0":
+"@react-keycloak/web@3.4.0":
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/@react-keycloak/web/-/web-3.4.0.tgz#725d96fab8e5fa47faff9615cc08574e5dff2222"
   integrity sha512-yKKSCyqBtn7dt+VckYOW1IM5NW999pPkxDZOXqJ6dfXPXstYhOQCkTZqh8l7UL14PkpsoaHDh7hSJH8whah01g==
@@ -1152,7 +1152,7 @@ axe-core@^4.0.2:
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.3.2.tgz#fcf8777b82c62cfc69c7e9f32c0d2226287680e7"
   integrity sha512-5LMaDRWm8ZFPAEdzTYmgjjEdj1YnQcpfrVajO/sn/LhbpGp0Y0H64c2hLZI1gRMxfA+w1S71Uc/nHaOXgcCvGg==
 
-axios-hooks@^2.7.0:
+axios-hooks@2.7.0:
   version "2.7.0"
   resolved "https://registry.yarnpkg.com/axios-hooks/-/axios-hooks-2.7.0.tgz#c4462b5c18258176064c5ece20d0c7283b5004db"
   integrity sha512-ooVbk+hkDjSlqlkT5xCBeIQ3xWnR0y3xgzOY0GqvMV7LgFJSqp8rm4//XrllQiVTFfbbmxeAtZ0QXwkhAQTLtw==
@@ -1161,7 +1161,7 @@ axios-hooks@^2.7.0:
     dequal "2.0.2"
     lru-cache "6.0.0"
 
-axios@^0.21.4:
+axios@0.21.4:
   version "0.21.4"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.4.tgz#c67b90dc0568e5c1cf2b0b858c43ba28e2eda575"
   integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
@@ -1769,7 +1769,7 @@ data-uri-to-buffer@3.0.1:
   resolved "https://registry.yarnpkg.com/data-uri-to-buffer/-/data-uri-to-buffer-3.0.1.tgz#594b8973938c5bc2c33046535785341abc4f3636"
   integrity sha512-WboRycPNsVw3B3TL559F7kuBUM4d8CgMEvk6xEJlOp7OBPjt6G7z8WMWlD2rOFZLk6OYfFIUGsCOWzcQH9K2og==
 
-date-fns@^2.24.0:
+date-fns@2.24.0:
   version "2.24.0"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.24.0.tgz#7d86dc0d93c87b76b63d213b4413337cfd1c105d"
   integrity sha512-6ujwvwgPID6zbI0o7UbURi2vlLDR9uP26+tW6Lg+Ji3w7dd0i3DOcjcClLjLPranT60SSEFBwdSyYwn/ZkPIuw==
@@ -2674,11 +2674,6 @@ graceful-fs@^4.1.2:
   version "4.2.6"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.6.tgz#ff040b2b0853b23c3d31027523706f1885d76bee"
   integrity sha512-nTnJ528pbqxYanhpDYsi4Rd8MAeaBA67+RZ10CM1m3bTAVFEDcd5AuA4a6W5YkGZ1iNXHzZz8T6TBKLeBuNriQ==
-
-graphql@^15.5.2:
-  version "15.5.2"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-15.5.2.tgz#efa19f8f2bf1a48eb7d5c85bf17e144ba8bb0480"
-  integrity sha512-dZjLPWNQqYv0dqV2RNbiFed0LtSp6yd4jchsDGnuhDKa9OQHJYCfovaOEvY91w9gqbYO7Se9LKDTl3xxYva/3w==
 
 hard-rejection@^2.1.0:
   version "2.1.0"
