@@ -46,11 +46,13 @@ spec:
             - name: APP_PORT
               value: '3040'
             - name: API_URL
-              value: http://contact-headless.podkrepi-contact.svc
+              value: https://dev.podkrepi.bg/api
             - name: REST_API_PORT
               value: '80'
+            - name: KEYCLOAK_URL
+              value: 'https://keycloak.podkrepi.bg/auth'
             - name: KEYCLOAK_REALM
-              value: 'webapp-dev'
+              value: 'webapp'
             - name: KEYCLOAK_CLIENT_ID
               value: 'account'
           ports:
