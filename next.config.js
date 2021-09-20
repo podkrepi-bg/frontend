@@ -38,7 +38,6 @@ const moduleExports = {
     APP_ENV: process.env.APP_ENV,
     API_URL: process.env.API_URL,
     APP_URL: process.env.APP_URL,
-    GRAPHQL_URL: process.env.GRAPHQL_URL ?? 'https://gateway-dev.podkrepi.bg/',
     GTM_ID: 'GTM-TWQBXM6',
     keycloakConfig,
   },

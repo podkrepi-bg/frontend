@@ -2,7 +2,7 @@
   "subtitle": "Help a person in need",
   "form-heading": "Create new campaign",
   "cta": {
-    "save": "Create <Not Implemented>",
+    "save": "Create",
     "donate": "Donate",
     "share": "Share",
     "donate-now": "Donate now",
@@ -10,17 +10,34 @@
     "see-top-10": "See TOP 10"
   },
   "campaign": {
-    "title": "Campaign Name",
-    "amount": "Target Amount",
-    "type": "Campaign Type",
+    "title": "Campaign name",
+    "amount": "Target amount",
+    "type": "Campaign type",
     "types": {
-      "type1": "For medical case",
-      "type2": "For people in risk",
-      "type3": "For better communities"
+      "treatment-and-rehabilitation": "Treatment and rehabilitation",
+      "helping-the-needy": "Helping the needy",
+      "better-society": "Better society",
+      "transplantation": "Transplantation",
+      "cancer": "Cancer",
+      "leukemia": "Leukemia",
+      "genetic-diseases": "Genetic diseases",
+      "rehabilitation": "Rehabilitation",
+      "kids-in-risk": "Kids in risk",
+      "third-age": "Third age",
+      "homes-for-children": "Homes for children",
+      "nursing-homes": "Nursing homes",
+      "education": "Education",
+      "culture": "Culture",
+      "nature": "Nature",
+      "human-rights": "Human rights",
+      "animals": "Animals",
+      "disasters": "Disasters"
     },
-    "description": "Description (max 500 chars",
-    "start-date": "Start Date",
-    "end-date": "End Date",
+    "beneficiary": "Beneficiary",
+    "coordinator": "Coordinator",
+    "description": "Description",
+    "start-date": "Start date",
+    "end-date": "End date",
     "tag": "Tag:",
     "date": "Date:"
   }

@@ -75,6 +75,8 @@
       "subtitle": "How to keep in touch with you?",
       "email": "Email",
       "name": "Name",
+      "first-name": "Given name",
+      "last-name": "Surname",
       "phone": "Phone number",
       "comment": "Additional notes"
     },

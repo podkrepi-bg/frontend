@@ -1,8 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { Grid, Typography } from '@material-ui/core'
+import { FormControl, Grid, Typography } from '@material-ui/core'
 
 import FormTextField from 'components/common/form/FormTextField'
+import CheckboxField from 'components/common/form/CheckboxField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
@@ -19,13 +20,25 @@ export default function GeneralInfo() {
       <Grid item xs={12} sm={8}>
         <Grid container spacing={3} justify="center" direction="column">
           <Grid item xs={12}>
-            <FormTextField
-              autoFocus
-              type="text"
-              name="person.name"
-              autoComplete="name"
-              label="support:steps.info.name"
-            />
+            <Grid container spacing={3} justify="center" direction="row">
+              <Grid item xs={12} sm={6}>
+                <FormTextField
+                  autoFocus
+                  type="text"
+                  name="person.firstName"
+                  autoComplete="first-name"
+                  label="support:steps.info.first-name"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <FormTextField
+                  type="text"
+                  name="person.lastName"
+                  autoComplete="family-name"
+                  label="support:steps.info.last-name"
+                />
+              </Grid>
+            </Grid>
           </Grid>
           <Grid item xs={12}>
             <FormTextField
@@ -62,6 +75,11 @@ export default function GeneralInfo() {
           </Grid>
           <Grid item xs={12}>
             <AcceptPrivacyPolicyField name="person.gdpr" />
+          </Grid>
+          <Grid item xs={12}>
+            <FormControl component="fieldset">
+              <CheckboxField label={t('support:steps.newsletter.label')} name="person.newsletter" />
+            </FormControl>
           </Grid>
         </Grid>
       </Grid>
