@@ -31,7 +31,6 @@ export default function Roles() {
         <div>
           <BankTransfer />
         </div>
-        {t('common:or')}
       </Grid>
       <Grid item xs={12} md={8}>
         <Typography variant="h5" paragraph>

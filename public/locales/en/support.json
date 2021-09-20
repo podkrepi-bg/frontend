@@ -4,8 +4,8 @@
     "role": {
       "title": "Role",
       "subtitle": "How would you like to help?",
-      "first-subtitle": "1 You can send a bank transfer to:",
-      "second-subtitle": "2 Fill the form below",
+      "first-subtitle": "Support us with a bank transfer:",
+      "second-subtitle": "Join the organization as:",
       "fields": {
         "benefactor": {
           "title": "Benefactor",
@@ -100,6 +100,6 @@
     "back": "Back",
     "reset": "Reset",
     "submit": "Submit",
-    "copy-number": "Copy the number"
+    "copy-number": "Copy"
   }
 }

@@ -7,22 +7,31 @@ const rows = [
   {
     label: 'DevOps',
     items: [
-      'about-project:tech-stack.docker-kubernetes',
+      'about-project:tech-stack.docker',
+      'about-project:tech-stack.kubernetes',
       'about-project:tech-stack.ci-cd-pipeline',
-      'CockroachDB cluster + Flyway migrations',
+      'Rancher',
+      'Keycloak Authentication',
     ],
   },
   {
     label: 'Frontend',
-    items: ['Next.js', 'React / TypeScript', 'MaterialUI / SCSS', 'Formik / MobX'],
+    items: [
+      'TypeScript',
+      'Next.js',
+      'React',
+      'MaterialUI',
+      'SCSS',
+      'Formik',
+      'MobX',
+      'React Query',
+      'Yup',
+      'Sentry',
+    ],
   },
   {
     label: 'Backend',
-    items: [
-      'about-project:tech-stack.graphql-gateway-and-go',
-      'about-project:tech-stack.grpc-protobuf',
-      'about-project:tech-stack.dot-net',
-    ],
+    items: ['TypeScript', 'Nest.js', 'PostgreSQL', 'Prisma', 'Jest', 'Sentry'],
   },
 ]
 

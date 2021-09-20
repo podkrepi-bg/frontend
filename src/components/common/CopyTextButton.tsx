@@ -1,7 +1,8 @@
-import { useCopyToClipboard } from '../../common/util/useCopyToClipboard'
-import { Button, ButtonProps } from '@material-ui/core'
-import { useTranslation } from 'next-i18next'
 import React from 'react'
+import { useTranslation } from 'next-i18next'
+import { Button, ButtonProps } from '@material-ui/core'
+
+import { useCopyToClipboard } from 'common/util/useCopyToClipboard'
 
 export type CopyTextButtonProps = {
   text: string
@@ -10,10 +11,10 @@ export type CopyTextButtonProps = {
 
 export const CopyTextButton = ({ text, label, ...props }: CopyTextButtonProps) => {
   const { t } = useTranslation()
-  const [_, copyUrl] = useCopyToClipboard(text)
-
+  const [status, copyUrl] = useCopyToClipboard(text, 1000)
+  const active = status === 'copied' ? 'primary' : 'default'
   return (
-    <Button onClick={copyUrl} variant="contained" {...props}>
+    <Button onClick={copyUrl} color={active} size="small" variant="contained" {...props}>
       {t(label)}
     </Button>
   )

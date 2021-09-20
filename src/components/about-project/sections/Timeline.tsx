@@ -109,7 +109,7 @@ export default function Timeline() {
             {t('about-project:self-support-model')}
           </TimelineItem>
           <TimelineItem Icon={Update} title={t('about-project:september-2021-title')}>
-            {t('about-project:pilot-version-launch')}
+            {t('about-project:hackathons')}
           </TimelineItem>
           <TimelineItem Icon={PlaylistAddCheck} title={t('about-project:october-2021-title')}>
             {t('about-project:tests-performing')}

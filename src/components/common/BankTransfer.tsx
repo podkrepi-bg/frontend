@@ -2,10 +2,10 @@ import { ibanNumber } from '../../common/iban'
 import React from 'react'
 import { useTranslation } from 'next-i18next'
 import { CopyTextButton } from './CopyTextButton'
-import { Grid } from '@material-ui/core'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { Grid, Typography } from '@material-ui/core'
+import { createStyles, makeStyles } from '@material-ui/core/styles'
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     firstRow: {
       lineHeight: '2rem',
@@ -20,14 +20,20 @@ export const BankTransfer = () => {
 
   return (
     <Grid container justify="space-between" className={classes.firstRow}>
-      <Grid item xs={6} md={4}>
-        <strong>{t('about-project:association-name')}</strong> ( {t('about-project:bank-name')} )
+      <Grid item xs={12} md={8}>
+        <Typography variant="body2" style={{ fontWeight: 'bold' }}>
+          {t('about-project:association-name')}
+        </Typography>
+        <Typography variant="body2">{t('about-project:bank-name')}</Typography>
       </Grid>
-      <Grid item xs={6} md={4}>
+      <Grid item xs={12} md={4}>
         <CopyTextButton text={ibanNumber} label="support:cta.copy-number" />
       </Grid>
-      <Grid item xs={12} md={8}>
-        iban: <strong>{ibanNumber}</strong>
+      <Grid item xs={12} md={12}>
+        IBAN:{' '}
+        <Typography variant="body2" component="strong" style={{ fontWeight: 'bold' }}>
+          {ibanNumber}
+        </Typography>
       </Grid>
     </Grid>
   )
