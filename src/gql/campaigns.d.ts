@@ -25,7 +25,7 @@ export type Campaign = {
   state: CampaignState
   slug: string
   title: string
-  excerpt: string
+  essence: string
   coordinatorId: UUID
   beneficiaryId: UUID
   campaignTypeId: UUID
@@ -54,7 +54,7 @@ export type CampaignInput = {
   title: string
   slug: string
   description: string
-  excerpt: string
+  essence: string
   campaignTypeId: UUID
   beneficiaryId: UUID
   coordinatorId: UUID

@@ -123,7 +123,7 @@ export default function CampaignCard({ campaign }: Props) {
             {campaign.title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {campaign.excerpt}
+            {campaign.essence}
           </Typography>
         </CardContent>
       </CardActionArea>
