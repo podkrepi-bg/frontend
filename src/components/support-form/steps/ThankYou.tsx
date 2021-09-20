@@ -7,12 +7,11 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       width: '100%',
     },
-    button: {
-      marginRight: theme.spacing(1),
+    heading: {
+      marginTop: theme.spacing(10),
     },
     instructions: {
-      marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(1),
+      marginTop: theme.spacing(5),
     },
   }),
 )
@@ -24,10 +23,12 @@ export default function ThankYou() {
   return (
     <Grid container spacing={6} justify="center">
       <Grid item xs={12}>
-        <Typography variant="h4" align="center"></Typography>
+        <Typography variant="h4" align="center" className={classes.heading}>
+          {t('support:steps.thank-you.content')}
+        </Typography>
       </Grid>
-      <Typography className={classes.instructions}>
-        {t('support:steps.thank-you.content')}
+      <Typography align="center" className={classes.instructions}>
+        {t('support:steps.thank-you.await-instructions')}
       </Typography>
     </Grid>
   )

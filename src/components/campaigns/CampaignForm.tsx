@@ -1,28 +1,25 @@
+import React from 'react'
 import * as yup from 'yup'
-import { format, parse, isDate } from 'date-fns'
+import { useRouter } from 'next/router'
 import { FormikHelpers } from 'formik'
-import React, { useState } from 'react'
+import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
+import { format, parse, isDate } from 'date-fns'
+import { AxiosError, AxiosResponse } from 'axios'
 import { Grid, Typography } from '@material-ui/core'
-import Select from '@material-ui/core/Select'
-import MenuItem from '@material-ui/core/MenuItem'
-
 import { makeStyles, createStyles } from '@material-ui/core/styles'
 
-import { ApiErrors } from 'common/api-routes'
+import { routes } from 'common/routes'
+import { createCampaign } from 'common/rest'
 import { AlertStore } from 'stores/AlertStore'
+import { createSlug } from 'common/util/createSlug'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
+import { Campaign, CampaignFormData, CampaignInput } from 'gql/campaigns'
+import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
 
-export type CampaignFormData = {
-  title: string
-  type: string
-  targetAmount: number
-  startDate: Date | undefined | string
-  endDate: Date | undefined | string
-  description: string
-}
+import CampaignTypeSelect from './CampaignTypeSelect'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -38,23 +35,27 @@ const validationSchema: yup.SchemaOf<CampaignFormData> = yup
   .object()
   .defined()
   .shape({
-    title: yup.string().trim().required(), //Add .min(20).max(100) when finished with implementation
-    type: yup.string().required(),
+    title: yup.string().trim().min(10).max(100).required(),
+    description: yup.string().trim().min(50).max(500).required(),
     targetAmount: yup.number().required(),
+    campaignTypeId: yup.string().uuid().required(),
+    beneficiaryId: yup.string().uuid().required(),
+    coordinatorId: yup.string().uuid().required(),
     startDate: yup.date().transform(parseDateString).required(),
     endDate: yup
       .date()
       .transform(parseDateString)
       .min(yup.ref('startDate'), `end date can't be before start date`),
-    description: yup.string().trim().required(), //Add .min(150).max(500) when finished with implementation
   })
 
 const defaults: CampaignFormData = {
   title: '',
-  type: '',
+  campaignTypeId: '',
+  beneficiaryId: '',
+  coordinatorId: '',
   targetAmount: 1000,
   startDate: format(new Date(), formatString),
-  endDate: format(new Date(), formatString),
+  endDate: format(new Date().setMonth(new Date().getMonth() + 1), formatString),
   description: '',
 }
 
@@ -75,40 +76,43 @@ export type CampaignFormProps = { initialValues?: CampaignFormData }
 
 export default function CampaignForm({ initialValues = defaults }: CampaignFormProps) {
   const classes = useStyles()
-  const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
+  const router = useRouter()
+
+  const mutation = useMutation<AxiosResponse<Campaign>, AxiosError<ApiErrors>, CampaignInput>({
+    mutationFn: createCampaign,
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
+  })
 
   const onSubmit = async (
     values: CampaignFormData,
     { setFieldError, resetForm }: FormikHelpers<CampaignFormData>,
   ) => {
-    console.log(values)
     try {
-      setLoading(true)
-      const response = await fetch('/api/campaign/create', {
-        method: 'POST',
-        body: values && JSON.stringify(values),
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
+      const response = await mutation.mutateAsync({
+        title: values.title,
+        slug: createSlug(values.title),
+        description: values.description,
+        targetAmount: values.targetAmount,
+        startDate: values.startDate,
+        endDate: values.endDate,
+        excerpt: '',
+        campaignTypeId: values.campaignTypeId,
+        beneficiaryId: values.beneficiaryId,
+        coordinatorId: values.coordinatorId,
+        currency: 'BGN',
       })
-      setLoading(false)
-      console.log(response)
-      if (response.status >= 299) {
-        const json: ApiErrors = await response.json()
-        if ('validation' in json) {
-          json.validation?.map(({ field, validator, message, customMessage }) => {
-            setFieldError(field, t(`validation:${customMessage ? message : validator}`))
-          })
-        }
-        throw new Error()
-      }
-      AlertStore.show(t('common:alerts.message-sent'), 'success')
       resetForm()
+      router.push(routes.campaigns.viewCampaignBySlug(response.data.slug))
     } catch (error) {
       console.error(error)
-      setLoading(false)
-      AlertStore.show(t('common:alerts.error'), 'error')
+      if (isAxiosError(error)) {
+        const { response } = error as AxiosError<ApiErrors>
+        response?.data.message.map(({ property, constraints }) => {
+          setFieldError(property, t(matchValidator(constraints)))
+        })
+      }
     }
   }
 
@@ -133,19 +137,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Select
-              displayEmpty
-              fullWidth
-              label={t('campaigns:campaign.type')}
-              defaultValue=""
-              name="type">
-              <MenuItem value="" disabled>
-                <em>{t('campaigns:campaign.type')}</em>
-              </MenuItem>
-              <MenuItem value={1}>{t('campaigns:campaign.types.type1')}</MenuItem>
-              <MenuItem value={2}>{t('campaigns:campaign.types.type2')}</MenuItem>
-              <MenuItem value={3}>{t('campaigns:campaign.types.type3')}</MenuItem>
-            </Select>
+            <CampaignTypeSelect />
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormTextField
@@ -153,6 +145,20 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               name="targetAmount"
               autoComplete="target-amount"
               label="campaigns:campaign.amount"
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormTextField
+              type="text"
+              name="beneficiaryId"
+              label="campaigns:campaign.beneficiary"
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormTextField
+              type="text"
+              name="coordinatorId"
+              label="campaigns:campaign.coordinator"
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -183,7 +189,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
             />
           </Grid>
           <Grid item xs={12}>
-            <SubmitButton fullWidth label="campaigns:cta.save" loading={loading} disabled />
+            <SubmitButton fullWidth label="campaigns:cta.save" loading={mutation.isLoading} />
           </Grid>
         </Grid>
       </GenericForm>

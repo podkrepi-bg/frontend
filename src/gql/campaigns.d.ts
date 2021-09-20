@@ -1,6 +1,9 @@
 export type CampaignType = {
   id: UUID
   name: string
+  slug: string
+  parentId: UUID
+  description: string
 }
 
 export enum CampaignState {
@@ -34,4 +37,29 @@ export type Campaign = {
   createdAt: Date
   updatedAt: Date | null
   deletedAt: Date | null
+}
+
+export type CampaignFormData = {
+  title: string
+  campaignTypeId: string
+  beneficiaryId: string
+  coordinatorId: string
+  targetAmount: number
+  startDate: Date | string | undefined
+  endDate: Date | string | undefined
+  description: string
+}
+
+export type CampaignInput = {
+  title: string
+  slug: string
+  description: string
+  excerpt: string
+  campaignTypeId: UUID
+  beneficiaryId: UUID
+  coordinatorId: UUID
+  targetAmount: number
+  currency: string
+  startDate: Date | string | undefined
+  endDate: Date | string | undefined
 }

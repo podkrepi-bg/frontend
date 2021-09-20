@@ -1,9 +1,13 @@
 import { useQuery } from 'react-query'
 
-import { Campaign } from 'gql/campaigns'
+import { Campaign, CampaignType } from 'gql/campaigns'
 
 export function useCampaignList() {
   return useQuery<Campaign[]>('/campaign/list')
+}
+
+export function useCampaignTypesList() {
+  return useQuery<CampaignType[]>('/campaign-type/list')
 }
 
 export function useViewCampaign(slug: string) {

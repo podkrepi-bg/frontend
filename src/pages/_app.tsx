@@ -16,7 +16,7 @@ import { SSRKeycloakProvider, SSRCookies } from '@react-keycloak/ssr'
 
 import theme from 'common/theme'
 import useGTM from 'common/util/useGTM'
-import { queryFn } from 'common/query-fn'
+import { queryFn } from 'common/rest'
 
 const {
   publicRuntimeConfig: { keycloakConfig },
@@ -29,7 +29,13 @@ function CustomApp({ Component, pageProps }: AppProps) {
   const { i18n } = useTranslation()
   const { initialize, trackEvent } = useGTM()
   const [queryClient] = React.useState(
-    () => new QueryClient({ defaultOptions: { queries: { queryFn } } }),
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: { queryFn },
+          // mutations: { mutationFn },
+        },
+      }),
   )
 
   useEffect(() => {
