@@ -6,12 +6,8 @@ on:
     tags:
       - 'v*.*.*'
     branches: [master]
-    paths:
-      - 'frontend/**'
   pull_request:
     branches: [master]
-    paths:
-      - 'frontend/**'
 
 jobs:
   build-docker-image:
@@ -38,7 +34,6 @@ jobs:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         with:
           push: true
-          context: ./frontend
           target: production
           build-args: SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
           tags: ghcr.io/podkrepi-bg/frontend:${{ steps.vars.outputs.tag }}
