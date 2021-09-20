@@ -97,7 +97,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
         targetAmount: values.targetAmount,
         startDate: values.startDate,
         endDate: values.endDate,
-        excerpt: '',
+        essence: '',
         campaignTypeId: values.campaignTypeId,
         beneficiaryId: values.beneficiaryId,
         coordinatorId: values.coordinatorId,
