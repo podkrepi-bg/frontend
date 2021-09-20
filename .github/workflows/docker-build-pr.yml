@@ -4,8 +4,6 @@ on:
   workflow_dispatch:
   pull_request:
     branches: [master]
-    paths:
-      - 'frontend/**'
 
 jobs:
   build-pr:
@@ -18,7 +16,6 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build frontend
-        working-directory: frontend
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
         run: |
