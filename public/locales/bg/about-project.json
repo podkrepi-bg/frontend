@@ -57,18 +57,16 @@
   "may-2021-title": "май 2021",
   "self-support-model": "Избор на бизнес модел за самоиздръжка на платформата.",
   "september-2021-title": "септември 2021",
-  "pilot-version-launch": "Пускане на пилотна версия на платформата.",
+  "hackathons": "Два програмистки хакатона за разработка на платформата.",
   "october-2021-title": "октомври 2021",
   "tests-performing": "Извършване на тестове на платформата в реална среда.",
   "december-2021-title": "декември 2021",
   "beta-version-launch": "Пускане на бета версия на платформата.",
   "tech-stack": {
     "title": "Технологии",
-    "docker-kubernetes": "Локален Docker Compose stack и план за Kubernetes в реална среда",
-    "ci-cd-pipeline": "CI/CD pipeline чрез GitHub Actions",
-    "graphql-gateway-and-go": "GraphQL Gateway с GoLang/GoFiber",
-    "grpc-protobuf": "GRPC/ProtoBuf за комуникация между microservices",
-    "dot-net": "Campaigns Мicroservice със C#/.Net"
+    "docker": "Локален Docker Compose stack",
+    "kubernetes": "Kubernetes клъстъри (Staging/Production)",
+    "ci-cd-pipeline": "CI/CD pipeline чрез GitHub Actions"
   },
   "work-organisation": "Създадохме организация на работата (Discord, Drive, GitHub, Ora.pm, разделяне по екипи)",
   "choice-of-logo-and-design": "Избор на лого и дизайн.",

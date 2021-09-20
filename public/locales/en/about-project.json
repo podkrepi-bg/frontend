@@ -57,18 +57,16 @@
   "may-2021-title": "May 2021",
   "self-support-model": "Choosing a business model for self-support of the platform",
   "september-2021-title": "September 2021",
-  "pilot-version-launch": "Launch of a pilot version of the platform.",
+  "hackathons": "Two dev hackathons boosting up the development productivity.",
   "october-2021-title": "October 2021",
   "tests-performing": "Performing tests on the platform on a real environment.",
   "december-2021-title": "December 2021",
   "beta-version-launch": "Launch of a beta version of the platform.",
   "tech-stack": {
     "title": "Tech Stack",
-    "docker-kubernetes":"Local Docker Compose stack and a plan for Kubernetes in production environment",
-    "ci-cd-pipeline":"CI/CD pipeline in GitHub Actions",
-    "graphql-gateway-and-go":"GraphQL Gateway using GoLang/GoFiber",
-    "grpc-protobuf":"GRPC/ProtoBuf for communication between microservices",
-    "dot-net":"Campaigns Мicroservice using C#/.Net"
+    "docker": "Local Docker-Compose stack",
+    "kubernetes": "Kubernetes clusters (Staging/Production)",
+    "ci-cd-pipeline": "CI/CD pipeline in GitHub Actions"
   },
   "work-organisation": "Organized our work (Discord, Drive, GitHub, Ora.pm, splitting into teams).",
   "choice-of-logo-and-design": "Choice of logo and design.",
@@ -84,8 +82,8 @@
   "documentation-social": "The documentation for the social aspect of the project is on GitBook.",
   "documentation-technical": "Technical documentation.",
   "high-level-map": "Developed a High-level architectural/organisational map of the platform.",
-  "opened-donations-account":"Opened a donations account in",
+  "opened-donations-account": "Opened a donations account in",
   "bank-name": "UniCredit Bulbank",
-  "with-holder":"with holder",
+  "with-holder": "with holder",
   "association-name": "Association Podkrepi BG"
 }
