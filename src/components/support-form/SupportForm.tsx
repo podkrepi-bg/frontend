@@ -1,24 +1,30 @@
-import { FormikHelpers, FormikProps } from 'formik'
+import { AxiosError, AxiosResponse } from 'axios'
+import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import React, { useState, useRef } from 'react'
+import { FormikHelpers, FormikProps } from 'formik'
 import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core/styles'
 import { Stepper, Step, StepLabel, StepConnector, Hidden, Grid } from '@material-ui/core'
 
-import { ApiErrors } from 'common/api-routes'
 import { AlertStore } from 'stores/AlertStore'
+import { createSupportRequest } from 'common/rest'
 import GenericForm from 'components/common/form/GenericForm'
-import ConfirmationDialog from 'components/common/ConfirmationDialog'
+import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
 
 import Actions from './Actions'
 import Roles from './steps/Roles'
 import StepIcon from './StepperIcon'
 import ThankYou from './steps/ThankYou'
-import Newsletter from './steps/Newsletter'
 import GeneralInfo from './steps/GeneralInfo'
 import AdditionalQuestions from './steps/AdditionalQuestions'
 import { validationSchema } from './helpers/validation-schema'
-import { SupportFormData } from './helpers/support-form.types'
-import { Steps, Step as StepType } from './helpers/support-form.types'
+import {
+  Steps,
+  Step as StepType,
+  SupportFormData,
+  SupportRequest,
+  SupportRequestInput,
+} from './helpers/support-form.types'
 
 const ColorlibConnector = withStyles({
   alternativeLabel: { top: 22 },
@@ -53,15 +59,16 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 const initialValues: SupportFormData = {
-  newsletter: false,
   person: {
     email: '',
-    name: '',
+    firstName: '',
+    lastName: '',
     phone: '',
     address: '',
     comment: '',
     terms: false,
     gdpr: false,
+    newsletter: false,
   },
   roles: {
     benefactor: false,
@@ -117,10 +124,6 @@ const steps: StepType[] = [
     component: <GeneralInfo />,
   },
   {
-    label: 'support:steps.newsletter.title',
-    component: <Newsletter />,
-  },
-  {
     label: 'support:steps.thank-you.title',
     component: <ThankYou />,
   },
@@ -132,43 +135,22 @@ export type NewsletterDialogProps = {
   handleCancel: () => void
 }
 
-const NewsletterDialog = ({ isOpen, handleConfirm, handleCancel }: NewsletterDialogProps) => {
-  const { t } = useTranslation()
-  return (
-    <ConfirmationDialog
-      title={t('support:steps.newsletter.confirm.title')}
-      content={t('support:steps.newsletter.confirm.content')}
-      confirmButtonLabel={t('support:steps.newsletter.confirm.confirmButtonLabel')}
-      cancelButtonLabel={t('support:steps.newsletter.confirm.cancelButtonLabel')}
-      handleConfirm={handleConfirm}
-      handleCancel={handleCancel}
-      isOpen={isOpen}></ConfirmationDialog>
-  )
-}
-
 export default function SupportForm() {
   const { t } = useTranslation()
   const classes = useStyles()
   const formRef = useRef<FormikProps<SupportFormData>>(null)
-  const form = formRef?.current
-  const [loading, setLoading] = useState(false)
   const [activeStep, setActiveStep] = useState<Steps>(Steps.ROLES)
   const [failedStep, setFailedStep] = useState<Steps>(Steps.NONE)
-  const [isNewsletterDialogOpen, setNewsletterDialogOpen] = useState<boolean>(false)
-  const [isNewsletterDialogOpened, setNewsletterDialogOpened] = useState<boolean>(false)
 
-  const handleNewsletterDialogCancel = () => {
-    setNewsletterDialogOpened(true)
-    setNewsletterDialogOpen(false)
-    form?.submitForm()
-  }
-
-  const handleNewsletterDialogConfirm = () => {
-    setNewsletterDialogOpened(true)
-    setNewsletterDialogOpen(false)
-    form?.setFieldValue('newsletter', true)
-    form?.submitForm()
-  }
+  const mutation = useMutation<
+    AxiosResponse<SupportRequest>,
+    AxiosError<ApiErrors>,
+    SupportRequestInput
+  >({
+    mutationFn: createSupportRequest,
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
+  })
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1)
@@ -176,52 +158,29 @@ export default function SupportForm() {
 
   const handleSubmit = async (values: SupportFormData, actions: FormikHelpers<SupportFormData>) => {
     if (isLastStep(activeStep, steps)) {
-      const isSubscribingToNewsletter = values.newsletter
-
-      if (!isSubscribingToNewsletter && !isNewsletterDialogOpened) {
-        setNewsletterDialogOpen(true)
-        return
-      }
       const errors = await actions.validateForm()
       const hasErrors = !!Object.keys(errors).length
       if (hasErrors) {
-        setFailedStep(Steps.NEWSLETTER)
+        setFailedStep(Steps.PERSON)
         return
       }
       setActiveStep((prevActiveStep) => prevActiveStep + 1)
       setFailedStep(Steps.NONE)
       try {
-        setLoading(true)
-        const { person, newsletter, ...support_data } = values
-        const response = await fetch('/api/support-request', {
-          method: 'POST',
-          body:
-            person &&
-            JSON.stringify({
-              person: { ...person, newsletter },
-              support_data,
-            }),
-          headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-          },
-        })
-        setLoading(false)
-
-        if (response.status >= 299) {
-          const json: ApiErrors = await response.json()
-          if ('validation' in json) {
-            json.validation?.map(({ field, validator, message, customMessage }) => {
-              actions.setFieldError(field, t(`validation:${customMessage ? message : validator}`))
-            })
-          }
-          throw new Error()
-        }
-        AlertStore.show(t('common:alerts.message-sent'), 'success')
+        const { person, ...supportData } = values
+        await mutation.mutateAsync({ person, supportData })
         actions.resetForm()
+        if (window) {
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
       } catch (error) {
         console.error(error)
-        setLoading(false)
-        AlertStore.show(t('common:alerts.error'), 'error')
+        if (isAxiosError(error)) {
+          const { response } = error as AxiosError<ApiErrors>
+          response?.data.message.map(({ property, constraints }) => {
+            actions.setFieldError(property, t(matchValidator(constraints)))
+          })
+        }
       }
 
       return
@@ -324,7 +283,7 @@ export default function SupportForm() {
               <Actions
                 disableBack={activeStep === 0}
                 onBack={handleBack}
-                loading={loading}
+                loading={mutation.isLoading}
                 nextLabel={
                   isLastStep(activeStep, steps) ? 'support:cta.submit' : 'support:cta.next'
                 }
@@ -333,10 +292,6 @@ export default function SupportForm() {
           </Grid>
         </div>
       )}
-      <NewsletterDialog
-        isOpen={isNewsletterDialogOpen}
-        handleCancel={handleNewsletterDialogCancel}
-        handleConfirm={handleNewsletterDialogConfirm}></NewsletterDialog>
     </GenericForm>
   )
 }
