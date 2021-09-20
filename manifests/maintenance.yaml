@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: frontend-maintenance-headless
-  namespace: podkrepi-frontend
+  namespace: podkrepibg
 spec:
   selector:
     app: frontend-maintenance
@@ -17,7 +17,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend-maintenance
-  namespace: podkrepi-frontend
+  namespace: podkrepibg
   labels:
     app: frontend-maintenance
 spec:
