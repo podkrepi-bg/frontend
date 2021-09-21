@@ -1,20 +1,23 @@
-# Дарителска Платформа Подкрепи.бг
+<h1><p align="center">
+  Дарителска Платформа Подкрепи.бг
+</p></h1>
+<p align="center">
+  <a href="https://podkrepi.bg/" target="blank"><img src="https://podkrepi.bg/podkrepi-bg-logo-en.svg" width="320" alt="Podkrepi.bg logo" /></a>
+</p>
 
-![Lint](https://github.com/podkrepi-bg/frontend/workflows/Lint/badge.svg)
-![Build](https://github.com/podkrepi-bg/frontend/workflows/Build/badge.svg)
-![Build docker image](https://github.com/podkrepi-bg/frontend/workflows/Build%20docker%20image/badge.svg)
+<p align="center">
 
-![Dependencies](https://img.shields.io/david/podkrepi-bg/frontend)
-![Dev Dependencies](https://img.shields.io/david/dev/podkrepi-bg/frontend)
-![](https://img.shields.io/github/license/podkrepi-bg/frontend)
-![](https://img.shields.io/github/issues/podkrepi-bg/frontend)
+  <p align="center"><a target="_blank" rel="noopener noreferrer" href="https://github.com/podkrepi-bg/frontend/workflows/Lint/badge.svg"><img src="https://github.com/podkrepi-bg/frontend/workflows/Lint/badge.svg" alt="Lint" style="max-width: 100%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/podkrepi-bg/frontend/workflows/Build/badge.svg"><img src="https://github.com/podkrepi-bg/frontend/workflows/Build/badge.svg" alt="Build" style="max-width: 100%;"></a>
+<a href="https://github.com/podkrepi-bg/frontend/actions/workflows/docker-build-pr.yml"><img src="https://github.com/podkrepi-bg/frontend/actions/workflows/docker-build-pr.yml/badge.svg" alt="Build docker image" style="max-width: 100%;"></a></p>
+  
+  <p align="center"><a target="_blank" rel="noopener noreferrer" href="https://img.shields.io/david/podkrepi-bg/frontend"><img src="https://img.shields.io/david/podkrepi-bg/frontend" alt="Dependencies" data-canonical-src="https://img.shields.io/david/podkrepi-bg/frontend" style="max-width: 100%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="https://img.shields.io/david/dev/podkrepi-bg/frontend"><img src="https://img.shields.io/david/dev/podkrepi-bg/frontend" alt="Dev Dependencies" data-canonical-src="https://img.shields.io/david/dev/podkrepi-bg/frontend" style="max-width: 100%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="https://img.shields.io/github/license/podkrepi-bg/frontend"><img src="https://img.shields.io/github/license/podkrepi-bg/frontend" alt="" data-canonical-src="https://img.shields.io/github/license/podkrepi-bg/frontend" style="max-width: 100%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="https://img.shields.io/github/issues/podkrepi-bg/frontend"><img src="https://img.shields.io/github/issues/podkrepi-bg/frontend" alt="" data-canonical-src="https://img.shields.io/github/issues/podkrepi-bg/frontend" style="max-width: 100%;"></a></p>
 
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-26-orange.svg?style=flat-square)](#contributors-)
-
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-
+</p>
+  
 ## What's in the box
 
 - Frontend
@@ -49,6 +52,12 @@ In order to use the frontend together with the API for it you need to clone and 
 Follow API instructions at <https://github.com/podkrepi-bg/api#setup-development-environment>
 
 ## Contributors ✨
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
+[![All Contributors](https://img.shields.io/badge/all_contributors-26-orange.svg?style=flat-square)](#contributors-)
+
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Please check [contributors guide](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md) for:
 
