@@ -78,7 +78,12 @@ export default function GeneralInfo() {
           </Grid>
           <Grid item xs={12}>
             <FormControl component="fieldset">
-              <CheckboxField label={t('support:steps.newsletter.label')} name="person.newsletter" />
+              <CheckboxField
+                name="person.newsletter"
+                label={
+                  <Typography variant="body2">{t('support:steps.newsletter.label')}</Typography>
+                }
+              />
             </FormControl>
           </Grid>
         </Grid>
