@@ -32,8 +32,8 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ghcr.io/podkrepi-bg/frontend:master
-          imagePullPolicy: Always
+          image: ghcr.io/podkrepi-bg/frontend:v0.6.0
+          imagePullPolicy: IfNotPresent
           env:
             - name: NODE_ENV
               value: production
@@ -42,11 +42,11 @@ spec:
             - name: APP_ENV
               value: production
             - name: APP_URL
-              value: https://dev.podkrepi.bg
+              value: https://podkrepi.bg
             - name: APP_PORT
               value: '3040'
             - name: API_URL
-              value: https://dev.podkrepi.bg
+              value: https://podkrepi.bg
             - name: REST_API_PORT
               value: '80'
             - name: KEYCLOAK_URL
