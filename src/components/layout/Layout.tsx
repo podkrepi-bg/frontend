@@ -87,10 +87,8 @@ export default function Layout({
               {title}
             </Typography>
           )}
-          {githubUrl && figmaUrl && (
-            <ImproveThisPageTag githubUrl={githubUrl} figmaUrl={figmaUrl} />
-          )}
           {children}
+          <ImproveThisPageTag githubUrl={githubUrl} figmaUrl={figmaUrl} />
         </Box>
         <Snackbar />
       </Container>
