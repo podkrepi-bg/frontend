@@ -13,7 +13,7 @@ export default function LoginPage({ csrfToken }: LoginPageProps) {
   return (
     <Layout
       title={t('nav.login')}
-      githubUrl="https://github.com/podkrepi-bg/frontend/tree/master/frontend/src/components/auth/login/LoginPage.tsx"
+      githubUrl="https://github.com/podkrepi-bg/frontend/tree/master/src/components/auth/login/LoginPage.tsx"
       figmaUrl="https://www.figma.com/file/MmvFKzUv6yE5U2wrOpWtwS/Podkrepi.bg?node-id=5055%3A21469">
       <Container maxWidth="xs">
         <LoginForm csrfToken={csrfToken || ''} />

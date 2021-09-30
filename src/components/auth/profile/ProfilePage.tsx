@@ -49,7 +49,7 @@ export default function ProfilePage() {
     return (
       <Layout
         title={t('nav.profile')}
-        githubUrl="https://github.com/podkrepi-bg/frontend/tree/master/frontend/src/components/auth/profile/ProfilePage.tsx"
+        githubUrl="https://github.com/podkrepi-bg/frontend/tree/master/src/components/auth/profile/ProfilePage.tsx"
         figmaUrl="https://www.figma.com/file/MmvFKzUv6yE5U2wrOpWtwS/Podkrepi.bg?node-id=5987%3A21094">
         Not authenticated
       </Layout>
@@ -59,7 +59,7 @@ export default function ProfilePage() {
   return (
     <Layout
       title={t('nav.profile')}
-      githubUrl="https://github.com/podkrepi-bg/frontend/tree/master/frontend/src/components/auth/profile/ProfilePage.tsx"
+      githubUrl="https://github.com/podkrepi-bg/frontend/tree/master/src/components/auth/profile/ProfilePage.tsx"
       figmaUrl="https://www.figma.com/file/MmvFKzUv6yE5U2wrOpWtwS/Podkrepi.bg?node-id=5987%3A21094">
       <Container maxWidth="xl">
         <Grid container direction="row" justify="space-between">
