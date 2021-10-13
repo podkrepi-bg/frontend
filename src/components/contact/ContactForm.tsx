@@ -10,7 +10,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles'
 import { AlertStore } from 'stores/AlertStore'
 import { createContactRequest } from 'common/rest'
 import { isAxiosError, ApiErrors, matchValidator } from 'common/api-errors'
-import { ContactFormData, ContactRequest, ContactRequestInput } from 'gql/contact'
+import { ContactFormData, ContactRequestResponse, ContactRequestInput } from 'gql/contact'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
@@ -62,7 +62,7 @@ export default function ContactForm({ initialValues = defaults }: ContactFormPro
   const classes = useStyles()
   const { t } = useTranslation()
   const mutation = useMutation<
-    AxiosResponse<ContactRequest>,
+    AxiosResponse<ContactRequestResponse>,
     AxiosError<ApiErrors>,
     ContactRequestInput
   >({
