@@ -104,10 +104,11 @@ export interface RoleRenderObject {
   options: Option[]
 }
 
-export type SupportRequest = {
+export type SupportRequestResponse = {
   id: string
   personId: string
 }
+
 export type SupportRequestInput = {
   person: Person
   supportData: Omit<SupportFormData, 'newsletter' | 'person'>

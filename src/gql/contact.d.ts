@@ -1,4 +1,4 @@
-export type ContactRequest = {
+export type ContactRequestResponse = {
   id: string
   personId: string
 }

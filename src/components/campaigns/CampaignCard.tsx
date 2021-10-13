@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { makeStyles } from '@material-ui/core/styles'
 import { routes } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
-import { Campaign } from 'gql/campaigns'
+import { CampaignResponse } from 'gql/campaigns'
 import CampaignProgress from './CampaignProgress'
 import {
   Grid,
@@ -97,7 +97,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-type Props = { campaign: Campaign }
+type Props = { campaign: CampaignResponse }
 export default function CampaignCard({ campaign }: Props) {
   const classes = useStyles()
   const { t } = useTranslation()
