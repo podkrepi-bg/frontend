@@ -23,6 +23,4 @@ jobs:
             --file ./Dockerfile \
             --target production \
             --build-arg NODE_ENV=production \
-            --build-arg SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN \
-            --tag $IMAGE_NAME \
-            --tag $IMAGE_NAME:ci-run
+            --build-arg SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN

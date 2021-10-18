@@ -22,7 +22,7 @@ import {
   Steps,
   Step as StepType,
   SupportFormData,
-  SupportRequest,
+  SupportRequestResponse,
   SupportRequestInput,
 } from './helpers/support-form.types'
 
@@ -143,7 +143,7 @@ export default function SupportForm() {
   const [failedStep, setFailedStep] = useState<Steps>(Steps.NONE)
 
   const mutation = useMutation<
-    AxiosResponse<SupportRequest>,
+    AxiosResponse<SupportRequestResponse>,
     AxiosError<ApiErrors>,
     SupportRequestInput
   >({

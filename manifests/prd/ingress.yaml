@@ -5,29 +5,29 @@ metadata:
   namespace: podkrepibg
 spec:
   rules:
-  - host: podkrepi.bg
-    http:
-      paths:
-      - backend:
-          service:
-            name: frontend-headless
-            port:
-              number: 3040
-        pathType: ImplementationSpecific
-      - backend:
-          service:
-            name: api-headless
-            port:
-              number: 80
-        path: /docs
-        pathType: Prefix
-      - backend:
-          service:
-            name: api-headless
-            port:
-              number: 80
-        path: /api
-        pathType: Prefix
+    - host: podkrepi.bg
+      http:
+        paths:
+          - backend:
+              service:
+                name: frontend-headless
+                port:
+                  number: 3040
+            pathType: ImplementationSpecific
+          - backend:
+              service:
+                name: api-headless
+                port:
+                  number: 80
+            path: /docs
+            pathType: Prefix
+          - backend:
+              service:
+                name: api-headless
+                port:
+                  number: 80
+            path: /api
+            pathType: Prefix
   tls:
-  - hosts:
-    - podkrepi.bg
+    - hosts:
+        - podkrepi.bg

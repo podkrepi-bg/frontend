@@ -20,7 +20,7 @@ export enum CampaignState {
   error,
 }
 
-export type Campaign = {
+export type CampaignResponse = {
   id: UUID
   state: CampaignState
   slug: string
