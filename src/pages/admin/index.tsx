@@ -1,12 +1,6 @@
-import { GetServerSideProps } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
 import AdminPage from 'components/admin/AdminPage'
+import { securedProps } from 'common/util/keycloak'
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-  return {
-    props: await serverSideTranslations(locale ?? 'bg', ['common', 'auth', 'validation']),
-  }
-}
+export const getServerSideProps = securedProps
 
 export default AdminPage

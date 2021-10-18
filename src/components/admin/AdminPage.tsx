@@ -2,10 +2,12 @@ import React from 'react'
 import { useTranslation } from 'next-i18next'
 import { Container } from '@material-ui/core'
 import { DataGrid } from '@mui/x-data-grid'
+import { useKeycloak } from '@react-keycloak/ssr'
 
 import { routes } from 'common/routes'
 import Layout from 'components/layout/Layout'
 import LinkButton from 'components/common/LinkButton'
+import { KeycloakInstance } from 'keycloak-js'
 
 const columns = [
   { field: 'id', headerName: 'ID', hidden: true },
@@ -43,6 +45,12 @@ const rows = [
 
 export default function AdminPage() {
   const { t } = useTranslation()
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+
+  if (!keycloak?.authenticated) {
+    return <Layout title={t('nav.admin.index')}>Not authenticated</Layout>
+  }
+
   return (
     <Layout title={t('nav.admin.index')}>
       <Container maxWidth="lg">
