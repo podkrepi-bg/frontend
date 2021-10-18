@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { Container } from '@material-ui/core'
+import { Box, Container, Grid, Typography } from '@material-ui/core'
 import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
 
@@ -10,6 +10,7 @@ import Layout from 'components/layout/Layout'
 import LinkButton from 'components/common/LinkButton'
 
 import InfoRequestGrid from './InfoRequestGrid'
+import SupportersGrid from './SupportersGrid'
 
 export default function AdminPage() {
   const { t } = useTranslation()
@@ -25,17 +26,21 @@ export default function AdminPage() {
 
   return (
     <Layout title={t('nav.admin.index')}>
-      <Container maxWidth="lg">
-        <LinkButton variant="contained" color="primary" href={routes.admin.infoRequests}>
-          Info requests
-        </LinkButton>
-        <LinkButton variant="contained" color="primary" href={routes.admin.supporters}>
-          Supporters
-        </LinkButton>
-
-        <div style={{ height: '50vh', width: '100%', marginTop: '1rem' }}>
-          <InfoRequestGrid />
-        </div>
+      <Container maxWidth="xl">
+        <Grid container direction="column" spacing={4}>
+          <Grid item>
+            <Typography variant="h3">{t('nav.admin.info-request')}</Typography>
+          </Grid>
+          <Grid item>
+            <InfoRequestGrid />
+          </Grid>
+          <Grid item>
+            <Typography variant="h3">{t('nav.admin.supporters')}</Typography>
+          </Grid>
+          <Grid item>
+            <SupportersGrid />
+          </Grid>
+        </Grid>
       </Container>
     </Layout>
   )

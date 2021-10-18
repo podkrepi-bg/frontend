@@ -1,3 +1,5 @@
+import { KeycloakInstance } from 'keycloak-js'
+import { useKeycloak } from '@react-keycloak/ssr'
 import { QueryClient, QueryFunction, useQuery } from 'react-query'
 
 import { axios } from 'common/api-client'
@@ -13,14 +15,24 @@ type InfoRequest = {
 }
 
 export function useInfoRequestList() {
-  return useQuery<InfoRequest[]>(endpoints.support.infoRequestList.url)
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return useQuery<InfoRequest[]>(
+    endpoints.support.infoRequestList.url,
+    authQueryFn(keycloak?.token),
+  )
 }
 
-const queryFn: QueryFunction<InfoRequest[]> = async function ({ queryKey }) {
-  const response = await axios.get(queryKey.join('/'))
-  return await response.data
+const authQueryFn = (token?: string): QueryFunction<InfoRequest[]> => {
+  return async function ({ queryKey }) {
+    const headers = token ? { Authorization: `Bearer ${token}` } : {}
+    const response = await axios.get(queryKey.join('/'), { headers })
+    return await response.data
+  }
 }
 
-export async function prefetchInfoRequestList(client: QueryClient) {
-  await client.prefetchQuery<InfoRequest[]>(endpoints.support.infoRequestList.url, queryFn)
+export async function prefetchInfoRequestList(client: QueryClient, token?: string) {
+  await client.prefetchQuery<InfoRequest[]>(
+    endpoints.support.infoRequestList.url,
+    authQueryFn(token),
+  )
 }
