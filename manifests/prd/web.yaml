@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ghcr.io/podkrepi-bg/frontend:v0.6.0
+          image: ghcr.io/podkrepi-bg/frontend:v0.7.0
           imagePullPolicy: IfNotPresent
           env:
             - name: NODE_ENV
