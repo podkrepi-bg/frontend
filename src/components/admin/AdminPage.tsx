@@ -1,13 +1,11 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { Box, Container, Grid, Typography } from '@material-ui/core'
+import { Container, Grid, Typography } from '@material-ui/core'
 import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
 
-import { routes } from 'common/routes'
 import { isAdmin } from 'common/util/roles'
 import Layout from 'components/layout/Layout'
-import LinkButton from 'components/common/LinkButton'
 
 import InfoRequestGrid from './InfoRequestGrid'
 import SupportersGrid from './SupportersGrid'
