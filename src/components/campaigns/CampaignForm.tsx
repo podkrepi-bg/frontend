@@ -16,7 +16,7 @@ import { createSlug } from 'common/util/createSlug'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
-import { Campaign, CampaignFormData, CampaignInput } from 'gql/campaigns'
+import { CampaignResponse, CampaignFormData, CampaignInput } from 'gql/campaigns'
 import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
 
 import CampaignTypeSelect from './CampaignTypeSelect'
@@ -79,7 +79,11 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   const { t } = useTranslation()
   const router = useRouter()
 
-  const mutation = useMutation<AxiosResponse<Campaign>, AxiosError<ApiErrors>, CampaignInput>({
+  const mutation = useMutation<
+    AxiosResponse<CampaignResponse>,
+    AxiosError<ApiErrors>,
+    CampaignInput
+  >({
     mutationFn: createCampaign,
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),

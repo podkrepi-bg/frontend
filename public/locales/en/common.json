@@ -9,6 +9,11 @@
       "index": "Campaigns",
       "create": "Create Campaign"
     },
+    "admin": {
+      "index": "Administration",
+      "info-request": "Contact requests",
+      "supporters": "Volunteers"
+    },
     "support-us": "Support us",
     "profile": "Profile",
     "login": "Login",
@@ -25,6 +30,7 @@
     "message-sent": "Your message has been sent!",
     "error": "There was an error processing your message!"
   },
+  "close": "Close",
   "link": "Link",
   "improve-this-page": "Improve this page:",
   "github-link-text": "GitHub Source",

@@ -14,9 +14,10 @@ import Footer from 'components/layout/Footer'
 import { defaultOgImage } from 'common/routes'
 import Snackbar from 'components/layout/Snackbar'
 import AppNavBar from 'components/layout/AppNavBar'
+import DetailsModal from 'components/modal/DetailsModal'
 
-import ImproveThisPageTag from './ImproveThisPageTag'
 import MobileNav from './nav/MobileNav'
+import ImproveThisPageTag from './ImproveThisPageTag'
 
 type LayoutProps = React.PropsWithChildren<
   ContainerProps & {
@@ -91,6 +92,7 @@ export default function Layout({
           <ImproveThisPageTag githubUrl={githubUrl} figmaUrl={figmaUrl} />
         </Box>
         <Snackbar />
+        <DetailsModal />
       </Container>
       <Footer />
     </Container>

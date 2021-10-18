@@ -43,4 +43,9 @@ export const routes = {
   termsOfService: '/terms-of-service',
   changePassword: '/change-password',
   forgottenPassword: '/forgotten-password',
+  admin: {
+    index: '/admin',
+    infoRequests: '/admin/info-requests',
+    supporters: '/admin/supporters',
+  },
 }
