@@ -1,4 +1,4 @@
-import { AxiosResponse } from 'axios'
+import { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { MutationFunction, QueryFunction } from 'react-query'
 
 import { axios } from 'common/api-client'
@@ -14,6 +14,17 @@ import { endpoints } from './api-endpoints'
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await axios.get(queryKey.join('/'))
   return await response.data
+}
+
+export const queryFnFactory = <T>(config?: AxiosRequestConfig): QueryFunction<T> =>
+  async function ({ queryKey }) {
+    const response = await axios.get(queryKey.join('/'), config)
+    return await response.data
+  }
+
+export const authQueryFnFactory = <T>(token?: string): QueryFunction<T> => {
+  const headers = token ? { Authorization: `Bearer ${token}` } : {}
+  return queryFnFactory<T>({ headers })
 }
 
 export const createContactRequest: MutationFunction<

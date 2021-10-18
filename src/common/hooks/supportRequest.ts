@@ -4,6 +4,7 @@ import { QueryClient, QueryFunction, useQuery } from 'react-query'
 
 import { axios } from 'common/api-client'
 import { endpoints } from 'common/api-endpoints'
+import { authQueryFnFactory } from 'common/rest'
 
 type SupportRequest = {
   id: string
@@ -42,21 +43,13 @@ export function useSupportRequestList() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return useQuery<SupportRequest[]>(
     endpoints.support.supportRequestList.url,
-    authQueryFn(keycloak?.token),
+    authQueryFnFactory<SupportRequest[]>(keycloak?.token),
   )
-}
-
-const authQueryFn = (token?: string): QueryFunction<SupportRequest[]> => {
-  return async function ({ queryKey }) {
-    const headers = token ? { Authorization: `Bearer ${token}` } : {}
-    const response = await axios.get(queryKey.join('/'), { headers })
-    return await response.data
-  }
 }
 
 export async function prefetchSupportRequestList(client: QueryClient, token?: string) {
   await client.prefetchQuery<SupportRequest[]>(
     endpoints.support.supportRequestList.url,
-    authQueryFn(token),
+    authQueryFnFactory<SupportRequest[]>(token),
   )
 }
