@@ -1,15 +1,15 @@
 import React from 'react'
-import { Box, Container } from '@material-ui/core'
+import { Container } from '@material-ui/core'
 
 import Layout from 'components/layout/Layout'
+
+import InfoRequestGrid from './InfoRequestGrid'
 
 export default function InfoRequestPage() {
   return (
     <Layout>
       <Container maxWidth="lg">
-        <Box textAlign="center" marginBottom={4}>
-          xxxx
-        </Box>
+        <InfoRequestGrid />
       </Container>
     </Layout>
   )
