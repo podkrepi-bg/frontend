@@ -11,7 +11,6 @@ const renderCell = (params: GridRenderCellParams) =>
 
 const commonProps: Partial<GridColDef> = {
   align: 'center',
-  resizable: true,
   width: 150,
   renderCell,
 }
