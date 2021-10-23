@@ -14,6 +14,7 @@ import LocaleButton from './LocaleButton'
 import PublicMenu from './nav/PublicMenu'
 import PrivateMenu from './nav/PrivateMenu'
 import MainNavMenu from './nav/MainNavMenu'
+import { useSession } from 'common/util/useSession'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -73,9 +74,9 @@ type AppBarDeckProps = {
   navMenuToggle: () => void
 }
 export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
-  const { locale } = useRouter()
   const classes = useStyles()
-  const session = false // TODO: Add proper session check
+  const { locale } = useRouter()
+  const { keycloak } = useSession()
   const shrink = useScrollTrigger()
   return (
     <AppBar position="fixed" className={clsx(classes.appBar, { shrink })}>
@@ -106,7 +107,7 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
                     <GitHub fontSize="small" />
                   </IconButton>
                 </Grid>
-                {session ? <PrivateMenu /> : <PublicMenu disableAuth />}
+                {keycloak?.authenticated ? <PrivateMenu /> : <PublicMenu disableAuth />}
               </MainNavMenu>
             </Grid>
           </Grid>
