@@ -25,14 +25,16 @@ export default function PrivateMenu() {
     return null
   }
 
-  const title = `${1}\n(${session.email})`
+  const title = `${session.name}\n(${session.email})`
   return (
     <Grid item>
       <IconButton onClick={handleMenu}>
         {session.picture ? (
           <Avatar title={title} alt={title} src={session.picture} />
         ) : (
-          <AccountCircle />
+          <Avatar title={title} alt={title}>
+            <AccountCircle />
+          </Avatar>
         )}
       </IconButton>
       <Menu
