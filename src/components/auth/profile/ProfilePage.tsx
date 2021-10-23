@@ -12,10 +12,8 @@ import {
 } from '@material-ui/core'
 // import { AccountCircle } from '@material-ui/icons'
 
-import { useKeycloak } from '@react-keycloak/ssr'
-import type { KeycloakInstance, KeycloakTokenParsed } from 'keycloak-js'
-
 import Layout from 'components/layout/Layout'
+import { useSession } from 'common/util/useSession'
 // import LinkButton from 'components/common/LinkButton'
 // import LocaleSwitcher from 'components/layout/LocaleSwitcher'
 
@@ -31,19 +29,11 @@ import Layout from 'components/layout/Layout'
 //   }),
 // )
 
-type ParsedToken = KeycloakTokenParsed & {
-  email?: string
-  preferred_username?: string
-  given_name?: string
-  family_name?: string
-}
-
 export default function ProfilePage() {
   // const classes = useStyles()
   const { t } = useTranslation()
 
-  const { keycloak } = useKeycloak<KeycloakInstance>()
-  const parsedToken: ParsedToken | undefined = keycloak?.tokenParsed
+  const { keycloak, session } = useSession()
 
   if (!keycloak?.authenticated) {
     return (
@@ -67,25 +57,25 @@ export default function ProfilePage() {
             <ul>
               <li>
                 <span className="font-weight-bold mr-1">Username: </span>
-                <span className="text-muted">{parsedToken?.preferred_username ?? ''}</span>
+                <span className="text-muted">{session?.preferred_username ?? ''}</span>
               </li>
               <li>
                 <span className="font-weight-bold mr-1">Email: </span>
-                <span className="text-muted">{parsedToken?.email ?? ''}</span>
+                <span className="text-muted">{session?.email ?? ''}</span>
               </li>
               <li>
                 <span className="font-weight-bold mr-1">First Name: </span>
-                <span className="text-muted">{parsedToken?.given_name ?? ''}</span>
+                <span className="text-muted">{session?.given_name ?? ''}</span>
               </li>
               <li>
                 <span className="font-weight-bold mr-1">Last Name: </span>
-                <span className="text-muted">{parsedToken?.family_name ?? ''}</span>
+                <span className="text-muted">{session?.family_name ?? ''}</span>
               </li>
             </ul>
           </Grid>
           <Grid item>
             <pre>JWT: {keycloak.token?.substring(0, 30)}...</pre>
-            <pre>{JSON.stringify(parsedToken, null, 2)}</pre>
+            <pre>{JSON.stringify(session, null, 2)}</pre>
             <pre>{JSON.stringify(keycloak, null, 2)}</pre>
           </Grid>
         </Grid>
