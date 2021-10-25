@@ -21,18 +21,20 @@ export default function PrivateMenu() {
     router.push(url)
   }
 
-  if (!session || !session.user) {
+  if (!session) {
     return null
   }
 
-  const title = `${session.user.name}\n(${session.user.email})`
+  const title = `${session.name}\n(${session.email})`
   return (
     <Grid item>
       <IconButton onClick={handleMenu}>
-        {session.user.image ? (
-          <Avatar title={title} alt={title} src={session.user.image} />
+        {session.picture ? (
+          <Avatar title={title} alt={title} src={session.picture} />
         ) : (
-          <AccountCircle />
+          <Avatar title={title} alt={title}>
+            <AccountCircle />
+          </Avatar>
         )}
       </IconButton>
       <Menu
