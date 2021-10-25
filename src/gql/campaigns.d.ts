@@ -30,8 +30,8 @@ export type CampaignResponse = {
   beneficiaryId: UUID
   campaignTypeId: UUID
   description: string
-  targetAmount: string
-  reachedAmount: string
+  targetAmount: number
+  summary: { reachedAmount: number }[]
   currency: string
   startDate: Date | null
   endDate: Date | null

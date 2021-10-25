@@ -28,8 +28,8 @@ export default function ViewCampaignPage({ slug }: Props) {
   if (!data || !data.campaign) return <NotFoundPage />
 
   const { campaign } = data
-  const target = parseInt(campaign.targetAmount) / 100
-  const reached = parseInt(campaign.reachedAmount) / 100
+  const target = campaign.targetAmount / 100
+  const reached = campaign.summary.find(() => true)?.reachedAmount / 100
   return (
     <Layout title={campaign.title}>
       <Grid container spacing={6} className={classes.marginTop}>
