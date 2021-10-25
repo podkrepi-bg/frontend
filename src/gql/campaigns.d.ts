@@ -31,6 +31,7 @@ export type CampaignResponse = {
   campaignTypeId: UUID
   description: string
   targetAmount: string
+  reachedAmount: string
   currency: string
   startDate: Date | null
   endDate: Date | null
