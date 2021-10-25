@@ -6,6 +6,7 @@ import Layout from 'components/layout/Layout'
 import { useViewCampaign } from 'common/hooks/campaigns'
 
 import InlineDonation from './InlineDonation'
+import CampaignProgress from './CampaignProgress'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,14 +28,20 @@ export default function ViewCampaignPage({ slug }: Props) {
   if (!data || !data.campaign) return <NotFoundPage />
 
   const { campaign } = data
+  const target = parseInt(campaign.targetAmount) / 100
+  const reached = parseInt(campaign.reachedAmount) / 100
   return (
     <Layout title={campaign.title}>
       <Grid container spacing={6} className={classes.marginTop}>
         <Grid item xs={12} md={8}>
-          <Typography variant="h4" component="h4">
-            {parseInt(campaign.reachedAmount) / 100} лв. / {parseInt(campaign.targetAmount) / 100}{' '}
-            лв.
+          <Typography variant="h4" component="h4" gutterBottom>
+            {reached} лв. / {target} лв.
           </Typography>
+          <CampaignProgress
+            raised={`${reached} лв.`}
+            goal={`${target} лв.`}
+            percentage={(reached / target) * 100}
+          />
           <Typography className={classes.marginTop}>{campaign.description}</Typography>
         </Grid>
         <Grid item xs={12} md={4}>
