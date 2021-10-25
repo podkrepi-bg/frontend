@@ -31,9 +31,6 @@ export default function ViewCampaignPage({ slug }: Props) {
     <Layout title={campaign.title}>
       <Grid container spacing={6} className={classes.marginTop}>
         <Grid item xs={12} md={8}>
-          <Typography variant="h2" component="h2" gutterBottom>
-            {campaign.title}
-          </Typography>
           <Typography variant="h4" component="h4">
             {parseInt(campaign.reachedAmount) / 100} лв. / {parseInt(campaign.targetAmount) / 100}{' '}
             лв.
