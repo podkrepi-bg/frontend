@@ -1,9 +1,9 @@
 import { useMemo, useCallback } from 'react'
 import { List, ListItem, ListItemText, Typography } from '@material-ui/core'
 
+import { baseUrl, routes } from 'common/routes'
 import { CampaignResponse } from 'gql/campaigns'
 import { useDonationSession, useSinglePriceList } from 'common/hooks/donations'
-import { routes } from 'common/routes'
 
 type Props = {
   campaign: CampaignResponse
@@ -18,7 +18,8 @@ export default function InlineDonation({ campaign }: Props) {
         mode: 'payment',
         priceId,
         campaignId: campaign.id,
-        successUrl: routes.campaigns.viewCampaignBySlug(campaign.slug),
+        successUrl: `${baseUrl}${routes.campaigns.viewCampaignBySlug(campaign.slug)}`,
+        cancelUrl: `${baseUrl}${routes.campaigns.viewCampaignBySlug(campaign.slug)}`,
       })
       console.log(data)
       console.log(data.session.url)
