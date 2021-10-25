@@ -14,12 +14,11 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
 })
 
 const Logout = () => {
-  const { session } = useSession()
+  const { keycloak } = useSession()
 
   useEffect(() => {
-    console.log({ callbackUrl })
-    // TODO: Logout the user
-  }, [session])
+    keycloak?.logout({ redirectUri: callbackUrl })
+  }, [])
 
   return null
 }
