@@ -33,8 +33,8 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 type Props = {
-  raised: string
-  goal: string
+  raised: string | number
+  goal: string | number
   percentage: number
 }
 export default function CampaignProgress({ raised, goal, percentage }: Props) {
