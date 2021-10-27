@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Card, SvgIcon, Theme, Typography, CardContent, CardHeader } from '@mui/material'
+import { Card, SvgIconProps, Theme, Typography, CardContent, CardHeader } from '@mui/material'
 import createStyles from '@mui/styles/createStyles'
 import makeStyles from '@mui/styles/makeStyles'
 import {
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     timelineItem: {
-      [theme.breakpoints.down(undefined)]: {
+      [theme.breakpoints.down('md')]: {
         display: 'block',
       },
     },
@@ -55,7 +55,7 @@ type TimelineItemProps = React.PropsWithChildren<
   TimelineItemPropsMaterial & {
     title?: string
     lastItem?: boolean
-    Icon: typeof SvgIcon
+    Icon: React.ComponentType<SvgIconProps>
   }
 >
 
