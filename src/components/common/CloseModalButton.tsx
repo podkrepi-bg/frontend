@@ -24,7 +24,7 @@ export type CloseModalButtonProps = {
   href?: string
   onClose?: () => void
   edge?: 'start' | 'end'
-  fontSize?: 'inherit' | 'default' | 'small' | 'large'
+  fontSize?: SvgIconTypeMap['props']['fontSize']
   Icon?: OverridableComponent<SvgIconTypeMap>
 } & Omit<IconButtonProps, 'ref'>
 export default function CloseModalButton({
