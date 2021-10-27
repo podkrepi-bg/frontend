@@ -2,7 +2,7 @@ import React from 'react'
 import { Theme } from '@mui/material/styles'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
-import { Typography, CardContent, CardHeader, Card, SvgIcon } from '@mui/material'
+import { Typography, CardContent, CardHeader, Card, SvgIconProps } from '@mui/material'
 import { grey } from '@mui/material/colors'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 type PrincipleCardProps = {
-  Icon: typeof SvgIcon
+  Icon: React.ComponentType<SvgIconProps>
   heading?: string
   content: string
 }
