@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { makeStyles, withStyles } from '@material-ui/core/styles'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import { Grid, Typography } from '@material-ui/core'
+import { money } from 'common/util/money'
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
-    height: 10,
+    height: 20,
     borderRadius: 5,
     padding: theme.spacing(1),
   },
@@ -33,27 +34,31 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 type Props = {
-  raised: string
-  goal: string
-  percentage: number
+  raised: number
+  target: number
 }
-export default function CampaignProgress({ raised, goal, percentage }: Props) {
+export default function CampaignProgress({ raised, target }: Props) {
   const classes = useStyles()
-
+  const percentage = useMemo(() => (raised / target) * 100, [raised, target])
   return (
     <Grid className={classes.donationProgress} container>
       <Grid item xs={12}>
-        <BorderLinearProgress variant="determinate" value={percentage} />
+        <BorderLinearProgress variant="determinate" value={percentage > 100 ? 100 : percentage} />
       </Grid>
       <Grid item xs={6}>
-        <Typography gutterBottom={true} color="primary" variant="body1" align="left">
-          {raised}
+        <Typography gutterBottom color="primary" variant="body1" align="left">
+          {money(raised)}
         </Typography>
       </Grid>
       <Grid item xs={6}>
-        <Typography gutterBottom={true} color="primary" variant="body1" align="right">
-          {goal}
+        <Typography gutterBottom color="primary" variant="body1" align="right">
+          {money(target)}
         </Typography>
+        {raised > target && (
+          <Typography gutterBottom color="primary" variant="body1" align="right">
+            (+ {money(raised - target)})
+          </Typography>
+        )}
       </Grid>
     </Grid>
   )
