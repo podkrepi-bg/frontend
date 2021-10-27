@@ -61,7 +61,7 @@ export default function Layout({
   const suffix = t('meta.title')
   const metaTitle = useMemo(() => (title ? `${title} | ${suffix}` : suffix), [title, suffix])
   return (
-    <Container maxWidth="xl" disableGutters>
+    <Container maxWidth={false} disableGutters>
       <Container className={classes.layout} maxWidth={maxWidth} {...containerProps}>
         <Head>
           <title>{metaTitle}</title>
