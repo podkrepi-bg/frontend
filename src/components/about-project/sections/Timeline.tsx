@@ -55,7 +55,7 @@ export default function Timeline() {
         {t('about-project:timeline')}
       </Heading>
       <Grid item>
-        <TimelineMaterial align="alternate" className={classes.timelineWrapper}>
+        <TimelineMaterial position="alternate" className={classes.timelineWrapper}>
           <TimelineItem Icon={PlayCircleFilledWhite} title={t('about-project:october-2020-title')}>
             <ul>
               <li>{t('about-project:platform-idea')}</li>
