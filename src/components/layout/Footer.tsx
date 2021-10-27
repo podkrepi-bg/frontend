@@ -103,6 +103,9 @@ const InfoGrid = () => {
           <strong>SuperHosting.BG</strong>
         </ExternalLink>
       </Grid>
+      <Grid item>
+        {t('components.footer.version')} {process.env.APP_VERSION}
+      </Grid>
     </Grid>
   )
 }
