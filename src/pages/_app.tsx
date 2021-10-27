@@ -10,6 +10,8 @@ import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 import { LinearProgress } from '@mui/material'
 import { ThemeProvider, Theme, StyledEngineProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
+import { CacheProvider } from '@emotion/react'
+import { EmotionCache } from '@emotion/cache'
 
 // Keycloak
 import { SSRKeycloakProvider, SSRCookies } from '@react-keycloak/ssr'
@@ -17,19 +19,30 @@ import { SSRKeycloakProvider, SSRCookies } from '@react-keycloak/ssr'
 import theme from 'common/theme'
 import useGTM from 'common/util/useGTM'
 import { queryFn } from 'common/rest'
-
+import createEmotionCache from 'common/createEmotionCache'
 const {
   publicRuntimeConfig: { keycloakConfig },
 } = getConfig()
 
 import 'styles/global.scss'
 
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache()
+
 declare module '@mui/styles/defaultTheme' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface DefaultTheme extends Theme {}
 }
 
-function CustomApp({ Component, pageProps }: AppProps) {
+interface CustomAppProps extends AppProps {
+  emotionCache?: EmotionCache
+}
+function CustomApp({
+  Component,
+  emotionCache = clientSideEmotionCache,
+  pageProps,
+}: CustomAppProps) {
+  console.log('clientSideEmotionCache', clientSideEmotionCache)
   const router = useRouter()
   const { i18n } = useTranslation()
   const { initialize, trackEvent } = useGTM()
@@ -78,7 +91,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
   }, [i18n.language])
 
   return (
-    <React.Fragment>
+    <CacheProvider value={emotionCache}>
       <Head>
         <title>Podkrepi.bg</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
@@ -100,7 +113,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
           </SSRKeycloakProvider>
         </ThemeProvider>
       </StyledEngineProvider>
-    </React.Fragment>
+    </CacheProvider>
   )
 }
 
