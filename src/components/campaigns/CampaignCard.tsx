@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { makeStyles } from '@material-ui/core/styles'
+import makeStyles from '@mui/styles/makeStyles'
 import { routes } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
 import { CampaignResponse } from 'gql/campaigns'
@@ -15,9 +15,9 @@ import {
   Typography,
   Box,
   Link,
-} from '@material-ui/core'
-import FavoriteIcon from '@material-ui/icons/Favorite'
-import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab'
+} from '@mui/material'
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import { ToggleButton, ToggleButtonGroup } from '@mui/material'
 
 const useStyles = makeStyles((theme) => ({
   media: {
@@ -128,7 +128,7 @@ export default function CampaignCard({ campaign }: Props) {
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.cardActions}>
-        <Grid container justify="space-around">
+        <Grid container justifyContent="space-around">
           <Box p={2} width={1}>
             <CampaignProgress raised="1,000" goal="20,000" percentage={Math.random() * 100} />
           </Box>

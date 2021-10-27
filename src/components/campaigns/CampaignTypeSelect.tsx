@@ -1,4 +1,4 @@
-import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@material-ui/core'
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material'
 import { TranslatableField, translateError } from 'common/form/validation'
 import { useCampaignTypesList } from 'common/hooks/campaigns'
 import { useField } from 'formik'

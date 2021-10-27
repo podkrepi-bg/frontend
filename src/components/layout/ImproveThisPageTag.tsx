@@ -1,7 +1,7 @@
 import { useTranslation } from 'next-i18next'
-import { GitHub, Web } from '@material-ui/icons'
-import { Alert, AlertTitle } from '@material-ui/lab'
-import { Box, Button, Container } from '@material-ui/core'
+import { GitHub, Web } from '@mui/icons-material'
+import { Alert, AlertTitle } from '@mui/material'
+import { Box, Button, Container } from '@mui/material'
 
 type Props = {
   githubUrl?: string

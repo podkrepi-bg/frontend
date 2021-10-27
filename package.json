@@ -16,9 +16,12 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@material-ui/core": "4.11.4",
-    "@material-ui/icons": "4.11.2",
-    "@material-ui/lab": "4.0.0-alpha.58",
+    "@emotion/react": "^11.5.0",
+    "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.0.5",
+    "@mui/lab": "^5.0.0-alpha.52",
+    "@mui/material": "^5.0.5",
+    "@mui/styles": "^5.0.2",
     "@mui/x-data-grid": "^4.0.1",
     "@react-keycloak/ssr": "3.3.0",
     "@react-keycloak/web": "3.4.0",

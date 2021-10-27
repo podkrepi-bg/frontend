@@ -1,7 +1,7 @@
 import React from 'react'
 import * as yup from 'yup'
 import { useTranslation } from 'next-i18next'
-import { Typography, Grid } from '@material-ui/core'
+import { Typography, Grid } from '@mui/material'
 
 import SubmitButton from 'components/common/form/SubmitButton'
 import GenericForm from 'components/common/form/GenericForm'

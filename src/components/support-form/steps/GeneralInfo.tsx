@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { FormControl, Grid, Typography } from '@material-ui/core'
+import { FormControl, Grid, Typography } from '@mui/material'
 
 import FormTextField from 'components/common/form/FormTextField'
 import CheckboxField from 'components/common/form/CheckboxField'
@@ -11,16 +11,16 @@ export default function GeneralInfo() {
   const { t } = useTranslation()
 
   return (
-    <Grid container spacing={3} justify="center" direction="column" alignContent="center">
+    <Grid container spacing={3} justifyContent="center" direction="column" alignContent="center">
       <Grid item xs={12}>
         <Typography variant="h4" align="center" paragraph>
           {t('support:steps.info.subtitle')}
         </Typography>
       </Grid>
       <Grid item xs={12} sm={8}>
-        <Grid container spacing={3} justify="center" direction="column">
+        <Grid container spacing={3} justifyContent="center" direction="column">
           <Grid item xs={12}>
-            <Grid container spacing={3} justify="center" direction="row">
+            <Grid container spacing={3} justifyContent="center" direction="row">
               <Grid item xs={12} sm={6}>
                 <FormTextField
                   autoFocus

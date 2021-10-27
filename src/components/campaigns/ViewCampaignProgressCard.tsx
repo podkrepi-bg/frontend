@@ -3,8 +3,10 @@ import { useTranslation } from 'next-i18next'
 import { routes } from 'common/routes'
 import CampaignProgress from './CampaignProgress'
 import LinkButton from 'components/common/LinkButton'
-import { Box, Button, Grid, createStyles, makeStyles, Theme } from '@material-ui/core'
-import { Share, Favorite } from '@material-ui/icons'
+import { Box, Button, Grid, Theme } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
+import { Share, Favorite } from '@mui/icons-material'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

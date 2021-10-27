@@ -3,7 +3,7 @@ import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-
 
 import { DialogStore } from 'stores/DialogStore'
 import { useSupportRequestList } from 'common/hooks/supportRequest'
-import { Check, Clear } from '@material-ui/icons'
+import { Check, Clear } from '@mui/icons-material'
 import { dateFormatter } from 'common/util/date'
 
 const renderCell = (params: GridRenderCellParams) =>

@@ -1,16 +1,10 @@
-import {
-  Grid,
-  Container,
-  createStyles,
-  makeStyles,
-  lighten,
-  useTheme,
-  useMediaQuery,
-} from '@material-ui/core'
+import { Grid, Container, lighten, useTheme, useMediaQuery } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { Facebook, Instagram, LinkedIn, YouTube } from '@material-ui/icons'
+import { Facebook, Instagram, LinkedIn, YouTube } from '@mui/icons-material'
 
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 import ExternalLink from 'components/common/ExternalLink'
@@ -111,7 +105,7 @@ const SocialIcons = () => {
   const theme = useTheme()
   const sm = useMediaQuery(theme.breakpoints.up('sm'))
   return (
-    <Grid direction="row" container spacing={2} justify={sm ? 'flex-start' : 'center'}>
+    <Grid direction="row" container spacing={2} justifyContent={sm ? 'flex-start' : 'center'}>
       <Grid item>
         <ExternalLink href={socialUrls.facebook}>
           <Facebook />

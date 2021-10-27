@@ -1,8 +1,9 @@
 import { PropsWithChildren, useState } from 'react'
 
-import { Theme, Typography, TypographyProps } from '@material-ui/core'
-import { createStyles, makeStyles } from '@material-ui/core/styles'
-import LinkIcon from '@material-ui/icons/Link'
+import { Theme, Typography, TypographyProps } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
+import LinkIcon from '@mui/icons-material/Link'
 
 import LinkIconButton from 'components/common/LinkIconButton'
 

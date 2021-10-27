@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Grid } from '@material-ui/core'
+import { Button, Grid } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import { routes, staticUrls } from 'common/routes'

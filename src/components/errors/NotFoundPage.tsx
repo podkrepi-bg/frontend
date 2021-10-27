@@ -1,8 +1,10 @@
 import { useTranslation } from 'next-i18next'
 
-import { Grid, Typography } from '@material-ui/core'
-import { createStyles, Theme, makeStyles } from '@material-ui/core/styles'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
+import { Grid, Typography } from '@mui/material'
+import { Theme } from '@mui/material/styles'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 import LinkButton from 'components/common/LinkButton'
 import Layout from 'components/layout/Layout'
@@ -28,14 +30,14 @@ export default function NotFoundPage() {
   return (
     <Layout maxWidth={false} disableOffset disableGutters>
       <Grid container className={classes.root}>
-        <Grid container direction="column" alignItems="center" justify="center" spacing={4}>
+        <Grid container direction="column" alignItems="center" justifyContent="center" spacing={4}>
           <Grid container item xs={8} sm={6} lg={4}>
             <NotFoundIllustration />
           </Grid>
           <Grid item>
             <Typography variant="body2">{t('errors:404Message')}</Typography>
           </Grid>
-          <Grid container item alignItems="center" justify="center">
+          <Grid container item alignItems="center" justifyContent="center">
             <LinkButton
               size="large"
               startIcon={<ArrowBackIcon />}

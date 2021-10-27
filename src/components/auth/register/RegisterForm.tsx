@@ -1,6 +1,6 @@
 import React from 'react'
 import * as yup from 'yup'
-import { Grid } from '@material-ui/core'
+import { Grid } from '@mui/material'
 import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { Snackbar, SnackbarCloseReason } from '@material-ui/core'
-import { Alert } from '@material-ui/lab'
+import { Snackbar, SnackbarCloseReason } from '@mui/material'
+import { Alert } from '@mui/material'
 import { AlertStore } from 'stores/AlertStore'
 
 function SnackBar() {

@@ -1,6 +1,6 @@
 import React, { forwardRef, Ref } from 'react'
 import Link, { LinkProps } from 'next/link'
-import { Button, ButtonProps } from '@material-ui/core'
+import { Button, ButtonProps } from '@mui/material'
 
 export type LinkRef = HTMLAnchorElement
 export type NextLinkProps = Omit<ButtonProps, 'href'> &

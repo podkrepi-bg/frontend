@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
-import { makeStyles, createStyles } from '@material-ui/core/styles'
-import { SwipeableDrawer, Hidden, Box, Grid, Button } from '@material-ui/core'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
+import { SwipeableDrawer, Hidden, Box, Grid, Button } from '@mui/material'
 
 import { routes, staticUrls } from 'common/routes'
 import { useSession } from 'common/util/useSession'
@@ -20,7 +21,7 @@ const useStyles = makeStyles((theme) =>
     },
     navMenuPaper: {
       width: theme.spacing(10) * 4,
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         width: '100%',
         flexShrink: 0,
       },
@@ -102,7 +103,7 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
           classes={{ paper: classes.navMenuPaper }}>
           <CloseModalButton edge="end" fontSize="default" onClose={closeNavMenu} />
           <Box display="flex" justifyContent="center" px={2}>
-            <Grid container justify="center" direction="column" spacing={2}>
+            <Grid container justifyContent="center" direction="column" spacing={2}>
               <Grid item>
                 <Box width="100%" textAlign="center">
                   <PodkrepiIcon className={classes.icon} />

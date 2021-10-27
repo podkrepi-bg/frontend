@@ -2,8 +2,9 @@ import { ibanNumber } from '../../common/iban'
 import React from 'react'
 import { useTranslation } from 'next-i18next'
 import { CopyTextButton } from './CopyTextButton'
-import { Grid, Typography } from '@material-ui/core'
-import { createStyles, makeStyles } from '@material-ui/core/styles'
+import { Grid, Typography } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -19,7 +20,7 @@ export const BankTransfer = () => {
   const classes = useStyles()
 
   return (
-    <Grid container justify="space-between" className={classes.firstRow}>
+    <Grid container justifyContent="space-between" className={classes.firstRow}>
       <Grid item xs={12} md={8}>
         <Typography variant="body2" style={{ fontWeight: 'bold' }}>
           {t('about-project:association-name')}

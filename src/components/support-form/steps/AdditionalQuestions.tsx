@@ -1,14 +1,7 @@
 import React from 'react'
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
-import {
-  FormControl,
-  FormGroup,
-  FormHelperText,
-  FormLabel,
-  Grid,
-  Typography,
-} from '@material-ui/core'
+import { FormControl, FormGroup, FormHelperText, FormLabel, Grid, Typography } from '@mui/material'
 
 import { Option, RoleRenderObject, SupportFormData } from '../helpers/support-form.types'
 import CheckboxField from 'components/common/form/CheckboxField'
@@ -214,14 +207,14 @@ export default function AdditionalQuestions() {
   ]
 
   return (
-    <Grid container spacing={6} justify="center">
+    <Grid container spacing={6} justifyContent="center">
       <Grid item xs={12}>
         <Typography variant="h4" align="center">
           {t('support:steps.addition-questions.subtitle')}
         </Typography>
       </Grid>
       <Grid item xs={12} md={10}>
-        <Grid container spacing={6} justify="center">
+        <Grid container spacing={6} justifyContent="center">
           {Object.entries(formik.values.roles)
             .filter(([, value]) => value)
             .map(([key], index) => (

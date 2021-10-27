@@ -1,8 +1,9 @@
 import React from 'react'
-import { Close } from '@material-ui/icons'
-import { IconButton, IconButtonProps, SvgIconTypeMap } from '@material-ui/core'
-import { createStyles, makeStyles } from '@material-ui/core/styles'
-import { OverridableComponent } from '@material-ui/core/OverridableComponent'
+import { Close } from '@mui/icons-material'
+import { IconButton, IconButtonProps, SvgIconTypeMap } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
+import { OverridableComponent } from '@mui/material/OverridableComponent'
 
 import { routes } from 'common/routes'
 
@@ -37,7 +38,7 @@ export default function CloseModalButton({
   const classes = useStyles({ edge })
   if (typeof onClose === 'function') {
     return (
-      <IconButton onClick={onClose} className={classes.closeButton} {...buttonProps}>
+      <IconButton onClick={onClose} className={classes.closeButton} {...buttonProps} size="large">
         <Icon fontSize={fontSize} />
       </IconButton>
     )
