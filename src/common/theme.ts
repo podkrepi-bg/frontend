@@ -17,6 +17,7 @@ const colors = {
   },
   gray: {
     main: '#F5F5F5',
+    background: '#FAFAFA',
   },
 }
 
@@ -31,6 +32,9 @@ export const themeOptions: ThemeOptions = {
     secondary: {
       main: colors.yellow.main,
       light: colors.gray.main,
+    },
+    background: {
+      default: colors.gray.background,
     },
   },
   shape: {
