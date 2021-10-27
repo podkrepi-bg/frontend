@@ -10,6 +10,7 @@ import { ContactRequestResponse, ContactRequestInput } from 'gql/contact'
 import { CampaignResponse, CampaignInput } from 'gql/campaigns'
 
 import { endpoints } from './api-endpoints'
+import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await axios.get(queryKey.join('/'))
@@ -54,3 +55,13 @@ export const createCampaign: MutationFunction<AxiosResponse<CampaignResponse>, C
       data,
     )
   }
+
+export const createCheckoutSession: MutationFunction<
+  AxiosResponse<CheckoutSessionResponse>,
+  CheckoutSessionInput
+> = async (data: CheckoutSessionInput) => {
+  return await axios.post<CheckoutSessionInput, AxiosResponse<CheckoutSessionResponse>>(
+    endpoints.donation.createCheckoutSession.url,
+    data,
+  )
+}
