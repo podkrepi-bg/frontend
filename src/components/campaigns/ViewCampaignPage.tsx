@@ -1,10 +1,13 @@
 import React from 'react'
-import { useTranslation } from 'next-i18next'
-import { useViewCampaign } from 'common/hooks/campaigns'
-import Layout from 'components/layout/Layout'
-import ViewCampaignProgressCard from './ViewCampaignProgressCard'
-import NotFoundPage from 'pages/404'
 import { Grid, createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
+
+import NotFoundPage from 'pages/404'
+import { money } from 'common/util/money'
+import Layout from 'components/layout/Layout'
+import { useViewCampaign } from 'common/hooks/campaigns'
+
+import InlineDonation from './InlineDonation'
+import CampaignProgress from './CampaignProgress'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,28 +23,27 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type Props = { slug: string }
 export default function ViewCampaignPage({ slug }: Props) {
-  const { t } = useTranslation()
   const classes = useStyles()
   const { data } = useViewCampaign(slug)
 
   if (!data || !data.campaign) return <NotFoundPage />
 
   const { campaign } = data
+  const target = campaign.targetAmount
+  const summary = campaign.summary.find(() => true)
+  const reached = summary ? summary.reachedAmount : 0
   return (
-    <Layout>
-      <Grid container spacing={7} className={classes.marginTop}>
+    <Layout title={campaign.title}>
+      <Grid container spacing={6} className={classes.marginTop}>
         <Grid item xs={12} md={8}>
-          <Typography variant="h2" component="h2">
-            {campaign.title}
+          <Typography variant="h4" component="h4" gutterBottom>
+            {money(reached)} от {money(target)}
           </Typography>
-          <Typography className={classes.marginTop}>{t('campaigns:campaign.tag')}</Typography>
-          <Typography>
-            {t('campaigns:campaign.date')} {campaign.startDate}
-          </Typography>
+          <CampaignProgress raised={reached} target={target} />
           <Typography className={classes.marginTop}>{campaign.description}</Typography>
         </Grid>
-        <Grid item xs={12} md={4} className={classes.progressCardWrapper}>
-          <ViewCampaignProgressCard />
+        <Grid item xs={12} md={4}>
+          <InlineDonation campaign={campaign} />
         </Grid>
       </Grid>
     </Layout>

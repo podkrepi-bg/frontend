@@ -107,7 +107,9 @@ export default function CampaignCard({ campaign }: Props) {
   const handleAlignment = (event: React.MouseEvent<HTMLElement>, newAlignment: string | null) => {
     setAlignment(newAlignment)
   }
-
+  const target = campaign.targetAmount
+  const summary = campaign.summary.find(() => true)
+  const reached = summary ? summary.reachedAmount : 0
   return (
     <Card variant="outlined">
       <CardActionArea>
@@ -130,7 +132,7 @@ export default function CampaignCard({ campaign }: Props) {
       <CardActions className={classes.cardActions}>
         <Grid container justify="space-around">
           <Box p={2} width={1}>
-            <CampaignProgress raised="1,000" goal="20,000" percentage={Math.random() * 100} />
+            <CampaignProgress raised={reached} target={target} />
           </Box>
           <Grid item xs={12}>
             <ToggleButtonGroup
