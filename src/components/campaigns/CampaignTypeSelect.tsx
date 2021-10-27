@@ -12,8 +12,8 @@ export default function CampaignTypeSelect({ name = 'campaignTypeId' }) {
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
 
   return (
-    <FormControl variant="outlined" fullWidth>
-      <InputLabel variant="outlined" margin="dense">
+    <FormControl variant="outlined" fullWidth size="small">
+      <InputLabel variant="filled" margin="dense">
         {t('campaigns:campaign.type')}
       </InputLabel>
       <Select
