@@ -21,20 +21,28 @@ export const BankTransfer = () => {
 
   return (
     <Grid container justifyContent="space-between" className={classes.firstRow}>
-      <Grid item xs={12} md={8}>
+      <Grid item xs={12}>
         <Typography variant="body2" style={{ fontWeight: 'bold' }}>
           {t('about-project:association-name')}
         </Typography>
         <Typography variant="body2">{t('about-project:bank-name')}</Typography>
       </Grid>
-      <Grid item xs={12} md={4}>
-        <CopyTextButton text={ibanNumber} label="support:cta.copy-number" />
-      </Grid>
-      <Grid item xs={12} md={12}>
-        IBAN:{' '}
-        <Typography variant="body2" component="strong" style={{ fontWeight: 'bold' }}>
-          {ibanNumber}
-        </Typography>
+      <Grid item xs={12}>
+        <Grid container direction="row" sx={{ mt: 2 }} columnSpacing={2}>
+          <Grid item>
+            IBAN:{' '}
+            <Typography
+              whiteSpace="nowrap"
+              variant="body2"
+              component="strong"
+              style={{ fontWeight: 'bold' }}>
+              {ibanNumber}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <CopyTextButton text={ibanNumber} label="support:cta.copy-number" />
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   )
