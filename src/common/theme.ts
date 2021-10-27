@@ -88,6 +88,24 @@ export const themeOptions: ThemeOptions = {
         disableRipple: true,
       },
     },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          fontSize: '1rem',
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          fontSize: '1rem',
+        },
+        filled: {
+          transform: 'translate(14px, 9px) scale(1)',
+        },
+      },
+    },
+
     MuiAppBar: {
       styleOverrides: {
         root: {
