@@ -41,7 +41,7 @@ export default function NotFoundPage() {
             <LinkButton
               size="large"
               startIcon={<ArrowBackIcon />}
-              color="default"
+              color="inherit"
               variant="outlined"
               href={routes.index}>
               {t('errors:backButtonLabel')}
