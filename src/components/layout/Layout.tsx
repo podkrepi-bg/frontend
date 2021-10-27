@@ -48,7 +48,7 @@ export default function Layout({
   title,
   ogImage,
   children,
-  maxWidth = 'md',
+  maxWidth = 'lg',
   disableOffset = false,
   githubUrl,
   figmaUrl,
