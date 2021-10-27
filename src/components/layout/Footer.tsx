@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) =>
       },
     },
     footer: {
-      padding: theme.spacing(3),
       textAlign: 'center',
       [theme.breakpoints.up('sm')]: {
         textAlign: 'left',
@@ -61,12 +60,12 @@ export default function Footer() {
   const classes = useStyles()
   return (
     <Container component="footer" maxWidth={false} disableGutters className={classes.container}>
-      <Container maxWidth="xl" disableGutters>
+      <Container maxWidth="lg" disableGutters>
         <Grid container className={classes.footer}>
-          <Grid item xs={12} sm={8} md={6}>
+          <Grid item xs={12} sm={8} md={5}>
             <InfoGrid />
           </Grid>
-          <Grid item xs={12} sm={4} md={6}>
+          <Grid item xs={12} sm={4} md={7}>
             <FooterLinks />
           </Grid>
         </Grid>
