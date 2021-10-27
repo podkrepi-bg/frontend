@@ -24,7 +24,7 @@
     "@mui/lab": "^5.0.0-alpha.52",
     "@mui/material": "^5.0.5",
     "@mui/styles": "^5.0.2",
-    "@mui/x-data-grid": "^4.0.1",
+    "@mui/x-data-grid": "next",
     "@react-keycloak/ssr": "3.3.0",
     "@react-keycloak/web": "3.4.0",
     "@sentry/nextjs": "6.5.1",
