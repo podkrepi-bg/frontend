@@ -19,7 +19,12 @@ function SnackBar() {
     <>
       {getAlerts.map(({ id, show, duration, type, message }) => {
         return (
-          <Snackbar key={id} open={show} autoHideDuration={duration} onClose={handleSnackBarClose}>
+          <Snackbar
+            key={id}
+            open={show}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            autoHideDuration={duration}
+            onClose={handleSnackBarClose}>
             <Alert severity={type} onClose={handleClose}>
               {message}
             </Alert>
