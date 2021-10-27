@@ -2,6 +2,7 @@
 
 const path = require('path')
 const { withSentryConfig } = require('@sentry/nextjs')
+const { version } = require('./package.json')
 
 const { i18n } = require('./next-i18next.config')
 
@@ -24,6 +25,7 @@ const moduleExports = {
   },
   env: {
     APP_ENV: process.env.APP_ENV,
+    APP_VERSION: version,
     SENTRY_DSN: process.env.SENTRY_DSN,
     DEPLOY_TAG: process.env.DEPLOY_TAG,
   },
