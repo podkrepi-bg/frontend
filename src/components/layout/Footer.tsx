@@ -60,8 +60,8 @@ const footerItems: FooterLink[][] = [
 export default function Footer() {
   const classes = useStyles()
   return (
-    <Container component="footer" maxWidth="xl" disableGutters className={classes.container}>
-      <Container maxWidth="lg" disableGutters>
+    <Container component="footer" maxWidth={false} disableGutters className={classes.container}>
+      <Container maxWidth="xl" disableGutters>
         <Grid container className={classes.footer}>
           <Grid item xs={12} sm={8} md={6}>
             <InfoGrid />

@@ -1,24 +1,21 @@
 import { useTranslation } from 'next-i18next'
-
-import { Grid, Typography } from '@mui/material'
-import { Theme } from '@mui/material/styles'
-import createStyles from '@mui/styles/createStyles'
 import makeStyles from '@mui/styles/makeStyles'
+import { Grid, Typography } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
-import LinkButton from 'components/common/LinkButton'
-import Layout from 'components/layout/Layout'
 import { routes } from 'common/routes'
+import Layout from 'components/layout/Layout'
+import LinkButton from 'components/common/LinkButton'
 
 import NotFoundIllustration from './assets/NotFoundIllustration'
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       flexGrow: 1,
       height: '100vh',
       margin: 0,
-      backgroundColor: theme.palette.secondary.light,
     },
   }),
 )
@@ -28,7 +25,7 @@ export default function NotFoundPage() {
   const classes = useStyles()
 
   return (
-    <Layout maxWidth={false} disableOffset disableGutters>
+    <Layout maxWidth="sm" disableOffset disableGutters>
       <Grid container className={classes.root}>
         <Grid container direction="column" alignItems="center" justifyContent="center" spacing={4}>
           <Grid container item xs={8} sm={6} lg={4}>
