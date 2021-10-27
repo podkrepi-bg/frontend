@@ -1,9 +1,10 @@
 import React from 'react'
-import ServerStyleSheets from '@mui/styles/ServerStyleSheets'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 import theme from 'common/theme'
 import FaviconMetadata from 'components/brand/FaviconMetadata'
+import createEmotionServer from '@emotion/server/create-instance'
+import createEmotionCache from 'common/createEmotionCache'
 
 export default class CustomDocument extends Document {
   render() {
@@ -54,19 +55,28 @@ CustomDocument.getInitialProps = async (ctx) => {
   // 4. page.render
 
   // Render app and page and get the context of the page with collected side effects.
-  const sheets = new ServerStyleSheets()
   const originalRenderPage = ctx.renderPage
-
+  const cache = createEmotionCache()
+  const { extractCriticalToChunks } = createEmotionServer(cache)
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: (App) => (props) => sheets.collect(<App {...props} />),
+      enhanceApp: (App: any) => (props) => <App emotionCache={cache} {...props} />,
     })
 
   const initialProps = await Document.getInitialProps(ctx)
 
+  const emotionStyles = extractCriticalToChunks(initialProps.html)
+  const emotionStyleTags = emotionStyles.styles.map((style) => (
+    <style
+      data-emotion={`${style.key} ${style.ids.join(' ')}`}
+      key={style.key}
+      // eslint-disable-next-line react/no-danger
+      dangerouslySetInnerHTML={{ __html: style.css }}
+    />
+  ))
   return {
     ...initialProps,
     // Styles fragment is rendered after the app and page rendering finish.
-    styles: [...React.Children.toArray(initialProps.styles), sheets.getStyleElement()],
+    styles: [...React.Children.toArray(initialProps.styles), ...emotionStyleTags],
   }
 }

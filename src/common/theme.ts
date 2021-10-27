@@ -60,7 +60,7 @@ export const themeOptions: ThemeOptions = {
         outlined: {
           '&:hover': {
             backgroundColor: colors.blue.dark,
-            color: 'colors.blue.light',
+            color: colors.blue.light,
           },
         },
         outlinedPrimary: {
@@ -82,6 +82,14 @@ export const themeOptions: ThemeOptions = {
     MuiButtonBase: {
       defaultProps: {
         disableRipple: true,
+      },
+      styleOverrides: {
+        root: {
+          '&:hover': {
+            backgroundColor: 'inherit',
+            color: 'inherit',
+          },
+        },
       },
     },
     MuiAppBar: {
