@@ -66,7 +66,7 @@ export const themeOptions: ThemeOptions = {
         outlinedPrimary: {
           color: colors.blue.dark,
           '&:hover': {
-            color: colors.blue.mainDark,
+            color: colors.blue.light,
             borderColor: colors.blue.mainDark,
           },
         },
@@ -82,14 +82,6 @@ export const themeOptions: ThemeOptions = {
     MuiButtonBase: {
       defaultProps: {
         disableRipple: true,
-      },
-      styleOverrides: {
-        root: {
-          '&:hover': {
-            backgroundColor: 'inherit',
-            color: 'inherit',
-          },
-        },
       },
     },
     MuiAppBar: {
@@ -110,6 +102,11 @@ export const themeOptions: ThemeOptions = {
     h5: { fontFamily },
     h6: { fontFamily },
     button: { fontFamily, textTransform: 'initial' },
+    body1: {
+      fontSize: '0.875rem',
+      lineHeight: '1.43',
+      letterSpacing: '0.01071em',
+    },
   },
 }
 
