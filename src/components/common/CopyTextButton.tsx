@@ -12,7 +12,7 @@ export type CopyTextButtonProps = {
 export const CopyTextButton = ({ text, label, ...props }: CopyTextButtonProps) => {
   const { t } = useTranslation()
   const [status, copyUrl] = useCopyToClipboard(text, 1000)
-  const active = status === 'copied' ? 'primary' : 'default'
+  const active = status === 'copied' ? 'primary' : 'inherit'
   return (
     <Button onClick={copyUrl} color={active} size="small" variant="contained" {...props}>
       {t(label)}
