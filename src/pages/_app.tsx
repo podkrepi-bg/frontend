@@ -42,7 +42,6 @@ function CustomApp({
   emotionCache = clientSideEmotionCache,
   pageProps,
 }: CustomAppProps) {
-  console.log('clientSideEmotionCache', clientSideEmotionCache)
   const router = useRouter()
   const { i18n } = useTranslation()
   const { initialize, trackEvent } = useGTM()
