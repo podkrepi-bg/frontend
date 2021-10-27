@@ -1,7 +1,8 @@
 import React from 'react'
-import { makeStyles, withStyles } from '@material-ui/core/styles'
-import LinearProgress from '@material-ui/core/LinearProgress'
-import { Grid, Typography } from '@material-ui/core'
+import makeStyles from '@mui/styles/makeStyles'
+import withStyles from '@mui/styles/withStyles'
+import LinearProgress from '@mui/material/LinearProgress'
+import { Grid, Typography } from '@mui/material'
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
     height: 10,
@@ -9,7 +10,7 @@ const BorderLinearProgress = withStyles((theme) => ({
     padding: theme.spacing(1),
   },
   colorPrimary: {
-    backgroundColor: theme.palette.grey[theme.palette.type === 'light' ? 200 : 700],
+    backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 700],
   },
   bar: {
     borderRadius: 5,

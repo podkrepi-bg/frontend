@@ -9,13 +9,13 @@ import {
   ListItem,
   ListItemText,
   Typography,
-} from '@material-ui/core'
+} from '@mui/material'
 import React from 'react'
 import { observer } from 'mobx-react'
 import { DialogStore } from 'stores/DialogStore'
 import { useTranslation } from 'react-i18next'
 import { dateFormatter } from 'common/util/date'
-import { Check, Clear } from '@material-ui/icons'
+import { Check, Clear } from '@mui/icons-material'
 
 function DetailsModal() {
   const { getDialogs } = DialogStore

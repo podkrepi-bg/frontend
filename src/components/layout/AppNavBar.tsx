@@ -2,10 +2,11 @@ import clsx from 'clsx'
 import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { GitHub, Menu } from '@material-ui/icons'
-import useScrollTrigger from '@material-ui/core/useScrollTrigger'
-import { makeStyles, createStyles } from '@material-ui/core/styles'
-import { AppBar, Toolbar, IconButton, Grid, Hidden } from '@material-ui/core'
+import { GitHub, Menu } from '@mui/icons-material'
+import useScrollTrigger from '@mui/material/useScrollTrigger'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
+import { AppBar, Toolbar, IconButton, Grid, Hidden } from '@mui/material'
 
 import { routes, staticUrls } from 'common/routes'
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) =>
       transition: 'height .5s, background-color .5s ease 0s',
       height: theme.spacing(14),
       lineHeight: theme.spacing(14),
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         height: theme.spacing(10),
       },
       '&.shrink': {
@@ -54,7 +55,7 @@ const useStyles = makeStyles((theme) =>
       [theme.breakpoints.up('lg')]: {
         marginLeft: theme.spacing(10),
       },
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         marginLeft: 0,
         width: '100%',
         height: '50%',
@@ -86,12 +87,12 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
             <PodkrepiLogo locale={locale} variant="adaptive" />
           </a>
         </Link>
-        <Hidden smDown>
+        <Hidden mdDown>
           <Grid
             container
             wrap="nowrap"
             direction="row"
-            justify="flex-end"
+            justifyContent="flex-end"
             className={classes.toolboxGrid}>
             <Grid item>
               <MainNavMenu>

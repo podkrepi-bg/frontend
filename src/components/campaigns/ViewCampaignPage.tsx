@@ -4,7 +4,10 @@ import { useViewCampaign } from 'common/hooks/campaigns'
 import Layout from 'components/layout/Layout'
 import ViewCampaignProgressCard from './ViewCampaignProgressCard'
 import NotFoundPage from 'pages/404'
-import { Grid, createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
+import { Grid, Theme, Typography } from '@mui/material'
+
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

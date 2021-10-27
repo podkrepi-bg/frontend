@@ -3,8 +3,11 @@ import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import React, { useState, useRef } from 'react'
 import { FormikHelpers, FormikProps } from 'formik'
-import { makeStyles, Theme, createStyles, withStyles } from '@material-ui/core/styles'
-import { Stepper, Step, StepLabel, StepConnector, Hidden, Grid } from '@material-ui/core'
+import { Theme } from '@mui/material/styles'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
+import withStyles from '@mui/styles/withStyles'
+import { Stepper, Step, StepLabel, StepConnector, Hidden, Grid } from '@mui/material'
 
 import { AlertStore } from 'stores/AlertStore'
 import { createSupportRequest } from 'common/rest'
@@ -256,7 +259,7 @@ export default function SupportForm() {
       initialValues={initialValues}
       validationSchema={validationSchema[activeStep]}
       innerRef={formRef}>
-      <Hidden smDown>
+      <Hidden mdDown>
         <Stepper
           alternativeLabel
           activeStep={activeStep}
@@ -275,7 +278,7 @@ export default function SupportForm() {
         steps[activeStep].component
       ) : (
         <div className={classes.content}>
-          <Grid container justify="center">
+          <Grid container justifyContent="center">
             <Grid item xs={12} className={classes.instructions}>
               {steps[activeStep].component}
             </Grid>

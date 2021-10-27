@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 import React, { useState } from 'react'
-import { Grid } from '@material-ui/core'
+import { Grid } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'

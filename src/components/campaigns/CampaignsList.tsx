@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Grid } from '@material-ui/core'
+import { Box, CircularProgress, Grid } from '@mui/material'
 
 import { useCampaignList } from 'common/hooks/campaigns'
 
@@ -8,7 +8,7 @@ export default function CampaignsList() {
   const { data, isLoading } = useCampaignList()
 
   return (
-    <Grid container justify="center" spacing={2}>
+    <Grid container justifyContent="center" spacing={2}>
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
       {isLoading && <CircularProgress size="large" />}
       {data?.map((campaign, index) => (

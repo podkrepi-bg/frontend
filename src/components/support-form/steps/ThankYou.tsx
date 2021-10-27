@@ -1,6 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core'
+import { Grid, Theme, Typography } from '@mui/material'
+
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,7 +24,7 @@ export default function ThankYou() {
   const classes = useStyles()
 
   return (
-    <Grid container spacing={6} justify="center">
+    <Grid container spacing={6} justifyContent="center">
       <Grid item xs={12}>
         <Typography variant="h4" align="center" className={classes.heading}>
           {t('support:steps.thank-you.content')}

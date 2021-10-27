@@ -1,6 +1,7 @@
-import { Grid, Typography } from '@material-ui/core'
+import { Grid, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
-import { makeStyles, createStyles } from '@material-ui/core/styles'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 
 import MailIcon from './icons/MailIcon'
 
@@ -39,7 +40,7 @@ export default function ActivitySection() {
       <Typography variant="h6" component="p" className={classes.subtitle}>
         {t('contact:subtitle')}
       </Typography>
-      <Grid container justify="center" className={classes.container}>
+      <Grid container justifyContent="center" className={classes.container}>
         <Grid item className={classes.contact}>
           <MailIcon className={classes.contactIcon} />
           <Typography variant="body2" className={classes.contactText}>

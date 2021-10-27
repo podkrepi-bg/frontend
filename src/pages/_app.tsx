@@ -7,9 +7,9 @@ import { appWithTranslation, useTranslation } from 'next-i18next'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 
 // MaterialUI
-import { LinearProgress } from '@material-ui/core'
-import { ThemeProvider } from '@material-ui/core/styles'
-import CssBaseline from '@material-ui/core/CssBaseline'
+import { LinearProgress } from '@mui/material'
+import { ThemeProvider, Theme, StyledEngineProvider } from '@mui/material/styles'
+import CssBaseline from '@mui/material/CssBaseline'
 
 // Keycloak
 import { SSRKeycloakProvider, SSRCookies } from '@react-keycloak/ssr'
@@ -23,6 +23,11 @@ const {
 } = getConfig()
 
 import 'styles/global.scss'
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
 
 function CustomApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -78,21 +83,23 @@ function CustomApp({ Component, pageProps }: AppProps) {
         <title>Podkrepi.bg</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
-      <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        <SSRKeycloakProvider
-          LoadingComponent={<LinearProgress />}
-          onEvent={(e, err) => console.log(e, err)}
-          keycloakConfig={keycloakConfig}
-          persistor={SSRCookies(pageProps?.keyCookies ?? {})}>
-          <QueryClientProvider client={queryClient}>
-            <Hydrate state={pageProps.dehydratedState}>
-              <Component {...pageProps} />
-            </Hydrate>
-          </QueryClientProvider>
-        </SSRKeycloakProvider>
-      </ThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
+          <SSRKeycloakProvider
+            LoadingComponent={<LinearProgress />}
+            onEvent={(e, err) => console.log(e, err)}
+            keycloakConfig={keycloakConfig}
+            persistor={SSRCookies(pageProps?.keyCookies ?? {})}>
+            <QueryClientProvider client={queryClient}>
+              <Hydrate state={pageProps.dehydratedState}>
+                <Component {...pageProps} />
+              </Hydrate>
+            </QueryClientProvider>
+          </SSRKeycloakProvider>
+        </ThemeProvider>
+      </StyledEngineProvider>
     </React.Fragment>
   )
 }
