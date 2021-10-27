@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) =>
       flexShrink: 0,
     },
     navMenuPaper: {
-      width: theme.spacing(10) * 4,
+      width: parseFloat(theme.spacing(10)) * 4,
       [theme.breakpoints.down('sm')]: {
         width: '100%',
         flexShrink: 0,
@@ -101,7 +101,7 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
           onOpen={() => setMobileOpen(true)}
           onClose={closeNavMenu}
           classes={{ paper: classes.navMenuPaper }}>
-          <CloseModalButton edge="end" fontSize="default" onClose={closeNavMenu} />
+          <CloseModalButton edge="end" fontSize="inherit" onClose={closeNavMenu} />
           <Box display="flex" justifyContent="center" px={2}>
             <Grid container justifyContent="center" direction="column" spacing={2}>
               <Grid item>
