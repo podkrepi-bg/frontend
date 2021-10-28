@@ -14,8 +14,8 @@
     "format": "prettier --write .",
     "type-check": "tsc --project tsconfig.json --pretty --noEmit",
     "prepare": "husky install",
-    "release:minor": "yarn version --minor && git push --tags",
-    "release:patch": "yarn version --patch && git push --tags"
+    "release": "./manifests/release.sh",
+    "release:patch": "./manifests/release.sh patch"
   },
   "dependencies": {
     "@emotion/cache": "^11.5.0",
