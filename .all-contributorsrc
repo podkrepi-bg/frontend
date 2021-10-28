@@ -317,6 +317,19 @@
         "doc",
         "tool"
       ]
+    },
+    {
+      "login": "atanasster",
+      "name": "Atanas Stoyanov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6075606?v=4",
+      "profile": "https://github.com/atanasster",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "platform",
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,
