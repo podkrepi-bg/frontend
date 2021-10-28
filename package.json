@@ -13,7 +13,8 @@
     "lint:styles": "stylelint **.scss",
     "format": "prettier --write .",
     "type-check": "tsc --project tsconfig.json --pretty --noEmit",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "release": "yarn version --minor && git push --tags"
   },
   "dependencies": {
     "@emotion/cache": "^11.5.0",
