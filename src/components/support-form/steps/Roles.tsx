@@ -1,14 +1,7 @@
 import React from 'react'
 import { useField } from 'formik'
 import { useTranslation } from 'next-i18next'
-import {
-  Divider,
-  FormControl,
-  FormGroup,
-  FormHelperText,
-  Grid,
-  Typography,
-} from '@material-ui/core'
+import { Divider, FormControl, FormGroup, FormHelperText, Grid, Typography } from '@mui/material'
 
 import Role from './Role'
 import { BankTransfer } from '../../common/BankTransfer'
@@ -17,7 +10,7 @@ export default function Roles() {
   const [, { error }] = useField('roles')
   const { t } = useTranslation()
   return (
-    <Grid container spacing={6} justify="center">
+    <Grid container spacing={6} justifyContent="center">
       <Grid item xs={12} md={8}>
         <Typography variant="h4" align="center" paragraph>
           {t('support:steps.role.subtitle')}

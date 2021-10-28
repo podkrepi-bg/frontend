@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { Container, Grid, Box } from '@material-ui/core'
+import { Container, Grid, Box } from '@mui/material'
 
 import { routes } from 'common/routes'
 import Link from 'components/common/Link'
@@ -17,7 +17,7 @@ export default function LoginPage({ csrfToken }: LoginPageProps) {
       figmaUrl="https://www.figma.com/file/MmvFKzUv6yE5U2wrOpWtwS/Podkrepi.bg?node-id=5055%3A21469">
       <Container maxWidth="xs">
         <LoginForm csrfToken={csrfToken || ''} />
-        <Grid container justify="flex-end">
+        <Grid container justifyContent="flex-end">
           <Box mt={2}>
             <Link href={routes.forgottenPassword}>{t('nav.forgottenPassword')}</Link>
           </Box>

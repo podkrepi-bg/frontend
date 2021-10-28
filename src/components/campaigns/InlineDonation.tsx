@@ -1,5 +1,5 @@
 import { useMemo, useCallback } from 'react'
-import { List, ListItem, ListItemText, Typography } from '@material-ui/core'
+import { List, ListItem, ListItemText, Typography } from '@mui/material'
 
 import { baseUrl, routes } from 'common/routes'
 import { CampaignResponse } from 'gql/campaigns'

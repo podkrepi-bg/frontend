@@ -1,8 +1,9 @@
 import Typewriter from 'typewriter-effect'
 import { useTranslation } from 'next-i18next'
 
-import { Typography } from '@material-ui/core'
-import { makeStyles, createStyles } from '@material-ui/core/styles'
+import { Typography } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 
 const useStyles = makeStyles((theme) =>
   createStyles({

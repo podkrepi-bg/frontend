@@ -1,5 +1,5 @@
 import { useTranslation } from 'next-i18next'
-import { Typography } from '@material-ui/core'
+import { Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
 import ExternalLink from 'components/common/ExternalLink'

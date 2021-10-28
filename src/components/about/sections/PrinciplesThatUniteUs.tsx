@@ -1,6 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { Grid, Theme, makeStyles, createStyles } from '@material-ui/core'
+import { Grid, Theme } from '@mui/material'
+
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 
 import Heading from 'components/common/Heading'
 

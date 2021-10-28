@@ -1,5 +1,8 @@
 import React from 'react'
-import { createStyles, makeStyles, SvgIcon, Theme, Typography } from '@material-ui/core'
+import { SvgIconProps, Theme, Typography } from '@mui/material'
+
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 type ActivityIconProps = {
-  Icon: typeof SvgIcon
+  Icon: React.ComponentType<SvgIconProps>
   count?: string
   description: string
 }

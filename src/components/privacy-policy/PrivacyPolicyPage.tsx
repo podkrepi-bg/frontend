@@ -1,5 +1,5 @@
 import { PropsWithChildren, ReactChildren } from 'react'
-import { Box, Grid, Typography } from '@material-ui/core'
+import { Box, Grid, Typography } from '@mui/material'
 
 import Link from 'components/common/Link'
 import Layout from 'components/layout/Layout'

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { Button, ButtonProps } from '@material-ui/core'
+import { Button, ButtonProps } from '@mui/material'
 
 import { useCopyToClipboard } from 'common/util/useCopyToClipboard'
 
@@ -12,7 +12,7 @@ export type CopyTextButtonProps = {
 export const CopyTextButton = ({ text, label, ...props }: CopyTextButtonProps) => {
   const { t } = useTranslation()
   const [status, copyUrl] = useCopyToClipboard(text, 1000)
-  const active = status === 'copied' ? 'primary' : 'default'
+  const active = status === 'copied' ? 'primary' : 'inherit'
   return (
     <Button onClick={copyUrl} color={active} size="small" variant="contained" {...props}>
       {t(label)}

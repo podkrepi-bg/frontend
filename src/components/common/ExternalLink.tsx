@@ -1,4 +1,4 @@
-import { Link, LinkProps } from '@material-ui/core'
+import { Link, LinkProps } from '@mui/material'
 import { PropsWithChildren } from 'react'
 
 type ExternalLinkParams = PropsWithChildren<LinkProps>

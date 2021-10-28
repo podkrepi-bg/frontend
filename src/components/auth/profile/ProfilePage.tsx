@@ -9,8 +9,8 @@ import {
   // makeStyles,
   Container,
   Grid,
-} from '@material-ui/core'
-// import { AccountCircle } from '@material-ui/icons'
+} from '@mui/material'
+// import { AccountCircle } from '@mui/icons-material'
 
 import Layout from 'components/layout/Layout'
 import { useSession } from 'common/util/useSession'
@@ -52,7 +52,7 @@ export default function ProfilePage() {
       githubUrl="https://github.com/podkrepi-bg/frontend/tree/master/src/components/auth/profile/ProfilePage.tsx"
       figmaUrl="https://www.figma.com/file/MmvFKzUv6yE5U2wrOpWtwS/Podkrepi.bg?node-id=5987%3A21094">
       <Container maxWidth="xl">
-        <Grid container direction="row" justify="space-between">
+        <Grid container direction="row" justifyContent="space-between">
           <Grid item>
             <ul>
               <li>

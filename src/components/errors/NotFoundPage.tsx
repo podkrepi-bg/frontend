@@ -1,22 +1,21 @@
 import { useTranslation } from 'next-i18next'
+import makeStyles from '@mui/styles/makeStyles'
+import { Grid, Typography } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
-import { Grid, Typography } from '@material-ui/core'
-import { createStyles, Theme, makeStyles } from '@material-ui/core/styles'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack'
-
-import LinkButton from 'components/common/LinkButton'
-import Layout from 'components/layout/Layout'
 import { routes } from 'common/routes'
+import Layout from 'components/layout/Layout'
+import LinkButton from 'components/common/LinkButton'
 
 import NotFoundIllustration from './assets/NotFoundIllustration'
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       flexGrow: 1,
       height: '100vh',
       margin: 0,
-      backgroundColor: theme.palette.secondary.light,
     },
   }),
 )
@@ -26,20 +25,20 @@ export default function NotFoundPage() {
   const classes = useStyles()
 
   return (
-    <Layout maxWidth={false} disableOffset disableGutters>
+    <Layout maxWidth="sm" disableOffset disableGutters>
       <Grid container className={classes.root}>
-        <Grid container direction="column" alignItems="center" justify="center" spacing={4}>
+        <Grid container direction="column" alignItems="center" justifyContent="center" spacing={4}>
           <Grid container item xs={8} sm={6} lg={4}>
             <NotFoundIllustration />
           </Grid>
           <Grid item>
             <Typography variant="body2">{t('errors:404Message')}</Typography>
           </Grid>
-          <Grid container item alignItems="center" justify="center">
+          <Grid container item alignItems="center" justifyContent="center">
             <LinkButton
               size="large"
               startIcon={<ArrowBackIcon />}
-              color="default"
+              color="inherit"
               variant="outlined"
               href={routes.index}>
               {t('errors:backButtonLabel')}
