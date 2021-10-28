@@ -330,6 +330,17 @@
         "platform",
         "maintenance"
       ]
+    },
+    {
+      "login": "vann4oto98",
+      "name": "Vanyo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/61576293?v=4",
+      "profile": "https://github.com/vann4oto98",
+      "contributions": [
+        "code",
+        "doc",
+        "tool"
+      ]
     }
   ],
   "contributorsPerLine": 7,
