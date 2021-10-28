@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function DiscordImage() {
   const classes = useStyles()
   return (
-    <ExternalLink href={socialUrls.discord}>
+    <ExternalLink href={socialUrls.discord} textAlign="center" display="block">
       <div className={classes.teamImage}>
         <Image
           src="/img/discord-team-image.png"
