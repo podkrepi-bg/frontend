@@ -1,4 +1,4 @@
-import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@material-ui/core'
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material'
 import { TranslatableField, translateError } from 'common/form/validation'
 import { useCampaignTypesList } from 'common/hooks/campaigns'
 import { useField } from 'formik'
@@ -12,8 +12,8 @@ export default function CampaignTypeSelect({ name = 'campaignTypeId' }) {
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
 
   return (
-    <FormControl variant="outlined" fullWidth>
-      <InputLabel variant="outlined" margin="dense">
+    <FormControl variant="outlined" fullWidth size="small">
+      <InputLabel variant="filled" margin="dense">
         {t('campaigns:campaign.type')}
       </InputLabel>
       <Select

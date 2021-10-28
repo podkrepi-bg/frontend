@@ -1,10 +1,12 @@
 import React, { RefObject } from 'react'
 import { useTranslation } from 'next-i18next'
-import { Grid, Typography } from '@material-ui/core'
-import { makeStyles, createStyles, darken, useTheme } from '@material-ui/core/styles'
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
-import { Favorite } from '@material-ui/icons'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
+import { Grid, Typography } from '@mui/material'
+import { darken, useTheme } from '@mui/material/styles'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import { Favorite } from '@mui/icons-material'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import Image from 'next/image'
 
 import { routes } from 'common/routes'
@@ -33,7 +35,7 @@ const useStyles = makeStyles((theme) =>
       color: theme.palette.common.white,
       fontWeight: 500,
       marginBottom: theme.spacing(4),
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         fontSize: theme.typography.pxToRem(45),
       },
     },

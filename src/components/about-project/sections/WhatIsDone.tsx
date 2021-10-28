@@ -1,7 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import CheckIcon from '@material-ui/icons/Check'
-import { createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core'
+import CheckIcon from '@mui/icons-material/Check'
+import { Grid, Theme, Typography } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import { staticUrls } from 'common/routes'
 import ExternalLink from 'components/common/ExternalLink'
 import Heading from 'components/common/Heading'
@@ -137,7 +139,7 @@ export default function WhatIsDone() {
           />
         </Grid>
       </Grid>
-      <Grid item container justify="space-between" className={classes.list}>
+      <Grid item container justifyContent="space-between" className={classes.list}>
         <Grid item xs={12} sm={6}>
           {leftColumnLabels.map((props, key) => (
             <CheckedLine key={key} {...props} />

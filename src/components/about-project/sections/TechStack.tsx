@@ -1,5 +1,8 @@
 import { useTranslation } from 'next-i18next'
-import { Box, createStyles, Grid, makeStyles, Theme, Typography } from '@material-ui/core'
+import { Box, Grid, Theme, Typography } from '@mui/material'
+
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import Heading from 'components/common/Heading'
 
@@ -63,7 +66,7 @@ export default function TechStack() {
         {t('about-project:tech-stack.title')}
       </Heading>
       <Grid container direction="column" component="section">
-        <Grid item container justify="center" spacing={2}>
+        <Grid item container justifyContent="center" spacing={2}>
           {rows.map(({ label, items }, section: number) => (
             <Grid item xs={12} sm={8} key={section}>
               <Typography variant="subtitle1">{label}</Typography>

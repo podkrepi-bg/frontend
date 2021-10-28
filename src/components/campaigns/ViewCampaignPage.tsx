@@ -1,5 +1,7 @@
 import React from 'react'
-import { Grid, createStyles, makeStyles, Theme, Typography } from '@material-ui/core'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
+import { Grid, Theme, Typography } from '@mui/material'
 
 import NotFoundPage from 'pages/404'
 import { money } from 'common/util/money'

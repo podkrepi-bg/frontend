@@ -7,9 +7,11 @@ import { appWithTranslation, useTranslation } from 'next-i18next'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 
 // MaterialUI
-import { LinearProgress } from '@material-ui/core'
-import { ThemeProvider } from '@material-ui/core/styles'
-import CssBaseline from '@material-ui/core/CssBaseline'
+import { LinearProgress } from '@mui/material'
+import { ThemeProvider, Theme, StyledEngineProvider } from '@mui/material/styles'
+import CssBaseline from '@mui/material/CssBaseline'
+import { CacheProvider } from '@emotion/react'
+import { EmotionCache } from '@emotion/cache'
 
 // Keycloak
 import { SSRKeycloakProvider, SSRCookies } from '@react-keycloak/ssr'
@@ -17,14 +19,29 @@ import { SSRKeycloakProvider, SSRCookies } from '@react-keycloak/ssr'
 import theme from 'common/theme'
 import useGTM from 'common/util/useGTM'
 import { queryFn } from 'common/rest'
-
+import createEmotionCache from 'common/createEmotionCache'
 const {
   publicRuntimeConfig: { keycloakConfig },
 } = getConfig()
 
 import 'styles/global.scss'
 
-function CustomApp({ Component, pageProps }: AppProps) {
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache()
+
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
+interface CustomAppProps extends AppProps {
+  emotionCache?: EmotionCache
+}
+function CustomApp({
+  Component,
+  emotionCache = clientSideEmotionCache,
+  pageProps,
+}: CustomAppProps) {
   const router = useRouter()
   const { i18n } = useTranslation()
   const { initialize, trackEvent } = useGTM()
@@ -73,27 +90,29 @@ function CustomApp({ Component, pageProps }: AppProps) {
   }, [i18n.language])
 
   return (
-    <React.Fragment>
+    <CacheProvider value={emotionCache}>
       <Head>
         <title>Podkrepi.bg</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
-      <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
-        <SSRKeycloakProvider
-          LoadingComponent={<LinearProgress />}
-          onEvent={(e, err) => console.log(e, err)}
-          keycloakConfig={keycloakConfig}
-          persistor={SSRCookies(pageProps?.keyCookies ?? {})}>
-          <QueryClientProvider client={queryClient}>
-            <Hydrate state={pageProps.dehydratedState}>
-              <Component {...pageProps} />
-            </Hydrate>
-          </QueryClientProvider>
-        </SSRKeycloakProvider>
-      </ThemeProvider>
-    </React.Fragment>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
+          <SSRKeycloakProvider
+            LoadingComponent={<LinearProgress />}
+            onEvent={(e, err) => console.log(e, err)}
+            keycloakConfig={keycloakConfig}
+            persistor={SSRCookies(pageProps?.keyCookies ?? {})}>
+            <QueryClientProvider client={queryClient}>
+              <Hydrate state={pageProps.dehydratedState}>
+                <Component {...pageProps} />
+              </Hydrate>
+            </QueryClientProvider>
+          </SSRKeycloakProvider>
+        </ThemeProvider>
+      </StyledEngineProvider>
+    </CacheProvider>
   )
 }
 

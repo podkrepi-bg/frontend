@@ -1,7 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { Snackbar, SnackbarCloseReason } from '@material-ui/core'
-import { Alert } from '@material-ui/lab'
+import { Snackbar, SnackbarCloseReason } from '@mui/material'
+import { Alert } from '@mui/material'
 import { AlertStore } from 'stores/AlertStore'
 
 function SnackBar() {
@@ -19,7 +19,12 @@ function SnackBar() {
     <>
       {getAlerts.map(({ id, show, duration, type, message }) => {
         return (
-          <Snackbar key={id} open={show} autoHideDuration={duration} onClose={handleSnackBarClose}>
+          <Snackbar
+            key={id}
+            open={show}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            autoHideDuration={duration}
+            onClose={handleSnackBarClose}>
             <Alert severity={type} onClose={handleClose}>
               {message}
             </Alert>

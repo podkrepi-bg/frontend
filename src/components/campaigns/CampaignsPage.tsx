@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { Box, Container } from '@material-ui/core'
+import { Box, Container } from '@mui/material'
 
 import { routes } from 'common/routes'
 import Layout from 'components/layout/Layout'

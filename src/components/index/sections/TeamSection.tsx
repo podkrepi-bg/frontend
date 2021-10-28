@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next'
-import { Grid, Typography } from '@material-ui/core'
-import { makeStyles, createStyles } from '@material-ui/core/styles'
+import { Grid, Typography } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 
 import DiscordImage from 'components/about/DiscordImage'
 import Heading from 'components/common/Heading'
@@ -29,7 +30,7 @@ export default function TeamSection() {
       container
       direction="column"
       alignItems="center"
-      justify="center"
+      justifyContent="center"
       component="section"
       className={classes.container}>
       <Heading id="who-we-are" variant="h5" component="h2" className={classes.heading} linkable>

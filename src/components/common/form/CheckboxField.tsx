@@ -1,6 +1,6 @@
 import { useField } from 'formik'
 import { useTranslation } from 'next-i18next'
-import { Checkbox, FormControl, FormControlLabel, FormHelperText } from '@material-ui/core'
+import { Checkbox, FormControl, FormControlLabel, FormHelperText } from '@mui/material'
 
 import { TranslatableField, translateError } from 'common/form/validation'
 

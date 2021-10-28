@@ -1,14 +1,10 @@
 import Head from 'next/head'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'next-i18next'
-import {
-  Box,
-  Container,
-  ContainerProps,
-  createStyles,
-  makeStyles,
-  Typography,
-} from '@material-ui/core'
+import { Box, Container, ContainerProps, Typography } from '@mui/material'
+
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import Footer from 'components/layout/Footer'
 import { defaultOgImage } from 'common/routes'
@@ -41,7 +37,7 @@ const useStyles = makeStyles((theme) =>
     offset: {
       ...theme.mixins.toolbar,
       marginBottom: theme.spacing(6),
-      [theme.breakpoints.down('md')]: {
+      [theme.breakpoints.down('lg')]: {
         marginBottom: theme.spacing(0),
       },
     },
@@ -52,7 +48,7 @@ export default function Layout({
   title,
   ogImage,
   children,
-  maxWidth = 'md',
+  maxWidth = 'lg',
   disableOffset = false,
   githubUrl,
   figmaUrl,
@@ -65,7 +61,7 @@ export default function Layout({
   const suffix = t('meta.title')
   const metaTitle = useMemo(() => (title ? `${title} | ${suffix}` : suffix), [title, suffix])
   return (
-    <Container maxWidth="xl" disableGutters>
+    <Container maxWidth={false} disableGutters>
       <Container className={classes.layout} maxWidth={maxWidth} {...containerProps}>
         <Head>
           <title>{metaTitle}</title>

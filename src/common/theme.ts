@@ -1,5 +1,4 @@
-import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme'
-import { createMuiTheme, darken, responsiveFontSizes } from '@material-ui/core/styles'
+import { createTheme, darken, responsiveFontSizes, ThemeOptions } from '@mui/material/styles'
 
 const fontFamily = 'Montserrat'
 
@@ -18,12 +17,13 @@ const colors = {
   },
   gray: {
     main: '#F5F5F5',
+    background: '#FAFAFA',
   },
 }
 
 export const themeOptions: ThemeOptions = {
   palette: {
-    type: 'light',
+    mode: 'light',
     primary: {
       light: colors.blue.light,
       main: colors.blue.main,
@@ -33,61 +33,89 @@ export const themeOptions: ThemeOptions = {
       main: colors.yellow.main,
       light: colors.gray.main,
     },
+    background: {
+      default: colors.gray.background,
+    },
   },
   shape: {
     borderRadius: 3,
   },
-  props: {
+  components: {
     MuiLink: {
-      underline: 'none',
-    },
-    MuiButton: {
-      disableElevation: true,
-    },
-    MuiButtonBase: {
-      disableRipple: true,
-    },
-  },
-  overrides: {
-    MuiButton: {
-      root: {
-        lineHeight: 2,
-        borderRadius: '25px',
+      defaultProps: {
+        underline: 'none',
       },
-      textPrimary: {
-        color: colors.blue.dark,
-        '&:hover': {
-          color: colors.blue.mainDark,
+    },
+    MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+      },
+      styleOverrides: {
+        root: {
+          lineHeight: 2,
+          borderRadius: '25px',
         },
-      },
-      outlined: {
-        '&:hover': {
+        textPrimary: {
+          color: colors.blue.dark,
+          '&:hover': {
+            color: colors.blue.mainDark,
+          },
+        },
+        outlined: {
+          '&:hover': {
+            backgroundColor: colors.blue.dark,
+            color: colors.blue.light,
+          },
+        },
+        outlinedPrimary: {
+          color: colors.blue.dark,
+          '&:hover': {
+            color: colors.blue.light,
+            borderColor: colors.blue.mainDark,
+          },
+        },
+        containedPrimary: {
           backgroundColor: colors.blue.dark,
           color: colors.blue.light,
-        },
-      },
-      outlinedPrimary: {
-        color: colors.blue.dark,
-        '&:hover': {
-          color: colors.blue.mainDark,
-          borderColor: colors.blue.mainDark,
-        },
-      },
-      containedPrimary: {
-        backgroundColor: colors.blue.dark,
-        color: colors.blue.light,
-        '&:hover': {
-          backgroundColor: darken(colors.blue.dark, 0.2),
+          '&:hover': {
+            backgroundColor: darken(colors.blue.dark, 0.2),
+          },
         },
       },
     },
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          fontSize: '1rem',
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          fontSize: '1rem',
+        },
+        filled: {
+          transform: 'translate(14px, 9px) scale(1)',
+        },
+      },
+    },
+
     MuiAppBar: {
-      root: {
-        paddingLeft: 15,
-        paddingRight: 15,
+      styleOverrides: {
+        root: {
+          paddingLeft: 15,
+          paddingRight: 15,
+        },
       },
     },
   },
+
   typography: {
     h1: { fontFamily },
     h2: { fontFamily },
@@ -96,9 +124,14 @@ export const themeOptions: ThemeOptions = {
     h5: { fontFamily },
     h6: { fontFamily },
     button: { fontFamily, textTransform: 'initial' },
+    body1: {
+      fontSize: '0.875rem',
+      lineHeight: '1.43',
+      letterSpacing: '0.01071em',
+    },
   },
 }
 
 // https://material-ui.com/customization/default-theme/#default-theme
-const theme = createMuiTheme(themeOptions)
+const theme = createTheme(themeOptions)
 export default responsiveFontSizes(theme)

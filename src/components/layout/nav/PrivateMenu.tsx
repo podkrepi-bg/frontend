@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { AccountCircle } from '@material-ui/icons'
-import { Avatar, Grid, IconButton, Menu, MenuItem } from '@material-ui/core'
+import { AccountCircle } from '@mui/icons-material'
+import { Avatar, Grid, IconButton, Menu, MenuItem } from '@mui/material'
 
 import { routes } from 'common/routes'
 import { useSession } from 'common/util/useSession'
@@ -28,7 +28,7 @@ export default function PrivateMenu() {
   const title = `${session.name}\n(${session.email})`
   return (
     <Grid item>
-      <IconButton onClick={handleMenu}>
+      <IconButton onClick={handleMenu} size="large">
         {session.picture ? (
           <Avatar title={title} alt={title} src={session.picture} />
         ) : (

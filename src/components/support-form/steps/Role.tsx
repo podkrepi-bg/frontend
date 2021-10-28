@@ -1,6 +1,6 @@
 import React from 'react'
-import { Box, Tooltip } from '@material-ui/core'
-import InfoIcon from '@material-ui/icons/Info'
+import { Box, Tooltip } from '@mui/material'
+import InfoIcon from '@mui/icons-material/Info'
 
 import CheckboxField from 'components/common/form/CheckboxField'
 

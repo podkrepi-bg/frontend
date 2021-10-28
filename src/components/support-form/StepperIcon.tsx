@@ -1,13 +1,13 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import makeStyles from '@mui/styles/makeStyles'
 import clsx from 'clsx'
 
-import GroupAddIcon from '@material-ui/icons/GroupAdd'
-import ContactMailIcon from '@material-ui/icons/ContactMail'
-import { StepIconProps } from '@material-ui/core/StepIcon'
-import { AccessibilityNew } from '@material-ui/icons'
-import MailIcon from '@material-ui/icons/Mail'
-import HelpIcon from '@material-ui/icons/Help'
+import GroupAddIcon from '@mui/icons-material/GroupAdd'
+import ContactMailIcon from '@mui/icons-material/ContactMail'
+import { StepIconProps } from '@mui/material/StepIcon'
+import { AccessibilityNew } from '@mui/icons-material'
+import MailIcon from '@mui/icons-material/Mail'
+import HelpIcon from '@mui/icons-material/Help'
 
 const useStepIconStyles = makeStyles({
   root: {

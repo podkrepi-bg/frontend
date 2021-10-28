@@ -1,7 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { createStyles, Grid, makeStyles, Theme } from '@material-ui/core'
-import { Timeline as TimelineMaterial } from '@material-ui/lab'
+import { Grid, Theme } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
+import { Timeline as TimelineMaterial } from '@mui/lab'
 import {
   Folder,
   PlayCircleFilledWhite,
@@ -9,7 +11,7 @@ import {
   Telegram,
   Update,
   VerifiedUser,
-} from '@material-ui/icons'
+} from '@mui/icons-material'
 
 import { socialUrls } from 'common/routes'
 import PodkrepiIcon from 'components/brand/PodkrepiIcon'
@@ -53,7 +55,7 @@ export default function Timeline() {
         {t('about-project:timeline')}
       </Heading>
       <Grid item>
-        <TimelineMaterial align="alternate" className={classes.timelineWrapper}>
+        <TimelineMaterial position="alternate" className={classes.timelineWrapper}>
           <TimelineItem Icon={PlayCircleFilledWhite} title={t('about-project:october-2020-title')}>
             <ul>
               <li>{t('about-project:platform-idea')}</li>

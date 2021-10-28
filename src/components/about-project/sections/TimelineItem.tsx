@@ -1,23 +1,16 @@
 import React from 'react'
 
-import {
-  createStyles,
-  makeStyles,
-  Card,
-  SvgIcon,
-  Theme,
-  Typography,
-  CardContent,
-  CardHeader,
-} from '@material-ui/core'
+import { Card, SvgIconProps, Theme, Typography, CardContent, CardHeader } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import {
   TimelineConnector,
   TimelineContent,
   TimelineItem as TimelineItemMaterial,
   TimelineItemProps as TimelineItemPropsMaterial,
   TimelineSeparator,
-} from '@material-ui/lab'
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos'
+} from '@mui/lab'
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     timelineItem: {
-      [theme.breakpoints.down(800)]: {
+      [theme.breakpoints.down('md')]: {
         display: 'block',
       },
     },
@@ -62,7 +55,7 @@ type TimelineItemProps = React.PropsWithChildren<
   TimelineItemPropsMaterial & {
     title?: string
     lastItem?: boolean
-    Icon: typeof SvgIcon
+    Icon: React.ComponentType<SvgIconProps>
   }
 >
 

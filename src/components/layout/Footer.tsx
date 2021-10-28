@@ -1,16 +1,10 @@
-import {
-  Grid,
-  Container,
-  createStyles,
-  makeStyles,
-  lighten,
-  useTheme,
-  useMediaQuery,
-} from '@material-ui/core'
+import { Grid, Container, lighten, useTheme, useMediaQuery } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { Facebook, Instagram, LinkedIn, YouTube } from '@material-ui/icons'
+import { Facebook, Instagram, LinkedIn, YouTube } from '@mui/icons-material'
 
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 import ExternalLink from 'components/common/ExternalLink'
@@ -29,7 +23,6 @@ const useStyles = makeStyles((theme) =>
       },
     },
     footer: {
-      padding: theme.spacing(3),
       textAlign: 'center',
       [theme.breakpoints.up('sm')]: {
         textAlign: 'left',
@@ -66,13 +59,13 @@ const footerItems: FooterLink[][] = [
 export default function Footer() {
   const classes = useStyles()
   return (
-    <Container component="footer" maxWidth="xl" disableGutters className={classes.container}>
+    <Container component="footer" maxWidth={false} disableGutters className={classes.container}>
       <Container maxWidth="lg" disableGutters>
         <Grid container className={classes.footer}>
-          <Grid item xs={12} sm={8} md={6}>
+          <Grid item xs={12} sm={8} md={5}>
             <InfoGrid />
           </Grid>
-          <Grid item xs={12} sm={4} md={6}>
+          <Grid item xs={12} sm={4} md={7}>
             <FooterLinks />
           </Grid>
         </Grid>
@@ -111,7 +104,7 @@ const SocialIcons = () => {
   const theme = useTheme()
   const sm = useMediaQuery(theme.breakpoints.up('sm'))
   return (
-    <Grid direction="row" container spacing={2} justify={sm ? 'flex-start' : 'center'}>
+    <Grid direction="row" container spacing={2} justifyContent={sm ? 'flex-start' : 'center'}>
       <Grid item>
         <ExternalLink href={socialUrls.facebook}>
           <Facebook />

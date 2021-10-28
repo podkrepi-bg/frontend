@@ -1,7 +1,8 @@
 import { useTranslation } from 'next-i18next'
-import { Grid, Typography } from '@material-ui/core'
-import { Favorite } from '@material-ui/icons'
-import { makeStyles, createStyles } from '@material-ui/core/styles'
+import { Grid, Typography } from '@mui/material'
+import { Favorite } from '@mui/icons-material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import Image from 'next/image'
 
 import { routes } from 'common/routes'
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme) =>
       position: 'relative',
     },
     supportText: {
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         textAlign: 'center',
       },
     },
@@ -30,12 +31,12 @@ const useStyles = makeStyles((theme) =>
       marginBottom: theme.spacing(3),
       color: theme.palette.primary.dark,
       fontWeight: 500,
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         marginTop: theme.spacing(3),
       },
     },
     supportOptions: {
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('md')]: {
         display: 'inline-block',
         textAlign: 'left',
       },

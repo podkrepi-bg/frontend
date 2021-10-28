@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { Box, Button, ButtonGroup } from '@material-ui/core'
+import { Box, Button, ButtonGroup } from '@mui/material'
 
 export default function LocaleSwitcher() {
   const { t } = useTranslation()

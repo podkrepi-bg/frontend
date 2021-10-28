@@ -1,5 +1,5 @@
 import { useField } from 'formik'
-import { Input, InputProps } from '@material-ui/core'
+import { Input, InputProps } from '@mui/material'
 
 type FormInputProps = InputProps & {
   name: string

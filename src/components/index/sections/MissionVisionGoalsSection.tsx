@@ -1,6 +1,7 @@
-import { Grid, Typography } from '@material-ui/core'
+import { Grid, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
-import { makeStyles, createStyles } from '@material-ui/core/styles'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
 import Image from 'next/image'
 
 const useStyles = makeStyles((theme) =>
@@ -35,7 +36,7 @@ export default function MissionVisionGoalsSection() {
   const { t } = useTranslation()
 
   return (
-    <Grid container justify="center" component="section" className={classes.container}>
+    <Grid container justifyContent="center" component="section" className={classes.container}>
       <Grid item className={classes.wrapper}>
         <Image
           src="/img/mission-background.jpg"
