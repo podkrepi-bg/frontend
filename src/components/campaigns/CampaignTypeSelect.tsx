@@ -13,14 +13,10 @@ export default function CampaignTypeSelect({ name = 'campaignTypeId' }) {
 
   return (
     <FormControl variant="outlined" fullWidth size="small">
-      <InputLabel variant="filled" margin="dense">
-        {t('campaigns:campaign.type')}
-      </InputLabel>
+      <InputLabel>{t('campaigns:campaign.type')}</InputLabel>
       <Select
         fullWidth
         defaultValue=""
-        margin="dense"
-        variant="outlined"
         label={t('campaigns:campaign.type')}
         error={Boolean(meta.error) && Boolean(meta.touched)}
         {...field}>
