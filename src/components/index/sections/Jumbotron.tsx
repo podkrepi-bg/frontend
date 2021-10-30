@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) =>
       marginTop: theme.spacing(2),
       fontWeight: 400,
     },
-    aboutProjectButton: {
+    joinButton: {
       color: darken(theme.palette.secondary.main, 0.8),
       border: `none`,
       borderRadius: '500px',
@@ -133,7 +133,7 @@ export default function Jumbotron({ scrollTo }: JumbotronProps) {
           href={routes.support}
           variant="contained"
           color="secondary"
-          className={classes.aboutProjectButton}
+          className={classes.joinButton}
           endIcon={<Favorite color="error" />}>
           {t('index:support-us-section.click-here-button')}
         </LinkButton>

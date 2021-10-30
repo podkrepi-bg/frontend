@@ -5,11 +5,19 @@ import { CopyTextButton } from './CopyTextButton'
 import { Grid, Typography } from '@material-ui/core'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     firstRow: {
       lineHeight: '2rem',
       paddingTop: '1rem',
+    },
+    copyButton: {
+      [theme.breakpoints.up('sm')]: {
+        textAlign: 'center',
+      },
+    },
+    ibanText: {
+      fontWeight: 'normal',
     },
   }),
 )
@@ -20,20 +28,19 @@ export const BankTransfer = () => {
 
   return (
     <Grid container justify="space-between" className={classes.firstRow}>
-      <Grid item xs={12} md={8}>
+      <Grid item xs={12}>
         <Typography variant="body2" style={{ fontWeight: 'bold' }}>
           {t('about-project:association-name')}
         </Typography>
         <Typography variant="body2">{t('about-project:bank-name')}</Typography>
       </Grid>
-      <Grid item xs={12} md={4}>
-        <CopyTextButton text={ibanNumber} label="support:cta.copy-number" />
-      </Grid>
-      <Grid item xs={12} md={12}>
-        IBAN:{' '}
+      <Grid item xs={12} sm={6} md={9}>
         <Typography variant="body2" component="strong" style={{ fontWeight: 'bold' }}>
-          {ibanNumber}
+          <span className={classes.ibanText}>IBAN:</span> {ibanNumber}
         </Typography>
+      </Grid>
+      <Grid item xs={12} sm={6} md={3} className={classes.copyButton}>
+        <CopyTextButton text={ibanNumber} label="support:cta.copy-number" />
       </Grid>
     </Grid>
   )
