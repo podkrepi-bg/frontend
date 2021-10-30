@@ -100,9 +100,6 @@ export const themeOptions: ThemeOptions = {
         root: {
           fontSize: '1rem',
         },
-        filled: {
-          transform: 'translate(14px, 9px) scale(1)',
-        },
       },
     },
 
