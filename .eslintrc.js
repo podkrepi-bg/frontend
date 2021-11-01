@@ -22,6 +22,7 @@ module.exports = {
   },
   ignorePatterns: [
     '.eslintrc.js',
+    'jest.config.js',
     'next.config.js',
     'next-i18next.config.js',
     'sentry.client.config.js',
