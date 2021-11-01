@@ -32,6 +32,8 @@ describe('CopyTextButton', () => {
     fireEvent.click(copyButton)
 
     await waitFor(() => expect(navigator.clipboard.writeText).toHaveBeenCalledTimes(1))
-    await waitFor(() => expect(navigator.clipboard.writeText).toHaveBeenCalledWith('Copy'))
+    await waitFor(() =>
+      expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expectedProps.text),
+    )
   })
 })
