@@ -1,12 +1,13 @@
-import { render } from '@testing-library/react'
+import { render, RenderOptions } from '@testing-library/react'
 import { ThemeProvider } from '@mui/material/styles'
-
+import '@testing-library/jest-dom'
 import theme from 'common/theme'
 
-const Providers = ({ children }: any) => {
+const Providers = ({ children }: { children: React.ReactElement }) => {
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>
 }
-const customRender = (ui: any, options = {}) => render(ui, { wrapper: Providers, ...options })
+const customRender = (ui: React.ReactElement, options: RenderOptions = {}) =>
+  render(ui, { wrapper: Providers, ...options })
 
 jest.mock('next-i18next', () => ({
   // this mock makes sure any components using the translate hook can use it without a warning being shown
