@@ -10,16 +10,13 @@ export default function CampaignTypeSelect({ name = 'campaignTypeId' }) {
   const [field, meta] = useField(name)
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
   return (
-    <FormControl variant="outlined" fullWidth size="small">
-      <InputLabel color={meta.touched && meta.error ? 'error' : 'primary'}>
-        {t('campaigns:campaign.type')}
-      </InputLabel>
-      <Select
-        fullWidth
-        defaultValue=""
-        label={t('campaigns:campaign.type')}
-        error={Boolean(meta.error) && Boolean(meta.touched)}
-        {...field}>
+    <FormControl
+      fullWidth
+      size="small"
+      variant="outlined"
+      error={Boolean(meta.error) && Boolean(meta.touched)}>
+      <InputLabel>{t('campaigns:campaign.type')}</InputLabel>
+      <Select fullWidth defaultValue="" label={t('campaigns:campaign.type')} {...field}>
         <MenuItem value="" disabled>
           {t('campaigns:campaign.type')}
         </MenuItem>
