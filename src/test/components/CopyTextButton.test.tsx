@@ -1,6 +1,3 @@
-/**
- * @jest-environment jsdom
- */
 import React from 'react'
 import { render, fireEvent, waitFor } from '../test-utils'
 import { CopyTextButton, CopyTextButtonProps } from 'components/common/CopyTextButton'
@@ -13,7 +10,7 @@ describe('CopyTextButton', () => {
 
   beforeEach(() => {
     expectedProps = {
-      text: 'Copy',
+      text: 'BG66 UNCR 7000 1524 3490 32',
       label: 'support:cta.copy-number',
     }
   })
@@ -25,7 +22,7 @@ describe('CopyTextButton', () => {
     expect(label).toBeVisible()
   })
 
-  test('should copy text to clipboard on call', async () => {
+  test('should copy text to clipboard on click', async () => {
     const { getByText } = render(<CopyTextButton {...expectedProps} />, {})
     const copyButton = getByText('support:cta.copy-number')
 
