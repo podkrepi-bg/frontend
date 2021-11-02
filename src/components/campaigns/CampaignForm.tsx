@@ -17,8 +17,10 @@ import { createSlug } from 'common/util/createSlug'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
-import { CampaignResponse, CampaignFormData, CampaignInput } from 'gql/campaigns'
+import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
+import { CampaignResponse, CampaignFormData, CampaignInput } from 'gql/campaigns'
+import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
 import CampaignTypeSelect from './CampaignTypeSelect'
 
@@ -47,6 +49,8 @@ const validationSchema: yup.SchemaOf<CampaignFormData> = yup
       .date()
       .transform(parseDateString)
       .min(yup.ref('startDate'), `end date can't be before start date`),
+    terms: yup.bool().required().oneOf([true], 'validation:terms-of-use'),
+    gdpr: yup.bool().required().oneOf([true], 'validation:terms-of-service'),
   })
 
 const defaults: CampaignFormData = {
@@ -58,6 +62,8 @@ const defaults: CampaignFormData = {
   startDate: format(new Date(), formatString),
   endDate: format(new Date().setMonth(new Date().getMonth() + 1), formatString),
   description: '',
+  terms: false,
+  gdpr: false,
 }
 
 const useStyles = makeStyles((theme) =>
@@ -194,7 +200,11 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
             />
           </Grid>
           <Grid item xs={12}>
-            <SubmitButton fullWidth label="campaigns:cta.save" loading={mutation.isLoading} />
+            <AcceptTermsField name="terms" />
+            <AcceptPrivacyPolicyField name="gdpr" />
+          </Grid>
+          <Grid item xs={12}>
+            <SubmitButton fullWidth label="campaigns:cta.submit" loading={mutation.isLoading} />
           </Grid>
         </Grid>
       </GenericForm>
