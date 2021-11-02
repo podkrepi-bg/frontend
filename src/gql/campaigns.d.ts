@@ -49,6 +49,8 @@ export type CampaignFormData = {
   startDate: Date | string | undefined
   endDate: Date | string | undefined
   description: string
+  terms: boolean
+  gdpr: boolean
 }
 
 export type CampaignInput = {
