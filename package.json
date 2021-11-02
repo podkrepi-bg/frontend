@@ -9,6 +9,8 @@
     "build": "next build",
     "start": "next start -p 3040",
     "test": "jest --env=jsdom",
+    "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
+    "test:watch": "jest --env=jsdom --watch --silent=false",
     "lint": "eslint . --fix --ext=ts,tsx",
     "lint:next": "next lint",
     "lint:styles": "stylelint **.scss",

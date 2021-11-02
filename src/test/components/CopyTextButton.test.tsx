@@ -16,14 +16,14 @@ describe('CopyTextButton', () => {
   })
 
   test('should render label', () => {
-    const { getByText } = render(<CopyTextButton {...expectedProps} />, {})
+    const { getByText } = render(<CopyTextButton {...expectedProps} />)
     const label = getByText(expectedProps.label)
 
     expect(label).toBeVisible()
   })
 
   test('should copy text to clipboard on click', async () => {
-    const { getByText } = render(<CopyTextButton {...expectedProps} />, {})
+    const { getByText } = render(<CopyTextButton {...expectedProps} />)
     const copyButton = getByText('support:cta.copy-number')
 
     fireEvent.click(copyButton)
