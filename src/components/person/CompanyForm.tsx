@@ -7,7 +7,13 @@ import FormTextField from 'components/common/form/FormTextField'
 
 export default function CompanyForm() {
   const [field] = useField('legalEntity')
-  if (!field.value) return null
+  if (!field.value) {
+    return (
+      <Grid item xs={12}>
+        <CompanyField name="legalEntity" />
+      </Grid>
+    )
+  }
   return (
     <>
       <Grid item xs={12}>
