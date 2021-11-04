@@ -2,7 +2,8 @@
   "subtitle": "Help a person in need",
   "form-heading": "Create new campaign",
   "cta": {
-    "save": "Create",
+    "create": "Create",
+    "save": "Save",
     "submit": "Submit",
     "donate": "Donate",
     "share": "Share",
