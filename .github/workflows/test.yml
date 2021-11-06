@@ -6,7 +6,7 @@ on:
     branches: [master]
 
 jobs:
-  build:
+  run-jest:
     runs-on: ubuntu-latest
 
     strategy:
