@@ -36,4 +36,4 @@ jobs:
       if: steps.yarn-cache.outputs.cache-hit != 'true'
 
     - name: Run tests
-      run: yarn test --ci 
+      run: yarn test --ci
