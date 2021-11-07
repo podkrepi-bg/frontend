@@ -21,6 +21,7 @@ import { CampaignResponse, CampaignFormData, CampaignInput } from 'gql/campaigns
 import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
 
 import CampaignTypeSelect from './CampaignTypeSelect'
+import CampaignUpload from './CampaignUpload'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -192,6 +193,9 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               autoComplete="description"
               className={classes.message}
             />
+          </Grid>
+          <Grid item xs={12}>
+            <CampaignUpload />
           </Grid>
           <Grid item xs={12}>
             <SubmitButton fullWidth label="campaigns:cta.save" loading={mutation.isLoading} />
