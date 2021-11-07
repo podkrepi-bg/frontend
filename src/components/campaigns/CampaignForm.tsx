@@ -25,7 +25,7 @@ import { CampaignResponse, CampaignFormData, CampaignInput } from 'gql/campaigns
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
 import CampaignTypeSelect from './CampaignTypeSelect'
-import CampaignUpload from './CampaignUpload'
+import FileUploadModal from './FileUploadModal'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -225,11 +225,11 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
             <input type="hidden" name="beneficiaryId" />
           </Grid>
           <Grid item xs={12}>
-            <AcceptTermsField name="terms" />
-            <AcceptPrivacyPolicyField name="gdpr" />
+            <FileUploadModal />
           </Grid>
           <Grid item xs={12}>
-            <CampaignUpload />
+            <AcceptTermsField name="terms" />
+            <AcceptPrivacyPolicyField name="gdpr" />
           </Grid>
           <Grid item xs={12}>
             <SubmitButton fullWidth label="campaigns:cta.submit" loading={mutation.isLoading} />
