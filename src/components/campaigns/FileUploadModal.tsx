@@ -12,6 +12,11 @@ import '@uppy/dashboard/dist/style.css'
 import { useTranslation } from 'react-i18next'
 import { UseTranslation } from 'next-i18next'
 
+const awsEndpoint =
+  process.env.NODE_ENV === 'production'
+    ? 'https://cdn.podkrepi.bg/'
+    : 'https://cdn-dev.podkrepi.bg/'
+
 const uppy = new Uppy({
   restrictions: {
     allowedFileTypes: ['image/*'],
@@ -20,7 +25,34 @@ const uppy = new Uppy({
   .use(GoogleDrive, { companionUrl: 'https://companion.uppy.io' })
   .use(Facebook, { companionUrl: 'https://companion.uppy.io' })
   .use(ImageEditor, { quality: 1 })
-  .use(AwsS3, { companionUrl: 'https://uppy-companion.my-app.com/' })
+  .use(AwsS3, {
+    getUploadParameters: (file) => {
+      return fetch(awsEndpoint, {
+        method: 'post',
+        headers: {
+          accept: 'application/json',
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          filename: file.name,
+          contentType: file.type,
+        }),
+      })
+        .then((response) => {
+          return response.json()
+        })
+        .then((data) => {
+          return {
+            method: data.method,
+            url: data.url,
+            fields: data.fields,
+            headers: {
+              'Content-Type': file.type,
+            },
+          }
+        }) as Promise<any> //todo avoid any
+    },
+  })
 
 uppy.on('complete', (result) => {
   console.log('successful files:', result.successful)
