@@ -1800,7 +1800,7 @@
     "@typescript-eslint/types" "4.29.1"
     eslint-visitor-keys "^2.0.0"
 
-"@uppy/aws-s3@^2.0.5":
+"@uppy/aws-s3@2.0.5":
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/@uppy/aws-s3/-/aws-s3-2.0.5.tgz#dae2edb819b8e79119304a1659b931a862bf1e45"
   integrity sha512-VWqVtmKtV/wSLCZdFbWlUt+CS7W/KZv20Pmm3JgcDLrQk3PdciYg3L9x65FTP8kSDsiXCwMg7uO5HfbspZWx9Q==
@@ -1818,7 +1818,7 @@
     "@uppy/utils" "^4.0.3"
     namespace-emitter "^2.0.1"
 
-"@uppy/core@^2.1.1":
+"@uppy/core@2.1.1":
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/@uppy/core/-/core-2.1.1.tgz#503b3172ffe32e6cc7385f5b0c99f008ade815f1"
   integrity sha512-dFlcy6+05zwsJk1KNeUKVWUyAfhOVwNpnPLaR1NX9Qsjv7KlYfUNRVW3uCCmIpd/EZsX44+haiqGrhLcYDAcxA==
@@ -1858,14 +1858,7 @@
     "@uppy/utils" "^4.0.3"
     preact "^10.5.13"
 
-"@uppy/drop-target@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@uppy/drop-target/-/drop-target-1.1.1.tgz#9bfbcb7b284ef605d01fc24823f857cbad51377a"
-  integrity sha512-2MxNGEkI2vt1D6MEa0PNqR+VTMbuUzmiytHyy57phZNCNes8K4BdnneBwla2nG3LI0D1TURK7MKxaSjv93d3Vg==
-  dependencies:
-    "@uppy/utils" "^4.0.3"
-
-"@uppy/facebook@^2.0.4":
+"@uppy/facebook@2.0.4":
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@uppy/facebook/-/facebook-2.0.4.tgz#a5ad05dc31113f6189d9cb258ceaad2829543a76"
   integrity sha512-Ca7wFDrtklA+vzFpi9J0Qe7lyjg+6xUdx4WVZsjRJpyzrDyK75uEgh3lHaqkfzy3ldEPVAVZ5jh3lh+T2+JhxQ==
@@ -1883,7 +1876,7 @@
     "@uppy/utils" "^4.0.3"
     preact "^10.5.13"
 
-"@uppy/google-drive@^2.0.4":
+"@uppy/google-drive@2.0.4":
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@uppy/google-drive/-/google-drive-2.0.4.tgz#bda4dc33fe3abb5bf0914fa4cdb5c9dc6db0fc4a"
   integrity sha512-mC+5Rtxenh2bTTM+YWbQCb5bYPQCKswjYtqkW8krouUb5uQ0lrX1MTjUvIaUqkpXptnCfQdphBYTcoo+VhdtIQ==
@@ -1893,7 +1886,7 @@
     "@uppy/utils" "^4.0.3"
     preact "^10.5.13"
 
-"@uppy/image-editor@^1.0.4":
+"@uppy/image-editor@1.0.4":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@uppy/image-editor/-/image-editor-1.0.4.tgz#1a52a099389e019c26cbd33601bae83abd3d4043"
   integrity sha512-bpfye/j09WAOCz2vbZgCV1Jt+ogtLgvfsDkIa+XPuYyYQAWS2sK9hbX2AWi9e1z1d6CMDkGWmzGLKHYAApkBLQ==
@@ -1927,7 +1920,7 @@
     classnames "^2.2.6"
     preact "^10.5.13"
 
-"@uppy/react@^2.1.1":
+"@uppy/react@2.1.1":
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/@uppy/react/-/react-2.1.1.tgz#e5fb5242fd36eed2b5451370e8a3a7609a7f5b04"
   integrity sha512-n6VRTMKTkC4x3jCfqoj18slt2jS1T3WCJv2+vHTmRIwIZBgUljpKHQC1sH0MB5FyT4KdNA0fsXq7PEonn1SlyA==
