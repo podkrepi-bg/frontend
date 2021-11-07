@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as yup from 'yup'
 import { useRouter } from 'next/router'
 import { FormikHelpers } from 'formik'
@@ -11,14 +11,18 @@ import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 
 import { routes } from 'common/routes'
+import { PersonFormData } from 'gql/person'
 import { createCampaign } from 'common/rest'
 import { AlertStore } from 'stores/AlertStore'
 import { createSlug } from 'common/util/createSlug'
+import PersonDialog from 'components/person/PersonDialog'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
-import { CampaignResponse, CampaignFormData, CampaignInput } from 'gql/campaigns'
+import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
+import { CampaignResponse, CampaignFormData, CampaignInput } from 'gql/campaigns'
+import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
 import CampaignTypeSelect from './CampaignTypeSelect'
 import CampaignUpload from './CampaignUpload'
@@ -48,6 +52,8 @@ const validationSchema: yup.SchemaOf<CampaignFormData> = yup
       .date()
       .transform(parseDateString)
       .min(yup.ref('startDate'), `end date can't be before start date`),
+    terms: yup.bool().required().oneOf([true], 'validation:terms-of-use'),
+    gdpr: yup.bool().required().oneOf([true], 'validation:terms-of-service'),
   })
 
 const defaults: CampaignFormData = {
@@ -59,6 +65,8 @@ const defaults: CampaignFormData = {
   startDate: format(new Date(), formatString),
   endDate: format(new Date().setMonth(new Date().getMonth() + 1), formatString),
   description: '',
+  terms: false,
+  gdpr: false,
 }
 
 const useStyles = makeStyles((theme) =>
@@ -80,6 +88,8 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   const classes = useStyles()
   const { t } = useTranslation()
   const router = useRouter()
+  const [coordinator, setCoordinator] = useState<PersonFormData>()
+  const [beneficiary, setBeneficiary] = useState<PersonFormData>()
 
   const mutation = useMutation<
     AxiosResponse<CampaignResponse>,
@@ -155,20 +165,6 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormTextField
-              type="text"
-              name="beneficiaryId"
-              label="campaigns:campaign.beneficiary"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormTextField
-              type="text"
-              name="coordinatorId"
-              label="campaigns:campaign.coordinator"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <FormTextField
               type="date"
               name="startDate"
               label="campaigns:campaign.start-date"
@@ -194,11 +190,49 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               className={classes.message}
             />
           </Grid>
+          <Grid item xs={12} sm={6}>
+            {coordinator ? (
+              <Typography fontWeight="bold" variant="body2">
+                {coordinator?.firstName} {coordinator?.lastName}
+              </Typography>
+            ) : (
+              <PersonDialog
+                type="coordinator"
+                label={t('campaigns:campaign.coordinator.add')}
+                onSubmit={async (values: PersonFormData) => {
+                  setCoordinator(values)
+                  console.log('new coordinator', { values })
+                }}
+              />
+            )}
+            <input type="hidden" name="coordinatorId" />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            {beneficiary ? (
+              <Typography fontWeight="bold" variant="body2">
+                {beneficiary?.firstName} {beneficiary?.lastName}
+              </Typography>
+            ) : (
+              <PersonDialog
+                type="beneficiary"
+                label={t('campaigns:campaign.beneficiary.add')}
+                onSubmit={async (values: PersonFormData) => {
+                  setBeneficiary(values)
+                  console.log('new beneficiary', { values })
+                }}
+              />
+            )}
+            <input type="hidden" name="beneficiaryId" />
+          </Grid>
+          <Grid item xs={12}>
+            <AcceptTermsField name="terms" />
+            <AcceptPrivacyPolicyField name="gdpr" />
+          </Grid>
           <Grid item xs={12}>
             <CampaignUpload />
           </Grid>
           <Grid item xs={12}>
-            <SubmitButton fullWidth label="campaigns:cta.save" loading={mutation.isLoading} />
+            <SubmitButton fullWidth label="campaigns:cta.submit" loading={mutation.isLoading} />
           </Grid>
         </Grid>
       </GenericForm>

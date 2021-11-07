@@ -7,7 +7,7 @@
     "contacts": "Contacts",
     "campaigns": {
       "index": "Campaigns",
-      "create": "Create Campaign"
+      "create": "Suggest campaign"
     },
     "admin": {
       "index": "Administration",
