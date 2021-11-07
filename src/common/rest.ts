@@ -11,6 +11,7 @@ import { CampaignResponse, CampaignInput } from 'gql/campaigns'
 
 import { endpoints } from './api-endpoints'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
+import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await axios.get(queryKey.join('/'))
@@ -26,6 +27,16 @@ export const queryFnFactory = <T>(config?: AxiosRequestConfig): QueryFunction<T>
 export const authQueryFnFactory = <T>(token?: string): QueryFunction<T> => {
   const headers = token ? { Authorization: `Bearer ${token}` } : {}
   return queryFnFactory<T>({ headers })
+}
+
+export const createBeneficiary: MutationFunction<
+  AxiosResponse<PersonResponse>,
+  CreateBeneficiaryInput
+> = async (data: CreateBeneficiaryInput) => {
+  return await axios.post<CreateBeneficiaryInput, AxiosResponse<PersonResponse>>(
+    endpoints.person.createBeneficiary.url,
+    data,
+  )
 }
 
 export const createContactRequest: MutationFunction<
