@@ -1,22 +1,24 @@
 import * as yup from 'yup'
 import React, { useState } from 'react'
-import { Grid } from '@mui/material'
+import { Grid, FormControl, Typography } from '@mui/material'
+import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
-import { KeycloakInstance } from 'keycloak-js'
-import { useKeycloak } from '@react-keycloak/ssr'
-
+import { AxiosError, AxiosResponse } from 'axios'
 import { AlertStore } from 'stores/AlertStore'
-import { baseUrl, routes } from 'common/routes'
+import { login } from 'common/rest'
 import { customValidators } from 'common/form/useForm'
 import FormInput from 'components/common/form/FormInput'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
+import CheckboxField from 'components/common/form/CheckboxField'
+import { ApiErrors } from 'common/api-errors'
+import { LoginFormData, LoginResponse } from 'gql/auth'
 
-export type LoginFormData = {
-  email: string
-  password?: string
-  csrfToken?: string
+const defaults: LoginFormData = {
+  email: '',
+  password: '',
+  csrfToken: '',
 }
 
 const validationSchema: yup.SchemaOf<LoginFormData> = yup
@@ -28,12 +30,6 @@ const validationSchema: yup.SchemaOf<LoginFormData> = yup
     csrfToken: yup.string(), // .required(),
   })
 
-const defaults: LoginFormData = {
-  email: '',
-  password: '',
-  csrfToken: '',
-}
-
 export type LoginFormProps = {
   initialValues?: LoginFormData
   csrfToken: string
@@ -42,47 +38,20 @@ export type LoginFormProps = {
 export default function LoginForm({ csrfToken, initialValues = defaults }: LoginFormProps) {
   const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
-  const { keycloak } = useKeycloak<KeycloakInstance>()
-
+  const mutation = useMutation<AxiosResponse<LoginResponse>, AxiosError<ApiErrors>, LoginFormData>({
+    mutationFn: login,
+    onError: () => AlertStore.show(t('auth:alerts.invalid-login'), 'error'),
+    onSuccess: () => AlertStore.show(t('auth:alerts.welcome'), 'success'),
+  })
   const onSubmit = async (values: LoginFormData) => {
-    AlertStore.show(t('auth:alerts.welcome'), 'success')
+    setLoading(true)
     try {
-      setLoading(true)
-
-      const result = await keycloak?.login({
-        loginHint: values.email,
-        redirectUri: `${baseUrl}${routes.profile}`,
-      })
-
-      // const { error, status, ok, url }: LoginResponse = await signIn('credentials', {
-      //   username: values.email,
-      //   password: values.password,
-      //   redirect: false,
-      // })
-      console.log(values)
-      console.log({ result })
-      // if (ok) {
-      //   setLoading(false)
-      //   AlertStore.show(t('auth:alerts.welcome'), 'success')
-      //   router.push(routes.index)
-      // } else {
-      //   throw new Error(error)
-      // }
-      // const response = await fetch('/api/timeout', {
-      //   method: 'POST',
-      //   body: values && JSON.stringify(values),
-      //   headers: {
-      //     'Content-Type': 'application/json; charset=UTF-8',
-      //   },
-      // })
-
-      // if (response.status !== 200) {
-      //   throw new Error(response.statusText)
-      // }
-    } catch (error) {
-      console.error(error)
+      const response = await mutation.mutateAsync(values)
+      // eslint-disable-next-line no-debugger
+      debugger
+      console.log(response)
+    } finally {
       setLoading(false)
-      AlertStore.show(t('auth:alerts.invalid-login'), 'error')
     }
   }
 
@@ -96,14 +65,24 @@ export default function LoginForm({ csrfToken, initialValues = defaults }: Login
         <Grid item xs={12}>
           <FormTextField type="text" label="auth:fields.email" name="email" />
         </Grid>
-        {/* <Grid item xs={12}>
+        <Grid item xs={12}>
           <FormTextField
             type="password"
             name="password"
             autoComplete="password"
             label="auth:fields.password"
           />
-        </Grid> */}
+        </Grid>
+
+        <Grid item xs={12}>
+          <FormControl component="fieldset">
+            <CheckboxField
+              name="person.newsletter"
+              label={<Typography variant="body2">{t('auth:cta.remember')}</Typography>}
+            />
+          </FormControl>
+        </Grid>
+
         <Grid item xs={12}>
           <SubmitButton fullWidth label="auth:cta.login" loading={loading} />
         </Grid>

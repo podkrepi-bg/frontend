@@ -29,4 +29,8 @@ export const endpoints = {
     recurringPrices: <Endpoint>{ url: '/donation/prices/recurring', method: 'GET' },
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
   },
+  auth: {
+    login: <Endpoint>{ url: '/login', method: 'POST' },
+    register: <Endpoint>{ url: '/register', method: 'POST' },
+  },
 }

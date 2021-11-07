@@ -8,7 +8,7 @@ import { LoginPageProps } from 'pages/login'
 import Layout from 'components/layout/Layout'
 import LoginForm from 'components/auth/login/LoginForm'
 
-export default function LoginPage({ csrfToken }: LoginPageProps) {
+export default function LoginPage({ csrfToken }: LoginPageProps & { csrfToken: string }) {
   const { t } = useTranslation()
   return (
     <Layout
@@ -16,8 +16,11 @@ export default function LoginPage({ csrfToken }: LoginPageProps) {
       githubUrl="https://github.com/podkrepi-bg/frontend/tree/master/src/components/auth/login/LoginPage.tsx"
       figmaUrl="https://www.figma.com/file/MmvFKzUv6yE5U2wrOpWtwS/Podkrepi.bg?node-id=5055%3A21469">
       <Container maxWidth="xs">
-        <LoginForm csrfToken={csrfToken || ''} />
-        <Grid container justifyContent="flex-end">
+        <LoginForm csrfToken={csrfToken} />
+        <Grid container justifyContent="space-between">
+          <Box mt={2}>
+            <Link href={routes.register}>{t('nav.register')}</Link>
+          </Box>
           <Box mt={2}>
             <Link href={routes.forgottenPassword}>{t('nav.forgottenPassword')}</Link>
           </Box>

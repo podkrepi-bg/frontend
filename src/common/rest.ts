@@ -11,6 +11,7 @@ import { CampaignResponse, CampaignInput } from 'gql/campaigns'
 
 import { endpoints } from './api-endpoints'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
+import { LoginFormData, LoginResponse, RegisterFormData, RegisterResponse } from 'gql/auth'
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
@@ -73,6 +74,24 @@ export const createCheckoutSession: MutationFunction<
 > = async (data: CheckoutSessionInput) => {
   return await axios.post<CheckoutSessionInput, AxiosResponse<CheckoutSessionResponse>>(
     endpoints.donation.createCheckoutSession.url,
+    data,
+  )
+}
+
+export const login: MutationFunction<AxiosResponse<LoginResponse>, LoginFormData> = async (
+  data: LoginFormData,
+) => {
+  return await axios.post<LoginFormData, AxiosResponse<LoginResponse>>(
+    endpoints.auth.login.url,
+    data,
+  )
+}
+
+export const register: MutationFunction<AxiosResponse<RegisterResponse>, RegisterFormData> = async (
+  data: RegisterFormData,
+) => {
+  return await axios.post<RegisterFormData, AxiosResponse<RegisterResponse>>(
+    endpoints.auth.login.url,
     data,
   )
 }
