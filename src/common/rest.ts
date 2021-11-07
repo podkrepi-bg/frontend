@@ -78,20 +78,30 @@ export const createCheckoutSession: MutationFunction<
   )
 }
 
-export const login: MutationFunction<AxiosResponse<LoginResponse>, LoginFormData> = async (
-  data: LoginFormData,
-) => {
+export const login: MutationFunction<AxiosResponse<LoginResponse>, LoginFormData> = async ({
+  csrfToken,
+  ...data
+}: LoginFormData) => {
   return await axios.post<LoginFormData, AxiosResponse<LoginResponse>>(
     endpoints.auth.login.url,
     data,
+    {
+      headers: {
+        'XSRF-TOKEN': csrfToken,
+      },
+    },
   )
 }
 
-export const register: MutationFunction<AxiosResponse<RegisterResponse>, RegisterFormData> = async (
-  data: RegisterFormData,
-) => {
-  return await axios.post<RegisterFormData, AxiosResponse<RegisterResponse>>(
-    endpoints.auth.login.url,
-    data,
-  )
-}
+export const register: MutationFunction<AxiosResponse<RegisterResponse>, RegisterFormData> =
+  async ({ csrfToken, ...data }: RegisterFormData) => {
+    return await axios.post<RegisterFormData, AxiosResponse<RegisterResponse>>(
+      endpoints.auth.login.url,
+      data,
+      {
+        headers: {
+          'XSRF-TOKEN': csrfToken,
+        },
+      },
+    )
+  }

@@ -20,6 +20,7 @@ import theme from 'common/theme'
 import useGTM from 'common/util/useGTM'
 import { queryFn } from 'common/rest'
 import createEmotionCache from 'common/createEmotionCache'
+import { csrfToken } from 'common/csrf'
 const {
   publicRuntimeConfig: { keycloakConfig },
 } = getConfig()
@@ -106,7 +107,7 @@ function CustomApp({
             persistor={SSRCookies(pageProps?.keyCookies ?? {})}>
             <QueryClientProvider client={queryClient}>
               <Hydrate state={pageProps.dehydratedState}>
-                <Component {...pageProps} />
+                <Component {...pageProps} csrfToken={csrfToken} />
               </Hydrate>
             </QueryClientProvider>
           </SSRKeycloakProvider>
