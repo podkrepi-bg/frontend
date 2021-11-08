@@ -18,9 +18,11 @@ jobs:
       - name: Build frontend
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+
         run: |
           docker build . \
             --file ./Dockerfile \
             --target production \
             --build-arg NODE_ENV=production \
-            --build-arg SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
+            --build-arg SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN \
+            --build-arg CSRF_SECRET=1234567890
