@@ -1,7 +1,7 @@
-import axiosRaw, { AxiosRequestConfig, AxiosResponse } from 'axios'
+import { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { MutationFunction, QueryFunction } from 'react-query'
 
-import { axios } from 'common/api-client'
+import { apiBackend, apiFrontend } from 'common/api-client'
 import {
   SupportRequestResponse,
   SupportRequestInput,
@@ -15,13 +15,13 @@ import { LoginFormData, LoginResponse, RegisterFormData, RegisterResponse } from
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
-  const response = await axios.get(queryKey.join('/'))
+  const response = await apiBackend.get(queryKey.join('/'))
   return await response.data
 }
 
 export const queryFnFactory = <T>(config?: AxiosRequestConfig): QueryFunction<T> =>
   async function ({ queryKey }) {
-    const response = await axios.get(queryKey.join('/'), config)
+    const response = await apiBackend.get(queryKey.join('/'), config)
     return await response.data
   }
 
@@ -34,7 +34,7 @@ export const createBeneficiary: MutationFunction<
   AxiosResponse<PersonResponse>,
   CreateBeneficiaryInput
 > = async (data: CreateBeneficiaryInput) => {
-  return await axios.post<CreateBeneficiaryInput, AxiosResponse<PersonResponse>>(
+  return await apiBackend.post<CreateBeneficiaryInput, AxiosResponse<PersonResponse>>(
     endpoints.person.createBeneficiary.url,
     data,
   )
@@ -44,7 +44,7 @@ export const createContactRequest: MutationFunction<
   AxiosResponse<ContactRequestResponse>,
   ContactRequestInput
 > = async (data: ContactRequestInput) => {
-  return await axios.post<ContactRequestInput, AxiosResponse<ContactRequestResponse>>(
+  return await apiBackend.post<ContactRequestInput, AxiosResponse<ContactRequestResponse>>(
     endpoints.support.createInfoRequest.url,
     data,
   )
@@ -54,7 +54,7 @@ export const createSupportRequest: MutationFunction<
   AxiosResponse<SupportRequestResponse>,
   SupportRequestInput
 > = async (data: SupportRequestInput) => {
-  return await axios.post<SupportRequestInput, AxiosResponse<SupportRequestResponse>>(
+  return await apiBackend.post<SupportRequestInput, AxiosResponse<SupportRequestResponse>>(
     endpoints.support.createSupportRequest.url,
     data,
   )
@@ -62,7 +62,7 @@ export const createSupportRequest: MutationFunction<
 
 export const createCampaign: MutationFunction<AxiosResponse<CampaignResponse>, CampaignInput> =
   async (data: CampaignInput) => {
-    return await axios.post<CampaignInput, AxiosResponse<CampaignResponse>>(
+    return await apiBackend.post<CampaignInput, AxiosResponse<CampaignResponse>>(
       endpoints.campaign.createCampaign.url,
       data,
     )
@@ -72,7 +72,7 @@ export const createCheckoutSession: MutationFunction<
   AxiosResponse<CheckoutSessionResponse>,
   CheckoutSessionInput
 > = async (data: CheckoutSessionInput) => {
-  return await axios.post<CheckoutSessionInput, AxiosResponse<CheckoutSessionResponse>>(
+  return await apiBackend.post<CheckoutSessionInput, AxiosResponse<CheckoutSessionResponse>>(
     endpoints.donation.createCheckoutSession.url,
     data,
   )
@@ -81,7 +81,7 @@ export const createCheckoutSession: MutationFunction<
 export const login: MutationFunction<AxiosResponse<LoginResponse>, LoginFormData> = async (
   data: LoginFormData,
 ) => {
-  return await axiosRaw.post<LoginFormData, AxiosResponse<LoginResponse>>(
+  return await apiFrontend.post<LoginFormData, AxiosResponse<LoginResponse>>(
     endpoints.auth.login.url,
     data,
   )
@@ -90,7 +90,7 @@ export const login: MutationFunction<AxiosResponse<LoginResponse>, LoginFormData
 export const register: MutationFunction<AxiosResponse<RegisterResponse>, RegisterFormData> = async (
   data: RegisterFormData,
 ) => {
-  return await axiosRaw.post<RegisterFormData, AxiosResponse<RegisterResponse>>(
+  return await apiFrontend.post<RegisterFormData, AxiosResponse<RegisterResponse>>(
     endpoints.auth.register.url,
     data,
   )
