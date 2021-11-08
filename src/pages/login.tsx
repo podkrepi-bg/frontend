@@ -8,13 +8,14 @@ export type LoginPageProps = {
   providers: string[]
 }
 
-export const getServerSideProps: GetServerSideProps<LoginPageProps> = setup(async (ctx) => {
+const _getServerSideProps: GetServerSideProps<LoginPageProps> = async (ctx) => {
   return {
     props: {
       ...(await serverSideTranslations(ctx.locale ?? 'bg', ['common', 'auth', 'validation'])),
       providers: [],
     },
   }
-})
+}
 
+export const getServerSideProps = setup(_getServerSideProps)
 export default LoginPage
