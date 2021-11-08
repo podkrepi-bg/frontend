@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import * as yup from 'yup'
+import { useRouter } from 'next/router'
 import { Grid } from '@mui/material'
 import { useMutation } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useTranslation } from 'next-i18next'
+import { routes } from 'common/routes'
 import { register } from 'common/rest'
 import { AlertStore } from 'stores/AlertStore'
 import { customValidators } from 'common/form/useForm'
@@ -36,6 +38,7 @@ export type RegisterFormProps = { initialValues?: RegisterFormData; csrfToken: s
 
 export default function RegisterForm({ csrfToken, initialValues = defaults }: RegisterFormProps) {
   const { t } = useTranslation()
+  const router = useRouter()
   const [loading, setLoading] = useState(false)
   const mutation = useMutation<
     AxiosResponse<RegisterResponse>,
@@ -56,6 +59,7 @@ export default function RegisterForm({ csrfToken, initialValues = defaults }: Re
     } finally {
       setLoading(false)
     }
+    router.push(routes.profile)
   }
 
   return (

@@ -1,12 +1,14 @@
-import * as yup from 'yup'
 import React, { useState } from 'react'
+import * as yup from 'yup'
+import { useRouter } from 'next/router'
 import { Grid, FormControl, Typography } from '@mui/material'
 import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
-import { AlertStore } from 'stores/AlertStore'
+import { routes } from 'common/routes'
 import { login } from 'common/rest'
 import { customValidators } from 'common/form/useForm'
+import { AlertStore } from 'stores/AlertStore'
 import FormInput from 'components/common/form/FormInput'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
@@ -37,6 +39,7 @@ export type LoginFormProps = {
 
 export default function LoginForm({ csrfToken, initialValues = defaults }: LoginFormProps) {
   const { t } = useTranslation()
+  const router = useRouter()
   const [loading, setLoading] = useState(false)
   const mutation = useMutation<AxiosResponse<LoginResponse>, AxiosError<ApiErrors>, LoginFormData>({
     mutationFn: login,
@@ -53,6 +56,7 @@ export default function LoginForm({ csrfToken, initialValues = defaults }: Login
     } finally {
       setLoading(false)
     }
+    router.push(routes.profile)
   }
 
   return (
