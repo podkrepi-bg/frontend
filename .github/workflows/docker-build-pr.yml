@@ -18,7 +18,6 @@ jobs:
       - name: Build frontend
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-
         run: |
           docker build . \
             --file ./Dockerfile \
