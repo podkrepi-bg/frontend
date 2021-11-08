@@ -3,6 +3,7 @@ export type LoginResponse = {
   data: {
     error?: string
     error_description?: string
+    jwt?: string
   }
 }
 
