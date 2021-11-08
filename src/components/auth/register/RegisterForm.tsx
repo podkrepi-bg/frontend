@@ -32,11 +32,10 @@ const defaults: RegisterFormData = {
   lastName: '',
   email: '',
   password: '',
-  csrfToken: '',
 }
-export type RegisterFormProps = { initialValues?: RegisterFormData; csrfToken: string }
+export type RegisterFormProps = { initialValues?: RegisterFormData }
 
-export default function RegisterForm({ csrfToken, initialValues = defaults }: RegisterFormProps) {
+export default function RegisterForm({ initialValues = defaults }: RegisterFormProps) {
   const { t } = useTranslation()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
@@ -72,7 +71,7 @@ export default function RegisterForm({ csrfToken, initialValues = defaults }: Re
   return (
     <GenericForm
       onSubmit={onSubmit}
-      initialValues={{ ...initialValues, csrfToken }}
+      initialValues={initialValues}
       validationSchema={validationSchema}>
       <FormInput type="hidden" name="csrfToken" />
       <Grid container spacing={3}>

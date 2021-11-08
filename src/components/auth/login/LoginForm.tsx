@@ -20,7 +20,6 @@ import { LoginFormData, LoginResponse } from 'gql/auth'
 const defaults: LoginFormData = {
   email: '',
   password: '',
-  csrfToken: '',
 }
 
 const validationSchema: yup.SchemaOf<LoginFormData> = yup
@@ -34,17 +33,15 @@ const validationSchema: yup.SchemaOf<LoginFormData> = yup
 
 export type LoginFormProps = {
   initialValues?: LoginFormData
-  csrfToken: string
 }
 
-export default function LoginForm({ csrfToken, initialValues = defaults }: LoginFormProps) {
+export default function LoginForm({ initialValues = defaults }: LoginFormProps) {
   const { t } = useTranslation()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const mutation = useMutation<AxiosResponse<LoginResponse>, AxiosError<ApiErrors>, LoginFormData>({
     mutationFn: login,
     onError: () => AlertStore.show(t('auth:alerts.invalid-login'), 'error'),
-    onSuccess: () => AlertStore.show(t('auth:alerts.welcome'), 'success'),
   })
   const onSubmit = async (values: LoginFormData) => {
     setLoading(true)
@@ -70,7 +67,7 @@ export default function LoginForm({ csrfToken, initialValues = defaults }: Login
   return (
     <GenericForm
       onSubmit={onSubmit}
-      initialValues={{ ...initialValues, csrfToken }}
+      initialValues={initialValues}
       validationSchema={validationSchema}>
       <FormInput type="hidden" name="csrfToken" />
       <Grid container spacing={3}>

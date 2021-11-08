@@ -10,7 +10,6 @@ export type LoginResponse = {
 export type LoginFormData = {
   email: string
   password?: string
-  csrfToken?: string
 }
 
 export type RegisterResponse = {
@@ -40,5 +39,4 @@ export type RegisterFormData = {
   lastName?: string
   email?: string
   password?: string
-  csrfToken?: string
 }

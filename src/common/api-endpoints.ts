@@ -30,7 +30,7 @@ export const endpoints = {
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
   },
   auth: {
-    login: <Endpoint>{ url: '/login', method: 'POST' },
-    register: <Endpoint>{ url: '/register', method: 'POST' },
+    login: <Endpoint>{ url: '/api/login', method: 'POST' },
+    register: <Endpoint>{ url: '/api/register', method: 'POST' },
   },
 }

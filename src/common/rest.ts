@@ -1,4 +1,4 @@
-import { AxiosRequestConfig, AxiosResponse } from 'axios'
+import axiosRaw, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { MutationFunction, QueryFunction } from 'react-query'
 
 import { axios } from 'common/api-client'
@@ -81,7 +81,7 @@ export const createCheckoutSession: MutationFunction<
 export const login: MutationFunction<AxiosResponse<LoginResponse>, LoginFormData> = async (
   data: LoginFormData,
 ) => {
-  return await axios.post<LoginFormData, AxiosResponse<LoginResponse>>(
+  return await axiosRaw.post<LoginFormData, AxiosResponse<LoginResponse>>(
     endpoints.auth.login.url,
     data,
   )
@@ -90,7 +90,7 @@ export const login: MutationFunction<AxiosResponse<LoginResponse>, LoginFormData
 export const register: MutationFunction<AxiosResponse<RegisterResponse>, RegisterFormData> = async (
   data: RegisterFormData,
 ) => {
-  return await axios.post<RegisterFormData, AxiosResponse<RegisterResponse>>(
+  return await axiosRaw.post<RegisterFormData, AxiosResponse<RegisterResponse>>(
     endpoints.auth.register.url,
     data,
   )

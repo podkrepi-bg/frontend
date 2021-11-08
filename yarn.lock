@@ -1497,7 +1497,7 @@
     "@types/react" "*"
     hoist-non-react-statics "^3.3.0"
 
-"@types/http-errors@^1.6.3":
+"@types/http-errors@^1.8.0":
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/@types/http-errors/-/http-errors-1.8.1.tgz#e81ad28a60bee0328c6d2384e029aec626f1ae67"
   integrity sha512-e+2rjEwK6KDaNOm5Aa9wNGgyS9oSZU/4pfSMMPYNOfjvFI0WVXm29+ITRFr6aKDvvKo7uU1jV68MW4ScsfDi7Q==
@@ -5683,12 +5683,12 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=
 
-next-csrf@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/next-csrf/-/next-csrf-0.1.2.tgz#69e317f096681b418f3d34c5cce214f4ad24b1c8"
-  integrity sha512-b6XozMm17DyeboQQYSCVZCLPMobpRy18KBnDdtDdJZY7bvXRRhb+pLISKg/rOuXP55H6L1L6AKofTKlyu5JecQ==
+next-csrf@beta:
+  version "0.2.0-beta.2"
+  resolved "https://registry.yarnpkg.com/next-csrf/-/next-csrf-0.2.0-beta.2.tgz#b2357ac595bb45a6841ff201207430d913e3f315"
+  integrity sha512-VrQyo90Itgcc0ppjmLxYrrSybOhxZfrFNxz4zwr8dc/VOsAYEgKI+NQ+lQW8NPKy5B5ksWM7qZwTaewYZFFqIw==
   dependencies:
-    "@types/http-errors" "^1.6.3"
+    "@types/http-errors" "^1.8.0"
     cookie "^0.4.1"
     cookie-signature "^1.1.0"
     csrf "^3.1.0"

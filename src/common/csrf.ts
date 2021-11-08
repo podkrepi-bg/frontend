@@ -4,4 +4,4 @@ const options = {
   secret: process.env.CSRF_SECRET,
 }
 
-export const { csrf, csrfToken } = nextCsrf(options)
+export const { csrf, setup, csrfToken } = nextCsrf(options)
