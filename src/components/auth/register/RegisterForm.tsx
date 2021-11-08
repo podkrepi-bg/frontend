@@ -56,10 +56,17 @@ export default function RegisterForm({ csrfToken, initialValues = defaults }: Re
       // eslint-disable-next-line no-debugger
       debugger
       console.log(response)
+      if (response.data.error) {
+        AlertStore.show(
+          response.data.data.error_description || t('auth:alerts.invalid-registration'),
+          'error',
+        )
+        return
+      }
     } finally {
       setLoading(false)
     }
-    router.push(routes.profile)
+    router.push(routes.login)
   }
 
   return (

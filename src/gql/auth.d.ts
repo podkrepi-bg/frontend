@@ -1,4 +1,10 @@
-export type LoginResponse = any
+export type LoginResponse = {
+  error?: string
+  data: {
+    error?: string
+    error_description?: string
+  }
+}
 
 export type LoginFormData = {
   email: string
@@ -7,20 +13,25 @@ export type LoginFormData = {
 }
 
 export type RegisterResponse = {
-  id: string
-  firstName?: string
-  lastName?: string
-  email?: string
-  emailConfirmed?: boolean
-  phone?: string
-  company?: string
-  createdAt?: string
-  updatedAt?: string
-  newsletter?: boolean
-  address?: string
-  birthday?: string
-  personalNumber?: string
-  keycloakId?: string
+  error?: string
+  data: {
+    error?: string
+    error_description?: string
+    id: string
+    firstName?: string
+    lastName?: string
+    email?: string
+    emailConfirmed?: boolean
+    phone?: string
+    company?: string
+    createdAt?: string
+    updatedAt?: string
+    newsletter?: boolean
+    address?: string
+    birthday?: string
+    personalNumber?: string
+    keycloakId?: string
+  }
 }
 
 export type RegisterFormData = {

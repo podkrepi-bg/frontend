@@ -53,6 +53,14 @@ export default function LoginForm({ csrfToken, initialValues = defaults }: Login
       // eslint-disable-next-line no-debugger
       debugger
       console.log(response)
+
+      if (response.data.error) {
+        AlertStore.show(
+          response.data.data.error_description || t('auth:alerts.invalid-login'),
+          'error',
+        )
+        return
+      }
     } finally {
       setLoading(false)
     }
