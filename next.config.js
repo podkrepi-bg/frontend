@@ -28,7 +28,7 @@ const moduleExports = {
     APP_VERSION: version,
     SENTRY_DSN: process.env.SENTRY_DSN,
     DEPLOY_TAG: process.env.DEPLOY_TAG,
-    CSRF_SECRET: process.env.CSRF_SECRET,
+    CSRF_SECRET: process.env.CSRF_SECRET || '123',
   },
   serverRuntimeConfig: {
     DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
