@@ -43,7 +43,7 @@ const moduleExports = {
     GTM_ID: 'GTM-TWQBXM6',
     keycloakConfig,
     FEATURE_ENABLED: {
-      CAMPAIGN: false,
+      CAMPAIGN: process.env.FEATURE_CAMPAIGN ?? false,
     },
   },
 }
