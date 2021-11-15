@@ -18,7 +18,7 @@ RUN yarn install --production && \
   # Install dev dependencies
   yarn install --production=false
 
-RUN apk --no-cache add curl g++ make python
+RUN apk --no-cache add curl g++ make python3
 
 # Build target development #
 ############################
