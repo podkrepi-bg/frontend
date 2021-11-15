@@ -1,27 +1,23 @@
 import { PropsWithChildren } from 'react'
-import getConfig from 'next/config'
+import { Typography } from '@mui/material'
 
 import Layout from 'components/layout/Layout'
+import { featureFlagEnabled, Features } from 'common/util/featureFlag'
 
-type FeatureProps = PropsWithChildren<{ name: Features }>
+export { Features }
 
-export enum Features {
-  CAMPAIGN = 'CAMPAIGN',
-}
-
-export default function Feature({ name, children }: FeatureProps) {
-  const { publicRuntimeConfig } = getConfig()
-  const isFeatureEnabled = publicRuntimeConfig.FEATURE_ENABLED[name]
-  const isProduction = process.env.APP_ENV === 'production'
-
-  if (isFeatureEnabled || !isProduction) {
+type Props = PropsWithChildren<{ name: Features }>
+export default function Feature({ name, children }: Props) {
+  if (featureFlagEnabled(name)) {
     return <>{children}</>
   }
 
-  //Add custom 'In development' page below
+  // Add custom 'In development' page below
   return (
     <Layout>
-      <div> in development</div>
+      <Typography variant="h3" component="h1" textAlign="center">
+        in development
+      </Typography>
     </Layout>
   )
 }
