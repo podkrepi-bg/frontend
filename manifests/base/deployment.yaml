@@ -1,23 +1,7 @@
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: frontend-headless
-  namespace: podkrepibg
-spec:
-  selector:
-    app: frontend
-  clusterIP: None
-  ports:
-    - name: http
-      port: 80
-      targetPort: 3040
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: frontend
-  namespace: podkrepibg
   labels:
     app: frontend
 spec:
@@ -32,8 +16,8 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ghcr.io/podkrepi-bg/frontend:v0.8.0
-          imagePullPolicy: IfNotPresent
+          image: ghcr.io/podkrepi-bg/frontend:master
+          imagePullPolicy: Always
           env:
             - name: NODE_ENV
               value: production
@@ -41,22 +25,34 @@ spec:
               value: production
             - name: APP_ENV
               value: production
-            - name: APP_URL
-              value: https://podkrepi.bg
             - name: APP_PORT
               value: '3040'
-            - name: API_URL
-              value: https://podkrepi.bg
             - name: REST_API_PORT
               value: '80'
             - name: KEYCLOAK_URL
-              value: 'https://keycloak.podkrepi.bg/auth'
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak-config-web
+                  key: url
             - name: KEYCLOAK_REALM
-              value: 'webapp'
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak-config-web
+                  key: realm
             - name: KEYCLOAK_CLIENT_ID
-              value: 'account'
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak-config-web
+                  key: client-id
           ports:
             - containerPort: 3040
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: '1'
+            requests:
+              memory: 256Mi
+              cpu: '0.2'
           livenessProbe:
             httpGet:
               path: /api/healthcheck
