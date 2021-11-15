@@ -14,4 +14,4 @@ images:
 - name: ghcr.io/podkrepi-bg/frontend
   newTag: v0.9.3
 - name: ghcr.io/podkrepi-bg/frontend/maintenance
-  newTag: v0.9.3
+  newTag: master
