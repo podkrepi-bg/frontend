@@ -1,18 +1,20 @@
 import React from 'react'
-import { Button, Grid } from '@mui/material'
+import { Button, ButtonProps, Grid } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import { routes, staticUrls } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
+import { featureFlagEnabled, Features } from 'common/util/featureFlag'
 
 type NavItem = {
   href: string
   label: string
-  variant: 'text' | 'outlined' | 'contained'
+  variant: ButtonProps['variant']
   target?: string
+  enabled?: boolean
 }
 
-export const navItems: NavItem[] = [
+const allNavItems: NavItem[] = [
   {
     href: routes.about,
     label: 'nav.about',
@@ -32,6 +34,7 @@ export const navItems: NavItem[] = [
     href: routes.campaigns.index,
     label: 'nav.campaigns.index',
     variant: 'text',
+    enabled: featureFlagEnabled(Features.CAMPAIGN),
   },
   {
     href: routes.support,
@@ -39,6 +42,7 @@ export const navItems: NavItem[] = [
     variant: 'outlined',
   },
 ]
+export const navItems = allNavItems.filter((el) => typeof el.enabled === 'undefined' ?? el.enabled)
 
 export default function MainNavMenu({ children }: { children?: React.ReactNode }) {
   const { t } = useTranslation()
