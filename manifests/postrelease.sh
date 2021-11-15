@@ -15,7 +15,6 @@ echo "$VERSION"
 
 cd ./manifests/overlays/production
 kustomize edit set image "ghcr.io/podkrepi-bg/frontend=:$VERSION"
-kustomize edit set image "ghcr.io/podkrepi-bg/frontend/maintenance=:$VERSION"
 git add kustomization.yaml
 git commit -m "Update production version to $VERSION"
 git status
