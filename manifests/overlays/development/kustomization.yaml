@@ -13,3 +13,9 @@ patches:
     target:
       kind: Ingress
       name: web
+
+images:
+  - name: ghcr.io/podkrepi-bg/frontend
+    newTag: master
+  - name: ghcr.io/podkrepi-bg/frontend/maintenance
+    newTag: master
