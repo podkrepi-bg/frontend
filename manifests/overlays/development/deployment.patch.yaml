@@ -14,7 +14,7 @@ spec:
         - name: frontend
           imagePullPolicy: Always
           env:
-          - name: APP_URL
-            value: https://dev.podkrepi.bg
-          - name: API_URL
-            value: https://dev.podkrepi.bg
+            - name: APP_URL
+              value: https://dev.podkrepi.bg
+            - name: API_URL
+              value: https://dev.podkrepi.bg

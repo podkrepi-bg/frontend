@@ -3,8 +3,8 @@ kind: Kustomization
 
 namespace: podkrepibg
 
-bases:
-  - "../../base"
+resources:
+  - ../../base
 
 patches:
   - path: keycloak-config-web.patch.yaml
@@ -12,6 +12,6 @@ patches:
 
 images:
   - name: ghcr.io/podkrepi-bg/frontend
-    newTag: v0.9.0
+    newTag: v1.3.6
   - name: ghcr.io/podkrepi-bg/frontend/maintenance
     newTag: master

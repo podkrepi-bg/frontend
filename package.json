@@ -18,7 +18,8 @@
     "type-check": "tsc --project tsconfig.json --pretty --noEmit",
     "prepare": "husky install",
     "release": "./manifests/release.sh",
-    "release:patch": "./manifests/release.sh patch"
+    "release:patch": "./manifests/release.sh patch",
+    "postversion": "./manifests/postrelease.sh v$npm_package_version"
   },
   "dependencies": {
     "@emotion/cache": "^11.5.0",
