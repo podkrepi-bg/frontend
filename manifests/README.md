@@ -2,12 +2,17 @@
 
 To deploy the module make sure you do the following:
 
-- Update the container versions in `web.yaml`
+- Update the container versions in `frontend/manifests/overlays/production/deployment.patch.yaml`
 - Verify the environmental variables for the containers
 
-After that run:
+View resulting yaml via Kustomize:
 
-```bash
-kubectl create namespace podkrepi-frontend
-kubectl apply -f web.yaml
+```shell
+kubectl kustomize manifests/overlays/development
+```
+
+Apply via Kustomize:
+
+```shell
+kubectl apply -k manifests/overlays/development
 ```
