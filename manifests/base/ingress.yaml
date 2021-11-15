@@ -2,10 +2,9 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: web
-  namespace: podkrepibg-dev
 spec:
   rules:
-    - host: dev.podkrepi.bg
+    - host: podkrepi.bg
       http:
         paths:
           - backend:
@@ -30,4 +29,4 @@ spec:
             pathType: Prefix
   tls:
     - hosts:
-        - dev.podkrepi.bg
+        - podkrepi.bg
