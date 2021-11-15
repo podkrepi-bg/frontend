@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    spec:
+      containers:
+        - name: frontend
+          image: ghcr.io/podkrepi-bg/frontend:master
+          imagePullPolicy: Always
+          env:
+          - name: APP_URL
+            value: https://dev.podkrepi.bg
+          - name: API_URL
+            value: https://dev.podkrepi.bg
