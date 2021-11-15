@@ -9,6 +9,14 @@ else
   exit 1
 fi
 
+if ! command -v kustomize &> /dev/null
+then
+  echo "kustomize binary could not be found"
+  echo
+  echo "Installation instructions at https://kubectl.docs.kubernetes.io/installation/kustomize/"
+  exit
+fi
+
 VERSION_TYPE="${1:-minor}"
 
 echo "$VERSION_TYPE"
