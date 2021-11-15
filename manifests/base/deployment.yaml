@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: ghcr.io/podkrepi-bg/frontend:master
+          image: ghcr.io/podkrepi-bg/frontend
           imagePullPolicy: Always
           env:
             - name: NODE_ENV
