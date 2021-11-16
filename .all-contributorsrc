@@ -341,6 +341,19 @@
         "doc",
         "tool"
       ]
+    },
+    {
+      "login": "kirilpopov",
+      "name": "Kiril Popov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6021897?v=4",
+      "profile": "https://github.com/kirilpopov",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "platform",
+        "plugin"
+      ]
     }
   ],
   "contributorsPerLine": 7,

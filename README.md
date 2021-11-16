@@ -54,9 +54,7 @@ Follow API instructions at <https://github.com/podkrepi-bg/api#setup-development
 ## Contributors ✨
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-28-orange.svg?style=flat-square)](#contributors-)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-29-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Please check [contributors guide](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md) for:
@@ -115,6 +113,9 @@ Thanks goes to these wonderful people:
     <td align="center"><a href="http://georgi-naumov.blogspot.com/"><img src="https://avatars.githubusercontent.com/u/4079371?v=4?s=100" width="100px;" alt=""/><br /><sub><b>George Naumov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=gonaumov" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=gonaumov" title="Documentation">📖</a> <a href="#tool-gonaumov" title="Tools">🔧</a></td>
     <td align="center"><a href="https://github.com/atanasster"><img src="https://avatars.githubusercontent.com/u/6075606?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Atanas Stoyanov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=atanasster" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=atanasster" title="Documentation">📖</a> <a href="#tool-atanasster" title="Tools">🔧</a> <a href="#platform-atanasster" title="Packaging/porting to new platform">📦</a> <a href="#maintenance-atanasster" title="Maintenance">🚧</a></td>
     <td align="center"><a href="https://github.com/vann4oto98"><img src="https://avatars.githubusercontent.com/u/61576293?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vanyo</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=vann4oto98" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=vann4oto98" title="Documentation">📖</a> <a href="#tool-vann4oto98" title="Tools">🔧</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/kirilpopov"><img src="https://avatars.githubusercontent.com/u/6021897?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kiril Popov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=kirilpopov" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=kirilpopov" title="Documentation">📖</a> <a href="#tool-kirilpopov" title="Tools">🔧</a> <a href="#platform-kirilpopov" title="Packaging/porting to new platform">📦</a> <a href="#plugin-kirilpopov" title="Plugin/utility libraries">🔌</a></td>
   </tr>
 </table>
 
