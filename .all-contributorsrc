@@ -354,6 +354,18 @@
         "platform",
         "plugin"
       ]
+    },
+    {
+      "login": "dragomir-yankov",
+      "name": "dragomir-yankov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/28300816?v=4",
+      "profile": "https://github.com/dragomir-yankov",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "platform"
+      ]
     }
   ],
   "contributorsPerLine": 7,
