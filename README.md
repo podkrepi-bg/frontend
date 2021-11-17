@@ -54,7 +54,7 @@ Follow API instructions at <https://github.com/podkrepi-bg/api#setup-development
 ## Contributors ✨
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-29-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-30-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Please check [contributors guide](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md) for:
@@ -116,6 +116,7 @@ Thanks goes to these wonderful people:
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/kirilpopov"><img src="https://avatars.githubusercontent.com/u/6021897?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kiril Popov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=kirilpopov" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=kirilpopov" title="Documentation">📖</a> <a href="#tool-kirilpopov" title="Tools">🔧</a> <a href="#platform-kirilpopov" title="Packaging/porting to new platform">📦</a> <a href="#plugin-kirilpopov" title="Plugin/utility libraries">🔌</a></td>
+    <td align="center"><a href="https://github.com/dragomir-yankov"><img src="https://avatars.githubusercontent.com/u/28300816?v=4?s=100" width="100px;" alt=""/><br /><sub><b>dragomir-yankov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=dragomir-yankov" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=dragomir-yankov" title="Documentation">📖</a> <a href="#tool-dragomir-yankov" title="Tools">🔧</a> <a href="#platform-dragomir-yankov" title="Packaging/porting to new platform">📦</a></td>
   </tr>
 </table>
 
