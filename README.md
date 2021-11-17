@@ -37,7 +37,7 @@ cd frontend
 ln -hfs .env.local.example .env.local
 
 # Symlink dev environment on Windows
-mklink .env.local.example .env.local
+mklink .env.local .env.local.example
 
 # Start the project
 yarn dev
