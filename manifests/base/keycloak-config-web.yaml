@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keycloak-config-web
+data:
+  url: https://keycloak.podkrepi.bg/auth
+  realm: webapp-dev
+  client-id: account

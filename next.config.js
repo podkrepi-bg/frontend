@@ -43,6 +43,9 @@ const moduleExports = {
     APP_URL: process.env.APP_URL,
     GTM_ID: 'GTM-TWQBXM6',
     keycloakConfig,
+    FEATURE_ENABLED: {
+      CAMPAIGN: process.env.FEATURE_CAMPAIGN ?? false,
+    },
   },
 }
 
