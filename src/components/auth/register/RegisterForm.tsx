@@ -1,10 +1,7 @@
 import React from 'react'
 import * as yup from 'yup'
 import { Grid } from '@mui/material'
-import { KeycloakInstance } from 'keycloak-js'
-import { useKeycloak } from '@react-keycloak/ssr'
 
-import { baseUrl, routes } from 'common/routes'
 import { customValidators } from 'common/form/useForm'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
@@ -36,15 +33,8 @@ const defaults: RegisterFormData = {
 export type RegisterFormProps = { initialValues?: RegisterFormData }
 
 export default function RegisterForm({ initialValues = defaults }: RegisterFormProps) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
-
   const onSubmit = async (values: RegisterFormData) => {
-    const result = await keycloak?.register({
-      loginHint: values.email, // Doesn't work with registration, see https://stackoverflow.com/q/63117669/668245
-      redirectUri: `${baseUrl}${routes.profile}`,
-    })
     console.log(values)
-    console.log({ result })
   }
 
   return (

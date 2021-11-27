@@ -1,6 +1,3 @@
-import { useKeycloak } from '@react-keycloak/ssr'
-import { KeycloakInstance, KeycloakTokenParsed } from 'keycloak-js'
-
 export type Session = {
   user?: {
     name: string
@@ -9,7 +6,7 @@ export type Session = {
   }
 }
 
-export type ParsedToken = KeycloakTokenParsed & {
+export type ParsedToken = {
   name?: string
   email?: string
   given_name?: string
@@ -18,20 +15,3 @@ export type ParsedToken = KeycloakTokenParsed & {
   email_verified?: boolean
   picture?: string
 }
-
-export function useSession(): {
-  session: ParsedToken | null
-  keycloak: KeycloakInstance | undefined
-} {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
-  if (!keycloak?.authenticated) {
-    return { keycloak, session: null }
-  }
-
-  return {
-    keycloak,
-    session: keycloak?.tokenParsed ?? null,
-  }
-}
-
-export default { useSession }

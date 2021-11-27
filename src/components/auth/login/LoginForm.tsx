@@ -2,11 +2,8 @@ import * as yup from 'yup'
 import React, { useState } from 'react'
 import { Grid } from '@mui/material'
 import { useTranslation } from 'next-i18next'
-import { KeycloakInstance } from 'keycloak-js'
-import { useKeycloak } from '@react-keycloak/ssr'
 
 import { AlertStore } from 'stores/AlertStore'
-import { baseUrl, routes } from 'common/routes'
 import { customValidators } from 'common/form/useForm'
 import FormInput from 'components/common/form/FormInput'
 import GenericForm from 'components/common/form/GenericForm'
@@ -42,17 +39,11 @@ export type LoginFormProps = {
 export default function LoginForm({ csrfToken, initialValues = defaults }: LoginFormProps) {
   const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
-  const { keycloak } = useKeycloak<KeycloakInstance>()
 
   const onSubmit = async (values: LoginFormData) => {
     AlertStore.show(t('auth:alerts.welcome'), 'success')
     try {
       setLoading(true)
-
-      const result = await keycloak?.login({
-        loginHint: values.email,
-        redirectUri: `${baseUrl}${routes.profile}`,
-      })
 
       // const { error, status, ok, url }: LoginResponse = await signIn('credentials', {
       //   username: values.email,
@@ -60,7 +51,6 @@ export default function LoginForm({ csrfToken, initialValues = defaults }: Login
       //   redirect: false,
       // })
       console.log(values)
-      console.log({ result })
       // if (ok) {
       //   setLoading(false)
       //   AlertStore.show(t('auth:alerts.welcome'), 'success')

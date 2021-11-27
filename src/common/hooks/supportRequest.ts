@@ -1,5 +1,3 @@
-import { KeycloakInstance } from 'keycloak-js'
-import { useKeycloak } from '@react-keycloak/ssr'
 import { QueryClient, useQuery } from 'react-query'
 
 import { endpoints } from 'common/api-endpoints'
@@ -39,10 +37,9 @@ type SupportRequest = {
 }
 
 export function useSupportRequestList() {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
   return useQuery<SupportRequest[]>(
     endpoints.support.supportRequestList.url,
-    authQueryFnFactory<SupportRequest[]>(keycloak?.token),
+    authQueryFnFactory<SupportRequest[]>('token'),
   )
 }
 

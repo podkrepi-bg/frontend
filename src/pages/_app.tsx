@@ -1,28 +1,23 @@
 import Head from 'next/head'
 import { AppProps } from 'next/app'
-import getConfig from 'next/config'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { appWithTranslation, useTranslation } from 'next-i18next'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 
 // MaterialUI
-import { LinearProgress } from '@mui/material'
 import { ThemeProvider, Theme, StyledEngineProvider } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { CacheProvider } from '@emotion/react'
 import { EmotionCache } from '@emotion/cache'
 
-// Keycloak
-import { SSRKeycloakProvider, SSRCookies } from '@react-keycloak/ssr'
+// NextAuth
+import { SessionProvider } from 'next-auth/react'
 
 import theme from 'common/theme'
 import useGTM from 'common/util/useGTM'
 import { queryFn } from 'common/rest'
 import createEmotionCache from 'common/createEmotionCache'
-const {
-  publicRuntimeConfig: { keycloakConfig },
-} = getConfig()
 
 import 'styles/global.scss'
 
@@ -99,17 +94,37 @@ function CustomApp({
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
-          <SSRKeycloakProvider
+          <SessionProvider
+            // Provider options are not required but can be useful in situations where
+            // you have a short session maxAge time. Shown here with default values.
+            options={{
+              // Stale Time controls how often the useSession in the client should
+              // contact the server to sync the session state. Value in seconds.
+              // e.g.
+              // * 0  - Disabled (always use cache value)
+              // * 60 - Sync session state with server if it's older than 60 seconds
+              staleTime: 0,
+              // Refetch Interval tells windows / tabs that are signed in to keep sending
+              // a keep alive request (which extends the current session expiry) to
+              // prevent sessions in open windows from expiring. Value in seconds.
+              //
+              // Note: If a session has expired when keep alive is triggered, all open
+              // windows / tabs will be updated to reflect the user is signed out.
+              refetchInterval: 0,
+            }}
+            session={pageProps.session}>
+            {/* <SSRKeycloakProvider
             LoadingComponent={<LinearProgress />}
             onEvent={(e, err) => console.log(e, err)}
             keycloakConfig={keycloakConfig}
-            persistor={SSRCookies(pageProps?.keyCookies ?? {})}>
+            persistor={SSRCookies(pageProps?.keyCookies ?? {})}> */}
             <QueryClientProvider client={queryClient}>
               <Hydrate state={pageProps.dehydratedState}>
                 <Component {...pageProps} />
               </Hydrate>
             </QueryClientProvider>
-          </SSRKeycloakProvider>
+            {/* </SSRKeycloakProvider> */}
+          </SessionProvider>
         </ThemeProvider>
       </StyledEngineProvider>
     </CacheProvider>

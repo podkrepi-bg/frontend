@@ -13,7 +13,7 @@ import {
 // import { AccountCircle } from '@mui/icons-material'
 
 import Layout from 'components/layout/Layout'
-import { useSession } from 'common/util/useSession'
+import { useSession } from 'next-auth/react'
 // import LinkButton from 'components/common/LinkButton'
 // import LocaleSwitcher from 'components/layout/LocaleSwitcher'
 
@@ -33,9 +33,11 @@ export default function ProfilePage() {
   // const classes = useStyles()
   const { t } = useTranslation()
 
-  const { keycloak, session } = useSession()
+  const { data: session, status } = useSession()
 
-  if (!keycloak?.authenticated) {
+  const { user } = session ?? {}
+
+  if (status !== 'authenticated') {
     return (
       <Layout
         title={t('nav.profile')}
@@ -56,27 +58,21 @@ export default function ProfilePage() {
           <Grid item>
             <ul>
               <li>
-                <span className="font-weight-bold mr-1">Username: </span>
-                <span className="text-muted">{session?.preferred_username ?? ''}</span>
+                <span className="font-weight-bold mr-1">Image: </span>
+                <span className="text-muted">{user?.image ?? ''}</span>
               </li>
               <li>
                 <span className="font-weight-bold mr-1">Email: </span>
-                <span className="text-muted">{session?.email ?? ''}</span>
+                <span className="text-muted">{user?.email ?? ''}</span>
               </li>
               <li>
-                <span className="font-weight-bold mr-1">First Name: </span>
-                <span className="text-muted">{session?.given_name ?? ''}</span>
-              </li>
-              <li>
-                <span className="font-weight-bold mr-1">Last Name: </span>
-                <span className="text-muted">{session?.family_name ?? ''}</span>
+                <span className="font-weight-bold mr-1">Name: </span>
+                <span className="text-muted">{user?.name ?? ''}</span>
               </li>
             </ul>
           </Grid>
           <Grid item>
-            <pre>JWT: {keycloak.token?.substring(0, 30)}...</pre>
-            <pre>{JSON.stringify(session, null, 2)}</pre>
-            <pre>{JSON.stringify(keycloak, null, 2)}</pre>
+            <pre>{JSON.stringify(user, null, 2)}</pre>
           </Grid>
         </Grid>
 
