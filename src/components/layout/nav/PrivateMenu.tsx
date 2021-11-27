@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
 import { AccountCircle } from '@mui/icons-material'
 import { Avatar, Grid, IconButton, Menu, MenuItem } from '@mui/material'
 
 import { routes } from 'common/routes'
-import { useSession } from 'common/util/useSession'
 
 export default function PrivateMenu() {
   const router = useRouter()
   const { t } = useTranslation()
-  const { session } = useSession()
+  const { data: session, status } = useSession()
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
 
   const handleMenu = (event: React.MouseEvent) => setAnchorEl(event.currentTarget)
@@ -21,16 +21,16 @@ export default function PrivateMenu() {
     router.push(url)
   }
 
-  if (!session) {
+  if (status !== 'authenticated' || !session) {
     return null
   }
 
-  const title = `${session.name}\n(${session.email})`
+  const title = `${session?.user?.name}\n(${session?.user?.email})`
   return (
     <Grid item>
       <IconButton onClick={handleMenu} size="large">
-        {session.picture ? (
-          <Avatar title={title} alt={title} src={session.picture} />
+        {session?.user?.image ? (
+          <Avatar title={title} alt={title} src={session.user.image} />
         ) : (
           <Avatar title={title} alt={title}>
             <AccountCircle />

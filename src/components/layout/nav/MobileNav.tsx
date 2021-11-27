@@ -6,13 +6,13 @@ import createStyles from '@mui/styles/createStyles'
 import { SwipeableDrawer, Hidden, Box, Grid, Button } from '@mui/material'
 
 import { routes, staticUrls } from 'common/routes'
-import { useSession } from 'common/util/useSession'
 import LinkButton from 'components/common/LinkButton'
 import PodkrepiIcon from 'components/brand/PodkrepiIcon'
 import CloseModalButton from 'components/common/CloseModalButton'
 
 import { navItems } from './MainNavMenu'
 import LocaleButton from '../LocaleButton'
+import { useSession } from 'next-auth/react'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -40,10 +40,10 @@ type NavDeckProps = {
 }
 
 export const AuthLinks = () => {
-  const { session } = useSession()
+  const { status } = useSession()
   const { t } = useTranslation()
 
-  if (session) {
+  if (status === 'authenticated') {
     return (
       <>
         <Grid item>
