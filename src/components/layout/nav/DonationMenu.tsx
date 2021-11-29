@@ -1,4 +1,6 @@
 import { Button, Menu, MenuItem } from '@mui/material'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import { routes } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
 import { useTranslation } from 'next-i18next'
@@ -7,13 +9,19 @@ import React, { useState } from 'react'
 export default function LocaleMenu() {
   const { t } = useTranslation()
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
+  const open = Boolean(anchorEl)
 
   const handleMenu = (event: React.MouseEvent) => setAnchorEl(event.currentTarget)
   const handleClose = () => setAnchorEl(null)
 
   return (
     <>
-      <Button variant="text" color="primary" onClick={handleMenu} style={{ whiteSpace: 'nowrap' }}>
+      <Button
+        variant="text"
+        color="primary"
+        onClick={handleMenu}
+        style={{ whiteSpace: 'nowrap' }}
+        endIcon={open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}>
         {t('nav.donation-menu')}
       </Button>
       <Menu
