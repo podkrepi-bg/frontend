@@ -4,7 +4,6 @@ import { useTranslation } from 'next-i18next'
 
 import { routes, staticUrls } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
-import { featureFlagEnabled, Features } from 'common/util/featureFlag'
 import DonationMenu from './DonationMenu'
 
 type NavItem = {
@@ -30,12 +29,6 @@ const allNavItems: NavItem[] = [
     href: routes.contact,
     label: 'nav.contacts',
     variant: 'text',
-  },
-  {
-    href: routes.campaigns.index,
-    label: 'nav.campaigns.index',
-    variant: 'text',
-    enabled: featureFlagEnabled(Features.CAMPAIGN),
   },
   {
     href: routes.support,
