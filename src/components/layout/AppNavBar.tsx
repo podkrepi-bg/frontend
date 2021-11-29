@@ -118,7 +118,7 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
             size="small"
             edge="end"
             onClick={navMenuToggle}
-            aria-labelby="navigation menu">
+            aria-labelledby="navigation menu">
             <Menu fontSize="large" />
           </IconButton>
         </Hidden>
