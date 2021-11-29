@@ -5,6 +5,7 @@ import { routes } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
 import { useTranslation } from 'next-i18next'
 import React, { useState } from 'react'
+import { featureFlagEnabled, Features } from 'common/util/featureFlag'
 
 export default function LocaleMenu() {
   const { t } = useTranslation()
@@ -38,7 +39,7 @@ export default function LocaleMenu() {
         }}
         open={Boolean(anchorEl)}
         onClose={handleClose}>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleClose} disabled={featureFlagEnabled(Features.CAMPAIGN)}>
           <LinkButton
             variant="text"
             color="primary"
@@ -47,7 +48,7 @@ export default function LocaleMenu() {
             {t('nav.campaigns.index')}
           </LinkButton>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleClose} disabled={featureFlagEnabled(Features.CAMPAIGN)}>
           <LinkButton
             variant="text"
             color="primary"
