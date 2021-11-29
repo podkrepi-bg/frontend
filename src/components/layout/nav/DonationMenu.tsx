@@ -66,11 +66,7 @@ export default function LocaleMenu() {
           </LinkButton>
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <LinkButton
-            variant="text"
-            color="primary"
-            href={routes.termsOfService}
-            style={{ whiteSpace: 'nowrap' }}>
+          <LinkButton variant="text" color="primary" href={'#'} style={{ whiteSpace: 'nowrap' }}>
             {t('nav.faq')}
           </LinkButton>
         </MenuItem>

@@ -62,6 +62,9 @@ export default function MainNavMenu({ children }: { children?: React.ReactNode }
         </Grid>
       ))}
       <Grid item>
+        <DonationMenu />
+      </Grid>
+      <Grid item>
         <Button
           variant="text"
           target="_blank"
@@ -70,9 +73,6 @@ export default function MainNavMenu({ children }: { children?: React.ReactNode }
           style={{ whiteSpace: 'nowrap' }}>
           {t('nav.blog')}
         </Button>
-      </Grid>
-      <Grid item>
-        <DonationMenu />
       </Grid>
       {children}
     </Grid>
