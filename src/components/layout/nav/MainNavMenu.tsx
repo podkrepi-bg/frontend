@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 
 import { routes, staticUrls } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
-import { featureFlagEnabled, Features } from 'common/util/featureFlag'
+import DonationMenu from './DonationMenu'
 
 type NavItem = {
   href: string
@@ -31,12 +31,6 @@ const allNavItems: NavItem[] = [
     variant: 'text',
   },
   {
-    href: routes.campaigns.index,
-    label: 'nav.campaigns.index',
-    variant: 'text',
-    enabled: featureFlagEnabled(Features.CAMPAIGN),
-  },
-  {
     href: routes.support,
     label: 'nav.support-us',
     variant: 'outlined',
@@ -46,6 +40,7 @@ export const navItems = allNavItems.filter((el) => typeof el.enabled === 'undefi
 
 export default function MainNavMenu({ children }: { children?: React.ReactNode }) {
   const { t } = useTranslation()
+
   return (
     <Grid container direction="row" wrap="nowrap" alignItems="baseline" spacing={2}>
       {navItems.map(({ href, label, variant }, key) => (
@@ -59,6 +54,9 @@ export default function MainNavMenu({ children }: { children?: React.ReactNode }
           </LinkButton>
         </Grid>
       ))}
+      <Grid item>
+        <DonationMenu />
+      </Grid>
       <Grid item>
         <Button
           variant="text"
