@@ -7,7 +7,7 @@ import { useTranslation } from 'next-i18next'
 import React, { useState } from 'react'
 import { featureFlagEnabled, Features } from 'common/util/featureFlag'
 
-export default function LocaleMenu() {
+export default function DonationMenu() {
   const { t } = useTranslation()
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
   const open = Boolean(anchorEl)
