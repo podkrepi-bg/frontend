@@ -13,6 +13,7 @@ import CloseModalButton from 'components/common/CloseModalButton'
 
 import { navItems } from './MainNavMenu'
 import LocaleButton from '../LocaleButton'
+import DonationMenuMobile from './DonationMenuMobile'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -30,6 +31,9 @@ const useStyles = makeStyles((theme) =>
       fontSize: theme.typography.pxToRem(80),
       marginTop: theme.spacing(5),
       marginBottom: theme.spacing(5),
+    },
+    accordion: {
+      padding: theme.spacing(1.9, 0, 1.9, 1.9),
     },
   }),
 )
@@ -116,6 +120,9 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
                   </LinkButton>
                 </Grid>
               ))}
+              <Grid className={classes.accordion}>
+                <DonationMenuMobile />
+              </Grid>
               <Button
                 href={staticUrls.blog}
                 target="_blank"
