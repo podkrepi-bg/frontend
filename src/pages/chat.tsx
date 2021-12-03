@@ -3,7 +3,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import WidgetBot from '@widgetbot/react-embed'
 
 import Layout from 'components/layout/Layout'
-import { Container } from '@mui/material'
 
 export type LoginPageProps = {
   providers: string[]
@@ -22,7 +21,7 @@ export const getServerSideProps: GetServerSideProps<LoginPageProps> = async (ctx
 
 export default function Chat() {
   return (
-    <Layout hideFooter maxWidth={false}>
+    <Layout hideFooter maxWidth={false} boxProps={{ pb: 0 }}>
       {/* @ts-expect-error pass css string instead of number */}
       <WidgetBot
         server="778984868146577458"
