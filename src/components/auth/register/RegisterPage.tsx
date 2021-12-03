@@ -1,18 +1,17 @@
-import React from 'react'
-import { useTranslation } from 'next-i18next'
-import { Container } from '@mui/material'
+import React, { useEffect } from 'react'
+import { KeycloakInstance } from 'keycloak-js'
+import { LinearProgress } from '@mui/material'
+import { useKeycloak } from '@react-keycloak/ssr'
 
-import Layout from 'components/layout/Layout'
-import RegisterForm from 'components/auth/register/RegisterForm'
+import { baseUrl, routes } from 'common/routes'
 
-export default function RegisterPage() {
-  const { t } = useTranslation()
+export default function LoginPage() {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  useEffect(() => {
+    keycloak?.register({
+      redirectUri: `${baseUrl}${routes.profile}`,
+    })
+  }, [])
 
-  return (
-    <Layout title={t('nav.register')}>
-      <Container maxWidth="xs">
-        <RegisterForm />
-      </Container>
-    </Layout>
-  )
+  return <LinearProgress />
 }
