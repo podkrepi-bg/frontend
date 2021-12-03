@@ -41,6 +41,7 @@
     "@uppy/google-drive": "2.0.4",
     "@uppy/image-editor": "1.0.4",
     "@uppy/react": "2.1.1",
+    "@widgetbot/react-embed": "^1.4.0",
     "axios": "0.21.4",
     "axios-hooks": "2.7.0",
     "classnames": "2.3.1",

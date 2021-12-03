@@ -21,6 +21,7 @@ type LayoutProps = React.PropsWithChildren<
     ogImage?: string
     githubUrl?: string
     figmaUrl?: string
+    hideFooter?: boolean
     disableOffset?: boolean
   }
 >
@@ -52,6 +53,7 @@ export default function Layout({
   disableOffset = false,
   githubUrl,
   figmaUrl,
+  hideFooter = false,
   ...containerProps
 }: LayoutProps) {
   const classes = useStyles()
@@ -90,7 +92,7 @@ export default function Layout({
         <Snackbar />
         <DetailsModal />
       </Container>
-      <Footer />
+      {!hideFooter && <Footer />}
     </Container>
   )
 }
