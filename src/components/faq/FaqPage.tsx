@@ -3,6 +3,7 @@ import { Container } from '@mui/material'
 import Layout from 'components/layout/Layout'
 import { useTranslation } from 'next-i18next'
 import ExpandableListItem from './ExpandableListItem'
+import ContactUs from './ContactUs'
 
 export default function FaqPage() {
   const { t } = useTranslation()
@@ -93,6 +94,7 @@ export default function FaqPage() {
             'В случаите, когато е изплатена цялата сума по кампанията и не бъде предоставен отчет от Организатора/ Бенефициента, същият губи правото си за бъдещи кампании на платформата на Подкрепи.бг.'
           }
         />
+        <ContactUs />
       </Container>
     </Layout>
   )
