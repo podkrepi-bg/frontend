@@ -67,7 +67,11 @@ export default function DonationMenu() {
           </LinkButton>
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <LinkButton variant="text" color="primary" href={'#'} style={{ whiteSpace: 'nowrap' }}>
+          <LinkButton
+            variant="text"
+            color="primary"
+            href={routes.faq}
+            style={{ whiteSpace: 'nowrap' }}>
             {t('nav.faq')}
           </LinkButton>
         </MenuItem>
