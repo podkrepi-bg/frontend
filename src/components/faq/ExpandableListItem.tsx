@@ -1,43 +1,35 @@
 import { Collapse, List, ListItemButton, ListItemText } from '@mui/material'
-import { ExpandLess, ExpandMore } from '@mui/icons-material'
+import { Add, Remove } from '@mui/icons-material'
 import React, { useState } from 'react'
 import theme from '../../common/theme'
-import useMediaQuery from '@mui/material/useMediaQuery'
 
 interface Props {
   header: string
   content: string
 }
 
-const AccentText = () => (
-  <ListItemText
-    primary={'Въпрос: '}
-    primaryTypographyProps={{ fontSize: '18px' }}
-    sx={{
-      maxWidth: '10%',
-      color: theme.palette.primary.main,
-      padding: '1rem',
-      margin: '1rem',
-    }}
-  />
-)
+const withAccentColor = (open: boolean) => (open ? theme.palette.primary.main : 'black')
 
 const ExpandableListItem = ({ header, content }: Props) => {
   const [open, setOpen] = useState(false)
-  const isSm = useMediaQuery(theme.breakpoints.down('md'))
   return (
-    <>
+    <List
+      sx={{
+        mb: 4,
+        width: '100%',
+        borderRadius: '6px',
+        boxShadow: '0px 0.5px 1px #888888',
+      }}>
       <ListItemButton onClick={() => setOpen(!open)}>
-        {!isSm && <AccentText />}
         <ListItemText
           primary={header}
           sx={{ padding: '1rem' }}
-          primaryTypographyProps={{ variant: 'subtitle1' }}
+          primaryTypographyProps={{ variant: 'subtitle1', color: `${withAccentColor(open)}` }}
         />
         {open ? (
-          <ExpandLess sx={{ color: theme.palette.primary.dark }} />
+          <Remove sx={{ color: `${withAccentColor(open)}` }} />
         ) : (
-          <ExpandMore sx={{ color: theme.palette.primary.main }} />
+          <Add sx={{ color: `${withAccentColor(open)}` }} />
         )}
       </ListItemButton>
       <Collapse in={open} unmountOnExit>
@@ -49,7 +41,7 @@ const ExpandableListItem = ({ header, content }: Props) => {
           />
         </List>
       </Collapse>
-    </>
+    </List>
   )
 }
 
