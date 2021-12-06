@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'next-i18next'
-import { Box, Container, ContainerProps, Typography } from '@mui/material'
+import { Box, BoxProps, Container, ContainerProps, Typography } from '@mui/material'
 
 import createStyles from '@mui/styles/createStyles'
 import makeStyles from '@mui/styles/makeStyles'
@@ -21,7 +21,9 @@ type LayoutProps = React.PropsWithChildren<
     ogImage?: string
     githubUrl?: string
     figmaUrl?: string
+    hideFooter?: boolean
     disableOffset?: boolean
+    boxProps?: BoxProps
   }
 >
 
@@ -52,6 +54,8 @@ export default function Layout({
   disableOffset = false,
   githubUrl,
   figmaUrl,
+  hideFooter = false,
+  boxProps,
   ...containerProps
 }: LayoutProps) {
   const classes = useStyles()
@@ -70,7 +74,7 @@ export default function Layout({
           <meta key="og:image:width" property="og:image:width" content="1910" />
           <meta key="og:image:height" property="og:image:height" content="1000" />
         </Head>
-        <Box pt={4} pb={disableOffset ? 0 : 10}>
+        <Box pt={4} pb={disableOffset ? 0 : 10} {...boxProps}>
           <AppNavBar navMenuToggle={navMenuToggle} />
           <MobileNav mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
           {!disableOffset && <div className={classes.offset} />}
@@ -90,7 +94,7 @@ export default function Layout({
         <Snackbar />
         <DetailsModal />
       </Container>
-      <Footer />
+      {!hideFooter && <Footer />}
     </Container>
   )
 }
