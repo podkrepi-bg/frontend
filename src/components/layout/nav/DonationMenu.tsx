@@ -39,24 +39,28 @@ export default function DonationMenu() {
         }}
         open={Boolean(anchorEl)}
         onClose={handleClose}>
-        <MenuItem onClick={handleClose} disabled={featureFlagEnabled(Features.CAMPAIGN)}>
-          <LinkButton
-            variant="text"
-            color="primary"
-            href={routes.campaigns.index}
-            style={{ whiteSpace: 'nowrap' }}>
-            {t('nav.campaigns.index')}
-          </LinkButton>
-        </MenuItem>
-        <MenuItem onClick={handleClose} disabled={featureFlagEnabled(Features.CAMPAIGN)}>
-          <LinkButton
-            variant="text"
-            color="primary"
-            href={routes.campaigns.create}
-            style={{ whiteSpace: 'nowrap' }}>
-            {t('nav.campaigns.create')}
-          </LinkButton>
-        </MenuItem>
+        {featureFlagEnabled(Features.CAMPAIGN) && (
+          <MenuItem onClick={handleClose}>
+            <LinkButton
+              variant="text"
+              color="primary"
+              href={routes.campaigns.index}
+              style={{ whiteSpace: 'nowrap' }}>
+              {t('nav.campaigns.index')}
+            </LinkButton>
+          </MenuItem>
+        )}
+        {featureFlagEnabled(Features.CAMPAIGN) && (
+          <MenuItem onClick={handleClose}>
+            <LinkButton
+              variant="text"
+              color="primary"
+              href={routes.campaigns.create}
+              style={{ whiteSpace: 'nowrap' }}>
+              {t('nav.campaigns.create')}
+            </LinkButton>
+          </MenuItem>
+        )}
         <MenuItem onClick={handleClose}>
           <LinkButton
             variant="text"
