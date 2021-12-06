@@ -11,7 +11,7 @@ import LinkButton from 'components/common/LinkButton'
 import PodkrepiIcon from 'components/brand/PodkrepiIcon'
 import CloseModalButton from 'components/common/CloseModalButton'
 
-import { navItems } from './MainNavMenu'
+import { navItems } from './ProjectMenu'
 import LocaleButton from '../LocaleButton'
 import DonationMenuMobile from './DonationMenuMobile'
 

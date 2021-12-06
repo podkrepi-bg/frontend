@@ -111,6 +111,12 @@ export const themeOptions: ThemeOptions = {
         },
       },
     },
+
+    MuiMenuItem: {
+      defaultProps: {
+        sx: { py: 1.5 },
+      },
+    },
   },
 
   typography: {
