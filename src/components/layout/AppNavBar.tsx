@@ -96,10 +96,9 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
             className={classes.toolboxGrid}>
             <Grid item>
               <MainNavMenu>
+                {keycloak?.authenticated ? <PrivateMenu /> : <PublicMenu />}
                 <Grid item>
                   <LocaleButton />
-                </Grid>
-                <Grid item>
                   <IconButton
                     size="small"
                     target="_blank"
@@ -108,7 +107,6 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
                     <GitHub fontSize="small" />
                   </IconButton>
                 </Grid>
-                {keycloak?.authenticated ? <PrivateMenu /> : <PublicMenu disableAuth />}
               </MainNavMenu>
             </Grid>
           </Grid>

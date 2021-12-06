@@ -32,9 +32,7 @@ export default function PrivateMenu() {
         {session.picture ? (
           <Avatar title={title} alt={title} src={session.picture} />
         ) : (
-          <Avatar title={title} alt={title}>
-            <AccountCircle />
-          </Avatar>
+          <AccountCircle color="info" />
         )}
       </IconButton>
       <Menu
