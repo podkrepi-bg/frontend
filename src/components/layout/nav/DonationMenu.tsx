@@ -1,14 +1,17 @@
-import { Button, Menu, MenuItem } from '@mui/material'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-import { routes } from 'common/routes'
-import LinkButton from 'components/common/LinkButton'
-import { useTranslation } from 'next-i18next'
+import Link from 'next/link'
 import React, { useState } from 'react'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { Button, Menu, MenuItem } from '@mui/material'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+
+import { routes } from 'common/routes'
 import { featureFlagEnabled, Features } from 'common/util/featureFlag'
 
 export default function DonationMenu() {
   const { t } = useTranslation()
+  const router = useRouter()
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
   const open = Boolean(anchorEl)
 
@@ -26,55 +29,37 @@ export default function DonationMenu() {
         {t('nav.donation-menu')}
       </Button>
       <Menu
+        keepMounted
         id="menu-donation"
         anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-        keepMounted
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
+        onClose={handleClose}
         open={Boolean(anchorEl)}
-        onClose={handleClose}>
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}>
         {featureFlagEnabled(Features.CAMPAIGN) && (
-          <MenuItem onClick={handleClose}>
-            <LinkButton
-              variant="text"
-              color="primary"
-              href={routes.campaigns.index}
-              style={{ whiteSpace: 'nowrap' }}>
+          <Link href={routes.campaigns.index} passHref>
+            <MenuItem component="a" selected={router.asPath === routes.campaigns.index}>
               {t('nav.campaigns.index')}
-            </LinkButton>
-          </MenuItem>
+            </MenuItem>
+          </Link>
         )}
         {featureFlagEnabled(Features.CAMPAIGN) && (
-          <MenuItem onClick={handleClose}>
-            <LinkButton
-              variant="text"
-              color="primary"
-              href={routes.campaigns.create}
-              style={{ whiteSpace: 'nowrap' }}>
+          <Link href={routes.campaigns.create} passHref>
+            <MenuItem component="a" selected={router.asPath.startsWith(routes.campaigns.create)}>
               {t('nav.campaigns.create')}
-            </LinkButton>
-          </MenuItem>
+            </MenuItem>
+          </Link>
         )}
-        <MenuItem onClick={handleClose}>
-          <LinkButton
-            variant="text"
-            color="primary"
-            href={routes.termsOfService}
-            style={{ whiteSpace: 'nowrap' }}>
+        <Link href={routes.termsOfService} passHref>
+          <MenuItem component="a" selected={router.asPath.startsWith(routes.termsOfService)}>
             {t('components.footer.terms-of-service')}
-          </LinkButton>
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <LinkButton variant="text" color="primary" href={'#'} style={{ whiteSpace: 'nowrap' }}>
+          </MenuItem>
+        </Link>
+        <Link href={routes.faq} passHref>
+          <MenuItem component="a" selected={router.asPath.startsWith(routes.faq)}>
             {t('nav.faq')}
-          </LinkButton>
-        </MenuItem>
+          </MenuItem>
+        </Link>
       </Menu>
     </>
   )
