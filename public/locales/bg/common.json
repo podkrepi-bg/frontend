@@ -1,7 +1,7 @@
 {
   "nav": {
     "home": "Начало",
-    "about": "За нас",
+    "about": "За доброволците",
     "blog": "Блог",
     "about-project": "За проекта",
     "contacts": "Контакти",
@@ -16,7 +16,7 @@
     },
     "donation-menu": "Дарителство",
     "faq": "Често задавани въпроси",
-    "support-us": "Подкрепи ни",
+    "support-us": "Стани доброволец",
     "profile": "Моят профил",
     "login": "Вход",
     "login-with": "Вход с",
@@ -39,11 +39,11 @@
   "figma-link-text": "Фигма Дизайн",
   "components": {
     "footer": {
-      "about-us": "За нас",
+      "about-us": "За доброволците",
       "about-project": "За проекта",
       "docs": "Документация",
       "dev-docs": "Техническа  Документация",
-      "support": "Подкрепи ни",
+      "support": "Стани доброволец",
       "contact": "Контакти",
       "privacy-policy": "Защита на лични данни",
       "terms-of-service": "Общи условия",
