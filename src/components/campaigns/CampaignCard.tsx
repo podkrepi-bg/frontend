@@ -15,12 +15,9 @@ import {
   Typography,
   Box,
   Link,
-  darken,
 } from '@mui/material'
-import FavoriteIcon from '@mui/icons-material/Favorite'
 import { Favorite } from '@mui/icons-material'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import { ToggleButton, ToggleButtonGroup } from '@mui/material'
 import { money } from 'common/util/money'
 
 const useStyles = makeStyles((theme) => ({
@@ -121,10 +118,10 @@ const useStyles = makeStyles((theme) => ({
 
     '&:hover': {
       border: `2px solid ${theme.palette.primary.dark}`,
-    }
+    },
   },
 
-  progressBar:{
+  progressBar: {
     marginBottom: theme.spacing(7),
     textAlign: 'left',
   },
@@ -134,12 +131,12 @@ type Props = { campaign: CampaignResponse }
 export default function CampaignCard({ campaign }: Props) {
   const classes = useStyles()
   const { t } = useTranslation()
-  const amounts = [20, 50, 100]
+  //const amounts = [20, 50, 100]
+  //const [alignment, setAlignment] = React.useState<string | null>('left')
+  // const handleAlignment = (event: React.MouseEvent<HTMLElement>, newAlignment: string | null) => {
+  //   setAlignment(newAlignment)
+  // }
 
-  const [alignment, setAlignment] = React.useState<string | null>('left')
-  const handleAlignment = (event: React.MouseEvent<HTMLElement>, newAlignment: string | null) => {
-    setAlignment(newAlignment)
-  }
   const target = campaign.targetAmount
   const summary = campaign.summary.find(() => true)
   const reached = summary ? summary.reachedAmount : 0
