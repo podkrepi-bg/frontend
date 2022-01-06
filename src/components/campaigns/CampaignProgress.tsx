@@ -48,7 +48,7 @@ export default function CampaignProgress({ raised, target }: Props) {
       <Grid item xs={12}>
         <BorderLinearProgress variant="determinate" value={percentage > 100 ? 100 : percentage} />
       </Grid>
-      <Grid item xs={6}>
+      {/* <Grid item xs={6}>
         <Typography gutterBottom color="primary" variant="body1" align="left">
           {money(raised)}
         </Typography>
@@ -62,7 +62,7 @@ export default function CampaignProgress({ raised, target }: Props) {
             (+ {money(raised - target)})
           </Typography>
         )}
-      </Grid>
+      </Grid> */}
     </Grid>
   )
 }

@@ -19,6 +19,9 @@ const colors = {
     main: '#F5F5F5',
     background: '#FAFAFA',
   },
+  white: {
+    main: '#FFFFF',
+  },
 }
 
 export const themeOptions: ThemeOptions = {
@@ -34,7 +37,7 @@ export const themeOptions: ThemeOptions = {
       light: colors.gray.main,
     },
     background: {
-      default: colors.gray.background,
+      default: colors.white.main,
     },
   },
   shape: {
