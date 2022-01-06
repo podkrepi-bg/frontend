@@ -2,9 +2,7 @@ import React, { useMemo } from 'react'
 import makeStyles from '@mui/styles/makeStyles'
 import withStyles from '@mui/styles/withStyles'
 import LinearProgress from '@mui/material/LinearProgress'
-import { Grid, Typography } from '@mui/material'
-
-import { money } from 'common/util/money'
+import { Grid } from '@mui/material'
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
