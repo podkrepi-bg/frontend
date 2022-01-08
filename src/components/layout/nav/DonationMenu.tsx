@@ -15,13 +15,11 @@ export default function DonationMenu() {
   const router = useRouter()
   return (
     <GenericMenu label={t('nav.donation-menu')}>
-      {featureFlagEnabled(Features.CAMPAIGN) && (
-        <Link href={routes.campaigns.index} passHref>
-          <MenuItem component="a" selected={router.asPath === routes.campaigns.index}>
-            <Typography variant="button">{t('nav.campaigns.index')}</Typography>
-          </MenuItem>
-        </Link>
-      )}
+      <Link href={routes.campaigns.index} passHref>
+        <MenuItem component="a" selected={router.asPath === routes.campaigns.index}>
+          <Typography variant="button">{t('nav.campaigns.index')}</Typography>
+        </MenuItem>
+      </Link>
       {featureFlagEnabled(Features.CAMPAIGN) && (
         <LinkMenuItem
           href={routes.campaigns.create}

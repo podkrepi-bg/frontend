@@ -98,13 +98,21 @@ const useStyles = makeStyles((theme) => ({
   },
 
   cardWrapper: {
-    backgroundColor: theme.palette.grey[300],
+    position: 'relative',
+    minHeight: theme.spacing(87),
+    backgroundColor: theme.palette.grey[200],
     border: 'none',
     borderRadius: 0,
   },
 
   campaignTitle: {
     textTransform: 'capitalize',
+  },
+
+  cardButtons: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
   },
 
   supportNowButton: {
@@ -187,7 +195,7 @@ export default function CampaignCard({ campaign }: Props) {
               })}
             </ToggleButtonGroup>
           </Grid> */}
-          <Grid item xs={12}>
+          <Grid item xs={12} className={classes.cardButtons}>
             <Box mx={2} mb={2}>
               <LinkButton
                 fullWidth
