@@ -2,9 +2,7 @@ import React, { useMemo } from 'react'
 import makeStyles from '@mui/styles/makeStyles'
 import withStyles from '@mui/styles/withStyles'
 import LinearProgress from '@mui/material/LinearProgress'
-import { Grid, Typography } from '@mui/material'
-
-import { money } from 'common/util/money'
+import { Grid } from '@mui/material'
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
@@ -48,7 +46,7 @@ export default function CampaignProgress({ raised, target }: Props) {
       <Grid item xs={12}>
         <BorderLinearProgress variant="determinate" value={percentage > 100 ? 100 : percentage} />
       </Grid>
-      <Grid item xs={6}>
+      {/* <Grid item xs={6}>
         <Typography gutterBottom color="primary" variant="body1" align="left">
           {money(raised)}
         </Typography>
@@ -62,7 +60,7 @@ export default function CampaignProgress({ raised, target }: Props) {
             (+ {money(raised - target)})
           </Typography>
         )}
-      </Grid>
+      </Grid> */}
     </Grid>
   )
 }
