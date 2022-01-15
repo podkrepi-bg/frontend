@@ -3,11 +3,9 @@ import { Theme } from '@mui/material/styles'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 import { Typography, CardContent, CardHeader, Card, SvgIconProps } from '@mui/material'
-import { grey } from '@mui/material/colors'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    container: { backgroundColor: grey[50] },
     contentContainer: {
       padding: theme.spacing(0),
       margin: theme.spacing(2, 0),
@@ -50,7 +48,7 @@ type PrincipleCardProps = {
 export default function PrincipleCard({ Icon, heading, content }: PrincipleCardProps) {
   const classes = useStyles()
   return (
-    <Card elevation={0} className={classes.container}>
+    <Card elevation={0}>
       <CardHeader
         className={classes.cardHeader}
         avatar={<Icon className={classes.icon} />}

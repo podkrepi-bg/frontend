@@ -1,81 +1,40 @@
-import { Button, Menu, MenuItem } from '@mui/material'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-import { routes } from 'common/routes'
-import LinkButton from 'components/common/LinkButton'
+import Link from 'next/link'
+import React from 'react'
+import { useRouter } from 'next/router'
+import { MenuItem, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
-import React, { useState } from 'react'
+
+import { routes } from 'common/routes'
+import LinkMenuItem from 'components/common/LinkMenuItem'
 import { featureFlagEnabled, Features } from 'common/util/featureFlag'
+
+import GenericMenu from './GenericMenu'
 
 export default function DonationMenu() {
   const { t } = useTranslation()
-  const [anchorEl, setAnchorEl] = useState<Element | null>(null)
-  const open = Boolean(anchorEl)
-
-  const handleMenu = (event: React.MouseEvent) => setAnchorEl(event.currentTarget)
-  const handleClose = () => setAnchorEl(null)
-
+  const router = useRouter()
   return (
-    <>
-      <Button
-        variant="text"
-        color="primary"
-        onClick={handleMenu}
-        style={{ whiteSpace: 'nowrap' }}
-        endIcon={open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}>
-        {t('nav.donation-menu')}
-      </Button>
-      <Menu
-        id="menu-donation"
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
-        }}
-        keepMounted
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
-        }}
-        open={Boolean(anchorEl)}
-        onClose={handleClose}>
-        <MenuItem onClick={handleClose} disabled={featureFlagEnabled(Features.CAMPAIGN)}>
-          <LinkButton
-            variant="text"
-            color="primary"
-            href={routes.campaigns.index}
-            style={{ whiteSpace: 'nowrap' }}>
-            {t('nav.campaigns.index')}
-          </LinkButton>
+    <GenericMenu label={t('nav.donation-menu')}>
+      <Link href={routes.campaigns.index} passHref>
+        <MenuItem component="a" selected={router.asPath === routes.campaigns.index}>
+          <Typography variant="button">{t('nav.campaigns.index')}</Typography>
         </MenuItem>
-        <MenuItem onClick={handleClose} disabled={featureFlagEnabled(Features.CAMPAIGN)}>
-          <LinkButton
-            variant="text"
-            color="primary"
-            href={routes.campaigns.create}
-            style={{ whiteSpace: 'nowrap' }}>
-            {t('nav.campaigns.create')}
-          </LinkButton>
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <LinkButton
-            variant="text"
-            color="primary"
-            href={routes.termsOfService}
-            style={{ whiteSpace: 'nowrap' }}>
-            {t('components.footer.terms-of-service')}
-          </LinkButton>
-        </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <LinkButton
-            variant="text"
-            color="primary"
-            href={routes.faq}
-            style={{ whiteSpace: 'nowrap' }}>
-            {t('nav.faq')}
-          </LinkButton>
-        </MenuItem>
-      </Menu>
-    </>
+      </Link>
+      {featureFlagEnabled(Features.CAMPAIGN) && (
+        <LinkMenuItem
+          href={routes.campaigns.create}
+          selected={router.asPath.startsWith(routes.campaigns.create)}>
+          <Typography variant="button">{t('nav.campaigns.create')}</Typography>
+        </LinkMenuItem>
+      )}
+      <LinkMenuItem
+        href={routes.termsOfService}
+        selected={router.asPath.startsWith(routes.termsOfService)}>
+        <Typography variant="button">{t('components.footer.terms-of-service')}</Typography>
+      </LinkMenuItem>
+      <LinkMenuItem href={routes.faq} selected={router.asPath.startsWith(routes.faq)}>
+        <Typography variant="button">{t('nav.faq')}</Typography>
+      </LinkMenuItem>
+    </GenericMenu>
   )
 }

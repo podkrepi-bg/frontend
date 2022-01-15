@@ -1,6 +1,6 @@
 {
   "name": "podkrepi-bg-frontend",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "license": "MIT",
   "repository": "https://github.com/orgs/podkrepi-bg",
   "scripts": {
@@ -41,6 +41,7 @@
     "@uppy/google-drive": "2.0.4",
     "@uppy/image-editor": "1.0.4",
     "@uppy/react": "2.1.1",
+    "@widgetbot/react-embed": "^1.4.0",
     "axios": "0.21.4",
     "axios-hooks": "2.7.0",
     "classnames": "2.3.1",
@@ -51,7 +52,7 @@
     "keycloak-js": "^15.0.2",
     "mobx": "6.3.2",
     "mobx-react": "7.2.0",
-    "next": "^12.0.4",
+    "next": "^12.0.7",
     "next-i18next": "8.4.0",
     "nookies": "^2.5.2",
     "react": "17.0.2",
@@ -66,7 +67,7 @@
     "yup": "0.32.9"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@types/cookie": "^0.4.1",
     "@types/lru-cache": "^5.1.1",
@@ -76,7 +77,6 @@
     "@types/yup": "0.29.11",
     "@typescript-eslint/eslint-plugin": "4.26.0",
     "@typescript-eslint/parser": "4.26.0",
-    "babel-jest": "^27.3.1",
     "eslint": "7.27.0",
     "eslint-config-next": "^11.0.1",
     "eslint-config-prettier": "8.3.0",

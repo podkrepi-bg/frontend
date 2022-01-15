@@ -16,8 +16,9 @@ import {
   Box,
   Link,
 } from '@mui/material'
-import FavoriteIcon from '@mui/icons-material/Favorite'
-import { ToggleButton, ToggleButtonGroup } from '@mui/material'
+import { Favorite } from '@mui/icons-material'
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import { money } from 'common/util/money'
 
 const useStyles = makeStyles((theme) => ({
   media: {
@@ -95,23 +96,61 @@ const useStyles = makeStyles((theme) => ({
   cardActions: {
     padding: '0',
   },
+
+  cardWrapper: {
+    position: 'relative',
+    minHeight: theme.spacing(87),
+    backgroundColor: theme.palette.grey[200],
+    border: 'none',
+    borderRadius: 0,
+  },
+
+  campaignTitle: {
+    textTransform: 'capitalize',
+  },
+
+  cardButtons: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+  },
+
+  supportNowButton: {
+    padding: theme.spacing(1, 4),
+  },
+
+  seeMoreButton: {
+    backgroundColor: theme.palette.common.white,
+    padding: theme.spacing(1, 4),
+    border: `2px solid ${theme.palette.primary.main}`,
+
+    '&:hover': {
+      border: `2px solid ${theme.palette.primary.dark}`,
+    },
+  },
+
+  progressBar: {
+    marginBottom: theme.spacing(7),
+    textAlign: 'left',
+  },
 }))
 
 type Props = { campaign: CampaignResponse }
 export default function CampaignCard({ campaign }: Props) {
   const classes = useStyles()
   const { t } = useTranslation()
-  const amounts = [20, 50, 100]
+  //const amounts = [20, 50, 100]
+  //const [alignment, setAlignment] = React.useState<string | null>('left')
+  // const handleAlignment = (event: React.MouseEvent<HTMLElement>, newAlignment: string | null) => {
+  //   setAlignment(newAlignment)
+  // }
 
-  const [alignment, setAlignment] = React.useState<string | null>('left')
-  const handleAlignment = (event: React.MouseEvent<HTMLElement>, newAlignment: string | null) => {
-    setAlignment(newAlignment)
-  }
   const target = campaign.targetAmount
   const summary = campaign.summary.find(() => true)
   const reached = summary ? summary.reachedAmount : 0
+
   return (
-    <Card variant="outlined">
+    <Card variant="outlined" className={classes.cardWrapper}>
       <CardActionArea>
         <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)}>
           <CardMedia
@@ -121,7 +160,7 @@ export default function CampaignCard({ campaign }: Props) {
           />
         </Link>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom variant="h5" component="h2" className={classes.campaignTitle}>
             {campaign.title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
@@ -134,7 +173,10 @@ export default function CampaignCard({ campaign }: Props) {
           <Box p={2} width={1}>
             <CampaignProgress raised={reached} target={target} />
           </Box>
-          <Grid item xs={12}>
+          <Typography variant="subtitle1" component="p" className={classes.progressBar}>
+            събрани <b>{money(reached)}</b> / цел <b>{money(target)}</b>
+          </Typography>
+          {/* <Grid item xs={12}>
             <ToggleButtonGroup
               exclusive
               value={alignment}
@@ -152,17 +194,28 @@ export default function CampaignCard({ campaign }: Props) {
                 )
               })}
             </ToggleButtonGroup>
-          </Grid>
-          <Grid item xs={12}>
-            <Box p={2}>
+          </Grid> */}
+          <Grid item xs={12} className={classes.cardButtons}>
+            <Box mx={2} mb={2}>
               <LinkButton
-                href={routes.campaigns.viewCampaignBySlug(campaign.slug)}
                 fullWidth
-                size="small"
-                color="primary"
+                href={routes.campaigns.viewCampaignBySlug(campaign.slug)}
                 variant="contained"
-                startIcon={<FavoriteIcon />}>
-                {t('campaigns:cta.donate')}
+                color="secondary"
+                className={classes.supportNowButton}
+                endIcon={<Favorite color="error" />}>
+                {t('campaigns:cta.support-now')}
+              </LinkButton>
+            </Box>
+            <Box mx={2} mb={2}>
+              <LinkButton
+                fullWidth
+                href={routes.campaigns.viewCampaignBySlug(campaign.slug)}
+                variant="outlined"
+                size="small"
+                className={classes.seeMoreButton}
+                endIcon={<ArrowForwardIosIcon />}>
+                {t('nav.campaigns.see-more-button')}
               </LinkButton>
             </Box>
           </Grid>

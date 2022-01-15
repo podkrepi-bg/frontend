@@ -26,6 +26,7 @@ export const socialUrls = {
 
 export const routes = {
   index: '/',
+  faq: '/faq',
   about: '/about',
   login: '/login',
   logout: '/logout',
