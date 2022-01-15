@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(5),
     },
-    stepper: { backgroundColor: 'transparent' },
+    stepper: { backgroundColor: 'transparent', marginBottom: theme.spacing(8) },
     content: { display: 'flex', justifyContent: 'center' },
   }),
 )
