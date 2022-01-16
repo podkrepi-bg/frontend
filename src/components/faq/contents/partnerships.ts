@@ -1,1 +1,3 @@
-export const PARTNERSHIPS_QUESTIONS = []
+import { ContentType } from './content-type'
+
+export const PARTNERSHIPS_QUESTIONS: ContentType[] = []

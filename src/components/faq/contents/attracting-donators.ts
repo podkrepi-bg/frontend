@@ -1,4 +1,6 @@
-export const ATTRACTING_DONATORS_QUESTIONS = [
+import { ContentType } from './content-type'
+
+export const ATTRACTING_DONATORS_QUESTIONS: ContentType[] = [
   {
     header: 'До каква степен Подкрепи.бг помага за маркетинга на отделните кампании?',
     content: `Подкрепи.бг се грижи за видимостта на цялата платформа, а оттам, съответно - и на всички кампании в нея. 
