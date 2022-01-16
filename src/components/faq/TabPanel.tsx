@@ -7,7 +7,11 @@ type Props = {
 }
 
 const TabPanel = ({ value, index, children }: Props) => {
-  return <div role="tabpanel">{value === index && children}</div>
+  return (
+    <div hidden={value !== index} role="tabpanel">
+      {value === index && children}
+    </div>
+  )
 }
 
 export default TabPanel
