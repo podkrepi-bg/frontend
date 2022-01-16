@@ -16,6 +16,7 @@ import {
   ATTRACTING_DONATORS_QUESTIONS,
   PARTNERSHIPS_QUESTIONS,
 } from './contents'
+import ScrollToTop from './ScrollToTop'
 
 export default function FaqPage() {
   const { t } = useTranslation()
@@ -63,6 +64,7 @@ export default function FaqPage() {
         </VerticalTabs>
       </TabContext>
       <ContactUs />
+      <ScrollToTop />
     </Layout>
   )
 }
