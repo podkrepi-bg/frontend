@@ -23,48 +23,46 @@ export default function FaqPage() {
 
   return (
     <Layout title={t('nav.faq')}>
-      <Container>
-        <TabContext value={value.toString()}>
-          <VerticalTabs value={value} setValue={setValue}>
-            <TabPanel value={value} index={0}>
-              {COMMON_QUESTIONS.map(({ header, content }) => (
-                <ExpandableListItem key={header} header={header} content={content} />
-              ))}
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-              {REQUIREMENTS_QUESTIONS.map(({ header, content }) => (
-                <ExpandableListItem key={header} header={header} content={content} />
-              ))}
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-              {DONATION_QUESTIONS.map(({ header, content }) => (
-                <ExpandableListItem key={header} header={header} content={content} />
-              ))}
-            </TabPanel>
-            <TabPanel value={value} index={3}>
-              {MONTHLY_DONATION_QUESTIONS.map(({ header, content }) => (
-                <ExpandableListItem key={header} header={header} content={content} />
-              ))}
-            </TabPanel>
-            <TabPanel value={value} index={4}>
-              {POTENTION_SCAM_QUESTIONS.map(({ header, content }) => (
-                <ExpandableListItem key={header} header={header} content={content} />
-              ))}
-            </TabPanel>
-            <TabPanel value={value} index={5}>
-              {ATTRACTING_DONATORS_QUESTIONS.map(({ header, content }) => (
-                <ExpandableListItem key={header} header={header} content={content} />
-              ))}
-            </TabPanel>
-            <TabPanel value={value} index={6}>
-              {PARTNERSHIPS_QUESTIONS.map(({ header, content }) => (
-                <ExpandableListItem key={header} header={header} content={content} />
-              ))}
-            </TabPanel>
-          </VerticalTabs>
-        </TabContext>
-        <ContactUs />
-      </Container>
+      <TabContext value={value.toString()}>
+        <VerticalTabs value={value} setValue={setValue}>
+          <TabPanel value={value} index={0}>
+            {COMMON_QUESTIONS.map(({ header, content }) => (
+              <ExpandableListItem key={header} header={header} content={content} />
+            ))}
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            {REQUIREMENTS_QUESTIONS.map(({ header, content }) => (
+              <ExpandableListItem key={header} header={header} content={content} />
+            ))}
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            {DONATION_QUESTIONS.map(({ header, content }) => (
+              <ExpandableListItem key={header} header={header} content={content} />
+            ))}
+          </TabPanel>
+          <TabPanel value={value} index={3}>
+            {MONTHLY_DONATION_QUESTIONS.map(({ header, content }) => (
+              <ExpandableListItem key={header} header={header} content={content} />
+            ))}
+          </TabPanel>
+          <TabPanel value={value} index={4}>
+            {POTENTION_SCAM_QUESTIONS.map(({ header, content }) => (
+              <ExpandableListItem key={header} header={header} content={content} />
+            ))}
+          </TabPanel>
+          <TabPanel value={value} index={5}>
+            {ATTRACTING_DONATORS_QUESTIONS.map(({ header, content }) => (
+              <ExpandableListItem key={header} header={header} content={content} />
+            ))}
+          </TabPanel>
+          <TabPanel value={value} index={6}>
+            {PARTNERSHIPS_QUESTIONS.map(({ header, content }) => (
+              <ExpandableListItem key={header} header={header} content={content} />
+            ))}
+          </TabPanel>
+        </VerticalTabs>
+      </TabContext>
+      <ContactUs />
     </Layout>
   )
 }

@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
+import { useMediaQuery } from '@mui/material'
 
 type Props = {
   value: number
@@ -11,25 +12,25 @@ type Props = {
 
 const VerticalTabs = ({ value, setValue, children }: Props) => {
   const handleChange = (event: React.SyntheticEvent<Element, Event>, newValue: number) => {
-    console.log(newValue)
     setValue(newValue)
   }
+  const isMobile = useMediaQuery('(max-width:900px)')
 
   return (
-    <Box sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex' }}>
+    <Box sx={{ bgcolor: 'background.paper', display: `${isMobile ? 'block' : 'flex'}` }}>
       <Tabs
-        orientation="vertical"
-        variant="fullWidth"
+        orientation={isMobile ? 'horizontal' : 'vertical'}
+        variant="scrollable"
         value={value}
         onChange={handleChange}
-        sx={{ borderRight: 1, borderColor: 'divider' }}>
-        <Tab label="Общи въпроси" />
-        <Tab label="Условия" />
-        <Tab label="Дарения" />
-        <Tab label="Месечни дарения" />
-        <Tab label="Потенциални злоупотреби" />
-        <Tab label="Привличане на дарители" />
-        <Tab label="Корпоративни партньорства" />
+        sx={{ borderRight: 1, borderColor: 'divider', mb: 4 }}>
+        <Tab sx={{ alignItems: 'start' }} label="Общи въпроси" />
+        <Tab sx={{ alignItems: 'start' }} label="Условия" />
+        <Tab sx={{ alignItems: 'start' }} label="Дарения" />
+        <Tab sx={{ alignItems: 'start' }} label="Месечни дарения" />
+        <Tab sx={{ alignItems: 'start' }} label="Потенциални злоупотреби" />
+        <Tab sx={{ alignItems: 'start' }} label="Привличане на дарители" />
+        <Tab sx={{ alignItems: 'start' }} label="Корпоративни партньорства" />
       </Tabs>
       {children}
     </Box>

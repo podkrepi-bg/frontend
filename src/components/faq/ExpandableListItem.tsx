@@ -1,4 +1,4 @@
-import { Collapse, List, ListItemButton, ListItemText } from '@mui/material'
+import { Collapse, List, ListItemButton, ListItemText, useMediaQuery } from '@mui/material'
 import { Add, Remove } from '@mui/icons-material'
 import React, { useState } from 'react'
 import theme from '../../common/theme'
@@ -12,13 +12,15 @@ const withAccentColor = (open: boolean) => (open ? theme.palette.primary.main : 
 
 const ExpandableListItem = ({ header, content }: Props) => {
   const [open, setOpen] = useState(false)
+  const isMobile = useMediaQuery('(max-width:900px)')
+  const isVerySmall = useMediaQuery('(max-width:600px)')
+
   return (
     <List
       sx={{
-        display: 'block',
-        mb: 4,
-        ml: 4,
-        width: '100%',
+        margin: `0 1rem 1rem ${isVerySmall ? '1' : '2'}rem`,
+        width: `${isMobile ? '85vw' : '60vw'}`,
+        border: '0.2px',
         borderRadius: '6px',
         boxShadow: '0px 0.5px 1px #888888',
       }}>
