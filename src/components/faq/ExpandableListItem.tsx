@@ -1,4 +1,4 @@
-import { Collapse, List, ListItemButton, ListItemText, useMediaQuery } from '@mui/material'
+import { Collapse, List, ListItemButton, ListItemText, useMediaQuery, Link } from '@mui/material'
 import { Add, Remove } from '@mui/icons-material'
 import React, { useState } from 'react'
 import theme from '../../common/theme'
@@ -6,11 +6,12 @@ import theme from '../../common/theme'
 interface Props {
   header: string
   content: string
+  links?: string[]
 }
 
 const withAccentColor = (open: boolean) => (open ? theme.palette.primary.main : 'black')
 
-const ExpandableListItem = ({ header, content }: Props) => {
+const ExpandableListItem = ({ header, content, links }: Props) => {
   const [open, setOpen] = useState(false)
   const isMobile = useMediaQuery('(max-width:900px)')
   const isVerySmall = useMediaQuery('(max-width:600px)')
@@ -43,6 +44,19 @@ const ExpandableListItem = ({ header, content }: Props) => {
             primary={content}
             primaryTypographyProps={{ variant: 'subtitle1', color: theme.palette.text.secondary }}
           />
+          {links?.map((link, index) => {
+            const href = link === '#' ? undefined : link
+            return (
+              <Link
+                target="_blank"
+                sx={{ padding: '2rem' }}
+                key={link + index}
+                href={href}
+                underline="always">
+                Линк {index + 1}
+              </Link>
+            )
+          })}
         </List>
       </Collapse>
     </List>

@@ -27,38 +27,38 @@ export default function FaqPage() {
       <TabContext value={value.toString()}>
         <VerticalTabs value={value} setValue={setValue}>
           <TabPanel value={value} index={0}>
-            {COMMON_QUESTIONS.map(({ header, content }) => (
-              <ExpandableListItem key={header} header={header} content={content} />
+            {COMMON_QUESTIONS.map(({ header, content, links }) => (
+              <ExpandableListItem key={header} header={header} content={content} links={links} />
             ))}
           </TabPanel>
           <TabPanel value={value} index={1}>
-            {REQUIREMENTS_QUESTIONS.map(({ header, content }) => (
-              <ExpandableListItem key={header} header={header} content={content} />
+            {REQUIREMENTS_QUESTIONS.map(({ header, content, links }) => (
+              <ExpandableListItem key={header} header={header} content={content} links={links} />
             ))}
           </TabPanel>
           <TabPanel value={value} index={2}>
-            {DONATION_QUESTIONS.map(({ header, content }) => (
-              <ExpandableListItem key={header} header={header} content={content} />
+            {DONATION_QUESTIONS.map(({ header, content, links }) => (
+              <ExpandableListItem key={header} header={header} content={content} links={links} />
             ))}
           </TabPanel>
           <TabPanel value={value} index={3}>
-            {MONTHLY_DONATION_QUESTIONS.map(({ header, content }) => (
-              <ExpandableListItem key={header} header={header} content={content} />
+            {MONTHLY_DONATION_QUESTIONS.map(({ header, content, links }) => (
+              <ExpandableListItem key={header} header={header} content={content} links={links} />
             ))}
           </TabPanel>
           <TabPanel value={value} index={4}>
-            {POTENTION_SCAM_QUESTIONS.map(({ header, content }) => (
-              <ExpandableListItem key={header} header={header} content={content} />
+            {POTENTION_SCAM_QUESTIONS.map(({ header, content, links }) => (
+              <ExpandableListItem key={header} header={header} content={content} links={links} />
             ))}
           </TabPanel>
           <TabPanel value={value} index={5}>
-            {ATTRACTING_DONATORS_QUESTIONS.map(({ header, content }) => (
-              <ExpandableListItem key={header} header={header} content={content} />
+            {ATTRACTING_DONATORS_QUESTIONS.map(({ header, content, links }) => (
+              <ExpandableListItem key={header} header={header} content={content} links={links} />
             ))}
           </TabPanel>
           <TabPanel value={value} index={6}>
-            {PARTNERSHIPS_QUESTIONS.map(({ header, content }) => (
-              <ExpandableListItem key={header} header={header} content={content} />
+            {PARTNERSHIPS_QUESTIONS.map(({ header, content, links }) => (
+              <ExpandableListItem key={header} header={header} content={content} links={links} />
             ))}
           </TabPanel>
         </VerticalTabs>
