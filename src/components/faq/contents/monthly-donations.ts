@@ -1,0 +1,1 @@
+export const MONTHLY_DONATION_QUESTIONS = []

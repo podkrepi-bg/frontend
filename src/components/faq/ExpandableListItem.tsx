@@ -15,7 +15,9 @@ const ExpandableListItem = ({ header, content }: Props) => {
   return (
     <List
       sx={{
+        display: 'block',
         mb: 4,
+        ml: 4,
         width: '100%',
         borderRadius: '6px',
         boxShadow: '0px 0.5px 1px #888888',
