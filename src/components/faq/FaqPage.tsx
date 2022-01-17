@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import Layout from 'components/layout/Layout'
 import { useTranslation } from 'next-i18next'
 import ExpandableListItem from './ExpandableListItem'
@@ -16,10 +16,13 @@ import {
   PARTNERSHIPS_QUESTIONS,
 } from './contents'
 import ScrollToTop from './ScrollToTop'
+import { useRouter } from 'next/router'
 
 export default function FaqPage() {
   const { t } = useTranslation()
-  const [value, setValue] = useState(0)
+  const router = useRouter()
+  const section = useMemo(() => Number(router.asPath.split('#').pop()), [])
+  const [value, setValue] = useState(isNaN(section) ? 0 : section)
 
   return (
     <Layout title={t('nav.faq')}>

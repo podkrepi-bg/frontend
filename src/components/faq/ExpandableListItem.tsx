@@ -11,7 +11,7 @@ import { ExpandMore, ExpandLess } from '@mui/icons-material'
 import React, { useState } from 'react'
 import theme from '../../common/theme'
 
-interface Props {
+type Props = {
   header: string
   content: JSX.Element
 }

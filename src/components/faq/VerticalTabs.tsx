@@ -3,6 +3,7 @@ import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
 import { useMediaQuery } from '@mui/material'
+import { useRouter } from 'next/router'
 
 type Props = {
   value: number
@@ -11,7 +12,10 @@ type Props = {
 }
 
 const VerticalTabs = ({ value, setValue, children }: Props) => {
+  const router = useRouter()
+
   const handleChange = (event: React.SyntheticEvent<Element, Event>, newValue: number) => {
+    router.push(`#${newValue}`)
     setValue(newValue)
   }
   const isMobile = useMediaQuery('(max-width:900px)')
