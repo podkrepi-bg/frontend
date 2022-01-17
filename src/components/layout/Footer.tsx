@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) =>
     footerWrapperLeft: {
       [theme.breakpoints.down('sm')]: {
         paddingBottom: theme.spacing(3),
-      }
+      },
     },
   }),
 )
