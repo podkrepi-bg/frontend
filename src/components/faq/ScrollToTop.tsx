@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+import { ArrowCircleUp } from '@mui/icons-material'
 import { Box } from '@mui/material'
 
 import theme from 'common/theme'
@@ -31,10 +31,10 @@ const ScrollToTop = () => {
     <div>
       {isVisible && (
         <Box
-          sx={{ position: 'fixed', cursor: 'pointer', right: '6rem', bottom: '1rem' }}
+          sx={{ position: 'fixed', cursor: 'pointer', right: '6rem', bottom: '0.6rem' }}
           onClick={scrollToTop}>
-          <KeyboardArrowUpIcon
-            sx={{ width: '50px', height: '50px', color: theme.palette.primary.main }}
+          <ArrowCircleUp
+            sx={{ width: '65px', height: '65px', color: theme.palette.primary.main }}
           />
         </Box>
       )}

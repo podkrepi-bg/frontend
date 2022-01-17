@@ -1,5 +1,5 @@
 import { Collapse, List, ListItemButton, ListItemText, useMediaQuery, Link } from '@mui/material'
-import { Add, Remove } from '@mui/icons-material'
+import { ExpandMore, ExpandLess } from '@mui/icons-material'
 import React, { useState } from 'react'
 import theme from '../../common/theme'
 
@@ -32,9 +32,9 @@ const ExpandableListItem = ({ header, content, links }: Props) => {
           primaryTypographyProps={{ variant: 'subtitle1', color: `${withAccentColor(open)}` }}
         />
         {open ? (
-          <Remove sx={{ color: `${withAccentColor(open)}` }} />
+          <ExpandLess sx={{ color: `${withAccentColor(open)}` }} />
         ) : (
-          <Add sx={{ color: `${withAccentColor(open)}` }} />
+          <ExpandMore sx={{ color: `${withAccentColor(open)}` }} />
         )}
       </ListItemButton>
       <Collapse in={open} unmountOnExit>
