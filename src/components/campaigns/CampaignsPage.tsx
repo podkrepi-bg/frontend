@@ -13,13 +13,6 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
-    heading: {
-      marginTop: theme.spacing(11),
-      marginBottom: theme.spacing(7),
-      color: theme.palette.primary.dark,
-      fontWeight: 'bold',
-      textAlign: 'center',
-    },
     subheading: {
       marginBottom: theme.spacing(3),
     },
@@ -40,12 +33,10 @@ export default function CampaignsPage() {
 
   return (
     <Layout
+      title={t('nav.campaigns.support')}
       githubUrl="https://github.com/podkrepi-bg/frontend/tree/master/src/components/campaigns/CampaignsPage.tsx"
       figmaUrl="https://www.figma.com/file/MmvFKzUv6yE5U2wrOpWtwS/Podkrepi.bg?node-id=5100%3A21216">
       <Container maxWidth="lg">
-        <Typography variant="h2" component="h2" className={classes.heading}>
-          {t('nav.campaigns.support')}
-        </Typography>
         <Typography variant="subtitle2" component="p" className={classes.subheading}>
           {t('nav.campaigns.subheading')}
         </Typography>

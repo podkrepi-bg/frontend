@@ -174,7 +174,8 @@ export default function CampaignCard({ campaign }: Props) {
             <CampaignProgress raised={reached} target={target} />
           </Box>
           <Typography variant="subtitle1" component="p" className={classes.progressBar}>
-            събрани <b>{money(reached)}</b> / цел <b>{money(target)}</b>
+            {t('campaigns:campaign.reached')} <b>{money(reached)}</b> /{' '}
+            {t('campaigns:campaign.target')} <b>{money(target)}</b>
           </Typography>
           {/* <Grid item xs={12}>
             <ToggleButtonGroup

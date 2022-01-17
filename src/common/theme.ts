@@ -20,7 +20,7 @@ const colors = {
     background: '#FAFAFA',
   },
   white: {
-    main: '#FFFFF',
+    main: '#ffffff',
   },
 }
 

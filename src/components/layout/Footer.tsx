@@ -24,10 +24,16 @@ const useStyles = makeStyles((theme) =>
     },
     footer: {
       textAlign: 'center',
+      padding: theme.spacing(5, 0),
       [theme.breakpoints.up('sm')]: {
         textAlign: 'left',
         padding: theme.spacing(5),
       },
+    },
+    footerWrapperLeft: {
+      [theme.breakpoints.down('sm')]: {
+        paddingBottom: theme.spacing(3),
+      }
     },
   }),
 )
@@ -77,8 +83,9 @@ export default function Footer() {
 const InfoGrid = () => {
   const { t } = useTranslation()
   const { locale } = useRouter()
+  const classes = useStyles()
   return (
-    <Grid container direction="column" spacing={2}>
+    <Grid container direction="column" spacing={2} className={classes.footerWrapperLeft}>
       <Grid item>
         <Link href={routes.index}>
           <a>
