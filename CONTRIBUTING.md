@@ -26,8 +26,11 @@ Table of contents:
 git clone https://github.com/podkrepi-bg/frontend
 cd frontend
 
-# Symlink dev environment
-ln -hfs .env.dev .env
+# Symlink dev environment on unix
+ln -hfs .env.local.example .env.local
+
+# Symlink dev environment on Windows
+mklink .env.local .env.local.example
 
 # Install dependencies
 yarn
