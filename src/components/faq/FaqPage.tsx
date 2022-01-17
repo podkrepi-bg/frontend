@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import Layout from 'components/layout/Layout'
 import { useTranslation } from 'next-i18next'
 import ExpandableListItem from './ExpandableListItem'
