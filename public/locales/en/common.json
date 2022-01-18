@@ -8,6 +8,7 @@
     "campaigns": {
       "index": "Campaigns",
       "apply": "Apply",
+      "create": "Suggest campaign",
       "support": "Support a campaign today!",
       "subheading": "Your support for the world matters. All supporters through Podkrepi.bg are our partners in supporting the community campaign. As a generous benefactor, you become an important partner in supporting a campaign regarding someone's health or the success of a cause that is close to your heart.",
       "subheading-bold": "Even the slightest help can be the engine of great change",

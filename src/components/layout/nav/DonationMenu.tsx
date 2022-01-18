@@ -6,7 +6,6 @@ import { useTranslation } from 'next-i18next'
 
 import { routes } from 'common/routes'
 import LinkMenuItem from 'components/common/LinkMenuItem'
-import { featureFlagEnabled, Features } from 'common/util/featureFlag'
 
 import GenericMenu from './GenericMenu'
 
@@ -20,13 +19,11 @@ export default function DonationMenu() {
           <Typography variant="button">{t('nav.campaigns.index')}</Typography>
         </MenuItem>
       </Link>
-      {featureFlagEnabled(Features.CAMPAIGN) && (
-        <LinkMenuItem
-          href={routes.campaigns.create}
-          selected={router.asPath.startsWith(routes.campaigns.create)}>
-          <Typography variant="button">{t('nav.campaigns.create')}</Typography>
-        </LinkMenuItem>
-      )}
+      <LinkMenuItem
+        href={routes.campaigns.create}
+        selected={router.asPath.startsWith(routes.campaigns.create)}>
+        <Typography variant="button">{t('nav.campaigns.create')}</Typography>
+      </LinkMenuItem>
       <LinkMenuItem
         href={routes.termsOfService}
         selected={router.asPath.startsWith(routes.termsOfService)}>

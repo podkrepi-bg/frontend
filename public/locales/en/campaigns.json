@@ -15,6 +15,8 @@
     "title": "Campaign name",
     "amount": "Target amount",
     "type": "Campaign type",
+    "reached": "reached",
+    "target": "target",
     "types": {
       "treatment-and-rehabilitation": "Treatment and rehabilitation",
       "helping-the-needy": "Helping the needy",
