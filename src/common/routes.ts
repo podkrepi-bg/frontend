@@ -48,5 +48,9 @@ export const routes = {
     index: '/admin',
     infoRequests: '/admin/info-requests',
     supporters: '/admin/supporters',
+    tikvi: {
+      index: '/admin/tikvi',
+      view: (id: string) => `/admin/tikvi/${id}`,
+    },
   },
 }
