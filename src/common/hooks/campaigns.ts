@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query'
 
 import { endpoints } from 'common/api-endpoints'
-import { CampaignResponse, CampaignType } from 'gql/campaigns'
+import { CampaignResponse, CampaignType, CampaignDetails } from 'gql/campaigns'
 
 export function useCampaignList() {
   return useQuery<CampaignResponse[]>(endpoints.campaign.listCampaigns.url)
@@ -13,4 +13,8 @@ export function useCampaignTypesList() {
 
 export function useViewCampaign(slug: string) {
   return useQuery<{ campaign: CampaignResponse }>(endpoints.campaign.viewCampaign(slug).url)
+}
+
+export function useGetCampaignBySlug(slug: string) {
+  return useQuery<{ slug: CampaignDetails }>(endpoints.campaign.getCampaignBySlug(slug).url)
 }

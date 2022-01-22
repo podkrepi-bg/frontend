@@ -66,3 +66,16 @@ export type CampaignInput = {
   startDate: Date | string | undefined
   endDate: Date | string | undefined
 }
+
+export type CampaignDetails = {
+  beneficiary: {
+    id: UUID
+    type: string
+    publicData: string
+    person: { id: UUID; firstName: string; lastName: string }
+  }
+  coordinator: {
+    id: UUID
+    person: { id: UUID; firstName: string; lastName: string }
+  }
+}
