@@ -9,17 +9,18 @@ import { queryFn } from 'common/rest'
 import { GetStaticProps } from 'next'
 import { axios } from 'common/api-client'
 
-type CountryType = {
-  id: number
-  name: string
-  countryCode: string
-  cities?: string[]
+type bootcampInternType = {
+  id: string
+  firstName: string
+  lastName: string
+  email?: string
 }
 
-export default function CountriesPage(props: { countries: CountryType[] }) {
-  const initialValues = { id: '', name: '', countryCode: '', cities: [] }
+export default function BootcampInternPage(props: { bootcampInterns: bootcampInternType[] }) {
+  const initialValues = { firstName: '', lastName: '', email: '' }
 
-  const onSubmit = (data: { id: string; name: string; countryCode: string }) => {
+  console.log(props.bootcampInterns)
+  const onSubmit = (data: { firstName: string; lastName: string; email: string }) => {
     console.log(data)
   }
 
@@ -28,24 +29,25 @@ export default function CountriesPage(props: { countries: CountryType[] }) {
       <GenericForm onSubmit={onSubmit} initialValues={initialValues}>
         <Grid style={{ marginTop: '100px' }} container spacing={3}>
           <Grid item xs={12}>
-            <FormTextField type="text" label="Country name ..." name="countryName" />
+            <FormTextField type="text" label="Your first name ..." name="firstName" />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField type="text" label="Country code ..." name="countryCode" />
+            <FormTextField type="text" label="Your last name ..." name="lastName" />
           </Grid>
           <Grid item xs={12}>
-            <SubmitButton fullWidth label="Create Country" />
+            <SubmitButton fullWidth label="Apply" />
           </Grid>
         </Grid>
       </GenericForm>
       <table style={{ border: 'solid black 1px', margin: '40px auto' }}>
         <tbody>
-          {props.countries.map((country) => {
+          {props.bootcampInterns.map((bootcampIntern) => {
             return (
-              <tr key={country.id}>
-                <td style={{ border: 'solid 4px green' }}>{country.id}</td>
-                <td style={{ border: 'solid 4px blue' }}>{country.countryCode}</td>
-                <td style={{ border: 'solid 4px red' }}>{country.name}</td>
+              <tr key={bootcampIntern.id}>
+                <td style={{ border: 'solid 4px green' }}>{bootcampIntern.id}</td>
+                <td style={{ border: 'solid 4px blue' }}>{bootcampIntern.firstName}</td>
+                <td style={{ border: 'solid 4px red' }}>{bootcampIntern.lastName}</td>
+                <td style={{ border: 'solid 4px red' }}>{bootcampIntern.email}</td>
               </tr>
             )
           })}
@@ -56,14 +58,15 @@ export default function CountriesPage(props: { countries: CountryType[] }) {
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const { data } = await axios.get<CountryType[]>('http://localhost:5010/api/countries')
+  const { data } = await axios.get<bootcampInternType[]>(
+    'http://localhost:5010/api/bootcamp-intern',
+  )
 
   const client = new QueryClient()
   return {
     props: {
-      // countries: response,
       ...(await serverSideTranslations(locale ?? 'bg', ['common'])),
-      countries: data,
+      bootcampInterns: data,
     },
   }
 }
