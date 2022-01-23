@@ -15,6 +15,7 @@ function ModalContextProvider({ children }: any | null) {
   }
   const closeModal = (): void => {
     setIsOpen(false)
+    router.push('/admin/cars')
   }
 
   const modalData: valueType = {
