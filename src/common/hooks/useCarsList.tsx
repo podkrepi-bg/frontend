@@ -20,3 +20,11 @@ export function useCarsList() {
 export async function prefetchCarsList(client: QueryClient, token?: string) {
   await client.prefetchQuery<Car[]>(endpoints.cars.carsList.url, authQueryFnFactory<Car[]>(token))
 }
+
+export function useFetchCar(id: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return useQuery<Car>(
+    `${endpoints.cars.carsList.url}/${id}`,
+    authQueryFnFactory<Car>(keycloak?.token),
+  )
+}
