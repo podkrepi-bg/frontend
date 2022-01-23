@@ -6,16 +6,17 @@ import CardMedia from '@mui/material/CardMedia'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import axios from 'axios'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { ModalContext } from 'context/ModalContext'
+import { useRouter } from 'next/router'
 export default function CarCard({ car }: any) {
   const modal: any = useContext(ModalContext)
-
+  const router = useRouter()
+  !modal.isOpen && router.push('/admin/cars')
   const deleteHandler = async () => {
     await axios.delete(`http://localhost:5010/api/car/${car.id}`).catch((err) => console.log(err))
     window.location.reload()
   }
-
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
