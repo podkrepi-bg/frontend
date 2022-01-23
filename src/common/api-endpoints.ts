@@ -29,4 +29,9 @@ export const endpoints = {
     recurringPrices: <Endpoint>{ url: '/donation/prices/recurring', method: 'GET' },
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
   },
+  bootcampers: {
+    listBootcampers: <Endpoint>{ url: '/bootcamp', method: 'GET' },
+    viewBootcamper: (slug: string) => <Endpoint>{ url: '/bootcamp/' + slug, method: "GET" },
+    createBootcamper: <Endpoint>{ url: '/bootcamp', method: 'POST' },
+  }
 }

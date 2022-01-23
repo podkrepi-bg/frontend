@@ -12,6 +12,7 @@ import { CampaignResponse, CampaignInput } from 'gql/campaigns'
 import { endpoints } from './api-endpoints'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
+import { BootcamperInput, BootcampersResponse } from 'gql/bootcamp'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await axios.get(queryKey.join('/'))
@@ -73,6 +74,16 @@ export const createCheckoutSession: MutationFunction<
 > = async (data: CheckoutSessionInput) => {
   return await axios.post<CheckoutSessionInput, AxiosResponse<CheckoutSessionResponse>>(
     endpoints.donation.createCheckoutSession.url,
+    data,
+  )
+}
+
+export const createBootcamper: MutationFunction<
+  AxiosResponse<BootcampersResponse>,
+  BootcamperInput
+> = async (data: BootcamperInput) => {
+  return await axios.post<BootcamperInput, AxiosResponse<BootcampersResponse>>(
+    endpoints.bootcampers.createBootcamper.url,
     data,
   )
 }
