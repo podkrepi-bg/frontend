@@ -48,5 +48,9 @@ export const routes = {
     index: '/admin',
     infoRequests: '/admin/info-requests',
     supporters: '/admin/supporters',
+    cars: {
+      index: '/admin/cars',
+      view: (id: string) => `/admin/cars/${id}`,
+    },
   },
 }

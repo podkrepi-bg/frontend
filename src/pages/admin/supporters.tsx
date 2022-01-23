@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 // import { dehydrate, QueryClient } from 'react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import SupportersPage from 'components/admin/SupportersPage'
+import SupportersPage from 'components/admin/CarsPage'
 // import { prefetchSupportRequestList } from 'common/hooks/supportRequest'
 // import { keycloakInstance } from 'common/util/keycloak'
 
