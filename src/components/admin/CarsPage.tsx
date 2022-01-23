@@ -3,13 +3,13 @@ import { Container } from '@mui/material'
 
 import Layout from 'components/layout/Layout'
 
-import SupportersGrid from './SupportersGrid'
+import CarsGrid from './CarsGrid'
 
-export default function SupportersPage() {
+export default function CarsPage() {
   return (
     <Layout>
       <Container maxWidth="lg">
-        <SupportersGrid />
+        <CarsGrid />
       </Container>
     </Layout>
   )
