@@ -7,7 +7,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate, QueryClient } from 'react-query'
 import { queryFn } from 'common/rest'
 import { GetStaticProps } from 'next'
-import { axios } from 'common/api-client'
+import { axios, AxiosResponse } from 'common/api-client'
+import { useState } from 'react'
 
 type bootcampInternType = {
   id: string
@@ -17,11 +18,20 @@ type bootcampInternType = {
 }
 
 export default function BootcampInternPage(props: { bootcampInterns: bootcampInternType[] }) {
+  const [bootcampInterns, setBootcampInterns] = useState([])
   const initialValues = { firstName: '', lastName: '', email: '' }
 
   console.log(props.bootcampInterns)
-  const onSubmit = (data: { firstName: string; lastName: string; email: string }) => {
-    console.log(data)
+  const onSubmit = async (data: { firstName: string; lastName: string; email: string }) => {
+    try {
+      const createdIntern = await axios.post<AxiosResponse<bootcampInternType>>(
+        'http://localhost:5010/api/bootcamp-intern',
+        data,
+      )
+      console.log(createdIntern)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   return (
@@ -34,6 +44,11 @@ export default function BootcampInternPage(props: { bootcampInterns: bootcampInt
           <Grid item xs={12}>
             <FormTextField type="text" label="Your last name ..." name="lastName" />
           </Grid>
+
+          <Grid item xs={12}>
+            <FormTextField type="email" label="Your email ..." name="email" />
+          </Grid>
+
           <Grid item xs={12}>
             <SubmitButton fullWidth label="Apply" />
           </Grid>
@@ -68,5 +83,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       ...(await serverSideTranslations(locale ?? 'bg', ['common'])),
       bootcampInterns: data,
     },
+    revalidate: 5,
   }
 }
