@@ -6,6 +6,9 @@ type Endpoint = {
 }
 
 export const endpoints = {
+  bootcampIntern: {
+    listBootcampIntern: <Endpoint>{ url: '/bootcamp-intern', method: 'GET' },
+  },
   campaign: {
     listCampaigns: <Endpoint>{ url: '/campaign/list', method: 'GET' },
     createCampaign: <Endpoint>{ url: '/campaign/create-campaign', method: 'POST' },
