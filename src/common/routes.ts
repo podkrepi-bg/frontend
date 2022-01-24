@@ -48,5 +48,9 @@ export const routes = {
     index: '/admin',
     infoRequests: '/admin/info-requests',
     supporters: '/admin/supporters',
+    bootcampIntern: {
+      index: '/admin/bootcamp-interns',
+      view: (id: string) => `/admin/bootcamp-interns/${id}`,
+    },
   },
 }
