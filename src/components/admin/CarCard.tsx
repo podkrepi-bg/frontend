@@ -9,7 +9,7 @@ import axios from 'axios'
 import { useContext } from 'react'
 import { ModalContext } from 'context/ModalContext'
 import { useRouter } from 'next/router'
-export default function CarCard({ car }: any) {
+export default function CarCard({ car, setEditOpen }: any) {
   const modal: any = useContext(ModalContext)
   const router = useRouter()
   !modal.isOpen && router.push('/admin/cars')
@@ -34,7 +34,7 @@ export default function CarCard({ car }: any) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" variant="outlined">
+        <Button size="small" variant="outlined" onClick={() => setEditOpen(true)}>
           Edit
         </Button>
         <Button size="small" variant="outlined" onClick={deleteHandler}>
