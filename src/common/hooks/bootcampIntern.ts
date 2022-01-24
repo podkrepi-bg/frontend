@@ -6,6 +6,7 @@ import { QueryClient, useQuery } from 'react-query'
 //absolute imports
 import { endpoints } from 'common/api-endpoints'
 import { authQueryFnFactory } from 'common/rest'
+import { keycloakInstance } from 'common/util/keycloak'
 
 //relative imports
 
@@ -17,10 +18,27 @@ type BootcampIntern = {
   email: string
 }
 
-export function useBootcampInternList() {
+export function useBootcampInternsList() {
   const { keycloak } = useKeycloak<KeycloakInstance>() // initializing a keyCloak instance;
   return useQuery<BootcampIntern[]>(
     endpoints.bootcampIntern.listBootcampIntern.url,
     authQueryFnFactory<BootcampIntern[]>(keycloak?.token),
+  )
+}
+
+// prefetch query
+export async function prefetchBootcampInternsList(client: QueryClient, token?: string) {
+  await client.prefetchQuery<BootcampIntern[]>(
+    endpoints.bootcampIntern.listBootcampIntern.url,
+    authQueryFnFactory<BootcampIntern[]>(token),
+  )
+}
+
+// query for a single intern
+export function useFetchBootcampIntern(id: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return useQuery<BootcampIntern>(
+    `${endpoints.bootcampIntern.listBootcampIntern.url}/${id}`,
+    authQueryFnFactory<BootcampIntern>(keycloak?.token),
   )
 }
