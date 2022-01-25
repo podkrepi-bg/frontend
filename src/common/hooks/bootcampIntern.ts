@@ -6,7 +6,6 @@ import { QueryClient, useQuery } from 'react-query'
 //absolute imports
 import { endpoints } from 'common/api-endpoints'
 import { authQueryFnFactory } from 'common/rest'
-import { keycloakInstance } from 'common/util/keycloak'
 
 //relative imports
 

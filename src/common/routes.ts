@@ -53,4 +53,8 @@ export const routes = {
       view: (id: string) => `/admin/bootcamp-interns/${id}`,
     },
   },
+  bootcampIntern: {
+    index: '/bootcamp-interns',
+    view: (id: string) => `/bootcamp-interns/${id}`,
+  },
 }
