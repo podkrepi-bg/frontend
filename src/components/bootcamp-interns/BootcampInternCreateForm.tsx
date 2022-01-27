@@ -2,14 +2,23 @@ import GenericForm from 'components/common/form/GenericForm'
 import * as yup from 'yup'
 import { useRouter } from 'next/router'
 import { Grid } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
 import { axios } from 'common/api-client'
 import { endpoints } from 'common/api-endpoints'
 import { routes } from 'common/routes'
+import { makeStyles } from '@mui/styles'
+
+import { drawerWidth } from './MyDrawer'
+
+const useStyles = makeStyles((theme) => {
+  return {
+    internForm: {
+      marginLeft: drawerWidth,
+    },
+  }
+})
 
 const validationSchema = yup.object().shape({
   firstName: yup.string().trim().min(3).max(20).required(),
@@ -25,16 +34,23 @@ const defaults = {
 
 export default function BootcampInternCreateForm() {
   const router = useRouter()
+  const classes = useStyles()
 
-  const onSubmit = async (internData: any) => {
+  const onSubmit = async (internData: any, { resetForm }: any) => {
     await axios.post(endpoints.bootcampIntern.listBootcampIntern.url, internData)
     router.push(routes.bootcampIntern.index)
+    resetForm()
   }
 
   return (
-    <Grid container direction="column" component="section" style={{ marginTop: '50px' }}>
+    <Grid
+      className={classes.internForm}
+      container
+      direction="column"
+      component="section"
+      style={{ marginTop: '50px' }}>
       <GenericForm onSubmit={onSubmit} initialValues={defaults} validationSchema={validationSchema}>
-        <Grid container spacing={3}>
+        <Grid container spacing={1.3}>
           <Grid item xs={12}>
             <FormTextField
               type="text"
