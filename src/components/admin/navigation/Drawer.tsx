@@ -1,4 +1,3 @@
-import React from 'react'
 import { Drawer } from '@mui/material'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItem from '@mui/material/ListItem'
@@ -20,7 +19,6 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 const drawerWidth = 150
 const baseUrl = '/admin/panel'
-
 const useStyles = makeStyles({
   drawer: {
     width: drawerWidth,

@@ -19,12 +19,9 @@ const iconStyles = {
 
 export default function AppBarMenu() {
   return (
-    <AppBar
-      elevation={0}
-      sx={{ background: 'white', borderBottom: '1px solid grey' }}
-      position="static">
+    <AppBar elevation={0} sx={{ background: 'white' }} position="static">
       <Container maxWidth="xl">
-        <Toolbar disableGutters sx={{ paddingTop: '15px' }}>
+        <Toolbar disableGutters>
           <Box sx={{ flexGrow: 1, display: 'flex' }}></Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="New File">
@@ -61,7 +58,3 @@ export default function AppBarMenu() {
     </AppBar>
   )
 }
-
-/* {icons.map((icon) => {
-    <Tooltip title={icon.title}>{icon.icon}</Tooltip>
-  })} */
