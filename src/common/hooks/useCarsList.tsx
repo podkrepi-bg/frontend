@@ -10,6 +10,8 @@ type Car = {
   brand: string
   model: string
   year: number
+  engine: string
+  price: number
 }
 
 export function useCarsList() {

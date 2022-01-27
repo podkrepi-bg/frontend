@@ -1,30 +1,19 @@
-import { useRouter } from 'next/router'
-import { useState, createContext } from 'react'
+import { useState, createContext, Dispatch, SetStateAction } from 'react'
+
 interface valueType {
-  isOpen: boolean
-  openModal: () => void
-  closeModal: () => void
+  carData: any
+  setData: Dispatch<SetStateAction<never[]>>
 }
 export const ModalContext = createContext<valueType | null>(null)
 
 function ModalContextProvider({ children }: any | null) {
-  const [isOpen, setIsOpen] = useState(false)
-  const router = useRouter()
-  const openModal = (): void => {
-    setIsOpen(true)
-  }
-  const closeModal = (): void => {
-    setIsOpen(false)
-    router.push('/admin/cars')
-  }
+  const [carData, setData] = useState([])
 
-  const modalData: valueType = {
-    isOpen,
-    openModal,
-    closeModal,
+  const dataValue: valueType = {
+    carData,
+    setData,
   }
-
-  return <ModalContext.Provider value={modalData}>{children}</ModalContext.Provider>
+  return <ModalContext.Provider value={dataValue}>{children}</ModalContext.Provider>
 }
 
 export default ModalContextProvider
