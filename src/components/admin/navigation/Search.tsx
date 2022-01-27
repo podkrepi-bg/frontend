@@ -15,7 +15,7 @@ export default function Search() {
         border: '1px solid #ababab',
       }}>
       <InputBase
-        sx={{ ml: 1, flex: 1, fontWeight: 'bold', color: 'grey' }}
+        sx={{ ml: 1, flex: 1, color: 'grey' }}
         placeholder=" search"
         inputProps={{ 'aria-label': 'search' }}
       />
