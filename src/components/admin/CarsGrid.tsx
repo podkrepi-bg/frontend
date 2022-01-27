@@ -21,7 +21,6 @@ const columns: GridColumns = [
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            border: 'none',
           }}>
           <StarIcon color="error" />
         </div>
