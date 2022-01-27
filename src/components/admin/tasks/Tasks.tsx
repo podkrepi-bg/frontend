@@ -12,9 +12,12 @@ const Tasks = () => {
   return (
     <div style={{ height: '100vh', background: '#f2f2f2' }}>
       <LayoutPanel />
-      <Container disableGutters>
-        <AppBarMenu />
-        <TasksGrid />
+      <Container>
+        <Container disableGutters>
+          <AppBarMenu />
+
+          <TasksGrid />
+        </Container>
       </Container>
     </div>
   )

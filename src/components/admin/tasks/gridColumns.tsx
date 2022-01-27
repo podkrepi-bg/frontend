@@ -1,6 +1,9 @@
 import { GridColumns } from '@mui/x-data-grid'
 import StarIcon from '@mui/icons-material/Star'
 import CircleIcon from '@mui/icons-material/Circle'
+import DeleteIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit'
+
 const types = [
   { icon: <StarIcon color="action" /> },
   { icon: <CircleIcon color="warning" /> },
@@ -107,7 +110,38 @@ export const columns: GridColumns = [
   },
   {
     field: 'others',
-    headerName: 'други',
-    width: 100,
+    headerName: 'редактиране',
+    width: 140,
+    renderCell: (values) => {
+      return (
+        <div
+          style={{
+            width: '80%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-evenly',
+          }}>
+          {
+            <EditIcon
+              sx={{ cursor: 'pointer' }}
+              color="action"
+              onClick={() => {
+                console.log(values.id)
+              }}
+            />
+          }
+          {
+            <DeleteIcon
+              sx={{ cursor: 'pointer', opacity: 0.9 }}
+              color="error"
+              onClick={() => {
+                console.log(values.id)
+              }}
+            />
+          }
+        </div>
+      )
+    },
   },
 ]
