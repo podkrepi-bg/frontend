@@ -5,37 +5,100 @@ import { useRouter } from 'next/router'
 import { routes } from 'common/routes'
 import { useContext } from 'react'
 import { ModalContext } from 'context/ModalContext'
+import StarIcon from '@mui/icons-material/Star'
 const columns: GridColumns = [
   { field: 'id', headerName: 'ID', hide: true },
   {
+    field: 'type',
+    headerName: 'тип',
+    width: 50,
+    renderCell: (cellValues: any) => {
+      return (
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            border: 'none',
+          }}>
+          <StarIcon color="error" />
+        </div>
+      )
+    },
+  },
+  {
     field: 'taskName',
-    headerName: 'Task',
+    headerName: 'име на задачата',
     width: 280,
+    renderCell: (cellValues) => {
+      return (
+        <div style={{ fontWeight: 'bold', width: '100%', textAlign: 'center' }}>
+          {cellValues.value}
+        </div>
+      )
+    },
   },
   {
     field: 'keyword',
-    headerName: 'Key Word',
+    headerName: 'кл.дума',
     width: 100,
+    renderCell: (cellValues) => {
+      return (
+        <div style={{ fontWeight: 'bold', width: '100%', textAlign: 'center' }}>
+          {cellValues.value}
+        </div>
+      )
+    },
   },
   {
     field: 'description',
-    headerName: 'Description',
+    headerName: 'описание',
     width: 220,
+    renderCell: (cellValues) => {
+      return (
+        <div style={{ fontWeight: 'bold', width: '100%', textAlign: 'center' }}>
+          {cellValues.value}
+        </div>
+      )
+    },
   },
   {
     field: 'status',
-    headerName: 'Status',
+    headerName: 'статус',
     width: 80,
+    renderCell: (cellValues) => {
+      return (
+        <div style={{ fontWeight: 'bold', width: '100%', textAlign: 'center' }}>
+          {cellValues.value}
+        </div>
+      )
+    },
   },
   {
     field: 'deadline',
-    headerName: 'Deadline',
+    headerName: 'краен срок',
     width: 120,
+    renderCell: (cellValues) => {
+      return (
+        <div style={{ fontWeight: 'bold', width: '100%', textAlign: 'center' }}>
+          {cellValues.value}
+        </div>
+      )
+    },
   },
   {
     field: 'operator',
-    headerName: 'Operator',
+    headerName: 'оператор',
     width: 100,
+    renderCell: (cellValues) => {
+      return (
+        <div style={{ fontWeight: 'bold', width: '100%', textAlign: 'center' }}>
+          {cellValues.value}
+        </div>
+      )
+    },
   },
 ]
 
@@ -44,6 +107,7 @@ export default function CarsGrid() {
   const data: any = [
     {
       id: '1',
+      type: 'star',
       taskName: 'Да помогнем на Радост да проходи',
       keyword: 'Договори',
       description: 'Експериментално лечение',
@@ -94,7 +158,7 @@ export default function CarsGrid() {
       style={{
         marginTop: '1px',
         background: 'white',
-        height: 'calc(100vh - 200px)',
+        height: 'calc(100vh - 400px)',
         border: 'none',
       }}
       rows={data || []}
