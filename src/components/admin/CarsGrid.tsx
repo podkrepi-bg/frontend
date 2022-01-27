@@ -8,29 +8,95 @@ import { ModalContext } from 'context/ModalContext'
 const columns: GridColumns = [
   { field: 'id', headerName: 'ID', hide: true },
   {
-    field: 'brand',
-    headerName: 'Brand',
-    width: 200,
+    field: 'taskName',
+    headerName: 'Task',
+    width: 280,
   },
   {
-    field: 'model',
-    headerName: 'Model',
-    width: 250,
+    field: 'keyword',
+    headerName: 'Key Word',
+    width: 100,
   },
   {
-    field: 'year',
-    headerName: 'Year',
-    width: 250,
+    field: 'description',
+    headerName: 'Description',
+    width: 220,
+  },
+  {
+    field: 'status',
+    headerName: 'Status',
+    width: 80,
+  },
+  {
+    field: 'deadline',
+    headerName: 'Deadline',
+    width: 120,
+  },
+  {
+    field: 'operator',
+    headerName: 'Operator',
+    width: 100,
   },
 ]
 
 export default function CarsGrid() {
   const modal: any = useContext(ModalContext)
-  const { data } = useCarsList()
+  const data: any = [
+    {
+      id: '1',
+      taskName: 'Да помогнем на Радост да проходи',
+      keyword: 'Договори',
+      description: 'Експериментално лечение',
+      status: '50%',
+      deadline: 'остават 7 дни',
+      operator: 'Ivan',
+    },
+    {
+      id: '2',
+      taskName: 'Да помогнем на Радост да проходи',
+      keyword: 'Договори',
+      description: 'Експериментално лечение',
+      status: '50%',
+      deadline: 'остават 7 дни',
+      operator: 'Ivan',
+    },
+    {
+      id: '3',
+      taskName: 'Да помогнем на Радост да проходи',
+      keyword: 'Договори',
+      description: 'Експериментално лечение',
+      status: '50%',
+      deadline: 'остават 7 дни',
+      operator: 'Ivan',
+    },
+    {
+      id: '4',
+      taskName: 'Да помогнем на Радост да проходи',
+      keyword: 'Договори',
+      description: 'Експериментално лечение',
+      status: '50%',
+      deadline: 'остават 7 дни',
+      operator: 'Ivan',
+    },
+    {
+      id: '5',
+      taskName: 'Да помогнем на Радост да проходи',
+      keyword: 'Договори',
+      description: 'Експериментално лечение',
+      status: '50%',
+      deadline: 'остават 7 дни',
+      operator: 'Ivan',
+    },
+  ]
   const router = useRouter()
   return (
     <DataGrid
-      style={{ marginTop: '50px' }}
+      style={{
+        marginTop: '1px',
+        background: 'white',
+        height: 'calc(100vh - 200px)',
+        border: 'none',
+      }}
       rows={data || []}
       columns={columns}
       pageSize={5}
