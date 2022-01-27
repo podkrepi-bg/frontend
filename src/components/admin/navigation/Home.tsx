@@ -15,7 +15,7 @@ function Home() {
             <SearchIcon color="action" sx={{ marginLeft: '5px' }} />
           </Container>
           <AppBarMenu></AppBarMenu>
-          <Container disableGutters sx={{ background: 'white', p: '40px 80px' }}>
+          <Container disableGutters sx={{ background: 'white', p: '40px 80px', marginTop: '2px' }}>
             <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
               Начална страница
             </Typography>
