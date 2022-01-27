@@ -91,7 +91,9 @@ export default function ClippedDrawer() {
         anchor="left"
         classes={{ paper: classes.drawerPaper }}>
         <div>
-          <Typography variant="h5"> Something</Typography>
+          <Typography variant="h5" sx={{ textAlign: 'center' }}>
+            LOGO
+          </Typography>
         </div>
         <List>
           {menuItems.map((item) => (
