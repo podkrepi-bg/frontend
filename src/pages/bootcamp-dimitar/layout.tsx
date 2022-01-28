@@ -13,7 +13,7 @@ import ListItem from '@mui/material/ListItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import InboxIcon from '@mui/icons-material/MoveToInbox'
-import { Container } from '@mui/material'
+import { Container, Link } from '@mui/material'
 
 function CustomLayout({ children, title }: { children: any }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -81,13 +81,13 @@ function CustomLayout({ children, title }: { children: any }) {
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
-          <ListItemText primary="Dashboard" />
+          <Link href="/bootcamp-dimitar">All</Link>
         </ListItem>
         <ListItem>
           <ListItemIcon>
             <InboxIcon />
           </ListItemIcon>
-          <ListItemText primary="Users" />
+          <Link href="/bootcamp-dimitar/create">Create</Link>
         </ListItem>
         <ListItem>
           <ListItemIcon>
