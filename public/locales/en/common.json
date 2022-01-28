@@ -20,7 +20,8 @@
       "create": "Create country",
       "list": "All countries",
       "students": "All students",
-      "animals": "All animals"
+      "animals": "All animals",
+      "dashboard": "Admin panel"
     },
     "admin": {
       "index": "Administration",

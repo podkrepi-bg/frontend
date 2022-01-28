@@ -46,9 +46,17 @@ const defaults: AnimalResponse = {
 
 type Props = {
   initialValues?: AnimalResponse
+  redirectUrl?: string
+  successHandler?: (newAnimal: AnimalResponse) => void
+  closeModal?: () => void
 }
 
-export default function CreateAnimalForm({ initialValues }: Props) {
+export default function CreateAnimalForm({
+  initialValues,
+  redirectUrl,
+  successHandler,
+  closeModal,
+}: Props) {
   const router = useRouter()
   const { t } = useTranslation()
   const classes = useStyles()
@@ -73,7 +81,15 @@ export default function CreateAnimalForm({ initialValues }: Props) {
         id: initialValues?.id || '',
       })
       resetForm()
-      router.push('/bootcamp/animals')
+      if (successHandler) {
+        successHandler({
+          name: values.name,
+          type: values.type,
+          id: initialValues?.id || '',
+        })
+      } else {
+        router.push(redirectUrl || '/bootcamp/animals')
+      }
     } catch (error) {
       console.error(error)
       if (isAxiosError(error)) {
@@ -83,6 +99,10 @@ export default function CreateAnimalForm({ initialValues }: Props) {
         })
       }
     }
+  }
+
+  const cancelHandler = () => {
+    router.push(redirectUrl || '/bootcamp/animals')
   }
   return (
     <Grid className={classes.modal} container direction="column">
@@ -105,7 +125,12 @@ export default function CreateAnimalForm({ initialValues }: Props) {
               <Button variant="contained" type="submit">
                 {initialValues ? 'Edit' : 'Add'}
               </Button>
-              <Button variant="contained" size="small" color="error" className={classes.deleteBtn}>
+              <Button
+                variant="contained"
+                size="small"
+                color="error"
+                className={classes.deleteBtn}
+                onClick={closeModal || cancelHandler}>
                 Cancel
               </Button>
             </ButtonGroup>

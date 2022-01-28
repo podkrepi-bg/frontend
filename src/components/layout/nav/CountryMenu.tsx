@@ -24,6 +24,9 @@ export default function CountryMenu() {
       <LinkMenuItem href="/bootcamp/animals" selected={router.asPath === '/bootcamp/animals'}>
         <Typography>{t('nav.bootcamp.animals')}</Typography>
       </LinkMenuItem>
+      <LinkMenuItem href="/bootcamp/dashboard" selected={router.asPath === '/bootcamp/dashboard'}>
+        <Typography>{t('nav.bootcamp.dashboard')}</Typography>
+      </LinkMenuItem>
     </GenericMenu>
   )
 }
