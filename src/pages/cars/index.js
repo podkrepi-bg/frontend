@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import CarsForm from '../../components/cars/CarsForm'
 import CarsGrid from '../../components/cars/CarsGrid'
 import CarsNavBar from '../../components/cars/CarsNavBar'
+import Footer from '../../components/cars/Footer'
 import fetch from 'node-fetch'
 
 export default function CarsPage({ cars: carsData }) {
@@ -10,8 +10,8 @@ export default function CarsPage({ cars: carsData }) {
   return (
     <>
       <CarsNavBar cars={cars} setCars={setCars} />
-      <CarsForm cars={cars} setCars={setCars} />
       <CarsGrid cars={cars} setCars={setCars} />
+      <Footer />
     </>
   )
 }

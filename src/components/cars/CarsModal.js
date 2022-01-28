@@ -7,7 +7,7 @@ const modalStyle = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 700,
+  width: 'auto',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -15,27 +15,6 @@ const modalStyle = {
 }
 
 export default function CarsModal({ props }) {
-  async function onEditSubmit(e) {
-    const carData = JSON.stringify({
-      brand: props.editBrand,
-      model: props.editModel,
-    })
-
-    fetch(`http://localhost:5010/api/car/${props.editId}`, {
-      method: 'put',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: carData,
-    }).then((res) => {
-      props.setOpen(false)
-      props.setCars([
-        ...props.cars.filter((car) => car.id !== props.editId),
-        { id: props.editId, brand: props.editBrand, model: props.editModel },
-      ])
-    })
-  }
-
   return (
     <Modal open={props.open} onClose={() => props.setOpen(false)}>
       <Box sx={modalStyle}>
@@ -43,26 +22,60 @@ export default function CarsModal({ props }) {
           <TextField
             id="brand"
             label="Brand"
-            required
             size="small"
-            defaultValue={props.editBrand}
-            onChange={(e) => props.setEditBrand(e.target.value)}
+            defaultValue={props.brand}
+            InputProps={{
+              readOnly: true,
+            }}
+            sx={{ mb: 2 }}
           />
         </Box>
         <Box sx={{ display: 'inline', mr: 4 }}>
           <TextField
             id="model"
             label="Model"
-            required
             size="small"
-            defaultValue={props.editModel}
-            onChange={(e) => props.setEditModel(e.target.value)}
+            defaultValue={props.model}
+            InputProps={{
+              readOnly: true,
+            }}
+            sx={{ mb: 2 }}
           />
         </Box>
-        <Box sx={{ display: 'inline' }}>
-          <Button onClick={onEditSubmit} type="submit">
-            Submit
-          </Button>
+        <Box sx={{ display: 'inline', mr: 4 }}>
+          <TextField
+            id="year"
+            label="Year"
+            size="small"
+            defaultValue={props.year}
+            InputProps={{
+              readOnly: true,
+            }}
+            sx={{ mb: 2 }}
+          />
+        </Box>
+        <Box sx={{ display: 'inline', mr: 4 }}>
+          <TextField
+            id="city"
+            label="City"
+            size="small"
+            defaultValue={props.city}
+            InputProps={{
+              readOnly: true,
+            }}
+            sx={{ mb: 2 }}
+          />
+        </Box>
+        <Box sx={{ display: 'inline', mr: 4 }}>
+          <TextField
+            id="country"
+            label="Country"
+            size="small"
+            defaultValue={props.country}
+            InputProps={{
+              readOnly: true,
+            }}
+          />
         </Box>
       </Box>
     </Modal>

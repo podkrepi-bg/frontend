@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {
   AppBar,
+  Avatar,
   Box,
   Divider,
   Drawer,
@@ -21,10 +22,10 @@ import CarRentalIcon from '@mui/icons-material/CarRental'
 import InboxIcon from '@mui/icons-material/Inbox'
 import BrandsDrawer from './BrandsDrawer'
 import ModelsDrawer from './ModelsDrawer'
-import SearchBar from './SearchBar'
+import ProfileAvatar from './ProfileAvatar'
 import fetch from 'node-fetch'
 
-export default function CarsNavBar({ cars, setCars }) {
+export default function CarsNavBar() {
   const [open, setOpen] = useState(false)
 
   const handleOpen = () => setOpen(true)
@@ -59,7 +60,7 @@ export default function CarsNavBar({ cars, setCars }) {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar sx={{ backgroundColor: 'white' }} position="static">
         <Toolbar>
           <IconButton
             size="large"
@@ -70,10 +71,20 @@ export default function CarsNavBar({ cars, setCars }) {
             sx={{ mr: 2 }}>
             <MenuIcon />
           </IconButton>
+          <Box
+            component="img"
+            sx={{
+              height: 50,
+              width: 50,
+              mr: 3,
+            }}
+            alt="logo"
+            src="/android-chrome-192x192.png"
+          />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Cars
+            Admin panel
           </Typography>
-          <SearchBar cars={cars} setCars={setCars} />
+          <ProfileAvatar />
         </Toolbar>
       </AppBar>
       <Drawer
