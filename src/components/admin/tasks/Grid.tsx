@@ -3,13 +3,13 @@ import { GridColumns } from '@mui/x-data-grid'
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { useQuery } from 'react-query'
 import axios from 'axios'
 import { useContext, useState } from 'react'
 import { ModalContext } from 'context/ModalContext'
 import { useRouter } from 'next/router'
 import AlertDialog from './ConfirmationDialog'
-export default function TasksGrid({ value }: any) {
+export default function TasksGrid() {
   const [open, setOpenAlertModal] = useState(false)
   const [id, setId] = useState('')
   const handleClickOpen = () => {
@@ -21,6 +21,11 @@ export default function TasksGrid({ value }: any) {
   }
   const { setOpen, setCarId }: any = useContext(ModalContext)
   const router = useRouter()
+  const commonCellStyles: any = {
+    fontWeight: 'bold',
+    width: '100%',
+    textAlign: 'center',
+  }
 
   const columns: GridColumns = [
     { field: 'id', headerName: 'id', hide: true },
@@ -50,11 +55,7 @@ export default function TasksGrid({ value }: any) {
       headerAlign: 'center',
       width: 150,
       renderCell: (cellValues) => {
-        return (
-          <div style={{ fontWeight: 'bold', width: '100%', textAlign: 'center' }}>
-            {cellValues.value}
-          </div>
-        )
+        return <div style={{}}>{cellValues.value}</div>
       },
     },
     {
@@ -63,11 +64,7 @@ export default function TasksGrid({ value }: any) {
       headerAlign: 'center',
       width: 150,
       renderCell: (cellValues) => {
-        return (
-          <div style={{ fontWeight: 'bold', width: '100%', textAlign: 'center' }}>
-            {cellValues.value}
-          </div>
-        )
+        return <div style={commonCellStyles}>{cellValues.value}</div>
       },
     },
     {
@@ -76,11 +73,7 @@ export default function TasksGrid({ value }: any) {
       headerAlign: 'center',
       width: 150,
       renderCell: (cellValues) => {
-        return (
-          <div style={{ fontWeight: 'bold', width: '100%', textAlign: 'center' }}>
-            {cellValues.value}
-          </div>
-        )
+        return <div style={commonCellStyles}>{cellValues.value}</div>
       },
     },
 
@@ -90,11 +83,7 @@ export default function TasksGrid({ value }: any) {
       headerAlign: 'center',
       width: 150,
       renderCell: (cellValues) => {
-        return (
-          <div style={{ fontWeight: 'bold', width: '100%', textAlign: 'center' }}>
-            {cellValues.value}
-          </div>
-        )
+        return <div style={commonCellStyles}>{cellValues.value}</div>
       },
     },
     {
@@ -103,11 +92,7 @@ export default function TasksGrid({ value }: any) {
       width: 150,
       headerAlign: 'center',
       renderCell: (cellValues) => {
-        return (
-          <div style={{ fontWeight: 'bold', width: '100%', textAlign: 'center' }}>
-            {cellValues.value}
-          </div>
-        )
+        return <div style={commonCellStyles}>{cellValues.value}</div>
       },
     },
     {
@@ -151,7 +136,6 @@ export default function TasksGrid({ value }: any) {
                 onClick={() => {
                   handleClickOpen()
                   setId(values.id)
-                  /* mutate(values.id) */
                 }}
               />
             }
