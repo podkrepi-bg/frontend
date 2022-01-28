@@ -1,10 +1,10 @@
 import React from 'react'
 import { Theme } from '@mui/material'
-
 import createStyles from '@mui/styles/createStyles'
 import makeStyles from '@mui/styles/makeStyles'
 import ResponsiveAppBar from './ResponsiveAppBar'
 import MyDrawer from './MyDrawer'
+import MyFooter from './MyFooter'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,6 +29,7 @@ export default function MyLayout(props: any) {
       <ResponsiveAppBar />
       <MyDrawer />
       <div className={classes.page}>{props.children}</div>
+      <MyFooter />
     </div>
   )
 }

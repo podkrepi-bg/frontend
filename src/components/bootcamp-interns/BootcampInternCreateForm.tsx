@@ -1,7 +1,7 @@
 import GenericForm from 'components/common/form/GenericForm'
 import * as yup from 'yup'
 import { useRouter } from 'next/router'
-import { Grid } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
@@ -16,6 +16,10 @@ const useStyles = makeStyles((theme) => {
   return {
     internForm: {
       marginLeft: drawerWidth,
+      marginTop: '200px',
+    },
+    internFormHeader: {
+      marginBottom: '50px',
     },
   }
 })
@@ -43,12 +47,10 @@ export default function BootcampInternCreateForm() {
   }
 
   return (
-    <Grid
-      className={classes.internForm}
-      container
-      direction="column"
-      component="section"
-      style={{ marginTop: '50px' }}>
+    <Grid className={classes.internForm} container direction="column" component="section">
+      <Typography variant="h2" className={classes.internFormHeader}>
+        Create new Softuni Bootcamp Intern
+      </Typography>
       <GenericForm onSubmit={onSubmit} initialValues={defaults} validationSchema={validationSchema}>
         <Grid container spacing={1.3}>
           <Grid item xs={12}>
@@ -68,7 +70,7 @@ export default function BootcampInternCreateForm() {
             <FormTextField type="text" name="email" label="Email" autoComplete="email" />
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid item mt={3} xs={12}>
             <SubmitButton fullWidth />
           </Grid>
         </Grid>

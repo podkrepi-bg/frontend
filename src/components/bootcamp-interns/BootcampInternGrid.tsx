@@ -1,13 +1,11 @@
-import { Calculate } from '@mui/icons-material'
 import { makeStyles } from '@mui/styles'
 import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 import { useBootcampInternsList } from 'common/hooks/bootcampIntern'
-import { routes } from 'common/routes'
-import { useRouter } from 'next/router'
-import { ButtonGroup, ListItemIcon } from '@mui/material'
+import { ButtonGroup, ListItemIcon, Typography } from '@mui/material'
 import { drawerWidth } from './MyDrawer'
 import { Button } from '@mui/material'
-
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteIcon from '@mui/icons-material/Delete'
 import StarIcon from '@mui/icons-material/Star'
 import CircleIcon from '@mui/icons-material/Circle'
 
@@ -15,6 +13,10 @@ const useStyles = makeStyles((theme) => {
   return {
     internDataGrid: {
       marginLeft: drawerWidth,
+    },
+    dataGridHeader: {
+      marginLeft: drawerWidth,
+      marginTop: '40px',
     },
   }
 })
@@ -63,35 +65,35 @@ const columns: GridColumns = [
     headerName: 'Actions',
     renderCell: () => (
       <ButtonGroup>
-        <Button variant="contained" color="error" size="small">
-          Delete
-        </Button>
-        <Button variant="contained" color="success" size="small" style={{ padding: '8px' }}>
-          Edit
-        </Button>
+        <EditIcon color="primary" />
+        <DeleteIcon color="error" />
       </ButtonGroup>
     ),
-    width: 350,
+    width: 340,
     align: 'center',
   },
 ]
 
 export default function BootcampInternGrid(props: any) {
   const classes = useStyles()
-  const router = useRouter()
   const { data } = useBootcampInternsList()
 
   return (
-    <DataGrid
-      className={classes.internDataGrid}
-      style={{ marginTop: '35px' }}
-      rows={data || []}
-      columns={columns}
-      pageSize={3}
-      autoHeight
-      autoPageSize
-      checkboxSelection
-      disableSelectionOnClick
-    />
+    <>
+      <Typography variant="h1" align="center" className={classes.dataGridHeader}>
+        Softuni Bootcamp Interns
+      </Typography>
+      <DataGrid
+        className={classes.internDataGrid}
+        style={{ marginTop: '50px' }}
+        rows={data || []}
+        columns={columns}
+        pageSize={6}
+        autoHeight
+        autoPageSize
+        checkboxSelection
+        disableSelectionOnClick
+      />
+    </>
   )
 }
