@@ -26,13 +26,11 @@ export default function BasicCard() {
   }, [])
   const queryClient = new QueryClient()
   const cars = queryClient.getQueryData("cars")
-  console.log(cars)
   /*   const {
     data: { data },
   }: any = useQuery<AxiosResponse<any>>(['car', carId], async (carId) => {
     return await axios.get(`http://localhost:5010/api/car/${carId}`)
   }) */
-
   return (
     <Card
       sx={{

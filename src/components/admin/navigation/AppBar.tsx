@@ -8,7 +8,6 @@ import FileCopyIcon from '@mui/icons-material/FileCopy'
 import SaveIcon from '@mui/icons-material/Save'
 import LocalPrintshopIcon from '@mui/icons-material/LocalPrintshop'
 import ShareIcon from '@mui/icons-material/Share'
-
 const iconStyles = {
   borderRadius: '50%',
   padding: 1,
@@ -17,7 +16,6 @@ const iconStyles = {
   boxShadow: 3,
   marginRight: '15px',
 }
-
 export default function AppBarMenu() {
   return (
     <AppBar elevation={0} sx={{ background: 'white' }} position="static">
@@ -40,7 +38,6 @@ export default function AppBarMenu() {
             <Tooltip title="Share">
               <ShareIcon sx={iconStyles} color="action" fontSize="large" />
             </Tooltip>
-
             <Tooltip title="Add">
               <AddIcon
                 sx={{

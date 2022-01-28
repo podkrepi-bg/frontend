@@ -7,14 +7,12 @@ import { Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useQuery } from 'react-query'
 import axios from 'axios'
-
 export default function EditForm() {
   const router = useRouter()
   const carId = router.query.id
   const { data }: any = useQuery(['car', carId], async () => {
     return await axios.get(`http://localhost:5010/api/car/${carId}`)
   })
-
   return (
     <div
       style={{

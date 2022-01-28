@@ -1,6 +1,5 @@
 import { Container } from '@mui/material'
 import TasksGrid from './Grid'
-
 import LayoutPanel from '../navigation/LayoutPanel'
 import AppBarMenu from '../navigation/AppBar'
 import BasicModal from './Modal'
@@ -18,5 +17,4 @@ const Tasks = () => {
     </div>
   )
 }
-
 export default Tasks

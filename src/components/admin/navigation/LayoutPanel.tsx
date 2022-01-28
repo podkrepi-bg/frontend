@@ -50,7 +50,6 @@ const Main = styled('main', { shouldForwardProp: (prop: any) => prop !== 'open' 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean
 }
-
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop: any) => prop !== 'open',
 })<AppBarProps>(({ theme, open }: any) => ({
@@ -122,9 +121,6 @@ export default function PersistentDrawerLeft({ children }: any) {
             alt=""
             style={{ width: '200px', height: '40px' }}
           />
-         
-            
-        
           <div>
             <Avatar
               onClick={handleClick}
