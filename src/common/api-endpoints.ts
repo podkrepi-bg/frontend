@@ -29,4 +29,11 @@ export const endpoints = {
     recurringPrices: <Endpoint>{ url: '/donation/prices/recurring', method: 'GET' },
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
   },
+  bootcampDimitar: {
+    list: <Endpoint>{ url: '/bootcamp-dimitar', method: 'GET' },
+    delete: (slug: string) => <Endpoint>{ url: `/bootcamp-dimitar/${slug}`, method: 'DELETE' },
+    create: <Endpoint>{ url: '/bootcamp-dimitar', method: 'POST' },
+    view: (slug: string) => <Endpoint>{ url: `/bootcamp-dimitar/${slug}`, method: 'GET' },
+    edit: (slug: string) => <Endpoint>{ url: `bootcamp-dimitar/${slug}`, method: 'PATCH' },
+  },
 }

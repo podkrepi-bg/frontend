@@ -12,6 +12,7 @@ import { CampaignResponse, CampaignInput } from 'gql/campaigns'
 import { endpoints } from './api-endpoints'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
+import { AnyObject } from 'yup/lib/types'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await axios.get(queryKey.join('/'))
@@ -75,4 +76,23 @@ export const createCheckoutSession: MutationFunction<
     endpoints.donation.createCheckoutSession.url,
     data,
   )
+}
+
+export const getBootcampDimitar = async (data: string) => {
+  return await (
+    await axios.get(endpoints.bootcampDimitar.view(data).url)
+  ).data
+}
+
+export const createBootcampDimitar = async (data: any) => {
+  return await axios.post<any>(endpoints.bootcampDimitar.create.url, data)
+}
+
+export const deleteBootcampDimitar = async (data: string) => {
+  return await axios.delete(endpoints.bootcampDimitar.delete(data).url)
+}
+
+export const editBootcampDimitar = async (data: any) => {
+  console.log(data)
+  return await axios.patch<any>(endpoints.bootcampDimitar.edit(data.slug).url, data.data)
 }
