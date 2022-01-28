@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import Layout from 'components/layout/Layout'
 import { useBootcampDimitarList } from '../../common/hooks/bootcampDimitar'
 import { DataGrid, GridColumns } from '@mui/x-data-grid'
 import { deleteBootcampDimitar } from '../../common/rest'
@@ -9,8 +8,12 @@ import { useMutation } from 'react-query'
 import { AlertStore } from 'stores/AlertStore'
 import { useRouter } from 'next/router'
 import { endpoints } from '../../common/api-endpoints'
-import MyAppBar from '../../components/bootcamp-dimitar/appBar'
 import CustomLayout from './layout'
+import EditIcon from '@mui/icons-material/Edit'
+import Link from 'next/link'
+import { IconButton } from '@mui/material'
+import PageviewIcon from '@mui/icons-material/Pageview'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 function BootcampDimitarList() {
   const { data = [] } = useBootcampDimitarList()
@@ -45,9 +48,30 @@ function BootcampDimitarList() {
       width: 300,
     },
     {
-      field: 'delete',
-      headerName: 'Delete',
-      valueGetter: () => 'X',
+      field: 'actions',
+      headerName: 'Actions',
+      renderCell: (cellValues) => {
+        return (
+          <>
+            <Link href="test">
+              <IconButton size="small" sx={{ mr: 1 }}>
+                <PageviewIcon />
+              </IconButton>
+            </Link>
+            <Link href="test">
+              <IconButton size="small" sx={{ mr: 1 }}>
+                <EditIcon />
+              </IconButton>
+            </Link>
+            <Link href="test">
+              <IconButton size="small" sx={{ mr: 1 }}>
+                <DeleteIcon />
+              </IconButton>
+            </Link>
+          </>
+        )
+      },
+      width: 500,
     },
   ]
 
