@@ -15,7 +15,7 @@ export default function TasksGrid({ value }: any) {
     return axios.delete(`http://localhost:5010/api/car/${id}`)
   }
   const queryClient = useQueryClient()
-  const { isLoading, isError, isSuccess, isIdle, mutate } = useMutation(deleteCar, {
+  const { mutate } = useMutation(deleteCar, {
     onSuccess: (data: any) => {
       queryClient.invalidateQueries('cars', data)
     },
