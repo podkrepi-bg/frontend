@@ -8,6 +8,9 @@ import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import StarIcon from '@mui/icons-material/Star'
 import CircleIcon from '@mui/icons-material/Circle'
+import PageviewIcon from '@mui/icons-material/Pageview'
+
+import InfoIcon from '@mui/icons-material/Info'
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -17,6 +20,9 @@ const useStyles = makeStyles((theme) => {
     dataGridHeader: {
       marginLeft: drawerWidth,
       marginTop: '40px',
+    },
+    icons: {
+      cursor: 'pointer',
     },
   }
 })
@@ -36,6 +42,7 @@ const hardCodedTypes = [
   { icon: <CircleIcon color="primary" /> },
 ]
 const getRandomType = (array: any) => array[Math.floor(Math.random() * hardCodedTypes.length)].icon
+const iconsStyle = { cursor: 'pointer' }
 
 const columns: GridColumns = [
   { field: 'id', headerName: 'ID', hide: true },
@@ -65,8 +72,9 @@ const columns: GridColumns = [
     headerName: 'Actions',
     renderCell: () => (
       <ButtonGroup>
-        <EditIcon color="primary" />
-        <DeleteIcon color="error" />
+        <InfoIcon style={iconsStyle} />
+        <EditIcon style={iconsStyle} />
+        <DeleteIcon style={iconsStyle} />
       </ButtonGroup>
     ),
     width: 340,
