@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { appWithTranslation, useTranslation } from 'next-i18next'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 import ModalContextProvider from 'context/ModalContext'
 // MaterialUI
 import { LinearProgress } from '@mui/material'
@@ -109,6 +110,7 @@ function CustomApp({
                 <Hydrate state={pageProps.dehydratedState}>
                   <Component {...pageProps} />
                 </Hydrate>
+                <ReactQueryDevtools initialIsOpen={false} />
               </QueryClientProvider>
             </SSRKeycloakProvider>
           </ThemeProvider>

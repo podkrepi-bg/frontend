@@ -5,21 +5,22 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import axios from 'axios'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { ModalContext } from 'context/ModalContext'
 import { useRouter } from 'next/router'
+import AlertDialog from './ConfirmationDialog'
 export default function TasksGrid({ value }: any) {
+  const [open, setOpenAlertModal] = useState(false)
+  const [id, setId] = useState('')
+  const handleClickOpen = () => {
+    setOpenAlertModal(true)
+  }
+
+  const handleClose = () => {
+    setOpenAlertModal(false)
+  }
   const { setOpen, setCarId }: any = useContext(ModalContext)
   const router = useRouter()
-  const deleteCar = (id: any) => {
-    return axios.delete(`http://localhost:5010/api/car/${id}`)
-  }
-  const queryClient = useQueryClient()
-  const { mutate } = useMutation(deleteCar, {
-    onSuccess: (data: any) => {
-      queryClient.invalidateQueries('cars', data)
-    },
-  })
 
   const columns: GridColumns = [
     { field: 'id', headerName: 'id', hide: true },
@@ -148,7 +149,9 @@ export default function TasksGrid({ value }: any) {
                 sx={{ cursor: 'pointer', opacity: 0.9 }}
                 color="error"
                 onClick={() => {
-                  mutate(values.id)
+                  handleClickOpen()
+                  setId(values.id)
+                  /* mutate(values.id) */
                 }}
               />
             }
@@ -162,22 +165,29 @@ export default function TasksGrid({ value }: any) {
   })
 
   return (
-    <DataGrid
-      style={{
-        marginTop: '2px',
-        background: 'white',
-        height: 'calc(100vh - 400px)',
-        border: 'none',
-        padding: '10px 50px',
-      }}
-      rows={data?.data || []}
-      columns={columns}
-      pageSize={5}
-      autoHeight
-      autoPageSize
-      checkboxSelection
-      disableSelectionOnClick
-      onRowClick={() => {}}
-    />
+    <>
+      <AlertDialog open={open} handleClose={handleClose} id={id}></AlertDialog>
+      <DataGrid
+        style={{
+          marginTop: '2px',
+          background: 'white',
+          height: 'calc(100vh - 400px)',
+          border: 'none',
+          padding: '10px 50px',
+        }}
+        rows={
+          data?.data || [
+            { id: '1', brand: 'Audi', model: 'A3', year: 2015, engine: 'Petrol', price: '25000' },
+          ]
+        }
+        columns={columns}
+        pageSize={5}
+        autoHeight
+        autoPageSize
+        checkboxSelection
+        disableSelectionOnClick
+        onRowClick={() => {}}
+      />
+    </>
   )
 }
