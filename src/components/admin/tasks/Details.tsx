@@ -6,8 +6,8 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import { useContext } from 'react'
 import { ModalContext } from 'context/ModalContext'
-import axios from 'axios'
-import { useQuery } from 'react-query'
+import axios, { AxiosResponse } from 'axios'
+import { useQuery, QueryClient } from 'react-query'
 export default function BasicCard() {
   const [car, setCar] = React.useState<any>({
     brand: '',
@@ -24,14 +24,14 @@ export default function BasicCard() {
     }
     fetchCar()
   }, [])
-
-  const {
+  const queryClient = new QueryClient()
+  const cars = queryClient.getQueryData("cars")
+  console.log(cars)
+  /*   const {
     data: { data },
-  }: any = useQuery(['car', carId], async () => {
+  }: any = useQuery<AxiosResponse<any>>(['car', carId], async (carId) => {
     return await axios.get(`http://localhost:5010/api/car/${carId}`)
-  })
-
-  console.log(car)
+  }) */
 
   return (
     <Card
@@ -48,19 +48,19 @@ export default function BasicCard() {
       }}>
       <CardContent>
         <Typography variant="h5" component="div" gutterBottom>
-          {data?.model}
+          {car?.model}
         </Typography>
         <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
-          Brand: {data?.brand}
+          Brand: {car?.brand}
         </Typography>
         <Typography color="text.secondary" gutterBottom>
-          Year: {data?.year}
+          Year: {car?.year}
         </Typography>
         <Typography variant="body2" gutterBottom>
-          Engine: {data?.engine}
+          Engine: {car?.engine}
         </Typography>
         <Typography variant="body2" gutterBottom>
-          Price: {data?.price}
+          Price: {car?.price}
         </Typography>
       </CardContent>
       <CardActions>

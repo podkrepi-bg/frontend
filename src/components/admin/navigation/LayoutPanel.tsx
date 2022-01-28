@@ -18,7 +18,7 @@ import { Avatar } from '@mui/material'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-
+import { Typography } from '@mui/material'
 const Root = styled('div')(({ theme }: any) => ({
   [theme.breakpoints.up('md')]: {
     display: 'none',
@@ -122,6 +122,9 @@ export default function PersistentDrawerLeft({ children }: any) {
             alt=""
             style={{ width: '200px', height: '40px' }}
           />
+         
+            
+        
           <div>
             <Avatar
               onClick={handleClick}
