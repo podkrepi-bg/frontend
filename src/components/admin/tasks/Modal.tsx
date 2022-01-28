@@ -1,6 +1,6 @@
+import { ModalContext } from 'context/ModalContext'
 import * as React from 'react'
 import Modal from '@mui/material/Modal'
-import { ModalContext } from 'context/ModalContext'
 import BasicCard from './Details'
 export default function BasicModal() {
   const { open, setOpen }: any = React.useContext(ModalContext)
