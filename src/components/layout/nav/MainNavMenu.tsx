@@ -21,6 +21,13 @@ export default function MainNavMenu({ children }: { children?: React.ReactNode }
       <Grid item>
         <Button
           variant="text"
+          color="primary"
+          href="/bootcamp"
+          style={{ whiteSpace: 'nowrap' }}>
+          Бууткемпъри
+        </Button>
+        <Button
+          variant="text"
           target="_blank"
           color="primary"
           href={staticUrls.blog}
