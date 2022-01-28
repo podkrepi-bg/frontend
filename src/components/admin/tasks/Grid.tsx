@@ -4,23 +4,21 @@ import StarIcon from '@mui/icons-material/Star'
 import CircleIcon from '@mui/icons-material/Circle'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
-import { useMutation } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import axios from 'axios'
 import { useCarsList } from 'common/hooks/useCarsList'
 import { QueryClient } from 'react-query'
 import { useContext } from 'react'
 import { ModalContext } from 'context/ModalContext'
 export default function TasksGrid({ value }: any) {
-  console.log(value)
-
   const { carData, setData }: any = useContext(ModalContext)
   const deleteCar = (id: any) => {
     return axios.delete(`http://localhost:5010/api/car/${id}`)
   }
+  const queryClient = useQueryClient()
   const { isLoading, isError, isSuccess, isIdle, mutate } = useMutation(deleteCar, {
     onSuccess: (data: any) => {
-      useCarsList()
-      setData((prevstate: any) => prevstate.filter((car: any) => car.id !== data.id))
+      queryClient.invalidateQueries('cars', data)
     },
   })
 
@@ -39,8 +37,9 @@ export default function TasksGrid({ value }: any) {
     { field: 'id', headerName: 'ID', hide: true },
     {
       field: 'type',
-      headerName: 'тип',
-      width: 50,
+      headerName: 'вид',
+      width: 60,
+      headerAlign: 'center',
       renderCell: () => {
         return (
           <div
@@ -51,18 +50,19 @@ export default function TasksGrid({ value }: any) {
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-            {random(types)}
+            Кола
           </div>
         )
       },
     },
     {
       field: 'brand',
-      headerName: 'Марка',
-      width: 280,
+      headerName: 'марка',
+      headerAlign: 'center',
+      width: 150,
       renderCell: (cellValues) => {
         return (
-          <div style={{ fontWeight: 'bold', width: '100%', textAlign: 'left' }}>
+          <div style={{ fontWeight: 'bold', width: '100%', textAlign: 'center' }}>
             {cellValues.value}
           </div>
         )
@@ -70,8 +70,9 @@ export default function TasksGrid({ value }: any) {
     },
     {
       field: 'model',
-      headerName: 'Модел',
-      width: 80,
+      headerName: 'модел',
+      headerAlign: 'center',
+      width: 150,
       renderCell: (cellValues) => {
         return (
           <div style={{ fontWeight: 'bold', width: '100%', textAlign: 'center' }}>
@@ -82,8 +83,9 @@ export default function TasksGrid({ value }: any) {
     },
     {
       field: 'year',
-      headerName: 'Година',
-      width: 80,
+      headerName: 'година',
+      headerAlign: 'center',
+      width: 150,
       renderCell: (cellValues) => {
         return (
           <div style={{ fontWeight: 'bold', width: '100%', textAlign: 'center' }}>
@@ -95,8 +97,9 @@ export default function TasksGrid({ value }: any) {
 
     {
       field: 'engine',
-      headerName: 'Двигател',
-      width: 100,
+      headerName: 'двигател',
+      headerAlign: 'center',
+      width: 150,
       renderCell: (cellValues) => {
         return (
           <div style={{ fontWeight: 'bold', width: '100%', textAlign: 'center' }}>
@@ -107,8 +110,9 @@ export default function TasksGrid({ value }: any) {
     },
     {
       field: 'price',
-      headerName: 'Цена',
-      width: 80,
+      headerName: 'цена',
+      width: 150,
+      headerAlign: 'center',
       renderCell: (cellValues) => {
         return (
           <div style={{ fontWeight: 'bold', width: '100%', textAlign: 'center' }}>
@@ -120,7 +124,8 @@ export default function TasksGrid({ value }: any) {
     {
       field: 'others',
       headerName: 'редактиране',
-      width: 140,
+      headerAlign: 'center',
+      width: 150,
       renderCell: (values: any) => {
         return (
           <div
@@ -154,16 +159,10 @@ export default function TasksGrid({ value }: any) {
       },
     },
   ]
-  const { data } = useCarsList()
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: Infinity,
-      },
-    },
+  const { data }: any = useQuery('cars', async () => {
+    return await axios.get(`http://localhost:5010/api/car`)
   })
 
-  const state = queryClient.getQueryState('cars')
   return (
     <DataGrid
       style={{
@@ -171,8 +170,9 @@ export default function TasksGrid({ value }: any) {
         background: 'white',
         height: 'calc(100vh - 400px)',
         border: 'none',
+        padding: '10px 50px',
       }}
-      rows={value || []}
+      rows={data?.data || []}
       columns={columns}
       pageSize={5}
       autoHeight
