@@ -20,6 +20,12 @@
       "info-request": "Contact requests",
       "supporters": "Volunteers"
     },
+    "bootcamp": {
+      "menu": "Bootcamp",
+      "bootcampers": "All bootcampers",
+      "edit-bootcamper-info": "Edit bootcamper info",
+      "create": "Add bootcamper"
+    },
     "donation-menu": "Donation",
     "faq": "Frequently Asked Questions",
     "support-us": "Support us",

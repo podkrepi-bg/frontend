@@ -1,0 +1,9 @@
+{
+    "form_heading": "Add bootcamper",
+    "bootcamperName": "Bootcamper name",
+    "submit": "Add bootcamper",
+    "info_name": "Bootcamper name",
+    "edit_form_heading": "Edit bootcamper info",
+    "remove_button": "Remove bootcamper",
+    "sure": "Are you sure you want to remove this bootcamper?"
+}
