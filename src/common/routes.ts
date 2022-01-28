@@ -49,4 +49,9 @@ export const routes = {
     infoRequests: '/admin/info-requests',
     supporters: '/admin/supporters',
   },
+  bootcamp: {
+    index: '/bootcamp',
+    create: '/bootcamp/create',
+    viewBootcamperBySlug: (slug: string) => `/bootcamp/${slug}`
+  }
 }

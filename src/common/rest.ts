@@ -83,7 +83,14 @@ export const createBootcamper: MutationFunction<
   BootcamperInput
 > = async (data: BootcamperInput) => {
   return await axios.post<BootcamperInput, AxiosResponse<BootcampersResponse>>(
-    endpoints.bootcampers.createBootcamper.url,
-    data,
+    endpoints.bootcamp.createBootcamper.url,
+    data
+  )
+}
+
+export const editBootcamper = async (id: string, data: BootcamperInput) => {
+  return await axios.put<BootcamperInput, AxiosResponse<BootcampersResponse>>(
+    endpoints.bootcamp.viewBootcamper(id).url,
+    data
   )
 }
