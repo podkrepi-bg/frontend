@@ -21,7 +21,6 @@ const useStyles = makeStyles((theme) => {
 
 export default function MyFooter() {
   const classes = useStyles()
-  console.log(classes)
 
   return (
     <footer className={classes.footer}>
