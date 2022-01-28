@@ -1,7 +1,6 @@
-import Home from 'components/admin/navigation/Home'
+import EditForm from 'components/admin/tasks/EditForm'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
     props: {
@@ -14,4 +13,4 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
     },
   }
 }
-export default Home
+export default EditForm

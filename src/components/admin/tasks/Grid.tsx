@@ -1,17 +1,16 @@
 import { DataGrid } from '@mui/x-data-grid'
 import { GridColumns } from '@mui/x-data-grid'
-import StarIcon from '@mui/icons-material/Star'
-import CircleIcon from '@mui/icons-material/Circle'
+import PrivacyTipIcon from '@mui/icons-material/PrivacyTip'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import axios from 'axios'
-import { useCarsList } from 'common/hooks/useCarsList'
-import { QueryClient } from 'react-query'
 import { useContext } from 'react'
 import { ModalContext } from 'context/ModalContext'
+import { useRouter } from 'next/router'
 export default function TasksGrid({ value }: any) {
-  const { carData, setData }: any = useContext(ModalContext)
+  const { setOpen, setCarId }: any = useContext(ModalContext)
+  const router = useRouter()
   const deleteCar = (id: any) => {
     return axios.delete(`http://localhost:5010/api/car/${id}`)
   }
@@ -22,19 +21,8 @@ export default function TasksGrid({ value }: any) {
     },
   })
 
-  const types = [
-    { icon: <StarIcon color="action" /> },
-    { icon: <CircleIcon color="warning" /> },
-    { icon: <StarIcon color="info" /> },
-    { icon: <CircleIcon color="success" /> },
-    { icon: <StarIcon color="error" /> },
-  ]
-  const random = (arr: any): any => {
-    return arr[Math.floor(Math.random() * types.length)].icon
-  }
-
   const columns: GridColumns = [
-    { field: 'id', headerName: 'ID', hide: true },
+    { field: 'id', headerName: 'id', hide: true },
     {
       field: 'type',
       headerName: 'вид',
@@ -130,18 +118,28 @@ export default function TasksGrid({ value }: any) {
         return (
           <div
             style={{
-              width: '80%',
+              width: '100%',
               height: '100%',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-evenly',
             }}>
             {
+              <PrivacyTipIcon
+                sx={{ cursor: 'pointer' }}
+                color="info"
+                onClick={() => {
+                  setCarId(values.id)
+                  setOpen(true)
+                }}
+              />
+            }
+            {
               <EditIcon
                 sx={{ cursor: 'pointer' }}
                 color="action"
                 onClick={() => {
-                  console.log(values.id)
+                  router.push(`/admin/panel/tasks/edit/${values.id}`)
                 }}
               />
             }
@@ -179,9 +177,7 @@ export default function TasksGrid({ value }: any) {
       autoPageSize
       checkboxSelection
       disableSelectionOnClick
-      onRowClick={() => {
-        console.log('clicked')
-      }}
+      onRowClick={() => {}}
     />
   )
 }
