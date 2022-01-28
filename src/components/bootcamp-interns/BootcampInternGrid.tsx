@@ -11,6 +11,9 @@ import CircleIcon from '@mui/icons-material/Circle'
 import PageviewIcon from '@mui/icons-material/Pageview'
 
 import InfoIcon from '@mui/icons-material/Info'
+import { useState } from 'react'
+import BootcampModal from './BootcampModal'
+import { Box } from '@mui/material'
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -44,47 +47,68 @@ const hardCodedTypes = [
 const getRandomType = (array: any) => array[Math.floor(Math.random() * hardCodedTypes.length)].icon
 const iconsStyle = { cursor: 'pointer' }
 
-const columns: GridColumns = [
-  { field: 'id', headerName: 'ID', hide: true },
-  {
-    field: 'type',
-    headerName: 'Type',
-    width: 100,
-    renderCell: () => getRandomType(hardCodedTypes),
-  },
-  {
-    field: 'firstName',
-    headerName: 'First name',
-    width: 250,
-  },
-  {
-    field: 'lastName',
-    headerName: 'Last name',
-    width: 250,
-  },
-  {
-    field: 'email',
-    headerName: 'Email',
-    width: 250,
-  },
-  {
-    field: 'Actions',
-    headerName: 'Actions',
-    renderCell: () => (
-      <ButtonGroup>
-        <InfoIcon style={iconsStyle} />
-        <EditIcon style={iconsStyle} />
-        <DeleteIcon style={iconsStyle} />
-      </ButtonGroup>
-    ),
-    width: 340,
-    align: 'center',
-  },
-]
-
 export default function BootcampInternGrid(props: any) {
   const classes = useStyles()
+  const [open, setOpen] = useState(false)
   const { data } = useBootcampInternsList()
+  const [details, setDetails] = useState(null)
+
+  const columns: GridColumns = [
+    { field: 'id', headerName: 'ID', hide: true },
+    {
+      field: 'type',
+      headerName: 'Type',
+      width: 100,
+      renderCell: () => getRandomType(hardCodedTypes),
+    },
+    {
+      field: 'firstName',
+      headerName: 'First name',
+      width: 250,
+    },
+    {
+      field: 'lastName',
+      headerName: 'Last name',
+      width: 250,
+    },
+    {
+      field: 'email',
+      headerName: 'Email',
+      width: 250,
+    },
+    {
+      field: 'Actions',
+      headerName: 'Actions',
+      renderCell: (cellValues) => {
+        return (
+          <ButtonGroup>
+            <InfoIcon
+              onClick={(event) => {
+                detailsClickHandler(event, cellValues)
+              }}
+              style={iconsStyle}
+            />
+            <EditIcon style={iconsStyle} />
+            <DeleteIcon style={iconsStyle} />
+          </ButtonGroup>
+        )
+      },
+      width: 340,
+      align: 'center',
+    },
+  ]
+
+  function detailsClickHandler(e, cellValues: any) {
+    setDetails({ ...cellValues.row })
+    setOpen(true)
+  }
+
+  const bootcampProps = {
+    data,
+    open,
+    setOpen,
+    ...details,
+  }
 
   return (
     <>
@@ -102,6 +126,9 @@ export default function BootcampInternGrid(props: any) {
         checkboxSelection
         disableSelectionOnClick
       />
+      <Box>
+        <BootcampModal modalProps={bootcampProps} />
+      </Box>
     </>
   )
 }
