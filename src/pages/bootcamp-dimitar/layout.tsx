@@ -15,7 +15,7 @@ import ListItemText from '@mui/material/ListItemText'
 import InboxIcon from '@mui/icons-material/MoveToInbox'
 import { Container, Link } from '@mui/material'
 
-function CustomLayout({ children, title }: { children: any }) {
+function CustomLayout({ children, title }: { children: any; title: string }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false)
 
@@ -103,6 +103,9 @@ function CustomLayout({ children, title }: { children: any }) {
         </Typography>
         {children}
       </Container>
+      <footer style={{ position: 'fixed', bottom: 0, width: '100%' }}>
+        <p style={{ textAlign: 'center' }}>footer text</p>
+      </footer>
     </>
   )
 }
