@@ -11,9 +11,11 @@ import CircleIcon from '@mui/icons-material/Circle'
 import PageviewIcon from '@mui/icons-material/Pageview'
 
 import InfoIcon from '@mui/icons-material/Info'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import BootcampModal from './BootcampModal'
 import { Box } from '@mui/material'
+import DeleteModal from './DeleteModal'
+import React from 'react'
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -30,51 +32,32 @@ const useStyles = makeStyles((theme) => {
   }
 })
 
-const hardCodedTypes = [
-  { icon: <StarIcon color="action" /> },
-  { icon: <CircleIcon color="success" /> },
-  { icon: <CircleIcon color="error" /> },
-  { icon: <StarIcon color="info" /> },
-  { icon: <StarIcon color="error" /> },
-  { icon: <StarIcon color="success" /> },
-  { icon: <StarIcon color="info" /> },
-  { icon: <CircleIcon color="warning" /> },
-  { icon: <CircleIcon color="action" /> },
-  { icon: <CircleIcon color="warning" /> },
-  { icon: <CircleIcon color="secondary" /> },
-  { icon: <CircleIcon color="primary" /> },
-]
-const getRandomType = (array: any) => array[Math.floor(Math.random() * hardCodedTypes.length)].icon
 const iconsStyle = { cursor: 'pointer' }
 
 export default function BootcampInternGrid(props: any) {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
   const { data } = useBootcampInternsList()
-  const [details, setDetails] = useState(null)
+  const [details, setDetails] = useState(null || {})
+  const [deleteData, setDeleteData] = useState(null || {})
+  const [deleteOpen, setDeleteOpen] = useState(false)
 
   const columns: GridColumns = [
     { field: 'id', headerName: 'ID', hide: true },
     {
-      field: 'type',
-      headerName: 'Type',
-      width: 100,
-      renderCell: () => getRandomType(hardCodedTypes),
-    },
-    {
       field: 'firstName',
       headerName: 'First name',
-      width: 250,
+      width: 300,
     },
     {
       field: 'lastName',
       headerName: 'Last name',
-      width: 250,
+      width: 300,
     },
     {
       field: 'email',
       headerName: 'Email',
-      width: 250,
+      width: 300,
     },
     {
       field: 'Actions',
@@ -82,23 +65,32 @@ export default function BootcampInternGrid(props: any) {
       renderCell: (cellValues) => {
         return (
           <ButtonGroup>
-            <InfoIcon
-              onClick={(event) => {
-                detailsClickHandler(event, cellValues)
-              }}
-              style={iconsStyle}
-            />
+            <InfoIcon onClick={() => detailsClickHandler(cellValues)} style={iconsStyle} />
             <EditIcon style={iconsStyle} />
-            <DeleteIcon style={iconsStyle} />
+            <DeleteIcon onClick={() => deleteClickHandler(cellValues)} style={iconsStyle} />
           </ButtonGroup>
         )
       },
-      width: 340,
+      width: 300,
       align: 'center',
     },
   ]
 
-  function detailsClickHandler(e, cellValues: any) {
+  const deleteClickHandler = (cellValues: any) => {
+    const dialogTitle = `Are you sure you want to delete ${cellValues.row.firstName} ${cellValues.row.lastName} ?`
+    const id = cellValues.row.id
+    const dataForProps: any = { dialogTitle, id }
+    setDeleteOpen(true)
+    setDeleteData(dataForProps)
+  }
+
+  const deleteProps = {
+    deleteOpen,
+    setDeleteOpen,
+    deleteData,
+  }
+
+  function detailsClickHandler(cellValues: any) {
     setDetails({ ...cellValues.row })
     setOpen(true)
   }
@@ -128,6 +120,7 @@ export default function BootcampInternGrid(props: any) {
       />
       <Box>
         <BootcampModal modalProps={bootcampProps} />
+        <DeleteModal modalProps={deleteProps}></DeleteModal>
       </Box>
     </>
   )
