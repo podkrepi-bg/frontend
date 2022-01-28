@@ -8,14 +8,14 @@ import SearchIcon from '@mui/icons-material/Search'
 import Box from '@mui/material/Box'
 import LayoutPanel from '../navigation/LayoutPanel'
 import AppBarMenu from '../navigation/AppBar'
-const Tasks = (props: any) => {
+const Tasks = () => {
   return (
     <div style={{ height: '100vh', background: '#f2f2f2' }}>
       <LayoutPanel />
       <Container>
         <Container disableGutters>
           <AppBarMenu />
-          <TasksGrid value={props.cars.data} />
+          <TasksGrid />
         </Container>
       </Container>
     </div>
