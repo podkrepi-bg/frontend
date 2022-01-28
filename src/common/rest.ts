@@ -12,6 +12,12 @@ import { CampaignResponse, CampaignInput } from 'gql/campaigns'
 import { endpoints } from './api-endpoints'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
+import {
+  AnimalInput,
+  AnimalResponse,
+  BootcampStudentInput,
+  BootcampStudentResponse,
+} from 'gql/bootcamp'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await axios.get(queryKey.join('/'))
@@ -75,4 +81,55 @@ export const createCheckoutSession: MutationFunction<
     endpoints.donation.createCheckoutSession.url,
     data,
   )
+}
+
+export const createBootcampStudent: MutationFunction<
+  AxiosResponse<BootcampStudentResponse>,
+  BootcampStudentInput
+> = async (data: BootcampStudentInput) => {
+  return await axios.post<BootcampStudentInput, AxiosResponse<BootcampStudentResponse>>(
+    endpoints.bootcampStudent.createStudent.url,
+    data,
+  )
+}
+
+export const editBootcampStudent: MutationFunction<
+  AxiosResponse<BootcampStudentResponse>,
+  BootcampStudentResponse
+> = async (data: BootcampStudentResponse) => {
+  return await axios.patch<BootcampStudentInput, AxiosResponse<BootcampStudentResponse>>(
+    endpoints.bootcampStudent.editStudent(data.id).url,
+    data,
+  )
+}
+
+export const deleteBootcampStudent: MutationFunction<AxiosResponse<null>, { slug: string }> =
+  async ({ slug }: { slug: string }) => {
+    return await axios.delete<null>(endpoints.bootcampStudent.deleteStudent(slug).url)
+  }
+
+export const createAnimal: MutationFunction<AxiosResponse<AnimalResponse>, AnimalInput> = async (
+  data: AnimalInput,
+) => {
+  return await axios.post<AnimalInput, AxiosResponse<AnimalResponse>>(
+    endpoints.animals.create.url,
+    data,
+  )
+}
+
+export const editAnimal: MutationFunction<AxiosResponse<AnimalResponse>, AnimalResponse> = async (
+  data: AnimalResponse,
+) => {
+  return await axios.patch<AnimalInput, AxiosResponse<AnimalResponse>>(
+    endpoints.animals.edit(data.id).url,
+    data,
+  )
+}
+
+export const deleteAnimal: MutationFunction<AxiosResponse<null>, { slug: string }> = async ({
+  slug,
+}: {
+  slug: string
+}) => {
+  return await axios.delete<null>(endpoints.animals.deleteAnimal(slug).url)
 }

@@ -15,6 +15,13 @@
       "subheading-bold-secondary": "Together we support and encourage the donation and volunteer culture in Bulgaria!",
       "see-more-button": "See more"
     },
+    "bootcamp": {
+      "index": "Bootcamp",
+      "create": "Create country",
+      "list": "All countries",
+      "students": "All students",
+      "animals": "All animals"
+    },
     "admin": {
       "index": "Administration",
       "info-request": "Contact requests",
