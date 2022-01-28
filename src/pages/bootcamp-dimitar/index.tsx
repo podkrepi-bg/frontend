@@ -51,14 +51,15 @@ function BootcampDimitarList() {
       field: 'actions',
       headerName: 'Actions',
       renderCell: (cellValues) => {
+        console.log(cellValues)
         return (
           <>
-            <Link href="test">
+            <Link href={`/bootcamp-dimitar/${cellValues.row.id}`}>
               <IconButton size="small" sx={{ mr: 1 }}>
                 <PageviewIcon />
               </IconButton>
             </Link>
-            <Link href="test">
+            <Link href={`/bootcamp-dimitar/${cellValues.row.id}/edit`}>
               <IconButton size="small" sx={{ mr: 1 }}>
                 <EditIcon />
               </IconButton>
@@ -87,12 +88,6 @@ function BootcampDimitarList() {
         autoPageSize
         checkboxSelection
         disableSelectionOnClick
-        // onRowClick={(p) => DialogStore.show(p)}
-        onCellClick={(p) =>
-          p.formattedValue === 'X'
-            ? deleteHandler(p.row)
-            : router.push(endpoints.bootcampDimitar.view(p.row.id).url)
-        }
       />
     </CustomLayout>
   )
