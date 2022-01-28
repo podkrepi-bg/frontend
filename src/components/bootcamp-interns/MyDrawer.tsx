@@ -8,9 +8,7 @@ import { createStyles } from '@mui/styles'
 import theme from 'common/theme'
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 import { useRouter } from 'next/router'
-import AccessibilityNewOutlinedIcon from '@mui/icons-material/AccessibilityNewOutlined'
-import ContactPageOutlinedIcon from '@mui/icons-material/ContactPageOutlined'
-
+import AddCircleIcon from '@mui/icons-material/AddCircle'
 export const drawerWidth = 200
 
 const useStyles = makeStyles((theme) => {
@@ -20,7 +18,7 @@ const useStyles = makeStyles((theme) => {
     },
     drawerPaper: {
       width: drawerWidth,
-      backgroundColor: theme.palette.primary.light,
+      backgroundColor: '#f4f4f4',
     },
     logo: {
       width: `calc(100% - 50px)`,
@@ -28,7 +26,7 @@ const useStyles = makeStyles((theme) => {
       marginTop: '10px',
     },
     active: {
-      backgroundColor: 'f4f4f4',
+      backgroundColor: '#d4d1ee',
     },
     item: {
       margin: '15px 0',
@@ -37,30 +35,20 @@ const useStyles = makeStyles((theme) => {
 })
 
 const menuItems = [
-  { text: 'Home', icon: <HomeOutlined color="primary" />, path: '/' },
-  { text: 'Interns', icon: <PeopleIcon color="primary" />, path: '/bootcamp-interns' },
-  { text: 'Campaigns', icon: <CampaignIcon color="primary" />, path: '/campaigns' },
-  { text: 'About Project', icon: <InfoOutlined color="primary" />, path: '/about-project' },
-  {
-    text: 'Become a supporter',
-    icon: <AccessibilityNewOutlinedIcon color="primary" />,
-    path: '/support',
-  },
-  { text: 'Contacts', icon: <ContactPageOutlinedIcon color="primary" />, path: '/contact' },
+  { text: 'Interns', icon: <PeopleIcon />, path: '/bootcamp-interns' },
+  { text: 'Add intern', icon: <AddCircleIcon />, path: '/bootcamp-interns/create' },
 ]
 
 export default function MyDrawer() {
   const router = useRouter()
   const classes = useStyles()
+
   return (
     <Drawer
       variant="permanent"
       className={classes.drawer}
       anchor="left"
       classes={{ paper: classes.drawerPaper }}>
-      <div className={classes.logo}>
-        <PodkrepiLogo variant="adaptive" />
-      </div>
       <List>
         {menuItems.map((item) => (
           <ListItem
