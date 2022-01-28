@@ -1,5 +1,4 @@
-import { useState, createContext, Dispatch, SetStateAction } from 'react'
-
+import { useState, createContext } from 'react'
 interface valueType {
   open: any
   setOpen: any
@@ -7,7 +6,6 @@ interface valueType {
   setCarId: any
 }
 export const ModalContext = createContext<valueType | null>(null)
-
 function ModalContextProvider({ children }: any | null) {
   const [open, setOpen] = useState(false)
   const [carId, setCarId] = useState(null)
@@ -19,5 +17,4 @@ function ModalContextProvider({ children }: any | null) {
   }
   return <ModalContext.Provider value={dataValue}>{children}</ModalContext.Provider>
 }
-
 export default ModalContextProvider

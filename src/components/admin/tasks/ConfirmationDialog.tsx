@@ -1,3 +1,4 @@
+import { useMutation, useQueryClient } from 'react-query'
 import * as React from 'react'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
@@ -7,10 +8,9 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
-import { useMutation, useQueryClient } from 'react-query'
 import axios from 'axios'
 export default function AlertDialog({ handleClose, open, id }: any) {
-  const deleteCar = (id: any) => {
+  const deleteCar = (id: string) => {
     return axios.delete(`http://localhost:5010/api/car/${id}`)
   }
   const queryClient = useQueryClient()
@@ -27,10 +27,10 @@ export default function AlertDialog({ handleClose, open, id }: any) {
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description">
-        <DialogTitle id="alert-dialog-title">{'Delete car'}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">Confirmation</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Are you sure you want to delete ... ?
+            Are you sure you want to delete this car ?
           </DialogContentText>
         </DialogContent>
         <Box sx={{ display: isLoading ? 'flex' : 'none', justifyContent: 'center', width: '100%' }}>

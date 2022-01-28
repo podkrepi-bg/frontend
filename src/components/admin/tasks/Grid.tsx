@@ -1,13 +1,13 @@
 import { DataGrid } from '@mui/x-data-grid'
 import { GridColumns } from '@mui/x-data-grid'
+import { useContext, useState } from 'react'
+import { useRouter } from 'next/router'
+import { useQuery } from 'react-query'
+import { ModalContext } from 'context/ModalContext'
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
-import { useQuery } from 'react-query'
 import axios from 'axios'
-import { useContext, useState } from 'react'
-import { ModalContext } from 'context/ModalContext'
-import { useRouter } from 'next/router'
 import AlertDialog from './ConfirmationDialog'
 export default function TasksGrid() {
   const [open, setOpenAlertModal] = useState(false)
@@ -55,7 +55,7 @@ export default function TasksGrid() {
       headerAlign: 'center',
       width: 150,
       renderCell: (cellValues) => {
-        return <div style={{}}>{cellValues.value}</div>
+        return <div style={commonCellStyles}>{cellValues.value}</div>
       },
     },
     {
@@ -168,7 +168,6 @@ export default function TasksGrid() {
         pageSize={5}
         autoHeight
         autoPageSize
-        checkboxSelection
         disableSelectionOnClick
         onRowClick={() => {}}
       />

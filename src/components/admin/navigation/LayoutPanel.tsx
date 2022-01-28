@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { Avatar } from '@mui/material'
 import { styled, useTheme } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Drawer from '@mui/material/Drawer'
@@ -13,12 +15,9 @@ import ListItem from '@mui/material/ListItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import InboxIcon from '@mui/icons-material/MoveToInbox'
 import MailIcon from '@mui/icons-material/Mail'
-import { useState } from 'react'
-import { Avatar } from '@mui/material'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-import { Typography } from '@mui/material'
 const Root = styled('div')(({ theme }: any) => ({
   [theme.breakpoints.up('md')]: {
     display: 'none',
@@ -198,7 +197,6 @@ export default function PersistentDrawerLeft({ children }: any) {
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
-
         <List sx={{ marginTop: { xs: '100px', sm: '-20px' } }}>
           {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
             <ListItem

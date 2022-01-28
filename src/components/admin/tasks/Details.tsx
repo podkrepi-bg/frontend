@@ -6,8 +6,8 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import { useContext } from 'react'
 import { ModalContext } from 'context/ModalContext'
-import axios, { AxiosResponse } from 'axios'
-import { useQuery, QueryClient } from 'react-query'
+import axios from 'axios'
+import { QueryClient } from 'react-query'
 export default function BasicCard() {
   const [car, setCar] = React.useState<any>({
     brand: '',
@@ -25,7 +25,7 @@ export default function BasicCard() {
     fetchCar()
   }, [])
   const queryClient = new QueryClient()
-  const cars = queryClient.getQueryData("cars")
+  const cars = queryClient.getQueryData('cars')
   /*   const {
     data: { data },
   }: any = useQuery<AxiosResponse<any>>(['car', carId], async (carId) => {
