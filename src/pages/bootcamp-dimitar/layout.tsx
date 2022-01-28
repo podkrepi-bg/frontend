@@ -1,6 +1,5 @@
 import * as React from 'react'
 import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
@@ -27,7 +26,7 @@ const columns: GridColDef[] = [
   { field: 'col2', headerName: 'Last Name', width: 150 },
 ]
 
-function CustomLayout() {
+function CustomLayout({ children }: { children: any }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false)
 
@@ -109,20 +108,7 @@ function CustomLayout() {
         </ListItem>
         <Divider />
       </Drawer>
-      <div style={{ width: '80%', margin: '50px auto' }}>
-        <DataGrid
-          pageSize={5}
-          autoHeight
-          autoPageSize
-          checkboxSelection
-          disableSelectionOnClick
-          rows={rows}
-          columns={columns}
-        />
-      </div>
-      {/* <footer>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta, commodi.</p>
-      </footer> */}
+      {children}
     </>
   )
 }

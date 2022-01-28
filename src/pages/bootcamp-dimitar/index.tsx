@@ -10,7 +10,7 @@ import { AlertStore } from 'stores/AlertStore'
 import { useRouter } from 'next/router'
 import { endpoints } from '../../common/api-endpoints'
 import MyAppBar from '../../components/bootcamp-dimitar/appBar'
-import CustomDrawer from '../../components/bootcamp-dimitar/CustomDrawer'
+import CustomLayout from './layout'
 
 function BootcampDimitarList() {
   const { data = [] } = useBootcampDimitarList()
@@ -52,8 +52,8 @@ function BootcampDimitarList() {
   ]
 
   return (
-    <Layout title={'Bootcamp'}>
-      <MyAppBar />
+    <CustomLayout title={'Bootcamp'}>
+      {/* <MyAppBar /> */}
       <h1>Welcome</h1>
       <DataGrid
         rows={data || []}
@@ -70,8 +70,7 @@ function BootcampDimitarList() {
             : router.push(endpoints.bootcampDimitar.view(p.row.id).url)
         }
       />
-      <CustomDrawer />
-    </Layout>
+    </CustomLayout>
   )
 }
 
