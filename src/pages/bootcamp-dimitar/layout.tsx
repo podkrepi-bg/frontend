@@ -13,20 +13,9 @@ import ListItem from '@mui/material/ListItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import InboxIcon from '@mui/icons-material/MoveToInbox'
-import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid'
+import { Container } from '@mui/material'
 
-const rows: GridRowsProp = [
-  { id: 1, col1: 'Ivan', col2: 'Stoqnov' },
-  { id: 2, col1: 'George', col2: 'Minev' },
-  { id: 3, col1: 'Spas', col2: 'Valentinov' },
-]
-
-const columns: GridColDef[] = [
-  { field: 'col1', headerName: 'First Name', width: 150 },
-  { field: 'col2', headerName: 'Last Name', width: 150 },
-]
-
-function CustomLayout({ children }: { children: any }) {
+function CustomLayout({ children, title }: { children: any }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false)
 
@@ -108,7 +97,12 @@ function CustomLayout({ children }: { children: any }) {
         </ListItem>
         <Divider />
       </Drawer>
-      {children}
+      <Container maxWidth="lg">
+        <Typography variant="h3" component="div" sx={{ flexGrow: 1 }}>
+          {title}
+        </Typography>
+        {children}
+      </Container>
     </>
   )
 }
