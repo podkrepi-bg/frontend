@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => {
   }
 })
 
-export default function ResponsiveAppBar() {
+export default function ResponsiveAppBar(props: any) {
   const classes = useStyles()
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
@@ -62,7 +62,6 @@ export default function ResponsiveAppBar() {
     <AppBar elevation={2} className={newClass ? `${classes.shrinkedAppbar}` : `${classes.appbar}`}>
       <Toolbar disableGutters>
         <MyDrawer open={open} />
-
         <IconButton onClick={handleDrawerSwipe} sx={{ mr: 2 }}>
           <MenuIcon />
         </IconButton>

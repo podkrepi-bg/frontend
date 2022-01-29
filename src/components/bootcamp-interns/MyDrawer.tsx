@@ -46,13 +46,6 @@ const menuItems = [
   { text: 'Add intern', icon: <AddCircleIcon />, path: '/bootcamp-interns/create' },
 ]
 
-const data = [
-  { icon: <People />, label: 'Authentication' },
-  { icon: <Dns />, label: 'Database' },
-  { icon: <PermMedia />, label: 'Storage' },
-  { icon: <Public />, label: 'Hosting' },
-]
-
 export default function MyDrawer(props: any) {
   const [open, setOpen] = useState(false)
   const [submenuOpen, setSubmenuOpen] = useState(false)
@@ -65,7 +58,6 @@ export default function MyDrawer(props: any) {
       ModalProps={{
         hideBackdrop: true,
       }}
-      disableBackdropTransition={true}
       onOpen={() => console.log('opened')}
       onClose={() => console.log('closed')}
       open={props.open}

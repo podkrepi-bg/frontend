@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: theme.spacing(3),
     },
     page: {
-      background: '#f9f9f9',
       width: '100%',
       padding: theme.spacing(3),
     },
