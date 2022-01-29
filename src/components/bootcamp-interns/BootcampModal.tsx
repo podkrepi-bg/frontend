@@ -1,4 +1,4 @@
-import { DialogTitle, Modal } from '@mui/material'
+import { Button, DialogTitle, Modal } from '@mui/material'
 import { Dialog } from '@mui/material'
 import { Box } from '@mui/material'
 import { makeStyles } from '@mui/styles'
@@ -33,6 +33,9 @@ export default function BootcampModal(props: any) {
         <Box className={classes.field}>{firstName}</Box>
         <Box className={classes.field}>{lastName}</Box>
         <Box className={classes.field}>{email}</Box>
+        <Button sx={{ mb: 3 }} variant="contained" onClick={() => setOpen(false)}>
+          Close
+        </Button>
       </Dialog>
     </Modal>
   )
