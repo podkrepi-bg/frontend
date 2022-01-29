@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import { routes } from 'common/routes'
 
 export default function DeleteModal(props: any) {
-  const { deleteData, dialogTitle, deleteOpen, setDeleteOpen } = props.modalProps
+  const { deleteData, deleteOpen, setDeleteOpen } = props.modalProps
   const router = useRouter()
 
   const handleDelete = async () => {
