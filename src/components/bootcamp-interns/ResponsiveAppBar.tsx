@@ -15,7 +15,7 @@ import Link from '@mui/material/Link'
 import theme from 'common/theme'
 import { PersonOutlined } from '@mui/icons-material'
 
-import { drawerWidth } from './MyDrawer'
+import MyDrawer, { drawerWidth } from './MyDrawer'
 import { createStyles, makeStyles } from '@mui/styles'
 import SearchInput from './SearchInput'
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
@@ -25,6 +25,10 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 const useStyles = makeStyles((theme) => {
   return {
     appbar: {
+      width: '100%',
+      backgroundColor: '#f4f4f4',
+    },
+    shrinkedAppbar: {
       width: `calc(100% - ${drawerWidth}px)`,
       backgroundColor: '#f4f4f4',
     },
@@ -52,9 +56,22 @@ export default function ResponsiveAppBar() {
     setAnchorElUser(null)
   }
 
+  const [open, setOpen] = useState(false)
+  const [newClass, setNewClass] = useState(false)
+
+  const handleDrawerSwipe = () => {
+    setOpen((prevState) => !prevState)
+    setNewClass((prevState) => !prevState)
+  }
+
   return (
-    <AppBar elevation={2} className={classes.appbar}>
+    <AppBar elevation={2} className={newClass ? `${classes.shrinkedAppbar}` : `${classes.appbar}`}>
       <Toolbar disableGutters>
+        <MyDrawer open={open} />
+
+        <IconButton onClick={handleDrawerSwipe} sx={{ mr: 2 }}>
+          <MenuIcon />
+        </IconButton>
         <Box sx={{ flexGrow: 1 }}>
           <PodkrepiLogo variant="fixed" />
         </Box>

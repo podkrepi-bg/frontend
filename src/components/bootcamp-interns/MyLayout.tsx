@@ -27,7 +27,6 @@ export default function MyLayout(props: any) {
   return (
     <div className={classes.root}>
       <ResponsiveAppBar />
-      <MyDrawer />
       <div className={classes.page}>{props.children}</div>
       <MyFooter />
     </div>

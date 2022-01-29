@@ -3,12 +3,10 @@ import CampaignIcon from '@mui/icons-material/Campaign'
 import PeopleIcon from '@mui/icons-material/People'
 import { makeStyles } from '@mui/styles'
 import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
-import Drawer from '@mui/material/Drawer'
-import { createStyles } from '@mui/styles'
-import theme from 'common/theme'
-import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 import { useRouter } from 'next/router'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
+import { SwipeableDrawer } from '@mui/material'
+
 export const drawerWidth = 200
 
 const useStyles = makeStyles((theme) => {
@@ -39,13 +37,19 @@ const menuItems = [
   { text: 'Add intern', icon: <AddCircleIcon />, path: '/bootcamp-interns/create' },
 ]
 
-export default function MyDrawer() {
+export default function MyDrawer(props: any) {
   const router = useRouter()
   const classes = useStyles()
 
   return (
-    <Drawer
-      variant="permanent"
+    <SwipeableDrawer
+      ModalProps={{
+        hideBackdrop: true,
+      }}
+      disableBackdropTransition={true}
+      onOpen={() => console.log('opened')}
+      onClose={() => console.log('closed')}
+      open={props.open}
       className={classes.drawer}
       anchor="left"
       classes={{ paper: classes.drawerPaper }}>
@@ -63,6 +67,6 @@ export default function MyDrawer() {
           </ListItem>
         ))}
       </List>
-    </Drawer>
+    </SwipeableDrawer>
   )
 }
