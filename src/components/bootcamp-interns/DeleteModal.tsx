@@ -20,9 +20,9 @@ export default function DeleteModal(props: any) {
       <Dialog open={deleteOpen} onClose={() => setDeleteOpen(false)}>
         <DialogTitle>{deleteData.dialogTitle}</DialogTitle>
         <DialogActions>
-          <Button onClick={() => setDeleteOpen(false)}>Disagree</Button>
+          <Button onClick={() => setDeleteOpen(false)}>No</Button>
           <Button onClick={handleDelete} autoFocus>
-            Agree
+            Yes
           </Button>
         </DialogActions>
       </Dialog>
