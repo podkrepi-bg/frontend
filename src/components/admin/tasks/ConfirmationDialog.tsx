@@ -10,8 +10,8 @@ import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
 import axios from 'axios'
 export default function AlertDialog({ handleClose, open, id }: any) {
-  const deleteCar = (id: string) => {
-    return axios.delete(`http://localhost:5010/api/car/${id}`)
+  const deleteCar = async (id: string) => {
+    return await axios.delete(`http://localhost:5010/api/car/${id}`)
   }
   const queryClient = useQueryClient()
   const { mutate, isLoading } = useMutation(deleteCar, {

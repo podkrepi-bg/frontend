@@ -1,53 +1,35 @@
+import { Typography } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import Container from '@mui/material/Container'
 import Tooltip from '@mui/material/Tooltip'
 import AddIcon from '@mui/icons-material/Add'
-import FileCopyIcon from '@mui/icons-material/FileCopy'
-import SaveIcon from '@mui/icons-material/Save'
-import LocalPrintshopIcon from '@mui/icons-material/LocalPrintshop'
-import ShareIcon from '@mui/icons-material/Share'
-const iconStyles = {
+import Link from 'next/link'
+const addIconStyles = {
   borderRadius: '50%',
-  padding: 1,
-  color: 'grey',
+  background: '#4ac3ff',
+  padding: 1.2,
+  transform: 'scale(1.3)',
   cursor: 'pointer',
   boxShadow: 3,
-  marginRight: '15px',
 }
-export default function AppBarMenu() {
+export default function AppBarMenu({ setSubmitCarForm }: any) {
   return (
     <AppBar elevation={0} sx={{ background: 'white' }} position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+          <Typography variant="h6" sx={{ padding: '0 26px' }}>
+            Списък с коли
+          </Typography>
           <Box sx={{ flexGrow: 1, display: 'flex' }}></Box>
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="New File">
-              <FileCopyIcon sx={iconStyles} color="action" fontSize="large"></FileCopyIcon>
-            </Tooltip>
-            <Tooltip title="Save">
-              <SaveIcon sx={iconStyles} color="action" fontSize="large" />
-            </Tooltip>
-            <Tooltip title="Print">
-              <LocalPrintshopIcon
-                sx={iconStyles}
-                color="action"
-                fontSize="large"></LocalPrintshopIcon>
-            </Tooltip>
-            <Tooltip title="Share">
-              <ShareIcon sx={iconStyles} color="action" fontSize="large" />
-            </Tooltip>
             <Tooltip title="Add">
               <AddIcon
-                sx={{
-                  borderRadius: '50%',
-                  background: '#4ac3ff',
-                  padding: 1.2,
-                  transform: 'scale(1.3)',
-                  cursor: 'pointer',
-                  boxShadow: 3,
+                onClick={() => {
+                  setSubmitCarForm(true)
                 }}
+                sx={addIconStyles}
                 fontSize="large"></AddIcon>
             </Tooltip>
           </Box>
