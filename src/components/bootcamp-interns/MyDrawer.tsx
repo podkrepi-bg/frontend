@@ -2,10 +2,19 @@ import { HomeOutlined, InfoOutlined } from '@mui/icons-material'
 import CampaignIcon from '@mui/icons-material/Campaign'
 import PeopleIcon from '@mui/icons-material/People'
 import { makeStyles } from '@mui/styles'
-import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
+import { Collapse, List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
 import { useRouter } from 'next/router'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import { SwipeableDrawer } from '@mui/material'
+import { GridMenuIcon } from '@mui/x-data-grid'
+import People from '@mui/icons-material/People'
+import PermMedia from '@mui/icons-material/PermMedia'
+import Dns from '@mui/icons-material/Dns'
+import Public from '@mui/icons-material/Public'
+import { useState } from 'react'
+import AddBoxIcon from '@mui/icons-material/AddBox'
+import DeleteIcon from '@mui/icons-material/Delete'
+import EditIcon from '@mui/icons-material/Edit'
 
 export const drawerWidth = 200
 
@@ -37,7 +46,16 @@ const menuItems = [
   { text: 'Add intern', icon: <AddCircleIcon />, path: '/bootcamp-interns/create' },
 ]
 
+const data = [
+  { icon: <People />, label: 'Authentication' },
+  { icon: <Dns />, label: 'Database' },
+  { icon: <PermMedia />, label: 'Storage' },
+  { icon: <Public />, label: 'Hosting' },
+]
+
 export default function MyDrawer(props: any) {
+  const [open, setOpen] = useState(false)
+  const [submenuOpen, setSubmenuOpen] = useState(false)
   const router = useRouter()
   const classes = useStyles()
 
@@ -67,6 +85,42 @@ export default function MyDrawer(props: any) {
             <ListItemText className={classes.text} primary={item.text} />
           </ListItem>
         ))}
+        <ListItem sx={{ cursor: 'pointer' }} onClick={() => setOpen((prev) => !prev)}>
+          <ListItemIcon>{<GridMenuIcon />}</ListItemIcon>
+          <ListItemText primary={`Press for submenus`} />
+        </ListItem>
+        {open && (
+          <List>
+            <ListItem>
+              <ListItemIcon>{<AddBoxIcon />}</ListItemIcon>
+              <ListItemText primary="Add" />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>{<DeleteIcon />}</ListItemIcon>
+              <ListItemText primary="Remove" />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>{<EditIcon />}</ListItemIcon>
+              <ListItemText primary="Edit" />
+            </ListItem>
+            <ListItem sx={{ cursor: 'pointer' }} onClick={() => setSubmenuOpen((prev) => !prev)}>
+              <ListItemIcon>{<GridMenuIcon />}</ListItemIcon>
+              <ListItemText primary="Submenu of the submenu?" />
+            </ListItem>
+            {submenuOpen && (
+              <List>
+                <ListItem>
+                  <ListItemIcon>{<DeleteIcon />}</ListItemIcon>
+                  <ListItemText primary="Remove" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>{<EditIcon />}</ListItemIcon>
+                  <ListItemText primary="Edit" />
+                </ListItem>
+              </List>
+            )}
+          </List>
+        )}
       </List>
     </SwipeableDrawer>
   )
