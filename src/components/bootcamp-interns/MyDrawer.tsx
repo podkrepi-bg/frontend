@@ -85,7 +85,12 @@ export default function MyDrawer(props: any) {
             <ListItemText className={classes.text} primary={item.text} />
           </ListItem>
         ))}
-        <ListItem sx={{ cursor: 'pointer' }} onClick={() => setOpen((prev) => !prev)}>
+        <ListItem
+          sx={{ cursor: 'pointer' }}
+          onClick={() => {
+            setOpen((prev) => !prev)
+            setSubmenuOpen(false)
+          }}>
           <ListItemIcon>{<GridMenuIcon />}</ListItemIcon>
           <ListItemText primary={`Press for submenus`} />
         </ListItem>
@@ -103,7 +108,11 @@ export default function MyDrawer(props: any) {
               <ListItemIcon>{<EditIcon />}</ListItemIcon>
               <ListItemText primary="Edit" />
             </ListItem>
-            <ListItem sx={{ cursor: 'pointer' }} onClick={() => setSubmenuOpen((prev) => !prev)}>
+            <ListItem
+              sx={{ cursor: 'pointer' }}
+              onClick={() => {
+                setSubmenuOpen((prev) => !prev)
+              }}>
               <ListItemIcon>{<GridMenuIcon />}</ListItemIcon>
               <ListItemText primary="Submenu of the submenu?" />
             </ListItem>
