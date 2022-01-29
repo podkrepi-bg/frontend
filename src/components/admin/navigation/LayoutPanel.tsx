@@ -10,8 +10,6 @@ import Toolbar from '@mui/material/Toolbar'
 import List from '@mui/material/List'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import ListItem from '@mui/material/ListItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import InboxIcon from '@mui/icons-material/MoveToInbox'
@@ -19,6 +17,7 @@ import MailIcon from '@mui/icons-material/Mail'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
+import NestedMenu from './NestedMenu'
 /* const Root = styled('div')(({ theme }: any) => ({
   [theme.breakpoints.up('md')]: {
     display: 'none',
@@ -101,19 +100,21 @@ export default function PersistentDrawerLeft({ children }: any) {
             justifyContent: 'space-between',
             display: 'flex',
           }}>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}>
-            <MenuIcon fontSize="large" color="action" />
-          </IconButton>
-          <img
-            src="http://blog.podkrepi.bg/content/images/2021/09/podkrepi-bg-logo.svg"
-            alt=""
-            style={{ width: '200px', height: '40px' }}
-          />
+          <Box display="flex" alignItems={'center'}>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{ mr: 2, ...(open && { display: 'none' }) }}>
+              <MenuIcon fontSize="large" color="action" />
+            </IconButton>
+            <img
+              src="http://blog.podkrepi.bg/content/images/2021/09/podkrepi-bg-logo.svg"
+              alt=""
+              style={{ width: '170px', display: open ? 'none' : '' }}
+            />
+          </Box>
           <div>
             <Avatar
               onClick={handleClick}
@@ -162,7 +163,6 @@ export default function PersistentDrawerLeft({ children }: any) {
       <Drawer
         sx={{
           width: drawerWidth,
-
           flexShrink: 0,
           '& .MuiDrawer-paper': {
             width: { lg: drawerWidth, md: drawerWidth, sm: drawerWidth, xs: '100%' },
@@ -172,7 +172,13 @@ export default function PersistentDrawerLeft({ children }: any) {
         variant="persistent"
         anchor="left"
         open={open}>
-        <DrawerHeader sx={{ position: 'relative' }}>
+        <DrawerHeader
+          sx={{
+            position: 'relative',
+            justifyContent: 'space-between',
+            padding: '10px',
+            marginBottom: '10px',
+          }}>
           <Box
             sx={{
               display: { xs: 'flex', sm: 'none', md: 'none' },
@@ -187,12 +193,26 @@ export default function PersistentDrawerLeft({ children }: any) {
               height={150}
             />
           </Box>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
+          <Box display="flex" alignItems="center" justifyContent="start" width="100%">
+            <IconButton sx={{ padding: { xs: '10px', sm: 0 } }} onClick={handleDrawerClose}>
+              <MenuIcon fontSize="medium" color="action" />
+            </IconButton>
+            <Box sx={{ display: { sm: 'flex', xs: 'none' } }}>
+              <img
+                src="http://blog.podkrepi.bg/content/images/2021/09/podkrepi-bg-logo.svg"
+                alt=""
+                style={{ width: '150px', marginLeft: '20px' }}
+              />
+            </Box>
+          </Box>
         </DrawerHeader>
-        <List sx={{ marginTop: { xs: '100px', sm: '-20px' } }}>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+        <List
+          sx={{
+            marginTop: { xs: '100px', sm: '-20px' },
+            display: 'flex',
+            flexDirection: 'column',
+          }}>
+          {['Начало', 'Профил', 'Коли', 'Настройки'].map((text, index) => (
             <ListItem
               button
               key={text}
