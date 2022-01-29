@@ -25,6 +25,7 @@ function AddFormSecond({ setSubmitCarForm }: any) {
     onSuccess: (data: any) => {
       console.log('success')
       queryClient.invalidateQueries('cars', data)
+      setSubmitCarForm(false)
     },
   })
   const submitCar = (carData: CarDataType) => {
@@ -39,7 +40,7 @@ function AddFormSecond({ setSubmitCarForm }: any) {
         display: 'flex',
         alignItems: 'center',
         background: 'white',
-        padding: '0 0 10px 50px',
+        padding: '0 50px 10px 50px',
       }}>
       <Box
         component="form"
