@@ -1,14 +1,15 @@
 import GenericForm from 'components/common/form/GenericForm'
 import * as yup from 'yup'
-import { useRouter } from 'next/router'
-import { Grid, Typography } from '@mui/material'
+import { ButtonGroup, Grid, Typography } from '@mui/material'
 
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
 import { axios } from 'common/api-client'
 import { endpoints } from 'common/api-endpoints'
-import { routes } from 'common/routes'
 import { makeStyles } from '@mui/styles'
+import { Button } from '@mui/material'
+import { useRouter } from 'next/router'
+import { routes } from 'common/routes'
 
 import { drawerWidth } from './MyDrawer'
 
@@ -49,7 +50,7 @@ export default function BootcampInternEditForm(props: any) {
   return (
     <Grid className={classes.internForm} container direction="column" component="section">
       <Typography variant="h2" className={classes.internFormHeader}>
-        Create new Softuni Bootcamp Intern
+        Edit the clicked intern
       </Typography>
       <GenericForm onSubmit={onSubmit} initialValues={defaults} validationSchema={validationSchema}>
         <Grid container spacing={1.3}>
@@ -71,7 +72,10 @@ export default function BootcampInternEditForm(props: any) {
           </Grid>
 
           <Grid item mt={3} xs={12}>
-            <SubmitButton fullWidth />
+            <ButtonGroup>
+              <SubmitButton />
+              <Button onClick={() => router.push(routes.bootcampIntern.index)}>Cancel</Button>
+            </ButtonGroup>
           </Grid>
         </Grid>
       </GenericForm>
