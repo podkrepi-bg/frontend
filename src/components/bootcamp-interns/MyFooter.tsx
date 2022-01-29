@@ -5,10 +5,11 @@ const useStyles = makeStyles((theme) => {
   return {
     footer: {
       background: '#f4f4f4',
-      width: '98.9%',
+      width: '100%',
       position: 'absolute',
       height: '60px',
       bottom: 0,
+      margin: 0,
     },
     footerParagraph: {
       textAlign: 'center',
