@@ -16,6 +16,7 @@ import BootcampModal from './BootcampModal'
 import { Box } from '@mui/material'
 import DeleteModal from './DeleteModal'
 import React from 'react'
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -35,6 +36,7 @@ const useStyles = makeStyles((theme) => {
 const iconsStyle = { cursor: 'pointer' }
 
 export default function BootcampInternGrid(props: any) {
+  const router = useRouter()
   const classes = useStyles()
   const [open, setOpen] = useState(false)
   const { data } = useBootcampInternsList()
@@ -66,7 +68,7 @@ export default function BootcampInternGrid(props: any) {
         return (
           <ButtonGroup>
             <InfoIcon onClick={() => detailsClickHandler(cellValues)} style={iconsStyle} />
-            <EditIcon style={iconsStyle} />
+            <EditIcon onClick={() => editClickHandler(cellValues)} style={iconsStyle} />
             <DeleteIcon onClick={() => deleteClickHandler(cellValues)} style={iconsStyle} />
           </ButtonGroup>
         )
@@ -75,6 +77,10 @@ export default function BootcampInternGrid(props: any) {
       align: 'center',
     },
   ]
+
+  const editClickHandler = (cellValues: any) => {
+    router.push(`/bootcamp-interns/${cellValues.id}/edit`)
+  }
 
   const deleteClickHandler = (cellValues: any) => {
     const dialogTitle = `Are you sure you want to delete ${cellValues.row.firstName} ${cellValues.row.lastName} ?`

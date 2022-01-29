@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate, QueryClient } from 'react-query'
-import BootcampInternPage from 'components/bootcamp-interns/BootcampInternPage'
+import BootcampInternEditPage from 'components/bootcamp-interns/editPage/EditBootcampInternPage'
 import { queryFn } from 'common/rest'
 import { axios } from 'common/api-client'
 import { endpoints } from 'common/api-endpoints'
@@ -29,4 +29,4 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query }) 
   }
 }
 
-export default BootcampInternPage
+export default BootcampInternEditPage
