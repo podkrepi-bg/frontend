@@ -5,19 +5,13 @@ import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import Menu from '@mui/material/Menu'
 import MenuIcon from '@mui/icons-material/Menu'
-import Container from '@mui/material/Container'
 import Avatar from '@mui/material/Avatar'
-import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
 import React, { useState } from 'react'
-import Link from '@mui/material/Link'
-import theme from 'common/theme'
-import { PersonOutlined } from '@mui/icons-material'
 
 import MyDrawer, { drawerWidth } from './MyDrawer'
-import { createStyles, makeStyles } from '@mui/styles'
-import SearchInput from './SearchInput'
+import { makeStyles } from '@mui/styles'
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
@@ -26,11 +20,11 @@ const useStyles = makeStyles((theme) => {
   return {
     appbar: {
       width: '100%',
-      backgroundColor: '#f4f4f4',
+      background: '#f4f4f4',
     },
     shrinkedAppbar: {
       width: `calc(100% - ${drawerWidth}px)`,
-      backgroundColor: '#f4f4f4',
+      background: '#f4f4f4',
     },
   }
 })

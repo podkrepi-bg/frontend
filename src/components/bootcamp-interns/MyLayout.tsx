@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       maxWidth: '100%',
       marginTop: theme.spacing(3),
-      padding: theme.spacing(0, 2),
     },
     page: {
       background: '#f9f9f9',

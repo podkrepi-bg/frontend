@@ -43,6 +43,7 @@ export default function MyDrawer(props: any) {
 
   return (
     <SwipeableDrawer
+      elevation={2}
       ModalProps={{
         hideBackdrop: true,
       }}
