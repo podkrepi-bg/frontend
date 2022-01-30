@@ -1,47 +1,82 @@
-import { ListItem, ListItemIcon } from '@mui/material'
-import AccountBoxIcon from '@mui/icons-material/AccountBox'
+import { Button, ListItem } from '@mui/material'
 import * as React from 'react'
-import Button from '@mui/material/Button'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
+import Accordion from '@mui/material/Accordion'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import AccountBoxIcon from '@mui/icons-material/AccountBox'
 export default function NestedMenu() {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-  const open = Boolean(anchorEl)
-  const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    setAnchorEl(event.currentTarget)
+  const commongStyles = {
+    display: { xs: 'none', sm: 'block' },
+    padding: 0,
+    color: '#4ac3ff',
+    fontWeight: 'bold',
+    width: '100%',
+    letterSpacing: '1px',
   }
-  const handleClose = () => {
-    setAnchorEl(null)
+  const buttonStyles = {
+    display: { xs: 'block', sm: 'none' },
+    width: '100%',
+    padding: 0,
   }
   return (
-    <div onClick={handleClick}>
-      <ListItem
-        button
-        sx={{
-          display: 'flex',
-          justifyContent: { xs: 'center', sm: 'left' },
-          padding: '10px',
-        }}>
-        <ListItemIcon sx={{ display: { xs: 'none', sm: 'block' } }}>
-          <AccountBoxIcon />
-        </ListItemIcon>
-        <Button sx={{ display: { xs: 'none', sm: 'block' } }}>Профил</Button>
-        <Button sx={{ display: { xs: 'block', sm: 'none' }, width: '96%' }} variant="outlined">
-          Профил
-        </Button>
-      </ListItem>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}>
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
-      </Menu>
-    </div>
+    <Accordion elevation={0} style={{ margin: '0px' }}>
+      <AccordionSummary
+        sx={{ p: 0, height: '60px' }}
+        aria-controls="panel1a-content"
+        id="panel1a-header">
+        <ListItem
+          button
+          sx={{
+            display: 'flex',
+            justifyContent: { xs: 'center', sm: 'left' },
+            padding: '10px',
+          }}>
+          <ListItemIcon sx={{ display: { xs: 'none', sm: 'block' } }}>
+            <AccountBoxIcon />
+          </ListItemIcon>
+          <Button sx={{ display: { xs: 'none', sm: 'block' } }}>Профил</Button>
+          <Button sx={{ display: { xs: 'block', sm: 'none' }, width: '100%' }} variant="outlined">
+            Профил
+          </Button>
+          <ExpandMoreIcon fontSize="small" sx={{ display: { xs: 'none', sm: 'block' } }} />
+        </ListItem>
+      </AccordionSummary>
+      <AccordionDetails sx={{ padding: '0' }}>
+        <div>
+          <ListItem
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+            }}>
+            <Button sx={commongStyles}>Акаунт</Button>
+            <Button sx={buttonStyles} variant="text">
+              Акаунт
+            </Button>
+          </ListItem>
+          <ListItem
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+            }}>
+            <Button sx={commongStyles}>Настройки</Button>
+            <Button sx={buttonStyles} variant="text">
+              Настройки
+            </Button>
+          </ListItem>
+          <ListItem
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+            }}>
+            <Button sx={commongStyles}>Изход</Button>
+            <Button sx={buttonStyles} variant="text">
+              Изход
+            </Button>
+          </ListItem>
+        </div>
+      </AccordionDetails>
+    </Accordion>
   )
 }

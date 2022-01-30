@@ -1,4 +1,4 @@
-import { Container } from '@mui/material'
+import { Container, Typography } from '@mui/material'
 import TasksGrid from './Grid'
 import LayoutPanel from '../navigation/LayoutPanel'
 import AppBarMenu from '../navigation/AppBar'
@@ -13,6 +13,12 @@ const Tasks = () => {
       <BasicModal />
       <Container>
         <Container disableGutters>
+          <Typography
+            sx={{ color: '#7d7d7d', paddingBottom: '30px' }}
+            textAlign="center"
+            variant="h4">
+            Админ панел
+          </Typography>
           <AppBarMenu setSubmitCarForm={setSubmitCarForm} />
           {submitCarForm && <AddFormSecond setSubmitCarForm={setSubmitCarForm}></AddFormSecond>}
           <TasksGrid />
