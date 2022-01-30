@@ -3,6 +3,7 @@ import { Button, CardActions, Container } from '@mui/material'
 import { Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import { CarDataType } from 'common/util/car'
 import Link from 'next/link'
 import * as React from 'react'
 import Box from '@mui/material/Box'
@@ -21,7 +22,7 @@ export default function EditForm() {
   const [engine, setEngine] = useState<string>(data.engine)
   const [price, setPrice] = useState<number>(data.price)
 
-  const submitCar = async (newCar: any) => {
+  const submitCar = async (newCar: CarDataType) => {
     return await axios.patch(`http://localhost:5010/api/car/${carId}`, newCar)
   }
 

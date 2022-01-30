@@ -1,14 +1,8 @@
 import { Box, Button, CardActions, Container, TextField } from '@mui/material'
 import { useQueryClient, useMutation } from 'react-query'
+import { CarDataType } from 'common/util/car'
 import React, { useState } from 'react'
 import axios from 'axios'
-type CarDataType = {
-  brand: string
-  model: string
-  year: number
-  engine: string
-  price: number
-}
 
 function AddFormSecond({ setSubmitCarForm }: any) {
   const [brand, setBrand] = useState<string>('')
@@ -23,7 +17,6 @@ function AddFormSecond({ setSubmitCarForm }: any) {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(postCar, {
     onSuccess: (data: any) => {
-      console.log('success')
       queryClient.invalidateQueries('cars', data)
       setSubmitCarForm(false)
     },
