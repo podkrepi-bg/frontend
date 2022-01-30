@@ -1,6 +1,6 @@
 import { DataGrid } from '@mui/x-data-grid'
 import { GridColumns } from '@mui/x-data-grid'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useQuery } from 'react-query'
 import { ModalContext } from 'context/ModalContext'
@@ -9,9 +9,27 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import axios from 'axios'
 import AlertDialog from './ConfirmationDialog'
+import SkeletonLoading from './SkeletonLoading'
 export default function TasksGrid() {
+  const { setOpen, setCarId, search, setSearchLoading, searchLoading }: any =
+    useContext(ModalContext)
+
   const [open, setOpenAlertModal] = useState(false)
+  const [searchData, setSearchData] = useState([])
   const [id, setId] = useState('')
+  useEffect(() => {
+    const submitSearch = async () => {
+      if (search === '') return
+      setSearchLoading(true)
+      const result = await axios.post(`http://localhost:5010/api/car/search`, {
+        searchTerm: search,
+      })
+      setSearchData(result.data)
+      setSearchLoading(false)
+    }
+    submitSearch()
+  }, [search])
+  console.log(search)
   const handleClickOpen = () => {
     setOpenAlertModal(true)
   }
@@ -19,7 +37,6 @@ export default function TasksGrid() {
   const handleClose = () => {
     setOpenAlertModal(false)
   }
-  const { setOpen, setCarId }: any = useContext(ModalContext)
   const router = useRouter()
   const commonCellStyles: any = {
     fontWeight: 'bold',
@@ -34,19 +51,8 @@ export default function TasksGrid() {
       headerName: 'вид',
       width: 60,
       headerAlign: 'center',
-      renderCell: () => {
-        return (
-          <div
-            style={{
-              width: '100%',
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            Кола
-          </div>
-        )
+      renderCell: (cellValues) => {
+        return !searchLoading ? <div style={commonCellStyles}>Кола</div> : <SkeletonLoading />
       },
     },
     {
@@ -55,7 +61,13 @@ export default function TasksGrid() {
       headerAlign: 'center',
       width: 150,
       renderCell: (cellValues) => {
-        return <div style={commonCellStyles}>{cellValues.value}</div>
+        return !searchLoading ? (
+          <div style={commonCellStyles}>{cellValues.value}</div>
+        ) : (
+          <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center' }}>
+            <SkeletonLoading />
+          </div>
+        )
       },
     },
     {
@@ -64,7 +76,11 @@ export default function TasksGrid() {
       headerAlign: 'center',
       width: 150,
       renderCell: (cellValues) => {
-        return <div style={commonCellStyles}>{cellValues.value}</div>
+        return !searchLoading ? (
+          <div style={commonCellStyles}>{cellValues.value}</div>
+        ) : (
+          <SkeletonLoading />
+        )
       },
     },
     {
@@ -73,7 +89,11 @@ export default function TasksGrid() {
       headerAlign: 'center',
       width: 150,
       renderCell: (cellValues) => {
-        return <div style={commonCellStyles}>{cellValues.value}</div>
+        return !searchLoading ? (
+          <div style={commonCellStyles}>{cellValues.value}</div>
+        ) : (
+          <SkeletonLoading />
+        )
       },
     },
 
@@ -83,7 +103,11 @@ export default function TasksGrid() {
       headerAlign: 'center',
       width: 150,
       renderCell: (cellValues) => {
-        return <div style={commonCellStyles}>{cellValues.value}</div>
+        return !searchLoading ? (
+          <div style={commonCellStyles}>{cellValues.value}</div>
+        ) : (
+          <SkeletonLoading />
+        )
       },
     },
     {
@@ -92,7 +116,11 @@ export default function TasksGrid() {
       width: 150,
       headerAlign: 'center',
       renderCell: (cellValues) => {
-        return <div style={commonCellStyles}>{cellValues.value}</div>
+        return !searchLoading ? (
+          <div style={commonCellStyles}>{cellValues.value}</div>
+        ) : (
+          <SkeletonLoading />
+        )
       },
     },
     {
@@ -160,9 +188,18 @@ export default function TasksGrid() {
           padding: '10px 50px',
         }}
         rows={
-          data?.data || [
-            { id: '1', brand: 'Audi', model: 'A3', year: 2015, engine: 'Petrol', price: '25000' },
-          ]
+          search !== ''
+            ? searchData
+            : data?.data || [
+                {
+                  id: '1',
+                  brand: 'Audi',
+                  model: 'A3',
+                  year: 2015,
+                  engine: 'Petrol',
+                  price: '25000',
+                },
+              ]
         }
         columns={columns}
         pageSize={5}
