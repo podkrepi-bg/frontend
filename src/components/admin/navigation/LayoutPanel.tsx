@@ -12,12 +12,15 @@ import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import ListItem from '@mui/material/ListItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
-import InboxIcon from '@mui/icons-material/MoveToInbox'
-import MailIcon from '@mui/icons-material/Mail'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import NestedMenu from './NestedMenu'
+import HomeIcon from '@mui/icons-material/Home'
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar'
+import SettingsIcon from '@mui/icons-material/Settings'
+import { Typography } from '@mui/material'
+
 /* const Root = styled('div')(({ theme }: any) => ({
   [theme.breakpoints.up('md')]: {
     display: 'none',
@@ -119,7 +122,7 @@ export default function PersistentDrawerLeft({ children }: any) {
             <Avatar
               onClick={handleClick}
               sx={{
-                display: { lg: 'flex', md: 'flex', sm: 'none', xs: 'none' },
+                display: { lg: 'flex', md: 'flex', sm: 'flex', xs: 'none' },
                 cursor: 'pointer',
               }}
               src="/broken-image.jpg"
@@ -212,7 +215,8 @@ export default function PersistentDrawerLeft({ children }: any) {
             display: 'flex',
             flexDirection: 'column',
           }}>
-          {['Начало', 'Профил', 'Коли', 'Настройки'].map((text, index) => (
+          <NestedMenu />
+          {['Начало', 'Коли', 'Настройки'].map((text, index) => (
             <ListItem
               button
               key={text}
@@ -222,7 +226,13 @@ export default function PersistentDrawerLeft({ children }: any) {
                 padding: '10px',
               }}>
               <ListItemIcon sx={{ display: { xs: 'none', sm: 'block' } }}>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {text == 'Начало' ? (
+                  <HomeIcon />
+                ) : text === 'Коли' ? (
+                  <DirectionsCarIcon />
+                ) : (
+                  <SettingsIcon />
+                )}
               </ListItemIcon>
               <Button sx={{ display: { xs: 'none', sm: 'block' } }}>{text}</Button>
               <Button
@@ -238,6 +248,20 @@ export default function PersistentDrawerLeft({ children }: any) {
         <DrawerHeader />
         {children}
       </Main>
+      <Box sx={{ position: 'absolute', width: '100%', bottom: '0' }}>
+        <div
+          style={{
+            background: '#294e85',
+            height: '70px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Typography variant="h6" color="white">
+            This is basic footer
+          </Typography>
+        </div>
+      </Box>
     </Box>
   )
 }

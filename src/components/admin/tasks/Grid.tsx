@@ -155,7 +155,7 @@ export default function TasksGrid() {
         style={{
           marginTop: '2px',
           background: 'white',
-          height: 'calc(100vh - 400px)',
+          height: 'calc(100vh - 500px)',
           border: 'none',
           padding: '10px 50px',
         }}
