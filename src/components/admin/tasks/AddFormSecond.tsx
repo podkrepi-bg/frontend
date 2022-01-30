@@ -59,7 +59,7 @@ function AddFormSecond({ setSubmitCarForm }: any) {
           size="small"
           required
           id="outlined-required"
-          label="Brand"
+          label="марка"
         />
         <TextField
           onChange={(e) => {
@@ -68,7 +68,7 @@ function AddFormSecond({ setSubmitCarForm }: any) {
           size="small"
           required
           id="outlined-required"
-          label="Model"
+          label="модел"
         />
         <TextField
           onChange={(e) => {
@@ -77,7 +77,7 @@ function AddFormSecond({ setSubmitCarForm }: any) {
           size="small"
           required
           id="outlined-required"
-          label="Year"
+          label="година"
         />
         <TextField
           onChange={(e) => {
@@ -86,7 +86,7 @@ function AddFormSecond({ setSubmitCarForm }: any) {
           size="small"
           required
           id="outlined-required"
-          label="Engine"
+          label="двигател"
         />
         <TextField
           onChange={(e) => {
@@ -95,7 +95,7 @@ function AddFormSecond({ setSubmitCarForm }: any) {
           size="small"
           required
           id="outlined-required"
-          label="Price"
+          label="цена"
         />
         <CardActions sx={{ width: '100%' }}>
           <Button

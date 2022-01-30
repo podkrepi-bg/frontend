@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
 import { Button, CardActions, Container } from '@mui/material'
 import { Typography } from '@mui/material'
 import { useRouter } from 'next/router'
@@ -9,26 +9,24 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import LayoutPanel from '../navigation/LayoutPanel'
 import axios from 'axios'
-export default function EditForm({ car }: any) {
-  const [brand, setBrand] = useState<string>(car.brand)
-  const [model, setModel] = useState<string>(car.model)
-  const [year, setYear] = useState<number>(car.year)
-  const [engine, setEngine] = useState<string>(car.engine)
-  const [price, setPrice] = useState<number>(car.price)
-  console.log(price)
-
+export default function EditForm() {
   const router = useRouter()
   const carId = router.query.id
   const { data }: any = useQuery(['car', carId], async () => {
-    return await axios.get(`http://localhost:5010/api/car/${car.id}`), { initialData: car }
+    return await axios.get(`http://localhost:5010/api/car/${carId}`)
   })
+  const [brand, setBrand] = useState<string>(data.brand)
+  const [model, setModel] = useState<string>(data.model)
+  const [year, setYear] = useState<number>(data.year)
+  const [engine, setEngine] = useState<string>(data.engine)
+  const [price, setPrice] = useState<number>(data.price)
 
   const submitCar = async (newCar: any) => {
-    return await axios.patch(`http://localhost:5010/api/car/${car.id}`, newCar)
+    return await axios.patch(`http://localhost:5010/api/car/${carId}`, newCar)
   }
 
-  const { mutate, isLoading } = useMutation(submitCar, {
-    onSuccess: (data: any) => {
+  const { mutate } = useMutation(submitCar, {
+    onSuccess: () => {
       router.push('/admin/panel/tasks')
     },
   })
@@ -36,16 +34,16 @@ export default function EditForm({ car }: any) {
   return (
     <div
       style={{
-        height: '100vh',
         background: '#f7f7f7',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        height: 'calc(100vh - 70px)',
       }}>
       <LayoutPanel />
-      <Typography color="primary" sx={{ m: 2, fontWeight: 'bold' }} variant="h4">
-        Edit your car
+      <Typography color="#294e85" sx={{ m: 3, fontWeight: 'bold', opacity: 0.8 }} variant="h5">
+        Редактиране
       </Typography>
       <Container sx={{ justifyContent: 'center', display: 'flex' }}>
         <Box
@@ -63,8 +61,8 @@ export default function EditForm({ car }: any) {
           <TextField
             required
             id="outlined-required"
-            label="Brand"
-            defaultValue={car.brand}
+            label="Марка"
+            defaultValue={data.brand}
             onChange={(e) => {
               setBrand(e.target.value)
             }}
@@ -72,8 +70,8 @@ export default function EditForm({ car }: any) {
           <TextField
             required
             id="outlined-required"
-            label="Model"
-            defaultValue={car.model}
+            label="Модел"
+            defaultValue={data.model}
             onChange={(e) => {
               setModel(e.target.value)
             }}
@@ -81,8 +79,8 @@ export default function EditForm({ car }: any) {
           <TextField
             required
             id="outlined-required"
-            label="Year"
-            defaultValue={car.year}
+            label="Година"
+            defaultValue={data.year}
             onChange={(e) => {
               setYear(Number(e.target.value))
             }}
@@ -90,8 +88,8 @@ export default function EditForm({ car }: any) {
           <TextField
             required
             id="outlined-required"
-            label="Engine"
-            defaultValue={car.engine}
+            label="Двигател"
+            defaultValue={data.engine}
             onChange={(e) => {
               setEngine(e.target.value)
             }}
@@ -99,8 +97,8 @@ export default function EditForm({ car }: any) {
           <TextField
             required
             id="outlined-required"
-            label="Price"
-            defaultValue={car.price}
+            label="Цена"
+            defaultValue={data.price}
             onChange={(e) => {
               setPrice(Number(e.target.value))
             }}
@@ -114,11 +112,11 @@ export default function EditForm({ car }: any) {
           }}
           variant="contained"
           size="large">
-          Save
+          Запази
         </Button>
         <Link href="/admin/panel/tasks">
           <Button variant="outlined" size="large">
-            Cancel
+            Отказ
           </Button>
         </Link>
       </CardActions>

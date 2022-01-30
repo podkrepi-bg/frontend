@@ -20,6 +20,7 @@ import HomeIcon from '@mui/icons-material/Home'
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar'
 import SettingsIcon from '@mui/icons-material/Settings'
 import { Typography } from '@mui/material'
+import { Copyright } from '@mui/icons-material'
 
 /* const Root = styled('div')(({ theme }: any) => ({
   [theme.breakpoints.up('md')]: {
@@ -225,7 +226,7 @@ export default function PersistentDrawerLeft({ children }: any) {
                 justifyContent: { xs: 'center', sm: 'left' },
                 padding: '10px',
               }}>
-              <ListItemIcon sx={{ display: { xs: 'none', sm: 'block' } }}>
+              <ListItemIcon sx={{ display: { xs: 'none', sm: 'flex' } }}>
                 {text == 'Начало' ? (
                   <HomeIcon />
                 ) : text === 'Коли' ? (
@@ -248,17 +249,19 @@ export default function PersistentDrawerLeft({ children }: any) {
         <DrawerHeader />
         {children}
       </Main>
-      <Box sx={{ position: 'absolute', width: '100%', bottom: '0' }}>
+      <Box sx={{ position: 'absolute', width: '100%', bottom: '0', left: '0', right: '0' }}>
         <div
           style={{
             background: '#294e85',
             height: '70px',
+            width: '100%',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-          <Typography variant="h6" color="white">
-            This is basic footer
+          <Typography variant="h6" color="white" display="flex" alignItems="center">
+            <Copyright />
+            Copyright
           </Typography>
         </div>
       </Box>
