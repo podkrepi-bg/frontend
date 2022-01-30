@@ -11,7 +11,6 @@ export default function NestedMenu() {
     display: { xs: 'none', sm: 'block' },
     padding: 0,
     color: '#4ac3ff',
-    fontWeight: 'bold',
     width: '100%',
     letterSpacing: '1px',
   }

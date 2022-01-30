@@ -50,7 +50,7 @@ function CustomApp({
     () =>
       new QueryClient({
         defaultOptions: {
-          queries: { queryFn },
+          queries: { queryFn, staleTime: 25000 },
           // mutations: { mutationFn },
         },
       }),
