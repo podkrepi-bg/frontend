@@ -52,7 +52,10 @@ export default function TasksGrid() {
       width: 60,
       headerAlign: 'center',
       renderCell: (cellValues) => {
-        return !searchLoading ? <div style={commonCellStyles}>Кола</div> : <SkeletonLoading />
+        return <div style={commonCellStyles}>Кола</div>
+        /*           <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center' }}>
+            <SkeletonLoading />
+          </div> */
       },
     },
     {
@@ -61,13 +64,10 @@ export default function TasksGrid() {
       headerAlign: 'center',
       width: 150,
       renderCell: (cellValues) => {
-        return !searchLoading ? (
-          <div style={commonCellStyles}>{cellValues.value}</div>
-        ) : (
-          <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center' }}>
+        return <div style={commonCellStyles}>{cellValues.value}</div>
+        /*           <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center' }}>
             <SkeletonLoading />
-          </div>
-        )
+          </div> */
       },
     },
     {
@@ -76,11 +76,10 @@ export default function TasksGrid() {
       headerAlign: 'center',
       width: 150,
       renderCell: (cellValues) => {
-        return !searchLoading ? (
-          <div style={commonCellStyles}>{cellValues.value}</div>
-        ) : (
-          <SkeletonLoading />
-        )
+        return <div style={commonCellStyles}>{cellValues.value}</div>
+        /*           <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center' }}>
+            <SkeletonLoading />
+          </div> */
       },
     },
     {
@@ -89,11 +88,10 @@ export default function TasksGrid() {
       headerAlign: 'center',
       width: 150,
       renderCell: (cellValues) => {
-        return !searchLoading ? (
-          <div style={commonCellStyles}>{cellValues.value}</div>
-        ) : (
-          <SkeletonLoading />
-        )
+        return <div style={commonCellStyles}>{cellValues.value}</div>
+        /*           <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center' }}>
+            <SkeletonLoading />
+          </div> */
       },
     },
 
@@ -103,11 +101,10 @@ export default function TasksGrid() {
       headerAlign: 'center',
       width: 150,
       renderCell: (cellValues) => {
-        return !searchLoading ? (
-          <div style={commonCellStyles}>{cellValues.value}</div>
-        ) : (
-          <SkeletonLoading />
-        )
+        return <div style={commonCellStyles}>{cellValues.value}</div>
+        /*           <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center' }}>
+            <SkeletonLoading />
+          </div> */
       },
     },
     {
@@ -116,11 +113,11 @@ export default function TasksGrid() {
       width: 150,
       headerAlign: 'center',
       renderCell: (cellValues) => {
-        return !searchLoading ? (
-          <div style={commonCellStyles}>{cellValues.value}</div>
-        ) : (
-          <SkeletonLoading />
-        )
+        return <div style={commonCellStyles}>{cellValues.value}</div>
+
+        /*           <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center' }}>
+            <SkeletonLoading />
+          </div> */
       },
     },
     {
