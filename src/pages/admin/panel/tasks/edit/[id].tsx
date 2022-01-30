@@ -7,10 +7,11 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, params }:
     const res = await fetch(`http://localhost:5010/api/car/${params.id}`)
     return res.json()
   }
-  const car = await fetchCar()
+  const client = new QueryClient()
+  await client.prefetchQuery([`car`, params.id], fetchCar)
   return {
     props: {
-      car,
+      dehydratedState: dehydrate(client),
     },
   }
 }
