@@ -13,7 +13,7 @@ import ListItem from '@mui/material/ListItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import InboxIcon from '@mui/icons-material/MoveToInbox'
-import { Container, Link } from '@mui/material'
+import { Container, Link, List } from '@mui/material'
 
 function CustomLayout({ children, title }: { children: any; title: string }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -77,25 +77,21 @@ function CustomLayout({ children, title }: { children: any; title: string }) {
         </Toolbar>
       </AppBar>
       <Drawer open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
-        <ListItem>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <Link href="/bootcamp-dimitar">All</Link>
-        </ListItem>
-        <ListItem>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <Link href="/bootcamp-dimitar/create">Create</Link>
-        </ListItem>
-        <ListItem>
-          <ListItemIcon>
-            <InboxIcon />
-          </ListItemIcon>
-          <ListItemText primary="Bootcamp" />
-        </ListItem>
-        <Divider />
+        <List>
+          <ListItem button>
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <Link href="/bootcamp-dimitar">All</Link>
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <Link href="/bootcamp-dimitar/create">Create</Link>
+          </ListItem>
+          <Divider />
+        </List>
       </Drawer>
       <Container maxWidth="lg">
         <Typography variant="h3" component="div" sx={{ flexGrow: 1 }}>
