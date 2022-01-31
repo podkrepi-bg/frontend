@@ -29,7 +29,7 @@ export default function AppBarMenu() {
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Box>
-            <Tooltip title="Add">
+            <Tooltip title="Добави">
               <AddIcon
                 onClick={() => {
                   router.push('/admin/panel/tasks/add')
@@ -38,14 +38,14 @@ export default function AppBarMenu() {
                 style={{ marginRight: '20px' }}
                 fontSize="large"></AddIcon>
             </Tooltip>
-            <Tooltip title="Delete selected">
+            <Tooltip title="Изтрий избраните">
               <DeleteIcon
                 style={{ background: '#f7f7f7', color: 'red' }}
                 onClick={() => {
                   if (areCarsSelected) {
                     setConfirmationOpen(true)
                   } else {
-                    setNotificationMessage('Избери поне един ред')
+                    setNotificationMessage('Моля изберете поне един ред')
                     setNotificationsOpen(true)
                   }
                 }}

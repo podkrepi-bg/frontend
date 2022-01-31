@@ -68,15 +68,15 @@ export default function AlertDialog({ handleClose, open, id, multipleDeleteItems
           <CircularProgress size={20} />
         </Box>
         <DialogActions sx={{ p: 2 }}>
-          <Button disabled={isLoading} onClick={handleClose}>
-            Cancel
-          </Button>
           <Button
             disabled={isLoading}
             onClick={() => {
               multipleDeleteItems.length > 0 ? deleteMultipleRecords() : mutate(id)
             }}>
-            Delete
+            Изтрий
+          </Button>
+          <Button disabled={isLoading} onClick={handleClose}>
+            Отказ
           </Button>
         </DialogActions>
       </Dialog>
