@@ -47,9 +47,7 @@ const useStyles = makeStyles({
     justifyContent: 'flex-end',
     padding: '8px 0',
   },
-  submenu: {
-    backgroundColor: '#e5f1f9',
-  },
+  submenu: {},
 })
 
 export default function BootcampNavBar() {

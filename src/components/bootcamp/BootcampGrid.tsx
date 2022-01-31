@@ -10,8 +10,8 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
+  IconButton,
   Typography,
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
@@ -27,6 +27,10 @@ import { AlertStore } from 'stores/AlertStore'
 import { deleteBootcampIntern, getBootcampIntern } from 'common/rest'
 
 const useStyles = makeStyles({
+  gridWrapper: {
+    margin: '0 auto',
+    maxWidth: '802px',
+  },
   grid: {
     marginBottom: '15px',
   },
@@ -105,24 +109,15 @@ export default function BootcampGrid() {
   const ActionsButtons = (props: any) => {
     return (
       <ButtonGroup>
-        <Button
-          onClick={() => loadInternInfo(props.id)}
-          startIcon={<PreviewIcon />}
-          color="primary"
-          variant="text"
-        />
-        <Button
-          href={routes.bootcamp.view(props.id)}
-          startIcon={<EditIcon />}
-          color="primary"
-          variant="text"
-        />
-        <Button
-          onClick={() => openDeleteRowDialog(props.id)}
-          startIcon={<DeleteIcon />}
-          color="secondary"
-          variant="text"
-        />
+        <IconButton onClick={() => loadInternInfo(props.id)}>
+          <PreviewIcon />
+        </IconButton>
+        <IconButton href={routes.bootcamp.view(props.id)}>
+          <EditIcon />
+        </IconButton>
+        <IconButton onClick={() => openDeleteRowDialog(props.id)}>
+          <DeleteIcon />
+        </IconButton>
       </ButtonGroup>
     )
   }
@@ -151,7 +146,8 @@ export default function BootcampGrid() {
       field: 'actions',
       headerName: '',
       renderCell: (p) => <ActionsButtons id={p.row.id} />,
-      width: 200,
+      width: 150,
+      type: 'actions',
     },
   ]
 
@@ -197,19 +193,21 @@ export default function BootcampGrid() {
     <>
       <InfoDialog />
       <DeleteDialog />
-      <Typography variant="h5" className={classes.gridTitle}>
-        {t('bootcamp:titles.bootcamp-interns')}
-      </Typography>
-      <DataGrid
-        className={classes.grid}
-        rows={data || []}
-        columns={columns}
-        pageSize={5}
-        autoHeight
-        autoPageSize
-        checkboxSelection
-        disableSelectionOnClick
-      />
+      <div className={classes.gridWrapper}>
+        <Typography variant="h5" className={classes.gridTitle}>
+          {t('bootcamp:titles.bootcamp-interns')}
+        </Typography>
+        <DataGrid
+          className={classes.grid}
+          rows={data || []}
+          columns={columns}
+          pageSize={5}
+          autoHeight
+          autoPageSize
+          checkboxSelection
+          disableSelectionOnClick
+        />
+      </div>
     </>
   )
 }
