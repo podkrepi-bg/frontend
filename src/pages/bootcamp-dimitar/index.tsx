@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import { deleteBootcampDimitar } from '../../common/rest'
 import { useRouter } from 'next/router'
+import { BootcampDimitarResponse } from 'gql/bootcampDimitar'
 
 const style = {
   position: 'absolute' as const,
@@ -32,6 +33,7 @@ function BootcampDimitarList() {
   const [row, setRow] = React.useState<{ firstName: string; lastName: string; company: string }>()
   const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false)
   const [rowToDelete, setRowToDelete] = React.useState<{ id: string }>()
+  const [selectedRows, setSelectedRows] = React.useState<BootcampDimitarResponse[]>([])
   const router = useRouter()
 
   const handleDeleteModalOpen = (row: any) => {
@@ -60,6 +62,14 @@ function BootcampDimitarList() {
     deleteBootcampDimitar(rowToDelete?.id as string).then(() => {
       handleDeleteModalClose()
       router.reload()
+    })
+  }
+
+  const deleteAllHandler = () => {
+    selectedRows.forEach((row: any) => {
+      deleteBootcampDimitar(row?.id).then((_) => {
+        router.reload()
+      })
     })
   }
 
@@ -117,7 +127,19 @@ function BootcampDimitarList() {
         autoPageSize
         checkboxSelection
         disableSelectionOnClick
+        onSelectionModelChange={(ids) => {
+          const selectedIDs = new Set(ids)
+          const selectedRows = data.filter((row) => selectedIDs.has(row.id))
+          setSelectedRows(selectedRows)
+        }}
       />
+      {selectedRows.length > 0 ? (
+        <Button variant="contained" onClick={deleteAllHandler}>
+          Delete selected
+        </Button>
+      ) : (
+        ''
+      )}
       <Modal
         open={open}
         onClose={handleClose}

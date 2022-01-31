@@ -21,8 +21,11 @@ import {
   Toolbar,
   Container,
   Typography,
+  Menu,
+  MenuItem,
 } from '@mui/material'
 import PodkrepiIcon from 'components/brand/PodkrepiIcon'
+import AccountCircle from '@mui/icons-material/AccountCircle'
 
 const useStyles = makeStyles({
   appBar: {
@@ -44,14 +47,22 @@ const useStyles = makeStyles({
 function CustomLayout({ children }: { children: any }) {
   const classes = useStyles()
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false)
-
   const [open, setOpen] = React.useState(false)
   const [openMore, setOpenMore] = React.useState(false)
-  const { t } = useTranslation()
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
 
   const toggleDrawer = () => {
     setOpen(!open)
   }
+
   const toggleMore = () => {
     setOpenMore(!openMore)
   }
@@ -80,6 +91,34 @@ function CustomLayout({ children }: { children: any }) {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Admin panel
           </Typography>
+          <div>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+              color="inherit">
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}>
+              <MenuItem onClick={handleClose}>Profile</MenuItem>
+              <MenuItem onClick={handleClose}>My account</MenuItem>
+            </Menu>
+          </div>
         </Toolbar>
       </AppBar>
       <Drawer open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
@@ -97,7 +136,7 @@ function CustomLayout({ children }: { children: any }) {
             </ListItemButton>
           ))}
           <ListItemButton onClick={toggleMore}>
-            <ListItemText primary={t('bootcamp:nav.more')} />
+            <ListItemText primary="More" />
             {openMore ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={openMore} timeout="auto" unmountOnExit>
