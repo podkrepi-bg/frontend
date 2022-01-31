@@ -1,39 +1,36 @@
-import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { Button, CardActions, Container } from '@mui/material'
+import { useMutation, useQueryClient } from 'react-query'
 import LayoutPanel from '../navigation/LayoutPanel'
 import { ModalContext } from 'context/ModalContext'
 import TextField from '@mui/material/TextField'
 import { CarDataType } from 'common/util/car'
-import { useState, useContext } from 'react'
 import { Typography } from '@mui/material'
 import { useRouter } from 'next/router'
 import Box from '@mui/material/Box'
+import { useContext } from 'react'
+import { useState } from 'react'
 import * as React from 'react'
 import Link from 'next/link'
 import axios from 'axios'
-export default function EditForm() {
+export default function AddForm() {
   const { setNotificationsOpen, setNotificationMessage }: any = useContext(ModalContext)
   const router = useRouter()
-  const carId = router.query.id
-  const { data }: any = useQuery(['car', carId], async () => {
-    return await axios.get(`http://localhost:5010/api/car/${carId}`)
-  })
-  const [brand, setBrand] = useState<string>(data.brand)
-  const [model, setModel] = useState<string>(data.model)
-  const [year, setYear] = useState<number>(data.year)
-  const [engine, setEngine] = useState<string>(data.engine)
-  const [price, setPrice] = useState<number>(data.price)
+  const [brand, setBrand] = useState<string>('')
+  const [model, setModel] = useState<string>('')
+  const [year, setYear] = useState<number>(0)
+  const [engine, setEngine] = useState<string>('')
+  const [price, setPrice] = useState<number>(0)
 
-  const submitCar = async (newCar: CarDataType) => {
-    return await axios.patch(`http://localhost:5010/api/car/${carId}`, newCar)
+  const postCar = async (car: CarDataType) => {
+    return await axios.post('http://localhost:5010/api/car', car)
   }
   const queryClient = useQueryClient()
-  const { mutate } = useMutation(submitCar, {
+  const { mutate } = useMutation(postCar, {
     onSuccess: () => {
       queryClient.invalidateQueries('cars')
       router.push('/admin/panel/tasks')
       setNotificationsOpen(true)
-      setNotificationMessage(`Колата беше редактирана`)
+      setNotificationMessage(`${brand} ${model} добавена успешно!`)
     },
     onError: () => {
       setNotificationsOpen(true)
@@ -53,7 +50,7 @@ export default function EditForm() {
       }}>
       <LayoutPanel />
       <Typography color="#294e85" sx={{ m: 3, fontWeight: 'bold', opacity: 0.9 }} variant="h5">
-        Редактиране
+        Добави кола
       </Typography>
       <Container sx={{ justifyContent: 'center', display: 'flex' }}>
         <Box
@@ -72,7 +69,6 @@ export default function EditForm() {
             required
             id="outlined-required"
             label="Марка"
-            defaultValue={data.brand}
             onChange={(e) => {
               setBrand(e.target.value)
             }}
@@ -81,7 +77,6 @@ export default function EditForm() {
             required
             id="outlined-required"
             label="Модел"
-            defaultValue={data.model}
             onChange={(e) => {
               setModel(e.target.value)
             }}
@@ -90,7 +85,6 @@ export default function EditForm() {
             required
             id="outlined-required"
             label="Година"
-            defaultValue={data.year}
             onChange={(e) => {
               setYear(Number(e.target.value))
             }}
@@ -99,7 +93,6 @@ export default function EditForm() {
             required
             id="outlined-required"
             label="Двигател"
-            defaultValue={data.engine}
             onChange={(e) => {
               setEngine(e.target.value)
             }}
@@ -108,7 +101,6 @@ export default function EditForm() {
             required
             id="outlined-required"
             label="Цена"
-            defaultValue={data.price}
             onChange={(e) => {
               setPrice(Number(e.target.value))
             }}

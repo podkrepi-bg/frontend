@@ -1,18 +1,21 @@
-import { Button, ListItem } from '@mui/material'
-import * as React from 'react'
-import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
-import ListItemIcon from '@mui/material/ListItemIcon'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import AccountBoxIcon from '@mui/icons-material/AccountBox'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import { ModalContext } from 'context/ModalContext'
+import { Button, ListItem } from '@mui/material'
+import Accordion from '@mui/material/Accordion'
+import { useContext } from 'react'
+import * as React from 'react'
 export default function NestedMenu() {
+  const { accordionExpanded, setAccordionExpanded }: any = useContext(ModalContext)
   const commongStyles = {
     display: { xs: 'none', sm: 'block' },
-    padding: 0,
+    letterSpacing: '1px',
     color: '#4ac3ff',
     width: '100%',
-    letterSpacing: '1px',
+    padding: 0,
   }
   const buttonStyles = {
     display: { xs: 'block', sm: 'none' },
@@ -20,12 +23,13 @@ export default function NestedMenu() {
     padding: 0,
   }
   return (
-    <Accordion elevation={0} style={{ margin: '0px' }}>
+    <Accordion expanded={accordionExpanded} elevation={0} style={{ margin: '0px' }}>
       <AccordionSummary
         sx={{ p: 0, height: '60px' }}
         aria-controls="panel1a-content"
         id="panel1a-header">
         <ListItem
+          onClick={() => setAccordionExpanded(!accordionExpanded)}
           button
           sx={{
             display: 'flex',

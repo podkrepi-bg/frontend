@@ -1,37 +1,56 @@
-import { Typography } from '@mui/material'
-import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar'
+import DeleteIcon from '@mui/icons-material/Delete'
+import { ModalContext } from 'context/ModalContext'
 import Container from '@mui/material/Container'
-import Tooltip from '@mui/material/Tooltip'
 import AddIcon from '@mui/icons-material/Add'
-import SearchBar from './SearchBar'
+import Tooltip from '@mui/material/Tooltip'
+import Toolbar from '@mui/material/Toolbar'
+import AppBar from '@mui/material/AppBar'
+import { useRouter } from 'next/router'
+import Box from '@mui/material/Box'
+import { useContext } from 'react'
 const addIconStyles = {
-  borderRadius: '50%',
-  background: '#4ac3ff',
-  padding: 1.2,
   transform: 'scale(1.3)',
+  background: '#4ac3ff',
+  borderRadius: '50%',
   cursor: 'pointer',
+  padding: 1.2,
   boxShadow: 3,
 }
-export default function AppBarMenu({ setSubmitCarForm }: any) {
+export default function AppBarMenu() {
+  const {
+    setNotificationMessage,
+    setNotificationsOpen,
+    setConfirmationOpen,
+    areCarsSelected,
+  }: any = useContext(ModalContext)
+  const router = useRouter()
   return (
     <AppBar elevation={0} sx={{ background: 'white' }} position="static">
       <Container maxWidth="xl">
-        <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Typography variant="h6" sx={{ padding: '0 0 0 26px' }}>
-            Списък с коли
-          </Typography>
-          <SearchBar />
-
+        <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Box>
             <Tooltip title="Add">
               <AddIcon
                 onClick={() => {
-                  setSubmitCarForm(true)
+                  router.push('/admin/panel/tasks/add')
                 }}
                 sx={addIconStyles}
+                style={{ marginRight: '20px' }}
                 fontSize="large"></AddIcon>
+            </Tooltip>
+            <Tooltip title="Delete selected">
+              <DeleteIcon
+                style={{ background: '#f7f7f7', color: 'red' }}
+                onClick={() => {
+                  if (areCarsSelected) {
+                    setConfirmationOpen(true)
+                  } else {
+                    setNotificationMessage('Избери поне един ред')
+                    setNotificationsOpen(true)
+                  }
+                }}
+                sx={addIconStyles}
+                fontSize="large"></DeleteIcon>
             </Tooltip>
           </Box>
         </Toolbar>
