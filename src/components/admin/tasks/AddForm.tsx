@@ -25,7 +25,7 @@ export default function AddForm() {
     return await axios.post('http://localhost:5010/api/car', car)
   }
   const queryClient = useQueryClient()
-  const { mutate } = useMutation(postCar, {
+  const { mutate, isLoading } = useMutation(postCar, {
     onSuccess: () => {
       queryClient.invalidateQueries('cars')
       router.push('/admin/panel/tasks')
@@ -36,6 +36,7 @@ export default function AddForm() {
       setNotificationsOpen(true)
       setNotificationMessage('Нешо се обърка')
     },
+    onMutate: () => {},
   })
 
   return (
