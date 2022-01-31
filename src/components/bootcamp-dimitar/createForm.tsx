@@ -34,8 +34,14 @@ export default function CreateForm() {
 
   const mutation = useMutation({
     mutationFn: createBootcampDimitar,
-    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
-    onSuccess: () => AlertStore.show(t('Success'), 'success'),
+    onError: () => {
+      console.log('create error')
+      AlertStore.show(t('common:alerts.error'), 'error')
+    },
+    onSuccess: () => {
+      console.log('create success')
+      AlertStore.show(t('Success'), 'success')
+    },
   })
 
   const onSubmit = async (values: any, { setFieldError, resetForm }: FormikHelpers<any>) => {

@@ -13,6 +13,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import { deleteBootcampDimitar } from '../../common/rest'
+import { useRouter } from 'next/router'
 
 const style = {
   position: 'absolute' as const,
@@ -28,11 +29,12 @@ const style = {
 function BootcampDimitarList() {
   const { data = [] } = useBootcampDimitarList()
   const [open, setOpen] = React.useState(false)
-  const [row, setRow] = React.useState({})
+  const [row, setRow] = React.useState<{ firstName: string; lastName: string; company: string }>()
   const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false)
-  const [rowToDelete, setRowToDelete] = React.useState({})
+  const [rowToDelete, setRowToDelete] = React.useState<{ id: string }>()
+  const router = useRouter()
 
-  const handleDeleteModalOpen = (row) => {
+  const handleDeleteModalOpen = (row: any) => {
     return () => {
       setRowToDelete(row)
       setIsDeleteModalOpen(true)
@@ -43,7 +45,7 @@ function BootcampDimitarList() {
     setIsDeleteModalOpen(false)
   }
 
-  const handleOpen = (row) => {
+  const handleOpen = (row: any) => {
     return () => {
       setOpen(true)
       setRow(row)
@@ -55,8 +57,9 @@ function BootcampDimitarList() {
   }
 
   const deleteHandler = () => {
-    deleteBootcampDimitar(rowToDelete.id).then(() => {
+    deleteBootcampDimitar(rowToDelete?.id as string).then(() => {
       handleDeleteModalClose()
+      router.reload()
     })
   }
 
@@ -122,10 +125,10 @@ function BootcampDimitarList() {
         aria-describedby="modal-modal-description">
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            {row.firstName} {row.lastName}
+            {row?.firstName} {row?.lastName}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {row.company}
+            {row?.company}
           </Typography>
         </Box>
       </Modal>
