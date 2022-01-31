@@ -39,7 +39,6 @@ export default function CreateForm() {
   })
 
   const onSubmit = async (values: any, { setFieldError, resetForm }: FormikHelpers<any>) => {
-    console.log(values)
     try {
       await mutation.mutateAsync({
         firstName: values.firstName,
