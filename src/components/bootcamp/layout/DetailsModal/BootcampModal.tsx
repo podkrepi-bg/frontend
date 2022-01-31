@@ -48,6 +48,9 @@ function DetailsModal() {
                                     <ListItem>
                                         <Typography>Phone: {row.phone}</Typography>
                                     </ListItem>
+                                    <ListItem>
+                                        <Typography>Adress: {row.adress}</Typography>
+                                    </ListItem>
                                 </List>
                             </Grid>
                             {/*  */}

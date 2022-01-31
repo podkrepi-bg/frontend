@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useTheme } from '@mui/material/styles'
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -20,6 +21,7 @@ import PodkrepiLogo from 'components/brand/PodkrepiLogo';
 
 export default function Nav() {
     const [open, setOpen] = React.useState(false);
+    const theme = useTheme()
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -30,9 +32,9 @@ export default function Nav() {
     };
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', bgcolor: "primary.main" }}>
             <CssBaseline />
-            <AppBar position="fixed" style={{ backgroundColor: "#46dbf2" }}>
+            <AppBar position="fixed" style={{ backgroundColor: theme.palette.primary.light }}>
                 <Toolbar>
                     <IconButton
                         color="inherit"
@@ -43,7 +45,7 @@ export default function Nav() {
                     </IconButton>
                     <IconButton href="/"><PodkrepiLogo /></IconButton>
                     <Typography variant="h6" noWrap component="div" style={{ textAlign: "center" }}>
-                        Bootcampers Module
+                        BOOTCAMPERS MODULE
                     </Typography>
                     <ProfileMenu></ProfileMenu>
                 </Toolbar>
@@ -57,11 +59,11 @@ export default function Nav() {
                 </IconButton>
                 <Divider />
                 <List>
-                    <ListItem button>
-                        <IconButton href="/bootcamp"><ListIcon fontSize="small"></ListIcon></IconButton><Button style={{ color: "black" }} href="/bootcamp">All bootcampers</Button>
+                    <ListItem button sx={{ ":hover": { color: theme.palette.primary.dark } }}>
+                        <IconButton sx={{ ":hover": { color: theme.palette.primary.dark } }} href="/bootcamp"><ListIcon fontSize="small"></ListIcon></IconButton><Button sx={{ ":hover": { color: theme.palette.primary.main } }} href="/bootcamp">All bootcampers</Button>
                     </ListItem>
-                    <ListItem>
-                        <IconButton href="/bootcamp/add"><AddIcon fontSize="small"></AddIcon></IconButton><Button style={{ color: "black" }} href="/bootcamp/add">Add bootcamper</Button>
+                    <ListItem sx={{ ":hover": { color: theme.palette.primary.dark } }}>
+                        <IconButton sx={{ ":hover": { color: theme.palette.primary.dark } }} href="/bootcamp/add"><AddIcon fontSize="small"></AddIcon></IconButton><Button sx={{ ":hover": { color: theme.palette.primary.main } }} href="/bootcamp/add">Add bootcamper</Button>
                     </ListItem>
                     <ListItem>
                         <SearchMenu />
@@ -70,4 +72,6 @@ export default function Nav() {
             </Drawer>
         </Box >
     );
+
+    //439CB3
 }

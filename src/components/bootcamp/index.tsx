@@ -41,7 +41,7 @@ export default function BootcampPage() {
 
     return <BootcampersLayout>
         <Grid item style={{ marginTop: "10%" }}>
-            <Typography variant="h3">{t('nav.bootcamp.bootcampers')}</Typography>
+            <Typography variant="h2">{t('nav.bootcamp.bootcampers')}</Typography>
         </Grid>
         <Grid>
             {isLoading && <CircularProgress size="large" />}

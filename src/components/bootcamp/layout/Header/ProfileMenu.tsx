@@ -6,8 +6,10 @@ import Tooltip from '@mui/material/Tooltip'
 import Avatar from '@mui/material/Avatar'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
+import { useTheme } from "@mui/styles";
 
 export default function ProfileMenu() {
+    const theme = useTheme()
 
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -27,7 +29,7 @@ export default function ProfileMenu() {
             </IconButton>
         </Tooltip>
         <Menu
-            sx={{ mt: '45px' }}
+            sx={{ mt: '45px', color: theme.palette.primary.main }}
             id="menu-appbar"
             anchorEl={anchorElUser}
             anchorOrigin={{
@@ -42,13 +44,13 @@ export default function ProfileMenu() {
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}
         >
-            <MenuItem onClick={handleCloseUserMenu}>
+            <MenuItem onClick={handleCloseUserMenu} sx={{ ":hover": { color: theme.palette.primary.main } }}>
                 <Typography textAlign="center">Profile</Typography>
             </MenuItem>
-            <MenuItem onClick={handleCloseUserMenu}>
+            <MenuItem onClick={handleCloseUserMenu} sx={{ ":hover": { color: theme.palette.primary.main } }}>
                 <Typography textAlign="center">Account</Typography>
             </MenuItem>
-            <MenuItem onClick={handleCloseUserMenu}>
+            <MenuItem onClick={handleCloseUserMenu} sx={{ ":hover": { color: theme.palette.primary.main } }}>
                 <Typography textAlign="center">Logout</Typography>
             </MenuItem>
         </Menu>

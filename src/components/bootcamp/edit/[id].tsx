@@ -6,8 +6,6 @@ import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import { Button, Grid, Typography } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 
 import { BootcamperFormData, BootcamperInput, BootcampersResponse } from 'gql/bootcamp'
 import { editBootcamper } from 'common/rest'
@@ -20,6 +18,7 @@ import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
 import { useViewBootcamper } from 'common/hooks/bootcamp'
 import { axios } from 'common/api-client'
 import { endpoints } from 'common/api-endpoints'
+import { useTheme } from '@mui/styles'
 
 const validationSchema: yup.SchemaOf<BootcamperFormData> = yup
     .object()
@@ -27,18 +26,21 @@ const validationSchema: yup.SchemaOf<BootcamperFormData> = yup
     .shape({
         MyName: yup.string().required(),
         email: yup.string().required(),
-        phone: yup.string().required()
+        phone: yup.string().required(),
+        adress: yup.string().required()
     })
 
 const defaults: BootcamperFormData = {
     MyName: '',
     email: '',
-    phone: ''
+    phone: '',
+    adress: ''
 }
 
 export type BootcamperFormProps = { initialValues?: BootcamperFormData }
 
 export default function EditBootcamper({ initialValues = defaults }: BootcamperFormProps) {
+    const theme = useTheme()
 
     const router = useRouter()
     const id = window.location.pathname.split('/')[3]
@@ -49,9 +51,10 @@ export default function EditBootcamper({ initialValues = defaults }: BootcamperF
         initialValues.MyName = info.data?.MyName || ''
         initialValues.email = info.data?.email || ''
         initialValues.phone = info.data?.phone || ''
+        initialValues.adress = info.data?.adress || ''
     }
 
-    
+
     const { t } = useTranslation()
 
     const mutation = useMutation<
@@ -103,6 +106,7 @@ export default function EditBootcamper({ initialValues = defaults }: BootcamperF
                     <Grid container spacing={3}>
                         <Grid item xs={12} sm={6}>
                             <FormTextField
+                                style={{ marginTop: "1%" }}
                                 type="text"
                                 name="MyName"
                                 autoComplete="target-amount"
@@ -112,6 +116,7 @@ export default function EditBootcamper({ initialValues = defaults }: BootcamperF
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <FormTextField
+                                style={{ marginTop: "1%" }}
                                 type="text"
                                 name="email"
                                 autoComplete="target-amount"
@@ -128,9 +133,18 @@ export default function EditBootcamper({ initialValues = defaults }: BootcamperF
                                 defaultValue={initialValues.phone}
                             />
                         </Grid>
-                        <Grid item xs={12} style={{ display: "flex", flexDirection: "column", width: "100px" }}>
-                            <SubmitButton label="bootcamp:edit_form_heading" loading={mutation.isLoading} />
-                            <Button href="/bootcamp" variant="outlined" style={{ marginTop: "1%" }}>Cancel</Button>
+                        <Grid item xs={12} sm={6}>
+                            <FormTextField
+                                type="text"
+                                name="adress"
+                                autoComplete="target-amount"
+                                label="bootcamp:bootcamperAdress"
+                                defaultValue={initialValues.adress}
+                            />
+                        </Grid>
+                        <Grid item xs={12} style={{ display: "flex", flexDirection: "column", marginLeft: "35%" }}>
+                            <SubmitButton style={{ width: "50%" }} label="bootcamp:edit_form_heading" loading={mutation.isLoading} sx={{ backgroundColor: theme.palette.secondary.main }} />
+                            <Button href="/bootcamp" variant="outlined" sx={{ width: "50%", marginTop: "1%", backgroundColor: theme.palette.primary.main, color: theme.palette.background.default }}>Cancel</Button>
                         </Grid>
                         <Grid item xs={12}>
                         </Grid>

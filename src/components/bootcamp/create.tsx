@@ -6,10 +6,7 @@ import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import { Grid, Typography } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 
-import { routes } from 'common/routes'
 import { BootcamperFormData, BootcamperInput, BootcampersResponse } from 'gql/bootcamp'
 import { createBootcamper } from 'common/rest'
 import { AlertStore } from 'stores/AlertStore'
@@ -18,6 +15,7 @@ import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
 import BootcampersLayout from './layout/Layout'
+import { useTheme } from '@mui/styles'
 
 const validationSchema: yup.SchemaOf<BootcamperFormData> = yup
     .object()
@@ -25,18 +23,21 @@ const validationSchema: yup.SchemaOf<BootcamperFormData> = yup
     .shape({
         MyName: yup.string().required(),
         email: yup.string().required(),
-        phone: yup.string().required()
+        phone: yup.string().required(),
+        adress: yup.string().required()
     })
 
 const defaults: BootcamperFormData = {
     MyName: '',
     email: '',
-    phone: ''
+    phone: '',
+    adress: ''
 }
 
 export type BootcamperFormProps = { initialValues?: BootcamperFormData }
 
 export default function CreateBootcamper({ initialValues = defaults }: BootcamperFormProps) {
+    const theme = useTheme()
     const { t } = useTranslation()
     const router = useRouter()
 
@@ -58,7 +59,8 @@ export default function CreateBootcamper({ initialValues = defaults }: Bootcampe
             await mutation.mutateAsync({
                 MyName: values.MyName,
                 phone: values.phone,
-                email: values.email
+                email: values.email,
+                adress: values.adress
             })
             resetForm()
             router.push('/bootcamp')
@@ -110,8 +112,16 @@ export default function CreateBootcamper({ initialValues = defaults }: Bootcampe
                                 label="bootcamp:bootcamperPhone"
                             />
                         </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <FormTextField
+                                type="text"
+                                name="adress"
+                                autoComplete="target-amount"
+                                label="bootcamp:bootcamperAdress"
+                            />
+                        </Grid>
                         <Grid item xs={12}>
-                            <SubmitButton fullWidth label="bootcamp:submit" loading={mutation.isLoading} />
+                            <SubmitButton fullWidth label="bootcamp:submit" loading={mutation.isLoading} sx={{ backgroundColor: theme.palette.secondary.main }} />
                         </Grid>
                     </Grid>
                 </GenericForm>

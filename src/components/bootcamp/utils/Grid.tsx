@@ -5,7 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { DialogStore } from '../layout/DetailsModal/BootcampModalStore'
 import { DeleteModalStore } from '../layout/DeleteModal/DeleteModalStore'
-
+import theme from "../layout/theme";
 
 const columns: GridColumns = [
     { field: 'id', headerName: 'ID', hide: true },
@@ -20,9 +20,9 @@ const columns: GridColumns = [
         headerName: 'Actions',
         renderCell: (params: GridValueGetterParams) => {
             return <div>
-                <IconButton onClick={() => DialogStore.show(params.row)}><InfoIcon></InfoIcon></IconButton>
-                <IconButton onClick={() => { window.location.pathname = `/bootcamp/edit/${params.row.id}` }}><EditIcon></EditIcon></IconButton>
-                <IconButton onClick={() => DeleteModalStore.show(params.row, 'Delete bootcamper')}><DeleteIcon></DeleteIcon></IconButton>
+                <IconButton onClick={() => DialogStore.show(params.row)} style={{ color: theme.palette.primary.main }}><InfoIcon></InfoIcon></IconButton>
+                <IconButton onClick={() => { window.location.pathname = `/bootcamp/edit/${params.row.id}` }} style={{ color: theme.palette.secondary.main }}><EditIcon></EditIcon></IconButton>
+                <IconButton onClick={() => DeleteModalStore.show(params.row, 'Delete bootcamper')} style={{ color: theme.palette.primary.dark }}><DeleteIcon></DeleteIcon></IconButton>
             </div >
         },
         flex: 0.15
