@@ -69,10 +69,9 @@ export default function CreateAnimalForm({
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
-
   const submitHandler = async (
     values: AnimalResponse,
-    { resetForm, setFieldError }: FormikHelpers<AnimalResponse>,
+    { setFieldError }: FormikHelpers<AnimalResponse>,
   ) => {
     try {
       await mutation.mutateAsync({
@@ -80,7 +79,6 @@ export default function CreateAnimalForm({
         type: values.type,
         id: initialValues?.id || '',
       })
-      resetForm()
       if (successHandler) {
         successHandler({
           name: values.name,

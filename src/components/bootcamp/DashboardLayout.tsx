@@ -1,5 +1,5 @@
 import { makeStyles } from '@mui/styles'
-import DashboardDrawer from './DashboardDrawer'
+import PersistentDrawer from './PersistentDrawer'
 
 type Props = {
   children: React.ReactNode
@@ -8,15 +8,26 @@ type Props = {
 
 const useStyles = makeStyles(() => {
   return {
+    pageContainer: {
+      position: 'relative',
+      minHeight: '100vh',
+    },
+    contentWrapper: {
+      paddingBottom: '55px',
+    },
     footer: {
-      position: 'fixed',
-      bottom: 0,
-      left: 0,
-      right: 0,
-      backgroundColor: 'lightblue',
-      zIndex: 1201,
-      padding: '16px',
+      backgroundColor: '#fff',
       textAlign: 'center',
+      position: 'absolute',
+      bottom: 0,
+      padding: '16px',
+      width: '100%',
+      height: '55px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      boxShadow:
+        '0px 2px 4px -1px rgb(0 0 0 / 35%), 0px 4px 5px 0px rgb(0 0 0 / 74%), 0px 1px 10px 0px rgb(0 0 0 / 49%)',
     },
   }
 })
@@ -24,9 +35,13 @@ const useStyles = makeStyles(() => {
 export default function DashboardLayout({ children, title }: Props) {
   const classes = useStyles()
   return (
-    <>
-      <DashboardDrawer title={title}>{children}</DashboardDrawer>
-      <footer className={classes.footer}>This is footer &copy;</footer>
-    </>
+    <div className={classes.pageContainer}>
+      <div className={classes.contentWrapper}>
+        <PersistentDrawer title={title}>{children}</PersistentDrawer>
+        <footer className={classes.footer}>
+          <p>This is footer &copy;</p>
+        </footer>
+      </div>
+    </div>
   )
 }

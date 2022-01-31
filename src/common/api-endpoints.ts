@@ -41,5 +41,6 @@ export const endpoints = {
     create: <Endpoint>{ url: '/animal', method: 'POST' },
     edit: (slug: string) => <Endpoint>{ url: `/animal/${slug}`, method: 'PATCH' },
     deleteAnimal: (slug: string) => <Endpoint>{ url: `/animal/${slug}`, method: 'DELETE' },
+    viewAnimal: (slug: string) => <Endpoint>{ url: `/animal/${slug}`, method: 'GET' },
   },
 }

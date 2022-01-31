@@ -10,3 +10,7 @@ export function useBootcampStudentsList() {
 export function useAnimalsList() {
   return useQuery<AnimalResponse[]>(endpoints.animals.list.url)
 }
+
+export function usePetById(slug: string) {
+  return useQuery<AnimalResponse>(endpoints.animals.viewAnimal(slug).url)
+}

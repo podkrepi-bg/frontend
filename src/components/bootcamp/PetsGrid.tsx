@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, Container, Dialog, Modal, Typography } from '@mui/material'
+import { Card, CardContent, Container, Dialog, Typography, Link, Tooltip, Box } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 import { useAnimalsList } from 'common/hooks/bootcampStudents'
@@ -9,17 +9,26 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useMutation } from 'react-query'
 import { AlertStore } from 'stores/AlertStore'
 import ConfirmModal from './ConfirmModal'
-import CreateAnimalForm from './CreateAnimalForm'
+import PermDeviceInformationIcon from '@mui/icons-material/PermDeviceInformation'
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 const useStyles = makeStyles(() => {
   return {
     btn: {
       marginRight: '16px',
+      cursor: 'pointer',
     },
     deleteBtn: {
       ':hover': {
         backgroundColor: '#bf0000',
       },
+    },
+    link: {
+      margin: 0,
+      padding: 0,
+      color: '#000',
+      display: 'flex',
     },
   }
 })
@@ -29,70 +38,34 @@ function DetailsButton({ params }: { params: GridRenderCellParams }) {
   const closeModal = () => setModalIsOpen(false)
   const classes = useStyles()
   return (
-    <>
-      <Button
-        onClick={() => setModalIsOpen(true)}
-        variant="outlined"
-        size="small"
-        className={classes.btn}>
-        Details
-      </Button>
-      <Dialog open={modalIsOpen} onClose={closeModal} sx={{ top: '-35%' }}>
-        <Card>
-          <CardContent>
-            <Typography variant="h5" sx={{ marginBottom: '16px' }}>
-              Pet details:
-            </Typography>
-            <Typography variant="body2">Name: {params.row.name}</Typography>
-            <Typography variant="body2">Type: {params.row.type}</Typography>
-          </CardContent>
-        </Card>
-      </Dialog>
-    </>
+    <Tooltip title="details" placement="top">
+      <Box className={classes.link}>
+        <PermDeviceInformationIcon onClick={() => setModalIsOpen(true)} className={classes.btn} />
+        <Dialog open={modalIsOpen} onClose={closeModal} sx={{ top: '-35%' }}>
+          <Card>
+            <CardContent>
+              <Typography variant="h5" sx={{ marginBottom: '16px' }}>
+                Pet details:
+              </Typography>
+              <Typography variant="body2">Name: {params.row.name}</Typography>
+              <Typography variant="body2">Type: {params.row.type}</Typography>
+            </CardContent>
+          </Card>
+        </Dialog>
+      </Box>
+    </Tooltip>
   )
 }
 
-const EditButton = ({
-  params,
-  setAnimals,
-}: {
-  params: GridRenderCellParams
-  setAnimals: (old: any) => void
-}) => {
+const EditButton = ({ params }: { params: GridRenderCellParams }) => {
   const classes = useStyles()
-  const [isOpen, setIsOpen] = useState(false)
-  const closeModal = () => setIsOpen(false)
-  const successHandler = (newAnimal: { id: string; name: string; type: string }) => {
-    closeModal()
-    setAnimals((old: any) => {
-      const index = (old as AnimalResponse[])?.findIndex((x) => x.id === params.row.id)
-      const copy = (old as AnimalResponse[])?.slice()
-      copy![index!] = newAnimal
-      return copy
-    })
-  }
 
   return (
-    <>
-      <Button
-        className={classes.btn}
-        variant="contained"
-        color="primary"
-        size="small"
-        onClick={() => setIsOpen(true)}>
-        Edit
-      </Button>
-      <Modal open={isOpen} onClose={closeModal} sx={{ top: '20%' }}>
-        <Container>
-          <CreateAnimalForm
-            initialValues={params.row}
-            redirectUrl="/bootcamp/dashboard/pets"
-            successHandler={successHandler}
-            closeModal={closeModal}
-          />
-        </Container>
-      </Modal>
-    </>
+    <Tooltip title="edit" placement="top">
+      <Link className={classes.link} href={`/bootcamp/dashboard/pets/${params.row.id}/edit`}>
+        <EditIcon className={classes.btn} />
+      </Link>
+    </Tooltip>
   )
 }
 
@@ -126,17 +99,12 @@ const DeleteButton = ({
   }
 
   return (
-    <>
-      <Button
-        onClick={onClickHandler}
-        variant="contained"
-        color="error"
-        size="small"
-        className={`${classes.deleteBtn} ${classes.btn}`}>
-        Delete
-      </Button>
-      <ConfirmModal open={open} confirmHandler={deleteConfirmHandler} closeModal={closeModal} />
-    </>
+    <Tooltip title="delete" placement="top">
+      <Box className={classes.link}>
+        <DeleteIcon onClick={onClickHandler} className={`${classes.deleteBtn} ${classes.btn}`} />
+        <ConfirmModal open={open} confirmHandler={deleteConfirmHandler} closeModal={closeModal} />
+      </Box>
+    </Tooltip>
   )
 }
 
@@ -152,7 +120,7 @@ export default function PetsGrid() {
     return (
       <>
         <DetailsButton params={params} />
-        <EditButton params={params} setAnimals={setAnimals} />
+        <EditButton params={params} />
         <DeleteButton params={params} setAnimals={setAnimals} />
       </>
     )
@@ -165,29 +133,35 @@ export default function PetsGrid() {
         field: 'name',
         headerName: 'Name',
         width: 200,
+        flex: 2,
       },
       {
         field: 'type',
         headerName: 'Type',
         width: 200,
+        flex: 6,
       },
       {
         field: 'Actions',
         headerName: 'Actions',
         renderCell: renderActions,
         width: 250,
+        flex: 1,
       },
     ]
   }, [])
 
   return (
-    <DataGrid
-      rows={animals || []}
-      columns={columns}
-      pageSize={5}
-      autoHeight
-      autoPageSize
-      disableSelectionOnClick
-    />
+    <Container>
+      <DataGrid
+        rows={animals || []}
+        columns={columns}
+        pageSize={5}
+        autoHeight
+        autoPageSize
+        checkboxSelection
+        disableSelectionOnClick
+      />
+    </Container>
   )
 }
