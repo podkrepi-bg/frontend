@@ -8,7 +8,7 @@ import { getBootcampDimitar } from '../../../common/rest'
 
 function EditBootcampDimitar({ data }: { data: any }) {
   return (
-    <CustomLayout title="Edit">
+    <CustomLayout>
       <Container maxWidth="sm">
         <EditForm data={data} />
       </Container>
