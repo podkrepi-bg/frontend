@@ -1,13 +1,10 @@
 import React, { useState } from 'react'
-import { useTranslation } from 'next-i18next'
 import { AccountCircle } from '@mui/icons-material'
 import { Grid, IconButton, Menu, Typography } from '@mui/material'
 
-import { routes } from 'common/routes'
 import LinkMenuItem from 'components/common/LinkMenuItem'
 
 export default function ProfileMenu() {
-  const { t } = useTranslation()
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
 
   const handleMenu = (event: React.MouseEvent) => setAnchorEl(event.currentTarget)

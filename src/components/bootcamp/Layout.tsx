@@ -14,9 +14,6 @@ type LayoutProps = React.PropsWithChildren<
   ContainerProps & {
     title?: string
     ogImage?: string
-    githubUrl?: string
-    figmaUrl?: string
-    hideFooter?: boolean
     disableOffset?: boolean
     boxProps?: BoxProps
   }
@@ -50,9 +47,6 @@ export default function Layout({
   children,
   maxWidth = 'lg',
   disableOffset = false,
-  githubUrl,
-  figmaUrl,
-  hideFooter = false,
   boxProps,
   ...containerProps
 }: LayoutProps) {

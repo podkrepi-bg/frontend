@@ -19,28 +19,20 @@ import AppsIcon from '@mui/icons-material/Apps'
 import PeopleIcon from '@mui/icons-material/People'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import { makeStyles } from '@mui/styles'
-import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 import { routes } from 'common/routes'
-import locale from 'yup/lib/locale'
 import ProfileMenu from './ProfileMenu'
 import { useTranslation } from 'next-i18next'
 import { ExpandLess, ExpandMore } from '@mui/icons-material'
+import PodkrepiIcon from 'components/brand/PodkrepiIcon'
 
 const useStyles = makeStyles({
   appBar: {
     backgroundColor: '#fff',
   },
   logo: {
-    height: '40px',
+    height: 40,
     width: 'auto',
-  },
-  footer: {
-    fontSize: '12px',
-    position: 'absolute',
-    left: '50%',
-    bottom: '10px',
-    transform: 'translateX(-50%)',
-    whiteSpace: 'nowrap',
+    marginRight: 10,
   },
   closeNavBtn: {
     display: 'flex',
@@ -76,7 +68,7 @@ export default function BootcampNavBar() {
           <MenuIcon />
         </IconButton>
         <Link href={routes.index}>
-          <PodkrepiLogo locale={locale} variant="adaptive" className={classes.logo} />
+          <PodkrepiIcon className={classes.logo} />
         </Link>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           {t('bootcamp:nav.title')}

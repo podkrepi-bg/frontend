@@ -3,7 +3,7 @@ import * as yup from 'yup'
 import { useRouter } from 'next/router'
 import { FormikHelpers } from 'formik'
 import { useMutation } from 'react-query'
-import { Button, ButtonGroup, Grid, Typography } from '@mui/material'
+import { Button, Grid, Typography } from '@mui/material'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useTranslation } from 'next-i18next'
 
@@ -88,7 +88,7 @@ export default function EditInternForm({ id, initialValues = defaults }: Bootcam
           <Grid item xs={12}>
             <Typography variant="h6">{t('bootcamp:form.edit-intern')}</Typography>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={4}>
             <FormTextField
               type="text"
               label="auth:fields.first-name"
@@ -97,7 +97,7 @@ export default function EditInternForm({ id, initialValues = defaults }: Bootcam
               value={initialValues.firstName}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={4}>
             <FormTextField
               type="text"
               label="auth:fields.last-name"
@@ -106,7 +106,7 @@ export default function EditInternForm({ id, initialValues = defaults }: Bootcam
               value={initialValues.lastName}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} sm={4}>
             <FormTextField
               type="tel"
               name="phone"
@@ -116,15 +116,15 @@ export default function EditInternForm({ id, initialValues = defaults }: Bootcam
               value={initialValues.phone}
             />
           </Grid>
-          <Grid item xs={12}>
-            <ButtonGroup fullWidth>
-              <Button variant="contained" type="submit" color="secondary">
-                {t('bootcamp:btns.save')}
-              </Button>
-              <Button variant="contained" href={routes.bootcamp.index} color="primary">
-                {t('bootcamp:btns.cancel')}
-              </Button>
-            </ButtonGroup>
+          <Grid item xs={6}>
+            <Button fullWidth variant="contained" type="submit" color="secondary">
+              {t('bootcamp:btns.save')}
+            </Button>
+          </Grid>
+          <Grid item xs={6}>
+            <Button fullWidth variant="contained" href={routes.bootcamp.index} color="primary">
+              {t('bootcamp:btns.cancel')}
+            </Button>
           </Grid>
         </Grid>
       </GenericForm>

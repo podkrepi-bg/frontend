@@ -78,7 +78,7 @@ export default function AddInternForm({ initialValues = defaults }: BootcampForm
           <Grid item xs={12}>
             <Typography variant="h6">{t('bootcamp:form.add-intern')}</Typography>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={4}>
             <FormTextField
               type="text"
               label="auth:fields.first-name"
@@ -86,7 +86,7 @@ export default function AddInternForm({ initialValues = defaults }: BootcampForm
               autoComplete="first-name"
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={4}>
             <FormTextField
               type="text"
               label="auth:fields.last-name"
@@ -94,7 +94,7 @@ export default function AddInternForm({ initialValues = defaults }: BootcampForm
               autoComplete="family-name"
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} sm={4}>
             <FormTextField
               type="tel"
               name="phone"

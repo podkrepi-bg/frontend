@@ -13,7 +13,6 @@ import { endpoints } from './api-endpoints'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
 import { BootcampInput, BootcampResponse } from 'gql/bootcamp'
-import { GridRowId } from '@mui/x-data-grid'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await axios.get(queryKey.join('/'))
@@ -112,9 +111,9 @@ export const editBootcampIntern: MutationFunction<
   )
 }
 
-export const deleteBootcampIntern: MutationFunction<AxiosResponse<BootcampResponse>, GridRowId> =
-  async (id: GridRowId) => {
-    return await axios.delete<GridRowId, AxiosResponse<BootcampResponse>>(
+export const deleteBootcampIntern: MutationFunction<AxiosResponse<BootcampResponse>, string> =
+  async (id: string) => {
+    return await axios.delete<string, AxiosResponse<BootcampResponse>>(
       endpoints.bootcamp.deleteIntern.url + '/' + id,
     )
   }

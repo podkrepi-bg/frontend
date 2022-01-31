@@ -1,5 +1,5 @@
 import React from 'react'
-import { DataGrid, GridColumns, GridRowId } from '@mui/x-data-grid'
+import { DataGrid, GridColumns } from '@mui/x-data-grid'
 import { useMutation } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useRouter } from 'next/router'
@@ -86,11 +86,7 @@ export default function BootcampGrid() {
     },
   })
 
-  const delMutation = useMutation<
-    AxiosResponse<BootcampResponse>,
-    AxiosError<ApiErrors>,
-    GridRowId
-  >({
+  const delMutation = useMutation<AxiosResponse<BootcampResponse>, AxiosError<ApiErrors>, string>({
     mutationFn: deleteBootcampIntern,
     onError: () => AlertStore.show(t('bootcamp:alerts.delete-row.error'), 'error'),
     onSuccess: () => AlertStore.show(t('bootcamp:alerts.delete-row.success'), 'success'),
