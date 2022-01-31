@@ -6,12 +6,13 @@ import { DataGrid, GridColumns } from '@mui/x-data-grid'
 import CustomLayout from './layout'
 import EditIcon from '@mui/icons-material/Edit'
 import Link from 'next/link'
-import { IconButton } from '@mui/material'
+import { Button, IconButton } from '@mui/material'
 import PageviewIcon from '@mui/icons-material/Pageview'
 import DeleteIcon from '@mui/icons-material/Delete'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
+import { deleteBootcampDimitar } from '../../common/rest'
 
 const style = {
   position: 'absolute' as const,
@@ -28,15 +29,35 @@ function BootcampDimitarList() {
   const { data = [] } = useBootcampDimitarList()
   const [open, setOpen] = React.useState(false)
   const [row, setRow] = React.useState({})
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false)
+  const [rowToDelete, setRowToDelete] = React.useState({})
+
+  const handleDeleteModalOpen = (row) => {
+    return () => {
+      setRowToDelete(row)
+      setIsDeleteModalOpen(true)
+    }
+  }
+
+  const handleDeleteModalClose = () => {
+    setIsDeleteModalOpen(false)
+  }
+
   const handleOpen = (row) => {
     return () => {
       setOpen(true)
       setRow(row)
     }
   }
+
   const handleClose = () => {
     setOpen(false)
-    // setRow({})
+  }
+
+  const deleteHandler = () => {
+    deleteBootcampDimitar(rowToDelete.id).then(() => {
+      handleDeleteModalClose()
+    })
   }
 
   const columns: GridColumns = [
@@ -72,11 +93,9 @@ function BootcampDimitarList() {
                 <EditIcon />
               </IconButton>
             </Link>
-            <Link href="test">
-              <IconButton size="small" sx={{ mr: 1 }}>
-                <DeleteIcon />
-              </IconButton>
-            </Link>
+            <IconButton size="small" sx={{ mr: 1 }} onClick={handleDeleteModalOpen(cellValues.row)}>
+              <DeleteIcon />
+            </IconButton>
           </>
         )
       },
@@ -108,6 +127,25 @@ function BootcampDimitarList() {
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             {row.company}
+          </Typography>
+        </Box>
+      </Modal>
+      <Modal
+        open={isDeleteModalOpen}
+        onClose={handleDeleteModalClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description">
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Delete?
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            <Button variant="contained" onClick={deleteHandler}>
+              Yes
+            </Button>
+            <Button variant="contained" onClick={handleDeleteModalClose}>
+              No
+            </Button>
           </Typography>
         </Box>
       </Modal>
