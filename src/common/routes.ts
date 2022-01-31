@@ -49,4 +49,9 @@ export const routes = {
     infoRequests: '/admin/info-requests',
     supporters: '/admin/supporters',
   },
+  bootcamp: {
+    index: '/bootcamp',
+    view: (id: string) => `/bootcamp/${id}`,
+    add: '/bootcamp/add',
+  },
 }

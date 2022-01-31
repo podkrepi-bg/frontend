@@ -12,6 +12,8 @@ import { CampaignResponse, CampaignInput } from 'gql/campaigns'
 import { endpoints } from './api-endpoints'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
+import { BootcampInput, BootcampResponse } from 'gql/bootcamp'
+import { GridRowId } from '@mui/x-data-grid'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await axios.get(queryKey.join('/'))
@@ -76,3 +78,43 @@ export const createCheckoutSession: MutationFunction<
     data,
   )
 }
+
+export const createBootcampIntern: MutationFunction<
+  AxiosResponse<BootcampResponse>,
+  BootcampInput
+> = async (data: BootcampInput) => {
+  return await axios.post<BootcampInput, AxiosResponse<BootcampResponse>>(
+    endpoints.bootcamp.createIntern.url,
+    data,
+  )
+}
+
+export const getBootcampIntern: MutationFunction<AxiosResponse<BootcampResponse>, string> = async (
+  id: string,
+) => {
+  return await axios.get<string, AxiosResponse<BootcampResponse>>(
+    endpoints.bootcamp.getIntern.url + '/' + id,
+  )
+}
+
+type EditBootcampInternProp = {
+  id: string
+  data: BootcampInput
+}
+
+export const editBootcampIntern: MutationFunction<
+  AxiosResponse<BootcampResponse>,
+  EditBootcampInternProp
+> = async ({ id, data }: EditBootcampInternProp) => {
+  return await axios.patch<BootcampResponse, AxiosResponse<BootcampResponse>>(
+    endpoints.bootcamp.editIntern.url + '/' + id,
+    data,
+  )
+}
+
+export const deleteBootcampIntern: MutationFunction<AxiosResponse<BootcampResponse>, GridRowId> =
+  async (id: GridRowId) => {
+    return await axios.delete<GridRowId, AxiosResponse<BootcampResponse>>(
+      endpoints.bootcamp.deleteIntern.url + '/' + id,
+    )
+  }
