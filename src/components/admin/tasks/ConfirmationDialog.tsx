@@ -16,7 +16,8 @@ export default function AlertDialog({ handleClose, open, id }: any) {
   const queryClient = useQueryClient()
   const { mutate, isLoading } = useMutation(deleteCar, {
     onSuccess: (data: any) => {
-      queryClient.invalidateQueries('cars', data)
+      queryClient.invalidateQueries("cars")
+      console.log('success')
       handleClose()
     },
   })
