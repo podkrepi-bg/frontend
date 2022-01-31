@@ -2,24 +2,21 @@ import React from 'react'
 import { Container } from '@mui/material'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import Layout from 'components/layout/Layout'
+import CustomLayout from '../layout'
 import EditForm from 'components/bootcamp-dimitar/editForm'
 import { getBootcampDimitar } from '../../../common/rest'
 
 function EditBootcampDimitar({ data }: { data: any }) {
-  // const router = useRouter()
-  // // const { data } = useBootcampDimitar(slug as string)
-
   return (
-    <Layout title="Edit">
+    <CustomLayout title="Edit">
       <Container maxWidth="sm">
         <EditForm data={data} />
       </Container>
-    </Layout>
+    </CustomLayout>
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+export const getServerSideProps: GetServerSideProps = async ({ locale, params }) => ({
   props: {
     ...(await serverSideTranslations(locale ?? 'bg', [
       'common',
@@ -27,7 +24,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
       'validation',
       'campaigns',
     ])),
-    data: await getBootcampDimitar('fce452f2-d84e-49b9-9bc4-6889ff186eda'),
+    data: await getBootcampDimitar(params?.id as string),
   },
 })
 
