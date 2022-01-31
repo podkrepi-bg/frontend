@@ -25,12 +25,12 @@ export default function AddForm() {
     return await axios.post('http://localhost:5010/api/car', car)
   }
   const queryClient = useQueryClient()
-  const { mutate, isLoading } = useMutation(postCar, {
+  const { mutate } = useMutation(postCar, {
     onSuccess: () => {
       queryClient.invalidateQueries('cars')
-      router.push('/admin/panel/tasks')
+      router.push('/tasks')
       setNotificationsOpen(true)
-      setNotificationMessage(`${brand} ${model} добавена успешно!`)
+      setNotificationMessage(`${brand} ${model} беше добавена успешно!`)
     },
     onError: () => {
       setNotificationsOpen(true)
@@ -117,7 +117,7 @@ export default function AddForm() {
           size="large">
           Запази
         </Button>
-        <Link href="/admin/panel/tasks">
+        <Link href="/tasks">
           <Button variant="outlined" size="large">
             Отказ
           </Button>

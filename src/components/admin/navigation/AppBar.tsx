@@ -32,7 +32,7 @@ export default function AppBarMenu() {
             <Tooltip title="Добави">
               <AddIcon
                 onClick={() => {
-                  router.push('/admin/panel/tasks/add')
+                  router.push('/tasks/add')
                 }}
                 sx={addIconStyles}
                 style={{ marginRight: '20px' }}
