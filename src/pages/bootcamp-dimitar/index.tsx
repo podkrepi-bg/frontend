@@ -104,9 +104,8 @@ function BootcampDimitarList() {
   ]
 
   return (
-    <CustomLayout title={'Bootcamp'}>
-      {/* <MyAppBar /> */}
-      <h1>Welcome</h1>
+    <CustomLayout>
+      <h1>All bootcampers</h1>
       <DataGrid
         rows={data || []}
         columns={columns}
