@@ -22,7 +22,7 @@ import {
   Container,
   Typography,
 } from '@mui/material'
-// import { makeStyles } from '@mui/styles'
+import PodkrepiIcon from 'components/brand/PodkrepiIcon'
 
 const useStyles = makeStyles({
   appBar: {
@@ -63,7 +63,7 @@ function CustomLayout({ children }: { children: any }) {
   ]
   return (
     <>
-      <AppBar position="static">
+      <AppBar position="static" className={classes.appBar}>
         <Toolbar>
           <IconButton
             size="large"
@@ -75,7 +75,7 @@ function CustomLayout({ children }: { children: any }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            LOGO
+            <PodkrepiIcon className={classes.logo} />
           </Typography>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Admin panel
