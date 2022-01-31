@@ -135,7 +135,7 @@ export default function TasksGrid() {
                 sx={{ cursor: 'pointer' }}
                 color="action"
                 onClick={() => {
-                  router.push(`/admin/panel/tasks/edit/${values.id}`)
+                  router.push(`/tasks/edit/${values.id}`)
                 }}
               />
             }

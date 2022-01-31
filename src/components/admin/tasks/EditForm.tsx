@@ -31,7 +31,7 @@ export default function EditForm() {
   const { mutate } = useMutation(submitCar, {
     onSuccess: () => {
       queryClient.invalidateQueries('cars')
-      router.push('/admin/panel/tasks')
+      router.push('/tasks')
       setNotificationsOpen(true)
       setNotificationMessage(`Колата беше редактирана`)
     },
@@ -124,7 +124,7 @@ export default function EditForm() {
           size="large">
           Запази
         </Button>
-        <Link href="/admin/panel/tasks">
+        <Link href="/tasks">
           <Button variant="outlined" size="large">
             Отказ
           </Button>
