@@ -1,46 +1,51 @@
-import { DataGrid } from '@mui/x-data-grid'
-import { GridColumns } from '@mui/x-data-grid'
-import { useContext, useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import { useQuery } from 'react-query'
-import { ModalContext } from 'context/ModalContext'
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip'
+import { useContext, useEffect, useState } from 'react'
+import { ModalContext } from 'context/ModalContext'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
-import axios from 'axios'
 import AlertDialog from './ConfirmationDialog'
-import SkeletonLoading from './SkeletonLoading'
+import { GridColumns } from '@mui/x-data-grid'
+import { DataGrid } from '@mui/x-data-grid'
+import { useRouter } from 'next/router'
+import { useQuery } from 'react-query'
+import axios from 'axios'
 export default function TasksGrid() {
-  const { setOpen, setCarId, search, setSearchLoading, searchLoading }: any =
-    useContext(ModalContext)
-
-  const [open, setOpenAlertModal] = useState(false)
+  const {
+    setAreCarsSelected,
+    setConfirmationOpen,
+    confirmationOpen,
+    setCarId,
+    setOpen,
+    search,
+  }: any = useContext(ModalContext)
+  const router = useRouter()
   const [searchData, setSearchData] = useState([])
+  const [multipleDelete, setMupltipleDelete] = useState([])
   const [id, setId] = useState('')
   useEffect(() => {
     const submitSearch = async () => {
       if (search === '') return
-      setSearchLoading(true)
       const result = await axios.post(`http://localhost:5010/api/car/search`, {
         searchTerm: search,
       })
       setSearchData(result.data)
-      setSearchLoading(false)
     }
     submitSearch()
   }, [search])
   const handleClickOpen = () => {
-    setOpenAlertModal(true)
+    setConfirmationOpen(true)
   }
 
   const handleClose = () => {
-    setOpenAlertModal(false)
+    setConfirmationOpen(false)
   }
-  const router = useRouter()
   const commonCellStyles: any = {
     fontWeight: 'bold',
     width: '100%',
     textAlign: 'center',
+  }
+  const displayRow = (cellValues: any) => {
+    return <div style={commonCellStyles}>{cellValues.value}</div>
   }
 
   const columns: GridColumns = [
@@ -48,13 +53,10 @@ export default function TasksGrid() {
     {
       field: 'type',
       headerName: 'вид',
-      width: 60,
+      width: 100,
       headerAlign: 'center',
       renderCell: (cellValues) => {
         return <div style={commonCellStyles}>Кола</div>
-        /*           <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center' }}>
-            <SkeletonLoading />
-          </div> */
       },
     },
     {
@@ -63,10 +65,7 @@ export default function TasksGrid() {
       headerAlign: 'center',
       width: 150,
       renderCell: (cellValues) => {
-        return <div style={commonCellStyles}>{cellValues.value}</div>
-        /*           <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center' }}>
-            <SkeletonLoading />
-          </div> */
+        return displayRow(cellValues)
       },
     },
     {
@@ -75,10 +74,7 @@ export default function TasksGrid() {
       headerAlign: 'center',
       width: 150,
       renderCell: (cellValues) => {
-        return <div style={commonCellStyles}>{cellValues.value}</div>
-        /*           <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center' }}>
-            <SkeletonLoading />
-          </div> */
+        return displayRow(cellValues)
       },
     },
     {
@@ -87,10 +83,7 @@ export default function TasksGrid() {
       headerAlign: 'center',
       width: 150,
       renderCell: (cellValues) => {
-        return <div style={commonCellStyles}>{cellValues.value}</div>
-        /*           <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center' }}>
-            <SkeletonLoading />
-          </div> */
+        return displayRow(cellValues)
       },
     },
 
@@ -100,10 +93,7 @@ export default function TasksGrid() {
       headerAlign: 'center',
       width: 150,
       renderCell: (cellValues) => {
-        return <div style={commonCellStyles}>{cellValues.value}</div>
-        /*           <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center' }}>
-            <SkeletonLoading />
-          </div> */
+        return displayRow(cellValues)
       },
     },
     {
@@ -112,11 +102,7 @@ export default function TasksGrid() {
       width: 150,
       headerAlign: 'center',
       renderCell: (cellValues) => {
-        return <div style={commonCellStyles}>{cellValues.value}</div>
-
-        /*           <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center' }}>
-            <SkeletonLoading />
-          </div> */
+        return displayRow(cellValues)
       },
     },
     {
@@ -173,7 +159,11 @@ export default function TasksGrid() {
   })
   return (
     <>
-      <AlertDialog open={open} handleClose={handleClose} id={id}></AlertDialog>
+      <AlertDialog
+        open={confirmationOpen}
+        handleClose={handleClose}
+        id={id}
+        multipleDeleteItems={multipleDelete}></AlertDialog>
       <DataGrid
         style={{
           marginTop: '2px',
@@ -188,7 +178,15 @@ export default function TasksGrid() {
         autoHeight
         autoPageSize
         disableSelectionOnClick
-        onRowClick={() => {}}
+        checkboxSelection
+        onSelectionModelChange={(row: any) => {
+          setMupltipleDelete(row)
+          if (row.length > 0) {
+            setAreCarsSelected(true)
+          } else {
+            setAreCarsSelected(false)
+          }
+        }}
       />
     </>
   )

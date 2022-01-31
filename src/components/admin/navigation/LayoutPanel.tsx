@@ -1,35 +1,31 @@
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
-import { styled, useTheme } from '@mui/material/styles'
-import { Copyright } from '@mui/icons-material'
-import { Typography } from '@mui/material'
-import { useState } from 'react'
-import { Avatar } from '@mui/material'
-import Image from 'next/image'
-import Box from '@mui/material/Box'
-import Drawer from '@mui/material/Drawer'
-import CssBaseline from '@mui/material/CssBaseline'
-import Toolbar from '@mui/material/Toolbar'
-import List from '@mui/material/List'
-import IconButton from '@mui/material/IconButton'
-import MenuIcon from '@mui/icons-material/Menu'
-import ListItem from '@mui/material/ListItem'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import Button from '@mui/material/Button'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
-import NestedMenu from './NestedMenu'
-import HomeIcon from '@mui/icons-material/Home'
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar'
 import SettingsIcon from '@mui/icons-material/Settings'
-
-/* const Root = styled('div')(({ theme }: any) => ({
-  [theme.breakpoints.up('md')]: {
-    display: 'none',
-  },
-})) */
+import ListItemIcon from '@mui/material/ListItemIcon'
+import CssBaseline from '@mui/material/CssBaseline'
+import { ModalContext } from 'context/ModalContext'
+import IconButton from '@mui/material/IconButton'
+import HomeIcon from '@mui/icons-material/Home'
+import MenuIcon from '@mui/icons-material/Menu'
+import { Copyright } from '@mui/icons-material'
+import ListItem from '@mui/material/ListItem'
+import { styled } from '@mui/material/styles'
+import MenuItem from '@mui/material/MenuItem'
+import Notifications from '../tasks/Snackbar'
+import Toolbar from '@mui/material/Toolbar'
+import { Typography } from '@mui/material'
+import Drawer from '@mui/material/Drawer'
+import Button from '@mui/material/Button'
+import { Avatar } from '@mui/material'
+import Menu from '@mui/material/Menu'
+import NestedMenu from './NestedMenu'
+import List from '@mui/material/List'
+import Box from '@mui/material/Box'
+import { useContext } from 'react'
+import { useState } from 'react'
+import Image from 'next/image'
 
 const drawerWidth = 240
-
 const Main = styled('main', { shouldForwardProp: (prop: any) => prop !== 'open' })<{
   open?: boolean
 }>(({ theme, open }: any) => ({
@@ -49,7 +45,6 @@ const Main = styled('main', { shouldForwardProp: (prop: any) => prop !== 'open' 
     marginLeft: 0,
   }),
 }))
-
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean
 }
@@ -69,7 +64,6 @@ const AppBar = styled(MuiAppBar, {
     }),
   }),
 }))
-
 const DrawerHeader = styled('div')(({ theme }: any) => ({
   display: 'flex',
   alignItems: 'center',
@@ -79,8 +73,7 @@ const DrawerHeader = styled('div')(({ theme }: any) => ({
   justifyContent: 'flex-end',
 }))
 export default function PersistentDrawerLeft({ children }: any) {
-  const theme = useTheme()
-  const [open, setOpen] = useState(false)
+  const { drawerOpen, setDrawerOpen }: any = useContext(ModalContext)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const isOpen = Boolean(anchorEl)
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -90,15 +83,15 @@ export default function PersistentDrawerLeft({ children }: any) {
     setAnchorEl(null)
   }
   const handleDrawerOpen = () => {
-    setOpen(true)
+    setDrawerOpen(true)
   }
   const handleDrawerClose = () => {
-    setOpen(false)
+    setDrawerOpen(false)
   }
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open} style={{ background: 'white' }}>
+      <AppBar position="fixed" open={drawerOpen} style={{ background: 'white' }}>
         <Toolbar
           sx={{
             justifyContent: 'space-between',
@@ -110,16 +103,30 @@ export default function PersistentDrawerLeft({ children }: any) {
               aria-label="open drawer"
               onClick={handleDrawerOpen}
               edge="start"
-              sx={{ mr: 2, ...(open && { display: 'none' }) }}>
+              sx={{ mr: 2, ...(drawerOpen && { display: 'none' }) }}>
               <MenuIcon fontSize="large" color="action" />
             </IconButton>
             <img
               src="http://blog.podkrepi.bg/content/images/2021/09/podkrepi-bg-logo.svg"
               alt=""
-              style={{ width: '170px', display: open ? 'none' : '' }}
+              style={{ width: '170px', display: drawerOpen ? 'none' : '' }}
             />
           </Box>
+
           <div>
+            <Typography
+              sx={{
+                color: '#7d7d7d',
+                width: '100%',
+                position: 'fixed',
+                left: '0',
+                right: '0',
+                zIndex: -1,
+              }}
+              textAlign="center"
+              variant="h4">
+              Админ панел
+            </Typography>
             <Avatar
               onClick={handleClick}
               sx={{
@@ -165,6 +172,7 @@ export default function PersistentDrawerLeft({ children }: any) {
         </Toolbar>
       </AppBar>
       <Drawer
+        PaperProps={{ elevation: 10 }}
         sx={{
           width: drawerWidth,
           flexShrink: 0,
@@ -175,7 +183,7 @@ export default function PersistentDrawerLeft({ children }: any) {
         }}
         variant="persistent"
         anchor="left"
-        open={open}>
+        open={drawerOpen}>
         <DrawerHeader
           sx={{
             position: 'relative',
@@ -217,7 +225,7 @@ export default function PersistentDrawerLeft({ children }: any) {
             flexDirection: 'column',
           }}>
           <NestedMenu />
-          {['Начало', 'Коли', 'Настройки'].map((text, index) => (
+          {['Начало', 'Коли', 'Настройки'].map((text) => (
             <ListItem
               button
               key={text}
@@ -245,7 +253,7 @@ export default function PersistentDrawerLeft({ children }: any) {
           ))}
         </List>
       </Drawer>
-      <Main open={open}>
+      <Main open={drawerOpen}>
         <DrawerHeader />
         {children}
       </Main>
@@ -270,6 +278,7 @@ export default function PersistentDrawerLeft({ children }: any) {
           </Typography>
         </div>
       </Box>
+      <Notifications />
     </Box>
   )
 }
