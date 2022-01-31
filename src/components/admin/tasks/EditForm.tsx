@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { Button, CardActions, Container } from '@mui/material'
 import { Typography } from '@mui/material'
 import { useRouter } from 'next/router'
@@ -25,9 +25,10 @@ export default function EditForm() {
   const submitCar = async (newCar: CarDataType) => {
     return await axios.patch(`http://localhost:5010/api/car/${carId}`, newCar)
   }
-
+  const queryClient = useQueryClient()
   const { mutate } = useMutation(submitCar, {
     onSuccess: () => {
+      queryClient.invalidateQueries("cars")
       router.push('/admin/panel/tasks')
     },
   })
@@ -43,7 +44,7 @@ export default function EditForm() {
         height: 'calc(100vh - 70px)',
       }}>
       <LayoutPanel />
-      <Typography color="#294e85" sx={{ m: 3, fontWeight: 'bold', opacity: 0.8 }} variant="h5">
+      <Typography color="#294e85" sx={{ m: 3, fontWeight: 'bold', opacity: 0.9 }} variant="h5">
         Редактиране
       </Typography>
       <Container sx={{ justifyContent: 'center', display: 'flex' }}>

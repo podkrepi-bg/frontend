@@ -17,7 +17,7 @@ function AddFormSecond({ setSubmitCarForm }: any) {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(postCar, {
     onSuccess: (data: any) => {
-      queryClient.invalidateQueries('cars', data)
+      queryClient.invalidateQueries('cars')
       setSubmitCarForm(false)
     },
   })

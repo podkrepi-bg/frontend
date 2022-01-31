@@ -259,7 +259,12 @@ export default function PersistentDrawerLeft({ children }: any) {
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-          <Typography variant="h6" color="white" display="flex" alignItems="center">
+          <Typography
+            variant="h6"
+            color="white"
+            display="flex"
+            alignItems="center"
+            style={{ transform: 'scale(0.75)' }}>
             <Copyright />
             Copyright
           </Typography>

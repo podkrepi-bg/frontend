@@ -29,7 +29,6 @@ export default function TasksGrid() {
     }
     submitSearch()
   }, [search])
-  console.log(search)
   const handleClickOpen = () => {
     setOpenAlertModal(true)
   }
@@ -172,7 +171,6 @@ export default function TasksGrid() {
   const { data }: any = useQuery('cars', async () => {
     return await axios.get(`http://localhost:5010/api/car`)
   })
-
   return (
     <>
       <AlertDialog open={open} handleClose={handleClose} id={id}></AlertDialog>
@@ -184,20 +182,7 @@ export default function TasksGrid() {
           border: 'none',
           padding: '10px 50px',
         }}
-        rows={
-          search !== ''
-            ? searchData
-            : data?.data || [
-                {
-                  id: '1',
-                  brand: 'Audi',
-                  model: 'A3',
-                  year: 2015,
-                  engine: 'Petrol',
-                  price: '25000',
-                },
-              ]
-        }
+        rows={search !== '' ? searchData : data?.data || []}
         columns={columns}
         pageSize={5}
         autoHeight
