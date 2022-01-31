@@ -7,7 +7,6 @@ import {
   IconButton,
   Link,
   List,
-  ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
@@ -16,9 +15,6 @@ import {
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
-import ReadMoreIcon from '@mui/icons-material/ReadMore'
 import AppsIcon from '@mui/icons-material/Apps'
 import PeopleIcon from '@mui/icons-material/People'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
@@ -127,9 +123,6 @@ export default function BootcampNavBar() {
             <ListItemText primary="Other 2" />
           </ListItemButton>
         </List>
-        <footer className={classes.footer}>
-          <Typography variant="inherit">&copy; {t('bootcamp:nav.footer')}</Typography>
-        </footer>
       </Drawer>
     </AppBar>
   )
