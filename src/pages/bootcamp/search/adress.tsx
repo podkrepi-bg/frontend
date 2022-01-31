@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { dehydrate, QueryClient } from 'react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import SearchByEmail from 'components/bootcamp/search/email'
+import SearchByAdress from 'components/bootcamp/search/adress'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
     const client = new QueryClient()
@@ -19,4 +19,4 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
     }
 }
 
-export default SearchByEmail
+export default SearchByAdress
