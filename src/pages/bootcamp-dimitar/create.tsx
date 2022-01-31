@@ -7,8 +7,9 @@ import CreateForm from 'components/bootcamp-dimitar/createForm'
 
 function CreateBootcampDimitar() {
   return (
-    <CustomLayout title="Create">
+    <CustomLayout>
       <Container maxWidth="sm">
+        <h1>Create bootcamper</h1>
         <CreateForm />
       </Container>
     </CustomLayout>
