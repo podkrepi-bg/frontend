@@ -21,8 +21,6 @@ module.exports = {
     jest: true,
   },
   ignorePatterns: [
-    'EditForm.js',
-    'edit.js',
     '.eslintrc.js',
     'jest.config.js',
     'next.config.js',

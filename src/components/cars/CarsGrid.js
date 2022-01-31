@@ -1,18 +1,18 @@
-import { Box, IconButton } from '@mui/material'
+import { Box, IconButton, Typography } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import React, { useState } from 'react'
-import CarsModal from './CarsModal'
+import DetailsModal from './DetailsModal'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import PageviewIcon from '@mui/icons-material/Pageview'
 import Link from 'next/link'
-import fetch from 'node-fetch'
 import DeleteModal from './DeleteModal'
+import fetch from 'node-fetch'
 
 export default function CarsGrid({ cars, setCars }) {
-  const [open, setOpen] = useState(false)
+  const [detailsOpen, setDetailsOpen] = useState(false)
   const [deleteOpen, setDeleteOpen] = useState(false)
-  const [details, setDetails] = useState(null)
+  const [details, setDetails] = useState({})
   const [deleteId, setDeleteId] = useState('')
 
   const columns = [
@@ -58,17 +58,9 @@ export default function CarsGrid({ cars, setCars }) {
     },
   ]
 
-  const modalProps = {
-    cars,
-    setCars,
-    open,
-    setOpen,
-    ...details,
-  }
-
   function detailsClickHandler(e, cellValues) {
     setDetails({ ...cellValues.row })
-    setOpen(true)
+    setDetailsOpen(true)
   }
 
   function deleteClickHandler(e, cellValues) {
@@ -79,6 +71,7 @@ export default function CarsGrid({ cars, setCars }) {
   return (
     <>
       <Box sx={{ mt: 10, mx: 'auto', width: 600 }}>
+        <Typography sx={{ mb: 2, fontSize: 30 }}>Cars list</Typography>
         <div style={{ display: 'flex', height: 400 }}>
           <DataGrid
             sortingOrder={['desc', 'asc']}
@@ -86,18 +79,13 @@ export default function CarsGrid({ cars, setCars }) {
             columns={columns}
             pageSize={5}
             rowsPerPageOptions={[5]}
+            checkboxSelection
             disableSelectionOnClick
           />
         </div>
       </Box>
-      <CarsModal props={modalProps} />
-      <DeleteModal
-        cars={cars}
-        setCars={setCars}
-        id={deleteId}
-        open={deleteOpen}
-        setOpen={setDeleteOpen}
-      />
+      <DetailsModal detailsOpen={detailsOpen} setDetailsOpen={setDetailsOpen} details={details} />
+      <DeleteModal cars={cars} setCars={setCars} id={deleteId} open={deleteOpen} setOpen={setDeleteOpen} />
     </>
   )
 }

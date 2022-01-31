@@ -1,7 +1,8 @@
-import { Box, Button, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { Box, Button } from '@mui/material'
+import EditField from './EditField'
 
 export default function EditForm({ car }) {
   const [brand, setBrand] = useState(car.brand)
@@ -42,60 +43,11 @@ export default function EditForm({ car }) {
     <>
       <form onSubmit={onEditSubmit}>
         <Box sx={{ mt: 10, ml: 80, width: 600 }}>
-          <Box sx={{ display: 'inline', mr: 4 }}>
-            <TextField
-              id="brand"
-              label="Brand"
-              value={brand}
-              onChange={(e) => setBrand(e.target.value)}
-              required
-              size="small"
-              sx={{ mb: 4 }}
-            />
-          </Box>
-          <Box sx={{ display: 'inline', mr: 4 }}>
-            <TextField
-              id="model"
-              label="Model"
-              value={model}
-              onChange={(e) => setModel(e.target.value)}
-              required
-              size="small"
-              sx={{ mb: 4 }}
-            />
-          </Box>
-          <Box sx={{ display: 'inline', mr: 4 }}>
-            <TextField
-              id="year"
-              label="Year"
-              value={year}
-              onChange={(e) => setYear(e.target.value)}
-              required
-              size="small"
-              sx={{ mb: 4 }}
-            />
-          </Box>
-          <Box sx={{ display: 'inline', mr: 4 }}>
-            <TextField
-              id="city"
-              label="City"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              required
-              size="small"
-              sx={{ mb: 4 }}
-            />
-          </Box>
-          <Box sx={{ display: 'inline', mr: 4 }}>
-            <TextField
-              id="country"
-              label="Country"
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
-              required
-              size="small"
-            />
-          </Box>
+          <EditField value={brand} label="Brand" setElement={setBrand} />
+          <EditField value={model} label="Model" setElement={setModel} />
+          <EditField value={year} label="Year" setElement={setYear} />
+          <EditField value={city} label="City" setElement={setCity} />
+          <EditField value={country} label="Country" setElement={setCountry} />
           <Box sx={{ display: 'inline' }}>
             <Button type="submit">Save</Button>
           </Box>
