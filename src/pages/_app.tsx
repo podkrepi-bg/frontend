@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { appWithTranslation, useTranslation } from 'next-i18next'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 // MaterialUI
 import { LinearProgress } from '@mui/material'
@@ -49,7 +50,7 @@ function CustomApp({
     () =>
       new QueryClient({
         defaultOptions: {
-          queries: { queryFn },
+          queries: { queryFn, staleTime: 25 * 1000 },
           // mutations: { mutationFn },
         },
       }),
@@ -106,6 +107,7 @@ function CustomApp({
             persistor={SSRCookies(pageProps?.keyCookies ?? {})}>
             <QueryClientProvider client={queryClient}>
               <Hydrate state={pageProps.dehydratedState}>
+                <ReactQueryDevtools initialIsOpen={true} />
                 <Component {...pageProps} />
               </Hydrate>
             </QueryClientProvider>

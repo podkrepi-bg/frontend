@@ -12,6 +12,9 @@ import { useRouter } from 'next/router'
 import { routes } from 'common/routes'
 
 import { drawerWidth } from './MyDrawer'
+import { BootcampIntern } from 'lib/interfaces/BootcampIntern'
+import { UseBaseQueryResult, useQuery } from 'react-query'
+import { useFetchBootcampIntern } from 'common/hooks/bootcampIntern'
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -31,15 +34,20 @@ const validationSchema = yup.object().shape({
   email: yup.string().trim().min(8).max(40).email('Invalid email').required(),
 })
 
-export default function BootcampInternEditForm(props: any) {
-  const intern = props.intern
+export default function BootcampInternEditForm() {
   const router = useRouter()
   const classes = useStyles()
+  const internId = router.query.id
+
+  if (typeof internId !== 'string') return
+
+  const { data, isError, isLoading }: UseBaseQueryResult<BootcampIntern> =
+    useFetchBootcampIntern(internId)
 
   const defaults = {
-    firstName: intern.firstName,
-    lastName: intern.lastName,
-    email: intern.email,
+    firstName: data?.firstName,
+    lastName: data?.lastName,
+    email: data?.email,
   }
 
   const onSubmit = async (internData: any) => {

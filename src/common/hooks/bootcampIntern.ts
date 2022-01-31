@@ -8,14 +8,7 @@ import { endpoints } from 'common/api-endpoints'
 import { authQueryFnFactory } from 'common/rest'
 
 //relative imports
-
-// define the type of the data
-type BootcampIntern = {
-  id: string
-  firstName: string
-  lastName: string
-  email: string
-}
+import { BootcampIntern } from 'lib/interfaces/BootcampIntern'
 
 export function useBootcampInternsList() {
   const { keycloak } = useKeycloak<KeycloakInstance>() // initializing a keyCloak instance;
