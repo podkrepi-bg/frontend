@@ -7,6 +7,7 @@ const useStyles = makeStyles({
     textAlign: 'center',
     fontSize: '12px',
     whiteSpace: 'nowrap',
+    marginTop: 20,
   },
 })
 

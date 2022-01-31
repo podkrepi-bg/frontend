@@ -6,7 +6,6 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import {
   Button,
-  ButtonGroup,
   Dialog,
   DialogActions,
   DialogContent,
@@ -37,6 +36,9 @@ const useStyles = makeStyles({
   gridTitle: {
     marginBottom: '10px',
   },
+  infoBtn: {
+    margin: '0 auto',
+  },
 })
 
 const initialValues: BootcampResponse = {
@@ -61,7 +63,7 @@ export default function BootcampGrid() {
     setOpenDel(true)
   }
 
-  const closeDeleteRowDialog = () => {
+  const closeDeleteDialog = () => {
     setOpenDel(false)
   }
 
@@ -89,32 +91,34 @@ export default function BootcampGrid() {
   const delMutation = useMutation<AxiosResponse<BootcampResponse>, AxiosError<ApiErrors>, string>({
     mutationFn: deleteBootcampIntern,
     onError: () => AlertStore.show(t('bootcamp:alerts.delete-row.error'), 'error'),
-    onSuccess: () => AlertStore.show(t('bootcamp:alerts.delete-row.success'), 'success'),
+    onSuccess: () => {
+      AlertStore.show(t('bootcamp:alerts.delete-row.success'), 'success')
+      router.push(routes.bootcamp.index)
+    },
   })
 
-  const deleteRow = async () => {
-    try {
-      await delMutation.mutateAsync(selectedInternId)
-      closeDeleteRowDialog()
-      router.push(routes.bootcamp.index)
-    } catch (error) {
-      console.error(error)
-    }
+  const deleteRow = () => {
+    closeDeleteDialog()
+    delMutation.mutateAsync(selectedInternId)
   }
 
-  const ActionsButtons = (props: any) => {
+  type ActionsProps = {
+    id: string
+  }
+
+  const ActionsButtons = ({ id }: ActionsProps) => {
     return (
-      <ButtonGroup>
-        <IconButton onClick={() => loadInternInfo(props.id)}>
+      <>
+        <IconButton onClick={() => loadInternInfo(id)}>
           <PreviewIcon />
         </IconButton>
-        <IconButton href={routes.bootcamp.view(props.id)}>
+        <IconButton href={routes.bootcamp.view(id)}>
           <EditIcon />
         </IconButton>
-        <IconButton onClick={() => openDeleteRowDialog(props.id)}>
+        <IconButton onClick={() => openDeleteRowDialog(id)}>
           <DeleteIcon />
         </IconButton>
-      </ButtonGroup>
+      </>
     )
   }
 
@@ -148,7 +152,7 @@ export default function BootcampGrid() {
   ]
 
   const DeleteDialog = () => (
-    <Dialog open={openDel} onClose={closeDeleteRowDialog} maxWidth="xs">
+    <Dialog open={openDel} onClose={closeDeleteDialog} maxWidth="xs">
       <DialogTitle>
         {t('bootcamp:alerts.delete-row.question')} ({selectedInternId})?
       </DialogTitle>
@@ -156,7 +160,7 @@ export default function BootcampGrid() {
         <Button variant="contained" color="secondary" fullWidth onClick={deleteRow}>
           {t('bootcamp:btns.confirm')}
         </Button>
-        <Button variant="contained" color="primary" fullWidth onClick={closeDeleteRowDialog}>
+        <Button variant="contained" color="primary" fullWidth onClick={closeDeleteDialog}>
           {t('bootcamp:btns.cancel')}
         </Button>
       </DialogActions>
@@ -166,19 +170,25 @@ export default function BootcampGrid() {
     <Dialog open={openInfo} onClose={closeInfoDialog} maxWidth="xs">
       <DialogTitle>{t('bootcamp:titles.intern-info')}</DialogTitle>
       <DialogContent>
-        <p>Id: {intern.id}</p>
         <p>
-          {t('auth:fields.first-name')}: {intern.firstName}
+          <b>Id:</b> {intern.id}
         </p>
         <p>
-          {t('auth:fields.last-name')}: {intern.lastName}
+          <b>{t('auth:fields.first-name')}:</b> {intern.firstName}
         </p>
         <p>
-          {t('auth:fields.phone')}: {intern.phone}
+          <b>{t('auth:fields.last-name')}:</b> {intern.lastName}
+        </p>
+        <p>
+          <b>{t('auth:fields.phone')}:</b> {intern.phone}
         </p>
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" color="primary" fullWidth onClick={closeInfoDialog}>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.infoBtn}
+          onClick={closeInfoDialog}>
           {t('bootcamp:btns.close')}
         </Button>
       </DialogActions>

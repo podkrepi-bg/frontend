@@ -6,6 +6,7 @@ import { useMutation } from 'react-query'
 import { Button, Grid, Typography } from '@mui/material'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useTranslation } from 'next-i18next'
+import { makeStyles } from '@mui/styles'
 
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
@@ -15,6 +16,13 @@ import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import { name, phone } from 'common/form/validation'
 import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
+
+const useStyles = makeStyles({
+  container: {
+    maxWidth: '700px',
+    margin: '0 auto',
+  },
+})
 
 const validationSchema: yup.SchemaOf<BootcampFormData> = yup.object().defined().shape({
   firstName: name.required(),
@@ -39,6 +47,7 @@ type EditBootcampInternProp = {
 }
 
 export default function EditInternForm({ id, initialValues = defaults }: BootcampFormProps) {
+  const classes = useStyles()
   const mutation = useMutation<
     AxiosResponse<BootcampResponse>,
     AxiosError<ApiErrors>,
@@ -78,7 +87,7 @@ export default function EditInternForm({ id, initialValues = defaults }: Bootcam
   }
 
   return (
-    <Grid container direction="column" component="section">
+    <Grid container direction="column" component="section" className={classes.container}>
       <GenericForm
         enableReinitialize={true}
         onSubmit={onSubmit}
