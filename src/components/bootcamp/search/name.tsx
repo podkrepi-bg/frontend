@@ -29,7 +29,7 @@ const defaults: SearchFormData = {
 
 export type SearchFormProps = { initialValues?: SearchFormData }
 
-export default function EditBootcamper({ initialValues = defaults }: SearchFormProps) {
+export default function SearchByName({ initialValues = defaults }: SearchFormProps) {
     const [res, setRes] = React.useState([])
     const info = useBootcampersList().data
 

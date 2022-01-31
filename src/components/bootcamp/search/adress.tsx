@@ -1,7 +1,6 @@
 import React from 'react'
 import * as yup from 'yup'
 import { FormikHelpers } from 'formik'
-import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@mui/material'
 
 import { SearchFormData } from 'gql/search'
@@ -26,11 +25,9 @@ const defaults: SearchFormData = {
 
 export type SearchFormProps = { initialValues?: SearchFormData }
 
-export default function SearchByEmail({ initialValues = defaults }: SearchFormProps) {
+export default function SearchByAdress({ initialValues = defaults }: SearchFormProps) {
     const [res, setRes] = React.useState([])
     const info = useBootcampersList().data
-
-    const { t } = useTranslation()
 
     const onSubmit = async (
         values: SearchFormData,
@@ -39,7 +36,7 @@ export default function SearchByEmail({ initialValues = defaults }: SearchFormPr
         try {
             setRes([])
             info?.forEach(x => {
-                if (x.email.toLowerCase().includes(values.keyword.toLowerCase())) {
+                if (x.adress.toLowerCase().includes(values.keyword.toLowerCase())) {
                     setRes([...res, x])
                 }
             })

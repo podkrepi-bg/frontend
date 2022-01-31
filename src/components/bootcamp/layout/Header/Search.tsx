@@ -16,29 +16,40 @@ export default function SearchMenu() {
 
     return (
         <>
-            <IconButton onClick={handleClick} style={{ color: "black" }}>
-                {open ? <ExpandLess /> : <ExpandMore />}
-            </IconButton>
-            <Button onClick={handleClick} style={{ color: "black" }} sx={{ ":hover": { color: theme.palette.primary.main } }}>Search</Button>
-            <Collapse in={open} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                    <ListItem>
-                        <Button sx={{ pl: 4, ":hover": { color: theme.palette.primary.main } }} href="/bootcamp/search/name">
-                            <Typography textAlign="center">Search by name</Typography>
-                        </Button>
-                    </ListItem>
-                    <ListItem>
-                        <Button sx={{ pl: 4, ":hover": { color: theme.palette.primary.main } }} href="/bootcamp/search/email">
-                            <Typography textAlign="center">Search by email</Typography>
-                        </Button>
-                    </ListItem>
-                    <ListItem>
-                        <Button sx={{ pl: 4, ":hover": { color: theme.palette.primary.main } }} href="/bootcamp/search/phone">
-                            <Typography textAlign="center">Search by phone</Typography>
-                        </Button>
-                    </ListItem>
-                </List>
-            </Collapse>
+            <List>
+                <ListItem>
+                    <IconButton onClick={handleClick} style={{ color: "black" }}>
+                        {open ? <ExpandLess /> : <ExpandMore />}
+                    </IconButton>
+                    <Button onClick={handleClick} style={{ color: "black" }} sx={{ ":hover": { color: theme.palette.primary.main } }}>Search</Button>
+                </ListItem>
+                <ListItem>
+                    <Collapse in={open} timeout="auto" unmountOnExit>
+                        <List component="div" disablePadding>
+                            <ListItem>
+                                <Button sx={{ pl: 4, ":hover": { color: theme.palette.primary.main } }} href="/bootcamp/search/name">
+                                    <Typography textAlign="center">Search by name</Typography>
+                                </Button>
+                            </ListItem>
+                            <ListItem>
+                                <Button sx={{ pl: 4, ":hover": { color: theme.palette.primary.main } }} href="/bootcamp/search/email">
+                                    <Typography textAlign="center">Search by email</Typography>
+                                </Button>
+                            </ListItem>
+                            <ListItem>
+                                <Button sx={{ pl: 4, ":hover": { color: theme.palette.primary.main } }} href="/bootcamp/search/phone">
+                                    <Typography textAlign="center">Search by phone</Typography>
+                                </Button>
+                            </ListItem>
+                            <ListItem>
+                                <Button sx={{ pl: 4, ":hover": { color: theme.palette.primary.main } }} href="/bootcamp/search/adress">
+                                    <Typography textAlign="center">Search by adress</Typography>
+                                </Button>
+                            </ListItem>
+                        </List>
+                    </Collapse>
+                </ListItem>
+            </List>
         </>
     );
 }
