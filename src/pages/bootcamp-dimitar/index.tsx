@@ -18,7 +18,7 @@ import { BootcampDimitarResponse } from 'gql/bootcampDimitar'
 import DeleteSelectedModal from 'components/bootcamp-dimitar/DeleteSelectedModal'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import { useMutation } from 'react-query'
-import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
+import { ApiErrors } from 'common/api-errors'
 import { AlertStore } from 'stores/AlertStore'
 import { AxiosError, AxiosResponse } from 'axios'
 
