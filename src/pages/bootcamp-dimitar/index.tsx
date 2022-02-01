@@ -98,19 +98,19 @@ function BootcampDimitarList() {
       field: 'id',
       headerName: 'ID',
       valueGetter: (p) => p.row.id,
-      width: 250,
+      flex: 2,
     },
     {
       field: 'name',
       headerName: 'Name',
       valueGetter: (p) => `${p.row.firstName} ${p.row.lastName}`,
-      width: 350,
+      flex: 3,
     },
     {
       field: 'company',
       headerName: 'Company',
       valueGetter: (p) => p.row.company,
-      width: 350,
+      flex: 3,
     },
     {
       field: 'actions',
@@ -132,7 +132,7 @@ function BootcampDimitarList() {
           </>
         )
       },
-      width: 500,
+      minWidth: 150,
     },
   ]
 
