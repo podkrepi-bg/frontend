@@ -120,7 +120,7 @@ function CustomLayout({ children }: { children: any }) {
           </div>
         </Toolbar>
       </AppBar>
-      <Drawer open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
+      <Drawer open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} variant="persistent">
         <List>
           <div className={classes.closeNavBtn}>
             <IconButton onClick={toggleDrawer}>
