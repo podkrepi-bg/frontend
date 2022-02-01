@@ -1,10 +1,8 @@
 import { ModalContext } from 'context/ModalContext'
 import CardContent from '@mui/material/CardContent'
-import Typography from '@mui/material/Typography'
+import { Typography, Card } from '@mui/material'
 import { useViewCar } from 'common/hooks/cars'
-import Card from '@mui/material/Card'
 import { useContext } from 'react'
-import * as React from 'react'
 export default function BasicCard() {
   const { carId }: any = useContext(ModalContext)
   const containerStyles = {
