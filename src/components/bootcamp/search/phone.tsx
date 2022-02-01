@@ -1,7 +1,6 @@
 import React from 'react'
 import * as yup from 'yup'
 import { FormikHelpers } from 'formik'
-import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@mui/material'
 import { SearchFormData } from 'gql/search'
 import GenericForm from 'components/common/form/GenericForm'
@@ -10,6 +9,7 @@ import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import BootcampersLayout from '../layout/Layout'
 import { useBootcampersList } from 'common/hooks/bootcamp'
+import { axios } from 'common/api-client'
 
 const validationSchema: yup.SchemaOf<SearchFormData> = yup
     .object()
@@ -29,19 +29,14 @@ export default function SearchByPhone({ initialValues = defaults }: SearchFormPr
     const [res, setRes] = React.useState([])
     const info = useBootcampersList().data
 
-    const { t } = useTranslation()
-
     const onSubmit = async (
         values: SearchFormData,
         { setFieldError, resetForm }: FormikHelpers<SearchFormData>,
     ) => {
         try {
             setRes([])
-            info?.forEach(x => {
-                if (x.phone.toLowerCase().includes(values.keyword.toLowerCase())) {
-                    setRes([...res, x])
-                }
-            })
+            const data = await axios.get('http://localhost:5010/api/bootcamp/search/phone/' + values.keyword)
+            setRes(data.data)
             resetForm()
         } catch (error) {
             console.error(error)

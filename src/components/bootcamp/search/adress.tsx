@@ -2,7 +2,6 @@ import React from 'react'
 import * as yup from 'yup'
 import { FormikHelpers } from 'formik'
 import { Grid, Typography } from '@mui/material'
-
 import { SearchFormData } from 'gql/search'
 import GenericForm from 'components/common/form/GenericForm'
 import GenericGrid from '../utils/Grid'
@@ -10,6 +9,7 @@ import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import BootcampersLayout from '../layout/Layout'
 import { useBootcampersList } from 'common/hooks/bootcamp'
+import { axios } from 'common/api-client'
 
 const validationSchema: yup.SchemaOf<SearchFormData> = yup
     .object()
@@ -25,7 +25,7 @@ const defaults: SearchFormData = {
 
 export type SearchFormProps = { initialValues?: SearchFormData }
 
-export default function SearchByAdress({ initialValues = defaults }: SearchFormProps) {
+export default function SearchByPhone({ initialValues = defaults }: SearchFormProps) {
     const [res, setRes] = React.useState([])
     const info = useBootcampersList().data
 
@@ -35,11 +35,8 @@ export default function SearchByAdress({ initialValues = defaults }: SearchFormP
     ) => {
         try {
             setRes([])
-            info?.forEach(x => {
-                if (x.adress.toLowerCase().includes(values.keyword.toLowerCase())) {
-                    setRes([...res, x])
-                }
-            })
+            const data = await axios.get('http://localhost:5010/api/bootcamp/search/adress/' + values.keyword)
+            setRes(data.data)
             resetForm()
         } catch (error) {
             console.error(error)

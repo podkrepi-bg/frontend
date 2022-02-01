@@ -1,4 +1,3 @@
-import { GridRowParams } from '@mui/x-data-grid'
 import { enableStaticRendering } from 'mobx-react'
 import { action, computed, makeObservable, observable } from 'mobx'
 

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { ThemeProvider } from '@mui/styles';
 import { Container } from "@mui/material";
 import Footer from "./Footer";
