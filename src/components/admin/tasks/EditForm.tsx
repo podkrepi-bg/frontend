@@ -1,19 +1,17 @@
-import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { Button, CardActions, Container } from '@mui/material'
+import { useQueryClient } from 'react-query'
+import { Button, CardActions, Container, TextField, Typography, Box } from '@mui/material'
 import LayoutPanel from '../navigation/LayoutPanel'
 import { ModalContext } from 'context/ModalContext'
-import TextField from '@mui/material/TextField'
-import { CarDataType } from 'common/util/car'
+import { CarDataType } from 'gql/cars'
 import { useState, useContext } from 'react'
-import { Typography } from '@mui/material'
-import { useViewCar } from 'common/hooks/cars'
+import { useViewCar, useMutateCars } from 'common/hooks/cars'
 import { useRouter } from 'next/router'
-import Box from '@mui/material/Box'
-import * as React from 'react'
 import Link from 'next/link'
-import axios from 'axios'
+import { endpoints } from 'common/api-endpoints'
+import { axios } from 'common/api-client'
 export default function EditForm() {
   const { setNotificationsOpen, setNotificationMessage }: any = useContext(ModalContext)
+  const queryClient = useQueryClient()
   const router = useRouter()
   const carId: string | string[] | undefined = router.query.id
   const { data }: any = useViewCar(carId)
@@ -25,21 +23,17 @@ export default function EditForm() {
   const [price, setPrice] = useState<number>(data.price)
 
   const submitCar = async (newCar: CarDataType) => {
-    return await axios.patch(`http://localhost:5010/api/car/${carId}`, newCar)
+    return await axios.patch(endpoints.cars.editCar(carId).url, newCar)
   }
-  const queryClient = useQueryClient()
-  const { mutate } = useMutation(submitCar, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('/car')
-      router.push('/tasks')
-      setNotificationsOpen(true)
-      setNotificationMessage(`Колата беше редактирана`)
-    },
-    onError: () => {
-      setNotificationsOpen(true)
-      setNotificationMessage('Нешо се обърка')
-    },
-  })
+
+  const { mutate: editCar }: any = useMutateCars(
+    submitCar,
+    queryClient,
+    setNotificationsOpen,
+    setNotificationMessage,
+    null,
+    router,
+  )
 
   return (
     <div
@@ -120,7 +114,7 @@ export default function EditForm() {
           <CardActions sx={{ m: 2, display: 'flex', justifyContent: 'center' }}>
             <Button
               onClick={() => {
-                mutate({ brand, model, year, engine, price })
+                editCar({ brand, model, year, engine, price })
               }}
               variant="contained"
               size="large">

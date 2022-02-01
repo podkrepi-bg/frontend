@@ -1,25 +1,23 @@
-import DialogContentText from '@mui/material/DialogContentText'
-import CircularProgress from '@mui/material/CircularProgress'
+import {
+  DialogContentText,
+  DialogContent,
+  DialogActions,
+  DialogTitle,
+  CircularProgress,
+} from '@mui/material'
 import { useQueryClient } from 'react-query'
-import DialogContent from '@mui/material/DialogContent'
-import DialogActions from '@mui/material/DialogActions'
-import DialogTitle from '@mui/material/DialogTitle'
 import { ModalContext } from 'context/ModalContext'
-import { useDeleteCars } from 'common/hooks/cars'
+import { useMutateCars } from 'common/hooks/cars'
 import { endpoints } from 'common/api-endpoints'
-import Dialog from '@mui/material/Dialog'
-import Button from '@mui/material/Button'
-import Box from '@mui/material/Box'
+import { Dialog, Button, Box } from '@mui/material'
 import { useContext } from 'react'
 import { axios } from 'common/api-client'
-import * as React from 'react'
 interface Props {
   handleClose: () => void
   open: boolean
   id: string
   multipleDeleteItems: any
 }
-
 export default function AlertDialog({ handleClose, open, id, multipleDeleteItems }: Props) {
   const { setNotificationsOpen, setNotificationMessage }: any = useContext(ModalContext)
   const queryClient = useQueryClient()
@@ -27,25 +25,24 @@ export default function AlertDialog({ handleClose, open, id, multipleDeleteItems
   const deleteMultipleRecords = async (items: any) => {
     return await axios.post(endpoints.cars.deleteManyCars.url, items)
   }
-
   const deleteCar = async (id: string) => {
     return await axios.delete(endpoints.cars.deleteCar(id).url)
   }
-
-  const { mutate: deleteSelected }: any = useDeleteCars(
+  // deleteSelected - removes array with items
+  const { mutate: deleteSelected }: any = useMutateCars(
     deleteMultipleRecords,
     queryClient,
-    handleClose,
     setNotificationsOpen,
     setNotificationMessage,
+    handleClose,
   )
-
-  const { mutate: deleteSingle, isLoading }: any = useDeleteCars(
+  // deleteSingle - removes 1 item
+  const { mutate: deleteSingle, isLoading }: any = useMutateCars(
     deleteCar,
     queryClient,
-    handleClose,
     setNotificationsOpen,
     setNotificationMessage,
+    handleClose,
   )
 
   return (

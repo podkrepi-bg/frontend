@@ -1,19 +1,16 @@
-import { Button, CardActions, Container } from '@mui/material'
-import { useMutation, useQueryClient } from 'react-query'
+import { Button, CardActions, Container, Typography, TextField, Box } from '@mui/material'
 import LayoutPanel from '../navigation/LayoutPanel'
 import { ModalContext } from 'context/ModalContext'
-import TextField from '@mui/material/TextField'
-import { CarDataType } from 'common/util/car'
-import { Typography } from '@mui/material'
+import { useMutateCars } from 'common/hooks/cars'
+import { endpoints } from 'common/api-endpoints'
+import { useQueryClient } from 'react-query'
+import { useContext, useState } from 'react'
+import { axios } from 'common/api-client'
 import { useRouter } from 'next/router'
-import Box from '@mui/material/Box'
-import { useContext } from 'react'
-import { useState } from 'react'
-import * as React from 'react'
 import Link from 'next/link'
-import axios from 'axios'
 export default function AddForm() {
   const { setNotificationsOpen, setNotificationMessage }: any = useContext(ModalContext)
+  const queryClient = useQueryClient()
   const router = useRouter()
   const [brand, setBrand] = useState<string>('')
   const [model, setModel] = useState<string>('')
@@ -21,22 +18,18 @@ export default function AddForm() {
   const [engine, setEngine] = useState<string>('')
   const [price, setPrice] = useState<number>(0)
 
-  const postCar = async (car: CarDataType) => {
-    return await axios.post('http://localhost:5010/api/car', car)
+  const postCar = async (car: any) => {
+    return await axios.post(endpoints.cars.postCar.url, car)
   }
-  const queryClient = useQueryClient()
-  const { mutate } = useMutation(postCar, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('/car')
-      router.push('/tasks')
-      setNotificationsOpen(true)
-      setNotificationMessage(`${brand} ${model} беше добавена успешно!`)
-    },
-    onError: () => {
-      setNotificationsOpen(true)
-      setNotificationMessage('Нещо се обърка')
-    },
-  })
+
+  const { mutate }: any = useMutateCars(
+    postCar,
+    queryClient,
+    setNotificationsOpen,
+    setNotificationMessage,
+    null,
+    router,
+  )
 
   return (
     <div
