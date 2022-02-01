@@ -48,7 +48,7 @@ export default function AddInternForm({ initialValues = defaults }: BootcampForm
   >({
     mutationFn: createBootcampIntern,
     onError: () => AlertStore.show(t('bootcamp:alerts.new-row.error'), 'error'),
-    onSuccess: () => AlertStore.show('g', 'success'),
+    onSuccess: () => AlertStore.show(t('bootcamp:alerts.new-row.success'), 'success'),
   })
   const { t } = useTranslation()
   const router = useRouter()

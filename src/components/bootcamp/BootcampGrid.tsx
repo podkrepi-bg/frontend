@@ -1,5 +1,5 @@
 import React from 'react'
-import { DataGrid, GridColumns } from '@mui/x-data-grid'
+import { DataGrid, GridColumns, GridSelectionModel } from '@mui/x-data-grid'
 import { useMutation } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useRouter } from 'next/router'
@@ -17,6 +17,7 @@ import { makeStyles } from '@mui/styles'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import PreviewIcon from '@mui/icons-material/Preview'
+import AddIcon from '@mui/icons-material/Add'
 
 import { useBootcampList } from 'common/hooks/bootcamp'
 import { routes } from 'common/routes'
@@ -32,6 +33,10 @@ const useStyles = makeStyles({
   },
   grid: {
     marginBottom: '15px',
+  },
+  gridTitleWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
   gridTitle: {
     marginBottom: '10px',
@@ -49,22 +54,35 @@ const initialValues: BootcampResponse = {
 }
 
 export default function BootcampGrid() {
-  const [openDel, setOpenDel] = React.useState(false)
-  const [openInfo, setOpenInfo] = React.useState(false)
-  const [selectedInternId, setSelectedInternId] = React.useState('')
-  const [intern, setIntern] = React.useState(initialValues)
+  const [openRowDel, setOpenRowDel] = React.useState<boolean>(false)
+  const [openRowsDel, setOpenRowsDel] = React.useState<boolean>(false)
+  const [openInfo, setOpenInfo] = React.useState<boolean>(false)
+  const [selectedId, setSelectedId] = React.useState<string>('')
+  const [multipleSelectedIds, setMultipleSelectedIds] = React.useState<string[]>([])
+  const [intern, setIntern] = React.useState<BootcampResponse>(initialValues)
   const classes = useStyles()
   const { data } = useBootcampList()
   const router = useRouter()
   const { t } = useTranslation()
 
   const openDeleteRowDialog = (id: string) => {
-    setSelectedInternId(id)
-    setOpenDel(true)
+    setSelectedId(id)
+    setOpenRowDel(true)
   }
 
-  const closeDeleteDialog = () => {
-    setOpenDel(false)
+  const closeDeleteRowDialog = () => {
+    setOpenRowDel(false)
+  }
+
+  const openDeleteRowsDialog = () => {
+    if (multipleSelectedIds.length == 0) {
+      return
+    }
+    setOpenRowsDel(true)
+  }
+
+  const closeDeleteRowsDialog = () => {
+    setOpenRowsDel(false)
   }
 
   const loadInternInfo = async (id: string) => {
@@ -92,14 +110,35 @@ export default function BootcampGrid() {
     mutationFn: deleteBootcampIntern,
     onError: () => AlertStore.show(t('bootcamp:alerts.delete-row.error'), 'error'),
     onSuccess: () => {
-      AlertStore.show(t('bootcamp:alerts.delete-row.success'), 'success')
-      router.push(routes.bootcamp.index)
+      return
     },
   })
 
-  const deleteRow = () => {
-    closeDeleteDialog()
-    delMutation.mutateAsync(selectedInternId)
+  const deleteRow = async () => {
+    try {
+      closeDeleteRowDialog()
+      delMutation.mutateAsync(selectedId)
+      AlertStore.show(t('bootcamp:alerts.delete-row.success'), 'success')
+      router.push(routes.bootcamp.index)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const selectMultipleRows = (ids: GridSelectionModel) => {
+    setMultipleSelectedIds(ids.map((id) => id.toString()))
+  }
+
+  const deleteRows = async () => {
+    try {
+      closeDeleteRowsDialog()
+      await Promise.all(multipleSelectedIds.map((id) => delMutation.mutateAsync(id)))
+      AlertStore.show(t('bootcamp:alerts.delete-rows.success'), 'success')
+      setMultipleSelectedIds([])
+      router.push(routes.bootcamp.index)
+    } catch (err) {
+      AlertStore.show(t('bootcamp:alerts.delete-rows.error'), 'error')
+    }
   }
 
   type ActionsProps = {
@@ -151,16 +190,29 @@ export default function BootcampGrid() {
     },
   ]
 
-  const DeleteDialog = () => (
-    <Dialog open={openDel} onClose={closeDeleteDialog} maxWidth="xs">
+  const DeleteRowDialog = () => (
+    <Dialog open={openRowDel} onClose={closeDeleteRowDialog} maxWidth="xs">
       <DialogTitle>
-        {t('bootcamp:alerts.delete-row.question')} ({selectedInternId})?
+        {t('bootcamp:alerts.delete-row.question')} ({selectedId})?
       </DialogTitle>
       <DialogActions>
         <Button variant="contained" color="secondary" fullWidth onClick={deleteRow}>
           {t('bootcamp:btns.confirm')}
         </Button>
-        <Button variant="contained" color="primary" fullWidth onClick={closeDeleteDialog}>
+        <Button variant="contained" color="primary" fullWidth onClick={closeDeleteRowDialog}>
+          {t('bootcamp:btns.cancel')}
+        </Button>
+      </DialogActions>
+    </Dialog>
+  )
+  const DeleteRowsDialog = () => (
+    <Dialog open={openRowsDel} onClose={closeDeleteRowsDialog} maxWidth="xs">
+      <DialogTitle>{t('bootcamp:alerts.delete-rows.question')}?</DialogTitle>
+      <DialogActions>
+        <Button variant="contained" color="secondary" fullWidth onClick={deleteRows}>
+          {t('bootcamp:btns.confirm')}
+        </Button>
+        <Button variant="contained" color="primary" fullWidth onClick={closeDeleteRowsDialog}>
           {t('bootcamp:btns.cancel')}
         </Button>
       </DialogActions>
@@ -198,11 +250,24 @@ export default function BootcampGrid() {
   return (
     <>
       <InfoDialog />
-      <DeleteDialog />
+      <DeleteRowDialog />
+      <DeleteRowsDialog />
       <div className={classes.gridWrapper}>
-        <Typography variant="h5" className={classes.gridTitle}>
-          {t('bootcamp:titles.bootcamp-interns')}
-        </Typography>
+        <div className={classes.gridTitleWrapper}>
+          <Typography variant="h5" className={classes.gridTitle}>
+            {t('bootcamp:titles.bootcamp-interns')}
+          </Typography>
+
+          <section>
+            <IconButton href={routes.bootcamp.add}>
+              <AddIcon />
+            </IconButton>
+            <IconButton onClick={openDeleteRowsDialog}>
+              <DeleteIcon />
+            </IconButton>
+          </section>
+        </div>
+
         <DataGrid
           className={classes.grid}
           rows={data || []}
@@ -212,6 +277,7 @@ export default function BootcampGrid() {
           autoPageSize
           checkboxSelection
           disableSelectionOnClick
+          onSelectionModelChange={selectMultipleRows}
         />
       </div>
     </>
