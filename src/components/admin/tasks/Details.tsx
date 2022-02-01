@@ -1,26 +1,12 @@
 import { ModalContext } from 'context/ModalContext'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
+import { useViewCar } from 'common/hooks/cars'
 import Card from '@mui/material/Card'
 import { useContext } from 'react'
 import * as React from 'react'
-import axios from 'axios'
 export default function BasicCard() {
   const { carId }: any = useContext(ModalContext)
-  const [car, setCar] = React.useState<Car>({
-    brand: '',
-    model: '',
-    year: 0,
-    engine: '',
-    price: 0,
-  })
-  type Car = {
-    brand: string
-    model: string
-    year: number
-    engine: string
-    price: number
-  }
   const containerStyles = {
     minWidth: 275,
     position: 'absolute' as 'absolute',
@@ -32,30 +18,24 @@ export default function BasicCard() {
     boxShadow: 24,
     p: 4,
   }
-  React.useEffect(() => {
-    const fetchCar = async () => {
-      const result = await axios.get(`http://localhost:5010/api/car/${carId}`)
-      setCar(result.data)
-    }
-    fetchCar()
-  }, [])
+  const { data }: any = useViewCar(carId)
   return (
     <Card sx={containerStyles}>
       <CardContent>
         <Typography variant="h5" component="div" gutterBottom>
-          {car.model}
+          {data?.model}
         </Typography>
         <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
-          Brand: {car.brand}
+          Brand: {data?.brand}
         </Typography>
         <Typography color="text.secondary" gutterBottom>
-          Year: {car.year}
+          Year: {data?.year}
         </Typography>
         <Typography variant="body2" gutterBottom>
-          Engine: {car.engine}
+          Engine: {data?.engine}
         </Typography>
         <Typography variant="body2" gutterBottom>
-          Price: {car.price}
+          Price: {data?.price}
         </Typography>
       </CardContent>
     </Card>

@@ -1,52 +1,53 @@
 import DialogContentText from '@mui/material/DialogContentText'
 import CircularProgress from '@mui/material/CircularProgress'
-import { useMutation, useQueryClient } from 'react-query'
+import { useQueryClient } from 'react-query'
 import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
 import DialogTitle from '@mui/material/DialogTitle'
 import { ModalContext } from 'context/ModalContext'
+import { useDeleteCars } from 'common/hooks/cars'
+import { endpoints } from 'common/api-endpoints'
 import Dialog from '@mui/material/Dialog'
 import Button from '@mui/material/Button'
 import Box from '@mui/material/Box'
 import { useContext } from 'react'
+import { axios } from 'common/api-client'
 import * as React from 'react'
-import axios from 'axios'
 interface Props {
   handleClose: () => void
   open: boolean
   id: string
-  multipleDeleteItems: never[]
+  multipleDeleteItems: any
 }
+
 export default function AlertDialog({ handleClose, open, id, multipleDeleteItems }: Props) {
   const { setNotificationsOpen, setNotificationMessage }: any = useContext(ModalContext)
+  const queryClient = useQueryClient()
 
-  const deleteMultipleRecords = async () => {
-    const res = await axios.post('http://localhost:5010/api/car/deletemany', multipleDeleteItems)
-    if (res.status === 201) {
-      queryClient.invalidateQueries('cars')
-      handleClose()
-      setNotificationsOpen(true)
-      setNotificationMessage('Избраните бяха изтрити')
-    }
+  const deleteMultipleRecords = async (items: any) => {
+    return await axios.post(endpoints.cars.deleteManyCars.url, items)
   }
 
   const deleteCar = async (id: string) => {
-    return await axios.delete(`http://localhost:5010/api/car/${id}`)
+    return await axios.delete(endpoints.cars.deleteCar(id).url)
   }
-  const queryClient = useQueryClient()
-  const { mutate, isLoading } = useMutation(deleteCar, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('cars')
-      handleClose()
-      setNotificationsOpen(true)
-      setNotificationMessage('Колата беше изтрита')
-    },
-    onError: () => {
-      handleClose()
-      setNotificationsOpen(true)
-      setNotificationMessage('Нещо се обърка')
-    },
-  })
+
+  const { mutate: deleteSelected }: any = useDeleteCars(
+    deleteMultipleRecords,
+    queryClient,
+    handleClose,
+    setNotificationsOpen,
+    setNotificationMessage,
+  )
+
+  const { mutate: deleteSingle, isLoading }: any = useDeleteCars(
+    deleteCar,
+    queryClient,
+    handleClose,
+    setNotificationsOpen,
+    setNotificationMessage,
+  )
+
   return (
     <div>
       <Dialog
@@ -71,7 +72,9 @@ export default function AlertDialog({ handleClose, open, id, multipleDeleteItems
           <Button
             disabled={isLoading}
             onClick={() => {
-              multipleDeleteItems.length > 0 ? deleteMultipleRecords() : mutate(id)
+              multipleDeleteItems.length > 0
+                ? deleteSelected(multipleDeleteItems)
+                : deleteSingle(id)
             }}>
             Изтрий
           </Button>

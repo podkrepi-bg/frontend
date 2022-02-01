@@ -110,7 +110,7 @@ function CustomApp({
                 <Hydrate state={pageProps.dehydratedState}>
                   <Component {...pageProps} />
                 </Hydrate>
-                {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+                <ReactQueryDevtools initialIsOpen={false} />
               </QueryClientProvider>
             </SSRKeycloakProvider>
           </ThemeProvider>

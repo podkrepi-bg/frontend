@@ -4,11 +4,11 @@ import Container from '@mui/material/Container'
 import AddIcon from '@mui/icons-material/Add'
 import Tooltip from '@mui/material/Tooltip'
 import Toolbar from '@mui/material/Toolbar'
+import { Typography } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
 import { useRouter } from 'next/router'
 import Box from '@mui/material/Box'
 import { useContext } from 'react'
-import { Typography } from '@mui/material'
 const addIconStyles = {
   transform: 'scale(1.3)',
   background: '#4ac3ff',
@@ -18,13 +18,23 @@ const addIconStyles = {
   boxShadow: 3,
 }
 export default function AppBarMenu() {
+  const router = useRouter()
   const {
     setNotificationMessage,
     setNotificationsOpen,
     setConfirmationOpen,
     areCarsSelected,
   }: any = useContext(ModalContext)
-  const router = useRouter()
+
+  const handleDelete = () => {
+    if (areCarsSelected) {
+      setConfirmationOpen(true)
+    } else {
+      setNotificationMessage('Моля изберете поне един ред')
+      setNotificationsOpen(true)
+    }
+  }
+
   return (
     <AppBar elevation={0} sx={{ background: 'white' }} position="static">
       <Container maxWidth="xl">
@@ -45,14 +55,7 @@ export default function AppBarMenu() {
             <Tooltip title="Изтрий избраните">
               <DeleteIcon
                 style={{ background: '#f7f7f7', color: 'red' }}
-                onClick={() => {
-                  if (areCarsSelected) {
-                    setConfirmationOpen(true)
-                  } else {
-                    setNotificationMessage('Моля изберете поне един ред')
-                    setNotificationsOpen(true)
-                  }
-                }}
+                onClick={handleDelete}
                 sx={addIconStyles}
                 fontSize="large"></DeleteIcon>
             </Tooltip>

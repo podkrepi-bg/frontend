@@ -27,16 +27,15 @@ export default function AddForm() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(postCar, {
     onSuccess: () => {
-      queryClient.invalidateQueries('cars')
+      queryClient.invalidateQueries('/car')
       router.push('/tasks')
       setNotificationsOpen(true)
       setNotificationMessage(`${brand} ${model} беше добавена успешно!`)
     },
     onError: () => {
       setNotificationsOpen(true)
-      setNotificationMessage('Нешо се обърка')
+      setNotificationMessage('Нещо се обърка')
     },
-    onMutate: () => {},
   })
 
   return (

@@ -31,5 +31,10 @@ export const endpoints = {
   },
   cars: {
     carsList: <Endpoint>{ url: '/car', method: 'GET' },
+    viewCar: (slug: string | string[] | undefined) => <Endpoint>{ url: `/car/${slug}`, method: 'GET' },
+    postCar: <Endpoint>{ url: '/car', method: 'POST' },
+    editCar: (slug: string) => <Endpoint>{ url: `/car/${slug}`, method: 'PATCH' },
+    deleteCar: (slug: string) => <Endpoint>{ url: `/car/${slug}`, method: 'DELETE' },
+    deleteManyCars: <Endpoint>{ url: `/car/deletemany`, method: 'POST' },
   },
 }
