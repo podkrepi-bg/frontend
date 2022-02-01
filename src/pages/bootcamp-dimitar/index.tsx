@@ -16,6 +16,7 @@ import { deleteBootcampDimitar } from '../../common/rest'
 import { useRouter } from 'next/router'
 import { BootcampDimitarResponse } from 'gql/bootcampDimitar'
 import DeleteSelectedModal from 'components/bootcamp-dimitar/DeleteSelectedModal'
+import PersonAddIcon from '@mui/icons-material/PersonAdd'
 
 const style = {
   position: 'absolute' as const,
@@ -128,6 +129,9 @@ function BootcampDimitarList() {
   return (
     <CustomLayout>
       <h1>All bootcampers</h1>
+      <IconButton aria-label="delete" href="/bootcamp-dimitar/create">
+        <PersonAddIcon />
+      </IconButton>
       <DataGrid
         rows={data || []}
         columns={columns}
