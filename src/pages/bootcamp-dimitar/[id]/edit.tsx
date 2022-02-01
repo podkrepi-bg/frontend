@@ -2,7 +2,7 @@ import React from 'react'
 import { Container } from '@mui/material'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import CustomLayout from '../layout'
+import CustomLayout from '../../../components/bootcamp-dimitar/CustomLayout'
 import EditForm from 'components/bootcamp-dimitar/editForm'
 import { getBootcampDimitar } from '../../../common/rest'
 
