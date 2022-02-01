@@ -26,6 +26,7 @@ import {
 import PodkrepiIcon from 'components/brand/PodkrepiIcon'
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import Link from 'next/link'
+import DrawerStore from 'stores/DrawerStore'
 
 const useStyles = makeStyles({
   appBar: {
@@ -43,10 +44,11 @@ const useStyles = makeStyles({
   },
   submenu: {},
 })
+const store = new DrawerStore()
 
 function CustomLayout({ children }: { children: any }) {
   const classes = useStyles()
-  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false)
+  const [isDrawerOpen, setIsDrawerOpen] = React.useState(store.isDrawerOpen)
   const [openMore, setOpenMore] = React.useState(false)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 
@@ -60,6 +62,11 @@ function CustomLayout({ children }: { children: any }) {
 
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen)
+    if (isDrawerOpen) {
+      store.hide()
+    } else {
+      store.show()
+    }
   }
 
   const toggleMore = () => {
@@ -71,6 +78,7 @@ function CustomLayout({ children }: { children: any }) {
     { icon: <PersonAddIcon />, name: 'Create', href: '/bootcamp-dimitar/create' },
     { icon: <AppsIcon />, name: 'Other', href: '#' },
   ]
+
   return (
     <>
       <AppBar position="static" className={classes.appBar}>
@@ -81,7 +89,7 @@ function CustomLayout({ children }: { children: any }) {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
-            onClick={() => setIsDrawerOpen(true)}>
+            onClick={toggleDrawer}>
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -120,7 +128,7 @@ function CustomLayout({ children }: { children: any }) {
           </div>
         </Toolbar>
       </AppBar>
-      <Drawer open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} variant="persistent">
+      <Drawer open={isDrawerOpen} onClose={toggleDrawer} variant="persistent">
         <List>
           <div className={classes.closeNavBtn}>
             <IconButton onClick={toggleDrawer}>
@@ -157,7 +165,7 @@ function CustomLayout({ children }: { children: any }) {
       </Drawer>
       <Container maxWidth="lg">{children}</Container>
       <footer style={{ position: 'fixed', bottom: 0, width: '100%' }}>
-        <p style={{ textAlign: 'center' }}>footer text</p>
+        <p style={{ textAlign: 'center' }}>footer text {JSON.stringify(store.isDrawerOpen)}</p>
       </footer>
       <Snackbar></Snackbar>
     </>
