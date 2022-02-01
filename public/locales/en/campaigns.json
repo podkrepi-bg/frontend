@@ -64,10 +64,10 @@
       "retry": "Retry"
     },
     "beneficiary": "Beneficiary",
-    "coordinator": "Coordinator",
+    "coordinator": "Coordinator:",
     "description": "Description",
-    "start-date": "Start date",
-    "end-date": "End date",
+    "start-date": "Start date:",
+    "end-date": "End date:",
     "tag": "Tag:",
     "date": "Date:"
   }
