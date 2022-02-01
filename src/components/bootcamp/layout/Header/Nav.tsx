@@ -16,21 +16,13 @@ import AddIcon from '@mui/icons-material/Add';
 import ListItem from '@mui/material/ListItem';
 import ProfileMenu from './ProfileMenu';
 import SearchMenu from './Search';
-import { Button, Container } from '@mui/material';
-import { makeStyles, createStyles } from '@mui/styles';
+import { Button } from '@mui/material';
 import PodkrepiLogo from 'components/brand/PodkrepiLogo';
 import { context } from '../context';
 import { useRouter } from 'next/router';
 
-const useStyles = makeStyles({
-    paper: {
-        height: "90%"
-    }
-})
-
 export default function Nav() {
     const router = useRouter()
-    const classes = useStyles()
 
     const store = React.useContext(context)
     const [open, setOpen] = React.useState(store.isOpen);
@@ -69,7 +61,7 @@ export default function Nav() {
                 anchor="left"
                 open={open}
                 variant='persistent'
-                
+
                 PaperProps={
                     {
                         style: {

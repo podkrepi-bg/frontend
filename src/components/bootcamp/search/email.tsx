@@ -28,7 +28,6 @@ export type SearchFormProps = { initialValues?: SearchFormData }
 
 export default function SearchByPhone({ initialValues = defaults }: SearchFormProps) {
     const [res, setRes] = React.useState([])
-    const info = useBootcampersList().data
 
     const onSubmit = async (
         values: SearchFormData,

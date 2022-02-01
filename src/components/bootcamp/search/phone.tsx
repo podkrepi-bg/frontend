@@ -8,7 +8,6 @@ import GenericGrid from '../utils/Grid'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import BootcampersLayout from '../layout/Layout'
-import { useBootcampersList } from 'common/hooks/bootcamp'
 import { axios } from 'common/api-client'
 import theme from '../layout/theme'
 
@@ -28,7 +27,6 @@ export type SearchFormProps = { initialValues?: SearchFormData }
 
 export default function SearchByPhone({ initialValues = defaults }: SearchFormProps) {
     const [res, setRes] = React.useState([])
-    const info = useBootcampersList().data
 
     const onSubmit = async (
         values: SearchFormData,
