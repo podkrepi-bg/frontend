@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField'
 import { CarDataType } from 'common/util/car'
 import { useState, useContext } from 'react'
 import { Typography } from '@mui/material'
+import { useViewCar } from 'common/hooks/cars'
 import { useRouter } from 'next/router'
 import Box from '@mui/material/Box'
 import * as React from 'react'
@@ -14,10 +15,9 @@ import axios from 'axios'
 export default function EditForm() {
   const { setNotificationsOpen, setNotificationMessage }: any = useContext(ModalContext)
   const router = useRouter()
-  const carId = router.query.id
-  const { data }: any = useQuery(['car', carId], async () => {
-    return await axios.get(`http://localhost:5010/api/car/${carId}`)
-  })
+  const carId: string | string[] | undefined = router.query.id
+  const { data }: any = useViewCar(carId)
+
   const [brand, setBrand] = useState<string>(data.brand)
   const [model, setModel] = useState<string>(data.model)
   const [year, setYear] = useState<number>(data.year)
@@ -30,7 +30,7 @@ export default function EditForm() {
   const queryClient = useQueryClient()
   const { mutate } = useMutation(submitCar, {
     onSuccess: () => {
-      queryClient.invalidateQueries('cars')
+      queryClient.invalidateQueries('/car')
       router.push('/tasks')
       setNotificationsOpen(true)
       setNotificationMessage(`Колата беше редактирана`)

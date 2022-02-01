@@ -6,18 +6,13 @@ import EditIcon from '@mui/icons-material/Edit'
 import AlertDialog from './ConfirmationDialog'
 import { GridColumns, DataGrid } from '@mui/x-data-grid'
 import { useRouter } from 'next/router'
-import { useQuery } from 'react-query'
-import axios from 'axios'
+import { useCarList } from 'common/hooks/cars'
+
 export default function TasksGrid() {
-  const {
-    setAreCarsSelected,
-    setConfirmationOpen,
-    confirmationOpen,
-    setCarId,
-    setOpen,
-  }: any = useContext(ModalContext)
+  const { setAreCarsSelected, setConfirmationOpen, confirmationOpen, setCarId, setOpen }: any =
+    useContext(ModalContext)
   const router = useRouter()
-  const [multipleDelete, setMupltipleDelete] = useState([])
+  const [multipleDelete, setMupltipleDelete] = useState<any>([])
   const [id, setId] = useState('')
 
   const handleClickOpen = () => {
@@ -142,9 +137,7 @@ export default function TasksGrid() {
       },
     },
   ]
-  const { data }: any = useQuery('cars', async () => {
-    return await axios.get(`http://localhost:5010/api/car`)
-  })
+  const { data } = useCarList()
   return (
     <>
       <AlertDialog
@@ -160,7 +153,7 @@ export default function TasksGrid() {
           border: 'none',
           padding: '10px 50px',
         }}
-        rows={data?.data || []}
+        rows={data || []}
         columns={columns}
         pageSize={5}
         autoHeight
