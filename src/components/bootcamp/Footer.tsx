@@ -4,6 +4,10 @@ import { useTranslation } from 'next-i18next'
 
 const useStyles = makeStyles({
   footer: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    height: 20,
     textAlign: 'center',
     fontSize: '12px',
     whiteSpace: 'nowrap',

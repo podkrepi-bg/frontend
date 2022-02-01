@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) =>
     layout: {
       position: 'relative',
       minHeight: '100vh',
+      paddingBottom: 20,
     },
     pageTitle: {
       padding: theme.spacing(4),
@@ -52,8 +53,8 @@ export default function Layout({
   const suffix = t('meta.title')
   const metaTitle = useMemo(() => (title ? `${title} | ${suffix}` : suffix), [title, suffix])
   return (
-    <Container maxWidth={false} disableGutters>
-      <Container className={classes.layout} maxWidth={maxWidth} {...containerProps}>
+    <Container className={classes.layout} maxWidth={false} disableGutters>
+      <Container maxWidth={maxWidth} {...containerProps}>
         <Head>
           <title>{metaTitle}</title>
           <meta key="og:title" property="og:title" content={metaTitle} />
@@ -65,9 +66,9 @@ export default function Layout({
           <BootcampNavBar />
           {children}
         </Box>
-        <BootcampFooter />
         <Snackbar />
       </Container>
+      <BootcampFooter />
     </Container>
   )
 }
