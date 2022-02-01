@@ -1,11 +1,10 @@
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { ModalContext } from 'context/ModalContext'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import AlertDialog from './ConfirmationDialog'
-import { GridColumns } from '@mui/x-data-grid'
-import { DataGrid } from '@mui/x-data-grid'
+import { GridColumns, DataGrid } from '@mui/x-data-grid'
 import { useRouter } from 'next/router'
 import { useQuery } from 'react-query'
 import axios from 'axios'
@@ -16,22 +15,11 @@ export default function TasksGrid() {
     confirmationOpen,
     setCarId,
     setOpen,
-    search,
   }: any = useContext(ModalContext)
   const router = useRouter()
-  const [searchData, setSearchData] = useState([])
   const [multipleDelete, setMupltipleDelete] = useState([])
   const [id, setId] = useState('')
-  useEffect(() => {
-    const submitSearch = async () => {
-      if (search === '') return
-      const result = await axios.post(`http://localhost:5010/api/car/search`, {
-        searchTerm: search,
-      })
-      setSearchData(result.data)
-    }
-    submitSearch()
-  }, [search])
+
   const handleClickOpen = () => {
     setConfirmationOpen(true)
   }
@@ -55,7 +43,7 @@ export default function TasksGrid() {
       headerName: 'вид',
       width: 100,
       headerAlign: 'center',
-      renderCell: (cellValues) => {
+      renderCell: () => {
         return <div style={commonCellStyles}>Кола</div>
       },
     },
@@ -172,7 +160,7 @@ export default function TasksGrid() {
           border: 'none',
           padding: '10px 50px',
         }}
-        rows={search !== '' ? searchData : data?.data || []}
+        rows={data?.data || []}
         columns={columns}
         pageSize={5}
         autoHeight
