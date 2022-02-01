@@ -17,6 +17,10 @@ import { useRouter } from 'next/router'
 import { BootcampDimitarResponse } from 'gql/bootcampDimitar'
 import DeleteSelectedModal from 'components/bootcamp-dimitar/DeleteSelectedModal'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
+import { useMutation } from 'react-query'
+import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
+import { AlertStore } from 'stores/AlertStore'
+import { AxiosError, AxiosResponse } from 'axios'
 
 const style = {
   position: 'absolute' as const,
@@ -39,6 +43,12 @@ function BootcampDimitarList() {
   const [selectedRows, setSelectedRows] = React.useState<BootcampDimitarResponse[]>([])
   const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>([])
   const router = useRouter()
+
+  const mutation = useMutation<AxiosResponse<BootcampDimitarResponse>, AxiosError<ApiErrors>, any>({
+    mutationFn: deleteBootcampDimitar,
+    onError: () => AlertStore.show('error', 'error'),
+    onSuccess: () => AlertStore.show('success', 'success'),
+  })
 
   const handleDeleteModalOpen = (row: any) => {
     return () => {
@@ -63,7 +73,7 @@ function BootcampDimitarList() {
   }
 
   const deleteHandler = () => {
-    deleteBootcampDimitar(rowToDelete?.id as string).then(() => {
+    mutation.mutateAsync(rowToDelete?.id as string).then(() => {
       handleDeleteModalClose()
       router.reload()
     })
@@ -71,7 +81,7 @@ function BootcampDimitarList() {
 
   const deleteAllHandler = () => {
     selectedRows.forEach((row: any) => {
-      deleteBootcampDimitar(row?.id).then((_) => {
+      mutation.mutateAsync(row?.id as string).then((_) => {
         router.reload()
       })
     })
