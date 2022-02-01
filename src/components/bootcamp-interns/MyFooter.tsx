@@ -1,5 +1,4 @@
 import { makeStyles } from '@mui/styles'
-import { drawerWidth } from './MyDrawer'
 
 const useStyles = makeStyles((theme) => {
   return {

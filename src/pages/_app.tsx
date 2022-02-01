@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { appWithTranslation, useTranslation } from 'next-i18next'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
 
 // MaterialUI
 import { LinearProgress } from '@mui/material'
@@ -26,6 +25,7 @@ const {
 } = getConfig()
 
 import 'styles/global.scss'
+import DrawerContextProvider from 'context/DrawerContext'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -50,7 +50,7 @@ function CustomApp({
     () =>
       new QueryClient({
         defaultOptions: {
-          queries: { queryFn, staleTime: 25 * 1000 },
+          queries: { queryFn },
           // mutations: { mutationFn },
         },
       }),
@@ -91,30 +91,31 @@ function CustomApp({
   }, [i18n.language])
 
   return (
-    <CacheProvider value={emotionCache}>
-      <Head>
-        <title>Podkrepi.bg</title>
-        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
-      </Head>
-      <StyledEngineProvider injectFirst>
-        <ThemeProvider theme={theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <CssBaseline />
-          <SSRKeycloakProvider
-            LoadingComponent={<LinearProgress />}
-            onEvent={(e, err) => console.log(e, err)}
-            keycloakConfig={keycloakConfig}
-            persistor={SSRCookies(pageProps?.keyCookies ?? {})}>
-            <QueryClientProvider client={queryClient}>
-              <Hydrate state={pageProps.dehydratedState}>
-                <ReactQueryDevtools initialIsOpen={true} />
-                <Component {...pageProps} />
-              </Hydrate>
-            </QueryClientProvider>
-          </SSRKeycloakProvider>
-        </ThemeProvider>
-      </StyledEngineProvider>
-    </CacheProvider>
+    <DrawerContextProvider>
+      <CacheProvider value={emotionCache}>
+        <Head>
+          <title>Podkrepi.bg</title>
+          <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+        </Head>
+        <StyledEngineProvider injectFirst>
+          <ThemeProvider theme={theme}>
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+            <CssBaseline />
+            <SSRKeycloakProvider
+              LoadingComponent={<LinearProgress />}
+              onEvent={(e, err) => console.log(e, err)}
+              keycloakConfig={keycloakConfig}
+              persistor={SSRCookies(pageProps?.keyCookies ?? {})}>
+              <QueryClientProvider client={queryClient}>
+                <Hydrate state={pageProps.dehydratedState}>
+                  <Component {...pageProps} />
+                </Hydrate>
+              </QueryClientProvider>
+            </SSRKeycloakProvider>
+          </ThemeProvider>
+        </StyledEngineProvider>
+      </CacheProvider>
+    </DrawerContextProvider>
   )
 }
 

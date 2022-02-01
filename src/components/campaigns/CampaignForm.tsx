@@ -9,6 +9,7 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { Grid, Typography } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
+import Snackbar from '@mui/material/Snackbar'
 
 import { routes } from 'common/routes'
 import { PersonFormData } from 'gql/person'
@@ -97,8 +98,8 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
     CampaignInput
   >({
     mutationFn: createCampaign,
-    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
-    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
+    onError: () => <Snackbar></Snackbar>,
+    onSuccess: () => <Snackbar></Snackbar>,
   })
 
   const onSubmit = async (

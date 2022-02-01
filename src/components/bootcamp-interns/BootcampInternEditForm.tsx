@@ -1,22 +1,27 @@
 import GenericForm from 'components/common/form/GenericForm'
 import * as yup from 'yup'
-import { ButtonGroup, Grid, Typography } from '@mui/material'
+import { ButtonGroup, Grid, Typography, Button } from '@mui/material'
+import SubmitButton from 'components/common/form/SubmitButton'
 
 import FormTextField from 'components/common/form/FormTextField'
-import SubmitButton from 'components/common/form/SubmitButton'
 import { axios } from 'common/api-client'
 import { endpoints } from 'common/api-endpoints'
 import { makeStyles } from '@mui/styles'
-import { Button } from '@mui/material'
 import { useRouter } from 'next/router'
 import { routes } from 'common/routes'
 
 import { drawerWidth } from './MyDrawer'
 import { BootcampIntern } from 'lib/interfaces/BootcampIntern'
-import { UseBaseQueryResult, useQuery } from 'react-query'
+import { UseBaseQueryResult, useMutation } from 'react-query'
 import { useFetchBootcampIntern } from 'common/hooks/bootcampIntern'
+import { useTranslation } from 'next-i18next'
+import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
+import { AxiosError } from 'axios'
+import { FormikHelpers } from 'formik'
+import { useContext } from 'react'
+import { DrawerContext } from 'context/DrawerContext'
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(() => {
   return {
     internForm: {
       marginLeft: drawerWidth,
@@ -35,14 +40,16 @@ const validationSchema = yup.object().shape({
 })
 
 export default function BootcampInternEditForm() {
+  const { setNotificationMessage, setNotificationsOpen }: any = useContext(DrawerContext)
+
   const router = useRouter()
+  const { t } = useTranslation()
   const classes = useStyles()
   const internId = router.query.id
 
   if (typeof internId !== 'string') return
 
-  const { data, isError, isLoading }: UseBaseQueryResult<BootcampIntern> =
-    useFetchBootcampIntern(internId)
+  const { data, isLoading }: UseBaseQueryResult<BootcampIntern> = useFetchBootcampIntern(internId)
 
   const defaults = {
     firstName: data?.firstName,
@@ -50,9 +57,40 @@ export default function BootcampInternEditForm() {
     email: data?.email,
   }
 
-  const onSubmit = async (internData: any) => {
-    await axios.patch(endpoints.bootcampIntern.listBootcampIntern.url + `/${intern.id}`, internData)
-    router.push(routes.bootcampIntern.index)
+  const submitIntern = async (internData: BootcampIntern) => {
+    await axios.patch(endpoints.bootcampIntern.listBootcampIntern.url + `/${internId}`, internData)
+  }
+
+  const mutation = useMutation({
+    mutationFn: submitIntern,
+    onError: () => {
+      setNotificationsOpen((prev: boolean) => !prev)
+      setNotificationMessage('Something went wrong, please try again later.')
+    },
+    onSuccess: () => {
+      router.push(routes.bootcampIntern.index)
+      setNotificationsOpen((prev: boolean) => !prev)
+      setNotificationMessage('Sucessfully edited the intern.')
+    },
+  })
+
+  const onSubmit = async (values: any, { setFieldError }: FormikHelpers<any>) => {
+    try {
+      await mutation.mutateAsync({
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        id: internId,
+      })
+    } catch (error) {
+      console.error(error)
+      if (isAxiosError(error)) {
+        const { response } = error as AxiosError<ApiErrors>
+        response?.data.message.map(({ property, constraints }) => {
+          setFieldError(property, t(matchValidator(constraints)))
+        })
+      }
+    }
   }
 
   return (
@@ -80,8 +118,8 @@ export default function BootcampInternEditForm() {
           </Grid>
 
           <Grid item mt={3} xs={12}>
-            <ButtonGroup>
-              <SubmitButton />
+            <ButtonGroup style={{ display: 'flex', justifyContent: 'center' }}>
+              <SubmitButton disabled={isLoading} />
               <Button onClick={() => router.push(routes.bootcampIntern.index)}>Cancel</Button>
             </ButtonGroup>
           </Grid>

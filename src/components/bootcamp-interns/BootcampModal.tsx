@@ -2,7 +2,6 @@ import { Button, DialogTitle, Modal } from '@mui/material'
 import { Dialog } from '@mui/material'
 import { Box } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import { textAlign } from '@mui/system'
 
 const useStyles = makeStyles(() => {
   return {

@@ -8,11 +8,12 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Avatar from '@mui/material/Avatar'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import MyDrawer, { drawerWidth } from './MyDrawer'
 import { makeStyles } from '@mui/styles'
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
+import { DrawerContext } from 'context/DrawerContext'
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => {
 
 export default function ResponsiveAppBar(props: any) {
   const classes = useStyles()
+  const { isOpen, changeHandler }: any = useContext(DrawerContext)
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
 
@@ -50,19 +52,11 @@ export default function ResponsiveAppBar(props: any) {
     setAnchorElUser(null)
   }
 
-  const [open, setOpen] = useState(false)
-  const [newClass, setNewClass] = useState(false)
-
-  const handleDrawerSwipe = () => {
-    setOpen((prevState) => !prevState)
-    setNewClass((prevState) => !prevState)
-  }
-
   return (
-    <AppBar elevation={2} className={newClass ? `${classes.shrinkedAppbar}` : `${classes.appbar}`}>
+    <AppBar elevation={2} className={isOpen ? `${classes.shrinkedAppbar}` : `${classes.appbar}`}>
       <Toolbar disableGutters>
-        <MyDrawer open={open} />
-        <IconButton onClick={handleDrawerSwipe} sx={{ mr: 2 }}>
+        <MyDrawer />
+        <IconButton onClick={changeHandler} sx={{ mr: 2 }}>
           <MenuIcon />
         </IconButton>
         <Box sx={{ flexGrow: 1 }}>
