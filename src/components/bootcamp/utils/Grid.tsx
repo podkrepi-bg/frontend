@@ -6,6 +6,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { DialogStore } from '../layout/DetailsModal/BootcampModalStore'
 import { DeleteModalStore } from '../layout/DeleteModal/DeleteModalStore'
 import theme from "../layout/theme";
+import { useState } from "react";
+import { DeleteManyModalStore } from '../layout/DeleteManyModal/DeleteManyModalStore'
+import SubmitButton from "components/common/form/SubmitButton";
 
 const columns: GridColumns = [
     { field: 'id', headerName: 'ID', hide: true },
@@ -31,15 +34,23 @@ const columns: GridColumns = [
 
 export default function GenericGrid({ props }) {
     const bootcampers = props.data
-
-    return <DataGrid
-        rows={bootcampers || []}
-        columns={columns}
-        pageSize={5}
-        autoHeight
-        autoPageSize
-        checkboxSelection
-        disableSelectionOnClick
-    >
-    </DataGrid>
+    const [rows, setRows] = useState([])
+    return <>
+        <DataGrid
+            style={{ marginBottom: "1%" }}
+            checkboxSelection={true}
+            rows={bootcampers || []}
+            columns={columns}
+            pageSize={5}
+            autoHeight
+            autoPageSize
+            disableSelectionOnClick
+            onSelectionModelChange={(ids) => {
+                setRows(ids)
+                console.log(rows)
+            }}
+        >
+        </DataGrid>
+        <SubmitButton sx={{ bgcolor: theme.palette.primary.light }} label={`Delete selected bootcampers (${rows.length})`} onClick={() => DeleteManyModalStore.show(rows)} disabled={rows.length === 0}></SubmitButton>
+    </>
 }

@@ -18,17 +18,24 @@ import ProfileMenu from './ProfileMenu';
 import SearchMenu from './Search';
 import { Button } from '@mui/material';
 import PodkrepiLogo from 'components/brand/PodkrepiLogo';
+import { context } from '../context';
+import { useRouter } from 'next/router';
 
 export default function Nav() {
-    const [open, setOpen] = React.useState(false);
+    const router = useRouter()
+
+    const store = React.useContext(context)
+    const [open, setOpen] = React.useState(store.isOpen);
     const theme = useTheme()
 
     const handleDrawerOpen = () => {
-        setOpen(true);
+        store.changeIsOpen(true)
+        setOpen(store.isOpen);
     };
 
     const handleDrawerClose = () => {
-        setOpen(false);
+        store.changeIsOpen(false)
+        setOpen(store.isOpen);
     };
 
     return (
@@ -43,7 +50,7 @@ export default function Nav() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <IconButton href="/"><PodkrepiLogo /></IconButton>
+                    <IconButton onClick={() => router.push('/')}><PodkrepiLogo /></IconButton>
                     <Typography variant="h6" noWrap component="div" style={{ textAlign: "center" }}>
                         BOOTCAMPERS MODULE
                     </Typography>
@@ -60,10 +67,10 @@ export default function Nav() {
                 <Divider />
                 <List>
                     <ListItem button sx={{ ":hover": { color: theme.palette.primary.dark } }}>
-                        <IconButton sx={{ ":hover": { color: theme.palette.primary.dark } }} href="/bootcamp"><ListIcon fontSize="small"></ListIcon></IconButton><Button sx={{ ":hover": { color: theme.palette.primary.main } }} href="/bootcamp">All bootcampers</Button>
+                        <IconButton sx={{ ":hover": { color: theme.palette.primary.dark } }} onClick={() => { router.push('/bootcamp') }}><ListIcon fontSize="small"></ListIcon></IconButton><Button onClick={() => { router.push('/bootcamp') }} sx={{ ":hover": { color: theme.palette.primary.main } }}>All bootcampers</Button>
                     </ListItem>
                     <ListItem sx={{ ":hover": { color: theme.palette.primary.dark } }}>
-                        <IconButton sx={{ ":hover": { color: theme.palette.primary.dark } }} href="/bootcamp/add"><AddIcon fontSize="small"></AddIcon></IconButton><Button sx={{ ":hover": { color: theme.palette.primary.main } }} href="/bootcamp/add">Add bootcamper</Button>
+                        <IconButton sx={{ ":hover": { color: theme.palette.primary.dark } }} onClick={() => { router.push('/bootcamp/add') }}><AddIcon fontSize="small"></AddIcon></IconButton><Button onClick={() => { router.push('/bootcamp/add') }} sx={{ ":hover": { color: theme.palette.primary.main } }}>Add bootcamper</Button>
                     </ListItem>
                     <ListItem>
                         <SearchMenu />

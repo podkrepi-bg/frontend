@@ -29,7 +29,8 @@ export default function Footer(props: FooterProps) {
             width: "100%",
             backgroundColor: "#46dbf2",
             textAlign: "center",
-            color: 'white'
+            color: 'white',
+            height: "6.8%"
         }}>
             <Container maxWidth="lg">
                 <Typography variant="h6" align="center" gutterBottom style={{ marginTop: "0.5%", fontSize: '13px' }}>

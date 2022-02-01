@@ -9,7 +9,7 @@ import { Button, Grid, Typography } from '@mui/material'
 
 import { BootcamperFormData, BootcamperInput, BootcampersResponse } from 'gql/bootcamp'
 import { editBootcamper } from 'common/rest'
-import { AlertStore } from 'stores/AlertStore'
+import { AlertStore } from '../layout/NotificationsAlert/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
@@ -74,14 +74,16 @@ export default function EditBootcamper({ initialValues = defaults }: BootcamperF
         { setFieldError, resetForm }: FormikHelpers<BootcamperFormData>,
     ) => {
         try {
-            const response = await axios.put(
+            await axios.put(
                 endpoints.bootcamp.viewBootcamper(id).url,
                 values
             )
             resetForm()
+            AlertStore.show('Successfully edited bootcamper', 'success')
             router.push('/bootcamp')
         } catch (error) {
             console.error(error)
+            AlertStore.show('An error occured', 'error')
             if (isAxiosError(error)) {
                 const { response } = error as AxiosError<ApiErrors>
                 response?.data.message.map(({ property, constraints }) => {

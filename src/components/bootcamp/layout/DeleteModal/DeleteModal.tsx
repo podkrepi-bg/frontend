@@ -13,19 +13,29 @@ import { useTranslation } from 'react-i18next'
 import { observer } from 'mobx-react'
 import { DeleteModalStore } from './DeleteModalStore'
 import { useTheme } from '@mui/styles';
+import { AlertStore } from '../NotificationsAlert/AlertStore';
+import { useQuery } from 'react-query';
+import { BootcampersResponse } from 'gql/bootcamp';
+import { endpoints } from 'common/api-endpoints';
 
 function DetailsModal() {
     const theme = useTheme()
     const { getDialogs } = DeleteModalStore
     const handleClose = () => DeleteModalStore.hide()
     const { t } = useTranslation()
+    const query = useQuery<BootcampersResponse[]>(endpoints.bootcamp.listBootcampers.url)
 
     const onYesButtonClick = async (id: string) => {
         axios.delete(
             `http://localhost:5010/api/bootcamp/${id}`
         ).then(() => {
             DeleteModalStore.clear()
-            window.location.reload()
+            AlertStore.show('Successfully removed bootcamper', 'success')
+            query.refetch()
+        }).catch((e) => {
+            console.log(e);
+
+            AlertStore.show('An error occured', 'error')
         })
     }
 
@@ -49,7 +59,6 @@ function DetailsModal() {
                                     <Button onClick={() => DeleteModalStore.clear()} sx={{ backgroundColor: theme.palette.primary.main, color: theme.palette.background.default }} variant="outlined" style={{ marginLeft: "1%" }}>No</Button>
                                 </div>
                             </Grid>
-                            {/*  */}
                         </DialogContent>
                         <DialogActions>
                             <Button autoFocus onClick={handleClose} color="primary">

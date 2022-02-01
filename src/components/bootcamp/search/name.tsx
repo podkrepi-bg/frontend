@@ -1,11 +1,8 @@
 import React from 'react'
 import * as yup from 'yup'
-import { useRouter } from 'next/router'
 import { FormikHelpers } from 'formik'
 import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 
 import { SearchFormData } from 'gql/search'
 import GenericForm from 'components/common/form/GenericForm'

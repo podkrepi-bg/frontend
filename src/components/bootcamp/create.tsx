@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import * as yup from 'yup'
 import { useRouter } from 'next/router'
 import { FormikHelpers } from 'formik'
 import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Grid, Typography } from '@mui/material'
+import { Button, Grid, Typography } from '@mui/material'
 
 import { BootcamperFormData, BootcamperInput, BootcampersResponse } from 'gql/bootcamp'
 import { createBootcamper } from 'common/rest'
-import { AlertStore } from 'stores/AlertStore'
+import { AlertStore } from './layout/NotificationsAlert/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
@@ -64,8 +64,10 @@ export default function CreateBootcamper({ initialValues = defaults }: Bootcampe
             })
             resetForm()
             router.push('/bootcamp')
+            AlertStore.show('Successfully added new bootcamper', 'success', 1)
         } catch (error) {
             console.error(error)
+            AlertStore.show('An error occured', 'error')
             if (isAxiosError(error)) {
                 const { response } = error as AxiosError<ApiErrors>
                 response?.data.message.map(({ property, constraints }) => {
@@ -79,7 +81,7 @@ export default function CreateBootcamper({ initialValues = defaults }: Bootcampe
         <BootcampersLayout>
             <Grid container direction="column" component="section">
                 <Grid item xs={12} style={{ marginTop: "10%" }}>
-                    <Typography variant="h5" component="h2">
+                    <Typography variant="h5" component="h2" style={{ textAlign: "center", marginBottom: "10%" }}>
                         {t('bootcamp:form_heading')}
                     </Typography>
                 </Grid>
@@ -120,8 +122,9 @@ export default function CreateBootcamper({ initialValues = defaults }: Bootcampe
                                 label="bootcamp:bootcamperAdress"
                             />
                         </Grid>
-                        <Grid item xs={12}>
-                            <SubmitButton fullWidth label="bootcamp:submit" loading={mutation.isLoading} sx={{ backgroundColor: theme.palette.secondary.main }} />
+                        <Grid item xs={12} style={{ display: "flex", flexDirection: "column", marginLeft: "35%" }}>
+                            <SubmitButton style={{ width: "50%" }} label="bootcamp:submit" loading={mutation.isLoading} sx={{ backgroundColor: theme.palette.secondary.main }} />
+                            <Button onClick={() => { router.push('/bootcamp') }} variant="outlined" sx={{ width: "50%", marginTop: "1%", backgroundColor: theme.palette.primary.main, color: theme.palette.background.default }}>Cancel</Button>
                         </Grid>
                     </Grid>
                 </GenericForm>
