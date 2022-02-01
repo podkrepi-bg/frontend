@@ -18,16 +18,20 @@ const useStyles = makeStyles((theme: Theme) =>
         height: theme.spacing(118),
       },
     },
+    bannerWrapper: {
+      '& span': {
+        position: 'inherit !important',
+      },
+    },
     banner: {
       zIndex: -1,
       minHeight: '504px !important',
-      margin: '0 !important',
       marginTop: `${theme.spacing(14)} !important`,
     },
     campaignTitle: {
       padding: theme.spacing(4),
       color: theme.palette.common.white,
-      height: theme.spacing(27.5),
+      height: theme.spacing(30),
     },
     beneficiaryWrapper: {
       display: 'flex',
@@ -70,14 +74,15 @@ export default function ViewCampaignPage({ slug }: Props) {
     <Layout maxWidth="xl">
       <Grid container component="section" className={classes.campaignPageWrapper}>
         <Grid item xs={12} md={8}>
-          <Image
-            src="/img/campaign-banner.png"
-            alt="Podkrepi.bg jumbotron heading"
-            layout="fill"
-            objectFit="cover"
-            objectPosition="top"
-            className={classes.banner}
-          />
+          <Grid className={classes.bannerWrapper}>
+            <Image
+              src="/img/campaign-banner.png"
+              alt="Podkrepi.bg jumbotron heading"
+              layout="fill"
+              objectFit="cover"
+              className={classes.banner}
+            />
+          </Grid>
           <Typography paragraph variant="h2" component="h1" className={classes.campaignTitle}>
             {campaign.title}
           </Typography>
@@ -85,8 +90,8 @@ export default function ViewCampaignPage({ slug }: Props) {
             <Image
               src="/img/support-us-image.png"
               alt={campaign.title}
-              width={300}
-              height={300}
+              width={250}
+              height={250}
               className={classes.beneficiaryAvatar}
             />
             <Typography variant="h4" component="h4" className={classes.beneficiaryName}>
