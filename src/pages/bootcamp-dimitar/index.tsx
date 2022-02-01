@@ -2,7 +2,7 @@ import * as React from 'react'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useBootcampDimitarList } from '../../common/hooks/bootcampDimitar'
-import { DataGrid, GridColumns, RowId } from '@mui/x-data-grid'
+import { DataGrid, GridColumns, GridRowId } from '@mui/x-data-grid'
 import CustomLayout from './layout'
 import EditIcon from '@mui/icons-material/Edit'
 import Link from 'next/link'
@@ -36,7 +36,7 @@ function BootcampDimitarList() {
   const [isDeleteSelectedModalOpen, setIsDeleteSelectedModalOpen] = React.useState(false)
   const [rowToDelete, setRowToDelete] = React.useState<{ id: string }>()
   const [selectedRows, setSelectedRows] = React.useState<BootcampDimitarResponse[]>([])
-  const [selectionModel, setSelectionModel] = React.useState<RowId[]>([])
+  const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>([])
   const router = useRouter()
 
   const handleDeleteModalOpen = (row: any) => {
