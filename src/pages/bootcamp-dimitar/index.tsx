@@ -2,7 +2,7 @@ import * as React from 'react'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useBootcampDimitarList } from '../../common/hooks/bootcampDimitar'
-import { DataGrid, GridColumns } from '@mui/x-data-grid'
+import { DataGrid, GridColumns, RowId } from '@mui/x-data-grid'
 import CustomLayout from './layout'
 import EditIcon from '@mui/icons-material/Edit'
 import Link from 'next/link'
@@ -15,6 +15,7 @@ import Modal from '@mui/material/Modal'
 import { deleteBootcampDimitar } from '../../common/rest'
 import { useRouter } from 'next/router'
 import { BootcampDimitarResponse } from 'gql/bootcampDimitar'
+import DeleteSelectedModal from 'components/bootcamp-dimitar/DeleteSelectedModal'
 
 const style = {
   position: 'absolute' as const,
@@ -32,8 +33,10 @@ function BootcampDimitarList() {
   const [open, setOpen] = React.useState(false)
   const [row, setRow] = React.useState<{ firstName: string; lastName: string; company: string }>()
   const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false)
+  const [isDeleteSelectedModalOpen, setIsDeleteSelectedModalOpen] = React.useState(false)
   const [rowToDelete, setRowToDelete] = React.useState<{ id: string }>()
   const [selectedRows, setSelectedRows] = React.useState<BootcampDimitarResponse[]>([])
+  const [selectionModel, setSelectionModel] = React.useState<RowId[]>([])
   const router = useRouter()
 
   const handleDeleteModalOpen = (row: any) => {
@@ -71,6 +74,12 @@ function BootcampDimitarList() {
         router.reload()
       })
     })
+  }
+
+  const closeDeleteSelectedHandler = () => {
+    setIsDeleteSelectedModalOpen(false)
+    setSelectedRows([])
+    setSelectionModel([])
   }
 
   const columns: GridColumns = [
@@ -127,14 +136,16 @@ function BootcampDimitarList() {
         autoPageSize
         checkboxSelection
         disableSelectionOnClick
+        selectionModel={selectionModel}
         onSelectionModelChange={(ids) => {
+          setSelectionModel(ids)
           const selectedIDs = new Set(ids)
           const selectedRows = data.filter((row) => selectedIDs.has(row.id))
           setSelectedRows(selectedRows)
         }}
       />
       {selectedRows.length > 0 ? (
-        <Button variant="contained" onClick={deleteAllHandler}>
+        <Button variant="contained" onClick={() => setIsDeleteSelectedModalOpen(true)}>
           Delete selected
         </Button>
       ) : (
@@ -173,6 +184,10 @@ function BootcampDimitarList() {
           </Typography>
         </Box>
       </Modal>
+      <DeleteSelectedModal
+        isOpen={isDeleteSelectedModalOpen}
+        deleteHandler={deleteAllHandler}
+        handleDeleteModalClose={closeDeleteSelectedHandler}></DeleteSelectedModal>
     </CustomLayout>
   )
 }
