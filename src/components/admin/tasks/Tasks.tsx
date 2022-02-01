@@ -5,7 +5,7 @@ import BasicModal from './Modal'
 import TasksGrid from './Grid'
 const Tasks = () => {
   return (
-    <div style={{ height: '100vh', background: '#f7f7f7' }}>
+    <div style={{ height: '100vh', background: '#f7f7f7', paddingTop: 70 }}>
       <LayoutPanel />
       <BasicModal />
       <Container>
