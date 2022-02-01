@@ -7,8 +7,9 @@ import { useRouter } from 'next/router'
 import { routes } from 'common/routes'
 import axios from 'axios'
 import { endpoints } from 'common/api-endpoints'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { DrawerContext } from 'context/DrawerContext'
+import DeleteModal from './DeleteModal'
 
 const useStyles = makeStyles(() => {
   return {
@@ -37,11 +38,6 @@ export default function DataGridHeader({ selected }: any) {
   const router = useRouter()
 
   const deleteHandler = async () => {
-    // if (selected.length > 1) {
-    // 	await axios.delete(`http://localhost:5010/api${endpoints.bootcampIntern.listBootcampIntern.url}/selected`, selected)
-    // } else {
-    // 	await axios.delete(`http://localhost:5010/api${endpoints.bootcampIntern.listBootcampIntern.url}/${selected}`)
-    // }
     if (selected.length === 0) {
       setNotificationsOpen(true)
       setNotificationMessage('You must select at least 1 row.')
@@ -55,6 +51,7 @@ export default function DataGridHeader({ selected }: any) {
         )
         setNotificationsOpen(true)
         setNotificationMessage('Sucessfully deleted multiple rows.')
+        router.push(routes.bootcampIntern.index)
       })
     } else {
       await axios.delete(
@@ -62,8 +59,8 @@ export default function DataGridHeader({ selected }: any) {
       )
       setNotificationsOpen(true)
       setNotificationMessage('Sucessfully deleted.')
+      router.push(routes.bootcampIntern.index)
     }
-    router.push(routes.bootcampIntern.index)
   }
 
   return (
