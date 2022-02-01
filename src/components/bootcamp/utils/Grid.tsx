@@ -37,7 +37,7 @@ export default function GenericGrid({ props }) {
     const [rows, setRows] = useState([])
     return <>
         <DataGrid
-            style={{ marginBottom: "1%" }}
+            style={{ marginBottom: "1%", width: "90%", marginLeft: "10%" }}
             checkboxSelection={true}
             rows={bootcampers || []}
             columns={columns}
@@ -51,6 +51,6 @@ export default function GenericGrid({ props }) {
             }}
         >
         </DataGrid>
-        <SubmitButton sx={{ bgcolor: theme.palette.primary.light }} label={`Delete selected bootcampers (${rows.length})`} onClick={() => DeleteManyModalStore.show(rows)} disabled={rows.length === 0}></SubmitButton>
+        <SubmitButton sx={{ bgcolor: theme.palette.primary.light, marginLeft: "10%", width: "50%" }} label={`Delete selected bootcampers (${rows.length})`} onClick={() => DeleteManyModalStore.show(rows)} disabled={rows.length === 0}></SubmitButton>
     </>
 }

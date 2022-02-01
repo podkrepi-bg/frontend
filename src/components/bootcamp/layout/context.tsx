@@ -4,8 +4,8 @@ import { createContext } from 'react'
 configure({ enforceActions: 'always' })
 
 export class ConfigStore {
-    @observable isOpen: boolean = false
-    @observable isSearchOpen: boolean = false
+    @observable isOpen: boolean = true
+    @observable isSearchOpen: boolean = true
 
     constructor() {
         this.load()

@@ -79,9 +79,9 @@ export default function CreateBootcamper({ initialValues = defaults }: Bootcampe
 
     return (
         <BootcampersLayout>
-            <Grid container direction="column" component="section">
+            <Grid container direction="column" component="section" style={{ marginLeft: "10%" }}>
                 <Grid item xs={12} style={{ marginTop: "10%" }}>
-                    <Typography variant="h5" component="h2" style={{ textAlign: "center", marginBottom: "10%" }}>
+                    <Typography variant="h5" component="h2" style={{ marginBottom: "1%" }}>
                         {t('bootcamp:form_heading')}
                     </Typography>
                 </Grid>
@@ -89,40 +89,44 @@ export default function CreateBootcamper({ initialValues = defaults }: Bootcampe
                     onSubmit={onSubmit}
                     initialValues={initialValues}
                     validationSchema={validationSchema}>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} sm={6}>
+                    <Grid container spacing={1}>
+                        <Grid item sm={5}>
                             <FormTextField
+                                style={{ marginTop: "2%", width: "80%" }}
                                 type="text"
                                 name="MyName"
                                 autoComplete="target-amount"
                                 label="bootcamp:bootcamperName"
                             />
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12} sm={5}>
                             <FormTextField
+                                style={{ marginTop: "2%", width: "80%" }}
                                 type="text"
                                 name="email"
                                 autoComplete="target-amount"
                                 label="bootcamp:bootcamperEmail"
                             />
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12} sm={5}>
                             <FormTextField
+                                style={{ width: "80%", marginTop: "2%" }}
                                 type="text"
                                 name="phone"
                                 autoComplete="target-amount"
                                 label="bootcamp:bootcamperPhone"
                             />
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12} sm={5}>
                             <FormTextField
+                                style={{ width: "80%", marginTop: "2%" }}
                                 type="text"
                                 name="adress"
                                 autoComplete="target-amount"
                                 label="bootcamp:bootcamperAdress"
                             />
                         </Grid>
-                        <Grid item xs={12} style={{ display: "flex", flexDirection: "column", marginLeft: "35%" }}>
+                        <Grid item xs={12} style={{ display: "flex", flexDirection: "column", marginLeft: "15%", marginTop: "1.1%" }}>
                             <SubmitButton style={{ width: "50%" }} label="bootcamp:submit" loading={mutation.isLoading} sx={{ backgroundColor: theme.palette.secondary.main }} />
                             <Button onClick={() => { router.push('/bootcamp') }} variant="outlined" sx={{ width: "50%", marginTop: "1%", backgroundColor: theme.palette.primary.main, color: theme.palette.background.default }}>Cancel</Button>
                         </Grid>

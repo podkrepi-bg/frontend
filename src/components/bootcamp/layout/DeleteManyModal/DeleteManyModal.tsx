@@ -14,6 +14,9 @@ import { observer } from 'mobx-react'
 import { DeleteManyModalStore } from './DeleteManyModalStore'
 import { useTheme } from '@mui/styles';
 import { AlertStore } from '../NotificationsAlert/AlertStore';
+import { useQuery } from 'react-query';
+import { BootcampersResponse } from 'gql/bootcamp';
+import { endpoints } from 'common/api-endpoints';
 
 
 function DetailsModal() {
@@ -21,6 +24,7 @@ function DetailsModal() {
     const { getDialogs } = DeleteManyModalStore
     const handleClose = () => DeleteManyModalStore.hide()
     const { t } = useTranslation()
+    const query = useQuery<BootcampersResponse[]>(endpoints.bootcamp.listBootcampers.url)
 
     const onYesButtonClick = async (ids: any[]) => {
         try {
@@ -31,6 +35,7 @@ function DetailsModal() {
             })
             DeleteManyModalStore.clear()
             AlertStore.show('Successfully removed bootcampers', 'success')
+            query.refetch()
         } catch (e) {
             AlertStore.show('An error occured', 'error')
         }

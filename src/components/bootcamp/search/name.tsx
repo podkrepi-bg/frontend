@@ -10,6 +10,7 @@ import FormTextField from 'components/common/form/FormTextField'
 import BootcampersLayout from '../layout/Layout'
 import { useBootcampersList } from 'common/hooks/bootcamp'
 import { axios } from 'common/api-client'
+import theme from '../layout/theme'
 
 const validationSchema: yup.SchemaOf<SearchFormData> = yup
     .object()
@@ -45,35 +46,37 @@ export default function SearchByPhone({ initialValues = defaults }: SearchFormPr
 
     return (
         <BootcampersLayout>
-            <Grid container direction="column" component="section">
-                <Grid item xs={12} style={{ marginTop: "10%" }}>
+            <Grid container direction="column" component="section" style={{ marginLeft: "4%" }}>
+                <Grid item xs={12} style={{ marginTop: "10%", marginBottom: "1%", marginLeft: "30%" }}>
                     <Typography variant="h5" component="h2">
                         Потърси участници
                     </Typography>
                 </Grid>
-                <GenericForm
-                    onSubmit={onSubmit}
-                    initialValues={initialValues}
-                    validationSchema={validationSchema}>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} sm={6}>
-                            <FormTextField
-                                type="text"
-                                name="keyword"
-                                autoComplete="target-amount"
-                                label="Keyword"
-                                defaultValue={initialValues.keyword}
-                            />
+                <Grid item style={{ marginLeft: "30%" }}>
+                    <GenericForm
+                        onSubmit={onSubmit}
+                        initialValues={initialValues}
+                        validationSchema={validationSchema}>
+                        <Grid container spacing={3}>
+                            <Grid item xs={12} sm={6}>
+                                <FormTextField
+                                    type="text"
+                                    name="keyword"
+                                    autoComplete="target-amount"
+                                    label="Keyword"
+                                    defaultValue={initialValues.keyword}
+                                />
+                            </Grid>
+                            <Grid item xs={12} style={{ display: "flex", flexDirection: "column" }}>
+                                <SubmitButton label="Потърси участници" style={{ width: "50%" }} sx={{ bgcolor: theme.palette.primary.light }} />
+                            </Grid>
+                            <Grid item xs={12}>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12} style={{ display: "flex", flexDirection: "column", width: "100px" }}>
-                            <SubmitButton label="Потърси участници" />
-                        </Grid>
-                        <Grid item xs={12}>
-                        </Grid>
-                    </Grid>
-                </GenericForm>
-                {res.length > 0 ? <GenericGrid props={{ data: res }}></GenericGrid> : <Typography style={{ textAlign: "center", fontSize: "20px" }}>No results</Typography>}
+                    </GenericForm>
+                </Grid>
+                {res.length > 0 ? <GenericGrid props={{ data: res }}></GenericGrid> : <Typography style={{ textAlign: "center", fontSize: "20px", marginRight: "4%" }}>No results</Typography>}
             </Grid>
-        </BootcampersLayout>
+        </BootcampersLayout >
     )
 }

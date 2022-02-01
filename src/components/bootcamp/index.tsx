@@ -25,7 +25,7 @@ export default function BootcampPage() {
 
 
     return <BootcampersLayout>
-        <Grid item style={{ marginTop: "10%" }}>
+        <Grid item style={{ marginTop: "10%", marginLeft: "10%" }}>
             <Typography variant="h4">{t('nav.bootcamp.bootcampers')}</Typography>
             <SubmitButton sx={{ fontSize: "13px", marginTop: "1%", marginBottom: "1%", bgcolor: theme.palette.primary.light }} onClick={() => { router.push('/bootcamp/add') }} href="#" label="Add bootcamper"><AddIcon></AddIcon> Add bootcamper</SubmitButton>
         </Grid>

@@ -95,7 +95,7 @@ export default function EditBootcamper({ initialValues = defaults }: BootcamperF
 
     return (
         <BootcampersLayout>
-            <Grid container direction="column" component="section">
+            <Grid container direction="column" component="section" style={{ marginLeft: "10%" }}>
                 <Grid item xs={12} style={{ marginTop: "10%" }}>
                     <Typography variant="h5" component="h2">
                         {t('bootcamp:edit_form_heading')}
@@ -105,10 +105,10 @@ export default function EditBootcamper({ initialValues = defaults }: BootcamperF
                     onSubmit={onSubmit}
                     initialValues={initialValues}
                     validationSchema={validationSchema}>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} sm={6}>
+                    <Grid container spacing={1}>
+                        <Grid item sm={5}>
                             <FormTextField
-                                style={{ marginTop: "1%" }}
+                                style={{ marginTop: "2%", width: "80%" }}
                                 type="text"
                                 name="MyName"
                                 autoComplete="target-amount"
@@ -116,9 +116,9 @@ export default function EditBootcamper({ initialValues = defaults }: BootcamperF
                                 defaultValue={initialValues.MyName}
                             />
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12} sm={5}>
                             <FormTextField
-                                style={{ marginTop: "1%" }}
+                                style={{ marginTop: "2%", width: "80%" }}
                                 type="text"
                                 name="email"
                                 autoComplete="target-amount"
@@ -126,8 +126,9 @@ export default function EditBootcamper({ initialValues = defaults }: BootcamperF
                                 defaultValue={initialValues.email}
                             />
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12} sm={5}>
                             <FormTextField
+                                style={{ width: "80%", marginTop: "2%" }}
                                 type="text"
                                 name="phone"
                                 autoComplete="target-amount"
@@ -135,8 +136,9 @@ export default function EditBootcamper({ initialValues = defaults }: BootcamperF
                                 defaultValue={initialValues.phone}
                             />
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12} sm={5}>
                             <FormTextField
+                                style={{ width: "80%", marginTop: "2%" }}
                                 type="text"
                                 name="adress"
                                 autoComplete="target-amount"
@@ -144,7 +146,7 @@ export default function EditBootcamper({ initialValues = defaults }: BootcamperF
                                 defaultValue={initialValues.adress}
                             />
                         </Grid>
-                        <Grid item xs={12} style={{ display: "flex", flexDirection: "column", marginLeft: "35%" }}>
+                        <Grid item xs={12} style={{ display: "flex", flexDirection: "column", marginLeft: "15%", marginTop: "1.1%" }}>
                             <SubmitButton style={{ width: "50%" }} label="bootcamp:edit_form_heading" loading={mutation.isLoading} sx={{ backgroundColor: theme.palette.secondary.main }} />
                             <Button href="/bootcamp" variant="outlined" sx={{ width: "50%", marginTop: "1%", backgroundColor: theme.palette.primary.main, color: theme.palette.background.default }}>Cancel</Button>
                         </Grid>
