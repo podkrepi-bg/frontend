@@ -8,6 +8,7 @@ import AppBar from '@mui/material/AppBar'
 import { useRouter } from 'next/router'
 import Box from '@mui/material/Box'
 import { useContext } from 'react'
+import { Typography } from '@mui/material'
 const addIconStyles = {
   transform: 'scale(1.3)',
   background: '#4ac3ff',
@@ -27,7 +28,10 @@ export default function AppBarMenu() {
   return (
     <AppBar elevation={0} sx={{ background: 'white' }} position="static">
       <Container maxWidth="xl">
-        <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Toolbar
+          disableGutters
+          sx={{ display: 'flex', justifyContent: 'space-between', px: '11px' }}>
+          <Typography variant="h5">Списък с коли</Typography>
           <Box>
             <Tooltip title="Добави">
               <AddIcon
