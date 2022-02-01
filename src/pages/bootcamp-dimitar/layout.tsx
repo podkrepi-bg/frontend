@@ -6,7 +6,6 @@ import AppsIcon from '@mui/icons-material/Apps'
 import PeopleIcon from '@mui/icons-material/People'
 import PersonAddIcon from '@mui/icons-material/PersonAdd'
 import { makeStyles } from '@mui/styles'
-import { useTranslation } from 'next-i18next'
 import { ExpandLess, ExpandMore } from '@mui/icons-material'
 import {
   AppBar,
@@ -26,6 +25,7 @@ import {
 } from '@mui/material'
 import PodkrepiIcon from 'components/brand/PodkrepiIcon'
 import AccountCircle from '@mui/icons-material/AccountCircle'
+import Link from 'next/link'
 
 const useStyles = makeStyles({
   appBar: {
@@ -47,7 +47,6 @@ const useStyles = makeStyles({
 function CustomLayout({ children }: { children: any }) {
   const classes = useStyles()
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false)
-  const [open, setOpen] = React.useState(false)
   const [openMore, setOpenMore] = React.useState(false)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 
@@ -60,7 +59,7 @@ function CustomLayout({ children }: { children: any }) {
   }
 
   const toggleDrawer = () => {
-    setOpen(!open)
+    setIsDrawerOpen(!isDrawerOpen)
   }
 
   const toggleMore = () => {
@@ -130,9 +129,11 @@ function CustomLayout({ children }: { children: any }) {
           </div>
           <Divider />
           {navLinks.map((item) => (
-            <ListItemButton key={item.name} component="a" href={item.href} color="black">
+            <ListItemButton key={item.name} color="black">
               <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.name} />
+              <Link href={item.href} passHref>
+                <ListItemText primary={item.name} />
+              </Link>
             </ListItemButton>
           ))}
           <ListItemButton onClick={toggleMore}>
