@@ -9,6 +9,7 @@ import makeStyles from '@mui/styles/makeStyles'
 import { defaultOgImage } from 'common/routes'
 import BootcampNavBar from './BootcampNavBar'
 import BootcampFooter from './Footer'
+import Snackbar from 'components/layout/Snackbar'
 
 type LayoutProps = React.PropsWithChildren<
   ContainerProps & {
@@ -65,6 +66,7 @@ export default function Layout({
           {children}
         </Box>
         <BootcampFooter />
+        <Snackbar />
       </Container>
     </Container>
   )
