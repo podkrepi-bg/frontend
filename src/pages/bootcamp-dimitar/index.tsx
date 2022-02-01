@@ -142,6 +142,12 @@ function BootcampDimitarList() {
       <IconButton aria-label="delete" href="/bootcamp-dimitar/create">
         <PersonAddIcon />
       </IconButton>
+      <Button
+        variant="contained"
+        onClick={() => setIsDeleteSelectedModalOpen(true)}
+        disabled={selectedRows.length == 0}>
+        Delete selected
+      </Button>
       <DataGrid
         rows={data || []}
         columns={columns}
@@ -158,13 +164,6 @@ function BootcampDimitarList() {
           setSelectedRows(selectedRows)
         }}
       />
-      {selectedRows.length > 0 ? (
-        <Button variant="contained" onClick={() => setIsDeleteSelectedModalOpen(true)}>
-          Delete selected
-        </Button>
-      ) : (
-        ''
-      )}
       <Modal
         open={open}
         onClose={handleClose}
