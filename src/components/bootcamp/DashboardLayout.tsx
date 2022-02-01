@@ -1,4 +1,5 @@
 import { makeStyles } from '@mui/styles'
+import Snackbar from 'components/layout/Snackbar'
 import PersistentDrawer from './PersistentDrawer'
 
 type Props = {
@@ -38,6 +39,7 @@ export default function DashboardLayout({ children, title }: Props) {
     <div className={classes.pageContainer}>
       <div className={classes.contentWrapper}>
         <PersistentDrawer title={title}>{children}</PersistentDrawer>
+        <Snackbar />
         <footer className={classes.footer}>
           <p>This is footer &copy;</p>
         </footer>

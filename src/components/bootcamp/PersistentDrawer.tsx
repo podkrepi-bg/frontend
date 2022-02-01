@@ -16,6 +16,8 @@ import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 import { Avatar, Menu, MenuItem } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
 import DashboardMenuV2 from 'components/layout/nav/DashboardMenuV2'
+import { DrawerStore } from 'stores/DrawerStore'
+import { observer } from 'mobx-react'
 
 const drawerWidth = 240
 
@@ -74,18 +76,10 @@ type Props = {
   title: string
 }
 
-export default function PersistentDrawer({ title, children }: Props) {
+export default observer(function PersistentDrawer({ title, children }: Props) {
+  const { isOpen, toggle } = DrawerStore
   const theme = useTheme()
-  const [open, setOpen] = useState(false)
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
-
-  const handleDrawerOpen = () => {
-    setOpen(true)
-  }
-
-  const handleDrawerClose = () => {
-    setOpen(false)
-  }
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget)
@@ -98,15 +92,15 @@ export default function PersistentDrawer({ title, children }: Props) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={isOpen}>
         <Toolbar sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              onClick={handleDrawerOpen}
+              onClick={toggle}
               edge="start"
-              sx={{ mr: 2, ...(open && { display: 'none' }) }}>
+              sx={{ mr: 2, ...(isOpen && { display: 'none' }) }}>
               <MenuIcon />
             </IconButton>
             <Link href="/">
@@ -166,16 +160,16 @@ export default function PersistentDrawer({ title, children }: Props) {
         }}
         variant="persistent"
         anchor="left"
-        open={open}>
+        open={isOpen}>
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={toggle}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
         <DashboardMenuV2 />
       </Drawer>
-      <Main open={open}>
+      <Main open={isOpen}>
         <DrawerHeader />
         <Typography variant="h4" sx={{ marginBottom: 3, textAlign: 'center' }}>
           {title}
@@ -184,4 +178,4 @@ export default function PersistentDrawer({ title, children }: Props) {
       </Main>
     </Box>
   )
-}
+})

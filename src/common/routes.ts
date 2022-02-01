@@ -49,4 +49,13 @@ export const routes = {
     infoRequests: '/admin/info-requests',
     supporters: '/admin/supporters',
   },
+  bootcamp: {
+    index: '/bootcamp',
+    dashboard: {
+      index: '/bootcamp/dashboard',
+      pets: '/bootcamp/dashboard/pets',
+      createPet: '/bootcamp/dashboard/pets/create',
+      editPet: (slug: string) => `/bootcamp/dashboard/pets/${slug}/edit`,
+    },
+  },
 }

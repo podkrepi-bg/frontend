@@ -120,7 +120,7 @@ export default function CreateAnimalForm({
           </Grid>
           <Grid item xs={12}>
             <ButtonGroup>
-              <Button variant="contained" type="submit">
+              <Button variant="contained" type="submit" disabled={mutation.isLoading}>
                 {initialValues ? 'Edit' : 'Add'}
               </Button>
               <Button

@@ -1,6 +1,21 @@
-import { Card, CardContent, Container, Dialog, Typography, Link, Tooltip, Box } from '@mui/material'
+import {
+  Card,
+  CardContent,
+  Container,
+  Dialog,
+  Typography,
+  Tooltip,
+  Box,
+  Button,
+} from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
-import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import {
+  DataGrid,
+  GridColumns,
+  GridRenderCellParams,
+  GridSelectionModel,
+  GridToolbarContainer,
+} from '@mui/x-data-grid'
 import { useAnimalsList } from 'common/hooks/bootcampStudents'
 import { deleteAnimal } from 'common/rest'
 import { AnimalResponse } from 'gql/bootcamp'
@@ -12,6 +27,9 @@ import ConfirmModal from './ConfirmModal'
 import PermDeviceInformationIcon from '@mui/icons-material/PermDeviceInformation'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
+import AddCircleIcon from '@mui/icons-material/AddCircle'
+import Link from 'next/link'
+import { routes } from 'common/routes'
 
 const useStyles = makeStyles(() => {
   return {
@@ -32,6 +50,64 @@ const useStyles = makeStyles(() => {
     },
   }
 })
+
+type GridToolbarProps = {
+  selectionModel: GridSelectionModel
+  setAnimals: (old: any) => void
+}
+
+function GridToolbar({ selectionModel, setAnimals }: GridToolbarProps) {
+  const [open, setOpen] = useState(false)
+  const { t } = useTranslation()
+  const mutation = useMutation({
+    mutationFn: deleteAnimal,
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
+  })
+  const deleteConfirmHandler = async () => {
+    for (let i = 0; i < selectionModel.length; i++) {
+      await mutation.mutateAsync({ slug: selectionModel[i].toString() })
+    }
+    setAnimals((old: any) =>
+      (old as AnimalResponse[])?.filter((x) => !selectionModel.includes(x.id)),
+    )
+    setOpen(false)
+  }
+
+  return (
+    <GridToolbarContainer>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+          width: '100%',
+        }}>
+        <Link passHref href={routes.bootcamp.dashboard.createPet}>
+          <Button color="primary" startIcon={<AddCircleIcon />}>
+            Add new
+          </Button>
+        </Link>
+        <Tooltip title="Delete selected" placement="top">
+          <span>
+            <Button
+              color="primary"
+              disabled={selectionModel.length == 0}
+              startIcon={<DeleteIcon />}
+              onClick={() => setOpen(true)}>
+              Delete
+            </Button>
+          </span>
+        </Tooltip>
+        <ConfirmModal
+          open={open}
+          confirmHandler={deleteConfirmHandler}
+          closeModal={() => setOpen(false)}
+        />
+      </Box>
+    </GridToolbarContainer>
+  )
+}
 
 function DetailsButton({ params }: { params: GridRenderCellParams }) {
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -62,7 +138,7 @@ const EditButton = ({ params }: { params: GridRenderCellParams }) => {
 
   return (
     <Tooltip title="edit" placement="top">
-      <Link className={classes.link} href={`/bootcamp/dashboard/pets/${params.row.id}/edit`}>
+      <Link passHref href={routes.bootcamp.dashboard.editPet(params.row.id)}>
         <EditIcon className={classes.btn} />
       </Link>
     </Tooltip>
@@ -111,6 +187,7 @@ const DeleteButton = ({
 export default function PetsGrid() {
   const { data } = useAnimalsList()
   const [animals, setAnimals] = useState(data)
+  const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([])
 
   useEffect(() => {
     setAnimals(data)
@@ -161,6 +238,18 @@ export default function PetsGrid() {
         autoPageSize
         checkboxSelection
         disableSelectionOnClick
+        components={{
+          Toolbar: GridToolbar,
+        }}
+        componentsProps={{
+          toolbar: {
+            selectionModel,
+            setAnimals,
+          },
+        }}
+        onSelectionModelChange={(ids) => {
+          setSelectionModel(ids)
+        }}
       />
     </Container>
   )
