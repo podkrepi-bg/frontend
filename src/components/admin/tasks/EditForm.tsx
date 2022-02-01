@@ -49,87 +49,91 @@ export default function EditForm() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        height: 'calc(100vh - 70px)',
+        height: '100vh',
       }}>
-      <LayoutPanel />
-      <Typography color="#294e85" sx={{ m: 3, fontWeight: 'bold', opacity: 0.9 }} variant="h5">
-        Редактиране
-      </Typography>
-      <Container sx={{ justifyContent: 'center', display: 'flex' }}>
-        <Box
-          component="form"
-          sx={{
-            '& .MuiTextField-root': {
-              m: 2,
-              width: '300px',
-              display: 'flex',
-              flexDirection: 'column',
-            },
-          }}
-          noValidate
-          autoComplete="off">
-          <TextField
-            required
-            id="outlined-required"
-            label="Марка"
-            defaultValue={data.brand}
-            onChange={(e) => {
-              setBrand(e.target.value)
+      <LayoutPanel>
+        <Container sx={{ justifyContent: 'center', display: 'flex', flexDirection: 'column' }}>
+          <Typography
+            color="#294e85"
+            sx={{ m: 3, fontWeight: 'bold', opacity: 0.9, textAlign: 'center' }}
+            variant="h5">
+            Редактиране
+          </Typography>
+          <Box
+            component="form"
+            sx={{
+              '& .MuiTextField-root': {
+                m: 2,
+                width: '300px',
+                display: 'flex',
+                flexDirection: 'column',
+              },
             }}
-          />
-          <TextField
-            required
-            id="outlined-required"
-            label="Модел"
-            defaultValue={data.model}
-            onChange={(e) => {
-              setModel(e.target.value)
-            }}
-          />
-          <TextField
-            required
-            id="outlined-required"
-            label="Година"
-            defaultValue={data.year}
-            onChange={(e) => {
-              setYear(Number(e.target.value))
-            }}
-          />
-          <TextField
-            required
-            id="outlined-required"
-            label="Двигател"
-            defaultValue={data.engine}
-            onChange={(e) => {
-              setEngine(e.target.value)
-            }}
-          />
-          <TextField
-            required
-            id="outlined-required"
-            label="Цена"
-            defaultValue={data.price}
-            onChange={(e) => {
-              setPrice(Number(e.target.value))
-            }}
-          />
-        </Box>
-      </Container>
-      <CardActions sx={{ m: 2 }}>
-        <Button
-          onClick={() => {
-            mutate({ brand, model, year, engine, price })
-          }}
-          variant="contained"
-          size="large">
-          Запази
-        </Button>
-        <Link href="/tasks">
-          <Button variant="outlined" size="large">
-            Отказ
-          </Button>
-        </Link>
-      </CardActions>
+            noValidate
+            autoComplete="off">
+            <TextField
+              required
+              id="outlined-required"
+              label="Марка"
+              defaultValue={data.brand}
+              onChange={(e) => {
+                setBrand(e.target.value)
+              }}
+            />
+            <TextField
+              required
+              id="outlined-required"
+              label="Модел"
+              defaultValue={data.model}
+              onChange={(e) => {
+                setModel(e.target.value)
+              }}
+            />
+            <TextField
+              required
+              id="outlined-required"
+              label="Година"
+              defaultValue={data.year}
+              onChange={(e) => {
+                setYear(Number(e.target.value))
+              }}
+            />
+            <TextField
+              required
+              id="outlined-required"
+              label="Двигател"
+              defaultValue={data.engine}
+              onChange={(e) => {
+                setEngine(e.target.value)
+              }}
+            />
+            <TextField
+              required
+              id="outlined-required"
+              label="Цена"
+              defaultValue={data.price}
+              onChange={(e) => {
+                setPrice(Number(e.target.value))
+              }}
+            />
+          </Box>
+          <CardActions sx={{ m: 2, display: 'flex', justifyContent: 'center' }}>
+            <Button
+              onClick={() => {
+                mutate({ brand, model, year, engine, price })
+              }}
+              variant="contained"
+              size="large">
+              Запази
+            </Button>
+            <Link href="/tasks">
+              <Button variant="outlined" size="large">
+                Отказ
+              </Button>
+            </Link>
+          </CardActions>
+        </Container>
+      </LayoutPanel>
     </div>
   )
 }
