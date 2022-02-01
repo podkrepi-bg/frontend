@@ -1,27 +1,23 @@
-import { HomeOutlined, InfoOutlined } from '@mui/icons-material'
-import CampaignIcon from '@mui/icons-material/Campaign'
 import PeopleIcon from '@mui/icons-material/People'
 import { makeStyles } from '@mui/styles'
-import { Collapse, List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
+import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
 import { useRouter } from 'next/router'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import { SwipeableDrawer } from '@mui/material'
 import { GridMenuIcon } from '@mui/x-data-grid'
-import People from '@mui/icons-material/People'
-import PermMedia from '@mui/icons-material/PermMedia'
-import Dns from '@mui/icons-material/Dns'
-import Public from '@mui/icons-material/Public'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
+import { DrawerContext } from 'context/DrawerContext'
 
 export const drawerWidth = 200
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(() => {
   return {
     drawer: {
       width: drawerWidth,
+      position: 'absolute',
     },
     drawerPaper: {
       width: drawerWidth,
@@ -33,7 +29,7 @@ const useStyles = makeStyles((theme) => {
       marginTop: '10px',
     },
     active: {
-      backgroundColor: '#d4d1ee',
+      backgroundColor: '#bebaba',
     },
     item: {
       margin: '15px 0',
@@ -46,7 +42,8 @@ const menuItems = [
   { text: 'Add intern', icon: <AddCircleIcon />, path: '/bootcamp-interns/create' },
 ]
 
-export default function MyDrawer(props: any) {
+export default function MyDrawer() {
+  const { isOpen }: any = useContext(DrawerContext)
   const [open, setOpen] = useState(false)
   const [submenuOpen, setSubmenuOpen] = useState(false)
   const router = useRouter()
@@ -58,10 +55,9 @@ export default function MyDrawer(props: any) {
       ModalProps={{
         hideBackdrop: true,
       }}
-      onOpen={() => console.log('opened')}
-      onClose={() => console.log('closed')}
-      open={props.open}
+      open={isOpen}
       className={classes.drawer}
+      variant="persistent"
       anchor="left"
       classes={{ paper: classes.drawerPaper }}>
       <List>

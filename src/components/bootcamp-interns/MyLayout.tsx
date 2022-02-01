@@ -3,7 +3,6 @@ import { Theme } from '@mui/material'
 import createStyles from '@mui/styles/createStyles'
 import makeStyles from '@mui/styles/makeStyles'
 import ResponsiveAppBar from './ResponsiveAppBar'
-import MyDrawer from './MyDrawer'
 import MyFooter from './MyFooter'
 
 const useStyles = makeStyles((theme: Theme) =>

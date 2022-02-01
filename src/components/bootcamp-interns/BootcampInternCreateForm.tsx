@@ -11,8 +11,15 @@ import { routes } from 'common/routes'
 import { makeStyles } from '@mui/styles'
 
 import { drawerWidth } from './MyDrawer'
+import { useContext } from 'react'
+import { DrawerContext } from 'context/DrawerContext'
+import { BootcampIntern } from 'lib/interfaces/BootcampIntern'
+import { useMutation } from 'react-query'
+import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
+import { AxiosError } from 'axios'
+import { FormikHelpers } from 'formik'
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(() => {
   return {
     internForm: {
       marginLeft: drawerWidth,
@@ -39,11 +46,46 @@ const defaults = {
 export default function BootcampInternCreateForm() {
   const router = useRouter()
   const classes = useStyles()
+  const { setNotificationMessage, setNotificationsOpen }: any = useContext(DrawerContext)
 
-  const onSubmit = async (internData: any, { resetForm }: any) => {
+  const createIntern = async (internData: BootcampIntern) => {
     await axios.post(endpoints.bootcampIntern.listBootcampIntern.url, internData)
-    router.push(routes.bootcampIntern.index)
-    resetForm()
+  }
+
+  // const submitIntern = async (internData: BootcampIntern) => {
+  //   await axios.patch(endpoints.bootcampIntern.listBootcampIntern.url + `/${internId}`, internData)
+  // }
+
+  const mutation = useMutation({
+    mutationFn: createIntern,
+    onError: () => {
+      setNotificationsOpen(true)
+      setNotificationMessage('Something went wrong, please try again later.')
+    },
+    onSuccess: () => {
+      router.push(routes.bootcampIntern.index)
+      setNotificationsOpen(true)
+      setNotificationMessage('Sucessfully created new intern.')
+    },
+  })
+
+  const onSubmit = async (values: any, { setFieldError, resetForm }: FormikHelpers<any>) => {
+    try {
+      await mutation.mutateAsync({
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+      })
+      resetForm()
+    } catch (error) {
+      console.error(error)
+      if (isAxiosError(error)) {
+        const { response } = error as AxiosError<ApiErrors>
+        response?.data.message.map(({ property, constraints }) => {
+          setFieldError(property, t(matchValidator(constraints)))
+        })
+      }
+    }
   }
 
   return (

@@ -1,5 +1,5 @@
 export interface BootcampIntern {
-  id: string
+  id?: string
   firstName: string
   lastName: string
   email: string
