@@ -1,0 +1,82 @@
+{
+  "subtitle": "Помогнете на нуждаещ се",
+  "form-heading": "Предложи нова кампания",
+  "cta": {
+    "create": "Създай",
+    "save": "Запази",
+    "submit": "Изпрати",
+    "support-now": "Подкрепете сега",
+    "share": "Сподели",
+    "donate-now": "Дари сега",
+    "see-all": "Виж всички",
+    "see-top-10": "Виж ТОП 10"
+  },
+  "campaign": {
+    "title": "Име на кампанията",
+    "amount": "Необходима сума",
+    "type": "Тип кампания",
+    "reached": "събрани",
+    "target": "цел",
+    "types": {
+      "treatment-and-rehabilitation": "Лечение и рехабилитация",
+      "helping-the-needy": "Подпомагане на нуждаещи се",
+      "better-society": "По-добро общество",
+      "transplantation": "Трансплантация",
+      "cancer": "Рак",
+      "leukemia": "Левкимия",
+      "genetic-diseases": "Генетични болести",
+      "rehabilitation": "Рехабилитация",
+      "kids-in-risk": "Деца в риск",
+      "third-age": "Трета възраст",
+      "homes-for-children": "Домове за деца",
+      "nursing-homes": "Домове за възрастни",
+      "education": "Образование",
+      "culture": "Култура",
+      "nature": "Природа",
+      "human-rights": "Човешки права",
+      "animals": "Животни",
+      "disasters": "Бедствия"
+    },
+    "images": {
+      "add": "Добави снимки",
+      "add-more": "Добави още",
+      "adding-more": "Добавяне на още снимки",
+      "drop-paste-import-files": "Пуснете снимки тук или изберете от следните източници:",
+      "my-device": "Компютър",
+      "back": "Назад",
+      "edit": "Редактирай",
+      "editing": "Редактиране",
+      "import-from": "Добавяне от външен източник",
+      "close": "Затвори",
+      "cancel": "Откажи",
+      "remove": "Премахни",
+      "save": "Запази",
+      "files-selected": "Избрани снимки",
+      "uploading": "Качване...",
+      "complete": "Завършено",
+      "upload-file": "Качи %{smart_count} снимка",
+      "upload-multiple": "Качи %{smart_count} снимки",
+      "x-time-left": "%{time} оставащо време",
+      "upload-failed": "Неуспешно качване",
+      "pause": "Прекъсни",
+      "paused": "Прекъснато",
+      "resume": "Продължи",
+      "retry": "Опитай пак"
+    },
+    "beneficiary": {
+      "name": "Бенефициент",
+      "add": "Добави бенефициент",
+      "create": "Създай бенефициент"
+    },
+    "coordinator": {
+      "name": "Организатор",
+      "add": "Добави организатор",
+      "create": "Създай организатор"
+    },
+    "description": "Описание",
+    "start-date": "Начална дата",
+    "end-date": "Крайна дата",
+    "tag": "Таг:",
+    "date": "Дата:"
+  }
+}
