@@ -16,6 +16,7 @@ import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import { name, phone } from 'common/form/validation'
 import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
+import LinkButton from 'components/common/LinkButton'
 
 const useStyles = makeStyles({
   container: {
@@ -131,9 +132,9 @@ export default function EditInternForm({ id, initialValues = defaults }: Bootcam
             </Button>
           </Grid>
           <Grid item xs={6}>
-            <Button fullWidth variant="contained" href={routes.bootcamp.index} color="primary">
+            <LinkButton fullWidth variant="contained" color="primary" href={routes.bootcamp.index}>
               {t('bootcamp:btns.cancel')}
-            </Button>
+            </LinkButton>
           </Grid>
         </Grid>
       </GenericForm>

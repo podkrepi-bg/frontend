@@ -25,21 +25,22 @@ import { BootcampResponse } from 'gql/bootcamp'
 import { ApiErrors } from 'common/api-errors'
 import { AlertStore } from 'stores/AlertStore'
 import { deleteBootcampIntern, getBootcampIntern } from 'common/rest'
+import Link from 'next/link'
 
 const useStyles = makeStyles({
   gridWrapper: {
     margin: '0 auto',
-    maxWidth: '802px',
+    maxWidth: 802,
   },
   grid: {
-    marginBottom: '15px',
+    marginBottom: 15,
   },
   gridTitleWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
   },
   gridTitle: {
-    marginBottom: '10px',
+    marginBottom: 10,
   },
   infoBtn: {
     margin: '0 auto',
@@ -151,9 +152,11 @@ export default function BootcampGrid() {
         <IconButton onClick={() => loadInternInfo(id)}>
           <PreviewIcon />
         </IconButton>
-        <IconButton href={routes.bootcamp.view(id)}>
-          <EditIcon />
-        </IconButton>
+        <Link href={routes.bootcamp.view(id)} passHref>
+          <IconButton>
+            <EditIcon />
+          </IconButton>
+        </Link>
         <IconButton onClick={() => openDeleteRowDialog(id)}>
           <DeleteIcon />
         </IconButton>
@@ -254,14 +257,16 @@ export default function BootcampGrid() {
       <DeleteRowsDialog />
       <div className={classes.gridWrapper}>
         <div className={classes.gridTitleWrapper}>
-          <Typography variant="h5" className={classes.gridTitle}>
+          <Typography variant="h6" className={classes.gridTitle}>
             {t('bootcamp:titles.bootcamp-interns')}
           </Typography>
 
           <section>
-            <IconButton href={routes.bootcamp.add}>
-              <AddIcon />
-            </IconButton>
+            <Link href={routes.bootcamp.add} passHref>
+              <IconButton>
+                <AddIcon />
+              </IconButton>
+            </Link>
             <IconButton onClick={openDeleteRowsDialog}>
               <DeleteIcon />
             </IconButton>
