@@ -1,0 +1,32 @@
+{
+  "cta": {
+    "delete": "Delete",
+    "edit": "Edit",
+    "details": "Details",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "add": "Add"
+  },
+  "pets": {
+    "all": "All pets",
+    "name": "Name",
+    "type": "Type",
+    "actions": "Actions",
+    "create": "Add pet",
+    "edit": "Edit pet"
+  },
+  "students": {
+    "create": "Add student",
+    "edit": "Edit student",
+    "first-name": "First name",
+    "last-name": "Last name"
+  },
+  "modal": {
+    "confirm-modal": "Are you sure?"
+  },
+  "profile-menu": {
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout"
+  }
+}

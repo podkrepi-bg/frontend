@@ -108,7 +108,11 @@ export default function CreatePetForm({
   return (
     <Grid className={classes.modal} container direction="column">
       <Grid item sx={{ mb: 1 }}>
-        <Typography variant="h6">{initialValues ? 'Edit' : 'Add'} pet</Typography>
+        <Typography variant="h6">
+          {initialValues
+            ? t('common:nav.bootcamp.pets.edit')
+            : t('common:nav.bootcamp.pets.create')}
+        </Typography>
       </Grid>
       <GenericForm
         initialValues={initialValues || defaults}
@@ -116,15 +120,25 @@ export default function CreatePetForm({
         onSubmit={submitHandler}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <FormTextField type="text" label="Name" name="name" autoComplete="name" />
+            <FormTextField
+              type="text"
+              label={t('bootcamp:pets.name')}
+              name="name"
+              autoComplete="name"
+            />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField type="text" label="Type" name="type" autoComplete="type" />
+            <FormTextField
+              type="text"
+              label={t('bootcamp:pets.type')}
+              name="type"
+              autoComplete="type"
+            />
           </Grid>
           <Grid item xs={12}>
             <ButtonGroup>
               <Button variant="contained" type="submit" disabled={mutation.isLoading}>
-                {initialValues ? 'Edit' : 'Add'}
+                {initialValues ? t('bootcamp:cta.edit') : t('bootcamp:cta.add')}
               </Button>
               <Button
                 variant="contained"
@@ -132,7 +146,7 @@ export default function CreatePetForm({
                 color="error"
                 className={classes.deleteBtn}
                 onClick={closeModal || cancelHandler}>
-                Cancel
+                {t('bootcamp:cta.cancel')}
               </Button>
             </ButtonGroup>
           </Grid>

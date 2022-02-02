@@ -96,7 +96,9 @@ export function CreateStudent({ initialValues, closeModalHandler }: Props) {
   return (
     <Grid className={classes.modal} container direction="column">
       <Grid item sx={{ mb: 1 }}>
-        <Typography variant="h5">{initialValues ? 'Edit' : 'Add'} student</Typography>
+        <Typography variant="h5">
+          {initialValues ? t('bootcamp:students.edit') : t('bootcamp:students.create')}
+        </Typography>
       </Grid>
       <GenericForm
         initialValues={initialValues || defaults}
@@ -106,18 +108,23 @@ export function CreateStudent({ initialValues, closeModalHandler }: Props) {
           <Grid item xs={12}>
             <FormTextField
               type="text"
-              label="First name"
+              label={t('bootcamp:students.first-name')}
               name="firstName"
               autoComplete="firstName"
             />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField type="text" label="Last name" name="lastName" autoComplete="lastName" />
+            <FormTextField
+              type="text"
+              label={t('bootcamp:students.last-name')}
+              name="lastName"
+              autoComplete="lastName"
+            />
           </Grid>
           <Grid item xs={12}>
             <ButtonGroup>
               <Button variant="contained" type="submit">
-                {initialValues ? 'Edit' : 'Add'}
+                {initialValues ? t('bootcamp:cta.edit') : t('bootcamp:cta.add')}
               </Button>
               <Button
                 variant="contained"
@@ -125,7 +132,7 @@ export function CreateStudent({ initialValues, closeModalHandler }: Props) {
                 color="error"
                 className={classes.deleteBtn}
                 onClick={closeModalHandler}>
-                Cancel
+                {t('bootcamp:cta.cancel')}
               </Button>
             </ButtonGroup>
           </Grid>

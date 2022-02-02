@@ -139,13 +139,13 @@ export default observer(function PersistentDrawer({ title, children }: Props) {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}>
               <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Profile</Typography>
+                <Typography textAlign="center">{t('bootcamp:profile-menu.profile')}</Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Settings</Typography>
+                <Typography textAlign="center">{t('bootcamp:profile-menu.settings')}</Typography>
               </MenuItem>
               <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Logout</Typography>
+                <Typography textAlign="center">{t('bootcamp:profile-menu.logout')}</Typography>
               </MenuItem>
             </Menu>
           </Box>

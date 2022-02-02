@@ -1,5 +1,6 @@
 import { Modal, Box, Typography, ButtonGroup, Button } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
+import { useTranslation } from 'next-i18next'
 
 const useStyles = makeStyles(() => {
   return {
@@ -30,15 +31,17 @@ type Props = {
 
 export default function ConfirmModal({ open, closeModal, confirmHandler }: Props) {
   const classes = useStyles()
+  const { t } = useTranslation()
+
   return (
     <Modal open={open} onClose={closeModal}>
       <Box className={classes.modal}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Are you sure?
+          {t('bootcamp:modal.confirm-modal')}
         </Typography>
         <ButtonGroup sx={{ marginTop: 1 }}>
           <Button variant="contained" size="small" onClick={confirmHandler}>
-            Confirm
+            {t('bootcamp:cta.confirm')}
           </Button>
           <Button
             variant="contained"
@@ -46,7 +49,7 @@ export default function ConfirmModal({ open, closeModal, confirmHandler }: Props
             color="error"
             className={classes.deleteBtn}
             onClick={closeModal}>
-            Cancel
+            {t('bootcamp:cta.cancel')}
           </Button>
         </ButtonGroup>
       </Box>

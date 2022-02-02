@@ -83,7 +83,7 @@ function GridToolbar({ selectionModel, setAnimals }: GridToolbarProps) {
         }}>
         <Link passHref href={routes.bootcamp.dashboard.createPet}>
           <Button color="primary" startIcon={<AddCircleIcon />}>
-            Add new
+            {t('common:nav.bootcamp.pets.create')}
           </Button>
         </Link>
         <Tooltip title="Delete selected" placement="top">
@@ -93,7 +93,7 @@ function GridToolbar({ selectionModel, setAnimals }: GridToolbarProps) {
               disabled={selectionModel.length == 0}
               startIcon={<DeleteIcon />}
               onClick={() => setOpen(true)}>
-              Delete
+              {t('bootcamp:cta.delete')}
             </Button>
           </span>
         </Tooltip>
@@ -111,18 +111,24 @@ function DetailsButton({ params }: { params: GridRenderCellParams }) {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const closeModal = () => setModalIsOpen(false)
   const classes = useStyles()
+  const { t } = useTranslation()
+
   return (
-    <Tooltip title="details" placement="top">
+    <Tooltip title={t('bootcamp:cta.details') || ''} placement="top">
       <Box className={classes.link}>
         <PermDeviceInformationIcon onClick={() => setModalIsOpen(true)} className={classes.btn} />
         <Dialog open={modalIsOpen} onClose={closeModal} sx={{ top: '-35%' }}>
           <Card>
             <CardContent>
               <Typography variant="h5" sx={{ marginBottom: '16px' }}>
-                Pet details:
+                {t('bootcamp:cta.details')}:
               </Typography>
-              <Typography variant="body2">Name: {params.row.name}</Typography>
-              <Typography variant="body2">Type: {params.row.type}</Typography>
+              <Typography variant="body2">
+                {t('bootcamp:pets.name')}: {params.row.name}
+              </Typography>
+              <Typography variant="body2">
+                {t('bootcamp:pets.type')}: {params.row.type}
+              </Typography>
             </CardContent>
           </Card>
         </Dialog>
@@ -133,9 +139,10 @@ function DetailsButton({ params }: { params: GridRenderCellParams }) {
 
 const EditButton = ({ params }: { params: GridRenderCellParams }) => {
   const classes = useStyles()
+  const { t } = useTranslation()
 
   return (
-    <Tooltip title="edit" placement="top">
+    <Tooltip title={t('bootcamp:cta.edit') || ''} placement="top">
       <Box className={classes.link}>
         <Link passHref href={routes.bootcamp.dashboard.editPet(params.row.id)}>
           <EditIcon className={classes.btn} />
@@ -175,7 +182,7 @@ const DeleteButton = ({
   }
 
   return (
-    <Tooltip title="delete" placement="top">
+    <Tooltip title={t('bootcamp:cta.delete') || ''} placement="top">
       <Box className={classes.link}>
         <DeleteIcon onClick={onClickHandler} className={`${classes.deleteBtn} ${classes.btn}`} />
         <ConfirmModal open={open} confirmHandler={deleteConfirmHandler} closeModal={closeModal} />
@@ -188,6 +195,7 @@ export default function PetsGrid() {
   const { data } = useAnimalsList()
   const [animals, setAnimals] = useState<AnimalResponse[]>(data || [])
   const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([])
+  const { t } = useTranslation()
 
   useEffect(() => {
     setAnimals(data || [])
@@ -208,19 +216,19 @@ export default function PetsGrid() {
       { field: 'id', headerName: 'ID', hide: true },
       {
         field: 'name',
-        headerName: 'Name',
+        headerName: t('bootcamp:pets.name'),
         width: 200,
         flex: 2,
       },
       {
         field: 'type',
-        headerName: 'Type',
+        headerName: t('bootcamp:pets.type'),
         width: 200,
         flex: 6,
       },
       {
         field: 'Actions',
-        headerName: 'Actions',
+        headerName: t('bootcamp:pets.actions'),
         renderCell: renderActions,
         width: 250,
         flex: 1,

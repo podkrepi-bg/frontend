@@ -1,11 +1,13 @@
 import DashboardLayout from 'components/bootcamp/DashboardLayout'
 import PetsGrid from 'components/bootcamp/PetsGrid'
 import { GetStaticProps } from 'next'
+import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 export default function PetsPage() {
+  const { t } = useTranslation()
   return (
-    <DashboardLayout title="All pets">
+    <DashboardLayout title={t('bootcamp:pets.all')}>
       <PetsGrid />
     </DashboardLayout>
   )
@@ -14,7 +16,7 @@ export default function PetsPage() {
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? 'bg', ['common', 'validation'])),
+      ...(await serverSideTranslations(locale ?? 'bg', ['common', 'validation', 'bootcamp'])),
     },
   }
 }

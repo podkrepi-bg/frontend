@@ -82,7 +82,7 @@ export default function StudentCard({ student }: Props) {
         </CardContent>
         <CardActions className={classes.cardActions}>
           <Button variant="contained" size="small" onClick={() => setIsEditModalOpen(true)}>
-            Edit
+            {t('bootcamp:cta.edit')}
           </Button>
           <Button
             variant="contained"
@@ -90,7 +90,7 @@ export default function StudentCard({ student }: Props) {
             color="error"
             className={classes.deleteBtn}
             onClick={() => setModalOpen(true)}>
-            Delete
+            {t('bootcamp:cta.delete')}
           </Button>
         </CardActions>
       </Card>
