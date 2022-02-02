@@ -10,7 +10,7 @@ export function useCarList() {
 }
 
 export function useViewCar(slug: string | string[] | undefined) {
-  return useQuery<{ car: CarResponse }>(endpoints.cars.viewCar(slug).url)
+  return useQuery<CarResponse>(endpoints.cars.viewCar(slug).url)
 }
 
 //MUTATE CARS (POST, PATCH, DELETE)
