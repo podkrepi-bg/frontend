@@ -17,6 +17,7 @@
     "type": "Тип кампания",
     "reached": "събрани",
     "target": "цел",
+    "from": "от",
     "types": {
       "treatment-and-rehabilitation": "Лечение и рехабилитация",
       "helping-the-needy": "Подпомагане на нуждаещи се",
