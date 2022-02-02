@@ -3,6 +3,7 @@ export type BootcampersType = {
     MyName: string
     email: string
     phone: string
+    adress: string
     type: string
 }
 export type BootcampersResponse = {
@@ -10,16 +11,19 @@ export type BootcampersResponse = {
     MyName: string
     email: string
     phone: string
+    adress: string
 }
 
 export type BootcamperInput = {
     MyName: string
     email: string
     phone: string
+    adress: string
 }
 
 export type BootcamperFormData = {
-    MyName: string
-    email: string
-    phone: string
+    MyName: string,
+    email: string,
+    phone: string,
+    adress: string
 }
