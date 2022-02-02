@@ -1,18 +1,23 @@
+import { GridColumns, DataGrid, GridRenderCellParams, GridColDef } from '@mui/x-data-grid'
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip'
-import { useContext, useState } from 'react'
+import { ReactNode, useContext, useState } from 'react'
 import { ModalContext } from 'context/ModalContext'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import AlertDialog from './ConfirmationDialog'
-import { GridColumns, DataGrid } from '@mui/x-data-grid'
 import { useRouter } from 'next/router'
 import { useCarList } from 'common/hooks/cars'
 
 export default function TasksGrid() {
-  const { setAreCarsSelected, setConfirmationOpen, confirmationOpen, setCarId, setOpen }: any =
-    useContext(ModalContext)
+  const {
+    setAreCarsSelected,
+    setConfirmationOpen,
+    confirmationOpen,
+    setCarId,
+    setOpen,
+  }: any = useContext(ModalContext)
   const router = useRouter()
-  const [multipleDelete, setMupltipleDelete] = useState<any>([])
+  const [multipleDelete, setMupltipleDelete] = useState([])
   const [id, setId] = useState('')
 
   const handleClickOpen = () => {
@@ -24,70 +29,33 @@ export default function TasksGrid() {
   }
   const commonCellStyles: any = {
     fontWeight: 'bold',
-    width: '100%',
-    textAlign: 'center',
-  }
-  const displayRow = (cellValues: any) => {
-    return <div style={commonCellStyles}>{cellValues.value}</div>
   }
 
+  const renderCell = (cellValues: GridRenderCellParams): ReactNode => {
+    return <div style={commonCellStyles}>{cellValues.value}</div>
+  }
+  const commonProps: Partial<GridColDef> = {
+    align: 'center',
+    width: 150,
+    headerAlign: 'center',
+    renderCell,
+  }
   const columns: GridColumns = [
-    { field: 'id', headerName: 'id', hide: true },
     {
       field: 'type',
       headerName: 'вид',
       width: 100,
+      align: 'center',
       headerAlign: 'center',
       renderCell: () => {
         return <div style={commonCellStyles}>Кола</div>
       },
     },
-    {
-      field: 'brand',
-      headerName: 'марка',
-      headerAlign: 'center',
-      width: 150,
-      renderCell: (cellValues) => {
-        return displayRow(cellValues)
-      },
-    },
-    {
-      field: 'model',
-      headerName: 'модел',
-      headerAlign: 'center',
-      width: 150,
-      renderCell: (cellValues) => {
-        return displayRow(cellValues)
-      },
-    },
-    {
-      field: 'year',
-      headerName: 'година',
-      headerAlign: 'center',
-      width: 150,
-      renderCell: (cellValues) => {
-        return displayRow(cellValues)
-      },
-    },
-
-    {
-      field: 'engine',
-      headerName: 'двигател',
-      headerAlign: 'center',
-      width: 150,
-      renderCell: (cellValues) => {
-        return displayRow(cellValues)
-      },
-    },
-    {
-      field: 'price',
-      headerName: 'цена',
-      width: 150,
-      headerAlign: 'center',
-      renderCell: (cellValues) => {
-        return displayRow(cellValues)
-      },
-    },
+    { ...commonProps, headerName: 'марка', field: 'brand' },
+    { ...commonProps, headerName: 'модел', field: 'model' },
+    { ...commonProps, headerName: 'година', field: 'year' },
+    { ...commonProps, headerName: 'двигател', field: 'engine' },
+    { ...commonProps, headerName: 'цена', field: 'price' },
     {
       field: 'others',
       headerName: 'редактиране',
@@ -153,7 +121,18 @@ export default function TasksGrid() {
           border: 'none',
           padding: '10px 50px',
         }}
-        rows={data || []}
+        rows={
+          data || [
+            {
+              brand: 'Audi',
+              model: 'A3',
+              year: 2015,
+              engine: 'petrol',
+              price: 20111,
+              id: '22232 ',
+            },
+          ]
+        }
         columns={columns}
         pageSize={5}
         autoHeight
