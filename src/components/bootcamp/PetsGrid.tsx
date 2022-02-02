@@ -1,3 +1,7 @@
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
+import { useMutation } from 'react-query'
 import {
   Card,
   CardContent,
@@ -16,20 +20,18 @@ import {
   GridSelectionModel,
   GridToolbarContainer,
 } from '@mui/x-data-grid'
-import { useAnimalsList } from 'common/hooks/bootcampStudents'
-import { deleteAnimal } from 'common/rest'
-import { AnimalResponse } from 'gql/bootcamp'
-import { useTranslation } from 'next-i18next'
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useMutation } from 'react-query'
-import { AlertStore } from 'stores/AlertStore'
-import ConfirmModal from './ConfirmModal'
 import PermDeviceInformationIcon from '@mui/icons-material/PermDeviceInformation'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
-import Link from 'next/link'
+
+import { useAnimalsList } from 'common/hooks/bootcampStudents'
+import { deleteAnimal } from 'common/rest'
 import { routes } from 'common/routes'
+import { AnimalResponse } from 'gql/bootcamp'
+import { AlertStore } from 'stores/AlertStore'
+
+import ConfirmModal from './ConfirmModal'
 
 const useStyles = makeStyles(() => {
   return {

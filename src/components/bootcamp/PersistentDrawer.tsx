@@ -1,24 +1,30 @@
 import { useState } from 'react'
-import { styled, useTheme, Theme } from '@mui/material/styles'
-import Box from '@mui/material/Box'
-import Drawer from '@mui/material/Drawer'
-import CssBaseline from '@mui/material/CssBaseline'
+import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
+import {
+  Box,
+  Drawer,
+  CssBaseline,
+  Toolbar,
+  Typography,
+  Divider,
+  Tooltip,
+  Avatar,
+  Menu,
+  MenuItem,
+} from '@mui/material'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
-import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
-import Divider from '@mui/material/Divider'
+import { styled, useTheme, Theme } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import Link from 'next/link'
-import PodkrepiLogo from 'components/brand/PodkrepiLogo'
-import { Avatar, Menu, MenuItem } from '@mui/material'
-import Tooltip from '@mui/material/Tooltip'
-import DashboardMenu from 'components/layout/nav/DashboardMenu'
-import { DrawerStore } from 'stores/DrawerStore'
 import { observer } from 'mobx-react'
-import { useTranslation } from 'next-i18next'
+
+import { DrawerStore } from 'stores/DrawerStore'
+
+import PodkrepiLogo from 'components/brand/PodkrepiLogo'
+import DashboardMenu from 'components/layout/nav/DashboardMenu'
 
 const drawerWidth = 240
 

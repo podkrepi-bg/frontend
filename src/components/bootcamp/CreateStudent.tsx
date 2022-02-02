@@ -7,12 +7,13 @@ import { useTranslation } from 'next-i18next'
 import { createStyles, makeStyles } from '@mui/styles'
 import { AxiosError, AxiosResponse } from 'axios'
 
-import FormTextField from 'components/common/form/FormTextField'
-import GenericForm from 'components/common/form/GenericForm'
 import { BootcampStudentInput, BootcampStudentResponse } from 'gql/bootcamp'
 import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
 import { createBootcampStudent, editBootcampStudent } from 'common/rest'
 import { AlertStore } from 'stores/AlertStore'
+
+import GenericForm from 'components/common/form/GenericForm'
+import FormTextField from 'components/common/form/FormTextField'
 
 const validationSchema: yup.SchemaOf<BootcampStudentInput> = yup
   .object()

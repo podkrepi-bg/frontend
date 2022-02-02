@@ -1,13 +1,15 @@
 import { GetServerSideProps } from 'next'
-
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { QueryClient, dehydrate } from 'react-query'
-import { queryFn } from 'common/rest'
-import CreatePetForm from 'components/bootcamp/CreatePetForm'
-import { usePetById } from 'common/hooks/bootcampStudents'
-import DashboardLayout from 'components/bootcamp/DashboardLayout'
 import { Container } from '@mui/material'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { useTranslation } from 'next-i18next'
+import { QueryClient, dehydrate } from 'react-query'
+
+import { queryFn } from 'common/rest'
+import { routes } from 'common/routes'
+import { usePetById } from 'common/hooks/bootcampStudents'
+
+import CreatePetForm from 'components/bootcamp/CreatePetForm'
+import DashboardLayout from 'components/bootcamp/DashboardLayout'
 
 export default function EditPetPage({ slug }: { slug: string }) {
   const { data } = usePetById(slug)
@@ -16,7 +18,7 @@ export default function EditPetPage({ slug }: { slug: string }) {
   return (
     <DashboardLayout title={t('bootcamp:pets.edit')}>
       <Container>
-        <CreatePetForm initialValues={data} redirectUrl="/bootcamp/dashboard/pets" />
+        <CreatePetForm initialValues={data} redirectUrl={routes.bootcamp.dashboard.pets} />
       </Container>
     </DashboardLayout>
   )

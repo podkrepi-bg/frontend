@@ -6,11 +6,12 @@ import { useRouter } from 'next/router'
 import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
 
-import { BootcampStudentResponse } from 'gql/bootcamp'
-import { CreateStudent } from './CreateStudent'
 import { deleteBootcampStudent } from 'common/rest'
+import { BootcampStudentResponse } from 'gql/bootcamp'
 import { AlertStore } from 'stores/AlertStore'
+
 import ConfirmModal from './ConfirmModal'
+import { CreateStudent } from './CreateStudent'
 
 type Props = {
   student: BootcampStudentResponse

@@ -1,10 +1,12 @@
-import { queryFn } from 'common/rest'
-import BootcampStudentsGrid from 'components/bootcamp/BootcampStudentsGrid'
-import DashboardLayout from 'components/bootcamp/DashboardLayout'
 import { GetServerSideProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { QueryClient, dehydrate } from 'react-query'
+
+import { queryFn } from 'common/rest'
+
+import BootcampStudentsGrid from 'components/bootcamp/BootcampStudentsGrid'
+import DashboardLayout from 'components/bootcamp/DashboardLayout'
 
 export default function DashboardPage() {
   const { t } = useTranslation()

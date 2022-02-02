@@ -1,9 +1,12 @@
-import CreatePetForm from 'components/bootcamp/CreatePetForm'
 import { GetStaticProps } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { Container } from '@mui/material'
-import DashboardLayout from 'components/bootcamp/DashboardLayout'
 import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+import { routes } from 'common/routes'
+
+import CreatePetForm from 'components/bootcamp/CreatePetForm'
+import DashboardLayout from 'components/bootcamp/DashboardLayout'
 
 export default function CreatePet() {
   const { t } = useTranslation()
@@ -11,7 +14,7 @@ export default function CreatePet() {
   return (
     <DashboardLayout title={t('bootcamp:pets.create')}>
       <Container>
-        <CreatePetForm redirectUrl="/bootcamp/dashboard/pets" />
+        <CreatePetForm redirectUrl={routes.bootcamp.dashboard.pets} />
       </Container>
     </DashboardLayout>
   )
