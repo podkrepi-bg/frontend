@@ -19,7 +19,6 @@ import { green } from '@mui/material/colors'
 import Link from 'next/link'
 import DeleteSelectedModal from './layout/DeleteSelectedModal'
 import { BootcampResponse } from 'gql/bootcamps'
-import { routes } from 'common/routes'
 
 export default function BootcampsGrid() {
   const { data } = useBootcampsList()
@@ -90,7 +89,6 @@ export default function BootcampsGrid() {
     selectedRows.forEach((row: any) => {
       mutation.mutateAsync({ id: row.id }).then(() => {
         router.push(routes.bootcamps.home)
-        setIsDeleteSelectedModalOpen(false)
       })
     })
   }

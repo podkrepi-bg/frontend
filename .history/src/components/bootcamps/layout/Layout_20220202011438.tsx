@@ -263,7 +263,7 @@ export default function MiniDrawer() {
               <ListItemText primary="Settings" />
               {openCollapse ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
-            <Collapse in={openCollapse} timeout="auto" unmountOnExit>
+            <Collapse in={isDrawerOpen} timeout="auto" unmountOnExit >
               <List component="div" disablePadding>
                 <ListItem button>
                   <ListItemText inset primary="DropDown 1" />

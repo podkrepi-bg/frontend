@@ -26,8 +26,6 @@ import { Avatar, Button, Collapse, Menu, MenuItem, Tooltip } from '@mui/material
 import { makeStyles } from '@mui/styles'
 import Footer from './Footer'
 import { ExpandLess, ExpandMore, Settings } from '@mui/icons-material'
-import Link from 'next/link'
-import DrawerStore from 'stores/DrawerStore'
 
 const useStyles = makeStyles(() => {
   return {
@@ -114,11 +112,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
-const store = new DrawerStore()
 export default function MiniDrawer() {
   const classes = useStyles()
   const theme = useTheme()
-  const [isDrawerOpen, setIsDrawerOpen] = React.useState(store.isDrawerOpen)
   const [open, setOpen] = React.useState(false)
   const [openCollapse, setOpenCollapse] = React.useState(false)
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
@@ -151,27 +147,16 @@ export default function MiniDrawer() {
     setOpen(false)
   }
 
-  const toggleDrawer = () => {
-    setIsDrawerOpen(!isDrawerOpen)
-    if (isDrawerOpen) {
-      store.hide()
-      setOpen(false)
-    } else {
-      store.show()
-      setOpen(true)
-    }
-  }
-
   return (
     <>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position="fixed" open={isDrawerOpen}>
+        <AppBar position="fixed" open={open}>
           <Toolbar>
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              onClick={toggleDrawer}
+              onClick={handleDrawerOpen}
               edge="start"
               sx={{
                 marginRight: '36px',
@@ -223,9 +208,9 @@ export default function MiniDrawer() {
             </Box>
           </Toolbar>
         </AppBar>
-        <Drawer variant="permanent" open={isDrawerOpen} onClose={toggleDrawer}>
+        <Drawer variant="permanent" open={open}>
           <DrawerHeader>
-            <IconButton onClick={toggleDrawer}>
+            <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
             </IconButton>
           </DrawerHeader>
@@ -241,16 +226,16 @@ export default function MiniDrawer() {
               <ListItemIcon>
                 <ListAltIcon></ListAltIcon>
               </ListItemIcon>
-              <Button sx={{ justifyContent: 'space-between' }}>
-                <Link href="/bootcamps">All bootcamps</Link>
+              <Button href="/bootcamps" sx={{ justifyContent: 'space-between' }}>
+                All bootcamps
               </Button>
             </ListItem>
             <ListItem>
               <ListItemIcon>
                 <AddCircleIcon></AddCircleIcon>
               </ListItemIcon>
-              <Button sx={{ justifyContent: 'space-between' }}>
-                <Link href="/bootcamps/create">Add bootcamp</Link>
+              <Button href="/bootcamps/create" sx={{ justifyContent: 'space-between' }}>
+                Add bootcamp
               </Button>
             </ListItem>
           </List>

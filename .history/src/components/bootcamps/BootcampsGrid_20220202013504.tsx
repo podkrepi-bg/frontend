@@ -1,25 +1,38 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react'
-import { DataGrid, GridColumns, GridRowId } from '@mui/x-data-grid'
+import { DataGrid, GridActionsCellItem, GridColumns, GridRowId } from '@mui/x-data-grid'
 import { useTranslation } from 'next-i18next'
+
 import { useBootcampsList } from 'common/hooks/bootcamps'
 import router from 'next/router'
+import { routes } from 'common/routes'
 import InfoIcon from '@mui/icons-material/Info'
+
+import AddIcon from '@mui/icons-material/Add'
 import EditIcon from '@mui/icons-material/Edit'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import SaveIcon from '@mui/icons-material/Save'
+import CancelIcon from '@mui/icons-material/Close'
 import { AlertStore } from 'stores/AlertStore'
-import { deleteBootcamp } from 'common/rest'
+import { deleteBootcamp, editBootcamp } from 'common/rest'
 import { useMutation } from 'react-query'
-import HighlightOffSharpIcon from '@mui/icons-material/HighlightOffSharp'
-import { Box, Button, ButtonGroup, Container, Stack, Typography } from '@mui/material'
+import HighlightOffSharpIcon from '@mui/icons-material/HighlightOffSharp';
+import Drawer from './layout/Layout'
+import { endpoints } from 'common/api-endpoints'
+import { BootcampFormData, BootcampResponse } from 'gql/bootcamps'
+import { FormikHelpers } from 'formik/dist/types'
+import { AxiosError, AxiosResponse } from 'axios'
+import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
+import { Box, Button, ButtonGroup, Container, Grid, Stack, Typography } from '@mui/material'
 import DeleteModal from './layout/DeleteModal'
 import BootcampModal from './layout/BootcampModal'
 import Layout from './layout/Layout'
+import Footer from './layout/Footer'
 import { pink } from '@mui/material/colors'
 import { green } from '@mui/material/colors'
 import Link from 'next/link'
 import DeleteSelectedModal from './layout/DeleteSelectedModal'
-import { BootcampResponse } from 'gql/bootcamps'
-import { routes } from 'common/routes'
+
 
 export default function BootcampsGrid() {
   const { data } = useBootcampsList()
@@ -27,7 +40,9 @@ export default function BootcampsGrid() {
   const [details, setDetails] = useState(null || {})
   const [deleteData, setDeleteData] = useState(null || {})
   const [deleteOpen, setDeleteOpen] = useState(false)
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false)
   const [isDeleteSelectedModalOpen, setIsDeleteSelectedModalOpen] = React.useState(false)
+  const [rowToDelete, setRowToDelete] = React.useState<{ id: string }>()
   const [selectedRows, setSelectedRows] = React.useState<BootcampResponse[]>([])
   const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>([])
 
@@ -71,11 +86,10 @@ export default function BootcampsGrid() {
     router.push(`/bootcamps/edit/${cellValues.id}`)
   }
 
-  const { t } = useTranslation()
-  const mutation = useMutation({
+  const mutation = useMutation<AxiosResponse<BootcampResponse>, AxiosError<ApiErrors>, any>({
     mutationFn: deleteBootcamp,
-    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
-    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
+    onError: () => AlertStore.show('error', 'error'),
+    onSuccess: () => AlertStore.show('success', 'success'),
   })
 
   const handleDelete = async (cellValues: any) => {
@@ -88,9 +102,8 @@ export default function BootcampsGrid() {
 
   const handleDeleteAll = () => {
     selectedRows.forEach((row: any) => {
-      mutation.mutateAsync({ id: row.id }).then(() => {
-        router.push(routes.bootcamps.home)
-        setIsDeleteSelectedModalOpen(false)
+      mutation.mutateAsync(row?.id as string).then((_) => {
+        router.reload()
       })
     })
   }
@@ -162,7 +175,7 @@ export default function BootcampsGrid() {
           <DeleteModal modalProps={deleteProps}></DeleteModal>
           <DeleteSelectedModal
             isOpen={isDeleteSelectedModalOpen}
-            handleDelete={handleDeleteAll}
+            deleteHandler={handleDeleteAll}
             handleDeleteModalClose={closeDeleteSelectedHandler}></DeleteSelectedModal>
         </Box>
       </Container>

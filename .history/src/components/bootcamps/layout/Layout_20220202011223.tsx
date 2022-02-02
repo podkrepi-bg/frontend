@@ -153,6 +153,7 @@ export default function MiniDrawer() {
 
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen)
+    setOpenCollapse(!openCollapse)
     if (isDrawerOpen) {
       store.hide()
       setOpen(false)
@@ -256,7 +257,7 @@ export default function MiniDrawer() {
           </List>
           <Divider />
           <List>
-            <ListItem button onClick={handleOpenSettings}>
+            <ListItem button onClick={toggleDrawer}>
               <ListItemIcon>
                 <Settings />
               </ListItemIcon>

@@ -22,7 +22,7 @@ import ListItemText from '@mui/material/ListItemText'
 import InboxIcon from '@mui/icons-material/MoveToInbox'
 import MailIcon from '@mui/icons-material/Mail'
 import AddBoxIcon from '@mui/icons-material/AddBox'
-import { Avatar, Button, Collapse, Menu, MenuItem, Tooltip } from '@mui/material'
+import { Avatar, Button, Collapse, ListItemButton, Menu, MenuItem, Tooltip } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import Footer from './Footer'
 import { ExpandLess, ExpandMore, Settings } from '@mui/icons-material'
@@ -256,13 +256,13 @@ export default function MiniDrawer() {
           </List>
           <Divider />
           <List>
-            <ListItem button onClick={handleOpenSettings}>
+            <ListItemButton onClick={handleOpenSettings}>
               <ListItemIcon>
                 <Settings />
               </ListItemIcon>
               <ListItemText primary="Settings" />
               {openCollapse ? <ExpandLess /> : <ExpandMore />}
-            </ListItem>
+            </ListItemButton>
             <Collapse in={openCollapse} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <ListItem button>

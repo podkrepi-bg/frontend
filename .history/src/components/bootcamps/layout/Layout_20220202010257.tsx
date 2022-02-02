@@ -159,6 +159,7 @@ export default function MiniDrawer() {
     } else {
       store.show()
       setOpen(true)
+
     }
   }
 
@@ -166,7 +167,7 @@ export default function MiniDrawer() {
     <>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position="fixed" open={isDrawerOpen}>
+        <AppBar position="fixed" open={open}>
           <Toolbar>
             <IconButton
               color="inherit"
@@ -225,7 +226,7 @@ export default function MiniDrawer() {
         </AppBar>
         <Drawer variant="permanent" open={isDrawerOpen} onClose={toggleDrawer}>
           <DrawerHeader>
-            <IconButton onClick={toggleDrawer}>
+            <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
             </IconButton>
           </DrawerHeader>

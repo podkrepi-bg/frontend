@@ -153,6 +153,7 @@ export default function MiniDrawer() {
 
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen)
+    setOpenCollapse(!openCollapse)
     if (isDrawerOpen) {
       store.hide()
       setOpen(false)

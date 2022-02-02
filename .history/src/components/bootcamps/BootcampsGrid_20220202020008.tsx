@@ -90,7 +90,6 @@ export default function BootcampsGrid() {
     selectedRows.forEach((row: any) => {
       mutation.mutateAsync({ id: row.id }).then(() => {
         router.push(routes.bootcamps.home)
-        setIsDeleteSelectedModalOpen(false)
       })
     })
   }

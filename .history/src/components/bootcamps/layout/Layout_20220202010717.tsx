@@ -256,7 +256,7 @@ export default function MiniDrawer() {
           </List>
           <Divider />
           <List>
-            <ListItem button onClick={handleOpenSettings}>
+            <ListItem button onClick={handleOpenSettings} open={isDrawerOpen}>
               <ListItemIcon>
                 <Settings />
               </ListItemIcon>
