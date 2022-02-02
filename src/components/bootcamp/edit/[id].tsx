@@ -45,6 +45,12 @@ export default function EditBootcamper({ initialValues = defaults }: BootcamperF
     const router = useRouter()
     const id = window.location.pathname.split('/')[3]
 
+    const editWrapper = (id: string) => {
+        return async (values: BootcamperFormData) => {
+            return editBootcamper(id, values)
+        }
+    }
+
     const info = useViewBootcamper(id)
 
     if (!info.isLoading) {
@@ -62,7 +68,7 @@ export default function EditBootcamper({ initialValues = defaults }: BootcamperF
         AxiosError<ApiErrors>,
         BootcamperInput
     >({
-        mutationFn: editBootcamper,
+        mutationFn: editWrapper(id),
         onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
         onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
     })

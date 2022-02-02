@@ -30,7 +30,7 @@ export default function SearchByPhone({ initialValues = defaults }: SearchFormPr
 
     const onSubmit = async (
         values: SearchFormData,
-        { setFieldError, resetForm }: FormikHelpers<SearchFormData>,
+        { resetForm }: FormikHelpers<SearchFormData>,
     ) => {
         try {
             setRes([])
