@@ -12,7 +12,7 @@ import { makeStyles } from '@mui/styles'
 
 import { drawerWidth } from './MyDrawer'
 import { useContext } from 'react'
-import { DrawerContext } from 'context/DrawerContext'
+import { DrawerContext } from './context/DrawerContext'
 import { BootcampIntern } from 'lib/interfaces/BootcampIntern'
 import { useMutation } from 'react-query'
 import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
