@@ -1,6 +1,18 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Modal from '@mui/material/Modal'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material'
+
+const style = {
+  position: 'absolute' as const,
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  p: 4,
+}
 
 function DeleteSelectedModal({
   isOpen,
@@ -14,7 +26,7 @@ function DeleteSelectedModal({
   return (
     <Modal open={isOpen} onClose={handleDeleteModalClose}>
       <Dialog open={isOpen} onClose={handleDeleteModalClose}>
-        <DialogTitle>Are you sure you want to delete selected items?</DialogTitle>
+        <DialogTitle>Delete selected items?</DialogTitle>
         <DialogActions>
           <Button onClick={handleDelete} autoFocus>
             Yes

@@ -97,6 +97,8 @@ export default function BootcampsGrid() {
 
   const closeDeleteSelectedHandler = () => {
     setIsDeleteSelectedModalOpen(false)
+    // setSelectedRows([])
+    // setSelectionModel([])
   }
 
   const deleteProps = {
