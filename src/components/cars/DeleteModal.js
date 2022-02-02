@@ -1,5 +1,6 @@
 import { Box, Button, Modal, Typography } from '@mui/material'
 import React from 'react'
+import notify from './helpers/notify'
 import fetch from 'node-fetch'
 
 const modalStyle = {
@@ -14,6 +15,8 @@ const modalStyle = {
   p: 4,
 }
 
+
+
 export default function DeleteModal({ id, open, setOpen, cars, setCars }) {
   function deleteHandler() {
     fetch(`http://localhost:5010/api/car/${id}`, {
@@ -21,11 +24,13 @@ export default function DeleteModal({ id, open, setOpen, cars, setCars }) {
       headers: {
         'Content-Type': 'application/json',
       },
-    }).then((res) => {
+    }).then(() => {
       setOpen(false)
       setCars([...cars.filter((car) => car.id !== id)])
+      notify('Successfully deleted item!');
     })
   }
+
 
   return (
     <>

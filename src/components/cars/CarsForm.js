@@ -1,19 +1,33 @@
 import React, { useState } from 'react'
 import { Box, Button, TextField } from '@mui/material'
+import { useRouter } from 'next/router'
 import fetch from 'node-fetch'
+import CarField from './CarField'
+import notify from './helpers/notify'
 
 export default function CarsForm({ cars, setCars }) {
   const [brand, setBrand] = useState('')
   const [model, setModel] = useState('')
+  const [year, setYear] = useState(0)
+  const [city, setCity] = useState('')
+  const [country, setCountry] = useState('')
+
+  const router = useRouter()
 
   function carFormHandler(e) {
     e.preventDefault()
 
-    if (!brand || !model) {
+    if (!brand || !model || !year || !city || !country) {
       return
     }
 
-    const carData = JSON.stringify({ brand, model })
+    const carData = JSON.stringify({
+      brand,
+      model,
+      year: Number(year),
+      city,
+      country,
+    })
 
     fetch('http://localhost:5010/api/car', {
       method: 'post',
@@ -22,38 +36,21 @@ export default function CarsForm({ cars, setCars }) {
       },
       body: carData,
     })
-      .then((res) => res.json())
-      .then((data) => {
-        setBrand('')
-        setModel('')
-        setCars([...cars, { brand, model, id: data.id }])
+      .then(() => {
+        router.push('/cars');
+        notify('Successfully created item!')
       })
   }
 
   return (
     <>
       <form onSubmit={carFormHandler}>
-        <Box sx={{ mt: 10, ml: 80, width: '100%' }}>
-          <Box sx={{ display: 'inline', mr: 4 }}>
-            <TextField
-              id="brand"
-              label="Brand"
-              value={brand}
-              onChange={(e) => setBrand(e.target.value)}
-              required
-              size="small"
-            />
-          </Box>
-          <Box sx={{ display: 'inline', mr: 4 }}>
-            <TextField
-              id="model"
-              label="Model"
-              value={model}
-              onChange={(e) => setModel(e.target.value)}
-              required
-              size="small"
-            />
-          </Box>
+        <Box sx={{ mt: 15, ml: 95, width: 600 }}>
+          <CarField label="Brand" setElement={setBrand} />
+          <CarField label="Model" setElement={setModel} />
+          <CarField label="Year" setElement={setYear} type="number" />
+          <CarField label="City" setElement={setCity} />
+          <CarField label="Country" setElement={setCountry} />
           <Box sx={{ display: 'inline' }}>
             <Button type="submit">Submit</Button>
           </Box>

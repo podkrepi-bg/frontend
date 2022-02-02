@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { Box, Button } from '@mui/material'
-import EditField from './EditField'
+import CarField from './CarField'
+import notify from './helpers/notify'
 
 export default function EditForm({ car }) {
   const [brand, setBrand] = useState(car.brand)
@@ -34,20 +35,21 @@ export default function EditForm({ car }) {
         'Content-Type': 'application/json',
       },
       body: carData,
-    }).then((res) => {
-      router.push('/cars')
+    }).then(() => {
+      router.push('/cars');
+      notify('Successfully edited item!');
     })
   }
 
   return (
     <>
       <form onSubmit={onEditSubmit}>
-        <Box sx={{ mt: 10, ml: 80, width: 600 }}>
-          <EditField value={brand} label="Brand" setElement={setBrand} />
-          <EditField value={model} label="Model" setElement={setModel} />
-          <EditField value={year} label="Year" setElement={setYear} />
-          <EditField value={city} label="City" setElement={setCity} />
-          <EditField value={country} label="Country" setElement={setCountry} />
+        <Box sx={{ mt: 15, ml: 95, width: 600 }}>
+          <CarField value={brand} label="Brand" setElement={setBrand} />
+          <CarField value={model} label="Model" setElement={setModel} />
+          <CarField value={year} label="Year" setElement={setYear} type="number" />
+          <CarField value={city} label="City" setElement={setCity} />
+          <CarField value={country} label="Country" setElement={setCountry} />
           <Box sx={{ display: 'inline' }}>
             <Button type="submit">Save</Button>
           </Box>

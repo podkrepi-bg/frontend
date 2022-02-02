@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Box,
     Divider,
@@ -11,9 +11,23 @@ import CarRentalIcon from '@mui/icons-material/CarRental'
 import SubList from './SubList'
 import fetch from 'node-fetch'
 
-export default function CarsDrawer({ open, handleClose }) {
-    const topBrands = ['Mercedes', 'Audi', 'BMW', 'Volkswagen'];
-    const newModels = ['Honda Civic 2022', 'Audi A8 2022', 'BMW M3 2022', 'Volkswagen Golf R 2022'];
+export default function CarsDrawer({ open, setOpen }) {
+    const brandsSubList = {
+        title: 'Top Brands',
+        data: ['Mercedes', 'Audi', 'BMW', 'Volkswagen'],
+        icon: <DirectionsCarIcon />,
+    }
+    const modelsSubList = {
+        title: 'New Models',
+        data: ['Honda Civic 2022', 'Audi A8 2022', 'BMW M3 2022', 'Volkswagen Golf R 2022'],
+        icon: <CarRentalIcon />,
+    }
+
+    function handleClose() {
+        setOpen(false);
+        sessionStorage.setItem(brandsSubList.title, false);
+        sessionStorage.setItem(modelsSubList.title, false);
+    }
 
     return <>
         <Drawer
@@ -24,6 +38,7 @@ export default function CarsDrawer({ open, handleClose }) {
                     boxSizing: 'border-box',
                 },
             }}
+            transitionDuration={0}
             variant="persistent"
             anchor="left"
             open={open}>
@@ -33,8 +48,8 @@ export default function CarsDrawer({ open, handleClose }) {
                 </IconButton>
             </Box>
             <Divider />
-            <SubList title="Top brands" icon={<DirectionsCarIcon />} data={topBrands} />
-            <SubList title="New models" icon={<CarRentalIcon />} data={newModels} />
+            <SubList drawerOpen={open} {...brandsSubList} />
+            <SubList drawerOpen={open} {...modelsSubList} />
         </Drawer>
     </>;
 }

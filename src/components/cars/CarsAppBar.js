@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
     AppBar,
     Box,
@@ -8,9 +8,11 @@ import {
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import ProfileAvatar from './ProfileAvatar'
+import Link from 'next/link'
 import fetch from 'node-fetch'
 
 export default function CarsAppBar({ handleOpen }) {
+
     return <>
         <AppBar sx={{ backgroundColor: 'white' }} position="static">
             <Toolbar>
@@ -23,16 +25,21 @@ export default function CarsAppBar({ handleOpen }) {
                     sx={{ mr: 2 }}>
                     <MenuIcon />
                 </IconButton>
-                <Box
-                    component="img"
-                    sx={{
-                        height: 50,
-                        width: 50,
-                        mr: 3,
-                    }}
-                    alt="logo"
-                    src="/android-chrome-192x192.png"
-                />
+                <Link href="/cars">
+                    <Box
+                        component="img"
+                        sx={{
+                            height: 50,
+                            width: 50,
+                            mr: 3,
+                            '&:hover': {
+                                cursor: 'pointer',
+                            }
+                        }}
+                        alt="logo"
+                        src="/android-chrome-192x192.png"
+                    />
+                </Link>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1, textAlign: 'center' }}>
                     Admin panel
                 </Typography>

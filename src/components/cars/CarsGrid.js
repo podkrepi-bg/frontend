@@ -1,19 +1,38 @@
-import { Box, IconButton, Typography } from '@mui/material'
+import { Alert, Box, Fab, Typography } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
-import React, { useState } from 'react'
-import DetailsModal from './DetailsModal'
-import EditIcon from '@mui/icons-material/Edit'
+import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/Delete'
-import PageviewIcon from '@mui/icons-material/Pageview'
-import Link from 'next/link'
+import React, { useEffect, useState } from 'react'
+import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
+import DeleteAllModal from './DeleteAllModal'
 import fetch from 'node-fetch'
+import Actions from './Actions'
+import Link from 'next/link'
+
 
 export default function CarsGrid({ cars, setCars }) {
   const [detailsOpen, setDetailsOpen] = useState(false)
   const [deleteOpen, setDeleteOpen] = useState(false)
+  const [deleteAllOpen, setDeleteAllOpen] = useState(false)
   const [details, setDetails] = useState({})
   const [deleteId, setDeleteId] = useState('')
+  const [alertDisplay, setAlertDisplay] = useState('none')
+  const [alertValue, setAlertValue] = useState('')
+  const [selectionModel, setSelectionModel] = useState([])
+
+  useEffect(() => {
+    let alertMessage = sessionStorage.getItem('alert');
+
+    if (alertMessage) {
+      setAlertValue(alertMessage);
+      setAlertDisplay('');
+      setTimeout(() => {
+        setAlertDisplay('none');
+        sessionStorage.removeItem('alert');
+      }, 3000)
+    }
+  })
 
   const columns = [
     {
@@ -28,51 +47,38 @@ export default function CarsGrid({ cars, setCars }) {
     },
     {
       field: 'Actions',
-      width: 150,
+      width: 200,
+      align: 'right',
       renderCell: (cellValues) => {
-        return (
-          <>
-            <IconButton
-              size="small"
-              sx={{ mr: 1 }}
-              onClick={(event) => {
-                detailsClickHandler(event, cellValues)
-              }}>
-              <PageviewIcon />
-            </IconButton>
-            <Link href={`/cars/${cellValues.row.id}/edit`}>
-              <IconButton size="small" sx={{ mr: 1 }}>
-                <EditIcon />
-              </IconButton>
-            </Link>
-            <IconButton
-              size="small"
-              onClick={(event) => {
-                deleteClickHandler(event, cellValues)
-              }}>
-              <DeleteIcon />
-            </IconButton>
-          </>
-        )
+        return <Actions cellValues={cellValues} setDetails={setDetails}
+          setDeleteId={setDeleteId} setDeleteOpen={setDeleteOpen} setDetailsOpen={setDetailsOpen} />
       },
     },
   ]
 
-  function detailsClickHandler(e, cellValues) {
-    setDetails({ ...cellValues.row })
-    setDetailsOpen(true)
-  }
-
-  function deleteClickHandler(e, cellValues) {
-    setDeleteId(cellValues.row.id)
-    setDeleteOpen(true)
+  function deleteAllHandler(e) {
+    setDeleteAllOpen(true);
   }
 
   return (
     <>
       <Box sx={{ mt: 10, mx: 'auto', width: 600 }}>
-        <Typography sx={{ mb: 2, fontSize: 30 }}>Cars list</Typography>
+        <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Typography sx={{ fontSize: 30 }}>Cars list</Typography>
+          <Box>
+            <Link href="/cars/create">
+              <Fab sx={{ mr: 2 }}>
+                <AddIcon />
+              </Fab>
+            </Link>
+            <Fab onClick={deleteAllHandler}>
+              <DeleteIcon />
+            </Fab>
+          </Box>
+
+        </Box>
         <div style={{ display: 'flex', height: 400 }}>
+
           <DataGrid
             sortingOrder={['desc', 'asc']}
             rows={cars}
@@ -80,12 +86,28 @@ export default function CarsGrid({ cars, setCars }) {
             pageSize={5}
             rowsPerPageOptions={[5]}
             checkboxSelection
+            onSelectionModelChange={(newSelectionModel) => {
+              setSelectionModel(newSelectionModel);
+            }}
             disableSelectionOnClick
           />
         </div>
       </Box>
       <DetailsModal detailsOpen={detailsOpen} setDetailsOpen={setDetailsOpen} details={details} />
-      <DeleteModal cars={cars} setCars={setCars} id={deleteId} open={deleteOpen} setOpen={setDeleteOpen} />
+      <DeleteModal setAlertDisplay={setAlertDisplay} setAlertValue={setAlertValue}
+        cars={cars} setCars={setCars} id={deleteId} open={deleteOpen} setOpen={setDeleteOpen} />
+      <DeleteAllModal setAlertDisplay={setAlertDisplay} setAlertValue={setAlertValue}
+        cars={cars} setCars={setCars} selectionModel={selectionModel}
+        open={deleteAllOpen} setOpen={setDeleteAllOpen} />
+      <Alert sx={{
+        display: alertDisplay,
+        width: '100%',
+        justifyContent: 'center',
+        position: 'absolute',
+        bottom: 80
+      }}
+        severity="success">{alertValue}</Alert>
+
     </>
   )
 }
