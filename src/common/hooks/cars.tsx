@@ -1,7 +1,8 @@
-import { useMutation, UseMutationResult, useQuery } from 'react-query'
+import { MutateFunction, useMutation, UseMutationResult, useQuery } from 'react-query'
 import { endpoints } from 'common/api-endpoints'
 import { CarResponse } from 'gql/cars'
 import { routes } from 'common/routes'
+import { GridRowId } from '@mui/x-data-grid'
 
 // GET REQUESTS
 
@@ -14,7 +15,7 @@ export function useViewCar(slug: string | string[] | undefined) {
 }
 
 //MUTATE CARS (POST, PATCH, DELETE)
-
+export type MutationResultParams = GridRowId[] | GridRowId
 export const useMutateCars = (
   fn: any,
   queryClient: any,
@@ -22,12 +23,12 @@ export const useMutateCars = (
   setNotificationMessage: any,
   handleClose: any,
   router?: any,
-): UseMutationResult<unknown, unknown, void, unknown> => {
+): UseMutationResult<MutateFunction, Error, MutationResultParams, unknown> => {
   return useMutation(fn, {
     onSuccess: () => {
       queryClient.invalidateQueries('/car')
       handleClose && handleClose()
-      setNotificationsOpen(true)
+      setNotificationsOpen()
       setNotificationMessage(handleClose ? 'Записите бяха изтрити.' : 'Колата беше обновена')
       router && router.push(routes.cars.index)
     },

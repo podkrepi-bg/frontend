@@ -6,9 +6,11 @@ import ProfileMenuItems from './ProfileMenuItems'
 import DrawerListItems from './DrawerListItems'
 import { styled } from '@mui/material/styles'
 import Notifications from '../tasks/Snackbar'
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import DrawerHeader from './DrawerHeader'
 import DrawerIcons from './DrawerIcons'
+import { observer } from 'mobx-react'
+import { DrawerStore } from 'stores/cars/DrawerStore'
 import PanelFooter from './Footer'
 const drawerWidth = 240
 const Main = styled('main', { shouldForwardProp: (prop: string) => prop !== 'open' })<{
@@ -54,8 +56,8 @@ type Props = {
   children: React.ReactNode
 }
 
-export default function PersistentDrawerLeft({ children }: Props) {
-  const { drawerOpen, setDrawerOpen }: any = useContext(ModalContext)
+export default observer(function PersistentDrawerLeft({ children }: Props) {
+  const { isDrawerOpen, openDrawer, closeDrawer } = DrawerStore
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const isOpen = Boolean(anchorEl)
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -65,21 +67,21 @@ export default function PersistentDrawerLeft({ children }: Props) {
     setAnchorEl(null)
   }
   const handleDrawerOpen = () => {
-    setDrawerOpen(true)
+    openDrawer()
   }
   const handleDrawerClose = () => {
-    setDrawerOpen(false)
+    closeDrawer()
   }
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={drawerOpen} style={{ background: 'white' }}>
+      <AppBar position="fixed" open={isDrawerOpen} style={{ background: 'white' }}>
         <Toolbar
           sx={{
             justifyContent: 'space-between',
             display: 'flex',
           }}>
-          <DrawerIcons drawerOpen={drawerOpen} handleDrawerOpen={handleDrawerOpen} />
+          <DrawerIcons drawerOpen={isDrawerOpen} handleDrawerOpen={handleDrawerOpen} />
           <ProfileMenuItems
             handleClick={handleClick}
             handleClose={handleClose}
@@ -100,13 +102,13 @@ export default function PersistentDrawerLeft({ children }: Props) {
         }}
         variant="persistent"
         anchor="left"
-        open={drawerOpen}>
+        open={isDrawerOpen}>
         <DrawerHeader handleDrawerClose={handleDrawerClose} />
         <DrawerListItems />
       </Drawer>
-      <Main open={drawerOpen}>{children}</Main>
+      <Main open={isDrawerOpen}>{children}</Main>
       <PanelFooter />
       <Notifications />
     </Box>
   )
-}
+})

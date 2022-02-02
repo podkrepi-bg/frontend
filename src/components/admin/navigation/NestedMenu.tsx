@@ -3,12 +3,12 @@ import AccordionDetails from '@mui/material/AccordionDetails'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import AccountBoxIcon from '@mui/icons-material/AccountBox'
 import ListItemIcon from '@mui/material/ListItemIcon'
-import { ModalContext } from 'context/ModalContext'
 import { Button, ListItem } from '@mui/material'
 import Accordion from '@mui/material/Accordion'
-import { useContext } from 'react'
-export default function NestedMenu() {
-  const { accordionExpanded, setAccordionExpanded }: any = useContext(ModalContext)
+import { DrawerStore } from 'stores/cars/DrawerStore'
+import { observer } from 'mobx-react'
+export default observer(function NestedMenu() {
+  const { toggleAccordion, accordionOpen } = DrawerStore
   const commongStyles = {
     display: { xs: 'none', sm: 'block' },
     letterSpacing: '1px',
@@ -22,13 +22,13 @@ export default function NestedMenu() {
     padding: 0,
   }
   return (
-    <Accordion expanded={accordionExpanded} elevation={0} style={{ margin: '0px' }}>
+    <Accordion expanded={accordionOpen} elevation={0} style={{ margin: '0px' }}>
       <AccordionSummary
         sx={{ p: 0, height: '60px' }}
         aria-controls="panel1a-content"
         id="panel1a-header">
         <ListItem
-          onClick={() => setAccordionExpanded(!accordionExpanded)}
+          onClick={() => toggleAccordion()}
           button
           sx={{
             display: 'flex',
@@ -81,4 +81,4 @@ export default function NestedMenu() {
       </AccordionDetails>
     </Accordion>
   )
-}
+})

@@ -6,23 +6,28 @@ import {
   CircularProgress,
 } from '@mui/material'
 import { UseMutateFunction, useQueryClient } from 'react-query'
-import { ModalContext } from 'context/ModalContext'
-import { useMutateCars } from 'common/hooks/cars'
+import { useMutateCars, MutationResultParams } from 'common/hooks/cars'
 import { endpoints } from 'common/api-endpoints'
 import { Dialog, Button, Box } from '@mui/material'
-import { useContext } from 'react'
 import { axios } from 'common/api-client'
 import { GridRowId } from '@mui/x-data-grid'
+import { NotificationStore } from 'stores/cars/NotificationsStore'
+import { observer } from 'mobx-react'
 interface Props {
   handleClose: () => void
   open: boolean
   id: GridRowId
   multipleDeleteItems: GridRowId[]
 }
-export default function AlertDialog({ handleClose, open, id, multipleDeleteItems }: Props) {
-  const { setNotificationsOpen, setNotificationMessage }: any = useContext(ModalContext)
+export default observer(function AlertDialog({
+  handleClose,
+  open,
+  id,
+  multipleDeleteItems,
+}: Props) {
+  const { setMessage, openNotifications } = NotificationStore
   const queryClient = useQueryClient()
-
+  console.log(setMessage)
   const deleteMultipleRecords = async (items: GridRowId[]) => {
     return await axios.post(endpoints.cars.deleteManyCars.url, items)
   }
@@ -30,25 +35,23 @@ export default function AlertDialog({ handleClose, open, id, multipleDeleteItems
     return await axios.delete(endpoints.cars.deleteCar(id).url)
   }
   // deleteSelected - removes array with items
-  const { mutate: deleteSelected }: { mutate: UseMutateFunction<any, any, any, any> } =
-    useMutateCars(
-      deleteMultipleRecords,
-      queryClient,
-      setNotificationsOpen,
-      setNotificationMessage,
-      handleClose,
-    )
+  const {
+    mutate: deleteSelected,
+  }: { mutate: UseMutateFunction<unknown, Error, MutationResultParams, unknown> } = useMutateCars(
+    deleteMultipleRecords,
+    queryClient,
+    openNotifications,
+    setMessage,
+    handleClose,
+  )
   // deleteSingle - removes 1 item
   const {
     mutate: deleteSingle,
     isLoading,
-  }: { mutate: UseMutateFunction<any, any, any, any>; isLoading: boolean } = useMutateCars(
-    deleteCar,
-    queryClient,
-    setNotificationsOpen,
-    setNotificationMessage,
-    handleClose,
-  )
+  }: {
+    mutate: UseMutateFunction<unknown, Error, MutationResultParams, unknown>
+    isLoading: boolean
+  } = useMutateCars(deleteCar, queryClient, openNotifications, setMessage, handleClose)
 
   return (
     <div>
@@ -87,4 +90,4 @@ export default function AlertDialog({ handleClose, open, id, multipleDeleteItems
       </Dialog>
     </div>
   )
-}
+})

@@ -1,17 +1,16 @@
-import { ModalContext } from 'context/ModalContext'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
 import Snackbar from '@mui/material/Snackbar'
-import { useContext } from 'react'
 import * as React from 'react'
-export default function Notifications() {
-  const { notificationsOpen, setNotificationsOpen, notificationMessage }: any =
-    useContext(ModalContext)
+import { NotificationStore } from 'stores/cars/NotificationsStore'
+import { observer } from 'mobx-react'
+export default observer(function Notifications() {
+  const { areNotificationsOpen, closeNotifications, notificationsMessage } = NotificationStore
   const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
       return
     }
-    setNotificationsOpen(false)
+    closeNotifications()
   }
   const action = (
     <React.Fragment>
@@ -23,12 +22,12 @@ export default function Notifications() {
   return (
     <div>
       <Snackbar
-        open={notificationsOpen}
+        open={areNotificationsOpen}
         autoHideDuration={4000}
         onClose={handleClose}
-        message={notificationMessage}
+        message={notificationsMessage}
         action={action}
       />
     </div>
   )
-}
+})
