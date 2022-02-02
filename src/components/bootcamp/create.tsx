@@ -61,7 +61,7 @@ export default function CreateBootcamper({ initialValues = defaults }: Bootcampe
                 phone: values.phone,
                 email: values.email,
                 adress: values.adress
-            })
+            } as BootcamperInput)
             resetForm()
             router.push('/bootcamp')
             AlertStore.show('Successfully added new bootcamper', 'success', 1)
