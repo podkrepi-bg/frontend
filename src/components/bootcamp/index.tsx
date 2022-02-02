@@ -12,7 +12,7 @@ import RefetchStore from "./layout/RefetchStore";
 
 
 export default function BootcampPage() {
-    const [isRefetch, setIsRefetch] = useState(RefetchStore.isRefetch)
+    const [isRefetch] = useState(RefetchStore.isRefetch)
     const { t } = useTranslation()
     const router = useRouter()
     const info = useBootcampersList()

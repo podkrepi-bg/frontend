@@ -32,7 +32,7 @@ const defaults: BootcamperFormData = {
     email: '',
     phone: '',
     adress: ''
-}
+} as BootcamperFormData
 
 export type BootcamperFormProps = { initialValues?: BootcamperFormData }
 
