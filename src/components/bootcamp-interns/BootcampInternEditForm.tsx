@@ -19,7 +19,7 @@ import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
 import { AxiosError } from 'axios'
 import { FormikHelpers } from 'formik'
 import { useContext } from 'react'
-import { DrawerContext } from 'context/DrawerContext'
+import { DrawerContext } from 'context/SwipeableDrawerContext'
 
 const useStyles = makeStyles(() => {
   return {
