@@ -22,7 +22,7 @@ import { BootcampResponse } from 'gql/bootcamps'
 import { routes } from 'common/routes'
 
 export default function BootcampsGrid() {
-  const { data = [] } = useBootcampsList()
+  const { data } = useBootcampsList()
   const [open, setOpen] = useState(false)
   const [details, setDetails] = useState(null || {})
   const [deleteData, setDeleteData] = useState(null || {})

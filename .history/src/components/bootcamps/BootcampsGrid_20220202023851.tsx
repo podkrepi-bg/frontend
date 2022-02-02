@@ -22,7 +22,7 @@ import { BootcampResponse } from 'gql/bootcamps'
 import { routes } from 'common/routes'
 
 export default function BootcampsGrid() {
-  const { data = [] } = useBootcampsList()
+  const { data } = useBootcampsList()
   const [open, setOpen] = useState(false)
   const [details, setDetails] = useState(null || {})
   const [deleteData, setDeleteData] = useState(null || {})
@@ -128,7 +128,7 @@ export default function BootcampsGrid() {
           direction="row"
           spacing={2}
           sx={{ justifyContent: 'space-between', marginBottom: '15px' }}>
-          <Button variant="contained" color="info">
+          <Button variant="contained" color="success">
             <Link href="/bootcamps/create">Create new bootcamp</Link>
           </Button>
           <Button
