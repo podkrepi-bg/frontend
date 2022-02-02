@@ -73,7 +73,7 @@ export default function SearchByPhone({ initialValues = defaults }: SearchFormPr
                         </Grid>
                     </GenericForm>
                 </Grid>
-                {res.length > 0 ? <GenericGrid props={{ data: res }}></GenericGrid> : <Typography style={{ textAlign: "center", fontSize: "20px", marginRight: "4%" }}>No results</Typography>}
+                {res.length > 0 ? <GenericGrid data={res}></GenericGrid> : <Typography style={{ textAlign: "center", fontSize: "20px", marginRight: "4%" }}>No results</Typography>}
             </Grid>
         </BootcampersLayout >
     )

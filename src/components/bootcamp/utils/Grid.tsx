@@ -1,5 +1,5 @@
 import { IconButton } from "@mui/material";
-import { DataGrid, GridColumns, GridValueGetterParams } from "@mui/x-data-grid";
+import { DataGrid, GridColumns, GridRowId, GridValueGetterParams } from "@mui/x-data-grid";
 import InfoIcon from '@mui/icons-material/Info';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -9,6 +9,7 @@ import theme from "../layout/theme";
 import { useState } from "react";
 import { DeleteManyModalStore } from '../layout/DeleteManyModal/DeleteManyModalStore'
 import SubmitButton from "components/common/form/SubmitButton";
+import { BootcampersResponse } from "gql/bootcamp";
 
 const columns: GridColumns = [
     { field: 'id', headerName: 'ID', hide: true },
@@ -32,9 +33,13 @@ const columns: GridColumns = [
     }
 ]
 
-export default function GenericGrid({ props }) {
+interface GenericGridProps {
+    data: BootcampersResponse[]
+}
+
+export default function GenericGrid(props: GenericGridProps) {
     const bootcampers = props.data
-    const [rows, setRows] = useState([])
+    const [rows, setRows] = useState<GridRowId[]>([])
     return <>
         <DataGrid
             style={{ marginBottom: "1%", width: "90%", marginLeft: "10%" }}

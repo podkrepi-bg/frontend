@@ -48,7 +48,7 @@ export default function Footer(props: FooterProps) {
                     style={{ color: 'white', fontSize: '13px' }}
                 >
                 </Typography>
-                <Copyright props={{ description }} />
+                <Copyright description={description} />
             </Container>
         </footer >
     );

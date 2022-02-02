@@ -31,7 +31,7 @@ export default function BootcampPage() {
         </Grid>
         <Grid>
             {isLoading && <CircularProgress size="large" />}
-            <GenericGrid props={{ data: bootcampers || [] }} />
+            <GenericGrid data={bootcampers || []} />
         </Grid>
     </BootcampersLayout>
 }
