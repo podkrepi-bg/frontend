@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
+import SupportersGrid from 'components/admin/SupportersGrid'
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: {
@@ -8,3 +8,4 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     },
   }
 }
+export default SupportersGrid
