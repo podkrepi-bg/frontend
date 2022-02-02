@@ -1,9 +1,9 @@
 import { Button, CardActions, Container, Typography, TextField, Box } from '@mui/material'
 import LayoutPanel from '../navigation/LayoutPanel'
-import { useMutateCars } from 'common/hooks/cars'
+import { MutationResultParams, useMutateCars } from 'common/hooks/cars'
 import { endpoints } from 'common/api-endpoints'
 import { CarDataType } from 'gql/cars'
-import { useQueryClient } from 'react-query'
+import { UseMutateFunction, useQueryClient } from 'react-query'
 import { useState } from 'react'
 import { axios } from 'common/api-client'
 import { useRouter } from 'next/router'
@@ -24,14 +24,8 @@ export default observer(function AddForm() {
     return await axios.post(endpoints.cars.postCar.url, car)
   }
 
-  const { mutate }: any = useMutateCars(
-    postCar,
-    queryClient,
-    openNotifications,
-    setMessage,
-    null,
-    router,
-  )
+  const { mutate }: { mutate: UseMutateFunction<unknown, Error, MutationResultParams, unknown> } =
+    useMutateCars(postCar, queryClient, openNotifications, setMessage, null, router)
 
   return (
     <div
@@ -113,7 +107,7 @@ export default observer(function AddForm() {
               size="large">
               Запази
             </Button>
-            <Link href="/tasks">
+            <Link href="/tasks" passHref>
               <Button variant="outlined" size="large">
                 Отказ
               </Button>

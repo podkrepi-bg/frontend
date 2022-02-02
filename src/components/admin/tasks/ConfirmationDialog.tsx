@@ -27,7 +27,6 @@ export default observer(function AlertDialog({
 }: Props) {
   const { setMessage, openNotifications } = NotificationStore
   const queryClient = useQueryClient()
-  console.log(setMessage)
   const deleteMultipleRecords = async (items: GridRowId[]) => {
     return await axios.post(endpoints.cars.deleteManyCars.url, items)
   }

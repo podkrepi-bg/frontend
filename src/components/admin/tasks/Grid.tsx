@@ -16,20 +16,21 @@ import { useRouter } from 'next/router'
 import { useCarList } from 'common/hooks/cars'
 import { CarResponse } from 'gql/cars'
 import { UseQueryResult } from 'react-query'
-
-export default function TasksGrid() {
-  const { setAreCarsSelected, setConfirmationOpen, confirmationOpen, setCarId, setOpen }: any =
-    useContext(ModalContext)
+import { ModalStore } from 'stores/cars/ModalStore'
+import { observer } from 'mobx-react'
+export default observer(function TasksGrid() {
+  const { setCarId }: any = useContext(ModalContext)
+  const { openModal, closeCfrm, openCfrm, cfrmOpen, csPositive, csNegative } = ModalStore
   const router = useRouter()
   const [multipleDelete, setMupltipleDelete] = useState<GridRowId[]>([])
   const [id, setId] = useState<GridRowId>('')
 
   const handleClickOpen = () => {
-    setConfirmationOpen(true)
+    openCfrm()
   }
 
   const handleClose = () => {
-    setConfirmationOpen(false)
+    closeCfrm()
   }
   const commonCellStyles: any = {
     fontWeight: 'bold',
@@ -81,7 +82,7 @@ export default function TasksGrid() {
                 color="info"
                 onClick={() => {
                   setCarId(params.id)
-                  setOpen(true)
+                  openModal()
                 }}
               />
             }
@@ -113,7 +114,7 @@ export default function TasksGrid() {
   return (
     <>
       <AlertDialog
-        open={confirmationOpen}
+        open={cfrmOpen}
         handleClose={handleClose}
         id={id}
         multipleDeleteItems={multipleDelete}></AlertDialog>
@@ -146,12 +147,12 @@ export default function TasksGrid() {
         onSelectionModelChange={(selectionModel: GridSelectionModel) => {
           setMupltipleDelete(selectionModel)
           if (selectionModel.length > 0) {
-            setAreCarsSelected(true)
+            csPositive()
           } else {
-            setAreCarsSelected(false)
+            csNegative()
           }
         }}
       />
     </>
   )
-}
+})

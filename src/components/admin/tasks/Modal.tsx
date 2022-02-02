@@ -1,15 +1,15 @@
-import { ModalContext } from 'context/ModalContext'
-import * as React from 'react'
 import Modal from '@mui/material/Modal'
 import BasicCard from './Details'
-export default function BasicModal() {
-  const { open, setOpen }: any = React.useContext(ModalContext)
+import { ModalStore } from 'stores/cars/ModalStore'
+import { observer } from 'mobx-react'
+export default observer(function BasicModal() {
+  const { isModalOpen, closeModal } = ModalStore
   return (
     <div>
       <Modal
-        open={open}
+        open={isModalOpen}
         onClose={() => {
-          setOpen(false)
+          closeModal()
         }}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description">
@@ -17,4 +17,4 @@ export default function BasicModal() {
       </Modal>
     </div>
   )
-}
+})
