@@ -1,12 +1,12 @@
-import { ModalContext } from 'context/ModalContext'
 import CardContent from '@mui/material/CardContent'
 import { Typography, Card } from '@mui/material'
 import { useViewCar } from 'common/hooks/cars'
-import { useContext } from 'react'
 import { CarResponse } from 'gql/cars'
 import { UseQueryResult } from 'react-query'
-export default function BasicCard() {
-  const { carId }: any = useContext(ModalContext)
+import { observer } from 'mobx-react'
+import { ModalStore } from 'stores/cars/ModalStore'
+export default observer(function BasicCard() {
+  const { carId } = ModalStore
   const containerStyles = {
     minWidth: 275,
     position: 'absolute' as const,
@@ -40,4 +40,4 @@ export default function BasicCard() {
       </CardContent>
     </Card>
   )
-}
+})

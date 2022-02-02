@@ -1,5 +1,5 @@
-import { Copyright } from "@mui/icons-material"
-import { Box, Typography } from "@mui/material"
+import { Copyright } from '@mui/icons-material'
+import { Box, Typography } from '@mui/material'
 
 function PanelFooter() {
   return (

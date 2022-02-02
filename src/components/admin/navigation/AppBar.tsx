@@ -1,5 +1,4 @@
 import DeleteIcon from '@mui/icons-material/Delete'
-import { ModalContext } from 'context/ModalContext'
 import Container from '@mui/material/Container'
 import AddIcon from '@mui/icons-material/Add'
 import Tooltip from '@mui/material/Tooltip'
@@ -10,7 +9,7 @@ import { useRouter } from 'next/router'
 import Box from '@mui/material/Box'
 import { NotificationStore } from 'stores/cars/NotificationsStore'
 import { observer } from 'mobx-react'
-import { useContext } from 'react'
+import { ModalStore } from 'stores/cars/ModalStore'
 const addIconStyles = {
   transform: 'scale(1.3)',
   background: '#4ac3ff',
@@ -21,12 +20,11 @@ const addIconStyles = {
 }
 export default observer(function AppBarMenu() {
   const { setMessage, openNotifications } = NotificationStore
+  const { carSelected, openCfrm } = ModalStore
   const router = useRouter()
-  const { areCarsSelected }: any = useContext(ModalContext)
-
   const handleDelete = (): void => {
-    if (areCarsSelected) {
-      openNotifications()
+    if (carSelected) {
+      openCfrm()
     } else {
       setMessage('Моля изберете поне един ред')
       openNotifications()

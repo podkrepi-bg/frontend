@@ -1,22 +1,22 @@
-import { useQueryClient, UseQueryResult } from 'react-query'
+import { UseMutateFunction, useQueryClient, UseQueryResult } from 'react-query'
 import { Button, CardActions, Container, TextField, Typography, Box } from '@mui/material'
 import LayoutPanel from '../navigation/LayoutPanel'
 import { CarDataType, CarResponse } from 'gql/cars'
 import { useState } from 'react'
-import { useViewCar, useMutateCars } from 'common/hooks/cars'
+import { useViewCar, useMutateCars, MutationResultParams } from 'common/hooks/cars'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { NotificationStore } from 'stores/cars/NotificationsStore'
+import { ModalStore } from 'stores/cars/ModalStore'
 import { observer } from 'mobx-react'
 import { endpoints } from 'common/api-endpoints'
 import { axios } from 'common/api-client'
 export default observer(function EditForm() {
   const { openNotifications, setMessage } = NotificationStore
+  const { carId } = ModalStore
   const queryClient = useQueryClient()
   const router = useRouter()
-  const carId: string | string[] | undefined = router.query.id
-  const { data }: UseQueryResult<CarResponse, unknown> = useViewCar(carId)
-
+  const { data }: UseQueryResult<CarResponse> = useViewCar(carId)
   const [brand, setBrand] = useState<string | undefined>(data?.brand)
   const [model, setModel] = useState<string | undefined>(data?.model)
   const [year, setYear] = useState<number | undefined>(data?.year)
@@ -27,7 +27,9 @@ export default observer(function EditForm() {
     return await axios.patch(endpoints.cars.editCar(carId).url, newCar)
   }
 
-  const { mutate: editCar }: any = useMutateCars(
+  const {
+    mutate: editCar,
+  }: { mutate: UseMutateFunction<unknown, Error, MutationResultParams, unknown> } = useMutateCars(
     submitCar,
     queryClient,
     openNotifications,
