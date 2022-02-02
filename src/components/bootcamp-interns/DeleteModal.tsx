@@ -5,7 +5,7 @@ import { endpoints } from 'common/api-endpoints'
 import { useRouter } from 'next/router'
 import { routes } from 'common/routes'
 import { useContext } from 'react'
-import { DrawerContext } from 'context/DrawerContext'
+import { DrawerContext } from 'context/SwipeableDrawerContext'
 
 export default function DeleteModal(props: any) {
   const { setNotificationMessage, setNotificationsOpen }: any = useContext(DrawerContext)

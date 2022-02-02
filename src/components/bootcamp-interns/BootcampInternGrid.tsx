@@ -14,7 +14,6 @@ import DeleteModal from './DeleteModal'
 import React from 'react'
 import { useRouter } from 'next/router'
 import DataGridHeader from './DataGridHeader'
-import { BootcampIntern } from 'lib/interfaces/BootcampIntern'
 
 const useStyles = makeStyles(() => {
   return {

@@ -2,7 +2,7 @@ import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
 import Snackbar from '@mui/material/Snackbar'
 import { useContext } from 'react'
-import { DrawerContext } from 'context/DrawerContext'
+import { DrawerContext } from 'context/SwipeableDrawerContext'
 import * as React from 'react'
 export default function Notifications() {
   const { notificationsOpen, setNotificationsOpen, notificationMessage }: any =

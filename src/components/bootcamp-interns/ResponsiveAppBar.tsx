@@ -13,7 +13,7 @@ import React, { useContext, useState } from 'react'
 import MyDrawer, { drawerWidth } from './MyDrawer'
 import { makeStyles } from '@mui/styles'
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
-import { DrawerContext } from 'context/DrawerContext'
+import { DrawerContext } from 'context/SwipeableDrawerContext'
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
