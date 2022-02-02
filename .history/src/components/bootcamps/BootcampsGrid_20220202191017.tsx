@@ -45,7 +45,7 @@ export default function BootcampsGrid() {
       headerName: 'Last Name',
       editable: false,
       width: 200,
-      flex: 1.5,
+      flex: 4,
     },
     {
       field: 'actions',
@@ -53,6 +53,7 @@ export default function BootcampsGrid() {
       headerName: 'Actions',
       width: 200,
       align: 'center',
+      flex: 1,
       renderCell: (cellValues) => {
         return (
           <ButtonGroup>

@@ -45,7 +45,7 @@ export default function BootcampsGrid() {
       headerName: 'Last Name',
       editable: false,
       width: 200,
-      flex: 1.5,
+      flex: 1,
     },
     {
       field: 'actions',
