@@ -1,7 +1,6 @@
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
 import { Drawer, Toolbar, Box, Theme } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline'
-import { ModalContext } from 'context/ModalContext'
 import ProfileMenuItems from './ProfileMenuItems'
 import DrawerListItems from './DrawerListItems'
 import { styled } from '@mui/material/styles'

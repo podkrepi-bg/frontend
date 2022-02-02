@@ -22,12 +22,7 @@ const addIconStyles = {
 export default observer(function AppBarMenu() {
   const { setMessage, openNotifications } = NotificationStore
   const router = useRouter()
-  const {
-    setNotificationMessage,
-    setNotificationsOpen,
-    setConfirmationOpen,
-    areCarsSelected,
-  }: any = useContext(ModalContext)
+  const { areCarsSelected }: any = useContext(ModalContext)
 
   const handleDelete = (): void => {
     if (areCarsSelected) {
