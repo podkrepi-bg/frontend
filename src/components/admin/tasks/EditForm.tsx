@@ -7,16 +7,15 @@ import { useViewCar, useMutateCars, MutationResultParams } from 'common/hooks/ca
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { NotificationStore } from 'stores/cars/NotificationsStore'
-import { ModalStore } from 'stores/cars/ModalStore'
 import { observer } from 'mobx-react'
 import { endpoints } from 'common/api-endpoints'
 import { axios } from 'common/api-client'
 export default observer(function EditForm() {
   const { openNotifications, setMessage } = NotificationStore
-  const { carId } = ModalStore
-  const queryClient = useQueryClient()
   const router = useRouter()
-  const { data }: UseQueryResult<CarResponse> = useViewCar(carId)
+  const queryClient = useQueryClient()
+  const newId: string | number = String(router.query.id)
+  const { data }: UseQueryResult<CarResponse> = useViewCar(newId)
   const [brand, setBrand] = useState<string | undefined>(data?.brand)
   const [model, setModel] = useState<string | undefined>(data?.model)
   const [year, setYear] = useState<number | undefined>(data?.year)
@@ -24,7 +23,7 @@ export default observer(function EditForm() {
   const [price, setPrice] = useState<number | undefined>(data?.price)
 
   const submitCar = async (newCar: CarDataType) => {
-    return await axios.patch(endpoints.cars.editCar(carId).url, newCar)
+    return await axios.patch(endpoints.cars.editCar(newId).url, newCar)
   }
 
   const {
