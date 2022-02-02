@@ -51,7 +51,6 @@ export default function DeleteModal(props: any) {
         setNotificationsOpen(true)
         setNotificationMessage(`Sucessfully deleted ${deleteData.length} rows.`)
         setDeleteOpen(false)
-
         router.push(routes.bootcampIntern.index)
       })
     } else {
