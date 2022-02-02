@@ -18,6 +18,7 @@ import { useMutation } from 'react-query'
 import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
 import { AxiosError } from 'axios'
 import { FormikHelpers } from 'formik'
+import { useTranslation } from 'next-i18next'
 
 const useStyles = makeStyles(() => {
   return {
@@ -47,14 +48,11 @@ export default function BootcampInternCreateForm() {
   const router = useRouter()
   const classes = useStyles()
   const { setNotificationMessage, setNotificationsOpen }: any = useContext(DrawerContext)
+  const { t } = useTranslation()
 
   const createIntern = async (internData: BootcampIntern) => {
     await axios.post(endpoints.bootcampIntern.listBootcampIntern.url, internData)
   }
-
-  // const submitIntern = async (internData: BootcampIntern) => {
-  //   await axios.patch(endpoints.bootcampIntern.listBootcampIntern.url + `/${internId}`, internData)
-  // }
 
   const mutation = useMutation({
     mutationFn: createIntern,
