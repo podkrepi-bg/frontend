@@ -1,22 +1,18 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import Image from 'next/image'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 import { Grid, Theme, Typography } from '@mui/material'
-import NotFoundPage from 'pages/404'
+import Image from 'next/image'
 import { useViewCampaign } from 'common/hooks/campaigns'
-import InlineDonation from './InlineDonation'
 import Layout from 'components/layout/Layout'
+import InlineDonation from './InlineDonation'
+import NotFoundPage from 'pages/404'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     campaignPageWrapper: {
-      maxWidth: theme.spacing(150),
       margin: '0 auto',
-      [theme.breakpoints.up(1600)]: {
-        height: theme.spacing(118),
-      },
     },
     bannerWrapper: {
       '& span': {
@@ -30,20 +26,18 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     campaignTitle: {
       padding: theme.spacing(4),
-      color: theme.palette.common.white,
       height: theme.spacing(30),
+      color: theme.palette.common.white,
+      fontWeight: 500,
     },
     beneficiaryWrapper: {
       display: 'flex',
-      padding: theme.spacing(4),
       alignItems: 'end',
+      padding: theme.spacing(4),
     },
     beneficiaryAvatar: {
       borderRadius: '50%',
-      border: '4px solid #ffff !important',
-    },
-    beneficiaryName: {
-      textAlign: 'center',
+      border: `4px solid ${theme.palette.common.white} !important`,
     },
     campaignInfoWrapper: {
       gap: theme.spacing(2),
@@ -61,23 +55,27 @@ export default function ViewCampaignPage({ slug }: Props) {
   const { t } = useTranslation()
   const { data } = useViewCampaign(slug)
 
-  // const imgSource = '/img/campaign-banner.png'
+  const bannerSource = '/img/campaign-banner.png'
+  const beneficiaryAvatarSource = '/img/support-us-image.png'
+  const coordinatorAvatarSource = '/img/support-us-image.png'
 
   if (!data || !data.campaign) return <NotFoundPage />
 
   const { campaign } = data
-  // const target = campaign.targetAmount
-  // const summary = campaign.summary.find(() => true)
-  // const reached = summary ? summary.reachedAmount : 0
 
   return (
     <Layout maxWidth="xl">
-      <Grid container component="section" className={classes.campaignPageWrapper}>
+      <Grid
+        container
+        component="section"
+        maxWidth="lg"
+        justifyContent="center"
+        className={classes.campaignPageWrapper}>
         <Grid item xs={12} md={8}>
           <Grid className={classes.bannerWrapper}>
             <Image
-              src="/img/campaign-banner.png"
-              alt="Podkrepi.bg jumbotron heading"
+              src={bannerSource}
+              alt="Campaign banner image"
               layout="fill"
               objectFit="cover"
               className={classes.banner}
@@ -86,15 +84,15 @@ export default function ViewCampaignPage({ slug }: Props) {
           <Typography paragraph variant="h2" component="h1" className={classes.campaignTitle}>
             {campaign.title}
           </Typography>
-          <Grid item justifyContent="space-between" xs={9} className={classes.beneficiaryWrapper}>
+          <Grid item justifyContent="space-between" md={9} className={classes.beneficiaryWrapper}>
             <Image
-              src="/img/support-us-image.png"
+              src={beneficiaryAvatarSource}
               alt={campaign.title}
               width={250}
               height={250}
               className={classes.beneficiaryAvatar}
             />
-            <Typography variant="h4" component="h4" className={classes.beneficiaryName}>
+            <Typography variant="h4" component="h4">
               {campaign.beneficiary.person.firstName} {campaign.beneficiary.person.lastName}
             </Typography>
           </Grid>
@@ -114,7 +112,7 @@ export default function ViewCampaignPage({ slug }: Props) {
             </Typography>
             <Grid container alignItems="center" gap={4}>
               <Image
-                src="/img/support-us-image.png"
+                src={coordinatorAvatarSource}
                 alt={campaign.title}
                 width={100}
                 height={100}
@@ -126,15 +124,6 @@ export default function ViewCampaignPage({ slug }: Props) {
             </Grid>
           </Grid>
         </Grid>
-        {/* <Grid container spacing={6} className={classes.marginTop}>
-        <Grid item xs={12} md={8}>
-          <Typography variant="h4" component="h4" gutterBottom>
-            {money(reached)} от {money(target)}
-          </Typography>
-          <CampaignProgress raised={reached} target={target} />
-          <Typography className={classes.marginTop}>{campaign.description}</Typography>
-        </Grid>
-      </Grid> */}
         <Grid item xs={12} md={4}>
           <InlineDonation campaign={campaign} />
         </Grid>
