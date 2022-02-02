@@ -3,7 +3,11 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 
-function Copyright({ props }) {
+interface CopyrightProps {
+    description: string
+}
+
+function Copyright(props: CopyrightProps) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" style={{ marginBottom: "0.5%", color: 'white' }}>
             <Link color="inherit" style={{ fontSize: '13px', textDecoration: "none" }}>
