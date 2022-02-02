@@ -1,19 +1,19 @@
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
-import { Drawer, Toolbar, Box } from '@mui/material'
+import { Drawer, Toolbar, Box, Theme } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline'
 import { ModalContext } from 'context/ModalContext'
 import ProfileMenuItems from './ProfileMenuItems'
 import DrawerListItems from './DrawerListItems'
 import { styled } from '@mui/material/styles'
 import Notifications from '../tasks/Snackbar'
-import { useContext, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import DrawerHeader from './DrawerHeader'
 import DrawerIcons from './DrawerIcons'
 import PanelFooter from './Footer'
 const drawerWidth = 240
-const Main = styled('main', { shouldForwardProp: (prop: any) => prop !== 'open' })<{
+const Main = styled('main', { shouldForwardProp: (prop: string) => prop !== 'open' })<{
   open?: boolean
-}>(({ theme, open }: any) => ({
+}>(({ theme, open }: { theme: Theme; open: boolean }) => ({
   flexGrow: 1,
   padding: theme.spacing(3),
   transition: theme.transitions.create('margin', {
@@ -34,8 +34,8 @@ interface AppBarProps extends MuiAppBarProps {
   open?: boolean
 }
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop: any) => prop !== 'open',
-})<AppBarProps>(({ theme, open }: any) => ({
+  shouldForwardProp: (prop: string) => prop !== 'open',
+})<AppBarProps>(({ theme, open }: { theme: Theme; open: boolean }) => ({
   transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
@@ -50,7 +50,11 @@ const AppBar = styled(MuiAppBar, {
   }),
 }))
 
-export default function PersistentDrawerLeft({ children }: any) {
+type Props = {
+  children: React.ReactNode
+}
+
+export default function PersistentDrawerLeft({ children }: Props) {
   const { drawerOpen, setDrawerOpen }: any = useContext(ModalContext)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const isOpen = Boolean(anchorEl)

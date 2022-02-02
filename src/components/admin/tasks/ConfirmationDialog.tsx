@@ -5,39 +5,44 @@ import {
   DialogTitle,
   CircularProgress,
 } from '@mui/material'
-import { useQueryClient } from 'react-query'
+import { UseMutateFunction, useQueryClient } from 'react-query'
 import { ModalContext } from 'context/ModalContext'
 import { useMutateCars } from 'common/hooks/cars'
 import { endpoints } from 'common/api-endpoints'
 import { Dialog, Button, Box } from '@mui/material'
 import { useContext } from 'react'
 import { axios } from 'common/api-client'
+import { GridRowId } from '@mui/x-data-grid'
 interface Props {
   handleClose: () => void
   open: boolean
-  id: string
-  multipleDeleteItems: any
+  id: GridRowId
+  multipleDeleteItems: GridRowId[]
 }
 export default function AlertDialog({ handleClose, open, id, multipleDeleteItems }: Props) {
   const { setNotificationsOpen, setNotificationMessage }: any = useContext(ModalContext)
   const queryClient = useQueryClient()
 
-  const deleteMultipleRecords = async (items: any) => {
+  const deleteMultipleRecords = async (items: GridRowId[]) => {
     return await axios.post(endpoints.cars.deleteManyCars.url, items)
   }
   const deleteCar = async (id: string) => {
     return await axios.delete(endpoints.cars.deleteCar(id).url)
   }
   // deleteSelected - removes array with items
-  const { mutate: deleteSelected }: any = useMutateCars(
-    deleteMultipleRecords,
-    queryClient,
-    setNotificationsOpen,
-    setNotificationMessage,
-    handleClose,
-  )
+  const { mutate: deleteSelected }: { mutate: UseMutateFunction<any, any, any, any> } =
+    useMutateCars(
+      deleteMultipleRecords,
+      queryClient,
+      setNotificationsOpen,
+      setNotificationMessage,
+      handleClose,
+    )
   // deleteSingle - removes 1 item
-  const { mutate: deleteSingle, isLoading }: any = useMutateCars(
+  const {
+    mutate: deleteSingle,
+    isLoading,
+  }: { mutate: UseMutateFunction<any, any, any, any>; isLoading: boolean } = useMutateCars(
     deleteCar,
     queryClient,
     setNotificationsOpen,

@@ -10,7 +10,12 @@ const DrawerHeaderComp = styled('div')(({ theme }: any) => ({
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',
 }))
-function DrawerHeader({ handleDrawerClose }: any) {
+
+interface Props {
+  handleDrawerClose: () => void
+}
+
+function DrawerHeader({ handleDrawerClose }: Props) {
   return (
     <DrawerHeaderComp
       sx={{

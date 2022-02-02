@@ -1,24 +1,28 @@
-import { GridColumns, DataGrid, GridRenderCellParams, GridColDef } from '@mui/x-data-grid'
+import {
+  GridColumns,
+  DataGrid,
+  GridRenderCellParams,
+  GridColDef,
+  GridRowId,
+  GridSelectionModel,
+} from '@mui/x-data-grid'
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip'
-import { ReactNode, useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { ModalContext } from 'context/ModalContext'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import AlertDialog from './ConfirmationDialog'
 import { useRouter } from 'next/router'
 import { useCarList } from 'common/hooks/cars'
+import { CarResponse } from 'gql/cars'
+import { UseQueryResult } from 'react-query'
 
 export default function TasksGrid() {
-  const {
-    setAreCarsSelected,
-    setConfirmationOpen,
-    confirmationOpen,
-    setCarId,
-    setOpen,
-  }: any = useContext(ModalContext)
+  const { setAreCarsSelected, setConfirmationOpen, confirmationOpen, setCarId, setOpen }: any =
+    useContext(ModalContext)
   const router = useRouter()
-  const [multipleDelete, setMupltipleDelete] = useState([])
-  const [id, setId] = useState('')
+  const [multipleDelete, setMupltipleDelete] = useState<GridRowId[]>([])
+  const [id, setId] = useState<GridRowId>('')
 
   const handleClickOpen = () => {
     setConfirmationOpen(true)
@@ -31,7 +35,7 @@ export default function TasksGrid() {
     fontWeight: 'bold',
   }
 
-  const renderCell = (cellValues: GridRenderCellParams): ReactNode => {
+  const renderCell = (cellValues: GridRenderCellParams): React.ReactNode => {
     return <div style={commonCellStyles}>{cellValues.value}</div>
   }
   const commonProps: Partial<GridColDef> = {
@@ -61,7 +65,7 @@ export default function TasksGrid() {
       headerName: 'редактиране',
       headerAlign: 'center',
       width: 150,
-      renderCell: (values: any) => {
+      renderCell: (params: GridRenderCellParams<any, any, any>) => {
         return (
           <div
             style={{
@@ -76,7 +80,7 @@ export default function TasksGrid() {
                 sx={{ cursor: 'pointer' }}
                 color="info"
                 onClick={() => {
-                  setCarId(values.id)
+                  setCarId(params.id)
                   setOpen(true)
                 }}
               />
@@ -86,7 +90,7 @@ export default function TasksGrid() {
                 sx={{ cursor: 'pointer' }}
                 color="action"
                 onClick={() => {
-                  router.push(`/tasks/edit/${values.id}`)
+                  router.push(`/tasks/edit/${params.id}`)
                 }}
               />
             }
@@ -96,7 +100,7 @@ export default function TasksGrid() {
                 color="error"
                 onClick={() => {
                   handleClickOpen()
-                  setId(values.id)
+                  setId(params.id)
                 }}
               />
             }
@@ -105,7 +109,7 @@ export default function TasksGrid() {
       },
     },
   ]
-  const { data } = useCarList()
+  const { data }: UseQueryResult<CarResponse[]> = useCarList()
   return (
     <>
       <AlertDialog
@@ -139,9 +143,9 @@ export default function TasksGrid() {
         autoPageSize
         disableSelectionOnClick
         checkboxSelection
-        onSelectionModelChange={(row: any) => {
-          setMupltipleDelete(row)
-          if (row.length > 0) {
+        onSelectionModelChange={(selectionModel: GridSelectionModel) => {
+          setMupltipleDelete(selectionModel)
+          if (selectionModel.length > 0) {
             setAreCarsSelected(true)
           } else {
             setAreCarsSelected(false)
