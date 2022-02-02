@@ -1,16 +1,17 @@
 import { useQueryClient, UseQueryResult } from 'react-query'
 import { Button, CardActions, Container, TextField, Typography, Box } from '@mui/material'
 import LayoutPanel from '../navigation/LayoutPanel'
-import { ModalContext } from 'context/ModalContext'
 import { CarDataType, CarResponse } from 'gql/cars'
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import { useViewCar, useMutateCars } from 'common/hooks/cars'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import { NotificationStore } from 'stores/cars/NotificationsStore'
+import { observer } from 'mobx-react'
 import { endpoints } from 'common/api-endpoints'
 import { axios } from 'common/api-client'
-export default function EditForm() {
-  const { setNotificationsOpen, setNotificationMessage }: any = useContext(ModalContext)
+export default observer(function EditForm() {
+  const { openNotifications, setMessage } = NotificationStore
   const queryClient = useQueryClient()
   const router = useRouter()
   const carId: string | string[] | undefined = router.query.id
@@ -29,8 +30,8 @@ export default function EditForm() {
   const { mutate: editCar }: any = useMutateCars(
     submitCar,
     queryClient,
-    setNotificationsOpen,
-    setNotificationMessage,
+    openNotifications,
+    setMessage,
     null,
     router,
   )
@@ -120,7 +121,7 @@ export default function EditForm() {
               size="large">
               Запази
             </Button>
-            <Link href="/tasks">
+            <Link href="/tasks" passHref>
               <Button variant="outlined" size="large">
                 Отказ
               </Button>
@@ -130,4 +131,4 @@ export default function EditForm() {
       </LayoutPanel>
     </div>
   )
-}
+})

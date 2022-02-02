@@ -1,16 +1,17 @@
 import { Button, CardActions, Container, Typography, TextField, Box } from '@mui/material'
 import LayoutPanel from '../navigation/LayoutPanel'
-import { ModalContext } from 'context/ModalContext'
 import { useMutateCars } from 'common/hooks/cars'
 import { endpoints } from 'common/api-endpoints'
 import { CarDataType } from 'gql/cars'
 import { useQueryClient } from 'react-query'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { axios } from 'common/api-client'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-export default function AddForm() {
-  const { setNotificationsOpen, setNotificationMessage }: any = useContext(ModalContext)
+import { NotificationStore } from 'stores/cars/NotificationsStore'
+import { observer } from 'mobx-react'
+export default observer(function AddForm() {
+  const { openNotifications, setMessage } = NotificationStore
   const queryClient = useQueryClient()
   const router = useRouter()
   const [brand, setBrand] = useState('')
@@ -26,8 +27,8 @@ export default function AddForm() {
   const { mutate }: any = useMutateCars(
     postCar,
     queryClient,
-    setNotificationsOpen,
-    setNotificationMessage,
+    openNotifications,
+    setMessage,
     null,
     router,
   )
@@ -122,4 +123,4 @@ export default function AddForm() {
       </LayoutPanel>
     </div>
   )
-}
+})

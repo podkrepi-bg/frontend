@@ -8,6 +8,8 @@ import { Typography } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
 import { useRouter } from 'next/router'
 import Box from '@mui/material/Box'
+import { NotificationStore } from 'stores/cars/NotificationsStore'
+import { observer } from 'mobx-react'
 import { useContext } from 'react'
 const addIconStyles = {
   transform: 'scale(1.3)',
@@ -17,7 +19,8 @@ const addIconStyles = {
   padding: 1.2,
   boxShadow: 3,
 }
-export default function AppBarMenu() {
+export default observer(function AppBarMenu() {
+  const { setMessage, openNotifications } = NotificationStore
   const router = useRouter()
   const {
     setNotificationMessage,
@@ -28,10 +31,10 @@ export default function AppBarMenu() {
 
   const handleDelete = (): void => {
     if (areCarsSelected) {
-      setConfirmationOpen(true)
+      openNotifications()
     } else {
-      setNotificationMessage('Моля изберете поне един ред')
-      setNotificationsOpen(true)
+      setMessage('Моля изберете поне един ред')
+      openNotifications()
     }
   }
 
@@ -64,4 +67,4 @@ export default function AppBarMenu() {
       </Container>
     </AppBar>
   )
-}
+})
