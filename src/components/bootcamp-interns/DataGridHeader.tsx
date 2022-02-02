@@ -33,34 +33,26 @@ const useStyles = makeStyles(() => {
 
 export default function DataGridHeader({ selected }: any) {
   const { setNotificationMessage, setNotificationsOpen }: any = useContext(DrawerContext)
+  const [deleteOpen, setDeleteOpen] = useState(false)
+  const [deleteData, setDeleteData] = useState(null)
 
   const classes = useStyles()
   const router = useRouter()
 
-  const deleteHandler = async () => {
+  const deleteHandler = () => {
     if (selected.length === 0) {
       setNotificationsOpen(true)
       setNotificationMessage('You must select at least 1 row.')
       return
     }
+    setDeleteOpen(true)
+    setDeleteData(selected)
+  }
 
-    if (selected.length > 1) {
-      selected.map(async (id: string) => {
-        await axios.delete(
-          `http://localhost:5010/api${endpoints.bootcampIntern.listBootcampIntern.url}/${id}`,
-        )
-        setNotificationsOpen(true)
-        setNotificationMessage('Sucessfully deleted multiple rows.')
-        router.push(routes.bootcampIntern.index)
-      })
-    } else {
-      await axios.delete(
-        `http://localhost:5010/api${endpoints.bootcampIntern.listBootcampIntern.url}/${selected}`,
-      )
-      setNotificationsOpen(true)
-      setNotificationMessage('Sucessfully deleted.')
-      router.push(routes.bootcampIntern.index)
-    }
+  const deleteProps = {
+    deleteOpen,
+    setDeleteOpen,
+    deleteData,
   }
 
   return (
@@ -75,6 +67,7 @@ export default function DataGridHeader({ selected }: any) {
         <IconButton onClick={() => router.push(routes.bootcampIntern.index + '/create')}>
           <AddIcon color="primary" className={classes.addIcon} />
         </IconButton>
+        <DeleteModal modalProps={deleteProps}></DeleteModal>
       </Toolbar>
     </AppBar>
   )
