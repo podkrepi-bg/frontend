@@ -6,7 +6,7 @@ import {
   GridRowId,
   GridSelectionModel,
 } from '@mui/x-data-grid'
-import CSS from 'csstype';
+import CSS from 'csstype'
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip'
 import { useState } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -19,17 +19,16 @@ import { UseQueryResult } from 'react-query'
 import { ModalStore } from 'stores/cars/ModalStore'
 import { observer } from 'mobx-react'
 export default observer(function TasksGrid() {
-  const { openModal, closeCfrm, openCfrm, cfrmOpen, csPositive, csNegative, setCarId } = ModalStore
   const router = useRouter()
   const [multipleDelete, setMupltipleDelete] = useState<GridRowId[]>([])
   const [id, setId] = useState<GridRowId>('')
 
   const handleClickOpen = () => {
-    openCfrm()
+    ModalStore.openCfrm()
   }
 
   const handleClose = () => {
-    closeCfrm()
+    ModalStore.closeCfrm()
   }
   const commonCellStyles: CSS.Properties = {
     fontWeight: 'bold',
@@ -80,8 +79,8 @@ export default observer(function TasksGrid() {
                 sx={{ cursor: 'pointer' }}
                 color="info"
                 onClick={() => {
-                  setCarId(params.id)
-                  openModal()
+                  ModalStore.setCarId(params.id)
+                  ModalStore.openModal()
                 }}
               />
             }
@@ -113,7 +112,7 @@ export default observer(function TasksGrid() {
   return (
     <>
       <AlertDialog
-        open={cfrmOpen}
+        open={ModalStore.cfrmOpen}
         handleClose={handleClose}
         id={id}
         multipleDeleteItems={multipleDelete}></AlertDialog>
@@ -146,9 +145,9 @@ export default observer(function TasksGrid() {
         onSelectionModelChange={(selectionModel: GridSelectionModel) => {
           setMupltipleDelete(selectionModel)
           if (selectionModel.length > 0) {
-            csPositive()
+            ModalStore.csPositive()
           } else {
-            csNegative()
+            ModalStore.csNegative()
           }
         }}
       />
