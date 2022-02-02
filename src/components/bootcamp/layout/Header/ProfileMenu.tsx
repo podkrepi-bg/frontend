@@ -1,4 +1,4 @@
-import React from "react";
+import React, { SetStateAction } from "react";
 import Box from '@mui/material/Box'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
@@ -13,8 +13,8 @@ export default function ProfileMenu() {
 
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
+    const handleOpenUserMenu = () => {
+        setAnchorElUser(true as unknown as SetStateAction<null>);
     };
 
     const handleCloseUserMenu = () => {
