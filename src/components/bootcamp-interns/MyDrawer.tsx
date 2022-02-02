@@ -9,7 +9,7 @@ import { useContext, useState } from 'react'
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
-import { DrawerContext } from 'context/DrawerContext'
+import { DrawerContext } from 'context/SwipeableDrawerContext'
 
 export const drawerWidth = 200
 

@@ -25,7 +25,7 @@ const {
 } = getConfig()
 
 import 'styles/global.scss'
-import DrawerContextProvider from 'context/DrawerContext'
+import DrawerContextProvider from 'context/SwipeableDrawerContext'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()

@@ -5,10 +5,8 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import AddIcon from '@mui/icons-material/Add'
 import { useRouter } from 'next/router'
 import { routes } from 'common/routes'
-import axios from 'axios'
-import { endpoints } from 'common/api-endpoints'
 import { useContext, useState } from 'react'
-import { DrawerContext } from 'context/DrawerContext'
+import { DrawerContext } from 'context/SwipeableDrawerContext'
 import DeleteModal from './DeleteModal'
 
 const useStyles = makeStyles(() => {
