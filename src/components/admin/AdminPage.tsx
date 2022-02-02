@@ -9,7 +9,6 @@ import Layout from 'components/layout/Layout'
 
 import InfoRequestGrid from './InfoRequestGrid'
 import SupportersGrid from './SupportersGrid'
-import CarsList from '../../pages/cars/index.js'
 
 export default function AdminPage() {
   const { t } = useTranslation()
@@ -37,7 +36,7 @@ export default function AdminPage() {
             <Typography variant="h3">{t('nav.admin.supporters')}</Typography>
           </Grid>
           <Grid item>
-            <CarsList></CarsList>
+            <SupportersGrid />
           </Grid>
         </Grid>
       </Container>
