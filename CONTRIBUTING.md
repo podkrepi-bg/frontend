@@ -21,6 +21,7 @@ Table of contents:
 ## Development
 
 ### Setup local dev environment
+
 To run and develop the module NodeJS 16 is required. In this section 2 ways of configuring a development environment are described.
 
 ### Installing the dependencies
@@ -34,8 +35,8 @@ The following dependencies are required in order to be able to run the project:
 
 If you wish to keep your host clean, it is also possible to develop the module in a Docker container. You can do that by using the [Visual Studio Code](https://code.visualstudio.com/download)'s [Remote Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) and read [how to initialize your dev container](https://code.visualstudio.com/docs/remote/containers).
 
-
 ### Cloning and initializing the repo
+
 ```shell
 git clone https://github.com/podkrepi-bg/frontend
 cd frontend
