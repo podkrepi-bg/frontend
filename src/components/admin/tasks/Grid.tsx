@@ -6,9 +6,9 @@ import {
   GridRowId,
   GridSelectionModel,
 } from '@mui/x-data-grid'
+import CSS from 'csstype';
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip'
-import { useContext, useState } from 'react'
-import { ModalContext } from 'context/ModalContext'
+import { useState } from 'react'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import AlertDialog from './ConfirmationDialog'
@@ -19,8 +19,7 @@ import { UseQueryResult } from 'react-query'
 import { ModalStore } from 'stores/cars/ModalStore'
 import { observer } from 'mobx-react'
 export default observer(function TasksGrid() {
-  const { setCarId }: any = useContext(ModalContext)
-  const { openModal, closeCfrm, openCfrm, cfrmOpen, csPositive, csNegative } = ModalStore
+  const { openModal, closeCfrm, openCfrm, cfrmOpen, csPositive, csNegative, setCarId } = ModalStore
   const router = useRouter()
   const [multipleDelete, setMupltipleDelete] = useState<GridRowId[]>([])
   const [id, setId] = useState<GridRowId>('')
@@ -32,7 +31,7 @@ export default observer(function TasksGrid() {
   const handleClose = () => {
     closeCfrm()
   }
-  const commonCellStyles: any = {
+  const commonCellStyles: CSS.Properties = {
     fontWeight: 'bold',
   }
 
@@ -66,7 +65,7 @@ export default observer(function TasksGrid() {
       headerName: 'редактиране',
       headerAlign: 'center',
       width: 150,
-      renderCell: (params: GridRenderCellParams<any, any, any>) => {
+      renderCell: (params: GridRenderCellParams) => {
         return (
           <div
             style={{
