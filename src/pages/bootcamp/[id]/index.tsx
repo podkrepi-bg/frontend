@@ -7,7 +7,7 @@ import BootcampEditInternPage from 'components/bootcamp/BootcampEditInternPage'
 import { endpoints } from 'common/api-endpoints'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale, query }) => {
-  const id = { query }
+  const { id } = query
   const client = new QueryClient()
   await client.prefetchQuery(`${endpoints.bootcamp.getIntern.url}/${id}`, queryFn)
 

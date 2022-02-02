@@ -3,8 +3,8 @@ import { useBootcampIntern } from 'common/hooks/bootcamp'
 import Layout from './Layout'
 import EditInternForm from './EditInternForm'
 
-export default function BootcampEditInternPage(props: any) {
-  const id = props.id.query.id
+type Props = { id: string }
+export default function BootcampEditInternPage({ id }: Props) {
   const { data } = useBootcampIntern(id)
 
   return (
