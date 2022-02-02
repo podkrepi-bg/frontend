@@ -19,7 +19,7 @@ function AlertComponent() {
         <>
             {getAlerts.map(({ type, message }) => {
                 return (
-                    <Snackbar style={{ marginBottom: "20%" }} open={open} autoHideDuration={10000} onClose={handleClose} anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}>
+                    <Snackbar key={message[0]} style={{ marginBottom: "20%" }} open={open} autoHideDuration={10000} onClose={handleClose} anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}>
                         <Alert icon={false} onClose={handleClose} sx={{ width: '100%', bgcolor: theme.palette.secondary.main, color: type === 'success' ? 'green' : 'red' }}>
                             {message}
                         </Alert>
