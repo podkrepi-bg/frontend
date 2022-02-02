@@ -15,9 +15,10 @@ import Link from 'next/link'
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 import { Avatar, Menu, MenuItem } from '@mui/material'
 import Tooltip from '@mui/material/Tooltip'
-import DashboardMenuV2 from 'components/layout/nav/DashboardMenuV2'
+import DashboardMenu from 'components/layout/nav/DashboardMenu'
 import { DrawerStore } from 'stores/DrawerStore'
 import { observer } from 'mobx-react'
+import { useTranslation } from 'next-i18next'
 
 const drawerWidth = 240
 
@@ -77,6 +78,7 @@ type Props = {
 }
 
 export default observer(function PersistentDrawer({ title, children }: Props) {
+  const { t } = useTranslation()
   const { isOpen, toggle } = DrawerStore
   const theme = useTheme()
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
@@ -109,7 +111,7 @@ export default observer(function PersistentDrawer({ title, children }: Props) {
               </a>
             </Link>
             <Typography variant="h6" noWrap component="div" sx={{ marginLeft: '16px' }}>
-              Admin panel
+              {t('nav.bootcamp.dashboard')}
             </Typography>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
@@ -167,7 +169,7 @@ export default observer(function PersistentDrawer({ title, children }: Props) {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <DashboardMenuV2 />
+        <DashboardMenu />
       </Drawer>
       <Main open={isOpen}>
         <DrawerHeader />

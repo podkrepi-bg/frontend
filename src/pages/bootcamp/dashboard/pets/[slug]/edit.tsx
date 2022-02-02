@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { QueryClient, dehydrate } from 'react-query'
 import { queryFn } from 'common/rest'
-import CreateAnimalForm from 'components/bootcamp/CreateAnimalForm'
+import CreatePetForm from 'components/bootcamp/CreatePetForm'
 import { usePetById } from 'common/hooks/bootcampStudents'
 import DashboardLayout from 'components/bootcamp/DashboardLayout'
 import { Container } from '@mui/material'
@@ -13,7 +13,7 @@ export default function EditPetPage({ slug }: { slug: string }) {
   return (
     <DashboardLayout title="Edit pet">
       <Container>
-        <CreateAnimalForm initialValues={data} redirectUrl="/bootcamp/dashboard/pets" />
+        <CreatePetForm initialValues={data} redirectUrl="/bootcamp/dashboard/pets" />
       </Container>
     </DashboardLayout>
   )

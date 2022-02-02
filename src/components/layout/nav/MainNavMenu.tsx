@@ -6,7 +6,7 @@ import { staticUrls } from 'common/routes'
 
 import DonationMenu from './DonationMenu'
 import ProjectMenu from './ProjectMenu'
-import CountryMenu from './CountryMenu'
+import BootcampMenu from './BootcampMenu'
 
 export default function MainNavMenu({ children }: { children?: React.ReactNode }) {
   const { t } = useTranslation()
@@ -20,7 +20,7 @@ export default function MainNavMenu({ children }: { children?: React.ReactNode }
         <DonationMenu />
       </Grid>
       <Grid item>
-        <CountryMenu />
+        <BootcampMenu />
       </Grid>
       <Grid item>
         <Button

@@ -19,9 +19,12 @@
       "index": "Bootcamp",
       "create": "Create country",
       "list": "All countries",
-      "students": "All students",
-      "animals": "All animals",
-      "dashboard": "Admin panel"
+      "pets": {
+        "index": "Pets",
+        "create": "Create pet",
+        "all": "All"
+      },
+      "dashboard": "Admin dashboard"
     },
     "admin": {
       "index": "Administration",

@@ -1,15 +1,5 @@
 import { useState } from 'react'
-import {
-  Card,
-  CardContent,
-  Grid,
-  Typography,
-  CardActions,
-  Button,
-  Modal,
-  Box,
-  ButtonGroup,
-} from '@mui/material'
+import { Card, CardContent, Grid, Typography, CardActions, Button, Modal, Box } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import makeStyles from '@mui/styles/makeStyles'
 import { useRouter } from 'next/router'
@@ -20,6 +10,7 @@ import { BootcampStudentResponse } from 'gql/bootcamp'
 import { CreateStudent } from './CreateStudent'
 import { deleteBootcampStudent } from 'common/rest'
 import { AlertStore } from 'stores/AlertStore'
+import ConfirmModal from './ConfirmModal'
 
 type Props = {
   student: BootcampStudentResponse
@@ -103,26 +94,11 @@ export default function StudentCard({ student }: Props) {
           </Button>
         </CardActions>
       </Card>
-      <Modal open={modalOpen} onClose={closeModal}>
-        <Box className={classes.modal}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Are you sure?
-          </Typography>
-          <ButtonGroup sx={{ marginTop: 1 }}>
-            <Button variant="contained" size="small" onClick={deleteConfirmHandler}>
-              Confirm
-            </Button>
-            <Button
-              variant="contained"
-              size="small"
-              color="error"
-              className={classes.deleteBtn}
-              onClick={closeModal}>
-              Cancel
-            </Button>
-          </ButtonGroup>
-        </Box>
-      </Modal>
+      <ConfirmModal
+        open={modalOpen}
+        closeModal={closeModal}
+        confirmHandler={deleteConfirmHandler}
+      />
       <Modal open={isEditModalOpen} onClose={() => setIsEditModalOpen(false)}>
         <Box className={classes.modal}>
           <CreateStudent

@@ -53,7 +53,7 @@ const useStyles = makeStyles(() => {
 
 type GridToolbarProps = {
   selectionModel: GridSelectionModel
-  setAnimals: (old: any) => void
+  setAnimals: React.Dispatch<React.SetStateAction<AnimalResponse[]>>
 }
 
 function GridToolbar({ selectionModel, setAnimals }: GridToolbarProps) {
@@ -68,9 +68,7 @@ function GridToolbar({ selectionModel, setAnimals }: GridToolbarProps) {
     for (let i = 0; i < selectionModel.length; i++) {
       await mutation.mutateAsync({ slug: selectionModel[i].toString() })
     }
-    setAnimals((old: any) =>
-      (old as AnimalResponse[])?.filter((x) => !selectionModel.includes(x.id)),
-    )
+    setAnimals((old) => old?.filter((x) => !selectionModel.includes(x.id)))
     setOpen(false)
   }
 
@@ -138,9 +136,11 @@ const EditButton = ({ params }: { params: GridRenderCellParams }) => {
 
   return (
     <Tooltip title="edit" placement="top">
-      <Link passHref href={routes.bootcamp.dashboard.editPet(params.row.id)}>
-        <EditIcon className={classes.btn} />
-      </Link>
+      <Box className={classes.link}>
+        <Link passHref href={routes.bootcamp.dashboard.editPet(params.row.id)}>
+          <EditIcon className={classes.btn} />
+        </Link>
+      </Box>
     </Tooltip>
   )
 }
@@ -150,7 +150,7 @@ const DeleteButton = ({
   setAnimals,
 }: {
   params: GridRenderCellParams
-  setAnimals: (old: any) => void
+  setAnimals: React.Dispatch<React.SetStateAction<AnimalResponse[]>>
 }) => {
   const [open, setOpen] = useState(false)
   const { t } = useTranslation()
@@ -167,7 +167,7 @@ const DeleteButton = ({
   const deleteConfirmHandler = async () => {
     try {
       await mutation.mutateAsync({ slug: params.row.id })
-      setAnimals((old: any) => (old as AnimalResponse[])?.filter((x) => x.id !== params.row.id))
+      setAnimals((old) => old?.filter((x) => x.id !== params.row.id))
     } catch (error) {
       AlertStore.show(t('common:alerts.error'), 'error')
     }
@@ -186,11 +186,11 @@ const DeleteButton = ({
 
 export default function PetsGrid() {
   const { data } = useAnimalsList()
-  const [animals, setAnimals] = useState(data)
+  const [animals, setAnimals] = useState<AnimalResponse[]>(data || [])
   const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([])
 
   useEffect(() => {
-    setAnimals(data)
+    setAnimals(data || [])
   }, [data])
 
   const renderActions = useCallback((params: GridRenderCellParams) => {

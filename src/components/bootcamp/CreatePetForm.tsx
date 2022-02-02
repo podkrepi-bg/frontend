@@ -12,6 +12,7 @@ import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { useMutation } from 'react-query'
 import { AlertStore } from 'stores/AlertStore'
+import { routes } from 'common/routes'
 
 const validationSchema: yup.SchemaOf<AnimalInput> = yup
   .object()
@@ -51,7 +52,7 @@ type Props = {
   closeModal?: () => void
 }
 
-export default function CreateAnimalForm({
+export default function CreatePetForm({
   initialValues,
   redirectUrl,
   successHandler,
@@ -69,6 +70,11 @@ export default function CreateAnimalForm({
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
+
+  const cancelHandler = () => {
+    router.push(redirectUrl || routes.bootcamp.dashboard.pets)
+  }
+
   const submitHandler = async (
     values: AnimalResponse,
     { setFieldError }: FormikHelpers<AnimalResponse>,
@@ -86,7 +92,7 @@ export default function CreateAnimalForm({
           id: initialValues?.id || '',
         })
       } else {
-        router.push(redirectUrl || '/bootcamp/animals')
+        cancelHandler()
       }
     } catch (error) {
       console.error(error)
@@ -99,9 +105,6 @@ export default function CreateAnimalForm({
     }
   }
 
-  const cancelHandler = () => {
-    router.push(redirectUrl || '/bootcamp/animals')
-  }
   return (
     <Grid className={classes.modal} container direction="column">
       <Grid item sx={{ mb: 1 }}>
