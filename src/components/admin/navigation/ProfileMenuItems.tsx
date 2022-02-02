@@ -1,6 +1,13 @@
 import { Menu, MenuItem, Typography, Avatar } from '@mui/material'
 
-function ProfileMenuItems({ handleClick, anchorEl, handleClose, isOpen }: any) {
+interface Props {
+  handleClick: (event: React.MouseEvent<HTMLElement>) => void
+  anchorEl: null | HTMLElement
+  handleClose: () => void
+  isOpen: boolean
+}
+
+function ProfileMenuItems({ handleClick, anchorEl, handleClose, isOpen }: Props) {
   return (
     <div>
       <Typography

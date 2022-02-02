@@ -3,11 +3,13 @@ import CardContent from '@mui/material/CardContent'
 import { Typography, Card } from '@mui/material'
 import { useViewCar } from 'common/hooks/cars'
 import { useContext } from 'react'
+import { CarResponse } from 'gql/cars'
+import { UseQueryResult } from 'react-query'
 export default function BasicCard() {
   const { carId }: any = useContext(ModalContext)
   const containerStyles = {
     minWidth: 275,
-    position: 'absolute' as 'absolute',
+    position: 'absolute' as const,
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
@@ -16,7 +18,7 @@ export default function BasicCard() {
     boxShadow: 24,
     p: 4,
   }
-  const { data }: any = useViewCar(carId)
+  const { data }: UseQueryResult<CarResponse> = useViewCar(carId)
   return (
     <Card sx={containerStyles}>
       <CardContent>

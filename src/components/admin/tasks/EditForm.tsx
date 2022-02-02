@@ -1,8 +1,8 @@
-import { useQueryClient } from 'react-query'
+import { useQueryClient, UseQueryResult } from 'react-query'
 import { Button, CardActions, Container, TextField, Typography, Box } from '@mui/material'
 import LayoutPanel from '../navigation/LayoutPanel'
 import { ModalContext } from 'context/ModalContext'
-import { CarDataType } from 'gql/cars'
+import { CarDataType, CarResponse } from 'gql/cars'
 import { useState, useContext } from 'react'
 import { useViewCar, useMutateCars } from 'common/hooks/cars'
 import { useRouter } from 'next/router'
@@ -14,13 +14,13 @@ export default function EditForm() {
   const queryClient = useQueryClient()
   const router = useRouter()
   const carId: string | string[] | undefined = router.query.id
-  const { data }: any = useViewCar(carId)
+  const { data }: UseQueryResult<CarResponse, unknown> = useViewCar(carId)
 
-  const [brand, setBrand] = useState<string>(data.brand)
-  const [model, setModel] = useState<string>(data.model)
-  const [year, setYear] = useState<number>(data.year)
-  const [engine, setEngine] = useState<string>(data.engine)
-  const [price, setPrice] = useState<number>(data.price)
+  const [brand, setBrand] = useState<string | undefined>(data?.brand)
+  const [model, setModel] = useState<string | undefined>(data?.model)
+  const [year, setYear] = useState<number | undefined>(data?.year)
+  const [engine, setEngine] = useState<string | undefined>(data?.engine)
+  const [price, setPrice] = useState<number | undefined>(data?.price)
 
   const submitCar = async (newCar: CarDataType) => {
     return await axios.patch(endpoints.cars.editCar(carId).url, newCar)
@@ -69,7 +69,7 @@ export default function EditForm() {
               required
               id="outlined-required"
               label="Марка"
-              defaultValue={data.brand}
+              defaultValue={data?.brand}
               onChange={(e) => {
                 setBrand(e.target.value)
               }}
@@ -78,7 +78,7 @@ export default function EditForm() {
               required
               id="outlined-required"
               label="Модел"
-              defaultValue={data.model}
+              defaultValue={data?.model}
               onChange={(e) => {
                 setModel(e.target.value)
               }}
@@ -87,7 +87,7 @@ export default function EditForm() {
               required
               id="outlined-required"
               label="Година"
-              defaultValue={data.year}
+              defaultValue={data?.year}
               onChange={(e) => {
                 setYear(Number(e.target.value))
               }}
@@ -96,7 +96,7 @@ export default function EditForm() {
               required
               id="outlined-required"
               label="Двигател"
-              defaultValue={data.engine}
+              defaultValue={data?.engine}
               onChange={(e) => {
                 setEngine(e.target.value)
               }}
@@ -105,7 +105,7 @@ export default function EditForm() {
               required
               id="outlined-required"
               label="Цена"
-              defaultValue={data.price}
+              defaultValue={data?.price}
               onChange={(e) => {
                 setPrice(Number(e.target.value))
               }}

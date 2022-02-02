@@ -7,7 +7,6 @@ import { ModalContext } from 'context/ModalContext'
 import { Button, ListItem } from '@mui/material'
 import Accordion from '@mui/material/Accordion'
 import { useContext } from 'react'
-import * as React from 'react'
 export default function NestedMenu() {
   const { accordionExpanded, setAccordionExpanded }: any = useContext(ModalContext)
   const commongStyles = {

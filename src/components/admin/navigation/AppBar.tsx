@@ -26,7 +26,7 @@ export default function AppBarMenu() {
     areCarsSelected,
   }: any = useContext(ModalContext)
 
-  const handleDelete = () => {
+  const handleDelete = (): void => {
     if (areCarsSelected) {
       setConfirmationOpen(true)
     } else {

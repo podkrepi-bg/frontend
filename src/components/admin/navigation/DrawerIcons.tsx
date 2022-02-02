@@ -1,6 +1,12 @@
 import { Box, IconButton } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
-function DrawerIcons({ drawerOpen, handleDrawerOpen }: any) {
+
+interface Props {
+  drawerOpen: boolean
+  handleDrawerOpen: () => void
+}
+
+function DrawerIcons({ drawerOpen, handleDrawerOpen }: Props) {
   return (
     <Box display="flex" alignItems={'center'}>
       <IconButton
