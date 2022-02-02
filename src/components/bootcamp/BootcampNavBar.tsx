@@ -5,7 +5,6 @@ import {
   Divider,
   Drawer,
   IconButton,
-  Link,
   List,
   ListItemButton,
   ListItemIcon,
@@ -24,6 +23,9 @@ import ProfileMenu from './ProfileMenu'
 import { useTranslation } from 'next-i18next'
 import { ExpandLess, ExpandMore } from '@mui/icons-material'
 import PodkrepiIcon from 'components/brand/PodkrepiIcon'
+import Link from 'next/link'
+import { BootcampStore } from 'stores/BootcampStore'
+import { observer } from 'mobx-react'
 
 const useStyles = makeStyles({
   appBar: {
@@ -42,18 +44,12 @@ const useStyles = makeStyles({
   submenu: {},
 })
 
-export default function BootcampNavBar() {
+export default observer(function BootcampNavBar() {
   const classes = useStyles()
-  const [open, setOpen] = React.useState(false)
-  const [openMore, setOpenMore] = React.useState(false)
-  const { t } = useTranslation()
+  const { navDrawerOpen, navDrawerSubOpen, toggleNavDrawerOpen, toggleNavDrawerSubOpen } =
+    BootcampStore
 
-  const toggleDrawer = () => {
-    setOpen(!open)
-  }
-  const toggleMore = () => {
-    setOpenMore(!openMore)
-  }
+  const { t } = useTranslation()
 
   const navLinks = [
     { icon: <PeopleIcon />, name: t('bootcamp:nav.all'), href: routes.bootcamp.index },
@@ -64,36 +60,40 @@ export default function BootcampNavBar() {
   return (
     <AppBar className={classes.appBar}>
       <Toolbar>
-        <IconButton onClick={toggleDrawer}>
+        <IconButton onClick={toggleNavDrawerOpen}>
           <MenuIcon />
         </IconButton>
         <Link href={routes.index}>
-          <PodkrepiIcon className={classes.logo} />
+          <a>
+            <PodkrepiIcon className={classes.logo} />
+          </a>
         </Link>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           {t('bootcamp:nav.title')}
         </Typography>
         <ProfileMenu />
       </Toolbar>
-      <Drawer variant="persistent" anchor="left" open={open}>
+      <Drawer variant="persistent" anchor="left" open={navDrawerOpen}>
         <List>
           <div className={classes.closeNavBtn}>
-            <IconButton onClick={toggleDrawer}>
+            <IconButton onClick={toggleNavDrawerOpen}>
               <ChevronLeftIcon />
             </IconButton>
           </div>
           <Divider />
           {navLinks.map((item) => (
-            <ListItemButton key={item.name} component="a" href={item.href} color="black">
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.name} />
-            </ListItemButton>
+            <Link key={item.href} href={item.href} passHref>
+              <ListItemButton key={item.name} color="black">
+                <ListItemIcon>{item.icon}</ListItemIcon>
+                <ListItemText primary={item.name} />
+              </ListItemButton>
+            </Link>
           ))}
-          <ListItemButton onClick={toggleMore}>
+          <ListItemButton onClick={toggleNavDrawerSubOpen}>
             <ListItemText primary={t('bootcamp:nav.more')} />
-            {openMore ? <ExpandLess /> : <ExpandMore />}
+            {navDrawerSubOpen ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
-          <Collapse in={openMore} timeout="auto" unmountOnExit>
+          <Collapse in={navDrawerSubOpen} timeout="auto" unmountOnExit>
             <List className={classes.submenu}>
               <ListItemButton>
                 <ListItemText primary="Option 1" />
@@ -116,4 +116,4 @@ export default function BootcampNavBar() {
       </Drawer>
     </AppBar>
   )
-}
+})
