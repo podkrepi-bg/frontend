@@ -3,6 +3,7 @@ import LayoutPanel from '../navigation/LayoutPanel'
 import { ModalContext } from 'context/ModalContext'
 import { useMutateCars } from 'common/hooks/cars'
 import { endpoints } from 'common/api-endpoints'
+import { CarDataType } from 'gql/cars'
 import { useQueryClient } from 'react-query'
 import { useContext, useState } from 'react'
 import { axios } from 'common/api-client'
@@ -12,13 +13,13 @@ export default function AddForm() {
   const { setNotificationsOpen, setNotificationMessage }: any = useContext(ModalContext)
   const queryClient = useQueryClient()
   const router = useRouter()
-  const [brand, setBrand] = useState<string>('')
-  const [model, setModel] = useState<string>('')
-  const [year, setYear] = useState<number>(0)
-  const [engine, setEngine] = useState<string>('')
-  const [price, setPrice] = useState<number>(0)
+  const [brand, setBrand] = useState('')
+  const [model, setModel] = useState('')
+  const [year, setYear] = useState(0)
+  const [engine, setEngine] = useState('')
+  const [price, setPrice] = useState(0)
 
-  const postCar = async (car: any) => {
+  const postCar = async (car: CarDataType) => {
     return await axios.post(endpoints.cars.postCar.url, car)
   }
 
