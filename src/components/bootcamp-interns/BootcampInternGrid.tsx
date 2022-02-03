@@ -1,5 +1,5 @@
 import { makeStyles } from '@mui/styles'
-import { DataGrid, GridColumns } from '@mui/x-data-grid'
+import { DataGrid, GridColumns, GridRenderCellParams, GridSelectionModel } from '@mui/x-data-grid'
 import { useBootcampInternsList } from 'common/hooks/bootcampIntern'
 import { ButtonGroup } from '@mui/material'
 import { drawerWidth } from './MyDrawer'
@@ -14,6 +14,9 @@ import DeleteModal from './DeleteModal'
 import React from 'react'
 import { useRouter } from 'next/router'
 import DataGridHeader from './DataGridHeader'
+import { UseBaseQueryResult } from 'react-query'
+import { BootcampIntern } from 'lib/interfaces/BootcampIntern'
+import { string } from 'yup/lib/locale'
 
 const useStyles = makeStyles(() => {
   return {
@@ -48,13 +51,14 @@ const iconsStyle = { cursor: 'pointer' }
 export default function BootcampInternGrid() {
   const router = useRouter()
   const classes = useStyles()
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState<boolean>(false)
+  const [selectedRows, setSelectedRows] = useState<GridSelectionModel>([])
 
-  const { data } = useBootcampInternsList()
+  const { data }: UseBaseQueryResult<BootcampIntern[]> = useBootcampInternsList()
 
-  const [details, setDetails] = useState(null || {})
-  const [deleteData, setDeleteData] = useState(null || {})
-  const [deleteOpen, setDeleteOpen] = useState(false)
+  const [details, setDetails] = useState<null | string[]>(null)
+  const [deleteData, setDeleteData] = useState<string | unknown>('')
+  const [deleteOpen, setDeleteOpen] = useState<boolean>(false)
 
   const columns: GridColumns = [
     { field: 'id', headerName: 'ID', hide: true },
@@ -105,15 +109,15 @@ export default function BootcampInternGrid() {
     },
   ]
 
-  const editClickHandler = (cellValues: any) => {
+  const editClickHandler = (cellValues: GridRenderCellParams) => {
     router.push(`/bootcamp-interns/${cellValues.id}/edit`)
   }
 
-  const deleteClickHandler = (cellValues: any) => {
+  const deleteClickHandler = (cellValues: GridRenderCellParams) => {
     const dialogTitle = `Are you sure you want to delete ${cellValues.row.firstName} ${cellValues.row.lastName} ?`
     const email = cellValues.row.email
     const id = cellValues.row.id
-    const dataForProps: any = { email, dialogTitle, id }
+    const dataForProps = { email, dialogTitle, id }
     setDeleteOpen(true)
     setDeleteData(dataForProps)
   }
@@ -124,7 +128,7 @@ export default function BootcampInternGrid() {
     deleteData,
   }
 
-  function detailsClickHandler(cellValues: any) {
+  function detailsClickHandler(cellValues: GridRenderCellParams) {
     setDetails({ ...cellValues.row })
     setOpen(true)
   }
@@ -135,8 +139,6 @@ export default function BootcampInternGrid() {
     setOpen,
     ...details,
   }
-
-  const [selectedRows, setSelectedRows] = useState([])
 
   return (
     <div className={classes.datagridParent}>
@@ -150,7 +152,7 @@ export default function BootcampInternGrid() {
         autoPageSize
         checkboxSelection
         disableSelectionOnClick
-        onSelectionModelChange={(newSelectionModel) => {
+        onSelectionModelChange={(newSelectionModel): void => {
           setSelectedRows(newSelectionModel)
         }}
       />

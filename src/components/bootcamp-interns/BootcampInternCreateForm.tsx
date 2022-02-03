@@ -19,6 +19,7 @@ import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
 import { AxiosError } from 'axios'
 import { FormikHelpers } from 'formik'
 import { useTranslation } from 'next-i18next'
+import { BootcampInternInput, BootcampInternResponse } from 'gql/bootcamp'
 
 const useStyles = makeStyles(() => {
   return {
@@ -32,13 +33,14 @@ const useStyles = makeStyles(() => {
   }
 })
 
-const validationSchema = yup.object().shape({
+const validationSchema: yup.SchemaOf<BootcampInternInput> = yup.object().shape({
   firstName: yup.string().trim().min(3).max(20).required(),
   lastName: yup.string().trim().min(3).max(20).required(),
   email: yup.string().trim().min(8).max(40).email('Invalid email').required(),
+  id: yup.string().uuid(),
 })
 
-const defaults = {
+const defaults: BootcampInternResponse = {
   firstName: '',
   lastName: '',
   email: '',
