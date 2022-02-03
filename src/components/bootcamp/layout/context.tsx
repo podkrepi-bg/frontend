@@ -49,7 +49,7 @@ export class ConfigStore {
 
 export const context = createContext(new ConfigStore())
 
-export default function DrawerContext({ children }: React.PropsWithChildren<any>) {
+export default function DrawerContext({ children }: React.PropsWithChildren<{}>) {
     return <context.Provider value={new ConfigStore()}>
         {children}
     </context.Provider>

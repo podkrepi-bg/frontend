@@ -26,7 +26,7 @@ function DetailsModal() {
     const { t } = useTranslation()
     const query = useQuery<BootcampersResponse[]>(endpoints.bootcamp.listBootcampers.url)
 
-    const onYesButtonClick = async (ids: any[]) => {
+    const onYesButtonClick = async (ids: string[]) => {
         try {
             ids.map(x => {
                 axios.delete(
@@ -57,7 +57,7 @@ function DetailsModal() {
                             <Grid item xs={12}>
                                 <Typography variant="h5" style={{ textAlign: "center" }} component="h2">Are you sure you want to remove these bootcampers?</Typography>
                                 <div style={{ textAlign: "center", marginTop: "2%" }}>
-                                    <Button onClick={async () => await onYesButtonClick(ids)} variant="outlined" sx={{ backgroundColor: theme.palette.secondary.main, color: 'white' }}>Yes</Button>
+                                    <Button onClick={async () => await onYesButtonClick(ids.map(String))} variant="outlined" sx={{ backgroundColor: theme.palette.secondary.main, color: 'white' }}>Yes</Button>
                                     <Button onClick={() => DeleteManyModalStore.clear()} sx={{ backgroundColor: theme.palette.primary.main, color: theme.palette.background.default }} variant="outlined" style={{ marginLeft: "1%" }}>No</Button>
                                 </div>
                             </Grid>

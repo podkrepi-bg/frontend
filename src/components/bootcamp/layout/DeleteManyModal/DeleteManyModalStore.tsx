@@ -4,7 +4,7 @@ import { action, computed, makeObservable, observable } from 'mobx'
 enableStaticRendering(typeof window === 'undefined')
 
 interface Dialog {
-    ids: any[]
+    ids: string[]
     show: boolean
 }
 
@@ -21,7 +21,7 @@ export class DialogStoreImpl {
         })
     }
 
-    show(ids: any[]) {
+    show(ids: string[]) {
         this.clear()
         const dialog: Dialog = {
             ids,

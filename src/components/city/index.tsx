@@ -3,7 +3,6 @@ import { CircularProgress, Grid, Typography } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import { useCityList } from "common/hooks/city";
 import BootcampersLayout from "./layout/Layout";
-import { useTranslation } from "next-i18next";
 import GenericGrid from "./utils/Grid";
 import { useRouter } from "next/router";
 import SubmitButton from "components/common/form/SubmitButton";
@@ -13,7 +12,6 @@ import RefetchStore from "./layout/RefetchStore";
 
 export default function BootcampPage() {
     const [isRefetch] = useState(RefetchStore.isRefetch)
-    const { t } = useTranslation()
     const router = useRouter()
     const info = useCityList()
     const isLoading = info.isLoading

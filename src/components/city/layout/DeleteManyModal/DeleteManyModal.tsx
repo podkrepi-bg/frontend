@@ -26,7 +26,7 @@ function DetailsModal() {
     const { t } = useTranslation()
     const query = useQuery<CityResponse[]>(endpoints.city.listCities.url)
 
-    const onYesButtonClick = async (ids: any[]) => {
+    const onYesButtonClick = async (ids: string[]) => {
         try {
             ids.map(x => {
                 axios.delete(
