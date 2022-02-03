@@ -47,7 +47,7 @@ export default function SearchByPhone({ initialValues = defaults }: SearchFormPr
             <Grid container direction="column" component="section" style={{ marginLeft: "4%" }}>
                 <Grid item xs={12} style={{ marginTop: "10%", marginBottom: "1%", marginLeft: "30%" }}>
                     <Typography variant="h5" component="h2">
-                        Enter town's name
+                        Town
                     </Typography>
                 </Grid>
                 <Grid item style={{ marginLeft: "30%" }}>

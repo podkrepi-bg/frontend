@@ -56,6 +56,6 @@ export default function GenericGrid(props: GenericGridProps) {
             }}
         >
         </DataGrid>
-        <SubmitButton sx={{ bgcolor: theme.palette.primary.light, marginLeft: "10%", width: "50%" }} label={`Delete selected bootcampers (${rows.length})`} onClick={() => DeleteManyModalStore.show(rows)} disabled={rows.length === 0}></SubmitButton>
+        <SubmitButton sx={{ bgcolor: theme.palette.primary.light, marginLeft: "10%", width: "50%" }} label={`Delete selected bootcampers (${rows.length})`} onClick={() => DeleteManyModalStore.show(rows.map(String))} disabled={rows.length === 0}></SubmitButton>
     </>
 }
