@@ -2,7 +2,7 @@ import CarsNavBar from '../../../components/cars/CarsNavBar'
 import Footer from '../../../components/cars/Footer'
 import EditForm from '../../../components/cars/EditForm'
 
-export default function EditPage({ car }) {
+export default function EditPage({ car }: any) {
   return (
     <>
       <CarsNavBar />
@@ -12,7 +12,7 @@ export default function EditPage({ car }) {
   )
 }
 
-export async function getServerSideProps({ params }) {
+export async function getServerSideProps({ params }: any) {
   const req = await fetch(`http://localhost:5010/api/car/${params.id}`)
   const car = await req.json()
 
