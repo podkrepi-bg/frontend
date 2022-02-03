@@ -97,8 +97,6 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
     CampaignInput
   >({
     mutationFn: createCampaign,
-    onError: () => <Snackbar></Snackbar>,
-    onSuccess: () => <Snackbar></Snackbar>,
   })
 
   const onSubmit = async (
