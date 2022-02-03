@@ -1,9 +1,8 @@
 import { Box, Button, Modal, Typography } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import notify from './helpers/notify'
-import fetch from 'node-fetch'
 
-const modalStyle = {
+const modalStyle: any = {
   position: 'absolute',
   top: '50%',
   left: '50%',
@@ -15,28 +14,26 @@ const modalStyle = {
   p: 4,
 }
 
-
-
-export default function DeleteModal({ id, open, setOpen, cars, setCars }) {
+export default function DeleteAllModal({ selectionModel, open, setOpen, cars, setCars }: any) {
   function deleteHandler() {
-    fetch(`http://localhost:5010/api/car/${id}`, {
+    fetch('http://localhost:5010/api/car', {
       method: 'delete',
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify(selectionModel),
     }).then(() => {
+      setCars([...cars.filter((car: any) => selectionModel.every((id: string) => car.id != id))])
       setOpen(false)
-      setCars([...cars.filter((car) => car.id !== id)])
-      notify('Successfully deleted item!');
+      notify('Successfully deleted selected items!')
     })
   }
-
 
   return (
     <>
       <Modal open={open} onClose={() => setOpen(false)}>
         <Box sx={modalStyle}>
-          <Typography variant="h6">Are you sure you want to delete this item?</Typography>
+          <Typography variant="h6">Are you sure you want to delete all selected items?</Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <Button onClick={deleteHandler} sx={{ mx: 2, color: 'red' }}>
               Delete

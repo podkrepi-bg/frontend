@@ -1,6 +1,5 @@
 import React from 'react'
-import BottomNavigation from '@mui/material/BottomNavigation'
-import { Divider, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 
 export default function Footer() {
   return (

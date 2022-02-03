@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { Box, Button, TextField } from '@mui/material'
 import { useRouter } from 'next/router'
-import fetch from 'node-fetch'
 import CarField from './CarField'
 import notify from './helpers/notify'
 
-export default function CarsForm({ cars, setCars }) {
+export default function CarsForm({ cars, setCars }: any) {
   const [brand, setBrand] = useState('')
   const [model, setModel] = useState('')
   const [year, setYear] = useState(0)
@@ -14,7 +13,7 @@ export default function CarsForm({ cars, setCars }) {
 
   const router = useRouter()
 
-  function carFormHandler(e) {
+  function carFormHandler(e: any) {
     e.preventDefault()
 
     if (!brand || !model || !year || !city || !country) {
@@ -35,11 +34,10 @@ export default function CarsForm({ cars, setCars }) {
         'Content-Type': 'application/json',
       },
       body: carData,
+    }).then(() => {
+      router.push('/cars')
+      notify('Successfully created item!')
     })
-      .then(() => {
-        router.push('/cars');
-        notify('Successfully created item!')
-      })
   }
 
   return (

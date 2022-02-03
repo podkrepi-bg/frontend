@@ -1,8 +1,7 @@
 import { Box, Modal, Typography } from '@mui/material'
 import React from 'react'
-import fetch from 'node-fetch'
 
-const modalStyle = {
+const modalStyle: any = {
   position: 'absolute',
   top: '50%',
   left: '50%',
@@ -14,7 +13,7 @@ const modalStyle = {
   p: 4,
 }
 
-export default function DetailsModal({ detailsOpen, setDetailsOpen, details }) {
+export default function DetailsModal({ detailsOpen, setDetailsOpen, details }: any) {
   return (
     <Modal open={detailsOpen} onClose={() => setDetailsOpen(false)}>
       <Box sx={modalStyle}>

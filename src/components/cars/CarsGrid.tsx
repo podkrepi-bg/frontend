@@ -1,17 +1,16 @@
 import { Alert, Box, Fab, Typography } from '@mui/material'
-import { DataGrid } from '@mui/x-data-grid'
+import { DataGrid, GridColumns, GridRow } from '@mui/x-data-grid'
 import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/Delete'
 import React, { useEffect, useState } from 'react'
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 import DeleteAllModal from './DeleteAllModal'
-import fetch from 'node-fetch'
 import Actions from './Actions'
 import Link from 'next/link'
+import { useCarsList } from '../../common/hooks/cars'
 
-
-export default function CarsGrid({ cars, setCars }) {
+export default function CarsGrid() {
   const [detailsOpen, setDetailsOpen] = useState(false)
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [deleteAllOpen, setDeleteAllOpen] = useState(false)
@@ -20,21 +19,23 @@ export default function CarsGrid({ cars, setCars }) {
   const [alertDisplay, setAlertDisplay] = useState('none')
   const [alertValue, setAlertValue] = useState('')
   const [selectionModel, setSelectionModel] = useState([])
+  const { data } = useCarsList()
+  const [cars, setCars] = useState(data)
 
   useEffect(() => {
-    let alertMessage = sessionStorage.getItem('alert');
+    const alertMessage = sessionStorage.getItem('alert')
 
     if (alertMessage) {
-      setAlertValue(alertMessage);
-      setAlertDisplay('');
+      setAlertValue(alertMessage)
+      setAlertDisplay('')
       setTimeout(() => {
-        setAlertDisplay('none');
-        sessionStorage.removeItem('alert');
+        setAlertDisplay('none')
+        sessionStorage.removeItem('alert')
       }, 3000)
     }
   })
 
-  const columns = [
+  const columns: GridColumns = [
     {
       field: 'brand',
       headerName: 'Brand',
@@ -49,15 +50,22 @@ export default function CarsGrid({ cars, setCars }) {
       field: 'Actions',
       width: 200,
       align: 'right',
-      renderCell: (cellValues) => {
-        return <Actions cellValues={cellValues} setDetails={setDetails}
-          setDeleteId={setDeleteId} setDeleteOpen={setDeleteOpen} setDetailsOpen={setDetailsOpen} />
+      renderCell: (cellValues: any) => {
+        return (
+          <Actions
+            cellValues={cellValues}
+            setDetails={setDetails}
+            setDeleteId={setDeleteId}
+            setDeleteOpen={setDeleteOpen}
+            setDetailsOpen={setDetailsOpen}
+          />
+        )
       },
     },
   ]
 
-  function deleteAllHandler(e) {
-    setDeleteAllOpen(true);
+  function deleteAllHandler() {
+    setDeleteAllOpen(true)
   }
 
   return (
@@ -75,39 +83,50 @@ export default function CarsGrid({ cars, setCars }) {
               <DeleteIcon />
             </Fab>
           </Box>
-
         </Box>
         <div style={{ display: 'flex', height: 400 }}>
-
           <DataGrid
             sortingOrder={['desc', 'asc']}
-            rows={cars}
+            rows={cars || []}
             columns={columns}
             pageSize={5}
             rowsPerPageOptions={[5]}
             checkboxSelection
-            onSelectionModelChange={(newSelectionModel) => {
-              setSelectionModel(newSelectionModel);
+            onSelectionModelChange={(newSelectionModel: any) => {
+              setSelectionModel(newSelectionModel)
             }}
             disableSelectionOnClick
           />
         </div>
       </Box>
       <DetailsModal detailsOpen={detailsOpen} setDetailsOpen={setDetailsOpen} details={details} />
-      <DeleteModal setAlertDisplay={setAlertDisplay} setAlertValue={setAlertValue}
-        cars={cars} setCars={setCars} id={deleteId} open={deleteOpen} setOpen={setDeleteOpen} />
-      <DeleteAllModal setAlertDisplay={setAlertDisplay} setAlertValue={setAlertValue}
-        cars={cars} setCars={setCars} selectionModel={selectionModel}
-        open={deleteAllOpen} setOpen={setDeleteAllOpen} />
-      <Alert sx={{
-        display: alertDisplay,
-        width: '100%',
-        justifyContent: 'center',
-        position: 'absolute',
-        bottom: 80
-      }}
-        severity="success">{alertValue}</Alert>
-
+      <DeleteModal
+        cars={cars}
+        setCars={setCars}
+        id={deleteId}
+        open={deleteOpen}
+        setOpen={setDeleteOpen}
+      />
+      <DeleteAllModal
+        setAlertDisplay={setAlertDisplay}
+        setAlertValue={setAlertValue}
+        cars={cars}
+        setCars={setCars}
+        selectionModel={selectionModel}
+        open={deleteAllOpen}
+        setOpen={setDeleteAllOpen}
+      />
+      <Alert
+        sx={{
+          display: alertDisplay,
+          width: '100%',
+          justifyContent: 'center',
+          position: 'absolute',
+          bottom: 80,
+        }}
+        severity="success">
+        {alertValue}
+      </Alert>
     </>
   )
 }

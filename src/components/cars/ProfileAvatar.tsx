@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 export default function ProfileAvatar() {
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
-  const handleClick = (event) => {
+  const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget)
   }
   const handleClose = () => {

@@ -5,7 +5,7 @@ import { Box, Button } from '@mui/material'
 import CarField from './CarField'
 import notify from './helpers/notify'
 
-export default function EditForm({ car }) {
+export default function EditForm({ car }: any) {
   const [brand, setBrand] = useState(car.brand)
   const [model, setModel] = useState(car.model)
   const [year, setYear] = useState(car.year)
@@ -14,7 +14,7 @@ export default function EditForm({ car }) {
 
   const router = useRouter()
 
-  async function onEditSubmit(e) {
+  async function onEditSubmit(e: any) {
     e.preventDefault()
 
     if (!brand || !model || !year || !city || !country) {
@@ -36,8 +36,8 @@ export default function EditForm({ car }) {
       },
       body: carData,
     }).then(() => {
-      router.push('/cars');
-      notify('Successfully edited item!');
+      router.push('/cars')
+      notify('Successfully edited item!')
     })
   }
 
