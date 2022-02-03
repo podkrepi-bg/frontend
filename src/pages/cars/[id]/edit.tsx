@@ -1,6 +1,5 @@
 import CarsNavBar from '../../../components/cars/CarsNavBar'
 import Footer from '../../../components/cars/Footer'
-import fetch from 'node-fetch'
 import EditForm from '../../../components/cars/EditForm'
 
 export default function EditPage({ car }) {
