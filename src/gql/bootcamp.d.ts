@@ -1,4 +1,5 @@
 import { UUID } from './types'
+import { Dispatch, SetStateAction } from 'react'
 
 export type BootcampInternResponse = {
   id?: UUID
