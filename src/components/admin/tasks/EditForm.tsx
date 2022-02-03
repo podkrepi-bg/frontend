@@ -9,10 +9,8 @@ import Link from 'next/link'
 import { NotificationStore } from 'stores/cars/NotificationsStore'
 import { observer } from 'mobx-react'
 import { endpoints } from 'common/api-endpoints'
-import { axios } from 'common/api-client' 
-
+import { axios } from 'common/api-client'
 export default observer(function EditForm() {
-  
   const { openNotifications, setMessage } = NotificationStore
   const router = useRouter()
   const queryClient = useQueryClient()
