@@ -1,6 +1,7 @@
-import BootcampInternGrid from './BootcampInternGrid'
 import { Grid } from '@mui/material'
+
 import MyLayout from './MyLayout'
+import BootcampInternGrid from './BootcampInternGrid'
 
 export default function BootcampInternPage() {
   return (

@@ -1,12 +1,12 @@
-import React from 'react'
-import { Theme } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
-import ResponsiveAppBar from './ResponsiveAppBar'
-import MyFooter from './MyFooter'
-import SnackBar from '../bootcamp-interns/Snackbar'
-import { DrawerContext } from 'context/SwipeableDrawerContext'
 import { useContext } from 'react'
+import { Theme } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
+import { DrawerContext } from 'context/SwipeableDrawerContext'
+
+import MyFooter from './MyFooter'
+import ResponsiveAppBar from './ResponsiveAppBar'
+import SnackBar from '../bootcamp-interns/Snackbar'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

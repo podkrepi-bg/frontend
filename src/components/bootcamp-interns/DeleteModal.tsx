@@ -1,10 +1,10 @@
-import { Dialog, DialogTitle, DialogActions, Button } from '@mui/material'
-import { Modal } from '@mui/material'
+import { useContext } from 'react'
+import { useRouter } from 'next/router'
+import { Dialog, DialogTitle, DialogActions, Button, Modal } from '@mui/material'
+
+import { routes } from 'common/routes'
 import { axios } from 'common/api-client'
 import { endpoints } from 'common/api-endpoints'
-import { useRouter } from 'next/router'
-import { routes } from 'common/routes'
-import { useContext } from 'react'
 import { DrawerContext } from 'context/SwipeableDrawerContext'
 
 export default function DeleteModal(props: any) {

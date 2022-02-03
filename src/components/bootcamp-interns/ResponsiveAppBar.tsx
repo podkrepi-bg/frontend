@@ -1,19 +1,20 @@
-import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
 import Menu from '@mui/material/Menu'
-import MenuIcon from '@mui/icons-material/Menu'
+import { makeStyles } from '@mui/styles'
+import AppBar from '@mui/material/AppBar'
 import Avatar from '@mui/material/Avatar'
+import Toolbar from '@mui/material/Toolbar'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
-import React, { useContext, useState } from 'react'
+import MenuIcon from '@mui/icons-material/Menu'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import { useContext, useState, MouseEvent } from 'react'
 
-import MyDrawer, { drawerWidth } from './MyDrawer'
-import { makeStyles } from '@mui/styles'
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 import { DrawerContext } from 'context/SwipeableDrawerContext'
+
+import MyDrawer, { drawerWidth } from './MyDrawer'
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
@@ -35,7 +36,7 @@ export default function ResponsiveAppBar() {
   const { isOpen, changeHandler }: any = useContext(DrawerContext)
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
 
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+  const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget)
   }
 

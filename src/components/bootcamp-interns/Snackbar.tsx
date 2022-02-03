@@ -1,14 +1,14 @@
+import Snackbar from '@mui/material/Snackbar'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
-import Snackbar from '@mui/material/Snackbar'
-import { useContext } from 'react'
+import { useContext, SyntheticEvent } from 'react'
+
 import { DrawerContext } from 'context/SwipeableDrawerContext'
-import * as React from 'react'
 
 export default function Notifications() {
   const { notificationsOpen, setNotificationsOpen, notificationMessage }: any =
     useContext(DrawerContext)
-  const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
+  const handleClose = (event: SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
       return
     }

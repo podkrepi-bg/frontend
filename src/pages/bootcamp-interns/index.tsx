@@ -1,9 +1,10 @@
-import { GetServerSideProps } from 'next'
-import BootcampInternPage from 'components/bootcamp-interns/BootcampInternPage'
-import { QueryClient, dehydrate } from 'react-query'
 import { queryFn } from 'common/rest'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { GetServerSideProps } from 'next'
+import { QueryClient, dehydrate } from 'react-query'
 import { prefetchBootcampInternsList } from 'common/hooks/bootcampIntern'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+
+import BootcampInternPage from 'components/bootcamp-interns/BootcampInternPage'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const client = new QueryClient()

@@ -1,13 +1,15 @@
-import { AppBar, IconButton, Toolbar, Typography } from '@mui/material'
-import { makeStyles } from '@mui/styles'
-import { drawerWidth } from './MyDrawer'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
-import AddIcon from '@mui/icons-material/Add'
 import { useRouter } from 'next/router'
-import { routes } from 'common/routes'
+import { makeStyles } from '@mui/styles'
 import { useContext, useState } from 'react'
+import AddIcon from '@mui/icons-material/Add'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import { AppBar, IconButton, Toolbar, Typography } from '@mui/material'
+
+import { routes } from 'common/routes'
 import { DrawerContext } from 'context/SwipeableDrawerContext'
+
 import DeleteModal from './DeleteModal'
+import { drawerWidth } from './MyDrawer'
 
 const useStyles = makeStyles(() => {
   return {

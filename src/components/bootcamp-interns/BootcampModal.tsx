@@ -1,7 +1,5 @@
-import { Button, DialogTitle, Modal } from '@mui/material'
-import { Dialog } from '@mui/material'
-import { Box } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import { Button, DialogTitle, Modal, Dialog, Box } from '@mui/material'
 
 const useStyles = makeStyles(() => {
   return {
@@ -25,6 +23,7 @@ const useStyles = makeStyles(() => {
 export default function BootcampModal(props: any) {
   const classes = useStyles()
   const { firstName, lastName, email, open, setOpen } = props.modalProps
+
   return (
     <Modal open={open} onClose={() => setOpen(false)}>
       <Dialog open={open} onClose={() => setOpen(false)}>

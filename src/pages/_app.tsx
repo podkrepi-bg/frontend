@@ -7,11 +7,11 @@ import { appWithTranslation, useTranslation } from 'next-i18next'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 
 // MaterialUI
-import { LinearProgress } from '@mui/material'
-import { ThemeProvider, Theme, StyledEngineProvider } from '@mui/material/styles'
-import CssBaseline from '@mui/material/CssBaseline'
-import { CacheProvider } from '@emotion/react'
 import { EmotionCache } from '@emotion/cache'
+import { LinearProgress } from '@mui/material'
+import { CacheProvider } from '@emotion/react'
+import CssBaseline from '@mui/material/CssBaseline'
+import { ThemeProvider, Theme, StyledEngineProvider } from '@mui/material/styles'
 
 // Keycloak
 import { SSRKeycloakProvider, SSRCookies } from '@react-keycloak/ssr'
@@ -20,6 +20,7 @@ import theme from 'common/theme'
 import useGTM from 'common/util/useGTM'
 import { queryFn } from 'common/rest'
 import createEmotionCache from 'common/createEmotionCache'
+
 const {
   publicRuntimeConfig: { keycloakConfig },
 } = getConfig()

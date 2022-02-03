@@ -1,14 +1,15 @@
-import PeopleIcon from '@mui/icons-material/People'
-import { makeStyles } from '@mui/styles'
-import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
 import { useRouter } from 'next/router'
-import AddCircleIcon from '@mui/icons-material/AddCircle'
+import { makeStyles } from '@mui/styles'
+import { useContext, useState } from 'react'
 import { SwipeableDrawer } from '@mui/material'
 import { GridMenuIcon } from '@mui/x-data-grid'
-import { useContext, useState } from 'react'
-import AddBoxIcon from '@mui/icons-material/AddBox'
-import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
+import DeleteIcon from '@mui/icons-material/Delete'
+import AddBoxIcon from '@mui/icons-material/AddBox'
+import PeopleIcon from '@mui/icons-material/People'
+import AddCircleIcon from '@mui/icons-material/AddCircle'
+import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
+
 import { DrawerContext } from 'context/SwipeableDrawerContext'
 
 export const drawerWidth = 200
@@ -55,8 +56,8 @@ export default function MyDrawer() {
       ModalProps={{
         hideBackdrop: true,
       }}
-      onOpen={() => console.log('opened drawer')}
-      onClose={() => console.log('opened drawer')}
+      onOpen={() => null}
+      onClose={() => null}
       open={isOpen}
       className={classes.drawer}
       variant="persistent"

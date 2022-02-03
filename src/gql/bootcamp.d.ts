@@ -1,5 +1,6 @@
-import { UUID } from './types'
 import { Dispatch, SetStateAction } from 'react'
+
+import { UUID } from './types'
 
 export type BootcampInternResponse = {
   id?: UUID
@@ -13,9 +14,4 @@ export type BootcampInternInput = {
   firstName: string
   lastName: string
   email: string
-}
-
-export type NotificationInput = {
-  setNotificationsOpen: Dispatch<SetStateAction<boolean>>
-  setNotificationMessage: Dispatch<SetStateAction<string>>
 }

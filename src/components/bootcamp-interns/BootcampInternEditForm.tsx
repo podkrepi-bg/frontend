@@ -1,26 +1,26 @@
-import GenericForm from 'components/common/form/GenericForm'
 import * as yup from 'yup'
 import { ButtonGroup, Grid, Typography, Button } from '@mui/material'
-import SubmitButton from 'components/common/form/SubmitButton'
-
-import FormTextField from 'components/common/form/FormTextField'
-import { axios } from 'common/api-client'
-import { endpoints } from 'common/api-endpoints'
-import { makeStyles } from '@mui/styles'
-import { useRouter } from 'next/router'
-import { routes } from 'common/routes'
-
-import { drawerWidth } from './MyDrawer'
-import { BootcampIntern } from 'lib/interfaces/BootcampIntern'
-import { UseBaseQueryResult, useMutation } from 'react-query'
-import { useFetchBootcampIntern } from 'common/hooks/bootcampIntern'
-import { useTranslation } from 'next-i18next'
-import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
 import { AxiosError } from 'axios'
 import { FormikHelpers } from 'formik'
 import { useContext } from 'react'
+import { useTranslation } from 'next-i18next'
+import { UseBaseQueryResult, useMutation } from 'react-query'
+import { makeStyles } from '@mui/styles'
+import { useRouter } from 'next/router'
+
+import GenericForm from 'components/common/form/GenericForm'
+import FormTextField from 'components/common/form/FormTextField'
+import SubmitButton from 'components/common/form/SubmitButton'
+import { axios } from 'common/api-client'
+import { endpoints } from 'common/api-endpoints'
+import { routes } from 'common/routes'
+import { BootcampIntern } from 'lib/interfaces/BootcampIntern'
+import { useFetchBootcampIntern } from 'common/hooks/bootcampIntern'
+import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
 import { DrawerContext } from 'context/SwipeableDrawerContext'
 import { BootcampInternInput, BootcampInternResponse } from 'gql/bootcamp'
+
+import { drawerWidth } from './MyDrawer'
 
 const useStyles = makeStyles(() => {
   return {

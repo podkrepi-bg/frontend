@@ -1,22 +1,21 @@
-import { makeStyles } from '@mui/styles'
-import { DataGrid, GridColumns, GridRenderCellParams, GridSelectionModel } from '@mui/x-data-grid'
-import { useBootcampInternsList } from 'common/hooks/bootcampIntern'
-import { ButtonGroup } from '@mui/material'
-import { drawerWidth } from './MyDrawer'
-import EditIcon from '@mui/icons-material/Edit'
-import DeleteIcon from '@mui/icons-material/Delete'
-
-import InfoIcon from '@mui/icons-material/Info'
 import { useState } from 'react'
-import BootcampModal from './BootcampModal'
 import { Box } from '@mui/material'
-import DeleteModal from './DeleteModal'
-import React from 'react'
 import { useRouter } from 'next/router'
-import DataGridHeader from './DataGridHeader'
+import { makeStyles } from '@mui/styles'
+import { ButtonGroup } from '@mui/material'
+import InfoIcon from '@mui/icons-material/Info'
+import EditIcon from '@mui/icons-material/Edit'
 import { UseBaseQueryResult } from 'react-query'
+import DeleteIcon from '@mui/icons-material/Delete'
+import { DataGrid, GridColumns, GridRenderCellParams, GridSelectionModel } from '@mui/x-data-grid'
+
 import { BootcampIntern } from 'lib/interfaces/BootcampIntern'
-import { string } from 'yup/lib/locale'
+import { useBootcampInternsList } from 'common/hooks/bootcampIntern'
+
+import DeleteModal from './DeleteModal'
+import { drawerWidth } from './MyDrawer'
+import BootcampModal from './BootcampModal'
+import DataGridHeader from './DataGridHeader'
 
 const useStyles = makeStyles(() => {
   return {
