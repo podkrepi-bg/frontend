@@ -34,5 +34,12 @@ export const endpoints = {
     viewBootcamper: (slug: string) => <Endpoint>{ url: '/bootcamp/' + slug, method: "GET" },
     createBootcamper: <Endpoint>{ url: '/bootcamp', method: 'POST' },
     removeBootcamper: (slug: string) => <Endpoint>{ url: `/bootcamp/${slug}`, method: "DELETE" }
+  },
+  city: {
+    listCities: <Endpoint>{ url: '/city/list', method: "GET" },
+    createCity: <Endpoint>{ url: "/city/create", method: "POST" },
+    viewCity: (slug: string) => <Endpoint>{ url: "/city/view/" + slug, method: "GET" },
+    editCity: (slug: string) => <Endpoint>{ url: "/city/edit/" + slug, method: "PUT" },
+    deleteCity: (slug: string) => <Endpoint>{ url: "/city/remove" + slug, method: "DELETE" },
   }
 }

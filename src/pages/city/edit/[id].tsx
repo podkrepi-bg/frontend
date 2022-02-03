@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { dehydrate, QueryClient } from 'react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import SearchByPhone from 'components/bootcamp/search/phone'
+import EditCity from 'components/city/edit/[id]'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
     const client = new QueryClient()
@@ -12,11 +12,11 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
                 'common',
                 'auth',
                 'validation',
-                'bootcamp',
+                'city'
             ])),
             dehydratedState: dehydrate(client),
         },
     }
 }
 
-export default SearchByPhone
+export default EditCity

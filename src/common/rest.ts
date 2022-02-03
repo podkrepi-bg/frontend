@@ -13,6 +13,7 @@ import { endpoints } from './api-endpoints'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
 import { BootcamperInput, BootcampersResponse } from 'gql/bootcamp'
+import { CityInput, CityResponse } from 'gql/city'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await axios.get(queryKey.join('/'))
@@ -91,6 +92,23 @@ export const createBootcamper: MutationFunction<
 export const editBootcamper = async (id: string, data: BootcamperInput) => {
   return await axios.put<BootcamperInput, AxiosResponse<BootcampersResponse>>(
     endpoints.bootcamp.viewBootcamper(id).url,
+    data
+  )
+}
+
+export const createCity: MutationFunction<
+  AxiosResponse<CityResponse>,
+  CityInput
+> = async (data: CityInput) => {
+  return await axios.post<CityInput, AxiosResponse<CityResponse>>(
+    endpoints.city.createCity.url,
+    data
+  )
+}
+
+export const editCity = async (id: string, data: CityInput) => {
+  return await axios.put<CityInput, AxiosResponse<CityResponse>>(
+    endpoints.city.editCity(id).url,
     data
   )
 }
