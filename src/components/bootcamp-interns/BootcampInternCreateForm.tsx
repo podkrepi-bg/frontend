@@ -18,6 +18,7 @@ import { BootcampIntern } from 'lib/interfaces/BootcampIntern'
 import FormTextField from 'components/common/form/FormTextField'
 import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
 import { BootcampInternInput, BootcampInternResponse } from 'gql/bootcamp'
+import { name, email } from 'common/form/validation'
 
 import { drawerWidth } from './MyDrawer'
 
@@ -34,9 +35,9 @@ const useStyles = makeStyles(() => {
 })
 
 const validationSchema: yup.SchemaOf<BootcampInternInput> = yup.object().shape({
-  firstName: yup.string().trim().min(3).max(20).required(),
-  lastName: yup.string().trim().min(3).max(20).required(),
-  email: yup.string().trim().min(8).max(40).email('Invalid email').required(),
+  firstName: name,
+  lastName: name,
+  email: email,
   id: yup.string().uuid(),
 })
 

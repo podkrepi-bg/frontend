@@ -11,7 +11,7 @@ export type BootcampInternResponse = {
 
 export type BootcampInternInput = {
   id?: UUID
-  firstName: string
-  lastName: string
-  email: string
+  firstName: string | undefined
+  lastName: string | undefined
+  email: string | undefined
 }
