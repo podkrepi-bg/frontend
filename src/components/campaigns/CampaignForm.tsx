@@ -9,7 +9,6 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { Grid, Typography } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
-import Snackbar from '@mui/material/Snackbar'
 
 import { routes } from 'common/routes'
 import { PersonFormData } from 'gql/person'

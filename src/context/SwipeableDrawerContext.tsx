@@ -12,7 +12,7 @@ export interface AllTypesUsed {
 export const DrawerContext = createContext<AllTypesUsed | null>(null)
 
 function DrawerContextProvider(props: any) {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isOpen, setIsOpen] = useState<boolean>(true)
   const [notificationMessage, setNotificationMessage] = useState<string>('')
   const [notificationsOpen, setNotificationsOpen] = useState<boolean>(false)
 

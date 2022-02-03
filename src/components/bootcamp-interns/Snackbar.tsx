@@ -4,6 +4,7 @@ import Snackbar from '@mui/material/Snackbar'
 import { useContext } from 'react'
 import { DrawerContext } from 'context/SwipeableDrawerContext'
 import * as React from 'react'
+
 export default function Notifications() {
   const { notificationsOpen, setNotificationsOpen, notificationMessage }: any =
     useContext(DrawerContext)
