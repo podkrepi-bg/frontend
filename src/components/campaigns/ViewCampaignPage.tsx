@@ -1,19 +1,16 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
-import { Grid, Theme, Typography } from '@mui/material'
 import Image from 'next/image'
 import { useViewCampaign } from 'common/hooks/campaigns'
 import Layout from 'components/layout/Layout'
 import InlineDonation from './InlineDonation'
 import NotFoundPage from 'pages/404'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
+import { Grid, Theme, Typography } from '@mui/material'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    campaignPageWrapper: {
-      margin: '0 auto',
-    },
     bannerWrapper: {
       '& span': {
         position: 'inherit !important',
@@ -25,7 +22,6 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: `${theme.spacing(14)} !important`,
     },
     campaignTitle: {
-      padding: theme.spacing(4),
       height: theme.spacing(30),
       color: theme.palette.common.white,
       fontWeight: 500,
@@ -33,7 +29,6 @@ const useStyles = makeStyles((theme: Theme) =>
     beneficiaryWrapper: {
       display: 'flex',
       alignItems: 'end',
-      padding: theme.spacing(4),
     },
     beneficiaryAvatar: {
       borderRadius: '50%',
@@ -65,12 +60,7 @@ export default function ViewCampaignPage({ slug }: Props) {
 
   return (
     <Layout maxWidth="xl">
-      <Grid
-        container
-        component="section"
-        maxWidth="lg"
-        justifyContent="center"
-        className={classes.campaignPageWrapper}>
+      <Grid container component="section" maxWidth="lg" justifyContent="center" m="0 auto">
         <Grid item xs={12} md={8}>
           <Grid className={classes.bannerWrapper}>
             <Image
@@ -81,10 +71,15 @@ export default function ViewCampaignPage({ slug }: Props) {
               className={classes.banner}
             />
           </Grid>
-          <Typography paragraph variant="h2" component="h1" className={classes.campaignTitle}>
+          <Typography paragraph variant="h2" component="h1" p={4} className={classes.campaignTitle}>
             {campaign.title}
           </Typography>
-          <Grid item justifyContent="space-between" md={9} className={classes.beneficiaryWrapper}>
+          <Grid
+            item
+            justifyContent="space-between"
+            md={9}
+            p={5}
+            className={classes.beneficiaryWrapper}>
             <Image
               src={beneficiaryAvatarSource}
               alt={campaign.title}

@@ -1,10 +1,11 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import makeStyles from '@mui/styles/makeStyles'
 import { routes } from 'common/routes'
+import { money } from 'common/util/money'
 import LinkButton from 'components/common/LinkButton'
 import { CampaignResponse } from 'gql/campaigns'
 import CampaignProgress from './CampaignProgress'
+import makeStyles from '@mui/styles/makeStyles'
 import {
   Grid,
   Card,
@@ -18,7 +19,6 @@ import {
 } from '@mui/material'
 import { Favorite } from '@mui/icons-material'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import { money } from 'common/util/money'
 
 const useStyles = makeStyles((theme) => ({
   media: {
@@ -216,7 +216,7 @@ export default function CampaignCard({ campaign }: Props) {
                 size="small"
                 className={classes.seeMoreButton}
                 endIcon={<ArrowForwardIosIcon />}>
-                {t('nav.campaigns.see-more-button')}
+                {t('campaigns:cta.see-more')}
               </LinkButton>
             </Box>
           </Grid>
