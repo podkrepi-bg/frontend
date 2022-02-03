@@ -10,7 +10,7 @@ import theme from './theme';
 import DrawerContext from './context'
 import AlertComponent from './NotificationsAlert/AlertComponent';
 
-export default function BootcampersLayout({ children }: React.PropsWithChildren<{}>) {
+export default function BootcampersLayout({ children }: React.PropsWithChildren<unknown>) {
 
     return <DrawerContext>
         <ThemeProvider theme={theme}>

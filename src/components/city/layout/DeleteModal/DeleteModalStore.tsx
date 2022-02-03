@@ -1,5 +1,6 @@
 import { enableStaticRendering } from 'mobx-react'
 import { action, computed, makeObservable, observable } from 'mobx'
+import { CityType } from 'gql/city'
 
 enableStaticRendering(typeof window === 'undefined')
 
@@ -7,7 +8,7 @@ interface Dialog {
     id: number
     show: boolean
     title?: string
-    row: any
+    row: CityType
 }
 
 export class DialogStoreImpl {
@@ -23,7 +24,7 @@ export class DialogStoreImpl {
         })
     }
 
-    show(row: any, title?: string) {
+    show(row: CityType, title?: string) {
         this.clear()
         const dialog: Dialog = {
             id: +new Date(),
