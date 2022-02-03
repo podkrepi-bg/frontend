@@ -1,19 +1,19 @@
 import { useTranslation } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 import { money } from 'common/util/money'
+import LinkButton from 'components/common/LinkButton'
+import CampaignProgress from './CampaignProgress'
 import { Grid, Theme, Typography } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
-
-import CampaignProgress from './CampaignProgress'
+import ShareIcon from '@mui/icons-material/Share'
+import { Favorite } from '@mui/icons-material'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     inlineDonationWrapper: {
       backgroundColor: theme.palette.common.white,
       borderRadius: theme.spacing(1),
-      padding: theme.spacing(3),
-      marginTop: theme.spacing(5),
     },
     reachedMoney: {
       fontSize: theme.spacing(5),
@@ -21,6 +21,13 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     targetMoney: {
       fontSize: theme.spacing(3),
+    },
+    donorsSharesCount: {
+      fontWeight: 'bold',
+      fontSize: theme.spacing(2),
+    },
+    shareButton: {
+      padding: theme.spacing(0.75, 0),
     },
   }),
 )
@@ -67,12 +74,45 @@ export default function InlineDonation({ campaign }: Props) {
   // }, [prices])
 
   return (
-    <Grid container className={classes.inlineDonationWrapper}>
+    <Grid container mt={5} p={3} className={classes.inlineDonationWrapper}>
       <Typography variant="h4" component="h4" gutterBottom>
-        <span className={classes.reachedMoney}>{money(reached)}</span>{' '}
-        {t('campaigns:campaign.from')} <span className={classes.targetMoney}>{money(target)}</span>
+        <Typography component="span" className={classes.reachedMoney}>
+          {money(reached)}
+        </Typography>{' '}
+        {t('campaigns:campaign.from')}{' '}
+        <Typography component="span" className={classes.targetMoney}>
+          {money(target)}
+        </Typography>
       </Typography>
       <CampaignProgress raised={reached} target={target} />
+      <Typography variant="subtitle2" component="p" display="block" m={3} ml={0}>
+        <Typography className={classes.donorsSharesCount}>{0}</Typography>
+        <Typography>{t('campaigns:campaign.donors')}</Typography>
+      </Typography>
+      <Typography variant="subtitle2" component="p" display="block" m={3} ml={0}>
+        <Typography className={classes.donorsSharesCount}>{0}</Typography>
+        <Typography>{t('campaigns:campaign.shares')}</Typography>
+      </Typography>
+      <Grid container gap={2}>
+        <LinkButton
+          fullWidth
+          href="#"
+          variant="outlined"
+          size="small"
+          startIcon={<ShareIcon />}
+          color="secondary"
+          className={classes.shareButton}>
+          {t('campaigns:cta.share')}
+        </LinkButton>
+        <LinkButton
+          fullWidth
+          href="#"
+          variant="contained"
+          color="secondary"
+          startIcon={<Favorite color="action" />}>
+          {t('common:support')}
+        </LinkButton>
+      </Grid>
       {/* <List>
         {sortedPrices.map((price, index) => {
           if (!price) return null
