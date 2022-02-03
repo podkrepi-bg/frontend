@@ -6,7 +6,6 @@ import React, { useEffect } from 'react'
 import { appWithTranslation, useTranslation } from 'next-i18next'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
-import ModalContextProvider from 'context/ModalContext'
 // MaterialUI
 import { LinearProgress } from '@mui/material'
 import { ThemeProvider, Theme, StyledEngineProvider } from '@mui/material/styles'
@@ -91,32 +90,30 @@ function CustomApp({
   }, [i18n.language])
 
   return (
-    <ModalContextProvider>
-      <CacheProvider value={emotionCache}>
-        <Head>
-          <title>Podkrepi.bg</title>
-          <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
-        </Head>
-        <StyledEngineProvider injectFirst>
-          <ThemeProvider theme={theme}>
-            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-            <CssBaseline />
-            <SSRKeycloakProvider
-              LoadingComponent={<LinearProgress />}
-              onEvent={(e, err) => console.log(e, err)}
-              keycloakConfig={keycloakConfig}
-              persistor={SSRCookies(pageProps?.keyCookies ?? {})}>
-              <QueryClientProvider client={queryClient}>
-                <Hydrate state={pageProps.dehydratedState}>
-                  <Component {...pageProps} />
-                </Hydrate>
-                <ReactQueryDevtools initialIsOpen={false} />
-              </QueryClientProvider>
-            </SSRKeycloakProvider>
-          </ThemeProvider>
-        </StyledEngineProvider>
-      </CacheProvider>
-    </ModalContextProvider>
+    <CacheProvider value={emotionCache}>
+      <Head>
+        <title>Podkrepi.bg</title>
+        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+      </Head>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
+          <SSRKeycloakProvider
+            LoadingComponent={<LinearProgress />}
+            onEvent={(e, err) => console.log(e, err)}
+            keycloakConfig={keycloakConfig}
+            persistor={SSRCookies(pageProps?.keyCookies ?? {})}>
+            <QueryClientProvider client={queryClient}>
+              <Hydrate state={pageProps.dehydratedState}>
+                <Component {...pageProps} />
+              </Hydrate>
+              <ReactQueryDevtools initialIsOpen={false} />
+            </QueryClientProvider>
+          </SSRKeycloakProvider>
+        </ThemeProvider>
+      </StyledEngineProvider>
+    </CacheProvider>
   )
 }
 
