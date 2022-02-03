@@ -24,9 +24,9 @@ const columns: GridColumns = [
         headerName: 'Actions',
         renderCell: (params: GridValueGetterParams) => {
             return <div>
-                <IconButton onClick={() => DialogStore.show(params.row)} style={{ color: theme.palette.primary.main }}><InfoIcon></InfoIcon></IconButton>
-                <IconButton onClick={() => { window.location.pathname = `/bootcamp/edit/${params.row.id}` }} style={{ color: theme.palette.secondary.main }}><EditIcon></EditIcon></IconButton>
-                <IconButton onClick={() => DeleteModalStore.show(params.row, 'Delete bootcamper')} style={{ color: theme.palette.primary.dark }}><DeleteIcon></DeleteIcon></IconButton>
+                <IconButton onClick={() => DialogStore.show(params.row)} style={{ color: theme.palette.primary.main }} children={<InfoIcon></InfoIcon>}></IconButton>
+                <IconButton onClick={() => { window.location.pathname = `/bootcamp/edit/${params.row.id}` }} style={{ color: theme.palette.secondary.main }} children={<EditIcon></EditIcon>}></IconButton>
+                <IconButton onClick={() => DeleteModalStore.show(params.row, 'Delete bootcamper')} style={{ color: theme.palette.primary.dark }} children={<DeleteIcon></DeleteIcon>}></IconButton>
             </div >
         },
         flex: 0.15
@@ -54,8 +54,7 @@ export default function GenericGrid(props: GenericGridProps) {
                 setRows(ids)
                 console.log(rows)
             }}
-        >
-        </DataGrid>
+        />
         <SubmitButton sx={{ bgcolor: theme.palette.primary.light, marginLeft: "10%", width: "50%" }} label={`Delete selected bootcampers (${rows.length})`} onClick={() => DeleteManyModalStore.show(rows.map(String))} disabled={rows.length === 0}></SubmitButton>
     </>
 }
