@@ -44,8 +44,8 @@ const menuItems = [
 
 export default function MyDrawer() {
   const { isOpen }: any = useContext(DrawerContext)
-  const [open, setOpen] = useState(false)
-  const [submenuOpen, setSubmenuOpen] = useState(false)
+  const [open, setOpen] = useState<boolean>(false)
+  const [submenuOpen, setSubmenuOpen] = useState<boolean>(false)
   const router = useRouter()
   const classes = useStyles()
 
@@ -55,6 +55,8 @@ export default function MyDrawer() {
       ModalProps={{
         hideBackdrop: true,
       }}
+      onOpen={() => console.log('opened drawer')}
+      onClose={() => console.log('opened drawer')}
       open={isOpen}
       className={classes.drawer}
       variant="persistent"
@@ -69,8 +71,8 @@ export default function MyDrawer() {
             className={
               router.pathname == item.path ? `${classes.active} ${classes.item}` : classes.item
             }>
-            <ListItemIcon className={classes.icon}>{item.icon}</ListItemIcon>
-            <ListItemText className={classes.text} primary={item.text} />
+            <ListItemIcon>{item.icon}</ListItemIcon>
+            <ListItemText primary={item.text} />
           </ListItem>
         ))}
         <ListItem
