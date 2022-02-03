@@ -3,7 +3,7 @@ import { useState, createContext, SetStateAction, Dispatch } from 'react'
 export interface AllTypesUsed {
   setNotificationsOpen: Dispatch<SetStateAction<boolean>>
   notificationMessage: string
-  setNotificationMessage: any
+  setNotificationMessage: Dispatch<SetStateAction<string>>
   notificationsOpen: boolean
   isOpen: boolean
   changeHandler(): void

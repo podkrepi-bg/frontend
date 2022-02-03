@@ -20,6 +20,7 @@ import { AxiosError } from 'axios'
 import { FormikHelpers } from 'formik'
 import { useContext } from 'react'
 import { DrawerContext } from 'context/SwipeableDrawerContext'
+import { BootcampInternInput, BootcampInternResponse } from 'gql/bootcamp'
 
 const useStyles = makeStyles(() => {
   return {
@@ -33,10 +34,11 @@ const useStyles = makeStyles(() => {
   }
 })
 
-const validationSchema = yup.object().shape({
+const validationSchema: yup.SchemaOf<BootcampInternInput> = yup.object().shape({
   firstName: yup.string().trim().min(3).max(20).required(),
   lastName: yup.string().trim().min(3).max(20).required(),
   email: yup.string().trim().min(8).max(40).email('Invalid email').required(),
+  id: yup.string(),
 })
 
 export default function BootcampInternEditForm() {
@@ -47,11 +49,16 @@ export default function BootcampInternEditForm() {
   const classes = useStyles()
   const internId = router.query.id
 
-  if (typeof internId !== 'string') return
+  if (typeof internId !== 'string') {
+    setNotificationsOpen(true)
+    setNotificationMessage('Invalid id passed , please try again.')
+    router.push(routes.bootcampIntern.index)
+    return null
+  }
 
   const { data, isLoading }: UseBaseQueryResult<BootcampIntern> = useFetchBootcampIntern(internId)
 
-  const defaults = {
+  const defaults: BootcampInternResponse = {
     firstName: data?.firstName,
     lastName: data?.lastName,
     email: data?.email,
@@ -98,7 +105,11 @@ export default function BootcampInternEditForm() {
       <Typography variant="h2" className={classes.internFormHeader}>
         Edit the clicked intern
       </Typography>
-      <GenericForm onSubmit={onSubmit} initialValues={defaults} validationSchema={validationSchema}>
+      <GenericForm
+        onSubmit={onSubmit}
+        enableReinitialize
+        initialValues={defaults}
+        validationSchema={validationSchema}>
         <Grid container spacing={1.3}>
           <Grid item xs={12}>
             <FormTextField

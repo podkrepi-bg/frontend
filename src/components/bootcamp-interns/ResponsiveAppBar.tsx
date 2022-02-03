@@ -33,7 +33,6 @@ const useStyles = makeStyles(() => {
 export default function ResponsiveAppBar() {
   const classes = useStyles()
   const { isOpen, changeHandler }: any = useContext(DrawerContext)
-  const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null)
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {

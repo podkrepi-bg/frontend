@@ -1,6 +1,6 @@
 import { makeStyles } from '@mui/styles'
 
-const useStyles = makeStyles((theme) => {
+const useStyles = makeStyles(() => {
   return {
     footer: {
       background: '#f4f4f4',
