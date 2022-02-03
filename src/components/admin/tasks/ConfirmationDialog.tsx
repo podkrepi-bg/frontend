@@ -5,20 +5,22 @@ import {
   DialogTitle,
   CircularProgress,
 } from '@mui/material'
-import { UseMutateFunction, useQueryClient } from 'react-query'
 import { useMutateCars, MutationResultParams } from 'common/hooks/cars'
-import { endpoints } from 'common/api-endpoints'
-import { Dialog, Button, Box } from '@mui/material'
-import { axios } from 'common/api-client'
-import { GridRowId } from '@mui/x-data-grid'
 import { NotificationStore } from 'stores/cars/NotificationsStore'
+import { UseMutateFunction, useQueryClient } from 'react-query'
+import { Dialog, Button, Box } from '@mui/material'
+import { endpoints } from 'common/api-endpoints'
+import { GridRowId } from '@mui/x-data-grid'
+import { axios } from 'common/api-client'
 import { observer } from 'mobx-react'
+
 interface Props {
   handleClose: () => void
   open: boolean
   id: GridRowId
   multipleDeleteItems: GridRowId[]
 }
+
 export default observer(function AlertDialog({
   handleClose,
   open,

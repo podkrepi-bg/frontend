@@ -1,11 +1,12 @@
+import Picture from '/public/podkrepi-bg-logo.svg'
 import { Box, IconButton } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
-import Picture from '/public/podkrepi-bg-logo.svg'
 import Image from 'next/image'
 interface Props {
   drawerOpen: boolean
   handleDrawerOpen: () => void
 }
+
 function DrawerIcons({ drawerOpen, handleDrawerOpen }: Props) {
   const logoStyles = { display: drawerOpen ? 'none' : 'flex', alignItems: 'center' }
   return (

@@ -1,5 +1,6 @@
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
 import { Drawer, Toolbar, Box, Theme } from '@mui/material'
+import { DrawerStore } from 'stores/cars/DrawerStore'
 import CssBaseline from '@mui/material/CssBaseline'
 import ProfileMenuItems from './ProfileMenuItems'
 import DrawerListItems from './DrawerListItems'
@@ -9,9 +10,10 @@ import React, { useState } from 'react'
 import DrawerHeader from './DrawerHeader'
 import DrawerIcons from './DrawerIcons'
 import { observer } from 'mobx-react'
-import { DrawerStore } from 'stores/cars/DrawerStore'
 import PanelFooter from './Footer'
+
 const drawerWidth = 240
+
 const Main = styled('main', { shouldForwardProp: (prop: string) => prop !== 'open' })<{
   open?: boolean
 }>(({ theme, open }: { theme: Theme; open: boolean }) => ({

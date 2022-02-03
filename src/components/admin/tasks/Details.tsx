@@ -1,10 +1,11 @@
-import CardContent from '@mui/material/CardContent'
 import { Typography, Card, CSSObject } from '@mui/material'
-import { useViewCar } from 'common/hooks/cars'
-import { CarResponse } from 'gql/cars'
-import { UseQueryResult } from 'react-query'
-import { observer } from 'mobx-react'
+import CardContent from '@mui/material/CardContent'
 import { ModalStore } from 'stores/cars/ModalStore'
+import { useViewCar } from 'common/hooks/cars'
+import { UseQueryResult } from 'react-query'
+import { CarResponse } from 'gql/cars'
+import { observer } from 'mobx-react'
+
 export default observer(function BasicCard() {
   const containerStyles: CSSObject = {
     minWidth: 275,
@@ -16,7 +17,9 @@ export default observer(function BasicCard() {
     bgcolor: 'background.paper',
     p: 4,
   }
+
   const { data }: UseQueryResult<CarResponse> = useViewCar(ModalStore.carId)
+
   return (
     <Card sx={containerStyles}>
       <CardContent>

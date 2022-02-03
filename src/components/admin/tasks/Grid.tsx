@@ -6,18 +6,19 @@ import {
   GridRowId,
   GridSelectionModel,
 } from '@mui/x-data-grid'
-import CSS from 'csstype'
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip'
-import { useState } from 'react'
+import { ModalStore } from 'stores/cars/ModalStore'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import AlertDialog from './ConfirmationDialog'
-import { useRouter } from 'next/router'
 import { useCarList } from 'common/hooks/cars'
-import { CarResponse } from 'gql/cars'
 import { UseQueryResult } from 'react-query'
-import { ModalStore } from 'stores/cars/ModalStore'
+import { useRouter } from 'next/router'
+import { CarResponse } from 'gql/cars'
 import { observer } from 'mobx-react'
+import { useState } from 'react'
+import CSS from 'csstype'
+
 export default observer(function TasksGrid() {
   const router = useRouter()
   const [multipleDelete, setMupltipleDelete] = useState<GridRowId[]>([])
@@ -124,18 +125,7 @@ export default observer(function TasksGrid() {
           border: 'none',
           padding: '10px 50px',
         }}
-        rows={
-          data || [
-            {
-              brand: 'Audi',
-              model: 'A3',
-              year: 2015,
-              engine: 'petrol',
-              price: 20111,
-              id: '22232 ',
-            },
-          ]
-        }
+        rows={data || []}
         columns={columns}
         pageSize={5}
         autoHeight
