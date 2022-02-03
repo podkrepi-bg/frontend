@@ -1,7 +1,7 @@
-import Modal from '@mui/material/Modal'
-import BasicCard from './Details'
 import { ModalStore } from 'stores/cars/ModalStore'
+import Modal from '@mui/material/Modal'
 import { observer } from 'mobx-react'
+import BasicCard from './Details'
 export default observer(function BasicModal() {
   const { isModalOpen, closeModal } = ModalStore
   return (

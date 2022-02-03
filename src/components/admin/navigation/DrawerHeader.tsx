@@ -1,14 +1,14 @@
+import PictureLogo from '/public/android-chrome-192x192.png'
 import { Box, IconButton, Theme } from '@mui/material'
+import Picture from '/public/podkrepi-bg-logo.svg'
 import MenuIcon from '@mui/icons-material/Menu'
 import { styled } from '@mui/material/styles'
-import Picture from '/public/podkrepi-bg-logo.svg'
-import PictureLogo from '/public/android-chrome-192x192.png'
 import Image from 'next/image'
+
 const DrawerHeaderComp = styled('div')(({ theme }: { theme: Theme }) => ({
   display: 'flex',
   alignItems: 'center',
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',
 }))

@@ -1,19 +1,21 @@
 import { Button, CardActions, Container, Typography, TextField, Box } from '@mui/material'
-import LayoutPanel from '../navigation/LayoutPanel'
 import { MutationResultParams, useMutateCars } from 'common/hooks/cars'
-import { endpoints } from 'common/api-endpoints'
-import { CarDataType } from 'gql/cars'
+import { NotificationStore } from 'stores/cars/NotificationsStore'
 import { UseMutateFunction, useQueryClient } from 'react-query'
-import { useState } from 'react'
+import LayoutPanel from '../navigation/LayoutPanel'
+import { endpoints } from 'common/api-endpoints'
 import { axios } from 'common/api-client'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
-import { NotificationStore } from 'stores/cars/NotificationsStore'
+import { CarDataType } from 'gql/cars'
 import { observer } from 'mobx-react'
+import { useState } from 'react'
+import Link from 'next/link'
+
 export default observer(function AddForm() {
   const { openNotifications, setMessage } = NotificationStore
   const queryClient = useQueryClient()
   const router = useRouter()
+
   const [brand, setBrand] = useState('')
   const [model, setModel] = useState('')
   const [year, setYear] = useState(0)
@@ -24,8 +26,17 @@ export default observer(function AddForm() {
     return await axios.post(endpoints.cars.postCar.url, car)
   }
 
-  const { mutate }: { mutate: UseMutateFunction<unknown, Error, MutationResultParams, unknown> } =
-    useMutateCars(postCar, queryClient, openNotifications, setMessage, null, router)
+  // add new car to database
+  const {
+    mutate: addCar,
+  }: { mutate: UseMutateFunction<unknown, Error, MutationResultParams, unknown> } = useMutateCars(
+    postCar,
+    queryClient,
+    openNotifications,
+    setMessage,
+    null,
+    router,
+  )
 
   return (
     <div
@@ -101,7 +112,7 @@ export default observer(function AddForm() {
           <CardActions sx={{ m: 2, display: 'flex', justifyContent: 'center' }}>
             <Button
               onClick={() => {
-                mutate({ brand, model, year, engine, price })
+                addCar({ brand, model, year, engine, price })
               }}
               variant="contained"
               size="large">

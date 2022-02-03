@@ -1,9 +1,10 @@
-import IconButton from '@mui/material/IconButton'
-import CloseIcon from '@mui/icons-material/Close'
-import Snackbar from '@mui/material/Snackbar'
-import * as React from 'react'
 import { NotificationStore } from 'stores/cars/NotificationsStore'
+import CloseIcon from '@mui/icons-material/Close'
+import IconButton from '@mui/material/IconButton'
+import Snackbar from '@mui/material/Snackbar'
 import { observer } from 'mobx-react'
+import * as React from 'react'
+
 export default observer(function Notifications() {
   const { areNotificationsOpen, closeNotifications, notificationsMessage } = NotificationStore
   const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
