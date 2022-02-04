@@ -1,7 +1,7 @@
 import Layout from 'components/admin/Layout'
 import { DataGrid, GridColumns, GridRowId } from '@mui/x-data-grid'
 import { useCoordinatorList } from 'common/hooks/coordinators'
-import { Button, IconButton, Modal, Typography } from '@mui/material'
+import { Button, IconButton } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import PageviewIcon from '@mui/icons-material/Pageview'
@@ -18,6 +18,8 @@ import { AxiosError, AxiosResponse } from 'axios'
 import router from 'next/router'
 import ViewModal from 'components/admin/coordinator/ViewModal'
 import DeleteModal from 'components/admin/coordinator/DeleteModal'
+import { endpoints } from 'common/api-endpoints'
+import { axios } from 'common/api-client'
 
 function Coordinator() {
   const { data = [] } = useCoordinatorList()
@@ -59,7 +61,7 @@ function Coordinator() {
   const deleteHandler = () => {
     mutation.mutateAsync(rowToDelete?.id as string).then(() => {
       handleDeleteModalClose()
-      router.reload()
+      router.push('/admin/coordinator')
     })
   }
 
@@ -109,7 +111,7 @@ function Coordinator() {
   const deleteSelectedHandler = () => {
     selectedRows.forEach((row: any) => {
       mutation.mutateAsync(row?.id as string).then((_) => {
-        router.reload()
+        router.push('/admin/coordinator')
       })
     })
   }
