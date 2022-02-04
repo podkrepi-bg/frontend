@@ -16,6 +16,7 @@ import { deleteCoordinator } from 'common/rest'
 import { ApiErrors } from 'common/api-errors'
 import { AxiosError, AxiosResponse } from 'axios'
 import router from 'next/router'
+import ViewModal from 'components/admin/coordinator/ViewModal'
 
 const style = {
   position: 'absolute' as const,
@@ -160,20 +161,7 @@ function Coordinator() {
         isOpen={isDeleteSelectedModalOpen}
         deleteHandler={deleteSelectedHandler}
         handleDeleteModalClose={closeDeleteSelectedHandler}></DeleteSelectedModal>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description">
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            {row?.person.firstName} {row?.person.lastName}
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {row?.person.company}
-          </Typography>
-        </Box>
-      </Modal>
+      <ViewModal open={open} handleClose={handleClose} data={row}></ViewModal>
       <Modal
         open={isDeleteModalOpen}
         onClose={handleDeleteModalClose}
