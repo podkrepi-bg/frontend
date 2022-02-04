@@ -26,21 +26,6 @@ export default function BootcampPage() {
         <Typography variant="h4" style={{ fontSize: '20px', marginLeft: '41%' }}>
           ALL CITIES
         </Typography>
-        {/* <SubmitButton
-          sx={{
-            fontSize: '13px',
-            marginTop: '1%',
-            width: '25%',
-            marginLeft: '20%',
-            bgcolor: theme.palette.primary.light,
-          }}
-          onClick={() => {
-            router.push('/city/add')
-          }}
-          href="#"
-          label="Add city">
-          <AddIcon></AddIcon> Add city
-        </SubmitButton> */}
       </Grid>
       <Grid>
         {isLoading && <CircularProgress size="large" />}
