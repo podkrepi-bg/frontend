@@ -63,43 +63,45 @@ export default function EditBootcamp(props: any) {
   }
 
   return (
-    <Container maxWidth="sm">
+    <>
       <Layout />
-      <Grid container direction="column" component="section">
-        <Grid item xs={12}>
-          <Typography variant="h5" component="h2" sx={{ textAlign: 'center' }}>
-            Edit Bootcamp
-          </Typography>
-        </Grid>
-        <GenericForm onSubmit={onSubmit} initialValues={defaults}>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <FormTextField
-                type="text"
-                label="First name"
-                name="firstName"
-                autoComplete="name"
-                defaultValue={defaults.firstName}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormTextField
-                type="text"
-                label="Last name"
-                name="lastName"
-                autoComplete="name"
-                defaultValue={defaults.lastName}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <SubmitButton fullWidth label="Запази" loading={mutation.isLoading} />
-              <Button fullWidth onClick={() => router.push(routes.bootcamps.home)}>
-                Откажи
-              </Button>
-            </Grid>
+      <Container maxWidth="sm">
+        <Grid container direction="column" component="section">
+          <Grid item xs={12}>
+            <Typography variant="h5" component="h2" sx={{ textAlign: 'center' }}>
+              Edit Bootcamp
+            </Typography>
           </Grid>
-        </GenericForm>
-      </Grid>
-    </Container>
+          <GenericForm onSubmit={onSubmit} initialValues={defaults}>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <FormTextField
+                  type="text"
+                  label="First name"
+                  name="firstName"
+                  autoComplete="name"
+                  defaultValue={defaults.firstName}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormTextField
+                  type="text"
+                  label="Last name"
+                  name="lastName"
+                  autoComplete="name"
+                  defaultValue={defaults.lastName}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <SubmitButton fullWidth label="Запази" loading={mutation.isLoading} />
+                <Button fullWidth onClick={() => router.push(routes.bootcamps.home)}>
+                  Откажи
+                </Button>
+              </Grid>
+            </Grid>
+          </GenericForm>
+        </Grid>
+      </Container>
+    </>
   )
 }
