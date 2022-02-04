@@ -10,10 +10,6 @@ export type bankAccountResponse = {
   fingerprint?: string
   withdraws: Withdrawal[]
 }
-
-
-
-
 export type bankAccountType = {
   status: BankAccountStatus
   ibanNumber: string
