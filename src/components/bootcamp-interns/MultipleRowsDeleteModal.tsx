@@ -8,7 +8,6 @@ import router from 'next/router'
 import { routes } from 'common/routes'
 
 type Props = {
-  children: React.ReactNode
   modalProps: {
     deleteData: string[]
     setDeleteOpen: React.Dispatch<React.SetStateAction<boolean>>

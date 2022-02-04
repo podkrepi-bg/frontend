@@ -1,6 +1,6 @@
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { makeStyles } from '@mui/styles'
-import { useContext, useState } from 'react'
 import { SwipeableDrawer } from '@mui/material'
 import { GridMenuIcon } from '@mui/x-data-grid'
 import EditIcon from '@mui/icons-material/Edit'
@@ -10,7 +10,7 @@ import PeopleIcon from '@mui/icons-material/People'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
 
-import { DrawerContext } from 'context/SwipeableDrawerContext'
+import { DrawerStore } from 'stores/bootcamp-interns/DrawerStore'
 
 export const drawerWidth = 200
 
@@ -44,7 +44,7 @@ const menuItems = [
 ]
 
 export default function MyDrawer() {
-  const { isOpen }: any = useContext(DrawerContext)
+  const { isDrawerOpen } = DrawerStore
   const [open, setOpen] = useState<boolean>(false)
   const [submenuOpen, setSubmenuOpen] = useState<boolean>(false)
   const router = useRouter()
@@ -58,7 +58,7 @@ export default function MyDrawer() {
       }}
       onOpen={() => null}
       onClose={() => null}
-      open={isOpen}
+      open={isDrawerOpen}
       className={classes.drawer}
       variant="persistent"
       anchor="left"

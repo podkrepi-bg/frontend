@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box'
 import Menu from '@mui/material/Menu'
+import { observer } from 'mobx-react'
 import { makeStyles } from '@mui/styles'
 import AppBar from '@mui/material/AppBar'
 import Avatar from '@mui/material/Avatar'
@@ -9,10 +10,10 @@ import MenuItem from '@mui/material/MenuItem'
 import MenuIcon from '@mui/icons-material/Menu'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import { useContext, useState, MouseEvent } from 'react'
+import { useState, MouseEvent } from 'react'
 
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
-import { DrawerContext } from 'context/SwipeableDrawerContext'
+import { DrawerStore } from 'stores/bootcamp-interns/DrawerStore'
 
 import MyDrawer, { drawerWidth } from './MyDrawer'
 
@@ -31,10 +32,10 @@ const useStyles = makeStyles(() => {
   }
 })
 
-export default function ResponsiveAppBar() {
+export default observer(function ResponsiveAppBar() {
   const classes = useStyles()
-  const { isOpen, changeHandler }: any = useContext(DrawerContext)
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
+  const { isDrawerOpen, closeDrawer, openDrawer } = DrawerStore
 
   const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget)
@@ -44,8 +45,16 @@ export default function ResponsiveAppBar() {
     setAnchorElUser(null)
   }
 
+  const changeHandler = () => {
+    isDrawerOpen ? closeDrawer() : openDrawer()
+  }
+
+  console.log(isDrawerOpen)
+
   return (
-    <AppBar elevation={2} className={isOpen ? `${classes.shrinkedAppbar}` : `${classes.appbar}`}>
+    <AppBar
+      elevation={2}
+      className={isDrawerOpen ? `${classes.shrinkedAppbar}` : `${classes.appbar}`}>
       <Toolbar disableGutters>
         <MyDrawer />
         <IconButton onClick={changeHandler} sx={{ mr: 2 }}>
@@ -94,4 +103,4 @@ export default function ResponsiveAppBar() {
       </Toolbar>
     </AppBar>
   )
-}
+})

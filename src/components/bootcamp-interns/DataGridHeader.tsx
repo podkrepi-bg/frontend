@@ -35,7 +35,7 @@ const useStyles = makeStyles(() => {
 export default function DataGridHeader({ selected }: any) {
   const { setNotificationMessage, setNotificationsOpen }: any = useContext(DrawerContext)
   const [deleteOpen, setDeleteOpen] = useState<boolean>(false)
-  const [deleteData, setDeleteData] = useState<null | string | string[]>(null)
+  const [deleteData, setDeleteData] = useState<string[]>([])
 
   const classes = useStyles()
   const router = useRouter()
