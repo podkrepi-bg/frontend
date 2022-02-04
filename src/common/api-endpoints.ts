@@ -42,4 +42,14 @@ export const endpoints = {
     editCity: (slug: string) => <Endpoint>{ url: '/city/edit/' + slug, method: 'PUT' },
     deleteCity: (slug: string) => <Endpoint>{ url: '/city/remove' + slug, method: 'DELETE' },
   },
+  campaignTypes: {
+    listCampaignTypes: <Endpoint>{ url: '/campaign-types/list', method: 'GET' },
+    createCampaignType: <Endpoint>{ url: '/campaign-types/add', method: 'POST' },
+    viewCampaignType: (slug: string) =>
+      <Endpoint>{ url: '/campaign-types/view/' + slug, method: 'GET' },
+    editCampaignType: (slug: string) =>
+      <Endpoint>{ url: '/campaign-types/edit/' + slug, method: 'PUT' },
+    deleteCampaignType: (slug: string) =>
+      <Endpoint>{ url: '/campaign-types/remove' + slug, method: 'DELETE' },
+  },
 }

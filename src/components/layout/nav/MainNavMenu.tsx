@@ -22,6 +22,9 @@ export default function MainNavMenu({ children }: { children?: React.ReactNode }
         <Button variant="text" color="primary" href="/bootcamp" style={{ whiteSpace: 'nowrap' }}>
           Бууткемпъри
         </Button>
+        <Button variant="text" color="primary" href="/city" style={{ whiteSpace: 'nowrap' }}>
+          Градове
+        </Button>
         <Button
           variant="text"
           target="_blank"
