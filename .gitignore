@@ -47,3 +47,12 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
+.history/yarn_20220202195545.lock
+.history/yarn_20220202195647.lock
+src/components/campaigns/CampaignForm.tsx
+src/common/form/useForm.ts
+src/common/form/validation.ts
+src/gql/campaigns.d.ts
+src/gql/bootcamps.d.ts
+src/components/campaigns/CampaignForm.tsx
+src/common/routes.ts

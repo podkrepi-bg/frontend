@@ -24,8 +24,8 @@ import { routes } from 'common/routes'
 export default function BootcampsGrid() {
   const { data = [] } = useBootcampsList()
   const [open, setOpen] = useState(false)
-  const [details, setDetails] = useState(null || {})
-  const [deleteData, setDeleteData] = useState(null || {})
+  const [details, setDetails] = useState({})
+  const [deleteData, setDeleteData] = useState({})
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [isDeleteSelectedModalOpen, setIsDeleteSelectedModalOpen] = React.useState(false)
   const [selectedRows, setSelectedRows] = React.useState<BootcampResponse[]>([])

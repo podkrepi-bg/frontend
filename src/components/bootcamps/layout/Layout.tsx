@@ -281,7 +281,7 @@ export default function MiniDrawer() {
           <Typography paragraph></Typography>
         </Box>
       </Box>
-      <Footer></Footer>
+      <Footer />
     </>
   )
 }

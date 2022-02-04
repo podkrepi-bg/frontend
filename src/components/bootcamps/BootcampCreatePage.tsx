@@ -69,40 +69,38 @@ export default function BootcampForm({ initialValues = defaults }: BootcampFormP
   }
 
   return (
-    <>
+    <Container maxWidth="sm">
       <Layout></Layout>
-      <Container maxWidth="sm">
-        <Grid container direction="column" component="section">
-          <Typography variant="h3">Create new Bootcamp</Typography>
-          <Grid item xs={12}></Grid>
-          <GenericForm
-            onSubmit={onSubmit}
-            initialValues={initialValues}
-            validationSchema={validationSchema}>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <FormTextField
-                  type="text"
-                  label="bootcamps:bootcamp.firstName"
-                  name="firstName"
-                  autoComplete="title"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormTextField
-                  type="text"
-                  label="bootcamps:bootcamp.lastName"
-                  name="lastName"
-                  autoComplete="title"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <SubmitButton fullWidth label="Създай нов" loading={mutation.isLoading} />
-              </Grid>
+      <Grid container direction="column" component="section">
+        <Typography variant="h3">Create new Bootcamp</Typography>
+        <Grid item xs={12}></Grid>
+        <GenericForm
+          onSubmit={onSubmit}
+          initialValues={initialValues}
+          validationSchema={validationSchema}>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <FormTextField
+                type="text"
+                label="bootcamps:bootcamp.firstName"
+                name="firstName"
+                autoComplete="title"
+              />
             </Grid>
-          </GenericForm>
-        </Grid>
-      </Container>
-    </>
+            <Grid item xs={12}>
+              <FormTextField
+                type="text"
+                label="bootcamps:bootcamp.lastName"
+                name="lastName"
+                autoComplete="title"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <SubmitButton fullWidth label="Създай нов" loading={mutation.isLoading} />
+            </Grid>
+          </Grid>
+        </GenericForm>
+      </Grid>
+    </Container>
   )
 }
