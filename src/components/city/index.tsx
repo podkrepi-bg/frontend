@@ -23,10 +23,10 @@ export default function BootcampPage() {
   return (
     <BootcampersLayout>
       <Grid item style={{ marginTop: '10%', marginLeft: '10%' }}>
-        <Typography variant="h4" style={{ fontSize: '20px', marginLeft: '42%' }}>
+        <Typography variant="h4" style={{ fontSize: '20px', marginLeft: '41%' }}>
           ALL CITIES
         </Typography>
-        <SubmitButton
+        {/* <SubmitButton
           sx={{
             fontSize: '13px',
             marginTop: '1%',
@@ -40,7 +40,7 @@ export default function BootcampPage() {
           href="#"
           label="Add city">
           <AddIcon></AddIcon> Add city
-        </SubmitButton>
+        </SubmitButton> */}
       </Grid>
       <Grid>
         {isLoading && <CircularProgress size="large" />}
