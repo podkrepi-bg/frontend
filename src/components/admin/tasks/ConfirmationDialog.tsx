@@ -5,7 +5,7 @@ import {
   DialogTitle,
   CircularProgress,
 } from '@mui/material'
-import { useMutateCars, MutationResultParams } from 'common/hooks/cars'
+import { useMutateBankAccounts, MutationResultParams } from 'common/hooks/cars'
 import { NotificationStore } from 'stores/cars/NotificationsStore'
 import { UseMutateFunction, useQueryClient } from 'react-query'
 import { Dialog, Button, Box } from '@mui/material'
@@ -30,15 +30,13 @@ export default observer(function AlertDialog({
   const { setMessage, openNotifications } = NotificationStore
   const queryClient = useQueryClient()
   const deleteMultipleRecords = async (items: GridRowId[]) => {
-    return await axios.post(endpoints.cars.deleteManyCars.url, items)
+    return await axios.post(endpoints.bankAccounts.deleteManyBankAccounts.url, items)
   }
   const deleteCar = async (id: string) => {
-    return await axios.delete(endpoints.cars.deleteCar(id).url)
+    return await axios.delete(endpoints.bankAccounts.deleteBankAccount(id).url)
   }
   // deleteSelected - removes array with items
-  const {
-    mutate: deleteSelected,
-  }: { mutate: UseMutateFunction<unknown, Error, MutationResultParams, unknown> } = useMutateCars(
+  const { mutate: deleteSelected }: any = useMutateBankAccounts(
     deleteMultipleRecords,
     queryClient,
     openNotifications,
@@ -46,13 +44,13 @@ export default observer(function AlertDialog({
     handleClose,
   )
   // deleteSingle - removes 1 item
-  const {
-    mutate: deleteSingle,
-    isLoading,
-  }: {
-    mutate: UseMutateFunction<unknown, Error, MutationResultParams, unknown>
-    isLoading: boolean
-  } = useMutateCars(deleteCar, queryClient, openNotifications, setMessage, handleClose)
+  const { mutate: deleteSingle, isLoading }: any = useMutateBankAccounts(
+    deleteCar,
+    queryClient,
+    openNotifications,
+    setMessage,
+    handleClose,
+  )
 
   return (
     <div>
@@ -66,9 +64,9 @@ export default observer(function AlertDialog({
           <DialogContentText id="alert-dialog-description">
             {multipleDeleteItems.length > 0
               ? `Наистина ки искате да изтриете ${multipleDeleteItems.length} ${
-                  multipleDeleteItems.length === 1 ? 'кола' : 'коли'
+                  multipleDeleteItems.length === 1 ? 'запис' : 'записа'
                 } ?`
-              : 'Наистина ли искате да изтриете тази кола?'}
+              : 'Наистина ли искате да изтриете този запис?'}
           </DialogContentText>
         </DialogContent>
         <Box sx={{ display: isLoading ? 'flex' : 'none', justifyContent: 'center', width: '100%' }}>

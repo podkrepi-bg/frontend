@@ -10,19 +10,6 @@ interface Props {
 function ProfileMenuItems({ handleClick, anchorEl, handleClose, isOpen }: Props) {
   return (
     <div>
-      <Typography
-        sx={{
-          color: '#7d7d7d',
-          width: '100%',
-          position: 'fixed',
-          left: '0',
-          right: '0',
-          zIndex: -1,
-        }}
-        textAlign="center"
-        variant="h4">
-        Админ панел
-      </Typography>
       <Avatar
         onClick={handleClick}
         sx={{

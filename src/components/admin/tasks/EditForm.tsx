@@ -1,37 +1,74 @@
-import { UseMutateFunction, useQueryClient, UseQueryResult } from 'react-query'
-import { Button, CardActions, Container, TextField, Typography, Box } from '@mui/material'
-import LayoutPanel from '../navigation/LayoutPanel'
-import { CarDataType, CarResponse } from 'gql/cars'
-import { useState } from 'react'
-import { useViewCar, useMutateCars, MutationResultParams } from 'common/hooks/cars'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
+import React from 'react'
+import * as yup from 'yup'
+import { Button, Container, Grid, Typography } from '@mui/material'
+import { MyRadio, MyTextField } from './helpers/CustomComponents'
+import { Form, Formik, FormikHelpers } from 'formik'
+import axios, { AxiosError, AxiosResponse } from 'axios'
+import { UseMutateFunction, useMutation, useQueryClient, UseQueryResult } from 'react-query'
+import { useTranslation } from 'next-i18next'
 import { NotificationStore } from 'stores/cars/NotificationsStore'
 import { observer } from 'mobx-react'
+import router, { useRouter } from 'next/router'
+import { MutationResultParams, useMutateBankAccounts, useViewBankAccount } from 'common/hooks/cars'
 import { endpoints } from 'common/api-endpoints'
-import { axios } from 'common/api-client'
-export default observer(function EditForm() {
-  const { openNotifications, setMessage } = NotificationStore
-  const router = useRouter()
-  const queryClient = useQueryClient()
-  const carId: string | number = String(router.query.id)
-  //get data about the current car
-  const { data }: UseQueryResult<CarResponse> = useViewCar(carId)
-  //set new values for the car
-  const [brand, setBrand] = useState<string | undefined>(data?.brand)
-  const [model, setModel] = useState<string | undefined>(data?.model)
-  const [year, setYear] = useState<number | undefined>(data?.year)
-  const [engine, setEngine] = useState<string | undefined>(data?.engine)
-  const [price, setPrice] = useState<number | undefined>(data?.price)
+import LayoutPanel from '../navigation/LayoutPanel'
+import { bankAccountResponse } from 'gql/bankAccounts'
 
-  const submitCar = async (newCar: CarDataType) => {
-    return await axios.patch(endpoints.cars.editCar(carId).url, newCar)
+export type bankAccountType = {
+  status: BankAccountStatus
+  ibanNumber: string
+  accountHolderName: string
+  accountHolderType: AccountHolderType
+  bankName?: string
+  bankIdCode?: string
+  fingerprint?: string
+  withdraws: string
+}
+export enum BankAccountStatus {
+  new,
+  validated,
+  verified,
+  verification_failed,
+  errored,
+}
+export enum AccountHolderType {
+  individual,
+  company,
+}
+const initialValues: bankAccountType = {
+  status: BankAccountStatus.new,
+  ibanNumber: '',
+  accountHolderName: '',
+  accountHolderType: AccountHolderType.individual,
+  bankName: '',
+  bankIdCode: '',
+  fingerprint: '',
+  withdraws: '',
+}
+const items = [
+  { label: 'IBAN', name: 'ibanNumber', type: 'input' },
+  { label: 'Account Holder', name: 'accountHolderName', type: 'input' },
+  { label: 'Bank name', name: 'bankName', type: 'input' },
+  { label: 'Bank ID', name: 'bankIdCode', type: 'input' },
+  { label: 'Fingerprint', name: 'fingerprint', type: 'input' },
+  { label: 'Withdrawal', name: 'withdrawal', type: 'input' },
+]
+
+export default observer(function EditBankAccount() {
+  const router = useRouter()
+  const carId: string | number = String(router.query.id)
+
+  const { data }: UseQueryResult<bankAccountResponse> = useViewBankAccount(carId)
+  console.log(data)
+  const queryClient = useQueryClient()
+  const { t } = useTranslation()
+  const { openNotifications, setMessage } = NotificationStore
+  const onSubmit = async (newAccount: bankAccountType) => {
+    return await axios.patch(endpoints.bankAccounts.editBankAccount(carId).url, newAccount)
   }
   //edit handler
-  const {
-    mutate: editCar,
-  }: { mutate: UseMutateFunction<unknown, Error, MutationResultParams, unknown> } = useMutateCars(
-    submitCar,
+  const { mutate }: { mutate: any } = useMutateBankAccounts(
+    onSubmit,
     queryClient,
     openNotifications,
     setMessage,
@@ -39,99 +76,92 @@ export default observer(function EditForm() {
     router,
   )
 
+  const validationSchema = yup.object({
+    ibanNumber: yup.string().required(),
+    accountHolderName: yup.string().required(),
+    status: yup.string().required(),
+    accountHolderType: yup.string().required(),
+    bankName: yup.string().required(),
+    bankIdCode: yup.string().required(),
+    fingerprint: yup.string().required(),
+    withdrawal: yup.string().required(),
+  })
+
   return (
-    <div
-      style={{
-        background: '#f7f7f7',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100vh',
-      }}>
-      <LayoutPanel>
-        <Container sx={{ justifyContent: 'center', display: 'flex', flexDirection: 'column' }}>
-          <Typography
-            color="#294e85"
-            sx={{ m: 3, fontWeight: 'bold', opacity: 0.9, textAlign: 'center' }}
-            variant="h5">
-            Редактиране
-          </Typography>
-          <Box
-            component="form"
-            sx={{
-              '& .MuiTextField-root': {
-                m: 2,
-                width: '300px',
-                display: 'flex',
-                flexDirection: 'column',
-              },
-            }}
-            noValidate
-            autoComplete="off">
-            <TextField
-              required
-              id="outlined-required"
-              label="Марка"
-              defaultValue={data?.brand}
-              onChange={(e) => {
-                setBrand(e.target.value)
-              }}
-            />
-            <TextField
-              required
-              id="outlined-required"
-              label="Модел"
-              defaultValue={data?.model}
-              onChange={(e) => {
-                setModel(e.target.value)
-              }}
-            />
-            <TextField
-              required
-              id="outlined-required"
-              label="Година"
-              defaultValue={data?.year}
-              onChange={(e) => {
-                setYear(Number(e.target.value))
-              }}
-            />
-            <TextField
-              required
-              id="outlined-required"
-              label="Двигател"
-              defaultValue={data?.engine}
-              onChange={(e) => {
-                setEngine(e.target.value)
-              }}
-            />
-            <TextField
-              required
-              id="outlined-required"
-              label="Цена"
-              defaultValue={data?.price}
-              onChange={(e) => {
-                setPrice(Number(e.target.value))
-              }}
-            />
-          </Box>
-          <CardActions sx={{ m: 2, display: 'flex', justifyContent: 'center' }}>
-            <Button
-              onClick={() => {
-                editCar({ brand, model, year, engine, price })
-              }}
-              variant="contained"
-              size="large">
-              Запази
-            </Button>
-            <Link href="/tasks" passHref>
-              <Button variant="outlined" size="large">
-                Отказ
-              </Button>
-            </Link>
-          </CardActions>
-        </Container>
-      </LayoutPanel>
-    </div>
+    <LayoutPanel>
+      <Container maxWidth="sm">
+        <div>
+          <Formik
+            initialValues={initialValues}
+            enableReinitialize={true}
+            validationSchema={validationSchema}
+            onSubmit={(data) => mutate(data)}>
+            {() => (
+              <Form>
+                <Grid container direction="column" spacing={2}>
+                  <Grid item xs={12}>
+                    <Typography variant="h4" sx={{ pt: 4 }} textAlign={'center'}>
+                      Edit Bank Account
+                    </Typography>
+                  </Grid>
+                  {items.map((item) => (
+                    <Grid item xs={12}>
+                      <MyTextField label={item.label} name={item.name} type={item.type} />
+                    </Grid>
+                  ))}
+
+                  <Grid item xs={12}>
+                    <Typography variant="h6">Status</Typography>
+                    <MyRadio name="status" type="radio" value="new" label="New" />
+                    <MyRadio name="status" type="radio" value="status" label="Validated" />
+                    <MyRadio name="status" type="radio" value="verified" label="Verified" />
+                    <MyRadio
+                      name="status"
+                      type="radio"
+                      value="verification_failed"
+                      label="Verification Failed"
+                    />
+                    <MyRadio name="status" type="radio" value="errored" label="Errored" />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography variant="h6">Аccount holder type</Typography>
+                    <MyRadio
+                      name="accountHolderType"
+                      type="radio"
+                      value="individual"
+                      label="Individual"
+                    />
+                    <MyRadio
+                      name="accountHolderType"
+                      type="radio"
+                      value="company"
+                      label="Company"
+                      checked={true}
+                    />
+                  </Grid>
+                  <Grid sx={{ mt: 5 }} container justifyContent="space-evenly">
+                    <Grid item xs={5}>
+                      <Button variant="outlined" type="submit" fullWidth>
+                        Submit
+                      </Button>
+                    </Grid>
+                    <Grid item xs={5}>
+                      <Button
+                        onClick={() => {
+                          router.push('/tasks')
+                        }}
+                        variant="outlined"
+                        fullWidth>
+                        Cancel
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Form>
+            )}
+          </Formik>
+        </div>
+      </Container>
+    </LayoutPanel>
   )
 })

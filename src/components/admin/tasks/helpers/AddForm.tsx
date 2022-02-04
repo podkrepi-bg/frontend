@@ -15,7 +15,7 @@ import { createBankAccountRequest } from 'common/rest'
 import { NotificationStore } from 'stores/cars/NotificationsStore'
 import { observer } from 'mobx-react'
 import router from 'next/router'
-import { MutationResultParams, useMutateCars } from 'common/hooks/cars'
+import { MutationResultParams, useMutateBankAccounts } from 'common/hooks/cars'
 import { endpoints } from 'common/api-endpoints'
 export type bankAccountType = {
   status: BankAccountStatus
@@ -65,13 +65,11 @@ export default observer(function AddBankAccountForm() {
     return await axios.post('http://localhost:5010/api/bankaccount', newAccount)
   }
   //edit handler
-  const {
-    mutate: postCar,
-  }: { mutate: UseMutateFunction<unknown, Error, MutationResultParams, unknown> } = useMutateCars(
+  const { mutate }: { mutate: any } = useMutateBankAccounts(
     onSubmit,
     queryClient,
     openNotifications,
-    postMessage,
+    setMessage,
     null,
     router,
   )
@@ -83,8 +81,11 @@ export default observer(function AddBankAccountForm() {
 
   return (
     <div>
-      <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
-        {({ values, errors }) => (
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={(data) => mutate(data)}>
+        {() => (
           <Form>
             <Grid container direction="column" spacing={2}>
               <Grid item xs={12}>
@@ -101,8 +102,8 @@ export default observer(function AddBankAccountForm() {
               <Grid item xs={12}>
                 <Typography variant="h6">Status</Typography>
                 <MyRadio name="status" type="radio" value="new" label="New" />
-                <MyRadio name="status" type="radio" value="status" label="Validated" />
-                <MyRadio name="status" type="radio" value="verified" label="Veryfied" />
+                <MyRadio name="status" type="radio" value="validated" label="Validated" />
+                <MyRadio name="status" type="radio" value="verified" label="Verified" />
                 <MyRadio
                   name="status"
                   type="radio"
@@ -128,7 +129,12 @@ export default observer(function AddBankAccountForm() {
                   </Button>
                 </Grid>
                 <Grid item xs={5}>
-                  <Button variant="outlined" fullWidth>
+                  <Button
+                    onClick={() => {
+                      router.push('/tasks')
+                    }}
+                    variant="outlined"
+                    fullWidth>
                     Cancel
                   </Button>
                 </Grid>
