@@ -1,15 +1,16 @@
+import { ListItemButton, ListItemIcon, ListItemText, Collapse } from '@mui/material'
 import { List } from '@mui/material'
 import PetsIcon from '@mui/icons-material/Pets'
 import AddBoxIcon from '@mui/icons-material/AddBox'
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import { ExpandLess, ExpandMore } from '@mui/icons-material'
 import Link from 'next/link'
-import { ListItemButton, ListItemIcon, ListItemText, Collapse } from '@mui/material'
-import { DrawerStore } from 'stores/DrawerStore'
-import { observer } from 'mobx-react'
 import { useRouter } from 'next/router'
-import { routes } from 'common/routes'
 import { useTranslation } from 'next-i18next'
+import { observer } from 'mobx-react'
+
+import { DrawerStore } from 'stores/DrawerStore'
+import { routes } from 'common/routes'
 
 export default observer(function DashboardMenu() {
   const { t } = useTranslation()

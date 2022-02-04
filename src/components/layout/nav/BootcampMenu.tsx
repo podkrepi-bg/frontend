@@ -1,10 +1,9 @@
 import { useRouter } from 'next/router'
-
+import { useTranslation } from 'next-i18next'
 import { Typography } from '@mui/material'
 
 import LinkMenuItem from 'components/common/LinkMenuItem'
 import GenericMenu from './GenericMenu'
-import { useTranslation } from 'next-i18next'
 
 export default function BootcampMenu() {
   const { t } = useTranslation()
