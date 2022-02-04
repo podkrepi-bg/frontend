@@ -7,10 +7,21 @@ import { endpoints } from 'common/api-endpoints'
 import router from 'next/router'
 import { routes } from 'common/routes'
 
-export default function MultipleRowsDeleteModal(props: any) {
+type Props = {
+  children: React.ReactNode
+  modalProps: {
+    deleteData: string[]
+    setDeleteOpen: React.Dispatch<React.SetStateAction<boolean>>
+    deleteOpen: boolean
+  }
+}
+
+export default function MultipleRowsDeleteModal({
+  modalProps: { deleteData, setDeleteOpen, deleteOpen },
+}: Props) {
   const { setNotificationMessage, setNotificationsOpen }: any = useContext(DrawerContext)
-  const { deleteData, setDeleteOpen, deleteOpen } = props.modalProps
   const hasSelectedMultipleRows = deleteData?.length > 1
+  console.log(deleteData)
 
   const handleDelete = async () => {
     if (hasSelectedMultipleRows) {
@@ -26,11 +37,7 @@ export default function MultipleRowsDeleteModal(props: any) {
     } else {
       await axios.delete(endpoints.bootcampIntern.listBootcampIntern.url + '/' + deleteData[0])
       setNotificationsOpen(true)
-      setNotificationMessage(
-        deleteData.email
-          ? `Sucessfully deleted ${deleteData.email}`
-          : 'Sucessfully deleted the selected row.',
-      )
+      setNotificationMessage(`Sucessfully deleted single row`)
       setDeleteOpen(false)
       router.push(routes.bootcampIntern.index)
     }
