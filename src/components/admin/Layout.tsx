@@ -74,7 +74,7 @@ function CustomLayout({ children }: { children: any }) {
   }
 
   const navLinks = [
-    { icon: <PeopleIcon />, name: 'All bootcampers', href: '/admin/coordinators' },
+    { icon: <PeopleIcon />, name: 'All', href: '/admin/coordinators' },
     {
       icon: <PersonAddIcon />,
       name: 'Create',
