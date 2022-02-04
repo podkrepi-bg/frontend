@@ -1,19 +1,18 @@
+import { SyntheticEvent } from 'react'
 import Snackbar from '@mui/material/Snackbar'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
-import { useContext, SyntheticEvent } from 'react'
 
-import { DrawerContext } from 'context/SwipeableDrawerContext'
+import { NotificationStore } from 'stores/bootcamp-interns/NotificationStore'
 
 export default function Notifications() {
-  const { notificationsOpen, setNotificationsOpen, notificationMessage }: any =
-    useContext(DrawerContext)
+  const { isNotificationShown, hideNotification, notificationMessage } = NotificationStore
+
   const handleClose = (event: SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
-      return
-    }
-    setNotificationsOpen(false)
+    if (reason === 'clickaway') return
+    hideNotification()
   }
+
   const action = (
     <>
       <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
@@ -21,15 +20,14 @@ export default function Notifications() {
       </IconButton>
     </>
   )
+
   return (
-    <div>
-      <Snackbar
-        open={notificationsOpen}
-        autoHideDuration={3000}
-        onClose={handleClose}
-        message={notificationMessage}
-        action={action}
-      />
-    </div>
+    <Snackbar
+      open={isNotificationShown}
+      autoHideDuration={2000}
+      onClose={handleClose}
+      message={notificationMessage}
+      action={action}
+    />
   )
 }

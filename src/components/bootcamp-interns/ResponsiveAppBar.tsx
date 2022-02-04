@@ -7,10 +7,10 @@ import Avatar from '@mui/material/Avatar'
 import Toolbar from '@mui/material/Toolbar'
 import Tooltip from '@mui/material/Tooltip'
 import MenuItem from '@mui/material/MenuItem'
+import { useState, MouseEvent } from 'react'
 import MenuIcon from '@mui/icons-material/Menu'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import { useState, MouseEvent } from 'react'
 
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 import { DrawerStore } from 'stores/bootcamp-interns/DrawerStore'
@@ -48,8 +48,6 @@ export default observer(function ResponsiveAppBar() {
   const changeHandler = () => {
     isDrawerOpen ? closeDrawer() : openDrawer()
   }
-
-  console.log(isDrawerOpen)
 
   return (
     <AppBar

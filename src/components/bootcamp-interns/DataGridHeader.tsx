@@ -1,16 +1,15 @@
 import { useRouter } from 'next/router'
 import { makeStyles } from '@mui/styles'
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import AddIcon from '@mui/icons-material/Add'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import { AppBar, IconButton, Toolbar, Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
-import { DrawerContext } from 'context/SwipeableDrawerContext'
 
-import DeleteModal from './DeleteModal'
 import { drawerWidth } from './MyDrawer'
 import MultipleRowsDeleteModal from './MultipleRowsDeleteModal'
+import { NotificationStore } from 'stores/bootcamp-interns/NotificationStore'
 
 const useStyles = makeStyles(() => {
   return {
@@ -33,16 +32,16 @@ const useStyles = makeStyles(() => {
 })
 
 export default function DataGridHeader({ selected }: any) {
-  const { setNotificationMessage, setNotificationsOpen }: any = useContext(DrawerContext)
   const [deleteOpen, setDeleteOpen] = useState<boolean>(false)
   const [deleteData, setDeleteData] = useState<string[]>([])
+  const { setNotificationMessage, showNotification } = NotificationStore
 
   const classes = useStyles()
   const router = useRouter()
 
   const deleteHandler = () => {
     if (selected.length === 0) {
-      setNotificationsOpen(true)
+      showNotification()
       setNotificationMessage('You must select at least 1 row.')
       return
     }

@@ -48,16 +48,16 @@ const useStyles = makeStyles(() => {
 const iconsStyle = { cursor: 'pointer' }
 
 export default function BootcampInternGrid() {
-  const router = useRouter()
-  const classes = useStyles()
   const [open, setOpen] = useState<boolean>(false)
   const [selectedRows, setSelectedRows] = useState<GridSelectionModel>([])
-
-  const { data }: UseBaseQueryResult<BootcampIntern[]> = useBootcampInternsList()
-
   const [details, setDetails] = useState<null | string[]>(null)
   const [deleteData, setDeleteData] = useState<string | unknown>('')
   const [deleteOpen, setDeleteOpen] = useState<boolean>(false)
+
+  const router = useRouter()
+  const classes = useStyles()
+
+  const { data }: UseBaseQueryResult<BootcampIntern[]> = useBootcampInternsList()
 
   const columns: GridColumns = [
     { field: 'id', headerName: 'ID', hide: true },
@@ -121,23 +121,14 @@ export default function BootcampInternGrid() {
     setDeleteData(dataForProps)
   }
 
-  const deleteProps = {
-    deleteOpen,
-    setDeleteOpen,
-    deleteData,
-  }
+  const deleteProps = { deleteOpen, setDeleteOpen, deleteData }
 
   function detailsClickHandler(cellValues: GridRenderCellParams) {
     setDetails({ ...cellValues.row })
     setOpen(true)
   }
 
-  const bootcampProps = {
-    data,
-    open,
-    setOpen,
-    ...details,
-  }
+  const bootcampProps = { data, open, setOpen, ...details }
 
   return (
     <div className={classes.datagridParent}>

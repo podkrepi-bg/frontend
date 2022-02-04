@@ -1,11 +1,10 @@
-import React, { useContext } from 'react'
+import router from 'next/router'
 import { Dialog, DialogTitle, DialogActions, Button, Modal } from '@mui/material'
 
-import { DrawerContext } from 'context/SwipeableDrawerContext'
+import { routes } from 'common/routes'
 import { axios } from 'common/api-client'
 import { endpoints } from 'common/api-endpoints'
-import router from 'next/router'
-import { routes } from 'common/routes'
+import { NotificationStore } from 'stores/bootcamp-interns/NotificationStore'
 
 type Props = {
   modalProps: {
@@ -18,24 +17,22 @@ type Props = {
 export default function MultipleRowsDeleteModal({
   modalProps: { deleteData, setDeleteOpen, deleteOpen },
 }: Props) {
-  const { setNotificationMessage, setNotificationsOpen }: any = useContext(DrawerContext)
+  const { setNotificationMessage, showNotification } = NotificationStore
   const hasSelectedMultipleRows = deleteData?.length > 1
   console.log(deleteData)
 
   const handleDelete = async () => {
     if (hasSelectedMultipleRows) {
       deleteData.map(async (id: string) => {
-        await axios.delete(
-          `http://localhost:5010/api${endpoints.bootcampIntern.listBootcampIntern.url}/${id}`,
-        )
-        setNotificationsOpen(true)
+        await axios.delete(`${endpoints.bootcampIntern.listBootcampIntern.url}/${id}`)
+        showNotification()
         setNotificationMessage(`Sucessfully deleted ${deleteData.length} rows.`)
         setDeleteOpen(false)
         router.push(routes.bootcampIntern.index)
       })
     } else {
-      await axios.delete(endpoints.bootcampIntern.listBootcampIntern.url + '/' + deleteData[0])
-      setNotificationsOpen(true)
+      await axios.delete(`${endpoints.bootcampIntern.listBootcampIntern.url}/${deleteData[0]}`)
+      showNotification()
       setNotificationMessage(`Sucessfully deleted single row`)
       setDeleteOpen(false)
       router.push(routes.bootcampIntern.index)

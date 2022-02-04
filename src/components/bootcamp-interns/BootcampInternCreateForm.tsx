@@ -1,8 +1,8 @@
 import * as yup from 'yup'
-import { useContext } from 'react'
 import { AxiosError } from 'axios'
-import { useRouter } from 'next/router'
+import { observer } from 'mobx-react'
 import { FormikHelpers } from 'formik'
+import { useRouter } from 'next/router'
 import { makeStyles } from '@mui/styles'
 import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
@@ -11,14 +11,14 @@ import { Grid, Typography } from '@mui/material'
 import { routes } from 'common/routes'
 import { axios } from 'common/api-client'
 import { endpoints } from 'common/api-endpoints'
+import { name, email } from 'common/form/validation'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
-import { DrawerContext } from 'context/SwipeableDrawerContext'
 import { BootcampIntern } from 'lib/interfaces/BootcampIntern'
 import FormTextField from 'components/common/form/FormTextField'
 import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
 import { BootcampInternInput, BootcampInternResponse } from 'gql/bootcamp'
-import { name, email } from 'common/form/validation'
+import { NotificationStore } from 'stores/bootcamp-interns/NotificationStore'
 
 import { drawerWidth } from './MyDrawer'
 
@@ -47,11 +47,11 @@ const defaults: BootcampInternResponse = {
   email: '',
 }
 
-export default function BootcampInternCreateForm() {
+export default observer(function BootcampInternCreateForm() {
   const router = useRouter()
   const classes = useStyles()
-  const { setNotificationMessage, setNotificationsOpen }: any = useContext(DrawerContext)
   const { t } = useTranslation()
+  const { setNotificationMessage, showNotification } = NotificationStore
 
   const createIntern = async (internData: BootcampIntern) => {
     await axios.post(endpoints.bootcampIntern.listBootcampIntern.url, internData)
@@ -60,12 +60,12 @@ export default function BootcampInternCreateForm() {
   const mutation = useMutation({
     mutationFn: createIntern,
     onError: () => {
-      setNotificationsOpen(true)
+      showNotification()
       setNotificationMessage('Something went wrong, please try again later.')
     },
     onSuccess: () => {
       router.push(routes.bootcampIntern.index)
-      setNotificationsOpen(true)
+      showNotification()
       setNotificationMessage('Sucessfully created new intern.')
     },
   })
@@ -120,4 +120,4 @@ export default function BootcampInternCreateForm() {
       </GenericForm>
     </Grid>
   )
-}
+})

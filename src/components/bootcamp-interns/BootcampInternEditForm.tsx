@@ -1,25 +1,25 @@
 import * as yup from 'yup'
-import { ButtonGroup, Grid, Typography, Button } from '@mui/material'
 import { AxiosError } from 'axios'
+import { observer } from 'mobx-react'
 import { FormikHelpers } from 'formik'
-import { useContext } from 'react'
+import { useRouter } from 'next/router'
+import { makeStyles } from '@mui/styles'
 import { useTranslation } from 'next-i18next'
 import { UseBaseQueryResult, useMutation } from 'react-query'
-import { makeStyles } from '@mui/styles'
-import { useRouter } from 'next/router'
+import { ButtonGroup, Grid, Typography, Button } from '@mui/material'
 
-import GenericForm from 'components/common/form/GenericForm'
-import FormTextField from 'components/common/form/FormTextField'
-import SubmitButton from 'components/common/form/SubmitButton'
+import { routes } from 'common/routes'
 import { axios } from 'common/api-client'
 import { endpoints } from 'common/api-endpoints'
-import { routes } from 'common/routes'
-import { BootcampIntern } from 'lib/interfaces/BootcampIntern'
-import { useFetchBootcampIntern } from 'common/hooks/bootcampIntern'
-import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
-import { DrawerContext } from 'context/SwipeableDrawerContext'
-import { BootcampInternInput, BootcampInternResponse } from 'gql/bootcamp'
 import { name, email } from 'common/form/validation'
+import GenericForm from 'components/common/form/GenericForm'
+import { BootcampIntern } from 'lib/interfaces/BootcampIntern'
+import SubmitButton from 'components/common/form/SubmitButton'
+import FormTextField from 'components/common/form/FormTextField'
+import { useFetchBootcampIntern } from 'common/hooks/bootcampIntern'
+import { BootcampInternInput, BootcampInternResponse } from 'gql/bootcamp'
+import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
+import { NotificationStore } from 'stores/bootcamp-interns/NotificationStore'
 
 import { drawerWidth } from './MyDrawer'
 
@@ -42,8 +42,8 @@ const validationSchema: yup.SchemaOf<BootcampInternInput> = yup.object().shape({
   id: yup.string(),
 })
 
-export default function BootcampInternEditForm() {
-  const { setNotificationMessage, setNotificationsOpen }: any = useContext(DrawerContext)
+export default observer(function BootcampInternEditForm() {
+  const { setNotificationMessage, showNotification } = NotificationStore
 
   const router = useRouter()
   const { t } = useTranslation()
@@ -51,7 +51,7 @@ export default function BootcampInternEditForm() {
   const internId = router.query.id
 
   if (typeof internId !== 'string') {
-    setNotificationsOpen(true)
+    showNotification()
     setNotificationMessage('Invalid id passed , please try again.')
     router.push(routes.bootcampIntern.index)
     return null
@@ -72,12 +72,12 @@ export default function BootcampInternEditForm() {
   const mutation = useMutation({
     mutationFn: submitIntern,
     onError: () => {
-      setNotificationsOpen((prev: boolean) => !prev)
+      showNotification()
       setNotificationMessage('Something went wrong, please try again later.')
     },
     onSuccess: () => {
       router.push(routes.bootcampIntern.index)
-      setNotificationsOpen((prev: boolean) => !prev)
+      showNotification()
       setNotificationMessage('Sucessfully edited the intern.')
     },
   })
@@ -139,4 +139,4 @@ export default function BootcampInternEditForm() {
       </GenericForm>
     </Grid>
   )
-}
+})

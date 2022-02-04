@@ -1,14 +1,14 @@
-import { useContext } from 'react'
 import { useRouter } from 'next/router'
 import { Dialog, DialogTitle, DialogActions, Button, Modal } from '@mui/material'
 
 import { routes } from 'common/routes'
 import { axios } from 'common/api-client'
 import { endpoints } from 'common/api-endpoints'
-import { DrawerContext } from 'context/SwipeableDrawerContext'
+import { NotificationStore } from 'stores/bootcamp-interns/NotificationStore'
 
 export default function DeleteModal(props: any) {
-  const { setNotificationMessage, setNotificationsOpen }: any = useContext(DrawerContext)
+  const { setNotificationMessage, showNotification } = NotificationStore
+
   const {
     deleteData: { id, email, dialogTitle },
     setDeleteOpen,
@@ -17,8 +17,8 @@ export default function DeleteModal(props: any) {
   const router = useRouter()
 
   const handleDelete = async () => {
-    await axios.delete(endpoints.bootcampIntern.listBootcampIntern.url + '/' + id)
-    setNotificationsOpen(true)
+    await axios.delete(`${endpoints.bootcampIntern.listBootcampIntern.url}/${id}`)
+    showNotification()
     setNotificationMessage(`Sucessfully deleted ${email}`)
     setDeleteOpen(false)
     router.push(routes.bootcampIntern.index)
