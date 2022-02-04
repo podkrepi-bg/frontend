@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 
-export default class UserStore {
+export default class DrawerStore {
   isDrawerOpen = false
   constructor() {
     makeAutoObservable(this)
