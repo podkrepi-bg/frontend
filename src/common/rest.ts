@@ -12,6 +12,7 @@ import { CampaignResponse, CampaignInput } from 'gql/campaigns'
 import { endpoints } from './api-endpoints'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
+import { bankAccountResponse, bankAccountType } from 'gql/bankAccounts'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await axios.get(queryKey.join('/'))
@@ -44,6 +45,16 @@ export const createContactRequest: MutationFunction<
   ContactRequestInput
 > = async (data: ContactRequestInput) => {
   return await axios.post<ContactRequestInput, AxiosResponse<ContactRequestResponse>>(
+    endpoints.support.createInfoRequest.url,
+    data,
+  )
+}
+
+export const createBankAccountRequest: MutationFunction<
+  AxiosResponse<bankAccountResponse>,
+  bankAccountType
+> = async (data: bankAccountType) => {
+  return await axios.post<bankAccountType, AxiosResponse<bankAccountResponse>>(
     endpoints.support.createInfoRequest.url,
     data,
   )
