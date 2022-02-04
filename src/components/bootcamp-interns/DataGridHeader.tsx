@@ -10,6 +10,7 @@ import { DrawerContext } from 'context/SwipeableDrawerContext'
 
 import DeleteModal from './DeleteModal'
 import { drawerWidth } from './MyDrawer'
+import MultipleRowsDeleteModal from './MultipleRowsDeleteModal'
 
 const useStyles = makeStyles(() => {
   return {
@@ -67,7 +68,7 @@ export default function DataGridHeader({ selected }: any) {
         <IconButton onClick={() => router.push(routes.bootcampIntern.index + '/create')}>
           <AddIcon color="primary" className={classes.addIcon} />
         </IconButton>
-        <DeleteModal modalProps={deleteProps}></DeleteModal>
+        <MultipleRowsDeleteModal modalProps={deleteProps}></MultipleRowsDeleteModal>
       </Toolbar>
     </AppBar>
   )
