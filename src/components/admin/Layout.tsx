@@ -168,7 +168,7 @@ function CustomLayout({ children }: { children: any }) {
       </Drawer>
       <Container maxWidth="lg">{children}</Container>
       <footer style={{ position: 'fixed', bottom: 0, width: '100%' }}>
-        <p style={{ textAlign: 'center' }}>footer text {JSON.stringify(store.isDrawerOpen)}</p>
+        <p style={{ textAlign: 'center' }}>footer text</p>
       </footer>
       <Snackbar></Snackbar>
     </>
