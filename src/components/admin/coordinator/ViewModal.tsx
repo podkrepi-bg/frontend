@@ -19,7 +19,7 @@ function ViewModal({
 }: {
   open: boolean
   handleClose: any
-  data: CoordinatorResponse
+  data: CoordinatorResponse | undefined
 }) {
   return (
     <Modal
