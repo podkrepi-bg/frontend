@@ -5,7 +5,7 @@ import { enableStaticRendering } from 'mobx-react'
 enableStaticRendering(typeof window === 'undefined')
 
 export class NotificationStoreImplementation {
-  isNotificationShown = true
+  isNotificationShown = false
   notificationMessage = ''
 
   constructor() {
