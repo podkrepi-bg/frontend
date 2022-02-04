@@ -120,7 +120,7 @@ export default function BootcampsGrid() {
 
   return (
     <>
-      <Layout></Layout>
+        <Layout />
       <Container maxWidth="lg">
         <Typography variant="h2" align="center">
           Softuni Bootcamps

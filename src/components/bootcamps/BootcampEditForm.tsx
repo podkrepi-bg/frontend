@@ -64,7 +64,7 @@ export default function EditBootcamp(props: any) {
 
   return (
     <Container maxWidth="sm">
-      <Layout></Layout>
+      <Layout />
       <Grid container direction="column" component="section">
         <Grid item xs={12}>
           <Typography variant="h5" component="h2" sx={{ textAlign: 'center' }}>
