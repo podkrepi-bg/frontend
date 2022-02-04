@@ -74,7 +74,7 @@ export default observer(function PersistentDrawerLeft({ children }: Props) {
     closeDrawer()
   }
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', py:10 }}>
       <CssBaseline />
       <AppBar position="fixed" open={isDrawerOpen} style={{ background: 'white' }}>
         <Toolbar
@@ -108,7 +108,7 @@ export default observer(function PersistentDrawerLeft({ children }: Props) {
         <DrawerListItems />
       </Drawer>
       <Main open={isDrawerOpen}>{children}</Main>
-      <PanelFooter />
+     {/*  <PanelFooter /> */}
       <Notifications />
     </Box>
   )

@@ -4,6 +4,7 @@ import { CarResponse } from 'gql/cars'
 import { routes } from 'common/routes'
 import { GridRowId } from '@mui/x-data-grid'
 import { CarDataType } from 'gql/cars'
+import { bankAccountResponse } from 'gql/bankAccounts'
 // GET REQUESTS
 
 export function useCarList() {
@@ -15,7 +16,7 @@ export function useViewCar(slug: string | number) {
 }
 
 //MUTATE CARS (POST, PATCH, DELETE)
-export type MutationResultParams = GridRowId[] | GridRowId | CarDataType
+export type MutationResultParams = bankAccountResponse
 export const useMutateCars = (
   fn: any,
   queryClient: any,
