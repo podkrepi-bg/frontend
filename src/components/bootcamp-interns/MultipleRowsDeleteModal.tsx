@@ -39,7 +39,9 @@ export default function MultipleRowsDeleteModal(props: any) {
   return (
     <Modal open={deleteOpen} onClose={() => setDeleteOpen(false)}>
       <Dialog open={deleteOpen} onClose={() => setDeleteOpen(false)}>
-        <DialogTitle>Are you sure you want to delete the selected + </DialogTitle>
+        <DialogTitle>
+          Are you sure you want to delete the selected {hasSelectedMultipleRows ? 'rows' : 'row'}{' '}
+        </DialogTitle>
         <DialogActions>
           <Button onClick={() => setDeleteOpen(false)}>No</Button>
           <Button onClick={handleDelete} autoFocus>
