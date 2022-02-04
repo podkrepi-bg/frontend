@@ -5,19 +5,20 @@ import {
   GridColDef,
   GridRowId,
   GridSelectionModel,
+  GridCellValue,
 } from '@mui/x-data-grid'
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip'
 import { ModalStore } from 'stores/cars/ModalStore'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import AlertDialog from './ConfirmationDialog'
-import { useCarList } from 'common/hooks/cars'
+import { useBankAccountsList } from 'common/hooks/cars'
 import { UseQueryResult } from 'react-query'
 import { useRouter } from 'next/router'
-import { CarResponse } from 'gql/cars'
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 import CSS from 'csstype'
+import { bankAccountResponse } from 'gql/bankAccounts'
 
 export default observer(function TasksGrid() {
   const router = useRouter()
@@ -31,12 +32,19 @@ export default observer(function TasksGrid() {
   const handleClose = () => {
     ModalStore.closeCfrm()
   }
-  const commonCellStyles: CSS.Properties = {
-    fontWeight: 'bold',
+  const commonCellStyles = (status: GridCellValue): CSS.Properties => {
+    return {
+      fontWeight: 'bold',
+      color: status === 'verified' ? 'green' : status === 'verification_failed' ? 'red' : '',
+    }
   }
 
-  const renderCell = (cellValues: GridRenderCellParams): React.ReactNode => {
-    return <div style={commonCellStyles}>{cellValues.value}</div>
+  const renderCell = (cellValues: GridRenderCellParams<bankAccountResponse>): React.ReactNode => {
+    return (
+      <div style={commonCellStyles(cellValues.getValue(cellValues.id, 'status'))}>
+        {cellValues.value}
+      </div>
+    )
   }
   const commonProps: Partial<GridColDef> = {
     align: 'center',
@@ -45,21 +53,13 @@ export default observer(function TasksGrid() {
     renderCell,
   }
   const columns: GridColumns = [
-    {
-      field: 'type',
-      headerName: 'вид',
-      width: 100,
-      align: 'center',
-      headerAlign: 'center',
-      renderCell: () => {
-        return <div style={commonCellStyles}>Кола</div>
-      },
-    },
-    { ...commonProps, headerName: 'марка', field: 'brand' },
-    { ...commonProps, headerName: 'модел', field: 'model' },
-    { ...commonProps, headerName: 'година', field: 'year' },
-    { ...commonProps, headerName: 'двигател', field: 'engine' },
-    { ...commonProps, headerName: 'цена', field: 'price' },
+    { ...commonProps, headerName: 'статус', field: 'status' },
+    { ...commonProps, headerName: 'ибан', field: 'ibanNumber' },
+    { ...commonProps, headerName: 'собственик', field: 'accountHolderName' },
+    { ...commonProps, headerName: 'вид', field: 'accountHolderType' },
+    { ...commonProps, headerName: 'име на банка', field: 'bankName' },
+    { ...commonProps, headerName: 'ид на банката', field: 'bankIdCode' },
+    { ...commonProps, headerName: 'цена', field: 'fingerprint' },
     {
       field: 'others',
       headerName: 'редактиране',
@@ -109,7 +109,7 @@ export default observer(function TasksGrid() {
       },
     },
   ]
-  const { data }: UseQueryResult<CarResponse[]> = useCarList()
+  const { data }: UseQueryResult<bankAccountResponse[]> = useBankAccountsList()
   return (
     <>
       <AlertDialog

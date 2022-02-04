@@ -22,6 +22,7 @@ export type bankAccountType = {
   bankName?: string
   bankIdCode?: string
   fingerprint?: string
+  withdrawal:string
 }
 export enum BankAccountStatus {
   new,

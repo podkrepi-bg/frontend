@@ -4,30 +4,33 @@ import { CarResponse } from 'gql/cars'
 import { routes } from 'common/routes'
 import { GridRowId } from '@mui/x-data-grid'
 import { CarDataType } from 'gql/cars'
-import { bankAccountResponse } from 'gql/bankAccounts'
+import { bankAccountResponse, bankAccountType } from 'gql/bankAccounts'
 // GET REQUESTS
 
-export function useCarList() {
-  return useQuery<CarResponse[]>(endpoints.cars.carsList.url)
+export function useBankAccountsList() {
+  return useQuery<bankAccountResponse[]>(endpoints.bankAccounts.bankAccountList.url)
 }
 
-export function useViewCar(slug: string | number) {
-  return useQuery<CarResponse>(endpoints.cars.viewCar(slug).url)
+
+
+
+export function useViewBankAccount(slug: string | number) {
+  return useQuery<bankAccountResponse>(endpoints.bankAccounts.viewBankAccount(slug).url)
 }
 
 //MUTATE CARS (POST, PATCH, DELETE)
 export type MutationResultParams = bankAccountResponse
-export const useMutateCars = (
+export const useMutateBankAccounts = (
   fn: any,
   queryClient: any,
   setNotificationsOpen: any,
   setNotificationMessage: any,
   handleClose: any,
   router?: any,
-): UseMutationResult<MutateFunction, Error, MutationResultParams, unknown> => {
+): UseMutationResult<MutateFunction, Error, bankAccountType, unknown> => {
   return useMutation(fn, {
     onSuccess: () => {
-      queryClient.invalidateQueries('/car')
+      queryClient.invalidateQueries('/bankaccount')
       handleClose && handleClose()
       setNotificationsOpen()
       setNotificationMessage(handleClose ? 'Записите бяха изтрити.' : 'Колата беше обновена')

@@ -5,11 +5,11 @@ import { ParsedUrlQuery } from 'querystring'
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const { id }: ParsedUrlQuery = query
   const fetchCar = async () => {
-    const res = await fetch(`http://localhost:5010/api/car/${id}`)
+    const res = await fetch(`http://localhost:5010/api/bankaccount/${id}`)
     return res.json()
   }
   const client = new QueryClient()
-  await client.prefetchQuery(`/car/${id}`, fetchCar)
+  await client.prefetchQuery(`/bankaccount/${id}`, fetchCar)
   return {
     props: {
       dehydratedState: dehydrate(client),

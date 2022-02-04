@@ -1,10 +1,10 @@
 import { Typography, Card, CSSObject } from '@mui/material'
 import CardContent from '@mui/material/CardContent'
 import { ModalStore } from 'stores/cars/ModalStore'
-import { useViewCar } from 'common/hooks/cars'
+import { useViewBankAccount } from 'common/hooks/cars'
 import { UseQueryResult } from 'react-query'
-import { CarResponse } from 'gql/cars'
 import { observer } from 'mobx-react'
+import { bankAccountResponse } from 'gql/bankAccounts'
 
 export default observer(function BasicCard() {
   const containerStyles: CSSObject = {
@@ -18,25 +18,25 @@ export default observer(function BasicCard() {
     p: 4,
   }
 
-  const { data }: UseQueryResult<CarResponse> = useViewCar(ModalStore.carId)
+  const { data }: UseQueryResult<bankAccountResponse> = useViewBankAccount(ModalStore.carId)
 
   return (
     <Card sx={containerStyles}>
       <CardContent>
         <Typography variant="h5" component="div" gutterBottom>
-          {data?.model}
+          {data?.bankName}
         </Typography>
         <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
-          Brand: {data?.brand}
+          Brand: {data?.status}
         </Typography>
         <Typography color="text.secondary" gutterBottom>
-          Year: {data?.year}
+          Year: {data?.fingerprint}
         </Typography>
         <Typography variant="body2" gutterBottom>
-          Engine: {data?.engine}
+          Engine: {data?.bankIdCode}
         </Typography>
         <Typography variant="body2" gutterBottom>
-          Price: {data?.price}
+          Price: {data?.accountHolderName}
         </Typography>
       </CardContent>
     </Card>

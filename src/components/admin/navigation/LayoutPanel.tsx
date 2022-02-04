@@ -1,5 +1,5 @@
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
-import { Drawer, Toolbar, Box, Theme } from '@mui/material'
+import { Drawer, Toolbar, Box, Theme, Typography } from '@mui/material'
 import { DrawerStore } from 'stores/cars/DrawerStore'
 import CssBaseline from '@mui/material/CssBaseline'
 import ProfileMenuItems from './ProfileMenuItems'
@@ -74,15 +74,27 @@ export default observer(function PersistentDrawerLeft({ children }: Props) {
     closeDrawer()
   }
   return (
-    <Box sx={{ display: 'flex', py:10 }}>
+    <Box sx={{ display: 'flex', py: 10 }}>
       <CssBaseline />
       <AppBar position="fixed" open={isDrawerOpen} style={{ background: 'white' }}>
         <Toolbar
           sx={{
             justifyContent: 'space-between',
             display: 'flex',
+            position: 'relative',
           }}>
           <DrawerIcons drawerOpen={isDrawerOpen} handleDrawerOpen={handleDrawerOpen} />
+          <Typography
+            sx={{
+              color: '#7d7d7d',
+              width: '100%',
+              position: 'absolute',
+              zIndex:-1
+            }}
+            textAlign="center"
+            variant="h5">
+            Админ панел
+          </Typography>
           <ProfileMenuItems
             handleClick={handleClick}
             handleClose={handleClose}
@@ -108,7 +120,7 @@ export default observer(function PersistentDrawerLeft({ children }: Props) {
         <DrawerListItems />
       </Drawer>
       <Main open={isDrawerOpen}>{children}</Main>
-     {/*  <PanelFooter /> */}
+      {/*  <PanelFooter /> */}
       <Notifications />
     </Box>
   )
