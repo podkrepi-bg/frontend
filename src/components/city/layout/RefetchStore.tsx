@@ -1,40 +1,37 @@
-import { action, autorun, observable } from "mobx";
+import { action, autorun, observable } from 'mobx'
 
 export class ConfigStore {
-  @observable isRefetch: boolean = false;
+  @observable isRefetch = false
 
   constructor() {
-    this.load();
-    autorun(this.save);
+    this.load()
+    autorun(this.save)
   }
 
   private save = () => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       localStorage.setItem(
-        "isRefetch",
+        'isRefetch',
         JSON.stringify({
           isRefetch: this.isRefetch,
-        })
-      );
+        }),
+      )
     }
-  };
+  }
 
   @action
   private load = () => {
-    if (typeof window !== "undefined") {
-      Object.assign(
-        this,
-        JSON.parse(localStorage.getItem("isRefetch") || "{}")
-      );
+    if (typeof window !== 'undefined') {
+      Object.assign(this, JSON.parse(localStorage.getItem('isRefetch') || '{}'))
     }
-  };
+  }
 
   @action
   changeIsRefetch = (isRefetch: boolean) => {
-    this.isRefetch = isRefetch;
-    this.save();
-    this.load();
-  };
+    this.isRefetch = isRefetch
+    this.save()
+    this.load()
+  }
 }
 
-export default new ConfigStore();
+export default new ConfigStore()

@@ -52,6 +52,6 @@ export const routes = {
   bootcamp: {
     index: '/bootcamp',
     create: '/bootcamp/create',
-    viewBootcamperBySlug: (slug: string) => `/bootcamp/${slug}`
-  }
+    viewBootcamperBySlug: (slug: string) => `/bootcamp/${slug}`,
+  },
 }

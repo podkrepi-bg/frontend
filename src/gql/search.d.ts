@@ -1,14 +1,14 @@
 export type SearchType = {
-    keyword: string
+  keyword: string
 }
 export type SearchResponse = {
-    keyword: string
+  keyword: string
 }
 
 export type SearchInput = {
-    keyword: string
+  keyword: string
 }
 
 export type SearchFormData = {
-    keyword: string
+  keyword: string
 }

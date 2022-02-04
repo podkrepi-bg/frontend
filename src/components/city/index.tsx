@@ -23,12 +23,15 @@ export default function BootcampPage() {
   return (
     <BootcampersLayout>
       <Grid item style={{ marginTop: '10%', marginLeft: '10%' }}>
-        <Typography variant="h4">All cities</Typography>
+        <Typography variant="h4" style={{ fontSize: '20px', marginLeft: '42%' }}>
+          ALL CITIES
+        </Typography>
         <SubmitButton
           sx={{
             fontSize: '13px',
             marginTop: '1%',
-            marginBottom: '1%',
+            width: '25%',
+            marginLeft: '20%',
             bgcolor: theme.palette.primary.light,
           }}
           onClick={() => {

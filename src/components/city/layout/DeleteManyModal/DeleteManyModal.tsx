@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   Button,
   Dialog,
@@ -7,36 +7,36 @@ import {
   DialogTitle,
   Grid,
   Typography,
-} from "@mui/material";
-import axios from "axios";
-import { useTranslation } from "react-i18next";
-import { observer } from "mobx-react";
-import { DeleteManyModalStore } from "./DeleteManyModalStore";
-import { useTheme } from "@mui/styles";
-import { AlertStore } from "../NotificationsAlert/AlertStore";
-import { useQuery } from "react-query";
-import { CityResponse } from "gql/city";
-import { endpoints } from "common/api-endpoints";
+} from '@mui/material'
+import axios from 'axios'
+import { useTranslation } from 'react-i18next'
+import { observer } from 'mobx-react'
+import { DeleteManyModalStore } from './DeleteManyModalStore'
+import { useTheme } from '@mui/styles'
+import { AlertStore } from '../NotificationsAlert/AlertStore'
+import { useQuery } from 'react-query'
+import { CityResponse } from 'gql/city'
+import { endpoints } from 'common/api-endpoints'
 
 function DetailsModal() {
-  const theme = useTheme();
-  const { getDialogs } = DeleteManyModalStore;
-  const handleClose = () => DeleteManyModalStore.hide();
-  const { t } = useTranslation();
-  const query = useQuery<CityResponse[]>(endpoints.city.listCities.url);
+  const theme = useTheme()
+  const { getDialogs } = DeleteManyModalStore
+  const handleClose = () => DeleteManyModalStore.hide()
+  const { t } = useTranslation()
+  const query = useQuery<CityResponse[]>(endpoints.city.listCities.url)
 
   const onYesButtonClick = async (ids: string[]) => {
     try {
       ids.map((x) => {
-        axios.delete(`http://localhost:5010/api/city/remove/${x}`);
-      });
-      DeleteManyModalStore.clear();
-      AlertStore.show("Successfully removed cities", "success");
-      query.refetch();
+        axios.delete(`http://localhost:5010/api/city/remove/${x}`)
+      })
+      DeleteManyModalStore.clear()
+      AlertStore.show('Successfully removed cities', 'success')
+      query.refetch()
     } catch (e) {
-      AlertStore.show("An error occured", "error");
+      AlertStore.show('An error occured', 'error')
     }
-  };
+  }
 
   return (
     <>
@@ -48,27 +48,21 @@ function DetailsModal() {
             open={show}
             maxWidth="md"
             PaperProps={{ elevation: 5 }}
-            BackdropProps={{ style: { opacity: 0.3 } }}
-          >
+            BackdropProps={{ style: { opacity: 0.3 } }}>
             <DialogTitle>Bootcampers removing</DialogTitle>
             <DialogContent dividers>
               <Grid item xs={12}>
-                <Typography
-                  variant="h5"
-                  style={{ textAlign: "center" }}
-                  component="h2"
-                >
+                <Typography variant="h5" style={{ textAlign: 'center' }} component="h2">
                   Are you sure you want to remove these cities?
                 </Typography>
-                <div style={{ textAlign: "center", marginTop: "2%" }}>
+                <div style={{ textAlign: 'center', marginTop: '2%' }}>
                   <Button
                     onClick={async () => await onYesButtonClick(ids)}
                     variant="outlined"
                     sx={{
                       backgroundColor: theme.palette.secondary.main,
-                      color: "white",
-                    }}
-                  >
+                      color: 'white',
+                    }}>
                     Yes
                   </Button>
                   <Button
@@ -78,8 +72,7 @@ function DetailsModal() {
                       color: theme.palette.background.default,
                     }}
                     variant="outlined"
-                    style={{ marginLeft: "1%" }}
-                  >
+                    style={{ marginLeft: '1%' }}>
                     No
                   </Button>
                 </div>
@@ -87,14 +80,14 @@ function DetailsModal() {
             </DialogContent>
             <DialogActions>
               <Button autoFocus onClick={handleClose} color="primary">
-                {t("common:close")}
+                {t('common:close')}
               </Button>
             </DialogActions>
           </Dialog>
-        );
+        )
       })}
     </>
-  );
+  )
 }
 
-export default observer(DetailsModal);
+export default observer(DetailsModal)

@@ -9,16 +9,16 @@ import {
   List,
   ListItem,
   Typography,
-} from "@mui/material";
-import React from "react";
-import { observer } from "mobx-react";
-import { DialogStore } from "./BootcampModalStore";
-import { useTranslation } from "react-i18next";
+} from '@mui/material'
+import React from 'react'
+import { observer } from 'mobx-react'
+import { DialogStore } from './BootcampModalStore'
+import { useTranslation } from 'react-i18next'
 
 function DetailsModal() {
-  const { getDialogs } = DialogStore;
-  const handleClose = () => DialogStore.hide();
-  const { t } = useTranslation();
+  const { getDialogs } = DialogStore
+  const handleClose = () => DialogStore.hide()
+  const { t } = useTranslation()
 
   return (
     <>
@@ -30,8 +30,7 @@ function DetailsModal() {
             open={show}
             maxWidth="md"
             PaperProps={{ elevation: 5 }}
-            BackdropProps={{ style: { opacity: 0.3 } }}
-          >
+            BackdropProps={{ style: { opacity: 0.3 } }}>
             {title && <DialogTitle>{title}</DialogTitle>}
             <DialogContent dividers>
               <Grid item xs={12}>
@@ -58,14 +57,14 @@ function DetailsModal() {
             </DialogContent>
             <DialogActions>
               <Button autoFocus onClick={handleClose} color="primary">
-                {t("common:close")}
+                {t('common:close')}
               </Button>
             </DialogActions>
           </Dialog>
-        );
+        )
       })}
     </>
-  );
+  )
 }
 
-export default observer(DetailsModal);
+export default observer(DetailsModal)

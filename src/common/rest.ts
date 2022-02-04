@@ -85,30 +85,29 @@ export const createBootcamper: MutationFunction<
 > = async (data: BootcamperInput) => {
   return await axios.post<BootcamperInput, AxiosResponse<BootcampersResponse>>(
     endpoints.bootcamp.createBootcamper.url,
-    data
+    data,
   )
 }
 
 export const editBootcamper = async (id: string, data: BootcamperInput) => {
   return await axios.put<BootcamperInput, AxiosResponse<BootcampersResponse>>(
     endpoints.bootcamp.viewBootcamper(id).url,
-    data
+    data,
   )
 }
 
-export const createCity: MutationFunction<
-  AxiosResponse<CityResponse>,
-  CityInput
-> = async (data: CityInput) => {
+export const createCity: MutationFunction<AxiosResponse<CityResponse>, CityInput> = async (
+  data: CityInput,
+) => {
   return await axios.post<CityInput, AxiosResponse<CityResponse>>(
     endpoints.city.createCity.url,
-    data
+    data,
   )
 }
 
 export const editCity = async (id: string, data: CityInput) => {
   return await axios.put<CityInput, AxiosResponse<CityResponse>>(
     endpoints.city.editCity(id).url,
-    data
+    data,
   )
 }
