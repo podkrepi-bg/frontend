@@ -7,62 +7,61 @@ import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import { Button, Grid, Typography } from '@mui/material'
 
-import { BootcamperFormData, BootcamperInput, BootcampersResponse } from 'gql/bootcamp'
-import { editBootcamper } from 'common/rest'
+import { CampaignTypeFormData, CampaignTypesInput, CampaignTypesResponse } from 'gql/campaign-types'
+import { editCampaignType } from 'common/rest'
 import { AlertStore } from '../layout/NotificationsAlert/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import BootcampersLayout from '../layout/Layout'
 import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
-import { useViewBootcamper } from 'common/hooks/bootcamp'
+import { useViewCampaignType } from 'common/hooks/campaign-types'
 import { axios } from 'common/api-client'
 import { endpoints } from 'common/api-endpoints'
 import { useTheme } from '@mui/styles'
 
-const validationSchema: yup.SchemaOf<BootcamperFormData> = yup.object().defined().shape({
-  MyName: yup.string().required(),
-  email: yup.string().required(),
-  phone: yup.string().required(),
-  adress: yup.string().required(),
+const validationSchema: yup.SchemaOf<CampaignTypeFormData> = yup.object().defined().shape({
+  parentId: yup.string().required(),
+  name: yup.string().required(),
+  description: yup.string().required(),
+  slug: yup.string().optional(),
 })
 
-const defaults: BootcamperFormData = {
-  MyName: '',
-  email: '',
-  phone: '',
-  adress: '',
-} as BootcamperFormData
+const defaults: CampaignTypeFormData = {
+  name: '',
+  description: '',
+  slug: '',
+  parentId: '',
+} as CampaignTypeFormData
 
-export type BootcamperFormProps = { initialValues?: BootcamperFormData }
+export type CampaignTypeFormProps = { initialValues?: CampaignTypeFormData }
 
-export default function EditBootcamper({ initialValues = defaults }: BootcamperFormProps) {
+export default function EditBootcamper({ initialValues = defaults }: CampaignTypeFormProps) {
   const theme = useTheme()
 
   const router = useRouter()
   const id = window.location.pathname.split('/')[3]
 
   const editWrapper = (id: string) => {
-    return async (values: BootcamperFormData) => {
-      return editBootcamper(id, values)
+    return async (values: CampaignTypeFormData) => {
+      return editCampaignType(id, values)
     }
   }
 
-  const info = useViewBootcamper(id)
+  const info = useViewCampaignType(id)
 
   if (!info.isLoading) {
-    initialValues.MyName = info.data?.MyName || ''
-    initialValues.email = info.data?.email || ''
-    initialValues.phone = info.data?.phone || ''
-    initialValues.adress = info.data?.adress || ''
+    initialValues.parentId = info.data?.parentId || ''
+    initialValues.name = info.data?.name || ''
+    initialValues.description = info.data?.description || ''
   }
 
   const { t } = useTranslation()
 
   const mutation = useMutation<
-    AxiosResponse<BootcampersResponse>,
+    AxiosResponse<CampaignTypesResponse>,
     AxiosError<ApiErrors>,
-    BootcamperInput
+    CampaignTypesInput
   >({
     mutationFn: editWrapper(id),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
@@ -70,14 +69,14 @@ export default function EditBootcamper({ initialValues = defaults }: BootcamperF
   })
 
   const onSubmit = async (
-    values: BootcamperFormData,
-    { setFieldError, resetForm }: FormikHelpers<BootcamperFormData>,
+    values: CampaignTypeFormData,
+    { setFieldError, resetForm }: FormikHelpers<CampaignTypeFormData>,
   ) => {
     try {
-      await axios.put(endpoints.bootcamp.viewBootcamper(id).url, values)
+      await axios.put(endpoints.campaignTypes.editCampaignType(id).url, values)
       resetForm()
-      AlertStore.show('Successfully edited bootcamper', 'success')
-      router.push('/bootcamp')
+      AlertStore.show('Successfully edited campaign type', 'success')
+      router.push('/campaign-types')
     } catch (error) {
       console.error(error)
       AlertStore.show('An error occured', 'error')
@@ -93,9 +92,9 @@ export default function EditBootcamper({ initialValues = defaults }: BootcamperF
   return (
     <BootcampersLayout>
       <Grid container direction="column" component="section" style={{ marginLeft: '10%' }}>
-        <Grid item xs={12} style={{ marginTop: '10%' }}>
+        <Grid item xs={12} style={{ marginTop: '10%', marginLeft: '25%' }}>
           <Typography variant="h5" component="h2">
-            {t('bootcamp:edit_form_heading')}
+            EDIT CAMPAIGN TYPE
           </Typography>
         </Grid>
         <GenericForm
@@ -107,42 +106,35 @@ export default function EditBootcamper({ initialValues = defaults }: BootcamperF
               <FormTextField
                 style={{ marginTop: '2%', width: '80%' }}
                 type="text"
-                name="MyName"
+                name="name"
                 autoComplete="target-amount"
-                label="bootcamp:bootcamperName"
-                defaultValue={initialValues.MyName}
+                label="Name"
+                defaultValue={initialValues.name}
               />
             </Grid>
-            <Grid item xs={12} sm={5}>
+            <Grid item sm={5}>
+              <FormTextField
+                style={{ marginTop: '2%', width: '80%', height: '30px' }}
+                type="text"
+                name="description"
+                autoComplete="target-amount"
+                label="Description"
+                multiline
+                rows={3.5}
+                defaultValue={initialValues.description}
+              />
+            </Grid>
+            <Grid item sm={5}>
               <FormTextField
                 style={{ marginTop: '2%', width: '80%' }}
                 type="text"
-                name="email"
+                name="parentId"
                 autoComplete="target-amount"
-                label="bootcamp:bootcamperEmail"
-                defaultValue={initialValues.email}
+                label="Category"
+                defaultValue={initialValues.parentId}
               />
             </Grid>
-            <Grid item xs={12} sm={5}>
-              <FormTextField
-                style={{ width: '80%', marginTop: '2%' }}
-                type="text"
-                name="phone"
-                autoComplete="target-amount"
-                label="bootcamp:bootcamperPhone"
-                defaultValue={initialValues.phone}
-              />
-            </Grid>
-            <Grid item xs={12} sm={5}>
-              <FormTextField
-                style={{ width: '80%', marginTop: '2%' }}
-                type="text"
-                name="adress"
-                autoComplete="target-amount"
-                label="bootcamp:bootcamperAdress"
-                defaultValue={initialValues.adress}
-              />
-            </Grid>
+
             <Grid
               item
               xs={12}
@@ -154,12 +146,12 @@ export default function EditBootcamper({ initialValues = defaults }: BootcamperF
               }}>
               <SubmitButton
                 style={{ width: '50%' }}
-                label="bootcamp:edit_form_heading"
+                label="Edit"
                 loading={mutation.isLoading}
                 sx={{ backgroundColor: theme.palette.secondary.main }}
               />
               <Button
-                href="/bootcamp"
+                href="/campaign-types"
                 variant="outlined"
                 sx={{
                   width: '50%',
@@ -176,4 +168,7 @@ export default function EditBootcamper({ initialValues = defaults }: BootcamperF
       </Grid>
     </BootcampersLayout>
   )
+}
+function editCampaginType(id: string, values: CampaignTypeFormData) {
+  throw new Error('Function not implemented.')
 }

@@ -7,8 +7,8 @@ import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import { Button, Grid, Typography } from '@mui/material'
 
-import { BootcamperFormData, BootcamperInput, BootcampersResponse } from 'gql/bootcamp'
-import { createBootcamper } from 'common/rest'
+import { CampaignTypeFormData, CampaignTypesInput, CampaignTypesResponse } from 'gql/campaign-types'
+import { createCampaignType } from 'common/rest'
 import { AlertStore } from './layout/NotificationsAlert/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
@@ -17,50 +17,49 @@ import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
 import BootcampersLayout from './layout/Layout'
 import { useTheme } from '@mui/styles'
 
-const validationSchema: yup.SchemaOf<BootcamperFormData> = yup.object().defined().shape({
-  MyName: yup.string().required(),
-  email: yup.string().required(),
-  phone: yup.string().required(),
-  adress: yup.string().required(),
+const validationSchema: yup.SchemaOf<CampaignTypeFormData> = yup.object().defined().shape({
+  parentId: yup.string().required(),
+  name: yup.string().required(),
+  description: yup.string().required(),
+  slug: yup.string().optional(),
 })
 
-const defaults: BootcamperFormData = {
-  MyName: '',
-  email: '',
-  phone: '',
-  adress: '',
-} as BootcamperFormData
+const defaults: CampaignTypeFormData = {
+  name: '',
+  description: '',
+  slug: '',
+  parentId: '',
+} as CampaignTypeFormData
 
-export type BootcamperFormProps = { initialValues?: BootcamperFormData }
+export type CampaignTypeFormProps = { initialValues?: CampaignTypeFormData }
 
-export default function CreateBootcamper({ initialValues = defaults }: BootcamperFormProps) {
+export default function CreateBootcamper({ initialValues = defaults }: CampaignTypeFormProps) {
   const theme = useTheme()
   const { t } = useTranslation()
   const router = useRouter()
 
   const mutation = useMutation<
-    AxiosResponse<BootcampersResponse>,
+    AxiosResponse<CampaignTypesResponse>,
     AxiosError<ApiErrors>,
-    BootcamperInput
+    CampaignTypesInput
   >({
-    mutationFn: createBootcamper,
+    mutationFn: createCampaignType,
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
 
   const onSubmit = async (
-    values: BootcamperFormData,
-    { setFieldError, resetForm }: FormikHelpers<BootcamperFormData>,
+    values: CampaignTypeFormData,
+    { setFieldError, resetForm }: FormikHelpers<CampaignTypeFormData>,
   ) => {
     try {
       await mutation.mutateAsync({
-        MyName: values.MyName,
-        phone: values.phone,
-        email: values.email,
-        adress: values.adress,
-      } as BootcamperFormData)
+        parentId: values.parentId,
+        name: values.name,
+        description: values.description,
+      } as CampaignTypeFormData)
       resetForm()
-      router.push('/bootcamp')
+      router.push('/campaign-types')
       AlertStore.show('Successfully added new bootcamper', 'success', 1)
     } catch (error) {
       console.error(error)
@@ -77,9 +76,9 @@ export default function CreateBootcamper({ initialValues = defaults }: Bootcampe
   return (
     <BootcampersLayout>
       <Grid container direction="column" component="section" style={{ marginLeft: '10%' }}>
-        <Grid item xs={12} style={{ marginTop: '10%' }}>
+        <Grid item xs={12} style={{ marginTop: '10%', marginLeft: '26%' }}>
           <Typography variant="h5" component="h2" style={{ marginBottom: '1%' }}>
-            {t('bootcamp:form_heading')}
+            ADD CAMPAIGN TYPE
           </Typography>
         </Grid>
         <GenericForm
@@ -91,36 +90,29 @@ export default function CreateBootcamper({ initialValues = defaults }: Bootcampe
               <FormTextField
                 style={{ marginTop: '2%', width: '80%' }}
                 type="text"
-                name="MyName"
+                name="name"
                 autoComplete="target-amount"
-                label="bootcamp:bootcamperName"
+                label="Name"
               />
             </Grid>
-            <Grid item xs={12} sm={5}>
+            <Grid item sm={5}>
+              <FormTextField
+                style={{ marginTop: '2%', width: '80%', height: '30px' }}
+                type="text"
+                name="description"
+                autoComplete="target-amount"
+                label="Description"
+                multiline
+                rows={3.5}
+              />
+            </Grid>
+            <Grid item sm={5}>
               <FormTextField
                 style={{ marginTop: '2%', width: '80%' }}
                 type="text"
-                name="email"
+                name="parentId"
                 autoComplete="target-amount"
-                label="bootcamp:bootcamperEmail"
-              />
-            </Grid>
-            <Grid item xs={12} sm={5}>
-              <FormTextField
-                style={{ width: '80%', marginTop: '2%' }}
-                type="text"
-                name="phone"
-                autoComplete="target-amount"
-                label="bootcamp:bootcamperPhone"
-              />
-            </Grid>
-            <Grid item xs={12} sm={5}>
-              <FormTextField
-                style={{ width: '80%', marginTop: '2%' }}
-                type="text"
-                name="adress"
-                autoComplete="target-amount"
-                label="bootcamp:bootcamperAdress"
+                label="Category"
               />
             </Grid>
             <Grid
@@ -134,13 +126,13 @@ export default function CreateBootcamper({ initialValues = defaults }: Bootcampe
               }}>
               <SubmitButton
                 style={{ width: '50%' }}
-                label="bootcamp:submit"
+                label="Add campagin type"
                 loading={mutation.isLoading}
                 sx={{ backgroundColor: theme.palette.secondary.main }}
               />
               <Button
                 onClick={() => {
-                  router.push('/bootcamp')
+                  router.push('/campaign-types')
                 }}
                 variant="outlined"
                 sx={{

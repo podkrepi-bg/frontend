@@ -14,6 +14,7 @@ import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
 import { BootcamperInput, BootcampersResponse } from 'gql/bootcamp'
 import { CityInput, CityResponse } from 'gql/city'
+import { CampaignTypeFormData, CampaignTypesInput, CampaignTypesResponse } from 'gql/campaign-types'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await axios.get(queryKey.join('/'))
@@ -108,6 +109,23 @@ export const createCity: MutationFunction<AxiosResponse<CityResponse>, CityInput
 export const editCity = async (id: string, data: CityInput) => {
   return await axios.put<CityInput, AxiosResponse<CityResponse>>(
     endpoints.city.editCity(id).url,
+    data,
+  )
+}
+
+export const createCampaignType: MutationFunction<
+  AxiosResponse<CampaignTypesResponse>,
+  CampaignTypesInput
+> = async (data: CampaignTypesInput) => {
+  return await axios.post<CampaignTypesInput, AxiosResponse<CampaignTypesResponse>>(
+    endpoints.campaignTypes.createCampaignType.url,
+    data,
+  )
+}
+
+export const editCampaignType = async (id: string, data: CampaignTypeFormData) => {
+  return await axios.put<CampaignTypeFormData, AxiosResponse<CampaignTypesResponse>>(
+    endpoints.campaignTypes.editCampaignType(id).url,
     data,
   )
 }

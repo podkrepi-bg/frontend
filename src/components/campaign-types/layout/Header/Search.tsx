@@ -42,7 +42,7 @@ export default function SearchMenu() {
                     pl: 4,
                     ':hover': { color: theme.palette.primary.main },
                   }}
-                  onClick={() => router.push('/bootcamp/search/name')}>
+                  onClick={() => router.push('/campaign-types/search/name')}>
                   <Typography textAlign="center">Search by name</Typography>
                 </Button>
               </ListItem>
@@ -52,28 +52,8 @@ export default function SearchMenu() {
                     pl: 4,
                     ':hover': { color: theme.palette.primary.main },
                   }}
-                  onClick={() => router.push('/bootcamp/search/email')}>
-                  <Typography textAlign="center">Search by email</Typography>
-                </Button>
-              </ListItem>
-              <ListItem>
-                <Button
-                  sx={{
-                    pl: 4,
-                    ':hover': { color: theme.palette.primary.main },
-                  }}
-                  onClick={() => router.push('/bootcamp/search/phone')}>
-                  <Typography textAlign="center">Search by phone</Typography>
-                </Button>
-              </ListItem>
-              <ListItem>
-                <Button
-                  sx={{
-                    pl: 4,
-                    ':hover': { color: theme.palette.primary.main },
-                  }}
-                  onClick={() => router.push('/bootcamp/search/adress')}>
-                  <Typography textAlign="center">Search by adress</Typography>
+                  onClick={() => router.push('/campaign-types/search/category')}>
+                  <Typography textAlign="center">Search by category</Typography>
                 </Button>
               </ListItem>
             </List>

@@ -14,30 +14,13 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { DialogStore } from './BootcampModalStore'
 import { useTranslation } from 'react-i18next'
-import { CampaignTypesResponse } from 'gql/campaign-types'
-import axios from 'axios'
-import { endpoints } from 'common/api-endpoints'
 
 function DetailsModal() {
-  const [parentType, setParentType] = React.useState<CampaignTypesResponse>()
   const { getDialogs } = DialogStore
   const handleClose = () => {
     DialogStore.hide()
-    setParentType(undefined)
   }
   const { t } = useTranslation()
-  getParentType()
-  async function getParentType() {
-    const id = getDialogs[0]?.row.parentId || ''
-    if (id !== '') {
-      const res = (
-        await axios.get(
-          'http://localhost:5010/api' + endpoints.campaignTypes.viewCampaignType(id || '').url,
-        )
-      ).data
-      setParentType(res)
-    }
-  }
 
   return (
     <>
@@ -66,9 +49,9 @@ function DetailsModal() {
                       <Typography>Description: {row.description}</Typography>
                     </ListItem>
                   ) : null}
-                  {parentType ? (
+                  {row.parentId ? (
                     <ListItem>
-                      <Typography>Category: {parentType?.name}</Typography>
+                      <Typography>Category: {row.parentId}</Typography>
                     </ListItem>
                   ) : null}
                 </List>

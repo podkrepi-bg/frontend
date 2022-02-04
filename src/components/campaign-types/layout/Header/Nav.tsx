@@ -15,8 +15,8 @@ import ListIcon from '@mui/icons-material/List'
 import AddIcon from '@mui/icons-material/Add'
 import ListItem from '@mui/material/ListItem'
 import ProfileMenu from './ProfileMenu'
-import SearchMenu from './Search'
 import { Button } from '@mui/material'
+import SearchMenu from './Search'
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 import { context } from '../context'
 import { useRouter } from 'next/router'
@@ -103,12 +103,10 @@ export default function Nav() {
             </Button>
           </ListItem>
           <ListItem>
-            <SearchMenu />
+            <SearchMenu></SearchMenu>
           </ListItem>
         </List>
       </Drawer>
     </Box>
   )
-
-  //439CB3
 }

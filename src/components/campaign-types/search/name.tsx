@@ -28,7 +28,7 @@ export default function SearchByPhone({ initialValues = defaults }: SearchFormPr
     try {
       setRes([])
       const data = await axios.get(
-        'http://localhost:5010/api/bootcamp/search/name/' + values.keyword,
+        'http://localhost:5010/api/campaign-types/search/name/' + values.keyword,
       )
       setRes(data.data)
       resetForm()
@@ -42,7 +42,7 @@ export default function SearchByPhone({ initialValues = defaults }: SearchFormPr
       <Grid container direction="column" component="section" style={{ marginLeft: '4%' }}>
         <Grid item xs={12} style={{ marginTop: '10%', marginBottom: '1%', marginLeft: '30%' }}>
           <Typography variant="h5" component="h2">
-            Потърси участници
+            Search campaign types
           </Typography>
         </Grid>
         <Grid item style={{ marginLeft: '30%' }}>
@@ -62,7 +62,7 @@ export default function SearchByPhone({ initialValues = defaults }: SearchFormPr
               </Grid>
               <Grid item xs={12} style={{ display: 'flex', flexDirection: 'column' }}>
                 <SubmitButton
-                  label="Потърси участници"
+                  label="Search"
                   style={{ width: '50%' }}
                   sx={{ bgcolor: theme.palette.primary.light }}
                 />
