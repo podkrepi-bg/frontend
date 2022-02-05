@@ -32,15 +32,21 @@ const defaults: BootcamperFormData = {
   email: '',
   phone: '',
   adress: '',
-} as BootcamperFormData
+}
 
 export type BootcamperFormProps = { initialValues?: BootcamperFormData }
 
 export default function EditBootcamper({ initialValues = defaults }: BootcamperFormProps) {
   const theme = useTheme()
+  const data: BootcamperFormData = {
+    MyName: '',
+    phone: '',
+    adress: '',
+    email: '',
+  }
 
   const router = useRouter()
-  const id = window.location.pathname.split('/')[3]
+  const id = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id || ''
 
   const editWrapper = (id: string) => {
     return async (values: BootcamperFormData) => {
@@ -48,14 +54,16 @@ export default function EditBootcamper({ initialValues = defaults }: BootcamperF
     }
   }
 
-  const info = useViewBootcamper(id)
+  const info = useViewBootcamper(Array.isArray(id) ? id[0] : id || '')
 
   if (!info.isLoading) {
     initialValues.MyName = info.data?.MyName || ''
-    initialValues.email = info.data?.email || ''
     initialValues.phone = info.data?.phone || ''
+    initialValues.email = info.data?.email || ''
     initialValues.adress = info.data?.adress || ''
   }
+
+  console.log(data)
 
   const { t } = useTranslation()
 
@@ -92,8 +100,8 @@ export default function EditBootcamper({ initialValues = defaults }: BootcamperF
 
   return (
     <BootcampersLayout>
-      <Grid container direction="column" component="section" style={{ marginLeft: '10%' }}>
-        <Grid item xs={12} style={{ marginTop: '10%' }}>
+      <Grid container direction="column" component="section" sx={{ marginLeft: '10%' }}>
+        <Grid item xs={12} sx={{ marginTop: '10%' }}>
           <Typography variant="h5" component="h2">
             {t('bootcamp:edit_form_heading')}
           </Typography>
@@ -105,48 +113,44 @@ export default function EditBootcamper({ initialValues = defaults }: BootcamperF
           <Grid container spacing={1}>
             <Grid item sm={5}>
               <FormTextField
-                style={{ marginTop: '2%', width: '80%' }}
+                sx={{ marginTop: '2%', width: '80%' }}
                 type="text"
                 name="MyName"
                 autoComplete="target-amount"
                 label="bootcamp:bootcamperName"
-                defaultValue={initialValues.MyName}
               />
             </Grid>
             <Grid item xs={12} sm={5}>
               <FormTextField
-                style={{ marginTop: '2%', width: '80%' }}
+                sx={{ marginTop: '2%', width: '80%' }}
                 type="text"
                 name="email"
                 autoComplete="target-amount"
                 label="bootcamp:bootcamperEmail"
-                defaultValue={initialValues.email}
               />
             </Grid>
             <Grid item xs={12} sm={5}>
               <FormTextField
-                style={{ width: '80%', marginTop: '2%' }}
+                sx={{ width: '80%', marginTop: '2%' }}
                 type="text"
                 name="phone"
                 autoComplete="target-amount"
                 label="bootcamp:bootcamperPhone"
-                defaultValue={initialValues.phone}
               />
             </Grid>
             <Grid item xs={12} sm={5}>
               <FormTextField
-                style={{ width: '80%', marginTop: '2%' }}
+                sx={{ width: '80%', marginTop: '2%' }}
                 type="text"
                 name="adress"
                 autoComplete="target-amount"
                 label="bootcamp:bootcamperAdress"
-                defaultValue={initialValues.adress}
               />
             </Grid>
             <Grid
               item
               xs={12}
-              style={{
+              sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 marginLeft: '15%',

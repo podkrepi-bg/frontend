@@ -8,7 +8,6 @@ import {
   Grid,
   Typography,
 } from '@mui/material'
-import axios from 'axios'
 import { useTranslation } from 'react-i18next'
 import { observer } from 'mobx-react'
 import { DeleteManyModalStore } from './DeleteManyModalStore'
@@ -17,6 +16,7 @@ import { AlertStore } from '../NotificationsAlert/AlertStore'
 import { useQuery } from 'react-query'
 import { BootcampersResponse } from 'gql/bootcamp'
 import { endpoints } from 'common/api-endpoints'
+import { axios } from 'common/api-client'
 
 function DetailsModal() {
   const theme = useTheme()
@@ -27,12 +27,12 @@ function DetailsModal() {
 
   const onYesButtonClick = async (ids: string[]) => {
     try {
-      ids.map((x) => {
-        axios.delete(`http://localhost:5010/api/bootcamp/${x}`)
+      ids.map(async (x) => {
+        await axios.delete(endpoints.bootcamp.removeBootcamper(x).url)
       })
       DeleteManyModalStore.clear()
-      AlertStore.show('Successfully removed bootcampers', 'success')
       query.refetch()
+      AlertStore.show('Successfully removed bootcampers', 'success')
     } catch (e) {
       AlertStore.show('An error occured', 'error')
     }
@@ -48,11 +48,11 @@ function DetailsModal() {
             open={show}
             maxWidth="md"
             PaperProps={{ elevation: 5 }}
-            BackdropProps={{ style: { opacity: 0.3 } }}>
+            BackdropProps={{ sx: { opacity: 0.3 } }}>
             <DialogTitle>Bootcampers removing</DialogTitle>
             <DialogContent dividers>
               <Grid item xs={12}>
-                <Typography variant="h5" style={{ textAlign: 'center' }} component="h2">
+                <Typography variant="h5" sx={{ textAlign: 'center' }} component="h2">
                   Are you sure you want to remove these bootcampers?
                 </Typography>
                 <div style={{ textAlign: 'center', marginTop: '2%' }}>

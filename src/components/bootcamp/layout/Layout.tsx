@@ -1,7 +1,7 @@
 import React from 'react'
 import { ThemeProvider } from '@mui/styles'
 import { Container } from '@mui/material'
-import Footer from './Footer'
+import Footer from '../../first-task-utils/Footer'
 import Nav from './Header/Nav'
 import BootcampModal from './DetailsModal/BootcampModal'
 import DeleteModal from './DeleteModal/DeleteModal'

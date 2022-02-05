@@ -76,9 +76,9 @@ export default function CreateBootcamper({ initialValues = defaults }: Bootcampe
 
   return (
     <BootcampersLayout>
-      <Grid container direction="column" component="section" style={{ marginLeft: '10%' }}>
-        <Grid item xs={12} style={{ marginTop: '10%' }}>
-          <Typography variant="h5" component="h2" style={{ marginBottom: '1%' }}>
+      <Grid container direction="column" component="section" sx={{ marginLeft: '10%' }}>
+        <Grid item xs={12} sx={{ marginTop: '10%' }}>
+          <Typography variant="h5" component="h2" sx={{ marginBottom: '1%' }}>
             {t('bootcamp:form_heading')}
           </Typography>
         </Grid>
@@ -89,7 +89,7 @@ export default function CreateBootcamper({ initialValues = defaults }: Bootcampe
           <Grid container spacing={1}>
             <Grid item sm={5}>
               <FormTextField
-                style={{ marginTop: '2%', width: '80%' }}
+                sx={{ marginTop: '2%', width: '80%' }}
                 type="text"
                 name="MyName"
                 autoComplete="target-amount"
@@ -98,7 +98,7 @@ export default function CreateBootcamper({ initialValues = defaults }: Bootcampe
             </Grid>
             <Grid item xs={12} sm={5}>
               <FormTextField
-                style={{ marginTop: '2%', width: '80%' }}
+                sx={{ marginTop: '2%', width: '80%' }}
                 type="text"
                 name="email"
                 autoComplete="target-amount"
@@ -107,7 +107,7 @@ export default function CreateBootcamper({ initialValues = defaults }: Bootcampe
             </Grid>
             <Grid item xs={12} sm={5}>
               <FormTextField
-                style={{ width: '80%', marginTop: '2%' }}
+                sx={{ width: '80%', marginTop: '2%' }}
                 type="text"
                 name="phone"
                 autoComplete="target-amount"
@@ -116,7 +116,7 @@ export default function CreateBootcamper({ initialValues = defaults }: Bootcampe
             </Grid>
             <Grid item xs={12} sm={5}>
               <FormTextField
-                style={{ width: '80%', marginTop: '2%' }}
+                sx={{ width: '80%', marginTop: '2%' }}
                 type="text"
                 name="adress"
                 autoComplete="target-amount"
@@ -126,7 +126,7 @@ export default function CreateBootcamper({ initialValues = defaults }: Bootcampe
             <Grid
               item
               xs={12}
-              style={{
+              sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 marginLeft: '15%',

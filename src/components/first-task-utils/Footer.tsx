@@ -13,9 +13,9 @@ function Copyright(props: CopyrightProps) {
       variant="body2"
       color="text.secondary"
       align="center"
-      style={{ marginBottom: '0.5%', color: 'white' }}>
-      <Link color="inherit" style={{ fontSize: '13px', textDecoration: 'none' }}>
-        © {new Date().getFullYear()} Pordkrepi.bg Campaign types module {props.description}
+      sx={{ marginBottom: '0.5%', color: 'white' }}>
+      <Link color="inherit" sx={{ fontSize: '13px', textDecoration: 'none' }}>
+        © {new Date().getFullYear()} Pordkrepi.bg Bootcamp Module {props.description}
       </Link>{' '}
     </Typography>
   )
@@ -46,7 +46,7 @@ export default function Footer(props: FooterProps) {
           variant="h6"
           align="center"
           gutterBottom
-          style={{ marginTop: '0.5%', fontSize: '13px' }}>
+          sx={{ marginTop: '0.5%', fontSize: '13px' }}>
           {title}
         </Typography>
         <Typography
@@ -54,7 +54,7 @@ export default function Footer(props: FooterProps) {
           align="center"
           color="text.secondary"
           component="p"
-          style={{ color: 'white', fontSize: '13px' }}></Typography>
+          sx={{ color: 'white', fontSize: '13px' }}></Typography>
         <Copyright description={description} />
       </Container>
     </footer>

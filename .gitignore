@@ -47,3 +47,8 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
+
+
+#Demo taks
+src/components/bootcamp
+src/pages/bootcamp

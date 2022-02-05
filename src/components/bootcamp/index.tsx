@@ -24,7 +24,7 @@ export default function BootcampPage() {
 
   return (
     <BootcampersLayout>
-      <Grid item style={{ marginTop: '10%', marginLeft: '10%' }}>
+      <Grid item sx={{ marginTop: '10%', marginLeft: '10%' }}>
         <Typography variant="h4">{t('nav.bootcamp.bootcampers')}</Typography>
         <SubmitButton
           sx={{
