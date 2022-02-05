@@ -1,9 +1,9 @@
-import LayoutPanel from '../navigation/LayoutPanel'
-import AppBarMenu from '../navigation/AppBar'
+import LayoutPanel from './navigation/LayoutPanel'
+import AppBarMenu from './navigation/AppBarMenu'
 import { Container } from '@mui/material'
 import BasicModal from './Modal'
-import TasksGrid from './Grid'
-const Tasks = () => {
+import BankAccountsGrid from './BankAccountsGrid'
+const BankAccountsPage = () => {
   return (
     <div style={{ height: '100vh', background: '#f7f7f7', paddingTop: 70 }}>
       <LayoutPanel>
@@ -11,11 +11,11 @@ const Tasks = () => {
         <Container>
           <Container disableGutters>
             <AppBarMenu />
-            <TasksGrid />
+            <BankAccountsGrid />
           </Container>
         </Container>
       </LayoutPanel>
     </div>
   )
 }
-export default Tasks
+export default BankAccountsPage

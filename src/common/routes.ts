@@ -49,9 +49,9 @@ export const routes = {
     infoRequests: '/admin/info-requests',
     supporters: '/admin/supporters',
   },
-  cars: {
-    index: '/tasks',
+  bankaccounts: {
+    index: '/bankaccounts',
     edit: (id: string) => `/tasks/edit/${id}`,
-    add: '/tasks/add',
+    add: '/bankaccounts/add',
   },
 }

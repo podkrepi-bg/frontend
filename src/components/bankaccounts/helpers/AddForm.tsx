@@ -10,7 +10,7 @@ import { AlertStore } from 'stores/AlertStore'
 import { UseMutateFunction, useMutation, useQueryClient } from 'react-query'
 import { createContactRequest } from 'common/rest'
 import { useTranslation } from 'next-i18next'
-import { bankAccountResponse } from 'gql/bankAccounts'
+/* import { BankAccountResponse } from 'gql/bankaccounts' */
 import { createBankAccountRequest } from 'common/rest'
 import { NotificationStore } from 'stores/cars/NotificationsStore'
 import { observer } from 'mobx-react'
@@ -57,15 +57,7 @@ const items = [
   { label: 'Withdrawal', name: 'withdrawal', type: 'input' },
 ]
 
-const mutation = useMutation<
-  AxiosResponse<bankAccountResponse>,
-  AxiosError<ApiErrors>,
-  bankAccountType
->({
-  mutationFn: createBankAccountRequest,
-  onError: () => AlertStore.show('common:alerts.error', 'error'),
-  onSuccess: () => AlertStore.show('common:alerts.message-sent', 'success'),
-}) 
+
 
 export default observer(function AddBankAccountForm() {
   const queryClient = useQueryClient()
@@ -88,6 +80,19 @@ export default observer(function AddBankAccountForm() {
     ibanNumber: yup.string().required('IBAN is required'),
     accountHolderName: yup.string().required('Account name is required'),
   })
+
+
+  const mutation = useMutation<
+  AxiosResponse<any>,
+  AxiosError<ApiErrors>,
+  bankAccountType
+>({
+  mutationFn: createBankAccountRequest,
+  onError: () => AlertStore.show('common:alerts.error', 'error'),
+  onSuccess: () => AlertStore.show('common:alerts.message-sent', 'success'),
+}) 
+
+
 
   return (
     <div>

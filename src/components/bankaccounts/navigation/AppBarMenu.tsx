@@ -10,6 +10,7 @@ import AppBar from '@mui/material/AppBar'
 import { useRouter } from 'next/router'
 import { observer } from 'mobx-react'
 import Box from '@mui/material/Box'
+import { routes } from 'common/routes'
 const addIconStyles = {
   transform: 'scale(1.3)',
   background: '#4ac3ff',
@@ -42,7 +43,7 @@ export default observer(function AppBarMenu() {
             <Tooltip title="Добави">
               <AddIcon
                 onClick={() => {
-                  router.push('/tasks/add')
+                  router.push(routes.bankaccounts.add)
                 }}
                 sx={addIconStyles}
                 style={{ marginRight: '20px' }}

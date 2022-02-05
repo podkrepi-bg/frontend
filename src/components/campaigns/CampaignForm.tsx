@@ -91,7 +91,12 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   const [coordinator, setCoordinator] = useState<PersonFormData>()
   const [beneficiary, setBeneficiary] = useState<PersonFormData>()
 
-  const mutation = useMutation<AxiosResponse<CampaignResponse>,AxiosError<ApiErrors>,CampaignInput>({mutationFn: createCampaign,
+  const mutation = useMutation<
+    AxiosResponse<CampaignResponse>,
+    AxiosError<ApiErrors>,
+    CampaignInput
+  >({
+    mutationFn: createCampaign,
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
@@ -131,7 +136,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
     <Grid container direction="column" component="section">
       <Grid item xs={12}>
         <Typography variant="h5" component="h2" className={classes.heading}>
-          {t('campaigns:form-heading')}
+          {t('bankaccounts:form-heading')}
         </Typography>
       </Grid>
       <GenericForm

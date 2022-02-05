@@ -11,16 +11,16 @@ import PrivacyTipIcon from '@mui/icons-material/PrivacyTip'
 import { ModalStore } from 'stores/cars/ModalStore'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
-import AlertDialog from './ConfirmationDialog'
-import { useBankAccountsList } from 'common/hooks/cars'
+import ConfirmationDialog from './ConfirmationDialog'
+import { useBankAccountsList } from 'common/hooks/bankaccounts'
 import { UseQueryResult } from 'react-query'
 import { useRouter } from 'next/router'
 import { observer } from 'mobx-react'
 import { useState } from 'react'
 import CSS from 'csstype'
-import { bankAccountResponse } from 'gql/bankAccounts'
+import { BankAccountResponse } from 'gql/bankaccounts'
 
-export default observer(function TasksGrid() {
+export default observer(function BankAccountsGrid() {
   const router = useRouter()
   const [multipleDelete, setMupltipleDelete] = useState<GridRowId[]>([])
   const [id, setId] = useState<GridRowId>('')
@@ -34,12 +34,11 @@ export default observer(function TasksGrid() {
   }
   const commonCellStyles = (status: GridCellValue): CSS.Properties => {
     return {
-      fontWeight: 'bold',
       color: status === 'verified' ? 'green' : status === 'verification_failed' ? 'red' : '',
     }
   }
 
-  const renderCell = (cellValues: GridRenderCellParams<bankAccountResponse>): React.ReactNode => {
+  const renderCell = (cellValues: GridRenderCellParams<BankAccountResponse>): React.ReactNode => {
     return (
       <div style={commonCellStyles(cellValues.getValue(cellValues.id, 'status'))}>
         {cellValues.value}
@@ -54,7 +53,7 @@ export default observer(function TasksGrid() {
   }
   const columns: GridColumns = [
     { ...commonProps, headerName: 'статус', field: 'status' },
-    { ...commonProps, headerName: 'ибан', field: 'ibanNumber' },
+    { ...commonProps, headerName: 'ИБАН', field: 'ibanNumber' },
     { ...commonProps, headerName: 'собственик', field: 'accountHolderName' },
     { ...commonProps, headerName: 'вид', field: 'accountHolderType' },
     { ...commonProps, headerName: 'име на банка', field: 'bankName' },
@@ -80,7 +79,7 @@ export default observer(function TasksGrid() {
                 sx={{ cursor: 'pointer' }}
                 color="info"
                 onClick={() => {
-                  ModalStore.setCarId(params.id)
+                  ModalStore.setCarId(String(params.id))
                   ModalStore.openModal()
                 }}
               />
@@ -109,18 +108,15 @@ export default observer(function TasksGrid() {
       },
     },
   ]
-  const { data }: UseQueryResult<bankAccountResponse[]> = useBankAccountsList()
-  console.log(data)
-  if (data) {
-    console.log(data)
-  }
+  const { data }: UseQueryResult<BankAccountResponse[]> = useBankAccountsList()
+
   return (
     <>
-      <AlertDialog
+      <ConfirmationDialog
         open={ModalStore.cfrmOpen}
         handleClose={handleClose}
         id={id}
-        multipleDeleteItems={multipleDelete}></AlertDialog>
+        multipleDeleteItems={multipleDelete}></ConfirmationDialog>
       <DataGrid
         style={{
           marginTop: '2px',

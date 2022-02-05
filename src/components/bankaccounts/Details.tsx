@@ -4,7 +4,7 @@ import { ModalStore } from 'stores/cars/ModalStore'
 import { useViewBankAccount } from 'common/hooks/cars'
 import { UseQueryResult } from 'react-query'
 import { observer } from 'mobx-react'
-import { bankAccountResponse } from 'gql/bankAccounts'
+import { BankAccountResponse } from 'gql/bankaccounts'
 
 export default observer(function BasicCard() {
   const containerStyles: CSSObject = {
@@ -18,7 +18,7 @@ export default observer(function BasicCard() {
     p: 4,
   }
 
-  const { data }: UseQueryResult<bankAccountResponse> = useViewBankAccount(ModalStore.carId)
+  const { data }: UseQueryResult<BankAccountResponse> = useViewBankAccount(ModalStore.carId)
 
   return (
     <Card sx={containerStyles}>

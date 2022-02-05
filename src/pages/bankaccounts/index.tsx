@@ -1,0 +1,2 @@
+import BankAccountsPage from 'components/bankaccounts/BankAccountsPage'
+export default BankAccountsPage

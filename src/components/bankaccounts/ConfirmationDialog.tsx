@@ -21,7 +21,7 @@ interface Props {
   multipleDeleteItems: GridRowId[]
 }
 
-export default observer(function AlertDialog({
+export default observer(function ConfirmationDialog({
   handleClose,
   open,
   id,
