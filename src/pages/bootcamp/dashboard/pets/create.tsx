@@ -4,7 +4,6 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { routes } from 'common/routes'
-
 import CreatePetForm from 'components/bootcamp/CreatePetForm'
 import DashboardLayout from 'components/bootcamp/DashboardLayout'
 

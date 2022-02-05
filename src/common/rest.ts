@@ -1,15 +1,13 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { MutationFunction, QueryFunction } from 'react-query'
-
 import { axios } from 'common/api-client'
 import {
   SupportRequestResponse,
   SupportRequestInput,
 } from 'components/support-form/helpers/support-form.types'
+
 import { ContactRequestResponse, ContactRequestInput } from 'gql/contact'
 import { CampaignResponse, CampaignInput } from 'gql/campaigns'
-
-import { endpoints } from './api-endpoints'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
 import {
@@ -18,6 +16,8 @@ import {
   BootcampStudentInput,
   BootcampStudentResponse,
 } from 'gql/bootcamp'
+
+import { endpoints } from './api-endpoints'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await axios.get(queryKey.join('/'))

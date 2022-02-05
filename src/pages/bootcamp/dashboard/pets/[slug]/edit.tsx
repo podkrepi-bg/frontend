@@ -7,7 +7,6 @@ import { QueryClient, dehydrate } from 'react-query'
 import { queryFn } from 'common/rest'
 import { routes } from 'common/routes'
 import { usePetById } from 'common/hooks/bootcampStudents'
-
 import CreatePetForm from 'components/bootcamp/CreatePetForm'
 import DashboardLayout from 'components/bootcamp/DashboardLayout'
 

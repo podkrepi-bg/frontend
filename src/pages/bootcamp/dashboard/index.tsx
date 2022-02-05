@@ -4,7 +4,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { QueryClient, dehydrate } from 'react-query'
 
 import { queryFn } from 'common/rest'
-
 import BootcampStudentsGrid from 'components/bootcamp/BootcampStudentsGrid'
 import DashboardLayout from 'components/bootcamp/DashboardLayout'
 

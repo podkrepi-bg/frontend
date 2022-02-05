@@ -1,6 +1,7 @@
 import { makeStyles } from '@mui/styles'
 
 import Snackbar from 'components/layout/Snackbar'
+
 import PersistentDrawer from './PersistentDrawer'
 
 type Props = {

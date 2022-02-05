@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { Typography } from '@mui/material'
 
 import LinkMenuItem from 'components/common/LinkMenuItem'
+
 import GenericMenu from './GenericMenu'
 
 export default function BootcampMenu() {

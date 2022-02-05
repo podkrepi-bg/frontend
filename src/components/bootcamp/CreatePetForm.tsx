@@ -11,10 +11,9 @@ import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
 import { createAnimal, editAnimal } from 'common/rest'
 import { routes } from 'common/routes'
 import { AnimalResponse, AnimalInput } from 'gql/bootcamp'
-
+import { AlertStore } from 'stores/AlertStore'
 import FormTextField from 'components/common/form/FormTextField'
 import GenericForm from 'components/common/form/GenericForm'
-import { AlertStore } from 'stores/AlertStore'
 
 const validationSchema: yup.SchemaOf<AnimalInput> = yup
   .object()
