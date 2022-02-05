@@ -95,11 +95,11 @@ export default function InlineDonation({ campaign }: Props) {
         </Typography>
       </Grid>
       <CampaignProgress raised={reached} target={target} />
-      <Grid display="block" m={3} ml={0}>
+      <Grid display="inline-block" m={3} ml={0}>
         <Typography className={classes.donorsSharesCount}>{0}</Typography>
         <Typography>{t('campaigns:campaign.donors')}</Typography>
       </Grid>
-      <Grid display="block" m={3} ml={0}>
+      <Grid display="inline-block" m={3} ml={0}>
         <Typography className={classes.donorsSharesCount}>{0}</Typography>
         <Typography>{t('campaigns:campaign.shares')}</Typography>
       </Grid>
