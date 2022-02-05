@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
     inlineDonationWrapper: {
       backgroundColor: theme.palette.common.white,
       borderRadius: theme.spacing(1),
+      height: 'fit-content',
     },
     reachedMoney: {
       fontSize: theme.spacing(5),
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
     shareButton: {
       padding: theme.spacing(0.75, 0),
     },
-    DonationPriceList: {
+    donationPriceList: {
       display: 'contents',
       textAlignLast: 'center',
     },
@@ -83,7 +84,7 @@ export default function InlineDonation({ campaign }: Props) {
   }, [prices])
 
   return (
-    <Grid container mt={5} p={3} className={classes.inlineDonationWrapper}>
+    <Grid item xs={12} md={4} mt={5} p={3} className={classes.inlineDonationWrapper}>
       <Grid mb={2}>
         <Typography component="span" className={classes.reachedMoney}>
           {money(reached)}
@@ -123,7 +124,7 @@ export default function InlineDonation({ campaign }: Props) {
           {t('common:support')}
         </LinkButton>
         {showDonationPriceList && (
-          <List className={classes.DonationPriceList}>
+          <List className={classes.donationPriceList}>
             {sortedPrices.map((price, index) => {
               if (!price) return null
               return (
