@@ -19,20 +19,26 @@ const useStyles = makeStyles((theme: Theme) =>
     banner: {
       zIndex: -1,
       minHeight: '504px !important',
-      marginTop: `${theme.spacing(14)} !important`,
+      marginTop: `${theme.spacing(10)} !important`,
+      [theme.breakpoints.up('md')]: {
+        marginTop: `${theme.spacing(14)} !important`,
+      },
     },
     campaignTitle: {
-      height: theme.spacing(30),
+      height: theme.spacing(32),
       color: theme.palette.common.white,
       fontWeight: 500,
     },
-    beneficiaryWrapper: {
-      display: 'flex',
-      alignItems: 'end',
+    beneficiaryAvatarWrapper: {
+      textAlign: 'center',
+      [theme.breakpoints.up('md')]: {
+        textAlign: 'left',
+      },
     },
     beneficiaryAvatar: {
       borderRadius: '50%',
       border: `4px solid ${theme.palette.common.white} !important`,
+      textAlign: 'center',
     },
     campaignInfoWrapper: {
       gap: theme.spacing(2),
@@ -74,12 +80,7 @@ export default function ViewCampaignPage({ slug }: Props) {
           <Typography paragraph variant="h2" component="h1" p={4} className={classes.campaignTitle}>
             {campaign.title}
           </Typography>
-          <Grid
-            item
-            justifyContent="space-between"
-            md={9}
-            p={5}
-            className={classes.beneficiaryWrapper}>
+          <Grid item p={4} className={classes.beneficiaryAvatarWrapper}>
             <Image
               src={beneficiaryAvatarSource}
               alt={campaign.title}
@@ -87,9 +88,6 @@ export default function ViewCampaignPage({ slug }: Props) {
               height={250}
               className={classes.beneficiaryAvatar}
             />
-            <Typography variant="h4" component="h4">
-              {campaign.beneficiary.person.firstName} {campaign.beneficiary.person.lastName}
-            </Typography>
           </Grid>
           <Typography variant="subtitle2" component="p">
             {t('campaigns:campaign.start-date')} {campaign.startDate}
