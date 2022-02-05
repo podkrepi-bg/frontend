@@ -75,7 +75,7 @@ export default function InlineDonation({ campaign }: Props) {
 
   return (
     <Grid container mt={5} p={3} className={classes.inlineDonationWrapper}>
-      <Typography variant="h4" component="h4" gutterBottom>
+      <Grid mb={2}>
         <Typography component="span" className={classes.reachedMoney}>
           {money(reached)}
         </Typography>{' '}
@@ -83,16 +83,16 @@ export default function InlineDonation({ campaign }: Props) {
         <Typography component="span" className={classes.targetMoney}>
           {money(target)}
         </Typography>
-      </Typography>
+      </Grid>
       <CampaignProgress raised={reached} target={target} />
-      <Typography variant="subtitle2" component="p" display="block" m={3} ml={0}>
+      <Grid display="block" m={3} ml={0}>
         <Typography className={classes.donorsSharesCount}>{0}</Typography>
         <Typography>{t('campaigns:campaign.donors')}</Typography>
-      </Typography>
-      <Typography variant="subtitle2" component="p" display="block" m={3} ml={0}>
+      </Grid>
+      <Grid display="block" m={3} ml={0}>
         <Typography className={classes.donorsSharesCount}>{0}</Typography>
         <Typography>{t('campaigns:campaign.shares')}</Typography>
-      </Typography>
+      </Grid>
       <Grid container gap={2}>
         <LinkButton
           fullWidth
