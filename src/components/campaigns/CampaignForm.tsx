@@ -91,12 +91,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   const [coordinator, setCoordinator] = useState<PersonFormData>()
   const [beneficiary, setBeneficiary] = useState<PersonFormData>()
 
-  const mutation = useMutation<
-    AxiosResponse<CampaignResponse>,
-    AxiosError<ApiErrors>,
-    CampaignInput
-  >({
-    mutationFn: createCampaign,
+  const mutation = useMutation<AxiosResponse<CampaignResponse>,AxiosError<ApiErrors>,CampaignInput>({mutationFn: createCampaign,
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })

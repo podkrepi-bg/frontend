@@ -26,6 +26,6 @@
     "jsx": "preserve",
     "baseUrl": "./src"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/admin/panel/tasks/[id]"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", ".next"]
 }

@@ -1,4 +1,3 @@
-
 export type bankAccountResponse = {
   id: UUID
   status: BankAccountStatus
@@ -8,6 +7,8 @@ export type bankAccountResponse = {
   bankName?: string
   bankIdCode?: string
   fingerprint?: string
+  createdAt: string
+  updatedAt: string
   withdraws: Withdrawal[]
 }
 export type bankAccountType = {
@@ -18,7 +19,7 @@ export type bankAccountType = {
   bankName?: string
   bankIdCode?: string
   fingerprint?: string
-  withdrawal:string
+  withdrawal: string
 }
 export enum BankAccountStatus {
   new,

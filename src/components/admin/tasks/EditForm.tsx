@@ -3,7 +3,7 @@ import * as yup from 'yup'
 import { Button, Container, Grid, Typography } from '@mui/material'
 import { MyRadio, MyTextField } from './helpers/CustomComponents'
 import { Form, Formik, FormikHelpers } from 'formik'
-import axios, { AxiosError, AxiosResponse } from 'axios'
+import { axios } from 'common/api-client'
 import { UseMutateFunction, useMutation, useQueryClient, UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { NotificationStore } from 'stores/cars/NotificationsStore'
@@ -22,7 +22,7 @@ export type bankAccountType = {
   bankName?: string
   bankIdCode?: string
   fingerprint?: string
-  withdraws: string
+  withdrawal: string
 }
 export enum BankAccountStatus {
   new,
@@ -43,7 +43,7 @@ const initialValues: bankAccountType = {
   bankName: '',
   bankIdCode: '',
   fingerprint: '',
-  withdraws: '',
+  withdrawal: '',
 }
 const items = [
   { label: 'IBAN', name: 'ibanNumber', type: 'input' },
@@ -56,10 +56,9 @@ const items = [
 
 export default observer(function EditBankAccount() {
   const router = useRouter()
-  const carId: string | number = String(router.query.id)
+  const carId = String(router.query.id)
 
   const { data }: UseQueryResult<bankAccountResponse> = useViewBankAccount(carId)
-  console.log(data)
   const queryClient = useQueryClient()
   const { t } = useTranslation()
   const { openNotifications, setMessage } = NotificationStore
@@ -113,7 +112,7 @@ export default observer(function EditBankAccount() {
                   <Grid item xs={12}>
                     <Typography variant="h6">Status</Typography>
                     <MyRadio name="status" type="radio" value="new" label="New" />
-                    <MyRadio name="status" type="radio" value="status" label="Validated" />
+                    <MyRadio name="status" type="radio" value="validated" label="Validated" />
                     <MyRadio name="status" type="radio" value="verified" label="Verified" />
                     <MyRadio
                       name="status"
