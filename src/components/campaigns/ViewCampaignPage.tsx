@@ -2,7 +2,7 @@ import React from 'react'
 import { useViewCampaign } from 'common/hooks/campaigns'
 import Layout from 'components/layout/Layout'
 import InlineDonation from './InlineDonation'
-import CampaignDetails from './CampaignDetails';
+import CampaignDetails from './CampaignDetails'
 import NotFoundPage from 'pages/404'
 import { Grid } from '@mui/material'
 
