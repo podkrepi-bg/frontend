@@ -7,7 +7,7 @@ export class ModalContextImpl {
   isModalOpen: boolean = false
   cfrmOpen: boolean = false
   carSelected: boolean = false
-  carId: string | number = ''
+  carId: string  = ''
 
   constructor() {
     makeObservable(this, {
@@ -44,7 +44,7 @@ export class ModalContextImpl {
     this.carSelected = false
   }
   //setCarId for the modal.
-  setCarId = (rowId: string | number) => {
+  setCarId = (rowId: string) => {
     this.carId = rowId
   }
 }

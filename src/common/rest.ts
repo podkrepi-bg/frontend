@@ -12,7 +12,7 @@ import { CampaignResponse, CampaignInput } from 'gql/campaigns'
 import { endpoints } from './api-endpoints'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
-import { bankAccountResponse, bankAccountType } from 'gql/bankAccounts'
+/* import { BankAccountResponse, BankAccountInput } from 'gql/bankaccounts' */
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await axios.get(queryKey.join('/'))
@@ -50,15 +50,16 @@ export const createContactRequest: MutationFunction<
   )
 }
 
-export const createBankAccountRequest:any/*  MutationFunction<
+export const createBankAccountRequest: any =
+  /*  MutationFunction<
   AxiosResponse<bankAccountResponse>,
   bankAccountType> */
- = async (data: bankAccountType) => {
-  return await axios.post<bankAccountType, AxiosResponse<bankAccountResponse>>(
-    endpoints.support.createInfoRequest.url,
-    data,
-  )
-}
+  async (data: any) => {
+    return await axios.post<any, AxiosResponse<any>>(
+      endpoints.bankAccounts.postBankAccount.url,
+      data,
+    )
+  }
 
 export const createSupportRequest: MutationFunction<
   AxiosResponse<SupportRequestResponse>,
@@ -70,13 +71,15 @@ export const createSupportRequest: MutationFunction<
   )
 }
 
-export const createCampaign: MutationFunction<AxiosResponse<CampaignResponse>, CampaignInput> =
-  async (data: CampaignInput) => {
-    return await axios.post<CampaignInput, AxiosResponse<CampaignResponse>>(
-      endpoints.campaign.createCampaign.url,
-      data,
-    )
-  }
+export const createCampaign: MutationFunction<
+  AxiosResponse<CampaignResponse>,
+  CampaignInput
+> = async (data: CampaignInput) => {
+  return await axios.post<CampaignInput, AxiosResponse<CampaignResponse>>(
+    endpoints.campaign.createCampaign.url,
+    data,
+  )
+}
 
 export const createCheckoutSession: MutationFunction<
   AxiosResponse<CheckoutSessionResponse>,
@@ -87,4 +90,3 @@ export const createCheckoutSession: MutationFunction<
     data,
   )
 }
-

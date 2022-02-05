@@ -1,4 +1,4 @@
-export type bankAccountResponse = {
+export type BankAccountResponse = {
   id: UUID
   status: BankAccountStatus
   ibanNumber: string
@@ -11,7 +11,7 @@ export type bankAccountResponse = {
   updatedAt: string
   withdraws: Withdrawal[]
 }
-export type bankAccountType = {
+export type BankAccountInput = {
   status: BankAccountStatus
   ibanNumber: string
   accountHolderName: string
