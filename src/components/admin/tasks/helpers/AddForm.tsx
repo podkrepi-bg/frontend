@@ -57,15 +57,15 @@ const items = [
   { label: 'Withdrawal', name: 'withdrawal', type: 'input' },
 ]
 
-/* const mutation = useMutation<
+const mutation = useMutation<
   AxiosResponse<bankAccountResponse>,
   AxiosError<ApiErrors>,
   bankAccountType
 >({
-  mutationFn: createBankAccount,
-  onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
-  onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
-})  */
+  mutationFn: createBankAccountRequest,
+  onError: () => AlertStore.show('common:alerts.error', 'error'),
+  onSuccess: () => AlertStore.show('common:alerts.message-sent', 'success'),
+}) 
 
 export default observer(function AddBankAccountForm() {
   const queryClient = useQueryClient()
