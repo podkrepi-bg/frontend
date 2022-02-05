@@ -4,7 +4,7 @@ import { enableStaticRendering } from 'mobx-react'
 enableStaticRendering(typeof window === 'undefined')
 
 export class DrawerStoreImpl {
-  isDrawerOpen: boolean = false
+  isDrawerOpen: boolean = true
   accordionOpen: boolean = false
 
   constructor() {

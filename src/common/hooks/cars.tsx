@@ -11,10 +11,7 @@ export function useBankAccountsList() {
   return useQuery<bankAccountResponse[]>(endpoints.bankAccounts.bankAccountList.url)
 }
 
-
-
-
-export function useViewBankAccount(slug: string | number) {
+export function useViewBankAccount(slug: string) {
   return useQuery<bankAccountResponse>(endpoints.bankAccounts.viewBankAccount(slug).url)
 }
 

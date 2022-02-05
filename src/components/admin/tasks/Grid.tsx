@@ -110,6 +110,10 @@ export default observer(function TasksGrid() {
     },
   ]
   const { data }: UseQueryResult<bankAccountResponse[]> = useBankAccountsList()
+  console.log(data)
+  if (data) {
+    console.log(data)
+  }
   return (
     <>
       <AlertDialog

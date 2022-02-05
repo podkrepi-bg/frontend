@@ -87,3 +87,13 @@ export const createCheckoutSession: MutationFunction<
     data,
   )
 }
+
+export const createBankAccount: MutationFunction<
+  AxiosResponse<bankAccountResponse>,
+  bankAccountType
+> = async (data: bankAccountType) => {
+  return await axios.post<bankAccountType, AxiosResponse<bankAccountResponse>>(
+    endpoints.bankAccounts.postBankAccount.url,
+    data,
+  )
+}
