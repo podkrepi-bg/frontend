@@ -38,6 +38,16 @@ export type CampaignResponse = {
   createdAt: Date
   updatedAt: Date | null
   deletedAt: Date | null
+  beneficiary: {
+    id: UUID
+    type: string
+    publicData: string
+    person: { id: UUID; firstName: string; lastName: string }
+  }
+  coordinator: {
+    id: UUID
+    person: { id: UUID; firstName: string; lastName: string }
+  }
 }
 
 export type CampaignFormData = {
@@ -65,17 +75,4 @@ export type CampaignInput = {
   currency: string
   startDate: Date | string | undefined
   endDate: Date | string | undefined
-}
-
-export type CampaignDetails = {
-  beneficiary: {
-    id: UUID
-    type: string
-    publicData: string
-    person: { id: UUID; firstName: string; lastName: string }
-  }
-  coordinator: {
-    id: UUID
-    person: { id: UUID; firstName: string; lastName: string }
-  }
 }

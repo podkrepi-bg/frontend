@@ -54,15 +54,14 @@ type Props = { slug: string }
 export default function ViewCampaignPage({ slug }: Props) {
   const classes = useStyles()
   const { t } = useTranslation()
+
   const { data } = useViewCampaign(slug)
+  if (!data || !data.campaign) return <NotFoundPage />
+  const { campaign } = data
 
   const bannerSource = '/img/campaign-banner.png'
   const beneficiaryAvatarSource = '/img/support-us-image.png'
   const coordinatorAvatarSource = '/img/support-us-image.png'
-
-  if (!data || !data.campaign) return <NotFoundPage />
-
-  const { campaign } = data
 
   return (
     <Layout maxWidth="xl">
