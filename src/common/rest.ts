@@ -50,10 +50,10 @@ export const createContactRequest: MutationFunction<
   )
 }
 
-export const createBankAccountRequest: MutationFunction<
+export const createBankAccountRequest:any/*  MutationFunction<
   AxiosResponse<bankAccountResponse>,
-  bankAccountType
-> = async (data: bankAccountType) => {
+  bankAccountType> */
+ = async (data: bankAccountType) => {
   return await axios.post<bankAccountType, AxiosResponse<bankAccountResponse>>(
     endpoints.support.createInfoRequest.url,
     data,
@@ -88,12 +88,3 @@ export const createCheckoutSession: MutationFunction<
   )
 }
 
-export const createBankAccount: MutationFunction<
-  AxiosResponse<bankAccountResponse>,
-  bankAccountType
-> = async (data: bankAccountType) => {
-  return await axios.post<bankAccountType, AxiosResponse<bankAccountResponse>>(
-    endpoints.bankAccounts.postBankAccount.url,
-    data,
-  )
-}
