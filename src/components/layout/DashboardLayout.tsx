@@ -29,6 +29,7 @@ const useStyles = makeStyles(() => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+      zIndex: 1201,
       boxShadow:
         '0px 2px 4px -1px rgb(0 0 0 / 35%), 0px 4px 5px 0px rgb(0 0 0 / 74%), 0px 1px 10px 0px rgb(0 0 0 / 49%)',
     },

@@ -22,7 +22,6 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { observer } from 'mobx-react'
 
 import { DrawerStore } from 'stores/DrawerStore'
-
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 import DashboardMenu from 'components/layout/nav/DashboardMenu'
 

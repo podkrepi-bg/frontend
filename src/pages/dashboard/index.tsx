@@ -1,16 +1,18 @@
-import { queryFn } from 'common/rest'
-import DashboardLayout from 'components/layout/DashboardLayout'
 import { GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate, QueryClient } from 'react-query'
+
+import { queryFn } from 'common/rest'
+import DashboardLayout from 'components/layout/DashboardLayout'
+import CompaniesGrid from 'components/companies/CompaniesGrid'
 
 export default function DashboardPage() {
   const { t } = useTranslation()
 
   return (
     <DashboardLayout title={t('companies:all')}>
-      <div>this is dashboard</div>
+      <CompaniesGrid />
     </DashboardLayout>
   )
 }
