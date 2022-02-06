@@ -34,6 +34,6 @@ export type CityInput = {
 
 type EditCityProp = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  id: UUID
+  id: string
   data: CityInput
 }

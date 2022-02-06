@@ -47,6 +47,13 @@ export default function CitiesGrid() {
       headerName: 'Postal Code',
       editable: false,
       width: 200,
+      flex: 1,
+    },
+    {
+      field: 'countryCode',
+      headerName: 'Country Code',
+      editable: false,
+      width: 200,
       flex: 1.5,
     },
     {
