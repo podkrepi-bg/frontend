@@ -9,8 +9,10 @@ import makeStyles from '@mui/styles/makeStyles'
 import Footer from 'components/layout/Footer'
 import { defaultOgImage } from 'common/routes'
 import Snackbar from 'components/layout/Snackbar'
-import AppNavBar from 'components/layout/AppNavBar'
 import DetailsModal from 'components/modal/DetailsModal'
+
+import dynamic from 'next/dynamic'
+const AppNavBarWithNoSSR = dynamic(() => import('components/layout/AppNavBar'), { ssr: false })
 
 import MobileNav from './nav/MobileNav'
 import ImproveThisPageTag from './ImproveThisPageTag'
@@ -75,7 +77,7 @@ export default function Layout({
           <meta key="og:image:height" property="og:image:height" content="1000" />
         </Head>
         <Box pt={4} pb={disableOffset ? 0 : 10} {...boxProps}>
-          <AppNavBar navMenuToggle={navMenuToggle} />
+          <AppNavBarWithNoSSR navMenuToggle={navMenuToggle} />
           <MobileNav mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
           {!disableOffset && <div className={classes.offset} />}
           {title && (
