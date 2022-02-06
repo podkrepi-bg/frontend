@@ -1,14 +1,14 @@
-import AddBankAccountForm from './helpers/AddForm'
+import BankAccountsForm from './BankAccountsForm'
 import LayoutPanel from './navigation/LayoutPanel'
 import { Container } from '@mui/material'
-function AddFormPage() {
+function BankAccountsAddPage() {
   return (
-    <LayoutPanel >
+    <LayoutPanel>
       <Container maxWidth="sm">
-        <AddBankAccountForm />
+        <BankAccountsForm />
       </Container>
     </LayoutPanel>
   )
 }
 
-export default AddFormPage
+export default BankAccountsAddPage

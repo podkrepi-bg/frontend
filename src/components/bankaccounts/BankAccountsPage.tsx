@@ -1,13 +1,16 @@
 import LayoutPanel from './navigation/LayoutPanel'
 import AppBarMenu from './navigation/AppBarMenu'
 import { Container } from '@mui/material'
-import BasicModal from './Modal'
+import BankAccountsModal from './BankAccountsModal'
 import BankAccountsGrid from './BankAccountsGrid'
+import BankAccountsDetails from './BankAccountsDetails'
 const BankAccountsPage = () => {
   return (
     <div style={{ height: '100vh', background: '#f7f7f7', paddingTop: 70 }}>
       <LayoutPanel>
-        <BasicModal />
+        <BankAccountsModal>
+          <BankAccountsDetails />
+        </BankAccountsModal>
         <Container>
           <Container disableGutters>
             <AppBarMenu />

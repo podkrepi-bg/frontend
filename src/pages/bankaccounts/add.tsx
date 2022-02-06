@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import BankAccountsFormPage from 'components/bankaccounts/BankAccountsFormPage'
+import BankAccountsAddPage from 'components/bankaccounts/BankAccountsAddPage'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   props: {
@@ -15,4 +15,4 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   },
 })
 
-export default BankAccountsFormPage
+export default BankAccountsAddPage

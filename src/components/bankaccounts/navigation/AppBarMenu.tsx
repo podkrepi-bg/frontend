@@ -10,6 +10,8 @@ import { useRouter } from 'next/router'
 import { observer } from 'mobx-react'
 import Box from '@mui/material/Box'
 import { routes } from 'common/routes'
+import { AlertStore } from 'stores/AlertStore'
+import { useTranslation } from 'next-i18next'
 const addIconStyles = {
   transform: 'scale(1.3)',
   background: '#4ac3ff',
@@ -19,8 +21,12 @@ const addIconStyles = {
   boxShadow: 3,
 }
 export default observer(function AppBarMenu() {
-  const { openCfrm } = ModalStore
+  const { openCfrm, carSelected } = ModalStore
   const router = useRouter()
+  const { t } = useTranslation()
+  const deleteHandler = () => {
+    carSelected ? openCfrm() : AlertStore.show(t('common:alerts.noselected'), 'info')
+  }
 
   return (
     <AppBar elevation={0} sx={{ background: 'none', pl: 0, pb: 2 }} position="static">
@@ -40,7 +46,7 @@ export default observer(function AppBarMenu() {
             <Tooltip title="Изтрий избраните">
               <DeleteIcon
                 style={{ background: '#f7f7f7', color: 'red' }}
-                onClick={openCfrm}
+                onClick={deleteHandler}
                 sx={addIconStyles}
                 fontSize="large"></DeleteIcon>
             </Tooltip>

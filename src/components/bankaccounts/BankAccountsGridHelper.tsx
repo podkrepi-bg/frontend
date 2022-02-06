@@ -1,4 +1,4 @@
-import { GridCellValue, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
+import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import PrivacyTipIcon from '@mui/icons-material/PrivacyTip'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
@@ -67,12 +67,6 @@ export const ControlIcons: React.FC<Props> = ({
   )
 }
 
-const commonCellStyles = (status: GridCellValue): any => {
-  return {
-    color: status === 'verified' ? 'green' : status === 'verification_failed' ? 'red' : 'primary',
-  }
-}
-
 const renderCell = (
   cellValues: GridRenderCellParams<any /* BankAccountResponse */>,
 ): React.ReactNode => {
@@ -99,14 +93,10 @@ export const renderCellWithdraws = (): React.ReactNode => {
     </div>
   )
 }
-const headerClasses = {
-  background: 'grey',
-}
 
 export const commonProps: Partial<GridColDef> = {
   align: 'center',
   width: 150,
   headerAlign: 'center',
-  headerClassName: 'super-app-theme--header',
   renderCell,
 }

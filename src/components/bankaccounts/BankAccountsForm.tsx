@@ -10,6 +10,7 @@ import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import { routes } from 'common/routes'
+import { useViewBankAccount } from 'common/hooks/bankaccounts'
 import { createBankAccountRequest } from 'common/rest'
 import { AlertStore } from 'stores/AlertStore'
 /* import {
@@ -33,17 +34,6 @@ const validationSchema: any = yup
     withdrawal: yup.string().trim().min(10).max(100).required(),
   })
 
-const defaults: any = {
-  status: '',
-  ibanNumber: '',
-  accountHolderName: '',
-  accountHolderType: '',
-  bankName: '',
-  bankIdCode: '',
-  fingerprint: '',
-  withdrawal: '',
-}
-
 const useStyles = makeStyles((theme) =>
   createStyles({
     heading: {
@@ -56,10 +46,23 @@ const useStyles = makeStyles((theme) =>
 
 /* export type CampaignFormProps = { initialValues?: CampaignFormData } */
 
-export default function BankAccountsForm({ initialValues = defaults }: any) {
+export default function BankAccountsForm() {
   const classes = useStyles()
   const { t } = useTranslation()
   const router = useRouter()
+  const id = String(router.query.slug)
+  const { data }: any = useViewBankAccount(id)
+
+  const initialValues: any = {
+    status: data?.status || '',
+    ibanNumber: data?.ibanNumber || '',
+    accountHolderName: data?.accountHolderName || '',
+    accountHolderType: data?.accountHolderType || '',
+    bankName: data?.bankName || '',
+    bankIdCode: data?.bankIdCode || '',
+    fingerprint: data?.fingerprint || '',
+    withdrawal: data?.withdrawal || '',
+  }
 
   const mutation = useMutation<any, any, any, any>({
     mutationFn: createBankAccountRequest,

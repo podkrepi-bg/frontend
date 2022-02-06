@@ -1,7 +1,7 @@
 import BankAccountsForm from './BankAccountsForm'
-import LayoutPanel from 'components/bankaccounts/navigation/LayoutPanel'
+import LayoutPanel from './navigation/LayoutPanel'
 import { Container } from '@mui/material'
-function BankAccountsPageFormPage() {
+function BankAccountsEditPage() {
   return (
     <LayoutPanel>
       <Container maxWidth="sm">
@@ -10,5 +10,4 @@ function BankAccountsPageFormPage() {
     </LayoutPanel>
   )
 }
-
-export default BankAccountsPageFormPage
+export default BankAccountsEditPage
