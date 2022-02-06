@@ -1,30 +1,29 @@
 import { GetStaticProps } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { dehydrate, QueryClient } from 'react-query'
 
-import { queryFn } from 'common/rest'
+import CreateCompanyForm from 'components/companies/CreateCompanyForm'
 import DashboardLayout from 'components/layout/DashboardLayout'
-import CompaniesGrid from 'components/companies/CompaniesGrid'
 
-export default function DashboardPage() {
+export default function CreateCompanyPage() {
   const { t } = useTranslation()
 
   return (
     <DashboardLayout title={t('companies:all')}>
-      <CompaniesGrid />
+      <CreateCompanyForm />
     </DashboardLayout>
   )
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const client = new QueryClient()
-  await client.prefetchQuery('/company/list', queryFn)
-
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? 'bg', ['common', 'companies'])),
-      dehydratedState: dehydrate(client),
+      ...(await serverSideTranslations(locale ?? 'bg', [
+        'common',
+        'validation',
+        'companies',
+        'cities',
+      ])),
     },
   }
 }

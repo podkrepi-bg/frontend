@@ -31,7 +31,7 @@ export default observer(function DashboardMenu() {
       </ListItemButton>
       <Collapse in={companySubMenu} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <Link passHref href={routes.dashboard.companies}>
+          <Link passHref href={routes.dashboard.index}>
             <ListItemButton
               sx={{ pl: 4 }}
               component="a"

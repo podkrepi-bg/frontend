@@ -8,10 +8,11 @@ import {
 } from 'components/support-form/helpers/support-form.types'
 import { ContactRequestResponse, ContactRequestInput } from 'gql/contact'
 import { CampaignResponse, CampaignInput } from 'gql/campaigns'
-
-import { endpoints } from './api-endpoints'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
+import { CompanyResponse, CompanyInput } from 'gql/companies'
+
+import { endpoints } from './api-endpoints'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await axios.get(queryKey.join('/'))
@@ -73,6 +74,15 @@ export const createCheckoutSession: MutationFunction<
 > = async (data: CheckoutSessionInput) => {
   return await axios.post<CheckoutSessionInput, AxiosResponse<CheckoutSessionResponse>>(
     endpoints.donation.createCheckoutSession.url,
+    data,
+  )
+}
+
+export const createCompany: MutationFunction<AxiosResponse<CompanyResponse>, CompanyInput> = async (
+  data: CompanyInput,
+) => {
+  return await axios.post<CompanyInput, AxiosResponse<CompanyResponse>>(
+    endpoints.company.createCompany.url,
     data,
   )
 }
