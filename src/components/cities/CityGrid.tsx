@@ -1,22 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react'
-import { DataGrid, GridColumns, GridRowId } from '@mui/x-data-grid'
-import { useTranslation } from 'next-i18next'
-import { useCitiesList } from 'common/hooks/cities'
 import router from 'next/router'
+import { useTranslation } from 'next-i18next'
+import Link from 'next/link'
+
+import { DataGrid, GridColumns, GridRowId } from '@mui/x-data-grid'
+import { useCitiesList } from 'common/hooks/cities'
+import { pink } from '@mui/material/colors'
+import { green } from '@mui/material/colors'
 import InfoIcon from '@mui/icons-material/Info'
 import EditIcon from '@mui/icons-material/Edit'
+import { Box, Button, ButtonGroup, Container, Stack, styled, Typography } from '@mui/material'
+import HighlightOffSharpIcon from '@mui/icons-material/HighlightOffSharp'
+
 import { AlertStore } from 'stores/AlertStore'
 import { deleteCity } from 'common/rest'
 import { useMutation } from 'react-query'
-import HighlightOffSharpIcon from '@mui/icons-material/HighlightOffSharp'
-import { Box, Button, ButtonGroup, Container, Stack, Typography } from '@mui/material'
 import DeleteModal from './layout/DeleteModal'
 import CityModal from './layout/CityModal'
 import Layout from './layout/Layout'
-import { pink } from '@mui/material/colors'
-import { green } from '@mui/material/colors'
-import Link from 'next/link'
 import DeleteSelectedModal from './layout/DeleteSelectedModal'
 import { CityResponse } from 'gql/cities'
 import { routes } from 'common/routes'
@@ -67,6 +69,11 @@ export default function CitiesGrid() {
       },
     },
   ]
+
+  const StyledLink = styled(Link)`
+    color: white;
+    background: blue;
+  `
 
   const handleEdit = (cellValues: any) => {
     router.push(`/cities/edit/${cellValues.id}`)
@@ -130,14 +137,14 @@ export default function CitiesGrid() {
           spacing={2}
           sx={{ justifyContent: 'space-between', marginBottom: '15px' }}>
           <Button variant="contained" color="info">
-            <Link href="/cities/create">Create new City</Link>
+            <StyledLink href="/cities/create">Добави нов град</StyledLink>
           </Button>
           <Button
             variant="outlined"
             color="error"
             disabled={selectionModel.length == 0}
             onClick={() => setIsDeleteSelectedModalOpen(true)}>
-            Delete Selected
+            Изтрии избраните
           </Button>
         </Stack>
         <DataGrid

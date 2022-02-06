@@ -183,7 +183,7 @@ export default function MiniDrawer() {
               width={50}
             />
             <Typography variant="h6" noWrap component="div">
-              Admin Panel
+              Админ Панел
             </Typography>
 
             <Box sx={{ flexGrow: 0 }} className={classes.avatar}>
