@@ -11,13 +11,13 @@ import {
 import { Dialog } from '@mui/material'
 import { Box } from '@mui/material'
 
-export default function BootcampModal(props: any) {
+export default function CityModal(props: any) {
   const { name, postalCode, open, setOpen } = props.modalProps
   return (
     <Modal open={open} onClose={() => setOpen(false)}>
       <Dialog open={open} onClose={() => setOpen(false)} aria-labelledby="draggable-dialog-title">
         <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
-          Bootcamp Details
+          City Details
         </DialogTitle>
         <Divider />
         <DialogContent>

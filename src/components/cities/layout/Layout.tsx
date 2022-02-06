@@ -240,7 +240,7 @@ export default function MiniDrawer() {
                 <ListAltIcon></ListAltIcon>
               </ListItemIcon>
               <Button sx={{ justifyContent: 'space-between' }}>
-                <Link href="/bootcamps">All bootcamps</Link>
+                <Link href="/cities">Всички градове</Link>
               </Button>
             </ListItem>
             <ListItem>
@@ -248,7 +248,7 @@ export default function MiniDrawer() {
                 <AddCircleIcon></AddCircleIcon>
               </ListItemIcon>
               <Button sx={{ justifyContent: 'space-between' }}>
-                <Link href="/bootcamps/create">Add bootcamp</Link>
+                <Link href="/cities/create">Добави град</Link>
               </Button>
             </ListItem>
           </List>

@@ -28,11 +28,6 @@ export default function DeleteModal(props: any) {
     setDeleteOpen(false)
     router.push(routes.cities.home)
   }
-  // const handleDelete = async () => {
-  //   await axios.delete(endpoints.bootcamp.deleteBootcamp(deleteData.id).url)
-  //   setDeleteOpen(false)
-  //   router.push(routes.bootcamps.home)
-  // }
 
   return (
     <Modal open={deleteOpen} onClose={() => setDeleteOpen(false)}>
