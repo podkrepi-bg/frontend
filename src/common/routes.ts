@@ -37,6 +37,13 @@ export const routes = {
     create: '/campaigns/create',
     viewCampaignBySlug: (slug: string) => `/campaigns/${slug}`,
   },
+  cities: {
+    home: '/cities',
+    create: '/cities/create',
+    viewCityById: (id: string) => `/cities/details/${id}`,
+    editCityById: (id: string) => `/cities/edit/${id}`,
+    deleteCity: `/cities`,
+  },
   profile: '/profile',
   register: '/register',
   aboutProject: '/about-project',

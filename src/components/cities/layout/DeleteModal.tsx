@@ -4,7 +4,7 @@ import { Modal } from '@mui/material'
 import { useRouter } from 'next/router'
 import { routes } from 'common/routes'
 import { useMutation } from 'react-query'
-import { deleteBootcamp } from 'common/rest'
+import { deleteCity } from 'common/rest'
 import { AlertStore } from 'stores/AlertStore'
 import { useTranslation } from 'next-i18next'
 
@@ -14,19 +14,19 @@ export default function DeleteModal(props: any) {
 
   const { t } = useTranslation()
   const mutation = useMutation({
-    mutationFn: deleteBootcamp,
+    mutationFn: deleteCity,
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
   const handleDeleteClick = (id: string) => async () => {
     try {
       await mutation.mutateAsync({ id: id })
-      router.push(routes.bootcamps.home)
+      router.push(routes.cities.home)
     } catch (error) {
       AlertStore.show(t('common:alert.error'), 'error')
     }
     setDeleteOpen(false)
-    router.push(routes.bootcamps.home)
+    router.push(routes.cities.home)
   }
   // const handleDelete = async () => {
   //   await axios.delete(endpoints.bootcamp.deleteBootcamp(deleteData.id).url)
