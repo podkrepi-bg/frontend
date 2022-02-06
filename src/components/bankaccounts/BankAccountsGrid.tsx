@@ -16,7 +16,6 @@ import { ControlIcons, commonProps } from './BankAccountsGridHelper'
 import { axios } from 'common/api-client'
 import { endpoints } from 'common/api-endpoints'
 import { renderCellWithdraws } from './BankAccountsGridHelper'
-import { Box } from '@mui/material'
 /* import { BankAccountResponse } from 'gql/bankaccounts' */
 export default observer(function BankAccountsGrid() {
   const queryClient = useQueryClient()
@@ -49,7 +48,6 @@ export default observer(function BankAccountsGrid() {
     }
     deleteRecords()
   }
-
   const columns: GridColumns = [
     { ...commonProps, headerName: 'статус', field: 'status' },
     { ...commonProps, headerName: 'ИБАН', field: 'ibanNumber' },
@@ -77,7 +75,7 @@ export default observer(function BankAccountsGrid() {
             carId={String(params.id)}
             openModal={ModalStore.openModal}
             router={router}
-            route={`/tasks/edit/${params.id}`}
+            route={`/bankaccounts/edit/${params.id}`}
             handleOpen={handleClickOpen}
             setId={setId}
             idToSet={String(params.id)}
@@ -90,15 +88,6 @@ export default observer(function BankAccountsGrid() {
 
   return (
     <>
-      <Box
-        boxShadow={2}
-        sx={{
-          height: 300,
-          width: 1,
-          '& .super-app-theme--header': {
-            background: '#fafafa',
-          },
-        }}>
         <ConfirmationDialog
           isOpen={ModalStore.cfrmOpen}
           handleConfirm={handleDelete}
@@ -124,9 +113,9 @@ export default observer(function BankAccountsGrid() {
           checkboxSelection
           onSelectionModelChange={(selectionModel: GridSelectionModel) => {
             setMupltipleDelete(selectionModel)
+            selectionModel.length > 0 ? ModalStore.csPositive() : ModalStore.csNegative()
           }}
         />
-      </Box>
     </>
   )
 })

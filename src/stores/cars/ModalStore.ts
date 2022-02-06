@@ -7,19 +7,31 @@ export class ModalContextImpl {
   isModalOpen: boolean = false
   cfrmOpen: boolean = false
   carId: string = ''
-
+  carSelected: boolean = false
   constructor() {
     makeObservable(this, {
       isModalOpen: observable,
       cfrmOpen: observable,
       carId: observable,
+      carSelected: observable,
       openModal: action,
       closeModal: action,
       openCfrm: action,
       closeCfrm: action,
       setCarId: action,
+      csPositive: action,
+      csNegative: action,
     })
   }
+  //CAR SELECTED POSITIVE
+  csPositive = () => {
+    this.carSelected = true
+  }
+  //CAR SELECTED NEGATIVE
+  csNegative = () => {
+    this.carSelected = false
+  }
+
   // Modal
   closeModal = () => {
     this.isModalOpen = false

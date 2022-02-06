@@ -5,13 +5,13 @@ import CssBaseline from '@mui/material/CssBaseline'
 import ProfileMenuItems from './ProfileMenuItems'
 import DrawerListItems from './DrawerListItems'
 import { styled } from '@mui/material/styles'
-import Notifications from '../Snackbar'
 import React, { useState } from 'react'
 import DrawerHeader from './DrawerHeader'
 import DrawerIcons from './DrawerIcons'
 import { observer } from 'mobx-react'
-import PanelFooter from './Footer'
+import PanelFooter from './PanelFooter'
 import Snackbar from 'components/layout/Snackbar'
+
 const drawerWidth = 240
 
 const Main = styled('main', { shouldForwardProp: (prop: string) => prop !== 'open' })<{
@@ -89,7 +89,7 @@ export default observer(function PersistentDrawerLeft({ children }: Props) {
               color: '#7d7d7d',
               width: '100%',
               position: 'absolute',
-              zIndex:-1
+              zIndex: -1,
             }}
             textAlign="center"
             variant="h5">
@@ -120,7 +120,7 @@ export default observer(function PersistentDrawerLeft({ children }: Props) {
         <DrawerListItems />
       </Drawer>
       <Main open={isDrawerOpen}>{children}</Main>
-      {/*  <PanelFooter /> */}
+      <PanelFooter />
       <Snackbar />
     </Box>
   )
