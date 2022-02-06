@@ -29,6 +29,7 @@ export type CityFormData = {
 export type CityInput = {
   name: string
   postalCode: number
+  countryId: string
 }
 
 type EditCityProp = {

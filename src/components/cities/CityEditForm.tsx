@@ -40,6 +40,7 @@ export default function EditCity(props: any) {
         data: {
           name: values.name,
           postalCode: values.postalCode,
+          countryId: 'e50bb574-814d-46d9-bbca-1286f2a6a34f'
         },
         id: `${router.query.id}`,
       })

@@ -22,7 +22,7 @@ const validationSchema: yup.SchemaOf<CityFormData> = yup
   .defined()
   .shape({
     name: yup.string().trim().min(3).max(25).required(),
-    postalCode: yup.number().max(25).required(),
+    postalCode: yup.number().required(),
   })
 
 const defaults: CityFormData = {
@@ -50,6 +50,7 @@ export default function CityForm({ initialValues = defaults }: CityFormProps) {
       await mutation.mutateAsync({
         name: values.name,
         postalCode: values.postalCode,
+        countryId: 'e50bb574-814d-46d9-bbca-1286f2a6a34f',
       })
       resetForm()
       router.push(routes.cities.home)
@@ -69,7 +70,9 @@ export default function CityForm({ initialValues = defaults }: CityFormProps) {
       <Layout />
       <Container maxWidth="sm">
         <Grid container direction="column" component="section">
-          <Typography variant="h3">Create new City</Typography>
+          <Typography textAlign="center" variant="h3">
+            Създай нов град
+          </Typography>
           <Grid item xs={12}></Grid>
           <GenericForm
             onSubmit={onSubmit}
@@ -77,23 +80,18 @@ export default function CityForm({ initialValues = defaults }: CityFormProps) {
             validationSchema={validationSchema}>
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <FormTextField
-                  type="text"
-                  label="Cities:City.name"
-                  name="name"
-                  autoComplete="title"
-                />
+                <FormTextField type="text" label="Cities: Име" name="name" autoComplete="title" />
               </Grid>
               <Grid item xs={12}>
                 <FormTextField
-                  type="text"
-                  label="Citys:City.postalCode"
+                  type="number"
+                  label="Cities:Пощенски код"
                   name="postalCode"
-                  autoComplete="title"
+                  autoComplete="postal-code"
                 />
               </Grid>
               <Grid item xs={12}>
-                <SubmitButton fullWidth label="Създай нов град" loading={mutation.isLoading} />
+                <SubmitButton fullWidth label="Създай" loading={mutation.isLoading} />
               </Grid>
             </Grid>
           </GenericForm>
