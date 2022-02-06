@@ -1,0 +1,14 @@
+{
+  "form-heading": "Add new company",
+  "all": "All companies",
+  "title": "Company name",
+  "number": "Company number",
+  "representative": "Representative",
+  "countryCode": "Country code",
+  "alerts": {
+    "uniqueNumber": "Company number already registered"
+  },
+  "cta": {
+    "add": "Add"
+  }
+}

@@ -49,4 +49,9 @@ export const routes = {
     infoRequests: '/admin/info-requests',
     supporters: '/admin/supporters',
   },
+  dashboard: {
+    index: '/dashboard',
+    companies: '/dashboard/companies',
+    createCompany: '/dashboard/companies/create',
+  },
 }

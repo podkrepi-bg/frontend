@@ -29,7 +29,20 @@
     "logout": "Изход",
     "register": "Регистрация",
     "changePassword": "Смяна на парола",
-    "forgottenPassword": "Забравена парола?"
+    "forgottenPassword": "Забравена парола?",
+    "dashboard": {
+      "index": "Админ панел",
+      "companies": {
+        "index": "Компании",
+        "all": "Всички компании",
+        "create": "Добави компания"
+      },
+      "profile-menu": {
+        "profile": "Профил",
+        "settings": "Настройки",
+        "logout": "Изход"
+      }
+    }
   },
   "meta": {
     "title": "Подкрепи.бг"

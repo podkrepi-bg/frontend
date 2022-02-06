@@ -29,7 +29,20 @@
     "logout": "Logout",
     "register": "Signup",
     "changePassword": "Change your password",
-    "forgottenPassword": "Forgotten password?"
+    "forgottenPassword": "Forgotten password?",
+    "dashboard": {
+      "index": "Admin dashboard",
+      "companies": {
+        "index": "Companies",
+        "all": "All companies",
+        "create": "Add company"
+      },
+      "profile-menu": {
+        "profile": "Profile",
+        "settings": "Settings",
+        "logout": "Logout"
+      }
+    }
   },
   "meta": {
     "title": "Podkrepi.bg"
