@@ -1,3 +1,5 @@
+import { UUID } from './types'
+
 export enum CityState {
   initial,
   draft,
@@ -15,22 +17,22 @@ export enum CityState {
 export type CityResponse = {
   id: UUID
   // state: cityState
-  firstName: string
-  lastName: string
+  name: string
+  postalCode: number
 }
 
 export type CityFormData = {
-  firstName: string
-  lastName: string
+  name: string
+  postalCode: number
 }
 
 export type CityInput = {
-  firstName: string
-  lastName: string
+  name: string
+  postalCode: number
 }
 
 type EditCityProp = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  id: string
+  id: UUID
   data: CityInput
 }
