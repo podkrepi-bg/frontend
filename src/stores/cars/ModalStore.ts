@@ -6,14 +6,12 @@ enableStaticRendering(typeof window === 'undefined')
 export class ModalContextImpl {
   isModalOpen: boolean = false
   cfrmOpen: boolean = false
-  carSelected: boolean = false
-  carId: string  = ''
+  carId: string = ''
 
   constructor() {
     makeObservable(this, {
       isModalOpen: observable,
       cfrmOpen: observable,
-      carSelected: observable,
       carId: observable,
       openModal: action,
       closeModal: action,
@@ -35,13 +33,6 @@ export class ModalContextImpl {
   }
   closeCfrm = () => {
     this.cfrmOpen = false
-  }
-  // Checks if there are multiple cars selected
-  csPositive = () => {
-    this.carSelected = true
-  }
-  csNegative = () => {
-    this.carSelected = false
   }
   //setCarId for the modal.
   setCarId = (rowId: string) => {

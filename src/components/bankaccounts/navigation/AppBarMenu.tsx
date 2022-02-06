@@ -2,7 +2,6 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import Container from '@mui/material/Container'
 import AddIcon from '@mui/icons-material/Add'
 import Tooltip from '@mui/material/Tooltip'
-import { NotificationStore } from 'stores/cars/NotificationsStore'
 import { ModalStore } from 'stores/cars/ModalStore'
 import Toolbar from '@mui/material/Toolbar'
 import { Typography } from '@mui/material'
@@ -20,25 +19,14 @@ const addIconStyles = {
   boxShadow: 3,
 }
 export default observer(function AppBarMenu() {
-  const { setMessage, openNotifications } = NotificationStore
-  const { carSelected, openCfrm } = ModalStore
+  const { openCfrm } = ModalStore
   const router = useRouter()
-  const handleDelete = (): void => {
-    if (carSelected) {
-      openCfrm()
-    } else {
-      setMessage('Моля изберете поне един ред')
-      openNotifications()
-    }
-  }
 
   return (
-    <AppBar elevation={0} sx={{ background: 'white' }} position="static">
-      <Container maxWidth="xl">
-        <Toolbar
-          disableGutters
-          sx={{ display: 'flex', justifyContent: 'space-between', px: '11px' }}>
-          <Typography variant="h5">Списък с коли</Typography>
+    <AppBar elevation={0} sx={{ background: 'none', pl: 0, pb: 2 }} position="static">
+      <Container disableGutters maxWidth="xl">
+        <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Typography variant="h4">Банкови сметки</Typography>
           <Box>
             <Tooltip title="Добави">
               <AddIcon
@@ -52,7 +40,7 @@ export default observer(function AppBarMenu() {
             <Tooltip title="Изтрий избраните">
               <DeleteIcon
                 style={{ background: '#f7f7f7', color: 'red' }}
-                onClick={handleDelete}
+                onClick={openCfrm}
                 sx={addIconStyles}
                 fontSize="large"></DeleteIcon>
             </Tooltip>
