@@ -10,12 +10,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   await client.prefetchQuery(`/city/list`, queryFn)
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? 'bg', [
-        'common',
-        'auth',
-        'validation',
-        'campaigns',
-      ])),
+      ...(await serverSideTranslations(locale ?? 'bg', ['common', 'auth', 'validation', 'cities'])),
       dehydratedState: dehydrate(client),
     },
   }
