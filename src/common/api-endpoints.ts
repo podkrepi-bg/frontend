@@ -33,8 +33,8 @@ export const endpoints = {
   city: {
     createCity: <Endpoint>{ url: '/city/create-city', method: 'POST' },
     citiesList: <Endpoint>{ url: '/city/list', method: 'GET' },
-    viewCity: (id: UUID) => <Endpoint>{ url: `/city/list-one/${id}`, method: 'GET' },
-    editCity: (id: UUID) => <Endpoint>{ url: `/city/update-one/${id}`, method: 'PATCH' },
-    deleteCity: (id: UUID) => <Endpoint>{ url: `/city/delete-one/${id}`, method: 'DELETE' },
+    viewCity: (id: string) => <Endpoint>{ url: `/city/list-one/${id}`, method: 'GET' },
+    editCity: (id: string) => <Endpoint>{ url: `/city/update-one/${id}`, method: 'PATCH' },
+    deleteCity: (id: string) => <Endpoint>{ url: `/city/delete-one/${id}`, method: 'DELETE' },
   },
 }

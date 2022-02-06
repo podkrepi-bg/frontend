@@ -10,7 +10,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query }) 
   const { id } = query
   const client = new QueryClient()
 
-  const { data: values } = await axios.get(endpoints.city.viewCity(id as string).url)
+  const { data: values } = await axios.get(endpoints.city.viewCity(String(id)).url)
   await client.prefetchQuery(`/city/list-one/${id}`, queryFn)
   return {
     props: {
