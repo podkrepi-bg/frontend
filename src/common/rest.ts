@@ -12,6 +12,7 @@ import { CampaignResponse, CampaignInput } from 'gql/campaigns'
 import { endpoints } from './api-endpoints'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
+import { CityInput, CityResponse, EditCityProp } from 'gql/cities'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await axios.get(queryKey.join('/'))
@@ -75,4 +76,37 @@ export const createCheckoutSession: MutationFunction<
     endpoints.donation.createCheckoutSession.url,
     data,
   )
+}
+
+export const createCity: MutationFunction<AxiosResponse<CityResponse>, CityInput> = async (
+  data: CityInput,
+) => {
+  return await axios.post<CityInput, AxiosResponse<CityResponse>>(
+    endpoints.city.createCity.url,
+    data,
+  )
+}
+
+export const viewCity = async (data: string) => {
+  return await (
+    await axios.get(endpoints.city.viewCity(data).url)
+  ).data
+}
+
+export const editCity: MutationFunction<AxiosResponse<CityResponse>, EditCityProp> = async ({
+  id,
+  data,
+}: EditCityProp) => {
+  return await axios.patch<CityResponse, AxiosResponse<CityResponse>>(
+    endpoints.city.editCity(id).url,
+    data,
+  )
+}
+
+export const deleteCity: MutationFunction<AxiosResponse<null>, { id: string }> = async ({
+  id,
+}: {
+  id: string
+}) => {
+  return await axios.delete<null>(endpoints.city.deleteCity(id).url)
 }
