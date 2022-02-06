@@ -36,11 +36,12 @@ export default function EditCity(props: any) {
 
   const onSubmit = async (values: CityFormData, { setFieldError }: FormikHelpers<CityFormData>) => {
     try {
+      console.log(values.name)
       await mutation.mutateAsync({
         data: {
           name: values.name,
           postalCode: values.postalCode,
-          countryId: 'e50bb574-814d-46d9-bbca-1286f2a6a34f'
+          countryId: 'e50bb574-814d-46d9-bbca-1286f2a6a34f',
         },
         id: `${router.query.id}`,
       })
@@ -79,7 +80,7 @@ export default function EditCity(props: any) {
               </Grid>
               <Grid item xs={12}>
                 <FormTextField
-                  type="text"
+                  type="number"
                   label="Last name"
                   name="lastName"
                   autoComplete="name"
