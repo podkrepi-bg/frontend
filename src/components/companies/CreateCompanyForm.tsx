@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import { Button, Grid, Typography } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import * as yup from 'yup'
 import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
@@ -14,6 +15,15 @@ import FormTextField from 'components/common/form/FormTextField'
 import GenericForm from 'components/common/form/GenericForm'
 
 import CompaniesCitySelect from './CompaniesCitySelect'
+
+const useStyles = makeStyles({
+  deleteBtn: {
+    marginLeft: 16,
+    ':hover': {
+      backgroundColor: '#bf0000',
+    },
+  },
+})
 
 const validationSchema: yup.SchemaOf<CompanyFormData> = yup
   .object()
@@ -42,13 +52,17 @@ type Props = {
 export default function CreateCompanyForm({ initialValues }: Props) {
   const { t } = useTranslation()
   const router = useRouter()
-
+  const classes = useStyles()
   const mutation = useMutation<AxiosResponse<CompanyResponse>, AxiosError<ApiErrors>, CompanyInput>(
     {
       mutationFn: initialValues ? editCompany : createCompany,
       onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
     },
   )
+
+  const cancelHandler = () => {
+    router.back()
+  }
 
   const submitHandler = async (values: CompanyInput) => {
     try {
@@ -111,6 +125,15 @@ export default function CreateCompanyForm({ initialValues }: Props) {
             <Button type="submit" variant="contained">
               {initialValues ? t('companies:cta.edit') : t('companies:cta.add')}
             </Button>
+            {initialValues && (
+              <Button
+                onClick={cancelHandler}
+                variant="contained"
+                color="error"
+                className={classes.deleteBtn}>
+                {t('companies:cta.cancel')}
+              </Button>
+            )}
           </Grid>
         </Grid>
       </GenericForm>
