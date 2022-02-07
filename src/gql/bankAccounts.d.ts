@@ -12,14 +12,14 @@ export type BankAccountResponse = {
   withdraws: Withdrawal[]
 }
 export type BankAccountInput = {
-  status: BankAccountStatus
-  ibanNumber: string
-  accountHolderName: string
-  accountHolderType: AccountHolderType
-  bankName?: string
-  bankIdCode?: string
-  fingerprint?: string
-  withdrawal: string
+  status: BankAccountStatus | undefined
+  ibanNumber: string | undefined
+  accountHolderName: string | undefined
+  accountHolderType: AccountHolderType | undefined
+  bankName?: string | undefined
+  bankIdCode?: string | undefined
+  fingerprint?: string | undefined
+  withdrawal: Withdrawal | undefined
 }
 export enum BankAccountStatus {
   new,
@@ -31,7 +31,4 @@ export enum BankAccountStatus {
 export enum AccountHolderType {
   individual,
   company,
-}
-export type Withdrawal = {
-  name: string
 }

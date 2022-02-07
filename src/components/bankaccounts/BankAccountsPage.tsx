@@ -4,9 +4,10 @@ import { Container } from '@mui/material'
 import BankAccountsModal from './BankAccountsModal'
 import BankAccountsGrid from './BankAccountsGrid'
 import BankAccountsDetails from './BankAccountsDetails'
+
 const BankAccountsPage = () => {
   return (
-    <div style={{ height: '100vh', background: '#f7f7f7', paddingTop: 70 }}>
+    <div style={{ minHeight: '100vh', background: '#f7f7f7', paddingTop: 70 }}>
       <LayoutPanel>
         <BankAccountsModal>
           <BankAccountsDetails />

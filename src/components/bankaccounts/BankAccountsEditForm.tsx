@@ -1,7 +1,6 @@
 import React from 'react'
-import * as yup from 'yup'
 import { useRouter } from 'next/router'
-import { useMutation } from 'react-query'
+import { MutationFunction, useMutation, UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
@@ -10,23 +9,14 @@ import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import { routes } from 'common/routes'
-import { createBankAccountRequest } from 'common/rest'
+import { useViewBankAccount } from 'common/hooks/bankaccounts'
 import { AlertStore } from 'stores/AlertStore'
-import { AccountHolderType, BankAccountInput, BankAccountStatus } from 'gql/bankaccounts'
-
-export const validationSchemaBankAccForm: any = yup
-  .object()
-  .defined()
-  .shape({
-    status: yup.string().trim().min(1).max(100).required(),
-    ibanNumber: yup.string().trim().min(10).max(100).required(),
-    accountHolderName: yup.string().trim().min(10).max(100).required(),
-    accountHolderType: yup.string().trim().min(1).max(100).required(),
-    bankName: yup.string().trim().min(10).max(100).required(),
-    bankIdCode: yup.string().trim().min(10).max(100).required(),
-    fingerprint: yup.string().trim().min(10).max(100).required(),
-    withdrawal: yup.string().trim().min(10).max(100).required(),
-  })
+import { validationSchemaBankAccForm } from './BankAccountsForm'
+import { BankAccountInput, BankAccountResponse } from 'gql/bankaccounts'
+import { endpoints } from 'common/api-endpoints'
+import { AxiosError, AxiosResponse } from 'axios'
+import { axios } from 'common/api-client'
+import { ApiErrors } from 'common/api-errors'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -38,23 +28,38 @@ const useStyles = makeStyles((theme) =>
   }),
 )
 
-export default function BankAccountsForm() {
+export default function BankAccountsEditForm() {
   const classes = useStyles()
   const { t } = useTranslation()
   const router = useRouter()
+  const id = String(router.query.slug)
+  const { data }: UseQueryResult<BankAccountResponse> = useViewBankAccount(id)
+
   const initialValues: BankAccountInput = {
-    status: BankAccountStatus.new,
-    ibanNumber: '',
-    accountHolderName: '',
-    accountHolderType: AccountHolderType.individual,
-    bankName: '',
-    bankIdCode: '',
-    fingerprint: '',
-    withdrawal: '',
+    status: data?.status,
+    ibanNumber: data?.ibanNumber,
+    accountHolderName: data?.accountHolderName,
+    accountHolderType: data?.accountHolderType,
+    bankName: data?.bankName,
+    bankIdCode: data?.bankIdCode,
+    fingerprint: data?.fingerprint,
+    withdrawal: data?.withdraws,
   }
 
-  const mutation = useMutation<any, any, BankAccountInput, any>({
-    mutationFn: createBankAccountRequest,
+  const editBankAccount: MutationFunction<AxiosResponse<BankAccountResponse>, BankAccountInput> =
+    async (data: BankAccountInput) => {
+      return await axios.patch<BankAccountInput, AxiosResponse<BankAccountResponse>>(
+        endpoints.bankAccounts.editBankAccount(id).url,
+        data,
+      )
+    }
+
+  const mutation = useMutation<
+    AxiosResponse<BankAccountResponse>,
+    AxiosError<ApiErrors>,
+    BankAccountInput
+  >({
+    mutationFn: editBankAccount,
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => {
       AlertStore.show(t('common:alerts.message-sent'), 'success')
@@ -62,7 +67,7 @@ export default function BankAccountsForm() {
     },
   })
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: BankAccountInput) => {
     mutation.mutate(data)
   }
 

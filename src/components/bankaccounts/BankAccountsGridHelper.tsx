@@ -67,9 +67,7 @@ export const ControlIcons: React.FC<Props> = ({
   )
 }
 
-const renderCell = (
-  cellValues: GridRenderCellParams<any /* BankAccountResponse */>,
-): React.ReactNode => {
+const renderCell = (cellValues: GridRenderCellParams<{}>): React.ReactNode => {
   const style =
     cellValues.field === 'status' && cellValues.value === 'verified'
       ? { color: 'green' }

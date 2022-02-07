@@ -16,7 +16,7 @@ import { ControlIcons, commonProps } from './BankAccountsGridHelper'
 import { axios } from 'common/api-client'
 import { endpoints } from 'common/api-endpoints'
 import { renderCellWithdraws } from './BankAccountsGridHelper'
-/* import { BankAccountResponse } from 'gql/bankaccounts' */
+import { BankAccountResponse } from 'gql/bankaccounts'
 export default observer(function BankAccountsGrid() {
   const queryClient = useQueryClient()
   const router = useRouter()
@@ -84,38 +84,38 @@ export default observer(function BankAccountsGrid() {
       },
     },
   ]
-  const { data }: UseQueryResult<any /* BankAccountResponse[] */> = useBankAccountsList()
+  const { data }: UseQueryResult<BankAccountResponse[]> = useBankAccountsList()
 
   return (
     <>
-        <ConfirmationDialog
-          isOpen={ModalStore.cfrmOpen}
-          handleConfirm={handleDelete}
-          handleCancel={ModalStore.closeCfrm}
-          title={'Потвърждение'}
-          content={'Наистина ли искате да изтриете тези записи ?'}
-          confirmButtonLabel={'Потвърди'}
-          cancelButtonLabel={'Отказ'}></ConfirmationDialog>
-        <DataGrid
-          style={{
-            marginTop: '2px',
-            background: 'white',
-            height: 'calc(100vh - 500px)',
-            border: 'none',
-            padding: '50px 20px',
-          }}
-          rows={data || []}
-          columns={columns}
-          pageSize={5}
-          autoHeight
-          autoPageSize
-          disableSelectionOnClick
-          checkboxSelection
-          onSelectionModelChange={(selectionModel: GridSelectionModel) => {
-            setMupltipleDelete(selectionModel)
-            selectionModel.length > 0 ? ModalStore.csPositive() : ModalStore.csNegative()
-          }}
-        />
+      <ConfirmationDialog
+        isOpen={ModalStore.cfrmOpen}
+        handleConfirm={handleDelete}
+        handleCancel={ModalStore.closeCfrm}
+        title={'Потвърждение'}
+        content={'Наистина ли искате да изтриете тези записи ?'}
+        confirmButtonLabel={'Потвърди'}
+        cancelButtonLabel={'Отказ'}></ConfirmationDialog>
+      <DataGrid
+        style={{
+          marginTop: '2px',
+          background: 'white',
+          height: 'calc(100vh - 500px)',
+          border: 'none',
+          padding: '50px 20px',
+        }}
+        rows={data || []}
+        columns={columns}
+        pageSize={5}
+        autoHeight
+        autoPageSize
+        disableSelectionOnClick
+        checkboxSelection
+        onSelectionModelChange={(selectionModel: GridSelectionModel) => {
+          setMupltipleDelete(selectionModel)
+          selectionModel.length > 0 ? ModalStore.csPositive() : ModalStore.csNegative()
+        }}
+      />
     </>
   )
 })
