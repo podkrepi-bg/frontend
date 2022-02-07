@@ -50,7 +50,7 @@ export default function Nav() {
             <PodkrepiLogo />
           </IconButton>
           <Typography variant="h6" noWrap component="div" style={{ textAlign: 'center' }}>
-            BOOTCAMPERS MODULE
+            CAMPAIGN TYPES MODULE
           </Typography>
           <ProfileMenu></ProfileMenu>
         </Toolbar>
