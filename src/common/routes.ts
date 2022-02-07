@@ -49,4 +49,11 @@ export const routes = {
     infoRequests: '/admin/info-requests',
     supporters: '/admin/supporters',
   },
+  dashboard: {
+    index: '/dashboard',
+    country: {
+      view: (id: string) => `/dashboard/country/${id}`,
+      create: '/dashboard/country/create',
+    },
+  },
 }
