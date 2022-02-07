@@ -1,6 +1,7 @@
 import { Theme } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
+import AdminAppBar from './AdminAppBar'
 
 // import MyFooter from './MyFooter'
 // import ResponsiveAppBar from './ResponsiveAppBar'
@@ -27,7 +28,9 @@ export default function AdminLayout({ children }: Props) {
 
   return (
     <div className={classes.root}>
+      <AdminAppBar />
       <div className={classes.page}>{children}</div>
+      {/* <MyFooter /> */}
     </div>
   )
 }
