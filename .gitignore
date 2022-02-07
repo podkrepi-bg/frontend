@@ -50,5 +50,5 @@ bld/
 
 
 #Demo tasks
-src/components/bootcamp
-src/pages/bootcamp
+./src/components/bootcamp
+./src/pages/bootcamp
