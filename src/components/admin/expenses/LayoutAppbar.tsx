@@ -15,7 +15,7 @@ import Typography from '@mui/material/Typography'
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 import { DrawerStore } from 'stores/expenses/DrawerStore'
 
-import MyDrawer, { drawerWidth } from './ExpenseDrawer'
+import MyDrawer, { drawerWidth } from './LayoutDrawer'
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 

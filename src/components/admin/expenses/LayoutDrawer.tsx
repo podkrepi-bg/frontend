@@ -9,8 +9,10 @@ import AddBoxIcon from '@mui/icons-material/AddBox'
 import PeopleIcon from '@mui/icons-material/People'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
+import Link from 'components/common/Link'
 
 import { DrawerStore } from 'stores/expenses/DrawerStore'
+import { routes } from 'common/routes'
 
 export const drawerWidth = 200
 
@@ -39,8 +41,8 @@ const useStyles = makeStyles(() => {
 })
 
 const menuItems = [
-  { text: 'Interns', icon: <PeopleIcon />, path: '/bootcamp-interns' },
-  { text: 'Add intern', icon: <AddCircleIcon />, path: '/bootcamp-interns/create' },
+  { text: 'Expenses', icon: <PeopleIcon />, path: routes.admin.expenses },
+  { text: 'Add expense', icon: <AddCircleIcon />, path: routes.admin.createExpense },
 ]
 
 export default function MyDrawer() {
