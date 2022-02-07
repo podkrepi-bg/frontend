@@ -86,3 +86,9 @@ export const createCompany: MutationFunction<AxiosResponse<CompanyResponse>, Com
     data,
   )
 }
+
+export const deleteCompany: MutationFunction<AxiosResponse<null>, { slug: string }> = async ({
+  slug,
+}) => {
+  return await axios.delete(endpoints.company.deleteCompany(slug).url)
+}

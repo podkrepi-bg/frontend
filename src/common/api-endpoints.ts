@@ -35,5 +35,6 @@ export const endpoints = {
   company: {
     createCompany: <Endpoint>{ url: '/company/create-company', method: 'POST' },
     listCompanies: <Endpoint>{ url: '/company/list', method: 'GET' },
+    deleteCompany: (slug: string) => <Endpoint>{ url: `/company/${slug}`, method: 'DELETE' },
   },
 }

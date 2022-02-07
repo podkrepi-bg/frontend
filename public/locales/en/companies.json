@@ -5,10 +5,18 @@
   "number": "Company number",
   "representative": "Representative",
   "countryCode": "Country code",
+  "deleteTitle": "Delete selected countries?",
+  "deleteContent": "Confirm delete of selected countries",
+  "actions": "Actions",
   "alerts": {
     "uniqueNumber": "Company number already registered"
   },
   "cta": {
-    "add": "Add"
+    "add": "Add",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "details": "Details"
   }
 }

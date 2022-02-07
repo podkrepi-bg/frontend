@@ -5,7 +5,7 @@ import { dehydrate, QueryClient } from 'react-query'
 
 import { queryFn } from 'common/rest'
 import DashboardLayout from 'components/layout/DashboardLayout'
-import CompaniesGrid from 'components/companies/CompaniesGrid'
+import CompaniesGrid from 'components/companies/grid/CompaniesGrid'
 
 export default function DashboardPage() {
   const { t } = useTranslation()

@@ -17,9 +17,9 @@ export class DialogStoreImpl {
   constructor() {
     makeObservable(this, {
       dialogs: observable,
-      show: action,
-      hide: action,
-      clear: action,
+      show: action.bound,
+      hide: action.bound,
+      clear: action.bound,
       getDialogs: computed,
     })
   }
