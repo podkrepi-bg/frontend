@@ -48,5 +48,8 @@ export const routes = {
     index: '/admin',
     infoRequests: '/admin/info-requests',
     supporters: '/admin/supporters',
+    expenses: '/admin/expenses',
+    createExpenses: '/admin/expenses/create',
+    viewExpenseById: (id: string) => `/admin/expenses/${id}`,
   },
 }
