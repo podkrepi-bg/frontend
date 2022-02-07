@@ -1,5 +1,10 @@
 import { useExpensesList } from 'common/hooks/expenses'
+import AdminLayout from './AdminLayout'
 
 export default function ExpensePage() {
-  return <div>expenses</div>
+  return (
+    <AdminLayout>
+      <div>expenses page</div>
+    </AdminLayout>
+  )
 }
