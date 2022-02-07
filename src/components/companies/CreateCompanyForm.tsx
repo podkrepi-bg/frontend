@@ -4,9 +4,8 @@ import * as yup from 'yup'
 import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
-import { FormikHelpers } from 'formik'
 
-import { createCompany } from 'common/rest'
+import { createCompany, editCompany } from 'common/rest'
 import { routes } from 'common/routes'
 import { ApiErrors, isAxiosError } from 'common/api-errors'
 import { CompanyFormData, CompanyInput, CompanyResponse } from 'gql/companies'
@@ -27,7 +26,8 @@ const validationSchema: yup.SchemaOf<CompanyFormData> = yup
     cityId: yup.string().uuid(),
   })
 
-const defaults: CompanyFormData = {
+const defaults: CompanyInput = {
+  id: '',
   companyName: '',
   companyNumber: '',
   legalPersonName: '',
@@ -35,30 +35,31 @@ const defaults: CompanyFormData = {
   countryCode: '',
 }
 
-export default function CreateCompanyForm({ initialValues = defaults }) {
+type Props = {
+  initialValues?: CompanyInput
+}
+
+export default function CreateCompanyForm({ initialValues }: Props) {
   const { t } = useTranslation()
   const router = useRouter()
 
   const mutation = useMutation<AxiosResponse<CompanyResponse>, AxiosError<ApiErrors>, CompanyInput>(
     {
-      mutationFn: createCompany,
+      mutationFn: initialValues ? editCompany : createCompany,
       onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
     },
   )
 
-  const submitHandler = async (
-    values: CompanyFormData,
-    { resetForm }: FormikHelpers<CompanyFormData>,
-  ) => {
+  const submitHandler = async (values: CompanyInput) => {
     try {
       await mutation.mutateAsync({
+        id: initialValues?.id,
         companyName: values.companyName,
         companyNumber: values.companyNumber,
-        legalPersonName: values.legalPersonName || null,
-        cityId: values.cityId || null,
-        countryCode: values.countryCode || null,
+        legalPersonName: values.legalPersonName,
+        cityId: values.cityId,
+        countryCode: values.countryCode,
       })
-      resetForm()
       router.push(routes.dashboard.index)
     } catch (error) {
       if (isAxiosError(error)) {
@@ -82,12 +83,12 @@ export default function CreateCompanyForm({ initialValues = defaults }) {
       component="section"
       sx={{ maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
       <GenericForm
-        initialValues={initialValues}
+        initialValues={initialValues || defaults}
         onSubmit={submitHandler}
         validationSchema={validationSchema}>
         <Grid item xs={12}>
           <Typography variant="h5" component="h2" sx={{ marginBottom: 2 }}>
-            {t('companies:form-heading')}
+            {initialValues ? t('companies:edit-form-heading') : t('companies:form-heading')}
           </Typography>
         </Grid>
         <Grid container spacing={3}>
@@ -108,7 +109,7 @@ export default function CreateCompanyForm({ initialValues = defaults }) {
           </Grid>
           <Grid item xs={12}>
             <Button type="submit" variant="contained">
-              {t('companies:cta.add')}
+              {initialValues ? t('companies:cta.edit') : t('companies:cta.add')}
             </Button>
           </Grid>
         </Grid>

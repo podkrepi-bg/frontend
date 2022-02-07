@@ -87,6 +87,15 @@ export const createCompany: MutationFunction<AxiosResponse<CompanyResponse>, Com
   )
 }
 
+export const editCompany: MutationFunction<AxiosResponse<CompanyResponse>, CompanyInput> = async (
+  data: CompanyInput,
+) => {
+  return await axios.patch<CompanyInput, AxiosResponse<CompanyResponse>>(
+    endpoints.company.editCompany(data.id).url,
+    data,
+  )
+}
+
 export const deleteCompany: MutationFunction<AxiosResponse<null>, { slug: string }> = async ({
   slug,
 }) => {
