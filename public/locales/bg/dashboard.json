@@ -1,3 +1,16 @@
 {
+    "appbar": {
+        "heading": "Администрация",
+        "drawer": {
+            "entities": {
+                "heading": "Модели",
+                "country": {
+                    "heading": "Country",
+                    "all": "Покажи всички",
+                    "create": "Създай нов"
+                }
+            }
+        }
+    },
     "footer": "Подкрепи.бг"
 }
