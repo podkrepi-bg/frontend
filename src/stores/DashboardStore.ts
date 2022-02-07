@@ -5,22 +5,28 @@ enableStaticRendering(typeof window === 'undefined')
 
 export class DashboardStoreImpl {
   drawerOpen = true
-  drawerSubOpen = true
+  drawerEntityOpen = true
+  drawerCountryOpen = false
 
   constructor() {
     makeObservable(this, {
       drawerOpen: observable,
-      drawerSubOpen: observable,
+      drawerEntityOpen: observable,
+      drawerCountryOpen: observable,
       toggleDrawerOpen: action,
-      toggleDrawerSubOpen: action,
+      toggleDrawerEntityOpen: action,
+      toggleDrawerCountryOpen: action,
     })
   }
 
   toggleDrawerOpen = () => {
     this.drawerOpen = !this.drawerOpen
   }
-  toggleDrawerSubOpen = () => {
-    this.drawerSubOpen = !this.drawerSubOpen
+  toggleDrawerEntityOpen = () => {
+    this.drawerEntityOpen = !this.drawerEntityOpen
+  }
+  toggleDrawerCountryOpen = () => {
+    this.drawerCountryOpen = !this.drawerCountryOpen
   }
 }
 
