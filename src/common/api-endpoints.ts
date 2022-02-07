@@ -30,7 +30,7 @@ export const endpoints = {
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
   },
   country: {
-    countryList: <Endpoint>{ url: '/country/list', method: 'GET' },
+    listCountries: <Endpoint>{ url: '/country/list', method: 'GET' },
     getCountry: <Endpoint>{ url: '/country', method: 'GET' },
     createCountry: <Endpoint>{ url: '/country/create-country', method: 'POST' },
     editCountry: <Endpoint>{ url: '/country', method: 'PATCH' },
