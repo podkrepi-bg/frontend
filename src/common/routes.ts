@@ -49,7 +49,7 @@ export const routes = {
     infoRequests: '/admin/info-requests',
     supporters: '/admin/supporters',
     expenses: '/admin/expenses',
-    createExpenses: '/admin/expenses/create',
+    createExpense: '/admin/expenses/create',
     viewExpenseById: (id: string) => `/admin/expenses/${id}`,
   },
 }

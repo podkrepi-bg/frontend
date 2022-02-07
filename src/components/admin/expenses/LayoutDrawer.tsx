@@ -47,8 +47,6 @@ const menuItems = [
 
 export default function MyDrawer() {
   const { isDrawerOpen } = DrawerStore
-  const [open, setOpen] = useState<boolean>(false)
-  const [submenuOpen, setSubmenuOpen] = useState<boolean>(false)
   const router = useRouter()
   const classes = useStyles()
 
@@ -78,51 +76,6 @@ export default function MyDrawer() {
             <ListItemText primary={item.text} />
           </ListItem>
         ))}
-        <ListItem
-          sx={{ cursor: 'pointer' }}
-          onClick={() => {
-            setOpen((prev) => !prev)
-            setSubmenuOpen(false)
-          }}>
-          <ListItemIcon>{<GridMenuIcon />}</ListItemIcon>
-          <ListItemText primary={`Press for submenus`} />
-        </ListItem>
-        {open && (
-          <List>
-            <ListItem>
-              <ListItemIcon>{<AddBoxIcon />}</ListItemIcon>
-              <ListItemText primary="Add" />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>{<DeleteIcon />}</ListItemIcon>
-              <ListItemText primary="Remove" />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>{<EditIcon />}</ListItemIcon>
-              <ListItemText primary="Edit" />
-            </ListItem>
-            <ListItem
-              sx={{ cursor: 'pointer' }}
-              onClick={() => {
-                setSubmenuOpen((prev) => !prev)
-              }}>
-              <ListItemIcon>{<GridMenuIcon />}</ListItemIcon>
-              <ListItemText primary="Submenu of the submenu?" />
-            </ListItem>
-            {submenuOpen && (
-              <List>
-                <ListItem>
-                  <ListItemIcon>{<DeleteIcon />}</ListItemIcon>
-                  <ListItemText primary="Remove" />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon>{<EditIcon />}</ListItemIcon>
-                  <ListItemText primary="Edit" />
-                </ListItem>
-              </List>
-            )}
-          </List>
-        )}
       </List>
     </SwipeableDrawer>
   )

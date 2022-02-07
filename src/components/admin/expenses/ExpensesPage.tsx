@@ -1,6 +1,10 @@
-import { useExpensesList } from 'common/hooks/expenses'
 import AdminLayout from './AdminLayout'
+import AdminLayoutGrid from './AdminLayoutGrid'
 
 export default function ExpensePage() {
-  return <AdminLayout></AdminLayout>
+  return (
+    <AdminLayout>
+      <AdminLayoutGrid />
+    </AdminLayout>
+  )
 }
