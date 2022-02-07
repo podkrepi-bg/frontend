@@ -12,6 +12,7 @@ import { CampaignResponse, CampaignInput } from 'gql/campaigns'
 import { endpoints } from './api-endpoints'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
+import { CountryInput, CountryResponse } from 'gql/countries'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await axios.get(queryKey.join('/'))
@@ -74,5 +75,43 @@ export const createCheckoutSession: MutationFunction<
   return await axios.post<CheckoutSessionInput, AxiosResponse<CheckoutSessionResponse>>(
     endpoints.donation.createCheckoutSession.url,
     data,
+  )
+}
+
+export const createCountry: MutationFunction<AxiosResponse<CountryResponse>, CountryInput> = async (
+  data: CountryInput,
+) => {
+  return await axios.post<CountryInput, AxiosResponse<CountryResponse>>(
+    endpoints.country.createCountry.url,
+    data,
+  )
+}
+
+export const getCountry: MutationFunction<AxiosResponse<CountryResponse>, string> = async (
+  id: string,
+) => {
+  return await axios.get<string, AxiosResponse<CountryResponse>>(
+    endpoints.country.getCountry.url + '/' + id,
+  )
+}
+
+type EditCountryProp = {
+  id: string
+  data: CountryInput
+}
+
+export const editCountry: MutationFunction<AxiosResponse<CountryResponse>, EditCountryProp> =
+  async ({ id, data }: EditCountryProp) => {
+    return await axios.patch<CountryResponse, AxiosResponse<CountryResponse>>(
+      endpoints.country.editCountry.url + '/' + id,
+      data,
+    )
+  }
+
+export const deleteCountry: MutationFunction<AxiosResponse<CountryResponse>, string> = async (
+  id: string,
+) => {
+  return await axios.delete<string, AxiosResponse<CountryResponse>>(
+    endpoints.country.deleteCountry.url + '/' + id,
   )
 }
