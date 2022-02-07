@@ -36,4 +36,11 @@ export const endpoints = {
     editCar: <Endpoint>{ url: '/car', method: 'PATCH' },
     deleteCar: <Endpoint>{ url: '/car', method: 'DELETE' },
   },
+  documents: {
+    documentsList: <Endpoint>{ url: '/document', method: 'GET' },
+    getDocument: <Endpoint>{ url: '/document', method: 'GET' },
+    createDocument: <Endpoint>{ url: '/document', method: 'POST' },
+    editDocument: <Endpoint>{ url: '/document', method: 'PATCH' },
+    deleteDocument: <Endpoint>{ url: '/document', method: 'DELETE' },
+  },
 }

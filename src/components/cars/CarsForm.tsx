@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import CarField from './CarField'
 import notify from './helpers/notify'
 
-export default function CarsForm({ cars, setCars }: any) {
+export default function CarsForm() {
   const [brand, setBrand] = useState('')
   const [model, setModel] = useState('')
   const [year, setYear] = useState(0)

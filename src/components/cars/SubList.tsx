@@ -18,8 +18,12 @@ export default function SubList({ drawerOpen, title, icon, data }: any) {
   }, [open])
 
   useEffect(() => {
-    if (!JSON.parse(sessionStorage.getItem('drawer-state') || '')) {
-      setOpen(JSON.parse(sessionStorage.getItem(title) || ''))
+    try {
+      if (!JSON.parse(sessionStorage.getItem('drawer-state') || '')) {
+        setOpen(JSON.parse(sessionStorage.getItem(title) || ''))
+      }
+    } catch (err) {
+      console.log(err)
     }
   }, [drawerOpen])
 
