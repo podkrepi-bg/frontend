@@ -24,7 +24,7 @@ export const ControlIcons: React.FC<Props> = ({
   handleOpen,
   setId,
   idToSet,
-}): any => {
+}) => {
   return (
     <div
       style={{

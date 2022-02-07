@@ -12,9 +12,17 @@ import FormTextField from 'components/common/form/FormTextField'
 import { routes } from 'common/routes'
 import { createBankAccountRequest } from 'common/rest'
 import { AlertStore } from 'stores/AlertStore'
-import { AccountHolderType, BankAccountInput, BankAccountStatus } from 'gql/bankaccounts'
+import {
+  AccountHolderType,
+  BankAccountInput,
+  BankAccountResponse,
+  BankAccountsData,
+  BankAccountStatus,
+} from 'gql/bankaccounts'
+import { AxiosError, AxiosResponse } from 'axios'
+import { ApiErrors } from 'common/api-errors'
 
-export const validationSchemaBankAccForm: any = yup
+export const validationSchemaBankAccForm: yup.SchemaOf<BankAccountsData> = yup
   .object()
   .defined()
   .shape({
@@ -53,7 +61,11 @@ export default function BankAccountsForm() {
     withdrawal: '',
   }
 
-  const mutation = useMutation<any, any, BankAccountInput, any>({
+  const mutation = useMutation<
+    AxiosResponse<BankAccountResponse>,
+    AxiosError<ApiErrors>,
+    BankAccountInput
+  >({
     mutationFn: createBankAccountRequest,
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => {
@@ -62,7 +74,7 @@ export default function BankAccountsForm() {
     },
   })
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: BankAccountInput) => {
     mutation.mutate(data)
   }
 
