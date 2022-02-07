@@ -21,8 +21,9 @@ import { useTranslation } from 'next-i18next'
 
 import { routes } from 'common/routes'
 import { DashboardStore } from 'stores/DashboardStore'
-import DashboardProfileMenu from './DashboardProfileMenu'
 import PodkrepiIcon from 'components/brand/PodkrepiIcon'
+
+import DashboardProfileMenu from './DashboardProfileMenu'
 
 const useStyles = makeStyles({
   appBar: {
@@ -90,12 +91,11 @@ export default observer(function DashboardAppBar() {
               </ListItemButton>
               <Collapse in={drawerCountryOpen} timeout="auto" unmountOnExit>
                 <List className={classes.submenu}>
-                  <ListItemButton>
-                    <ListItemText primary={t('appbar.drawer.entities.country.all')} />
-                  </ListItemButton>
-                  <ListItemButton>
-                    <ListItemText primary={t('appbar.drawer.entities.country.create')} />
-                  </ListItemButton>
+                  <Link href={routes.dashboard.country.create} passHref>
+                    <ListItemButton>
+                      <ListItemText primary={t('appbar.drawer.entities.country.create')} />
+                    </ListItemButton>
+                  </Link>
                 </List>
               </Collapse>
             </List>
