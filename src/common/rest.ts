@@ -12,6 +12,8 @@ import { CampaignResponse, CampaignInput } from 'gql/campaigns'
 import { endpoints } from './api-endpoints'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
+import id from 'date-fns/locale/id'
+import { BankAccountInput } from 'gql/bankaccounts'
 /* import { BankAccountResponse, BankAccountInput } from 'gql/bankaccounts' */
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
@@ -71,15 +73,13 @@ export const createSupportRequest: MutationFunction<
   )
 }
 
-export const createCampaign: MutationFunction<
-  AxiosResponse<CampaignResponse>,
-  CampaignInput
-> = async (data: CampaignInput) => {
-  return await axios.post<CampaignInput, AxiosResponse<CampaignResponse>>(
-    endpoints.campaign.createCampaign.url,
-    data,
-  )
-}
+export const createCampaign: MutationFunction<AxiosResponse<CampaignResponse>, CampaignInput> =
+  async (data: CampaignInput) => {
+    return await axios.post<CampaignInput, AxiosResponse<CampaignResponse>>(
+      endpoints.campaign.createCampaign.url,
+      data,
+    )
+  }
 
 export const createCheckoutSession: MutationFunction<
   AxiosResponse<CheckoutSessionResponse>,
@@ -90,3 +90,6 @@ export const createCheckoutSession: MutationFunction<
     data,
   )
 }
+
+
+

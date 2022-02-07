@@ -6,5 +6,7 @@ export function useBankAccountsList() {
 }
 
 export function useViewBankAccount(slug: string) {
-  return useQuery<any>(endpoints.bankAccounts.viewBankAccount(slug).url)
+  return useQuery<any>(endpoints.bankAccounts.viewBankAccount(slug).url, {
+    retry: 0,
+  })
 }

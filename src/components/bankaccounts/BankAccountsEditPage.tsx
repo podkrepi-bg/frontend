@@ -1,11 +1,11 @@
-import BankAccountsForm from './BankAccountsForm'
+import BankAccountsEditForm from './BankAccountsEditForm'
 import LayoutPanel from './navigation/LayoutPanel'
 import { Container } from '@mui/material'
 function BankAccountsEditPage() {
   return (
     <LayoutPanel>
       <Container maxWidth="sm">
-        <BankAccountsForm />
+        <BankAccountsEditForm />
       </Container>
     </LayoutPanel>
   )

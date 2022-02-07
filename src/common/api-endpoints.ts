@@ -39,13 +39,11 @@ export const endpoints = {
   },
   bankAccounts: {
     bankAccountList: <Endpoint>{ url: '/bankaccount', method: 'GET' },
-    viewBankAccount: (slug: string | number) =>
-      <Endpoint>{ url: `/bankaccount/${slug}`, method: 'GET' },
+    viewBankAccount: (slug: string) => <Endpoint>{ url: `/bankaccount/${slug}`, method: 'GET' },
     deleteBankAccount: (slug: string) =>
       <Endpoint>{ url: `/bankaccount/${slug}`, method: 'DELETE' },
     postBankAccount: <Endpoint>{ url: '/bankaccount', method: 'POST' },
-    editBankAccount: (slug: string | number) =>
-      <Endpoint>{ url: `/bankaccount/${slug}`, method: 'PATCH' },
+    editBankAccount: (slug: string) => <Endpoint>{ url: `/bankaccount/${slug}`, method: 'PATCH' },
     deleteManyBankAccounts: <Endpoint>{ url: `/bankaccount/deletemany`, method: 'POST' },
   },
 }

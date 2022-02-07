@@ -5,7 +5,7 @@ import { useViewBankAccount } from 'common/hooks/bankaccounts'
 import { UseQueryResult } from 'react-query'
 import { observer } from 'mobx-react'
 import { BankAccountResponse } from 'gql/bankaccounts'
-
+import CloseModalButton from 'components/common/CloseModalButton'
 export default observer(function BankAccountDetails() {
   const containerStyles: CSSObject = {
     minWidth: 275,
@@ -18,26 +18,33 @@ export default observer(function BankAccountDetails() {
     p: 4,
   }
 
-  const { data }: UseQueryResult<BankAccountResponse> = useViewBankAccount(ModalStore.carId)
+  const { data }: any /* UseQueryResult<BankAccountResponse> | undefined */ = useViewBankAccount(
+    ModalStore.carId,
+  )
 
   return (
     <Card sx={containerStyles}>
+      <CloseModalButton onClose={ModalStore.closeModal} />
       <CardContent>
-        <Typography variant="h5" component="div" gutterBottom>
-          {data?.bankName}
+        <Typography variant="body2" color="text.secondary" gutterBottom>
+          Status: {data?.status}
         </Typography>
-        <Typography sx={{ fontSize: 15 }} color="text.secondary" gutterBottom>
-          Brand: {data?.status}
+        <Typography variant="body2" color="text.secondary" gutterBottom>
+          IBAN: {data?.ibanNumber}
         </Typography>
         <Typography color="text.secondary" gutterBottom>
-          Year: {data?.fingerprint}
+          Account holder: {data?.accountHolderName}
         </Typography>
         <Typography variant="body2" gutterBottom>
-          Engine: {data?.bankIdCode}
+          Type: {data?.accountHolderType}
         </Typography>
         <Typography variant="body2" gutterBottom>
-          Price: {data?.accountHolderName}
+          Bank: {data?.bankName}
         </Typography>
+        <Typography variant="body2" gutterBottom>
+          Bank ID: {data?.bankIdCode}
+        </Typography>
+        <Typography variant="body2">Fingerprint: {data?.fingerprint}</Typography>
       </CardContent>
     </Card>
   )
