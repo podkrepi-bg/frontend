@@ -74,11 +74,11 @@ function CustomLayout({ children }: { children: any }) {
   }
 
   const navLinks = [
-    { icon: <PeopleIcon />, name: 'All', href: '/admin/coordinators' },
+    { icon: <PeopleIcon />, name: 'All', href: '/admin/coordinator' },
     {
       icon: <PersonAddIcon />,
       name: 'Create',
-      href: '/admin/coordinators/create',
+      href: '/admin/coordinator/create',
     },
   ]
 
