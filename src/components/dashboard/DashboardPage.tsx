@@ -1,3 +1,5 @@
+import DashboardLayout from './DashboardLayout'
+
 export default function DashboardPage() {
-  return <p>working...</p>
+  return <DashboardLayout />
 }
