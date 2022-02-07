@@ -35,5 +35,6 @@ export const endpoints = {
       method: 'GET',
     },
     delete: (slug: string) => <Endpoint>{ url: `/coordinator/${slug}`, method: 'DELETE' },
+    create: <Endpoint>{ url: `/coordinator`, method: 'POST' },
   },
 }

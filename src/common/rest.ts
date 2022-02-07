@@ -80,3 +80,7 @@ export const createCheckoutSession: MutationFunction<
 export const deleteCoordinator = async (slug: string) => {
   return await axios.delete(endpoints.coordinator.delete(slug).url)
 }
+
+export const createCordinator = async (data: any) => {
+  return await axios.post(endpoints.coordinator.create.url, data)
+}
