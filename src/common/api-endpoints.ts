@@ -29,4 +29,11 @@ export const endpoints = {
     recurringPrices: <Endpoint>{ url: '/donation/prices/recurring', method: 'GET' },
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
   },
+  country: {
+    countryList: <Endpoint>{ url: '/country/list', method: 'GET' },
+    getCountry: <Endpoint>{ url: '/country', method: 'GET' },
+    createCountry: <Endpoint>{ url: '/country/create-country', method: 'POST' },
+    editCountry: <Endpoint>{ url: '/country', method: 'PATCH' },
+    deleteCountry: <Endpoint>{ url: '/country', method: 'DELETE' },
+  },
 }
