@@ -32,3 +32,14 @@ export enum AccountHolderType {
   individual,
   company,
 }
+
+export type BankAccountsData = {
+  status: string
+  ibanNumber: string
+  accountHolderName: string
+  accountHolderType: string
+  bankName: string
+  bankIdCode: string
+  fingerprint: string
+  withdrawal: string
+}

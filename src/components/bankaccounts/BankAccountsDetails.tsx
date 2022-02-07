@@ -18,9 +18,7 @@ export default observer(function BankAccountDetails() {
     p: 4,
   }
 
-  const { data }: any /* UseQueryResult<BankAccountResponse> | undefined */ = useViewBankAccount(
-    ModalStore.carId,
-  )
+  const { data }: UseQueryResult<BankAccountResponse> = useViewBankAccount(ModalStore.carId)
 
   return (
     <Card sx={containerStyles}>
