@@ -113,7 +113,8 @@ export default function CountryGrid() {
     mutationFn: deleteCountry,
     onError: () => AlertStore.show(t('alerts.delete-row.error'), 'error'),
     onSuccess: () => {
-      return
+      AlertStore.show(t('alerts.delete-row.success'), 'success')
+      router.push(routes.dashboard.index)
     },
   })
 
@@ -121,8 +122,6 @@ export default function CountryGrid() {
     try {
       closeDeleteRowDialog()
       delMutation.mutateAsync(selectedId)
-      AlertStore.show(t('alerts.delete-row.success'), 'success')
-      router.push(routes.dashboard.index)
     } catch (err) {
       console.log(err)
     }
