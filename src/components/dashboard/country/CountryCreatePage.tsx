@@ -1,10 +1,10 @@
 import DashboardLayout from '../DashboardLayout'
-import CountryCreateForm from './CountryCreateForm'
+import CountryForm from './CountryForm'
 
 export default function CountryCreatePage() {
   return (
     <DashboardLayout>
-      <CountryCreateForm />
+      <CountryForm />
     </DashboardLayout>
   )
 }
