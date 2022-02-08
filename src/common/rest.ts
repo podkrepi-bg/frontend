@@ -84,3 +84,13 @@ export const deleteCoordinator = async (slug: string) => {
 export const createCordinator = async (data: any) => {
   return await axios.post(endpoints.coordinator.create.url, data)
 }
+
+export const editCordinator = async (data: any) => {
+  return await axios.patch(endpoints.coordinator.edit(data.slug).url, data)
+}
+
+export const getCordinator = async (slug: string) => {
+  return await (
+    await axios.get(endpoints.coordinator.get(slug).url)
+  ).data
+}
