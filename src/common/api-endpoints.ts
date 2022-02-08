@@ -37,5 +37,6 @@ export const endpoints = {
     listCompanies: <Endpoint>{ url: '/company/list', method: 'GET' },
     deleteCompany: (slug: string) => <Endpoint>{ url: `/company/${slug}`, method: 'DELETE' },
     editCompany: (slug: string) => <Endpoint>{ url: `/company/${slug}`, method: 'PATCH' },
+    deleteMany: <Endpoint>{ url: '/company/delete-many', method: 'POST' },
   },
 }

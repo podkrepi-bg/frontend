@@ -101,3 +101,8 @@ export const deleteCompany: MutationFunction<AxiosResponse<null>, { slug: string
 }) => {
   return await axios.delete(endpoints.company.deleteCompany(slug).url)
 }
+
+export const deleteManyCompanies: MutationFunction<AxiosResponse<null>, { ids: string[] }> =
+  async ({ ids }) => {
+    return await axios.post(endpoints.company.deleteMany.url, ids)
+  }

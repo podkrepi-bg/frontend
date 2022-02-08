@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Container } from '@mui/material'
-import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColumns, GridRenderCellParams, GridSelectionModel } from '@mui/x-data-grid'
 import { useTranslation } from 'next-i18next'
 
 import { useCompaniesList } from 'common/hooks/companies'
@@ -9,11 +9,13 @@ import { CompanyResponse } from 'gql/companies'
 import GridEditButton from './GridEditButton'
 import GridDetailsButton from './GridDetailsButton'
 import GridDeleteButton from './GridDeleteButton'
+import CompaniesGridToolbar from './CompaniesGridToolbar'
 
 export default function CompaniesGrid() {
   const { t } = useTranslation()
   const { data } = useCompaniesList()
   const [companies, setCompanies] = useState<CompanyResponse[]>([])
+  const [selectionModel, setSelectionModel] = useState<GridSelectionModel>([])
 
   useEffect(() => {
     setCompanies(data || [])
@@ -86,6 +88,18 @@ export default function CompaniesGrid() {
         autoPageSize
         checkboxSelection
         disableSelectionOnClick
+        components={{
+          Toolbar: CompaniesGridToolbar,
+        }}
+        componentsProps={{
+          toolbar: {
+            selectionModel,
+            setCompanies,
+          },
+        }}
+        onSelectionModelChange={(ids) => {
+          setSelectionModel(ids)
+        }}
       />
     </Container>
   )
