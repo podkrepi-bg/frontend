@@ -9,7 +9,7 @@ function PanelFooter() {
         bottom: 0,
         width: '100%',
         height: '60px',
-        background: '#6cf',
+        background: '#294e85',
       }}></Box>
   )
 }

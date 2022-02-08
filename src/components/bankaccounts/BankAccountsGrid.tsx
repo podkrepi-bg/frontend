@@ -85,7 +85,6 @@ export default observer(function BankAccountsGrid() {
     },
   ]
   const { data }: UseQueryResult<BankAccountResponse[]> = useBankAccountsList()
-  console.log(data)
 
   return (
     <>
@@ -101,9 +100,11 @@ export default observer(function BankAccountsGrid() {
         style={{
           marginTop: '2px',
           background: 'white',
-          height: '100%',
+          height: 'calc(100vh - 280px)',
           border: 'none',
           padding: '50px 20px',
+          overflowY: 'auto',
+          borderRadius: '0 0 13px 13px',
         }}
         rows={data || []}
         columns={columns}

@@ -12,9 +12,16 @@ const BankAccountsPage = () => {
       </BankAccountsModal>
       <Container
         maxWidth={false}
-        sx={{ background: 'grey', borderRadius: '10px', minHeight: '100vh', position: 'relative' }}>
-        <AppBarMenu />
-        <BankAccountsGrid />
+        sx={{
+          borderRadius: '13px',
+          minHeight: 'calc(100vh - 64px)',
+          position: 'relative',
+          background: '#e9f6ff',
+        }}>
+        <Container sx={{ pt: '24px' }} disableGutters>
+          <AppBarMenu />
+          <BankAccountsGrid />
+        </Container>
       </Container>
     </MainLayout>
   )
