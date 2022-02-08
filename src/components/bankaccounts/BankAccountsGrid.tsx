@@ -50,7 +50,7 @@ export default observer(function BankAccountsGrid() {
   }
   const columns: GridColumns = [
     { ...commonProps, headerName: 'статус', field: 'status' },
-    { ...commonProps, headerName: 'ИБАН', field: 'ibanNumber' },
+    { ...commonProps, headerName: 'ИБАН', field: 'ibanNumber', width: 220 },
     { ...commonProps, headerName: 'собственик', field: 'accountHolderName' },
     { ...commonProps, headerName: 'вид', field: 'accountHolderType' },
     { ...commonProps, headerName: 'име на банка', field: 'bankName' },
@@ -85,6 +85,7 @@ export default observer(function BankAccountsGrid() {
     },
   ]
   const { data }: UseQueryResult<BankAccountResponse[]> = useBankAccountsList()
+  console.log(data)
 
   return (
     <>
@@ -100,7 +101,7 @@ export default observer(function BankAccountsGrid() {
         style={{
           marginTop: '2px',
           background: 'white',
-          height: 'calc(100vh - 500px)',
+          height: '100%',
           border: 'none',
           padding: '50px 20px',
         }}

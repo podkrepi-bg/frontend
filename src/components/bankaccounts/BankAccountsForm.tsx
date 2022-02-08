@@ -18,7 +18,7 @@ import {
   BankAccountResponse,
   BankAccountsData,
   BankAccountStatus,
-} from 'gql/bankaccounts'
+} from 'gql/bankaccounts.d.ts'
 import { AxiosError, AxiosResponse } from 'axios'
 import { ApiErrors } from 'common/api-errors'
 

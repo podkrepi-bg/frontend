@@ -22,15 +22,15 @@ export type BankAccountInput = {
   withdrawal: Withdrawal | undefined
 }
 export enum BankAccountStatus {
-  new,
-  validated,
-  verified,
-  verification_failed,
-  errored,
+  new = 'new',
+  validated = 'validated',
+  verified = 'verified',
+  verification_failed = 'verification_failed',
+  errored = 'errored',
 }
 export enum AccountHolderType {
-  individual,
-  company,
+  individual = 'individual',
+  company = 'company',
 }
 
 export type BankAccountsData = {
