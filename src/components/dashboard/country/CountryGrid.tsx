@@ -5,7 +5,7 @@ import { useMutation } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { Button, Dialog, DialogActions, DialogTitle, IconButton, Typography } from '@mui/material'
+import { IconButton, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
@@ -21,6 +21,7 @@ import { deleteCountry, getCountry } from 'common/rest'
 
 import InfoDialog from './InfoDialog'
 import DeleteRowDialog from './DeleteRowDialog'
+import DeleteRowsDialog from './DeleteRowsDialog'
 
 const useStyles = makeStyles({
   gridWrapper: {
@@ -183,20 +184,6 @@ export default function CountryGrid() {
     },
   ]
 
-  const DeleteRowsDialog = () => (
-    <Dialog open={openRowsDel} onClose={closeDeleteRowsDialog} maxWidth="xs">
-      <DialogTitle>{t('alerts.delete-rows.question')}</DialogTitle>
-      <DialogActions>
-        <Button variant="contained" color="secondary" fullWidth onClick={deleteRows}>
-          {t('btns.confirm')}
-        </Button>
-        <Button variant="contained" color="primary" fullWidth onClick={closeDeleteRowsDialog}>
-          {t('btns.cancel')}
-        </Button>
-      </DialogActions>
-    </Dialog>
-  )
-
   return (
     <>
       <InfoDialog open={openInfo} closeFn={closeInfoDialog} country={country} />
@@ -206,7 +193,11 @@ export default function CountryGrid() {
         countryName={selected.name}
         deleteRow={deleteRow}
       />
-      <DeleteRowsDialog />
+      <DeleteRowsDialog
+        open={openRowsDel}
+        closeFn={closeDeleteRowsDialog}
+        deleteRows={deleteRows}
+      />
       <div className={classes.gridWrapper}>
         <div className={classes.gridTitleWrapper}>
           <Typography variant="h6" className={classes.gridTitle}>
