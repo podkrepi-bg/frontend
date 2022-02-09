@@ -9,7 +9,7 @@ import { endpoints } from 'common/api-endpoints'
 export const getServerSideProps: GetServerSideProps = async ({ locale, query }) => {
   const { id } = query
   const client = new QueryClient()
-  await client.prefetchQuery(`${endpoints.documents.getDocument.url}/${id}`, queryFn)
+  await client.prefetchQuery(endpoints.documents.getDocument(String(id)).url, queryFn)
 
   return {
     props: {
