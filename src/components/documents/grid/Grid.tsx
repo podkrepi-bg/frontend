@@ -12,13 +12,14 @@ import {
 import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/Delete'
 
-import DetailsModal from 'components/documents/grid/DetailsModal'
-import DeleteModal from 'components/documents/grid/DeleteModal'
-import DeleteAllModal from 'components/documents/grid/DeleteAllModal'
-import Actions from 'components/documents/grid/Actions'
 import { useDocumentsList } from 'common/hooks/documents'
-import { DocumentType } from 'gql/document'
 import { routes } from 'common/routes'
+import { DocumentType } from 'gql/document'
+
+import DetailsModal from './DetailsModal'
+import DeleteModal from './DeleteModal'
+import DeleteAllModal from './DeleteAllModal'
+import Actions from './Actions'
 
 export default function Grid() {
   const [selectedId, setSelectedId] = useState<string>('')

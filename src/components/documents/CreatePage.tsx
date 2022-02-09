@@ -1,5 +1,5 @@
-import CreateForm from 'components/documents/CreateForm'
-import Layout from 'components/documents/layout/Layout'
+import CreateForm from './CreateForm'
+import Layout from './layout/Layout'
 
 export default function CreatePage() {
   return (
