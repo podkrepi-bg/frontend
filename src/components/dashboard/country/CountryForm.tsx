@@ -82,8 +82,8 @@ export default function CountryForm({ initialValues = defaults, id }: CountryFor
         await editMutation.mutateAsync({ data, id })
       } else {
         await createMutation.mutateAsync(data)
+        resetForm()
       }
-      resetForm()
       router.push(routes.dashboard.index)
     } catch (error) {
       console.error(error)
