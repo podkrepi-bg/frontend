@@ -1,16 +1,21 @@
-import { Copyright } from '@mui/icons-material'
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 
-function PanelFooter() {
+function PanelFooter({ children }: any) {
   return (
     <Box
       sx={{
         position: 'absolute',
         bottom: 0,
         width: '100%',
-        height: '60px',
+        height: '45x',
         background: '#294e85',
-      }}></Box>
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingInline: 10,
+      }}>
+      {children}
+    </Box>
   )
 }
 
