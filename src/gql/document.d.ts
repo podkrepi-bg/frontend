@@ -1,4 +1,4 @@
-export type DocumentType = {
+export type DocumentResponse = {
   id: string
   type: DocumentType
   name: string
@@ -16,6 +16,15 @@ export type DocumentInput = {
   filetype?: string
   description?: string
   sourceUrl?: string
+}
+
+export type DocumentData = {
+  type: DocumentType
+  name: string
+  filename: string
+  filetype: string
+  description: string
+  sourceUrl: string
 }
 
 enum DocumentType {

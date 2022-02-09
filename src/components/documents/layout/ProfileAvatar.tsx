@@ -16,7 +16,7 @@ export default function ProfileAvatar() {
       <Avatar
         onClick={handleClick}
         alt="profile-avatar"
-        src="/img/avatar.jpg"
+        src="https://i.kym-cdn.com/photos/images/facebook/001/620/813/fe0.jpg"
         sx={{
           '&:hover': {
             cursor: 'pointer',

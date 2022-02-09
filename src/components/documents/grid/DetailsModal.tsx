@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction } from 'react'
 import { UseQueryResult } from 'react-query'
 import { Box, Modal, Typography, CSSObject } from '@mui/material'
 
-import { DocumentType } from 'gql/document'
+import { DocumentResponse } from 'gql/document'
 import { useDocument } from 'common/hooks/documents'
 
 const modalStyle: CSSObject = {
@@ -23,7 +23,7 @@ type Props = {
 }
 
 export default function DetailsModal({ id, detailsOpen, setDetailsOpen }: Props) {
-  const { data }: UseQueryResult<DocumentType> = useDocument(id)
+  const { data }: UseQueryResult<DocumentResponse> = useDocument(id)
 
   return (
     <Modal open={detailsOpen} onClose={() => setDetailsOpen(false)}>

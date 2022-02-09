@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { AxiosError, AxiosResponse } from 'axios'
 import { Box, Button, Grid } from '@mui/material'
 
-import { DocumentInput, DocumentType } from 'gql/document'
+import { DocumentInput, DocumentResponse } from 'gql/document'
 import { useDocument } from 'common/hooks/documents'
 import { axios } from 'common/api-client'
 import { ApiErrors } from 'common/api-errors'
@@ -15,11 +15,13 @@ import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
 
+import { validationSchema } from './CreateForm'
+
 export default function EditForm() {
   const router = useRouter()
 
   const id = String(router.query.id)
-  const { data }: UseQueryResult<DocumentType> = useDocument(id)
+  const { data }: UseQueryResult<DocumentResponse> = useDocument(id)
 
   const initialValues: DocumentInput = {
     type: data?.type,
@@ -30,16 +32,20 @@ export default function EditForm() {
     sourceUrl: data?.sourceUrl,
   }
 
-  const editDocument: MutationFunction<AxiosResponse<DocumentType>, DocumentInput> = async (
+  const editDocument: MutationFunction<AxiosResponse<DocumentResponse>, DocumentInput> = async (
     data: DocumentInput,
   ) => {
-    return await axios.put<DocumentInput, AxiosResponse<DocumentType>>(
+    return await axios.put<DocumentInput, AxiosResponse<DocumentResponse>>(
       endpoints.documents.editDocument(id).url,
       data,
     )
   }
 
-  const mutation = useMutation<AxiosResponse<DocumentType>, AxiosError<ApiErrors>, DocumentInput>({
+  const mutation = useMutation<
+    AxiosResponse<DocumentResponse>,
+    AxiosError<ApiErrors>,
+    DocumentInput
+  >({
     mutationFn: editDocument,
     onSuccess: () => {
       router.push(routes.documents.index)
@@ -51,7 +57,10 @@ export default function EditForm() {
   }
 
   return (
-    <GenericForm onSubmit={onEditSubmit} initialValues={initialValues}>
+    <GenericForm
+      onSubmit={onEditSubmit}
+      initialValues={initialValues}
+      validationSchema={validationSchema}>
       <Box sx={{ mt: 15, ml: 75, width: 600 }}>
         <Grid container spacing={2}>
           <Grid item xs={6}>

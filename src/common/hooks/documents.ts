@@ -4,27 +4,27 @@ import { QueryClient, useQuery } from 'react-query'
 
 import { endpoints } from '../api-endpoints'
 import { authQueryFnFactory } from '../rest'
-import { DocumentType } from 'gql/document'
+import { DocumentResponse } from 'gql/document'
 
 export function useDocumentsList() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  return useQuery<DocumentType[]>(
+  return useQuery<DocumentResponse[]>(
     endpoints.documents.documentsList.url,
-    authQueryFnFactory<DocumentType[]>(keycloak?.token),
+    authQueryFnFactory<DocumentResponse[]>(keycloak?.token),
   )
 }
 
 export async function prefetchDocumentsList(client: QueryClient, token?: string) {
-  await client.prefetchQuery<DocumentType[]>(
+  await client.prefetchQuery<DocumentResponse[]>(
     endpoints.documents.documentsList.url,
-    authQueryFnFactory<DocumentType[]>(token),
+    authQueryFnFactory<DocumentResponse[]>(token),
   )
 }
 
 export function useDocument(id: string) {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  return useQuery<DocumentType>(
+  return useQuery<DocumentResponse>(
     endpoints.documents.getDocument(id).url,
-    authQueryFnFactory<DocumentType>(keycloak?.token),
+    authQueryFnFactory<DocumentResponse>(keycloak?.token),
   )
 }

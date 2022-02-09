@@ -4,7 +4,7 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { Box, Button, Modal, Typography, CSSObject } from '@mui/material'
 import { GridSelectionModel } from '@mui/x-data-grid'
 
-import { DocumentType } from 'gql/document'
+import { DocumentResponse } from 'gql/document'
 import { ApiErrors } from 'common/api-errors'
 import { axios } from 'common/api-client'
 import { endpoints } from 'common/api-endpoints'
@@ -29,16 +29,16 @@ type Props = {
 export default function DeleteAllModal({ idsToDelete, open, setOpen }: Props) {
   const queryClient = useQueryClient()
 
-  const deleteDocuments: MutationFunction<AxiosResponse<DocumentType>, GridSelectionModel> =
+  const deleteDocuments: MutationFunction<AxiosResponse<DocumentResponse>, GridSelectionModel> =
     async () => {
-      return await axios.post<DocumentType, AxiosResponse<DocumentType>>(
+      return await axios.post<DocumentResponse, AxiosResponse<DocumentResponse>>(
         endpoints.documents.deleteDocuments.url,
         idsToDelete,
       )
     }
 
   const deleteMutation = useMutation<
-    AxiosResponse<DocumentType>,
+    AxiosResponse<DocumentResponse>,
     AxiosError<ApiErrors>,
     GridSelectionModel
   >({
