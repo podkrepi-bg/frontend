@@ -7,13 +7,13 @@ import { Box, Button, Grid } from '@mui/material'
 
 import { DocumentInput, DocumentType } from 'gql/document'
 import { useDocument } from 'common/hooks/documents'
-import GenericForm from 'components/common/form/GenericForm'
-import FormTextField from 'components/common/form/FormTextField'
-import SubmitButton from 'components/common/form/SubmitButton'
 import { axios } from 'common/api-client'
 import { ApiErrors } from 'common/api-errors'
 import { endpoints } from 'common/api-endpoints'
 import { routes } from 'common/routes'
+import GenericForm from 'components/common/form/GenericForm'
+import FormTextField from 'components/common/form/FormTextField'
+import SubmitButton from 'components/common/form/SubmitButton'
 
 export default function EditForm() {
   const router = useRouter()

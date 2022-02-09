@@ -5,14 +5,14 @@ import Link from 'next/link'
 import { AxiosError, AxiosResponse } from 'axios'
 import { Box, Button, Grid } from '@mui/material'
 
-import { DocumentInput, DocumentType } from 'gql/document'
-import GenericForm from 'components/common/form/GenericForm'
-import FormTextField from 'components/common/form/FormTextField'
-import SubmitButton from 'components/common/form/SubmitButton'
 import { axios } from 'common/api-client'
 import { ApiErrors } from 'common/api-errors'
 import { endpoints } from 'common/api-endpoints'
 import { routes } from 'common/routes'
+import { DocumentInput, DocumentType } from 'gql/document'
+import GenericForm from 'components/common/form/GenericForm'
+import FormTextField from 'components/common/form/FormTextField'
+import SubmitButton from 'components/common/form/SubmitButton'
 
 export default function CreateForm() {
   const router = useRouter()

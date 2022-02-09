@@ -1,5 +1,5 @@
-import EditForm from 'components/documents/EditForm'
-import Layout from 'components/documents/layout/Layout'
+import EditForm from './EditForm'
+import Layout from './layout/Layout'
 
 export default function EditPage() {
   return (

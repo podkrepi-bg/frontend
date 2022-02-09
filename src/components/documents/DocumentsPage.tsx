@@ -1,5 +1,5 @@
-import Layout from 'components/documents/layout/Layout'
-import Grid from 'components/documents/grid/Grid'
+import Layout from './layout/Layout'
+import Grid from './grid/Grid'
 
 export default function DocumentsPage() {
   return (
