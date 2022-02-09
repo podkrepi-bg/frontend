@@ -4,6 +4,7 @@ import { IconButton } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import PageviewIcon from '@mui/icons-material/Pageview'
+import { routes } from 'common/routes'
 
 type Props = {
   id: string
@@ -28,7 +29,7 @@ export default function Actions({ id, setDetailsOpen, setDeleteOpen, setSelected
       <IconButton size="small" sx={{ mr: 1 }} onClick={detailsClickHandler}>
         <PageviewIcon />
       </IconButton>
-      <Link href={`/documents/${id}/edit`}>
+      <Link href={routes.documents.edit(id)}>
         <IconButton size="small" sx={{ mr: 1 }}>
           <EditIcon />
         </IconButton>

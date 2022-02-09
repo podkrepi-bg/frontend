@@ -18,6 +18,7 @@ import DeleteAllModal from 'components/documents/grid/DeleteAllModal'
 import Actions from 'components/documents/grid/Actions'
 import { useDocumentsList } from 'common/hooks/documents'
 import { DocumentType } from 'gql/document'
+import { routes } from 'common/routes'
 
 export default function Grid() {
   const [selectedId, setSelectedId] = useState<string>('')
@@ -72,7 +73,7 @@ export default function Grid() {
         <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography sx={{ fontSize: 30 }}>Documents list</Typography>
           <Box>
-            <Link href="/documents/create">
+            <Link href={routes.documents.create}>
               <Fab sx={{ mr: 2 }}>
                 <AddIcon />
               </Fab>
