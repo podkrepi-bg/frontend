@@ -57,9 +57,11 @@ export default function CountryGrid() {
   const [openRowDel, setOpenRowDel] = React.useState<boolean>(false)
   const [openRowsDel, setOpenRowsDel] = React.useState<boolean>(false)
   const [openInfo, setOpenInfo] = React.useState<boolean>(false)
-  const [selectedId, setSelectedId] = React.useState<string>('')
-  const [selectedCountryName, setSelectedCountryName] = React.useState<string>('')
-  const [multipleSelectedIds, setMultipleSelectedIds] = React.useState<string[]>([])
+  const [selected, setSelected] = React.useState({
+    id: '',
+    name: '',
+    ids: [''],
+  })
   const [country, setCountry] = React.useState<CountryResponse>(initialValues)
 
   const { data } = useCountriesList()
@@ -67,9 +69,26 @@ export default function CountryGrid() {
   const router = useRouter()
   const { t } = useTranslation('country')
 
+  const infoMutation = useMutation<AxiosResponse<CountryResponse>, AxiosError<ApiErrors>, string>({
+    mutationFn: getCountry,
+    onError: () => AlertStore.show(t('alerts.load.error'), 'error'),
+    onSuccess: ({ data }) => {
+      setCountry(data)
+      setOpenInfo(true)
+    },
+  })
+
+  const delMutation = useMutation<AxiosResponse<CountryResponse>, AxiosError<ApiErrors>, string>({
+    mutationFn: deleteCountry,
+    onError: () => AlertStore.show(t('alerts.delete-row.error'), 'error'),
+    onSuccess: () => {
+      AlertStore.show(t('alerts.delete-row.success'), 'success')
+      router.push(routes.dashboard.index)
+    },
+  })
+
   const openDeleteRowDialog = (id: string, name: string) => {
-    setSelectedId(id)
-    setSelectedCountryName(name)
+    setSelected({ ...selected, id, name })
     setOpenRowDel(true)
   }
 
@@ -78,7 +97,7 @@ export default function CountryGrid() {
   }
 
   const openDeleteRowsDialog = () => {
-    if (multipleSelectedIds.length == 0) {
+    if (selected.ids.length == 0 || selected.ids[0] == '') {
       return
     }
     setOpenRowsDel(true)
@@ -100,43 +119,26 @@ export default function CountryGrid() {
     setOpenInfo(false)
   }
 
-  const infoMutation = useMutation<AxiosResponse<CountryResponse>, AxiosError<ApiErrors>, string>({
-    mutationFn: getCountry,
-    onError: () => AlertStore.show(t('alerts.load.error'), 'error'),
-    onSuccess: ({ data }) => {
-      setCountry(data)
-      setOpenInfo(true)
-    },
-  })
-
-  const delMutation = useMutation<AxiosResponse<CountryResponse>, AxiosError<ApiErrors>, string>({
-    mutationFn: deleteCountry,
-    onError: () => AlertStore.show(t('alerts.delete-row.error'), 'error'),
-    onSuccess: () => {
-      AlertStore.show(t('alerts.delete-row.success'), 'success')
-      router.push(routes.dashboard.index)
-    },
-  })
-
   const deleteRow = async () => {
     try {
       closeDeleteRowDialog()
-      delMutation.mutateAsync(selectedId)
+      delMutation.mutateAsync(selected.id)
     } catch (err) {
       console.log(err)
     }
   }
 
   const selectMultipleRows = (ids: GridSelectionModel) => {
-    setMultipleSelectedIds(ids.map((id) => id.toString()))
+    const idsToStr = ids.map((id) => id.toString())
+    setSelected({ ...selected, ids: idsToStr })
   }
 
   const deleteRows = async () => {
     try {
       closeDeleteRowsDialog()
-      await Promise.all(multipleSelectedIds.map((id) => delMutation.mutateAsync(id)))
+      await Promise.all(selected.ids.map((id) => delMutation.mutateAsync(id)))
       AlertStore.show(t('alerts.delete-rows.success'), 'success')
-      setMultipleSelectedIds([])
+      setSelected({ ...selected, ids: [] })
       router.push(routes.dashboard.index)
     } catch (err) {
       AlertStore.show(t('alerts.delete-rows.error'), 'error')
@@ -192,7 +194,7 @@ export default function CountryGrid() {
   const DeleteRowDialog = () => (
     <Dialog open={openRowDel} onClose={closeDeleteRowDialog} maxWidth="xs">
       <DialogTitle>
-        {t('alerts.delete-row.question')} ({selectedCountryName})?
+        {t('alerts.delete-row.question')} ({selected.name})?
       </DialogTitle>
       <DialogActions>
         <Button variant="contained" color="secondary" fullWidth onClick={deleteRow}>

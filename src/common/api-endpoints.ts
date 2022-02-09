@@ -31,9 +31,9 @@ export const endpoints = {
   },
   country: {
     listCountries: <Endpoint>{ url: '/country/list', method: 'GET' },
-    getCountry: <Endpoint>{ url: '/country', method: 'GET' },
     createCountry: <Endpoint>{ url: '/country/create-country', method: 'POST' },
-    editCountry: <Endpoint>{ url: '/country', method: 'PATCH' },
-    deleteCountry: <Endpoint>{ url: '/country', method: 'DELETE' },
+    viewCountry: (id: string) => <Endpoint>{ url: `/country/${id}`, method: 'GET' },
+    editCountry: (id: string) => <Endpoint>{ url: `/country/${id}`, method: 'PATCH' },
+    deleteCountry: (id: string) => <Endpoint>{ url: `/country/${id}`, method: 'DELETE' },
   },
 }
