@@ -1,8 +1,8 @@
 import React, { Dispatch, SetStateAction } from 'react'
+import { UseQueryResult } from 'react-query'
 import { Box, Modal, Typography, CSSObject } from '@mui/material'
 
 import { DocumentType } from 'gql/document'
-import { UseQueryResult } from 'react-query'
 import { useDocument } from 'common/hooks/documents'
 
 const modalStyle: CSSObject = {
