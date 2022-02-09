@@ -5,15 +5,7 @@ import { useMutation } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  Typography,
-} from '@mui/material'
+import { Button, Dialog, DialogActions, DialogTitle, IconButton, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
@@ -26,6 +18,8 @@ import { CountryResponse } from 'gql/countries'
 import { ApiErrors } from 'common/api-errors'
 import { AlertStore } from 'stores/AlertStore'
 import { deleteCountry, getCountry } from 'common/rest'
+
+import InfoDialog from './InfoDialog'
 
 const useStyles = makeStyles({
   gridWrapper: {
@@ -41,9 +35,6 @@ const useStyles = makeStyles({
   },
   gridTitle: {
     marginBottom: 10,
-  },
-  infoBtn: {
-    margin: '0 auto',
   },
 })
 
@@ -219,35 +210,10 @@ export default function CountryGrid() {
       </DialogActions>
     </Dialog>
   )
-  const InfoDialog = () => (
-    <Dialog open={openInfo} onClose={closeInfoDialog} maxWidth="xs">
-      <DialogTitle>{t('headings.country-info')}</DialogTitle>
-      <DialogContent>
-        <p>
-          <b>Id:</b> {country.id}
-        </p>
-        <p>
-          <b>{t('fields.name')}:</b> {country.name}
-        </p>
-        <p>
-          <b>{t('fields.country-code')}:</b> {country.countryCode}
-        </p>
-      </DialogContent>
-      <DialogActions>
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.infoBtn}
-          onClick={closeInfoDialog}>
-          {t('btns.close')}
-        </Button>
-      </DialogActions>
-    </Dialog>
-  )
 
   return (
     <>
-      <InfoDialog />
+      <InfoDialog open={openInfo} closeFn={closeInfoDialog} country={country} />
       <DeleteRowDialog />
       <DeleteRowsDialog />
       <div className={classes.gridWrapper}>
