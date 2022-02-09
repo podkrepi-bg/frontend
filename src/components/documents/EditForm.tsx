@@ -13,6 +13,7 @@ import SubmitButton from 'components/common/form/SubmitButton'
 import { axios } from 'common/api-client'
 import { ApiErrors } from 'common/api-errors'
 import { endpoints } from 'common/api-endpoints'
+import { routes } from 'common/routes'
 
 export default function EditForm() {
   const router = useRouter()
@@ -41,7 +42,7 @@ export default function EditForm() {
   const mutation = useMutation<AxiosResponse<DocumentType>, AxiosError<ApiErrors>, DocumentInput>({
     mutationFn: editDocument,
     onSuccess: () => {
-      router.push('/documents')
+      router.push(routes.documents.index)
     },
   })
 

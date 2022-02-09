@@ -4,6 +4,7 @@ import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 
 import ProfileAvatar from 'components/documents/layout/ProfileAvatar'
+import { routes } from 'common/routes'
 
 type Props = {
   handleOpen: () => void
@@ -23,7 +24,7 @@ export default function DocumentsAppBar({ handleOpen }: Props) {
             sx={{ mr: 2 }}>
             <MenuIcon />
           </IconButton>
-          <Link href="/documents">
+          <Link href={routes.documents.index}>
             <Box
               component="img"
               sx={{

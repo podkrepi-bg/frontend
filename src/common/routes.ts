@@ -49,4 +49,9 @@ export const routes = {
     infoRequests: '/admin/info-requests',
     supporters: '/admin/supporters',
   },
+  documents: {
+    index: '/documents',
+    create: '/documents/create',
+    edit: (slug: string) => `/documents/${slug}/edit`,
+  },
 }
