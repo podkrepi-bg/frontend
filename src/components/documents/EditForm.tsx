@@ -18,15 +18,15 @@ export default function EditForm() {
   const router = useRouter()
 
   const id = String(router.query.id)
-  const { data: document }: UseQueryResult<DocumentType> = useDocument(id)
+  const { data }: UseQueryResult<DocumentType> = useDocument(id)
 
   const initialValues: DocumentInput = {
-    type: document?.type,
-    name: document?.name,
-    filename: document?.filename,
-    filetype: document?.filetype,
-    description: document?.description,
-    sourceUrl: document?.sourceUrl,
+    type: data?.type,
+    name: data?.name,
+    filename: data?.filename,
+    filetype: data?.filetype,
+    description: data?.description,
+    sourceUrl: data?.sourceUrl,
   }
 
   const editDocument: MutationFunction<AxiosResponse<DocumentType>, DocumentInput> = async (

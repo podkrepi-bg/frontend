@@ -5,7 +5,11 @@ import MenuIcon from '@mui/icons-material/Menu'
 
 import ProfileAvatar from 'components/documents/layout/ProfileAvatar'
 
-export default function DocumentsAppBar({ handleOpen }: any) {
+type Props = {
+  handleOpen: () => void
+}
+
+export default function DocumentsAppBar({ handleOpen }: Props) {
   return (
     <>
       <AppBar sx={{ backgroundColor: 'white' }} position="static">
@@ -19,7 +23,7 @@ export default function DocumentsAppBar({ handleOpen }: any) {
             sx={{ mr: 2 }}>
             <MenuIcon />
           </IconButton>
-          <Link href="/cars">
+          <Link href="/documents">
             <Box
               component="img"
               sx={{

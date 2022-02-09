@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { MutationFunction, useMutation, useQueryClient } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { Box, Button, Modal, Typography, CSSObject } from '@mui/material'
@@ -19,7 +19,13 @@ const modalStyle: CSSObject = {
   p: 4,
 }
 
-export default function DeleteModal({ id, open, setOpen }: any) {
+type Props = {
+  id: string
+  open: boolean
+  setOpen: Dispatch<SetStateAction<boolean>>
+}
+
+export default function DeleteModal({ id, open, setOpen }: Props) {
   const queryClient = useQueryClient()
 
   const deleteDocument: MutationFunction<AxiosResponse<DocumentType>, string> = async () => {

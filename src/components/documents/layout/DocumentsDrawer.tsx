@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { Box, Divider, Drawer, IconButton } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar'
@@ -6,7 +6,12 @@ import CarRentalIcon from '@mui/icons-material/CarRental'
 
 import SubList from 'components/documents/layout/SubList'
 
-export default function DocumentsDrawer({ open, setOpen }: any) {
+type Props = {
+  open: boolean
+  setOpen: Dispatch<SetStateAction<boolean>>
+}
+
+export default function DocumentsDrawer({ open, setOpen }: Props) {
   const brandsSubList = {
     title: 'Top Brands',
     data: ['Mercedes', 'Audi', 'BMW', 'Volkswagen'],

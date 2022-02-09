@@ -20,12 +20,12 @@ import { useDocumentsList } from 'common/hooks/documents'
 import { DocumentType } from 'gql/document'
 
 export default function Grid() {
-  const [selectedId, setSelectedId] = useState('')
+  const [selectedId, setSelectedId] = useState<string>('')
   const [selectionModel, setSelectionModel] = useState<GridRowId[]>([])
 
-  const [detailsOpen, setDetailsOpen] = useState(false)
-  const [deleteOpen, setDeleteOpen] = useState(false)
-  const [deleteAllOpen, setDeleteAllOpen] = useState(false)
+  const [detailsOpen, setDetailsOpen] = useState<boolean>(false)
+  const [deleteOpen, setDeleteOpen] = useState<boolean>(false)
+  const [deleteAllOpen, setDeleteAllOpen] = useState<boolean>(false)
 
   const { data }: UseQueryResult<DocumentType[]> = useDocumentsList()
 
@@ -52,7 +52,7 @@ export default function Grid() {
       renderCell: (cellValues: GridRenderCellParams) => {
         return (
           <Actions
-            cellValues={cellValues}
+            id={cellValues.row.id}
             setSelectedId={setSelectedId}
             setDeleteOpen={setDeleteOpen}
             setDetailsOpen={setDetailsOpen}
@@ -100,7 +100,7 @@ export default function Grid() {
       <DetailsModal detailsOpen={detailsOpen} setDetailsOpen={setDetailsOpen} id={selectedId} />
       <DeleteModal id={selectedId} open={deleteOpen} setOpen={setDeleteOpen} />
       <DeleteAllModal
-        selectionModel={selectionModel}
+        idsToDelete={selectionModel}
         open={deleteAllOpen}
         setOpen={setDeleteAllOpen}
       />
