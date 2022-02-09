@@ -20,6 +20,7 @@ import { AlertStore } from 'stores/AlertStore'
 import { deleteCountry, getCountry } from 'common/rest'
 
 import InfoDialog from './InfoDialog'
+import DeleteRowDialog from './DeleteRowDialog'
 
 const useStyles = makeStyles({
   gridWrapper: {
@@ -182,21 +183,6 @@ export default function CountryGrid() {
     },
   ]
 
-  const DeleteRowDialog = () => (
-    <Dialog open={openRowDel} onClose={closeDeleteRowDialog} maxWidth="xs">
-      <DialogTitle>
-        {t('alerts.delete-row.question')} ({selected.name})?
-      </DialogTitle>
-      <DialogActions>
-        <Button variant="contained" color="secondary" fullWidth onClick={deleteRow}>
-          {t('btns.confirm')}
-        </Button>
-        <Button variant="contained" color="primary" fullWidth onClick={closeDeleteRowDialog}>
-          {t('btns.cancel')}
-        </Button>
-      </DialogActions>
-    </Dialog>
-  )
   const DeleteRowsDialog = () => (
     <Dialog open={openRowsDel} onClose={closeDeleteRowsDialog} maxWidth="xs">
       <DialogTitle>{t('alerts.delete-rows.question')}</DialogTitle>
@@ -214,7 +200,12 @@ export default function CountryGrid() {
   return (
     <>
       <InfoDialog open={openInfo} closeFn={closeInfoDialog} country={country} />
-      <DeleteRowDialog />
+      <DeleteRowDialog
+        open={openRowDel}
+        closeFn={closeDeleteRowDialog}
+        countryName={selected.name}
+        deleteRow={deleteRow}
+      />
       <DeleteRowsDialog />
       <div className={classes.gridWrapper}>
         <div className={classes.gridTitleWrapper}>
