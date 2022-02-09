@@ -17,26 +17,26 @@ const modalStyle: CSSObject = {
 }
 
 type Props = {
+  id: string
   detailsOpen: boolean
   setDetailsOpen: Dispatch<SetStateAction<boolean>>
-  id: string
 }
 
-export default function DetailsModal({ detailsOpen, setDetailsOpen, id }: Props) {
-  const { data: document }: UseQueryResult<DocumentType> = useDocument(id)
+export default function DetailsModal({ id, detailsOpen, setDetailsOpen }: Props) {
+  const { data }: UseQueryResult<DocumentType> = useDocument(id)
 
   return (
     <Modal open={detailsOpen} onClose={() => setDetailsOpen(false)}>
       <Box sx={modalStyle}>
-        <Typography sx={{ mb: 2, fontSize: 24 }}>Type: {document?.type}</Typography>
-        <Typography sx={{ mb: 2, fontSize: 24 }}>Name: {document?.name}</Typography>
-        <Typography sx={{ mb: 2, fontSize: 24 }}>File Name: {document?.filename}</Typography>
-        <Typography sx={{ mb: 2, fontSize: 24 }}>File Type: {document?.filetype}</Typography>
-        <Typography sx={{ mb: 2, fontSize: 24 }}>description: {document?.description}</Typography>
+        <Typography sx={{ mb: 2, fontSize: 24 }}>Type: {data?.type}</Typography>
+        <Typography sx={{ mb: 2, fontSize: 24 }}>Name: {data?.name}</Typography>
+        <Typography sx={{ mb: 2, fontSize: 24 }}>File Name: {data?.filename}</Typography>
+        <Typography sx={{ mb: 2, fontSize: 24 }}>File Type: {data?.filetype}</Typography>
+        <Typography sx={{ mb: 2, fontSize: 24 }}>description: {data?.description}</Typography>
         <Typography sx={{ mb: 2, fontSize: 24 }}>
           Source url:{' '}
           {
-            <a target="_blank" href={document?.sourceUrl} rel="noreferrer">
+            <a target="_blank" href={data?.sourceUrl} rel="noreferrer">
               Link
             </a>
           }

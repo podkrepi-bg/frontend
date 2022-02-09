@@ -21,19 +21,19 @@ const modalStyle: CSSObject = {
 }
 
 type Props = {
-  selectionModel: GridSelectionModel
+  idsToDelete: GridSelectionModel
   open: boolean
   setOpen: Dispatch<SetStateAction<boolean>>
 }
 
-export default function DeleteAllModal({ selectionModel, open, setOpen }: Props) {
+export default function DeleteAllModal({ idsToDelete, open, setOpen }: Props) {
   const queryClient = useQueryClient()
 
   const deleteDocuments: MutationFunction<AxiosResponse<DocumentType>, GridSelectionModel> =
     async () => {
       return await axios.post<DocumentType, AxiosResponse<DocumentType>>(
         endpoints.documents.deleteDocuments.url,
-        selectionModel,
+        idsToDelete,
       )
     }
 
@@ -50,7 +50,7 @@ export default function DeleteAllModal({ selectionModel, open, setOpen }: Props)
   })
 
   function deleteHandler() {
-    deleteMutation.mutate(selectionModel)
+    deleteMutation.mutate(idsToDelete)
   }
 
   return (

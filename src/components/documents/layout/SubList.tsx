@@ -1,9 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import { Collapse, IconButton, ListItem, ListItemIcon, ListItemText } from '@mui/material'
+import {
+  Collapse,
+  IconButton,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  SvgIconProps,
+} from '@mui/material'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
-export default function SubList({ drawerOpen, title, icon, data }: any) {
+type Props = {
+  drawerOpen: boolean
+  title: string
+  icon: React.ReactElement<SvgIconProps>
+  data: string[]
+}
+
+export default function SubList({ drawerOpen, title, icon, data }: Props) {
   const [open, setOpen] = useState(false)
   const handleClick = () => setOpen(!open)
 
@@ -37,8 +51,8 @@ export default function SubList({ drawerOpen, title, icon, data }: any) {
         </IconButton>
       </ListItem>
       <Collapse in={open} timeout={0} unmountOnExit>
-        {data.map((x: any) => (
-          <ListItem button key={x.toString()}>
+        {data.map((x: string) => (
+          <ListItem button key={x}>
             <ListItemText primary={x} />
           </ListItem>
         ))}
