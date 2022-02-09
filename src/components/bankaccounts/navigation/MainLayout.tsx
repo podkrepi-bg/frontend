@@ -18,6 +18,7 @@ import MailIcon from '@mui/icons-material/Mail'
 import PanelFooter from './PanelFooter'
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 import { Avatar, TextField } from '@mui/material'
+import Snackbar from 'components/layout/Snackbar'
 const drawerWidth = 240
 
 const useStyles = makeStyles({
@@ -53,6 +54,7 @@ const useStyles = makeStyles({
   },
   logoWrapper: {
     width: 150,
+    display: 'flex',
   },
   logo: {
     display: 'flex',
@@ -162,7 +164,7 @@ export default function MainLayout({ children }: any) {
 
       <Drawer variant="permanent" open={open}>
         <DrawerHeader></DrawerHeader>
-        <List sx={{ p: '48px 16px 0 16px' }}>
+        <List sx={{ p: '30px 16px 0 16px' }}>
           {['Задачи', 'Кампании', 'Доброволци', 'Плащания', 'Потребители', 'Документи'].map(
             (text, index) => (
               <ListItem button key={text} sx={{ px: '7px', borderRadius: '20px' }}>
@@ -179,6 +181,7 @@ export default function MainLayout({ children }: any) {
       </Box>
 
       <PanelFooter />
+      <Snackbar />
     </Box>
   )
 }

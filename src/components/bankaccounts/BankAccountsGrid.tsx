@@ -100,9 +100,11 @@ export default observer(function BankAccountsGrid() {
         style={{
           marginTop: '2px',
           background: 'white',
+          position: 'absolute',
           height: 'calc(100vh - 280px)',
           border: 'none',
-          padding: '50px 20px',
+          width: 'calc(100% - 48px)',
+          left: '24px',
           overflowY: 'auto',
           borderRadius: '0 0 13px 13px',
         }}

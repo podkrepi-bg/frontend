@@ -33,6 +33,9 @@ export default observer(function AppBarMenu() {
         display: 'flex',
         justifyContent: 'space-between',
         background: 'white',
+        width: '100%',
+        borderRadius: '13px 13px 0 0',
+        px: '24px',
       }}>
       <Typography variant="h5" color="primary">
         Банкови сметки
