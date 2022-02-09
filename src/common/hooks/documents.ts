@@ -24,7 +24,7 @@ export async function prefetchDocumentsList(client: QueryClient, token?: string)
 export function useDocument(id: string) {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return useQuery<DocumentType>(
-    endpoints.documents.getDocument.url + '/' + id,
+    endpoints.documents.getDocument(id).url,
     authQueryFnFactory<DocumentType>(keycloak?.token),
   )
 }

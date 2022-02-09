@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import Drawer from 'components/documents/layout/DocumentsDrawer'
-import AppBar from 'components/documents/layout/AppBar'
+import AppBar from 'components/documents/layout/DocumentsAppBar'
 
 export default function NavBar() {
   const [open, setOpen] = useState(false)
