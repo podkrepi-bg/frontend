@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
+
 import ProfileAvatar from 'components/documents/layout/ProfileAvatar'
 
 export default function DocumentsAppBar({ handleOpen }: any) {

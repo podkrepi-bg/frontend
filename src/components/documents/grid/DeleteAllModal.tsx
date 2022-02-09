@@ -1,8 +1,8 @@
 import React, { Dispatch, SetStateAction } from 'react'
-import { Box, Button, Modal, Typography, CSSObject } from '@mui/material'
-import { GridSelectionModel } from '@mui/x-data-grid'
 import { MutationFunction, useMutation, useQueryClient } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
+import { Box, Button, Modal, Typography, CSSObject } from '@mui/material'
+import { GridSelectionModel } from '@mui/x-data-grid'
 
 import { DocumentType } from 'gql/document'
 import { ApiErrors } from 'common/api-errors'
