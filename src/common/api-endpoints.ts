@@ -31,10 +31,10 @@ export const endpoints = {
   },
   documents: {
     documentsList: <Endpoint>{ url: '/document', method: 'GET' },
-    getDocument: <Endpoint>{ url: '/document', method: 'GET' },
+    getDocument: (slug: string) => <Endpoint>{ url: `/document/${slug}`, method: 'GET' },
     createDocument: <Endpoint>{ url: '/document', method: 'POST' },
-    editDocument: (id: string) => <Endpoint>{ url: `/document/${id}`, method: 'PATCH' },
-    deleteDocument: (id: string) => <Endpoint>{ url: `/document/${id}`, method: 'DELETE' },
+    editDocument: (slug: string) => <Endpoint>{ url: `/document/${slug}`, method: 'PUT' },
+    deleteDocument: (slug: string) => <Endpoint>{ url: `/document/${slug}`, method: 'DELETE' },
     deleteDocuments: <Endpoint>{ url: '/document/delete-many', method: 'POST' },
   },
 }
