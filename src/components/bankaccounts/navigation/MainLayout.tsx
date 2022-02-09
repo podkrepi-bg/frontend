@@ -151,7 +151,11 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop: any) => prop !== 'o
   }),
 )
 
-export default function MainLayout({ children }: any) {
+type Props = {
+  children: React.ReactNode
+}
+
+export default function MainLayout({ children }: Props) {
   const theme = useTheme()
   const [open, setOpen] = React.useState(false)
   const [fullyClosed, setFullyClose] = React.useState(false)
