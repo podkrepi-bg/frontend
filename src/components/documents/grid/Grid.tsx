@@ -14,7 +14,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 
 import { useDocumentsList } from 'common/hooks/documents'
 import { routes } from 'common/routes'
-import { DocumentType } from 'gql/document'
+import { DocumentResponse } from 'gql/document'
 
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
@@ -29,7 +29,7 @@ export default function Grid() {
   const [deleteOpen, setDeleteOpen] = useState<boolean>(false)
   const [deleteAllOpen, setDeleteAllOpen] = useState<boolean>(false)
 
-  const { data }: UseQueryResult<DocumentType[]> = useDocumentsList()
+  const { data }: UseQueryResult<DocumentResponse[]> = useDocumentsList()
 
   const columns: GridColumns = [
     {

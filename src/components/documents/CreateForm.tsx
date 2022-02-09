@@ -4,15 +4,30 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { AxiosError, AxiosResponse } from 'axios'
 import { Box, Button, Grid } from '@mui/material'
+import * as yup from 'yup'
 
 import { axios } from 'common/api-client'
 import { ApiErrors } from 'common/api-errors'
 import { endpoints } from 'common/api-endpoints'
 import { routes } from 'common/routes'
-import { DocumentInput, DocumentType } from 'gql/document'
+import { DocumentData, DocumentInput, DocumentResponse } from 'gql/document'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
+
+const validDocumentTypes = ['invoice', 'receipt', 'medical_record', 'other']
+
+export const validationSchema = yup
+  .object()
+  .defined()
+  .shape({
+    type: yup.string().oneOf(validDocumentTypes).required(),
+    name: yup.string().trim().min(1).max(20).required(),
+    filename: yup.string().trim().min(1).max(20).required(),
+    filetype: yup.string().trim().min(1).max(3),
+    description: yup.string().trim().min(3).max(30),
+    sourceUrl: yup.string().trim().min(3).max(50).required(),
+  })
 
 export default function CreateForm() {
   const router = useRouter()
@@ -26,16 +41,20 @@ export default function CreateForm() {
     sourceUrl: '',
   }
 
-  const createDocument: MutationFunction<AxiosResponse<DocumentType>, DocumentInput> = async (
+  const createDocument: MutationFunction<AxiosResponse<DocumentResponse>, DocumentInput> = async (
     data: DocumentInput,
   ) => {
-    return await axios.post<DocumentInput, AxiosResponse<DocumentType>>(
+    return await axios.post<DocumentInput, AxiosResponse<DocumentResponse>>(
       endpoints.documents.createDocument.url,
       data,
     )
   }
 
-  const mutation = useMutation<AxiosResponse<DocumentType>, AxiosError<ApiErrors>, DocumentInput>({
+  const mutation = useMutation<
+    AxiosResponse<DocumentResponse>,
+    AxiosError<ApiErrors>,
+    DocumentInput
+  >({
     mutationFn: createDocument,
     onSuccess: () => {
       router.push(routes.documents.index)
@@ -47,7 +66,10 @@ export default function CreateForm() {
   }
 
   return (
-    <GenericForm onSubmit={onCreateSubmit} initialValues={initialValues}>
+    <GenericForm
+      onSubmit={onCreateSubmit}
+      initialValues={initialValues}
+      validationSchema={validationSchema}>
       <Box sx={{ mt: 15, ml: 75, width: 600 }}>
         <Grid container spacing={2}>
           <Grid item xs={6}>

@@ -3,7 +3,7 @@ import { MutationFunction, useMutation, useQueryClient } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { Box, Button, Modal, Typography, CSSObject } from '@mui/material'
 
-import { DocumentType } from 'gql/document'
+import { DocumentResponse } from 'gql/document'
 import { ApiErrors } from 'common/api-errors'
 import { endpoints } from 'common/api-endpoints'
 import { axios } from 'common/api-client'
@@ -28,13 +28,17 @@ type Props = {
 export default function DeleteModal({ id, open, setOpen }: Props) {
   const queryClient = useQueryClient()
 
-  const deleteDocument: MutationFunction<AxiosResponse<DocumentType>, string> = async () => {
-    return await axios.delete<DocumentType, AxiosResponse<DocumentType>>(
+  const deleteDocument: MutationFunction<AxiosResponse<DocumentResponse>, string> = async () => {
+    return await axios.delete<DocumentResponse, AxiosResponse<DocumentResponse>>(
       endpoints.documents.deleteDocument(id).url,
     )
   }
 
-  const deleteMutation = useMutation<AxiosResponse<DocumentType>, AxiosError<ApiErrors>, string>({
+  const deleteMutation = useMutation<
+    AxiosResponse<DocumentResponse>,
+    AxiosError<ApiErrors>,
+    string
+  >({
     mutationFn: deleteDocument,
     onSuccess: () => {
       setOpen(false)
