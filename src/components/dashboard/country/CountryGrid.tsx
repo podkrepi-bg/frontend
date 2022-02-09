@@ -8,8 +8,6 @@ import { useTranslation } from 'next-i18next'
 import { IconButton, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import DeleteIcon from '@mui/icons-material/Delete'
-import EditIcon from '@mui/icons-material/Edit'
-import PreviewIcon from '@mui/icons-material/Preview'
 import AddIcon from '@mui/icons-material/Add'
 
 import { useCountriesList } from 'common/hooks/countries'
@@ -22,6 +20,7 @@ import { deleteCountry, getCountry } from 'common/rest'
 import InfoDialog from './InfoDialog'
 import DeleteRowDialog from './DeleteRowDialog'
 import DeleteRowsDialog from './DeleteRowsDialog'
+import ActionsButtons from './ActionButtons'
 
 const useStyles = makeStyles({
   gridWrapper: {
@@ -138,29 +137,6 @@ export default function CountryGrid() {
     }
   }
 
-  type ActionsProps = {
-    id: string
-    name: string
-  }
-
-  const ActionsButtons = ({ id, name }: ActionsProps) => {
-    return (
-      <>
-        <IconButton onClick={() => loadCountryInfo(id)}>
-          <PreviewIcon />
-        </IconButton>
-        <Link href={routes.dashboard.country.view(id)} passHref>
-          <IconButton>
-            <EditIcon />
-          </IconButton>
-        </Link>
-        <IconButton onClick={() => openDeleteRowDialog(id, name)}>
-          <DeleteIcon />
-        </IconButton>
-      </>
-    )
-  }
-
   const columns: GridColumns = [
     { field: 'id', headerName: 'ID', hide: true },
     {
@@ -178,7 +154,14 @@ export default function CountryGrid() {
     {
       field: 'actions',
       headerName: '',
-      renderCell: (p) => <ActionsButtons id={p.row.id} name={p.row.name} />,
+      renderCell: (p) => (
+        <ActionsButtons
+          id={p.row.id}
+          name={p.row.name}
+          loadInfo={loadCountryInfo}
+          openDialog={openDeleteRowDialog}
+        />
+      ),
       width: 150,
       type: 'actions',
     },
