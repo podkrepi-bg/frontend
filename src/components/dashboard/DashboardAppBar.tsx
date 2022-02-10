@@ -3,19 +3,15 @@ import Link from 'next/link'
 import {
   AppBar,
   Collapse,
-  Divider,
   Drawer,
   IconButton,
   List,
   ListItemButton,
   ListItemText,
   Toolbar,
-  Typography,
 } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import { ExpandLess, ExpandMore } from '@mui/icons-material'
 import MenuIcon from '@mui/icons-material/Menu'
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import { observer } from 'mobx-react'
 import { useTranslation } from 'next-i18next'
 
@@ -25,25 +21,9 @@ import PodkrepiIcon from 'components/brand/PodkrepiIcon'
 
 import DashboardProfileMenu from './DashboardProfileMenu'
 
-const useStyles = makeStyles({
-  appBar: {
-    backgroundColor: '#fff',
-  },
-  logo: {
-    height: 40,
-    width: 'auto',
-    marginRight: 10,
-  },
-  closeNavBtn: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    padding: '8px 0',
-  },
-  submenu: {},
-})
+const drawerWidth = 200
 
 export default observer(function DashboardAppBar() {
-  const classes = useStyles()
   const {
     drawerOpen,
     drawerEntityOpen,
@@ -56,41 +36,57 @@ export default observer(function DashboardAppBar() {
   const { t } = useTranslation('dashboard')
 
   return (
-    <AppBar className={classes.appBar}>
-      <Toolbar>
-        <IconButton onClick={toggleDrawerOpen}>
-          <MenuIcon />
-        </IconButton>
-        <Link href={routes.index}>
-          <a>
-            <PodkrepiIcon className={classes.logo} />
-          </a>
-        </Link>
-        <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          {t('appbar.heading')}
-        </Typography>
-        <DashboardProfileMenu />
-      </Toolbar>
-      <Drawer variant="persistent" anchor="left" open={drawerOpen}>
+    <>
+      <AppBar
+        sx={{
+          backgroundColor: '#fff',
+          boxShadow: 'none',
+        }}>
+        <Toolbar disableGutters>
+          <Link href={routes.index}>
+            <a>
+              <PodkrepiIcon
+                sx={{
+                  height: 40,
+                  width: 'auto',
+                  marginRight: 12,
+                }}
+              />
+            </a>
+          </Link>
+          <IconButton onClick={toggleDrawerOpen}>
+            <MenuIcon />
+          </IconButton>
+          <DashboardProfileMenu />
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        variant="persistent"
+        anchor="left"
+        open={drawerOpen}
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            top: 64,
+            width: drawerWidth,
+            boxSizing: 'border-box',
+            borderRight: 'none',
+          },
+        }}>
         <List>
-          <div className={classes.closeNavBtn}>
-            <IconButton onClick={toggleDrawerOpen}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </div>
-          <Divider />
           <ListItemButton onClick={toggleDrawerEntityOpen}>
             <ListItemText primary={t('appbar.drawer.entities.heading')} />
             {drawerEntityOpen ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={drawerEntityOpen} timeout="auto" unmountOnExit>
-            <List className={classes.submenu}>
+            <List>
               <ListItemButton onClick={toggleDrawerCountryOpen}>
                 <ListItemText primary={t('appbar.drawer.entities.country.heading')} />
                 {drawerCountryOpen ? <ExpandLess /> : <ExpandMore />}
               </ListItemButton>
               <Collapse in={drawerCountryOpen} timeout="auto" unmountOnExit>
-                <List className={classes.submenu}>
+                <List>
                   <Link href={routes.dashboard.country.create} passHref>
                     <ListItemButton>
                       <ListItemText primary={t('appbar.drawer.entities.country.create')} />
@@ -102,6 +98,6 @@ export default observer(function DashboardAppBar() {
           </Collapse>
         </List>
       </Drawer>
-    </AppBar>
+    </>
   )
 })
