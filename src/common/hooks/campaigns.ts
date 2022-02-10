@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query'
 
-import { endpoints } from 'common/api-endpoints'
+import { endpoints } from 'service/apiEndpoints'
 import { CampaignResponse, CampaignType } from 'gql/campaigns'
 
 export function useCampaignList() {
