@@ -1,33 +1,55 @@
-import React, { Dispatch, SetStateAction } from 'react'
-import { Box, Divider, Drawer, IconButton } from '@mui/material'
+import React from 'react'
+import { observer } from 'mobx-react'
+import {
+  Box,
+  Divider,
+  Drawer,
+  IconButton,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar'
-import CarRentalIcon from '@mui/icons-material/CarRental'
+import ListIcon from '@mui/icons-material/List'
+import HighlightIcon from '@mui/icons-material/Highlight'
+import MoodIcon from '@mui/icons-material/Mood'
+import CreditCardIcon from '@mui/icons-material/CreditCard'
+import PeopleIcon from '@mui/icons-material/People'
+import TextFieldsIcon from '@mui/icons-material/TextFields'
 
+import { DrawerStore } from 'stores/DrawerStore'
 import SubList from 'components/documents/layout/SubList'
 
-type Props = {
-  open: boolean
-  setOpen: Dispatch<SetStateAction<boolean>>
-}
+export default observer(function DocumentsDrawer() {
+  const { isOpen, toggle } = DrawerStore
 
-export default function DocumentsDrawer({ open, setOpen }: Props) {
-  const brandsSubList = {
-    title: 'Top Brands',
-    data: ['Mercedes', 'Audi', 'BMW', 'Volkswagen'],
-    icon: <DirectionsCarIcon />,
+  const tasksList = {
+    title: 'Задачи',
+    data: ['Задача 1', 'Задача 2', 'Задача 3', 'Задача 4'],
+    icon: <ListIcon />,
   }
-  const modelsSubList = {
-    title: 'New Models',
-    data: ['Honda Civic 2022', 'Audi A8 2022', 'BMW M3 2022', 'Volkswagen Golf R 2022'],
-    icon: <CarRentalIcon />,
-  }
-
-  function handleClose() {
-    setOpen(false)
-    sessionStorage.setItem(brandsSubList.title, 'false')
-    sessionStorage.setItem(modelsSubList.title, 'false')
-  }
+  const listItems = [
+    {
+      title: 'Кампании',
+      icon: <HighlightIcon />,
+    },
+    {
+      title: 'Доброволци',
+      icon: <MoodIcon />,
+    },
+    {
+      title: 'Плащания',
+      icon: <CreditCardIcon />,
+    },
+    {
+      title: 'Потребители',
+      icon: <PeopleIcon />,
+    },
+    {
+      title: 'Документи',
+      icon: <TextFieldsIcon />,
+    },
+  ]
 
   return (
     <>
@@ -42,16 +64,21 @@ export default function DocumentsDrawer({ open, setOpen }: Props) {
         transitionDuration={0}
         variant="persistent"
         anchor="left"
-        open={open}>
+        open={isOpen}>
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', p: 2 }}>
-          <IconButton onClick={handleClose}>
+          <IconButton onClick={toggle}>
             <CloseIcon></CloseIcon>
           </IconButton>
         </Box>
         <Divider />
-        <SubList drawerOpen={open} {...brandsSubList} />
-        <SubList drawerOpen={open} {...modelsSubList} />
+        <SubList {...tasksList} />
+        {listItems.map((x) => (
+          <ListItem button key={x.title}>
+            <ListItemIcon>{x.icon}</ListItemIcon>
+            <ListItemText>{x.title}</ListItemText>
+          </ListItem>
+        ))}
       </Drawer>
     </>
   )
-}
+})

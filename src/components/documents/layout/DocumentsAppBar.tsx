@@ -5,12 +5,12 @@ import MenuIcon from '@mui/icons-material/Menu'
 
 import ProfileAvatar from 'components/documents/layout/ProfileAvatar'
 import { routes } from 'common/routes'
+import { DrawerStore } from 'stores/DrawerStore'
+import { observer } from 'mobx-react'
 
-type Props = {
-  handleOpen: () => void
-}
+export default observer(function DocumentsAppBar() {
+  const { toggle } = DrawerStore
 
-export default function DocumentsAppBar({ handleOpen }: Props) {
   return (
     <>
       <AppBar sx={{ backgroundColor: 'white' }} position="static">
@@ -20,7 +20,7 @@ export default function DocumentsAppBar({ handleOpen }: Props) {
             edge="start"
             color="inherit"
             aria-label="menu"
-            onClick={handleOpen}
+            onClick={toggle}
             sx={{ mr: 2 }}>
             <MenuIcon />
           </IconButton>
@@ -47,4 +47,4 @@ export default function DocumentsAppBar({ handleOpen }: Props) {
       </AppBar>
     </>
   )
-}
+})

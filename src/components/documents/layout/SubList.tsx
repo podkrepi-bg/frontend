@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   Collapse,
   IconButton,
@@ -10,47 +10,32 @@ import {
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
+import { observer } from 'mobx-react'
+import { SubListStore } from 'stores/SubListStore'
+
 type Props = {
-  drawerOpen: boolean
   title: string
   icon: React.ReactElement<SvgIconProps>
   data: string[]
 }
 
-export default function SubList({ drawerOpen, title, icon, data }: Props) {
-  const [open, setOpen] = useState(false)
-  const handleClick = () => setOpen(!open)
-
-  useEffect(() => {
-    if (sessionStorage.getItem(title)) {
-      setOpen(JSON.parse(sessionStorage.getItem(title) || ''))
-    }
-  }, [])
-
-  useEffect(() => {
-    sessionStorage.setItem(title, JSON.stringify(open))
-  }, [open])
-
-  useEffect(() => {
-    try {
-      if (!JSON.parse(sessionStorage.getItem('drawer-state') || '')) {
-        setOpen(JSON.parse(sessionStorage.getItem(title) || ''))
-      }
-    } catch (err) {
-      console.log(err)
-    }
-  }, [drawerOpen])
+export default observer(function SubList({ title, icon, data }: Props) {
+  //Using the useState hook to avoid making new instance of the store on every render
+  //This way every sublist instantiates its own individual store
+  //Therefore code can be easily extended
+  const [store] = useState(() => new SubListStore())
+  const { isOpen, toggle } = store
 
   return (
     <>
       <ListItem button key={title}>
         <ListItemIcon>{icon}</ListItemIcon>
         <ListItemText primary={title} />
-        <IconButton size="small" edge="start" color="inherit" onClick={handleClick}>
-          {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+        <IconButton size="small" edge="start" color="inherit" onClick={toggle}>
+          {isOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
         </IconButton>
       </ListItem>
-      <Collapse in={open} timeout={0} unmountOnExit>
+      <Collapse in={isOpen} timeout={0} unmountOnExit>
         {data.map((x: string) => (
           <ListItem button key={x}>
             <ListItemText primary={x} />
@@ -59,4 +44,4 @@ export default function SubList({ drawerOpen, title, icon, data }: Props) {
       </Collapse>
     </>
   )
-}
+})
