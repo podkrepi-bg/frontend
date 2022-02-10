@@ -8,6 +8,10 @@ import { DocumentResponse } from 'gql/document'
 import { ApiErrors } from 'common/api-errors'
 import { axios } from 'common/api-client'
 import { endpoints } from 'common/api-endpoints'
+import { ModalStore } from 'stores/ModalStore'
+import ConfirmationDialog from 'components/common/ConfirmationDialog'
+import { observer } from 'mobx-react'
+import { DialogStore } from 'stores/DialogStore'
 
 const modalStyle: CSSObject = {
   position: 'absolute',
@@ -22,12 +26,12 @@ const modalStyle: CSSObject = {
 
 type Props = {
   idsToDelete: GridSelectionModel
-  open: boolean
-  setOpen: Dispatch<SetStateAction<boolean>>
 }
 
-export default function DeleteAllModal({ idsToDelete, open, setOpen }: Props) {
+export default observer(function DeleteAllModal({ idsToDelete }: Props) {
   const queryClient = useQueryClient()
+  const { isCfrmOpen, hideCfrm } = ModalStore
+  const { clear } = DialogStore
 
   const deleteDocuments: MutationFunction<AxiosResponse<DocumentResponse>, GridSelectionModel> =
     async () => {
@@ -44,7 +48,8 @@ export default function DeleteAllModal({ idsToDelete, open, setOpen }: Props) {
   >({
     mutationFn: deleteDocuments,
     onSuccess: () => {
-      setOpen(false)
+      clear()
+      hideCfrm()
       queryClient.invalidateQueries('/document')
     },
   })
@@ -54,20 +59,14 @@ export default function DeleteAllModal({ idsToDelete, open, setOpen }: Props) {
   }
 
   return (
-    <>
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <Box sx={modalStyle}>
-          <Typography variant="h6">Are you sure you want to delete all selected items?</Typography>
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Button onClick={deleteHandler} sx={{ mx: 2, color: 'red' }}>
-              Delete
-            </Button>
-            <Button onClick={() => setOpen(false)} sx={{ mx: 2 }}>
-              Cancel
-            </Button>
-          </Box>
-        </Box>
-      </Modal>
-    </>
+    <ConfirmationDialog
+      isOpen={isCfrmOpen}
+      handleConfirm={deleteHandler}
+      handleCancel={hideCfrm}
+      title="Are you sure?"
+      content="All of the selected items will be deleted permanently!"
+      confirmButtonLabel="Delete"
+      cancelButtonLabel="Cancel"
+    />
   )
-}
+})

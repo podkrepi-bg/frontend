@@ -20,10 +20,13 @@ import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 import DeleteAllModal from './DeleteAllModal'
 import Actions from './Actions'
+import { ModalStore } from 'stores/ModalStore'
 
 export default function Grid() {
   const [selectedId, setSelectedId] = useState<string>('')
   const [selectionModel, setSelectionModel] = useState<GridRowId[]>([])
+
+  const { showCfrm } = ModalStore
 
   const [detailsOpen, setDetailsOpen] = useState<boolean>(false)
   const [deleteOpen, setDeleteOpen] = useState<boolean>(false)
@@ -64,10 +67,6 @@ export default function Grid() {
     },
   ]
 
-  function deleteAllHandler() {
-    setDeleteAllOpen(true)
-  }
-
   return (
     <>
       <Box sx={{ mt: 10, mx: 'auto', width: 700 }}>
@@ -79,7 +78,7 @@ export default function Grid() {
                 <AddIcon />
               </Fab>
             </Link>
-            <Fab onClick={deleteAllHandler}>
+            <Fab onClick={showCfrm}>
               <DeleteIcon />
             </Fab>
           </Box>
@@ -99,13 +98,9 @@ export default function Grid() {
           />
         </div>
       </Box>
-      <DetailsModal detailsOpen={detailsOpen} setDetailsOpen={setDetailsOpen} id={selectedId} />
-      <DeleteModal id={selectedId} open={deleteOpen} setOpen={setDeleteOpen} />
-      <DeleteAllModal
-        idsToDelete={selectionModel}
-        open={deleteAllOpen}
-        setOpen={setDeleteAllOpen}
-      />
+      <DetailsModal id={selectedId} />
+      <DeleteModal id={selectedId} />
+      <DeleteAllModal idsToDelete={selectionModel} />
       {/* <Alert
         sx={{
           display: 'none',

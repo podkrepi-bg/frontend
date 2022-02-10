@@ -1,21 +1,22 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { UseQueryResult } from 'react-query'
+import { observer } from 'mobx-react'
 import { Dialog, Card, CardContent, Typography, Divider } from '@mui/material'
 
 import { DocumentResponse } from 'gql/document'
 import { useDocument } from 'common/hooks/documents'
+import { ModalStore } from 'stores/ModalStore'
 
 type Props = {
   id: string
-  detailsOpen: boolean
-  setDetailsOpen: Dispatch<SetStateAction<boolean>>
 }
 
-export default function DetailsModal({ id, detailsOpen, setDetailsOpen }: Props) {
+export default observer(function DetailsModal({ id }: Props) {
   const { data }: UseQueryResult<DocumentResponse> = useDocument(id)
+  const { isOpen, hide } = ModalStore
 
   return (
-    <Dialog open={detailsOpen} onClose={() => setDetailsOpen(false)} sx={{ top: '-35%' }}>
+    <Dialog open={isOpen} onClose={hide} sx={{ top: '-35%' }}>
       <Card>
         <CardContent>
           <Typography variant="h5" sx={{ marginBottom: '16px' }}>
@@ -49,4 +50,4 @@ export default function DetailsModal({ id, detailsOpen, setDetailsOpen }: Props)
       </Card>
     </Dialog>
   )
-}
+})

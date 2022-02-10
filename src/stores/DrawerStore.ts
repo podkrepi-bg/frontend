@@ -5,6 +5,7 @@ enableStaticRendering(typeof window === 'undefined')
 
 export class DrawerStoreImpl {
   isOpen = true
+  isSublistOpen = false
 
   constructor() {
     makeObservable(this, {
@@ -15,6 +16,10 @@ export class DrawerStoreImpl {
 
   toggle = () => {
     this.isOpen = !this.isOpen
+  }
+
+  toggleSublist = () => {
+    this.isSublistOpen = !this.isSublistOpen
   }
 }
 
