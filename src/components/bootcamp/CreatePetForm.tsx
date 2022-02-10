@@ -10,6 +10,7 @@ import { useMutation } from 'react-query'
 import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
 import { createAnimal, editAnimal } from 'common/rest'
 import { routes } from 'common/routes'
+import { name } from 'common/form/validation'
 import { AnimalResponse, AnimalInput } from 'gql/bootcamp'
 import { AlertStore } from 'stores/AlertStore'
 import FormTextField from 'components/common/form/FormTextField'
@@ -19,7 +20,7 @@ const validationSchema: yup.SchemaOf<AnimalInput> = yup
   .object()
   .defined()
   .shape({
-    name: yup.string().trim().min(3).max(10).required(),
+    name: name.required(),
     type: yup.string().trim().min(3).max(10).required(),
     id: yup.string().uuid(),
   })

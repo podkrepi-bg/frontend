@@ -10,18 +10,16 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { BootcampStudentInput, BootcampStudentResponse } from 'gql/bootcamp'
 import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
 import { createBootcampStudent, editBootcampStudent } from 'common/rest'
+import { name } from 'common/form/validation'
 import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 
-const validationSchema: yup.SchemaOf<BootcampStudentInput> = yup
-  .object()
-  .defined()
-  .shape({
-    firstName: yup.string().trim().min(3).max(10).required(),
-    lastName: yup.string().trim().min(3).max(10).required(),
-    id: yup.string().uuid(),
-  })
+const validationSchema: yup.SchemaOf<BootcampStudentInput> = yup.object().defined().shape({
+  firstName: name.required(),
+  lastName: name.required(),
+  id: yup.string().uuid(),
+})
 
 const useStyles = makeStyles((theme) =>
   createStyles({
