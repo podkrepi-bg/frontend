@@ -12,9 +12,7 @@ import { CampaignResponse, CampaignInput } from 'gql/campaigns'
 import { endpoints } from './api-endpoints'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
-import id from 'date-fns/locale/id'
-import { BankAccountInput } from 'gql/bankaccounts'
-/* import { BankAccountResponse, BankAccountInput } from 'gql/bankaccounts' */
+import { BankAccountResponse, BankAccountInput } from 'gql/bankaccounts'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await axios.get(queryKey.join('/'))
@@ -52,16 +50,15 @@ export const createContactRequest: MutationFunction<
   )
 }
 
-export const createBankAccountRequest: any =
-  /*  MutationFunction<
-  AxiosResponse<bankAccountResponse>,
-  bankAccountType> */
-  async (data: any) => {
-    return await axios.post<any, AxiosResponse<any>>(
-      endpoints.bankAccounts.postBankAccount.url,
-      data,
-    )
-  }
+export const createBankAccountRequest: MutationFunction<
+  AxiosResponse<BankAccountResponse>,
+  BankAccountInput
+> = async (data: BankAccountInput) => {
+  return await axios.post<BankAccountInput, AxiosResponse<BankAccountResponse>>(
+    endpoints.bankAccounts.postBankAccount.url,
+    data,
+  )
+}
 
 export const createSupportRequest: MutationFunction<
   AxiosResponse<SupportRequestResponse>,
@@ -90,6 +87,3 @@ export const createCheckoutSession: MutationFunction<
     data,
   )
 }
-
-
-
