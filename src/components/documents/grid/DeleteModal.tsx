@@ -7,26 +7,19 @@ import { DocumentResponse } from 'gql/document'
 import { ApiErrors } from 'common/api-errors'
 import { endpoints } from 'common/api-endpoints'
 import { axios } from 'common/api-client'
-
-const modalStyle: CSSObject = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 'auto',
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  p: 4,
-}
+import ConfirmationDialog from 'components/common/ConfirmationDialog'
+import { ModalStore } from 'stores/ModalStore'
+import { observer } from 'mobx-react'
+import { DialogStore } from 'stores/DialogStore'
 
 type Props = {
   id: string
-  open: boolean
-  setOpen: Dispatch<SetStateAction<boolean>>
 }
 
-export default function DeleteModal({ id, open, setOpen }: Props) {
+export default observer(function DeleteModal({ id }: Props) {
   const queryClient = useQueryClient()
+  const { isCfrmOpen, hideCfrm } = ModalStore
+  const { clear } = DialogStore
 
   const deleteDocument: MutationFunction<AxiosResponse<DocumentResponse>, string> = async () => {
     return await axios.delete<DocumentResponse, AxiosResponse<DocumentResponse>>(
@@ -41,7 +34,8 @@ export default function DeleteModal({ id, open, setOpen }: Props) {
   >({
     mutationFn: deleteDocument,
     onSuccess: () => {
-      setOpen(false)
+      clear()
+      hideCfrm()
       queryClient.invalidateQueries('/document')
     },
   })
@@ -51,20 +45,14 @@ export default function DeleteModal({ id, open, setOpen }: Props) {
   }
 
   return (
-    <>
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <Box sx={modalStyle}>
-          <Typography variant="h6">Are you sure you want to delete this item?</Typography>
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Button onClick={deleteHandler} sx={{ mx: 2, color: 'red' }}>
-              Delete
-            </Button>
-            <Button onClick={() => setOpen(false)} sx={{ mx: 2 }}>
-              Cancel
-            </Button>
-          </Box>
-        </Box>
-      </Modal>
-    </>
+    <ConfirmationDialog
+      isOpen={isCfrmOpen}
+      handleConfirm={deleteHandler}
+      handleCancel={hideCfrm}
+      title="Are you sure?"
+      content="This item will be deleted permanently!"
+      confirmButtonLabel="Delete"
+      cancelButtonLabel="Cancel"
+    />
   )
-}
+})

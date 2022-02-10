@@ -6,6 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import PageviewIcon from '@mui/icons-material/Pageview'
 
 import { routes } from 'common/routes'
+import { ModalStore } from 'stores/ModalStore'
 
 type Props = {
   id: string
@@ -15,14 +16,16 @@ type Props = {
 }
 
 export default function Actions({ id, setDetailsOpen, setDeleteOpen, setSelectedId }: Props) {
+  const { show, showCfrm } = ModalStore
+
   function detailsClickHandler() {
     setSelectedId(id)
-    setDetailsOpen(true)
+    show()
   }
 
   function deleteClickHandler() {
     setSelectedId(id)
-    setDeleteOpen(true)
+    showCfrm()
   }
 
   return (
