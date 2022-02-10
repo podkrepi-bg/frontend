@@ -1,6 +1,10 @@
 import { Box } from '@mui/material'
 
-function PanelFooter({ children }: any) {
+type Props = {
+  children: React.ReactNode
+}
+
+function PanelFooter({ children }: Props) {
   return (
     <Box
       sx={{

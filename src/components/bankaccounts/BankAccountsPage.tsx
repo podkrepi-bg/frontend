@@ -1,9 +1,10 @@
-import AppBarMenu from './navigation/AppBarMenu'
 import { Container } from '@mui/material'
 import BankAccountsModal from './BankAccountsModal'
 import BankAccountsGrid from './BankAccountsGrid'
 import BankAccountsDetails from './BankAccountsDetails'
+import BankAccountsBottomAppbar from './BankAccountsBottomAppBar'
 import MainLayout from './navigation/MainLayout'
+import AppBarMenu from './navigation/AppBarMenu'
 const BankAccountsPage = () => {
   return (
     <MainLayout>
@@ -21,6 +22,7 @@ const BankAccountsPage = () => {
         }}>
         <Container sx={{ pt: '24px' }} disableGutters maxWidth={false}>
           <AppBarMenu />
+          <BankAccountsBottomAppbar />
           <BankAccountsGrid />
         </Container>
       </Container>

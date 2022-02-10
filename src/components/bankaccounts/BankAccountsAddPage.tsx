@@ -1,6 +1,6 @@
-import BankAccountsForm from './BankAccountsForm'
-import LayoutPanel from './navigation/LayoutPanel'
 import { Container } from '@mui/material'
+import LayoutPanel from './navigation/LayoutPanel'
+import BankAccountsForm from './BankAccountsForm'
 function BankAccountsAddPage() {
   return (
     <LayoutPanel>
