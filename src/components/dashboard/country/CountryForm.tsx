@@ -131,21 +131,17 @@ export default function CountryForm({ initialValues = defaults, id }: CountryFor
                   {t('btns.save')}
                 </Button>
               </Grid>
-              <Grid item xs={6}>
-                <LinkButton
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  href={routes.dashboard.index}>
-                  {t('btns.cancel')}
-                </LinkButton>
-              </Grid>
             </>
           ) : (
-            <Grid item xs={12}>
+            <Grid item xs={6}>
               <SubmitButton fullWidth label="country:btns.add" />
             </Grid>
           )}
+          <Grid item xs={6}>
+            <LinkButton fullWidth variant="contained" color="primary" href={routes.dashboard.index}>
+              {t('btns.cancel')}
+            </LinkButton>
+          </Grid>
         </Grid>
       </GenericForm>
     </Grid>
