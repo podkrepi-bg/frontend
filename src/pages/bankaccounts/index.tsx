@@ -6,7 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { queryFn } from 'common/rest'
 
-export const getServerSideProps: GetServerSideProps = async ({ query, locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const client = new QueryClient()
   await client.prefetchQuery(`/bankaccount`, queryFn)
   return {

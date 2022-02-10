@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 import { ModalStore } from 'stores/cars/ModalStore'
 import Modal from '@mui/material/Modal'
 type Props = {
-  children: ReactElement<any, string | JSXElementConstructor<any>>
+  children: ReactElement<unknown, string | JSXElementConstructor<unknown>>
 }
 
 export default observer(function BankAccountsModal({ children }: Props) {
