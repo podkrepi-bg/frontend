@@ -157,11 +157,9 @@ type Props = {
 }
 
 export default function MainLayout({ children }: Props) {
-  const theme = useTheme()
   const [open, setOpen] = React.useState(false)
   const [fullyClosed, setFullyClose] = React.useState(false)
   const classes = useStyles()
-  console.log('open:' + open, 'fullyClosed:' + fullyClosed)
   return (
     <Box className={classes.wrapper}>
       <CssBaseline />
