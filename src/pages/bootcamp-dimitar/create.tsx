@@ -3,7 +3,7 @@ import { Container } from '@mui/material'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import CustomLayout from '../../components/bootcamp-dimitar/CustomLayout'
-import CreateForm from 'components/bootcamp-dimitar/createForm'
+import CreateForm from 'components/bootcamp-dimitar/CreateForm'
 
 function CreateBootcampDimitar() {
   return (

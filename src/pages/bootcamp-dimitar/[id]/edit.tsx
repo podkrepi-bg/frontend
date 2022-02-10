@@ -3,7 +3,7 @@ import { Container } from '@mui/material'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import CustomLayout from '../../../components/bootcamp-dimitar/CustomLayout'
-import EditForm from 'components/bootcamp-dimitar/editForm'
+import EditForm from 'components/bootcamp-dimitar/EditForm'
 import { getBootcampDimitar } from '../../../common/rest'
 
 function EditBootcampDimitar({ data }: { data: any }) {
