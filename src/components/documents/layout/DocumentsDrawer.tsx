@@ -28,6 +28,7 @@ export default observer(function DocumentsDrawer() {
     data: ['Задача 1', 'Задача 2', 'Задача 3', 'Задача 4'],
     icon: <ListIcon />,
   }
+
   const listItems = [
     {
       title: 'Кампании',
