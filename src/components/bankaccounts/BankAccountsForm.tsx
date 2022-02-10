@@ -1,17 +1,14 @@
-import React from 'react'
-import * as yup from 'yup'
-import { useRouter } from 'next/router'
-import { useMutation } from 'react-query'
-import { useTranslation } from 'next-i18next'
-import { Grid, Typography } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
-import { routes } from 'common/routes'
-import { createBankAccountRequest } from 'common/rest'
-import { AlertStore } from 'stores/AlertStore'
+import { Grid, Typography } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import { useRouter } from 'next/router'
+import React from 'react'
+import * as yup from 'yup'
+import { useMutation } from 'react-query'
+import { useTranslation } from 'next-i18next'
 import {
   AccountHolderType,
   BankAccountInput,
@@ -19,8 +16,11 @@ import {
   BankAccountsData,
   BankAccountStatus,
 } from 'gql/bankaccounts.d.ts'
+import { createBankAccountRequest } from 'common/rest'
 import { AxiosError, AxiosResponse } from 'axios'
+import { AlertStore } from 'stores/AlertStore'
 import { ApiErrors } from 'common/api-errors'
+import { routes } from 'common/routes'
 
 export const validationSchemaBankAccForm: yup.SchemaOf<BankAccountsData> = yup
   .object()

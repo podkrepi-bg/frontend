@@ -1,4 +1,4 @@
-import { Menu, MenuItem, Typography, Avatar } from '@mui/material'
+import { Menu, MenuItem, Avatar } from '@mui/material'
 
 interface Props {
   handleClick: (event: React.MouseEvent<HTMLElement>) => void

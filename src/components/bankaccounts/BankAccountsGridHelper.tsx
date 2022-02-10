@@ -1,7 +1,8 @@
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
-import PrivacyTipIcon from '@mui/icons-material/PrivacyTip'
 import DeleteIcon from '@mui/icons-material/Delete'
+import ImportExportIcon from '@mui/icons-material/ImportExport'
 import EditIcon from '@mui/icons-material/Edit'
+import ShareIcon from '@mui/icons-material/Share'
 import { NextRouter } from 'next/router'
 import React from 'react'
 type Props = {
@@ -32,12 +33,22 @@ export const ControlIcons: React.FC<Props> = ({
         height: '100%',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-evenly',
+        justifyContent: 'space-between',
       }}>
       {
-        <PrivacyTipIcon
+        <ImportExportIcon
           sx={{ cursor: 'pointer' }}
-          color="info"
+          color="primary"
+          onClick={() => {
+            setCarId(carId)
+            openModal()
+          }}
+        />
+      }
+      {
+        <ShareIcon
+          sx={{ cursor: 'pointer' }}
+          color="primary"
           onClick={() => {
             setCarId(carId)
             openModal()
@@ -47,7 +58,7 @@ export const ControlIcons: React.FC<Props> = ({
       {
         <EditIcon
           sx={{ cursor: 'pointer' }}
-          color="action"
+          color="primary"
           onClick={() => {
             router.push(route)
           }}
@@ -56,7 +67,7 @@ export const ControlIcons: React.FC<Props> = ({
       {
         <DeleteIcon
           sx={{ cursor: 'pointer', opacity: 0.9 }}
-          color="error"
+          color="primary"
           onClick={() => {
             handleOpen()
             setId(idToSet)
@@ -93,8 +104,8 @@ export const renderCellWithdraws = (): React.ReactNode => {
 }
 
 export const commonProps: Partial<GridColDef> = {
-  align: 'center',
+  align: 'left',
   width: 150,
-  headerAlign: 'center',
+  headerAlign: 'left',
   renderCell,
 }

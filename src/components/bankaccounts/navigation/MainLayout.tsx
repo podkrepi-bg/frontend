@@ -12,18 +12,19 @@ import {
   List,
   Box,
 } from '@mui/material'
-import MenuIcon from '@mui/icons-material/Menu'
-import FullscreenIcon from '@mui/icons-material/Fullscreen'
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit'
-import NotificationsIcon from '@mui/icons-material/Notifications'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import NotificationsIcon from '@mui/icons-material/Notifications'
+import { Button, TextField, Typography } from '@mui/material'
+import FullscreenIcon from '@mui/icons-material/Fullscreen'
+import SettingsIcon from '@mui/icons-material/Settings'
 import InboxIcon from '@mui/icons-material/MoveToInbox'
+import MenuIcon from '@mui/icons-material/Menu'
+import Image from 'next/image'
 import MailIcon from '@mui/icons-material/Mail'
-import PanelFooter from './PanelFooter'
-import { Avatar, Button, TextField, Typography } from '@mui/material'
 import Snackbar from 'components/layout/Snackbar'
 import PictureLogo from '/public/android-chrome-192x192.png'
-import Image from 'next/image'
+import PanelFooter from './PanelFooter'
 const drawerWidth = 200
 
 const useStyles = makeStyles({
@@ -101,7 +102,7 @@ const fullyClosedMixin = (theme: Theme): CSSObject => ({
   zIndex: -1,
 })
 
-const DrawerHeader = styled('div')(({ theme }: any) => ({
+const DrawerHeader = styled('div')(({ theme }: { theme: Theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
@@ -115,8 +116,8 @@ interface AppBarProps extends MuiAppBarProps {
 }
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop: any) => prop !== 'open',
-})<AppBarProps>(({ theme }: any) => ({
+  shouldForwardProp: (prop: string) => prop !== 'open',
+})<AppBarProps>(({ theme }: { theme: Theme }) => ({
   display: 'flex',
   flexDirection: 'row',
   background: 'none',
@@ -127,8 +128,8 @@ const AppBar = styled(MuiAppBar, {
   width: `100%`,
 }))
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop: any) => prop !== 'open' })(
-  ({ theme, open, fullyClosed }: any) => ({
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop: string) => prop !== 'open' })(
+  ({ theme, open, fullyClosed }: { theme: Theme; open: boolean; fullyClosed: boolean }) => ({
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
@@ -200,7 +201,7 @@ export default function MainLayout({ children }: Props) {
       </AppBar>
       <Drawer variant="permanent" open={open} fullyClosed={fullyClosed}>
         <DrawerHeader></DrawerHeader>
-        <List sx={{ p: '30px 17px 0 17px' }}>
+        <List sx={{ p: '30px 17px 30px 17px', height: '100%', position: 'relative' }}>
           {['Задачи', 'Кампании', 'Доброволци', 'Плащания', 'Потребители', 'Документи'].map(
             (text, index) => (
               <ListItem button key={text} sx={{ px: '7px', borderRadius: '20px' }}>
@@ -209,6 +210,14 @@ export default function MainLayout({ children }: Props) {
               </ListItem>
             ),
           )}
+          <ListItem
+            button
+            sx={{ px: '7px', borderRadius: '20px', position: 'absolute', bottom: '15px' }}>
+            <ListItemIcon>
+              <SettingsIcon />
+            </ListItemIcon>
+            <ListItemText primary={'Настройки'} />
+          </ListItem>
         </List>
       </Drawer>
       <div

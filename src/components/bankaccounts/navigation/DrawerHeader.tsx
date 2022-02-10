@@ -1,9 +1,9 @@
-import PictureLogo from '/public/android-chrome-192x192.png'
 import { Box, IconButton, Theme } from '@mui/material'
-import Picture from '/public/podkrepi-bg-logo.svg'
 import Image from 'next/image'
 import MenuIcon from '@mui/icons-material/Menu'
 import { styled } from '@mui/material/styles'
+import Picture from '/public/podkrepi-bg-logo.svg'
+import PictureLogo from '/public/android-chrome-192x192.png'
 
 const DrawerHeaderComp = styled('div')(({ theme }: { theme: Theme }) => ({
   display: 'flex',

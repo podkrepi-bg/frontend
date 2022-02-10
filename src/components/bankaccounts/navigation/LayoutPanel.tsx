@@ -121,7 +121,7 @@ export default observer(function PersistentDrawerLeft({ children }: Props) {
         <DrawerListItems />
       </Drawer>
       <Main open={isDrawerOpen}>{children}</Main>
-      <PanelFooter />
+      <PanelFooter children={undefined} />
       <Snackbar />
     </Box>
   )

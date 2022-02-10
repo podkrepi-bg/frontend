@@ -4,8 +4,8 @@ import SettingsIcon from '@mui/icons-material/Settings'
 import HomeIcon from '@mui/icons-material/Home'
 import ListItem from '@mui/material/ListItem'
 import { useRouter } from 'next/router'
-import NestedMenu from './NestedMenu'
 import { routes } from 'common/routes'
+import NestedMenu from './NestedMenu'
 const menuItems = [
   { name: 'Начало', link: routes.bankaccounts.index },
   { name: 'Банкови сметки', link: routes.bankaccounts.index },

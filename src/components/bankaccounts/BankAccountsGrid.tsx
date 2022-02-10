@@ -64,10 +64,9 @@ export default observer(function BankAccountsGrid() {
     },
     {
       field: 'others',
-      headerName: 'редактиране',
-      headerAlign: 'center',
+      headerName: 'Действие',
+      headerAlign: 'left',
       width: 150,
-      headerClassName: 'super-app-theme--header',
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
         return (
           <ControlIcons
@@ -98,18 +97,19 @@ export default observer(function BankAccountsGrid() {
         cancelButtonLabel={'Отказ'}></ConfirmationDialog>
       <DataGrid
         style={{
-          marginTop: '2px',
           background: 'white',
           position: 'absolute',
-          height: 'calc(100vh - 280px)',
+          height: 'calc(100vh - 300px)',
           border: 'none',
           width: 'calc(100% - 48px)',
           left: '24px',
           overflowY: 'auto',
+          overflowX: 'hidden',
           borderRadius: '0 0 13px 13px',
         }}
         rows={data || []}
         columns={columns}
+        rowsPerPageOptions={[5, 10]}
         pageSize={5}
         autoHeight
         autoPageSize
