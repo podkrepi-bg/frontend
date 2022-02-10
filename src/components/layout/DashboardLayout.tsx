@@ -2,7 +2,7 @@ import { makeStyles } from '@mui/styles'
 
 import Snackbar from 'components/layout/Snackbar'
 
-import DashboardDrawer from './DashboardDrawer'
+import DashboardMiniDrawer from './DashboardMiniDrawer'
 
 type Props = {
   children: React.ReactNode
@@ -41,7 +41,7 @@ export default function DashboardLayout({ children, title }: Props) {
   return (
     <div className={classes.pageContainer}>
       <div className={classes.contentWrapper}>
-        <DashboardDrawer title={title}>{children}</DashboardDrawer>
+        <DashboardMiniDrawer title={title}>{children}</DashboardMiniDrawer>
         <Snackbar />
         <footer className={classes.footer}>
           <p>This is footer &copy;</p>
