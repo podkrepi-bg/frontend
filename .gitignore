@@ -47,8 +47,3 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
-
-
-#Demo tasks
-./src/components/bootcamp
-./src/pages/bootcamp

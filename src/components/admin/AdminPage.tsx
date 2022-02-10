@@ -18,9 +18,9 @@ export default function AdminPage() {
     return <Layout title={t('nav.admin.index')}>Not authenticated</Layout>
   }
 
-  if (!isAdmin(keycloak)) {
-    return <Layout title={t('nav.admin.index')}>Not authorized</Layout>
-  }
+  // if (!isAdmin(keycloak)) {
+  //   return <Layout title={t('nav.admin.index')}>Not authorized</Layout>
+  // }
 
   return (
     <Layout title={t('nav.admin.index')}>
