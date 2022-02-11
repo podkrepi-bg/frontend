@@ -10,7 +10,9 @@ export class DrawerStoreImpl {
   constructor() {
     makeObservable(this, {
       isOpen: observable,
+      isSublistOpen: observable,
       toggle: action,
+      toggleSublist: action,
     })
   }
 
