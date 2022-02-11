@@ -12,6 +12,7 @@ class ModalStoreImpl {
     makeObservable(this, {
       isDetailsOpen: observable,
       isDeleteOpen: observable,
+      isDeleteAllOpen: observable,
       showDetails: action,
       hideDetails: action,
       showDelete: action,
