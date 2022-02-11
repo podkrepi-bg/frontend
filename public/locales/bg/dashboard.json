@@ -1,6 +1,7 @@
 {
     "appbar": {
         "drawer": {
+            "home": "Начало",
             "entities": {
                 "heading": "Модели",
                 "country": {
