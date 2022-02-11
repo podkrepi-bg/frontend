@@ -24,11 +24,11 @@ export const validationSchema = yup
   .defined()
   .shape({
     type: yup.string().oneOf(validDocumentTypes).required(),
-    name: yup.string().trim().min(1).max(20).required(),
-    filename: yup.string().trim().min(1).max(20).required(),
-    filetype: yup.string().trim().min(1).max(3),
-    description: yup.string().trim().min(3).max(30),
-    sourceUrl: yup.string().trim().min(3).max(50).required(),
+    name: yup.string().trim().min(2).max(20).required(),
+    filename: yup.string().trim().min(2).max(20).required(),
+    filetype: yup.string().trim().max(3),
+    description: yup.string().trim().max(30),
+    sourceUrl: yup.string().trim().min(3).max(60).required(),
   })
 
 export default observer(function CreateForm() {
@@ -58,9 +58,9 @@ export default observer(function CreateForm() {
     DocumentInput
   >({
     mutationFn: createDocument,
-    onError: () => AlertStore.show('An error has occured', 'error'),
+    onError: () => AlertStore.show('An error has occured!', 'error'),
     onSuccess: () => {
-      AlertStore.show('Document has been created', 'success')
+      AlertStore.show('Document has been created successfully!', 'success')
       router.push(routes.documents.index)
     },
   })
