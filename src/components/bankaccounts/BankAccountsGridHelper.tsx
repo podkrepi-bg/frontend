@@ -1,8 +1,7 @@
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import DeleteIcon from '@mui/icons-material/Delete'
-import ImportExportIcon from '@mui/icons-material/ImportExport'
 import EditIcon from '@mui/icons-material/Edit'
-import ShareIcon from '@mui/icons-material/Share'
+import InfoIcon from '@mui/icons-material/Info'
 import { NextRouter } from 'next/router'
 import React from 'react'
 
@@ -34,20 +33,10 @@ export const ControlIcons: React.FC<Props> = ({
         height: '100%',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
       }}>
       {
-        <ImportExportIcon
-          sx={{ cursor: 'pointer' }}
-          color="primary"
-          onClick={() => {
-            setCarId(carId)
-            openModal()
-          }}
-        />
-      }
-      {
-        <ShareIcon
+        <InfoIcon
           sx={{ cursor: 'pointer' }}
           color="primary"
           onClick={() => {

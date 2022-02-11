@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles'
+import { styled, Theme, CSSObject } from '@mui/material/styles'
 import { makeStyles } from '@mui/styles'
 import MuiDrawer from '@mui/material/Drawer'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
@@ -18,13 +18,14 @@ import NotificationsIcon from '@mui/icons-material/Notifications'
 import { Button, TextField, Typography } from '@mui/material'
 import FullscreenIcon from '@mui/icons-material/Fullscreen'
 import SettingsIcon from '@mui/icons-material/Settings'
-import InboxIcon from '@mui/icons-material/MoveToInbox'
 import MenuIcon from '@mui/icons-material/Menu'
+import AddIcon from '@mui/icons-material/Add'
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted'
 import Image from 'next/image'
-import MailIcon from '@mui/icons-material/Mail'
 import Snackbar from 'components/layout/Snackbar'
 import PictureLogo from '/public/android-chrome-192x192.png'
 import PanelFooter from './PanelFooter'
+import { useRouter } from 'next/router'
 const drawerWidth = 200
 
 const useStyles = makeStyles({
@@ -160,6 +161,7 @@ export default function MainLayout({ children }: Props) {
   const [open, setOpen] = React.useState(false)
   const [fullyClosed, setFullyClose] = React.useState(false)
   const classes = useStyles()
+  const router = useRouter()
   return (
     <Box className={classes.wrapper}>
       <CssBaseline />
@@ -200,14 +202,28 @@ export default function MainLayout({ children }: Props) {
       <Drawer variant="permanent" open={open} fullyClosed={fullyClosed}>
         <DrawerHeader></DrawerHeader>
         <List sx={{ p: '30px 17px 30px 17px', height: '100%', position: 'relative' }}>
-          {['Задачи', 'Кампании', 'Доброволци', 'Плащания', 'Потребители', 'Документи'].map(
-            (text, index) => (
-              <ListItem button key={text} sx={{ px: '7px', borderRadius: '20px' }}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ),
-          )}
+          {['All people', 'Add person'].map((text, index) => (
+            <ListItem button key={text} sx={{ px: '7px', borderRadius: '20px' }}>
+              <ListItemIcon>
+                {index % 2 === 0 ? (
+                  <IconButton
+                    onClick={() => {
+                      router.push('/admin/person')
+                    }}>
+                    <FormatListBulletedIcon />
+                  </IconButton>
+                ) : (
+                  <IconButton
+                    onClick={() => {
+                      router.push('/admin/person/add')
+                    }}>
+                    <AddIcon />
+                  </IconButton>
+                )}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
           <ListItem
             button
             sx={{ px: '7px', borderRadius: '20px', position: 'absolute', bottom: '15px' }}>

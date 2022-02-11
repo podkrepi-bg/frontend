@@ -69,6 +69,13 @@ export default observer(function PeopleGrid() {
       renderCell: (p) => p.row.email,
     },
     {
+      ...commonProps,
+      headerName: 'Phone',
+      field: 'phone',
+      renderCell: (p) => p.row.phone,
+      width: 700,
+    },
+    {
       field: 'others',
       headerName: 'Actions',
       headerAlign: 'left',

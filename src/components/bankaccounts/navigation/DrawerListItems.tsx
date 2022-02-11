@@ -1,15 +1,14 @@
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar'
+import AddIcon from '@mui/icons-material/Add'
 import { Button, List, ListItemIcon } from '@mui/material'
 import SettingsIcon from '@mui/icons-material/Settings'
-import HomeIcon from '@mui/icons-material/Home'
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted'
 import ListItem from '@mui/material/ListItem'
 import { useRouter } from 'next/router'
-import { routes } from 'common/routes'
 import NestedMenu from './NestedMenu'
 const menuItems = [
-  { name: 'Начало', link: routes.bankaccounts.index },
-  { name: 'Банкови сметки', link: routes.bankaccounts.index },
-  { name: 'Настройки', link: routes.bankaccounts.index },
+  { name: 'All people', link: '/admin/person' },
+  { name: 'Add person', link: '/admin/person/add' },
+  { name: 'Настройки', link: '/admin/person' },
 ]
 
 function DrawerListItems() {
@@ -33,10 +32,10 @@ function DrawerListItems() {
             padding: '10px',
           }}>
           <ListItemIcon sx={{ display: { xs: 'none', sm: 'flex' } }}>
-            {item.name == 'Начало' ? (
-              <HomeIcon />
-            ) : item.name === 'Банкови сметки' ? (
-              <DirectionsCarIcon />
+            {item.name == 'All people' ? (
+              <FormatListBulletedIcon />
+            ) : item.name === 'Add person' ? (
+              <AddIcon />
             ) : (
               <SettingsIcon />
             )}
