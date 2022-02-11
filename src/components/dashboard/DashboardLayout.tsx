@@ -35,9 +35,6 @@ const useStyles = makeStyles((theme) =>
         marginBottom: theme.spacing(0),
       },
     },
-    content: {
-      paddingTop: '80px',
-    },
   }),
 )
 
@@ -45,7 +42,6 @@ export default function DashboardLayout({
   title,
   ogImage,
   children,
-  maxWidth = 'lg',
   ...containerProps
 }: LayoutProps) {
   const classes = useStyles()
@@ -55,7 +51,7 @@ export default function DashboardLayout({
 
   return (
     <Container className={classes.layout} maxWidth={false} disableGutters>
-      <Container maxWidth={maxWidth} {...containerProps}>
+      <Container {...containerProps} maxWidth={false}>
         <Head>
           <title>{metaTitle}</title>
           <meta key="og:title" property="og:title" content={metaTitle} />
@@ -63,9 +59,22 @@ export default function DashboardLayout({
           <meta key="og:image:width" property="og:image:width" content="1910" />
           <meta key="og:image:height" property="og:image:height" content="1000" />
         </Head>
-        <Box pt={4} className={classes.content}>
-          <DashboardAppBar />
-          {children}
+        <Box
+          pt={4}
+          sx={{
+            paddingTop: '80px',
+          }}>
+          <Box
+            pt={4}
+            sx={{
+              backgroundColor: '#E9F6FF',
+              borderRadius: '10px',
+              marginLeft: '194px',
+              height: 'calc(100vh - 100px)',
+            }}>
+            <DashboardAppBar />
+            {children}
+          </Box>
         </Box>
         <Snackbar />
       </Container>
