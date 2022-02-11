@@ -13,10 +13,10 @@ type Props = {
 
 export default observer(function DetailsModal({ id }: Props) {
   const { data }: UseQueryResult<DocumentResponse> = useDocument(id)
-  const { isOpen, hide } = ModalStore
+  const { isDetailsOpen, hideDetails } = ModalStore
 
   return (
-    <Dialog open={isOpen} onClose={hide} sx={{ top: '-35%' }}>
+    <Dialog open={isDetailsOpen} onClose={hideDetails} sx={{ top: '-35%' }}>
       <Card>
         <CardContent>
           <Typography variant="h5" sx={{ marginBottom: '16px' }}>
