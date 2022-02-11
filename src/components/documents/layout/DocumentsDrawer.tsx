@@ -53,33 +53,31 @@ export default observer(function DocumentsDrawer() {
   ]
 
   return (
-    <>
-      <Drawer
-        sx={{
+    <Drawer
+      sx={{
+        width: 200,
+        '& .MuiDrawer-paper': {
           width: 200,
-          '& .MuiDrawer-paper': {
-            width: 200,
-            boxSizing: 'border-box',
-          },
-        }}
-        transitionDuration={0}
-        variant="persistent"
-        anchor="left"
-        open={isOpen}>
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', p: 2 }}>
-          <IconButton onClick={toggle}>
-            <CloseIcon></CloseIcon>
-          </IconButton>
-        </Box>
-        <Divider />
-        <SubList {...tasksList} />
-        {listItems.map((x) => (
-          <ListItem button key={x.title}>
-            <ListItemIcon>{x.icon}</ListItemIcon>
-            <ListItemText>{x.title}</ListItemText>
-          </ListItem>
-        ))}
-      </Drawer>
-    </>
+          boxSizing: 'border-box',
+        },
+      }}
+      transitionDuration={0}
+      variant="persistent"
+      anchor="left"
+      open={isOpen}>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', p: 2 }}>
+        <IconButton onClick={toggle}>
+          <CloseIcon></CloseIcon>
+        </IconButton>
+      </Box>
+      <Divider />
+      <SubList {...tasksList} />
+      {listItems.map((x) => (
+        <ListItem button key={x.title}>
+          <ListItemIcon>{x.icon}</ListItemIcon>
+          <ListItemText>{x.title}</ListItemText>
+        </ListItem>
+      ))}
+    </Drawer>
   )
 })

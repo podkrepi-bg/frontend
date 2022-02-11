@@ -59,7 +59,7 @@ export default observer(function Grid() {
 
   return (
     <>
-      <Box sx={{ mt: 10, mx: 'auto', width: 700 }}>
+      <Box sx={{ marginTop: '2%', mx: 'auto', width: 700 }}>
         <Box sx={{ mb: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography sx={{ fontSize: 30 }}>Documents list</Typography>
           <Box>
