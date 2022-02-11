@@ -14,6 +14,8 @@ import { DocumentData, DocumentInput, DocumentResponse } from 'gql/document'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
+import { AlertStore } from 'stores/AlertStore'
+import { observer } from 'mobx-react'
 
 const validDocumentTypes = ['invoice', 'receipt', 'medical_record', 'other']
 
@@ -29,7 +31,7 @@ export const validationSchema = yup
     sourceUrl: yup.string().trim().min(3).max(50).required(),
   })
 
-export default function CreateForm() {
+export default observer(function CreateForm() {
   const router = useRouter()
 
   const initialValues: DocumentInput = {
@@ -56,7 +58,9 @@ export default function CreateForm() {
     DocumentInput
   >({
     mutationFn: createDocument,
+    onError: () => AlertStore.show('An error has occured', 'error'),
     onSuccess: () => {
+      AlertStore.show('Document has been created', 'success')
       router.push(routes.documents.index)
     },
   })
@@ -102,4 +106,4 @@ export default function CreateForm() {
       </Box>
     </GenericForm>
   )
-}
+})
