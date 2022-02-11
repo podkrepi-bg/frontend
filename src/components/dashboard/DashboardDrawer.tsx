@@ -49,6 +49,15 @@ export default observer(function DashboardDrawer() {
         },
       }}>
       <List>
+        <Link href={routes.dashboard.index} passHref>
+          <ListItemButton>
+            <ListItemText
+              primary={
+                <Typography className={classes.listItemText}>{t('appbar.drawer.home')}</Typography>
+              }
+            />
+          </ListItemButton>
+        </Link>
         <ListItemButton onClick={toggleDrawerEntityOpen}>
           <ListItemText
             primary={
