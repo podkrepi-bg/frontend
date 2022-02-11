@@ -9,11 +9,14 @@ import {
   ListItemButton,
   ListItemText,
   Toolbar,
+  Typography,
 } from '@mui/material'
 import { ExpandLess, ExpandMore } from '@mui/icons-material'
 import MenuIcon from '@mui/icons-material/Menu'
 import { observer } from 'mobx-react'
 import { useTranslation } from 'next-i18next'
+import createStyles from '@mui/styles/createStyles'
+import makeStyles from '@mui/styles/makeStyles'
 
 import { routes } from 'common/routes'
 import { DashboardStore } from 'stores/DashboardStore'
@@ -21,7 +24,16 @@ import PodkrepiIcon from 'components/brand/PodkrepiIcon'
 
 import DashboardProfileMenu from './DashboardProfileMenu'
 
-const drawerWidth = 200
+const drawerWidth = '194px'
+
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    listItemText: {
+      fontFamily: 'Lato',
+      fontSize: '16px',
+    },
+  }),
+)
 
 export default observer(function DashboardAppBar() {
   const {
@@ -34,6 +46,7 @@ export default observer(function DashboardAppBar() {
   } = DashboardStore
 
   const { t } = useTranslation('dashboard')
+  const classes = useStyles()
 
   return (
     <>
@@ -76,20 +89,49 @@ export default observer(function DashboardAppBar() {
         }}>
         <List>
           <ListItemButton onClick={toggleDrawerEntityOpen}>
-            <ListItemText primary={t('appbar.drawer.entities.heading')} />
+            <ListItemText
+              primary={
+                <Typography className={classes.listItemText}>
+                  {t('appbar.drawer.entities.heading')}
+                </Typography>
+              }
+            />
             {drawerEntityOpen ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={drawerEntityOpen} timeout="auto" unmountOnExit>
             <List>
               <ListItemButton onClick={toggleDrawerCountryOpen}>
-                <ListItemText primary={t('appbar.drawer.entities.country.heading')} />
+                <ListItemText
+                  primary={
+                    <Typography className={classes.listItemText}>
+                      {t('appbar.drawer.entities.country.heading')}
+                    </Typography>
+                  }
+                />
                 {drawerCountryOpen ? <ExpandLess /> : <ExpandMore />}
               </ListItemButton>
               <Collapse in={drawerCountryOpen} timeout="auto" unmountOnExit>
                 <List>
+                  <Link href={routes.dashboard.country.index} passHref>
+                    <ListItemButton>
+                      <ListItemText
+                        primary={
+                          <Typography className={classes.listItemText}>
+                            {t('appbar.drawer.entities.country.all')}
+                          </Typography>
+                        }
+                      />
+                    </ListItemButton>
+                  </Link>
                   <Link href={routes.dashboard.country.create} passHref>
                     <ListItemButton>
-                      <ListItemText primary={t('appbar.drawer.entities.country.create')} />
+                      <ListItemText
+                        primary={
+                          <Typography className={classes.listItemText}>
+                            {t('appbar.drawer.entities.country.create')}
+                          </Typography>
+                        }
+                      />
                     </ListItemButton>
                   </Link>
                 </List>
