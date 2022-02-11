@@ -7,11 +7,12 @@ const useStyles = makeStyles({
     position: 'absolute',
     bottom: 0,
     width: '100%',
-    height: 20,
-    textAlign: 'center',
-    fontSize: '12px',
+    textAlign: 'right',
     whiteSpace: 'nowrap',
     marginTop: 20,
+    color: '#FFF',
+    backgroundColor: '#294E85',
+    padding: '8px 22px',
   },
 })
 
@@ -21,7 +22,14 @@ export default function DashboardFooter() {
 
   return (
     <footer className={classes.footer}>
-      <Typography variant="inherit">&copy; {t('footer')}</Typography>
+      <Typography
+        variant="inherit"
+        sx={{
+          fontFamily: 'Lato',
+          fontSize: '16px',
+        }}>
+        {t('footer')}
+      </Typography>
     </footer>
   )
 }
