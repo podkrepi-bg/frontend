@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import React from 'react'
 import { MutationFunction, useMutation, useQueryClient } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { Dialog, Card, CardContent, Box, Button, Modal, Typography, CSSObject } from '@mui/material'
@@ -9,19 +9,7 @@ import { ApiErrors } from 'common/api-errors'
 import { axios } from 'common/api-client'
 import { endpoints } from 'common/api-endpoints'
 import { ModalStore } from 'stores/ModalStore'
-import ConfirmationDialog from 'components/common/ConfirmationDialog'
 import { observer } from 'mobx-react'
-
-const modalStyle: CSSObject = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 'auto',
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  p: 4,
-}
 
 type Props = {
   idsToDelete: GridSelectionModel
@@ -59,12 +47,18 @@ export default observer(function DeleteAllModal({ idsToDelete }: Props) {
     <Dialog open={isDeleteAllOpen} onClose={hideDeleteAll} sx={{ top: '-35%' }}>
       <Card>
         <CardContent>
-          <Typography variant="h5" sx={{ marginBottom: '16px' }}>
+          <Typography variant="h6" sx={{ marginBottom: '16px', textAlign: 'center' }}>
             Are you sure?
           </Typography>
-          <Typography variant="body1">
+          <Typography variant="body1" sx={{ marginBottom: '16px', textAlign: 'center' }}>
             This action will delete all selected items permanently!
           </Typography>
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Button color="error" onClick={deleteHandler}>
+              Delete
+            </Button>
+            <Button onClick={hideDeleteAll}>Cancel</Button>
+          </Box>
         </CardContent>
       </Card>
     </Dialog>
