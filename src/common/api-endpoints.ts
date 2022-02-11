@@ -15,7 +15,11 @@ export const endpoints = {
     listCampaignTypes: <Endpoint>{ url: '/campaign-type/list', method: 'GET' },
   },
   person: {
+    list: <Endpoint>{ url: '/person', method: 'GET' },
     createBeneficiary: <Endpoint>{ url: '/beneficiary/create-beneficiary', method: 'POST' },
+    viewPerson: (slug: string) => <Endpoint>{ url: '/person/' + slug, method: 'GET' },
+    createPerson: <Endpoint>{ url: '/person', method: 'POST' },
+    removemany: <Endpoint>{ url: '/person/deletemany', method: 'DELETE' },
   },
   support: {
     createInfoRequest: <Endpoint>{ url: '/support/create-inquiry', method: 'POST' },
@@ -51,5 +55,14 @@ export const endpoints = {
       <Endpoint>{ url: '/campaign-types/edit/' + slug, method: 'PUT' },
     deleteCampaignType: (slug: string) =>
       <Endpoint>{ url: '/campaign-types/remove' + slug, method: 'DELETE' },
+  },
+  bankAccounts: {
+    bankAccountList: <Endpoint>{ url: '/bankaccount', method: 'GET' },
+    viewBankAccount: (slug: string) => <Endpoint>{ url: `/bankaccount/${slug}`, method: 'GET' },
+    deleteBankAccount: (slug: string) =>
+      <Endpoint>{ url: `/bankaccount/${slug}`, method: 'DELETE' },
+    postBankAccount: <Endpoint>{ url: '/bankaccount', method: 'POST' },
+    editBankAccount: (slug: string) => <Endpoint>{ url: `/bankaccount/${slug}`, method: 'PATCH' },
+    deleteManyBankAccounts: <Endpoint>{ url: `/bankaccount/deletemany`, method: 'POST' },
   },
 }

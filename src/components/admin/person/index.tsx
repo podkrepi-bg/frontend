@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { CircularProgress, Container, Divider, Grid, Typography } from '@mui/material'
-import { useCampaignTypesList } from 'common/hooks/campaign-types'
+import { usePersonList } from 'common/hooks/person'
 import BootcampersLayout from './layout/Layout'
 import GenericGrid from './utils/Grid'
 import RefetchStore from './layout/RefetchStore'
 
 export default function BootcampPage() {
   const [isRefetch] = useState(RefetchStore.isRefetch)
-  const info = useCampaignTypesList()
+  const info = usePersonList()
   const isLoading = info.isLoading
   const bootcampers = info.data
 
@@ -37,7 +37,7 @@ export default function BootcampPage() {
           }}>
           <Grid item style={{ marginTop: '10%', marginLeft: '10%' }}>
             <Typography variant="h4" style={{ fontSize: '24px' }}>
-              ALL CAMPAIGN TYPES
+              ALL PEOPLE
             </Typography>
           </Grid>
           <Divider></Divider>

@@ -1,15 +1,23 @@
 import { useState } from 'react'
 import { CircularProgress, Container, Divider, Grid, Typography } from '@mui/material'
-import { useCampaignTypesList } from 'common/hooks/campaign-types'
-import BootcampersLayout from './layout/Layout'
-import GenericGrid from './utils/Grid'
-import RefetchStore from './layout/RefetchStore'
+import { usePersonList } from 'common/hooks/person'
+import BootcampersLayout from '../layout/Layout'
+import GenericGrid from '../utils/Grid'
+import RefetchStore from '../layout/RefetchStore'
+import { useRouter } from 'next/router'
 
 export default function BootcampPage() {
   const [isRefetch] = useState(RefetchStore.isRefetch)
-  const info = useCampaignTypesList()
+  const { query } = useRouter()
+  const queryId = (Array.isArray(query.id) ? query.id[0] : query.id) || ''
+
+  const info = usePersonList()
   const isLoading = info.isLoading
-  const bootcampers = info.data
+  const bootcampers = info.data?.filter(
+    (x) =>
+      x.firstName.toLocaleLowerCase().includes(queryId.toLocaleLowerCase()) ||
+      x.lastName.toLocaleLowerCase().includes(queryId.toLocaleLowerCase()),
+  )
 
   if (isRefetch) {
     info.refetch()
@@ -20,24 +28,20 @@ export default function BootcampPage() {
       <Container
         sx={{
           bgcolor: '#E9F6FF',
-          border: '2px solid #E9F6FF',
+          border: '2px solid white',
           borderRadius: '1%',
         }}>
         <Container
           style={{
-            // backgroundColor: '#E9F6FF',
             border: '5px solid white',
             borderRadius: '1%',
             marginTop: '2%',
             width: '90%',
             overflow: 'hidden',
-            // marginLeft: '10%',
-            // marginTop: '-2%',
-            // padding: "5% 5% 5% 5%"
           }}>
           <Grid item style={{ marginTop: '10%', marginLeft: '10%' }}>
             <Typography variant="h4" style={{ fontSize: '24px' }}>
-              ALL CAMPAIGN TYPES
+              SEARCH RESULTS FOR &apos;{queryId.toLocaleUpperCase()}&apos;
             </Typography>
           </Grid>
           <Divider></Divider>
