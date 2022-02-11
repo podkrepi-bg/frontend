@@ -10,22 +10,20 @@ import { ModalStore } from 'stores/ModalStore'
 
 type Props = {
   id: string
-  setDetailsOpen: Dispatch<SetStateAction<boolean>>
-  setDeleteOpen: Dispatch<SetStateAction<boolean>>
   setSelectedId: Dispatch<SetStateAction<string>>
 }
 
-export default function Actions({ id, setDetailsOpen, setDeleteOpen, setSelectedId }: Props) {
-  const { show, showCfrm } = ModalStore
+export default function Actions({ id, setSelectedId }: Props) {
+  const { showDetails, showDelete } = ModalStore
 
   function detailsClickHandler() {
     setSelectedId(id)
-    show()
+    showDetails()
   }
 
   function deleteClickHandler() {
     setSelectedId(id)
-    showCfrm()
+    showDelete()
   }
 
   return (

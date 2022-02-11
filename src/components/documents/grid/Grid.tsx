@@ -21,16 +21,13 @@ import DeleteModal from './DeleteModal'
 import DeleteAllModal from './DeleteAllModal'
 import Actions from './Actions'
 import { ModalStore } from 'stores/ModalStore'
+import { observer } from 'mobx-react'
 
-export default function Grid() {
+export default observer(function Grid() {
   const [selectedId, setSelectedId] = useState<string>('')
   const [selectionModel, setSelectionModel] = useState<GridRowId[]>([])
 
-  const { showCfrm } = ModalStore
-
-  const [detailsOpen, setDetailsOpen] = useState<boolean>(false)
-  const [deleteOpen, setDeleteOpen] = useState<boolean>(false)
-  const [deleteAllOpen, setDeleteAllOpen] = useState<boolean>(false)
+  const { showDeleteAll } = ModalStore
 
   const { data }: UseQueryResult<DocumentResponse[]> = useDocumentsList()
 
@@ -55,14 +52,7 @@ export default function Grid() {
       width: 200,
       align: 'right',
       renderCell: (cellValues: GridRenderCellParams) => {
-        return (
-          <Actions
-            id={cellValues.row.id}
-            setSelectedId={setSelectedId}
-            setDeleteOpen={setDeleteOpen}
-            setDetailsOpen={setDetailsOpen}
-          />
-        )
+        return <Actions id={cellValues.row.id} setSelectedId={setSelectedId} />
       },
     },
   ]
@@ -78,7 +68,7 @@ export default function Grid() {
                 <AddIcon />
               </Fab>
             </Link>
-            <Fab onClick={showCfrm}>
+            <Fab onClick={showDeleteAll}>
               <DeleteIcon />
             </Fab>
           </Box>
@@ -114,4 +104,4 @@ export default function Grid() {
       </Alert> */}
     </>
   )
-}
+})

@@ -1,7 +1,7 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import { MutationFunction, useMutation, useQueryClient } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Box, Button, Modal, Typography, CSSObject } from '@mui/material'
+import { Dialog, Card, CardContent, Box, Button, Modal, Typography, CSSObject } from '@mui/material'
 import { GridSelectionModel } from '@mui/x-data-grid'
 
 import { DocumentResponse } from 'gql/document'
@@ -11,7 +11,6 @@ import { endpoints } from 'common/api-endpoints'
 import { ModalStore } from 'stores/ModalStore'
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
 import { observer } from 'mobx-react'
-import { DialogStore } from 'stores/DialogStore'
 
 const modalStyle: CSSObject = {
   position: 'absolute',
@@ -30,8 +29,7 @@ type Props = {
 
 export default observer(function DeleteAllModal({ idsToDelete }: Props) {
   const queryClient = useQueryClient()
-  const { isCfrmOpen, hideCfrm } = ModalStore
-  const { clear } = DialogStore
+  const { isDeleteAllOpen, hideDeleteAll } = ModalStore
 
   const deleteDocuments: MutationFunction<AxiosResponse<DocumentResponse>, GridSelectionModel> =
     async () => {
@@ -48,8 +46,7 @@ export default observer(function DeleteAllModal({ idsToDelete }: Props) {
   >({
     mutationFn: deleteDocuments,
     onSuccess: () => {
-      clear()
-      hideCfrm()
+      hideDeleteAll()
       queryClient.invalidateQueries('/document')
     },
   })
@@ -59,14 +56,17 @@ export default observer(function DeleteAllModal({ idsToDelete }: Props) {
   }
 
   return (
-    <ConfirmationDialog
-      isOpen={isCfrmOpen}
-      handleConfirm={deleteHandler}
-      handleCancel={hideCfrm}
-      title="Are you sure?"
-      content="All of the selected items will be deleted permanently!"
-      confirmButtonLabel="Delete"
-      cancelButtonLabel="Cancel"
-    />
+    <Dialog open={isDeleteAllOpen} onClose={hideDeleteAll} sx={{ top: '-35%' }}>
+      <Card>
+        <CardContent>
+          <Typography variant="h5" sx={{ marginBottom: '16px' }}>
+            Are you sure?
+          </Typography>
+          <Typography variant="body1">
+            This action will delete all selected items permanently!
+          </Typography>
+        </CardContent>
+      </Card>
+    </Dialog>
   )
 })

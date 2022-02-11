@@ -4,34 +4,45 @@ import { enableStaticRendering } from 'mobx-react'
 enableStaticRendering(typeof window === 'undefined')
 
 class ModalStoreImpl {
-  isOpen = false
-  isCfrmOpen = false
+  isDetailsOpen = false
+  isDeleteOpen = false
+  isDeleteAllOpen = false
 
   constructor() {
     makeObservable(this, {
-      isOpen: observable,
-      isCfrmOpen: observable,
-      show: action,
-      hide: action,
-      showCfrm: action,
-      hideCfrm: action,
+      isDetailsOpen: observable,
+      isDeleteOpen: observable,
+      showDetails: action,
+      hideDetails: action,
+      showDelete: action,
+      hideDelete: action,
+      showDeleteAll: action,
+      hideDeleteAll: action,
     })
   }
 
-  show = () => {
-    this.isOpen = true
+  showDetails = () => {
+    this.isDetailsOpen = true
   }
 
-  hide = () => {
-    this.isOpen = false
+  hideDetails = () => {
+    this.isDetailsOpen = false
   }
 
-  showCfrm = () => {
-    this.isCfrmOpen = true
+  showDelete = () => {
+    this.isDeleteOpen = true
   }
 
-  hideCfrm = () => {
-    this.isCfrmOpen = false
+  hideDelete = () => {
+    this.isDeleteOpen = false
+  }
+
+  showDeleteAll = () => {
+    this.isDeleteAllOpen = true
+  }
+
+  hideDeleteAll = () => {
+    this.isDeleteAllOpen = false
   }
 }
 
