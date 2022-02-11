@@ -16,6 +16,7 @@ import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
 
 import { validationSchema } from './CreateForm'
+import { AlertStore } from 'stores/AlertStore'
 
 export default function EditForm() {
   const router = useRouter()
@@ -47,7 +48,9 @@ export default function EditForm() {
     DocumentInput
   >({
     mutationFn: editDocument,
+    onError: () => AlertStore.show('An error has occured!', 'error'),
     onSuccess: () => {
+      AlertStore.show('Document has been edited successfully!', 'success')
       router.push(routes.documents.index)
     },
   })

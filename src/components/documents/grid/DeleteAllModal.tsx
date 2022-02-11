@@ -10,6 +10,7 @@ import { axios } from 'common/api-client'
 import { endpoints } from 'common/api-endpoints'
 import { ModalStore } from 'stores/ModalStore'
 import { observer } from 'mobx-react'
+import { AlertStore } from 'stores/AlertStore'
 
 type Props = {
   idsToDelete: GridSelectionModel
@@ -33,8 +34,10 @@ export default observer(function DeleteAllModal({ idsToDelete }: Props) {
     GridSelectionModel
   >({
     mutationFn: deleteDocuments,
+    onError: () => AlertStore.show('An error has occured!', 'error'),
     onSuccess: () => {
       hideDeleteAll()
+      AlertStore.show('Documents has been deleted successfully!', 'success')
       queryClient.invalidateQueries('/document')
     },
   })

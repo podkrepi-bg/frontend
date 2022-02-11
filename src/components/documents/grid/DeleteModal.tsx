@@ -9,6 +9,7 @@ import { endpoints } from 'common/api-endpoints'
 import { axios } from 'common/api-client'
 import { ModalStore } from 'stores/ModalStore'
 import { observer } from 'mobx-react'
+import { AlertStore } from 'stores/AlertStore'
 
 type Props = {
   id: string
@@ -30,8 +31,10 @@ export default observer(function DeleteModal({ id }: Props) {
     string
   >({
     mutationFn: deleteDocument,
+    onError: () => AlertStore.show('An error has occured!', 'error'),
     onSuccess: () => {
       hideDelete()
+      AlertStore.show('Document has been deleted successfully!', 'success')
       queryClient.invalidateQueries('/document')
     },
   })
