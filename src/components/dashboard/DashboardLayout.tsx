@@ -96,18 +96,17 @@ export default observer(function DashboardLayout({
         <Main open={drawerOpen}>
           <Box
             sx={{
-              paddingTop: '80px',
+              paddingTop: '66px',
             }}>
             <Box
               sx={{
-                padding: '18px',
+                padding: '17px 21px 36px 21px',
                 backgroundColor: '#E9F6FF',
                 borderRadius: '10px 10px 0 0',
-                height: 'calc(100vh - 100px)',
+                height: 'calc(100vh - 105px)',
               }}>
               <Box
                 sx={{
-                  padding: '18px',
                   backgroundColor: '#FFF',
                   borderRadius: '10px',
                   height: '100%',

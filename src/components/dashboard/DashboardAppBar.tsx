@@ -18,6 +18,7 @@ export default observer(function DashboardAppBar() {
       sx={{
         backgroundColor: '#fff',
         boxShadow: 'none',
+        paddingLeft: '12px',
       }}>
       <Toolbar disableGutters>
         <Link href={routes.index}>
