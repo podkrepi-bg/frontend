@@ -52,6 +52,7 @@ export const routes = {
   dashboard: {
     index: '/dashboard',
     country: {
+      index: '/dashboard/country',
       view: (id: string) => `/dashboard/country/${id}`,
       create: '/dashboard/country/create',
     },
