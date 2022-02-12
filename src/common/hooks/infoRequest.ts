@@ -17,14 +17,14 @@ type InfoRequest = {
 export function useInfoRequestList() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return useQuery<InfoRequest[]>(
-    endpoints.support.infoRequestList.url,
+    endpoints.infoRequest.infoRequestList.url,
     authQueryFnFactory<InfoRequest[]>(keycloak?.token),
   )
 }
 
 export async function prefetchInfoRequestList(client: QueryClient, token?: string) {
   await client.prefetchQuery<InfoRequest[]>(
-    endpoints.support.infoRequestList.url,
+    endpoints.infoRequest.infoRequestList.url,
     authQueryFnFactory<InfoRequest[]>(token),
   )
 }

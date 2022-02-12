@@ -76,3 +76,7 @@ export const createCheckoutSession: MutationFunction<
     data,
   )
 }
+
+export const deleteInfoRequest = async (slug: string) => {
+  return await axios.delete(endpoints.infoRequest.delete(slug).url)
+}
