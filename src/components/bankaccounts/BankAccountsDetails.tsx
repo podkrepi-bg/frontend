@@ -32,8 +32,8 @@ export default observer(function BankAccountDetails() {
         </Typography>
         <Typography>Email: {row?.email}</Typography>
         {row?.phone ? <Typography>Phone: {row?.phone}</Typography> : null}
-        {row?.address ? <Typography>Adress: {row?.address}</Typography> : null}
-        {row?.companyName ? <Typography>Company name: {row?.companyName}</Typography> : null}
+        {row?.adress ? <Typography>Adress: {row?.adress}</Typography> : null}
+        {row?.company ? <Typography>Company: {row?.company}</Typography> : null}
       </CardContent>
     </Card>
   )
