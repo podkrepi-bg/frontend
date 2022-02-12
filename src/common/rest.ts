@@ -14,7 +14,6 @@ import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { CreateBeneficiaryInput, PersonFormData, PersonResponse } from 'gql/person'
 import { CityInput, CityResponse } from 'gql/city'
 import { CampaignTypeFormData, CampaignTypesInput, CampaignTypesResponse } from 'gql/campaign-types'
-import { BankAccountInput, BankAccountResponse } from 'gql/bankaccounts'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await axios.get(queryKey.join('/'))
@@ -118,16 +117,6 @@ export const createPerson: MutationFunction<AxiosResponse<PersonFormData>, Perso
 ) => {
   return await axios.post<PersonFormData, AxiosResponse<PersonFormData>>(
     endpoints.person.createPerson.url,
-    data,
-  )
-}
-
-export const createBankAccountRequest: MutationFunction<
-  AxiosResponse<BankAccountResponse>,
-  BankAccountInput
-> = async (data: BankAccountInput) => {
-  return await axios.post<BankAccountInput, AxiosResponse<BankAccountResponse>>(
-    endpoints.bankAccounts.postBankAccount.url,
     data,
   )
 }
