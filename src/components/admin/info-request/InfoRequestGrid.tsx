@@ -1,26 +1,42 @@
 import React, { useState } from 'react'
 import { ControlIcons, commonProps } from '../GridHelper'
-
 import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
-import { useInfoRequestList } from 'common/hooks/infoRequest'
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
 import { deleteInfoRequest } from 'common/rest'
 import { useRouter } from 'next/router'
 import { routes } from 'common/routes'
 import ViewModal from './ViewModal'
+import { UseBaseQueryResult, useMutation } from 'react-query'
+import { AlertStore } from 'stores/AlertStore'
+import axios, { AxiosError, AxiosResponse } from 'axios'
+import { InfoRequest, useInfoRequestList } from 'common/hooks/infoRequest'
+import { ApiErrors } from 'common/api-errors'
+import { useTranslation } from 'next-i18next'
+import { endpoints } from 'common/api-endpoints'
 
 export default function InfoRequestGrid() {
-  const { data = [] } = useInfoRequestList()
+  const { data }: UseBaseQueryResult<InfoRequest[]> = useInfoRequestList()
   const [deleteId, setDeleteId] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [row, setRow] = useState<any>()
   const [isViewModalOpen, setIsViewModalOpen] = useState(false)
   const router = useRouter()
+  const { t } = useTranslation()
+
+  const mutation = useMutation<AxiosResponse<InfoRequest>, AxiosError<ApiErrors>, string>({
+    mutationFn: deleteInfoRequest,
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
+  })
 
   const handleDelete = () => {
+    // mutation.mutateAsync(deleteId).then(() => {
+    //   router.push(routes.admin.infoRequest)
+    //   setIsModalOpen(false)
+    // })
     deleteInfoRequest(deleteId).then(() => {
       router.push(routes.admin.infoRequest)
-      setIsModalOpen(true)
+      setIsModalOpen(false)
     })
   }
 
@@ -90,7 +106,7 @@ export default function InfoRequestGrid() {
           overflowX: 'hidden',
           borderRadius: '0 0 13px 13px',
         }}
-        rows={data}
+        rows={data || []}
         columns={columns}
         rowsPerPageOptions={[5, 10]}
         pageSize={5}
