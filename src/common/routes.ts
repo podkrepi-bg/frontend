@@ -48,5 +48,6 @@ export const routes = {
     index: '/admin',
     infoRequests: '/admin/info-requests',
     supporters: '/admin/supporters',
+    infoRequest: '/admin/info-request',
   },
 }
