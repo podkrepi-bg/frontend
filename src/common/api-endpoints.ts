@@ -54,15 +54,7 @@ export const endpoints = {
     editCampaignType: (slug: string) =>
       <Endpoint>{ url: '/campaign-types/edit/' + slug, method: 'PUT' },
     deleteCampaignType: (slug: string) =>
-      <Endpoint>{ url: '/campaign-types/remove' + slug, method: 'DELETE' },
-  },
-  bankAccounts: {
-    bankAccountList: <Endpoint>{ url: '/bankaccount', method: 'GET' },
-    viewBankAccount: (slug: string) => <Endpoint>{ url: `/bankaccount/${slug}`, method: 'GET' },
-    deleteBankAccount: (slug: string) =>
-      <Endpoint>{ url: `/bankaccount/${slug}`, method: 'DELETE' },
-    postBankAccount: <Endpoint>{ url: '/bankaccount', method: 'POST' },
-    editBankAccount: (slug: string) => <Endpoint>{ url: `/bankaccount/${slug}`, method: 'PATCH' },
-    deleteManyBankAccounts: <Endpoint>{ url: `/bankaccount/deletemany`, method: 'POST' },
+      <Endpoint>{ url: '/campaign-types/remove/' + slug, method: 'DELETE' },
+    deleteMany: <Endpoint>{ url: `/campaign-types/deletemany`, method: 'POST' },
   },
 }
