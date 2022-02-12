@@ -12,7 +12,7 @@ import {
 } from '@mui/material'
 import React from 'react'
 import { observer } from 'mobx-react'
-import { DialogStore } from '../../../proto/modal/BootcampModalStore'
+import { DialogStore } from './BootcampModalStore'
 import { useTranslation } from 'react-i18next'
 
 function DetailsModal() {
@@ -55,14 +55,14 @@ function DetailsModal() {
                       <Typography>Phone: {row.phone}</Typography>
                     </ListItem>
                   ) : null}
-                  {row.address ? (
+                  {row.adress ? (
                     <ListItem>
-                      <Typography>Adress: {row.address}</Typography>
+                      <Typography>Adress: {row.adress}</Typography>
                     </ListItem>
                   ) : null}
-                  {row.companyName ? (
+                  {row.company ? (
                     <ListItem>
-                      <Typography>Company name: {row.companyName}</Typography>
+                      <Typography>Company: {row.company}</Typography>
                     </ListItem>
                   ) : null}
                 </List>
