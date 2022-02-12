@@ -6,23 +6,21 @@ import ShareIcon from '@mui/icons-material/Share'
 import { useRouter } from 'next/router'
 import React from 'react'
 type Props = {
-  setCarId: (id: string) => void
-  carId: string
+  setOpen: (id: string) => void
+  row: any
   openModal: () => void
   editRoute: string
-  handleOpen: () => void
+  handleDelete: () => void
   setId: (id: any) => void
-  idToSet: string
 }
 
 export const ControlIcons: React.FC<Props> = ({
-  setCarId,
-  carId,
+  setOpen,
+  row,
   openModal,
   editRoute,
-  handleOpen,
+  handleDelete,
   setId,
-  idToSet,
 }) => {
   const router = useRouter()
 
@@ -40,17 +38,7 @@ export const ControlIcons: React.FC<Props> = ({
           sx={{ cursor: 'pointer' }}
           color="primary"
           onClick={() => {
-            setCarId(carId)
-            openModal()
-          }}
-        />
-      }
-      {
-        <ShareIcon
-          sx={{ cursor: 'pointer' }}
-          color="primary"
-          onClick={() => {
-            setCarId(carId)
+            setOpen(row)
             openModal()
           }}
         />
@@ -69,8 +57,8 @@ export const ControlIcons: React.FC<Props> = ({
           sx={{ cursor: 'pointer', opacity: 0.9 }}
           color="primary"
           onClick={() => {
-            handleOpen()
-            setId(idToSet)
+            handleDelete()
+            setId(row.id)
           }}
         />
       }
