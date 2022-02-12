@@ -44,6 +44,16 @@ export const ControlIcons: React.FC<Props> = ({
         />
       }
       {
+        <ShareIcon
+          sx={{ cursor: 'pointer' }}
+          color="primary"
+          onClick={() => {
+            setOpen(row)
+            openModal()
+          }}
+        />
+      }
+      {
         <EditIcon
           sx={{ cursor: 'pointer' }}
           color="primary"

@@ -25,7 +25,7 @@ export default function InfoRequestGrid() {
   const { data = [] } = useInfoRequestList()
   const [deleteId, setDeleteId] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [row, setRow] = useState('')
+  const [row, setRow] = useState<any>()
   const [isViewModalOpen, setIsViewModalOpen] = useState(false)
   const router = useRouter()
 
@@ -88,7 +88,7 @@ export default function InfoRequestGrid() {
             Info request
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {row.message}
+            {row?.message}
           </Typography>
         </Box>
       </Modal>
