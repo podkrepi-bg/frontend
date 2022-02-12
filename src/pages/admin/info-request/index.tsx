@@ -10,8 +10,6 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   await client.prefetchQuery('/info-request/list', queryFn)
   prefetchInfoRequestList(client)
 
-  console.log(dehydrate(client))
-
   return {
     props: {
       ...(await serverSideTranslations(ctx.locale ?? 'bg', ['common', 'auth', 'validation'])),

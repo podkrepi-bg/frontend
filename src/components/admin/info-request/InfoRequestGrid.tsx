@@ -8,11 +8,10 @@ import { routes } from 'common/routes'
 import ViewModal from './ViewModal'
 import { UseBaseQueryResult, useMutation } from 'react-query'
 import { AlertStore } from 'stores/AlertStore'
-import axios, { AxiosError, AxiosResponse } from 'axios'
+import { AxiosError, AxiosResponse } from 'axios'
 import { InfoRequest, useInfoRequestList } from 'common/hooks/infoRequest'
 import { ApiErrors } from 'common/api-errors'
 import { useTranslation } from 'next-i18next'
-import { endpoints } from 'common/api-endpoints'
 
 export default function InfoRequestGrid() {
   const { data }: UseBaseQueryResult<InfoRequest[]> = useInfoRequestList()
@@ -30,11 +29,7 @@ export default function InfoRequestGrid() {
   })
 
   const handleDelete = () => {
-    // mutation.mutateAsync(deleteId).then(() => {
-    //   router.push(routes.admin.infoRequest)
-    //   setIsModalOpen(false)
-    // })
-    deleteInfoRequest(deleteId).then(() => {
+    mutation.mutateAsync(deleteId).then(() => {
       router.push(routes.admin.infoRequest)
       setIsModalOpen(false)
     })

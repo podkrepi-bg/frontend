@@ -5,9 +5,7 @@ import InfoRequestGrid from '../info-request/InfoRequestGrid'
 import AppBarMenu from '../layout/AppBarMenu'
 import MainLayout from '../layout/MainLayout'
 
-function InfoRequestPage(props) {
-  const { data }: UseBaseQueryResult<InfoRequest[]> = useInfoRequestList()
-
+function InfoRequestPage() {
   return (
     <>
       <MainLayout>
@@ -22,11 +20,10 @@ function InfoRequestPage(props) {
           }}>
           <Container sx={{ pt: '24px' }} disableGutters maxWidth={false}>
             <AppBarMenu />
-            <InfoRequestGrid {...props} />
+            <InfoRequestGrid />
           </Container>
         </Container>
       </MainLayout>
-      <p>{JSON.stringify(data)}</p>
     </>
   )
 }
