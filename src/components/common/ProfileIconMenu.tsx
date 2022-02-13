@@ -17,7 +17,7 @@ export default function ProfileIconMenu() {
   return (
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="profile">
-        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, mr: '4px', height: '32px' }}>
+        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, height: '32px' }}>
           <Avatar
             sx={{ width: '32px', height: '32px' }}
             alt="Remy Sharp"

@@ -5,12 +5,14 @@ enableStaticRendering(typeof window === 'undefined')
 
 export class DrawerStoreImpl {
   isOpen = true
+  isFullClosed = false
   companySubMenu = false
 
   constructor() {
     makeObservable(this, {
       isOpen: observable,
       companySubMenu: observable,
+      isFullClosed: observable,
       toggle: action,
     })
   }
@@ -21,6 +23,10 @@ export class DrawerStoreImpl {
 
   toggleCompanySubMenu = () => {
     this.companySubMenu = !this.companySubMenu
+  }
+
+  toggleFullClosed = () => {
+    this.isFullClosed = !this.isFullClosed
   }
 }
 

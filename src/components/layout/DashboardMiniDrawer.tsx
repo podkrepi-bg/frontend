@@ -1,31 +1,20 @@
-import { useState } from 'react'
 import { makeStyles } from '@mui/styles'
 import { styled, Theme, CSSObject } from '@mui/material/styles'
 import MuiDrawer from '@mui/material/Drawer'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
-import {
-  Toolbar,
-  TextField,
-  Box,
-  List,
-  CssBaseline,
-  Typography,
-  Divider,
-  IconButton,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from '@mui/material'
+import { Toolbar, TextField, Box, CssBaseline, Typography, IconButton } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
-import InboxIcon from '@mui/icons-material/MoveToInbox'
-import MailIcon from '@mui/icons-material/Mail'
 import SearchIcon from '@mui/icons-material/Search'
 import NotificationsIcon from '@mui/icons-material/Notifications'
+import { observer } from 'mobx-react'
 
 import PodkrepiIcon from 'components/brand/PodkrepiIcon'
 import ProfileIconMenu from 'components/common/ProfileIconMenu'
+import { DrawerStore } from 'stores/DrawerStore'
 
-const drawerWidth = 240
+import DashboardMenu from './nav/DashboardMenu'
+
+const drawerWidth = 194
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -50,6 +39,16 @@ const closedMixin = (theme: Theme): CSSObject => ({
   },
 })
 
+const fullClosedMixin = (theme: Theme): CSSObject => ({
+  border: 'none',
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  overflowX: 'hidden',
+  width: 0,
+})
+
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -70,29 +69,34 @@ const AppBar = styled(MuiAppBar, {
   zIndex: theme.zIndex.drawer + 1,
   backgroundColor: '#fff',
   boxShadow: 'none',
-  padding: '13px 13px 9px',
+  padding: '13px 41px 9px',
 }))
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: 'nowrap',
-    boxSizing: 'border-box',
-    ...(open && {
-      ...openedMixin(theme),
-      '& .MuiDrawer-paper': openedMixin(theme),
-    }),
-    ...(!open && {
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop: string) => prop !== 'open',
+})(({ theme, open, fullClosed }: { theme: Theme; open: boolean; fullClosed: boolean }) => ({
+  width: drawerWidth,
+  flexShrink: 0,
+  whiteSpace: 'nowrap',
+  boxSizing: 'border-box',
+  ...(open && {
+    ...openedMixin(theme),
+    '& .MuiDrawer-paper': openedMixin(theme),
+  }),
+  ...(!open &&
+    !fullClosed && {
       ...closedMixin(theme),
       '& .MuiDrawer-paper': closedMixin(theme),
     }),
-  }),
-)
+  ...(!open &&
+    fullClosed && {
+      ...fullClosedMixin(theme),
+      '& .MuiDrawer-paper': fullClosedMixin(theme),
+    }),
+}))
 
 type Props = {
   children: React.ReactNode
-  title: string
 }
 
 const useStyles = makeStyles(() => {
@@ -102,15 +106,21 @@ const useStyles = makeStyles(() => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
+      padding: '0',
     },
   }
 })
 
-export default function DashboardMiniDrawer({ children, title }: Props) {
-  const [open, setOpen] = useState(true)
+export default observer(function DashboardMiniDrawer({ children }: Props) {
+  const { isOpen, toggle, isFullClosed, toggleFullClosed } = DrawerStore
   const classes = useStyles()
 
-  const toggleDrawer = () => setOpen((old) => !old)
+  const handleHamburgerClick = () => {
+    if (isFullClosed) {
+      toggleFullClosed()
+    }
+    toggle()
+  }
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -126,11 +136,15 @@ export default function DashboardMiniDrawer({ children, title }: Props) {
             <IconButton
               color="inherit"
               aria-label="open drawer"
-              onClick={toggleDrawer}
+              onClick={handleHamburgerClick}
               edge="start"
               sx={{
-                marginRight: '36px',
-                marginLeft: '90px',
+                marginRight: '18px',
+                marginLeft: '80px',
+                color: '#0098E3',
+                borderRadius: '8px',
+                background: '#F1FBFF',
+                padding: '4px',
               }}>
               <MenuIcon />
             </IconButton>
@@ -154,44 +168,27 @@ export default function DashboardMiniDrawer({ children, title }: Props) {
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <NotificationsIcon
               sx={{
-                padding: '4px ',
+                padding: '4px',
                 fontSize: '32px',
                 background: '#F1FBFF',
                 borderRadius: '8px',
                 marginRight: '9px',
+                color: '#0098E3',
               }}
             />
             <ProfileIconMenu />
           </Box>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open}>
-        <Divider />
-        <List sx={{ mt: 8 }}>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
+      <Drawer variant="permanent" open={isOpen} fullClosed={isFullClosed}>
+        <DashboardMenu />
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, paddingRight: 3, height: '100vh', mb: '-40px', overflow: 'hidden' }}>
         <DrawerHeader />
-        <Typography variant="h4" sx={{ marginBottom: 3, textAlign: 'center' }}>
-          {title}
-        </Typography>
         {children}
       </Box>
     </Box>
   )
-}
+})
