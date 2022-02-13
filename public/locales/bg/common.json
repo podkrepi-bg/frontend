@@ -11,7 +11,7 @@
     },
     "admin": {
       "index": "Администрация",
-      "info-request": "Заявки за контакт",
+      "info-requests": "Заявки за контакт",
       "supporters": "Доброволци"
     },
     "donation-menu": "Дарителство",
