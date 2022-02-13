@@ -27,7 +27,7 @@ export default function AdminPage() {
       <Container maxWidth="xl">
         <Grid container direction="column" spacing={4}>
           <Grid item>
-            <Typography variant="h3">{t('nav.admin.info-request')}</Typography>
+            <Typography variant="h3">{t('nav.admin.info-requests')}</Typography>
           </Grid>
           <Grid item>
             <InfoRequestGrid />
