@@ -6,9 +6,12 @@ import { staticUrls } from 'common/routes'
 
 import DonationMenu from './DonationMenu'
 import ProjectMenu from './ProjectMenu'
+import AdminMenu from './AdminMenu'
+import { useSession } from 'common/util/useSession'
 
 export default function MainNavMenu({ children }: { children?: React.ReactNode }) {
   const { t } = useTranslation()
+  const { keycloak } = useSession()
 
   return (
     <Grid container direction="row" wrap="nowrap" alignItems="baseline" spacing={1}>
@@ -18,6 +21,13 @@ export default function MainNavMenu({ children }: { children?: React.ReactNode }
       <Grid item>
         <DonationMenu />
       </Grid>
+      {keycloak?.authenticated ? (
+        <Grid item>
+          <AdminMenu />
+        </Grid>
+      ) : (
+        <></>
+      )}
       <Grid item>
         <Button
           variant="text"

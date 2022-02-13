@@ -11,7 +11,7 @@
     },
     "admin": {
       "index": "Administration",
-      "info-request": "Contact requests",
+      "info-requests": "Contact requests",
       "supporters": "Volunteers"
     },
     "donation-menu": "Donation",
