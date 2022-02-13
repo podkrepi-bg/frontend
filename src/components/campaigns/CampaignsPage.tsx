@@ -1,12 +1,14 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
+import { Box, Container, Typography } from '@mui/material'
+
 import { routes } from 'common/routes'
 import Layout from 'components/layout/Layout'
 import LinkButton from 'components/common/LinkButton'
-import CampaignsList from './CampaignsList'
-import { Box, Container, Typography } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
+
+import CampaignsList from './CampaignsList'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
 const useStyles = makeStyles((theme) =>
@@ -31,18 +33,18 @@ export default function CampaignsPage() {
 
   return (
     <Layout
-      title={t('campaigns:cta.support-cause-today')}
+      title={t('nav.campaigns.support')}
       githubUrl="https://github.com/podkrepi-bg/frontend/tree/master/src/components/campaigns/CampaignsPage.tsx"
       figmaUrl="https://www.figma.com/file/MmvFKzUv6yE5U2wrOpWtwS/Podkrepi.bg?node-id=5100%3A21216">
       <Container maxWidth="lg">
         <Typography variant="subtitle2" component="p" className={classes.subheading}>
-          {t('campaigns:campaign.subheading')}
+          {t('nav.campaigns.subheading')}
         </Typography>
         <Typography variant="h6" component="p" className={classes.subheading}>
-          {t('campaigns:campaign.subheading-bold')}
+          {t('nav.campaigns.subheading-bold')}
         </Typography>
         <Typography variant="h6" component="p" className={classes.subheading}>
-          {t('campaigns:campaign.subheading-bold-secondary')}
+          {t('nav.campaigns.subheading-bold-secondary')}
         </Typography>
         <Box textAlign="center" marginBottom={4}>
           <LinkButton
@@ -51,7 +53,7 @@ export default function CampaignsPage() {
             size="small"
             className={classes.applyButton}
             endIcon={<ArrowForwardIosIcon />}>
-            {t('campaigns:cta.apply')}
+            {t('nav.campaigns.apply')}
           </LinkButton>
         </Box>
         <CampaignsList />

@@ -11,7 +11,9 @@ import { CampaignResponse, CampaignInput } from 'gql/campaigns'
 
 import { endpoints } from './api-endpoints'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
-import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
+import { CreateBeneficiaryInput, PersonFormData, PersonResponse } from 'gql/person'
+import { CityInput, CityResponse } from 'gql/city'
+import { CampaignTypeFormData, CampaignTypesInput, CampaignTypesResponse } from 'gql/campaign-types'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await axios.get(queryKey.join('/'))
@@ -73,6 +75,55 @@ export const createCheckoutSession: MutationFunction<
 > = async (data: CheckoutSessionInput) => {
   return await axios.post<CheckoutSessionInput, AxiosResponse<CheckoutSessionResponse>>(
     endpoints.donation.createCheckoutSession.url,
+    data,
+  )
+}
+
+export const createCity: MutationFunction<AxiosResponse<CityResponse>, CityInput> = async (
+  data: CityInput,
+) => {
+  return await axios.post<CityInput, AxiosResponse<CityResponse>>(
+    endpoints.city.createCity.url,
+    data,
+  )
+}
+
+export const editCity = async (id: string, data: CityInput) => {
+  return await axios.put<CityInput, AxiosResponse<CityResponse>>(
+    endpoints.city.editCity(id).url,
+    data,
+  )
+}
+
+export const createCampaignType: MutationFunction<
+  AxiosResponse<CampaignTypesResponse>,
+  CampaignTypesInput
+> = async (data: CampaignTypesInput) => {
+  return await axios.post<CampaignTypesInput, AxiosResponse<CampaignTypesResponse>>(
+    endpoints.campaignTypes.createCampaignType.url,
+    data,
+  )
+}
+
+export const editCampaignType = async (id: string, data: CampaignTypeFormData) => {
+  return await axios.put<CampaignTypeFormData, AxiosResponse<CampaignTypesResponse>>(
+    endpoints.campaignTypes.editCampaignType(id).url,
+    data,
+  )
+}
+
+export const createPerson: MutationFunction<AxiosResponse<PersonFormData>, PersonFormData> = async (
+  data: PersonFormData,
+) => {
+  return await axios.post<PersonFormData, AxiosResponse<PersonFormData>>(
+    endpoints.person.createPerson.url,
+    data,
+  )
+}
+
+export const editPerson = async (id: string, data: PersonFormData) => {
+  return await axios.put<PersonFormData, AxiosResponse<PersonFormData>>(
+    endpoints.person.viewPerson(id).url,
     data,
   )
 }

@@ -17,11 +17,9 @@ const validationSchema: yup.SchemaOf<PersonFormData> = yup.object().defined().sh
   email: email.required(),
   phone: phone.required(),
   // Company
-  legalEntity: yup.boolean().required(),
-  companyName: name,
-  companyNumber: yup.string(),
+  company: name,
   legalPersonName: name,
-  address: yup.string(),
+  adress: yup.string(),
 })
 
 const defaults: PersonFormData = {
@@ -29,11 +27,8 @@ const defaults: PersonFormData = {
   lastName: '',
   email: '',
   phone: '',
-  legalEntity: false,
-  companyName: '',
-  companyNumber: '',
-  legalPersonName: '',
-  address: '',
+  company: '',
+  adress: '',
 }
 
 export type PersonFormProps = {

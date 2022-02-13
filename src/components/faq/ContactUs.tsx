@@ -1,18 +1,16 @@
 import React from 'react'
-import { Box, Typography } from '@mui/material'
-
-import { routes } from 'common/routes'
-import LinkButton from 'components/common/LinkButton'
+import { Box, Link, Typography } from '@mui/material'
+import { routes } from '../../common/routes'
 
 const ContactUs = () => {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-      <Typography sx={{ mb: 2 }} variant="h6">
+      <Typography sx={{ mb: 2 }} variant={'h6'}>
         Не намерихте информацията, която търсите?
       </Typography>
-      <LinkButton href={routes.contact} variant="contained" color="primary">
+      <Link href={routes.contact} variant={'h6'}>
         Свържете се с нас!
-      </LinkButton>
+      </Link>
     </Box>
   )
 }

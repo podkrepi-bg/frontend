@@ -1,11 +1,10 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
+import makeStyles from '@mui/styles/makeStyles'
 import { routes } from 'common/routes'
-import { money } from 'common/util/money'
 import LinkButton from 'components/common/LinkButton'
 import { CampaignResponse } from 'gql/campaigns'
 import CampaignProgress from './CampaignProgress'
-import makeStyles from '@mui/styles/makeStyles'
 import {
   Grid,
   Card,
@@ -19,6 +18,7 @@ import {
 } from '@mui/material'
 import { Favorite } from '@mui/icons-material'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import { money } from 'common/util/money'
 
 const useStyles = makeStyles((theme) => ({
   media: {
@@ -28,42 +28,51 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(0, 4),
     opacity: 0.2,
     transition: 'filter 0.3s, opacity 0.8s',
+
     '&:hover': {
       filter: 'grayscale(0)',
       opacity: 1,
     },
   },
+
   amountButtonGroup: {
     backgroundColor: '#e60550',
     border: '0',
     borderRadius: '0',
     width: '100%',
   },
+
   amountButton: {
     backgroundColor: '#e60550',
     border: '0',
     color: '#fff',
     width: '100%',
+
     /* stylelint-disable-next-line */
     '&.Mui-selected': {
       backgroundColor: '#e60550',
       border: '0',
       color: '#fff',
+
       '&:active': {
         backgroundColor: '#c40444',
       },
+
       '&:hover': {
         backgroundColor: '#c40444',
       },
+
       '&:focus': {
         backgroundColor: '#c40444',
       },
+
       '&:selected': {
         backgroundColor: '#c40444',
         color: '#fff',
       },
     },
   },
+
   donate: {
     backgroundColor: theme.palette.primary.main,
     border: '0',
@@ -72,18 +81,22 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.primary.contrastText,
     padding: theme.spacing(1),
     width: '100%',
+
     '&:hover svg': {
       transform: 'scale(1.5)',
       transition: 'all 0.2s ease-out-in',
     },
+
     svg: {
       transform: 'scale(1)',
       transition: 'all 0.2s ease-in-out',
     },
   },
+
   cardActions: {
     padding: '0',
   },
+
   cardWrapper: {
     position: 'relative',
     minHeight: theme.spacing(87),
@@ -91,26 +104,34 @@ const useStyles = makeStyles((theme) => ({
     border: 'none',
     borderRadius: 0,
   },
+
   campaignTitle: {
     textTransform: 'capitalize',
   },
+
+  cardButtons: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+  },
+
   supportNowButton: {
     padding: theme.spacing(1, 4),
   },
+
   seeMoreButton: {
     backgroundColor: theme.palette.common.white,
     padding: theme.spacing(1, 4),
     border: `2px solid ${theme.palette.primary.main}`,
+
     '&:hover': {
       border: `2px solid ${theme.palette.primary.dark}`,
     },
   },
+
   progressBar: {
-    margin: theme.spacing(2.5),
+    marginBottom: theme.spacing(7),
     textAlign: 'left',
-  },
-  cardContent: {
-    minHeight: theme.spacing(25),
   },
 }))
 
@@ -138,7 +159,7 @@ export default function CampaignCard({ campaign }: Props) {
             title="campaign image placeholder"
           />
         </Link>
-        <CardContent className={classes.cardContent}>
+        <CardContent>
           <Typography gutterBottom variant="h5" component="h2" className={classes.campaignTitle}>
             {campaign.title}
           </Typography>
@@ -175,7 +196,7 @@ export default function CampaignCard({ campaign }: Props) {
               })}
             </ToggleButtonGroup>
           </Grid> */}
-          <Grid item xs={12}>
+          <Grid item xs={12} className={classes.cardButtons}>
             <Box mx={2} mb={2}>
               <LinkButton
                 fullWidth
@@ -195,7 +216,7 @@ export default function CampaignCard({ campaign }: Props) {
                 size="small"
                 className={classes.seeMoreButton}
                 endIcon={<ArrowForwardIosIcon />}>
-                {t('campaigns:cta.see-more')}
+                {t('nav.campaigns.see-more-button')}
               </LinkButton>
             </Box>
           </Grid>

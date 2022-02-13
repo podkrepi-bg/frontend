@@ -10,9 +10,9 @@ const BorderLinearProgress = withStyles((theme) => ({
     borderRadius: 5,
     padding: theme.spacing(1),
   },
-  // colorPrimary: {
-  //  backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 700],
-  // },
+  colorPrimary: {
+    backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 700],
+  },
   bar: {
     borderRadius: 5,
     backgroundColor: '#1a90ff',
@@ -22,11 +22,13 @@ const BorderLinearProgress = withStyles((theme) => ({
 const useStyles = makeStyles((theme) => ({
   donationProgress: {
     width: '100%',
+
     '> div p': {
       color: theme.palette.text.secondary,
       padding: theme.spacing(1),
     },
   },
+
   cardActions: {
     padding: '0',
   },

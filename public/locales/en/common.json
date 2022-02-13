@@ -7,12 +7,24 @@
     "contacts": "Contacts",
     "campaigns": {
       "index": "Campaigns",
-      "create": "Suggest campaign"
+      "apply": "Apply",
+      "create": "Suggest campaign",
+      "support": "Support a campaign today!",
+      "subheading": "Your support for the world matters. All supporters through Podkrepi.bg are our partners in supporting the community campaign. As a generous benefactor, you become an important partner in supporting a campaign regarding someone's health or the success of a cause that is close to your heart.",
+      "subheading-bold": "Even the slightest help can be the engine of great change",
+      "subheading-bold-secondary": "Together we support and encourage the donation and volunteer culture in Bulgaria!",
+      "see-more-button": "See more"
     },
     "admin": {
       "index": "Administration",
-      "info-requests": "Contact requests",
+      "info-request": "Contact requests",
       "supporters": "Volunteers"
+    },
+    "bootcamp": {
+      "menu": "Bootcamp",
+      "bootcampers": "All bootcampers",
+      "edit-bootcamper-info": "Edit bootcamper info",
+      "create": "Add bootcamper"
     },
     "donation-menu": "Donation",
     "faq": "Frequently Asked Questions",
@@ -34,7 +46,6 @@
   },
   "close": "Close",
   "link": "Link",
-  "support": "Support",
   "improve-this-page": "Improve this page:",
   "github-link-text": "GitHub Source",
   "figma-link-text": "Figma Design",
