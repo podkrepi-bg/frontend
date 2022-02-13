@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-import { routes } from 'common/routes'
+import { routes, staticUrls } from 'common/routes'
 import LinkMenuItem from 'components/common/LinkMenuItem'
 
 import GenericMenu from './GenericMenu'
@@ -17,31 +17,35 @@ type NavItem = {
 
 const allNavItems: NavItem[] = [
   {
-    href: routes.aboutProject,
-    label: 'nav.about.about-project',
+    href: staticUrls.howToContribute,
+    label: 'nav.dev.contribute',
+    target: '_blank',
   },
   {
-    href: routes.about,
-    label: 'nav.about.about-us',
+    href: staticUrls.projectDocs,
+    label: 'nav.dev.project-docs',
+    target: '_blank',
   },
   {
-    href: routes.support,
-    label: 'nav.about.support-us',
+    href: staticUrls.github,
+    label: 'nav.dev.open-source',
+    target: '_blank',
   },
   {
-    href: routes.contact,
-    label: 'nav.about.contacts',
+    href: routes.dev.openData,
+    label: 'nav.dev.open-data',
+    target: '_blank',
   },
 ]
 export const navItems = allNavItems.filter((el) => typeof el.enabled === 'undefined' ?? el.enabled)
 
-export default function ProjectMenu() {
+export default function DevelopmentMenu() {
   const { t } = useTranslation()
   const router = useRouter()
   return (
-    <GenericMenu label={t('nav.about.about-project')}>
-      {navItems.map(({ href, label }, key) => (
-        <LinkMenuItem href={href} selected={router.asPath === href} key={key}>
+    <GenericMenu label={t('nav.dev.index')}>
+      {navItems.map(({ href, label, target }, key) => (
+        <LinkMenuItem href={href} selected={router.asPath === href} key={key} target={target}>
           <Typography variant="button">{t(label)}</Typography>
         </LinkMenuItem>
       ))}
