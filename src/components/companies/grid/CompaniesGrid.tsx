@@ -18,6 +18,9 @@ const useStyles = makeStyles(() => {
       backgroundColor: '#fff',
       borderRadius: '10px',
       border: 'none',
+      '& .MuiDataGrid-columnHeaderTitle': {
+        fontWeight: 'bold',
+      },
     },
     container: {
       padding: '17px',
@@ -85,7 +88,7 @@ export default function CompaniesGrid() {
         field: 'Actions',
         headerName: t('companies:actions'),
         renderCell: renderActions,
-        width: 130,
+        width: 110,
       },
     ]
   }, [])

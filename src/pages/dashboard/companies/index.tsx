@@ -7,7 +7,7 @@ import { queryFn } from 'common/rest'
 import DashboardLayout from 'components/layout/DashboardLayout'
 import CompaniesGrid from 'components/companies/grid/CompaniesGrid'
 
-export default function DashboardPage() {
+export default function CompaniesPage() {
   const { t } = useTranslation()
 
   return (

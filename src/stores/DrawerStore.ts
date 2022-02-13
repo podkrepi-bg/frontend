@@ -14,6 +14,8 @@ export class DrawerStoreImpl {
       companySubMenu: observable,
       isFullClosed: observable,
       toggle: action,
+      toggleCompanySubMenu: action,
+      toggleFullClosed: action,
     })
   }
 

@@ -53,6 +53,6 @@ export const routes = {
     index: '/dashboard',
     companies: '/dashboard/companies',
     createCompany: '/dashboard/companies/create',
-    editCompany: (slug: string) => `dashboard/companies/${slug}/edit`,
+    editCompany: (slug: string) => `/dashboard/companies/${slug}/edit`,
   },
 }

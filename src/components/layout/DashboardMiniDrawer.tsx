@@ -74,7 +74,7 @@ const AppBar = styled(MuiAppBar, {
 
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop: string) => prop !== 'open',
-})(({ theme, open, fullClosed }: { theme: Theme; open: boolean; fullClosed: boolean }) => ({
+})(({ theme, open, fullclosed }: { theme: Theme; open: boolean; fullclosed: boolean }) => ({
   width: drawerWidth,
   flexShrink: 0,
   whiteSpace: 'nowrap',
@@ -84,12 +84,12 @@ const Drawer = styled(MuiDrawer, {
     '& .MuiDrawer-paper': openedMixin(theme),
   }),
   ...(!open &&
-    !fullClosed && {
+    !fullclosed && {
       ...closedMixin(theme),
       '& .MuiDrawer-paper': closedMixin(theme),
     }),
   ...(!open &&
-    fullClosed && {
+    fullclosed && {
       ...fullClosedMixin(theme),
       '& .MuiDrawer-paper': fullClosedMixin(theme),
     }),
@@ -112,12 +112,16 @@ const useStyles = makeStyles(() => {
 })
 
 export default observer(function DashboardMiniDrawer({ children }: Props) {
-  const { isOpen, toggle, isFullClosed, toggleFullClosed } = DrawerStore
+  const { isOpen, toggle, isFullClosed, toggleFullClosed, companySubMenu, toggleCompanySubMenu } =
+    DrawerStore
   const classes = useStyles()
 
   const handleHamburgerClick = () => {
     if (isFullClosed) {
       toggleFullClosed()
+    }
+    if (companySubMenu) {
+      toggleCompanySubMenu()
     }
     toggle()
   }
@@ -180,7 +184,7 @@ export default observer(function DashboardMiniDrawer({ children }: Props) {
           </Box>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={isOpen} fullClosed={isFullClosed}>
+      <Drawer variant="permanent" open={isOpen} fullclosed={isFullClosed ? 'true' : undefined}>
         <DashboardMenu />
       </Drawer>
       <Box

@@ -1,15 +1,12 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
-import { Box, Button } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import { GridSelectionModel, GridToolbarContainer } from '@mui/x-data-grid'
+import { GridSelectionModel } from '@mui/x-data-grid'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { useMutation } from 'react-query'
-import ShareIcon from '@mui/icons-material/Share'
-import PrintIcon from '@mui/icons-material/Print'
-import SaveIcon from '@mui/icons-material/Save'
-import EventNoteIcon from '@mui/icons-material/EventNote'
+import HomeIcon from '@mui/icons-material/Home'
 
 import { routes } from 'common/routes'
 import { deleteManyCompanies } from 'common/rest'
@@ -39,6 +36,10 @@ const useStyles = makeStyles(() => {
       height: '20px',
       minWidth: '20px',
     },
+    link: {
+      color: '#0000008A',
+      fontSize: '14px',
+    },
   }
 })
 
@@ -66,63 +67,84 @@ export default function CompaniesGridToolbar({
     setOpen(false)
   }
 
+  const deleteIconClickHandler = () => {
+    if (selectionModel.length > 0) {
+      setOpen(true)
+    } else {
+      AlertStore.show('Please select row', 'error')
+    }
+  }
+
   return (
-    <GridToolbarContainer>
+    <Box sx={{ width: '100%' }}>
       <Box
         sx={{
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'flex-end',
-          width: '100%',
+          justifyContent: 'space-between',
+          padding: '7px 12px 6px 24px',
+          borderBottom: '1px solid rgba(224, 224, 224, 1)',
         }}>
-        <Button className={`${classes.smallBtn} ${classes.btn}`}>
-          <EventNoteIcon
-            style={{
-              width: '10px',
-            }}
-          />
-        </Button>
-        <Button className={`${classes.smallBtn} ${classes.btn}`} onClick={() => setOpen(true)}>
-          <DeleteIcon
-            style={{
-              width: '10px',
-            }}
-          />
-        </Button>
-        <Button className={`${classes.smallBtn} ${classes.btn}`}>
-          <SaveIcon
-            style={{
-              width: '10px',
-            }}
-          />
-        </Button>
-        <Button className={`${classes.smallBtn} ${classes.btn}`}>
-          <PrintIcon
-            style={{
-              width: '10px',
-            }}
-          />
-        </Button>
-        <Button className={`${classes.smallBtn} ${classes.btn}`}>
-          <ShareIcon
-            style={{
-              width: '10px',
-            }}
-          />
-        </Button>
-        <Link passHref href={routes.dashboard.createCompany}>
-          <Button className={`${classes.addBtn} ${classes.btn}`}>+</Button>
-        </Link>
-        <ConfirmationDialog
-          isOpen={open}
-          handleConfirm={deleteConfirmHandler}
-          handleCancel={() => setOpen(false)}
-          title={t('companies:deleteTitle')}
-          cancelButtonLabel={t('companies:cta.cancel')}
-          confirmButtonLabel={t('companies:cta.confirm')}
-          content={t('companies:deleteContent')}
-        />
+        <Typography sx={{ fontSize: '24px', fontFamily: 'Montserrat', color: '#32A9FE' }}>
+          Компании
+        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <Link passHref href={routes.index}>
+            <a className={classes.link}>
+              <HomeIcon />
+            </a>
+          </Link>
+          <Typography sx={{ fontSize: '16px', margin: '0 5px' }}>/</Typography>
+          <Link passHref href={routes.dashboard.index}>
+            <a className={classes.link}>Dashboard</a>
+          </Link>
+          <Typography sx={{ fontSize: '16px', margin: '0 5px' }}>/</Typography>
+          <Link passHref href={routes.dashboard.companies}>
+            <a className={classes.link}>Companies</a>
+          </Link>
+        </Box>
       </Box>
-    </GridToolbarContainer>
+      <Box
+        sx={{
+          padding: '8px 8px 8px 24px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}>
+        <Typography sx={{ alignSelf: 'flex-start', flexBasis: '20%', color: '#666666' }}>
+          Описание на компании
+        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+            width: '100%',
+            padding: '14px 0',
+          }}>
+          <Button className={`${classes.smallBtn} ${classes.btn}`} onClick={deleteIconClickHandler}>
+            <DeleteIcon
+              style={{
+                width: '10px',
+              }}
+            />
+          </Button>
+          <Link passHref href={routes.dashboard.createCompany}>
+            <a>
+              <Button className={`${classes.addBtn} ${classes.btn}`}>+</Button>
+            </a>
+          </Link>
+          <ConfirmationDialog
+            isOpen={open}
+            handleConfirm={deleteConfirmHandler}
+            handleCancel={() => setOpen(false)}
+            title={t('companies:deleteTitle')}
+            cancelButtonLabel={t('companies:cta.cancel')}
+            confirmButtonLabel={t('companies:cta.confirm')}
+            content={t('companies:deleteContent')}
+          />
+        </Box>
+      </Box>
+    </Box>
   )
 }

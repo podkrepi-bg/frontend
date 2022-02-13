@@ -12,11 +12,13 @@ const useStyles = makeStyles(() => {
     btn: {
       marginRight: '16px',
       cursor: 'pointer',
+      width: '15px',
+      height: '15px',
     },
     link: {
       margin: 0,
       padding: 0,
-      color: '#000',
+      color: '#4AC3FF',
       display: 'flex',
     },
   }

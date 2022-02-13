@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -6,6 +5,7 @@ import { List, ListItemButton, ListItemIcon, ListItemText, Collapse, Box } from 
 import { makeStyles } from '@mui/styles'
 import BusinessIcon from '@mui/icons-material/Business'
 import SettingsIcon from '@mui/icons-material/Settings'
+import CancelIcon from '@mui/icons-material/Cancel'
 import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
@@ -19,6 +19,7 @@ const useStyles = makeStyles(() => {
       height: '36px',
       margin: '0 16px',
       padding: '8px 10px',
+      color: '#00000099',
     },
     shrink: {
       width: '36px',
@@ -41,6 +42,16 @@ export default observer(function DashboardMenu() {
     if (isOpen) {
       toggle()
     }
+    if (companySubMenu) {
+      toggleCompanySubMenu()
+    }
+  }
+
+  const submenuToggleHandler = () => {
+    if (!isOpen && !companySubMenu) {
+      toggle()
+    }
+    toggleCompanySubMenu()
   }
 
   return (
@@ -54,7 +65,7 @@ export default observer(function DashboardMenu() {
       }}>
       <Box>
         <ListItemButton
-          onClick={toggleCompanySubMenu}
+          onClick={submenuToggleHandler}
           className={`${classes.listItem} ${isOpen ? '' : classes.shrink} ${
             router.asPath.startsWith(routes.dashboard.index) ? classes.listItemActive : ''
           }`}>
@@ -68,11 +79,15 @@ export default observer(function DashboardMenu() {
           {isOpen && <ListItemText primary={t('companies:companies')} sx={{ fontSize: '16px' }} />}
         </ListItemButton>
         <Collapse in={companySubMenu} timeout="auto" unmountOnExit>
-          <Link passHref href={routes.dashboard.index}>
-            <ListItemButton className={classes.listItem}>{t('companies:all')}</ListItemButton>
+          <Link passHref href={routes.dashboard.companies}>
+            <a>
+              <ListItemButton className={classes.listItem}>{t('companies:all')}</ListItemButton>
+            </a>
           </Link>
           <Link passHref href={routes.dashboard.createCompany}>
-            <ListItemButton className={classes.listItem}>{t('companies:cta.add')}</ListItemButton>
+            <a>
+              <ListItemButton className={classes.listItem}>{t('companies:cta.add')}</ListItemButton>
+            </a>
           </Link>
         </Collapse>
       </Box>
@@ -80,6 +95,16 @@ export default observer(function DashboardMenu() {
         <ListItemButton
           onClick={closeDrawerHandler}
           className={`${classes.listItem} ${isOpen ? '' : classes.shrink}`}>
+          <ListItemIcon sx={{ minWidth: '30px' }}>
+            <CancelIcon
+              style={{
+                width: '15px',
+              }}
+            />
+          </ListItemIcon>
+          {isOpen && <ListItemText primary={t('common:close')} sx={{ fontSize: '16px' }} />}
+        </ListItemButton>
+        <ListItemButton className={`${classes.listItem} ${isOpen ? '' : classes.shrink}`}>
           <ListItemIcon sx={{ minWidth: '30px' }}>
             <SettingsIcon
               style={{
