@@ -7,9 +7,9 @@ import { Box, Button, Grid } from '@mui/material'
 
 import { DocumentInput, DocumentResponse } from 'gql/document'
 import { useDocument } from 'common/hooks/documents'
-import { axios } from 'common/api-client'
-import { ApiErrors } from 'common/api-errors'
-import { endpoints } from 'common/api-endpoints'
+import { ApiErrors } from 'service/apiErrors'
+import { apiClient } from 'service/apiClient'
+import { endpoints } from 'service/apiEndpoints'
 import { routes } from 'common/routes'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
@@ -36,7 +36,7 @@ export default function EditForm() {
   const editDocument: MutationFunction<AxiosResponse<DocumentResponse>, DocumentInput> = async (
     data: DocumentInput,
   ) => {
-    return await axios.put<DocumentInput, AxiosResponse<DocumentResponse>>(
+    return await apiClient.put<DocumentInput, AxiosResponse<DocumentResponse>>(
       endpoints.documents.editDocument(id).url,
       data,
     )

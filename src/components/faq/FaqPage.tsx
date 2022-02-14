@@ -31,14 +31,14 @@ export default function FaqPage() {
 
   if (faqOnHold) {
     return (
-      <Layout title={t('nav.faq')}>
+      <Layout title={t('nav.campaigns.faq')}>
         <OnHold />
       </Layout>
     )
   }
 
   return (
-    <Layout title={t('nav.faq')}>
+    <Layout title={t('nav.campaigns.faq')}>
       <TabContext value={value.toString()}>
         <VerticalTabs value={value} setValue={setValue}>
           <TabPanel value={value} index={0}>

@@ -4,9 +4,9 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { Dialog, Card, CardContent, Box, Button, Modal, Typography, CSSObject } from '@mui/material'
 
 import { DocumentResponse } from 'gql/document'
-import { ApiErrors } from 'common/api-errors'
-import { endpoints } from 'common/api-endpoints'
-import { axios } from 'common/api-client'
+import { ApiErrors } from 'service/apiErrors'
+import { apiClient } from 'service/apiClient'
+import { endpoints } from 'service/apiEndpoints'
 import { ModalStore } from 'stores/ModalStore'
 import { observer } from 'mobx-react'
 import { AlertStore } from 'stores/AlertStore'
@@ -20,7 +20,7 @@ export default observer(function DeleteModal({ id }: Props) {
   const { isDeleteOpen, hideDelete } = ModalStore
 
   const deleteDocument: MutationFunction<AxiosResponse<DocumentResponse>, string> = async () => {
-    return await axios.delete<DocumentResponse, AxiosResponse<DocumentResponse>>(
+    return await apiClient.delete<DocumentResponse, AxiosResponse<DocumentResponse>>(
       endpoints.documents.deleteDocument(id).url,
     )
   }

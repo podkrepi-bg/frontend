@@ -5,9 +5,9 @@ import { Dialog, Card, CardContent, Box, Button, Modal, Typography, CSSObject } 
 import { GridSelectionModel } from '@mui/x-data-grid'
 
 import { DocumentResponse } from 'gql/document'
-import { ApiErrors } from 'common/api-errors'
-import { axios } from 'common/api-client'
-import { endpoints } from 'common/api-endpoints'
+import { ApiErrors } from 'service/apiErrors'
+import { apiClient } from 'service/apiClient'
+import { endpoints } from 'service/apiEndpoints'
 import { ModalStore } from 'stores/ModalStore'
 import { observer } from 'mobx-react'
 import { AlertStore } from 'stores/AlertStore'
@@ -22,7 +22,7 @@ export default observer(function DeleteAllModal({ idsToDelete }: Props) {
 
   const deleteDocuments: MutationFunction<AxiosResponse<DocumentResponse>, GridSelectionModel> =
     async () => {
-      return await axios.post<DocumentResponse, AxiosResponse<DocumentResponse>>(
+      return await apiClient.post<DocumentResponse, AxiosResponse<DocumentResponse>>(
         endpoints.documents.deleteDocuments.url,
         idsToDelete,
       )

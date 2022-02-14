@@ -6,9 +6,9 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { Box, Button, Grid } from '@mui/material'
 import * as yup from 'yup'
 
-import { axios } from 'common/api-client'
-import { ApiErrors } from 'common/api-errors'
-import { endpoints } from 'common/api-endpoints'
+import { ApiErrors } from 'service/apiErrors'
+import { apiClient } from 'service/apiClient'
+import { endpoints } from 'service/apiEndpoints'
 import { routes } from 'common/routes'
 import { DocumentData, DocumentInput, DocumentResponse } from 'gql/document'
 import GenericForm from 'components/common/form/GenericForm'
@@ -46,7 +46,7 @@ export default observer(function CreateForm() {
   const createDocument: MutationFunction<AxiosResponse<DocumentResponse>, DocumentInput> = async (
     data: DocumentInput,
   ) => {
-    return await axios.post<DocumentInput, AxiosResponse<DocumentResponse>>(
+    return await apiClient.post<DocumentInput, AxiosResponse<DocumentResponse>>(
       endpoints.documents.createDocument.url,
       data,
     )
