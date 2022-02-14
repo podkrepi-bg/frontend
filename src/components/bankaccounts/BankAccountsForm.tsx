@@ -9,6 +9,7 @@ import React from 'react'
 import * as yup from 'yup'
 import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
+
 import {
   AccountHolderType,
   BankAccountInput,
@@ -16,6 +17,7 @@ import {
   BankAccountsData,
   BankAccountStatus,
 } from 'gql/bankaccounts'
+
 import { createBankAccountRequest } from 'common/rest'
 import { AxiosError, AxiosResponse } from 'axios'
 import { AlertStore } from 'stores/AlertStore'
