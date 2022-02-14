@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { AccountCircle } from '@mui/icons-material'
-import { Grid, IconButton, Menu, Typography } from '@mui/material'
+import { Avatar, IconButton, Menu, Typography } from '@mui/material'
 
 import LinkMenuItem from 'components/common/LinkMenuItem'
 
@@ -11,9 +10,9 @@ export default function DashboardProfileMenu() {
   const handleClose = () => setAnchorEl(null)
 
   return (
-    <Grid item>
+    <>
       <IconButton onClick={handleMenu} size="large">
-        <AccountCircle color="info" />
+        <Avatar alt="Profile" src="https://mui.com/static/images/avatar/3.jpg" />
       </IconButton>
       <Menu
         open={Boolean(anchorEl)}
@@ -33,6 +32,6 @@ export default function DashboardProfileMenu() {
           <Typography variant="button">Option 3</Typography>
         </LinkMenuItem>
       </Menu>
-    </Grid>
+    </>
   )
 }
