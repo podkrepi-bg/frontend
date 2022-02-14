@@ -15,7 +15,7 @@ import {
   BankAccountResponse,
   BankAccountsData,
   BankAccountStatus,
-} from 'gql/bankaccounts.d.ts'
+} from 'gql/bankaccounts'
 import { createBankAccountRequest } from 'common/rest'
 import { AxiosError, AxiosResponse } from 'axios'
 import { AlertStore } from 'stores/AlertStore'

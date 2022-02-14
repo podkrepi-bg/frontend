@@ -5,7 +5,7 @@ import {
   GridSelectionModel,
   GridRenderCellParams,
 } from '@mui/x-data-grid'
-import { ModalStore } from 'stores/cars/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
 import { useBankAccountsList } from 'common/hooks/bankaccounts'
 import { useQueryClient, UseQueryResult } from 'react-query'

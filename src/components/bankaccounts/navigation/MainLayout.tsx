@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles'
+import { styled, Theme, CSSObject } from '@mui/material/styles'
 import { makeStyles } from '@mui/styles'
 import MuiDrawer from '@mui/material/Drawer'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
