@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useKeycloak } from '@react-keycloak/ssr'
 import { Box, Tooltip } from '@mui/material'
 import { makeStyles } from '@mui/styles'
@@ -9,7 +10,6 @@ import { useMutation } from 'react-query'
 
 import { deleteCompany } from 'common/rest'
 import { AlertStore } from 'stores/AlertStore'
-import { DialogStore } from 'stores/DialogStore'
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
 
 const useStyles = makeStyles(() => {
@@ -41,7 +41,7 @@ function GridDeleteButton({
   params: GridRenderCellParams
   deleteSuccessHandler: () => void
 }) {
-  const { dialogs, show, clear } = DialogStore
+  const [open, setOpen] = useState(false)
   const { keycloak } = useKeycloak()
   const { t } = useTranslation()
   const classes = useStyles()
@@ -51,9 +51,8 @@ function GridDeleteButton({
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
   const onClickHandler = () => {
-    show(params.row)
+    setOpen(true)
   }
-  const closeModal = () => clear()
   const deleteConfirmHandler = async () => {
     try {
       await mutation.mutateAsync({ slug: params.row.id, token: keycloak?.token || '' })
@@ -61,7 +60,6 @@ function GridDeleteButton({
     } catch (error) {
       AlertStore.show(t('common:alerts.error'), 'error')
     }
-    clear()
   }
 
   return (
@@ -70,13 +68,13 @@ function GridDeleteButton({
         <DeleteIcon onClick={onClickHandler} className={`${classes.deleteBtn} ${classes.btn}`} />
       </Tooltip>
       <ConfirmationDialog
-        title={t('companies:deleteTitle')}
-        isOpen={dialogs.length > 0}
+        isOpen={open}
         handleConfirm={deleteConfirmHandler}
+        handleCancel={() => setOpen(false)}
+        title={t('companies:deleteTitle')}
         cancelButtonLabel={t('companies:cta.cancel')}
         confirmButtonLabel={t('companies:cta.confirm')}
         content={t('companies:deleteContent')}
-        handleCancel={closeModal}
       />
     </Box>
   )
