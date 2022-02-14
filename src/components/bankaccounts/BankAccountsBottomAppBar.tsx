@@ -10,7 +10,7 @@ import { observer } from 'mobx-react'
 import ShareIcon from '@mui/icons-material/Share'
 import EventNoteIcon from '@mui/icons-material/EventNote'
 import { AlertStore } from 'stores/AlertStore'
-import { ModalStore } from 'stores/cars/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 const addIconStyles = {
   background: '#4ac3ff',
   borderRadius: '50%',
