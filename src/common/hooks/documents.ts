@@ -2,8 +2,8 @@ import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
 import { QueryClient, useQuery } from 'react-query'
 
-import { endpoints } from '../api-endpoints'
-import { authQueryFnFactory } from '../rest'
+import { endpoints } from 'service/apiEndpoints'
+import { authQueryFnFactory } from 'service/restRequests'
 import { DocumentResponse } from 'gql/document'
 
 export function useDocumentsList() {
