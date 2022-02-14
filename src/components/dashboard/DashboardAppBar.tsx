@@ -10,6 +10,7 @@ import PodkrepiIcon from 'components/brand/PodkrepiIcon'
 
 import DashboardProfileMenu from './DashboardProfileMenu'
 import DashboardSearchField from './DashboardSearchField'
+import DashboardNotifications from './country/DashboardNotifications'
 
 export default observer(function DashboardAppBar() {
   const { toggleDrawerOpen } = DashboardStore
@@ -41,6 +42,7 @@ export default observer(function DashboardAppBar() {
           <MenuIcon />
         </IconButton>
         <DashboardSearchField />
+        <DashboardNotifications />
         <DashboardProfileMenu />
       </Toolbar>
     </AppBar>
