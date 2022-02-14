@@ -35,7 +35,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
   overflowX: 'hidden',
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(9)} + 1px)`,
+    width: `calc(${theme.spacing(8.4)} + 1px)`,
   },
 })
 
@@ -46,7 +46,7 @@ const fullClosedMixin = (theme: Theme): CSSObject => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: 'hidden',
-  width: 0,
+  width: '16px',
 })
 
 const DrawerHeader = styled('div')(({ theme }: { theme: Theme }) => ({
@@ -189,7 +189,13 @@ export default observer(function DashboardMiniDrawer({ children }: Props) {
       </Drawer>
       <Box
         component="main"
-        sx={{ flexGrow: 1, paddingRight: 3, height: '100vh', mb: '-40px', overflow: 'hidden' }}>
+        sx={{
+          flexGrow: 1,
+          paddingRight: '16px',
+          height: '100vh',
+          mb: '-40px',
+          overflow: 'hidden',
+        }}>
         <DrawerHeader />
         {children}
       </Box>

@@ -1,9 +1,11 @@
 import { useTranslation } from 'next-i18next'
 import { makeStyles } from '@mui/styles'
+import { observer } from 'mobx-react'
 
 import Snackbar from 'components/layout/Snackbar'
 
 import DashboardMiniDrawer from './DashboardMiniDrawer'
+import { DrawerStore } from 'stores/DrawerStore'
 
 type Props = {
   children: React.ReactNode
@@ -33,8 +35,9 @@ const useStyles = makeStyles(() => {
   }
 })
 
-export default function DashboardLayout({ children }: Props) {
+export default observer(function DashboardLayout({ children }: Props) {
   const { t } = useTranslation()
+  const { isFullClosed } = DrawerStore
   const classes = useStyles()
 
   return (
@@ -42,10 +45,10 @@ export default function DashboardLayout({ children }: Props) {
       <div className={classes.contentWrapper}>
         <DashboardMiniDrawer>{children}</DashboardMiniDrawer>
         <Snackbar />
-        <footer className={classes.footer}>
+        <footer className={classes.footer} style={{ zIndex: isFullClosed ? 1201 : 0 }}>
           <p style={{ width: '315px' }}>{t('components.footer.admin')}</p>
         </footer>
       </div>
     </div>
   )
-}
+})

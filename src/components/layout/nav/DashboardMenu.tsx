@@ -15,7 +15,7 @@ const useStyles = makeStyles(() => {
   return {
     listItem: {
       borderRadius: '100px',
-      width: '161px',
+      width: '160px',
       height: '36px',
       margin: '0 16px',
       padding: '8px 10px',
