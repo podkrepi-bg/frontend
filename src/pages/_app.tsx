@@ -18,7 +18,7 @@ import { SSRKeycloakProvider, SSRCookies } from '@react-keycloak/ssr'
 
 import theme from 'common/theme'
 import useGTM from 'common/util/useGTM'
-import { queryFn } from 'common/rest'
+import { queryFn } from 'service/restRequests'
 import createEmotionCache from 'common/createEmotionCache'
 const {
   publicRuntimeConfig: { keycloakConfig },
