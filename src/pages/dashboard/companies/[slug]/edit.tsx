@@ -1,12 +1,11 @@
 import { GetServerSideProps } from 'next'
-import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { QueryClient, dehydrate } from 'react-query'
 
 import { prefetchCompanyById, useCompanyById } from 'common/hooks/companies'
+import { keycloakInstance } from 'common/util/keycloak'
 import CreateCompanyForm from 'components/companies/CreateCompanyForm'
 import DashboardLayout from 'components/layout/DashboardLayout'
-import { keycloakInstance } from 'common/util/keycloak'
 
 type Props = {
   slug: string
@@ -14,10 +13,9 @@ type Props = {
 
 export default function EditPage({ slug }: Props) {
   const { data } = useCompanyById(slug)
-  const { t } = useTranslation()
 
   return (
-    <DashboardLayout title={t('companies:all')}>
+    <DashboardLayout>
       <CreateCompanyForm initialValues={data} />
     </DashboardLayout>
   )

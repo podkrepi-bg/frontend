@@ -6,11 +6,13 @@
   "number": "Company number",
   "representative": "Representative",
   "countryCode": "Country code",
+  "description": "Companies description",
   "deleteTitle": "Delete selected countries?",
   "deleteContent": "Confirm delete of selected countries",
   "actions": "Actions",
   "alerts": {
-    "uniqueNumber": "Company number already registered"
+    "uniqueNumber": "Company number already registered",
+    "selectRow": "Please select a row"
   },
   "cta": {
     "add": "Add",

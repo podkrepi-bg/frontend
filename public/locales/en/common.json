@@ -68,7 +68,8 @@
       "terms-of-service": "Terms of service",
       "hosting-partner": "Hosting partner:",
       "copyrights": "Podkrepi.bg ©2021 All rights reserved.",
-      "version": "Version"
+      "version": "Version",
+      "admin": "You are logged in as administrator"
     }
   },
   "or": "or"

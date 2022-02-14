@@ -1,3 +1,4 @@
+import { useKeycloak } from '@react-keycloak/ssr'
 import { Box, Tooltip } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { GridRenderCellParams } from '@mui/x-data-grid'
@@ -10,7 +11,6 @@ import { deleteCompany } from 'common/rest'
 import { AlertStore } from 'stores/AlertStore'
 import { DialogStore } from 'stores/DialogStore'
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
-import { useKeycloak } from '@react-keycloak/ssr'
 
 const useStyles = makeStyles(() => {
   return {

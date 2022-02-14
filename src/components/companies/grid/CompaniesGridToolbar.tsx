@@ -1,11 +1,12 @@
 import { useState } from 'react'
+import { useKeycloak } from '@react-keycloak/ssr'
+import { useMutation } from 'react-query'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { Box, Button, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { GridSelectionModel } from '@mui/x-data-grid'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { useMutation } from 'react-query'
 import HomeIcon from '@mui/icons-material/Home'
 
 import { routes } from 'common/routes'
@@ -13,7 +14,6 @@ import { deleteManyCompanies } from 'common/rest'
 import { CompanyResponse } from 'gql/companies'
 import { AlertStore } from 'stores/AlertStore'
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
-import { useKeycloak } from '@react-keycloak/ssr'
 
 const useStyles = makeStyles(() => {
   return {
@@ -40,6 +40,35 @@ const useStyles = makeStyles(() => {
     link: {
       color: '#0000008A',
       fontSize: '14px',
+    },
+    breadcrumb: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      padding: '7px 12px 6px 24px',
+      borderBottom: '1px solid rgba(224, 224, 224, 1)',
+    },
+    breadcrumbTitle: {
+      fontSize: '24px',
+      fontFamily: 'Montserrat',
+      color: '#32A9FE',
+    },
+    breadcrumbSeparator: {
+      fontSize: '16px',
+      margin: '0 5px',
+    },
+    toolbar: {
+      padding: '8px 8px 8px 24px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+    toolbarActionsContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      width: '100%',
+      padding: '14px 0',
     },
   }
 })
@@ -73,57 +102,35 @@ export default function CompaniesGridToolbar({
     if (selectionModel.length > 0) {
       setOpen(true)
     } else {
-      AlertStore.show('Please select row', 'error')
+      AlertStore.show(t('companies:alerts.selectRow'), 'error')
     }
   }
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: '7px 12px 6px 24px',
-          borderBottom: '1px solid rgba(224, 224, 224, 1)',
-        }}>
-        <Typography sx={{ fontSize: '24px', fontFamily: 'Montserrat', color: '#32A9FE' }}>
-          Компании
-        </Typography>
+      <Box className={classes.breadcrumb}>
+        <Typography className={classes.breadcrumbTitle}>{t('companies:companies')}</Typography>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <Link passHref href={routes.index}>
             <a className={classes.link}>
               <HomeIcon />
             </a>
           </Link>
-          <Typography sx={{ fontSize: '16px', margin: '0 5px' }}>/</Typography>
+          <Typography className={classes.breadcrumbSeparator}>/</Typography>
           <Link passHref href={routes.dashboard.index}>
-            <a className={classes.link}>Dashboard</a>
+            <a className={classes.link}>{t('nav.dashboard.index')}</a>
           </Link>
-          <Typography sx={{ fontSize: '16px', margin: '0 5px' }}>/</Typography>
+          <Typography className={classes.breadcrumbSeparator}>/</Typography>
           <Link passHref href={routes.dashboard.companies}>
-            <a className={classes.link}>Companies</a>
+            <a className={classes.link}>{t('nav.dashboard.companies.index')}</a>
           </Link>
         </Box>
       </Box>
-      <Box
-        sx={{
-          padding: '8px 8px 8px 24px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}>
+      <Box className={classes.toolbar}>
         <Typography sx={{ alignSelf: 'flex-start', flexBasis: '20%', color: '#666666' }}>
-          Описание на компании
+          {t('companies:description')}
         </Typography>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            width: '100%',
-            padding: '14px 0',
-          }}>
+        <Box className={classes.toolbarActionsContainer}>
           <Button className={`${classes.smallBtn} ${classes.btn}`} onClick={deleteIconClickHandler}>
             <DeleteIcon
               style={{

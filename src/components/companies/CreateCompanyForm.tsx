@@ -1,24 +1,25 @@
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 import { Button, Grid, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import * as yup from 'yup'
+import { useKeycloak } from '@react-keycloak/ssr'
 import { useMutation } from 'react-query'
-import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 
 import { createCompany, editCompany } from 'common/rest'
 import { routes } from 'common/routes'
 import { ApiErrors, isAxiosError } from 'common/api-errors'
+import { companyName, name } from 'common/form/validation'
 import { CompanyFormData, CompanyInput, CompanyResponse } from 'gql/companies'
 import { AlertStore } from 'stores/AlertStore'
 import FormTextField from 'components/common/form/FormTextField'
 import GenericForm from 'components/common/form/GenericForm'
 
 import CompaniesCitySelect from './CompaniesCitySelect'
-import { useKeycloak } from '@react-keycloak/ssr'
 
 const useStyles = makeStyles({
-  deleteBtn: {
+  cancelBtn: {
     marginLeft: 16,
     ':hover': {
       backgroundColor: '#bf0000',
@@ -26,16 +27,13 @@ const useStyles = makeStyles({
   },
 })
 
-const validationSchema: yup.SchemaOf<CompanyFormData> = yup
-  .object()
-  .defined()
-  .shape({
-    companyName: yup.string().trim().max(100).required(),
-    companyNumber: yup.string().trim().required(),
-    legalPersonName: yup.string().trim(),
-    countryCode: yup.string().trim(),
-    cityId: yup.string().uuid(),
-  })
+const validationSchema: yup.SchemaOf<CompanyFormData> = yup.object().defined().shape({
+  companyName: companyName.required(),
+  companyNumber: yup.string().trim().required(),
+  legalPersonName: name.required().trim(),
+  countryCode: yup.string().trim(),
+  cityId: yup.string().uuid(),
+})
 
 const defaults: CompanyInput = {
   id: '',
@@ -137,7 +135,7 @@ export default function CreateCompanyForm({ initialValues }: Props) {
                 onClick={cancelHandler}
                 variant="contained"
                 color="error"
-                className={classes.deleteBtn}>
+                className={classes.cancelBtn}>
                 {t('companies:cta.cancel')}
               </Button>
             )}

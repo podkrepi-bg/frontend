@@ -68,7 +68,8 @@
       "terms-of-service": "Общи условия",
       "hosting-partner": "Хостинг партньор:",
       "copyrights": "Podkrepi.bg ©2021 Всички права запазени.",
-      "version": "Версия"
+      "version": "Версия",
+      "admin": "Вие сте логнат като администратор"
     }
   },
   "or": "или"

@@ -49,7 +49,7 @@ const fullClosedMixin = (theme: Theme): CSSObject => ({
   width: 0,
 })
 
-const DrawerHeader = styled('div')(({ theme }) => ({
+const DrawerHeader = styled('div')(({ theme }: { theme: Theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
@@ -64,8 +64,8 @@ interface AppBarProps extends MuiAppBarProps {
 }
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme }) => ({
+  shouldForwardProp: (prop: string) => prop !== 'open',
+})<AppBarProps>(({ theme }: { theme: Theme }) => ({
   zIndex: theme.zIndex.drawer + 1,
   backgroundColor: '#fff',
   boxShadow: 'none',
