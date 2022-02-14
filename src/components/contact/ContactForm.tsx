@@ -9,7 +9,7 @@ import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 
 import { AlertStore } from 'stores/AlertStore'
-import { createContactRequest } from 'service/restRequests'
+import { useCreateContactRequest } from 'service/restRequests'
 import { isAxiosError, ApiErrors, matchValidator } from 'service/apiErrors'
 import { ContactFormData, ContactRequestResponse, ContactRequestInput } from 'gql/contact'
 import GenericForm from 'components/common/form/GenericForm'
@@ -62,12 +62,13 @@ export type ContactFormProps = { initialValues?: ContactFormData }
 export default function ContactForm({ initialValues = defaults }: ContactFormProps) {
   const classes = useStyles()
   const { t } = useTranslation()
+  const mutationFn = useCreateContactRequest()
   const mutation = useMutation<
     AxiosResponse<ContactRequestResponse>,
     AxiosError<ApiErrors>,
     ContactRequestInput
   >({
-    mutationFn: createContactRequest,
+    mutationFn,
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
