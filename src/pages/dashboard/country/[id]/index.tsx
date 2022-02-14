@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { dehydrate, QueryClient } from 'react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { queryFn } from 'common/rest'
+import { queryFn } from 'service/restRequests'
 import CountryEditPage from 'components/dashboard/country/CountryEditPage'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale, query }) => {

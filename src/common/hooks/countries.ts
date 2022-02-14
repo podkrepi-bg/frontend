@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query'
 
-import { endpoints } from 'common/api-endpoints'
+import { endpoints } from 'service/apiEndpoints'
 import { CountryResponse } from 'gql/countries'
 
 export function useCountriesList() {
