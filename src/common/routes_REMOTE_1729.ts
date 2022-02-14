@@ -57,12 +57,4 @@ export const routes = {
     openData: '/open-data',
     apiDocs: '/docs',
   },
-  dashboard: {
-    index: '/dashboard',
-    country: {
-      index: '/dashboard/country',
-      view: (id: string) => `/dashboard/country/${id}`,
-      create: '/dashboard/country/create',
-    },
-  },
 }
