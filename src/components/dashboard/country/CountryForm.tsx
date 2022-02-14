@@ -10,13 +10,13 @@ import { makeStyles } from '@mui/styles'
 
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
-import { createCountry, editCountry } from 'common/rest'
+import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
+import { createCountry, editCountry } from 'service/restRequests'
 import { CountryInput, CountryResponse } from 'gql/countries'
+import { name } from 'common/form/validation'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
-import { name } from 'common/form/validation'
-import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
 import LinkButton from 'components/common/LinkButton'
 
 const useStyles = makeStyles({
