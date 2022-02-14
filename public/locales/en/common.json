@@ -1,22 +1,31 @@
 {
   "nav": {
     "home": "Home",
-    "about": "About us",
-    "blog": "Blog",
-    "about-project": "The Project",
-    "contacts": "Contacts",
+    "about": {
+      "about-project": "The Project",
+      "about-us": "About us",
+      "support-us": "Support us",
+      "contacts": "Contacts"
+    },
     "campaigns": {
       "index": "Campaigns",
-      "create": "Suggest campaign"
+      "create": "Suggest campaign",
+      "faq": "Frequently Asked Questions"
     },
     "admin": {
       "index": "Administration",
-      "info-request": "Contact requests",
+      "info-requests": "Contact requests",
       "supporters": "Volunteers"
     },
+    "dev": {
+      "index": "Development",
+      "contribute": "How to Contribute",
+      "project-docs": "Project Docs",
+      "open-source": "Open Source",
+      "open-data": "Open Data"
+    },
     "donation-menu": "Donation",
-    "faq": "Frequently Asked Questions",
-    "support-us": "Support us",
+    "blog": "Blog",
     "profile": "Profile",
     "login": "Login",
     "login-with": "Login with",
