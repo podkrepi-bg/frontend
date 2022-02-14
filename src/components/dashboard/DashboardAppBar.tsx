@@ -9,6 +9,7 @@ import { DashboardStore } from 'stores/DashboardStore'
 import PodkrepiIcon from 'components/brand/PodkrepiIcon'
 
 import DashboardProfileMenu from './DashboardProfileMenu'
+import DashboardSearchField from './DashboardSearchField'
 
 export default observer(function DashboardAppBar() {
   const { toggleDrawerOpen } = DashboardStore
@@ -27,14 +28,19 @@ export default observer(function DashboardAppBar() {
               sx={{
                 height: 40,
                 width: 'auto',
-                marginRight: 12,
               }}
             />
           </a>
         </Link>
-        <IconButton onClick={toggleDrawerOpen}>
+        <IconButton
+          onClick={toggleDrawerOpen}
+          sx={{
+            marginLeft: '90px',
+            marginRight: '20px',
+          }}>
           <MenuIcon />
         </IconButton>
+        <DashboardSearchField />
         <DashboardProfileMenu />
       </Toolbar>
     </AppBar>
