@@ -3,11 +3,10 @@ import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { QueryClient, dehydrate } from 'react-query'
 
-import { endpoints } from 'common/api-endpoints'
-import { useCompanyById } from 'common/hooks/companies'
-import { queryFn } from 'common/rest'
+import { prefetchCompanyById, useCompanyById } from 'common/hooks/companies'
 import CreateCompanyForm from 'components/companies/CreateCompanyForm'
 import DashboardLayout from 'components/layout/DashboardLayout'
+import { keycloakInstance } from 'common/util/keycloak'
 
 type Props = {
   slug: string
@@ -24,15 +23,16 @@ export default function EditPage({ slug }: Props) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ query, locale }) => {
-  const { slug } = query
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { slug } = ctx.query
+  const keycloak = keycloakInstance(ctx)
   const client = new QueryClient()
-  await client.prefetchQuery(endpoints.company.editCompany(slug as string).url, queryFn)
+  await prefetchCompanyById(client, slug as string, keycloak.token)
 
   return {
     props: {
       slug,
-      ...(await serverSideTranslations(locale ?? 'bg', ['common', 'validation', 'companies'])),
+      ...(await serverSideTranslations(ctx.locale ?? 'bg', ['common', 'validation', 'companies'])),
       dehydratedState: dehydrate(client),
     },
   }

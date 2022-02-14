@@ -41,7 +41,7 @@ export default function CompaniesGrid() {
 
   useEffect(() => {
     setCompanies(data || [])
-  }, [])
+  }, [data])
 
   const onPageSizeChange = (newPageSize: number) => {
     setPageSize(newPageSize)

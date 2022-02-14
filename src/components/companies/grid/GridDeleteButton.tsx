@@ -10,6 +10,7 @@ import { deleteCompany } from 'common/rest'
 import { AlertStore } from 'stores/AlertStore'
 import { DialogStore } from 'stores/DialogStore'
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
+import { useKeycloak } from '@react-keycloak/ssr'
 
 const useStyles = makeStyles(() => {
   return {
@@ -41,6 +42,7 @@ function GridDeleteButton({
   deleteSuccessHandler: () => void
 }) {
   const { dialogs, show, clear } = DialogStore
+  const { keycloak } = useKeycloak()
   const { t } = useTranslation()
   const classes = useStyles()
   const mutation = useMutation({
@@ -54,7 +56,7 @@ function GridDeleteButton({
   const closeModal = () => clear()
   const deleteConfirmHandler = async () => {
     try {
-      await mutation.mutateAsync({ slug: params.row.id })
+      await mutation.mutateAsync({ slug: params.row.id, token: keycloak?.token || '' })
       deleteSuccessHandler()
     } catch (error) {
       AlertStore.show(t('common:alerts.error'), 'error')

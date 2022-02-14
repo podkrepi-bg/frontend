@@ -78,31 +78,40 @@ export const createCheckoutSession: MutationFunction<
   )
 }
 
-export const createCompany: MutationFunction<AxiosResponse<CompanyResponse>, CompanyInput> = async (
-  data: CompanyInput,
-) => {
+export const createCompany: MutationFunction<
+  AxiosResponse<CompanyResponse>,
+  { companyInput: CompanyInput; token: string }
+> = async (data: { companyInput: CompanyInput; token: string }) => {
   return await axios.post<CompanyInput, AxiosResponse<CompanyResponse>>(
     endpoints.company.createCompany.url,
-    data,
+    data.companyInput,
+    { headers: { Authorization: `Bearer ${data.token}` } },
   )
 }
 
-export const editCompany: MutationFunction<AxiosResponse<CompanyResponse>, CompanyInput> = async (
-  data: CompanyInput,
-) => {
+export const editCompany: MutationFunction<
+  AxiosResponse<CompanyResponse>,
+  { companyInput: CompanyInput; token: string }
+> = async (data: { companyInput: CompanyInput; token: string }) => {
   return await axios.patch<CompanyInput, AxiosResponse<CompanyResponse>>(
-    endpoints.company.editCompany(data.id).url,
-    data,
+    endpoints.company.editCompany(data.companyInput.id).url,
+    data.companyInput,
+    { headers: { Authorization: `Bearer ${data.token}` } },
   )
 }
 
-export const deleteCompany: MutationFunction<AxiosResponse<null>, { slug: string }> = async ({
-  slug,
-}) => {
-  return await axios.delete(endpoints.company.deleteCompany(slug).url)
-}
-
-export const deleteManyCompanies: MutationFunction<AxiosResponse<null>, { ids: string[] }> =
-  async ({ ids }) => {
-    return await axios.post(endpoints.company.deleteMany.url, ids)
+export const deleteCompany: MutationFunction<AxiosResponse<null>, { slug: string; token: string }> =
+  async ({ slug, token }) => {
+    return await axios.delete(endpoints.company.deleteCompany(slug).url, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
   }
+
+export const deleteManyCompanies: MutationFunction<
+  AxiosResponse<null>,
+  { ids: string[]; token: string }
+> = async ({ ids, token }) => {
+  return await axios.post(endpoints.company.deleteMany.url, ids, {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+}

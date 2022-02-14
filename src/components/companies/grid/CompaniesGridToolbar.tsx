@@ -13,6 +13,7 @@ import { deleteManyCompanies } from 'common/rest'
 import { CompanyResponse } from 'gql/companies'
 import { AlertStore } from 'stores/AlertStore'
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
+import { useKeycloak } from '@react-keycloak/ssr'
 
 const useStyles = makeStyles(() => {
   return {
@@ -54,6 +55,7 @@ export default function CompaniesGridToolbar({
 }: CompaniesGridToolbarProps) {
   const [open, setOpen] = useState(false)
   const { t } = useTranslation()
+  const { keycloak } = useKeycloak()
   const classes = useStyles()
   const mutation = useMutation({
     mutationFn: deleteManyCompanies,
@@ -62,7 +64,7 @@ export default function CompaniesGridToolbar({
   })
   const deleteConfirmHandler = async () => {
     const mappedIds = selectionModel.map((x) => x.toString())
-    await mutation.mutateAsync({ ids: mappedIds })
+    await mutation.mutateAsync({ ids: mappedIds, token: keycloak?.token || '' })
     setCompanies((old) => old?.filter((x) => !selectionModel.includes(x.id)))
     setOpen(false)
   }

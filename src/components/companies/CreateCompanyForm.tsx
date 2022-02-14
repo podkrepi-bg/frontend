@@ -15,6 +15,7 @@ import FormTextField from 'components/common/form/FormTextField'
 import GenericForm from 'components/common/form/GenericForm'
 
 import CompaniesCitySelect from './CompaniesCitySelect'
+import { useKeycloak } from '@react-keycloak/ssr'
 
 const useStyles = makeStyles({
   deleteBtn: {
@@ -50,15 +51,18 @@ type Props = {
 }
 
 export default function CreateCompanyForm({ initialValues }: Props) {
+  const { keycloak } = useKeycloak()
   const { t } = useTranslation()
   const router = useRouter()
   const classes = useStyles()
-  const mutation = useMutation<AxiosResponse<CompanyResponse>, AxiosError<ApiErrors>, CompanyInput>(
-    {
-      mutationFn: initialValues ? editCompany : createCompany,
-      onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
-    },
-  )
+  const mutation = useMutation<
+    AxiosResponse<CompanyResponse>,
+    AxiosError<ApiErrors>,
+    { companyInput: CompanyInput; token: string }
+  >({
+    mutationFn: initialValues ? editCompany : createCompany,
+    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
+  })
 
   const cancelHandler = () => {
     router.back()
@@ -67,14 +71,17 @@ export default function CreateCompanyForm({ initialValues }: Props) {
   const submitHandler = async (values: CompanyInput) => {
     try {
       await mutation.mutateAsync({
-        id: initialValues?.id,
-        companyName: values.companyName,
-        companyNumber: values.companyNumber,
-        legalPersonName: values.legalPersonName,
-        cityId: values.cityId,
-        countryCode: values.countryCode,
+        companyInput: {
+          id: initialValues?.id,
+          companyName: values.companyName,
+          companyNumber: values.companyNumber,
+          legalPersonName: values.legalPersonName,
+          cityId: values.cityId,
+          countryCode: values.countryCode,
+        },
+        token: keycloak?.token || '',
       })
-      router.push(routes.dashboard.index)
+      router.push(routes.dashboard.companies)
     } catch (error) {
       if (isAxiosError(error)) {
         const { response } = error as AxiosError<{
