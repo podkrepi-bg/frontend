@@ -1,11 +1,16 @@
-import React, { useMemo, useState } from 'react'
-import Layout from 'components/layout/Layout'
-import { useTranslation } from 'next-i18next'
-import ExpandableListItem from './ExpandableListItem'
-import ContactUs from './ContactUs'
-import VerticalTabs from './VerticalTabs'
-import TabPanel from './TabPanel'
 import { TabContext } from '@mui/lab'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import React, { useMemo, useState } from 'react'
+
+import Layout from 'components/layout/Layout'
+
+import OnHold from './OnHold'
+import TabPanel from './TabPanel'
+import ContactUs from './ContactUs'
+import ScrollToTop from './ScrollToTop'
+import VerticalTabs from './VerticalTabs'
+import ExpandableListItem from './ExpandableListItem'
 import {
   DONATION_QUESTIONS,
   COMMON_QUESTIONS,
@@ -15,8 +20,8 @@ import {
   ATTRACTING_DONATORS_QUESTIONS,
   PARTNERSHIPS_QUESTIONS,
 } from './contents'
-import ScrollToTop from './ScrollToTop'
-import { useRouter } from 'next/router'
+
+const faqOnHold = true // Remove this when FAQ is ready
 
 export default function FaqPage() {
   const { t } = useTranslation()
@@ -24,8 +29,16 @@ export default function FaqPage() {
   const section = useMemo(() => Number(router.asPath.split('#').pop()), [])
   const [value, setValue] = useState(isNaN(section) ? 0 : section)
 
+  if (faqOnHold) {
+    return (
+      <Layout title={t('nav.campaigns.faq')}>
+        <OnHold />
+      </Layout>
+    )
+  }
+
   return (
-    <Layout title={t('nav.faq')}>
+    <Layout title={t('nav.campaigns.faq')}>
       <TabContext value={value.toString()}>
         <VerticalTabs value={value} setValue={setValue}>
           <TabPanel value={value} index={0}>

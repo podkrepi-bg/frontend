@@ -5,18 +5,27 @@
     "create": "Create",
     "save": "Save",
     "submit": "Submit",
+    "apply": "Apply",
     "support-now": "Support now",
+    "support-cause-today": "Support a campaign today!",
     "share": "Share",
     "donate-now": "Donate now",
     "see-all": "See all",
-    "see-top-10": "See TOP 10"
+    "see-top-10": "See TOP 10",
+    "see-more": "See more"
   },
   "campaign": {
+    "subheading": "Your support for the world matters. All supporters through Podkrepi.bg are our partners in supporting the community campaign. As a generous benefactor, you become an important partner in supporting a campaign regarding someone's health or the success of a cause that is close to your heart.",
+    "subheading-bold": "Even the slightest help can be the engine of great change",
+    "subheading-bold-secondary": "Together we support and encourage the donation and volunteer culture in Bulgaria!",
     "title": "Campaign name",
     "amount": "Target amount",
     "type": "Campaign type",
     "reached": "reached",
     "target": "target",
+    "donors": "donors",
+    "shares": "shares",
+    "from": "from",
     "types": {
       "treatment-and-rehabilitation": "Treatment and rehabilitation",
       "helping-the-needy": "Helping the needy",
@@ -64,10 +73,10 @@
       "retry": "Retry"
     },
     "beneficiary": "Beneficiary",
-    "coordinator": "Coordinator",
+    "coordinator": "Coordinator:",
     "description": "Description",
-    "start-date": "Start date",
-    "end-date": "End date",
+    "start-date": "Start date:",
+    "end-date": "End date:",
     "tag": "Tag:",
     "date": "Date:"
   }
