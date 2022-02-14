@@ -2,8 +2,8 @@ import { GetServerSideProps } from 'next'
 import { dehydrate, QueryClient } from 'react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { queryFn } from 'common/rest'
-import { endpoints } from 'common/api-endpoints'
+import { queryFn } from 'service/restRequests'
+import { endpoints } from 'service/apiEndpoints'
 import DashboardPage from 'components/dashboard/DashboardPage'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
