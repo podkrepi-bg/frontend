@@ -6,12 +6,13 @@ import createStyles from '@mui/styles/createStyles'
 import makeStyles from '@mui/styles/makeStyles'
 import HomeIcon from '@mui/icons-material/Home'
 
-import { defaultOgImage } from 'common/routes'
+import { defaultOgImage, routes } from 'common/routes'
 import Snackbar from 'components/layout/Snackbar'
 
 import DashboardAppBar from './DashboardAppBar'
 import DashboardFooter from './DashboardFooter'
 import DashboardDrawer from './DashboardDrawer'
+import Link from 'next/link'
 
 type LayoutProps = React.PropsWithChildren<
   ContainerProps & {
@@ -40,6 +41,8 @@ const useStyles = makeStyles((theme) =>
     path: {
       display: 'flex',
       marginLeft: 'auto',
+      marginRight: '10px',
+      alignItems: 'flex-end',
     },
   }),
 )
@@ -109,8 +112,13 @@ export default function DashboardLayout({
                     {title}
                   </Typography>
                   <section className={classes.path}>
-                    <HomeIcon />
-                    <Typography variant="inherit"> / {title}</Typography>
+                    <Link href={routes.dashboard.index}>
+                      <HomeIcon color="action" />
+                    </Link>
+                    <Typography variant="inherit" color="text.secondary">
+                      {' '}
+                      / {title}
+                    </Typography>
                   </section>
                 </Box>
                 {children}
