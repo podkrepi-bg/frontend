@@ -4,10 +4,10 @@ import { enableStaticRendering } from 'mobx-react'
 enableStaticRendering(typeof window === 'undefined')
 
 export class ModalContextImpl {
-  isModalOpen: boolean = false
-  cfrmOpen: boolean = false
-  carId: string = ''
-  carSelected: boolean = false
+  isModalOpen = false
+  cfrmOpen = false
+  carId = ''
+  carSelected = false
   constructor() {
     makeObservable(this, {
       isModalOpen: observable,

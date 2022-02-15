@@ -4,8 +4,8 @@ import { enableStaticRendering } from 'mobx-react'
 enableStaticRendering(typeof window === 'undefined')
 
 export class NotificationStoreImpl {
-  areNotificationsOpen: boolean = false
-  notificationsMessage: string = ''
+  areNotificationsOpen = false
+  notificationsMessage = ''
 
   constructor() {
     makeObservable(this, {
