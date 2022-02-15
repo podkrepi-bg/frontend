@@ -181,7 +181,7 @@ export default function AdminLayout({ children }: Props) {
           {menuItems.map(({ label, icon: Icon, href }, index) => (
             <CustomListItem
               key={index}
-              selected={router.asPath.includes(href)}
+              selected={href !== '#' && router.asPath.includes(href)}
               icon={<Icon />}
               label={label}
               onClick={() => router.push(href)}
