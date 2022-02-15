@@ -1,4 +1,4 @@
-import { MutationFunction, QueryFunction } from 'react-query'
+import { QueryFunction } from 'react-query'
 import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
@@ -12,8 +12,8 @@ import { CampaignResponse, CampaignInput } from 'gql/campaigns'
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
 import { ContactRequestResponse, ContactRequestInput } from 'gql/contact'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
+
 import { endpoints } from './apiEndpoints'
-import { BankAccountResponse, BankAccountInput } from 'gql/bankaccounts'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await apiClient.get(queryKey.join('/'))
@@ -47,17 +47,6 @@ export const createContactRequest = async (data: ContactRequestInput) => {
     endpoints.support.createInfoRequest.url,
     data,
   )
-}
-
-export const useCreateBankAccountRequest = () => {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
-  return async (data: BankAccountInput) => {
-    return await apiClient.post<BankAccountInput, AxiosResponse<BankAccountResponse>>(
-      endpoints.bankAccounts.postBankAccount.url,
-      data,
-      authConfig(keycloak?.token),
-    )
-  }
 }
 
 export const createSupportRequest = async (data: SupportRequestInput) => {
