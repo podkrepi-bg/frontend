@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import { useMemo } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Box, Container, ContainerProps, IconButton, Typography } from '@mui/material'
@@ -12,7 +13,6 @@ import Snackbar from 'components/layout/Snackbar'
 import DashboardAppBar from './DashboardAppBar'
 import DashboardFooter from './DashboardFooter'
 import DashboardDrawer from './DashboardDrawer'
-import Link from 'next/link'
 
 type LayoutProps = React.PropsWithChildren<
   ContainerProps & {
