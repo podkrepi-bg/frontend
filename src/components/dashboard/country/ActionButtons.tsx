@@ -16,15 +16,15 @@ type Props = {
 const ActionsButtons = ({ id, name, loadInfo, openDialog }: Props) => {
   return (
     <>
-      <IconButton onClick={() => loadInfo(id)}>
+      <IconButton color="primary" onClick={() => loadInfo(id)}>
         <PreviewIcon />
       </IconButton>
       <Link href={routes.dashboard.country.view(id)} passHref>
-        <IconButton>
+        <IconButton color="primary">
           <EditIcon />
         </IconButton>
       </Link>
-      <IconButton onClick={() => openDialog(id, name)}>
+      <IconButton color="primary" onClick={() => openDialog(id, name)}>
         <DeleteIcon />
       </IconButton>
     </>
