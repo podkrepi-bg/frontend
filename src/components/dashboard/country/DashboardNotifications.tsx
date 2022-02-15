@@ -4,9 +4,10 @@ import { IconButton } from '@mui/material'
 export default function DashboardNotifications() {
   return (
     <IconButton
-      size="large"
+      size="medium"
       sx={{
         marginRight: '4px',
+        backgroundColor: '#F1FBFF',
       }}
       color="primary">
       <NotificationsIcon />

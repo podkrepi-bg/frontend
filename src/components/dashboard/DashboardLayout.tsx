@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { useMemo } from 'react'
 import { useTranslation } from 'next-i18next'
-import { Box, Container, ContainerProps, Typography } from '@mui/material'
+import { Box, Container, ContainerProps, IconButton, Typography } from '@mui/material'
 import createStyles from '@mui/styles/createStyles'
 import makeStyles from '@mui/styles/makeStyles'
 import HomeIcon from '@mui/icons-material/Home'
@@ -102,20 +102,33 @@ export default function DashboardLayout({
                 <Box
                   sx={{
                     display: 'flex',
+                    alignItems: 'flex-end',
                     justifyContent: 'space-between',
                     alignContent: 'flex-end',
                     boxShadow: 'inset 0px -1px 0px #E0E0E0',
                     marginBottom: '20px',
                     padding: '9px 0 9px 26px',
                   }}>
-                  <Typography variant="h4" color="primary">
+                  <Typography sx={{ fontSize: '24px', lineHeight: '1' }} color="primary">
                     {title}
                   </Typography>
                   <section className={classes.path}>
                     <Link href={routes.dashboard.index}>
-                      <HomeIcon color="action" />
+                      <IconButton
+                        size="small"
+                        sx={{
+                          marginBottom: '-10px',
+                        }}>
+                        <HomeIcon color="action" />
+                      </IconButton>
                     </Link>
-                    <Typography variant="inherit" color="text.secondary">
+                    <Typography
+                      variant="inherit"
+                      color="text.secondary"
+                      sx={{
+                        fontSize: '14px',
+                        lineHeight: '1',
+                      }}>
                       {' '}
                       / {title}
                     </Typography>
