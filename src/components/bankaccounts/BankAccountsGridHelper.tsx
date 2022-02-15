@@ -33,7 +33,7 @@ export const ControlIcons: React.FC<Props> = ({
         height: '100%',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'space-evenly',
       }}>
       {
         <ImportExportIcon
