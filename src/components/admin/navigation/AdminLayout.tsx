@@ -1,6 +1,8 @@
-import { useState, useCallback } from 'react'
+import Link from 'next/link'
 import Image from 'next/image'
+import { useState, useCallback } from 'react'
 import { makeStyles, useTheme } from '@mui/styles'
+import { useRouter } from 'next/router'
 import MuiDrawer from '@mui/material/Drawer'
 import { styled, Theme, CSSObject } from '@mui/material/styles'
 import {
@@ -17,23 +19,19 @@ import {
 import {
   AccountCircle,
   Notifications,
-  CoPresent,
-  People,
-  Payment,
-  FolderShared,
-  TaskAlt,
   Settings,
-  AssignmentInd,
   MenuOpen,
   ChevronRight,
   GppGood,
 } from '@mui/icons-material'
 
+import { routes } from 'common/routes'
 import Snackbar from 'components/layout/Snackbar'
 import PictureLogo from '/public/android-chrome-192x192.png'
 
 import PanelFooter from './PanelFooter'
 import CustomListItem from './CustomListItem'
+import { menuItems } from './adminMenu'
 
 const drawerWidth = 200
 const useStyles = makeStyles({
@@ -148,17 +146,9 @@ type Props = {
   children: React.ReactNode
 }
 
-const drawerMenu = [
-  { label: 'Задачи', icon: <TaskAlt /> },
-  { label: 'Кампании', icon: <AssignmentInd /> },
-  { label: 'Доброволци', icon: <People /> },
-  { label: 'Плащания', icon: <Payment /> },
-  { label: 'Потребители', icon: <CoPresent /> },
-  { label: 'Документи', icon: <FolderShared /> },
-]
-
-export default function MainLayout({ children }: Props) {
+export default function AdminLayout({ children }: Props) {
   const theme = useTheme()
+  const router = useRouter()
   const classes = useStyles()
   const [open, setOpen] = useState(false)
   const toggleMenu = useCallback(() => setOpen((open) => !open), [])
@@ -169,7 +159,11 @@ export default function MainLayout({ children }: Props) {
         <Box className={classes.appbarWrapper}>
           <Box className={classes.drawerHeader}>
             <Box className={classes.logoWrapper}>
-              <Image src={PictureLogo} width={40} height={40} />
+              <Link href={routes.admin.index}>
+                <a>
+                  <Image src={PictureLogo} width={40} height={40} />
+                </a>
+              </Link>
             </Box>
           </Box>
           <Box className={classes.appbarHeader}>
@@ -192,8 +186,13 @@ export default function MainLayout({ children }: Props) {
       <Drawer variant="permanent" open={open} theme={theme}>
         <DrawerHeader />
         <List sx={{ p: '2rem .5rem', height: '100%', position: 'relative' }}>
-          {drawerMenu.map(({ label, icon }, index) => (
-            <CustomListItem key={index} icon={icon} label={label} />
+          {menuItems.map(({ label, icon: Icon, href }, index) => (
+            <CustomListItem
+              key={index}
+              icon={<Icon />}
+              label={label}
+              onClick={() => router.push(href)}
+            />
           ))}
           <CustomListItem icon={open ? <MenuOpen /> : <ChevronRight />} onClick={toggleMenu} />
           <CustomListItem

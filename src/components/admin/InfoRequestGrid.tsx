@@ -2,8 +2,8 @@ import React from 'react'
 import { DataGrid, GridColumns } from '@mui/x-data-grid'
 
 import { DialogStore } from 'stores/DialogStore'
-import { useInfoRequestList } from 'common/hooks/infoRequest'
 import { dateFormatter } from 'common/util/date'
+import { useInfoRequestList } from 'common/hooks/infoRequest'
 
 const columns: GridColumns = [
   { field: 'id', headerName: 'ID', hide: true },
@@ -39,7 +39,7 @@ export default function InfoRequestGrid() {
     <DataGrid
       rows={data || []}
       columns={columns}
-      pageSize={5}
+      pageSize={10}
       autoHeight
       autoPageSize
       checkboxSelection

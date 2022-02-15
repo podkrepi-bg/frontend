@@ -1,25 +1,17 @@
-import { Container } from '@mui/material'
+import AdminLayout from 'components/admin/navigation/AdminLayout'
+import AdminContainer from 'components/admin/navigation/AdminContainer'
+
 import BankAccountsForm from './BankAccountsForm'
-import MainLayout from '../admin/navigation/MainLayout'
-function BankAccountsAddPage() {
+import { Container } from '@mui/material'
+
+export default function BankAccountsAddPage() {
   return (
-    <MainLayout>
-      <Container
-        maxWidth={false}
-        sx={{
-          borderRadius: '13px',
-          minHeight: 'calc(100vh - 64px)',
-          position: 'relative',
-          background: '#e9f6ff',
-          width: '100%',
-          py: 10,
-        }}>
-        <Container maxWidth="sm">
+    <AdminLayout>
+      <AdminContainer title={'Банкови сметки'}>
+        <Container maxWidth="md" sx={{ py: 5 }}>
           <BankAccountsForm />
         </Container>
-      </Container>
-    </MainLayout>
+      </AdminContainer>
+    </AdminLayout>
   )
 }
-
-export default BankAccountsAddPage
