@@ -2,7 +2,6 @@ import React from 'react'
 import Link from 'next/link'
 import { IconButton, Typography } from '@mui/material'
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined'
-import DeleteSweepOutlinedIcon from '@mui/icons-material/DeleteSweepOutlined'
 
 import { routes } from '../../common/routes'
 
@@ -20,9 +19,7 @@ export default function BootcampPage() {
           <AddCircleOutlinedIcon />
         </IconButton>
       </Link>
-      <IconButton>
-        <DeleteSweepOutlinedIcon />
-      </IconButton>
+
       <BootcampGrid />
     </Layout>
   )

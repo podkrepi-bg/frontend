@@ -3,9 +3,10 @@ import { useMutation } from 'react-query'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { AxiosError, AxiosResponse } from 'axios'
-import { GridColumns, DataGrid } from '@mui/x-data-grid'
+import { GridColumns, DataGrid, GridRowId } from '@mui/x-data-grid'
 import { Box, IconButton, Modal, Typography } from '@mui/material'
 import { DeleteOutline, ModeEditOutline, InfoOutlined } from '@mui/icons-material'
+import DeleteSweepOutlinedIcon from '@mui/icons-material/DeleteSweepOutlined'
 
 import { useTranslation } from 'next-i18next'
 import { AlertStore } from '../../stores/AlertStore'
@@ -15,6 +16,7 @@ import { useBootcampList } from '../../common/hooks/bootcamp'
 import { BootcampResponse } from 'gql/bootcamp'
 import { ApiErrors } from 'common/api-errors'
 import { deleteBootcampREST, getBootcamp } from 'common/bootcampRest'
+import DeleteModal from './DeleteModal'
 
 const style = {
   position: 'absolute' as const,
@@ -37,7 +39,12 @@ const initialValues: BootcampResponse = {
 export default function BootcampGrid() {
   const [intern, setIntern] = React.useState<BootcampResponse>(initialValues)
   const [openInfo, setOpenInfo] = React.useState(false)
-  const { data } = useBootcampList()
+  const [openDelete, setOpenDelete] = React.useState(false)
+  const [openDeleteAll, setIsDeleteSelectedModalOpen] = React.useState(false)
+  const [crrId, setCrrId] = React.useState('')
+  const [selectedRows, setSelectedRows] = React.useState<BootcampResponse[]>([])
+  const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>([])
+  const { data = [] } = useBootcampList()
 
   const router = useRouter()
   const { t } = useTranslation()
@@ -88,11 +95,40 @@ export default function BootcampGrid() {
             <ModeEditOutline />
           </IconButton>
         </Link>
-        <IconButton onClick={() => deleteRow(params.id)}>
+        <IconButton
+          onClick={() => {
+            setOpenDelete(true)
+            setCrrId(params.id)
+          }}>
           <DeleteOutline />
         </IconButton>
       </>
     )
+  }
+
+  const closeModal = () => setOpenDelete(false)
+  const deleteConfirmHandler = async () => {
+    try {
+      deleteRow(crrId)
+    } catch (error) {
+      AlertStore.show(t('common:alerts.error'), 'error')
+    }
+    setOpenDelete(false)
+  }
+
+  const deleteAllHandler = () => {
+    selectedRows.forEach((row: any) => {
+      deleteMutation.mutateAsync(row?.id as string).then((_) => {
+        router.push(routes.bootcamp.index)
+      })
+    })
+    closeDAModal()
+  }
+
+  const closeDAModal = () => {
+    setIsDeleteSelectedModalOpen(false)
+    setSelectedRows([])
+    setSelectionModel([])
   }
 
   const columns: GridColumns = [
@@ -118,6 +154,21 @@ export default function BootcampGrid() {
 
   return (
     <>
+      <IconButton
+        onClick={() => setIsDeleteSelectedModalOpen(true)}
+        disabled={selectedRows.length == 0}>
+        <DeleteSweepOutlinedIcon />
+      </IconButton>
+      <DeleteModal
+        open={openDelete}
+        confirmHandler={deleteConfirmHandler}
+        closeModal={closeModal}
+      />
+      <DeleteModal
+        open={openDeleteAll}
+        confirmHandler={deleteAllHandler}
+        closeModal={closeDAModal}
+      />
       <Modal
         open={openInfo}
         onClose={handleClose}
@@ -148,6 +199,12 @@ export default function BootcampGrid() {
         autoPageSize
         checkboxSelection
         disableSelectionOnClick
+        onSelectionModelChange={(ids) => {
+          setSelectionModel(ids)
+          const selectedIDs = new Set(ids)
+          const selectedRows = data.filter((row) => selectedIDs.has(row.id))
+          setSelectedRows(selectedRows)
+        }}
         onRowClick={(row) => {
           const id = row.getValue(row.id, 'id')
           if (typeof id !== 'string') return

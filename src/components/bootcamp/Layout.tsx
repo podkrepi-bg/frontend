@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-// import { styled, useTheme } from '@mui/material/styles'
+import { observer } from 'mobx-react'
 import {
   Box,
   Container,
@@ -19,7 +19,7 @@ import {
   ContainerProps,
   AppBar,
 } from '@mui/material'
-// import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
+import { makeStyles } from '@mui/styles'
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
@@ -30,56 +30,45 @@ import ExpandMore from '@mui/icons-material/ExpandMore'
 import StarBorder from '@mui/icons-material/StarBorder'
 import { AccountCircle } from '@mui/icons-material'
 
-import { routes } from 'common/routes'
+import { routes } from '../../common/routes'
 import PodkrepiIcon from 'components/brand/PodkrepiIcon'
+import { DrawerStore } from '../../stores/DrawerStore'
 
 const drawerWidth = 240
 
-// interface AppBarProps extends MuiAppBarProps {
-//     open?: boolean
-// }
+const useStyles = makeStyles({
+  appBar: {
+    backgroundColor: '#fff',
+  },
+  logo: {
+    height: 40,
+    width: 'auto',
+    marginRight: 10,
+  },
+  closeNavBtn: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    padding: '8px 0',
+  },
+  submenu: {},
+})
 
-// const AppBar = styled(MuiAppBar, {
-//     shouldForwardProp: (prop: any) => prop !== 'open',
-// })<AppBarProps>(({ theme, open }) => ({
-//     transition: theme.transitions.create(['margin', 'width'], {
-//         easing: theme.transitions.easing.sharp,
-//         duration: theme.transitions.duration.leavingScreen,
-//     }),
-//     ...(open && {
-//         width: `calc(100% - ${drawerWidth}px)`,
-//         marginLeft: `${drawerWidth}px`,
-//         transition: theme.transitions.create(['margin', 'width'], {
-//             easing: theme.transitions.easing.easeOut,
-//             duration: theme.transitions.duration.enteringScreen,
-//         }),
-//     }),
-// }))
-
-// const DrawerHeader = styled('div')(({ theme }) => ({
-//     display: 'flex',
-//     alignItems: 'center',
-//     padding: theme.spacing(0, 1),
-//     ...theme.mixins.toolbar,
-//     justifyContent: 'flex-end',
-// }))
-
-export default function Layout({ children }: ContainerProps) {
-  // const theme = useTheme()
+export default observer(function Layout({ children }: ContainerProps) {
+  const classes = useStyles()
   const [anchorEl, setAnchorEl] = React.useState(null)
-  const [open, setOpen] = React.useState(false)
   const [openCol, setOpenCol] = React.useState(true)
+  const { isOpen, toggle } = DrawerStore
 
   const handleClick = () => {
     setOpenCol(!openCol)
   }
 
   const handleDrawerOpen = () => {
-    setOpen(true)
+    toggle()
   }
 
   const handleDrawerClose = () => {
-    setOpen(false)
+    toggle()
   }
 
   const isMenuOpen = Boolean(anchorEl)
@@ -114,14 +103,14 @@ export default function Layout({ children }: ContainerProps) {
   return (
     <Container maxWidth={false} disableGutters>
       <Box>
-        <AppBar>
+        <AppBar className={classes.appBar}>
           <Toolbar>
             <IconButton
               size="large"
               edge="start"
               color="inherit"
               aria-label="open drawer"
-              sx={{ mr: 2 }}
+              sx={{ mr: 2, ...(isOpen && { display: 'none' }) }}
               onClick={handleDrawerOpen}>
               <MenuIcon />
             </IconButton>
@@ -166,12 +155,12 @@ export default function Layout({ children }: ContainerProps) {
         }}
         variant="persistent"
         anchor="left"
-        open={open}>
-        <div>
+        open={isOpen}>
+        <div className={classes.closeNavBtn}>
           <IconButton onClick={handleDrawerClose}>{<ChevronLeftIcon />}</IconButton>
         </div>
         <Divider />
-        <List>
+        <List className={classes.submenu}>
           <Link href={routes.bootcamp.index}>
             <ListItem button key="All Bootcampers">
               <ListItemText primary="All Bootcampers" />
@@ -231,4 +220,4 @@ export default function Layout({ children }: ContainerProps) {
       </footer>
     </Container>
   )
-}
+})
