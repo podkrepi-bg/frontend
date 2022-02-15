@@ -1,3 +1,5 @@
+import { BankAccountStatus, AccountHolderType } from 'components/bankaccounts/BankAccountTypes'
+import { UUID } from './types'
 export type BankAccountResponse = {
   id: UUID
   status: BankAccountStatus
@@ -9,7 +11,7 @@ export type BankAccountResponse = {
   fingerprint?: string
   createdAt: string
   updatedAt: string
-  withdraws: Withdrawal[]
+  withdraws: []
 }
 export type BankAccountInput = {
   status: BankAccountStatus | undefined
@@ -19,7 +21,6 @@ export type BankAccountInput = {
   bankName?: string | undefined
   bankIdCode?: string | undefined
   fingerprint?: string | undefined
-  withdrawal: Withdrawal | undefined
 }
 
 export type BankAccountsData = {
@@ -30,5 +31,4 @@ export type BankAccountsData = {
   bankName: string
   bankIdCode: string
   fingerprint: string
-  withdrawal: string
 }

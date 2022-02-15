@@ -9,7 +9,7 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { ApiErrors } from 'service/apiErrors'
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
-import { BankAccountInput, BankAccountResponse } from 'gql/bankAccounts'
+import { BankAccountInput, BankAccountResponse } from 'gql/bankaccounts'
 import { validationSchemaBankAccForm } from './BankAccountsForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
@@ -43,7 +43,6 @@ export default function BankAccountsEditForm() {
     bankName: data?.bankName,
     bankIdCode: data?.bankIdCode,
     fingerprint: data?.fingerprint,
-    withdrawal: data?.withdraws,
   }
 
   const editBankAccount: MutationFunction<AxiosResponse<BankAccountResponse>, BankAccountInput> =

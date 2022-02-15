@@ -1,5 +1,5 @@
 import { endpoints } from 'service/apiEndpoints'
-import { BankAccountResponse } from 'gql/bankAccounts'
+import { BankAccountResponse } from 'gql/bankaccounts'
 import { useQuery } from 'react-query'
 
 export function useBankAccountsList() {

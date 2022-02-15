@@ -10,7 +10,7 @@ import React from 'react'
 import * as yup from 'yup'
 import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
-import { BankAccountResponse, BankAccountInput, BankAccountsData } from 'gql/bankAccounts'
+import { BankAccountResponse, BankAccountInput, BankAccountsData } from 'gql/bankaccounts'
 import { AccountHolderType, BankAccountStatus } from './BankAccountTypes'
 import { createBankAccountRequest } from 'service/restRequests'
 import { AlertStore } from 'stores/AlertStore'
@@ -28,7 +28,6 @@ export const validationSchemaBankAccForm: yup.SchemaOf<BankAccountsData> = yup
     bankName: yup.string().trim().min(10).max(100).required(),
     bankIdCode: yup.string().trim().min(10).max(100).required(),
     fingerprint: yup.string().trim().min(10).max(100).required(),
-    withdrawal: yup.string().trim().min(10).max(100).required(),
   })
 
 const useStyles = makeStyles((theme) =>
@@ -53,7 +52,6 @@ export default function BankAccountsForm() {
     bankName: '',
     bankIdCode: '',
     fingerprint: '',
-    withdrawal: '',
   }
 
   const mutation = useMutation<
