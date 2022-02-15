@@ -74,11 +74,14 @@ export const createCheckoutSession = async (data: CheckoutSessionInput) => {
   )
 }
 
-export const createCountry = async (data: CountryInput) => {
-  return await apiClient.post<CountryInput, AxiosResponse<CountryResponse>>(
-    endpoints.country.createCountry.url,
-    data,
-  )
+export const useCreateCountry = () => {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (data: CountryInput) =>
+    await apiClient.post<CountryInput, AxiosResponse<CountryResponse>>(
+      endpoints.country.createCountry.url,
+      data,
+      authConfig(keycloak?.token),
+    )
 }
 
 export const getCountry = async (id: string) => {
@@ -87,20 +90,23 @@ export const getCountry = async (id: string) => {
   )
 }
 
-type EditCountryProp = {
-  id: string
-  data: CountryInput
+export const useEditCountry = () => {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async ({ id, data }: { id: string; data: CountryInput }) => {
+    return await apiClient.patch<CountryResponse, AxiosResponse<CountryResponse>>(
+      endpoints.country.editCountry(id).url,
+      data,
+      authConfig(keycloak?.token),
+    )
+  }
 }
 
-export const editCountry = async ({ id, data }: EditCountryProp) => {
-  return await apiClient.patch<CountryResponse, AxiosResponse<CountryResponse>>(
-    endpoints.country.editCountry(id).url,
-    data,
-  )
-}
-
-export const deleteCountry = async (id: string) => {
-  return await apiClient.delete<string, AxiosResponse<CountryResponse>>(
-    endpoints.country.deleteCountry(id).url,
-  )
+export const useDeleteCountry = () => {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (id: string) => {
+    return await apiClient.delete<string, AxiosResponse<CountryResponse>>(
+      endpoints.country.deleteCountry(id).url,
+      authConfig(keycloak?.token),
+    )
+  }
 }

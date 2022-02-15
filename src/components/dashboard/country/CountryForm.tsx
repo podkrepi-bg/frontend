@@ -3,7 +3,7 @@ import * as yup from 'yup'
 import { useRouter } from 'next/router'
 import { FormikHelpers } from 'formik'
 import { useMutation } from 'react-query'
-import { Button, Grid, Typography } from '@mui/material'
+import { Button, Grid } from '@mui/material'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useTranslation } from 'next-i18next'
 import { makeStyles } from '@mui/styles'
@@ -11,7 +11,7 @@ import { makeStyles } from '@mui/styles'
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
-import { createCountry, editCountry } from 'service/restRequests'
+import { useCreateCountry, useEditCountry } from 'service/restRequests'
 import { CountryInput, CountryResponse } from 'gql/countries'
 import { name } from 'common/form/validation'
 import GenericForm from 'components/common/form/GenericForm'
@@ -44,12 +44,13 @@ type CountryFormProps = {
 export default function CountryForm({ initialValues = defaults, id }: CountryFormProps) {
   //if (id) -> edit form, else -> create form
   const { t } = useTranslation('country')
+
   const createMutation = useMutation<
     AxiosResponse<CountryResponse>,
     AxiosError<ApiErrors>,
     CountryInput
   >({
-    mutationFn: createCountry,
+    mutationFn: useCreateCountry(),
     onError: () => AlertStore.show(t('alerts.new-row.error'), 'error'),
     onSuccess: () => AlertStore.show(t('alerts.new-row.success'), 'success'),
   })
@@ -62,7 +63,7 @@ export default function CountryForm({ initialValues = defaults, id }: CountryFor
     AxiosError<ApiErrors>,
     CountryEditInput
   >({
-    mutationFn: editCountry,
+    mutationFn: useEditCountry(),
     onError: () => AlertStore.show(t('alerts.edit-row.error'), 'error'),
     onSuccess: () => AlertStore.show(t('alerts.edit-row.success'), 'success'),
   })
@@ -79,7 +80,7 @@ export default function CountryForm({ initialValues = defaults, id }: CountryFor
         countryCode: values.countryCode,
       }
       if (id) {
-        await editMutation.mutateAsync({ data, id })
+        await editMutation.mutateAsync({ id, data })
       } else {
         await createMutation.mutateAsync(data)
         resetForm()

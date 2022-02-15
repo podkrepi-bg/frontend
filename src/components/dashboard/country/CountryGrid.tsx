@@ -5,7 +5,7 @@ import { useMutation } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { IconButton, Typography } from '@mui/material'
+import { IconButton } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import DeleteIcon from '@mui/icons-material/Delete'
 import AddIcon from '@mui/icons-material/Add'
@@ -15,7 +15,7 @@ import { routes } from 'common/routes'
 import { CountryResponse } from 'gql/countries'
 import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
-import { deleteCountry, getCountry } from 'service/restRequests'
+import { useDeleteCountry, getCountry } from 'service/restRequests'
 
 import InfoDialog from './InfoDialog'
 import DeleteRowDialog from './DeleteRowDialog'
@@ -91,11 +91,11 @@ export default function CountryGrid() {
   })
 
   const delMutation = useMutation<AxiosResponse<CountryResponse>, AxiosError<ApiErrors>, string>({
-    mutationFn: deleteCountry,
+    mutationFn: useDeleteCountry(),
     onError: () => AlertStore.show(t('alerts.delete-row.error'), 'error'),
     onSuccess: () => {
       AlertStore.show(t('alerts.delete-row.success'), 'success')
-      router.push(routes.dashboard.index)
+      router.push(routes.dashboard.country.index)
     },
   })
 
