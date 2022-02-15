@@ -20,9 +20,13 @@ export default observer(function DashboardAppBar() {
       sx={{
         backgroundColor: '#fff',
         boxShadow: 'none',
-        paddingLeft: '12px',
+        marginLeft: '12px',
       }}>
-      <Toolbar disableGutters>
+      <Toolbar
+        disableGutters
+        sx={{
+          marginRight: '10px',
+        }}>
         <Link href={routes.index}>
           <a>
             <PodkrepiIcon
@@ -35,9 +39,11 @@ export default observer(function DashboardAppBar() {
         </Link>
         <IconButton
           onClick={toggleDrawerOpen}
+          size="medium"
           sx={{
             marginLeft: '90px',
             marginRight: '20px',
+            backgroundColor: '#F1FBFF',
           }}
           color="primary">
           <MenuIcon />
