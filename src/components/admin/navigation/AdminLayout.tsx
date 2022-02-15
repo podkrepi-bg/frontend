@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect, useMemo } from 'react'
 import { makeStyles, useTheme } from '@mui/styles'
 import { useRouter } from 'next/router'
 import MuiDrawer from '@mui/material/Drawer'
@@ -144,7 +144,21 @@ export default function AdminLayout({ children }: Props) {
   const theme = useTheme()
   const router = useRouter()
   const classes = useStyles()
-  const [open, setOpen] = useState(false)
+
+  const initialOpen = useMemo<boolean>(() => {
+    const item = window.localStorage.getItem('menu-open')
+    if (item) {
+      return Boolean(JSON.parse(item))
+    }
+    return false
+  }, [])
+
+  const [open, setOpen] = useState<boolean>(initialOpen)
+
+  useEffect(() => {
+    window.localStorage.setItem('menu-open', JSON.stringify(open))
+  }, [open])
+
   const toggleMenu = useCallback(() => setOpen((open) => !open), [])
   return (
     <Box className={classes.wrapper}>
