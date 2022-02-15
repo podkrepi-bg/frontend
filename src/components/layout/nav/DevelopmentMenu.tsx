@@ -32,7 +32,7 @@ const allNavItems: NavItem[] = [
     target: '_blank',
   },
   {
-    href: routes.dev.openData,
+    href: routes.bankaccounts.dev.openData,
     label: 'nav.dev.open-data',
     target: '_blank',
   },
