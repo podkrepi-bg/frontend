@@ -95,7 +95,6 @@ export default function CountryGrid() {
     onError: () => AlertStore.show(t('alerts.delete-row.error'), 'error'),
     onSuccess: () => {
       AlertStore.show(t('alerts.delete-row.success'), 'success')
-      router.push(routes.dashboard.country.index)
     },
   })
 
@@ -134,7 +133,8 @@ export default function CountryGrid() {
   const deleteRow = async () => {
     try {
       closeDeleteRowDialog()
-      delMutation.mutateAsync(selected.id)
+      await delMutation.mutateAsync(selected.id)
+      router.push(routes.dashboard.country.index)
     } catch (err) {
       console.log(err)
     }
@@ -151,7 +151,7 @@ export default function CountryGrid() {
       await Promise.all(selected.ids.map((id) => delMutation.mutateAsync(id)))
       AlertStore.show(t('alerts.delete-rows.success'), 'success')
       setSelected({ ...selected, ids: [] })
-      router.push(routes.dashboard.index)
+      router.push(routes.dashboard.country.index)
     } catch (err) {
       AlertStore.show(t('alerts.delete-rows.error'), 'error')
     }
@@ -227,7 +227,7 @@ export default function CountryGrid() {
           columns={columns}
           pageSize={pageSize}
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          rowsPerPageOptions={[5, 10, 20]}
+          rowsPerPageOptions={[5, 10]}
           pagination
           autoHeight
           checkboxSelection
