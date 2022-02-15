@@ -1,17 +1,18 @@
-import { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { MutationFunction, QueryFunction } from 'react-query'
+import { KeycloakInstance } from 'keycloak-js'
+import { useKeycloak } from '@react-keycloak/ssr'
+import { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 import { apiClient } from 'service/apiClient'
 import {
   SupportRequestResponse,
   SupportRequestInput,
 } from 'components/support-form/helpers/support-form.types'
-import { ContactRequestResponse, ContactRequestInput } from 'gql/contact'
 import { CampaignResponse, CampaignInput } from 'gql/campaigns'
-
-import { endpoints } from './apiEndpoints'
-import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
+import { ContactRequestResponse, ContactRequestInput } from 'gql/contact'
+import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
+import { endpoints } from './apiEndpoints'
 import { BankAccountResponse, BankAccountInput } from 'gql/bankaccounts'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
@@ -26,24 +27,22 @@ export const queryFnFactory = <T>(config?: AxiosRequestConfig): QueryFunction<T>
   }
 
 export const authQueryFnFactory = <T>(token?: string): QueryFunction<T> => {
-  const headers = token ? { Authorization: `Bearer ${token}` } : {}
-  return queryFnFactory<T>({ headers })
+  return queryFnFactory<T>(authConfig(token))
 }
 
-export const createBeneficiary: MutationFunction<
-  AxiosResponse<PersonResponse>,
-  CreateBeneficiaryInput
-> = async (data: CreateBeneficiaryInput) => {
+export const authConfig = (token?: string): AxiosRequestConfig => {
+  const headers = token ? { Authorization: `Bearer ${token}` } : {}
+  return { headers }
+}
+
+export const createBeneficiary = async (data: CreateBeneficiaryInput) => {
   return await apiClient.post<CreateBeneficiaryInput, AxiosResponse<PersonResponse>>(
     endpoints.person.createBeneficiary.url,
     data,
   )
 }
 
-export const createContactRequest: MutationFunction<
-  AxiosResponse<ContactRequestResponse>,
-  ContactRequestInput
-> = async (data: ContactRequestInput) => {
+export const createContactRequest = async (data: ContactRequestInput) => {
   return await apiClient.post<ContactRequestInput, AxiosResponse<ContactRequestResponse>>(
     endpoints.support.createInfoRequest.url,
     data,
@@ -67,18 +66,17 @@ export const createSupportRequest = async (data: SupportRequestInput) => {
   )
 }
 
-export const createCampaign: MutationFunction<AxiosResponse<CampaignResponse>, CampaignInput> =
-  async (data: CampaignInput) => {
-    return await apiClient.post<CampaignInput, AxiosResponse<CampaignResponse>>(
+export const useCreateCampaign = () => {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (data: CampaignInput) =>
+    await apiClient.post<CampaignInput, AxiosResponse<CampaignResponse>>(
       endpoints.campaign.createCampaign.url,
       data,
+      authConfig(keycloak?.token),
     )
-  }
+}
 
-export const createCheckoutSession: MutationFunction<
-  AxiosResponse<CheckoutSessionResponse>,
-  CheckoutSessionInput
-> = async (data: CheckoutSessionInput) => {
+export const createCheckoutSession = async (data: CheckoutSessionInput) => {
   return await apiClient.post<CheckoutSessionInput, AxiosResponse<CheckoutSessionResponse>>(
     endpoints.donation.createCheckoutSession.url,
     data,

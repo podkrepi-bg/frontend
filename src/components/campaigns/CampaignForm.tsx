@@ -12,7 +12,7 @@ import createStyles from '@mui/styles/createStyles'
 
 import { routes } from 'common/routes'
 import { PersonFormData } from 'gql/person'
-import { createCampaign } from 'service/restRequests'
+import { useCreateCampaign } from 'service/restRequests'
 import { AlertStore } from 'stores/AlertStore'
 import { createSlug } from 'common/util/createSlug'
 import PersonDialog from 'components/person/PersonDialog'
@@ -96,7 +96,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
     AxiosError<ApiErrors>,
     CampaignInput
   >({
-    mutationFn: createCampaign,
+    mutationFn: useCreateCampaign(),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
