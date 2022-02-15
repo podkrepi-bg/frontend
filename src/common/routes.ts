@@ -52,14 +52,14 @@ export const routes = {
     index: '/admin',
     infoRequests: '/admin/info-requests',
     supporters: '/admin/supporters',
+    bankaccounts: {
+      index: '/bankaccounts',
+      edit: (id: string | number) => `/bankaccounts/edit/${id}`,
+      add: '/bankaccounts/add',
+    },
   },
   dev: {
     openData: '/open-data',
     apiDocs: '/docs',
-  },
-  bankaccounts: {
-    index: '/bankaccounts',
-    edit: (id: string | number) => `/bankaccounts/edit/${id}`,
-    add: '/bankaccounts/add',
   },
 }

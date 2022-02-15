@@ -63,7 +63,7 @@ export default function BankAccountsForm() {
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => {
       AlertStore.show(t('common:alerts.message-sent'), 'success')
-      router.push(routes.bankaccounts.index)
+      router.push(routes.admin.bankaccounts.index)
     },
   })
 

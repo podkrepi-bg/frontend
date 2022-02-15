@@ -84,7 +84,7 @@ export default observer(function BankAccountsGrid() {
             carId={String(params.id)}
             openModal={ModalStore.openModal}
             router={router}
-            route={routes.bankaccounts.edit(params.id)}
+            route={routes.admin.bankaccounts.edit(params.id)}
             handleOpen={handleClickOpen}
             setId={setId}
             idToSet={String(params.id)}
