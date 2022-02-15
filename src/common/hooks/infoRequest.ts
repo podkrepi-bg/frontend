@@ -14,6 +14,10 @@ export type InfoRequest = {
   deletedAt: Date | null
 }
 
+export type InfoRequestInput = {
+  message: string
+}
+
 export function useInfoRequestList() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return useQuery<InfoRequest[]>(

@@ -9,20 +9,7 @@ function InfoRequestPage() {
   return (
     <>
       <MainLayout>
-        <Container
-          maxWidth={false}
-          sx={{
-            borderRadius: '13px',
-            minHeight: 'calc(100vh - 64px)',
-            position: 'relative',
-            background: '#e9f6ff',
-            width: '100%',
-          }}>
-          <Container sx={{ pt: '24px' }} disableGutters maxWidth={false}>
-            <AppBarMenu />
-            <InfoRequestGrid />
-          </Container>
-        </Container>
+        <InfoRequestGrid />
       </MainLayout>
     </>
   )

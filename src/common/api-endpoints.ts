@@ -32,5 +32,6 @@ export const endpoints = {
   infoRequest: {
     infoRequestList: <Endpoint>{ url: '/info-request/list', method: 'GET' },
     delete: (slug: string) => <Endpoint>{ url: `/info-request/${slug}`, method: 'DELETE' },
+    create: <Endpoint>{ url: '/info-request', method: 'POST' },
   },
 }

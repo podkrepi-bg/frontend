@@ -11,6 +11,7 @@ import {
   ListItemText,
   List,
   Box,
+  Container,
 } from '@mui/material'
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
@@ -25,6 +26,7 @@ import MailIcon from '@mui/icons-material/Mail'
 import Snackbar from 'components/layout/Snackbar'
 import PictureLogo from '/public/android-chrome-192x192.png'
 import PanelFooter from './PanelFooter'
+import AppBarMenu from './AppBarMenu'
 const drawerWidth = 200
 
 const useStyles = makeStyles({
@@ -228,7 +230,19 @@ export default function MainLayout({ children }: Props) {
         }}></div>
       <Box component="main" sx={{ flexGrow: 1 }}>
         <DrawerHeader></DrawerHeader>
-        {children}
+        <Container
+          maxWidth={false}
+          sx={{
+            minHeight: 'calc(100vh - 64px)',
+            position: 'relative',
+            background: '#e9f6ff',
+            width: '100%',
+          }}>
+          <Container sx={{ pt: '24px' }} disableGutters maxWidth={false}>
+            <AppBarMenu />
+            <div style={{ backgroundColor: 'white', height: '80vh' }}>{children}</div>
+          </Container>
+        </Container>
       </Box>
       <PanelFooter>
         <Button

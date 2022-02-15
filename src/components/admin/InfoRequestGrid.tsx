@@ -34,17 +34,27 @@ const columns: GridColumns = [
 
 export default function InfoRequestGrid() {
   const { data } = useInfoRequestList()
+  const [hidden, setHidden] = React.useState(true)
 
+  // const handleDirectionChange = (event) => {
+  //   setDirection(event.target.value)
+  // }
+
+  // const handleHiddenChange = (event) => {
+  //   setHidden(event.target.checked)
+  // }
   return (
-    <DataGrid
-      rows={data || []}
-      columns={columns}
-      pageSize={5}
-      autoHeight
-      autoPageSize
-      checkboxSelection
-      disableSelectionOnClick
-      onRowClick={(p) => DialogStore.show(p, `${p.getValue(p.id, 'name')}`)}
-    />
+    <>
+      <DataGrid
+        rows={data || []}
+        columns={columns}
+        pageSize={5}
+        autoHeight
+        autoPageSize
+        checkboxSelection
+        disableSelectionOnClick
+        onRowClick={(p) => DialogStore.show(p, `${p.getValue(p.id, 'name')}`)}
+      />
+    </>
   )
 }

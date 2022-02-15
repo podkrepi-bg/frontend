@@ -12,6 +12,7 @@ import { CampaignResponse, CampaignInput } from 'gql/campaigns'
 import { endpoints } from './api-endpoints'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
+import { InfoRequest, InfoRequestInput } from './hooks/infoRequest'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await axios.get(queryKey.join('/'))
@@ -79,4 +80,15 @@ export const createCheckoutSession: MutationFunction<
 
 export const deleteInfoRequest = async (slug: string) => {
   return await axios.delete(endpoints.infoRequest.delete(slug).url)
+}
+
+export const createInfoRequest = (token: string | undefined) => {
+  return async (data: InfoRequestInput) => {
+    const headers = token ? { Authorization: `Bearer ${token}` } : {}
+    return await axios.post<InfoRequestInput, AxiosResponse<InfoRequest>>(
+      endpoints.infoRequest.create.url,
+      data,
+      { headers },
+    )
+  }
 }
