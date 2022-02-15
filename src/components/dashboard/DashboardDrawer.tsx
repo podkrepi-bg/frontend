@@ -31,8 +31,24 @@ import { DashboardStore } from 'stores/DashboardStore'
 
 export const drawerWidth = '194px'
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    listItemButton: {
+      padding: '6px 10px 6px 15px',
+      borderRadius: '20px',
+      '&:active': {
+        backgroundColor: theme.palette.primary.main,
+      },
+      margin: '0 10px',
+    },
+    ListItemIcon: {
+      minWidth: '31px',
+      marginLeft: '-10px',
+      transition: theme.transitions.create('min-width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
     listItemText: {
       fontFamily: 'Lato',
       fontSize: '16px',
@@ -58,6 +74,11 @@ const compactMixin = (theme: Theme): CSSObject => ({
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up('sm')]: {
     width: `calc(${theme.spacing(7)} + 1px)`,
+  },
+  paddingLeft: '0',
+  paddingRight: '0',
+  '.MuiListItemIcon-root': {
+    minWidth: '45px',
   },
 })
 
@@ -121,14 +142,13 @@ export default observer(function DashboardDrawer() {
       }}>
       <List
         sx={{
-          paddingTop: '31px',
+          padding: '31px 0 320px 0',
           height: '100%',
           position: 'relative',
-          paddingBottom: '320px',
         }}>
         <Link href={routes.dashboard.index} passHref>
-          <ListItemButton>
-            <ListItemIcon>
+          <ListItemButton className={classes.listItemButton}>
+            <ListItemIcon className={classes.ListItemIcon}>
               <HomeIcon />
             </ListItemIcon>
             <ListItemText
@@ -138,8 +158,8 @@ export default observer(function DashboardDrawer() {
             />
           </ListItemButton>
         </Link>
-        <ListItemButton onClick={toggleDrawerEntityOpen}>
-          <ListItemIcon>
+        <ListItemButton className={classes.listItemButton} onClick={toggleDrawerEntityOpen}>
+          <ListItemIcon className={classes.ListItemIcon}>
             <FormatListBulletedIcon />
           </ListItemIcon>
           <ListItemText
@@ -153,8 +173,8 @@ export default observer(function DashboardDrawer() {
         </ListItemButton>
         <Collapse in={drawerEntityOpen} timeout="auto" unmountOnExit>
           <List>
-            <ListItemButton onClick={toggleDrawerCountryOpen}>
-              <ListItemIcon>
+            <ListItemButton className={classes.listItemButton} onClick={toggleDrawerCountryOpen}>
+              <ListItemIcon className={classes.ListItemIcon}>
                 <PublicIcon />
               </ListItemIcon>
               <ListItemText
@@ -169,8 +189,8 @@ export default observer(function DashboardDrawer() {
             <Collapse in={drawerCountryOpen} timeout="auto" unmountOnExit>
               <List>
                 <Link href={routes.dashboard.country.index} passHref>
-                  <ListItemButton>
-                    <ListItemIcon>
+                  <ListItemButton className={classes.listItemButton}>
+                    <ListItemIcon className={classes.ListItemIcon}>
                       <GridViewIcon />
                     </ListItemIcon>
                     <ListItemText
@@ -183,8 +203,8 @@ export default observer(function DashboardDrawer() {
                   </ListItemButton>
                 </Link>
                 <Link href={routes.dashboard.country.create} passHref>
-                  <ListItemButton>
-                    <ListItemIcon>
+                  <ListItemButton className={classes.listItemButton}>
+                    <ListItemIcon className={classes.ListItemIcon}>
                       <AddCircleIcon />
                     </ListItemIcon>
                     <ListItemText
@@ -203,23 +223,37 @@ export default observer(function DashboardDrawer() {
         <ListItemButton
           sx={{
             position: 'absolute',
-            width: '100%',
+            width: 'calc(100% - 20px)',
             bottom: '125px',
           }}
+          className={classes.listItemButton}
           onClick={toggleDrawerCompact}>
-          <ListItemIcon>{drawerCompact ? <ChevronRightIcon /> : <ChevronLeftIcon />}</ListItemIcon>
-          <ListItemText>{t('appbar.drawer.compact')}</ListItemText>
+          <ListItemIcon className={classes.ListItemIcon}>
+            {drawerCompact ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          </ListItemIcon>
+          <ListItemText
+            primary={
+              <Typography className={classes.listItemText}>{t('appbar.drawer.compact')}</Typography>
+            }
+          />
         </ListItemButton>
         <ListItemButton
           sx={{
             position: 'absolute',
-            width: '100%',
+            width: 'calc(100% - 20px)',
             bottom: '80px',
-          }}>
-          <ListItemIcon>
+          }}
+          className={classes.listItemButton}>
+          <ListItemIcon className={classes.ListItemIcon}>
             <SettingsIcon />
           </ListItemIcon>
-          <ListItemText>{t('appbar.drawer.settings')}</ListItemText>
+          <ListItemText
+            primary={
+              <Typography className={classes.listItemText}>
+                {t('appbar.drawer.settings')}
+              </Typography>
+            }
+          />
         </ListItemButton>
       </List>
     </Drawer>
