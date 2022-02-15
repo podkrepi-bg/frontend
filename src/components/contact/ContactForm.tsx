@@ -62,12 +62,13 @@ export type ContactFormProps = { initialValues?: ContactFormData }
 export default function ContactForm({ initialValues = defaults }: ContactFormProps) {
   const classes = useStyles()
   const { t } = useTranslation()
+  const mutationFn = createContactRequest
   const mutation = useMutation<
     AxiosResponse<ContactRequestResponse>,
     AxiosError<ApiErrors>,
     ContactRequestInput
   >({
-    mutationFn: createContactRequest,
+    mutationFn,
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
