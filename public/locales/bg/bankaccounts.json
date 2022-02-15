@@ -1,11 +1,11 @@
 {
-    "form-heading": "Добави нова сметка",
-    "status": "Статус",
-    "ibanNumber": "ИБАН",
-    "accountHolderName": "Собственик",
-    "AccountHolderType": "Вид акаунт",
-    "bankName": "Име на банка",
-    "bankIdCode": "Банков идентификатор",
-    "fingerprint": "Подпис",
-    "withdrawal": "Извлечения"
+  "form-heading": "Добави нова сметка",
+  "status": "Статус",
+  "ibanNumber": "IBAN",
+  "accountHolderName": "Собственик",
+  "AccountHolderType": "Вид акаунт",
+  "bankName": "Име на банка",
+  "bankIdCode": "Банков идентификатор",
+  "fingerprint": "Подпис",
+  "withdrawal": "Извлечения"
 }

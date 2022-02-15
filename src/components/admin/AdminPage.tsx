@@ -1,12 +1,14 @@
-import { Container, Grid, Typography } from '@mui/material'
-import { useKeycloak } from '@react-keycloak/ssr'
-import InfoRequestGrid from './InfoRequestGrid'
-import { KeycloakInstance } from 'keycloak-js'
-import Layout from 'components/layout/Layout'
-import SupportersGrid from './SupportersGrid'
-import { useTranslation } from 'next-i18next'
-import { isAdmin } from 'common/util/roles'
 import React from 'react'
+import { useTranslation } from 'next-i18next'
+import { KeycloakInstance } from 'keycloak-js'
+import { useKeycloak } from '@react-keycloak/ssr'
+import { Container, Grid, Typography } from '@mui/material'
+
+import { isAdmin } from 'common/util/roles'
+import Layout from 'components/layout/Layout'
+
+import SupportersGrid from './SupportersGrid'
+import InfoRequestGrid from './InfoRequestGrid'
 
 export default function AdminPage() {
   const { t } = useTranslation()

@@ -1,10 +1,12 @@
 import { Container } from '@mui/material'
-import BankAccountsModal from './BankAccountsModal'
+
 import BankAccountsGrid from './BankAccountsGrid'
+import BankAccountsModal from './BankAccountsModal'
+import MainLayout from '../admin/navigation/MainLayout'
+import AppBarMenu from '../admin/navigation/AppBarMenu'
 import BankAccountsDetails from './BankAccountsDetails'
 import BankAccountsBottomAppbar from './BankAccountsBottomAppBar'
-import MainLayout from './navigation/MainLayout'
-import AppBarMenu from './navigation/AppBarMenu'
+
 const BankAccountsPage = () => {
   return (
     <MainLayout>
@@ -21,7 +23,7 @@ const BankAccountsPage = () => {
           width: '100%',
         }}>
         <Container sx={{ pt: '24px' }} disableGutters maxWidth={false}>
-          <AppBarMenu />
+          <AppBarMenu title={'Банкови сметки'} />
           <BankAccountsBottomAppbar />
           <BankAccountsGrid />
         </Container>

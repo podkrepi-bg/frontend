@@ -1,4 +1,4 @@
-import { Typography, Card, CSSObject } from '@mui/material'
+import { Typography, Card, SxProps, Theme } from '@mui/material'
 import CardContent from '@mui/material/CardContent'
 import { UseQueryResult } from 'react-query'
 import { observer } from 'mobx-react'
@@ -8,7 +8,7 @@ import CloseModalButton from 'components/common/CloseModalButton'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 
 export default observer(function BankAccountDetails() {
-  const containerStyles: CSSObject = {
+  const containerStyles: SxProps<Theme> = {
     minWidth: 275,
     position: 'absolute' as const,
     top: '50%',
