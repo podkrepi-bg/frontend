@@ -1,6 +1,6 @@
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import DeleteIcon from '@mui/icons-material/Delete'
-import ImportExportIcon from '@mui/icons-material/ImportExport'
+import PageviewIcon from '@mui/icons-material/Pageview'
 import EditIcon from '@mui/icons-material/Edit'
 import ShareIcon from '@mui/icons-material/Share'
 import { useRouter } from 'next/router'
@@ -34,7 +34,7 @@ export const ControlIcons: React.FC<Props> = ({
         justifyContent: 'space-between',
       }}>
       {
-        <ShareIcon
+        <PageviewIcon
           sx={{ cursor: 'pointer' }}
           color="primary"
           onClick={() => {
