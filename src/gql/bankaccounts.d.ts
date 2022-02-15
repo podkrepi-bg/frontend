@@ -3,7 +3,7 @@ export type BankAccountResponse = {
   status: BankAccountStatus
   ibanNumber: string
   accountHolderName: string
-  accountHolderType: AccountHolderType
+  AccountHolderType: AccountHolderType
   bankName?: string
   bankIdCode?: string
   fingerprint?: string
@@ -15,29 +15,19 @@ export type BankAccountInput = {
   status: BankAccountStatus | undefined
   ibanNumber: string | undefined
   accountHolderName: string | undefined
-  accountHolderType: AccountHolderType | undefined
+  AccountHolderType: AccountHolderType | undefined
   bankName?: string | undefined
   bankIdCode?: string | undefined
   fingerprint?: string | undefined
   withdrawal: Withdrawal | undefined
 }
-export enum BankAccountStatus {
-  new = 'new',
-  validated = 'validated',
-  verified = 'verified',
-  verification_failed = 'verification_failed',
-  errored = 'errored',
-}
-export enum AccountHolderType {
-  individual = 'individual',
-  company = 'company',
-}
+
 
 export type BankAccountsData = {
   status: string
   ibanNumber: string
   accountHolderName: string
-  accountHolderType: string
+  AccountHolderType: string
   bankName: string
   bankIdCode: string
   fingerprint: string

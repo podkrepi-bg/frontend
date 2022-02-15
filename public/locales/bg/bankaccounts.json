@@ -3,7 +3,7 @@
     "status": "Статус",
     "ibanNumber": "ИБАН",
     "accountHolderName": "Собственик",
-    "accountHolderType": "Вид акаунт",
+    "AccountHolderType": "Вид акаунт",
     "bankName": "Име на банка",
     "bankIdCode": "Банков идентификатор",
     "fingerprint": "Подпис",

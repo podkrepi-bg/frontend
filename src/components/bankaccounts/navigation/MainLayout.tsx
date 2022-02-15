@@ -210,7 +210,7 @@ export default function MainLayout({ children }: Props) {
           )}
           <ListItem
             button
-            sx={{ px: '7px', borderRadius: '20px', position: 'absolute', bottom: '15px' }}>
+            sx={{ px: '7px', borderRadius: '20px', marginTop: 'calc(100vh - 435px)' }}>
             <ListItemIcon>
               <SettingsIcon />
             </ListItemIcon>

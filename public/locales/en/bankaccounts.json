@@ -3,7 +3,7 @@
     "status": "Status",
     "ibanNumber": "IBAN",
     "accountHolderName": "Account holder name",
-    "accountHolderType": "Account holder type",
+    "AccountHolderType": "Account holder type",
     "bankName": "Bank name",
     "bankIdCode": "Bank ID",
     "fingerprint": "Fingerprint",
