@@ -1,16 +1,18 @@
 import { Box, Typography } from '@mui/material'
+import { useTranslation } from 'next-i18next'
+import { observer } from 'mobx-react'
+import { useRouter } from 'next/router'
 import DeleteIcon from '@mui/icons-material/Delete'
 import AddIcon from '@mui/icons-material/Add'
 import Tooltip from '@mui/material/Tooltip'
-import { useTranslation } from 'next-i18next'
 import Toolbar from '@mui/material/Toolbar'
 import PrintIcon from '@mui/icons-material/Print'
 import SaveIcon from '@mui/icons-material/Save'
-import { observer } from 'mobx-react'
 import ShareIcon from '@mui/icons-material/Share'
 import EventNoteIcon from '@mui/icons-material/EventNote'
 import { AlertStore } from 'stores/AlertStore'
 import { ModalStore } from 'stores/dashboard/ModalStore'
+import { routes } from 'common/routes'
 const addIconStyles = {
   background: '#4ac3ff',
   borderRadius: '50%',
@@ -29,6 +31,7 @@ const iconStyles = {
 export default observer(function BottomAppBar() {
   const { openCfrm, carSelected } = ModalStore
   const { t } = useTranslation()
+  const router = useRouter()
   const deleteHandler = () => {
     carSelected ? openCfrm() : AlertStore.show(t('common:alerts.noselected'), 'info')
   }
@@ -62,14 +65,16 @@ export default observer(function BottomAppBar() {
             <ShareIcon sx={iconStyles} fontSize="medium" color="action" />
           </Tooltip>
           <Tooltip title="Добави">
-            <AddIcon sx={addIconStyles} fontSize="large" />
+            <AddIcon
+              sx={addIconStyles}
+              fontSize="large"
+              onClick={() => {
+                router.push(routes.bankaccounts.add)
+              }}
+            />
           </Tooltip>
         </Box>
       </Box>
     </Toolbar>
   )
 })
-
-/*           onClick={() => {
-            router.push(routes.bankaccounts.add)
-          }} */

@@ -29,14 +29,6 @@ export const endpoints = {
     recurringPrices: <Endpoint>{ url: '/donation/prices/recurring', method: 'GET' },
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
   },
-  cars: {
-    carsList: <Endpoint>{ url: '/car', method: 'GET' },
-    viewCar: (slug: string | number) => <Endpoint>{ url: `/car/${slug}`, method: 'GET' },
-    deleteCar: (slug: string) => <Endpoint>{ url: `/car/${slug}`, method: 'DELETE' },
-    postCar: <Endpoint>{ url: '/car', method: 'POST' },
-    editCar: (slug: string | number) => <Endpoint>{ url: `/car/${slug}`, method: 'PATCH' },
-    deleteManyCars: <Endpoint>{ url: `/car/deletemany`, method: 'POST' },
-  },
   bankAccounts: {
     bankAccountList: <Endpoint>{ url: '/bankaccount', method: 'GET' },
     viewBankAccount: (slug: string) => <Endpoint>{ url: `/bankaccount/${slug}`, method: 'GET' },

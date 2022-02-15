@@ -9,7 +9,7 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { ApiErrors } from 'common/api-errors'
 import { axios } from 'common/api-client'
 import { endpoints } from 'common/api-endpoints'
-import { BankAccountInput, BankAccountResponse } from 'gql/bankaccounts'
+import { BankAccountInput, BankAccountResponse } from 'gql/bankAccounts'
 import { validationSchemaBankAccForm } from './BankAccountsForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
@@ -17,6 +17,7 @@ import { useViewBankAccount } from 'common/hooks/bankaccounts'
 import GenericForm from 'components/common/form/GenericForm'
 import { AlertStore } from 'stores/AlertStore'
 import { routes } from 'common/routes'
+import MainLayout from './navigation/MainLayout'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -39,7 +40,7 @@ export default function BankAccountsEditForm() {
     status: data?.status,
     ibanNumber: data?.ibanNumber,
     accountHolderName: data?.accountHolderName,
-    accountHolderType: data?.accountHolderType,
+    AccountHolderType: data?.AccountHolderType,
     bankName: data?.bankName,
     bankIdCode: data?.bankIdCode,
     fingerprint: data?.fingerprint,
@@ -99,8 +100,8 @@ export default function BankAccountsEditForm() {
           <Grid item xs={12}>
             <FormTextField
               type="text"
-              name="accountHolderType"
-              label="bankaccounts:accountHolderType"
+              name="AccountHolderType"
+              label="bankaccounts:AccountHolderType"
             />
           </Grid>
           <Grid item xs={12}>

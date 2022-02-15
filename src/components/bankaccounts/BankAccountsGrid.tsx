@@ -16,7 +16,7 @@ import { ControlIcons, commonProps } from './BankAccountsGridHelper'
 import { axios } from 'common/api-client'
 import { endpoints } from 'common/api-endpoints'
 import { renderCellWithdraws } from './BankAccountsGridHelper'
-import { BankAccountResponse } from 'gql/bankaccounts'
+import { BankAccountResponse } from 'gql/bankAccounts'
 export default observer(function BankAccountsGrid() {
   const queryClient = useQueryClient()
   const router = useRouter()
@@ -52,7 +52,7 @@ export default observer(function BankAccountsGrid() {
     { ...commonProps, headerName: 'статус', field: 'status' },
     { ...commonProps, headerName: 'ИБАН', field: 'ibanNumber', width: 220 },
     { ...commonProps, headerName: 'собственик', field: 'accountHolderName' },
-    { ...commonProps, headerName: 'вид', field: 'accountHolderType' },
+    { ...commonProps, headerName: 'вид', field: 'AccountHolderType1' },
     { ...commonProps, headerName: 'име на банка', field: 'bankName' },
     { ...commonProps, headerName: 'ид на банката', field: 'bankIdCode' },
     { ...commonProps, headerName: 'подпис', field: 'fingerprint' },
