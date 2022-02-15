@@ -2,6 +2,8 @@ import { QueryClient, useQuery } from 'react-query'
 
 import { endpoints } from 'common/api-endpoints'
 import { authQueryFnFactory } from 'common/rest'
+import { KeycloakInstance } from 'keycloak-js'
+import { useKeycloak } from '@react-keycloak/ssr'
 
 export type InfoRequest = {
   id: string
@@ -13,7 +15,11 @@ export type InfoRequest = {
 }
 
 export function useInfoRequestList() {
-  return useQuery<InfoRequest[]>(endpoints.infoRequest.infoRequestList.url)
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return useQuery<InfoRequest[]>(
+    endpoints.infoRequest.infoRequestList.url,
+    authQueryFnFactory<InfoRequest[]>(keycloak?.token),
+  )
 }
 
 export async function prefetchInfoRequestList(client: QueryClient, token?: string) {
