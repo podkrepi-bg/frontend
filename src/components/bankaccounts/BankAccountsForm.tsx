@@ -10,7 +10,7 @@ import React from 'react'
 import * as yup from 'yup'
 import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
-import { BankAccountResponse, BankAccountInput, BankAccountsData } from 'gql/bankAccounts'
+import { BankAccountResponse, BankAccountInput, BankAccountsData } from 'gql/bankaccounts'
 import { AccountHolderType, BankAccountStatus } from './BankAccountTypes'
 import { createBankAccountRequest } from 'common/rest'
 import { AlertStore } from 'stores/AlertStore'
@@ -49,7 +49,7 @@ export default function BankAccountsForm() {
     status: BankAccountStatus.new,
     ibanNumber: '',
     accountHolderName: '',
-    AccountHolderType: AccountHolderType.individual,
+    accountHolderType: AccountHolderType.individual,
     bankName: '',
     bankIdCode: '',
     fingerprint: '',

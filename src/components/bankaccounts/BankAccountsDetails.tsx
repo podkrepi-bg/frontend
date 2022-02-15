@@ -2,10 +2,11 @@ import { Typography, Card, CSSObject } from '@mui/material'
 import CardContent from '@mui/material/CardContent'
 import { UseQueryResult } from 'react-query'
 import { observer } from 'mobx-react'
-import { BankAccountResponse } from 'gql/bankAccounts'
+import { BankAccountResponse } from 'gql/bankaccounts'
 import { useViewBankAccount } from 'common/hooks/bankaccounts'
 import CloseModalButton from 'components/common/CloseModalButton'
 import { ModalStore } from 'stores/dashboard/ModalStore'
+
 export default observer(function BankAccountDetails() {
   const containerStyles: CSSObject = {
     minWidth: 275,
@@ -34,7 +35,7 @@ export default observer(function BankAccountDetails() {
           Account holder: {data?.accountHolderName}
         </Typography>
         <Typography variant="body2" gutterBottom>
-          Type: {data?.AccountHolderType}
+          Type: {data?.accountHolderType}
         </Typography>
         <Typography variant="body2" gutterBottom>
           Bank: {data?.bankName}
