@@ -84,7 +84,7 @@ export default function CountryForm({ initialValues = defaults, id }: CountryFor
         await createMutation.mutateAsync(data)
         resetForm()
       }
-      router.push(routes.dashboard.index)
+      router.push(routes.dashboard.country.index)
     } catch (error) {
       console.error(error)
       if (isAxiosError(error)) {
@@ -133,7 +133,11 @@ export default function CountryForm({ initialValues = defaults, id }: CountryFor
             </Grid>
           )}
           <Grid item xs={6}>
-            <LinkButton fullWidth variant="contained" color="primary" href={routes.dashboard.index}>
+            <LinkButton
+              fullWidth
+              variant="contained"
+              color="primary"
+              href={routes.dashboard.country.index}>
               {t('btns.cancel')}
             </LinkButton>
           </Grid>
