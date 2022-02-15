@@ -13,15 +13,13 @@ export default function AppBarMenu({ title }: Props) {
       sx={{
         display: 'flex',
         justifyContent: 'space-between',
-        background: 'white',
         width: '100%',
-        borderRadius: '13px 13px 0 0',
         pl: '24px',
       }}>
       <Typography variant="h5" color="primary">
         {title}
       </Typography>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
         <IconButton>
           <HomeIcon color="action" />
         </IconButton>

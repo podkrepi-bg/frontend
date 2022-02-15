@@ -1,27 +1,20 @@
 import { useRouter } from 'next/router'
 import { Container } from '@mui/material'
 
-import MainLayout from '../admin/navigation/MainLayout'
+import AdminLayout from 'components/admin/navigation/AdminLayout'
+import AdminContainer from 'components/admin/navigation/AdminContainer'
+
 import BankAccountsEditForm from './BankAccountsEditForm'
 
 export default function BankAccountsEditPage() {
   const router = useRouter()
   return (
-    <MainLayout>
-      <Container
-        maxWidth={false}
-        sx={{
-          borderRadius: '13px',
-          minHeight: 'calc(100vh - 64px)',
-          position: 'relative',
-          background: '#e9f6ff',
-          width: '100%',
-          py: 10,
-        }}>
-        <Container maxWidth="sm">
+    <AdminLayout>
+      <AdminContainer title={'Банкови сметки'}>
+        <Container maxWidth="md" sx={{ py: 5 }}>
           <BankAccountsEditForm id={`${router.query.id}`} />
         </Container>
-      </Container>
-    </MainLayout>
+      </AdminContainer>
+    </AdminLayout>
   )
 }

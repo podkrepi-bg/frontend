@@ -122,7 +122,7 @@ export default observer(function BankAccountsGrid() {
         rows={data || []}
         columns={columns}
         rowsPerPageOptions={[5, 10]}
-        pageSize={5}
+        pageSize={10}
         autoHeight
         autoPageSize
         disableSelectionOnClick
