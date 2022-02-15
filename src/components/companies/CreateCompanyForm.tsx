@@ -3,13 +3,12 @@ import { useTranslation } from 'next-i18next'
 import { Button, Grid, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import * as yup from 'yup'
-import { useKeycloak } from '@react-keycloak/ssr'
 import { useMutation } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 
-import { createCompany, editCompany } from 'common/rest'
+import { useCreateCompany, useEditCompany } from 'service/restRequests'
 import { routes } from 'common/routes'
-import { ApiErrors, isAxiosError } from 'common/api-errors'
+import { ApiErrors, isAxiosError } from 'service/apiErrors'
 import { companyName, name } from 'common/form/validation'
 import { CompanyFormData, CompanyInput, CompanyResponse } from 'gql/companies'
 import { AlertStore } from 'stores/AlertStore'
@@ -49,18 +48,15 @@ type Props = {
 }
 
 export default function CreateCompanyForm({ initialValues }: Props) {
-  const { keycloak } = useKeycloak()
   const { t } = useTranslation()
   const router = useRouter()
   const classes = useStyles()
-  const mutation = useMutation<
-    AxiosResponse<CompanyResponse>,
-    AxiosError<ApiErrors>,
-    { companyInput: CompanyInput; token: string }
-  >({
-    mutationFn: initialValues ? editCompany : createCompany,
-    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
-  })
+  const mutation = useMutation<AxiosResponse<CompanyResponse>, AxiosError<ApiErrors>, CompanyInput>(
+    {
+      mutationFn: initialValues ? useEditCompany() : useCreateCompany(),
+      onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
+    },
+  )
 
   const cancelHandler = () => {
     router.back()
@@ -69,15 +65,12 @@ export default function CreateCompanyForm({ initialValues }: Props) {
   const submitHandler = async (values: CompanyInput) => {
     try {
       await mutation.mutateAsync({
-        companyInput: {
-          id: initialValues?.id,
-          companyName: values.companyName,
-          companyNumber: values.companyNumber,
-          legalPersonName: values.legalPersonName,
-          cityId: values.cityId,
-          countryCode: values.countryCode,
-        },
-        token: keycloak?.token || '',
+        id: initialValues?.id,
+        companyName: values.companyName,
+        companyNumber: values.companyNumber,
+        legalPersonName: values.legalPersonName,
+        cityId: values.cityId,
+        countryCode: values.countryCode,
       })
       router.push(routes.dashboard.companies)
     } catch (error) {

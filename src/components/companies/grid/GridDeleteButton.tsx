@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useKeycloak } from '@react-keycloak/ssr'
 import { Box, Tooltip } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { GridRenderCellParams } from '@mui/x-data-grid'
@@ -8,7 +7,7 @@ import { useTranslation } from 'next-i18next'
 import { observer } from 'mobx-react'
 import { useMutation } from 'react-query'
 
-import { deleteCompany } from 'common/rest'
+import { useDeleteCompany } from 'service/restRequests'
 import { AlertStore } from 'stores/AlertStore'
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
 
@@ -42,11 +41,10 @@ function GridDeleteButton({
   deleteSuccessHandler: () => void
 }) {
   const [open, setOpen] = useState(false)
-  const { keycloak } = useKeycloak()
   const { t } = useTranslation()
   const classes = useStyles()
   const mutation = useMutation({
-    mutationFn: deleteCompany,
+    mutationFn: useDeleteCompany(),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
@@ -55,7 +53,7 @@ function GridDeleteButton({
   }
   const deleteConfirmHandler = async () => {
     try {
-      await mutation.mutateAsync({ slug: params.row.id, token: keycloak?.token || '' })
+      await mutation.mutateAsync(params.row.id)
       deleteSuccessHandler()
     } catch (error) {
       AlertStore.show(t('common:alerts.error'), 'error')

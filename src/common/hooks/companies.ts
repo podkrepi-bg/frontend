@@ -2,8 +2,8 @@ import { QueryClient, useQuery } from 'react-query'
 import { useKeycloak } from '@react-keycloak/ssr'
 import { KeycloakInstance } from 'keycloak-js'
 
-import { endpoints } from 'common/api-endpoints'
-import { authQueryFnFactory } from 'common/rest'
+import { endpoints } from 'service/apiEndpoints'
+import { authQueryFnFactory } from 'service/restRequests'
 import { CompanyResponse } from 'gql/companies'
 
 export function useCompaniesList() {

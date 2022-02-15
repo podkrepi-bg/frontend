@@ -1,5 +1,6 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { MutationFunction, QueryFunction } from 'react-query'
+import { useKeycloak } from '@react-keycloak/ssr'
 
 import { apiClient } from 'service/apiClient'
 import {
@@ -26,8 +27,12 @@ export const queryFnFactory = <T>(config?: AxiosRequestConfig): QueryFunction<T>
   }
 
 export const authQueryFnFactory = <T>(token?: string): QueryFunction<T> => {
+  return queryFnFactory<T>(authConfig(token))
+}
+
+export const authConfig = (token?: string): AxiosRequestConfig => {
   const headers = token ? { Authorization: `Bearer ${token}` } : {}
-  return queryFnFactory<T>({ headers })
+  return { headers }
 }
 
 export const createBeneficiary: MutationFunction<
@@ -78,40 +83,39 @@ export const createCheckoutSession: MutationFunction<
   )
 }
 
-export const createCompany: MutationFunction<
-  AxiosResponse<CompanyResponse>,
-  { companyInput: CompanyInput; token: string }
-> = async (data: { companyInput: CompanyInput; token: string }) => {
-  return await apiClient.post<CompanyInput, AxiosResponse<CompanyResponse>>(
-    endpoints.company.createCompany.url,
-    data.companyInput,
-    { headers: { Authorization: `Bearer ${data.token}` } },
-  )
+export const useCreateCompany = () => {
+  const { keycloak } = useKeycloak()
+  return async (data: CompanyInput) =>
+    await apiClient.post<CompanyInput, AxiosResponse<CompanyResponse>>(
+      endpoints.company.createCompany.url,
+      data,
+      authConfig(keycloak?.token),
+    )
 }
 
-export const editCompany: MutationFunction<
-  AxiosResponse<CompanyResponse>,
-  { companyInput: CompanyInput; token: string }
-> = async (data: { companyInput: CompanyInput; token: string }) => {
-  return await apiClient.patch<CompanyInput, AxiosResponse<CompanyResponse>>(
-    endpoints.company.editCompany(data.companyInput.id).url,
-    data.companyInput,
-    { headers: { Authorization: `Bearer ${data.token}` } },
-  )
+export const useEditCompany = () => {
+  const { keycloak } = useKeycloak()
+  return async (data: CompanyInput) =>
+    await apiClient.patch<CompanyInput, AxiosResponse<CompanyResponse>>(
+      endpoints.company.editCompany(data.id).url,
+      data,
+      authConfig(keycloak?.token),
+    )
 }
 
-export const deleteCompany: MutationFunction<AxiosResponse<null>, { slug: string; token: string }> =
-  async ({ slug, token }) => {
-    return await apiClient.delete(endpoints.company.deleteCompany(slug).url, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+export const useDeleteCompany = () => {
+  const { keycloak } = useKeycloak()
+  return async (data: string) => {
+    return await apiClient.delete(
+      endpoints.company.deleteCompany(data).url,
+      authConfig(keycloak?.token),
+    )
   }
+}
 
-export const deleteManyCompanies: MutationFunction<
-  AxiosResponse<null>,
-  { ids: string[]; token: string }
-> = async ({ ids, token }) => {
-  return await apiClient.post(endpoints.company.deleteMany.url, ids, {
-    headers: { Authorization: `Bearer ${token}` },
-  })
+export const useDeleteManyCompanies = () => {
+  const { keycloak } = useKeycloak()
+  return async (data: string[]) => {
+    return await apiClient.post(endpoints.company.deleteMany.url, data, authConfig(keycloak?.token))
+  }
 }

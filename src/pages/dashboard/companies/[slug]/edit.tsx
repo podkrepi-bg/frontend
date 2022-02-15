@@ -2,8 +2,8 @@ import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { QueryClient, dehydrate } from 'react-query'
 
+import { keycloakInstance } from 'middleware/auth/keycloak'
 import { prefetchCompanyById, useCompanyById } from 'common/hooks/companies'
-import { keycloakInstance } from 'common/util/keycloak'
 import CreateCompanyForm from 'components/companies/CreateCompanyForm'
 import DashboardLayout from 'components/layout/DashboardLayout'
 

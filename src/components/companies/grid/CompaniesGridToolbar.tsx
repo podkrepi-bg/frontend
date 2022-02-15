@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useKeycloak } from '@react-keycloak/ssr'
 import { useMutation } from 'react-query'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
@@ -10,7 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import HomeIcon from '@mui/icons-material/Home'
 
 import { routes } from 'common/routes'
-import { deleteManyCompanies } from 'common/rest'
+import { useDeleteManyCompanies } from 'service/restRequests'
 import { CompanyResponse } from 'gql/companies'
 import { AlertStore } from 'stores/AlertStore'
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
@@ -84,16 +83,15 @@ export default function CompaniesGridToolbar({
 }: CompaniesGridToolbarProps) {
   const [open, setOpen] = useState(false)
   const { t } = useTranslation()
-  const { keycloak } = useKeycloak()
   const classes = useStyles()
   const mutation = useMutation({
-    mutationFn: deleteManyCompanies,
+    mutationFn: useDeleteManyCompanies(),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
   const deleteConfirmHandler = async () => {
     const mappedIds = selectionModel.map((x) => x.toString())
-    await mutation.mutateAsync({ ids: mappedIds, token: keycloak?.token || '' })
+    await mutation.mutateAsync(mappedIds)
     setCompanies((old) => old?.filter((x) => !selectionModel.includes(x.id)))
     setOpen(false)
   }
