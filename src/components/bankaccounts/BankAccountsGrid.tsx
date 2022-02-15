@@ -16,7 +16,7 @@ import { ControlIcons, commonProps } from './BankAccountsGridHelper'
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
 import { renderCellWithdraws } from './BankAccountsGridHelper'
-import { BankAccountResponse } from 'gql/bankAccounts'
+import { BankAccountResponse } from 'gql/bankaccounts'
 
 export default observer(function BankAccountsGrid() {
   const queryClient = useQueryClient()
