@@ -29,4 +29,12 @@ export const endpoints = {
     recurringPrices: <Endpoint>{ url: '/donation/prices/recurring', method: 'GET' },
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
   },
+  bankAccounts: {
+    bankAccountList: <Endpoint>{ url: '/bankaccount', method: 'GET' },
+    viewBankAccount: (id: string) => <Endpoint>{ url: `/bankaccount/${id}`, method: 'GET' },
+    deleteBankAccount: (id: string) => <Endpoint>{ url: `/bankaccount/${id}`, method: 'DELETE' },
+    postBankAccount: <Endpoint>{ url: '/bankaccount', method: 'POST' },
+    editBankAccount: (id: string) => <Endpoint>{ url: `/bankaccount/${id}`, method: 'PATCH' },
+    deleteManyBankAccounts: <Endpoint>{ url: `/bankaccount/deletemany`, method: 'POST' },
+  },
 }

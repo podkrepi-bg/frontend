@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { appWithTranslation, useTranslation } from 'next-i18next'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
-
 // MaterialUI
 import { LinearProgress } from '@mui/material'
 import { ThemeProvider, Theme, StyledEngineProvider } from '@mui/material/styles'
@@ -49,7 +48,7 @@ function CustomApp({
     () =>
       new QueryClient({
         defaultOptions: {
-          queries: { queryFn },
+          queries: { queryFn, staleTime: 25000 },
           // mutations: { mutationFn },
         },
       }),
