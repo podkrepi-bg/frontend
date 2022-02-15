@@ -6,10 +6,10 @@ import { Grid, Typography } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 import { AxiosError, AxiosResponse } from 'axios'
-import { ApiErrors } from 'common/api-errors'
-import { axios } from 'common/api-client'
-import { endpoints } from 'common/api-endpoints'
-import { BankAccountInput, BankAccountResponse } from 'gql/bankaccounts'
+import { ApiErrors } from 'service/apiErrors'
+import { apiClient } from 'service/apiClient'
+import { endpoints } from 'service/apiEndpoints'
+import { BankAccountInput, BankAccountResponse } from 'gql/bankAccounts'
 import { validationSchemaBankAccForm } from './BankAccountsForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
@@ -48,7 +48,7 @@ export default function BankAccountsEditForm() {
 
   const editBankAccount: MutationFunction<AxiosResponse<BankAccountResponse>, BankAccountInput> =
     async (data: BankAccountInput) => {
-      return await axios.patch<BankAccountInput, AxiosResponse<BankAccountResponse>>(
+      return await apiClient.patch<BankAccountInput, AxiosResponse<BankAccountResponse>>(
         endpoints.bankAccounts.editBankAccount(id).url,
         data,
       )

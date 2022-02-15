@@ -99,13 +99,6 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
                 {keycloak?.authenticated ? <PrivateMenu /> : <PublicMenu />}
                 <Grid item>
                   <LocaleButton />
-                  <IconButton
-                    size="small"
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    href={staticUrls.github}>
-                    <GitHub fontSize="small" />
-                  </IconButton>
                 </Grid>
               </MainNavMenu>
             </Grid>

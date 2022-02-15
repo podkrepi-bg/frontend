@@ -13,10 +13,10 @@ import { useRouter } from 'next/router'
 import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 import { ControlIcons, commonProps } from './BankAccountsGridHelper'
-import { axios } from 'common/api-client'
-import { endpoints } from 'common/api-endpoints'
+import { apiClient } from 'service/apiClient'
+import { endpoints } from 'service/apiEndpoints'
 import { renderCellWithdraws } from './BankAccountsGridHelper'
-import { BankAccountResponse } from 'gql/bankaccounts'
+import { BankAccountResponse } from 'gql/bankAccounts'
 
 export default observer(function BankAccountsGrid() {
   const queryClient = useQueryClient()
@@ -40,7 +40,9 @@ export default observer(function BankAccountsGrid() {
         : [endpoints.bankAccounts.deleteBankAccount(id).url, null]
     const deleteRecords = async () => {
       try {
-        params[1] === null ? await axios.delete(params[0]) : await axios.post(params[0], params[1])
+        params[1] === null
+          ? await apiClient.delete(params[0])
+          : await apiClient.post(params[0], params[1])
         handleClose()
         queryClient.invalidateQueries('/bankaccount')
       } catch (error) {

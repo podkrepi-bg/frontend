@@ -52,7 +52,7 @@ const footerItems: FooterLink[][] = [
   ],
   [
     { external: true, label: 'GitHub', href: staticUrls.github },
-    { external: true, label: 'components.footer.docs', href: staticUrls.docs },
+    { external: true, label: 'components.footer.docs', href: staticUrls.projectDocs },
     { external: true, label: 'components.footer.dev-docs', href: staticUrls.devDocs },
   ],
   [
