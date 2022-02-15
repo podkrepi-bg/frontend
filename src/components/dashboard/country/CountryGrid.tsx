@@ -29,6 +29,9 @@ const useStyles = makeStyles({
   grid: {
     marginBottom: 15,
     border: 'none',
+    '& .MuiDataGrid-virtualScroller': {
+      overflow: 'hidden',
+    },
   },
   gridTitleWrapper: {
     display: 'flex',
@@ -165,15 +168,15 @@ export default function CountryGrid() {
       field: 'name',
       headerName: t('fields.name'),
       valueGetter: (p) => p.row.name,
-      width: 800,
       headerClassName: classes.gridHeader,
+      flex: 1,
     },
     {
       field: 'countryCode',
       headerName: t('fields.country-code'),
       valueGetter: (p) => p.row.countryCode,
-      width: 690,
       headerClassName: classes.gridHeader,
+      flex: 1,
     },
     {
       field: 'actions',
