@@ -9,7 +9,7 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { ApiErrors } from 'common/api-errors'
 import { axios } from 'common/api-client'
 import { endpoints } from 'common/api-endpoints'
-import { BankAccountInput, BankAccountResponse } from 'gql/bankAccounts'
+import { BankAccountInput, BankAccountResponse } from 'gql/bankaccounts'
 import { validationSchemaBankAccForm } from './BankAccountsForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
@@ -40,7 +40,7 @@ export default function BankAccountsEditForm() {
     status: data?.status,
     ibanNumber: data?.ibanNumber,
     accountHolderName: data?.accountHolderName,
-    AccountHolderType: data?.AccountHolderType,
+    accountHolderType: data?.accountHolderType,
     bankName: data?.bankName,
     bankIdCode: data?.bankIdCode,
     fingerprint: data?.fingerprint,

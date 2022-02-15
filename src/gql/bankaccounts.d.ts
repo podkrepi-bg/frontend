@@ -3,7 +3,7 @@ export type BankAccountResponse = {
   status: BankAccountStatus
   ibanNumber: string
   accountHolderName: string
-  AccountHolderType: AccountHolderType
+  accountHolderType: AccountHolderType
   bankName?: string
   bankIdCode?: string
   fingerprint?: string
@@ -15,13 +15,12 @@ export type BankAccountInput = {
   status: BankAccountStatus | undefined
   ibanNumber: string | undefined
   accountHolderName: string | undefined
-  AccountHolderType: AccountHolderType | undefined
+  accountHolderType: AccountHolderType | undefined
   bankName?: string | undefined
   bankIdCode?: string | undefined
   fingerprint?: string | undefined
   withdrawal: Withdrawal | undefined
 }
-
 
 export type BankAccountsData = {
   status: string

@@ -16,7 +16,8 @@ import { ControlIcons, commonProps } from './BankAccountsGridHelper'
 import { axios } from 'common/api-client'
 import { endpoints } from 'common/api-endpoints'
 import { renderCellWithdraws } from './BankAccountsGridHelper'
-import { BankAccountResponse } from 'gql/bankAccounts'
+import { BankAccountResponse } from 'gql/bankaccounts'
+
 export default observer(function BankAccountsGrid() {
   const queryClient = useQueryClient()
   const router = useRouter()
@@ -48,6 +49,7 @@ export default observer(function BankAccountsGrid() {
     }
     deleteRecords()
   }
+
   const columns: GridColumns = [
     { ...commonProps, headerName: 'статус', field: 'status' },
     { ...commonProps, headerName: 'ИБАН', field: 'ibanNumber', width: 220 },
@@ -83,6 +85,7 @@ export default observer(function BankAccountsGrid() {
       },
     },
   ]
+
   const { data }: UseQueryResult<BankAccountResponse[]> = useBankAccountsList()
 
   return (
