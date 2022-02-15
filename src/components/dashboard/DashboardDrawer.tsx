@@ -23,7 +23,8 @@ import GridViewIcon from '@mui/icons-material/GridView'
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import SettingsIcon from '@mui/icons-material/Settings'
-import CompareArrowsIcon from '@mui/icons-material/CompareArrows'
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 
 import { routes } from 'common/routes'
 import { DashboardStore } from 'stores/DashboardStore'
@@ -206,9 +207,7 @@ export default observer(function DashboardDrawer() {
             bottom: '125px',
           }}
           onClick={toggleDrawerCompact}>
-          <ListItemIcon>
-            <CompareArrowsIcon />
-          </ListItemIcon>
+          <ListItemIcon>{drawerCompact ? <ChevronRightIcon /> : <ChevronLeftIcon />}</ListItemIcon>
           <ListItemText>{t('appbar.drawer.compact')}</ListItemText>
         </ListItemButton>
         <ListItemButton
