@@ -53,13 +53,13 @@ export const routes = {
     infoRequests: '/admin/info-requests',
     supporters: '/admin/supporters',
   },
+  dev: {
+    openData: '/open-data',
+    apiDocs: '/docs',
+  },
   bankaccounts: {
     index: '/bankaccounts',
     edit: (id: string) => `/tasks/edit/${id}`,
     add: '/bankaccounts/add',
-    dev: {
-      openData: '/open-data',
-      apiDocs: '/docs',
-    },
   },
 }
