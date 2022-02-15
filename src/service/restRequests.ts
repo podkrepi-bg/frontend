@@ -49,14 +49,15 @@ export const createContactRequest = async (data: ContactRequestInput) => {
   )
 }
 
-export const createBankAccountRequest: MutationFunction<
-  AxiosResponse<BankAccountResponse>,
-  BankAccountInput
-> = async (data: BankAccountInput) => {
-  return await apiClient.post<BankAccountInput, AxiosResponse<BankAccountResponse>>(
-    endpoints.bankAccounts.postBankAccount.url,
-    data,
-  )
+export const useCreateBankAccountRequest = () => {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (data: BankAccountInput) => {
+    return await apiClient.post<BankAccountInput, AxiosResponse<BankAccountResponse>>(
+      endpoints.bankAccounts.postBankAccount.url,
+      data,
+      authConfig(keycloak?.token),
+    )
+  }
 }
 
 export const createSupportRequest = async (data: SupportRequestInput) => {

@@ -12,7 +12,7 @@ import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { BankAccountResponse, BankAccountInput, BankAccountsData } from 'gql/bankaccounts'
 import { AccountHolderType, BankAccountStatus } from './BankAccountTypes'
-import { createBankAccountRequest } from 'service/restRequests'
+import { useCreateBankAccountRequest } from 'service/restRequests'
 import { AlertStore } from 'stores/AlertStore'
 import { ApiErrors } from 'service/apiErrors'
 import { routes } from 'common/routes'
@@ -59,7 +59,7 @@ export default function BankAccountsForm() {
     AxiosError<ApiErrors>,
     BankAccountInput
   >({
-    mutationFn: createBankAccountRequest,
+    mutationFn: useCreateBankAccountRequest(),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => {
       AlertStore.show(t('common:alerts.message-sent'), 'success')
