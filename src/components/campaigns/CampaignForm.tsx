@@ -136,7 +136,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
     <Grid container direction="column" component="section">
       <Grid item xs={12}>
         <Typography variant="h5" component="h2" className={classes.heading}>
-          {t('campaigns:form-heading')}
+          {t('bankaccounts:form-heading')}
         </Typography>
       </Grid>
       <GenericForm
