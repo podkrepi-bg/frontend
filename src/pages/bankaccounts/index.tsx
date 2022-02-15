@@ -4,7 +4,7 @@ import { dehydrate, QueryClient } from 'react-query'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { queryFn } from 'common/rest'
+import { queryFn } from 'service/restRequests'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const client = new QueryClient()
