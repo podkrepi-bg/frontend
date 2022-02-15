@@ -7,7 +7,8 @@ export default function DashboardNotifications() {
       size="large"
       sx={{
         marginRight: '4px',
-      }}>
+      }}
+      color="primary">
       <NotificationsIcon />
     </IconButton>
   )

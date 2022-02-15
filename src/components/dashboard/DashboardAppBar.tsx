@@ -38,7 +38,8 @@ export default observer(function DashboardAppBar() {
           sx={{
             marginLeft: '90px',
             marginRight: '20px',
-          }}>
+          }}
+          color="primary">
           <MenuIcon />
         </IconButton>
         <DashboardSearchField />
