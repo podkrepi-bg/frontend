@@ -13,9 +13,9 @@ import AddIcon from '@mui/icons-material/Add'
 import { useCountriesList } from 'common/hooks/countries'
 import { routes } from 'common/routes'
 import { CountryResponse } from 'gql/countries'
-import { ApiErrors } from 'common/api-errors'
+import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
-import { deleteCountry, getCountry } from 'common/rest'
+import { deleteCountry, getCountry } from 'service/restRequests'
 
 import InfoDialog from './InfoDialog'
 import DeleteRowDialog from './DeleteRowDialog'
@@ -25,17 +25,36 @@ import ActionsButtons from './ActionButtons'
 const useStyles = makeStyles({
   gridWrapper: {
     margin: '0 auto',
-    maxWidth: 602,
+    // maxWidth: 602,
   },
   grid: {
     marginBottom: 15,
+    border: 'none',
   },
   gridTitleWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
   },
-  gridTitle: {
-    marginBottom: 10,
+  gridHeader: {
+    fontWeight: 700,
+  },
+  gridBtn: {
+    background: '#FFFFFF',
+    boxShadow:
+      '0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px rgba(0, 0, 0, 0.14), 0px 1px 18px rgba(0, 0, 0, 0.12)',
+    borderRadius: '50%',
+    marginRight: '8px',
+    padding: '4px',
+  },
+  gridAddBtn: {
+    background: '#4AC3FF',
+    boxShadow:
+      '0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px rgba(0, 0, 0, 0.14), 0px 1px 18px rgba(0, 0, 0, 0.12)',
+    borderRadius: '50%',
+    padding: '8px',
+  },
+  gridMainActionsBtns: {
+    margin: '10px 20px 10px auto',
   },
 })
 
@@ -143,17 +162,19 @@ export default function CountryGrid() {
       field: 'name',
       headerName: t('fields.name'),
       valueGetter: (p) => p.row.name,
-      width: 200,
+      width: 800,
+      headerClassName: classes.gridHeader,
     },
     {
       field: 'countryCode',
       headerName: t('fields.country-code'),
       valueGetter: (p) => p.row.countryCode,
-      width: 200,
+      width: 650,
+      headerClassName: classes.gridHeader,
     },
     {
       field: 'actions',
-      headerName: '',
+      headerName: t('fields.action'),
       renderCell: (p) => (
         <ActionsButtons
           id={p.row.id}
@@ -183,19 +204,19 @@ export default function CountryGrid() {
       />
       <div className={classes.gridWrapper}>
         <div className={classes.gridTitleWrapper}>
-          <Typography variant="h6" className={classes.gridTitle}>
-            {t('headings.countries')}
-          </Typography>
-
-          <section>
+          <section className={classes.gridMainActionsBtns}>
+            <IconButton onClick={openDeleteRowsDialog} className={classes.gridBtn}>
+              <DeleteIcon
+                sx={{
+                  fontSize: '1.4rem',
+                }}
+              />
+            </IconButton>
             <Link href={routes.dashboard.country.create} passHref>
-              <IconButton>
+              <IconButton className={classes.gridAddBtn}>
                 <AddIcon />
               </IconButton>
             </Link>
-            <IconButton onClick={openDeleteRowsDialog}>
-              <DeleteIcon />
-            </IconButton>
           </section>
         </div>
 

@@ -103,11 +103,6 @@ export default function CountryForm({ initialValues = defaults, id }: CountryFor
         initialValues={initialValues}
         validationSchema={validationSchema}>
         <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <Typography variant="h6">
-              {id ? t('headings.edit-country') : t('headings.add-country')}
-            </Typography>
-          </Grid>
           <Grid item xs={12} sm={8}>
             <FormTextField
               type="text"
