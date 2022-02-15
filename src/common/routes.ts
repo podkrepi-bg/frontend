@@ -59,7 +59,7 @@ export const routes = {
   },
   bankaccounts: {
     index: '/bankaccounts',
-    edit: (id: string) => `/tasks/edit/${id}`,
+    edit: (id: string | number) => `/bankaccounts/edit/${id}`,
     add: '/bankaccounts/add',
   },
 }

@@ -15,8 +15,9 @@ function PanelFooter({ children }: Props) {
         background: '#294e85',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-end',
         paddingInline: 10,
+        paddingLeft: '12rem',
       }}>
       {children}
     </Box>

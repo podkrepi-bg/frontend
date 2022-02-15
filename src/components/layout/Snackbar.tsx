@@ -7,7 +7,10 @@ import { AlertStore } from 'stores/AlertStore'
 function SnackBar() {
   const { getAlerts } = AlertStore
 
-  const handleSnackBarClose = (_event: React.SyntheticEvent, reason: SnackbarCloseReason) => {
+  const handleSnackBarClose = (
+    _event: React.SyntheticEvent | Event,
+    reason: SnackbarCloseReason,
+  ) => {
     if (reason === 'clickaway') {
       return
     }

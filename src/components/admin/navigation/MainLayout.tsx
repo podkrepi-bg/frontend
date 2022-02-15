@@ -1,31 +1,41 @@
-import * as React from 'react'
-import { styled, Theme, CSSObject } from '@mui/material/styles'
-import { makeStyles } from '@mui/styles'
+import { useState, useCallback } from 'react'
+import Image from 'next/image'
+import { makeStyles, useTheme } from '@mui/styles'
 import MuiDrawer from '@mui/material/Drawer'
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
+import { styled, Theme, CSSObject } from '@mui/material/styles'
 import {
+  AppBar as MuiAppBar,
+  AppBarProps as MuiAppBarProps,
   CssBaseline,
   IconButton,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   List,
   Box,
+  Button,
+  TextField,
+  Typography,
 } from '@mui/material'
-import FullscreenExitIcon from '@mui/icons-material/FullscreenExit'
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import NotificationsIcon from '@mui/icons-material/Notifications'
-import { Button, TextField, Typography } from '@mui/material'
-import FullscreenIcon from '@mui/icons-material/Fullscreen'
-import SettingsIcon from '@mui/icons-material/Settings'
-import MenuIcon from '@mui/icons-material/Menu'
-import Image from 'next/image'
+import {
+  AccountCircle,
+  Notifications,
+  CoPresent,
+  People,
+  Payment,
+  FolderShared,
+  TaskAlt,
+  Settings,
+  AssignmentInd,
+  MenuOpen,
+  ChevronRight,
+  GppGood,
+} from '@mui/icons-material'
+
 import Snackbar from 'components/layout/Snackbar'
 import PictureLogo from '/public/android-chrome-192x192.png'
+
 import PanelFooter from './PanelFooter'
-const drawerWidth = 200
 import CustomListItem from './CustomListItem'
 
+const drawerWidth = 200
 const useStyles = makeStyles({
   drawerHeader: {
     width: drawerWidth,
@@ -45,7 +55,7 @@ const useStyles = makeStyles({
   appbarHeader: {
     width: `calc(100% - ${drawerWidth}px)`,
     height: 64,
-    marginLeft: drawerWidth,
+    marginLeft: '6rem',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -90,17 +100,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
   },
 })
 
-const fullyClosedMixin = (theme: Theme): CSSObject => ({
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  overflowX: 'hidden',
-  border: 'none',
-  width: 0,
-  zIndex: -1,
-})
-
+// @ts-expect-error bad MUI types for styled.div
 const DrawerHeader = styled('div')(({ theme }: { theme: Theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -128,7 +128,7 @@ const AppBar = styled(MuiAppBar, {
 }))
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop: string) => prop !== 'open' })(
-  ({ theme, open, fullyClosed }: { theme: Theme; open: boolean; fullyClosed: boolean }) => ({
+  ({ theme, open }) => ({
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
@@ -137,17 +137,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop: string) => prop !==
       ...openedMixin(theme),
       '& .MuiDrawer-paper': openedMixin(theme),
     }),
-    ...(!open &&
-      !fullyClosed && {
-        ...closedMixin(theme),
-        '& .MuiDrawer-paper': closedMixin(theme),
-      }),
-
-    ...(!open &&
-      fullyClosed && {
-        ...fullyClosedMixin(theme),
-        '& .MuiDrawer-paper': fullyClosedMixin(theme),
-      }),
+    ...(!open && {
+      ...closedMixin(theme),
+      '& .MuiDrawer-paper': closedMixin(theme),
+    }),
   }),
 )
 
@@ -155,10 +148,20 @@ type Props = {
   children: React.ReactNode
 }
 
+const drawerMenu = [
+  { label: 'Задачи', icon: <TaskAlt /> },
+  { label: 'Кампании', icon: <AssignmentInd /> },
+  { label: 'Доброволци', icon: <People /> },
+  { label: 'Плащания', icon: <Payment /> },
+  { label: 'Потребители', icon: <CoPresent /> },
+  { label: 'Документи', icon: <FolderShared /> },
+]
+
 export default function MainLayout({ children }: Props) {
-  const [open, setOpen] = React.useState(false)
-  const [fullyClosed, setFullyClose] = React.useState(false)
+  const theme = useTheme()
   const classes = useStyles()
+  const [open, setOpen] = useState(false)
+  const toggleMenu = useCallback(() => setOpen((open) => !open), [])
   return (
     <Box className={classes.wrapper}>
       <CssBaseline />
@@ -166,76 +169,50 @@ export default function MainLayout({ children }: Props) {
         <Box className={classes.appbarWrapper}>
           <Box className={classes.drawerHeader}>
             <Box className={classes.logoWrapper}>
-              <Image src={PictureLogo} width={40} height={40}></Image>
+              <Image src={PictureLogo} width={40} height={40} />
             </Box>
-            <IconButton
-              sx={{ p: '5px', borderRadius: '10px' }}
-              color="primary"
-              onClick={() => {
-                if (fullyClosed && !open) {
-                  setFullyClose(false)
-                } else if (!fullyClosed) setOpen(!open)
-              }}>
-              <MenuIcon fontSize="large" />
-            </IconButton>
           </Box>
           <Box className={classes.appbarHeader}>
-            <TextField id="outlined-search" label="search" type="search" size="small" />
+            <TextField id="outlined-search" label="Търси" type="search" size="small" />
             <Box
               sx={{
                 display: 'flex',
                 alignItems: 'center',
               }}>
               <IconButton>
-                <NotificationsIcon color="primary" />
+                <Notifications color="primary" />
               </IconButton>
               <IconButton>
-                <AccountCircleIcon />
+                <AccountCircle />
               </IconButton>
             </Box>
           </Box>
         </Box>
       </AppBar>
-      <Drawer variant="permanent" open={open} fullyClosed={fullyClosed}>
-        <DrawerHeader></DrawerHeader>
-        <List sx={{ p: '30px 17px 30px 17px', height: '100%', position: 'relative' }}>
-          {['Задачи', 'Кампании', 'Доброволци', 'Плащания', 'Потребители', 'Документи'].map(
-            (text, index) => (
-              <CustomListItem key={index} name={text}></CustomListItem>
-            ),
-          )}
-          <ListItem
-            button
-            sx={{ px: '7px', borderRadius: '20px', marginTop: 'calc(100vh - 435px)' }}>
-            <ListItemIcon>
-              <SettingsIcon />
-            </ListItemIcon>
-            <ListItemText primary={'Настройки'} />
-          </ListItem>
+      <Drawer variant="permanent" open={open} theme={theme}>
+        <DrawerHeader />
+        <List sx={{ p: '2rem .5rem', height: '100%', position: 'relative' }}>
+          {drawerMenu.map(({ label, icon }, index) => (
+            <CustomListItem key={index} icon={icon} label={label} />
+          ))}
+          <CustomListItem icon={open ? <MenuOpen /> : <ChevronRight />} onClick={toggleMenu} />
+          <CustomListItem
+            icon={<Settings />}
+            label={'Настройки'}
+            sx={{ position: 'absolute', bottom: '1rem' }}
+          />
         </List>
       </Drawer>
-      <div
-        style={{
-          width: '24px',
-          height: '100vh',
-          position: 'relative',
-          marginLeft: fullyClosed ? 0 : '-24px',
-          transition: '0.2s ease-in-out 0s',
-        }}></div>
+
       <Box component="main" sx={{ flexGrow: 1 }}>
-        <DrawerHeader></DrawerHeader>
+        <DrawerHeader />
         {children}
       </Box>
       <PanelFooter>
-        <Button
-          sx={{ color: 'white' }}
-          onClick={() => {
-            setFullyClose(!fullyClosed)
-            setOpen(false)
-          }}>
-          {fullyClosed ? <FullscreenExitIcon /> : <FullscreenIcon />}
+        <Button sx={{ color: 'white' }}>
+          <GppGood />
         </Button>
-        <Typography color="white">Вие сте логнат като администратор</Typography>
+        <Typography color="white">{'Вие сте логнат като администратор'}</Typography>
       </PanelFooter>
       <Snackbar />
     </Box>
