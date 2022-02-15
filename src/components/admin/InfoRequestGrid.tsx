@@ -34,15 +34,7 @@ const columns: GridColumns = [
 
 export default function InfoRequestGrid() {
   const { data } = useInfoRequestList()
-  const [hidden, setHidden] = React.useState(true)
 
-  // const handleDirectionChange = (event) => {
-  //   setDirection(event.target.value)
-  // }
-
-  // const handleHiddenChange = (event) => {
-  //   setHidden(event.target.checked)
-  // }
   return (
     <>
       <DataGrid

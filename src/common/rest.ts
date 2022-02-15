@@ -96,10 +96,14 @@ export const createInfoRequest = (token: string | undefined) => {
 export const editInfoRequest = (token: string | undefined, slug: string) => {
   return async (data: InfoRequestInput) => {
     const headers = token ? { Authorization: `Bearer ${token}` } : {}
-    return await axios.post<InfoRequestInput, AxiosResponse<InfoRequest>>(
+    return await axios.patch<InfoRequestInput, AxiosResponse<InfoRequest>>(
       endpoints.infoRequest.edit(slug).url,
       data,
       { headers },
     )
   }
+}
+
+export const getInfoRequest = async (slug: string) => {
+  return await axios.get(endpoints.infoRequest.getById(slug).url)
 }

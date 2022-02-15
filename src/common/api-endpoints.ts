@@ -34,5 +34,6 @@ export const endpoints = {
     delete: (slug: string) => <Endpoint>{ url: `/info-request/${slug}`, method: 'DELETE' },
     create: <Endpoint>{ url: '/info-request', method: 'POST' },
     edit: (slug: string) => <Endpoint>{ url: `/info-request/${slug}`, method: 'PATCH' },
+    getById: (slug: string) => <Endpoint>{ url: `/info-request/${slug}`, method: 'GET' },
   },
 }

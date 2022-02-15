@@ -12,6 +12,12 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { InfoRequest, useInfoRequestList } from 'common/hooks/infoRequest'
 import { ApiErrors } from 'common/api-errors'
 import { useTranslation } from 'next-i18next'
+import SpeedDial from '@mui/material/SpeedDial'
+import SpeedDialIcon from '@mui/material/SpeedDialIcon'
+import SpeedDialAction from '@mui/material/SpeedDialAction'
+import AddIcon from '@mui/icons-material/Add'
+import DeleteIcon from '@mui/icons-material/Delete'
+import { Toolbar } from '@mui/material'
 
 export default function InfoRequestGrid() {
   const { data }: UseBaseQueryResult<InfoRequest[]> = useInfoRequestList()
@@ -34,6 +40,19 @@ export default function InfoRequestGrid() {
       setIsModalOpen(false)
     })
   }
+
+  const addHandler = () => {
+    router.push(routes.admin.infoRequestCreate)
+  }
+
+  const deleteHandler = () => {
+    console.log('delete')
+  }
+
+  const actions = [
+    { icon: <AddIcon />, name: 'Add', handler: addHandler },
+    { icon: <DeleteIcon />, name: 'Delete', handler: deleteHandler },
+  ]
 
   const columns: GridColumns = [
     { ...commonProps, headerName: 'message', field: 'message' },
@@ -65,7 +84,7 @@ export default function InfoRequestGrid() {
           <ControlIcons
             setId={setDeleteId}
             handleDelete={() => setIsModalOpen(true)}
-            editRoute="/edit"
+            editRoute={`/admin/info-request/${params.row.id}/edit`}
             row={params.row}
             setOpen={setRow}
             openModal={() => setIsViewModalOpen(true)}
@@ -77,6 +96,26 @@ export default function InfoRequestGrid() {
 
   return (
     <>
+      <Toolbar
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          background: 'white',
+          width: '100%',
+          borderRadius: '13px 13px 0 0',
+          pl: '24px',
+        }}>
+        <SpeedDial hidden={false} icon={<SpeedDialIcon />} direction="left" ariaLabel="test">
+          {actions.map((action) => (
+            <SpeedDialAction
+              key={action.name}
+              icon={action.icon}
+              tooltipTitle={action.name}
+              onClick={action.handler}
+            />
+          ))}
+        </SpeedDial>
+      </Toolbar>
       <ViewModal
         open={isViewModalOpen}
         onClose={() => setIsViewModalOpen(false)}

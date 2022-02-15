@@ -32,3 +32,18 @@ export async function prefetchInfoRequestList(client: QueryClient, token?: strin
     authQueryFnFactory<InfoRequest[]>(token),
   )
 }
+
+export async function prefetchInfoRequest(client: QueryClient, token?: string) {
+  await client.prefetchQuery<InfoRequest[]>(
+    endpoints.infoRequest.infoRequestList.url,
+    authQueryFnFactory<InfoRequest[]>(token),
+  )
+}
+
+export function useInfoRequest(slug: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return useQuery<InfoRequest[]>(
+    endpoints.infoRequest.getById(slug).url,
+    authQueryFnFactory<InfoRequest[]>(keycloak?.token),
+  )
+}

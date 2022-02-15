@@ -1,4 +1,4 @@
-import InfoRequestCreateForm from 'components/admin/info-request/InfoRequestCreateForm'
+import InfoRequestEditForm from 'components/admin/info-request/InfoRequestEditForm'
 import { GetServerSidePropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
@@ -10,4 +10,4 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   }
 }
 
-export default InfoRequestCreateForm
+export default InfoRequestEditForm
