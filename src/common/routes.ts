@@ -8,8 +8,12 @@ export const baseUrl = APP_URL
 export const defaultOgImage = `${baseUrl}/img/og-image.jpg`
 
 export const staticUrls = {
-  github: 'https://github.com/podkrepi-bg/frontend',
-  docs: 'https://docs.podkrepi.bg/',
+  github:
+    'https://github.com/podkrepi-bg/frontend#--%D0%B4%D0%B0%D1%80%D0%B8%D1%82%D0%B5%D0%BB%D1%81%D0%BA%D0%B0-%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D0%B0-%D0%BF%D0%BE%D0%B4%D0%BA%D1%80%D0%B5%D0%BF%D0%B8%D0%B1%D0%B3',
+  figma: 'https://www.figma.com/file/MmvFKzUv6yE5U2wrOpWtwS/Podkrepi.bg?node-id=3904%3A13406',
+  projectDocs: 'https://docs.podkrepi.bg/',
+  howToContribute:
+    'https://docs.podkrepi.bg/general/communication/faq#kak-da-se-vkliucha-v-organizaciata',
   devDocs: 'https://docs.podkrepi.bg/development',
   blog: 'https://blog.podkrepi.bg/',
   hostingProvider: 'https://superhosting.bg?rel=podkrepi.bg',
@@ -53,5 +57,9 @@ export const routes = {
     index: '/bankaccounts',
     edit: (id: string) => `/tasks/edit/${id}`,
     add: '/bankaccounts/add',
+    dev: {
+      openData: '/open-data',
+      apiDocs: '/docs',
+    },
   },
 }

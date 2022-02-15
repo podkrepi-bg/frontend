@@ -10,7 +10,7 @@ export default function ContactPage() {
   const { t } = useTranslation()
 
   return (
-    <Layout title={t('nav.contacts')}>
+    <Layout title={t('nav.about.contacts')}>
       <Container maxWidth="md">
         <ContactInfo />
       </Container>

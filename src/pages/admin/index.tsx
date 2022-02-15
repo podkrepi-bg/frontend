@@ -1,5 +1,5 @@
 import AdminPage from 'components/admin/AdminPage'
-import { securedProps } from 'common/util/keycloak'
+import { securedProps } from 'middleware/auth/keycloak'
 
 export const getServerSideProps = securedProps
 
