@@ -1,36 +1,14 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import {
-  // Avatar,
-  // Box,
-  // Divider,
-  // Typography,
-  // createStyles,
-  // makeStyles,
-  Container,
-  Grid,
-} from '@mui/material'
-// import { AccountCircle } from '@mui/icons-material'
+import { Box, Container, Grid } from '@mui/material'
 
+import { routes } from 'common/routes'
+import { isAdmin } from 'common/util/roles'
 import Layout from 'components/layout/Layout'
 import { useSession } from 'common/util/useSession'
-// import LinkButton from 'components/common/LinkButton'
-// import LocaleSwitcher from 'components/layout/LocaleSwitcher'
-
-// const useStyles = makeStyles((theme) =>
-//   createStyles({
-//     avatar: {
-//       '&>*': {
-//         margin: '0 auto',
-//         height: theme.spacing(8),
-//         width: theme.spacing(8),
-//       },
-//     },
-//   }),
-// )
+import LinkButton from 'components/common/LinkButton'
 
 export default function ProfilePage() {
-  // const classes = useStyles()
   const { t } = useTranslation()
 
   const { keycloak, session } = useSession()
@@ -56,60 +34,55 @@ export default function ProfilePage() {
           <Grid item>
             <ul>
               <li>
-                <span className="font-weight-bold mr-1">Username: </span>
-                <span className="text-muted">{session?.preferred_username ?? ''}</span>
+                <span className="font-weight-bold mr-1">ID: </span>
+                <strong className="text-muted">{session?.sub ?? ''}</strong>
               </li>
               <li>
                 <span className="font-weight-bold mr-1">Email: </span>
-                <span className="text-muted">{session?.email ?? ''}</span>
+                <strong className="text-muted">{session?.email ?? ''}</strong>
               </li>
               <li>
                 <span className="font-weight-bold mr-1">First Name: </span>
-                <span className="text-muted">{session?.given_name ?? ''}</span>
+                <strong className="text-muted">{session?.given_name ?? ''}</strong>
               </li>
               <li>
                 <span className="font-weight-bold mr-1">Last Name: </span>
-                <span className="text-muted">{session?.family_name ?? ''}</span>
+                <strong className="text-muted">{session?.family_name ?? ''}</strong>
+              </li>
+              <li>
+                <span className="font-weight-bold mr-1">Administrator access: </span>
+                <strong className="text-muted">
+                  {keycloak?.authenticated && isAdmin(keycloak) ? 'Administrator' : 'User'}
+                </strong>
+              </li>
+              <li>
+                <span className="font-weight-bold mr-1">Allowed origins: </span>
+                <span className="text-muted">
+                  <pre>
+                    {JSON.stringify((session && session['allowed-origins']) ?? [], null, 2)}
+                  </pre>
+                </span>
+              </li>
+              <li>
+                <span className="font-weight-bold mr-1">Roles: </span>
+                <span className="text-muted">
+                  <pre>{JSON.stringify(keycloak.resourceAccess, null, 2)}</pre>
+                </span>
               </li>
             </ul>
           </Grid>
-          <Grid item>
+          {/* <Grid item>
             <pre>JWT: {keycloak.token?.substring(0, 30)}...</pre>
             <pre>{JSON.stringify(session, null, 2)}</pre>
             <pre>{JSON.stringify(keycloak, null, 2)}</pre>
-          </Grid>
+          </Grid> */}
         </Grid>
 
-        {/* <Grid container direction="column" spacing={5}>
-          <Grid item>
-            <Box textAlign="center" margin="0 auto" className={classes.avatar}>
-              {session.user.image ? (
-                <Avatar title={title} alt={title} src={session.user.image} />
-              ) : (
-                <AccountCircle />
-              )}
-            </Box>
-          </Grid>
-
-          <Grid item>
-            <Typography variant="h3" align="center">
-              {session.user.name}
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography variant="h6" align="center">
-              {session.user.email}
-            </Typography>
-          </Grid>
-          <Grid item>
-            <LocaleSwitcher />
-          </Grid>
-          <Grid item>
-            <LinkButton fullWidth color="default" variant="outlined" href={routes.logout}>
-              {t('nav.logout')}
-            </LinkButton>
-          </Grid>
-        </Grid> */}
+        <Box textAlign="center">
+          <LinkButton variant="contained" href={routes.logout}>
+            {t('nav.logout')}
+          </LinkButton>
+        </Box>
       </Container>
     </Layout>
   )

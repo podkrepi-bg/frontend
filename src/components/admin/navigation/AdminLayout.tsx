@@ -16,22 +16,16 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import {
-  AccountCircle,
-  Notifications,
-  Settings,
-  MenuOpen,
-  ChevronRight,
-  GppGood,
-} from '@mui/icons-material'
+import { Notifications, Settings, MenuOpen, ChevronRight, GppGood } from '@mui/icons-material'
 
 import { routes } from 'common/routes'
 import Snackbar from 'components/layout/Snackbar'
+import PrivateMenu from 'components/layout/nav/PrivateMenu'
 import PictureLogo from '/public/android-chrome-192x192.png'
 
 import PanelFooter from './PanelFooter'
-import CustomListItem from './CustomListItem'
 import { menuItems } from './adminMenu'
+import CustomListItem from './CustomListItem'
 
 const drawerWidth = 200
 const useStyles = makeStyles({
@@ -174,11 +168,9 @@ export default function AdminLayout({ children }: Props) {
                 alignItems: 'center',
               }}>
               <IconButton>
-                <Notifications color="primary" />
+                <Notifications color="info" />
               </IconButton>
-              <IconButton>
-                <AccountCircle />
-              </IconButton>
+              <PrivateMenu />
             </Box>
           </Box>
         </Box>
