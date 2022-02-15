@@ -74,6 +74,7 @@ export default function CountryGrid() {
     ids: [''],
   })
   const [country, setCountry] = React.useState<CountryResponse>(initialValues)
+  const [pageSize, setPageSize] = React.useState<number>(5)
 
   const { data } = useCountriesList()
   const classes = useStyles()
@@ -224,9 +225,11 @@ export default function CountryGrid() {
           className={classes.grid}
           rows={data || []}
           columns={columns}
-          pageSize={5}
+          pageSize={pageSize}
+          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+          rowsPerPageOptions={[5, 10, 20]}
+          pagination
           autoHeight
-          autoPageSize
           checkboxSelection
           disableSelectionOnClick
           onSelectionModelChange={selectMultipleRows}
