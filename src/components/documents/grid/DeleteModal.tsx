@@ -10,6 +10,7 @@ import { endpoints } from 'service/apiEndpoints'
 import { ModalStore } from 'stores/ModalStore'
 import { observer } from 'mobx-react'
 import { AlertStore } from 'stores/AlertStore'
+import { useDeleteDocument } from 'service/restRequests'
 
 type Props = {
   id: string
@@ -19,18 +20,14 @@ export default observer(function DeleteModal({ id }: Props) {
   const queryClient = useQueryClient()
   const { isDeleteOpen, hideDelete } = ModalStore
 
-  const deleteDocument: MutationFunction<AxiosResponse<DocumentResponse>, string> = async () => {
-    return await apiClient.delete<DocumentResponse, AxiosResponse<DocumentResponse>>(
-      endpoints.documents.deleteDocument(id).url,
-    )
-  }
+  const mutationFn = useDeleteDocument(id)
 
   const deleteMutation = useMutation<
     AxiosResponse<DocumentResponse>,
     AxiosError<ApiErrors>,
     string
   >({
-    mutationFn: deleteDocument,
+    mutationFn,
     onError: () => AlertStore.show('An error has occured!', 'error'),
     onSuccess: () => {
       hideDelete()

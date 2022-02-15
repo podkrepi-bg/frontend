@@ -17,6 +17,7 @@ import SubmitButton from 'components/common/form/SubmitButton'
 
 import { validationSchema } from './CreateForm'
 import { AlertStore } from 'stores/AlertStore'
+import { useEditDocument } from 'service/restRequests'
 
 export default function EditForm() {
   const router = useRouter()
@@ -33,21 +34,14 @@ export default function EditForm() {
     sourceUrl: data?.sourceUrl,
   }
 
-  const editDocument: MutationFunction<AxiosResponse<DocumentResponse>, DocumentInput> = async (
-    data: DocumentInput,
-  ) => {
-    return await apiClient.put<DocumentInput, AxiosResponse<DocumentResponse>>(
-      endpoints.documents.editDocument(id).url,
-      data,
-    )
-  }
+  const mutationFn = useEditDocument(id)
 
   const mutation = useMutation<
     AxiosResponse<DocumentResponse>,
     AxiosError<ApiErrors>,
     DocumentInput
   >({
-    mutationFn: editDocument,
+    mutationFn,
     onError: () => AlertStore.show('An error has occured!', 'error'),
     onSuccess: () => {
       AlertStore.show('Document has been edited successfully!', 'success')

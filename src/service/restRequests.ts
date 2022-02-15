@@ -12,6 +12,9 @@ import { CampaignResponse, CampaignInput } from 'gql/campaigns'
 import { endpoints } from './apiEndpoints'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
+import { useKeycloak } from '@react-keycloak/ssr'
+import { KeycloakInstance } from 'keycloak-js'
+import { DocumentInput, DocumentResponse } from 'gql/document'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await apiClient.get(queryKey.join('/'))
@@ -25,8 +28,13 @@ export const queryFnFactory = <T>(config?: AxiosRequestConfig): QueryFunction<T>
   }
 
 export const authQueryFnFactory = <T>(token?: string): QueryFunction<T> => {
+  return queryFnFactory<T>(authConfig(token))
+}
+
+export const authConfig = (token?: string): AxiosRequestConfig => {
   const headers = token ? { Authorization: `Bearer ${token}` } : {}
-  return queryFnFactory<T>({ headers })
+
+  return { headers }
 }
 
 export const createBeneficiary: MutationFunction<
@@ -75,4 +83,47 @@ export const createCheckoutSession: MutationFunction<
     endpoints.donation.createCheckoutSession.url,
     data,
   )
+}
+
+export function useCreateDocument() {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (data: DocumentInput) => {
+    return await apiClient.post<DocumentInput, AxiosResponse<DocumentResponse>>(
+      endpoints.documents.createDocument.url,
+      data,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useEditDocument(slug: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (data: DocumentInput) => {
+    return await apiClient.put<DocumentInput, AxiosResponse<DocumentResponse>>(
+      endpoints.documents.editDocument(slug).url,
+      data,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useDeleteDocument(slug: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async () => {
+    return await apiClient.delete<DocumentResponse, AxiosResponse<DocumentResponse>>(
+      endpoints.documents.deleteDocument(slug).url,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useDeleteManyDocuments(idsToDelete: string[]) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async () => {
+    return await apiClient.post<DocumentResponse, AxiosResponse<DocumentResponse>>(
+      endpoints.documents.deleteDocuments.url,
+      idsToDelete,
+      authConfig(keycloak?.token),
+    )
+  }
 }
