@@ -81,7 +81,7 @@ export const createCheckoutSession: MutationFunction<
 export const createCountry: MutationFunction<AxiosResponse<CountryResponse>, CountryInput> = async (
   data: CountryInput,
 ) => {
-  return await axios.post<CountryInput, AxiosResponse<CountryResponse>>(
+  return await apiClient.post<CountryInput, AxiosResponse<CountryResponse>>(
     endpoints.country.createCountry.url,
     data,
   )
@@ -90,7 +90,7 @@ export const createCountry: MutationFunction<AxiosResponse<CountryResponse>, Cou
 export const getCountry: MutationFunction<AxiosResponse<CountryResponse>, string> = async (
   id: string,
 ) => {
-  return await axios.get<string, AxiosResponse<CountryResponse>>(
+  return await apiClient.get<string, AxiosResponse<CountryResponse>>(
     endpoints.country.viewCountry(id).url,
   )
 }
@@ -102,7 +102,7 @@ type EditCountryProp = {
 
 export const editCountry: MutationFunction<AxiosResponse<CountryResponse>, EditCountryProp> =
   async ({ id, data }: EditCountryProp) => {
-    return await axios.patch<CountryResponse, AxiosResponse<CountryResponse>>(
+    return await apiClient.patch<CountryResponse, AxiosResponse<CountryResponse>>(
       endpoints.country.editCountry(id).url,
       data,
     )
@@ -111,7 +111,7 @@ export const editCountry: MutationFunction<AxiosResponse<CountryResponse>, EditC
 export const deleteCountry: MutationFunction<AxiosResponse<CountryResponse>, string> = async (
   id: string,
 ) => {
-  return await axios.delete<string, AxiosResponse<CountryResponse>>(
+  return await apiClient.delete<string, AxiosResponse<CountryResponse>>(
     endpoints.country.deleteCountry(id).url,
   )
 }
