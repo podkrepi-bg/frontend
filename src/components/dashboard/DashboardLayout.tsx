@@ -8,8 +8,8 @@ import makeStyles from '@mui/styles/makeStyles'
 import HomeIcon from '@mui/icons-material/Home'
 
 import { defaultOgImage, routes } from 'common/routes'
-import Snackbar from 'components/layout/Snackbar'
 
+import DashboardSnackbar from './Snackbar'
 import DashboardAppBar from './DashboardAppBar'
 import DashboardFooter from './DashboardFooter'
 import DashboardDrawer from './DashboardDrawer'
@@ -88,7 +88,7 @@ export default function DashboardLayout({
             }}>
             <Box
               sx={{
-                padding: '17px 21px 17px 21px',
+                padding: '17px 21px 40px 21px',
                 backgroundColor: '#E9F6FF',
                 borderRadius: '10px 10px 0 0',
                 height: 'calc(100vh - 105px)',
@@ -139,7 +139,7 @@ export default function DashboardLayout({
             </Box>
           </Box>
         </Box>
-        <Snackbar />
+        <DashboardSnackbar />
       </Container>
       <DashboardFooter />
     </Container>
