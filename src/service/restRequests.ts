@@ -60,10 +60,7 @@ export const createBankAccountRequest: MutationFunction<
   )
 }
 
-export const createSupportRequest: MutationFunction<
-  AxiosResponse<SupportRequestResponse>,
-  SupportRequestInput
-> = async (data: SupportRequestInput) => {
+export const createSupportRequest = async (data: SupportRequestInput) => {
   return await apiClient.post<SupportRequestInput, AxiosResponse<SupportRequestResponse>>(
     endpoints.support.createSupportRequest.url,
     data,
