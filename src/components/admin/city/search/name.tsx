@@ -8,7 +8,7 @@ import GenericGrid from '../utils/Grid'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import BootcampersLayout from '../layout/Layout'
-import { axios } from 'common/api-client'
+import { axios } from 'service/api-client'
 import theme from '../layout/theme'
 
 const validationSchema: yup.SchemaOf<SearchFormData> = yup.object().defined().shape({

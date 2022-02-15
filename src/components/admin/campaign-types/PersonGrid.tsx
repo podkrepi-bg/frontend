@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 import { ControlIcons, commonProps } from './PersonGridHelper'
-import { axios } from 'common/api-client'
+import { apiClient as axios } from 'service/apiClient'
 import { endpoints } from 'common/api-endpoints'
 import { CampaignTypesResponse } from 'gql/campaign-types'
 

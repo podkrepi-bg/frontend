@@ -1,7 +1,7 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { MutationFunction, QueryFunction } from 'react-query'
 
-import { apiClient as axios } from 'service/apiClient'
+import { apiClient, apiClient as axios } from 'service/apiClient'
 import {
   SupportRequestResponse,
   SupportRequestInput,
@@ -9,14 +9,17 @@ import {
 import { ContactRequestResponse, ContactRequestInput } from 'gql/contact'
 import { CampaignResponse, CampaignInput } from 'gql/campaigns'
 
-import { endpoints } from './api-endpoints'
+import { endpoints } from './apiEndpoints'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { CreateBeneficiaryInput, PersonFormData, PersonResponse } from 'gql/person'
 import { CityInput, CityResponse } from 'gql/city'
 import { CampaignTypeFormData, CampaignTypesInput, CampaignTypesResponse } from 'gql/campaign-types'
 import { useKeycloak } from '@react-keycloak/ssr'
 import { KeycloakInstance } from 'keycloak-js'
-import { apiClient } from 'service/apiClient'
+
+const authConfig = (token: string) => {
+  return token ? { headers: { Authorization: `Bearer ${token}` } } : { headers: {} }
+}
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await axios.get(queryKey.join('/'))
@@ -137,6 +140,6 @@ export const useCreateBeneficiary = () => {
     await apiClient.post<CampaignInput, AxiosResponse<CampaignResponse>>(
       endpoints.campaign.createCampaign.url,
       data,
-      authConfig(keycloak?.token),
+      authConfig(keycloak?.token || ''),
     )
 }
