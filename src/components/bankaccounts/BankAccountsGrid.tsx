@@ -5,23 +5,26 @@ import {
   GridSelectionModel,
   GridRenderCellParams,
 } from '@mui/x-data-grid'
-import { ModalStore } from 'stores/dashboard/ModalStore'
-import ConfirmationDialog from 'components/common/ConfirmationDialog'
-import { useBankAccountsList } from 'common/hooks/bankaccounts'
-import { useQueryClient, UseQueryResult } from 'react-query'
-import { useRouter } from 'next/router'
 import { observer } from 'mobx-react'
 import React, { useState } from 'react'
-import { ControlIcons, commonProps } from './BankAccountsGridHelper'
+import { useRouter } from 'next/router'
+import { useQueryClient, UseQueryResult } from 'react-query'
+
+import { routes } from 'common/routes'
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
-import { renderCellWithdraws } from './BankAccountsGridHelper'
 import { BankAccountResponse } from 'gql/bankaccounts'
+import { ModalStore } from 'stores/dashboard/ModalStore'
+import { useBankAccountsList } from 'common/hooks/bankaccounts'
+import ConfirmationDialog from 'components/common/ConfirmationDialog'
+
+import { renderCellWithdraws } from './BankAccountsGridHelper'
+import { ControlIcons, commonProps } from './BankAccountsGridHelper'
 
 export default observer(function BankAccountsGrid() {
   const queryClient = useQueryClient()
   const router = useRouter()
-  const [multipleDelete, setMupltipleDelete] = useState<GridRowId[]>([])
+  const [multipleDelete, setMultipleDelete] = useState<GridRowId[]>([])
   const [id, setId] = useState('')
 
   //CONFIRMATION DIALOG HANDLERS
@@ -44,7 +47,7 @@ export default observer(function BankAccountsGrid() {
           ? await apiClient.delete(params[0])
           : await apiClient.post(params[0], params[1])
         handleClose()
-        queryClient.invalidateQueries('/bankaccount')
+        queryClient.invalidateQueries(endpoints.bankAccounts.bankAccountList.url)
       } catch (error) {
         console.log(error)
       }
@@ -53,24 +56,27 @@ export default observer(function BankAccountsGrid() {
   }
 
   const columns: GridColumns = [
-    { ...commonProps, headerName: 'статус', field: 'status' },
-    { ...commonProps, headerName: 'ИБАН', field: 'ibanNumber', width: 220 },
-    { ...commonProps, headerName: 'собственик', field: 'accountHolderName' },
-    { ...commonProps, headerName: 'вид', field: 'AccountHolderType1' },
-    { ...commonProps, headerName: 'име на банка', field: 'bankName' },
-    { ...commonProps, headerName: 'ид на банката', field: 'bankIdCode' },
-    { ...commonProps, headerName: 'подпис', field: 'fingerprint' },
+    { ...commonProps, headerName: 'Статус', field: 'status' },
+    { ...commonProps, headerName: 'IBAN', field: 'ibanNumber', width: 220 },
+    { ...commonProps, headerName: 'Собственик', field: 'accountHolderName', flex: 1 },
+    { ...commonProps, headerName: 'Вид', field: 'AccountHolderType' },
+    { ...commonProps, headerName: 'Име на банка', field: 'bankName', flex: 1 },
+    { ...commonProps, headerName: 'BIC код', field: 'bankIdCode' },
+    { ...commonProps, headerName: 'Уникален код', field: 'fingerprint' },
     {
       ...commonProps,
-      headerName: 'извлечения',
+      headerName: 'Извлечения',
       field: 'withdraws',
       renderCell: renderCellWithdraws,
     },
     {
       field: 'others',
-      headerName: 'Действие',
-      headerAlign: 'left',
-      width: 150,
+      headerName: 'Действия',
+      headerAlign: 'center',
+      sortable: false,
+      disableColumnMenu: true,
+      resizable: false,
+      width: 180,
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
         return (
           <ControlIcons
@@ -78,7 +84,7 @@ export default observer(function BankAccountsGrid() {
             carId={String(params.id)}
             openModal={ModalStore.openModal}
             router={router}
-            route={`/bankaccounts/edit/${params.id}`}
+            route={routes.admin.bankaccounts.edit(params.id)}
             handleOpen={handleClickOpen}
             setId={setId}
             idToSet={String(params.id)}
@@ -99,7 +105,8 @@ export default observer(function BankAccountsGrid() {
         title={'Потвърждение'}
         content={'Наистина ли искате да изтриете тези записи ?'}
         confirmButtonLabel={'Потвърди'}
-        cancelButtonLabel={'Отказ'}></ConfirmationDialog>
+        cancelButtonLabel={'Отказ'}
+      />
       <DataGrid
         style={{
           background: 'white',
@@ -115,13 +122,13 @@ export default observer(function BankAccountsGrid() {
         rows={data || []}
         columns={columns}
         rowsPerPageOptions={[5, 10]}
-        pageSize={5}
+        pageSize={10}
         autoHeight
         autoPageSize
         disableSelectionOnClick
         checkboxSelection
         onSelectionModelChange={(selectionModel: GridSelectionModel) => {
-          setMupltipleDelete(selectionModel)
+          setMultipleDelete(selectionModel)
           selectionModel.length > 0 ? ModalStore.csPositive() : ModalStore.csNegative()
         }}
       />

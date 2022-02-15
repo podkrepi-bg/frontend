@@ -1,7 +1,11 @@
 import { Typography, Box, Toolbar } from '@mui/material'
 import HomeIcon from '@mui/icons-material/Home'
 import { IconButton } from '@mui/material'
-export default function AppBarMenu() {
+type Props = {
+  title: string
+}
+
+export default function AppBarMenu({ title }: Props) {
   return (
     <Toolbar
       disableGutters
@@ -9,15 +13,13 @@ export default function AppBarMenu() {
       sx={{
         display: 'flex',
         justifyContent: 'space-between',
-        background: 'white',
         width: '100%',
-        borderRadius: '13px 13px 0 0',
         pl: '24px',
       }}>
       <Typography variant="h5" color="primary">
-        Банкови сметки
+        {title}
       </Typography>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
         <IconButton>
           <HomeIcon color="action" />
         </IconButton>
@@ -25,7 +27,7 @@ export default function AppBarMenu() {
           /
         </Typography>
         <IconButton sx={{ borderRadius: '10px' }}>
-          <Typography>Банкови сметки</Typography>
+          <Typography>{title}</Typography>
         </IconButton>
       </Box>
     </Toolbar>

@@ -1,18 +1,20 @@
-import { Box, Typography } from '@mui/material'
-import { useTranslation } from 'next-i18next'
 import { observer } from 'mobx-react'
 import { useRouter } from 'next/router'
-import DeleteIcon from '@mui/icons-material/Delete'
-import AddIcon from '@mui/icons-material/Add'
-import Tooltip from '@mui/material/Tooltip'
-import Toolbar from '@mui/material/Toolbar'
-import PrintIcon from '@mui/icons-material/Print'
-import SaveIcon from '@mui/icons-material/Save'
-import ShareIcon from '@mui/icons-material/Share'
-import EventNoteIcon from '@mui/icons-material/EventNote'
+import { useTranslation } from 'next-i18next'
+import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
+import {
+  Delete as DeleteIcon,
+  Add as AddIcon,
+  Print as PrintIcon,
+  Save as SaveIcon,
+  Share as ShareIcon,
+  EventNote as EventNoteIcon,
+} from '@mui/icons-material'
+
+import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
 import { ModalStore } from 'stores/dashboard/ModalStore'
-import { routes } from 'common/routes'
+
 const addIconStyles = {
   background: '#4ac3ff',
   borderRadius: '50%',
@@ -49,19 +51,19 @@ export default observer(function BottomAppBar() {
       </Box>
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Tooltip title="Изтрий избраните">
+          <Tooltip title="Преглед">
             <EventNoteIcon sx={iconStyles} fontSize="medium" color="action" />
           </Tooltip>
           <Tooltip title="Изтрий избраните">
             <DeleteIcon onClick={deleteHandler} sx={iconStyles} fontSize="medium" color="action" />
           </Tooltip>
-          <Tooltip title="Изтрий избраните">
+          <Tooltip title="Запази">
             <SaveIcon sx={iconStyles} fontSize="medium" color="action" />
           </Tooltip>
-          <Tooltip title="Изтрий избраните">
+          <Tooltip title="Принт">
             <PrintIcon sx={iconStyles} fontSize="medium" color="action" />
           </Tooltip>
-          <Tooltip title="Изтрий избраните">
+          <Tooltip title="Сподели">
             <ShareIcon sx={iconStyles} fontSize="medium" color="action" />
           </Tooltip>
           <Tooltip title="Добави">
@@ -69,7 +71,7 @@ export default observer(function BottomAppBar() {
               sx={addIconStyles}
               fontSize="large"
               onClick={() => {
-                router.push(routes.bankaccounts.add)
+                router.push(routes.admin.bankaccounts.add)
               }}
             />
           </Tooltip>

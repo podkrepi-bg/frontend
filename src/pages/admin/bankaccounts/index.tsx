@@ -4,14 +4,20 @@ import { dehydrate, QueryClient } from 'react-query'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { queryFn } from 'service/restRequests'
+import { endpoints } from 'service/apiEndpoints'
+import { authQueryFnFactory } from 'service/restRequests'
+import { keycloakInstance } from 'middleware/auth/keycloak'
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const keycloak = keycloakInstance(ctx)
   const client = new QueryClient()
-  await client.prefetchQuery(`/bankaccount`, queryFn)
+  await client.prefetchQuery(
+    endpoints.bankAccounts.bankAccountList.url,
+    authQueryFnFactory(keycloak.token),
+  )
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? 'bg', [
+      ...(await serverSideTranslations(ctx.locale ?? 'bg', [
         'common',
         'auth',
         'validation',

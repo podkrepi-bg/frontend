@@ -31,11 +31,10 @@ export const endpoints = {
   },
   bankAccounts: {
     bankAccountList: <Endpoint>{ url: '/bankaccount', method: 'GET' },
-    viewBankAccount: (slug: string) => <Endpoint>{ url: `/bankaccount/${slug}`, method: 'GET' },
-    deleteBankAccount: (slug: string) =>
-      <Endpoint>{ url: `/bankaccount/${slug}`, method: 'DELETE' },
+    viewBankAccount: (id: string) => <Endpoint>{ url: `/bankaccount/${id}`, method: 'GET' },
+    deleteBankAccount: (id: string) => <Endpoint>{ url: `/bankaccount/${id}`, method: 'DELETE' },
     postBankAccount: <Endpoint>{ url: '/bankaccount', method: 'POST' },
-    editBankAccount: (slug: string) => <Endpoint>{ url: `/bankaccount/${slug}`, method: 'PATCH' },
+    editBankAccount: (id: string) => <Endpoint>{ url: `/bankaccount/${id}`, method: 'PATCH' },
     deleteManyBankAccounts: <Endpoint>{ url: `/bankaccount/deletemany`, method: 'POST' },
   },
 }
