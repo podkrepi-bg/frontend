@@ -1,7 +1,8 @@
 {
     "fields": {
         "name": "Име",
-        "country-code": "Код"
+        "country-code": "Код",
+        "action": "Действие"
     },
     "alerts": {
         "new-row": {
