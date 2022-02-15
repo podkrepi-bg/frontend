@@ -78,7 +78,6 @@ export default observer(function BankAccountsGrid() {
       resizable: false,
       width: 180,
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
-        console.log({ params })
         return (
           <ControlIcons
             setCarId={ModalStore.setCarId}
