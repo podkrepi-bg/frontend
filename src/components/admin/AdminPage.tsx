@@ -3,16 +3,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
-import {
-  Box,
-  Card,
-  CardActionArea,
-  CardContent,
-  Divider,
-  Grid,
-  Stack,
-  Typography,
-} from '@mui/material'
+import { Box, Card, CardActionArea, CardContent, Grid, Typography } from '@mui/material'
 
 import { isAdmin } from 'common/util/roles'
 import AdminLayout from 'components/admin/navigation/AdminLayout'

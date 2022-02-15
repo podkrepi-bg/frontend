@@ -15,7 +15,7 @@
     "lint:next": "next lint",
     "lint:styles": "stylelint **.scss",
     "format": "prettier --write .",
-    "type-check": "tsc --project tsconfig.json --pretty --noEmit",
+    "type-check": "tsc --noEmit",
     "prepare": "husky install",
     "release": "./manifests/release.sh",
     "release:patch": "./manifests/release.sh patch",
