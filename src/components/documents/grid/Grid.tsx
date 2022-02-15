@@ -90,7 +90,7 @@ export default observer(function Grid() {
       </Box>
       <DetailsModal id={selectedId} />
       <DeleteModal id={selectedId} />
-      <DeleteAllModal idsToDelete={selectionModel} />
+      <DeleteAllModal selectionModel={selectionModel} />
       {/* <Alert
         sx={{
           display: 'none',

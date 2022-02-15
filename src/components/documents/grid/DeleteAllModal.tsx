@@ -11,39 +11,35 @@ import { endpoints } from 'service/apiEndpoints'
 import { ModalStore } from 'stores/ModalStore'
 import { observer } from 'mobx-react'
 import { AlertStore } from 'stores/AlertStore'
+import { useDeleteManyDocuments } from 'service/restRequests'
 
 type Props = {
-  idsToDelete: GridSelectionModel
+  selectionModel: GridSelectionModel
 }
 
-export default observer(function DeleteAllModal({ idsToDelete }: Props) {
+export default observer(function DeleteAllModal({ selectionModel }: Props) {
   const queryClient = useQueryClient()
   const { isDeleteAllOpen, hideDeleteAll } = ModalStore
 
-  const deleteDocuments: MutationFunction<AxiosResponse<DocumentResponse>, GridSelectionModel> =
-    async () => {
-      return await apiClient.post<DocumentResponse, AxiosResponse<DocumentResponse>>(
-        endpoints.documents.deleteDocuments.url,
-        idsToDelete,
-      )
-    }
+  const idsToDelete = selectionModel.map((x) => x.toString())
+  const mutationFn = useDeleteManyDocuments(idsToDelete)
 
-  const deleteMutation = useMutation<
+  const mutation = useMutation<
     AxiosResponse<DocumentResponse>,
     AxiosError<ApiErrors>,
     GridSelectionModel
   >({
-    mutationFn: deleteDocuments,
+    mutationFn,
     onError: () => AlertStore.show('An error has occured!', 'error'),
     onSuccess: () => {
       hideDeleteAll()
-      AlertStore.show('Documents has been deleted successfully!', 'success')
+      AlertStore.show('Documents have been deleted successfully!', 'success')
       queryClient.invalidateQueries('/document')
     },
   })
 
   function deleteHandler() {
-    deleteMutation.mutate(idsToDelete)
+    mutation.mutate(idsToDelete)
   }
 
   return (

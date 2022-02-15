@@ -3,17 +3,19 @@ import { dehydrate, QueryClient } from 'react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import EditPage from 'components/documents/EditPage'
-import { endpoints } from 'service/apiEndpoints'
-import { queryFn } from 'service/restRequests'
+import { prefetchDocumentById } from 'common/hooks/documents'
+import { keycloakInstance } from 'middleware/auth/keycloak'
 
-export const getServerSideProps: GetServerSideProps = async ({ locale, query }) => {
-  const { id } = query
+export const getServerSideProps: GetServerSideProps = async (params) => {
   const client = new QueryClient()
-  await client.prefetchQuery(endpoints.documents.getDocument(String(id)).url, queryFn)
+  const keycloak = keycloakInstance(params)
+  const { id } = params.query
+
+  await prefetchDocumentById(client, String(id), keycloak.token)
 
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? 'bg', [
+      ...(await serverSideTranslations(params.locale ?? 'bg', [
         'common',
         'auth',
         'document',

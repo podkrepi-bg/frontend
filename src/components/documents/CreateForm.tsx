@@ -16,6 +16,7 @@ import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
 import { AlertStore } from 'stores/AlertStore'
 import { observer } from 'mobx-react'
+import { useCreateDocument } from 'service/restRequests'
 
 const validDocumentTypes = ['invoice', 'receipt', 'medical_record', 'other']
 
@@ -43,21 +44,14 @@ export default observer(function CreateForm() {
     sourceUrl: '',
   }
 
-  const createDocument: MutationFunction<AxiosResponse<DocumentResponse>, DocumentInput> = async (
-    data: DocumentInput,
-  ) => {
-    return await apiClient.post<DocumentInput, AxiosResponse<DocumentResponse>>(
-      endpoints.documents.createDocument.url,
-      data,
-    )
-  }
+  const mutationFn = useCreateDocument()
 
   const mutation = useMutation<
     AxiosResponse<DocumentResponse>,
     AxiosError<ApiErrors>,
     DocumentInput
   >({
-    mutationFn: createDocument,
+    mutationFn,
     onError: () => AlertStore.show('An error has occured!', 'error'),
     onSuccess: () => {
       AlertStore.show('Document has been created successfully!', 'success')

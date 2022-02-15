@@ -5,14 +5,18 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import DocumentsPage from 'components/documents/DocumentsPage'
 import { endpoints } from 'service/apiEndpoints'
 import { queryFn } from 'service/restRequests'
+import { prefetchDocumentsList } from 'common/hooks/documents'
+import { keycloakInstance } from 'middleware/auth/keycloak'
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async (params) => {
   const client = new QueryClient()
-  await client.prefetchQuery(endpoints.documents.documentsList.url, queryFn)
+  const keycloak = keycloakInstance(params)
+
+  await prefetchDocumentsList(client, keycloak?.token)
 
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? 'bg', [
+      ...(await serverSideTranslations(params.locale ?? 'bg', [
         'common',
         'auth',
         'document',
