@@ -1,22 +1,23 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { MutationFunction, useMutation, UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
-import { Grid, Typography } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import { Grid, Typography } from '@mui/material'
 import { AxiosError, AxiosResponse } from 'axios'
-import { ApiErrors } from 'service/apiErrors'
-import { apiClient } from 'service/apiClient'
-import { endpoints } from 'service/apiEndpoints'
-import { BankAccountInput, BankAccountResponse } from 'gql/bankaccounts'
-import { validationSchemaBankAccForm } from './BankAccountsForm'
-import FormTextField from 'components/common/form/FormTextField'
-import SubmitButton from 'components/common/form/SubmitButton'
-import { useViewBankAccount } from 'common/hooks/bankaccounts'
-import GenericForm from 'components/common/form/GenericForm'
-import { AlertStore } from 'stores/AlertStore'
+import createStyles from '@mui/styles/createStyles'
+import { useMutation, UseQueryResult } from 'react-query'
+
 import { routes } from 'common/routes'
+import { ApiErrors } from 'service/apiErrors'
+import { AlertStore } from 'stores/AlertStore'
+import { useEditBankAccount } from 'service/bankAccount'
+import GenericForm from 'components/common/form/GenericForm'
+import { useViewBankAccount } from 'common/hooks/bankaccounts'
+import SubmitButton from 'components/common/form/SubmitButton'
+import FormTextField from 'components/common/form/FormTextField'
+import { BankAccountInput, BankAccountResponse } from 'gql/bankaccounts'
+
+import { validationSchemaBankAccForm } from './BankAccountsForm'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -28,11 +29,13 @@ const useStyles = makeStyles((theme) =>
   }),
 )
 
-export default function BankAccountsEditForm() {
+type Props = {
+  id: string
+}
+export default function BankAccountsEditForm({ id }: Props) {
   const classes = useStyles()
   const { t } = useTranslation()
   const router = useRouter()
-  const id = String(router.query.slug)
   const { data }: UseQueryResult<BankAccountResponse> = useViewBankAccount(id)
 
   const initialValues: BankAccountInput = {
@@ -45,20 +48,12 @@ export default function BankAccountsEditForm() {
     fingerprint: data?.fingerprint,
   }
 
-  const editBankAccount: MutationFunction<AxiosResponse<BankAccountResponse>, BankAccountInput> =
-    async (data: BankAccountInput) => {
-      return await apiClient.patch<BankAccountInput, AxiosResponse<BankAccountResponse>>(
-        endpoints.bankAccounts.editBankAccount(id).url,
-        data,
-      )
-    }
-
   const mutation = useMutation<
     AxiosResponse<BankAccountResponse>,
     AxiosError<ApiErrors>,
     BankAccountInput
   >({
-    mutationFn: editBankAccount,
+    mutationFn: useEditBankAccount(id),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => {
       AlertStore.show(t('common:alerts.message-sent'), 'success')

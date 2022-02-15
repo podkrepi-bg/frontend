@@ -47,7 +47,7 @@ export default observer(function BankAccountsGrid() {
           ? await apiClient.delete(params[0])
           : await apiClient.post(params[0], params[1])
         handleClose()
-        queryClient.invalidateQueries('/bankaccount')
+        queryClient.invalidateQueries(endpoints.bankAccounts.bankAccountList.url)
       } catch (error) {
         console.log(error)
       }
@@ -58,9 +58,9 @@ export default observer(function BankAccountsGrid() {
   const columns: GridColumns = [
     { ...commonProps, headerName: 'Статус', field: 'status' },
     { ...commonProps, headerName: 'IBAN', field: 'ibanNumber', width: 220 },
-    { ...commonProps, headerName: 'Собственик', field: 'accountHolderName' },
+    { ...commonProps, headerName: 'Собственик', field: 'accountHolderName', flex: 1 },
     { ...commonProps, headerName: 'Вид', field: 'AccountHolderType' },
-    { ...commonProps, headerName: 'Име на банка', field: 'bankName' },
+    { ...commonProps, headerName: 'Име на банка', field: 'bankName', flex: 1 },
     { ...commonProps, headerName: 'BIC код', field: 'bankIdCode' },
     { ...commonProps, headerName: 'Уникален код', field: 'fingerprint' },
     {
@@ -76,8 +76,9 @@ export default observer(function BankAccountsGrid() {
       sortable: false,
       disableColumnMenu: true,
       resizable: false,
-      flex: 1,
+      width: 180,
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        console.log({ params })
         return (
           <ControlIcons
             setCarId={ModalStore.setCarId}
@@ -105,7 +106,8 @@ export default observer(function BankAccountsGrid() {
         title={'Потвърждение'}
         content={'Наистина ли искате да изтриете тези записи ?'}
         confirmButtonLabel={'Потвърди'}
-        cancelButtonLabel={'Отказ'}></ConfirmationDialog>
+        cancelButtonLabel={'Отказ'}
+      />
       <DataGrid
         style={{
           background: 'white',

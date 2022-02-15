@@ -1,7 +1,11 @@
+import { useRouter } from 'next/router'
 import { Container } from '@mui/material'
-import BankAccountsEditForm from './BankAccountsEditForm'
+
 import MainLayout from '../admin/navigation/MainLayout'
-function BankAccountsEditPage() {
+import BankAccountsEditForm from './BankAccountsEditForm'
+
+export default function BankAccountsEditPage() {
+  const router = useRouter()
   return (
     <MainLayout>
       <Container
@@ -15,10 +19,9 @@ function BankAccountsEditPage() {
           py: 10,
         }}>
         <Container maxWidth="sm">
-          <BankAccountsEditForm />
+          <BankAccountsEditForm id={`${router.query.id}`} />
         </Container>
       </Container>
     </MainLayout>
   )
 }
-export default BankAccountsEditPage
