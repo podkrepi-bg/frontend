@@ -34,16 +34,6 @@ export const ControlIcons: React.FC<Props> = ({
         justifyContent: 'space-between',
       }}>
       {
-        <ImportExportIcon
-          sx={{ cursor: 'pointer' }}
-          color="primary"
-          onClick={() => {
-            setOpen(row)
-            openModal()
-          }}
-        />
-      }
-      {
         <ShareIcon
           sx={{ cursor: 'pointer' }}
           color="primary"
