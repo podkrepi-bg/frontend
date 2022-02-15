@@ -25,7 +25,6 @@ import ActionsButtons from './ActionButtons'
 const useStyles = makeStyles({
   gridWrapper: {
     margin: '0 auto',
-    // maxWidth: 602,
   },
   grid: {
     marginBottom: 15,
@@ -36,7 +35,10 @@ const useStyles = makeStyles({
     justifyContent: 'space-between',
   },
   gridHeader: {
-    fontWeight: 700,
+    '& .MuiDataGrid-columnHeaderTitle': {
+      fontSize: '14px',
+      fontWeight: '700',
+    },
   },
   gridBtn: {
     background: '#FFFFFF',
@@ -170,12 +172,13 @@ export default function CountryGrid() {
       field: 'countryCode',
       headerName: t('fields.country-code'),
       valueGetter: (p) => p.row.countryCode,
-      width: 650,
+      width: 690,
       headerClassName: classes.gridHeader,
     },
     {
       field: 'actions',
       headerName: t('fields.action'),
+      headerAlign: 'left',
       renderCell: (p) => (
         <ActionsButtons
           id={p.row.id}
@@ -184,8 +187,9 @@ export default function CountryGrid() {
           openDialog={openDeleteRowDialog}
         />
       ),
-      width: 150,
+      width: 120,
       type: 'actions',
+      headerClassName: classes.gridHeader,
     },
   ]
 
