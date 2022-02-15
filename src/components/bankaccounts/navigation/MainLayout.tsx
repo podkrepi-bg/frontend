@@ -18,14 +18,13 @@ import NotificationsIcon from '@mui/icons-material/Notifications'
 import { Button, TextField, Typography } from '@mui/material'
 import FullscreenIcon from '@mui/icons-material/Fullscreen'
 import SettingsIcon from '@mui/icons-material/Settings'
-import InboxIcon from '@mui/icons-material/MoveToInbox'
 import MenuIcon from '@mui/icons-material/Menu'
 import Image from 'next/image'
-import MailIcon from '@mui/icons-material/Mail'
 import Snackbar from 'components/layout/Snackbar'
 import PictureLogo from '/public/android-chrome-192x192.png'
 import PanelFooter from './PanelFooter'
 const drawerWidth = 200
+import CustomListItem from './CustomListItem'
 
 const useStyles = makeStyles({
   drawerHeader: {
@@ -202,10 +201,7 @@ export default function MainLayout({ children }: Props) {
         <List sx={{ p: '30px 17px 30px 17px', height: '100%', position: 'relative' }}>
           {['Задачи', 'Кампании', 'Доброволци', 'Плащания', 'Потребители', 'Документи'].map(
             (text, index) => (
-              <ListItem button key={text} sx={{ px: '7px', borderRadius: '20px' }}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
+              <CustomListItem key={index} name={text}></CustomListItem>
             ),
           )}
           <ListItem

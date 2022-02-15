@@ -17,7 +17,6 @@ import { useViewBankAccount } from 'common/hooks/bankaccounts'
 import GenericForm from 'components/common/form/GenericForm'
 import { AlertStore } from 'stores/AlertStore'
 import { routes } from 'common/routes'
-import MainLayout from './navigation/MainLayout'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -112,9 +111,6 @@ export default function BankAccountsEditForm() {
           </Grid>
           <Grid item xs={12}>
             <FormTextField type="text" name="fingerprint" label="bankaccounts:fingerprint" />
-          </Grid>
-          <Grid item xs={12}>
-            <FormTextField type="text" name="withdrawal" label="bankaccounts:withdrawal" />
           </Grid>
           <Grid item xs={12}>
             <SubmitButton fullWidth label="campaigns:cta.submit" loading={mutation.isLoading} />
