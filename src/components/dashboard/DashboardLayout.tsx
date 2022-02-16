@@ -98,7 +98,8 @@ export default function DashboardLayout({
                   backgroundColor: '#FFF',
                   borderRadius: '10px',
                   height: '100%',
-                  overflow: 'auto',
+                  overflowY: 'auto',
+                  overflowX: 'hidden',
                 }}>
                 <Box
                   sx={{
