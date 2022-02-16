@@ -25,7 +25,9 @@ export default function InfoRequestGrid() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [row, setRow] = useState<any>()
   const [isViewModalOpen, setIsViewModalOpen] = useState(false)
+  const [selectionModel, setSelectionModel] = React.useState([])
   const router = useRouter()
+  const [pageSize, setPageSize] = useState(5)
   const { t } = useTranslation()
 
   const mutation = useMutation<AxiosResponse<InfoRequest>, AxiosError<ApiErrors>, string>({
@@ -46,7 +48,9 @@ export default function InfoRequestGrid() {
   }
 
   const deleteHandler = () => {
-    console.log('delete')
+    Promise.all(selectionModel.map((id) => mutation.mutateAsync(id))).then(() => {
+      router.push(routes.admin.infoRequest)
+    })
   }
 
   const actions = [
@@ -140,14 +144,18 @@ export default function InfoRequestGrid() {
           overflowX: 'hidden',
           borderRadius: '0 0 13px 13px',
         }}
+        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         rows={data || []}
         columns={columns}
         rowsPerPageOptions={[5, 10]}
-        pageSize={5}
+        pageSize={pageSize}
         autoHeight
         autoPageSize
         disableSelectionOnClick
         checkboxSelection
+        onSelectionModelChange={(ids) => {
+          setSelectionModel(ids)
+        }}
       />
     </>
   )
