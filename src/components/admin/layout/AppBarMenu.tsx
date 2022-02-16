@@ -27,7 +27,7 @@ export default function AppBarMenu() {
             /
           </Typography>
           <IconButton sx={{ borderRadius: '10px' }}>
-            <Typography>Info request2</Typography>
+            <Typography>Info request</Typography>
           </IconButton>
         </Box>
       </Toolbar>
