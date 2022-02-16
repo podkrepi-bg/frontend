@@ -28,7 +28,7 @@ export const BankTransfer = () => {
         <Typography variant="body2">{t('about-project:bank-name')}</Typography>
       </Grid>
       <Grid item xs={12}>
-        <Grid container direction="row" sx={{ mt: 2 }} columnSpacing={2}>
+        <Grid container direction="row" columnSpacing={2}>
           <Grid item>
             IBAN:{' '}
             <Typography
