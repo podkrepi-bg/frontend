@@ -1,20 +1,20 @@
 import { Container } from '@mui/material'
 import MainLayout from './navigation/MainLayout'
-import GenericGrid from './PersonGrid'
-import { useCampaignTypesList } from 'common/hooks/campaign-types'
+import GenericGrid from './BeneficiaryGrid'
 import { useRouter } from 'next/router'
+import { useBeneficiariesList } from 'service/beneficiary'
 import AppBarMenu from './navigation/AppBarMenu'
-import BankAccountsBottomAppbar from './PersonBottomAppBar'
-import BankAccountsModal from './PersonModal'
-import BankAccountsDetails from './PersonDetails'
+import BankAccountsBottomAppbar from './BeneficiaryBottomAppBar'
+import BankAccountsModal from './BeneficiaryModal'
+import BankAccountsDetails from './BeneficiaryDetails'
 
 export default function BootcampPage() {
   const { query } = useRouter()
   const queryId = (Array.isArray(query.id) ? query.id[0] : query.id) || ''
 
-  const info = useCampaignTypesList()
+  const info = useBeneficiariesList()
   const bootcampers = info.data?.filter((x) =>
-    x.name.toLocaleLowerCase().includes(queryId.toLocaleLowerCase()),
+    x.countryCode.toLocaleLowerCase().includes(queryId.toLocaleLowerCase()),
   )
 
   return (

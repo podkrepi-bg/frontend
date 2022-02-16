@@ -1,5 +1,5 @@
 import { Container } from '@mui/material'
-import BankAccountsEditForm from './PersonEditForm'
+import BankAccountsEditForm from './BeneficiaryEditForm'
 import MainLayout from './navigation/MainLayout'
 
 function BankAccountsEditPage() {

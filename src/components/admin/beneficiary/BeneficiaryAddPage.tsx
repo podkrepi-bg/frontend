@@ -1,6 +1,6 @@
 import { Container } from '@mui/material'
 import MainLayout from 'components/admin/person/navigation/MainLayout'
-import BankAccountsForm from './PersonForm'
+import BankAccountsForm from './BeneficiaryForm'
 
 function BankAccountsAddPage() {
   return (

@@ -6,18 +6,18 @@ import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import { Button, Grid, Typography } from '@mui/material'
 
-import { editCampaignType } from 'common/rest'
+import { useEditBeneficiary } from 'service/beneficiary'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
-import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
+import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import { useViewCampaignType } from 'common/hooks/campaign-types'
 // import { axios } from 'service/api-client'
 // import { endpoints } from 'common/api-endpoints'
 import { useTheme } from '@mui/styles'
 import { CampaignTypeFormData } from 'gql/campaign-types'
 import { AlertStore } from 'stores/AlertStore'
-import { validationSchema } from './PersonForm'
+import { validationSchema } from './BeneficiaryForm'
 
 const defaults: CampaignTypeFormData = {
   name: '',
@@ -34,12 +34,6 @@ export default function EditBootcamper({ initialValues = defaults }: CampaignTyp
   const router = useRouter()
   const id = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id || ''
 
-  const editWrapper = (id: string) => {
-    return async (values: CampaignTypeFormData) => {
-      return await editCampaignType(id, values)
-    }
-  }
-
   const info = useViewCampaignType(id)
 
   if (!info.isLoading) {
@@ -55,7 +49,7 @@ export default function EditBootcamper({ initialValues = defaults }: CampaignTyp
     AxiosError<ApiErrors>,
     CampaignTypeFormData
   >({
-    mutationFn: editWrapper(id),
+    mutationFn: useEditBeneficiary(id),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })

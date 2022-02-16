@@ -1,35 +1,36 @@
 import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
-import { AxiosResponse } from 'axios'
-
-import { apiClient } from 'service/apiClient'
 
 import { endpoints } from './apiEndpoints'
-import { authConfig } from './restRequests'
-import { BeneficiaryType } from 'gql/beneficiary'
+import { authQueryFnFactory } from './restRequests'
+import { BeneficiaryFormData, BeneficiaryType } from 'gql/beneficiary'
 import { useQuery } from 'react-query'
+import { apiClient } from './apiClient'
 
 export const useBeneficiariesList = () => {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  return useQuery({
-    queryFn: async () => {
-      return await apiClient.get<BeneficiaryType[], AxiosResponse<BeneficiaryType[]>>(
-        endpoints.beneficiary.listBeneficiary.url,
-        authConfig(keycloak?.token),
-      )
-    },
-  })
+  return useQuery(
+    endpoints.beneficiary.listBeneficiary.url,
+    authQueryFnFactory<BeneficiaryType[]>(keycloak?.token),
+  )
 }
 
 export const useViewBeneficiary = (id: string) => {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  console.log(endpoints.beneficiary.viewBeneficiary(id).url)
-  return useQuery({
-    queryFn: async () => {
-      return await apiClient.get<BeneficiaryType, AxiosResponse<BeneficiaryType>>(
-        endpoints.beneficiary.viewBeneficiary(id).url,
-        authConfig(keycloak?.token),
-      )
-    },
-  })
+  return useQuery(
+    endpoints.beneficiary.viewBeneficiary(id).url,
+    authQueryFnFactory<BeneficiaryType>(keycloak?.token),
+  )
+}
+
+export const useCreateBeneficiary = () => {
+  return async (vals: BeneficiaryFormData) => {
+    return await apiClient.post(endpoints.beneficiary.createBeneficiary.url, vals)
+  }
+}
+
+export const useEditBeneficiary = (id: string) => {
+  return async (vals: BeneficiaryFormData) => {
+    return await apiClient.put(endpoints.beneficiary.editBeneficiary(id).url, vals)
+  }
 }

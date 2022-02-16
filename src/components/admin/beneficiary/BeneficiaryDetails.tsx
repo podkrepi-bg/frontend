@@ -5,8 +5,7 @@ import { observer } from 'mobx-react'
 import { BeneficiaryType } from 'gql/beneficiary'
 import { useViewBeneficiary } from 'service/beneficiary'
 import CloseModalButton from 'components/common/CloseModalButton'
-import { ModalStore } from 'stores/cars/ModalStore'
-import { AxiosResponse } from 'axios'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 
 export default observer(function BankAccountDetails() {
   const containerStyles: CSSObject = {
@@ -19,11 +18,7 @@ export default observer(function BankAccountDetails() {
     bgcolor: 'background.paper',
     p: 4,
   }
-  const { data: row }: UseQueryResult<AxiosResponse<BeneficiaryType>> = useViewBeneficiary(
-    ModalStore.carId,
-  )
-
-  console.log(row)
+  const { data: row }: UseQueryResult<BeneficiaryType> = useViewBeneficiary(ModalStore.carId)
 
   return (
     <Card sx={containerStyles}>
@@ -31,9 +26,9 @@ export default observer(function BankAccountDetails() {
       <CardContent>
         <Typography>Beneficiary Info</Typography>
         <Divider></Divider>
-        {row?.data.personId ? <Typography>Person ID: {row.data.personId}</Typography> : null}
-        {row?.data.companyId ? <Typography>Company ID: {row.data.companyId}</Typography> : null}
-        {row?.data.countryCode ? <Typography>Country code: {row.data.companyId}</Typography> : null}
+        {row?.personId ? <Typography>Person ID: {row.personId}</Typography> : null}
+        {row?.companyId ? <Typography>Company ID: {row.companyId}</Typography> : null}
+        {row?.countryCode ? <Typography>Country code: {row.countryCode}</Typography> : null}
       </CardContent>
     </Card>
   )

@@ -5,7 +5,7 @@ import { observer } from 'mobx-react'
 import { CampaignTypesResponse } from 'gql/campaign-types'
 import { useViewCampaignType } from 'common/hooks/campaign-types'
 import CloseModalButton from 'components/common/CloseModalButton'
-import { ModalStore } from 'stores/cars/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 
 export default observer(function BankAccountDetails() {
   const containerStyles: CSSObject = {

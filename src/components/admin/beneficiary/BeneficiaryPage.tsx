@@ -1,14 +1,14 @@
 import { Container } from '@mui/material'
-import BankAccountsModal from './PersonModal'
-import BankAccountsGrid from './PersonGrid'
-import BankAccountsDetails from './PersonDetails'
-import BankAccountsBottomAppbar from './PersonBottomAppBar'
+import BankAccountsModal from './BeneficiaryModal'
+import BankAccountsGrid from './BeneficiaryGrid'
+import BankAccountsDetails from './BeneficiaryDetails'
+import BankAccountsBottomAppbar from './BeneficiaryBottomAppBar'
 import MainLayout from './navigation/MainLayout'
 import AppBarMenu from './navigation/AppBarMenu'
 import { useBeneficiariesList } from 'service/beneficiary'
 
 const BankAccountsPage = () => {
-  const data = useBeneficiariesList().data?.data
+  const data = useBeneficiariesList().data
 
   return (
     <MainLayout>

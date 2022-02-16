@@ -10,23 +10,20 @@ import * as yup from 'yup'
 import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { PersonFormData } from 'gql/person'
-import { useCreateBeneficiary } from 'service/restRequests'
+import { useCreateBeneficiary } from 'service/beneficiary'
 import { AxiosError, AxiosResponse } from 'axios'
 import { AlertStore } from 'stores/AlertStore'
 import { ApiErrors } from 'service/apiErrors'
 import theme from 'common/theme'
 
-export const validationSchemaPersonForm: yup.SchemaOf<PersonFormData> = yup
-  .object()
-  .defined()
-  .shape({
-    firstName: yup.string().required(),
-    lastName: yup.string().required(),
-    email: yup.string().required(),
-    phone: yup.string().required(),
-    company: yup.string().notRequired(),
-    adress: yup.string().required(),
-  })
+export const validationSchema: yup.SchemaOf<PersonFormData> = yup.object().defined().shape({
+  firstName: yup.string().required(),
+  lastName: yup.string().required(),
+  email: yup.string().required(),
+  phone: yup.string().required(),
+  company: yup.string().notRequired(),
+  adress: yup.string().required(),
+})
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -78,7 +75,7 @@ export default function BankAccountsForm() {
       <GenericForm
         onSubmit={onSubmit}
         initialValues={initialValues}
-        validationSchema={validationSchemaPersonForm}>
+        validationSchema={validationSchema}>
         <Grid container spacing={3}>
           <Grid item sm={5}>
             <FormTextField

@@ -40,6 +40,8 @@ export const endpoints = {
   beneficiary: {
     listBeneficiary: <Endpoint>{ url: '/beneficiary/list', method: 'GET' },
     viewBeneficiary: (id: string) => <Endpoint>{ url: '/beneficiary/' + id, method: 'GET' },
+    createBeneficiary: <Endpoint>{ url: '/beneficiary/create-beneficiary', method: 'POST' },
+    editBeneficiary: (id: string) => <Endpoint>{ url: '/beneficiary' + id, method: 'PUT' },
   },
   person: {
     list: <Endpoint>{ url: '/person', method: 'GET' },

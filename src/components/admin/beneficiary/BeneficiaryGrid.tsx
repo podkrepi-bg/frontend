@@ -5,12 +5,12 @@ import {
   GridSelectionModel,
   GridRenderCellParams,
 } from '@mui/x-data-grid'
-import { ModalStore } from 'stores/cars/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
 import { useRouter } from 'next/router'
 import { observer } from 'mobx-react'
 import React, { useState } from 'react'
-import { ControlIcons, commonProps } from './PersonGridHelper'
+import { ControlIcons, commonProps } from './BeneficiaryGridHelper'
 import { apiClient as axios } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
 import { BeneficiaryType } from 'gql/beneficiary'

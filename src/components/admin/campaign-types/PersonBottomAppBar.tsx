@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next'
 import Toolbar from '@mui/material/Toolbar'
 import { observer } from 'mobx-react'
 import { AlertStore } from 'stores/AlertStore'
-import { ModalStore } from 'stores/cars/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 import { useRouter } from 'next/router'
 
 const addIconStyles = {

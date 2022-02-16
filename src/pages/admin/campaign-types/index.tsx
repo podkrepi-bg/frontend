@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { dehydrate, QueryClient } from 'react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import CampaignTypesPage from 'components/admin/beneficiary/PersonPage'
+import CampaignTypesPage from 'components/admin/beneficiary/BeneficiaryPage'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const client = new QueryClient()
