@@ -35,6 +35,7 @@
         "close": "Затвори"
     },
     "headings": {
+        "home": "Начало",
         "add-country": "Добави държава",
         "edit-country": "Редактирай държава",
         "countries": "Държави",
