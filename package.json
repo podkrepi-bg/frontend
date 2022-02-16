@@ -33,8 +33,7 @@
     "@mui/x-data-grid": "next",
     "@react-keycloak/ssr": "3.3.0",
     "@react-keycloak/web": "3.4.0",
-    "@sentry/nextjs": "6.5.1",
-    "@supabase/supabase-js": "1.13.1",
+    "@sentry/nextjs": "6.17.8",
     "@uppy/aws-s3": "2.0.5",
     "@uppy/core": "2.1.1",
     "@uppy/facebook": "2.0.4",
@@ -89,8 +88,8 @@
     "prettier": "2.3.0",
     "shx": "^0.3.3",
     "stripe": "^8.184.0",
-    "stylelint": "13.13.1",
-    "stylelint-config-sass-guidelines": "8.0.0",
+    "stylelint": "^14.5.0",
+    "stylelint-config-sass-guidelines": "9.0.1",
     "typescript": "4.5.5"
   },
   "lint-staged": {
