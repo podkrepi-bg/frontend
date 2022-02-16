@@ -56,7 +56,6 @@ const useStyles = makeStyles({
     display: 'flex',
     width: 'calc(100% - 24px)',
     position: 'relative',
-    background: 'white',
     paddingRight: '16px',
   },
   logoWrapper: {

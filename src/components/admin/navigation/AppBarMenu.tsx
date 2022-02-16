@@ -12,6 +12,7 @@ export default function AppBarMenu({ title }: Props) {
       variant="dense"
       sx={{
         display: 'flex',
+        flexDirection: { xs: 'column', md: 'row' },
         justifyContent: 'space-between',
         width: '100%',
         pl: '24px',
