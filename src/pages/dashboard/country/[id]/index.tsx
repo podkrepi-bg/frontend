@@ -13,7 +13,12 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query }) 
   return {
     props: {
       id,
-      ...(await serverSideTranslations(locale ?? 'bg', ['common', 'country', 'dashboard'])),
+      ...(await serverSideTranslations(locale ?? 'bg', [
+        'common',
+        'country',
+        'dashboard',
+        'validation',
+      ])),
       dehydratedState: dehydrate(client),
     },
   }
