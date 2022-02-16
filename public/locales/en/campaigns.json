@@ -72,8 +72,16 @@
       "resume": "Resume",
       "retry": "Retry"
     },
-    "beneficiary": "Beneficiary",
-    "coordinator": "Coordinator:",
+    "beneficiary": {
+      "name": "Beneficiary",
+      "add": "Add beneficiary",
+      "create": "Create beneficiary"
+    },
+    "coordinator": {
+      "name": "Coordinator:",
+      "add": "Add coordinator",
+      "create": "Create coordinator"
+    },
     "description": "Description",
     "start-date": "Start date:",
     "end-date": "End date:",
