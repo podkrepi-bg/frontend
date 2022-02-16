@@ -32,6 +32,10 @@ const useStyles = makeStyles({
     '& .MuiDataGrid-virtualScroller': {
       overflow: 'hidden',
     },
+    '& .MuiDataGrid-footerContainer': {
+      marginTop: '40px',
+      marginRight: '40px',
+    },
   },
   gridTitleWrapper: {
     display: 'flex',
@@ -79,7 +83,7 @@ export default function CountryGrid() {
     ids: [''],
   })
   const [country, setCountry] = React.useState<CountryResponse>(initialValues)
-  const [pageSize, setPageSize] = React.useState<number>(5)
+  const [pageSize, setPageSize] = React.useState<number>(10)
 
   const { data } = useCountriesList()
   const classes = useStyles()
