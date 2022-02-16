@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { appWithTranslation, useTranslation } from 'next-i18next'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
-
 // MaterialUI
 import { LinearProgress } from '@mui/material'
 import { ThemeProvider, Theme, StyledEngineProvider } from '@mui/material/styles'
@@ -18,7 +17,7 @@ import { SSRKeycloakProvider, SSRCookies } from '@react-keycloak/ssr'
 
 import theme from 'common/theme'
 import useGTM from 'common/util/useGTM'
-import { queryFn } from 'common/rest'
+import { queryFn } from 'service/restRequests'
 import createEmotionCache from 'common/createEmotionCache'
 const {
   publicRuntimeConfig: { keycloakConfig },
@@ -49,7 +48,7 @@ function CustomApp({
     () =>
       new QueryClient({
         defaultOptions: {
-          queries: { queryFn },
+          queries: { queryFn, staleTime: 25000 },
           // mutations: { mutationFn },
         },
       }),

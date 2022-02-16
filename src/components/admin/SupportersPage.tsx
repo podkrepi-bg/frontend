@@ -1,16 +1,21 @@
 import React from 'react'
-import { Container } from '@mui/material'
+import { useTranslation } from 'next-i18next'
 
-import Layout from 'components/layout/Layout'
+import DetailsModal from 'components/modal/DetailsModal'
 
 import SupportersGrid from './SupportersGrid'
+import AdminLayout from './navigation/AdminLayout'
+import AdminContainer from './navigation/AdminContainer'
 
 export default function SupportersPage() {
+  const { t } = useTranslation()
+
   return (
-    <Layout>
-      <Container maxWidth="lg">
+    <AdminLayout>
+      <AdminContainer title={t('nav.admin.supporters')}>
         <SupportersGrid />
-      </Container>
-    </Layout>
+        <DetailsModal />
+      </AdminContainer>
+    </AdminLayout>
   )
 }

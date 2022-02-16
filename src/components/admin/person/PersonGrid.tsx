@@ -12,7 +12,7 @@ import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 import { ControlIcons, commonProps } from './PersonGridHelper'
 import { apiClient as axios } from 'service/apiClient'
-import { endpoints } from 'common/api-endpoints'
+import { endpoints } from 'service/apiEndpoints'
 import { PersonFormData } from 'gql/person'
 
 interface GridProps {

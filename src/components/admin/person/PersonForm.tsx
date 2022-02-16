@@ -10,10 +10,10 @@ import * as yup from 'yup'
 import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { PersonFormData } from 'gql/person'
-import { createPerson } from 'common/rest'
+import { createPerson } from 'service/restRequests'
 import { AxiosError, AxiosResponse } from 'axios'
 import { AlertStore } from 'stores/AlertStore'
-import { ApiErrors } from 'common/api-errors'
+import { ApiErrors } from 'service/apiErrors'
 import theme from 'common/theme'
 
 export const validationSchemaPersonForm: yup.SchemaOf<PersonFormData> = yup

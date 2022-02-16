@@ -12,7 +12,7 @@ export default function CampaignsList() {
       {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
       {isLoading && <CircularProgress size="large" />}
       {data?.map((campaign, index) => (
-        <Grid key={index} item xs={12} sm={8} lg={4}>
+        <Grid key={index} item xs={12} sm={6} lg={4}>
           <Box textAlign="center">
             <CampaignCard campaign={campaign} />
           </Box>

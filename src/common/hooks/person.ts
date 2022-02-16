@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query'
 
-import { endpoints } from 'common/api-endpoints'
+import { endpoints } from 'service/apiEndpoints'
 import { PersonFormData } from 'gql/person'
 
 export function usePersonList() {

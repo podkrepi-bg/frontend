@@ -12,7 +12,7 @@ import createStyles from '@mui/styles/createStyles'
 
 import { routes } from 'common/routes'
 import { PersonFormData } from 'gql/person'
-import { createCampaign } from 'common/rest'
+import { useCreateCampaign } from 'service/restRequests'
 import { AlertStore } from 'stores/AlertStore'
 import { createSlug } from 'common/util/createSlug'
 import PersonDialog from 'components/person/PersonDialog'
@@ -20,7 +20,7 @@ import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
-import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
+import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import { CampaignResponse, CampaignFormData, CampaignInput } from 'gql/campaigns'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
@@ -96,7 +96,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
     AxiosError<ApiErrors>,
     CampaignInput
   >({
-    mutationFn: createCampaign,
+    mutationFn: useCreateCampaign(),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
@@ -136,7 +136,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
     <Grid container direction="column" component="section">
       <Grid item xs={12}>
         <Typography variant="h5" component="h2" className={classes.heading}>
-          {t('campaigns:form-heading')}
+          {t('bankaccounts:form-heading')}
         </Typography>
       </Grid>
       <GenericForm

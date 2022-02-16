@@ -61,7 +61,7 @@ export default function SimpleAccordion() {
           {t('components.footer.terms-of-service')}
         </LinkButton>
         <LinkButton variant="text" href={'#'} className={classes.menuItem}>
-          {t('nav.faq')}
+          {t('nav.campaigns.faq')}
         </LinkButton>
       </AccordionDetails>
     </Accordion>

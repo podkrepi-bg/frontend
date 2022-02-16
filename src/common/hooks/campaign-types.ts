@@ -1,10 +1,12 @@
 import { useQuery } from 'react-query'
 
-import { endpoints } from 'common/api-endpoints'
+import { endpoints } from 'service/apiEndpoints'
 import { CampaignTypesResponse } from 'gql/campaign-types'
+import { useKeycloak } from '@react-keycloak/ssr'
+import { KeycloakInstance } from 'keycloak-js'
 
 export function useCampaignTypesList() {
-  return useQuery<CampaignTypesResponse[]>(endpoints.campaignTypes.listCampaignTypes.url)
+  const { keycloak } = useKeycloak<KeycloakInstance>()
 }
 
 export function useViewCampaignType(slug: string) {

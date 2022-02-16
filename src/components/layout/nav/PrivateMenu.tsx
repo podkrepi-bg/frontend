@@ -4,12 +4,13 @@ import { AccountCircle } from '@mui/icons-material'
 import { Avatar, Grid, IconButton, Menu, Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
+import { isAdmin } from 'common/util/roles'
 import { useSession } from 'common/util/useSession'
 import LinkMenuItem from 'components/common/LinkMenuItem'
 
 export default function PrivateMenu() {
   const { t } = useTranslation()
-  const { session } = useSession()
+  const { keycloak, session } = useSession()
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
 
   const handleMenu = (event: React.MouseEvent) => setAnchorEl(event.currentTarget)
@@ -40,6 +41,11 @@ export default function PrivateMenu() {
         <LinkMenuItem href={routes.profile}>
           <Typography variant="button">{t('nav.profile')}</Typography>
         </LinkMenuItem>
+        {keycloak?.authenticated && isAdmin(keycloak) && (
+          <LinkMenuItem href={routes.admin.index}>
+            <Typography variant="button">{t('nav.admin.index')}</Typography>
+          </LinkMenuItem>
+        )}
         <LinkMenuItem href={routes.logout}>
           <Typography variant="button">{t('nav.logout')}</Typography>
         </LinkMenuItem>

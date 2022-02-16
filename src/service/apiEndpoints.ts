@@ -14,13 +14,9 @@ export const endpoints = {
   campaignType: {
     listCampaignTypes: <Endpoint>{ url: '/campaign-type/list', method: 'GET' },
   },
-  person: {
-    list: <Endpoint>{ url: '/person', method: 'GET' },
-    createBeneficiary: <Endpoint>{ url: '/beneficiary/create-beneficiary', method: 'POST' },
-    viewPerson: (slug: string) => <Endpoint>{ url: '/person/' + slug, method: 'GET' },
-    createPerson: <Endpoint>{ url: '/person', method: 'POST' },
-    removemany: <Endpoint>{ url: '/person/deletemany', method: 'DELETE' },
-  },
+  // person: {
+  //   createBeneficiary: <Endpoint>{ url: '/beneficiary/create-beneficiary', method: 'POST' },
+  // },
   support: {
     createInfoRequest: <Endpoint>{ url: '/support/create-inquiry', method: 'POST' },
     createSupportRequest: <Endpoint>{ url: '/support/create-request', method: 'POST' },
@@ -33,28 +29,23 @@ export const endpoints = {
     recurringPrices: <Endpoint>{ url: '/donation/prices/recurring', method: 'GET' },
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
   },
-  bootcamp: {
-    listBootcampers: <Endpoint>{ url: '/bootcamp', method: 'GET' },
-    viewBootcamper: (slug: string) => <Endpoint>{ url: '/bootcamp/' + slug, method: 'GET' },
-    createBootcamper: <Endpoint>{ url: '/bootcamp', method: 'POST' },
-    removeBootcamper: (slug: string) => <Endpoint>{ url: `/bootcamp/${slug}`, method: 'DELETE' },
+  bankAccounts: {
+    bankAccountList: <Endpoint>{ url: '/bankaccount', method: 'GET' },
+    viewBankAccount: (id: string) => <Endpoint>{ url: `/bankaccount/${id}`, method: 'GET' },
+    deleteBankAccount: (id: string) => <Endpoint>{ url: `/bankaccount/${id}`, method: 'DELETE' },
+    postBankAccount: <Endpoint>{ url: '/bankaccount', method: 'POST' },
+    editBankAccount: (id: string) => <Endpoint>{ url: `/bankaccount/${id}`, method: 'PATCH' },
+    deleteManyBankAccounts: <Endpoint>{ url: `/bankaccount/deletemany`, method: 'POST' },
   },
-  city: {
-    listCities: <Endpoint>{ url: '/city/list', method: 'GET' },
-    createCity: <Endpoint>{ url: '/city/create', method: 'POST' },
-    viewCity: (slug: string) => <Endpoint>{ url: '/city/view/' + slug, method: 'GET' },
-    editCity: (slug: string) => <Endpoint>{ url: '/city/edit/' + slug, method: 'PUT' },
-    deleteCity: (slug: string) => <Endpoint>{ url: '/city/remove' + slug, method: 'DELETE' },
+  beneficiary: {
+    listBeneficiary: <Endpoint>{ url: '/beneficiary/list', method: 'GET' },
+    viewBeneficiary: (id: string) => <Endpoint>{ url: '/beneficiary/' + id, method: 'GET' },
   },
-  campaignTypes: {
-    listCampaignTypes: <Endpoint>{ url: '/campaign-types/list', method: 'GET' },
-    createCampaignType: <Endpoint>{ url: '/campaign-types/add', method: 'POST' },
-    viewCampaignType: (slug: string) =>
-      <Endpoint>{ url: '/campaign-types/view/' + slug, method: 'GET' },
-    editCampaignType: (slug: string) =>
-      <Endpoint>{ url: '/campaign-types/edit/' + slug, method: 'PUT' },
-    deleteCampaignType: (slug: string) =>
-      <Endpoint>{ url: '/campaign-types/remove/' + slug, method: 'DELETE' },
-    deleteMany: <Endpoint>{ url: `/campaign-types/deletemany`, method: 'POST' },
+  person: {
+    list: <Endpoint>{ url: '/person', method: 'GET' },
+    createBeneficiary: <Endpoint>{ url: '/beneficiary/create-beneficiary', method: 'POST' },
+    viewPerson: (slug: string) => <Endpoint>{ url: '/person/' + slug, method: 'GET' },
+    createPerson: <Endpoint>{ url: '/person', method: 'POST' },
+    removemany: <Endpoint>{ url: '/person/deletemany', method: 'DELETE' },
   },
 }

@@ -1,45 +1,69 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { Container, Grid, Typography } from '@mui/material'
 import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
+import { Box, Card, CardActionArea, CardContent, Grid, Typography } from '@mui/material'
 
 import { isAdmin } from 'common/util/roles'
-import Layout from 'components/layout/Layout'
+import AdminLayout from 'components/admin/navigation/AdminLayout'
 
-import InfoRequestGrid from './InfoRequestGrid'
-import SupportersGrid from './SupportersGrid'
+import { menuItems } from './navigation/adminMenu'
+import AdminContainer from './navigation/AdminContainer'
 
 export default function AdminPage() {
   const { t } = useTranslation()
+  const router = useRouter()
   const { keycloak } = useKeycloak<KeycloakInstance>()
-
   if (!keycloak?.authenticated) {
-    return <Layout title={t('nav.admin.index')}>Not authenticated</Layout>
+    return (
+      <AdminLayout>
+        <AdminContainer title={t('nav.admin.index')}>
+          <Box p={3}>
+            <Typography variant="h6">Not authenticated</Typography>
+          </Box>
+        </AdminContainer>
+      </AdminLayout>
+    )
   }
 
-  // if (!isAdmin(keycloak)) {
-  //   return <Layout title={t('nav.admin.index')}>Not authorized</Layout>
-  // }
+  if (!isAdmin(keycloak)) {
+    return (
+      <AdminLayout>
+        <AdminContainer title={t('nav.admin.index')}>
+          <Box p={3}>
+            <Typography variant="h6">Not authorized</Typography>
+          </Box>
+        </AdminContainer>
+      </AdminLayout>
+    )
+  }
 
   return (
-    <Layout title={t('nav.admin.index')}>
-      <Container maxWidth="xl">
-        <Grid container direction="column" spacing={4}>
-          <Grid item>
-            <Typography variant="h3">{t('nav.admin.info-request')}</Typography>
-          </Grid>
-          <Grid item>
-            <InfoRequestGrid />
-          </Grid>
-          <Grid item>
-            <Typography variant="h3">{t('nav.admin.supporters')}</Typography>
-          </Grid>
-          <Grid item>
-            <SupportersGrid />
-          </Grid>
+    <AdminLayout>
+      <AdminContainer title={t('nav.admin.index')}>
+        <Box p={4}>
+          <Typography variant="h6">{'Добре дошли!'}</Typography>
+        </Box>
+        <Grid container spacing={2} rowSpacing={4} px={4} pb={4}>
+          {menuItems.map(({ label, href, icon: Icon }, index) => (
+            <Grid xs={12} sm={6} md={4} lg={2} item key={index}>
+              <Card sx={{ maxWidth: 345 }}>
+                <CardActionArea onClick={() => router.push(href)}>
+                  <CardContent>
+                    <Box textAlign="center">
+                      <Icon fontSize="medium" />
+                    </Box>
+                    <Typography gutterBottom variant="h6" component="div" textAlign="center">
+                      {label}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Grid>
+          ))}
         </Grid>
-      </Container>
-    </Layout>
+      </AdminContainer>
+    </AdminLayout>
   )
 }

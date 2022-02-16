@@ -8,8 +8,11 @@ export type PersonFormData = {
   lastName: string
   email: string
   phone?: string
-  company?: string
-  adress?: string
+  legalEntity: boolean
+  companyName?: string
+  companyNumber?: string
+  legalPersonName?: string
+  address?: string
 }
 
 export type CreateBeneficiaryInput = {

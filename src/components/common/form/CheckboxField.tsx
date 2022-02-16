@@ -6,7 +6,7 @@ import { TranslatableField, translateError } from 'common/form/validation'
 
 export type CheckboxFieldProps = {
   name: string
-  label: string | React.ReactNode
+  label: string | number | React.ReactElement
 }
 
 export default function CheckboxField({ name, label }: CheckboxFieldProps) {
@@ -16,7 +16,7 @@ export default function CheckboxField({ name, label }: CheckboxFieldProps) {
   return (
     <FormControl required component="fieldset" error={Boolean(meta.error) && Boolean(meta.touched)}>
       <FormControlLabel
-        label={typeof label === 'string' ? t(label) : label}
+        label={typeof label === 'string' ? `${t(label)}` : label}
         control={<Checkbox color="primary" checked={Boolean(field.value)} {...field} />}
       />
       {Boolean(meta.error) && <FormHelperText error>{helperText}</FormHelperText>}
