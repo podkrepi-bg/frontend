@@ -28,6 +28,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 
 import { routes } from 'common/routes'
 import { DashboardStore } from 'stores/DashboardStore'
+import { useRouter } from 'next/router'
 
 export const drawerWidth = '194px'
 
@@ -38,6 +39,15 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: '20px',
       '&:active': {
         backgroundColor: theme.palette.primary.main,
+      },
+      margin: '0 10px',
+    },
+    listItemButtonActive: {
+      padding: '6px 10px 6px 15px',
+      borderRadius: '20px',
+      backgroundColor: '#4AC3FF42',
+      '&:hover': {
+        backgroundColor: '#4AC3FF42',
       },
       margin: '0 10px',
     },
@@ -128,6 +138,8 @@ export default observer(function DashboardDrawer() {
 
   const { t } = useTranslation('dashboard')
   const classes = useStyles()
+  const { asPath } = useRouter()
+  const pageUrl = asPath.split('#')[0]
 
   return (
     <Drawer
@@ -147,7 +159,12 @@ export default observer(function DashboardDrawer() {
           position: 'relative',
         }}>
         <Link href={routes.dashboard.index} passHref>
-          <ListItemButton className={classes.listItemButton}>
+          <ListItemButton
+            className={
+              pageUrl == routes.dashboard.index
+                ? classes.listItemButtonActive
+                : classes.listItemButton
+            }>
             <ListItemIcon className={classes.ListItemIcon}>
               <HomeIcon />
             </ListItemIcon>
@@ -189,7 +206,12 @@ export default observer(function DashboardDrawer() {
             <Collapse in={drawerCountryOpen} timeout="auto" unmountOnExit>
               <List>
                 <Link href={routes.dashboard.country.index} passHref>
-                  <ListItemButton className={classes.listItemButton}>
+                  <ListItemButton
+                    className={
+                      pageUrl == routes.dashboard.country.index
+                        ? classes.listItemButtonActive
+                        : classes.listItemButton
+                    }>
                     <ListItemIcon className={classes.ListItemIcon}>
                       <GridViewIcon />
                     </ListItemIcon>
@@ -203,7 +225,12 @@ export default observer(function DashboardDrawer() {
                   </ListItemButton>
                 </Link>
                 <Link href={routes.dashboard.country.create} passHref>
-                  <ListItemButton className={classes.listItemButton}>
+                  <ListItemButton
+                    className={
+                      pageUrl == routes.dashboard.country.create
+                        ? classes.listItemButtonActive
+                        : classes.listItemButton
+                    }>
                     <ListItemIcon className={classes.ListItemIcon}>
                       <AddCircleIcon />
                     </ListItemIcon>
