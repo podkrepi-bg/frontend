@@ -2,10 +2,14 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { Snackbar, SnackbarCloseReason, Typography } from '@mui/material'
 import { Alert } from '@mui/material'
+
 import { AlertStore } from 'stores/AlertStore'
+
+import { DashboardStore } from 'stores/DashboardStore'
 
 function DashboardSnackBar() {
   const { getAlerts } = AlertStore
+  const { drawerOpen, drawerCompact } = DashboardStore
 
   const handleSnackBarClose = (_event: React.SyntheticEvent, reason: SnackbarCloseReason) => {
     if (reason === 'clickaway') {
@@ -14,6 +18,16 @@ function DashboardSnackBar() {
     AlertStore.hide()
   }
   const handleClose = () => AlertStore.hide()
+
+  const getLeftPosition = (): string => {
+    if (drawerOpen && drawerCompact) {
+      return '5vw'
+    } else if (!drawerOpen) {
+      return '2vw'
+    }
+
+    return '12.2vw'
+  }
 
   return (
     <>
@@ -25,7 +39,7 @@ function DashboardSnackBar() {
             autoHideDuration={duration}
             onClose={handleSnackBarClose}
             style={{
-              left: '12.2vw',
+              left: getLeftPosition(),
               bottom: '2.8vw',
             }}>
             <Alert
