@@ -21,12 +21,12 @@ function DashboardSnackBar() {
 
   const getLeftPosition = (): string => {
     if (drawerOpen && drawerCompact) {
-      return '5vw'
+      return '98px'
     } else if (!drawerOpen) {
-      return '2vw'
+      return '40px'
     }
 
-    return '12.2vw'
+    return '235px'
   }
 
   return (
@@ -40,7 +40,7 @@ function DashboardSnackBar() {
             onClose={handleSnackBarClose}
             style={{
               left: getLeftPosition(),
-              bottom: '2.8vw',
+              bottom: '55px',
             }}>
             <Alert
               severity={type}
