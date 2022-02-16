@@ -33,7 +33,7 @@ const useStyles = makeStyles({
       overflow: 'hidden',
     },
     '& .MuiDataGrid-footerContainer': {
-      marginTop: '40px',
+      marginTop: '30px',
       marginRight: '40px',
     },
   },
