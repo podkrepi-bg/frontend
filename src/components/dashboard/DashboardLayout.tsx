@@ -98,6 +98,7 @@ export default function DashboardLayout({
                   backgroundColor: '#FFF',
                   borderRadius: '10px',
                   height: '100%',
+                  overflow: 'auto',
                 }}>
                 <Box
                   sx={{
@@ -107,9 +108,11 @@ export default function DashboardLayout({
                     alignContent: 'flex-end',
                     boxShadow: 'inset 0px -1px 0px #E0E0E0',
                     marginBottom: '20px',
-                    padding: '9px 0 9px 26px',
+                    padding: '15px 0 15px 26px',
                   }}>
-                  <Typography sx={{ fontSize: '24px', lineHeight: '1' }} color="primary">
+                  <Typography
+                    sx={{ fontFamily: 'Montserrat', fontSize: '24px', lineHeight: '1' }}
+                    color="primary">
                     {title}
                   </Typography>
                   <section className={classes.path}>
