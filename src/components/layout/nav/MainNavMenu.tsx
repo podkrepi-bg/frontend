@@ -3,12 +3,13 @@ import { Button, Grid } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import { staticUrls } from 'common/routes'
+import { isAdmin } from 'common/util/roles'
+import { useSession } from 'common/util/useSession'
 
 import DonationMenu from './DonationMenu'
 import ProjectMenu from './ProjectMenu'
 import AdminMenu from './AdminMenu'
 import DevelopmentMenu from './DevelopmentMenu'
-import { useSession } from 'common/util/useSession'
 
 export default function MainNavMenu({ children }: { children?: React.ReactNode }) {
   const { t } = useTranslation()
@@ -25,12 +26,10 @@ export default function MainNavMenu({ children }: { children?: React.ReactNode }
       <Grid item>
         <DevelopmentMenu />
       </Grid>
-      {keycloak?.authenticated ? (
+      {keycloak?.authenticated && isAdmin(keycloak) && (
         <Grid item>
           <AdminMenu />
         </Grid>
-      ) : (
-        <></>
       )}
       <Grid item>
         <Button
