@@ -5,7 +5,7 @@ import { useMutation } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { IconButton } from '@mui/material'
+import { IconButton, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import DeleteIcon from '@mui/icons-material/Delete'
 import AddIcon from '@mui/icons-material/Add'
@@ -36,13 +36,12 @@ const useStyles = makeStyles({
       marginTop: '30px',
       marginRight: '40px',
     },
+    fontFamily: 'Lato',
+    fontSize: '12px',
   },
-  gridTitleWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  gridHeader: {
+  gridColumn: {
     '& .MuiDataGrid-columnHeaderTitle': {
+      fontFamily: 'Roboto',
       fontSize: '14px',
       fontWeight: '700',
     },
@@ -62,8 +61,20 @@ const useStyles = makeStyles({
     borderRadius: '50%',
     padding: '8px',
   },
+  gridTitleWrapper: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: '0px 10px 5px 23px',
+    height: '80px',
+  },
+  gridDescription: {
+    fontFamily: 'Lato',
+    fontSize: '12px',
+    color: '#666',
+    alignSelf: 'flex-start',
+  },
   gridMainActionsBtns: {
-    margin: '10px 20px 10px auto',
+    alignSelf: 'flex-end',
   },
 })
 
@@ -172,14 +183,14 @@ export default function CountryGrid() {
       field: 'name',
       headerName: t('fields.name'),
       valueGetter: (p) => p.row.name,
-      headerClassName: classes.gridHeader,
+      headerClassName: classes.gridColumn,
       flex: 1,
     },
     {
       field: 'countryCode',
       headerName: t('fields.country-code'),
       valueGetter: (p) => p.row.countryCode,
-      headerClassName: classes.gridHeader,
+      headerClassName: classes.gridColumn,
       flex: 1,
     },
     {
@@ -196,7 +207,7 @@ export default function CountryGrid() {
       ),
       width: 120,
       type: 'actions',
-      headerClassName: classes.gridHeader,
+      headerClassName: classes.gridColumn,
     },
   ]
 
@@ -216,6 +227,9 @@ export default function CountryGrid() {
       />
       <div className={classes.gridWrapper}>
         <div className={classes.gridTitleWrapper}>
+          <Typography variant="body2" className={classes.gridDescription}>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+          </Typography>
           <section className={classes.gridMainActionsBtns}>
             <IconButton onClick={openDeleteRowsDialog} className={classes.gridBtn}>
               <DeleteIcon
