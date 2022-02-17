@@ -10,9 +10,9 @@ import withStyles from '@mui/styles/withStyles'
 import { Stepper, Step, StepLabel, StepConnector, Hidden, Grid } from '@mui/material'
 
 import { AlertStore } from 'stores/AlertStore'
-import { createSupportRequest } from 'common/rest'
+import { createSupportRequest } from 'service/restRequests'
 import GenericForm from 'components/common/form/GenericForm'
-import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
+import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 
 import Actions from './Actions'
 import Roles from './steps/Roles'
@@ -58,6 +58,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     stepper: { backgroundColor: 'transparent', marginBottom: theme.spacing(8) },
     content: { display: 'flex', justifyContent: 'center' },
+    actionButtons: {
+      '& button': {
+        minWidth: theme.spacing(12),
+      },
+    },
   }),
 )
 
@@ -282,7 +287,7 @@ export default function SupportForm() {
             <Grid item xs={12} className={classes.instructions}>
               {steps[activeStep].component}
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} className={classes.actionButtons}>
               <Actions
                 disableBack={activeStep === 0}
                 onBack={handleBack}

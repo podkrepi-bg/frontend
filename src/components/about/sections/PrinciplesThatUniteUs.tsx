@@ -20,11 +20,12 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     title: {
       color: theme.palette.primary.dark,
-      paddingTop: theme.spacing(10),
-      paddingBottom: theme.spacing(7),
+      paddingTop: theme.spacing(5),
+      paddingBottom: theme.spacing(3),
     },
   }),
 )
+
 export default function PrinciplesThatUniteUs() {
   const { t } = useTranslation()
   const classes = useStyles()
@@ -34,7 +35,7 @@ export default function PrinciplesThatUniteUs() {
         <Heading
           id="principles-that-unite-us"
           variant="h4"
-          component="h2"
+          component="h1"
           align="center"
           className={classes.title}
           linkable>
