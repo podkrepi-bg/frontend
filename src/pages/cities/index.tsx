@@ -3,7 +3,7 @@ import { dehydrate, QueryClient } from 'react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { queryFn } from 'common/rest'
-import CityGrid from 'components/cities/CityGrid'
+import CityPage from 'components/cities/CityPage'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const client = new QueryClient()
@@ -16,4 +16,4 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   }
 }
 
-export default CityGrid
+export default CityPage

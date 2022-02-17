@@ -1,28 +1,26 @@
-import { makeStyles } from '@mui/styles'
+import { Box } from '@mui/material'
 
-const useStyles = makeStyles(() => {
-  return {
-    footer: {
-      background: '#32A9FE',
-      width: '100%',
-      position: 'fixed',
-      fontSize: 25,
-      height: '70px',
-      bottom: 0,
-      margin: 0,
-    },
-    footerText: {
-      textAlign: 'center',
-    },
-  }
-})
+type Props = {
+  children: React.ReactNode
+}
 
-export default function MyFooter() {
-  const styles = useStyles()
-
+function PanelFooter({ children }: Props) {
   return (
-    <div className={styles.footer}>
-      <p className={styles.footerText}> Подкрепи БГ &copy;</p>
-    </div>
+    <Box
+      sx={{
+        position: 'absolute',
+        bottom: 0,
+        width: '100%',
+        height: '45x',
+        background: '#294e85',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingInline: 10,
+      }}>
+      {children}
+    </Box>
   )
 }
+
+export default PanelFooter

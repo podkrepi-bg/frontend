@@ -9,7 +9,19 @@ import { CityResponse } from 'gql/cities'
 type City = {
   id: string
   name: string
-  postalCode: number
+  postalCode: string
+  countryId: string
+}
+
+type Country = {
+  id: string
+  name: string
+  countryCode: string
+  cities: []
+}
+
+export function useCity(id: string) {
+  return useQuery<CityResponse>(endpoints.city.viewCity(id).url)
 }
 
 export function useCitiesList() {
@@ -20,13 +32,25 @@ export function useCitiesList() {
   )
 }
 
+export function useCountriesList() {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const counties = useQuery<Country[]>(
+    endpoints.country.countriesList.url,
+    authQueryFnFactory<Country[]>(keycloak?.token),
+  )
+  return counties.data
+}
+
+export async function prefetchCountryList(client: QueryClient, token?: string) {
+  await client.prefetchQuery<Country[]>(
+    endpoints.country.countriesList.url,
+    authQueryFnFactory<Country[]>(token),
+  )
+}
+
 export async function prefetchCityList(client: QueryClient, token?: string) {
   await client.prefetchQuery<City[]>(
     endpoints.city.citiesList.url,
     authQueryFnFactory<City[]>(token),
   )
-}
-
-export async function useViewCity(id: string) {
-  return useQuery<{ City: CityResponse }>(endpoints.city.viewCity(id).url)
 }

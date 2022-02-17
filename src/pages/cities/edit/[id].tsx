@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate, QueryClient } from 'react-query'
-import EditCityPage from 'components/cities/CityEditForm'
+import CityEditPage from 'components/cities/CityEditPage'
 import { queryFn } from 'common/rest'
 import { axios } from 'common/api-client'
 import { endpoints } from 'common/api-endpoints'
@@ -11,7 +11,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query }) 
   const client = new QueryClient()
 
   const { data: values } = await axios.get(endpoints.city.viewCity(String(id)).url)
-  await client.prefetchQuery(`/city/list-one/${id}`, queryFn)
+  await client.prefetchQuery(`/city/${id}`, queryFn)
   return {
     props: {
       values,
@@ -27,4 +27,4 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query }) 
   }
 }
 
-export default EditCityPage
+export default CityEditPage
