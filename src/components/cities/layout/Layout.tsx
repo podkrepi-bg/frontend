@@ -1,45 +1,87 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @next/next/no-img-element */
 import * as React from 'react'
-import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles'
-import Box from '@mui/material/Box'
+import { styled, Theme, CSSObject } from '@mui/material/styles'
+import { makeStyles } from '@mui/styles'
 import MuiDrawer from '@mui/material/Drawer'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
-import Toolbar from '@mui/material/Toolbar'
-import List from '@mui/material/List'
-import CssBaseline from '@mui/material/CssBaseline'
-import ListAltIcon from '@mui/icons-material/ListAlt'
-import Typography from '@mui/material/Typography'
-import Divider from '@mui/material/Divider'
-import IconButton from '@mui/material/IconButton'
-import MenuIcon from '@mui/icons-material/Menu'
+import {
+  CssBaseline,
+  IconButton,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  List,
+  Box,
+  Divider,
+  Tooltip,
+  Menu,
+  MenuItem,
+  InputAdornment,
+} from '@mui/material'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import ListItem from '@mui/material/ListItem'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
-import { Avatar, Button, Collapse, Menu, MenuItem, Tooltip } from '@mui/material'
-import { makeStyles } from '@mui/styles'
+import ListAltIcon from '@mui/icons-material/ListAlt'
+import FullscreenExitIcon from '@mui/icons-material/FullscreenExit'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import NotificationsIcon from '@mui/icons-material/Notifications'
+import { Button, TextField, Typography } from '@mui/material'
+import FullscreenIcon from '@mui/icons-material/Fullscreen'
+import SettingsIcon from '@mui/icons-material/Settings'
+import InboxIcon from '@mui/icons-material/MoveToInbox'
+import MenuIcon from '@mui/icons-material/Menu'
+import Image from 'next/image'
+import MailIcon from '@mui/icons-material/Mail'
+import SearchIcon from '@mui/icons-material/Search'
+import Snackbar from 'components/layout/Snackbar'
+import PictureLogo from '/public/android-chrome-192x192.png'
 import Footer from './Footer'
-import { ExpandLess, ExpandMore, Settings } from '@mui/icons-material'
 import Link from 'next/link'
 import DrawerStore from 'stores/DrawerStore'
+import Picture from '/public/podkrepi-bg-logo.svg'
+const drawerWidth = 200
 
-const useStyles = makeStyles(() => {
-  return {
-    logo: {
-      marginRight: '5rem',
-    },
-    avatar: {
-      position: 'absolute',
-      margin: '96%',
-    },
-  }
+const useStyles = makeStyles({
+  drawerHeader: {
+    width: drawerWidth,
+    height: 64,
+    position: 'absolute',
+    alignItems: 'center',
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: '0 19px 0 24px',
+  },
+  wrapper: {
+    display: 'flex',
+    position: 'relative',
+    minHeight: '100vh',
+    paddingRight: '24px',
+  },
+  appbarHeader: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    height: 64,
+    marginLeft: drawerWidth,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  appbarWrapper: {
+    display: 'flex',
+    width: 'calc(100% - 24px)',
+    position: 'relative',
+    background: 'white',
+    paddingRight: '16px',
+  },
+  logoWrapper: {
+    width: 150,
+    display: 'flex',
+  },
+  logo: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  avatar: {
+    position: 'absolute',
+    margin: '96%',
+  },
 })
-
-const drawerWidth = 240
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -47,6 +89,7 @@ const openedMixin = (theme: Theme): CSSObject => ({
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
   }),
+  border: 'none',
   overflowX: 'hidden',
 })
 
@@ -56,13 +99,25 @@ const closedMixin = (theme: Theme): CSSObject => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: 'hidden',
+  border: 'none',
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up('sm')]: {
     width: `calc(${theme.spacing(9)} + 1px)`,
   },
 })
 
-const DrawerHeader = styled('div')(({ theme }: any) => ({
+const fullyClosedMixin = (theme: Theme): CSSObject => ({
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  overflowX: 'hidden',
+  border: 'none',
+  width: 0,
+  zIndex: -1,
+})
+
+const DrawerHeader = styled('div')(({ theme }: { theme: Theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
@@ -76,25 +131,28 @@ interface AppBarProps extends MuiAppBarProps {
 }
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop: any) => prop !== 'open',
-})<AppBarProps>(({ theme, open }: any) => ({
+  shouldForwardProp: (prop: string) => prop !== 'open',
+})<AppBarProps>(({ theme }: { theme: Theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  background: 'none',
+  boxShadow: 'none',
+  position: 'fixed',
   zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
+  height: '64px',
+  width: `100%`,
 }))
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop: any) => prop !== 'open' })(
-  ({ theme, open }: any) => ({
+const DrawerHeaderComp = styled('div')(({ theme }: { theme: Theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(0, 1),
+  ...theme.mixins.toolbar,
+  justifyContent: 'flex-end',
+}))
+
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop: string) => prop !== 'open' })(
+  ({ theme, open, fullyClosed }: { theme: Theme; open: boolean; fullyClosed: boolean }) => ({
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
@@ -103,50 +161,41 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop: any) => prop !== 'o
       ...openedMixin(theme),
       '& .MuiDrawer-paper': openedMixin(theme),
     }),
-    ...(!open && {
-      ...closedMixin(theme),
-      '& .MuiDrawer-paper': closedMixin(theme),
-    }),
+    ...(!open &&
+      !fullyClosed && {
+        ...closedMixin(theme),
+        '& .MuiDrawer-paper': closedMixin(theme),
+      }),
+
+    ...(!open &&
+      fullyClosed && {
+        ...fullyClosedMixin(theme),
+        '& .MuiDrawer-paper': fullyClosedMixin(theme),
+      }),
   }),
 )
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
+type Props = {
+  children: React.ReactNode
+}
 
+const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 const store = new DrawerStore()
-export default function MiniDrawer() {
-  const classes = useStyles()
-  const theme = useTheme()
+export default function MainLayout({ children }: Props) {
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(store.isDrawerOpen)
+
   const [open, setOpen] = React.useState(false)
-  const [openCollapse, setOpenCollapse] = React.useState(false)
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
+  const [fullyClosed, setFullyClose] = React.useState(false)
+  const classes = useStyles()
+
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
 
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget)
-  }
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget)
   }
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null)
-  }
-
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
-  }
-
-  function handleOpenSettings() {
-    setOpenCollapse(!openCollapse)
-  }
-
-  const handleDrawerOpen = () => {
-    setOpen(true)
-  }
-
-  const handleDrawerClose = () => {
-    setOpen(false)
   }
 
   const toggleDrawer = () => {
@@ -161,127 +210,174 @@ export default function MiniDrawer() {
   }
 
   return (
-    <>
-      <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-        <AppBar position="fixed" open={isDrawerOpen}>
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
-              edge="start"
-              sx={{
-                marginRight: '36px',
-                ...(open && { display: 'none' }),
-              }}>
-              <MenuIcon />
-            </IconButton>
-            <img
-              className={classes.logo}
-              src={'https://i.ibb.co/JvLnt2X/podkrepi-icon.png'}
-              width={50}
-            />
-            <Typography variant="h6" noWrap component="div">
-              Админ Панел
-            </Typography>
-
-            <Box sx={{ flexGrow: 0 }} className={classes.avatar}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar
-                    alt="Remy Sharp"
-                    src={
-                      'https://w1.pngwing.com/pngs/793/504/png-transparent-avatar-icon-ninja-samurai-icon-design-red-smile-circle.png'
-                    }
-                  />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}>
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
+    <Box className={classes.wrapper}>
+      <CssBaseline />
+      <AppBar position="fixed" open={open} sx={{ p: 0, display: 'flex' }}>
+        <Box className={classes.appbarWrapper}>
+          <Box className={classes.drawerHeader}>
+            <Box className={classes.logoWrapper}>
+              <Image src={PictureLogo} width={40} height={40}></Image>
             </Box>
-          </Toolbar>
-        </AppBar>
-        <Drawer variant="permanent" open={isDrawerOpen} onClose={toggleDrawer}>
-          <DrawerHeader>
-            <IconButton onClick={toggleDrawer}>
-              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            <IconButton
+              sx={{ p: '5px', borderRadius: '10px' }}
+              color="primary"
+              // onClick={() => {
+              //   if (fullyClosed && !open) {
+              //     setFullyClose(false)
+              //   } else if (!fullyClosed) setOpen(!open)
+              // }}>
+              onClick={toggleDrawer}>
+              <MenuIcon fontSize="large" />
             </IconButton>
-          </DrawerHeader>
-          <Divider />
-          <List>
-            {/* {['Create', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <AddBoxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))} */}
-            <ListItem>
-              <ListItemIcon>
-                <ListAltIcon></ListAltIcon>
-              </ListItemIcon>
-              <Button sx={{ justifyContent: 'space-between' }}>
-                <Link href="/cities">Всички градове</Link>
-              </Button>
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <AddCircleIcon></AddCircleIcon>
-              </ListItemIcon>
-              <Button sx={{ justifyContent: 'space-between' }}>
-                <Link href="/cities/create">Добави град</Link>
-              </Button>
-            </ListItem>
-          </List>
-          <Divider />
-          <List>
-            <ListItem button onClick={handleOpenSettings}>
-              <ListItemIcon>
-                <Settings />
-              </ListItemIcon>
-              <ListItemText primary="Settings" />
-              {openCollapse ? <ExpandLess /> : <ExpandMore />}
-            </ListItem>
-            <Collapse in={openCollapse} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItem button>
-                  <ListItemText inset primary="DropDown 1" />
-                </ListItem>
-                <ListItem button>
-                  <ListItemText inset primary="DropDown 2" />
-                </ListItem>
-                <ListItem button>
-                  <ListItemText inset primary="DropDown 3" />
-                </ListItem>
-              </List>
-            </Collapse>
-          </List>
-        </Drawer>
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <DrawerHeader />
-          <Typography paragraph></Typography>
+          </Box>
+          <Box className={classes.appbarHeader}>
+            <TextField
+              id="outlined-search"
+              label="search"
+              type="search"
+              size="small"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+              }}>
+              <IconButton>
+                <NotificationsIcon color="primary" />
+              </IconButton>
+              <IconButton>
+                <Box sx={{ flexGrow: 0 }} className={classes.avatar}>
+                  <Tooltip title="Open settings">
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      <AccountCircleIcon />
+                    </IconButton>
+                  </Tooltip>
+                  <Menu
+                    sx={{ mt: '45px' }}
+                    id="menu-appbar"
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'right',
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}>
+                    {settings.map((setting) => (
+                      <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                        <Typography textAlign="center">{setting}</Typography>
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </Box>
+              </IconButton>
+            </Box>
+          </Box>
         </Box>
+      </AppBar>
+      <Drawer variant="permanent" open={isDrawerOpen} fullyClosed={fullyClosed}>
+        <DrawerHeaderComp
+          sx={{
+            position: 'relative',
+            justifyContent: 'space-between',
+            padding: '10px',
+            marginBottom: '10px',
+          }}>
+          <Box
+            sx={{
+              display: { xs: 'flex', sm: 'none', md: 'none' },
+              position: 'absolute',
+              width: '100%',
+              justifyContent: 'center',
+              marginTop: '100px',
+            }}>
+            <Image src={PictureLogo} width={150} height={150} />
+          </Box>
+          <Box display="flex" alignItems="center" justifyContent="start" width="100%">
+            <IconButton sx={{ padding: { xs: '10px', sm: 0 } }} onClick={toggleDrawer}>
+              <MenuIcon fontSize="medium" color="action" />
+            </IconButton>
+            <Box sx={{ display: { sm: 'flex', xs: 'none' } }}>
+              <div style={{ display: 'flex', marginLeft: '20px', cursor: 'pointer' }}>
+                <Image src={Picture} alt="" width={150} height={51} />
+              </div>
+            </Box>
+          </Box>
+        </DrawerHeaderComp>
+        <List>
+          <ListItem>
+            <ListItemIcon>
+              <ListAltIcon></ListAltIcon>
+            </ListItemIcon>
+            <Button sx={{ justifyContent: 'space-between' }}>
+              <Link href="/cities">Градове</Link>
+            </Button>
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <AddCircleIcon></AddCircleIcon>
+            </ListItemIcon>
+            <Button sx={{ justifyContent: 'space-between' }}>
+              <Link href="/cities/create">Добави град</Link>
+            </Button>
+          </ListItem>
+        </List>
+        <Divider />
+        <List sx={{ p: '30px 17px 30px 17px', height: '100%', position: 'relative' }}>
+          {['Задачи', 'Кампании', 'Доброволци', 'Плащания', 'Потребители', 'Документи'].map(
+            (text, index) => (
+              <ListItem button key={text} sx={{ px: '7px', borderRadius: '20px' }}>
+                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            ),
+          )}
+          <Divider />
+          <ListItem
+            button
+            sx={{ px: '7px', borderRadius: '20px', position: 'absolute', bottom: '15px' }}>
+            <ListItemIcon>
+              <SettingsIcon />
+            </ListItemIcon>
+            <ListItemText primary={'Настройки'} />
+          </ListItem>
+        </List>
+      </Drawer>
+      <div
+        style={{
+          width: '24px',
+          height: '100vh',
+          position: 'relative',
+          marginLeft: fullyClosed ? 0 : '-24px',
+          transition: '0.2s ease-in-out 0s',
+        }}></div>
+      <Box component="main" sx={{ flexGrow: 1 }}>
+        <DrawerHeader></DrawerHeader>
+        {children}
       </Box>
-      <Footer />
-    </>
+      <Footer>
+        <Button
+          sx={{ color: 'white' }}
+          onClick={() => {
+            setFullyClose(!fullyClosed)
+            setOpen(false)
+          }}>
+          {fullyClosed ? <FullscreenExitIcon /> : <FullscreenIcon />}
+        </Button>
+        <Typography color="white">Вие сте логнат като администратор</Typography>
+      </Footer>
+      <Snackbar />
+    </Box>
   )
 }

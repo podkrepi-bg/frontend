@@ -1,5 +1,4 @@
 import { Method } from 'axios'
-import { UUID } from 'gql/types'
 
 type Endpoint = {
   url: string
@@ -31,10 +30,13 @@ export const endpoints = {
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
   },
   city: {
-    createCity: <Endpoint>{ url: '/city/create-city', method: 'POST' },
+    createCity: <Endpoint>{ url: '/city/create', method: 'POST' },
     citiesList: <Endpoint>{ url: '/city/list', method: 'GET' },
-    viewCity: (id: string) => <Endpoint>{ url: `/city/list-one/${id}`, method: 'GET' },
-    editCity: (id: string) => <Endpoint>{ url: `/city/update-one/${id}`, method: 'PATCH' },
-    deleteCity: (id: string) => <Endpoint>{ url: `/city/delete-one/${id}`, method: 'DELETE' },
+    viewCity: (id: string) => <Endpoint>{ url: `/city/${id}`, method: 'GET' },
+    editCity: (id: string) => <Endpoint>{ url: `/city/${id}`, method: 'PATCH' },
+    deleteCity: (id: string) => <Endpoint>{ url: `/city/${id}`, method: 'DELETE' },
+  },
+  country: {
+    countriesList: <Endpoint>{ url: '/country/list', method: 'GET' },
   },
 }

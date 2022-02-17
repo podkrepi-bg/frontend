@@ -2,26 +2,27 @@
 import React, { useState } from 'react'
 import router from 'next/router'
 import { useTranslation } from 'next-i18next'
-import Link from 'next/link'
 
-import { DataGrid, GridColumns, GridRowId } from '@mui/x-data-grid'
+import { DataGrid, GridColumns } from '@mui/x-data-grid'
 import { useCitiesList } from 'common/hooks/cities'
-import { pink } from '@mui/material/colors'
-import { green } from '@mui/material/colors'
-import InfoIcon from '@mui/icons-material/Info'
 import EditIcon from '@mui/icons-material/Edit'
-import { Box, Button, ButtonGroup, Container, Stack, styled, Typography } from '@mui/material'
-import HighlightOffSharpIcon from '@mui/icons-material/HighlightOffSharp'
+import { Box, ButtonGroup, Toolbar, Tooltip, Typography } from '@mui/material'
 
 import { AlertStore } from 'stores/AlertStore'
 import { deleteCity } from 'common/rest'
 import { useMutation } from 'react-query'
-import DeleteModal from './layout/DeleteModal'
-import CityModal from './layout/CityModal'
-import Layout from './layout/Layout'
-import DeleteSelectedModal from './layout/DeleteSelectedModal'
+import DeleteModal from './modals/DeleteModal'
+import CityModal from './modals/CityModal'
+import DeleteSelectedModal from './modals/DeleteSelectedModal'
 import { CityResponse } from 'gql/cities'
 import { routes } from 'common/routes'
+import DeleteIcon from '@mui/icons-material/Delete'
+import AddIcon from '@mui/icons-material/Add'
+import PrintIcon from '@mui/icons-material/Print'
+import SaveIcon from '@mui/icons-material/Save'
+import ShareIcon from '@mui/icons-material/Share'
+import EventNoteIcon from '@mui/icons-material/EventNote'
+import Link from 'next/link'
 
 export default function CitiesGrid() {
   const { data = [] } = useCitiesList()
@@ -31,7 +32,6 @@ export default function CitiesGrid() {
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [isDeleteSelectedModalOpen, setIsDeleteSelectedModalOpen] = React.useState(false)
   const [selectedRows, setSelectedRows] = React.useState<CityResponse[]>([])
-  const [selectionModel, setSelectionModel] = React.useState<GridRowId[]>([])
 
   const columns: GridColumns = [
     { field: 'id', headerName: 'ID', hide: true },
@@ -55,6 +55,9 @@ export default function CitiesGrid() {
       editable: false,
       width: 200,
       flex: 1.5,
+      valueGetter: (c) => {
+        return c.row.countryCode.countryCode
+      },
     },
     {
       field: 'actions',
@@ -65,22 +68,14 @@ export default function CitiesGrid() {
       renderCell: (cellValues) => {
         return (
           <ButtonGroup>
-            <InfoIcon onClick={() => handleDetails(cellValues)} />
-            <EditIcon sx={{ color: green[500] }} onClick={() => handleEdit(cellValues)} />
-            <HighlightOffSharpIcon
-              sx={{ color: pink[500] }}
-              onClick={() => handleDelete(cellValues)}
-            />
+            <ShareIcon onClick={() => handleDetails(cellValues)} />
+            <EditIcon onClick={() => handleEdit(cellValues)} />
+            <DeleteIcon onClick={() => handleDelete(cellValues)} />
           </ButtonGroup>
         )
       },
     },
   ]
-
-  const StyledLink = styled(Link)`
-    color: white;
-    background: blue;
-  `
 
   const handleEdit = (cellValues: any) => {
     router.push(`/cities/edit/${cellValues.id}`)
@@ -90,11 +85,11 @@ export default function CitiesGrid() {
   const mutation = useMutation({
     mutationFn: deleteCity,
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
-    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
+    onSuccess: () => AlertStore.show(t('Избраните градове бяха преместени в кошчето.'), 'warning'),
   })
 
   const handleDelete = async (cellValues: any) => {
-    const title = `Are you sure you want to delete ${cellValues.row.name} ${cellValues.row.postalCode} ?`
+    const title = `Наистина ли искате да изтриете ${cellValues.row.name} ${cellValues.row.postalCode}?`
     const id = cellValues.row.id
     const dataForProps: any = { title, id }
     setDeleteOpen(true)
@@ -102,12 +97,16 @@ export default function CitiesGrid() {
   }
 
   const handleDeleteAll = () => {
-    selectedRows.forEach((row: any) => {
-      mutation.mutateAsync({ id: row.id }).then(() => {
-        router.push(routes.cities.home)
-        setIsDeleteSelectedModalOpen(false)
+    try {
+      selectedRows.forEach((row: any) => {
+        mutation.mutateAsync({ id: row.id }).then(() => {
+          router.push(routes.cities.home)
+          setIsDeleteSelectedModalOpen(false)
+        })
       })
-    })
+    } catch (error) {
+      AlertStore.show(t('common:alert.error'), 'error')
+    }
   }
 
   const closeDeleteSelectedHandler = () => {
@@ -123,6 +122,7 @@ export default function CitiesGrid() {
   function handleDetails(cellValues: any) {
     setDetails({ ...cellValues.row })
     setOpen(true)
+    console.log(cellValues.row)
   }
 
   const CityProps = {
@@ -132,53 +132,96 @@ export default function CitiesGrid() {
     ...details,
   }
 
+  const addIconStyles = {
+    background: '#4ac3ff',
+    borderRadius: '50%',
+    cursor: 'pointer',
+    padding: 1.2,
+    boxShadow: 3,
+  }
+  const iconStyles = {
+    background: 'white',
+    borderRadius: '50%',
+    cursor: 'pointer',
+    padding: 0.5,
+    boxShadow: 3,
+    mr: 1,
+  }
+
   return (
     <>
-      <Layout />
-      <Container maxWidth="lg">
-        <Typography variant="h2" align="center">
-          Градове
-        </Typography>
-        <Stack
-          direction="row"
-          spacing={2}
-          sx={{ justifyContent: 'space-between', marginBottom: '15px' }}>
-          <Button variant="contained" color="info">
-            <StyledLink href="/cities/create">Добави нов град</StyledLink>
-          </Button>
-          <Button
-            variant="outlined"
-            color="error"
-            disabled={selectionModel.length == 0}
-            onClick={() => setIsDeleteSelectedModalOpen(true)}>
-            Изтрии избраните
-          </Button>
-        </Stack>
-        <DataGrid
-          rows={data || []}
-          columns={columns}
-          pageSize={5}
-          editMode="row"
-          autoHeight
-          autoPageSize
-          checkboxSelection
-          disableSelectionOnClick
-          onSelectionModelChange={(ids) => {
-            setSelectionModel(ids)
-            const selectedIDs = new Set(ids)
-            const selectedRows = data.filter((row) => selectedIDs.has(row.id))
-            setSelectedRows(selectedRows)
-          }}
-        />
-        <Box>
-          <CityModal modalProps={CityProps} />
-          <DeleteModal modalProps={deleteProps}></DeleteModal>
-          <DeleteSelectedModal
-            isOpen={isDeleteSelectedModalOpen}
-            handleDelete={handleDeleteAll}
-            handleDeleteModalClose={closeDeleteSelectedHandler}></DeleteSelectedModal>
+      <Toolbar
+        sx={{
+          background: 'white',
+          borderTop: '1px solid lightgrey',
+          display: 'flex',
+          justifyContent: 'space-between',
+          height: '72px',
+        }}>
+        <Box sx={{ height: '64px', display: 'flex', alignItems: 'start', pt: 1 }}>
+          <Typography>Всички градове</Typography>
         </Box>
-      </Container>
+        <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Tooltip title="Събитие">
+              <EventNoteIcon sx={iconStyles} fontSize="medium" color="action" />
+            </Tooltip>
+            <Tooltip title="Изтрий избраните">
+              <DeleteIcon
+                onClick={() => setIsDeleteSelectedModalOpen(true)}
+                sx={iconStyles}
+                fontSize="medium"
+                color="action"></DeleteIcon>
+            </Tooltip>
+            <Tooltip title="Запази">
+              <SaveIcon sx={iconStyles} fontSize="medium" color="action" />
+            </Tooltip>
+            <Tooltip title="Притирай">
+              <PrintIcon sx={iconStyles} fontSize="medium" color="action" />
+            </Tooltip>
+            <Tooltip title="Сподели">
+              <ShareIcon sx={iconStyles} fontSize="medium" color="action" />
+            </Tooltip>
+            <Link href="/cities/create" passHref>
+              <AddIcon sx={addIconStyles} fontSize="large" />
+            </Link>
+          </Box>
+        </Box>
+      </Toolbar>
+      <DataGrid
+        style={{
+          background: 'white',
+          position: 'absolute',
+          height: 'calc(100vh - 300px)',
+          border: 'none',
+          width: 'calc(100% - 48px)',
+          left: '24px',
+          overflowY: 'auto',
+          overflowX: 'hidden',
+          borderRadius: '0 0 13px 13px',
+        }}
+        rows={data || []}
+        columns={columns}
+        pageSize={5}
+        editMode="row"
+        autoHeight
+        autoPageSize
+        checkboxSelection
+        disableSelectionOnClick
+        onSelectionModelChange={(ids) => {
+          const selectedIDs = new Set(ids)
+          const selectedRows = data.filter((row) => selectedIDs.has(row.id))
+          setSelectedRows(selectedRows)
+        }}
+      />
+      <Box>
+        <CityModal modalProps={CityProps} />
+        <DeleteModal modalProps={deleteProps}></DeleteModal>
+        <DeleteSelectedModal
+          isOpen={isDeleteSelectedModalOpen}
+          handleDelete={handleDeleteAll}
+          handleDeleteModalClose={closeDeleteSelectedHandler}></DeleteSelectedModal>
+      </Box>
     </>
   )
 }

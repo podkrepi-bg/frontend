@@ -14,12 +14,12 @@ function DeleteSelectedModal({
   return (
     <Modal open={isOpen} onClose={handleDeleteModalClose}>
       <Dialog open={isOpen} onClose={handleDeleteModalClose}>
-        <DialogTitle>Are you sure you want to delete selected items?</DialogTitle>
+        <DialogTitle>Искате ли да изтриете избраните градове?</DialogTitle>
         <DialogActions>
           <Button onClick={handleDelete} autoFocus>
-            Yes
+            Да
           </Button>
-          <Button onClick={handleDeleteModalClose}>No</Button>
+          <Button onClick={handleDeleteModalClose}>Не</Button>
         </DialogActions>
       </Dialog>
     </Modal>

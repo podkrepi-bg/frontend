@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import CityCreateForm from 'components/cities/CityCreateForm'
+import CityCreatePage from 'components/cities/CityCreatePage'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   props: {
@@ -14,4 +14,4 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   },
 })
 
-export default CityCreateForm
+export default CityCreatePage

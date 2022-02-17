@@ -16,7 +16,7 @@ export default function DeleteModal(props: any) {
   const mutation = useMutation({
     mutationFn: deleteCity,
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
-    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
+    onSuccess: () => AlertStore.show('Градът беше преместен в кошчето.', 'warning'),
   })
   const handleDeleteClick = (id: string) => async () => {
     try {
@@ -35,9 +35,9 @@ export default function DeleteModal(props: any) {
         <DialogTitle>{deleteData.title}</DialogTitle>
         <DialogActions>
           <Button onClick={handleDeleteClick(deleteData.id)} autoFocus>
-            Yes
+            Да
           </Button>
-          <Button onClick={() => setDeleteOpen(false)}>No</Button>
+          <Button onClick={() => setDeleteOpen(false)}>Не</Button>
         </DialogActions>
       </Dialog>
     </Modal>

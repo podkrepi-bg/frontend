@@ -18,17 +18,19 @@ export type CityResponse = {
   id: UUID
   // state: cityState
   name: string
-  postalCode: number
+  postalCode: string
+  countryId: string
 }
 
 export type CityFormData = {
   name: string
-  postalCode: number
+  postalCode: string
+  countryId: string
 }
 
 export type CityInput = {
   name: string
-  postalCode: number
+  postalCode: string
   countryId: string
 }
 
@@ -36,4 +38,9 @@ type EditCityProp = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   id: string
   data: CityInput
+}
+
+type CityFormProps = {
+  initialValues?: CityInput
+  id?: string
 }
