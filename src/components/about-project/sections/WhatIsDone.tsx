@@ -102,7 +102,7 @@ const rightColumnLabels: CheckedLineProps[] = [
   { label: 'about-project:github-project', href: staticUrls.github },
   {
     label: 'about-project:documentation-social',
-    href: staticUrls.docs,
+    href: staticUrls.projectDocs,
   },
   { label: 'about-project:documentation-technical', href: staticUrls.devDocs },
   {

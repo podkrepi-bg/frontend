@@ -7,7 +7,7 @@ import { routes } from 'common/routes'
 import { useSession } from 'common/util/useSession'
 import LinkMenuItem from 'components/common/LinkMenuItem'
 
-export default function PrivateMenu() {
+export default function PublicMenu() {
   const { t } = useTranslation()
   const { session } = useSession()
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)

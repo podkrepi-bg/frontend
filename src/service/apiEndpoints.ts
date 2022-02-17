@@ -29,14 +29,12 @@ export const endpoints = {
     recurringPrices: <Endpoint>{ url: '/donation/prices/recurring', method: 'GET' },
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
   },
-  city: {
-    createCity: <Endpoint>{ url: '/city/create', method: 'POST' },
-    citiesList: <Endpoint>{ url: '/city/list', method: 'GET' },
-    viewCity: (id: string) => <Endpoint>{ url: `/city/${id}`, method: 'GET' },
-    editCity: (id: string) => <Endpoint>{ url: `/city/${id}`, method: 'PATCH' },
-    deleteCity: (id: string) => <Endpoint>{ url: `/city/${id}`, method: 'DELETE' },
-  },
-  country: {
-    countriesList: <Endpoint>{ url: '/country/list', method: 'GET' },
+  bankAccounts: {
+    bankAccountList: <Endpoint>{ url: '/bankaccount', method: 'GET' },
+    viewBankAccount: (id: string) => <Endpoint>{ url: `/bankaccount/${id}`, method: 'GET' },
+    deleteBankAccount: (id: string) => <Endpoint>{ url: `/bankaccount/${id}`, method: 'DELETE' },
+    postBankAccount: <Endpoint>{ url: '/bankaccount', method: 'POST' },
+    editBankAccount: (id: string) => <Endpoint>{ url: `/bankaccount/${id}`, method: 'PATCH' },
+    deleteManyBankAccounts: <Endpoint>{ url: `/bankaccount/deletemany`, method: 'POST' },
   },
 }

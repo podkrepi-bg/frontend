@@ -30,7 +30,7 @@ export default function DonationMenu() {
         <Typography variant="button">{t('components.footer.terms-of-service')}</Typography>
       </LinkMenuItem>
       <LinkMenuItem href={routes.faq} selected={router.asPath.startsWith(routes.faq)}>
-        <Typography variant="button">{t('nav.faq')}</Typography>
+        <Typography variant="button">{t('nav.campaigns.faq')}</Typography>
       </LinkMenuItem>
     </GenericMenu>
   )
