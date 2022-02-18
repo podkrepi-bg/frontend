@@ -29,7 +29,7 @@ export const validationSchema = yup
     filename: yup.string().trim().min(2).max(20).required(),
     filetype: yup.string().trim().max(3),
     description: yup.string().trim().max(30),
-    sourceUrl: yup.string().trim().min(3).max(60).required(),
+    sourceUrl: yup.string().trim().min(3).required(),
   })
 
 export default observer(function CreateForm() {

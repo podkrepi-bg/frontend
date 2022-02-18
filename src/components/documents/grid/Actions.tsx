@@ -1,9 +1,9 @@
 import React, { Dispatch, SetStateAction } from 'react'
 import Link from 'next/link'
-import { IconButton } from '@mui/material'
+import { Box, IconButton } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
-import PageviewIcon from '@mui/icons-material/Pageview'
+import ImportExportIcon from '@mui/icons-material/ImportExport'
 
 import { routes } from 'common/routes'
 import { ModalStore } from 'stores/ModalStore'
@@ -27,18 +27,25 @@ export default function Actions({ id, setSelectedId }: Props) {
   }
 
   return (
-    <>
-      <IconButton size="small" sx={{ mr: 1 }} onClick={detailsClickHandler}>
-        <PageviewIcon />
+    <Box
+      style={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+      }}>
+      <IconButton size="small" onClick={detailsClickHandler}>
+        <ImportExportIcon />
       </IconButton>
       <Link href={routes.documents.edit(id)}>
-        <IconButton size="small" sx={{ mr: 1 }}>
+        <IconButton size="small">
           <EditIcon />
         </IconButton>
       </Link>
       <IconButton size="small" onClick={deleteClickHandler}>
         <DeleteIcon />
       </IconButton>
-    </>
+    </Box>
   )
 }
