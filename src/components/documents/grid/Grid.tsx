@@ -91,17 +91,6 @@ export default observer(function Grid() {
       <DetailsModal id={selectedId} />
       <DeleteModal id={selectedId} />
       <DeleteAllModal selectionModel={selectionModel} />
-      {/* <Alert
-        sx={{
-          display: 'none',
-          width: '100%',
-          justifyContent: 'center',
-          position: 'absolute',
-          bottom: 80,
-        }}
-        severity="success">
-        Value...
-      </Alert> */}
     </>
   )
 })
