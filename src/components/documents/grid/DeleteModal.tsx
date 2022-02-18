@@ -1,16 +1,15 @@
-import React, { Dispatch, SetStateAction } from 'react'
-import { MutationFunction, useMutation, useQueryClient } from 'react-query'
+import React from 'react'
+import { useMutation, useQueryClient } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Dialog, Card, CardContent, Box, Button, Modal, Typography, CSSObject } from '@mui/material'
+import { Dialog, Card, CardContent, Box, Button, Typography } from '@mui/material'
 
 import { DocumentResponse } from 'gql/document'
 import { ApiErrors } from 'service/apiErrors'
-import { apiClient } from 'service/apiClient'
-import { endpoints } from 'service/apiEndpoints'
 import { ModalStore } from 'stores/documents/ModalStore'
 import { observer } from 'mobx-react'
 import { AlertStore } from 'stores/AlertStore'
 import { useDeleteDocument } from 'service/restRequests'
+import { useTranslation } from 'next-i18next'
 
 type Props = {
   id: string
@@ -19,6 +18,7 @@ type Props = {
 export default observer(function DeleteModal({ id }: Props) {
   const queryClient = useQueryClient()
   const { isDeleteOpen, hideDelete } = ModalStore
+  const { t } = useTranslation()
 
   const mutationFn = useDeleteDocument(id)
 
@@ -28,10 +28,10 @@ export default observer(function DeleteModal({ id }: Props) {
     string
   >({
     mutationFn,
-    onError: () => AlertStore.show('An error has occured!', 'error'),
+    onError: () => AlertStore.show(t('documents:alerts:error'), 'error'),
     onSuccess: () => {
       hideDelete()
-      AlertStore.show('Document has been deleted successfully!', 'success')
+      AlertStore.show(t('documents:alerts:delete'), 'success')
       queryClient.invalidateQueries('/document')
     },
   })
@@ -45,16 +45,16 @@ export default observer(function DeleteModal({ id }: Props) {
       <Card>
         <CardContent>
           <Typography variant="h6" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            Сигурни ли сте?
+            {t('documents:deleteTitle')}
           </Typography>
           <Typography variant="body1" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            Това действие ще изтрие елемента завинаги!
+            {t('documents:deleteContent')}
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <Button color="error" onClick={deleteHandler}>
-              Изтрий
+              {t('documents:cta:delete')}
             </Button>
-            <Button onClick={hideDelete}>Отмяна</Button>
+            <Button onClick={hideDelete}>{t('documents:cta:cancel')}</Button>
           </Box>
         </CardContent>
       </Card>
