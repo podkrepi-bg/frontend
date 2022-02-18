@@ -10,7 +10,7 @@ import {
 } from '@mui/icons-material'
 
 import { routes } from 'common/routes'
-import { ModalStore } from 'stores/ModalStore'
+import { ModalStore } from 'stores/documents/ModalStore'
 
 const addIconStyles = {
   background: '#4ac3ff',
@@ -54,7 +54,7 @@ export default function GridAppbar() {
               sx={addIconStyles}
               fontSize="large"
               onClick={() => {
-                router.push(routes.documents.create)
+                router.push(routes.admin.documents.create)
               }}
             />
           </Tooltip>

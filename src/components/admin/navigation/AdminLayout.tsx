@@ -1,39 +1,33 @@
-import * as React from 'react'
-import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles'
-import Box from '@mui/material/Box'
-import MuiDrawer from '@mui/material/Drawer'
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
-import Toolbar from '@mui/material/Toolbar'
-import List from '@mui/material/List'
-import CssBaseline from '@mui/material/CssBaseline'
-import Typography from '@mui/material/Typography'
-import Divider from '@mui/material/Divider'
-import IconButton from '@mui/material/IconButton'
-import MenuIcon from '@mui/icons-material/Menu'
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import ListItem from '@mui/material/ListItem'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
-import InboxIcon from '@mui/icons-material/MoveToInbox'
-import MailIcon from '@mui/icons-material/Mail'
-import { makeStyles } from '@mui/styles'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Image from 'next/image'
-import { routes } from 'common/routes'
-import { TextField } from '@mui/material'
-import { AccountCircle, ChevronRight, MenuOpen, Notifications, Settings } from '@mui/icons-material'
+import { useState, useCallback, useEffect, useMemo } from 'react'
+import { makeStyles, useTheme } from '@mui/styles'
+import { useRouter } from 'next/router'
+import MuiDrawer from '@mui/material/Drawer'
+import { styled, Theme, CSSObject } from '@mui/material/styles'
+import {
+  AppBar as MuiAppBar,
+  AppBarProps as MuiAppBarProps,
+  CssBaseline,
+  IconButton,
+  List,
+  Box,
+  Button,
+  TextField,
+  Typography,
+} from '@mui/material'
+import { Notifications, Settings, MenuOpen, ChevronRight, GppGood } from '@mui/icons-material'
 
-import Logo from '/public/android-chrome-192x192.png'
-import CustomListItem from './CustomListItem'
-import { menuItems } from './adminMenu'
+import { routes } from 'common/routes'
 import Snackbar from 'components/layout/Snackbar'
-import Footer from './Footer'
-import ProfileMenu from './ProfileMenu'
+import PrivateMenu from 'components/layout/nav/PrivateMenu'
+import PictureLogo from '/public/android-chrome-192x192.png'
+
+import PanelFooter from './PanelFooter'
+import { menuItems } from './adminMenu'
+import CustomListItem from './CustomListItem'
 
 const drawerWidth = 200
-
 const useStyles = makeStyles({
   drawerHeader: {
     width: drawerWidth,
@@ -62,7 +56,6 @@ const useStyles = makeStyles({
     display: 'flex',
     width: 'calc(100% - 24px)',
     position: 'relative',
-    background: 'white',
     paddingRight: '16px',
   },
   logoWrapper: {
@@ -149,9 +142,22 @@ export default function AdminLayout({ children }: Props) {
   const theme = useTheme()
   const router = useRouter()
   const classes = useStyles()
-  const [open, setOpen] = React.useState(false)
-  const toggleMenu = React.useCallback(() => setOpen((open: boolean) => !open), [])
 
+  const initialOpen = useMemo<boolean>(() => {
+    const item = window.localStorage.getItem('menu-open')
+    if (item) {
+      return Boolean(JSON.parse(item))
+    }
+    return false
+  }, [])
+
+  const [open, setOpen] = useState<boolean>(initialOpen)
+
+  useEffect(() => {
+    window.localStorage.setItem('menu-open', JSON.stringify(open))
+  }, [open])
+
+  const toggleMenu = useCallback(() => setOpen((open) => !open), [])
   return (
     <Box className={classes.wrapper}>
       <CssBaseline />
@@ -161,7 +167,7 @@ export default function AdminLayout({ children }: Props) {
             <Box className={classes.logoWrapper}>
               <Link href={routes.admin.index}>
                 <a>
-                  <Image src={Logo} width={40} height={40} />
+                  <Image src={PictureLogo} width={40} height={40} />
                 </a>
               </Link>
             </Box>
@@ -174,29 +180,25 @@ export default function AdminLayout({ children }: Props) {
                 alignItems: 'center',
               }}>
               <IconButton>
-                <Notifications color="primary" />
+                <Notifications color="info" />
               </IconButton>
-              <IconButton>
-                <AccountCircle color="primary" />
-              </IconButton>
+              <PrivateMenu />
             </Box>
           </Box>
         </Box>
       </AppBar>
-      <Drawer variant="permanent" open={open}>
+      <Drawer variant="permanent" open={open} theme={theme}>
         <DrawerHeader />
         <List sx={{ p: '2rem .5rem', height: '100%', position: 'relative' }}>
-          {menuItems.map(
-            ({ label, icon: Icon, href }: { label: string; icon: any; href: string }, index) => (
-              <CustomListItem
-                key={index}
-                selected={router.asPath.includes(href)}
-                icon={<Icon />}
-                label={label}
-                onClick={() => router.push(href)}
-              />
-            ),
-          )}
+          {menuItems.map(({ label, icon: Icon, href }, index) => (
+            <CustomListItem
+              key={index}
+              selected={href !== '#' && router.asPath.includes(href)}
+              icon={<Icon />}
+              label={label}
+              onClick={() => router.push(href)}
+            />
+          ))}
           <CustomListItem icon={open ? <MenuOpen /> : <ChevronRight />} onClick={toggleMenu} />
           <CustomListItem
             icon={<Settings />}
@@ -205,12 +207,18 @@ export default function AdminLayout({ children }: Props) {
           />
         </List>
       </Drawer>
+
       <Box component="main" sx={{ flexGrow: 1 }}>
         <DrawerHeader />
         {children}
       </Box>
+      <PanelFooter>
+        <Button sx={{ color: 'white' }}>
+          <GppGood />
+        </Button>
+        <Typography color="white">{'Вие сте логнат като администратор'}</Typography>
+      </PanelFooter>
       <Snackbar />
-      <Footer />
     </Box>
   )
 }

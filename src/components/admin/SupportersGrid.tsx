@@ -1,10 +1,10 @@
 import React from 'react'
+import { Check, Clear } from '@mui/icons-material'
 import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { DialogStore } from 'stores/DialogStore'
-import { useSupportRequestList } from 'common/hooks/supportRequest'
-import { Check, Clear } from '@mui/icons-material'
 import { dateFormatter } from 'common/util/date'
+import { useSupportRequestList } from 'common/hooks/supportRequest'
 
 const renderCell = (params: GridRenderCellParams) =>
   params.value ? <Check color="primary" /> : <Clear color="action" />
@@ -73,7 +73,7 @@ export default function SupportersGrid() {
     <DataGrid
       rows={data || []}
       columns={columns}
-      pageSize={5}
+      pageSize={10}
       autoHeight
       autoPageSize
       checkboxSelection

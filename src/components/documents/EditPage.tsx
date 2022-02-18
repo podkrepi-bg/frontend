@@ -1,7 +1,7 @@
 import { Container } from '@mui/material'
+import AdminContainer from 'components/admin/navigation/AdminContainer'
+import AdminLayout from 'components/admin/navigation/AdminLayout'
 import EditForm from './EditForm'
-import AdminContainer from './layout/AdminContainer'
-import AdminLayout from './layout/AdminLayout'
 
 export default function EditPage() {
   return (

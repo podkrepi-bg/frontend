@@ -39,7 +39,8 @@
   },
   "alerts": {
     "message-sent": "Your message has been sent!",
-    "error": "There was an error processing your message!"
+    "error": "There was an error processing your message!",
+    "noselected": "Please, select at least one row!"
   },
   "close": "Close",
   "link": "Link",

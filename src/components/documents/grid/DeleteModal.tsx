@@ -7,7 +7,7 @@ import { DocumentResponse } from 'gql/document'
 import { ApiErrors } from 'service/apiErrors'
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
-import { ModalStore } from 'stores/ModalStore'
+import { ModalStore } from 'stores/documents/ModalStore'
 import { observer } from 'mobx-react'
 import { AlertStore } from 'stores/AlertStore'
 import { useDeleteDocument } from 'service/restRequests'
@@ -45,16 +45,16 @@ export default observer(function DeleteModal({ id }: Props) {
       <Card>
         <CardContent>
           <Typography variant="h6" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            Are you sure?
+            Сигурни ли сте?
           </Typography>
           <Typography variant="body1" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            This action will delete this item permanently!
+            Това действие ще изтрие елемента завинаги!
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <Button color="error" onClick={deleteHandler}>
-              Delete
+              Изтрий
             </Button>
-            <Button onClick={hideDelete}>Cancel</Button>
+            <Button onClick={hideDelete}>Отмяна</Button>
           </Box>
         </CardContent>
       </Card>

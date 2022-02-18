@@ -6,7 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import ImportExportIcon from '@mui/icons-material/ImportExport'
 
 import { routes } from 'common/routes'
-import { ModalStore } from 'stores/ModalStore'
+import { ModalStore } from 'stores/documents/ModalStore'
 
 type Props = {
   id: string
@@ -38,7 +38,7 @@ export default function Actions({ id, setSelectedId }: Props) {
       <IconButton size="small" onClick={detailsClickHandler}>
         <ImportExportIcon />
       </IconButton>
-      <Link href={routes.documents.edit(id)}>
+      <Link href={routes.admin.documents.edit(id)}>
         <IconButton size="small">
           <EditIcon />
         </IconButton>
