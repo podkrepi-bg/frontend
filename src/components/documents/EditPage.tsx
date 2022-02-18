@@ -1,10 +1,16 @@
+import { Container } from '@mui/material'
 import EditForm from './EditForm'
-import Layout from './layout/Layout'
+import AdminContainer from './layout/AdminContainer'
+import AdminLayout from './layout/AdminLayout'
 
 export default function EditPage() {
   return (
-    <Layout>
-      <EditForm />
-    </Layout>
+    <AdminLayout>
+      <AdminContainer title="Документи">
+        <Container maxWidth="md" sx={{ py: 5 }}>
+          <EditForm />
+        </Container>
+      </AdminContainer>
+    </AdminLayout>
   )
 }

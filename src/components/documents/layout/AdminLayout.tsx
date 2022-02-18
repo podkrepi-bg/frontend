@@ -145,7 +145,7 @@ type Props = {
   children: React.ReactNode
 }
 
-export default function Layout({ children }: Props) {
+export default function AdminLayout({ children }: Props) {
   const theme = useTheme()
   const router = useRouter()
   const classes = useStyles()

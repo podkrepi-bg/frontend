@@ -58,7 +58,7 @@ export default function EditForm() {
       onSubmit={onEditSubmit}
       initialValues={initialValues}
       validationSchema={validationSchema}>
-      <Box sx={{ marginTop: '5%' }}>
+      <Box sx={{ marginTop: '5%', height: '62.6vh' }}>
         <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
           <Grid item xs={6}>
             <FormTextField type="text" label="Type" name="type" />

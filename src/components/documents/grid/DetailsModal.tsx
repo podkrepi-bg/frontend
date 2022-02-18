@@ -20,26 +20,26 @@ export default observer(function DetailsModal({ id }: Props) {
       <Card>
         <CardContent>
           <Typography variant="h5" sx={{ marginBottom: '16px' }}>
-            Document details:
+            Детайли за документа:
           </Typography>
           <Divider />
           <Typography variant="body1" sx={{ fontSize: 24, marginTop: '8px' }}>
-            Type: {data?.type}
+            Тип: {data?.type}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            Name: {data?.name}
+            Име: {data?.name}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            File Name: {data?.filename}
+            Име на файла: {data?.filename}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            File Type: {data?.filetype}
+            Тип файл: {data?.filetype}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            description: {data?.description}
+            Описание: {data?.description}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            Source url:{' '}
+            Линк:{' '}
             {
               <a target="_blank" href={data?.sourceUrl} rel="noreferrer">
                 Link
