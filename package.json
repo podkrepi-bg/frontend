@@ -52,7 +52,7 @@
     "keycloak-js": "^15.0.2",
     "mobx": "6.3.2",
     "mobx-react": "7.2.0",
-    "next": "^12.0.9",
+    "next": "^12.1.0",
     "next-i18next": "8.4.0",
     "nookies": "^2.5.2",
     "react": "17.0.2",
