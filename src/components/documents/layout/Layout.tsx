@@ -30,6 +30,7 @@ import CustomListItem from './CustomListItem'
 import { menuItems } from './adminMenu'
 import Snackbar from 'components/layout/Snackbar'
 import Footer from './Footer'
+import ProfileMenu from './ProfileMenu'
 
 const drawerWidth = 200
 
@@ -62,6 +63,7 @@ const useStyles = makeStyles({
     width: 'calc(100% - 24px)',
     position: 'relative',
     background: 'white',
+    paddingRight: '16px',
   },
   logoWrapper: {
     width: 150,
@@ -175,7 +177,7 @@ export default function Layout({ children }: Props) {
                 <Notifications color="primary" />
               </IconButton>
               <IconButton>
-                <AccountCircle />
+                <AccountCircle color="primary" />
               </IconButton>
             </Box>
           </Box>
