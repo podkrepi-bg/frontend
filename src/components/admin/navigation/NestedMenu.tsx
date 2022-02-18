@@ -2,14 +2,14 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import AccountBoxIcon from '@mui/icons-material/AccountBox'
+import { DrawerStore } from 'stores/dashboard/DrawerStore'
 import Accordion from '@mui/material/Accordion'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import { Button, ListItem } from '@mui/material'
 import { observer } from 'mobx-react'
-import { DrawerStore } from 'stores/DrawerStore'
 
 export default observer(function NestedMenu() {
-  const { toggleProfile, isProfileOpen } = DrawerStore
+  const { toggleAccordion, accordionOpen } = DrawerStore
   const commongStyles = {
     display: { xs: 'none', sm: 'block' },
     letterSpacing: '1px',
@@ -23,13 +23,13 @@ export default observer(function NestedMenu() {
     padding: 0,
   }
   return (
-    <Accordion expanded={isProfileOpen} elevation={0} style={{ margin: '0px' }}>
+    <Accordion expanded={accordionOpen} elevation={0} style={{ margin: '0px' }}>
       <AccordionSummary
         sx={{ p: 0, height: '60px' }}
         aria-controls="panel1a-content"
         id="panel1a-header">
         <ListItem
-          onClick={toggleProfile}
+          onClick={() => toggleAccordion()}
           button
           sx={{
             display: 'flex',

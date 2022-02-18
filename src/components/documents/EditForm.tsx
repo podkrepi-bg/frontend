@@ -45,7 +45,7 @@ export default function EditForm() {
     onError: () => AlertStore.show('An error has occured!', 'error'),
     onSuccess: () => {
       AlertStore.show('Document has been edited successfully!', 'success')
-      router.push(routes.documents.index)
+      router.push(routes.admin.documents.index)
     },
   })
 

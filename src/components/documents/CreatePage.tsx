@@ -1,7 +1,7 @@
 import { Container } from '@mui/material'
+import AdminContainer from 'components/admin/navigation/AdminContainer'
+import AdminLayout from 'components/admin/navigation/AdminLayout'
 import CreateForm from './CreateForm'
-import AdminContainer from './layout/AdminContainer'
-import AdminLayout from './layout/AdminLayout'
 
 export default function CreatePage() {
   return (

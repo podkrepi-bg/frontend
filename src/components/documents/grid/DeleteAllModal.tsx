@@ -8,7 +8,7 @@ import { DocumentResponse } from 'gql/document'
 import { ApiErrors } from 'service/apiErrors'
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
-import { ModalStore } from 'stores/ModalStore'
+import { ModalStore } from 'stores/documents/ModalStore'
 import { observer } from 'mobx-react'
 import { AlertStore } from 'stores/AlertStore'
 import { useDeleteManyDocuments } from 'service/restRequests'
@@ -47,16 +47,16 @@ export default observer(function DeleteAllModal({ selectionModel }: Props) {
       <Card>
         <CardContent>
           <Typography variant="h6" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            Are you sure?
+            Сигурни ли сте?
           </Typography>
           <Typography variant="body1" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            This action will delete all selected items permanently!
+            Това действие ще изтрие избраните елементи завинаги!
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <Button color="error" onClick={deleteHandler}>
-              Delete
+              Изтрий
             </Button>
-            <Button onClick={hideDeleteAll}>Cancel</Button>
+            <Button onClick={hideDeleteAll}>Отмяна</Button>
           </Box>
         </CardContent>
       </Card>

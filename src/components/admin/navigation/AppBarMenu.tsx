@@ -1,7 +1,6 @@
 import { Typography, Box, Toolbar } from '@mui/material'
 import HomeIcon from '@mui/icons-material/Home'
 import { IconButton } from '@mui/material'
-
 type Props = {
   title: string
 }
@@ -13,6 +12,7 @@ export default function AppBarMenu({ title }: Props) {
       variant="dense"
       sx={{
         display: 'flex',
+        flexDirection: { xs: 'column', md: 'row' },
         justifyContent: 'space-between',
         width: '100%',
         pl: '24px',

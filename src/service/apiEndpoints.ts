@@ -37,4 +37,12 @@ export const endpoints = {
     deleteDocument: (slug: string) => <Endpoint>{ url: `/document/${slug}`, method: 'DELETE' },
     deleteDocuments: <Endpoint>{ url: '/document/delete-many', method: 'POST' },
   },
+  bankAccounts: {
+    bankAccountList: <Endpoint>{ url: '/bankaccount', method: 'GET' },
+    viewBankAccount: (id: string) => <Endpoint>{ url: `/bankaccount/${id}`, method: 'GET' },
+    deleteBankAccount: (id: string) => <Endpoint>{ url: `/bankaccount/${id}`, method: 'DELETE' },
+    postBankAccount: <Endpoint>{ url: '/bankaccount', method: 'POST' },
+    editBankAccount: (id: string) => <Endpoint>{ url: `/bankaccount/${id}`, method: 'PATCH' },
+    deleteManyBankAccounts: <Endpoint>{ url: `/bankaccount/deletemany`, method: 'POST' },
+  },
 }

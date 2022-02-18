@@ -1,6 +1,6 @@
 import { Box, Container } from '@mui/material'
 
-import AppBarMenu from './AppbarMenu'
+import AppBarMenu from './AppBarMenu'
 
 type Props = React.PropsWithChildren<{
   title: string

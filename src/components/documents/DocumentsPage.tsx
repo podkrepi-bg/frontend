@@ -1,6 +1,6 @@
-import AdminLayout from './layout/AdminLayout'
+import AdminContainer from 'components/admin/navigation/AdminContainer'
+import AdminLayout from 'components/admin/navigation/AdminLayout'
 import Grid from './grid/Grid'
-import AdminContainer from './layout/AdminContainer'
 import GridAppbar from './grid/GridAppbar'
 
 export default function DocumentsPage() {

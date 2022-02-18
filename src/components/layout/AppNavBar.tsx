@@ -2,20 +2,20 @@ import clsx from 'clsx'
 import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { GitHub, Menu } from '@mui/icons-material'
+import { Menu } from '@mui/icons-material'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 import { AppBar, Toolbar, IconButton, Grid, Hidden } from '@mui/material'
 
-import { routes, staticUrls } from 'common/routes'
+import { routes } from 'common/routes'
+import { useSession } from 'common/util/useSession'
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 
 import LocaleButton from './LocaleButton'
 import PublicMenu from './nav/PublicMenu'
 import PrivateMenu from './nav/PrivateMenu'
 import MainNavMenu from './nav/MainNavMenu'
-import { useSession } from 'common/util/useSession'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
