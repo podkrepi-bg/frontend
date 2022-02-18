@@ -1,5 +1,7 @@
+import { UUID } from './types'
+
 export type DocumentResponse = {
-  id: string
+  id: UUID
   type: DocumentType
   name: string
   filename: string

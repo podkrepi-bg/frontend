@@ -1,14 +1,14 @@
 import { Container } from '@mui/material'
 import AdminContainer from 'components/admin/navigation/AdminContainer'
 import AdminLayout from 'components/admin/navigation/AdminLayout'
-import EditForm from './EditForm'
+import Form from './Form'
 
 export default function EditPage() {
   return (
     <AdminLayout>
       <AdminContainer title="Документи">
         <Container maxWidth="md" sx={{ py: 5 }}>
-          <EditForm />
+          <Form />
         </Container>
       </AdminContainer>
     </AdminLayout>

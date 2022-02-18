@@ -6,6 +6,7 @@ import { Dialog, Card, CardContent, Typography, Divider } from '@mui/material'
 import { DocumentResponse } from 'gql/document'
 import { useDocument } from 'common/hooks/documents'
 import { ModalStore } from 'stores/documents/ModalStore'
+import { useTranslation } from 'next-i18next'
 
 type Props = {
   id: string
@@ -14,32 +15,33 @@ type Props = {
 export default observer(function DetailsModal({ id }: Props) {
   const { data }: UseQueryResult<DocumentResponse> = useDocument(id)
   const { isDetailsOpen, hideDetails } = ModalStore
+  const { t } = useTranslation()
 
   return (
     <Dialog open={isDetailsOpen} onClose={hideDetails} sx={{ top: '-35%' }}>
       <Card>
         <CardContent>
           <Typography variant="h5" sx={{ marginBottom: '16px' }}>
-            Детайли за документа:
+            {t('documents:cta:details')}
           </Typography>
           <Divider />
           <Typography variant="body1" sx={{ fontSize: 24, marginTop: '8px' }}>
-            Тип: {data?.type}
+            {t('documents:type')}: {data?.type}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            Име: {data?.name}
+            {t('documents:name')}: {data?.name}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            Име на файла: {data?.filename}
+            {t('documents:filename')}: {data?.filename}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            Тип файл: {data?.filetype}
+            {t('documents:filetype')}: {data?.filetype}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            Описание: {data?.description}
+            {t('documents:description')}: {data?.description}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            Линк:{' '}
+            {t('documents:sourceUrl')}:{' '}
             {
               <a target="_blank" href={data?.sourceUrl} rel="noreferrer">
                 Link

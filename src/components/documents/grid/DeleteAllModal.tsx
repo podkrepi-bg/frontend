@@ -1,17 +1,16 @@
 import React from 'react'
-import { MutationFunction, useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
+import { observer } from 'mobx-react'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Dialog, Card, CardContent, Box, Button, Modal, Typography, CSSObject } from '@mui/material'
+import { Dialog, Card, CardContent, Box, Button, Typography } from '@mui/material'
 import { GridSelectionModel } from '@mui/x-data-grid'
+import { useTranslation } from 'next-i18next'
 
 import { DocumentResponse } from 'gql/document'
 import { ApiErrors } from 'service/apiErrors'
-import { apiClient } from 'service/apiClient'
-import { endpoints } from 'service/apiEndpoints'
-import { ModalStore } from 'stores/documents/ModalStore'
-import { observer } from 'mobx-react'
-import { AlertStore } from 'stores/AlertStore'
 import { useDeleteManyDocuments } from 'service/restRequests'
+import { ModalStore } from 'stores/documents/ModalStore'
+import { AlertStore } from 'stores/AlertStore'
 
 type Props = {
   selectionModel: GridSelectionModel
@@ -20,6 +19,7 @@ type Props = {
 export default observer(function DeleteAllModal({ selectionModel }: Props) {
   const queryClient = useQueryClient()
   const { isDeleteAllOpen, hideDeleteAll } = ModalStore
+  const { t } = useTranslation()
 
   const idsToDelete = selectionModel.map((x) => x.toString())
   const mutationFn = useDeleteManyDocuments(idsToDelete)
@@ -30,10 +30,10 @@ export default observer(function DeleteAllModal({ selectionModel }: Props) {
     GridSelectionModel
   >({
     mutationFn,
-    onError: () => AlertStore.show('An error has occured!', 'error'),
+    onError: () => AlertStore.show(t('documents:alerts:error'), 'error'),
     onSuccess: () => {
       hideDeleteAll()
-      AlertStore.show('Documents have been deleted successfully!', 'success')
+      AlertStore.show(t('documents:alerts:deleteAll'), 'success')
       queryClient.invalidateQueries('/document')
     },
   })
@@ -47,16 +47,16 @@ export default observer(function DeleteAllModal({ selectionModel }: Props) {
       <Card>
         <CardContent>
           <Typography variant="h6" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            Сигурни ли сте?
+            {t('documents:deleteTitle')}
           </Typography>
           <Typography variant="body1" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            Това действие ще изтрие избраните елементи завинаги!
+            {t('documents:deleteAllContent')}
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <Button color="error" onClick={deleteHandler}>
-              Изтрий
+              {t('documents:cta:delete')}
             </Button>
-            <Button onClick={hideDeleteAll}>Отмяна</Button>
+            <Button onClick={hideDeleteAll}>{t('documents:cta:cancel')}</Button>
           </Box>
         </CardContent>
       </Card>

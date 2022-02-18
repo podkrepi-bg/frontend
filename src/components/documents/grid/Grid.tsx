@@ -19,11 +19,13 @@ import DeleteModal from './DeleteModal'
 import DeleteAllModal from './DeleteAllModal'
 import Actions from './Actions'
 import { observer } from 'mobx-react'
+import { useTranslation } from 'next-i18next'
 
 export default observer(function Grid() {
   const [selectedId, setSelectedId] = useState<string>('')
   const [selectionModel, setSelectionModel] = useState<GridRowId[]>([])
   const [pageSize, setPageSize] = useState(5)
+  const { t } = useTranslation()
 
   const { data }: UseQueryResult<DocumentResponse[]> = useDocumentsList()
 
@@ -36,37 +38,37 @@ export default observer(function Grid() {
   const columns: GridColumns = [
     {
       field: 'type',
-      headerName: 'Вид',
+      headerName: t('documents:type'),
       ...commonProps,
     },
     {
       field: 'name',
-      headerName: 'Име',
+      headerName: t('documents:name'),
       ...commonProps,
     },
     {
       field: 'filename',
-      headerName: 'Име на файла',
+      headerName: t('documents:filename'),
       ...commonProps,
     },
     {
       field: 'filetype',
-      headerName: 'Тип файл',
+      headerName: t('documents:filetype'),
       ...commonProps,
     },
     {
       field: 'description',
-      headerName: 'Описание',
+      headerName: t('documents:description'),
       ...commonProps,
     },
     {
       field: 'sourceUrl',
-      headerName: 'Линк',
+      headerName: t('documents:sourceUrl'),
       ...commonProps,
-      width: 550,
+      width: 450,
     },
     {
-      field: 'Действия',
+      field: t('documents:actions'),
       width: 200,
       align: 'right',
       renderCell: (cellValues: GridRenderCellParams) => {
