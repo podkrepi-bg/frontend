@@ -24,5 +24,5 @@ export type BeneficiaryFormData = {
   description: string
   publicData?: string
   privateData?: string
-  campaigns: []
+  campaigns: Record<string, never>
 }

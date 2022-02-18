@@ -6,48 +6,58 @@ import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import { Button, Grid, Typography } from '@mui/material'
 
-import { useEditBeneficiary } from 'service/beneficiary'
+import { useEditBeneficiary, useViewBeneficiary } from 'service/beneficiary'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
-import { useViewCampaignType } from 'common/hooks/campaign-types'
-// import { axios } from 'service/api-client'
-// import { endpoints } from 'common/api-endpoints'
 import { useTheme } from '@mui/styles'
-import { CampaignTypeFormData } from 'gql/campaign-types'
+import { BeneficiaryFormData } from 'gql/beneficiary'
 import { AlertStore } from 'stores/AlertStore'
 import { validationSchema } from './BeneficiaryForm'
 
-const defaults: CampaignTypeFormData = {
-  name: '',
+const defaults: BeneficiaryFormData = {
+  type: '',
+  personId: '',
+  companyId: '',
+  coordinatorId: '',
+  countryCode: '',
+  cityId: '',
   description: '',
-  slug: '',
-  parentId: '',
+  publicData: '',
+  privateData: '',
+  campaigns: {},
 }
 
-export type CampaignTypeFormProps = { initialValues?: CampaignTypeFormData }
+export type BeneficiaryFormProps = { initialValues?: BeneficiaryFormData }
 
-export default function EditBootcamper({ initialValues = defaults }: CampaignTypeFormProps) {
+export default function EditBootcamper({ initialValues = defaults }: BeneficiaryFormProps) {
   const theme = useTheme()
 
   const router = useRouter()
   const id = Array.isArray(router.query.id) ? router.query.id[0] : router.query.id || ''
 
-  const info = useViewCampaignType(id)
+  const info = useViewBeneficiary(id)
 
   if (!info.isLoading) {
-    initialValues.parentId = info.data?.parentId || ''
-    initialValues.name = info.data?.name || ''
-    initialValues.description = info.data?.description || ''
+    defaults.type = info.data?.type || ''
+    defaults.cityId = info.data?.cityId || ''
+    defaults.companyId = info.data?.companyId || ''
+    defaults.coordinatorId = info.data?.coordinatorId || ''
+    defaults.countryCode = info.data?.countryCode || ''
+    defaults.description = info.data?.description || ''
+    defaults.personId = info.data?.personId || ''
+    defaults.privateData = info.data?.privateData || ''
+    defaults.publicData = info.data?.publicData || ''
+    defaults.campaigns = Object(info.data?.campaigns) || {}
   }
 
   const { t } = useTranslation()
 
   const mutation = useMutation<
-    AxiosResponse<CampaignTypeFormData>,
+    AxiosResponse<BeneficiaryFormData>,
     AxiosError<ApiErrors>,
-    CampaignTypeFormData
+    BeneficiaryFormData
   >({
     mutationFn: useEditBeneficiary(id),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
@@ -55,15 +65,15 @@ export default function EditBootcamper({ initialValues = defaults }: CampaignTyp
   })
 
   const onSubmit = async (
-    values: CampaignTypeFormData,
-    { setFieldError, resetForm }: FormikHelpers<CampaignTypeFormData>,
+    values: BeneficiaryFormData,
+    { setFieldError, resetForm }: FormikHelpers<BeneficiaryFormData>,
   ) => {
     try {
       // await axios.put(endpoints.campaignTypes.editCampaignType(id).url, values)
       mutation.mutateAsync(values)
       resetForm()
-      AlertStore.show('Successfully edited campaign type', 'success')
-      router.push('/admin/campaign-types')
+      AlertStore.show('Successfully edited beneficiary', 'success')
+      router.push('/admin/beneficiary')
     } catch (error) {
       console.error(error)
       AlertStore.show('An error occured', 'error')
@@ -80,41 +90,74 @@ export default function EditBootcamper({ initialValues = defaults }: CampaignTyp
     <Grid container direction="column" component="section" style={{ marginLeft: '10%' }}>
       <Grid item xs={12} style={{ marginTop: '10%', marginLeft: '25%' }}>
         <Typography variant="h5" component="h2">
-          EDIT CAMPAIGN TYPE
+          EDIT BENEFICIARY
         </Typography>
       </Grid>
-      <GenericForm
-        onSubmit={onSubmit}
-        initialValues={initialValues}
-        validationSchema={validationSchema}>
-        <Grid container spacing={1}>
+      <GenericForm onSubmit={onSubmit} initialValues={defaults} validationSchema={validationSchema}>
+        <Grid container spacing={3}>
           <Grid item sm={5}>
             <FormTextField
               style={{ marginTop: '2%', width: '80%' }}
               type="text"
-              name="name"
+              name="type"
               autoComplete="target-amount"
-              label="Name"
+              label="Type"
             />
           </Grid>
           <Grid item sm={5}>
             <FormTextField
-              style={{ marginTop: '2%', width: '80%', height: '30px' }}
+              style={{ marginTop: '2%', width: '80%' }}
+              type="text"
+              name="personId"
+              autoComplete="target-amount"
+              label="Person"
+            />
+          </Grid>
+          <Grid item sm={5}>
+            <FormTextField
+              style={{ marginTop: '2%', width: '80%' }}
+              type="text"
+              name="companyId"
+              autoComplete="target-amount"
+              label="Company (optional)"
+            />
+          </Grid>
+          <Grid item sm={5}>
+            <FormTextField
+              style={{ marginTop: '2%', width: '80%' }}
+              type="text"
+              name="coordinatorId"
+              autoComplete="target-amount"
+              label="Coordinator"
+            />
+          </Grid>
+          <Grid item sm={5}>
+            <FormTextField
+              style={{ marginTop: '2%', width: '80%' }}
+              type="text"
+              name="countryCode"
+              autoComplete="target-amount"
+              label="Country code"
+            />
+          </Grid>
+          <Grid item sm={5}>
+            <FormTextField
+              style={{ marginTop: '2%', width: '80%' }}
+              type="text"
+              name="cityId"
+              autoComplete="target-amount"
+              label="City name"
+            />
+          </Grid>
+          <Grid item sm={5}>
+            <FormTextField
+              style={{ marginTop: '2%', width: '193%', height: '30px' }}
               type="text"
               name="description"
               autoComplete="target-amount"
               label="Description"
               multiline
-              rows={3.5}
-            />
-          </Grid>
-          <Grid item sm={5}>
-            <FormTextField
-              style={{ marginTop: '2%', width: '80%' }}
-              type="text"
-              name="parentId"
-              autoComplete="target-amount"
-              label="Category"
+              rows={1.5}
             />
           </Grid>
           <Grid
@@ -124,18 +167,16 @@ export default function EditBootcamper({ initialValues = defaults }: CampaignTyp
               display: 'flex',
               flexDirection: 'column',
               marginLeft: '15%',
-              marginTop: '1.1%',
+              marginTop: '4%',
             }}>
             <SubmitButton
               style={{ width: '50%' }}
-              label="Add campagin type"
+              label="Edit"
               loading={mutation.isLoading}
               sx={{ backgroundColor: theme.palette.secondary.main }}
             />
             <Button
-              onClick={() => {
-                router.push('/admin/campaign-types')
-              }}
+              href="/admin/beneficiary"
               variant="outlined"
               sx={{
                 width: '50%',

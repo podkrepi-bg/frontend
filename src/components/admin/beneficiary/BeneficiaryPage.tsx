@@ -10,6 +10,8 @@ import { useBeneficiariesList } from 'service/beneficiary'
 const BankAccountsPage = () => {
   const data = useBeneficiariesList().data
 
+  console.log(data)
+
   return (
     <MainLayout>
       <BankAccountsModal>

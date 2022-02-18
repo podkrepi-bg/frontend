@@ -9,20 +9,24 @@ import React from 'react'
 import * as yup from 'yup'
 import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
-import { PersonFormData } from 'gql/person'
+import { BeneficiaryFormData } from 'gql/beneficiary'
 import { useCreateBeneficiary } from 'service/beneficiary'
 import { AxiosError, AxiosResponse } from 'axios'
 import { AlertStore } from 'stores/AlertStore'
 import { ApiErrors } from 'service/apiErrors'
 import theme from 'common/theme'
 
-export const validationSchema: yup.SchemaOf<PersonFormData> = yup.object().defined().shape({
-  firstName: yup.string().required(),
-  lastName: yup.string().required(),
-  email: yup.string().required(),
-  phone: yup.string().required(),
-  company: yup.string().notRequired(),
-  adress: yup.string().required(),
+export const validationSchema: yup.SchemaOf<BeneficiaryFormData> = yup.object().defined().shape({
+  type: yup.string().required(),
+  personId: yup.string().notRequired(),
+  companyId: yup.string().notRequired(),
+  coordinatorId: yup.string().required(),
+  countryCode: yup.string().required(),
+  cityId: yup.string().required(),
+  description: yup.string().required(),
+  publicData: yup.string().notRequired(),
+  privateData: yup.string().notRequired(),
+  campaigns: yup.object().required(),
 })
 
 const useStyles = makeStyles((theme) =>
@@ -39,29 +43,36 @@ export default function BankAccountsForm() {
   const classes = useStyles()
   const { t } = useTranslation()
   const router = useRouter()
-  const initialValues: PersonFormData = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    company: '',
-    adress: '',
+  const initialValues: BeneficiaryFormData = {
+    type: '',
+    personId: '',
+    companyId: '',
+    coordinatorId: '',
+    countryCode: '',
+    cityId: '',
+    description: '',
+    publicData: '',
+    privateData: '',
+    campaigns: {},
   }
 
+  const cb = useCreateBeneficiary()
+
   const mutation = useMutation<
-    AxiosResponse<PersonFormData>,
+    AxiosResponse<BeneficiaryFormData>,
     AxiosError<ApiErrors>,
-    PersonFormData
+    BeneficiaryFormData
   >({
-    mutationFn: useCreateBeneficiary(),
+    mutationFn: cb,
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => {
       AlertStore.show(t('common:alerts.message-sent'), 'success')
-      router.push('/admin/person')
+      router.push('/admin/beneficiary')
     },
   })
 
-  const onSubmit = (data: PersonFormData) => {
+  const onSubmit = (data: BeneficiaryFormData) => {
+    console.log(data)
     mutation.mutate(data)
   }
 
@@ -69,7 +80,7 @@ export default function BankAccountsForm() {
     <Grid container direction="column" component="section">
       <Grid item xs={12}>
         <Typography variant="h5" component="h2" className={classes.heading}>
-          Add person
+          Add beneficiary
         </Typography>
       </Grid>
       <GenericForm
@@ -81,43 +92,25 @@ export default function BankAccountsForm() {
             <FormTextField
               style={{ marginTop: '2%', width: '80%' }}
               type="text"
-              name="firstName"
+              name="type"
               autoComplete="target-amount"
-              label="First Name"
+              label="Type"
             />
           </Grid>
           <Grid item sm={5}>
             <FormTextField
               style={{ marginTop: '2%', width: '80%' }}
               type="text"
-              name="lastName"
+              name="personId"
               autoComplete="target-amount"
-              label="Last name"
+              label="Person"
             />
           </Grid>
           <Grid item sm={5}>
             <FormTextField
               style={{ marginTop: '2%', width: '80%' }}
               type="text"
-              name="email"
-              autoComplete="target-amount"
-              label="Email"
-            />
-          </Grid>
-          <Grid item sm={5}>
-            <FormTextField
-              style={{ marginTop: '2%', width: '80%' }}
-              type="text"
-              name="phone"
-              autoComplete="target-amount"
-              label="Phone"
-            />
-          </Grid>
-          <Grid item sm={5}>
-            <FormTextField
-              style={{ marginTop: '2%', width: '80%' }}
-              type="text"
-              name="company"
+              name="companyId"
               autoComplete="target-amount"
               label="Company (optional)"
             />
@@ -126,9 +119,38 @@ export default function BankAccountsForm() {
             <FormTextField
               style={{ marginTop: '2%', width: '80%' }}
               type="text"
-              name="adress"
+              name="coordinatorId"
               autoComplete="target-amount"
-              label="Adress"
+              label="Coordinator"
+            />
+          </Grid>
+          <Grid item sm={5}>
+            <FormTextField
+              style={{ marginTop: '2%', width: '80%' }}
+              type="text"
+              name="countryCode"
+              autoComplete="target-amount"
+              label="Country code"
+            />
+          </Grid>
+          <Grid item sm={5}>
+            <FormTextField
+              style={{ marginTop: '2%', width: '80%' }}
+              type="text"
+              name="cityId"
+              autoComplete="target-amount"
+              label="City name"
+            />
+          </Grid>
+          <Grid item sm={5}>
+            <FormTextField
+              style={{ marginTop: '2%', width: '193%', height: '30px' }}
+              type="text"
+              name="description"
+              autoComplete="target-amount"
+              label="Description"
+              multiline
+              rows={1.5}
             />
           </Grid>
           <Grid
@@ -138,7 +160,7 @@ export default function BankAccountsForm() {
               display: 'flex',
               flexDirection: 'column',
               marginLeft: '15%',
-              marginTop: '1.1%',
+              marginTop: '4%',
             }}>
             <SubmitButton
               style={{ width: '50%' }}

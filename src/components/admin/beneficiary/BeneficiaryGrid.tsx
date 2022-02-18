@@ -11,8 +11,7 @@ import { useRouter } from 'next/router'
 import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 import { ControlIcons, commonProps } from './BeneficiaryGridHelper'
-import { apiClient as axios } from 'service/apiClient'
-import { endpoints } from 'service/apiEndpoints'
+import { useDeleteBeneficiary } from 'service/beneficiary'
 import { BeneficiaryType } from 'gql/beneficiary'
 
 interface GridProps {
@@ -24,6 +23,7 @@ export default observer(function PeopleGrid({ data }: GridProps) {
   const [multipleDelete, setMupltipleDelete] = useState<GridRowId[]>([])
   const [id, setId] = useState('')
   const [pageSize, setPageSize] = useState(5)
+  const deleteCb = useDeleteBeneficiary()
 
   const handleClickOpen = () => {
     ModalStore.openCfrm()
@@ -33,18 +33,16 @@ export default observer(function PeopleGrid({ data }: GridProps) {
   }
 
   const handleDelete = () => {
-    const params: [string, GridRowId[]] | [string, null] =
-      multipleDelete.length > 0
-        ? [endpoints.campaignTypes.deleteMany.url, multipleDelete]
-        : [endpoints.beneficiary.removeBeneficiary(id).url, null]
+    const params: [null, GridRowId[]] | [string, null] =
+      multipleDelete.length > 0 ? [null, multipleDelete] : [id, null]
     const deleteRecords = async () => {
       try {
         if (params[1] !== null) {
           params[1].map(async (x) => {
-            await axios.delete(endpoints.beneficiary.removeBeneficiary(x.toLocaleString()).url)
+            await deleteCb(x.toLocaleString())
           })
         } else {
-          await axios.delete(params[0])
+          await deleteCb(id)
         }
         handleClose()
       } catch (error) {
@@ -57,7 +55,7 @@ export default observer(function PeopleGrid({ data }: GridProps) {
   const columns: GridColumns = [
     {
       ...commonProps,
-      headerName: 'Person ID',
+      headerName: 'Person name',
       field: 'name',
       renderCell: (p) => p.row.personId,
       width: 1150,
@@ -74,7 +72,7 @@ export default observer(function PeopleGrid({ data }: GridProps) {
             carId={String(params.id)}
             openModal={ModalStore.openModal}
             router={router}
-            route={`/admin/campaign-types/edit/${params.id}`}
+            route={`/admin/beneficiary/edit/${params.id}`}
             handleOpen={handleClickOpen}
             setId={setId}
             idToSet={String(params.id)}

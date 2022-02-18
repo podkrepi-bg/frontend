@@ -9,7 +9,7 @@ import {
   SupportRequestInput,
 } from 'components/support-form/helpers/support-form.types'
 import { CampaignResponse, CampaignInput } from 'gql/campaigns'
-import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
+import { CreateBeneficiaryInput, PersonFormData, PersonResponse } from 'gql/person'
 import { ContactRequestResponse, ContactRequestInput } from 'gql/contact'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 
@@ -69,6 +69,13 @@ export const useCreateCampaign = () => {
 export const createCheckoutSession = async (data: CheckoutSessionInput) => {
   return await apiClient.post<CheckoutSessionInput, AxiosResponse<CheckoutSessionResponse>>(
     endpoints.donation.createCheckoutSession.url,
+    data,
+  )
+}
+
+export const createPerson = async (data: PersonFormData) => {
+  return await apiClient.post<PersonFormData, AxiosResponse<PersonFormData>>(
+    endpoints.person.createPerson.url,
     data,
   )
 }

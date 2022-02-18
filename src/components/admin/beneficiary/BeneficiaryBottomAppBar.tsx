@@ -52,7 +52,7 @@ export default observer(function BottomAppBar() {
           <Tooltip
             title="Add"
             onClick={() => {
-              router.push('/admin/campaign-types/add')
+              router.push('/admin/beneficiary/add')
             }}>
             <AddIcon sx={addIconStyles} fontSize="large" />
           </Tooltip>

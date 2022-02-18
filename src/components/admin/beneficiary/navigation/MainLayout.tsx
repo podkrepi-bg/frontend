@@ -248,7 +248,7 @@ export default function MainLayout({ children }: Props) {
                 ) : (
                   <IconButton
                     onClick={() => {
-                      router.push('/admin/campaign-types/add')
+                      router.push('/admin/beneficiary/add')
                     }}>
                     <AddIcon />
                   </IconButton>

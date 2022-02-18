@@ -41,7 +41,8 @@ export const endpoints = {
     listBeneficiary: <Endpoint>{ url: '/beneficiary/list', method: 'GET' },
     viewBeneficiary: (id: string) => <Endpoint>{ url: '/beneficiary/' + id, method: 'GET' },
     createBeneficiary: <Endpoint>{ url: '/beneficiary/create-beneficiary', method: 'POST' },
-    editBeneficiary: (id: string) => <Endpoint>{ url: '/beneficiary' + id, method: 'PUT' },
+    editBeneficiary: (id: string) => <Endpoint>{ url: '/beneficiary/' + id, method: 'PUT' },
+    removeBeneficiary: (id: string) => <Endpoint>{ url: '/beneficiary/' + id, method: 'DELETE' },
   },
   person: {
     list: <Endpoint>{ url: '/person', method: 'GET' },
