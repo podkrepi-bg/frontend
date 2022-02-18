@@ -56,7 +56,7 @@ export default observer(function Grid() {
     },
     {
       field: 'description',
-      headerName: 'Подробности',
+      headerName: 'Описание',
       ...commonProps,
     },
     {
