@@ -1,15 +1,16 @@
 import React from 'react'
 import { useMutation, useQueryClient } from 'react-query'
+import { observer } from 'mobx-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import { Dialog, Card, CardContent, Box, Button, Typography } from '@mui/material'
+import { useTranslation } from 'next-i18next'
 
 import { DocumentResponse } from 'gql/document'
 import { ApiErrors } from 'service/apiErrors'
-import { ModalStore } from 'stores/documents/ModalStore'
-import { observer } from 'mobx-react'
-import { AlertStore } from 'stores/AlertStore'
+import { endpoints } from 'service/apiEndpoints'
 import { useDeleteDocument } from 'service/restRequests'
-import { useTranslation } from 'next-i18next'
+import { ModalStore } from 'stores/documents/ModalStore'
+import { AlertStore } from 'stores/AlertStore'
 
 type Props = {
   id: string
@@ -32,7 +33,7 @@ export default observer(function DeleteModal({ id }: Props) {
     onSuccess: () => {
       hideDelete()
       AlertStore.show(t('documents:alerts:delete'), 'success')
-      queryClient.invalidateQueries('/document')
+      queryClient.invalidateQueries(endpoints.documents.documentsList.url)
     },
   })
 
