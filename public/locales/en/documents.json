@@ -26,6 +26,7 @@
         "confirm": "Confirm",
         "cancel": "Cancel",
         "delete": "Delete",
+        "deleteSelected": "Delete selected rows",
         "edit": "Edit",
         "details": "Details",
         "submit": "Submit"

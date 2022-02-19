@@ -3,8 +3,6 @@ import { dehydrate, QueryClient } from 'react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import DocumentsPage from 'components/documents/DocumentsPage'
-import { endpoints } from 'service/apiEndpoints'
-import { queryFn } from 'service/restRequests'
 import { prefetchDocumentsList } from 'common/hooks/documents'
 import { keycloakInstance } from 'middleware/auth/keycloak'
 

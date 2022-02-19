@@ -8,6 +8,7 @@ import { useTranslation } from 'next-i18next'
 
 import { DocumentResponse } from 'gql/document'
 import { ApiErrors } from 'service/apiErrors'
+import { endpoints } from 'service/apiEndpoints'
 import { useDeleteManyDocuments } from 'service/restRequests'
 import { ModalStore } from 'stores/documents/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
@@ -34,7 +35,7 @@ export default observer(function DeleteAllModal({ selectionModel }: Props) {
     onSuccess: () => {
       hideDeleteAll()
       AlertStore.show(t('documents:alerts:deleteAll'), 'success')
-      queryClient.invalidateQueries('/document')
+      queryClient.invalidateQueries(endpoints.documents.documentsList.url)
     },
   })
 

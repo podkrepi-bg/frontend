@@ -12,10 +12,10 @@ import { CampaignResponse, CampaignInput } from 'gql/campaigns'
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
 import { ContactRequestResponse, ContactRequestInput } from 'gql/contact'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
+import { DocumentInput, DocumentResponse } from 'gql/document'
 
 import { endpoints } from './apiEndpoints'
 
-import { DocumentInput, DocumentResponse } from 'gql/document'
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await apiClient.get(queryKey.join('/'))
   return await response.data
@@ -77,7 +77,7 @@ export const createCheckoutSession = async (data: CheckoutSessionInput) => {
 export function useCreateDocument() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return async (data: DocumentInput) => {
-    return await apiClient.post<DocumentInput, AxiosResponse<DocumentResponse>>(
+    return await apiClient.post<DocumentResponse, AxiosResponse<DocumentResponse>>(
       endpoints.documents.createDocument.url,
       data,
       authConfig(keycloak?.token),
@@ -88,7 +88,7 @@ export function useCreateDocument() {
 export function useEditDocument(slug: string) {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return async (data: DocumentInput) => {
-    return await apiClient.put<DocumentInput, AxiosResponse<DocumentResponse>>(
+    return await apiClient.put<DocumentResponse, AxiosResponse<DocumentResponse>>(
       endpoints.documents.editDocument(slug).url,
       data,
       authConfig(keycloak?.token),

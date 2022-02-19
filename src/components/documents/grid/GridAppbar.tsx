@@ -1,16 +1,12 @@
 import { useRouter } from 'next/router'
+import { observer } from 'mobx-react'
+import { useTranslation } from 'next-i18next'
 import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
-import {
-  Delete as DeleteIcon,
-  Add as AddIcon,
-  Print as PrintIcon,
-  Save as SaveIcon,
-  Share as ShareIcon,
-  EventNote as EventNoteIcon,
-} from '@mui/icons-material'
+import { Delete as DeleteIcon, Add as AddIcon } from '@mui/icons-material'
 
 import { routes } from 'common/routes'
 import { ModalStore } from 'stores/documents/ModalStore'
+import { AlertStore } from 'stores/AlertStore'
 
 const addIconStyles = {
   background: '#4ac3ff',
@@ -28,9 +24,14 @@ const iconStyles = {
   mr: 1,
 }
 
-export default function GridAppbar() {
-  const { showDeleteAll } = ModalStore
+export default observer(function GridAppbar() {
+  const { showDeleteAll, isSelected } = ModalStore
   const router = useRouter()
+  const { t } = useTranslation()
+
+  function deleteAllClickHandler() {
+    isSelected ? showDeleteAll() : AlertStore.show(t('documents:alerts:selectRow'), 'warning')
+  }
 
   return (
     <Toolbar
@@ -42,14 +43,19 @@ export default function GridAppbar() {
         height: '72px',
       }}>
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'start', pt: 1 }}>
-        <Typography>Всички документи</Typography>
+        <Typography>{t('documents:all')}</Typography>
       </Box>
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Tooltip title="Изтрий избраните">
-            <DeleteIcon onClick={showDeleteAll} sx={iconStyles} fontSize="medium" color="action" />
+          <Tooltip title={t('documents:cta:deleteSelected') || ''}>
+            <DeleteIcon
+              onClick={deleteAllClickHandler}
+              sx={iconStyles}
+              fontSize="medium"
+              color="action"
+            />
           </Tooltip>
-          <Tooltip title="Добави">
+          <Tooltip title={t('documents:cta:add') || ''}>
             <AddIcon
               sx={addIconStyles}
               fontSize="large"
@@ -62,4 +68,4 @@ export default function GridAppbar() {
       </Box>
     </Toolbar>
   )
-}
+})

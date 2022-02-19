@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import Link from 'next/link'
+import React, { useState } from 'react'
 import { UseQueryResult } from 'react-query'
-import { Alert, Box, Fab, Typography } from '@mui/material'
+import { useTranslation } from 'next-i18next'
+import { observer } from 'mobx-react'
+import { Box } from '@mui/material'
 import {
   DataGrid,
   GridColDef,
@@ -11,21 +12,21 @@ import {
   GridSelectionModel,
 } from '@mui/x-data-grid'
 
-import { useDocumentsList } from 'common/hooks/documents'
 import { DocumentResponse } from 'gql/document'
+import { useDocumentsList } from 'common/hooks/documents'
+import { ModalStore } from 'stores/documents/ModalStore'
 
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 import DeleteAllModal from './DeleteAllModal'
-import Actions from './Actions'
-import { observer } from 'mobx-react'
-import { useTranslation } from 'next-i18next'
+import GridActions from './GridActions'
 
 export default observer(function Grid() {
   const [selectedId, setSelectedId] = useState<string>('')
   const [selectionModel, setSelectionModel] = useState<GridRowId[]>([])
   const [pageSize, setPageSize] = useState(5)
   const { t } = useTranslation()
+  const { selectedPositive, selectedNegative } = ModalStore
 
   const { data }: UseQueryResult<DocumentResponse[]> = useDocumentsList()
 
@@ -72,7 +73,7 @@ export default observer(function Grid() {
       width: 200,
       align: 'right',
       renderCell: (cellValues: GridRenderCellParams) => {
-        return <Actions id={cellValues.row.id} setSelectedId={setSelectedId} />
+        return <GridActions id={cellValues.row.id} setSelectedId={setSelectedId} />
       },
     },
   ]
@@ -102,6 +103,7 @@ export default observer(function Grid() {
           disableSelectionOnClick
           checkboxSelection
           onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
+            newSelectionModel.length !== 0 ? selectedPositive() : selectedNegative()
             setSelectionModel(newSelectionModel)
           }}
         />

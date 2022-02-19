@@ -13,7 +13,7 @@ type Props = {
   setSelectedId: Dispatch<SetStateAction<string>>
 }
 
-export default function Actions({ id, setSelectedId }: Props) {
+export default function GridActions({ id, setSelectedId }: Props) {
   const { showDetails, showDelete } = ModalStore
 
   function detailsClickHandler() {
