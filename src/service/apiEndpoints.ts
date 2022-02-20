@@ -45,4 +45,7 @@ export const endpoints = {
     editBankAccount: (id: string) => <Endpoint>{ url: `/bankaccount/${id}`, method: 'PATCH' },
     deleteManyBankAccounts: <Endpoint>{ url: `/bankaccount/deletemany`, method: 'POST' },
   },
+  coordinators: {
+    coordinatorsList: <Endpoint>{ url: '/coordinator/list', method: 'GET' },
+  },
 }
