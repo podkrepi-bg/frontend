@@ -56,15 +56,6 @@ export const ControlIcons: React.FC<Props> = ({
         />
       }
       {
-        <EditIcon
-          sx={{ cursor: 'pointer' }}
-          color="primary"
-          onClick={() => {
-            router.push(route)
-          }}
-        />
-      }
-      {
         <DeleteIcon
           sx={{ cursor: 'pointer', opacity: 0.9 }}
           color="primary"
