@@ -4,7 +4,7 @@ import {
   People,
   ContactPhone,
   Payment,
-  CoPresent,
+  Group,
   FolderShared,
 } from '@mui/icons-material'
 import { routes } from 'common/routes'
@@ -15,6 +15,6 @@ export const menuItems = [
   { label: 'Доброволци', icon: People, href: routes.admin.supporters },
   { label: 'Контакти', icon: ContactPhone, href: routes.admin.infoRequests },
   { label: 'Плащания', icon: Payment, href: routes.admin.bankaccounts.index },
-  { label: 'Потребители', icon: CoPresent, href: '#' },
-  { label: 'Документи', icon: FolderShared, href: '#' },
+  { label: 'Потребители', icon: Group, href: '#' },
+  { label: 'Документи', icon: FolderShared, href: routes.admin.documents.index },
 ]

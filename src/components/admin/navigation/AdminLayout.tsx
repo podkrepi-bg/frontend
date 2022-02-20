@@ -119,7 +119,7 @@ const AppBar = styled(MuiAppBar, {
 }))
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop: string) => prop !== 'open' })(
-  ({ theme, open }) => ({
+  ({ theme, open }: { theme: Theme; open: boolean }) => ({
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
