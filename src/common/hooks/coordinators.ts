@@ -13,9 +13,9 @@ export function useCoordinatorsList() {
   })
 }
 
-export function useViewBankAccount(slug: string) {
+export function useViewCoordinatorResponse(slug: string) {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  return useQuery<CoordinatorResponse>(endpoints.bankAccounts.viewBankAccount(slug).url, {
+  return useQuery<CoordinatorResponse>(endpoints.coordinators.viewCoordinator(slug).url, {
     retry: 0,
     queryFn: authQueryFnFactory(keycloak?.token),
   })
