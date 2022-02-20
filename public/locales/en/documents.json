@@ -1,0 +1,34 @@
+{
+    "form-heading": "Add new document",
+    "edit-form-heading": "Edit document",
+    "all": "All documents",
+    "documents": "Documents",
+    "type": "Type",
+    "name": "Name",
+    "filename": "File name",
+    "filetype": "File type",
+    "description": "Description",
+    "sourceUrl": "Source url",
+    "deleteTitle": "Are you sure?",
+    "deleteContent": "This action will delete this item permanently!",
+    "deleteAllContent": "This action will delete selected items permanently!",
+    "actions": "Actions",
+    "alerts": {
+        "selectRow": "Please choose a row",
+        "create": "Document has been created successfully!",
+        "edit": "Document has been edited successfully!",
+        "delete": "Document has been deleted successfully!",
+        "deleteAll": "Documents have been deleted successfully!",
+        "error": "An error has occured! Please try again later."
+    },
+    "cta": {
+        "add": "Add",
+        "confirm": "Confirm",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "deleteSelected": "Delete selected rows",
+        "edit": "Edit",
+        "details": "Details",
+        "submit": "Submit"
+    }
+}
