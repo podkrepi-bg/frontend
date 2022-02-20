@@ -91,6 +91,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
   },
 })
 
+// @ts-expect-error bad MUI types for styled.div
 const DrawerHeader = styled('div')(({ theme }: { theme: Theme }) => ({
   display: 'flex',
   alignItems: 'center',
