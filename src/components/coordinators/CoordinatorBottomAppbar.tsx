@@ -71,7 +71,7 @@ export default observer(function BottomAppBar() {
               sx={addIconStyles}
               fontSize="large"
               onClick={() => {
-                router.push(routes.admin.bankaccounts.add)
+                router.push(routes.admin.coordinators.add)
               }}
             />
           </Tooltip>

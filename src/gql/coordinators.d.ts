@@ -4,3 +4,7 @@ export type CoordinatorResponse = {
   id: UUID
   person: Person
 }
+
+export type CoorinatorInput = {
+  personId: string
+}

@@ -48,5 +48,6 @@ export const endpoints = {
   coordinators: {
     coordinatorsList: <Endpoint>{ url: '/coordinator/list', method: 'GET' },
     viewCoordinator: (id: string) => <Endpoint>{ url: `/coordinator/${id}`, method: 'GET' },
+    postCoordinator: <Endpoint>{ url: '/coordinator', method: 'POST' },
   },
 }
