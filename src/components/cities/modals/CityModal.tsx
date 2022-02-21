@@ -15,20 +15,24 @@ export default function CityModal(props: any) {
   const { name, postalCode, open, setOpen } = props.modalProps
   return (
     <Modal open={open} onClose={() => setOpen(false)}>
-      <Dialog open={open} onClose={() => setOpen(false)} aria-labelledby="draggable-dialog-title">
+      <Dialog
+        align="center"
+        open={open}
+        onClose={() => setOpen(false)}
+        aria-labelledby="draggable-dialog-title">
         <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
-          City Details
+          Детайли
         </DialogTitle>
         <Divider />
         <DialogContent>
           <DialogContentText>
-            <Box fontSize={18}>City Name:{name}</Box>
-            <Box fontSize={18}>Postal Code: {postalCode}</Box>
+            <Box fontSize={18}>Град:{name}</Box>
+            <Box fontSize={18}>Пощенски код: {postalCode}</Box>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button variant="contained" onClick={() => setOpen(false)}>
-            Close
+            Затвори
           </Button>
         </DialogActions>
       </Dialog>
