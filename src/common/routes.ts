@@ -41,13 +41,6 @@ export const routes = {
     create: '/campaigns/create',
     viewCampaignBySlug: (slug: string) => `/campaigns/${slug}`,
   },
-  cities: {
-    home: '/cities',
-    create: '/cities/create',
-    viewCityById: (id: string) => `/cities/details/${id}`,
-    editCityById: (id: string) => `/cities/edit/${id}`,
-    deleteCity: `/cities`,
-  },
   profile: '/profile',
   register: '/register',
   aboutProject: '/about-project',
@@ -63,6 +56,12 @@ export const routes = {
       index: '/admin/bankaccounts',
       add: '/admin/bankaccounts/add',
       edit: (id: string | number) => `/admin/bankaccounts/edit/${id}`,
+    },
+    cities: {
+      home: '/admin/cities',
+      create: '/admin/cities/create',
+      viewCityById: (id: string) => `/admin/cities/details/${id}`,
+      editCityById: (id: string) => `/admin/cities/edit/${id}`,
     },
   },
   dev: {

@@ -9,6 +9,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
       'common',
       'auth',
       'validation',
+      'cities',
       'campaigns',
     ])),
   },

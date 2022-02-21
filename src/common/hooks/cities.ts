@@ -2,8 +2,8 @@ import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
 import { QueryClient, useQuery } from 'react-query'
 
-import { endpoints } from 'common/api-endpoints'
-import { authQueryFnFactory } from 'common/rest'
+import { endpoints } from 'service/apiEndpoints'
+import { authQueryFnFactory } from 'service/restRequests'
 import { CityResponse } from 'gql/cities'
 
 type City = {
@@ -35,7 +35,7 @@ export function useCitiesList() {
 export function useCountriesList() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   const counties = useQuery<Country[]>(
-    endpoints.country.countriesList.url,
+    endpoints.country.listCountries.url,
     authQueryFnFactory<Country[]>(keycloak?.token),
   )
   return counties.data
@@ -43,7 +43,7 @@ export function useCountriesList() {
 
 export async function prefetchCountryList(client: QueryClient, token?: string) {
   await client.prefetchQuery<Country[]>(
-    endpoints.country.countriesList.url,
+    endpoints.country.listCountries.url,
     authQueryFnFactory<Country[]>(token),
   )
 }

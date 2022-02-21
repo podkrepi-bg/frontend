@@ -9,7 +9,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import { Box, ButtonGroup, Toolbar, Tooltip, Typography } from '@mui/material'
 
 import { AlertStore } from 'stores/AlertStore'
-import { deleteCity } from 'common/rest'
+import { deleteCity } from 'service/city'
 import { useMutation } from 'react-query'
 import DeleteModal from './modals/DeleteModal'
 import CityModal from './modals/CityModal'
@@ -78,7 +78,7 @@ export default function CitiesGrid() {
   ]
 
   const handleEdit = (cellValues: any) => {
-    router.push(`/cities/edit/${cellValues.id}`)
+    router.push(`cities/edit/${cellValues.id}`)
   }
 
   const { t } = useTranslation()
@@ -100,7 +100,7 @@ export default function CitiesGrid() {
     try {
       selectedRows.forEach((row: any) => {
         mutation.mutateAsync({ id: row.id }).then(() => {
-          router.push(routes.cities.home)
+          router.push(routes.admin.cities.home)
           setIsDeleteSelectedModalOpen(false)
         })
       })
@@ -182,7 +182,7 @@ export default function CitiesGrid() {
             <Tooltip title="Сподели">
               <ShareIcon sx={iconStyles} fontSize="medium" color="action" />
             </Tooltip>
-            <Link href="/cities/create" passHref>
+            <Link href="/admin/cities/create" passHref>
               <AddIcon sx={addIconStyles} fontSize="large" />
             </Link>
           </Box>

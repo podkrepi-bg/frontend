@@ -1,14 +1,16 @@
-import Layout from './layout/Layout'
-import CityForm from './CityForm'
-import { Typography } from '@mui/material'
+import CityCreateForm from './CityCreateForm'
+import { Container } from '@mui/material'
+import AdminContainer from 'components/admin/navigation/AdminContainer'
+import AdminLayout from 'components/admin/navigation/AdminLayout'
 
-export default function CountryCreatePage() {
+export default function CityCreatePage() {
   return (
-    <Layout>
-      <Typography textAlign="center" variant="h3">
-        Създай нов град
-      </Typography>
-      <CityForm />
-    </Layout>
+    <AdminLayout>
+      <AdminContainer title={'Градове'}>
+        <Container maxWidth="md" sx={{ py: 5 }}>
+          <CityCreateForm />
+        </Container>
+      </AdminContainer>
+    </AdminLayout>
   )
 }
