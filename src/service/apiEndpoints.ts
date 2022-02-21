@@ -52,4 +52,10 @@ export const endpoints = {
     editCountry: (id: string) => <Endpoint>{ url: `/country/${id}`, method: 'PATCH' },
     deleteCountry: (id: string) => <Endpoint>{ url: `/country/${id}`, method: 'DELETE' },
   },
+  coordinators: {
+    coordinatorsList: <Endpoint>{ url: '/coordinator/list', method: 'GET' },
+    viewCoordinator: (id: string) => <Endpoint>{ url: `/coordinator/${id}`, method: 'GET' },
+    postCoordinator: <Endpoint>{ url: '/coordinator', method: 'POST' },
+    deleteCoordinator: (id: string) => <Endpoint>{ url: `/coordinator/${id}`, method: 'DELETE' },
+  },
 }
