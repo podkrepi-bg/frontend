@@ -63,9 +63,9 @@ export const routes = {
       edit: (slug: string) => `/admin/documents/${slug}/edit`,
     },
     countries: {
-      index: '/admin/country',
-      create: '/admin/country/create',
-      view: (id: string) => `/admin/country/${id}`,
+      index: '/admin/countries',
+      create: '/admin/countries/create',
+      view: (id: string) => `/admin/countries/${id}`,
     },
   },
   dev: {
