@@ -22,7 +22,7 @@ import LinkButton from 'components/common/LinkButton'
 const useStyles = makeStyles({
   container: {
     maxWidth: '700px',
-    margin: '0 auto',
+    margin: '80px auto 0 auto',
   },
 })
 
