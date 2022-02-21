@@ -13,6 +13,7 @@ import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
 import { ContactRequestResponse, ContactRequestInput } from 'gql/contact'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { DocumentInput, DocumentResponse } from 'gql/document'
+import { CountryInput, CountryResponse } from 'gql/countries'
 
 import { endpoints } from './apiEndpoints'
 
@@ -112,6 +113,43 @@ export function useDeleteManyDocuments(idsToDelete: string[]) {
     return await apiClient.post<DocumentResponse, AxiosResponse<DocumentResponse>>(
       endpoints.documents.deleteDocuments.url,
       idsToDelete,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export const useCreateCountry = () => {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (data: CountryInput) =>
+    await apiClient.post<CountryInput, AxiosResponse<CountryResponse>>(
+      endpoints.country.createCountry.url,
+      data,
+      authConfig(keycloak?.token),
+    )
+}
+
+export const getCountry = async (id: string) => {
+  return await apiClient.get<string, AxiosResponse<CountryResponse>>(
+    endpoints.country.viewCountry(id).url,
+  )
+}
+
+export const useEditCountry = () => {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async ({ id, data }: { id: string; data: CountryInput }) => {
+    return await apiClient.patch<CountryResponse, AxiosResponse<CountryResponse>>(
+      endpoints.country.editCountry(id).url,
+      data,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export const useDeleteCountry = () => {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (id: string) => {
+    return await apiClient.delete<string, AxiosResponse<CountryResponse>>(
+      endpoints.country.deleteCountry(id).url,
       authConfig(keycloak?.token),
     )
   }

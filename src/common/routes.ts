@@ -67,6 +67,11 @@ export const routes = {
       create: '/admin/documents/create',
       edit: (slug: string) => `/admin/documents/${slug}/edit`,
     },
+    countries: {
+      index: '/admin/countries',
+      create: '/admin/countries/create',
+      view: (id: string) => `/admin/countries/${id}`,
+    },
   },
   dev: {
     openData: '/open-data',
