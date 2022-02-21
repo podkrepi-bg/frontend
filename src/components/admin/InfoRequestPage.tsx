@@ -1,20 +1,21 @@
 import React from 'react'
-import { Container, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-import Layout from 'components/layout/Layout'
+import DetailsModal from 'components/modal/DetailsModal'
 
 import InfoRequestGrid from './InfoRequestGrid'
+import AdminLayout from './navigation/AdminLayout'
+import AdminContainer from './navigation/AdminContainer'
 
 export default function InfoRequestPage() {
   const { t } = useTranslation()
 
   return (
-    <Layout>
-      <Container maxWidth="lg">
-        <Typography variant="h3">{t('nav.admin.info-requests')}</Typography>
+    <AdminLayout>
+      <AdminContainer title={t('nav.admin.info-requests')}>
         <InfoRequestGrid />
-      </Container>
-    </Layout>
+        <DetailsModal />
+      </AdminContainer>
+    </AdminLayout>
   )
 }

@@ -5,6 +5,7 @@ import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 import { SwipeableDrawer, Hidden, Box, Grid, Button } from '@mui/material'
 
+import { isAdmin } from 'common/util/roles'
 import { routes, staticUrls } from 'common/routes'
 import { useSession } from 'common/util/useSession'
 import LinkButton from 'components/common/LinkButton'
@@ -44,7 +45,7 @@ type NavDeckProps = {
 }
 
 export const AuthLinks = () => {
-  const { session } = useSession()
+  const { keycloak, session } = useSession()
   const { t } = useTranslation()
 
   if (session) {
@@ -55,6 +56,13 @@ export const AuthLinks = () => {
             {t('nav.profile')}
           </LinkButton>
         </Grid>
+        {keycloak?.authenticated && isAdmin(keycloak) && (
+          <Grid item>
+            <Button fullWidth variant="outlined" href={routes.admin.index}>
+              {t('nav.admin.index')}
+            </Button>
+          </Grid>
+        )}
         <Grid item>
           <LinkButton fullWidth variant="outlined" href={routes.logout}>
             {t('nav.logout')}
@@ -120,17 +128,16 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
                   </LinkButton>
                 </Grid>
               ))}
+              <Grid item>
+                <Button href={staticUrls.blog} target="_blank" fullWidth variant="outlined">
+                  {t('nav.blog')}
+                </Button>
+              </Grid>
               <Grid className={classes.accordion}>
                 <DonationMenuMobile />
               </Grid>
-              <Button
-                href={staticUrls.blog}
-                target="_blank"
-                color="primary"
-                style={{ whiteSpace: 'nowrap' }}
-                variant="text">
-                {t('nav.blog')}
-              </Button>
+              <AuthLinks />
+
               <Box my={4} textAlign="center">
                 <LocaleButton />
               </Box>
