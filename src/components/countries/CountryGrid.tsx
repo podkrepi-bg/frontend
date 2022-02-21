@@ -5,7 +5,7 @@ import { useMutation } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { IconButton, Typography } from '@mui/material'
+import { IconButton, Tooltip, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import DeleteIcon from '@mui/icons-material/Delete'
 import AddIcon from '@mui/icons-material/Add'
@@ -211,6 +211,22 @@ export default function CountryGrid() {
     },
   ]
 
+  const addIconStyles = {
+    background: '#4ac3ff',
+    borderRadius: '50%',
+    cursor: 'pointer',
+    padding: 1.2,
+    boxShadow: 3,
+  }
+  const iconStyles = {
+    background: 'white',
+    borderRadius: '50%',
+    cursor: 'pointer',
+    padding: 0.5,
+    boxShadow: 3,
+    mr: 1,
+  }
+
   return (
     <>
       <InfoDialog open={openInfo} closeFn={closeInfoDialog} country={country} />
@@ -232,17 +248,21 @@ export default function CountryGrid() {
             {t('description')}
           </Typography>
           <section className={classes.gridMainActionsBtns}>
-            <IconButton onClick={openDeleteRowsDialog} className={classes.gridBtn}>
-              <DeleteIcon
-                sx={{
-                  fontSize: '1.4rem',
-                }}
-              />
-            </IconButton>
-            <Link href={routes.admin.countries.create} passHref>
-              <IconButton className={classes.gridAddBtn}>
-                <AddIcon />
+            <Tooltip title={t('tooltips.delete') || ''}>
+              <IconButton onClick={openDeleteRowsDialog} className={classes.gridBtn}>
+                <DeleteIcon
+                  sx={{
+                    fontSize: '1.4rem',
+                  }}
+                />
               </IconButton>
+            </Tooltip>
+            <Link href={routes.admin.countries.create} passHref>
+              <Tooltip title={t('tooltips.add') || ''}>
+                <IconButton className={classes.gridAddBtn}>
+                  <AddIcon />
+                </IconButton>
+              </Tooltip>
             </Link>
           </section>
         </div>
