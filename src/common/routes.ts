@@ -57,6 +57,11 @@ export const routes = {
       add: '/admin/bankaccounts/add',
       edit: (id: string | number) => `/admin/bankaccounts/edit/${id}`,
     },
+    coordinators: {
+      index: '/admin/coordinators',
+      add: '/admin/coordinators/add',
+      edit: (id: string | number) => `/admin/coordinators/edit/${id}`,
+    },
     documents: {
       index: '/admin/documents',
       create: '/admin/documents/create',
