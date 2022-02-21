@@ -62,17 +62,14 @@ export const routes = {
       create: '/admin/documents/create',
       edit: (slug: string) => `/admin/documents/${slug}/edit`,
     },
+    countries: {
+      index: '/admin/country',
+      create: '/admin/country/create',
+      view: (id: string) => `/admin/country/${id}`,
+    },
   },
   dev: {
     openData: '/open-data',
     apiDocs: '/docs',
-  },
-  dashboard: {
-    index: '/dashboard',
-    country: {
-      index: '/dashboard/country',
-      view: (id: string) => `/dashboard/country/${id}`,
-      create: '/dashboard/country/create',
-    },
   },
 }
