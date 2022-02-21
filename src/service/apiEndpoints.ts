@@ -45,6 +45,13 @@ export const endpoints = {
     editBankAccount: (id: string) => <Endpoint>{ url: `/bankaccount/${id}`, method: 'PATCH' },
     deleteManyBankAccounts: <Endpoint>{ url: `/bankaccount/deletemany`, method: 'POST' },
   },
+  country: {
+    listCountries: <Endpoint>{ url: '/country/list', method: 'GET' },
+    createCountry: <Endpoint>{ url: '/country/create-country', method: 'POST' },
+    viewCountry: (id: string) => <Endpoint>{ url: `/country/${id}`, method: 'GET' },
+    editCountry: (id: string) => <Endpoint>{ url: `/country/${id}`, method: 'PATCH' },
+    deleteCountry: (id: string) => <Endpoint>{ url: `/country/${id}`, method: 'DELETE' },
+  },
   coordinators: {
     coordinatorsList: <Endpoint>{ url: '/coordinator/list', method: 'GET' },
     viewCoordinator: (id: string) => <Endpoint>{ url: `/coordinator/${id}`, method: 'GET' },
