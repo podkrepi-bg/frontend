@@ -29,6 +29,22 @@ export const endpoints = {
     recurringPrices: <Endpoint>{ url: '/donation/prices/recurring', method: 'GET' },
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
   },
+  documents: {
+    documentsList: <Endpoint>{ url: '/document', method: 'GET' },
+    getDocument: (slug: string) => <Endpoint>{ url: `/document/${slug}`, method: 'GET' },
+    createDocument: <Endpoint>{ url: '/document', method: 'POST' },
+    editDocument: (slug: string) => <Endpoint>{ url: `/document/${slug}`, method: 'PUT' },
+    deleteDocument: (slug: string) => <Endpoint>{ url: `/document/${slug}`, method: 'DELETE' },
+    deleteDocuments: <Endpoint>{ url: '/document/delete-many', method: 'POST' },
+  },
+  bankAccounts: {
+    bankAccountList: <Endpoint>{ url: '/bankaccount', method: 'GET' },
+    viewBankAccount: (id: string) => <Endpoint>{ url: `/bankaccount/${id}`, method: 'GET' },
+    deleteBankAccount: (id: string) => <Endpoint>{ url: `/bankaccount/${id}`, method: 'DELETE' },
+    postBankAccount: <Endpoint>{ url: '/bankaccount', method: 'POST' },
+    editBankAccount: (id: string) => <Endpoint>{ url: `/bankaccount/${id}`, method: 'PATCH' },
+    deleteManyBankAccounts: <Endpoint>{ url: `/bankaccount/deletemany`, method: 'POST' },
+  },
   country: {
     listCountries: <Endpoint>{ url: '/country/list', method: 'GET' },
     createCountry: <Endpoint>{ url: '/country/create-country', method: 'POST' },

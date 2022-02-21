@@ -58,6 +58,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     stepper: { backgroundColor: 'transparent', marginBottom: theme.spacing(8) },
     content: { display: 'flex', justifyContent: 'center' },
+    actionButtons: {
+      '& button': {
+        minWidth: theme.spacing(12),
+      },
+    },
   }),
 )
 
@@ -282,7 +287,7 @@ export default function SupportForm() {
             <Grid item xs={12} className={classes.instructions}>
               {steps[activeStep].component}
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} className={classes.actionButtons}>
               <Actions
                 disableBack={activeStep === 0}
                 onBack={handleBack}

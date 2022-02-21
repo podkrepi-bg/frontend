@@ -1,0 +1,14 @@
+{
+    "panel": {
+        "nav": {
+            "home": "Home",
+            "tasks": "Tasks",
+            "campaigns": "Campaigns",
+            "volunteers": "Volunteers",
+            "payments": "Payments",
+            "users": "Users",
+            "documents": "Documents",
+            "settings": "Settings"
+        }
+    }
+}
