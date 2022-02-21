@@ -41,6 +41,11 @@ type CountryFormProps = {
   id?: string
 }
 
+type CountryEditInput = {
+  id: string
+  data: CountryInput
+}
+
 export default function CountryForm({ initialValues = defaults, id }: CountryFormProps) {
   //if (id) -> edit form, else -> create form
   const { t } = useTranslation('countries')
@@ -54,10 +59,7 @@ export default function CountryForm({ initialValues = defaults, id }: CountryFor
     onError: () => AlertStore.show(t('alerts.new-row.error'), 'error'),
     onSuccess: () => AlertStore.show(t('alerts.new-row.success'), 'success'),
   })
-  type CountryEditInput = {
-    id: string
-    data: CountryInput
-  }
+
   const editMutation = useMutation<
     AxiosResponse<CountryResponse>,
     AxiosError<ApiErrors>,
