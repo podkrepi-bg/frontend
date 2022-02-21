@@ -18,5 +18,5 @@ export const menuItems = [
   { label: 'Плащания', icon: Payment, href: routes.admin.bankaccounts.index },
   { label: 'Потребители', icon: Group, href: '#' },
   { label: 'Документи', icon: FolderShared, href: routes.admin.documents.index },
-  { label: 'Страни', icon: Public, href: routes.admin.countries.index },
+  { label: 'Държави', icon: Public, href: routes.admin.countries.index },
 ]
