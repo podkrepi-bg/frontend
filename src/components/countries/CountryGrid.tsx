@@ -211,22 +211,6 @@ export default function CountryGrid() {
     },
   ]
 
-  const addIconStyles = {
-    background: '#4ac3ff',
-    borderRadius: '50%',
-    cursor: 'pointer',
-    padding: 1.2,
-    boxShadow: 3,
-  }
-  const iconStyles = {
-    background: 'white',
-    borderRadius: '50%',
-    cursor: 'pointer',
-    padding: 0.5,
-    boxShadow: 3,
-    mr: 1,
-  }
-
   return (
     <>
       <InfoDialog open={openInfo} closeFn={closeInfoDialog} country={country} />
