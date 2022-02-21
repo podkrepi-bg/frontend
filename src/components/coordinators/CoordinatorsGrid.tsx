@@ -8,7 +8,7 @@ import {
 import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
-import { useQueryClient, UseQueryResult } from 'react-query'
+import { useMutation, useQueryClient, UseQueryResult } from 'react-query'
 
 import { routes } from 'common/routes'
 import { apiClient } from 'service/apiClient'
@@ -19,12 +19,24 @@ import ConfirmationDialog from 'components/common/ConfirmationDialog'
 
 import { ControlIcons, commonProps } from './CoordinatorsGridHelper'
 import { CoordinatorResponse } from 'gql/coordinators'
+import { useDeleteCoordinatorRequest } from 'service/coordinator'
+import { AxiosError, AxiosResponse } from 'axios'
+import { useTranslation } from 'next-i18next'
+import { AlertStore } from 'stores/AlertStore'
+import { ApiErrors } from 'service/apiErrors'
 
 export default observer(function CoordinatorsGrid() {
   const queryClient = useQueryClient()
   const router = useRouter()
   const [multipleDelete, setMultipleDelete] = useState<GridRowId[]>([])
   const [id, setId] = useState('')
+  const { t } = useTranslation()
+
+  const mutation = useMutation<AxiosResponse<CoordinatorResponse>, AxiosError<ApiErrors>, string>({
+    mutationFn: useDeleteCoordinatorRequest(),
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
+  })
 
   //CONFIRMATION DIALOG HANDLERS
   const handleClickOpen = () => {
@@ -36,22 +48,11 @@ export default observer(function CoordinatorsGrid() {
 
   //DELETE HANDLER CHECKS IF ONE OR MORE ITEMS ARE SELECTED
   const handleDelete = () => {
-    const params: [string, GridRowId[]] | [string, null] =
-      multipleDelete.length > 0
-        ? [endpoints.bankAccounts.deleteManyBankAccounts.url, multipleDelete]
-        : [endpoints.bankAccounts.deleteBankAccount(id).url, null]
-    const deleteRecords = async () => {
-      try {
-        params[1] === null
-          ? await apiClient.delete(params[0])
-          : await apiClient.post(params[0], params[1])
-        handleClose()
-        queryClient.invalidateQueries(endpoints.coordinators.coordinatorsList.url)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    deleteRecords()
+    const ids = multipleDelete.length > 0 ? multipleDelete : [id]
+    Promise.all(ids.map((e) => mutation.mutateAsync(e as string))).then(() => {
+      handleClose()
+      queryClient.invalidateQueries(endpoints.coordinators.coordinatorsList.url)
+    })
   }
 
   const columns: GridColumns = [

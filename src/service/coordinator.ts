@@ -18,3 +18,13 @@ export const useCreateCoordinatorRequest = () => {
     )
   }
 }
+
+export const useDeleteCoordinatorRequest = () => {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (data: string) => {
+    return await apiClient.delete<string, AxiosResponse<CoordinatorResponse>>(
+      endpoints.coordinators.deleteCoordinator(data).url,
+      authConfig(keycloak?.token),
+    )
+  }
+}
