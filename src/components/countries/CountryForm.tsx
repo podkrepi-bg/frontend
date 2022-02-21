@@ -77,7 +77,7 @@ export default function CountryForm({ initialValues = defaults, id }: CountryFor
     try {
       const data = {
         name: values.name,
-        countryCode: values.countryCode,
+        countryCode: values.countryCode.toLocaleUpperCase(),
       }
       if (id) {
         await editMutation.mutateAsync({ id, data })
