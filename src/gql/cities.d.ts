@@ -23,15 +23,15 @@ export type CityResponse = {
 }
 
 export type CityFormData = {
-  name: string
-  postalCode: string
-  countryId: string
+  name?: string
+  postalCode?: string
+  countryId?: string
 }
 
 export type CityInput = {
-  name: string
-  postalCode: string
-  countryId: string
+  name?: string
+  postalCode?: string
+  countryId?: string
 }
 
 type EditCityProp = {

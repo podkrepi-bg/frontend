@@ -4,7 +4,7 @@ import { Modal } from '@mui/material'
 import { useRouter } from 'next/router'
 import { routes } from 'common/routes'
 import { useMutation } from 'react-query'
-import { deleteCity } from 'common/rest'
+import { deleteCity } from 'service/city'
 import { AlertStore } from 'stores/AlertStore'
 import { useTranslation } from 'next-i18next'
 
@@ -21,12 +21,12 @@ export default function DeleteModal(props: any) {
   const handleDeleteClick = (id: string) => async () => {
     try {
       await mutation.mutateAsync({ id: id })
-      router.push(routes.cities.home)
+      router.push(routes.admin.cities.home)
     } catch (error) {
       AlertStore.show(t('common:alert.error'), 'error')
     }
     setDeleteOpen(false)
-    router.push(routes.cities.home)
+    router.push(routes.admin.cities.home)
   }
 
   return (

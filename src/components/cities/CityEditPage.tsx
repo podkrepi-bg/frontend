@@ -1,19 +1,20 @@
-import { useCity } from 'common/hooks/cities'
-
-import Layout from './layout/Layout'
-import CityForm from './CityForm'
-import { Typography } from '@mui/material'
+import CityForm from './CityEditForm'
+import { Container } from '@mui/material'
+import AdminLayout from 'components/admin/navigation/AdminLayout'
+import AdminContainer from 'components/admin/navigation/AdminContainer'
+import { useRouter } from 'next/router'
 
 type Props = { id: string }
-export default function CountryEditPage({ id }: Props) {
-  const { data } = useCity(id)
+export default function CityEditPage() {
+  const router = useRouter()
 
   return (
-    <Layout>
-      <Typography textAlign="center" variant="h3">
-        Проемни
-      </Typography>
-      <CityForm initialValues={data} id={id} />
-    </Layout>
+    <AdminLayout>
+      <AdminContainer title={'Градове'}>
+        <Container maxWidth="md" sx={{ py: 5 }}>
+          <CityForm id={`${router.query.id}`} />
+        </Container>
+      </AdminContainer>
+    </AdminLayout>
   )
 }

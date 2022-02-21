@@ -7,6 +7,7 @@ import {
   CoPresent,
   FolderShared,
 } from '@mui/icons-material'
+import LocationCityRoundedIcon from '@mui/icons-material/LocationCityRounded'
 import { routes } from 'common/routes'
 
 export const menuItems = [
@@ -17,4 +18,5 @@ export const menuItems = [
   { label: 'Плащания', icon: Payment, href: routes.admin.bankaccounts.index },
   { label: 'Потребители', icon: CoPresent, href: '#' },
   { label: 'Документи', icon: FolderShared, href: '#' },
+  { label: 'Градове', icon: LocationCityRoundedIcon, href: routes.admin.cities.home },
 ]
