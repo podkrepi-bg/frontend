@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { IconButton } from '@mui/material'
+import { useTranslation } from 'next-i18next'
+import { IconButton, Tooltip } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import PreviewIcon from '@mui/icons-material/Preview'
@@ -14,19 +15,27 @@ type Props = {
 }
 
 const ActionsButtons = ({ id, name, loadInfo, openDialog }: Props) => {
+  const { t } = useTranslation('countries')
+
   return (
     <>
-      <IconButton color="primary" onClick={() => loadInfo(id)}>
-        <PreviewIcon />
-      </IconButton>
-      <Link href={routes.admin.countries.view(id)} passHref>
-        <IconButton color="primary">
-          <EditIcon />
+      <Tooltip title={t('tooltips.view') || ''}>
+        <IconButton color="primary" onClick={() => loadInfo(id)}>
+          <PreviewIcon />
         </IconButton>
+      </Tooltip>
+      <Link href={routes.admin.countries.view(id)} passHref>
+        <Tooltip title={t('tooltips.edit') || ''}>
+          <IconButton color="primary">
+            <EditIcon />
+          </IconButton>
+        </Tooltip>
       </Link>
-      <IconButton color="primary" onClick={() => openDialog(id, name)}>
-        <DeleteIcon />
-      </IconButton>
+      <Tooltip title={t('tooltips.delete') || ''}>
+        <IconButton color="primary" onClick={() => openDialog(id, name)}>
+          <DeleteIcon />
+        </IconButton>
+      </Tooltip>
     </>
   )
 }
