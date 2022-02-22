@@ -7,6 +7,7 @@ import {
   Group,
   FolderShared,
   Public,
+  Paid,
 } from '@mui/icons-material'
 import { routes } from 'common/routes'
 
@@ -19,4 +20,5 @@ export const menuItems = [
   { label: 'Потребители', icon: Group, href: '#' },
   { label: 'Документи', icon: FolderShared, href: routes.admin.documents.index },
   { label: 'Държави', icon: Public, href: routes.admin.countries.index },
+  { label: 'Разходи', icon: Paid, href: routes.admin.expenses.index },
 ]
