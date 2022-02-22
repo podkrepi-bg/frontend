@@ -58,4 +58,12 @@ export const endpoints = {
     postCoordinator: <Endpoint>{ url: '/coordinator', method: 'POST' },
     deleteCoordinator: (id: string) => <Endpoint>{ url: `/coordinator/${id}`, method: 'DELETE' },
   },
+  expenses: {
+    listExpenses: <Endpoint>{ url: '/expenses/list', method: 'GET' },
+    createExpense: <Endpoint>{ url: '/expenses/create-expense', method: 'POST' },
+    viewExpense: (id: string) => <Endpoint>{ url: `/expenses/${id}`, method: 'GET' },
+    editExpense: (id: string) => <Endpoint>{ url: `/expenses/${id}`, method: 'PATCH' },
+    deleteExpense: (id: string) => <Endpoint>{ url: `/expenses/${id}`, method: 'DELETE' },
+    deleteExpenses: <Endpoint>{ url: `/expenses`, method: 'DELETE' },
+  },
 }
