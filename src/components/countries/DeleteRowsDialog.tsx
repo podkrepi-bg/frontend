@@ -12,7 +12,7 @@ const DeleteRowsDialog = ({ open, itemsCount, closeFn, deleteRows }: Props) => {
   const { t } = useTranslation('countries')
 
   return (
-    <Dialog open={open} onClose={closeFn} maxWidth="xs">
+    <Dialog open={open} onClose={closeFn} maxWidth="xs" disableScrollLock>
       <DialogTitle>
         {t('alerts.delete-rows.question')} ({itemsCount}{' '}
         {itemsCount == 1 ? t('alerts.delete-rows.count') : t('alerts.delete-rows.counts')})?

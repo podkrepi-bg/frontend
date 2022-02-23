@@ -5,22 +5,24 @@ import { useMutation } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { observer } from 'mobx-react'
 import { IconButton, Tooltip, Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import DeleteIcon from '@mui/icons-material/Delete'
 import AddIcon from '@mui/icons-material/Add'
 
-import { useCountriesList } from 'common/hooks/countries'
+import { useCountriesList, useCountry } from 'common/hooks/countries'
 import { routes } from 'common/routes'
 import { CountryResponse } from 'gql/countries'
 import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
-import { useDeleteCountry, getCountry } from 'service/restRequests'
+import { ModalStore } from 'stores/dashboard/ModalStore'
+import { useDeleteCountry } from 'service/restRequests'
 
 import InfoDialog from './InfoDialog'
 import DeleteRowDialog from './DeleteRowDialog'
 import DeleteRowsDialog from './DeleteRowsDialog'
-import ActionsButtons from './ActionButtons'
+import GridActions from '../admin/GridActions'
 
 const useStyles = makeStyles({
   gridWrapper: {
@@ -78,37 +80,21 @@ const useStyles = makeStyles({
   },
 })
 
-const initialValues: CountryResponse = {
-  id: '',
-  name: '',
-  countryCode: '',
-}
-
-export default function CountryGrid() {
-  const [openRowDel, setOpenRowDel] = React.useState<boolean>(false)
+export default observer(function CountryGrid() {
   const [openRowsDel, setOpenRowsDel] = React.useState<boolean>(false)
-  const [openInfo, setOpenInfo] = React.useState<boolean>(false)
+  const { isDetailsOpen, hideDetails, isDeleteOpen, showDelete, hideDelete } = ModalStore
   const [selected, setSelected] = React.useState({
     id: '',
     name: '',
-    ids: [''],
   })
-  const [country, setCountry] = React.useState<CountryResponse>(initialValues)
+  const [selectedManyIds, setSelectedManyIds] = React.useState([''])
+  const { data: country } = useCountry(selected.id)
   const [pageSize, setPageSize] = React.useState<number>(10)
 
   const { data } = useCountriesList()
   const classes = useStyles()
   const router = useRouter()
   const { t } = useTranslation('countries')
-
-  const infoMutation = useMutation<AxiosResponse<CountryResponse>, AxiosError<ApiErrors>, string>({
-    mutationFn: getCountry,
-    onError: () => AlertStore.show(t('alerts.load.error'), 'error'),
-    onSuccess: ({ data }) => {
-      setCountry(data)
-      setOpenInfo(true)
-    },
-  })
 
   const delMutation = useMutation<AxiosResponse<CountryResponse>, AxiosError<ApiErrors>, string>({
     mutationFn: useDeleteCountry(),
@@ -118,17 +104,8 @@ export default function CountryGrid() {
     },
   })
 
-  const openDeleteRowDialog = (id: string, name: string) => {
-    setSelected({ ...selected, id, name })
-    setOpenRowDel(true)
-  }
-
-  const closeDeleteRowDialog = () => {
-    setOpenRowDel(false)
-  }
-
   const openDeleteRowsDialog = () => {
-    if (selected.ids.length == 0 || selected.ids[0] == '') {
+    if (selectedManyIds.length == 0 || selectedManyIds[0] == '') {
       return
     }
     setOpenRowsDel(true)
@@ -138,21 +115,9 @@ export default function CountryGrid() {
     setOpenRowsDel(false)
   }
 
-  const loadCountryInfo = async (id: string) => {
-    try {
-      await infoMutation.mutateAsync(id)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  const closeInfoDialog = () => {
-    setOpenInfo(false)
-  }
-
   const deleteRow = async () => {
     try {
-      closeDeleteRowDialog()
+      hideDelete()
       await delMutation.mutateAsync(selected.id)
       router.push(routes.admin.countries.index)
     } catch (err) {
@@ -162,15 +127,15 @@ export default function CountryGrid() {
 
   const selectMultipleRows = (ids: GridSelectionModel) => {
     const idsToStr = ids.map((id) => id.toString())
-    setSelected({ ...selected, ids: idsToStr })
+    setSelectedManyIds(idsToStr)
   }
 
   const deleteRows = async () => {
     try {
       closeDeleteRowsDialog()
-      await Promise.all(selected.ids.map((id) => delMutation.mutateAsync(id)))
+      await Promise.all(selectedManyIds.map((id) => delMutation.mutateAsync(id)))
       AlertStore.show(t('alerts.delete-rows.success'), 'success')
-      setSelected({ ...selected, ids: [] })
+      setSelectedManyIds([])
       router.push(routes.admin.countries.index)
     } catch (err) {
       AlertStore.show(t('alerts.delete-rows.error'), 'error')
@@ -198,11 +163,11 @@ export default function CountryGrid() {
       headerName: t('fields.action'),
       headerAlign: 'left',
       renderCell: (p) => (
-        <ActionsButtons
+        <GridActions
           id={p.row.id}
           name={p.row.name}
-          loadInfo={loadCountryInfo}
-          openDialog={openDeleteRowDialog}
+          setSelected={setSelected}
+          editLink={routes.admin.countries.view(p.row.id)}
         />
       ),
       width: 120,
@@ -213,10 +178,10 @@ export default function CountryGrid() {
 
   return (
     <>
-      <InfoDialog open={openInfo} closeFn={closeInfoDialog} country={country} />
+      <InfoDialog open={isDetailsOpen} closeFn={hideDetails} country={country} />
       <DeleteRowDialog
-        open={openRowDel}
-        closeFn={closeDeleteRowDialog}
+        open={isDeleteOpen}
+        closeFn={hideDelete}
         countryName={selected.name}
         deleteRow={deleteRow}
       />
@@ -224,7 +189,7 @@ export default function CountryGrid() {
         open={openRowsDel}
         closeFn={closeDeleteRowsDialog}
         deleteRows={deleteRows}
-        itemsCount={selected.ids.length}
+        itemsCount={selectedManyIds.length}
       />
       <div className={classes.gridWrapper}>
         <div className={classes.gridTitleWrapper}>
@@ -267,4 +232,4 @@ export default function CountryGrid() {
       </div>
     </>
   )
-}
+})
