@@ -6,7 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import ImportExportIcon from '@mui/icons-material/ImportExport'
 
 import { routes } from 'common/routes'
-import { ModalStore } from 'stores/documents/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 
 type Props = {
   id: string

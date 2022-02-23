@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next'
 
 import { DocumentResponse } from 'gql/document'
 import { useDocument } from 'common/hooks/documents'
-import { ModalStore } from 'stores/documents/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 
 type Props = {
   id: string

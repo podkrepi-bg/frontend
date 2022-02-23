@@ -9,7 +9,7 @@ import { DocumentResponse } from 'gql/document'
 import { ApiErrors } from 'service/apiErrors'
 import { endpoints } from 'service/apiEndpoints'
 import { useDeleteDocument } from 'service/restRequests'
-import { ModalStore } from 'stores/documents/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 
 type Props = {
