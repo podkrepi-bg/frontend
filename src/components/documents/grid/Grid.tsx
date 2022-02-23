@@ -15,11 +15,12 @@ import {
 import { DocumentResponse } from 'gql/document'
 import { useDocumentsList } from 'common/hooks/documents'
 import { ModalStore } from 'stores/dashboard/ModalStore'
+import { routes } from 'common/routes'
 
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 import DeleteAllModal from './DeleteAllModal'
-import GridActions from './GridActions'
+import GridActions from '../../admin/GridActions'
 
 export default observer(function Grid() {
   const [selectedId, setSelectedId] = useState<string>('')
@@ -73,7 +74,13 @@ export default observer(function Grid() {
       width: 200,
       align: 'right',
       renderCell: (cellValues: GridRenderCellParams) => {
-        return <GridActions id={cellValues.row.id} setSelectedId={setSelectedId} />
+        return (
+          <GridActions
+            id={cellValues.row.id}
+            setSelectedId={setSelectedId}
+            editLink={routes.admin.documents.edit(cellValues.row.id)}
+          />
+        )
       },
     },
   ]
