@@ -67,12 +67,13 @@ export default observer(function Grid() {
       field: 'sourceUrl',
       headerName: t('documents:sourceUrl'),
       ...commonProps,
-      width: 450,
+      flex: 1,
     },
     {
-      field: t('documents:actions'),
-      width: 200,
-      align: 'right',
+      field: 'actions',
+      headerName: t('documents:actions'),
+      width: 120,
+      type: 'actions',
       renderCell: (cellValues: GridRenderCellParams) => {
         return (
           <GridActions
