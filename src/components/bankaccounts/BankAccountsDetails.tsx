@@ -5,7 +5,7 @@ import { observer } from 'mobx-react'
 import { BankAccountResponse } from 'gql/bankaccounts'
 import { useViewBankAccount } from 'common/hooks/bankaccounts'
 import CloseModalButton from 'components/common/CloseModalButton'
-import { ModalStore } from 'stores/dashboard/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStoreOld'
 
 export default observer(function BankAccountDetails() {
   const containerStyles: SxProps<Theme> = {

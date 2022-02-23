@@ -13,7 +13,7 @@ import { useMutation, useQueryClient, UseQueryResult } from 'react-query'
 import { routes } from 'common/routes'
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
-import { ModalStore } from 'stores/dashboard/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStoreOld'
 import { useCoordinatorsList } from 'common/hooks/coordinators'
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
 

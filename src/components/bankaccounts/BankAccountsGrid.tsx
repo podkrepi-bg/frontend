@@ -14,7 +14,7 @@ import { routes } from 'common/routes'
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
 import { BankAccountResponse } from 'gql/bankaccounts'
-import { ModalStore } from 'stores/dashboard/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStoreOld'
 import { useBankAccountsList } from 'common/hooks/bankaccounts'
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
 

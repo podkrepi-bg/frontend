@@ -5,7 +5,7 @@ import { observer } from 'mobx-react'
 import { CoordinatorResponse } from 'gql/coordinators'
 import { useViewCoordinatorResponse } from 'common/hooks/coordinators'
 import CloseModalButton from 'components/common/CloseModalButton'
-import { ModalStore } from 'stores/dashboard/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStoreOld'
 
 export default observer(function CoordinatorDetails() {
   const containerStyles: SxProps<Theme> = {
