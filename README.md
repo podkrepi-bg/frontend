@@ -32,6 +32,7 @@
 ```shell
 git clone git@github.com:podkrepi-bg/frontend.git
 cd frontend
+yarn
 
 # Symlink dev environment on unix
 ln -hfs .env.local.example .env.local
