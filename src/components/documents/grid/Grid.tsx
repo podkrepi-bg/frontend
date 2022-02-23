@@ -77,6 +77,7 @@ export default observer(function Grid() {
       headerName: t('documents:actions'),
       width: 120,
       type: 'actions',
+      headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => {
         return (
           <GridActions
