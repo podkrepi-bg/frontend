@@ -16,6 +16,7 @@ type Props = {
 }
 
 export default function GridActions({ id, name, setSelected, editLink }: Props) {
+  //name is used only to show which item is about to be deleted
   const { t } = useTranslation('admin')
   const { showDetails, showDelete } = ModalStore
 
