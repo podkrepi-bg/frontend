@@ -1,0 +1,7 @@
+{
+    "grid-actions": {
+        "view": "View",
+        "edit": "Edit",
+        "delete": "Delete"
+    }
+}
