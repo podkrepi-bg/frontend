@@ -14,9 +14,10 @@ import { AlertStore } from 'stores/AlertStore'
 
 type Props = {
   id: string
+  name: string
 }
 
-export default observer(function DeleteModal({ id }: Props) {
+export default observer(function DeleteModal({ id, name }: Props) {
   const queryClient = useQueryClient()
   const { isDeleteOpen, hideDelete } = ModalStore
   const { t } = useTranslation()
@@ -46,7 +47,7 @@ export default observer(function DeleteModal({ id }: Props) {
       <Card>
         <CardContent>
           <Typography variant="h6" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            {t('documents:deleteTitle')}
+            {t('documents:deleteTitle')} ({name})
           </Typography>
           <Typography variant="body1" sx={{ marginBottom: '16px', textAlign: 'center' }}>
             {t('documents:deleteContent')}

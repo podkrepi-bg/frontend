@@ -17,13 +17,16 @@ import { useDocumentsList } from 'common/hooks/documents'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import { routes } from 'common/routes'
 
+import GridActions from '../../admin/GridActions'
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 import DeleteAllModal from './DeleteAllModal'
-import GridActions from '../../admin/GridActions'
 
 export default observer(function Grid() {
-  const [selectedId, setSelectedId] = useState<string>('')
+  const [selected, setSelected] = useState({
+    id: '',
+    name: '',
+  })
   const [selectionModel, setSelectionModel] = useState<GridRowId[]>([])
   const [pageSize, setPageSize] = useState(5)
   const { t } = useTranslation()
@@ -78,7 +81,8 @@ export default observer(function Grid() {
         return (
           <GridActions
             id={cellValues.row.id}
-            setSelectedId={setSelectedId}
+            name={cellValues.row.name}
+            setSelected={setSelected}
             editLink={routes.admin.documents.edit(cellValues.row.id)}
           />
         )
@@ -116,8 +120,8 @@ export default observer(function Grid() {
           }}
         />
       </Box>
-      <DetailsModal id={selectedId} />
-      <DeleteModal id={selectedId} />
+      <DetailsModal id={selected.id} />
+      <DeleteModal id={selected.id} name={selected.name} />
       <DeleteAllModal selectionModel={selectionModel} />
     </>
   )
