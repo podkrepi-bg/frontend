@@ -14,7 +14,7 @@ import {
 
 import { DocumentResponse } from 'gql/document'
 import { useDocumentsList } from 'common/hooks/documents'
-import { ModalStore } from 'stores/documents/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
