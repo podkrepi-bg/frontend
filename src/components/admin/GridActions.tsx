@@ -10,21 +10,22 @@ import { ModalStore } from 'stores/dashboard/ModalStore'
 
 type Props = {
   id: string
-  setSelectedId: Dispatch<SetStateAction<string>>
+  name: string
+  setSelected: Dispatch<SetStateAction<{ id: string; name: string }>>
   editLink: string
 }
 
-export default function GridActions({ id, setSelectedId, editLink }: Props) {
+export default function GridActions({ id, name, setSelected, editLink }: Props) {
   const { t } = useTranslation('admin')
   const { showDetails, showDelete } = ModalStore
 
   function detailsClickHandler() {
-    setSelectedId(id)
+    setSelected({ id, name })
     showDetails()
   }
 
   function deleteClickHandler() {
-    setSelectedId(id)
+    setSelected({ id, name })
     showDelete()
   }
 
