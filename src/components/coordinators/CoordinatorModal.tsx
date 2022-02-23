@@ -1,6 +1,6 @@
 import { JSXElementConstructor, ReactElement } from 'react'
 import { observer } from 'mobx-react'
-import { ModalStore } from 'stores/dashboard/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStoreOld'
 import Modal from '@mui/material/Modal'
 type Props = {
   children: ReactElement<unknown, string | JSXElementConstructor<unknown>>

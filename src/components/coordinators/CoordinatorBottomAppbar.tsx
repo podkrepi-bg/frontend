@@ -13,7 +13,7 @@ import {
 
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
-import { ModalStore } from 'stores/dashboard/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStoreOld'
 
 const addIconStyles = {
   background: '#4ac3ff',
