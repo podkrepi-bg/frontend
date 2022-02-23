@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 type Props = {
   open: boolean
   closeFn: () => void
-  country: CountryResponse
+  country: CountryResponse | undefined
 }
 
 const InfoDialog = ({ open, closeFn, country }: Props) => {
@@ -21,17 +21,17 @@ const InfoDialog = ({ open, closeFn, country }: Props) => {
   const classes = useStyles()
 
   return (
-    <Dialog open={open} onClose={closeFn} maxWidth="xs">
+    <Dialog open={open} onClose={closeFn} maxWidth="xs" disableScrollLock>
       <DialogTitle>{t('headings.info')}</DialogTitle>
       <DialogContent>
         <p>
-          <b>Id:</b> {country.id}
+          <b>Id:</b> {country?.id}
         </p>
         <p>
-          <b>{t('fields.name')}:</b> {country.name}
+          <b>{t('fields.name')}:</b> {country?.name}
         </p>
         <p>
-          <b>{t('fields.country-code')}:</b> {country.countryCode}
+          <b>{t('fields.country-code')}:</b> {country?.countryCode}
         </p>
       </DialogContent>
       <DialogActions>
