@@ -12,7 +12,7 @@ import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { BankAccountResponse, BankAccountInput, BankAccountsData } from 'gql/bankaccounts'
 import { AccountHolderType, BankAccountStatus } from './BankAccountTypes'
-import { useCreateBankAccountRequest } from 'service/bankAccount'
+import { useCreateBankAccount } from 'service/restRequests'
 import { AlertStore } from 'stores/AlertStore'
 import { ApiErrors } from 'service/apiErrors'
 import { routes } from 'common/routes'
@@ -22,11 +22,11 @@ export const validationSchemaBankAccForm: yup.SchemaOf<BankAccountsData> = yup
   .defined()
   .shape({
     status: yup.string().trim().min(1).max(100).required(),
-    ibanNumber: yup.string().trim().min(10).max(100).required(),
+    ibanNumber: yup.string().trim().min(5).max(34).required(),
     accountHolderName: yup.string().trim().min(10).max(100).required(),
     AccountHolderType: yup.string().trim().min(1).max(100).required(),
     bankName: yup.string().trim().min(10).max(100).required(),
-    bankIdCode: yup.string().trim().min(10).max(100).required(),
+    bankIdCode: yup.string().trim().min(8).max(11).required(),
     fingerprint: yup.string().trim().min(10).max(100).required(),
   })
 
@@ -59,7 +59,7 @@ export default function BankAccountsForm() {
     AxiosError<ApiErrors>,
     BankAccountInput
   >({
-    mutationFn: useCreateBankAccountRequest(),
+    mutationFn: useCreateBankAccount(),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => {
       AlertStore.show(t('common:alerts.message-sent'), 'success')
@@ -75,7 +75,7 @@ export default function BankAccountsForm() {
     <Grid container direction="column" component="section">
       <Grid item xs={12}>
         <Typography variant="h5" component="h2" className={classes.heading}>
-          {t('bankaccounts:form-heading')}
+          {t('bankaccounts:headings.add')}
         </Typography>
       </Grid>
       <GenericForm
@@ -113,7 +113,7 @@ export default function BankAccountsForm() {
             <FormTextField type="text" name="fingerprint" label="bankaccounts:fingerprint" />
           </Grid>
           <Grid item xs={12}>
-            <SubmitButton fullWidth label="campaigns:cta.submit" loading={mutation.isLoading} />
+            <SubmitButton fullWidth label="bankaccounts:cta.submit" loading={mutation.isLoading} />
           </Grid>
         </Grid>
       </GenericForm>
