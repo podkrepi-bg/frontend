@@ -6,6 +6,13 @@ type Endpoint = {
 }
 
 export const endpoints = {
+  benefactor: {
+    benefactorList: <Endpoint>{ url: '/benefactor', method: 'GET' },
+    getBenefactor: <Endpoint>{ url: '/benefactor', method: 'GET' },
+    createBenefactor: <Endpoint>{ url: '/benefactor', method: 'POST' },
+    editBenefactor: <Endpoint>{ url: '/benefactor', method: 'PATCH' },
+    deleteBenefactor: <Endpoint>{ url: '/benefactor', method: 'DELETE' },
+  },
   campaign: {
     listCampaigns: <Endpoint>{ url: '/campaign/list', method: 'GET' },
     createCampaign: <Endpoint>{ url: '/campaign/create-campaign', method: 'POST' },
