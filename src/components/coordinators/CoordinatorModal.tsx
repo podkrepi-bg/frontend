@@ -6,7 +6,7 @@ type Props = {
   children: ReactElement<unknown, string | JSXElementConstructor<unknown>>
 }
 
-export default observer(function BankAccountsModal({ children }: Props) {
+export default observer(function CoordinatorsModal({ children }: Props) {
   const { isModalOpen, closeModal } = ModalStore
   return (
     <div>
