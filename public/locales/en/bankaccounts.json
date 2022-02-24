@@ -1,11 +1,35 @@
 {
-    "form-heading": "Add new account",
-    "status": "Status",
-    "ibanNumber": "IBAN",
-    "accountHolderName": "Account holder name",
-    "AccountHolderType": "Account holder type",
-    "bankName": "Bank name",
-    "bankIdCode": "Bank ID",
-    "fingerprint": "Fingerprint",
-    "withdrawal": "WithDraws"
+  "headings": {
+    "add": "Add new account",
+    "edit": "Edit account"
+  },
+  "status": "Status",
+  "ibanNumber": "IBAN",
+  "accountHolderName": "Account holder name",
+  "AccountHolderType": "Account holder type",
+  "bankName": "Bank name",
+  "bankIdCode": "Bank ID",
+  "fingerprint": "Fingerprint",
+  "withdrawals": "Withdrawals",
+  "deleteTitle": "Are you sure?",
+  "deleteContent": "This action will delete this account:",
+  "deleteAllContent": "This action will delete selected accounts permanently!",
+  "actions": "Actions",
+  "alerts": {
+    "selectRow": "Please choose a row",
+    "create": "Bank account has been created successfully!",
+    "edit": "Bank account has been edited successfully!",
+    "delete": "Bank account has been deleted successfully!",
+    "deleteAll": "Bank accounts have been deleted successfully!",
+    "error": "An error has occured! Please try again later."
+  },
+  "cta": {
+    "add": "Add",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "deleteSelected": "Delete selected rows",
+    "edit": "Edit",
+    "submit": "Submit"
+  }
 }
