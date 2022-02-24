@@ -2,7 +2,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/
 import { makeStyles } from '@mui/styles'
 import { useTranslation } from 'next-i18next'
 
-import { CountryResponse } from 'gql/countries'
+import { CoordinatorResponse } from 'gql/coordinators'
 
 const useStyles = makeStyles({
   infoBtn: {
@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 type Props = {
   open: boolean
   closeFn: () => void
-  data: CountryResponse | undefined
+  data: CoordinatorResponse | undefined
 }
 
 const InfoDialog = ({ open, closeFn, data }: Props) => {
@@ -28,7 +28,7 @@ const InfoDialog = ({ open, closeFn, data }: Props) => {
           <b>Id:</b> {data?.id}
         </p>
         <p>
-          <b>{t('fields.name')}:</b> {data?.name}
+          <b>{t('fields.name')}:</b> {data?.person.firstName} {data?.person.lastName}
         </p>
       </DialogContent>
       <DialogActions>
