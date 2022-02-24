@@ -49,4 +49,9 @@ export const routes = {
     infoRequests: '/admin/info-requests',
     supporters: '/admin/supporters',
   },
+  benefactor: {
+    index: '/benefactor',
+    view: (id: string) => `/benefactor/${id}`,
+    add: '/benefactor/add',
+  },
 }

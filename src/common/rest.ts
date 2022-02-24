@@ -12,6 +12,7 @@ import { CampaignResponse, CampaignInput } from 'gql/campaigns'
 import { endpoints } from './api-endpoints'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
+import { BenefactorInput, BenefactorResponse } from 'gql/benefactor'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await axios.get(queryKey.join('/'))
@@ -76,3 +77,62 @@ export const createCheckoutSession: MutationFunction<
     data,
   )
 }
+
+export const createBenefactor: MutationFunction<
+  AxiosResponse<BenefactorResponse>,
+  BenefactorInput
+> = async (data: BenefactorInput) => {
+  return await axios.post<BenefactorInput, AxiosResponse<BenefactorResponse>>(
+    endpoints.benefactor.createBenefactor.url,
+    data,
+  )
+}
+
+export const getBenefactor: MutationFunction<AxiosResponse<BenefactorResponse>, string> = async (
+  id: string,
+) => {
+  return await axios.get<string, AxiosResponse<BenefactorResponse>>(
+    endpoints.benefactor.getBenefactor.url + '/' + id,
+  )
+}
+
+type EditBenefactorProp = {
+  id: string
+  data: BenefactorInput
+}
+
+export const editBenefactor: MutationFunction<
+  AxiosResponse<BenefactorResponse>,
+  EditBenefactorProp
+> = async ({ id, data }: EditBenefactorProp) => {
+  return await axios.patch<BenefactorResponse, AxiosResponse<BenefactorResponse>>(
+    endpoints.benefactor.editBenefactor.url + '/' + id,
+    data,
+  )
+}
+
+export const deleteBenefactor: MutationFunction<AxiosResponse<BenefactorResponse>, string> = async (
+  id: string,
+) => {
+  return await axios.delete<string, AxiosResponse<BenefactorResponse>>(
+    endpoints.benefactor.deleteBenefactor.url + '/' + id,
+  )
+}
+
+export const deleteManyBenefactors: MutationFunction<AxiosResponse<BenefactorResponse>, string[]> =
+  async (id: string[]) => {
+    return await axios.delete<string[], AxiosResponse<BenefactorResponse>>(
+      endpoints.benefactor.deleteBenefactor.url + '/' + id,
+    )
+  }
+
+// export function useDeleteManyBenefactors(idsToDelete: string[]) {
+
+//   return async () => {
+//     return await axios.post<BenefactorResponse, AxiosResponse<BenefactorResponse>>(
+//       endpoints.benefactor.deleteBenefactor.url,
+//       idsToDelete,
+
+//     )
+//   }
+// }
