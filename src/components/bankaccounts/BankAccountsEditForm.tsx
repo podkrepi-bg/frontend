@@ -10,7 +10,7 @@ import { useMutation, UseQueryResult } from 'react-query'
 import { routes } from 'common/routes'
 import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
-import { useEditBankAccount } from 'service/bankAccount'
+import { useEditBankAccount } from 'service/restRequests'
 import GenericForm from 'components/common/form/GenericForm'
 import { useViewBankAccount } from 'common/hooks/bankaccounts'
 import SubmitButton from 'components/common/form/SubmitButton'
@@ -69,7 +69,7 @@ export default function BankAccountsEditForm({ id }: Props) {
     <Grid container direction="column" component="section">
       <Grid item xs={12}>
         <Typography variant="h5" component="h2" className={classes.heading}>
-          {t('bankaccounts:form-heading')}
+          {t('bankaccounts:headings.edit')}
         </Typography>
       </Grid>
       <GenericForm
