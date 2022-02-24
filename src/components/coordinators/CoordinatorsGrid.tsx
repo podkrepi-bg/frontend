@@ -9,27 +9,35 @@ import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useMutation, useQueryClient, UseQueryResult } from 'react-query'
-
+import { CoordinatorModal } from './CoordinatorModal'
 import { routes } from 'common/routes'
-import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
-import { ModalStore } from 'stores/dashboard/ModalStoreOld'
 import { useCoordinatorsList } from 'common/hooks/coordinators'
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
 
-import { ControlIcons, commonProps } from './CoordinatorsGridHelper'
+import { commonProps } from './CoordinatorsGridHelper'
 import { CoordinatorResponse } from 'gql/coordinators'
 import { useDeleteCoordinatorRequest } from 'service/coordinator'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useTranslation } from 'next-i18next'
 import { AlertStore } from 'stores/AlertStore'
 import { ApiErrors } from 'service/apiErrors'
+import GridActions from 'components/admin/GridActions'
+import { ModalStore } from 'stores/dashboard/ModalStore'
+import DeleteRowDialog from './DeleteRowDialog'
+import DeleteRowsDialog from './DeleteRowsDialog'
+import InfoDialog from './InfoDialog'
 
 export default observer(function CoordinatorsGrid() {
+  const [openRowsDel, setOpenRowsDel] = React.useState<boolean>(false)
   const queryClient = useQueryClient()
-  const router = useRouter()
+  const [selected, setSelected] = React.useState({
+    id: '',
+    name: '',
+  })
+  const [selectedManyIds, setSelectedManyIds] = React.useState([''])
   const [multipleDelete, setMultipleDelete] = useState<GridRowId[]>([])
-  const [id, setId] = useState('')
+  const { isDetailsOpen, hideDetails, isDeleteOpen, showDelete, hideDelete } = ModalStore
   const { t } = useTranslation()
 
   const mutation = useMutation<AxiosResponse<CoordinatorResponse>, AxiosError<ApiErrors>, string>({
@@ -38,21 +46,23 @@ export default observer(function CoordinatorsGrid() {
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
 
-  //CONFIRMATION DIALOG HANDLERS
-  const handleClickOpen = () => {
-    ModalStore.openCfrm()
-  }
-  const handleClose = () => {
-    ModalStore.closeCfrm()
+  const selectMultipleRows = (ids: GridSelectionModel) => {
+    const idsToStr = ids.map((id) => id.toString())
+    setSelectedManyIds(idsToStr)
   }
 
-  //DELETE HANDLER CHECKS IF ONE OR MORE ITEMS ARE SELECTED
-  const handleDelete = () => {
-    const ids = multipleDelete.length > 0 ? multipleDelete : [id]
-    Promise.all(ids.map((e) => mutation.mutateAsync(e as string))).then(() => {
-      handleClose()
-      queryClient.invalidateQueries(endpoints.coordinators.coordinatorsList.url)
-    })
+  const closeDeleteRowsDialog = () => {
+    setOpenRowsDel(false)
+  }
+
+  const deleteRow = async () => {
+    try {
+      hideDelete()
+      await mutation.mutateAsync(selected.id)
+      // router.push(routes.admin.countries.index)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   const columns: GridColumns = [
@@ -84,17 +94,12 @@ export default observer(function CoordinatorsGrid() {
       disableColumnMenu: true,
       resizable: false,
       width: 180,
-      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+      renderCell: (p: GridRenderCellParams): React.ReactNode => {
         return (
-          <ControlIcons
-            setCarId={ModalStore.setCarId}
-            carId={String(params.id)}
-            openModal={ModalStore.openModal}
-            router={router}
-            route={routes.admin.coordinators.edit(params.id)}
-            handleOpen={handleClickOpen}
-            setId={setId}
-            idToSet={String(params.id)}
+          <GridActions
+            id={p.row.id}
+            name={`${p.row.person.firstName} ${p.row.person.lastName}`}
+            setSelected={setSelected}
           />
         )
       },
@@ -105,14 +110,12 @@ export default observer(function CoordinatorsGrid() {
 
   return (
     <>
-      <ConfirmationDialog
-        isOpen={ModalStore.cfrmOpen}
-        handleConfirm={handleDelete}
-        handleCancel={ModalStore.closeCfrm}
-        title={'Потвърждение'}
-        content={'Наистина ли искате да изтриете тези записи ?'}
-        confirmButtonLabel={'Потвърди'}
-        cancelButtonLabel={'Отказ'}
+      <InfoDialog open={isDetailsOpen} closeFn={hideDetails} data={selected} />
+      <DeleteRowDialog
+        open={isDeleteOpen}
+        closeFn={hideDelete}
+        name={selected.name}
+        deleteRow={deleteRow}
       />
       <DataGrid
         style={{
@@ -134,10 +137,7 @@ export default observer(function CoordinatorsGrid() {
         autoPageSize
         disableSelectionOnClick
         checkboxSelection
-        onSelectionModelChange={(selectionModel: GridSelectionModel) => {
-          setMultipleDelete(selectionModel)
-          selectionModel.length > 0 ? ModalStore.csPositive() : ModalStore.csNegative()
-        }}
+        onSelectionModelChange={selectMultipleRows}
       />
     </>
   )

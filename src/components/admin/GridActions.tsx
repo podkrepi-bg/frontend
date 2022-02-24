@@ -12,7 +12,7 @@ type Props = {
   id: string
   name: string
   setSelected: Dispatch<SetStateAction<{ id: string; name: string }>>
-  editLink: string
+  editLink?: string
 }
 
 export default function GridActions({ id, name, setSelected, editLink }: Props) {
@@ -37,13 +37,17 @@ export default function GridActions({ id, name, setSelected, editLink }: Props) 
           <ImportExportIcon />
         </IconButton>
       </Tooltip>
-      <Link href={editLink} passHref>
-        <Tooltip title={t('grid-actions.edit') || ''}>
-          <IconButton size="small" color="primary">
-            <EditIcon />
-          </IconButton>
-        </Tooltip>
-      </Link>
+      {editLink ? (
+        <Link href={editLink} passHref>
+          <Tooltip title={t('grid-actions.edit') || ''}>
+            <IconButton size="small" color="primary">
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
+        </Link>
+      ) : (
+        ''
+      )}
       <Tooltip title={t('grid-actions.delete') || ''}>
         <IconButton size="small" color="primary" onClick={deleteClickHandler}>
           <DeleteIcon />
