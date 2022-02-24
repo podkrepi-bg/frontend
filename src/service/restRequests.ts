@@ -12,6 +12,7 @@ import { CampaignResponse, CampaignInput } from 'gql/campaigns'
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
 import { ContactRequestResponse, ContactRequestInput } from 'gql/contact'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
+import { BankAccountInput, BankAccountResponse } from 'gql/bankaccounts'
 import { DocumentInput, DocumentResponse } from 'gql/document'
 import { CountryInput, CountryResponse } from 'gql/countries'
 
@@ -73,6 +74,49 @@ export const createCheckoutSession = async (data: CheckoutSessionInput) => {
     endpoints.donation.createCheckoutSession.url,
     data,
   )
+}
+
+export function useCreateBankAccount() {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (data: BankAccountInput) => {
+    return await apiClient.post<BankAccountResponse, AxiosResponse<BankAccountResponse>>(
+      endpoints.bankAccounts.createBankAccount.url,
+      data,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useEditBankAccount(id: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (data: BankAccountInput) => {
+    return await apiClient.patch<BankAccountResponse, AxiosResponse<BankAccountResponse>>(
+      endpoints.bankAccounts.editBankAccount(id).url,
+      data,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useDeleteBankAccount(id: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async () => {
+    return await apiClient.delete<BankAccountResponse, AxiosResponse<BankAccountResponse>>(
+      endpoints.bankAccounts.deleteBankAccount(id).url,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useDeleteManyBankAccounts(idsToDelete: string[]) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async () => {
+    return await apiClient.post<BankAccountResponse, AxiosResponse<BankAccountResponse>>(
+      endpoints.bankAccounts.deleteManyBankAccounts.url,
+      idsToDelete,
+      authConfig(keycloak?.token),
+    )
+  }
 }
 
 export function useCreateDocument() {
