@@ -13,7 +13,7 @@ import {
 
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
-import { ModalStore } from 'stores/dashboard/ModalStoreOld'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 
 const addIconStyles = {
   background: '#4ac3ff',
@@ -31,11 +31,11 @@ const iconStyles = {
   mr: 1,
 }
 export default observer(function BottomAppBar() {
-  const { openCfrm, carSelected } = ModalStore
+  const { showDeleteAll, isSelected } = ModalStore
   const { t } = useTranslation()
   const router = useRouter()
   const deleteHandler = () => {
-    carSelected ? openCfrm() : AlertStore.show(t('common:alerts.noselected'), 'info')
+    isSelected ? showDeleteAll() : AlertStore.show(t('common:alerts.noselected'), 'info')
   }
   return (
     <Toolbar
