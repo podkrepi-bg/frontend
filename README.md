@@ -34,8 +34,8 @@ git clone git@github.com:podkrepi-bg/frontend.git
 cd frontend
 yarn
 
-# Symlink dev environment on unix
-ln -hfs .env.local.example .env.local
+# Symlink dev environment on Mac / Linux
+ln -nfs .env.local.example .env.local
 
 # Symlink dev environment on Windows
 mklink .env.local .env.local.example
