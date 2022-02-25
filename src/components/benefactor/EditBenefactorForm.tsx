@@ -54,11 +54,11 @@ export default function EditBenefactorForm({ id, initialValues = defaults }: Ben
     EditBenefactorProp
   >({
     mutationFn: editBenefactor,
-    onError: () => AlertStore.show(t('benefactor:alerts.edit-row.error'), 'error'),
-    onSuccess: () => AlertStore.show(t('benefactor:alerts.edit-row.success'), 'success'),
+    onError: () => AlertStore.show(t('alerts:error'), 'error'),
+    onSuccess: () => AlertStore.show(t('alerts:create'), 'success'),
   })
 
-  const { t } = useTranslation()
+  const { t } = useTranslation('benefactor')
   const router = useRouter()
 
   const onSubmit = async (
@@ -94,27 +94,30 @@ export default function EditBenefactorForm({ id, initialValues = defaults }: Ben
         initialValues={initialValues}
         validationSchema={validationSchema}>
         <Box sx={{ marginTop: '5%', height: '62.6vh' }}>
+          <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
+            {t('edit-form-heading')}
+          </Typography>
           <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
-            <Grid item xs={12}>
-              <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
-                {t('benefactor:form.edit-benefactor')}
-              </Typography>
-              {/* <Typography variant="h6">{t('benefactor:form.edit-benefactor')}</Typography> */}
-            </Grid>
+            <Grid item xs={12}></Grid>
             <Grid item xs={12} sm={4}>
               <FormTextField
                 type="text"
-                label="extCustomerId"
+                label={t('customerId')}
                 name="extCustomerId"
                 autoComplete="extCustomerId"
               />
             </Grid>
             <Grid item xs={12} sm={4}>
-              <FormTextField type="text" label="person" name="person" autoComplete="person" />
+              <FormTextField
+                type="text"
+                label={t('personId')}
+                name="person"
+                autoComplete="personId"
+              />
             </Grid>
             <Grid item xs={6}>
               <Button fullWidth variant="contained" type="submit" color="secondary">
-                {t('benefactor:btns.save')}
+                {t('cta.submit')}
               </Button>
             </Grid>
             <Grid item xs={6}>
@@ -123,7 +126,7 @@ export default function EditBenefactorForm({ id, initialValues = defaults }: Ben
                 variant="contained"
                 color="primary"
                 href={routes.benefactor.index}>
-                {t('benefactor:btns.cancel')}
+                {t('cta.cancel')}
               </LinkButton>
             </Grid>
           </Grid>

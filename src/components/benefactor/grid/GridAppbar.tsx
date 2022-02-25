@@ -27,10 +27,10 @@ const iconStyles = {
 export default observer(function GridAppbar() {
   const { showDeleteAll, isSelected } = ModalStore
   const router = useRouter()
-  const { t } = useTranslation()
+  const { t } = useTranslation('benefactor')
 
   function deleteAllClickHandler() {
-    isSelected ? showDeleteAll() : AlertStore.show(t('benefactor:alerts:selectRow'), 'warning')
+    isSelected ? showDeleteAll() : AlertStore.show(t('alerts.selectRow'), 'warning')
   }
 
   return (
@@ -47,7 +47,7 @@ export default observer(function GridAppbar() {
       </Box>
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Tooltip title={t('benefactor:cta:deleteSelected') || ''}>
+          <Tooltip title={t('cta.deleteSelected') || ''}>
             <DeleteIcon
               onClick={deleteAllClickHandler}
               sx={iconStyles}
@@ -55,7 +55,7 @@ export default observer(function GridAppbar() {
               color="action"
             />
           </Tooltip>
-          <Tooltip title={t('benefactor:cta:add') || ''}>
+          <Tooltip title={t('cta.add') || ''}>
             <AddIcon
               sx={addIconStyles}
               fontSize="large"

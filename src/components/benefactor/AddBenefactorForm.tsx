@@ -3,7 +3,7 @@ import * as yup from 'yup'
 import { useRouter } from 'next/router'
 import { FormikHelpers } from 'formik'
 import { useMutation } from 'react-query'
-import { Grid, Box, Typography } from '@mui/material'
+import { Grid, Box, Typography, Link, Button } from '@mui/material'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useTranslation } from 'next-i18next'
 import { makeStyles } from '@mui/styles'
@@ -52,11 +52,11 @@ export default function AddBenefactorForm({ initialValues = defaults }: Benefact
     BenefactorInput
   >({
     mutationFn: createBenefactor,
-    onError: () => AlertStore.show(t('benefactor:alerts.new-row.error'), 'error'),
-    onSuccess: () => AlertStore.show(t('benefactor:alerts.new-row.success'), 'success'),
+    onError: () => AlertStore.show(t('alerts:error'), 'error'),
+    onSuccess: () => AlertStore.show(t('alerts:create'), 'success'),
   })
 
-  const { t } = useTranslation()
+  const { t } = useTranslation('benefactor')
   const router = useRouter()
 
   const onSubmit = async (
@@ -93,7 +93,7 @@ export default function AddBenefactorForm({ initialValues = defaults }: Benefact
         <Box sx={{ marginTop: '5%', height: '62.6vh' }}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <Typography variant="h6">{t('benefactor:form.add-benefactor')}</Typography>
+              <Typography variant="h6">{t('form-heading')}</Typography>
             </Grid>
             {/* <Grid item xs={12} sm={4}>
             <FormTextField
@@ -106,7 +106,7 @@ export default function AddBenefactorForm({ initialValues = defaults }: Benefact
             <Grid item xs={12} sm={4}>
               <FormTextField
                 type="text"
-                label="auth:fields.extCustomerId"
+                label={t('customerId')}
                 name="extCustomerId"
                 autoComplete="extCustomerId"
               />
@@ -114,13 +114,18 @@ export default function AddBenefactorForm({ initialValues = defaults }: Benefact
             <Grid item xs={12} sm={4}>
               <FormTextField
                 type="text"
-                label="auth:fields.person"
+                label={t('personId')}
                 name="person"
                 autoComplete="person"
               />
             </Grid>
             <Grid item xs={12}>
-              <SubmitButton fullWidth label="benefactor:btns.add" />
+              <SubmitButton fullWidth label={t('cta.submit')} />
+            </Grid>
+            <Grid item xs={6}>
+              <Link href={routes.benefactor.index}>
+                <Button>{t('cta.cancel')}</Button>
+              </Link>
             </Grid>
           </Grid>
         </Box>

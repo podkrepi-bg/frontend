@@ -25,7 +25,7 @@ export default observer(function Grid() {
   const [selectedId, setSelectedId] = useState<string>('')
   const [selectionModel, setSelectionModel] = useState<GridRowId[]>([])
   const [pageSize, setPageSize] = useState(5)
-  const { t } = useTranslation()
+  const { t } = useTranslation('benefactor')
   const { selectedPositive, selectedNegative } = ModalStore
 
   const { data }: UseQueryResult<BenefactorResponse[]> = useBenefactorList()
@@ -39,7 +39,7 @@ export default observer(function Grid() {
   const columns: GridColumns = [
     {
       field: 'extCustomerId',
-      headerName: t('benefactor:extCustomerId'),
+      headerName: t('extCustomerId'),
       valueGetter: (p) => p.row.extCustomerId,
       ...commonProps,
       //   width: 400,
@@ -47,14 +47,14 @@ export default observer(function Grid() {
     },
     {
       field: 'personId',
-      headerName: t('benefactor:personId'),
+      headerName: t('personId'),
       valueGetter: (p) => p.row.personId,
       ...commonProps,
       //   width: 400,
       flex: 1,
     },
     {
-      field: t('benefactor:actions'),
+      field: t('actions'),
       align: 'right',
       width: 120,
       renderCell: (cellValues: GridRenderCellParams) => {
