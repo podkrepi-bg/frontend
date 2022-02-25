@@ -12,8 +12,8 @@ import {
   GridSelectionModel,
 } from '@mui/x-data-grid'
 
-import { DocumentResponse } from 'gql/document'
-import { useDocumentsList } from 'common/hooks/documents'
+import { VaultResponse } from 'gql/vault'
+import { useVaultsList } from 'common/hooks/vaults'
 import { ModalStore } from 'stores/documents/ModalStore'
 
 import DetailsModal from './DetailsModal'
@@ -28,7 +28,7 @@ export default observer(function Grid() {
   const { t } = useTranslation()
   const { selectedPositive, selectedNegative } = ModalStore
 
-  const { data }: UseQueryResult<DocumentResponse[]> = useDocumentsList()
+  const { data }: UseQueryResult<VaultResponse[]> = useVaultsList()
 
   const commonProps: Partial<GridColDef> = {
     align: 'left',
@@ -38,38 +38,38 @@ export default observer(function Grid() {
 
   const columns: GridColumns = [
     {
-      field: 'type',
-      headerName: t('documents:type'),
-      ...commonProps,
-    },
-    {
       field: 'name',
-      headerName: t('documents:name'),
+      headerName: t('vaults:name'),
       ...commonProps,
     },
     {
-      field: 'filename',
-      headerName: t('documents:filename'),
+      field: 'currency',
+      headerName: t('vaults:currency'),
       ...commonProps,
     },
     {
-      field: 'filetype',
-      headerName: t('documents:filetype'),
+      field: 'amount',
+      headerName: t('vaults:amount'),
       ...commonProps,
     },
     {
-      field: 'description',
-      headerName: t('documents:description'),
+      field: 'createdAt',
+      headerName: t('vaults:createdAt'),
       ...commonProps,
     },
     {
-      field: 'sourceUrl',
-      headerName: t('documents:sourceUrl'),
+      field: 'updatedAt',
+      headerName: t('vaults:updatedAt'),
+      ...commonProps,
+    },
+    {
+      field: 'campaignId',
+      headerName: t('vaults:campaignId'),
       ...commonProps,
       width: 450,
     },
     {
-      field: t('documents:actions'),
+      field: t('vaults:actions'),
       width: 200,
       align: 'right',
       renderCell: (cellValues: GridRenderCellParams) => {

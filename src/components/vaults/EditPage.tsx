@@ -11,7 +11,7 @@ export default function EditPage() {
 
   return (
     <AdminLayout>
-      <AdminContainer title={t('documents:documents')}>
+      <AdminContainer title={t('vaults:vaults')}>
         <Container maxWidth="md" sx={{ py: 5 }}>
           <Form />
         </Container>

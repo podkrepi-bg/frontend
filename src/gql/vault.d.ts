@@ -11,21 +11,9 @@ export type VaultResponse = {
 }
 
 export type VaultInput = {
-  // type?: VaultsType | ''
-  // name?: string
-  // filename?: string
-  // filetype?: string
-  // description?: string
-  // sourceUrl?: string
-}
-
-export type VaultData = {
-  // type: VaultsType
-  // name: string
-  // filename: string
-  // filetype: string
-  // description: string
-  // sourceUrl: string
+  name?: string
+  campaignId?: UUID
+  currency?: Currency | ''
 }
 
 enum Currency {

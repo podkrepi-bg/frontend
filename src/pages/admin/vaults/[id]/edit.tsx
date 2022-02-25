@@ -2,23 +2,23 @@ import { GetServerSideProps } from 'next'
 import { dehydrate, QueryClient } from 'react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import EditPage from 'components/documents/EditPage'
-import { prefetchDocumentById } from 'common/hooks/documents'
 import { keycloakInstance } from 'middleware/auth/keycloak'
+import { prefetchVaultById } from 'common/hooks/vaults'
+import EditPage from 'components/vaults/EditPage'
 
 export const getServerSideProps: GetServerSideProps = async (params) => {
   const client = new QueryClient()
   const keycloak = keycloakInstance(params)
   const { id } = params.query
 
-  await prefetchDocumentById(client, String(id), keycloak.token)
+  await prefetchVaultById(client, String(id), keycloak.token)
 
   return {
     props: {
       ...(await serverSideTranslations(params.locale ?? 'bg', [
         'common',
         'auth',
-        'documents',
+        'vaults',
         'validation',
       ])),
       dehydratedState: dehydrate(client),
