@@ -58,4 +58,12 @@ export const endpoints = {
     postCoordinator: <Endpoint>{ url: '/coordinator', method: 'POST' },
     deleteCoordinator: (id: string) => <Endpoint>{ url: `/coordinator/${id}`, method: 'DELETE' },
   },
+  vaults: {
+    vaultsList: <Endpoint>{ url: '/vault', method: 'GET' },
+    getVault: (slug: string) => <Endpoint>{ url: `/vault/${slug}`, method: 'GET' },
+    createVault: <Endpoint>{ url: '/vault', method: 'POST' },
+    editVault: (slug: string) => <Endpoint>{ url: `/vault/${slug}`, method: 'PUT' },
+    deleteVault: (slug: string) => <Endpoint>{ url: `/vault/${slug}`, method: 'DELETE' },
+    deleteVaults: <Endpoint>{ url: '/vault/delete-many', method: 'POST' },
+  },
 }
