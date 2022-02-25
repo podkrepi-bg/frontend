@@ -68,8 +68,15 @@ export default function DevelopmentMenu() {
   return (
     <GenericMenu label={t('nav.dev.index')}>
       {navItems.map(({ href, label, target }, key) => (
-        <LinkMenuItem href={href} selected={router.asPath === href} key={key} target={target} className={classes.dropdownLinkButton}>
-          <Typography variant="button" className={classes.dropdownLinkText}>{t(label)}</Typography>
+        <LinkMenuItem
+          href={href}
+          selected={router.asPath === href}
+          key={key}
+          target={target}
+          className={classes.dropdownLinkButton}>
+          <Typography variant="button" className={classes.dropdownLinkText}>
+            {t(label)}
+          </Typography>
         </LinkMenuItem>
       ))}
     </GenericMenu>

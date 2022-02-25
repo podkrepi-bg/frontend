@@ -1,7 +1,6 @@
-import Link from 'next/link'
 import React from 'react'
 import { useRouter } from 'next/router'
-import { Typography, lighten, Theme } from '@mui/material'
+import { Typography, Theme, lighten } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import { routes } from 'common/routes'
