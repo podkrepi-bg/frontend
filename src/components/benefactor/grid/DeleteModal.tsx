@@ -19,7 +19,7 @@ type Props = {
 export default observer(function DeleteModal({ id }: Props) {
   const queryClient = useQueryClient()
   const { isDeleteOpen, hideDelete } = ModalStore
-  const { t } = useTranslation()
+  const { t } = useTranslation('benefactor')
 
   const mutationFn = deleteBenefactor
 
@@ -29,10 +29,10 @@ export default observer(function DeleteModal({ id }: Props) {
     string
   >({
     mutationFn,
-    onError: () => AlertStore.show(t('benefactor:alerts:error'), 'error'),
+    onError: () => AlertStore.show(t('alerts.error'), 'error'),
     onSuccess: () => {
       hideDelete()
-      AlertStore.show(t('benefactor:alerts:delete'), 'success')
+      AlertStore.show(t('alerts.delete'), 'success')
       queryClient.invalidateQueries(endpoints.benefactor.benefactorList.url)
     },
   })
@@ -46,16 +46,16 @@ export default observer(function DeleteModal({ id }: Props) {
       <Card>
         <CardContent>
           <Typography variant="h6" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            {t('benefactor:deleteTitle')}
+            {t('deleteTitle')}
           </Typography>
           <Typography variant="body1" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            {t('benefactor:deleteContent')}
+            {t('deleteContent')}
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <Button color="error" onClick={deleteHandler}>
-              {t('benefactor:cta:delete')}
+              {t('cta.delete')}
             </Button>
-            <Button onClick={hideDelete}>{t('benefactor:cta:cancel')}</Button>
+            <Button onClick={hideDelete}>{t('cta.cancel')}</Button>
           </Box>
         </CardContent>
       </Card>

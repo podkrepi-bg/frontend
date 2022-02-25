@@ -15,25 +15,21 @@ type Props = {
 export default observer(function DetailsModal({ id }: Props) {
   const { data }: UseQueryResult<BenefactorResponse> = useBenefactor(id)
   const { isDetailsOpen, hideDetails } = ModalStore
-  const { t } = useTranslation()
+  const { t } = useTranslation('benefactor')
 
-  console.log('details', data)
   return (
     <Dialog open={isDetailsOpen} onClose={hideDetails} sx={{ top: '-35%' }}>
       <Card>
         <CardContent>
           <Typography variant="h5" sx={{ marginBottom: '16px' }}>
-            {t('benefactor:cta:details')}
+            {t('cta.details')}
           </Typography>
           <Divider />
           <Typography variant="body1" sx={{ fontSize: 24, marginTop: '8px' }}>
-            {t('benefactor:customerId')}: {data?.extCustomerId}
+            {t('customerId')}: {data?.extCustomerId}
           </Typography>
-          {/* <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('benefactor:name')}: {data?.personId}
-          </Typography> */}
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('benefactor:person')}: {data?.personId}
+            {t('personId')}: {data?.personId}
           </Typography>
         </CardContent>
       </Card>

@@ -29,7 +29,7 @@ export default observer(function DeleteAllModal({ selectionModel }: Props) {
   const [benefactor, setBenefactor] = React.useState<BenefactorResponse>(initialValues)
   const { isDeleteAllOpen, hideDeleteAll } = ModalStore
 
-  const { t } = useTranslation()
+  const { t } = useTranslation('benefactor')
 
   const initialValues: BenefactorResponse = {
     id: '',
@@ -43,7 +43,7 @@ export default observer(function DeleteAllModal({ selectionModel }: Props) {
   const delMutation = useMutation<AxiosResponse<BenefactorResponse>, AxiosError<ApiErrors>, string>(
     {
       mutationFn: deleteBenefactor,
-      onError: () => AlertStore.show(t('benefactor:alerts.delete-row.error'), 'error'),
+      onError: () => AlertStore.show(t('alerts.delete-row.error'), 'error'),
       onSuccess: () => {
         return
       },
@@ -55,11 +55,11 @@ export default observer(function DeleteAllModal({ selectionModel }: Props) {
   const deleteRows = async () => {
     try {
       await Promise.all(idsToDelete.map((id) => delMutation.mutateAsync(id)))
-      AlertStore.show(t('benefactor:alerts.alerts:deleteAll'), 'success')
+      AlertStore.show(t('alerts.deleteAll'), 'success')
       hideDeleteAll()
       router.push(routes.benefactor.index)
     } catch (err) {
-      AlertStore.show(t('benefactor:alerts:error'), 'error')
+      AlertStore.show(t('alerts.error'), 'error')
     }
   }
 
@@ -68,14 +68,14 @@ export default observer(function DeleteAllModal({ selectionModel }: Props) {
       <Card>
         <CardContent>
           <Typography variant="h6" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            {t('benefactor:deleteTitle')}
+            {t('deleteTitle')}
           </Typography>
           <Typography variant="body1" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            {t('benefactor:deleteAllContent')}
+            {t('deleteAllContent')}
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <Button color="error" onClick={deleteRows}>
-              {t('benefactor:cta:delete')}
+              {t('cta.delete')}
             </Button>
             <Button onClick={hideDeleteAll}>{t('benefactor:cta:cancel')}</Button>
           </Box>

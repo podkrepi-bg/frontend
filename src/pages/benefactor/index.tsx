@@ -15,7 +15,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
       ...(await serverSideTranslations(locale ?? 'bg', [
         'common',
         'auth',
-        'bootcamp',
+        'benefactor',
         'validation',
       ])),
       dehydratedState: dehydrate(client),
