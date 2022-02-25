@@ -72,6 +72,11 @@ export const routes = {
       create: '/admin/countries/create',
       view: (id: string) => `/admin/countries/${id}`,
     },
+    vaults: {
+      index: '/admin/vaults',
+      create: '/admin/vaults/create',
+      edit: (slug: string) => `/admin/vaults/${slug}/edit`,
+    },
   },
   dev: {
     openData: '/open-data',
