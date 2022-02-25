@@ -11,7 +11,7 @@ export default function VaultsPage() {
 
   return (
     <AdminLayout>
-      <AdminContainer title={t('documents:documents')}>
+      <AdminContainer title={t('vaults:vaults')}>
         <GridAppbar />
         <Grid />
       </AdminContainer>

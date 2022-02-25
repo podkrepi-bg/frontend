@@ -16,6 +16,7 @@ import { DocumentInput, DocumentResponse } from 'gql/document'
 import { CountryInput, CountryResponse } from 'gql/countries'
 
 import { endpoints } from './apiEndpoints'
+import { VaultInput, VaultResponse } from 'gql/vault'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await apiClient.get(queryKey.join('/'))
@@ -112,6 +113,49 @@ export function useDeleteManyDocuments(idsToDelete: string[]) {
   return async () => {
     return await apiClient.post<DocumentResponse, AxiosResponse<DocumentResponse>>(
       endpoints.documents.deleteDocuments.url,
+      idsToDelete,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useCreateVault() {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (data: VaultInput) => {
+    return await apiClient.post<VaultResponse, AxiosResponse<VaultResponse>>(
+      endpoints.vaults.createVault.url,
+      data,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useEditVault(slug: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (data: VaultInput) => {
+    return await apiClient.put<VaultResponse, AxiosResponse<VaultResponse>>(
+      endpoints.vaults.editVault(slug).url,
+      data,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useDeleteVault(slug: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async () => {
+    return await apiClient.delete<VaultResponse, AxiosResponse<VaultResponse>>(
+      endpoints.vaults.deleteVault(slug).url,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useDeleteManyVaults(idsToDelete: string[]) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async () => {
+    return await apiClient.post<VaultResponse, AxiosResponse<VaultResponse>>(
+      endpoints.vaults.deleteVaults.url,
       idsToDelete,
       authConfig(keycloak?.token),
     )

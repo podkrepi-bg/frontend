@@ -4,8 +4,8 @@ import { observer } from 'mobx-react'
 import { Dialog, Card, CardContent, Typography, Divider } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-import { DocumentResponse } from 'gql/document'
-import { useDocument } from 'common/hooks/documents'
+import { VaultResponse } from 'gql/vault'
+import { useVault } from 'common/hooks/vaults'
 import { ModalStore } from 'stores/documents/ModalStore'
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
 }
 
 export default observer(function DetailsModal({ id }: Props) {
-  const { data }: UseQueryResult<DocumentResponse> = useDocument(id)
+  const { data }: UseQueryResult<VaultResponse> = useVault(id)
   const { isDetailsOpen, hideDetails } = ModalStore
   const { t } = useTranslation()
 
@@ -22,31 +22,26 @@ export default observer(function DetailsModal({ id }: Props) {
       <Card>
         <CardContent>
           <Typography variant="h5" sx={{ marginBottom: '16px' }}>
-            {t('documents:cta:details')}
+            {t('vaults:cta:details')}
           </Typography>
           <Divider />
           <Typography variant="body1" sx={{ fontSize: 24, marginTop: '8px' }}>
-            {t('documents:type')}: {data?.type}
+            {t('vaults:name')}: {data?.name}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('documents:name')}: {data?.name}
+            {t('vaults:currency')}: {data?.currency}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('documents:filename')}: {data?.filename}
+            {t('vaults:amount')}: {data?.amount}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('documents:filetype')}: {data?.filetype}
+            {t('vaults:createdAt')}: {data?.createdAt}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('documents:description')}: {data?.description}
+            {t('vaults:updatedAt')}: {data?.updatedAt}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('documents:sourceUrl')}:{' '}
-            {
-              <a target="_blank" href={data?.sourceUrl} rel="noreferrer">
-                Link
-              </a>
-            }
+            {t('vaults:campaignId')}: {data?.campaignId}
           </Typography>
         </CardContent>
       </Card>

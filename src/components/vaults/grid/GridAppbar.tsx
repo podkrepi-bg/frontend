@@ -30,7 +30,7 @@ export default observer(function GridAppbar() {
   const { t } = useTranslation()
 
   function deleteAllClickHandler() {
-    isSelected ? showDeleteAll() : AlertStore.show(t('documents:alerts:selectRow'), 'warning')
+    isSelected ? showDeleteAll() : AlertStore.show(t('vaults:alerts:selectRow'), 'warning')
   }
 
   return (
@@ -43,11 +43,11 @@ export default observer(function GridAppbar() {
         height: '72px',
       }}>
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'start', pt: 1 }}>
-        <Typography>{t('documents:all')}</Typography>
+        <Typography>{t('vaults:all')}</Typography>
       </Box>
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Tooltip title={t('documents:cta:deleteSelected') || ''}>
+          <Tooltip title={t('vaults:cta:deleteSelected') || ''}>
             <DeleteIcon
               onClick={deleteAllClickHandler}
               sx={iconStyles}
@@ -55,12 +55,12 @@ export default observer(function GridAppbar() {
               color="action"
             />
           </Tooltip>
-          <Tooltip title={t('documents:cta:add') || ''}>
+          <Tooltip title={t('vaults:cta:add') || ''}>
             <AddIcon
               sx={addIconStyles}
               fontSize="large"
               onClick={() => {
-                router.push(routes.admin.documents.create)
+                router.push(routes.admin.vaults.create)
               }}
             />
           </Tooltip>
