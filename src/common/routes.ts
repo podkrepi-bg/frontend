@@ -63,6 +63,21 @@ export const routes = {
       viewCityById: (id: string) => `/admin/cities/details/${id}`,
       editCityById: (id: string) => `/admin/cities/edit/${id}`,
     },
+    coordinators: {
+      index: '/admin/coordinators',
+      add: '/admin/coordinators/add',
+      edit: (id: string | number) => `/admin/coordinators/edit/${id}`,
+    },
+    documents: {
+      index: '/admin/documents',
+      create: '/admin/documents/create',
+      edit: (slug: string) => `/admin/documents/${slug}/edit`,
+    },
+    countries: {
+      index: '/admin/countries',
+      create: '/admin/countries/create',
+      view: (id: string) => `/admin/countries/${id}`,
+    },
   },
   dev: {
     openData: '/open-data',

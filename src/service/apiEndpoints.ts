@@ -29,6 +29,14 @@ export const endpoints = {
     recurringPrices: <Endpoint>{ url: '/donation/prices/recurring', method: 'GET' },
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
   },
+  documents: {
+    documentsList: <Endpoint>{ url: '/document', method: 'GET' },
+    getDocument: (slug: string) => <Endpoint>{ url: `/document/${slug}`, method: 'GET' },
+    createDocument: <Endpoint>{ url: '/document', method: 'POST' },
+    editDocument: (slug: string) => <Endpoint>{ url: `/document/${slug}`, method: 'PUT' },
+    deleteDocument: (slug: string) => <Endpoint>{ url: `/document/${slug}`, method: 'DELETE' },
+    deleteDocuments: <Endpoint>{ url: '/document/delete-many', method: 'POST' },
+  },
   bankAccounts: {
     bankAccountList: <Endpoint>{ url: '/bankaccount', method: 'GET' },
     viewBankAccount: (id: string) => <Endpoint>{ url: `/bankaccount/${id}`, method: 'GET' },
@@ -50,5 +58,11 @@ export const endpoints = {
     viewCountry: (id: string) => <Endpoint>{ url: `/country/${id}`, method: 'GET' },
     editCountry: (id: string) => <Endpoint>{ url: `/country/${id}`, method: 'PATCH' },
     deleteCountry: (id: string) => <Endpoint>{ url: `/country/${id}`, method: 'DELETE' },
+  },
+  coordinators: {
+    coordinatorsList: <Endpoint>{ url: '/coordinator/list', method: 'GET' },
+    viewCoordinator: (id: string) => <Endpoint>{ url: `/coordinator/${id}`, method: 'GET' },
+    postCoordinator: <Endpoint>{ url: '/coordinator', method: 'POST' },
+    deleteCoordinator: (id: string) => <Endpoint>{ url: `/coordinator/${id}`, method: 'DELETE' },
   },
 }
