@@ -13,8 +13,3 @@ spec:
       containers:
         - name: frontend
           imagePullPolicy: IfNotPresent
-          env:
-            - name: APP_URL
-              value: https://podkrepi.bg
-            - name: API_URL
-              value: https://podkrepi.bg
