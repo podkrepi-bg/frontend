@@ -67,6 +67,11 @@ export const routes = {
       create: '/admin/documents/create',
       edit: (slug: string) => `/admin/documents/${slug}/edit`,
     },
+    beneficiary: {
+      index: '/admin/beneficiary',
+      create: '/admin/beneficiary/create',
+      edit: (slug: string) => `/admin/beneficiary/${slug}/edit`,
+    },
     countries: {
       index: '/admin/countries',
       create: '/admin/countries/create',
