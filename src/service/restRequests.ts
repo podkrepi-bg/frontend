@@ -39,7 +39,7 @@ export const authConfig = (token?: string): AxiosRequestConfig => {
 
 export const createBeneficiary = async (data: CreateBeneficiaryInput) => {
   return await apiClient.post<CreateBeneficiaryInput, AxiosResponse<PersonResponse>>(
-    endpoints.person.createBeneficiary.url,
+    endpoints.beneficiary.createBeneficiary.url,
     data,
   )
 }
