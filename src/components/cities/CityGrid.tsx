@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react'
 import router from 'next/router'
 import { useTranslation } from 'next-i18next'

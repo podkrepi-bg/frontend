@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dialog, DialogTitle, DialogActions, Button } from '@mui/material'
 import { Modal } from '@mui/material'
 import { useRouter } from 'next/router'

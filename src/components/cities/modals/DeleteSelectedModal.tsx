@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Modal from '@mui/material/Modal'
 import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material'
 
