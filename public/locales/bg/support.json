@@ -1,0 +1,106 @@
+{
+  "title": "Подкрепи ни",
+  "steps": {
+    "role": {
+      "title": "Роля",
+      "subtitle": "Как искате да ни подкрепите?",
+      "first-subtitle": "Подкрепете ни с банков превод:",
+      "second-subtitle": "Включете се в организацията като:",
+      "fields": {
+        "benefactor": {
+          "title": "Дарител",
+          "description": "Дарител..."
+        },
+        "partner": {
+          "title": "Партньор",
+          "description": "Партньор..."
+        },
+        "volunteer": {
+          "title": "Доброволец",
+          "description": "Доброволец..."
+        },
+        "associationMember": {
+          "title": "Член на сдружението",
+          "description": "Член на сдружението..."
+        },
+        "company": {
+          "title": "Компания",
+          "description": "Компания..."
+        }
+      }
+    },
+    "addition-questions": {
+      "title": "Допълнителни въпроси",
+      "subtitle": "В каква роля искате да ни подкрепите?",
+      "benefactor": {
+        "title": "Дарител",
+        "campaignBenefactor": "Дарител в бъдещи кампании",
+        "platformBenefactor": "Дарител в сдружение \"Подкрепи.бг\""
+      },
+      "partner": {
+        "title": "Партньор",
+        "npo": "НПО",
+        "bussiness": "Бизнес",
+        "other": "Друго",
+        "otherText": ""
+      },
+      "volunteer": {
+        "title": "Доброволец",
+        "label": "Моля, изберете област",
+        "marketing": "Маркетинг",
+        "backend": "Backend",
+        "frontend": "Frontend",
+        "qa": "QA",
+        "designer": "Дизайнер",
+        "projectManager": "Организация на доброволците",
+        "devOps": "DevOps",
+        "security": "Отговорник по сигурност",
+        "financesAndAccounts": "Финанси и счетоводство",
+        "lawyer": "Адвокат"
+      },
+      "associationMember": {
+        "title": "Член на сдружението",
+        "member": "Член"
+      },
+      "company": {
+        "title": "Компания",
+        "sponsor": "Компания дарител",
+        "volunteer": "Компания доброволец",
+        "other": "Друго",
+        "otherText": ""
+      }
+    },
+    "info": {
+      "title": "Данни за контакт",
+      "subtitle": "Как да се свържем с вас",
+      "email": "Имейл",
+      "name": "Име",
+      "first-name": "Име",
+      "last-name": "Фамилия",
+      "phone": "Телефонен номер",
+      "comment": "Допълнитен коментар"
+    },
+    "newsletter": {
+      "title": "Бюлетин",
+      "label": "Искам да получавам месечни известия с новости покрай проекта",
+      "confirm": {
+        "title": "Наистина ли сте сигурни, че не искате да се абонирате ?",
+        "content": "Абонирането означава, че ще получавате редовна полезна и интересна информация за нас и нашата кауза :)",
+        "confirmButtonLabel": "Да, всъщност искам",
+        "cancelButtonLabel": "По-скоро не"
+      }
+    },
+    "thank-you": {
+      "title": "Участие",
+      "content": "Благодарим Ви, че ни подкрепихте!",
+      "await-instructions": "Очаквайте представител на Подкрепи.бг да се свърже с вас на посочения имейл."
+    }
+  },
+  "cta": {
+    "next": "Напред",
+    "back": "Назад",
+    "reset": "Начало",
+    "submit": "Изпрати",
+    "copy-number": "Копирай"
+  }
+}

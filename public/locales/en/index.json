@@ -1,0 +1,55 @@
+{
+  "title": "Podkrepi.bg",
+  "jumbotron": {
+    "heading": "An online donation platform",
+    "maximum-transparency": "with a maximum degree of transparency",
+    "zero-commission": "with 0% commission from the contributor",
+    "eliminate-misuse": "aimed at eliminating misuses of donation campaigns",
+    "improve-donation-culture": "aimed at improving the donation culture in Bulgaria",
+    "open-source": "open source",
+    "about-project-button": "About the project",
+    "support-us-button": "Support us"
+  },
+  "activity-section": {
+    "heading": "What do we do?",
+    "content": "Podkrepi.bg is an association of professionals united by the idea of creating a free and completely transparent online donation platform, which can be used freely by citizens and organizations."
+  },
+  "team-section": {
+    "heading": "Who are we?",
+    "content": "We are volunteers from the IT community, lawyers, accountants, marketers, medics, and NGO representatives. We are united by the desire to create an improved fundraising environment in Bulgaria by developing the most transparent platform for donations. The platform will support itself by membership fees and grants and not by charging a percentage of the funds raised for the campaigns that go through it."
+  },
+  "team-chart-section": {
+    "heading": "How it all started?",
+    "data": {
+      "back-end": "Backend (146)",
+      "frontend": "Frontend (89)",
+      "full-stack": "Full-Stack (82)",
+      "dev-ops": "DevOps (78)",
+      "qa": "QA (61)",
+      "design": "Design (35)",
+      "law": "Law (16)",
+      "management": "Management (88)",
+      "accounting": "Accounting and Finance (16)",
+      "marketing": "Marketing and PR (72)",
+      "ngo": "NGO/Volunteering (37)",
+      "others": "Others (16)"
+    }
+  },
+  "support-us-section": {
+    "heading": "Support us as:",
+    "financial-support": "- a benefactor",
+    "labour-support": "- a volunteer",
+    "media-support": "- media",
+    "become-a-partner": "- a partner",
+    "click-here-button": "Join us"
+  },
+  "mission-vision-goals-section": {
+    "mission-title": "Mission",
+    "mission-text": "To create a completely transparent online donation platform, supported by donations and membership fees to our association, and not % commission from the companies.",
+    "vision-title": "Vision",
+    "vision-text": "To improve the donation culture in Bulgaria drastically by increasing transparency and trust in donation campaigns and platforms.",
+    "goals-title": "Goals",
+    "goals-text-trust": "- To restore trust in donation.",
+    "goals-text-open-source": "- To create an open-source platform which reduces the chances of misuse."
+  }
+}

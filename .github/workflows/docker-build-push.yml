@@ -1,0 +1,50 @@
+name: Build production image
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*.*.*'
+    branches: [master]
+
+jobs:
+  build-docker-image:
+    name: Build docker image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to GitHub Packages Docker Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: devops-podkrepi-bg
+          password: ${{ secrets.DEVOPS_PACKAGES_TOKEN }}
+
+      - name: Get tag
+        id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        env:
+          NODE_ENV: production
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        with:
+          push: true
+          target: production
+          build-args: SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
+          tags: ghcr.io/podkrepi-bg/frontend:${{ steps.vars.outputs.tag }}
+
+  # deploy-discord:
+  #   needs: [build-docker-image]
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - uses: sarisia/actions-status-discord@v1
+  #       if: always()
+  #       with:
+  #         webhook: ${{ secrets.APP_DISCORD_WEBHOOK }}
+  #         title: "deploy"
+  #         description: "A new version of the website is deployed: https://podkrepi.bg/"
+  #         color: 0x26A641

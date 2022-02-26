@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Ask Question
+    url: https://github.com/podkrepi-bg/frontend/discussions
+    about: Ask technical questions
+  - name: Join Discord
+    url: https://discord.gg/pwkfzvPBSm
+    about: Discuss with other community members
+  - name: Read the docs
+    url: https://docs.podkrepi.bg/general/
+    about: Browse the public documentation

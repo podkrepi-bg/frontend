@@ -1,0 +1,54 @@
+@import 'variables';
+@import 'functions';
+
+//Global normalizing styles
+a {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+//Common styles for PrivacyPolicyPage and TermsOfServicePage
+.privacy-policy-gdpr {
+  h2 {
+    color: $theme-primary-dark;
+    margin: theme-spacing(4) 0;
+  }
+
+  p {
+    margin: theme-spacing(3) 0;
+  }
+
+  ul {
+    list-style-type: disc;
+
+    li {
+      margin-left: theme-spacing(4);
+    }
+  }
+
+  .lower-roman-ul {
+    list-style-type: lower-roman;
+  }
+
+  .bold-italic-text {
+    font-style: italic;
+    font-weight: bold;
+  }
+
+  .rights-table {
+    border: 1px solid $theme-primary-dark;
+    text-align: left;
+
+    > * {
+      border: 1px solid $theme-primary-dark;
+    }
+  }
+}

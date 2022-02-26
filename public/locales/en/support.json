@@ -1,0 +1,105 @@
+{
+  "title": "Support us",
+  "steps": {
+    "role": {
+      "title": "Role",
+      "subtitle": "How would you like to help?",
+      "first-subtitle": "Support us with a bank transfer:",
+      "second-subtitle": "Join the organization as:",
+      "fields": {
+        "benefactor": {
+          "title": "Benefactor",
+          "description": "Benefactor..."
+        },
+        "partner": {
+          "title": "Partner",
+          "description": "Partner..."
+        },
+        "volunteer": {
+          "title": "Volunteer",
+          "description": "Volunteer..."
+        },
+        "associationMember": {
+          "title": "Association member",
+          "description": "Association member..."
+        },
+        "company": {
+          "title": "Company",
+          "description": "Company..."
+        }
+      }
+    },
+    "addition-questions": {
+      "title": "Additional questions",
+      "subtitle": "How would you like to help?",
+      "benefactor": {
+        "title": "Benefactor",
+        "campaignBenefactor": "Campaign benefactor",
+        "platformBenefactor": "Platform benefactor"
+      },
+      "partner": {
+        "title": "Partner",
+        "npo": "NPO",
+        "bussiness": "Bussiness",
+        "other": "Other",
+        "otherText": ""
+      },
+      "volunteer": {
+        "title": "Volunteer",
+        "label": "Please choose area",
+        "marketing": "Marketing",
+        "backend": "Backend",
+        "frontend": "Frontend",
+        "qa": "QA",
+        "projectManager": "Project/product management",
+        "designer": "Designer",
+        "devOps": "DevOps",
+        "security": "Security officer",
+        "financesAndAccounts": "Finances and accounts",
+        "lawyer": "Lawyer"
+      },
+      "associationMember": {
+        "title": "Association member",
+        "member": "Member"
+      },
+      "company": {
+        "title": "Company",
+        "sponsor": "Company sponsor",
+        "volunteer": "Company volunteer",
+        "other": "Other",
+        "otherText": ""
+      }
+    },
+    "info": {
+      "title": "Keep in touch",
+      "subtitle": "How to keep in touch with you?",
+      "email": "Email",
+      "name": "Name",
+      "first-name": "Given name",
+      "last-name": "Surname",
+      "phone": "Phone number",
+      "comment": "Additional notes"
+    },
+    "newsletter": {
+      "title": "Newsletter",
+      "label": "I would like to be informed monthly about the progress",
+      "confirm": {
+        "title": "Are you really sure you don't want to subscribe ?",
+        "content": "By subscribing you will receive regular useful and interesting info about us and our cause :)",
+        "confirmButtonLabel": "Yes I actually want to",
+        "cancelButtonLabel": "Maybe not"
+      }
+    },
+    "thank-you": {
+      "title": "Thank you",
+      "content": "Thanks for joining the supporters!"
+    }
+  },
+  "cta": {
+    "next": "Next",
+    "back": "Back",
+    "reset": "Reset",
+    "submit": "Submit",
+    "copy-number": "Copy"
+  }
+}

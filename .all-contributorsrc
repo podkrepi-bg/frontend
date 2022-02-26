@@ -1,0 +1,377 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "kachar",
+      "name": "Ilko",
+      "avatar_url": "https://avatars.githubusercontent.com/u/893608?v=4",
+      "profile": "https://stackoverflow.com/users/668245/kachar",
+      "contributions": [
+        "code",
+        "doc",
+        "review",
+        "maintenance",
+        "bug",
+        "example"
+      ]
+    },
+    {
+      "login": "StanislavSt",
+      "name": "StanislavSt",
+      "avatar_url": "https://avatars.githubusercontent.com/u/12186099?v=4",
+      "profile": "http://stackoverflow.com/users/6163171/stanleys?tab=profile",
+      "contributions": [
+        "code",
+        "doc",
+        "review",
+        "tool"
+      ]
+    },
+    {
+      "login": "sotir-ls",
+      "name": "Sotir",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4455130?v=4",
+      "profile": "https://github.com/sotir-ls",
+      "contributions": [
+        "code",
+        "doc",
+        "review",
+        "tool"
+      ]
+    },
+    {
+      "login": "ani-kalpachka",
+      "name": "Ani",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14351733?v=4",
+      "profile": "https://github.com/ani-kalpachka",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "Nikola-Andreev",
+      "name": "Nikola Andreev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19424332?v=4",
+      "profile": "https://github.com/Nikola-Andreev",
+      "contributions": [
+        "code",
+        "doc",
+        "tool"
+      ]
+    },
+    {
+      "login": "arthas168",
+      "name": "Pete Pavlovski",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32264020?v=4",
+      "profile": "https://petkopavlovski.com/",
+      "contributions": [
+        "code",
+        "doc",
+        "review"
+      ]
+    },
+    {
+      "login": "uzuntonev",
+      "name": "Georgi Uzuntonev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/51097961?v=4",
+      "profile": "https://github.com/uzuntonev",
+      "contributions": [
+        "code",
+        "doc",
+        "review",
+        "tool"
+      ]
+    },
+    {
+      "login": "vikinatora",
+      "name": "Viktor Todorov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/29047760?v=4",
+      "profile": "https://github.com/vikinatora",
+      "contributions": [
+        "code",
+        "doc",
+        "review",
+        "tool"
+      ]
+    },
+    {
+      "login": "miraclebg",
+      "name": "Martin Kovachev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/126405?v=4",
+      "profile": "http://www.nimasystems.com",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "infra",
+        "maintenance",
+        "security"
+      ]
+    },
+    {
+      "login": "igoychev",
+      "name": "igoychev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7055304?v=4",
+      "profile": "https://github.com/igoychev",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "infra",
+        "maintenance",
+        "security"
+      ]
+    },
+    {
+      "login": "VPeykovski",
+      "name": "VPeykovski",
+      "avatar_url": "https://avatars.githubusercontent.com/u/22998082?v=4",
+      "profile": "https://github.com/VPeykovski",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "dimitur2204",
+      "name": "Dimitar Nizamov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/61479393?v=4",
+      "profile": "https://github.com/dimitur2204",
+      "contributions": [
+        "code",
+        "doc",
+        "tool"
+      ]
+    },
+    {
+      "login": "xenry",
+      "name": "Andrey Marchev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/534600?v=4",
+      "profile": "https://github.com/xenry",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "platform",
+        "review"
+      ]
+    },
+    {
+      "login": "dianakarcheva",
+      "name": "dianakarcheva",
+      "avatar_url": "https://avatars.githubusercontent.com/u/47477592?v=4",
+      "profile": "https://github.com/dianakarcheva",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "platform",
+        "review"
+      ]
+    },
+    {
+      "login": "mayapeneva",
+      "name": "Mayya Peneva",
+      "avatar_url": "https://avatars.githubusercontent.com/u/25232447?v=4",
+      "profile": "https://github.com/mayapeneva",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "platform",
+        "review"
+      ]
+    },
+    {
+      "login": "RRoussev88",
+      "name": "RRoussev88",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32360024?v=4",
+      "profile": "https://github.com/RRoussev88",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "marchev",
+      "name": "Martin Marchev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2691408?v=4",
+      "profile": "https://github.com/marchev",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "cupakob",
+      "name": "Atanas Alexandrov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/56699232?v=4",
+      "profile": "https://atanas-alexandrov.de",
+      "contributions": [
+        "code",
+        "doc",
+        "test",
+        "bug",
+        "tool"
+      ]
+    },
+    {
+      "login": "tanyogeorgiev",
+      "name": "Tanyo Georgiev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17822617?v=4",
+      "profile": "https://github.com/tanyogeorgiev",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "platform"
+      ]
+    },
+    {
+      "login": "stanimirdim92",
+      "name": "Stanimir Dimitrov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/42135030?v=4",
+      "profile": "https://github.com/stanimirdim92",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "platform",
+        "test",
+        "review"
+      ]
+    },
+    {
+      "login": "imilchev",
+      "name": "Ivan Milchev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16187050?v=4",
+      "profile": "https://github.com/imilchev",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "platform",
+        "test",
+        "review"
+      ]
+    },
+    {
+      "login": "tvalchev",
+      "name": "tvalchev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7523222?v=4",
+      "profile": "https://github.com/tvalchev",
+      "contributions": [
+        "code",
+        "doc",
+        "tool"
+      ]
+    },
+    {
+      "login": "skilldeliver",
+      "name": "Vladislav Mihov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/37806520?v=4",
+      "profile": "https://www.vmihov.com/",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "platform"
+      ]
+    },
+    {
+      "login": "wessly",
+      "name": "Gottfrid Svartholm",
+      "avatar_url": "https://avatars.githubusercontent.com/u/16501328?v=4",
+      "profile": "https://github.com/wessly",
+      "contributions": [
+        "code",
+        "doc",
+        "tool"
+      ]
+    },
+    {
+      "login": "preslavgerchev",
+      "name": "Preslav Gerchev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11717082?v=4",
+      "profile": "https://github.com/preslavgerchev",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "platform",
+        "test",
+        "review"
+      ]
+    },
+    {
+      "login": "gonaumov",
+      "name": "George Naumov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/4079371?v=4",
+      "profile": "http://georgi-naumov.blogspot.com/",
+      "contributions": [
+        "code",
+        "doc",
+        "tool"
+      ]
+    },
+    {
+      "login": "atanasster",
+      "name": "Atanas Stoyanov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6075606?v=4",
+      "profile": "https://github.com/atanasster",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "platform",
+        "maintenance"
+      ]
+    },
+    {
+      "login": "vann4oto98",
+      "name": "Vanyo",
+      "avatar_url": "https://avatars.githubusercontent.com/u/61576293?v=4",
+      "profile": "https://github.com/vann4oto98",
+      "contributions": [
+        "code",
+        "doc",
+        "tool"
+      ]
+    },
+    {
+      "login": "kirilpopov",
+      "name": "Kiril Popov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6021897?v=4",
+      "profile": "https://github.com/kirilpopov",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "platform",
+        "plugin"
+      ]
+    },
+    {
+      "login": "dragomir-yankov",
+      "name": "dragomir-yankov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/28300816?v=4",
+      "profile": "https://github.com/dragomir-yankov",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "platform"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "frontend",
+  "projectOwner": "podkrepi-bg",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}

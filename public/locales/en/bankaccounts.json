@@ -1,0 +1,11 @@
+{
+    "form-heading": "Add new account",
+    "status": "Status",
+    "ibanNumber": "IBAN",
+    "accountHolderName": "Account holder name",
+    "AccountHolderType": "Account holder type",
+    "bankName": "Bank name",
+    "bankIdCode": "Bank ID",
+    "fingerprint": "Fingerprint",
+    "withdrawal": "WithDraws"
+}

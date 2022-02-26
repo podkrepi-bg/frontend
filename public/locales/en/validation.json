@@ -1,0 +1,20 @@
+{
+  "invalid": "Field is invalid",
+  "required": "Required field",
+  "email": "Invalid email",
+  "phone": "Invalid phone number",
+  "password-min": "Password should be at least {{min}} characters",
+  "password-match": "Password doesn't match",
+  "field-too-short": "Field should be at least {{min}} symbols",
+  "field-too-long": "Field should be maximum {{max}} symbols",
+  "one-of": "Invalid value",
+  "select-role": "At least one checkbox should be checked",
+  "terms-of-use": "Please accept the Terms and Conditions",
+  "terms-of-service": "Please accept the GDPR policy",
+  "agree-terms": "Agree to the Terms and Conditions",
+  "agree-with": "I agree to the",
+  "informed-agree-with": "I understand and I agree to the",
+  "terms-and-conditions": "Terms and Conditions",
+  "gdpr": "General Data Protection Regulation (GDPR)",
+  "legal-entity": "Legal entity"
+}

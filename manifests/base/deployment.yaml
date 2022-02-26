@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: ghcr.io/podkrepi-bg/frontend
+          imagePullPolicy: Always
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: TARGET_ENV
+              value: production
+            - name: APP_ENV
+              value: production
+            - name: APP_PORT
+              value: '3040'
+            - name: REST_API_PORT
+              value: '80'
+            - name: KEYCLOAK_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak-config-web
+                  key: url
+            - name: KEYCLOAK_REALM
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak-config-web
+                  key: realm
+            - name: KEYCLOAK_CLIENT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: keycloak-config-web
+                  key: client-id
+          ports:
+            - containerPort: 3040
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: '1'
+            requests:
+              memory: 256Mi
+              cpu: '0.2'
+          livenessProbe:
+            httpGet:
+              path: /api/healthcheck
+              port: 3040
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /api/healthcheck
+              port: 3040
+            initialDelaySeconds: 5
+            periodSeconds: 5

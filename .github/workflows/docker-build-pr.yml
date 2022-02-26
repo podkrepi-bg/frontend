@@ -1,0 +1,26 @@
+name: Build docker image
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [master]
+
+jobs:
+  build-pr:
+    runs-on: ubuntu-latest
+
+    env:
+      IMAGE_NAME: frontend
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build frontend
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        run: |
+          docker build . \
+            --file ./Dockerfile \
+            --target production \
+            --build-arg NODE_ENV=production \
+            --build-arg SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN

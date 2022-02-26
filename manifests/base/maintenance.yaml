@@ -1,0 +1,54 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-maintenance-headless
+spec:
+  selector:
+    app: frontend-maintenance
+  clusterIP: None
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-maintenance
+  labels:
+    app: frontend-maintenance
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend-maintenance
+  template:
+    metadata:
+      labels:
+        app: frontend-maintenance
+    spec:
+      containers:
+        - name: frontend
+          image: ghcr.io/podkrepi-bg/frontend/maintenance:master
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: 512Mi
+              cpu: '1'
+            requests:
+              memory: 256Mi
+              cpu: '0.2'
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5

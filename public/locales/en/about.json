@@ -1,0 +1,45 @@
+{
+  "about": {
+    "title": "About us",
+    "description": "We are a group of volunteers with a common goal: to create a transparent platform for donations that does not take a commission from successful campaigns."
+  },
+  "howEverythingBegin": {
+    "title": "How everything started?",
+    "volunteers": "We are volunteers from the IT community, lawyers, accountants, marketers, medics, and NGO representatives. We are united by the desire to create an improved fundraising environment in Bulgaria by developing the most transparent platform for donations. The platform will support itself by membership fees and grants and not by charging a percentage of the funds raised for the campaigns that go through it."
+  },
+  "principlesThatUniteUs": {
+    "title": "Our principles",
+    "voluntary": {
+      "heading": "Voluntary and pro-bono",
+      "content": "We are building a donation platform to benefit those in need and the organizations that help them. We are not seeking financial or other benefits from this initiative, except satisfaction with the implemented campaigns and the support of those in need."
+    },
+    "proactivity": {
+      "heading": "PROACTIVE APPROACH",
+      "content": "You should not wait for a task to be given to you; you take it directly! Competent display of free will, appropriate choice and execution of assignments without the need for someone to create and set them."
+    },
+    "transparency": {
+      "heading": "TRANSPARENCY",
+      "content": "Benefactors trust us because we provide transparency through open source, open data/transactions, open solutions. Those in need trust us because we make the application process fair, accessible and transparent, through clear criteria. Society trusts us because everything is transparent, including our work process. We trust each other because there are clear and transparent work principles established between us."
+    },
+    "respect": {
+      "heading": "RESPECT",
+      "content": "We are kind and good to the people around us; we respect them and if we can we help them. Everyone's opinion matters, so we listen and try to understand what the other person is saying."
+    },
+    "expertise": {
+      "heading": "EXPERTISE",
+      "content": "When we make choices or make difficult decisions, we base them on the opinion of experts with close experience in the specific topic."
+    },
+    "privacy": {
+      "heading": "PRIVACY",
+      "content": "We respect and protect the personal data of everyone in need, donating or helping in the process, as if they were our own. We clearly define who has rights to access production data, and the people developing the project will not have access to personal data."
+    },
+    "awareness": {
+      "heading": "AWARENESS",
+      "content": "We are looking for the best solution and when we donate our work, we do it with the full awareness that not everything we do will come into use. If it so happens that your plan or proposal is not approved, you continue with a smile to the next task. If someone else is doing better in your role, you gladly recommend them to lead it, and you help them as much as you can."
+    },
+    "sharing": {
+      "heading": "SHARING KNOWLEDGE",
+      "content": "When a project participant needs help or explanation, you can explain or share a link to the project documentation. People with less experience get involved and absorb knowledge from more experienced team members."
+    }
+  }
+}
