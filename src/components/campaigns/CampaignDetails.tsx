@@ -3,8 +3,10 @@ import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import { CampaignResponse } from 'gql/campaigns'
 import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import LatestNews from './LatestNews'
+import CampaignComments from './CampaignComments';
 import { Grid, Theme, Typography } from '@mui/material'
+import createStyles from '@mui/styles/createStyles'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,9 +24,15 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     campaignTitle: {
-      height: theme.spacing(32),
       color: theme.palette.common.white,
       fontWeight: 500,
+      margin: 0,
+    },
+    campaignSubtitle: {
+      color: theme.palette.common.white,
+      padding: theme.spacing(0, 4.7),
+      fontSize: theme.spacing(4),
+      height: theme.spacing(16),
     },
     beneficiaryAvatarWrapper: {
       textAlign: 'center',
@@ -73,6 +81,14 @@ export default function CampaignDetails({ campaign }: Props) {
       <Typography paragraph variant="h2" component="h1" p={4} className={classes.campaignTitle}>
         {campaign.title}
       </Typography>
+      <Typography
+        paragraph
+        variant="subtitle1"
+        component="p"
+        p={4}
+        className={classes.campaignSubtitle}>
+        Subheader {/* This value has to come from db */}
+      </Typography>
       <Grid item p={4} className={classes.beneficiaryAvatarWrapper}>
         <Image
           src={beneficiaryAvatarSource}
@@ -108,6 +124,8 @@ export default function CampaignDetails({ campaign }: Props) {
             {campaign.coordinator.person.firstName}
           </Typography>
         </Grid>
+        <LatestNews />
+        <CampaignComments />
       </Grid>
     </Grid>
   )
