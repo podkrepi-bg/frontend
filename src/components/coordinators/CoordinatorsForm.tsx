@@ -65,7 +65,11 @@ export default function BankAccountsForm() {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <SubmitButton fullWidth label="campaigns:cta.submit" loading={mutation.isLoading} />
+          <SubmitButton
+            fullWidth
+            label={t('coordinator:create:submitButton')}
+            loading={mutation.isLoading}
+          />
         </Grid>
       </GenericForm>
     </Grid>

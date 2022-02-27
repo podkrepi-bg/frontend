@@ -14,14 +14,14 @@ const DeleteRowDialog = ({ open, closeFn, name, deleteRow }: Props) => {
   return (
     <Dialog open={open} onClose={closeFn} maxWidth="xs" disableScrollLock>
       <DialogTitle>
-        {t('alerts.delete-row.question')} ({name})?
+        {t('coordinator:alert:delete-row:question')} ({name})?
       </DialogTitle>
       <DialogActions>
         <Button variant="contained" color="secondary" fullWidth onClick={deleteRow}>
-          {t('btns.confirm')}
+          {t('coordinator:btns:confirm')}
         </Button>
         <Button variant="contained" color="primary" fullWidth onClick={closeFn}>
-          {t('btns.cancel')}
+          {t('coordinator:btns:cancel')}
         </Button>
       </DialogActions>
     </Dialog>

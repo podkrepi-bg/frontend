@@ -11,5 +11,13 @@
         "confirm": "Потвърди",
         "cancel": "Отказ",
         "close": "Затвори"
+    },
+    "alert": {
+        "delete-row": {
+            "question": "Сигурен ли си?"
+        }
+    },
+    "create": {
+        "sumbitButton": "Създай"
     }
 }
