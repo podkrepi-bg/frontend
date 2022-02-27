@@ -14,7 +14,7 @@ type Props = {
 }
 
 const InfoDialog = ({ open, closeFn, data }: Props) => {
-  const { t } = useTranslation('countries')
+  const { t } = useTranslation('coordinator')
   const classes = useStyles()
 
   return (

@@ -10,7 +10,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
       'auth',
       'validation',
       'bankaccounts',
-      'campaigns',
+      'coordinator',
     ])),
   },
 })
