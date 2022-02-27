@@ -8,6 +8,7 @@ class ModalStoreImpl {
   isDeleteOpen = false
   isDeleteAllOpen = false
   isSelected = false
+  idsToDelete: string[] = []
 
   constructor() {
     makeObservable(this, {
@@ -15,6 +16,7 @@ class ModalStoreImpl {
       isDeleteOpen: observable,
       isDeleteAllOpen: observable,
       isSelected: observable,
+      idsToDelete: observable,
       selectedPositive: action,
       selectedNegative: action,
       showDetails: action,
@@ -50,8 +52,10 @@ class ModalStoreImpl {
     this.isDeleteOpen = false
   }
 
-  showDeleteAll = () => {
+  showDeleteAll = (idsToDelete: string[]) => {
     this.isDeleteAllOpen = true
+    console.log(idsToDelete)
+    this.idsToDelete = idsToDelete
   }
 
   hideDeleteAll = () => {

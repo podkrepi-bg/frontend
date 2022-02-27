@@ -13,7 +13,13 @@ import {
 
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
-import { ModalStore } from 'stores/dashboard/ModalStoreOld'
+import { ModalStore } from 'stores/dashboard/ModalStore'
+import { toJS } from 'mobx'
+import { useMutation } from 'react-query'
+import { useDeleteCoordinatorRequest } from 'service/coordinator'
+import { ApiErrors } from 'service/apiErrors'
+import { CoordinatorResponse } from 'gql/coordinators'
+import { AxiosError, AxiosResponse } from 'axios'
 
 const addIconStyles = {
   background: '#4ac3ff',
@@ -31,12 +37,28 @@ const iconStyles = {
   mr: 1,
 }
 export default observer(function BottomAppBar() {
-  const { openCfrm, carSelected } = ModalStore
+  const { isDeleteAllOpen, idsToDelete } = ModalStore
   const { t } = useTranslation()
   const router = useRouter()
+
+  const mutation = useMutation<AxiosResponse<CoordinatorResponse>, AxiosError<ApiErrors>, string>({
+    mutationFn: useDeleteCoordinatorRequest(),
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
+  })
+
   const deleteHandler = () => {
-    carSelected ? openCfrm() : AlertStore.show(t('common:alerts.noselected'), 'info')
+    isDeleteAllOpen
+      ? deleteAll(idsToDelete)
+      : AlertStore.show(t('common:alerts.noselected'), 'info')
   }
+
+  const deleteAll = (idsToDelete: string[]) => {
+    Promise.all(idsToDelete.map((id: string) => mutation.mutateAsync(id))).then(() => {
+      console.log('deleted')
+    })
+  }
+
   return (
     <Toolbar
       sx={{

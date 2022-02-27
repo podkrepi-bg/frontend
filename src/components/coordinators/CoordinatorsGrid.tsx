@@ -27,15 +27,12 @@ import DeleteRowDialog from './DeleteRowDialog'
 import InfoDialog from './InfoDialog'
 
 export default observer(function CoordinatorsGrid() {
-  const [openRowsDel, setOpenRowsDel] = React.useState<boolean>(false)
-  const queryClient = useQueryClient()
   const [selected, setSelected] = React.useState({
     id: '',
     name: '',
   })
-  const [selectedManyIds, setSelectedManyIds] = React.useState([''])
-  const [multipleDelete, setMultipleDelete] = useState<GridRowId[]>([])
-  const { isDetailsOpen, hideDetails, isDeleteOpen, showDelete, hideDelete } = ModalStore
+  const { isDetailsOpen, hideDetails, isDeleteOpen, hideDelete, showDeleteAll, hideDeleteAll } =
+    ModalStore
   const { t } = useTranslation()
 
   const mutation = useMutation<AxiosResponse<CoordinatorResponse>, AxiosError<ApiErrors>, string>({
@@ -45,12 +42,12 @@ export default observer(function CoordinatorsGrid() {
   })
 
   const selectMultipleRows = (ids: GridSelectionModel) => {
+    // console.log('ids', ids)
     const idsToStr = ids.map((id) => id.toString())
-    setSelectedManyIds(idsToStr)
-  }
-
-  const closeDeleteRowsDialog = () => {
-    setOpenRowsDel(false)
+    showDeleteAll(idsToStr)
+    if (ids.length === 0) {
+      hideDeleteAll()
+    }
   }
 
   const deleteRow = async () => {
