@@ -9,7 +9,7 @@ type Props = {
 }
 
 const DeleteRowDialog = ({ open, closeFn, name, deleteRow }: Props) => {
-  const { t } = useTranslation('countries')
+  const { t } = useTranslation()
 
   return (
     <Dialog open={open} onClose={closeFn} maxWidth="xs" disableScrollLock>
