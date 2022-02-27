@@ -14,7 +14,7 @@ export default function ViewCampaignPage({ slug }: Props) {
   const { campaign } = data
 
   return (
-    <Layout maxWidth="xl">
+    <Layout maxWidth={false}>
       <Grid container component="section" maxWidth="lg" justifyContent="center" m="0 auto">
         <CampaignDetails campaign={campaign} />
         <InlineDonation campaign={campaign} />
