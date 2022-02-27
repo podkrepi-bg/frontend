@@ -14,7 +14,6 @@ import {
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
 import { ModalStore } from 'stores/dashboard/ModalStore'
-import { toJS } from 'mobx'
 import { useMutation } from 'react-query'
 import { useDeleteCoordinatorRequest } from 'service/coordinator'
 import { ApiErrors } from 'service/apiErrors'
@@ -55,7 +54,7 @@ export default observer(function BottomAppBar() {
 
   const deleteAll = (idsToDelete: string[]) => {
     Promise.all(idsToDelete.map((id: string) => mutation.mutateAsync(id))).then(() => {
-      console.log('deleted')
+      router.push(routes.admin.coordinators.index)
     })
   }
 
