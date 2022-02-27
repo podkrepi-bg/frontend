@@ -18,6 +18,7 @@
         }
     },
     "create": {
-        "sumbitButton": "Създай"
+        "heading": "Добави нов координатор",
+        "submitButton": "Създай"
     }
 }

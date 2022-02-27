@@ -19,8 +19,6 @@ export const ControlIcons: React.FC<Props> = ({
   setCarId,
   carId,
   openModal,
-  router,
-  route,
   handleOpen,
   setId,
   idToSet,

@@ -55,7 +55,7 @@ export default function BankAccountsForm() {
     <Grid container direction="column" component="section">
       <Grid item xs={12}>
         <Typography variant="h5" component="h2" className={classes.heading}>
-          Добави нов кординатор
+          {t('coordinator:create:heading')}
         </Typography>
       </Grid>
       <GenericForm onSubmit={onSubmit} initialValues={initialValues}>
