@@ -23,6 +23,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         'validation',
         'campaigns',
         'coordinator',
+        'admin',
       ])),
       dehydratedState: dehydrate(client),
     },
