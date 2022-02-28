@@ -1,7 +1,6 @@
-import Link from 'next/link'
 import React from 'react'
 import { useRouter } from 'next/router'
-import { MenuItem, Typography } from '@mui/material'
+import { Typography, Theme, lighten } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import { routes } from 'common/routes'
@@ -9,29 +8,71 @@ import LinkMenuItem from 'components/common/LinkMenuItem'
 
 import GenericMenu from './GenericMenu'
 
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
+
+type NavItem = {
+  href: string
+  label: string
+  enabled?: boolean
+}
+
+const allNavItems: NavItem[] = [
+  {
+    href: routes.campaigns.index,
+    label: 'nav.campaigns.index',
+  },
+  {
+    href: routes.campaigns.create,
+    label: 'nav.campaigns.create',
+  },
+  {
+    href: routes.termsOfService,
+    label: 'components.footer.terms-of-service',
+  },
+  {
+    href: routes.faq,
+    label: 'nav.campaigns.faq',
+  },
+]
+
+export const navItems = allNavItems.filter((el) => typeof el.enabled === 'undefined' ?? el.enabled)
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    dropdownLinkButton: {
+      '&:hover': {
+        backgroundColor: lighten(theme.palette.primary.main, 0.9),
+      },
+    },
+    dropdownLinkText: {
+      color: theme.palette.primary.dark,
+      width: '100%',
+      '&:hover': {
+        color: theme.palette.primary.main,
+      },
+    },
+  }),
+)
+
 export default function DonationMenu() {
   const { t } = useTranslation()
   const router = useRouter()
+  const classes = useStyles()
+
   return (
     <GenericMenu label={t('nav.donation-menu')}>
-      <Link href={routes.campaigns.index} passHref>
-        <MenuItem component="a" selected={router.asPath === routes.campaigns.index}>
-          <Typography variant="button">{t('nav.campaigns.index')}</Typography>
-        </MenuItem>
-      </Link>
-      <LinkMenuItem
-        href={routes.campaigns.create}
-        selected={router.asPath.startsWith(routes.campaigns.create)}>
-        <Typography variant="button">{t('nav.campaigns.create')}</Typography>
-      </LinkMenuItem>
-      <LinkMenuItem
-        href={routes.termsOfService}
-        selected={router.asPath.startsWith(routes.termsOfService)}>
-        <Typography variant="button">{t('components.footer.terms-of-service')}</Typography>
-      </LinkMenuItem>
-      <LinkMenuItem href={routes.faq} selected={router.asPath.startsWith(routes.faq)}>
-        <Typography variant="button">{t('nav.faq')}</Typography>
-      </LinkMenuItem>
+      {navItems.map(({ href, label }, key) => (
+        <LinkMenuItem
+          href={href}
+          selected={router.asPath === href}
+          key={key}
+          className={classes.dropdownLinkButton}>
+          <Typography variant="button" className={classes.dropdownLinkText}>
+            {t(label)}
+          </Typography>
+        </LinkMenuItem>
+      ))}
     </GenericMenu>
   )
 }

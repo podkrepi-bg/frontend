@@ -17,6 +17,7 @@ export type ParsedToken = KeycloakTokenParsed & {
   preferred_username?: string
   email_verified?: boolean
   picture?: string
+  'allowed-origins'?: string[]
 }
 
 export function useSession(): {
