@@ -7,7 +7,7 @@ import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
 import { Box, Button, Grid, Typography } from '@mui/material'
 
-import { BeneficiaryFormData, BeneficiaryType, PersonRelation } from 'gql/beneficiary'
+import { BeneficiaryFormData, BeneficiaryType, PersonRelation } from 'gql/beneficiary.d.ts'
 import { routes } from 'common/routes'
 import { ApiErrors } from 'service/apiErrors'
 import { useBeneficiary, useEditBeneficiary, useCreateBeneficiary } from 'service/beneficiary'

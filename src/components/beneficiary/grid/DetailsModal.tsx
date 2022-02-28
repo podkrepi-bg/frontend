@@ -4,7 +4,7 @@ import { observer } from 'mobx-react'
 import { Dialog, Card, CardContent, Typography, Divider } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-import { BeneficiaryResponse } from 'gql/beneficiary'
+import { BeneficiaryType } from 'gql/beneficiary'
 import { useBeneficiary } from 'service/beneficiary'
 import { ModalStore } from 'stores/documents/ModalStore'
 
@@ -13,7 +13,7 @@ type Props = {
 }
 
 export default observer(function DetailsModal({ id }: Props) {
-  const { data }: UseQueryResult<BeneficiaryResponse> = useBeneficiary(id)
+  const { data }: UseQueryResult<BeneficiaryType> = useBeneficiary(id)
   const { isDetailsOpen, hideDetails } = ModalStore
   const { t } = useTranslation()
 
@@ -22,7 +22,7 @@ export default observer(function DetailsModal({ id }: Props) {
       <Card>
         <CardContent>
           <Typography variant="h5" sx={{ marginBottom: '16px' }}>
-            {t('beneficiary:cta:details')}
+            {t('cta:details')}
           </Typography>
           <Divider />
           <Typography variant="body1" sx={{ fontSize: 24 }}>
