@@ -19,4 +19,5 @@ export const menuItems = [
   { label: 'Потребители', icon: Group, href: '#' },
   { label: 'Документи', icon: FolderShared, href: routes.admin.documents.index },
   { label: 'Държави', icon: Public, href: routes.admin.countries.index },
+  { label: 'Координатори', icon: People, href: routes.admin.coordinators.index },
 ]
