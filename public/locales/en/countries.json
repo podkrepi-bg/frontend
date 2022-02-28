@@ -20,8 +20,6 @@
         },
         "delete-rows": {
             "question": "Are you sure you want to delete multiple countries",
-            "count": "country",
-            "counts": "countries",
             "error": "Error occurred trying to delete multiple countries.",
             "success": "Countries were deleted successfully!"
         },

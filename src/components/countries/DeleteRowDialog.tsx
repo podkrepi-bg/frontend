@@ -16,7 +16,7 @@ const DeleteRowDialog = ({ open, closeFn, countryName, deleteRow }: Props) => {
       <DialogTitle>
         {t('alerts.delete-row.question')} ({countryName})?
       </DialogTitle>
-      <DialogActions>
+      <DialogActions sx={{ m: '0 10px 10px 10px' }}>
         <Button variant="contained" color="secondary" fullWidth onClick={deleteRow}>
           {t('btns.confirm')}
         </Button>
