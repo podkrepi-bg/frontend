@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { observer } from 'mobx-react'
 import { AxiosError, AxiosResponse } from 'axios'
@@ -11,13 +11,17 @@ import { endpoints } from 'service/apiEndpoints'
 import { useDeleteVault } from 'service/restRequests'
 import { ModalStore } from 'stores/documents/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
+import { useRouter } from 'next/router'
+import { routes } from 'common/routes'
 
 type Props = {
   id: string
+  setSelectedId: Dispatch<SetStateAction<string>>
 }
 
-export default observer(function DeleteModal({ id }: Props) {
+export default observer(function DeleteModal({ id, setSelectedId }: Props) {
   const queryClient = useQueryClient()
+  const router = useRouter()
   const { isDeleteOpen, hideDelete } = ModalStore
   const { t } = useTranslation()
 
@@ -29,7 +33,9 @@ export default observer(function DeleteModal({ id }: Props) {
     onSuccess: () => {
       hideDelete()
       AlertStore.show(t('vaults:alerts:delete'), 'success')
-      queryClient.invalidateQueries(endpoints.vaults.vaultsList.url)
+      queryClient.removeQueries(endpoints.vaults.getVault(id).url)
+      setSelectedId('')
+      router.push(routes.admin.vaults.index)
     },
   })
 

@@ -12,13 +12,15 @@ import { endpoints } from 'service/apiEndpoints'
 import { useDeleteManyVaults } from 'service/restRequests'
 import { ModalStore } from 'stores/documents/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
+import { useRouter } from 'next/router'
+import { routes } from 'common/routes'
 
 type Props = {
   selectionModel: GridSelectionModel
 }
 
 export default observer(function DeleteAllModal({ selectionModel }: Props) {
-  const queryClient = useQueryClient()
+  const router = useRouter()
   const { isDeleteAllOpen, hideDeleteAll } = ModalStore
   const { t } = useTranslation()
 
@@ -35,7 +37,7 @@ export default observer(function DeleteAllModal({ selectionModel }: Props) {
     onSuccess: () => {
       hideDeleteAll()
       AlertStore.show(t('vaults:alerts:deleteAll'), 'success')
-      queryClient.invalidateQueries(endpoints.vaults.vaultsList.url)
+      router.push(routes.admin.vaults.index)
     },
   })
 
