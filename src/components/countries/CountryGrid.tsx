@@ -82,7 +82,7 @@ const useStyles = makeStyles({
 
 export default observer(function CountryGrid() {
   const [openRowsDel, setOpenRowsDel] = React.useState<boolean>(false)
-  const { isDetailsOpen, hideDetails, isDeleteOpen, showDelete, hideDelete } = ModalStore
+  const { isDetailsOpen, hideDetails, isDeleteOpen, hideDelete } = ModalStore
   const [selected, setSelected] = React.useState({
     id: '',
     name: '',
