@@ -31,7 +31,6 @@ export default observer(function CoordinatorsGrid() {
   })
 
   const selectMultipleRows = (ids: GridSelectionModel) => {
-    // console.log('ids', ids)
     const idsToStr = ids.map((id) => id.toString())
     showDeleteAll(idsToStr)
     if (ids.length === 0) {
@@ -43,7 +42,6 @@ export default observer(function CoordinatorsGrid() {
     try {
       hideDelete()
       await mutation.mutateAsync(selected.id)
-      // router.push(routes.admin.countries.index)
     } catch (err) {
       console.log(err)
     }

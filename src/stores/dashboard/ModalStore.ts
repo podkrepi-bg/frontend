@@ -54,7 +54,6 @@ class ModalStoreImpl {
 
   showDeleteAll = (idsToDelete: string[]) => {
     this.isDeleteAllOpen = true
-    console.log(idsToDelete)
     this.idsToDelete = idsToDelete
   }
 
