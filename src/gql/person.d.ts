@@ -1,6 +1,8 @@
 export type PersonResponse = {
   id: string
   personId: string
+  firstName: string
+  lastName: string
 }
 
 export type PersonFormData = {
