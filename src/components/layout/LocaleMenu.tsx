@@ -14,7 +14,7 @@ export default function LocaleMenu() {
     (locale: string) => (event: React.MouseEvent) => {
       event.preventDefault()
       // Same route different language
-      router.push(router.route, undefined, { locale })
+      router.push(router.route, router.asPath, { locale })
       setAnchorEl(null)
     },
     [],
