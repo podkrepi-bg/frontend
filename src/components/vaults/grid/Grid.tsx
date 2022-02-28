@@ -98,8 +98,6 @@ export default observer(function Grid() {
           rowsPerPageOptions={[5, 10]}
           pageSize={pageSize}
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          autoHeight
-          autoPageSize
           disableSelectionOnClick
           checkboxSelection
           onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
@@ -109,7 +107,7 @@ export default observer(function Grid() {
         />
       </Box>
       <DetailsModal id={selectedId} />
-      <DeleteModal id={selectedId} />
+      <DeleteModal id={selectedId} setSelectedId={setSelectedId} />
       <DeleteAllModal selectionModel={selectionModel} />
     </>
   )

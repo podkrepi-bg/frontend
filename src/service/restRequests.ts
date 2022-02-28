@@ -133,7 +133,7 @@ export function useCreateVault() {
 export function useEditVault(slug: string) {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return async (data: VaultInput) => {
-    return await apiClient.put<VaultResponse, AxiosResponse<VaultResponse>>(
+    return await apiClient.patch<VaultResponse, AxiosResponse<VaultResponse>>(
       endpoints.vaults.editVault(slug).url,
       data,
       authConfig(keycloak?.token),
