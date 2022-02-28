@@ -1,19 +1,8 @@
-import {
-  GridColumns,
-  DataGrid,
-  GridRowId,
-  GridSelectionModel,
-  GridRenderCellParams,
-} from '@mui/x-data-grid'
+import { GridColumns, DataGrid, GridSelectionModel, GridRenderCellParams } from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
-import { useRouter } from 'next/router'
-import { useMutation, useQueryClient, UseQueryResult } from 'react-query'
-import { routes } from 'common/routes'
-import { endpoints } from 'service/apiEndpoints'
+import React from 'react'
+import { useMutation, UseQueryResult } from 'react-query'
 import { useCoordinatorsList } from 'common/hooks/coordinators'
-import ConfirmationDialog from 'components/common/ConfirmationDialog'
-
 import { commonProps } from './CoordinatorsGridHelper'
 import { CoordinatorResponse } from 'gql/coordinators'
 import { useDeleteCoordinatorRequest } from 'service/coordinator'
