@@ -27,6 +27,7 @@ export default observer(function Grid() {
     id: '',
     name: '',
   })
+  const { showDeleteAll, hideDeleteAll } = ModalStore
   const [selectionModel, setSelectionModel] = useState<GridRowId[]>([])
   const [pageSize, setPageSize] = useState(5)
   const { t } = useTranslation()
@@ -38,6 +39,14 @@ export default observer(function Grid() {
     align: 'left',
     width: 150,
     headerAlign: 'left',
+  }
+
+  const selectMultipleRows = (ids: GridSelectionModel) => {
+    const idsToStr = ids.map((id) => id.toString())
+    showDeleteAll(idsToStr)
+    if (ids.length === 0) {
+      hideDeleteAll()
+    }
   }
 
   const columns: GridColumns = [
@@ -118,12 +127,13 @@ export default observer(function Grid() {
           onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
             newSelectionModel.length !== 0 ? selectedPositive() : selectedNegative()
             setSelectionModel(newSelectionModel)
+            selectMultipleRows(newSelectionModel)
           }}
         />
       </Box>
       <DetailsModal id={selected.id} />
       <DeleteModal id={selected.id} name={selected.name} />
-      <DeleteAllModal selectionModel={selectionModel} />
+      {/* <DeleteAllModal selectionModel={selectionModel} /> */}
     </>
   )
 })

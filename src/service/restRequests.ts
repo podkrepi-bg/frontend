@@ -141,9 +141,9 @@ export function useEditDocument(slug: string) {
   }
 }
 
-export function useDeleteDocument(slug: string) {
+export function useDeleteDocument() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  return async () => {
+  return async (slug: string) => {
     return await apiClient.delete<DocumentResponse, AxiosResponse<DocumentResponse>>(
       endpoints.documents.deleteDocument(slug).url,
       authConfig(keycloak?.token),

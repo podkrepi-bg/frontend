@@ -22,7 +22,7 @@ export default observer(function DeleteModal({ id, name }: Props) {
   const { isDeleteOpen, hideDelete } = ModalStore
   const { t } = useTranslation()
 
-  const mutationFn = useDeleteDocument(id)
+  const mutationFn = useDeleteDocument()
 
   const deleteMutation = useMutation<
     AxiosResponse<DocumentResponse>,

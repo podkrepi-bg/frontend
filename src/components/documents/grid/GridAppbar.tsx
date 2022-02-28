@@ -7,6 +7,11 @@ import { Delete as DeleteIcon, Add as AddIcon } from '@mui/icons-material'
 import { routes } from 'common/routes'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
+import { useMutation } from 'react-query'
+import { AxiosError, AxiosResponse } from 'axios'
+import { ApiErrors } from 'service/apiErrors'
+import { DocumentResponse } from 'gql/document'
+import { useDeleteDocument } from 'service/restRequests'
 
 const addIconStyles = {
   background: '#4ac3ff',
@@ -25,12 +30,26 @@ const iconStyles = {
 }
 
 export default observer(function GridAppbar() {
-  const { showDeleteAll, isSelected } = ModalStore
+  const { isDeleteAllOpen, idsToDelete } = ModalStore
   const router = useRouter()
   const { t } = useTranslation()
 
+  const mutation = useMutation<AxiosResponse<DocumentResponse>, AxiosError<ApiErrors>, string>({
+    mutationFn: useDeleteDocument(),
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
+  })
+
+  const deleteAll = (idsToDelete: string[]) => {
+    Promise.all(idsToDelete.map((id: string) => mutation.mutateAsync(id))).then(() => {
+      router.push(routes.admin.coordinators.index)
+    })
+  }
+
   function deleteAllClickHandler() {
-    isSelected ? showDeleteAll() : AlertStore.show(t('documents:alerts:selectRow'), 'warning')
+    isDeleteAllOpen
+      ? deleteAll(idsToDelete)
+      : AlertStore.show(t('documents:alerts:selectRow'), 'warning')
   }
 
   return (
