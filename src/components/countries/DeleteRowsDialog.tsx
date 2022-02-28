@@ -14,10 +14,9 @@ const DeleteRowsDialog = ({ open, itemsCount, closeFn, deleteRows }: Props) => {
   return (
     <Dialog open={open} onClose={closeFn} maxWidth="xs" disableScrollLock>
       <DialogTitle>
-        {t('alerts.delete-rows.question')} ({itemsCount}{' '}
-        {itemsCount == 1 ? t('alerts.delete-rows.count') : t('alerts.delete-rows.counts')})?
+        {t('alerts.delete-rows.question')} ({itemsCount})?
       </DialogTitle>
-      <DialogActions>
+      <DialogActions sx={{ m: '0 10px 10px 10px' }}>
         <Button variant="contained" color="secondary" fullWidth onClick={deleteRows}>
           {t('btns.confirm')}
         </Button>
