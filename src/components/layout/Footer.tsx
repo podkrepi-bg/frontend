@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { Facebook, Instagram, LinkedIn, YouTube } from '@mui/icons-material'
-
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 import ExternalLink from 'components/common/ExternalLink'
 import { routes, socialUrls, staticUrls } from 'common/routes'
@@ -53,7 +52,7 @@ const footerItems: FooterLink[][] = [
   ],
   [
     { external: true, label: 'GitHub', href: staticUrls.github },
-    { external: true, label: 'components.footer.docs', href: staticUrls.docs },
+    { external: true, label: 'components.footer.docs', href: staticUrls.projectDocs },
     { external: true, label: 'components.footer.dev-docs', href: staticUrls.devDocs },
   ],
   [

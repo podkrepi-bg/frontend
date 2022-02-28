@@ -2,10 +2,10 @@ import { useTranslation } from 'react-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useMutation, useQuery } from 'react-query'
 
-import { ApiErrors } from 'common/api-errors'
+import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
-import { endpoints } from 'common/api-endpoints'
-import { createCheckoutSession } from 'common/rest'
+import { endpoints } from 'service/apiEndpoints'
+import { createCheckoutSession } from 'service/restRequests'
 import { CheckoutSessionInput, CheckoutSessionResponse, DonationPrice } from 'gql/donations'
 
 export function usePriceList() {

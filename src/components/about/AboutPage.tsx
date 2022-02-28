@@ -11,11 +11,11 @@ export default function AboutPage() {
   const { t } = useTranslation()
   return (
     <Layout title={t('about:about.title')}>
-      <HowEveryThingBegin />
       <PrinciplesThatUniteUs />
+      <HowEveryThingBegin />
       <Box textAlign="center" m={6}>
         <LinkButton color="primary" size="large" variant="contained" href={routes.support}>
-          {t('nav.support-us')}
+          {t('nav.about.support-us')}
         </LinkButton>
       </Box>
     </Layout>
