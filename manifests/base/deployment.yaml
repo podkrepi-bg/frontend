@@ -29,6 +29,16 @@ spec:
               value: '3040'
             - name: REST_API_PORT
               value: '80'
+            - name: APP_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: config-web
+                  key: app-url
+            - name: API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: config-web
+                  key: api-url
             - name: KEYCLOAK_URL
               valueFrom:
                 configMapKeyRef:

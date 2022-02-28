@@ -10,7 +10,7 @@ export default function LocaleButton() {
     (locale: string) => (event: React.MouseEvent) => {
       event.preventDefault()
       // Same route different language
-      router.push(router.route, undefined, { locale })
+      router.push(router.route, router.asPath, { locale })
     },
     [],
   )
