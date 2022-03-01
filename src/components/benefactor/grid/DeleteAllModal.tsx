@@ -9,11 +9,11 @@ import { useRouter } from 'next/router'
 import { routes } from 'common/routes'
 
 import { BenefactorResponse } from 'gql/benefactor'
-import { ApiErrors } from 'common/api-errors'
-import { endpoints } from 'common/api-endpoints'
-import { deleteManyBenefactors } from 'common/rest'
+import { ApiErrors } from 'service/apiErrors'
+import { endpoints } from 'service/apiEndpoints'
+import { deleteManyBenefactors } from 'service/restRequests'
 import { ModalStore } from 'stores/ModalStore'
-import { deleteBenefactor, getBenefactor } from 'common/rest'
+import { deleteBenefactor, getBenefactor } from 'service/restRequests'
 import { AlertStore } from 'stores/AlertStore'
 
 type Props = {

@@ -58,4 +58,11 @@ export const endpoints = {
     postCoordinator: <Endpoint>{ url: '/coordinator', method: 'POST' },
     deleteCoordinator: (id: string) => <Endpoint>{ url: `/coordinator/${id}`, method: 'DELETE' },
   },
+  benefactor: {
+    benefactorList: <Endpoint>{ url: '/benefactor', method: 'GET' },
+    getBenefactor: <Endpoint>{ url: '/benefactor', method: 'GET' },
+    createBenefactor: <Endpoint>{ url: '/benefactor', method: 'POST' },
+    editBenefactor: <Endpoint>{ url: '/benefactor', method: 'PATCH' },
+    deleteBenefactor: <Endpoint>{ url: '/benefactor', method: 'DELETE' },
+  },
 }

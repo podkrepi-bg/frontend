@@ -1,4 +1,4 @@
-import { QueryFunction } from 'react-query'
+import { MutationFunction, QueryFunction } from 'react-query'
 import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
@@ -14,6 +14,7 @@ import { ContactRequestResponse, ContactRequestInput } from 'gql/contact'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { DocumentInput, DocumentResponse } from 'gql/document'
 import { CountryInput, CountryResponse } from 'gql/countries'
+import { BenefactorInput, BenefactorResponse } from 'gql/benefactor'
 
 import { endpoints } from './apiEndpoints'
 
@@ -154,3 +155,51 @@ export const useDeleteCountry = () => {
     )
   }
 }
+
+export const createBenefactor: MutationFunction<
+  AxiosResponse<BenefactorResponse>,
+  BenefactorInput
+> = async (data: BenefactorInput) => {
+  return await apiClient.post<BenefactorInput, AxiosResponse<BenefactorResponse>>(
+    endpoints.benefactor.createBenefactor.url,
+    data,
+  )
+}
+
+export const getBenefactor: MutationFunction<AxiosResponse<BenefactorResponse>, string> = async (
+  id: string,
+) => {
+  return await apiClient.get<string, AxiosResponse<BenefactorResponse>>(
+    endpoints.benefactor.getBenefactor.url + '/' + id,
+  )
+}
+
+type EditBenefactorProp = {
+  id: string
+  data: BenefactorInput
+}
+
+export const editBenefactor: MutationFunction<
+  AxiosResponse<BenefactorResponse>,
+  EditBenefactorProp
+> = async ({ id, data }: EditBenefactorProp) => {
+  return await apiClient.patch<BenefactorResponse, AxiosResponse<BenefactorResponse>>(
+    endpoints.benefactor.editBenefactor.url + '/' + id,
+    data,
+  )
+}
+
+export const deleteBenefactor: MutationFunction<AxiosResponse<BenefactorResponse>, string> = async (
+  id: string,
+) => {
+  return await apiClient.delete<string, AxiosResponse<BenefactorResponse>>(
+    endpoints.benefactor.deleteBenefactor.url + '/' + id,
+  )
+}
+
+export const deleteManyBenefactors: MutationFunction<AxiosResponse<BenefactorResponse>, string[]> =
+  async (id: string[]) => {
+    return await apiClient.delete<string[], AxiosResponse<BenefactorResponse>>(
+      endpoints.benefactor.deleteBenefactor.url + '/' + id,
+    )
+  }

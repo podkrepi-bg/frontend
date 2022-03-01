@@ -10,11 +10,11 @@ import { makeStyles } from '@mui/styles'
 
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
-import { editBenefactor } from 'common/rest'
+import { editBenefactor } from 'service/restRequests'
 import { BenefactorFormData, BenefactorInput, BenefactorResponse } from 'gql/benefactor'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
-import { ApiErrors, isAxiosError, matchValidator } from 'common/api-errors'
+import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import LinkButton from 'components/common/LinkButton'
 
 const useStyles = makeStyles({

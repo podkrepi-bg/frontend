@@ -6,9 +6,9 @@ import { Dialog, Card, CardContent, Box, Button, Typography } from '@mui/materia
 import { useTranslation } from 'next-i18next'
 
 import { BenefactorResponse } from 'gql/benefactor'
-import { ApiErrors } from 'common/api-errors'
-import { endpoints } from 'common/api-endpoints'
-import { deleteBenefactor } from 'common/rest'
+import { ApiErrors } from 'service/apiErrors'
+import { endpoints } from 'service/apiEndpoints'
+import { deleteBenefactor } from 'service/restRequests'
 import { ModalStore } from 'stores/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 
