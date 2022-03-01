@@ -5,6 +5,7 @@ import BootcampLayout from './BootcampLayout'
 import DeleteIcon from '@mui/icons-material/Delete'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import { useTranslation } from 'next-i18next'
+import BootcampGrid from './leyout-components/DataGrid'
 
 export default function BootcampPage() {
   const { t } = useTranslation()
@@ -25,6 +26,7 @@ export default function BootcampPage() {
             </span>
           </Tooltip>
         </Grid>
+        <BootcampGrid />
       </AdminContainer>
     </BootcampLayout>
   )
