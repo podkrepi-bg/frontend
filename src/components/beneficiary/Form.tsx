@@ -115,7 +115,7 @@ export default function EditForm() {
               type="text"
               name="personId"
               autoComplete="target-amount"
-              label="Person (if beneficiary is not company)"
+              label={t('beneficiary:grid:personId')}
             />
           </Grid>
           <Grid item xs={6}>
@@ -123,7 +123,7 @@ export default function EditForm() {
               type="text"
               name="companyId"
               autoComplete="target-amount"
-              label="Company (optional)"
+              label={t('beneficiary:grid:companyId')}
             />
           </Grid>
           <Grid item xs={6}>
@@ -131,7 +131,7 @@ export default function EditForm() {
               type="text"
               name="coordinatorRelation"
               autoComplete="target-amount"
-              label={t('beneficiary:forms:labels:relation')}
+              label={t('beneficiary:grid:coordinatorRelation')}
             />
           </Grid>
           <Grid item xs={6}>
@@ -139,7 +139,7 @@ export default function EditForm() {
               type="text"
               name="coordinatorId"
               autoComplete="target-amount"
-              label="Coordinator"
+              label={t('beneficiary:grid:coordinatorId')}
             />
           </Grid>
           <Grid item xs={6}>
@@ -147,18 +147,23 @@ export default function EditForm() {
               type="text"
               name="countryCode"
               autoComplete="target-amount"
-              label="Country code"
+              label={t('beneficiary:grid:countryCode')}
             />
           </Grid>
           <Grid item xs={6}>
-            <FormTextField type="text" name="cityId" autoComplete="target-amount" label="City ID" />
+            <FormTextField
+              type="text"
+              name="cityId"
+              autoComplete="target-amount"
+              label={t('beneficiary:grid:cityId')}
+            />
           </Grid>
           <Grid item xs={6}>
             <FormTextField
               type="text"
               name="description"
               autoComplete="target-amount"
-              label="Description"
+              label={t('beneficiary:grid:description')}
               multiline
               rows={1.5}
             />

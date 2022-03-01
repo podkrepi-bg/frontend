@@ -3,9 +3,10 @@ import { useKeycloak } from '@react-keycloak/ssr'
 
 import { endpoints } from './apiEndpoints'
 import { authConfig, authQueryFnFactory } from './restRequests'
-import { BeneficiaryFormData, BeneficiaryType } from 'gql/beneficiary'
+import { BeneficiaryFormData, BeneficiaryType, DeleteMany } from 'gql/beneficiary'
 import { QueryClient, useQuery } from 'react-query'
 import { apiClient } from './apiClient'
+import { AxiosResponse } from 'axios'
 
 export const useBeneficiariesList = () => {
   const { keycloak } = useKeycloak<KeycloakInstance>()
@@ -55,6 +56,22 @@ export const useRemoveBeneficiary = () => {
   return async (id: string) => {
     return await apiClient.delete(
       endpoints.beneficiary.removeBeneficiary(id).url,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useRemoveManyBeneficiaries(idsToDelete: string[]) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  console.log({
+    ids: idsToDelete,
+  })
+  return async () => {
+    return await apiClient.post<DeleteMany, AxiosResponse<BeneficiaryType[]>>(
+      endpoints.beneficiary.removeMany.url,
+      {
+        ids: idsToDelete,
+      },
       authConfig(keycloak?.token),
     )
   }

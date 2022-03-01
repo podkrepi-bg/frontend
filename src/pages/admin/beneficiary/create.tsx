@@ -14,6 +14,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
         'auth',
         'beneficiary',
         'validation',
+        'documents',
       ])),
       dehydratedState: dehydrate(client),
     },
