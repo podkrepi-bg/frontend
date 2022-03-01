@@ -3,6 +3,7 @@ import * as React from 'react'
 import BootCampAppBar from './leyout-components/AppBar'
 import BootcampDrawer from './leyout-components/Drawer'
 import DrawerHeader from './leyout-components/DrawerHeader'
+import BootcampFooter from './leyout-components/Footer'
 
 type Props = {
   children: React.ReactNode
@@ -14,13 +15,16 @@ export default function BootcampLayout({ children }: Props) {
     open ? setOpen(false) : setOpen(true)
   }
   return (
-    <Box sx={{ display: 'flex', position: 'relative', minHeight: '100vh', paddingRight: '24px' }}>
-      <BootCampAppBar open={open} handler={handleDrawerOpenClose} />
-      <BootcampDrawer open={open} />
-      <Box component="main" sx={{ flexGrow: 1 }}>
-        <DrawerHeader />
-        {children}
+    <>
+      <Box sx={{ display: 'flex', position: 'relative', minHeight: '100vh', paddingRight: '24px' }}>
+        <BootCampAppBar open={open} handler={handleDrawerOpenClose} />
+        <BootcampDrawer open={open} />
+        <Box component="main" sx={{ flexGrow: 1 }}>
+          <DrawerHeader />
+          {children}
+        </Box>
       </Box>
-    </Box>
+      <BootcampFooter />
+    </>
   )
 }
