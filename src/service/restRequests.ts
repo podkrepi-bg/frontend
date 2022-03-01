@@ -14,6 +14,7 @@ import { ContactRequestResponse, ContactRequestInput } from 'gql/contact'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { DocumentInput, DocumentResponse } from 'gql/document'
 import { CountryInput, CountryResponse } from 'gql/countries'
+import { ExpenseInput, ExpenseResponse } from 'gql/expenses'
 
 import { endpoints } from './apiEndpoints'
 
@@ -150,6 +151,59 @@ export const useDeleteCountry = () => {
   return async (id: string) => {
     return await apiClient.delete<string, AxiosResponse<CountryResponse>>(
       endpoints.country.deleteCountry(id).url,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useCreateExpense() {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (data: ExpenseInput) => {
+    return await apiClient.post<ExpenseResponse, AxiosResponse<ExpenseResponse>>(
+      endpoints.expenses.createExpense.url,
+      data,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useGetExpense(id: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async () => {
+    return await apiClient.put<ExpenseResponse, AxiosResponse<ExpenseResponse>>(
+      endpoints.expenses.viewExpense(id).url,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useEditExpense(id: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (data: ExpenseInput) => {
+    return await apiClient.put<ExpenseResponse, AxiosResponse<ExpenseResponse>>(
+      endpoints.expenses.editExpense(id).url,
+      data,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useDeleteExpense(id: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async () => {
+    return await apiClient.delete<ExpenseResponse, AxiosResponse<ExpenseResponse>>(
+      endpoints.expenses.deleteExpense(id).url,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useDeleteManyExpenses(idsToDelete: string[]) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async () => {
+    return await apiClient.post<ExpenseResponse, AxiosResponse<ExpenseResponse>>(
+      endpoints.expenses.deleteExpenses.url,
+      idsToDelete,
       authConfig(keycloak?.token),
     )
   }
