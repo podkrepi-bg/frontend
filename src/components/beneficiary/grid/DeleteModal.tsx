@@ -5,7 +5,7 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { Dialog, Card, CardContent, Box, Button, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-import { BeneficiaryResponse } from 'gql/beneficiary'
+import { BeneficiaryType } from 'gql/beneficiary'
 import { ApiErrors } from 'service/apiErrors'
 import { endpoints } from 'service/apiEndpoints'
 import { useRemoveBeneficiary } from 'service/beneficiary'
@@ -21,21 +21,19 @@ export default observer(function DeleteModal({ id }: Props) {
   const { isDeleteOpen, hideDelete } = ModalStore
   const { t } = useTranslation()
 
-  const mutationFn = useRemoveBeneficiary(id)
+  const mutationFn = useRemoveBeneficiary()
 
-  const deleteMutation = useMutation<
-    AxiosResponse<BeneficiaryResponse>,
-    AxiosError<ApiErrors>,
-    string
-  >({
-    mutationFn,
-    onError: () => AlertStore.show(t('documents:alerts:error'), 'error'),
-    onSuccess: () => {
-      hideDelete()
-      AlertStore.show(t('documents:alerts:delete'), 'success')
-      queryClient.invalidateQueries(endpoints.beneficiary.beneficiariesList.url)
+  const deleteMutation = useMutation<AxiosResponse<BeneficiaryType>, AxiosError<ApiErrors>, string>(
+    {
+      mutationFn,
+      onError: () => AlertStore.show(t('documents:alerts:error'), 'error'),
+      onSuccess: () => {
+        hideDelete()
+        AlertStore.show(t('documents:alerts:delete'), 'success')
+        queryClient.invalidateQueries(endpoints.beneficiary.listBeneficiary.url)
+      },
     },
-  })
+  )
 
   function deleteHandler() {
     deleteMutation.mutate(id)

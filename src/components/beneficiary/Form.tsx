@@ -7,7 +7,8 @@ import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
 import { Box, Button, Grid, Typography } from '@mui/material'
 
-import { BeneficiaryFormData, BeneficiaryType, PersonRelation } from 'gql/beneficiary.d.ts'
+import { BeneficiaryFormData, BeneficiaryType } from 'gql/beneficiary'
+import { LegalEntityType, PersonRelation } from './BeneficiaryTypes'
 import { routes } from 'common/routes'
 import { ApiErrors } from 'service/apiErrors'
 import { useBeneficiary, useEditBeneficiary, useCreateBeneficiary } from 'service/beneficiary'
@@ -23,7 +24,7 @@ const validationSchema = yup
     type: yup
       .string()
       .required()
-      .oneOf(['individual', 'company'].sort((a, b) => a.localeCompare(b))),
+      .oneOf(Object.values(LegalEntityType).sort((a, b) => a.localeCompare(b))),
     personId: yup.string().notRequired(),
     companyId: yup.string().notRequired(),
     coordinatorId: yup.string().required(),

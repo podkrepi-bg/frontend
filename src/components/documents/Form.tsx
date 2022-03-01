@@ -111,7 +111,7 @@ export default function EditForm() {
             <SubmitButton fullWidth label={t('documents:cta:submit')} />
           </Grid>
           <Grid item xs={6}>
-            <Link href={routes.admin.documents.index}>
+            <Link passHref href={routes.admin.documents.index}>
               <Button>{t('documents:cta:cancel')}</Button>
             </Link>
           </Grid>
