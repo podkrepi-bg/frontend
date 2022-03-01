@@ -18,32 +18,32 @@ const menuDrawer: {
   },
   {
     text: 'Кампании',
-    icon: <HighlightIcon color="primary" />,
+    icon: <HighlightIcon />,
     path: '#',
   },
   {
     text: 'Доброволци',
-    icon: <InsertEmoticonIcon color="primary" />,
+    icon: <InsertEmoticonIcon />,
     path: '#',
   },
   {
     text: 'Плащания',
-    icon: <CreditCardIcon color="primary" />,
+    icon: <CreditCardIcon />,
     path: '#',
   },
   {
     text: 'Потребители',
-    icon: <FormatListBulletedIcon color="primary" />,
+    icon: <FormatListBulletedIcon />,
     path: '#',
   },
   {
     text: 'Документи',
-    icon: <TextFieldsIcon color="primary" />,
+    icon: <TextFieldsIcon />,
     path: '#',
   },
   {
     text: 'Настройки',
-    icon: <SettingsIcon color="primary" />,
+    icon: <SettingsIcon />,
     path: '#',
   },
 ]
