@@ -50,7 +50,7 @@ const useStyles = makeStyles({
     marginLeft: '6rem',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
   },
   appbarWrapper: {
     display: 'flex',
@@ -174,7 +174,7 @@ export default function AdminLayout({ children }: Props) {
             </Box>
           </Box>
           <Box className={classes.appbarHeader}>
-            <TextField id="outlined-search" label="Търси" type="search" size="small" />
+            {/* <TextField id="outlined-search" label="Търси" type="search" size="small" /> */}
             <Box
               sx={{
                 display: 'flex',
