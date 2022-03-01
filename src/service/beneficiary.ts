@@ -1,3 +1,4 @@
+import { AxiosResponse } from 'axios'
 import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
 
@@ -6,7 +7,6 @@ import { authConfig, authQueryFnFactory } from './restRequests'
 import { BeneficiaryFormData, BeneficiaryType, DeleteMany } from 'gql/beneficiary'
 import { QueryClient, useQuery } from 'react-query'
 import { apiClient } from './apiClient'
-import { AxiosResponse } from 'axios'
 
 export const useBeneficiariesList = () => {
   const { keycloak } = useKeycloak<KeycloakInstance>()
