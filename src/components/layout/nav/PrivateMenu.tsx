@@ -46,6 +46,9 @@ export default function PrivateMenu() {
             <Typography variant="button">{t('nav.admin.index')}</Typography>
           </LinkMenuItem>
         )}
+        <LinkMenuItem href="/bootcamp">
+          <Typography variant="button">{t('Борислав')}</Typography>
+        </LinkMenuItem>
         <LinkMenuItem href={routes.logout}>
           <Typography variant="button">{t('nav.logout')}</Typography>
         </LinkMenuItem>
