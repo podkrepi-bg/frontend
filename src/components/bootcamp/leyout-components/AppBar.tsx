@@ -1,11 +1,13 @@
 import { Box, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
-import { styled, Theme, CSSObject } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import Image from 'next/image'
 import MenuIcon from '@mui/icons-material/Menu'
 import { AccountCircle } from '@mui/icons-material'
 import * as React from 'react'
 import { useTranslation } from 'next-i18next'
+import { drawerWidth } from './styles'
+import BootcampDrawer from './Drawer'
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean
@@ -20,7 +22,7 @@ const AppBar = styled(MuiAppBar, {
     duration: theme.transitions.duration.leavingScreen,
   }),
   ...(open && {
-    marginLeft: 194,
+    marginLeft: drawerWidth,
     // width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
@@ -28,15 +30,16 @@ const AppBar = styled(MuiAppBar, {
     }),
   }),
 }))
-export default function BootCampAppBar() {
-  const [open, setOpen] = React.useState(false)
+
+type Props = {
+  open: boolean
+  handler: () => void
+}
+
+export default function BootCampAppBar({ open, handler }: Props) {
   const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
   const { t } = useTranslation()
-
-  const handleDrawerOpenClose = () => {
-    open ? setOpen(false) : setOpen(true)
-  }
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget)
@@ -53,7 +56,7 @@ export default function BootCampAppBar() {
           title="Dashboard"
           color="primary"
           aria-label="open drawer"
-          onClick={handleDrawerOpenClose}
+          onClick={handler}
           edge="start"
           sx={{
             margin: '0px 20px',
