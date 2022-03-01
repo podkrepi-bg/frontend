@@ -22,7 +22,7 @@ export default observer(function DetailsModal({ id }: Props) {
       <Card>
         <CardContent>
           <Typography variant="h5" sx={{ marginBottom: '16px' }}>
-            {t('cta:details')}
+            {t('beneficiary:cta:details')}
           </Typography>
           <Divider />
           <Typography variant="body1" sx={{ fontSize: 24 }}>

@@ -6,10 +6,10 @@ import { Dialog, Card, CardContent, Box, Button, Typography } from '@mui/materia
 import { GridSelectionModel } from '@mui/x-data-grid'
 import { useTranslation } from 'next-i18next'
 
-import { DocumentResponse } from 'gql/document'
+import { BeneficiaryType } from 'gql/beneficiary'
 import { ApiErrors } from 'service/apiErrors'
 import { endpoints } from 'service/apiEndpoints'
-import { useDeleteManyDocuments } from 'service/restRequests'
+import { useRemoveManyBeneficiaries } from 'service/beneficiary'
 import { ModalStore } from 'stores/beneficiaries/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 
@@ -23,10 +23,10 @@ export default observer(function DeleteAllModal({ selectionModel }: Props) {
   const { t } = useTranslation()
 
   const idsToDelete = selectionModel.map((x) => x.toString())
-  const mutationFn = useDeleteManyDocuments(idsToDelete)
+  const mutationFn = useRemoveManyBeneficiaries(idsToDelete)
 
   const mutation = useMutation<
-    AxiosResponse<DocumentResponse>,
+    AxiosResponse<BeneficiaryType[]>,
     AxiosError<ApiErrors>,
     GridSelectionModel
   >({
@@ -35,7 +35,7 @@ export default observer(function DeleteAllModal({ selectionModel }: Props) {
     onSuccess: () => {
       hideDeleteAll()
       AlertStore.show(t('documents:alerts:deleteAll'), 'success')
-      queryClient.invalidateQueries(endpoints.documents.documentsList.url)
+      queryClient.invalidateQueries(endpoints.beneficiary.listBeneficiary.url)
     },
   })
 

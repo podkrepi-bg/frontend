@@ -20,6 +20,7 @@ export const getServerSideProps: GetServerSideProps = async (params) => {
         'auth',
         'beneficiary',
         'validation',
+        'documents',
       ])),
       dehydratedState: dehydrate(client),
     },

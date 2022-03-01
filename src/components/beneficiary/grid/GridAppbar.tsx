@@ -5,7 +5,7 @@ import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
 import { Delete as DeleteIcon, Add as AddIcon } from '@mui/icons-material'
 
 import { routes } from 'common/routes'
-import { ModalStore } from 'stores/documents/ModalStore'
+import { ModalStore } from 'stores/beneficiaries/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 
 const addIconStyles = {

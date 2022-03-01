@@ -11,7 +11,6 @@ import {
   GridRowId,
   GridSelectionModel,
 } from '@mui/x-data-grid'
-import { Check, Clear } from '@mui/icons-material'
 
 import { BeneficiaryType } from '../../../gql/beneficiary'
 import { useBeneficiariesList } from 'service/beneficiary'
@@ -31,22 +30,17 @@ export default observer(function Grid() {
 
   const { data }: UseQueryResult<BeneficiaryType[]> = useBeneficiariesList()
 
-  const renderIsPersonCell = (params: GridRenderCellParams) => {
-    if (params.row.type == 'individual') return <Check color="primary" />
-    return <Clear color="action" />
-  }
-
-  const renderIsCompanyCell = (params: GridRenderCellParams) => {
-    if (params.row.type == 'company') return <Check color="primary" />
-    return <Clear color="action" />
-  }
-
   const renderCompanyIdCell = (params: GridRenderCellParams) => {
     return params.row.companyId || t('beneficiary:grid:not-company')
   }
 
   const renderPersonIdCell = (params: GridRenderCellParams) => {
     return params.row.personId || t('beneficiary:grid:not-person')
+  }
+
+  const renderBeneficiaryTypeCell = (params: GridRenderCellParams) => {
+    if (params.row.type == 'company') return t('beneficiary:grid:company')
+    return t('beneficiary:grid:person')
   }
 
   const commonProps: Partial<GridColDef> = {
@@ -57,15 +51,9 @@ export default observer(function Grid() {
   const columns: GridColumns = [
     {
       field: 'is-person',
-      headerName: t('beneficiary:grid:person'),
+      headerName: t('beneficiary:grid:type'),
       ...commonProps,
-      renderCell: renderIsPersonCell,
-    },
-    {
-      field: 'is-company',
-      headerName: t('beneficiary:grid:company'),
-      ...commonProps,
-      renderCell: renderIsCompanyCell,
+      renderCell: renderBeneficiaryTypeCell,
     },
     {
       field: 'person',
@@ -80,9 +68,9 @@ export default observer(function Grid() {
       renderCell: renderCompanyIdCell,
     },
     {
-      field: t('documents:actions'),
+      field: t('beneficiary:actions'),
       width: 200,
-      align: 'right',
+      sortable: false,
       renderCell: (cellValues: GridRenderCellParams) => {
         return <GridActions id={cellValues.row.id} setSelectedId={setSelectedId} />
       },
@@ -109,8 +97,6 @@ export default observer(function Grid() {
           rowsPerPageOptions={[5, 10]}
           pageSize={pageSize}
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          autoHeight
-          autoPageSize
           disableSelectionOnClick
           checkboxSelection
           onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
