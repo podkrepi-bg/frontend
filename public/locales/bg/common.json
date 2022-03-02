@@ -1,68 +1,68 @@
 {
-  "nav": {
-    "home": "Начало",
-    "about":
-    {
-      "about-project": "За проекта",
-      "about-us": "За нас",
-      "support-us": "Стани доброволец",
-      "contacts": "Контакти"
+    "nav": {
+        "home": "Начало",
+        "about": {
+            "about-project": "За проекта",
+            "about-us": "За нас",
+            "support-us": "Стани доброволец",
+            "contacts": "Контакти"
+        },
+        "campaigns": {
+            "index": "Кампании",
+            "create": "Предложи кампания",
+            "faq": "Често задавани въпроси"
+        },
+        "admin": {
+            "index": "Администрация",
+            "info-requests": "Заявки за контакт",
+            "supporters": "Доброволци"
+        },
+        "dev": {
+            "index": "Разработка",
+            "contribute": "Как да се включа",
+            "project-docs": "Проектна документация",
+            "open-source": "Отворен Код",
+            "open-data": "Отворени Данни"
+        },
+        "donation-menu": "Дарителство",
+        "blog": "Блог",
+        "profile": "Моят профил",
+        "login": "Вход",
+        "login-with": "Вход с",
+        "logout": "Изход",
+        "register": "Регистрация",
+        "changePassword": "Смяна на парола",
+        "forgottenPassword": "Забравена парола?"
     },
-    "campaigns": {
-      "index": "Кампании",
-      "create": "Предложи кампания",
-      "faq": "Често задавани въпроси"
+    "meta": {
+        "title": "Подкрепи.бг"
     },
-    "admin": {
-      "index": "Администрация",
-      "info-requests": "Заявки за контакт",
-      "supporters": "Доброволци"
+    "alerts": {
+        "message-sent": "Вашето съобщение беше изпратено успешно!",
+        "saved": "Успешно добавен запис.",
+        "error": "Възникна грешка! Опитайте отново!",
+        "noselected": "Моля, изберете поне един запис!"
     },
-    "dev": {
-      "index": "Разработка",
-      "contribute": "Как да се включа",
-      "project-docs": "Проектна документация",
-      "open-source": "Отворен Код",
-      "open-data": "Отворени Данни"
+    "close": "Затвори",
+    "support": "Подкрепи",
+    "link": "Линк",
+    "improve-this-page": "Подобри тази страница:",
+    "github-link-text": "Гитхъб Код",
+    "figma-link-text": "Фигма Дизайн",
+    "components": {
+        "footer": {
+            "about-us": "За доброволците",
+            "about-project": "За проекта",
+            "docs": "Документация",
+            "dev-docs": "Техническа  Документация",
+            "support": "Стани доброволец",
+            "contact": "Контакти",
+            "privacy-policy": "Защита на лични данни",
+            "terms-of-service": "Общи условия",
+            "hosting-partner": "Хостинг партньор:",
+            "copyrights": "Podkrepi.bg ©2022 Всички права запазени.",
+            "version": "Версия"
+        }
     },
-    "donation-menu": "Дарителство",
-    "blog": "Блог",
-    "profile": "Моят профил",
-    "login": "Вход",
-    "login-with": "Вход с",
-    "logout": "Изход",
-    "register": "Регистрация",
-    "changePassword": "Смяна на парола",
-    "forgottenPassword": "Забравена парола?"
-  },
-  "meta": {
-    "title": "Подкрепи.бг"
-  },
-  "alerts": {
-    "message-sent": "Вашето съобщение беше изпратено успешно!",
-    "error": "Възникна грешка! Опитайте отново!",
-    "noselected": "Моля, изберете поне един запис!"
-  },
-  "close": "Затвори",
-  "support": "Подкрепи",
-  "link": "Линк",
-  "improve-this-page": "Подобри тази страница:",
-  "github-link-text": "Гитхъб Код",
-  "figma-link-text": "Фигма Дизайн",
-  "components": {
-    "footer": {
-      "about-us": "За доброволците",
-      "about-project": "За проекта",
-      "docs": "Документация",
-      "dev-docs": "Техническа  Документация",
-      "support": "Стани доброволец",
-      "contact": "Контакти",
-      "privacy-policy": "Защита на лични данни",
-      "terms-of-service": "Общи условия",
-      "hosting-partner": "Хостинг партньор:",
-      "copyrights": "Podkrepi.bg ©2021 Всички права запазени.",
-      "version": "Версия"
-    }
-  },
-  "or": "или"
+    "or": "или"
 }
