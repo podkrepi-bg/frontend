@@ -30,3 +30,7 @@ export type BeneficiaryFormData = {
   campaigns: []
   coordinatorRelation: PersonRelation
 }
+
+export type DeleteMany = {
+  ids: string[]
+}

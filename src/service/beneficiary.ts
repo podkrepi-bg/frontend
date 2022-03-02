@@ -23,6 +23,7 @@ export const useBeneficiary = (id: string) => {
   return useQuery(
     endpoints.beneficiary.viewBeneficiary(id).url,
     authQueryFnFactory<BeneficiaryType>(keycloak?.token),
+    { staleTime: 1 },
   )
 }
 
@@ -79,7 +80,14 @@ export function useRemoveManyBeneficiaries(idsToDelete: string[]) {
 
 export async function prefetchBeneficiaryById(client: QueryClient, slug: string, token?: string) {
   await client.prefetchQuery<BeneficiaryType>(
-    endpoints.documents.getDocument(slug).url,
+    endpoints.beneficiary.viewBeneficiary(slug).url,
     authQueryFnFactory<BeneficiaryType>(token),
+  )
+}
+
+export async function prefetchBeneficiariesList(client: QueryClient, token?: string) {
+  await client.prefetchQuery<BeneficiaryType[]>(
+    endpoints.beneficiary.listBeneficiary.url,
+    authQueryFnFactory<BeneficiaryType[]>(token),
   )
 }
