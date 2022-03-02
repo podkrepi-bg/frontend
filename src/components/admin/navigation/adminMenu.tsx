@@ -8,8 +8,10 @@ import {
   FolderShared,
   Public,
 } from '@mui/icons-material'
-import BeneficiaryIcon from 'common/icons/Beneficiary'
+import LocationCityRoundedIcon from '@mui/icons-material/LocationCityRounded'
+
 import { routes } from 'common/routes'
+import BeneficiaryIcon from 'common/icons/Beneficiary'
 
 export const menuItems = [
   { label: 'Задачи', icon: TaskAlt, href: '#' },
@@ -20,6 +22,7 @@ export const menuItems = [
   { label: 'Потребители', icon: Group, href: '#' },
   { label: 'Документи', icon: FolderShared, href: routes.admin.documents.index },
   { label: 'Бенефициенти', icon: BeneficiaryIcon, href: routes.admin.beneficiary.index },
+  { label: 'Градове', icon: LocationCityRoundedIcon, href: routes.admin.cities.home },
   { label: 'Държави', icon: Public, href: routes.admin.countries.index },
   { label: 'Координатори', icon: People, href: routes.admin.coordinators.index },
 ]
