@@ -6,23 +6,12 @@ import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
 import { CityResponse } from 'gql/cities'
 
-// type City = {
-//   id: string
-//   name: string
-//   postalCode: string
-//   countryId: string
-// }
-
 type Country = {
   id: string
   name: string
   countryCode: string
   cities: []
 }
-
-// export function useCity(id: string) {
-//   return useQuery<CityResponse>(endpoints.city.viewCity(id).url)
-// }
 
 export function useCitiesList() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
