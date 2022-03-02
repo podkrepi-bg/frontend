@@ -15,6 +15,7 @@ export const endpoints = {
     listCampaignTypes: <Endpoint>{ url: '/campaign-type/list', method: 'GET' },
   },
   person: {
+    list: <Endpoint>{ url: '/person', method: 'GET' },
     createBeneficiary: <Endpoint>{ url: '/beneficiary/create-beneficiary', method: 'POST' },
   },
   support: {
