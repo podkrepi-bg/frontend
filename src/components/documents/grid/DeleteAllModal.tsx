@@ -13,17 +13,12 @@ import { useDeleteManyDocuments } from 'service/restRequests'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 
-type Props = {
-  selectionModel: GridSelectionModel
-}
-
-export default observer(function DeleteAllModal({ selectionModel }: Props) {
+export default observer(function DeleteAllModal() {
   const queryClient = useQueryClient()
-  const { isDeleteAllOpen, hideDeleteAll } = ModalStore
+  const { isDeleteAllOpen, hideDeleteAll, selectedIdsToDelete, setSelectedIdsToDelete } = ModalStore
   const { t } = useTranslation()
 
-  const idsToDelete = selectionModel.map((x) => x.toString())
-  const mutationFn = useDeleteManyDocuments(idsToDelete)
+  const mutationFn = useDeleteManyDocuments(selectedIdsToDelete)
 
   const mutation = useMutation<
     AxiosResponse<DocumentResponse>,
@@ -34,13 +29,14 @@ export default observer(function DeleteAllModal({ selectionModel }: Props) {
     onError: () => AlertStore.show(t('documents:alerts:error'), 'error'),
     onSuccess: () => {
       hideDeleteAll()
+      setSelectedIdsToDelete([])
       AlertStore.show(t('documents:alerts:deleteAll'), 'success')
       queryClient.invalidateQueries(endpoints.documents.documentsList.url)
     },
   })
 
   function deleteHandler() {
-    mutation.mutate(idsToDelete)
+    mutation.mutate(selectedIdsToDelete)
   }
 
   return (

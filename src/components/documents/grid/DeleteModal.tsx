@@ -12,14 +12,9 @@ import { useDeleteDocument } from 'service/restRequests'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 
-type Props = {
-  id: string
-  name: string
-}
-
-export default observer(function DeleteModal({ id, name }: Props) {
+export default observer(function DeleteModal() {
   const queryClient = useQueryClient()
-  const { isDeleteOpen, hideDelete } = ModalStore
+  const { isDeleteOpen, hideDelete, selectedRecord } = ModalStore
   const { t } = useTranslation()
 
   const mutationFn = useDeleteDocument()
@@ -39,7 +34,7 @@ export default observer(function DeleteModal({ id, name }: Props) {
   })
 
   function deleteHandler() {
-    deleteMutation.mutate(id)
+    deleteMutation.mutate(selectedRecord.id)
   }
 
   return (
@@ -47,10 +42,10 @@ export default observer(function DeleteModal({ id, name }: Props) {
       <Card>
         <CardContent>
           <Typography variant="h6" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            {t('documents:deleteTitle')} ({name})
+            {t('documents:deleteTitle')}
           </Typography>
           <Typography variant="body1" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            {t('documents:deleteContent')}
+            {t('documents:deleteContent')} ({selectedRecord.name})
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <Button color="error" onClick={deleteHandler}>
