@@ -6,9 +6,8 @@ import { Grid } from '@mui/material'
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
-    height: 20,
+    height: theme.spacing(1.5),
     borderRadius: 5,
-    padding: theme.spacing(1),
   },
   // colorPrimary: {
   //  backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 700],

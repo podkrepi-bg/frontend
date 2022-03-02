@@ -1,6 +1,7 @@
 import React from 'react'
 import { Grid, Theme, Typography } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 
@@ -12,17 +13,17 @@ type DonationItem = {
 
 const allDonationItem: DonationItem[] = [
   {
-    donorName: 'Donator 1',
+    donorName: 'Donor 1',
     donatedMoney: '10lv',
     donationTime: '1 hour ago',
   },
   {
-    donorName: 'Donator 2',
+    donorName: 'Donor 2',
     donatedMoney: '100lv',
     donationTime: '20 hours ago',
   },
   {
-    donorName: 'Donator 3',
+    donorName: 'Donor 3',
     donatedMoney: '1000lv',
     donationTime: '21 hours ago',
   },
@@ -42,7 +43,11 @@ const useStyles = makeStyles((theme: Theme) =>
     donationQuantityAndTimeWrapper: {
       display: 'flex',
       gap: theme.spacing(1),
-      color: 'grey',
+      color: theme.palette.grey[500],
+    },
+    separatorIcon: {
+      fontSize: theme.spacing(1),
+      alignSelf: 'center',
     },
   }),
 )
@@ -54,11 +59,12 @@ export default function DonorsAndDonations() {
     <Grid item className={classes.donationsWrapper}>
       {allDonationItem.map(({ donorName, donatedMoney, donationTime }, key) => (
         <Grid key={key} className={classes.donationItemWrapper}>
-          <AccountCircleIcon />
+          <AccountCircleIcon fontSize="large" color="disabled" />
           <Grid>
             <Typography>{donorName}</Typography>
             <Grid className={classes.donationQuantityAndTimeWrapper}>
               <Typography>{donatedMoney}</Typography>
+              <FiberManualRecordIcon className={classes.separatorIcon} />
               <Typography>{donationTime}</Typography>
             </Grid>
           </Grid>
