@@ -3,12 +3,20 @@ import { enableStaticRendering } from 'mobx-react'
 
 enableStaticRendering(typeof window === 'undefined')
 
+type Record = {
+  id: string
+  name: string
+}
 class ModalStoreImpl {
   isDetailsOpen = false
   isDeleteOpen = false
   isDeleteAllOpen = false
   isSelected = false
-  idsToDelete: string[] = []
+  selectedRecord: Record = {
+    id: '',
+    name: '',
+  }
+  selectedIdsToDelete: string[] = []
 
   constructor() {
     makeObservable(this, {
@@ -16,7 +24,10 @@ class ModalStoreImpl {
       isDeleteOpen: observable,
       isDeleteAllOpen: observable,
       isSelected: observable,
-      idsToDelete: observable,
+      selectedRecord: observable,
+      selectedIdsToDelete: observable,
+      setSelectedRecord: action,
+      setSelectedIdsToDelete: action,
       selectedPositive: action,
       selectedNegative: action,
       showDetails: action,
@@ -52,13 +63,20 @@ class ModalStoreImpl {
     this.isDeleteOpen = false
   }
 
-  showDeleteAll = (idsToDelete: string[]) => {
+  showDeleteAll = () => {
     this.isDeleteAllOpen = true
-    this.idsToDelete = idsToDelete
   }
 
   hideDeleteAll = () => {
     this.isDeleteAllOpen = false
+  }
+
+  setSelectedRecord = (record: Record) => {
+    this.selectedRecord = record
+  }
+
+  setSelectedIdsToDelete = (ids: string[]) => {
+    this.selectedIdsToDelete = ids
   }
 }
 
