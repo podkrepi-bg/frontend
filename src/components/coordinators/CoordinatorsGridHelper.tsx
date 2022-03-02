@@ -1,7 +1,6 @@
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import DeleteIcon from '@mui/icons-material/Delete'
 import ImportExportIcon from '@mui/icons-material/ImportExport'
-import EditIcon from '@mui/icons-material/Edit'
 import ShareIcon from '@mui/icons-material/Share'
 import { NextRouter } from 'next/router'
 import React from 'react'
@@ -20,8 +19,6 @@ export const ControlIcons: React.FC<Props> = ({
   setCarId,
   carId,
   openModal,
-  router,
-  route,
   handleOpen,
   setId,
   idToSet,
