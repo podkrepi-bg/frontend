@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 
 const validationSchema: yup.SchemaOf<BenefactorFormData> = yup.object().defined().shape({
   extCustomerId: yup.string().required(),
-  person: yup.string(),
+  person: yup.string().required(),
 })
 
 const defaults: BenefactorFormData = {

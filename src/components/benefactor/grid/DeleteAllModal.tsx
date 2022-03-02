@@ -21,6 +21,14 @@ type Props = {
 }
 
 export default observer(function DeleteAllModal({ selectionModel }: Props) {
+  const initialValues: BenefactorResponse = {
+    id: '',
+    personId: '',
+    extCustomerId: '',
+    createdAt: '',
+    updatedAt: '',
+    person: '',
+  }
   const queryClient = useQueryClient()
   const [openRowsDel, setOpenRowsDel] = React.useState<boolean>(false)
   const [openInfo, setOpenInfo] = React.useState<boolean>(false)
@@ -31,13 +39,6 @@ export default observer(function DeleteAllModal({ selectionModel }: Props) {
 
   const { t } = useTranslation('benefactor')
 
-  const initialValues: BenefactorResponse = {
-    id: '',
-    personId: '',
-    extCustomerId: '',
-    createdAt: '',
-    updatedAt: '',
-  }
   const router = useRouter()
 
   const delMutation = useMutation<AxiosResponse<BenefactorResponse>, AxiosError<ApiErrors>, string>(

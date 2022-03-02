@@ -31,7 +31,7 @@ const validationSchema: yup.SchemaOf<BenefactorFormData> = yup.object().defined(
   extCustomerId: yup.string().required(),
   // createdAt: yup.string(),
   // updatedAt: yup.string(),
-  person: yup.string(),
+  person: yup.string().required(),
 })
 
 const defaults: BenefactorFormData = {
