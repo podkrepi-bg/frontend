@@ -1,8 +1,8 @@
 import React from 'react'
 import { UseQueryResult } from 'react-query'
 import { observer } from 'mobx-react'
-import { Dialog, Card, CardContent, Typography, Divider } from '@mui/material'
 import { useTranslation } from 'next-i18next'
+import { Dialog, Card, CardContent, Typography, Divider } from '@mui/material'
 
 import { VaultResponse } from 'gql/vault'
 import { useVault } from 'common/hooks/vaults'

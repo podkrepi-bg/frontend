@@ -1,19 +1,18 @@
 import React from 'react'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation } from 'react-query'
 import { observer } from 'mobx-react'
 import { AxiosError, AxiosResponse } from 'axios'
+import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
 import { Dialog, Card, CardContent, Box, Button, Typography } from '@mui/material'
 import { GridSelectionModel } from '@mui/x-data-grid'
-import { useTranslation } from 'next-i18next'
 
+import { routes } from 'common/routes'
 import { VaultResponse } from 'gql/vault'
 import { ApiErrors } from 'service/apiErrors'
-import { endpoints } from 'service/apiEndpoints'
 import { useDeleteManyVaults } from 'service/restRequests'
 import { ModalStore } from 'stores/documents/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
-import { useRouter } from 'next/router'
-import { routes } from 'common/routes'
 
 type Props = {
   selectionModel: GridSelectionModel
