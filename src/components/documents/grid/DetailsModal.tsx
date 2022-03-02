@@ -8,13 +8,9 @@ import { DocumentResponse } from 'gql/document'
 import { useDocument } from 'common/hooks/documents'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 
-type Props = {
-  id: string
-}
-
-export default observer(function DetailsModal({ id }: Props) {
-  const { data }: UseQueryResult<DocumentResponse> = useDocument(id)
-  const { isDetailsOpen, hideDetails } = ModalStore
+export default observer(function DetailsModal() {
+  const { isDetailsOpen, hideDetails, selectedRecord } = ModalStore
+  const { data }: UseQueryResult<DocumentResponse> = useDocument(selectedRecord.id)
   const { t } = useTranslation()
 
   return (

@@ -8,7 +8,6 @@ import {
   GridColDef,
   GridColumns,
   GridRenderCellParams,
-  GridRowId,
   GridSelectionModel,
 } from '@mui/x-data-grid'
 
@@ -23,12 +22,8 @@ import DeleteModal from './DeleteModal'
 import DeleteAllModal from './DeleteAllModal'
 
 export default observer(function Grid() {
-  const [selected, setSelected] = useState({
-    id: '',
-    name: '',
-  })
-  const { showDeleteAll, hideDeleteAll } = ModalStore
-  const [selectionModel, setSelectionModel] = useState<GridRowId[]>([])
+  const { setSelectedIdsToDelete } = ModalStore
+
   const [pageSize, setPageSize] = useState(5)
   const { t } = useTranslation()
   const { selectedPositive, selectedNegative } = ModalStore
@@ -39,14 +34,6 @@ export default observer(function Grid() {
     align: 'left',
     width: 150,
     headerAlign: 'left',
-  }
-
-  const selectMultipleRows = (ids: GridSelectionModel) => {
-    const idsToStr = ids.map((id) => id.toString())
-    showDeleteAll(idsToStr)
-    if (ids.length === 0) {
-      hideDeleteAll()
-    }
   }
 
   const columns: GridColumns = [
@@ -92,7 +79,6 @@ export default observer(function Grid() {
           <GridActions
             id={cellValues.row.id}
             name={cellValues.row.name}
-            setSelected={setSelected}
             editLink={routes.admin.documents.edit(cellValues.row.id)}
           />
         )
@@ -126,14 +112,13 @@ export default observer(function Grid() {
           checkboxSelection
           onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
             newSelectionModel.length !== 0 ? selectedPositive() : selectedNegative()
-            setSelectionModel(newSelectionModel)
-            selectMultipleRows(newSelectionModel)
+            setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
           }}
         />
       </Box>
-      <DetailsModal id={selected.id} />
-      <DeleteModal id={selected.id} name={selected.name} />
-      {/* <DeleteAllModal selectionModel={selectionModel} /> */}
+      <DetailsModal />
+      <DeleteModal />
+      <DeleteAllModal />
     </>
   )
 })
