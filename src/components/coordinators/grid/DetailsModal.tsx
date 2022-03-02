@@ -1,40 +1,41 @@
+import { observer } from 'mobx-react'
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { useTranslation } from 'next-i18next'
+
+import { ModalStore } from 'stores/dashboard/ModalStore'
+
 const useStyles = makeStyles({
   infoBtn: {
     margin: '0 auto',
   },
 })
 
-type Props = {
-  open: boolean
-  closeFn: () => void
-  data: { id: string; name: string } | undefined
-}
-
-const InfoDialog = ({ open, closeFn, data }: Props) => {
+export default observer(function InfoDialog() {
+  const { isDetailsOpen, hideDetails, selectedRecord } = ModalStore
   const { t } = useTranslation('coordinator')
   const classes = useStyles()
 
   return (
-    <Dialog open={open} onClose={closeFn} maxWidth="xs" disableScrollLock>
+    <Dialog open={isDetailsOpen} onClose={hideDetails} maxWidth="xs" disableScrollLock>
       <DialogTitle>{t('headings.info')}</DialogTitle>
       <DialogContent>
         <p>
-          <b>Id:</b> {data?.id}
+          <b>Id:</b> {selectedRecord?.id}
         </p>
         <p>
-          <b>{t('fields.name')}:</b> {data?.name}
+          <b>{t('fields.name')}:</b> {selectedRecord?.name}
         </p>
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" color="primary" className={classes.infoBtn} onClick={closeFn}>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.infoBtn}
+          onClick={hideDetails}>
           {t('btns.close')}
         </Button>
       </DialogActions>
     </Dialog>
   )
-}
-
-export default InfoDialog
+})
