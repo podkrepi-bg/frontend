@@ -1,5 +1,5 @@
 import React from 'react'
-import { useMutation, UseQueryResult } from 'react-query'
+import { useMutation, useQueryClient, UseQueryResult } from 'react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
@@ -16,6 +16,7 @@ import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
+import { endpoints } from 'service/apiEndpoints'
 
 const validCurrencies = ['BGN', 'USD', 'EUR']
 
@@ -30,6 +31,7 @@ const validationSchema = yup
 
 export default function EditForm() {
   const router = useRouter()
+  const queryClient = useQueryClient()
   const { t } = useTranslation()
 
   let id = router.query.id
@@ -57,6 +59,7 @@ export default function EditForm() {
     mutationFn,
     onError: () => AlertStore.show(t('vaults:alerts:error'), 'error'),
     onSuccess: () => {
+      if (id) queryClient.invalidateQueries(endpoints.vaults.getVault(String(id)).url)
       AlertStore.show(id ? t('vaults:alerts:edit') : t('vaults:alerts:create'), 'success')
       router.push(routes.admin.vaults.index)
     },
