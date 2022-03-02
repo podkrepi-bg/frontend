@@ -4,9 +4,32 @@
         "status": "Status",
         "currency": "Currency",
         "amount": "Amount",
+        "vaultId": "Vault Id",
         "deleted": "Deleted",
         "description": "Description",
+        "documentId": "Document Id",
+        "approvedById": "Approved by Id",
         "action": "Action"
+    },
+    "alerts": {
+        "new-row": {
+            "error": "Error occurred trying to create an expense.",
+            "success": "New expense added successfully!"
+        },
+        "edit-row": {
+            "error": "Error occurred trying to update an expense.",
+            "success": "Expense updated successfully!"
+        },
+        "delete-row": {
+            "question": "Are you sure you want to delete this expense",
+            "error": "Error occurred trying to delete an expense.",
+            "success": "Expense was deleted successfully!"
+        },
+        "delete-rows": {
+            "question": "Are you sure you want to delete multiple expenses",
+            "error": "Error occurred trying to delete multiple expenses.",
+            "success": "Expenses were deleted successfully!!"
+        }
     },
     "btns": {
         "add": "Add",
