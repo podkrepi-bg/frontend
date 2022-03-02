@@ -12,13 +12,8 @@ import {
 } from '@mui/icons-material'
 
 import { routes } from 'common/routes'
-import { AlertStore } from 'stores/AlertStore'
 import { ModalStore } from 'stores/dashboard/ModalStore'
-import { useMutation } from 'react-query'
-import { useDeleteCoordinatorRequest } from 'service/coordinator'
-import { ApiErrors } from 'service/apiErrors'
-import { CoordinatorResponse } from 'gql/coordinators'
-import { AxiosError, AxiosResponse } from 'axios'
+import { AlertStore } from 'stores/AlertStore'
 
 const addIconStyles = {
   background: '#4ac3ff',
@@ -36,26 +31,14 @@ const iconStyles = {
   mr: 1,
 }
 export default observer(function BottomAppBar() {
-  const { isDeleteAllOpen, selectedIdsToDelete } = ModalStore
+  const { showDeleteAll, selectedIdsToDelete } = ModalStore
   const { t } = useTranslation()
   const router = useRouter()
 
-  const mutation = useMutation<AxiosResponse<CoordinatorResponse>, AxiosError<ApiErrors>, string>({
-    mutationFn: useDeleteCoordinatorRequest(),
-    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
-    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
-  })
-
-  const deleteHandler = () => {
-    isDeleteAllOpen
-      ? deleteAll(selectedIdsToDelete)
+  const deleteAllHandler = () => {
+    selectedIdsToDelete.length > 0
+      ? showDeleteAll()
       : AlertStore.show(t('common:alerts.noselected'), 'info')
-  }
-
-  const deleteAll = (selectedIdsToDelete: string[]) => {
-    Promise.all(selectedIdsToDelete.map((id: string) => mutation.mutateAsync(id))).then(() => {
-      router.push(routes.admin.coordinators.index)
-    })
   }
 
   return (
@@ -76,7 +59,12 @@ export default observer(function BottomAppBar() {
             <EventNoteIcon sx={iconStyles} fontSize="medium" color="action" />
           </Tooltip>
           <Tooltip title="Изтрий избраните">
-            <DeleteIcon onClick={deleteHandler} sx={iconStyles} fontSize="medium" color="action" />
+            <DeleteIcon
+              onClick={deleteAllHandler}
+              sx={iconStyles}
+              fontSize="medium"
+              color="action"
+            />
           </Tooltip>
           <Tooltip title="Запази">
             <SaveIcon sx={iconStyles} fontSize="medium" color="action" />

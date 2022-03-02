@@ -1,55 +1,24 @@
-import { GridColumns, DataGrid, GridSelectionModel, GridRenderCellParams } from '@mui/x-data-grid'
-import { observer } from 'mobx-react'
 import React from 'react'
-import { useMutation, UseQueryResult } from 'react-query'
-import { useCoordinatorsList } from 'common/hooks/coordinators'
-import { commonProps } from './CoordinatorsGridHelper'
+import { observer } from 'mobx-react'
+import { UseQueryResult } from 'react-query'
+import { GridColumns, DataGrid, GridSelectionModel, GridRenderCellParams } from '@mui/x-data-grid'
+
 import { CoordinatorResponse } from 'gql/coordinators'
-import { useDeleteCoordinatorRequest } from 'service/coordinator'
-import { AxiosError, AxiosResponse } from 'axios'
-import { useTranslation } from 'next-i18next'
-import { AlertStore } from 'stores/AlertStore'
-import { ApiErrors } from 'service/apiErrors'
+import { useCoordinatorsList } from 'common/hooks/coordinators'
 import GridActions from 'components/admin/GridActions'
 import { ModalStore } from 'stores/dashboard/ModalStore'
-import DeleteRowDialog from './DeleteRowDialog'
-import InfoDialog from './InfoDialog'
+
+import { commonProps } from './CoordinatorsGridHelper'
+import DeleteModal from './DeleteModal'
+import DetailsModal from './DetailsModal'
+import DeleteAllModal from './DeleteAllModal'
 
 export default observer(function CoordinatorsGrid() {
-  const {
-    isDetailsOpen,
-    hideDetails,
-    isDeleteOpen,
-    hideDelete,
-    showDeleteAll,
-    setSelectedIdsToDelete,
-    selectedRecord,
-  } = ModalStore
-  const { t } = useTranslation()
+  const { selectedPositive, selectedNegative, setSelectedIdsToDelete } = ModalStore
 
-  const mutation = useMutation<AxiosResponse<CoordinatorResponse>, AxiosError<ApiErrors>, string>({
-    mutationFn: useDeleteCoordinatorRequest(),
-    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
-    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
-  })
-
-  const selectMultipleRows = (ids: GridSelectionModel) => {
-    setSelectedIdsToDelete(ids.map((id) => id.toString()))
-
-    if (ids.length === 0) {
-      return
-    }
-
-    showDeleteAll()
-  }
-
-  const deleteRow = async () => {
-    try {
-      hideDelete()
-      await mutation.mutateAsync(selectedRecord.id)
-    } catch (err) {
-      console.log(err)
-    }
+  const selectMultipleRows = (newSelectionModel: GridSelectionModel) => {
+    newSelectionModel.length !== 0 ? selectedPositive() : selectedNegative()
+    setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
   }
 
   const columns: GridColumns = [
@@ -93,13 +62,9 @@ export default observer(function CoordinatorsGrid() {
 
   return (
     <>
-      <InfoDialog open={isDetailsOpen} closeFn={hideDetails} data={selectedRecord} />
-      <DeleteRowDialog
-        open={isDeleteOpen}
-        closeFn={hideDelete}
-        name={selectedRecord.name}
-        deleteRow={deleteRow}
-      />
+      <DetailsModal />
+      <DeleteModal />
+      <DeleteAllModal />
       <DataGrid
         style={{
           background: 'white',
