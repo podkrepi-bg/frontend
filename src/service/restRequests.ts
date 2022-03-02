@@ -167,19 +167,9 @@ export function useCreateExpense() {
   }
 }
 
-export function useGetExpense(id: string) {
+export function useEditExpense() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  return async () => {
-    return await apiClient.put<ExpenseResponse, AxiosResponse<ExpenseResponse>>(
-      endpoints.expenses.viewExpense(id).url,
-      authConfig(keycloak?.token),
-    )
-  }
-}
-
-export function useEditExpense(id: string) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
-  return async (data: ExpenseInput) => {
+  return async ({ id, data }: { id: string; data: ExpenseInput }) => {
     return await apiClient.put<ExpenseResponse, AxiosResponse<ExpenseResponse>>(
       endpoints.expenses.editExpense(id).url,
       data,
@@ -188,9 +178,9 @@ export function useEditExpense(id: string) {
   }
 }
 
-export function useDeleteExpense(id: string) {
+export function useDeleteExpense() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  return async () => {
+  return async (id: string) => {
     return await apiClient.delete<ExpenseResponse, AxiosResponse<ExpenseResponse>>(
       endpoints.expenses.deleteExpense(id).url,
       authConfig(keycloak?.token),
