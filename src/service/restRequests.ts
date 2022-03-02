@@ -1,4 +1,5 @@
 import { MutationFunction, QueryFunction } from 'react-query'
+import { useQuery } from 'react-query'
 import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
