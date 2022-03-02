@@ -16,12 +16,15 @@ import DeleteRowDialog from './DeleteRowDialog'
 import InfoDialog from './InfoDialog'
 
 export default observer(function CoordinatorsGrid() {
-  const [selected, setSelected] = React.useState({
-    id: '',
-    name: '',
-  })
-  const { isDetailsOpen, hideDetails, isDeleteOpen, hideDelete, showDeleteAll, hideDeleteAll } =
-    ModalStore
+  const {
+    isDetailsOpen,
+    hideDetails,
+    isDeleteOpen,
+    hideDelete,
+    showDeleteAll,
+    setSelectedIdsToDelete,
+    selectedRecord,
+  } = ModalStore
   const { t } = useTranslation()
 
   const mutation = useMutation<AxiosResponse<CoordinatorResponse>, AxiosError<ApiErrors>, string>({
@@ -31,17 +34,19 @@ export default observer(function CoordinatorsGrid() {
   })
 
   const selectMultipleRows = (ids: GridSelectionModel) => {
-    const idsToStr = ids.map((id) => id.toString())
-    showDeleteAll(idsToStr)
+    setSelectedIdsToDelete(ids.map((id) => id.toString()))
+
     if (ids.length === 0) {
-      hideDeleteAll()
+      return
     }
+
+    showDeleteAll()
   }
 
   const deleteRow = async () => {
     try {
       hideDelete()
-      await mutation.mutateAsync(selected.id)
+      await mutation.mutateAsync(selectedRecord.id)
     } catch (err) {
       console.log(err)
     }
@@ -78,11 +83,7 @@ export default observer(function CoordinatorsGrid() {
       width: 180,
       renderCell: (p: GridRenderCellParams): React.ReactNode => {
         return (
-          <GridActions
-            id={p.row.id}
-            name={`${p.row.person.firstName} ${p.row.person.lastName}`}
-            setSelected={setSelected}
-          />
+          <GridActions id={p.row.id} name={`${p.row.person.firstName} ${p.row.person.lastName}`} />
         )
       },
     },
@@ -92,11 +93,11 @@ export default observer(function CoordinatorsGrid() {
 
   return (
     <>
-      <InfoDialog open={isDetailsOpen} closeFn={hideDetails} data={selected} />
+      <InfoDialog open={isDetailsOpen} closeFn={hideDetails} data={selectedRecord} />
       <DeleteRowDialog
         open={isDeleteOpen}
         closeFn={hideDelete}
-        name={selected.name}
+        name={selectedRecord.name}
         deleteRow={deleteRow}
       />
       <DataGrid

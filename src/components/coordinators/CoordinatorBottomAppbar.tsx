@@ -36,7 +36,7 @@ const iconStyles = {
   mr: 1,
 }
 export default observer(function BottomAppBar() {
-  const { isDeleteAllOpen, idsToDelete } = ModalStore
+  const { isDeleteAllOpen, selectedIdsToDelete } = ModalStore
   const { t } = useTranslation()
   const router = useRouter()
 
@@ -48,12 +48,12 @@ export default observer(function BottomAppBar() {
 
   const deleteHandler = () => {
     isDeleteAllOpen
-      ? deleteAll(idsToDelete)
+      ? deleteAll(selectedIdsToDelete)
       : AlertStore.show(t('common:alerts.noselected'), 'info')
   }
 
-  const deleteAll = (idsToDelete: string[]) => {
-    Promise.all(idsToDelete.map((id: string) => mutation.mutateAsync(id))).then(() => {
+  const deleteAll = (selectedIdsToDelete: string[]) => {
+    Promise.all(selectedIdsToDelete.map((id: string) => mutation.mutateAsync(id))).then(() => {
       router.push(routes.admin.coordinators.index)
     })
   }
