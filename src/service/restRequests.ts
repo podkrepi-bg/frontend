@@ -16,6 +16,7 @@ import { DocumentInput, DocumentResponse } from 'gql/document'
 import { CountryInput, CountryResponse } from 'gql/countries'
 
 import { endpoints } from './apiEndpoints'
+import { CityInput, CityResponse } from 'gql/cities'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await apiClient.get(queryKey.join('/'))
@@ -150,6 +151,38 @@ export const useDeleteCountry = () => {
   return async (id: string) => {
     return await apiClient.delete<string, AxiosResponse<CountryResponse>>(
       endpoints.country.deleteCountry(id).url,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useCreateCity() {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (data: CityInput) => {
+    return await apiClient.post<CityResponse, AxiosResponse<CityResponse>>(
+      endpoints.city.createCity.url,
+      data,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useEditCity(id: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (data: CityInput) => {
+    return await apiClient.patch<CityResponse, AxiosResponse<CityResponse>>(
+      endpoints.city.editCity(id).url,
+      data,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useDeleteCity(id: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async () => {
+    return await apiClient.delete<CityResponse, AxiosResponse<CityResponse>>(
+      endpoints.city.deleteCity(id).url,
       authConfig(keycloak?.token),
     )
   }
