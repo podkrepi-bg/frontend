@@ -2,8 +2,9 @@ import React, { Dispatch, SetStateAction } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { observer } from 'mobx-react'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Dialog, Card, CardContent, Box, Button, Typography } from '@mui/material'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { Dialog, Card, CardContent, Box, Button, Typography } from '@mui/material'
 
 import { VaultResponse } from 'gql/vault'
 import { ApiErrors } from 'service/apiErrors'
@@ -11,7 +12,6 @@ import { endpoints } from 'service/apiEndpoints'
 import { useDeleteVault } from 'service/restRequests'
 import { ModalStore } from 'stores/documents/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
-import { useRouter } from 'next/router'
 import { routes } from 'common/routes'
 
 type Props = {
