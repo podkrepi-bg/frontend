@@ -1,4 +1,13 @@
 {
+    "fields": {
+        "type": "Тип",
+        "status": "Статус",
+        "currency": "Валута",
+        "amount": "Стойност",
+        "deleted": "Изтрит",
+        "description": "Описание",
+        "action": "Действие"
+    },
     "btns": {
         "add": "Добави",
         "save": "Запази",
