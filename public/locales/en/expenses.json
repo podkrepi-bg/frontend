@@ -1,0 +1,31 @@
+{
+    "fields": {
+        "type": "Type",
+        "status": "Status",
+        "currency": "Currency",
+        "amount": "Amount",
+        "deleted": "Deleted",
+        "description": "Description",
+        "action": "Action"
+    },
+    "btns": {
+        "add": "Add",
+        "save": "Save",
+        "confirm": "Confirm",
+        "cancel": "Cancel",
+        "close": "Close"
+    },
+    "headings": {
+        "add": "Add expense",
+        "edit": "Edit expense",
+        "expenses": "Expenses",
+        "info": "Expense information"
+    },
+    "description": "All expenses",
+    "tooltips": {
+        "add": "Add",
+        "view": "View",
+        "edit": "Edit",
+        "delete": "Delete"
+    }
+}
