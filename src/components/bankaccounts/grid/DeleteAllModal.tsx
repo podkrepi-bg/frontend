@@ -13,17 +13,12 @@ import { useDeleteManyBankAccounts } from 'service/restRequests'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 
-type Props = {
-  selectionModel: GridSelectionModel
-}
-
-export default observer(function DeleteAllModal({ selectionModel }: Props) {
+export default observer(function DeleteAllModal() {
   const queryClient = useQueryClient()
-  const { isDeleteAllOpen, hideDeleteAll } = ModalStore
+  const { isDeleteAllOpen, hideDeleteAll, selectedIdsToDelete } = ModalStore
   const { t } = useTranslation('bankaccounts')
 
-  const idsToDelete = selectionModel.map((x) => x.toString())
-  const mutationFn = useDeleteManyBankAccounts(idsToDelete)
+  const mutationFn = useDeleteManyBankAccounts(selectedIdsToDelete)
 
   const mutation = useMutation<
     AxiosResponse<BankAccountResponse>,
@@ -40,7 +35,7 @@ export default observer(function DeleteAllModal({ selectionModel }: Props) {
   })
 
   function deleteHandler() {
-    mutation.mutate(idsToDelete)
+    mutation.mutate(selectedIdsToDelete)
   }
 
   return (

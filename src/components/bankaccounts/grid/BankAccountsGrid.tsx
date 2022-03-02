@@ -1,13 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
-import {
-  GridColumns,
-  DataGrid,
-  GridRowId,
-  GridSelectionModel,
-  GridRenderCellParams,
-} from '@mui/x-data-grid'
+import { GridColumns, DataGrid, GridSelectionModel, GridRenderCellParams } from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
@@ -23,16 +17,11 @@ import DeleteModal from './DeleteModal'
 import DeleteAllModal from './DeleteAllModal'
 
 export default observer(function BankAccountsGrid() {
-  const [selected, setSelected] = useState({
-    id: '',
-    name: '',
-  })
-  const [selectionModel, setSelectionModel] = useState<GridRowId[]>([])
   const { t } = useTranslation('bankaccounts')
 
   const { data }: UseQueryResult<BankAccountResponse[]> = useBankAccountsList()
 
-  const { selectedPositive, selectedNegative } = ModalStore
+  const { selectedPositive, selectedNegative, setSelectedIdsToDelete } = ModalStore
 
   const columns: GridColumns = [
     { ...commonProps, headerName: t('status'), field: 'status' },
@@ -62,7 +51,6 @@ export default observer(function BankAccountsGrid() {
           <GridActions
             id={params.row.id}
             name={params.row.ibanNumber}
-            setSelected={setSelected}
             editLink={routes.admin.bankaccounts.edit(params.row.id)}
           />
         )
@@ -94,12 +82,12 @@ export default observer(function BankAccountsGrid() {
         checkboxSelection
         onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
           newSelectionModel.length !== 0 ? selectedPositive() : selectedNegative()
-          setSelectionModel(newSelectionModel)
+          setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
         }}
       />
-      <DetailsModal id={selected.id} />
-      <DeleteModal id={selected.id} name={selected.name} />
-      <DeleteAllModal selectionModel={selectionModel} />
+      <DetailsModal />
+      <DeleteModal />
+      <DeleteAllModal />
     </>
   )
 })
