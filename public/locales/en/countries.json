@@ -1,52 +1,52 @@
 {
-    "fields": {
-        "name": "Name",
-        "country-code": "Code",
-        "action": "Action"
+  "fields": {
+    "name": "Name",
+    "country-code": "Code",
+    "action": "Action"
+  },
+  "alerts": {
+    "new-row": {
+      "error": "Error occurred trying to create a country.",
+      "success": "New country added successfully!"
     },
-    "alerts": {
-        "new-row": {
-            "error": "Error occurred trying to create a country.",
-            "success": "New country added successfully!"
-        },
-        "edit-row": {
-            "error": "Error occurred trying to update a country.",
-            "success": "Country updated successfully!"
-        },
-        "delete-row": {
-            "question": "Are you sure you want to delete this country",
-            "error": "Error occurred trying to delete a country.",
-            "success": "Country was deleted successfully!"
-        },
-        "delete-rows": {
-            "question": "Are you sure you want to delete multiple countries",
-            "count": "country",
-            "counts": "countries",
-            "error": "Error occurred trying to delete multiple countries.",
-            "success": "Countries were deleted successfully!"
-        },
-        "load": {
-            "error": "Error occurred loading countries data."
-        }
+    "edit-row": {
+      "error": "Error occurred trying to update a country.",
+      "success": "Country updated successfully!"
     },
-    "btns": {
-        "add": "Add",
-        "save": "Save",
-        "confirm": "Confirm",
-        "cancel": "Cancel",
-        "close": "Close"
+    "delete-row": {
+      "question": "Are you sure you want to delete this country",
+      "error": "Error occurred trying to delete a country.",
+      "success": "Country was deleted successfully!"
     },
-    "headings": {
-        "add": "Add country",
-        "edit": "Edit country",
-        "countries": "Countries",
-        "info": "Info for country"
+    "delete-rows": {
+      "question": "Are you sure you want to delete multiple countries",
+      "count": "country",
+      "counts": "countries",
+      "error": "Error occurred trying to delete multiple countries.",
+      "success": "Countries were deleted successfully!"
     },
-    "description": "All countries",
-    "tooltips": {
-        "add": "Add",
-        "view": "View",
-        "edit": "Edit",
-        "delete": "Delete"
+    "load": {
+      "error": "Error occurred loading countries data."
     }
+  },
+  "btns": {
+    "add": "Add",
+    "save": "Save",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "close": "Close"
+  },
+  "headings": {
+    "add": "Add country",
+    "edit": "Edit country",
+    "countries": "Countries",
+    "info": "Info for country"
+  },
+  "description": "All countries",
+  "tooltips": {
+    "add": "Add",
+    "view": "View",
+    "edit": "Edit",
+    "delete": "Delete"
+  }
 }

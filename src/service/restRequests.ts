@@ -1,4 +1,4 @@
-import { QueryFunction, useQuery } from 'react-query'
+import { QueryFunction } from 'react-query'
 import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
@@ -40,7 +40,7 @@ export const authConfig = (token?: string): AxiosRequestConfig => {
 
 export const createBeneficiary = async (data: CreateBeneficiaryInput) => {
   return await apiClient.post<CreateBeneficiaryInput, AxiosResponse<PersonResponse>>(
-    endpoints.person.createBeneficiary.url,
+    endpoints.beneficiary.createBeneficiary.url,
     data,
   )
 }

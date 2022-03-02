@@ -11,7 +11,6 @@ import { useRouter } from 'next/router'
 import { useMutation, useQueryClient, UseQueryResult } from 'react-query'
 
 import { routes } from 'common/routes'
-import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import { useCoordinatorsList } from 'common/hooks/coordinators'
