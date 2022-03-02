@@ -1,4 +1,4 @@
-import { QueryFunction } from 'react-query'
+import { QueryFunction, useQuery } from 'react-query'
 import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
