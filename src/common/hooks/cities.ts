@@ -6,12 +6,12 @@ import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
 import { CityResponse } from 'gql/cities'
 
-type City = {
-  id: string
-  name: string
-  postalCode: string
-  countryId: string
-}
+// type City = {
+//   id: string
+//   name: string
+//   postalCode: string
+//   countryId: string
+// }
 
 type Country = {
   id: string
@@ -20,15 +20,23 @@ type Country = {
   cities: []
 }
 
-export function useCity(id: string) {
-  return useQuery<CityResponse>(endpoints.city.viewCity(id).url)
-}
+// export function useCity(id: string) {
+//   return useQuery<CityResponse>(endpoints.city.viewCity(id).url)
+// }
 
 export function useCitiesList() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  return useQuery<City[]>(
+  return useQuery<CityResponse[]>(
     endpoints.city.citiesList.url,
-    authQueryFnFactory<City[]>(keycloak?.token),
+    authQueryFnFactory<CityResponse[]>(keycloak?.token),
+  )
+}
+
+export function useCity(id: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return useQuery<CityResponse>(
+    endpoints.city.viewCity(id).url,
+    authQueryFnFactory<CityResponse>(keycloak?.token),
   )
 }
 
@@ -49,8 +57,8 @@ export async function prefetchCountryList(client: QueryClient, token?: string) {
 }
 
 export async function prefetchCityList(client: QueryClient, token?: string) {
-  await client.prefetchQuery<City[]>(
+  await client.prefetchQuery<CityResponse[]>(
     endpoints.city.citiesList.url,
-    authQueryFnFactory<City[]>(token),
+    authQueryFnFactory<CityResponse[]>(token),
   )
 }

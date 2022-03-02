@@ -31,13 +31,7 @@ export const useEditCity = (id: string) => {
   }
 }
 
-export const viewCity = async (data: string) => {
-  return await (
-    await apiClient.get(endpoints.city.viewCity(data).url)
-  ).data
-}
-
-export const deleteCity: MutationFunction<AxiosResponse<null>, { id: string }> = async ({
+export const useDeleteCity: MutationFunction<AxiosResponse<null>, { id: string }> = async ({
   id,
 }: {
   id: string
