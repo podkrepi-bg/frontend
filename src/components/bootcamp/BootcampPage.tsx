@@ -13,7 +13,7 @@ export default function BootcampPage() {
     <BootcampLayout>
       <AdminContainer title={t('Bootcamp-Borislav')}>
         <Grid container justifyContent="flex-end">
-          <Link passHref href="#">
+          <Link passHref href="bootcamp/add">
             <Button title="Add" size="large" color="info" startIcon={<AddCircleIcon />}>
               Добави
             </Button>
