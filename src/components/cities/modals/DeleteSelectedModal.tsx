@@ -1,5 +1,6 @@
 import Modal from '@mui/material/Modal'
 import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material'
+import React from 'react'
 
 function DeleteSelectedModal({
   isOpen,
@@ -7,8 +8,8 @@ function DeleteSelectedModal({
   handleDelete,
 }: {
   isOpen: boolean
-  handleDeleteModalClose: any
-  handleDelete: any
+  handleDeleteModalClose: () => void
+  handleDelete: () => void
 }) {
   return (
     <Modal open={isOpen} onClose={handleDeleteModalClose}>

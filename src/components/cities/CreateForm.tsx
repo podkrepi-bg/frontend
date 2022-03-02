@@ -1,32 +1,30 @@
 import React, { useState } from 'react'
-import * as yup from 'yup'
+import { useMutation, UseQueryResult } from 'react-query'
 import { useRouter } from 'next/router'
-import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
+import Link from 'next/link'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Button, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
+import * as yup from 'yup'
+import {
+  Box,
+  Button,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Typography,
+} from '@mui/material'
 
-import makeStyles from '@mui/styles/makeStyles'
+import { CityFormData, CityInput, CityResponse } from 'gql/cities'
+import { useCountriesList } from 'common/hooks/cities'
 import { routes } from 'common/routes'
+import { ApiErrors } from 'service/apiErrors'
+import { useCreateCity } from 'service/restRequests'
 import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
-import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
-import { ApiErrors } from 'service/apiErrors'
-import { CityResponse, CityFormData, CityInput } from 'gql/cities'
-import { useCountriesList } from 'common/hooks/cities'
-import { useCreateCityRequest } from 'service/city'
-
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    heading: {
-      marginBottom: theme.spacing(5),
-      color: theme.palette.primary.dark,
-      textAlign: 'center',
-    },
-  }),
-)
+import SubmitButton from 'components/common/form/SubmitButton'
 
 const validationSchema: yup.SchemaOf<CityFormData> = yup
   .object()
@@ -37,29 +35,30 @@ const validationSchema: yup.SchemaOf<CityFormData> = yup
     countryId: yup.string(),
   })
 
-export default function CityForm() {
-  const classes = useStyles()
-  const { t } = useTranslation()
+export default function EditForm() {
   const router = useRouter()
+  const { t } = useTranslation()
   const countries = useCountriesList()
   const [countryId, setCountryId] = useState('')
-  const initialValues = {
+
+  const initialValues: CityInput = {
     name: '',
     postalCode: '',
     countryId: '',
   }
 
+  const mutationFn = useCreateCity()
+
   const mutation = useMutation<AxiosResponse<CityResponse>, AxiosError<ApiErrors>, CityInput>({
-    mutationFn: useCreateCityRequest(),
-    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    mutationFn,
+    onError: () => AlertStore.show(t('cities:alerts:error'), 'error'),
     onSuccess: () => {
-      AlertStore.show(t('common:alerts.message-sent'), 'success')
+      AlertStore.show(t('cities:alerts:create'), 'success')
       router.push(routes.admin.cities.home)
     },
   })
 
-  const onSubmit = (values: CityInput) => {
-    console.log(values.postalCode)
+  async function onSubmit(values: CityInput) {
     const data = {
       name: values.name,
       postalCode: values.postalCode,
@@ -68,22 +67,20 @@ export default function CityForm() {
     mutation.mutate(data)
   }
 
-  function handleChange(event: any) {
+  function handleChange(event: SelectChangeEvent) {
     setCountryId(event.target.value)
   }
 
   return (
-    <Grid container direction="column" component="section">
-      <Grid item xs={12}>
-        <Typography variant="h5" component="h2" className={classes.heading}>
-          Създай град
+    <GenericForm
+      onSubmit={onSubmit}
+      initialValues={initialValues}
+      validationSchema={validationSchema}>
+      <Box sx={{ marginTop: '5%', height: '62.6vh' }}>
+        <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
+          {t('cities:form-heading')}
         </Typography>
-      </Grid>
-      <GenericForm
-        onSubmit={onSubmit}
-        initialValues={initialValues}
-        validationSchema={validationSchema}>
-        <Grid container spacing={3}>
+        <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
           <Grid item xs={12}>
             <FormTextField type="text" label="Cities: Име" name="name" autoComplete="name" />
           </Grid>
@@ -112,16 +109,16 @@ export default function CityForm() {
               })}
             </Select>
           </Grid>
-          <Grid item xs={12}>
-            <SubmitButton fullWidth label="Създай" loading={mutation.isLoading} />
+          <Grid item xs={6}>
+            <SubmitButton fullWidth label={t('cities:cta:submit')} />
           </Grid>
-          <Grid item xs={12}>
-            <Button fullWidth onClick={() => router.push(routes.admin.cities.home)}>
-              Откажи
-            </Button>
+          <Grid item xs={6}>
+            <Link href={routes.admin.cities.home}>
+              <Button fullWidth>{t('cities:cta:cancel')}</Button>
+            </Link>
           </Grid>
         </Grid>
-      </GenericForm>
-    </Grid>
+      </Box>
+    </GenericForm>
   )
 }
