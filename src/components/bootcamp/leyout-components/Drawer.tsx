@@ -5,6 +5,7 @@ import DrawerHeader from './DrawerHeader'
 import { List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material'
 import { menuDrawer } from './menuDrawer'
 import { styles } from './styles'
+import SubMenu from './SubMenu'
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -50,6 +51,7 @@ type Props = {
 }
 export default function BootcampDrawer(props: Props) {
   const classes = styles()
+
   return (
     <Drawer variant="permanent" open={props.open}>
       <DrawerHeader>
@@ -63,6 +65,7 @@ export default function BootcampDrawer(props: Props) {
       </DrawerHeader>
       {/* <Divider /> */}
       <List sx={{ height: '100%', position: 'relative' }}>
+        <SubMenu />
         {menuDrawer.map((item) => (
           <ListItem
             button
