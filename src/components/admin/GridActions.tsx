@@ -11,22 +11,20 @@ import { ModalStore } from 'stores/dashboard/ModalStore'
 type Props = {
   id: string
   name: string
-  setSelected: Dispatch<SetStateAction<{ id: string; name: string }>>
   editLink?: string
 }
 
-export default function GridActions({ id, name, setSelected, editLink }: Props) {
-  //name is used only to show which item is about to be deleted
+export default function GridActions({ id, name, editLink }: Props) {
   const { t } = useTranslation('admin')
-  const { showDetails, showDelete } = ModalStore
+  const { showDetails, showDelete, setSelectedRecord } = ModalStore
 
   function detailsClickHandler() {
-    setSelected({ id, name })
+    setSelectedRecord({ id, name })
     showDetails()
   }
 
   function deleteClickHandler() {
-    setSelected({ id, name })
+    setSelectedRecord({ id, name })
     showDelete()
   }
 
