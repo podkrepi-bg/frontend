@@ -17,6 +17,7 @@ import { DocumentInput, DocumentResponse } from 'gql/document'
 import { CountryInput, CountryResponse } from 'gql/countries'
 
 import { endpoints } from './apiEndpoints'
+import { CoordinatorResponse } from 'gql/coordinators'
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
   const response = await apiClient.get(queryKey.join('/'))
@@ -194,6 +195,16 @@ export const useDeleteCountry = () => {
   return async (id: string) => {
     return await apiClient.delete<string, AxiosResponse<CountryResponse>>(
       endpoints.country.deleteCountry(id).url,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useDeleteCoordinator() {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (id: string) => {
+    return await apiClient.delete<CoordinatorResponse, AxiosResponse<CoordinatorResponse>>(
+      endpoints.coordinators.deleteCoordinator(id).url,
       authConfig(keycloak?.token),
     )
   }
