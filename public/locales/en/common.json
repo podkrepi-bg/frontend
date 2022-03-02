@@ -1,68 +1,67 @@
 {
-    "nav": {
-        "home": "Home",
-        "about": {
-            "about-project": "The Project",
-            "about-us": "About us",
-            "support-us": "Support us",
-            "contacts": "Contacts"
-        },
-        "campaigns": {
-            "index": "Campaigns",
-            "create": "Suggest campaign",
-            "faq": "Frequently Asked Questions"
-        },
-        "admin": {
-            "index": "Administration",
-            "info-requests": "Contact requests",
-            "supporters": "Volunteers"
-        },
-        "dev": {
-            "index": "Development",
-            "contribute": "How to Contribute",
-            "project-docs": "Project Docs",
-            "open-source": "Open Source",
-            "open-data": "Open Data"
-        },
-        "donation-menu": "Donation",
-        "blog": "Blog",
-        "profile": "Profile",
-        "login": "Login",
-        "login-with": "Login with",
-        "logout": "Logout",
-        "register": "Signup",
-        "changePassword": "Change your password",
-        "forgottenPassword": "Forgotten password?"
+  "nav": {
+    "home": "Home",
+    "about": {
+      "about-project": "The Project",
+      "about-us": "About us",
+      "support-us": "Support us",
+      "contacts": "Contacts"
     },
-    "meta": {
-        "title": "Podkrepi.bg"
+    "campaigns": {
+      "index": "Campaigns",
+      "create": "Suggest campaign",
+      "faq": "Frequently Asked Questions"
     },
-    "alerts": {
-        "message-sent": "Your message has been sent!",
-        "error": "There was an error processing your message!",
-        "saved": "Successfully added record.",
-        "noselected": "Please, select at least one row!"
+    "admin": {
+      "index": "Administration",
+      "info-requests": "Contact requests",
+      "supporters": "Volunteers"
     },
-    "close": "Close",
-    "link": "Link",
-    "support": "Support",
-    "improve-this-page": "Improve this page:",
-    "github-link-text": "GitHub Source",
-    "figma-link-text": "Figma Design",
-    "components": {
-        "footer": {
-            "about-us": "About us",
-            "about-project": "The project",
-            "docs": "Documentation",
-            "dev-docs": "Technical Documentation",
-            "support": "Support us",
-            "contact": "Contact",
-            "privacy-policy": "Privacy Policy",
-            "terms-of-service": "Terms of service",
-            "hosting-partner": "Hosting partner:",
-            "copyrights": "Podkrepi.bg ©2022 All rights reserved.",
-            "version": "Version"
-        }
+    "dev": {
+      "index": "Development",
+      "contribute": "How to Contribute",
+      "project-docs": "Project Docs",
+      "open-source": "Open Source",
+      "open-data": "Open Data"
     },
-    "or": "or"
+    "donation-menu": "Donation",
+    "blog": "Blog",
+    "profile": "Profile",
+    "login": "Login",
+    "login-with": "Login with",
+    "logout": "Logout",
+    "register": "Signup",
+    "changePassword": "Change your password",
+    "forgottenPassword": "Forgotten password?"
+  },
+  "meta": {
+    "title": "Podkrepi.bg"
+  },
+  "alerts": {
+    "message-sent": "Your message has been sent!",
+    "error": "There was an error processing your message!",
+    "noselected": "Please, select at least one row!"
+  },
+  "close": "Close",
+  "link": "Link",
+  "support": "Support",
+  "improve-this-page": "Improve this page:",
+  "github-link-text": "GitHub Source",
+  "figma-link-text": "Figma Design",
+  "components": {
+    "footer": {
+      "about-us": "About us",
+      "about-project": "The project",
+      "docs": "Documentation",
+      "dev-docs": "Technical Documentation",
+      "support": "Support us",
+      "contact": "Contact",
+      "privacy-policy": "Privacy Policy",
+      "terms-of-service": "Terms of service",
+      "hosting-partner": "Hosting partner:",
+      "copyrights": "Podkrepi.bg ©2022 All rights reserved.",
+      "version": "Version"
+    }
+  },
+  "or": "or"
 }
