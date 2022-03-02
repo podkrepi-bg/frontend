@@ -15,7 +15,7 @@ import { AlertStore } from 'stores/AlertStore'
 
 export default observer(function DeleteAllModal() {
   const queryClient = useQueryClient()
-  const { isDeleteAllOpen, hideDeleteAll, selectedIdsToDelete } = ModalStore
+  const { isDeleteAllOpen, hideDeleteAll, selectedIdsToDelete, setSelectedIdsToDelete } = ModalStore
   const { t } = useTranslation('bankaccounts')
 
   const mutationFn = useDeleteManyBankAccounts(selectedIdsToDelete)
@@ -29,6 +29,7 @@ export default observer(function DeleteAllModal() {
     onError: () => AlertStore.show(t('alerts.error'), 'error'),
     onSuccess: () => {
       hideDeleteAll()
+      setSelectedIdsToDelete([])
       AlertStore.show(t('alerts.deleteAll'), 'success')
       queryClient.invalidateQueries(endpoints.bankAccounts.bankAccountList.url)
     },
