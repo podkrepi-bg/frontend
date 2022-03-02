@@ -2,13 +2,13 @@ import AdminLayout from 'components/admin/navigation/AdminLayout'
 import AdminContainer from 'components/admin/navigation/AdminContainer'
 
 import BankAccountsGrid from './grid/BankAccountsGrid'
-import BankAccountsBottomAppbar from './BankAccountsBottomAppBar'
+import GridAppbar from './grid/GridAppbar'
 
 export default function BankAccountsPage() {
   return (
     <AdminLayout>
       <AdminContainer title={'Банкови сметки'}>
-        <BankAccountsBottomAppbar />
+        <GridAppbar />
         <BankAccountsGrid />
       </AdminContainer>
     </AdminLayout>
