@@ -9,10 +9,6 @@ import { useViewBankAccount } from 'common/hooks/bankaccounts'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import CloseModalButton from 'components/common/CloseModalButton'
 
-type Props = {
-  id: string
-}
-
 const containerStyles: SxProps<Theme> = {
   position: 'absolute' as const,
   top: 0,
@@ -22,9 +18,9 @@ const containerStyles: SxProps<Theme> = {
   p: 4,
 }
 
-export default observer(function DetailsModal({ id }: Props) {
-  const { data }: UseQueryResult<BankAccountResponse> = useViewBankAccount(id)
-  const { isDetailsOpen, hideDetails } = ModalStore
+export default observer(function DetailsModal() {
+  const { isDetailsOpen, hideDetails, selectedRecord } = ModalStore
+  const { data }: UseQueryResult<BankAccountResponse> = useViewBankAccount(selectedRecord.id)
   const { t } = useTranslation('bankaccounts')
 
   return (
