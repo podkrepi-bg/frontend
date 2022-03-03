@@ -10,7 +10,7 @@ import PrinciplesThatUniteUs from './sections/PrinciplesThatUniteUs'
 export default function AboutPage() {
   const { t } = useTranslation()
   return (
-    <Layout title={t('about:about.title')}>
+    <Layout title={t('about:about.title')} metaDescription={t('about:about.description')}>
       <PrinciplesThatUniteUs />
       <HowEveryThingBegin />
       <Box textAlign="center" m={6}>
