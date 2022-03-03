@@ -1,4 +1,4 @@
-import { useQuery, MutationFunction, QueryFunction } from 'react-query'
+import { MutationFunction, QueryFunction } from 'react-query'
 import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
@@ -167,43 +167,23 @@ export const createBenefactor: MutationFunction<
   )
 }
 
-export const getBenefactor: MutationFunction<AxiosResponse<BenefactorResponse>, string> = async (
-  id: string,
-) => {
+export const getBenefactor = async (id: string) => {
   return await apiClient.get<string, AxiosResponse<BenefactorResponse>>(
-    endpoints.benefactor.getBenefactor.url + '/' + id,
+    endpoints.benefactor.getBenefactor(id).url,
   )
 }
 
-type EditBenefactorProp = {
-  id: string
-  data: BenefactorInput
-}
-
-export const editBenefactor: MutationFunction<
-  AxiosResponse<BenefactorResponse>,
-  EditBenefactorProp
-> = async ({ id, data }: EditBenefactorProp) => {
+export const editBenefactor = async ({ id, data }: { id: string; data: BenefactorInput }) => {
   return await apiClient.patch<BenefactorResponse, AxiosResponse<BenefactorResponse>>(
-    endpoints.benefactor.editBenefactor.url + '/' + id,
+    endpoints.benefactor.editBenefactor(id).url,
     data,
   )
 }
 
-export const deleteBenefactor: MutationFunction<AxiosResponse<BenefactorResponse>, string> = async (
-  id: string,
-) => {
+export const deleteBenefactor = async (id: string) => {
   return await apiClient.delete<string, AxiosResponse<BenefactorResponse>>(
-    endpoints.benefactor.deleteBenefactor.url + '/' + id,
+    endpoints.benefactor.deleteBenefactor(id).url,
   )
-}
-
-export const deleteManyBenefactors: MutationFunction<AxiosResponse<BenefactorResponse>, string[]> =
-  async (id: string[]) => {
-    return await apiClient.delete<string[], AxiosResponse<BenefactorResponse>>(
-      endpoints.benefactor.deleteBenefactor.url + '/' + id,
-    )
-  }
 }
 
 export function useCreateCity() {

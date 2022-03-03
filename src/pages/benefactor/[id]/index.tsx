@@ -10,7 +10,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale, query }) 
   const { id } = query
   console.log(id)
   const client = new QueryClient()
-  await client.prefetchQuery(`${endpoints.benefactor.getBenefactor.url}/${id}`, queryFn)
+  await client.prefetchQuery(endpoints.benefactor.getBenefactor(`${id}`).url, queryFn)
 
   return {
     props: {

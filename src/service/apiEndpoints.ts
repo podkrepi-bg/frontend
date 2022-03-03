@@ -64,10 +64,10 @@ export const endpoints = {
   },
   benefactor: {
     benefactorList: <Endpoint>{ url: '/benefactor', method: 'GET' },
-    getBenefactor: <Endpoint>{ url: '/benefactor', method: 'GET' },
+    getBenefactor: (id: string) => <Endpoint>{ url: '/benefactor/' + id, method: 'GET' },
     createBenefactor: <Endpoint>{ url: '/benefactor', method: 'POST' },
-    editBenefactor: <Endpoint>{ url: '/benefactor', method: 'PATCH' },
-    deleteBenefactor: <Endpoint>{ url: '/benefactor', method: 'DELETE' },
+    editBenefactor: (id: string) => <Endpoint>{ url: '/benefactor/' + id, method: 'PATCH' },
+    deleteBenefactor: (id: string) => <Endpoint>{ url: '/benefactor/' + id, method: 'DELETE' },
   },
   beneficiary: {
     listBeneficiary: <Endpoint>{ url: '/beneficiary/list/', method: 'GET' },
