@@ -92,7 +92,9 @@ export default function Create() {
             <TextField
               onChange={(e) => setEmail(e.target.value)}
               className={classes.field}
+              id="email"
               label="Email"
+              type="email"
               variant="outlined"
               color="primary"
               fullWidth
@@ -114,11 +116,16 @@ export default function Create() {
             <TextField
               onChange={(e) => setDate(e.target.value)}
               className={classes.field}
-              label="Date"
+              id="date"
+              label="Final Date"
+              type="date"
               variant="outlined"
               color="primary"
               fullWidth
               required
+              InputLabelProps={{
+                shrink: true,
+              }}
               error={dateError}
             />
             <Button type="submit" color="info" variant="contained" endIcon={<KeyboardArrowRight />}>

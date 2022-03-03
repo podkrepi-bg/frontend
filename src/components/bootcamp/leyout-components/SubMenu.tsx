@@ -2,6 +2,7 @@ import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material'
 import { Collapse, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import * as React from 'react'
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted'
+import Link from 'next/link'
 
 export default function SubMenu() {
   const [open, setOpen] = React.useState(false)
@@ -11,7 +12,9 @@ export default function SubMenu() {
   }
   return (
     <>
-      <ListItemButton onClick={handleClick}>
+      <ListItemButton
+        sx={{ background: 'rgba(74, 195, 255, 0.26)', borderRadius: '100px' }}
+        onClick={handleClick}>
         <ListItemIcon>
           <FormatListBulletedIcon />
         </ListItemIcon>
@@ -20,12 +23,14 @@ export default function SubMenu() {
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            <ListItemText primary="Борислав" />
-          </ListItemButton>
+          <Link passHref href="/bootcamp">
+            <ListItemButton sx={{ pl: 4 }}>
+              <ListItemIcon>
+                <StarBorder />
+              </ListItemIcon>
+              <ListItemText primary="Борислав" />
+            </ListItemButton>
+          </Link>
         </List>
       </Collapse>
     </>
