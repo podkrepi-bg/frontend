@@ -16,6 +16,8 @@ export default observer(function DetailsModal({ id }: Props) {
   const { data }: UseQueryResult<BenefactorResponse> = useBenefactor(id)
   const { isDetailsOpen, hideDetails } = ModalStore
   const { t } = useTranslation('benefactor')
+  console.log(data, 'details')
+  console.log(id)
 
   return (
     <Dialog open={isDetailsOpen} onClose={hideDetails} sx={{ top: '-35%' }}>

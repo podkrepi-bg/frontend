@@ -2,17 +2,23 @@ import { GetServerSideProps } from 'next'
 import { dehydrate, QueryClient } from 'react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { queryFn } from 'service/restRequests'
+import { authQueryFnFactory } from 'service/restRequests'
+import { keycloakInstance } from 'middleware/auth/keycloak'
 import BenefactorPage from 'components/benefactor/BenefactorPage'
 import { endpoints } from 'service/apiEndpoints'
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async (params) => {
   const client = new QueryClient()
-  await client.prefetchQuery(endpoints.benefactor.benefactorList.url, queryFn)
+  const keycloak = keycloakInstance(params)
+  // await client.prefetchQuery(endpoints.benefactor.benefactorList.url, queryFn)
+  await client.prefetchQuery(
+    endpoints.benefactor.benefactorList.url,
+    authQueryFnFactory(keycloak.token),
+  )
 
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? 'bg', [
+      ...(await serverSideTranslations(params.locale ?? 'bg', [
         'common',
         'auth',
         'benefactor',
