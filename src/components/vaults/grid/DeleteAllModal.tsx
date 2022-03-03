@@ -10,7 +10,7 @@ import { GridSelectionModel } from '@mui/x-data-grid'
 import { routes } from 'common/routes'
 import { VaultResponse } from 'gql/vault'
 import { ApiErrors } from 'service/apiErrors'
-import { useDeleteManyVaults } from 'service/restRequests'
+import { useDeleteManyVaults } from 'service/restRequests/vault'
 import { ModalStore } from 'stores/documents/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 
