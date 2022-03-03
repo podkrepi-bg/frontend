@@ -1,3 +1,5 @@
+import { UUID } from './types'
+import { Person } from './person'
 export type BenefactorFormData = {
   // id: string
   extCustomerId: string
@@ -16,7 +18,7 @@ export type BenefactorInput = {
 
 export type BenefactorResponse = {
   id: string
-  personId: string
+  // personId: string
   extCustomerId: strings
   createdAt: string
   updatedAt: string

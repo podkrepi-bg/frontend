@@ -1,5 +1,5 @@
 import React from 'react'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation } from 'react-query'
 import { observer } from 'mobx-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import { Dialog, Card, CardContent, Box, Button, Typography } from '@mui/material'
@@ -10,10 +10,8 @@ import { routes } from 'common/routes'
 
 import { BenefactorResponse } from 'gql/benefactor'
 import { ApiErrors } from 'service/apiErrors'
-import { endpoints } from 'service/apiEndpoints'
-import { deleteManyBenefactors } from 'service/restRequests'
 import { ModalStore } from 'stores/ModalStore'
-import { deleteBenefactor, getBenefactor } from 'service/restRequests'
+import { deleteBenefactor } from 'service/restRequests'
 import { AlertStore } from 'stores/AlertStore'
 
 type Props = {
@@ -21,20 +19,15 @@ type Props = {
 }
 
 export default observer(function DeleteAllModal({ selectionModel }: Props) {
-  const initialValues: BenefactorResponse = {
-    id: '',
-    personId: '',
-    extCustomerId: '',
-    createdAt: '',
-    updatedAt: '',
-    person: '',
-  }
-  const queryClient = useQueryClient()
-  const [openRowsDel, setOpenRowsDel] = React.useState<boolean>(false)
-  const [openInfo, setOpenInfo] = React.useState<boolean>(false)
-  const [selectedId, setSelectedId] = React.useState<string>('')
-  const [multipleSelectedIds, setMultipleSelectedIds] = React.useState<string[]>([])
-  const [benefactor, setBenefactor] = React.useState<BenefactorResponse>(initialValues)
+  // const initialValues: BenefactorResponse = {
+  //   id: '',
+  //   personId: '',
+  //   extCustomerId: '',
+  //   createdAt: '',
+  //   updatedAt: '',
+  //   person: '',
+  // }
+
   const { isDeleteAllOpen, hideDeleteAll } = ModalStore
 
   const { t } = useTranslation('benefactor')
