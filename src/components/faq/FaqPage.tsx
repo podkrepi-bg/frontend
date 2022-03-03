@@ -21,7 +21,7 @@ import {
   PARTNERSHIPS_QUESTIONS,
 } from './contents'
 
-const faqOnHold = true // Remove this when FAQ is ready
+const faqOnHold = false // Remove this when FAQ is ready
 
 export default function FaqPage() {
   const { t } = useTranslation()
@@ -42,9 +42,13 @@ export default function FaqPage() {
       <TabContext value={value.toString()}>
         <VerticalTabs value={value} setValue={setValue}>
           <TabPanel value={value} index={0}>
-            {COMMON_QUESTIONS.map(({ header, content }) => (
-              <ExpandableListItem key={header} header={header} content={content} />
-            ))}
+            {COMMON_QUESTIONS.flatMap(({ header, content, visible }) =>
+              visible === true ? (
+                <ExpandableListItem key={header} header={header} content={content} />
+              ) : (
+                []
+              ),
+            )}
           </TabPanel>
           <TabPanel value={value} index={1}>
             {REQUIREMENTS_QUESTIONS.map(({ header, content }) => (

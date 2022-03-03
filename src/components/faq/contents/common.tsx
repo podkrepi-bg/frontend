@@ -4,6 +4,7 @@ import ContentTypography from './ContentTypography'
 
 export const COMMON_QUESTIONS: ContentType[] = [
   {
+    visible: true,
     header: 'Как работи Подкрепи.бг? Какво точно представлява?',
     content: (
       <ContentTypography>
