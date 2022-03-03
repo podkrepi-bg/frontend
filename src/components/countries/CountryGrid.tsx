@@ -15,7 +15,7 @@ import { routes } from 'common/routes'
 import { CountryResponse } from 'gql/countries'
 import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
-import { useDeleteCountry, getCountry } from 'service/restRequests'
+import { useDeleteCountry, getCountry } from 'service/restRequests/country'
 
 import InfoDialog from './InfoDialog'
 import DeleteRowDialog from './DeleteRowDialog'

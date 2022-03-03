@@ -1,15 +1,16 @@
 import React from 'react'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation } from 'react-query'
 import { observer } from 'mobx-react'
 import { AxiosError, AxiosResponse } from 'axios'
+import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
 import { Dialog, Card, CardContent, Box, Button, Typography } from '@mui/material'
 import { GridSelectionModel } from '@mui/x-data-grid'
-import { useTranslation } from 'next-i18next'
 
-import { DocumentResponse } from 'gql/document'
+import { routes } from 'common/routes'
+import { VaultResponse } from 'gql/vault'
 import { ApiErrors } from 'service/apiErrors'
-import { endpoints } from 'service/apiEndpoints'
-import { useDeleteManyDocuments } from 'service/restRequests/document'
+import { useDeleteManyVaults } from 'service/restRequests/vault'
 import { ModalStore } from 'stores/documents/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 
@@ -18,24 +19,24 @@ type Props = {
 }
 
 export default observer(function DeleteAllModal({ selectionModel }: Props) {
-  const queryClient = useQueryClient()
+  const router = useRouter()
   const { isDeleteAllOpen, hideDeleteAll } = ModalStore
   const { t } = useTranslation()
 
   const idsToDelete = selectionModel.map((x) => x.toString())
-  const mutationFn = useDeleteManyDocuments(idsToDelete)
+  const mutationFn = useDeleteManyVaults(idsToDelete)
 
   const mutation = useMutation<
-    AxiosResponse<DocumentResponse>,
+    AxiosResponse<VaultResponse>,
     AxiosError<ApiErrors>,
     GridSelectionModel
   >({
     mutationFn,
-    onError: () => AlertStore.show(t('documents:alerts:error'), 'error'),
+    onError: () => AlertStore.show(t('vaults:alerts:error'), 'error'),
     onSuccess: () => {
       hideDeleteAll()
-      AlertStore.show(t('documents:alerts:deleteAll'), 'success')
-      queryClient.invalidateQueries(endpoints.documents.documentsList.url)
+      AlertStore.show(t('vaults:alerts:deleteAll'), 'success')
+      router.push(routes.admin.vaults.index)
     },
   })
 
@@ -48,16 +49,16 @@ export default observer(function DeleteAllModal({ selectionModel }: Props) {
       <Card>
         <CardContent>
           <Typography variant="h6" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            {t('documents:deleteTitle')}
+            {t('vaults:deleteTitle')}
           </Typography>
           <Typography variant="body1" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            {t('documents:deleteAllContent')}
+            {t('vaults:deleteAllContent')}
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <Button color="error" onClick={deleteHandler}>
-              {t('documents:cta:delete')}
+              {t('vaults:cta:delete')}
             </Button>
-            <Button onClick={hideDeleteAll}>{t('documents:cta:cancel')}</Button>
+            <Button onClick={hideDeleteAll}>{t('vaults:cta:cancel')}</Button>
           </Box>
         </CardContent>
       </Card>
