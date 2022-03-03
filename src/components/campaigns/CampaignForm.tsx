@@ -12,7 +12,7 @@ import createStyles from '@mui/styles/createStyles'
 
 import { routes } from 'common/routes'
 import { PersonFormData } from 'gql/person'
-import { useCreateCampaign } from 'service/restRequests'
+import { useCreateCampaign } from 'service/restRequests/campaign'
 import { AlertStore } from 'stores/AlertStore'
 import { createSlug } from 'common/util/createSlug'
 import PersonDialog from 'components/person/PersonDialog'
