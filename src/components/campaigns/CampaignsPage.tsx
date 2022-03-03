@@ -32,6 +32,7 @@ export default function CampaignsPage() {
   return (
     <Layout
       title={t('campaigns:cta.support-cause-today')}
+      metaDescription={t('campaigns:campaign.subheading')}
       githubUrl="https://github.com/podkrepi-bg/frontend/tree/master/src/components/campaigns/CampaignsPage.tsx"
       figmaUrl="https://www.figma.com/file/MmvFKzUv6yE5U2wrOpWtwS/Podkrepi.bg?node-id=5100%3A21216">
       <Container maxWidth="lg">
