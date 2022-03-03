@@ -32,13 +32,15 @@
 ```shell
 git clone git@github.com:podkrepi-bg/frontend.git
 cd frontend
-yarn
 
-# Symlink dev environment on unix
-ln -hfs .env.local.example .env.local
+# Symlink dev environment on Mac / Linux
+ln -nfs .env.local.example .env.local
 
 # Symlink dev environment on Windows
 mklink .env.local .env.local.example
+
+# Install dependencies
+yarn
 
 # Start the project
 yarn dev
@@ -56,7 +58,7 @@ Follow API instructions at <https://github.com/podkrepi-bg/api#setup-development
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-30-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-31-orange.svg?style=flat-square)](#contributors-)
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
@@ -120,6 +122,7 @@ Thanks goes to these wonderful people:
   <tr>
     <td align="center"><a href="https://github.com/kirilpopov"><img src="https://avatars.githubusercontent.com/u/6021897?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kiril Popov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=kirilpopov" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=kirilpopov" title="Documentation">📖</a> <a href="#tool-kirilpopov" title="Tools">🔧</a> <a href="#platform-kirilpopov" title="Packaging/porting to new platform">📦</a> <a href="#plugin-kirilpopov" title="Plugin/utility libraries">🔌</a></td>
     <td align="center"><a href="https://github.com/dragomir-yankov"><img src="https://avatars.githubusercontent.com/u/28300816?v=4?s=100" width="100px;" alt=""/><br /><sub><b>dragomir-yankov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=dragomir-yankov" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=dragomir-yankov" title="Documentation">📖</a> <a href="#tool-dragomir-yankov" title="Tools">🔧</a> <a href="#platform-dragomir-yankov" title="Packaging/porting to new platform">📦</a></td>
+    <td align="center"><a href="https://bandism.net/"><img src="https://avatars.githubusercontent.com/u/22633385?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ikko Ashimine</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=eltociear" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=eltociear" title="Documentation">📖</a></td>
   </tr>
 </table>
 

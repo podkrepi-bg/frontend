@@ -1,26 +1,8 @@
-export const PersonRelation: {
-  none: 'none'
-  myself: 'myself'
-  myorg: 'myorg'
-  parent: 'parent'
-  spouse: 'spouse'
-  child: 'child'
-  mother: 'mother'
-  father: 'father'
-  brother: 'brother'
-  sister: 'sister'
-  friend: 'friend'
-  relative: 'relative'
-  partner: 'partner'
-  domesticPartner: 'domesticPartner'
-  manager: 'manager'
-  assistant: 'assistant'
-  colleague: 'colleague'
-}
+import { LegalEntityType, PersonRelation } from '../components/beneficiary/BeneficiaryTypes'
 
 export type BeneficiaryType = {
   id: string
-  type: 'individual' | 'company'
+  type: LegalEntityType
   personId?: string
   companyId?: string
   /// Coordinator for this beneficiary
@@ -35,7 +17,7 @@ export type BeneficiaryType = {
 }
 
 export type BeneficiaryFormData = {
-  type: 'individual' | 'company'
+  type: LegalEntityType
   personId?: string
   companyId?: string
   /// Coordinator for this beneficiary
@@ -47,4 +29,8 @@ export type BeneficiaryFormData = {
   privateData?: string
   campaigns: []
   coordinatorRelation: PersonRelation
+}
+
+export type DeleteMany = {
+  ids: string[]
 }

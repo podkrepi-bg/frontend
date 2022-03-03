@@ -8,12 +8,14 @@ import {
   SupportRequestResponse,
   SupportRequestInput,
 } from 'components/support-form/helpers/support-form.types'
+import { VaultInput, VaultResponse } from 'gql/vault'
+import { CityInput, CityResponse } from 'gql/cities'
+import { DocumentInput, DocumentResponse } from 'gql/document'
+import { CountryInput, CountryResponse } from 'gql/countries'
 import { CampaignResponse, CampaignInput } from 'gql/campaigns'
 import { CreateBeneficiaryInput, PersonResponse } from 'gql/person'
 import { ContactRequestResponse, ContactRequestInput } from 'gql/contact'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
-import { DocumentInput, DocumentResponse } from 'gql/document'
-import { CountryInput, CountryResponse } from 'gql/countries'
 
 import { endpoints } from './apiEndpoints'
 
@@ -39,7 +41,7 @@ export const authConfig = (token?: string): AxiosRequestConfig => {
 
 export const createBeneficiary = async (data: CreateBeneficiaryInput) => {
   return await apiClient.post<CreateBeneficiaryInput, AxiosResponse<PersonResponse>>(
-    endpoints.person.createBeneficiary.url,
+    endpoints.beneficiary.createBeneficiary.url,
     data,
   )
 }
@@ -118,6 +120,49 @@ export function useDeleteManyDocuments(idsToDelete: string[]) {
   }
 }
 
+export function useCreateVault() {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (data: VaultInput) => {
+    return await apiClient.post<VaultResponse, AxiosResponse<VaultResponse>>(
+      endpoints.vaults.createVault.url,
+      data,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useEditVault(slug: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (data: VaultInput) => {
+    return await apiClient.patch<VaultResponse, AxiosResponse<VaultResponse>>(
+      endpoints.vaults.editVault(slug).url,
+      data,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useDeleteVault(slug: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async () => {
+    return await apiClient.delete<VaultResponse, AxiosResponse<VaultResponse>>(
+      endpoints.vaults.deleteVault(slug).url,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useDeleteManyVaults(idsToDelete: string[]) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async () => {
+    return await apiClient.post<VaultResponse, AxiosResponse<VaultResponse>>(
+      endpoints.vaults.deleteVaults.url,
+      idsToDelete,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
 export const useCreateCountry = () => {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return async (data: CountryInput) =>
@@ -150,6 +195,38 @@ export const useDeleteCountry = () => {
   return async (id: string) => {
     return await apiClient.delete<string, AxiosResponse<CountryResponse>>(
       endpoints.country.deleteCountry(id).url,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useCreateCity() {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (data: CityInput) => {
+    return await apiClient.post<CityResponse, AxiosResponse<CityResponse>>(
+      endpoints.city.createCity.url,
+      data,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useEditCity(id: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (data: CityInput) => {
+    return await apiClient.patch<CityResponse, AxiosResponse<CityResponse>>(
+      endpoints.city.editCity(id).url,
+      data,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useDeleteCity(id: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async () => {
+    return await apiClient.delete<CityResponse, AxiosResponse<CityResponse>>(
+      endpoints.city.deleteCity(id).url,
       authConfig(keycloak?.token),
     )
   }

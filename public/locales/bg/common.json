@@ -1,8 +1,7 @@
 {
   "nav": {
     "home": "Начало",
-    "about":
-    {
+    "about": {
       "about-project": "За проекта",
       "about-us": "За нас",
       "support-us": "Стани доброволец",
@@ -60,7 +59,7 @@
       "privacy-policy": "Защита на лични данни",
       "terms-of-service": "Общи условия",
       "hosting-partner": "Хостинг партньор:",
-      "copyrights": "Podkrepi.bg ©2021 Всички права запазени.",
+      "copyrights": "Podkrepi.bg ©2022 Всички права запазени.",
       "version": "Версия"
     }
   },

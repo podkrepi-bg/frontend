@@ -1,10 +1,11 @@
+import { AxiosResponse } from 'axios'
 import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
 
 import { endpoints } from './apiEndpoints'
 import { authConfig, authQueryFnFactory } from './restRequests'
-import { BeneficiaryFormData, BeneficiaryType } from 'gql/beneficiary'
-import { useQuery } from 'react-query'
+import { BeneficiaryFormData, BeneficiaryType, DeleteMany } from 'gql/beneficiary'
+import { QueryClient, useQuery } from 'react-query'
 import { apiClient } from './apiClient'
 
 export const useBeneficiariesList = () => {
@@ -13,7 +14,6 @@ export const useBeneficiariesList = () => {
   return useQuery(
     endpoints.beneficiary.listBeneficiary.url,
     authQueryFnFactory<BeneficiaryType[]>(keycloak?.token),
-    { cacheTime: 0 },
   )
 }
 
@@ -22,6 +22,7 @@ export const useBeneficiary = (id: string) => {
   return useQuery(
     endpoints.beneficiary.viewBeneficiary(id).url,
     authQueryFnFactory<BeneficiaryType>(keycloak?.token),
+    { staleTime: 1 },
   )
 }
 
@@ -49,7 +50,7 @@ export const useEditBeneficiary = (id: string) => {
   }
 }
 
-export const useDeleteBeneficiary = () => {
+export const useRemoveBeneficiary = () => {
   const { keycloak } = useKeycloak<KeycloakInstance>()
 
   return async (id: string) => {
@@ -60,9 +61,30 @@ export const useDeleteBeneficiary = () => {
   }
 }
 
+export function useRemoveManyBeneficiaries(idsToDelete: string[]) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  console.log({
+    ids: idsToDelete,
+  })
+  return async () => {
+    return await apiClient.post<DeleteMany, AxiosResponse<BeneficiaryType[]>>(
+      endpoints.beneficiary.removeMany.url,
+      idsToDelete,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
 export async function prefetchBeneficiaryById(client: QueryClient, slug: string, token?: string) {
   await client.prefetchQuery<BeneficiaryType>(
-    endpoints.documents.getDocument(slug).url,
+    endpoints.beneficiary.viewBeneficiary(slug).url,
     authQueryFnFactory<BeneficiaryType>(token),
+  )
+}
+
+export async function prefetchBeneficiariesList(client: QueryClient, token?: string) {
+  await client.prefetchQuery<BeneficiaryType[]>(
+    endpoints.beneficiary.listBeneficiary.url,
+    authQueryFnFactory<BeneficiaryType[]>(token),
   )
 }
