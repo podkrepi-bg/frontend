@@ -2,16 +2,16 @@ import React, { Dispatch, SetStateAction } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { observer } from 'mobx-react'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Dialog, Card, CardContent, Box, Button, Typography } from '@mui/material'
+import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { Dialog, Card, CardContent, Box, Button, Typography } from '@mui/material'
 
-import { CityResponse } from 'gql/cities'
+import { VaultResponse } from 'gql/vault'
 import { ApiErrors } from 'service/apiErrors'
 import { endpoints } from 'service/apiEndpoints'
-import { useDeleteCity } from 'service/restRequests/city'
+import { useDeleteVault } from 'service/restRequests/vault'
 import { ModalStore } from 'stores/documents/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
-import { useRouter } from 'next/router'
 import { routes } from 'common/routes'
 
 type Props = {
@@ -25,17 +25,17 @@ export default observer(function DeleteModal({ id, setSelectedId }: Props) {
   const { isDeleteOpen, hideDelete } = ModalStore
   const { t } = useTranslation()
 
-  const mutationFn = useDeleteCity(id)
+  const mutationFn = useDeleteVault(id)
 
-  const deleteMutation = useMutation<AxiosResponse<CityResponse>, AxiosError<ApiErrors>, string>({
+  const deleteMutation = useMutation<AxiosResponse<VaultResponse>, AxiosError<ApiErrors>, string>({
     mutationFn,
-    onError: () => AlertStore.show(t('City:alerts:error'), 'error'),
+    onError: () => AlertStore.show(t('vaults:alerts:error'), 'error'),
     onSuccess: () => {
       hideDelete()
-      AlertStore.show(t('Градът беше преместен в кошчето.'), 'warning')
-      queryClient.removeQueries(endpoints.city.viewCity(id).url)
+      AlertStore.show(t('vaults:alerts:delete'), 'success')
+      queryClient.removeQueries(endpoints.vaults.getVault(id).url)
       setSelectedId('')
-      router.push(routes.admin.cities.home)
+      router.push(routes.admin.vaults.index)
     },
   })
 
@@ -48,16 +48,16 @@ export default observer(function DeleteModal({ id, setSelectedId }: Props) {
       <Card>
         <CardContent>
           <Typography variant="h6" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            {t('cities:deleteTitle')}
+            {t('vaults:deleteTitle')}
           </Typography>
           <Typography variant="body1" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            {t('cities:deleteContent')}
+            {t('vaults:deleteContent')}
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <Button color="error" onClick={deleteHandler}>
-              {t('cities:cta:delete')}
+              {t('vaults:cta:delete')}
             </Button>
-            <Button onClick={hideDelete}>{t('cities:cta:cancel')}</Button>
+            <Button onClick={hideDelete}>{t('vaults:cta:cancel')}</Button>
           </Box>
         </CardContent>
       </Card>
