@@ -4,7 +4,7 @@ import AdminContainer from 'components/admin/navigation/AdminContainer'
 import AdminLayout from 'components/admin/navigation/AdminLayout'
 
 import Grid from './grid/Grid'
-import GridAppbar from './grid/GridAppbar'
+import DocumentsBottomAppBar from './DocumentsBottomAppBar'
 
 export default function DocumentsPage() {
   const { t } = useTranslation()
@@ -12,7 +12,8 @@ export default function DocumentsPage() {
   return (
     <AdminLayout>
       <AdminContainer title={t('documents:documents')}>
-        <GridAppbar />
+        <DocumentsBottomAppBar></DocumentsBottomAppBar>
+        {/* <GridAppbar /> */}
         <Grid />
       </AdminContainer>
     </AdminLayout>
