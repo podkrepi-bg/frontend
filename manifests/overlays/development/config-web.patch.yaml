@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-web
+data:
+  app-url: https://dev.podkrepi.bg
+  api-url: https://dev.podkrepi.bg

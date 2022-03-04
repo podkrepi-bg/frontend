@@ -8,6 +8,7 @@ export default function CampaignTypeSelect({ name = 'campaignTypeId' }) {
   const { t } = useTranslation()
   const { data } = useCampaignTypesList()
   const [field, meta] = useField(name)
+
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
   return (
     <FormControl

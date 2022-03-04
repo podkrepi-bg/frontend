@@ -8,7 +8,7 @@ export default function LocaleSwitcher() {
   const router = useRouter()
   const changeLang = useCallback(
     // Same route different language
-    (locale: string) => () => router.push(router.route, undefined, { locale }),
+    (locale: string) => () => router.push(router.route, router.asPath, { locale }),
     [],
   )
   return (
