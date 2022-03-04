@@ -63,9 +63,6 @@ export const useRemoveBeneficiary = () => {
 
 export function useRemoveManyBeneficiaries(idsToDelete: string[]) {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  console.log({
-    ids: idsToDelete,
-  })
   return async () => {
     return await apiClient.post<DeleteMany, AxiosResponse<BeneficiaryType[]>>(
       endpoints.beneficiary.removeMany.url,

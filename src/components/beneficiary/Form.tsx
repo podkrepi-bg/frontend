@@ -23,6 +23,9 @@ import { ApiErrors } from 'service/apiErrors'
 import { useBeneficiary, useEditBeneficiary, useCreateBeneficiary } from 'service/beneficiary'
 import { usePeopleList } from 'service/person'
 import { useCompaniesList } from 'service/company'
+import { useCoordinatorsList } from 'service/coordinator'
+import { useCitiesList } from 'common/hooks/cities'
+import { useCountriesList } from 'common/hooks/countries'
 import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
@@ -45,26 +48,34 @@ const validationSchema = yup
     coordinatorRelation: yup
       .string()
       .required()
+      .trim()
       .oneOf(Object.values(PersonRelation).sort((a, b) => a.localeCompare(b))),
   })
 
-export default function EditForm() {
+export default function Form() {
   const router = useRouter()
   const { t } = useTranslation()
   let id = router.query.id
   const [beneficiaryType, setBeneficiaryType] = useState<string>('')
   const [personId, setPersonId] = useState<string>('')
   const [companyId, setCompanyId] = useState<string>('')
+  const [coordinatorId, setCoordinatorId] = useState<string>('')
+  const [cityId, setCityId] = useState<string>('')
+  const [countryCode, setCountryCode] = useState<string>('')
   const people = usePeopleList().data
   const companies = useCompaniesList().data
+  const coordinators = useCoordinatorsList().data
+  const coordinatorRelations = Object.values(PersonRelation)
+  const cities = useCitiesList().data
+  const countries = useCountriesList().data
 
   let initialValues: BeneficiaryFormData = {
     type: beneficiaryType,
     personId: personId,
     companyId: companyId,
-    coordinatorId: '',
-    countryCode: '',
-    cityId: '',
+    coordinatorId: coordinatorId,
+    countryCode: countryCode,
+    cityId: cityId,
     description: '',
     publicData: '',
     privateData: '',
@@ -113,8 +124,8 @@ export default function EditForm() {
       onSubmit={onSubmit}
       initialValues={initialValues}
       validationSchema={validationSchema}>
-      <Box sx={{ marginTop: '5%', height: '62.6vh' }}>
-        <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
+      <Box sx={{ height: '62.6vh', marginBottom: '9%' }}>
+        <Typography variant="h5" component="h2" sx={{ textAlign: 'center' }}>
           {id ? t('beneficiary:forms:edit-heading') : t('beneficiary:forms:add-heading')}
         </Typography>
         <Grid container spacing={2}>
@@ -122,6 +133,9 @@ export default function EditForm() {
             <InputLabel>{t('beneficiary:grid:type')}</InputLabel>
             <Select
               fullWidth
+              sx={{
+                height: '55%',
+              }}
               name="type"
               defaultValue={initialValues.type}
               onChange={(e: SelectChangeEvent) => {
@@ -144,7 +158,10 @@ export default function EditForm() {
             <InputLabel>{t('beneficiary:grid:personId')}</InputLabel>
             <Select
               fullWidth
-              name="type"
+              sx={{
+                height: '55%',
+              }}
+              name="personId"
               defaultValue={initialValues.personId}
               onChange={(e: SelectChangeEvent) => {
                 setPersonId(e.target.value)
@@ -165,6 +182,9 @@ export default function EditForm() {
             <InputLabel>{t('beneficiary:grid:companyId')}</InputLabel>
             <Select
               fullWidth
+              sx={{
+                height: '55%',
+              }}
               name="companyId"
               defaultValue={initialValues.personId}
               onChange={(e: SelectChangeEvent) => {
@@ -183,36 +203,100 @@ export default function EditForm() {
             </Select>
           </Grid>
           <Grid item xs={6}>
-            <FormTextField
-              type="text"
+            <InputLabel>{t('beneficiary:grid:coordinatorRelation')}</InputLabel>
+            <Select
+              fullWidth
+              sx={{
+                height: '55%',
+              }}
               name="coordinatorRelation"
-              autoComplete="target-amount"
-              label={t('beneficiary:grid:coordinatorRelation')}
-            />
+              defaultValue={initialValues.coordinatorRelation}
+              onChange={(e: SelectChangeEvent) => {
+                setPersonId(e.target.value)
+              }}>
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              {coordinatorRelations?.map((relation) => {
+                return (
+                  <MenuItem key={relation} value={relation}>
+                    {relation}
+                  </MenuItem>
+                )
+              })}
+            </Select>
           </Grid>
           <Grid item xs={6}>
-            <FormTextField
-              type="text"
+            <InputLabel>{t('beneficiary:grid:coordinatorId')}</InputLabel>
+            <Select
+              fullWidth
+              sx={{
+                height: '55%',
+              }}
               name="coordinatorId"
-              autoComplete="target-amount"
-              label={t('beneficiary:grid:coordinatorId')}
-            />
+              defaultValue={initialValues.coordinatorId}
+              onChange={(e: SelectChangeEvent) => {
+                setCoordinatorId(e.target.value)
+              }}>
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              {coordinators?.map((coordinator) => {
+                return (
+                  <MenuItem key={coordinator.id} value={coordinator.id}>
+                    {coordinator.person.firstName} {coordinator.person.lastName}
+                  </MenuItem>
+                )
+              })}
+            </Select>
           </Grid>
           <Grid item xs={6}>
-            <FormTextField
-              type="text"
+            <InputLabel>{t('beneficiary:grid:countryCode')}</InputLabel>
+            <Select
+              fullWidth
+              sx={{
+                height: '55%',
+              }}
               name="countryCode"
-              autoComplete="target-amount"
-              label={t('beneficiary:grid:countryCode')}
-            />
+              defaultValue={initialValues.countryCode}
+              onChange={(e: SelectChangeEvent) => {
+                setCountryCode(e.target.value)
+              }}>
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              {countries?.map((country) => {
+                return (
+                  <MenuItem key={country.id} value={country.countryCode}>
+                    {country.countryCode} - {country.name}
+                  </MenuItem>
+                )
+              })}
+            </Select>
           </Grid>
           <Grid item xs={6}>
-            <FormTextField
-              type="text"
+            <InputLabel>{t('beneficiary:grid:cityId')}</InputLabel>
+            <Select
+              fullWidth
+              sx={{
+                height: '55%',
+              }}
               name="cityId"
-              autoComplete="target-amount"
-              label={t('beneficiary:grid:cityId')}
-            />
+              defaultValue={initialValues.personId}
+              onChange={(e: SelectChangeEvent) => {
+                setCityId(e.target.value)
+              }}>
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              {cities?.map((city) => {
+                return (
+                  <MenuItem key={city.id} value={city.id}>
+                    {city.name}
+                  </MenuItem>
+                )
+              })}
+            </Select>
           </Grid>
           <Grid item xs={6}>
             <FormTextField
