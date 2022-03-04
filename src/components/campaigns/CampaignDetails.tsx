@@ -2,10 +2,11 @@ import React from 'react'
 import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import { CampaignResponse } from 'gql/campaigns'
-import makeStyles from '@mui/styles/makeStyles'
 import LatestNews from './LatestNews'
 import CampaignComments from './CampaignComments';
+import CampaignSlider from './CampaignSlider'
 import { Grid, Theme, Typography } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -109,6 +110,7 @@ export default function CampaignDetails({ campaign }: Props) {
         <Typography variant="subtitle2" component="p">
           {campaign.description}
         </Typography>
+        <CampaignSlider />
         <Typography variant="h6" component="h6">
           {t('campaigns:campaign.coordinator.name')}
         </Typography>
