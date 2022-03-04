@@ -14,10 +14,6 @@ export const endpoints = {
   campaignType: {
     listCampaignTypes: <Endpoint>{ url: '/campaign-type/list', method: 'GET' },
   },
-  person: {
-    list: <Endpoint>{ url: '/person', method: 'GET' },
-    createBeneficiary: <Endpoint>{ url: '/beneficiary/create-beneficiary', method: 'POST' },
-  },
   support: {
     createInfoRequest: <Endpoint>{ url: '/support/create-inquiry', method: 'POST' },
     createSupportRequest: <Endpoint>{ url: '/support/create-request', method: 'POST' },
@@ -46,6 +42,13 @@ export const endpoints = {
     editBankAccount: (id: string) => <Endpoint>{ url: `/bankaccount/${id}`, method: 'PATCH' },
     deleteManyBankAccounts: <Endpoint>{ url: `/bankaccount/deletemany`, method: 'POST' },
   },
+  city: {
+    createCity: <Endpoint>{ url: '/city/create', method: 'POST' },
+    citiesList: <Endpoint>{ url: '/city/list', method: 'GET' },
+    viewCity: (id: string) => <Endpoint>{ url: `/city/${id}`, method: 'GET' },
+    editCity: (id: string) => <Endpoint>{ url: `/city/${id}`, method: 'PATCH' },
+    deleteCity: (id: string) => <Endpoint>{ url: `/city/${id}`, method: 'DELETE' },
+  },
   country: {
     listCountries: <Endpoint>{ url: '/country/list', method: 'GET' },
     createCountry: <Endpoint>{ url: '/country/create-country', method: 'POST' },
@@ -63,7 +66,22 @@ export const endpoints = {
     benefactorList: <Endpoint>{ url: '/benefactor', method: 'GET' },
     getBenefactor: (id: string) => <Endpoint>{ url: `/benefactor/${id}`, method: 'GET' },
     createBenefactor: <Endpoint>{ url: '/benefactor', method: 'POST' },
-    editBenefactor: <Endpoint>{ url: '/benefactor', method: 'PATCH' },
-    deleteBenefactor: <Endpoint>{ url: '/benefactor', method: 'DELETE' },
+    editBenefactor: (id: string) => <Endpoint>{ url: '/benefactor/' + id, method: 'PATCH' },
+    deleteBenefactor: (id: string) => <Endpoint>{ url: '/benefactor/' + id, method: 'DELETE' },
+  },
+  beneficiary: {
+    listBeneficiary: <Endpoint>{ url: '/beneficiary/list/', method: 'GET' },
+    viewBeneficiary: (id: string) => <Endpoint>{ url: '/beneficiary/' + id, method: 'GET' },
+    createBeneficiary: <Endpoint>{ url: '/beneficiary/create-beneficiary', method: 'POST' },
+    editBeneficiary: (id: string) => <Endpoint>{ url: '/beneficiary/' + id, method: 'PUT' },
+    removeBeneficiary: (id: string) => <Endpoint>{ url: '/beneficiary/' + id, method: 'DELETE' },
+    removeMany: <Endpoint>{ url: '/beneficiary/delete-many', method: 'POST' },
+  },
+  person: {
+    list: <Endpoint>{ url: '/person', method: 'GET' },
+    createBeneficiary: <Endpoint>{ url: '/beneficiary/create-beneficiary', method: 'POST' },
+    viewPerson: (slug: string) => <Endpoint>{ url: '/person/' + slug, method: 'GET' },
+    createPerson: <Endpoint>{ url: '/person', method: 'POST' },
+    removemany: <Endpoint>{ url: '/person/deletemany', method: 'DELETE' },
   },
 }

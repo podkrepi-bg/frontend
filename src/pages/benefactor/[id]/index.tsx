@@ -10,7 +10,7 @@ export const getServerSideProps: GetServerSideProps = async (params) => {
   const keycloak = keycloakInstance(params)
   const client = new QueryClient()
   await client.prefetchQuery(
-    `${endpoints.benefactor.getBenefactor.url}/${params.query.id}`,
+    `${endpoints.benefactor.getBenefactor}/${params.query.id}`,
     authQueryFnFactory(keycloak.token),
   )
 

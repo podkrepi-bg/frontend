@@ -3,7 +3,6 @@ import { useKeycloak } from '@react-keycloak/ssr'
 import { QueryClient, useQuery } from 'react-query'
 
 import { endpoints } from 'service/apiEndpoints'
-
 import { authQueryFnFactory } from 'service/restRequests'
 import { BenefactorResponse } from 'gql/benefactor'
 
