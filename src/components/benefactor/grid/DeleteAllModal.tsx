@@ -19,15 +19,6 @@ type Props = {
 }
 
 export default observer(function DeleteAllModal({ selectionModel }: Props) {
-  // const initialValues: BenefactorResponse = {
-  //   id: '',
-  //   personId: '',
-  //   extCustomerId: '',
-  //   createdAt: '',
-  //   updatedAt: '',
-  //   person: '',
-  // }
-
   const { isDeleteAllOpen, hideDeleteAll } = ModalStore
 
   const { t } = useTranslation('benefactor')
