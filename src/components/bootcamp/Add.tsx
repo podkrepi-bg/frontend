@@ -55,7 +55,7 @@ export default function Create() {
     }
     if (title && email && message && date) {
       e.target.reset()
-      console.log(title, message, email, date)
+      console.log(title, message, email, new Date(date).toISOString())
       console.log(dataForm.get('row-radio-buttons-group'))
     }
   }
