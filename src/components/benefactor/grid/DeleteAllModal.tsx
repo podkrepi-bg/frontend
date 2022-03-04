@@ -11,7 +11,7 @@ import { routes } from 'common/routes'
 import { BenefactorResponse } from 'gql/benefactor'
 import { ApiErrors } from 'service/apiErrors'
 import { ModalStore } from 'stores/ModalStore'
-import { deleteBenefactor } from 'service/restRequests'
+import { deleteBenefactor } from 'service/restRequests/benefactor'
 import { AlertStore } from 'stores/AlertStore'
 
 type Props = {

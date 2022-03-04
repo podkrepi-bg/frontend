@@ -9,7 +9,7 @@ import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 
 import { AlertStore } from 'stores/AlertStore'
-import { createContactRequest } from 'service/restRequests'
+import { createContactRequest } from 'service/restRequests/contact'
 import { isAxiosError, ApiErrors, matchValidator } from 'service/apiErrors'
 import { ContactFormData, ContactRequestResponse, ContactRequestInput } from 'gql/contact'
 import GenericForm from 'components/common/form/GenericForm'
