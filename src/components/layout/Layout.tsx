@@ -26,6 +26,7 @@ type LayoutProps = React.PropsWithChildren<
     hideFooter?: boolean
     disableOffset?: boolean
     boxProps?: BoxProps
+    metaDescription?: string
   }
 >
 
@@ -58,6 +59,7 @@ export default function Layout({
   figmaUrl,
   hideFooter = false,
   boxProps,
+  metaDescription,
   ...containerProps
 }: LayoutProps) {
   const classes = useStyles()
@@ -71,6 +73,7 @@ export default function Layout({
       <Container className={classes.layout} maxWidth={maxWidth} {...containerProps}>
         <Head>
           <title>{metaTitle}</title>
+          <meta name="description" content={metaDescription ?? metaTitle} />
           <meta key="og:title" property="og:title" content={metaTitle} />
           <meta key="og:image" property="og:image" content={ogImage ?? defaultOgImage} />
           <meta key="og:image:width" property="og:image:width" content="1910" />

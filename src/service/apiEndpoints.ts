@@ -14,9 +14,6 @@ export const endpoints = {
   campaignType: {
     listCampaignTypes: <Endpoint>{ url: '/campaign-type/list', method: 'GET' },
   },
-  person: {
-    createBeneficiary: <Endpoint>{ url: '/beneficiary/create-beneficiary', method: 'POST' },
-  },
   support: {
     createInfoRequest: <Endpoint>{ url: '/support/create-inquiry', method: 'POST' },
     createSupportRequest: <Endpoint>{ url: '/support/create-request', method: 'POST' },
@@ -45,6 +42,13 @@ export const endpoints = {
     editBankAccount: (id: string) => <Endpoint>{ url: `/bankaccount/${id}`, method: 'PATCH' },
     deleteManyBankAccounts: <Endpoint>{ url: `/bankaccount/deletemany`, method: 'POST' },
   },
+  city: {
+    createCity: <Endpoint>{ url: '/city/create', method: 'POST' },
+    citiesList: <Endpoint>{ url: '/city/list', method: 'GET' },
+    viewCity: (id: string) => <Endpoint>{ url: `/city/${id}`, method: 'GET' },
+    editCity: (id: string) => <Endpoint>{ url: `/city/${id}`, method: 'PATCH' },
+    deleteCity: (id: string) => <Endpoint>{ url: `/city/${id}`, method: 'DELETE' },
+  },
   country: {
     listCountries: <Endpoint>{ url: '/country/list', method: 'GET' },
     createCountry: <Endpoint>{ url: '/country/create-country', method: 'POST' },
@@ -57,5 +61,28 @@ export const endpoints = {
     viewCoordinator: (id: string) => <Endpoint>{ url: `/coordinator/${id}`, method: 'GET' },
     postCoordinator: <Endpoint>{ url: '/coordinator', method: 'POST' },
     deleteCoordinator: (id: string) => <Endpoint>{ url: `/coordinator/${id}`, method: 'DELETE' },
+  },
+  vaults: {
+    vaultsList: <Endpoint>{ url: '/vault', method: 'GET' },
+    getVault: (slug: string) => <Endpoint>{ url: `/vault/${slug}`, method: 'GET' },
+    createVault: <Endpoint>{ url: '/vault', method: 'POST' },
+    editVault: (slug: string) => <Endpoint>{ url: `/vault/${slug}`, method: 'PUT' },
+    deleteVault: (slug: string) => <Endpoint>{ url: `/vault/${slug}`, method: 'DELETE' },
+    deleteVaults: <Endpoint>{ url: '/vault/delete-many', method: 'POST' },
+  },
+  beneficiary: {
+    listBeneficiary: <Endpoint>{ url: '/beneficiary/list/', method: 'GET' },
+    viewBeneficiary: (id: string) => <Endpoint>{ url: '/beneficiary/' + id, method: 'GET' },
+    createBeneficiary: <Endpoint>{ url: '/beneficiary/create-beneficiary', method: 'POST' },
+    editBeneficiary: (id: string) => <Endpoint>{ url: '/beneficiary/' + id, method: 'PUT' },
+    removeBeneficiary: (id: string) => <Endpoint>{ url: '/beneficiary/' + id, method: 'DELETE' },
+    removeMany: <Endpoint>{ url: '/beneficiary/delete-many', method: 'POST' },
+  },
+  person: {
+    list: <Endpoint>{ url: '/person', method: 'GET' },
+    createBeneficiary: <Endpoint>{ url: '/beneficiary/create-beneficiary', method: 'POST' },
+    viewPerson: (slug: string) => <Endpoint>{ url: '/person/' + slug, method: 'GET' },
+    createPerson: <Endpoint>{ url: '/person', method: 'POST' },
+    removemany: <Endpoint>{ url: '/person/deletemany', method: 'DELETE' },
   },
 }
