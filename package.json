@@ -32,6 +32,7 @@
     "@mui/material": "^5.4.2",
     "@mui/styles": "^5.4.2",
     "@mui/x-data-grid": "^5.5.1",
+    "@next/bundle-analyzer": "^12.1.0",
     "@react-keycloak/ssr": "3.3.0",
     "@sentry/nextjs": "6.17.8",
     "@uppy/aws-s3": "2.0.5",
@@ -66,7 +67,6 @@
     "yup": "0.32.9"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "^12.1.0",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@types/cookie": "^0.4.1",
