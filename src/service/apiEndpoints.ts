@@ -58,4 +58,11 @@ export const endpoints = {
     postCoordinator: <Endpoint>{ url: '/coordinator', method: 'POST' },
     deleteCoordinator: (id: string) => <Endpoint>{ url: `/coordinator/${id}`, method: 'DELETE' },
   },
+  bootcampSimeon: {
+    listAll: <Endpoint>{ url: '/bootcamp-simeon/all', method: 'GET' },
+    viewSingle: (id: string) => <Endpoint>{ url: `/bootcamp-simeon/${id}`, method: 'GET' },
+    create: <Endpoint>{ url: '/bootcamp-simeon/create', method: 'POST' },
+    edit: (id: string) => <Endpoint>{ url: `/bootcamp-simeon/${id}`, method: 'PATCH' },
+    delete: (id: string) => <Endpoint>{ url: `/bootcamp-simeon/${id}`, method: 'DELETE' },
+  },
 }
