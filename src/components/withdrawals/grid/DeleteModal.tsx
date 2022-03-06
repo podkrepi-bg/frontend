@@ -37,9 +37,9 @@ export default observer(function DeleteModal({ id, setSelectedId }: Props) {
     onSuccess: () => {
       hideDelete()
       AlertStore.show(t('Withdrawals:alerts:delete'), 'success')
-      queryClient.removeQueries(endpoints.Withdrawals.getWithdrawal(id).url)
+      queryClient.removeQueries(endpoints.withdrawals.getWithdrawal(id).url)
       setSelectedId('')
-      router.push(routes.admin.Withdrawals.index)
+      router.push(routes.admin.withdrawals.index)
     },
   })
 
@@ -52,16 +52,16 @@ export default observer(function DeleteModal({ id, setSelectedId }: Props) {
       <Card>
         <CardContent>
           <Typography variant="h6" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            {t('Withdrawals:deleteTitle')}
+            {t('withdrawals:deleteTitle')}
           </Typography>
           <Typography variant="body1" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            {t('Withdrawals:deleteContent')}
+            {t('withdrawals:deleteContent')}
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <Button color="error" onClick={deleteHandler}>
-              {t('Withdrawals:cta:delete')}
+              {t('withdrawals:cta:delete')}
             </Button>
-            <Button onClick={hideDelete}>{t('Withdrawals:cta:cancel')}</Button>
+            <Button onClick={hideDelete}>{t('withdrawals:cta:cancel')}</Button>
           </Box>
         </CardContent>
       </Card>
