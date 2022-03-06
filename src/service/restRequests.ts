@@ -14,6 +14,7 @@ import { ContactRequestResponse, ContactRequestInput } from 'gql/contact'
 import { CheckoutSessionInput, CheckoutSessionResponse } from 'gql/donations'
 import { DocumentInput, DocumentResponse } from 'gql/document'
 import { CountryInput, CountryResponse } from 'gql/countries'
+import { BootcampSimeonInput, BootcampSimeonResponse } from 'gql/bootcampSimeon'
 
 import { endpoints } from './apiEndpoints'
 
@@ -151,6 +152,21 @@ export const useDeleteCountry = () => {
     return await apiClient.delete<string, AxiosResponse<CountryResponse>>(
       endpoints.country.deleteCountry(id).url,
       authConfig(keycloak?.token),
+    )
+  }
+}
+
+export const getBootcampSimeon = async (id: string) => {
+  return await apiClient.get<string, AxiosResponse<BootcampSimeonResponse>>(
+    endpoints.bootcampSimeon.viewSingle(id).url,
+  )
+}
+
+export const useCreateBootcampSimeon = () => {
+  return async (data: BootcampSimeonInput) => {
+    await apiClient.post<BootcampSimeonInput, AxiosResponse<BootcampSimeonResponse>>(
+      endpoints.bootcampSimeon.create.url,
+      data,
     )
   }
 }
