@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useMutation, UseQueryResult } from 'react-query'
+import { useMutation } from 'react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
@@ -113,7 +113,7 @@ export default function EditForm() {
             <SubmitButton fullWidth label={t('cities:cta:submit')} />
           </Grid>
           <Grid item xs={6}>
-            <Link href={routes.admin.cities.home}>
+            <Link href={routes.admin.cities.home} passHref>
               <Button fullWidth>{t('cities:cta:cancel')}</Button>
             </Link>
           </Grid>
