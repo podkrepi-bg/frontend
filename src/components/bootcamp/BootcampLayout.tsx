@@ -4,6 +4,7 @@ import BootCampAppBar from './leyout-components/AppBar'
 import BootcampDrawer from './leyout-components/Drawer'
 import DrawerHeader from './leyout-components/DrawerHeader'
 import BootcampFooter from './leyout-components/Footer'
+import Snackbar from 'components/layout/Snackbar'
 
 type Props = {
   children: React.ReactNode
@@ -24,6 +25,7 @@ export default function BootcampLayout({ children }: Props) {
           {children}
         </Box>
       </Box>
+      <Snackbar />
       <BootcampFooter />
     </>
   )

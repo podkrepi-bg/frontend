@@ -1,11 +1,18 @@
-import Create from 'components/bootcamp/Add'
-import { GetStaticProps } from 'next'
+import CreatePage from 'components/bootcamp/Create'
+import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale ?? 'bg', ['common'])),
-  },
-})
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale ?? 'bg', [
+        'common',
+        'auth',
+        'bootcamp',
+        'validation',
+      ])),
+    },
+  }
+}
 
-export default Create
+export default CreatePage
