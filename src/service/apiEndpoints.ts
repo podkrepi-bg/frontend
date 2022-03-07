@@ -85,4 +85,8 @@ export const endpoints = {
     createPerson: <Endpoint>{ url: '/person', method: 'POST' },
     removemany: <Endpoint>{ url: '/person/deletemany', method: 'DELETE' },
   },
+  company: {
+    list: <Endpoint>{ url: '/company/list', method: 'GET' },
+    viewCompany: (slug: string) => <Endpoint>{ url: '/company/' + slug, method: 'GET' },
+  },
 }

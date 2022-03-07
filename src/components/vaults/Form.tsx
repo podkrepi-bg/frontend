@@ -98,7 +98,7 @@ export default function EditForm() {
             <SubmitButton fullWidth label={t('vaults:cta:submit')} />
           </Grid>
           <Grid item xs={6}>
-            <Link href={routes.admin.vaults.index}>
+            <Link href={routes.admin.vaults.index} passHref>
               <Button>{t('vaults:cta:cancel')}</Button>
             </Link>
           </Grid>
