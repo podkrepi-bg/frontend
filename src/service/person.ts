@@ -11,3 +11,12 @@ export const usePeopleList = () => {
 
   return useQuery(endpoints.person.list.url, authQueryFnFactory<PersonResponse[]>(keycloak?.token))
 }
+
+export const useViewPerson = (id: string) => {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+
+  return useQuery(
+    endpoints.person.viewPerson(id).url,
+    authQueryFnFactory<PersonResponse>(keycloak?.token),
+  )
+}

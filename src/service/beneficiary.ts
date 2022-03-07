@@ -22,7 +22,6 @@ export const useBeneficiary = (id: string) => {
   return useQuery(
     endpoints.beneficiary.viewBeneficiary(id).url,
     authQueryFnFactory<BeneficiaryType>(keycloak?.token),
-    { staleTime: 1 },
   )
 }
 

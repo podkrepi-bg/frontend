@@ -2,18 +2,17 @@
   "all": "All beneficiaries",
   "grid": {
     "id": "ID",
-    "personId": "Person ID",
-    "companyId": "Company ID",
-    "coordinatorId": "Coordinator ID",
-    "countryCode": "Country code",
-    "person": "Person",
+    "individual": "Person",
     "company": "Company",
+    "coordinator": "Coordinator",
+    "countryCode": "Country code",
     "not-person": "Not a person",
     "not-company": "Not a company",
-    "cityId": "City ID",
-    "coordinatorRelation": "Coordinator relations",
+    "city": "City",
+    "coordinatorRelation": "Coordinator relation",
     "type": "Beneficiary type",
-    "description": "Description"
+    "description": "Description",
+    "campaigns-count": "Campaigns count"
   },
   "cta": {
     "details": "Beneficiary details",
