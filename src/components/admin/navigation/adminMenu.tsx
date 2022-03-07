@@ -6,7 +6,7 @@ import {
   Group,
   FolderShared,
   Public,
-  Class,
+  // Class,
 } from '@mui/icons-material'
 import LocationCityRoundedIcon from '@mui/icons-material/LocationCityRounded'
 
@@ -21,7 +21,7 @@ export const menuItems = [
   { label: 'Потребители', icon: Group, href: '#' },
   { label: 'Документи', icon: FolderShared, href: routes.admin.documents.index },
   { label: 'Бенефициенти', icon: BeneficiaryIcon, href: routes.admin.beneficiary.index },
-  { label: 'Типове кампании', icon: Class, href: routes.admin.campaignTypes.index },
+  // { label: 'Типове кампании', icon: Class, href: routes.admin.campaignTypes.index },
   { label: 'Градове', icon: LocationCityRoundedIcon, href: routes.admin.cities.home },
   { label: 'Държави', icon: Public, href: routes.admin.countries.index },
   { label: 'Координатори', icon: People, href: routes.admin.coordinators.index },
