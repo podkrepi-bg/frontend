@@ -14,3 +14,12 @@ export const useCompaniesList = () => {
     authQueryFnFactory<CompanyResponse[]>(keycloak?.token),
   )
 }
+
+export const useViewCompany = (id: string) => {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+
+  return useQuery(
+    endpoints.company.viewCompany(id).url,
+    authQueryFnFactory<CompanyResponse>(keycloak?.token),
+  )
+}

@@ -2,18 +2,17 @@
   "all": "Всички бенефициенти",
   "grid": {
     "id": "ID",
-    "personId": "ID на човек",
-    "companyId": "ID на компания",
-    "coordinatorId": "ID на координатор",
-    "countryCode": "Код на държава",
-    "person": "Човек",
+    "individual": "Човек",
     "company": "Компания",
+    "coordinator": "Координатор",
+    "countryCode": "Код на държава",
     "not-person": "Не е човек",
     "not-company": "Не е компания",
-    "cityId": "ID на град",
+    "city": "Град",
     "coordinatorRelation": "Отношения с координатор",
     "type": "Тип на бенефициента",
-    "description": "Описание"
+    "description": "Описание",
+    "campaigns-count": "Брой кампании"
   },
   "cta": {
     "details": "Детайли за бенефициента",
@@ -23,13 +22,7 @@
   },
   "forms": {
     "add-heading": "Добави бенефициент",
-    "edit-heading": "Редактирай бенефициент",
-    "labels": {
-      "type": {
-        "individual": "Човек",
-        "company": "Компания"
-      }
-    }
+    "edit-heading": "Редактирай бенефициент"
   },
   "actions": "Действия",
   "deleteContent": "Сигурни ли сте, че искате да изтриете тези запис/и?",

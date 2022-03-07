@@ -148,14 +148,14 @@ export default function Form() {
               {Object.values(LegalEntityType)?.map((type) => {
                 return (
                   <MenuItem key={type} value={type}>
-                    {t('beneficiary:forms:labels:type:' + type)}
+                    {t('beneficiary:grid:' + type)}
                   </MenuItem>
                 )
               })}
             </Select>
           </Grid>
           <Grid item xs={6}>
-            <InputLabel>{t('beneficiary:grid:personId')}</InputLabel>
+            <InputLabel>{t('beneficiary:grid:individual')}</InputLabel>
             <Select
               fullWidth
               sx={{
@@ -179,7 +179,7 @@ export default function Form() {
             </Select>
           </Grid>
           <Grid item xs={6}>
-            <InputLabel>{t('beneficiary:grid:companyId')}</InputLabel>
+            <InputLabel>{t('beneficiary:grid:company')}</InputLabel>
             <Select
               fullWidth
               sx={{
@@ -227,7 +227,7 @@ export default function Form() {
             </Select>
           </Grid>
           <Grid item xs={6}>
-            <InputLabel>{t('beneficiary:grid:coordinatorId')}</InputLabel>
+            <InputLabel>{t('beneficiary:grid:coordinator')}</InputLabel>
             <Select
               fullWidth
               sx={{
@@ -275,14 +275,14 @@ export default function Form() {
             </Select>
           </Grid>
           <Grid item xs={6}>
-            <InputLabel>{t('beneficiary:grid:cityId')}</InputLabel>
+            <InputLabel>{t('beneficiary:grid:city')}</InputLabel>
             <Select
               fullWidth
               sx={{
                 height: '55%',
               }}
               name="cityId"
-              defaultValue={initialValues.personId}
+              defaultValue={initialValues.cityId}
               onChange={(e: SelectChangeEvent) => {
                 setCityId(e.target.value)
               }}>
@@ -306,6 +306,7 @@ export default function Form() {
               label={t('beneficiary:grid:description')}
               multiline
               rows={1.5}
+              defaultValue={initialValues.description}
             />
           </Grid>
           <Grid item xs={6}>
