@@ -68,6 +68,7 @@ export default function Layout({
   const navMenuToggle = () => setMobileOpen(!mobileOpen)
   const suffix = t('meta.title')
   const metaTitle = useMemo(() => (title ? `${title} | ${suffix}` : suffix), [title, suffix])
+
   return (
     <Container maxWidth={false} disableGutters>
       <Container className={classes.layout} maxWidth={maxWidth} {...containerProps}>
@@ -90,7 +91,18 @@ export default function Layout({
               component="h1"
               align="center"
               className={classes.pageTitle}
-              style={{ paddingBottom: disableOffset ? 0 : '32px' }}>
+              style={
+                disableOffset
+                  ? {
+                      paddingBottom: disableOffset ? 0 : '32px',
+                      position: 'absolute',
+                      left: '50%',
+                      color: 'white',
+                      transform: 'translate(-50%)',
+                      fontSize: '2.75rem',
+                    }
+                  : {}
+              }>
               {title}
             </Typography>
           )}
