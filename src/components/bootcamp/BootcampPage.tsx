@@ -51,7 +51,7 @@ export default function BootcampPage() {
             <span>
               <Button
                 onClick={openModal}
-                color="primary"
+                color="error"
                 disabled={selectedIds.length == 0}
                 startIcon={<DeleteIcon />}>
                 {t('bootcamp:btns.delete')}

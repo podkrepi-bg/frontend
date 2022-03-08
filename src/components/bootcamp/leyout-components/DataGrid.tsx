@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import DeleteModal from '../DeleteModal'
 import { useMutation } from 'react-query'
 import { AlertStore } from 'stores/AlertStore'
+import InfoModal from '../InfoModal'
 
 type Props = {
   setIds: (id: []) => void
@@ -19,9 +20,12 @@ export default function BootcampGrid({ setIds }: Props) {
   const { t } = useTranslation()
   const router = useRouter()
   const [openClose, setOpenClose] = React.useState(false)
+  const [info, setInfo] = React.useState({})
+  const [openCloseInfo, setOpenCloseInfo] = React.useState(false)
   const [id, setId] = React.useState('')
   const closeModal = () => setOpenClose(false)
   const openModal = () => setOpenClose(true)
+  const closeInfo = () => setOpenCloseInfo(false)
 
   const mutationDell = useMutation({
     mutationFn: deleteTask,
@@ -45,31 +49,39 @@ export default function BootcampGrid({ setIds }: Props) {
       field: 'status',
       headerName: t('bootcamp:task.status'),
       flex: 2,
+      minWidth: 200,
       align: 'center',
     },
     {
       field: 'email',
       headerName: t('bootcamp:task.email'),
       flex: 3,
+      minWidth: 200,
+      align: 'center',
     },
     {
       field: 'message',
       headerName: t('bootcamp:task.message'),
       flex: 3,
+      minWidth: 200,
+      align: 'center',
     },
     {
       field: 'startDate',
       headerName: t('bootcamp:task.created-at'),
       valueGetter: (task) => task.row.createdAt,
       valueFormatter: (d) => (typeof d.value === 'string' ? d.value.substring(0, 10) : false),
-      minWidth: 300,
+      minWidth: 200,
+      align: 'center',
     },
     {
       field: 'finalDate',
       headerName: t('bootcamp:task.final-date'),
       valueGetter: (task) => task.row.date,
       valueFormatter: (d) => (typeof d.value === 'string' ? d.value.substring(0, 10) : false),
-      minWidth: 300,
+      minWidth: 200,
+      width: 200,
+      align: 'center',
     },
     {
       field: 'action',
@@ -82,7 +94,10 @@ export default function BootcampGrid({ setIds }: Props) {
           <ButtonGroup>
             <InfoOutlinedIcon
               color="info"
-              onClick={() => console.log(task.id)}
+              onClick={() => {
+                setOpenCloseInfo(true)
+                setInfo(task.row)
+              }}
               sx={{ cursor: 'pointer' }}
             />
             <EditOutlinedIcon
@@ -120,6 +135,7 @@ export default function BootcampGrid({ setIds }: Props) {
         onSelectionModelChange={(ids) => setIds(ids as [])}
       />
       <DeleteModal open={openClose} closeModal={closeModal} confirmHandler={handleDelete} />
+      <InfoModal openInfo={openCloseInfo} data={info as Bootcamp} setClose={closeInfo} />
     </>
   )
 }

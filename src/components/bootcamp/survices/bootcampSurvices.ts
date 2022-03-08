@@ -9,7 +9,7 @@ export type Bootcamp = {
   status: string
   title: string
   email: string
-  messag: string
+  message: string
   date: string
   firstNam?: string
   lastNam?: string
