@@ -79,7 +79,7 @@ export default function Layout({
           <meta key="og:image:width" property="og:image:width" content="1910" />
           <meta key="og:image:height" property="og:image:height" content="1000" />
         </Head>
-        <Box pt={4} pb={disableOffset ? 0 : 10} {...boxProps}>
+        <Box pt={disableOffset ? 12 : 4} pb={disableOffset ? 0 : 10} {...boxProps}>
           <AppNavBarWithNoSSR navMenuToggle={navMenuToggle} />
           <MobileNav mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
           {!disableOffset && <div className={classes.offset} />}
@@ -89,7 +89,8 @@ export default function Layout({
               variant="h2"
               component="h1"
               align="center"
-              className={classes.pageTitle}>
+              className={classes.pageTitle}
+              style={{ paddingBottom: disableOffset ? 0 : '32px' }}>
               {title}
             </Typography>
           )}
