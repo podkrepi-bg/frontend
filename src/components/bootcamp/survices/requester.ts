@@ -4,19 +4,16 @@ type Endpoint = {
   url: string
   method: Method
 }
-
+const baseUrl = 'http://localhost:5010/api/bootcamp/'
 export const endpoints = {
   bootcamp: {
-    createTask: <Endpoint>{ url: 'http://localhost:5010/api/bootcamp/', method: 'POST' },
+    createTask: <Endpoint>{ url: baseUrl, method: 'POST' },
     allTasks: <Endpoint>{ url: '/bootcamp', method: 'GET' },
-    viewTask: (id: string) =>
-      <Endpoint>{ url: `http://localhost:5010/api/bootcamp/${id}`, method: 'GET' },
-    editTask: (id: string) =>
-      <Endpoint>{ url: `http://localhost:5010/api/bootcamp/${id}`, method: 'PATCH' },
-    deleteTask: (id: string) =>
-      <Endpoint>{ url: `http://localhost:5010/api/bootcamp/${id}`, method: 'DELETE' },
+    viewTask: (id: string) => <Endpoint>{ url: `${baseUrl}${id}`, method: 'GET' },
+    editTask: (id: string) => <Endpoint>{ url: `${baseUrl}${id}`, method: 'PATCH' },
+    deleteTask: (id: string) => <Endpoint>{ url: `${baseUrl}${id}`, method: 'DELETE' },
     deleteTasks: <Endpoint>{
-      url: 'http://localhost:5010/api/bootcamp/delete-many',
+      url: `${baseUrl}delete-many`,
       method: 'POST',
     },
   },

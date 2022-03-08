@@ -25,7 +25,7 @@ export default function CreateForm() {
   const mutation = useMutation<AxiosResponse<Bootcamp>, AxiosError<ApiErrors>, BootcampInput>({
     mutationFn: createTask,
     onError: () => AlertStore.show(t('bootcamp:alerts.new-row.error'), 'error'),
-    onSuccess: () => AlertStore.show('g', 'success'),
+    onSuccess: () => AlertStore.show(t('bootcamp:alerts.new-row.success'), 'success'),
   })
   const { t } = useTranslation()
   const router = useRouter()

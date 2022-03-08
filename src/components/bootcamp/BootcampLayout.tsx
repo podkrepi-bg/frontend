@@ -17,7 +17,14 @@ export default function BootcampLayout({ children }: Props) {
   }
   return (
     <>
-      <Box sx={{ display: 'flex', position: 'relative', minHeight: '100vh', paddingRight: '24px' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          position: 'relative',
+          minHeight: '100vh',
+          paddingRight: '24px',
+          marginBottom: 10,
+        }}>
         <BootCampAppBar open={open} handler={handleDrawerOpenClose} />
         <BootcampDrawer open={open} />
         <Box component="main" sx={{ flexGrow: 1 }}>

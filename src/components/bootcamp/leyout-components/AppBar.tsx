@@ -7,7 +7,6 @@ import { AccountCircle } from '@mui/icons-material'
 import * as React from 'react'
 import { useTranslation } from 'next-i18next'
 import { drawerWidth } from './styles'
-import BootcampDrawer from './Drawer'
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean

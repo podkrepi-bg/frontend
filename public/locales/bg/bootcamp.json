@@ -34,6 +34,15 @@
     "bootcamp-add": "Създай нова задача",
     "intern-info": "Информация за Задачата"
   },
+  "drawer": {
+    "campaigns": "Кампании",
+    "volunteers": "Доброволци",
+    "payments": "Плащания",
+    "consumers": "Потребители  ",
+    "documents": "Документи",
+    "settings": "Настройки",
+    "tasks": "Задачи"
+  },
   "nav": {
     "title": "Bootcamp - Борислав",
     "all": "Задачи",

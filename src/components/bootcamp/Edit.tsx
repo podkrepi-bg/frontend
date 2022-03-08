@@ -27,8 +27,8 @@ export default function EditPage({ values }: BootcampFormProps) {
 
   const mutation = useMutation<AxiosResponse<Bootcamp>, AxiosError<ApiErrors>, BootcampEdit>({
     mutationFn: editTask,
-    onError: () => AlertStore.show(t('bootcamp:alerts.new-row.error'), 'error'),
-    onSuccess: () => AlertStore.show('g', 'success'),
+    onError: () => AlertStore.show(t('bootcamp:alerts.edit-row.error'), 'error'),
+    onSuccess: () => AlertStore.show(t('bootcamp:alerts.edit-row.success'), 'success'),
   })
   const { t } = useTranslation()
   const router = useRouter()
