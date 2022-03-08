@@ -20,6 +20,8 @@ export default function EditPage({ values }: BootcampFormProps) {
     email: values.email,
     message: values.message,
     date: values.date.substring(0, 10),
+    firstName: values.firstName,
+    lastName: values.lastName,
   }
 
   const mutation = useMutation<AxiosResponse<Bootcamp>, AxiosError<ApiErrors>, BootcampInput>({
@@ -41,6 +43,8 @@ export default function EditPage({ values }: BootcampFormProps) {
         email: values.email,
         message: values.message,
         date: new Date(values.date).toISOString(),
+        firstName: values.firstName,
+        lastName: values.lastName,
       }
       await mutation.mutateAsync(data)
       resetForm()

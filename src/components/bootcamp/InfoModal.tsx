@@ -7,11 +7,9 @@ import {
   DialogTitle,
   Divider,
   Modal,
-  Typography,
 } from '@mui/material'
 import { Box } from '@mui/system'
 import { useTranslation } from 'next-i18next'
-import { date } from 'yup/lib/locale'
 import { Bootcamp } from './survices/bootcampSurvices'
 
 interface Props {
@@ -22,18 +20,8 @@ interface Props {
 
 export default function InfoModal({ data, openInfo, setClose }: Props) {
   const { t } = useTranslation()
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-    cursor: 'move',
-  }
+  const finalDate = data.date
+  const startDate = data.createdAt
 
   return (
     <Modal open={openInfo} onClose={setClose}>
@@ -58,16 +46,16 @@ export default function InfoModal({ data, openInfo, setClose }: Props) {
               {t('bootcamp:task.message')}: {data.message}
             </Box>
             <Box fontSize={18}>
-              {t('bootcamp:task.final-date')}: {data.date}
+              {t('bootcamp:task.final-date')}: {finalDate}
             </Box>
             <Box fontSize={18}>
-              {t('bootcamp:task.created-at')}: {data.createdAt}
+              {t('bootcamp:task.created-at')}: {startDate}
             </Box>
             <Box fontSize={18}>
-              {t('bootcamp:task.first-name')}: {data.firstNam}
+              {t('bootcamp:task.first-name')}: {data.firstName}
             </Box>
             <Box fontSize={18}>
-              {t('bootcamp:task.second-name')}: {data.lastNam}
+              {t('bootcamp:task.second-name')}: {data.lastName}
             </Box>
           </DialogContentText>
         </DialogContent>

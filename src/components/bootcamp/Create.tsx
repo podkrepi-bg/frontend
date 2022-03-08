@@ -19,6 +19,8 @@ export default function CreateForm() {
     email: '',
     message: '',
     date: '',
+    firstName: '',
+    lastName: '',
   }
   const mutation = useMutation<AxiosResponse<Bootcamp>, AxiosError<ApiErrors>, BootcampInput>({
     mutationFn: createTask,
@@ -39,6 +41,8 @@ export default function CreateForm() {
         email: values.email,
         message: values.message,
         date: new Date(values.date).toISOString(),
+        firstName: values.firstName,
+        lastName: values.lastName,
       }
       await mutation.mutateAsync(data)
       resetForm()

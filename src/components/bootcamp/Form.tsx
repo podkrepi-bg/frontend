@@ -128,6 +128,28 @@ export default function BootcampForm({ defaults, handle, edit }: Props) {
           />
         </Grid>
         <Grid>
+          <FormTextField
+            className={classes.field}
+            name="firstName"
+            label={t('bootcamp:task.first-name')}
+            type="text"
+            variant="outlined"
+            color="primary"
+            fullWidth
+          />
+        </Grid>
+        <Grid>
+          <FormTextField
+            className={classes.field}
+            name="lastName"
+            label={t('bootcamp:task.second-name')}
+            type="text"
+            variant="outlined"
+            color="primary"
+            fullWidth
+          />
+        </Grid>
+        <Grid>
           <SubmitButton
             type="submit"
             color="info"

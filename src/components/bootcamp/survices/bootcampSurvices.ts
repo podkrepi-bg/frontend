@@ -11,8 +11,8 @@ export type Bootcamp = {
   email: string
   message: string
   date: string
-  firstNam?: string
-  lastNam?: string
+  firstName?: string
+  lastName?: string
 }
 
 export type BootcampInput = {
@@ -21,6 +21,8 @@ export type BootcampInput = {
   email: string
   message: string
   date: string
+  firstName: string
+  lastName: string
 }
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
