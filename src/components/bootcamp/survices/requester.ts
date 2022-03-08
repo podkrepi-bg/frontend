@@ -11,7 +11,8 @@ export const endpoints = {
     allTasks: <Endpoint>{ url: '/bootcamp', method: 'GET' },
     viewTask: (id: string) =>
       <Endpoint>{ url: `http://localhost:5010/api/bootcamp/${id}`, method: 'GET' },
-    editTask: (id: string) => <Endpoint>{ url: `/bootcamp/${id}`, method: 'PATCH' },
+    editTask: (id: string) =>
+      <Endpoint>{ url: `http://localhost:5010/api/bootcamp/${id}`, method: 'PATCH' },
     deleteTask: (id: string) =>
       <Endpoint>{ url: `http://localhost:5010/api/bootcamp/${id}`, method: 'DELETE' },
     deleteTasks: <Endpoint>{

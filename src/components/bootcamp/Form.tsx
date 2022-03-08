@@ -1,13 +1,5 @@
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material'
-import {
-  Button,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Grid,
-  Radio,
-  RadioGroup,
-} from '@mui/material'
+import { Button, FormControlLabel, FormLabel, Grid, Radio, RadioGroup } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import FormTextField from 'components/common/form/FormTextField'
 import GenericForm from 'components/common/form/GenericForm'
@@ -15,7 +7,7 @@ import SubmitButton from 'components/common/form/SubmitButton'
 import { FormikHelpers } from 'formik'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React from 'react'
 import * as yup from 'yup'
 import { BootcampInput } from './survices/bootcampSurvices'
 
@@ -27,27 +19,33 @@ const useStyles = makeStyles({
   },
 })
 
-const validationSchema: yup.SchemaOf<BootcampInput> = yup.object().defined().shape({
-  status: yup.string().required(),
-  title: yup.string().required(),
-  email: yup.string().email().required(),
-  message: yup.string().required(),
-  date: yup.string().required(),
-})
+const validationSchema: yup.SchemaOf<BootcampInput> = yup
+  .object()
+  .defined()
+  .shape({
+    status: yup.string().required('A radio option is required'),
+    title: yup.string().required(),
+    email: yup.string().email().required(),
+    message: yup.string().required(),
+    date: yup.string().required(),
+    firstName: yup.string().notRequired(),
+    lastName: yup.string().notRequired(),
+  })
 
 type Props = {
   edit: boolean
   defaults: BootcampInput
+  setStatus: (status: string) => void
+  status: string
   handle: (
     values: BootcampInput,
     { setFieldError, resetForm }: FormikHelpers<BootcampInput>,
   ) => void
 }
 
-export default function BootcampForm({ defaults, handle, edit }: Props) {
+export default function BootcampForm({ defaults, handle, edit, setStatus, status }: Props) {
   const { t } = useTranslation()
   const classes = useStyles()
-  const [status, setStatus] = useState(defaults.status)
   const router = useRouter()
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setStatus((event.target as HTMLInputElement).value)
@@ -56,23 +54,19 @@ export default function BootcampForm({ defaults, handle, edit }: Props) {
     <GenericForm onSubmit={handle} initialValues={defaults} validationSchema={validationSchema}>
       <Grid>
         <Grid>
-          <FormControl>
-            <FormLabel id="demo-row-radio-buttons-group-label">
-              {t('bootcamp:task.status')}
-            </FormLabel>
-            <RadioGroup
-              row
-              aria-labelledby="demo-row-radio-buttons-group-label"
-              name="row-radio-buttons-group"
-              value={status}
-              onChange={handleChange}>
-              <FormControlLabel value="todo" control={<Radio />} label="Todo" />
-              <FormControlLabel value="inProgress" control={<Radio />} label="In Progress" />
-              <FormControlLabel value="forReview" control={<Radio />} label="For Review" />
-              <FormControlLabel value="done" control={<Radio />} label="Done" />
-              <FormControlLabel value="other" control={<Radio />} label="Other" />
-            </RadioGroup>
-          </FormControl>
+          <FormLabel id="demo-row-radio-buttons-group-label">{t('bootcamp:task.status')}</FormLabel>
+          <RadioGroup
+            row
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            name="row-radio-buttons-group"
+            value={status}
+            onChange={handleChange}>
+            <FormControlLabel value="todo" control={<Radio />} label="Todo" />
+            <FormControlLabel value="inProgress" control={<Radio />} label="In Progress" />
+            <FormControlLabel value="forReview" control={<Radio />} label="For Review" />
+            <FormControlLabel value="done" control={<Radio />} label="Done" />
+            <FormControlLabel value="other" control={<Radio />} label="Other" />
+          </RadioGroup>
         </Grid>
         <Grid>
           <FormTextField

@@ -6,12 +6,13 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { useTranslation } from 'next-i18next'
 import { AlertStore } from 'stores/AlertStore'
 import { ApiErrors, isAxiosError, matchValidator } from '../../service/apiErrors'
-import { Bootcamp, BootcampInput, createTask } from './survices/bootcampSurvices'
+import { Bootcamp, BootcampEdit, BootcampInput, editTask } from './survices/bootcampSurvices'
 import BootcampLayout from './BootcampLayout'
 import AdminContainer from 'components/admin/navigation/AdminContainer'
 import BootcampForm from './Form'
+import { useState } from 'react'
 
-type BootcampFormProps = { values: BootcampInput }
+type BootcampFormProps = { values: BootcampEdit }
 
 export default function EditPage({ values }: BootcampFormProps) {
   const defaults: BootcampInput = {
@@ -24,27 +25,29 @@ export default function EditPage({ values }: BootcampFormProps) {
     lastName: values.lastName,
   }
 
-  const mutation = useMutation<AxiosResponse<Bootcamp>, AxiosError<ApiErrors>, BootcampInput>({
-    mutationFn: createTask,
+  const mutation = useMutation<AxiosResponse<Bootcamp>, AxiosError<ApiErrors>, BootcampEdit>({
+    mutationFn: editTask,
     onError: () => AlertStore.show(t('bootcamp:alerts.new-row.error'), 'error'),
     onSuccess: () => AlertStore.show('g', 'success'),
   })
   const { t } = useTranslation()
   const router = useRouter()
+  const [status, setStatus] = useState(defaults.status)
 
   const onSubmit = async (
-    values: BootcampInput,
+    value: BootcampInput,
     { setFieldError, resetForm }: FormikHelpers<BootcampInput>,
   ) => {
     try {
-      const data = {
-        status: values.status,
-        title: values.title,
-        email: values.email,
-        message: values.message,
-        date: new Date(values.date).toISOString(),
-        firstName: values.firstName,
-        lastName: values.lastName,
+      const data: BootcampEdit = {
+        id: values.id,
+        status: status,
+        title: value.title,
+        email: value.email,
+        message: value.message,
+        date: new Date(value.date).toISOString(),
+        firstName: value.firstName,
+        lastName: value.lastName,
       }
       await mutation.mutateAsync(data)
       resetForm()
@@ -64,7 +67,13 @@ export default function EditPage({ values }: BootcampFormProps) {
     <BootcampLayout>
       <AdminContainer title={t('bootcamp:form.edit-intern')}>
         <Container>
-          <BootcampForm defaults={defaults} handle={onSubmit} edit={true} />
+          <BootcampForm
+            defaults={defaults}
+            handle={onSubmit}
+            edit={true}
+            setStatus={setStatus}
+            status={status}
+          />
         </Container>
       </AdminContainer>
     </BootcampLayout>

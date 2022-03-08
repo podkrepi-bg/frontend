@@ -21,8 +21,18 @@ export type BootcampInput = {
   email: string
   message: string
   date: string
-  firstName: string
-  lastName: string
+  firstName?: string
+  lastName?: string
+}
+export type BootcampEdit = {
+  id: string
+  status: string
+  title: string
+  email: string
+  message: string
+  date: string
+  firstName?: string
+  lastName?: string
 }
 
 export const queryFn: QueryFunction = async function ({ queryKey }) {
@@ -47,5 +57,14 @@ export const deleteTasks: MutationFunction<AxiosResponse, []> = async (data: [])
 export const deleteTask: MutationFunction<AxiosResponse<Bootcamp>, string> = async (id: string) => {
   return await axios.delete<BootcampInput, AxiosResponse<Bootcamp>>(
     endpoints.bootcamp.deleteTask(id).url,
+  )
+}
+
+export const editTask: MutationFunction<AxiosResponse<Bootcamp>, BootcampEdit> = async (
+  data: BootcampEdit,
+) => {
+  return await axios.patch<BootcampEdit, AxiosResponse<Bootcamp>>(
+    endpoints.bootcamp.editTask(data.id).url,
+    data,
   )
 }
