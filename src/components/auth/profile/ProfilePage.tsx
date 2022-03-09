@@ -1,10 +1,9 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { Box, Container, Grid, Checkbox, Button } from '@mui/material'
+import { Box } from '@mui/material'
 
 import { routes } from 'common/routes'
-import { isAdmin } from 'common/util/roles'
-import ProfileLayout from 'components/layout/ProfileLayout'
+import Layout from 'components/layout/Layout'
 import { useSession } from 'common/util/useSession'
 import LinkButton from 'components/common/LinkButton'
 import Tabs from '@mui/material/Tabs'
@@ -38,17 +37,17 @@ export default function ProfilePage() {
 
   if (!keycloak?.authenticated) {
     return (
-      <ProfileLayout
+      <Layout
         title={t('nav.profile')}
         githubUrl="https://github.com/podkrepi-bg/frontend/tree/master/src/components/auth/profile/ProfilePage.tsx"
         figmaUrl="https://www.figma.com/file/MmvFKzUv6yE5U2wrOpWtwS/Podkrepi.bg?node-id=5987%3A21094">
         Not authenticated
-      </ProfileLayout>
+      </Layout>
     )
   }
 
   return (
-    <ProfileLayout
+    <Layout
       title={`Добре дошъл, ${session?.given_name}!`}
       githubUrl="https://github.com/podkrepi-bg/frontend/tree/master/src/components/auth/profile/ProfilePage.tsx"
       figmaUrl="https://www.figma.com/file/MmvFKzUv6yE5U2wrOpWtwS/Podkrepi.bg?node-id=5987%3A21094">
@@ -76,6 +75,6 @@ export default function ProfilePage() {
           {t('nav.logout')}
         </LinkButton>
       </Box>
-    </ProfileLayout>
+    </Layout>
   )
 }
