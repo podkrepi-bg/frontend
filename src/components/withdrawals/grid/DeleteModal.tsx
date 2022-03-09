@@ -36,7 +36,7 @@ export default observer(function DeleteModal({ id, setSelectedId }: Props) {
     onError: () => AlertStore.show(t('withdrawals:alerts:error'), 'error'),
     onSuccess: () => {
       hideDelete()
-      AlertStore.show(t('Withdrawals:alerts:delete'), 'success')
+      AlertStore.show(t('withdrawals:alerts:delete'), 'warning')
       queryClient.removeQueries(endpoints.withdrawals.getWithdrawal(id).url)
       setSelectedId('')
       router.push(routes.admin.withdrawals.index)

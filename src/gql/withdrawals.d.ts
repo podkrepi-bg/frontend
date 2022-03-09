@@ -7,10 +7,10 @@ export type WithdrawalResponse = {
   amount: number
   reason: string
   documentId: UUID
-  approvedBy: UUID
-  bankAccount: UUID
-  sourceCampaign: UUID
-  sourceVault: UUID
+  approvedById: UUID
+  bankAccountId: UUID
+  sourceCampaignId: UUID
+  sourceVaultId: UUID
 }
 export type WithdrawalInput = {
   status: WithdrawalStatus | undefined
@@ -18,10 +18,10 @@ export type WithdrawalInput = {
   amount: number | undefined
   reason: string | undefined
   documentId?: UUID | undefined
-  approvedBy?: UUID | undefined
-  bankAccount?: UUID | undefined
-  sourceCampaign?: UUID | undefined
-  sourceVault?: UUID | undefined
+  approvedById?: UUID | undefined
+  bankAccountId?: UUID | undefined
+  sourceCampaignId?: UUID | undefined
+  sourceVaultId?: UUID | undefined
 }
 
 export type WithdrawalData = {

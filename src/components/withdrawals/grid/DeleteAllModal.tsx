@@ -32,10 +32,10 @@ export default observer(function DeleteAllModal({ selectionModel }: Props) {
     GridSelectionModel
   >({
     mutationFn,
-    onError: () => AlertStore.show(t('Withdrawals:alerts:error'), 'error'),
+    onError: () => AlertStore.show(t('withdrawals:alerts:error'), 'error'),
     onSuccess: () => {
       hideDeleteAll()
-      AlertStore.show(t('Withdrawals:alerts:deleteAll'), 'success')
+      AlertStore.show(t('withdrawals:alerts:deleteAll'), 'warning')
       router.push(routes.admin.withdrawals.index)
     },
   })
@@ -49,16 +49,16 @@ export default observer(function DeleteAllModal({ selectionModel }: Props) {
       <Card>
         <CardContent>
           <Typography variant="h6" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            {t('Withdrawals:deleteTitle')}
+            {t('withdrawals:deleteTitle')}
           </Typography>
           <Typography variant="body1" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            {t('Withdrawals:deleteAllContent')}
+            {t('withdrawals:deleteAllContent')}
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <Button color="error" onClick={deleteHandler}>
-              {t('Withdrawals:cta:delete')}
+              {t('withdrawals:cta:delete')}
             </Button>
-            <Button onClick={hideDeleteAll}>{t('Withdrawals:cta:cancel')}</Button>
+            <Button onClick={hideDeleteAll}>{t('withdrawals:cta:cancel')}</Button>
           </Box>
         </CardContent>
       </Card>

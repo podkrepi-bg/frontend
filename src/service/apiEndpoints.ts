@@ -55,7 +55,7 @@ export const endpoints = {
     createWithdrawal: <Endpoint>{ url: '/withdrawal', method: 'POST' },
     editWithdrawal: (id: string) => <Endpoint>{ url: `/withdrawal/${id}`, method: 'PUT' },
     deleteWithdrawal: (id: string) => <Endpoint>{ url: `/withdrawal/${id}`, method: 'DELETE' },
-    deleteWithdrawals: <Endpoint>{ url: '/withdrawal/delete-many', method: 'POST' },
+    deleteWithdrawals: <Endpoint>{ url: '/withdrawal/deletemany', method: 'POST' },
   },
   country: {
     listCountries: <Endpoint>{ url: '/country/list', method: 'GET' },
