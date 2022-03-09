@@ -26,7 +26,7 @@ export const validationSchemaBankAccForm: yup.SchemaOf<BankAccountsData> = yup
     accountHolderName: yup.string().trim().min(10).max(100).required(),
     AccountHolderType: yup.string().trim().min(1).max(100).required(),
     bankName: yup.string().trim().min(10).max(100).required(),
-    bankIdCode: yup.string().trim().min(10).max(100).required(),
+    bankIdCode: yup.string().trim().min(8).max(100).required(),
     fingerprint: yup.string().trim().min(10).max(100).required(),
   })
 
