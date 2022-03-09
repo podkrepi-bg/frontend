@@ -39,7 +39,7 @@ export default observer(function Grid() {
   const columns: GridColumns = [
     {
       field: 'status',
-      headerName: t('withdrawals:name'),
+      headerName: t('withdrawals:status'),
       ...commonProps,
     },
     {
@@ -50,6 +50,7 @@ export default observer(function Grid() {
     {
       field: 'amount',
       headerName: t('withdrawals:amount'),
+      align: 'right',
       ...commonProps,
     },
     {
@@ -58,8 +59,40 @@ export default observer(function Grid() {
       ...commonProps,
     },
     {
+      field: 'approvedBy',
+      headerName: t('withdrawals:approvedBy'),
+      ...commonProps,
+      valueGetter: (c) => {
+        return c.row.approvedBy.firstName + ' ' + c.row.approvedBy.lastName
+      },
+    },
+    {
+      field: 'bankAccount',
+      headerName: t('withdrawals:bankAccount'),
+      ...commonProps,
+      valueGetter: (c) => {
+        return c.row.bankAccount.accountHolderName
+      },
+    },
+    {
+      field: 'sourceCampaign',
+      headerName: t('withdrawals:sourceCampaign'),
+      ...commonProps,
+      valueGetter: (c) => {
+        return c.row.sourceCampaign.state
+      },
+    },
+    {
+      field: 'sourceVault',
+      headerName: t('withdrawals:sourceVault'),
+      ...commonProps,
+      valueGetter: (c) => {
+        return c.row.sourceVault.name
+      },
+    },
+    {
       field: 'createdAt',
-      headerName: t('Withdrawals:createdAt'),
+      headerName: t('withdrawals:createdAt'),
       align: 'left',
       width: 230,
       headerAlign: 'left',
@@ -73,30 +106,10 @@ export default observer(function Grid() {
     },
     {
       field: 'updatedAt',
-      headerName: t('Withdrawals:updatedAt'),
+      headerName: t('withdrawals:updatedAt'),
       align: 'left',
       width: 230,
       headerAlign: 'left',
-    },
-    {
-      field: 'approvedBy',
-      headerName: t('withdrawals:approvedBy'),
-      ...commonProps,
-    },
-    {
-      field: 'bankAccount',
-      headerName: t('withdrawals:bankAccount'),
-      ...commonProps,
-    },
-    {
-      field: 'sourceCampaign',
-      headerName: t('withdrawals:sourceCampaign'),
-      ...commonProps,
-    },
-    {
-      field: 'sourceVault',
-      headerName: t('withdrawals:sourceVault'),
-      ...commonProps,
     },
     {
       field: t('withdrawals:actions'),
@@ -136,7 +149,8 @@ export default observer(function Grid() {
           }}
         />
       </Box>
-      <DetailsModal id={selectedId} />
+      {selectedId.length > 1 ? <DetailsModal id={selectedId} /> : <></>}
+      {/* <DetailsModal id={selectedId} /> */}
       <DeleteModal id={selectedId} setSelectedId={setSelectedId} />
       <DeleteAllModal selectionModel={selectionModel} />
     </>

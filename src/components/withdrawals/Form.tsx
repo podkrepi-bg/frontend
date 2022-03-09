@@ -1,14 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useMutation, useQueryClient, UseQueryResult } from 'react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
-import { Box, Button, Grid, Typography } from '@mui/material'
+import { Box, Button, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material'
 
 import { WithdrawalInput, WithdrawalResponse } from 'gql/withdrawals'
-import { useWithdrawal } from 'common/hooks/withdrawals'
+import { useBankAccountsForWithdrawal, useVaultsForWithdrawal, useWithdrawal } from 'common/hooks/withdrawals'
 import { routes } from 'common/routes'
 import { ApiErrors } from 'service/apiErrors'
 import { useCreateWithdrawal, useEditWithdrawal } from 'service/withdrawal'
@@ -17,6 +17,8 @@ import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
 import { endpoints } from 'service/apiEndpoints'
+import { WithdrawalStatus } from './WithdrawalTypes'
+
 
 const validCurrencies = ['BGN', 'USD', 'EUR']
 
@@ -24,27 +26,29 @@ const validationSchema = yup
   .object()
   .defined()
   .shape({
-    name: yup.string().trim().min(2).max(50).required(),
+    status: yup.string().trim().min(2).max(50).required(),
     currency: yup.string().oneOf(validCurrencies).required(),
-    campaignId: yup.string().trim().max(50).required(),
+    amount: yup.number().min(1).max(50000000).required(),
+    reason: yup.string().trim().max(50).required(),
   })
 
 export default function EditForm() {
   const router = useRouter()
   const queryClient = useQueryClient()
+  const bankAccounts = useBankAccountsForWithdrawal()
+  const [bankAccountId, setBankAccountId] = useState('')
+  const vaults = useVaultsForWithdrawal()
+  const [vaultId, setVaultId] = useState('')
   const { t } = useTranslation()
 
   let id = router.query.id
 
   let initialValues: WithdrawalInput = {
-    status: '',
+    status: WithdrawalStatus.new,
     currency: '',
     amount: 0,
     reason: '',
     documentId: '',
-    // targetDate: Date | null,
-    // createdAt: Date,
-    // updatedAt: Date | string | null,
     approvedBy: '',
     bankAccount: '',
     sourceCampaign: '',
@@ -85,7 +89,18 @@ export default function EditForm() {
   })
 
   async function onSubmit(data: WithdrawalInput) {
+    { console.log(data) }
     mutation.mutate(data)
+  }
+
+  function handleBankAccountChange(event: SelectChangeEvent) {
+    {console.log(event.target.value)}
+    setBankAccountId(event.target.value)
+  }
+
+  function handleVaultChange(event: SelectChangeEvent) {
+    {console.log(event.target.value)}
+    setVaultId(event.target.value)
   }
 
   return (
@@ -110,13 +125,47 @@ export default function EditForm() {
           <Grid item xs={6}>
             <FormTextField type="text" label={t('withdrawals:reason')} name="reason" />
           </Grid>
+          <Grid item xs={12}>
+            <InputLabel>Банков акаунт</InputLabel>
+            <Select
+              fullWidth
+              id="bankAccountId"
+              name="bankAccountId"
+              value={bankAccountId}
+              onChange={handleBankAccountChange}>
+              {bankAccounts?.map((acc) => {
+                return (
+                  <MenuItem key={acc.id} value={acc.id}>
+                    {acc.accountHolderName}
+                  </MenuItem>
+                )
+              })}
+            </Select>
+          </Grid>
+          <Grid item xs={12}>
+            <InputLabel>Трезор</InputLabel>
+            <Select
+              fullWidth
+              id="vaultId"
+              name="vaultId"
+              value={vaultId}
+              onChange={handleVaultChange}>
+              {vaults?.map((acc) => {
+                return (
+                  <MenuItem key={acc.id} value={acc.id}>
+                    {acc.name}
+                  </MenuItem>
+                )
+              })}
+            </Select>
+          </Grid>
           {id ? (
             <></>
           ) : (
             <>
-              <Grid item xs={6}>
+              {/* <Grid item xs={6}>
                 <FormTextField type="text" label={t('withdrawals:campaignId')} name="campaignId" />
-              </Grid>
+              </Grid> */}
             </>
           )}
           <Grid item xs={6}>
