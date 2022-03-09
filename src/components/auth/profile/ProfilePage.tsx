@@ -10,6 +10,8 @@ import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import DonationTab from './DonationTab'
 import PersonalInfoTab from './PersonalInfoTab'
+import CertificatesTab from './CertificatesTab'
+import DonationAgreementTab from './DonationAgreementTab'
 
 function TabPanel(props: any) {
   const { children, value, index, ...other } = props
@@ -62,12 +64,8 @@ export default function ProfilePage() {
         </Box>
         <DonationTab value={value} index={0}></DonationTab>
         <PersonalInfoTab value={value} index={1}></PersonalInfoTab>
-        <TabPanel value={value} index={2}>
-          Сертификати
-        </TabPanel>
-        <TabPanel value={value} index={3}>
-          Договор дарение
-        </TabPanel>
+        <CertificatesTab value={value} index={2}></CertificatesTab>
+        <DonationAgreementTab value={value} index={3}></DonationAgreementTab>
       </Box>
 
       <Box textAlign="center">
