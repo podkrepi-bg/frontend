@@ -19,7 +19,7 @@ export type CampaignTypesInput = {
   name: string
   slug?: string
   description: string | null
-  parentId?: string | null
+  parentId: string | null
 }
 
 export type CampaignTypeFormData = {
@@ -27,4 +27,8 @@ export type CampaignTypeFormData = {
   slug?: string
   description: string | null
   parentId?: string | null
+}
+
+export type DeleteMany = {
+  ids: string[]
 }
