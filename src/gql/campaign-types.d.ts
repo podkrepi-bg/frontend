@@ -19,12 +19,12 @@ export type CampaignTypesInput = {
   name: string
   slug?: string
   description: string | null
-  parentId: string | null
+  parentId?: string | null
 }
 
 export type CampaignTypeFormData = {
   name: string
   slug?: string
   description: string | null
-  parentId: string | null
+  parentId?: string | null
 }
