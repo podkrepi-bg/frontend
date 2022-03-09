@@ -10,6 +10,7 @@ import LinkButton from 'components/common/LinkButton'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import DonationTab from './DonationTab'
+import PersonalInfoTab from './PersonalInfoTab'
 
 function TabPanel(props: any) {
   const { children, value, index, ...other } = props
@@ -61,9 +62,7 @@ export default function ProfilePage() {
           </Tabs>
         </Box>
         <DonationTab value={value} index={0}></DonationTab>
-        <TabPanel value={value} index={1}>
-          Лична информация
-        </TabPanel>
+        <PersonalInfoTab value={value} index={1}></PersonalInfoTab>
         <TabPanel value={value} index={2}>
           Сертификати
         </TabPanel>
