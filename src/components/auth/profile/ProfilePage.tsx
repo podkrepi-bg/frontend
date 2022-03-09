@@ -9,8 +9,9 @@ import { useSession } from 'common/util/useSession'
 import LinkButton from 'components/common/LinkButton'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
+import DonationTab from './DonationTab'
 
-function TabPanel(props) {
+function TabPanel(props: any) {
   const { children, value, index, ...other } = props
 
   return (
@@ -59,73 +60,7 @@ export default function ProfilePage() {
             <Tab label="Договор дарение" />
           </Tabs>
         </Box>
-        <TabPanel value={value} index={0}>
-          <h2>Абонамент месечни дарения</h2>
-          <Box sx={{ display: 'flex' }}>
-            <Box
-              sx={{
-                backgroundColor: '#EEEEEE',
-                flexGrow: 1,
-                marginRight: '10px',
-                padding: '10px',
-              }}>
-              <h3 style={{ fontSize: '16px', margin: 0 }}>Дарения</h3>
-
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h4 style={{ fontSize: '24px', margin: 0 }}>Онлайн дарения</h4>
-                <p style={{ fontSize: '22px' }}>0.00 лв.</p>
-              </Box>
-              <p>Към момента няма направени дарения</p>
-              <hr></hr>
-
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h4 style={{ fontSize: '24px', margin: 0 }}>Тотал онлайн дарения</h4>
-                <p style={{ fontSize: '22px' }}>0.00 лв.</p>
-              </Box>
-              <hr></hr>
-            </Box>
-            <Box sx={{ backgroundColor: '#C4C4C4', padding: '10px', position: 'relative' }}>
-              <h2>Бъди промяната</h2>
-              <h3>помогни на хора в нужда</h3>
-              <Button
-                variant="contained"
-                size="medium"
-                color="secondary"
-                sx={{ position: 'absolute', bottom: '35px' }}>
-                Дари сега ❤️
-              </Button>
-            </Box>
-          </Box>
-          <h2>История на даренията</h2>
-          <Box
-            sx={{
-              backgroundColor: '#EEEEEE',
-              flexGrow: 1,
-              marginRight: '10px',
-              padding: '10px',
-            }}>
-            <h3 style={{ fontSize: '16px', margin: 0 }}>Онлайн дарения</h3>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                width: '70%',
-              }}>
-              <span>Покажи:</span>
-              <Box>
-                <Checkbox defaultChecked />
-                <span>еднократни</span>
-              </Box>
-              <Box>
-                <Checkbox defaultChecked />
-                <span>месечни</span>
-              </Box>
-              <span>възможност за търсене по по дата</span>
-            </Box>
-            <h3 style={{ fontSize: '25px' }}>Към момента няма направени дарения</h3>
-          </Box>
-        </TabPanel>
+        <DonationTab value={value} index={0}></DonationTab>
         <TabPanel value={value} index={1}>
           Лична информация
         </TabPanel>
