@@ -1,5 +1,4 @@
 import { observer } from 'mobx-react'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
 import {
@@ -11,7 +10,6 @@ import {
   EventNote as EventNoteIcon,
 } from '@mui/icons-material'
 
-import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 
@@ -33,7 +31,6 @@ const iconStyles = {
 export default observer(function BottomAppBar() {
   const { openCfrm, carSelected } = ModalStore
   const { t } = useTranslation()
-  const router = useRouter()
   const deleteHandler = () => {
     carSelected ? openCfrm() : AlertStore.show(t('common:alerts.noselected'), 'info')
   }
