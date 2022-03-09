@@ -5,7 +5,7 @@
   "accountHolderName": "Собственик",
   "AccountHolderType": "Вид акаунт",
   "bankName": "Име на банка",
-  "bankIdCode": "Банков идентификатор",
-  "fingerprint": "Подпис",
+  "bankIdCode": "BIC/SWIFT",
+  "fingerprint": "Е-Подпис",
   "withdrawal": "Извлечения"
 }

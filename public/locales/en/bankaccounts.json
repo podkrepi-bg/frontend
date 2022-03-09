@@ -5,7 +5,7 @@
   "accountHolderName": "Account holder name",
   "AccountHolderType": "Account holder type",
   "bankName": "Bank name",
-  "bankIdCode": "Bank ID",
-  "fingerprint": "Fingerprint",
+  "bankIdCode": "BIC/SWIFT",
+  "fingerprint": "E-Sign",
   "withdrawal": "WithDraws"
 }
