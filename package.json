@@ -6,7 +6,7 @@
   "scripts": {
     "predev": "shx test -e .env.local && exit 0 || shx echo 'You need to create .env.local file. Please check README.md!' && exit 1",
     "dev": "yarn && next dev -p 3040",
-    "build": "next build",
+    "build": "yarn format && next build",
     "start": "next start -p 3040",
     "test": "jest --env=jsdom",
     "test:debug": "node --inspect-brk ./node_modules/jest/bin/jest.js --runInBand",
@@ -19,7 +19,8 @@
     "prepare": "husky install",
     "release": "./manifests/release.sh",
     "release:patch": "./manifests/release.sh patch",
-    "postversion": "./manifests/postrelease.sh v$npm_package_version"
+    "postversion": "./manifests/postrelease.sh v$npm_package_version",
+    "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
     "@emotion/cache": "^11.7.1",
@@ -31,6 +32,7 @@
     "@mui/material": "^5.4.2",
     "@mui/styles": "^5.4.2",
     "@mui/x-data-grid": "^5.5.1",
+    "@next/bundle-analyzer": "^12.1.0",
     "@react-keycloak/ssr": "3.3.0",
     "@sentry/nextjs": "6.17.8",
     "@uppy/aws-s3": "2.0.5",
@@ -42,6 +44,7 @@
     "@widgetbot/react-embed": "^1.4.0",
     "axios": "0.21.4",
     "axios-hooks": "2.7.0",
+    "bear-react-carousel": "^1.2.15",
     "date-fns": "2.24.0",
     "formik": "2.2.9",
     "highcharts": "9.1.0",
@@ -58,6 +61,7 @@
     "react-in-viewport": "1.0.0-alpha.17",
     "react-query": "^3.23.2",
     "sass": "1.34.1",
+    "sharp": "^0.30.2",
     "slugify": "^1.6.0",
     "typewriter-effect": "2.17.0",
     "yup": "0.32.9"

@@ -38,7 +38,7 @@ export default function GridActions({ id, setSelectedId }: Props) {
       <IconButton size="small" onClick={detailsClickHandler}>
         <ImportExportIcon />
       </IconButton>
-      <Link href={routes.admin.documents.edit(id)}>
+      <Link passHref href={routes.admin.documents.edit(id)}>
         <IconButton size="small">
           <EditIcon />
         </IconButton>

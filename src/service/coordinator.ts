@@ -1,12 +1,22 @@
 import { AxiosResponse } from 'axios'
 import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
+import { useQuery } from 'react-query'
 
 import { apiClient } from 'service/apiClient'
 import { CoorinatorInput, CoordinatorResponse } from 'gql/coordinators'
 
 import { endpoints } from './apiEndpoints'
-import { authConfig } from './restRequests'
+import { authConfig, authQueryFnFactory } from './restRequests'
+
+export const useCoordinatorsList = () => {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+
+  return useQuery(
+    endpoints.coordinators.coordinatorsList.url,
+    authQueryFnFactory<CoordinatorResponse[]>(keycloak?.token),
+  )
+}
 
 export const useCreateCoordinatorRequest = () => {
   const { keycloak } = useKeycloak<KeycloakInstance>()
