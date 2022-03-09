@@ -11,7 +11,7 @@ import { DocumentInput, DocumentResponse } from 'gql/document'
 import { useDocument } from 'common/hooks/documents'
 import { routes } from 'common/routes'
 import { ApiErrors } from 'service/apiErrors'
-import { useCreateDocument, useEditDocument } from 'service/restRequests'
+import { useCreateDocument, useEditDocument } from 'service/restRequests/document'
 import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
@@ -111,7 +111,7 @@ export default function EditForm() {
             <SubmitButton fullWidth label={t('documents:cta:submit')} />
           </Grid>
           <Grid item xs={6}>
-            <Link href={routes.admin.documents.index}>
+            <Link passHref href={routes.admin.documents.index}>
               <Button>{t('documents:cta:cancel')}</Button>
             </Link>
           </Grid>
