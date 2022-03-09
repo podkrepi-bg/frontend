@@ -85,8 +85,9 @@ export default observer(function Grid() {
     },
     {
       field: t('beneficiary:actions'),
-      width: 200,
+      width: 450,
       sortable: false,
+      align: 'left',
       renderCell: (cellValues: GridRenderCellParams) => {
         return <GridActions id={cellValues.row.id} setSelectedId={setSelectedId} />
       },
