@@ -7,9 +7,9 @@ import { useTranslation } from 'next-i18next'
 import { AlertStore } from 'stores/AlertStore'
 import { ApiErrors, isAxiosError, matchValidator } from '../../service/apiErrors'
 import { Bootcamp, BootcampEdit, BootcampInput, editTask } from './survices/bootcampSurvices'
-import BootcampLayout from './BootcampLayout'
+import BootcampLayout from './components/BootcampLayout'
 import AdminContainer from 'components/admin/navigation/AdminContainer'
-import BootcampForm from './Form'
+import BootcampForm from './components/Form'
 import { useState } from 'react'
 
 type BootcampFormProps = { values: BootcampEdit }

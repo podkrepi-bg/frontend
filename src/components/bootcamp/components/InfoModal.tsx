@@ -10,7 +10,7 @@ import {
 } from '@mui/material'
 import { Box } from '@mui/system'
 import { useTranslation } from 'next-i18next'
-import { Bootcamp } from './survices/bootcampSurvices'
+import { Bootcamp } from '../survices/bootcampSurvices'
 
 interface Props {
   data: Bootcamp
@@ -20,14 +20,12 @@ interface Props {
 
 export default function InfoModal({ data, openInfo, setClose }: Props) {
   const { t } = useTranslation()
-  const finalDate = data.date
-  const startDate = data.createdAt
 
   return (
     <Modal open={openInfo} onClose={setClose}>
       <Dialog open={openInfo} onClose={setClose} aria-labelledby="draggable-dialog-title">
         <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
-          Bootcamp Details
+          {t('bootcamp:titles.intern-info')}
         </DialogTitle>
         <Divider />
         <DialogContent>
@@ -46,10 +44,10 @@ export default function InfoModal({ data, openInfo, setClose }: Props) {
               {t('bootcamp:task.message')}: {data.message}
             </Box>
             <Box fontSize={18}>
-              {t('bootcamp:task.final-date')}: {finalDate}
+              {t('bootcamp:task.final-date')}: {data.date}
             </Box>
             <Box fontSize={18}>
-              {t('bootcamp:task.created-at')}: {startDate}
+              {t('bootcamp:task.created-at')}: {data.createdAt}
             </Box>
             <Box fontSize={18}>
               {t('bootcamp:task.first-name')}: {data.firstName}

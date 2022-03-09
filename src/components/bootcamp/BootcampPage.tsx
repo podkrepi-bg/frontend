@@ -1,19 +1,18 @@
-import { Button, Grid, Tooltip } from '@mui/material'
+import { Divider } from '@mui/material'
 import AdminContainer from 'components/admin/navigation/AdminContainer'
-import Link from 'next/link'
-import BootcampLayout from './BootcampLayout'
-import DeleteIcon from '@mui/icons-material/Delete'
-import AddCircleIcon from '@mui/icons-material/AddCircle'
+import BootcampLayout from './components/BootcampLayout'
+
 import { useTranslation } from 'next-i18next'
-import BootcampGrid from './leyout-components/DataGrid'
+import BootcampGrid from './components/DataGrid'
 import { useState } from 'react'
 import { useMutation } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { deleteTasks } from './survices/bootcampSurvices'
 import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
-import DeleteModal from './DeleteModal'
+import DeleteModal from './components/DeleteModal'
 import { useRouter } from 'next/router'
+import AddDellBtns from './components/AddDellBtns'
 
 export default function BootcampPage() {
   const { t } = useTranslation()
@@ -41,29 +40,13 @@ export default function BootcampPage() {
   return (
     <BootcampLayout>
       <AdminContainer title={t('bootcamp:nav.title')}>
-        <Grid container justifyContent="flex-end">
-          <Link passHref href="bootcamp/add">
-            <Button title="Add" size="large" color="info" startIcon={<AddCircleIcon />}>
-              {t('bootcamp:btns.add')}
-            </Button>
-          </Link>
-          <Tooltip title="Delete selected" placement="top">
-            <span>
-              <Button
-                onClick={openModal}
-                color="error"
-                disabled={selectedIds.length == 0}
-                startIcon={<DeleteIcon />}>
-                {t('bootcamp:btns.delete')}
-              </Button>
-            </span>
-          </Tooltip>
-        </Grid>
+        <AddDellBtns selectedIds={selectedIds} openModal={openModal} />
         <DeleteModal
           open={openCloseDeleteAll}
           confirmHandler={deleteMany}
           closeModal={closeModal}
         />
+        <Divider />
         <BootcampGrid setIds={setSelectedIds} />
       </AdminContainer>
     </BootcampLayout>

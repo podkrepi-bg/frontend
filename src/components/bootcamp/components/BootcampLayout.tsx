@@ -1,9 +1,9 @@
 import { Box } from '@mui/system'
 import * as React from 'react'
-import BootCampAppBar from './leyout-components/AppBar'
-import BootcampDrawer from './leyout-components/Drawer'
-import DrawerHeader from './leyout-components/DrawerHeader'
-import BootcampFooter from './leyout-components/Footer'
+import BootCampAppBar from './AppBar'
+import BootcampDrawer from './Drawer'
+import DrawerHeader from './DrawerHeader'
+import BootcampFooter from './Footer'
 import Snackbar from 'components/layout/Snackbar'
 
 type Props = {

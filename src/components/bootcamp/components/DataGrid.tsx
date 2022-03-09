@@ -7,10 +7,10 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
-import DeleteModal from '../DeleteModal'
+import DeleteModal from './DeleteModal'
 import { useMutation } from 'react-query'
 import { AlertStore } from 'stores/AlertStore'
-import InfoModal from '../InfoModal'
+import InfoModal from './InfoModal'
 
 type Props = {
   setIds: (id: []) => void
@@ -50,21 +50,21 @@ export default function BootcampGrid({ setIds }: Props) {
       headerName: t('bootcamp:task.status'),
       flex: 2,
       minWidth: 200,
-      align: 'center',
+      align: 'left',
     },
     {
       field: 'email',
       headerName: t('bootcamp:task.email'),
       flex: 3,
       minWidth: 200,
-      align: 'center',
+      align: 'left',
     },
     {
       field: 'message',
       headerName: t('bootcamp:task.message'),
       flex: 3,
       minWidth: 200,
-      align: 'center',
+      align: 'left',
     },
     {
       field: 'startDate',
@@ -72,7 +72,7 @@ export default function BootcampGrid({ setIds }: Props) {
       valueGetter: (task) => task.row.createdAt,
       valueFormatter: (d) => (typeof d.value === 'string' ? d.value.substring(0, 10) : false),
       minWidth: 200,
-      align: 'center',
+      align: 'right',
     },
     {
       field: 'finalDate',
@@ -81,7 +81,7 @@ export default function BootcampGrid({ setIds }: Props) {
       valueFormatter: (d) => (typeof d.value === 'string' ? d.value.substring(0, 10) : false),
       minWidth: 200,
       width: 200,
-      align: 'center',
+      align: 'right',
     },
     {
       field: 'action',

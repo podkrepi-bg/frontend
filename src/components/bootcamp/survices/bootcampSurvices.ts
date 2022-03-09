@@ -50,6 +50,15 @@ export const createTask: MutationFunction<AxiosResponse, BootcampInput> = async 
   return await axios.post<BootcampInput, AxiosResponse>(endpoints.bootcamp.createTask.url, data)
 }
 
+export const editTask: MutationFunction<AxiosResponse<Bootcamp>, BootcampEdit> = async (
+  data: BootcampEdit,
+) => {
+  return await axios.patch<BootcampEdit, AxiosResponse<Bootcamp>>(
+    endpoints.bootcamp.editTask(data.id).url,
+    data,
+  )
+}
+
 export const deleteTasks: MutationFunction<AxiosResponse, []> = async (data: []) => {
   return await axios.post<BootcampInput, AxiosResponse>(endpoints.bootcamp.deleteTasks.url, data)
 }
@@ -57,14 +66,5 @@ export const deleteTasks: MutationFunction<AxiosResponse, []> = async (data: [])
 export const deleteTask: MutationFunction<AxiosResponse<Bootcamp>, string> = async (id: string) => {
   return await axios.delete<BootcampInput, AxiosResponse<Bootcamp>>(
     endpoints.bootcamp.deleteTask(id).url,
-  )
-}
-
-export const editTask: MutationFunction<AxiosResponse<Bootcamp>, BootcampEdit> = async (
-  data: BootcampEdit,
-) => {
-  return await axios.patch<BootcampEdit, AxiosResponse<Bootcamp>>(
-    endpoints.bootcamp.editTask(data.id).url,
-    data,
   )
 }

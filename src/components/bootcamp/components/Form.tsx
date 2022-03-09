@@ -9,7 +9,7 @@ import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import React from 'react'
 import * as yup from 'yup'
-import { BootcampInput } from './survices/bootcampSurvices'
+import { BootcampInput } from '../survices/bootcampSurvices'
 
 const useStyles = makeStyles({
   field: {
@@ -165,7 +165,6 @@ export default function BootcampForm({ defaults, handle, edit, setStatus, status
             variant="outlined"
             startIcon={<KeyboardArrowLeft />}
             onClick={(e) => {
-              // e.preventDefault()
               const parent = e.target as Element
               const form = parent!.parentNode!.parentNode!.parentNode as HTMLFormElement
               form.reset()

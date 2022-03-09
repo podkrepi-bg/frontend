@@ -4,7 +4,6 @@ const drawerWidth = 194
 
 const useStyles = makeStyles({
   active: {
-    // background: '#CCFFFF',
     border: '1px solid lightblue',
     borderRadius: '25px',
     margin: '10px 20px',
@@ -13,9 +12,7 @@ const useStyles = makeStyles({
   },
   settings: {
     position: 'absolute',
-    // top: '100%',
     bottom: '4.5rem',
-    // background: 'rgba(0, 0, 0, 0.6)',
   },
   text: {
     position: 'static',
@@ -24,18 +21,15 @@ const useStyles = makeStyles({
     top: '0%',
     bottom: '0%',
 
-    /* components/button-medium */
     fontFamily: 'Lato',
     fontStyle: 'normal',
     fontWeight: '500',
     fontSize: '16px',
     lineHeight: '24px',
 
-    /* identical to box height, or 150% */
     letterSpacing: '0.4px',
     textTransform: 'capitalize',
 
-    /* Inside auto layout */
     flex: 'none',
     order: '1',
     flexGrow: '0',
@@ -50,14 +44,6 @@ const useStyles = makeStyles({
     position: 'static',
     width: '36px',
     height: '32px',
-    // left: '0px',
-    // top: '0px',
-    // background: 'rgba(74, 195, 255, 0.26)',
-    // borderRadius: '100px',
-    // flex: 'none',
-    // order: '0',
-    // flexGrow: '0',
-    // margin: '8px 0px',
   },
   logo: {
     position: 'absolute',
