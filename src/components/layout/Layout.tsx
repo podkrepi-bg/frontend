@@ -84,25 +84,13 @@ export default function Layout({
           <AppNavBarWithNoSSR navMenuToggle={navMenuToggle} />
           <MobileNav mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
           {!disableOffset && <div className={classes.offset} />}
-          {title && (
+          {title && !disableOffset && (
             <Typography
               paragraph
               variant="h2"
               component="h1"
               align="center"
-              className={classes.pageTitle}
-              style={
-                disableOffset
-                  ? {
-                      paddingBottom: disableOffset ? 0 : '32px',
-                      position: 'absolute',
-                      left: '50%',
-                      color: 'white',
-                      transform: 'translate(-50%)',
-                      fontSize: '2.75rem',
-                    }
-                  : {}
-              }>
+              className={classes.pageTitle}>
               {title}
             </Typography>
           )}
