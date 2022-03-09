@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import { CampaignResponse } from 'gql/campaigns'
 import LatestNews from './LatestNews'
-import CampaignComments from './CampaignComments';
+import CampaignComments from './CampaignComments'
 import CampaignSlider from './CampaignSlider'
 import { Grid, Theme, Typography } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
