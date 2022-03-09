@@ -4,7 +4,7 @@ import Tab from './Tab'
 
 function PersonalInfoTab(props: any) {
   const { value, index } = props
-  
+  const { session } = useSession()
 
   return (
     <Tab value={value} index={index}>
@@ -18,7 +18,7 @@ function PersonalInfoTab(props: any) {
             marginRight: '20px',
           }}>
           <p>еmail адрес:</p>
-          <p>dimitar.plamenov@gmail.com</p>
+          <p>{session?.email}</p>
         </Box>
         <Box
           sx={{
@@ -45,7 +45,7 @@ function PersonalInfoTab(props: any) {
             position: 'relative',
           }}>
           <p>Име:</p>
-          <p>dimitar.plamenov@gmail.com</p>
+          <p>{session?.name}</p>
           <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
             <a href="#">Редактирай</a>
           </Box>
