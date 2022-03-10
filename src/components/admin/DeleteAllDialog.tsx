@@ -25,9 +25,9 @@ export default observer(function DeleteModal({ deleteHandler }: Props) {
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <Button color="error" onClick={deleteHandler}>
-              {t('modals.cta.confirm')}
+              {t('cta.confirm')}
             </Button>
-            <Button onClick={hideDeleteAll}>{t('modals.cta.cancel')}</Button>
+            <Button onClick={hideDeleteAll}>{t('cta.cancel')}</Button>
           </Box>
         </CardContent>
       </Card>
