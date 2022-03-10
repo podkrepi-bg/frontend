@@ -11,9 +11,6 @@
   "bankIdCode": "Bank ID",
   "fingerprint": "Fingerprint",
   "withdrawals": "Withdrawals",
-  "deleteTitle": "Are you sure?",
-  "deleteContent": "This action will delete this account:",
-  "deleteAllContent": "This action will delete selected accounts permanently!",
   "actions": "Actions",
   "alerts": {
     "selectRow": "Please choose a row",
@@ -25,8 +22,6 @@
   },
   "cta": {
     "add": "Add",
-    "confirm": "Confirm",
-    "cancel": "Cancel",
     "delete": "Delete",
     "deleteSelected": "Delete selected rows",
     "edit": "Edit",
