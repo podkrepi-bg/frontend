@@ -1,8 +1,22 @@
 import { Box, Checkbox, Button } from '@mui/material'
+import { makeStyles } from '@mui/styles'
 import Tab from './Tab'
+
+const useStyles = makeStyles({
+  thinFont: {
+    fontFamily: 'Montserrat',
+    fontStyle: 'normal',
+    fontWeight: 400,
+    fontSize: '24px',
+    lineHeight: '123.5%',
+    letterSpacing: '0.25px',
+    color: '#000000',
+  },
+})
 
 function DonationTab(props: any) {
   const { value, index } = props
+  const classes = useStyles()
 
   return (
     <Tab value={value} index={index}>
@@ -18,14 +32,14 @@ function DonationTab(props: any) {
           <h3 style={{ fontSize: '16px', margin: 0 }}>Дарения</h3>
 
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h4 style={{ fontSize: '24px', margin: 0 }}>Онлайн дарения</h4>
+            <h4 className={classes.thinFont}>Онлайн дарения</h4>
             <p style={{ fontSize: '22px' }}>0.00 лв.</p>
           </Box>
           <p>Към момента няма направени дарения</p>
           <hr></hr>
 
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h4 style={{ fontSize: '24px', margin: 0 }}>Тотал онлайн дарения</h4>
+            <h4 className={classes.thinFont}>Тотал онлайн дарения</h4>
             <p style={{ fontSize: '22px' }}>0.00 лв.</p>
           </Box>
           <hr></hr>
@@ -50,24 +64,23 @@ function DonationTab(props: any) {
           marginRight: '10px',
           padding: '10px',
         }}>
-        <h3 style={{ fontSize: '16px', margin: 0 }}>Онлайн дарения</h3>
+        <h3 className={classes.thinFont}>Онлайн дарения</h3>
         <Box
           sx={{
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            width: '70%',
           }}>
-          <span>Покажи:</span>
+          <span className={classes.thinFont}>Покажи:</span>
           <Box>
             <Checkbox defaultChecked />
-            <span>еднократни</span>
+            <span className={classes.thinFont}>еднократни</span>
           </Box>
           <Box>
             <Checkbox defaultChecked />
-            <span>месечни</span>
+            <span className={classes.thinFont}>месечни</span>
           </Box>
-          <span>възможност за търсене по по дата</span>
+          <span className={classes.thinFont}>възможност за търсене по по дата</span>
         </Box>
         <h3 style={{ fontSize: '25px' }}>Към момента няма направени дарения</h3>
       </Box>
