@@ -19,6 +19,15 @@ const useStyles = makeStyles({
     fontSize: '25px',
     lineHeight: '116.7%',
   },
+  allDonatesBox: {
+    backgroundColor: '#EEEEEE',
+    flexGrow: 1,
+    marginRight: '10px',
+    padding: '10px',
+  },
+  donates: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' },
+  donateNowBox: { backgroundColor: '#C4C4C4', padding: '10px', position: 'relative' },
+  donateNowButton: { position: 'absolute', bottom: '35px' },
 })
 
 function DonationTab(props: any) {
@@ -29,36 +38,30 @@ function DonationTab(props: any) {
     <Tab value={value} index={index}>
       <h2>Абонамент месечни дарения</h2>
       <Box sx={{ display: 'flex' }}>
-        <Box
-          sx={{
-            backgroundColor: '#EEEEEE',
-            flexGrow: 1,
-            marginRight: '10px',
-            padding: '10px',
-          }}>
+        <Box className={classes.allDonatesBox}>
           <h3 style={{ fontSize: '16px', margin: 0 }}>Дарения</h3>
 
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Box className={classes.donates}>
             <h4 className={classes.thinFont}>Онлайн дарения</h4>
             <p style={{ fontSize: '22px' }}>0.00 лв.</p>
           </Box>
           <p>Към момента няма направени дарения</p>
           <hr></hr>
 
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Box className={classes.donates}>
             <h4 className={classes.thinFont}>Тотал онлайн дарения</h4>
             <p style={{ fontSize: '22px' }}>0.00 лв.</p>
           </Box>
           <hr></hr>
         </Box>
-        <Box sx={{ backgroundColor: '#C4C4C4', padding: '10px', position: 'relative' }}>
+        <Box className={classes.donateNowBox}>
           <h2>Бъди промяната</h2>
           <h3>помогни на хора в нужда</h3>
           <Button
             variant="contained"
             size="medium"
             color="secondary"
-            sx={{ position: 'absolute', bottom: '35px' }}>
+            className={classes.donateNowButton}>
             Дари сега ❤️
           </Button>
         </Box>
