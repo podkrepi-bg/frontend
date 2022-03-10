@@ -7,13 +7,11 @@
         "delete-all": {
             "title": "Are you sure?",
             "content": "This action will delete all selected records"
-        },
-        "cta": {
-            "confirm": "Confirm",
-            "cancel": "Cancel"
         }
     },
-    "grid-actions": {
+    "cta": {
+        "confirm": "Confirm",
+        "cancel": "Cancel",
         "view": "View",
         "edit": "Edit",
         "delete": "Delete"

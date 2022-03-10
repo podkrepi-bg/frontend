@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { IconButton, Tooltip } from '@mui/material'
@@ -30,14 +30,14 @@ export default function GridActions({ id, name, editLink }: Props) {
 
   return (
     <>
-      <Tooltip title={t('grid-actions.view') || ''}>
+      <Tooltip title={t('cta.view') || ''}>
         <IconButton size="small" color="primary" onClick={detailsClickHandler}>
           <ImportExportIcon />
         </IconButton>
       </Tooltip>
       {editLink ? (
         <Link href={editLink} passHref>
-          <Tooltip title={t('grid-actions.edit') || ''}>
+          <Tooltip title={t('cta.edit') || ''}>
             <IconButton size="small" color="primary">
               <EditIcon />
             </IconButton>
@@ -46,7 +46,7 @@ export default function GridActions({ id, name, editLink }: Props) {
       ) : (
         ''
       )}
-      <Tooltip title={t('grid-actions.delete') || ''}>
+      <Tooltip title={t('cta.delete') || ''}>
         <IconButton size="small" color="primary" onClick={deleteClickHandler}>
           <DeleteIcon />
         </IconButton>
