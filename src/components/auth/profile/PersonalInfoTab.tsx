@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 600,
+    width: 650,
     backgroundColor: '#EEEEEE',
     padding: 20,
   },
@@ -42,6 +42,13 @@ const useStyles = makeStyles({
     fontSize: '18px',
     lineHeight: '133.4%',
     color: '#909090',
+  },
+  h5: {
+    fontFamily: 'Lato, sans-serif',
+    fontStyle: 'normal',
+    fontWeight: '600',
+    fontSize: '22px',
+    lineHeight: '133.4%',
   },
 })
 
@@ -141,15 +148,15 @@ function PersonalInfoTab(props: any) {
           <Typography className={classes.graySpan}>Ние съжаляваме, че ни напущате</Typography>
           <Typography className={classes.heading}>Преди да ни напуснете ...</Typography>
           <hr></hr>
-          <ul style={{ listStyle: 'disc' }}>
-            <li>
+          <ul style={{ listStyle: 'disc', paddingLeft: '20px' }}>
+            <li className={classes.h5}>
               Ако ви е писнало от емейли, деактивирайте ги от <Link href="#">тук</Link>.
             </li>
-            <li>
+            <li className={classes.h5}>
               Ако .........................., моля пишете <Link href="#">тук</Link>.
             </li>
-            <li>Изтриването на акаунт е окончателно.</li>
-            <li>Няма да има начин да възстановите акаунта си.</li>
+            <li className={classes.h5}>Изтриването на акаунт е окончателно.</li>
+            <li className={classes.h5}>Няма да има начин да възстановите акаунта си.</li>
           </ul>
           <Button
             variant="contained"
