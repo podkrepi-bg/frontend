@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { Box } from '@mui/material'
+import { Box, Button } from '@mui/material'
 
 import { routes } from 'common/routes'
 import Layout from 'components/layout/Layout'
@@ -12,6 +12,7 @@ import DonationTab from './DonationTab'
 import PersonalInfoTab from './PersonalInfoTab'
 import CertificatesTab from './CertificatesTab'
 import DonationAgreementTab from './DonationAgreementTab'
+import Link from 'next/link'
 
 function TabPanel(props: any) {
   const { children, value, index, ...other } = props
@@ -60,6 +61,11 @@ export default function ProfilePage() {
             <Tab label="Лична информация" />
             <Tab label="Сертификати" />
             <Tab label="Договор дарение" />
+            <Link href={routes.campaigns.create} passHref>
+              <Button variant="contained" size="medium">
+                Създай кампания
+              </Button>
+            </Link>
           </Tabs>
         </Box>
         <DonationTab value={value} index={0}></DonationTab>
