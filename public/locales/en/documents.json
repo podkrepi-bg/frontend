@@ -9,12 +9,8 @@
     "filetype": "File type",
     "description": "Description",
     "sourceUrl": "Source url",
-    "deleteTitle": "Are you sure?",
-    "deleteContent": "This action will delete this item permanently!",
-    "deleteAllContent": "This action will delete selected items permanently!",
     "actions": "Actions",
     "alerts": {
-        "selectRow": "Please choose a row",
         "create": "Document has been created successfully!",
         "edit": "Document has been edited successfully!",
         "delete": "Document has been deleted successfully!",
