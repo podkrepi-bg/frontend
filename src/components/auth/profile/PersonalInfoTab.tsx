@@ -9,7 +9,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 500,
+  width: 600,
   bgcolor: '#EEEEEE',
   boxShadow: 24,
   p: 4,
@@ -107,14 +107,20 @@ function PersonalInfoTab(props: any) {
           <Typography variant="h6" component="h2">
             Изтриване на профил
           </Typography>
-          <Typography sx={{ mt: 2 }}>Ние съжаляваме, че ни напущате</Typography>
-          <Typography>Преди да ни напуснете ...</Typography>
+          <Typography>Ние съжаляваме, че ни напущате</Typography>
+          <Typography variant="h4" sx={{ fontSize: '24px', mb: 0 }}>
+            Преди да ни напуснете ...
+          </Typography>
+          <hr></hr>
           <ul style={{ listStyle: 'disc' }}>
-            <li>Ако ви е писнало от емейли, деактивирайте ги от тук.</li>
-            <li>Ако .........................., моля пишете тук.</li>
+            <li>
+              Ако ви е писнало от емейли, деактивирайте ги от <Link href="#">тук</Link>.
+            </li>
+            <li>
+              Ако .........................., моля пишете <Link href="#">тук</Link>.
+            </li>
             <li>Изтриването на акаунт е окончателно.</li>
-            <li>Няма да има начин да възстановите акаунта</li>
-            си.
+            <li>Няма да има начин да възстановите акаунта си.</li>
           </ul>
           <Button
             variant="contained"
