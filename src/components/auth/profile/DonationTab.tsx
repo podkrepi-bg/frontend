@@ -36,7 +36,7 @@ function DonationTab(props: any) {
 
   return (
     <Tab value={value} index={index}>
-      <h2>Абонамент месечни дарения</h2>
+      <h3 className={classes.h3}>Абонамент месечни дарения</h3>
       <Box sx={{ display: 'flex' }}>
         <Box className={classes.allDonatesBox}>
           <h3 style={{ fontSize: '16px', margin: 0 }}>Дарения</h3>
@@ -66,7 +66,7 @@ function DonationTab(props: any) {
           </Button>
         </Box>
       </Box>
-      <h2>История на даренията</h2>
+      <h3 className={classes.h3}>История на даренията</h3>
       <Box
         sx={{
           backgroundColor: '#EEEEEE',
