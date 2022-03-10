@@ -12,6 +12,7 @@ export default function DocumentsPage() {
   return (
     <AdminLayout>
       <AdminContainer title={t('documents:documents')}>
+        {/* <DocumentsBottomAppBar></DocumentsBottomAppBar> */}
         <GridAppbar />
         <Grid />
       </AdminContainer>

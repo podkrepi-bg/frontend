@@ -1,0 +1,33 @@
+{
+  "all": "All beneficiaries",
+  "grid": {
+    "id": "ID",
+    "individual": "Person",
+    "company": "Company",
+    "coordinator": "Coordinator",
+    "countryCode": "Country code",
+    "not-person": "Not a person",
+    "not-company": "Not a company",
+    "city": "City",
+    "coordinatorRelation": "Coordinator relation",
+    "type": "Beneficiary type",
+    "description": "Description",
+    "campaigns-count": "Campaigns count"
+  },
+  "cta": {
+    "details": "Beneficiary details",
+    "submit": "Submit",
+    "cancel": "Cancel"
+  },
+  "forms": {
+    "add-heading": "Add beneficiary",
+    "edit-heading": "Edit beneficiary",
+    "labels": {
+      "type": {
+        "individual": "Person",
+        "company": "Company"
+      }
+    }
+  },
+  "actions": "Actions"
+}
