@@ -3,7 +3,7 @@ import { useSession } from 'common/util/useSession'
 import Tab from './Tab'
 import EditIcon from '@mui/icons-material/Edit'
 import { useState } from 'react'
-import { makeStyles, useTheme } from '@mui/styles'
+import { makeStyles } from '@mui/styles'
 
 const useStyles = makeStyles({
   modal: {
@@ -26,7 +26,6 @@ const useStyles = makeStyles({
     fontWeight: 400,
     fontSize: '24px',
     lineHeight: '123.5%',
-    /* identical to box height, or 30px */
     letterSpacing: '0.25px',
     color: '#000000',
   },
@@ -42,7 +41,7 @@ function PersonalInfoTab(props: any) {
     <>
       <Tab value={value} index={index}>
         <h1>Лична информация</h1>
-        <h2 className={classes.heading}>Login информация</h2>
+        <h2 className={classes.heading}>Login информация:</h2>
         <Box sx={{ display: 'flex' }}>
           <Box
             sx={{
@@ -72,7 +71,7 @@ function PersonalInfoTab(props: any) {
           </Box>
         </Box>
         <hr></hr>
-        <h2 className={classes.heading}>Лична информация</h2>
+        <h2 className={classes.heading}>Лична информация:</h2>
         <Box sx={{ display: 'flex' }}>
           <Box
             sx={{
