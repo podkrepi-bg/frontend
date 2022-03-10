@@ -170,3 +170,20 @@ export const useCreateBootcampSimeon = () => {
     )
   }
 }
+
+export const useEditBootcampSimeon = () => {
+  return async (id: string, data: BootcampSimeonInput) => {
+    return await apiClient.patch<BootcampSimeonResponse, AxiosResponse<BootcampSimeonResponse>>(
+      endpoints.bootcampSimeon.edit(id).url,
+      data,
+    )
+  }
+}
+
+export const useDeleteBootcampSimeon = () => {
+  return async (id: string) => {
+    await apiClient.delete<string, AxiosResponse<BootcampSimeonResponse>>(
+      endpoints.bootcampSimeon.delete(id).url,
+    )
+  }
+}
