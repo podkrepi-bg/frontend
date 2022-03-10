@@ -4,6 +4,10 @@
             "title": "Are you sure?",
             "content": "This action will delete record:"
         },
+        "delete-all": {
+            "title": "Are you sure?",
+            "content": "This action will delete all selected records"
+        },
         "cta": {
             "confirm": "Confirm",
             "cancel": "Cancel"
