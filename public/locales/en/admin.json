@@ -1,4 +1,14 @@
 {
+    "modals": {
+        "delete": {
+            "title": "Are you sure?",
+            "content": "This action will delete record:"
+        },
+        "cta": {
+            "confirm": "Confirm",
+            "cancel": "Cancel"
+        }
+    },
     "grid-actions": {
         "view": "View",
         "edit": "Edit",
