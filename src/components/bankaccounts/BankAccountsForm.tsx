@@ -1,21 +1,25 @@
+import React from 'react'
+import { useRouter } from 'next/router'
+import { useMutation } from 'react-query'
+import { useTranslation } from 'next-i18next'
+import * as yup from 'yup'
 import createStyles from '@mui/styles/createStyles'
-import GenericForm from 'components/common/form/GenericForm'
-import SubmitButton from 'components/common/form/SubmitButton'
-import FormTextField from 'components/common/form/FormTextField'
 import { AxiosError, AxiosResponse } from 'axios'
 import { Grid, Typography } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
-import { useRouter } from 'next/router'
-import React from 'react'
-import * as yup from 'yup'
-import { useMutation } from 'react-query'
-import { useTranslation } from 'next-i18next'
+
+import LinkButton from 'components/common/LinkButton'
+import GenericForm from 'components/common/form/GenericForm'
+import SubmitButton from 'components/common/form/SubmitButton'
+import FormTextField from 'components/common/form/FormTextField'
 import { BankAccountResponse, BankAccountInput, BankAccountsData } from 'gql/bankaccounts'
-import { AccountHolderType, BankAccountStatus } from './BankAccountTypes'
+
 import { useCreateBankAccount } from 'service/restRequests'
 import { AlertStore } from 'stores/AlertStore'
 import { ApiErrors } from 'service/apiErrors'
 import { routes } from 'common/routes'
+
+import { AccountHolderType, BankAccountStatus } from './BankAccountTypes'
 
 export const validationSchemaBankAccForm: yup.SchemaOf<BankAccountsData> = yup
   .object()
@@ -112,8 +116,17 @@ export default function BankAccountsForm() {
           <Grid item xs={12}>
             <FormTextField type="text" name="fingerprint" label="bankaccounts:fingerprint" />
           </Grid>
-          <Grid item xs={12}>
-            <SubmitButton fullWidth label="bankaccounts:cta.submit" loading={mutation.isLoading} />
+          <Grid item xs={6}>
+            <SubmitButton fullWidth label="admin:cta.submit" loading={mutation.isLoading} />
+          </Grid>
+          <Grid item xs={6}>
+            <LinkButton
+              fullWidth
+              variant="contained"
+              color="primary"
+              href={routes.admin.bankaccounts.index}>
+              {t('admin:cta.cancel')}
+            </LinkButton>
           </Grid>
         </Grid>
       </GenericForm>

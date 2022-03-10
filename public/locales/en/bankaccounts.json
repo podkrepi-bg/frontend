@@ -24,7 +24,6 @@
     "add": "Add",
     "delete": "Delete",
     "deleteSelected": "Delete selected rows",
-    "edit": "Edit",
-    "submit": "Submit"
+    "edit": "Edit"
   }
 }
