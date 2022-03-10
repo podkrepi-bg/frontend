@@ -64,12 +64,6 @@ export default function ProfilePage() {
         <CertificatesTab value={value} index={2}></CertificatesTab>
         <DonationAgreementTab value={value} index={3}></DonationAgreementTab>
       </Box>
-
-      <Box textAlign="center">
-        <LinkButton variant="contained" href={routes.logout}>
-          {t('nav.logout')}
-        </LinkButton>
-      </Box>
     </Layout>
   )
 }
