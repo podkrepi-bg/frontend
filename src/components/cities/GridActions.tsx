@@ -18,7 +18,7 @@ type Props = {
       postalCode: string
     }>
   >
-  cellValues: GridRenderCellParams<any, any, any>
+  cellValues: GridRenderCellParams
 }
 
 export default function GridActions({ id, setSelectedId, setDetails, cellValues }: Props) {
