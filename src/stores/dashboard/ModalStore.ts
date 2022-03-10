@@ -11,7 +11,6 @@ class ModalStoreImpl {
   isDetailsOpen = false
   isDeleteOpen = false
   isDeleteAllOpen = false
-  isSelected = false
   selectedRecord: Record = {
     id: '',
     name: '',
@@ -23,13 +22,10 @@ class ModalStoreImpl {
       isDetailsOpen: observable,
       isDeleteOpen: observable,
       isDeleteAllOpen: observable,
-      isSelected: observable,
       selectedRecord: observable,
       selectedIdsToDelete: observable,
       setSelectedRecord: action,
       setSelectedIdsToDelete: action,
-      selectedPositive: action,
-      selectedNegative: action,
       showDetails: action,
       hideDetails: action,
       showDelete: action,
@@ -37,14 +33,6 @@ class ModalStoreImpl {
       showDeleteAll: action,
       hideDeleteAll: action,
     })
-  }
-
-  selectedPositive = () => {
-    this.isSelected = true
-  }
-
-  selectedNegative = () => {
-    this.isSelected = false
   }
 
   showDetails = () => {
