@@ -10,7 +10,7 @@
         }
     },
     "cta": {
-        "confirm": "Confirm",
+        "submit": "Confirm",
         "cancel": "Cancel",
         "view": "View",
         "edit": "Edit",
