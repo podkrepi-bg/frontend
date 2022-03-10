@@ -78,6 +78,15 @@ export const endpoints = {
     removeBeneficiary: (id: string) => <Endpoint>{ url: '/beneficiary/' + id, method: 'DELETE' },
     removeMany: <Endpoint>{ url: '/beneficiary/delete-many', method: 'POST' },
   },
+  campaignTypes: {
+    listCampaignTypes: <Endpoint>{ url: '/campaign-types/', method: 'GET' },
+    viewCampaignType: (id: string) => <Endpoint>{ url: '/campaign-types/' + id, method: 'GET' },
+    createCampaignType: <Endpoint>{ url: '/campaign-types', method: 'POST' },
+    editCampaignType: (id: string) => <Endpoint>{ url: '/campaign-types/' + id, method: 'PUT' },
+    removeCampaignType: (id: string) =>
+      <Endpoint>{ url: '/campaign-types/' + id, method: 'DELETE' },
+    removeMany: <Endpoint>{ url: '/campaign-types/delete-many', method: 'POST' },
+  },
   person: {
     list: <Endpoint>{ url: '/person', method: 'GET' },
     createBeneficiary: <Endpoint>{ url: '/beneficiary/create-beneficiary', method: 'POST' },

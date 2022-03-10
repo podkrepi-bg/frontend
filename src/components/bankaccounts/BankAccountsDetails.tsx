@@ -41,9 +41,9 @@ export default observer(function BankAccountDetails() {
           Bank: {data?.bankName}
         </Typography>
         <Typography variant="body2" gutterBottom>
-          Bank ID: {data?.bankIdCode}
+          BIC/SWIFT: {data?.bankIdCode}
         </Typography>
-        <Typography variant="body2">Fingerprint: {data?.fingerprint}</Typography>
+        <Typography variant="body2">E-Sign: {data?.fingerprint}</Typography>
       </CardContent>
     </Card>
   )

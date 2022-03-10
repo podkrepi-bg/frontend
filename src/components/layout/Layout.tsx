@@ -68,6 +68,7 @@ export default function Layout({
   const navMenuToggle = () => setMobileOpen(!mobileOpen)
   const suffix = t('meta.title')
   const metaTitle = useMemo(() => (title ? `${title} | ${suffix}` : suffix), [title, suffix])
+
   return (
     <Container maxWidth={false} disableGutters>
       <Container className={classes.layout} maxWidth={maxWidth} {...containerProps}>
@@ -83,7 +84,7 @@ export default function Layout({
           <AppNavBarWithNoSSR navMenuToggle={navMenuToggle} />
           <MobileNav mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
           {!disableOffset && <div className={classes.offset} />}
-          {title && (
+          {title && !disableOffset && (
             <Typography
               paragraph
               variant="h2"
