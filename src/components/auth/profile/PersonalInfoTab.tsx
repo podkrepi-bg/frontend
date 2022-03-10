@@ -35,6 +35,14 @@ const useStyles = makeStyles({
   notAvaible: {
     color: '#F22727',
   },
+  graySpan: {
+    fontFamily: 'Lato, sans-serif',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    fontSize: '18px',
+    lineHeight: '133.4%',
+    color: '#909090',
+  },
 })
 
 function PersonalInfoTab(props: any) {
@@ -130,7 +138,7 @@ function PersonalInfoTab(props: any) {
           <Typography variant="h6" component="h2">
             Изтриване на профил
           </Typography>
-          <Typography>Ние съжаляваме, че ни напущате</Typography>
+          <Typography className={classes.graySpan}>Ние съжаляваме, че ни напущате</Typography>
           <Typography className={classes.heading}>Преди да ни напуснете ...</Typography>
           <hr></hr>
           <ul style={{ listStyle: 'disc' }}>
