@@ -12,6 +12,13 @@ const useStyles = makeStyles({
     letterSpacing: '0.25px',
     color: '#000000',
   },
+  h3: {
+    fontFamily: 'Montserrat',
+    fontStyle: 'normal',
+    fontWeight: '500',
+    fontSize: '25px',
+    lineHeight: '116.7%',
+  },
 })
 
 function DonationTab(props: any) {
@@ -82,7 +89,7 @@ function DonationTab(props: any) {
           </Box>
           <span className={classes.thinFont}>възможност за търсене по по дата</span>
         </Box>
-        <h3 style={{ fontSize: '25px' }}>Към момента няма направени дарения</h3>
+        <h3 className={classes.h3}>Към момента няма направени дарения</h3>
       </Box>
     </Tab>
   )
