@@ -8,14 +8,7 @@
     "btns": {
         "add": "Add",
         "save": "Save",
-        "confirm": "Confirm",
-        "cancel": "Cancel",
         "close": "Close"
-    },
-    "alert": {
-        "delete-row": {
-            "question": "Are you sure?"
-        }
     },
     "create": {
         "heading": "Add new cordinator",
