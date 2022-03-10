@@ -11,7 +11,7 @@ const useStyles = makeStyles({
   },
 })
 
-export default observer(function InfoDialog() {
+export default observer(function DetailsModal() {
   const { isDetailsOpen, hideDetails, selectedRecord } = ModalStore
   const { t } = useTranslation('coordinator')
   const classes = useStyles()
