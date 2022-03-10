@@ -15,6 +15,7 @@ import GenericForm from 'components/common/form/GenericForm'
 import { useViewBankAccount } from 'common/hooks/bankaccounts'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
+import LinkButton from 'components/common/LinkButton'
 import { BankAccountInput, BankAccountResponse } from 'gql/bankaccounts'
 
 import { validationSchemaBankAccForm } from './BankAccountsForm'
@@ -106,8 +107,17 @@ export default function BankAccountsEditForm({ id }: Props) {
           <Grid item xs={12}>
             <FormTextField type="text" name="fingerprint" label="bankaccounts:fingerprint" />
           </Grid>
-          <Grid item xs={12}>
-            <SubmitButton fullWidth label="campaigns:cta.submit" loading={mutation.isLoading} />
+          <Grid item xs={6}>
+            <SubmitButton fullWidth label="admin:cta.submit" loading={mutation.isLoading} />
+          </Grid>
+          <Grid item xs={6}>
+            <LinkButton
+              fullWidth
+              variant="contained"
+              color="primary"
+              href={routes.admin.bankaccounts.index}>
+              {t('admin:cta.cancel')}
+            </LinkButton>
           </Grid>
         </Grid>
       </GenericForm>
