@@ -1,0 +1,23 @@
+{
+  "all": "All campaign types",
+  "grid": {
+    "name": "Name",
+    "category": "Category",
+    "description": "Description",
+    "no-parent":"No category",
+    "no-description": "No description"
+  },
+  "cta": {
+    "details": "Campaign type details",
+    "submit": "Add/Edit",
+    "cancel": "Cancel",
+    "delete": "Remove"
+  },
+  "forms": {
+    "add-heading": "Add campaign type",
+    "edit-heading": "Edit campaign type"
+  },
+  "actions": "Action",
+  "deleteContent": "Are you sure you want to delete this campaign type/s?",
+  "deleteTitle": "Removing records"
+}

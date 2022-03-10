@@ -65,7 +65,7 @@ export function useRemoveManyBeneficiaries(idsToDelete: string[]) {
   return async () => {
     return await apiClient.post<DeleteMany, AxiosResponse<BeneficiaryType[]>>(
       endpoints.beneficiary.removeMany.url,
-      idsToDelete,
+      { ids: idsToDelete },
       authConfig(keycloak?.token),
     )
   }

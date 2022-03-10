@@ -12,20 +12,14 @@ import {
   GridSelectionModel,
 } from '@mui/x-data-grid'
 
-import { BeneficiaryType } from '../../../gql/beneficiary'
-import { useBeneficiariesList } from 'service/beneficiary'
-import { useViewPerson } from 'service/person'
-import { useViewCompany } from 'service/company'
-import { ModalStore } from 'stores/beneficiaries/ModalStore'
+import { CampaignTypesResponse } from 'gql/campaign-types'
+import { useCampaignTypesList } from 'service/campaignTypes'
+import { ModalStore } from 'stores/campaign-types/ModalStore'
 
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 import DeleteAllModal from './DeleteAllModal'
 import GridActions from './GridActions'
-
-interface PersonCellProps {
-  params: GridRenderCellParams
-}
 
 export default observer(function Grid() {
   const [selectedId, setSelectedId] = useState<string>('')
@@ -34,60 +28,26 @@ export default observer(function Grid() {
   const { t } = useTranslation()
   const { selectedPositive, selectedNegative } = ModalStore
 
-  const { data }: UseQueryResult<BeneficiaryType[]> = useBeneficiariesList()
-
-  const RenderCompanyCell = ({ params }: PersonCellProps) => {
-    const company = useViewCompany(params.row.companyId)
-    return <>{company.data?.companyName || t('beneficiary:grid:not-company')}</>
-  }
-
-  const RenderPersonCell = ({ params }: PersonCellProps) => {
-    const person = useViewPerson(params.row.personId)
-    return (
-      <>
-        {person.data?.firstName + ' ' + person.data?.lastName || t('beneficiary:grid:not-person')}
-      </>
-    )
-  }
-
-  const renderBeneficiaryTypeCell = (params: GridRenderCellParams) => {
-    if (params.row.type == 'company') return t('beneficiary:grid:company')
-    return t('beneficiary:grid:individual')
-  }
+  const { data }: UseQueryResult<CampaignTypesResponse[]> = useCampaignTypesList()
 
   const commonProps: Partial<GridColDef> = {
     align: 'left',
     width: 250,
     headerAlign: 'left',
   }
+
   const columns: GridColumns = [
     {
-      field: 'is-person',
-      headerName: t('beneficiary:grid:type'),
+      field: t('campaign-types:grid:name'),
       ...commonProps,
-      renderCell: renderBeneficiaryTypeCell,
-    },
-    {
-      field: 'person',
-      headerName: t('beneficiary:grid:individual'),
-      ...commonProps,
-      renderCell: (params: GridRenderCellParams) => {
-        return <RenderPersonCell params={params}></RenderPersonCell>
+      renderCell: (cellValues: GridRenderCellParams) => {
+        return cellValues.row.name
       },
     },
     {
-      field: 'company',
-      headerName: t('beneficiary:grid:company'),
-      ...commonProps,
-      renderCell: (params: GridRenderCellParams) => {
-        return <RenderCompanyCell params={params}></RenderCompanyCell>
-      },
-    },
-    {
-      field: t('beneficiary:actions'),
-      width: 450,
+      field: t('campaign-types:actions'),
+      width: 200,
       sortable: false,
-      align: 'left',
       renderCell: (cellValues: GridRenderCellParams) => {
         return <GridActions id={cellValues.row.id} setSelectedId={setSelectedId} />
       },
