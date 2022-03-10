@@ -3,7 +3,6 @@ import { useRouter } from 'next/router'
 import { useMutation } from 'react-query'
 import { observer } from 'mobx-react'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Dialog, Card, CardContent, Box, Button, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import { BankAccountResponse } from 'gql/bankaccounts'
@@ -12,10 +11,11 @@ import { useDeleteBankAccount } from 'service/restRequests'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 import { routes } from 'common/routes'
+import DeleteDialog from 'components/admin/DeleteDialog'
 
 export default observer(function DeleteModal() {
   const router = useRouter()
-  const { isDeleteOpen, hideDelete, selectedRecord } = ModalStore
+  const { hideDelete, selectedRecord } = ModalStore
   const { t } = useTranslation('bankaccounts')
 
   const mutationFn = useDeleteBankAccount(selectedRecord.id)
@@ -38,24 +38,5 @@ export default observer(function DeleteModal() {
     deleteMutation.mutate(selectedRecord.id)
   }
 
-  return (
-    <Dialog open={isDeleteOpen} onClose={hideDelete}>
-      <Card>
-        <CardContent>
-          <Typography variant="h6" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            {t('deleteTitle')}
-          </Typography>
-          <Typography variant="body1" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            {t('deleteContent')} <b>{selectedRecord.name}</b>
-          </Typography>
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Button color="error" onClick={deleteHandler}>
-              {t('cta.delete')}
-            </Button>
-            <Button onClick={hideDelete}>{t('cta.cancel')}</Button>
-          </Box>
-        </CardContent>
-      </Card>
-    </Dialog>
-  )
+  return <DeleteDialog deleteHandler={deleteHandler} />
 })
