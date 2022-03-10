@@ -1,9 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
 import { DataGrid, GridColumns, GridSelectionModel } from '@mui/x-data-grid'
-import { useMutation } from 'react-query'
-import { AxiosError, AxiosResponse } from 'axios'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { observer } from 'mobx-react'
 import { IconButton, Tooltip, Typography } from '@mui/material'
@@ -11,18 +8,15 @@ import { makeStyles } from '@mui/styles'
 import DeleteIcon from '@mui/icons-material/Delete'
 import AddIcon from '@mui/icons-material/Add'
 
-import { useCountriesList, useCountry } from 'common/hooks/countries'
+import { useCountriesList } from 'common/hooks/countries'
 import { routes } from 'common/routes'
-import { CountryResponse } from 'gql/countries'
-import { ApiErrors } from 'service/apiErrors'
-import { AlertStore } from 'stores/AlertStore'
 import { ModalStore } from 'stores/dashboard/ModalStore'
-import { useDeleteCountry } from 'service/restRequests'
+import { AlertStore } from 'stores/AlertStore'
 
-import InfoDialog from './InfoDialog'
-import DeleteRowDialog from './DeleteRowDialog'
-import DeleteRowsDialog from './DeleteRowsDialog'
-import GridActions from '../admin/GridActions'
+import GridActions from '../../admin/GridActions'
+import DetailsModal from './DetailsModal'
+import DeleteModal from './DeleteModal'
+import DeleteAllModal from './DeleteAllModal'
 
 const useStyles = makeStyles({
   gridWrapper: {
@@ -81,65 +75,23 @@ const useStyles = makeStyles({
 })
 
 export default observer(function CountryGrid() {
-  const [openRowsDel, setOpenRowsDel] = React.useState<boolean>(false)
-  const { isDetailsOpen, hideDetails, isDeleteOpen, hideDelete } = ModalStore
-  const [selected, setSelected] = React.useState({
-    id: '',
-    name: '',
-  })
-  const [selectedManyIds, setSelectedManyIds] = React.useState([''])
-  const { data: country } = useCountry(selected.id)
+  const { showDeleteAll, setSelectedIdsToDelete, selectedIdsToDelete } = ModalStore
   const [pageSize, setPageSize] = React.useState<number>(10)
 
   const { data } = useCountriesList()
-  const classes = useStyles()
-  const router = useRouter()
+
   const { t } = useTranslation('countries')
+  const classes = useStyles()
 
-  const delMutation = useMutation<AxiosResponse<CountryResponse>, AxiosError<ApiErrors>, string>({
-    mutationFn: useDeleteCountry(),
-    onError: () => AlertStore.show(t('alerts.delete-row.error'), 'error'),
-    onSuccess: () => {
-      AlertStore.show(t('alerts.delete-row.success'), 'success')
-    },
-  })
-
-  const openDeleteRowsDialog = () => {
-    if (selectedManyIds.length == 0 || selectedManyIds[0] == '') {
-      return
-    }
-    setOpenRowsDel(true)
-  }
-
-  const closeDeleteRowsDialog = () => {
-    setOpenRowsDel(false)
-  }
-
-  const deleteRow = async () => {
-    try {
-      hideDelete()
-      await delMutation.mutateAsync(selected.id)
-      router.push(routes.admin.countries.index)
-    } catch (err) {
-      console.log(err)
-    }
+  const deleteAllClickHandler = () => {
+    selectedIdsToDelete.length > 0
+      ? showDeleteAll()
+      : AlertStore.show(t('common:alerts.noselected'), 'warning')
   }
 
   const selectMultipleRows = (ids: GridSelectionModel) => {
     const idsToStr = ids.map((id) => id.toString())
-    setSelectedManyIds(idsToStr)
-  }
-
-  const deleteRows = async () => {
-    try {
-      closeDeleteRowsDialog()
-      await Promise.all(selectedManyIds.map((id) => delMutation.mutateAsync(id)))
-      AlertStore.show(t('alerts.delete-rows.success'), 'success')
-      setSelectedManyIds([])
-      router.push(routes.admin.countries.index)
-    } catch (err) {
-      AlertStore.show(t('alerts.delete-rows.error'), 'error')
-    }
+    setSelectedIdsToDelete(idsToStr)
   }
 
   const columns: GridColumns = [
@@ -166,7 +118,6 @@ export default observer(function CountryGrid() {
         <GridActions
           id={p.row.id}
           name={p.row.name}
-          setSelected={setSelected}
           editLink={routes.admin.countries.view(p.row.id)}
         />
       ),
@@ -178,19 +129,9 @@ export default observer(function CountryGrid() {
 
   return (
     <>
-      <InfoDialog open={isDetailsOpen} closeFn={hideDetails} country={country} />
-      <DeleteRowDialog
-        open={isDeleteOpen}
-        closeFn={hideDelete}
-        countryName={selected.name}
-        deleteRow={deleteRow}
-      />
-      <DeleteRowsDialog
-        open={openRowsDel}
-        closeFn={closeDeleteRowsDialog}
-        deleteRows={deleteRows}
-        itemsCount={selectedManyIds.length}
-      />
+      <DetailsModal />
+      <DeleteModal />
+      <DeleteAllModal />
       <div className={classes.gridWrapper}>
         <div className={classes.gridTitleWrapper}>
           <Typography variant="body2" className={classes.gridDescription}>
@@ -198,7 +139,7 @@ export default observer(function CountryGrid() {
           </Typography>
           <section className={classes.gridMainActionsBtns}>
             <Tooltip title={t('tooltips.delete') || ''}>
-              <IconButton onClick={openDeleteRowsDialog} className={classes.gridBtn}>
+              <IconButton onClick={deleteAllClickHandler} className={classes.gridBtn}>
                 <DeleteIcon
                   sx={{
                     fontSize: '1.4rem',
