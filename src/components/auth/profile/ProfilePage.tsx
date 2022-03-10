@@ -46,11 +46,17 @@ export default function ProfilePage() {
             <Tab label="Лична информация" />
             <Tab label="Сертификати" />
             <Tab label="Договор дарение" />
-            <Link href={routes.campaigns.create} passHref>
-              <Button variant="contained" size="medium">
-                Създай кампания
-              </Button>
-            </Link>
+            <Box
+              sx={{
+                position: 'absolute',
+                right: '0px',
+              }}>
+              <Link href={routes.campaigns.create} passHref>
+                <Button variant="contained" size="medium">
+                  Създай кампания
+                </Button>
+              </Link>
+            </Box>
           </Tabs>
         </Box>
         <DonationTab value={value} index={0}></DonationTab>
