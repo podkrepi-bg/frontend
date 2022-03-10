@@ -32,7 +32,7 @@ export default observer(function GridAppbar() {
   function deleteAllClickHandler() {
     selectedIdsToDelete.length > 0
       ? showDeleteAll()
-      : AlertStore.show(t('documents:alerts:selectRow'), 'warning')
+      : AlertStore.show(t('common:alerts.noselected'), 'warning')
   }
 
   return (
