@@ -31,11 +31,13 @@ const iconStyles = {
   mr: 1,
 }
 export default observer(function BottomAppBar() {
-  const { showDeleteAll, isSelected } = ModalStore
+  const { showDeleteAll, selectedIdsToDelete } = ModalStore
   const { t } = useTranslation()
   const router = useRouter()
   const deleteHandler = () => {
-    isSelected ? showDeleteAll() : AlertStore.show(t('common:alerts.noselected'), 'info')
+    selectedIdsToDelete.length > 0
+      ? showDeleteAll()
+      : AlertStore.show(t('common:alerts.noselected'), 'info')
   }
   return (
     <Toolbar

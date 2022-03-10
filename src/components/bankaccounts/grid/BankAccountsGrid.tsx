@@ -21,7 +21,7 @@ export default observer(function BankAccountsGrid() {
 
   const { data }: UseQueryResult<BankAccountResponse[]> = useBankAccountsList()
 
-  const { selectedPositive, selectedNegative, setSelectedIdsToDelete } = ModalStore
+  const { setSelectedIdsToDelete } = ModalStore
 
   const columns: GridColumns = [
     { ...commonProps, headerName: t('status'), field: 'status' },
@@ -81,7 +81,6 @@ export default observer(function BankAccountsGrid() {
         disableSelectionOnClick
         checkboxSelection
         onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
-          newSelectionModel.length !== 0 ? selectedPositive() : selectedNegative()
           setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
         }}
       />

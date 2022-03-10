@@ -26,7 +26,6 @@ export default observer(function Grid() {
 
   const [pageSize, setPageSize] = useState(5)
   const { t } = useTranslation()
-  const { selectedPositive, selectedNegative } = ModalStore
 
   const { data }: UseQueryResult<DocumentResponse[]> = useDocumentsList()
 
@@ -111,7 +110,6 @@ export default observer(function Grid() {
           disableSelectionOnClick
           checkboxSelection
           onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
-            newSelectionModel.length !== 0 ? selectedPositive() : selectedNegative()
             setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
           }}
         />
