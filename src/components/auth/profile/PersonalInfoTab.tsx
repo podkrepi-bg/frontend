@@ -29,6 +29,12 @@ const useStyles = makeStyles({
     letterSpacing: '0.25px',
     color: '#000000',
   },
+  bold: {
+    fontWeight: 'bold',
+  },
+  notAvaible: {
+    color: '#F22727',
+  },
 })
 
 function PersonalInfoTab(props: any) {
@@ -50,7 +56,7 @@ function PersonalInfoTab(props: any) {
               flexBasis: '50%',
               marginRight: '20px',
             }}>
-            <p>еmail адрес:</p>
+            <p className={classes.bold}>еmail адрес:</p>
             <p>{session?.email}</p>
           </Box>
           <Box
@@ -60,7 +66,7 @@ function PersonalInfoTab(props: any) {
               flexBasis: '50%',
               position: 'relative',
             }}>
-            <p>парола:</p>
+            <p className={classes.bold}>парола:</p>
             <p>***********</p>
             <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
               <Link href="#">
@@ -81,7 +87,7 @@ function PersonalInfoTab(props: any) {
               marginRight: '20px',
               position: 'relative',
             }}>
-            <p>Име:</p>
+            <p className={classes.bold}>Име:</p>
             <p>{session?.name}</p>
             <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
               <Link href="#">
@@ -97,8 +103,8 @@ function PersonalInfoTab(props: any) {
               flexBasis: '50%',
               position: 'relative',
             }}>
-            <p>рожден ден:</p>
-            <p>не е наличен</p>
+            <p className={classes.bold}>рожден ден:</p>
+            <p className={classes.notAvaible}>не е наличен</p>
             <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
               <Link href="#">
                 <EditIcon className={classes.editIcon}></EditIcon>
@@ -125,9 +131,7 @@ function PersonalInfoTab(props: any) {
             Изтриване на профил
           </Typography>
           <Typography>Ние съжаляваме, че ни напущате</Typography>
-          <Typography variant="h4" sx={{ fontSize: '24px', mb: 0 }}>
-            Преди да ни напуснете ...
-          </Typography>
+          <Typography className={classes.heading}>Преди да ни напуснете ...</Typography>
           <hr></hr>
           <ul style={{ listStyle: 'disc' }}>
             <li>
