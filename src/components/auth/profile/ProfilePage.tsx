@@ -14,21 +14,6 @@ import CertificatesTab from './CertificatesTab'
 import DonationAgreementTab from './DonationAgreementTab'
 import Link from 'next/link'
 
-function TabPanel(props: any) {
-  const { children, value, index, ...other } = props
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}>
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-    </div>
-  )
-}
-
 export default function ProfilePage() {
   const { t } = useTranslation()
   const [value, setValue] = React.useState(0)
