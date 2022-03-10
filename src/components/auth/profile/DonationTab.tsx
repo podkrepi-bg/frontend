@@ -28,6 +28,14 @@ const useStyles = makeStyles({
   donates: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' },
   donateNowBox: { backgroundColor: '#C4C4C4', padding: '10px', position: 'relative' },
   donateNowButton: { position: 'absolute', bottom: '35px' },
+  h5: {
+    fontFamily: 'Lato, sans-serif',
+    fontStyle: 'normal',
+    fontWeight: '600',
+    fontSize: '22px',
+    lineHeight: '133.4%',
+    color: '#000000',
+  },
 })
 
 function DonationTab(props: any) {
@@ -55,8 +63,8 @@ function DonationTab(props: any) {
           <hr></hr>
         </Box>
         <Box className={classes.donateNowBox}>
-          <h2>Бъди промяната</h2>
-          <h3>помогни на хора в нужда</h3>
+          <h3 className={classes.h3}>Бъди промяната</h3>
+          <h5 className={classes.h5}>помогни на хора в нужда</h5>
           <Button
             variant="contained"
             size="medium"
