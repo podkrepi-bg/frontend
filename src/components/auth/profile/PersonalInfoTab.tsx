@@ -65,8 +65,8 @@ function PersonalInfoTab(props: any) {
             <p>***********</p>
             <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
               <Link href="#">
-                <EditIcon className="editIcon"></EditIcon>
-                <span className="editSpan">Редактирай</span>
+                <EditIcon className={classes.editIcon}></EditIcon>
+                <span className={classes.editSpan}>Редактирай</span>
               </Link>
             </Box>
           </Box>
@@ -86,8 +86,8 @@ function PersonalInfoTab(props: any) {
             <p>{session?.name}</p>
             <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
               <Link href="#">
-                <EditIcon className="editIcon"></EditIcon>
-                <span className="editSpan">Редактирай</span>
+                <EditIcon className={classes.editIcon}></EditIcon>
+                <span className={classes.editSpan}>Редактирай</span>
               </Link>
             </Box>
           </Box>
@@ -102,8 +102,8 @@ function PersonalInfoTab(props: any) {
             <p>не е наличен</p>
             <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
               <Link href="#">
-                <EditIcon className="editIcon"></EditIcon>
-                <span className="editSpan">Редактирай</span>
+                <EditIcon className={classes.editIcon}></EditIcon>
+                <span className={classes.editSpan}>Редактирай</span>
               </Link>
             </Box>
           </Box>
@@ -111,7 +111,7 @@ function PersonalInfoTab(props: any) {
         <hr></hr>
         <Link
           href="#"
-          className="deleteAccountButton"
+          className={classes.deleteAccountButton}
           onClick={() => setIsDeleteAccountModalOpen(true)}>
           изтриване на акаунт/ профил
         </Link>
