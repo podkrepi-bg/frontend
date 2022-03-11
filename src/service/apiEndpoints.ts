@@ -98,4 +98,7 @@ export const endpoints = {
     list: <Endpoint>{ url: '/company/list', method: 'GET' },
     viewCompany: (slug: string) => <Endpoint>{ url: '/company/' + slug, method: 'GET' },
   },
+  account: {
+    donations: <Endpoint>{ url: 'account/donations', method: 'GET' },
+  },
 }
