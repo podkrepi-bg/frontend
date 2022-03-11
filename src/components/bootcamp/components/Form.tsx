@@ -24,9 +24,9 @@ const validationSchema: yup.SchemaOf<BootcampInput> = yup
   .defined()
   .shape({
     status: yup.string().required('A radio option is required'),
-    title: yup.string().required(),
+    title: yup.string().max(100).required(),
     email: yup.string().email().required(),
-    message: yup.string().required(),
+    message: yup.string().max(250).required(),
     date: yup.string().required(),
     firstName: yup.string().notRequired(),
     lastName: yup.string().notRequired(),

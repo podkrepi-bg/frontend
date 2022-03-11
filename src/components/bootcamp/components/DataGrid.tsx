@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { DataGrid, GridColumns } from '@mui/x-data-grid'
+import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 import { Bootcamp, deleteTask, useTasksList } from '../survices/bootcampSurvices'
 import { ButtonGroup } from '@mui/material'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
@@ -8,9 +8,11 @@ import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import DeleteModal from './DeleteModal'
-import { useMutation } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import { AlertStore } from 'stores/AlertStore'
 import InfoModal from './InfoModal'
+import { endpoints } from '../survices/requester'
+import { GridCellExpand } from './GridCellExpand'
 
 type Props = {
   setIds: (id: []) => void
@@ -26,21 +28,28 @@ export default function BootcampGrid({ setIds }: Props) {
   const closeModal = () => setOpenClose(false)
   const openModal = () => setOpenClose(true)
   const closeInfo = () => setOpenCloseInfo(false)
+  const queryClient = useQueryClient()
 
   const mutationDell = useMutation({
     mutationFn: deleteTask,
     onError: () => AlertStore.show(t('bootcamp:alerts.delete-row.error'), 'error'),
-    onSuccess: () => AlertStore.show(t('bootcamp:alerts.delete-row.success'), 'success'),
+    onSuccess: () => {
+      closeModal()
+      AlertStore.show(t('bootcamp:alerts.delete-row.success'), 'success')
+      queryClient.invalidateQueries(endpoints.bootcamp.allTasks.url)
+    },
   })
 
   const handleDelete = async () => {
     try {
       await mutationDell.mutateAsync(id)
-      closeModal()
-      router.push('/bootcamp')
     } catch (error) {
       AlertStore.show(t('common:alert.error'), 'error')
     }
+  }
+
+  function renderCellExpand(params: GridRenderCellParams<string>) {
+    return <GridCellExpand value={params.value || ''} width={params.colDef.computedWidth} />
   }
 
   const columns: GridColumns = [
@@ -51,6 +60,14 @@ export default function BootcampGrid({ setIds }: Props) {
       flex: 2,
       minWidth: 200,
       align: 'left',
+    },
+    {
+      field: 'title',
+      headerName: t('bootcamp:task.title'),
+      flex: 3,
+      minWidth: 200,
+      align: 'left',
+      renderCell: renderCellExpand,
     },
     {
       field: 'email',
@@ -65,6 +82,7 @@ export default function BootcampGrid({ setIds }: Props) {
       flex: 3,
       minWidth: 200,
       align: 'left',
+      renderCell: renderCellExpand,
     },
     {
       field: 'startDate',

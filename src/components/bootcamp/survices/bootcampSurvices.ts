@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
-import { MutationFunction, QueryFunction, useQuery } from 'react-query'
+import { MutationFunction, useQuery } from 'react-query'
 import { endpoints } from './requester'
 
 export type Bootcamp = {
@@ -33,11 +33,6 @@ export type BootcampEdit = {
   date: string
   firstName?: string
   lastName?: string
-}
-
-export const queryFn: QueryFunction = async function ({ queryKey }) {
-  const response = await axios.get(queryKey.join('/'))
-  return await response.data
 }
 
 export function useTasksList() {

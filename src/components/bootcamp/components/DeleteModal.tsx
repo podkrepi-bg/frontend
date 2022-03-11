@@ -1,22 +1,5 @@
-import { Modal, Box, Typography, Button } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
+import { Box, Typography, Button, Card, CardContent, Dialog } from '@mui/material'
 import { useTranslation } from 'next-i18next'
-
-const useStyles = makeStyles(() => {
-  return {
-    modal: {
-      position: 'absolute',
-      top: '30%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      width: 400,
-      backgroundColor: '#fff',
-      border: '2px solid #000',
-      padding: 16,
-      textAlign: 'center',
-    },
-  }
-})
 
 type Props = {
   open: boolean
@@ -25,28 +8,26 @@ type Props = {
 }
 
 export default function DeleteModal({ open, closeModal, confirmHandler }: Props) {
-  const classes = useStyles()
   const { t } = useTranslation()
 
   return (
-    <Modal open={open} onClose={closeModal}>
-      <Box className={classes.modal}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          {t('bootcamp:alerts.delete-row.question')}
-        </Typography>
-
-        <Button
-          variant="contained"
-          color="error"
-          size="small"
-          sx={{ m: 1 }}
-          onClick={confirmHandler}>
-          {t('bootcamp:btns.confirm')}
-        </Button>
-        <Button variant="contained" size="small" sx={{ m: 1 }} onClick={closeModal}>
-          {t('bootcamp:btns.cancel')}
-        </Button>
-      </Box>
-    </Modal>
+    <Dialog open={open} onClose={closeModal} sx={{ top: '-35%' }}>
+      <Card>
+        <CardContent>
+          <Typography variant="h6" sx={{ marginBottom: '16px', textAlign: 'center' }}>
+            {t('bootcamp:alerts.delete-row.question')}
+          </Typography>
+          <Typography variant="body1" sx={{ marginBottom: '16px', textAlign: 'center' }}>
+            {t('bootcamp:titles.delete-content')}
+          </Typography>
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Button color="error" onClick={confirmHandler}>
+              {t('bootcamp:btns.confirm')}
+            </Button>
+            <Button onClick={closeModal}>{t('bootcamp:btns.cancel')}</Button>
+          </Box>
+        </CardContent>
+      </Card>
+    </Dialog>
   )
 }
