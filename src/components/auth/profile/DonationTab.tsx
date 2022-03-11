@@ -2,6 +2,22 @@ import { Box, Checkbox, Button } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { useUserDonations } from 'common/hooks/donations'
 import Tab from './Tab'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import Paper from '@mui/material/Paper'
+
+function formatDate(dateString: string) {
+  const date = new Date(dateString)
+  const day = date.getDate()
+  const month = date.getMonth().toString().padStart(2, '0')
+  const year = date.getFullYear()
+
+  return `${day}.${month}.${year}`
+}
 
 const useStyles = makeStyles({
   thinFont: {
@@ -43,8 +59,6 @@ function DonationTab(props: { value: number; index: number }) {
   const { value, index } = props
   const classes = useStyles()
   const { data = [] } = useUserDonations()
-
-  console.log(data)
 
   return (
     <Tab value={value} index={index}>
@@ -105,6 +119,36 @@ function DonationTab(props: { value: number; index: number }) {
           <span className={classes.thinFont}>възможност за търсене по по дата</span>
         </Box>
         <h3 className={classes.h3}>Към момента няма направени дарения</h3>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>№</TableCell>
+                <TableCell>Дата</TableCell>
+                <TableCell>Кауза</TableCell>
+                <TableCell>стойност</TableCell>
+                <TableCell>сертификат</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data.map((donation, index) => (
+                <TableRow
+                  key={donation.targetVault.campaign.title}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                  <TableCell component="th" scope="row">
+                    {index + 1}
+                  </TableCell>
+                  <TableCell>{formatDate(donation.createdAt)}</TableCell>
+                  <TableCell>{donation.targetVault.campaign.title}</TableCell>
+                  <TableCell>
+                    {donation.amount} {donation.currency}
+                  </TableCell>
+                  <TableCell>заяви</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Box>
     </Tab>
   )
