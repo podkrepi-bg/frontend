@@ -8,6 +8,10 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     campaignSlider: {
       margin: theme.spacing(3, 0),
+
+      '& .bear-react-carousel__pagination-group': {
+        top: '100%',
+      },
     },
   }),
 )
@@ -30,15 +34,16 @@ const bearSlideItemData: TBearSlideItemDataList = images.map((row) => {
 const CampaignSlider = () => {
   const classes = useStyles()
 
-  return (
+  return images.length > 0 ? (
     <BearCarousel
       data={bearSlideItemData}
       slidesPerView={1}
-      isEnableLoop={true}
-      isEnableNavButton={images.length > 1 ? true : false} 
+      isEnableLoop
+      isEnableNavButton={images.length > 1 ? true : false}
       spaceBetween={15}
       autoPlayTime={5000}
-      isEnableAutoPlay={true}
+      isEnableAutoPlay
+      isEnablePagination
       aspectRatio={{ widthRatio: 16, heightRatio: 9 }}
       className={classes.campaignSlider}
       breakpoints={{
@@ -47,7 +52,7 @@ const CampaignSlider = () => {
         },
       }}
     />
-  )
+  ) : null
 }
 
 export default CampaignSlider
