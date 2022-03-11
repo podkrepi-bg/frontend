@@ -6,17 +6,14 @@ import FormTextField from 'components/common/form/FormTextField'
 import CheckboxField from 'components/common/form/CheckboxField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
+import Title from '../helpers/Title'
 
 export default function GeneralInfo() {
   const { t } = useTranslation()
 
   return (
     <Grid container spacing={3} justifyContent="center" direction="column" alignContent="center">
-      <Grid item xs={12}>
-        <Typography variant="h4" align="center" paragraph>
-          {t('support:steps.info.subtitle')}
-        </Typography>
-      </Grid>
+      <Title label="support:steps.info.subtitle"></Title>
       <Grid item xs={12} sm={8}>
         <Grid container spacing={3} justifyContent="center" direction="column">
           <Grid item xs={12}>
