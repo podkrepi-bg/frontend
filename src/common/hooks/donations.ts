@@ -6,7 +6,12 @@ import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
 import { endpoints } from 'service/apiEndpoints'
 import { createCheckoutSession } from 'service/restRequests/donation'
-import { CheckoutSessionInput, CheckoutSessionResponse, DonationPrice } from 'gql/donations'
+import {
+  CheckoutSessionInput,
+  CheckoutSessionResponse,
+  DonationPrice,
+  UserDonation,
+} from 'gql/donations'
 import { useKeycloak } from '@react-keycloak/ssr'
 import { authQueryFnFactory } from 'service/restRequests'
 import { KeycloakInstance } from 'keycloak-js'
@@ -35,7 +40,7 @@ export function useDonationSession() {
 }
 export function useUserDonations() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  return useQuery<unknown[]>(endpoints.account.donations.url, {
+  return useQuery<UserDonation[]>(endpoints.account.donations.url, {
     queryFn: authQueryFnFactory(keycloak?.token),
   })
 }
