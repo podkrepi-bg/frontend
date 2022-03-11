@@ -7,6 +7,9 @@ import { AlertStore } from 'stores/AlertStore'
 import { endpoints } from 'service/apiEndpoints'
 import { createCheckoutSession } from 'service/restRequests/donation'
 import { CheckoutSessionInput, CheckoutSessionResponse, DonationPrice } from 'gql/donations'
+import { useKeycloak } from '@react-keycloak/ssr'
+import { authQueryFnFactory } from 'service/restRequests'
+import { KeycloakInstance } from 'keycloak-js'
 
 export function usePriceList() {
   return useQuery<DonationPrice[]>(endpoints.donation.prices.url)
@@ -29,4 +32,10 @@ export function useDonationSession() {
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
   return mutation
+}
+export function useUserDonations() {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return useQuery<unknown[]>(endpoints.account.donations.url, {
+    queryFn: authQueryFnFactory(keycloak?.token),
+  })
 }
