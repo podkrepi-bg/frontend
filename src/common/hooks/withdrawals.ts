@@ -4,10 +4,11 @@ import { QueryClient, useQuery } from 'react-query'
 
 import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
-import { WithdrawalResponse } from 'gql/withdrawals'
+import { WithdrawalEditResponse, WithdrawalResponse } from 'gql/withdrawals'
 import { BankAccountResponse } from 'gql/bankaccounts'
 import { VaultResponse } from 'gql/vault'
 import { CampaignResponse } from 'gql/campaigns'
+import { PersonResponse } from 'gql/person'
 
 export function useWithdrawalsList() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
@@ -18,6 +19,14 @@ export function useWithdrawalsList() {
 }
 
 export function useWithdrawal(id: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return useQuery<WithdrawalEditResponse>(
+    endpoints.withdrawals.getWithdrawal(id).url,
+    authQueryFnFactory<WithdrawalEditResponse>(keycloak?.token),
+  )
+}
+
+export function useWithdrawalDetailsPage(id: string) {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return useQuery<WithdrawalResponse>(
     endpoints.withdrawals.getWithdrawal(id).url,
@@ -45,6 +54,15 @@ export function useVaultsForWithdrawal() {
     authQueryFnFactory<VaultResponse[]>(keycloak?.token),
   )
   return vaults.data
+}
+
+export const usePersonListForWithdrawal = () => {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const personList = useQuery<PersonResponse[]>(
+    endpoints.person.list.url,
+    authQueryFnFactory<PersonResponse[]>(keycloak?.token),
+  )
+  return personList.data
 }
 
 export async function prefetchWithdrawalsList(client: QueryClient, token?: string) {

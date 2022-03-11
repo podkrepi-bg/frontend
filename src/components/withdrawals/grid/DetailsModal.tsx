@@ -5,7 +5,7 @@ import { Dialog, Card, CardContent, Typography, Divider } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import { WithdrawalResponse } from 'gql/withdrawals'
-import { useWithdrawal } from 'common/hooks/withdrawals'
+import { useWithdrawalDetailsPage } from 'common/hooks/withdrawals'
 import { ModalStore } from 'stores/documents/ModalStore'
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
 }
 
 export default observer(function DetailsModal({ id }: Props) {
-  const { data }: UseQueryResult<WithdrawalResponse> = useWithdrawal(id)
+  const { data }: UseQueryResult<WithdrawalResponse> = useWithdrawalDetailsPage(id)
   const { isDetailsOpen, hideDetails } = ModalStore
   const { t } = useTranslation()
 
@@ -26,7 +26,7 @@ export default observer(function DetailsModal({ id }: Props) {
           </Typography>
           <Divider />
           <Typography variant="body1" sx={{ fontSize: 24, marginTop: '8px' }}>
-            {t('withdrawals:name')}: {data?.status}
+            {t('withdrawals:status')}: {data?.status}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
             {t('withdrawals:currency')}: {data?.currency}
@@ -38,7 +38,8 @@ export default observer(function DetailsModal({ id }: Props) {
             {t('withdrawals:reason')}: {data?.reason}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('withdrawals:approvedBy')}: {data?.approvedBy.firstName + ' ' + data?.approvedBy.lastName}
+            {t('withdrawals:approvedBy')}:{' '}
+            {data?.approvedBy.firstName + ' ' + data?.approvedBy.lastName}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
             {t('withdrawals:bankAccount')}: {data?.bankAccount.accountHolderName}
