@@ -38,7 +38,7 @@ const useStyles = makeStyles({
   },
 })
 
-function DonationTab(props: any) {
+function DonationTab(props: { value: number; index: number }) {
   const { value, index } = props
   const classes = useStyles()
 

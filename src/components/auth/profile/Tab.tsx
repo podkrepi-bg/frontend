@@ -1,6 +1,7 @@
 import { Box } from '@mui/material'
+import { ReactNode } from 'react'
 
-function Tab(props: any) {
+function Tab(props: { value: number; index: number; children: ReactNode }) {
   const { children, value, index, ...other } = props
 
   return (

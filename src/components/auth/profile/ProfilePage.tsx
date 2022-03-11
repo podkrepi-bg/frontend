@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { SyntheticEvent } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Box, Button } from '@mui/material'
 
@@ -18,7 +18,7 @@ export default function ProfilePage() {
   const [value, setValue] = React.useState(0)
   const { keycloak, session } = useSession()
 
-  const handleChange = (_: any, value: number) => {
+  const handleChange = (_: SyntheticEvent, value: number) => {
     setValue(value)
   }
 

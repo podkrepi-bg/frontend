@@ -52,7 +52,7 @@ const useStyles = makeStyles({
   },
 })
 
-function PersonalInfoTab(props: any) {
+function PersonalInfoTab(props: { value: number; index: number }) {
   const { value, index } = props
   const { session } = useSession()
   const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false)
