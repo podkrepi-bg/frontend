@@ -4,7 +4,7 @@ import { Container } from '@mui/material'
 import AdminContainer from 'components/admin/navigation/AdminContainer'
 import AdminLayout from 'components/admin/navigation/AdminLayout'
 
-import Form from './Form'
+import EditForm from 'components/withdrawals/EditForm'
 
 export default function EditPage() {
   const { t } = useTranslation()
@@ -13,7 +13,7 @@ export default function EditPage() {
     <AdminLayout>
       <AdminContainer title={t('withdrawals:withdrawals')}>
         <Container maxWidth="md" sx={{ py: 5 }}>
-          <Form />
+          <EditForm />
         </Container>
       </AdminContainer>
     </AdminLayout>

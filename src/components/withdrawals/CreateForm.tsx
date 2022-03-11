@@ -20,6 +20,7 @@ import { WithdrawalInput, WithdrawalResponse } from 'gql/withdrawals'
 import {
   useBankAccountsForWithdrawal,
   useCampaignsForWithdrawal,
+  usePersonListForWithdrawal,
   useVaultsForWithdrawal,
 } from 'common/hooks/withdrawals'
 import { routes } from 'common/routes'
@@ -29,25 +30,17 @@ import { AlertStore } from 'stores/AlertStore'
 import SubmitButton from 'components/common/form/SubmitButton'
 import { WithdrawalStatus } from './WithdrawalTypes'
 
-// const validationSchema = yup
-//   .object()
-//   .defined()
-//   .shape({
-//     status: yup.string().trim().min(2).max(50).required(),
-//     currency: yup.string().oneOf(validCurrencies).required(),
-//     amount: yup.number().min(1).max(50000000).required(),
-//     reason: yup.string().trim().max(50).required(),
-//   })
-
-export default function EditForm() {
+export default function CreateForm() {
   const router = useRouter()
   const bankAccounts = useBankAccountsForWithdrawal()
   const vaults = useVaultsForWithdrawal()
   const campaigns = useCampaignsForWithdrawal()
+  const personList = usePersonListForWithdrawal()
   const currencies = ['BGN', 'USD', 'EUR']
   const [currency, setCurrency] = useState('')
   const [amount, setAmount] = useState(Number)
   const [reason, setReason] = useState('')
+  const [approvedById, setApprovedById] = useState('')
   const [bankAccountId, setBankAccountId] = useState('')
   const [vaultId, setVaultId] = useState('')
   const [campaignId, setCampaignId] = useState('')
@@ -79,9 +72,31 @@ export default function EditForm() {
       sourceCampaignId: campaignId,
       bankAccountId: bankAccountId,
       documentId: '6061b425-34e6-45bf-b563-a85b933c9339',
-      approvedById: '0a0770d7-f128-44e7-b587-bbe3ad924f71',
+      approvedById: approvedById,
     }
-    mutation.mutate(data)
+
+    if (
+      (data.reason != undefined && data.reason.length < 4) ||
+      (data.reason != undefined && data.reason?.length > 50)
+    ) {
+      AlertStore.show('Причината трябва да бъде между 4 и 50 символа!', 'error')
+    } else if (data.sourceVaultId != undefined && data.sourceVaultId?.length < 1) {
+      AlertStore.show('Моля изберете Трезор!', 'error')
+    } else if (data.sourceCampaignId != undefined && data.sourceCampaignId?.length < 1) {
+      AlertStore.show('Моля изберете Кампания!', 'error')
+    } else if (data.bankAccountId != undefined && data.bankAccountId?.length < 1) {
+      AlertStore.show('Моля изберете Банков акаунт!', 'error')
+    } else if (data.currency != undefined && data.currency?.length < 1) {
+      AlertStore.show('Моля изберете Валута!', 'error')
+    } else if (data.amount != undefined && data.amount < 1) {
+      AlertStore.show('Моля изберете Сума!', 'error')
+    } else if (data.documentId != undefined && data.documentId?.length < 1) {
+      AlertStore.show('Моля изберете Документ!', 'error')
+    } else if (data.approvedById != undefined && data.approvedById?.length < 1) {
+      AlertStore.show('Моля изберете полето "Одобрен от"!', 'error')
+    } else {
+      mutation.mutate(data)
+    }
   }
 
   return (
@@ -91,7 +106,7 @@ export default function EditForm() {
       </Typography>
       <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
         <FormControl fullWidth={true} margin="normal">
-          <FormLabel htmlFor="my-input">Стойност</FormLabel>
+          <FormLabel htmlFor="my-input">Сума</FormLabel>
           <Input
             value={amount}
             onChange={(event) => setAmount(Number(event.target.value))}
@@ -168,6 +183,23 @@ export default function EditForm() {
               return (
                 <MenuItem key={acc.id} value={acc.id}>
                   {acc.name}
+                </MenuItem>
+              )
+            })}
+          </Select>
+        </FormControl>
+        <FormControl fullWidth={true} margin="normal">
+          <FormLabel>Одобрен от</FormLabel>
+          <Select
+            fullWidth
+            id="approvedById"
+            name="approvedById"
+            value={approvedById}
+            onChange={(event) => setApprovedById(event.target.value)}>
+            {personList?.map((acc) => {
+              return (
+                <MenuItem key={acc.id} value={acc.id}>
+                  {acc.firstName} {acc.lastName}
                 </MenuItem>
               )
             })}
