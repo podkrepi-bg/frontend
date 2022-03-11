@@ -1,6 +1,6 @@
 import Tab from './Tab'
 
-function DonationAgreementTab(props: any) {
+function DonationAgreementTab(props: { value: number; index: number }) {
   const { value, index } = props
 
   return (

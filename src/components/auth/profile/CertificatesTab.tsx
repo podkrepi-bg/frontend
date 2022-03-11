@@ -1,6 +1,6 @@
 import Tab from './Tab'
 
-function CertificatesTab(props: any) {
+function CertificatesTab(props: { value: number; index: number }) {
   const { value, index } = props
 
   return (
