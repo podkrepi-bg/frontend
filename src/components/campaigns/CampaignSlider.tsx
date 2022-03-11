@@ -35,9 +35,9 @@ const CampaignSlider = () => {
       data={bearSlideItemData}
       slidesPerView={1}
       isEnableLoop={true}
-      isEnableNavButton
+      isEnableNavButton={images.length > 1 ? true : false} 
       spaceBetween={15}
-      autoPlayTime={2000}
+      autoPlayTime={5000}
       isEnableAutoPlay={true}
       aspectRatio={{ widthRatio: 16, heightRatio: 9 }}
       className={classes.campaignSlider}
