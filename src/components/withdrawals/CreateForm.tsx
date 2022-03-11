@@ -17,25 +17,23 @@ import {
 } from '@mui/material'
 
 import { WithdrawalInput, WithdrawalResponse } from 'gql/withdrawals'
-import {
-  useBankAccountsForWithdrawal,
-  useCampaignsForWithdrawal,
-  usePersonListForWithdrawal,
-  useVaultsForWithdrawal,
-} from 'common/hooks/withdrawals'
 import { routes } from 'common/routes'
 import { ApiErrors } from 'service/apiErrors'
 import { useCreateWithdrawal } from 'service/withdrawal'
 import { AlertStore } from 'stores/AlertStore'
 import SubmitButton from 'components/common/form/SubmitButton'
 import { WithdrawalStatus } from './WithdrawalTypes'
+import { useBankAccountsList } from 'common/hooks/bankaccounts'
+import { useCampaignList } from 'common/hooks/campaigns'
+import { usePersonList } from 'common/hooks/person'
+import { useVaultsList } from 'common/hooks/vaults'
 
 export default function CreateForm() {
   const router = useRouter()
-  const bankAccounts = useBankAccountsForWithdrawal()
-  const vaults = useVaultsForWithdrawal()
-  const campaigns = useCampaignsForWithdrawal()
-  const personList = usePersonListForWithdrawal()
+  const { data: bankAccounts } = useBankAccountsList()
+  const { data: campaigns } = useCampaignList()
+  const { data: personList } = usePersonList()
+  const { data: vaults } = useVaultsList()
   const currencies = ['BGN', 'USD', 'EUR']
   const [currency, setCurrency] = useState('')
   const [amount, setAmount] = useState(Number)

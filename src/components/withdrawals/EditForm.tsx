@@ -31,16 +31,20 @@ import { AlertStore } from 'stores/AlertStore'
 import SubmitButton from 'components/common/form/SubmitButton'
 import { WithdrawalStatus } from './WithdrawalTypes'
 import { endpoints } from 'service/apiEndpoints'
+import { usePersonList } from 'common/hooks/person'
+import { useCampaignList } from 'common/hooks/campaigns'
+import { useVaultsList } from 'common/hooks/vaults'
+import { useBankAccountsList } from 'common/hooks/bankaccounts'
 
 export default function EditForm() {
   const queryClient = useQueryClient()
   const router = useRouter()
   const id = router.query.id
   const { data }: UseQueryResult<WithdrawalEditResponse> = useWithdrawal(String(id))
-  const bankAccounts = useBankAccountsForWithdrawal()
-  const vaults = useVaultsForWithdrawal()
-  const campaigns = useCampaignsForWithdrawal()
-  const personList = usePersonListForWithdrawal()
+  const { data: bankAccounts } = useBankAccountsList()
+  const { data: campaigns } = useCampaignList()
+  const { data: personList } = usePersonList()
+  const { data: vaults } = useVaultsList()
   const currencies = ['BGN', 'USD', 'EUR']
   const [currency, setCurrency] = useState(data?.currency)
   const [amount, setAmount] = useState(data?.amount)
