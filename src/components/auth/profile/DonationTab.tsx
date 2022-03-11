@@ -118,37 +118,40 @@ function DonationTab(props: { value: number; index: number }) {
           </Box>
           <span className={classes.thinFont}>възможност за търсене по по дата</span>
         </Box>
-        <h3 className={classes.h3}>Към момента няма направени дарения</h3>
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>№</TableCell>
-                <TableCell>Дата</TableCell>
-                <TableCell>Кауза</TableCell>
-                <TableCell>стойност</TableCell>
-                <TableCell>сертификат</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data.map((donation, index) => (
-                <TableRow
-                  key={donation.targetVault.campaign.title}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                  <TableCell component="th" scope="row">
-                    {index + 1}
-                  </TableCell>
-                  <TableCell>{formatDate(donation.createdAt)}</TableCell>
-                  <TableCell>{donation.targetVault.campaign.title}</TableCell>
-                  <TableCell>
-                    {donation.amount} {donation.currency}
-                  </TableCell>
-                  <TableCell>заяви</TableCell>
+        {data.length ? (
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>№</TableCell>
+                  <TableCell>Дата</TableCell>
+                  <TableCell>Кауза</TableCell>
+                  <TableCell>стойност</TableCell>
+                  <TableCell>сертификат</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+              <TableBody>
+                {data.map((donation, index) => (
+                  <TableRow
+                    key={donation.targetVault.campaign.title}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                    <TableCell component="th" scope="row">
+                      {index + 1}
+                    </TableCell>
+                    <TableCell>{formatDate(donation.createdAt)}</TableCell>
+                    <TableCell>{donation.targetVault.campaign.title}</TableCell>
+                    <TableCell>
+                      {donation.amount} {donation.currency}
+                    </TableCell>
+                    <TableCell>заяви</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        ) : (
+          <h3 className={classes.h3}>Към момента няма направени дарения</h3>
+        )}
       </Box>
     </Tab>
   )
