@@ -10,7 +10,7 @@ import {
   CheckoutSessionInput,
   CheckoutSessionResponse,
   DonationPrice,
-  UserDonation,
+  UserDonationResult,
 } from 'gql/donations'
 import { useKeycloak } from '@react-keycloak/ssr'
 import { authQueryFnFactory } from 'service/restRequests'
@@ -40,7 +40,7 @@ export function useDonationSession() {
 }
 export function useUserDonations() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  return useQuery<UserDonation[]>(endpoints.account.donations.url, {
+  return useQuery<UserDonationResult>(endpoints.account.donations.url, {
     queryFn: authQueryFnFactory(keycloak?.token),
   })
 }

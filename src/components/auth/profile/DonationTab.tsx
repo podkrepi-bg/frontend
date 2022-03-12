@@ -57,7 +57,7 @@ const useStyles = makeStyles({
 function DonationTab(props: { value: number; index: number }) {
   const { value, index } = props
   const classes = useStyles()
-  const { data = [] } = useUserDonations()
+  const { data = { donations: [], total: 0 } } = useUserDonations()
 
   return (
     <Tab value={value} index={index}>
@@ -75,7 +75,7 @@ function DonationTab(props: { value: number; index: number }) {
 
           <Box className={classes.donates}>
             <h4 className={classes.thinFont}>Тотал онлайн дарения</h4>
-            <p style={{ fontSize: '22px' }}>0.00 лв.</p>
+            <p style={{ fontSize: '22px' }}>{data.total.toFixed(2)} лв.</p>
           </Box>
           <hr></hr>
         </Box>
@@ -117,7 +117,7 @@ function DonationTab(props: { value: number; index: number }) {
           </Box>
           <span className={classes.thinFont}>възможност за търсене по по дата</span>
         </Box>
-        {data.length ? (
+        {data.donations.length ? (
           <TableContainer>
             <Table sx={{ minWidth: 650, backgroundColor: '#EEEEEE' }} aria-label="simple table">
               <TableHead>
@@ -130,7 +130,7 @@ function DonationTab(props: { value: number; index: number }) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data.map((donation, index) => (
+                {data.donations.map((donation, index) => (
                   <TableRow
                     key={donation.targetVault.campaign.title}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
