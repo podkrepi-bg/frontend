@@ -24,3 +24,8 @@ export type UserDonation = {
   currency: number
   createdAt: string
 }
+
+export type UserDonationResult = {
+  donations: UserDonation[]
+  total: number
+}
