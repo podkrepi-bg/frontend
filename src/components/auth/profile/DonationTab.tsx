@@ -8,7 +8,6 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
 
 function formatDate(dateString: string) {
   const date = new Date(dateString)
@@ -119,8 +118,8 @@ function DonationTab(props: { value: number; index: number }) {
           <span className={classes.thinFont}>възможност за търсене по по дата</span>
         </Box>
         {data.length ? (
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableContainer>
+            <Table sx={{ minWidth: 650, backgroundColor: '#EEEEEE' }} aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell>№</TableCell>
