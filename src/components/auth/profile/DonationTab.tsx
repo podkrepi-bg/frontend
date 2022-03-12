@@ -131,9 +131,7 @@ function DonationTab(props: { value: number; index: number }) {
               </TableHead>
               <TableBody>
                 {data.donations.map((donation, index) => (
-                  <TableRow
-                    key={donation.targetVault.campaign.title}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                  <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                     <TableCell component="th" scope="row">
                       {index + 1}
                     </TableCell>
