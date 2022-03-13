@@ -25,4 +25,5 @@ export const menuItems = [
   { label: 'Градове', icon: LocationCityRoundedIcon, href: routes.admin.cities.home },
   { label: 'Държави', icon: Public, href: routes.admin.countries.index },
   { label: 'Координатори', icon: People, href: routes.admin.coordinators.index },
+  { label: 'Дарения', icon: People, href: routes.admin.donations.index },
 ]
