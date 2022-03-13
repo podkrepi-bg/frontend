@@ -5,14 +5,18 @@ import { Divider, FormControl, FormGroup, FormHelperText, Grid, Typography } fro
 
 import Role from './Role'
 import { BankTransfer } from '../../common/BankTransfer'
+import { useHeaderStyles } from '../helpers/header-styles'
+import theme from 'common/theme'
 
 export default function Roles() {
   const [, { error }] = useField('roles')
   const { t } = useTranslation()
+  const classes = useHeaderStyles(theme)
+
   return (
     <Grid container spacing={6} justifyContent="center">
       <Grid item xs={12} md={8}>
-        <Typography variant="h4" align="center" paragraph>
+        <Typography variant="h4" align="center" paragraph className={classes.subtitleText}>
           {t('support:steps.role.subtitle')}
         </Typography>
       </Grid>

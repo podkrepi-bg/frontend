@@ -18,7 +18,7 @@ type Props = {
       postalCode: string
     }>
   >
-  cellValues: GridRenderCellParams<any, any, any>
+  cellValues: GridRenderCellParams
 }
 
 export default function GridActions({ id, setSelectedId, setDetails, cellValues }: Props) {
@@ -47,7 +47,7 @@ export default function GridActions({ id, setSelectedId, setDetails, cellValues 
       <IconButton size="small" onClick={() => detailsClickHandler(cellValues)}>
         <ShareIcon />
       </IconButton>
-      <Link href={routes.admin.cities.editCityById(id)}>
+      <Link href={routes.admin.cities.editCityById(id)} passHref>
         <IconButton size="small">
           <EditIcon />
         </IconButton>
