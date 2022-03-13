@@ -6,6 +6,10 @@ import { useTranslation } from 'next-i18next'
 
 import { BeneficiaryType } from 'gql/beneficiary'
 import { useBeneficiary } from 'service/beneficiary'
+import { useViewCompany } from 'service/company'
+import { useViewPerson } from 'service/person'
+import { useViewCoordinatorResponse } from 'common/hooks/coordinators'
+import { useCity } from 'common/hooks/cities'
 import { ModalStore } from 'stores/documents/ModalStore'
 
 type Props = {
@@ -16,6 +20,10 @@ export default observer(function DetailsModal({ id }: Props) {
   const { data }: UseQueryResult<BeneficiaryType> = useBeneficiary(id)
   const { isDetailsOpen, hideDetails } = ModalStore
   const { t } = useTranslation()
+  const companyName = useViewCompany(data?.companyId || '').data?.companyName || ''
+  const personData = useViewPerson(data?.personId || '').data || ''
+  const coordinator = useViewCoordinatorResponse(data?.coordinatorId || '').data?.person
+  const city = useCity(data?.cityId || '').data
 
   return (
     <Dialog open={isDetailsOpen} onClose={hideDetails} sx={{ top: '-35%' }}>
@@ -25,31 +33,30 @@ export default observer(function DetailsModal({ id }: Props) {
             {t('beneficiary:cta:details')}
           </Typography>
           <Divider />
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            <b>{t('beneficiary:grid:id')}</b>: {data?.id}
-          </Typography>
-          {data?.companyId ? (
+          {companyName !== '' ? (
             <Typography variant="body1" sx={{ fontSize: 24 }}>
-              {t('beneficiary:grid:companyId')}: {data?.companyId}
+              {t('beneficiary:grid:company')}: {companyName}
             </Typography>
           ) : null}
-          {data?.personId ? (
+          {personData !== '' ? (
             <Typography variant="body1" sx={{ fontSize: 24 }}>
-              <b>{t('beneficiary:grid:personId')}</b>: {data?.personId}
+              <b>{t('beneficiary:grid:individual')}</b>: {personData?.firstName}{' '}
+              {personData?.lastName}
             </Typography>
           ) : null}
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            <b>{t('beneficiary:grid:coordinatorId')}</b>: {data?.coordinatorId}
+            <b>{t('beneficiary:grid:coordinator')}</b>: {coordinator?.firstName}{' '}
+            {coordinator?.lastName}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
             <b>{t('beneficiary:grid:countryCode')}</b>: {data?.countryCode}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            <b>{t('beneficiary:grid:cityId')}</b>: {data?.cityId}
+            <b>{t('beneficiary:grid:city')}</b>: {city?.name}
           </Typography>
           {data?.description ? (
             <Typography variant="body1" sx={{ fontSize: 24 }}>
-              <b>{t('beneficiary:grid:personId')}</b>: {data?.description}
+              <b>{t('beneficiary:grid:description')}</b>: {data?.description}
             </Typography>
           ) : null}
           {data?.publicData ? (
@@ -65,11 +72,9 @@ export default observer(function DetailsModal({ id }: Props) {
           <Typography variant="body1" sx={{ fontSize: 24 }}>
             <b>{t('beneficiary:grid:coordinatorRelation')}</b>: {data?.coordinatorRelation}
           </Typography>
-          {data?.campaigns ? (
-            <Typography variant="body1" sx={{ fontSize: 24 }}>
-              <b>{t('beneficiary:grid:campaigns-count')}</b>: {data?.campaigns?.length}
-            </Typography>
-          ) : null}
+          <Typography variant="body1" sx={{ fontSize: 24 }}>
+            <b>{t('beneficiary:grid:campaigns-count')}</b>: {data?.campaigns?.length || 0}
+          </Typography>
         </CardContent>
       </Card>
     </Dialog>

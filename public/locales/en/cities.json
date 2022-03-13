@@ -14,21 +14,21 @@
   "deleteAllContent": "This action will delete selected items permanently!",
   "actions": "Actions",
   "alerts": {
-      "selectRow": "Please choose a row",
-      "create": "Vault has been created successfully!",
-      "edit": "Vault has been edited successfully!",
-      "delete": "Vault has been deleted successfully!",
-      "deleteAll": "City have been deleted successfully!",
-      "error": "An error has occured! Please try again later."
+    "selectRow": "Please choose a row",
+    "create": "Vault has been created successfully!",
+    "edit": "Vault has been edited successfully!",
+    "delete": "Vault has been deleted successfully!",
+    "deleteAll": "City have been deleted successfully!",
+    "error": "An error has occured! Please try again later."
   },
   "cta": {
-      "add": "Add",
-      "confirm": "Confirm",
-      "cancel": "Cancel",
-      "delete": "Delete",
-      "deleteSelected": "Delete selected rows",
-      "edit": "Edit",
-      "details": "Details",
-      "submit": "Submit"
+    "add": "Add",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "deleteSelected": "Delete selected rows",
+    "edit": "Edit",
+    "details": "Details",
+    "submit": "Submit"
   }
 }
