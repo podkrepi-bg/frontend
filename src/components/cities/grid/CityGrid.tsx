@@ -25,6 +25,9 @@ export default observer(function CitiesGrid() {
   const { showDeleteAll, setSelectedIdsToDelete, selectedIdsToDelete } = ModalStore
   const { data = [] } = useCitiesList()
   const { t } = useTranslation()
+
+  setSelectedIdsToDelete([])
+
   const deleteAllClickHandler = () => {
     selectedIdsToDelete.length > 0
       ? showDeleteAll()

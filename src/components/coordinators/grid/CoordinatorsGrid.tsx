@@ -16,6 +16,8 @@ import DeleteAllModal from './DeleteAllModal'
 export default observer(function CoordinatorsGrid() {
   const { setSelectedIdsToDelete } = ModalStore
 
+  setSelectedIdsToDelete([])
+
   const selectMultipleRows = (newSelectionModel: GridSelectionModel) => {
     setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
   }

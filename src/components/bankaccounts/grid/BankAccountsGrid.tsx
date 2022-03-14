@@ -18,10 +18,10 @@ import DeleteAllModal from './DeleteAllModal'
 
 export default observer(function BankAccountsGrid() {
   const { t } = useTranslation('bankaccounts')
-
   const { data }: UseQueryResult<BankAccountResponse[]> = useBankAccountsList()
-
   const { setSelectedIdsToDelete } = ModalStore
+
+  setSelectedIdsToDelete([])
 
   const columns: GridColumns = [
     { ...commonProps, headerName: t('status'), field: 'status' },
