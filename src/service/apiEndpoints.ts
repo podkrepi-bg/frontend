@@ -71,6 +71,13 @@ export const endpoints = {
     postCoordinator: <Endpoint>{ url: '/coordinator', method: 'POST' },
     deleteCoordinator: (id: string) => <Endpoint>{ url: `/coordinator/${id}`, method: 'DELETE' },
   },
+  benefactor: {
+    benefactorList: <Endpoint>{ url: '/benefactor', method: 'GET' },
+    getBenefactor: (id: string) => <Endpoint>{ url: `/benefactor/${id}`, method: 'GET' },
+    createBenefactor: <Endpoint>{ url: '/benefactor', method: 'POST' },
+    editBenefactor: (id: string) => <Endpoint>{ url: '/benefactor/' + id, method: 'PATCH' },
+    deleteBenefactor: (id: string) => <Endpoint>{ url: '/benefactor/' + id, method: 'DELETE' },
+  },
   vaults: {
     vaultsList: <Endpoint>{ url: '/vault', method: 'GET' },
     getVault: (slug: string) => <Endpoint>{ url: `/vault/${slug}`, method: 'GET' },
