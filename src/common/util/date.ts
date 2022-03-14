@@ -9,3 +9,12 @@ export const dateFormatter = (value: Date | string | number) => {
   const relative = formatRelative(date, new Date())
   return `${exact} (${relative})`
 }
+
+export const formatDateString = (dateString: string) => {
+  const date = new Date(dateString)
+  const day = date.getDate()
+  const month = date.getMonth().toString().padStart(2, '0')
+  const year = date.getFullYear()
+
+  return `${day}.${month}.${year}`
+}
