@@ -63,6 +63,11 @@ export const routes = {
       viewCityById: (id: string) => `/admin/cities/details/${id}`,
       editCityById: (id: string) => `/admin/cities/edit/${id}`,
     },
+    withdrawals: {
+      index: '/admin/withdrawals',
+      create: '/admin/withdrawals/create',
+      edit: (id: string | string) => `/admin/withdrawals/edit/${id}`,
+    },
     coordinators: {
       index: '/admin/coordinators',
       add: '/admin/coordinators/add',

@@ -1,0 +1,36 @@
+{
+  "form-heading": "Add new withdrawal",
+  "edit-form-heading": "Edit withdrawal",
+  "all": "All withdrawals",
+  "withdrawals": "withdrawals",
+  "name": "Name",
+  "currency": "Currency",
+  "amount": "Amount",
+  "reason": "Reason",
+  "status": "Status",
+  "createdAt": "Created at",
+  "updatedAt": "Updated at",
+  "campaignId": "Campaign ID",
+  "deleteTitle": "Are you sure?",
+  "deleteContent": "This action will delete this item permanently!",
+  "deleteAllContent": "This action will delete selected items permanently!",
+  "actions": "Actions",
+  "alerts": {
+      "selectRow": "Please choose a row",
+      "create": "Withdrawal has been created successfully!",
+      "edit": "Withdrawal has been edited successfully!",
+      "delete": "Withdrawal has been deleted successfully!",
+      "deleteAll": "Withdrawals have been deleted successfully!",
+      "error": "An error has occured! Please try again later."
+  },
+  "cta": {
+      "add": "Add",
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "deleteSelected": "Delete selected rows",
+      "edit": "Edit",
+      "details": "Details",
+      "submit": "Submit"
+  }
+}
