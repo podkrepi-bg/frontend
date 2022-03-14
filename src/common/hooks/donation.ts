@@ -5,7 +5,7 @@ import { useMutation, useQuery } from 'react-query'
 import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
 import { endpoints } from 'service/apiEndpoints'
-import { createCheckoutSession } from 'service/restRequests/donation'
+import { createCheckoutSession } from 'service/donation'
 import { CheckoutSessionInput, CheckoutSessionResponse, DonationPrice } from 'gql/donations'
 
 export function usePriceList() {
