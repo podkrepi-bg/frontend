@@ -10,7 +10,7 @@ import { makeStyles } from '@mui/styles'
 
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
-import { editBenefactor } from 'service/restRequests/benefactor'
+import { editBenefactor } from 'service/benefactor'
 import { BenefactorFormData, BenefactorInput, BenefactorResponse } from 'gql/benefactor'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
