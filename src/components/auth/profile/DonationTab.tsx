@@ -8,15 +8,7 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-
-function formatDate(dateString: string) {
-  const date = new Date(dateString)
-  const day = date.getDate()
-  const month = date.getMonth().toString().padStart(2, '0')
-  const year = date.getFullYear()
-
-  return `${day}.${month}.${year}`
-}
+import { formatDateString } from 'common/util/date'
 
 const useStyles = makeStyles({
   thinFont: {
@@ -135,7 +127,7 @@ function DonationTab(props: { value: number; index: number }) {
                     <TableCell component="th" scope="row">
                       {index + 1}
                     </TableCell>
-                    <TableCell>{formatDate(donation.createdAt)}</TableCell>
+                    <TableCell>{formatDateString(donation.createdAt)}</TableCell>
                     <TableCell>{donation.targetVault.campaign.title}</TableCell>
                     <TableCell>
                       {donation.amount} {donation.currency}
