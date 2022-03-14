@@ -45,11 +45,11 @@ export default observer(function DetailsModal() {
   }
 
   if (data?.publicData) {
-    dataConverted.push({ name: t('grid.publicData'), value: data?.publicData })
+    dataConverted.push({ name: t('grid.public-data'), value: data?.publicData })
   }
 
   if (data?.privateData) {
-    dataConverted.push({ name: t('grid.privateData'), value: data?.privateData })
+    dataConverted.push({ name: t('grid.private-data'), value: data?.privateData })
   }
 
   return <DetailsDialog data={dataConverted} />
