@@ -24,7 +24,7 @@ import {
   useEditCampaignType,
   useCreateCampaignType,
   useCampaignTypesList,
-} from 'service/campaignTypes'
+} from 'service/restRequests/campaignTypes'
 import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
@@ -142,7 +142,7 @@ export default function Form() {
             <SubmitButton fullWidth label={t('documents:cta:submit')} />
           </Grid>
           <Grid item xs={6}>
-            <Link href={routes.admin.beneficiary.index} passHref>
+            <Link href={routes.admin.campaignTypes.index} passHref>
               <Button>{t('documents:cta:cancel')}</Button>
             </Link>
           </Grid>

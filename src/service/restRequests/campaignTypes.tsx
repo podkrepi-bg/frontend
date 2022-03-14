@@ -2,11 +2,11 @@ import { AxiosResponse } from 'axios'
 import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
 
-import { endpoints } from './apiEndpoints'
-import { authConfig, authQueryFnFactory } from './restRequests'
+import { endpoints } from '../apiEndpoints'
+import { authConfig, authQueryFnFactory } from '../restRequests'
 import { CampaignTypeFormData, CampaignTypesResponse, DeleteMany } from 'gql/campaign-types'
 import { QueryClient, useQuery } from 'react-query'
-import { apiClient } from './apiClient'
+import { apiClient } from '../apiClient'
 
 export const useCampaignTypesList = () => {
   const { keycloak } = useKeycloak<KeycloakInstance>()
@@ -29,10 +29,10 @@ export const useCampaignType = (id: string) => {
 export const useCreateCampaignType = () => {
   const { keycloak } = useKeycloak<KeycloakInstance>()
 
-  return async (vals: CampaignTypeFormData) => {
+  return async (data: CampaignTypeFormData) => {
     return await apiClient.post(
       endpoints.campaignTypes.createCampaignType.url,
-      vals,
+      data,
       authConfig(keycloak?.token),
     )
   }
@@ -41,10 +41,10 @@ export const useCreateCampaignType = () => {
 export const useEditCampaignType = (id: string) => {
   const { keycloak } = useKeycloak<KeycloakInstance>()
 
-  return async (vals: CampaignTypeFormData) => {
+  return async (data: CampaignTypeFormData) => {
     return await apiClient.put(
       endpoints.campaignTypes.editCampaignType(id).url,
-      vals,
+      data,
       authConfig(keycloak?.token),
     )
   }
