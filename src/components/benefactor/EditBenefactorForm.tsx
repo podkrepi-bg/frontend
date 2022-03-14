@@ -74,7 +74,7 @@ export default function EditBenefactorForm({ id, initialValues = defaults }: Ben
         id,
         data,
       })
-      router.push(routes.benefactor.index)
+      router.push(routes.admin.benefactor.index)
     } catch (error) {
       console.error(error)
       if (isAxiosError(error)) {
@@ -125,7 +125,7 @@ export default function EditBenefactorForm({ id, initialValues = defaults }: Ben
                 fullWidth
                 variant="contained"
                 color="primary"
-                href={routes.benefactor.index}>
+                href={routes.admin.benefactor.index}>
                 {t('cta.cancel')}
               </LinkButton>
             </Grid>
