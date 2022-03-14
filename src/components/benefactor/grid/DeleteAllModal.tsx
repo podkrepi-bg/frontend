@@ -10,7 +10,7 @@ import { routes } from 'common/routes'
 
 import { BenefactorResponse } from 'gql/benefactor'
 import { ApiErrors } from 'service/apiErrors'
-import { ModalStore } from 'stores/ModalStore'
+import { ModalStore } from 'stores/benefactor/ModalStore'
 import { deleteBenefactor } from 'service/benefactor'
 import { AlertStore } from 'stores/AlertStore'
 

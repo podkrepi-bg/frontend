@@ -9,7 +9,7 @@ import { BenefactorResponse } from 'gql/benefactor'
 import { ApiErrors } from 'service/apiErrors'
 import { endpoints } from 'service/apiEndpoints'
 import { deleteBenefactor } from 'service/benefactor'
-import { ModalStore } from 'stores/ModalStore'
+import { ModalStore } from 'stores/benefactor/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 
 type Props = {
