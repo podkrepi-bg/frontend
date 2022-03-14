@@ -9,7 +9,7 @@ import { Dialog, Card, CardContent, Box, Button, Typography } from '@mui/materia
 import { VaultResponse } from 'gql/vault'
 import { ApiErrors } from 'service/apiErrors'
 import { endpoints } from 'service/apiEndpoints'
-import { useDeleteVault } from 'service/restRequests/vault'
+import { useDeleteVault } from 'service/vault'
 import { ModalStore } from 'stores/documents/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 import { routes } from 'common/routes'
