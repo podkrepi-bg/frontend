@@ -98,6 +98,11 @@ export const routes = {
       create: '/admin/vaults/create',
       edit: (slug: string) => `/admin/vaults/${slug}/edit`,
     },
+    benefactor: {
+      index: '/benefactor',
+      view: (id: string) => `/benefactor/${id}`,
+      add: '/benefactor/add',
+    },
   },
   dev: {
     openData: '/open-data',
