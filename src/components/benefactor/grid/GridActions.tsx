@@ -37,7 +37,7 @@ export default function GridActions({ id, setSelectedId }: Props) {
       <IconButton size="small" onClick={detailsClickHandler}>
         <ImportExportIcon />
       </IconButton>
-      <IconButton size="small" onClick={() => routes.benefactor.view(id)}>
+      <IconButton size="small" onClick={() => routes.admin.benefactor.view(id)}>
         <EditIcon />
       </IconButton>
       <IconButton size="small" onClick={deleteClickHandler}>

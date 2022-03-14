@@ -72,7 +72,7 @@ export default function AddBenefactorForm({ initialValues = defaults }: Benefact
       }
       await mutation.mutateAsync(data)
       resetForm()
-      router.push(routes.benefactor.index)
+      router.push(routes.admin.benefactor.index)
     } catch (error) {
       console.error(error)
       if (isAxiosError(error)) {
@@ -122,7 +122,7 @@ export default function AddBenefactorForm({ initialValues = defaults }: Benefact
               <SubmitButton fullWidth label={t('cta.submit')} />
             </Grid>
             <Grid item xs={6}>
-              <Link href={routes.benefactor.index}>
+              <Link href={routes.admin.benefactor.index}>
                 <Button>{t('cta.cancel')}</Button>
               </Link>
             </Grid>

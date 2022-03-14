@@ -42,7 +42,7 @@ export default observer(function DeleteAllModal({ selectionModel }: Props) {
       await Promise.all(idsToDelete.map((id) => delMutation.mutateAsync(id)))
       AlertStore.show(t('alerts.deleteAll'), 'success')
       hideDeleteAll()
-      router.push(routes.benefactor.index)
+      router.push(routes.admin.benefactor.index)
     } catch (err) {
       AlertStore.show(t('alerts.error'), 'error')
     }

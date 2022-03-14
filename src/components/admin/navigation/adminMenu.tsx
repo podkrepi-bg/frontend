@@ -21,6 +21,7 @@ export const menuItems = [
   { label: 'Плащания', icon: Payment, href: routes.admin.bankaccounts.index },
   { label: 'Потребители', icon: Group, href: '#' },
   { label: 'Документи', icon: FolderShared, href: routes.admin.documents.index },
+  { label: 'Бенефактори', icon: BeneficiaryIcon, href: routes.admin.benefactor.index },
   { label: 'Бенефициенти', icon: BeneficiaryIcon, href: routes.admin.beneficiary.index },
   { label: 'Типове кампании', icon: Class, href: routes.admin.campaignTypes.index },
   { label: 'Градове', icon: LocationCityRoundedIcon, href: routes.admin.cities.home },
