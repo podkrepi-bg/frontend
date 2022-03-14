@@ -1,38 +1,35 @@
-import React, { useState } from 'react'
-import router from 'next/router'
+import React from 'react'
+import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
-
-import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
-import { useCitiesList } from 'common/hooks/cities'
-import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
-
-import { AlertStore } from 'stores/AlertStore'
-import { useDeleteCity } from 'service/city'
-import { useMutation } from 'react-query'
-import DeleteModal from './modals/DeleteModal'
-import DetailsModal from './modals/DetailsModal'
-import DeleteSelectedModal from './modals/DeleteSelectedModal'
-import { CityResponse } from 'gql/cities'
-import { routes } from 'common/routes'
+import { observer } from 'mobx-react'
 import DeleteIcon from '@mui/icons-material/Delete'
 import AddIcon from '@mui/icons-material/Add'
 import PrintIcon from '@mui/icons-material/Print'
 import SaveIcon from '@mui/icons-material/Save'
 import ShareIcon from '@mui/icons-material/Share'
 import EventNoteIcon from '@mui/icons-material/EventNote'
-import Link from 'next/link'
-import GridActions from './GridActions'
+import { DataGrid, GridColumns, GridSelectionModel } from '@mui/x-data-grid'
+import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
 
-export default function CitiesGrid() {
+import { useCitiesList } from 'common/hooks/cities'
+import { routes } from 'common/routes'
+import { ModalStore } from 'stores/dashboard/ModalStore'
+import { AlertStore } from 'stores/AlertStore'
+import GridActions from 'components/admin/GridActions'
+
+import DeleteModal from './DeleteModal'
+import DetailsModal from './DetailsModal'
+import DeleteAllModal from './DeleteAllModal'
+
+export default observer(function CitiesGrid() {
+  const { showDeleteAll, setSelectedIdsToDelete, selectedIdsToDelete } = ModalStore
   const { data = [] } = useCitiesList()
-  const [selectedId, setSelectedId] = useState<string>('')
-  const [isDeleteSelectedModalOpen, setIsDeleteSelectedModalOpen] = React.useState(false)
-  const [selectedRows, setSelectedRows] = React.useState<CityResponse[]>([])
-  type detailsProps = {
-    name: string
-    postalCode: string
+  const { t } = useTranslation()
+  const deleteAllClickHandler = () => {
+    selectedIdsToDelete.length > 0
+      ? showDeleteAll()
+      : AlertStore.show(t('common:alerts.noselected'), 'warning')
   }
-  const [details, setDetails] = useState<detailsProps>({ name: '', postalCode: '' })
 
   const columns: GridColumns = [
     { field: 'id', headerName: 'ID', hide: true },
@@ -63,45 +60,18 @@ export default function CitiesGrid() {
     {
       field: 'actions',
       type: 'actions',
-      headerName: 'Actions',
-      width: 200,
-      align: 'center',
-      renderCell: (cellValues: GridRenderCellParams) => {
-        return (
-          <GridActions
-            id={cellValues.row.id}
-            setSelectedId={setSelectedId}
-            setDetails={setDetails}
-            cellValues={cellValues}
-          />
-        )
-      },
+      headerName: t('cities:actions'),
+      width: 120,
+      headerAlign: 'left',
+      renderCell: (p) => (
+        <GridActions
+          id={p.row.id}
+          name={p.row.name}
+          editLink={routes.admin.cities.editCityById(p.row.id)}
+        />
+      ),
     },
   ]
-
-  const { t } = useTranslation()
-  const mutation = useMutation({
-    mutationFn: useDeleteCity,
-    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
-    onSuccess: () => AlertStore.show(t('Избраните градове бяха преместени в кошчето.'), 'warning'),
-  })
-
-  const handleDeleteAll = () => {
-    try {
-      selectedRows.forEach((row: CityResponse) => {
-        mutation.mutateAsync({ id: row.id }).then(() => {
-          router.push(routes.admin.cities.home)
-          setIsDeleteSelectedModalOpen(false)
-        })
-      })
-    } catch (error) {
-      AlertStore.show(t('common:alert.error'), 'error')
-    }
-  }
-
-  const closeDeleteSelectedHandler = () => {
-    setIsDeleteSelectedModalOpen(false)
-  }
 
   const addIconStyles = {
     background: '#4ac3ff',
@@ -139,7 +109,7 @@ export default function CitiesGrid() {
             </Tooltip>
             <Tooltip title="Изтрий избраните">
               <DeleteIcon
-                onClick={() => setIsDeleteSelectedModalOpen(true)}
+                onClick={deleteAllClickHandler}
                 sx={iconStyles}
                 fontSize="medium"
                 color="action"></DeleteIcon>
@@ -179,20 +149,15 @@ export default function CitiesGrid() {
         autoPageSize
         checkboxSelection
         disableSelectionOnClick
-        onSelectionModelChange={(ids) => {
-          const selectedIDs = new Set(ids)
-          const selectedRows = data.filter((row) => selectedIDs.has(row.id))
-          setSelectedRows(selectedRows)
+        onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
+          setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
         }}
       />
       <Box>
-        <DetailsModal modalProps={details}></DetailsModal>
-        <DeleteModal id={selectedId} setSelectedId={setSelectedId} />
-        <DeleteSelectedModal
-          isOpen={isDeleteSelectedModalOpen}
-          handleDelete={handleDeleteAll}
-          handleDeleteModalClose={closeDeleteSelectedHandler}></DeleteSelectedModal>
+        <DetailsModal />
+        <DeleteModal />
+        <DeleteAllModal />
       </Box>
     </>
   )
-}
+})

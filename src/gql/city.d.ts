@@ -1,25 +1,45 @@
-export type CityType = {
-  id: string
-  name: string
-  postalCode: number
-  countryId: string
+import { UUID } from './types'
+
+export enum CityState {
+  initial,
+  draft,
+  pendingvalidation,
+  approved,
+  rejected,
+  active,
+  activependingvalidation,
+  suspended,
+  complete,
+  disabled,
+  error,
 }
 
 export type CityResponse = {
-  id: string
+  id: UUID
+  // state: cityState
   name: string
-  postalCode: number
-  countryId: string
-}
-
-export type CityInput = {
-  name: string
-  postalCode: number
+  postalCode: string
   countryId: string
 }
 
 export type CityFormData = {
-  name: string
-  postalCode: number
-  countryId: string
+  name?: string
+  postalCode?: string
+  countryId?: string
+}
+
+export type CityInput = {
+  name?: string
+  postalCode?: string
+  countryId?: string
+}
+
+type EditCityProp = {
+  id: string
+  data: CityInput
+}
+
+type CityFormProps = {
+  initialValues?: CityInput
+  id?: string
 }

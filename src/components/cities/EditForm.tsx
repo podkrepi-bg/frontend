@@ -16,7 +16,7 @@ import {
   Typography,
 } from '@mui/material'
 
-import { CityFormData, CityInput, CityResponse } from 'gql/cities'
+import { CityFormData, CityInput, CityResponse } from 'gql/city'
 import { useCity, useCountriesList } from 'common/hooks/cities'
 import { routes } from 'common/routes'
 import { ApiErrors } from 'service/apiErrors'
