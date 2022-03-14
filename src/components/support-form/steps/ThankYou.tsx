@@ -4,6 +4,8 @@ import { Grid, Theme, Typography } from '@mui/material'
 
 import createStyles from '@mui/styles/createStyles'
 import makeStyles from '@mui/styles/makeStyles'
+import { useHeaderStyles } from '../helpers/header-styles'
+import theme from 'common/theme'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,11 +24,15 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ThankYou() {
   const { t } = useTranslation()
   const classes = useStyles()
+  const headerClasses = useHeaderStyles(theme)
 
   return (
     <Grid container spacing={6} justifyContent="center">
       <Grid item xs={12}>
-        <Typography variant="h4" align="center" className={classes.heading}>
+        <Typography
+          variant="h4"
+          align="center"
+          className={classes.heading + ' ' + headerClasses.subtitleText}>
           {t('support:steps.thank-you.content')}
         </Typography>
       </Grid>

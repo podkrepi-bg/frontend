@@ -7,7 +7,7 @@ import { useTranslation } from 'next-i18next'
 
 import { CountryResponse } from 'gql/countries'
 import { ApiErrors } from 'service/apiErrors'
-import { useDeleteCountry } from 'service/restRequests'
+import { useDeleteCountry } from 'service/restRequests/country'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 import { routes } from 'common/routes'

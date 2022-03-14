@@ -8,9 +8,9 @@
   "accountHolderName": "Собственик",
   "AccountHolderType": "Вид акаунт",
   "bankName": "Име на банка",
-  "bankIdCode": "Банков идентификатор",
-  "fingerprint": "Подпис",
-  "withdrawals": "Тегления",
+  "bankIdCode": "BIC/SWIFT",
+  "fingerprint": "Е-Подпис",
+  "withdrawals": "Извлечения",
   "actions": "Действия",
   "alerts": {
     "selectRow": "Моля изберете ред",
