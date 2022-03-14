@@ -23,7 +23,7 @@ export default function CampaignTypeSelect({ name = 'campaignTypeId' }) {
         </MenuItem>
         {data?.map((campaignType, index) => (
           <MenuItem key={index} value={campaignType.id}>
-            {t(`campaigns:campaign.types.${campaignType.slug}`)}
+            {campaignType.name}
           </MenuItem>
         ))}
       </Select>
