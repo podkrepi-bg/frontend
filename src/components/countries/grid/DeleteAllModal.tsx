@@ -15,7 +15,7 @@ import DeleteAllDialog from 'components/admin/DeleteAllDialog'
 
 export default observer(function DeleteModal() {
   const router = useRouter()
-  const { hideDeleteAll, selectedIdsToDelete } = ModalStore
+  const { hideDeleteAll, selectedIdsToDelete, setSelectedIdsToDelete } = ModalStore
   const { t } = useTranslation('countries')
 
   const mutationFn = useDeleteCountry()
@@ -25,6 +25,7 @@ export default observer(function DeleteModal() {
     onError: () => AlertStore.show(t('alerts.delete-rows.error'), 'error'),
     onSuccess: () => {
       hideDeleteAll()
+      setSelectedIdsToDelete([])
       AlertStore.show(t('alerts.delete-rows.success'), 'success')
       router.push(routes.admin.countries.index)
     },
