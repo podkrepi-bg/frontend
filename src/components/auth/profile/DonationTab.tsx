@@ -1,6 +1,14 @@
 import { Box, Checkbox, Button } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import { useUserDonations } from 'common/hooks/donation'
 import Tab from './Tab'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableContainer from '@mui/material/TableContainer'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import { formatDateString } from 'common/util/date'
 
 const useStyles = makeStyles({
   thinFont: {
@@ -41,6 +49,7 @@ const useStyles = makeStyles({
 function DonationTab(props: { value: number; index: number }) {
   const { value, index } = props
   const classes = useStyles()
+  const { data = { donations: [], total: 0 } } = useUserDonations()
 
   return (
     <Tab value={value} index={index}>
@@ -58,7 +67,7 @@ function DonationTab(props: { value: number; index: number }) {
 
           <Box className={classes.donates}>
             <h4 className={classes.thinFont}>Тотал онлайн дарения</h4>
-            <p style={{ fontSize: '22px' }}>0.00 лв.</p>
+            <p style={{ fontSize: '22px' }}>{data.total.toFixed(2)} лв.</p>
           </Box>
           <hr></hr>
         </Box>
@@ -100,7 +109,38 @@ function DonationTab(props: { value: number; index: number }) {
           </Box>
           <span className={classes.thinFont}>възможност за търсене по по дата</span>
         </Box>
-        <h3 className={classes.h3}>Към момента няма направени дарения</h3>
+        {data.donations.length ? (
+          <TableContainer>
+            <Table sx={{ minWidth: 650, backgroundColor: '#EEEEEE' }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>№</TableCell>
+                  <TableCell>Дата</TableCell>
+                  <TableCell>Кауза</TableCell>
+                  <TableCell>стойност</TableCell>
+                  <TableCell>сертификат</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {data.donations.map((donation, index) => (
+                  <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                    <TableCell component="th" scope="row">
+                      {index + 1}
+                    </TableCell>
+                    <TableCell>{formatDateString(donation.createdAt)}</TableCell>
+                    <TableCell>{donation.targetVault.campaign.title}</TableCell>
+                    <TableCell>
+                      {donation.amount} {donation.currency}
+                    </TableCell>
+                    <TableCell>заяви</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        ) : (
+          <h3 className={classes.h3}>Към момента няма направени дарения</h3>
+        )}
       </Box>
     </Tab>
   )

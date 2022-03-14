@@ -25,6 +25,7 @@ export const endpoints = {
     singlePrices: <Endpoint>{ url: '/donation/prices/single', method: 'GET' },
     recurringPrices: <Endpoint>{ url: '/donation/prices/recurring', method: 'GET' },
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
+    userDonations: <Endpoint>{ url: 'donation/user-donations', method: 'GET' },
   },
   documents: {
     documentsList: <Endpoint>{ url: '/document', method: 'GET' },
