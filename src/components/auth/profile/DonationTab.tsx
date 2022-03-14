@@ -1,6 +1,6 @@
 import { Box, Checkbox, Button } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import { useUserDonations } from 'common/hooks/donations'
+import { useUserDonations } from 'common/hooks/donation'
 import Tab from './Tab'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
