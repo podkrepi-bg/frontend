@@ -40,7 +40,7 @@ export function useDonationSession() {
 }
 export function useUserDonations() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  return useQuery<UserDonationResult>(endpoints.account.donations.url, {
+  return useQuery<UserDonationResult>(endpoints.donation.userDonations.url, {
     queryFn: authQueryFnFactory(keycloak?.token),
   })
 }
