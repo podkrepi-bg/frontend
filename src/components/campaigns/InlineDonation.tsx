@@ -3,14 +3,15 @@ import { useTranslation } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 import { baseUrl, routes } from 'common/routes'
 import { money } from 'common/util/money'
-import { useSinglePriceList, useDonationSession } from 'common/hooks/donations'
+import { useSinglePriceList, useDonationSession } from 'common/hooks/donation'
 import LinkButton from 'components/common/LinkButton'
 import CampaignProgress from './CampaignProgress'
+import DonorsAndDonations from './DonorsAndDonations'
 import { Grid, List, ListItem, ListItemText, Theme, Typography } from '@mui/material'
+import { Favorite } from '@mui/icons-material'
+import ShareIcon from '@mui/icons-material/Share'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
-import ShareIcon from '@mui/icons-material/Share'
-import { Favorite } from '@mui/icons-material'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,6 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.common.white,
       borderRadius: theme.spacing(1),
       height: 'fit-content',
+      boxShadow: '1px 2px 8px #8888888c',
     },
     reachedMoney: {
       fontSize: theme.spacing(5),
@@ -140,6 +142,7 @@ export default function InlineDonation({ campaign }: Props) {
           </List>
         )}
       </Grid>
+      <DonorsAndDonations />
       {/* <pre>{JSON.stringify(prices, null, 2)}</pre> */}
     </Grid>
   )

@@ -49,6 +49,14 @@ export const endpoints = {
     editCity: (id: string) => <Endpoint>{ url: `/city/${id}`, method: 'PATCH' },
     deleteCity: (id: string) => <Endpoint>{ url: `/city/${id}`, method: 'DELETE' },
   },
+  withdrawals: {
+    withdrawalsList: <Endpoint>{ url: '/withdrawal', method: 'GET' },
+    getWithdrawal: (id: string) => <Endpoint>{ url: `/withdrawal/${id}`, method: 'GET' },
+    createWithdrawal: <Endpoint>{ url: '/withdrawal', method: 'POST' },
+    editWithdrawal: (id: string) => <Endpoint>{ url: `/withdrawal/${id}`, method: 'PUT' },
+    deleteWithdrawal: (id: string) => <Endpoint>{ url: `/withdrawal/${id}`, method: 'DELETE' },
+    deleteWithdrawals: <Endpoint>{ url: '/withdrawal/deletemany', method: 'POST' },
+  },
   country: {
     listCountries: <Endpoint>{ url: '/country/list', method: 'GET' },
     createCountry: <Endpoint>{ url: '/country/create-country', method: 'POST' },
@@ -85,11 +93,24 @@ export const endpoints = {
     removeBeneficiary: (id: string) => <Endpoint>{ url: '/beneficiary/' + id, method: 'DELETE' },
     removeMany: <Endpoint>{ url: '/beneficiary/delete-many', method: 'POST' },
   },
+  campaignTypes: {
+    listCampaignTypes: <Endpoint>{ url: '/campaign-types/', method: 'GET' },
+    viewCampaignType: (id: string) => <Endpoint>{ url: '/campaign-types/' + id, method: 'GET' },
+    createCampaignType: <Endpoint>{ url: '/campaign-types', method: 'POST' },
+    editCampaignType: (id: string) => <Endpoint>{ url: '/campaign-types/' + id, method: 'PUT' },
+    removeCampaignType: (id: string) =>
+      <Endpoint>{ url: '/campaign-types/' + id, method: 'DELETE' },
+    removeMany: <Endpoint>{ url: '/campaign-types/delete-many', method: 'POST' },
+  },
   person: {
     list: <Endpoint>{ url: '/person', method: 'GET' },
     createBeneficiary: <Endpoint>{ url: '/beneficiary/create-beneficiary', method: 'POST' },
     viewPerson: (slug: string) => <Endpoint>{ url: '/person/' + slug, method: 'GET' },
     createPerson: <Endpoint>{ url: '/person', method: 'POST' },
     removemany: <Endpoint>{ url: '/person/deletemany', method: 'DELETE' },
+  },
+  company: {
+    list: <Endpoint>{ url: '/company/list', method: 'GET' },
+    viewCompany: (slug: string) => <Endpoint>{ url: '/company/' + slug, method: 'GET' },
   },
 }

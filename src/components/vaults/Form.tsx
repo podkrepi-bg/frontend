@@ -11,7 +11,7 @@ import { VaultInput, VaultResponse } from 'gql/vault'
 import { useVault } from 'common/hooks/vaults'
 import { routes } from 'common/routes'
 import { ApiErrors } from 'service/apiErrors'
-import { useCreateVault, useEditVault } from 'service/restRequests/vault'
+import { useCreateVault, useEditVault } from 'service/vault'
 import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
@@ -98,7 +98,7 @@ export default function EditForm() {
             <SubmitButton fullWidth label={t('vaults:cta:submit')} />
           </Grid>
           <Grid item xs={6}>
-            <Link href={routes.admin.vaults.index}>
+            <Link href={routes.admin.vaults.index} passHref>
               <Button>{t('vaults:cta:cancel')}</Button>
             </Link>
           </Grid>

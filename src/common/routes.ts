@@ -63,6 +63,11 @@ export const routes = {
       viewCityById: (id: string) => `/admin/cities/details/${id}`,
       editCityById: (id: string) => `/admin/cities/edit/${id}`,
     },
+    withdrawals: {
+      index: '/admin/withdrawals',
+      create: '/admin/withdrawals/create',
+      edit: (id: string | string) => `/admin/withdrawals/edit/${id}`,
+    },
     coordinators: {
       index: '/admin/coordinators',
       add: '/admin/coordinators/add',
@@ -77,6 +82,11 @@ export const routes = {
       index: '/admin/beneficiary',
       create: '/admin/beneficiary/create',
       edit: (slug: string) => `/admin/beneficiary/${slug}/edit`,
+    },
+    campaignTypes: {
+      index: '/admin/campaign-types',
+      create: '/admin/campaign-types/create',
+      edit: (slug: string) => `/admin/campaign-types/${slug}/edit`,
     },
     countries: {
       index: '/admin/countries',

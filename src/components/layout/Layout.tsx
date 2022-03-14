@@ -26,6 +26,7 @@ type LayoutProps = React.PropsWithChildren<
     hideFooter?: boolean
     disableOffset?: boolean
     boxProps?: BoxProps
+    metaDescription?: string
   }
 >
 
@@ -58,6 +59,7 @@ export default function Layout({
   figmaUrl,
   hideFooter = false,
   boxProps,
+  metaDescription,
   ...containerProps
 }: LayoutProps) {
   const classes = useStyles()
@@ -66,11 +68,13 @@ export default function Layout({
   const navMenuToggle = () => setMobileOpen(!mobileOpen)
   const suffix = t('meta.title')
   const metaTitle = useMemo(() => (title ? `${title} | ${suffix}` : suffix), [title, suffix])
+
   return (
     <Container maxWidth={false} disableGutters>
       <Container className={classes.layout} maxWidth={maxWidth} {...containerProps}>
         <Head>
           <title>{metaTitle}</title>
+          <meta name="description" content={metaDescription ?? metaTitle} />
           <meta key="og:title" property="og:title" content={metaTitle} />
           <meta key="og:image" property="og:image" content={ogImage ?? defaultOgImage} />
           <meta key="og:image:width" property="og:image:width" content="1910" />
@@ -80,7 +84,7 @@ export default function Layout({
           <AppNavBarWithNoSSR navMenuToggle={navMenuToggle} />
           <MobileNav mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
           {!disableOffset && <div className={classes.offset} />}
-          {title && (
+          {title && !disableOffset && (
             <Typography
               paragraph
               variant="h2"

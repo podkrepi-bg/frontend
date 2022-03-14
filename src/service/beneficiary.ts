@@ -22,7 +22,6 @@ export const useBeneficiary = (id: string) => {
   return useQuery(
     endpoints.beneficiary.viewBeneficiary(id).url,
     authQueryFnFactory<BeneficiaryType>(keycloak?.token),
-    { staleTime: 1 },
   )
 }
 
@@ -63,13 +62,10 @@ export const useRemoveBeneficiary = () => {
 
 export function useRemoveManyBeneficiaries(idsToDelete: string[]) {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  console.log({
-    ids: idsToDelete,
-  })
   return async () => {
     return await apiClient.post<DeleteMany, AxiosResponse<BeneficiaryType[]>>(
       endpoints.beneficiary.removeMany.url,
-      idsToDelete,
+      { ids: idsToDelete },
       authConfig(keycloak?.token),
     )
   }

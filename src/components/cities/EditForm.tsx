@@ -20,7 +20,7 @@ import { CityFormData, CityInput, CityResponse } from 'gql/cities'
 import { useCity, useCountriesList } from 'common/hooks/cities'
 import { routes } from 'common/routes'
 import { ApiErrors } from 'service/apiErrors'
-import { useCreateCity, useEditCity } from 'service/restRequests/city'
+import { useCreateCity, useEditCity } from 'service/city'
 import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
@@ -115,7 +115,7 @@ export default function EditForm() {
             <SubmitButton fullWidth label={t('cities:cta:submit')} />
           </Grid>
           <Grid item xs={6}>
-            <Link href={routes.admin.cities.home}>
+            <Link href={routes.admin.cities.home} passHref>
               <Button fullWidth>{t('cities:cta:cancel')}</Button>
             </Link>
           </Grid>
