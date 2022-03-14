@@ -8,27 +8,26 @@ import {
   GridColDef,
   GridColumns,
   GridRenderCellParams,
-  GridRowId,
   GridSelectionModel,
 } from '@mui/x-data-grid'
 
 import { VaultResponse } from 'gql/vault'
 import { useVaultsList } from 'common/hooks/vaults'
-import { ModalStore } from 'stores/documents/ModalStore'
+import { routes } from 'common/routes'
+import { ModalStore } from 'stores/dashboard/ModalStore'
+import GridActions from 'components/admin/GridActions'
 
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 import DeleteAllModal from './DeleteAllModal'
-import GridActions from './GridActions'
 
 export default observer(function Grid() {
-  const [selectedId, setSelectedId] = useState<string>('')
-  const [selectionModel, setSelectionModel] = useState<GridRowId[]>([])
-  const [pageSize, setPageSize] = useState(5)
-  const { t } = useTranslation()
-  const { selectedPositive, selectedNegative } = ModalStore
-
+  const { t } = useTranslation('vaults')
   const { data }: UseQueryResult<VaultResponse[]> = useVaultsList()
+  const [pageSize, setPageSize] = useState(5)
+  const { setSelectedIdsToDelete } = ModalStore
+
+  setSelectedIdsToDelete([])
 
   const commonProps: Partial<GridColDef> = {
     align: 'left',
@@ -39,41 +38,50 @@ export default observer(function Grid() {
   const columns: GridColumns = [
     {
       field: 'name',
-      headerName: t('vaults:name'),
+      headerName: t('name'),
+      flex: 1,
       ...commonProps,
     },
     {
       field: 'currency',
-      headerName: t('vaults:currency'),
+      headerName: t('currency'),
       ...commonProps,
     },
     {
       field: 'amount',
-      headerName: t('vaults:amount'),
+      headerName: t('amount'),
       ...commonProps,
     },
     {
       field: 'createdAt',
-      headerName: t('vaults:createdAt'),
+      headerName: t('createdAt'),
       ...commonProps,
     },
     {
       field: 'updatedAt',
-      headerName: t('vaults:updatedAt'),
+      headerName: t('updatedAt'),
       ...commonProps,
     },
     {
       field: 'campaignId',
-      headerName: t('vaults:campaignId'),
+      headerName: t('campaignId'),
       ...commonProps,
       width: 450,
     },
     {
-      field: t('vaults:actions'),
-      width: 200,
-      align: 'right',
-      renderCell: (cellValues: GridRenderCellParams) => {
-        return <GridActions id={cellValues.row.id} setSelectedId={setSelectedId} />
+      field: 'actions',
+      headerName: t('actions'),
+      width: 120,
+      type: 'actions',
+      headerAlign: 'left',
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        return (
+          <GridActions
+            id={params.row.id}
+            name={params.row.name}
+            editLink={routes.admin.vaults.edit(params.row.id)}
+          />
+        )
       },
     },
   ]
@@ -101,14 +109,13 @@ export default observer(function Grid() {
           disableSelectionOnClick
           checkboxSelection
           onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
-            newSelectionModel.length !== 0 ? selectedPositive() : selectedNegative()
-            setSelectionModel(newSelectionModel)
+            setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
           }}
         />
       </Box>
-      <DetailsModal id={selectedId} />
-      <DeleteModal id={selectedId} setSelectedId={setSelectedId} />
-      <DeleteAllModal selectionModel={selectionModel} />
+      <DetailsModal />
+      <DeleteModal />
+      <DeleteAllModal />
     </>
   )
 })
