@@ -10,7 +10,7 @@ import withStyles from '@mui/styles/withStyles'
 import { Stepper, Step, StepLabel, StepConnector, Hidden, Grid } from '@mui/material'
 
 import { AlertStore } from 'stores/AlertStore'
-import { createSupportRequest } from 'service/restRequests/support'
+import { createSupportRequest } from 'service/support'
 import GenericForm from 'components/common/form/GenericForm'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 

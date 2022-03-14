@@ -8,7 +8,7 @@ import { useTranslation } from 'next-i18next'
 import { DocumentResponse } from 'gql/document'
 import { ApiErrors } from 'service/apiErrors'
 import { endpoints } from 'service/apiEndpoints'
-import { useDeleteDocument } from 'service/restRequests/document'
+import { useDeleteDocument } from 'service/document'
 import { ModalStore } from 'stores/documents/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 
