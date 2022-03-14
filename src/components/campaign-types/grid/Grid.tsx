@@ -26,6 +26,8 @@ export default observer(function Grid() {
   const { t } = useTranslation('campaign-types')
   const { setSelectedIdsToDelete } = ModalStore
 
+  setSelectedIdsToDelete([])
+
   const { data }: UseQueryResult<CampaignTypesResponse[]> = useCampaignTypesList()
 
   const commonProps: Partial<GridColDef> = {

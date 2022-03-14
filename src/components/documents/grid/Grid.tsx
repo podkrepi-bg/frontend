@@ -23,11 +23,11 @@ import DeleteAllModal from './DeleteAllModal'
 
 export default observer(function Grid() {
   const { setSelectedIdsToDelete } = ModalStore
-
   const [pageSize, setPageSize] = useState(5)
   const { t } = useTranslation()
-
   const { data }: UseQueryResult<DocumentResponse[]> = useDocumentsList()
+
+  setSelectedIdsToDelete([])
 
   const commonProps: Partial<GridColDef> = {
     align: 'left',

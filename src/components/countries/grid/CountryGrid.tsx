@@ -77,11 +77,11 @@ const useStyles = makeStyles({
 export default observer(function CountryGrid() {
   const { showDeleteAll, setSelectedIdsToDelete, selectedIdsToDelete } = ModalStore
   const [pageSize, setPageSize] = React.useState<number>(10)
-
   const { data } = useCountriesList()
-
   const { t } = useTranslation('countries')
   const classes = useStyles()
+
+  setSelectedIdsToDelete([])
 
   const deleteAllClickHandler = () => {
     selectedIdsToDelete.length > 0

@@ -31,6 +31,8 @@ export default observer(function Grid() {
   const { t } = useTranslation()
   const { setSelectedIdsToDelete } = ModalStore
 
+  setSelectedIdsToDelete([])
+
   const { data }: UseQueryResult<BeneficiaryType[]> = useBeneficiariesList()
 
   const RenderCompanyCell = ({ params }: PersonCellProps) => {
