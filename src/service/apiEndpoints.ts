@@ -50,6 +50,14 @@ export const endpoints = {
     editCity: (id: string) => <Endpoint>{ url: `/city/${id}`, method: 'PATCH' },
     deleteCity: (id: string) => <Endpoint>{ url: `/city/${id}`, method: 'DELETE' },
   },
+  withdrawals: {
+    withdrawalsList: <Endpoint>{ url: '/withdrawal', method: 'GET' },
+    getWithdrawal: (id: string) => <Endpoint>{ url: `/withdrawal/${id}`, method: 'GET' },
+    createWithdrawal: <Endpoint>{ url: '/withdrawal', method: 'POST' },
+    editWithdrawal: (id: string) => <Endpoint>{ url: `/withdrawal/${id}`, method: 'PUT' },
+    deleteWithdrawal: (id: string) => <Endpoint>{ url: `/withdrawal/${id}`, method: 'DELETE' },
+    deleteWithdrawals: <Endpoint>{ url: '/withdrawal/deletemany', method: 'POST' },
+  },
   country: {
     listCountries: <Endpoint>{ url: '/country/list', method: 'GET' },
     createCountry: <Endpoint>{ url: '/country/create-country', method: 'POST' },
