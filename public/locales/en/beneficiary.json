@@ -12,7 +12,9 @@
     "coordinatorRelation": "Coordinator relation",
     "type": "Beneficiary type",
     "description": "Description",
-    "campaigns-count": "Campaigns count"
+    "campaigns-count": "Campaigns count",
+    "public-data": "Public data",
+    "private-data": "Private data"
   },
   "cta": {
     "details": "Beneficiary details",
