@@ -38,7 +38,7 @@ export default observer(function BottomAppBar() {
   const deleteAllHandler = () => {
     selectedIdsToDelete.length > 0
       ? showDeleteAll()
-      : AlertStore.show(t('common:alerts.noselected'), 'info')
+      : AlertStore.show(t('common:alerts.noselected'), 'warning')
   }
 
   return (
