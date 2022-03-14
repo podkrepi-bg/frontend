@@ -29,7 +29,7 @@ const VerticalTabs = ({ value, setValue, children }: Props) => {
         onChange={handleChange}
         sx={{ borderRight: 1, borderColor: 'divider', mb: 4 }}>
         <Tab sx={{ alignItems: 'start' }} label="Общи въпроси" />
-        <Tab sx={{ alignItems: 'start' }} label="Условия" />
+        <Tab sx={{ alignItems: 'start' }} label="Кампании" />
         <Tab sx={{ alignItems: 'start' }} label="Дарения" />
         <Tab sx={{ alignItems: 'start' }} label="Месечни дарения" />
         <Tab sx={{ alignItems: 'start' }} label="Потенциални злоупотреби" />

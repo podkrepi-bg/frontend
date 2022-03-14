@@ -7,7 +7,7 @@ import { useTranslation } from 'next-i18next'
 
 import { DocumentResponse } from 'gql/document'
 import { ApiErrors } from 'service/apiErrors'
-import { useDeleteDocument } from 'service/restRequests'
+import { useDeleteDocument } from 'service/restRequests/document'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 import { routes } from 'common/routes'
@@ -18,7 +18,7 @@ export default observer(function DeleteModal() {
   const { hideDelete, selectedRecord } = ModalStore
   const { t } = useTranslation()
 
-  const mutationFn = useDeleteDocument()
+  const mutationFn = useDeleteDocument(selectedRecord.id)
 
   const deleteMutation = useMutation<
     AxiosResponse<DocumentResponse>,

@@ -1,14 +1,14 @@
 {
-    "panel": {
-        "nav": {
-            "home": "Home",
-            "tasks": "Задачи",
-            "campaigns": "Кампании",
-            "volunteers": "Доброволци",
-            "payments": "Плащания",
-            "users": "Потребители",
-            "documents": "Документи",
-            "settings": "Настройки"
-        }
+  "panel": {
+    "nav": {
+      "home": "Home",
+      "tasks": "Задачи",
+      "campaigns": "Кампании",
+      "volunteers": "Доброволци",
+      "payments": "Плащания",
+      "users": "Потребители",
+      "documents": "Документи",
+      "settings": "Настройки"
     }
+  }
 }

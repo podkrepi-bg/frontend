@@ -6,6 +6,7 @@ import DetailsModal from 'components/modal/DetailsModal'
 import InfoRequestGrid from './InfoRequestGrid'
 import AdminLayout from './navigation/AdminLayout'
 import AdminContainer from './navigation/AdminContainer'
+import InfoRequestBottomAppBar from './InfoRequestBottomAppBar'
 
 export default function InfoRequestPage() {
   const { t } = useTranslation()
@@ -13,6 +14,7 @@ export default function InfoRequestPage() {
   return (
     <AdminLayout>
       <AdminContainer title={t('nav.admin.info-requests')}>
+        <InfoRequestBottomAppBar></InfoRequestBottomAppBar>
         <InfoRequestGrid />
         <DetailsModal />
       </AdminContainer>

@@ -8,7 +8,7 @@ import { useTranslation } from 'next-i18next'
 
 import { BankAccountResponse } from 'gql/bankaccounts'
 import { ApiErrors } from 'service/apiErrors'
-import { useDeleteManyBankAccounts } from 'service/restRequests'
+import { useDeleteManyBankAccounts } from 'service/restRequests/bankAccount'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 import { routes } from 'common/routes'
