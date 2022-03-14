@@ -1,12 +1,12 @@
 import React from 'react'
-import { UseQueryResult } from 'react-query'
 import { observer } from 'mobx-react'
-import { Dialog, Card, CardContent, Typography, Divider } from '@mui/material'
+import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
+import { Dialog, Card, CardContent, Typography, Divider } from '@mui/material'
 
 import { BenefactorResponse } from 'gql/benefactor'
 import { useBenefactor } from 'common/hooks/benefactor'
-import { ModalStore } from 'stores/ModalStore'
+import { ModalStore } from 'stores/benefactor/ModalStore'
 
 type Props = {
   id: string
