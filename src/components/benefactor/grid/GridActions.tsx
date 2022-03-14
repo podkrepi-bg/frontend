@@ -1,12 +1,11 @@
 import React, { Dispatch, SetStateAction } from 'react'
-import Link from 'next/link'
 import { Box, IconButton } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import ImportExportIcon from '@mui/icons-material/ImportExport'
 
 import { routes } from 'common/routes'
-import { ModalStore } from 'stores/ModalStore'
+import { ModalStore } from 'stores/benefactor/ModalStore'
 
 type Props = {
   id: string
@@ -38,11 +37,9 @@ export default function GridActions({ id, setSelectedId }: Props) {
       <IconButton size="small" onClick={detailsClickHandler}>
         <ImportExportIcon />
       </IconButton>
-      <Link href={routes.benefactor.view(id)}>
-        <IconButton size="small">
-          <EditIcon />
-        </IconButton>
-      </Link>
+      <IconButton size="small" onClick={() => routes.benefactor.view(id)}>
+        <EditIcon />
+      </IconButton>
       <IconButton size="small" onClick={deleteClickHandler}>
         <DeleteIcon />
       </IconButton>

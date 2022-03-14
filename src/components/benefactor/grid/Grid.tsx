@@ -14,12 +14,12 @@ import {
 
 import { BenefactorResponse } from 'gql/benefactor'
 import { useBenefactorList } from 'common/hooks/benefactor'
-import { ModalStore } from 'stores/ModalStore'
+import { ModalStore } from 'stores/benefactor/ModalStore'
 
-import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
-import DeleteAllModal from './DeleteAllModal'
 import GridActions from './GridActions'
+import DetailsModal from './DetailsModal'
+import DeleteAllModal from './DeleteAllModal'
 
 export default observer(function Grid() {
   const [selectedId, setSelectedId] = useState<string>('')
