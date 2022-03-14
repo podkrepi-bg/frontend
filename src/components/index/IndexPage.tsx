@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { Container } from '@mui/material'
+import { useTranslation } from 'next-i18next'
 
 import Layout from 'components/layout/Layout'
 
@@ -13,8 +14,14 @@ import { RefObject } from 'react-transition-group/node_modules/@types/react'
 
 export default function IndexPage() {
   const scrollElement = useRef<HTMLAnchorElement>(null)
+  const { t } = useTranslation()
   return (
-    <Layout maxWidth={false} disableOffset disableGutters>
+    <Layout
+      maxWidth={false}
+      disableOffset
+      disableGutters
+      title={t('index:jumbotron.heading')}
+      metaDescription={t('index:activity-section.content')}>
       <Jumbotron scrollTo={scrollElement} />
       <Container ref={scrollElement as RefObject<HTMLDivElement>} maxWidth="md">
         <ActivitySection />

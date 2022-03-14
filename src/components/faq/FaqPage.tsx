@@ -21,7 +21,7 @@ import {
   PARTNERSHIPS_QUESTIONS,
 } from './contents'
 
-const faqOnHold = true // Remove this when FAQ is ready
+const faqOnHold = false // Remove this when FAQ is ready
 
 export default function FaqPage() {
   const { t } = useTranslation()
@@ -42,39 +42,67 @@ export default function FaqPage() {
       <TabContext value={value.toString()}>
         <VerticalTabs value={value} setValue={setValue}>
           <TabPanel value={value} index={0}>
-            {COMMON_QUESTIONS.map(({ header, content }) => (
-              <ExpandableListItem key={header} header={header} content={content} />
-            ))}
+            {COMMON_QUESTIONS.flatMap(({ header, content, visible }) =>
+              visible === true ? (
+                <ExpandableListItem key={header} header={header} content={content} />
+              ) : (
+                []
+              ),
+            )}
           </TabPanel>
           <TabPanel value={value} index={1}>
-            {REQUIREMENTS_QUESTIONS.map(({ header, content }) => (
-              <ExpandableListItem key={header} header={header} content={content} />
-            ))}
+            {REQUIREMENTS_QUESTIONS.flatMap(({ header, content, visible }) =>
+              visible === true ? (
+                <ExpandableListItem key={header} header={header} content={content} />
+              ) : (
+                []
+              ),
+            )}
           </TabPanel>
           <TabPanel value={value} index={2}>
-            {DONATION_QUESTIONS.map(({ header, content }) => (
-              <ExpandableListItem key={header} header={header} content={content} />
-            ))}
+            {DONATION_QUESTIONS.flatMap(({ header, content, visible }) =>
+              visible === true ? (
+                <ExpandableListItem key={header} header={header} content={content} />
+              ) : (
+                []
+              ),
+            )}
           </TabPanel>
           <TabPanel value={value} index={3}>
-            {MONTHLY_DONATION_QUESTIONS.map(({ header, content }) => (
-              <ExpandableListItem key={header} header={header} content={content} />
-            ))}
+            {MONTHLY_DONATION_QUESTIONS.flatMap(({ header, content, visible }) =>
+              visible === true ? (
+                <ExpandableListItem key={header} header={header} content={content} />
+              ) : (
+                []
+              ),
+            )}
           </TabPanel>
           <TabPanel value={value} index={4}>
-            {POTENTION_SCAM_QUESTIONS.map(({ header, content }) => (
-              <ExpandableListItem key={header} header={header} content={content} />
-            ))}
+            {POTENTION_SCAM_QUESTIONS.flatMap(({ header, content, visible }) =>
+              visible === true ? (
+                <ExpandableListItem key={header} header={header} content={content} />
+              ) : (
+                []
+              ),
+            )}
           </TabPanel>
           <TabPanel value={value} index={5}>
-            {ATTRACTING_DONATORS_QUESTIONS.map(({ header, content }) => (
-              <ExpandableListItem key={header} header={header} content={content} />
-            ))}
+            {ATTRACTING_DONATORS_QUESTIONS.flatMap(({ header, content, visible }) =>
+              visible === true ? (
+                <ExpandableListItem key={header} header={header} content={content} />
+              ) : (
+                []
+              ),
+            )}
           </TabPanel>
           <TabPanel value={value} index={6}>
-            {PARTNERSHIPS_QUESTIONS.map(({ header, content }) => (
-              <ExpandableListItem key={header} header={header} content={content} />
-            ))}
+            {PARTNERSHIPS_QUESTIONS.flatMap(({ header, content, visible }) =>
+              visible === true ? (
+                <ExpandableListItem key={header} header={header} content={content} />
+              ) : (
+                []
+              ),
+            )}
           </TabPanel>
         </VerticalTabs>
       </TabContext>
