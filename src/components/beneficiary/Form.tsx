@@ -20,10 +20,14 @@ import { BeneficiaryFormData, BeneficiaryType } from 'gql/beneficiary'
 import { LegalEntityType, PersonRelation } from './BeneficiaryTypes'
 import { routes } from 'common/routes'
 import { ApiErrors } from 'service/apiErrors'
-import { useBeneficiary, useEditBeneficiary, useCreateBeneficiary } from 'service/beneficiary'
+import {
+  useBeneficiary,
+  useEditBeneficiary,
+  useCreateBeneficiary,
+} from 'service/restRequests/beneficiary'
 import { usePeopleList } from 'service/person'
 import { useCompaniesList } from 'service/company'
-import { useCoordinatorsList } from 'service/coordinator'
+import { useCoordinatorsList } from 'service/restRequests/coordinator'
 import { useCitiesList } from 'common/hooks/cities'
 import { useCountriesList } from 'common/hooks/countries'
 import { AlertStore } from 'stores/AlertStore'

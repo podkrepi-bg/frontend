@@ -3,7 +3,7 @@ import { dehydrate, QueryClient } from 'react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import EditPage from 'components/beneficiary/EditPage'
-import { prefetchBeneficiaryById } from 'service/beneficiary'
+import { prefetchBeneficiaryById } from 'service/restRequests/beneficiary'
 import { keycloakInstance } from 'middleware/auth/keycloak'
 
 export const getServerSideProps: GetServerSideProps = async (params) => {
