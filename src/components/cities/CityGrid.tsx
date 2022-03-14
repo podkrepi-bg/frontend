@@ -7,7 +7,7 @@ import { useCitiesList } from 'common/hooks/cities'
 import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
 
 import { AlertStore } from 'stores/AlertStore'
-import { useDeleteCity } from 'service/city'
+import { useDeleteMany } from 'service/city'
 import { useMutation } from 'react-query'
 import DeleteModal from './modals/DeleteModal'
 import DetailsModal from './modals/DetailsModal'
@@ -81,18 +81,16 @@ export default function CitiesGrid() {
 
   const { t } = useTranslation()
   const mutation = useMutation({
-    mutationFn: useDeleteCity,
+    mutationFn: useDeleteMany(),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => AlertStore.show(t('Избраните градове бяха преместени в кошчето.'), 'warning'),
   })
 
   const handleDeleteAll = () => {
     try {
-      selectedRows.forEach((row: CityResponse) => {
-        mutation.mutateAsync({ id: row.id }).then(() => {
-          router.push(routes.admin.cities.home)
-          setIsDeleteSelectedModalOpen(false)
-        })
+      mutation.mutateAsync(selectedRows.map((x) => x.id)).then(() => {
+        router.push(routes.admin.cities.home)
+        setIsDeleteSelectedModalOpen(false)
       })
     } catch (error) {
       AlertStore.show(t('common:alert.error'), 'error')

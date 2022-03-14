@@ -1,3 +1,4 @@
+import { KeycloakInstance } from 'keycloak-js'
 import { useTranslation } from 'react-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useMutation, useQuery } from 'react-query'
@@ -5,7 +6,7 @@ import { useMutation, useQuery } from 'react-query'
 import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
 import { endpoints } from 'service/apiEndpoints'
-import { createCheckoutSession } from 'service/restRequests/donation'
+
 import {
   CheckoutSessionInput,
   CheckoutSessionResponse,
@@ -14,7 +15,7 @@ import {
 } from 'gql/donations'
 import { useKeycloak } from '@react-keycloak/ssr'
 import { authQueryFnFactory } from 'service/restRequests'
-import { KeycloakInstance } from 'keycloak-js'
+import { createCheckoutSession } from 'service/donation'
 
 export function usePriceList() {
   return useQuery<DonationPrice[]>(endpoints.donation.prices.url)

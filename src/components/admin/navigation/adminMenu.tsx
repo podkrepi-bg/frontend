@@ -9,6 +9,7 @@ import {
   Class,
 } from '@mui/icons-material'
 import LocationCityRoundedIcon from '@mui/icons-material/LocationCityRounded'
+import LocalAtmIcon from '@mui/icons-material/LocalAtm'
 
 import { routes } from 'common/routes'
 import BeneficiaryIcon from 'common/icons/Beneficiary'
@@ -25,4 +26,5 @@ export const menuItems = [
   { label: 'Градове', icon: LocationCityRoundedIcon, href: routes.admin.cities.home },
   { label: 'Държави', icon: Public, href: routes.admin.countries.index },
   { label: 'Координатори', icon: People, href: routes.admin.coordinators.index },
+  { label: 'Тегления', icon: LocalAtmIcon, href: routes.admin.withdrawals.index },
 ]
