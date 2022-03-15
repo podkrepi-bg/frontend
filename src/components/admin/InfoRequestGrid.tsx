@@ -44,7 +44,12 @@ export default function InfoRequestGrid() {
       autoPageSize
       checkboxSelection
       disableSelectionOnClick
-      onRowClick={(p) => DialogStore.show(p, `${p.getValue(p.id, 'name')}`)}
+      onRowClick={(p, event) => {
+        const elm = event.target as HTMLInputElement
+        if (!elm.type && elm.type != 'checkbox') {
+          DialogStore.show(p, `${p.getValue(p.id, 'name')}`)
+        }
+      }}
     />
   )
 }
