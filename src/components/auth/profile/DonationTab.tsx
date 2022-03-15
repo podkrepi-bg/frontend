@@ -1,3 +1,4 @@
+import React from 'react'
 import { Box, Checkbox, Button } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { useUserDonations } from 'common/hooks/donation'
@@ -9,7 +10,10 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import { formatDateString } from 'common/util/date'
-
+import DesktopDatePicker from '@mui/lab/DesktopDatePicker'
+import TextField from '@mui/material/TextField'
+import AdapterDateFns from '@mui/lab/AdapterDateFns'
+import LocalizationProvider from '@mui/lab/LocalizationProvider'
 const useStyles = makeStyles({
   thinFont: {
     fontFamily: 'Montserrat',
@@ -61,6 +65,7 @@ function DonationTab(props: { value: number; index: number }) {
   const { value, index } = props
   const classes = useStyles()
   const { data = { donations: [], total: 0 } } = useUserDonations()
+  const [date, setDate] = React.useState()
 
   return (
     <Tab value={value} index={index}>
@@ -121,7 +126,7 @@ function DonationTab(props: { value: number; index: number }) {
         <Box
           sx={{
             display: 'flex',
-            alignItems: 'center',
+            alignItems: 'baseline',
             justifyContent: 'space-between',
           }}>
           <span className={classes.smallText}>Покажи:</span>
@@ -133,7 +138,24 @@ function DonationTab(props: { value: number; index: number }) {
             <Checkbox defaultChecked />
             <span className={classes.smallText}>месечни</span>
           </Box>
-          <span className={classes.thinFont}>възможност за търсене по дата</span>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <span className={classes.smallText}>от дата</span>
+            <DesktopDatePicker
+              label="Date desktop"
+              inputFormat="MM/dd/yyyy"
+              value={date}
+              onChange={(date) => setDate(date)}
+              renderInput={(params) => <TextField {...params} />}
+            />
+            <span className={classes.smallText}>до дата</span>
+            <DesktopDatePicker
+              label="Date desktop"
+              inputFormat="MM/dd/yyyy"
+              value={date}
+              onChange={(date) => setDate(date)}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
         </Box>
         {data.donations.length ? (
           <TableContainer>
