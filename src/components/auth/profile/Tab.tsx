@@ -11,7 +11,7 @@ function Tab(props: { value: number; index: number; children: ReactNode }) {
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}>
-      <Box sx={{ p: 3 }}>{value === index && children}</Box>
+      <Box>{value === index && children}</Box>
     </div>
   )
 }

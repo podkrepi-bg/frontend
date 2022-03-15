@@ -27,6 +27,7 @@ type LayoutProps = React.PropsWithChildren<
     disableOffset?: boolean
     boxProps?: BoxProps
     metaDescription?: string
+    profilePage?: boolean
   }
 >
 
@@ -60,6 +61,7 @@ export default function Layout({
   hideFooter = false,
   boxProps,
   metaDescription,
+  profilePage = false,
   ...containerProps
 }: LayoutProps) {
   const classes = useStyles()
@@ -70,7 +72,10 @@ export default function Layout({
   const metaTitle = useMemo(() => (title ? `${title} | ${suffix}` : suffix), [title, suffix])
 
   return (
-    <Container maxWidth={false} disableGutters>
+    <Container
+      maxWidth={false}
+      disableGutters
+      sx={{ backgroundColor: profilePage ? '#E9F6FF' : '' }}>
       <Container className={classes.layout} maxWidth={maxWidth} {...containerProps}>
         <Head>
           <title>{metaTitle}</title>
