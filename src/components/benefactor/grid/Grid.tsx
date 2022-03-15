@@ -8,26 +8,24 @@ import {
   GridColDef,
   GridColumns,
   GridRenderCellParams,
-  GridRowId,
   GridSelectionModel,
 } from '@mui/x-data-grid'
 
+import { routes } from 'common/routes'
 import { BenefactorResponse } from 'gql/benefactor'
 import { useBenefactorList } from 'common/hooks/benefactor'
-import { ModalStore } from 'stores/benefactor/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStore'
+import GridActions from 'components/admin/GridActions'
 
 import DeleteModal from './DeleteModal'
-import GridActions from './GridActions'
 import DetailsModal from './DetailsModal'
 import DeleteAllModal from './DeleteAllModal'
 
 export default observer(function Grid() {
-  const [selectedId, setSelectedId] = useState<string>('')
-  const [selectionModel, setSelectionModel] = useState<GridRowId[]>([])
-  const [pageSize, setPageSize] = useState(5)
-  const { t } = useTranslation('benefactor')
-  const { selectedPositive, selectedNegative } = ModalStore
+  const { setSelectedIdsToDelete } = ModalStore
 
+  const { t } = useTranslation('benefactor')
+  const [pageSize, setPageSize] = useState(5)
   const { data }: UseQueryResult<BenefactorResponse[]> = useBenefactorList()
 
   const commonProps: Partial<GridColDef> = {
@@ -42,7 +40,6 @@ export default observer(function Grid() {
       headerName: t('extCustomerId'),
       valueGetter: (p) => p.row.extCustomerId,
       ...commonProps,
-      //   width: 400,
       flex: 1,
     },
     {
@@ -50,15 +47,23 @@ export default observer(function Grid() {
       headerName: t('personId'),
       valueGetter: (p) => p.row.personId,
       ...commonProps,
-      //   width: 400,
       flex: 1,
     },
     {
-      field: t('actions'),
-      align: 'right',
+      field: 'actions',
+      headerName: t('actions'),
+      headerAlign: 'left',
+      type: 'actions',
       width: 120,
-      renderCell: (cellValues: GridRenderCellParams) => {
-        return <GridActions id={cellValues.row.id} setSelectedId={setSelectedId} />
+      resizable: false,
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        return (
+          <GridActions
+            id={params.row.id}
+            name={params.row.person}
+            editLink={routes.admin.benefactor.view(params.row.id)}
+          />
+        )
       },
     },
   ]
@@ -88,14 +93,13 @@ export default observer(function Grid() {
           disableSelectionOnClick
           checkboxSelection
           onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
-            newSelectionModel.length !== 0 ? selectedPositive() : selectedNegative()
-            setSelectionModel(newSelectionModel)
+            setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
           }}
         />
       </Box>
-      <DetailsModal id={selectedId} />
-      <DeleteModal id={selectedId} />
-      <DeleteAllModal selectionModel={selectionModel} />
+      <DetailsModal />
+      <DeleteModal />
+      <DeleteAllModal />
     </>
   )
 })

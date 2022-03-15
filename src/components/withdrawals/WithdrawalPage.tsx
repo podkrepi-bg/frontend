@@ -6,11 +6,11 @@ import Grid from './grid/Grid'
 import GridAppbar from './grid/GridAppbar'
 
 export default function WithdrawalPage() {
-  const { t } = useTranslation()
+  const { t } = useTranslation('withdrawals')
 
   return (
     <AdminLayout>
-      <AdminContainer title={t('withdrawals:withdrawals')}>
+      <AdminContainer title={t('withdrawals')}>
         <GridAppbar />
         <Grid />
       </AdminContainer>

@@ -1,6 +1,6 @@
 {
-  "form-heading": "Add new vault",
-  "edit-form-heading": "Edit vault",
+  "form-heading": "Add new city",
+  "edit-form-heading": "Edit city",
   "all": "All City",
   "cities": "City",
   "name": "Name",
@@ -15,9 +15,9 @@
   "actions": "Actions",
   "alerts": {
     "selectRow": "Please choose a row",
-    "create": "Vault has been created successfully!",
-    "edit": "Vault has been edited successfully!",
-    "delete": "Vault has been deleted successfully!",
+    "create": "City has been created successfully!",
+    "edit": "City has been edited successfully!",
+    "delete": "City has been deleted successfully!",
     "deleteAll": "City have been deleted successfully!",
     "error": "An error has occured! Please try again later."
   },

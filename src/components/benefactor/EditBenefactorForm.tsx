@@ -47,6 +47,8 @@ type EditBenefactorProp = {
 }
 
 export default function EditBenefactorForm({ id, initialValues = defaults }: BenefactorFormProps) {
+  const { t } = useTranslation('benefactor')
+
   const classes = useStyles()
   const mutation = useMutation<
     AxiosResponse<BenefactorResponse>,
@@ -54,11 +56,10 @@ export default function EditBenefactorForm({ id, initialValues = defaults }: Ben
     EditBenefactorProp
   >({
     mutationFn: editBenefactor,
-    onError: () => AlertStore.show(t('alerts:error'), 'error'),
-    onSuccess: () => AlertStore.show(t('alerts:create'), 'success'),
+    onError: () => AlertStore.show(t('alerts.error'), 'error'),
+    onSuccess: () => AlertStore.show(t('alerts.create'), 'success'),
   })
 
-  const { t } = useTranslation('benefactor')
   const router = useRouter()
 
   const onSubmit = async (

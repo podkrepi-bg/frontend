@@ -1,38 +1,22 @@
-import React from 'react'
 import { observer } from 'mobx-react'
 import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
-import { Dialog, Card, CardContent, Typography, Divider } from '@mui/material'
 
 import { BenefactorResponse } from 'gql/benefactor'
 import { useBenefactor } from 'common/hooks/benefactor'
-import { ModalStore } from 'stores/benefactor/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStore'
+import DetailsDialog from 'components/admin/DetailsDialog'
 
-type Props = {
-  id: string
-}
-
-export default observer(function DetailsModal({ id }: Props) {
-  const { data }: UseQueryResult<BenefactorResponse> = useBenefactor(id)
-  const { isDetailsOpen, hideDetails } = ModalStore
+export default observer(function DetailsModal() {
+  const { selectedRecord } = ModalStore
+  const { data }: UseQueryResult<BenefactorResponse> = useBenefactor(selectedRecord.id)
   const { t } = useTranslation('benefactor')
 
-  return (
-    <Dialog open={isDetailsOpen} onClose={hideDetails} sx={{ top: '-35%' }}>
-      <Card>
-        <CardContent>
-          <Typography variant="h5" sx={{ marginBottom: '16px' }}>
-            {t('cta.details')}
-          </Typography>
-          <Divider />
-          <Typography variant="body1" sx={{ fontSize: 24, marginTop: '8px' }}>
-            {t('customerId')}: {data?.extCustomerId}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('personId')}: {data?.person}
-          </Typography>
-        </CardContent>
-      </Card>
-    </Dialog>
-  )
+  const dataConverted = [
+    { name: 'ID', value: `${data?.id}` },
+    { name: t('customerId'), value: `${data?.extCustomerId}` },
+    { name: t('personId'), value: `${data?.person}` },
+  ]
+
+  return <DetailsDialog data={dataConverted} />
 })

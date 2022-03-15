@@ -1,29 +1,26 @@
 import React from 'react'
-import { useMutation, useQueryClient } from 'react-query'
+import { useRouter } from 'next/router'
+import { useMutation } from 'react-query'
 import { observer } from 'mobx-react'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Dialog, Card, CardContent, Box, Button, Typography } from '@mui/material'
 import { GridSelectionModel } from '@mui/x-data-grid'
 import { useTranslation } from 'next-i18next'
 
 import { CampaignTypesResponse } from 'gql/campaign-types'
 import { ApiErrors } from 'service/apiErrors'
-import { endpoints } from 'service/apiEndpoints'
+import { routes } from 'common/routes'
 import { useRemoveManyCampaignTypes } from 'service/campaignTypes'
-import { ModalStore } from 'stores/campaign-types/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 
-type Props = {
-  selectionModel: GridSelectionModel
-}
+import DeleteAllDialog from 'components/admin/DeleteAllDialog'
 
-export default observer(function DeleteAllModal({ selectionModel }: Props) {
-  const queryClient = useQueryClient()
-  const { isDeleteAllOpen, hideDeleteAll } = ModalStore
-  const { t } = useTranslation()
+export default observer(function DeleteAllModal() {
+  const router = useRouter()
+  const { hideDeleteAll, selectedIdsToDelete, setSelectedIdsToDelete } = ModalStore
+  const { t } = useTranslation('documents')
 
-  const idsToDelete = selectionModel.map((x) => x.toString())
-  const mutationFn = useRemoveManyCampaignTypes(idsToDelete)
+  const mutationFn = useRemoveManyCampaignTypes(selectedIdsToDelete)
 
   const mutation = useMutation<
     AxiosResponse<CampaignTypesResponse[]>,
@@ -31,36 +28,18 @@ export default observer(function DeleteAllModal({ selectionModel }: Props) {
     GridSelectionModel
   >({
     mutationFn,
-    onError: () => AlertStore.show(t('documents:alerts:error'), 'error'),
+    onError: () => AlertStore.show(t('alerts.error'), 'error'),
     onSuccess: () => {
       hideDeleteAll()
-      AlertStore.show(t('documents:alerts:deleteAll'), 'success')
-      queryClient.invalidateQueries(endpoints.campaignTypes.listCampaignTypes.url)
+      setSelectedIdsToDelete([])
+      AlertStore.show(t('alerts.deleteAll'), 'success')
+      router.push(routes.admin.campaignTypes.index)
     },
   })
 
   function deleteHandler() {
-    mutation.mutate(idsToDelete)
+    mutation.mutate(selectedIdsToDelete)
   }
 
-  return (
-    <Dialog open={isDeleteAllOpen} onClose={hideDeleteAll} sx={{ top: '-35%' }}>
-      <Card>
-        <CardContent>
-          <Typography variant="h6" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            {t('documents:deleteTitle')}
-          </Typography>
-          <Typography variant="body1" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            {t('documents:deleteAllContent')}
-          </Typography>
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Button color="error" onClick={deleteHandler}>
-              {t('documents:cta:delete')}
-            </Button>
-            <Button onClick={hideDeleteAll}>{t('documents:cta:cancel')}</Button>
-          </Box>
-        </CardContent>
-      </Card>
-    </Dialog>
-  )
+  return <DeleteAllDialog deleteHandler={deleteHandler} />
 })

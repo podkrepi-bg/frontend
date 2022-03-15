@@ -7,6 +7,7 @@ import {
   FolderShared,
   Public,
   Class,
+  Shield,
 } from '@mui/icons-material'
 import LocationCityRoundedIcon from '@mui/icons-material/LocationCityRounded'
 import LocalAtmIcon from '@mui/icons-material/LocalAtm'
@@ -27,5 +28,6 @@ export const menuItems = [
   { label: 'Градове', icon: LocationCityRoundedIcon, href: routes.admin.cities.home },
   { label: 'Държави', icon: Public, href: routes.admin.countries.index },
   { label: 'Координатори', icon: People, href: routes.admin.coordinators.index },
+  { label: 'Трезори', icon: Shield, href: routes.admin.vaults.index },
   { label: 'Тегления', icon: LocalAtmIcon, href: routes.admin.withdrawals.index },
 ]
