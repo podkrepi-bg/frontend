@@ -26,7 +26,6 @@ import { DonationInput, DonationResponse } from 'gql/donations'
 import { useDonation } from 'common/hooks/donations'
 import { useCreateDonation, useEditDonation } from 'service/restRequests/donation'
 import { useVaultsList } from 'common/hooks/vaults'
-import { VaultResponse } from 'gql/vault'
 
 const validDonationTypes = ['donation']
 const validDonationStatuses = [
@@ -49,11 +48,16 @@ const validationSchema = yup.object().defined().shape({
 })
 
 export default function EditForm() {
-  const [vault, setVault] = useState<string>('')
+  const [type, setType] = useState('donation')
+  const [status, setStatus] = useState('initial')
+  const [provider, setProvider] = useState('none')
+  const [currency, setCurrency] = useState('')
+  const [vault, setVault] = useState('')
   const router = useRouter()
   const { t } = useTranslation()
 
   let id = router.query.id
+
   const vaults = useVaultsList().data
 
   let initialValues: DonationInput = {
@@ -66,7 +70,6 @@ export default function EditForm() {
     extCustomerId: '',
     extPaymentIntentId: '',
     extPaymentMethodId: '',
-    // personId: '',
   }
 
   if (id) {
@@ -75,16 +78,15 @@ export default function EditForm() {
 
     if (data) {
       initialValues = {
-        type: data?.type,
-        status: data?.status,
-        provider: data?.provider,
-        currency: data?.currency,
+        type: data?.type.toString(),
+        status: data?.status.toString(),
+        provider: data?.provider.toString(),
+        currency: data?.currency.toString(),
         amount: data?.amount,
         targetVaultId: data?.targetVaultId,
         extCustomerId: data?.extCustomerId,
         extPaymentIntentId: data?.extPaymentIntentId,
         extPaymentMethodId: data?.extPaymentMethodId,
-        // personId: data?.personId,
       }
     }
   }
@@ -105,9 +107,12 @@ export default function EditForm() {
   })
 
   async function onSubmit(data: DonationInput) {
-    data.targetVaultId = vault
+    type ? (data.type = type) : ''
+    status ? (data.status = status) : ''
+    provider ? (data.provider = provider) : ''
+    currency ? (data.currency = currency) : ''
+    vault ? (data.targetVaultId = vault) : ''
 
-    console.log(data)
     mutation.mutate(data)
   }
 
@@ -130,7 +135,7 @@ export default function EditForm() {
                 id="type"
                 name="type"
                 defaultValue={initialValues.type}
-                onChange={() => ''}
+                onChange={(e) => setType(e.target.value)}
                 disabled={id ? true : false}>
                 {validDonationTypes.map((type) => {
                   return (
@@ -151,7 +156,10 @@ export default function EditForm() {
                 id="status"
                 name="status"
                 defaultValue={initialValues.status}
-                onChange={() => ''}>
+                onChange={(e) => {
+                  setStatus(e.target.value)
+                  console.log(e.target.value)
+                }}>
                 {validDonationStatuses.map((stat) => {
                   return (
                     <MenuItem key={stat} value={stat}>
@@ -171,7 +179,7 @@ export default function EditForm() {
                 id="provider"
                 name="provider"
                 defaultValue={initialValues.provider}
-                onChange={() => ''}
+                onChange={(e) => setProvider(e.target.value)}
                 disabled={id ? true : false}>
                 {validProviders.map((prov) => {
                   return (
@@ -245,7 +253,7 @@ export default function EditForm() {
                 id="currency"
                 name="currency"
                 defaultValue={initialValues.currency}
-                onChange={() => ''}
+                onChange={(e) => setCurrency(e.target.value)}
                 disabled={id ? true : false}>
                 {validCurrencies.map((currency) => {
                   return (
