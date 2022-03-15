@@ -25,6 +25,7 @@ export const endpoints = {
     singlePrices: <Endpoint>{ url: '/donation/prices/single', method: 'GET' },
     recurringPrices: <Endpoint>{ url: '/donation/prices/recurring', method: 'GET' },
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
+    userDonations: <Endpoint>{ url: 'donation/user-donations', method: 'GET' },
   },
   documents: {
     documentsList: <Endpoint>{ url: '/document', method: 'GET' },
@@ -49,6 +50,14 @@ export const endpoints = {
     editCity: (id: string) => <Endpoint>{ url: `/city/${id}`, method: 'PATCH' },
     deleteCity: (id: string) => <Endpoint>{ url: `/city/${id}`, method: 'DELETE' },
   },
+  withdrawals: {
+    withdrawalsList: <Endpoint>{ url: '/withdrawal', method: 'GET' },
+    getWithdrawal: (id: string) => <Endpoint>{ url: `/withdrawal/${id}`, method: 'GET' },
+    createWithdrawal: <Endpoint>{ url: '/withdrawal', method: 'POST' },
+    editWithdrawal: (id: string) => <Endpoint>{ url: `/withdrawal/${id}`, method: 'PUT' },
+    deleteWithdrawal: (id: string) => <Endpoint>{ url: `/withdrawal/${id}`, method: 'DELETE' },
+    deleteWithdrawals: <Endpoint>{ url: '/withdrawal/deletemany', method: 'POST' },
+  },
   country: {
     listCountries: <Endpoint>{ url: '/country/list', method: 'GET' },
     createCountry: <Endpoint>{ url: '/country/create-country', method: 'POST' },
@@ -61,6 +70,13 @@ export const endpoints = {
     viewCoordinator: (id: string) => <Endpoint>{ url: `/coordinator/${id}`, method: 'GET' },
     postCoordinator: <Endpoint>{ url: '/coordinator', method: 'POST' },
     deleteCoordinator: (id: string) => <Endpoint>{ url: `/coordinator/${id}`, method: 'DELETE' },
+  },
+  benefactor: {
+    benefactorList: <Endpoint>{ url: '/benefactor', method: 'GET' },
+    getBenefactor: (id: string) => <Endpoint>{ url: `/benefactor/${id}`, method: 'GET' },
+    createBenefactor: <Endpoint>{ url: '/benefactor', method: 'POST' },
+    editBenefactor: (id: string) => <Endpoint>{ url: '/benefactor/' + id, method: 'PATCH' },
+    deleteBenefactor: (id: string) => <Endpoint>{ url: '/benefactor/' + id, method: 'DELETE' },
   },
   vaults: {
     vaultsList: <Endpoint>{ url: '/vault', method: 'GET' },

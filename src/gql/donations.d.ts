@@ -13,3 +13,19 @@ export type CheckoutSessionInput = {
   successUrl?: string
   cancelUrl?: string
 }
+
+export type UserDonation = {
+  targetVault: {
+    campaign: {
+      title: string
+    }
+  }
+  amount: number
+  currency: number
+  createdAt: string
+}
+
+export type UserDonationResult = {
+  donations: UserDonation[]
+  total: number
+}

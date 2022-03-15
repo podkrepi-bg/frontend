@@ -4,7 +4,7 @@ import { observer } from 'mobx-react'
 import { useTranslation } from 'next-i18next'
 
 import { BeneficiaryType } from 'gql/beneficiary'
-import { useBeneficiary } from 'service/restRequests/beneficiary'
+import { useBeneficiary } from 'service/beneficiary'
 import { useViewCompany } from 'service/company'
 import { useViewPerson } from 'service/person'
 import { useViewCoordinatorResponse } from 'common/hooks/coordinators'

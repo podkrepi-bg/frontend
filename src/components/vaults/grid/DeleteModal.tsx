@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next'
 
 import { VaultResponse } from 'gql/vault'
 import { ApiErrors } from 'service/apiErrors'
-import { useDeleteVault } from 'service/restRequests/vault'
+import { useDeleteVault } from 'service/vault'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 import { routes } from 'common/routes'
