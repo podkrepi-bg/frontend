@@ -25,6 +25,7 @@ import {
   useCreateCampaignType,
   useCampaignTypesList,
 } from 'service/campaignTypes'
+import { createSlug } from 'common/util/createSlug'
 import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
@@ -79,6 +80,7 @@ export default function Form() {
     if (data.parentId === '') {
       delete data['parentId']
     }
+    data.slug = createSlug(data.name)
     mutation.mutateAsync(data)
   }
 
