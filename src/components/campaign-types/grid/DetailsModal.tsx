@@ -4,7 +4,7 @@ import { observer } from 'mobx-react'
 import { useTranslation } from 'next-i18next'
 
 import { CampaignTypesResponse } from 'gql/campaign-types'
-import { useCampaignType } from 'service/restRequests/campaignTypes'
+import { useCampaignType } from 'service/campaignTypes'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 
 import DetailsDialog from 'components/admin/DetailsDialog'
