@@ -14,7 +14,7 @@ import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import { BankAccountResponse, BankAccountInput, BankAccountsData } from 'gql/bankaccounts'
 
-import { useCreateBankAccount } from 'service/restRequests/bankAccount'
+import { useCreateBankAccount } from 'service/bankAccount'
 import { AlertStore } from 'stores/AlertStore'
 import { ApiErrors } from 'service/apiErrors'
 import { routes } from 'common/routes'
