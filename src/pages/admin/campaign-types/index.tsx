@@ -3,7 +3,7 @@ import { dehydrate, QueryClient } from 'react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import CampaignTypesPage from 'components/campaign-types/CampaignTypesPage'
-import { prefetchCampaignTypesList } from 'service/restRequests/campaignTypes'
+import { prefetchCampaignTypesList } from 'service/campaignTypes'
 import { keycloakInstance } from 'middleware/auth/keycloak'
 
 export const getServerSideProps: GetServerSideProps = async (params) => {
