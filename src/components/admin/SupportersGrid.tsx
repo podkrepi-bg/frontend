@@ -1,10 +1,18 @@
 import React from 'react'
+import { observer } from 'mobx-react'
 import { Check, Clear } from '@mui/icons-material'
-import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import {
+  DataGrid,
+  GridColDef,
+  GridColumns,
+  GridRenderCellParams,
+  GridSelectionModel,
+} from '@mui/x-data-grid'
 
 import { DialogStore } from 'stores/DialogStore'
 import { dateFormatter } from 'common/util/date'
 import { useSupportRequestList } from 'common/hooks/supportRequest'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 
 const renderCell = (params: GridRenderCellParams) =>
   params.value ? <Check color="primary" /> : <Clear color="action" />
@@ -66,8 +74,11 @@ const columns: GridColumns = [
   { ...commonProps, field: 'volunteerSecurity', headerName: 'Security' },
 ]
 
-export default function SupportersGrid() {
+export default observer(function SupportersGrid() {
   const { data } = useSupportRequestList()
+  const { setSelectedIdsToDelete } = ModalStore
+
+  setSelectedIdsToDelete([])
 
   return (
     <DataGrid
@@ -84,6 +95,9 @@ export default function SupportersGrid() {
           DialogStore.show(p, `${p.getValue(p.id, 'name')}`)
         }
       }}
+      onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
+        setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
+      }}
     />
   )
-}
+})
