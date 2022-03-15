@@ -13,7 +13,7 @@ import {
 
 import { routes } from 'common/routes'
 import { CampaignTypesResponse } from 'gql/campaign-types'
-import { useCampaignTypesList } from 'service/restRequests/campaignTypes'
+import { useCampaignTypesList } from 'service/campaignTypes'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 
 import DetailsModal from './DetailsModal'
