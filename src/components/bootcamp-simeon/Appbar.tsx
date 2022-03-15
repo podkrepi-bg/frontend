@@ -51,7 +51,7 @@ export default function BootcampAppbar({ open, handler }: Props) {
     <AppBar sx={{ background: 'white', paddingLeft: '0px' }} position="fixed" open={open}>
       <Toolbar sx={{ paddingLeft: '0px' }}>
         <Image width={140} height={40} src="/podkrepi-bg-logo-en.svg" />
-        {/* <IconButton
+        <IconButton
           title="Dashboard"
           color="primary"
           aria-label="open drawer"
@@ -64,7 +64,7 @@ export default function BootcampAppbar({ open, handler }: Props) {
         </IconButton>
         <Typography variant="h6" noWrap component="div">
           Admin panel
-        </Typography> */}
+        </Typography>
         <Box sx={{ flexGrow: 0, marginLeft: 'auto', marginRight: '0' }}>
           <Tooltip title="Profile">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
