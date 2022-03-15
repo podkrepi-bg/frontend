@@ -5,7 +5,7 @@ import * as React from 'react'
 import MenuIcon from '@mui/icons-material/Menu'
 import { useTranslation } from 'next-i18next'
 import { drawerWidth } from './styles'
-import { IconButton, Toolbar } from '@mui/material'
+import { Box, IconButton, Toolbar, Typography } from '@mui/material'
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean
@@ -60,6 +60,10 @@ export default function BootcampAppbar({ open, handler }: Props) {
           }}>
           <MenuIcon />
         </IconButton>
+        <Typography variant="h6" noWrap component="div">
+          Admin panel
+        </Typography>
+        <Box sx={{ flexGrow: 0, marginLeft: 'auto', marginRight: '0' }}></Box>
       </Toolbar>
     </AppBar>
   )
