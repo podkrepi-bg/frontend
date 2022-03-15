@@ -8,9 +8,9 @@ import { useTranslation } from 'next-i18next'
 import { DonationResponse } from 'gql/donations'
 import { ApiErrors } from 'service/apiErrors'
 import { endpoints } from 'service/apiEndpoints'
-import { useDeleteDonation } from 'service/restRequests/donation'
 import { ModalStore } from 'stores/documents/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
+import { useDeleteDonation } from 'service/restRequests/donation'
 
 type Props = {
   id: string
