@@ -33,8 +33,8 @@ const useStyles = makeStyles({
     backgroundColor: 'white',
     flexGrow: 1,
     marginRight: '10px',
-    padding: '10px',
-    paddingLeft: '30px',
+    padding: '10px 30px',
+    // paddingLeft: '30px',
   },
   donates: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' },
   donateNowBox: { backgroundColor: 'white', padding: '10px', position: 'relative' },
@@ -46,6 +46,14 @@ const useStyles = makeStyles({
     fontSize: '22px',
     lineHeight: '133.4%',
     color: '#000000',
+  },
+  smallText: {
+    fontFamily: 'Lato, sans-serif',
+    fontStyle: 'normal',
+    fontWeight: '500',
+    fontSize: '20px',
+    lineHeight: '160%',
+    letterSpacing: '0.15px',
   },
 })
 
@@ -105,7 +113,7 @@ function DonationTab(props: { value: number; index: number }) {
         sx={{
           backgroundColor: 'white',
           flexGrow: 1,
-          padding: '10px',
+          padding: '10px 30px',
         }}>
         <Box>
           <h3 className={classes.thinFont}>Онлайн дарения</h3>
@@ -116,14 +124,14 @@ function DonationTab(props: { value: number; index: number }) {
             alignItems: 'center',
             justifyContent: 'space-between',
           }}>
-          <span className={classes.thinFont}>Покажи:</span>
+          <span className={classes.smallText}>Покажи:</span>
           <Box>
             <Checkbox defaultChecked />
-            <span className={classes.thinFont}>еднократни</span>
+            <span className={classes.smallText}>еднократни</span>
           </Box>
           <Box>
             <Checkbox defaultChecked />
-            <span className={classes.thinFont}>месечни</span>
+            <span className={classes.smallText}>месечни</span>
           </Box>
           <span className={classes.thinFont}>възможност за търсене по дата</span>
         </Box>
