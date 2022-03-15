@@ -44,6 +44,8 @@ const defaults: BenefactorFormData = {
 type BenefactorFormProps = { initialValues?: BenefactorFormData }
 
 export default function AddBenefactorForm({ initialValues = defaults }: BenefactorFormProps) {
+  const { t } = useTranslation('benefactor')
+
   const classes = useStyles()
   const mutation = useMutation<
     AxiosResponse<BenefactorResponse>,
@@ -55,7 +57,6 @@ export default function AddBenefactorForm({ initialValues = defaults }: Benefact
     onSuccess: () => AlertStore.show(t('alerts:create'), 'success'),
   })
 
-  const { t } = useTranslation('benefactor')
   const router = useRouter()
 
   const onSubmit = async (
