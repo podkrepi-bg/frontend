@@ -7,11 +7,11 @@ import AdminLayout from 'components/admin/navigation/AdminLayout'
 import Form from './Form'
 
 export default function CreatePage() {
-  const { t } = useTranslation()
+  const { t } = useTranslation('campaign-types')
 
   return (
     <AdminLayout>
-      <AdminContainer title={t('campaign-types:all')}>
+      <AdminContainer title={t('all')}>
         <Container maxWidth="md" sx={{ py: 5 }}>
           <Form />
         </Container>

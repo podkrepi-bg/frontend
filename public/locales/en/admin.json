@@ -1,0 +1,20 @@
+{
+    "modals": {
+        "delete": {
+            "title": "Are you sure?",
+            "content": "This action will delete record:"
+        },
+        "delete-all": {
+            "title": "Are you sure?",
+            "content": "This action will delete all selected records"
+        }
+    },
+    "cta": {
+        "submit": "Submit",
+        "confirm": "Confirm",
+        "cancel": "Cancel",
+        "view": "View",
+        "edit": "Edit",
+        "delete": "Delete"
+    }
+}

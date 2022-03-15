@@ -1,24 +1,20 @@
-import React from 'react'
-import { useMutation, useQueryClient } from 'react-query'
+import { useRouter } from 'next/router'
+import { useMutation } from 'react-query'
 import { observer } from 'mobx-react'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Dialog, Card, CardContent, Box, Button, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import { BenefactorResponse } from 'gql/benefactor'
 import { ApiErrors } from 'service/apiErrors'
-import { endpoints } from 'service/apiEndpoints'
+import { routes } from 'common/routes'
 import { deleteBenefactor } from 'service/benefactor'
-import { ModalStore } from 'stores/benefactor/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
+import DeleteDialog from 'components/admin/DeleteDialog'
 
-type Props = {
-  id: string
-}
-
-export default observer(function DeleteModal({ id }: Props) {
-  const queryClient = useQueryClient()
-  const { isDeleteOpen, hideDelete } = ModalStore
+export default observer(function DeleteModal() {
+  const router = useRouter()
+  const { hideDelete, selectedRecord } = ModalStore
   const { t } = useTranslation('benefactor')
 
   const mutationFn = deleteBenefactor
@@ -33,32 +29,13 @@ export default observer(function DeleteModal({ id }: Props) {
     onSuccess: () => {
       hideDelete()
       AlertStore.show(t('alerts.delete'), 'success')
-      queryClient.invalidateQueries(endpoints.benefactor.benefactorList.url)
+      router.push(routes.admin.benefactor.index)
     },
   })
 
   function deleteHandler() {
-    deleteMutation.mutate(id)
+    deleteMutation.mutate(selectedRecord.id)
   }
 
-  return (
-    <Dialog open={isDeleteOpen} onClose={hideDelete} sx={{ top: '-35%' }}>
-      <Card>
-        <CardContent>
-          <Typography variant="h6" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            {t('deleteTitle')}
-          </Typography>
-          <Typography variant="body1" sx={{ marginBottom: '16px', textAlign: 'center' }}>
-            {t('deleteContent')}
-          </Typography>
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <Button color="error" onClick={deleteHandler}>
-              {t('cta.delete')}
-            </Button>
-            <Button onClick={hideDelete}>{t('cta.cancel')}</Button>
-          </Box>
-        </CardContent>
-      </Card>
-    </Dialog>
-  )
+  return <DeleteDialog deleteHandler={deleteHandler} />
 })
