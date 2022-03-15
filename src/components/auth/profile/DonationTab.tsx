@@ -14,6 +14,9 @@ import DesktopDatePicker from '@mui/lab/DesktopDatePicker'
 import TextField from '@mui/material/TextField'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
+import Avatar from '@mui/material/Avatar'
+import StarIcon from '@mui/icons-material/Star'
+
 const useStyles = makeStyles({
   thinFont: {
     fontFamily: 'Montserrat',
@@ -164,6 +167,7 @@ function DonationTab(props: { value: number; index: number }) {
                 <TableRow>
                   <TableCell>№</TableCell>
                   <TableCell>Дата</TableCell>
+                  <TableCell>Вид</TableCell>
                   <TableCell>Кауза</TableCell>
                   <TableCell>стойност</TableCell>
                   <TableCell>сертификат</TableCell>
@@ -176,6 +180,11 @@ function DonationTab(props: { value: number; index: number }) {
                       {index + 1}
                     </TableCell>
                     <TableCell>{formatDateString(donation.createdAt)}</TableCell>
+                    <TableCell>
+                      <Avatar sx={{ background: '#F6992B' }}>
+                        <StarIcon></StarIcon>
+                      </Avatar>
+                    </TableCell>
                     <TableCell>{donation.targetVault.campaign.title}</TableCell>
                     <TableCell>
                       {donation.amount} {donation.currency}
