@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 export default function ProfilePage() {
   const { t } = useTranslation()
   const [value, setValue] = React.useState(0)
-  const { keycloak, session } = useSession()
+  const { keycloak } = useSession()
   const classes = useStyles()
 
   const handleChange = (_: SyntheticEvent, value: number) => {
