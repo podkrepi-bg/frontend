@@ -9,7 +9,7 @@ import makeStyles from '@mui/styles/makeStyles'
 import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { CoorinatorInput, CoordinatorResponse } from 'gql/coordinators'
-import { useCreateCoordinatorRequest } from 'service/coordinator'
+import { useCreateCoordinator } from 'service/coordinator'
 import { AlertStore } from 'stores/AlertStore'
 import { ApiErrors } from 'service/apiErrors'
 import { routes } from 'common/routes'
@@ -39,7 +39,7 @@ export default function CoordinatorsForm() {
     AxiosError<ApiErrors>,
     CoorinatorInput
   >({
-    mutationFn: useCreateCoordinatorRequest(),
+    mutationFn: useCreateCoordinator(),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => {
       AlertStore.show(t('common:alerts.saved'), 'success')
