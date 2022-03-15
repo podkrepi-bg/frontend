@@ -63,6 +63,11 @@ export const routes = {
       viewCityById: (id: string) => `/admin/cities/details/${id}`,
       editCityById: (id: string) => `/admin/cities/edit/${id}`,
     },
+    withdrawals: {
+      index: '/admin/withdrawals',
+      create: '/admin/withdrawals/create',
+      edit: (id: string | string) => `/admin/withdrawals/edit/${id}`,
+    },
     coordinators: {
       index: '/admin/coordinators',
       add: '/admin/coordinators/add',
@@ -97,6 +102,11 @@ export const routes = {
       index: '/admin/vaults',
       create: '/admin/vaults/create',
       edit: (slug: string) => `/admin/vaults/${slug}/edit`,
+    },
+    benefactor: {
+      index: '/benefactor',
+      view: (id: string) => `/benefactor/${id}`,
+      add: '/benefactor/add',
     },
   },
   dev: {

@@ -8,13 +8,14 @@ import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
 import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
-import { createCheckoutSession } from 'service/restRequests/donation'
 import {
   CheckoutSessionInput,
   CheckoutSessionResponse,
   DonationPrice,
   DonationResponse,
+  UserDonationResult,
 } from 'gql/donations'
+import { createCheckoutSession } from 'service/donation'
 
 export function usePriceList() {
   return useQuery<DonationPrice[]>(endpoints.donation.prices.url)
@@ -67,4 +68,10 @@ export async function prefetchDonationById(client: QueryClient, id: string, toke
     endpoints.donation.getDonation(id).url,
     authQueryFnFactory<DonationResponse>(token),
   )
+}
+export function useUserDonations() {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return useQuery<UserDonationResult>(endpoints.donation.userDonations.url, {
+    queryFn: authQueryFnFactory(keycloak?.token),
+  })
 }
