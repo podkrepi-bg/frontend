@@ -5,7 +5,7 @@ import { Dialog, Card, CardContent, Typography, Divider } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import { DonationResponse } from 'gql/donations'
-import { useDonation } from 'common/hooks/donations'
+import { useDonation } from 'common/hooks/donation'
 import { ModalStore } from 'stores/documents/ModalStore'
 
 type Props = {

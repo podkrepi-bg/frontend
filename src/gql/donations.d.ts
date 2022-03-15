@@ -33,10 +33,10 @@ export type DonationResponse = {
 }
 
 export type DonationInput = {
-  type: DonationType | string
-  status: DonationStatus | string
-  provider: PaymentProvider | string
-  currency: Currency | ''
+  type: string
+  status: string
+  provider: string
+  currency: string
   amount: number
   targetVaultId: UUID
   extCustomerId: string

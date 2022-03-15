@@ -3,8 +3,8 @@ import { dehydrate, QueryClient } from 'react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import DonationsPage from 'components/donations/DonationsPage'
-import { prefetchDonationsList } from 'common/hooks/donations'
 import { keycloakInstance } from 'middleware/auth/keycloak'
+import { prefetchDonationsList } from 'common/hooks/donation'
 
 export const getServerSideProps: GetServerSideProps = async (params) => {
   const client = new QueryClient()

@@ -11,7 +11,7 @@ import { endpoints } from 'service/apiEndpoints'
 import { ModalStore } from 'stores/documents/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 import { DonationResponse } from 'gql/donations'
-import { useDeleteDonation } from 'service/restRequests/donation'
+import { useDeleteDonation } from 'service/donation'
 
 type Props = {
   selectionModel: GridSelectionModel

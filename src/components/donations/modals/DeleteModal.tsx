@@ -10,7 +10,7 @@ import { ApiErrors } from 'service/apiErrors'
 import { endpoints } from 'service/apiEndpoints'
 import { ModalStore } from 'stores/documents/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
-import { useDeleteDonation } from 'service/restRequests/donation'
+import { useDeleteDonation } from 'service/donation'
 
 type Props = {
   id: string

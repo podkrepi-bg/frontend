@@ -23,8 +23,8 @@ import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
 import { DonationInput, DonationResponse } from 'gql/donations'
-import { useDonation } from 'common/hooks/donations'
-import { useCreateDonation, useEditDonation } from 'service/restRequests/donation'
+import { useDonation } from 'common/hooks/donation'
+import { useCreateDonation, useEditDonation } from 'service/donation'
 import { useVaultsList } from 'common/hooks/vaults'
 
 const validDonationTypes = ['donation']

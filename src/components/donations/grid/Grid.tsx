@@ -13,7 +13,7 @@ import {
 } from '@mui/x-data-grid'
 
 import { DonationResponse } from 'gql/donations'
-import { useDonationsList } from 'common/hooks/donations'
+import { useDonationsList } from 'common/hooks/donation'
 import { ModalStore } from 'stores/documents/ModalStore'
 
 import DetailsModal from '../modals/DetailsModal'
