@@ -34,10 +34,15 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     shareButton: {
       padding: theme.spacing(0.75, 0),
+      borderColor: theme.palette.warning.main,
+      color: 'black',
     },
     donationPriceList: {
       display: 'contents',
       textAlignLast: 'center',
+    },
+    supportButton: {
+      background: theme.palette.warning.light,
     },
   }),
 )
@@ -122,6 +127,7 @@ export default function InlineDonation({ campaign }: Props) {
           onClick={onClick}
           variant="contained"
           color="secondary"
+          className={classes.supportButton}
           startIcon={<Favorite color="action" />}>
           {t('common:support')}
         </LinkButton>
