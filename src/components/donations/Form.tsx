@@ -1,11 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useMutation, UseQueryResult } from 'react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
-import { Box, Button, Grid, Typography } from '@mui/material'
+import {
+  Box,
+  Button,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+} from '@mui/material'
 
 import { routes } from 'common/routes'
 import { ApiErrors } from 'service/apiErrors'
@@ -16,6 +25,8 @@ import SubmitButton from 'components/common/form/SubmitButton'
 import { DonationInput, DonationResponse } from 'gql/donations'
 import { useDonation } from 'common/hooks/donations'
 import { useCreateDonation, useEditDonation } from 'service/restRequests/donation'
+import { useVaultsList } from 'common/hooks/vaults'
+import { VaultResponse } from 'gql/vault'
 
 const validDonationTypes = ['donation']
 const validDonationStatuses = [
@@ -31,24 +42,19 @@ const validDonationStatuses = [
   'paymentRequested',
 ]
 const validProviders = ['none', 'stripe', 'paypal', 'epay', 'bank', 'cash']
+const validCurrencies = ['BGN', 'EUR']
 
-const validationSchema = yup
-  .object()
-  .defined()
-  .shape({
-    type: yup.string().oneOf(validDonationTypes).required(),
-    status: yup.string().oneOf(validDonationStatuses).required(),
-    provider: yup.string().oneOf(validProviders).required(),
-    targetVaultId: yup.string().trim(),
-    currency: yup.string().trim(),
-    amount: yup.number().required(),
-  })
+const validationSchema = yup.object().defined().shape({
+  amount: yup.number().positive().required(),
+})
 
 export default function EditForm() {
+  const [vault, setVault] = useState<string>('')
   const router = useRouter()
   const { t } = useTranslation()
 
   let id = router.query.id
+  const vaults = useVaultsList().data
 
   let initialValues: DonationInput = {
     type: 'donation',
@@ -99,6 +105,9 @@ export default function EditForm() {
   })
 
   async function onSubmit(data: DonationInput) {
+    data.targetVaultId = vault
+
+    console.log(data)
     mutation.mutate(data)
   }
 
@@ -109,35 +118,144 @@ export default function EditForm() {
       validationSchema={validationSchema}>
       <Box sx={{ marginTop: '5%', height: '62.6vh' }}>
         <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
-          {id ? 'Редактирай дарение' : 'Добави дарение'}
+          {id ? t('donations:edit-form-heading') : t('donations:form-heading')}
         </Typography>
         <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
           <Grid item xs={6}>
-            <FormTextField type="text" label={'Тип'} name="type" />
+            <FormControl fullWidth size="small">
+              <InputLabel id="labelType">{t('donations:type')}</InputLabel>
+              <Select
+                labelId="labelType"
+                label={t('donations:type')}
+                id="type"
+                name="type"
+                defaultValue={initialValues.type}
+                onChange={() => ''}
+                disabled={id ? true : false}>
+                {validDonationTypes.map((type) => {
+                  return (
+                    <MenuItem key={type} value={type}>
+                      {type}
+                    </MenuItem>
+                  )
+                })}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={6}>
-            <FormTextField type="text" label={'Статус'} name="status" />
+            <FormControl fullWidth size="small">
+              <InputLabel id="labelStatus">{t('donations:status')}</InputLabel>
+              <Select
+                labelId="labelStatus"
+                label={t('donations:status')}
+                id="status"
+                name="status"
+                defaultValue={initialValues.status}
+                onChange={() => ''}>
+                {validDonationStatuses.map((stat) => {
+                  return (
+                    <MenuItem key={stat} value={stat}>
+                      {stat}
+                    </MenuItem>
+                  )
+                })}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={6}>
+            <FormControl fullWidth size="small">
+              <InputLabel id="labelProvider">{t('donations:provider')}</InputLabel>
+              <Select
+                labelId="labelProvider"
+                label={t('donations:provider')}
+                id="provider"
+                name="provider"
+                defaultValue={initialValues.provider}
+                onChange={() => ''}
+                disabled={id ? true : false}>
+                {validProviders.map((prov) => {
+                  return (
+                    <MenuItem key={prov} value={prov}>
+                      {prov}
+                    </MenuItem>
+                  )
+                })}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={6}>
+            <FormControl fullWidth size="small">
+              <InputLabel id="labelVault">{t('donations:vault')}</InputLabel>
+              <Select
+                labelId="labelVault"
+                label={t('donations:vault')}
+                id="targetVaultId"
+                name="targetVaultId"
+                defaultValue={initialValues.targetVaultId}
+                onChange={(e) => setVault(e.target.value)}
+                disabled={id ? true : false}>
+                {vaults?.map((vault) => {
+                  return (
+                    <MenuItem key={vault.id} value={vault.id}>
+                      {vault.name}
+                    </MenuItem>
+                  )
+                })}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <FormTextField type="text" label={'Доставчик'} name="provider" />
+            <FormTextField
+              type="text"
+              label={t('donations:ext-customer-id')}
+              name="extCustomerId"
+              disabled={id ? true : false}
+            />
           </Grid>
           <Grid item xs={6}>
-            <FormTextField type="text" label={'Vault ID'} name="targetVaultId" />
+            <FormTextField
+              type="text"
+              label={t('donations:ext-payment-intent-id')}
+              name="extPaymentIntentId"
+              disabled={id ? true : false}
+            />
           </Grid>
           <Grid item xs={6}>
-            <FormTextField type="text" label={'ID на клиент'} name="extCustomerId" />
+            <FormTextField
+              type="text"
+              label={t('donations:ext-payment-method-id')}
+              name="extPaymentMethodId"
+              disabled={id ? true : false}
+            />
           </Grid>
           <Grid item xs={6}>
-            <FormTextField type="text" label={'ID на транзакция'} name="extPaymentIntentId" />
+            <FormTextField
+              type="number"
+              label={t('donations:amount')}
+              name="amount"
+              disabled={id ? true : false}
+            />
           </Grid>
           <Grid item xs={6}>
-            <FormTextField type="text" label={'ID на плащане'} name="extPaymentMethodId" />
-          </Grid>
-          <Grid item xs={6}>
-            <FormTextField type="number" label={'Сума'} name="amount" />
-          </Grid>
-          <Grid item xs={6}>
-            <FormTextField type="text" label={'Валута'} name="currency" />
+            <FormControl fullWidth size="small">
+              <InputLabel id="labelCurrency">{t('donations:currency')}</InputLabel>
+              <Select
+                labelId="labelCurrency"
+                label={t('donations:currency')}
+                id="currency"
+                name="currency"
+                defaultValue={initialValues.currency}
+                onChange={() => ''}
+                disabled={id ? true : false}>
+                {validCurrencies.map((currency) => {
+                  return (
+                    <MenuItem key={currency} value={currency}>
+                      {currency}
+                    </MenuItem>
+                  )
+                })}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={6}>
             <SubmitButton fullWidth label={t('donations:cta:submit')} />

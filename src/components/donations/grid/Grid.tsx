@@ -20,6 +20,12 @@ import DetailsModal from '../modals/DetailsModal'
 import DeleteModal from '../modals/DeleteModal'
 import DeleteAllModal from '../modals/DeleteAllModal'
 import GridActions from './GridActions'
+import { useVault } from 'common/hooks/vaults'
+import { useViewPerson } from 'service/person'
+
+interface PersonCellProps {
+  params: GridRenderCellParams
+}
 
 export default observer(function Grid() {
   const [selectedId, setSelectedId] = useState<string>('')
@@ -30,6 +36,16 @@ export default observer(function Grid() {
 
   const { data }: UseQueryResult<DonationResponse[]> = useDonationsList()
 
+  const RenderVaultCell = ({ params }: PersonCellProps) => {
+    const vault = useVault(params.row.targetVaultId)
+    return <>{vault.data?.name}</>
+  }
+
+  const RenderPersonCell = ({ params }: PersonCellProps) => {
+    const person = useViewPerson(params.row.personId)
+    return <>{person.data?.firstName + ' ' + person.data?.lastName}</>
+  }
+
   const commonProps: Partial<GridColDef> = {
     align: 'left',
     width: 150,
@@ -39,42 +55,49 @@ export default observer(function Grid() {
   const columns: GridColumns = [
     {
       field: 'type',
-      headerName: 'Тип',
+      headerName: t('donations:type'),
     },
     {
       field: 'status',
-      headerName: 'Статус',
+      headerName: t('donations:status'),
       ...commonProps,
     },
     {
       field: 'provider',
-      headerName: 'Плащане',
+      headerName: t('donations:provider'),
       ...commonProps,
     },
     {
       field: 'targetVaultId',
-      headerName: 'Vault ID',
+      headerName: t('donations:vault'),
       ...commonProps,
       width: 350,
+      renderCell: (params: GridRenderCellParams) => {
+        return <RenderVaultCell params={params}></RenderVaultCell>
+      },
     },
     {
-      field: 'personId',
-      headerName: 'Person ID',
+      field: 'person',
+      headerName: t('donations:person'),
       ...commonProps,
       width: 350,
+      renderCell: (params: GridRenderCellParams) => {
+        return <RenderPersonCell params={params}></RenderPersonCell>
+      },
     },
     {
       field: 'amount',
       type: 'number',
-      headerName: 'Сума',
+      headerName: t('donations:amount'),
     },
     {
       field: 'currency',
-      headerName: 'Валута',
+      headerName: t('donations:currency'),
       ...commonProps,
     },
     {
-      field: t('donations:actions'),
+      field: 'actions',
+      headerName: t('donations:actions'),
       width: 200,
       align: 'right',
       renderCell: (cellValues: GridRenderCellParams) => {

@@ -22,44 +22,44 @@ export default observer(function DetailsModal({ id }: Props) {
       <Card>
         <CardContent>
           <Typography variant="h5" sx={{ marginBottom: '16px' }}>
-            {'Детайли'}
+            {t('donations:cta:details')}
           </Typography>
           <Divider />
           <Typography variant="body1" sx={{ fontSize: 24, marginTop: '8px' }}>
             {t('donations:type')}: {data?.type}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {'Статус'}: {data?.status}
+            {t('donations:status')}: {data?.status}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {'Доставчик'}: {data?.provider}
+            {t('donations:provider')}: {data?.provider}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {'Трезор'}: {data?.targetVaultId}
+            {t('donations:vault')}: {data?.targetVaultId}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {'ID на клиент'}: {data?.extCustomerId}
+            {t('donations:ext-customer-id')}: {data?.extCustomerId}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {'ID на транзакция'}: {data?.extPaymentIntentId}
+            {t('donations:ext-payment-intent-id')}: {data?.extPaymentIntentId}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {'ID на плащане'}: {data?.extPaymentMethodId}
+            {t('donations:ext-payment-method-id')}: {data?.extPaymentMethodId}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {'Създаден на'}: {data?.createdAt}
+            {t('donations:created-at')}: {data?.createdAt}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {'Променен на'}: {data?.updatedAt}
+            {t('donations:updated-at')}: {data?.updatedAt}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {'Валута'}: {data?.currency}
+            {t('donations:currency')}: {data?.currency}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {'Сума'}: {data?.amount}
+            {t('donations:amount')}: {data?.amount}
           </Typography>
           <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {'Създал'}: {data?.personId}
+            {t('donations:person')}: {data?.personId}
           </Typography>
         </CardContent>
       </Card>

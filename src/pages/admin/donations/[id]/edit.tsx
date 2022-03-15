@@ -18,7 +18,6 @@ export const getServerSideProps: GetServerSideProps = async (params) => {
       ...(await serverSideTranslations(params.locale ?? 'bg', [
         'common',
         'auth',
-        'documents',
         'donations',
         'validation',
       ])),
