@@ -9,12 +9,12 @@ import EditBenefactorForm from './EditBenefactorForm'
 
 type Props = { id: string }
 export default function BenefactorEditPage({ id }: Props) {
-  const { t } = useTranslation()
+  const { t } = useTranslation('benefactor')
   const { data } = useBenefactor(id)
 
   return (
     <AdminLayout>
-      <AdminContainer title={t('benefactor:benefactor')}>
+      <AdminContainer title={t('benefactor')}>
         <Container maxWidth="md" sx={{ py: 5 }}>
           <EditBenefactorForm initialValues={data} id={id} />
         </Container>
