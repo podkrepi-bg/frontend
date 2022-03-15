@@ -91,7 +91,7 @@ export default observer(function SupportersGrid() {
       disableSelectionOnClick
       onRowClick={(p, event) => {
         const elm = event.target as HTMLInputElement
-        if (!elm.type && elm.type != 'checkbox') {
+        if (elm.type != 'checkbox') {
           DialogStore.show(p, `${p.getValue(p.id, 'name')}`)
         }
       }}
