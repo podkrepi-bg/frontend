@@ -7,11 +7,11 @@ import AdminLayout from 'components/admin/navigation/AdminLayout'
 import CreateForm from './CreateForm'
 
 export default function CreatePage() {
-  const { t } = useTranslation()
+  const { t } = useTranslation('withdrawals')
 
   return (
     <AdminLayout>
-      <AdminContainer title={t('withdrawals:withdrawals')}>
+      <AdminContainer title={t('withdrawals')}>
         <Container maxWidth="md" sx={{ py: 5 }}>
           <CreateForm></CreateForm>
         </Container>
