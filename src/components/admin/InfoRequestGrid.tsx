@@ -1,9 +1,11 @@
 import React from 'react'
-import { DataGrid, GridColumns } from '@mui/x-data-grid'
+import { observer } from 'mobx-react'
+import { DataGrid, GridColumns, GridSelectionModel } from '@mui/x-data-grid'
 
 import { DialogStore } from 'stores/DialogStore'
 import { dateFormatter } from 'common/util/date'
 import { useInfoRequestList } from 'common/hooks/infoRequest'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 
 const columns: GridColumns = [
   { field: 'id', headerName: 'ID', hide: true },
@@ -32,8 +34,11 @@ const columns: GridColumns = [
   },
 ]
 
-export default function InfoRequestGrid() {
+export default observer(function InfoRequestGrid() {
   const { data } = useInfoRequestList()
+  const { setSelectedIdsToDelete } = ModalStore
+
+  setSelectedIdsToDelete([])
 
   return (
     <DataGrid
@@ -50,6 +55,9 @@ export default function InfoRequestGrid() {
           DialogStore.show(p, `${p.getValue(p.id, 'name')}`)
         }
       }}
+      onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
+        setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
+      }}
     />
   )
-}
+})
