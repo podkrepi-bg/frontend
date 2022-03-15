@@ -68,7 +68,8 @@ function DonationTab(props: { value: number; index: number }) {
   const { value, index } = props
   const classes = useStyles()
   const { data = { donations: [], total: 0 } } = useUserDonations()
-  const [date, setDate] = React.useState()
+  const [fromDate, setFromDate] = React.useState(new Date())
+  const [toDate, setToDate] = React.useState(new Date())
 
   return (
     <Tab value={value} index={index}>
@@ -144,18 +145,18 @@ function DonationTab(props: { value: number; index: number }) {
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <span className={classes.smallText}>от дата</span>
             <DesktopDatePicker
-              label="Date desktop"
+              label="от дата"
               inputFormat="MM/dd/yyyy"
-              value={date}
-              onChange={(date) => setDate(date)}
+              value={fromDate}
+              onChange={(date) => setFromDate(date as Date)}
               renderInput={(params) => <TextField {...params} />}
             />
             <span className={classes.smallText}>до дата</span>
             <DesktopDatePicker
-              label="Date desktop"
+              label="до дата"
               inputFormat="MM/dd/yyyy"
-              value={date}
-              onChange={(date) => setDate(date)}
+              value={toDate}
+              onChange={(date) => setToDate(date as Date)}
               renderInput={(params) => <TextField {...params} />}
             />
           </LocalizationProvider>
