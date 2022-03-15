@@ -8,27 +8,27 @@ import {
   GridColDef,
   GridColumns,
   GridRenderCellParams,
-  GridRowId,
   GridSelectionModel,
 } from '@mui/x-data-grid'
 
+import { routes } from 'common/routes'
 import { WithdrawalResponse } from 'gql/withdrawals'
 import { useWithdrawalsList } from 'common/hooks/withdrawals'
-import { ModalStore } from 'stores/documents/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStore'
+import GridActions from 'components/admin/GridActions'
 
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 import DeleteAllModal from './DeleteAllModal'
-import GridActions from './GridActions'
 
 export default observer(function Grid() {
-  const [selectedId, setSelectedId] = useState<string>('')
-  const [selectionModel, setSelectionModel] = useState<GridRowId[]>([])
-  const [pageSize, setPageSize] = useState(5)
   const { t } = useTranslation()
-  const { selectedPositive, selectedNegative } = ModalStore
-
   const { data }: UseQueryResult<WithdrawalResponse[]> = useWithdrawalsList()
+  const [pageSize, setPageSize] = useState(5)
+
+  const { setSelectedIdsToDelete } = ModalStore
+
+  setSelectedIdsToDelete([])
 
   const commonProps: Partial<GridColDef> = {
     align: 'left',
@@ -112,11 +112,19 @@ export default observer(function Grid() {
       headerAlign: 'left',
     },
     {
-      field: t('withdrawals:actions'),
-      width: 200,
-      align: 'right',
-      renderCell: (cellValues: GridRenderCellParams) => {
-        return <GridActions id={cellValues.row.id} setSelectedId={setSelectedId} />
+      field: 'actions',
+      headerName: t('withdrawals:actions'),
+      width: 120,
+      type: 'actions',
+      headerAlign: 'left',
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        return (
+          <GridActions
+            id={params.row.id}
+            name={params.row.id}
+            editLink={routes.admin.withdrawals.edit(params.row.id)}
+          />
+        )
       },
     },
   ]
@@ -144,15 +152,14 @@ export default observer(function Grid() {
           disableSelectionOnClick
           checkboxSelection
           onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
-            newSelectionModel.length !== 0 ? selectedPositive() : selectedNegative()
-            setSelectionModel(newSelectionModel)
+            setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
           }}
         />
       </Box>
-      {selectedId.length > 1 ? <DetailsModal id={selectedId} /> : <></>}
-      {/* <DetailsModal id={selectedId} /> */}
-      <DeleteModal id={selectedId} setSelectedId={setSelectedId} />
-      <DeleteAllModal selectionModel={selectionModel} />
+
+      <DetailsModal />
+      <DeleteModal />
+      <DeleteAllModal />
     </>
   )
 })
