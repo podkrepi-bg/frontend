@@ -24,7 +24,7 @@ import {
   useEditCampaignType,
   useCreateCampaignType,
   useCampaignTypesList,
-} from 'service/restRequests/campaignTypes'
+} from 'service/campaignTypes'
 import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'

@@ -9,7 +9,7 @@ import { useTranslation } from 'next-i18next'
 import { CampaignTypesResponse } from 'gql/campaign-types'
 import { ApiErrors } from 'service/apiErrors'
 import { routes } from 'common/routes'
-import { useRemoveManyCampaignTypes } from 'service/restRequests/campaignTypes'
+import { useRemoveManyCampaignTypes } from 'service/campaignTypes'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 

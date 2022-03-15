@@ -8,7 +8,7 @@ import { useTranslation } from 'next-i18next'
 import { BeneficiaryType } from 'gql/beneficiary'
 import { ApiErrors } from 'service/apiErrors'
 import { routes } from 'common/routes'
-import { useRemoveCampaignType } from 'service/restRequests/campaignTypes'
+import { useRemoveCampaignType } from 'service/campaignTypes'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 
