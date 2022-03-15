@@ -12,7 +12,7 @@ import {
 } from '@mui/x-data-grid'
 
 import { BeneficiaryType } from '../../../gql/beneficiary'
-import { useBeneficiariesList } from 'service/restRequests/beneficiary'
+import { useBeneficiariesList } from 'service/beneficiary'
 import { useViewPerson } from 'service/person'
 import { useViewCompany } from 'service/company'
 import { ModalStore } from 'stores/dashboard/ModalStore'

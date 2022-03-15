@@ -7,7 +7,7 @@ import { useTranslation } from 'next-i18next'
 
 import { BeneficiaryType } from 'gql/beneficiary'
 import { ApiErrors } from 'service/apiErrors'
-import { useRemoveBeneficiary } from 'service/restRequests/beneficiary'
+import { useRemoveBeneficiary } from 'service/beneficiary'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 import { routes } from 'common/routes'

@@ -2,11 +2,11 @@ import { AxiosResponse } from 'axios'
 import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
 
-import { endpoints } from '../apiEndpoints'
-import { authConfig, authQueryFnFactory } from '../restRequests'
+import { endpoints } from './apiEndpoints'
+import { authConfig, authQueryFnFactory } from './restRequests'
 import { BeneficiaryFormData, BeneficiaryType, DeleteMany } from 'gql/beneficiary'
 import { QueryClient, useQuery } from 'react-query'
-import { apiClient } from '../apiClient'
+import { apiClient } from './apiClient'
 
 export const useBeneficiariesList = () => {
   const { keycloak } = useKeycloak<KeycloakInstance>()

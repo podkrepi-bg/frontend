@@ -20,11 +20,7 @@ import { BeneficiaryFormData, BeneficiaryType } from 'gql/beneficiary'
 import { LegalEntityType, PersonRelation } from './BeneficiaryTypes'
 import { routes } from 'common/routes'
 import { ApiErrors } from 'service/apiErrors'
-import {
-  useBeneficiary,
-  useEditBeneficiary,
-  useCreateBeneficiary,
-} from 'service/restRequests/beneficiary'
+import { useBeneficiary, useEditBeneficiary, useCreateBeneficiary } from 'service/beneficiary'
 import { usePeopleList } from 'service/person'
 import { useCompaniesList } from 'service/company'
 import { useCoordinatorsList } from 'service/restRequests/coordinator'

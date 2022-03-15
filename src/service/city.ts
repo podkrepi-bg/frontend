@@ -5,7 +5,7 @@ import { AxiosResponse } from 'axios'
 import { apiClient } from 'service/apiClient'
 import { authConfig } from 'service/restRequests'
 import { endpoints } from 'service/apiEndpoints'
-import { CityInput, CityResponse } from 'gql/city'
+import { CityInput, CityResponse } from 'gql/cities'
 
 export function useCreateCity() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
@@ -29,12 +29,24 @@ export function useEditCity(id: string) {
   }
 }
 
-export function useDeleteCity() {
+export function useDeleteCity(id: string) {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  return async (id: string) => {
+  return async () => {
     return await apiClient.delete<CityResponse, AxiosResponse<CityResponse>>(
       endpoints.city.deleteCity(id).url,
       authConfig(keycloak?.token),
     )
+  }
+}
+
+export function useDeleteMany() {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (ids: string[]) => {
+    return ids.map(async (id) => {
+      return await apiClient.delete<CityResponse, AxiosResponse<CityResponse>>(
+        endpoints.city.deleteCity(id).url,
+        authConfig(keycloak?.token),
+      )
+    })
   }
 }
