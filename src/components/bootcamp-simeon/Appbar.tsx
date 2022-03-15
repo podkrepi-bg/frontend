@@ -5,7 +5,8 @@ import * as React from 'react'
 import MenuIcon from '@mui/icons-material/Menu'
 import { useTranslation } from 'next-i18next'
 import { drawerWidth } from './styles'
-import { Box, IconButton, Toolbar, Typography } from '@mui/material'
+import { Box, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material'
+import { AccountCircle } from '@mui/icons-material'
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean
@@ -36,6 +37,7 @@ const AppBar = styled(MuiAppBar, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function BootcampAppbar({ open, handler }: Props) {
   const { t } = useTranslation()
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
+  const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget)
@@ -63,7 +65,34 @@ export default function BootcampAppbar({ open, handler }: Props) {
         <Typography variant="h6" noWrap component="div">
           Admin panel
         </Typography>
-        <Box sx={{ flexGrow: 0, marginLeft: 'auto', marginRight: '0' }}></Box>
+        <Box sx={{ flexGrow: 0, marginLeft: 'auto', marginRight: '0' }}>
+          <Tooltip title="Profile">
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <AccountCircle fontSize="medium" />
+            </IconButton>
+          </Tooltip>
+          <Menu
+            sx={{ mt: '45px' }}
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleOpenUserMenu}>
+            {settings.map((setting) => (
+              <MenuItem key={setting} onClick={handleClosedUserMenu}>
+                <Typography textAlign="center">{setting}</Typography>
+              </MenuItem>
+            ))}
+          </Menu>
+        </Box>
       </Toolbar>
     </AppBar>
   )
