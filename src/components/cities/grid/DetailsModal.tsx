@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import { useCity } from 'common/hooks/cities'
 
-import { CityResponse } from 'gql/city'
+import { CityResponse } from 'gql/cities'
 import DetailsDialog from 'components/admin/DetailsDialog'
 
 export default observer(function DetailsModal() {

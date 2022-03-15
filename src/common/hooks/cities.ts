@@ -4,7 +4,7 @@ import { QueryClient, useQuery } from 'react-query'
 
 import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
-import { CityResponse } from 'gql/city'
+import { CityResponse } from 'gql/cities'
 
 type Country = {
   id: string
