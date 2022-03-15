@@ -56,8 +56,8 @@ export default function EditBenefactorForm({ id, initialValues = defaults }: Ben
     EditBenefactorProp
   >({
     mutationFn: editBenefactor,
-    onError: () => AlertStore.show(t('alerts:error'), 'error'),
-    onSuccess: () => AlertStore.show(t('alerts:create'), 'success'),
+    onError: () => AlertStore.show(t('alerts.error'), 'error'),
+    onSuccess: () => AlertStore.show(t('alerts.create'), 'success'),
   })
 
   const router = useRouter()

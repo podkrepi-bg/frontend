@@ -53,8 +53,8 @@ export default function AddBenefactorForm({ initialValues = defaults }: Benefact
     BenefactorInput
   >({
     mutationFn: createBenefactor,
-    onError: () => AlertStore.show(t('alerts:error'), 'error'),
-    onSuccess: () => AlertStore.show(t('alerts:create'), 'success'),
+    onError: () => AlertStore.show(t('alerts.error'), 'error'),
+    onSuccess: () => AlertStore.show(t('alerts.create'), 'success'),
   })
 
   const router = useRouter()
