@@ -1,10 +1,22 @@
 import * as React from 'react'
-import { Drawer } from '@mui/material'
-import Link from 'next/link'
-import { Grid } from '@mui/material'
+import BootcampAppbar from './Appbar'
 
-function Layout({ children }: { children: any }) {
-  return <></>
+interface Props {
+  children: React.ReactNode
+}
+
+function Layout({ children }: Props) {
+  const [open, setOpen] = React.useState(false)
+
+  const handleDrawerOpenClose = () => {
+    open ? setOpen(false) : setOpen(true)
+  }
+
+  return (
+    <>
+      <BootcampAppbar open={open} handler={handleDrawerOpenClose} />
+    </>
+  )
 }
 
 export default Layout

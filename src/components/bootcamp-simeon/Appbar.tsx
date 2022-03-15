@@ -5,6 +5,7 @@ import * as React from 'react'
 import MenuIcon from '@mui/icons-material/Menu'
 import { useTranslation } from 'next-i18next'
 import { drawerWidth } from './styles'
+import { IconButton, Toolbar } from '@mui/material'
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean
@@ -44,5 +45,22 @@ export default function BootcampAppbar({ open, handler }: Props) {
     setAnchorElUser(null)
   }
 
-  return <AppBar></AppBar>
+  return (
+    <AppBar sx={{ background: 'white', paddingLeft: '0px' }} position="fixed" open={open}>
+      <Toolbar sx={{ paddingLeft: '0px' }}>
+        <Image width={140} height={40} src="/podkrepi-bg-logo-en.svg" />
+        <IconButton
+          title="Dashboard"
+          color="primary"
+          aria-label="open drawer"
+          onClick={handler}
+          edge="start"
+          sx={{
+            margin: '0px 20px',
+          }}>
+          <MenuIcon />
+        </IconButton>
+      </Toolbar>
+    </AppBar>
+  )
 }
