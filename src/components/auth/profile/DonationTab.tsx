@@ -19,6 +19,7 @@ const useStyles = makeStyles({
     lineHeight: '123.5%',
     letterSpacing: '0.25px',
     color: '#000000',
+    margin: 0,
   },
   h3: {
     fontFamily: 'Montserrat',
@@ -26,15 +27,17 @@ const useStyles = makeStyles({
     fontWeight: '500',
     fontSize: '25px',
     lineHeight: '116.7%',
+    margin: '0',
   },
   allDonatesBox: {
-    backgroundColor: '#EEEEEE',
+    backgroundColor: 'white',
     flexGrow: 1,
     marginRight: '10px',
     padding: '10px',
+    paddingLeft: '30px',
   },
   donates: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' },
-  donateNowBox: { backgroundColor: '#C4C4C4', padding: '10px', position: 'relative' },
+  donateNowBox: { backgroundColor: 'white', padding: '10px', position: 'relative' },
   donateNowButton: { position: 'absolute', bottom: '35px' },
   h5: {
     fontFamily: 'Lato, sans-serif',
@@ -53,7 +56,14 @@ function DonationTab(props: { value: number; index: number }) {
 
   return (
     <Tab value={value} index={index}>
-      <h3 className={classes.h3}>Абонамент месечни дарения</h3>
+      <Box
+        sx={{
+          backgroundColor: 'white',
+          padding: '10px 30px',
+          margin: '10px 0 0 0',
+        }}>
+        <h3 className={classes.h3}>Абонамент месечни дарения</h3>
+      </Box>
       <Box sx={{ display: 'flex' }}>
         <Box className={classes.allDonatesBox}>
           <h3 style={{ fontSize: '16px', margin: 0 }}>Дарения</h3>
@@ -83,15 +93,23 @@ function DonationTab(props: { value: number; index: number }) {
           </Button>
         </Box>
       </Box>
-      <h3 className={classes.h3}>История на даренията</h3>
       <Box
         sx={{
-          backgroundColor: '#EEEEEE',
+          backgroundColor: 'white',
+          padding: '10px 30px',
+          margin: '10px 0 0 0',
+        }}>
+        <h3 className={classes.h3}>История на даренията</h3>
+      </Box>
+      <Box
+        sx={{
+          backgroundColor: 'white',
           flexGrow: 1,
-          marginRight: '10px',
           padding: '10px',
         }}>
-        <h3 className={classes.thinFont}>Онлайн дарения</h3>
+        <Box>
+          <h3 className={classes.thinFont}>Онлайн дарения</h3>
+        </Box>
         <Box
           sx={{
             display: 'flex',
@@ -107,11 +125,11 @@ function DonationTab(props: { value: number; index: number }) {
             <Checkbox defaultChecked />
             <span className={classes.thinFont}>месечни</span>
           </Box>
-          <span className={classes.thinFont}>възможност за търсене по по дата</span>
+          <span className={classes.thinFont}>възможност за търсене по дата</span>
         </Box>
         {data.donations.length ? (
           <TableContainer>
-            <Table sx={{ minWidth: 650, backgroundColor: '#EEEEEE' }} aria-label="simple table">
+            <Table sx={{ minWidth: 650, backgroundColor: 'white' }} aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell>№</TableCell>
