@@ -7,11 +7,11 @@ import Grid from './grid/Grid'
 import GridAppbar from './grid/GridAppbar'
 
 export default function BeneficiaryPage() {
-  const { t } = useTranslation()
+  const { t } = useTranslation('beneficiary')
 
   return (
     <AdminLayout>
-      <AdminContainer title={t('beneficiary:all')}>
+      <AdminContainer title={t('all')}>
         <GridAppbar />
         <Grid />
       </AdminContainer>

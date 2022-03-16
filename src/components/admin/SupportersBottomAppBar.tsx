@@ -29,11 +29,14 @@ const iconStyles = {
   mr: 1,
 }
 export default observer(function BottomAppBar() {
-  const { openCfrm, carSelected } = ModalStore
+  const { showDeleteAll, selectedIdsToDelete } = ModalStore
   const { t } = useTranslation()
   const deleteHandler = () => {
-    carSelected ? openCfrm() : AlertStore.show(t('common:alerts.noselected'), 'info')
+    selectedIdsToDelete.length > 0
+      ? showDeleteAll()
+      : AlertStore.show(t('common:alerts.noselected'), 'warning')
   }
+
   return (
     <Toolbar
       sx={{

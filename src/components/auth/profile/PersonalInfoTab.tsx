@@ -28,6 +28,7 @@ const useStyles = makeStyles({
     lineHeight: '123.5%',
     letterSpacing: '0.25px',
     color: '#000000',
+    paddingLeft: '30px',
   },
   bold: {
     fontWeight: 'bold',
@@ -50,6 +51,14 @@ const useStyles = makeStyles({
     fontSize: '22px',
     lineHeight: '133.4%',
   },
+  h3: {
+    fontFamily: 'Montserrat',
+    fontStyle: 'normal',
+    fontWeight: '500',
+    fontSize: '25px',
+    lineHeight: '116.7%',
+    margin: '0',
+  },
 })
 
 function PersonalInfoTab(props: { value: number; index: number }) {
@@ -61,80 +70,92 @@ function PersonalInfoTab(props: { value: number; index: number }) {
   return (
     <>
       <Tab value={value} index={index}>
-        <h1>Лична информация</h1>
-        <h2 className={classes.heading}>Login информация:</h2>
-        <Box sx={{ display: 'flex' }}>
-          <Box
-            sx={{
-              backgroundColor: '#EEEEEE',
-              padding: '10px',
-              flexBasis: '50%',
-              marginRight: '20px',
-            }}>
-            <p className={classes.bold}>еmail адрес:</p>
-            <p>{session?.email}</p>
-          </Box>
-          <Box
-            sx={{
-              backgroundColor: '#EEEEEE',
-              padding: '10px',
-              flexBasis: '50%',
-              position: 'relative',
-            }}>
-            <p className={classes.bold}>парола:</p>
-            <p>***********</p>
-            <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
-              <Link href="#">
-                <EditIcon className={classes.editIcon}></EditIcon>
-                <span className={classes.editSpan}>Редактирай</span>
-              </Link>
-            </Box>
-          </Box>
+        <Box
+          sx={{
+            backgroundColor: 'white',
+            padding: '10px 30px',
+            margin: '10px 0 0 0',
+          }}>
+          <h3 className={classes.h3}>Лична информация</h3>
         </Box>
-        <hr></hr>
-        <h2 className={classes.heading}>Лична информация:</h2>
-        <Box sx={{ display: 'flex' }}>
-          <Box
-            sx={{
-              backgroundColor: '#EEEEEE',
-              padding: '10px',
-              flexBasis: '50%',
-              marginRight: '20px',
-              position: 'relative',
-            }}>
-            <p className={classes.bold}>Име:</p>
-            <p>{session?.name}</p>
-            <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
-              <Link href="#">
-                <EditIcon className={classes.editIcon}></EditIcon>
-                <span className={classes.editSpan}>Редактирай</span>
-              </Link>
+        <Box sx={{ background: 'white', paddingTop: '30px' }}>
+          <h2 className={classes.heading}>Login информация:</h2>
+          <Box sx={{ display: 'flex', paddingLeft: '30px' }}>
+            <Box
+              sx={{
+                backgroundColor: '#E9F6FF',
+                padding: '10px',
+                flexBasis: '50%',
+                marginRight: '20px',
+              }}>
+              <p className={classes.bold}>еmail адрес:</p>
+              <p>{session?.email}</p>
+            </Box>
+            <Box
+              sx={{
+                backgroundColor: '#E9F6FF',
+                padding: '10px',
+                flexBasis: '50%',
+                position: 'relative',
+                marginRight: '10px',
+              }}>
+              <p className={classes.bold}>парола:</p>
+              <p>***********</p>
+              <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
+                <Link href="#">
+                  <EditIcon className={classes.editIcon}></EditIcon>
+                  <span className={classes.editSpan}>Редактирай</span>
+                </Link>
+              </Box>
             </Box>
           </Box>
-          <Box
-            sx={{
-              backgroundColor: '#EEEEEE',
-              padding: '10px',
-              flexBasis: '50%',
-              position: 'relative',
-            }}>
-            <p className={classes.bold}>рожден ден:</p>
-            <p className={classes.notAvaible}>не е наличен</p>
-            <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
-              <Link href="#">
-                <EditIcon className={classes.editIcon}></EditIcon>
-                <span className={classes.editSpan}>Редактирай</span>
-              </Link>
+          <hr></hr>
+          <h2 className={classes.heading}>Лична информация:</h2>
+          <Box sx={{ display: 'flex' }}>
+            <Box
+              sx={{
+                backgroundColor: '#E9F6FF',
+                padding: '10px',
+                flexBasis: '50%',
+                marginRight: '20px',
+                position: 'relative',
+                marginLeft: '30px',
+              }}>
+              <p className={classes.bold}>Име:</p>
+              <p>{session?.name}</p>
+              <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
+                <Link href="#">
+                  <EditIcon className={classes.editIcon}></EditIcon>
+                  <span className={classes.editSpan}>Редактирай</span>
+                </Link>
+              </Box>
+            </Box>
+            <Box
+              sx={{
+                backgroundColor: '#E9F6FF',
+                padding: '10px',
+                flexBasis: '50%',
+                position: 'relative',
+                marginRight: '10px',
+              }}>
+              <p className={classes.bold}>рожден ден:</p>
+              <p className={classes.notAvaible}>не е наличен</p>
+              <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
+                <Link href="#">
+                  <EditIcon className={classes.editIcon}></EditIcon>
+                  <span className={classes.editSpan}>Редактирай</span>
+                </Link>
+              </Box>
             </Box>
           </Box>
+          <hr></hr>
+          <Link
+            href="#"
+            className={classes.deleteAccountButton}
+            onClick={() => setIsDeleteAccountModalOpen(true)}>
+            изтриване на акаунт/ профил
+          </Link>
         </Box>
-        <hr></hr>
-        <Link
-          href="#"
-          className={classes.deleteAccountButton}
-          onClick={() => setIsDeleteAccountModalOpen(true)}>
-          изтриване на акаунт/ профил
-        </Link>
       </Tab>
       <Modal
         open={isDeleteAccountModalOpen}

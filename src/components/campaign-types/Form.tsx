@@ -144,7 +144,7 @@ export default function Form() {
             <SubmitButton fullWidth label={t('documents:cta:submit')} />
           </Grid>
           <Grid item xs={6}>
-            <Link href={routes.admin.beneficiary.index} passHref>
+            <Link href={routes.admin.campaignTypes.index} passHref>
               <Button>{t('documents:cta:cancel')}</Button>
             </Link>
           </Grid>

@@ -8,25 +8,25 @@ import {
   GridColDef,
   GridColumns,
   GridRenderCellParams,
-  GridRowId,
   GridSelectionModel,
 } from '@mui/x-data-grid'
 
+import { routes } from 'common/routes'
 import { CampaignTypesResponse } from 'gql/campaign-types'
 import { useCampaignTypesList } from 'service/campaignTypes'
-import { ModalStore } from 'stores/campaign-types/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 import DeleteAllModal from './DeleteAllModal'
-import GridActions from './GridActions'
+import GridActions from 'components/admin/GridActions'
 
 export default observer(function Grid() {
-  const [selectedId, setSelectedId] = useState<string>('')
-  const [selectionModel, setSelectionModel] = useState<GridRowId[]>([])
   const [pageSize, setPageSize] = useState(5)
-  const { t } = useTranslation()
-  const { selectedPositive, selectedNegative } = ModalStore
+  const { t } = useTranslation('campaign-types')
+  const { setSelectedIdsToDelete } = ModalStore
+
+  setSelectedIdsToDelete([])
 
   const { data }: UseQueryResult<CampaignTypesResponse[]> = useCampaignTypesList()
 
@@ -38,18 +38,28 @@ export default observer(function Grid() {
 
   const columns: GridColumns = [
     {
-      field: t('campaign-types:grid:name'),
+      field: t('grid.name'),
+      flex: 1,
       ...commonProps,
       renderCell: (cellValues: GridRenderCellParams) => {
         return cellValues.row.name
       },
     },
     {
-      field: t('campaign-types:actions'),
-      width: 200,
+      field: 'actions',
+      headerName: t('actions'),
+      width: 120,
+      type: 'actions',
+      headerAlign: 'left',
       sortable: false,
-      renderCell: (cellValues: GridRenderCellParams) => {
-        return <GridActions id={cellValues.row.id} setSelectedId={setSelectedId} />
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        return (
+          <GridActions
+            id={params.row.id}
+            name={params.row.ibanNumber}
+            editLink={routes.admin.campaignTypes.edit(params.row.id)}
+          />
+        )
       },
     },
   ]
@@ -77,14 +87,13 @@ export default observer(function Grid() {
           disableSelectionOnClick
           checkboxSelection
           onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
-            newSelectionModel.length !== 0 ? selectedPositive() : selectedNegative()
-            setSelectionModel(newSelectionModel)
+            setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
           }}
         />
       </Box>
-      <DetailsModal id={selectedId} />
-      <DeleteModal id={selectedId} />
-      <DeleteAllModal selectionModel={selectionModel} />
+      <DetailsModal />
+      <DeleteModal />
+      <DeleteAllModal />
     </>
   )
 })

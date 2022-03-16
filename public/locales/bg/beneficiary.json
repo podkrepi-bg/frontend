@@ -12,7 +12,9 @@
     "coordinatorRelation": "Отношения с координатор",
     "type": "Тип на бенефициента",
     "description": "Описание",
-    "campaigns-count": "Брой кампании"
+    "campaigns-count": "Брой кампании",
+    "public-data": "Публични данни",
+    "private-data": "Лични данни"
   },
   "cta": {
     "details": "Детайли за бенефициента",

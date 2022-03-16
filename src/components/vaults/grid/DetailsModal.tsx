@@ -1,50 +1,27 @@
 import React from 'react'
 import { UseQueryResult } from 'react-query'
 import { observer } from 'mobx-react'
-import { Dialog, Card, CardContent, Typography, Divider } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import { VaultResponse } from 'gql/vault'
 import { useVault } from 'common/hooks/vaults'
-import { ModalStore } from 'stores/documents/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStore'
+import DetailsDialog from 'components/admin/DetailsDialog'
 
-type Props = {
-  id: string
-}
+export default observer(function DetailsModal() {
+  const { selectedRecord } = ModalStore
+  const { data }: UseQueryResult<VaultResponse> = useVault(selectedRecord.id)
+  const { t } = useTranslation('vaults')
 
-export default observer(function DetailsModal({ id }: Props) {
-  const { data }: UseQueryResult<VaultResponse> = useVault(id)
-  const { isDetailsOpen, hideDetails } = ModalStore
-  const { t } = useTranslation()
+  const dataConverted = [
+    { name: 'ID', value: `${data?.id}` },
+    { name: t('name'), value: `${data?.name}` },
+    { name: t('currency'), value: `${data?.currency}` },
+    { name: t('amount'), value: `${data?.amount}` },
+    { name: t('createdAt'), value: `${data?.createdAt}` },
+    { name: t('updatedAt'), value: `${data?.updatedAt}` },
+    { name: t('campaignId'), value: `${data?.campaignId}` },
+  ]
 
-  return (
-    <Dialog open={isDetailsOpen} onClose={hideDetails} sx={{ top: '-35%' }}>
-      <Card>
-        <CardContent>
-          <Typography variant="h5" sx={{ marginBottom: '16px' }}>
-            {t('vaults:cta:details')}
-          </Typography>
-          <Divider />
-          <Typography variant="body1" sx={{ fontSize: 24, marginTop: '8px' }}>
-            {t('vaults:name')}: {data?.name}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('vaults:currency')}: {data?.currency}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('vaults:amount')}: {data?.amount}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('vaults:createdAt')}: {data?.createdAt}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('vaults:updatedAt')}: {data?.updatedAt}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('vaults:campaignId')}: {data?.campaignId}
-          </Typography>
-        </CardContent>
-      </Card>
-    </Dialog>
-  )
+  return <DetailsDialog data={dataConverted} />
 })
