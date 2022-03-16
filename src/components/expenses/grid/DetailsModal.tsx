@@ -1,67 +1,29 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material'
-import { makeStyles } from '@mui/styles'
+import { UseQueryResult } from 'react-query'
+import { observer } from 'mobx-react'
 import { useTranslation } from 'next-i18next'
 
 import { ExpenseResponse } from 'gql/expenses'
+import { useViewExpense } from 'common/hooks/expenses'
+import { ModalStore } from 'stores/dashboard/ModalStore'
+import DetailsDialog from 'components/admin/DetailsDialog'
 
-const useStyles = makeStyles({
-  infoBtn: {
-    margin: '0 auto',
-  },
+export default observer(function DetailsModal() {
+  const { selectedRecord } = ModalStore
+  const { data }: UseQueryResult<ExpenseResponse> = useViewExpense(selectedRecord.id)
+  const { t } = useTranslation('bankaccounts')
+
+  const dataConverted = [
+    { name: 'ID', value: `${data?.id}` },
+    { name: t('fields.type'), value: `${data?.type}` },
+    { name: t('fields.status'), value: `${data?.status}` },
+    { name: t('fields.currency'), value: `${data?.currency}` },
+    { name: t('fields.amount'), value: `${data?.amount}` },
+    { name: t('fields.vaultId'), value: `${data?.vaultId}` },
+    { name: t('fields.deleted'), value: `${data?.deleted.toString()}` },
+    { name: t('fields.description'), value: `${data?.description}` },
+    { name: t('fields.documentId'), value: `${data?.documentId}` },
+    { name: t('fields.approvedById'), value: `${data?.approvedById}` },
+  ]
+
+  return <DetailsDialog data={dataConverted} />
 })
-
-type Props = {
-  open: boolean
-  closeFn: () => void
-  expense: ExpenseResponse | undefined
-}
-
-const InfoDialog = ({ open, closeFn, expense }: Props) => {
-  const { t } = useTranslation('expenses')
-  const classes = useStyles()
-
-  return (
-    <Dialog open={open} onClose={closeFn} maxWidth="xs">
-      <DialogTitle>{t('headings.info')}</DialogTitle>
-      <DialogContent>
-        <p>
-          <b>Id:</b> {expense?.id}
-        </p>
-        <p>
-          <b>{t('fields.type')}:</b> {expense?.type}
-        </p>
-        <p>
-          <b>{t('fields.status')}:</b> {expense?.status}
-        </p>
-        <p>
-          <b>{t('fields.currency')}:</b> {expense?.currency}
-        </p>
-        <p>
-          <b>{t('fields.amount')}:</b> {expense?.amount}
-        </p>
-        <p>
-          <b>{t('fields.vaultId')}:</b> {expense?.vaultId}
-        </p>
-        <p>
-          <b>{t('fields.deleted')}:</b> {expense?.deleted.toString()}
-        </p>
-        <p>
-          <b>{t('fields.description')}:</b> {expense?.description}
-        </p>
-        <p>
-          <b>{t('fields.documentId')}:</b> {expense?.documentId}
-        </p>
-        <p>
-          <b>{t('fields.approvedById')}:</b> {expense?.approvedById}
-        </p>
-      </DialogContent>
-      <DialogActions>
-        <Button variant="contained" color="primary" className={classes.infoBtn} onClick={closeFn}>
-          {t('btns.close')}
-        </Button>
-      </DialogActions>
-    </Dialog>
-  )
-}
-
-export default InfoDialog
