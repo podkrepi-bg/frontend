@@ -6,7 +6,7 @@ import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { format, parse, isDate } from 'date-fns'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Button, Grid, Input, Typography } from '@mui/material'
+import { Button, Grid, Typography } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 
@@ -25,7 +25,6 @@ import { CampaignResponse, CampaignFormData, CampaignInput } from 'gql/campaigns
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
 import CampaignTypeSelect from './CampaignTypeSelect'
-import FileUploadModal from './FileUploadModal'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -243,7 +242,6 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
                 return <li key={file.name}>{file.name}</li>
               })}
             </ul>
-            {/* <FileUploadModal /> */}
           </Grid>
           <Grid item xs={12}>
             <AcceptTermsField name="terms" />
