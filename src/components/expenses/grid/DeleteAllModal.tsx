@@ -26,11 +26,11 @@ export default observer(function DeleteAllModal() {
     GridSelectionModel
   >({
     mutationFn,
-    onError: () => AlertStore.show(t('delete-rows.error'), 'error'),
+    onError: () => AlertStore.show(t('alerts.delete-rows.error'), 'error'),
     onSuccess: () => {
       hideDeleteAll()
       setSelectedIdsToDelete([])
-      AlertStore.show(t('delete-rows.success'), 'success')
+      AlertStore.show(t('alerts.delete-rows.success'), 'success')
       router.push(routes.admin.expenses.index)
     },
   })
