@@ -90,7 +90,6 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   const router = useRouter()
   const [coordinator, setCoordinator] = useState<PersonFormData>()
   const [beneficiary, setBeneficiary] = useState<PersonFormData>()
-  const [files, setFiles] = useState<{ name: string }[]>([])
 
   const mutation = useMutation<
     AxiosResponse<CampaignResponse>,
