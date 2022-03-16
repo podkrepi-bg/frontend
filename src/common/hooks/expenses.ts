@@ -1,12 +1,21 @@
 import { useQuery } from 'react-query'
+import { KeycloakInstance } from 'keycloak-js'
+import { useKeycloak } from '@react-keycloak/ssr'
 
 import { endpoints } from 'service/apiEndpoints'
 import { ExpenseResponse } from 'gql/expenses'
+import { authQueryFnFactory } from 'service/restRequests'
 
 export function useExpensesList() {
-  return useQuery<ExpenseResponse[]>(endpoints.expenses.listExpenses.url)
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return useQuery<ExpenseResponse[]>(endpoints.expenses.listExpenses.url, {
+    queryFn: authQueryFnFactory(keycloak?.token),
+  })
 }
 
-export function useExpense(id: string) {
-  return useQuery<ExpenseResponse>(endpoints.expenses.viewExpense(id).url)
+export function useViewExpense(id: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return useQuery<ExpenseResponse>(endpoints.expenses.viewExpense(id).url, {
+    queryFn: authQueryFnFactory(keycloak?.token),
+  })
 }
