@@ -10,7 +10,7 @@ import DetailsDialog from 'components/admin/DetailsDialog'
 export default observer(function DetailsModal() {
   const { selectedRecord } = ModalStore
   const { data }: UseQueryResult<ExpenseResponse> = useViewExpense(selectedRecord.id)
-  const { t } = useTranslation('bankaccounts')
+  const { t } = useTranslation('expenses')
 
   const dataConverted = [
     { name: 'ID', value: `${data?.id}` },
