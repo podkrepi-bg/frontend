@@ -1,5 +1,5 @@
 import Tab from './Tab'
-import { Box, Checkbox } from '@mui/material'
+import { Box, Checkbox, Button } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
@@ -16,7 +16,8 @@ import Avatar from '@mui/material/Avatar'
 import StarIcon from '@mui/icons-material/Star'
 import React from 'react'
 import { useUserDonations } from 'common/hooks/donation'
-
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 const useStyles = makeStyles({
   h3: {
     fontFamily: 'Montserrat',
@@ -135,7 +136,11 @@ function CertificatesTab(props: { value: number; index: number }) {
                     <TableCell>
                       {donation.amount} {donation.currency}
                     </TableCell>
-                    <TableCell>заяви</TableCell>
+                    <TableCell>
+                      <Button variant="outlined">
+                        Заяви <ArrowForwardIcon></ArrowForwardIcon>
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
