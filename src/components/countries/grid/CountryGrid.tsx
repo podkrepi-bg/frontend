@@ -1,22 +1,18 @@
-import React from 'react'
-import Link from 'next/link'
-import { DataGrid, GridColumns, GridSelectionModel } from '@mui/x-data-grid'
+import React, { useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import { observer } from 'mobx-react'
-import { IconButton, Tooltip, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import DeleteIcon from '@mui/icons-material/Delete'
-import AddIcon from '@mui/icons-material/Add'
+import { DataGrid, GridColumns, GridSelectionModel } from '@mui/x-data-grid'
 
-import { useCountriesList } from 'common/hooks/countries'
 import { routes } from 'common/routes'
+import { useCountriesList } from 'common/hooks/countries'
 import { ModalStore } from 'stores/dashboard/ModalStore'
-import { AlertStore } from 'stores/AlertStore'
 
-import GridActions from '../../admin/GridActions'
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 import DeleteAllModal from './DeleteAllModal'
+import GridActions from 'components/admin/GridActions'
 
 const useStyles = makeStyles({
   gridWrapper: {
@@ -74,25 +70,15 @@ const useStyles = makeStyles({
   },
 })
 
-export default observer(function CountryGrid() {
-  const { showDeleteAll, setSelectedIdsToDelete, selectedIdsToDelete } = ModalStore
-  const [pageSize, setPageSize] = React.useState<number>(10)
-  const { data } = useCountriesList()
-  const { t } = useTranslation('countries')
+export default observer(function Grid() {
   const classes = useStyles()
+  const [pageSize, setPageSize] = useState(5)
+  const { t } = useTranslation('countries')
+  const { setSelectedIdsToDelete } = ModalStore
 
   setSelectedIdsToDelete([])
 
-  const deleteAllClickHandler = () => {
-    selectedIdsToDelete.length > 0
-      ? showDeleteAll()
-      : AlertStore.show(t('common:alerts.noselected'), 'warning')
-  }
-
-  const selectMultipleRows = (ids: GridSelectionModel) => {
-    const idsToStr = ids.map((id) => id.toString())
-    setSelectedIdsToDelete(idsToStr)
-  }
+  const { data } = useCountriesList()
 
   const columns: GridColumns = [
     { field: 'id', headerName: 'ID', hide: true },
@@ -129,48 +115,34 @@ export default observer(function CountryGrid() {
 
   return (
     <>
+      <Box sx={{ marginTop: '2%', mx: 'auto', width: 700 }}>
+        <DataGrid
+          style={{
+            background: 'white',
+            position: 'absolute',
+            height: 'calc(100vh - 300px)',
+            border: 'none',
+            width: 'calc(100% - 48px)',
+            left: '24px',
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            borderRadius: '0 0 13px 13px',
+          }}
+          rows={data || []}
+          columns={columns}
+          rowsPerPageOptions={[5, 10]}
+          pageSize={pageSize}
+          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+          disableSelectionOnClick
+          checkboxSelection
+          onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
+            setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
+          }}
+        />
+      </Box>
       <DetailsModal />
       <DeleteModal />
       <DeleteAllModal />
-      <div className={classes.gridWrapper}>
-        <div className={classes.gridTitleWrapper}>
-          <Typography variant="body2" className={classes.gridDescription}>
-            {t('description')}
-          </Typography>
-          <section className={classes.gridMainActionsBtns}>
-            <Tooltip title={t('tooltips.delete') || ''}>
-              <IconButton onClick={deleteAllClickHandler} className={classes.gridBtn}>
-                <DeleteIcon
-                  sx={{
-                    fontSize: '1.4rem',
-                  }}
-                />
-              </IconButton>
-            </Tooltip>
-            <Link href={routes.admin.countries.create} passHref>
-              <Tooltip title={t('tooltips.add') || ''}>
-                <IconButton className={classes.gridAddBtn}>
-                  <AddIcon />
-                </IconButton>
-              </Tooltip>
-            </Link>
-          </section>
-        </div>
-
-        <DataGrid
-          className={classes.grid}
-          rows={data || []}
-          columns={columns}
-          pageSize={pageSize}
-          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          rowsPerPageOptions={[5, 10]}
-          pagination
-          autoHeight
-          checkboxSelection
-          disableSelectionOnClick
-          onSelectionModelChange={selectMultipleRows}
-        />
-      </div>
     </>
   )
 })
