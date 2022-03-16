@@ -226,13 +226,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           </Grid>
           <Grid item xs={12}>
             <label htmlFor="contained-button-file">
-              <Input
-                accept="image/*"
-                id="contained-button-file"
-                multiple
-                type="file"
-                style={{ display: 'none' }}
-              />
+              <input id="contained-button-file" multiple type="file" style={{ display: 'none' }} />
               <Button fullWidth variant="contained" color="info" component="span">
                 Добави снимки
               </Button>
