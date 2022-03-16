@@ -56,20 +56,8 @@ export default observer(function BottomAppBar() {
       </Box>
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Tooltip title="Преглед">
-            <EventNoteIcon sx={iconStyles} fontSize="medium" color="action" />
-          </Tooltip>
           <Tooltip title="Изтрий избраните">
             <DeleteIcon onClick={deleteHandler} sx={iconStyles} fontSize="medium" color="action" />
-          </Tooltip>
-          <Tooltip title="Запази">
-            <SaveIcon sx={iconStyles} fontSize="medium" color="action" />
-          </Tooltip>
-          <Tooltip title="Принт">
-            <PrintIcon sx={iconStyles} fontSize="medium" color="action" />
-          </Tooltip>
-          <Tooltip title="Сподели">
-            <ShareIcon sx={iconStyles} fontSize="medium" color="action" />
           </Tooltip>
           <Tooltip title="Добави">
             <AddIcon
