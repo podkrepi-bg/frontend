@@ -25,6 +25,7 @@ import { CampaignResponse, CampaignFormData, CampaignInput } from 'gql/campaigns
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
 import CampaignTypeSelect from './CampaignTypeSelect'
+import CampaignFileUpload from './CampaignFileUpload'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -225,23 +226,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
             <input type="hidden" name="beneficiaryId" />
           </Grid>
           <Grid item xs={12}>
-            <label htmlFor="contained-button-file">
-              <input
-                id="contained-button-file"
-                multiple
-                type="file"
-                style={{ display: 'none' }}
-                onChange={(e) => setFiles([...(e.target.files as FileList)])}
-              />
-              <Button fullWidth variant="contained" color="info" component="span">
-                Добави снимки
-              </Button>
-            </label>
-            <ul>
-              {files.map((file) => {
-                return <li key={file.name}>{file.name}</li>
-              })}
-            </ul>
+            <CampaignFileUpload></CampaignFileUpload>
           </Grid>
           <Grid item xs={12}>
             <AcceptTermsField name="terms" />
