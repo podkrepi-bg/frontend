@@ -17,7 +17,7 @@ import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
 import { useDeleteExpense, useDeleteManyExpenses } from 'service/expense'
 
-import InfoDialog from './InfoDialog'
+import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 import DeleteAllModal from './DeleteAllModal'
 import GridActions from './GridActions'
@@ -252,7 +252,7 @@ export default function Grid() {
 
   return (
     <>
-      <InfoDialog open={openInfo} closeFn={closeInfoDialog} expense={expense} />
+      <DetailsModal open={openInfo} closeFn={closeInfoDialog} expense={expense} />
       <DeleteModal />
       <DeleteAllModal />
 
