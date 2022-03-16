@@ -1,6 +1,9 @@
 import { CSSObject, styled, Theme } from '@mui/material/styles'
-import { drawerWidth } from './styles'
+import { drawerWidth, styles } from './styles'
 import MuiDrawer from '@mui/material/Drawer'
+import DrawerHeader from './DrawerHeader'
+import { Typography, List } from '@mui/material'
+import SubMenu from './SubMenu'
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -40,3 +43,26 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
   }),
 )
+
+type Props = {
+  open: boolean
+}
+
+function BootcampDrawer(props: Props) {
+  const classes = styles()
+
+  return (
+    <Drawer variant="permanent" open={props.open}>
+      <DrawerHeader>
+        <Typography variant="h6" sx={{ marginRight: '36px' }}>
+          Dashboard
+        </Typography>
+      </DrawerHeader>
+      <List sx={{ height: '100%', position: 'relative' }}>
+        <SubMenu />
+      </List>
+    </Drawer>
+  )
+}
+
+export default BootcampDrawer
