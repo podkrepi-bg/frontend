@@ -16,7 +16,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import Avatar from '@mui/material/Avatar'
 import StarIcon from '@mui/icons-material/Star'
-
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 const useStyles = makeStyles({
   thinFont: {
     fontFamily: 'Montserrat',
@@ -190,7 +190,11 @@ function DonationTab(props: { value: number; index: number }) {
                     <TableCell>
                       {donation.amount} {donation.currency}
                     </TableCell>
-                    <TableCell>заяви</TableCell>
+                    <TableCell>
+                      <Button variant="outlined">
+                        Заяви <ArrowForwardIcon></ArrowForwardIcon>
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
