@@ -8,7 +8,7 @@ export function useCampaignList() {
 }
 
 export function useCampaignTypesList() {
-  return useQuery<CampaignType[]>(endpoints.campaignType.listCampaignTypes.url)
+  return useQuery<CampaignType[]>(endpoints.campaignTypes.listCampaignTypes.url)
 }
 
 export function useViewCampaign(slug: string) {

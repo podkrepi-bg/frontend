@@ -4,7 +4,7 @@ import AdminLayout from 'components/admin/navigation/AdminLayout'
 import AdminContainer from 'components/admin/navigation/AdminContainer'
 
 import HeadingSeparator from './HeadingSeparator'
-import CountryGrid from './CountryGrid'
+import CountryGrid from './grid/CountryGrid'
 
 export default function CountriesPage() {
   const { t } = useTranslation('countries')

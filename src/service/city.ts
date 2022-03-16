@@ -1,18 +1,16 @@
-import { AxiosResponse } from 'axios'
 import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
+import { AxiosResponse } from 'axios'
 
 import { apiClient } from 'service/apiClient'
-
-import { endpoints } from './apiEndpoints'
-import { authConfig } from './restRequests'
-import { MutationFunction } from 'react-query'
+import { authConfig } from 'service/restRequests'
+import { endpoints } from 'service/apiEndpoints'
 import { CityInput, CityResponse } from 'gql/cities'
 
-export const useCreateCityRequest = () => {
+export function useCreateCity() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return async (data: CityInput) => {
-    return await apiClient.post<CityInput, AxiosResponse<CityResponse>>(
+    return await apiClient.post<CityResponse, AxiosResponse<CityResponse>>(
       endpoints.city.createCity.url,
       data,
       authConfig(keycloak?.token),
@@ -20,10 +18,10 @@ export const useCreateCityRequest = () => {
   }
 }
 
-export const useEditCity = (id: string) => {
+export function useEditCity(id: string) {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return async (data: CityInput) => {
-    return await apiClient.patch<CityInput, AxiosResponse<CityResponse>>(
+    return await apiClient.patch<CityResponse, AxiosResponse<CityResponse>>(
       endpoints.city.editCity(id).url,
       data,
       authConfig(keycloak?.token),
@@ -31,10 +29,24 @@ export const useEditCity = (id: string) => {
   }
 }
 
-export const useDeleteCity: MutationFunction<AxiosResponse<null>, { id: string }> = async ({
-  id,
-}: {
-  id: string
-}) => {
-  return await apiClient.delete<null>(endpoints.city.deleteCity(id).url)
+export function useDeleteCity() {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (id: string) => {
+    return await apiClient.delete<CityResponse, AxiosResponse<CityResponse>>(
+      endpoints.city.deleteCity(id).url,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useDeleteMany() {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (ids: string[]) => {
+    return ids.map(async (id) => {
+      return await apiClient.delete<CityResponse, AxiosResponse<CityResponse>>(
+        endpoints.city.deleteCity(id).url,
+        authConfig(keycloak?.token),
+      )
+    })
+  }
 }
