@@ -10,7 +10,7 @@ export const createBootcampSimeon = async (data: BootcampSimeonInput) => {
   )
 }
 
-export const updateBootcampSimeon = async (id: string, data: BootcampSimeonInput) => {
+export const editBootcampSimeon = async (id: string, data: BootcampSimeonInput) => {
   return await apiClient.patch<string, AxiosResponse<BootcampSimeonResponse>>(
     endpoints.bootcampSimeon.edit(id).url,
     data,

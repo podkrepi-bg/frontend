@@ -1,5 +1,7 @@
 import Layout from './Layout'
 
-export default function BootcampSimeonList() {
+function BootcampSimeonList() {
   return <Layout></Layout>
 }
+
+export default BootcampSimeonList
