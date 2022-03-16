@@ -1,26 +1,18 @@
 import React from 'react'
-import Link from 'next/link'
-import { DataGrid, GridColumns, GridSelectionModel } from '@mui/x-data-grid'
-import { useMutation } from 'react-query'
-import { AxiosError, AxiosResponse } from 'axios'
-import { useRouter } from 'next/router'
+import { observer } from 'mobx-react'
+import { DataGrid, GridColumns, GridRenderCellParams, GridSelectionModel } from '@mui/x-data-grid'
 import { useTranslation } from 'next-i18next'
-import { IconButton, Tooltip, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import DeleteIcon from '@mui/icons-material/Delete'
-import AddIcon from '@mui/icons-material/Add'
 
-import { useExpense, useExpensesList } from 'common/hooks/expenses'
+import { useExpensesList } from 'common/hooks/expenses'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 import { routes } from 'common/routes'
-import { ExpenseResponse } from 'gql/expenses'
-import { ApiErrors } from 'service/apiErrors'
-import { AlertStore } from 'stores/AlertStore'
-import { useDeleteExpense, useDeleteManyExpenses } from 'service/expense'
+import GridActions from 'components/admin/GridActions'
 
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 import DeleteAllModal from './DeleteAllModal'
-import GridActions from './GridActions'
 
 const useStyles = makeStyles({
   gridWrapper: {
@@ -78,91 +70,15 @@ const useStyles = makeStyles({
   },
 })
 
-export default function Grid() {
-  const [openRowDel, setOpenRowDel] = React.useState<boolean>(false)
-  const [openRowsDel, setOpenRowsDel] = React.useState<boolean>(false)
-  const [openInfo, setOpenInfo] = React.useState<boolean>(false)
-  const [selected, setSelected] = React.useState({
-    id: '',
-    name: '',
-  })
-  const [selectedManyIds, setSelectedManyIds] = React.useState([''])
-  const { data: expense } = useExpense(selected.id)
-  const [pageSize, setPageSize] = React.useState<number>(10)
-
+export default observer(function Grid() {
+  const { t } = useTranslation('expenses')
   const { data } = useExpensesList()
   const classes = useStyles()
-  const router = useRouter()
-  const { t } = useTranslation('expenses')
+  const [pageSize, setPageSize] = React.useState<number>(10)
 
-  const delMutation = useMutation<AxiosResponse<ExpenseResponse>, AxiosError<ApiErrors>, string>({
-    mutationFn: useDeleteExpense(),
-    onError: () => AlertStore.show(t('alerts.delete-row.error'), 'error'),
-    onSuccess: () => {
-      AlertStore.show(t('alerts.delete-row.success'), 'success')
-    },
-  })
+  const { setSelectedIdsToDelete } = ModalStore
 
-  const delManyMutation = useMutation<
-    AxiosResponse<ExpenseResponse>,
-    AxiosError<ApiErrors>,
-    string[]
-  >({
-    mutationFn: useDeleteManyExpenses(selectedManyIds),
-    onError: () => AlertStore.show(t('alerts.delete-rows.error'), 'error'),
-    onSuccess: () => {
-      AlertStore.show(t('alerts.delete-rows.success'), 'success')
-    },
-  })
-
-  const openDeleteRowDialog = (id: string, name: string) => {
-    setSelected({ id, name })
-    setOpenRowDel(true)
-  }
-
-  const closeDeleteRowDialog = () => {
-    setOpenRowDel(false)
-  }
-
-  const openDeleteRowsDialog = () => {
-    if (selectedManyIds.length == 0 || selectedManyIds[0] == '') {
-      return
-    }
-    setOpenRowsDel(true)
-  }
-
-  const closeDeleteRowsDialog = () => {
-    setOpenRowsDel(false)
-  }
-
-  const closeInfoDialog = () => {
-    setOpenInfo(false)
-  }
-
-  const deleteRow = async () => {
-    try {
-      closeDeleteRowDialog()
-      await delMutation.mutateAsync(selected.id)
-      router.push(routes.admin.expenses.index)
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  const selectMultipleRows = (ids: GridSelectionModel) => {
-    const idsToStr = ids.map((id) => id.toString())
-    setSelectedManyIds(idsToStr)
-  }
-
-  const deleteRows = async () => {
-    try {
-      closeDeleteRowsDialog()
-      delManyMutation.mutate(selectedManyIds)
-      router.push(routes.admin.expenses.index)
-    } catch (err) {
-      console.log(err)
-    }
-  }
+  setSelectedIdsToDelete([])
 
   const columns: GridColumns = [
     { field: 'id', headerName: 'ID', hide: true },
@@ -233,52 +149,28 @@ export default function Grid() {
       field: 'actions',
       headerName: t('fields.action'),
       headerAlign: 'left',
-      renderCell: (p) => (
-        <GridActions
-          id={p.row.id}
-          name={p.row.id}
-          loadInfo={() => {
-            setOpenInfo(true)
-            setSelected({ id: p.row.id, name: p.row.id })
-          }}
-          openDialog={openDeleteRowDialog}
-        />
-      ),
       width: 120,
       type: 'actions',
       headerClassName: classes.gridColumn,
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        return (
+          <GridActions
+            id={params.row.id}
+            name={params.row.id}
+            editLink={routes.admin.expenses.view(params.row.id)}
+          />
+        )
+      },
     },
   ]
 
   return (
     <>
-      <DetailsModal open={openInfo} closeFn={closeInfoDialog} expense={expense} />
-      <DeleteModal />
-      <DeleteAllModal />
-
       <div className={classes.gridWrapper}>
         <div className={classes.gridTitleWrapper}>
           <Typography variant="body2" className={classes.gridDescription}>
             {t('description')}
           </Typography>
-          <section className={classes.gridMainActionsBtns}>
-            <Tooltip title={t('tooltips.delete') || ''}>
-              <IconButton onClick={openDeleteRowsDialog} className={classes.gridBtn}>
-                <DeleteIcon
-                  sx={{
-                    fontSize: '1.4rem',
-                  }}
-                />
-              </IconButton>
-            </Tooltip>
-            <Link href={routes.admin.expenses.create} passHref>
-              <Tooltip title={t('tooltips.add') || ''}>
-                <IconButton className={classes.gridAddBtn}>
-                  <AddIcon />
-                </IconButton>
-              </Tooltip>
-            </Link>
-          </section>
         </div>
 
         <DataGrid
@@ -292,9 +184,15 @@ export default function Grid() {
           autoHeight
           checkboxSelection
           disableSelectionOnClick
-          onSelectionModelChange={selectMultipleRows}
+          onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
+            setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
+          }}
         />
       </div>
+
+      <DetailsModal />
+      <DeleteModal />
+      <DeleteAllModal />
     </>
   )
-}
+})
