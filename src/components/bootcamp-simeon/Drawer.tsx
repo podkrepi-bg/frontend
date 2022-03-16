@@ -1,5 +1,6 @@
-import { CSSObject, Theme } from '@mui/material/styles'
+import { CSSObject, styled, Theme } from '@mui/material/styles'
 import { drawerWidth } from './styles'
+import MuiDrawer from '@mui/material/Drawer'
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -22,3 +23,20 @@ const closedMixin = (theme: Theme): CSSObject => ({
     width: `calc(${theme.spacing(8)} + 4px)`,
   },
 })
+
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme, open }) => ({
+    width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: 'nowrap',
+    boxSizing: 'border-box',
+    ...(open && {
+      ...openedMixin(theme),
+      '& .MuiDrawer-paper': openedMixin(theme),
+    }),
+    ...(!open && {
+      ...closedMixin(theme),
+      '& .MuiDrawer-paper': closedMixin(theme),
+    }),
+  }),
+)
