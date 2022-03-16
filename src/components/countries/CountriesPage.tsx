@@ -13,7 +13,7 @@ export default function CountriesPage() {
   return (
     <AdminLayout>
       <AdminContainer title={t('headings.countries')}>
-        <GridAppbar></GridAppbar>
+        <GridAppbar />
         <HeadingSeparator />
         <CountryGrid />
       </AdminContainer>
