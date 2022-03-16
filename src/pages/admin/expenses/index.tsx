@@ -3,10 +3,8 @@ import { dehydrate, QueryClient } from 'react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { keycloakInstance } from 'middleware/auth/keycloak'
-
 import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
-
 import ExpensesPage from 'components/expenses/ExpensesPage'
 
 export const getServerSideProps: GetServerSideProps = async (params) => {
@@ -24,6 +22,7 @@ export const getServerSideProps: GetServerSideProps = async (params) => {
         'common',
         'auth',
         'validation',
+        'admin',
         'expenses',
       ])),
       dehydratedState: dehydrate(client),
