@@ -15,10 +15,10 @@ import { routes } from 'common/routes'
 import { ExpenseResponse } from 'gql/expenses'
 import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
-import { useDeleteExpense, useDeleteManyExpenses } from 'service/restRequests/expense'
+import { useDeleteExpense, useDeleteManyExpenses } from 'service/expense'
 
 import InfoDialog from './InfoDialog'
-import DeleteRowDialog from './DeleteRowDialog'
+import DeleteRowDialog from './DeleteModal'
 import DeleteRowsDialog from './DeleteRowsDialog'
 import GridActions from './GridActions'
 
