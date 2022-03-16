@@ -18,8 +18,8 @@ import { AlertStore } from 'stores/AlertStore'
 import { useDeleteExpense, useDeleteManyExpenses } from 'service/expense'
 
 import InfoDialog from './InfoDialog'
-import DeleteRowDialog from './DeleteModal'
-import DeleteRowsDialog from './DeleteRowsDialog'
+import DeleteModal from './DeleteModal'
+import DeleteAllModal from './DeleteAllModal'
 import GridActions from './GridActions'
 
 const useStyles = makeStyles({
@@ -253,18 +253,9 @@ export default function Grid() {
   return (
     <>
       <InfoDialog open={openInfo} closeFn={closeInfoDialog} expense={expense} />
-      <DeleteRowDialog
-        open={openRowDel}
-        closeFn={closeDeleteRowDialog}
-        expenseName={selected.name}
-        deleteRow={deleteRow}
-      />
-      <DeleteRowsDialog
-        open={openRowsDel}
-        closeFn={closeDeleteRowsDialog}
-        deleteRows={deleteRows}
-        itemsCount={setSelectedManyIds.length}
-      />
+      <DeleteModal />
+      <DeleteAllModal />
+
       <div className={classes.gridWrapper}>
         <div className={classes.gridTitleWrapper}>
           <Typography variant="body2" className={classes.gridDescription}>
