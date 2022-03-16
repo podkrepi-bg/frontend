@@ -8,27 +8,26 @@ import {
   GridColDef,
   GridColumns,
   GridRenderCellParams,
-  GridRowId,
   GridSelectionModel,
 } from '@mui/x-data-grid'
 
 import { DocumentResponse } from 'gql/document'
 import { useDocumentsList } from 'common/hooks/documents'
-import { ModalStore } from 'stores/documents/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStore'
+import { routes } from 'common/routes'
 
+import GridActions from '../../admin/GridActions'
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 import DeleteAllModal from './DeleteAllModal'
-import GridActions from './GridActions'
 
 export default observer(function Grid() {
-  const [selectedId, setSelectedId] = useState<string>('')
-  const [selectionModel, setSelectionModel] = useState<GridRowId[]>([])
+  const { setSelectedIdsToDelete } = ModalStore
   const [pageSize, setPageSize] = useState(5)
   const { t } = useTranslation()
-  const { selectedPositive, selectedNegative } = ModalStore
-
   const { data }: UseQueryResult<DocumentResponse[]> = useDocumentsList()
+
+  setSelectedIdsToDelete([])
 
   const commonProps: Partial<GridColDef> = {
     align: 'left',
@@ -66,14 +65,22 @@ export default observer(function Grid() {
       field: 'sourceUrl',
       headerName: t('documents:sourceUrl'),
       ...commonProps,
-      width: 450,
+      flex: 1,
     },
     {
-      field: t('documents:actions'),
-      width: 200,
-      align: 'right',
+      field: 'actions',
+      headerName: t('documents:actions'),
+      width: 120,
+      type: 'actions',
+      headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => {
-        return <GridActions id={cellValues.row.id} setSelectedId={setSelectedId} />
+        return (
+          <GridActions
+            id={cellValues.row.id}
+            name={cellValues.row.name}
+            editLink={routes.admin.documents.edit(cellValues.row.id)}
+          />
+        )
       },
     },
   ]
@@ -103,14 +110,13 @@ export default observer(function Grid() {
           disableSelectionOnClick
           checkboxSelection
           onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
-            newSelectionModel.length !== 0 ? selectedPositive() : selectedNegative()
-            setSelectionModel(newSelectionModel)
+            setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
           }}
         />
       </Box>
-      <DetailsModal id={selectedId} />
-      <DeleteModal id={selectedId} />
-      <DeleteAllModal selectionModel={selectionModel} />
+      <DetailsModal />
+      <DeleteModal />
+      <DeleteAllModal />
     </>
   )
 })

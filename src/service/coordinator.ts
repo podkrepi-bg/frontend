@@ -18,7 +18,7 @@ export const useCoordinatorsList = () => {
   )
 }
 
-export const useCreateCoordinatorRequest = () => {
+export const useCreateCoordinator = () => {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return async (data: CoorinatorInput) => {
     return await apiClient.post<CoorinatorInput, AxiosResponse<CoordinatorResponse>>(
@@ -29,7 +29,7 @@ export const useCreateCoordinatorRequest = () => {
   }
 }
 
-export const useDeleteCoordinatorRequest = () => {
+export const useDeleteCoordinator = () => {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return async (data: string) => {
     return await apiClient.delete<string, AxiosResponse<CoordinatorResponse>>(
