@@ -6,7 +6,7 @@ import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { format, parse, isDate } from 'date-fns'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Grid, Typography } from '@mui/material'
+import { Button, Grid, Input, Typography } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 
@@ -225,7 +225,19 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
             <input type="hidden" name="beneficiaryId" />
           </Grid>
           <Grid item xs={12}>
-            <FileUploadModal />
+            <label htmlFor="contained-button-file">
+              <Input
+                accept="image/*"
+                id="contained-button-file"
+                multiple
+                type="file"
+                style={{ display: 'none' }}
+              />
+              <Button fullWidth variant="contained" color="info" component="span">
+                Добави снимки
+              </Button>
+            </label>
+            {/* <FileUploadModal /> */}
           </Grid>
           <Grid item xs={12}>
             <AcceptTermsField name="terms" />
