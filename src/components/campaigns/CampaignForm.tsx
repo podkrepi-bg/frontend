@@ -239,7 +239,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               </Button>
             </label>
             <ul>
-              {[...files].map((file) => {
+              {files.map((file) => {
                 return <li key={file.name}>{file.name}</li>
               })}
             </ul>
