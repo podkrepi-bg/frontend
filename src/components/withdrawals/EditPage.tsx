@@ -7,11 +7,11 @@ import AdminLayout from 'components/admin/navigation/AdminLayout'
 import EditForm from 'components/withdrawals/EditForm'
 
 export default function EditPage() {
-  const { t } = useTranslation()
+  const { t } = useTranslation('withdrawals')
 
   return (
     <AdminLayout>
-      <AdminContainer title={t('withdrawals:withdrawals')}>
+      <AdminContainer title={t('withdrawals')}>
         <Container maxWidth="md" sx={{ py: 5 }}>
           <EditForm />
         </Container>
