@@ -192,7 +192,7 @@ function DonationTab(props: { value: number; index: number }) {
                     </TableCell>
                     <TableCell>
                       <Button variant="outlined">
-                        Заяви <ArrowForwardIcon></ArrowForwardIcon>
+                        Свали <ArrowForwardIcon></ArrowForwardIcon>
                       </Button>
                     </TableCell>
                   </TableRow>
