@@ -18,7 +18,14 @@ function Layout({ children }: Props) {
 
   return (
     <>
-      <Box>
+      <Box
+        sx={{
+          display: 'flex',
+          position: 'relative',
+          minHeight: '100vh',
+          paddingRight: '24px',
+          marginBottom: 10,
+        }}>
         <BootcampAppbar open={open} handler={handleDrawerOpenClose} />
         <BootcampDrawer open={open} />
         <Box component="main" sx={{ flexGrow: 1 }}>

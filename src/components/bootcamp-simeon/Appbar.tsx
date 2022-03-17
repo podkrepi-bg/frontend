@@ -35,7 +35,6 @@ const AppBar = styled(MuiAppBar, { shouldForwardProp: (prop) => prop !== 'open' 
 )
 
 function BootcampAppbar({ open, handler }: Props) {
-  const { t } = useTranslation()
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
   const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
