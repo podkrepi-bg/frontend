@@ -12,7 +12,7 @@ import createStyles from '@mui/styles/createStyles'
 
 import { routes } from 'common/routes'
 import { PersonFormData } from 'gql/person'
-import { useCreateCampaign } from 'service/campaign'
+import { useCreateCampaign, useUploadCampaignFiles } from 'service/campaign'
 import { AlertStore } from 'stores/AlertStore'
 import { createSlug } from 'common/util/createSlug'
 import PersonDialog from 'components/person/PersonDialog'
@@ -21,11 +21,15 @@ import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
-import { CampaignResponse, CampaignFormData, CampaignInput } from 'gql/campaigns'
+import {
+  CampaignResponse,
+  CampaignFormData,
+  CampaignInput,
+  CampaignUploadImage,
+} from 'gql/campaigns'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
 import CampaignTypeSelect from './CampaignTypeSelect'
-import CampaignFileUpload from './CampaignFileUpload'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -90,6 +94,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   const router = useRouter()
   const [coordinator, setCoordinator] = useState<PersonFormData>()
   const [beneficiary, setBeneficiary] = useState<PersonFormData>()
+  const [files, setFiles] = useState<File[]>([])
 
   const mutation = useMutation<
     AxiosResponse<CampaignResponse>,
@@ -101,10 +106,19 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
 
+  const fileUploadMutation = useMutation<
+    AxiosResponse<CampaignUploadImage[]>,
+    AxiosError<ApiErrors>,
+    { files: File[]; id: string }
+  >({
+    mutationFn: useUploadCampaignFiles(),
+  })
+
   const onSubmit = async (
     values: CampaignFormData,
     { setFieldError, resetForm }: FormikHelpers<CampaignFormData>,
   ) => {
+    fileUploadMutation.mutateAsync({ files, id: 'ff7562dc-4e4e-47ec-ad0d-8b01a7ae59ba' })
     try {
       const response = await mutation.mutateAsync({
         title: values.title,
@@ -139,10 +153,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           {t('campaigns:form-heading')}
         </Typography>
       </Grid>
-      <GenericForm
-        onSubmit={onSubmit}
-        initialValues={initialValues}
-        validationSchema={validationSchema}>
+      <GenericForm onSubmit={onSubmit} initialValues={initialValues}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <FormTextField
@@ -225,7 +236,23 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
             <input type="hidden" name="beneficiaryId" />
           </Grid>
           <Grid item xs={12}>
-            <CampaignFileUpload></CampaignFileUpload>
+            <label htmlFor="contained-button-file">
+              <input
+                id="contained-button-file"
+                multiple
+                type="file"
+                style={{ display: 'none' }}
+                onChange={(e) => setFiles([...(e.target.files as FileList)])}
+              />
+              <Button fullWidth variant="contained" color="info" component="span">
+                Добави снимки
+              </Button>
+            </label>
+            <ul>
+              {files.map((file) => {
+                return <li key={file.name}>{file.name}</li>
+              })}
+            </ul>
           </Grid>
           <Grid item xs={12}>
             <AcceptTermsField name="terms" />
