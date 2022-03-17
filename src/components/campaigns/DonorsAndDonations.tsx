@@ -1,9 +1,10 @@
 import React from 'react'
-import { Grid, Theme, Typography } from '@mui/material'
+import { Button, Grid, Theme, Typography } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
+import { useTranslation } from 'next-i18next'
 
 type DonationItem = {
   donorName: string
@@ -49,11 +50,15 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: theme.spacing(1),
       alignSelf: 'center',
     },
+    seeAllButton: {
+      border: `1px solid ${theme.palette.primary.main}`,
+    },
   }),
 )
 
 export default function DonorsAndDonations() {
   const classes = useStyles()
+  const { t } = useTranslation()
 
   return (
     <Grid item className={classes.donationsWrapper}>
@@ -61,7 +66,9 @@ export default function DonorsAndDonations() {
         <Grid key={key} className={classes.donationItemWrapper}>
           <AccountCircleIcon fontSize="large" color="disabled" />
           <Grid>
-            <Typography>{donorName}</Typography>
+            <Typography>
+              {t('campaigns:cta.donor')} {key + 1}. {donorName}
+            </Typography>
             <Grid className={classes.donationQuantityAndTimeWrapper}>
               <Typography>{donatedMoney}</Typography>
               <FiberManualRecordIcon className={classes.separatorIcon} />
@@ -70,6 +77,7 @@ export default function DonorsAndDonations() {
           </Grid>
         </Grid>
       ))}
+      <Button className={classes.seeAllButton}>{t('campaigns:cta.see-all')}</Button>
     </Grid>
   )
 }
