@@ -1,6 +1,7 @@
 import { Box } from '@mui/material'
 import * as React from 'react'
 import BootcampAppbar from './Appbar'
+import DrawerHeader from './DrawerHeader'
 import BootcampFooter from './Footer'
 
 interface Props {
@@ -18,6 +19,10 @@ function Layout({ children }: Props) {
     <>
       <Box>
         <BootcampAppbar open={open} handler={handleDrawerOpenClose} />
+        <Box component="main" sx={{ flexGrow: 1 }}>
+          <DrawerHeader />
+          {children}
+        </Box>
       </Box>
       <BootcampFooter />
     </>

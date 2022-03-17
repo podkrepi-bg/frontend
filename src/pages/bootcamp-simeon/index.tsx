@@ -15,6 +15,4 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   revalidate: 10,
 })
 
-// Both approaches for translation works exactly the same. Which is better?
-
 export default BootcampSimeonList
