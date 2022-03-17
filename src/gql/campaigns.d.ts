@@ -76,3 +76,7 @@ export type CampaignInput = {
   startDate: Date | string | undefined
   endDate: Date | string | undefined
 }
+
+export type CampaignUploadImage = {
+  title: string
+}
