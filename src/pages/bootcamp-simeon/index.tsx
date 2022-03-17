@@ -2,9 +2,9 @@ import { GetServerSideProps, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import BootcampSimeonList from 'components/bootcamp-simeon/BootcampSimeonList'
 
-// export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+// export const getServerSideProps: GetServerSideProps = async () => ({
 //   props: {
-//     ...(await serverSideTranslations(locale ?? 'bg', ['common'])),
+//     ...(await useBootcampSimeonList()),
 //   },
 // })
 

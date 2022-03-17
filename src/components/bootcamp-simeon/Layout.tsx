@@ -3,6 +3,7 @@ import * as React from 'react'
 import BootcampAppbar from './Appbar'
 import DrawerHeader from './DrawerHeader'
 import BootcampFooter from './Footer'
+import BootcampDrawer from './Drawer'
 
 interface Props {
   children: React.ReactNode
@@ -19,6 +20,7 @@ function Layout({ children }: Props) {
     <>
       <Box>
         <BootcampAppbar open={open} handler={handleDrawerOpenClose} />
+        <BootcampDrawer open={open} />
         <Box component="main" sx={{ flexGrow: 1 }}>
           <DrawerHeader />
           {children}

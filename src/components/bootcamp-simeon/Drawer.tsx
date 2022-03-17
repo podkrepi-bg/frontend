@@ -1,9 +1,10 @@
-import { CSSObject, styled, Theme } from '@mui/material/styles'
-import { drawerWidth, styles } from './styles'
+import { styled, Theme, CSSObject } from '@mui/material/styles'
 import MuiDrawer from '@mui/material/Drawer'
+import { drawerWidth } from './styles'
 import DrawerHeader from './DrawerHeader'
-import { Typography, List } from '@mui/material'
-import SubMenu from './SubMenu'
+import { List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material'
+import { menuDrawer } from './menuDrawer'
+import { styles } from './styles'
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -54,12 +55,24 @@ function BootcampDrawer(props: Props) {
   return (
     <Drawer variant="permanent" open={props.open}>
       <DrawerHeader>
-        <Typography variant="h6" sx={{ marginRight: '36px' }}>
+        <Typography
+          variant="h6"
+          sx={{
+            marginRight: '36px',
+          }}>
           Dashboard
         </Typography>
       </DrawerHeader>
       <List sx={{ height: '100%', position: 'relative' }}>
-        <SubMenu />
+        {menuDrawer.map((item) => (
+          <ListItem
+            button
+            key={item.text}
+            className={item.text == 'Настройки' ? classes.settings : 'none'}>
+            <ListItemIcon className={classes.icon}>{item.icon}</ListItemIcon>
+            <ListItemText className={classes.text} primary={item.text} />
+          </ListItem>
+        ))}
       </List>
     </Drawer>
   )
