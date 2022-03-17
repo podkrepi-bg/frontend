@@ -2,7 +2,6 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { DataGrid, GridColumns, GridRenderCellParams, GridSelectionModel } from '@mui/x-data-grid'
 import { useTranslation } from 'next-i18next'
-import { Typography } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
 import { useExpensesList } from 'common/hooks/expenses'
@@ -15,9 +14,6 @@ import DeleteModal from './DeleteModal'
 import DeleteAllModal from './DeleteAllModal'
 
 const useStyles = makeStyles({
-  gridWrapper: {
-    margin: '0 auto',
-  },
   grid: {
     marginBottom: 15,
     border: 'none',
@@ -37,36 +33,6 @@ const useStyles = makeStyles({
       fontSize: '14px',
       fontWeight: '700',
     },
-  },
-  gridBtn: {
-    background: '#FFFFFF',
-    boxShadow:
-      '0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px rgba(0, 0, 0, 0.14), 0px 1px 18px rgba(0, 0, 0, 0.12)',
-    borderRadius: '50%',
-    marginRight: '8px',
-    padding: '4px',
-  },
-  gridAddBtn: {
-    background: '#4AC3FF',
-    boxShadow:
-      '0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px rgba(0, 0, 0, 0.14), 0px 1px 18px rgba(0, 0, 0, 0.12)',
-    borderRadius: '50%',
-    padding: '8px',
-  },
-  gridTitleWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: '0px 10px 5px 23px',
-    height: '80px',
-  },
-  gridDescription: {
-    fontFamily: 'Lato',
-    fontSize: '12px',
-    color: '#666',
-    alignSelf: 'flex-start',
-  },
-  gridMainActionsBtns: {
-    alignSelf: 'flex-end',
   },
 })
 
@@ -166,29 +132,21 @@ export default observer(function Grid() {
 
   return (
     <>
-      <div className={classes.gridWrapper}>
-        <div className={classes.gridTitleWrapper}>
-          <Typography variant="body2" className={classes.gridDescription}>
-            {t('description')}
-          </Typography>
-        </div>
-
-        <DataGrid
-          className={classes.grid}
-          rows={data || []}
-          columns={columns}
-          pageSize={pageSize}
-          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          rowsPerPageOptions={[5, 10]}
-          pagination
-          autoHeight
-          checkboxSelection
-          disableSelectionOnClick
-          onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
-            setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
-          }}
-        />
-      </div>
+      <DataGrid
+        className={classes.grid}
+        rows={data || []}
+        columns={columns}
+        pageSize={pageSize}
+        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+        rowsPerPageOptions={[5, 10]}
+        pagination
+        autoHeight
+        checkboxSelection
+        disableSelectionOnClick
+        onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
+          setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
+        }}
+      />
 
       <DetailsModal />
       <DeleteModal />
