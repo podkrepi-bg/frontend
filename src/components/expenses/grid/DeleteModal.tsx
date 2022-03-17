@@ -1,5 +1,4 @@
-import { useRouter } from 'next/router'
-import { useMutation } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import { observer } from 'mobx-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useTranslation } from 'next-i18next'
@@ -9,11 +8,11 @@ import { ApiErrors } from 'service/apiErrors'
 import { useDeleteExpense } from 'service/expense'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
-import { routes } from 'common/routes'
 import DeleteDialog from 'components/admin/DeleteDialog'
+import { endpoints } from 'service/apiEndpoints'
 
 export default observer(function DeleteModal() {
-  const router = useRouter()
+  const queryClient = useQueryClient()
   const { hideDelete, selectedRecord } = ModalStore
   const { t } = useTranslation('expenses')
 
@@ -24,9 +23,9 @@ export default observer(function DeleteModal() {
       mutationFn,
       onError: () => AlertStore.show(t('alerts.delete-row.error'), 'error'),
       onSuccess: () => {
+        queryClient.invalidateQueries(endpoints.expenses.listExpenses.url)
         hideDelete()
         AlertStore.show(t('alerts.delete-row.success'), 'success')
-        router.push(routes.admin.expenses.index)
       },
     },
   )
