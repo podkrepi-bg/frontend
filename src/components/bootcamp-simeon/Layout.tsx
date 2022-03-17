@@ -4,6 +4,7 @@ import BootcampAppbar from './Appbar'
 import DrawerHeader from './DrawerHeader'
 import BootcampFooter from './Footer'
 import BootcampDrawer from './Drawer'
+import Snackbar from '../layout/Snackbar'
 
 interface Props {
   children: React.ReactNode
@@ -33,6 +34,7 @@ function Layout({ children }: Props) {
           {children}
         </Box>
       </Box>
+      <Snackbar />
       <BootcampFooter />
     </>
   )
