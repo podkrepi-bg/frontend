@@ -63,8 +63,8 @@ const validationSchema: yup.SchemaOf<CampaignFormData> = yup
 const defaults: CampaignFormData = {
   title: '',
   campaignTypeId: '',
-  beneficiaryId: '',
-  coordinatorId: '',
+  beneficiaryId: '025828dc-afec-4dec-a2c2-289c6c5c95a2',
+  coordinatorId: '2f591c31-9d6f-42a7-81c7-9ce89090209d',
   targetAmount: 1000,
   startDate: format(new Date(), formatString),
   endDate: format(new Date().setMonth(new Date().getMonth() + 1), formatString),
@@ -118,7 +118,6 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
     values: CampaignFormData,
     { setFieldError, resetForm }: FormikHelpers<CampaignFormData>,
   ) => {
-    fileUploadMutation.mutateAsync({ files, id: 'ff7562dc-4e4e-47ec-ad0d-8b01a7ae59ba' })
     try {
       const response = await mutation.mutateAsync({
         title: values.title,
@@ -133,6 +132,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
         coordinatorId: values.coordinatorId,
         currency: 'BGN',
       })
+      fileUploadMutation.mutateAsync({ files, id: response.data.id })
       resetForm()
       router.push(routes.campaigns.viewCampaignBySlug(response.data.slug))
     } catch (error) {
