@@ -16,6 +16,7 @@ export function useExpensesList() {
 export function useViewExpense(id: string) {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return useQuery<ExpenseResponse>(endpoints.expenses.viewExpense(id).url, {
+    retry: 0,
     queryFn: authQueryFnFactory(keycloak?.token),
   })
 }
