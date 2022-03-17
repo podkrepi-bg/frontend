@@ -12,6 +12,7 @@ import GridActions from 'components/admin/GridActions'
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 import DeleteAllModal from './DeleteAllModal'
+import { statusRenderCell } from './GridHelper'
 
 const useStyles = makeStyles({
   grid: {
@@ -58,7 +59,7 @@ export default observer(function Grid() {
     {
       field: 'status',
       headerName: t('fields.status'),
-      valueGetter: (p) => p.row.status,
+      renderCell: statusRenderCell,
       headerClassName: classes.gridColumn,
       flex: 1,
     },
