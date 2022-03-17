@@ -10,6 +10,7 @@ import DetailsDialog from 'components/admin/DetailsDialog'
 export default observer(function DetailsModal() {
   const { selectedRecord } = ModalStore
   const { data }: UseQueryResult<ExpenseResponse> = useViewExpense(selectedRecord.id)
+
   const { t } = useTranslation('expenses')
 
   const dataConverted = [
@@ -19,7 +20,7 @@ export default observer(function DetailsModal() {
     { name: t('fields.currency'), value: `${data?.currency}` },
     { name: t('fields.amount'), value: `${data?.amount}` },
     { name: t('fields.vaultId'), value: `${data?.vaultId}` },
-    { name: t('fields.deleted'), value: `${data?.deleted.toString()}` },
+    { name: t('fields.deleted'), value: `${data?.deleted}` },
     { name: t('fields.description'), value: `${data?.description}` },
     { name: t('fields.documentId'), value: `${data?.documentId}` },
     { name: t('fields.approvedById'), value: `${data?.approvedById}` },
