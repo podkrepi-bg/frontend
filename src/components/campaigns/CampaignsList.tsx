@@ -1,4 +1,5 @@
 import { Box, CircularProgress, Grid } from '@mui/material'
+import Image from 'next/image'
 
 import { useCampaignList } from 'common/hooks/campaigns'
 
@@ -18,6 +19,7 @@ export default function CampaignsList() {
           </Box>
         </Grid>
       ))}
+      <Image src="/img/Artboard.png" width={813} height={358} />
     </Grid>
   )
 }
