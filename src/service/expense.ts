@@ -42,10 +42,12 @@ export function useDeleteExpense() {
 export function useDeleteManyExpenses(idsToDelete: string[]) {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return async () => {
-    return await apiClient.post<ExpenseResponse, AxiosResponse<ExpenseResponse>>(
+    return await apiClient.delete<ExpenseResponse, AxiosResponse<ExpenseResponse>>(
       endpoints.expenses.deleteExpenses.url,
-      idsToDelete,
-      authConfig(keycloak?.token),
+      {
+        headers: authConfig(keycloak?.token).headers,
+        data: idsToDelete,
+      },
     )
   }
 }
