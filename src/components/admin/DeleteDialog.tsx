@@ -3,14 +3,15 @@ import { observer } from 'mobx-react'
 import { Dialog, Card, CardContent, Box, Button, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-import { ModalStore } from 'stores/dashboard/ModalStore'
+import { ModalStoreImpl } from 'stores/dashboard/ModalStore'
 
 type Props = {
+  modalStore: ModalStoreImpl
   deleteHandler: () => void
 }
 
-export default observer(function DeleteModal({ deleteHandler }: Props) {
-  const { isDeleteOpen, hideDelete, selectedRecord } = ModalStore
+export default observer(function DeleteModal({ modalStore, deleteHandler }: Props) {
+  const { isDeleteOpen, hideDelete, selectedRecord } = modalStore
   const { t } = useTranslation('admin')
 
   return (

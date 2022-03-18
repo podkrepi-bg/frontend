@@ -2,7 +2,7 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { Dialog, Card, CardContent, Typography, SxProps, Theme } from '@mui/material'
 
-import { ModalStore } from 'stores/dashboard/ModalStore'
+import { ModalStoreImpl } from 'stores/dashboard/ModalStore'
 import CloseModalButton from 'components/common/CloseModalButton'
 
 const containerStyles: SxProps<Theme> = {
@@ -20,11 +20,12 @@ export type Field = {
 }
 
 type Prop = {
+  modalStore: ModalStoreImpl
   data: Field[]
 }
 
-export default observer(function DetailsDialog({ data }: Prop) {
-  const { isDetailsOpen, hideDetails } = ModalStore
+export default observer(function DetailsDialog({ modalStore, data }: Prop) {
+  const { isDetailsOpen, hideDetails } = modalStore
 
   return (
     <Dialog open={isDetailsOpen} onClose={hideDetails} sx={containerStyles}>
