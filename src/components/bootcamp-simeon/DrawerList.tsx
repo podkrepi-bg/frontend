@@ -1,6 +1,13 @@
 import { Box, Divider, List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
 import * as React from 'react'
 import { MoveToInboxRounded } from '@mui/icons-material'
+import StarRoundedIcon from '@mui/icons-material/StarRounded'
+import EmailRoundedIcon from '@mui/icons-material/EmailRounded'
+import SaveAsRoundedIcon from '@mui/icons-material/SaveAsRounded'
+import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded'
+import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
+import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded'
+import CancelScheduleSendRoundedIcon from '@mui/icons-material/CancelScheduleSendRounded'
 
 type Anchor = 'top' | 'left' | 'right' | 'bottom'
 
@@ -37,42 +44,49 @@ function DrawerList(anchor: Anchor) {
             <ListItemText primary="Inbox" />
           </ListItemIcon>
         </ListItem>
-        <ListItem button>
+        <ListItem button key="Starred">
           <ListItemIcon>
-            <ListItemText />
+            <StarRoundedIcon />
+            <ListItemText primary="Starred" />
           </ListItemIcon>
         </ListItem>
-        <ListItem button>
+        <ListItem button key="Send mail">
           <ListItemIcon>
-            <ListItemText />
+            <EmailRoundedIcon />
+            <ListItemText primary="Send mail" />
           </ListItemIcon>
         </ListItem>
-        <ListItem button>
+        <ListItem button key="Drafs">
           <ListItemIcon>
-            <ListItemText />
+            <SaveAsRoundedIcon />
+            <ListItemText primary="Drafs" />
           </ListItemIcon>
         </ListItem>
-        <ListItem button>
+        <ListItem button key="Dashboard">
           <ListItemIcon>
-            <ListItemText />
+            <DashboardRoundedIcon />
+            <ListItemText primary="Dashboard" />
           </ListItemIcon>
         </ListItem>
       </List>
       <Divider />
       <List>
-        <ListItem button>
+        <ListItem button key="All mail">
           <ListItemIcon>
-            <ListItemText />
+            <AllInboxRoundedIcon />
+            <ListItemText primary="All mail" />
           </ListItemIcon>
         </ListItem>
-        <ListItem button>
+        <ListItem button key="Trash">
           <ListItemIcon>
-            <ListItemText />
+            <DeleteOutlineRoundedIcon />
+            <ListItemText primary="Trash" />
           </ListItemIcon>
         </ListItem>
-        <ListItem button>
+        <ListItem button key="Spam">
           <ListItemIcon>
-            <ListItemText />
+            <CancelScheduleSendRoundedIcon />
+            <ListItemText primary="Spam" />
           </ListItemIcon>
         </ListItem>
       </List>
