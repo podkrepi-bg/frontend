@@ -11,7 +11,8 @@ import {
 } from '@mui/icons-material'
 
 import { AlertStore } from 'stores/AlertStore'
-import { ModalStore } from 'stores/dashboard/ModalStore'
+
+import { ModalStore } from './SupportersPage'
 
 const addIconStyles = {
   background: '#4ac3ff',

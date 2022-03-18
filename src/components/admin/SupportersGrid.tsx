@@ -12,7 +12,8 @@ import {
 import { DialogStore } from 'stores/DialogStore'
 import { dateFormatter } from 'common/util/date'
 import { useSupportRequestList } from 'common/hooks/supportRequest'
-import { ModalStore } from 'stores/dashboard/ModalStore'
+
+import { ModalStore } from './SupportersPage'
 
 const renderCell = (params: GridRenderCellParams) =>
   params.value ? <Check color="primary" /> : <Clear color="action" />
