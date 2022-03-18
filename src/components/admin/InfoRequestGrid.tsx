@@ -5,7 +5,8 @@ import { DataGrid, GridColumns, GridSelectionModel } from '@mui/x-data-grid'
 import { DialogStore } from 'stores/DialogStore'
 import { dateFormatter } from 'common/util/date'
 import { useInfoRequestList } from 'common/hooks/infoRequest'
-import { ModalStore } from 'stores/dashboard/ModalStore'
+
+import { ModalStore } from './InfoRequestPage'
 
 const columns: GridColumns = [
   { field: 'id', headerName: 'ID', hide: true },
