@@ -25,7 +25,7 @@ export type ExpenseResponse = {
   approvedById?: UUID | null
 }
 
-enum ExpenseType {
+export enum ExpenseType {
   'none',
   'internal',
   'operating',
@@ -44,13 +44,13 @@ enum ExpenseType {
   'other',
 }
 
-enum ExpenseStatus {
+export enum ExpenseStatus {
   'pending',
   'approved',
   'canceled',
 }
 
-enum ExpenseCurrency {
+export enum ExpenseCurrency {
   'BGN',
   'EUR',
   'USD',
