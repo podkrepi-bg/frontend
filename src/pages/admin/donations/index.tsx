@@ -10,7 +10,7 @@ export const getServerSideProps: GetServerSideProps = async (params) => {
   const client = new QueryClient()
   const keycloak = keycloakInstance(params)
 
-  await prefetchDonationsList(client, keycloak?.token)
+  await prefetchDonationsList(client)
 
   return {
     props: {

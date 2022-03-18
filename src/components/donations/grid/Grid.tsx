@@ -54,6 +54,11 @@ export default observer(function Grid() {
 
   const columns: GridColumns = [
     {
+      field: 'id',
+      headerName: 'ID',
+      hide: true,
+    },
+    {
       field: 'type',
       headerName: t('donations:type'),
     },
