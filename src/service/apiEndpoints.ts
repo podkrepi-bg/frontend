@@ -114,4 +114,13 @@ export const endpoints = {
     list: <Endpoint>{ url: '/company/list', method: 'GET' },
     viewCompany: (slug: string) => <Endpoint>{ url: '/company/' + slug, method: 'GET' },
   },
+  campaignDocumentRole: {
+    listDocuments: <Endpoint>{ url: '/campaign-document-role', method: 'GET' },
+    viewDocument: (id: string) => <Endpoint>{ url: '/campaign-document-role/' + id, method: 'GET' },
+    createDocument: <Endpoint>{ url: '/campaign-document-role', method: 'POST' },
+    editDocument: (id: string) => <Endpoint>{ url: '/campaign-document-role/' + id, method: 'PUT' },
+    removeDocument: (id: string) =>
+      <Endpoint>{ url: '/campaign-document-role/' + id, method: 'DELETE' },
+    removeManyDocuments: <Endpoint>{ url: '/campaign-document-role/delete-many', method: 'POST' },
+  },
 }

@@ -93,6 +93,10 @@ export const routes = {
       create: '/admin/countries/create',
       view: (id: string) => `/admin/countries/${id}`,
     },
+    campaignDocumentRole: {
+      index: '/admin/campaign-document-role',
+      edit: (id: string) => `/admin/campaign-document-role/${id}`,
+    },
     vaults: {
       index: '/admin/vaults',
       create: '/admin/vaults/create',
