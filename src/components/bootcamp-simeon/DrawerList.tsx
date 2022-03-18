@@ -1,4 +1,4 @@
-import { Box, Divider, List } from '@mui/material'
+import { Box, Divider, List, ListItem } from '@mui/material'
 import * as React from 'react'
 
 type Anchor = 'top' | 'left' | 'right' | 'bottom'
@@ -27,10 +27,21 @@ function DrawerList(anchor: Anchor) {
     <Box
       sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
       role="presentation"
-      onClick={toggleDrawer(anchor, false)}>
-      <List></List>
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}>
+      <List>
+        <ListItem></ListItem>
+        <ListItem></ListItem>
+        <ListItem></ListItem>
+        <ListItem></ListItem>
+        <ListItem></ListItem>
+      </List>
       <Divider />
-      <List></List>
+      <List>
+        <ListItem></ListItem>
+        <ListItem></ListItem>
+        <ListItem></ListItem>
+      </List>
     </Box>
   )
 }
