@@ -6,10 +6,10 @@ import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
 import { BankAccountResponse } from 'gql/bankaccounts'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 import { useBankAccountsList } from 'common/hooks/bankaccounts'
 import GridActions from 'components/admin/GridActions'
 
+import { ModalStore } from '../BankAccountsPage'
 import { renderCellWithdraws } from './BankAccountsGridHelper'
 import { commonProps } from './BankAccountsGridHelper'
 import DetailsModal from './DetailsModal'
@@ -19,9 +19,7 @@ import DeleteAllModal from './DeleteAllModal'
 export default observer(function BankAccountsGrid() {
   const { t } = useTranslation('bankaccounts')
   const { data }: UseQueryResult<BankAccountResponse[]> = useBankAccountsList()
-  const { setSelectedIdsToDelete } = ModalStore
-
-  setSelectedIdsToDelete([])
+  const { setSelectedIdsToDelete, selectedRecord } = ModalStore
 
   const columns: GridColumns = [
     { ...commonProps, headerName: t('status'), field: 'status' },
@@ -49,6 +47,7 @@ export default observer(function BankAccountsGrid() {
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
         return (
           <GridActions
+            modalStore={ModalStore}
             id={params.row.id}
             name={params.row.ibanNumber}
             editLink={routes.admin.bankaccounts.edit(params.row.id)}
@@ -84,7 +83,9 @@ export default observer(function BankAccountsGrid() {
           setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
         }}
       />
-      <DetailsModal />
+
+      {/* making sure we don't sent requests to the database when not needed */}
+      {selectedRecord.id != '' ? <DetailsModal /> : null}
       <DeleteModal />
       <DeleteAllModal />
     </>

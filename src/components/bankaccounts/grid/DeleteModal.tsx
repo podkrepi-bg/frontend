@@ -1,6 +1,5 @@
 import React from 'react'
-import { useRouter } from 'next/router'
-import { useMutation } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import { observer } from 'mobx-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useTranslation } from 'next-i18next'
@@ -8,14 +7,15 @@ import { useTranslation } from 'next-i18next'
 import { BankAccountResponse } from 'gql/bankaccounts'
 import { ApiErrors } from 'service/apiErrors'
 import { useDeleteBankAccount } from 'service/bankAccount'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
-import { routes } from 'common/routes'
+import { endpoints } from 'service/apiEndpoints'
 import DeleteDialog from 'components/admin/DeleteDialog'
 
+import { ModalStore } from '../BankAccountsPage'
+
 export default observer(function DeleteModal() {
-  const router = useRouter()
-  const { hideDelete, selectedRecord } = ModalStore
+  const queryClient = useQueryClient()
+  const { hideDelete, selectedRecord, setSelectedRecord } = ModalStore
   const { t } = useTranslation('bankaccounts')
 
   const mutationFn = useDeleteBankAccount(selectedRecord.id)
@@ -28,9 +28,10 @@ export default observer(function DeleteModal() {
     mutationFn,
     onError: () => AlertStore.show(t('alerts.error'), 'error'),
     onSuccess: () => {
+      setSelectedRecord({ id: '', name: '' })
+      queryClient.invalidateQueries(endpoints.bankAccounts.bankAccountList.url)
       hideDelete()
       AlertStore.show(t('alerts.delete'), 'success')
-      router.push(routes.admin.bankaccounts.index)
     },
   })
 
@@ -38,5 +39,5 @@ export default observer(function DeleteModal() {
     deleteMutation.mutate(selectedRecord.id)
   }
 
-  return <DeleteDialog deleteHandler={deleteHandler} />
+  return <DeleteDialog modalStore={ModalStore} deleteHandler={deleteHandler} />
 })

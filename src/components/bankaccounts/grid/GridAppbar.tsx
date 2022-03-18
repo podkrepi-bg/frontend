@@ -13,7 +13,8 @@ import {
 
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
-import { ModalStore } from 'stores/dashboard/ModalStore'
+
+import { ModalStore } from '../BankAccountsPage'
 
 const addIconStyles = {
   background: '#4ac3ff',
@@ -30,15 +31,18 @@ const iconStyles = {
   boxShadow: 3,
   mr: 1,
 }
-export default observer(function BottomAppBar() {
+
+export default observer(function GridAppBar() {
   const { showDeleteAll, selectedIdsToDelete } = ModalStore
   const { t } = useTranslation()
   const router = useRouter()
+
   const deleteHandler = () => {
     selectedIdsToDelete.length > 0
       ? showDeleteAll()
       : AlertStore.show(t('common:alerts.noselected'), 'warning')
   }
+
   return (
     <Toolbar
       sx={{
