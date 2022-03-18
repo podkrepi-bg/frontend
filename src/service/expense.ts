@@ -18,9 +18,9 @@ export function useCreateExpense() {
   }
 }
 
-export function useEditExpense() {
+export function useEditExpense(id: string) {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  return async ({ id, data }: { id: string; data: ExpenseInput }) => {
+  return async (data: ExpenseInput) => {
     return await apiClient.put<ExpenseResponse, AxiosResponse<ExpenseResponse>>(
       endpoints.expenses.editExpense(id).url,
       data,
