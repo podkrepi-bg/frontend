@@ -29,9 +29,9 @@ export function useEditCity(id: string) {
   }
 }
 
-export function useDeleteCity(id: string) {
+export function useDeleteCity() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  return async () => {
+  return async (id: string) => {
     return await apiClient.delete<CityResponse, AxiosResponse<CityResponse>>(
       endpoints.city.deleteCity(id).url,
       authConfig(keycloak?.token),

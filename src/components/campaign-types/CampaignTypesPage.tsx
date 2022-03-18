@@ -7,11 +7,11 @@ import Grid from './grid/Grid'
 import GridAppbar from './grid/GridAppbar'
 
 export default function CampaignTypesPage() {
-  const { t } = useTranslation()
+  const { t } = useTranslation('campaign-types')
 
   return (
     <AdminLayout>
-      <AdminContainer title={t('campaign-types:all')}>
+      <AdminContainer title={t('all')}>
         <GridAppbar />
         <Grid />
       </AdminContainer>

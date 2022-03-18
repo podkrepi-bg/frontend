@@ -6,11 +6,11 @@ import Grid from './grid/Grid'
 import GridAppbar from './grid/GridAppbar'
 
 export default function VaultsPage() {
-  const { t } = useTranslation()
+  const { t } = useTranslation('vaults')
 
   return (
     <AdminLayout>
-      <AdminContainer title={t('vaults:vaults')}>
+      <AdminContainer title={t('vaults')}>
         <GridAppbar />
         <Grid />
       </AdminContainer>

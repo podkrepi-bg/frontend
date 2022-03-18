@@ -7,11 +7,11 @@ import AdminLayout from 'components/admin/navigation/AdminLayout'
 import AddBenefactorForm from './AddBenefactorForm'
 
 export default function BenefactorPage() {
-  const { t } = useTranslation()
+  const { t } = useTranslation('benefactor')
 
   return (
     <AdminLayout>
-      <AdminContainer title={t('benefactor:benefactor')}>
+      <AdminContainer title={t('benefactor')}>
         <Container maxWidth="md" sx={{ py: 5 }}>
           <AddBenefactorForm />
         </Container>
