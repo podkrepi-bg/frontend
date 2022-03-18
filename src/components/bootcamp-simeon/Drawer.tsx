@@ -7,7 +7,7 @@ function BootcampDrawer() {
     <>
       <Button>Left menu</Button>
       <Drawer>
-        <DrawerList />
+        <DrawerList {...'left'} />
       </Drawer>
     </>
   )

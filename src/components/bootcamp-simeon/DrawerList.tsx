@@ -1,5 +1,6 @@
-import { Box, Divider, List, ListItem } from '@mui/material'
+import { Box, Divider, List, ListItem, ListItemIcon, ListItemText } from '@mui/material'
 import * as React from 'react'
+import { MoveToInboxRounded } from '@mui/icons-material'
 
 type Anchor = 'top' | 'left' | 'right' | 'bottom'
 
@@ -30,17 +31,50 @@ function DrawerList(anchor: Anchor) {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}>
       <List>
-        <ListItem></ListItem>
-        <ListItem></ListItem>
-        <ListItem></ListItem>
-        <ListItem></ListItem>
-        <ListItem></ListItem>
+        <ListItem button key="Inbox">
+          <ListItemIcon>
+            <MoveToInboxRounded />
+            <ListItemText primary="Inbox" />
+          </ListItemIcon>
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <ListItemText />
+          </ListItemIcon>
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <ListItemText />
+          </ListItemIcon>
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <ListItemText />
+          </ListItemIcon>
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <ListItemText />
+          </ListItemIcon>
+        </ListItem>
       </List>
       <Divider />
       <List>
-        <ListItem></ListItem>
-        <ListItem></ListItem>
-        <ListItem></ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <ListItemText />
+          </ListItemIcon>
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <ListItemText />
+          </ListItemIcon>
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <ListItemText />
+          </ListItemIcon>
+        </ListItem>
       </List>
     </Box>
   )

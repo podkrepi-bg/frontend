@@ -3,7 +3,6 @@ import { styled } from '@mui/material/styles'
 import Image from 'next/image'
 import * as React from 'react'
 import MenuIcon from '@mui/icons-material/Menu'
-import { drawerWidth } from './styles'
 import { Box, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material'
 import { AccountCircle } from '@mui/icons-material'
 
@@ -24,7 +23,7 @@ const AppBar = styled(MuiAppBar, { shouldForwardProp: (prop) => prop !== 'open' 
       duration: theme.transitions.duration.leavingScreen,
     }),
     ...(open && {
-      marginLeft: drawerWidth,
+      marginLeft: 194,
       transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
