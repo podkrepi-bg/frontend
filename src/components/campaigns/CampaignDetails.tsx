@@ -53,6 +53,9 @@ const useStyles = makeStyles((theme: Theme) =>
     coordinatorAvatar: {
       borderRadius: '50%',
     },
+    campaignDate: {
+      fontSize: '24px',
+    },
   }),
 )
 
@@ -99,11 +102,11 @@ export default function CampaignDetails({ campaign }: Props) {
           className={classes.beneficiaryAvatar}
         />
       </Grid>
-      <Typography variant="subtitle2" component="p">
+      <Typography variant="subtitle2" component="p" className={classes.campaignDate}>
         {t('campaigns:campaign.start-date')} {campaign.startDate}
       </Typography>
       <Grid className={classes.campaignInfoWrapper}>
-        <Typography variant="subtitle2" component="p">
+        <Typography variant="subtitle2" component="p" className={classes.campaignDate}>
           {t('campaigns:campaign.end-date')}
           {campaign.endDate}
         </Typography>
@@ -123,7 +126,7 @@ export default function CampaignDetails({ campaign }: Props) {
             className={classes.coordinatorAvatar}
           />
           <Typography variant="h6" component="h6">
-            {campaign.coordinator.person.firstName}
+            {campaign.coordinator.person.firstName} {campaign.coordinator.person.lastName}
           </Typography>
         </Grid>
         <LatestNews />

@@ -1,5 +1,8 @@
+import Image from 'next/image'
 import { Box, CircularProgress, Grid } from '@mui/material'
+
 import { CampaignResponse } from 'gql/campaigns'
+import { useCampaignList } from 'common/hooks/campaigns'
 
 import CampaignCard from './CampaignCard'
 
@@ -16,6 +19,7 @@ export default function CampaignsList({ campaignToShow }: Props) {
           </Box>
         </Grid>
       ))}
+      <Image src="/img/Artboard.png" width={813} height={358} />
     </Grid>
   )
 }

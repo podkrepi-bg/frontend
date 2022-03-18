@@ -7,11 +7,11 @@ import AdminLayout from 'components/admin/navigation/AdminLayout'
 import Form from './Form'
 
 export default function EditPage() {
-  const { t } = useTranslation()
+  const { t } = useTranslation('beneficiary')
 
   return (
     <AdminLayout>
-      <AdminContainer title={t('beneficiary:all')}>
+      <AdminContainer title={t('all')}>
         <Container maxWidth="md" sx={{ py: 5 }}>
           <Form />
         </Container>

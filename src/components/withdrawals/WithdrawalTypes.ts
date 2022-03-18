@@ -7,7 +7,7 @@ export enum WithdrawalStatus {
   succeeded = 'succeeded',
 }
 export enum Currencies {
-  bgn = 'BGN',
-  usd = 'USD',
-  eur = 'EUR',
+  BGN = 'BGN',
+  USD = 'USD',
+  EUR = 'EUR',
 }

@@ -3,53 +3,69 @@ import { enableStaticRendering } from 'mobx-react'
 
 enableStaticRendering(typeof window === 'undefined')
 
-export class ModalContextImpl {
-  isModalOpen = false
-  cfrmOpen = false
-  carId = ''
-  carSelected = false
+type Record = {
+  id: string
+  name: string
+}
+class ModalStoreImpl {
+  isDetailsOpen = false
+  isDeleteOpen = false
+  isDeleteAllOpen = false
+  selectedRecord: Record = {
+    id: '',
+    name: '',
+  }
+  selectedIdsToDelete: string[] = []
+
   constructor() {
     makeObservable(this, {
-      isModalOpen: observable,
-      cfrmOpen: observable,
-      carId: observable,
-      carSelected: observable,
-      openModal: action,
-      closeModal: action,
-      openCfrm: action,
-      closeCfrm: action,
-      setCarId: action,
-      csPositive: action,
-      csNegative: action,
+      isDetailsOpen: observable,
+      isDeleteOpen: observable,
+      isDeleteAllOpen: observable,
+      selectedRecord: observable,
+      selectedIdsToDelete: observable,
+      setSelectedRecord: action,
+      setSelectedIdsToDelete: action,
+      showDetails: action,
+      hideDetails: action,
+      showDelete: action,
+      hideDelete: action,
+      showDeleteAll: action,
+      hideDeleteAll: action,
     })
   }
-  //CAR SELECTED POSITIVE
-  csPositive = () => {
-    this.carSelected = true
-  }
-  //CAR SELECTED NEGATIVE
-  csNegative = () => {
-    this.carSelected = false
+
+  showDetails = () => {
+    this.isDetailsOpen = true
   }
 
-  // Modal
-  closeModal = () => {
-    this.isModalOpen = false
+  hideDetails = () => {
+    this.isDetailsOpen = false
   }
-  openModal = () => {
-    this.isModalOpen = true
+
+  showDelete = () => {
+    this.isDeleteOpen = true
   }
-  //Confirmation Modal
-  openCfrm = () => {
-    this.cfrmOpen = true
+
+  hideDelete = () => {
+    this.isDeleteOpen = false
   }
-  closeCfrm = () => {
-    this.cfrmOpen = false
+
+  showDeleteAll = () => {
+    this.isDeleteAllOpen = true
   }
-  //setCarId for the modal.
-  setCarId = (rowId: string) => {
-    this.carId = rowId
+
+  hideDeleteAll = () => {
+    this.isDeleteAllOpen = false
+  }
+
+  setSelectedRecord = (record: Record) => {
+    this.selectedRecord = record
+  }
+
+  setSelectedIdsToDelete = (ids: string[]) => {
+    this.selectedIdsToDelete = ids
   }
 }
 
-export const ModalStore = new ModalContextImpl()
+export const ModalStore = new ModalStoreImpl()
