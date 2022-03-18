@@ -18,6 +18,7 @@ export const getServerSideProps: GetServerSideProps = async (params) => {
         'auth',
         'validation',
         'admin',
+        'campaign-document-role',
       ])),
       dehydratedState: dehydrate(client),
     },

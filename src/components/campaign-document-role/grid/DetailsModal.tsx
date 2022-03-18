@@ -10,12 +10,14 @@ import { useDocument } from 'common/hooks/campaignDocumentRole'
 export default observer(function DetailsModal() {
   const { selectedRecord } = ModalStore
   const { data }: UseQueryResult<campaignDocumentRoleResponse> = useDocument(selectedRecord.id)
-  const { t } = useTranslation('cities')
+  const { t } = useTranslation('campaign-document-role')
 
   const dataConverted = [
     { name: 'ID', value: `${data?.id}` },
-    { name: t('name'), value: `${data?.name}` },
-    { name: t('описание'), value: `${data?.description}` },
+    { name: t('Name'), value: `${data?.name}` },
+    { name: t('Description'), value: `${data?.description}` },
+    { name: t('created-at'), value: `${data?.createdAt}` },
+    { name: t('updated-at'), value: `${data?.updatedAt}` },
   ]
 
   return <DetailsDialog data={dataConverted} />

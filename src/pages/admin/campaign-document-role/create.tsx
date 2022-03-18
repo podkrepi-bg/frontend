@@ -9,7 +9,13 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? 'bg', ['common', 'auth', 'validation', 'admin'])),
+      ...(await serverSideTranslations(locale ?? 'bg', [
+        'common',
+        'auth',
+        'validation',
+        'admin',
+        'campaign-document-role',
+      ])),
       dehydratedState: dehydrate(client),
     },
   }

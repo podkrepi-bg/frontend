@@ -9,6 +9,8 @@ export type campaignDocumentRoleResponse = {
   id: UUID
   name: string
   description: string
+  createdAt: string
+  updatedAt: string
 }
 
 export type DeleteMany = {

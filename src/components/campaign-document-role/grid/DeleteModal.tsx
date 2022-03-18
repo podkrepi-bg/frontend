@@ -16,7 +16,7 @@ import { useDeleteCampaignDocumentRole } from 'service/campaignDocumentRole'
 export default observer(function DeleteModal() {
   const router = useRouter()
   const { hideDelete, selectedRecord } = ModalStore
-  const { t } = useTranslation('cities')
+  const { t } = useTranslation('campaign-document-role')
 
   const mutationFn = useDeleteCampaignDocumentRole()
 

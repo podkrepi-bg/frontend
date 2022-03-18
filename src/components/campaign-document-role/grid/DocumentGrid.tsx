@@ -25,8 +25,6 @@ export default observer(function CitiesGrid() {
   const { data = [] } = useDocumentList()
   const { t } = useTranslation()
 
-  // setSelectedIdsToDelete([])
-
   const deleteAllClickHandler = () => {
     selectedIdsToDelete.length > 0
       ? showDeleteAll()
@@ -37,14 +35,14 @@ export default observer(function CitiesGrid() {
     { field: 'id', headerName: 'ID', hide: true },
     {
       field: 'name',
-      headerName: 'Име',
+      headerName: t('campaign-document-role:Name'),
       editable: false,
       width: 200,
       flex: 1,
     },
     {
       field: 'description',
-      headerName: 'Описание',
+      headerName: t('campaign-document-role:Description'),
       editable: false,
       width: 200,
       flex: 1,
@@ -52,7 +50,7 @@ export default observer(function CitiesGrid() {
     {
       field: 'actions',
       type: 'actions',
-      headerName: t('cities:actions'),
+      headerName: t('campaign-document-role:Аctions'),
       width: 120,
       headerAlign: 'left',
       renderCell: (p) => (
@@ -92,7 +90,7 @@ export default observer(function CitiesGrid() {
           height: '72px',
         }}>
         <Box sx={{ height: '64px', display: 'flex', alignItems: 'start', pt: 1 }}>
-          <Typography>Всички документ</Typography>
+          <Typography>{t('campaign-document-role:All')}</Typography>
         </Box>
         <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>

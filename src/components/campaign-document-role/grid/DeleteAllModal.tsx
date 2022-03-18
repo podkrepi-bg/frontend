@@ -16,7 +16,7 @@ import { GridSelectionModel } from '@mui/x-data-grid'
 export default observer(function DeleteAllModal() {
   const router = useRouter()
   const { hideDeleteAll, selectedIdsToDelete, setSelectedIdsToDelete } = ModalStore
-  const { t } = useTranslation('cities')
+  const { t } = useTranslation('campaign-document-role')
 
   const mutationFn = useRemoveManyCampaignDocumentRole(selectedIdsToDelete)
 
@@ -30,7 +30,7 @@ export default observer(function DeleteAllModal() {
     onSuccess: () => {
       hideDeleteAll()
       setSelectedIdsToDelete([])
-      AlertStore.show(t('alerts.deleteAll'), 'success')
+      AlertStore.show(t('alerts.delete-all'), 'success')
       router.push(routes.admin.campaignDocumentRole.index)
     },
   })

@@ -30,7 +30,7 @@ const validationSchema: yup.SchemaOf<campaignDocumentRoleInput> = yup
 export default function EditForm() {
   const router = useRouter()
   const id = String(router.query.id)
-  const { t } = useTranslation()
+  const { t } = useTranslation('campaign-document-role')
   const { data }: UseQueryResult<campaignDocumentRoleResponse> = useDocument(String(id))
 
   const initialValues: campaignDocumentRoleInput = {
@@ -45,9 +45,9 @@ export default function EditForm() {
     campaignDocumentRoleInput
   >({
     mutationFn,
-    onError: () => AlertStore.show(t('cities:alerts:error'), 'error'),
+    onError: () => AlertStore.show(t('alerts.error'), 'error'),
     onSuccess: () => {
-      AlertStore.show(t('cities:alerts:edit'), 'success')
+      AlertStore.show(t('alerts.edit'), 'success')
       router.push(routes.admin.campaignDocumentRole.index)
     },
   })
@@ -67,21 +67,27 @@ export default function EditForm() {
       validationSchema={validationSchema}>
       <Box sx={{ marginTop: '5%', height: '62.6vh' }}>
         <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
-          {id ? t('cities:edit-form-heading') : t('cities:form-heading')}
+          {t('edit-form-heading')}
         </Typography>
         <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
           <Grid item xs={12}>
-            <FormTextField type="text" label="Име" name="name" autoComplete="name" />
+            <FormTextField type="text" label={t('Name')} name="name" autoComplete="name" />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField type="string" label="Описание" name="description" multiline rows={4} />
+            <FormTextField
+              type="string"
+              label={t('Description')}
+              name="description"
+              multiline
+              rows={4}
+            />
           </Grid>
           <Grid item xs={6}>
-            <SubmitButton fullWidth label={t('cities:cta:submit')} />
+            <SubmitButton fullWidth label={t('cta.submit')} />
           </Grid>
           <Grid item xs={6}>
             <Link href={routes.admin.campaignDocumentRole.index} passHref>
-              <Button fullWidth>{t('cities:cta:cancel')}</Button>
+              <Button fullWidth>{t('cta.cancel')}</Button>
             </Link>
           </Grid>
         </Grid>
