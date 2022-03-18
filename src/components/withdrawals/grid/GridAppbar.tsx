@@ -5,7 +5,7 @@ import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
 import { Delete as DeleteIcon, Add as AddIcon } from '@mui/icons-material'
 
 import { routes } from 'common/routes'
-import { ModalStore } from 'stores/documents/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 
 const addIconStyles = {
@@ -25,12 +25,14 @@ const iconStyles = {
 }
 
 export default observer(function GridAppbar() {
-  const { showDeleteAll, isSelected } = ModalStore
+  const { showDeleteAll, selectedIdsToDelete } = ModalStore
   const router = useRouter()
   const { t } = useTranslation()
 
-  function deleteAllClickHandler() {
-    isSelected ? showDeleteAll() : AlertStore.show(t('withdrawals:alerts:selectRow'), 'warning')
+  const deleteHandler = () => {
+    selectedIdsToDelete.length > 0
+      ? showDeleteAll()
+      : AlertStore.show(t('common:alerts.noselected'), 'warning')
   }
 
   return (
@@ -48,12 +50,7 @@ export default observer(function GridAppbar() {
       <Box sx={{ display: 'flex', alignItems: 'flex-end', pb: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Tooltip title={t('withdrawals:cta:deleteSelected') || ''}>
-            <DeleteIcon
-              onClick={deleteAllClickHandler}
-              sx={iconStyles}
-              fontSize="medium"
-              color="action"
-            />
+            <DeleteIcon onClick={deleteHandler} sx={iconStyles} fontSize="medium" color="action" />
           </Tooltip>
           <Tooltip title={t('withdrawals:cta:add') || ''}>
             <AddIcon

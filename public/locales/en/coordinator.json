@@ -1,0 +1,17 @@
+{
+    "headings": {
+        "info": "Information"
+    },
+    "fields": {
+        "name": "Name"
+    },
+    "btns": {
+        "add": "Add",
+        "save": "Save",
+        "close": "Close"
+    },
+    "create": {
+        "heading": "Add new cordinator",
+        "submitButton": "Create"
+    }
+}
