@@ -5,7 +5,7 @@ import BootcampSimeonList from 'components/bootcamp-simeon/BootcampSimeonList'
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? 'bg', ['common'])),
+      ...(await serverSideTranslations(locale ?? 'bg', ['common', 'bootcamp-simeon'])),
     },
   }
 }

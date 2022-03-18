@@ -69,6 +69,14 @@ function BootcampDataGrid() {
     },
   })
 
+  const handleDelete = async () => {
+    try {
+      await mutationDelete.mutateAsync(id)
+    } catch (error) {
+      AlertStore.show(t('common:aler.error'), 'error')
+    }
+  }
+
   const { data = [] } = useBootcampSimeonList()
   console.log(data)
 
