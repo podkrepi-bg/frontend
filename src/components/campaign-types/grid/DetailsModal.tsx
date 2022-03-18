@@ -1,46 +1,31 @@
 import React from 'react'
 import { UseQueryResult } from 'react-query'
 import { observer } from 'mobx-react'
-import { Dialog, Card, CardContent, Typography, Divider } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import { CampaignTypesResponse } from 'gql/campaign-types'
 import { useCampaignType } from 'service/campaignTypes'
-import { ModalStore } from 'stores/campaign-types/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 
-type Props = {
-  id: string
-}
+import DetailsDialog from 'components/admin/DetailsDialog'
 
-export default observer(function DetailsModal({ id }: Props) {
-  const { data }: UseQueryResult<CampaignTypesResponse> = useCampaignType(id)
+export default observer(function DetailsModal() {
+  const { selectedRecord } = ModalStore
+  const { data }: UseQueryResult<CampaignTypesResponse> = useCampaignType(selectedRecord.id)
   const { data: parent }: UseQueryResult<CampaignTypesResponse> = useCampaignType(
     data?.parentId || '',
   )
-  const { isDetailsOpen, hideDetails } = ModalStore
-  const { t } = useTranslation()
+  const { t } = useTranslation('campaign-types')
 
-  return (
-    <Dialog open={isDetailsOpen} onClose={hideDetails} sx={{ top: '-35%' }}>
-      <Card>
-        <CardContent>
-          <Typography variant="h5" sx={{ marginBottom: '16px' }}>
-            {t('campaign-types:cta:details')}
-          </Typography>
-          <Divider />
-          <Typography variant="h5">
-            <b>{t('campaign-types:grid:name')}</b>: {data?.name}
-          </Typography>
-          <Typography variant="h5">
-            <b>{t('campaign-types:grid:category')}</b>:{' '}
-            {parent?.name || t('campaign-types:grid:no-parent')}
-          </Typography>
-          <Typography variant="h5">
-            <b>{t('campaign-types:grid:description')}</b>:{' '}
-            {data?.description || t('campaign-types:grid:no-description')}
-          </Typography>
-        </CardContent>
-      </Card>
-    </Dialog>
-  )
+  const dataConverted = [
+    { name: 'ID', value: `${data?.id}` },
+    { name: t('grid.name'), value: `${data?.name}` },
+    { name: t('grid.category'), value: parent?.name || `${t('grid.no-parent')}` },
+    {
+      name: t('grid.description'),
+      value: data?.description || `${t('campaign-types:grid:no-description')}`,
+    },
+  ]
+
+  return <DetailsDialog data={dataConverted} />
 })

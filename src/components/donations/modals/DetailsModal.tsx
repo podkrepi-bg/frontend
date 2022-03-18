@@ -6,63 +6,33 @@ import { useTranslation } from 'next-i18next'
 
 import { DonationResponse } from 'gql/donations'
 import { useDonation } from 'common/hooks/donation'
-import { ModalStore } from 'stores/documents/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStore'
+import DetailsDialog from 'components/admin/DetailsDialog'
+import { useVault } from 'common/hooks/vaults'
+import { useViewPerson } from 'service/person'
 
-type Props = {
-  id: string
-}
+export default observer(function DetailsModal() {
+  const { selectedRecord } = ModalStore
+  const { data }: UseQueryResult<DonationResponse> = useDonation(selectedRecord.id)
+  const { t } = useTranslation('donations')
+  const vault = useVault(data?.targetVaultId || '').data
+  const person = useViewPerson(data?.personId || '').data
 
-export default observer(function DetailsModal({ id }: Props) {
-  const { data }: UseQueryResult<DonationResponse> = useDonation(id)
-  const { isDetailsOpen, hideDetails } = ModalStore
-  const { t } = useTranslation()
+  const dataConverted = [
+    { name: 'ID', value: `${data?.id}` },
+    { name: t('type'), value: `${data?.type}` },
+    { name: t('status'), value: `${data?.status}` },
+    { name: t('provider'), value: `${data?.provider}` },
+    { name: t('vault'), value: `${vault?.name}` },
+    { name: t('ext-customer-id'), value: `${data?.extCustomerId}` },
+    { name: t('ext-payment-intent-id'), value: `${data?.extPaymentIntentId}` },
+    { name: t('ext-payment-method-id'), value: `${data?.extPaymentMethodId}` },
+    { name: t('created-at'), value: `${data?.createdAt}` },
+    { name: t('updated-at'), value: `${data?.updatedAt}` },
+    { name: t('amount'), value: `${data?.amount}` },
+    { name: t('currency'), value: `${data?.currency}` },
+    { name: t('person'), value: `${person?.firstName + ' ' + person?.lastName}` },
+  ]
 
-  return (
-    <Dialog open={isDetailsOpen} onClose={hideDetails} sx={{ top: '-35%' }}>
-      <Card>
-        <CardContent>
-          <Typography variant="h5" sx={{ marginBottom: '16px' }}>
-            {t('donations:cta:details')}
-          </Typography>
-          <Divider />
-          <Typography variant="body1" sx={{ fontSize: 24, marginTop: '8px' }}>
-            {t('donations:type')}: {data?.type}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('donations:status')}: {data?.status}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('donations:provider')}: {data?.provider}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('donations:vault')}: {data?.targetVaultId}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('donations:ext-customer-id')}: {data?.extCustomerId}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('donations:ext-payment-intent-id')}: {data?.extPaymentIntentId}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('donations:ext-payment-method-id')}: {data?.extPaymentMethodId}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('donations:created-at')}: {data?.createdAt}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('donations:updated-at')}: {data?.updatedAt}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('donations:currency')}: {data?.currency}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('donations:amount')}: {data?.amount}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            {t('donations:person')}: {data?.personId}
-          </Typography>
-        </CardContent>
-      </Card>
-    </Dialog>
-  )
+  return <DetailsDialog data={dataConverted} />
 })

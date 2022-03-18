@@ -8,31 +8,30 @@ import {
   GridColDef,
   GridColumns,
   GridRenderCellParams,
-  GridRowId,
   GridSelectionModel,
 } from '@mui/x-data-grid'
 
 import { DonationResponse } from 'gql/donations'
 import { useDonationsList } from 'common/hooks/donation'
-import { ModalStore } from 'stores/documents/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 
 import DetailsModal from '../modals/DetailsModal'
 import DeleteModal from '../modals/DeleteModal'
 import DeleteAllModal from '../modals/DeleteAllModal'
-import GridActions from './GridActions'
 import { useVault } from 'common/hooks/vaults'
 import { useViewPerson } from 'service/person'
+import { routes } from 'common/routes'
+import GridActions from 'components/admin/GridActions'
 
 interface PersonCellProps {
   params: GridRenderCellParams
 }
 
 export default observer(function Grid() {
-  const [selectedId, setSelectedId] = useState<string>('')
-  const [selectionModel, setSelectionModel] = useState<GridRowId[]>([])
   const [pageSize, setPageSize] = useState(5)
   const { t } = useTranslation()
-  const { selectedPositive, selectedNegative } = ModalStore
+  const { setSelectedIdsToDelete } = ModalStore
+  setSelectedIdsToDelete([])
 
   const { data }: UseQueryResult<DonationResponse[]> = useDonationsList()
 
@@ -106,7 +105,13 @@ export default observer(function Grid() {
       width: 200,
       align: 'right',
       renderCell: (cellValues: GridRenderCellParams) => {
-        return <GridActions id={cellValues.row.id} setSelectedId={setSelectedId} />
+        return (
+          <GridActions
+            id={cellValues.row.id}
+            name={cellValues.row.name}
+            editLink={routes.admin.donations.edit(cellValues.row.id)}
+          />
+        )
       },
     },
   ]
@@ -136,14 +141,14 @@ export default observer(function Grid() {
           disableSelectionOnClick
           checkboxSelection
           onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
-            newSelectionModel.length !== 0 ? selectedPositive() : selectedNegative()
-            setSelectionModel(newSelectionModel)
+            setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
           }}
         />
       </Box>
-      <DetailsModal id={selectedId} />
-      <DeleteModal id={selectedId} />
-      <DeleteAllModal selectionModel={selectionModel} />
+
+      <DetailsModal />
+      <DeleteModal />
+      <DeleteAllModal />
     </>
   )
 })

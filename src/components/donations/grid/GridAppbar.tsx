@@ -5,7 +5,7 @@ import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
 import { Delete as DeleteIcon, Add as AddIcon } from '@mui/icons-material'
 
 import { routes } from 'common/routes'
-import { ModalStore } from 'stores/documents/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 
 const addIconStyles = {
@@ -25,12 +25,14 @@ const iconStyles = {
 }
 
 export default observer(function GridAppbar() {
-  const { showDeleteAll, isSelected } = ModalStore
+  const { showDeleteAll, selectedIdsToDelete } = ModalStore
   const router = useRouter()
   const { t } = useTranslation()
 
   function deleteAllClickHandler() {
-    isSelected ? showDeleteAll() : AlertStore.show(t('donations:alerts:selectRow'), 'warning')
+    selectedIdsToDelete.length > 0
+      ? showDeleteAll()
+      : AlertStore.show(t('common:alerts.noselected'), 'warning')
   }
 
   return (

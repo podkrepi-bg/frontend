@@ -1,3 +1,4 @@
+import { Person } from 'components/support-form/helpers/support-form.types'
 import { WithdrawalStatus, Currency } from 'components/withdrawals/WithdrawalTypes'
 import { UUID } from './types'
 export type WithdrawalResponse = {
@@ -7,10 +8,22 @@ export type WithdrawalResponse = {
   amount: number
   reason: string
   documentId: UUID
-  approvedBy: Record<string, unknown>
+  approvedBy: Person
   bankAccount: Record<string, unknown>
   sourceCampaign: Record<string, unknown>
   sourceVault: Record<string, unknown>
+}
+export type WithdrawalResponse2 = {
+  id: UUID
+  status: string
+  currency: string
+  amount: number
+  reason: string
+  documentId: UUID
+  approvedBy: string
+  bankAccount: string
+  sourceCampaign: string
+  sourceVault: string
 }
 export type WithdrawalInput = {
   status: WithdrawalStatus | undefined
@@ -25,15 +38,15 @@ export type WithdrawalInput = {
 }
 
 export type WithdrawalData = {
-  status: WithdrawalStatus
-  currency: Currency
-  amount: number
-  reason: string
-  documentId?: UUID
-  approvedBy?: Record<string, unknown>
-  bankAccount?: Record<string, unknown>
-  sourceCampaign?: Record<string, unknown>
-  sourceVault?: Record<string, unknown>
+  status: string | undefined
+  currency: string | undefined
+  amount: number | undefined
+  reason: string | undefined
+  documentId?: string | undefined
+  approvedById?: string | undefined
+  bankAccountId?: string | undefined
+  sourceCampaignId?: string | undefined
+  sourceVaultId?: string | undefined
 }
 
 export type WithdrawalEditResponse = {
