@@ -43,9 +43,7 @@ export default observer(function Grid() {
   const classes = useStyles()
   const [pageSize, setPageSize] = React.useState<number>(10)
 
-  const { setSelectedIdsToDelete } = ModalStore
-
-  setSelectedIdsToDelete([])
+  const { setSelectedIdsToDelete, isDetailsOpen } = ModalStore
 
   const columns: GridColumns = [
     { field: 'id', headerName: 'ID', hide: true },
@@ -142,7 +140,8 @@ export default observer(function Grid() {
         }}
       />
 
-      <DetailsModal />
+      {/* conditional rendering to avoid unnecessary requests being sent to the API */}
+      {isDetailsOpen ? <DetailsModal /> : null}
       <DeleteModal />
       <DeleteAllModal />
     </>
