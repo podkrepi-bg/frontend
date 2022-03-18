@@ -41,33 +41,19 @@ export function useDonationSession() {
 }
 
 export function useDonationsList() {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
-  return useQuery<DonationResponse[]>(
-    endpoints.donation.donationsList.url,
-    authQueryFnFactory<DonationResponse[]>(keycloak?.token),
-  )
+  return useQuery<DonationResponse[]>(endpoints.donation.donationsList.url)
 }
 
-export async function prefetchDonationsList(client: QueryClient, token?: string) {
-  await client.prefetchQuery<DonationResponse[]>(
-    endpoints.donation.donationsList.url,
-    authQueryFnFactory<DonationResponse[]>(token),
-  )
+export async function prefetchDonationsList(client: QueryClient) {
+  await client.prefetchQuery<DonationResponse[]>(endpoints.donation.donationsList.url)
 }
 
 export function useDonation(id: string) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
-  return useQuery<DonationResponse>(
-    endpoints.donation.getDonation(id).url,
-    authQueryFnFactory<DonationResponse>(keycloak?.token),
-  )
+  return useQuery<DonationResponse>(endpoints.donation.getDonation(id).url)
 }
 
-export async function prefetchDonationById(client: QueryClient, id: string, token?: string) {
-  await client.prefetchQuery<DonationResponse>(
-    endpoints.donation.getDonation(id).url,
-    authQueryFnFactory<DonationResponse>(token),
-  )
+export async function prefetchDonationById(client: QueryClient, id: string) {
+  await client.prefetchQuery<DonationResponse>(endpoints.donation.getDonation(id).url)
 }
 export function useUserDonations() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
