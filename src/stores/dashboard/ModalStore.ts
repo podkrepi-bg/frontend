@@ -7,7 +7,7 @@ type Record = {
   id: string
   name: string
 }
-class ModalStoreImpl {
+export class ModalStoreImpl {
   isDetailsOpen = false
   isDeleteOpen = false
   isDeleteAllOpen = false
@@ -68,4 +68,4 @@ class ModalStoreImpl {
   }
 }
 
-export const ModalStore = new ModalStoreImpl()
+export const ModalStore = new ModalStoreImpl() //to be removed
