@@ -6,17 +6,18 @@ import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import ImportExportIcon from '@mui/icons-material/ImportExport'
 
-import { ModalStore } from 'stores/dashboard/ModalStore'
+import { ModalStoreImpl } from 'stores/dashboard/ModalStore'
 
 type Props = {
+  modalStore: ModalStoreImpl
   id: string
   name: string
   editLink?: string
 }
 
-export default function GridActions({ id, name, editLink }: Props) {
+export default function GridActions({ modalStore, id, name, editLink }: Props) {
   const { t } = useTranslation('admin')
-  const { showDetails, showDelete, setSelectedRecord } = ModalStore
+  const { showDetails, showDelete, setSelectedRecord } = modalStore
 
   function detailsClickHandler() {
     setSelectedRecord({ id, name })
