@@ -1,6 +1,5 @@
 import React from 'react'
-import { useRouter } from 'next/router'
-import { useMutation } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import { observer } from 'mobx-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import { GridSelectionModel } from '@mui/x-data-grid'
@@ -9,14 +8,16 @@ import { useTranslation } from 'next-i18next'
 import { BankAccountResponse } from 'gql/bankaccounts'
 import { ApiErrors } from 'service/apiErrors'
 import { useDeleteManyBankAccounts } from 'service/bankAccount'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
-import { routes } from 'common/routes'
+import { endpoints } from 'service/apiEndpoints'
 import DeleteAllDialog from 'components/admin/DeleteAllDialog'
 
+import { ModalStore } from '../BankAccountsPage'
+
 export default observer(function DeleteAllModal() {
-  const router = useRouter()
-  const { hideDeleteAll, selectedIdsToDelete, setSelectedIdsToDelete } = ModalStore
+  const queryClient = useQueryClient()
+  const { hideDeleteAll, selectedIdsToDelete, setSelectedIdsToDelete, setSelectedRecord } =
+    ModalStore
   const { t } = useTranslation('bankaccounts')
 
   const mutationFn = useDeleteManyBankAccounts(selectedIdsToDelete)
@@ -29,10 +30,11 @@ export default observer(function DeleteAllModal() {
     mutationFn,
     onError: () => AlertStore.show(t('alerts.error'), 'error'),
     onSuccess: () => {
+      queryClient.invalidateQueries(endpoints.bankAccounts.bankAccountList.url)
       hideDeleteAll()
+      setSelectedRecord({ id: '', name: '' })
       setSelectedIdsToDelete([])
       AlertStore.show(t('alerts.deleteAll'), 'success')
-      router.push(routes.admin.bankaccounts.index)
     },
   })
 
@@ -40,5 +42,5 @@ export default observer(function DeleteAllModal() {
     mutation.mutate(selectedIdsToDelete)
   }
 
-  return <DeleteAllDialog deleteHandler={deleteHandler} />
+  return <DeleteAllDialog modalStore={ModalStore} deleteHandler={deleteHandler} />
 })
