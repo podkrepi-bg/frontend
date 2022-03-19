@@ -63,6 +63,7 @@ export type CampaignFormData = {
   gdpr: boolean
 }
 
+
 export type CampaignInput = {
   title: string
   slug: string
@@ -75,4 +76,18 @@ export type CampaignInput = {
   currency: string
   startDate: Date | string | undefined
   endDate: Date | string | undefined
+}
+
+export type CampaignEdit = {
+  title: string
+  slug: string
+  description: string
+  essence: string
+  campaignTypeId: UUID
+  beneficiaryId: UUID
+  coordinatorId: UUID
+  targetAmount: number
+  currency: string
+  startDate: Date | string
+  endDate: Date | string
 }
