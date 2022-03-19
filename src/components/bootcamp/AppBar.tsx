@@ -9,6 +9,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle'
 import MenuItem from '@mui/material/MenuItem'
 import Menu from '@mui/material/Menu'
 import PodkrepiBgLogo from './PodkrepibgLogo/PodkrepiBgLogo'
+import Link from 'next/link'
 
 export default function MenuAppBar() {
   const [auth, setAuth] = React.useState(true)
@@ -26,7 +27,11 @@ export default function MenuAppBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color="transparent">
         <Toolbar>
-          <PodkrepiBgLogo />
+          <Link href="/">
+            <a>
+              <PodkrepiBgLogo />
+            </a>
+          </Link>
           <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
             <MenuIcon />
           </IconButton>
