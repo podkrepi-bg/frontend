@@ -7,6 +7,10 @@ import CampaignCard from './CampaignCard'
 
 export default function CampaignsList() {
   const { data, isLoading } = useCampaignList()
+  let mobile = false
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    mobile = true
+  }
 
   return (
     <Grid container justifyContent="center" spacing={2}>
@@ -19,7 +23,11 @@ export default function CampaignsList() {
           </Box>
         </Grid>
       ))}
-      <Image src="/img/Artboard.png" width={813} height={358} />
+      {mobile ? (
+        <Image src="/img/ArtboardRotate.png" width={250} height={400} />
+      ) : (
+        <Image src="/img/Artboard.png" width={813} height={358} />
+      )}
     </Grid>
   )
 }
