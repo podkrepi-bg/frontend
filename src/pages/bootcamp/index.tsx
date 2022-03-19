@@ -1,5 +1,7 @@
+import BootcampComponent from 'components/bootcamp/BootcampPageComponent'
+
 const BootcampPage = () => {
-  return <h1>Hello, Podkrepi BG</h1>
+  return <BootcampComponent />
 }
 
 export default BootcampPage
