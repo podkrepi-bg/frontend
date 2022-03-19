@@ -10,10 +10,11 @@ import MenuItem from '@mui/material/MenuItem'
 import Menu from '@mui/material/Menu'
 import PodkrepiBgLogo from './PodkrepibgLogo/PodkrepiBgLogo'
 import Link from 'next/link'
+import { useSession } from 'common/util/useSession'
 
 export default function MenuAppBar() {
-  const [auth, setAuth] = React.useState(true)
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+  const { keycloak } = useSession()
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
@@ -21,6 +22,42 @@ export default function MenuAppBar() {
 
   const handleClose = () => {
     setAnchorEl(null)
+  }
+
+  const isAuthenticated = keycloak?.authenticated
+
+  const LoggedInUser = () => {
+    return (
+      <>
+        <Link href="/profile">
+          <a>
+            <MenuItem onClick={handleClose}>Моят профил</MenuItem>
+          </a>
+        </Link>
+        <Link href="/logout">
+          <a>
+            <MenuItem onClick={handleClose}>Изход</MenuItem>
+          </a>
+        </Link>
+      </>
+    )
+  }
+
+  const GuestUser = () => {
+    return (
+      <>
+        <Link href="/login">
+          <a>
+            <MenuItem onClick={handleClose}>Вход</MenuItem>
+          </a>
+        </Link>
+        <Link href="/register">
+          <a>
+            <MenuItem onClick={handleClose}>Регистрация</MenuItem>
+          </a>
+        </Link>
+      </>
+    )
   }
 
   return (
@@ -36,36 +73,33 @@ export default function MenuAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}></Typography>
-          {auth && (
-            <div>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit">
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}>
-                <MenuItem onClick={handleClose}>Моят профил</MenuItem>
-                <MenuItem onClick={handleClose}>Изход</MenuItem>
-              </Menu>
-            </div>
-          )}
+          <div>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+              color="inherit">
+              <AccountCircle />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}>
+              {isAuthenticated ? <LoggedInUser /> : <GuestUser />}
+            </Menu>
+          </div>
         </Toolbar>
       </AppBar>
     </Box>
