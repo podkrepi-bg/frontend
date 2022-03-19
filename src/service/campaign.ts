@@ -16,3 +16,34 @@ export const useCreateCampaign = () => {
       authConfig(keycloak?.token),
     )
 }
+export function useEditCampaign(slug: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (data: CampaignInput) => {
+    return await apiClient.patch<CampaignResponse, AxiosResponse<CampaignResponse>>(
+      endpoints.campaign.editCampaign(slug).url,
+      data,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useDeleteCampaign(slug: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async () => {
+    return await apiClient.delete<CampaignResponse, AxiosResponse<CampaignResponse>>(
+      endpoints.campaign.deleteCampaign(slug).url,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useDeleteManyCampaigns(idsToDelete: string[]) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async () => {
+    return await apiClient.post<CampaignResponse, AxiosResponse<CampaignResponse>>(
+      endpoints.campaign.deleteCampaigns.url,
+      idsToDelete,
+      authConfig(keycloak?.token),
+    )
+  }
+}
