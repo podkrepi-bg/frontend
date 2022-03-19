@@ -2,15 +2,13 @@ import { Box, CircularProgress, Grid } from '@mui/material'
 import Image from 'next/image'
 
 import { useCampaignList } from 'common/hooks/campaigns'
+import { useMediaQuery } from '@mui/material'
 
 import CampaignCard from './CampaignCard'
 
 export default function CampaignsList() {
   const { data, isLoading } = useCampaignList()
-  let mobile = false
-  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    mobile = true
-  }
+  const mobile = useMediaQuery('(max-width:900px)')
 
   return (
     <Grid container justifyContent="center" spacing={2}>
