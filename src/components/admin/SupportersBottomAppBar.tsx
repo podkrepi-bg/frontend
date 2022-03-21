@@ -22,7 +22,7 @@ const iconStyles = {
   boxShadow: 3,
   mr: 1,
 }
-export default function BottomAppBar() {
+export default function SupportersBottomAppBar() {
   return (
     <Toolbar
       sx={{

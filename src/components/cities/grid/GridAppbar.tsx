@@ -12,7 +12,7 @@ const addIconStyles = {
   boxShadow: 3,
 }
 
-export default function BottomAppBar() {
+export default function GridAppbar() {
   const router = useRouter()
 
   return (

@@ -10,7 +10,7 @@ import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
 
 export default function CitiesGrid() {
-  const { data = [] } = useCitiesList()
+  const { data } = useCitiesList()
   const { t } = useTranslation()
 
   const columns: GridColumns = [
