@@ -20,7 +20,7 @@ import DetailsModal from './DetailsModal'
 import DeleteAllModal from './DeleteAllModal'
 import { useDocumentList } from 'common/hooks/campaignDocumentRole'
 
-export default observer(function CitiesGrid() {
+export default observer(function DocumentGrid() {
   const { showDeleteAll, setSelectedIdsToDelete, selectedIdsToDelete } = ModalStore
   const { data = [] } = useDocumentList()
   const { t } = useTranslation()

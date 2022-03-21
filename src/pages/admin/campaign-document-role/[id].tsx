@@ -12,8 +12,6 @@ export const getServerSideProps: GetServerSideProps = async (params) => {
   await prefetchCampaignDocumentRolById(client, String(id), keycloak.token)
   return {
     props: {
-      // values,
-      // id,
       ...(await serverSideTranslations(params.locale ?? 'bg', [
         'common',
         'auth',
