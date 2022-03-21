@@ -1,9 +1,6 @@
-import { observer } from 'mobx-react'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
 import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
 import {
-  Delete as DeleteIcon,
   Add as AddIcon,
   Print as PrintIcon,
   Save as SaveIcon,
@@ -12,8 +9,6 @@ import {
 } from '@mui/icons-material'
 
 import { routes } from 'common/routes'
-import { ModalStore } from 'stores/dashboard/ModalStore'
-import { AlertStore } from 'stores/AlertStore'
 
 const addIconStyles = {
   background: '#4ac3ff',
@@ -30,16 +25,8 @@ const iconStyles = {
   boxShadow: 3,
   mr: 1,
 }
-export default observer(function BottomAppBar() {
-  const { showDeleteAll, selectedIdsToDelete } = ModalStore
-  const { t } = useTranslation()
+export default function BottomAppBar() {
   const router = useRouter()
-
-  const deleteAllHandler = () => {
-    selectedIdsToDelete.length > 0
-      ? showDeleteAll()
-      : AlertStore.show(t('common:alerts.noselected'), 'warning')
-  }
 
   return (
     <Toolbar
@@ -58,14 +45,6 @@ export default observer(function BottomAppBar() {
           <Tooltip title="Преглед">
             <EventNoteIcon sx={iconStyles} fontSize="medium" color="action" />
           </Tooltip>
-          <Tooltip title="Изтрий избраните">
-            <DeleteIcon
-              onClick={deleteAllHandler}
-              sx={iconStyles}
-              fontSize="medium"
-              color="action"
-            />
-          </Tooltip>
           <Tooltip title="Запази">
             <SaveIcon sx={iconStyles} fontSize="medium" color="action" />
           </Tooltip>
@@ -79,13 +58,11 @@ export default observer(function BottomAppBar() {
             <AddIcon
               sx={addIconStyles}
               fontSize="large"
-              onClick={() => {
-                router.push(routes.admin.coordinators.add)
-              }}
+              onClick={() => router.push(routes.admin.coordinators.add)}
             />
           </Tooltip>
         </Box>
       </Box>
     </Toolbar>
   )
-})
+}
