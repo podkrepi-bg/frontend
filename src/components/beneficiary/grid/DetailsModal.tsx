@@ -19,7 +19,7 @@ export default observer(function DetailsModal() {
   const companyName = useViewCompany(data?.companyId || '').data?.companyName || ''
   const personData = useViewPerson(data?.personId || '').data || ''
   const coordinator = useViewCoordinatorResponse(data?.coordinatorId || '').data?.person
-  const city = useCity(data?.cityId || '').data
+  const { data: city } = useCity(data?.cityId || '')
 
   const companyOrIndividual =
     companyName != ''
