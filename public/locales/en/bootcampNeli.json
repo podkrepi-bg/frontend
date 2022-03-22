@@ -1,0 +1,32 @@
+{
+  "form-heading": "Add new Module",
+  "edit-form-heading": "Edit current Module",
+  "all": "All Modules",
+  "modules": "Modules",
+  "first-name": "First Name",
+  "last-name": "Last Name",
+  "email": "Email",
+  "createdAt": "Created at",
+  "updatedAt": "Updated at",
+  "deleteTitle": "Are you sure?",
+  "deleteContent": "This action will delete this item permanently!",
+  "actions": "Actions",
+  "alerts": {
+    "selectRow": "Please choose a row",
+    "create": "Module has been created successfully!",
+    "edit": "Module has been edited successfully!",
+    "delete": "Module has been deleted successfully!",
+    "deleteAll": "Module have been deleted successfully!",
+    "error": "An error has occured! Please try again later."
+  },
+  "cta": {
+    "add": "Add",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "deleteSelected": "Delete selected rows",
+    "edit": "Edit",
+    "details": "Details",
+    "submit": "Submit"
+  }
+}
