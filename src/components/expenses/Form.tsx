@@ -77,6 +77,20 @@ export default function Form() {
     }
   }
 
+  const mutationFn = id ? useEditExpense(id) : useCreateExpense()
+
+  const mutation = useMutation<AxiosResponse<ExpenseResponse>, AxiosError<ApiErrors>, ExpenseInput>(
+    {
+      mutationFn,
+      onError: () =>
+        AlertStore.show(id ? t('alerts.edit-row.error') : t('alerts.new-row.error'), 'error'),
+      onSuccess: () => {
+        AlertStore.show(id ? t('alerts.edit-row.success') : t('alerts.new-row.success'), 'success')
+        router.push(routes.admin.expenses.index)
+      },
+    },
+  )
+
   //in progress...
 
   return <></>
