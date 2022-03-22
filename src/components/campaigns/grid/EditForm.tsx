@@ -34,7 +34,7 @@ import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicy
 import { format } from 'date-fns'
 import CampaignTypeSelect from '../CampaignTypeSelect'
 import FileUploadModal from '../FileUploadModal'
-import { useViewCampaign } from 'common/hooks/campaigns'
+import { useViewCampaignById } from 'common/hooks/campaigns'
 import { useCoordinatorsList } from 'common/hooks/coordinators'
 import { useBeneficiariesListPerson } from 'common/hooks/beneficiary'
 
@@ -89,7 +89,7 @@ export default function CampaignForm() {
   const id = router.query.id
   const { data: coordinators } = useCoordinatorsList()
   const { data: beneficiaries } = useBeneficiariesListPerson()
-  const { data: campaign }: UseQueryResult<CampaignResponse> = useViewCampaign(String(id))
+  const { data: campaign }: UseQueryResult<CampaignResponse> = useViewCampaignById(String(id))
   const [coordinatorId, setCoordinatorId] = useState<string>(campaign?.coordinatorId)
   const [beneficiaryId, setBeneficiaryId] = useState<string>(campaign?.beneficiaryId)
 

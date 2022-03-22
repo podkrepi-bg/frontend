@@ -14,25 +14,21 @@ export function useCampaignTypesList() {
   return useQuery<CampaignType[]>(endpoints.campaignTypes.listCampaignTypes.url)
 }
 
-export function useViewCampaign(id: string) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
-  return useQuery<CampaignResponse>(
-    endpoints.campaign.viewCampaign(id).url,
-    authQueryFnFactory<CampaignResponse>(keycloak?.token),
-  )
+export function useViewCampaign(slug: string) {
+  return useQuery<{ campaign: CampaignResponse }>(endpoints.campaign.viewCampaign(slug).url)
 }
 
-export function useCampaign(id: string) {
+export function useViewCampaignById(id: string) {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  return useQuery<CampaignFormData>(
-    endpoints.campaign.viewCampaign(id).url,
-    authQueryFnFactory<CampaignFormData>(keycloak?.token),
+  return useQuery<CampaignResponse>(
+    endpoints.campaign.viewCampaignById(id).url,
+    authQueryFnFactory<CampaignResponse>(keycloak?.token),
   )
 }
 
 export async function prefetchCampaignById(client: QueryClient, id: string, token?: string) {
   await client.prefetchQuery<CampaignResponse>(
-    endpoints.campaign.viewCampaign(id).url,
+    endpoints.campaign.viewCampaignById(id).url,
     authQueryFnFactory<CampaignResponse>(token),
   )
 }
@@ -40,7 +36,7 @@ export async function prefetchCampaignById(client: QueryClient, id: string, toke
 export function useCampaignDetailsPage(id: string) {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return useQuery<CampaignResponse>(
-    endpoints.campaign.viewCampaign(id).url,
+    endpoints.campaign.viewCampaignById(id).url,
     authQueryFnFactory<CampaignResponse>(keycloak?.token),
   )
 }

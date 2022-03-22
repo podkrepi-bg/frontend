@@ -9,7 +9,8 @@ export const endpoints = {
   campaign: {
     listCampaigns: <Endpoint>{ url: '/campaign/list', method: 'GET' },
     createCampaign: <Endpoint>{ url: '/campaign/create-campaign', method: 'POST' },
-    viewCampaign: (id: string) => <Endpoint>{ url: `/campaign/byId/${id}`, method: 'GET' },
+    viewCampaign: (slug: string) => <Endpoint>{ url: `/campaign/byId/${slug}`, method: 'GET' },
+    viewCampaignById: (id: string) => <Endpoint>{ url: `/campaign/byId/${id}`, method: 'GET' },
     editCampaign: (id: string) => <Endpoint>{ url: `/campaign/${id}`, method: 'PUT' },
     deleteCampaign: (id: string) => <Endpoint>{ url: `/campaign/${id}`, method: 'DELETE' },
     deleteCampaigns: <Endpoint>{ url: '/campaign/deletemany', method: 'POST' },

@@ -37,7 +37,7 @@ export default observer(function DeleteModal({ id, setSelectedId }: Props) {
     onSuccess: () => {
       hideDelete()
       AlertStore.show(t('Кампанията беше преместена в кошчето.'), 'warning')
-      queryClient.removeQueries(endpoints.campaign.viewCampaign(id).url)
+      queryClient.removeQueries(endpoints.campaign.viewCampaignById(id).url)
       setSelectedId('')
       router.push(routes.admin.campaigns.index)
     },
