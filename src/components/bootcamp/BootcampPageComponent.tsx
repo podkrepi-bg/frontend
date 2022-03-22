@@ -3,12 +3,7 @@ import MyDataGrid from './DataGrid'
 import TemporaryDrawer from './Drawer'
 import Box from '@mui/material/Box'
 import Footer from 'components/layout/Footer'
-
-const boxStyles = {
-  display: 'flex',
-  marginTop: 10,
-  height: '70vh',
-}
+import { boxStyles } from './BootcampPageComponentStyles'
 
 const BootcampComponent = () => {
   return (
