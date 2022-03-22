@@ -140,7 +140,7 @@ function CertificatesTab(props: { value: number; index: number }) {
                     </TableCell>
                     <TableCell>
                       <Button variant="outlined">
-                       Свали <ArrowForwardIcon />
+                        Свали <ArrowForwardIcon />
                       </Button>
                     </TableCell>
                   </TableRow>

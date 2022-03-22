@@ -1,5 +1,3 @@
-import { UUID } from './types'
-import { Person } from './person'
 export type BenefactorFormData = {
   // id: string
   extCustomerId: string
