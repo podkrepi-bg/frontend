@@ -7,6 +7,7 @@ import {
   FolderShared,
   Public,
   Class,
+  CheckCircle,
 } from '@mui/icons-material'
 import LocationCityRoundedIcon from '@mui/icons-material/LocationCityRounded'
 
@@ -25,4 +26,5 @@ export const menuItems = [
   { label: 'Градове', icon: LocationCityRoundedIcon, href: routes.admin.cities.home },
   { label: 'Държави', icon: Public, href: routes.admin.countries.index },
   { label: 'Координатори', icon: People, href: routes.admin.coordinators.index },
+  { label: 'BootcampNeli', icon: CheckCircle, href: routes.admin.bootcampNeli.index },
 ]
