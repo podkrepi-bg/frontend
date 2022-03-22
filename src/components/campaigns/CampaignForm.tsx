@@ -63,8 +63,8 @@ const validationSchema: yup.SchemaOf<CampaignFormData> = yup
 const defaults: CampaignFormData = {
   title: '',
   campaignTypeId: '',
-  beneficiaryId: '025828dc-afec-4dec-a2c2-289c6c5c95a2',
-  coordinatorId: '2f591c31-9d6f-42a7-81c7-9ce89090209d',
+  beneficiaryId: '',
+  coordinatorId: '',
   targetAmount: 1000,
   startDate: format(new Date(), formatString),
   endDate: format(new Date().setMonth(new Date().getMonth() + 1), formatString),
@@ -153,7 +153,10 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           {t('campaigns:form-heading')}
         </Typography>
       </Grid>
-      <GenericForm onSubmit={onSubmit} initialValues={initialValues}>
+      <GenericForm
+        onSubmit={onSubmit}
+        initialValues={initialValues}
+        validationSchema={validationSchema}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <FormTextField
