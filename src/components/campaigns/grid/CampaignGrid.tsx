@@ -127,7 +127,7 @@ export default observer(function Grid() {
     },
     {
       field: 'campaignType',
-      headerName: t('campaigns:campaignTye'),
+      headerName: t('campaigns:campaignType'),
       ...commonProps,
       renderCell: (params: GridRenderCellParams) => {
         return <RenderCampaignType params={params}></RenderCampaignType>
@@ -189,7 +189,7 @@ export default observer(function Grid() {
     },
     {
       field: 'actions',
-      headerName: t('admin:actions'),
+      headerName: t('campaigns:actions'),
       width: 120,
       type: 'actions',
       headerAlign: 'left',
