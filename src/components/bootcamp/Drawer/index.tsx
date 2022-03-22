@@ -15,10 +15,10 @@ import styles from './Drawer.module.css'
 type Anchor = 'top' | 'left' | 'bottom' | 'right'
 
 const MyButton = styled(Button)({
-  background: '#32A9FE',
+  background: 'white',
   border: 0,
   borderRadius: 0,
-  color: 'white',
+  color: '#32A9FE',
   height: 58,
   width: 150,
 })
