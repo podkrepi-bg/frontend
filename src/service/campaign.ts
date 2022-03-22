@@ -6,6 +6,7 @@ import { apiClient } from 'service/apiClient'
 import { authConfig } from 'service/restRequests'
 import { endpoints } from 'service/apiEndpoints'
 import { CampaignResponse, CampaignInput } from 'gql/campaigns'
+import { MutationFunction } from 'react-query'
 
 export const useCreateCampaign = () => {
   const { keycloak } = useKeycloak<KeycloakInstance>()
@@ -27,7 +28,25 @@ export function useEditCampaign(slug: string) {
   }
 }
 
-export function useDeleteCampaign(slug: string) {
+export const useDeleteCampaign: MutationFunction<AxiosResponse<null>, { id: string }> = async ({
+  id,
+}: {
+  id: string
+}) => {
+  return await apiClient.delete<null>(endpoints.city.deleteCity(id).url)
+}
+
+export function useDeleteCampaignById(id: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async () => {
+    return await apiClient.delete<CampaignResponse, AxiosResponse<CampaignResponse>>(
+      endpoints.campaign.deleteCampaign(id).url,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useDeleteCampaignBySlug(slug: string) {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return async () => {
     return await apiClient.delete<CampaignResponse, AxiosResponse<CampaignResponse>>(

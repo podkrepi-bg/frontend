@@ -3,7 +3,7 @@ import { dehydrate, QueryClient } from 'react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { queryFn } from 'service/restRequests'
-import CampaignsGridPage from 'components/campaigns/grid/CampaignPage'
+import CampaignsPage from 'components/campaigns/grid/CampaignPage'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const client = new QueryClient()
@@ -21,4 +21,4 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   }
 }
 
-export default CampaignsGridPage
+export default CampaignsPage

@@ -50,6 +50,26 @@ export type CampaignResponse = {
   }
 }
 
+export type CampaignResponse = {
+  id: UUID
+  state: CampaignState
+  slug: string
+  title: string
+  essence: string
+  coordinatorId: UUID
+  beneficiaryId: UUID
+  campaignTypeId: UUID
+  description: string
+  targetAmount: number
+  summary: { reachedAmount: number }[]
+  currency: string
+  startDate: Date | null
+  endDate: Date | null
+  createdAt: Date
+  updatedAt: Date | null
+  deletedAt: Date | null
+}
+
 export type CampaignFormData = {
   title: string
   campaignTypeId: string
@@ -62,7 +82,6 @@ export type CampaignFormData = {
   terms: boolean
   gdpr: boolean
 }
-
 
 export type CampaignInput = {
   title: string

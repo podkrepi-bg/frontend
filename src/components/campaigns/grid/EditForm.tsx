@@ -1,32 +1,42 @@
 import React, { useState } from 'react'
 import * as yup from 'yup'
-import router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { FormikHelpers } from 'formik'
 import { useMutation, UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
-import { format, parse, isDate } from 'date-fns'
+import { parse, isDate } from 'date-fns'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Grid, Typography } from '@mui/material'
+import {
+  Button,
+  FormControl,
+  Grid,
+  InputLabel,
+  Link,
+  MenuItem,
+  Select,
+  Typography,
+} from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 
 import { routes } from 'common/routes'
-import { PersonFormData } from 'gql/person'
-import { useCreateCampaign } from 'service/campaign'
+import { useEditCampaign } from 'service/campaign'
 import { AlertStore } from 'stores/AlertStore'
 import { createSlug } from 'common/util/createSlug'
-import PersonDialog from 'components/person/PersonDialog'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
-import { CampaignResponse, CampaignFormData, CampaignInput, CampaignEdit } from 'gql/campaigns'
+import { CampaignResponse, CampaignFormData, CampaignInput } from 'gql/campaigns'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
+import { format } from 'date-fns'
 import CampaignTypeSelect from '../CampaignTypeSelect'
 import FileUploadModal from '../FileUploadModal'
 import { useViewCampaign } from 'common/hooks/campaigns'
+import { useCoordinatorsList } from 'common/hooks/coordinators'
+import { useBeneficiariesListPerson } from 'common/hooks/beneficiary'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -37,8 +47,7 @@ const parseDateString = (value: string, originalValue: string) => {
 
   return parsedDate
 }
-const slug = router.query.slug
-const { data }: UseQueryResult<CampaignEdit> = useCammpaign(String(slug))
+
 const validationSchema: yup.SchemaOf<CampaignFormData> = yup
   .object()
   .defined()
@@ -47,8 +56,8 @@ const validationSchema: yup.SchemaOf<CampaignFormData> = yup
     description: yup.string().trim().min(50).max(500).required(),
     targetAmount: yup.number().required(),
     campaignTypeId: yup.string().uuid().required(),
-    beneficiaryId: yup.string().uuid().required(),
-    coordinatorId: yup.string().uuid().required(),
+    beneficiaryId: yup.string().required(),
+    coordinatorId: yup.string().required(),
     startDate: yup.date().transform(parseDateString).required(),
     endDate: yup
       .date()
@@ -57,19 +66,6 @@ const validationSchema: yup.SchemaOf<CampaignFormData> = yup
     terms: yup.bool().required().oneOf([true], 'validation:terms-of-use'),
     gdpr: yup.bool().required().oneOf([true], 'validation:terms-of-service'),
   })
-
-const defaults: CampaignFormData = {
-  title: data?.title,
-  campaignTypeId: data?.campaignTypeId,
-  beneficiaryId: data?.beneficiaryId,
-  coordinatorId: data?.coordinatorId,
-  targetAmount: data?.targetAmount,
-  startDate: format(data?.startDate, formatString),
-  endDate: format(data?.endDate, formatString),
-  description: data?.description,
-  terms: false,
-  gdpr: false,
-}
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -86,43 +82,60 @@ const useStyles = makeStyles((theme) =>
 
 export type CampaignFormProps = { initialValues?: CampaignFormData }
 
-export default function CampaignForm({ initialValues = defaults }: CampaignFormProps) {
+export default function CampaignForm() {
   const classes = useStyles()
   const { t } = useTranslation()
   const router = useRouter()
-  const [coordinator, setCoordinator] = useState<PersonFormData>()
-  const [beneficiary, setBeneficiary] = useState<PersonFormData>()
+  const id = router.query.id
+  const { data: coordinators } = useCoordinatorsList()
+  const { data: beneficiaries } = useBeneficiariesListPerson()
+  const { data: campaign }: UseQueryResult<CampaignResponse> = useViewCampaign(String(id))
+  const [coordinatorId, setCoordinatorId] = useState<string>(campaign?.coordinatorId)
+  const [beneficiaryId, setBeneficiaryId] = useState<string>(campaign?.beneficiaryId)
+
+  const initialValues: CampaignFormData = {
+    title: campaign?.title || '',
+    coordinatorId: coordinatorId,
+    campaignTypeId: campaign?.campaignTypeId,
+    beneficiaryId: beneficiaryId,
+    targetAmount: campaign?.targetAmount || 0,
+    startDate: format(new Date(campaign?.startDate), formatString),
+    endDate: format(new Date(campaign?.endDate).setMonth(new Date().getMonth() + 1), formatString),
+    description: campaign?.description || '',
+    terms: true,
+    gdpr: true,
+  }
 
   const mutation = useMutation<
     AxiosResponse<CampaignResponse>,
     AxiosError<ApiErrors>,
     CampaignInput
   >({
-    mutationFn: useCreateCampaign(),
+    mutationFn: useEditCampaign(String(id)),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
 
   const onSubmit = async (
     values: CampaignFormData,
-    { setFieldError, resetForm }: FormikHelpers<CampaignFormData>,
+    { setFieldError }: FormikHelpers<CampaignFormData>,
   ) => {
     try {
-      const response = await mutation.mutateAsync({
+      const data = {
         title: values.title,
         slug: createSlug(values.title),
         description: values.description,
         targetAmount: values.targetAmount,
         startDate: values.startDate,
         endDate: values.endDate,
-        essence: '',
+        essence: campaign!.essence,
         campaignTypeId: values.campaignTypeId,
-        beneficiaryId: values.beneficiaryId,
-        coordinatorId: values.coordinatorId,
+        beneficiaryId: beneficiaryId,
+        coordinatorId: coordinatorId,
         currency: 'BGN',
-      })
-      resetForm()
-      router.push(routes.campaigns.viewCampaignBySlug(response.data.slug))
+      }
+      await mutation.mutateAsync(data)
+      router.push(routes.admin.campaigns.index)
     } catch (error) {
       console.error(error)
       if (isAxiosError(error)) {
@@ -192,39 +205,48 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               className={classes.message}
             />
           </Grid>
+
           <Grid item xs={12} sm={6}>
-            {coordinator ? (
-              <Typography fontWeight="bold" variant="body2">
-                {coordinator?.firstName} {coordinator?.lastName}
-              </Typography>
-            ) : (
-              <PersonDialog
-                type="coordinator"
-                label={t('campaigns:campaign.coordinator.add')}
-                onSubmit={async (values: PersonFormData) => {
-                  setCoordinator(values)
-                  console.log('new coordinator', { values })
-                }}
-              />
-            )}
-            <input type="hidden" name="coordinatorId" />
+            <FormControl fullWidth size="small" variant="outlined">
+              <InputLabel>{t('Кординатор')}</InputLabel>
+              <Select
+                fullWidth
+                label={t('Кординатор')}
+                id="coordinatorId"
+                name="coordinatorId"
+                value={coordinatorId}
+                onChange={(event) => setCoordinatorId(event.target.value)}>
+                <MenuItem value="" disabled>
+                  {t('Кординатор')}
+                </MenuItem>
+                {coordinators?.map((coordinator, index) => (
+                  <MenuItem key={index} value={coordinator.id}>
+                    {coordinator.person.firstName}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12} sm={6}>
-            {beneficiary ? (
-              <Typography fontWeight="bold" variant="body2">
-                {beneficiary?.firstName} {beneficiary?.lastName}
-              </Typography>
-            ) : (
-              <PersonDialog
-                type="beneficiary"
-                label={t('campaigns:campaign.beneficiary.add')}
-                onSubmit={async (values: PersonFormData) => {
-                  setBeneficiary(values)
-                  console.log('new beneficiary', { values })
-                }}
-              />
-            )}
-            <input type="hidden" name="beneficiaryId" />
+            <FormControl fullWidth size="small" variant="outlined">
+              <InputLabel>{t('Бенефициент')}</InputLabel>
+              <Select
+                fullWidth
+                label={t('Бенефициент')}
+                id="beneficiaryId"
+                name="beneficiaryId"
+                value={beneficiaryId}
+                onChange={(event) => setBeneficiaryId(event.target.value)}>
+                <MenuItem value="" disabled>
+                  {t('Бенефициент')}
+                </MenuItem>
+                {beneficiaries?.map((beneficiary, index) => (
+                  <MenuItem key={index} value={beneficiary.id}>
+                    {beneficiary.person.firstName}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12}>
             <FileUploadModal />
@@ -235,6 +257,9 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           </Grid>
           <Grid item xs={12}>
             <SubmitButton fullWidth label="campaigns:cta.submit" loading={mutation.isLoading} />
+            <Link href={routes.admin.campaigns.index}>
+              <Button fullWidth={true}>{t('Отказ')}</Button>
+            </Link>
           </Grid>
         </Grid>
       </GenericForm>

@@ -65,9 +65,9 @@ export const routes = {
     },
     campaigns: {
       index: '/admin/campaigns',
-      create: '/admin//campaigns/create',
-      viewCampaignBySlug: (slug: string) => `/admin/campaigns/${slug}`,
-      edit: (slug: string) => `/admin/campaigns/edit/${slug}`,
+      create: '/admin/campaigns/create',
+      viewCampaignBySlug: (id: string) => `/admin/campaigns/${id}`,
+      edit: (id: string) => `/admin/campaigns/edit/${id}`,
     },
     withdrawals: {
       index: '/admin/withdrawals',
