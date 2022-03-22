@@ -6,7 +6,7 @@ import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { format, parse, isDate } from 'date-fns'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Button, Grid, Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 
@@ -30,6 +30,8 @@ import {
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
 import CampaignTypeSelect from './CampaignTypeSelect'
+import FileUpload from 'components/file-upload/FileUpload'
+import FileList from 'components/file-upload/FileList'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -239,23 +241,10 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
             <input type="hidden" name="beneficiaryId" />
           </Grid>
           <Grid item xs={12}>
-            <label htmlFor="contained-button-file">
-              <input
-                id="contained-button-file"
-                multiple
-                type="file"
-                style={{ display: 'none' }}
-                onChange={(e) => setFiles([...(e.target.files as FileList)])}
-              />
-              <Button fullWidth variant="contained" color="info" component="span">
-                Добави снимки
-              </Button>
-            </label>
-            <ul>
-              {files.map((file) => {
-                return <li key={file.name}>{file.name}</li>
-              })}
-            </ul>
+            <FileUpload
+              onUpload={(files) => setFiles(() => [...files])}
+              buttonLabel="Добави снимки"></FileUpload>
+            <FileList files={files}></FileList>
           </Grid>
           <Grid item xs={12}>
             <AcceptTermsField name="terms" />
