@@ -93,6 +93,11 @@ export const routes = {
       create: '/admin/vaults/create',
       edit: (slug: string) => `/admin/vaults/${slug}/edit`,
     },
+    bootcampNeli: {
+      index: '/admin/bootcampNeli',
+      create: '/admin/bootcampNeli/create',
+      view: (id: string) => `/admin/bootcampNeli/${id}`,
+    },
   },
   dev: {
     openData: '/open-data',
