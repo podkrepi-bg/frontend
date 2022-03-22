@@ -9,23 +9,10 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import InboxIcon from '@mui/icons-material/MoveToInbox'
 import MailIcon from '@mui/icons-material/Mail'
-import { styled } from '@mui/styles'
 import styles from './Drawer.module.css'
+import { buttonStyles } from './DrawerStyles'
 
 type Anchor = 'top' | 'left' | 'bottom' | 'right'
-
-const MyButton = styled(Button)({
-  background: 'white',
-  border: 0,
-  borderRadius: 0,
-  color: '#32A9FE',
-  height: 58,
-  width: 150,
-  '&:hover': {
-    backgroundColor: '#32A9FE',
-    color: 'white',
-  },
-})
 
 export default function TemporaryDrawer() {
   const [state, setState] = React.useState({
@@ -79,25 +66,25 @@ export default function TemporaryDrawer() {
   return (
     <div className={styles.crawerContainer}>
       <React.Fragment key={1}>
-        <MyButton variant="contained" onClick={toggleDrawer(anchor, true)}>
+        <Button sx={buttonStyles} variant="contained" onClick={toggleDrawer(anchor, true)}>
           Options 1
-        </MyButton>
+        </Button>
         <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
           {list(anchor)}
         </Drawer>
       </React.Fragment>
       <React.Fragment key={2}>
-        <MyButton variant="contained" onClick={toggleDrawer(anchor, true)}>
+        <Button sx={buttonStyles} variant="contained" onClick={toggleDrawer(anchor, true)}>
           Options 2
-        </MyButton>
+        </Button>
         <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
           {list(anchor)}
         </Drawer>
       </React.Fragment>
       <React.Fragment key={3}>
-        <MyButton variant="contained" onClick={toggleDrawer(anchor, true)}>
+        <Button sx={buttonStyles} variant="contained" onClick={toggleDrawer(anchor, true)}>
           Options 3
-        </MyButton>
+        </Button>
         <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
           {list(anchor)}
         </Drawer>
