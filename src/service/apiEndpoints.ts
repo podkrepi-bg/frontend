@@ -98,4 +98,12 @@ export const endpoints = {
     list: <Endpoint>{ url: '/company/list', method: 'GET' },
     viewCompany: (slug: string) => <Endpoint>{ url: '/company/' + slug, method: 'GET' },
   },
+  bootcampNeli: {
+    listBootcampNeli: <Endpoint>{ url: '/bootcampNeli/', method: 'GET' },
+    viewBootcampNeli: (id: string) => <Endpoint>{ url: '/bootcampNeli/' + id, method: 'GET' },
+    createBootcampNeli: <Endpoint>{ url: '/bootcampNeli/create', method: 'POST' },
+    editBootcampNeli: (id: string) => <Endpoint>{ url: '/bootcampNeli/' + id, method: 'PUT' },
+    removeBootcampNeli: (id: string) => <Endpoint>{ url: '/bootcampNeli/' + id, method: 'DELETE' },
+    removeManyBootcampNeli: <Endpoint>{ url: '/bootcampNeli/delete-many', method: 'POST' },
+  },
 }
