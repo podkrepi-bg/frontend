@@ -1,6 +1,7 @@
 import React from 'react'
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid'
 import Container from '@mui/material/Container'
+import { containerStyles } from './DataGridStyles'
 
 const rows: GridRowsProp = [
   { id: 1, col1: 'Hello', col2: 'World', col3: 'great' },
@@ -17,7 +18,7 @@ const columns: GridColDef[] = [
 
 export default function MyDataGrid() {
   return (
-    <Container sx={{ height: 300, width: 1200, margin: '0 auto' }}>
+    <Container sx={containerStyles}>
       <DataGrid rows={rows} columns={columns} />
     </Container>
   )
