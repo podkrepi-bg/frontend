@@ -1,23 +1,31 @@
-import { useMutation } from 'react-query'
+import React, { Dispatch, SetStateAction } from 'react'
+import { useMutation, useQueryClient } from 'react-query'
 import { observer } from 'mobx-react'
 import { AxiosError, AxiosResponse } from 'axios'
-import { useRouter } from 'next/router'
+import { Dialog, Card, CardContent, Box, Button, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-import { CampaignResponse } from 'gql/campaigns'
 import { ApiErrors } from 'service/apiErrors'
-import { useDeleteCampaign } from 'service/campaign'
+import { endpoints } from 'service/apiEndpoints'
+import { useDeleteCampaignById } from 'service/campaign'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
+import { useRouter } from 'next/router'
 import { routes } from 'common/routes'
-import DeleteDialog from 'components/admin/DeleteDialog'
+import { CampaignResponse } from 'gql/campaigns'
 
-export default observer(function DeleteModal() {
+type Props = {
+  id: string
+  setSelectedId: Dispatch<SetStateAction<string>>
+}
+
+export default observer(function DeleteModal({ id, setSelectedId }: Props) {
+  const queryClient = useQueryClient()
   const router = useRouter()
-  const { hideDelete, selectedRecord } = ModalStore
-  const { t } = useTranslation('Campaigns')
+  const { isDeleteOpen, hideDelete } = ModalStore
+  const { t } = useTranslation()
 
-  const mutationFn = useDeleteCampaign(selectedRecord.id)
+  const mutationFn = useDeleteCampaignById(id)
 
   const deleteMutation = useMutation<
     AxiosResponse<CampaignResponse>,
@@ -25,17 +33,38 @@ export default observer(function DeleteModal() {
     string
   >({
     mutationFn,
-    onError: () => AlertStore.show(t('alerts.error'), 'error'),
+    onError: () => AlertStore.show(t('campaigns:alerts:error'), 'error'),
     onSuccess: () => {
       hideDelete()
-      AlertStore.show(t('alerts.delete'), 'success')
+      AlertStore.show(t('Кампанията беше преместена в кошчето.'), 'warning')
+      queryClient.removeQueries(endpoints.campaign.viewCampaign(id).url)
+      setSelectedId('')
       router.push(routes.admin.campaigns.index)
     },
   })
 
   function deleteHandler() {
-    deleteMutation.mutate(selectedRecord.id)
+    deleteMutation.mutate(id)
   }
 
-  return <DeleteDialog deleteHandler={deleteHandler} />
+  return (
+    <Dialog open={isDeleteOpen} onClose={hideDelete} sx={{ top: '-35%' }}>
+      <Card>
+        <CardContent>
+          <Typography variant="h6" sx={{ marginBottom: '16px', textAlign: 'center' }}>
+            {t('campaigns:deleteTitle')}
+          </Typography>
+          <Typography variant="body1" sx={{ marginBottom: '16px', textAlign: 'center' }}>
+            {t('campaigns:deleteContent')}
+          </Typography>
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Button color="error" onClick={deleteHandler}>
+              {t('campaigns:cta:delete')}
+            </Button>
+            <Button onClick={hideDelete}>{t('campaigns:cta:cancel')}</Button>
+          </Box>
+        </CardContent>
+      </Card>
+    </Dialog>
+  )
 })

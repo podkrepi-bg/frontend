@@ -1,17 +1,12 @@
-import { useTranslation } from 'next-i18next'
+import EditForm from './EditForm'
 import { Container } from '@mui/material'
-
-import AdminContainer from 'components/admin/navigation/AdminContainer'
 import AdminLayout from 'components/admin/navigation/AdminLayout'
-
-import EditForm from 'components/withdrawals/EditForm'
+import AdminContainer from 'components/admin/navigation/AdminContainer'
 
 export default function EditPage() {
-  const { t } = useTranslation('withdrawals')
-
   return (
     <AdminLayout>
-      <AdminContainer title={t('withdrawals')}>
+      <AdminContainer title={'Кампании'}>
         <Container maxWidth="md" sx={{ py: 5 }}>
           <EditForm />
         </Container>
