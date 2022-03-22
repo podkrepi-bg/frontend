@@ -21,6 +21,10 @@ const MyButton = styled(Button)({
   color: '#32A9FE',
   height: 58,
   width: 150,
+  '&:hover': {
+    backgroundColor: '#32A9FE',
+    color: 'white',
+  },
 })
 
 export default function TemporaryDrawer() {
@@ -74,7 +78,7 @@ export default function TemporaryDrawer() {
 
   return (
     <div className={styles.crawerContainer}>
-      <React.Fragment key={anchor}>
+      <React.Fragment key={1}>
         <MyButton variant="contained" onClick={toggleDrawer(anchor, true)}>
           Options 1
         </MyButton>
@@ -82,7 +86,7 @@ export default function TemporaryDrawer() {
           {list(anchor)}
         </Drawer>
       </React.Fragment>
-      <React.Fragment key={anchor}>
+      <React.Fragment key={2}>
         <MyButton variant="contained" onClick={toggleDrawer(anchor, true)}>
           Options 2
         </MyButton>
@@ -90,7 +94,7 @@ export default function TemporaryDrawer() {
           {list(anchor)}
         </Drawer>
       </React.Fragment>
-      <React.Fragment key={anchor}>
+      <React.Fragment key={3}>
         <MyButton variant="contained" onClick={toggleDrawer(anchor, true)}>
           Options 3
         </MyButton>
