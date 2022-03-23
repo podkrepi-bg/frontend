@@ -61,16 +61,16 @@ export default observer(function Grid() {
       width: 100,
     },
     {
-      field: 'currency',
-      headerName: t('fields.currency'),
-      headerClassName: classes.gridColumn,
-      width: 90,
-    },
-    {
       field: 'amount',
       headerName: t('fields.amount'),
       headerClassName: classes.gridColumn,
       align: 'right',
+      width: 90,
+    },
+    {
+      field: 'currency',
+      headerName: t('fields.currency'),
+      headerClassName: classes.gridColumn,
       width: 90,
     },
     {
