@@ -241,8 +241,8 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
             <input type="hidden" name="beneficiaryId" />
           </Grid>
           <Grid item xs={12}>
-            <FileUpload onUpload={setFiles} buttonLabel="Добави снимки"></FileUpload>
-            <FileList files={files}></FileList>
+            <FileUpload onUpload={setFiles} buttonLabel="Добави снимки" />
+            <FileList files={files} />
           </Grid>
           <Grid item xs={12}>
             <AcceptTermsField name="terms" />
