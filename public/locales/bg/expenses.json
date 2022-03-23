@@ -9,7 +9,8 @@
         "description": "Описание",
         "documentId": "Документ Id",
         "approvedById": "Одобрен от Id",
-        "action": "Действие"
+        "action": "Действие",
+        "empty": "Празно"
     },
     "alerts": {
         "new-row": {

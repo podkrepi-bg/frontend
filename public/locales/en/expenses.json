@@ -9,7 +9,8 @@
         "description": "Description",
         "documentId": "Document Id",
         "approvedById": "Approved by Id",
-        "action": "Action"
+        "action": "Action",
+        "empty": "Empty"
     },
     "alerts": {
         "new-row": {
