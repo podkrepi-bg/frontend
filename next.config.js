@@ -46,6 +46,9 @@ const moduleExports = {
       CAMPAIGN: process.env.FEATURE_CAMPAIGN ?? false,
     },
   },
+  images: {
+    domains: [process.env.API_HOST],
+  },
   swcMinify: true,
 }
 
