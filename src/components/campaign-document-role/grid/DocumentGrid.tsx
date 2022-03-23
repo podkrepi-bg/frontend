@@ -113,7 +113,7 @@ export default observer(function DocumentGrid() {
             <Tooltip title="Сподели">
               <ShareIcon sx={iconStyles} fontSize="medium" color="action" />
             </Tooltip>
-            <Link href="/admin/campaign-document-role/create" passHref>
+            <Link href={routes.admin.campaignDocumentRole.create} passHref>
               <AddIcon sx={addIconStyles} fontSize="large" />
             </Link>
           </Box>

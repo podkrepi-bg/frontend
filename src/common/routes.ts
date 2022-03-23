@@ -95,6 +95,7 @@ export const routes = {
     },
     campaignDocumentRole: {
       index: '/admin/campaign-document-role',
+      create: '/admin/campaign-document-role/create',
       edit: (id: string) => `/admin/campaign-document-role/${id}`,
     },
     vaults: {
