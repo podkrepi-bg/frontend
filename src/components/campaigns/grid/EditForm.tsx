@@ -99,8 +99,11 @@ export default function CampaignForm() {
     campaignTypeId: campaign?.campaignTypeId,
     beneficiaryId: beneficiaryId,
     targetAmount: campaign?.targetAmount || 0,
-    startDate: format(new Date(campaign?.startDate), formatString),
-    endDate: format(new Date(campaign?.endDate).setMonth(new Date().getMonth() + 1), formatString),
+    startDate: format(new Date(String(campaign?.startDate)), formatString),
+    endDate: format(
+      new Date(String(campaign?.endDate)).setMonth(new Date().getMonth() + 1),
+      formatString,
+    ),
     description: campaign?.description || '',
     terms: true,
     gdpr: true,
