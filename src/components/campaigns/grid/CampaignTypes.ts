@@ -6,8 +6,3 @@ export enum CampaignStatus {
   cancelled = 'cancelled',
   succeeded = 'succeeded',
 }
-export enum Currencies {
-  BGN = 'BGN',
-  USD = 'USD',
-  EUR = 'EUR',
-}
