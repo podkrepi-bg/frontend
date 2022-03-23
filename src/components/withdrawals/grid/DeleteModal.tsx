@@ -4,9 +4,9 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { CampaignResponse } from 'gql/campaigns'
+import { WithdrawalResponse } from 'gql/withdrawals'
 import { ApiErrors } from 'service/apiErrors'
-import { useDeleteCampaign } from 'service/campaign'
+import { useDeleteWithdrawal } from 'service/withdrawal'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 import { routes } from 'common/routes'
@@ -15,12 +15,12 @@ import DeleteDialog from 'components/admin/DeleteDialog'
 export default observer(function DeleteModal() {
   const router = useRouter()
   const { hideDelete, selectedRecord } = ModalStore
-  const { t } = useTranslation('Campaigns')
+  const { t } = useTranslation('withdrawals')
 
-  const mutationFn = useDeleteCampaign(selectedRecord.id)
+  const mutationFn = useDeleteWithdrawal(selectedRecord.id)
 
   const deleteMutation = useMutation<
-    AxiosResponse<CampaignResponse>,
+    AxiosResponse<WithdrawalResponse>,
     AxiosError<ApiErrors>,
     string
   >({
@@ -29,7 +29,7 @@ export default observer(function DeleteModal() {
     onSuccess: () => {
       hideDelete()
       AlertStore.show(t('alerts.delete'), 'success')
-      router.push(routes.admin.campaigns.index)
+      router.push(routes.admin.withdrawals.index)
     },
   })
 
