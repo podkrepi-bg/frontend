@@ -18,7 +18,7 @@ import GridActions from 'components/admin/GridActions'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
 import DeleteAllModal from './DeleteAllModal'
-import { useDocumentList } from 'common/hooks/campaignDocumentRole'
+import { useDocumentList } from 'common/hooks/campaignDocument'
 
 export default observer(function DocumentGrid() {
   const { showDeleteAll, setSelectedIdsToDelete, selectedIdsToDelete } = ModalStore
@@ -35,14 +35,14 @@ export default observer(function DocumentGrid() {
     { field: 'id', headerName: 'ID', hide: true },
     {
       field: 'name',
-      headerName: t('campaign-document-role:Name'),
+      headerName: t('campaign-document:Name'),
       editable: false,
       width: 200,
       flex: 1,
     },
     {
       field: 'description',
-      headerName: t('campaign-document-role:Description'),
+      headerName: t('campaign-document:Description'),
       editable: false,
       width: 200,
       flex: 1,
@@ -50,14 +50,14 @@ export default observer(function DocumentGrid() {
     {
       field: 'actions',
       type: 'actions',
-      headerName: t('campaign-document-role:Аctions'),
+      headerName: t('campaign-document:Аctions'),
       width: 120,
       headerAlign: 'left',
       renderCell: (p) => (
         <GridActions
           id={p.row.id}
           name={p.row.name}
-          editLink={routes.admin.campaignDocumentRole.edit(p.row.id)}
+          editLink={routes.admin.campaignDocument.edit(p.row.id)}
         />
       ),
     },
@@ -90,7 +90,7 @@ export default observer(function DocumentGrid() {
           height: '72px',
         }}>
         <Box sx={{ height: '64px', display: 'flex', alignItems: 'start', pt: 1 }}>
-          <Typography>{t('campaign-document-role:All')}</Typography>
+          <Typography>{t('campaign-document:All')}</Typography>
         </Box>
         <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -113,7 +113,7 @@ export default observer(function DocumentGrid() {
             <Tooltip title="Сподели">
               <ShareIcon sx={iconStyles} fontSize="medium" color="action" />
             </Tooltip>
-            <Link href={routes.admin.campaignDocumentRole.create} passHref>
+            <Link href={routes.admin.campaignDocument.create} passHref>
               <AddIcon sx={addIconStyles} fontSize="large" />
             </Link>
           </Box>

@@ -1,11 +1,11 @@
 import { UUID } from './types'
 
-export type campaignDocumentRoleInput = {
+export type campaignDocumentInput = {
   name: string
   description: string
 }
 
-export type campaignDocumentRoleResponse = {
+export type campaignDocumentResponse = {
   id: UUID
   name: string
   description: string

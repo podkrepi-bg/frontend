@@ -1,15 +1,16 @@
 import { GetServerSideProps } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate, QueryClient } from 'react-query'
-import EditPage from 'components/campaign-document-role/EditPage'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import MainPage from 'components/campaign-document/MainPage'
 import { keycloakInstance } from 'middleware/auth/keycloak'
-import { prefetchCampaignDocumentRolById } from 'service/campaignDocumentRole'
+import { prefetchCampaignDocument } from 'service/campaignDocument'
 
 export const getServerSideProps: GetServerSideProps = async (params) => {
-  const keycloak = keycloakInstance(params)
-  const { id } = params.query
   const client = new QueryClient()
-  await prefetchCampaignDocumentRolById(client, String(id), keycloak.token)
+  const keycloak = keycloakInstance(params)
+
+  await prefetchCampaignDocument(client, keycloak?.token)
+
   return {
     props: {
       ...(await serverSideTranslations(params.locale ?? 'bg', [
@@ -17,11 +18,11 @@ export const getServerSideProps: GetServerSideProps = async (params) => {
         'auth',
         'validation',
         'admin',
-        'campaign-document-role',
+        'campaign-document',
       ])),
       dehydratedState: dehydrate(client),
     },
   }
 }
 
-export default EditPage
+export default MainPage

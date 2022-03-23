@@ -4,24 +4,24 @@ import { useMutation } from 'react-query'
 import { observer } from 'mobx-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useTranslation } from 'next-i18next'
-import { campaignDocumentRoleResponse } from 'gql/campaign-document-role'
+import { campaignDocumentResponse } from 'gql/campaign-document'
 import { ApiErrors } from 'service/apiErrors'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 import { routes } from 'common/routes'
 
 import DeleteDialog from 'components/admin/DeleteDialog'
-import { useDeleteCampaignDocumentRole } from 'service/campaignDocumentRole'
+import { useDeleteCampaignDocument } from 'service/campaignDocument'
 
 export default observer(function DeleteModal() {
   const router = useRouter()
   const { hideDelete, selectedRecord } = ModalStore
-  const { t } = useTranslation('campaign-document-role')
+  const { t } = useTranslation('campaign-document')
 
-  const mutationFn = useDeleteCampaignDocumentRole()
+  const mutationFn = useDeleteCampaignDocument()
 
   const deleteMutation = useMutation<
-    AxiosResponse<campaignDocumentRoleResponse>,
+    AxiosResponse<campaignDocumentResponse>,
     AxiosError<ApiErrors>,
     string
   >({
@@ -30,7 +30,7 @@ export default observer(function DeleteModal() {
     onSuccess: () => {
       hideDelete()
       AlertStore.show(t('alerts.delete'), 'warning')
-      router.push(routes.admin.campaignDocumentRole.index)
+      router.push(routes.admin.campaignDocument.index)
     },
   })
 

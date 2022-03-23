@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { dehydrate, QueryClient } from 'react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import CreatePage from 'components/campaign-document-role/CreatePage'
+import CreatePage from 'components/campaign-document/CreatePage'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const client = new QueryClient()
@@ -14,7 +14,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
         'auth',
         'validation',
         'admin',
-        'campaign-document-role',
+        'campaign-document',
       ])),
       dehydratedState: dehydrate(client),
     },

@@ -4,13 +4,13 @@ import { useTranslation } from 'next-i18next'
 
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import DetailsDialog from 'components/admin/DetailsDialog'
-import { campaignDocumentRoleResponse } from 'gql/campaign-document-role'
-import { useDocument } from 'common/hooks/campaignDocumentRole'
+import { campaignDocumentResponse } from 'gql/campaign-document'
+import { useDocument } from 'common/hooks/campaignDocument'
 
 export default observer(function DetailsModal() {
   const { selectedRecord } = ModalStore
-  const { data }: UseQueryResult<campaignDocumentRoleResponse> = useDocument(selectedRecord.id)
-  const { t } = useTranslation('campaign-document-role')
+  const { data }: UseQueryResult<campaignDocumentResponse> = useDocument(selectedRecord.id)
+  const { t } = useTranslation('campaign-document')
 
   const dataConverted = [
     { name: 'ID', value: `${data?.id}` },

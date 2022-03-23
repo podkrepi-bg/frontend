@@ -114,7 +114,7 @@ export const endpoints = {
     list: <Endpoint>{ url: '/company/list', method: 'GET' },
     viewCompany: (slug: string) => <Endpoint>{ url: '/company/' + slug, method: 'GET' },
   },
-  campaignDocumentRole: {
+  campaignDocument: {
     listDocuments: <Endpoint>{ url: '/campaign-document-role', method: 'GET' },
     viewDocument: (id: string) => <Endpoint>{ url: '/campaign-document-role/' + id, method: 'GET' },
     createDocument: <Endpoint>{ url: '/campaign-document-role', method: 'POST' },

@@ -4,7 +4,7 @@ import DocumentGrid from './grid/DocumentGrid'
 import { useTranslation } from 'next-i18next'
 
 export default function MainPage() {
-  const { t } = useTranslation('campaign-document-role')
+  const { t } = useTranslation('campaign-document')
   return (
     <AdminLayout>
       <AdminContainer title={t('title')}>

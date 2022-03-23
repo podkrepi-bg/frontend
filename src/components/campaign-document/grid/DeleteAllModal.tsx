@@ -9,19 +9,19 @@ import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 import { routes } from 'common/routes'
 import DeleteAllDialog from 'components/admin/DeleteAllDialog'
-import { campaignDocumentRoleResponse } from 'gql/campaign-document-role'
-import { useRemoveManyCampaignDocumentRole } from 'service/campaignDocumentRole'
+import { campaignDocumentResponse } from 'gql/campaign-document'
+import { useRemoveManyCampaignDocument } from 'service/campaignDocument'
 import { GridSelectionModel } from '@mui/x-data-grid'
 
 export default observer(function DeleteAllModal() {
   const router = useRouter()
   const { hideDeleteAll, selectedIdsToDelete, setSelectedIdsToDelete } = ModalStore
-  const { t } = useTranslation('campaign-document-role')
+  const { t } = useTranslation('campaign-document')
 
-  const mutationFn = useRemoveManyCampaignDocumentRole(selectedIdsToDelete)
+  const mutationFn = useRemoveManyCampaignDocument(selectedIdsToDelete)
 
   const mutation = useMutation<
-    AxiosResponse<campaignDocumentRoleResponse[]>,
+    AxiosResponse<campaignDocumentResponse[]>,
     AxiosError<ApiErrors>,
     GridSelectionModel
   >({
@@ -31,7 +31,7 @@ export default observer(function DeleteAllModal() {
       hideDeleteAll()
       setSelectedIdsToDelete([])
       AlertStore.show(t('alerts.delete-all'), 'success')
-      router.push(routes.admin.campaignDocumentRole.index)
+      router.push(routes.admin.campaignDocument.index)
     },
   })
 
