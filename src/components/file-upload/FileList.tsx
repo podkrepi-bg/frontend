@@ -1,10 +1,31 @@
-function FileList({ files }: { files: File[] }) {
+import { Delete, UploadFile } from '@mui/icons-material'
+import { Avatar, IconButton, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material'
+
+type NewType = {
+  files: File[]
+  onDelete?: (file: File) => void
+}
+
+function FileList({ files, onDelete }: NewType) {
   return (
-    <ul>
-      {files.map((file) => {
-        return <li key={file.name}>{file.name}</li>
-      })}
-    </ul>
+    <List dense>
+      {files.map((file, key) => (
+        <ListItem
+          key={key}
+          secondaryAction={
+            <IconButton edge="end" aria-label="delete" onClick={() => onDelete && onDelete(file)}>
+              <Delete />
+            </IconButton>
+          }>
+          <ListItemAvatar>
+            <Avatar>
+              <UploadFile />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary={file.name} />
+        </ListItem>
+      ))}
+    </List>
   )
 }
 
