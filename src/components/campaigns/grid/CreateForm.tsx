@@ -23,10 +23,9 @@ import { CampaignResponse, CampaignFormData, CampaignInput } from 'gql/campaigns
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
 import CampaignTypeSelect from '../CampaignTypeSelect'
-import FileUploadModal from '../FileUploadModal'
 import Link from 'next/link'
-import CampaignCoordinatorSelect from './CampaignCoordinatorSelect'
-import CampaignBeneficiarySelect from './CampaignBeneficiarySelect'
+import CoordinatorSelect from './CoordinatorSelect'
+import BeneficiarySelect from './BeneficiarySelect'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -190,13 +189,10 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <CampaignBeneficiarySelect></CampaignBeneficiarySelect>
+            <BeneficiarySelect />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <CampaignCoordinatorSelect />
-          </Grid>
-          <Grid item xs={12}>
-            <FileUploadModal />
+            <CoordinatorSelect />
           </Grid>
           <Grid item xs={12}>
             <AcceptTermsField name="terms" />

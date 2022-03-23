@@ -33,7 +33,6 @@ import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicy
 
 import { format } from 'date-fns'
 import CampaignTypeSelect from '../CampaignTypeSelect'
-import FileUploadModal from '../FileUploadModal'
 import { useViewCampaignById } from 'common/hooks/campaigns'
 import { useCoordinatorsList } from 'common/hooks/coordinators'
 import { useBeneficiariesListPerson } from 'common/hooks/beneficiary'
@@ -250,9 +249,6 @@ export default function CampaignForm() {
                 ))}
               </Select>
             </FormControl>
-          </Grid>
-          <Grid item xs={12}>
-            <FileUploadModal />
           </Grid>
           <Grid item xs={12}>
             <AcceptTermsField name="terms" />
