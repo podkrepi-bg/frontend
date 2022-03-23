@@ -1,6 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
+import getConfig from 'next/config'
 import { CampaignResponse } from 'gql/campaigns'
 import LatestNews from './LatestNews'
 import CampaignComments from './CampaignComments'
@@ -66,8 +67,15 @@ type Props = {
 export default function CampaignDetails({ campaign }: Props) {
   const classes = useStyles()
   const { t } = useTranslation()
+  const { publicRuntimeConfig } = getConfig()
 
-  const bannerSource = '/img/campaign-banner.png'
+  const undefinedUrl = publicRuntimeConfig.API_URL + '/api/campaign-file/' + undefined
+  const pictureUrl =
+    publicRuntimeConfig.API_URL +
+    '/api/campaign-file/' +
+    campaign.campaignFiles.find((x) => x.role == 'background')?.id
+
+  const bannerSource = pictureUrl == undefinedUrl ? '/img/campaign-banner.png' : pictureUrl
   const beneficiaryAvatarSource = '/img/support-us-image.png'
   const coordinatorAvatarSource = '/img/support-us-image.png'
 
