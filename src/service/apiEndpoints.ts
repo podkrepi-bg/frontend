@@ -14,6 +14,7 @@ export const endpoints = {
     editCampaign: (id: string) => <Endpoint>{ url: `/campaign/${id}`, method: 'PUT' },
     deleteCampaign: (id: string) => <Endpoint>{ url: `/campaign/${id}`, method: 'DELETE' },
     deleteCampaigns: <Endpoint>{ url: '/campaign/deletemany', method: 'POST' },
+    uploadFile: (id: string) => <Endpoint>{ url: `/campaign-file/${id}`, method: 'POST' },
   },
   campaignType: {
     listCampaignTypes: <Endpoint>{ url: '/campaign-type/list', method: 'GET' },
@@ -29,6 +30,11 @@ export const endpoints = {
     singlePrices: <Endpoint>{ url: '/donation/prices/single', method: 'GET' },
     recurringPrices: <Endpoint>{ url: '/donation/prices/recurring', method: 'GET' },
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
+    createDonation: <Endpoint>{ url: '/donation/create-payment', method: 'POST' },
+    donationsList: <Endpoint>{ url: '/donation/list', method: 'GET' },
+    getDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'GET' },
+    editDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'PATCH' },
+    deleteDonation: <Endpoint>{ url: `/donation/delete`, method: 'POST' },
     userDonations: <Endpoint>{ url: 'donation/user-donations', method: 'GET' },
   },
   documents: {

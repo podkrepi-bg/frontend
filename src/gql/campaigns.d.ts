@@ -110,3 +110,7 @@ export type CampaignEdit = {
   startDate: Date | string
   endDate: Date | string
 }
+
+export type CampaignUploadImage = {
+  title: string
+}
