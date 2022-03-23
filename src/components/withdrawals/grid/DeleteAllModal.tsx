@@ -7,9 +7,9 @@ import { useRouter } from 'next/router'
 import { GridSelectionModel } from '@mui/x-data-grid'
 
 import { routes } from 'common/routes'
-import { CampaignResponse } from 'gql/campaigns'
+import { WithdrawalResponse } from 'gql/withdrawals'
 import { ApiErrors } from 'service/apiErrors'
-import { useDeleteManyCampaigns } from 'service/campaign'
+import { useDeleteManyWithdrawals } from 'service/withdrawal'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 import DeleteAllDialog from 'components/admin/DeleteAllDialog'
@@ -17,12 +17,12 @@ import DeleteAllDialog from 'components/admin/DeleteAllDialog'
 export default observer(function DeleteAllModal() {
   const router = useRouter()
   const { hideDeleteAll, selectedIdsToDelete, setSelectedIdsToDelete } = ModalStore
-  const { t } = useTranslation('Campaigns')
+  const { t } = useTranslation('withdrawals')
 
-  const mutationFn = useDeleteManyCampaigns(selectedIdsToDelete)
+  const mutationFn = useDeleteManyWithdrawals(selectedIdsToDelete)
 
   const mutation = useMutation<
-    AxiosResponse<CampaignResponse>,
+    AxiosResponse<WithdrawalResponse>,
     AxiosError<ApiErrors>,
     GridSelectionModel
   >({
@@ -32,7 +32,7 @@ export default observer(function DeleteAllModal() {
       hideDeleteAll()
       setSelectedIdsToDelete([])
       AlertStore.show(t('alerts.deleteAll'), 'success')
-      router.push(routes.admin.campaigns.index)
+      router.push(routes.admin.withdrawals.index)
     },
   })
 
