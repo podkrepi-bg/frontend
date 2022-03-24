@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import Box from '@mui/material/Box'
 import Footer from 'components/layout/Footer'
 import MenuAppBar from '../AppBar'
 import { boxStyles } from '../BootcampPageComponentStyles'
