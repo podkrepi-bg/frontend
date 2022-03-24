@@ -8,6 +8,7 @@ import Jumbotron from './sections/Jumbotron'
 import ActivitySection from './sections/ActivitySection'
 import TeamSection from './sections/TeamSection'
 import TeamChartSection from './sections/TeamChartSection'
+import CampaignsSection from './sections/CampaignsSection'
 import MissionVisionGoalsSection from './sections/MissionVisionGoalsSection'
 import SupportUsSection from './sections/SupportUsSection'
 import { RefObject } from 'react-transition-group/node_modules/@types/react'
@@ -15,6 +16,7 @@ import { RefObject } from 'react-transition-group/node_modules/@types/react'
 export default function IndexPage() {
   const scrollElement = useRef<HTMLAnchorElement>(null)
   const { t } = useTranslation()
+
   return (
     <Layout
       maxWidth={false}
@@ -22,8 +24,9 @@ export default function IndexPage() {
       disableGutters
       title={t('index:jumbotron.heading')}
       metaDescription={t('index:activity-section.content')}>
-      <Jumbotron scrollTo={scrollElement} />
+      <Jumbotron />
       <Container ref={scrollElement as RefObject<HTMLDivElement>} maxWidth="md">
+        {/* <CampaignsSection /> */}
         <ActivitySection />
         <TeamSection />
         <TeamChartSection />

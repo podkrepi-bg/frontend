@@ -1,16 +1,11 @@
-import React, { RefObject } from 'react'
+import React from 'react'
 import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@mui/material'
 import { darken, useTheme } from '@mui/material/styles'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import { Favorite } from '@mui/icons-material'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Image from 'next/image'
-
-import { routes } from 'common/routes'
-import LinkButton from 'components/common/LinkButton'
 
 import Typewriter from '../helpers/Typewriter'
 
@@ -89,29 +84,13 @@ const useStyles = makeStyles((theme) =>
   }),
 )
 
-type JumbotronProps = {
-  scrollTo: RefObject<HTMLAnchorElement>
-}
-
-export default function Jumbotron({ scrollTo }: JumbotronProps) {
+export default function Jumbotron() {
   const classes = useStyles()
   const { t } = useTranslation()
   const theme = useTheme()
   //Check if the media query is match and breakpoint is up sm device
   const matches = useMediaQuery(theme.breakpoints.up('sm'))
-  const imgSource = matches
-    ? '/img/jumbotron-background-image-desktop.jpg'
-    : '/img/header-image-mobile.jpg'
-
-  const executeScroll = () => {
-    if (scrollTo.current) {
-      window.scroll({
-        top: scrollTo.current.offsetTop - 150, // AppBar offset
-        behavior: 'smooth',
-      })
-    }
-  }
-
+  const imgSource = matches ? '/img/happy-family.jpg' : '/img/happy-family.jpg'
   return (
     <Grid container direction="column" component="section" className={classes.container}>
       <Image
@@ -129,21 +108,6 @@ export default function Jumbotron({ scrollTo }: JumbotronProps) {
           </Typography>
         </Typography>
         <Typewriter />
-      </Grid>
-      <Grid item>
-        <LinkButton
-          href={routes.support}
-          variant="contained"
-          color="secondary"
-          className={classes.aboutProjectButton}
-          endIcon={<Favorite color="error" />}>
-          {t('index:support-us-section.click-here-button')}
-        </LinkButton>
-      </Grid>
-      <Grid item className={classes.scrollButton}>
-        <a onClick={executeScroll}>
-          <KeyboardArrowDownIcon className={classes.scrollButtonIcon} />
-        </a>
       </Grid>
     </Grid>
   )
