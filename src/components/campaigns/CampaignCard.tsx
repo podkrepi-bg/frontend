@@ -24,15 +24,9 @@ import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 const useStyles = makeStyles((theme) => ({
   media: {
     backgroundSize: 'contain',
-    // filter: 'grayscale(1)',
     height: 250,
     margin: theme.spacing(0, 4),
-    // opacity: 0,
     transition: 'filter 0.3s, opacity 0.8s',
-    // '&:hover': {
-    //   filter: 'grayscale(0)',
-    //   opacity: 1,
-    // },
   },
   amountButtonGroup: {
     backgroundColor: '#e60550',
