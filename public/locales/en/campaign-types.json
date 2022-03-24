@@ -4,7 +4,7 @@
     "name": "Name",
     "category": "Category",
     "description": "Description",
-    "no-parent":"No category",
+    "no-parent": "No category",
     "no-description": "No description"
   },
   "cta": {

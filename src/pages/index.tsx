@@ -10,7 +10,7 @@ export const getServerSideProps: GetServerSideProps<{
   const session = null // TODO: Add proper checking for session
   return {
     props: {
-      ...(await serverSideTranslations(ctx.locale ?? 'bg', ['common', 'index'])),
+      ...(await serverSideTranslations(ctx.locale ?? 'bg', ['common', 'index', 'campaigns'])),
       session,
     },
   }
