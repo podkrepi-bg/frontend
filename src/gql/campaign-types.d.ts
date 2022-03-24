@@ -1,7 +1,9 @@
+import { CampaignTypeCategory } from 'components/campaign-types/Categories'
 import { UUID } from './types'
 
 export type CampaignTypesType = {
   id: UUID
+  category: CampaignTypeCategory
   name: string
   slug?: string
   description: string | null
@@ -9,6 +11,7 @@ export type CampaignTypesType = {
 }
 export type CampaignTypesResponse = {
   id: UUID
+  category: CampaignTypeCategory
   name: string
   slug?: string
   description: string | null
@@ -24,6 +27,7 @@ export type CampaignTypesInput = {
 
 export type CampaignTypeFormData = {
   name: string
+  category: string
   slug?: string
   description: string | null
   parentId?: string | null

@@ -43,52 +43,43 @@ export default function CampaignsPage() {
   const { data: campaigns } = useCampaignList()
   const [campaignType, setCampaignType] = useState('All')
   const [campaignToShow, setCampaignToShow] = useState<CampaignResponse[]>([])
-  let natureCounter = 0
+
   let healthCareCounter = 0
   let disastersCounter = 0
   let othersCounter = 0
+  let charityCounter = 0
+  let eventsCounter = 0
+  let environmentCounter = 0
+  let sportCounter = 0
+  let artCounter = 0
+  let educationCounter = 0
+  let natureAndAnimalsCounter = 0
 
-  campaignTypes?.map(() => {
-    natureCounter = 0
-    healthCareCounter = 0
-    disastersCounter = 0
-    othersCounter = 0
-    campaigns?.map((campaign) => {
-      campaignTypes?.map((type) => {
-        if (campaign.campaignTypeId == type.id) {
-          if (
-            type.name == 'Leukemia' ||
-            type.name == 'Transplantation' ||
-            type.name == 'Cancer' ||
-            type.name == 'Nursing homes' ||
-            type.name == 'Treatment and rehabilitation' ||
-            type.name == 'Rehabilitation' ||
-            type.name == 'Genetic diseases'
-          ) {
-            healthCareCounter++
-          }
-          if (type.name == 'Nature' || type.name == 'Animals') {
-            natureCounter++
-          }
-          if (type.name == 'Disasters') {
-            disastersCounter++
-          }
-          if (
-            type.name != 'Disasters' &&
-            type.name != 'Nature' &&
-            type.name != 'Animals' &&
-            type.name != 'Treatment and rehabilitation' &&
-            type.name != 'Leukemia' &&
-            type.name != 'Nursing homes' &&
-            type.name != 'Transplantation' &&
-            type.name != 'Cancer' &&
-            type.name != 'Genetic diseases' &&
-            type.name != 'Rehabilitation'
-          ) {
-            othersCounter++
-          }
+  campaigns?.map((campaign) => {
+    campaignTypes?.map((type) => {
+      if (campaign.campaignTypeId == type.id) {
+        if (type.category == 'medical') {
+          healthCareCounter++
+        } else if (type.category == 'charity') {
+          charityCounter++
+        } else if (type.category == 'disasters') {
+          disastersCounter++
+        } else if (type.category == 'education') {
+          educationCounter++
+        } else if (type.category == 'events') {
+          eventsCounter++
+        } else if (type.category == 'environment') {
+          environmentCounter++
+        } else if (type.category == 'sport') {
+          sportCounter++
+        } else if (type.category == 'art') {
+          artCounter++
+        } else if (type.category == 'others') {
+          othersCounter++
+        } else if (type.category == 'animals' || type.category == 'nature') {
+          natureAndAnimalsCounter++
         }
-      })
+      }
     })
   })
 
@@ -108,15 +99,7 @@ export default function CampaignsPage() {
       campaigns?.map((campaign) => {
         campaignTypes?.map((type) => {
           if (campaign.campaignTypeId == type.id) {
-            if (
-              type.name == 'Treatment and rehabilitation' ||
-              type.name == 'Leukemia' ||
-              type.name == 'Nursing homes' ||
-              type.name == 'Transplantation' ||
-              type.name == 'Cancer' ||
-              type.name == 'Genetic diseases' ||
-              type.name == 'Rehabilitation'
-            ) {
+            if (type.category == 'medical') {
               result.push(campaign)
             }
           }
@@ -128,7 +111,7 @@ export default function CampaignsPage() {
       campaigns?.map((campaign) => {
         campaignTypes?.map((type) => {
           if (campaign.campaignTypeId == type.id) {
-            if (type.name == 'Nature' || type.name == 'Animals') {
+            if (type.category == 'nature' || type.category == 'animals') {
               result.push(campaign)
             }
           }
@@ -140,7 +123,7 @@ export default function CampaignsPage() {
       campaigns?.map((campaign) => {
         campaignTypes?.map((type) => {
           if (campaign.campaignTypeId == type.id) {
-            if (type.name == 'Disasters') {
+            if (type.category == 'disasters') {
               result.push(campaign)
             }
           }
@@ -152,18 +135,7 @@ export default function CampaignsPage() {
       campaigns?.map((campaign) => {
         campaignTypes?.map((type) => {
           if (campaign.campaignTypeId == type.id) {
-            if (
-              type.name != 'Disasters' &&
-              type.name != 'Nature' &&
-              type.name != 'Animals' &&
-              type.name != 'Treatment and rehabilitation' &&
-              type.name != 'Leukemia' &&
-              type.name != 'Nursing homes' &&
-              type.name != 'Transplantation' &&
-              type.name != 'Cancer' &&
-              type.name != 'Genetic diseases' &&
-              type.name != 'Rehabilitation'
-            ) {
+            if (type.category == 'others') {
               result.push(campaign)
             }
           }
@@ -173,9 +145,6 @@ export default function CampaignsPage() {
     }
   }, [campaignType])
 
-  // async function handleClick(e: any) {
-  //   setCampaignType(e.target.textContent)
-  // }
   return (
     <>
       <ImageList
@@ -194,7 +163,9 @@ export default function CampaignsPage() {
           value={'Животни/Природа'}
           onClick={(e) => setCampaignType(e.currentTarget.value)}>
           <SpaIcon fontSize="large" sx={{ marginBottom: '10%', width: '9rem' }} />
-          <Typography sx={{ marginBottom: '4%' }}>Животни/Природа ({natureCounter})</Typography>
+          <Typography sx={{ marginBottom: '4%' }}>
+            Животни/Природа ({natureAndAnimalsCounter}){' '}
+          </Typography>
         </IconButton>
         <IconButton
           className={classes.filterButtons}
@@ -229,7 +200,9 @@ export default function CampaignsPage() {
               width: '9rem',
             }}
           />
-          <Typography sx={{ marginBottom: '4%' }}>Животни/Природа ({natureCounter})</Typography>
+          <Typography sx={{ marginBottom: '4%' }}>
+            Животни/Природа ({natureAndAnimalsCounter})
+          </Typography>
         </IconButton>
         <IconButton
           className={classes.filterButtons}
