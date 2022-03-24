@@ -5,6 +5,7 @@ import * as React from 'react'
 import MenuIcon from '@mui/icons-material/Menu'
 import { Box, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material'
 import { AccountCircle } from '@mui/icons-material'
+import { useTranslation } from 'next-i18next'
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean
@@ -33,6 +34,7 @@ const AppBar = styled(MuiAppBar, { shouldForwardProp: (prop) => prop !== 'open' 
 )
 
 function BootcampAppbar({ open, handler }: Props) {
+  const { t } = useTranslation()
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
   const settings = ['Profile', 'Account', 'Dashboard', 'Logout']
 
@@ -47,7 +49,8 @@ function BootcampAppbar({ open, handler }: Props) {
   return (
     <AppBar sx={{ background: 'white', paddingLeft: '0px' }} position="fixed" open={open}>
       <Toolbar sx={{ paddingLeft: '0px' }}>
-        <Image width={140} height={40} src="/podkrepi-bg-logo-en.svg" />
+        <Image width={140} height={40} src="/podkrepi-icon.svg" />
+        <Typography variant="h6">{t('common:meta.title')}</Typography>
         <IconButton
           title="Dashboard"
           color="primary"
