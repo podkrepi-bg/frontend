@@ -1,3 +1,4 @@
+import type { CampaignFileRole } from 'components/campaign-file/roles'
 import type { CampaignTypeCategory } from 'components/campaign-types/categories'
 
 export type CampaignType = {
@@ -15,7 +16,7 @@ export type CampaignFile = {
   mimetype: string
   campaignId: UUID
   uploadedById: UUID
-  role: string
+  role: CampaignFileRole
 }
 
 export enum CampaignState {
@@ -64,7 +65,7 @@ export type CampaignResponse = {
     id: UUID
     person: { id: UUID; firstName: string; lastName: string }
   }
-  campaignFiles: CampaignFile[]
+  campaignFiles?: CampaignFile[]
 }
 
 export type CampaignFormData = {
