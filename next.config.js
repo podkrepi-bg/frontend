@@ -47,7 +47,7 @@ const moduleExports = {
     },
   },
   images: {
-    domains: [process.env.API_HOST || 'localhost'],
+    domains: [process.env.IMAGE_HOST || 'localhost'],
   },
   swcMinify: true,
 }

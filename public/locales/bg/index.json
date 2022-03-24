@@ -51,5 +51,9 @@
     "goals-title": "Цели",
     "goals-text-trust": "- Да върнем доверието в дарителството.",
     "goals-text-open-source": "- Да създадем open-source платформа, което намалява шансовете за злоупотреба."
+  },
+  "campaign": {
+    "see-all": "Виж всички",
+    "emergency-causes":"Спешни каузи"
   }
 }

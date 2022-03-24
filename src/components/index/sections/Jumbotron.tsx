@@ -99,6 +99,7 @@ export default function Jumbotron() {
         layout="fill"
         objectFit="cover"
         className={classes.image}
+        priority
       />
       <Grid item>
         <Typography variant="h1" className={classes.title}>

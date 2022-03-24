@@ -1,32 +1,32 @@
 {
-    "form-heading": "Добави нов запис",
-    "edit-form-heading": "Редактирай",
-    "all": "Всички",
-    "type": "extCustomerId",
-    "benefactor": "benefactor",
-    "customerId": "CustomerId",
-    "personId": "PersonId",
-    "description": "Описание",
-    "deleteTitle": "Сигурни ли сте?",
-    "deleteContent": "Това действие ще изтрие елемента завинаги!",
-    "deleteAllContent": "Това действие ще изтрие избраните елементи завинаги!",
-    "actions": "Действия",
-    "alerts": {
-        "selectRow": "Моля изберете ред",
-        "create": "Записът беше създаден успешно!",
-        "edit": "Записът беше редактиран успешно!",
-        "delete": "Записът беше изтрит успешно!",
-        "deleteAll": "Записите бяха изтрити успешно!",
-        "error": "Възникна грешка! Моля опитайте отново по-късно."
-    },
-    "cta": {
-        "add": "Добави",
-        "confirm": "Потвърди",
-        "cancel": "Отказ",
-        "delete": "Изтрий",
-        "deleteSelected": "Изтрий избраните редове",
-        "edit": "Редактирай",
-        "details": "Детайли",
-        "submit": "Изпрати"
-    }
+  "form-heading": "Добави нов запис",
+  "edit-form-heading": "Редактирай",
+  "all": "Всички",
+  "type": "extCustomerId",
+  "benefactor": "benefactor",
+  "customerId": "CustomerId",
+  "personId": "PersonId",
+  "description": "Описание",
+  "deleteTitle": "Сигурни ли сте?",
+  "deleteContent": "Това действие ще изтрие елемента завинаги!",
+  "deleteAllContent": "Това действие ще изтрие избраните елементи завинаги!",
+  "actions": "Действия",
+  "alerts": {
+    "selectRow": "Моля изберете ред",
+    "create": "Записът беше създаден успешно!",
+    "edit": "Записът беше редактиран успешно!",
+    "delete": "Записът беше изтрит успешно!",
+    "deleteAll": "Записите бяха изтрити успешно!",
+    "error": "Възникна грешка! Моля опитайте отново по-късно."
+  },
+  "cta": {
+    "add": "Добави",
+    "confirm": "Потвърди",
+    "cancel": "Отказ",
+    "delete": "Изтрий",
+    "deleteSelected": "Изтрий избраните редове",
+    "edit": "Редактирай",
+    "details": "Детайли",
+    "submit": "Изпрати"
+  }
 }

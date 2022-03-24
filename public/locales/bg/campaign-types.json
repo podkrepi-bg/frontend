@@ -4,7 +4,7 @@
     "name": "Име",
     "category": "Категория",
     "description": "Описание",
-    "no-parent":"Няма категория",
+    "no-parent": "Няма категория",
     "no-description": "Няма описание"
   },
   "cta": {

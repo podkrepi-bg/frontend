@@ -51,5 +51,9 @@
     "goals-title": "Goals",
     "goals-text-trust": "- To restore trust in donation.",
     "goals-text-open-source": "- To create an open-source platform which reduces the chances of misuse."
+  },
+  "campaign": {
+    "see-all": "See all",
+    "emergency-causes":"Emergency causes"
   }
 }
