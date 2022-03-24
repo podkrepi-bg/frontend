@@ -23,7 +23,7 @@ export default function SubMenu() {
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <Link passHref href="/bootcamp">
+          <Link passHref href="/bootcamp-simeon">
             <ListItemButton sx={{ pl: 4 }}>
               <ListItemIcon>
                 <StarBorder />
