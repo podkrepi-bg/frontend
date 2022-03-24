@@ -97,6 +97,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   const [coordinator, setCoordinator] = useState<PersonFormData>()
   const [beneficiary, setBeneficiary] = useState<PersonFormData>()
   const [files, setFiles] = useState<File[]>([])
+  const [filesRole, setFilesRole] = useState<{ file: string; role: string }[]>([])
 
   const mutation = useMutation<
     AxiosResponse<CampaignResponse>,
@@ -247,9 +248,13 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
             />
             <FileList
               files={files}
+              filesRole={filesRole}
               onDelete={(deletedFile) =>
                 setFiles((prevFiles) => prevFiles.filter((file) => file.name !== deletedFile.name))
               }
+              onSetFileRole={(file: File, role: string) => {
+                setFilesRole((filesRole) => [...filesRole, { file: file.name, role }])
+              }}
             />
           </Grid>
           <Grid item xs={12}>
