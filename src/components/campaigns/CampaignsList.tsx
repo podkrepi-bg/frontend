@@ -1,14 +1,14 @@
 import Image from 'next/image'
-import { Box, CircularProgress, Grid, useMediaQuery } from '@mui/material'
+import { Box, CircularProgress, Grid } from '@mui/material'
 
 import { CampaignResponse } from 'gql/campaigns'
-import { useCampaignList } from 'common/hooks/campaigns'
+import useMobile from 'common/hooks/useMobile'
 
 import CampaignCard from './CampaignCard'
 
 type Props = { campaignToShow: CampaignResponse[] }
 export default function CampaignsList({ campaignToShow }: Props) {
-  const mobile = useMediaQuery('(max-width:900px)')
+  const { mobile } = useMobile()
 
   return (
     <Grid container justifyContent="center" spacing={2}>
@@ -21,11 +21,13 @@ export default function CampaignsList({ campaignToShow }: Props) {
           </Box>
         </Grid>
       ))}
-      {mobile ? (
-        <Image src="/img/ArtboardRotate.png" width={250} height={400} />
-      ) : (
-        <Image src="/img/Artboard.png" width={813} height={358} />
-      )}
+      <Box sx={{ my: 10 }}>
+        {mobile ? (
+          <Image src="/img/ArtboardRotate.png" width={250} height={400} />
+        ) : (
+          <Image src="/img/Artboard.png" width={813} height={358} />
+        )}
+      </Box>
     </Grid>
   )
 }
