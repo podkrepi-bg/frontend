@@ -18,7 +18,6 @@ import Avatar from '@mui/material/Avatar'
 import StarIcon from '@mui/icons-material/Star'
 import React from 'react'
 import { useUserDonations } from 'common/hooks/donation'
-import VisibilityIcon from '@mui/icons-material/Visibility'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 const useStyles = makeStyles({
   h3: {
