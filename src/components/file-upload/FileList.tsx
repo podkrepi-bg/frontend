@@ -50,7 +50,7 @@ function FileList({ files, onDelete, onSetFileRole, filesRole = [] }: NewType) {
               labelId="choose-type-label"
               id="choose-type"
               value={(filesRole.find((f) => f.file === file.name)?.role as string) || 'background'}
-              label="Type"
+              label="Избери тип"
               onChange={setFileRole(file)}>
               <MenuItem value="background">background</MenuItem>
               <MenuItem value="coordinator">coordinator</MenuItem>
