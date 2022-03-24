@@ -30,7 +30,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
   overflowX: 'hidden',
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(8)} + 4px)`,
+    width: `calc(${theme.spacing(5)} + 4px)`,
   },
 })
 
@@ -85,33 +85,6 @@ function BootcampDrawer(props: Props) {
             <ListItemIcon>
               <SaveAsRoundedIcon />
               <ListItemText primary="Drafs" />
-            </ListItemIcon>
-          </ListItem>
-          <ListItem button key="Dashboard">
-            <ListItemIcon>
-              <DashboardRoundedIcon />
-              <ListItemText primary="Dashboard" />
-            </ListItemIcon>
-          </ListItem>
-        </List>
-        <Divider />
-        <List>
-          <ListItem button key="All mail">
-            <ListItemIcon>
-              <AllInboxRoundedIcon />
-              <ListItemText primary="All mail" />
-            </ListItemIcon>
-          </ListItem>
-          <ListItem button key="Trash">
-            <ListItemIcon>
-              <DeleteOutlineRoundedIcon />
-              <ListItemText primary="Trash" />
-            </ListItemIcon>
-          </ListItem>
-          <ListItem button key="Spam">
-            <ListItemIcon>
-              <CancelScheduleSendRoundedIcon />
-              <ListItemText primary="Spam" />
             </ListItemIcon>
           </ListItem>
         </List>

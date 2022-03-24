@@ -27,7 +27,7 @@ function Layout({ children }: Props) {
           marginBottom: 10,
         }}>
         <BootcampAppbar open={open} handler={handleDrawerOpenClose} />
-        <BootcampDrawer />
+        <BootcampDrawer open={open} />
         <Box component="main" sx={{ flexGrow: 1 }}>
           {children}
         </Box>
