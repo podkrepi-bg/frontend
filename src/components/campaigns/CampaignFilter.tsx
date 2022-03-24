@@ -1,14 +1,27 @@
-import React, { useEffect, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { IconButton, ImageList, Typography } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
-import { useCampaignList, useCampaignTypesList } from 'common/hooks/campaigns'
-import AddIcon from '@mui/icons-material/Add'
-import SpaIcon from '@mui/icons-material/Spa'
-import BeachAccessIcon from '@mui/icons-material/BeachAccess'
-import FavoriteIcon from '@mui/icons-material/Favorite'
+import { useCampaignList } from 'common/hooks/campaigns'
 import CampaignsList from './CampaignsList'
 import { CampaignResponse } from 'gql/campaigns'
+import { CampaignTypeCategory } from 'components/campaign-types/categories'
+import { useTranslation } from 'next-i18next'
+import {
+  Apartment,
+  Brush,
+  BusAlert,
+  Category,
+  FilterNone,
+  Forest,
+  MedicalServices,
+  Pets,
+  School,
+  SportsTennis,
+  TheaterComedy,
+  VolunteerActivism,
+} from '@mui/icons-material'
+import useMobile from 'common/hooks/useMobile'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -16,6 +29,7 @@ const useStyles = makeStyles(() =>
       display: 'block',
       height: '100px',
       borderRadius: 0,
+      borderBottom: '5px solid transparent',
       '&:active': {
         color: '#4AC3FF',
         borderBottom: '5px solid #4AC3FF',
@@ -37,189 +51,70 @@ const useStyles = makeStyles(() =>
   }),
 )
 
-export default function CampaignsPage() {
+const categories: {
+  [key in CampaignTypeCategory]: { icon?: React.ReactElement }
+} = {
+  medical: { icon: <MedicalServices fontSize="large" /> },
+  charity: { icon: <VolunteerActivism fontSize="large" /> },
+  disasters: { icon: <BusAlert fontSize="large" /> },
+  education: { icon: <School fontSize="large" /> },
+  events: { icon: <TheaterComedy fontSize="large" /> },
+  environment: { icon: <Apartment fontSize="large" /> },
+  sport: { icon: <SportsTennis fontSize="large" /> },
+  art: { icon: <Brush fontSize="large" /> },
+  animals: { icon: <Pets fontSize="large" /> },
+  nature: { icon: <Forest fontSize="large" /> },
+  others: {},
+}
+
+export default function CampaignFilter() {
   const classes = useStyles()
-  const { data: campaignTypes } = useCampaignTypesList()
+  const { t } = useTranslation()
+  const { mobile } = useMobile()
   const { data: campaigns } = useCampaignList()
-  const [campaignType, setCampaignType] = useState('All')
-  const [campaignToShow, setCampaignToShow] = useState<CampaignResponse[]>([])
+  const [selectedCategory, setSelectedCategory] = useState<string | undefined>()
 
-  let healthCareCounter = 0
-  let disastersCounter = 0
-  let othersCounter = 0
-  let charityCounter = 0
-  let eventsCounter = 0
-  let environmentCounter = 0
-  let sportCounter = 0
-  let artCounter = 0
-  let educationCounter = 0
-  let natureAndAnimalsCounter = 0
-
-  campaigns?.map((campaign) => {
-    campaignTypes?.map((type) => {
-      if (campaign.campaignTypeId == type.id) {
-        if (type.category == 'medical') {
-          healthCareCounter++
-        } else if (type.category == 'charity') {
-          charityCounter++
-        } else if (type.category == 'disasters') {
-          disastersCounter++
-        } else if (type.category == 'education') {
-          educationCounter++
-        } else if (type.category == 'events') {
-          eventsCounter++
-        } else if (type.category == 'environment') {
-          environmentCounter++
-        } else if (type.category == 'sport') {
-          sportCounter++
-        } else if (type.category == 'art') {
-          artCounter++
-        } else if (type.category == 'others') {
-          othersCounter++
-        } else if (type.category == 'animals' || type.category == 'nature') {
-          natureAndAnimalsCounter++
+  const campaignToShow = useMemo<CampaignResponse[]>(() => {
+    return (
+      campaigns?.filter((campaign) => {
+        if (selectedCategory) {
+          return campaign.campaignType.category === selectedCategory
         }
-      }
-    })
-  })
-
-  useEffect(() => {
-    if (campaignType == 'All') {
-      const result: Array<CampaignResponse> = []
-      campaigns?.map((campaign) => {
-        campaignTypes?.map((type) => {
-          if (campaign.campaignTypeId == type.id) {
-            result.push(campaign)
-          }
-        })
-        setCampaignToShow(result)
-      })
-    } else if (campaignType == 'Лечение') {
-      const result: Array<CampaignResponse> = []
-      campaigns?.map((campaign) => {
-        campaignTypes?.map((type) => {
-          if (campaign.campaignTypeId == type.id) {
-            if (type.category == 'medical') {
-              result.push(campaign)
-            }
-          }
-        })
-        setCampaignToShow(result)
-      })
-    } else if (campaignType == 'Животни/Природа') {
-      const result: Array<CampaignResponse> = []
-      campaigns?.map((campaign) => {
-        campaignTypes?.map((type) => {
-          if (campaign.campaignTypeId == type.id) {
-            if (type.category == 'nature' || type.category == 'animals') {
-              result.push(campaign)
-            }
-          }
-        })
-        setCampaignToShow(result)
-      })
-    } else if (campaignType == 'Бедствия') {
-      const result: Array<CampaignResponse> = []
-      campaigns?.map((campaign) => {
-        campaignTypes?.map((type) => {
-          if (campaign.campaignTypeId == type.id) {
-            if (type.category == 'disasters') {
-              result.push(campaign)
-            }
-          }
-        })
-        setCampaignToShow(result)
-      })
-    } else if (campaignType == 'Други') {
-      const result: Array<CampaignResponse> = []
-      campaigns?.map((campaign) => {
-        campaignTypes?.map((type) => {
-          if (campaign.campaignTypeId == type.id) {
-            if (type.category == 'others') {
-              result.push(campaign)
-            }
-          }
-        })
-        setCampaignToShow(result)
-      })
-    }
-  }, [campaignType])
+        return campaign
+      }) ?? []
+    )
+  }, [campaigns, selectedCategory])
 
   return (
     <>
       <ImageList
-        sx={{ width: 500, height: '15rem', marginLeft: 35, marginTop: '5rem' }}
-        cols={4}
-        rowHeight={164}>
+        cols={mobile ? 2 : 6}
+        rowHeight={164}
+        sx={{ maxWidth: 'lg', margin: '0 auto', my: 6 }}>
+        {Object.values(CampaignTypeCategory).map((category) => {
+          const count =
+            campaigns?.filter((campaign) => campaign.campaignType.category === category).length ?? 0
+          return (
+            <IconButton
+              key={category}
+              disabled={count === 0}
+              className={classes.filterButtons}
+              onClick={() => setSelectedCategory(category)}>
+              {categories[category].icon ?? <Category fontSize="large" />}
+              <Typography>
+                {t(`campaigns:filters.${category}`)} ({count})
+              </Typography>
+            </IconButton>
+          )
+        })}
         <IconButton
+          disabled={!selectedCategory}
           className={classes.filterButtons}
-          value={'Лечение'}
-          onClick={(e) => setCampaignType(e.currentTarget.value)}>
-          <AddIcon fontSize="large" sx={{ marginBottom: '10%' }} />
-          <Typography>Лечение ({healthCareCounter})</Typography>
-        </IconButton>
-        <IconButton
-          className={classes.filterButtons}
-          value={'Животни/Природа'}
-          onClick={(e) => setCampaignType(e.currentTarget.value)}>
-          <SpaIcon fontSize="large" sx={{ marginBottom: '10%', width: '9rem' }} />
-          <Typography sx={{ marginBottom: '4%' }}>
-            Животни/Природа ({natureAndAnimalsCounter}){' '}
+          onClick={() => setSelectedCategory(undefined)}>
+          <FilterNone fontSize="large" />
+          <Typography>
+            {t(`campaigns:filters.all`)} ({campaigns?.length ?? 0})
           </Typography>
-        </IconButton>
-        <IconButton
-          className={classes.filterButtons}
-          value={'Бедствия'}
-          onClick={(e) => setCampaignType(e.currentTarget.value)}>
-          <BeachAccessIcon fontSize="large" sx={{ marginBottom: '10%' }} />
-          <Typography>Бедствия ({disastersCounter})</Typography>
-        </IconButton>
-        <IconButton
-          className={classes.filterButtons}
-          value={'Други'}
-          onClick={(e) => setCampaignType(e.currentTarget.value)}>
-          <FavoriteIcon fontSize="large" sx={{ marginBottom: '10%' }} />
-          <Typography>Други ({othersCounter})</Typography>
-        </IconButton>
-        <IconButton
-          className={classes.filterButtons}
-          value={'Лечение'}
-          onClick={(e) => setCampaignType(e.currentTarget.value)}>
-          <FavoriteIcon fontSize="large" sx={{ marginBottom: '10%' }} />
-          <Typography>Лечение ({healthCareCounter})</Typography>
-        </IconButton>
-        <IconButton
-          className={classes.filterButtons}
-          value={'Животни/Природа'}
-          onClick={(e) => setCampaignType(e.currentTarget.value)}>
-          <SpaIcon
-            fontSize="large"
-            sx={{
-              transform: 'rotate(-180deg)',
-              marginBottom: '10%',
-              width: '9rem',
-            }}
-          />
-          <Typography sx={{ marginBottom: '4%' }}>
-            Животни/Природа ({natureAndAnimalsCounter})
-          </Typography>
-        </IconButton>
-        <IconButton
-          className={classes.filterButtons}
-          value={'Бедствия'}
-          onClick={(e) => setCampaignType(e.currentTarget.value)}>
-          <BeachAccessIcon
-            fontSize="large"
-            sx={{ transform: 'rotate(90deg)', marginBottom: '10%' }}
-          />
-          <Typography>Бедствия ({disastersCounter})</Typography>
-        </IconButton>
-        <IconButton
-          className={classes.filterButtons}
-          value={'Други'}
-          onClick={(e) => setCampaignType(e.currentTarget.value)}>
-          <AddIcon fontSize="large" sx={{ marginBottom: '10%' }} />
-          <Typography>Други ({othersCounter})</Typography>
         </IconButton>
       </ImageList>
       <CampaignsList campaignToShow={campaignToShow} />

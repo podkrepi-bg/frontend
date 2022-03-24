@@ -7,7 +7,6 @@ import CampaignsPage from 'components/campaigns/CampaignsPage'
 import { keycloakInstance } from 'middleware/auth/keycloak'
 import { prefetchCampaignTypesList } from 'service/campaignTypes'
 
-
 export const getServerSideProps: GetServerSideProps = async (params) => {
   const client = new QueryClient()
   const keycloak = keycloakInstance(params)
