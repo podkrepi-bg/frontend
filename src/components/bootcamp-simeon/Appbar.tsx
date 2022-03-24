@@ -6,6 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import { Box, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material'
 import { AccountCircle } from '@mui/icons-material'
 import { useTranslation } from 'next-i18next'
+import { drawerWidth } from './styles'
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean
@@ -24,7 +25,7 @@ const AppBar = styled(MuiAppBar, { shouldForwardProp: (prop) => prop !== 'open' 
       duration: theme.transitions.duration.leavingScreen,
     }),
     ...(open && {
-      marginLeft: 194,
+      marginLeft: drawerWidth,
       transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
