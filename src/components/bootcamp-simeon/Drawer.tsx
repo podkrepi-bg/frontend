@@ -7,7 +7,7 @@ import * as React from 'react'
 import { Theme, CSSObject, styled } from '@mui/material/styles'
 import MuiDrawer from '@mui/material/Drawer'
 import DrawerHeader from './DrawerHeader'
-import { drawerWidth } from './styles'
+import { drawerWidth, styles } from './styles'
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -27,7 +27,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
   overflowX: 'hidden',
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(5)} + 4px)`,
+    width: `calc(${theme.spacing(7)} + 4px)`,
   },
 })
 
@@ -51,6 +51,8 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 type Props = { open: boolean }
 
 function BootcampDrawer(props: Props) {
+  const classes = styles()
+
   return (
     <>
       <Drawer variant="permanent" open={props.open}>
@@ -62,26 +64,26 @@ function BootcampDrawer(props: Props) {
         <List sx={{ height: '100%', position: 'relative' }}>
           <ListItem button key="Inbox">
             <ListItemIcon>
-              <MoveToInboxRounded />
-              <ListItemText primary="Inbox" />
+              <MoveToInboxRounded className={classes.icon} />
+              <ListItemText primary="Inbox" className={classes.text} />
             </ListItemIcon>
           </ListItem>
           <ListItem button key="Starred">
             <ListItemIcon>
-              <StarRoundedIcon />
-              <ListItemText primary="Starred" />
+              <StarRoundedIcon className={classes.icon} />
+              <ListItemText primary="Starred" className={classes.text} />
             </ListItemIcon>
           </ListItem>
           <ListItem button key="Send mail">
             <ListItemIcon>
-              <EmailRoundedIcon />
-              <ListItemText primary="Send mail" />
+              <EmailRoundedIcon className={classes.icon} />
+              <ListItemText primary="Send mail" className={classes.text} />
             </ListItemIcon>
           </ListItem>
           <ListItem button key="Drafs">
             <ListItemIcon>
-              <SaveAsRoundedIcon />
-              <ListItemText primary="Drafs" />
+              <SaveAsRoundedIcon className={classes.icon} />
+              <ListItemText primary="Drafs" className={classes.text} />
             </ListItemIcon>
           </ListItem>
         </List>
