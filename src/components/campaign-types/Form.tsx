@@ -30,6 +30,7 @@ import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
+import { CampaignTypeCategory } from './categories'
 
 const validationSchema = yup.object().defined().shape({
   name: yup.string().required(),
@@ -46,6 +47,7 @@ export default function Form() {
 
   let initialValues: CampaignTypeFormData = {
     name: '',
+    category: CampaignTypeCategory.others,
     description: '',
     parentId,
   }
@@ -56,6 +58,7 @@ export default function Form() {
 
     initialValues = {
       name: data?.name || '',
+      category: data?.category || '',
       description: data?.description || '',
       parentId: data?.parentId || '',
     }
