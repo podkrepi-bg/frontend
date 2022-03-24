@@ -2,18 +2,15 @@ import { MoveToInboxRounded } from '@mui/icons-material'
 import StarRoundedIcon from '@mui/icons-material/StarRounded'
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded'
 import SaveAsRoundedIcon from '@mui/icons-material/SaveAsRounded'
-import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded'
-import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
-import DeleteOutlineRoundedIcon from '@mui/icons-material/DeleteOutlineRounded'
-import CancelScheduleSendRoundedIcon from '@mui/icons-material/CancelScheduleSendRounded'
-import { Divider, List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material'
+import { List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material'
 import * as React from 'react'
 import { Theme, CSSObject, styled } from '@mui/material/styles'
 import MuiDrawer from '@mui/material/Drawer'
 import DrawerHeader from './DrawerHeader'
+import { drawerWidth } from './styles'
 
 const openedMixin = (theme: Theme): CSSObject => ({
-  width: 194,
+  width: drawerWidth,
   top: '7%',
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
@@ -36,7 +33,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
-    width: 194,
+    width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',
