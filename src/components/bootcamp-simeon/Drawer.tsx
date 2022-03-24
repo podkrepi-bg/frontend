@@ -8,6 +8,7 @@ import { Theme, CSSObject, styled } from '@mui/material/styles'
 import MuiDrawer from '@mui/material/Drawer'
 import DrawerHeader from './DrawerHeader'
 import { drawerWidth, styles } from './styles'
+import SubMenu from './SubMenu'
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
@@ -86,6 +87,7 @@ function BootcampDrawer(props: Props) {
               <ListItemText primary="Drafs" className={classes.text} />
             </ListItemIcon>
           </ListItem>
+          <SubMenu />
         </List>
       </Drawer>
     </>
