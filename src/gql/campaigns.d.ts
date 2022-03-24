@@ -1,5 +1,8 @@
+import { CampaignTypeCategory } from 'components/campaign-types/Categories'
+
 export type CampaignType = {
   id: UUID
+  category: CampaignTypeCategory
   name: string
   slug: string
   parentId: UUID
