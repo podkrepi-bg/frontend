@@ -112,7 +112,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   const fileUploadMutation = useMutation<
     AxiosResponse<CampaignUploadImage[]>,
     AxiosError<ApiErrors>,
-    { files: File[]; id: string }
+    { files: File[]; id: string; filesRole: { file: string; role: string }[] }
   >({
     mutationFn: useUploadCampaignFiles(),
   })
@@ -121,6 +121,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
     values: CampaignFormData,
     { setFieldError, resetForm }: FormikHelpers<CampaignFormData>,
   ) => {
+    console.log(filesRole)
     try {
       const response = await mutation.mutateAsync({
         title: values.title,
@@ -135,7 +136,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
         coordinatorId: values.coordinatorId,
         currency: 'BGN',
       })
-      fileUploadMutation.mutateAsync({ files, id: response.data.id })
+      fileUploadMutation.mutateAsync({ files, id: response.data.id, filesRole })
       resetForm()
       router.push(routes.campaigns.viewCampaignBySlug(response.data.slug))
     } catch (error) {
@@ -243,7 +244,9 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           </Grid>
           <Grid item xs={12}>
             <FileUpload
-              onUpload={(newFiles) => setFiles((prevFiles) => [...prevFiles, ...newFiles])}
+              onUpload={(newFiles) => {
+                setFiles((prevFiles) => [...prevFiles, ...newFiles])
+              }}
               buttonLabel="Добави снимки"
             />
             <FileList

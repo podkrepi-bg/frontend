@@ -19,11 +19,16 @@ export const useCreateCampaign = () => {
 
 export const useUploadCampaignFiles = () => {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  return async (data: { files: File[]; id: string }) => {
+  return async (data: {
+    files: File[]
+    id: string
+    filesRole: { file: string; role: string }[]
+  }) => {
     const formData = new FormData()
     data.files.forEach((file: File) => {
       formData.append('file', file)
     })
+    formData.append('filesRole', JSON.stringify(data.filesRole))
     return await apiClient.post<FormData, AxiosResponse<CampaignUploadImage[]>>(
       endpoints.campaign.uploadFile(data.id).url,
       formData,
