@@ -19,7 +19,7 @@ import {
 } from '@mui/material'
 import { Favorite } from '@mui/icons-material'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import getConfig from 'next/config'
+import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 
 const useStyles = makeStyles((theme) => ({
   media: {
@@ -119,20 +119,15 @@ type Props = { campaign: CampaignResponse }
 export default function CampaignCard({ campaign }: Props) {
   const classes = useStyles()
   const { t } = useTranslation()
-  const { publicRuntimeConfig } = getConfig()
   //const amounts = [20, 50, 100]
   //const [alignment, setAlignment] = React.useState<string | null>('left')
   // const handleAlignment = (event: React.MouseEvent<HTMLElement>, newAlignment: string | null) => {
   //   setAlignment(newAlignment)
   // }
-  const undefinedUrl = publicRuntimeConfig.API_URL + '/api/campaign-file/' + undefined
 
   const target = campaign.targetAmount
   const summary = campaign.summary.find(() => true)
-  const pictureUrl =
-    publicRuntimeConfig.API_URL +
-    '/api/campaign-file/' +
-    campaign.campaignFiles.find((x) => x.role == 'background')?.id
+  const pictureUrl = campaignListPictureUrl(campaign)
   const reached = summary ? summary.reachedAmount : 0
 
   return (
@@ -141,7 +136,7 @@ export default function CampaignCard({ campaign }: Props) {
         <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)}>
           <CardMedia
             className={classes.media}
-            image={pictureUrl == undefinedUrl ? '/podkrepi-icon.svg' : pictureUrl}
+            image={pictureUrl}
             title="campaign image placeholder"
           />
         </Link>

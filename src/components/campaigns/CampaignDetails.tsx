@@ -1,7 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
-import getConfig from 'next/config'
 import { CampaignResponse } from 'gql/campaigns'
 import LatestNews from './LatestNews'
 import CampaignComments from './CampaignComments'
@@ -9,6 +8,7 @@ import CampaignSlider from './CampaignSlider'
 import { Grid, Theme, Typography } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
+import { backgroundCampaignPictureUrl } from 'common/util/campaignImageUrls'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -67,15 +67,8 @@ type Props = {
 export default function CampaignDetails({ campaign }: Props) {
   const classes = useStyles()
   const { t } = useTranslation()
-  const { publicRuntimeConfig } = getConfig()
 
-  const undefinedUrl = publicRuntimeConfig.API_URL + '/api/campaign-file/' + undefined
-  const pictureUrl =
-    publicRuntimeConfig.API_URL +
-    '/api/campaign-file/' +
-    campaign.campaignFiles.find((x) => x.role == 'background')?.id
-
-  const bannerSource = pictureUrl == undefinedUrl ? '/img/campaign-banner.png' : pictureUrl
+  const bannerSource = backgroundCampaignPictureUrl(campaign)
   const beneficiaryAvatarSource = '/img/support-us-image.png'
   const coordinatorAvatarSource = '/img/support-us-image.png'
 
