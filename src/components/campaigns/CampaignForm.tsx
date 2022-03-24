@@ -253,7 +253,10 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
                 setFiles((prevFiles) => prevFiles.filter((file) => file.name !== deletedFile.name))
               }
               onSetFileRole={(file: File, role: string) => {
-                setFilesRole((filesRole) => [...filesRole, { file: file.name, role }])
+                setFilesRole((filesRole) => [
+                  ...filesRole.filter((f) => f.file !== file.name),
+                  { file: file.name, role },
+                ])
               }}
             />
           </Grid>
