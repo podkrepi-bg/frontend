@@ -9,6 +9,7 @@ import {
   Select,
   MenuItem,
   FormControl,
+  InputLabel,
 } from '@mui/material'
 import { SelectChangeEvent } from '@mui/material/Select'
 
@@ -44,13 +45,13 @@ function FileList({ files, onDelete, onSetFileRole, filesRole = [] }: NewType) {
           </ListItemAvatar>
           <ListItemText primary={file.name} />
           <FormControl>
+            <InputLabel id="demo-simple-select-label">Избери тип</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
-              value={(filesRole.find((f) => f.file === file.name)?.role as string) || ''}
+              value={(filesRole.find((f) => f.file === file.name)?.role as string) || 'background'}
               label="Type"
               onChange={setFileRole(file)}>
-              <MenuItem value="">Избери тип</MenuItem>
               <MenuItem value="background">background</MenuItem>
               <MenuItem value="coordinator">coordinator</MenuItem>
               <MenuItem value="campaignPhoto">campaignPhoto</MenuItem>
