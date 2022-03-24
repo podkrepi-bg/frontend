@@ -6,6 +6,15 @@ export type CampaignType = {
   description: string
 }
 
+export type CampaignFile = {
+  id: UUID
+  filename: string
+  mimetype: string
+  campaignId: UUID
+  uploadedById: UUID
+  role: string
+}
+
 export enum CampaignState {
   initial,
   draft,
@@ -48,6 +57,7 @@ export type CampaignResponse = {
     id: UUID
     person: { id: UUID; firstName: string; lastName: string }
   }
+  campaignFiles: CampaignFile[]
 }
 
 export type CampaignFormData = {
