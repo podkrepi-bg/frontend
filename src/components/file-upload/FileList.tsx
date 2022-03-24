@@ -45,10 +45,10 @@ function FileList({ files, onDelete, onSetFileRole, filesRole = [] }: NewType) {
           </ListItemAvatar>
           <ListItemText primary={file.name} />
           <FormControl>
-            <InputLabel id="demo-simple-select-label">Избери тип</InputLabel>
+            <InputLabel id="choose-type-label">Избери тип</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
+              labelId="choose-type-label"
+              id="choose-type"
               value={(filesRole.find((f) => f.file === file.name)?.role as string) || 'background'}
               label="Type"
               onChange={setFileRole(file)}>
