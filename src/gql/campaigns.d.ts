@@ -1,4 +1,4 @@
-import { CampaignTypeCategory } from 'components/campaign-types/Categories'
+import type { CampaignTypeCategory } from 'components/campaign-types/categories'
 
 export type CampaignType = {
   id: UUID
@@ -32,6 +32,10 @@ export type CampaignResponse = {
   coordinatorId: UUID
   beneficiaryId: UUID
   campaignTypeId: UUID
+  campaignType: {
+    name: string
+    category: CampaignTypeCategory
+  }
   description: string
   targetAmount: number
   summary: { reachedAmount: number }[]

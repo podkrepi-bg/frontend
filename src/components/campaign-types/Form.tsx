@@ -30,7 +30,7 @@ import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
-import { CampaignTypeCategory } from './Categories'
+import { CampaignTypeCategory } from './categories'
 
 const validationSchema = yup.object().defined().shape({
   name: yup.string().required(),
