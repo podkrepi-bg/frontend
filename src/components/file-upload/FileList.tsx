@@ -1,5 +1,14 @@
 import { Delete, UploadFile } from '@mui/icons-material'
-import { Avatar, IconButton, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material'
+import {
+  Avatar,
+  IconButton,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Select,
+  MenuItem,
+} from '@mui/material'
 
 type NewType = {
   files: File[]
@@ -23,6 +32,14 @@ function FileList({ files, onDelete }: NewType) {
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary={file.name} />
+          <Select>
+            <MenuItem>Избери тип</MenuItem>
+            <MenuItem>background</MenuItem>
+            <MenuItem>coordinator</MenuItem>
+            <MenuItem>campaignPhoto</MenuItem>
+            <MenuItem>invoice</MenuItem>
+            <MenuItem>document</MenuItem>
+          </Select>
         </ListItem>
       ))}
     </List>
