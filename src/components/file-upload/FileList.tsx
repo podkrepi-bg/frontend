@@ -8,14 +8,25 @@ import {
   ListItemText,
   Select,
   MenuItem,
+  FormControl,
 } from '@mui/material'
+import { SelectChangeEvent } from '@mui/material/Select'
+
+import React from 'react'
 
 type NewType = {
   files: File[]
   onDelete?: (file: File) => void
+  onSetFileRole: (file: File, role: string) => void
+  filesRole: { file: string; role: string }[]
 }
 
-function FileList({ files, onDelete }: NewType) {
+function FileList({ files, onDelete, onSetFileRole, filesRole = [] }: NewType) {
+  const setFileRole = (file: File) => {
+    return (event: SelectChangeEvent) => {
+      onSetFileRole(file, event.target.value as string)
+    }
+  }
   return (
     <List dense>
       {files.map((file, key) => (
@@ -32,14 +43,21 @@ function FileList({ files, onDelete }: NewType) {
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary={file.name} />
-          <Select>
-            <MenuItem>Избери тип</MenuItem>
-            <MenuItem>background</MenuItem>
-            <MenuItem>coordinator</MenuItem>
-            <MenuItem>campaignPhoto</MenuItem>
-            <MenuItem>invoice</MenuItem>
-            <MenuItem>document</MenuItem>
-          </Select>
+          <FormControl>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={(filesRole.find((f) => f.file === file.name)?.role as string) || ''}
+              label="Type"
+              onChange={setFileRole(file)}>
+              <MenuItem value="">Избери тип</MenuItem>
+              <MenuItem value="background">background</MenuItem>
+              <MenuItem value="coordinator">coordinator</MenuItem>
+              <MenuItem value="campaignPhoto">campaignPhoto</MenuItem>
+              <MenuItem value="invoice">invoice</MenuItem>
+              <MenuItem value="document">document</MenuItem>
+            </Select>
+          </FormControl>
         </ListItem>
       ))}
     </List>
