@@ -90,5 +90,19 @@
     "end-date": "End date:",
     "tag": "Tag:",
     "date": "Date:"
+  },
+  "filters": {
+    "all": "All",
+    "medical": "Medical",
+    "charity": "Charity",
+    "disasters": "Disasters",
+    "education": "Education",
+    "events": "Events",
+    "environment": "Environment",
+    "sport": "Sport",
+    "art": "Art",
+    "animals": "Animals",
+    "nature": "Nature",
+    "others": "Others"
   }
 }
