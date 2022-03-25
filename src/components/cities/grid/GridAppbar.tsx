@@ -2,14 +2,7 @@ import { observer } from 'mobx-react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
-import {
-  Delete as DeleteIcon,
-  Add as AddIcon,
-  Print as PrintIcon,
-  Save as SaveIcon,
-  Share as ShareIcon,
-  EventNote as EventNoteIcon,
-} from '@mui/icons-material'
+import { Delete as DeleteIcon, Add as AddIcon } from '@mui/icons-material'
 
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
