@@ -40,7 +40,6 @@ export const routes = {
     index: '/campaigns',
     create: '/campaigns/create',
     viewCampaignBySlug: (slug: string) => `/campaigns/${slug}`,
-    viewCampaignById: (id: string) => `/campaigns/${id}`,
   },
   profile: '/profile',
   register: '/register',
