@@ -6,11 +6,12 @@ import { useTranslation } from 'next-i18next'
 import { format, parse, isDate } from 'date-fns'
 import { AxiosError, AxiosResponse } from 'axios'
 import { Button, Grid, Typography } from '@mui/material'
+import Link from 'next/link'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 
 import { routes } from 'common/routes'
-import { useCreateCampaign } from 'service/campaign'
+import { useCreateCampaign, useUploadCampaignFiles } from 'service/campaign'
 import { AlertStore } from 'stores/AlertStore'
 import { createSlug } from 'common/util/createSlug'
 
@@ -19,13 +20,20 @@ import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
-import { CampaignResponse, CampaignFormData, CampaignInput } from 'gql/campaigns'
+import {
+  CampaignResponse,
+  CampaignFormData,
+  CampaignInput,
+  CampaignUploadImage,
+} from 'gql/campaigns'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
 import CampaignTypeSelect from '../CampaignTypeSelect'
-import Link from 'next/link'
 import CoordinatorSelect from './CoordinatorSelect'
 import BeneficiarySelect from './BeneficiarySelect'
+import FileUpload from 'components/file-upload/FileUpload'
+import FileList from 'components/file-upload/FileList'
+import { useState } from 'react'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -87,6 +95,7 @@ export type CampaignFormProps = { initialValues?: CampaignFormData }
 export default function CampaignForm({ initialValues = defaults }: CampaignFormProps) {
   const classes = useStyles()
   const router = useRouter()
+  const [files, setFiles] = useState<File[]>([])
   const { t } = useTranslation()
 
   const mutation = useMutation<
@@ -99,12 +108,20 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
 
+  const fileUploadMutation = useMutation<
+    AxiosResponse<CampaignUploadImage[]>,
+    AxiosError<ApiErrors>,
+    { files: File[]; id: string }
+  >({
+    mutationFn: useUploadCampaignFiles(),
+  })
+
   const onSubmit = async (
     values: CampaignFormData,
     { setFieldError }: FormikHelpers<CampaignFormData>,
   ) => {
     try {
-      const data = {
+      const response = await mutation.mutateAsync({
         title: values.title,
         slug: createSlug(values.title),
         description: values.description,
@@ -116,8 +133,8 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
         beneficiaryId: values.beneficiaryId,
         coordinatorId: values.coordinatorId,
         currency: 'BGN',
-      }
-      await mutation.mutateAsync(data)
+      })
+      fileUploadMutation.mutateAsync({ files, id: response.data.id })
       router.push(routes.admin.campaigns.index)
     } catch (error) {
       console.error(error)
@@ -193,6 +210,18 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           </Grid>
           <Grid item xs={12} sm={6}>
             <CoordinatorSelect />
+          </Grid>
+          <Grid item xs={12}>
+            <FileUpload
+              onUpload={(newFiles) => setFiles((prevFiles) => [...prevFiles, ...newFiles])}
+              buttonLabel="Добави снимки"
+            />
+            <FileList
+              files={files}
+              onDelete={(deletedFile) =>
+                setFiles((prevFiles) => prevFiles.filter((file) => file.name !== deletedFile.name))
+              }
+            />
           </Grid>
           <Grid item xs={12}>
             <AcceptTermsField name="terms" />
