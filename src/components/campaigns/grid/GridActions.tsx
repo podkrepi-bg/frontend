@@ -1,49 +1,19 @@
-import React, { Dispatch, SetStateAction } from 'react'
 import Link from 'next/link'
+import React from 'react'
 import { Box, IconButton } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import ShareIcon from '@mui/icons-material/ImportExport'
 
 import { routes } from 'common/routes'
-import { ModalStore } from 'stores/dashboard/ModalStore'
-import { GridRenderCellParams } from '@mui/x-data-grid'
 
 type Props = {
   id: string
-  setSelectedId: Dispatch<SetStateAction<string>>
-  setDetails: Dispatch<
-    SetStateAction<{
-      title: string
-      slug: string
-      description: string
-      targetAmount: number
-      startDate: string
-      endDate: string
-      essence: string
-      campaignTypeId: string
-      beneficiaryId: string
-      coordinatorId: string
-      currency: string
-    }>
-  >
-  cellValues: GridRenderCellParams<unknown, unknown, unknown>
+  onView: () => void
+  onDelete: () => void
 }
 
-export default function GridActions({ id, setSelectedId, setDetails, cellValues }: Props) {
-  const { showDetails, showDelete } = ModalStore
-
-  function detailsClickHandler(cellValues: GridRenderCellParams) {
-    setSelectedId(id)
-    setDetails({ ...cellValues.row })
-    showDetails()
-  }
-
-  function deleteClickHandler() {
-    setSelectedId(id)
-    showDelete()
-  }
-
+export default function GridActions({ id, onView, onDelete }: Props) {
   return (
     <Box
       style={{
@@ -53,7 +23,7 @@ export default function GridActions({ id, setSelectedId, setDetails, cellValues 
         alignItems: 'center',
         justifyContent: 'space-evenly',
       }}>
-      <IconButton size="small" onClick={() => detailsClickHandler(cellValues)}>
+      <IconButton size="small" onClick={onView}>
         <ShareIcon />
       </IconButton>
       <Link href={routes.admin.campaigns.edit(id)} passHref>
@@ -61,7 +31,7 @@ export default function GridActions({ id, setSelectedId, setDetails, cellValues 
           <EditIcon />
         </IconButton>
       </Link>
-      <IconButton size="small" onClick={deleteClickHandler}>
+      <IconButton size="small" onClick={onDelete}>
         <DeleteIcon />
       </IconButton>
     </Box>
