@@ -66,7 +66,7 @@ export default function Grid() {
       ...commonProps,
       width: 350,
       renderCell: (params: GridRenderCellParams) => {
-        return <RenderVaultCell params={params}></RenderVaultCell>
+        return <RenderVaultCell params={params} />
       },
     },
     {
@@ -75,7 +75,7 @@ export default function Grid() {
       ...commonProps,
       width: 350,
       renderCell: (params: GridRenderCellParams) => {
-        return <RenderPersonCell params={params}></RenderPersonCell>
+        return <RenderPersonCell params={params} />
       },
     },
     {
