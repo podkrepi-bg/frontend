@@ -55,5 +55,21 @@
   "campaign": {
     "see-all": "See all",
     "emergency-causes":"Emergency causes"
+  },
+  "how-we-work":{
+    "heading":"How does Pordkprepi.bg work?",
+    "text":"We have built a process of creating campaigns that ensures maximum security for donor funds and at the same time - attention and support to the needs of beneficiaries."
+  },
+  "ready-to-start-campaign-section":{
+    "button":"Create campaign",
+    "text":"Are you ready to start a campaign?"
+  },
+  "what-unites-us-section":{
+    "heading":"What unites us?"
+  },
+  "help-podkrepi-bg-section":{
+    "want-to-help":"I want to help Podkrepi.bg",
+    "text":"To join the team of volunteers, fill in the application form with your details and we will contact you.",
+    "become-volunteer":"Become a volunteer"
   }
 }

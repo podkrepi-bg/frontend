@@ -5,14 +5,13 @@ import { useTranslation } from 'next-i18next'
 import Layout from 'components/layout/Layout'
 
 import Jumbotron from './sections/Jumbotron'
-// import ActivitySection from './sections/ActivitySection'
-import TeamSection from './sections/TeamSection'
-import TeamChartSection from './sections/TeamChartSection'
 import CampaignsSection from './sections/CampaignsSection'
-import MissionVisionGoalsSection from './sections/MissionVisionGoalsSection'
-import SupportUsSection from './sections/SupportUsSection'
+import HowWeWorkSection from './sections/HowWeWorkSection'
+import ReadyToStartCampaignSection from './sections/ReadyToStartCampaignSection'
+import WhatUnitesUsSection from './sections/WhatUnitesUsSection'
 import { RefObject } from 'react-transition-group/node_modules/@types/react'
-import WhatWeDoSection from './sections/WhatWeDoSection'
+import WantToHelpPodkrepiBgSection from './sections/WantToHelpPodkrepiBg'
+import FaqSection from './sections/FaqSection'
 
 export default function IndexPage() {
   const scrollElement = useRef<HTMLAnchorElement>(null)
@@ -28,13 +27,13 @@ export default function IndexPage() {
       <Jumbotron />
       <Container ref={scrollElement as RefObject<HTMLDivElement>} maxWidth="md">
         <CampaignsSection />
-        {/* <ActivitySection /> */}
-        <WhatWeDoSection />
-        <TeamSection />
-        <TeamChartSection />
+        <HowWeWorkSection />
+        <ReadyToStartCampaignSection />
+        <WhatUnitesUsSection />
+        <WantToHelpPodkrepiBgSection />
+        <FaqSection />
+        <ReadyToStartCampaignSection />
       </Container>
-      <MissionVisionGoalsSection />
-      <SupportUsSection />
     </Layout>
   )
 }
