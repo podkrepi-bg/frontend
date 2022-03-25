@@ -1,22 +1,12 @@
 import * as yup from 'yup'
-import { format } from 'date-fns'
 import { FormikHelpers } from 'formik'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
-import { parse, isDate } from 'date-fns'
+import React from 'react'
+import { parse, isDate, format } from 'date-fns'
 import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
-import {
-  Button,
-  FormControl,
-  Grid,
-  InputLabel,
-  Link,
-  MenuItem,
-  Select,
-  Typography,
-} from '@mui/material'
+import { Button, Grid, Link, Typography } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 
@@ -27,15 +17,13 @@ import { useEditCampaign } from 'service/campaign'
 import { createSlug } from 'common/util/createSlug'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
-import { useCoordinatorsList } from 'common/hooks/coordinators'
 import FormTextField from 'components/common/form/FormTextField'
-import { useBeneficiariesListPerson } from 'common/hooks/beneficiary'
-import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import { CampaignResponse, CampaignFormData, CampaignInput } from 'gql/campaigns'
-import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
 import CampaignTypeSelect from '../CampaignTypeSelect'
+import CoordinatorSelect from './CoordinatorSelect'
+import BeneficiarySelect from './BeneficiarySelect'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -47,7 +35,7 @@ const parseDateString = (value: string, originalValue: string) => {
   return parsedDate
 }
 
-const validationSchema: yup.SchemaOf<CampaignFormData> = yup
+const validationSchema: yup.SchemaOf<EditFormData> = yup
   .object()
   .defined()
   .shape({
@@ -62,8 +50,6 @@ const validationSchema: yup.SchemaOf<CampaignFormData> = yup
       .date()
       .transform(parseDateString)
       .min(yup.ref('startDate'), `end date can't be before start date`),
-    terms: yup.bool().required().oneOf([true], 'validation:terms-of-use'),
-    gdpr: yup.bool().required().oneOf([true], 'validation:terms-of-service'),
   })
 
 const useStyles = makeStyles((theme) =>
@@ -79,32 +65,22 @@ const useStyles = makeStyles((theme) =>
   }),
 )
 
-export type CampaignFormProps = { initialValues?: CampaignFormData }
+type EditFormData = Omit<CampaignFormData, 'gdpr' | 'terms'>
 
 export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
   const classes = useStyles()
   const router = useRouter()
   const { t } = useTranslation()
 
-  const { data: coordinators } = useCoordinatorsList()
-  const { data: beneficiaries } = useBeneficiariesListPerson()
-  const [coordinatorId, setCoordinatorId] = useState<string>(campaign?.coordinatorId)
-  const [beneficiaryId, setBeneficiaryId] = useState<string>(campaign?.beneficiaryId)
-
-  const initialValues: CampaignFormData = {
+  const initialValues: EditFormData = {
     title: campaign?.title || '',
-    coordinatorId: coordinatorId,
-    campaignTypeId: campaign?.campaignTypeId,
-    beneficiaryId: beneficiaryId,
-    targetAmount: campaign?.targetAmount || 0,
-    startDate: format(new Date(String(campaign?.startDate)), formatString),
-    endDate: format(
-      new Date(String(campaign?.endDate)).setMonth(new Date().getMonth() + 1),
-      formatString,
-    ),
-    description: campaign?.description || '',
-    terms: true,
-    gdpr: true,
+    coordinatorId: campaign.coordinatorId,
+    campaignTypeId: campaign.campaignTypeId,
+    beneficiaryId: campaign.beneficiaryId,
+    targetAmount: campaign.targetAmount || 0,
+    startDate: format(new Date(campaign.startDate ?? new Date()), formatString),
+    endDate: format(new Date(campaign.endDate ?? new Date()), formatString),
+    description: campaign.description || '',
   }
 
   const mutation = useMutation<
@@ -117,12 +93,9 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
 
-  const onSubmit = async (
-    values: CampaignFormData,
-    { setFieldError }: FormikHelpers<CampaignFormData>,
-  ) => {
+  const onSubmit = async (values: EditFormData, { setFieldError }: FormikHelpers<EditFormData>) => {
     try {
-      const data = {
+      await mutation.mutateAsync({
         title: values.title,
         slug: createSlug(values.title),
         description: values.description,
@@ -131,11 +104,10 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
         endDate: values.endDate,
         essence: campaign.essence,
         campaignTypeId: values.campaignTypeId,
-        beneficiaryId: beneficiaryId,
-        coordinatorId: coordinatorId,
+        beneficiaryId: values.beneficiaryId,
+        coordinatorId: values.coordinatorId,
         currency: Currency.BGN,
-      }
-      await mutation.mutateAsync(data)
+      })
       router.push(routes.admin.campaigns.index)
     } catch (error) {
       console.error(error)
@@ -152,10 +124,10 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
     <Grid container direction="column" component="section">
       <Grid item xs={12}>
         <Typography variant="h5" component="h2" className={classes.heading}>
-          {t('campaigns:form-heading')}
+          {t('campaigns:edit-form-heading')}
         </Typography>
       </Grid>
-      <GenericForm
+      <GenericForm<EditFormData>
         onSubmit={onSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}>
@@ -206,52 +178,11 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
               className={classes.message}
             />
           </Grid>
-
           <Grid item xs={12} sm={6}>
-            <FormControl fullWidth size="small" variant="outlined">
-              <InputLabel>{t('Кординатор')}</InputLabel>
-              <Select
-                fullWidth
-                label={t('Кординатор')}
-                id="coordinatorId"
-                name="coordinatorId"
-                value={coordinatorId}
-                onChange={(event) => setCoordinatorId(event.target.value)}>
-                <MenuItem value="" disabled>
-                  {t('Кординатор')}
-                </MenuItem>
-                {coordinators?.map((coordinator, index) => (
-                  <MenuItem key={index} value={coordinator.id}>
-                    {coordinator.person.firstName}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <CoordinatorSelect />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <FormControl fullWidth size="small" variant="outlined">
-              <InputLabel>{t('Бенефициент')}</InputLabel>
-              <Select
-                fullWidth
-                label={t('Бенефициент')}
-                id="beneficiaryId"
-                name="beneficiaryId"
-                value={beneficiaryId}
-                onChange={(event) => setBeneficiaryId(event.target.value)}>
-                <MenuItem value="" disabled>
-                  {t('Бенефициент')}
-                </MenuItem>
-                {beneficiaries?.map((beneficiary, index) => (
-                  <MenuItem key={index} value={beneficiary.id}>
-                    {beneficiary.person.firstName}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12}>
-            <AcceptTermsField name="terms" />
-            <AcceptPrivacyPolicyField name="gdpr" />
+            <BeneficiarySelect />
           </Grid>
           <Grid item xs={12}>
             <SubmitButton fullWidth label="campaigns:cta.submit" loading={mutation.isLoading} />

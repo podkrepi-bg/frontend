@@ -12,7 +12,10 @@ export function useBeneficiariesList() {
 }
 
 export function useBeneficiariesListPerson() {
-  return useQuery<BeneficiaryResponse[]>(endpoints.beneficiary.listBeneficiary.url)
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return useQuery<BeneficiaryResponse[]>(endpoints.beneficiary.listBeneficiary.url, {
+    queryFn: authQueryFnFactory(keycloak?.token),
+  })
 }
 
 export function useViewBeneficiary(slug: string) {
