@@ -4,7 +4,7 @@ import { useBeneficiariesListPerson } from 'common/hooks/beneficiary'
 import { useField } from 'formik'
 import { useTranslation } from 'react-i18next'
 
-export default function CoordinatorSelect({ name = 'beneficiaryId' }) {
+export default function BeneficiarySelect({ name = 'beneficiaryId' }) {
   const { t } = useTranslation()
   const { data } = useBeneficiariesListPerson()
   const [field, meta] = useField(name)
@@ -23,7 +23,7 @@ export default function CoordinatorSelect({ name = 'beneficiaryId' }) {
         </MenuItem>
         {data?.map((beneficiary, index) => (
           <MenuItem key={index} value={beneficiary.id}>
-            {beneficiary.person.firstName}
+            {beneficiary.person.firstName} {beneficiary.person.lastName}
           </MenuItem>
         ))}
       </Select>

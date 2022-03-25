@@ -13,12 +13,11 @@ import EditForm from './EditForm'
 export default function EditPage() {
   const { query } = useRouter()
   const { data: campaign }: UseQueryResult<CampaignResponse> = useViewCampaignById(String(query.id))
-  if (!campaign) return <NotFoundIllustration />
   return (
     <AdminLayout>
       <AdminContainer title={'Кампании'}>
         <Container maxWidth="md" sx={{ py: 5 }}>
-          <EditForm campaign={campaign} />
+          {campaign ? <EditForm campaign={campaign} /> : <NotFoundIllustration />}
         </Container>
       </AdminContainer>
     </AdminLayout>

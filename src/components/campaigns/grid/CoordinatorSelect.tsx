@@ -23,7 +23,7 @@ export default function CoordinatorSelect({ name = 'coordinatorId' }) {
         </MenuItem>
         {data?.map((coordinator, index) => (
           <MenuItem key={index} value={coordinator.id}>
-            {coordinator.person.firstName}
+            {coordinator.person.firstName} {coordinator.person.lastName}
           </MenuItem>
         ))}
       </Select>
