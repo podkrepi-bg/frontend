@@ -12,7 +12,6 @@ import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 import { useRouter } from 'next/router'
 import { routes } from 'common/routes'
-import { CampaignResponse } from 'gql/campaigns'
 
 type Props = {
   id: string
@@ -27,11 +26,7 @@ export default observer(function DeleteModal({ id, setSelectedId }: Props) {
 
   const mutationFn = useDeleteCampaignById(id)
 
-  const deleteMutation = useMutation<
-    AxiosResponse<CampaignResponse>,
-    AxiosError<ApiErrors>,
-    string
-  >({
+  const deleteMutation = useMutation<AxiosResponse<null>, AxiosError<ApiErrors>, string>({
     mutationFn,
     onError: () => AlertStore.show(t('campaigns:alerts:error'), 'error'),
     onSuccess: () => {

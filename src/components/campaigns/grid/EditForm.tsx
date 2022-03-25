@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
 import * as yup from 'yup'
-import { useRouter } from 'next/router'
+import { format } from 'date-fns'
 import { FormikHelpers } from 'formik'
-import { useMutation, UseQueryResult } from 'react-query'
-import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
+import React, { useState } from 'react'
 import { parse, isDate } from 'date-fns'
+import { useMutation } from 'react-query'
+import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import {
   Button,
@@ -20,22 +21,21 @@ import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 
 import { routes } from 'common/routes'
-import { useEditCampaign } from 'service/campaign'
+import { Currency } from 'gql/currency'
 import { AlertStore } from 'stores/AlertStore'
+import { useEditCampaign } from 'service/campaign'
 import { createSlug } from 'common/util/createSlug'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
+import { useCoordinatorsList } from 'common/hooks/coordinators'
 import FormTextField from 'components/common/form/FormTextField'
+import { useBeneficiariesListPerson } from 'common/hooks/beneficiary'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import { CampaignResponse, CampaignFormData, CampaignInput } from 'gql/campaigns'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
-import { format } from 'date-fns'
 import CampaignTypeSelect from '../CampaignTypeSelect'
-import { useViewCampaignById } from 'common/hooks/campaigns'
-import { useCoordinatorsList } from 'common/hooks/coordinators'
-import { useBeneficiariesListPerson } from 'common/hooks/beneficiary'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -81,14 +81,13 @@ const useStyles = makeStyles((theme) =>
 
 export type CampaignFormProps = { initialValues?: CampaignFormData }
 
-export default function CampaignForm() {
+export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
   const classes = useStyles()
-  const { t } = useTranslation()
   const router = useRouter()
-  const id = router.query.id
+  const { t } = useTranslation()
+
   const { data: coordinators } = useCoordinatorsList()
   const { data: beneficiaries } = useBeneficiariesListPerson()
-  const { data: campaign }: UseQueryResult<CampaignResponse> = useViewCampaignById(String(id))
   const [coordinatorId, setCoordinatorId] = useState<string>(campaign?.coordinatorId)
   const [beneficiaryId, setBeneficiaryId] = useState<string>(campaign?.beneficiaryId)
 
@@ -113,7 +112,7 @@ export default function CampaignForm() {
     AxiosError<ApiErrors>,
     CampaignInput
   >({
-    mutationFn: useEditCampaign(String(id)),
+    mutationFn: useEditCampaign(campaign.id),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
@@ -130,11 +129,11 @@ export default function CampaignForm() {
         targetAmount: values.targetAmount,
         startDate: values.startDate,
         endDate: values.endDate,
-        essence: campaign!.essence,
+        essence: campaign.essence,
         campaignTypeId: values.campaignTypeId,
         beneficiaryId: beneficiaryId,
         coordinatorId: coordinatorId,
-        currency: 'BGN',
+        currency: Currency.BGN,
       }
       await mutation.mutateAsync(data)
       router.push(routes.admin.campaigns.index)
