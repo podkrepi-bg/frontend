@@ -96,20 +96,6 @@ export type CampaignInput = {
   endDate: Date | string | undefined
 }
 
-export type CampaignEdit = {
-  title: string
-  slug: string
-  description: string
-  essence: string
-  campaignTypeId: UUID
-  beneficiaryId: UUID
-  coordinatorId: UUID
-  targetAmount: number
-  currency: string
-  startDate: Date | string
-  endDate: Date | string
-}
-
 export type CampaignUploadImage = {
   title: string
 }
