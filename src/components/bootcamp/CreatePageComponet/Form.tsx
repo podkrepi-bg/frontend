@@ -1,6 +1,7 @@
 import Container from '@mui/material/Container'
 import Button from '@mui/material/Button'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 import data from '../data'
 import GenericForm from '../../common/form/GenericForm'
@@ -9,10 +10,12 @@ import { BootcampTypeFormData } from '../../../gql/bootcamp'
 import FormTextField from 'components/common/form/FormTextField'
 
 const Form = () => {
+  const router = useRouter()
+
   function createFormHandler(values: BootcampTypeFormData) {
     console.log(values.firstName, values.lastName, values.city)
     data.push(values)
-    console.log(data)
+    router.push('/bootcamp')
   }
 
   const initialValues: BootcampTypeFormData = {
