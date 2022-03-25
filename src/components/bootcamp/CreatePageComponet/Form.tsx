@@ -33,9 +33,9 @@ const Form = () => {
     .object()
     .defined()
     .shape({
-      firstName: yup.string().required().min(5),
+      firstName: yup.string().required().min(4),
       lastName: yup.string().required().min(4),
-      city: yup.string().required().min(4),
+      city: yup.string().required().min(5),
     })
 
   function createFormHandler(values: BootcampTypeFormData) {
