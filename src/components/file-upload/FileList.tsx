@@ -12,7 +12,7 @@ import {
   InputLabel,
 } from '@mui/material'
 import { SelectChangeEvent } from '@mui/material/Select'
-
+import { CampaignFileRole } from 'components/campaign-file/roles'
 import React from 'react'
 
 type NewType = {
@@ -28,6 +28,13 @@ function FileList({ files, onDelete, onSetFileRole, filesRole = [] }: NewType) {
       onSetFileRole(file, event.target.value as string)
     }
   }
+
+  const menuItems: JSX.Element[] = []
+
+  for (const role in CampaignFileRole) {
+    menuItems.push(<MenuItem value={role}>{role}</MenuItem>)
+  }
+
   return (
     <List dense>
       {files.map((file, key) => (
@@ -49,15 +56,15 @@ function FileList({ files, onDelete, onSetFileRole, filesRole = [] }: NewType) {
             <Select
               labelId="choose-type-label"
               id="choose-type"
-              value={(filesRole.find((f) => f.file === file.name)?.role as string) || 'Избери тип'}
+              value={
+                (filesRole.find((f) => f.file === file.name)?.role as string) ||
+                CampaignFileRole.background
+              }
               label="Избери тип"
               onChange={setFileRole(file)}>
-              <MenuItem value="Избери тип">Избери тип</MenuItem>
-              <MenuItem value="background">background</MenuItem>
-              <MenuItem value="coordinator">coordinator</MenuItem>
-              <MenuItem value="campaignPhoto">campaignPhoto</MenuItem>
-              <MenuItem value="invoice">invoice</MenuItem>
-              <MenuItem value="document">document</MenuItem>
+              {menuItems.map((item) => {
+                return item
+              })}
             </Select>
           </FormControl>
         </ListItem>
