@@ -5,8 +5,8 @@ import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import ShareIcon from '@mui/icons-material/ImportExport'
 
-import { routes } from '../../../common/routes'
-import { ModalStore } from '../../../stores/dashboard/ModalStore'
+import { routes } from 'common/routes'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 import { GridRenderCellParams } from '@mui/x-data-grid'
 
 type Props = {
