@@ -1,4 +1,3 @@
-import { MutationFunction } from 'react-query'
 import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
 import { AxiosResponse } from 'axios'
@@ -29,40 +28,15 @@ export function useEditCampaign(slug: string) {
   }
 }
 
-export const useDeleteCampaign: MutationFunction<AxiosResponse<null>, { id: string }> = async ({
-  id,
-}: {
-  id: string
-}) => {
+export const useDeleteCampaign = async ({ id }: { id: string }) => {
   return await apiClient.delete<null>(endpoints.city.deleteCity(id).url)
 }
 
 export function useDeleteCampaignById(id: string) {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return async () => {
-    return await apiClient.delete<CampaignResponse, AxiosResponse<CampaignResponse>>(
+    return await apiClient.delete<null>(
       endpoints.campaign.deleteCampaign(id).url,
-      authConfig(keycloak?.token),
-    )
-  }
-}
-
-export function useDeleteCampaignBySlug(slug: string) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
-  return async () => {
-    return await apiClient.delete<CampaignResponse, AxiosResponse<CampaignResponse>>(
-      endpoints.campaign.deleteCampaign(slug).url,
-      authConfig(keycloak?.token),
-    )
-  }
-}
-
-export function useDeleteManyCampaigns(idsToDelete: string[]) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
-  return async () => {
-    return await apiClient.post<CampaignResponse, AxiosResponse<CampaignResponse>>(
-      endpoints.campaign.deleteCampaigns.url,
-      idsToDelete,
       authConfig(keycloak?.token),
     )
   }
