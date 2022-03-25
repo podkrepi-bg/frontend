@@ -1,7 +1,13 @@
 import BootcampCreateComponent from 'components/bootcamp/CreatePageComponet'
+import { GetServerSideProps } from 'next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-const CreatePage = () => {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'auth', 'validation'])),
+  },
+})
+
+export default function CreatePage() {
   return <BootcampCreateComponent />
 }
-
-export default CreatePage
