@@ -1,34 +1,35 @@
 import Container from '@mui/material/Container'
 import Button from '@mui/material/Button'
-import TextField from '@mui/material/TextField'
 import Link from 'next/link'
+
 import data from '../data'
+import GenericForm from '../../common/form/GenericForm'
+import SubmitButton from '../../common/form/SubmitButton'
+import { BootcampTypeFormData } from '../../../gql/bootcamp'
+import FormTextField from 'components/common/form/FormTextField'
 
 const Form = () => {
-  function createFormHandler(event) {
-    event.preventDefault()
-    const formData = new FormData(event.currentTarget)
-    const firstName = String(formData.get('firstName'))
-    const lastName = String(formData.get('lastName'))
-    const city = String(formData.get('city'))
-    data.push({
-      firstName: firstName,
-      lastName: lastName,
-      city: city,
-    })
+  function createFormHandler(values: BootcampTypeFormData) {
+    console.log(values.firstName, values.lastName, values.city)
+    data.push(values)
     console.log(data)
-    event.currentTarget.reset()
+  }
+
+  const initialValues: BootcampTypeFormData = {
+    firstName: '',
+    lastName: '',
+    city: '',
   }
 
   return (
     <Container>
-      <form onSubmit={createFormHandler}>
+      <GenericForm onSubmit={createFormHandler} initialValues={initialValues}>
         <Container sx={{ display: 'flex', flexDirection: 'column' }}>
           <Container
             sx={{ display: 'flex', flexDirection: 'column', gap: 3, marginBottom: 3, width: 400 }}>
-            <TextField name="firstName" label="Име" variant="outlined" />
-            <TextField name="lastName" label="Фамилия" variant="outlined" />
-            <TextField name="city" label="Град" variant="outlined" />
+            <FormTextField type="" name="firstName" label="Име" variant="outlined" />
+            <FormTextField type="" name="lastName" label="Фамилия" variant="outlined" />
+            <FormTextField type="" name="city" label="Град" variant="outlined" />
           </Container>
           <Container
             sx={{
@@ -36,15 +37,18 @@ const Form = () => {
               display: 'flex',
               justifyContent: 'center',
             }}>
-            <Button type="submit" sx={{ marginRight: 3 }} variant="contained">
-              Създай
-            </Button>
+            <SubmitButton
+              type="submit"
+              sx={{ marginRight: 3 }}
+              variant="contained"
+              label="създай"
+            />
             <Link href="/bootcamp">
               <Button variant="contained">Затвори</Button>
             </Link>
           </Container>
         </Container>
-      </form>
+      </GenericForm>
     </Container>
   )
 }
