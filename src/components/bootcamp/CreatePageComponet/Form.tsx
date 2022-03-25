@@ -4,12 +4,26 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import * as yup from 'yup'
 
-import data from '../data'
 import GenericForm from '../../common/form/GenericForm'
 import SubmitButton from '../../common/form/SubmitButton'
 import { BootcampTypeFormData } from '../../../gql/bootcamp'
 import FormTextField from 'components/common/form/FormTextField'
 import { useTranslation } from 'next-i18next'
+
+export let data = [
+  {
+    id: '1',
+    firstName: 'Ivan',
+    lastName: 'Ivanov',
+    city: 'Sofia',
+  },
+  {
+    id: '2',
+    firstName: 'Petq',
+    lastName: 'Petrova',
+    city: 'Gorna Banq',
+  },
+]
 
 const Form = () => {
   const router = useRouter()
@@ -25,12 +39,20 @@ const Form = () => {
     })
 
   function createFormHandler(values: BootcampTypeFormData) {
-    console.log(values.firstName, values.lastName, values.city)
-    data.push(values)
-    router.push('/bootcamp')
+    const newId = String(Number(data[data.length - 1].id) + 1)
+    values.id = newId
+    const personData = values
+
+    try {
+      data = [...data, personData]
+      router.push('/bootcamp')
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const initialValues: BootcampTypeFormData = {
+    id: '',
     firstName: '',
     lastName: '',
     city: '',
