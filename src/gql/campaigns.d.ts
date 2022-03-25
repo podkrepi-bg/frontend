@@ -1,9 +1,22 @@
+import type { CampaignFileRole } from 'components/campaign-file/roles'
+import type { CampaignTypeCategory } from 'components/campaign-types/categories'
+
 export type CampaignType = {
   id: UUID
+  category: CampaignTypeCategory
   name: string
   slug: string
   parentId: UUID
   description: string
+}
+
+export type CampaignFile = {
+  id: UUID
+  filename: string
+  mimetype: string
+  campaignId: UUID
+  uploadedById: UUID
+  role: CampaignFileRole
 }
 
 export enum CampaignState {
@@ -29,6 +42,10 @@ export type CampaignResponse = {
   coordinatorId: UUID
   beneficiaryId: UUID
   campaignTypeId: UUID
+  campaignType: {
+    name: string
+    category: CampaignTypeCategory
+  }
   description: string
   targetAmount: number
   summary: { reachedAmount: number }[]
@@ -48,6 +65,7 @@ export type CampaignResponse = {
     id: UUID
     person: { id: UUID; firstName: string; lastName: string }
   }
+  campaignFiles?: CampaignFile[]
 }
 
 export type CampaignFormData = {
