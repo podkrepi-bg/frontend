@@ -53,7 +53,10 @@ export const useUploadCampaignFiles = () => {
       endpoints.campaign.uploadFile(data.id).url,
       formData,
       {
-        headers: { ...authConfig(keycloak?.token).headers, 'Content-Type': 'multipart/form-data' },
+        headers: {
+          ...authConfig(keycloak?.token).headers,
+          'Content-Type': 'multipart/form-data',
+        },
       },
     )
   }
