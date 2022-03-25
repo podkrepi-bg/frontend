@@ -18,10 +18,13 @@ export default observer(function DetailsModal() {
     { name: t('status'), value: `${data?.status}` },
     { name: t('currency'), value: `${data?.currency}` },
     { name: t('amount'), value: `${data?.amount}` },
-    { name: t('approvedBy'), value: `${data?.approvedBy.firstName} ${data?.approvedBy.lastName}` },
-    { name: t('bankAccount'), value: `${data?.bankAccount.accountHolderName}` },
-    { name: t('sourceCampaign'), value: `${data?.sourceCampaign.state}` },
-    { name: t('sourceVault'), value: `${data?.sourceVault.name}` },
+    {
+      name: t('approvedBy'),
+      value: `${data?.approvedBy?.firstName} ${data?.approvedBy?.lastName}`,
+    },
+    { name: t('bankAccount'), value: `${data?.bankAccount?.accountHolderName}` },
+    { name: t('sourceCampaign'), value: `${data?.sourceCampaign?.state}` },
+    { name: t('sourceVault'), value: `${data?.sourceVault?.name}` },
   ]
 
   return <DetailsDialog data={dataConverted} />
