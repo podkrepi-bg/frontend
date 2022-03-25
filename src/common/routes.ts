@@ -40,6 +40,7 @@ export const routes = {
     index: '/campaigns',
     create: '/campaigns/create',
     viewCampaignBySlug: (slug: string) => `/campaigns/${slug}`,
+    viewCampaignById: (id: string) => `/campaigns/${id}`,
   },
   profile: '/profile',
   register: '/register',
@@ -62,6 +63,12 @@ export const routes = {
       create: '/admin/cities/create',
       viewCityById: (id: string) => `/admin/cities/details/${id}`,
       editCityById: (id: string) => `/admin/cities/edit/${id}`,
+    },
+    campaigns: {
+      index: '/admin/campaigns',
+      create: '/admin/campaigns/create',
+      viewCampaignBySlug: (slug: string) => `/admin/campaigns/${slug}`,
+      edit: (id: string) => `/admin/campaigns/edit/${id}`,
     },
     withdrawals: {
       index: '/admin/withdrawals',

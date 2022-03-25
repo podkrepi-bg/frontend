@@ -1,3 +1,4 @@
+import { UUID } from './types'
 import type { CampaignFileRole } from 'components/campaign-file/roles'
 import type { CampaignTypeCategory } from 'components/campaign-types/categories'
 
@@ -93,6 +94,20 @@ export type CampaignInput = {
   currency: string
   startDate: Date | string | undefined
   endDate: Date | string | undefined
+}
+
+export type CampaignEdit = {
+  title: string
+  slug: string
+  description: string
+  essence: string
+  campaignTypeId: UUID
+  beneficiaryId: UUID
+  coordinatorId: UUID
+  targetAmount: number
+  currency: string
+  startDate: Date | string
+  endDate: Date | string
 }
 
 export type CampaignUploadImage = {
