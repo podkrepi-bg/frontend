@@ -11,7 +11,7 @@ import {
 } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-import { ModalStore } from '../../../../stores/dashboard/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 
 type Props = {
   modalProps: {
