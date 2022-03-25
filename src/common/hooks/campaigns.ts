@@ -1,10 +1,10 @@
+import { KeycloakInstance } from 'keycloak-js'
 import { QueryClient, useQuery } from 'react-query'
 import { useKeycloak } from '@react-keycloak/ssr'
 
 import { endpoints } from 'service/apiEndpoints'
-import { CampaignResponse, CampaignType, CampaignFormData } from 'gql/campaigns'
 import { authQueryFnFactory } from 'service/restRequests'
-import { KeycloakInstance } from 'keycloak-js'
+import { CampaignResponse, CampaignType } from 'gql/campaigns'
 
 export function useCampaignList() {
   return useQuery<CampaignResponse[]>(endpoints.campaign.listCampaigns.url)
