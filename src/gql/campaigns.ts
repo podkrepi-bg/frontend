@@ -1,3 +1,4 @@
+import { UUID } from './types'
 import type { CampaignFileRole } from 'components/campaign-file/roles'
 import type { CampaignTypeCategory } from 'components/campaign-types/categories'
 
