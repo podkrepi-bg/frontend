@@ -2,21 +2,23 @@ import { GetServerSideProps } from 'next'
 import { dehydrate, QueryClient } from 'react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import EditPage from 'components/donations/EditPage'
-import { prefetchDonationById } from 'common/hooks/donation'
+import EditPage from 'components/campaigns/grid/EditPage'
+import { prefetchCampaignById } from 'common/hooks/campaigns'
+import { keycloakInstance } from 'middleware/auth/keycloak'
 
 export const getServerSideProps: GetServerSideProps = async (params) => {
   const client = new QueryClient()
+  const keycloak = keycloakInstance(params)
   const { id } = params.query
 
-  await prefetchDonationById(client, String(id))
+  await prefetchCampaignById(client, String(id), keycloak.token)
 
   return {
     props: {
       ...(await serverSideTranslations(params.locale ?? 'bg', [
         'common',
         'auth',
-        'donations',
+        'campaigns',
         'validation',
       ])),
       dehydratedState: dehydrate(client),
