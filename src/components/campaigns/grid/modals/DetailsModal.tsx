@@ -1,5 +1,4 @@
 import React from 'react'
-import { observer } from 'mobx-react'
 import {
   Dialog,
   Card,
@@ -8,92 +7,51 @@ import {
   Divider,
   DialogActions,
   Button,
+  DialogTitle,
 } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-import { ModalStore } from 'stores/dashboard/ModalStore'
+import { CampaignResponse } from 'gql/campaigns'
 
 type Props = {
-  modalProps: {
-    title: string
-    slug: string
-    description: string
-    targetAmount: number
-    startDate: string
-    endDate: string
-    essence: string
-    campaignTypeId: string
-    beneficiaryId: string
-    coordinatorId: string
-    currency: string
-  }
+  campaign: CampaignResponse
+  onClose: () => void
 }
 
-export default observer(function DetailsModal({ modalProps }: Props) {
-  const {
-    title,
-    slug,
-    description,
-    targetAmount,
-    startDate,
-    endDate,
-    essence,
-    campaignTypeId,
-    beneficiaryId,
-    coordinatorId,
-    currency,
-  } = modalProps
-  const { isDetailsOpen, hideDetails } = ModalStore
+export default function DetailsModal({ campaign, onClose }: Props) {
   const { t } = useTranslation()
 
   return (
-    <Dialog open={isDetailsOpen} onClose={hideDetails}>
+    <Dialog open scroll="body" onClose={onClose}>
+      <DialogTitle>{t('Детайли на кампанията')}</DialogTitle>
       <Card>
-        <CardContent>
-          <Typography variant="h5" align="center">
-            {t('Детайли на кампанията')}
+        <Divider />
+        <CardContent sx={{ p: 3 }}>
+          <Typography variant="body1">
+            {t('Заглавие')}: {campaign.title}
           </Typography>
-          <Divider />
-          <Typography variant="body1" sx={{ fontSize: 24, marginTop: '8px' }}>
-            {t('Заглавие')}: {title}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            Слъг: {slug}
-          </Typography>
-          {/* <Typography variant="body1" sx={{ fontSize: 24 }}>
-            Описание: {description}
-          </Typography> */}
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            Целева сума: {targetAmount}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            Стартова дата: {startDate}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            Крайна Дата: {endDate}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            Същество: {essence}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            Тип на кампанията: {campaignTypeId}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            Бенефициент: {beneficiaryId}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            Кординатор: {coordinatorId}
-          </Typography>
-          <Typography variant="body1" sx={{ fontSize: 24 }}>
-            Валута: {currency}
+          <Typography variant="body1">Слъг: {campaign.slug}</Typography>
+          <Typography variant="body1">Целева сума: {campaign.targetAmount}</Typography>
+          <Typography variant="body1">Стартова дата: {campaign.startDate}</Typography>
+          <Typography variant="body1">Крайна Дата: {campaign.endDate}</Typography>
+          <Typography variant="body1">Същество: {campaign.essence}</Typography>
+          <Typography variant="body1">Тип на кампанията: {campaign.campaignTypeId}</Typography>
+          <Typography variant="body1">Бенефициент: {campaign.beneficiaryId}</Typography>
+          <Typography variant="body1">Кординатор: {campaign.coordinatorId}</Typography>
+          <Typography variant="body1">Валута: {campaign.currency}</Typography>
+          <Typography variant="body1">
+            Описание: {campaign.description}
+            {campaign.description}
+            {campaign.description}
+            {campaign.description}
           </Typography>
         </CardContent>
       </Card>
       <DialogActions>
-        <Button variant="contained" onClick={hideDetails}>
+        <Button variant="contained" onClick={onClose}>
           Затвори
         </Button>
       </DialogActions>
     </Dialog>
   )
-})
+}

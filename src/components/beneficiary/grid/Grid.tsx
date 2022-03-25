@@ -60,7 +60,7 @@ export default function Grid() {
       flex: 1,
       ...commonProps,
       renderCell: (params: GridRenderCellParams) => {
-        return <RenderPersonCell params={params}></RenderPersonCell>
+        return <RenderPersonCell params={params} />
       },
     },
     {
@@ -69,7 +69,7 @@ export default function Grid() {
       flex: 1,
       ...commonProps,
       renderCell: (params: GridRenderCellParams) => {
-        return <RenderCompanyCell params={params}></RenderCompanyCell>
+        return <RenderCompanyCell params={params} />
       },
     },
     {
