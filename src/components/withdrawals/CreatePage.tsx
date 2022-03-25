@@ -13,7 +13,7 @@ export default function CreatePage() {
     <AdminLayout>
       <AdminContainer title={t('withdrawals')}>
         <Container maxWidth="md" sx={{ py: 5 }}>
-          <CreateForm></CreateForm>
+          <CreateForm />
         </Container>
       </AdminContainer>
     </AdminLayout>
