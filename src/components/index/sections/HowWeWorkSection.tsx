@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
     container: {
       marginBottom: theme.spacing(12),
       textAlign: 'center',
+      marginTop: '1%',
     },
     graphic: {
       marginTop: theme.spacing(5),
@@ -26,17 +27,17 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-export default function WhatWeDoSection() {
+export default function HowWeWorkSection() {
   const classes = useStyles()
   const { t, i18n } = useTranslation()
 
   return (
     <Grid container direction="column" component="section" className={classes.container}>
-      <Heading id="what-we-do" variant="h5" component="h2" className={classes.heading} linkable>
-        {t('index:activity-section.heading')}
+      <Heading id="how-we-work" variant="h5" component="h2" className={classes.heading} linkable>
+        {t('index:how-we-work.heading')}
       </Heading>
-      <Grid item>
-        <Typography variant="body2">{t('index:activity-section.content')}</Typography>
+      <Grid item rowSpacing={10}>
+        <Typography variant="body2">{t('index:how-we-work.text')}</Typography>
       </Grid>
       <Grid item className={classes.graphic}>
         <Hidden smUp>
