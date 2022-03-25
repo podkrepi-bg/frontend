@@ -13,7 +13,7 @@
     "see-all": "See all",
     "see-top-10": "See TOP 10",
     "see-more": "See more",
-    "donor":"Donor"
+    "donor": "Donor"
   },
   "campaign": {
     "subheading": "Your support for the world matters. All supporters through Podkrepi.bg are our partners in supporting the community campaign. As a generous benefactor, you become an important partner in supporting a campaign regarding someone's health or the success of a cause that is close to your heart.",
@@ -90,5 +90,19 @@
     "end-date": "End date:",
     "tag": "Tag:",
     "date": "Date:"
+  },
+  "filters": {
+    "all": "All",
+    "medical": "Medical",
+    "charity": "Charity",
+    "disasters": "Disasters",
+    "education": "Education",
+    "events": "Events",
+    "environment": "Environment",
+    "sport": "Sport",
+    "art": "Art",
+    "animals": "Animals",
+    "nature": "Nature",
+    "others": "Others"
   }
 }
