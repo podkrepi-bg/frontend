@@ -17,6 +17,31 @@ export const useCreateCampaign = () => {
     )
 }
 
+export function useEditCampaign(slug: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (data: CampaignInput) => {
+    return await apiClient.patch<CampaignResponse, AxiosResponse<CampaignResponse>>(
+      endpoints.campaign.editCampaign(slug).url,
+      data,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
+export const useDeleteCampaign = async ({ id }: { id: string }) => {
+  return await apiClient.delete<null>(endpoints.city.deleteCity(id).url)
+}
+
+export function useDeleteCampaignById(id: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async () => {
+    return await apiClient.delete<null>(
+      endpoints.campaign.deleteCampaign(id).url,
+      authConfig(keycloak?.token),
+    )
+  }
+}
+
 export const useUploadCampaignFiles = () => {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return async (data: {
@@ -33,7 +58,10 @@ export const useUploadCampaignFiles = () => {
       endpoints.campaign.uploadFile(data.id).url,
       formData,
       {
-        headers: { ...authConfig(keycloak?.token).headers, 'Content-Type': 'multipart/form-data' },
+        headers: {
+          ...authConfig(keycloak?.token).headers,
+          'Content-Type': 'multipart/form-data',
+        },
       },
     )
   }
