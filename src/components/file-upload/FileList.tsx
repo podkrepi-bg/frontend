@@ -29,12 +29,6 @@ function FileList({ files, onDelete, onSetFileRole, filesRole = [] }: NewType) {
     }
   }
 
-  const menuItems: JSX.Element[] = []
-
-  for (const role in CampaignFileRole) {
-    menuItems.push(<MenuItem value={role}>{role}</MenuItem>)
-  }
-
   return (
     <List dense>
       {files.map((file, key) => (
@@ -62,9 +56,11 @@ function FileList({ files, onDelete, onSetFileRole, filesRole = [] }: NewType) {
               }
               label="Избери тип"
               onChange={setFileRole(file)}>
-              {menuItems.map((item) => {
-                return item
-              })}
+              {Object.values(CampaignFileRole).map((role) => (
+                <MenuItem key={role} value={role}>
+                  {role}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </ListItem>
