@@ -1,23 +1,17 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { observer } from 'mobx-react'
-import { DataGrid, GridColumns, GridSelectionModel } from '@mui/x-data-grid'
+import { DataGrid, GridColumns } from '@mui/x-data-grid'
 
 import { useCitiesList } from 'common/hooks/cities'
 import { routes } from 'common/routes'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 import GridActions from 'components/admin/GridActions'
 
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
-import DeleteAllModal from './DeleteAllModal'
 
-export default observer(function CitiesGrid() {
-  const { setSelectedIdsToDelete } = ModalStore
-  const { data = [] } = useCitiesList()
+export default function CitiesGrid() {
+  const { data } = useCitiesList()
   const { t } = useTranslation()
-
-  setSelectedIdsToDelete([])
 
   const columns: GridColumns = [
     { field: 'id', headerName: 'ID', hide: true },
@@ -41,9 +35,7 @@ export default observer(function CitiesGrid() {
       editable: false,
       width: 200,
       flex: 1.5,
-      valueGetter: (c) => {
-        return c.row.countryCode.countryCode
-      },
+      valueGetter: (c) => c.row.countryCode.countryCode,
     },
     {
       field: 'actions',
@@ -81,16 +73,10 @@ export default observer(function CitiesGrid() {
         editMode="row"
         autoHeight
         autoPageSize
-        checkboxSelection
         disableSelectionOnClick
-        onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
-          setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
-        }}
       />
-
       <DetailsModal />
       <DeleteModal />
-      <DeleteAllModal />
     </>
   )
-})
+}

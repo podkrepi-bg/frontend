@@ -1,37 +1,26 @@
 import React, { useState } from 'react'
 import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
-import { observer } from 'mobx-react'
 import { Box } from '@mui/material'
-import {
-  DataGrid,
-  GridColDef,
-  GridColumns,
-  GridRenderCellParams,
-  GridSelectionModel,
-} from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 
+import { routes } from 'common/routes'
+import { useVault } from 'common/hooks/vaults'
+import { useViewPerson } from 'service/person'
 import { DonationResponse } from 'gql/donations'
+import GridActions from 'components/admin/GridActions'
 import { useDonationsList } from 'common/hooks/donation'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 
 import DetailsModal from '../modals/DetailsModal'
 import DeleteModal from '../modals/DeleteModal'
-import DeleteAllModal from '../modals/DeleteAllModal'
-import { useVault } from 'common/hooks/vaults'
-import { useViewPerson } from 'service/person'
-import { routes } from 'common/routes'
-import GridActions from 'components/admin/GridActions'
 
 interface PersonCellProps {
   params: GridRenderCellParams
 }
 
-export default observer(function Grid() {
+export default function Grid() {
   const [pageSize, setPageSize] = useState(5)
   const { t } = useTranslation()
-  const { setSelectedIdsToDelete } = ModalStore
-  setSelectedIdsToDelete([])
 
   const { data }: UseQueryResult<DonationResponse[]> = useDonationsList()
 
@@ -77,7 +66,7 @@ export default observer(function Grid() {
       ...commonProps,
       width: 350,
       renderCell: (params: GridRenderCellParams) => {
-        return <RenderVaultCell params={params}></RenderVaultCell>
+        return <RenderVaultCell params={params} />
       },
     },
     {
@@ -86,7 +75,7 @@ export default observer(function Grid() {
       ...commonProps,
       width: 350,
       renderCell: (params: GridRenderCellParams) => {
-        return <RenderPersonCell params={params}></RenderPersonCell>
+        return <RenderPersonCell params={params} />
       },
     },
     {
@@ -139,16 +128,11 @@ export default observer(function Grid() {
           autoHeight
           autoPageSize
           disableSelectionOnClick
-          checkboxSelection
-          onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
-            setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
-          }}
         />
       </Box>
 
       <DetailsModal />
       <DeleteModal />
-      <DeleteAllModal />
     </>
   )
-})
+}

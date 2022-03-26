@@ -1,27 +1,16 @@
 import React from 'react'
-import { observer } from 'mobx-react'
 import { UseQueryResult } from 'react-query'
-import { GridColumns, DataGrid, GridSelectionModel, GridRenderCellParams } from '@mui/x-data-grid'
+import { GridColumns, DataGrid, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { CoordinatorResponse } from 'gql/coordinators'
 import { useCoordinatorsList } from 'common/hooks/coordinators'
 import GridActions from 'components/admin/GridActions'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 
 import { commonProps } from './CoordinatorsGridHelper'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
-import DeleteAllModal from './DeleteAllModal'
 
-export default observer(function CoordinatorsGrid() {
-  const { setSelectedIdsToDelete } = ModalStore
-
-  setSelectedIdsToDelete([])
-
-  const selectMultipleRows = (newSelectionModel: GridSelectionModel) => {
-    setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
-  }
-
+export default function CoordinatorsGrid() {
   const columns: GridColumns = [
     {
       ...commonProps,
@@ -65,7 +54,6 @@ export default observer(function CoordinatorsGrid() {
     <>
       <DetailsModal />
       <DeleteModal />
-      <DeleteAllModal />
       <DataGrid
         style={{
           background: 'white',
@@ -85,9 +73,7 @@ export default observer(function CoordinatorsGrid() {
         autoHeight
         autoPageSize
         disableSelectionOnClick
-        checkboxSelection
-        onSelectionModelChange={selectMultipleRows}
       />
     </>
   )
-})
+}
