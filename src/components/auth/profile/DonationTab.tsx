@@ -90,13 +90,13 @@ function DonationTab(props: { value: number; index: number }) {
             <p style={{ fontSize: '22px' }}>0.00 лв.</p>
           </Box>
           <p>Към момента няма направени дарения</p>
-          <hr></hr>
+          <hr />
 
           <Box className={classes.donates}>
             <h4 className={classes.thinFont}>Тотал онлайн дарения</h4>
             <p style={{ fontSize: '22px' }}>{data.total.toFixed(2)} лв.</p>
           </Box>
-          <hr></hr>
+          <hr />
         </Box>
         <Box className={classes.donateNowBox}>
           <h3 className={classes.h3}>Бъди промяната</h3>
@@ -183,7 +183,7 @@ function DonationTab(props: { value: number; index: number }) {
                     <TableCell>{formatDateString(donation.createdAt)}</TableCell>
                     <TableCell>
                       <Avatar sx={{ background: '#F6992B' }}>
-                        <StarIcon></StarIcon>
+                        <StarIcon />
                       </Avatar>
                     </TableCell>
                     <TableCell>{donation.targetVault.campaign.title}</TableCell>
@@ -192,7 +192,7 @@ function DonationTab(props: { value: number; index: number }) {
                     </TableCell>
                     <TableCell>
                       <Button variant="outlined">
-                        Свали <ArrowForwardIcon></ArrowForwardIcon>
+                        Свали <ArrowForwardIcon />
                       </Button>
                     </TableCell>
                   </TableRow>

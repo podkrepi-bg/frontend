@@ -130,7 +130,7 @@ function CertificatesTab(props: { value: number; index: number }) {
                     <TableCell>{formatDateString(donation.createdAt)}</TableCell>
                     <TableCell>
                       <Avatar sx={{ background: '#F6992B' }}>
-                        <StarIcon></StarIcon>
+                        <StarIcon />
                       </Avatar>
                     </TableCell>
                     <TableCell>{donation.targetVault.campaign.title}</TableCell>
