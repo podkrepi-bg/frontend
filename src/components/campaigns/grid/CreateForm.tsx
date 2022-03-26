@@ -96,6 +96,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   const classes = useStyles()
   const router = useRouter()
   const [files, setFiles] = useState<File[]>([])
+  const [filesRole, setFilesRole] = useState<{ file: string; role: string }[]>([])
   const { t } = useTranslation()
 
   const mutation = useMutation<
@@ -111,7 +112,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   const fileUploadMutation = useMutation<
     AxiosResponse<CampaignUploadImage[]>,
     AxiosError<ApiErrors>,
-    { files: File[]; id: string }
+    { files: File[]; id: string; filesRole: { file: string; role: string }[] }
   >({
     mutationFn: useUploadCampaignFiles(),
   })
@@ -134,7 +135,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
         coordinatorId: values.coordinatorId,
         currency: 'BGN',
       })
-      fileUploadMutation.mutateAsync({ files, id: response.data.id })
+      fileUploadMutation.mutateAsync({ files, id: response.data.id, filesRole })
       router.push(routes.admin.campaigns.index)
     } catch (error) {
       console.error(error)
@@ -217,10 +218,17 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               buttonLabel="Добави снимки"
             />
             <FileList
+              filesRole={filesRole}
               files={files}
               onDelete={(deletedFile) =>
                 setFiles((prevFiles) => prevFiles.filter((file) => file.name !== deletedFile.name))
               }
+              onSetFileRole={(file: File, role: string) => {
+                setFilesRole((filesRole) => [
+                  ...filesRole.filter((f) => f.file !== file.name),
+                  { file: file.name, role },
+                ])
+              }}
             />
           </Grid>
           <Grid item xs={12}>
