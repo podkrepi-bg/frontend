@@ -1,17 +1,11 @@
-import { observer } from 'mobx-react'
-import { useTranslation } from 'next-i18next'
 import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
 import {
-  Delete as DeleteIcon,
   Add as AddIcon,
   Print as PrintIcon,
   Save as SaveIcon,
   Share as ShareIcon,
   EventNote as EventNoteIcon,
 } from '@mui/icons-material'
-
-import { AlertStore } from 'stores/AlertStore'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 
 const addIconStyles = {
   background: '#4ac3ff',
@@ -28,15 +22,7 @@ const iconStyles = {
   boxShadow: 3,
   mr: 1,
 }
-export default observer(function BottomAppBar() {
-  const { showDeleteAll, selectedIdsToDelete } = ModalStore
-  const { t } = useTranslation()
-  const deleteHandler = () => {
-    selectedIdsToDelete.length > 0
-      ? showDeleteAll()
-      : AlertStore.show(t('common:alerts.noselected'), 'warning')
-  }
-
+export default function SupportersBottomAppBar() {
   return (
     <Toolbar
       sx={{
@@ -54,9 +40,6 @@ export default observer(function BottomAppBar() {
           <Tooltip title="Преглед">
             <EventNoteIcon sx={iconStyles} fontSize="medium" color="action" />
           </Tooltip>
-          <Tooltip title="Изтрий избраните">
-            <DeleteIcon onClick={deleteHandler} sx={iconStyles} fontSize="medium" color="action" />
-          </Tooltip>
           <Tooltip title="Запази">
             <SaveIcon sx={iconStyles} fontSize="medium" color="action" />
           </Tooltip>
@@ -73,4 +56,4 @@ export default observer(function BottomAppBar() {
       </Box>
     </Toolbar>
   )
-})
+}

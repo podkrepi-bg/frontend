@@ -1,83 +1,46 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
-import { observer } from 'mobx-react'
-import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
+import { Box, Toolbar, Typography } from '@mui/material'
 import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { routes } from 'common/routes'
 import { CampaignResponse } from 'gql/campaigns'
 import { useCampaignList } from 'common/hooks/campaigns'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 import GridActions from './GridActions'
 
 import DeleteModal from './modals/DeleteModal'
 import { useViewCoordinatorResponse } from 'common/hooks/coordinators'
-import { useDeleteCampaign } from 'service/campaign'
 import { useCampaignType } from 'service/campaignTypes'
 
-import { AlertStore } from 'stores/AlertStore'
-import { useMutation } from 'react-query'
 import DetailsModal from './modals/DetailsModal'
-import DeleteSelectedModal from './modals/DeleteSelectedModal'
-import DeleteIcon from '@mui/icons-material/Delete'
 import AddIcon from '@mui/icons-material/Add'
 import Link from 'next/link'
-import router from 'next/router'
 import { useViewBeneficiaryResponse } from 'common/hooks/beneficiary'
 
-interface PersonCellProps {
-  params: GridRenderCellParams
+interface CampaignCellProps {
+  params: GridRenderCellParams<CampaignResponse>
 }
 
-export default observer(function Grid() {
+export default function CampaignGrid() {
   const { t } = useTranslation()
-  const { data = [] }: UseQueryResult<CampaignResponse[]> = useCampaignList()
-  const [selectedId, setSelectedId] = useState<string>('')
-  const [isDeleteSelectedModalOpen, setIsDeleteSelectedModalOpen] = React.useState(false)
-  const [selectedRows, setSelectedRows] = React.useState<CampaignResponse[]>([])
-  type detailsProps = {
-    title: string
-    slug: string
-    description: string
-    targetAmount: number
-    startDate: string
-    endDate: string
-    essence: string
-    campaignTypeId: string
-    beneficiaryId: string
-    coordinatorId: string
-    currency: string
-  }
-  const [details, setDetails] = useState<detailsProps>({
-    title: '',
-    slug: '',
-    description: '',
-    targetAmount: 0,
-    startDate: '',
-    endDate: '',
-    essence: '',
-    campaignTypeId: '',
-    beneficiaryId: '',
-    coordinatorId: '',
-    currency: '',
-  })
+  const { data = [], refetch }: UseQueryResult<CampaignResponse[]> = useCampaignList()
+  const [viewId, setViewId] = useState<string | undefined>()
+  const [deleteId, setDeleteId] = useState<string | undefined>()
 
-  const { setSelectedIdsToDelete } = ModalStore
+  const selectedCampaign = useMemo(() => data.find((c) => c.id === viewId), [data, viewId])
 
-  setSelectedIdsToDelete([])
-
-  const RenderCoordinator = ({ params }: PersonCellProps) => {
+  const RenderCoordinator = ({ params }: CampaignCellProps) => {
     const coordinator = useViewCoordinatorResponse(params.row.coordinatorId)
     return <>{coordinator.data?.person.firstName + ' ' + coordinator.data?.person.lastName}</>
   }
 
-  const RenderBeneficiary = ({ params }: PersonCellProps) => {
+  const RenderBeneficiary = ({ params }: CampaignCellProps) => {
     const beneficiary = useViewBeneficiaryResponse(params.row.beneficiaryId)
     return <>{beneficiary.data?.person.firstName + ' ' + beneficiary.data?.person.lastName}</>
   }
 
-  const RenderCampaignType = ({ params }: PersonCellProps) => {
+  const RenderCampaignType = ({ params }: CampaignCellProps) => {
     const type = useCampaignType(params.row.campaignTypeId)
     return <>{type.data?.name}</>
   }
@@ -112,7 +75,7 @@ export default observer(function Grid() {
       headerName: t('campaigns:coordinator'),
       ...commonProps,
       renderCell: (params: GridRenderCellParams) => {
-        return <RenderCoordinator params={params}></RenderCoordinator>
+        return <RenderCoordinator params={params} />
       },
     },
     {
@@ -120,7 +83,7 @@ export default observer(function Grid() {
       headerName: t('campaigns:beneficiary'),
       ...commonProps,
       renderCell: (params: GridRenderCellParams) => {
-        return <RenderBeneficiary params={params}></RenderBeneficiary>
+        return <RenderBeneficiary params={params} />
       },
     },
     {
@@ -128,7 +91,7 @@ export default observer(function Grid() {
       headerName: t('campaigns:campaignType'),
       ...commonProps,
       renderCell: (params: GridRenderCellParams) => {
-        return <RenderCampaignType params={params}></RenderCampaignType>
+        return <RenderCampaignType params={params} />
       },
       width: 250,
     },
@@ -195,37 +158,13 @@ export default observer(function Grid() {
         return (
           <GridActions
             id={cellValues.row.id}
-            setSelectedId={setSelectedId}
-            setDetails={setDetails}
-            cellValues={cellValues}
+            onView={() => setViewId(cellValues.row.id)}
+            onDelete={() => setDeleteId(cellValues.row.id)}
           />
         )
       },
     },
   ]
-
-  const mutation = useMutation({
-    mutationFn: useDeleteCampaign,
-    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
-    onSuccess: () => AlertStore.show(t('Избраните кампнии бяха преместени в кошчето.'), 'warning'),
-  })
-
-  const handleDeleteAll = () => {
-    try {
-      selectedRows.forEach((row: CampaignResponse) => {
-        mutation.mutateAsync({ id: row.id }).then(() => {
-          router.push(routes.admin.campaigns.index)
-          setIsDeleteSelectedModalOpen(false)
-        })
-      })
-    } catch (error) {
-      AlertStore.show(t('common:alert.error'), 'error')
-    }
-  }
-
-  const closeDeleteSelectedHandler = () => {
-    setIsDeleteSelectedModalOpen(false)
-  }
 
   const addIconStyles = {
     background: '#4ac3ff',
@@ -233,14 +172,6 @@ export default observer(function Grid() {
     cursor: 'pointer',
     padding: 1.2,
     boxShadow: 3,
-  }
-  const iconStyles = {
-    background: 'white',
-    borderRadius: '50%',
-    cursor: 'pointer',
-    padding: 0.5,
-    boxShadow: 3,
-    mr: 1,
   }
 
   return (
@@ -258,14 +189,7 @@ export default observer(function Grid() {
         </Box>
         <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Tooltip title="Изтрий избраните">
-              <DeleteIcon
-                onClick={() => setIsDeleteSelectedModalOpen(true)}
-                sx={iconStyles}
-                fontSize="medium"
-                color="action"></DeleteIcon>
-            </Tooltip>
-            <Link href="/admin/campaigns/create" passHref>
+            <Link href={routes.admin.campaigns.create} passHref>
               <AddIcon sx={addIconStyles} fontSize="large" />
             </Link>
           </Box>
@@ -289,22 +213,22 @@ export default observer(function Grid() {
         editMode="row"
         autoHeight
         autoPageSize
-        checkboxSelection
-        disableSelectionOnClick
-        onSelectionModelChange={(ids) => {
-          const selectedIDs = new Set(ids)
-          const selectedRows = data.filter((row) => selectedIDs.has(row.id))
-          setSelectedRows(selectedRows)
-        }}
       />
       <Box>
-        <DetailsModal modalProps={details}></DetailsModal>
-        <DeleteModal id={selectedId} setSelectedId={setSelectedId} />
-        <DeleteSelectedModal
-          isOpen={isDeleteSelectedModalOpen}
-          handleDelete={handleDeleteAll}
-          handleDeleteModalClose={closeDeleteSelectedHandler}></DeleteSelectedModal>
+        {selectedCampaign && (
+          <DetailsModal campaign={selectedCampaign} onClose={() => setViewId(undefined)} />
+        )}
+        {deleteId && (
+          <DeleteModal
+            id={deleteId}
+            onDelete={() => {
+              refetch()
+              setDeleteId(undefined)
+            }}
+            onClose={() => setDeleteId(undefined)}
+          />
+        )}
       </Box>
     </>
   )
-})
+}
