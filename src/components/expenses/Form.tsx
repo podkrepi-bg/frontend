@@ -23,7 +23,6 @@ import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
 import LinkButton from 'components/common/LinkButton'
 
-import ApprovedBySelect from './ApprovedBySelect'
 import ExpenseSelect from './ExpenseSelect'
 
 const validTypes = Object.keys(ExpenseType)
@@ -134,7 +133,7 @@ export default function Form() {
             <ExpenseSelect name="documentId" allowEmpty={true} />
           </Grid>
           <Grid item xs={6}>
-            <ApprovedBySelect />
+            <ExpenseSelect name="approvedById" allowEmpty={false} />
           </Grid>
           {id ? (
             <>
