@@ -10,7 +10,6 @@ import AdminContainer from 'components/admin/navigation/AdminContainer'
 const BootcampComponent = () => {
   return (
     <>
-      <MenuAppBar />
       <AdminLayout>
         <AdminContainer title={'Bootcamp demo'}>
           <Box sx={boxStyles}>
