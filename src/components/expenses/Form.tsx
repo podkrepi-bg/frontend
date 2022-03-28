@@ -133,7 +133,7 @@ export default function Form() {
             <ExpenseSelect name="documentId" allowEmpty={true} />
           </Grid>
           <Grid item xs={6}>
-            <ExpenseSelect name="approvedById" allowEmpty={false} />
+            <ExpenseSelect name="approvedById" allowEmpty={true} />
           </Grid>
           {id ? (
             <>
