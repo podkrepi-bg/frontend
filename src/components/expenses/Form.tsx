@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useMutation } from 'react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
-import { Box, Button, Grid, MenuItem, Typography } from '@mui/material'
+import { Box, Button, Grid, Typography } from '@mui/material'
 
 import {
   ExpenseCurrency,
@@ -24,7 +24,7 @@ import SubmitButton from 'components/common/form/SubmitButton'
 import LinkButton from 'components/common/LinkButton'
 
 import ApprovedBySelect from './ApprovedBySelect'
-import BasicSelect from './BasicSelect'
+import ExpenseSelect from './ExpenseSelect'
 
 const validTypes = Object.keys(ExpenseType)
 const validStatuses = Object.keys(ExpenseStatus)
@@ -57,14 +57,10 @@ export default function Form() {
     data = useViewExpense(id).data
   }
 
-  const [type, setType] = useState<string>(data?.type || 'none')
-  const [status, setStatus] = useState<string>(data?.status || 'pending')
-  const [currency, setCurrency] = useState<string>(data?.currency || 'BGN')
-
   const initialValues: ExpenseInput = {
-    type,
-    status,
-    currency,
+    type: data?.type || 'none',
+    status: data?.status || 'pending',
+    currency: data?.currency || 'BGN',
     amount: data?.amount || 0,
     vaultId: data?.vaultId || '',
     deleted: data?.deleted || false,
@@ -108,70 +104,22 @@ export default function Form() {
         </Typography>
         <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
           <Grid item xs={6}>
-            <FormTextField
-              select
-              name="type"
-              label={t('fields.type')}
-              value={`${initialValues.type}`}
-              type="string"
-              onChange={(e) => {
-                setType(e.target.value)
-              }}>
-              {validTypes?.map((type) => {
-                return (
-                  <MenuItem key={type} value={type}>
-                    {type}
-                  </MenuItem>
-                )
-              })}
-            </FormTextField>
+            <ExpenseSelect name="type" allowEmpty={false} />
           </Grid>
           <Grid item xs={6}>
-            <FormTextField
-              select
-              name="status"
-              label={t('fields.status')}
-              value={`${initialValues.status}`}
-              type="string"
-              onChange={(e) => {
-                setStatus(e.target.value)
-              }}>
-              {validStatuses?.map((status) => {
-                return (
-                  <MenuItem key={status} value={status}>
-                    {status}
-                  </MenuItem>
-                )
-              })}
-            </FormTextField>
+            <ExpenseSelect name="status" allowEmpty={false} />
           </Grid>
           <Grid item xs={6}>
             <FormTextField type="number" name="amount" label="expenses:fields.amount" />
           </Grid>
           <Grid item xs={6}>
-            <FormTextField
-              select
-              name="currency"
-              label={t('fields.currency')}
-              value={`${initialValues.currency}`}
-              type="string"
-              onChange={(e) => {
-                setCurrency(e.target.value)
-              }}>
-              {validCurrencies?.map((currency) => {
-                return (
-                  <MenuItem key={currency} value={currency}>
-                    {currency}
-                  </MenuItem>
-                )
-              })}
-            </FormTextField>
+            <ExpenseSelect name="currency" allowEmpty={false} />
           </Grid>
           <Grid item xs={6}>
-            <BasicSelect name="vaultId" allowEmpty={false} />
+            <ExpenseSelect name="vaultId" allowEmpty={false} />
           </Grid>
           <Grid item xs={6}>
-            <BasicSelect name="deleted" allowEmpty={false} disabled={id == undefined} />
+            <ExpenseSelect name="deleted" allowEmpty={false} disabled={id == undefined} />
           </Grid>
           <Grid item xs={12}>
             <FormTextField
@@ -183,7 +131,7 @@ export default function Form() {
             />
           </Grid>
           <Grid item xs={6}>
-            <BasicSelect name="documentId" allowEmpty={true} />
+            <ExpenseSelect name="documentId" allowEmpty={true} />
           </Grid>
           <Grid item xs={6}>
             <ApprovedBySelect />

@@ -6,23 +6,37 @@ import { useTranslation } from 'react-i18next'
 import FormTextField from 'components/common/form/FormTextField'
 import { useDocumentsList } from 'common/hooks/documents'
 import { useVaultsList } from 'common/hooks/vaults'
+import { ExpenseCurrency, ExpenseStatus, ExpenseType } from 'gql/expenses'
 
 type Props = {
   name: string
   allowEmpty: boolean
 } & TextFieldProps
 
-export default function BasicSelect({ name, allowEmpty, ...TextFieldProps }: Props) {
+export default function ExpenseSelect({ name, allowEmpty, ...TextFieldProps }: Props) {
   const { t } = useTranslation('expenses')
+
+  const validTypes = Object.keys(ExpenseType)
+  const validStatuses = Object.keys(ExpenseStatus)
+  const validCurrencies = Object.keys(ExpenseCurrency)
+
   const values =
     name == 'documentId'
       ? useDocumentsList().data?.map((record) => record.id)
       : name == 'vaultId'
       ? useVaultsList().data?.map((record) => record.id)
-      : ['true', 'false']
+      : name == 'type'
+      ? validTypes
+      : name == 'status'
+      ? validStatuses
+      : name == 'currency'
+      ? validCurrencies
+      : ['true', 'false'] //deleted
+
   const [field, meta] = useField(name)
 
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
+
   return (
     <FormControl
       fullWidth
