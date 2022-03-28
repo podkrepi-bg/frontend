@@ -22,10 +22,9 @@ import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
 import LinkButton from 'components/common/LinkButton'
-import { useDocumentsList } from 'common/hooks/documents'
-import { useVaultsList } from 'common/hooks/vaults'
 
 import ApprovedBySelect from './ApprovedBySelect'
+import BasicSelect from './BasicSelect'
 
 const validTypes = Object.keys(ExpenseType)
 const validStatuses = Object.keys(ExpenseStatus)
@@ -61,24 +60,18 @@ export default function Form() {
   const [type, setType] = useState<string>(data?.type || 'none')
   const [status, setStatus] = useState<string>(data?.status || 'pending')
   const [currency, setCurrency] = useState<string>(data?.currency || 'BGN')
-  const [vaultId, setVaultId] = useState<string>(data?.vaultId || '')
-  const [documentId, setDocumentId] = useState<string | undefined>(data?.documentId || '')
-  const [deleted, setDeleted] = useState<boolean>(data?.deleted || false)
 
   const initialValues: ExpenseInput = {
     type,
     status,
     currency,
     amount: data?.amount || 0,
-    vaultId,
-    deleted,
+    vaultId: data?.vaultId || '',
+    deleted: data?.deleted || false,
     description: '',
-    documentId,
+    documentId: data?.documentId || '',
     approvedById: `${data?.approvedById}`,
   }
-
-  const documentIds = useDocumentsList().data?.map((record) => record.id) || []
-  const vaultIds = useVaultsList().data?.map((record) => record.id) || []
 
   const mutationFn = id ? useEditExpense(id) : useCreateExpense()
 
@@ -175,46 +168,10 @@ export default function Form() {
             </FormTextField>
           </Grid>
           <Grid item xs={6}>
-            <FormTextField
-              select
-              type="string"
-              name="vaultId"
-              label="expenses:fields.vaultId"
-              value={`${initialValues.vaultId}`}
-              onChange={(e) => {
-                setVaultId(e.target.value)
-              }}>
-              <MenuItem key={'none'} value="" disabled>
-                {t('fields.empty')}
-              </MenuItem>
-              {vaultIds.map((id) => {
-                return (
-                  <MenuItem key={id} value={id}>
-                    {id}
-                  </MenuItem>
-                )
-              })}
-            </FormTextField>
+            <BasicSelect name="vaultId" allowEmpty={false} />
           </Grid>
           <Grid item xs={6}>
-            <FormTextField
-              disabled={id == undefined}
-              select
-              name="deleted"
-              label={t('fields.deleted')}
-              value={`${initialValues.deleted}`}
-              type="string"
-              onChange={(e) => {
-                setDeleted(e.target.value == 'false' ? false : true)
-              }}>
-              {['true', 'false'].map((deleted) => {
-                return (
-                  <MenuItem key={deleted} value={deleted}>
-                    {deleted}
-                  </MenuItem>
-                )
-              })}
-            </FormTextField>
+            <BasicSelect name="deleted" allowEmpty={false} disabled={id == undefined} />
           </Grid>
           <Grid item xs={12}>
             <FormTextField
@@ -226,26 +183,7 @@ export default function Form() {
             />
           </Grid>
           <Grid item xs={6}>
-            <FormTextField
-              select
-              type="string"
-              name="documentId"
-              label="expenses:fields.documentId"
-              value={`${initialValues.documentId}`}
-              onChange={(e) => {
-                setDocumentId(e.target.value)
-              }}>
-              <MenuItem key={'none'} value="">
-                {t('fields.empty')}
-              </MenuItem>
-              {documentIds.map((id) => {
-                return (
-                  <MenuItem key={id} value={id}>
-                    {id}
-                  </MenuItem>
-                )
-              })}
-            </FormTextField>
+            <BasicSelect name="documentId" allowEmpty={true} />
           </Grid>
           <Grid item xs={6}>
             <ApprovedBySelect />
