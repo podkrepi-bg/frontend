@@ -1,5 +1,5 @@
 import React from 'react'
-import { useMutation } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
@@ -14,6 +14,7 @@ import {
   ExpenseStatus,
   ExpenseType,
 } from 'gql/expenses'
+import { endpoints } from 'service/apiEndpoints'
 import { useViewExpense } from 'common/hooks/expenses'
 import { routes } from 'common/routes'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
@@ -46,6 +47,7 @@ const validationSchema = yup
   })
 
 export default function Form() {
+  const queryClient = useQueryClient()
   const router = useRouter()
   const { t } = useTranslation('expenses')
 
@@ -66,7 +68,7 @@ export default function Form() {
     deleted: data?.deleted || false,
     description: '',
     documentId: data?.documentId || '',
-    approvedById: `${data?.approvedById}`,
+    approvedById: data?.approvedById || '',
   }
 
   const mutationFn = id ? useEditExpense(id) : useCreateExpense()
@@ -77,25 +79,22 @@ export default function Form() {
       onError: () =>
         AlertStore.show(id ? t('alerts.edit-row.error') : t('alerts.new-row.error'), 'error'),
       onSuccess: () => {
+        queryClient.invalidateQueries(endpoints.expenses.listExpenses.url)
+        router.push(routes.admin.expenses.index)
         AlertStore.show(id ? t('alerts.edit-row.success') : t('alerts.new-row.success'), 'success')
       },
     },
   )
 
-  async function onSubmit(
-    data: ExpenseInput,
-    { setFieldError, resetForm }: FormikHelpers<ExpenseInput>,
-  ) {
+  async function onSubmit(data: ExpenseInput, { setFieldError }: FormikHelpers<ExpenseInput>) {
     try {
       if (data.documentId == '') {
-        data.documentId = undefined
+        data.documentId = null
       }
       if (data.approvedById == '') {
-        data.approvedById = undefined
+        data.approvedById = null
       }
       mutation.mutateAsync(data)
-      // resetForm()
-      router.push(routes.admin.expenses.index)
     } catch (error) {
       if (isAxiosError(error)) {
         const { response } = error as AxiosError<ApiErrors>
