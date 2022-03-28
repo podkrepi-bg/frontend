@@ -1,4 +1,6 @@
 import Box from '@mui/material/Box'
+import AdminContainer from 'components/admin/navigation/AdminContainer'
+import AdminLayout from 'components/admin/navigation/AdminLayout'
 import Footer from 'components/layout/Footer'
 import MenuAppBar from '../AppBar'
 import { boxStyles } from '../BootcampPageComponentStyles'
@@ -9,10 +11,13 @@ const BootcampCreateComponent = () => {
   return (
     <>
       <MenuAppBar />
-      <Box sx={boxStyles}>
-        <TemporaryDrawer />
-        <Form />
-      </Box>
+      <AdminLayout>
+        <AdminContainer title={'Bootcamp demo'}>
+          <Box sx={boxStyles}>
+            <Form />
+          </Box>
+        </AdminContainer>
+      </AdminLayout>
       <Footer />
     </>
   )

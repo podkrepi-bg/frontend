@@ -30,4 +30,5 @@ export const menuItems = [
   { label: 'Координатори', icon: People, href: routes.admin.coordinators.index },
   { label: 'Трезори', icon: Shield, href: routes.admin.vaults.index },
   { label: 'Тегления', icon: LocalAtmIcon, href: routes.admin.withdrawals.index },
+  { label: 'Bootcamp', icon: Public, href: routes.bootcamp.index },
 ]

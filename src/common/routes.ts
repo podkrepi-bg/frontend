@@ -108,4 +108,7 @@ export const routes = {
     openData: '/open-data',
     apiDocs: '/docs',
   },
+  bootcamp: {
+    index: '/bootcamp',
+  },
 }
