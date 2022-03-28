@@ -5,6 +5,7 @@ import { useTranslation } from 'next-i18next'
 import { makeStyles } from '@mui/styles'
 
 import { useExpensesList } from 'common/hooks/expenses'
+import { usePersonList } from 'common/hooks/person'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import { routes } from 'common/routes'
 import GridActions from 'components/admin/GridActions'
@@ -42,6 +43,7 @@ export default observer(function Grid() {
   const { data } = useExpensesList()
   const classes = useStyles()
   const [pageSize, setPageSize] = React.useState<number>(10)
+  const { data: personList } = usePersonList()
 
   const { setSelectedIdsToDelete, isDetailsOpen } = ModalStore
 
@@ -93,8 +95,15 @@ export default observer(function Grid() {
     },
     {
       field: 'approvedById',
-      headerName: t('fields.approvedById'),
+      headerName: t('fields.approvedBy'),
       headerClassName: classes.gridColumn,
+      valueGetter: (p) => {
+        if (personList && p.value) {
+          const found = personList.find((person) => person.id == p.value)
+          return `${found?.firstName} ${found?.lastName}`
+        }
+        return ''
+      },
       flex: 1,
     },
     {
