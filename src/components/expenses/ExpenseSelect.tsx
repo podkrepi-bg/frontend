@@ -1,12 +1,13 @@
-import { FormControl, FormHelperText, MenuItem, TextFieldProps } from '@mui/material'
-import { TranslatableField, translateError } from 'common/form/validation'
-import { useField } from 'formik'
 import { useTranslation } from 'react-i18next'
+import { FormControl, FormHelperText, MenuItem, TextFieldProps } from '@mui/material'
+import { useField } from 'formik'
 
-import FormTextField from 'components/common/form/FormTextField'
+import { TranslatableField, translateError } from 'common/form/validation'
 import { useDocumentsList } from 'common/hooks/documents'
 import { useVaultsList } from 'common/hooks/vaults'
+import { usePersonList } from 'common/hooks/person'
 import { ExpenseCurrency, ExpenseStatus, ExpenseType } from 'gql/expenses'
+import FormTextField from 'components/common/form/FormTextField'
 
 type Props = {
   name: string
@@ -32,6 +33,7 @@ export default function ExpenseSelect({ name, allowEmpty, ...TextFieldProps }: P
       : name == 'currency'
       ? validCurrencies
       : ['true', 'false'] //deleted
+  const { data: personList } = name == 'approvedById' ? usePersonList() : { data: undefined }
 
   const [field, meta] = useField(name)
 
@@ -59,11 +61,18 @@ export default function ExpenseSelect({ name, allowEmpty, ...TextFieldProps }: P
             <i>{t('fields.empty')}</i>
           </MenuItem>
         )}
-        {values?.map((value, index) => (
-          <MenuItem key={index} value={value}>
-            {value}
-          </MenuItem>
-        ))}
+
+        {name == 'approvedById'
+          ? personList?.map((person, index) => (
+              <MenuItem key={index} value={person.id}>
+                {person.firstName} {person.lastName}
+              </MenuItem>
+            ))
+          : values?.map((value, index) => (
+              <MenuItem key={index} value={value}>
+                {value}
+              </MenuItem>
+            ))}
       </FormTextField>
       {helperText && <FormHelperText error>{helperText}</FormHelperText>}
     </FormControl>
