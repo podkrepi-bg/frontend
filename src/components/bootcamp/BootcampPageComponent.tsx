@@ -5,15 +5,15 @@ import Footer from 'components/layout/Footer'
 import { boxStyles } from './BootcampPageComponentStyles'
 import AdminLayout from 'components/admin/navigation/AdminLayout'
 import AdminContainer from 'components/admin/navigation/AdminContainer'
+import GridAppbar from './grid/GridAppbar'
 
 const BootcampComponent = () => {
   return (
     <>
       <AdminLayout>
         <AdminContainer title={'Bootcamp demo'}>
-          <Box sx={boxStyles}>
-            <MyDataGrid />
-          </Box>
+          <GridAppbar />
+          <MyDataGrid />
         </AdminContainer>
       </AdminLayout>
     </>
