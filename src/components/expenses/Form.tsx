@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { useMutation, UseQueryResult } from 'react-query'
+import { useMutation } from 'react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
-import { Box, Button, Grid, MenuItem, SelectChangeEvent, Typography } from '@mui/material'
+import { Box, Button, Grid, MenuItem, Typography } from '@mui/material'
 
 import {
   ExpenseCurrency,
@@ -24,7 +24,8 @@ import SubmitButton from 'components/common/form/SubmitButton'
 import LinkButton from 'components/common/LinkButton'
 import { useDocumentsList } from 'common/hooks/documents'
 import { useVaultsList } from 'common/hooks/vaults'
-import { DisabledByDefault } from '@mui/icons-material'
+
+import ApprovedBySelect from './ApprovedBySelect'
 
 const validTypes = Object.keys(ExpenseType)
 const validStatuses = Object.keys(ExpenseStatus)
@@ -61,19 +62,19 @@ export default function Form() {
   const [status, setStatus] = useState<string>(data?.status || 'pending')
   const [currency, setCurrency] = useState<string>(data?.currency || 'BGN')
   const [vaultId, setVaultId] = useState<string>(data?.vaultId || '')
-  const [documentId, setDocumentId] = useState<string | undefined>(data?.documentId || undefined)
+  const [documentId, setDocumentId] = useState<string | undefined>(data?.documentId || '')
   const [deleted, setDeleted] = useState<boolean>(data?.deleted || false)
 
   const initialValues: ExpenseInput = {
     type,
     status,
     currency,
-    amount: 0,
+    amount: data?.amount || 0,
     vaultId,
     deleted,
     description: '',
     documentId,
-    approvedById: undefined,
+    approvedById: `${data?.approvedById}`,
   }
 
   const documentIds = useDocumentsList().data?.map((record) => record.id) || []
@@ -94,6 +95,12 @@ export default function Form() {
   )
 
   async function onSubmit(data: ExpenseInput) {
+    if (data.documentId == '') {
+      data.documentId = undefined
+    }
+    if (data.approvedById == '') {
+      data.approvedById = undefined
+    }
     mutation.mutate(data)
   }
 
@@ -228,7 +235,7 @@ export default function Form() {
               onChange={(e) => {
                 setDocumentId(e.target.value)
               }}>
-              <MenuItem key={'none'} value={undefined}>
+              <MenuItem key={'none'} value="">
                 {t('fields.empty')}
               </MenuItem>
               {documentIds.map((id) => {
@@ -241,7 +248,7 @@ export default function Form() {
             </FormTextField>
           </Grid>
           <Grid item xs={6}>
-            <FormTextField type="string" name="approvedById" label="expenses:fields.approvedById" />
+            <ApprovedBySelect />
           </Grid>
           {id ? (
             <>
