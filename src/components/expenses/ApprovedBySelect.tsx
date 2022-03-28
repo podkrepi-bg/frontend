@@ -1,8 +1,10 @@
-import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material'
+import { FormControl, FormHelperText, MenuItem } from '@mui/material'
 import { TranslatableField, translateError } from 'common/form/validation'
 import { usePersonList } from 'common/hooks/person'
 import { useField } from 'formik'
 import { useTranslation } from 'react-i18next'
+
+import FormTextField from 'components/common/form/FormTextField'
 
 export default function ApprovedBySelect({ name = 'approvedById' }) {
   const { t } = useTranslation('expenses')
@@ -16,8 +18,13 @@ export default function ApprovedBySelect({ name = 'approvedById' }) {
       size="small"
       variant="outlined"
       error={Boolean(meta.error) && Boolean(meta.touched)}>
-      <InputLabel>{t('fields.approvedBy')}</InputLabel>
-      <Select fullWidth defaultValue="" label={t('fields.approvedBy')} {...field}>
+      <FormTextField
+        select
+        type="text"
+        fullWidth
+        defaultValue=""
+        label={t('fields.approvedBy')}
+        {...field}>
         <MenuItem value="" disabled>
           {t('fields.approvedBy')}
         </MenuItem>
@@ -29,7 +36,7 @@ export default function ApprovedBySelect({ name = 'approvedById' }) {
             {person.firstName} {person.lastName}
           </MenuItem>
         ))}
-      </Select>
+      </FormTextField>
       {helperText && <FormHelperText error>{helperText}</FormHelperText>}
     </FormControl>
   )
