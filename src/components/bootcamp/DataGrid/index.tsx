@@ -41,6 +41,7 @@ export default function MyDataGrid() {
         <Button variant="contained">Create New</Button>
       </Link>
       <DataGrid rows={rows} columns={columns} autoHeight />
+      <ConfirmationDialog isOpen={false} />
     </Container>
   )
 }
