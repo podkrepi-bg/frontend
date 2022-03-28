@@ -4,12 +4,15 @@ import { useTranslation } from 'next-i18next'
 
 import { ExpenseResponse } from 'gql/expenses'
 import { useViewExpense } from 'common/hooks/expenses'
+import { usePersonList } from 'common/hooks/person'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import DetailsDialog from 'components/admin/DetailsDialog'
 
 export default observer(function DetailsModal() {
   const { selectedRecord } = ModalStore
   const { data }: UseQueryResult<ExpenseResponse> = useViewExpense(selectedRecord.id)
+  const { data: personList } = usePersonList()
+  const approvedBy = personList?.find((person) => person.id == data?.approvedById)
 
   const { t } = useTranslation('expenses')
 
@@ -23,6 +26,10 @@ export default observer(function DetailsModal() {
     { name: t('fields.deleted'), value: `${data?.deleted}` },
     { name: t('fields.description'), value: `${data?.description}` },
     { name: t('fields.documentId'), value: `${data?.documentId}` },
+    {
+      name: t('fields.approvedBy'),
+      value: approvedBy ? `${approvedBy.firstName} ${approvedBy.lastName}` : '',
+    },
     { name: t('fields.approvedById'), value: `${data?.approvedById}` },
   ]
 
