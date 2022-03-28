@@ -65,7 +65,7 @@ export default function ExpenseSelect({ name, allowEmpty, ...TextFieldProps }: P
         {name == 'approvedById'
           ? personList?.map((person, index) => (
               <MenuItem key={index} value={person.id}>
-                {person.firstName} {person.lastName}
+                {person.firstName} {person.lastName} (<i>{person.id}</i>)
               </MenuItem>
             ))
           : values?.map((value, index) => (
