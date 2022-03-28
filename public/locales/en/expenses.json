@@ -8,7 +8,7 @@
         "deleted": "Deleted",
         "description": "Description",
         "documentId": "Document Id",
-        "approvedById": "Approved by Id",
+        "approvedById": "Approved by (Id)",
         "approvedBy": "Approved by",
         "action": "Action",
         "empty": "Empty"
