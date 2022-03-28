@@ -103,13 +103,13 @@ function PersonalInfoTab(props: { value: number; index: number }) {
               <p>***********</p>
               <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
                 <Link href="#">
-                  <EditIcon className={classes.editIcon}></EditIcon>
+                  <EditIcon className={classes.editIcon} />
                   <span className={classes.editSpan}>Редактирай</span>
                 </Link>
               </Box>
             </Box>
           </Box>
-          <hr></hr>
+          <hr />
           <h2 className={classes.heading}>Лична информация:</h2>
           <Box sx={{ display: 'flex' }}>
             <Box
@@ -125,7 +125,7 @@ function PersonalInfoTab(props: { value: number; index: number }) {
               <p>{session?.name}</p>
               <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
                 <Link href="#">
-                  <EditIcon className={classes.editIcon}></EditIcon>
+                  <EditIcon className={classes.editIcon} />
                   <span className={classes.editSpan}>Редактирай</span>
                 </Link>
               </Box>
@@ -142,13 +142,13 @@ function PersonalInfoTab(props: { value: number; index: number }) {
               <p className={classes.notAvaible}>не е наличен</p>
               <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
                 <Link href="#">
-                  <EditIcon className={classes.editIcon}></EditIcon>
+                  <EditIcon className={classes.editIcon} />
                   <span className={classes.editSpan}>Редактирай</span>
                 </Link>
               </Box>
             </Box>
           </Box>
-          <hr></hr>
+          <hr />
           <Link
             href="#"
             className={classes.deleteAccountButton}
@@ -168,7 +168,7 @@ function PersonalInfoTab(props: { value: number; index: number }) {
           </Typography>
           <Typography className={classes.graySpan}>Ние съжаляваме, че ни напущате</Typography>
           <Typography className={classes.heading}>Преди да ни напуснете ...</Typography>
-          <hr></hr>
+          <hr />
           <ul style={{ listStyle: 'disc', paddingLeft: '20px' }}>
             <li className={classes.h5}>
               Ако ви е писнало от емейли, деактивирайте ги от <Link href="#">тук</Link>.

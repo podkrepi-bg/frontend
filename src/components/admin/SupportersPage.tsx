@@ -14,7 +14,7 @@ export default function SupportersPage() {
   return (
     <AdminLayout>
       <AdminContainer title={t('nav.admin.supporters')}>
-        <SupportersBottomAppBar></SupportersBottomAppBar>
+        <SupportersBottomAppBar />
         <SupportersGrid />
         <DetailsModal />
       </AdminContainer>

@@ -14,7 +14,7 @@ export default function InfoRequestPage() {
   return (
     <AdminLayout>
       <AdminContainer title={t('nav.admin.info-requests')}>
-        <InfoRequestBottomAppBar></InfoRequestBottomAppBar>
+        <InfoRequestBottomAppBar />
         <InfoRequestGrid />
         <DetailsModal />
       </AdminContainer>

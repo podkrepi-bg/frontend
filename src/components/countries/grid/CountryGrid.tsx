@@ -1,17 +1,14 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'next-i18next'
-import { observer } from 'mobx-react'
 import { Box } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import { DataGrid, GridColumns, GridSelectionModel } from '@mui/x-data-grid'
+import { DataGrid, GridColumns } from '@mui/x-data-grid'
 
 import { routes } from 'common/routes'
 import { useCountriesList } from 'common/hooks/countries'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
-import DeleteAllModal from './DeleteAllModal'
 import GridActions from 'components/admin/GridActions'
 
 const useStyles = makeStyles({
@@ -70,13 +67,10 @@ const useStyles = makeStyles({
   },
 })
 
-export default observer(function Grid() {
+export default function Grid() {
   const classes = useStyles()
   const [pageSize, setPageSize] = useState(5)
   const { t } = useTranslation('countries')
-  const { setSelectedIdsToDelete } = ModalStore
-
-  setSelectedIdsToDelete([])
 
   const { data } = useCountriesList()
 
@@ -134,15 +128,10 @@ export default observer(function Grid() {
           pageSize={pageSize}
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
           disableSelectionOnClick
-          checkboxSelection
-          onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
-            setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
-          }}
         />
       </Box>
       <DetailsModal />
       <DeleteModal />
-      <DeleteAllModal />
     </>
   )
-})
+}
