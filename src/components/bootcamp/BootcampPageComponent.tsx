@@ -17,7 +17,6 @@ const BootcampComponent = () => {
           </Box>
         </AdminContainer>
       </AdminLayout>
-      <Footer />
     </>
   )
 }
