@@ -9,6 +9,7 @@
         "description": "Описание",
         "documentId": "Документ Id",
         "approvedById": "Одобрен от Id",
+        "approvedBy": "Одобрен от",
         "action": "Действие",
         "empty": "Празно"
     },
