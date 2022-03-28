@@ -29,7 +29,7 @@ export default function ApprovedBySelect({ name = 'approvedById' }) {
           {t('fields.approvedBy')}
         </MenuItem>
         <MenuItem key={'none'} value="">
-          {t('fields.empty')}
+          <i>{t('fields.empty')}</i>
         </MenuItem>
         {data?.map((person, index) => (
           <MenuItem key={index} value={person.id}>
