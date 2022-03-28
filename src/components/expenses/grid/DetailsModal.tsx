@@ -27,10 +27,9 @@ export default observer(function DetailsModal() {
     { name: t('fields.description'), value: `${data?.description}` },
     { name: t('fields.documentId'), value: `${data?.documentId}` },
     {
-      name: t('fields.approvedBy'),
-      value: approvedBy ? `${approvedBy.firstName} ${approvedBy.lastName}` : '',
+      name: t('fields.approvedById'),
+      value: approvedBy ? `${approvedBy.firstName} ${approvedBy.lastName} (${approvedBy.id})` : '',
     },
-    { name: t('fields.approvedById'), value: `${data?.approvedById}` },
   ]
 
   return <DetailsDialog data={dataConverted} />
