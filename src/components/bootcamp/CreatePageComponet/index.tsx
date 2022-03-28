@@ -8,16 +8,13 @@ import Form from './Form'
 
 const BootcampCreateComponent = () => {
   return (
-    <>
-      <AdminLayout>
-        <AdminContainer title={'Bootcamp demo'}>
-          <Box sx={boxStyles}>
-            <Form />
-          </Box>
-        </AdminContainer>
-      </AdminLayout>
-      <Footer />
-    </>
+    <AdminLayout>
+      <AdminContainer title={'Bootcamp demo'}>
+        <Box sx={boxStyles}>
+          <Form />
+        </Box>
+      </AdminContainer>
+    </AdminLayout>
   )
 }
 
