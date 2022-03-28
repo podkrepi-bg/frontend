@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
+import { FormikHelpers } from 'formik'
 import { Box, Button, Grid, Typography } from '@mui/material'
 
 import {
@@ -15,7 +16,7 @@ import {
 } from 'gql/expenses'
 import { useViewExpense } from 'common/hooks/expenses'
 import { routes } from 'common/routes'
-import { ApiErrors } from 'service/apiErrors'
+import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import { useCreateExpense, useEditExpense } from 'service/expense'
 import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
@@ -41,7 +42,7 @@ const validationSchema = yup
     deleted: yup.boolean().required(),
     description: yup.string().trim().notRequired(),
     documentId: yup.string().trim().uuid().notRequired(),
-    approvedById: yup.string().trim().uuid().notRequired(),
+    approvedById: yup.string().trim().notRequired(),
   })
 
 export default function Form() {
@@ -77,19 +78,32 @@ export default function Form() {
         AlertStore.show(id ? t('alerts.edit-row.error') : t('alerts.new-row.error'), 'error'),
       onSuccess: () => {
         AlertStore.show(id ? t('alerts.edit-row.success') : t('alerts.new-row.success'), 'success')
-        router.push(routes.admin.expenses.index)
       },
     },
   )
 
-  async function onSubmit(data: ExpenseInput) {
-    if (data.documentId == '') {
-      data.documentId = undefined
+  async function onSubmit(
+    data: ExpenseInput,
+    { setFieldError, resetForm }: FormikHelpers<ExpenseInput>,
+  ) {
+    try {
+      if (data.documentId == '') {
+        data.documentId = undefined
+      }
+      if (data.approvedById == '') {
+        data.approvedById = undefined
+      }
+      mutation.mutateAsync(data)
+      // resetForm()
+      router.push(routes.admin.expenses.index)
+    } catch (error) {
+      if (isAxiosError(error)) {
+        const { response } = error as AxiosError<ApiErrors>
+        response?.data.message.map(({ property, constraints }) => {
+          setFieldError(property, t(matchValidator(constraints)))
+        })
+      }
     }
-    if (data.approvedById == '') {
-      data.approvedById = undefined
-    }
-    mutation.mutate(data)
   }
 
   return (
