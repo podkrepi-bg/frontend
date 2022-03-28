@@ -1,4 +1,4 @@
-import MyDataGrid from './DataGrid'
+import MyDataGrid from './grid'
 import TemporaryDrawer from './Drawer'
 import Box from '@mui/material/Box'
 import Footer from 'components/layout/Footer'
