@@ -131,7 +131,7 @@ export default function Form() {
             <ExpenseSelect name="vaultId" allowEmpty={false} />
           </Grid>
           <Grid item xs={6}>
-            <ExpenseSelect name="deleted" allowEmpty={false} disabled={id == undefined} />
+            <ExpenseSelect name="documentId" allowEmpty={true} />
           </Grid>
           <Grid item xs={12}>
             <FormTextField
@@ -142,11 +142,11 @@ export default function Form() {
               rows={5}
             />
           </Grid>
-          <Grid item xs={6}>
-            <ExpenseSelect name="documentId" allowEmpty={true} />
-          </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={9}>
             <ExpenseSelect name="approvedById" allowEmpty={true} />
+          </Grid>
+          <Grid item xs={3}>
+            <ExpenseSelect name="deleted" allowEmpty={false} disabled={true} />
           </Grid>
           {id ? (
             <>
