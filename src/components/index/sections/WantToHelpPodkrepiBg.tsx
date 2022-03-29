@@ -13,20 +13,22 @@ const useStyles = makeStyles(() =>
   createStyles({
     root: {
       display: 'flex',
-      justifyContent: 'space-between',
       paddingBottom: '5%',
+      flexDirection: 'column',
+      alignItems: 'center',
     },
     text: {
       color: 'black',
       textAlign: 'center',
-      width: '762px',
+      // width: '762px',
+      marginTop: '2%',
     },
     button: {
       background: theme.palette.primary.main,
       border: `2px solid ${theme.palette.primary.main}`,
       borderRadius: '61px',
       color: 'black',
-      width: '330px',
+      marginTop: '10%',
     },
   }),
 )
@@ -36,25 +38,24 @@ export default function WantToHelpPodkrepiBgSection() {
   const { t } = useTranslation()
 
   return (
-    <>
-      <Heading textAlign="center" variant="h4">
-        {t('index:help-podkrepi-bg-section.want-to-help')}
-      </Heading>
-      <Grid className={classes.root}>
+    <Grid className={classes.root}>
+      <Grid item>
+        <Heading textAlign="center" variant="h4">
+          {t('index:help-podkrepi-bg-section.want-to-help')}
+        </Heading>
+      </Grid>
+      <Grid item>
         <Grid item>
           <Typography variant="h5" className={classes.text}>
             {t('index:help-podkrepi-bg-section.text')}
           </Typography>
         </Grid>
-        <Grid item>
-          <LinkButton
-            href={routes.support}
-            className={classes.button}
-            endIcon={<ChevronRightIcon />}>
-            {t('index:help-podkrepi-bg-section.become-volunteer')}
-          </LinkButton>
-        </Grid>
       </Grid>
-    </>
+      <Grid item>
+        <LinkButton href={routes.support} className={classes.button} endIcon={<ChevronRightIcon />}>
+          {t('index:help-podkrepi-bg-section.become-volunteer')}
+        </LinkButton>
+      </Grid>
+    </Grid>
   )
 }

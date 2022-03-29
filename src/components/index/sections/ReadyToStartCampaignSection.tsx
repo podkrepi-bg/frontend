@@ -10,12 +10,6 @@ import theme from 'common/theme'
 
 const useStyles = makeStyles(() =>
   createStyles({
-    root: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      paddingBottom: '5%',
-      marginTop: '4%',
-    },
     text: {
       color: theme.palette.primary.dark,
       fontWeight: 500,
@@ -27,6 +21,13 @@ const useStyles = makeStyles(() =>
       borderRadius: '61px',
       color: 'black',
     },
+    content: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-around',
+      flexDirection: 'column',
+      marginBottom: '3%',
+    },
   }),
 )
 
@@ -35,7 +36,7 @@ export default function ReadyToStartCampaignSection() {
   const { t } = useTranslation()
 
   return (
-    <Grid className={classes.root}>
+    <Grid className={classes.content}>
       <Grid item>
         <Typography variant="h5" className={classes.text}>
           {t('index:ready-to-start-campaign-section.text')}
