@@ -20,14 +20,14 @@ const useStyles = makeStyles(() =>
       border: `2px solid ${theme.palette.primary.main}`,
       borderRadius: '61px',
       color: 'black',
-      marginTop: '5%',
+      marginTop: '1rem',
     },
     content: {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-around',
       flexDirection: 'column',
-      marginBottom: '3%',
+      marginBottom: '1rem',
     },
   }),
 )

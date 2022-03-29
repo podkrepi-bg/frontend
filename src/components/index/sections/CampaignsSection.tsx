@@ -51,7 +51,7 @@ export default function CampaignsSection() {
             href={routes.campaigns.index}
             variant="outlined"
             endIcon={<ChevronRightIcon />}
-            sx={{ marginTop: '10%' }}>
+            sx={{ marginTop: '2rem' }}>
             {t('index:campaign.see-all')}
           </LinkButton>
         </Grid>
