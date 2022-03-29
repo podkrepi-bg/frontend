@@ -4,6 +4,8 @@ import createStyles from '@mui/styles/createStyles'
 import Layout from 'components/layout/Layout'
 import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
+import {} from 'path'
+import HorizontalLabelPositionBelowStepper from './components/Steps'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -12,20 +14,42 @@ const useStyles = makeStyles((theme: Theme) =>
       background: 'rgba(0, 0, 0, 0.4)',
     },
     title: {
-      color: theme.palette.common.white,
-      fontWeight: 500,
-      margin: 0,
+      // position: 'absolute',
+      // width: '827px',
+      // height: '100px',
+      // right: '207px',
+      // top: '492px',
+      fontFamily: 'Montserrat',
+      fontStyle: 'normal',
+      // fontWeight: '500',
+      fontSize: '45px',
+      lineHeight: '50px',
+      /* or 111% */
+      textAlign: 'center',
+      letterSpacing: '-1.5px',
+      color: '#000000',
     },
-    subtitle: {
-      color: theme.palette.common.white,
-      padding: theme.spacing(0, 4.7),
-      fontSize: theme.spacing(4),
-      height: theme.spacing(16),
+    stepper: {
+      position: 'absolute',
+      left: '30.96%',
+      right: '68.28%',
+      top: '23.06%',
+      bottom: '76.06%',
+
+      fontFamily: 'Open Sans',
+      fontStyle: 'normal',
+      fontWeight: 600,
+      fontSize: '18px',
+      lineHeight: '25px',
+
+      /* identical to box height */
+
+      color: '#000000',
     },
     avatarWrapper: {
       position: 'absolute',
       left: '750px',
-      top: '255px',
+      top: '275px',
     },
     avatar: {
       borderRadius: '50%',
@@ -66,7 +90,10 @@ export default function OneTimeDonation() {
         </Grid>
       </Grid>
       <Layout>
-        <Typography variant="h1">Somthing</Typography>
+        <Typography className={classes.title}>
+          Подкрепа за бежанцие от Украйна, потърси подслон в България
+        </Typography>
+        <HorizontalLabelPositionBelowStepper />
       </Layout>
     </>
   )
