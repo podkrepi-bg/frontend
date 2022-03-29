@@ -12,7 +12,6 @@ import GridActions from 'components/admin/GridActions'
 
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
-import DeleteAllModal from './DeleteAllModal'
 import { statusRenderCell } from './GridHelper'
 
 const useStyles = makeStyles({
@@ -45,7 +44,7 @@ export default observer(function Grid() {
   const [pageSize, setPageSize] = React.useState<number>(10)
   const { data: personList } = usePersonList()
 
-  const { setSelectedIdsToDelete, isDetailsOpen } = ModalStore
+  const { isDetailsOpen } = ModalStore
 
   const columns: GridColumns = [
     { field: 'id', headerName: 'ID', hide: true },
@@ -144,15 +143,11 @@ export default observer(function Grid() {
         autoHeight
         checkboxSelection
         disableSelectionOnClick
-        onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
-          setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
-        }}
       />
 
       {/* conditional rendering to avoid unnecessary requests being sent to the API */}
       {isDetailsOpen ? <DetailsModal /> : null}
       <DeleteModal />
-      <DeleteAllModal />
     </>
   )
 })
