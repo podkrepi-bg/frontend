@@ -33,11 +33,9 @@ export default function FaqSection() {
   return (
     <>
       <Heading id="what-we-do" variant="h5" component="h2" className={classes.heading}>
-        {t('index:campaign.emergency-causes')}
+        {t('common:nav.campaigns.faq')}
       </Heading>
       <Grid container justifyContent="center" spacing={2}>
-        {/* {data.COMMON_QUESTIONS.slice(0, 3).map((campaign, index) => (
-        ))} */}
         {data.COMMON_QUESTIONS.slice(0, 3).flatMap(({ header, content, visible }) =>
           visible === true ? (
             <ExpandableListItem key={header} header={header} content={content} />
@@ -49,7 +47,7 @@ export default function FaqSection() {
           href={routes.faq}
           variant="outlined"
           endIcon={<ChevronRightIcon />}
-          sx={{ marginTop: '10%' }}>
+          sx={{ marginTop: '10%', marginBottom: '3%' }}>
           {t('index:campaign.see-all')}
         </LinkButton>
       </Grid>

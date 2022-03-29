@@ -6,4 +6,5 @@ export enum CampaignFileRole {
   document = 'document',
   profilePhoto = 'profilePhoto',
   campaignListPhoto = 'campaignListPhoto',
+  beneficiaryPhoto = 'beneficiaryPhoto',
 }
