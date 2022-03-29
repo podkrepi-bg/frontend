@@ -47,7 +47,7 @@ export default function FaqSection() {
           href={routes.faq}
           variant="outlined"
           endIcon={<ChevronRightIcon />}
-          sx={{ marginTop: '10%', marginBottom: '3%' }}>
+          sx={{ marginTop: '1rem', marginBottom: '1rem' }}>
           {t('index:campaign.see-all')}
         </LinkButton>
       </Grid>

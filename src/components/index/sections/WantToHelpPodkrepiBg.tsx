@@ -13,22 +13,21 @@ const useStyles = makeStyles(() =>
   createStyles({
     root: {
       display: 'flex',
-      paddingBottom: '5%',
+      paddingBottom: '2rem',
       flexDirection: 'column',
       alignItems: 'center',
     },
     text: {
       color: 'black',
       textAlign: 'center',
-      // width: '762px',
-      marginTop: '2%',
+      marginTop: '1rem',
     },
     button: {
       background: theme.palette.primary.main,
       border: `2px solid ${theme.palette.primary.main}`,
       borderRadius: '61px',
       color: 'black',
-      marginTop: '10%',
+      marginTop: '2rem',
     },
   }),
 )
