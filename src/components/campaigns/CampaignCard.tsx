@@ -19,19 +19,14 @@ import {
 } from '@mui/material'
 import { Favorite } from '@mui/icons-material'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 
 const useStyles = makeStyles((theme) => ({
   media: {
     backgroundSize: 'contain',
-    filter: 'grayscale(1)',
     height: 250,
     margin: theme.spacing(0, 4),
-    opacity: 0.2,
     transition: 'filter 0.3s, opacity 0.8s',
-    '&:hover': {
-      filter: 'grayscale(0)',
-      opacity: 1,
-    },
   },
   amountButtonGroup: {
     backgroundColor: '#e60550',
@@ -126,6 +121,7 @@ export default function CampaignCard({ campaign }: Props) {
 
   const target = campaign.targetAmount
   const summary = campaign.summary.find(() => true)
+  const pictureUrl = campaignListPictureUrl(campaign)
   const reached = summary ? summary.reachedAmount : 0
 
   return (
@@ -134,7 +130,7 @@ export default function CampaignCard({ campaign }: Props) {
         <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)}>
           <CardMedia
             className={classes.media}
-            image="/podkrepi-icon.svg"
+            image={pictureUrl}
             title="campaign image placeholder"
           />
         </Link>

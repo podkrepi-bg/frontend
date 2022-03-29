@@ -5,3 +5,4 @@ metadata:
 data:
   app-url: https://dev.podkrepi.bg
   api-url: https://dev.podkrepi.bg
+  image-host: dev.podkrepi.bg
