@@ -66,7 +66,7 @@ export default function Form() {
     amount: data?.amount || 0,
     vaultId: data?.vaultId || '',
     deleted: data?.deleted || false,
-    description: '',
+    description: data?.description || '',
     documentId: data?.documentId || '',
     approvedById: data?.approvedById || '',
   }
