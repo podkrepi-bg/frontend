@@ -32,7 +32,7 @@ export default function IndexPage() {
         <WhatUnitesUsSection />
         <WantToHelpPodkrepiBgSection />
         <FaqSection />
-        {/* <ReadyToStartCampaignSection /> */}
+        <ReadyToStartCampaignSection />
       </Container>
     </Layout>
   )
