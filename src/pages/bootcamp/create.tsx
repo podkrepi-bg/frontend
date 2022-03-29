@@ -4,7 +4,14 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'auth', 'validation'])),
+    ...(await serverSideTranslations(locale ?? 'bg', [
+      'common',
+      'auth',
+      'validation',
+      'bootcamp',
+      'admin',
+      'documents',
+    ])),
   },
 })
 

@@ -57,7 +57,7 @@ export default observer(function GridAppbar() {
               sx={addIconStyles}
               fontSize="large"
               onClick={() => {
-                router.push(routes.admin.beneficiary.create)
+                router.push(routes.bootcamp.create)
               }}
             />
           </Tooltip>

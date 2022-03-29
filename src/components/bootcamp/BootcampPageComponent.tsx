@@ -6,6 +6,7 @@ import { boxStyles } from './BootcampPageComponentStyles'
 import AdminLayout from 'components/admin/navigation/AdminLayout'
 import AdminContainer from 'components/admin/navigation/AdminContainer'
 import GridAppbar from './grid/GridAppbar'
+import Grid from './grid/Grid'
 
 const BootcampComponent = () => {
   return (
@@ -13,7 +14,7 @@ const BootcampComponent = () => {
       <AdminLayout>
         <AdminContainer title={'Bootcamp demo'}>
           <GridAppbar />
-          <MyDataGrid />
+          <Grid />
         </AdminContainer>
       </AdminLayout>
     </>
