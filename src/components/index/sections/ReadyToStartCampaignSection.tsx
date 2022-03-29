@@ -20,6 +20,7 @@ const useStyles = makeStyles(() =>
       border: `2px solid ${theme.palette.primary.main}`,
       borderRadius: '61px',
       color: 'black',
+      marginTop: '5%',
     },
     content: {
       display: 'flex',
