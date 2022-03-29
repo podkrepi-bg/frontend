@@ -1,8 +1,7 @@
 import { useTranslation } from 'react-i18next'
-import { FormControl, FormHelperText, MenuItem, TextFieldProps } from '@mui/material'
+import { FormControl, MenuItem, TextFieldProps } from '@mui/material'
 import { useField } from 'formik'
 
-import { TranslatableField, translateError } from 'common/form/validation'
 import { useDocumentsList } from 'common/hooks/documents'
 import { useVaultsList } from 'common/hooks/vaults'
 import { usePersonList } from 'common/hooks/person'
@@ -34,10 +33,7 @@ export default function ExpenseSelect({ name, allowEmpty, ...TextFieldProps }: P
       ? validCurrencies
       : ['true', 'false'] //deleted
   const { data: personList } = name == 'approvedById' ? usePersonList() : { data: undefined }
-
   const [field, meta] = useField(name)
-
-  const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
 
   return (
     <FormControl
@@ -74,7 +70,6 @@ export default function ExpenseSelect({ name, allowEmpty, ...TextFieldProps }: P
               </MenuItem>
             ))}
       </FormTextField>
-      {helperText && <FormHelperText error>{helperText}</FormHelperText>}
     </FormControl>
   )
 }
