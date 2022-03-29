@@ -16,7 +16,6 @@ export enum CityState {
 
 export type CityResponse = {
   id: UUID
-  // state: cityState
   name: string
   postalCode: string
   countryId: string

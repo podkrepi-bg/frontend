@@ -1,3 +1,4 @@
+import type { Currency } from './currency'
 import { UUID } from './types'
 
 export type VaultResponse = {
@@ -14,10 +15,4 @@ export type VaultInput = {
   name?: string
   campaignId?: UUID
   currency?: Currency | ''
-}
-
-enum Currency {
-  'BGN',
-  'EUR',
-  'USD',
 }
