@@ -108,6 +108,11 @@ export const routes = {
       view: (id: string) => `/benefactor/${id}`,
       add: '/benefactor/add',
     },
+    transfer: {
+      index: '/admin/transfers',
+      create: '/admin/transfers/create',
+      view: (id: string) => `/admin/transfers/${id}`,
+    },
   },
   dev: {
     openData: '/open-data',
