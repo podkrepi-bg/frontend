@@ -15,8 +15,23 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted'
 import Link from 'next/link'
 import CheckCircleTwoToneIcon from '@mui/icons-material/CheckCircleTwoTone'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import { createStyles, makeStyles } from '@mui/styles'
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    message: {
+      maxWidth: '540px',
+      height: '70px',
+      background: '#FFFFFF',
+      borderRadius: '60px',
+      textAlign: 'center',
+    },
+  }),
+)
 
 export default function SubMenu() {
+  const classes = useStyles()
+
   const [open, setOpen] = React.useState(false)
 
   const handleClick = () => {
@@ -36,17 +51,22 @@ export default function SubMenu() {
             вашите данни. Данните ви няма да бъдат видими в платформата. Сертификат ще бъде изпратен
             на мейл, Няма да можете да видите отчетност, и репорт
           </Typography>
-          <Grid>
+          <Grid my={'35px'}>
             <TextField
-              // className={classes.field}
               name="email"
               type="text"
               label="Email"
               variant="outlined"
               color="primary"
+              fullWidth
+              InputProps={{
+                classes: {
+                  root: classes.message,
+                },
+              }}
             />
           </Grid>
-          <Grid>
+          <Grid my={'45px'}>
             <TextField
               // className={classes.field}
               name="password"
@@ -54,9 +74,15 @@ export default function SubMenu() {
               label="Парола"
               variant="outlined"
               color="primary"
+              fullWidth
+              InputProps={{
+                classes: {
+                  root: classes.message,
+                },
+              }}
             />
           </Grid>
-          <Grid>
+          <Grid my={'17px'}>
             <TextField
               // className={classes.field}
               name="phone"
@@ -64,6 +90,12 @@ export default function SubMenu() {
               label="Телефон"
               variant="outlined"
               color="primary"
+              fullWidth
+              InputProps={{
+                classes: {
+                  root: classes.message,
+                },
+              }}
             />
           </Grid>
           <Typography>Данните ви няма да бъдат споделяни с никой. </Typography>
