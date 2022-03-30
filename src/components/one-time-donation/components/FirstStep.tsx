@@ -15,7 +15,7 @@ import React, { useState } from 'react'
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     h3: {
       fontFamily: 'Montserrat',
@@ -52,15 +52,6 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: '37.5px',
       marginRight: '33px',
       marginBottom: '20px',
-    },
-    avatar: {
-      borderRadius: '50%',
-      border: `10px solid ${theme.palette.common.white} !important`,
-      textAlign: 'center',
-    },
-    infoWrapper: {
-      gap: theme.spacing(2),
-      display: 'grid',
     },
   }),
 )
