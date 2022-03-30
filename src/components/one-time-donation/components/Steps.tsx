@@ -7,11 +7,11 @@ import StepContent from '@mui/material/StepContent'
 import Button from '@mui/material/Button'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
-import { Stack } from '@mui/material'
+import { Grid, Stack } from '@mui/material'
 import FirstStep from './FirstStep'
 import SecondStep from './SecondStep'
 import ThirdStep from './ThirdStep'
-
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 const steps = [
   {
     label: 'First Step',
@@ -50,7 +50,7 @@ export default function VerticalLinearStepper() {
   }
 
   return (
-    <Box sx={{ marginTop: 5 }}>
+    <Box mx={25} sx={{ marginTop: 5 }}>
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map((step) => (
           <Step key={step.label}>
@@ -59,14 +59,40 @@ export default function VerticalLinearStepper() {
         ))}
       </Stepper>
       {steps[activeStep].description}
-      <Stack direction="row">
-        <Button variant="contained" onClick={handleNext} sx={{ mt: 1, mr: 1 }}>
-          {activeStep === steps.length - 1 ? 'Finish' : 'Continue'}
+      <Grid my={7} direction="row">
+        <Button
+          disabled={activeStep === 0}
+          onClick={handleBack}
+          color="inherit"
+          sx={{
+            background: 'rgba(255, 255, 255, 0.85)',
+            border: '1px solid #000000',
+            boxSizing: 'border-box',
+            borderRadius: '60px',
+            width: '284px',
+            height: '80px',
+            marginRight: '51px',
+            fontSize: '22px',
+          }}>
+          Назад
         </Button>
-        <Button disabled={activeStep === 0} onClick={handleBack} sx={{ mt: 1, mr: 1 }}>
-          Back
+        <Button
+          variant="contained"
+          color="inherit"
+          onClick={handleNext}
+          sx={{
+            background: '#62C4FB',
+            border: '1px solid #000000',
+            boxSizing: 'border-box',
+            borderRadius: '60px',
+            width: '284px',
+            height: '80px',
+            fontSize: '22px',
+          }}
+          endIcon={<ArrowForwardIosIcon />}>
+          {activeStep === steps.length - 1 ? 'Finish' : 'Напред'}
         </Button>
-      </Stack>
+      </Grid>
 
       {activeStep === steps.length && (
         <Paper square elevation={0} sx={{ p: 3 }}>
