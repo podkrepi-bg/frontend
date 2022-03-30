@@ -2,6 +2,7 @@ import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material'
 import {
   Checkbox,
   Collapse,
+  FormControlLabel,
   Grid,
   List,
   ListItemButton,
@@ -13,7 +14,7 @@ import {
 import * as React from 'react'
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted'
 import Link from 'next/link'
-import CheckCircleTwoToneIcon from '@mui/icons-material/CheckCircleTwoTone'
+import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import { createStyles, makeStyles } from '@mui/styles'
 
@@ -39,11 +40,17 @@ export default function SubMenu() {
   }
   return (
     <>
-      <ListItemButton onClick={handleClick}>
-        <Checkbox icon={<CheckCircleTwoToneIcon />} checkedIcon={<CheckCircleIcon />} />
-        <ListItemText primary="Дарение без регистрация" />
-        {open ? <ExpandLess /> : <ExpandMore />}
-      </ListItemButton>
+      <FormControlLabel
+        control={
+          <Checkbox
+            icon={<CircleOutlinedIcon />}
+            checkedIcon={<CheckCircleIcon color="disabled" />}
+            sx={{ '& .MuiSvgIcon-root': { fontSize: 33 } }}
+          />
+        }
+        onChange={handleClick}
+        label="Дарение без регистрация"
+      />
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <Typography>
