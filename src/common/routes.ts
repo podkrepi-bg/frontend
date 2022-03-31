@@ -52,6 +52,10 @@ export const routes = {
     index: '/admin',
     infoRequests: '/admin/info-requests',
     supporters: '/admin/supporters',
+    bootcamp: {
+      index: '/admin/bootcamp',
+      create: '/admin/create',
+    },
     bankaccounts: {
       index: '/admin/bankaccounts',
       add: '/admin/bankaccounts/add',
