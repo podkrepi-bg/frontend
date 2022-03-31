@@ -72,7 +72,7 @@ const useStyles = makeStyles(() =>
 export default function SecondStep() {
   const classes = useStyles()
   return (
-    <Grid>
+    <Grid mx={25}>
       <Typography className={classes.h2} variant="h2">
         Впишете се
       </Typography>

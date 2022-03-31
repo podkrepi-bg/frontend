@@ -41,7 +41,7 @@ const useStyles = makeStyles(() =>
       border: '1px solid #000000',
     },
     uncheked: {
-      maxWidth: '284px',
+      width: '284px',
       height: '75px',
       background: '#FFFFFF',
       border: '1px solid #000000',
@@ -50,7 +50,7 @@ const useStyles = makeStyles(() =>
       marginBottom: '33px',
     },
     checked: {
-      maxWidth: '284px',
+      width: '284px',
       height: '75px',
       background: '#D2F0FF',
       border: '1px solid #000000',
@@ -73,81 +73,87 @@ export default function ThirdStep() {
   }
   return (
     <Grid>
-      <Typography className={classes.h2}>Как желаете да дарите?</Typography>
-      <RadioGroup
-        row
-        aria-labelledby="demo-row-radio-buttons-group-label"
-        name="row-radio-buttons-group"
-        value={status}
-        onChange={handleChange}>
-        <Grid container m={10} direction="column">
-          <FormControlLabel
-            value="card"
-            className={status === 'card' ? classes.checked : classes.uncheked}
-            control={
-              <Radio
-                icon={<CircleOutlinedIcon />}
-                checkedIcon={<CheckCircleIcon color="info" />}
-                sx={{ '& .MuiSvgIcon-root': { fontSize: 40 } }}
-              />
-            }
-            onChange={handleClick}
-            label="Карта"
-          />
-          <FormControlLabel
-            value="bank"
-            className={status === 'bank' ? classes.checked : classes.uncheked}
-            control={
-              <Radio
-                icon={<CircleOutlinedIcon />}
-                checkedIcon={<CheckCircleIcon color="info" />}
-                sx={{ '& .MuiSvgIcon-root': { fontSize: 40 } }}
-              />
-            }
-            onChange={handleClick}
-            label="Банков Превод"
-          />
-        </Grid>
-      </RadioGroup>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <Typography my={2} mx={10} variant="h6">
-            Детайли на банкова сметка:
-          </Typography>
-          <Divider className={classes.divider} />
-          <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
-            <Typography>Сдружение Подкрепи БГ</Typography>
-            <Button variant="contained" color="info">
-              Копирай
-            </Button>
-          </Grid>
-          <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
-            <Typography>Уникредит Булбанк</Typography>
-            <Button variant="contained" color="info">
-              Копирай
-            </Button>
-          </Grid>
-          <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
-            <Typography>IBAN: BG66 UNCR 7000 1524 3490 32</Typography>
-            <Button variant="contained" color="info">
-              Копирай
-            </Button>
-          </Grid>
-          <Typography my={2} mx={10} variant="h6">
-            Основание за дарение запишете
-          </Typography>
-          <Divider className={classes.divider} />
-          <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
-            <Typography>Campaing Name</Typography>
-            <Button variant="contained" color="info">
-              Копирай
-            </Button>
-          </Grid>
-          <Typography mx={10}>
-            Ако не напишете правилно основанието, може да не разпределим парите по предназначение
-          </Typography>
-        </List>
-      </Collapse>
+      <Grid container justifyContent="center">
+        <Typography className={classes.h2}>Как желаете да дарите?</Typography>
+      </Grid>
+      <Grid container display="flex" justifyContent="center">
+        <RadioGroup
+          row
+          aria-labelledby="demo-row-radio-buttons-group-label"
+          name="row-radio-buttons-group"
+          value={status}
+          onChange={handleChange}>
+          <Stack direction="column">
+            <FormControlLabel
+              value="card"
+              className={status === 'card' ? classes.checked : classes.uncheked}
+              control={
+                <Radio
+                  icon={<CircleOutlinedIcon />}
+                  checkedIcon={<CheckCircleIcon color="info" />}
+                  sx={{ '& .MuiSvgIcon-root': { fontSize: 40 } }}
+                />
+              }
+              onChange={handleClick}
+              label="Карта"
+            />
+            <FormControlLabel
+              value="bank"
+              className={status === 'bank' ? classes.checked : classes.uncheked}
+              control={
+                <Radio
+                  icon={<CircleOutlinedIcon />}
+                  checkedIcon={<CheckCircleIcon color="info" />}
+                  sx={{ '& .MuiSvgIcon-root': { fontSize: 40 } }}
+                />
+              }
+              onChange={handleClick}
+              label="Банков Превод"
+            />
+          </Stack>
+        </RadioGroup>
+      </Grid>
+      <Grid container justifyContent="center">
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <Typography my={2} mx={10} variant="h6">
+              Детайли на банкова сметка:
+            </Typography>
+            <Divider className={classes.divider} />
+            <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
+              <Typography>Сдружение Подкрепи БГ</Typography>
+              <Button variant="contained" color="info">
+                Копирай
+              </Button>
+            </Grid>
+            <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
+              <Typography>Уникредит Булбанк</Typography>
+              <Button variant="contained" color="info">
+                Копирай
+              </Button>
+            </Grid>
+            <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
+              <Typography>IBAN: BG66 UNCR 7000 1524 3490 32</Typography>
+              <Button variant="contained" color="info">
+                Копирай
+              </Button>
+            </Grid>
+            <Typography my={2} mx={10} variant="h6">
+              Основание за дарение запишете
+            </Typography>
+            <Divider className={classes.divider} />
+            <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
+              <Typography>Campaing Name</Typography>
+              <Button variant="contained" color="info">
+                Копирай
+              </Button>
+            </Grid>
+            <Typography mx={10}>
+              Ако не напишете правилно основанието, може да не разпределим парите по предназначение
+            </Typography>
+          </List>
+        </Collapse>
+      </Grid>
     </Grid>
   )
 }
