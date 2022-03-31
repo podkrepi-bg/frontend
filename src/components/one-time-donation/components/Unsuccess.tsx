@@ -52,7 +52,7 @@ const useStyles = makeStyles(() =>
     },
   }),
 )
-export default function UnSuccess() {
+export default function Unsuccess() {
   const classes = useStyles()
 
   return (

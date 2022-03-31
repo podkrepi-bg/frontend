@@ -21,10 +21,9 @@ import ThirdStep from './ThirdStep'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import Success from './Success'
 import { SupervisorAccount } from '@mui/icons-material'
-import SuccesButtons from './SuccessButtons'
 import { styled } from '@mui/system'
 import { makeStyles } from '@mui/styles'
-import UnSuccess from './UnSuccess'
+import Unsuccess from './Unsuccess'
 const steps = [
   {
     label: 'First Step',
@@ -44,7 +43,7 @@ const steps = [
   },
   {
     label: 'UnSuccess',
-    description: <UnSuccess />,
+    description: <Unsuccess />,
   },
 ]
 const useStyles = makeStyles(() => ({
