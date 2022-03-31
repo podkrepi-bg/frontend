@@ -62,8 +62,10 @@ export default function FirstStep() {
     setStatus((event.target as HTMLInputElement).value)
   }
   return (
-    <Grid>
-      <Typography className={classes.h3}>Искате ли да пожелаете нещо на бенефициента:</Typography>
+    <Grid mx={25}>
+      <Grid>
+        <Typography className={classes.h3}>Искате ли да пожелаете нещо на бенефициента:</Typography>
+      </Grid>
       <Grid>
         <TextField
           name="title"
@@ -93,11 +95,15 @@ export default function FirstStep() {
           label="Анонино дарение"
         />
       </Grid>
-      <Typography variant="body1">
-        Анонимно дарение означава, че организатора и бенефициент на кампания няма да се известени за
-        вашата идентичност
-      </Typography>
-      <Typography className={classes.h3}>Каква сума желаете да дарите*?</Typography>
+      <Grid>
+        <Typography variant="body1">
+          Анонимно дарение означава, че организатора и бенефициент на кампания няма да се известени
+          за вашата идентичност
+        </Typography>
+      </Grid>
+      <Grid>
+        <Typography className={classes.h3}>Каква сума желаете да дарите*?</Typography>
+      </Grid>
       <Grid>
         <RadioGroup
           row
