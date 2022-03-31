@@ -53,7 +53,9 @@ export const useUploadCampaignFiles = () => {
     data.files.forEach((file: File) => {
       formData.append('file', file)
     })
-    formData.append('filesRole', JSON.stringify(data.filesRole))
+    data.filesRole.forEach((fileRole) => {
+      formData.append('roles', fileRole.role)
+    })
     return await apiClient.post<FormData, AxiosResponse<CampaignUploadImage[]>>(
       endpoints.campaign.uploadFile(data.id).url,
       formData,

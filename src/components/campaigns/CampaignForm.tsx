@@ -121,7 +121,6 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
     values: CampaignFormData,
     { setFieldError, resetForm }: FormikHelpers<CampaignFormData>,
   ) => {
-    console.log(filesRole)
     try {
       const response = await mutation.mutateAsync({
         title: values.title,
