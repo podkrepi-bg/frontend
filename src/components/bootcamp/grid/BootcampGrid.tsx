@@ -1,8 +1,7 @@
 import React from 'react'
-import { useTranslation } from 'next-i18next'
 import { DataGrid, GridColumns } from '@mui/x-data-grid'
 
-import { useCitiesList } from 'common/hooks/cities'
+import { useTasksList } from 'common/hooks/bootcamp'
 import { routes } from 'common/routes'
 import GridActions from 'components/admin/GridActions'
 
@@ -10,8 +9,8 @@ import GridActions from 'components/admin/GridActions'
 // import DetailsModal from './DetailsModal'
 
 export default function BootcampGrid() {
-  const { data } = useCitiesList()
-  const { t } = useTranslation()
+  const { data } = useTasksList()
+  console.log(data)
 
   const columns: GridColumns = [
     { field: 'id', headerName: 'ID', hide: true },
@@ -35,7 +34,6 @@ export default function BootcampGrid() {
       editable: false,
       width: 150,
       flex: 1.5,
-      // valueGetter: (c) => c.row.countryCode.countryCode,
     },
     {
       field: 'startDate',
@@ -61,7 +59,7 @@ export default function BootcampGrid() {
       //   <GridActions
       //     id={p.row.id}
       //     name={p.row.name}
-      //     editLink={routes.admin.cities.editCityById(p.row.id)}
+      //     editLink={routes.admin.bootcamp.editTask(p.row.id)}
       //   />
       // ),
     },
