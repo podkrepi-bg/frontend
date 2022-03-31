@@ -245,6 +245,10 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
             <FileUpload
               onUpload={(newFiles) => {
                 setFiles((prevFiles) => [...prevFiles, ...newFiles])
+                setFilesRole((filesRoles) => [
+                  ...filesRoles,
+                  ...newFiles.map((file) => ({ file: file.name, role: 'background' })),
+                ])
               }}
               buttonLabel="Добави снимки"
             />
