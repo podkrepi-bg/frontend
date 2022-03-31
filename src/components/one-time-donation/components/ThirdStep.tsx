@@ -37,12 +37,8 @@ const useStyles = makeStyles(() =>
       letterSpacing: '-0.5px',
       color: '#343434',
     },
-    message: {
-      maxWidth: '540px',
-      height: '70px',
-      background: '#FFFFFF',
-      borderRadius: '60px',
-      textAlign: 'center',
+    divider: {
+      border: '1px solid #000000',
     },
     uncheked: {
       maxWidth: '284px',
@@ -115,15 +111,39 @@ export default function ThirdStep() {
       </RadioGroup>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <Typography>Детайли на банкова сметка:</Typography>
-          <Divider />
-          <Typography>
-            Сдружение Подкрепи БГ Уникредит Булбанк IBAN: BG66 UNCR 7000 1524 3490 32
+          <Typography my={2} mx={10} variant="h6">
+            Детайли на банкова сметка:
           </Typography>
-          <Typography>Основание за дарение запишете</Typography>
-          <Divider />
-          <Typography>Campaing Name</Typography>
-          <Typography>
+          <Divider className={classes.divider} />
+          <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
+            <Typography>Сдружение Подкрепи БГ</Typography>
+            <Button variant="contained" color="info">
+              Копирай
+            </Button>
+          </Grid>
+          <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
+            <Typography>Уникредит Булбанк</Typography>
+            <Button variant="contained" color="info">
+              Копирай
+            </Button>
+          </Grid>
+          <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
+            <Typography>IBAN: BG66 UNCR 7000 1524 3490 32</Typography>
+            <Button variant="contained" color="info">
+              Копирай
+            </Button>
+          </Grid>
+          <Typography my={2} mx={10} variant="h6">
+            Основание за дарение запишете
+          </Typography>
+          <Divider className={classes.divider} />
+          <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
+            <Typography>Campaing Name</Typography>
+            <Button variant="contained" color="info">
+              Копирай
+            </Button>
+          </Grid>
+          <Typography mx={10}>
             Ако не напишете правилно основанието, може да не разпределим парите по предназначение
           </Typography>
         </List>
