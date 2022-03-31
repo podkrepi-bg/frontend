@@ -17,6 +17,7 @@ import { routes } from 'common/routes'
 import BeneficiaryIcon from 'common/icons/Beneficiary'
 
 export const menuItems = [
+  { label: 'Бууткамп', icon: AssignmentInd, href: routes.admin.bootcamp.index },
   { label: 'Кампании', icon: AssignmentInd, href: routes.admin.campaigns.index },
   { label: 'Доброволци', icon: People, href: routes.admin.supporters },
   { label: 'Контакти', icon: ContactPhone, href: routes.admin.infoRequests },

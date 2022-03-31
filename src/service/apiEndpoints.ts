@@ -6,6 +6,14 @@ type Endpoint = {
 }
 
 export const endpoints = {
+  bootcamp: {
+    createNewTask: <Endpoint>{ url: '/bootcamp/create', method: 'POST' },
+    tasksList: <Endpoint>{ url: '/bootcamp', method: 'GET' },
+    viewTaskById: (id: string) => <Endpoint>{ url: `/bootcamp/byId/${id}`, method: 'GET' },
+    editTask: (id: string) => <Endpoint>{ url: `/bootcamp/${id}`, method: 'PUT' },
+    deleteTask: (id: string) => <Endpoint>{ url: `/bootcamp/${id}`, method: 'DELETE' },
+    deleteTasks: <Endpoint>{ url: '/bootcamp/deletemany', method: 'POST' },
+  },
   campaign: {
     listCampaigns: <Endpoint>{ url: '/campaign/list', method: 'GET' },
     createCampaign: <Endpoint>{ url: '/campaign/create-campaign', method: 'POST' },
