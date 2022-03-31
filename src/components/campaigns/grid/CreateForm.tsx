@@ -121,6 +121,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
     values: CampaignFormData,
     { setFieldError }: FormikHelpers<CampaignFormData>,
   ) => {
+    fileUploadMutation.mutateAsync({ files, id: '7243fcb9-4ec0-4528-9149-3b13a2d5ca74', filesRole })
     try {
       const response = await mutation.mutateAsync({
         title: values.title,
@@ -135,7 +136,6 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
         coordinatorId: values.coordinatorId,
         currency: 'BGN',
       })
-      fileUploadMutation.mutateAsync({ files, id: response.data.id, filesRole })
       router.push(routes.admin.campaigns.index)
     } catch (error) {
       console.error(error)
@@ -155,10 +155,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           {t('campaigns:form-heading')}
         </Typography>
       </Grid>
-      <GenericForm
-        onSubmit={onSubmit}
-        initialValues={initialValues}
-        validationSchema={validationSchema}>
+      <GenericForm onSubmit={onSubmit} initialValues={initialValues}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <FormTextField
