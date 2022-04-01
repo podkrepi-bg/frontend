@@ -2,10 +2,10 @@ import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import React, { Dispatch, SetStateAction } from 'react'
 
-import TocIcon from '@mui/icons-material/Toc'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { Box, IconButton, Tooltip } from '@mui/material'
+import ImportExportIcon from '@mui/icons-material/ImportExport'
 
 import { ModalStore } from 'stores/dashboard/ModalStore'
 
@@ -41,19 +41,19 @@ export default function GridActions({ id, setSelectedId }: Props) {
         justifyContent: 'space-evenly',
       }}>
       <Tooltip title={t('transfer:cta:details') || ''}>
-        <IconButton size="small" onClick={detailsClickHandler}>
-          <TocIcon />
+        <IconButton size="small" color="primary" onClick={detailsClickHandler}>
+          <ImportExportIcon />
         </IconButton>
       </Tooltip>
       <Link passHref href={routes.admin.transfer.view(id)}>
         <Tooltip title={t('transfer:cta:edit') || ''}>
-          <IconButton size="small">
+          <IconButton size="small" color="primary">
             <EditIcon />
           </IconButton>
         </Tooltip>
       </Link>
       <Tooltip title={t('transfer:cta:delete') || ''}>
-        <IconButton size="small" onClick={deleteClickHandler}>
+        <IconButton size="small" color="primary" onClick={deleteClickHandler}>
           <DeleteIcon />
         </IconButton>
       </Tooltip>
