@@ -10,14 +10,12 @@ import { makeStyles } from '@mui/styles'
 
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
-import { createBenefactor } from 'service/benefactor'
-import { BenefactorInput, BenefactorResponse } from 'gql/benefactor'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
-import { BootcampTypeFormData } from 'gql/bootcamp'
+import { BootcampResponse, BootcampTypeFormData } from 'gql/bootcamp'
 import { createBootcamp } from 'service/bootcamp'
 
 const useStyles = makeStyles({
@@ -47,11 +45,11 @@ export default function AddBootcampForm() {
 
   const classes = useStyles()
   const mutation = useMutation<
-    AxiosResponse<BenefactorResponse>,
+    AxiosResponse<BootcampResponse>,
     AxiosError<ApiErrors>,
-    BenefactorInput
+    BootcampTypeFormData
   >({
-    mutationFn: createBenefactor,
+    mutationFn: createBootcamp,
     onError: () => AlertStore.show(t('alerts.error'), 'error'),
     onSuccess: () => AlertStore.show(t('alerts.create'), 'success'),
   })
@@ -68,9 +66,10 @@ export default function AddBootcampForm() {
         lastName: values.lastName,
         city: values.city,
       }
-      await createBootcamp(data)
+      await mutation.mutateAsync(data)
       console.log('works')
       resetForm()
+      router.push(routes.bootcamp.index)
     } catch (error) {
       console.log(error)
     }
