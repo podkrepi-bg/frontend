@@ -51,17 +51,3 @@ export type TransferResponse = {
   targetCampaignId: string
   targetVaultId: string
 }
-
-export type TransferEditResponse = {
-  status: TransferStatus
-  currency: Currency
-  amount: number
-  reason: string
-  documentId: string | undefined
-  targetDate: Date | undefined
-  approvedById: string | undefined
-  sourceCampaignId: string
-  sourceVaultId: string
-  targetCampaignId: string
-  targetVaultId: string
-}
