@@ -67,11 +67,16 @@ export default function AddBootcampForm() {
         city: values.city,
       }
       await mutation.mutateAsync(data)
-      console.log('works')
-      resetForm()
       router.push(routes.bootcamp.index)
+      resetForm()
     } catch (error) {
       console.log(error)
+      if (isAxiosError(error)) {
+        const { response } = error as AxiosError<ApiErrors>
+        response?.data.message.map(({ property, constraints }) => {
+          setFieldError(property, t(matchValidator(constraints)))
+        })
+      }
     }
   }
   return (
