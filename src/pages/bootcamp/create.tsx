@@ -1,3 +1,4 @@
+import BootcampAddPage from 'components/bootcamp/BootcampAddPage'
 import BootcampCreateComponent from 'components/bootcamp/CreatePageComponet'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -16,5 +17,5 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
 })
 
 export default function CreatePage() {
-  return <BootcampCreateComponent />
+  return <BootcampAddPage />
 }

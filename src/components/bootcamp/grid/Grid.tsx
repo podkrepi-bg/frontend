@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { observer } from 'mobx-react'
 import { Box } from '@mui/material'
@@ -46,7 +45,7 @@ export default observer(function Grid() {
   ]
 
   const RenderCity = ({ params }: PersonCellProps) => {
-    return <>{params?.row.city || t('beneficiary:grid:not-company')}</>
+    return <>{params?.row.city}</>
   }
 
   const RenderLastName = ({ params }: PersonCellProps) => {
@@ -99,7 +98,7 @@ export default observer(function Grid() {
           <GridActions
             id={params.row.id}
             name={params.row.ibanNumber}
-            editLink={routes.admin.beneficiary.edit(params.row.id)}
+            editLink={routes.bootcamp.edit}
           />
         )
       },
