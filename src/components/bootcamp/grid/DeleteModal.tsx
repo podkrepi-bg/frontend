@@ -12,25 +12,29 @@ import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 import { routes } from 'common/routes'
 import DeleteDialog from 'components/admin/DeleteDialog'
+import { deleteBootcamp } from 'service/bootcamp'
+import { BootcampResponse } from 'gql/bootcamp'
 
 export default observer(function DeleteModal() {
   const router = useRouter()
   const { hideDelete, selectedRecord } = ModalStore
   const { t } = useTranslation()
 
-  const mutationFn = useRemoveBeneficiary()
+  const mutationFn = deleteBootcamp
 
-  const deleteMutation = useMutation<AxiosResponse<BeneficiaryType>, AxiosError<ApiErrors>, string>(
-    {
-      mutationFn,
-      onError: () => AlertStore.show(t('documents:alerts:error'), 'error'),
-      onSuccess: () => {
-        hideDelete()
-        AlertStore.show(t('documents:alerts:delete'), 'success')
-        router.push(routes.admin.beneficiary.index)
-      },
+  const deleteMutation = useMutation<
+    AxiosResponse<BootcampResponse>,
+    AxiosError<ApiErrors>,
+    string
+  >({
+    mutationFn,
+    onError: () => AlertStore.show(t('documents:alerts:error'), 'error'),
+    onSuccess: () => {
+      hideDelete()
+      AlertStore.show(t('documents:alerts:delete'), 'success')
+      router.push(routes.bootcamp.index)
     },
-  )
+  })
 
   function deleteHandler() {
     deleteMutation.mutate(selectedRecord.id)
