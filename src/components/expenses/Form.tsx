@@ -26,6 +26,7 @@ import ExpenseTypeSelect from './ExpenseTypeSelect'
 import ExpenseStatusSelect from './ExpenseStatusSelect'
 import CurrencySelect from './CurrencySelect'
 import DocumentSelect from './DocumentSelect'
+import PersonSelect from './PersonSelect'
 
 const validTypes = Object.keys(ExpenseType)
 const validStatuses = Object.keys(ExpenseStatus)
@@ -143,7 +144,7 @@ export default function Form() {
             />
           </Grid>
           <Grid item xs={9}>
-            <ExpenseSelect name="approvedById" allowEmpty={true} />
+            <PersonSelect name="approvedById" />
           </Grid>
           <Grid item xs={3}>
             <ExpenseSelect name="deleted" allowEmpty={false} disabled={true} />
