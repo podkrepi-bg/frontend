@@ -23,6 +23,7 @@ import LinkButton from 'components/common/LinkButton'
 import ExpenseSelect from './ExpenseSelect'
 import VaultSelect from './VaultSelect'
 import ExpenseTypeSelect from './ExpenseTypeSelect'
+import ExpenseStatusSelect from './ExpenseStatusSelect'
 
 const validTypes = Object.keys(ExpenseType)
 const validStatuses = Object.keys(ExpenseStatus)
@@ -116,7 +117,7 @@ export default function Form() {
             <ExpenseTypeSelect />
           </Grid>
           <Grid item xs={6}>
-            <ExpenseSelect name="status" allowEmpty={false} />
+            <ExpenseStatusSelect />
           </Grid>
           <Grid item xs={6}>
             <FormTextField type="number" name="amount" label="expenses:fields.amount" />
