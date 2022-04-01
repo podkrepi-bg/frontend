@@ -11,11 +11,11 @@ export type TransferInput = {
   reason: string
   documentId?: UUID | string | null
   targetDate?: Date | string | null
-  approvedById?: UUID | string | null
-  sourceCampaignId: UUID | string
-  sourceVaultId: UUID | string
-  targetCampaignId: UUID | string
-  targetVaultId: UUID | string
+  approvedById?: string | null
+  sourceCampaignId: string
+  sourceVaultId: string
+  targetCampaignId: string
+  targetVaultId: string
 }
 
 export type TransferData = {
@@ -45,4 +45,23 @@ export type TransferResponse = {
   sourceVault: VaultResponse
   targetCampaign: CampaignResponse
   targetVault: VaultResponse
+  approvedById: string | undefined
+  sourceCampaignId: string
+  sourceVaultId: string
+  targetCampaignId: string
+  targetVaultId: string
+}
+
+export type TransferEditResponse = {
+  status: TransferStatus
+  currency: Currency
+  amount: number
+  reason: string
+  documentId: string | undefined
+  targetDate: Date | undefined
+  approvedById: string | undefined
+  sourceCampaignId: string
+  sourceVaultId: string
+  targetCampaignId: string
+  targetVaultId: string
 }
