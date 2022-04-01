@@ -117,8 +117,8 @@ export const endpoints = {
   bootcamp: {
     createOne: <Endpoint>{ url: '/bootcamp', method: 'POST' },
     getAll: <Endpoint>{ url: '/bootcamp', method: 'GET' },
-    getOne: (id: string) => <Endpoint>{ url: '/person/' + id, method: 'GET' },
-    deleteOne: (id: string) => <Endpoint>{ url: '/person/' + id, method: 'DELETE' },
-    editOne: (id: string) => <Endpoint>{ url: '/person/' + id, method: 'PATCH' },
+    getOne: (id: string) => <Endpoint>{ url: '/bootcamp/' + id, method: 'GET' },
+    deleteOne: (id: string) => <Endpoint>{ url: '/bootcamp/' + id, method: 'DELETE' },
+    editOne: (id: string) => <Endpoint>{ url: '/bootcamp/' + id, method: 'PATCH' },
   },
 }
