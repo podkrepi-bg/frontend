@@ -18,6 +18,7 @@ import FormTextField from 'components/common/form/FormTextField'
 
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import { BootcampTypeFormData } from 'gql/bootcamp'
+import { createBootcamp } from 'service/bootcamp'
 
 const useStyles = makeStyles({
   container: {
@@ -57,13 +58,22 @@ export default function AddBootcampForm() {
 
   const router = useRouter()
 
-  const onSubmit = (
+  const onSubmit = async (
     values: BootcampTypeFormData,
     { setFieldError, resetForm }: FormikHelpers<BootcampTypeFormData>,
   ) => {
-    console.log(values)
-    console.log('works')
-    resetForm()
+    try {
+      const data = {
+        firstName: values.firstName,
+        lastName: values.lastName,
+        city: values.city,
+      }
+      await createBootcamp(data)
+      console.log('works')
+      resetForm()
+    } catch (error) {
+      console.log(error)
+    }
   }
   return (
     <Grid container direction="column" component="section" className={classes.container}>

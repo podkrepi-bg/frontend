@@ -3,3 +3,10 @@ export type BootcampTypeFormData = {
   lastName: string
   city: string
 }
+
+export type BootcampResponse = {
+  id: string
+  firstName: strings
+  lastName: string
+  city: string
+}

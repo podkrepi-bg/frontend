@@ -115,7 +115,7 @@ export const endpoints = {
     viewCompany: (slug: string) => <Endpoint>{ url: '/company/' + slug, method: 'GET' },
   },
   bootcamp: {
-    create: <Endpoint>{ url: '/bootcamp', method: 'POST' },
+    createOne: <Endpoint>{ url: '/bootcamp', method: 'POST' },
     getAll: <Endpoint>{ url: '/bootcamp', method: 'GET' },
     getOne: (id: string) => <Endpoint>{ url: '/person/' + id, method: 'GET' },
     deleteOne: (id: string) => <Endpoint>{ url: '/person/' + id, method: 'DELETE' },
