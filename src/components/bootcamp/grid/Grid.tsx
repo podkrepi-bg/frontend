@@ -19,25 +19,28 @@ import DeleteAllModal from './DeleteAllModal'
 import GridActions from 'components/admin/GridActions'
 import { BootcampResponse, BootcampTypeFormData } from 'gql/bootcamp'
 import { getAllBootcamp } from 'service/bootcamp'
+import { UseQueryResult } from 'react-query'
 interface PersonCellProps {
   params: GridRenderCellParams
 }
 
 export default observer(function Grid() {
   const [pageSize, setPageSize] = useState(5)
-  const [data, setData] = useState([])
+  // const [data, setData] = useState([])
 
-  useEffect(() => {
-    ;(async () => {
-      const response = await getAllBootcamp()
+  // useEffect(() => {
+  //   ;(async () => {
+  //     const response = await getAllBootcamp()
 
-      setData(response.data)
-    })()
-  }, [])
+  //     setData(response.data)
+  //   })()
+  // }, [])
   const { t } = useTranslation()
   const { setSelectedIdsToDelete } = ModalStore
 
   setSelectedIdsToDelete([])
+
+  const { data }: UseQueryResult<BootcampResponse[]> = getAllBootcamp()
 
   const RenderCity = ({ params }: PersonCellProps) => {
     return <>{params?.row.city}</>
