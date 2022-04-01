@@ -56,8 +56,8 @@ export default function CreateForm() {
   const { data: vaults } = useVaultsList()
   const { data: people } = usePersonList()
 
-  const [sourceCampaignId, setSourceCampaignId] = useState<string>('')
-  const [targetCampaignId, setTargetCampaignId] = useState<string>('')
+  const [sourceCampaignId, setSourceCampaignId] = useState('')
+  const [targetCampaignId, setTargetCampaignId] = useState('')
 
   const initialValues: TransferInput = {
     status: TransferStatus.initial,
@@ -146,10 +146,7 @@ export default function CreateForm() {
           </Grid>
           <Grid item xs={12}>
             <FormSelect name="approvedById" label={t('approvedBy')}>
-              <MenuItem value="" key={'empty'}>
-                <em>None</em>
-              </MenuItem>
-              {(people || []).map((p) => {
+              {[{ id: '', firstName: <em>None</em>, lastName: '' }, ...(people || [])].map((p) => {
                 return (
                   <MenuItem key={p.id} value={p.id}>
                     {p.firstName} {p.lastName}
