@@ -15,8 +15,17 @@ export const createBootcamp = async (data: BootcampTypeFormData) => {
   )
 }
 
-export const getAllBootcamp = async () => {
-  return await apiClient.get<BootcampTypeFormData, AxiosResponse<BootcampResponse>>(
+export const getAllBootcamp = () => {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+
+  return useQuery(
     endpoints.bootcamp.getAll.url,
+    authQueryFnFactory<BootcampTypeFormData[]>(keycloak?.token),
+  )
+}
+
+export const deleteBootcamp = async (id: string) => {
+  return await apiClient.delete<string, AxiosResponse<BootcampResponse>>(
+    endpoints.bootcamp.deleteOne(id).url,
   )
 }
