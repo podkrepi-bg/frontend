@@ -21,6 +21,7 @@ import SubmitButton from 'components/common/form/SubmitButton'
 import LinkButton from 'components/common/LinkButton'
 
 import ExpenseSelect from './ExpenseSelect'
+import VaultSelect from './VaultSelect'
 
 const validTypes = Object.keys(ExpenseType)
 const validStatuses = Object.keys(ExpenseStatus)
@@ -123,7 +124,7 @@ export default function Form() {
             <ExpenseSelect name="currency" allowEmpty={false} />
           </Grid>
           <Grid item xs={6}>
-            <ExpenseSelect name="vaultId" allowEmpty={false} />
+            <VaultSelect />
           </Grid>
           <Grid item xs={6}>
             <ExpenseSelect name="documentId" allowEmpty={true} />
