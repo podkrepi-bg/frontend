@@ -14,7 +14,8 @@ export const endpoints = {
     editCampaign: (id: string) => <Endpoint>{ url: `/campaign/${id}`, method: 'PUT' },
     deleteCampaign: (id: string) => <Endpoint>{ url: `/campaign/${id}`, method: 'DELETE' },
     deleteCampaigns: <Endpoint>{ url: '/campaign/deletemany', method: 'POST' },
-    uploadFile: (id: string) => <Endpoint>{ url: `/campaign-file/${id}`, method: 'POST' },
+    uploadFile: (campaignId: string) =>
+      <Endpoint>{ url: `/campaign-file/${campaignId}`, method: 'POST' },
   },
   campaignType: {
     listCampaignTypes: <Endpoint>{ url: '/campaign-type/list', method: 'GET' },

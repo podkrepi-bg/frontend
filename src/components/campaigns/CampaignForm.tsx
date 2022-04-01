@@ -21,7 +21,7 @@ import FileUpload from 'components/file-upload/FileUpload'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
-import { CampaignFileRole, FileRole } from 'components/campaign-file/roles'
+import { CampaignFileRole, FileRole, UploadCampaignFiles } from 'components/campaign-file/roles'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import { useCreateCampaign, useUploadCampaignFiles } from 'service/campaign'
@@ -99,8 +99,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   const [coordinator, setCoordinator] = useState<PersonFormData>()
   const [beneficiary, setBeneficiary] = useState<PersonFormData>()
   const [files, setFiles] = useState<File[]>([])
-
-  const [filesRole, setFilesRole] = useState<FileRole[]>([])
+  const [roles, setRoles] = useState<FileRole[]>([])
 
   const mutation = useMutation<
     AxiosResponse<CampaignResponse>,
@@ -115,7 +114,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   const fileUploadMutation = useMutation<
     AxiosResponse<CampaignUploadImage[]>,
     AxiosError<ApiErrors>,
-    { files: File[]; id: string; filesRole: FileRole[] }
+    UploadCampaignFiles
   >({
     mutationFn: useUploadCampaignFiles(),
   })
@@ -138,7 +137,11 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
         coordinatorId: values.coordinatorId,
         currency: Currency.BGN,
       })
-      fileUploadMutation.mutateAsync({ files, id: response.data.id, filesRole })
+      await fileUploadMutation.mutateAsync({
+        files,
+        roles,
+        campaignId: response.data.id,
+      })
       resetForm()
       router.push(routes.campaigns.viewCampaignBySlug(response.data.slug))
     } catch (error) {
@@ -249,8 +252,8 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               buttonLabel="Добави снимки"
               onUpload={(newFiles) => {
                 setFiles((prevFiles) => [...prevFiles, ...newFiles])
-                setFilesRole((filesRoles) => [
-                  ...filesRoles,
+                setRoles((prevRoles) => [
+                  ...prevRoles,
                   ...newFiles.map((file) => ({
                     file: file.name,
                     role: CampaignFileRole.background,
@@ -260,12 +263,12 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
             />
             <FileList
               files={files}
-              filesRole={filesRole}
+              filesRole={roles}
               onDelete={(deletedFile) =>
                 setFiles((prevFiles) => prevFiles.filter((file) => file.name !== deletedFile.name))
               }
               onSetFileRole={(file, role) => {
-                setFilesRole((filesRole) => [
+                setRoles((filesRole) => [
                   ...filesRole.filter((f) => f.file !== file.name),
                   { file: file.name, role },
                 ])
