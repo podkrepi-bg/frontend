@@ -12,10 +12,10 @@ import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 
 import { routes } from 'common/routes'
+import { Currency } from 'gql/currency'
 import { AlertStore } from 'stores/AlertStore'
 import { createSlug } from 'common/util/createSlug'
 import FileList from 'components/file-upload/FileList'
-import { FileRole } from 'components/campaign-file/roles'
 import FileUpload from 'components/file-upload/FileUpload'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
@@ -23,6 +23,7 @@ import FormTextField from 'components/common/form/FormTextField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import { useCreateCampaign, useUploadCampaignFiles } from 'service/campaign'
+import { CampaignFileRole, FileRole, UploadCampaignFiles } from 'components/campaign-file/roles'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 import {
   CampaignResponse,
@@ -96,7 +97,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   const classes = useStyles()
   const router = useRouter()
   const [files, setFiles] = useState<File[]>([])
-  const [filesRole, setFilesRole] = useState<FileRole[]>([])
+  const [roles, setRoles] = useState<FileRole[]>([])
   const { t } = useTranslation()
 
   const mutation = useMutation<
@@ -112,7 +113,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   const fileUploadMutation = useMutation<
     AxiosResponse<CampaignUploadImage[]>,
     AxiosError<ApiErrors>,
-    { files: File[]; id: string; filesRole: FileRole[] }
+    UploadCampaignFiles
   >({
     mutationFn: useUploadCampaignFiles(),
   })
@@ -133,9 +134,13 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
         campaignTypeId: values.campaignTypeId,
         beneficiaryId: values.beneficiaryId,
         coordinatorId: values.coordinatorId,
-        currency: 'BGN',
+        currency: Currency.BGN,
       })
-      fileUploadMutation.mutateAsync({ files, id: response.data.id, filesRole })
+      await fileUploadMutation.mutateAsync({
+        files,
+        roles,
+        campaignId: response.data.id,
+      })
       router.push(routes.admin.campaigns.index)
     } catch (error) {
       console.error(error)
@@ -214,18 +219,27 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           </Grid>
           <Grid item xs={12}>
             <FileUpload
-              onUpload={(newFiles) => setFiles((prevFiles) => [...prevFiles, ...newFiles])}
+              onUpload={(newFiles) => {
+                setFiles((prevFiles) => [...prevFiles, ...newFiles])
+                setRoles((prevRoles) => [
+                  ...prevRoles,
+                  ...newFiles.map((file) => ({
+                    file: file.name,
+                    role: CampaignFileRole.background,
+                  })),
+                ])
+              }}
               buttonLabel="Добави снимки"
             />
             <FileList
-              filesRole={filesRole}
+              filesRole={roles}
               files={files}
               onDelete={(deletedFile) =>
                 setFiles((prevFiles) => prevFiles.filter((file) => file.name !== deletedFile.name))
               }
               onSetFileRole={(file, role) => {
-                setFilesRole((filesRole) => [
-                  ...filesRole.filter((f) => f.file !== file.name),
+                setRoles((prevRoles) => [
+                  ...prevRoles.filter((f) => f.file !== file.name),
                   { file: file.name, role },
                 ])
               }}
