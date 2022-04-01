@@ -5,6 +5,7 @@ import { AxiosResponse } from 'axios'
 import { apiClient } from 'service/apiClient'
 import { authConfig } from 'service/restRequests'
 import { endpoints } from 'service/apiEndpoints'
+import { FileRole } from 'components/campaign-file/roles'
 import { CampaignResponse, CampaignInput, CampaignUploadImage } from 'gql/campaigns'
 
 export const useCreateCampaign = () => {
@@ -44,11 +45,7 @@ export function useDeleteCampaignById(id: string) {
 
 export const useUploadCampaignFiles = () => {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  return async (data: {
-    files: File[]
-    id: string
-    filesRole: { file: string; role: string }[]
-  }) => {
+  return async (data: { files: File[]; id: string; filesRole: FileRole[] }) => {
     const formData = new FormData()
     data.files.forEach((file: File) => {
       formData.append('file', file)
