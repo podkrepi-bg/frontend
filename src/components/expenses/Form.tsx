@@ -20,7 +20,6 @@ import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
 import LinkButton from 'components/common/LinkButton'
 
-import ExpenseSelect from './ExpenseSelect'
 import VaultSelect from './VaultSelect'
 import ExpenseTypeSelect from './ExpenseTypeSelect'
 import ExpenseStatusSelect from './ExpenseStatusSelect'
