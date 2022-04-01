@@ -114,4 +114,11 @@ export const endpoints = {
     list: <Endpoint>{ url: '/company/list', method: 'GET' },
     viewCompany: (slug: string) => <Endpoint>{ url: '/company/' + slug, method: 'GET' },
   },
+  bootcamp: {
+    create: <Endpoint>{ url: '/bootcamp', method: 'POST' },
+    getAll: <Endpoint>{ url: '/bootcamp', method: 'GET' },
+    getOne: (id: string) => <Endpoint>{ url: '/person/' + id, method: 'GET' },
+    deleteOne: (id: string) => <Endpoint>{ url: '/person/' + id, method: 'DELETE' },
+    editOne: (id: string) => <Endpoint>{ url: '/person/' + id, method: 'PATCH' },
+  },
 }
