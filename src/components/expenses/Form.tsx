@@ -22,6 +22,7 @@ import LinkButton from 'components/common/LinkButton'
 
 import ExpenseSelect from './ExpenseSelect'
 import VaultSelect from './VaultSelect'
+import ExpenseTypeSelect from './ExpenseTypeSelect'
 
 const validTypes = Object.keys(ExpenseType)
 const validStatuses = Object.keys(ExpenseStatus)
@@ -112,7 +113,7 @@ export default function Form() {
         </Typography>
         <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
           <Grid item xs={6}>
-            <ExpenseSelect name="type" allowEmpty={false} />
+            <ExpenseTypeSelect />
           </Grid>
           <Grid item xs={6}>
             <ExpenseSelect name="status" allowEmpty={false} />
