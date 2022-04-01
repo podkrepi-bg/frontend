@@ -1,12 +1,37 @@
+import React from 'react'
 import { Delete, UploadFile } from '@mui/icons-material'
-import { Avatar, IconButton, List, ListItem, ListItemAvatar, ListItemText } from '@mui/material'
+import {
+  Avatar,
+  IconButton,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from '@mui/material'
+import { SelectChangeEvent } from '@mui/material/Select'
 
-type NewType = {
+import { CampaignFileRole, FileRole } from 'components/campaign-file/roles'
+
+type Props = {
   files: File[]
   onDelete?: (file: File) => void
+  onSetFileRole: (file: File, role: CampaignFileRole) => void
+  filesRole: FileRole[]
 }
 
-function FileList({ files, onDelete }: NewType) {
+function FileList({ files, onDelete, onSetFileRole, filesRole = [] }: Props) {
+  const setFileRole = (file: File) => {
+    return (event: SelectChangeEvent<CampaignFileRole>) => {
+      if (Object.values(CampaignFileRole).includes(event.target.value as CampaignFileRole)) {
+        onSetFileRole(file, event.target.value as CampaignFileRole)
+      }
+    }
+  }
+
   return (
     <List dense>
       {files.map((file, key) => (
@@ -23,6 +48,23 @@ function FileList({ files, onDelete }: NewType) {
             </Avatar>
           </ListItemAvatar>
           <ListItemText primary={file.name} />
+          <FormControl>
+            <InputLabel id="choose-type-label">{'Избери тип'}</InputLabel>
+            <Select<CampaignFileRole>
+              id="choose-type"
+              label="Избери тип"
+              labelId="choose-type-label"
+              value={
+                filesRole.find((f) => f.file === file.name)?.role ?? CampaignFileRole.background
+              }
+              onChange={setFileRole(file)}>
+              {Object.values(CampaignFileRole).map((role) => (
+                <MenuItem key={role} value={role}>
+                  {role}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </ListItem>
       ))}
     </List>
