@@ -26,7 +26,9 @@ export default observer(function DetailsModal({ id }: Props) {
   const { isDetailsOpen, hideDetails } = ModalStore
 
   const { data }: UseQueryResult<TransferResponse> = useTransfer(String(id))
-  const approvedByFullName = `${data?.approvedBy?.firstName}  ${data?.approvedBy?.lastName}`
+  const approvedByFullName = `${data?.approvedBy?.firstName || ''}  ${
+    data?.approvedBy?.lastName || ''
+  }`
 
   return (
     <Dialog open={isDetailsOpen} onClose={hideDetails}>
