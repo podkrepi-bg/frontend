@@ -20,7 +20,7 @@ export const getAllBootcamp = () => {
 
   return useQuery(
     endpoints.bootcamp.getAll.url,
-    authQueryFnFactory<BootcampTypeFormData[]>(keycloak?.token),
+    authQueryFnFactory<BootcampResponse[]>(keycloak?.token),
   )
 }
 
