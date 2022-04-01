@@ -55,10 +55,12 @@ export const routes = {
     bootcamp: {
       index: '/admin/bootcamp',
       create: '/admin/create',
+      editBootcampById: (id: string) => `/admin/bootcamp/edit/${id}`,
     },
     bankaccounts: {
       index: '/admin/bankaccounts',
       add: '/admin/bankaccounts/add',
+      viewTaskById: (id: string) => `/admin/bootcamp/details/${id}`,
       edit: (id: string | number) => `/admin/bankaccounts/edit/${id}`,
     },
     cities: {

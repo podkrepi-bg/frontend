@@ -5,10 +5,10 @@ import AdminContainer from 'components/admin/navigation/AdminContainer'
 import GridAppbar from './grid/GridAppbar'
 import BootcampGrid from './grid/BootcampGrid'
 
-export default function CityPage() {
+export default function BootcampPage() {
   return (
     <AdminLayout>
-      <AdminContainer title={'Бууткамп - Георги Генчев'}>
+      <AdminContainer title={'Бууткамп - Георги'}>
         <GridAppbar />
         <BootcampGrid />
       </AdminContainer>

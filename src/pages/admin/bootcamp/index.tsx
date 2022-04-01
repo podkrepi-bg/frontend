@@ -3,7 +3,7 @@ import { dehydrate, QueryClient } from 'react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { endpoints } from 'service/apiEndpoints'
-import BootCampPage from 'components/bootcamp/BootCampPage'
+import BootCampPage from 'components/bootcamp/BootcampPage'
 import { authQueryFnFactory } from 'service/restRequests'
 import { keycloakInstance } from 'middleware/auth/keycloak'
 

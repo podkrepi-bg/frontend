@@ -31,23 +31,33 @@ export type BootcampFormData = {
   title: string
   email: string
   message: string
-  startDate: Date | null
-  endDate: Date | null
+  startDate: Date | null | undefined
+  endDate: Date | null | undefined
   firstName: string
   lastName: string
 }
 
 export type BootcampInput = {
-  status: string
-  title: string
-  email: string
-  message: string
+  status: string | undefined
+  title: string | undefined
+  email: string | undefined
+  message: string | undefined
   startDate: Date | null
   endDate: Date | null
-  firstName: string
-  lastName: string
+  firstName: string | undefined
+  lastName: string | undefined
 }
 
 export type DeleteMany = {
   ids: string[]
+}
+
+type EditBootcampProp = {
+  id: string
+  data: BootcampInput
+}
+
+type BootcampFormProps = {
+  initialValues?: BootcampInput
+  id?: string
 }

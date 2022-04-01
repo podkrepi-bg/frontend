@@ -10,58 +10,78 @@ import GridActions from 'components/admin/GridActions'
 
 export default function BootcampGrid() {
   const { data } = useTasksList()
-  console.log(data)
 
   const columns: GridColumns = [
     { field: 'id', headerName: 'ID', hide: true },
     {
-      field: 'name',
+      field: 'status',
       headerName: 'Статус',
       editable: false,
-      width: 150,
+      width: 100,
+      flex: 1,
+    },
+    {
+      field: 'title',
+      headerName: 'Заглавие',
+      editable: false,
+      width: 100,
       flex: 1,
     },
     {
       field: 'email',
       headerName: 'Емайл адрес',
       editable: false,
-      width: 150,
+      width: 100,
       flex: 1,
     },
     {
       field: 'message',
       headerName: 'Съобщение',
       editable: false,
-      width: 150,
+      width: 100,
       flex: 1.5,
     },
     {
       field: 'startDate',
       headerName: 'Начална Дата',
       editable: false,
-      width: 150,
+      width: 100,
       flex: 1.5,
     },
     {
       field: 'endDate',
       headerName: 'Крайна дата',
       editable: false,
-      width: 150,
+      width: 100,
+      flex: 1.5,
+    },
+    {
+      field: 'firstName',
+      headerName: 'Име',
+      editable: false,
+      width: 100,
+      flex: 1.5,
+    },
+    {
+      field: 'lastName',
+      headerName: 'Фамилия',
+      editable: false,
+      width: 100,
       flex: 1.5,
     },
     {
       field: 'actions',
       type: 'actions',
       headerName: 'Действия',
-      width: 120,
+      width: 100,
       headerAlign: 'left',
-      // renderCell: (p) => (
-      //   <GridActions
-      //     id={p.row.id}
-      //     name={p.row.name}
-      //     editLink={routes.admin.bootcamp.editTask(p.row.id)}
-      //   />
-      // ),
+      renderCell: (p) => (
+        <GridActions
+          id={p.row.id}
+          name={p.row.name}
+          editLink={routes.admin.bootcamp.editBootcampById(p.row.id)}
+        />
+      ),
     },
   ]
 
