@@ -7,13 +7,8 @@ import * as yup from 'yup'
 import { FormikHelpers } from 'formik'
 import { Box, Button, Grid, Typography } from '@mui/material'
 
-import {
-  ExpenseCurrency,
-  ExpenseInput,
-  ExpenseResponse,
-  ExpenseStatus,
-  ExpenseType,
-} from 'gql/expenses'
+import { ExpenseInput, ExpenseResponse, ExpenseStatus, ExpenseType } from 'gql/expenses'
+import { Currency } from 'gql/currency'
 import { endpoints } from 'service/apiEndpoints'
 import { useViewExpense } from 'common/hooks/expenses'
 import { routes } from 'common/routes'
@@ -29,7 +24,7 @@ import ExpenseSelect from './ExpenseSelect'
 
 const validTypes = Object.keys(ExpenseType)
 const validStatuses = Object.keys(ExpenseStatus)
-const validCurrencies = Object.keys(ExpenseCurrency)
+const validCurrencies = Object.keys(Currency)
 
 const validationSchema = yup
   .object()

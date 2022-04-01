@@ -1,9 +1,10 @@
+import { Currency } from './currency'
 import { UUID } from './types'
 
 export type ExpenseInput = {
   type: ExpenseType | string
   status: ExpenseStatus | string
-  currency: ExpenseCurrency | string
+  currency: Currency | string
   amount: number
   vaultId: UUID
   deleted: boolean
@@ -16,7 +17,7 @@ export type ExpenseResponse = {
   id: UUID
   type: ExpenseType
   status: ExpenseStatus
-  currency: ExpenseCurrency
+  currency: Currency
   amount: number
   vaultId: UUID
   deleted: boolean
@@ -48,10 +49,4 @@ export enum ExpenseStatus {
   pending = 'pending',
   approved = 'approved',
   canceled = 'canceled',
-}
-
-export enum ExpenseCurrency {
-  BGN = 'BGN',
-  EUR = 'EUR',
-  USD = 'USD',
 }

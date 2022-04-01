@@ -5,7 +5,8 @@ import { useField } from 'formik'
 import { useDocumentsList } from 'common/hooks/documents'
 import { useVaultsList } from 'common/hooks/vaults'
 import { usePersonList } from 'common/hooks/person'
-import { ExpenseCurrency, ExpenseStatus, ExpenseType } from 'gql/expenses'
+import { Currency } from 'gql/currency'
+import { ExpenseStatus, ExpenseType } from 'gql/expenses'
 import FormTextField from 'components/common/form/FormTextField'
 
 type Props = {
@@ -18,7 +19,7 @@ export default function ExpenseSelect({ name, allowEmpty, ...TextFieldProps }: P
 
   const validTypes = Object.keys(ExpenseType)
   const validStatuses = Object.keys(ExpenseStatus)
-  const validCurrencies = Object.keys(ExpenseCurrency)
+  const validCurrencies = Object.keys(Currency)
 
   const values =
     name == 'documentId'
