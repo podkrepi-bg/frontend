@@ -143,12 +143,15 @@ export default function Form() {
               rows={5}
             />
           </Grid>
-          <Grid item xs={10}>
+          <Grid item xs={id ? 10 : 12}>
             <PersonSelect name="approvedById" />
           </Grid>
-          <Grid item xs={2}>
-            <DeletedCheckbox />
-          </Grid>
+          {id ? (
+            <Grid item xs={2}>
+              <DeletedCheckbox />
+            </Grid>
+          ) : null}
+
           {id ? (
             <>
               <Grid item xs={6}>
