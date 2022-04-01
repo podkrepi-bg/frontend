@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
-import { useMutation, useQueryClient, UseQueryResult } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 
 import {
   Box,
@@ -22,17 +22,17 @@ import { endpoints } from 'service/apiEndpoints'
 import { useEditTransfer } from 'service/transfer'
 
 import { routes } from 'common/routes'
-import { useVaultsList } from 'common/hooks/vaults'
-import { usePersonList } from 'common/hooks/person'
-import { useTransfer } from 'common/hooks/transfers'
-import { useCampaignList } from 'common/hooks/campaigns'
 
 import { AlertStore } from 'stores/AlertStore'
+
+import { VaultResponse } from 'gql/vault'
+import { PersonResponse } from 'gql/person'
+import { CampaignResponse } from 'gql/campaigns'
+import { Currency, TransferStatus } from './TransferTypes'
 import { TransferData, TransferInput, TransferResponse } from 'gql/transfer'
 
 import FormDate from './custom/FormDate'
 import FormSelect from './custom/FormSelect'
-import { Currency, TransferStatus } from './TransferTypes'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
@@ -57,34 +57,42 @@ const validationSchema: yup.SchemaOf<TransferData> = yup.object().shape({
   targetVaultId: yup.string().uuid().required(),
   targetCampaignId: yup.string().uuid(),
 })
-export default function EditForm() {
+
+type props = {
+  transfer: TransferResponse
+  campaigns: CampaignResponse[]
+  vaults: VaultResponse[]
+  people: PersonResponse[]
+  id: string
+}
+
+export default function EditForm({ transfer, campaigns, vaults, people, id }: props) {
   const { t } = useTranslation('transfer')
 
   const router = useRouter()
-  const id = String(router.query.id)
 
   const queryClient = useQueryClient()
-  const { data: transfer }: UseQueryResult<TransferResponse> = useTransfer(id)
 
-  const { data: campaigns } = useCampaignList()
-  const { data: vaults } = useVaultsList()
-  const { data: people } = usePersonList()
+  const [sourceCampaignId, setSourceCampaignId] = useState(transfer.sourceCampaignId)
+  const [targetCampaignId, setTargetCampaignId] = useState(transfer.targetCampaignId)
+  const [sourceVaultId, setSourceVaultId] = useState(transfer.sourceVaultId)
+  const [targetVaultId, setTargetVaultId] = useState(transfer.targetVaultId)
 
-  const [sourceCampaignId, setSourceCampaignId] = useState(transfer?.sourceCampaign?.id || '')
-  const [targetCampaignId, setTargetCampaignId] = useState(transfer?.targetCampaign?.id || '')
+  const sourceVaults = vaults.filter((v) => v.campaignId === sourceCampaignId)
+  const targetVaults = vaults.filter((v) => v.campaignId === targetCampaignId)
 
   const initialValues: TransferInput = {
-    status: transfer?.status,
-    currency: transfer?.currency,
-    amount: transfer?.amount || 0,
-    reason: transfer?.reason || '',
-    documentId: transfer?.documentId || '',
-    targetDate: dateParser(transfer?.targetDate) || '',
-    approvedById: transfer?.approvedBy?.id || '',
-    sourceCampaignId: transfer?.sourceCampaign?.id || '',
-    sourceVaultId: transfer?.sourceVault?.id || '',
-    targetCampaignId: transfer?.targetCampaign?.id || '',
-    targetVaultId: transfer?.targetVault?.id || '',
+    status: transfer.status,
+    currency: transfer.currency,
+    amount: transfer.amount,
+    reason: transfer.reason,
+    documentId: transfer.documentId || '',
+    targetDate: dateParser(transfer.targetDate) || '',
+    approvedById: transfer.approvedById || '',
+    sourceCampaignId: sourceCampaignId,
+    sourceVaultId: sourceVaultId,
+    targetCampaignId: targetCampaignId,
+    targetVaultId: targetVaultId,
   }
 
   const mutation = useMutation<
@@ -111,11 +119,16 @@ export default function EditForm() {
       targetDate: values.targetDate ? new Date(values.targetDate) : null,
       approvedById: values.approvedById ? values.approvedById : null,
       sourceCampaignId: sourceCampaignId,
-      sourceVaultId: values.sourceVaultId,
+      sourceVaultId: sourceVaultId,
       targetCampaignId: targetCampaignId,
-      targetVaultId: values.targetVaultId,
+      targetVaultId: targetVaultId,
     }
-    if (!data.sourceCampaignId || !data.targetCampaignId) {
+    if (
+      !data.sourceCampaignId ||
+      !data.targetCampaignId ||
+      !data.sourceVaultId ||
+      !data.targetVaultId
+    ) {
       return
     }
     mutation.mutate(data)
@@ -162,6 +175,7 @@ export default function EditForm() {
           <Grid item xs={12}>
             <FormDate label={t('targetDate')} name="targetDate"></FormDate>
           </Grid>
+
           <Grid item xs={12}>
             <FormTextField
               type="string"
@@ -172,12 +186,9 @@ export default function EditForm() {
           </Grid>
           <Grid item xs={12}>
             <FormSelect name="approvedById" label={t('approvedBy')}>
-              <MenuItem value="" key={'empty'}>
-                <em>None</em>
-              </MenuItem>
-              {people?.map((p) => {
+              {[{ id: '', firstName: <em>None</em>, lastName: '' }, ...people].map((p) => {
                 return (
-                  <MenuItem key={p.id} value={String(p.id)}>
+                  <MenuItem key={p.id} value={p.id}>
                     {p.firstName} {p.lastName}
                   </MenuItem>
                 )
@@ -193,14 +204,14 @@ export default function EditForm() {
                 label={t('sourceCampaign')}
                 name="sourceCampaignId"
                 value={sourceCampaignId}
-                onChange={(event) => setSourceCampaignId(event.target.value)}>
-                <MenuItem value="" key={'empty'}>
-                  <em></em>
-                </MenuItem>
-                {campaigns?.map((c) => {
+                onChange={(event) => {
+                  setSourceVaultId('')
+                  setSourceCampaignId(event.target.value)
+                }}>
+                {[{ id: '', title: '' }, ...campaigns].map((p) => {
                   return (
-                    <MenuItem key={c.id} value={String(c.id)}>
-                      {c.title}
+                    <MenuItem key={p.id} value={p.id}>
+                      {p.title}
                     </MenuItem>
                   )
                 })}
@@ -208,20 +219,26 @@ export default function EditForm() {
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <FormSelect name="sourceVaultId" label={t('sourceVault')}>
-              <MenuItem value="" key={'empty'}>
-                <em></em>
-              </MenuItem>
-              {vaults?.map((v) => {
-                if (v.campaignId === sourceCampaignId) {
+            <FormControl size="small" fullWidth>
+              <InputLabel>{t('sourceVault')}</InputLabel>
+              <Select
+                type="string"
+                sx={{ height: '55%' }}
+                label={t('sourceVaultId')}
+                name="sourceVaultId"
+                value={sourceVaultId}
+                onChange={(event) => {
+                  setSourceVaultId(event.target.value)
+                }}>
+                {[{ id: '', name: <em>None</em> }, ...sourceVaults].map((p) => {
                   return (
-                    <MenuItem key={v.id} value={String(v.id)}>
-                      {v.name}
+                    <MenuItem key={p.id} value={p.id}>
+                      {p.name}
                     </MenuItem>
                   )
-                }
-              })}
-            </FormSelect>
+                })}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12}>
             <FormControl size="small" fullWidth>
@@ -231,14 +248,14 @@ export default function EditForm() {
                 label={t('targetCampaign')}
                 name="targetCampaignId"
                 value={targetCampaignId}
-                onChange={(event) => setTargetCampaignId(event.target.value)}>
-                <MenuItem value="" key={'empty'}>
-                  <em></em>
-                </MenuItem>
-                {campaigns?.map((c) => {
+                onChange={(event) => {
+                  setTargetVaultId('')
+                  setTargetCampaignId(event.target.value)
+                }}>
+                {[{ id: '', title: '' }, ...campaigns].map((p) => {
                   return (
-                    <MenuItem key={c.id} value={String(c.id)}>
-                      {c.title}
+                    <MenuItem key={p.id} value={p.id}>
+                      {p.title}
                     </MenuItem>
                   )
                 })}
@@ -246,20 +263,26 @@ export default function EditForm() {
             </FormControl>
           </Grid>
           <Grid item xs={12}>
-            <FormSelect name="targetVaultId" label={t('targetVault')}>
-              <MenuItem value="" key={'empty'}>
-                <em></em>
-              </MenuItem>
-              {vaults?.map((v) => {
-                if (v.campaignId === targetCampaignId) {
+            <FormControl size="small" fullWidth>
+              <InputLabel>{t('targetVault')}</InputLabel>
+              <Select
+                type="string"
+                sx={{ height: '55%' }}
+                label={t('targetVaultId')}
+                name="targetVaultId"
+                value={targetVaultId}
+                onChange={(event) => {
+                  setTargetVaultId(event.target.value)
+                }}>
+                {[{ id: '', name: <em>None</em> }, ...targetVaults].map((p) => {
                   return (
-                    <MenuItem key={v.id} value={String(v.id)}>
-                      {v.name}
+                    <MenuItem key={p.id} value={p.id}>
+                      {p.name}
                     </MenuItem>
                   )
-                }
-              })}
-            </FormSelect>
+                })}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={6}>
             <SubmitButton fullWidth label={t('transfer:cta:submit')} />
