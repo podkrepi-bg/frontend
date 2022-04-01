@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import { observer } from 'mobx-react'
 import { Box } from '@mui/material'
@@ -17,32 +17,27 @@ import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 import DeleteAllModal from './DeleteAllModal'
 import GridActions from 'components/admin/GridActions'
-import { BootcampTypeFormData } from 'gql/bootcamp'
+import { BootcampResponse, BootcampTypeFormData } from 'gql/bootcamp'
+import { getAllBootcamp } from 'service/bootcamp'
 interface PersonCellProps {
   params: GridRenderCellParams
 }
 
 export default observer(function Grid() {
   const [pageSize, setPageSize] = useState(5)
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    ;(async () => {
+      const response = await getAllBootcamp()
+
+      setData(response.data)
+    })()
+  }, [])
   const { t } = useTranslation()
   const { setSelectedIdsToDelete } = ModalStore
 
   setSelectedIdsToDelete([])
-
-  const data: BootcampTypeFormData[] = [
-    {
-      id: '1',
-      firstName: 'Петър',
-      lastName: 'Петров',
-      city: 'София',
-    },
-    {
-      id: '2',
-      firstName: 'Стоян',
-      lastName: 'Димитров',
-      city: 'Варна',
-    },
-  ]
 
   const RenderCity = ({ params }: PersonCellProps) => {
     return <>{params?.row.city}</>
