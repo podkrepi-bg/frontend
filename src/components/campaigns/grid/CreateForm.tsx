@@ -1,4 +1,5 @@
 import * as yup from 'yup'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { FormikHelpers } from 'formik'
 import { useMutation } from 'react-query'
@@ -11,29 +12,28 @@ import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 
 import { routes } from 'common/routes'
-import { useCreateCampaign, useUploadCampaignFiles } from 'service/campaign'
 import { AlertStore } from 'stores/AlertStore'
 import { createSlug } from 'common/util/createSlug'
-
+import FileList from 'components/file-upload/FileList'
+import { FileRole } from 'components/campaign-file/roles'
+import FileUpload from 'components/file-upload/FileUpload'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
+import { useCreateCampaign, useUploadCampaignFiles } from 'service/campaign'
+import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 import {
   CampaignResponse,
   CampaignFormData,
   CampaignInput,
   CampaignUploadImage,
 } from 'gql/campaigns'
-import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
 import CampaignTypeSelect from '../CampaignTypeSelect'
 import CoordinatorSelect from './CoordinatorSelect'
 import BeneficiarySelect from './BeneficiarySelect'
-import FileUpload from 'components/file-upload/FileUpload'
-import FileList from 'components/file-upload/FileList'
-import { useState } from 'react'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -96,7 +96,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   const classes = useStyles()
   const router = useRouter()
   const [files, setFiles] = useState<File[]>([])
-  const [filesRole, setFilesRole] = useState<{ file: string; role: string }[]>([])
+  const [filesRole, setFilesRole] = useState<FileRole[]>([])
   const { t } = useTranslation()
 
   const mutation = useMutation<
@@ -112,7 +112,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   const fileUploadMutation = useMutation<
     AxiosResponse<CampaignUploadImage[]>,
     AxiosError<ApiErrors>,
-    { files: File[]; id: string; filesRole: { file: string; role: string }[] }
+    { files: File[]; id: string; filesRole: FileRole[] }
   >({
     mutationFn: useUploadCampaignFiles(),
   })
@@ -223,7 +223,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               onDelete={(deletedFile) =>
                 setFiles((prevFiles) => prevFiles.filter((file) => file.name !== deletedFile.name))
               }
-              onSetFileRole={(file: File, role: string) => {
+              onSetFileRole={(file, role) => {
                 setFilesRole((filesRole) => [
                   ...filesRole.filter((f) => f.file !== file.name),
                   { file: file.name, role },

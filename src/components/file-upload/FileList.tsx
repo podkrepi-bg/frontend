@@ -1,3 +1,4 @@
+import React from 'react'
 import { Delete, UploadFile } from '@mui/icons-material'
 import {
   Avatar,
@@ -12,20 +13,22 @@ import {
   InputLabel,
 } from '@mui/material'
 import { SelectChangeEvent } from '@mui/material/Select'
-import { CampaignFileRole } from 'components/campaign-file/roles'
-import React from 'react'
 
-type NewType = {
+import { CampaignFileRole, FileRole } from 'components/campaign-file/roles'
+
+type Props = {
   files: File[]
   onDelete?: (file: File) => void
-  onSetFileRole: (file: File, role: string) => void
-  filesRole: { file: string; role: string }[]
+  onSetFileRole: (file: File, role: CampaignFileRole) => void
+  filesRole: FileRole[]
 }
 
-function FileList({ files, onDelete, onSetFileRole, filesRole = [] }: NewType) {
+function FileList({ files, onDelete, onSetFileRole, filesRole = [] }: Props) {
   const setFileRole = (file: File) => {
-    return (event: SelectChangeEvent) => {
-      onSetFileRole(file, event.target.value as string)
+    return (event: SelectChangeEvent<CampaignFileRole>) => {
+      if (Object.values(CampaignFileRole).includes(event.target.value as CampaignFileRole)) {
+        onSetFileRole(file, event.target.value as CampaignFileRole)
+      }
     }
   }
 
@@ -46,15 +49,14 @@ function FileList({ files, onDelete, onSetFileRole, filesRole = [] }: NewType) {
           </ListItemAvatar>
           <ListItemText primary={file.name} />
           <FormControl>
-            <InputLabel id="choose-type-label">Избери тип</InputLabel>
-            <Select
-              labelId="choose-type-label"
+            <InputLabel id="choose-type-label">{'Избери тип'}</InputLabel>
+            <Select<CampaignFileRole>
               id="choose-type"
-              value={
-                (filesRole.find((f) => f.file === file.name)?.role as string) ||
-                CampaignFileRole.background
-              }
               label="Избери тип"
+              labelId="choose-type-label"
+              value={
+                filesRole.find((f) => f.file === file.name)?.role ?? CampaignFileRole.background
+              }
               onChange={setFileRole(file)}>
               {Object.values(CampaignFileRole).map((role) => (
                 <MenuItem key={role} value={role}>
