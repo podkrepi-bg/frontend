@@ -24,6 +24,7 @@ import ExpenseSelect from './ExpenseSelect'
 import VaultSelect from './VaultSelect'
 import ExpenseTypeSelect from './ExpenseTypeSelect'
 import ExpenseStatusSelect from './ExpenseStatusSelect'
+import CurrencySelect from './CurrencySelect'
 
 const validTypes = Object.keys(ExpenseType)
 const validStatuses = Object.keys(ExpenseStatus)
@@ -123,7 +124,7 @@ export default function Form() {
             <FormTextField type="number" name="amount" label="expenses:fields.amount" />
           </Grid>
           <Grid item xs={6}>
-            <ExpenseSelect name="currency" allowEmpty={false} />
+            <CurrencySelect />
           </Grid>
           <Grid item xs={6}>
             <VaultSelect />
