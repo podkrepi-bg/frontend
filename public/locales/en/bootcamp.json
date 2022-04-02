@@ -1,0 +1,50 @@
+{
+  "allTasks": "All Tasks",
+  "name": "Georgy Genchev",
+  "status": "Status",
+  "email": "Email",
+  "message": "Message",
+  "startDate": "Start Date",
+  "endDate": "End Date",
+  "firstName": "First name",
+  "lastName": "Last name",
+  "actions": "Actions",
+  "modals": {
+      "delete": {
+          "title": "Are you sure?",
+          "content": "This action will delete this item permanently!"
+      },
+      "delete-all": {
+          "title": "Are you sure?",
+          "content": "Това действие ще изтрие всички избрани записи"
+      }
+  },
+  "alerts": {
+    "selectStatus": "Please choose a status",
+    "create": "Task has been created successfully!",
+    "edit": "Task has been edited successfully!",
+    "delete": "Task has been deleted successfully!",
+    "deleteAll": "Tasks have been deleted successfully!",
+    "error": "An error has occured! Please try again later."
+  },
+  "cta": {
+    "add": "Add",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "deleteSelected": "Delete selected rows",
+    "edit": "Edit",
+    "details": "Details",
+    "submit": "Submit"
+  },
+  "tasks":{
+    "newTask":"Create a new task",
+    "todo":"Todo",
+    "inProgress":"in Progress",
+    "forReview":"For Review",
+    "done":"Done",
+    "other":"Other"
+  }
+}
+
+

@@ -5,55 +5,103 @@ import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
-import { Box, Button, Grid, Typography } from '@mui/material'
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Grid,
+  Typography,
+  RadioGroup,
+  Radio,
+  FormControlLabel,
+} from '@mui/material'
 
-import { CityFormData, CityInput, CityResponse } from 'gql/cities'
 import { routes } from 'common/routes'
 import { ApiErrors } from 'service/apiErrors'
-import { useCreateCity } from 'service/city'
 import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
-import SelectCountry from 'components/campaigns/SelectCountry'
+import { format, parse, isDate } from 'date-fns'
+import { BootcampInput, BootcampFormData, BootcampResponse } from 'gql/bootcamp'
+import { useCreateBootcamp } from 'service/bootcamp'
 
-const validationSchema: yup.SchemaOf<CityFormData> = yup
+const formatString = 'yyyy-MM-dd'
+
+const parseDateString = (value: string, originalValue: string) => {
+  const parsedDate = isDate(originalValue)
+    ? originalValue
+    : parse(originalValue, formatString, new Date())
+  return parsedDate
+}
+const theme = {
+  spacing: 8,
+}
+const validationSchema: yup.SchemaOf<BootcampFormData> = yup
   .object()
   .defined()
   .shape({
-    name: yup.string().trim().min(3).max(25).required(),
-    postalCode: yup.string().trim().min(1).max(10).required(),
-    countryId: yup.string(),
+    status: yup.string().required(),
+    title: yup.string().trim().min(1).max(25).required(),
+    email: yup.string().required().email(),
+    message: yup.string().trim().min(1).max(25).required(),
+    startDate: yup.date().transform(parseDateString).required(),
+    endDate: yup
+      .date()
+      .transform(parseDateString)
+      .min(yup.ref('startDate'), `end date can't be before start date`),
+    firstName: yup.string().trim().min(1).max(25).required(),
+    lastName: yup.string().trim().min(1).max(25).required(),
   })
 
-export default function EditForm() {
+export default function CreateForm() {
   const router = useRouter()
   const { t } = useTranslation()
 
-  const initialValues: CityInput = {
-    name: '',
-    postalCode: '',
-    countryId: '',
+  const initialValues: BootcampInput = {
+    status: '',
+    title: '',
+    email: '',
+    message: '',
+    startDate: format(new Date(), formatString),
+    endDate: format(new Date().setMonth(new Date().getMonth() + 1), formatString),
+    firstName: '',
+    lastName: '',
   }
 
-  const mutationFn = useCreateCity()
-
-  const mutation = useMutation<AxiosResponse<CityResponse>, AxiosError<ApiErrors>, CityInput>({
-    mutationFn,
-    onError: () => AlertStore.show(t('cities:alerts:error'), 'error'),
+  const mutation = useMutation<
+    AxiosResponse<BootcampResponse>,
+    AxiosError<ApiErrors>,
+    BootcampInput
+  >({
+    mutationFn: useCreateBootcamp(),
+    onError: () => AlertStore.show(t('bootcamp:alerts:error'), 'error'),
     onSuccess: () => {
-      AlertStore.show(t('cities:alerts:create'), 'success')
-      router.push(routes.admin.cities.home)
+      AlertStore.show(t('bootcamp:alerts:create'), 'success')
+      router.push(routes.admin.bootcamp.index)
     },
   })
 
-  async function onSubmit(values: CityInput) {
-    const data = {
-      name: values.name,
-      postalCode: values.postalCode,
-      countryId: values.countryId,
+  async function onSubmit(values: BootcampInput): Promise<void> {
+    console.log(values)
+
+    try {
+      const data = {
+        status: values.status,
+        title: values.title,
+        email: values.email,
+        message: values.message,
+        startDate: values.startDate,
+        endDate: values.endDate,
+        firstName: values.firstName,
+        lastName: values.lastName,
+      }
+      console.log(data)
+      mutation.mutate(data)
+    } catch (error) {
+      console.log(error)
     }
-    mutation.mutate(data)
   }
 
   return (
@@ -63,29 +111,73 @@ export default function EditForm() {
       validationSchema={validationSchema}>
       <Box sx={{ marginTop: '5%', height: '62.6vh' }}>
         <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
-          {t('cities:form-heading')}
+          {t('bootcamp:tasks:newTask')}
         </Typography>
         <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
+          <FormControl sx={{ paddingTop: 2, paddingLeft: 2 }}>
+            <FormLabel id="demo-radio-buttons-group-label">{t('Статус')}</FormLabel>
+            <RadioGroup row defaultValue="todo" name="status">
+              <FormControlLabel value="todo" control={<Radio />} label="Todo" />
+              <FormControlLabel value="inProgress" control={<Radio />} label="In Progress" />
+              <FormControlLabel value="forReview" control={<Radio />} label="For Review" />
+              <FormControlLabel value="done" control={<Radio />} label="Done" />
+              <FormControlLabel value="other" control={<Radio />} label="Other" />
+            </RadioGroup>
+          </FormControl>
           <Grid item xs={12}>
-            <FormTextField type="text" label="Cities: Име" name="name" autoComplete="name" />
+            <FormTextField type="text" label="Title: Заглавие" name="title" autoComplete="title" />
           </Grid>
           <Grid item xs={12}>
             <FormTextField
               type="string"
-              label="Cities:Пощенски код"
-              name="postalCode"
-              autoComplete="postal-code"
+              label="Email: Имейл адрес"
+              name="email"
+              autoComplete="email"
             />
           </Grid>
           <Grid item xs={12}>
-            <SelectCountry />
+            <FormTextField
+              rows={5}
+              multiline
+              type="string"
+              name="message"
+              label="bootcamp:message"
+              autoComplete="message"
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormTextField
+              type="date"
+              name="startDate"
+              label="bootcamp:startDate"
+              helperText={null}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormTextField type="date" name="endDate" label="bootcamp:endDate" helperText={null} />
+          </Grid>
+          <Grid item xs={12}>
+            <FormTextField
+              type="string"
+              label="bootcamp:firstName"
+              name="firstName"
+              autoComplete="firstName"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <FormTextField
+              type="string"
+              label="bootcamp:lastName"
+              name="lastName"
+              autoComplete="lastName"
+            />
           </Grid>
           <Grid item xs={6}>
-            <SubmitButton fullWidth label={t('cities:cta:submit')} />
+            <SubmitButton fullWidth label={t('bootcamp:cta:submit')} />
           </Grid>
           <Grid item xs={6}>
-            <Link href={routes.admin.cities.home} passHref>
-              <Button fullWidth>{t('cities:cta:cancel')}</Button>
+            <Link href={routes.admin.bootcamp.index} passHref>
+              <Button fullWidth>{t('bootcamp:cta:cancel')}</Button>
             </Link>
           </Grid>
         </Grid>

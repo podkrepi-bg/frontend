@@ -7,6 +7,8 @@
   "startDate": "Начална дата",
   "endDate": "Крайна дата",
   "actions": "Действия",
+  "firstName": "Име",
+  "lastName": "Фамилия",
   "modals": {
       "delete": {
           "title": "Сигурни ли сте?",

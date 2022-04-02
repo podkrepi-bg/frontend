@@ -54,7 +54,7 @@ export const routes = {
     supporters: '/admin/supporters',
     bootcamp: {
       index: '/admin/bootcamp',
-      create: '/admin/create',
+      create: '/admin/bootcamp/create',
       editBootcampById: (id: string) => `/admin/bootcamp/edit/${id}`,
     },
     bankaccounts: {
