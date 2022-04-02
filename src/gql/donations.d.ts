@@ -1,3 +1,4 @@
+import type { Currency } from './currency'
 import { Stripe } from 'stripe'
 import { UUID } from './types'
 
@@ -68,12 +69,6 @@ enum PaymentProvider {
   'epay',
   'bank',
   'cash',
-}
-
-enum Currency {
-  'BGN',
-  'EUR',
-  'USD',
 }
 
 export type UserDonation = {

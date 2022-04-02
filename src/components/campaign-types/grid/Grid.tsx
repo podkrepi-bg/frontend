@@ -1,32 +1,20 @@
 import React, { useState } from 'react'
 import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
-import { observer } from 'mobx-react'
 import { Box } from '@mui/material'
-import {
-  DataGrid,
-  GridColDef,
-  GridColumns,
-  GridRenderCellParams,
-  GridSelectionModel,
-} from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { routes } from 'common/routes'
+import GridActions from 'components/admin/GridActions'
 import { CampaignTypesResponse } from 'gql/campaign-types'
 import { useCampaignTypesList } from 'service/campaignTypes'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
-import DeleteAllModal from './DeleteAllModal'
-import GridActions from 'components/admin/GridActions'
 
-export default observer(function Grid() {
+export default function Grid() {
   const [pageSize, setPageSize] = useState(5)
   const { t } = useTranslation('campaign-types')
-  const { setSelectedIdsToDelete } = ModalStore
-
-  setSelectedIdsToDelete([])
 
   const { data }: UseQueryResult<CampaignTypesResponse[]> = useCampaignTypesList()
 
@@ -85,15 +73,10 @@ export default observer(function Grid() {
           pageSize={pageSize}
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
           disableSelectionOnClick
-          checkboxSelection
-          onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
-            setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
-          }}
         />
       </Box>
       <DetailsModal />
       <DeleteModal />
-      <DeleteAllModal />
     </>
   )
-})
+}

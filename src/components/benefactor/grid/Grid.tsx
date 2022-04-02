@@ -1,29 +1,18 @@
 import React, { useState } from 'react'
 import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
-import { observer } from 'mobx-react'
 import { Box } from '@mui/material'
-import {
-  DataGrid,
-  GridColDef,
-  GridColumns,
-  GridRenderCellParams,
-  GridSelectionModel,
-} from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { routes } from 'common/routes'
 import { BenefactorResponse } from 'gql/benefactor'
-import { useBenefactorList } from 'common/hooks/benefactor'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 import GridActions from 'components/admin/GridActions'
+import { useBenefactorList } from 'common/hooks/benefactor'
 
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
-import DeleteAllModal from './DeleteAllModal'
 
-export default observer(function Grid() {
-  const { setSelectedIdsToDelete } = ModalStore
-
+export default function Grid() {
   const { t } = useTranslation('benefactor')
   const [pageSize, setPageSize] = useState(5)
   const { data }: UseQueryResult<BenefactorResponse[]> = useBenefactorList()
@@ -91,15 +80,10 @@ export default observer(function Grid() {
           autoHeight
           autoPageSize
           disableSelectionOnClick
-          checkboxSelection
-          onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
-            setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
-          }}
         />
       </Box>
       <DetailsModal />
       <DeleteModal />
-      <DeleteAllModal />
     </>
   )
-})
+}

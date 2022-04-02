@@ -39,6 +39,11 @@ spec:
                 configMapKeyRef:
                   name: config-web
                   key: api-url
+            - name: IMAGE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: config-web
+                  key: image-host
             - name: KEYCLOAK_URL
               valueFrom:
                 configMapKeyRef:

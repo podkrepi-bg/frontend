@@ -1,7 +1,6 @@
 import React from 'react'
 import { UseQueryResult } from 'react-query'
 import { observer } from 'mobx-react'
-import { Dialog, Card, CardContent, Typography, Divider } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import { DonationResponse } from 'gql/donations'

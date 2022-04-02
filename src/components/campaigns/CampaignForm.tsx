@@ -11,21 +11,29 @@ import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 
 import { routes } from 'common/routes'
+import { Currency } from 'gql/currency'
 import { PersonFormData } from 'gql/person'
-import { useCreateCampaign } from 'service/campaign'
 import { AlertStore } from 'stores/AlertStore'
 import { createSlug } from 'common/util/createSlug'
+import FileList from 'components/file-upload/FileList'
 import PersonDialog from 'components/person/PersonDialog'
+import FileUpload from 'components/file-upload/FileUpload'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
+import { CampaignFileRole, FileRole, UploadCampaignFiles } from 'components/campaign-file/roles'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
-import { CampaignResponse, CampaignFormData, CampaignInput } from 'gql/campaigns'
+import { useCreateCampaign, useUploadCampaignFiles } from 'service/campaign'
+import {
+  CampaignResponse,
+  CampaignFormData,
+  CampaignInput,
+  CampaignUploadImage,
+} from 'gql/campaigns'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
 import CampaignTypeSelect from './CampaignTypeSelect'
-import FileUploadModal from './FileUploadModal'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -90,6 +98,8 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   const router = useRouter()
   const [coordinator, setCoordinator] = useState<PersonFormData>()
   const [beneficiary, setBeneficiary] = useState<PersonFormData>()
+  const [files, setFiles] = useState<File[]>([])
+  const [roles, setRoles] = useState<FileRole[]>([])
 
   const mutation = useMutation<
     AxiosResponse<CampaignResponse>,
@@ -99,6 +109,14 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
     mutationFn: useCreateCampaign(),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
+  })
+
+  const fileUploadMutation = useMutation<
+    AxiosResponse<CampaignUploadImage[]>,
+    AxiosError<ApiErrors>,
+    UploadCampaignFiles
+  >({
+    mutationFn: useUploadCampaignFiles(),
   })
 
   const onSubmit = async (
@@ -117,7 +135,12 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
         campaignTypeId: values.campaignTypeId,
         beneficiaryId: values.beneficiaryId,
         coordinatorId: values.coordinatorId,
-        currency: 'BGN',
+        currency: Currency.BGN,
+      })
+      await fileUploadMutation.mutateAsync({
+        files,
+        roles,
+        campaignId: response.data.id,
       })
       resetForm()
       router.push(routes.campaigns.viewCampaignBySlug(response.data.slug))
@@ -225,7 +248,32 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
             <input type="hidden" name="beneficiaryId" />
           </Grid>
           <Grid item xs={12}>
-            <FileUploadModal />
+            <FileUpload
+              buttonLabel="Добави снимки"
+              onUpload={(newFiles) => {
+                setFiles((prevFiles) => [...prevFiles, ...newFiles])
+                setRoles((prevRoles) => [
+                  ...prevRoles,
+                  ...newFiles.map((file) => ({
+                    file: file.name,
+                    role: CampaignFileRole.background,
+                  })),
+                ])
+              }}
+            />
+            <FileList
+              files={files}
+              filesRole={roles}
+              onDelete={(deletedFile) =>
+                setFiles((prevFiles) => prevFiles.filter((file) => file.name !== deletedFile.name))
+              }
+              onSetFileRole={(file, role) => {
+                setRoles((filesRole) => [
+                  ...filesRole.filter((f) => f.file !== file.name),
+                  { file: file.name, role },
+                ])
+              }}
+            />
           </Grid>
           <Grid item xs={12}>
             <AcceptTermsField name="terms" />

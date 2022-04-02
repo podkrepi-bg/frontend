@@ -1,23 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useMutation } from 'react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
-import {
-  Box,
-  Button,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  Typography,
-} from '@mui/material'
+import { Box, Button, Grid, Typography } from '@mui/material'
 
 import { CityFormData, CityInput, CityResponse } from 'gql/cities'
-import { useCountriesList } from 'common/hooks/cities'
 import { routes } from 'common/routes'
 import { ApiErrors } from 'service/apiErrors'
 import { useCreateCity } from 'service/city'
@@ -25,6 +15,7 @@ import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
+import SelectCountry from 'components/campaigns/SelectCountry'
 
 const validationSchema: yup.SchemaOf<CityFormData> = yup
   .object()
@@ -38,8 +29,6 @@ const validationSchema: yup.SchemaOf<CityFormData> = yup
 export default function EditForm() {
   const router = useRouter()
   const { t } = useTranslation()
-  const countries = useCountriesList()
-  const [countryId, setCountryId] = useState('')
 
   const initialValues: CityInput = {
     name: '',
@@ -62,13 +51,9 @@ export default function EditForm() {
     const data = {
       name: values.name,
       postalCode: values.postalCode,
-      countryId: countryId,
+      countryId: values.countryId,
     }
     mutation.mutate(data)
-  }
-
-  function handleChange(event: SelectChangeEvent) {
-    setCountryId(event.target.value)
   }
 
   return (
@@ -93,21 +78,7 @@ export default function EditForm() {
             />
           </Grid>
           <Grid item xs={12}>
-            <InputLabel>Държава</InputLabel>
-            <Select
-              fullWidth
-              id="countryId"
-              name="countryId"
-              value={countryId}
-              onChange={handleChange}>
-              {countries?.map((country) => {
-                return (
-                  <MenuItem key={country.id} value={country.id}>
-                    {country.name}
-                  </MenuItem>
-                )
-              })}
-            </Select>
+            <SelectCountry />
           </Grid>
           <Grid item xs={6}>
             <SubmitButton fullWidth label={t('cities:cta:submit')} />
