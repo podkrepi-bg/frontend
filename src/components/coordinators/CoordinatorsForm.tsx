@@ -61,7 +61,7 @@ export default function CoordinatorsForm() {
       <GenericForm onSubmit={onSubmit} initialValues={initialValues}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <CoordinatorCreateSelect></CoordinatorCreateSelect>
+            <CoordinatorCreateSelect />
           </Grid>
         </Grid>
         <Grid item xs={12}>

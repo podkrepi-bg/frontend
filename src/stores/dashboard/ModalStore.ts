@@ -10,28 +10,21 @@ type Record = {
 class ModalStoreImpl {
   isDetailsOpen = false
   isDeleteOpen = false
-  isDeleteAllOpen = false
   selectedRecord: Record = {
     id: '',
     name: '',
   }
-  selectedIdsToDelete: string[] = []
 
   constructor() {
     makeObservable(this, {
       isDetailsOpen: observable,
       isDeleteOpen: observable,
-      isDeleteAllOpen: observable,
       selectedRecord: observable,
-      selectedIdsToDelete: observable,
       setSelectedRecord: action,
-      setSelectedIdsToDelete: action,
       showDetails: action,
       hideDetails: action,
       showDelete: action,
       hideDelete: action,
-      showDeleteAll: action,
-      hideDeleteAll: action,
     })
   }
 
@@ -51,20 +44,8 @@ class ModalStoreImpl {
     this.isDeleteOpen = false
   }
 
-  showDeleteAll = () => {
-    this.isDeleteAllOpen = true
-  }
-
-  hideDeleteAll = () => {
-    this.isDeleteAllOpen = false
-  }
-
   setSelectedRecord = (record: Record) => {
     this.selectedRecord = record
-  }
-
-  setSelectedIdsToDelete = (ids: string[]) => {
-    this.selectedIdsToDelete = ids
   }
 }
 

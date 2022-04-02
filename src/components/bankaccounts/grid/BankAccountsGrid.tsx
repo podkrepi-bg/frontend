@@ -1,12 +1,11 @@
 import React from 'react'
 import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
-import { GridColumns, DataGrid, GridSelectionModel, GridRenderCellParams } from '@mui/x-data-grid'
+import { GridColumns, DataGrid, GridRenderCellParams } from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
 import { BankAccountResponse } from 'gql/bankaccounts'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 import { useBankAccountsList } from 'common/hooks/bankaccounts'
 import GridActions from 'components/admin/GridActions'
 
@@ -14,14 +13,10 @@ import { renderCellWithdraws } from './BankAccountsGridHelper'
 import { commonProps } from './BankAccountsGridHelper'
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
-import DeleteAllModal from './DeleteAllModal'
 
 export default observer(function BankAccountsGrid() {
   const { t } = useTranslation('bankaccounts')
   const { data }: UseQueryResult<BankAccountResponse[]> = useBankAccountsList()
-  const { setSelectedIdsToDelete } = ModalStore
-
-  setSelectedIdsToDelete([])
 
   const columns: GridColumns = [
     { ...commonProps, headerName: t('status'), field: 'status' },
@@ -79,14 +74,9 @@ export default observer(function BankAccountsGrid() {
         autoHeight
         autoPageSize
         disableSelectionOnClick
-        checkboxSelection
-        onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
-          setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
-        }}
       />
       <DetailsModal />
       <DeleteModal />
-      <DeleteAllModal />
     </>
   )
 })

@@ -2,8 +2,9 @@ import React from 'react'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
-import { useMediaQuery } from '@mui/material'
 import { useRouter } from 'next/router'
+
+import useMobile from 'common/hooks/useMobile'
 
 type Props = {
   value: number
@@ -18,12 +19,12 @@ const VerticalTabs = ({ value, setValue, children }: Props) => {
     router.push(`#${newValue}`)
     setValue(newValue)
   }
-  const isMobile = useMediaQuery('(max-width:900px)')
+  const { mobile } = useMobile()
 
   return (
-    <Box sx={{ bgcolor: 'background.paper', display: `${isMobile ? 'block' : 'flex'}` }}>
+    <Box sx={{ bgcolor: 'background.paper', display: `${mobile ? 'block' : 'flex'}` }}>
       <Tabs
-        orientation={isMobile ? 'horizontal' : 'vertical'}
+        orientation={mobile ? 'horizontal' : 'vertical'}
         variant="scrollable"
         value={value}
         onChange={handleChange}

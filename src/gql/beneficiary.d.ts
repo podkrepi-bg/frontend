@@ -34,3 +34,9 @@ export type BeneficiaryFormData = {
 export type DeleteMany = {
   ids: string[]
 }
+
+export type BeneficiaryResponse = {
+  id: UUID
+  person: Person
+  personId: UUID
+}

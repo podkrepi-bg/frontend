@@ -99,7 +99,7 @@ export default function EditBenefactorForm({ id, initialValues = defaults }: Ben
             {t('edit-form-heading')}
           </Typography>
           <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
-            <Grid item xs={12}></Grid>
+            <Grid item xs={12} />
             <Grid item xs={12} sm={4}>
               <FormTextField
                 type="text"

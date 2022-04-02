@@ -1,12 +1,9 @@
 import { useRouter } from 'next/router'
-import { observer } from 'mobx-react'
 import { useTranslation } from 'next-i18next'
 import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
-import { Delete as DeleteIcon, Add as AddIcon } from '@mui/icons-material'
+import { Add as AddIcon } from '@mui/icons-material'
 
 import { routes } from 'common/routes'
-import { ModalStore } from 'stores/dashboard/ModalStore'
-import { AlertStore } from 'stores/AlertStore'
 
 const addIconStyles = {
   background: '#4ac3ff',
@@ -15,25 +12,10 @@ const addIconStyles = {
   padding: 1.2,
   boxShadow: 3,
 }
-const iconStyles = {
-  background: 'white',
-  borderRadius: '50%',
-  cursor: 'pointer',
-  padding: 0.5,
-  boxShadow: 3,
-  mr: 1,
-}
 
-export default observer(function GridAppbar() {
-  const { showDeleteAll, selectedIdsToDelete } = ModalStore
+export default function GridAppbar() {
   const router = useRouter()
   const { t } = useTranslation()
-
-  function deleteAllClickHandler() {
-    selectedIdsToDelete.length > 0
-      ? showDeleteAll()
-      : AlertStore.show(t('common:alerts.noselected'), 'warning')
-  }
 
   return (
     <Toolbar
@@ -49,25 +31,15 @@ export default observer(function GridAppbar() {
       </Box>
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Tooltip title={t('donations:cta:deleteSelected') || ''}>
-            <DeleteIcon
-              onClick={deleteAllClickHandler}
-              sx={iconStyles}
-              fontSize="medium"
-              color="action"
-            />
-          </Tooltip>
           <Tooltip title={t('donations:cta:add') || ''}>
             <AddIcon
               sx={addIconStyles}
               fontSize="large"
-              onClick={() => {
-                router.push(routes.admin.donations.create)
-              }}
+              onClick={() => router.push(routes.admin.donations.create)}
             />
           </Tooltip>
         </Box>
       </Box>
     </Toolbar>
   )
-})
+}
