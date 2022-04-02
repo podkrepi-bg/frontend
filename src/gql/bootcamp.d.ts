@@ -42,8 +42,8 @@ export type BootcampInput = {
   title: string | undefined
   email: string | undefined
   message: string | undefined
-  startDate: Date | null | string | undefined
-  endDate: Date | null | string | undefined
+  startDate: Date | string | undefined
+  endDate: Date | string | undefined
   firstName: string | undefined
   lastName: string | undefined
 }

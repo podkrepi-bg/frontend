@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useMutation } from 'react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -15,6 +15,9 @@ import {
   RadioGroup,
   Radio,
   FormControlLabel,
+  Select,
+  InputLabel,
+  MenuItem,
 } from '@mui/material'
 
 import { routes } from 'common/routes'
@@ -28,17 +31,19 @@ import { BootcampInput, BootcampFormData, BootcampResponse } from 'gql/bootcamp'
 import { useCreateBootcamp } from 'service/bootcamp'
 
 const formatString = 'yyyy-MM-dd'
-
+const validBootcampStatuses = ['todo', 'inProgress', 'forReview', 'done', 'other']
 const parseDateString = (value: string, originalValue: string) => {
   const parsedDate = isDate(originalValue)
     ? originalValue
     : parse(originalValue, formatString, new Date())
+  console.log(parsedDate)
+  console.log(typeof parsedDate)
   return parsedDate
 }
 const theme = {
   spacing: 8,
 }
-const validationSchema: yup.SchemaOf<BootcampFormData> = yup
+const validationSchema: yup.SchemaOf<BootcampInput> = yup
   .object()
   .defined()
   .shape({
@@ -54,13 +59,16 @@ const validationSchema: yup.SchemaOf<BootcampFormData> = yup
     firstName: yup.string().trim().min(1).max(25).required(),
     lastName: yup.string().trim().min(1).max(25).required(),
   })
+console.log(validationSchema)
 
 export default function CreateForm() {
+  const [status, setStatus] = useState('todo')
+
   const router = useRouter()
   const { t } = useTranslation()
 
   const initialValues: BootcampInput = {
-    status: '',
+    status: 'todo',
     title: '',
     email: '',
     message: '',
@@ -84,8 +92,7 @@ export default function CreateForm() {
   })
 
   async function onSubmit(values: BootcampInput): Promise<void> {
-    console.log(values)
-
+    console.log(typeof values.startDate)
     try {
       const data = {
         status: values.status,
@@ -114,16 +121,29 @@ export default function CreateForm() {
           {t('bootcamp:tasks:newTask')}
         </Typography>
         <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
-          <FormControl sx={{ paddingTop: 2, paddingLeft: 2 }}>
-            <FormLabel id="demo-radio-buttons-group-label">{t('Статус')}</FormLabel>
-            <RadioGroup row defaultValue="todo" name="status">
-              <FormControlLabel value="todo" control={<Radio />} label="Todo" />
-              <FormControlLabel value="inProgress" control={<Radio />} label="In Progress" />
-              <FormControlLabel value="forReview" control={<Radio />} label="For Review" />
-              <FormControlLabel value="done" control={<Radio />} label="Done" />
-              <FormControlLabel value="other" control={<Radio />} label="Other" />
-            </RadioGroup>
-          </FormControl>
+          <Grid item xs={6}>
+            <FormControl fullWidth size="small">
+              <InputLabel id="labelStatus">{t('bootcamp:status')}</InputLabel>
+              <Select
+                labelId={t('bootcamp:status')}
+                label={t('bootcamp:status')}
+                id="status"
+                name="status"
+                defaultValue={initialValues.status}
+                onChange={(e) => {
+                  setStatus(e.target.value)
+                  console.log(e.target.value)
+                }}>
+                {validBootcampStatuses.map((stat) => {
+                  return (
+                    <MenuItem key={stat} value={stat}>
+                      {stat}
+                    </MenuItem>
+                  )
+                })}
+              </Select>
+            </FormControl>
+          </Grid>
           <Grid item xs={12}>
             <FormTextField type="text" label="Title: Заглавие" name="title" autoComplete="title" />
           </Grid>
