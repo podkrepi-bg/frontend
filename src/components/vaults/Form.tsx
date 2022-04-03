@@ -18,6 +18,7 @@ import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
+import CurrencySelect from 'components/currency/CurrencySelect'
 
 const validCurrencies = Object.keys(Currency)
 
@@ -88,7 +89,7 @@ export default function EditForm() {
           ) : (
             <>
               <Grid item xs={6}>
-                <FormTextField type="text" label={t('vaults:currency')} name="currency" />
+                <CurrencySelect />
               </Grid>
               <Grid item xs={6}>
                 <FormTextField type="text" label={t('vaults:campaignId')} name="campaignId" />
