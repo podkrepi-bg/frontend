@@ -25,7 +25,7 @@ import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
-import { parse, isDate } from 'date-fns'
+import { parse, isDate, format } from 'date-fns'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -68,8 +68,8 @@ export default function BootcampEditForm() {
     title: data?.title,
     email: data?.email,
     message: data?.message,
-    startDate: data?.startDate,
-    endDate: data?.endDate,
+    startDate: format(new Date(data?.startDate ?? new Date()), formatString),
+    endDate: format(new Date(data?.endDate ?? new Date()), formatString),
     firstName: data?.firstName,
     lastName: data?.lastName,
   }
@@ -91,7 +91,7 @@ export default function BootcampEditForm() {
 
   async function onSubmit(values: BootcampInput) {
     const data = {
-      status: values.status,
+      status: status,
       title: values.title,
       email: values.email,
       message: values.message,

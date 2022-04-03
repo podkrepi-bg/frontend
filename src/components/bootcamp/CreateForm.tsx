@@ -17,7 +17,7 @@ import {
 } from '@mui/material'
 
 import { routes } from 'common/routes'
-import { ApiErrors } from 'service/apiErrors'
+import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
@@ -25,6 +25,7 @@ import SubmitButton from 'components/common/form/SubmitButton'
 import { format, parse, isDate } from 'date-fns'
 import { BootcampInput, BootcampResponse } from 'gql/bootcamp'
 import { useCreateBootcamp } from 'service/bootcamp'
+import { FormikHelpers } from 'formik'
 
 const formatString = 'yyyy-MM-dd'
 const validBootcampStatuses = ['todo', 'inProgress', 'forReview', 'done', 'other']
@@ -32,13 +33,9 @@ const parseDateString = (value: string, originalValue: string) => {
   const parsedDate = isDate(originalValue)
     ? originalValue
     : parse(originalValue, formatString, new Date())
-  console.log(parsedDate)
-  console.log(typeof parsedDate)
   return parsedDate
 }
-const theme = {
-  spacing: 8,
-}
+const currentStatus = 'current'
 const validationSchema: yup.SchemaOf<BootcampInput> = yup
   .object()
   .defined()
@@ -55,10 +52,9 @@ const validationSchema: yup.SchemaOf<BootcampInput> = yup
     firstName: yup.string().trim().min(1).max(25).required(),
     lastName: yup.string().trim().min(1).max(25).required(),
   })
-console.log(validationSchema)
 
 export default function CreateForm() {
-  const [status, setStatus] = useState('todo')
+  const [status, setStatus] = useState('')
 
   const router = useRouter()
   const { t } = useTranslation()
@@ -87,11 +83,13 @@ export default function CreateForm() {
     },
   })
 
-  async function onSubmit(values: BootcampInput): Promise<void> {
-    console.log(typeof values.startDate)
+  async function onSubmit(
+    values: BootcampInput,
+    { setFieldError }: FormikHelpers<BootcampInput>,
+  ): Promise<void> {
     try {
       const data = {
-        status: values.status,
+        status: status,
         title: values.title,
         email: values.email,
         message: values.message,
@@ -103,6 +101,12 @@ export default function CreateForm() {
       mutation.mutate(data)
     } catch (error) {
       console.log(error)
+      if (isAxiosError(error)) {
+        const { response } = error as AxiosError<ApiErrors>
+        response?.data.message.map(({ property, constraints }) => {
+          setFieldError(property, t(matchValidator(constraints)))
+        })
+      }
     }
   }
 
@@ -124,10 +128,8 @@ export default function CreateForm() {
                 label={t('bootcamp:status')}
                 id="status"
                 name="status"
-                defaultValue={initialValues.status}
-                onChange={(e) => {
-                  setStatus(e.target.value)
-                }}>
+                defaultValue={''}
+                onChange={(e) => setStatus(e.target.value)}>
                 {validBootcampStatuses.map((stat) => {
                   return (
                     <MenuItem key={stat} value={stat}>
