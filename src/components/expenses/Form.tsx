@@ -146,11 +146,11 @@ export default function Form() {
           <Grid item xs={id ? 10 : 12}>
             <PersonSelect name="approvedById" />
           </Grid>
-          {id ? (
+          {id && (
             <Grid item xs={2}>
               <DeletedCheckbox />
             </Grid>
-          ) : null}
+          )}
 
           <Grid item xs={6}>
             <SubmitButton fullWidth label={id ? 'expenses:btns.save' : 'expenses:btns.submit'} />

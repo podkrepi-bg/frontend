@@ -5,11 +5,7 @@ import { useField } from 'formik'
 import { usePersonList } from 'common/hooks/person'
 import FormTextField from 'components/common/form/FormTextField'
 
-type Props = {
-  name: string
-}
-
-export default function PersonSelect({ name }: Props) {
+export default function PersonSelect({ name = 'personId' }) {
   const { t } = useTranslation('expenses')
   const { data: personList } = usePersonList()
   const [field, meta] = useField(name)

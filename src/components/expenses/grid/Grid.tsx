@@ -146,7 +146,7 @@ export default observer(function Grid() {
       />
 
       {/* conditional rendering to avoid unnecessary requests being sent to the API */}
-      {isDetailsOpen ? <DetailsModal /> : null}
+      {isDetailsOpen && <DetailsModal />}
       <DeleteModal />
     </>
   )
