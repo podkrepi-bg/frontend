@@ -1,13 +1,15 @@
 import React from 'react'
 import { GridRenderCellParams } from '@mui/x-data-grid'
 
+import { ExpenseStatus } from 'gql/expenses'
+
 export const statusRenderCell = (cellValues: GridRenderCellParams): React.ReactNode => {
   const style =
-    cellValues.value === 'pending'
+    cellValues.value === ExpenseStatus.pending
       ? { color: 'blue' }
-      : cellValues.value === 'approved'
+      : cellValues.value === ExpenseStatus.approved
       ? { color: 'green' }
-      : cellValues.value === 'canceled'
+      : cellValues.value === ExpenseStatus.canceled
       ? { color: 'red' }
       : { color: '' }
 
