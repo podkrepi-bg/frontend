@@ -8,17 +8,34 @@ import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-
 
 import { routes } from 'common/routes'
 import { CampaignResponse } from 'gql/campaigns'
-import { useCampaignType } from 'service/campaignTypes'
 import { useCampaignList } from 'common/hooks/campaigns'
-import { useViewCoordinator } from 'common/hooks/coordinators'
-import { useViewBeneficiary } from 'common/hooks/beneficiary'
 
 import GridActions from './GridActions'
 import DeleteModal from './modals/DeleteModal'
 import DetailsModal from './modals/DetailsModal'
 
 interface CampaignCellProps {
-  params: GridRenderCellParams<CampaignResponse>
+  params: GridRenderCellParams<CampaignResponse, CampaignResponse>
+}
+
+const DisplayCoordinator = ({ params }: CampaignCellProps) => {
+  return (
+    <>
+      {params.row.coordinator.person.firstName} {params.row.coordinator.person.lastName}
+    </>
+  )
+}
+
+const DisplayBeneficiary = ({ params }: CampaignCellProps) => {
+  return (
+    <>
+      {params.row.beneficiary.person.firstName} {params.row.beneficiary.person.lastName}
+    </>
+  )
+}
+
+const DisplayCampaignType = ({ params }: CampaignCellProps) => {
+  return <>{params.row.campaignType.name}</>
 }
 
 export default function CampaignGrid() {
@@ -28,21 +45,6 @@ export default function CampaignGrid() {
   const [deleteId, setDeleteId] = useState<string | undefined>()
 
   const selectedCampaign = useMemo(() => data.find((c) => c.id === viewId), [data, viewId])
-
-  const RenderCoordinator = ({ params }: CampaignCellProps) => {
-    const coordinator = useViewCoordinator(params.row.coordinatorId)
-    return <>{coordinator.data?.person.firstName + ' ' + coordinator.data?.person.lastName}</>
-  }
-
-  const RenderBeneficiary = ({ params }: CampaignCellProps) => {
-    const beneficiary = useViewBeneficiary(params.row.beneficiaryId)
-    return <>{beneficiary.data?.person.firstName + ' ' + beneficiary.data?.person.lastName}</>
-  }
-
-  const RenderCampaignType = ({ params }: CampaignCellProps) => {
-    const type = useCampaignType(params.row.campaignTypeId)
-    return <>{type.data?.name}</>
-  }
 
   const commonProps: Partial<GridColDef> = {
     align: 'left',
@@ -74,7 +76,7 @@ export default function CampaignGrid() {
       headerName: t('campaigns:coordinator'),
       ...commonProps,
       renderCell: (params: GridRenderCellParams) => {
-        return <RenderCoordinator params={params} />
+        return <DisplayCoordinator params={params} />
       },
     },
     {
@@ -82,7 +84,7 @@ export default function CampaignGrid() {
       headerName: t('campaigns:beneficiary'),
       ...commonProps,
       renderCell: (params: GridRenderCellParams) => {
-        return <RenderBeneficiary params={params} />
+        return <DisplayBeneficiary params={params} />
       },
     },
     {
@@ -90,7 +92,7 @@ export default function CampaignGrid() {
       headerName: t('campaigns:campaignType'),
       ...commonProps,
       renderCell: (params: GridRenderCellParams) => {
-        return <RenderCampaignType params={params} />
+        return <DisplayCampaignType params={params} />
       },
       width: 250,
     },

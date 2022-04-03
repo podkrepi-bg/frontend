@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
 import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
 import { Add as AddIcon } from '@mui/icons-material'
 
@@ -13,8 +12,7 @@ const addIconStyles = {
   boxShadow: 3,
 }
 
-export default function BottomAppBar() {
-  const { t } = useTranslation()
+export default function GridAppbar() {
   const router = useRouter()
 
   return (
@@ -35,9 +33,7 @@ export default function BottomAppBar() {
             <AddIcon
               sx={addIconStyles}
               fontSize="large"
-              onClick={() => {
-                router.push(routes.admin.expenses.create)
-              }}
+              onClick={() => router.push(routes.admin.expenses.create)}
             />
           </Tooltip>
         </Box>
