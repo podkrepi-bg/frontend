@@ -5,8 +5,8 @@ import { useField } from 'formik'
 import { Currency } from 'gql/currency'
 import FormTextField from 'components/common/form/FormTextField'
 
-export default function CurrencySelect({ name = 'currency', translation = 'expenses' }) {
-  const { t } = useTranslation(translation)
+export default function CurrencySelect({ name = 'currency', translationNamespace = 'common' }) {
+  const { t } = useTranslation(translationNamespace)
 
   const values = Object.keys(Currency)
   const [field, meta] = useField(name)
