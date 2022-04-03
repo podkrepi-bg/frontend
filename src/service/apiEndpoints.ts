@@ -88,7 +88,6 @@ export const endpoints = {
     viewExpense: (id: string) => <Endpoint>{ url: `/expenses/${id}`, method: 'GET' },
     editExpense: (id: string) => <Endpoint>{ url: `/expenses/${id}`, method: 'PATCH' },
     deleteExpense: (id: string) => <Endpoint>{ url: `/expenses/${id}`, method: 'DELETE' },
-    deleteExpenses: <Endpoint>{ url: `/expenses`, method: 'DELETE' },
   },
   benefactor: {
     benefactorList: <Endpoint>{ url: '/benefactor', method: 'GET' },
