@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
 import { FormikHelpers } from 'formik'
-import { Box, Button, Grid, Typography } from '@mui/material'
+import { Box, Grid, Typography } from '@mui/material'
 
 import { ExpenseInput, ExpenseResponse, ExpenseStatus, ExpenseType } from 'gql/expenses'
 import { Currency } from 'gql/currency'
@@ -152,19 +152,9 @@ export default function Form() {
             </Grid>
           ) : null}
 
-          {id ? (
-            <>
-              <Grid item xs={6}>
-                <Button fullWidth variant="contained" type="submit" color="secondary">
-                  {t('btns.save')}
-                </Button>
-              </Grid>
-            </>
-          ) : (
-            <Grid item xs={6}>
-              <SubmitButton fullWidth label="expenses:btns.submit" />
-            </Grid>
-          )}
+          <Grid item xs={6}>
+            <SubmitButton fullWidth label={id ? 'expenses:btns.save' : 'expenses:btns.submit'} />
+          </Grid>
           <Grid item xs={6}>
             <LinkButton
               fullWidth
