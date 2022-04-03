@@ -14,20 +14,20 @@ export default observer(function DetailsModal() {
   const { data: personList } = usePersonList()
   const approvedBy = personList?.find((person) => person.id == data?.approvedById)
 
-  const { t } = useTranslation('expenses')
+  const { t } = useTranslation('')
 
   const dataConverted = [
     { name: 'ID', value: `${data?.id}` },
-    { name: t('fields.type'), value: data?.type },
-    { name: t('fields.status'), value: data?.status },
-    { name: t('fields.currency'), value: data?.currency },
-    { name: t('fields.amount'), value: data?.amount },
-    { name: t('fields.vaultId'), value: data?.vaultId },
-    { name: t('fields.deleted'), value: data?.deleted?.toString() },
-    { name: t('fields.description'), value: data?.description },
-    { name: t('fields.documentId'), value: data?.documentId },
+    { name: t('expenses:fields.type'), value: data?.type },
+    { name: t('expenses:fields.status'), value: data?.status },
+    { name: t('common:fields.currency'), value: data?.currency },
+    { name: t('expenses:fields.amount'), value: data?.amount },
+    { name: t('expenses:fields.vaultId'), value: data?.vaultId },
+    { name: t('expenses:fields.deleted'), value: data?.deleted?.toString() },
+    { name: t('expenses:fields.description'), value: data?.description },
+    { name: t('expenses:fields.documentId'), value: data?.documentId },
     {
-      name: t('fields.approvedById'),
+      name: t('expenses:fields.approvedById'),
       value: approvedBy ? `${approvedBy.firstName} ${approvedBy.lastName} (${approvedBy.id})` : '',
     },
   ]

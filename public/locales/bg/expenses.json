@@ -2,7 +2,6 @@
     "fields": {
         "type": "Тип",
         "status": "Статус",
-        "currency": "Валута",
         "amount": "Стойност",
         "vaultId": "Трезор Id",
         "deleted": "Изтрит",

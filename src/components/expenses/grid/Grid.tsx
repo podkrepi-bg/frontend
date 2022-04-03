@@ -38,7 +38,7 @@ const useStyles = makeStyles({
 })
 
 export default observer(function Grid() {
-  const { t } = useTranslation('expenses')
+  const { t } = useTranslation('')
   const { data } = useExpensesList()
   const classes = useStyles()
   const [pageSize, setPageSize] = React.useState<number>(10)
@@ -50,51 +50,51 @@ export default observer(function Grid() {
     { field: 'id', headerName: 'ID', hide: true },
     {
       field: 'type',
-      headerName: t('fields.type'),
+      headerName: t('expenses:fields.type'),
       headerClassName: classes.gridColumn,
       width: 120,
     },
     {
       field: 'status',
-      headerName: t('fields.status'),
+      headerName: t('expenses:fields.status'),
       renderCell: statusRenderCell,
       headerClassName: classes.gridColumn,
       width: 100,
     },
     {
       field: 'amount',
-      headerName: t('fields.amount'),
+      headerName: t('expenses:fields.amount'),
       headerClassName: classes.gridColumn,
       align: 'right',
       width: 90,
     },
     {
       field: 'currency',
-      headerName: t('fields.currency'),
+      headerName: t('common:fields.currency'),
       headerClassName: classes.gridColumn,
       width: 90,
     },
     {
       field: 'vaultId',
-      headerName: t('fields.vaultId'),
+      headerName: t('expenses:fields.vaultId'),
       headerClassName: classes.gridColumn,
       flex: 1,
     },
     {
       field: 'description',
-      headerName: t('fields.description'),
+      headerName: t('expenses:fields.description'),
       headerClassName: classes.gridColumn,
       flex: 1,
     },
     {
       field: 'documentId',
-      headerName: t('fields.documentId'),
+      headerName: t('expenses:fields.documentId'),
       headerClassName: classes.gridColumn,
       flex: 1,
     },
     {
       field: 'approvedById',
-      headerName: t('fields.approvedBy'),
+      headerName: t('expenses:fields.approvedBy'),
       headerClassName: classes.gridColumn,
       valueGetter: (p) => {
         if (personList && p.value) {
@@ -107,13 +107,13 @@ export default observer(function Grid() {
     },
     {
       field: 'deleted',
-      headerName: t('fields.deleted'),
+      headerName: t('expenses:fields.deleted'),
       headerClassName: classes.gridColumn,
       width: 90,
     },
     {
       field: 'actions',
-      headerName: t('fields.action'),
+      headerName: t('expenses:fields.action'),
       headerAlign: 'left',
       width: 120,
       type: 'actions',

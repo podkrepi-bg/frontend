@@ -2,7 +2,6 @@
     "fields": {
         "type": "Type",
         "status": "Status",
-        "currency": "Currency",
         "amount": "Amount",
         "vaultId": "Vault Id",
         "deleted": "Deleted",
