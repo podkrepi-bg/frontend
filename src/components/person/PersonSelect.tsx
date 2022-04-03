@@ -5,10 +5,10 @@ import { useField } from 'formik'
 import { usePersonList } from 'common/hooks/person'
 import FormTextField from 'components/common/form/FormTextField'
 
-export default function PersonSelect({ name = 'personId' }) {
-  const { t } = useTranslation('expenses')
-  const { data: personList } = usePersonList()
+export default function PersonSelect({ name = 'personId', namespace = 'common' }) {
+  const { t } = useTranslation(namespace)
   const [field, meta] = useField(name)
+  const { data: personList } = usePersonList()
 
   return (
     <FormControl

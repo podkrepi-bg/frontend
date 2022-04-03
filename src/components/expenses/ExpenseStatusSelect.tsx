@@ -5,8 +5,7 @@ import { useField } from 'formik'
 import { ExpenseStatus } from 'gql/expenses'
 import FormTextField from 'components/common/form/FormTextField'
 
-export default function ExpenseStatusSelect() {
-  const name = 'status'
+export default function ExpenseStatusSelect({ name = 'status' }) {
   const { t } = useTranslation('expenses')
 
   const values = Object.keys(ExpenseStatus)

@@ -5,8 +5,7 @@ import { useField } from 'formik'
 import { ExpenseType } from 'gql/expenses'
 import FormTextField from 'components/common/form/FormTextField'
 
-export default function ExpenseTypeSelect() {
-  const name = 'type'
+export default function ExpenseTypeSelect({ name = 'type' }) {
   const { t } = useTranslation('expenses')
 
   const values = Object.keys(ExpenseType)

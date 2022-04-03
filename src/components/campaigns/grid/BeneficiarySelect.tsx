@@ -1,12 +1,12 @@
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material'
 import { TranslatableField, translateError } from 'common/form/validation'
-import { useBeneficiariesListPerson } from 'common/hooks/beneficiary'
+import { useBeneficiariesList } from 'common/hooks/beneficiary'
 import { useField } from 'formik'
 import { useTranslation } from 'react-i18next'
 
 export default function BeneficiarySelect({ name = 'beneficiaryId' }) {
   const { t } = useTranslation()
-  const { data } = useBeneficiariesListPerson()
+  const { data } = useBeneficiariesList()
   const [field, meta] = useField(name)
 
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''

@@ -64,11 +64,12 @@
     }
   },
   "or": "или",
-  "errors":{
+  "errors": {
     "404Message": "Съжаляваме, долетял си на несъществуваща страница...",
     "backButtonLabel": "Обратно"
   },
   "fields": {
-    "currency": "Валута"
+    "currency": "Валута",
+    "personId": "Човек"
   }
 }
