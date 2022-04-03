@@ -63,5 +63,8 @@
       "version": "Version"
     }
   },
-  "or": "or"
+  "or": "or",
+  "fields": {
+    "currency": "Currency"
+  }
 }

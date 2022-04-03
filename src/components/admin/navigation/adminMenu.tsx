@@ -6,6 +6,7 @@ import {
   Group,
   FolderShared,
   Public,
+  Paid,
   Class,
   Shield,
 } from '@mui/icons-material'
@@ -29,6 +30,7 @@ export const menuItems = [
   { label: 'Градове', icon: LocationCityRoundedIcon, href: routes.admin.cities.home },
   { label: 'Държави', icon: Public, href: routes.admin.countries.index },
   { label: 'Координатори', icon: People, href: routes.admin.coordinators.index },
+  { label: 'Разходи', icon: Paid, href: routes.admin.expenses.index },
   { label: 'Дарения', icon: VolunteerActivismOutlinedIcon, href: routes.admin.donations.index },
   { label: 'Трезори', icon: Shield, href: routes.admin.vaults.index },
   { label: 'Тегления', icon: LocalAtmIcon, href: routes.admin.withdrawals.index },
