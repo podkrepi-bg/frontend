@@ -7,26 +7,26 @@ import * as yup from 'yup'
 import { FormikHelpers } from 'formik'
 import { Box, Grid, Typography } from '@mui/material'
 
-import { ExpenseInput, ExpenseResponse, ExpenseStatus, ExpenseType } from 'gql/expenses'
-import { Currency } from 'gql/currency'
-import { endpoints } from 'service/apiEndpoints'
-import { useViewExpense } from 'common/hooks/expenses'
 import { routes } from 'common/routes'
-import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
-import { useCreateExpense, useEditExpense } from 'service/expense'
+import { Currency } from 'gql/currency'
 import { AlertStore } from 'stores/AlertStore'
-import GenericForm from 'components/common/form/GenericForm'
-import FormTextField from 'components/common/form/FormTextField'
-import SubmitButton from 'components/common/form/SubmitButton'
+import { endpoints } from 'service/apiEndpoints'
 import LinkButton from 'components/common/LinkButton'
+import { useViewExpense } from 'common/hooks/expenses'
+import GenericForm from 'components/common/form/GenericForm'
+import SubmitButton from 'components/common/form/SubmitButton'
+import DeletedCheckbox from 'components/common/DeletedCheckbox'
+import CurrencySelect from 'components/currency/CurrencySelect'
+import FormTextField from 'components/common/form/FormTextField'
+import { useCreateExpense, useEditExpense } from 'service/expense'
+import DocumentSelect from 'components/documents/grid/DocumentSelect'
+import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
+import { ExpenseInput, ExpenseResponse, ExpenseStatus, ExpenseType } from 'gql/expenses'
 
 import VaultSelect from './VaultSelect'
+import PersonSelect from '../person/PersonSelect'
 import ExpenseTypeSelect from './ExpenseTypeSelect'
 import ExpenseStatusSelect from './ExpenseStatusSelect'
-import CurrencySelect from '../currency/CurrencySelect'
-import DocumentSelect from './DocumentSelect'
-import PersonSelect from './PersonSelect'
-import DeletedCheckbox from './DeletedCheckbox'
 
 const validTypes = Object.keys(ExpenseType)
 const validStatuses = Object.keys(ExpenseStatus)
@@ -144,7 +144,7 @@ export default function Form() {
             />
           </Grid>
           <Grid item xs={id ? 10 : 12}>
-            <PersonSelect name="approvedById" />
+            <PersonSelect name="approvedById" namespace="expenses" />
           </Grid>
           {id && (
             <Grid item xs={2}>

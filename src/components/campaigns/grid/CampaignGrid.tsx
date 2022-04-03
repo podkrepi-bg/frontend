@@ -1,22 +1,21 @@
-import React, { useMemo, useState } from 'react'
+import Link from 'next/link'
 import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
+import AddIcon from '@mui/icons-material/Add'
+import React, { useMemo, useState } from 'react'
 import { Box, Toolbar, Typography } from '@mui/material'
 import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { routes } from 'common/routes'
 import { CampaignResponse } from 'gql/campaigns'
-import { useCampaignList } from 'common/hooks/campaigns'
-import GridActions from './GridActions'
-
-import DeleteModal from './modals/DeleteModal'
-import { useViewCoordinatorResponse } from 'common/hooks/coordinators'
 import { useCampaignType } from 'service/campaignTypes'
+import { useCampaignList } from 'common/hooks/campaigns'
+import { useViewCoordinator } from 'common/hooks/coordinators'
+import { useViewBeneficiary } from 'common/hooks/beneficiary'
 
+import GridActions from './GridActions'
+import DeleteModal from './modals/DeleteModal'
 import DetailsModal from './modals/DetailsModal'
-import AddIcon from '@mui/icons-material/Add'
-import Link from 'next/link'
-import { useViewBeneficiaryResponse } from 'common/hooks/beneficiary'
 
 interface CampaignCellProps {
   params: GridRenderCellParams<CampaignResponse>
@@ -31,12 +30,12 @@ export default function CampaignGrid() {
   const selectedCampaign = useMemo(() => data.find((c) => c.id === viewId), [data, viewId])
 
   const RenderCoordinator = ({ params }: CampaignCellProps) => {
-    const coordinator = useViewCoordinatorResponse(params.row.coordinatorId)
+    const coordinator = useViewCoordinator(params.row.coordinatorId)
     return <>{coordinator.data?.person.firstName + ' ' + coordinator.data?.person.lastName}</>
   }
 
   const RenderBeneficiary = ({ params }: CampaignCellProps) => {
-    const beneficiary = useViewBeneficiaryResponse(params.row.beneficiaryId)
+    const beneficiary = useViewBeneficiary(params.row.beneficiaryId)
     return <>{beneficiary.data?.person.firstName + ' ' + beneficiary.data?.person.lastName}</>
   }
 

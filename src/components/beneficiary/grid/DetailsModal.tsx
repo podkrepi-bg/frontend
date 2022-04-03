@@ -7,7 +7,7 @@ import { BeneficiaryType } from 'gql/beneficiary'
 import { useBeneficiary } from 'service/beneficiary'
 import { useViewCompany } from 'service/company'
 import { useViewPerson } from 'service/person'
-import { useViewCoordinatorResponse } from 'common/hooks/coordinators'
+import { useViewCoordinator } from 'common/hooks/coordinators'
 import { useCity } from 'common/hooks/cities'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import DetailsDialog from 'components/admin/DetailsDialog'
@@ -18,7 +18,7 @@ export default observer(function DetailsModal() {
   const { t } = useTranslation('beneficiary')
   const companyName = useViewCompany(data?.companyId || '').data?.companyName || ''
   const personData = useViewPerson(data?.personId || '').data || ''
-  const coordinator = useViewCoordinatorResponse(data?.coordinatorId || '').data?.person
+  const coordinator = useViewCoordinator(data?.coordinatorId || '').data?.person
   const { data: city } = useCity(data?.cityId || '')
 
   const companyOrIndividual =

@@ -5,8 +5,7 @@ import { useField } from 'formik'
 import { useDocumentsList } from 'common/hooks/documents'
 import FormTextField from 'components/common/form/FormTextField'
 
-export default function DocumentSelect() {
-  const name = 'documentId'
+export default function DocumentSelect({ name = 'documentId' }) {
   const { t } = useTranslation('expenses')
 
   const values = useDocumentsList().data?.map((record) => record.id)
