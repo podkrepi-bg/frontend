@@ -9,12 +9,8 @@ import {
   Box,
   Button,
   FormControl,
-  FormLabel,
   Grid,
   Typography,
-  RadioGroup,
-  Radio,
-  FormControlLabel,
   Select,
   InputLabel,
   MenuItem,
@@ -27,7 +23,7 @@ import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
 import { format, parse, isDate } from 'date-fns'
-import { BootcampInput, BootcampFormData, BootcampResponse } from 'gql/bootcamp'
+import { BootcampInput, BootcampResponse } from 'gql/bootcamp'
 import { useCreateBootcamp } from 'service/bootcamp'
 
 const formatString = 'yyyy-MM-dd'
@@ -104,7 +100,6 @@ export default function CreateForm() {
         firstName: values.firstName,
         lastName: values.lastName,
       }
-      console.log(data)
       mutation.mutate(data)
     } catch (error) {
       console.log(error)
@@ -132,7 +127,6 @@ export default function CreateForm() {
                 defaultValue={initialValues.status}
                 onChange={(e) => {
                   setStatus(e.target.value)
-                  console.log(e.target.value)
                 }}>
                 {validBootcampStatuses.map((stat) => {
                   return (

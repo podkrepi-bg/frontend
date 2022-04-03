@@ -1,16 +1,16 @@
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate, QueryClient } from 'react-query'
-import CityEditPage from 'components/cities/CityEditPage'
 import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
 import { keycloakInstance } from 'middleware/auth/keycloak'
+import BootcampEditPage from 'components/bootcamp/BootcampEditPage'
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const keycloak = keycloakInstance(ctx)
   const client = new QueryClient()
   await client.prefetchQuery(
-    endpoints.city.editCity(`${ctx.query.id}`).url,
+    endpoints.bootcamp.editTask(`${ctx.query.id}`).url,
     authQueryFnFactory(keycloak.token),
   )
   return {
@@ -22,11 +22,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
         'auth',
         'validation',
         'campaigns',
-        'cities',
+        'bootcamp',
       ])),
       dehydratedState: dehydrate(client),
     },
   }
 }
 
-export default CityEditPage
+export default BootcampEditPage

@@ -2,13 +2,14 @@
   "allTasks": "Всички задачи",
   "name": "Георги Генчев",
   "status": "Статус",
+  "title": "Заглавие",
   "email": "Емайл адрес",
   "message": "Съобщение",
   "startDate": "Начална дата",
   "endDate": "Крайна дата",
-  "actions": "Действия",
   "firstName": "Име",
   "lastName": "Фамилия",
+  "actions": "Действия",
   "modals": {
       "delete": {
           "title": "Сигурни ли сте?",

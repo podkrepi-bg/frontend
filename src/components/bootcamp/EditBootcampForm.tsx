@@ -1,11 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useMutation, UseQueryResult } from 'react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
-import { Box, Button, Grid, Typography } from '@mui/material'
+import {
+  Box,
+  Button,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+} from '@mui/material'
 
 import { BootcampFormData, BootcampInput, BootcampResponse } from 'gql/bootcamp'
 import { useTask } from 'common/hooks/bootcamp'
@@ -16,10 +25,11 @@ import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
-import SelectCountry from 'components/campaigns/SelectCountry'
 import { parse, isDate } from 'date-fns'
 
 const formatString = 'yyyy-MM-dd'
+
+const validBootcampStatuses = ['todo', 'inProgress', 'forReview', 'done', 'other']
 
 const parseDateString = (value: string, originalValue: string) => {
   const parsedDate = isDate(originalValue)
@@ -46,8 +56,9 @@ const validationSchema: yup.SchemaOf<BootcampFormData> = yup
     lastName: yup.string().trim().min(1).max(25).required(),
   })
 
-export default function EditForm() {
+export default function BootcampEditForm() {
   const router = useRouter()
+  const [status, setStatus] = useState<string>()
   const id = String(router.query.id)
   const { t } = useTranslation()
   const { data }: UseQueryResult<BootcampResponse> = useTask(String(id))
@@ -57,8 +68,8 @@ export default function EditForm() {
     title: data?.title,
     email: data?.email,
     message: data?.message,
-    startDate: data?.startDate || null,
-    endDate: data?.endDate || null,
+    startDate: data?.startDate,
+    endDate: data?.endDate,
     firstName: data?.firstName,
     lastName: data?.lastName,
   }
@@ -99,25 +110,81 @@ export default function EditForm() {
       validationSchema={validationSchema}>
       <Box sx={{ marginTop: '5%', height: '62.6vh' }}>
         <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
-          {id ? t('bootcamp:edit-form-heading') : t('bootcamp:form-heading')}
+          {t('bootcamp:tasks:newTask')}
         </Typography>
         <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
+          <Grid item xs={6}>
+            <FormControl fullWidth size="small">
+              <InputLabel id="labelStatus">{t('bootcamp:status')}</InputLabel>
+              <Select
+                labelId={t('bootcamp:status')}
+                label={t('bootcamp:status')}
+                id="status"
+                name="status"
+                defaultValue={initialValues.status}
+                onChange={(e) => {
+                  setStatus(e.target.value)
+                }}>
+                {validBootcampStatuses.map((stat) => {
+                  return (
+                    <MenuItem key={stat} value={stat}>
+                      {stat}
+                    </MenuItem>
+                  )
+                })}
+              </Select>
+            </FormControl>
+          </Grid>
           <Grid item xs={12}>
-            <FormTextField type="text" label="Cities: Име" name="name" autoComplete="name" />
+            <FormTextField type="text" label="Title: Заглавие" name="title" autoComplete="title" />
           </Grid>
           <Grid item xs={12}>
             <FormTextField
               type="string"
-              label="Cities:Пощенски код"
-              name="postalCode"
-              autoComplete="postal-code"
+              label="Email: Имейл адрес"
+              name="email"
+              autoComplete="email"
             />
           </Grid>
           <Grid item xs={12}>
-            <SelectCountry />
+            <FormTextField
+              rows={5}
+              multiline
+              type="string"
+              name="message"
+              label="bootcamp:message"
+              autoComplete="message"
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormTextField
+              type="date"
+              name="startDate"
+              label="bootcamp:startDate"
+              helperText={null}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <FormTextField type="date" name="endDate" label="bootcamp:endDate" helperText={null} />
+          </Grid>
+          <Grid item xs={12}>
+            <FormTextField
+              type="string"
+              label="bootcamp:firstName"
+              name="firstName"
+              autoComplete="firstName"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <FormTextField
+              type="string"
+              label="bootcamp:lastName"
+              name="lastName"
+              autoComplete="lastName"
+            />
           </Grid>
           <Grid item xs={6}>
-            <SubmitButton fullWidth label={t('bootcamp:cta:submit')} />
+            <SubmitButton fullWidth label={t('bootcamp:cta:edit')} />
           </Grid>
           <Grid item xs={6}>
             <Link href={routes.admin.bootcamp.index} passHref>

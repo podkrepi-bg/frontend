@@ -5,9 +5,9 @@ import { observer } from 'mobx-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useTranslation } from 'next-i18next'
 
-import { CityResponse } from 'gql/cities'
+import { BootcampResponse } from 'gql/bootcamp'
 import { ApiErrors } from 'service/apiErrors'
-import { useDeleteCity } from 'service/city'
+import { useDeleteBootcamp } from 'service/bootcamp'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 import { routes } from 'common/routes'
@@ -19,15 +19,19 @@ export default observer(function DeleteModal() {
   const { hideDelete, selectedRecord } = ModalStore
   const { t } = useTranslation('cities')
 
-  const mutationFn = useDeleteCity()
+  const mutationFn = useDeleteBootcamp()
 
-  const deleteMutation = useMutation<AxiosResponse<CityResponse>, AxiosError<ApiErrors>, string>({
+  const deleteMutation = useMutation<
+    AxiosResponse<BootcampResponse>,
+    AxiosError<ApiErrors>,
+    string
+  >({
     mutationFn,
     onError: () => AlertStore.show(t('alerts.error'), 'error'),
     onSuccess: () => {
       hideDelete()
       AlertStore.show(t('alerts.delete'), 'warning')
-      router.push(routes.admin.cities.home)
+      router.push(routes.admin.bootcamp.index)
     },
   })
 

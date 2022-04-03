@@ -5,8 +5,8 @@ import { useTasksList } from 'common/hooks/bootcamp'
 import { routes } from 'common/routes'
 import GridActions from 'components/admin/GridActions'
 
-// import DeleteModal from './DeleteModal'
-// import DetailsModal from './DetailsModal'
+import DeleteModal from './DeleteModal'
+import DetailsModal from './DetailsModal'
 
 export default function BootcampGrid() {
   const { data } = useTasksList()
@@ -107,8 +107,8 @@ export default function BootcampGrid() {
         autoPageSize
         disableSelectionOnClick
       />
-      {/* <DetailsModal />
-      <DeleteModal /> */}
+      <DetailsModal />
+      <DeleteModal />
     </>
   )
 }

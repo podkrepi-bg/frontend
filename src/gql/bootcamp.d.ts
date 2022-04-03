@@ -20,8 +20,8 @@ export type BootcampResponse = {
   title: string
   email: string
   message: string
-  startDate: Date | null | string
-  endDate: Date | null | string
+  startDate: Date | string | undefined
+  endDate: Date | string | undefined
   firstName: string
   lastName: string
 }
@@ -38,7 +38,7 @@ export type BootcampFormData = {
 }
 
 export type BootcampInput = {
-  status: string
+  status: string | undefined
   title: string | undefined
   email: string | undefined
   message: string | undefined
