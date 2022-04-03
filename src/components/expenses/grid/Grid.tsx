@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { DataGrid, GridColumns, GridRenderCellParams, GridSelectionModel } from '@mui/x-data-grid'
+import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 import { useTranslation } from 'next-i18next'
 import { makeStyles } from '@mui/styles'
 

@@ -16,11 +16,11 @@ import {
   Typography,
 } from '@mui/material'
 
-import { BeneficiaryFormData, BeneficiaryType } from 'gql/beneficiary'
+import { BeneficiaryFormData, BeneficiaryListResponse } from 'gql/beneficiary'
 import { LegalEntityType, PersonRelation } from './BeneficiaryTypes'
 import { routes } from 'common/routes'
 import { ApiErrors } from 'service/apiErrors'
-import { useBeneficiary, useEditBeneficiary, useCreateBeneficiary } from 'service/beneficiary'
+import { useViewBeneficiary, useEditBeneficiary, useCreateBeneficiary } from 'service/beneficiary'
 import { usePeopleList } from 'service/person'
 import { useCompaniesList } from 'service/company'
 import { useCoordinatorsList } from 'service/coordinator'
@@ -85,7 +85,7 @@ export default function Form() {
 
   if (id) {
     id = String(id)
-    const { data }: UseQueryResult<BeneficiaryType> = useBeneficiary(id)
+    const { data }: UseQueryResult<BeneficiaryListResponse> = useViewBeneficiary(id)
     initialValues = {
       type: data?.type,
       cityId: data?.cityId || '',
@@ -103,7 +103,7 @@ export default function Form() {
   const mutationFn = id ? useEditBeneficiary(id) : useCreateBeneficiary()
 
   const mutation = useMutation<
-    AxiosResponse<BeneficiaryType>,
+    AxiosResponse<BeneficiaryListResponse>,
     AxiosError<ApiErrors>,
     BeneficiaryFormData
   >({
