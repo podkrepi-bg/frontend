@@ -8,17 +8,18 @@ import * as yup from 'yup'
 import { Box, Button, Grid, Typography } from '@mui/material'
 
 import { VaultInput, VaultResponse } from 'gql/vault'
+import { Currency } from 'gql/currency'
 import { useVault } from 'common/hooks/vaults'
 import { routes } from 'common/routes'
 import { ApiErrors } from 'service/apiErrors'
 import { useCreateVault, useEditVault } from 'service/vault'
+import { endpoints } from 'service/apiEndpoints'
 import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
-import { endpoints } from 'service/apiEndpoints'
 
-const validCurrencies = ['BGN', 'USD', 'EUR']
+const validCurrencies = Object.keys(Currency)
 
 const validationSchema = yup
   .object()
