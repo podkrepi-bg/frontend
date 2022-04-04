@@ -1,27 +1,4 @@
-import {
-  Checkbox,
-  Collapse,
-  Grid,
-  List,
-  Divider,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  TextField,
-  Typography,
-  Button,
-  FormControlLabel,
-  Stack,
-  RadioGroup,
-  Radio,
-} from '@mui/material'
-import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material'
-import SubmitButton from 'components/common/form/SubmitButton'
-import Link from 'components/common/Link'
-import React, { useState } from 'react'
-import SubMenu from './Submenu'
-import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import { Grid, Typography, Button } from '@mui/material'
 import { createStyles, makeStyles } from '@mui/styles'
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined'
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined'
@@ -49,24 +26,6 @@ const useStyles = makeStyles(() =>
       boxSizing: 'border-box',
       borderRadius: '35.3275px',
       margin: 10,
-    },
-    uncheked: {
-      maxWidth: '284px',
-      height: '75px',
-      background: '#FFFFFF',
-      border: '1px solid #000000',
-      boxSizing: 'border-box',
-      borderRadius: '37.5px',
-      marginBottom: '33px',
-    },
-    checked: {
-      maxWidth: '284px',
-      height: '75px',
-      background: '#D2F0FF',
-      border: '1px solid #000000',
-      boxSizing: 'border-box',
-      borderRadius: '37.5px',
-      marginBottom: '33px',
     },
   }),
 )

@@ -1,28 +1,7 @@
-import {
-  Checkbox,
-  Collapse,
-  Grid,
-  List,
-  Divider,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  TextField,
-  Typography,
-  Button,
-  FormControlLabel,
-  Stack,
-  RadioGroup,
-  Radio,
-} from '@mui/material'
-import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material'
-import SubmitButton from 'components/common/form/SubmitButton'
-import Link from 'components/common/Link'
-import React, { useState } from 'react'
-import SubMenu from './Submenu'
-import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import { Collapse, Grid, List, Divider, Typography, Button } from '@mui/material'
 import { createStyles, makeStyles } from '@mui/styles'
+import RadioGroupFormik from './RadioGroupFormik'
+import { useField } from 'formik'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -58,63 +37,29 @@ const useStyles = makeStyles(() =>
       borderRadius: '37.5px',
       marginBottom: '33px',
     },
+    body: {
+      maxWidth: '539px',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
   }),
 )
+const options = ['Карта', 'Банков превод']
+
 export default function ThirdStep() {
   const classes = useStyles()
-  const [open, setOpen] = React.useState(false)
-  const [status, setStatus] = useState('')
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setStatus((event.target as HTMLInputElement).value)
-  }
+  const [field] = useField('payment')
 
-  const handleClick = () => {
-    setOpen(!open)
-  }
   return (
-    <Grid>
-      <Grid container justifyContent="center">
+    <Grid className={classes.body}>
+      <Grid>
         <Typography className={classes.h2}>Как желаете да дарите?</Typography>
       </Grid>
       <Grid container display="flex" justifyContent="center">
-        <RadioGroup
-          row
-          aria-labelledby="demo-row-radio-buttons-group-label"
-          name="row-radio-buttons-group"
-          value={status}
-          onChange={handleChange}>
-          <Stack direction="column">
-            <FormControlLabel
-              value="card"
-              className={status === 'card' ? classes.checked : classes.uncheked}
-              control={
-                <Radio
-                  icon={<CircleOutlinedIcon />}
-                  checkedIcon={<CheckCircleIcon color="info" />}
-                  sx={{ '& .MuiSvgIcon-root': { fontSize: 40 } }}
-                />
-              }
-              onChange={handleClick}
-              label="Карта"
-            />
-            <FormControlLabel
-              value="bank"
-              className={status === 'bank' ? classes.checked : classes.uncheked}
-              control={
-                <Radio
-                  icon={<CircleOutlinedIcon />}
-                  checkedIcon={<CheckCircleIcon color="info" />}
-                  sx={{ '& .MuiSvgIcon-root': { fontSize: 40 } }}
-                />
-              }
-              onChange={handleClick}
-              label="Банков Превод"
-            />
-          </Stack>
-        </RadioGroup>
+        <RadioGroupFormik name="payment" options={options} />
       </Grid>
-      <Grid container justifyContent="center">
-        <Collapse in={open} timeout="auto" unmountOnExit>
+      <Grid>
+        <Collapse in={field.value === 'Банков превод'} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <Typography my={2} mx={10} variant="h6">
               Детайли на банкова сметка:
