@@ -70,6 +70,12 @@
   },
   "fields": {
     "currency": "Валута",
-    "personId": "Човек"
+    "personId": "Човек",
+    "campaignId": "Кампания",
+    "sourceCampaignId": "От кампания",
+    "targetCampaignId": "Към кампания",
+    "vaultId": "Трезор",
+    "sourceVaultId": "От трезор",
+    "targetVaultId": "Към трезор"
   }
 }

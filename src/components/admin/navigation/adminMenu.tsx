@@ -9,6 +9,7 @@ import {
   Paid,
   Class,
   Shield,
+  MoveUp,
 } from '@mui/icons-material'
 import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined'
 import LocationCityRoundedIcon from '@mui/icons-material/LocationCityRounded'
@@ -34,4 +35,5 @@ export const menuItems = [
   { label: 'Дарения', icon: VolunteerActivismOutlinedIcon, href: routes.admin.donations.index },
   { label: 'Трезори', icon: Shield, href: routes.admin.vaults.index },
   { label: 'Тегления', icon: LocalAtmIcon, href: routes.admin.withdrawals.index },
+  { label: 'Прехвърляния', icon: MoveUp, href: routes.admin.transfer.index },
 ]

@@ -23,7 +23,7 @@ import DocumentSelect from 'components/documents/grid/DocumentSelect'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import { ExpenseInput, ExpenseResponse, ExpenseStatus, ExpenseType } from 'gql/expenses'
 
-import VaultSelect from './VaultSelect'
+import VaultSelect from '../vaults/VaultSelect'
 import PersonSelect from '../person/PersonSelect'
 import ExpenseTypeSelect from './ExpenseTypeSelect'
 import ExpenseStatusSelect from './ExpenseStatusSelect'
