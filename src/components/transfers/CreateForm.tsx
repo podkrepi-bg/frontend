@@ -23,7 +23,7 @@ import { TransferData, TransferInput, TransferResponse } from 'gql/transfer'
 
 import SelectDate from './custom/SelectDate'
 import { TransferStatus } from './TransferTypes'
-import CampaignSelect from './custom/CampaignSelect'
+import CampaignSelect from '../campaigns/CampaignSelect'
 
 const validationSchema: yup.SchemaOf<TransferData> = yup.object().shape({
   status: yup.string().oneOf(Object.values(TransferStatus)),
@@ -39,27 +39,27 @@ const validationSchema: yup.SchemaOf<TransferData> = yup.object().shape({
   targetCampaignId: yup.string().uuid().required(),
 })
 
-type props = {
+type Props = {
   campaigns: CampaignResponse[]
 }
 
-export default function CreateForm({ campaigns }: props) {
+const initialValues: TransferInput = {
+  status: TransferStatus.initial,
+  currency: Currency.BGN,
+  amount: 0,
+  reason: '',
+  documentId: '',
+  targetDate: '',
+  approvedById: '',
+  sourceCampaignId: '',
+  sourceVaultId: '',
+  targetCampaignId: '',
+  targetVaultId: '',
+}
+
+export default function CreateForm({ campaigns }: Props) {
   const { t } = useTranslation('transfer')
   const router = useRouter()
-
-  const initialValues: TransferInput = {
-    status: TransferStatus.initial,
-    currency: Currency.BGN,
-    amount: 0,
-    reason: '',
-    documentId: '',
-    targetDate: '',
-    approvedById: '',
-    sourceCampaignId: '',
-    sourceVaultId: '',
-    targetCampaignId: '',
-    targetVaultId: '',
-  }
 
   const mutation = useMutation<
     AxiosResponse<TransferResponse>,

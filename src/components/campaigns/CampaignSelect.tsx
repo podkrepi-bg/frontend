@@ -9,13 +9,13 @@ import { CampaignResponse } from 'gql/campaigns'
 import { translateError } from 'common/form/useForm'
 import { TranslatableField } from 'common/form/validation'
 
-type selectProps = {
+type Props = {
   label: string
   name: string
   campaigns: CampaignResponse[]
 } & TextFieldProps
 
-export default function CampaignSelect({ label, name, campaigns, ...textFieldProps }: selectProps) {
+export default function CampaignSelect({ label, name, campaigns, ...textFieldProps }: Props) {
   const { t } = useTranslation('transfer')
 
   const [field, meta] = useField(name)
