@@ -8,7 +8,7 @@ import BootcampGrid from './grid/BootcampGrid'
 export default function BootcampPage() {
   return (
     <AdminLayout>
-      <AdminContainer title={'Бууткамп - Георги'}>
+      <AdminContainer title={'Задачи'}>
         <GridAppbar />
         <BootcampGrid />
       </AdminContainer>

@@ -10,6 +10,7 @@
   "firstName": "Име",
   "lastName": "Фамилия",
   "actions": "Действия",
+  "noActiveTasks": "В момента няма активни задачи",
   "modals": {
       "delete": {
           "title": "Сигурни ли сте?",
