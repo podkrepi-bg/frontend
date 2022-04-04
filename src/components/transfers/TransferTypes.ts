@@ -6,9 +6,3 @@ export const TransferStatus = {
   cancelled: 'cancelled',
   succeeded: 'succeeded',
 }
-
-export const Currency = {
-  BGN: 'BGN',
-  EUR: 'EUR',
-  USD: 'USD',
-}
