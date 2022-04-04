@@ -39,14 +39,3 @@ export const useDeleteTransfer = (id: string) => {
     )
   }
 }
-
-export function useDeleteManyTransfer(idsToDelete: string[]) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
-  return async () => {
-    return await apiClient.post<TransferResponse, AxiosResponse<TransferResponse>>(
-      endpoints.transfer.removeManyTransfer.url,
-      idsToDelete,
-      authConfig(keycloak?.token),
-    )
-  }
-}
