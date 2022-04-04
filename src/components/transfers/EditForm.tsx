@@ -10,13 +10,13 @@ import { Box, Button, Grid, Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
 import { Currency } from 'gql/currency'
-import { VaultResponse } from 'gql/vault'
 import { PersonResponse } from 'gql/person'
 import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
 import { CampaignResponse } from 'gql/campaigns'
 import { endpoints } from 'service/apiEndpoints'
 import { useEditTransfer } from 'service/transfer'
+import VaultSelect from 'components/vaults/VaultSelect'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import CurrencySelect from 'components/currency/CurrencySelect'
@@ -28,8 +28,6 @@ import { TransferStatus } from './TransferTypes'
 import SelectStatus from './custom/SelectStatus'
 import CampaignSelect from './custom/CampaignSelect'
 import SelectApprovedBy from './custom/SelectApprovedBy'
-import SelectSourceVault from './custom/SelectSourceVault'
-import SelectTargetVault from './custom/SelectTargetVault'
 
 const dateParser = (date: Date | undefined) => {
   if (date) {
@@ -55,12 +53,11 @@ const validationSchema: yup.SchemaOf<TransferData> = yup.object().shape({
 type props = {
   transfer: TransferResponse
   campaigns: CampaignResponse[]
-  vaults: VaultResponse[]
   people: PersonResponse[]
   id: string
 }
 
-export default function EditForm({ transfer, campaigns, vaults, people, id }: props) {
+export default function EditForm({ transfer, campaigns, people, id }: props) {
   const { t } = useTranslation('transfer')
 
   const router = useRouter()
@@ -157,7 +154,7 @@ export default function EditForm({ transfer, campaigns, vaults, people, id }: pr
             />
           </Grid>
           <Grid item xs={12}>
-            <SelectSourceVault name="sourceVaultId" label="sourceVault" vaults={vaults || []} />
+            <VaultSelect name="sourceVaultId" />
           </Grid>
           <Grid item xs={12}>
             <CampaignSelect
@@ -167,7 +164,7 @@ export default function EditForm({ transfer, campaigns, vaults, people, id }: pr
             />
           </Grid>
           <Grid item xs={12}>
-            <SelectTargetVault name="targetVaultId" label="targetVault" vaults={vaults || []} />
+            <VaultSelect name="targetVaultId" />
           </Grid>
           <Grid item xs={6}>
             <SubmitButton fullWidth label={t('transfer:cta:submit')} />
