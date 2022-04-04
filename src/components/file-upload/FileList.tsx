@@ -47,12 +47,13 @@ function FileList({ files, onDelete, onSetFileRole, filesRole = [] }: Props) {
               <UploadFile />
             </Avatar>
           </ListItemAvatar>
+          <ListItemText primary={file.type} />
           <ListItemText primary={file.name} />
           <FormControl>
-            <InputLabel id="choose-type-label">{'Избери тип'}</InputLabel>
+            <InputLabel id="choose-type-label">{'Избери роля'}</InputLabel>
             <Select<CampaignFileRole>
               id="choose-type"
-              label="Избери тип"
+              label="Избери роля"
               labelId="choose-type-label"
               value={
                 filesRole.find((f) => f.file === file.name)?.role ?? CampaignFileRole.background
