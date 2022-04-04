@@ -1,22 +1,9 @@
-import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material'
-import {
-  Checkbox,
-  Collapse,
-  FormControlLabel,
-  Grid,
-  List,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  TextField,
-  Typography,
-} from '@mui/material'
+import { Collapse, Grid, List, Typography } from '@mui/material'
 import * as React from 'react'
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted'
-import Link from 'next/link'
-import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import { createStyles, makeStyles } from '@mui/styles'
+import FormTextField from 'components/common/form/FormTextField'
+import CheckboxField from './FormCheckField'
+import { useField } from 'formik'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -30,28 +17,14 @@ const useStyles = makeStyles(() =>
   }),
 )
 
-export default function SubMenu() {
+export default function AnonimusMenu() {
   const classes = useStyles()
+  const [field] = useField('anonimusDonation')
 
-  const [open, setOpen] = React.useState(false)
-
-  const handleClick = () => {
-    setOpen(!open)
-  }
   return (
     <>
-      <FormControlLabel
-        control={
-          <Checkbox
-            icon={<CircleOutlinedIcon />}
-            checkedIcon={<CheckCircleIcon color="disabled" />}
-            sx={{ '& .MuiSvgIcon-root': { fontSize: 33 } }}
-          />
-        }
-        onChange={handleClick}
-        label="Дарение без регистрация"
-      />
-      <Collapse in={open} timeout="auto" unmountOnExit>
+      <CheckboxField label="Дарение без регистрация" name="anonimusDonation" />
+      <Collapse in={field.value} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <Typography>
             За да сме сигурни, че дарението ви ще отиде на правилното място бихме искали да вземем
@@ -59,7 +32,22 @@ export default function SubMenu() {
             на мейл, Няма да можете да видите отчетност, и репорт
           </Typography>
           <Grid my={'35px'}>
-            <TextField
+            <FormTextField
+              name="name"
+              type="text"
+              label="Име"
+              variant="outlined"
+              color="primary"
+              fullWidth
+              InputProps={{
+                classes: {
+                  root: classes.message,
+                },
+              }}
+            />
+          </Grid>
+          <Grid my={'45px'}>
+            <FormTextField
               name="email"
               type="text"
               label="Email"
@@ -73,25 +61,8 @@ export default function SubMenu() {
               }}
             />
           </Grid>
-          <Grid my={'45px'}>
-            <TextField
-              // className={classes.field}
-              name="password"
-              type="text"
-              label="Парола"
-              variant="outlined"
-              color="primary"
-              fullWidth
-              InputProps={{
-                classes: {
-                  root: classes.message,
-                },
-              }}
-            />
-          </Grid>
           <Grid my={'17px'}>
-            <TextField
-              // className={classes.field}
+            <FormTextField
               name="phone"
               type="text"
               label="Телефон"
