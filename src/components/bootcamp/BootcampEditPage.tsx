@@ -10,7 +10,6 @@ import { useBootcampGetOne } from 'common/hooks/bootcamp'
 type Props = { id: string }
 export default function BootcampEditPage({ id }: Props) {
   const { t } = useTranslation()
-  console.log(id)
 
   const { data } = useBootcampGetOne(id)
   const initialValues = {
