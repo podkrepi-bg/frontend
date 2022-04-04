@@ -66,6 +66,11 @@
   "or": "or",
   "fields": {
     "currency": "Currency",
-    "personId": "Person"
+    "personId": "Person",
+    "vaultId": "Vault",
+    "sourceCampaignId": "Source campaign",
+    "targetCampaignId": "Target campaign",
+    "sourceVaultId": "Source vault",
+    "targetVaultId": "Target vault"
   }
 }
