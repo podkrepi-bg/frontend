@@ -175,7 +175,7 @@ export default function CampaignCard({ campaign }: Props) {
             <Box mx={2} mb={2}>
               <LinkButton
                 fullWidth
-                href={routes.campaigns.viewCampaignBySlug(campaign.slug)}
+                href={routes.campaigns.oneTimeDonation(campaign.slug)}
                 variant="contained"
                 color="secondary"
                 className={classes.supportNowButton}
