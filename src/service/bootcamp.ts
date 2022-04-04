@@ -2,11 +2,11 @@ import { AxiosResponse } from 'axios'
 
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
-import { BootcampResponse, BootcampTypeFormData } from 'gql/bootcamp'
+import { BootcampResponse, BootcampTypeFormData, DeleteMany } from 'gql/bootcamp'
 import { useQuery } from 'react-query'
 import { useKeycloak } from '@react-keycloak/ssr'
 import { KeycloakInstance } from 'keycloak-js'
-import { authQueryFnFactory } from './restRequests'
+import { authConfig, authQueryFnFactory } from './restRequests'
 
 export const createBootcamp = async (data: BootcampTypeFormData) => {
   return await apiClient.post<BootcampTypeFormData, AxiosResponse<BootcampResponse>>(
@@ -35,4 +35,15 @@ export const editBootcamp = async ({ id, data }: { id: string; data: BootcampTyp
     endpoints.bootcamp.editOne(id).url,
     data,
   )
+}
+
+export function removeManyBootcamps(idsToDelete: string[]) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async () => {
+    return await apiClient.post<DeleteMany, AxiosResponse<BootcampResponse[]>>(
+      endpoints.bootcamp.removeMany.url,
+      { ids: idsToDelete },
+      authConfig(keycloak?.token),
+    )
+  }
 }

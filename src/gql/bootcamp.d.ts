@@ -10,3 +10,7 @@ export type BootcampResponse = {
   lastName: string
   city: string
 }
+
+export type DeleteMany = {
+  ids: string[]
+}

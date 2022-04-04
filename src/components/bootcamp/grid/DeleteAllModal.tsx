@@ -6,23 +6,23 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { GridSelectionModel } from '@mui/x-data-grid'
 import { useTranslation } from 'next-i18next'
 
-import { BeneficiaryType } from 'gql/beneficiary'
 import { ApiErrors } from 'service/apiErrors'
-import { useRemoveManyBeneficiaries } from 'service/beneficiary'
 import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 import { routes } from 'common/routes'
 import DeleteAllDialog from 'components/admin/DeleteAllDialog'
+import { removeManyBootcamps } from 'service/bootcamp'
+import { BootcampResponse } from 'gql/bootcamp'
 
 export default observer(function DeleteAllModal() {
   const router = useRouter()
   const { selectedIdsToDelete, setSelectedIdsToDelete, hideDeleteAll } = ModalStore
   const { t } = useTranslation()
 
-  const mutationFn = useRemoveManyBeneficiaries(selectedIdsToDelete)
+  const mutationFn = removeManyBootcamps(selectedIdsToDelete)
 
   const mutation = useMutation<
-    AxiosResponse<BeneficiaryType[]>,
+    AxiosResponse<BootcampResponse[]>,
     AxiosError<ApiErrors>,
     GridSelectionModel
   >({
@@ -32,7 +32,7 @@ export default observer(function DeleteAllModal() {
       hideDeleteAll()
       setSelectedIdsToDelete([])
       AlertStore.show(t('documents:alerts:deleteAll'), 'success')
-      router.push(routes.admin.beneficiary.index)
+      router.push(routes.bootcamp.index)
     },
   })
 

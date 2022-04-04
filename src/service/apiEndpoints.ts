@@ -120,5 +120,6 @@ export const endpoints = {
     getOne: (id: string) => <Endpoint>{ url: '/bootcamp/' + id, method: 'GET' },
     deleteOne: (id: string) => <Endpoint>{ url: '/bootcamp/' + id, method: 'DELETE' },
     editOne: (id: string) => <Endpoint>{ url: '/bootcamp/' + id, method: 'PATCH' },
+    removeMany: <Endpoint>{ url: '/bootcamp/delete-many', method: 'POST' },
   },
 }
