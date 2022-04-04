@@ -3,19 +3,19 @@ import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
 
 import { endpoints } from 'service/apiEndpoints'
-import { CoordinatorResponse } from 'gql/coordinators'
+import { ExpenseResponse } from 'gql/expenses'
 import { authQueryFnFactory } from 'service/restRequests'
 
-export function useCoordinatorsList() {
+export function useExpensesList() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  return useQuery<CoordinatorResponse[]>(endpoints.coordinators.coordinatorsList.url, {
+  return useQuery<ExpenseResponse[]>(endpoints.expenses.listExpenses.url, {
     queryFn: authQueryFnFactory(keycloak?.token),
   })
 }
 
-export function useViewCoordinator(slug: string) {
+export function useViewExpense(id: string) {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  return useQuery<CoordinatorResponse>(endpoints.coordinators.viewCoordinator(slug).url, {
+  return useQuery<ExpenseResponse>(endpoints.expenses.viewExpense(id).url, {
     retry: 0,
     queryFn: authQueryFnFactory(keycloak?.token),
   })

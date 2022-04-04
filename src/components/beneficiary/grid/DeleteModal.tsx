@@ -5,7 +5,7 @@ import { observer } from 'mobx-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useTranslation } from 'next-i18next'
 
-import { BeneficiaryType } from 'gql/beneficiary'
+import { BeneficiaryListResponse } from 'gql/beneficiary'
 import { ApiErrors } from 'service/apiErrors'
 import { useRemoveBeneficiary } from 'service/beneficiary'
 import { ModalStore } from 'stores/dashboard/ModalStore'
@@ -20,17 +20,19 @@ export default observer(function DeleteModal() {
 
   const mutationFn = useRemoveBeneficiary()
 
-  const deleteMutation = useMutation<AxiosResponse<BeneficiaryType>, AxiosError<ApiErrors>, string>(
-    {
-      mutationFn,
-      onError: () => AlertStore.show(t('documents:alerts:error'), 'error'),
-      onSuccess: () => {
-        hideDelete()
-        AlertStore.show(t('documents:alerts:delete'), 'success')
-        router.push(routes.admin.beneficiary.index)
-      },
+  const deleteMutation = useMutation<
+    AxiosResponse<BeneficiaryListResponse>,
+    AxiosError<ApiErrors>,
+    string
+  >({
+    mutationFn,
+    onError: () => AlertStore.show(t('documents:alerts:error'), 'error'),
+    onSuccess: () => {
+      hideDelete()
+      AlertStore.show(t('documents:alerts:delete'), 'success')
+      router.push(routes.admin.beneficiary.index)
     },
-  )
+  })
 
   function deleteHandler() {
     deleteMutation.mutate(selectedRecord.id)
