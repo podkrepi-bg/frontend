@@ -86,3 +86,19 @@ export type UserDonationResult = {
   donations: UserDonation[]
   total: number
 }
+
+export type OneTimeDonation = {
+  message?: string
+  anonimus: boolean
+  amount: string
+  anonimusDonation: boolean
+  name: string
+  email: string
+  phone: string
+  payment?: 'bank' | 'card'
+}
+
+export type DonationStep = {
+  label: string
+  component: JSX.Element
+}

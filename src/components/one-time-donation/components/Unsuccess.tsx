@@ -1,32 +1,6 @@
-import {
-  Checkbox,
-  Collapse,
-  Grid,
-  List,
-  Divider,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  TextField,
-  Typography,
-  Button,
-  FormControlLabel,
-  Stack,
-  RadioGroup,
-  Radio,
-} from '@mui/material'
-import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material'
-import SubmitButton from 'components/common/form/SubmitButton'
-import Link from 'components/common/Link'
-import React, { useState } from 'react'
-import SubMenu from './Submenu'
-import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import { Grid, Typography, Button } from '@mui/material'
 import { createStyles, makeStyles } from '@mui/styles'
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined'
-import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined'
-import InstagramIcon from '@mui/icons-material/Instagram'
-import LinkedInIcon from '@mui/icons-material/LinkedIn'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -40,6 +14,7 @@ const useStyles = makeStyles(() =>
       marginBottom: '59px',
       letterSpacing: '-0.5px',
       color: '#343434',
+      textAlign: 'center',
     },
     buttons: {
       width: '309.55px',
@@ -50,20 +25,25 @@ const useStyles = makeStyles(() =>
       borderRadius: '35.3275px',
       margin: 10,
     },
+    body: {
+      maxWidth: '702px',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+    },
   }),
 )
 export default function Unsuccess() {
   const classes = useStyles()
 
   return (
-    <Grid>
+    <Grid className={classes.body}>
       <Grid
         container
         justifyContent="center"
         sx={{ '& .MuiSvgIcon-root': { fontSize: 132.5, color: '#F44336', marginTop: '58px' } }}>
         <ErrorOutlineOutlinedIcon />
       </Grid>
-      <Grid container justifyContent="center">
+      <Grid>
         <Typography className={classes.h2}>За съжаление, възникна проблем!</Typography>
       </Grid>
       <Grid container justifyContent="center">
@@ -72,7 +52,7 @@ export default function Unsuccess() {
           проблем с Вашата интернет връзка.
         </Typography>
       </Grid>
-      <Grid container display="flex" justifyContent="center">
+      <Grid container display="flex" my={10}>
         <Button className={classes.buttons}>ОПИТАЙТЕ ПАК</Button>
         <Button className={classes.buttons}>ПИШЕТЕ НИ</Button>
       </Grid>
