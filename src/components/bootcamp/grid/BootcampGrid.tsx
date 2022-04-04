@@ -1,5 +1,5 @@
 import React from 'react'
-import { DataGrid, GridColumns } from '@mui/x-data-grid'
+import { DataGrid, GridColumns, GridSelectionModel } from '@mui/x-data-grid'
 
 import { useTasksList } from 'common/hooks/bootcamp'
 import { routes } from 'common/routes'
@@ -8,13 +8,14 @@ import GridActions from 'components/admin/GridActions'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
 import DeleteAllModal from './DeleteAllModal'
+import { ModalStore } from 'stores/dashboard/ModalStore'
+import { observer } from 'mobx-react'
 
-export type BootcampProps = {
-  setIds: (id: []) => void
-}
-export default function BootcampGrid({ setIds }: BootcampProps) {
+export default observer(function BootcampGrid() {
   const { data } = useTasksList()
+  const { setSelectedIdsToDelete } = ModalStore
 
+  setSelectedIdsToDelete([])
   const columns: GridColumns = [
     { field: 'id', headerName: 'ID', hide: true },
     {
@@ -111,11 +112,13 @@ export default function BootcampGrid({ setIds }: BootcampProps) {
         autoPageSize
         checkboxSelection
         disableSelectionOnClick
-        onSelectionModelChange={(ids) => setIds(ids as [])}
+        onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
+          setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
+        }}
       />
       <DetailsModal />
       <DeleteModal />
       <DeleteAllModal />
     </>
   )
-}
+})
