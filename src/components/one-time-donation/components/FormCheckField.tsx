@@ -4,6 +4,7 @@ import { Checkbox, FormControl, FormControlLabel, FormHelperText } from '@mui/ma
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import { TranslatableField, translateError } from 'common/form/validation'
+import React from 'react'
 
 export type CheckboxFieldProps = {
   name: string
