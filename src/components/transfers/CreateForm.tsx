@@ -9,12 +9,12 @@ import { Box, Button, Grid, Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
 import { Currency } from 'gql/currency'
-import { PersonResponse } from 'gql/person'
 import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
 import { CampaignResponse } from 'gql/campaigns'
 import { useCreateTransfer } from 'service/transfer'
 import VaultSelect from 'components/vaults/VaultSelect'
+import PersonSelect from 'components/person/PersonSelect'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import CurrencySelect from 'components/currency/CurrencySelect'
@@ -24,7 +24,6 @@ import { TransferData, TransferInput, TransferResponse } from 'gql/transfer'
 import SelectDate from './custom/SelectDate'
 import { TransferStatus } from './TransferTypes'
 import CampaignSelect from './custom/CampaignSelect'
-import SelectApprovedBy from './custom/SelectApprovedBy'
 
 const validationSchema: yup.SchemaOf<TransferData> = yup.object().shape({
   status: yup.string().oneOf(Object.values(TransferStatus)),
@@ -42,10 +41,9 @@ const validationSchema: yup.SchemaOf<TransferData> = yup.object().shape({
 
 type props = {
   campaigns: CampaignResponse[]
-  people: PersonResponse[]
 }
 
-export default function CreateForm({ campaigns, people }: props) {
+export default function CreateForm({ campaigns }: props) {
   const { t } = useTranslation('transfer')
   const router = useRouter()
 
@@ -124,7 +122,7 @@ export default function CreateForm({ campaigns, people }: props) {
             />
           </Grid>
           <Grid item xs={12}>
-            <SelectApprovedBy name="approvedById" label={t('approvedBy')} people={people || []} />
+            <PersonSelect name="approvedById" />
           </Grid>
           <Grid item xs={12}>
             <CampaignSelect
