@@ -2,13 +2,10 @@ import { observer } from 'mobx-react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
+import { Add as AddIcon } from '@mui/icons-material'
 import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
-import { Delete as DeleteIcon, Add as AddIcon } from '@mui/icons-material'
 
 import { routes } from 'common/routes'
-
-import { AlertStore } from 'stores/AlertStore'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 
 const toolbarStyles = {
   background: 'white',
@@ -26,25 +23,9 @@ const addIconStyles = {
   boxShadow: 3,
 }
 
-const iconStyles = {
-  background: 'white',
-  borderRadius: '50%',
-  cursor: 'pointer',
-  padding: 0.5,
-  boxShadow: 3,
-  mr: 1,
-}
-
 export default observer(function GridAppbar() {
-  const { showDeleteAll, selectedIdsToDelete } = ModalStore
   const router = useRouter()
   const { t } = useTranslation()
-
-  function deleteAllClickHandler() {
-    selectedIdsToDelete.length > 0
-      ? showDeleteAll()
-      : AlertStore.show(t('transfer:alerts:selectRow'), 'warning')
-  }
 
   return (
     <Toolbar sx={toolbarStyles}>
@@ -53,14 +34,6 @@ export default observer(function GridAppbar() {
       </Box>
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Tooltip title={t('transfer:cta:deleteSelected') || ''}>
-            <DeleteIcon
-              onClick={deleteAllClickHandler}
-              sx={iconStyles}
-              fontSize="medium"
-              color="action"
-            />
-          </Tooltip>
           <Tooltip title={t('transfer:cta:add') || ''}>
             <AddIcon
               sx={addIconStyles}

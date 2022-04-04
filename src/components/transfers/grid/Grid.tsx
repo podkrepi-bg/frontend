@@ -4,27 +4,23 @@ import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
 
 import { Box } from '@mui/material'
-import { DataGrid, GridColumns, GridRenderCellParams, GridSelectionModel } from '@mui/x-data-grid'
+import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { useTransferList } from 'common/hooks/transfers'
 
+import { routes } from 'common/routes'
 import { TransferResponse } from 'gql/transfer'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 
-import GridActions from './GridActions'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
-import DeleteAllModal from './DeleteAllModal'
+import GridActions from 'components/admin/GridActions'
 
 export default observer(function Grid() {
-  const { t } = useTranslation()
-
-  const { setSelectedIdsToDelete } = ModalStore
+  const { t } = useTranslation('transfer')
 
   const { data }: UseQueryResult<TransferResponse[]> = useTransferList()
 
   const [pageSize, setPageSize] = useState(5)
-  const [selectedId, setSelectedId] = useState('')
 
   const columns: GridColumns = [
     {
@@ -34,52 +30,52 @@ export default observer(function Grid() {
     },
     {
       field: 'status',
-      headerName: t('transfer:status'),
+      headerName: t('status'),
       editable: false,
       width: 100,
     },
     {
       field: 'currency',
-      headerName: t('transfer:currency'),
+      headerName: t('currency'),
       editable: false,
       width: 100,
     },
     {
       field: 'amount',
-      headerName: t('transfer:amount'),
+      headerName: t('amount'),
       editable: false,
       width: 100,
     },
     {
       field: 'documentId',
-      headerName: t('transfer:documentId'),
+      headerName: t('documentId'),
       editable: false,
       width: 200,
     },
     {
       field: 'targetDate',
-      headerName: t('transfer:targetDate'),
+      headerName: t('targetDate'),
       editable: false,
       width: 100,
       valueGetter: (f) => f.row.targetDate?.toString().slice(0, 10),
     },
     {
       field: 'sourceCampaign',
-      headerName: t('transfer:sourceCampaign'),
+      headerName: t('sourceCampaign'),
       editable: false,
       width: 200,
       valueGetter: (f) => f.row.sourceCampaign.title,
     },
     {
       field: 'sourceVault',
-      headerName: t('transfer:sourceVault'),
+      headerName: t('sourceVault'),
       editable: false,
       width: 200,
       valueGetter: (f) => f.row.sourceVault.name,
     },
     {
       field: 'approvedBy',
-      headerName: t('transfer:approvedBy'),
+      headerName: t('approvedBy'),
       editable: false,
       width: 150,
       valueGetter: (f) =>
@@ -87,20 +83,20 @@ export default observer(function Grid() {
     },
     {
       field: 'reason',
-      headerName: t('transfer:reason'),
+      headerName: t('reason'),
       editable: false,
       width: 200,
     },
     {
       field: 'targetCampaign',
-      headerName: t('transfer:targetCampaign'),
+      headerName: t('targetCampaign'),
       editable: false,
       width: 200,
       valueGetter: (f) => f.row.targetCampaign.title,
     },
     {
       field: 'targetVault',
-      headerName: t('transfer:targetVault'),
+      headerName: t('targetVault'),
       editable: false,
       width: 200,
       valueGetter: (f) => f.row.targetVault.name,
@@ -108,18 +104,24 @@ export default observer(function Grid() {
     {
       field: 'actions',
       type: 'actions',
-      headerName: 'Actions',
+      headerName: t('actions'),
       width: 200,
       align: 'center',
-      renderCell: (cellValues: GridRenderCellParams) => {
-        return <GridActions id={cellValues.row.id} setSelectedId={setSelectedId} />
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        return (
+          <GridActions
+            id={params.row.id}
+            name={params.row.id}
+            editLink={routes.admin.transfer.view(params.row.id)}
+          />
+        )
       },
     },
   ]
 
   return (
     <>
-      <Box sx={{ marginTop: '2%', mx: 'auto', width: 700 }}>
+      <Box>
         <DataGrid
           style={{
             background: 'white',
@@ -139,15 +141,10 @@ export default observer(function Grid() {
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
           autoHeight
           disableSelectionOnClick
-          checkboxSelection
-          onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
-            setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
-          }}
         />
       </Box>
-      <DetailsModal id={selectedId} />
-      <DeleteModal id={selectedId} />
-      <DeleteAllModal />
+      <DetailsModal />
+      <DeleteModal />
     </>
   )
 })

@@ -13,18 +13,14 @@ import { ModalStore } from 'stores/dashboard/ModalStore'
 
 import DeleteDialog from 'components/admin/DeleteDialog'
 
-type Props = {
-  id: string
-}
-
-export default observer(function DeleteModal({ id }: Props) {
+export default observer(function DeleteModal() {
   const { t } = useTranslation('transfer')
 
   const queryClient = useQueryClient()
-  const { hideDelete } = ModalStore
+  const { hideDelete, selectedRecord } = ModalStore
 
   const mutation = useMutation<AxiosResponse<TransferResponse>, AxiosError<ApiErrors>, string>({
-    mutationFn: useDeleteTransfer(String(id)),
+    mutationFn: useDeleteTransfer(selectedRecord.id),
     onError: () => AlertStore.show(t('alerts.error'), 'error'),
     onSuccess: () => {
       hideDelete()
@@ -34,7 +30,7 @@ export default observer(function DeleteModal({ id }: Props) {
   })
 
   function deleteHandler() {
-    mutation.mutate(id)
+    mutation.mutate(selectedRecord.id)
   }
 
   return <DeleteDialog deleteHandler={deleteHandler} />
