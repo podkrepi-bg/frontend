@@ -1,41 +1,38 @@
+import React from 'react'
 import * as yup from 'yup'
 import Link from 'next/link'
-import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useMutation, useQueryClient } from 'react-query'
 
-import {
-  Box,
-  Button,
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-  Typography,
-} from '@mui/material'
+import { Box, Button, Grid, Typography } from '@mui/material'
 
 import { ApiErrors } from 'service/apiErrors'
 import { endpoints } from 'service/apiEndpoints'
 import { useEditTransfer } from 'service/transfer'
 
 import { routes } from 'common/routes'
-
 import { AlertStore } from 'stores/AlertStore'
 
+import { Currency } from 'gql/currency'
 import { VaultResponse } from 'gql/vault'
 import { PersonResponse } from 'gql/person'
 import { CampaignResponse } from 'gql/campaigns'
-import { Currency, TransferStatus } from './TransferTypes'
+import { TransferStatus } from './TransferTypes'
 import { TransferData, TransferInput, TransferResponse } from 'gql/transfer'
 
-import FormDate from './custom/FormDate'
-import FormSelect from './custom/FormSelect'
+import SelectDate from './custom/SelectDate'
+import SelectStatus from './custom/SelectStatus'
+import SelectCurrency from './custom/SelectCurrency'
+import SelectApprovedBy from './custom/SelectApprovedBy'
+import SelectSourceVault from './custom/SelectSourceVault'
+import SelectTargetVault from './custom/SelectTargetVault'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
+import SelectSourceCampaign from './custom/SelectSourceCampaign'
+import SelectTargetCampaign from './custom/SelectTargetCampaign'
 
 const dateParser = (date: Date | undefined) => {
   if (date) {
@@ -53,9 +50,9 @@ const validationSchema: yup.SchemaOf<TransferData> = yup.object().shape({
   targetDate: yup.date().min(new Date(), 'Date is invalid.').notRequired().nullable(),
   approvedById: yup.string().uuid().notRequired().nullable(),
   sourceVaultId: yup.string().uuid().required(),
-  sourceCampaignId: yup.string().uuid(),
+  sourceCampaignId: yup.string().uuid().required(),
   targetVaultId: yup.string().uuid().required(),
-  targetCampaignId: yup.string().uuid(),
+  targetCampaignId: yup.string().uuid().required(),
 })
 
 type props = {
@@ -73,14 +70,6 @@ export default function EditForm({ transfer, campaigns, vaults, people, id }: pr
 
   const queryClient = useQueryClient()
 
-  const [sourceCampaignId, setSourceCampaignId] = useState(transfer.sourceCampaignId)
-  const [targetCampaignId, setTargetCampaignId] = useState(transfer.targetCampaignId)
-  const [sourceVaultId, setSourceVaultId] = useState(transfer.sourceVaultId)
-  const [targetVaultId, setTargetVaultId] = useState(transfer.targetVaultId)
-
-  const sourceVaults = vaults.filter((v) => v.campaignId === sourceCampaignId)
-  const targetVaults = vaults.filter((v) => v.campaignId === targetCampaignId)
-
   const initialValues: TransferInput = {
     status: transfer.status,
     currency: transfer.currency,
@@ -89,10 +78,10 @@ export default function EditForm({ transfer, campaigns, vaults, people, id }: pr
     documentId: transfer.documentId || '',
     targetDate: dateParser(transfer.targetDate) || '',
     approvedById: transfer.approvedById || '',
-    sourceCampaignId: sourceCampaignId,
-    sourceVaultId: sourceVaultId,
-    targetCampaignId: targetCampaignId,
-    targetVaultId: targetVaultId,
+    sourceCampaignId: transfer.sourceCampaignId,
+    sourceVaultId: transfer.sourceVaultId,
+    targetCampaignId: transfer.targetCampaignId,
+    targetVaultId: transfer.targetVaultId,
   }
 
   const mutation = useMutation<
@@ -118,18 +107,10 @@ export default function EditForm({ transfer, campaigns, vaults, people, id }: pr
       documentId: values.documentId ? values.documentId : null,
       targetDate: values.targetDate ? new Date(values.targetDate) : null,
       approvedById: values.approvedById ? values.approvedById : null,
-      sourceCampaignId: sourceCampaignId,
-      sourceVaultId: sourceVaultId,
-      targetCampaignId: targetCampaignId,
-      targetVaultId: targetVaultId,
-    }
-    if (
-      !data.sourceCampaignId ||
-      !data.targetCampaignId ||
-      !data.sourceVaultId ||
-      !data.targetVaultId
-    ) {
-      return
+      sourceCampaignId: values.sourceCampaignId,
+      sourceVaultId: values.sourceVaultId,
+      targetCampaignId: values.targetCampaignId,
+      targetVaultId: values.targetVaultId,
     }
     mutation.mutate(data)
   }
@@ -145,35 +126,19 @@ export default function EditForm({ transfer, campaigns, vaults, people, id }: pr
         </Typography>
         <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
           <Grid item xs={12}>
-            <FormSelect name="status" label={t('status')}>
-              {(Object.values(TransferStatus) || []).map((status) => {
-                return (
-                  <MenuItem key={status} value={status}>
-                    {status}
-                  </MenuItem>
-                )
-              })}
-            </FormSelect>
+            <SelectStatus name="status" label={t('status')} />
           </Grid>
           <Grid item xs={12}>
             <FormTextField type="string" label={t('reason')} name="reason" autoComplete="reason" />
           </Grid>
           <Grid item xs={12}>
-            <FormSelect name="currency" label={t('currency')}>
-              {(Object.values(Currency) || []).map((currency) => {
-                return (
-                  <MenuItem key={currency} value={currency}>
-                    {currency}
-                  </MenuItem>
-                )
-              })}
-            </FormSelect>
+            <SelectCurrency name="currency" label={t('currency')} />
           </Grid>
           <Grid item xs={12}>
             <FormTextField type="number" label={t('amount')} name="amount" />
           </Grid>
           <Grid item xs={12}>
-            <FormDate label={t('targetDate')} name="targetDate"></FormDate>
+            <SelectDate label={t('targetDate')} name="targetDate" />
           </Grid>
 
           <Grid item xs={12}>
@@ -185,104 +150,27 @@ export default function EditForm({ transfer, campaigns, vaults, people, id }: pr
             />
           </Grid>
           <Grid item xs={12}>
-            <FormSelect name="approvedById" label={t('approvedBy')}>
-              {[{ id: '', firstName: <em>None</em>, lastName: '' }, ...people].map((p) => {
-                return (
-                  <MenuItem key={p.id} value={p.id}>
-                    {p.firstName} {p.lastName}
-                  </MenuItem>
-                )
-              })}
-            </FormSelect>
+            <SelectApprovedBy name="approvedById" label={t('approvedBy')} people={people || []} />
           </Grid>
           <Grid item xs={12}>
-            <FormControl size="small" fullWidth>
-              <InputLabel>{t('sourceCampaign')}</InputLabel>
-              <Select
-                type="string"
-                sx={{ height: '55%' }}
-                label={t('sourceCampaign')}
-                name="sourceCampaignId"
-                value={sourceCampaignId}
-                onChange={(event) => {
-                  setSourceVaultId('')
-                  setSourceCampaignId(event.target.value)
-                }}>
-                {[{ id: '', title: '' }, ...campaigns].map((p) => {
-                  return (
-                    <MenuItem key={p.id} value={p.id}>
-                      {p.title}
-                    </MenuItem>
-                  )
-                })}
-              </Select>
-            </FormControl>
+            <SelectSourceCampaign
+              name="sourceCampaignId"
+              label="sourceCampaign"
+              campaigns={campaigns || []}
+            />
           </Grid>
           <Grid item xs={12}>
-            <FormControl size="small" fullWidth>
-              <InputLabel>{t('sourceVault')}</InputLabel>
-              <Select
-                type="string"
-                sx={{ height: '55%' }}
-                label={t('sourceVaultId')}
-                name="sourceVaultId"
-                value={sourceVaultId}
-                onChange={(event) => {
-                  setSourceVaultId(event.target.value)
-                }}>
-                {[{ id: '', name: <em>None</em> }, ...sourceVaults].map((p) => {
-                  return (
-                    <MenuItem key={p.id} value={p.id}>
-                      {p.name}
-                    </MenuItem>
-                  )
-                })}
-              </Select>
-            </FormControl>
+            <SelectSourceVault name="sourceVaultId" label="sourceVault" vaults={vaults || []} />
           </Grid>
           <Grid item xs={12}>
-            <FormControl size="small" fullWidth>
-              <InputLabel>{t('targetCampaign')}</InputLabel>
-              <Select
-                type="string"
-                label={t('targetCampaign')}
-                name="targetCampaignId"
-                value={targetCampaignId}
-                onChange={(event) => {
-                  setTargetVaultId('')
-                  setTargetCampaignId(event.target.value)
-                }}>
-                {[{ id: '', title: '' }, ...campaigns].map((p) => {
-                  return (
-                    <MenuItem key={p.id} value={p.id}>
-                      {p.title}
-                    </MenuItem>
-                  )
-                })}
-              </Select>
-            </FormControl>
+            <SelectTargetCampaign
+              name="targetCampaignId"
+              label="targetCampaign"
+              campaigns={campaigns || []}
+            />
           </Grid>
           <Grid item xs={12}>
-            <FormControl size="small" fullWidth>
-              <InputLabel>{t('targetVault')}</InputLabel>
-              <Select
-                type="string"
-                sx={{ height: '55%' }}
-                label={t('targetVaultId')}
-                name="targetVaultId"
-                value={targetVaultId}
-                onChange={(event) => {
-                  setTargetVaultId(event.target.value)
-                }}>
-                {[{ id: '', name: <em>None</em> }, ...targetVaults].map((p) => {
-                  return (
-                    <MenuItem key={p.id} value={p.id}>
-                      {p.name}
-                    </MenuItem>
-                  )
-                })}
-              </Select>
-            </FormControl>
+            <SelectTargetVault name="targetVaultId" label="targetVault" vaults={vaults || []} />
           </Grid>
           <Grid item xs={6}>
             <SubmitButton fullWidth label={t('transfer:cta:submit')} />
