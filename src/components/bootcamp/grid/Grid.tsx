@@ -26,15 +26,7 @@ interface PersonCellProps {
 
 export default observer(function Grid() {
   const [pageSize, setPageSize] = useState(5)
-  // const [data, setData] = useState([])
 
-  // useEffect(() => {
-  //   ;(async () => {
-  //     const response = await getAllBootcamp()
-
-  //     setData(response.data)
-  //   })()
-  // }, [])
   const { t } = useTranslation()
   const { setSelectedIdsToDelete } = ModalStore
 
@@ -96,7 +88,7 @@ export default observer(function Grid() {
           <GridActions
             id={params.row.id}
             name={params.row.ibanNumber}
-            editLink={routes.bootcamp.edit}
+            editLink={routes.bootcamp.edit(params.row.id)}
           />
         )
       },

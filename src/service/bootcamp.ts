@@ -29,3 +29,10 @@ export const deleteBootcamp = async (id: string) => {
     endpoints.bootcamp.deleteOne(id).url,
   )
 }
+
+export const editBootcamp = async ({ id, data }: { id: string; data: BootcampTypeFormData }) => {
+  return await apiClient.patch<string, AxiosResponse<BootcampResponse>>(
+    endpoints.bootcamp.editOne(id).url,
+    data,
+  )
+}

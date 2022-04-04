@@ -111,6 +111,6 @@ export const routes = {
   bootcamp: {
     index: '/bootcamp',
     create: '/bootcamp/create',
-    edit: '/bootcamp/edit',
+    edit: (id: string) => `/bootcamp/${id}/edit`,
   },
 }
