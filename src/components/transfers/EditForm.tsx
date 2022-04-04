@@ -25,7 +25,7 @@ import { TransferData, TransferInput, TransferResponse } from 'gql/transfer'
 
 import SelectDate from './custom/SelectDate'
 import { TransferStatus } from './TransferTypes'
-import SelectStatus from './custom/SelectStatus'
+import TransferStatusSelect from './custom/TransferStatusSelect'
 import CampaignSelect from './custom/CampaignSelect'
 import SelectApprovedBy from './custom/SelectApprovedBy'
 
@@ -120,7 +120,7 @@ export default function EditForm({ transfer, campaigns, people, id }: props) {
         </Typography>
         <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
           <Grid item xs={12}>
-            <SelectStatus name="status" label={t('status')} />
+            <TransferStatusSelect name="status" label={t('status')} />
           </Grid>
           <Grid item xs={12}>
             <FormTextField type="string" label={t('reason')} name="reason" autoComplete="reason" />
