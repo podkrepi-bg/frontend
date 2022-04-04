@@ -56,7 +56,7 @@ export default function ThirdStep() {
   const [field] = useField('payment')
   const router = useRouter()
   const slug = String(router.query.slug)
-  const { data }: UseQueryResult<{ campaign: CampaignResponse }> = useViewCampaign(slug as string)
+  // const { data }: UseQueryResult<{ campaign: CampaignResponse }> = useViewCampaign(slug as string)
   return (
     <Grid className={classes.body}>
       <Grid>
