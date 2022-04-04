@@ -15,12 +15,7 @@ type selectProps = {
   campaigns: CampaignResponse[]
 } & TextFieldProps
 
-export default function SelectTargetCampaign({
-  label,
-  name,
-  campaigns,
-  ...textFieldProps
-}: selectProps) {
+export default function CampaignSelect({ label, name, campaigns, ...textFieldProps }: selectProps) {
   const { t } = useTranslation('transfer')
 
   const [field, meta] = useField(name)
