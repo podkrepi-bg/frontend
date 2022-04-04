@@ -8,29 +8,27 @@ import { useMutation, useQueryClient } from 'react-query'
 
 import { Box, Button, Grid, Typography } from '@mui/material'
 
-import { ApiErrors } from 'service/apiErrors'
-import { endpoints } from 'service/apiEndpoints'
-import { useEditTransfer } from 'service/transfer'
-
 import { routes } from 'common/routes'
-import { AlertStore } from 'stores/AlertStore'
-
 import { Currency } from 'gql/currency'
 import { VaultResponse } from 'gql/vault'
 import { PersonResponse } from 'gql/person'
+import { ApiErrors } from 'service/apiErrors'
+import { AlertStore } from 'stores/AlertStore'
 import { CampaignResponse } from 'gql/campaigns'
-import { TransferStatus } from './TransferTypes'
+import { endpoints } from 'service/apiEndpoints'
+import { useEditTransfer } from 'service/transfer'
+import GenericForm from 'components/common/form/GenericForm'
+import SubmitButton from 'components/common/form/SubmitButton'
+import CurrencySelect from 'components/currency/CurrencySelect'
+import FormTextField from 'components/common/form/FormTextField'
 import { TransferData, TransferInput, TransferResponse } from 'gql/transfer'
 
 import SelectDate from './custom/SelectDate'
+import { TransferStatus } from './TransferTypes'
 import SelectStatus from './custom/SelectStatus'
-import SelectCurrency from './custom/SelectCurrency'
 import SelectApprovedBy from './custom/SelectApprovedBy'
 import SelectSourceVault from './custom/SelectSourceVault'
 import SelectTargetVault from './custom/SelectTargetVault'
-import GenericForm from 'components/common/form/GenericForm'
-import SubmitButton from 'components/common/form/SubmitButton'
-import FormTextField from 'components/common/form/FormTextField'
 import SelectSourceCampaign from './custom/SelectSourceCampaign'
 import SelectTargetCampaign from './custom/SelectTargetCampaign'
 
@@ -132,7 +130,7 @@ export default function EditForm({ transfer, campaigns, vaults, people, id }: pr
             <FormTextField type="string" label={t('reason')} name="reason" autoComplete="reason" />
           </Grid>
           <Grid item xs={12}>
-            <SelectCurrency name="currency" label={t('currency')} />
+            <CurrencySelect name="currency" />
           </Grid>
           <Grid item xs={12}>
             <FormTextField type="number" label={t('amount')} name="amount" />
