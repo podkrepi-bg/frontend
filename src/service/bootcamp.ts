@@ -44,8 +44,8 @@ export function useDeleteMany(idsToDelete: string[]) {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return async () => {
     return await apiClient.post<DeleteMany, AxiosResponse<BootcampResponse[]>>(
-      endpoints.bootcamp.removeMany.url,
-      { ids: idsToDelete },
+      endpoints.bootcamp.deleteTasks.url,
+      idsToDelete,
       authConfig(keycloak?.token),
     )
   }
