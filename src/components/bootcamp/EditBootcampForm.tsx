@@ -71,7 +71,7 @@ export default function EditBootcampForm({ id, initialValues }: BootcampFormProp
         lastName: values.lastName,
         city: values.city,
       }
-      await mutation.mutateAsync({ id, data })
+      await mutation.mutateAsync({ id, ...data })
       router.push(routes.bootcamp.index)
       resetForm()
     } catch (error) {
@@ -93,7 +93,7 @@ export default function EditBootcampForm({ id, initialValues }: BootcampFormProp
         <Box sx={{ marginTop: '5%', height: '62.6vh' }}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <Typography variant="h6">{t('bootcamp:forms:add-heading')}</Typography>
+              <Typography variant="h6">{t('bootcamp:forms:edit-heading')}</Typography>
             </Grid>
             <Grid item xs={12} sm={4}>
               <FormTextField
