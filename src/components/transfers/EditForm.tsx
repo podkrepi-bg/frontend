@@ -26,11 +26,10 @@ import { TransferData, TransferInput, TransferResponse } from 'gql/transfer'
 import SelectDate from './custom/SelectDate'
 import { TransferStatus } from './TransferTypes'
 import SelectStatus from './custom/SelectStatus'
+import CampaignSelect from './custom/CampaignSelect'
 import SelectApprovedBy from './custom/SelectApprovedBy'
 import SelectSourceVault from './custom/SelectSourceVault'
 import SelectTargetVault from './custom/SelectTargetVault'
-import SelectSourceCampaign from './custom/SelectSourceCampaign'
-import SelectTargetCampaign from './custom/SelectTargetCampaign'
 
 const dateParser = (date: Date | undefined) => {
   if (date) {
@@ -151,7 +150,7 @@ export default function EditForm({ transfer, campaigns, vaults, people, id }: pr
             <SelectApprovedBy name="approvedById" label={t('approvedBy')} people={people || []} />
           </Grid>
           <Grid item xs={12}>
-            <SelectSourceCampaign
+            <CampaignSelect
               name="sourceCampaignId"
               label="sourceCampaign"
               campaigns={campaigns || []}
@@ -161,7 +160,7 @@ export default function EditForm({ transfer, campaigns, vaults, people, id }: pr
             <SelectSourceVault name="sourceVaultId" label="sourceVault" vaults={vaults || []} />
           </Grid>
           <Grid item xs={12}>
-            <SelectTargetCampaign
+            <CampaignSelect
               name="targetCampaignId"
               label="targetCampaign"
               campaigns={campaigns || []}

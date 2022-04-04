@@ -23,11 +23,10 @@ import { TransferData, TransferInput, TransferResponse } from 'gql/transfer'
 
 import SelectDate from './custom/SelectDate'
 import { TransferStatus } from './TransferTypes'
+import CampaignSelect from './custom/CampaignSelect'
 import SelectApprovedBy from './custom/SelectApprovedBy'
 import SelectSourceVault from './custom/SelectSourceVault'
 import SelectTargetVault from './custom/SelectTargetVault'
-import SelectSourceCampaign from './custom/SelectSourceCampaign'
-import SelectTargetCampaign from './custom/SelectTargetCampaign'
 
 const validationSchema: yup.SchemaOf<TransferData> = yup.object().shape({
   status: yup.string().oneOf(Object.values(TransferStatus)),
@@ -131,7 +130,7 @@ export default function CreateForm({ campaigns, vaults, people }: props) {
             <SelectApprovedBy name="approvedById" label={t('approvedBy')} people={people || []} />
           </Grid>
           <Grid item xs={12}>
-            <SelectSourceCampaign
+            <CampaignSelect
               name="sourceCampaignId"
               label="sourceCampaign"
               campaigns={campaigns || []}
@@ -141,7 +140,7 @@ export default function CreateForm({ campaigns, vaults, people }: props) {
             <SelectSourceVault name="sourceVaultId" label="sourceVault" vaults={vaults || []} />
           </Grid>
           <Grid item xs={12}>
-            <SelectTargetCampaign
+            <CampaignSelect
               name="targetCampaignId"
               label="targetCampaign"
               campaigns={campaigns || []}
