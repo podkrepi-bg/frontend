@@ -1,14 +1,12 @@
 import { Toolbar, Tooltip, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
+import { observer } from 'mobx-react'
 import { Box } from '@mui/system'
 import { Delete as DeleteIcon, Add as AddIcon } from '@mui/icons-material'
 import { useRouter } from 'next/router'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 
-type Props = {
-  selectedIds: never[]
-  openModal: () => void
-}
 const iconStyles = {
   background: 'white',
   borderRadius: '50%',
@@ -26,9 +24,15 @@ const addIconStyles = {
   boxShadow: 3,
 }
 
-export default function GridAddBar({ selectedIds, openModal }: Props) {
+export default observer(function GridAddBar() {
   const { t } = useTranslation()
   const router = useRouter()
+  const { showDeleteAll, selectedIdsToDelete } = ModalStore
+  const deleteHandler = () => {
+    selectedIdsToDelete.length > 0
+      ? showDeleteAll()
+      : AlertStore.show(t('common:alerts.noselected'), 'warning')
+  }
   return (
     <Toolbar
       sx={{
@@ -44,16 +48,7 @@ export default function GridAddBar({ selectedIds, openModal }: Props) {
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Tooltip title="Изтрий избраните">
-            <DeleteIcon
-              onClick={() =>
-                selectedIds.length
-                  ? openModal()
-                  : AlertStore.show(t('bootcamp:alerts.delete-row.error-empty'), 'error')
-              }
-              sx={iconStyles}
-              fontSize="medium"
-              color="action"
-            />
+            <DeleteIcon onClick={deleteHandler} sx={iconStyles} fontSize="medium" color="action" />
           </Tooltip>
           <Tooltip title="Добави">
             <AddIcon
@@ -68,4 +63,4 @@ export default function GridAddBar({ selectedIds, openModal }: Props) {
       </Box>
     </Toolbar>
   )
-}
+})

@@ -7,6 +7,7 @@ import GridActions from 'components/admin/GridActions'
 
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
+import DeleteAllModal from './DeleteAllModal'
 
 export type BootcampProps = {
   setIds: (id: []) => void
@@ -114,6 +115,7 @@ export default function BootcampGrid({ setIds }: BootcampProps) {
       />
       <DetailsModal />
       <DeleteModal />
+      <DeleteAllModal />
     </>
   )
 }

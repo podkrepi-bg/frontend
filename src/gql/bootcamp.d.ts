@@ -61,3 +61,6 @@ type BootcampFormProps = {
   initialValues?: BootcampInput
   id?: string
 }
+export type DeleteMany = {
+  ids: string[]
+}
