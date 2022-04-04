@@ -47,3 +47,12 @@ export function removeManyBootcamps(idsToDelete: string[]) {
     )
   }
 }
+
+export const getOneBootcamp = (id: string) => {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+
+  return useQuery(
+    endpoints.bootcamp.getOne(id).url,
+    authQueryFnFactory<BootcampResponse>(keycloak?.token),
+  )
+}
