@@ -9,12 +9,12 @@ import { Box, Button, Grid, Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
 import { Currency } from 'gql/currency'
-import { VaultResponse } from 'gql/vault'
 import { PersonResponse } from 'gql/person'
 import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
 import { CampaignResponse } from 'gql/campaigns'
 import { useCreateTransfer } from 'service/transfer'
+import VaultSelect from 'components/vaults/VaultSelect'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import CurrencySelect from 'components/currency/CurrencySelect'
@@ -25,8 +25,6 @@ import SelectDate from './custom/SelectDate'
 import { TransferStatus } from './TransferTypes'
 import CampaignSelect from './custom/CampaignSelect'
 import SelectApprovedBy from './custom/SelectApprovedBy'
-import SelectSourceVault from './custom/SelectSourceVault'
-import SelectTargetVault from './custom/SelectTargetVault'
 
 const validationSchema: yup.SchemaOf<TransferData> = yup.object().shape({
   status: yup.string().oneOf(Object.values(TransferStatus)),
@@ -44,11 +42,10 @@ const validationSchema: yup.SchemaOf<TransferData> = yup.object().shape({
 
 type props = {
   campaigns: CampaignResponse[]
-  vaults: VaultResponse[]
   people: PersonResponse[]
 }
 
-export default function CreateForm({ campaigns, vaults, people }: props) {
+export default function CreateForm({ campaigns, people }: props) {
   const { t } = useTranslation('transfer')
   const router = useRouter()
 
@@ -137,7 +134,7 @@ export default function CreateForm({ campaigns, vaults, people }: props) {
             />
           </Grid>
           <Grid item xs={12}>
-            <SelectSourceVault name="sourceVaultId" label="sourceVault" vaults={vaults || []} />
+            <VaultSelect name="sourceVaultId" />
           </Grid>
           <Grid item xs={12}>
             <CampaignSelect
@@ -147,7 +144,7 @@ export default function CreateForm({ campaigns, vaults, people }: props) {
             />
           </Grid>
           <Grid item xs={12}>
-            <SelectTargetVault name="targetVaultId" label="targetVault" vaults={vaults || []} />
+            <VaultSelect name="targetVaultId" />
           </Grid>
           <Grid item xs={6}>
             <SubmitButton fullWidth label={t('transfer:cta:submit')} />
