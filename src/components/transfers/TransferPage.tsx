@@ -7,11 +7,11 @@ import Grid from './grid/Grid'
 import GridAppbar from './grid/GridAppbar'
 
 export default function TransferPage() {
-  const { t } = useTranslation()
+  const { t } = useTranslation('transfer')
 
   return (
     <AdminLayout>
-      <AdminContainer title={t('transfer:transfers')}>
+      <AdminContainer title={t('transfers')}>
         <GridAppbar />
         <Grid />
       </AdminContainer>
