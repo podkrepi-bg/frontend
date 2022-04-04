@@ -2,6 +2,11 @@ import { Collapse, Grid, List, Divider, Typography, Button } from '@mui/material
 import { createStyles, makeStyles } from '@mui/styles'
 import RadioGroupFormik from './RadioGroupFormik'
 import { useField } from 'formik'
+import { useQuery, useQueryClient, UseQueryResult } from 'react-query'
+import { useRouter } from 'next/router'
+import { routes } from 'common/routes'
+import { CampaignResponse } from 'gql/campaigns'
+import { useViewCampaign } from 'common/hooks/campaigns'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -49,7 +54,9 @@ const options = ['Карта', 'Банков превод']
 export default function ThirdStep() {
   const classes = useStyles()
   const [field] = useField('payment')
-
+  const router = useRouter()
+  const slug = String(router.query.slug)
+  const { data }: UseQueryResult<{ campaign: CampaignResponse }> = useViewCampaign(slug as string)
   return (
     <Grid className={classes.body}>
       <Grid>
@@ -88,7 +95,7 @@ export default function ThirdStep() {
             </Typography>
             <Divider className={classes.divider} />
             <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
-              <Typography>Campaing Name</Typography>
+              <Typography>{slug.split('-').join(' ').toUpperCase()}</Typography>
               <Button variant="contained" color="info">
                 Копирай
               </Button>

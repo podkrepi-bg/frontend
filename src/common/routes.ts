@@ -42,6 +42,7 @@ export const routes = {
     index: '/campaigns',
     create: '/campaigns/create',
     viewCampaignBySlug: (slug: string) => `/campaigns/${slug}`,
+    oneTimeDonation: (slug: string) => `/campaigns/donation/${slug}`,
   },
   profile: {
     index: '/profile',
