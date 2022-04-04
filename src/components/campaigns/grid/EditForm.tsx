@@ -209,7 +209,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
           </Grid>
           <Grid item xs={12}>
             <FileUpload
-              buttonLabel="Добави снимки"
+              buttonLabel="Добави документи"
               onUpload={(newFiles) => {
                 setFiles((prevFiles) => [...prevFiles, ...newFiles])
                 setRoles((prevRoles) => [
