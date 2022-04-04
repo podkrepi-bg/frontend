@@ -26,7 +26,7 @@ import { TransferData, TransferInput, TransferResponse } from 'gql/transfer'
 import SelectDate from './custom/SelectDate'
 import { TransferStatus } from './TransferTypes'
 import TransferStatusSelect from './TransferStatusSelect'
-import CampaignSelect from './custom/CampaignSelect'
+import CampaignSelect from '../campaigns/CampaignSelect'
 
 const dateParser = (date: Date | undefined) => {
   if (date) {
@@ -49,13 +49,13 @@ const validationSchema: yup.SchemaOf<TransferData> = yup.object().shape({
   targetCampaignId: yup.string().uuid().required(),
 })
 
-type props = {
+type Props = {
   transfer: TransferResponse
   campaigns: CampaignResponse[]
   id: string
 }
 
-export default function EditForm({ transfer, campaigns, id }: props) {
+export default function EditForm({ transfer, campaigns, id }: Props) {
   const { t } = useTranslation('transfer')
 
   const router = useRouter()

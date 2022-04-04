@@ -7,11 +7,11 @@ import { TextField, TextFieldProps } from '@mui/material'
 import { translateError } from 'common/form/useForm'
 import { TranslatableField } from 'common/form/validation'
 
-type dateProps = {
+type Props = {
   name: string
 } & TextFieldProps
 
-export default function SelectDate({ name, ...textFieldProps }: dateProps) {
+export default function SelectDate({ name, ...textFieldProps }: Props) {
   const { t } = useTranslation('transfer')
 
   const [field, meta] = useField(name)

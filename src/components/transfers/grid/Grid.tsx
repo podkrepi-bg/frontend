@@ -2,18 +2,16 @@ import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
-
 import { Box } from '@mui/material'
 import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 
-import { useTransferList } from 'common/hooks/transfers'
-
 import { routes } from 'common/routes'
 import { TransferResponse } from 'gql/transfer'
+import GridActions from 'components/admin/GridActions'
+import { useTransferList } from 'common/hooks/transfers'
 
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
-import GridActions from 'components/admin/GridActions'
 
 export default observer(function Grid() {
   const { t } = useTranslation('transfer')

@@ -1,7 +1,6 @@
 import { observer } from 'mobx-react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-
 import { Add as AddIcon } from '@mui/icons-material'
 import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
 
