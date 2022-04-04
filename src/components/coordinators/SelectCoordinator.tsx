@@ -4,11 +4,11 @@ import { InputLabel, MenuItem, Select, FormControl } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 import { useField } from 'formik'
 
-function CoordinatorCreateSelect() {
+export default function SelectCoordinator({ name = 'coordinatorId' }) {
   const { t } = useTranslation()
-  const [field] = useField('personId')
+  const [field] = useField(name)
   const { data: personList } = usePersonList()
-  const { data: coordinatorLsit } = useCoordinatorsList()
+  const { data: coordinatorList } = useCoordinatorsList()
 
   return (
     <FormControl fullWidth>
@@ -16,7 +16,7 @@ function CoordinatorCreateSelect() {
       <Select fullWidth defaultValue="" label={t('campaigns:campaign.type')} {...field}>
         {personList
           ?.filter((person) => {
-            return !coordinatorLsit?.find((c) => c.personId === person.id)
+            return !coordinatorList?.find((c) => c.personId === person.id)
           })
           ?.map((person) => {
             return (
@@ -29,5 +29,3 @@ function CoordinatorCreateSelect() {
     </FormControl>
   )
 }
-
-export default CoordinatorCreateSelect

@@ -16,11 +16,11 @@ import {
   Typography,
 } from '@mui/material'
 
-import { BeneficiaryFormData, BeneficiaryType } from 'gql/beneficiary'
+import { BeneficiaryFormData, BeneficiaryListResponse } from 'gql/beneficiary'
 import { LegalEntityType, PersonRelation } from './BeneficiaryTypes'
 import { routes } from 'common/routes'
 import { ApiErrors } from 'service/apiErrors'
-import { useBeneficiary, useEditBeneficiary, useCreateBeneficiary } from 'service/beneficiary'
+import { useViewBeneficiary, useEditBeneficiary, useCreateBeneficiary } from 'service/beneficiary'
 import { usePeopleList } from 'service/person'
 import { useCompaniesList } from 'service/company'
 import { useCoordinatorsList } from 'service/coordinator'
@@ -85,7 +85,7 @@ export default function Form() {
 
   if (id) {
     id = String(id)
-    const { data }: UseQueryResult<BeneficiaryType> = useBeneficiary(id)
+    const { data }: UseQueryResult<BeneficiaryListResponse> = useViewBeneficiary(id)
     initialValues = {
       type: data?.type,
       cityId: data?.cityId || '',
@@ -103,7 +103,7 @@ export default function Form() {
   const mutationFn = id ? useEditBeneficiary(id) : useCreateBeneficiary()
 
   const mutation = useMutation<
-    AxiosResponse<BeneficiaryType>,
+    AxiosResponse<BeneficiaryListResponse>,
     AxiosError<ApiErrors>,
     BeneficiaryFormData
   >({
@@ -133,9 +133,7 @@ export default function Form() {
             <InputLabel>{t('beneficiary:grid:type')}</InputLabel>
             <Select
               fullWidth
-              sx={{
-                height: '55%',
-              }}
+              sx={{ height: '55%' }}
               name="type"
               defaultValue={initialValues.type}
               onChange={(e: SelectChangeEvent) => {
@@ -158,9 +156,7 @@ export default function Form() {
             <InputLabel>{t('beneficiary:grid:individual')}</InputLabel>
             <Select
               fullWidth
-              sx={{
-                height: '55%',
-              }}
+              sx={{ height: '55%' }}
               name="personId"
               defaultValue={initialValues.personId}
               onChange={(e: SelectChangeEvent) => {
@@ -182,9 +178,7 @@ export default function Form() {
             <InputLabel>{t('beneficiary:grid:company')}</InputLabel>
             <Select
               fullWidth
-              sx={{
-                height: '55%',
-              }}
+              sx={{ height: '55%' }}
               name="companyId"
               defaultValue={initialValues.personId}
               onChange={(e: SelectChangeEvent) => {
@@ -206,9 +200,7 @@ export default function Form() {
             <InputLabel>{t('beneficiary:grid:coordinatorRelation')}</InputLabel>
             <Select
               fullWidth
-              sx={{
-                height: '55%',
-              }}
+              sx={{ height: '55%' }}
               name="coordinatorRelation"
               defaultValue={initialValues.coordinatorRelation}
               onChange={(e: SelectChangeEvent) => {
@@ -230,9 +222,7 @@ export default function Form() {
             <InputLabel>{t('beneficiary:grid:coordinator')}</InputLabel>
             <Select
               fullWidth
-              sx={{
-                height: '55%',
-              }}
+              sx={{ height: '55%' }}
               name="coordinatorId"
               defaultValue={initialValues.coordinatorId}
               onChange={(e: SelectChangeEvent) => {
@@ -254,9 +244,7 @@ export default function Form() {
             <InputLabel>{t('beneficiary:grid:countryCode')}</InputLabel>
             <Select
               fullWidth
-              sx={{
-                height: '55%',
-              }}
+              sx={{ height: '55%' }}
               name="countryCode"
               defaultValue={initialValues.countryCode}
               onChange={(e: SelectChangeEvent) => {
@@ -278,9 +266,7 @@ export default function Form() {
             <InputLabel>{t('beneficiary:grid:city')}</InputLabel>
             <Select
               fullWidth
-              sx={{
-                height: '55%',
-              }}
+              sx={{ height: '55%' }}
               name="cityId"
               defaultValue={initialValues.cityId}
               onChange={(e: SelectChangeEvent) => {
