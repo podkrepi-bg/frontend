@@ -12,7 +12,7 @@ export const endpoints = {
     viewTaskById: (id: string) => <Endpoint>{ url: `/bootcamp/${id}`, method: 'GET' },
     editTask: (id: string) => <Endpoint>{ url: `/bootcamp/${id}`, method: 'PUT' },
     deleteTask: (id: string) => <Endpoint>{ url: `/bootcamp/${id}`, method: 'DELETE' },
-    deleteTasks: <Endpoint>{ url: '/bootcamp/deletemany', method: 'POST' },
+    deleteTasks: <Endpoint>{ url: '/bootcamp/delete-many', method: 'POST' },
   },
   campaign: {
     listCampaigns: <Endpoint>{ url: '/campaign/list', method: 'GET' },

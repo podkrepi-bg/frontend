@@ -8,7 +8,10 @@ import GridActions from 'components/admin/GridActions'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
 
-export default function BootcampGrid() {
+export type BootcampProps = {
+  setIds: (id: []) => void
+}
+export default function BootcampGrid({ setIds }: BootcampProps) {
   const { data } = useTasksList()
 
   const columns: GridColumns = [
@@ -105,7 +108,9 @@ export default function BootcampGrid() {
         editMode="row"
         autoHeight
         autoPageSize
+        checkboxSelection
         disableSelectionOnClick
+        onSelectionModelChange={(ids) => setIds(ids as [])}
       />
       <DetailsModal />
       <DeleteModal />

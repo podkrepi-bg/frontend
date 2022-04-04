@@ -26,7 +26,7 @@ const addIconStyles = {
   boxShadow: 3,
 }
 
-export default function GridAddBar({ selectedIds, openModal }: Props) {
+export default function AddDellBtns({ selectedIds, openModal }: Props) {
   const { t } = useTranslation()
   const router = useRouter()
   return (
@@ -60,7 +60,7 @@ export default function GridAddBar({ selectedIds, openModal }: Props) {
               sx={addIconStyles}
               fontSize="large"
               onClick={() => {
-                router.push('bootcamp/create')
+                router.push('/bootcamp/add')
               }}
             />
           </Tooltip>
