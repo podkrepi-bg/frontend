@@ -6,6 +6,7 @@ import React from 'react'
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import AnonimusMenu from './AnonimusMenu'
+import { useTranslation } from 'next-i18next'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -55,9 +56,10 @@ const useStyles = makeStyles(() =>
 
 export default function SecondStep() {
   const classes = useStyles()
+  const { t } = useTranslation('one-time-donation')
   return (
     <Grid className={classes.body}>
-      <Typography className={classes.h2}>Впишете се</Typography>
+      <Typography className={classes.h2}>{t('second-step.login')}</Typography>
       <Grid my={'36px'}>
         <FormTextField
           name="mail"
@@ -77,7 +79,7 @@ export default function SecondStep() {
         <FormTextField
           name="password"
           type="text"
-          label="Парола"
+          label={t('second-step.password')}
           variant="outlined"
           color="primary"
           fullWidth
@@ -97,12 +99,12 @@ export default function SecondStep() {
               sx={{ '& .MuiSvgIcon-root': { fontSize: 33 } }}
             />
           }
-          label="Запомни"
+          label={t('second-step.checkbox-label') as string}
         />
       </Grid>
       <Stack my={'40px'} direction="column">
         <Button color="inherit" className={classes.submitButton}>
-          Вписване
+          {t('second-step.btn-login')}
         </Button>
         <Button
           color="inherit"
@@ -111,8 +113,8 @@ export default function SecondStep() {
           Google login
         </Button>
         <Typography>
-          Или
-          <Link href="#"> Създайте нов профил </Link>
+          {t('second-step.new-create')}
+          <Link href="#"> {t('second-step.new-create-profile')} </Link>
         </Typography>
       </Stack>
       <AnonimusMenu />
