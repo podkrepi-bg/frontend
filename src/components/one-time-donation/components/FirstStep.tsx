@@ -1,6 +1,7 @@
 import { Grid, Typography } from '@mui/material'
 import { createStyles, makeStyles } from '@mui/styles'
 import FormTextField from 'components/common/form/FormTextField'
+import { useTranslation } from 'next-i18next'
 import React from 'react'
 import CheckboxField from './FormCheckField'
 import RadioGroupFormik from './RadioGroupFormik'
@@ -33,16 +34,17 @@ const useStyles = makeStyles(() =>
 const amounts = ['2 лв.', '20 лв.', '5 лв.', '50 лв.', '10 лв.', '100 лв.']
 export default function FirstStep() {
   const classes = useStyles()
+  const { t } = useTranslation('one-time-donation')
   return (
     <Grid>
       <Grid container justifyContent="center">
-        <Typography className={classes.h3}>Искате ли да пожелаете нещо на бенефициента:</Typography>
+        <Typography className={classes.h3}>{t('first-step.wish')}</Typography>
       </Grid>
       <Grid className={classes.body}>
         <FormTextField
           name="message"
           type="text"
-          label="Вашето послание"
+          label={t('first-step.message')}
           variant="outlined"
           color="primary"
           multiline
@@ -53,12 +55,9 @@ export default function FirstStep() {
             },
           }}
         />
-        <CheckboxField name="anonimus" label="Анонино дарение" />
-        <Typography variant="body1">
-          Анонимно дарение означава, че организатора и бенефициент на кампания няма да се известени
-          за вашата идентичност
-        </Typography>
-        <Typography className={classes.h3}>Каква сума желаете да дарите*?</Typography>
+        <CheckboxField name="anonimus" label={t('first-step.check-box-label') as string} />
+        <Typography variant="body1">{t('first-step.info-anonimus')}</Typography>
+        <Typography className={classes.h3}>{t('first-step.amount')}</Typography>
       </Grid>
       <Grid className={classes.body} my={5}>
         <RadioGroupFormik name="amount" options={amounts} />
