@@ -1,6 +1,7 @@
 import { Button, CircularProgress, Grid, Step, StepLabel, Stepper } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { Form, Formik, FormikConfig, FormikValues } from 'formik'
+import { useTranslation } from 'next-i18next'
 import React, { useState } from 'react'
 
 export interface FormikStepProps
@@ -54,6 +55,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
   function isLastStep() {
     return step === childrenArray.length - 1
   }
+  const { t } = useTranslation('one-time-donation')
 
   return (
     <Formik
@@ -88,7 +90,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
               className={classes.btnBack}
               disabled={isSubmitting}
               onClick={() => setStep((s) => s - 1)}>
-              Back
+              {t('btns.back')}
             </Button>
             <Button
               className={classes.btn}
@@ -97,7 +99,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
               variant="contained"
               color="inherit"
               type="submit">
-              {isSubmitting ? 'Submitting' : isLastStep() ? 'Submit' : 'Next'}
+              {isSubmitting ? 'Submitting' : isLastStep() ? t('btns.end') : t('btns.next')}
             </Button>
           </Grid>
         </Form>
