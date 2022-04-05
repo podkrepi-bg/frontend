@@ -48,7 +48,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
   const childrenArray = React.Children.toArray(children) as React.ReactElement<FormikStepProps>[]
   const [step, setStep] = useState(0)
   const currentChild = childrenArray[step]
-  const [completed, setCompleted] = useState(false)
+  // const [completed, setCompleted] = useState(false)
   const classes = useStyles()
 
   function isLastStep() {
@@ -62,7 +62,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
       onSubmit={async (values, helpers) => {
         if (isLastStep()) {
           await props.onSubmit(values, helpers)
-          setCompleted(true)
+          // setCompleted(true)
         } else {
           setStep((s) => s + 1)
           helpers.setTouched({})
@@ -71,9 +71,9 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
       {({ isSubmitting }) => (
         <Form autoComplete="off">
           <Grid className={classes.stepper}>
-            <Stepper alternativeLabel activeStep={step}>
-              {childrenArray.map((child, index) => (
-                <Step key={child.props.key} completed={step > index || completed}>
+            <Stepper nonLinear alternativeLabel activeStep={step}>
+              {childrenArray.map((child) => (
+                <Step key={child.props.key}>
                   <StepLabel classes={{ iconContainer: classes.customLabelStyle }}>
                     {child.props.label}
                   </StepLabel>
