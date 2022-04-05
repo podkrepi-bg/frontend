@@ -4,6 +4,7 @@ import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined'
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
+import { useTranslation } from 'next-i18next'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -31,6 +32,7 @@ const useStyles = makeStyles(() =>
 )
 export default function Success() {
   const classes = useStyles()
+  const { t } = useTranslation('one-time-donation')
 
   return (
     <Grid>
@@ -41,15 +43,13 @@ export default function Success() {
         <CheckCircleOutlinedIcon />
       </Grid>
       <Grid container justifyContent="center">
-        <Typography className={classes.h2}>Благодарим за доверието и подкрепата!</Typography>
+        <Typography className={classes.h2}>{t('success.title')}</Typography>
       </Grid>
       <Grid container justifyContent="center">
-        <Typography>
-          Вашето дарение ще помогне на [име на кампания] по-бързо да постигне своята цел!{' '}
-        </Typography>
+        <Typography>{t('success.subtitle')}</Typography>
       </Grid>
       <Grid container my="72px" justifyContent="center">
-        <Typography>Сподели съобщението на кампанията за да достигне повече хора:</Typography>
+        <Typography>{t('success.share-to')}</Typography>
         <Grid
           container
           display="flex"
@@ -67,9 +67,9 @@ export default function Success() {
         </Grid>
       </Grid>
       <Grid container display="flex" justifyContent="center">
-        <Button className={classes.buttons}>Генерирай Сертификат</Button>
-        <Button className={classes.buttons}>Кажи ни какво мислиш </Button>
-        <Button className={classes.buttons}>Oще кампании</Button>
+        <Button className={classes.buttons}>{t('success.btn-generate')}</Button>
+        <Button className={classes.buttons}>{t('success.btn-say-to-us')}</Button>
+        <Button className={classes.buttons}>{t('success.btn-other-campaign')}</Button>
       </Grid>
     </Grid>
   )
