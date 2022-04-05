@@ -229,7 +229,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
                   })),
                 ])
               }}
-              buttonLabel="Добави снимки"
+              buttonLabel="Добави документи"
             />
             <FileList
               filesRole={roles}
