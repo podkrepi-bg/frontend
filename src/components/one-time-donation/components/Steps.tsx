@@ -7,6 +7,7 @@ import Unsuccess from './Unsuccess'
 import { DonationStep as StepType, OneTimeDonation } from '../../../gql/donations'
 import { FormikStep, FormikStepper } from './FormikStepper'
 import * as yup from 'yup'
+import { useTranslation } from 'next-i18next'
 
 const steps: StepType[] = [
   {
@@ -43,27 +44,31 @@ const initialValues: OneTimeDonation = {
 }
 // const sleep = (time) => new Promise((acc) => setTimeout(acc, time))
 
-const validate = [
-  yup
-    .object()
-    .defined()
-    .shape({
-      message: yup.string().notRequired(),
-      anonimus: yup.bool().required().oneOf([true], 'Message'),
-    }),
-  yup.object().defined().shape({
-    email: yup.string().email().required(),
-    name: yup.string().required(),
-    phone: yup.string().required(),
-  }),
-  yup
-    .object()
-    .defined()
-    .shape({
-      payment: yup.string().required().oneOf(['Банков превод'], 'Message'),
-    }),
-]
 export default function VerticalLinearStepper() {
+  const { t } = useTranslation('one-time-donation')
+  const validate = [
+    yup
+      .object()
+      .defined()
+      .shape({
+        message: yup.string().notRequired(),
+        anonimus: yup.bool().required().oneOf([true], 'Message'),
+      }),
+    yup.object().defined().shape({
+      email: yup.string().email().required(),
+      name: yup.string().required(),
+      phone: yup.string().required(),
+    }),
+    yup
+      .object()
+      .defined()
+      .shape({
+        payment: yup
+          .string()
+          .required()
+          .oneOf([t('third-step.bank-payment')], 'Message'),
+      }),
+  ]
   return (
     <FormikStepper
       onSubmit={async (values) => {
