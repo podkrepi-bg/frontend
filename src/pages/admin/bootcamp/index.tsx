@@ -6,7 +6,7 @@ import { endpoints } from 'service/apiEndpoints'
 
 import { authQueryFnFactory } from 'service/restRequests'
 import { keycloakInstance } from 'middleware/auth/keycloak'
-import BootcampPage from '../../../components/bootcamp/BootCampPage'
+import BootcampPage from '../../../components/bootcamp/BootcampPage'
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const keycloak = keycloakInstance(ctx)
