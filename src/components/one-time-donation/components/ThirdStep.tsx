@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import { routes } from 'common/routes'
 import { CampaignResponse } from 'gql/campaigns'
 import { useViewCampaign } from 'common/hooks/campaigns'
+import { CopyTextButton } from '../../common/CopyTextButton'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -57,6 +58,15 @@ export default function ThirdStep() {
   const router = useRouter()
   const slug = String(router.query.slug)
   // const { data }: UseQueryResult<{ campaign: CampaignResponse }> = useViewCampaign(slug as string)
+  const bankAccountInfo = {
+    owner: 'Сдружение Подкрепи БГ',
+    bank: 'Уникредит Булбанк',
+    iban: 'BG66 UNCR 7000 1524 3490 32',
+    campaign: slug
+      .split('-')
+      .map((string) => string.charAt(0).toUpperCase() + string.slice(1))
+      .join(' '),
+  }
   return (
     <Grid className={classes.body}>
       <Grid>
@@ -73,32 +83,48 @@ export default function ThirdStep() {
             </Typography>
             <Divider className={classes.divider} />
             <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
-              <Typography>Сдружение Подкрепи БГ</Typography>
-              <Button variant="contained" color="info">
-                Копирай
-              </Button>
+              <Typography>{bankAccountInfo.owner}</Typography>
+              <CopyTextButton
+                label="Копирай"
+                text={bankAccountInfo.owner}
+                variant="contained"
+                size="small"
+                color="info"
+              />
             </Grid>
             <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
-              <Typography>Уникредит Булбанк</Typography>
-              <Button variant="contained" color="info">
-                Копирай
-              </Button>
+              <Typography>{bankAccountInfo.bank}</Typography>
+              <CopyTextButton
+                label="Копирай"
+                text={bankAccountInfo.bank}
+                variant="contained"
+                size="small"
+                color="info"
+              />
             </Grid>
             <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
-              <Typography>IBAN: BG66 UNCR 7000 1524 3490 32</Typography>
-              <Button variant="contained" color="info">
-                Копирай
-              </Button>
+              <Typography>{bankAccountInfo.iban}</Typography>
+              <CopyTextButton
+                label="Копирай"
+                text={bankAccountInfo.iban}
+                variant="contained"
+                size="small"
+                color="info"
+              />
             </Grid>
             <Typography my={2} mx={10} variant="h6">
               Основание за дарение запишете
             </Typography>
             <Divider className={classes.divider} />
             <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
-              <Typography>{slug.split('-').join(' ').toUpperCase()}</Typography>
-              <Button variant="contained" color="info">
-                Копирай
-              </Button>
+              <Typography>{bankAccountInfo.campaign}</Typography>
+              <CopyTextButton
+                text={bankAccountInfo.campaign}
+                variant="contained"
+                color="info"
+                size="small"
+                label="Копирай"
+              />
             </Grid>
             <Typography mx={10}>
               Ако не напишете правилно основанието, може да не разпределим парите по предназначение
