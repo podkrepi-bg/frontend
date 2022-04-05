@@ -31,7 +31,7 @@ export default observer(function DeleteAllModal() {
     onSuccess: () => {
       hideDeleteAll()
       setSelectedIdsToDelete([])
-      AlertStore.show(t('documents:alerts:deleteAll'), 'success')
+      AlertStore.show(t('bootcamp:alerts:deleteAll'), 'success')
       router.push(routes.admin.bootcamp.index)
     },
   })

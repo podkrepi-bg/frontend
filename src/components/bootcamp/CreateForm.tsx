@@ -35,7 +35,6 @@ const parseDateString = (value: string, originalValue: string) => {
     : parse(originalValue, formatString, new Date())
   return parsedDate
 }
-const currentStatus = 'current'
 const validationSchema: yup.SchemaOf<BootcampInput> = yup
   .object()
   .defined()

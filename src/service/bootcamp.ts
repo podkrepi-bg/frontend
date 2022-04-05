@@ -1,12 +1,11 @@
 import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
-import axios, { AxiosResponse } from 'axios'
+import { AxiosResponse } from 'axios'
 
 import { apiClient } from 'service/apiClient'
 import { authConfig } from 'service/restRequests'
 import { endpoints } from 'service/apiEndpoints'
 import { BootcampInput, BootcampResponse, DeleteMany } from 'gql/bootcamp'
-import { MutationFunction } from 'react-query'
 
 export function useCreateBootcamp() {
   const { keycloak } = useKeycloak<KeycloakInstance>()

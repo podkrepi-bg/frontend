@@ -25,7 +25,7 @@ const addIconStyles = {
 }
 
 export default observer(function GridAddBar() {
-  const { t } = useTranslation()
+  const { t } = useTranslation('bootcamp')
   const router = useRouter()
   const { showDeleteAll, selectedIdsToDelete } = ModalStore
   const deleteHandler = () => {
@@ -43,7 +43,7 @@ export default observer(function GridAddBar() {
         height: '72px',
       }}>
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'start', pt: 1 }}>
-        <Typography>{t('bootcamp:nav.all')}</Typography>
+        <Typography>{'Всички задачи'}</Typography>
       </Box>
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>

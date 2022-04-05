@@ -30,7 +30,7 @@ export default observer(function DeleteModal() {
     onError: () => AlertStore.show(t('alerts.error'), 'error'),
     onSuccess: () => {
       hideDelete()
-      AlertStore.show(t('alerts.delete'), 'warning')
+      AlertStore.show(t('bootcamp:alerts:delete'), 'warning')
       router.push(routes.admin.bootcamp.index)
     },
   })

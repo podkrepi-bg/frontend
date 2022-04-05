@@ -110,7 +110,7 @@ export default function BootcampEditForm() {
       validationSchema={validationSchema}>
       <Box sx={{ marginTop: '5%', height: '62.6vh' }}>
         <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
-          {t('bootcamp:tasks:newTask')}
+          {t('bootcamp:tasks:editTask')}
         </Typography>
         <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
           <Grid item xs={6}>
