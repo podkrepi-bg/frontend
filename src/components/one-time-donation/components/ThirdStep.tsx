@@ -8,6 +8,7 @@ import { routes } from 'common/routes'
 import { CampaignResponse } from 'gql/campaigns'
 import { useViewCampaign } from 'common/hooks/campaigns'
 import { CopyTextButton } from '../../common/CopyTextButton'
+import { useTranslation } from 'next-i18next'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -50,7 +51,6 @@ const useStyles = makeStyles(() =>
     },
   }),
 )
-const options = ['Карта', 'Банков превод']
 
 export default function ThirdStep() {
   const classes = useStyles()
@@ -58,34 +58,36 @@ export default function ThirdStep() {
   const router = useRouter()
   const slug = String(router.query.slug)
   // const { data }: UseQueryResult<{ campaign: CampaignResponse }> = useViewCampaign(slug as string)
+  const { t } = useTranslation('one-time-donation')
   const bankAccountInfo = {
-    owner: 'Сдружение Подкрепи БГ',
-    bank: 'Уникредит Булбанк',
+    owner: t('third-step.owner'),
+    bank: t('third-step.bank'),
     iban: 'BG66 UNCR 7000 1524 3490 32',
     campaign: slug
       .split('-')
       .map((string) => string.charAt(0).toUpperCase() + string.slice(1))
       .join(' '),
   }
+  const options = [t('third-step.card'), t('third-step.bank-payment')]
   return (
     <Grid className={classes.body}>
       <Grid>
-        <Typography className={classes.h2}>Как желаете да дарите?</Typography>
+        <Typography className={classes.h2}>{t('third-step.title')}</Typography>
       </Grid>
       <Grid container display="flex" justifyContent="center">
         <RadioGroupFormik name="payment" options={options} />
       </Grid>
       <Grid>
-        <Collapse in={field.value === 'Банков превод'} timeout="auto" unmountOnExit>
+        <Collapse in={field.value === t('third-step.bank-payment')} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <Typography my={2} mx={10} variant="h6">
-              Детайли на банкова сметка:
+              {t('third-step.bank-details')}
             </Typography>
             <Divider className={classes.divider} />
             <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
               <Typography>{bankAccountInfo.owner}</Typography>
               <CopyTextButton
-                label="Копирай"
+                label={t('third-step.btn-copy')}
                 text={bankAccountInfo.owner}
                 variant="contained"
                 size="small"
@@ -95,7 +97,7 @@ export default function ThirdStep() {
             <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
               <Typography>{bankAccountInfo.bank}</Typography>
               <CopyTextButton
-                label="Копирай"
+                label={t('third-step.btn-copy')}
                 text={bankAccountInfo.bank}
                 variant="contained"
                 size="small"
@@ -103,9 +105,9 @@ export default function ThirdStep() {
               />
             </Grid>
             <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
-              <Typography>{bankAccountInfo.iban}</Typography>
+              <Typography> IBAN: BG66 UNCR 7000 1524 3490 32 </Typography>
               <CopyTextButton
-                label="Копирай"
+                label={t('third-step.btn-copy')}
                 text={bankAccountInfo.iban}
                 variant="contained"
                 size="small"
@@ -113,7 +115,7 @@ export default function ThirdStep() {
               />
             </Grid>
             <Typography my={2} mx={10} variant="h6">
-              Основание за дарение запишете
+              {t('third-step.reason-donation')}
             </Typography>
             <Divider className={classes.divider} />
             <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
@@ -123,12 +125,10 @@ export default function ThirdStep() {
                 variant="contained"
                 color="info"
                 size="small"
-                label="Копирай"
+                label={t('third-step.btn-copy')}
               />
             </Grid>
-            <Typography mx={10}>
-              Ако не напишете правилно основанието, може да не разпределим парите по предназначение
-            </Typography>
+            <Typography mx={10}>{t('third-step.message-warning')}</Typography>
           </List>
         </Collapse>
       </Grid>
