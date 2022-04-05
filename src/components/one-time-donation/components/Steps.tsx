@@ -52,13 +52,21 @@ export default function VerticalLinearStepper() {
       .defined()
       .shape({
         message: yup.string().notRequired(),
-        anonimus: yup.bool().required().oneOf([true], 'Message'),
+        anonimus: yup.bool().required().oneOf([true], t('errors-fields.checkbox-anonimus')),
+        amount: yup.string().required(t('errors-fields.amount')),
       }),
-    yup.object().defined().shape({
-      email: yup.string().email().required(),
-      name: yup.string().required(),
-      phone: yup.string().required(),
-    }),
+    yup
+      .object()
+      .defined()
+      .shape({
+        anonimusDonation: yup
+          .boolean()
+          .required()
+          .oneOf([true], t('errors-fields.checkbox-anonimus')),
+        email: yup.string().email().required(),
+        name: yup.string().required(),
+        phone: yup.string().required(),
+      }),
     yup
       .object()
       .defined()
@@ -66,7 +74,7 @@ export default function VerticalLinearStepper() {
         payment: yup
           .string()
           .required()
-          .oneOf([t('third-step.bank-payment')], 'Message'),
+          .oneOf([t('third-step.bank-payment')], t('errors-fields.bank-payment')),
       }),
   ]
   return (
