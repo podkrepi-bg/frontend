@@ -1,6 +1,7 @@
 import { Grid, Typography, Button } from '@mui/material'
 import { createStyles, makeStyles } from '@mui/styles'
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined'
+import { useTranslation } from 'next-i18next'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -34,6 +35,7 @@ const useStyles = makeStyles(() =>
 )
 export default function Unsuccess() {
   const classes = useStyles()
+  const { t } = useTranslation('one-time-donation')
 
   return (
     <Grid className={classes.body}>
@@ -44,17 +46,14 @@ export default function Unsuccess() {
         <ErrorOutlineOutlinedIcon />
       </Grid>
       <Grid>
-        <Typography className={classes.h2}>За съжаление, възникна проблем!</Typography>
+        <Typography className={classes.h2}>{t('unsuccess.title')}</Typography>
       </Grid>
       <Grid container justifyContent="center">
-        <Typography>
-          Трансакцията не можа да бъде осъществена. Причините могат да бъдат няколко, включително
-          проблем с Вашата интернет връзка.
-        </Typography>
+        <Typography>{t('unsuccess.subtitle')}</Typography>
       </Grid>
       <Grid container display="flex" my={10}>
-        <Button className={classes.buttons}>ОПИТАЙТЕ ПАК</Button>
-        <Button className={classes.buttons}>ПИШЕТЕ НИ</Button>
+        <Button className={classes.buttons}>{t('unsuccess.btn-again')}</Button>
+        <Button className={classes.buttons}>{t('unsuccess.btn-connect')}</Button>
       </Grid>
     </Grid>
   )
