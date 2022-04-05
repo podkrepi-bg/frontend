@@ -4,6 +4,7 @@ import { createStyles, makeStyles } from '@mui/styles'
 import FormTextField from 'components/common/form/FormTextField'
 import CheckboxField from './FormCheckField'
 import { useField } from 'formik'
+import { useTranslation } from 'next-i18next'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -20,22 +21,19 @@ const useStyles = makeStyles(() =>
 export default function AnonimusMenu() {
   const classes = useStyles()
   const [field] = useField('anonimusDonation')
+  const { t } = useTranslation('one-time-donation')
 
   return (
     <>
-      <CheckboxField label="Дарение без регистрация" name="anonimusDonation" />
+      <CheckboxField label={t('anonimus-menu.checkbox-label') as string} name="anonimusDonation" />
       <Collapse in={field.value} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <Typography>
-            За да сме сигурни, че дарението ви ще отиде на правилното място бихме искали да вземем
-            вашите данни. Данните ви няма да бъдат видими в платформата. Сертификат ще бъде изпратен
-            на мейл, Няма да можете да видите отчетност, и репорт
-          </Typography>
+          <Typography>{t('anonimus-menu.info-start')}</Typography>
           <Grid my={'35px'}>
             <FormTextField
               name="name"
               type="text"
-              label="Име"
+              label={t('anonimus-menu.name')}
               variant="outlined"
               color="primary"
               fullWidth
@@ -65,7 +63,7 @@ export default function AnonimusMenu() {
             <FormTextField
               name="phone"
               type="text"
-              label="Телефон"
+              label={t('anonimus-menu.phone')}
               variant="outlined"
               color="primary"
               fullWidth
@@ -76,7 +74,7 @@ export default function AnonimusMenu() {
               }}
             />
           </Grid>
-          <Typography>Данните ви няма да бъдат споделяни с никой. </Typography>
+          <Typography>{t('anonimus-menu.info-end')}</Typography>
         </List>
       </Collapse>
     </>
