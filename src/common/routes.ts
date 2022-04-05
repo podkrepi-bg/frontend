@@ -115,9 +115,14 @@ export const routes = {
       edit: (slug: string) => `/admin/vaults/${slug}/edit`,
     },
     benefactor: {
-      index: '/benefactor',
-      view: (id: string) => `/benefactor/${id}`,
-      add: '/benefactor/add',
+      index: '/admin/benefactor',
+      view: (id: string) => `/admin/benefactor/${id}`,
+      add: '/admin/benefactor/add',
+    },
+    transfer: {
+      index: '/admin/transfers',
+      create: '/admin/transfers/create',
+      view: (id: string) => `/admin/transfers/${id}`,
     },
   },
   dev: {

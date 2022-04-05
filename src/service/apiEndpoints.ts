@@ -132,4 +132,11 @@ export const endpoints = {
     list: <Endpoint>{ url: '/company/list', method: 'GET' },
     viewCompany: (slug: string) => <Endpoint>{ url: `/company/${slug}`, method: 'GET' },
   },
+  transfer: {
+    listTransfer: <Endpoint>{ url: '/transfer/', method: 'GET' },
+    viewTransfer: (id: string) => <Endpoint>{ url: `/transfer/${id}`, method: 'GET' },
+    createTransfer: <Endpoint>{ url: '/transfer/create', method: 'POST' },
+    editTransfer: (id: string) => <Endpoint>{ url: `/transfer/${id}`, method: 'PUT' },
+    removeTransfer: (id: string) => <Endpoint>{ url: `/transfer/${id}`, method: 'DELETE' },
+  },
 }

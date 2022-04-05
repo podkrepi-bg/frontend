@@ -5,9 +5,8 @@ import { useField } from 'formik'
 import { useVaultsList } from 'common/hooks/vaults'
 import FormTextField from 'components/common/form/FormTextField'
 
-export default function VaultSelect() {
-  const name = 'vaultId'
-  const { t } = useTranslation('expenses')
+export default function VaultSelect({ name = 'vaultId' }) {
+  const { t } = useTranslation()
 
   const values = useVaultsList().data?.map((record) => record.id)
   const [field, meta] = useField(name)
