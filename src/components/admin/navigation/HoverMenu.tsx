@@ -15,26 +15,26 @@ type submenu = {
 }[]
 export default function HoverMenu({ menu, submenu, icon: Icon }: Props) {
   const router = useRouter()
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null)
+  const [anchorMenu, setAnchorMenu] = React.useState<null | HTMLElement>(null)
 
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget)
+  const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorMenu(event.currentTarget)
   }
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null)
+  const handleCloseMenu = () => {
+    setAnchorMenu(null)
   }
 
   return (
     <>
-      <ListItemButton onClick={handleOpenUserMenu}>
+      <ListItemButton onClick={handleOpenMenu}>
         <ListItemIcon title={menu}>{<Icon />}</ListItemIcon>
         <ListItemText primary={menu} />
       </ListItemButton>
       <Menu
         sx={{ mt: '45px' }}
         id="menu-appbar"
-        anchorEl={anchorElUser}
+        anchorEl={anchorMenu}
         anchorOrigin={{
           vertical: 'top',
           horizontal: 'right',
@@ -44,10 +44,10 @@ export default function HoverMenu({ menu, submenu, icon: Icon }: Props) {
           vertical: 'top',
           horizontal: 'right',
         }}
-        open={Boolean(anchorElUser)}
-        onClose={handleCloseUserMenu}>
+        open={Boolean(anchorMenu)}
+        onClose={handleCloseMenu}>
         {submenu.map(({ label, icon: Icon, href }, index) => (
-          <MenuItem key={index} onClick={handleCloseUserMenu}>
+          <MenuItem key={index} onClick={handleCloseMenu}>
             <CustomListItem
               key={label}
               selected={href !== '#' && router.asPath.includes(href)}
