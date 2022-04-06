@@ -8,6 +8,7 @@ import Layout from 'components/layout/Layout'
 import OnHold from './OnHold'
 import TabPanel from './TabPanel'
 import ContactUs from './ContactUs'
+import FaqIntro from './FaqIntro'
 import ScrollToTop from './ScrollToTop'
 import VerticalTabs from './VerticalTabs'
 import ExpandableListItem from './ExpandableListItem'
@@ -16,7 +17,7 @@ import {
   COMMON_QUESTIONS,
   MONTHLY_DONATION_QUESTIONS,
   POTENTION_SCAM_QUESTIONS,
-  REQUIREMENTS_QUESTIONS,
+  CAMPAIGN_QUESTIONS,
   ATTRACTING_DONATORS_QUESTIONS,
   PARTNERSHIPS_QUESTIONS,
 } from './contents'
@@ -39,6 +40,7 @@ export default function FaqPage() {
 
   return (
     <Layout title={t('nav.campaigns.faq')}>
+      <FaqIntro />
       <TabContext value={value.toString()}>
         <VerticalTabs value={value} setValue={setValue}>
           <TabPanel value={value} index={0}>
@@ -51,7 +53,7 @@ export default function FaqPage() {
             )}
           </TabPanel>
           <TabPanel value={value} index={1}>
-            {REQUIREMENTS_QUESTIONS.flatMap(({ header, content, visible }) =>
+            {CAMPAIGN_QUESTIONS.flatMap(({ header, content, visible }) =>
               visible === true ? (
                 <ExpandableListItem key={header} header={header} content={content} />
               ) : (
