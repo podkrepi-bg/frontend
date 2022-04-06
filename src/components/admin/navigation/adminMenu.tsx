@@ -37,6 +37,7 @@ export const menuPayments = [
   { label: 'Трезори', icon: Shield, href: routes.admin.vaults.index },
   { label: 'Тегления', icon: LocalAtmIcon, href: routes.admin.withdrawals.index },
   { label: 'Прехвърляния', icon: MoveUp, href: routes.admin.transfer.index },
+  { label: 'Разходи', icon: Paid, href: routes.admin.expenses.index },
 ]
 
 export const menuSetings = [
