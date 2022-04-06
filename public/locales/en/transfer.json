@@ -39,5 +39,9 @@
         "edit": "Edit",
         "details": "Details",
         "submit": "Submit"
+    },
+    "fields":{
+        "approvedById":"Approved by",
+        "empty":"None"
     }
 }
