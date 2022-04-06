@@ -8,6 +8,7 @@ import Layout from 'components/layout/Layout'
 import OnHold from './OnHold'
 import TabPanel from './TabPanel'
 import ContactUs from './ContactUs'
+import FaqIntro from './FaqIntro'
 import ScrollToTop from './ScrollToTop'
 import VerticalTabs from './VerticalTabs'
 import ExpandableListItem from './ExpandableListItem'
@@ -39,6 +40,7 @@ export default function FaqPage() {
 
   return (
     <Layout title={t('nav.campaigns.faq')}>
+      <FaqIntro />
       <TabContext value={value.toString()}>
         <VerticalTabs value={value} setValue={setValue}>
           <TabPanel value={value} index={0}>
