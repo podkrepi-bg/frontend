@@ -17,7 +17,7 @@ import {
   COMMON_QUESTIONS,
   MONTHLY_DONATION_QUESTIONS,
   POTENTION_SCAM_QUESTIONS,
-  REQUIREMENTS_QUESTIONS,
+  CAMPAIGN_QUESTIONS,
   ATTRACTING_DONATORS_QUESTIONS,
   PARTNERSHIPS_QUESTIONS,
 } from './contents'
@@ -53,7 +53,7 @@ export default function FaqPage() {
             )}
           </TabPanel>
           <TabPanel value={value} index={1}>
-            {REQUIREMENTS_QUESTIONS.flatMap(({ header, content, visible }) =>
+            {CAMPAIGN_QUESTIONS.flatMap(({ header, content, visible }) =>
               visible === true ? (
                 <ExpandableListItem key={header} header={header} content={content} />
               ) : (
