@@ -23,9 +23,9 @@ import PrivateMenu from 'components/layout/nav/PrivateMenu'
 import PictureLogo from '/public/android-chrome-192x192.png'
 
 import PanelFooter from './PanelFooter'
-import { items, menuItems } from './adminMenu'
+import { items } from './adminMenu'
 import CustomListItem from './CustomListItem'
-import SubMenu from './SubMenu'
+import HoverMenu from './HoverMenu'
 import { AssignmentInd, People, Payment } from '@mui/icons-material'
 
 const drawerWidth = 200
@@ -149,7 +149,6 @@ const mainMenu = [
 
 export default function AdminLayout({ children }: Props) {
   const theme = useTheme()
-  const router = useRouter()
   const classes = useStyles()
 
   const initialOpen = useMemo<boolean>(() => {
@@ -200,7 +199,7 @@ export default function AdminLayout({ children }: Props) {
         <DrawerHeader />
         <List sx={{ p: '2rem .5rem', height: '100%', position: 'relative' }}>
           {items.map((submenu, index) => (
-            <SubMenu
+            <HoverMenu
               key={index}
               menu={mainMenu[index].menu}
               icon={mainMenu[index].icon}
