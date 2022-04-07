@@ -5,6 +5,7 @@ import Tab from './Tab'
 import EditIcon from '@mui/icons-material/Edit'
 import { useState } from 'react'
 import { makeStyles } from '@mui/styles'
+import { getRelativeDate } from 'common/util/date'
 
 const useStyles = makeStyles({
   modal: {
@@ -143,7 +144,9 @@ function PersonalInfoTab(props: { value: number; index: number }) {
                 marginRight: '10px',
               }}>
               <p className={classes.bold}>рожден ден:</p>
-              <p className={classes.notAvaible}>не е наличен</p>
+              <p className={classes.notAvaible}>
+                {person?.birthday ? getRelativeDate(person?.birthday) : 'не е наличен'}
+              </p>
               <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
                 <Link href="#">
                   <EditIcon className={classes.editIcon} />
