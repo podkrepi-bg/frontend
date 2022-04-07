@@ -139,4 +139,7 @@ export const endpoints = {
     editTransfer: (id: string) => <Endpoint>{ url: `/transfer/${id}`, method: 'PUT' },
     removeTransfer: (id: string) => <Endpoint>{ url: `/transfer/${id}`, method: 'DELETE' },
   },
+  account: {
+    me: <Endpoint>{ url: '/account/me', method: 'GET' },
+  },
 }
