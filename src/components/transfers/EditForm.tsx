@@ -142,7 +142,7 @@ export default function EditForm({ transfer, campaigns, id }: Props) {
             />
           </Grid>
           <Grid item xs={12}>
-            <PersonSelect name="approvedById" />
+            <PersonSelect name="approvedById" namespace="transfer" />
           </Grid>
           <Grid item xs={12}>
             <CampaignSelect
