@@ -8,6 +8,7 @@ import { DonationStep as StepType, OneTimeDonation } from '../../../gql/donation
 import { FormikStep, FormikStepper } from './FormikStepper'
 import * as yup from 'yup'
 import { useTranslation } from 'next-i18next'
+import { name, phone, email } from 'common/form/validation'
 
 const steps: StepType[] = [
   {
@@ -44,7 +45,7 @@ const initialValues: OneTimeDonation = {
 }
 // const sleep = (time) => new Promise((acc) => setTimeout(acc, time))
 
-export default function VerticalLinearStepper() {
+export default function DonationStepper() {
   const { t } = useTranslation('one-time-donation')
   const validate = [
     yup
@@ -63,9 +64,9 @@ export default function VerticalLinearStepper() {
           .boolean()
           .required()
           .oneOf([true], t('errors-fields.checkbox-anonimus')),
-        email: yup.string().email().required(),
-        name: yup.string().required(),
-        phone: yup.string().required(),
+        email: email.required(),
+        name: name.required(),
+        phone: phone.required(),
       }),
     yup
       .object()
