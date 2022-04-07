@@ -24,7 +24,7 @@ const addIconStyles = {
   boxShadow: 3,
 }
 
-export default observer(function GridAddBar() {
+export default observer(function GridAppBar() {
   const { t } = useTranslation('bootcamp')
   const router = useRouter()
   const { showDeleteAll, selectedIdsToDelete } = ModalStore
