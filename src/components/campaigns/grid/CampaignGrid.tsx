@@ -1,25 +1,41 @@
-import React, { useMemo, useState } from 'react'
+import Link from 'next/link'
 import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
+import AddIcon from '@mui/icons-material/Add'
+import React, { useMemo, useState } from 'react'
 import { Box, Toolbar, Typography } from '@mui/material'
 import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { routes } from 'common/routes'
 import { CampaignResponse } from 'gql/campaigns'
 import { useCampaignList } from 'common/hooks/campaigns'
+
 import GridActions from './GridActions'
-
 import DeleteModal from './modals/DeleteModal'
-import { useViewCoordinatorResponse } from 'common/hooks/coordinators'
-import { useCampaignType } from 'service/campaignTypes'
-
 import DetailsModal from './modals/DetailsModal'
-import AddIcon from '@mui/icons-material/Add'
-import Link from 'next/link'
-import { useViewBeneficiaryResponse } from 'common/hooks/beneficiary'
 
 interface CampaignCellProps {
-  params: GridRenderCellParams<CampaignResponse>
+  params: GridRenderCellParams<CampaignResponse, CampaignResponse>
+}
+
+const DisplayCoordinator = ({ params }: CampaignCellProps) => {
+  return (
+    <>
+      {params.row.coordinator.person.firstName} {params.row.coordinator.person.lastName}
+    </>
+  )
+}
+
+const DisplayBeneficiary = ({ params }: CampaignCellProps) => {
+  return (
+    <>
+      {params.row.beneficiary.person.firstName} {params.row.beneficiary.person.lastName}
+    </>
+  )
+}
+
+const DisplayCampaignType = ({ params }: CampaignCellProps) => {
+  return <>{params.row.campaignType.name}</>
 }
 
 export default function CampaignGrid() {
@@ -29,21 +45,6 @@ export default function CampaignGrid() {
   const [deleteId, setDeleteId] = useState<string | undefined>()
 
   const selectedCampaign = useMemo(() => data.find((c) => c.id === viewId), [data, viewId])
-
-  const RenderCoordinator = ({ params }: CampaignCellProps) => {
-    const coordinator = useViewCoordinatorResponse(params.row.coordinatorId)
-    return <>{coordinator.data?.person.firstName + ' ' + coordinator.data?.person.lastName}</>
-  }
-
-  const RenderBeneficiary = ({ params }: CampaignCellProps) => {
-    const beneficiary = useViewBeneficiaryResponse(params.row.beneficiaryId)
-    return <>{beneficiary.data?.person.firstName + ' ' + beneficiary.data?.person.lastName}</>
-  }
-
-  const RenderCampaignType = ({ params }: CampaignCellProps) => {
-    const type = useCampaignType(params.row.campaignTypeId)
-    return <>{type.data?.name}</>
-  }
 
   const commonProps: Partial<GridColDef> = {
     align: 'left',
@@ -75,7 +76,7 @@ export default function CampaignGrid() {
       headerName: t('campaigns:coordinator'),
       ...commonProps,
       renderCell: (params: GridRenderCellParams) => {
-        return <RenderCoordinator params={params} />
+        return <DisplayCoordinator params={params} />
       },
     },
     {
@@ -83,7 +84,7 @@ export default function CampaignGrid() {
       headerName: t('campaigns:beneficiary'),
       ...commonProps,
       renderCell: (params: GridRenderCellParams) => {
-        return <RenderBeneficiary params={params} />
+        return <DisplayBeneficiary params={params} />
       },
     },
     {
@@ -91,7 +92,7 @@ export default function CampaignGrid() {
       headerName: t('campaigns:campaignType'),
       ...commonProps,
       renderCell: (params: GridRenderCellParams) => {
-        return <RenderCampaignType params={params} />
+        return <DisplayCampaignType params={params} />
       },
       width: 250,
     },

@@ -1,37 +1,39 @@
-import { AxiosResponse } from 'axios'
 import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
+import { QueryClient, useQuery } from 'react-query'
 
+import {
+  BeneficiaryFormData,
+  BeneficiaryListResponse,
+  ViewBeneficiaryResponse,
+} from 'gql/beneficiary'
+
+import { apiClient } from './apiClient'
 import { endpoints } from './apiEndpoints'
 import { authConfig, authQueryFnFactory } from './restRequests'
-import { BeneficiaryFormData, BeneficiaryType, DeleteMany } from 'gql/beneficiary'
-import { QueryClient, useQuery } from 'react-query'
-import { apiClient } from './apiClient'
 
 export const useBeneficiariesList = () => {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-
   return useQuery(
     endpoints.beneficiary.listBeneficiary.url,
-    authQueryFnFactory<BeneficiaryType[]>(keycloak?.token),
+    authQueryFnFactory<BeneficiaryListResponse[]>(keycloak?.token),
   )
 }
 
-export const useBeneficiary = (id: string) => {
+export const useViewBeneficiary = (id: string) => {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return useQuery(
     endpoints.beneficiary.viewBeneficiary(id).url,
-    authQueryFnFactory<BeneficiaryType>(keycloak?.token),
+    authQueryFnFactory<ViewBeneficiaryResponse>(keycloak?.token),
   )
 }
 
 export const useCreateBeneficiary = () => {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-
-  return async (vals: BeneficiaryFormData) => {
+  return async (values: BeneficiaryFormData) => {
     return await apiClient.post(
       endpoints.beneficiary.createBeneficiary.url,
-      vals,
+      values,
       authConfig(keycloak?.token),
     )
   }
@@ -49,6 +51,10 @@ export const useEditBeneficiary = (id: string) => {
   }
 }
 
+export function useDeleteBeneficiary(slug: string) {
+  return useQuery<null>(endpoints.beneficiary.removeBeneficiary(slug).url)
+}
+
 export const useRemoveBeneficiary = () => {
   const { keycloak } = useKeycloak<KeycloakInstance>()
 
@@ -60,27 +66,16 @@ export const useRemoveBeneficiary = () => {
   }
 }
 
-export function useRemoveManyBeneficiaries(idsToDelete: string[]) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
-  return async () => {
-    return await apiClient.post<DeleteMany, AxiosResponse<BeneficiaryType[]>>(
-      endpoints.beneficiary.removeMany.url,
-      { ids: idsToDelete },
-      authConfig(keycloak?.token),
-    )
-  }
-}
-
 export async function prefetchBeneficiaryById(client: QueryClient, slug: string, token?: string) {
-  await client.prefetchQuery<BeneficiaryType>(
+  await client.prefetchQuery<BeneficiaryListResponse>(
     endpoints.beneficiary.viewBeneficiary(slug).url,
-    authQueryFnFactory<BeneficiaryType>(token),
+    authQueryFnFactory<BeneficiaryListResponse>(token),
   )
 }
 
 export async function prefetchBeneficiariesList(client: QueryClient, token?: string) {
-  await client.prefetchQuery<BeneficiaryType[]>(
+  await client.prefetchQuery<BeneficiaryListResponse[]>(
     endpoints.beneficiary.listBeneficiary.url,
-    authQueryFnFactory<BeneficiaryType[]>(token),
+    authQueryFnFactory<BeneficiaryListResponse[]>(token),
   )
 }

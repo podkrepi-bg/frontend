@@ -9,12 +9,13 @@ export const endpoints = {
   campaign: {
     listCampaigns: <Endpoint>{ url: '/campaign/list', method: 'GET' },
     createCampaign: <Endpoint>{ url: '/campaign/create-campaign', method: 'POST' },
-    viewCampaign: (slug: string) => <Endpoint>{ url: `/campaign/byId/${slug}`, method: 'GET' },
+    viewCampaign: (slug: string) => <Endpoint>{ url: `/campaign/${slug}`, method: 'GET' },
     viewCampaignById: (id: string) => <Endpoint>{ url: `/campaign/byId/${id}`, method: 'GET' },
     editCampaign: (id: string) => <Endpoint>{ url: `/campaign/${id}`, method: 'PUT' },
     deleteCampaign: (id: string) => <Endpoint>{ url: `/campaign/${id}`, method: 'DELETE' },
     deleteCampaigns: <Endpoint>{ url: '/campaign/deletemany', method: 'POST' },
-    uploadFile: (id: string) => <Endpoint>{ url: `/campaign-file/${id}`, method: 'POST' },
+    uploadFile: (campaignId: string) =>
+      <Endpoint>{ url: `/campaign-file/${campaignId}`, method: 'POST' },
   },
   campaignType: {
     listCampaignTypes: <Endpoint>{ url: '/campaign-type/list', method: 'GET' },
@@ -81,6 +82,13 @@ export const endpoints = {
     postCoordinator: <Endpoint>{ url: '/coordinator', method: 'POST' },
     deleteCoordinator: (id: string) => <Endpoint>{ url: `/coordinator/${id}`, method: 'DELETE' },
   },
+  expenses: {
+    listExpenses: <Endpoint>{ url: '/expenses/list', method: 'GET' },
+    createExpense: <Endpoint>{ url: '/expenses/create-expense', method: 'POST' },
+    viewExpense: (id: string) => <Endpoint>{ url: `/expenses/${id}`, method: 'GET' },
+    editExpense: (id: string) => <Endpoint>{ url: `/expenses/${id}`, method: 'PATCH' },
+    deleteExpense: (id: string) => <Endpoint>{ url: `/expenses/${id}`, method: 'DELETE' },
+  },
   benefactor: {
     benefactorList: <Endpoint>{ url: '/benefactor', method: 'GET' },
     getBenefactor: (id: string) => <Endpoint>{ url: `/benefactor/${id}`, method: 'GET' },
@@ -123,5 +131,12 @@ export const endpoints = {
   company: {
     list: <Endpoint>{ url: '/company/list', method: 'GET' },
     viewCompany: (slug: string) => <Endpoint>{ url: `/company/${slug}`, method: 'GET' },
+  },
+  transfer: {
+    listTransfer: <Endpoint>{ url: '/transfer/', method: 'GET' },
+    viewTransfer: (id: string) => <Endpoint>{ url: `/transfer/${id}`, method: 'GET' },
+    createTransfer: <Endpoint>{ url: '/transfer/create', method: 'POST' },
+    editTransfer: (id: string) => <Endpoint>{ url: `/transfer/${id}`, method: 'PUT' },
+    removeTransfer: (id: string) => <Endpoint>{ url: `/transfer/${id}`, method: 'DELETE' },
   },
 }

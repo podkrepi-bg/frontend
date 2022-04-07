@@ -16,7 +16,7 @@ import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
-import SelectCountry from 'components/campaigns/SelectCountry'
+import SelectCountry from 'components/countries/SelectCountry'
 
 const validationSchema: yup.SchemaOf<CityFormData> = yup
   .object()

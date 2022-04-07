@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { AxiosError, AxiosResponse } from 'axios'
+import * as yup from 'yup'
 import { Box, Button, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material'
 
 import {
@@ -26,7 +27,7 @@ import { useVaultsList } from 'common/hooks/vaults'
 import { useBankAccountsList } from 'common/hooks/bankaccounts'
 import FormTextField from 'components/common/form/FormTextField'
 import GenericForm from 'components/common/form/GenericForm'
-import * as yup from 'yup'
+import CurrencySelect from 'components/currency/CurrencySelect'
 
 const validationSchema: yup.SchemaOf<WithdrawalData> = yup
   .object()
@@ -52,8 +53,7 @@ export default function EditForm() {
   const { data: campaigns } = useCampaignList()
   const { data: personList } = usePersonList()
   const { data: vaults } = useVaultsList()
-  const currencies = ['BGN', 'USD', 'EUR']
-  const [currency, setCurrency] = useState(data?.currency)
+
   const [bankAccountId, setBankAccountId] = useState(data?.bankAccountId)
   const [vaultId, setVaultId] = useState(data?.sourceVaultId)
   const [campaignId, setCampaignId] = useState(data?.sourceCampaignId)
@@ -65,7 +65,7 @@ export default function EditForm() {
 
   const initialValues: WithdrawalInput = {
     status: WithdrawalStatus.initial,
-    currency: currency,
+    currency: data?.currency,
     amount: data?.amount,
     reason: data?.reason,
     sourceVaultId: vaultId,
@@ -92,7 +92,7 @@ export default function EditForm() {
   function handleSubmit(values: WithdrawalInput) {
     const data: WithdrawalInput = {
       status: WithdrawalStatus.initial,
-      currency: currency,
+      currency: values.currency,
       amount: values.amount,
       reason: values.reason,
       sourceVaultId: vaultId,
@@ -131,22 +131,7 @@ export default function EditForm() {
             />
           </Grid>
           <Grid item xs={12}>
-            <InputLabel htmlFor="my-input">Валути</InputLabel>
-            <Select
-              fullWidth
-              type="enum"
-              id="currency"
-              name="currency"
-              value={currency}
-              onChange={(event) => setCurrency(event.target.value)}>
-              {currencies?.map((curr) => {
-                return (
-                  <MenuItem key={curr} value={curr}>
-                    {curr}
-                  </MenuItem>
-                )
-              })}
-            </Select>
+            <CurrencySelect />
           </Grid>
           <Grid item xs={12}>
             <InputLabel htmlFor="my-input">Банков акаунт</InputLabel>

@@ -63,5 +63,19 @@
       "version": "Версия"
     }
   },
-  "or": "или"
+  "or": "или",
+  "errors": {
+    "404Message": "Съжаляваме, долетял си на несъществуваща страница...",
+    "backButtonLabel": "Обратно"
+  },
+  "fields": {
+    "currency": "Валута",
+    "personId": "Човек",
+    "campaignId": "Кампания",
+    "sourceCampaignId": "От кампания",
+    "targetCampaignId": "Към кампания",
+    "vaultId": "Трезор",
+    "sourceVaultId": "От трезор",
+    "targetVaultId": "Към трезор"
+  }
 }

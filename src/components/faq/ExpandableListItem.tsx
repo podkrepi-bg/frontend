@@ -26,11 +26,11 @@ const ExpandableListItem = ({ header, content }: Props) => {
         boxShadow: '0px 0.5px 1px #888888',
       }}>
       <Box
-        sx={{ display: 'flex', alignItems: 'center', padding: '1rem' }}
+        sx={{ display: 'flex', alignItems: 'center', padding: '0.2rem' }}
         onClick={() => setOpen(!open)}>
         <ListItemText
           primary={header}
-          sx={{ padding: '1rem' }}
+          sx={{ padding: '0.2rem' }}
           primaryTypographyProps={{
             fontFamily: 'Montserrat',
             variant: 'subtitle1',

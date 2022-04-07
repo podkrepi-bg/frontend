@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 import { FormikHelpers } from 'formik'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useState } from 'react'
 import { parse, isDate, format } from 'date-fns'
 import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
@@ -13,17 +13,25 @@ import createStyles from '@mui/styles/createStyles'
 import { routes } from 'common/routes'
 import { Currency } from 'gql/currency'
 import { AlertStore } from 'stores/AlertStore'
-import { useEditCampaign } from 'service/campaign'
+import { useEditCampaign, useUploadCampaignFiles } from 'service/campaign'
 import { createSlug } from 'common/util/createSlug'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
-import { CampaignResponse, CampaignFormData, CampaignInput } from 'gql/campaigns'
+import {
+  CampaignResponse,
+  CampaignFormData,
+  CampaignInput,
+  CampaignUploadImage,
+} from 'gql/campaigns'
 
 import CampaignTypeSelect from '../CampaignTypeSelect'
 import CoordinatorSelect from './CoordinatorSelect'
 import BeneficiarySelect from './BeneficiarySelect'
+import { CampaignFileRole, FileRole, UploadCampaignFiles } from 'components/campaign-file/roles'
+import FileList from 'components/file-upload/FileList'
+import FileUpload from 'components/file-upload/FileUpload'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -70,6 +78,8 @@ type EditFormData = Omit<CampaignFormData, 'gdpr' | 'terms'>
 export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
   const classes = useStyles()
   const router = useRouter()
+  const [files, setFiles] = useState<File[]>([])
+  const [roles, setRoles] = useState<FileRole[]>([])
   const { t } = useTranslation()
 
   const initialValues: EditFormData = {
@@ -93,6 +103,14 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
 
+  const fileUploadMutation = useMutation<
+    AxiosResponse<CampaignUploadImage[]>,
+    AxiosError<ApiErrors>,
+    UploadCampaignFiles
+  >({
+    mutationFn: useUploadCampaignFiles(),
+  })
+
   const onSubmit = async (values: EditFormData, { setFieldError }: FormikHelpers<EditFormData>) => {
     try {
       await mutation.mutateAsync({
@@ -107,6 +125,11 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
         beneficiaryId: values.beneficiaryId,
         coordinatorId: values.coordinatorId,
         currency: Currency.BGN,
+      })
+      await fileUploadMutation.mutateAsync({
+        files,
+        roles,
+        campaignId: campaign.id,
       })
       router.push(routes.admin.campaigns.index)
     } catch (error) {
@@ -183,6 +206,34 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
           </Grid>
           <Grid item xs={12} sm={6}>
             <BeneficiarySelect />
+          </Grid>
+          <Grid item xs={12}>
+            <FileUpload
+              buttonLabel="Добави документи"
+              onUpload={(newFiles) => {
+                setFiles((prevFiles) => [...prevFiles, ...newFiles])
+                setRoles((prevRoles) => [
+                  ...prevRoles,
+                  ...newFiles.map((file) => ({
+                    file: file.name,
+                    role: CampaignFileRole.background,
+                  })),
+                ])
+              }}
+            />
+            <FileList
+              files={files}
+              filesRole={roles}
+              onDelete={(deletedFile) =>
+                setFiles((prevFiles) => prevFiles.filter((file) => file.name !== deletedFile.name))
+              }
+              onSetFileRole={(file, role) => {
+                setRoles((filesRole) => [
+                  ...filesRole.filter((f) => f.file !== file.name),
+                  { file: file.name, role },
+                ])
+              }}
+            />
           </Grid>
           <Grid item xs={12}>
             <SubmitButton fullWidth label="campaigns:cta.submit" loading={mutation.isLoading} />

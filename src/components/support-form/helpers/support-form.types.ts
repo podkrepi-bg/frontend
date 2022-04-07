@@ -1,3 +1,5 @@
+import { Person } from 'gql/person'
+
 type RoleTypes = 'benefactor' | 'partner' | 'volunteer' | 'associationMember' | 'company'
 
 export type Step = {
@@ -13,17 +15,15 @@ export enum Steps {
   FINISH = 3,
 }
 
-export type Person = {
-  email: string
-  firstName: string
-  lastName: string
-  phone: string
-  address: string
+export type SupportPerson = Pick<
+  Person,
+  'email' | 'firstName' | 'lastName' | 'phone' | 'address' | 'newsletter'
+> & {
   comment: string
   terms: boolean
   gdpr: boolean
-  newsletter: boolean
 }
+
 export type Benefactor = {
   campaignBenefactor?: boolean
   platformBenefactor?: boolean
@@ -58,7 +58,7 @@ export type Company = {
 export type Roles = { [key in RoleTypes]: boolean }
 
 export type SupportFormData = {
-  person: Person
+  person: SupportPerson
   roles: Roles
   benefactor?: Benefactor
   partner?: Partner
@@ -79,7 +79,7 @@ export type SupportFormDataSteps = {
     company?: Company
   }
   [Steps.PERSON]: {
-    person: Person
+    person: SupportPerson
   }
 }
 
@@ -110,6 +110,6 @@ export type SupportRequestResponse = {
 }
 
 export type SupportRequestInput = {
-  person: Person
+  person: SupportPerson
   supportData: Omit<SupportFormData, 'newsletter' | 'person'>
 }
