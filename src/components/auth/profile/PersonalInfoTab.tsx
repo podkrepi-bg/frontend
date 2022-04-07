@@ -6,6 +6,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import { useState } from 'react'
 import { makeStyles } from '@mui/styles'
 import { getRelativeDate } from 'common/util/date'
+import UpdateNameModal from './UpdateNameModal'
 
 const useStyles = makeStyles({
   modal: {
@@ -68,6 +69,7 @@ function PersonalInfoTab(props: { value: number; index: number }) {
   const { session } = useSession()
   const { data: person } = useCurrentPerson()
   const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false)
+  const [isUpdateNameModalOpen, setIsUpdateNameModalOpen] = useState(false)
   const classes = useStyles()
 
   return (
@@ -129,7 +131,7 @@ function PersonalInfoTab(props: { value: number; index: number }) {
                 {person?.firstName} {person?.lastName}
               </p>
               <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
-                <Link href="#">
+                <Link href="#" onClick={() => setIsUpdateNameModalOpen(true)}>
                   <EditIcon className={classes.editIcon} />
                   <span className={classes.editSpan}>Редактирай</span>
                 </Link>
@@ -198,6 +200,20 @@ function PersonalInfoTab(props: { value: number; index: number }) {
           </Button>
         </Box>
       </Modal>
+      {person ? (
+        <UpdateNameModal
+          isOpen={isUpdateNameModalOpen}
+          currentValue={{
+            firstName: person.firstName as string,
+            lastName: person.lastName as string,
+          }}
+          handleClose={() => {
+            setIsUpdateNameModalOpen(false)
+          }}
+        />
+      ) : (
+        ''
+      )}
     </>
   )
 }
