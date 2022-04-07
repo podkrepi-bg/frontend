@@ -1,9 +1,8 @@
 import { useState } from 'react'
-import { Modal, Box, Grid } from '@mui/material'
+import { Modal, Box, Grid, TextField } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
-import FormTextField from 'components/common/form/FormTextField'
 import { Person, UpdatePerson } from 'gql/person'
 import { useMutation } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
@@ -65,19 +64,10 @@ function UpdateBirthdayModal({
             <Grid item xs={12} sm={8}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DesktopDatePicker
-                  label="Date desktop"
                   inputFormat="MM/dd/yyyy"
                   value={value}
                   onChange={handleChange}
-                  renderInput={(params) => (
-                    <FormTextField
-                      type="text"
-                      name="birthday"
-                      autoComplete="birthday"
-                      label="birthday"
-                      {...params}
-                    />
-                  )}
+                  renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
             </Grid>
