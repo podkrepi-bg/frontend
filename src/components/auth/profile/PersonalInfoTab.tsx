@@ -68,7 +68,7 @@ const useStyles = makeStyles({
 function PersonalInfoTab(props: { value: number; index: number }) {
   const { value, index } = props
   const { session } = useSession()
-  const { data: person } = useCurrentPerson()
+  const { data: person, refetch } = useCurrentPerson()
   const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false)
   const [isUpdateNameModalOpen, setIsUpdateNameModalOpen] = useState(false)
   const [isUpdateBirthdayModalOpen, setIsUpdateBirthdayModalOpen] = useState(false)
@@ -95,7 +95,7 @@ function PersonalInfoTab(props: { value: number; index: number }) {
                 flexBasis: '50%',
                 marginRight: '20px',
               }}>
-              <p className={classes.bold}>еmail адрес:</p>
+              <p className={classes.bold}>email адрес:</p>
               <p>{session?.email}</p>
             </Box>
             <Box
@@ -210,8 +210,9 @@ function PersonalInfoTab(props: { value: number; index: number }) {
               firstName: person.firstName,
               lastName: person.lastName,
             }}
-            handleClose={(data) => {
+            handleClose={() => {
               setIsUpdateNameModalOpen(false)
+              refetch()
             }}
           />
           <UpdateBirthdayModal
@@ -219,8 +220,9 @@ function PersonalInfoTab(props: { value: number; index: number }) {
             currentValue={{
               birthday: person.birthday,
             }}
-            handleClose={(data) => {
+            handleClose={() => {
               setIsUpdateBirthdayModalOpen(false)
+              refetch()
             }}
           />
         </>
