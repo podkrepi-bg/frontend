@@ -2,7 +2,7 @@ import { Collapse, Grid, List, Divider, Typography, Button } from '@mui/material
 import { createStyles, makeStyles } from '@mui/styles'
 import RadioGroupFormik from './RadioGroupFormik'
 import { useField } from 'formik'
-import { useQuery, useQueryClient, UseQueryResult } from 'react-query'
+import { UseQueryResult } from 'react-query'
 import { useRouter } from 'next/router'
 import { routes } from 'common/routes'
 import { CampaignResponse } from 'gql/campaigns'
@@ -57,16 +57,13 @@ export default function ThirdStep() {
   const [field] = useField('payment')
   const router = useRouter()
   const slug = String(router.query.slug)
-  // const { data }: UseQueryResult<{ campaign: CampaignResponse }> = useViewCampaign(slug as string)
+  const { data }: UseQueryResult<{ campaign: CampaignResponse }> = useViewCampaign(slug as string)
   const { t } = useTranslation('one-time-donation')
   const bankAccountInfo = {
     owner: t('third-step.owner'),
     bank: t('third-step.bank'),
     iban: 'BG66 UNCR 7000 1524 3490 32',
-    campaign: slug
-      .split('-')
-      .map((string) => string.charAt(0).toUpperCase() + string.slice(1))
-      .join(' '),
+    campaign: data?.campaign.title,
   }
   const options = [t('third-step.card'), t('third-step.bank-payment')]
   return (
