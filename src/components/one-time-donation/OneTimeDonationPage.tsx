@@ -5,7 +5,11 @@ import Layout from 'components/layout/Layout'
 import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import {} from 'path'
+import { UseQueryResult } from 'react-query'
+import { CampaignResponse } from 'gql/campaigns'
+import { useViewCampaign } from 'common/hooks/campaigns'
 import HorizontalLabelPositionBelowStepper from './components/Steps'
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -66,6 +70,9 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function OneTimeDonation() {
   const { t } = useTranslation()
   const classes = useStyles()
+  const router = useRouter()
+  const slug = String(router.query.slug)
+  const { data }: UseQueryResult<{ campaign: CampaignResponse }> = useViewCampaign(slug)
 
   return (
     <>
@@ -90,9 +97,7 @@ export default function OneTimeDonation() {
         </Grid>
       </Grid>
       <Layout>
-        <Typography className={classes.title}>
-          Подкрепа за бежанцие от Украйна, потърси подслон в България
-        </Typography>
+        <Typography className={classes.title}>{data?.campaign.title}</Typography>
         <HorizontalLabelPositionBelowStepper />
       </Layout>
     </>
