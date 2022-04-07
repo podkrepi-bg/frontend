@@ -17,7 +17,7 @@ import DeleteDialog from 'components/admin/DeleteDialog'
 export default observer(function DeleteModal() {
   const router = useRouter()
   const { hideDelete, selectedRecord } = ModalStore
-  const { t } = useTranslation('cities')
+  const { t } = useTranslation('bootcamp')
 
   const mutationFn = useDeleteBootcamp()
 
