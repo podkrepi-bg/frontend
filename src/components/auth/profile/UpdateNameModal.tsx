@@ -1,9 +1,13 @@
-import { useState } from 'react'
 import { Modal, Box, Grid } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
+import { Person, UpdatePerson } from 'gql/person'
+import { useMutation } from 'react-query'
+import { AxiosError, AxiosResponse } from 'axios'
+import { ApiErrors } from 'service/apiErrors'
+import { updateCurrentPerson } from 'common/util/useCurrentPerson'
 
 const useStyles = makeStyles({
   modal: {
@@ -28,8 +32,14 @@ function UpdateNameModal({
 }) {
   const classes = useStyles()
 
-  const onSubmit = async (values) => {
-    console.log(values)
+  const mutation = useMutation<AxiosResponse<Person>, AxiosError<ApiErrors>, UpdatePerson>({
+    mutationFn: updateCurrentPerson(),
+  })
+
+  const onSubmit = async (values: UpdatePerson) => {
+    mutation.mutateAsync(values).then((data) => {
+      handleClose()
+    })
   }
 
   return (
