@@ -1,22 +1,13 @@
 import { useKeycloak } from '@react-keycloak/ssr'
+import { Person } from 'gql/person'
 import { KeycloakInstance } from 'keycloak-js'
 import { useQuery } from 'react-query'
 import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
 
-type CurrentPerson = {
-  person: {
-    id: string
-    emai: string
-  }
-}
-
 export function useCurrentPerson() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  return useQuery<CurrentPerson>(
-    endpoints.account.me.url,
-    authQueryFnFactory<CurrentPerson>(keycloak?.token),
-  )
+  return useQuery<Person>(endpoints.account.me.url, authQueryFnFactory<Person>(keycloak?.token))
 }
 
 export default { useCurrentPerson }

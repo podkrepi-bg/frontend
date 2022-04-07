@@ -1,5 +1,6 @@
 import { Box, Button, Link, Modal, Typography } from '@mui/material'
 import { useSession } from 'common/util/useSession'
+import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import Tab from './Tab'
 import EditIcon from '@mui/icons-material/Edit'
 import { useState } from 'react'
@@ -64,6 +65,7 @@ const useStyles = makeStyles({
 function PersonalInfoTab(props: { value: number; index: number }) {
   const { value, index } = props
   const { session } = useSession()
+  const { data: person } = useCurrentPerson()
   const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false)
   const classes = useStyles()
 
@@ -122,7 +124,9 @@ function PersonalInfoTab(props: { value: number; index: number }) {
                 marginLeft: '30px',
               }}>
               <p className={classes.bold}>Име:</p>
-              <p>{session?.name}</p>
+              <p>
+                {person?.firstName} {person?.lastName}
+              </p>
               <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
                 <Link href="#">
                   <EditIcon className={classes.editIcon} />
