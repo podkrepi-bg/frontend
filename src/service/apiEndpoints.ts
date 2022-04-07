@@ -141,5 +141,6 @@ export const endpoints = {
   },
   account: {
     me: <Endpoint>{ url: '/account/me', method: 'GET' },
+    update: <Endpoint>{ url: '/account/me', method: 'PATCH' },
   },
 }
