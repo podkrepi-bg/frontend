@@ -37,7 +37,7 @@ function UpdateNameModal({
   })
 
   const onSubmit = async (values: UpdatePerson) => {
-    mutation.mutateAsync(values).then((_) => {
+    mutation.mutateAsync(values).then(() => {
       handleClose()
     })
   }
