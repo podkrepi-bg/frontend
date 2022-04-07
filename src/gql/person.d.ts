@@ -43,3 +43,21 @@ export type Person = {
   keycloakId: string | null
   stripeCustomerId: string | null
 }
+
+export type UpdatePerson = {
+  id?: UUID
+  firstName?: string
+  lastName?: string
+  email?: string
+  phone?: string
+  company?: string
+  createdAt?: Date
+  updatedAt?: Date
+  newsletter?: boolean
+  address?: string
+  birthday?: Date | null
+  emailConfirmed?: boolean
+  personalNumber?: string | null
+  keycloakId?: string | null
+  stripeCustomerId?: string | null
+}
