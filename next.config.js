@@ -50,6 +50,11 @@ const moduleExports = {
     domains: [process.env.IMAGE_HOST || 'localhost'],
   },
   swcMinify: true,
+  resolve: {
+    alias: {
+      'react-pdf': 'react-pdf/dist/entry.noworker.js',
+    },
+  },
 }
 
 const SentryWebpackPluginOptions = {
