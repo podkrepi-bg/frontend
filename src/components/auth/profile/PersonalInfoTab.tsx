@@ -144,7 +144,7 @@ function PersonalInfoTab(props: { value: number; index: number }) {
                 marginRight: '10px',
               }}>
               <p className={classes.bold}>рожден ден:</p>
-              <p className={classes.notAvaible}>
+              <p className={person?.birthday ? '' : classes.notAvaible}>
                 {person?.birthday ? getRelativeDate(person?.birthday) : 'не е наличен'}
               </p>
               <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
