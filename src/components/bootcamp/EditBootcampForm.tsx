@@ -52,7 +52,7 @@ export default function EditBootcampForm({ id, initialValues }: BootcampFormProp
   const mutation = useMutation<
     AxiosResponse<BootcampResponse>,
     AxiosError<ApiErrors>,
-    BootcampResponse
+    BootcampFormProps
   >({
     mutationFn: editBootcamp,
     onError: () => AlertStore.show(t('alerts.error'), 'error'),
@@ -71,9 +71,11 @@ export default function EditBootcampForm({ id, initialValues }: BootcampFormProp
         lastName: values.lastName,
         city: values.city,
       }
-      await mutation.mutateAsync({ id, ...data })
-      router.push(routes.bootcamp.index)
+      console.log(data)
+
+      await mutation.mutateAsync({ id, data })
       resetForm()
+      router.push(routes.bootcamp.index)
     } catch (error) {
       console.log(error)
       if (isAxiosError(error)) {

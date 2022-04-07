@@ -5,14 +5,12 @@ import Grid from './grid/Grid'
 
 const BootcampComponent = () => {
   return (
-    <>
-      <AdminLayout>
-        <AdminContainer title={'Bootcamp demo'}>
-          <GridAppbar />
-          <Grid />
-        </AdminContainer>
-      </AdminLayout>
-    </>
+    <AdminLayout>
+      <AdminContainer title={'Bootcamp demo'}>
+        <GridAppbar />
+        <Grid />
+      </AdminContainer>
+    </AdminLayout>
   )
 }
 

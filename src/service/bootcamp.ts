@@ -32,7 +32,7 @@ export const deleteBootcamp = async (id: string) => {
 
 export const editBootcamp = async ({ id, data }: { id: string; data: BootcampTypeFormData }) => {
   return await apiClient.patch<string, AxiosResponse<BootcampResponse>>(
-    endpoints.bootcamp.editOne(id).url,
+    `${endpoints.bootcamp.editOne(id).url}`,
     data,
   )
 }
