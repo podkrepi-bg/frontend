@@ -32,7 +32,7 @@ export default function HoverMenu({ menu, submenu, icon: Icon }: Props) {
         <ListItemText primary={menu} />
       </ListItemButton>
       <Menu
-        sx={{ mt: '45px' }}
+        sx={{ mt: '45px', mx: '45px' }}
         id="menu-appbar"
         anchorEl={anchorMenu}
         anchorOrigin={{
@@ -47,14 +47,13 @@ export default function HoverMenu({ menu, submenu, icon: Icon }: Props) {
         open={Boolean(anchorMenu)}
         onClose={handleCloseMenu}>
         {submenu.map(({ label, icon: Icon, href }, index) => (
-          <MenuItem key={index} onClick={handleCloseMenu}>
+          <MenuItem sx={{ p: 0 }} key={index} onClick={handleCloseMenu}>
             <CustomListItem
               key={label}
               selected={href !== '#' && router.asPath.includes(href)}
               icon={<Icon />}
               label={label}
               onClick={() => router.push(href)}
-              sx={{ pl: 2 }}
             />
           </MenuItem>
         ))}
