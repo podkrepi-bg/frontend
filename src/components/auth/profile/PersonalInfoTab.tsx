@@ -204,8 +204,8 @@ function PersonalInfoTab(props: { value: number; index: number }) {
         <UpdateNameModal
           isOpen={isUpdateNameModalOpen}
           currentValue={{
-            firstName: person.firstName as string,
-            lastName: person.lastName as string,
+            firstName: person.firstName,
+            lastName: person.lastName,
           }}
           handleClose={() => {
             setIsUpdateNameModalOpen(false)
