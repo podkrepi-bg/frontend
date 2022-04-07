@@ -2,7 +2,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useCallback, useEffect, useMemo } from 'react'
 import { makeStyles, useTheme } from '@mui/styles'
-import { useRouter } from 'next/router'
 import MuiDrawer from '@mui/material/Drawer'
 import { styled, Theme, CSSObject } from '@mui/material/styles'
 import {
@@ -200,6 +199,7 @@ export default function AdminLayout({ children }: Props) {
         <List sx={{ p: '2rem .5rem', height: '100%', position: 'relative' }}>
           {items.map((submenu, index) => (
             <HoverMenu
+              isOpen={open}
               key={index}
               menu={mainMenu[index].menu}
               icon={mainMenu[index].icon}
@@ -207,6 +207,7 @@ export default function AdminLayout({ children }: Props) {
             />
           ))}
           <CustomListItem icon={open ? <MenuOpen /> : <ChevronRight />} onClick={toggleMenu} />
+          {/* I'm not sure if I need to delete this settings button */}
           <CustomListItem
             icon={<Settings />}
             label={'Настройки'}
