@@ -7,7 +7,6 @@ import React, { useState } from 'react'
 export interface FormikStepProps
   extends Pick<FormikConfig<FormikValues>, 'children' | 'validationSchema'> {
   label?: string
-  key: string
 }
 
 export function FormikStep({ children }: FormikStepProps) {
@@ -19,7 +18,6 @@ const useStyles = makeStyles(() => ({
     transform: 'scale(1.55)',
   },
   stepper: {
-    marginTop: '49px',
     maxWidth: '662px',
     marginLeft: 'auto',
     marginRight: 'auto',
@@ -74,8 +72,8 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
         <Form autoComplete="off">
           <Grid className={classes.stepper}>
             <Stepper nonLinear alternativeLabel activeStep={step}>
-              {childrenArray.map((child) => (
-                <Step key={child.props.key}>
+              {childrenArray.map((child, index) => (
+                <Step key={index}>
                   <StepLabel classes={{ iconContainer: classes.customLabelStyle }}>
                     {child.props.label}
                   </StepLabel>
