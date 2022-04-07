@@ -28,7 +28,7 @@ function UpdateNameModal({
 }: {
   isOpen: boolean
   handleClose: () => void
-  currentValue: { firstName: string; lastName: string }
+  currentValue: UpdatePerson
 }) {
   const classes = useStyles()
 
@@ -37,7 +37,7 @@ function UpdateNameModal({
   })
 
   const onSubmit = async (values: UpdatePerson) => {
-    mutation.mutateAsync(values).then((data) => {
+    mutation.mutateAsync(values).then((_) => {
       handleClose()
     })
   }
