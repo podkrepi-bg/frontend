@@ -139,4 +139,15 @@ export const endpoints = {
     editTransfer: (id: string) => <Endpoint>{ url: `/transfer/${id}`, method: 'PUT' },
     removeTransfer: (id: string) => <Endpoint>{ url: `/transfer/${id}`, method: 'DELETE' },
   },
+  recurringDonation: {
+    recurringDonation: <Endpoint>{ url: '/recurring-donation', method: 'GET' },
+    getRecurringDonation: (id: string) =>
+      <Endpoint>{ url: `/recurring-donation/${id}`, method: 'GET' },
+    createRecurringDonation: <Endpoint>{ url: '/recurring-donation', method: 'POST' },
+    editRecurringDonation: (id: string) =>
+      <Endpoint>{ url: `/recurring-donation/${id}`, method: 'PUT' },
+    deleteRecurringDonation: (id: string) =>
+      <Endpoint>{ url: `/recurring-donation/${id}`, method: 'DELETE' },
+    deleteRecurringDonations: <Endpoint>{ url: '/recurring-donation/deletemany', method: 'POST' },
+  },
 }
