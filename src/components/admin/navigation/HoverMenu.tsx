@@ -2,8 +2,22 @@ import { ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui
 import * as React from 'react'
 import CustomListItem from './CustomListItem'
 import { useRouter } from 'next/router'
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import { makeStyles } from '@mui/styles'
 
+const useStyles = makeStyles({
+  open: {
+    marginTop: '25px',
+    marginLeft: '155px',
+  },
+  close: {
+    marginTop: '45px',
+    marginLeft: '45px',
+  },
+})
 type Props = {
+  isOpen: boolean
   menu: string
   submenu: submenu
   icon: React.ElementType
@@ -13,8 +27,9 @@ type submenu = {
   icon: React.ElementType
   href: string
 }[]
-export default function HoverMenu({ menu, submenu, icon: Icon }: Props) {
+export default function HoverMenu({ menu, submenu, icon: Icon, isOpen }: Props) {
   const router = useRouter()
+  const classes = useStyles()
   const [anchorMenu, setAnchorMenu] = React.useState<null | HTMLElement>(null)
 
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -30,9 +45,10 @@ export default function HoverMenu({ menu, submenu, icon: Icon }: Props) {
       <ListItemButton onClick={handleOpenMenu}>
         <ListItemIcon title={menu}>{<Icon />}</ListItemIcon>
         <ListItemText primary={menu} />
+        {anchorMenu ? <ChevronLeftIcon /> : <ChevronRightIcon />}
       </ListItemButton>
       <Menu
-        sx={{ mt: '45px', mx: '45px' }}
+        className={isOpen ? classes.open : classes.close}
         id="menu-appbar"
         anchorEl={anchorMenu}
         anchorOrigin={{
