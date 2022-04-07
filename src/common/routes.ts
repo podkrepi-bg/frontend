@@ -105,15 +105,25 @@ export const routes = {
       create: '/admin/countries/create',
       view: (id: string) => `/admin/countries/${id}`,
     },
+    expenses: {
+      index: '/admin/expenses',
+      create: '/admin/expenses/create',
+      view: (id: string) => `/admin/expenses/${id}`,
+    },
     vaults: {
       index: '/admin/vaults',
       create: '/admin/vaults/create',
       edit: (slug: string) => `/admin/vaults/${slug}/edit`,
     },
     benefactor: {
-      index: '/benefactor',
-      view: (id: string) => `/benefactor/${id}`,
-      add: '/benefactor/add',
+      index: '/admin/benefactor',
+      view: (id: string) => `/admin/benefactor/${id}`,
+      add: '/admin/benefactor/add',
+    },
+    transfer: {
+      index: '/admin/transfers',
+      create: '/admin/transfers/create',
+      view: (id: string) => `/admin/transfers/${id}`,
     },
   },
   dev: {

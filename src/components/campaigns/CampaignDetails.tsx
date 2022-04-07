@@ -8,7 +8,11 @@ import CampaignSlider from './CampaignSlider'
 import { Grid, Theme, Typography } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
-import { backgroundCampaignPictureUrl } from 'common/util/campaignImageUrls'
+import {
+  backgroundCampaignPictureUrl,
+  beneficiaryCampaignPictureUrl,
+  coordinatorCampaignPictureUrl,
+} from 'common/util/campaignImageUrls'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -69,8 +73,8 @@ export default function CampaignDetails({ campaign }: Props) {
   const { t } = useTranslation()
 
   const bannerSource = backgroundCampaignPictureUrl(campaign)
-  const beneficiaryAvatarSource = '/img/support-us-image.png'
-  const coordinatorAvatarSource = '/img/support-us-image.png'
+  const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
+  const coordinatorAvatarSource = coordinatorCampaignPictureUrl(campaign)
 
   return (
     <Grid item xs={12} md={8}>

@@ -1,19 +1,21 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import createStyles from '@mui/styles/createStyles'
-import GenericForm from 'components/common/form/GenericForm'
-import SubmitButton from 'components/common/form/SubmitButton'
-import { AxiosError, AxiosResponse } from 'axios'
-import { Grid, Typography } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
 import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
-import { CoorinatorInput, CoordinatorResponse } from 'gql/coordinators'
-import { useCreateCoordinator } from 'service/coordinator'
-import { AlertStore } from 'stores/AlertStore'
-import { ApiErrors } from 'service/apiErrors'
+import makeStyles from '@mui/styles/makeStyles'
+import { Grid, Typography } from '@mui/material'
+import { AxiosError, AxiosResponse } from 'axios'
+import createStyles from '@mui/styles/createStyles'
+
 import { routes } from 'common/routes'
-import CoordinatorCreateSelect from './CoordinatorCreateSelect'
+import { ApiErrors } from 'service/apiErrors'
+import { AlertStore } from 'stores/AlertStore'
+import { useCreateCoordinator } from 'service/coordinator'
+import GenericForm from 'components/common/form/GenericForm'
+import SubmitButton from 'components/common/form/SubmitButton'
+import { CoorinatorInput, CoordinatorResponse } from 'gql/coordinators'
+
+import SelectCoordinator from './SelectCoordinator'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -61,7 +63,7 @@ export default function CoordinatorsForm() {
       <GenericForm onSubmit={onSubmit} initialValues={initialValues}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <CoordinatorCreateSelect />
+            <SelectCoordinator name="personId" />
           </Grid>
         </Grid>
         <Grid item xs={12}>

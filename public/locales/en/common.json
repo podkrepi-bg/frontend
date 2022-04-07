@@ -63,5 +63,14 @@
       "version": "Version"
     }
   },
-  "or": "or"
+  "or": "or",
+  "fields": {
+    "currency": "Currency",
+    "personId": "Person",
+    "vaultId": "Vault",
+    "sourceCampaignId": "Source campaign",
+    "targetCampaignId": "Target campaign",
+    "sourceVaultId": "Source vault",
+    "targetVaultId": "Target vault"
+  }
 }
