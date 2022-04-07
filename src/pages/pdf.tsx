@@ -1,3 +1,14 @@
-import DemoPdf from 'components/pdf/React-Pdf'
+import dynamic from 'next/dynamic'
 
-export default DemoPdf
+const DynamicComponentWithNoSSR = dynamic(() => import('components/pdf/React-Pdf'), { ssr: false })
+
+function Home() {
+  return (
+    <div>
+      ddd
+      <DynamicComponentWithNoSSR />
+    </div>
+  )
+}
+
+export default Home

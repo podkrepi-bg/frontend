@@ -1,15 +1,14 @@
 import React from 'react'
 import {
-  PDFDownloadLink,
   Document,
   Page,
   View,
-  PDFViewer,
   Text,
   StyleSheet,
   Image,
   Note,
   Link,
+  usePDF,
 } from '@react-pdf/renderer'
 import { Button, Grid } from '@mui/material'
 
@@ -41,17 +40,25 @@ export default function DemoPdf() {
       </Page>
     </Document>
   )
+  const [instance] = usePDF({ document: <MyDoc /> })
+
+  const open = () => {
+    window.open(instance.url || '')
+  }
+
   return (
     <>
       <Grid>
-        <PDFViewer style={styles.viewer} showToolbar={true}>
+        {/* <PDFViewer style={styles.viewer} showToolbar={true}>
           <MyDoc />
         </PDFViewer>
         <Button>
           <PDFDownloadLink document={<MyDoc />} fileName="mydoc.pdf">
             {({ loading }) => (loading ? 'Loading document...' : 'Download now!')}
           </PDFDownloadLink>
-        </Button>
+        </Button> */}
+        <iframe src={instance.url || ''} height="300%" width="100%" typeof="application/pdf" />
+        <Button onClick={open}>open</Button>
       </Grid>
     </>
   )
