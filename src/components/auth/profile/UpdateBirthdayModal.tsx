@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Modal, Box, Grid } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import GenericForm from 'components/common/form/GenericForm'
@@ -8,6 +9,9 @@ import { useMutation } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { ApiErrors } from 'service/apiErrors'
 import { updateCurrentPerson } from 'common/util/useCurrentPerson'
+import DesktopDatePicker from '@mui/lab/DesktopDatePicker'
+import AdapterDateFns from '@mui/lab/AdapterDateFns'
+import LocalizationProvider from '@mui/lab/LocalizationProvider'
 
 const useStyles = makeStyles({
   modal: {
@@ -21,7 +25,7 @@ const useStyles = makeStyles({
   },
 })
 
-function UpdateNameModal({
+function UpdateBirthdayModal({
   isOpen,
   handleClose,
   currentValue,
@@ -30,14 +34,20 @@ function UpdateNameModal({
   handleClose: (data?: Person) => void
   currentValue: UpdatePerson
 }) {
+  const [value, setValue] = useState<Date | null>(currentValue.birthday as Date)
+
+  const handleChange = (newValue: Date | null) => {
+    setValue(newValue)
+  }
+
   const classes = useStyles()
 
   const mutation = useMutation<AxiosResponse<Person>, AxiosError<ApiErrors>, UpdatePerson>({
     mutationFn: updateCurrentPerson(),
   })
 
-  const onSubmit = async (values: UpdatePerson) => {
-    mutation.mutateAsync(values).then((data) => {
+  const onSubmit = async () => {
+    mutation.mutateAsync({ birthday: value }).then((data) => {
       handleClose(data.data)
     })
   }
@@ -49,24 +59,27 @@ function UpdateNameModal({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description">
       <Box className={classes.modal}>
-        <h2>Обнови име</h2>
+        <h2>Обнови рожден ден</h2>
         <GenericForm onSubmit={onSubmit} initialValues={currentValue}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={8}>
-              <FormTextField
-                type="text"
-                name="firstName"
-                autoComplete="firstName"
-                label="first name"
-              />
-            </Grid>
-            <Grid item xs={12} sm={8}>
-              <FormTextField
-                type="text"
-                name="lastName"
-                autoComplete="lastName"
-                label="last name"
-              />
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DesktopDatePicker
+                  label="Date desktop"
+                  inputFormat="MM/dd/yyyy"
+                  value={value}
+                  onChange={handleChange}
+                  renderInput={(params) => (
+                    <FormTextField
+                      type="text"
+                      name="birthday"
+                      autoComplete="birthday"
+                      label="birthday"
+                      {...params}
+                    />
+                  )}
+                />
+              </LocalizationProvider>
             </Grid>
             <Grid item xs={6}>
               <SubmitButton fullWidth />
@@ -78,4 +91,4 @@ function UpdateNameModal({
   )
 }
 
-export default UpdateNameModal
+export default UpdateBirthdayModal
