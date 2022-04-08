@@ -207,7 +207,6 @@ export default function AdminLayout({ children }: Props) {
             />
           ))}
           <CustomListItem icon={open ? <MenuOpen /> : <ChevronRight />} onClick={toggleMenu} />
-          {/* I'm not sure if I need to delete this settings button */}
           <CustomListItem
             icon={<Settings />}
             label={'Настройки'}
