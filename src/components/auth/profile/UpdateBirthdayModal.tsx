@@ -27,13 +27,13 @@ const useStyles = makeStyles({
 function UpdateBirthdayModal({
   isOpen,
   handleClose,
-  currentValue,
+  person,
 }: {
   isOpen: boolean
   handleClose: (data?: Person) => void
-  currentValue: UpdatePerson
+  person: UpdatePerson
 }) {
-  const [value, setValue] = useState<Date | null>(currentValue.birthday as Date)
+  const [value, setValue] = useState<Date | null>(person.birthday as Date)
 
   const handleChange = (newValue: Date | null) => {
     setValue(newValue)
@@ -46,7 +46,7 @@ function UpdateBirthdayModal({
   })
 
   const onSubmit = async () => {
-    mutation.mutateAsync({ birthday: value }).then((data) => {
+    mutation.mutateAsync({ ...person, birthday: value }).then((data) => {
       handleClose(data.data)
     })
   }
@@ -59,7 +59,7 @@ function UpdateBirthdayModal({
       aria-describedby="modal-modal-description">
       <Box className={classes.modal}>
         <h2>Обнови рожден ден</h2>
-        <GenericForm onSubmit={onSubmit} initialValues={currentValue}>
+        <GenericForm onSubmit={onSubmit} initialValues={person}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={8}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>

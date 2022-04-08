@@ -24,11 +24,11 @@ const useStyles = makeStyles({
 function UpdateNameModal({
   isOpen,
   handleClose,
-  currentValue,
+  person,
 }: {
   isOpen: boolean
   handleClose: (data?: Person) => void
-  currentValue: UpdatePerson
+  person: UpdatePerson
 }) {
   const classes = useStyles()
 
@@ -37,7 +37,7 @@ function UpdateNameModal({
   })
 
   const onSubmit = async (values: UpdatePerson) => {
-    mutation.mutateAsync(values).then((data) => {
+    mutation.mutateAsync({ ...person, ...values }).then((data) => {
       handleClose(data.data)
     })
   }
@@ -50,7 +50,7 @@ function UpdateNameModal({
       aria-describedby="modal-modal-description">
       <Box className={classes.modal}>
         <h2>Обнови име</h2>
-        <GenericForm onSubmit={onSubmit} initialValues={currentValue}>
+        <GenericForm onSubmit={onSubmit} initialValues={person}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={8}>
               <FormTextField
