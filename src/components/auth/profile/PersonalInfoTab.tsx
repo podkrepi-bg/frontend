@@ -206,10 +206,7 @@ function PersonalInfoTab(props: { value: number; index: number }) {
         <>
           <UpdateNameModal
             isOpen={isUpdateNameModalOpen}
-            currentValue={{
-              firstName: person.firstName,
-              lastName: person.lastName,
-            }}
+            person={person}
             handleClose={() => {
               setIsUpdateNameModalOpen(false)
               refetch()
@@ -217,9 +214,7 @@ function PersonalInfoTab(props: { value: number; index: number }) {
           />
           <UpdateBirthdayModal
             isOpen={isUpdateBirthdayModalOpen}
-            currentValue={{
-              birthday: person.birthday,
-            }}
+            person={person}
             handleClose={() => {
               setIsUpdateBirthdayModalOpen(false)
               refetch()
