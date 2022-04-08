@@ -15,7 +15,7 @@ export function useCurrentPerson() {
 export function updateCurrentPerson() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return async (data: UpdatePerson) => {
-    return await apiClient.patch<UpdatePerson, AxiosResponse<Person>>(
+    return await apiClient.put<UpdatePerson, AxiosResponse<Person>>(
       endpoints.account.update.url,
       data,
       authConfig(keycloak?.token),
