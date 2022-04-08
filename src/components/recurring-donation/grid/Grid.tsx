@@ -10,7 +10,7 @@ import { useRecurringDonationList } from 'common/hooks/recurringDonation'
 import GridActions from 'components/admin/GridActions'
 
 // import DeleteModal from './DeleteModal'
-// import DetailsModal from './DetailsModal'
+import DetailsModal from './DetailsModal'
 
 export default function Grid() {
   const { t } = useTranslation('recurring-donation')
@@ -101,8 +101,8 @@ export default function Grid() {
           disableSelectionOnClick
         />
       </Box>
-      {/* <DetailsModal />
-      <DeleteModal /> */}
+      <DetailsModal />
+      {/* <DeleteModal /> */}
     </>
   )
 }
