@@ -13,3 +13,11 @@ export function useRecurringDonationList() {
     authQueryFnFactory<RecurringDonationResponse[]>(keycloak?.token),
   )
 }
+
+export function useRecurringDonation(id: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return useQuery<RecurringDonationResponse>(
+    endpoints.recurringDonation.getRecurringDonation(id).url,
+    authQueryFnFactory<RecurringDonationResponse>(keycloak?.token),
+  )
+}
