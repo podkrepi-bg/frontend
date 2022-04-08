@@ -29,10 +29,10 @@ export function useEditBootcamp(id: string) {
   }
 }
 
-export function useDeleteBootcamp() {
+export function useDeleteBootcampById(id: string) {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  return async (id: string) => {
-    return await apiClient.delete<BootcampResponse, AxiosResponse<BootcampResponse>>(
+  return async () => {
+    return await apiClient.delete<null>(
       endpoints.bootcamp.deleteTask(id).url,
       authConfig(keycloak?.token),
     )

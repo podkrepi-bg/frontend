@@ -1,43 +1,60 @@
 import React from 'react'
-import { useRouter } from 'next/router'
-import { useMutation } from 'react-query'
-import { observer } from 'mobx-react'
+import { useMutation, useQueryClient } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
+import { Dialog, Card, CardContent, Box, Button, Typography, DialogTitle } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-import { BootcampResponse } from 'gql/bootcamp'
 import { ApiErrors } from 'service/apiErrors'
-import { useDeleteBootcamp } from 'service/bootcamp'
-import { ModalStore } from 'stores/dashboard/ModalStore'
+import { endpoints } from 'service/apiEndpoints'
+import { useDeleteBootcampById } from 'service/bootcamp'
 import { AlertStore } from 'stores/AlertStore'
+import { useRouter } from 'next/router'
 import { routes } from 'common/routes'
 
-import DeleteDialog from 'components/admin/DeleteDialog'
+type Props = {
+  id: string
+  onDelete: () => void
+  onClose: () => void
+}
 
-export default observer(function DeleteModal() {
+export default function DeleteModal({ id, onClose, onDelete }: Props) {
+  const queryClient = useQueryClient()
   const router = useRouter()
-  const { hideDelete, selectedRecord } = ModalStore
-  const { t } = useTranslation('cities')
+  const { t } = useTranslation()
 
-  const mutationFn = useDeleteBootcamp()
+  const mutationFn = useDeleteBootcampById(id)
 
-  const deleteMutation = useMutation<
-    AxiosResponse<BootcampResponse>,
-    AxiosError<ApiErrors>,
-    string
-  >({
+  const deleteMutation = useMutation<AxiosResponse<null>, AxiosError<ApiErrors>, string>({
     mutationFn,
-    onError: () => AlertStore.show(t('alerts.error'), 'error'),
+    onError: () => AlertStore.show(t('bootcamp:alerts:error'), 'error'),
     onSuccess: () => {
-      hideDelete()
-      AlertStore.show(t('bootcamp:alerts:delete'), 'warning')
+      AlertStore.show(t('Задачата беше преместена в кошчето.'), 'warning')
+      queryClient.removeQueries(endpoints.campaign.viewCampaignById(id).url)
+      onDelete()
       router.push(routes.admin.bootcamp.index)
     },
   })
 
   function deleteHandler() {
-    deleteMutation.mutate(selectedRecord.id)
+    deleteMutation.mutate(id)
   }
 
-  return <DeleteDialog deleteHandler={deleteHandler} />
-})
+  return (
+    <Dialog open onClose={onClose} sx={{ top: '-35%' }}>
+      <DialogTitle>{t('bootcamp:deleteTitle')}</DialogTitle>
+      <Card>
+        <CardContent>
+          <Typography variant="body1" sx={{ marginBottom: '16px', textAlign: 'center' }}>
+            {t('bootcamp:deleteContent')}
+          </Typography>
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <Button color="error" onClick={deleteHandler}>
+              {t('bootcamp:cta:delete')}
+            </Button>
+            <Button onClick={onClose}>{t('bootcamp:cta:cancel')}</Button>
+          </Box>
+        </CardContent>
+      </Card>
+    </Dialog>
+  )
+}

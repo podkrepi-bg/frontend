@@ -1,21 +1,23 @@
-import React from 'react'
-import { DataGrid, GridColumns, GridSelectionModel } from '@mui/x-data-grid'
+import React, { useMemo, useState } from 'react'
+import { DataGrid, GridColumns } from '@mui/x-data-grid'
 
 import { useTasksList } from 'common/hooks/bootcamp'
-import { routes } from 'common/routes'
 import GridActions from 'components/admin/GridActions'
 
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
-import DeleteAllModal from './DeleteAllModal'
-import { ModalStore } from 'stores/dashboard/ModalStore'
-import { observer } from 'mobx-react'
 
-export default observer(function BootcampGrid() {
-  const { data } = useTasksList()
-  const { setSelectedIdsToDelete } = ModalStore
+import { UseQueryResult } from 'react-query'
+import { BootcampResponse } from 'gql/bootcamp'
+import { Box } from '@mui/material'
 
-  setSelectedIdsToDelete([])
+export default function BootcampGrid() {
+  const { data = [], refetch }: UseQueryResult<BootcampResponse[]> = useTasksList()
+  const [viewId, setViewId] = useState<string | undefined>()
+  const [deleteId, setDeleteId] = useState<string | undefined>()
+
+  const selectedTask = useMemo(() => data.find((c) => c.id === viewId), [data, viewId])
+
   const columns: GridColumns = [
     { field: 'id', headerName: 'ID', hide: true },
     {
@@ -83,8 +85,8 @@ export default observer(function BootcampGrid() {
       renderCell: (p) => (
         <GridActions
           id={p.row.id}
-          name={p.row.name}
-          editLink={routes.admin.bootcamp.editBootcampById(p.row.id)}
+          onView={() => setViewId(p.row.id)}
+          onDelete={() => setDeleteId(p.row.id)}
         />
       ),
     },
@@ -110,15 +112,21 @@ export default observer(function BootcampGrid() {
         editMode="row"
         autoHeight
         autoPageSize
-        checkboxSelection
         disableSelectionOnClick
-        onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
-          setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
-        }}
       />
-      <DetailsModal />
-      <DeleteModal />
-      <DeleteAllModal />
+      <Box>
+        {selectedTask && <DetailsModal task={selectedTask} onClose={() => setViewId(undefined)} />}
+        {deleteId && (
+          <DeleteModal
+            id={deleteId}
+            onDelete={() => {
+              refetch()
+              setDeleteId(undefined)
+            }}
+            onClose={() => setDeleteId(undefined)}
+          />
+        )}
+      </Box>
     </>
   )
-})
+}

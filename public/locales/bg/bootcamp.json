@@ -12,6 +12,8 @@
   "firstName": "Име",
   "lastName": "Фамилия",
   "actions": "Действия",
+  "deleteTitle": "Сигурни ли сте?",
+  "deleteContent": "Това действие ще изтрие елемента!",
   "noActiveTasks": "В момента няма активни задачи",
   "modals": {
       "delete": {

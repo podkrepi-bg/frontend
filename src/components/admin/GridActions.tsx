@@ -1,56 +1,39 @@
-import React from 'react'
 import Link from 'next/link'
-import { useTranslation } from 'next-i18next'
-import { IconButton, Tooltip } from '@mui/material'
+import React from 'react'
+import { Box, IconButton } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
-import ImportExportIcon from '@mui/icons-material/ImportExport'
+import ShareIcon from '@mui/icons-material/ImportExport'
 
-import { ModalStore } from 'stores/dashboard/ModalStore'
+import { routes } from 'common/routes'
 
 type Props = {
   id: string
-  name: string
-  editLink?: string
+  onView: () => void
+  onDelete: () => void
 }
 
-export default function GridActions({ id, name, editLink }: Props) {
-  const { t } = useTranslation('admin')
-  const { showDetails, showDelete, setSelectedRecord } = ModalStore
-
-  function detailsClickHandler() {
-    setSelectedRecord({ id, name })
-    showDetails()
-  }
-
-  function deleteClickHandler() {
-    setSelectedRecord({ id, name })
-    showDelete()
-  }
-
+export default function GridActions({ id, onView, onDelete }: Props) {
   return (
-    <>
-      <Tooltip title={t('bootcamp:cta:view') || ''}>
-        <IconButton size="small" color="primary" onClick={detailsClickHandler}>
-          <ImportExportIcon />
+    <Box
+      style={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+      }}>
+      <IconButton size="small" onClick={onView}>
+        <ShareIcon />
+      </IconButton>
+      <Link href={routes.admin.bootcamp.editBootcampById(id)} passHref>
+        <IconButton size="small">
+          <EditIcon />
         </IconButton>
-      </Tooltip>
-      {editLink ? (
-        <Link href={editLink} passHref>
-          <Tooltip title={t('bootcamp:cta:edit') || ''}>
-            <IconButton size="small" color="primary">
-              <EditIcon />
-            </IconButton>
-          </Tooltip>
-        </Link>
-      ) : (
-        ''
-      )}
-      <Tooltip title={t('bootcamp:cta:delete') || ''}>
-        <IconButton size="small" color="primary" onClick={deleteClickHandler}>
-          <DeleteIcon />
-        </IconButton>
-      </Tooltip>
-    </>
+      </Link>
+      <IconButton size="small" onClick={onDelete}>
+        <DeleteIcon />
+      </IconButton>
+    </Box>
   )
 }
