@@ -1,5 +1,4 @@
 import { Toolbar, Tooltip, Typography } from '@mui/material'
-import { observer } from 'mobx-react'
 import { Box } from '@mui/system'
 import { Add as AddIcon } from '@mui/icons-material'
 import { useRouter } from 'next/router'
@@ -12,7 +11,7 @@ const addIconStyles = {
   boxShadow: 3,
 }
 
-export default observer(function GridAppBar() {
+export default function GridAppBar() {
   const router = useRouter()
   return (
     <Toolbar
@@ -41,4 +40,4 @@ export default observer(function GridAppBar() {
       </Box>
     </Toolbar>
   )
-})
+}
