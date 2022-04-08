@@ -2,7 +2,6 @@ import React, { useMemo, useState } from 'react'
 import { DataGrid, GridColumns } from '@mui/x-data-grid'
 
 import { useTasksList } from 'common/hooks/bootcamp'
-import GridActions from 'components/admin/GridActions'
 
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
@@ -10,6 +9,7 @@ import DetailsModal from './DetailsModal'
 import { UseQueryResult } from 'react-query'
 import { BootcampResponse } from 'gql/bootcamp'
 import { Box } from '@mui/material'
+import GridActions from './GridActions'
 
 export default function BootcampGrid() {
   const { data = [], refetch }: UseQueryResult<BootcampResponse[]> = useTasksList()

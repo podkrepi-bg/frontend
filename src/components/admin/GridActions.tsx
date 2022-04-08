@@ -1,39 +1,56 @@
-import Link from 'next/link'
 import React from 'react'
-import { Box, IconButton } from '@mui/material'
+import Link from 'next/link'
+import { useTranslation } from 'next-i18next'
+import { IconButton, Tooltip } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
-import ShareIcon from '@mui/icons-material/ImportExport'
+import ImportExportIcon from '@mui/icons-material/ImportExport'
 
-import { routes } from 'common/routes'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 
 type Props = {
   id: string
-  onView: () => void
-  onDelete: () => void
+  name: string
+  editLink?: string
 }
 
-export default function GridActions({ id, onView, onDelete }: Props) {
+export default function GridActions({ id, name, editLink }: Props) {
+  const { t } = useTranslation('admin')
+  const { showDetails, showDelete, setSelectedRecord } = ModalStore
+
+  function detailsClickHandler() {
+    setSelectedRecord({ id, name })
+    showDetails()
+  }
+
+  function deleteClickHandler() {
+    setSelectedRecord({ id, name })
+    showDelete()
+  }
+
   return (
-    <Box
-      style={{
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-evenly',
-      }}>
-      <IconButton size="small" onClick={onView}>
-        <ShareIcon />
-      </IconButton>
-      <Link href={routes.admin.bootcamp.editBootcampById(id)} passHref>
-        <IconButton size="small">
-          <EditIcon />
+    <>
+      <Tooltip title={t('cta:view') || ''}>
+        <IconButton size="small" color="primary" onClick={detailsClickHandler}>
+          <ImportExportIcon />
         </IconButton>
-      </Link>
-      <IconButton size="small" onClick={onDelete}>
-        <DeleteIcon />
-      </IconButton>
-    </Box>
+      </Tooltip>
+      {editLink ? (
+        <Link href={editLink} passHref>
+          <Tooltip title={t('cta:edit') || ''}>
+            <IconButton size="small" color="primary">
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
+        </Link>
+      ) : (
+        ''
+      )}
+      <Tooltip title={t('cta:delete') || ''}>
+        <IconButton size="small" color="primary" onClick={deleteClickHandler}>
+          <DeleteIcon />
+        </IconButton>
+      </Tooltip>
+    </>
   )
 }
