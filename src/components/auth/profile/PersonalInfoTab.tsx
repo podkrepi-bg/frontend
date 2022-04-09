@@ -175,30 +175,31 @@ function PersonalInfoTab(props: { value: number; index: number }) {
         aria-describedby="modal-modal-description">
         <Box className={classes.modal}>
           <Typography variant="h6" component="h2">
-            Изтриване на профил
+            Изтриване на акаунт
           </Typography>
-          <Typography className={classes.graySpan}>Ние съжаляваме, че ни напущате</Typography>
+          <Typography className={classes.graySpan}>Съжаляваме, че ни напускате!</Typography>
           <Typography className={classes.heading}>Преди да ни напуснете ...</Typography>
           <hr />
           <ul style={{ listStyle: 'disc', paddingLeft: '20px' }}>
             <li className={classes.h5}>
-              Ако ви е писнало от емейли, деактивирайте ги от <Link href="#">тук</Link>.
+              Ако ви е омръзнало да получавате имейли, деактивирайте ги
+              <Link href="#"> тук</Link>.
             </li>
             <li className={classes.h5}>
               Ако .........................., моля пишете <Link href="#">тук</Link>.
             </li>
-            <li className={classes.h5}>Изтриването на акаунт е окончателно.</li>
-            <li className={classes.h5}>Няма да има начин да възстановите акаунта си.</li>
+            <li className={classes.h5}>Изтриването на акаунт е необратимо.</li>
+            <li className={classes.h5}>Ще бъде невъзможно да възстановите акаунта си.</li>
           </ul>
           <Button
             variant="contained"
             size="large"
             color="secondary"
             onClick={() => setIsDeleteAccountModalOpen(false)}>
-            Запази моя профил
+            Запази моя акаунт
           </Button>
           <Button variant="contained" size="large" color="secondary" style={{ marginLeft: '10px' }}>
-            Изтрий
+            Изтрий моя акаунт
           </Button>
         </Box>
       </Modal>
