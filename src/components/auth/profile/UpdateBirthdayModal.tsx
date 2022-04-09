@@ -64,7 +64,7 @@ function UpdateBirthdayModal({
             <Grid item xs={12} sm={8}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DesktopDatePicker
-                  inputFormat="MM/dd/yyyy"
+                  inputFormat="dd/MM/yyyy"
                   value={value}
                   onChange={handleChange}
                   renderInput={(params) => <TextField {...params} />}
