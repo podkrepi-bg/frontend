@@ -7,9 +7,16 @@ import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
 import { authConfig, authQueryFnFactory } from 'service/restRequests'
 
+type CurrentPerson = {
+  user: Person
+}
+
 export function useCurrentPerson() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
-  return useQuery<Person>(endpoints.account.me.url, authQueryFnFactory<Person>(keycloak?.token))
+  return useQuery<CurrentPerson>(
+    endpoints.account.me.url,
+    authQueryFnFactory<CurrentPerson>(keycloak?.token),
+  )
 }
 
 export function updateCurrentPerson() {
@@ -23,4 +30,4 @@ export function updateCurrentPerson() {
   }
 }
 
-export default { useCurrentPerson }
+export default { useCurrentPerson, updateCurrentPerson }
