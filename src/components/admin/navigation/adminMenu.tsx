@@ -10,6 +10,7 @@ import {
   Class,
   Shield,
   MoveUp,
+  Settings,
 } from '@mui/icons-material'
 import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined'
 import LocationCityRoundedIcon from '@mui/icons-material/LocationCityRounded'
@@ -26,7 +27,7 @@ export const menuPeople = [
   { label: 'Потребители', icon: Group, href: '#' },
   { label: 'Доброволци', icon: People, href: routes.admin.supporters },
 ]
-export const menuCampaing = [
+export const menuCampaings = [
   { label: 'Кампании', icon: AssignmentInd, href: routes.admin.campaigns.index },
   { label: 'Документи', icon: FolderShared, href: routes.admin.documents.index },
 ]
@@ -46,7 +47,12 @@ export const menuSetings = [
   { label: 'Типове кампании', icon: Class, href: routes.admin.campaignTypes.index },
 ]
 
-export const items = [menuPeople, menuCampaing, menuPayments, menuSetings]
+export const items = [
+  { submenu: menuPeople, menu: 'Хора', icon: People },
+  { submenu: menuCampaings, menu: 'Кампании', icon: AssignmentInd },
+  { submenu: menuPayments, menu: 'Плащания', icon: Payment },
+  { submenu: menuSetings, menu: 'Настройки', icon: Settings },
+]
 
 export const menuItems = [
   { label: 'Кампании', icon: AssignmentInd, href: routes.admin.campaigns.index },
