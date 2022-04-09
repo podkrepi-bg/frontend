@@ -68,7 +68,7 @@ const useStyles = makeStyles({
 function PersonalInfoTab(props: { value: number; index: number }) {
   const { value, index } = props
   const { session } = useSession()
-  const { data: person, refetch } = useCurrentPerson()
+  const { data: { user: person } = { user: null }, refetch } = useCurrentPerson()
   const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false)
   const [isUpdateNameModalOpen, setIsUpdateNameModalOpen] = useState(false)
   const [isUpdateBirthdayModalOpen, setIsUpdateBirthdayModalOpen] = useState(false)
