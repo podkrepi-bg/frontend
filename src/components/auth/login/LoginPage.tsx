@@ -3,7 +3,7 @@ import { KeycloakInstance } from 'keycloak-js'
 import { LinearProgress } from '@mui/material'
 import { useKeycloak } from '@react-keycloak/ssr'
 
-import { baseUrl } from 'common/routes'
+import { baseUrl, routes } from 'common/routes'
 import { useRouter } from 'next/router'
 
 export default function LoginPage() {
@@ -11,9 +11,11 @@ export default function LoginPage() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   const { pathname } = router.query
 
+  const redirectPath = pathname ? pathname : routes.profile
+
   useEffect(() => {
     keycloak?.login({
-      redirectUri: `${baseUrl}${pathname}`,
+      redirectUri: `${baseUrl}${redirectPath}`,
     })
   }, [])
 
