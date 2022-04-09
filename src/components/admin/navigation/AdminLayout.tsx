@@ -25,7 +25,6 @@ import PanelFooter from './PanelFooter'
 import { items } from './adminMenu'
 import CustomListItem from './CustomListItem'
 import HoverMenu from './HoverMenu'
-import { AssignmentInd, People, Payment } from '@mui/icons-material'
 
 const drawerWidth = 200
 const useStyles = makeStyles({
@@ -139,13 +138,6 @@ type Props = {
   children: React.ReactNode
 }
 
-const mainMenu = [
-  { menu: 'Хора', icon: People },
-  { menu: 'Кампании', icon: AssignmentInd },
-  { menu: 'Плащания', icon: Payment },
-  { menu: 'Настройки', icon: Settings },
-]
-
 export default function AdminLayout({ children }: Props) {
   const theme = useTheme()
   const classes = useStyles()
@@ -197,14 +189,8 @@ export default function AdminLayout({ children }: Props) {
       <Drawer variant="permanent" open={open} theme={theme}>
         <DrawerHeader />
         <List sx={{ p: '2rem .5rem', height: '100%', position: 'relative' }}>
-          {items.map((submenu, index) => (
-            <HoverMenu
-              isOpen={open}
-              key={index}
-              menu={mainMenu[index].menu}
-              icon={mainMenu[index].icon}
-              submenu={submenu}
-            />
+          {items.map(({ submenu, menu, icon }, index) => (
+            <HoverMenu isOpen={open} key={index} menu={menu} icon={icon} submenu={submenu} />
           ))}
           <CustomListItem icon={open ? <MenuOpen /> : <ChevronRight />} onClick={toggleMenu} />
           <CustomListItem
