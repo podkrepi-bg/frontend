@@ -57,7 +57,7 @@ Follow API instructions at <https://github.com/podkrepi-bg/api#setup-development
 ## Contributors ✨
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-33-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-34-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Please check [contributors guide](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md) for:
@@ -123,6 +123,7 @@ Thanks goes to these wonderful people:
     <td align="center"><a href="https://bandism.net/"><img src="https://avatars.githubusercontent.com/u/22633385?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ikko Ashimine</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=eltociear" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=eltociear" title="Documentation">📖</a></td>
     <td align="center"><a href="https://github.com/aironhight"><img src="https://avatars.githubusercontent.com/u/33146371?v=4?s=100" width="100px;" alt=""/><br /><sub><b>hstoyanov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=aironhight" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=aironhight" title="Documentation">📖</a> <a href="#tool-aironhight" title="Tools">🔧</a></td>
     <td align="center"><a href="https://github.com/LyuboslavLyubenov"><img src="https://avatars.githubusercontent.com/u/14333463?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Lyuboslav Tihomirov Lyubenov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=LyuboslavLyubenov" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=LyuboslavLyubenov" title="Documentation">📖</a> <a href="#tool-LyuboslavLyubenov" title="Tools">🔧</a> <a href="#platform-LyuboslavLyubenov" title="Packaging/porting to new platform">📦</a></td>
+    <td align="center"><a href="https://github.com/Bunny303"><img src="https://avatars.githubusercontent.com/u/3616912?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Bunny303</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=Bunny303" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=Bunny303" title="Documentation">📖</a> <a href="#tool-Bunny303" title="Tools">🔧</a></td>
   </tr>
 </table>
 
