@@ -11,6 +11,8 @@ import { updateCurrentPerson } from 'common/util/useCurrentPerson'
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
+import { AlertStore } from 'stores/AlertStore'
+import { useTranslation } from 'next-i18next'
 
 const useStyles = makeStyles({
   modal: {
@@ -33,6 +35,7 @@ function UpdateBirthdayModal({
   handleClose: (data?: Person) => void
   person: UpdatePerson
 }) {
+  const { t } = useTranslation()
   const [value, setValue] = useState<Date | null>(person.birthday as Date)
 
   const handleChange = (newValue: Date | null) => {
@@ -43,6 +46,8 @@ function UpdateBirthdayModal({
 
   const mutation = useMutation<AxiosResponse<Person>, AxiosError<ApiErrors>, UpdatePerson>({
     mutationFn: updateCurrentPerson(),
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
 
   const onSubmit = async () => {

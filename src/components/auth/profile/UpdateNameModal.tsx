@@ -8,6 +8,8 @@ import { useMutation } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { ApiErrors } from 'service/apiErrors'
 import { updateCurrentPerson } from 'common/util/useCurrentPerson'
+import { AlertStore } from 'stores/AlertStore'
+import { useTranslation } from 'next-i18next'
 
 const useStyles = makeStyles({
   modal: {
@@ -30,10 +32,13 @@ function UpdateNameModal({
   handleClose: (data?: Person) => void
   person: UpdatePerson
 }) {
+  const { t } = useTranslation()
   const classes = useStyles()
 
   const mutation = useMutation<AxiosResponse<Person>, AxiosError<ApiErrors>, UpdatePerson>({
     mutationFn: updateCurrentPerson(),
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    onSuccess: () => AlertStore.show(t('common:alerts.success'), 'success'),
   })
 
   const onSubmit = async (values: UpdatePerson) => {
