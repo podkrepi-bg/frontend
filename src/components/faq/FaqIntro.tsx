@@ -1,7 +1,5 @@
 import React from 'react'
-import { Box, Link, List, ListItem, Typography } from '@mui/material'
-
-import { routes } from 'common/routes'
+import { Box, Link, Typography } from '@mui/material'
 
 const FaqIntro = () => {
   return (
