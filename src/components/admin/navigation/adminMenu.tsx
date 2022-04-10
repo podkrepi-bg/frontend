@@ -48,10 +48,10 @@ export const menuSetings = [
 ]
 
 export const items = [
-  { submenu: menuPeople, menu: 'Хора', icon: People },
-  { submenu: menuCampaings, menu: 'Кампании', icon: AssignmentInd },
-  { submenu: menuPayments, menu: 'Плащания', icon: Payment },
-  { submenu: menuSetings, menu: 'Настройки', icon: Settings },
+  { items: menuPeople, menu: 'Хора', icon: People },
+  { items: menuCampaings, menu: 'Кампании', icon: AssignmentInd },
+  { items: menuPayments, menu: 'Плащания', icon: Payment },
+  { items: menuSetings, menu: 'Настройки', icon: Settings },
 ]
 
 export const menuItems = [
