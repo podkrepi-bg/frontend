@@ -59,4 +59,3 @@ export type UpdatePerson = Partial<
     | 'personalNumber'
   >
 >
-
