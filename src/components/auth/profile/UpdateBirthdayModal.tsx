@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Modal, Box, Grid, TextField } from '@mui/material'
+import { Modal, Box, Grid, TextField, IconButton } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
@@ -13,6 +13,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import { AlertStore } from 'stores/AlertStore'
 import { useTranslation } from 'next-i18next'
+import CloseIcon from '@mui/icons-material/Close'
 
 const useStyles = makeStyles({
   modal: {
@@ -23,6 +24,10 @@ const useStyles = makeStyles({
     width: 650,
     backgroundColor: '#EEEEEE',
     padding: 20,
+  },
+  close: {
+    position: 'absolute',
+    right: '10px',
   },
 })
 
@@ -63,6 +68,9 @@ function UpdateBirthdayModal({
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description">
       <Box className={classes.modal}>
+        <IconButton className={classes.close} onClick={() => handleClose()}>
+          <CloseIcon />
+        </IconButton>
         <h2>Обнови рожден ден</h2>
         <GenericForm onSubmit={onSubmit} initialValues={person}>
           <Grid container spacing={3}>
