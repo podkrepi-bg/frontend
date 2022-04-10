@@ -34,6 +34,12 @@ export default function Grid() {
     return <>{person.data?.firstName + ' ' + person.data?.lastName}</>
   }
 
+  const RenderDateCell = ({ params }: PersonCellProps) => {
+    const [date, time] = params.row.createdAt.split('T')
+    const dateFormated = date.split('-').reverse().join('.')
+    return <>{dateFormated + ' ' + time.substring(0, 5)}</>
+  }
+
   const commonProps: Partial<GridColDef> = {
     align: 'left',
     width: 150,
@@ -53,18 +59,18 @@ export default function Grid() {
     {
       field: 'status',
       headerName: t('donations:status'),
-      ...commonProps,
     },
     {
       field: 'provider',
       headerName: t('donations:provider'),
       ...commonProps,
+      width: 250,
     },
     {
       field: 'targetVaultId',
       headerName: t('donations:vault'),
       ...commonProps,
-      width: 350,
+      width: 250,
       renderCell: (params: GridRenderCellParams) => {
         return <RenderVaultCell params={params} />
       },
@@ -73,7 +79,7 @@ export default function Grid() {
       field: 'person',
       headerName: t('donations:person'),
       ...commonProps,
-      width: 350,
+      width: 250,
       renderCell: (params: GridRenderCellParams) => {
         return <RenderPersonCell params={params} />
       },
@@ -87,6 +93,16 @@ export default function Grid() {
       field: 'currency',
       headerName: t('donations:currency'),
       ...commonProps,
+      width: 100,
+    },
+    {
+      field: 'createdAt',
+      headerName: t('donations:date'),
+      ...commonProps,
+      width: 250,
+      renderCell: (params: GridRenderCellParams) => {
+        return <RenderDateCell params={params} />
+      },
     },
     {
       field: 'actions',
