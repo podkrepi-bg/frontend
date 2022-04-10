@@ -18,3 +18,8 @@ export const formatDateString = (dateString: string) => {
 
   return `${day}.${month}.${year}`
 }
+
+export const getRelativeDate = (value: Date | string) => {
+  const date = new Date(value)
+  return formatRelative(date, new Date())
+}

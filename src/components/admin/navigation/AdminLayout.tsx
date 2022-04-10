@@ -1,6 +1,5 @@
 import { useState, useCallback, useEffect, useMemo } from 'react'
 import { makeStyles, useTheme } from '@mui/styles'
-import { useRouter } from 'next/router'
 import MuiDrawer from '@mui/material/Drawer'
 import { styled, Theme, CSSObject } from '@mui/material/styles'
 import { CssBaseline, IconButton, List, Box, Button, Typography } from '@mui/material'
@@ -9,10 +8,11 @@ import { Notifications, Settings, MenuOpen, ChevronRight, GppGood } from '@mui/i
 import Snackbar from 'components/layout/Snackbar'
 import PrivateMenu from 'components/layout/nav/PrivateMenu'
 
+import { items } from './adminMenu'
+import HoverMenu from './HoverMenu'
 import PanelFooter from './PanelFooter'
-import { menuItems } from './adminMenu'
 import CustomListItem from './CustomListItem'
-import { AdminAppBar as AppBar } from './AdminAppBar'
+import { AdminAppBar } from './AdminAppBar'
 
 const drawerWidth = 200
 const useStyles = makeStyles({
@@ -88,7 +88,6 @@ type Props = {
 
 export default function AdminLayout({ children }: Props) {
   const theme = useTheme()
-  const router = useRouter()
   const classes = useStyles()
 
   const initialOpen = useMemo<boolean>(() => {
@@ -109,32 +108,21 @@ export default function AdminLayout({ children }: Props) {
   return (
     <Box className={classes.wrapper}>
       <CssBaseline />
-      <AppBar isOpen={open}>
+      <AdminAppBar isOpen={open}>
         <Box className={classes.appbarHeader}>
-          {/* <TextField id="outlined-search" label="Търси" type="search" size="small" /> */}
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-            }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <IconButton>
               <Notifications color="info" />
             </IconButton>
             <PrivateMenu />
           </Box>
         </Box>
-      </AppBar>
+      </AdminAppBar>
       <Drawer variant="permanent" open={open} theme={theme}>
         <DrawerHeader />
         <List sx={{ p: '2rem .5rem', height: '100%', position: 'relative' }}>
-          {menuItems.map(({ label, icon: Icon, href }, index) => (
-            <CustomListItem
-              key={index}
-              selected={href !== '#' && router.asPath.includes(href)}
-              icon={<Icon />}
-              label={label}
-              onClick={() => router.push(href)}
-            />
+          {items.map(({ submenu, menu, icon }, index) => (
+            <HoverMenu isOpen={open} key={index} menu={menu} icon={icon} submenu={submenu} />
           ))}
           <CustomListItem icon={open ? <MenuOpen /> : <ChevronRight />} onClick={toggleMenu} />
           <CustomListItem
