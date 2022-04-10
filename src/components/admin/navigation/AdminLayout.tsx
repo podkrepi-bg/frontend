@@ -2,7 +2,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useCallback, useEffect, useMemo } from 'react'
 import { makeStyles, useTheme } from '@mui/styles'
-import { useRouter } from 'next/router'
 import MuiDrawer from '@mui/material/Drawer'
 import { styled, Theme, CSSObject } from '@mui/material/styles'
 import {
@@ -23,8 +22,9 @@ import PrivateMenu from 'components/layout/nav/PrivateMenu'
 import PictureLogo from '/public/android-chrome-192x192.png'
 
 import PanelFooter from './PanelFooter'
-import { menuItems } from './adminMenu'
+import { items } from './adminMenu'
 import CustomListItem from './CustomListItem'
+import HoverMenu from './HoverMenu'
 
 const drawerWidth = 200
 const useStyles = makeStyles({
@@ -140,7 +140,6 @@ type Props = {
 
 export default function AdminLayout({ children }: Props) {
   const theme = useTheme()
-  const router = useRouter()
   const classes = useStyles()
 
   const initialOpen = useMemo<boolean>(() => {
@@ -190,14 +189,8 @@ export default function AdminLayout({ children }: Props) {
       <Drawer variant="permanent" open={open} theme={theme}>
         <DrawerHeader />
         <List sx={{ p: '2rem .5rem', height: '100%', position: 'relative' }}>
-          {menuItems.map(({ label, icon: Icon, href }, index) => (
-            <CustomListItem
-              key={index}
-              selected={href !== '#' && router.asPath.includes(href)}
-              icon={<Icon />}
-              label={label}
-              onClick={() => router.push(href)}
-            />
+          {items.map(({ submenu, menu, icon }, index) => (
+            <HoverMenu isOpen={open} key={index} menu={menu} icon={icon} submenu={submenu} />
           ))}
           <CustomListItem icon={open ? <MenuOpen /> : <ChevronRight />} onClick={toggleMenu} />
           <CustomListItem

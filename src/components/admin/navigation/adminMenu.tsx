@@ -10,6 +10,7 @@ import {
   Class,
   Shield,
   MoveUp,
+  Settings,
 } from '@mui/icons-material'
 import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined'
 import LocationCityRoundedIcon from '@mui/icons-material/LocationCityRounded'
@@ -17,6 +18,41 @@ import LocalAtmIcon from '@mui/icons-material/LocalAtm'
 
 import { routes } from 'common/routes'
 import BeneficiaryIcon from 'common/icons/Beneficiary'
+
+export const menuPeople = [
+  { label: 'Контакти', icon: ContactPhone, href: routes.admin.infoRequests },
+  { label: 'Бенефактори', icon: BeneficiaryIcon, href: routes.admin.benefactor.index },
+  { label: 'Бенефициенти', icon: BeneficiaryIcon, href: routes.admin.beneficiary.index },
+  { label: 'Координатори', icon: People, href: routes.admin.coordinators.index },
+  { label: 'Потребители', icon: Group, href: '#' },
+  { label: 'Доброволци', icon: People, href: routes.admin.supporters },
+]
+export const menuCampaings = [
+  { label: 'Кампании', icon: AssignmentInd, href: routes.admin.campaigns.index },
+  { label: 'Документи', icon: FolderShared, href: routes.admin.documents.index },
+]
+
+export const menuPayments = [
+  { label: 'Плащания', icon: Payment, href: routes.admin.bankaccounts.index },
+  { label: 'Дарения', icon: VolunteerActivismOutlinedIcon, href: routes.admin.donations.index },
+  { label: 'Трезори', icon: Shield, href: routes.admin.vaults.index },
+  { label: 'Тегления', icon: LocalAtmIcon, href: routes.admin.withdrawals.index },
+  { label: 'Прехвърляния', icon: MoveUp, href: routes.admin.transfer.index },
+  { label: 'Разходи', icon: Paid, href: routes.admin.expenses.index },
+]
+
+export const menuSetings = [
+  { label: 'Градове', icon: LocationCityRoundedIcon, href: routes.admin.cities.home },
+  { label: 'Държави', icon: Public, href: routes.admin.countries.index },
+  { label: 'Типове кампании', icon: Class, href: routes.admin.campaignTypes.index },
+]
+
+export const items = [
+  { submenu: menuPeople, menu: 'Хора', icon: People },
+  { submenu: menuCampaings, menu: 'Кампании', icon: AssignmentInd },
+  { submenu: menuPayments, menu: 'Плащания', icon: Payment },
+  { submenu: menuSetings, menu: 'Настройки', icon: Settings },
+]
 
 export const menuItems = [
   { label: 'Кампании', icon: AssignmentInd, href: routes.admin.campaigns.index },
