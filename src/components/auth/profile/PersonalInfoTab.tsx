@@ -1,9 +1,13 @@
 import { Box, Button, Link, Modal, Typography } from '@mui/material'
 import { useSession } from 'common/util/useSession'
+import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import Tab from './Tab'
 import EditIcon from '@mui/icons-material/Edit'
 import { useState } from 'react'
 import { makeStyles } from '@mui/styles'
+import { getRelativeDate } from 'common/util/date'
+import UpdateNameModal from './UpdateNameModal'
+import UpdateBirthdayModal from './UpdateBirthdayModal'
 
 const useStyles = makeStyles({
   modal: {
@@ -64,7 +68,10 @@ const useStyles = makeStyles({
 function PersonalInfoTab(props: { value: number; index: number }) {
   const { value, index } = props
   const { session } = useSession()
+  const { data: { user: person } = { user: null }, refetch } = useCurrentPerson()
   const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false)
+  const [isUpdateNameModalOpen, setIsUpdateNameModalOpen] = useState(false)
+  const [isUpdateBirthdayModalOpen, setIsUpdateBirthdayModalOpen] = useState(false)
   const classes = useStyles()
 
   return (
@@ -88,7 +95,7 @@ function PersonalInfoTab(props: { value: number; index: number }) {
                 flexBasis: '50%',
                 marginRight: '20px',
               }}>
-              <p className={classes.bold}>еmail адрес:</p>
+              <p className={classes.bold}>email адрес:</p>
               <p>{session?.email}</p>
             </Box>
             <Box
@@ -122,9 +129,11 @@ function PersonalInfoTab(props: { value: number; index: number }) {
                 marginLeft: '30px',
               }}>
               <p className={classes.bold}>Име:</p>
-              <p>{session?.name}</p>
+              <p>
+                {person?.firstName} {person?.lastName}
+              </p>
               <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
-                <Link href="#">
+                <Link href="#" onClick={() => setIsUpdateNameModalOpen(true)}>
                   <EditIcon className={classes.editIcon} />
                   <span className={classes.editSpan}>Редактирай</span>
                 </Link>
@@ -139,9 +148,11 @@ function PersonalInfoTab(props: { value: number; index: number }) {
                 marginRight: '10px',
               }}>
               <p className={classes.bold}>рожден ден:</p>
-              <p className={classes.notAvaible}>не е наличен</p>
+              <p className={person?.birthday ? '' : classes.notAvaible}>
+                {person?.birthday ? getRelativeDate(person?.birthday) : 'не e наличен'}
+              </p>
               <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
-                <Link href="#">
+                <Link href="#" onClick={() => setIsUpdateBirthdayModalOpen(true)}>
                   <EditIcon className={classes.editIcon} />
                   <span className={classes.editSpan}>Редактирай</span>
                 </Link>
@@ -192,6 +203,28 @@ function PersonalInfoTab(props: { value: number; index: number }) {
           </Button>
         </Box>
       </Modal>
+      {person ? (
+        <>
+          <UpdateNameModal
+            isOpen={isUpdateNameModalOpen}
+            person={person}
+            handleClose={() => {
+              setIsUpdateNameModalOpen(false)
+              refetch()
+            }}
+          />
+          <UpdateBirthdayModal
+            isOpen={isUpdateBirthdayModalOpen}
+            person={person}
+            handleClose={() => {
+              setIsUpdateBirthdayModalOpen(false)
+              refetch()
+            }}
+          />
+        </>
+      ) : (
+        ''
+      )}
     </>
   )
 }
