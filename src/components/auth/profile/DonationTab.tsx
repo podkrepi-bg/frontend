@@ -146,7 +146,7 @@ function DonationTab(props: { value: number; index: number }) {
             <span className={classes.smallText}>от дата</span>
             <DesktopDatePicker
               label="от дата"
-              inputFormat="MM/dd/yyyy"
+              inputFormat="dd/MM/yyyy"
               value={fromDate}
               onChange={(date) => setFromDate(date as Date)}
               renderInput={(params) => <TextField {...params} />}
@@ -154,7 +154,7 @@ function DonationTab(props: { value: number; index: number }) {
             <span className={classes.smallText}>до дата</span>
             <DesktopDatePicker
               label="до дата"
-              inputFormat="MM/dd/yyyy"
+              inputFormat="dd/MM/yyyy"
               value={toDate}
               onChange={(date) => setToDate(date as Date)}
               renderInput={(params) => <TextField {...params} />}

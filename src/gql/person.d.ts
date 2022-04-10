@@ -43,3 +43,20 @@ export type Person = {
   keycloakId: string | null
   stripeCustomerId: string | null
 }
+
+export type UpdatePerson = Partial<
+  Pick<
+    Person,
+    | 'id'
+    | 'firstName'
+    | 'lastName'
+    | 'email'
+    | 'phone'
+    | 'company'
+    | 'newsletter'
+    | 'address'
+    | 'birthday'
+    | 'personalNumber'
+  >
+>
+
