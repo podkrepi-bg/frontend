@@ -46,6 +46,7 @@
     "axios": "0.21.4",
     "axios-hooks": "2.7.0",
     "bear-react-carousel": "^1.2.15",
+    "buffer": "^6.0.3",
     "date-fns": "2.24.0",
     "formik": "2.2.9",
     "highcharts": "9.1.0",
@@ -56,6 +57,7 @@
     "next": "^12.1.0",
     "next-i18next": "8.4.0",
     "nookies": "^2.5.2",
+    "puppeteer": "^13.5.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-gtm-module": "2.0.11",
@@ -103,5 +105,8 @@
       "yarn run format"
     ],
     "*.scss": "yarn run lint:styles"
+  },
+  "browser": {
+    "html-pdf": false
   }
 }
