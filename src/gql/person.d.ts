@@ -56,8 +56,5 @@ export type UpdatePerson = {
   newsletter?: boolean
   address?: string
   birthday?: Date | null
-  emailConfirmed?: boolean
   personalNumber?: string | null
-  keycloakId?: string | null
-  stripeCustomerId?: string | null
 }
