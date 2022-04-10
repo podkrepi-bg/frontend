@@ -44,15 +44,19 @@ export type Person = {
   stripeCustomerId: string | null
 }
 
-export type UpdatePerson = {
-  id?: UUID
-  firstName?: string
-  lastName?: string
-  email?: string
-  phone?: string
-  company?: string
-  newsletter?: boolean
-  address?: string
-  birthday?: Date | null
-  personalNumber?: string | null
-}
+export type UpdatePerson = Partial<
+  Pick<
+    Person,
+    | 'id'
+    | 'firstName'
+    | 'lastName'
+    | 'email'
+    | 'phone'
+    | 'company'
+    | 'newsletter'
+    | 'address'
+    | 'birthday'
+    | 'personalNumber'
+  >
+>
+
