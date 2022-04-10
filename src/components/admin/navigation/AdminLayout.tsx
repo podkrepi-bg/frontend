@@ -121,8 +121,8 @@ export default function AdminLayout({ children }: Props) {
       <Drawer variant="permanent" open={open} theme={theme}>
         <DrawerHeader />
         <List sx={{ p: '2rem .5rem', height: '100%', position: 'relative' }}>
-          {items.map(({ submenu, menu, icon }, index) => (
-            <HoverMenu isOpen={open} key={index} menu={menu} icon={icon} submenu={submenu} />
+          {items.map(({ items, menu, icon }, index) => (
+            <HoverMenu isOpen={open} key={index} menu={menu} icon={icon} items={items} />
           ))}
           <CustomListItem icon={open ? <MenuOpen /> : <ChevronRight />} onClick={toggleMenu} />
           <CustomListItem
