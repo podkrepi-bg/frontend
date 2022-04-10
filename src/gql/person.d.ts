@@ -51,8 +51,6 @@ export type UpdatePerson = {
   email?: string
   phone?: string
   company?: string
-  createdAt?: Date
-  updatedAt?: Date
   newsletter?: boolean
   address?: string
   birthday?: Date | null
