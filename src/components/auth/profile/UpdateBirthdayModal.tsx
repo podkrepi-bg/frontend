@@ -47,7 +47,7 @@ function UpdateBirthdayModal({
   const mutation = useMutation<AxiosResponse<Person>, AxiosError<ApiErrors>, UpdatePerson>({
     mutationFn: updateCurrentPerson(),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
-    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
+    onSuccess: () => AlertStore.show(t('common:alerts.success'), 'success'),
   })
 
   const onSubmit = async () => {
