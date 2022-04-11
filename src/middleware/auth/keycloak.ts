@@ -47,9 +47,25 @@ export const securedProps: GetServerSideProps<ServerUser> = async (ctx) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(ctx.locale ?? 'bg', ['common', 'auth', 'validation'])),
       keyCookies: cookies,
       userToken: keycloak.token,
     },
   }
 }
+
+export const securedPropsWithTranslation: (
+  namespaces?: string[],
+) => GetServerSideProps<ServerUser> =
+  (namespaces = ['common', 'auth', 'validation']) =>
+  async (ctx) => {
+    const response = await securedProps(ctx)
+    if ('props' in response) {
+      return {
+        props: {
+          ...response.props,
+          ...(await serverSideTranslations(ctx.locale ?? 'bg', namespaces)),
+        },
+      }
+    }
+    return response
+  }
