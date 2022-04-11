@@ -8,6 +8,8 @@ import { makeStyles } from '@mui/styles'
 import { getRelativeDate } from 'common/util/date'
 import UpdateNameModal from './UpdateNameModal'
 import UpdateBirthdayModal from './UpdateBirthdayModal'
+import { useRouter } from 'next/router'
+import getConfig from 'next/config'
 
 const useStyles = makeStyles({
   modal: {
@@ -73,6 +75,15 @@ function PersonalInfoTab(props: { value: number; index: number }) {
   const [isUpdateNameModalOpen, setIsUpdateNameModalOpen] = useState(false)
   const [isUpdateBirthdayModalOpen, setIsUpdateBirthdayModalOpen] = useState(false)
   const classes = useStyles()
+  const router = useRouter()
+  const {
+    publicRuntimeConfig: { keycloakConfig },
+  } = getConfig()
+
+  const changePasswordHandler = () => {
+    const link = `${keycloakConfig.url}/realms/${keycloakConfig.realm}/${keycloakConfig.clientId}/password`
+    router.push(link)
+  }
 
   return (
     <>
@@ -109,7 +120,7 @@ function PersonalInfoTab(props: { value: number; index: number }) {
               <p className={classes.bold}>парола:</p>
               <p>***********</p>
               <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
-                <Link href="#">
+                <Link href="#" onClick={changePasswordHandler}>
                   <EditIcon className={classes.editIcon} />
                   <span className={classes.editSpan}>Редактирай</span>
                 </Link>
