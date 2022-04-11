@@ -1,42 +1,21 @@
-import Link from 'next/link'
-import Image from 'next/image'
 import { useState, useCallback, useEffect, useMemo } from 'react'
 import { makeStyles, useTheme } from '@mui/styles'
 import MuiDrawer from '@mui/material/Drawer'
 import { styled, Theme, CSSObject } from '@mui/material/styles'
-import {
-  AppBar as MuiAppBar,
-  AppBarProps as MuiAppBarProps,
-  CssBaseline,
-  IconButton,
-  List,
-  Box,
-  Button,
-  Typography,
-} from '@mui/material'
+import { CssBaseline, IconButton, List, Box, Button, Typography } from '@mui/material'
 import { Notifications, Settings, MenuOpen, ChevronRight, GppGood } from '@mui/icons-material'
 
-import { routes } from 'common/routes'
 import Snackbar from 'components/layout/Snackbar'
 import PrivateMenu from 'components/layout/nav/PrivateMenu'
-import PictureLogo from '/public/android-chrome-192x192.png'
 
-import PanelFooter from './PanelFooter'
 import { items } from './adminMenu'
-import CustomListItem from './CustomListItem'
 import HoverMenu from './HoverMenu'
+import PanelFooter from './PanelFooter'
+import CustomListItem from './CustomListItem'
+import { AdminAppBar } from './AdminAppBar'
 
 const drawerWidth = 200
 const useStyles = makeStyles({
-  drawerHeader: {
-    width: drawerWidth,
-    height: 64,
-    position: 'absolute',
-    alignItems: 'center',
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: '0 19px 0 24px',
-  },
   wrapper: {
     display: 'flex',
     position: 'relative',
@@ -50,20 +29,6 @@ const useStyles = makeStyles({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-  },
-  appbarWrapper: {
-    display: 'flex',
-    width: 'calc(100% - 24px)',
-    position: 'relative',
-    paddingRight: '16px',
-  },
-  logoWrapper: {
-    width: 150,
-    display: 'flex',
-  },
-  logo: {
-    display: 'flex',
-    flexDirection: 'column',
   },
 })
 
@@ -98,23 +63,6 @@ const DrawerHeader = styled('div')(({ theme }: { theme: Theme }) => ({
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
-}))
-
-interface AppBarProps extends MuiAppBarProps {
-  open?: boolean
-}
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop: string) => prop !== 'open',
-})<AppBarProps>(({ theme }: { theme: Theme }) => ({
-  display: 'flex',
-  flexDirection: 'row',
-  background: 'none',
-  boxShadow: 'none',
-  position: 'fixed',
-  zIndex: theme.zIndex.drawer + 1,
-  height: '64px',
-  width: `100%`,
 }))
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop: string) => prop !== 'open' })(
@@ -160,37 +108,21 @@ export default function AdminLayout({ children }: Props) {
   return (
     <Box className={classes.wrapper}>
       <CssBaseline />
-      <AppBar position="fixed" open={open} sx={{ p: 0, display: 'flex' }}>
-        <Box className={classes.appbarWrapper}>
-          <Box className={classes.drawerHeader}>
-            <Box className={classes.logoWrapper}>
-              <Link href={routes.admin.index}>
-                <a>
-                  <Image src={PictureLogo} width={40} height={40} />
-                </a>
-              </Link>
-            </Box>
-          </Box>
-          <Box className={classes.appbarHeader}>
-            {/* <TextField id="outlined-search" label="Търси" type="search" size="small" /> */}
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-              }}>
-              <IconButton>
-                <Notifications color="info" />
-              </IconButton>
-              <PrivateMenu />
-            </Box>
+      <AdminAppBar isOpen={open}>
+        <Box className={classes.appbarHeader}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <IconButton>
+              <Notifications color="info" />
+            </IconButton>
+            <PrivateMenu />
           </Box>
         </Box>
-      </AppBar>
+      </AdminAppBar>
       <Drawer variant="permanent" open={open} theme={theme}>
         <DrawerHeader />
         <List sx={{ p: '2rem .5rem', height: '100%', position: 'relative' }}>
-          {items.map(({ submenu, menu, icon }, index) => (
-            <HoverMenu isOpen={open} key={index} menu={menu} icon={icon} submenu={submenu} />
+          {items.map(({ items, menu, icon }, index) => (
+            <HoverMenu isOpen={open} key={index} menu={menu} icon={icon} items={items} />
           ))}
           <CustomListItem icon={open ? <MenuOpen /> : <ChevronRight />} onClick={toggleMenu} />
           <CustomListItem
