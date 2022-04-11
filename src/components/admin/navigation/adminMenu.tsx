@@ -10,7 +10,7 @@ import {
   Class,
   Shield,
   MoveUp,
-  Settings,
+  DisplaySettings,
 } from '@mui/icons-material'
 import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined'
 import LocationCityRoundedIcon from '@mui/icons-material/LocationCityRounded'
@@ -51,7 +51,7 @@ export const items = [
   { items: menuPeople, menu: 'Хора', icon: People },
   { items: menuCampaings, menu: 'Кампании', icon: AssignmentInd },
   { items: menuPayments, menu: 'Плащания', icon: Payment },
-  { items: menuSetings, menu: 'Настройки', icon: Settings },
+  { items: menuSetings, menu: 'Системни', icon: DisplaySettings },
 ]
 
 export const menuItems = [
