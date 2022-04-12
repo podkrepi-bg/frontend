@@ -1,3 +1,5 @@
+import { UUID } from './types'
+
 export type PersonResponse = {
   id: string
   personId: string
@@ -23,3 +25,37 @@ export type CreateBeneficiaryInput = {
   email: string
   phone?: string
 }
+
+export type Person = {
+  id: UUID
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  company: string
+  createdAt: Date
+  updatedAt: Date
+  newsletter: boolean
+  address: string
+  birthday: Date | null
+  emailConfirmed: boolean
+  personalNumber: string | null
+  keycloakId: string | null
+  stripeCustomerId: string | null
+}
+
+export type UpdatePerson = Partial<
+  Pick<
+    Person,
+    | 'id'
+    | 'firstName'
+    | 'lastName'
+    | 'email'
+    | 'phone'
+    | 'company'
+    | 'newsletter'
+    | 'address'
+    | 'birthday'
+    | 'personalNumber'
+  >
+>

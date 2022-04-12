@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { AxiosError, AxiosResponse } from 'axios'
+import * as yup from 'yup'
 import { Box, Button, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material'
 
 import { WithdrawalData, WithdrawalInput, WithdrawalResponse } from 'gql/withdrawals'
@@ -12,14 +13,14 @@ import { ApiErrors } from 'service/apiErrors'
 import { useCreateWithdrawal } from 'service/withdrawal'
 import { AlertStore } from 'stores/AlertStore'
 import SubmitButton from 'components/common/form/SubmitButton'
-import { Currencies, WithdrawalStatus } from './WithdrawalTypes'
+import { WithdrawalStatus } from './WithdrawalTypes'
 import { useBankAccountsList } from 'common/hooks/bankaccounts'
 import { useCampaignList } from 'common/hooks/campaigns'
 import { usePersonList } from 'common/hooks/person'
 import { useVaultsList } from 'common/hooks/vaults'
 import GenericForm from 'components/common/form/GenericForm'
-import * as yup from 'yup'
 import FormTextField from 'components/common/form/FormTextField'
+import CurrencySelect from 'components/currency/CurrencySelect'
 
 const validationSchema: yup.SchemaOf<WithdrawalData> = yup
   .object()
@@ -42,8 +43,7 @@ export default function CreateForm() {
   const { data: campaigns } = useCampaignList()
   const { data: personList } = usePersonList()
   const { data: vaults } = useVaultsList()
-  const currencies = Object.keys(Currencies)
-  const [currency, setCurrency] = useState('')
+
   const [approvedById, setApprovedById] = useState('')
   const [bankAccountId, setBankAccountId] = useState('')
   const [vaultId, setVaultId] = useState('')
@@ -80,7 +80,7 @@ export default function CreateForm() {
   function handleSubmit(values: WithdrawalInput) {
     const data: WithdrawalInput = {
       status: WithdrawalStatus.initial,
-      currency: currency,
+      currency: values.currency,
       amount: values.amount,
       reason: values.reason,
       sourceVaultId: vaultId,
@@ -119,22 +119,7 @@ export default function CreateForm() {
             />
           </Grid>
           <Grid item xs={12}>
-            <InputLabel htmlFor="my-input">Валути</InputLabel>
-            <Select
-              fullWidth
-              type="enum"
-              id="currency"
-              name="currency"
-              value={currency}
-              onChange={(event) => setCurrency(event.target.value)}>
-              {currencies?.map((curr) => {
-                return (
-                  <MenuItem key={curr} value={curr}>
-                    {curr}
-                  </MenuItem>
-                )
-              })}
-            </Select>
+            <CurrencySelect />
           </Grid>
           <Grid item xs={12}>
             <InputLabel htmlFor="my-input">Банков акаунт</InputLabel>

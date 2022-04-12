@@ -1,0 +1,40 @@
+{
+  "form-heading": "Add new donation",
+  "edit-form-heading": "Edit donation",
+  "all": "All donations",
+  "donations": "Doantions",
+  "type": "Type",
+  "status": "Status",
+  "provider": "Provider",
+  "vault": "Vault",
+  "ext-customer-id": "Customer ID",
+  "ext-payment-intent-id": "Payment intent ID",
+  "ext-payment-method-id": "Payment method ID",
+  "amount": "Amount",
+  "currency": "Currency",
+  "person": "User",
+  "created-at": "Created at",
+  "updated-at": "Updated at",
+  "deleteTitle": "Are you sure?",
+  "deleteContent": "This action will delete this item permanently!",
+  "deleteAllContent": "This action will delete selected items permanently!",
+  "actions": "Actions",
+  "alerts": {
+    "selectRow": "Please choose a row",
+    "create": "Document has been created successfully!",
+    "edit": "Document has been edited successfully!",
+    "delete": "Document has been deleted successfully!",
+    "deleteAll": "Documents have been deleted successfully!",
+    "error": "An error has occured! Please try again later."
+  },
+  "cta": {
+    "add": "Add",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "deleteSelected": "Delete selected rows",
+    "edit": "Edit",
+    "details": "Donation Details",
+    "submit": "Submit"
+  }
+}

@@ -1,58 +1,51 @@
 import React, { useState } from 'react'
 import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
-import { observer } from 'mobx-react'
 import { Box } from '@mui/material'
-import {
-  DataGrid,
-  GridColDef,
-  GridColumns,
-  GridRenderCellParams,
-  GridSelectionModel,
-} from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 
-import { BeneficiaryType } from '../../../gql/beneficiary'
-import { useBeneficiariesList } from 'service/beneficiary'
-import { useViewPerson } from 'service/person'
-import { useViewCompany } from 'service/company'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 import { routes } from 'common/routes'
-
-import DetailsModal from './DetailsModal'
-import DeleteModal from './DeleteModal'
-import DeleteAllModal from './DeleteAllModal'
+import { BeneficiaryListResponse } from 'gql/beneficiary'
 import GridActions from 'components/admin/GridActions'
-interface PersonCellProps {
-  params: GridRenderCellParams
+import { useBeneficiariesList } from 'service/beneficiary'
+
+import DeleteModal from './DeleteModal'
+import DetailsModal from './DetailsModal'
+import { ModalStore } from 'stores/dashboard/ModalStore'
+import { observer } from 'mobx-react'
+interface BeneficiaryCellProps {
+  params: GridRenderCellParams<BeneficiaryListResponse, BeneficiaryListResponse>
+}
+
+const DisplayCompany = ({ params }: BeneficiaryCellProps) => {
+  const { t } = useTranslation()
+  const { company } = params.row
+  return <>{company?.name || t('beneficiary:grid:not-company')}</>
+}
+
+const DisplayPerson = ({ params }: BeneficiaryCellProps) => {
+  const { t } = useTranslation()
+  const { person } = params.row
+  return <>{person?.firstName + ' ' + person?.lastName || t('beneficiary:grid:not-person')}</>
+}
+
+const DisplayBeneficiaryType = ({ params }: BeneficiaryCellProps) => {
+  const { t } = useTranslation()
+  return (
+    <>
+      {params.row.type == 'company'
+        ? t('beneficiary:grid:company')
+        : t('beneficiary:grid:individual')}
+    </>
+  )
 }
 
 export default observer(function Grid() {
   const [pageSize, setPageSize] = useState(5)
+  const { selectedRecord } = ModalStore
   const { t } = useTranslation()
-  const { setSelectedIdsToDelete } = ModalStore
 
-  setSelectedIdsToDelete([])
-
-  const { data }: UseQueryResult<BeneficiaryType[]> = useBeneficiariesList()
-
-  const RenderCompanyCell = ({ params }: PersonCellProps) => {
-    const company = useViewCompany(params.row.companyId)
-    return <>{company.data?.companyName || t('beneficiary:grid:not-company')}</>
-  }
-
-  const RenderPersonCell = ({ params }: PersonCellProps) => {
-    const person = useViewPerson(params.row.personId)
-    return (
-      <>
-        {person.data?.firstName + ' ' + person.data?.lastName || t('beneficiary:grid:not-person')}
-      </>
-    )
-  }
-
-  const renderBeneficiaryTypeCell = (params: GridRenderCellParams) => {
-    if (params.row.type == 'company') return t('beneficiary:grid:company')
-    return t('beneficiary:grid:individual')
-  }
+  const { data }: UseQueryResult<BeneficiaryListResponse[]> = useBeneficiariesList()
 
   const commonProps: Partial<GridColDef> = {
     align: 'left',
@@ -64,7 +57,9 @@ export default observer(function Grid() {
       field: 'is-person',
       headerName: t('beneficiary:grid:type'),
       ...commonProps,
-      renderCell: renderBeneficiaryTypeCell,
+      renderCell: (params: GridRenderCellParams) => {
+        return <DisplayBeneficiaryType params={params} />
+      },
     },
     {
       field: 'person',
@@ -72,7 +67,7 @@ export default observer(function Grid() {
       flex: 1,
       ...commonProps,
       renderCell: (params: GridRenderCellParams) => {
-        return <RenderPersonCell params={params}></RenderPersonCell>
+        return <DisplayPerson params={params} />
       },
     },
     {
@@ -81,7 +76,7 @@ export default observer(function Grid() {
       flex: 1,
       ...commonProps,
       renderCell: (params: GridRenderCellParams) => {
-        return <RenderCompanyCell params={params}></RenderCompanyCell>
+        return <DisplayCompany params={params} />
       },
     },
     {
@@ -124,15 +119,10 @@ export default observer(function Grid() {
           pageSize={pageSize}
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
           disableSelectionOnClick
-          checkboxSelection
-          onSelectionModelChange={(newSelectionModel: GridSelectionModel) => {
-            setSelectedIdsToDelete(newSelectionModel.map((item) => item.toString()))
-          }}
         />
       </Box>
-      <DetailsModal />
-      <DeleteModal />
-      <DeleteAllModal />
+      {selectedRecord.id && <DetailsModal />}
+      {selectedRecord.id && <DeleteModal />}
     </>
   )
 })

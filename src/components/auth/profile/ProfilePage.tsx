@@ -65,10 +65,10 @@ export default function ProfilePage() {
             </Tabs>
           </Box>
         </Box>
-        <DonationTab value={value} index={0}></DonationTab>
-        <PersonalInfoTab value={value} index={1}></PersonalInfoTab>
-        <CertificatesTab value={value} index={2}></CertificatesTab>
-        <DonationAgreementTab value={value} index={3}></DonationAgreementTab>
+        <DonationTab value={value} index={0} />
+        <PersonalInfoTab value={value} index={1} />
+        <CertificatesTab value={value} index={2} />
+        <DonationAgreementTab value={value} index={3} />
       </Box>
     </Layout>
   )

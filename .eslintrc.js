@@ -36,5 +36,6 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 2,
     'react/react-in-jsx-scope': 'off',
     'react/prop-types': 'off',
+    'react/self-closing-comp': ['error', { component: true, html: true }],
   },
 }

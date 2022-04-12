@@ -25,6 +25,13 @@ spec:
                 name: api-headless
                 port:
                   number: 80
+            path: /docs-json
+            pathType: Prefix
+          - backend:
+              service:
+                name: api-headless
+                port:
+                  number: 80
             path: /api
             pathType: Prefix
   tls:

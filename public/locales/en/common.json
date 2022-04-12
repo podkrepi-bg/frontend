@@ -40,7 +40,8 @@
   "alerts": {
     "message-sent": "Your message has been sent!",
     "error": "There was an error processing your message!",
-    "noselected": "Please, select at least one row!"
+    "noselected": "Please, select at least one row!",
+    "success": "Successfully saved!"
   },
   "close": "Close",
   "link": "Link",
@@ -63,5 +64,14 @@
       "version": "Version"
     }
   },
-  "or": "or"
+  "or": "or",
+  "fields": {
+    "currency": "Currency",
+    "personId": "Person",
+    "vaultId": "Vault",
+    "sourceCampaignId": "Source campaign",
+    "targetCampaignId": "Target campaign",
+    "sourceVaultId": "Source vault",
+    "targetVaultId": "Target vault"
+  }
 }

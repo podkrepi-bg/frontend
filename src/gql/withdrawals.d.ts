@@ -1,6 +1,7 @@
-import { Person } from 'components/support-form/helpers/support-form.types'
 import { WithdrawalStatus, Currency } from 'components/withdrawals/WithdrawalTypes'
+import { Person } from './person'
 import { UUID } from './types'
+
 export type WithdrawalResponse = {
   id: UUID
   status: WithdrawalStatus
