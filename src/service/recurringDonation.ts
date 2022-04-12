@@ -26,3 +26,13 @@ export function useEditRecurringDonation(id: string) {
     >(endpoints.recurringDonation.editRecurringDonation(id).url, data, authConfig(keycloak?.token))
   }
 }
+
+export function useDeleteRecurringDonation(id: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async () => {
+    return await apiClient.delete<
+      RecurringDonationResponse,
+      AxiosResponse<RecurringDonationResponse>
+    >(endpoints.recurringDonation.deleteRecurringDonation(id).url, authConfig(keycloak?.token))
+  }
+}
