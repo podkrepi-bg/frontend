@@ -9,9 +9,10 @@ import { useDeleteTransfer } from 'service/transfer'
 
 import { TransferResponse } from 'gql/transfer'
 import { AlertStore } from 'stores/AlertStore'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 
 import DeleteDialog from 'components/admin/DeleteDialog'
+
+import { ModalStore } from '../TransferPage'
 
 export default observer(function DeleteModal() {
   const { t } = useTranslation('transfer')
@@ -33,5 +34,5 @@ export default observer(function DeleteModal() {
     mutation.mutate(selectedRecord.id)
   }
 
-  return <DeleteDialog deleteHandler={deleteHandler} />
+  return <DeleteDialog modalStore={ModalStore} deleteHandler={deleteHandler} />
 })
