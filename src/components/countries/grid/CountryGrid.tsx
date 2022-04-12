@@ -3,13 +3,15 @@ import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { DataGrid, GridColumns } from '@mui/x-data-grid'
+import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
 import { useCountriesList } from 'common/hooks/countries'
+import GridActions from 'components/admin/GridActions'
 
+import { ModalStore } from '../CountriesPage'
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
-import GridActions from 'components/admin/GridActions'
 
 const useStyles = makeStyles({
   gridWrapper: {
@@ -67,7 +69,7 @@ const useStyles = makeStyles({
   },
 })
 
-export default function Grid() {
+export default observer(function Grid() {
   const classes = useStyles()
   const [pageSize, setPageSize] = useState(5)
   const { t } = useTranslation('countries')
@@ -96,6 +98,7 @@ export default function Grid() {
       headerAlign: 'left',
       renderCell: (p) => (
         <GridActions
+          modalStore={ModalStore}
           id={p.row.id}
           name={p.row.name}
           editLink={routes.admin.countries.view(p.row.id)}
@@ -134,4 +137,4 @@ export default function Grid() {
       <DeleteModal />
     </>
   )
-}
+})
