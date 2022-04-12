@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
 import { makeStyles } from '@mui/styles'
@@ -10,6 +10,8 @@ import DonationTab from './DonationTab'
 import PersonalInfoTab from './PersonalInfoTab'
 import CertificatesTab from './CertificatesTab'
 import DonationAgreementTab from './DonationAgreementTab'
+import Link from 'components/common/Link'
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles({
   h1: {
@@ -25,15 +27,45 @@ const useStyles = makeStyles({
   },
 })
 
+const tabs = [
+  {
+    slug: 'donations',
+    label: 'Дарения',
+    component: DonationTab,
+    index: 0,
+  },
+  {
+    slug: 'personal-information',
+    label: 'Лична информация',
+    component: PersonalInfoTab,
+    index: 1,
+  },
+  {
+    slug: 'certificates',
+    label: 'Лична информация',
+    component: CertificatesTab,
+    index: 2,
+  },
+  {
+    slug: 'contract-donation',
+    label: 'Договор дарение',
+    component: DonationAgreementTab,
+    index: 3,
+  },
+]
 export default function ProfilePage() {
   const { t } = useTranslation()
-  const [value, setValue] = React.useState(0)
   const { keycloak } = useSession()
   const classes = useStyles()
-
-  const handleChange = (_: SyntheticEvent, value: number) => {
-    setValue(value)
+  const router = useRouter()
+  const findTabToRender = () => {
+    return tabs.find((tab) => tab.slug === router.query.slug)
   }
+  const TabToRender = findTabToRender()
+  useEffect(() => {
+    const foundTab = findTabToRender()
+    if (router.query.slug && !foundTab) router.push('/404')
+  }, [router])
 
   if (!keycloak?.authenticated) {
     return (
@@ -57,18 +89,27 @@ export default function ProfilePage() {
           }}>
           <h1 className={classes.h1}>Дарителски профил</h1>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-              <Tab label="Дарения" />
-              <Tab label="Лична информация" />
-              <Tab label="Сертификати" />
-              <Tab label="Договор дарение" />
+            <Tabs value={TabToRender?.index} aria-label="basic tabs example">
+              <Link href="/profile/donations">
+                <Tab value={0} label="Дарения" />
+              </Link>
+              <Link href="/profile/personal-information">
+                <Tab value={1} label="Лична информация" />
+              </Link>
+              <Link href="/profile/certificates">
+                <Tab value={2} label="Сертификати" />
+              </Link>
+              <Link href="/profile/contract-donation">
+                <Tab value={3} label="Договор дарение" />
+              </Link>
             </Tabs>
           </Box>
         </Box>
-        <DonationTab value={value} index={0} />
-        <PersonalInfoTab value={value} index={1} />
-        <CertificatesTab value={value} index={2} />
-        <DonationAgreementTab value={value} index={3} />
+        {TabToRender ? (
+          <TabToRender.component value={TabToRender.index} index={TabToRender.index} />
+        ) : (
+          'No tab selected'
+        )}
       </Box>
     </Layout>
   )
