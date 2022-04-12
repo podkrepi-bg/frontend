@@ -17,6 +17,7 @@ import DeleteModal from './DeleteModal'
 export default observer(function Grid() {
   const { t } = useTranslation()
   const { data }: UseQueryResult<WithdrawalResponse[]> = useWithdrawalsList()
+  const { isDetailsOpen } = ModalStore
   const [pageSize, setPageSize] = useState(5)
 
   const commonProps: Partial<GridColDef> = {
@@ -142,7 +143,9 @@ export default observer(function Grid() {
           disableSelectionOnClick
         />
       </Box>
-      <DetailsModal />
+
+      {/* making sure we don't sent requests to the API when not needed */}
+      {isDetailsOpen && <DetailsModal />}
       <DeleteModal />
     </>
   )
