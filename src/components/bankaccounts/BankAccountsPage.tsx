@@ -8,10 +8,6 @@ import GridAppbar from './grid/GridAppbar'
 export const ModalStore = new ModalStoreImpl()
 
 export default function BankAccountsPage() {
-  const { selectedIdsToDelete, setSelectedIdsToDelete } = ModalStore
-
-  selectedIdsToDelete.length > 0 ? setSelectedIdsToDelete([]) : null
-
   return (
     <AdminLayout>
       <AdminContainer title={'Банкови сметки'}>
