@@ -9,14 +9,14 @@ import { RecurringDonationResponse } from 'gql/recurring-donation'
 import { useRecurringDonationList } from 'common/hooks/recurringDonation'
 import GridActions from 'components/admin/GridActions'
 
-// import DeleteModal from './DeleteModal'
+import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
 
 export default function Grid() {
   const { t } = useTranslation('recurring-donation')
   const { data }: UseQueryResult<RecurringDonationResponse[]> = useRecurringDonationList()
   const [pageSize, setPageSize] = useState(5)
-  console.log(data)
+
   const commonProps: Partial<GridColDef> = {
     align: 'left',
     width: 150,
@@ -108,7 +108,7 @@ export default function Grid() {
         />
       </Box>
       <DetailsModal />
-      {/* <DeleteModal /> */}
+      <DeleteModal />
     </>
   )
 }
