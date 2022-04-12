@@ -54,11 +54,10 @@ export default function CoordinatorsGrid() {
   ]
 
   const { data }: UseQueryResult<CoordinatorResponse[]> = useCoordinatorsList()
+  const { selectedRecord } = ModalStore
 
   return (
     <>
-      <DetailsModal />
-      <DeleteModal />
       <DataGrid
         style={{
           background: 'white',
@@ -79,6 +78,10 @@ export default function CoordinatorsGrid() {
         autoPageSize
         disableSelectionOnClick
       />
+
+      {/* making sure we don't sent requests to the API when not needed */}
+      {selectedRecord.id != '' && <DetailsModal />}
+      <DeleteModal />
     </>
   )
 }
