@@ -79,8 +79,8 @@ export default observer(function BankAccountsGrid() {
         disableSelectionOnClick
       />
 
-      {/* making sure we don't sent requests to the api when not needed */}
-      {selectedRecord.id != '' ? <DetailsModal /> : null}
+      {/* making sure we don't sent requests to the API when not needed */}
+      {selectedRecord.id != '' && <DetailsModal />}
       <DeleteModal />
     </>
   )
