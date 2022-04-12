@@ -17,6 +17,7 @@ import DetailsModal from './DetailsModal'
 export default observer(function Grid() {
   const { t } = useTranslation('vaults')
   const { data }: UseQueryResult<VaultResponse[]> = useVaultsList()
+  const { isDetailsOpen } = ModalStore
   const [pageSize, setPageSize] = useState(5)
 
   const commonProps: Partial<GridColDef> = {
@@ -100,7 +101,9 @@ export default observer(function Grid() {
           disableSelectionOnClick
         />
       </Box>
-      <DetailsModal />
+
+      {/* making sure we don't sent requests to the API when not needed */}
+      {isDetailsOpen && <DetailsModal />}
       <DeleteModal />
     </>
   )
