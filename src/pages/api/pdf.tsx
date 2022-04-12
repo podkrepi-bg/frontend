@@ -10,8 +10,8 @@ const Handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
   )
   const pdfStream = await ReactPDF.renderToStream(<MyDocument />)
   res.setHeader('Content-Type', 'application/pdf')
-  res.setHeader('Content-disposition', 'attachment;filename="filename.pdf"')
-  res.send(pdfStream)
+  pdfStream.pipe(res)
+  pdfStream.on('end', () => console.log('Done streaming, response sent.'))
 }
 
 export default Handler
