@@ -5,10 +5,11 @@ import { useTranslation } from 'next-i18next'
 
 import { DonationResponse } from 'gql/donations'
 import { useDonation } from 'common/hooks/donation'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 import DetailsDialog from 'components/admin/DetailsDialog'
 import { useVault } from 'common/hooks/vaults'
 import { useViewPerson } from 'service/person'
+
+import { ModalStore } from '../DonationsPage'
 
 export default observer(function DetailsModal() {
   const { selectedRecord } = ModalStore
@@ -33,5 +34,5 @@ export default observer(function DetailsModal() {
     { name: t('person'), value: `${person?.firstName + ' ' + person?.lastName}` },
   ]
 
-  return <DetailsDialog data={dataConverted} />
+  return <DetailsDialog modalStore={ModalStore} data={dataConverted} />
 })
