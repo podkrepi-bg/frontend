@@ -19,6 +19,7 @@ export default observer(function Grid() {
   const { t } = useTranslation('campaign-types')
 
   const { data }: UseQueryResult<CampaignTypesResponse[]> = useCampaignTypesList()
+  const { selectedRecord } = ModalStore
 
   const commonProps: Partial<GridColDef> = {
     align: 'left',
@@ -78,7 +79,9 @@ export default observer(function Grid() {
           disableSelectionOnClick
         />
       </Box>
-      <DetailsModal />
+
+      {/* making sure we don't sent requests to the API when not needed */}
+      {selectedRecord.id != '' && <DetailsModal />}
       <DeleteModal />
     </>
   )
