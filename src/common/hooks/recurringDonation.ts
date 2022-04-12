@@ -21,3 +21,14 @@ export function useRecurringDonation(id: string) {
     authQueryFnFactory<RecurringDonationResponse>(keycloak?.token),
   )
 }
+
+export async function prefetchRecurringDonationById(
+  client: QueryClient,
+  id: string,
+  token?: string,
+) {
+  await client.prefetchQuery<RecurringDonationResponse>(
+    endpoints.recurringDonation.getRecurringDonation(id).url,
+    authQueryFnFactory<RecurringDonationResponse>(token),
+  )
+}
