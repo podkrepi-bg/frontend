@@ -33,5 +33,5 @@ export default observer(function DeleteModal({ mutationFn, translate, endpoint }
     deleteMutation.mutate(selectedRecord.id)
   }
 
-  return <DeleteDialog deleteHandler={deleteHandler} />
+  return <DeleteDialog modalStore={ModalStore} deleteHandler={deleteHandler} />
 })
