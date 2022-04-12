@@ -118,46 +118,38 @@ export default function EditForm() {
           <Grid item xs={6}>
             <RecurringDonationStatusSelect />
           </Grid>
-          {id ? (
-            <></>
-          ) : (
-            <>
-              <Grid item xs={6}>
-                <FormTextField
-                  type="text"
-                  label={t('recurring-donation:personId')}
-                  name="personId"
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <FormTextField
-                  type="text"
-                  label={t('recurring-donation:extSubscriptionId')}
-                  name="extSubscriptionId"
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <FormTextField
-                  type="text"
-                  label={t('recurring-donation:extCustomerId')}
-                  name="extCustomerId"
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <FormTextField type="number" label={t('recurring-donation:amount')} name="amount" />
-              </Grid>
-              <Grid item xs={6}>
-                <CurrencySelect />
-              </Grid>
-              <Grid item xs={6}>
-                <FormTextField
-                  type="text"
-                  label={t('recurring-donation:sourceVault')}
-                  name="sourceVault"
-                />
-              </Grid>
-            </>
-          )}
+          <Grid item xs={6}>
+            <FormTextField type="text" label={t('recurring-donation:personId')} name="personId" />
+          </Grid>
+          <Grid item xs={6}>
+            <FormTextField
+              type="text"
+              label={t('recurring-donation:extSubscriptionId')}
+              name="extSubscriptionId"
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <FormTextField
+              type="text"
+              label={t('recurring-donation:extCustomerId')}
+              name="extCustomerId"
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <FormTextField type="number" label={t('recurring-donation:amount')} name="amount" />
+          </Grid>
+          <Grid item xs={6}>
+            <CurrencySelect />
+          </Grid>
+          <Grid item xs={6}>
+            <FormTextField
+              type="text"
+              label={t('recurring-donation:sourceVault')}
+              name="sourceVault"
+            />
+          </Grid>
+
+          {id ? <></> : <></>}
           <Grid item xs={6}>
             <SubmitButton fullWidth label={t('recurring-donation:cta:submit')} />
           </Grid>
