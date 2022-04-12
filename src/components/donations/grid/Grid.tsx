@@ -25,7 +25,7 @@ export default observer(function Grid() {
   const { t } = useTranslation()
 
   const { data }: UseQueryResult<DonationResponse[]> = useDonationsList()
-  const { selectedRecord } = ModalStore
+  const { isDetailsOpen } = ModalStore
 
   const RenderVaultCell = ({ params }: PersonCellProps) => {
     const vault = useVault(params.row.targetVaultId)
@@ -136,7 +136,7 @@ export default observer(function Grid() {
       </Box>
 
       {/* making sure we don't sent requests to the API when not needed */}
-      {selectedRecord.id != '' && <DetailsModal />}
+      {isDetailsOpen && <DetailsModal />}
       <DeleteModal />
     </>
   )

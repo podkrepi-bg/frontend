@@ -14,7 +14,7 @@ import DetailsModal from './DetailsModal'
 export default observer(function CitiesGrid() {
   const { data } = useCitiesList()
   const { t } = useTranslation()
-  const { selectedRecord } = ModalStore
+  const { isDetailsOpen } = ModalStore
 
   const columns: GridColumns = [
     { field: 'id', headerName: 'ID', hide: true },
@@ -81,7 +81,7 @@ export default observer(function CitiesGrid() {
       />
 
       {/* making sure we don't sent requests to the API when not needed */}
-      {selectedRecord.id != '' && <DetailsModal />}
+      {isDetailsOpen && <DetailsModal />}
       <DeleteModal />
     </>
   )

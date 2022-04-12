@@ -146,7 +146,7 @@ export default observer(function Grid() {
         disableSelectionOnClick
       />
 
-      {/* conditional rendering to avoid unnecessary requests being sent to the API */}
+      {/* making sure we don't sent requests to the API when not needed */}
       {isDetailsOpen && <DetailsModal />}
       <DeleteModal />
     </>
