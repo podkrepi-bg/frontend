@@ -18,7 +18,7 @@ import DeleteModal from './DeleteModal'
 export default observer(function BankAccountsGrid() {
   const { t } = useTranslation('bankaccounts')
   const { data }: UseQueryResult<BankAccountResponse[]> = useBankAccountsList()
-  const { selectedRecord } = ModalStore
+  const { isDetailsOpen } = ModalStore
 
   const columns: GridColumns = [
     { ...commonProps, headerName: t('status'), field: 'status' },
@@ -80,7 +80,7 @@ export default observer(function BankAccountsGrid() {
       />
 
       {/* making sure we don't sent requests to the API when not needed */}
-      {selectedRecord.id != '' && <DetailsModal />}
+      {isDetailsOpen && <DetailsModal />}
       <DeleteModal />
     </>
   )

@@ -18,7 +18,7 @@ export default observer(function Grid() {
   const { t } = useTranslation('benefactor')
   const [pageSize, setPageSize] = useState(5)
   const { data }: UseQueryResult<BenefactorResponse[]> = useBenefactorList()
-  const { selectedRecord } = ModalStore
+  const { isDetailsOpen } = ModalStore
 
   const commonProps: Partial<GridColDef> = {
     align: 'left',
@@ -88,7 +88,7 @@ export default observer(function Grid() {
       </Box>
 
       {/* making sure we don't sent requests to the API when not needed */}
-      {selectedRecord.id != '' && <DetailsModal />}
+      {isDetailsOpen && <DetailsModal />}
       <DeleteModal />
     </>
   )

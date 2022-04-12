@@ -54,7 +54,7 @@ export default function CoordinatorsGrid() {
   ]
 
   const { data }: UseQueryResult<CoordinatorResponse[]> = useCoordinatorsList()
-  const { selectedRecord } = ModalStore
+  const { isDetailsOpen } = ModalStore
 
   return (
     <>
@@ -80,7 +80,7 @@ export default function CoordinatorsGrid() {
       />
 
       {/* making sure we don't sent requests to the API when not needed */}
-      {selectedRecord.id != '' && <DetailsModal />}
+      {isDetailsOpen && <DetailsModal />}
       <DeleteModal />
     </>
   )
