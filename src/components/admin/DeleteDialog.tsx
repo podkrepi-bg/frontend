@@ -10,7 +10,7 @@ type Props = {
   deleteHandler: () => void
 }
 
-export default observer(function DeleteModal({ modalStore, deleteHandler }: Props) {
+export default observer(function DeleteDialog({ modalStore, deleteHandler }: Props) {
   const { isDeleteOpen, hideDelete, selectedRecord } = modalStore
   const { t } = useTranslation('admin')
 
