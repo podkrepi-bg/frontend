@@ -1,15 +1,17 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
 import { DataGrid, GridColumns } from '@mui/x-data-grid'
+import { observer } from 'mobx-react'
 
 import { useCitiesList } from 'common/hooks/cities'
 import { routes } from 'common/routes'
 import GridActions from 'components/admin/GridActions'
 
+import { ModalStore } from '../CityPage'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
 
-export default function CitiesGrid() {
+export default observer(function CitiesGrid() {
   const { data } = useCitiesList()
   const { t } = useTranslation()
 
@@ -45,6 +47,7 @@ export default function CitiesGrid() {
       headerAlign: 'left',
       renderCell: (p) => (
         <GridActions
+          modalStore={ModalStore}
           id={p.row.id}
           name={p.row.name}
           editLink={routes.admin.cities.editCityById(p.row.id)}
@@ -79,4 +82,4 @@ export default function CitiesGrid() {
       <DeleteModal />
     </>
   )
-}
+})
