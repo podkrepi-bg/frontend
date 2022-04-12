@@ -75,6 +75,7 @@ export default observer(function Grid() {
   const { t } = useTranslation('countries')
 
   const { data } = useCountriesList()
+  const { selectedRecord } = ModalStore
 
   const columns: GridColumns = [
     { field: 'id', headerName: 'ID', hide: true },
@@ -133,7 +134,9 @@ export default observer(function Grid() {
           disableSelectionOnClick
         />
       </Box>
-      <DetailsModal />
+
+      {/* making sure we don't sent requests to the API when not needed */}
+      {selectedRecord.id != '' && <DetailsModal />}
       <DeleteModal />
     </>
   )
