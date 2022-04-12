@@ -9,8 +9,9 @@ import { BenefactorResponse } from 'gql/benefactor'
 import GridActions from 'components/admin/GridActions'
 import { useBenefactorList } from 'common/hooks/benefactor'
 
-import DeleteModal from './DeleteModal'
+import { ModalStore } from '../BenefactorPage'
 import DetailsModal from './DetailsModal'
+import DeleteModal from './DeleteModal'
 
 export default function Grid() {
   const { t } = useTranslation('benefactor')
@@ -48,6 +49,7 @@ export default function Grid() {
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
         return (
           <GridActions
+            modalStore={ModalStore}
             id={params.row.id}
             name={params.row.person}
             editLink={routes.admin.benefactor.view(params.row.id)}
