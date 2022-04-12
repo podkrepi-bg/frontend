@@ -10,6 +10,7 @@ import { TransferResponse } from 'gql/transfer'
 import GridActions from 'components/admin/GridActions'
 import { useTransferList } from 'common/hooks/transfers'
 
+import { ModalStore } from '../TransferPage'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
 
@@ -108,6 +109,7 @@ export default observer(function Grid() {
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
         return (
           <GridActions
+            modalStore={ModalStore}
             id={params.row.id}
             name={params.row.id}
             editLink={routes.admin.transfer.view(params.row.id)}
