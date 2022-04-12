@@ -150,4 +150,8 @@ export const endpoints = {
       <Endpoint>{ url: `/recurring-donation/${id}`, method: 'DELETE' },
     deleteRecurringDonations: <Endpoint>{ url: '/recurring-donation/deletemany', method: 'POST' },
   },
+  account: {
+    me: <Endpoint>{ url: '/account/me', method: 'GET' },
+    update: <Endpoint>{ url: '/account/me', method: 'PATCH' },
+  },
 }
