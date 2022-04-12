@@ -1,9 +1,6 @@
-import { observer } from 'mobx-react'
 import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
 import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
 import {
-  Delete as DeleteIcon,
   Add as AddIcon,
   Print as PrintIcon,
   Save as SaveIcon,
@@ -12,9 +9,6 @@ import {
 } from '@mui/icons-material'
 
 import { routes } from 'common/routes'
-import { AlertStore } from 'stores/AlertStore'
-
-import { ModalStore } from '../BankAccountsPage'
 
 const addIconStyles = {
   background: '#4ac3ff',
@@ -32,17 +26,8 @@ const iconStyles = {
   mr: 1,
 }
 
-export default observer(function GridAppBar() {
-  const { showDeleteAll, selectedIdsToDelete } = ModalStore
-  const { t } = useTranslation()
+export default function GridAppbar() {
   const router = useRouter()
-
-  const deleteHandler = () => {
-    selectedIdsToDelete.length > 0
-      ? showDeleteAll()
-      : AlertStore.show(t('common:alerts.noselected'), 'warning')
-  }
-
   return (
     <Toolbar
       sx={{
@@ -59,9 +44,6 @@ export default observer(function GridAppBar() {
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Tooltip title="Преглед">
             <EventNoteIcon sx={iconStyles} fontSize="medium" color="action" />
-          </Tooltip>
-          <Tooltip title="Изтрий избраните">
-            <DeleteIcon onClick={deleteHandler} sx={iconStyles} fontSize="medium" color="action" />
           </Tooltip>
           <Tooltip title="Запази">
             <SaveIcon sx={iconStyles} fontSize="medium" color="action" />
@@ -85,4 +67,4 @@ export default observer(function GridAppBar() {
       </Box>
     </Toolbar>
   )
-})
+}

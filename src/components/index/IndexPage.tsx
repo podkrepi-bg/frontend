@@ -5,16 +5,18 @@ import { useTranslation } from 'next-i18next'
 import Layout from 'components/layout/Layout'
 
 import Jumbotron from './sections/Jumbotron'
-import ActivitySection from './sections/ActivitySection'
-import TeamSection from './sections/TeamSection'
-import TeamChartSection from './sections/TeamChartSection'
-import MissionVisionGoalsSection from './sections/MissionVisionGoalsSection'
-import SupportUsSection from './sections/SupportUsSection'
+import CampaignsSection from './sections/CampaignsSection'
+import HowWeWorkSection from './sections/HowWeWorkSection'
+import ReadyToStartCampaignSection from './sections/ReadyToStartCampaignSection'
+import WhatUnitesUsSection from './sections/WhatUnitesUsSection'
 import { RefObject } from 'react-transition-group/node_modules/@types/react'
+import WantToHelpPodkrepiBgSection from './sections/WantToHelpPodkrepiBg'
+import FaqSection from './sections/FaqSection'
 
 export default function IndexPage() {
   const scrollElement = useRef<HTMLAnchorElement>(null)
   const { t } = useTranslation()
+
   return (
     <Layout
       maxWidth={false}
@@ -22,14 +24,16 @@ export default function IndexPage() {
       disableGutters
       title={t('index:jumbotron.heading')}
       metaDescription={t('index:activity-section.content')}>
-      <Jumbotron scrollTo={scrollElement} />
+      <Jumbotron />
       <Container ref={scrollElement as RefObject<HTMLDivElement>} maxWidth="md">
-        <ActivitySection />
-        <TeamSection />
-        <TeamChartSection />
+        <CampaignsSection />
+        <HowWeWorkSection />
+        <ReadyToStartCampaignSection />
+        <WhatUnitesUsSection />
+        <WantToHelpPodkrepiBgSection />
+        <FaqSection />
+        <ReadyToStartCampaignSection />
       </Container>
-      <MissionVisionGoalsSection />
-      <SupportUsSection />
     </Layout>
   )
 }

@@ -16,7 +16,7 @@ const containerStyles: SxProps<Theme> = {
 
 export type Field = {
   name: string
-  value: string | number | JSX.Element
+  value: React.ReactNode
 }
 
 type Prop = {

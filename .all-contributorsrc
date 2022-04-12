@@ -376,6 +376,40 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "aironhight",
+      "name": "hstoyanov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33146371?v=4",
+      "profile": "https://github.com/aironhight",
+      "contributions": [
+        "code",
+        "doc",
+        "tool"
+      ]
+    },
+    {
+      "login": "LyuboslavLyubenov",
+      "name": "Lyuboslav Tihomirov Lyubenov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14333463?v=4",
+      "profile": "https://github.com/LyuboslavLyubenov",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "platform"
+      ]
+    },
+    {
+      "login": "Bunny303",
+      "name": "Bunny303",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3616912?v=4",
+      "profile": "https://github.com/Bunny303",
+      "contributions": [
+        "code",
+        "doc",
+        "tool"
+      ]
     }
   ],
   "contributorsPerLine": 7,

@@ -90,13 +90,13 @@ function DonationTab(props: { value: number; index: number }) {
             <p style={{ fontSize: '22px' }}>0.00 лв.</p>
           </Box>
           <p>Към момента няма направени дарения</p>
-          <hr></hr>
+          <hr />
 
           <Box className={classes.donates}>
             <h4 className={classes.thinFont}>Тотал онлайн дарения</h4>
             <p style={{ fontSize: '22px' }}>{data.total.toFixed(2)} лв.</p>
           </Box>
-          <hr></hr>
+          <hr />
         </Box>
         <Box className={classes.donateNowBox}>
           <h3 className={classes.h3}>Бъди промяната</h3>
@@ -146,7 +146,7 @@ function DonationTab(props: { value: number; index: number }) {
             <span className={classes.smallText}>от дата</span>
             <DesktopDatePicker
               label="от дата"
-              inputFormat="MM/dd/yyyy"
+              inputFormat="dd/MM/yyyy"
               value={fromDate}
               onChange={(date) => setFromDate(date as Date)}
               renderInput={(params) => <TextField {...params} />}
@@ -154,7 +154,7 @@ function DonationTab(props: { value: number; index: number }) {
             <span className={classes.smallText}>до дата</span>
             <DesktopDatePicker
               label="до дата"
-              inputFormat="MM/dd/yyyy"
+              inputFormat="dd/MM/yyyy"
               value={toDate}
               onChange={(date) => setToDate(date as Date)}
               renderInput={(params) => <TextField {...params} />}
@@ -183,7 +183,7 @@ function DonationTab(props: { value: number; index: number }) {
                     <TableCell>{formatDateString(donation.createdAt)}</TableCell>
                     <TableCell>
                       <Avatar sx={{ background: '#F6992B' }}>
-                        <StarIcon></StarIcon>
+                        <StarIcon />
                       </Avatar>
                     </TableCell>
                     <TableCell>{donation.targetVault.campaign.title}</TableCell>
@@ -192,7 +192,7 @@ function DonationTab(props: { value: number; index: number }) {
                     </TableCell>
                     <TableCell>
                       <Button variant="outlined">
-                        Свали <ArrowForwardIcon></ArrowForwardIcon>
+                        Свали <ArrowForwardIcon />
                       </Button>
                     </TableCell>
                   </TableRow>

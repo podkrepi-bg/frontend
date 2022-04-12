@@ -63,6 +63,12 @@ export const routes = {
       viewCityById: (id: string) => `/admin/cities/details/${id}`,
       editCityById: (id: string) => `/admin/cities/edit/${id}`,
     },
+    campaigns: {
+      index: '/admin/campaigns',
+      create: '/admin/campaigns/create',
+      viewCampaignBySlug: (slug: string) => `/admin/campaigns/${slug}`,
+      edit: (id: string) => `/admin/campaigns/edit/${id}`,
+    },
     withdrawals: {
       index: '/admin/withdrawals',
       create: '/admin/withdrawals/create',
@@ -77,6 +83,11 @@ export const routes = {
       index: '/admin/documents',
       create: '/admin/documents/create',
       edit: (slug: string) => `/admin/documents/${slug}/edit`,
+    },
+    donations: {
+      index: '/admin/donations',
+      create: '/admin/donations/create',
+      edit: (id: string) => `/admin/donations/${id}/edit`,
     },
     beneficiary: {
       index: '/admin/beneficiary',
@@ -93,15 +104,25 @@ export const routes = {
       create: '/admin/countries/create',
       view: (id: string) => `/admin/countries/${id}`,
     },
+    expenses: {
+      index: '/admin/expenses',
+      create: '/admin/expenses/create',
+      view: (id: string) => `/admin/expenses/${id}`,
+    },
     vaults: {
       index: '/admin/vaults',
       create: '/admin/vaults/create',
       edit: (slug: string) => `/admin/vaults/${slug}/edit`,
     },
     benefactor: {
-      index: '/benefactor',
-      view: (id: string) => `/benefactor/${id}`,
-      add: '/benefactor/add',
+      index: '/admin/benefactor',
+      view: (id: string) => `/admin/benefactor/${id}`,
+      add: '/admin/benefactor/add',
+    },
+    transfer: {
+      index: '/admin/transfers',
+      create: '/admin/transfers/create',
+      view: (id: string) => `/admin/transfers/${id}`,
     },
   },
   dev: {

@@ -32,7 +32,7 @@ export default function NotFoundPage() {
             <NotFoundIllustration />
           </Grid>
           <Grid item>
-            <Typography variant="body2">{t('errors:404Message')}</Typography>
+            <Typography variant="body2">{t('common:errors.404Message')}</Typography>
           </Grid>
           <Grid container item alignItems="center" justifyContent="center">
             <LinkButton
@@ -41,7 +41,7 @@ export default function NotFoundPage() {
               color="inherit"
               variant="outlined"
               href={routes.index}>
-              {t('errors:backButtonLabel')}
+              {t('common:errors.backButtonLabel')}
             </LinkButton>
           </Grid>
         </Grid>

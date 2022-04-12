@@ -4,7 +4,7 @@ import { name, phone, email } from 'common/form/validation'
 
 import {
   Benefactor,
-  Person,
+  SupportPerson,
   Member,
   Partner,
   Company,
@@ -24,7 +24,7 @@ function checkboxChecked(this: yup.TestContext, value: { [key: string]: boolean 
   return true
 }
 
-const person: yup.SchemaOf<Person> = yup
+const person: yup.SchemaOf<SupportPerson> = yup
   .object()
   .shape({
     email: email.required(),

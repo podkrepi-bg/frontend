@@ -13,7 +13,7 @@ export function useCoordinatorsList() {
   })
 }
 
-export function useViewCoordinatorResponse(slug: string) {
+export function useViewCoordinator(slug: string) {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return useQuery<CoordinatorResponse>(endpoints.coordinators.viewCoordinator(slug).url, {
     retry: 0,
