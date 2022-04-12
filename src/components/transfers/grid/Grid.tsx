@@ -18,6 +18,7 @@ export default observer(function Grid() {
   const { t } = useTranslation('transfer')
 
   const { data }: UseQueryResult<TransferResponse[]> = useTransferList()
+  const { isDetailsOpen } = ModalStore
 
   const [pageSize, setPageSize] = useState(5)
 
@@ -143,7 +144,9 @@ export default observer(function Grid() {
           disableSelectionOnClick
         />
       </Box>
-      <DetailsModal />
+
+      {/* making sure we don't sent requests to the API when not needed */}
+      {isDetailsOpen && <DetailsModal />}
       <DeleteModal />
     </>
   )
