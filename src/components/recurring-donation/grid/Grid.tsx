@@ -16,7 +16,7 @@ export default function Grid() {
   const { t } = useTranslation('recurring-donation')
   const { data }: UseQueryResult<RecurringDonationResponse[]> = useRecurringDonationList()
   const [pageSize, setPageSize] = useState(5)
-
+  console.log(data)
   const commonProps: Partial<GridColDef> = {
     align: 'left',
     width: 150,
@@ -46,11 +46,17 @@ export default function Grid() {
       field: 'extSubscriptionId',
       headerName: t('extSubscriptionId'),
       ...commonProps,
-      width: 400,
+      width: 300,
     },
     {
       field: 'extCustomerId',
       headerName: t('extCustomerId'),
+      ...commonProps,
+      width: 300,
+    },
+    {
+      field: 'personId',
+      headerName: t('personId'),
       ...commonProps,
       width: 300,
     },
