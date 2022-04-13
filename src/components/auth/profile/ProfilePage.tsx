@@ -1,18 +1,16 @@
-import React, { useEffect } from 'react'
-import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
+import Tab from '@mui/material/Tab'
+import Tabs from '@mui/material/Tabs'
+import React, { useMemo } from 'react'
 import { makeStyles } from '@mui/styles'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+
+import { routes } from 'common/routes'
 import Layout from 'components/layout/Layout'
 import { useSession } from 'common/util/useSession'
-import Tabs from '@mui/material/Tabs'
-import Tab from '@mui/material/Tab'
-import DonationTab from './DonationTab'
-import PersonalInfoTab from './PersonalInfoTab'
-import CertificatesTab from './CertificatesTab'
-import DonationAgreementTab from './DonationAgreementTab'
-import Link from 'components/common/Link'
-import { useRouter } from 'next/router'
-import { routes } from 'common/routes'
+
+import { ProfileTabs, ProfileTab, tabs } from './tabs'
 
 const useStyles = makeStyles({
   h1: {
@@ -28,45 +26,16 @@ const useStyles = makeStyles({
   },
 })
 
-const tabs = [
-  {
-    slug: 'donations',
-    label: 'Дарения',
-    component: DonationTab,
-    index: 0,
-  },
-  {
-    slug: 'personal-information',
-    label: 'Лична информация',
-    component: PersonalInfoTab,
-    index: 1,
-  },
-  {
-    slug: 'certificates',
-    label: 'Лична информация',
-    component: CertificatesTab,
-    index: 2,
-  },
-  {
-    slug: 'contract-donation',
-    label: 'Договор дарение',
-    component: DonationAgreementTab,
-    index: 3,
-  },
-]
 export default function ProfilePage() {
   const { t } = useTranslation()
   const { keycloak } = useSession()
   const classes = useStyles()
   const router = useRouter()
-  const findTabToRender = () => {
-    return tabs.find((tab) => tab.slug === router.query.slug)
-  }
-  const TabToRender = findTabToRender()
-  useEffect(() => {
-    const foundTab = findTabToRender()
-    if (router.query.slug && !foundTab) router.push('/404')
-  }, [router])
+
+  const currentTab = router.query.slug ?? ProfileTabs.donations
+  const tab = useMemo<ProfileTab>(() => {
+    return tabs.find((tab) => tab.slug === currentTab) ?? tabs[0]
+  }, [currentTab])
 
   if (!keycloak?.authenticated) {
     return (
@@ -79,6 +48,8 @@ export default function ProfilePage() {
     )
   }
 
+  const { Component: SelectedTab } = tab
+
   return (
     <Layout profilePage={true}>
       <Box sx={{ width: '100%' }}>
@@ -90,27 +61,31 @@ export default function ProfilePage() {
           }}>
           <h1 className={classes.h1}>Дарителски профил</h1>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={TabToRender?.index} aria-label="basic tabs example">
-              <Link href={routes.profile.donations}>
-                <Tab value={0} label="Дарения" />
-              </Link>
-              <Link href={routes.profile.personalInformation}>
-                <Tab value={1} label="Лична информация" />
-              </Link>
-              <Link href={routes.profile.certificates}>
-                <Tab value={2} label="Сертификати" />
-              </Link>
-              <Link href={routes.profile.contractDonation}>
-                <Tab value={3} label="Договор дарение" />
-              </Link>
+            <Tabs value={tab.slug}>
+              <Tab
+                value={ProfileTabs.donations}
+                label="Дарения"
+                onClick={() => router.push(routes.profile.donations)}
+              />
+              <Tab
+                value={ProfileTabs.personalInformation}
+                label="Лична информация"
+                onClick={() => router.push(routes.profile.personalInformation)}
+              />
+              <Tab
+                value={ProfileTabs.certificates}
+                label="Сертификати"
+                onClick={() => router.push(routes.profile.certificates)}
+              />
+              <Tab
+                value={ProfileTabs.contractDonation}
+                label="Договор дарение"
+                onClick={() => router.push(routes.profile.contractDonation)}
+              />
             </Tabs>
           </Box>
         </Box>
-        {TabToRender ? (
-          <TabToRender.component value={TabToRender.index} index={TabToRender.index} />
-        ) : (
-          'No tab selected'
-        )}
+        {SelectedTab && <SelectedTab />}
       </Box>
     </Layout>
   )

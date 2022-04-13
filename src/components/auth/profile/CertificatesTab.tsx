@@ -1,4 +1,4 @@
-import Tab from './Tab'
+import ProfileTab from './ProfileTab'
 import { Box, Checkbox, Button } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
@@ -19,6 +19,7 @@ import StarIcon from '@mui/icons-material/Star'
 import React from 'react'
 import { useUserDonations } from 'common/hooks/donation'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import { ProfileTabs } from './tabs'
 const useStyles = makeStyles({
   h3: {
     fontFamily: 'Montserrat',
@@ -42,36 +43,22 @@ const useStyles = makeStyles({
     fontFamily: 'Lato, sans-serif',
     fontStyle: 'normal',
     fontWeight: '500',
-    fontSize: '20px',
+    fontSize: '15px',
     lineHeight: '160%',
     letterSpacing: '0.15px',
   },
 })
 
-function CertificatesTab(props: { value: number; index: number }) {
-  const { value, index } = props
+export default function CertificatesTab() {
   const classes = useStyles()
   const { data = { donations: [], total: 0 } } = useUserDonations()
   const [fromDate, setFromDate] = React.useState(new Date())
   const [toDate, setToDate] = React.useState(new Date())
 
   return (
-    <Tab value={value} index={index}>
-      <Box
-        sx={{
-          backgroundColor: 'white',
-          padding: '10px 30px',
-          margin: '10px 0 0 0',
-        }}>
-        <h3 className={classes.h3}>История на сертификати</h3>
-      </Box>
-      <Box
-        sx={{
-          backgroundColor: 'white',
-          flexGrow: 1,
-          padding: '10px 30px',
-        }}>
-        <Box>
+    <ProfileTab name={ProfileTabs.certificates} title="История на сертификати">
+      <Box>
+        <Box sx={{ mt: 4 }}>
           <h3 className={classes.thinFont}>Онлайн дарения</h3>
         </Box>
         <Box
@@ -79,6 +66,7 @@ function CertificatesTab(props: { value: number; index: number }) {
             display: 'flex',
             alignItems: 'baseline',
             justifyContent: 'space-between',
+            mt: 2,
           }}>
           <span className={classes.smallText}>Покажи:</span>
           <Box>
@@ -148,11 +136,9 @@ function CertificatesTab(props: { value: number; index: number }) {
             </Table>
           </TableContainer>
         ) : (
-          <h3 className={classes.h3}>Към момента няма направени дарения</h3>
+          <Box sx={{ fontSize: 20, mt: 4 }}>Към момента няма направени дарения</Box>
         )}
       </Box>
-    </Tab>
+    </ProfileTab>
   )
 }
-
-export default CertificatesTab
