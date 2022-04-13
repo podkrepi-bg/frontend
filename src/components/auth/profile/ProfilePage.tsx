@@ -12,6 +12,7 @@ import CertificatesTab from './CertificatesTab'
 import DonationAgreementTab from './DonationAgreementTab'
 import Link from 'components/common/Link'
 import { useRouter } from 'next/router'
+import { routes } from 'common/routes'
 
 const useStyles = makeStyles({
   h1: {
@@ -90,16 +91,16 @@ export default function ProfilePage() {
           <h1 className={classes.h1}>Дарителски профил</h1>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={TabToRender?.index} aria-label="basic tabs example">
-              <Link href="/profile/donations">
+              <Link href={routes.profile.donations}>
                 <Tab value={0} label="Дарения" />
               </Link>
-              <Link href="/profile/personal-information">
+              <Link href={routes.profile.personalInformation}>
                 <Tab value={1} label="Лична информация" />
               </Link>
-              <Link href="/profile/certificates">
+              <Link href={routes.profile.certificates}>
                 <Tab value={2} label="Сертификати" />
               </Link>
-              <Link href="/profile/contract-donation">
+              <Link href={routes.profile.contractDonation}>
                 <Tab value={3} label="Договор дарение" />
               </Link>
             </Tabs>
