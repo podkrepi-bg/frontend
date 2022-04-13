@@ -1,19 +1,10 @@
-import { GetServerSideProps } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
 import BenefactorAddPage from 'components/benefactor/BenefactorAddPage'
+import { securedPropsWithTranslation } from 'middleware/auth/keycloak'
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
-  return {
-    props: {
-      ...(await serverSideTranslations(locale ?? 'bg', [
-        'common',
-        'auth',
-        'benefactor',
-        'validation',
-      ])),
-    },
-  }
-}
-
+export const getServerSideProps = securedPropsWithTranslation([
+  'common',
+  'auth',
+  'benefactor',
+  'validation',
+])
 export default BenefactorAddPage
