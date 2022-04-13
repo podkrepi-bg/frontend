@@ -65,17 +65,20 @@ export default function ThirdStep() {
     iban: 'BG66 UNCR 7000 1524 3490 32',
     campaign: data?.campaign.title,
   }
-  const options = [t('third-step.card'), t('third-step.bank-payment')]
+  const options = [
+    { values: 'card', label: t('third-step.card') },
+    { values: 'bank', label: t('third-step.bank-payment') },
+  ]
   return (
     <Grid className={classes.body}>
       <Grid>
         <Typography className={classes.h2}>{t('third-step.title')}</Typography>
       </Grid>
-      <Grid container display="flex" justifyContent="center">
-        <RadioGroupFormik name="payment" options={options} />
+      <Grid item mx={10}>
+        <RadioGroupFormik name="payment" options={options as []} />
       </Grid>
       <Grid>
-        <Collapse in={field.value === t('third-step.bank-payment')} timeout="auto" unmountOnExit>
+        <Collapse in={field.value === 'bank'} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <Typography my={2} mx={10} variant="h6">
               {t('third-step.bank-details')}
@@ -118,7 +121,7 @@ export default function ThirdStep() {
             <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
               <Typography>{bankAccountInfo.campaign}</Typography>
               <CopyTextButton
-                text={bankAccountInfo.campaign}
+                text={bankAccountInfo.campaign!}
                 variant="contained"
                 color="info"
                 size="small"

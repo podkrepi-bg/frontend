@@ -26,7 +26,7 @@ const useStyles = makeStyles(() =>
       marginBottom: '20px',
       background: '#D2F0FF',
     },
-    button: {
+    unchecked: {
       width: '309px',
       height: '75px',
       border: '1px solid #000000',
@@ -55,7 +55,7 @@ const useStyles = makeStyles(() =>
 
 export type CheckboxFieldProps = {
   name: string
-  options: string[]
+  options: []
 }
 
 export default function RadioGroupFormik({ name, options }: CheckboxFieldProps) {
@@ -68,20 +68,20 @@ export default function RadioGroupFormik({ name, options }: CheckboxFieldProps) 
   return (
     <FormControl required component="fieldset" error={Boolean(meta.error) && Boolean(meta.touched)}>
       <RadioGroup value={value} row={field.name === 'amount'} name={name}>
-        {options.map((option) => (
+        {options.map(({ values, label }, index) => (
           <FormControlLabel
-            className={value === option ? classes.checked : classes.button}
-            key={option}
-            label={<span style={{ fontSize: '20px' }}>{option}</span>}
+            className={value === values ? classes.checked : classes.unchecked}
+            key={index}
+            label={<span style={{ fontSize: '20px' }}>{label}</span>}
             control={
               <Radio
                 sx={{ '& .MuiSvgIcon-root': { fontSize: 39 } }}
                 icon={<Icon className={classes.iconUncheck} />}
                 checkedIcon={<CheckIcon className={classes.iconCheck} />}
-                checked={Boolean(value === option)}
+                checked={Boolean(value === values)}
                 {...field}
                 onChange={() => {
-                  setValue(option)
+                  setValue(values)
                 }}
               />
             }

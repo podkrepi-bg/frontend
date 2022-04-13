@@ -31,7 +31,14 @@ const useStyles = makeStyles(() =>
     },
   }),
 )
-const amounts = ['2 лв.', '20 лв.', '5 лв.', '50 лв.', '10 лв.', '100 лв.']
+const amounts = [
+  { values: '2', label: '2 лв.' },
+  { values: '20', label: '20 лв.' },
+  { values: '5', label: '5 лв.' },
+  { values: '50', label: '50 лв.' },
+  { values: '10', label: '10 лв.' },
+  { values: '100', label: '100 лв.' },
+]
 export default function FirstStep() {
   const classes = useStyles()
   const { t } = useTranslation('one-time-donation')
@@ -60,7 +67,7 @@ export default function FirstStep() {
         <Typography className={classes.h3}>{t('first-step.amount')}</Typography>
       </Grid>
       <Grid className={classes.body} my={5}>
-        <RadioGroupFormik name="amount" options={amounts} />
+        <RadioGroupFormik name="amount" options={amounts as []} />
       </Grid>
     </Grid>
   )
