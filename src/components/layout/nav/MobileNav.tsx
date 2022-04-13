@@ -52,7 +52,7 @@ export const AuthLinks = () => {
     return (
       <>
         <Grid item>
-          <LinkButton fullWidth variant="outlined" href={routes.profile}>
+          <LinkButton fullWidth variant="outlined" href={routes.profile.index}>
             {t('nav.profile')}
           </LinkButton>
         </Grid>

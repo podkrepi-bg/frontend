@@ -1,22 +1,25 @@
 import React from 'react'
-import { Box, Checkbox, Button } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import { useUserDonations } from 'common/hooks/donation'
-import Tab from './Tab'
 import Table from '@mui/material/Table'
+import Avatar from '@mui/material/Avatar'
+import TableRow from '@mui/material/TableRow'
+import StarIcon from '@mui/icons-material/Star'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import { formatDateString } from 'common/util/date'
-import DesktopDatePicker from '@mui/lab/DesktopDatePicker'
 import TextField from '@mui/material/TextField'
+import { formatDateString } from 'common/util/date'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
-import LocalizationProvider from '@mui/lab/LocalizationProvider'
-import Avatar from '@mui/material/Avatar'
-import StarIcon from '@mui/icons-material/Star'
+import { Box, Checkbox, Button } from '@mui/material'
+import { useUserDonations } from 'common/hooks/donation'
+import TableContainer from '@mui/material/TableContainer'
+import DesktopDatePicker from '@mui/lab/DesktopDatePicker'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import LocalizationProvider from '@mui/lab/LocalizationProvider'
+
+import ProfileTab from './ProfileTab'
+import { ProfileTabs } from './tabs'
+
 const useStyles = makeStyles({
   thinFont: {
     fontFamily: 'Montserrat',
@@ -58,29 +61,20 @@ const useStyles = makeStyles({
     fontFamily: 'Lato, sans-serif',
     fontStyle: 'normal',
     fontWeight: '500',
-    fontSize: '20px',
+    fontSize: '15px',
     lineHeight: '160%',
     letterSpacing: '0.15px',
   },
 })
 
-function DonationTab(props: { value: number; index: number }) {
-  const { value, index } = props
+export default function DonationTab() {
   const classes = useStyles()
   const { data = { donations: [], total: 0 } } = useUserDonations()
   const [fromDate, setFromDate] = React.useState(new Date())
   const [toDate, setToDate] = React.useState(new Date())
 
   return (
-    <Tab value={value} index={index}>
-      <Box
-        sx={{
-          backgroundColor: 'white',
-          padding: '10px 30px',
-          margin: '10px 0 0 0',
-        }}>
-        <h3 className={classes.h3}>Абонамент месечни дарения</h3>
-      </Box>
+    <ProfileTab name={ProfileTabs.donations} title="Абонамент месечни дарения">
       <Box sx={{ display: 'flex' }}>
         <Box className={classes.allDonatesBox}>
           <h3 style={{ fontSize: '16px', margin: 0 }}>Дарения</h3>
@@ -93,7 +87,7 @@ function DonationTab(props: { value: number; index: number }) {
           <hr />
 
           <Box className={classes.donates}>
-            <h4 className={classes.thinFont}>Тотал онлайн дарения</h4>
+            <h4 className={classes.thinFont}>Общо онлайн дарения</h4>
             <p style={{ fontSize: '22px' }}>{data.total.toFixed(2)} лв.</p>
           </Box>
           <hr />
@@ -123,6 +117,7 @@ function DonationTab(props: { value: number; index: number }) {
           backgroundColor: 'white',
           flexGrow: 1,
           padding: '10px 30px',
+          mt: 2,
         }}>
         <Box>
           <h3 className={classes.thinFont}>Онлайн дарения</h3>
@@ -132,6 +127,7 @@ function DonationTab(props: { value: number; index: number }) {
             display: 'flex',
             alignItems: 'baseline',
             justifyContent: 'space-between',
+            mt: 2,
           }}>
           <span className={classes.smallText}>Покажи:</span>
           <Box>
@@ -201,11 +197,9 @@ function DonationTab(props: { value: number; index: number }) {
             </Table>
           </TableContainer>
         ) : (
-          <h3 className={classes.h3}>Към момента няма направени дарения</h3>
+          <Box sx={{ fontSize: 20, mt: 4 }}>Към момента няма направени дарения</Box>
         )}
       </Box>
-    </Tab>
+    </ProfileTab>
   )
 }
-
-export default DonationTab
