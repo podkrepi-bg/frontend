@@ -1,11 +1,10 @@
-import { securedPropsWithTranslation } from 'middleware/auth/keycloak'
+import { securedAdminProps } from 'middleware/auth/keycloak'
 import BenefactorEditPage from 'components/benefactor/BenefactorEditPage'
+import { endpoints } from 'service/apiEndpoints'
 
-export const getServerSideProps = securedPropsWithTranslation([
-  'common',
-  'auth',
-  'benefactor',
-  'validation',
-])
+export const getServerSideProps = securedAdminProps(
+  ['common', 'auth', 'benefactor', 'validation'],
+  (ctx) => endpoints.benefactor.editBenefactor(ctx.query.id as string).url,
+)
 
 export default BenefactorEditPage

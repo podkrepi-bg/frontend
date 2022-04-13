@@ -1,12 +1,10 @@
-import { securedPropsWithTranslation } from 'middleware/auth/keycloak'
+import { securedAdminProps } from 'middleware/auth/keycloak'
 import BankAccountsEditPage from 'components/bankaccounts/BankAccountsEditPage'
+import { endpoints } from 'service/apiEndpoints'
 
-export const getServerSideProps = securedPropsWithTranslation([
-  'common',
-  'auth',
-  'validation',
-  'admin',
-  'bankaccounts',
-])
+export const getServerSideProps = securedAdminProps(
+  ['common', 'auth', 'validation', 'admin', 'bankaccounts'],
+  (ctx) => endpoints.bankAccounts.editBankAccount(ctx.query.id as string).url,
+)
 
 export default BankAccountsEditPage

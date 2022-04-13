@@ -1,12 +1,10 @@
 import EditPage from 'components/campaign-types/EditPage'
-import { securedPropsWithTranslation } from 'middleware/auth/keycloak'
+import { securedAdminProps } from 'middleware/auth/keycloak'
+import { endpoints } from 'service/apiEndpoints'
 
-export const getServerSideProps = securedPropsWithTranslation([
-  'common',
-  'auth',
-  'campaign-types',
-  'validation',
-  'documents',
-])
+export const getServerSideProps = securedAdminProps(
+  ['common', 'auth', 'campaign-types', 'validation', 'documents'],
+  (ctx) => endpoints.campaignTypes.viewCampaignType(ctx.query.id as string).url,
+)
 
 export default EditPage

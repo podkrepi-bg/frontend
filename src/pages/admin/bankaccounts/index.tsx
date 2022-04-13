@@ -1,11 +1,9 @@
 import BankAccountsPage from 'components/bankaccounts/BankAccountsPage'
-import { securedPropsWithTranslation } from 'middleware/auth/keycloak'
+import { securedAdminProps } from 'middleware/auth/keycloak'
+import { endpoints } from 'service/apiEndpoints'
 
-export const getServerSideProps = securedPropsWithTranslation([
-  'common',
-  'auth',
-  'validation',
-  'admin',
-  'bankaccounts',
-])
+export const getServerSideProps = securedAdminProps(
+  ['common', 'auth', 'validation', 'admin', 'bankaccounts'],
+  () => endpoints.bankAccounts.bankAccountList.url,
+)
 export default BankAccountsPage
