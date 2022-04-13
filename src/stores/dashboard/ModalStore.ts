@@ -48,5 +48,3 @@ export class ModalStoreImpl {
     this.selectedRecord = record
   }
 }
-
-export const ModalStore = new ModalStoreImpl() //to be removed
