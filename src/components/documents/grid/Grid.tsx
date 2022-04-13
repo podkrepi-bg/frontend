@@ -3,19 +3,22 @@ import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
 import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
 import { DocumentResponse } from 'gql/document'
 import GridActions from 'components/admin/GridActions'
 import { useDocumentsList } from 'common/hooks/documents'
 
+import { ModalStore } from '../DocumentsPage'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
 
-export default function Grid() {
+export default observer(function Grid() {
   const [pageSize, setPageSize] = useState(5)
   const { t } = useTranslation()
   const { data }: UseQueryResult<DocumentResponse[]> = useDocumentsList()
+  const { isDetailsOpen } = ModalStore
 
   const commonProps: Partial<GridColDef> = {
     align: 'left',
@@ -64,6 +67,7 @@ export default function Grid() {
       renderCell: (cellValues: GridRenderCellParams) => {
         return (
           <GridActions
+            modalStore={ModalStore}
             id={cellValues.row.id}
             name={cellValues.row.name}
             editLink={routes.admin.documents.edit(cellValues.row.id)}
@@ -98,8 +102,10 @@ export default function Grid() {
           disableSelectionOnClick
         />
       </Box>
-      <DetailsModal />
+
+      {/* making sure we don't sent requests to the API when not needed */}
+      {isDetailsOpen && <DetailsModal />}
       <DeleteModal />
     </>
   )
-}
+})
