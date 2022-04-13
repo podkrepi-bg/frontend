@@ -3,26 +3,29 @@ import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
 import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
 import { useVault } from 'common/hooks/vaults'
+import { useDonationsList } from 'common/hooks/donation'
 import { useViewPerson } from 'service/person'
 import { DonationResponse } from 'gql/donations'
 import GridActions from 'components/admin/GridActions'
-import { useDonationsList } from 'common/hooks/donation'
 
 import DetailsModal from '../modals/DetailsModal'
 import DeleteModal from '../modals/DeleteModal'
+import { ModalStore } from '../DonationsPage'
 
 interface PersonCellProps {
   params: GridRenderCellParams
 }
 
-export default function Grid() {
+export default observer(function Grid() {
   const [pageSize, setPageSize] = useState(5)
   const { t } = useTranslation()
 
   const { data }: UseQueryResult<DonationResponse[]> = useDonationsList()
+  const { isDetailsOpen } = ModalStore
 
   const RenderVaultCell = ({ params }: PersonCellProps) => {
     const vault = useVault(params.row.targetVaultId)
@@ -96,6 +99,7 @@ export default function Grid() {
       renderCell: (cellValues: GridRenderCellParams) => {
         return (
           <GridActions
+            modalStore={ModalStore}
             id={cellValues.row.id}
             name={cellValues.row.name}
             editLink={routes.admin.donations.edit(cellValues.row.id)}
@@ -131,8 +135,9 @@ export default function Grid() {
         />
       </Box>
 
-      <DetailsModal />
+      {/* making sure we don't sent requests to the API when not needed */}
+      {isDetailsOpen && <DetailsModal />}
       <DeleteModal />
     </>
   )
-}
+})
