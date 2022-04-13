@@ -50,6 +50,15 @@ const moduleExports = {
     domains: [process.env.IMAGE_HOST || 'localhost'],
   },
   swcMinify: true,
+  async redirects() {
+    return [
+      {
+        source: '/profile',
+        destination: '/profile/donations',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 const SentryWebpackPluginOptions = {
