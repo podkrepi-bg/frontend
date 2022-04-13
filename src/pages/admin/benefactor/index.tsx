@@ -1,12 +1,10 @@
-import { securedPropsWithTranslation } from 'middleware/auth/keycloak'
+import { securedAdminProps } from 'middleware/auth/keycloak'
 import BenefactorPage from 'components/benefactor/BenefactorPage'
+import { endpoints } from 'service/apiEndpoints'
 
-export const getServerSideProps = securedPropsWithTranslation([
-  'common',
-  'auth',
-  'benefactor',
-  'admin',
-  'validation',
-])
+export const getServerSideProps = securedAdminProps(
+  ['common', 'auth', 'benefactor', 'admin', 'validation'],
+  () => endpoints.benefactor.benefactorList.url,
+)
 
 export default BenefactorPage

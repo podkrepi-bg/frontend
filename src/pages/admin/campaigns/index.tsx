@@ -1,10 +1,9 @@
 import CampaignsPage from 'components/campaigns/grid/CampaignPage'
-import { securedPropsWithTranslation } from 'middleware/auth/keycloak'
+import { securedAdminProps } from 'middleware/auth/keycloak'
+import { endpoints } from 'service/apiEndpoints'
 
-export const getServerSideProps = securedPropsWithTranslation([
-  'common',
-  'auth',
-  'validation',
-  'campaigns',
-])
+export const getServerSideProps = securedAdminProps(
+  ['common', 'auth', 'validation', 'campaigns'],
+  () => endpoints.campaign.listCampaigns.url,
+)
 export default CampaignsPage
