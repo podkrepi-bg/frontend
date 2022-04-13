@@ -1,17 +1,11 @@
-import { GetServerSideProps } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
 import CreateCampaignPageGrid from 'components/campaigns/grid/CreatePage'
+import { securedPropsWithTranslation } from 'middleware/auth/keycloak'
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale ?? 'bg', [
-      'common',
-      'auth',
-      'validation',
-      'campaigns',
-    ])),
-  },
-})
+export const getServerSideProps = securedPropsWithTranslation([
+  'common',
+  'auth',
+  'validation',
+  'campaigns',
+])
 
 export default CreateCampaignPageGrid

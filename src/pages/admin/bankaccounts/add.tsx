@@ -1,18 +1,12 @@
-import { GetServerSideProps } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
 import BankAccountsAddPage from 'components/bankaccounts/BankAccountsAddPage'
+import { securedPropsWithTranslation } from 'middleware/auth/keycloak'
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale ?? 'bg', [
-      'common',
-      'auth',
-      'validation',
-      'admin',
-      'bankaccounts',
-    ])),
-  },
-})
+export const getServerSideProps = securedPropsWithTranslation([
+  'common',
+  'auth',
+  'validation',
+  'admin',
+  'bankaccounts',
+])
 
 export default BankAccountsAddPage
