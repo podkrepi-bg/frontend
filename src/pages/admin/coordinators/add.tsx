@@ -1,19 +1,13 @@
-import { GetServerSideProps } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
 import CoordinatorAddPage from 'components/coordinators/CoordinatorAddPage'
+import { securedPropsWithTranslation } from 'middleware/auth/keycloak'
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
-  props: {
-    ...(await serverSideTranslations(locale ?? 'bg', [
-      'common',
-      'auth',
-      'validation',
-      'bankaccounts',
-      'coordinator',
-      'admin',
-    ])),
-  },
-})
+export const getServerSideProps = securedPropsWithTranslation([
+  'common',
+  'auth',
+  'validation',
+  'bankaccounts',
+  'coordinator',
+  'admin',
+])
 
 export default CoordinatorAddPage
