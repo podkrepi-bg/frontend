@@ -3,8 +3,9 @@ import { parseCookies } from 'nookies'
 import { GetServerSideProps, GetServerSidePropsContext } from 'next'
 import { getKeycloakInstance, SSRCookies } from '@react-keycloak/ssr'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
 import { routes } from 'common/routes'
+import { dehydrate, QueryClient } from 'react-query'
+import { authQueryFnFactory } from 'service/restRequests'
 
 const {
   publicRuntimeConfig: { keycloakConfig },
@@ -69,3 +70,25 @@ export const securedPropsWithTranslation: (
     }
     return response
   }
+
+export const securedAdminProps: (
+  namespaces?: string[],
+  resolveEndpoint?: (ctx: GetServerSidePropsContext) => string,
+) => GetServerSideProps<ServerUser> = (namespaces, resolveEndpoint) => async (ctx) => {
+  const result = securedPropsWithTranslation(namespaces)
+  const response = await result(ctx)
+  if ('props' in response) {
+    const client = new QueryClient()
+    if (resolveEndpoint) {
+      const { userToken } = await response.props
+      await client.prefetchQuery(resolveEndpoint(ctx), authQueryFnFactory(userToken))
+    }
+    return {
+      props: {
+        ...response.props,
+        dehydratedState: dehydrate(client),
+      },
+    }
+  }
+  return response
+}
