@@ -51,7 +51,7 @@ export default function LoginForm({ csrfToken, initialValues = defaults }: Login
 
       const result = await keycloak?.login({
         loginHint: values.email,
-        redirectUri: `${baseUrl}${routes.profile}`,
+        redirectUri: `${baseUrl}${routes.profile.index}`,
       })
 
       // const { error, status, ok, url }: LoginResponse = await signIn('credentials', {

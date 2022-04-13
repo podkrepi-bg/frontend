@@ -41,7 +41,7 @@ export default function RegisterForm({ initialValues = defaults }: RegisterFormP
   const onSubmit = async (values: RegisterFormData) => {
     const result = await keycloak?.register({
       loginHint: values.email, // Doesn't work with registration, see https://stackoverflow.com/q/63117669/668245
-      redirectUri: `${baseUrl}${routes.profile}`,
+      redirectUri: `${baseUrl}${routes.profile.index}`,
     })
     console.log(values)
     console.log({ result })
