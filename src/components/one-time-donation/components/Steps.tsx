@@ -35,15 +35,14 @@ const steps: StepType[] = [
 
 const initialValues: OneTimeDonation = {
   message: '',
-  anonimus: true,
+  anonimus: false,
   amount: '',
-  anonimusDonation: true,
+  anonimusDonation: false,
   name: '',
   email: '',
   phone: '',
   payment: 'bank',
 }
-// const sleep = (time) => new Promise((acc) => setTimeout(acc, time))
 
 export default function DonationStepper() {
   const { t } = useTranslation('one-time-donation')
@@ -53,35 +52,40 @@ export default function DonationStepper() {
       .defined()
       .shape({
         message: yup.string().notRequired(),
-        anonimus: yup.bool().required().oneOf([true], t('errors-fields.checkbox-anonimus')),
+        anonimus: yup.bool().required(),
         amount: yup.string().required(t('errors-fields.amount')),
       }),
     yup
       .object()
       .defined()
       .shape({
-        anonimusDonation: yup
-          .boolean()
-          .required()
-          .oneOf([true], t('errors-fields.checkbox-anonimus')),
-        email: email.required(),
-        name: name.required(),
-        phone: phone.required(),
+        anonimusDonation: yup.boolean().when('anonimus', {
+          is: false,
+          then: yup.boolean().required().oneOf([true], t('errors-fields.checkbox-anonimus')),
+        }),
+        email: email.when('anonimusDonation', {
+          is: true,
+          then: email.required(),
+        }),
+        name: name.when('anonimusDonation', {
+          is: true,
+          then: name.required(),
+        }),
+        phone: phone.when('anonimusDonation', {
+          is: true,
+          then: phone.required(),
+        }),
       }),
     yup
       .object()
       .defined()
       .shape({
-        payment: yup
-          .string()
-          .required()
-          .oneOf([t('third-step.bank-payment')], t('errors-fields.bank-payment')),
+        payment: yup.string().required().oneOf(['bank'], t('errors-fields.bank-payment')),
       }),
   ]
   return (
     <FormikStepper
       onSubmit={async (values) => {
-        // await sleep(3000)
         console.log('values', values)
       }}
       initialValues={initialValues}>
