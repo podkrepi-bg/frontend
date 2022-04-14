@@ -1,14 +1,16 @@
 import React from 'react'
-import ReactPDF from '@react-pdf/renderer'
+import { Document, Page, Text, renderToStream } from '@react-pdf/renderer'
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
 const Handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const MyDocument = () => (
-    <ReactPDF.Document>
-      <ReactPDF.Text>mdmdmd</ReactPDF.Text>
-    </ReactPDF.Document>
+    <Document>
+      <Page size="A4">
+        <Text>mdmdmd</Text>
+      </Page>
+    </Document>
   )
-  const pdfStream = await ReactPDF.renderToStream(<MyDocument />)
+  const pdfStream = await renderToStream(<MyDocument />)
   res.setHeader('Content-Type', 'application/pdf')
   pdfStream.pipe(res)
   pdfStream.on('end', () => console.log('Done streaming, response sent.'))
