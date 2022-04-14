@@ -4,7 +4,8 @@ import { Container } from '@mui/material'
 
 import Layout from 'components/layout/Layout'
 
-import CampaignForm from './CampaignForm'
+// import CampaignForm from './CampaignForm'
+import CampaignCreateForm from './create-form/CampaignCreateForm' // => stepper form
 
 export default function CreateCampaignPage() {
   const { t } = useTranslation()
@@ -16,7 +17,7 @@ export default function CreateCampaignPage() {
       githubUrl="https://github.com/podkrepi-bg/frontend/tree/master/src/components/campaigns/CreateCampaignPage.tsx"
       figmaUrl="https://www.figma.com/file/MmvFKzUv6yE5U2wrOpWtwS/Podkrepi.bg?node-id=5055%3A21345">
       <Container maxWidth="sm">
-        <CampaignForm />
+        <CampaignCreateForm />
       </Container>
     </Layout>
   )
