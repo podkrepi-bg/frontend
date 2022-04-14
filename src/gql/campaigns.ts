@@ -1,6 +1,8 @@
 import { UUID } from './types'
 import type { CampaignFileRole } from 'components/campaign-file/roles'
 import type { CampaignTypeCategory } from 'components/campaign-types/categories'
+import { Currency } from './currency'
+import { PaymentProvider } from './donations'
 
 export type CampaignType = {
   id: UUID
@@ -98,4 +100,24 @@ export type CampaignInput = {
 
 export type CampaignUploadImage = {
   title: string
+}
+
+export type CampaignDonation = {
+  id: UUID
+  type: string
+  status: string
+  provider: PaymentProvider
+  targetVaultId: UUID
+  extCustomerId: UUID
+  extPaymentIntentId: UUID
+  extPaymentMethodId: UUID
+  createdAt: string
+  updatedAt: string | undefined
+  amount: number
+  currency: Currency
+  personId: UUID
+  person: {
+    firstName: string
+    lastName: string
+  }
 }

@@ -5,30 +5,9 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 import { useTranslation } from 'next-i18next'
-
-type DonationItem = {
-  donorName: string
-  donatedMoney: string
-  donationTime?: string
-}
-
-const allDonationItem: DonationItem[] = [
-  {
-    donorName: 'Donor 1',
-    donatedMoney: '10lv',
-    donationTime: '1 hour ago',
-  },
-  {
-    donorName: 'Donor 2',
-    donatedMoney: '100lv',
-    donationTime: '20 hours ago',
-  },
-  {
-    donorName: 'Donor 3',
-    donatedMoney: '1000lv',
-    donationTime: '21 hours ago',
-  },
-]
+import { CampaignDonation } from 'gql/campaigns'
+import { parseISO } from 'date-fns'
+import { getDurationUntilNow, formatDuration } from 'common/util/date'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -56,23 +35,27 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-export default function DonorsAndDonations() {
+export default function DonorsAndDonations({
+  donations,
+}: {
+  donations: CampaignDonation[] | undefined
+}) {
   const classes = useStyles()
   const { t } = useTranslation()
-
   return (
     <Grid item className={classes.donationsWrapper}>
-      {allDonationItem.map(({ donorName, donatedMoney, donationTime }, key) => (
+      {donations?.map(({ person, amount, createdAt }, key) => (
         <Grid key={key} className={classes.donationItemWrapper}>
           <AccountCircleIcon fontSize="large" color="disabled" />
           <Grid>
             <Typography>
-              {t('campaigns:cta.donor')} {key + 1}. {donorName}
+              {t('campaigns:cta.donor')} {key + 1}.{' '}
+              {person ? person.firstName + ' ' + person.lastName : 'Anonymous'}
             </Typography>
             <Grid className={classes.donationQuantityAndTimeWrapper}>
-              <Typography>{donatedMoney}</Typography>
+              <Typography>{amount}</Typography>
               <FiberManualRecordIcon className={classes.separatorIcon} />
-              <Typography>{donationTime}</Typography>
+              <Typography>{formatDuration(getDurationUntilNow(parseISO(createdAt)))}</Typography>
             </Grid>
           </Grid>
         </Grid>

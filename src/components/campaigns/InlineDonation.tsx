@@ -12,6 +12,7 @@ import { Favorite } from '@mui/icons-material'
 import ShareIcon from '@mui/icons-material/Share'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
+import { useCampaignDonationHistory } from 'common/hooks/campaigns'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -62,6 +63,7 @@ export default function InlineDonation({ campaign }: Props) {
   const summary = campaign.summary.find(() => true)
   const reached = summary ? summary.reachedAmount : 0
   const { data: prices } = useSinglePriceList()
+  const donations = useCampaignDonationHistory(campaign.id)
   const mutation = useDonationSession()
 
   const donate = useCallback(
@@ -148,7 +150,7 @@ export default function InlineDonation({ campaign }: Props) {
           </List>
         )}
       </Grid>
-      <DonorsAndDonations />
+      <DonorsAndDonations donations={donations.data} />
       {/* <pre>{JSON.stringify(prices, null, 2)}</pre> */}
     </Grid>
   )
