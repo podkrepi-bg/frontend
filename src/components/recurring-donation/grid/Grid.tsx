@@ -26,7 +26,7 @@ export default function Grid() {
   const columns: GridColumns = [
     {
       field: 'status',
-      headerName: t('status'),
+      headerName: t('recurring-donation:status'),
       flex: 1.5,
       ...commonProps,
     },
