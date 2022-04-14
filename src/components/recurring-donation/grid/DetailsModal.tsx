@@ -13,6 +13,7 @@ export default observer(function DetailsModal() {
   const { data }: UseQueryResult<RecurringDonationResponse> = useRecurringDonation(
     selectedRecord.id,
   )
+  console.log(data)
   const { t } = useTranslation('recurring-donation')
 
   const dataConverted = [

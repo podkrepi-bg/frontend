@@ -26,15 +26,9 @@ export default function RecurringDonationStatusSelect({ name = 'status' }) {
       size="small"
       variant="outlined"
       error={Boolean(meta.error) && Boolean(meta.touched)}>
-      <FormTextField
-        select
-        type="text"
-        fullWidth
-        defaultValue=""
-        label={t('fields.' + name)}
-        {...field}>
+      <FormTextField select type="text" fullWidth defaultValue="" label={t(name)} {...field}>
         <MenuItem value="" disabled>
-          {t('fields.' + name)}
+          {t(name)}
         </MenuItem>
         {values?.map((value, index) => (
           <MenuItem key={index} value={value}>
