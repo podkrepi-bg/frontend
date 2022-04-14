@@ -142,11 +142,7 @@ export default function EditForm() {
             <CurrencySelect />
           </Grid>
           <Grid item xs={6}>
-            <FormTextField
-              type="text"
-              label={t('recurring-donation:sourceVault')}
-              name="sourceVault"
-            />
+            <FormTextField type="text" label={t('recurring-donation:vaultId')} name="sourceVault" />
           </Grid>
 
           {id ? <></> : <></>}
