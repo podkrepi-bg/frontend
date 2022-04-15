@@ -31,8 +31,8 @@ const useStyles = makeStyles({
     margin: '0',
     marginLeft: '10px',
   },
-  tab: {
-    minWidth: 65,
+  tabMobile: {
+    flex: 1,
   },
 })
 
@@ -73,7 +73,7 @@ export default function ProfilePage() {
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={tab.slug}>
               <Tab
-                className={classes.tab}
+                className={matches ? classes.tabMobile : ''}
                 value={ProfileTabs.donations}
                 label={matches ? undefined : t('auth:profile.donations')}
                 aria-label={matches ? t('auth:profile.donations') : undefined}
@@ -81,7 +81,7 @@ export default function ProfilePage() {
                 icon={matches ? <DonationIcon /> : undefined}
               />
               <Tab
-                className={classes.tab}
+                className={matches ? classes.tabMobile : ''}
                 value={ProfileTabs.personalInformation}
                 label={matches ? undefined : t('auth:profile.personalInformation')}
                 aria-label={matches ? t('auth:profile.personalInformation') : undefined}
@@ -89,7 +89,7 @@ export default function ProfilePage() {
                 icon={matches ? <AccountBoxIcon /> : undefined}
               />
               <Tab
-                className={classes.tab}
+                className={matches ? classes.tabMobile : ''}
                 value={ProfileTabs.certificates}
                 label={matches ? undefined : t('auth:profile.certificates')}
                 aria-label={matches ? t('auth:profile.certificates') : undefined}
@@ -97,7 +97,7 @@ export default function ProfilePage() {
                 icon={matches ? <CertificateIcon /> : undefined}
               />
               <Tab
-                className={classes.tab}
+                className={matches ? classes.tabMobile : ''}
                 value={ProfileTabs.contractDonation}
                 label={matches ? undefined : t('auth:profile.donationsContract')}
                 aria-label={matches ? t('auth:profile.donationsContract') : undefined}
