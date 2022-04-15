@@ -45,7 +45,7 @@ export default function DonorsAndDonations({
 }) {
   const classes = useStyles()
   const { t } = useTranslation()
-  const [donationsToShow, setDonationsToShow] = useState<CampaignDonation[] | undefined>(undefined)
+  const [donationsToShow, setDonationsToShow] = useState<CampaignDonation[] | undefined>()
   const [all, setAll] = useState<boolean>(false)
   useEffect(() => {
     all ? setDonationsToShow(donations) : setDonationsToShow(donations?.slice(0, 1))
