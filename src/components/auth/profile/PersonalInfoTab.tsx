@@ -73,7 +73,6 @@ function PersonalInfoTab(props: { value: number; index: number }) {
   const [isUpdateNameModalOpen, setIsUpdateNameModalOpen] = useState(false)
   const [isUpdateBirthdayModalOpen, setIsUpdateBirthdayModalOpen] = useState(false)
   const classes = useStyles()
-
   return (
     <>
       <Tab value={value} index={index}>
