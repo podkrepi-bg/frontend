@@ -15,6 +15,7 @@ import GridActions from 'components/admin/GridActions'
 import DetailsModal from '../modals/DetailsModal'
 import DeleteModal from '../modals/DeleteModal'
 import { ModalStore } from '../DonationsPage'
+import { getExactDate } from 'common/util/date'
 
 interface PersonCellProps {
   params: GridRenderCellParams
@@ -90,6 +91,14 @@ export default observer(function Grid() {
       field: 'currency',
       headerName: t('donations:currency'),
       ...commonProps,
+    },
+    {
+      field: 'createdAt',
+      headerName: t('donations:createdAt'),
+      ...commonProps,
+      renderCell: (params: GridRenderCellParams) => {
+        return getExactDate(params?.row.createdAt)
+      },
     },
     {
       field: 'actions',

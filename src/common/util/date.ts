@@ -1,7 +1,7 @@
 import { Duration, format, formatRelative, intervalToDuration } from 'date-fns'
 
-export const formatDate = 'yyyy-MM-dd'
-export const formatDatetime = 'yyyy-MM-dd H:ii:ss'
+export const formatDate = 'dd-MM-yyyy'
+export const formatDatetime = 'dd-MM-yyyy H:ii:ss'
 
 export const dateFormatter = (value: Date | string | number) => {
   const date = new Date(value)
@@ -24,10 +24,18 @@ export const getRelativeDate = (value: Date | string) => {
   return formatRelative(date, new Date())
 }
 
+/**
+ * Gets the duration in time from the specified date until now
+ * @param date Date to get the interval from
+ */
 export const getDurationUntilNow = (date: Date) => {
   return intervalToDuration({ start: date, end: new Date() })
 }
 
+/**
+ * Formats the given duration into a `{duration} {time} ago` string
+ * @param duration A date-fns `Duration` object to format as a string
+ */
 export const formatDuration = (duration: Duration) => {
   let formattedString = ''
   if (duration.seconds != 0) {
@@ -44,4 +52,9 @@ export const formatDuration = (duration: Duration) => {
   }
 
   return formattedString
+}
+
+export const getExactDate = (value: Date | string | number) => {
+  const date = new Date(value)
+  return format(date, formatDatetime)
 }
