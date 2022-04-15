@@ -3,16 +3,17 @@ import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
 import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
 import { BeneficiaryListResponse } from 'gql/beneficiary'
 import GridActions from 'components/admin/GridActions'
 import { useBeneficiariesList } from 'service/beneficiary'
 
+import { ModalStore } from '../BeneficiaryPage'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
-import { ModalStore } from 'stores/dashboard/ModalStore'
-import { observer } from 'mobx-react'
+
 interface BeneficiaryCellProps {
   params: GridRenderCellParams<BeneficiaryListResponse, BeneficiaryListResponse>
 }
@@ -89,6 +90,7 @@ export default observer(function Grid() {
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
         return (
           <GridActions
+            modalStore={ModalStore}
             id={params.row.id}
             name={params.row.ibanNumber}
             editLink={routes.admin.beneficiary.edit(params.row.id)}

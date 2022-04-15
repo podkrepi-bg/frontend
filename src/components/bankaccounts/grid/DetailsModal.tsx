@@ -5,8 +5,9 @@ import { useTranslation } from 'next-i18next'
 
 import { BankAccountResponse } from 'gql/bankaccounts'
 import { useViewBankAccount } from 'common/hooks/bankaccounts'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 import DetailsDialog from 'components/admin/DetailsDialog'
+
+import { ModalStore } from '../BankAccountsPage'
 
 export default observer(function DetailsModal() {
   const { selectedRecord } = ModalStore
@@ -24,5 +25,5 @@ export default observer(function DetailsModal() {
     { name: t('fingerprint'), value: `${data?.fingerprint}` },
   ]
 
-  return <DetailsDialog data={dataConverted} />
+  return <DetailsDialog modalStore={ModalStore} data={dataConverted} />
 })

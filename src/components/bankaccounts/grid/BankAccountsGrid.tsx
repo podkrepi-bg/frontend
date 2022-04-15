@@ -9,6 +9,7 @@ import { BankAccountResponse } from 'gql/bankaccounts'
 import { useBankAccountsList } from 'common/hooks/bankaccounts'
 import GridActions from 'components/admin/GridActions'
 
+import { ModalStore } from '../BankAccountsPage'
 import { renderCellWithdraws } from './BankAccountsGridHelper'
 import { commonProps } from './BankAccountsGridHelper'
 import DetailsModal from './DetailsModal'
@@ -17,6 +18,7 @@ import DeleteModal from './DeleteModal'
 export default observer(function BankAccountsGrid() {
   const { t } = useTranslation('bankaccounts')
   const { data }: UseQueryResult<BankAccountResponse[]> = useBankAccountsList()
+  const { isDetailsOpen } = ModalStore
 
   const columns: GridColumns = [
     { ...commonProps, headerName: t('status'), field: 'status' },
@@ -44,6 +46,7 @@ export default observer(function BankAccountsGrid() {
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
         return (
           <GridActions
+            modalStore={ModalStore}
             id={params.row.id}
             name={params.row.ibanNumber}
             editLink={routes.admin.bankaccounts.edit(params.row.id)}
@@ -75,7 +78,9 @@ export default observer(function BankAccountsGrid() {
         autoPageSize
         disableSelectionOnClick
       />
-      <DetailsModal />
+
+      {/* making sure we don't sent requests to the API when not needed */}
+      {isDetailsOpen && <DetailsModal />}
       <DeleteModal />
     </>
   )
