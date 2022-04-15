@@ -63,7 +63,7 @@ export default function InlineDonation({ campaign }: Props) {
   const summary = campaign.summary.find(() => true)
   const reached = summary ? summary.reachedAmount : 0
   const { data: prices } = useSinglePriceList()
-  const donations = useCampaignDonationHistory(campaign.id)
+  const { data: donations, error: donationHistoryError } = useCampaignDonationHistory(campaign.id)
   const mutation = useDonationSession()
 
   const donate = useCallback(
@@ -91,7 +91,6 @@ export default function InlineDonation({ campaign }: Props) {
       return a.unit_amount - b.unit_amount
     })
   }, [prices])
-
   return (
     <Grid item xs={12} md={4} mt={5} p={3} className={classes.inlineDonationWrapper}>
       <Grid mb={2}>
@@ -150,7 +149,11 @@ export default function InlineDonation({ campaign }: Props) {
           </List>
         )}
       </Grid>
-      <DonorsAndDonations donations={donations.data} />
+      {donationHistoryError ? (
+        'Error fetching donation history'
+      ) : (
+        <DonorsAndDonations donations={donations} />
+      )}
       {/* <pre>{JSON.stringify(prices, null, 2)}</pre> */}
     </Grid>
   )

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Grid, Theme, Typography } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
@@ -8,6 +8,7 @@ import { useTranslation } from 'next-i18next'
 import { CampaignDonation } from 'gql/campaigns'
 import { parseISO } from 'date-fns'
 import { getDurationUntilNow, formatDuration } from 'common/util/date'
+import theme from 'common/theme'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,25 +43,40 @@ export default function DonorsAndDonations({
 }) {
   const classes = useStyles()
   const { t } = useTranslation()
+  const [donationsToShow, setDonationsToShow] = useState<CampaignDonation[] | undefined>(
+    donations?.slice(0, 1),
+  )
   return (
     <Grid item className={classes.donationsWrapper}>
-      {donations?.map(({ person, amount, createdAt }, key) => (
-        <Grid key={key} className={classes.donationItemWrapper}>
-          <AccountCircleIcon fontSize="large" color="disabled" />
-          <Grid>
-            <Typography>
-              {t('campaigns:cta.donor')} {key + 1}.{' '}
-              {person ? person.firstName + ' ' + person.lastName : 'Anonymous'}
-            </Typography>
-            <Grid className={classes.donationQuantityAndTimeWrapper}>
-              <Typography>{amount}</Typography>
-              <FiberManualRecordIcon className={classes.separatorIcon} />
-              <Typography>{formatDuration(getDurationUntilNow(parseISO(createdAt)))}</Typography>
+      {donationsToShow && donationsToShow.length !== 0 ? (
+        donationsToShow.map(({ person, amount, createdAt }, key) => (
+          <Grid key={key} className={classes.donationItemWrapper}>
+            <AccountCircleIcon fontSize="large" color="disabled" />
+            <Grid>
+              <Typography>
+                {t('campaigns:cta.donor')} {key + 1}.{' '}
+                {person
+                  ? person.firstName + ' ' + person.lastName
+                  : t('campaigns:donations.anonymous')}
+              </Typography>
+              <Grid className={classes.donationQuantityAndTimeWrapper}>
+                <Typography>
+                  {Math.round(amount / 100) + ' ' + t('campaigns:donations.lv')}
+                </Typography>
+                <FiberManualRecordIcon className={classes.separatorIcon} />
+                <Typography>{formatDuration(getDurationUntilNow(parseISO(createdAt)))}</Typography>
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-      ))}
-      <Button className={classes.seeAllButton}>{t('campaigns:cta.see-all')}</Button>
+        ))
+      ) : (
+        <Typography sx={{ textAlign: 'center', marginBottom: theme.spacing(4) }}>
+          {t('campaigns:donations.none')}
+        </Typography>
+      )}
+      <Button onClick={() => setDonationsToShow(donations)} className={classes.seeAllButton}>
+        {t('campaigns:cta.see-all')}
+      </Button>
     </Grid>
   )
 }

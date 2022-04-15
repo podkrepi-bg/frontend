@@ -104,5 +104,10 @@
     "animals": "Animals",
     "nature": "Nature",
     "others": "Others"
+  },
+  "donations": {
+    "anonymous": "Anonymous",
+    "none": "No donations yet",
+    "lv":"lv"
   }
 }
