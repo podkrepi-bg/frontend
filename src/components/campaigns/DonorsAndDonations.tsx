@@ -6,8 +6,8 @@ import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 import { useTranslation } from 'next-i18next'
 import { CampaignDonation } from 'gql/campaigns'
-import { parseISO } from 'date-fns'
-import { getDurationUntilNow, formatDuration } from 'common/util/date'
+import { formatRelative, parseISO } from 'date-fns'
+import { bg, enUS } from 'date-fns/locale'
 import theme from 'common/theme'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -44,7 +44,7 @@ export default function DonorsAndDonations({
   donations: CampaignDonation[] | undefined
 }) {
   const classes = useStyles()
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [donationsToShow, setDonationsToShow] = useState<CampaignDonation[] | undefined>(undefined)
   const [all, setAll] = useState<boolean>(false)
   useEffect(() => {
@@ -70,7 +70,9 @@ export default function DonorsAndDonations({
                   </Typography>
                   <FiberManualRecordIcon className={classes.separatorIcon} />
                   <Typography>
-                    {formatDuration(getDurationUntilNow(parseISO(createdAt)))}
+                    {formatRelative(parseISO(createdAt), new Date(), {
+                      locale: i18n.language == 'bg' ? bg : enUS,
+                    })}
                   </Typography>
                 </Grid>
               </Grid>

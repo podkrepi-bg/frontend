@@ -1,4 +1,4 @@
-import { Duration, format, formatRelative, intervalToDuration } from 'date-fns'
+import { format, formatRelative, intervalToDuration } from 'date-fns'
 
 export const formatDate = 'dd-MM-yyyy'
 export const formatDatetime = 'dd-MM-yyyy H:ii:ss'
@@ -30,28 +30,6 @@ export const getRelativeDate = (value: Date | string) => {
  */
 export const getDurationUntilNow = (date: Date) => {
   return intervalToDuration({ start: date, end: new Date() })
-}
-
-/**
- * Formats the given duration into a `{duration} {time} ago` string
- * @param duration A date-fns `Duration` object to format as a string
- */
-export const formatDuration = (duration: Duration) => {
-  let formattedString = ''
-  if (duration.seconds != 0) {
-    formattedString = `${duration.seconds} seconds ago`
-  }
-  if (duration.minutes != 0) {
-    formattedString = `${duration.minutes} minutes ago`
-  }
-  if (duration.hours != 0) {
-    formattedString = `${duration.hours} hours ago`
-  }
-  if (duration.days != 0) {
-    formattedString = `${duration.days} days ago`
-  }
-
-  return formattedString
 }
 
 export const getExactDate = (value: Date | string | number) => {
