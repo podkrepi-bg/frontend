@@ -58,7 +58,7 @@ Follow API instructions at <https://github.com/podkrepi-bg/api#setup-development
 
 In order to use the frontend together with the API and be able to test donations and payments you would need to install and start a StripeCLI
 
-Follow the instructions at <https://github.com/podkrepi-bg/api/blob/77b0dc8d78d214bcf839b17466712d6e5d1db68a/TESTING.md#testing-stripe>
+Follow the instructions at [TESTING.MD](./TESTING.md#testing-stripe)
 
 ## Contributors ✨
 
