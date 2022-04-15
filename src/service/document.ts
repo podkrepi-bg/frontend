@@ -38,14 +38,3 @@ export function useDeleteDocument(slug: string) {
     )
   }
 }
-
-export function useDeleteManyDocuments(idsToDelete: string[]) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
-  return async () => {
-    return await apiClient.post<DocumentResponse, AxiosResponse<DocumentResponse>>(
-      endpoints.documents.deleteDocuments.url,
-      idsToDelete,
-      authConfig(keycloak?.token),
-    )
-  }
-}

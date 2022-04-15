@@ -3,19 +3,22 @@ import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
 import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
 import { BenefactorResponse } from 'gql/benefactor'
 import GridActions from 'components/admin/GridActions'
 import { useBenefactorList } from 'common/hooks/benefactor'
 
-import DeleteModal from './DeleteModal'
+import { ModalStore } from '../BenefactorPage'
 import DetailsModal from './DetailsModal'
+import DeleteModal from './DeleteModal'
 
-export default function Grid() {
+export default observer(function Grid() {
   const { t } = useTranslation('benefactor')
   const [pageSize, setPageSize] = useState(5)
   const { data }: UseQueryResult<BenefactorResponse[]> = useBenefactorList()
+  const { isDetailsOpen } = ModalStore
 
   const commonProps: Partial<GridColDef> = {
     align: 'left',
@@ -48,6 +51,7 @@ export default function Grid() {
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
         return (
           <GridActions
+            modalStore={ModalStore}
             id={params.row.id}
             name={params.row.person}
             editLink={routes.admin.benefactor.view(params.row.id)}
@@ -82,8 +86,10 @@ export default function Grid() {
           disableSelectionOnClick
         />
       </Box>
-      <DetailsModal />
+
+      {/* making sure we don't sent requests to the API when not needed */}
+      {isDetailsOpen && <DetailsModal />}
       <DeleteModal />
     </>
   )
-}
+})

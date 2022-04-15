@@ -5,8 +5,9 @@ import { useTranslation } from 'next-i18next'
 
 import { WithdrawalResponse } from 'gql/withdrawals'
 import { useWithdrawalDetailsPage } from 'common/hooks/withdrawals'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 import DetailsDialog from 'components/admin/DetailsDialog'
+
+import { ModalStore } from '../WithdrawalPage'
 
 export default observer(function DetailsModal() {
   const { selectedRecord } = ModalStore
@@ -27,5 +28,5 @@ export default observer(function DetailsModal() {
     { name: t('sourceVault'), value: `${data?.sourceVault?.name}` },
   ]
 
-  return <DetailsDialog data={dataConverted} />
+  return <DetailsDialog modalStore={ModalStore} data={dataConverted} />
 })

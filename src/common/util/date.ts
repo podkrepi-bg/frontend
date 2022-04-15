@@ -1,7 +1,7 @@
 import { format, formatRelative } from 'date-fns'
 
-export const formatDate = 'yyyy-MM-dd'
-export const formatDatetime = 'yyyy-MM-dd H:ii:ss'
+export const formatDate = 'dd-MM-yyyy'
+export const formatDatetime = 'dd-MM-yyyy H:ii:ss'
 
 export const dateFormatter = (value: Date | string | number) => {
   const date = new Date(value)
@@ -17,4 +17,14 @@ export const formatDateString = (dateString: string) => {
   const year = date.getFullYear()
 
   return `${day}.${month}.${year}`
+}
+
+export const getRelativeDate = (value: Date | string) => {
+  const date = new Date(value)
+  return formatRelative(date, new Date())
+}
+
+export const getExactDate = (value: Date | string | number) => {
+  const date = new Date(value)
+  return format(date, formatDatetime)
 }

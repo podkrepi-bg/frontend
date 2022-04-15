@@ -1,15 +1,16 @@
-import React, { SyntheticEvent } from 'react'
-import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
+import Tab from '@mui/material/Tab'
+import Tabs from '@mui/material/Tabs'
+import React, { useMemo } from 'react'
 import { makeStyles } from '@mui/styles'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+
+import { routes } from 'common/routes'
 import Layout from 'components/layout/Layout'
 import { useSession } from 'common/util/useSession'
-import Tabs from '@mui/material/Tabs'
-import Tab from '@mui/material/Tab'
-import DonationTab from './DonationTab'
-import PersonalInfoTab from './PersonalInfoTab'
-import CertificatesTab from './CertificatesTab'
-import DonationAgreementTab from './DonationAgreementTab'
+
+import { ProfileTabs, ProfileTab, tabs } from './tabs'
 
 const useStyles = makeStyles({
   h1: {
@@ -27,13 +28,14 @@ const useStyles = makeStyles({
 
 export default function ProfilePage() {
   const { t } = useTranslation()
-  const [value, setValue] = React.useState(0)
   const { keycloak } = useSession()
   const classes = useStyles()
+  const router = useRouter()
 
-  const handleChange = (_: SyntheticEvent, value: number) => {
-    setValue(value)
-  }
+  const currentTab = router.query.slug ?? ProfileTabs.donations
+  const tab = useMemo<ProfileTab>(() => {
+    return tabs.find((tab) => tab.slug === currentTab) ?? tabs[0]
+  }, [currentTab])
 
   if (!keycloak?.authenticated) {
     return (
@@ -46,6 +48,8 @@ export default function ProfilePage() {
     )
   }
 
+  const { Component: SelectedTab } = tab
+
   return (
     <Layout profilePage={true}>
       <Box sx={{ width: '100%' }}>
@@ -57,18 +61,31 @@ export default function ProfilePage() {
           }}>
           <h1 className={classes.h1}>Дарителски профил</h1>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-              <Tab label="Дарения" />
-              <Tab label="Лична информация" />
-              <Tab label="Сертификати" />
-              <Tab label="Договор дарение" />
+            <Tabs value={tab.slug}>
+              <Tab
+                value={ProfileTabs.donations}
+                label="Дарения"
+                onClick={() => router.push(routes.profile.donations)}
+              />
+              <Tab
+                value={ProfileTabs.personalInformation}
+                label="Лична информация"
+                onClick={() => router.push(routes.profile.personalInformation)}
+              />
+              <Tab
+                value={ProfileTabs.certificates}
+                label="Сертификати"
+                onClick={() => router.push(routes.profile.certificates)}
+              />
+              <Tab
+                value={ProfileTabs.contractDonation}
+                label="Договор дарение"
+                onClick={() => router.push(routes.profile.contractDonation)}
+              />
             </Tabs>
           </Box>
         </Box>
-        <DonationTab value={value} index={0} />
-        <PersonalInfoTab value={value} index={1} />
-        <CertificatesTab value={value} index={2} />
-        <DonationAgreementTab value={value} index={3} />
+        {SelectedTab && <SelectedTab />}
       </Box>
     </Layout>
   )

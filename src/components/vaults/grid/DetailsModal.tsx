@@ -5,8 +5,9 @@ import { useTranslation } from 'next-i18next'
 
 import { VaultResponse } from 'gql/vault'
 import { useVault } from 'common/hooks/vaults'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 import DetailsDialog from 'components/admin/DetailsDialog'
+
+import { ModalStore } from '../VaultsPage'
 
 export default observer(function DetailsModal() {
   const { selectedRecord } = ModalStore
@@ -23,5 +24,5 @@ export default observer(function DetailsModal() {
     { name: t('campaignId'), value: `${data?.campaignId}` },
   ]
 
-  return <DetailsDialog data={dataConverted} />
+  return <DetailsDialog modalStore={ModalStore} data={dataConverted} />
 })
