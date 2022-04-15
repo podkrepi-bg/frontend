@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, useMediaQuery } from '@mui/material'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
 import React, { useMemo } from 'react'
@@ -11,6 +11,13 @@ import Layout from 'components/layout/Layout'
 import { useSession } from 'common/util/useSession'
 
 import { ProfileTabs, ProfileTab, tabs } from './tabs'
+import theme from 'common/theme'
+import {
+  VolunteerActivism as DonationIcon,
+  AccountBox as AccountBoxIcon,
+  HistoryEdu as ContractIcon,
+  Assignment as CertificateIcon,
+} from '@mui/icons-material'
 
 const useStyles = makeStyles({
   h1: {
@@ -24,6 +31,9 @@ const useStyles = makeStyles({
     margin: '0',
     marginLeft: '10px',
   },
+  tab: {
+    minWidth: 65,
+  },
 })
 
 export default function ProfilePage() {
@@ -31,7 +41,7 @@ export default function ProfilePage() {
   const { keycloak } = useSession()
   const classes = useStyles()
   const router = useRouter()
-
+  const matches = useMediaQuery(theme.breakpoints.down('sm'))
   const currentTab = router.query.slug ?? ProfileTabs.donations
   const tab = useMemo<ProfileTab>(() => {
     return tabs.find((tab) => tab.slug === currentTab) ?? tabs[0]
@@ -63,24 +73,36 @@ export default function ProfilePage() {
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={tab.slug}>
               <Tab
+                className={classes.tab}
                 value={ProfileTabs.donations}
-                label="Дарения"
+                label={matches ? undefined : t('auth:profile.donations')}
+                aria-label={matches ? t('auth:profile.donations') : undefined}
                 onClick={() => router.push(routes.profile.donations)}
+                icon={matches ? <DonationIcon /> : undefined}
               />
               <Tab
+                className={classes.tab}
                 value={ProfileTabs.personalInformation}
-                label="Лична информация"
+                label={matches ? undefined : t('auth:profile.personalInformation')}
+                aria-label={matches ? t('auth:profile.personalInformation') : undefined}
                 onClick={() => router.push(routes.profile.personalInformation)}
+                icon={matches ? <AccountBoxIcon /> : undefined}
               />
               <Tab
+                className={classes.tab}
                 value={ProfileTabs.certificates}
-                label="Сертификати"
+                label={matches ? undefined : t('auth:profile.certificates')}
+                aria-label={matches ? t('auth:profile.certificates') : undefined}
                 onClick={() => router.push(routes.profile.certificates)}
+                icon={matches ? <CertificateIcon /> : undefined}
               />
               <Tab
+                className={classes.tab}
                 value={ProfileTabs.contractDonation}
-                label="Договор дарение"
+                label={matches ? undefined : t('auth:profile.donationsContract')}
+                aria-label={matches ? t('auth:profile.donationsContract') : undefined}
                 onClick={() => router.push(routes.profile.contractDonation)}
+                icon={matches ? <ContractIcon /> : undefined}
               />
             </Tabs>
           </Box>
