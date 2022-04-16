@@ -11,6 +11,7 @@
     "share": "Share",
     "donate-now": "Donate now",
     "see-all": "See all",
+    "see-less": "See less",
     "see-top-10": "See TOP 10",
     "see-more": "See more",
     "donor": "Donor"
@@ -104,5 +105,10 @@
     "animals": "Animals",
     "nature": "Nature",
     "others": "Others"
+  },
+  "donations": {
+    "anonymous": "Anonymous",
+    "none": "No donations yet",
+    "lv":"lv"
   }
 }
