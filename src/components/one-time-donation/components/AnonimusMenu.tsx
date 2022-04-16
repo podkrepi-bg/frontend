@@ -20,18 +20,33 @@ const useStyles = makeStyles(() =>
 
 export default function AnonimusMenu() {
   const classes = useStyles()
-  const [field] = useField('anonimusDonation')
+  const [field] = useField('anonymousDonation')
   const { t } = useTranslation('one-time-donation')
 
   return (
     <>
-      <CheckboxField label={t('anonimus-menu.checkbox-label') as string} name="anonimusDonation" />
+      <CheckboxField label={t('anonimus-menu.checkbox-label') as string} name="anonymousDonation" />
       <Collapse in={field.value} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <Typography>{t('anonimus-menu.info-start')}</Typography>
           <Grid my={'35px'}>
             <FormTextField
-              name="name"
+              name="personsFirstName"
+              type="text"
+              label={t('anonimus-menu.name')}
+              variant="outlined"
+              color="primary"
+              fullWidth
+              InputProps={{
+                classes: {
+                  root: classes.message,
+                },
+              }}
+            />
+          </Grid>
+          <Grid my={'35px'}>
+            <FormTextField
+              name="personsLastName"
               type="text"
               label={t('anonimus-menu.name')}
               variant="outlined"
@@ -46,7 +61,7 @@ export default function AnonimusMenu() {
           </Grid>
           <Grid my={'45px'}>
             <FormTextField
-              name="email"
+              name="personsEmail"
               type="text"
               label="Email"
               variant="outlined"
@@ -61,7 +76,7 @@ export default function AnonimusMenu() {
           </Grid>
           <Grid my={'17px'}>
             <FormTextField
-              name="phone"
+              name="personsPhone"
               type="text"
               label={t('anonimus-menu.phone')}
               variant="outlined"
