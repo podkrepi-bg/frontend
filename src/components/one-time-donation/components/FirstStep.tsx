@@ -62,7 +62,7 @@ export default function FirstStep() {
             },
           }}
         />
-        <CheckboxField name="anonimus" label={t('first-step.check-box-label') as string} />
+        <CheckboxField name="anonymous" label={t('first-step.check-box-label') as string} />
         <Typography variant="body1">{t('first-step.info-anonimus')}</Typography>
         <Typography className={classes.h3}>{t('first-step.amount')}</Typography>
       </Grid>

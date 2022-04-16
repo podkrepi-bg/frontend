@@ -5,6 +5,7 @@ import { endpoints } from 'service/apiEndpoints'
 import {
   CheckoutSessionInput,
   CheckoutSessionResponse,
+  DonationBankInput,
   DonationInput,
   DonationResponse,
 } from 'gql/donations'
@@ -26,6 +27,16 @@ export function useCreateDonation() {
       endpoints.donation.createDonation.url,
       data,
       authConfig(keycloak?.token),
+    )
+  }
+}
+
+export function useCreateBankDonation() {
+  // const { keycloak } = useKeycloak<KeycloakInstance>()
+  return async (data: DonationBankInput) => {
+    return await apiClient.post<DonationResponse, AxiosResponse<DonationResponse>>(
+      endpoints.donation.createBankDonation.url,
+      data,
     )
   }
 }
