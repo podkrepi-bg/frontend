@@ -2,7 +2,7 @@ import { Button, CircularProgress, Grid, Step, StepLabel, Stepper } from '@mui/m
 import { makeStyles } from '@mui/styles'
 import { Form, Formik, FormikConfig, FormikValues } from 'formik'
 import { useTranslation } from 'next-i18next'
-import React, { useState } from 'react'
+import React, { PropsWithChildren, useState } from 'react'
 
 export interface FormikStepProps
   extends Pick<FormikConfig<FormikValues>, 'children' | 'validationSchema'> {
@@ -42,8 +42,9 @@ const useStyles = makeStyles(() => ({
     fontSize: '22px',
   },
 }))
+export type GenericFormProps<T> = PropsWithChildren<FormikConfig<T>>
 
-export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>) {
+export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
   const childrenArray = React.Children.toArray(children) as React.ReactElement<FormikStepProps>[]
   const [step, setStep] = useState(0)
   const currentChild = childrenArray[step]
@@ -51,7 +52,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
   const classes = useStyles()
 
   function isLastStep() {
-    return step === childrenArray.length - 1
+    return step === childrenArray.length - 2
   }
   const { t } = useTranslation('one-time-donation')
 
@@ -62,7 +63,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
       onSubmit={async (values, helpers) => {
         if (isLastStep()) {
           await props.onSubmit(values, helpers)
-          // setCompleted(true)
+          setStep((s) => s + 1)
         } else {
           setStep((s) => s + 1)
           helpers.setTouched({})
@@ -83,7 +84,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
           </Grid>
           {currentChild}
 
-          <Grid className={classes.stepper}>
+          <Grid className={classes.stepper} display={step === 3 ? 'none' : ''}>
             <Button
               className={classes.btnBack}
               disabled={isSubmitting}
@@ -97,7 +98,7 @@ export function FormikStepper({ children, ...props }: FormikConfig<FormikValues>
               variant="contained"
               color="inherit"
               type="submit">
-              {isSubmitting ? 'Submitting' : isLastStep() ? t('btns.end') : t('btns.next')}
+              {isSubmitting ? 'Потвърждение' : isLastStep() ? t('btns.end') : t('btns.next')}
             </Button>
           </Grid>
         </Form>
