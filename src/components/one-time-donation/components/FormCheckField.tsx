@@ -34,7 +34,7 @@ export type CheckboxFieldProps = {
 
 export default function CheckboxField({ name, label }: CheckboxFieldProps) {
   const classes = useStyles()
-  const { t } = useTranslation()
+  const { t } = useTranslation('one-time-donation')
   const [field, meta] = useField(name)
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
   return (
@@ -56,7 +56,7 @@ export default function CheckboxField({ name, label }: CheckboxFieldProps) {
           />
         }
       />
-      {Boolean(meta.error) && <FormHelperText error>{helperText}</FormHelperText>}
+      {Boolean(meta.error) && <FormHelperText error>{t(helperText!)}</FormHelperText>}
     </FormControl>
   )
 }

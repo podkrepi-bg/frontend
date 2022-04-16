@@ -4,94 +4,116 @@ import SecondStep from './SecondStep'
 import ThirdStep from './ThirdStep'
 import Success from './Success'
 import Unsuccess from './Unsuccess'
-import { DonationStep as StepType, OneTimeDonation } from '../../../gql/donations'
+import {
+  DonationBankInput,
+  DonationResponse,
+  DonationStep as StepType,
+  OneTimeDonation,
+} from '../../../gql/donations'
 import { FormikStep, FormikStepper } from './FormikStepper'
-import * as yup from 'yup'
 import { useTranslation } from 'next-i18next'
-import { name, phone, email } from 'common/form/validation'
-
-const steps: StepType[] = [
-  {
-    label: 'First Step',
-    component: <FirstStep />,
-  },
-  {
-    label: 'Second Step',
-    component: <SecondStep />,
-  },
-  {
-    label: 'Third Step',
-    component: <ThirdStep />,
-  },
-  {
-    label: 'Success',
-    component: <Success />,
-  },
-  {
-    label: 'UnSuccess',
-    component: <Unsuccess />,
-  },
-]
+import { useRouter } from 'next/router'
+import { useMutation, UseQueryResult } from 'react-query'
+import { CampaignResponse } from 'gql/campaigns'
+import { useViewCampaign } from 'common/hooks/campaigns'
+import { useVaultsList } from 'common/hooks/vaults'
+import { useCreateBankDonation } from 'service/donation'
+import { AxiosError, AxiosResponse } from 'axios'
+import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
+import { AlertStore } from 'stores/AlertStore'
+import { FormikHelpers } from 'formik'
+import { validateFirst, validateSecond, validateThird } from '../helpers/validation-schema'
 
 const initialValues: OneTimeDonation = {
   message: '',
-  anonimus: false,
-  amount: '',
-  anonimusDonation: false,
-  name: '',
-  email: '',
-  phone: '',
+  anonymous: false,
+  amount: 0,
+  anonymousDonation: false,
+  personsFirstName: '',
+  personsLastName: '',
+  personsEmail: '',
+  personsPhone: '',
   payment: 'bank',
 }
 
 export default function DonationStepper() {
+  const [status, setStatus] = React.useState(false)
   const { t } = useTranslation('one-time-donation')
-  const validate = [
-    yup
-      .object()
-      .defined()
-      .shape({
-        message: yup.string().notRequired(),
-        anonimus: yup.bool().required(),
-        amount: yup.string().required(t('errors-fields.amount')),
-      }),
-    yup
-      .object()
-      .defined()
-      .shape({
-        anonimusDonation: yup.boolean().when('anonimus', {
-          is: false,
-          then: yup.boolean().required().oneOf([true], t('errors-fields.checkbox-anonimus')),
-        }),
-        email: email.when('anonimusDonation', {
-          is: true,
-          then: email.required(),
-        }),
-        name: name.when('anonimusDonation', {
-          is: true,
-          then: name.required(),
-        }),
-        phone: phone.when('anonimusDonation', {
-          is: true,
-          then: phone.required(),
-        }),
-      }),
-    yup
-      .object()
-      .defined()
-      .shape({
-        payment: yup.string().required().oneOf(['bank'], t('errors-fields.bank-payment')),
-      }),
+  const router = useRouter()
+  const slug = String(router.query.slug)
+  const { data }: UseQueryResult<{ campaign: CampaignResponse }> = useViewCampaign(slug as string)
+  const valts = useVaultsList().data
+  const vault = valts?.find((a) => a.campaignId === data?.campaign.id)
+  const mutationFn = useCreateBankDonation()
+
+  const mutation = useMutation<
+    AxiosResponse<DonationResponse>,
+    AxiosError<ApiErrors>,
+    DonationBankInput
+  >({
+    mutationFn,
+    onError: () => AlertStore.show(t('donations:alerts:error'), 'error'),
+    onSuccess: () => {
+      AlertStore.show(t('donations:alerts:create'), 'success')
+      setStatus(true)
+    },
+  })
+  const onSubmit = async (
+    values: OneTimeDonation,
+    { setFieldError, resetForm }: FormikHelpers<OneTimeDonation>,
+  ) => {
+    try {
+      const data = {
+        currency: 'BGN',
+        amount: Number(values.amount),
+        personsEmail: values.personsEmail,
+        personsFirstName: values.personsFirstName,
+        personsLastName: values.personsLastName,
+        personsPhone: values.personsPhone,
+        extCustomerId: String(Math.random() * 5),
+        extPaymentIntentId: String(Math.random() * 5),
+        extPaymentMethodId: String(Math.random() * 5),
+        targetVaultId: vault?.id,
+      }
+      console.log(data)
+      await mutation.mutateAsync(data)
+      resetForm()
+    } catch (error) {
+      if (isAxiosError(error)) {
+        const { response } = error as AxiosError<ApiErrors>
+        response?.data.message.map(({ property, constraints }) => {
+          setFieldError(property, t(matchValidator(constraints)))
+        })
+      }
+    }
+  }
+  const steps: StepType[] = [
+    {
+      label: 'First Step',
+      component: <FirstStep />,
+      validate: validateFirst,
+    },
+    {
+      label: 'Second Step',
+      component: <SecondStep />,
+      validate: validateSecond,
+    },
+    {
+      label: 'Third Step',
+      component: <ThirdStep />,
+      validate: validateThird,
+    },
+    {
+      label: 'Last Step',
+      component: status ? <Success /> : <Unsuccess />,
+      validate: null,
+    },
   ]
   return (
-    <FormikStepper
-      onSubmit={async (values) => {
-        console.log('values', values)
-      }}
-      initialValues={initialValues}>
-      {steps.map((step, index) => (
-        <FormikStep key={step.label} validationSchema={validate[index]}>
-          {step.component}
+    <FormikStepper onSubmit={onSubmit} initialValues={initialValues}>
+      {steps.map(({ label, component, validate }) => (
+        <FormikStep key={label} validationSchema={validate}>
+          {component}
         </FormikStep>
       ))}
     </FormikStepper>
