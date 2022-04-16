@@ -59,7 +59,7 @@ export type CheckboxFieldProps = {
 }
 
 export default function RadioGroupFormik({ name, options }: CheckboxFieldProps) {
-  const { t } = useTranslation()
+  const { t } = useTranslation('one-time-donation')
   const [field, meta, helpers] = useField(name)
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
   const { value } = meta
@@ -88,7 +88,7 @@ export default function RadioGroupFormik({ name, options }: CheckboxFieldProps) 
           />
         ))}
       </RadioGroup>
-      {Boolean(meta.error) && <FormHelperText error>{helperText}</FormHelperText>}
+      {Boolean(meta.error) && <FormHelperText error>{t(helperText!)}</FormHelperText>}
     </FormControl>
   )
 }
