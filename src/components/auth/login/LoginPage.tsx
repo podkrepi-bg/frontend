@@ -11,7 +11,7 @@ export default function LoginPage() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   const { pathname } = router.query
 
-  const redirectPath = pathname ? pathname : routes.profile
+  const redirectPath = pathname ? pathname : routes.profile.index
 
   useEffect(() => {
     keycloak?.login({

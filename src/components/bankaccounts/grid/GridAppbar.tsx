@@ -25,6 +25,7 @@ const iconStyles = {
   boxShadow: 3,
   mr: 1,
 }
+
 export default function GridAppbar() {
   const router = useRouter()
   return (

@@ -1,19 +1,21 @@
 import React from 'react'
-import { Document, Page, Text, renderToStream } from '@react-pdf/renderer'
+import { Document, Page, renderToStream, StyleSheet, View } from '@react-pdf/renderer'
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
+import Logo from './svg/Logo'
+
+const styles = StyleSheet.create({})
 
 const Handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const MyDocument = () => (
     <Document>
       <Page size="A4">
-        <Text>mdmdmd</Text>
+        <Logo />
       </Page>
     </Document>
   )
   const pdfStream = await renderToStream(<MyDocument />)
   res.setHeader('Content-Type', 'application/pdf')
   pdfStream.pipe(res)
-  pdfStream.on('end', () => console.log('Done streaming, response sent.'))
 }
 
 export default Handler

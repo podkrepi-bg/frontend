@@ -55,6 +55,15 @@ const moduleExports = {
       'react-pdf': 'react-pdf/dist/entry.noworker.js',
     },
   },
+  async redirects() {
+    return [
+      {
+        source: '/profile',
+        destination: '/profile/donations',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 const SentryWebpackPluginOptions = {
