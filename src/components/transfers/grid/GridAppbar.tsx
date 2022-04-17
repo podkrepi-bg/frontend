@@ -1,4 +1,3 @@
-import { observer } from 'mobx-react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { Add as AddIcon } from '@mui/icons-material'
@@ -22,7 +21,7 @@ const addIconStyles = {
   boxShadow: 3,
 }
 
-export default observer(function GridAppbar() {
+export default function GridAppbar() {
   const router = useRouter()
   const { t } = useTranslation()
 
@@ -46,4 +45,4 @@ export default observer(function GridAppbar() {
       </Box>
     </Toolbar>
   )
-})
+}

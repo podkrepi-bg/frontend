@@ -7,11 +7,12 @@ import { useTranslation } from 'next-i18next'
 
 import { DonationResponse } from 'gql/donations'
 import { ApiErrors } from 'service/apiErrors'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 import { useDeleteDonation } from 'service/donation'
 import { routes } from 'common/routes'
 import DeleteDialog from 'components/admin/DeleteDialog'
+
+import { ModalStore } from '../DonationsPage'
 
 export default observer(function DeleteModal() {
   const router = useRouter()
@@ -38,5 +39,5 @@ export default observer(function DeleteModal() {
     deleteMutation.mutate(selectedRecord.id)
   }
 
-  return <DeleteDialog deleteHandler={deleteHandler} />
+  return <DeleteDialog modalStore={ModalStore} deleteHandler={deleteHandler} />
 })

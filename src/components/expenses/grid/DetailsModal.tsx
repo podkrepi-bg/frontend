@@ -5,8 +5,9 @@ import { useTranslation } from 'next-i18next'
 import { ExpenseResponse } from 'gql/expenses'
 import { useViewExpense } from 'common/hooks/expenses'
 import { usePersonList } from 'common/hooks/person'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 import DetailsDialog from 'components/admin/DetailsDialog'
+
+import { ModalStore } from '../ExpensesPage'
 
 export default observer(function DetailsModal() {
   const { selectedRecord } = ModalStore
@@ -32,5 +33,5 @@ export default observer(function DetailsModal() {
     },
   ]
 
-  return <DetailsDialog data={dataConverted} />
+  return <DetailsDialog modalStore={ModalStore} data={dataConverted} />
 })

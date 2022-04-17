@@ -5,8 +5,9 @@ import { useTranslation } from 'next-i18next'
 
 import { DocumentResponse } from 'gql/document'
 import { useDocument } from 'common/hooks/documents'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 import DetailsDialog from 'components/admin/DetailsDialog'
+
+import { ModalStore } from '../DocumentsPage'
 
 export default observer(function DetailsModal() {
   const { selectedRecord } = ModalStore
@@ -29,5 +30,5 @@ export default observer(function DetailsModal() {
     { name: t('sourceUrl'), value: <SourceUrl /> },
   ]
 
-  return <DetailsDialog data={dataConverted} />
+  return <DetailsDialog modalStore={ModalStore} data={dataConverted} />
 })
