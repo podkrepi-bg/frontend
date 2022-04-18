@@ -10,7 +10,18 @@ import TableHead from '@mui/material/TableHead'
 import TextField from '@mui/material/TextField'
 import { formatDateString } from 'common/util/date'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
-import { Box, Checkbox, Button } from '@mui/material'
+import {
+  Box,
+  Checkbox,
+  Button,
+  Grid,
+  Card,
+  Typography,
+  CardActionArea,
+  CardMedia,
+  CardContent,
+  CardActions,
+} from '@mui/material'
 import { useUserDonations } from 'common/hooks/donation'
 import TableContainer from '@mui/material/TableContainer'
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker'
@@ -19,8 +30,23 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider'
 
 import ProfileTab from './ProfileTab'
 import { ProfileTabs } from './tabs'
+import theme from 'common/theme'
+import { useTranslation } from 'next-i18next'
 
 const useStyles = makeStyles({
+  donationsBox: {
+    padding: theme.spacing(5),
+  },
+  donationsBoxRow: {
+    '&:first-child': {
+      borderBottom: `1px solid ${theme.palette.divider}`,
+      marginBottom: theme.spacing(5),
+      paddingBottom: theme.spacing(3),
+    },
+    marginBottom: theme.spacing(5),
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
   thinFont: {
     fontFamily: 'Montserrat',
     fontStyle: 'normal',
@@ -39,16 +65,7 @@ const useStyles = makeStyles({
     lineHeight: '116.7%',
     margin: '0',
   },
-  allDonatesBox: {
-    backgroundColor: 'white',
-    flexGrow: 1,
-    marginRight: '10px',
-    padding: '10px 30px',
-    // paddingLeft: '30px',
-  },
   donates: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' },
-  donateNowBox: { backgroundColor: 'white', padding: '10px', position: 'relative' },
-  donateNowButton: { position: 'absolute', bottom: '35px' },
   h5: {
     fontFamily: 'Lato, sans-serif',
     fontStyle: 'normal',
@@ -69,137 +86,121 @@ const useStyles = makeStyles({
 
 export default function DonationTab() {
   const classes = useStyles()
-  const { data = { donations: [], total: 0 } } = useUserDonations()
+  const { t } = useTranslation()
+  const { data: userDonations } = useUserDonations()
   const [fromDate, setFromDate] = React.useState(new Date())
   const [toDate, setToDate] = React.useState(new Date())
-
   return (
-    <ProfileTab name={ProfileTabs.donations} title="Абонамент месечни дарения">
-      <Box sx={{ display: 'flex' }}>
-        <Box className={classes.allDonatesBox}>
-          <h3 style={{ fontSize: '16px', margin: 0 }}>Дарения</h3>
-
-          <Box className={classes.donates}>
-            <h4 className={classes.thinFont}>Онлайн дарения</h4>
-            <p style={{ fontSize: '22px' }}>0.00 лв.</p>
-          </Box>
-          <p>Към момента няма направени дарения</p>
-          <hr />
-
-          <Box className={classes.donates}>
-            <h4 className={classes.thinFont}>Общо онлайн дарения</h4>
-            <p style={{ fontSize: '22px' }}>{data.total.toFixed(2)} лв.</p>
-          </Box>
-          <hr />
-        </Box>
-        <Box className={classes.donateNowBox}>
-          <h3 className={classes.h3}>Бъди промяната</h3>
-          <h5 className={classes.h5}>помогни на хора в нужда</h5>
-          <Button
-            variant="contained"
-            size="medium"
-            color="secondary"
-            className={classes.donateNowButton}>
-            Дари сега ❤️
-          </Button>
-        </Box>
-      </Box>
-      <Box
-        sx={{
-          backgroundColor: 'white',
-          padding: '10px 30px',
-          margin: '10px 0 0 0',
-        }}>
-        <h3 className={classes.h3}>История на даренията</h3>
-      </Box>
-      <Box
-        sx={{
-          backgroundColor: 'white',
-          flexGrow: 1,
-          padding: '10px 30px',
-          mt: 2,
-        }}>
-        <Box>
-          <h3 className={classes.thinFont}>Онлайн дарения</h3>
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'baseline',
-            justifyContent: 'space-between',
-            mt: 2,
-          }}>
-          <span className={classes.smallText}>Покажи:</span>
-          <Box>
-            <Checkbox defaultChecked />
-            <span className={classes.smallText}>еднократни</span>
-          </Box>
-          <Box>
-            <Checkbox defaultChecked />
-            <span className={classes.smallText}>месечни</span>
-          </Box>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <span className={classes.smallText}>от дата</span>
-            <DesktopDatePicker
-              label="от дата"
-              inputFormat="dd/MM/yyyy"
-              value={fromDate}
-              onChange={(date) => setFromDate(date as Date)}
-              renderInput={(params) => <TextField {...params} />}
-            />
-            <span className={classes.smallText}>до дата</span>
-            <DesktopDatePicker
-              label="до дата"
-              inputFormat="dd/MM/yyyy"
-              value={toDate}
-              onChange={(date) => setToDate(date as Date)}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </LocalizationProvider>
-        </Box>
-        {data.donations.length ? (
-          <TableContainer>
-            <Table sx={{ minWidth: 650, backgroundColor: 'white' }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>№</TableCell>
-                  <TableCell>Дата</TableCell>
-                  <TableCell>Вид</TableCell>
-                  <TableCell>Кауза</TableCell>
-                  <TableCell>стойност</TableCell>
-                  <TableCell>сертификат</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data.donations.map((donation, index) => (
-                  <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                    <TableCell component="th" scope="row">
-                      {index + 1}
-                    </TableCell>
-                    <TableCell>{formatDateString(donation.createdAt)}</TableCell>
-                    <TableCell>
-                      <Avatar sx={{ background: '#F6992B' }}>
-                        <StarIcon />
-                      </Avatar>
-                    </TableCell>
-                    <TableCell>{donation.targetVault.campaign.title}</TableCell>
-                    <TableCell>
-                      {donation.amount} {donation.currency}
-                    </TableCell>
-                    <TableCell>
-                      <Button variant="outlined">
-                        Свали <ArrowForwardIcon />
-                      </Button>
-                    </TableCell>
+    <ProfileTab title="❤️" name={ProfileTabs.donations}>
+      <Grid container>
+        <Grid item xs={12} md={4}>
+          <Typography typography={'h4'}>Dimitar Nizamov</Typography>
+          <Typography typography={'h5'}>{t('profile.donations.helpThanks')}</Typography>
+          <Card sx={{ maxWidth: 345 }}>
+            <CardActionArea>
+              <CardMedia
+                component="img"
+                height="140"
+                image="/static/images/cards/contemplative-reptile.jpg"
+                alt="green iguana"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  Lizard
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Lizards are a widespread group of squamate reptiles, with over 6,000 species,
+                  ranging across all continents except Antarctica
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions>
+              <Button variant="contained" size="medium" color="secondary">
+                {t('profile.donations.donateNow')} ❤️
+              </Button>
+            </CardActions>
+          </Card>
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <Card className={classes.donationsBox}>
+            <Box className={classes.donationsBoxRow}>
+              <Typography fontWeight="medium" variant="h5">
+                {t('profile.donations.totalDonations')}
+              </Typography>
+              <Typography fontWeight="medium" variant="h5">
+                {userDonations?.total} {t('profile.donations.lv')}
+              </Typography>
+            </Box>
+            <Box className={classes.donationsBoxRow}>
+              <Box>
+                <Typography variant="h5">{t('profile.donations.recurringDonations')}</Typography>
+                <Typography>Я, Ф, М, А 2022</Typography>
+              </Box>
+              <Typography fontWeight="medium" variant="h5">
+                {userDonations?.donations[0].amount} {t('profile.donations.lv')}
+              </Typography>
+            </Box>
+            <Box className={classes.donationsBoxRow}>
+              <Typography variant="h5">{t('profile.donations.cardDonations')}</Typography>
+              <Typography fontWeight="medium" variant="h5">
+                {userDonations?.total} {t('profile.donations.lv')}
+              </Typography>
+            </Box>
+            <Box className={classes.donationsBoxRow}>
+              <Typography variant="h5">{t('profile.donations.bankDonations')}</Typography>
+              <Typography fontWeight="medium" variant="h5">
+                {userDonations?.total} {t('profile.donations.lv')}
+              </Typography>
+            </Box>
+          </Card>
+        </Grid>
+        {/* <Grid item>
+          {userDonations?.donations.length ? (
+            <TableContainer>
+              <Table sx={{ minWidth: 650, backgroundColor: 'white' }} aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>№</TableCell>
+                    <TableCell>Дата</TableCell>
+                    <TableCell>Вид</TableCell>
+                    <TableCell>Кауза</TableCell>
+                    <TableCell>стойност</TableCell>
+                    <TableCell>сертификат</TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        ) : (
-          <Box sx={{ fontSize: 20, mt: 4 }}>Към момента няма направени дарения</Box>
-        )}
-      </Box>
+                </TableHead>
+                <TableBody>
+                  {userDonations.donations.map((donation, index) => (
+                    <TableRow
+                      key={index}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                      <TableCell component="th" scope="row">
+                        {index + 1}
+                      </TableCell>
+                      <TableCell>{formatDateString(donation.createdAt)}</TableCell>
+                      <TableCell>
+                        <Avatar sx={{ background: '#F6992B' }}>
+                          <StarIcon />
+                        </Avatar>
+                      </TableCell>
+                      <TableCell>{donation.targetVault.campaign.title}</TableCell>
+                      <TableCell>
+                        {donation.amount} {donation.currency}
+                      </TableCell>
+                      <TableCell>
+                        <Button variant="outlined">
+                          Свали <ArrowForwardIcon />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          ) : (
+            <Box sx={{ fontSize: 20, mt: 4 }}>Към момента няма направени дарения</Box>
+          )}
+        </Grid> */}
+      </Grid>
     </ProfileTab>
   )
 }
