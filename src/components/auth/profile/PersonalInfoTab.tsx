@@ -5,7 +5,7 @@ import Tab from './Tab'
 import EditIcon from '@mui/icons-material/Edit'
 import { useState } from 'react'
 import { makeStyles } from '@mui/styles'
-import { getRelativeDate } from 'common/util/date'
+import { dateFormatter, formatDateString, getRelativeDate } from 'common/util/date'
 import UpdateNameModal from './UpdateNameModal'
 import UpdateBirthdayModal from './UpdateBirthdayModal'
 
@@ -146,9 +146,9 @@ function PersonalInfoTab(props: { value: number; index: number }) {
                 position: 'relative',
                 marginRight: '10px',
               }}>
-              <p className={classes.bold}>рожден ден:</p>
+              <p className={classes.bold}>Рожден ден:</p>
               <p className={person?.birthday ? '' : classes.notAvaible}>
-                {person?.birthday ? getRelativeDate(person?.birthday) : 'не e наличен'}
+                {person?.birthday ? formatDateString(person?.birthday) : 'не e наличен'}
               </p>
               <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
                 <Link href="#" onClick={() => setIsUpdateBirthdayModalOpen(true)}>
