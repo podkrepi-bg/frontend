@@ -24,6 +24,7 @@ import {
   CardContent,
   CardActions,
   CircularProgress,
+  useMediaQuery,
 } from '@mui/material'
 import { useUserDonations } from 'common/hooks/donation'
 import TableContainer from '@mui/material/TableContainer'
@@ -39,6 +40,7 @@ import { useCampaignList } from 'common/hooks/campaigns'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import { DatePicker } from '@mui/lab'
+import { money } from 'common/util/money'
 
 const useStyles = makeStyles({
   donationsBox: {
@@ -60,6 +62,7 @@ const CheckboxLabel = styled.label``
 export default function DonationTab() {
   const classes = useStyles()
   const { t } = useTranslation()
+  const matches = useMediaQuery(theme.breakpoints.down('md'))
   const { data: user } = useCurrentPerson()
   const { data: userDonations, isLoading: isUserDonationLoading } = useUserDonations()
   const { data: campaigns, isLoading: isCampaignLoading } = useCampaignList()
@@ -77,7 +80,7 @@ export default function DonationTab() {
         spacing={theme.spacing(2)}
         marginTop={theme.spacing(1)}
         alignItems={'flex-end'}>
-        <Grid item xs={12} md={4}>
+        <Grid order={matches ? 3 : 1} item xs={12} md={4}>
           <Card>
             {!isCampaignLoading && campaigns ? (
               <CardActionArea>
@@ -106,7 +109,7 @@ export default function DonationTab() {
             </CardActions>
           </Card>
         </Grid>
-        <Grid item xs={12} md={8}>
+        <Grid order={matches ? 1 : 2} item xs={12} md={8}>
           {!isUserDonationLoading && userDonations ? (
             <Card className={classes.donationsBox}>
               <Box className={classes.donationsBoxRow}>
@@ -114,7 +117,7 @@ export default function DonationTab() {
                   {t('auth:profile.donations.totalDonations')}
                 </Typography>
                 <Typography fontWeight="medium" variant="h5">
-                  {userDonations.total} {t('auth:profile.donations.lv')}
+                  {money(userDonations.total)}
                 </Typography>
               </Box>
               <Box className={classes.donationsBoxRow}>
@@ -125,19 +128,19 @@ export default function DonationTab() {
                   <Typography>Я, Ф, М, А 2022</Typography>
                 </Box>
                 <Typography fontWeight="medium" variant="h5">
-                  {userDonations.donations[0].amount} {t('auth:profile.donations.lv')}
+                  {money(userDonations.donations[0].amount)}
                 </Typography>
               </Box>
               <Box className={classes.donationsBoxRow}>
                 <Typography variant="h5">{t('auth:profile.donations.cardDonations')}</Typography>
                 <Typography fontWeight="medium" variant="h5">
-                  {userDonations.total} {t('auth:profile.donations.lv')}
+                  {money(userDonations.total)}
                 </Typography>
               </Box>
               <Box className={classes.donationsBoxRow}>
                 <Typography variant="h5">{t('auth:profile.donations.bankDonations')}</Typography>
                 <Typography fontWeight="medium" variant="h5">
-                  {userDonations.total} {t('auth:profile.donations.lv')}
+                  {money(userDonations.total)}
                 </Typography>
               </Box>
             </Card>
@@ -145,7 +148,7 @@ export default function DonationTab() {
             <CircularProgress />
           )}
         </Grid>
-        <Grid item xs={12}>
+        <Grid order={matches ? 2 : 3} item xs={12}>
           <Card sx={{ padding: theme.spacing(2) }}>
             <Grid container alignItems={'flex-start'} spacing={theme.spacing(2)}>
               <Grid item xs={6} sm={3}>
@@ -203,9 +206,7 @@ export default function DonationTab() {
                           </Avatar>
                         </TableCell>
                         <TableCell>{donation.targetVault.campaign.title}</TableCell>
-                        <TableCell>
-                          {donation.amount} {donation.currency}
-                        </TableCell>
+                        <TableCell>{money(donation.amount)}</TableCell>
                         <TableCell>
                           <Button variant="outlined">
                             {t('auth:profile.donations.download')} <ArrowForwardIcon />
