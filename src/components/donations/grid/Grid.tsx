@@ -38,12 +38,6 @@ export default observer(function Grid() {
     return <>{person.data?.firstName + ' ' + person.data?.lastName}</>
   }
 
-  const RenderDateCell = ({ params }: PersonCellProps) => {
-    const [date, time] = params.row.createdAt.split('T')
-    const dateFormated = date.split('-').reverse().join('.')
-    return <>{dateFormated + ' ' + time.substring(0, 5)}</>
-  }
-
   const commonProps: Partial<GridColDef> = {
     align: 'left',
     width: 150,
@@ -104,14 +98,6 @@ export default observer(function Grid() {
       headerName: t('donations:date'),
       ...commonProps,
       width: 250,
-      renderCell: (params: GridRenderCellParams) => {
-        return <RenderDateCell params={params} />
-      },
-    },
-    {
-      field: 'createdAt',
-      headerName: t('donations:createdAt'),
-      ...commonProps,
       renderCell: (params: GridRenderCellParams) => {
         return getExactDate(params?.row.createdAt)
       },
