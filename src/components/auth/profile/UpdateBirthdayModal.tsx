@@ -1,23 +1,22 @@
 import * as yup from 'yup'
-import { useState } from 'react'
-import { Modal, Box, Grid, TextField, IconButton } from '@mui/material'
+import { Modal, Box, Grid, IconButton } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import { Person, UpdatePerson } from 'gql/person'
 import { useMutation } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
-import { ApiErrors } from 'service/apiErrors'
+import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import { updateCurrentPerson } from 'common/util/useCurrentPerson'
-import DesktopDatePicker from '@mui/lab/DesktopDatePicker'
-import AdapterDateFns from '@mui/lab/AdapterDateFns'
-import LocalizationProvider from '@mui/lab/LocalizationProvider'
+
 import { AlertStore } from 'stores/AlertStore'
 import { useTranslation } from 'next-i18next'
 import CloseIcon from '@mui/icons-material/Close'
 import { format, parse, isDate } from 'date-fns'
+import { FormikHelpers } from 'formik'
+import FormTextField from 'components/common/form/FormTextField'
 
-const formatString = 'dd-MM-yyyy'
+const formatString = 'dd/MM/yyyy'
 
 const parseDateString = (value: string, originalValue: string) => {
   const parsedDate = isDate(originalValue)
@@ -27,13 +26,21 @@ const parseDateString = (value: string, originalValue: string) => {
   return parsedDate
 }
 type BirthdayFormData = {
-  date: Date | string | undefined
+  birthday: Date | string
 }
+const maxDate = new Date(new Date().setFullYear(new Date().getFullYear() - 18))
+
 const validationSchema: yup.SchemaOf<BirthdayFormData> = yup
   .object()
   .defined()
   .shape({
-    date: yup.date().transform(parseDateString).min(yup.ref('date'), `You must be over 18 years!`),
+    birthday: yup
+      .date()
+      .nullable()
+      .typeError('Invalid Date')
+      .transform(parseDateString)
+      .max(maxDate, `you need to be over 18 years old`)
+      .required(),
   })
 
 const useStyles = makeStyles({
@@ -62,15 +69,12 @@ function UpdateBirthdayModal({
   person: UpdatePerson
 }) {
   const { t } = useTranslation()
-  const minDate = format(new Date().setFullYear(new Date().getFullYear() - 18), formatString)
-  const date = new Date(new Date().setFullYear(new Date().getFullYear() - 18))
-  const [value, setValue] = useState<Date | null>(
-    (person.birthday as Date) ? (person.birthday as Date) : date,
-  )
 
-  const handleChange = (newValue: Date | null) => {
-    setValue(newValue)
+  const initialValues: BirthdayFormData = {
+    birthday: format(new Date(person.birthday ?? new Date()), formatString),
   }
+  console.log(initialValues)
+
   const classes = useStyles()
 
   const mutation = useMutation<AxiosResponse<Person>, AxiosError<ApiErrors>, UpdatePerson>({
@@ -79,10 +83,25 @@ function UpdateBirthdayModal({
     onSuccess: () => AlertStore.show(t('common:alerts.success'), 'success'),
   })
 
-  const onSubmit = async () => {
-    mutation.mutateAsync({ ...person, birthday: value }).then((data) => {
-      handleClose(data.data)
-    })
+  const onSubmit = async (
+    values: BirthdayFormData,
+    { setFieldError }: FormikHelpers<BirthdayFormData>,
+  ) => {
+    try {
+      const birthDate = new Date(values?.birthday)
+      console.log(birthDate)
+      await mutation.mutateAsync({ ...person, birthday: birthDate }).then((data) => {
+        handleClose(data.data)
+      })
+    } catch (error) {
+      console.error(error)
+      if (isAxiosError(error)) {
+        const { response } = error as AxiosError<ApiErrors>
+        response?.data.message.map(({ property, constraints }) => {
+          setFieldError(property, t(matchValidator(constraints)))
+        })
+      }
+    }
   }
 
   return (
@@ -96,22 +115,20 @@ function UpdateBirthdayModal({
           <CloseIcon />
         </IconButton>
         <h2>Обнови рожден ден</h2>
-        <GenericForm
+        <GenericForm<BirthdayFormData>
           onSubmit={onSubmit}
-          initialValues={minDate}
+          initialValues={initialValues}
           validationSchema={validationSchema}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={8}>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DesktopDatePicker
-                  inputFormat="dd/MM/yyyy"
-                  value={value}
-                  minDate={new Date(minDate)}
-                  onChange={handleChange}
-                  // minDate={new Date().setMonth(new Date().getFullYear() - 18)}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
+              <FormTextField
+                type="date"
+                name="birthday"
+                label="Birthday"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
             </Grid>
             <Grid item xs={6}>
               <SubmitButton fullWidth />
