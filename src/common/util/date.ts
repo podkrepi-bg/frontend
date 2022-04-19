@@ -1,6 +1,6 @@
 import { format, formatRelative } from 'date-fns'
 
-export const formatDate = 'dd-MM-yyyy'
+export const formatDate = 'yyyy-MM-dd'
 export const formatDatetime = 'yyyy-MM-dd H:ii:ss'
 
 export const dateFormatter = (value: Date | string | number) => {
