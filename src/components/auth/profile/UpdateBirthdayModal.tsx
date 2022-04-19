@@ -16,7 +16,7 @@ import { format, parse, isDate } from 'date-fns'
 import { FormikHelpers } from 'formik'
 import FormTextField from 'components/common/form/FormTextField'
 
-const formatString = 'dd/MM/yyyy'
+const formatString = 'yyyy-MM-dd'
 
 const parseDateString = (value: string, originalValue: string) => {
   const parsedDate = isDate(originalValue)

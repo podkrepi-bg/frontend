@@ -5,7 +5,7 @@ import Tab from './Tab'
 import EditIcon from '@mui/icons-material/Edit'
 import { useState } from 'react'
 import { makeStyles } from '@mui/styles'
-import { dateFormatter, formatDateString, getRelativeDate } from 'common/util/date'
+import { formatDateString } from 'common/util/date'
 import UpdateNameModal from './UpdateNameModal'
 import UpdateBirthdayModal from './UpdateBirthdayModal'
 
