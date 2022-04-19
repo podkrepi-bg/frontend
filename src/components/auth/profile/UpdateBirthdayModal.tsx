@@ -36,10 +36,8 @@ const validationSchema: yup.SchemaOf<BirthdayFormData> = yup
   .shape({
     birthday: yup
       .date()
-      // .nullable()
-      // .typeError('Invalid Date')
       .transform(parseDateString)
-      .max(maxDate, `you need to be over 18 years old`)
+      .max(maxDate, `Трябва да си над 18 години за да може да се регистрираш.`)
       .required(),
   })
 
@@ -123,7 +121,7 @@ function UpdateBirthdayModal({
               <FormTextField
                 type="date"
                 name="birthday"
-                label="Birthday"
+                label="Кога е твоят рожден ден?"
                 InputLabelProps={{
                   shrink: true,
                 }}
