@@ -36,8 +36,8 @@ const validationSchema: yup.SchemaOf<BirthdayFormData> = yup
   .shape({
     birthday: yup
       .date()
-      .nullable()
-      .typeError('Invalid Date')
+      // .nullable()
+      // .typeError('Invalid Date')
       .transform(parseDateString)
       .max(maxDate, `you need to be over 18 years old`)
       .required(),
@@ -73,7 +73,6 @@ function UpdateBirthdayModal({
   const initialValues: BirthdayFormData = {
     birthday: format(new Date(person.birthday ?? new Date()), formatString),
   }
-  console.log(initialValues)
 
   const classes = useStyles()
 
