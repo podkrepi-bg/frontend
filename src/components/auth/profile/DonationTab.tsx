@@ -1,5 +1,6 @@
 import React from 'react'
 import truncate from 'lodash.truncate'
+import styled from '@emotion/styled'
 import { makeStyles } from '@mui/styles'
 import Table from '@mui/material/Table'
 import Avatar from '@mui/material/Avatar'
@@ -33,10 +34,12 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import ProfileTab from './ProfileTab'
 import { ProfileTabs } from './tabs'
 import theme from 'common/theme'
+import { darken } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import { useCampaignList } from 'common/hooks/campaigns'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
+import { DatePicker } from '@mui/lab'
 
 const useStyles = makeStyles({
   donationsBox: {
@@ -52,51 +55,22 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'space-between',
   },
-  thinFont: {
-    fontFamily: 'Montserrat',
-    fontStyle: 'normal',
-    fontWeight: 400,
-    fontSize: '24px',
-    lineHeight: '123.5%',
-    letterSpacing: '0.25px',
-    color: '#000000',
-    margin: 0,
-  },
-  h3: {
-    fontFamily: 'Montserrat',
-    fontStyle: 'normal',
-    fontWeight: '500',
-    fontSize: '25px',
-    lineHeight: '116.7%',
-    margin: '0',
-  },
-  donates: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' },
-  h5: {
-    fontFamily: 'Lato, sans-serif',
-    fontStyle: 'normal',
-    fontWeight: '600',
-    fontSize: '22px',
-    lineHeight: '133.4%',
-    color: '#000000',
-  },
-  smallText: {
-    fontFamily: 'Lato, sans-serif',
-    fontStyle: 'normal',
-    fontWeight: '500',
-    fontSize: '15px',
-    lineHeight: '160%',
-    letterSpacing: '0.15px',
+  checkboxLabelWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
   },
 })
 
+const CheckboxLabel = styled.label``
 export default function DonationTab() {
   const classes = useStyles()
   const { t } = useTranslation()
   const { data: user } = useCurrentPerson()
   const { data: userDonations, isLoading: isUserDonationLoading } = useUserDonations()
   const { data: campaigns, isLoading: isCampaignLoading } = useCampaignList()
-  const [fromDate, setFromDate] = React.useState(new Date())
-  const [toDate, setToDate] = React.useState(new Date())
+  const [fromDate, setFromDate] = React.useState(null)
+  const [toDate, setToDate] = React.useState(null)
   return (
     <ProfileTab
       title={user?.user ? user.user.firstName + ' ' + user?.user.lastName : ''}
@@ -178,8 +152,36 @@ export default function DonationTab() {
           )}
         </Grid>
         <Grid item xs={12}>
-          {userDonations?.donations.length ? (
-            <Card>
+          <Card>
+            <Grid container>
+              <Grid item className={classes.checkboxLabelWrapper}>
+                <CheckboxLabel>{t('auth:profile.donations.oneTime')}</CheckboxLabel>
+                <Checkbox name="oneTime" />
+              </Grid>
+              <Grid item>
+                <CheckboxLabel>{t('auth:profile.donations.monthly')}</CheckboxLabel>
+                <Checkbox name="monthly" />
+              </Grid>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <Grid item>
+                  <DatePicker
+                    label={t('auth:profile.donations.fromDate')}
+                    value={fromDate}
+                    onChange={setFromDate}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </Grid>
+                <Grid item>
+                  <DatePicker
+                    label={t('auth:profile.donations.fromDate')}
+                    value={toDate}
+                    onChange={setToDate}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </Grid>
+              </LocalizationProvider>
+            </Grid>
+            {userDonations?.donations.length ? (
               <TableContainer>
                 <Table sx={{ minWidth: 650, backgroundColor: 'white' }} aria-label="simple table">
                   <TableHead>
@@ -202,7 +204,7 @@ export default function DonationTab() {
                         </TableCell>
                         <TableCell>{formatDateString(donation.createdAt)}</TableCell>
                         <TableCell>
-                          <Avatar sx={{ background: '#F6992B' }}>
+                          <Avatar sx={{ background: darken(theme.palette.secondary.main, 0.175) }}>
                             <StarIcon />
                           </Avatar>
                         </TableCell>
@@ -220,10 +222,10 @@ export default function DonationTab() {
                   </TableBody>
                 </Table>
               </TableContainer>
-            </Card>
-          ) : (
-            <Box sx={{ fontSize: 20, mt: 4 }}>Към момента няма направени дарения</Box>
-          )}
+            ) : (
+              <Box sx={{ fontSize: 20, mt: 4 }}>Към момента няма направени дарения</Box>
+            )}
+          </Card>
         </Grid>
       </Grid>
     </ProfileTab>
