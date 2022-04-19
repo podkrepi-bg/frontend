@@ -6,10 +6,10 @@ import { makeStyles } from '@mui/styles'
 
 import { useExpensesList } from 'common/hooks/expenses'
 import { usePersonList } from 'common/hooks/person'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 import { routes } from 'common/routes'
 import GridActions from 'components/admin/GridActions'
 
+import { ModalStore } from '../ExpensesPage'
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 import { statusRenderCell } from './GridHelper'
@@ -121,6 +121,7 @@ export default observer(function Grid() {
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
         return (
           <GridActions
+            modalStore={ModalStore}
             id={params.row.id}
             name={params.row.id}
             editLink={routes.admin.expenses.view(params.row.id)}
@@ -145,7 +146,7 @@ export default observer(function Grid() {
         disableSelectionOnClick
       />
 
-      {/* conditional rendering to avoid unnecessary requests being sent to the API */}
+      {/* making sure we don't sent requests to the API when not needed */}
       {isDetailsOpen && <DetailsModal />}
       <DeleteModal />
     </>

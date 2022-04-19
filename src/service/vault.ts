@@ -38,14 +38,3 @@ export function useDeleteVault(slug: string) {
     )
   }
 }
-
-export function useDeleteManyVaults(idsToDelete: string[]) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
-  return async () => {
-    return await apiClient.post<VaultResponse, AxiosResponse<VaultResponse>>(
-      endpoints.vaults.deleteVaults.url,
-      idsToDelete,
-      authConfig(keycloak?.token),
-    )
-  }
-}

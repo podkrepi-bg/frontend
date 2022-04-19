@@ -2,11 +2,11 @@ import { UseQueryResult } from 'react-query'
 import { observer } from 'mobx-react'
 import { useTranslation } from 'next-i18next'
 
-import { ModalStore } from 'stores/dashboard/ModalStore'
 import { useCity } from 'common/hooks/cities'
-
 import { CityResponse } from 'gql/cities'
 import DetailsDialog from 'components/admin/DetailsDialog'
+
+import { ModalStore } from '../CityPage'
 
 export default observer(function DetailsModal() {
   const { selectedRecord } = ModalStore
@@ -19,5 +19,5 @@ export default observer(function DetailsModal() {
     { name: t('postalCode'), value: `${data?.postalCode}` },
   ]
 
-  return <DetailsDialog data={dataConverted} />
+  return <DetailsDialog modalStore={ModalStore} data={dataConverted} />
 })

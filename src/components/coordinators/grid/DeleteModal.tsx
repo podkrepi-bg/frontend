@@ -4,12 +4,13 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { useTranslation } from 'next-i18next'
 
 import { AlertStore } from 'stores/AlertStore'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 import { useDeleteCoordinator } from 'service/coordinator'
 import { CoordinatorResponse } from 'gql/coordinators'
 import { ApiErrors } from 'service/apiErrors'
 import { endpoints } from 'service/apiEndpoints'
 import DeleteDialog from 'components/admin/DeleteDialog'
+
+import { ModalStore } from '../CoordinatorsPage'
 
 export default observer(function DeleteModal() {
   const queryClient = useQueryClient()
@@ -30,5 +31,5 @@ export default observer(function DeleteModal() {
     mutation.mutate(selectedRecord.id)
   }
 
-  return <DeleteDialog deleteHandler={deleteHandler} />
+  return <DeleteDialog modalStore={ModalStore} deleteHandler={deleteHandler} />
 })

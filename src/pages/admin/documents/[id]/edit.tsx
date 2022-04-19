@@ -3,27 +3,11 @@ import { dehydrate, QueryClient } from 'react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import EditPage from 'components/documents/EditPage'
-import { prefetchDocumentById } from 'common/hooks/documents'
-import { keycloakInstance } from 'middleware/auth/keycloak'
+import { securedAdminProps } from 'middleware/auth/keycloak'
+import { endpoints } from 'service/apiEndpoints'
 
-export const getServerSideProps: GetServerSideProps = async (params) => {
-  const client = new QueryClient()
-  const keycloak = keycloakInstance(params)
-  const { id } = params.query
-
-  await prefetchDocumentById(client, String(id), keycloak.token)
-
-  return {
-    props: {
-      ...(await serverSideTranslations(params.locale ?? 'bg', [
-        'common',
-        'auth',
-        'documents',
-        'validation',
-      ])),
-      dehydratedState: dehydrate(client),
-    },
-  }
-}
-
+export const getServerSideProps = securedAdminProps(
+  ['common', 'auth', 'documents', 'validation'],
+  (ctx) => endpoints.documents.getDocument(ctx.query.id as string).url,
+)
 export default EditPage

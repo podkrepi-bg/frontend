@@ -20,6 +20,7 @@
   "deleteContent": "This action will delete this item permanently!",
   "deleteAllContent": "This action will delete selected items permanently!",
   "actions": "Actions",
+  "createdAt": "Created at",
   "alerts": {
     "selectRow": "Please choose a row",
     "create": "Document has been created successfully!",

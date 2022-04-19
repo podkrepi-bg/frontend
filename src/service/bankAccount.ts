@@ -38,14 +38,3 @@ export function useDeleteBankAccount(id: string) {
     )
   }
 }
-
-export function useDeleteManyBankAccounts(idsToDelete: string[]) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
-  return async () => {
-    return await apiClient.post<BankAccountResponse, AxiosResponse<BankAccountResponse>>(
-      endpoints.bankAccounts.deleteManyBankAccounts.url,
-      idsToDelete,
-      authConfig(keycloak?.token),
-    )
-  }
-}
