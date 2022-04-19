@@ -27,7 +27,6 @@ import {
 } from '@mui/material'
 import { useUserDonations } from 'common/hooks/donation'
 import TableContainer from '@mui/material/TableContainer'
-import DesktopDatePicker from '@mui/lab/DesktopDatePicker'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 
@@ -54,11 +53,6 @@ const useStyles = makeStyles({
     marginBottom: theme.spacing(5),
     display: 'flex',
     justifyContent: 'space-between',
-  },
-  checkboxLabelWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
   },
 })
 
@@ -152,31 +146,31 @@ export default function DonationTab() {
           )}
         </Grid>
         <Grid item xs={12}>
-          <Card>
-            <Grid container>
-              <Grid item className={classes.checkboxLabelWrapper}>
+          <Card sx={{ padding: theme.spacing(2) }}>
+            <Grid container alignItems={'flex-start'} spacing={theme.spacing(2)}>
+              <Grid item xs={6} sm={3}>
                 <CheckboxLabel>{t('auth:profile.donations.oneTime')}</CheckboxLabel>
                 <Checkbox name="oneTime" />
               </Grid>
-              <Grid item>
+              <Grid item xs={6} sm={3}>
                 <CheckboxLabel>{t('auth:profile.donations.monthly')}</CheckboxLabel>
                 <Checkbox name="monthly" />
               </Grid>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <Grid item>
+                <Grid item xs={12} sm={3}>
                   <DatePicker
                     label={t('auth:profile.donations.fromDate')}
                     value={fromDate}
                     onChange={setFromDate}
-                    renderInput={(params) => <TextField {...params} />}
+                    renderInput={(params) => <TextField size="small" {...params} />}
                   />
                 </Grid>
-                <Grid item>
+                <Grid item xs={12} sm={3}>
                   <DatePicker
-                    label={t('auth:profile.donations.fromDate')}
+                    label={t('auth:profile.donations.toDate')}
                     value={toDate}
                     onChange={setToDate}
-                    renderInput={(params) => <TextField {...params} />}
+                    renderInput={(params) => <TextField size="small" {...params} />}
                   />
                 </Grid>
               </LocalizationProvider>
@@ -187,11 +181,11 @@ export default function DonationTab() {
                   <TableHead>
                     <TableRow>
                       <TableCell>№</TableCell>
-                      <TableCell>Дата</TableCell>
-                      <TableCell>Вид</TableCell>
-                      <TableCell>Кауза</TableCell>
-                      <TableCell>стойност</TableCell>
-                      <TableCell>сертификат</TableCell>
+                      <TableCell>{t('auth:profile.donations.date')}</TableCell>
+                      <TableCell>{t('auth:profile.donations.type')}</TableCell>
+                      <TableCell>{t('auth:profile.donations.cause')}</TableCell>
+                      <TableCell>{t('auth:profile.donations.amount')}</TableCell>
+                      <TableCell>{t('auth:profile.donations.certificate')}</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -214,7 +208,7 @@ export default function DonationTab() {
                         </TableCell>
                         <TableCell>
                           <Button variant="outlined">
-                            Свали <ArrowForwardIcon />
+                            {t('auth:profile.donations.download')} <ArrowForwardIcon />
                           </Button>
                         </TableCell>
                       </TableRow>
