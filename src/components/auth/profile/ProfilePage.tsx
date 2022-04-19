@@ -75,8 +75,8 @@ export default function ProfilePage() {
               <Tab
                 className={matches ? classes.tabMobile : ''}
                 value={ProfileTabs.donations}
-                label={matches ? undefined : t('auth:profile.donations')}
-                aria-label={matches ? t('auth:profile.donations') : undefined}
+                label={matches ? undefined : t('auth:profile.donations.index')}
+                aria-label={matches ? t('auth:profile.donations.index') : undefined}
                 onClick={() => router.push(routes.profile.donations)}
                 icon={matches ? <DonationIcon /> : undefined}
               />
