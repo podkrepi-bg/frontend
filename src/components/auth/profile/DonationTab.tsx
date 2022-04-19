@@ -92,10 +92,10 @@ export default function DonationTab() {
   const [toDate, setToDate] = React.useState(new Date())
   return (
     <ProfileTab title="❤️" name={ProfileTabs.donations}>
-      <Grid container>
+      <Grid container alignItems={'flex-end'}>
         <Grid item xs={12} md={4}>
           <Typography typography={'h4'}>Dimitar Nizamov</Typography>
-          <Typography typography={'h5'}>{t('profile.donations.helpThanks')}</Typography>
+          <Typography typography={'h5'}>{t('auth:profile.donations.helpThanks')}</Typography>
           <Card sx={{ maxWidth: 345 }}>
             <CardActionArea>
               <CardMedia
@@ -116,7 +116,7 @@ export default function DonationTab() {
             </CardActionArea>
             <CardActions>
               <Button variant="contained" size="medium" color="secondary">
-                {t('profile.donations.donateNow')} ❤️
+                {t('auth:profile.donations.donateNow')} ❤️
               </Button>
             </CardActions>
           </Card>
@@ -125,31 +125,33 @@ export default function DonationTab() {
           <Card className={classes.donationsBox}>
             <Box className={classes.donationsBoxRow}>
               <Typography fontWeight="medium" variant="h5">
-                {t('profile.donations.totalDonations')}
+                {t('auth:profile.donations.totalDonations')}
               </Typography>
               <Typography fontWeight="medium" variant="h5">
-                {userDonations?.total} {t('profile.donations.lv')}
+                {userDonations?.total} {t('auth:profile.donations.lv')}
               </Typography>
             </Box>
             <Box className={classes.donationsBoxRow}>
               <Box>
-                <Typography variant="h5">{t('profile.donations.recurringDonations')}</Typography>
+                <Typography variant="h5">
+                  {t('auth:profile.donations.recurringDonations')}
+                </Typography>
                 <Typography>Я, Ф, М, А 2022</Typography>
               </Box>
               <Typography fontWeight="medium" variant="h5">
-                {userDonations?.donations[0].amount} {t('profile.donations.lv')}
+                {userDonations?.donations[0].amount} {t('auth:profile.donations.lv')}
               </Typography>
             </Box>
             <Box className={classes.donationsBoxRow}>
-              <Typography variant="h5">{t('profile.donations.cardDonations')}</Typography>
+              <Typography variant="h5">{t('auth:profile.donations.cardDonations')}</Typography>
               <Typography fontWeight="medium" variant="h5">
-                {userDonations?.total} {t('profile.donations.lv')}
+                {userDonations?.total} {t('auth:profile.donations.lv')}
               </Typography>
             </Box>
             <Box className={classes.donationsBoxRow}>
-              <Typography variant="h5">{t('profile.donations.bankDonations')}</Typography>
+              <Typography variant="h5">{t('auth:profile.donations.bankDonations')}</Typography>
               <Typography fontWeight="medium" variant="h5">
-                {userDonations?.total} {t('profile.donations.lv')}
+                {userDonations?.total} {t('auth:profile.donations.lv')}
               </Typography>
             </Box>
           </Card>
