@@ -68,8 +68,10 @@ function UpdateBirthdayModal({
 }) {
   const { t } = useTranslation()
 
+  const dateBefore18Years = new Date(new Date().setFullYear(new Date().getFullYear() - 18))
+
   const initialValues: BirthdayFormData = {
-    birthday: format(new Date(person.birthday ?? new Date()), formatString),
+    birthday: format(new Date(person.birthday ?? dateBefore18Years), formatString),
   }
 
   const classes = useStyles()
@@ -86,7 +88,6 @@ function UpdateBirthdayModal({
   ) => {
     try {
       const birthDate = new Date(values?.birthday)
-      console.log(birthDate)
       await mutation.mutateAsync({ ...person, birthday: birthDate }).then((data) => {
         handleClose(data.data)
       })
