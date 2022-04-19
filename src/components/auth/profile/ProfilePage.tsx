@@ -5,7 +5,6 @@ import React, { useMemo } from 'react'
 import { makeStyles } from '@mui/styles'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-
 import { routes } from 'common/routes'
 import Layout from 'components/layout/Layout'
 import { useSession } from 'common/util/useSession'
