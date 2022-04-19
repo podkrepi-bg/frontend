@@ -4,8 +4,9 @@ import { useTranslation } from 'next-i18next'
 
 import { BenefactorResponse } from 'gql/benefactor'
 import { useBenefactor } from 'common/hooks/benefactor'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 import DetailsDialog from 'components/admin/DetailsDialog'
+
+import { ModalStore } from '../BenefactorPage'
 
 export default observer(function DetailsModal() {
   const { selectedRecord } = ModalStore
@@ -18,5 +19,5 @@ export default observer(function DetailsModal() {
     { name: t('personId'), value: `${data?.person}` },
   ]
 
-  return <DetailsDialog data={dataConverted} />
+  return <DetailsDialog modalStore={ModalStore} data={dataConverted} />
 })

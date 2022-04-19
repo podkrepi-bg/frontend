@@ -39,14 +39,3 @@ export function useDeleteWithdrawal(slug: string) {
     )
   }
 }
-
-export function useDeleteManyWithdrawals(idsToDelete: string[]) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
-  return async () => {
-    return await apiClient.post<WithdrawalResponse, AxiosResponse<WithdrawalResponse>>(
-      endpoints.withdrawals.deleteWithdrawals.url,
-      idsToDelete,
-      authConfig(keycloak?.token),
-    )
-  }
-}

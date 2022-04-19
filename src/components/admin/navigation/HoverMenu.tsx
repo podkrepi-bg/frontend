@@ -55,15 +55,19 @@ export default function HoverMenu({ menu, items, icon: Icon, isOpen }: Props) {
           })}>
           {<Icon />}
         </ListItemIcon>
-        <ListItemText
-          primary={menu}
-          primaryTypographyProps={{ color: isSelected ? 'primary' : undefined }}
-        />
-        <ChevronRightIcon
-          color={
-            anchorMenu ? (isSelected ? 'primary' : 'action') : isSelected ? 'primary' : 'disabled'
-          }
-        />
+        {isOpen && (
+          <ListItemText
+            primary={menu}
+            primaryTypographyProps={{ color: isSelected ? 'primary' : undefined }}
+          />
+        )}
+        {isOpen && (
+          <ChevronRightIcon
+            color={
+              anchorMenu ? (isSelected ? 'primary' : 'action') : isSelected ? 'primary' : 'disabled'
+            }
+          />
+        )}
       </ListItemButton>
       <Menu
         keepMounted
@@ -73,7 +77,7 @@ export default function HoverMenu({ menu, items, icon: Icon, isOpen }: Props) {
         open={Boolean(anchorMenu)}
         className={isOpen ? classes.open : classes.close}
         anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'left' }}>
+        transformOrigin={{ vertical: 'center', horizontal: 'left' }}>
         {items.map(({ label, icon: Icon, href }, index) => (
           <MenuItem sx={{ p: 0 }} key={index} onClick={handleCloseMenu}>
             <CustomListItem
