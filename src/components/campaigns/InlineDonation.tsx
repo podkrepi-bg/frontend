@@ -1,17 +1,25 @@
-import { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'next-i18next'
-import { CampaignResponse } from 'gql/campaigns'
-import { baseUrl, routes } from 'common/routes'
+import { useCallback, useMemo, useState } from 'react'
+
+import { Favorite } from '@mui/icons-material'
+import makeStyles from '@mui/styles/makeStyles'
+import ShareIcon from '@mui/icons-material/Share'
+import createStyles from '@mui/styles/createStyles'
+import { Grid, List, ListItem, ListItemText, Theme, Typography } from '@mui/material'
+
+import {
+  useSinglePriceList,
+  useDonationSession,
+  useRecentDonationsByCampaign,
+} from 'common/hooks/donation'
+
 import { money } from 'common/util/money'
-import { useSinglePriceList, useDonationSession } from 'common/hooks/donation'
-import LinkButton from 'components/common/LinkButton'
+import { baseUrl, routes } from 'common/routes'
+import { CampaignResponse } from 'gql/campaigns'
+
 import CampaignProgress from './CampaignProgress'
 import DonorsAndDonations from './DonorsAndDonations'
-import { Grid, List, ListItem, ListItemText, Theme, Typography } from '@mui/material'
-import { Favorite } from '@mui/icons-material'
-import ShareIcon from '@mui/icons-material/Share'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import LinkButton from 'components/common/LinkButton'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -55,13 +63,16 @@ export default function InlineDonation({ campaign }: Props) {
   const classes = useStyles()
   const { t } = useTranslation()
 
+  const { data: donations } = useRecentDonationsByCampaign(campaign.id)
+
+  const { data: prices } = useSinglePriceList()
   const [showDonationPriceList, setDonationPriceList] = useState(false)
   const onClick = () => setDonationPriceList(true)
 
   const target = campaign.targetAmount
   const summary = campaign.summary.find(() => true)
   const reached = summary ? summary.reachedAmount : 0
-  const { data: prices } = useSinglePriceList()
+
   const mutation = useDonationSession()
 
   const donate = useCallback(
@@ -81,7 +92,6 @@ export default function InlineDonation({ campaign }: Props) {
     },
     [mutation],
   )
-
   const sortedPrices = useMemo(() => {
     if (!prices) return []
     return prices?.sort((a, b) => {
@@ -103,7 +113,7 @@ export default function InlineDonation({ campaign }: Props) {
       </Grid>
       <CampaignProgress raised={reached} target={target} />
       <Grid display="inline-block" m={3} ml={0}>
-        <Typography className={classes.donorsSharesCount}>{0}</Typography>
+        <Typography className={classes.donorsSharesCount}>{donations?.length || 0}</Typography>
         <Typography>{t('campaigns:campaign.donors')}</Typography>
       </Grid>
       <Grid display="inline-block" m={3} ml={0}>
@@ -148,7 +158,7 @@ export default function InlineDonation({ campaign }: Props) {
           </List>
         )}
       </Grid>
-      <DonorsAndDonations />
+      {donations && donations.length > 0 && <DonorsAndDonations donations={donations} />}
       {/* <pre>{JSON.stringify(prices, null, 2)}</pre> */}
     </Grid>
   )
