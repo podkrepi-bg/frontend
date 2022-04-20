@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import truncate from 'lodash.truncate'
+import { parseISO, isBefore, isAfter } from 'date-fns'
 import styled from '@emotion/styled'
 import { makeStyles } from '@mui/styles'
 import Table from '@mui/material/Table'
@@ -11,7 +12,6 @@ import TableCell from '@mui/material/TableCell'
 import TableHead from '@mui/material/TableHead'
 import TextField from '@mui/material/TextField'
 import { formatDateString } from 'common/util/date'
-import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import {
   Box,
   Checkbox,
@@ -29,7 +29,6 @@ import {
 import { useUserDonations } from 'common/hooks/donation'
 import TableContainer from '@mui/material/TableContainer'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
-import LocalizationProvider from '@mui/lab/LocalizationProvider'
 
 import ProfileTab from './ProfileTab'
 import { ProfileTabs } from './tabs'
@@ -39,7 +38,8 @@ import { useTranslation } from 'next-i18next'
 import { useCampaignList } from 'common/hooks/campaigns'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
-import { DatePicker } from '@mui/lab'
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { money } from 'common/util/money'
 
 const useStyles = makeStyles({
@@ -66,8 +66,62 @@ export default function DonationTab() {
   const { data: user } = useCurrentPerson()
   const { data: userDonations, isLoading: isUserDonationLoading } = useUserDonations()
   const { data: campaigns, isLoading: isCampaignLoading } = useCampaignList()
-  const [fromDate, setFromDate] = React.useState(null)
-  const [toDate, setToDate] = React.useState(null)
+  const [filteredDonations, setFilteredDonations] = React.useState(userDonations?.donations)
+  const [fromDate, setFromDate] = React.useState<Date | null>(null)
+  const [toDate, setToDate] = React.useState<Date | null>(null)
+  const [monthly, setMonthly] = React.useState(true)
+  const [oneTime, setOneTime] = React.useState(true)
+  useEffect(() => {
+    setFilteredDonations(userDonations?.donations)
+  }, [userDonations])
+  useEffect(() => {
+    if (monthly && oneTime) {
+      setFilteredDonations(userDonations?.donations)
+      return
+    }
+    if (!monthly && !oneTime) {
+      setFilteredDonations([])
+    }
+    if (monthly) {
+      setFilteredDonations(userDonations?.donations?.filter((d) => d.type !== 'donation'))
+    }
+    if (oneTime) {
+      setFilteredDonations(userDonations?.donations?.filter((d) => d.type === 'donation'))
+    }
+  }, [monthly, oneTime])
+  useEffect(() => {
+    if (!fromDate && !toDate) {
+      setFilteredDonations(userDonations?.donations)
+      return
+    }
+    if (fromDate && toDate) {
+      setFilteredDonations(
+        userDonations?.donations?.filter((d) => {
+          const createdAtDate = parseISO(d.createdAt)
+          return isAfter(createdAtDate, fromDate) && isBefore(createdAtDate, toDate)
+        }),
+      )
+      return
+    }
+    if (fromDate) {
+      setFilteredDonations(
+        userDonations?.donations?.filter((d) => {
+          const createdAtDate = parseISO(d.createdAt)
+          return isAfter(createdAtDate, fromDate)
+        }),
+      )
+      return
+    }
+    if (toDate) {
+      setFilteredDonations(
+        userDonations?.donations?.filter((d) => {
+          const createdAtDate = parseISO(d.createdAt)
+          return isBefore(createdAtDate, toDate)
+        }),
+      )
+      return
+    }
+  }, [fromDate, toDate])
   return (
     <ProfileTab
       title={user?.user ? user.user.firstName + ' ' + user?.user.lastName : ''}
@@ -153,11 +207,23 @@ export default function DonationTab() {
             <Grid container alignItems={'flex-start'} spacing={theme.spacing(2)}>
               <Grid item xs={6} sm={3}>
                 <CheckboxLabel>{t('auth:profile.donations.oneTime')}</CheckboxLabel>
-                <Checkbox name="oneTime" />
+                <Checkbox
+                  onChange={(e, checked) => {
+                    setOneTime(checked)
+                  }}
+                  checked={oneTime}
+                  name="oneTime"
+                />
               </Grid>
               <Grid item xs={6} sm={3}>
                 <CheckboxLabel>{t('auth:profile.donations.monthly')}</CheckboxLabel>
-                <Checkbox name="monthly" />
+                <Checkbox
+                  onChange={(e, checked) => {
+                    setMonthly(checked)
+                  }}
+                  checked={monthly}
+                  name="monthly"
+                />
               </Grid>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <Grid item xs={12} sm={3}>
@@ -178,7 +244,7 @@ export default function DonationTab() {
                 </Grid>
               </LocalizationProvider>
             </Grid>
-            {userDonations?.donations.length ? (
+            {filteredDonations?.length ? (
               <TableContainer>
                 <Table sx={{ minWidth: 650, backgroundColor: 'white' }} aria-label="simple table">
                   <TableHead>
@@ -192,7 +258,7 @@ export default function DonationTab() {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {userDonations.donations.map((donation, index) => (
+                    {filteredDonations.map((donation, index) => (
                       <TableRow
                         key={index}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>

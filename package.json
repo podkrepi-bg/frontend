@@ -32,6 +32,7 @@
     "@mui/material": "^5.4.2",
     "@mui/styles": "^5.4.2",
     "@mui/x-data-grid": "^5.5.1",
+    "@mui/x-date-pickers": "^5.0.0-alpha.1",
     "@next/bundle-analyzer": "^12.1.0",
     "@react-keycloak/ssr": "3.3.0",
     "@sentry/nextjs": "6.17.8",
