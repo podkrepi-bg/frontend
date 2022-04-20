@@ -13,6 +13,7 @@ import {
   CheckoutSessionResponse,
   DonationPrice,
   DonationResponse,
+  RecentDonationResult,
   UserDonationResult,
 } from 'gql/donations'
 import { createCheckoutSession } from 'service/donation'
@@ -55,9 +56,14 @@ export function useDonation(id: string) {
 export async function prefetchDonationById(client: QueryClient, id: string) {
   await client.prefetchQuery<DonationResponse>(endpoints.donation.getDonation(id).url)
 }
+
 export function useUserDonations() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return useQuery<UserDonationResult>(endpoints.donation.userDonations.url, {
     queryFn: authQueryFnFactory(keycloak?.token),
   })
+}
+
+export function useRecentDonationsByCampaign(id: string) {
+  return useQuery<RecentDonationResult[]>(endpoints.donation.getRecentDonations(id).url)
 }
