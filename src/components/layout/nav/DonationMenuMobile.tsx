@@ -60,7 +60,7 @@ export default function SimpleAccordion() {
         <LinkButton variant="text" href={routes.termsOfService} className={classes.menuItem}>
           {t('components.footer.terms-of-service')}
         </LinkButton>
-        <LinkButton variant="text" href={'#'} className={classes.menuItem}>
+        <LinkButton variant="text" href={routes.faq} className={classes.menuItem}>
           {t('nav.campaigns.faq')}
         </LinkButton>
       </AccordionDetails>
