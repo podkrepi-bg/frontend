@@ -86,3 +86,15 @@ export type UserDonationResult = {
   donations: UserDonation[]
   total: number
 }
+
+export type RecentDonationResult = {
+  person: {
+    firstName: string
+    lastName: string
+    email: string
+  }
+  amount: number
+  createdAt: DateTime
+  targetVaultId: string
+  provider: PaymentProvider
+}
