@@ -1,10 +1,9 @@
-import { AxiosResponse } from 'axios'
 import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
 
 import { endpoints } from './apiEndpoints'
 import { authConfig, authQueryFnFactory } from './restRequests'
-import { CampaignTypeFormData, CampaignTypesResponse, DeleteMany } from 'gql/campaign-types'
+import { CampaignTypeFormData, CampaignTypesResponse } from 'gql/campaign-types'
 import { QueryClient, useQuery } from 'react-query'
 import { apiClient } from './apiClient'
 
@@ -56,17 +55,6 @@ export const useRemoveCampaignType = () => {
   return async (id: string) => {
     return await apiClient.delete(
       endpoints.campaignTypes.removeCampaignType(id).url,
-      authConfig(keycloak?.token),
-    )
-  }
-}
-
-export function useRemoveManyCampaignTypes(idsToDelete: string[]) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
-  return async () => {
-    return await apiClient.post<DeleteMany, AxiosResponse<CampaignTypesResponse[]>>(
-      endpoints.campaignTypes.removeMany.url,
-      { ids: idsToDelete },
       authConfig(keycloak?.token),
     )
   }

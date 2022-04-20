@@ -1,30 +1,10 @@
-import { GetServerSideProps } from 'next'
-import { dehydrate, QueryClient } from 'react-query'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
 import EditPage from 'components/campaign-types/EditPage'
-import { prefetchCampaignTypeById } from 'service/campaignTypes'
-import { keycloakInstance } from 'middleware/auth/keycloak'
+import { securedAdminProps } from 'middleware/auth/keycloak'
+import { endpoints } from 'service/apiEndpoints'
 
-export const getServerSideProps: GetServerSideProps = async (params) => {
-  const client = new QueryClient()
-  const keycloak = keycloakInstance(params)
-  const { id } = params.query
-
-  await prefetchCampaignTypeById(client, String(id), keycloak.token)
-
-  return {
-    props: {
-      ...(await serverSideTranslations(params.locale ?? 'bg', [
-        'common',
-        'auth',
-        'campaign-types',
-        'validation',
-        'documents',
-      ])),
-      dehydratedState: dehydrate(client),
-    },
-  }
-}
+export const getServerSideProps = securedAdminProps(
+  ['common', 'auth', 'campaign-types', 'validation', 'documents'],
+  (ctx) => endpoints.campaignTypes.viewCampaignType(ctx.query.id as string).url,
+)
 
 export default EditPage

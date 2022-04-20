@@ -8,9 +8,10 @@ import { BenefactorResponse } from 'gql/benefactor'
 import { ApiErrors } from 'service/apiErrors'
 import { routes } from 'common/routes'
 import { deleteBenefactor } from 'service/benefactor'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 import DeleteDialog from 'components/admin/DeleteDialog'
+
+import { ModalStore } from '../BenefactorPage'
 
 export default observer(function DeleteModal() {
   const router = useRouter()
@@ -37,5 +38,5 @@ export default observer(function DeleteModal() {
     deleteMutation.mutate(selectedRecord.id)
   }
 
-  return <DeleteDialog deleteHandler={deleteHandler} />
+  return <DeleteDialog modalStore={ModalStore} deleteHandler={deleteHandler} />
 })

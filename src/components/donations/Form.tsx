@@ -134,7 +134,7 @@ export default function EditForm() {
                 label={t('donations:type')}
                 id="type"
                 name="type"
-                defaultValue={initialValues.type}
+                value={initialValues.type}
                 onChange={(e) => setType(e.target.value)}
                 disabled={id ? true : false}>
                 {validDonationTypes.map((type) => {
@@ -155,7 +155,7 @@ export default function EditForm() {
                 label={t('donations:status')}
                 id="status"
                 name="status"
-                defaultValue={initialValues.status}
+                value={initialValues.status}
                 onChange={(e) => {
                   setStatus(e.target.value)
                   console.log(e.target.value)
@@ -178,7 +178,7 @@ export default function EditForm() {
                 label={t('donations:provider')}
                 id="provider"
                 name="provider"
-                defaultValue={initialValues.provider}
+                value={initialValues.provider}
                 onChange={(e) => setProvider(e.target.value)}
                 disabled={id ? true : false}>
                 {validProviders.map((prov) => {
@@ -199,7 +199,7 @@ export default function EditForm() {
                 label={t('donations:vault')}
                 id="targetVaultId"
                 name="targetVaultId"
-                defaultValue={initialValues.targetVaultId}
+                value={initialValues.targetVaultId}
                 onChange={(e) => setVault(e.target.value)}
                 disabled={id ? true : false}>
                 {vaults?.map((vault) => {
@@ -252,7 +252,7 @@ export default function EditForm() {
                 label={t('donations:currency')}
                 id="currency"
                 name="currency"
-                defaultValue={initialValues.currency}
+                value={initialValues.currency}
                 onChange={(e) => setCurrency(e.target.value)}
                 disabled={id ? true : false}>
                 {validCurrencies.map((currency) => {

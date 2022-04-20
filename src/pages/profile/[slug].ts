@@ -1,6 +1,6 @@
-import AdminPage from 'components/admin/AdminPage'
 import { securedPropsWithTranslation } from 'middleware/auth/keycloak'
+import ProfilePage from 'components/auth/profile/ProfilePage'
 
 export const getServerSideProps = securedPropsWithTranslation()
 
-export default AdminPage
+export default ProfilePage

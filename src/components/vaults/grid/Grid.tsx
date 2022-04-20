@@ -3,18 +3,21 @@ import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
 import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
 import { VaultResponse } from 'gql/vault'
 import { useVaultsList } from 'common/hooks/vaults'
 import GridActions from 'components/admin/GridActions'
 
+import { ModalStore } from '../VaultsPage'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
 
-export default function Grid() {
+export default observer(function Grid() {
   const { t } = useTranslation('vaults')
   const { data }: UseQueryResult<VaultResponse[]> = useVaultsList()
+  const { isDetailsOpen } = ModalStore
   const [pageSize, setPageSize] = useState(5)
 
   const commonProps: Partial<GridColDef> = {
@@ -65,6 +68,7 @@ export default function Grid() {
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
         return (
           <GridActions
+            modalStore={ModalStore}
             id={params.row.id}
             name={params.row.name}
             editLink={routes.admin.vaults.edit(params.row.id)}
@@ -97,8 +101,10 @@ export default function Grid() {
           disableSelectionOnClick
         />
       </Box>
-      <DetailsModal />
+
+      {/* making sure we don't sent requests to the API when not needed */}
+      {isDetailsOpen && <DetailsModal />}
       <DeleteModal />
     </>
   )
-}
+})

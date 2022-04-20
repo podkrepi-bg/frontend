@@ -1,11 +1,10 @@
-import { GetServerSideProps } from 'next'
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import SupportersPage from 'components/admin/SupportersPage'
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  return {
-    props: {
-      ...(await serverSideTranslations(ctx.locale ?? 'bg', ['common', 'auth', 'validation'])),
-    },
-  }
-}
+import { securedAdminProps } from 'middleware/auth/keycloak'
+import { endpoints } from 'service/apiEndpoints'
+
+export const getServerSideProps = securedAdminProps(
+  ['common', 'auth', 'validation'],
+  () => endpoints.support.supportRequestList.url,
+)
+
 export default SupportersPage

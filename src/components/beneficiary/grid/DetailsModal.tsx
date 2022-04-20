@@ -4,9 +4,10 @@ import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
 
 import { useViewBeneficiary } from 'service/beneficiary'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 import { ViewBeneficiaryResponse } from 'gql/beneficiary'
 import DetailsDialog from 'components/admin/DetailsDialog'
+
+import { ModalStore } from '../BeneficiaryPage'
 
 export default observer(function DetailsModal() {
   const { t } = useTranslation('beneficiary')
@@ -48,5 +49,5 @@ export default observer(function DetailsModal() {
     dataConverted.push({ name: t('grid.private-data'), value: data?.privateData })
   }
 
-  return <DetailsDialog data={dataConverted} />
+  return <DetailsDialog modalStore={ModalStore} data={dataConverted} />
 })
