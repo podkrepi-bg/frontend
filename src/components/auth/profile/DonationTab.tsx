@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import truncate from 'lodash.truncate'
-import { parseISO, isBefore, isAfter } from 'date-fns'
+import { parseISO, isBefore, isAfter, format } from 'date-fns'
+import { bg, enUS } from 'date-fns/locale'
 import styled from '@emotion/styled'
 import { makeStyles } from '@mui/styles'
 import Table from '@mui/material/Table'
@@ -11,7 +12,6 @@ import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
 import TableHead from '@mui/material/TableHead'
 import TextField from '@mui/material/TextField'
-import { formatDateString } from 'common/util/date'
 import {
   Box,
   Checkbox,
@@ -61,7 +61,7 @@ const useStyles = makeStyles({
 const CheckboxLabel = styled.label``
 export default function DonationTab() {
   const classes = useStyles()
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const matches = useMediaQuery(theme.breakpoints.down('md'))
   const { data: user } = useCurrentPerson()
   const { data: userDonations, isLoading: isUserDonationLoading } = useUserDonations()
@@ -179,6 +179,8 @@ export default function DonationTab() {
                   <Typography variant="h5">
                     {t('auth:profile.donations.recurringDonations')}
                   </Typography>
+                  {/* TODO: Use date-fns to format and localize the months,
+                   that the user has recurring donations when that is possible */}
                   <Typography>Я, Ф, М, А 2022</Typography>
                 </Box>
                 <Typography fontWeight="medium" variant="h5">
@@ -225,7 +227,9 @@ export default function DonationTab() {
                   name="monthly"
                 />
               </Grid>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <LocalizationProvider
+                locale={i18n.language === 'bg' ? bg : enUS}
+                dateAdapter={AdapterDateFns}>
                 <Grid item xs={12} sm={3}>
                   <DatePicker
                     label={t('auth:profile.donations.fromDate')}
@@ -265,7 +269,11 @@ export default function DonationTab() {
                         <TableCell component="th" scope="row">
                           {index + 1}
                         </TableCell>
-                        <TableCell>{formatDateString(donation.createdAt)}</TableCell>
+                        <TableCell>
+                          {format(parseISO(donation.createdAt), 'd.LL.yyyy', {
+                            locale: i18n.language === 'bg' ? bg : enUS,
+                          })}
+                        </TableCell>
                         <TableCell>
                           <Avatar sx={{ background: darken(theme.palette.secondary.main, 0.175) }}>
                             <StarIcon />
