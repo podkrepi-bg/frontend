@@ -93,7 +93,7 @@ function DonationTable({ donations }: DonationTableProps) {
     <Card sx={{ padding: theme.spacing(2) }}>
       <Grid container alignItems={'flex-start'} spacing={theme.spacing(2)}>
         <Grid item xs={6} sm={3}>
-          <CheckboxLabel>{t('auth:profile.donations.oneTime')}</CheckboxLabel>
+          <CheckboxLabel>{t('profile:donations.oneTime')}</CheckboxLabel>
           <Checkbox
             onChange={(e, checked) => {
               setOneTime(checked)
@@ -103,7 +103,7 @@ function DonationTable({ donations }: DonationTableProps) {
           />
         </Grid>
         <Grid item xs={6} sm={3}>
-          <CheckboxLabel>{t('auth:profile.donations.monthly')}</CheckboxLabel>
+          <CheckboxLabel>{t('profile:donations.monthly')}</CheckboxLabel>
           <Checkbox
             onChange={(e, checked) => {
               setMonthly(checked)
@@ -117,7 +117,7 @@ function DonationTable({ donations }: DonationTableProps) {
           dateAdapter={AdapterDateFns}>
           <Grid item xs={12} sm={3}>
             <DatePicker
-              label={t('auth:profile.donations.fromDate')}
+              label={t('profile:donations.fromDate')}
               value={fromDate}
               onChange={setFromDate}
               renderInput={(params) => <TextField size="small" {...params} />}
@@ -125,7 +125,7 @@ function DonationTable({ donations }: DonationTableProps) {
           </Grid>
           <Grid item xs={12} sm={3}>
             <DatePicker
-              label={t('auth:profile.donations.toDate')}
+              label={t('profile:donations.toDate')}
               value={toDate}
               onChange={setToDate}
               renderInput={(params) => <TextField size="small" {...params} />}
@@ -139,11 +139,11 @@ function DonationTable({ donations }: DonationTableProps) {
             <TableHead>
               <TableRow>
                 <TableCell>№</TableCell>
-                <TableCell>{t('auth:profile.donations.date')}</TableCell>
-                <TableCell>{t('auth:profile.donations.type')}</TableCell>
-                <TableCell>{t('auth:profile.donations.cause')}</TableCell>
-                <TableCell>{t('auth:profile.donations.amount')}</TableCell>
-                <TableCell>{t('auth:profile.donations.certificate')}</TableCell>
+                <TableCell>{t('profile:donations.date')}</TableCell>
+                <TableCell>{t('profile:donations.type')}</TableCell>
+                <TableCell>{t('profile:donations.cause')}</TableCell>
+                <TableCell>{t('profile:donations.amount')}</TableCell>
+                <TableCell>{t('profile:donations.certificate')}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -166,7 +166,7 @@ function DonationTable({ donations }: DonationTableProps) {
                   <TableCell>{money(donation.amount)}</TableCell>
                   <TableCell>
                     <Button variant="outlined">
-                      {t('auth:profile.donations.download')} <ArrowForwardIcon />
+                      {t('profile:donations.download')} <ArrowForwardIcon />
                     </Button>
                   </TableCell>
                 </TableRow>
