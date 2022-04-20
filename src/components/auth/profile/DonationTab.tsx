@@ -54,7 +54,7 @@ export default function DonationTab() {
       title={user?.user ? user.user.firstName + ' ' + user?.user.lastName : ''}
       name={ProfileTabs.donations}>
       <Typography variant="h5" fontWeight={'medium'}>
-        {t('auth:profile.donations.helpThanks')} ❤️
+        {t('profile:donations.helpThanks')} ❤️
       </Typography>
       <Grid
         container
@@ -85,7 +85,7 @@ export default function DonationTab() {
             )}
             <CardActions>
               <Button variant="contained" size="medium" color="secondary">
-                {t('auth:profile.donations.donateNow')} ❤️
+                {t('profile:donations.donateNow')} ❤️
               </Button>
             </CardActions>
           </Card>
@@ -95,7 +95,7 @@ export default function DonationTab() {
             <Card className={classes.donationsBox}>
               <Box className={classes.donationsBoxRow}>
                 <Typography fontWeight="medium" variant="h5">
-                  {t('auth:profile.donations.totalDonations')}
+                  {t('profile:donations.totalDonations')}
                 </Typography>
                 <Typography fontWeight="medium" variant="h5">
                   {money(userDonations.total)}
@@ -103,9 +103,7 @@ export default function DonationTab() {
               </Box>
               <Box className={classes.donationsBoxRow}>
                 <Box>
-                  <Typography variant="h5">
-                    {t('auth:profile.donations.recurringDonations')}
-                  </Typography>
+                  <Typography variant="h5">{t('profile:donations.recurringDonations')}</Typography>
                   {/* TODO: Use date-fns to format and localize the months,
                    that the user has recurring donations when that is possible */}
                   <Typography>Я, Ф, М, А 2022</Typography>
@@ -115,13 +113,13 @@ export default function DonationTab() {
                 </Typography>
               </Box>
               <Box className={classes.donationsBoxRow}>
-                <Typography variant="h5">{t('auth:profile.donations.cardDonations')}</Typography>
+                <Typography variant="h5">{t('profile:donations.cardDonations')}</Typography>
                 <Typography fontWeight="medium" variant="h5">
                   {money(userDonations.total)}
                 </Typography>
               </Box>
               <Box className={classes.donationsBoxRow}>
-                <Typography variant="h5">{t('auth:profile.donations.bankDonations')}</Typography>
+                <Typography variant="h5">{t('profile:donations.bankDonations')}</Typography>
                 <Typography fontWeight="medium" variant="h5">
                   {money(userDonations.total)}
                 </Typography>

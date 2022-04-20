@@ -74,32 +74,32 @@ export default function ProfilePage() {
               <Tab
                 className={matches ? classes.tabMobile : ''}
                 value={ProfileTabs.donations}
-                label={matches ? undefined : t('auth:profile.donations.index')}
-                aria-label={matches ? t('auth:profile.donations.index') : undefined}
+                label={matches ? undefined : t('profile:donations.index')}
+                aria-label={matches ? t('profile:donations.index') : undefined}
                 onClick={() => router.push(routes.profile.donations)}
                 icon={matches ? <DonationIcon /> : undefined}
               />
               <Tab
                 className={matches ? classes.tabMobile : ''}
                 value={ProfileTabs.personalInformation}
-                label={matches ? undefined : t('auth:profile.personalInformation')}
-                aria-label={matches ? t('auth:profile.personalInformation') : undefined}
+                label={matches ? undefined : t('profile:personalInformation')}
+                aria-label={matches ? t('profile:personalInformation') : undefined}
                 onClick={() => router.push(routes.profile.personalInformation)}
                 icon={matches ? <AccountBoxIcon /> : undefined}
               />
               <Tab
                 className={matches ? classes.tabMobile : ''}
                 value={ProfileTabs.certificates}
-                label={matches ? undefined : t('auth:profile.certificates')}
-                aria-label={matches ? t('auth:profile.certificates') : undefined}
+                label={matches ? undefined : t('profile:certificates')}
+                aria-label={matches ? t('profile:certificates') : undefined}
                 onClick={() => router.push(routes.profile.certificates)}
                 icon={matches ? <CertificateIcon /> : undefined}
               />
               <Tab
                 className={matches ? classes.tabMobile : ''}
                 value={ProfileTabs.contractDonation}
-                label={matches ? undefined : t('auth:profile.donationsContract')}
-                aria-label={matches ? t('auth:profile.donationsContract') : undefined}
+                label={matches ? undefined : t('profile:donationsContract')}
+                aria-label={matches ? t('profile:donationsContract') : undefined}
                 onClick={() => router.push(routes.profile.contractDonation)}
                 icon={matches ? <ContractIcon /> : undefined}
               />
