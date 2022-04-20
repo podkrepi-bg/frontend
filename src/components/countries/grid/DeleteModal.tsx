@@ -8,10 +8,11 @@ import { useTranslation } from 'next-i18next'
 import { CountryResponse } from 'gql/countries'
 import { ApiErrors } from 'service/apiErrors'
 import { useDeleteCountry } from 'service/country'
-import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 import { routes } from 'common/routes'
 import DeleteDialog from 'components/admin/DeleteDialog'
+
+import { ModalStore } from '../CountriesPage'
 
 export default observer(function DeleteModal() {
   const router = useRouter()
@@ -34,5 +35,5 @@ export default observer(function DeleteModal() {
     mutation.mutate(selectedRecord.id)
   }
 
-  return <DeleteDialog deleteHandler={deleteHandler} />
+  return <DeleteDialog modalStore={ModalStore} deleteHandler={deleteHandler} />
 })

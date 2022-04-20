@@ -57,7 +57,7 @@ export default function PrivateMenu() {
         open={Boolean(anchorEl)}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}>
-        <LinkMenuItem href={routes.profile} className={classes.dropdownLinkText}>
+        <LinkMenuItem href={routes.profile.index} className={classes.dropdownLinkText}>
           <Typography variant="button">{t('nav.profile')}</Typography>
         </LinkMenuItem>
         {keycloak?.authenticated && isAdmin(keycloak) && (
