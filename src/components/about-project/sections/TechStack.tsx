@@ -1,10 +1,12 @@
 import { useTranslation } from 'next-i18next'
+
+import Heading from 'components/common/Heading'
+
 import { Box, Grid, Theme, Typography } from '@mui/material'
 import JoinLeftIcon from '@mui/icons-material/JoinLeft'
 import ImportantDevicesIcon from '@mui/icons-material/ImportantDevices'
 import SettingsIcon from '@mui/icons-material/Settings'
-
-import Heading from 'components/common/Heading'
+import CheckIcon from '@mui/icons-material/Check'
 
 import createStyles from '@mui/styles/createStyles'
 import makeStyles from '@mui/styles/makeStyles'
@@ -51,8 +53,15 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: theme.spacing(7),
     },
     list: {
-      listStyle: 'disc',
-      paddingLeft: '2rem',
+      margin: '0 auto 32px',
+    },
+    listItem: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: theme.spacing(1.5),
+    },
+    categoryTitle: {
+      fontWeight: 600,
     },
   }),
 )
@@ -77,11 +86,14 @@ export default function TechStack() {
             <Grid item xs={12} sm={8} key={section}>
               <Grid container justifyContent="center" gap="5px">
                 <Grid>{icon}</Grid>
-                <Typography variant="subtitle1">{label}</Typography>
+                <Typography variant="subtitle1" className={classes.categoryTitle}>
+                  {label}
+                </Typography>
               </Grid>
-              <Grid item xs={12} component="ul" className={classes.list}>
+              <Grid item xs={12} md={6} component="ul" className={classes.list}>
                 {items.map((line: string, key: number) => (
-                  <Typography key={key} variant="body2" component="li">
+                  <Typography key={key} variant="body2" component="li" className={classes.listItem}>
+                    <CheckIcon />
                     {t(line)}
                   </Typography>
                 ))}
