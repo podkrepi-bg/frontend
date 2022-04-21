@@ -1,3 +1,5 @@
+import Stripe from 'stripe'
+import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { useCallback, useMemo, useState } from 'react'
 
@@ -16,6 +18,7 @@ import {
 import { money } from 'common/util/money'
 import { baseUrl, routes } from 'common/routes'
 import { CampaignResponse } from 'gql/campaigns'
+import { RecentDonationResult } from 'gql/donations'
 
 import CampaignProgress from './CampaignProgress'
 import DonorsAndDonations from './DonorsAndDonations'
@@ -63,9 +66,11 @@ export default function InlineDonation({ campaign }: Props) {
   const classes = useStyles()
   const { t } = useTranslation()
 
-  const { data: donations } = useRecentDonationsByCampaign(campaign.id)
+  const { data: donations }: UseQueryResult<RecentDonationResult[]> = useRecentDonationsByCampaign(
+    campaign.id,
+  )
 
-  const { data: prices } = useSinglePriceList()
+  const { data: prices }: UseQueryResult<Stripe.Price[]> = useSinglePriceList()
   const [showDonationPriceList, setDonationPriceList] = useState(false)
   const onClick = () => setDonationPriceList(true)
 

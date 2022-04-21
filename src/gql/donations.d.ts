@@ -95,6 +95,5 @@ export type RecentDonationResult = {
   }
   amount: number
   createdAt: DateTime
-  targetVaultId: string
   provider: PaymentProvider
 }

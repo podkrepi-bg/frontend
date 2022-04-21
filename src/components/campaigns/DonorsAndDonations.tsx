@@ -100,6 +100,7 @@ export default function DonorsAndDonations({ donations }: Props) {
           </Grid>
         </Grid>
       ))}
+      {/* displayed results are limited up to 10 */}
       {visible &&
         formatted?.slice(3, 10).map(({ donorName, donatedMoney, donationTime }, key) => (
           <Grid key={key} className={classes.donationItemWrapper}>
