@@ -1,6 +1,3 @@
-import React from 'react'
-import { sumBy, truncate } from 'lodash'
-import { makeStyles } from '@mui/styles'
 import {
   Box,
   Button,
@@ -14,16 +11,20 @@ import {
   CircularProgress,
   useMediaQuery,
 } from '@mui/material'
-import { useUserDonations } from 'common/hooks/donation'
-
-import ProfileTab from './ProfileTab'
-import { ProfileTabs } from './tabs'
-import theme from 'common/theme'
+import React from 'react'
+import { sumBy, truncate } from 'lodash'
+import { makeStyles } from '@mui/styles'
 import { useTranslation } from 'next-i18next'
-import { useCampaignList } from 'common/hooks/campaigns'
-import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
-import { useCurrentPerson } from 'common/util/useCurrentPerson'
+
+import theme from 'common/theme'
 import { money } from 'common/util/money'
+import { useUserDonations } from 'common/hooks/donation'
+import { useCampaignList } from 'common/hooks/campaigns'
+import { useCurrentPerson } from 'common/util/useCurrentPerson'
+import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
+
+import { ProfileTabs } from './tabs'
+import ProfileTab from './ProfileTab'
 import DonationTable from './DonationTable'
 
 const useStyles = makeStyles({

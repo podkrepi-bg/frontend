@@ -13,19 +13,20 @@ import {
   Avatar,
   Button,
 } from '@mui/material'
-import StarIcon from '@mui/icons-material/Star'
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
-import { money } from 'common/util/money'
-import { format, isAfter, isBefore, parseISO } from 'date-fns'
-import React, { useEffect, useMemo, useState } from 'react'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
-import { useTranslation } from 'next-i18next'
-import { UserDonation } from 'gql/donations'
-import theme from 'common/theme'
-import { bg, enUS } from 'date-fns/locale'
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-import styled from '@emotion/styled'
 import { Box } from '@mui/system'
+import styled from '@emotion/styled'
+import React, { useMemo } from 'react'
+import { bg, enUS } from 'date-fns/locale'
+import { useTranslation } from 'next-i18next'
+import StarIcon from '@mui/icons-material/Star'
+import { format, isAfter, isBefore, parseISO } from 'date-fns'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
+
+import theme from 'common/theme'
+import { money } from 'common/util/money'
+import { UserDonation } from 'gql/donations'
 
 export type DonationTableProps = {
   donations: UserDonation[] | undefined
@@ -81,9 +82,7 @@ function DonationTable({ donations }: DonationTableProps) {
         <Grid item xs={6} sm={3}>
           <CheckboxLabel>{t('profile:donations.oneTime')}</CheckboxLabel>
           <Checkbox
-            onChange={(e, checked) => {
-              setOneTime(checked)
-            }}
+            onChange={(e, checked) => setOneTime(checked)}
             checked={oneTime}
             name="oneTime"
           />
@@ -91,9 +90,7 @@ function DonationTable({ donations }: DonationTableProps) {
         <Grid item xs={6} sm={3}>
           <CheckboxLabel>{t('profile:donations.monthly')}</CheckboxLabel>
           <Checkbox
-            onChange={(e, checked) => {
-              setMonthly(checked)
-            }}
+            onChange={(e, checked) => setMonthly(checked)}
             checked={monthly}
             name="monthly"
           />
