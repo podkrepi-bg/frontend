@@ -37,8 +37,8 @@ export const endpoints = {
     editDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'PATCH' },
     deleteDonation: <Endpoint>{ url: `/donation/delete`, method: 'POST' },
     userDonations: <Endpoint>{ url: 'donation/user-donations', method: 'GET' },
-    getRecentDonations: (id: string) =>
-      <Endpoint>{ url: `/donation/recent/by-campaign/${id}`, method: 'GET' },
+    getRecentDonations: (campaignId: string) =>
+      <Endpoint>{ url: `/donation/list/${campaignId}`, method: 'GET' },
   },
   documents: {
     documentsList: <Endpoint>{ url: '/document', method: 'GET' },
