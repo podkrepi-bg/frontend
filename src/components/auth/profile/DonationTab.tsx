@@ -1,5 +1,5 @@
 import React from 'react'
-import { truncate } from 'lodash'
+import { sumBy, truncate } from 'lodash'
 import { makeStyles } from '@mui/styles'
 import {
   Box,
@@ -106,10 +106,10 @@ export default function DonationTab() {
                   <Typography variant="h5">{t('profile:donations.recurringDonations')}</Typography>
                   {/* TODO: Use date-fns to format and localize the months,
                    that the user has recurring donations when that is possible */}
-                  <Typography>Я, Ф, М, А 2022</Typography>
+                  {/* <Typography>Я, Ф, М, А 2022</Typography> */}
                 </Box>
                 <Typography fontWeight="medium" variant="h5">
-                  {money(userDonations.donations[0].amount)}
+                  {money(sumBy(userDonations.donations, 'amount'))}
                 </Typography>
               </Box>
               <Box className={classes.donationsBoxRow}>
