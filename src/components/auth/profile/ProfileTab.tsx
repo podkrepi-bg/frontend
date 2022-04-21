@@ -14,7 +14,6 @@ function ProfileTab({ children, name, title, ...other }: Props) {
     <div role="tabpanel" id={`tabpanel-${name}`} aria-labelledby={`tab-${name}`} {...other}>
       <Box
         sx={(theme) => ({
-          backgroundColor: 'white',
           padding: theme.spacing(5, 4),
           marginTop: theme.spacing(2),
         })}>

@@ -78,8 +78,13 @@ export type UserDonation = {
     }
   }
   amount: number
-  currency: number
+  currency: string
   createdAt: string
+  id: UUID
+  provider: string
+  status: string
+  type: string
+  personId: UUID
 }
 
 export type UserDonationResult = {

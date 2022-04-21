@@ -1,0 +1,25 @@
+{
+  "personalInformation": "Лична информация",
+  "donations": {
+    "index": "Дарения",
+    "helpThanks": "Благодарим за помощта ви!",
+    "donateNow": "Подкрепи сега",
+    "totalDonations": "Всички дарения",
+    "recurringDonations": "Повтарящи дарения",
+    "cardDonations": "Дарения с карта",
+    "bankDonations": "Дарения по банков път",
+    "monthly": "Месечни",
+    "oneTime": "Еднократни",
+    "fromDate": "От",
+    "toDate": "До",
+    "date": "Дата",
+    "type": "Тип",
+    "cause": "Кауза",
+    "amount": "Сума",
+    "certificate": "Сертификат",
+    "download": "Свали",
+    "lv": "лв"
+  },
+  "donationsContract": "Договор дарение",
+  "certificates": "Сертификати"
+}
