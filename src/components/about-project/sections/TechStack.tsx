@@ -53,12 +53,18 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: theme.spacing(7),
     },
     list: {
-      margin: '0 auto 32px',
+      margin: '0 auto',
     },
     listItem: {
       display: 'flex',
       alignItems: 'center',
       gap: theme.spacing(1.5),
+    },
+    categoryWrapper: {
+      marginBottom: theme.spacing(6),
+      '&:nth-of-type(3)': {
+        marginBottom: 0,
+      },
     },
     categoryTitle: {
       fontWeight: 600,
@@ -81,9 +87,9 @@ export default function TechStack() {
         {t('about-project:tech-stack.title')}
       </Heading>
       <Grid container direction="column" component="section">
-        <Grid item container justifyContent="center" spacing={2}>
+        <Grid item container justifyContent="center">
           {rows.map(({ label, icon, items }, section: number) => (
-            <Grid item xs={12} sm={8} key={section}>
+            <Grid item xs={12} sm={8} key={section} className={classes.categoryWrapper}>
               <Grid container justifyContent="center" gap="5px">
                 <Grid>{icon}</Grid>
                 <Typography variant="subtitle1" className={classes.categoryTitle}>
