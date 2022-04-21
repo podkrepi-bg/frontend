@@ -7,7 +7,7 @@ type Record = {
   id: string
   name: string
 }
-class ModalStoreImpl {
+export class ModalStoreImpl {
   isDetailsOpen = false
   isDeleteOpen = false
   selectedRecord: Record = {
@@ -48,5 +48,3 @@ class ModalStoreImpl {
     this.selectedRecord = record
   }
 }
-
-export const ModalStore = new ModalStoreImpl()

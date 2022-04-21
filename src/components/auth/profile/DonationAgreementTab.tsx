@@ -1,13 +1,10 @@
-import Tab from './Tab'
+import ProfileTab from './ProfileTab'
+import { ProfileTabs } from './tabs'
 
-function DonationAgreementTab(props: { value: number; index: number }) {
-  const { value, index } = props
-
+export default function DonationAgreementTab() {
   return (
-    <Tab value={value} index={index}>
-      <h2>Договор за дарение</h2>
-    </Tab>
+    <ProfileTab name={ProfileTabs.contractDonation} title="Договор за дарение">
+      {' '}
+    </ProfileTab>
   )
 }
-
-export default DonationAgreementTab

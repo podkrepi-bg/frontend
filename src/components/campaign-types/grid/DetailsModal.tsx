@@ -5,9 +5,9 @@ import { useTranslation } from 'next-i18next'
 
 import { CampaignTypesResponse } from 'gql/campaign-types'
 import { useCampaignType } from 'service/campaignTypes'
-import { ModalStore } from 'stores/dashboard/ModalStore'
-
 import DetailsDialog from 'components/admin/DetailsDialog'
+
+import { ModalStore } from '../CampaignTypesPage'
 
 export default observer(function DetailsModal() {
   const { selectedRecord } = ModalStore
@@ -27,5 +27,5 @@ export default observer(function DetailsModal() {
     },
   ]
 
-  return <DetailsDialog data={dataConverted} />
+  return <DetailsDialog modalStore={ModalStore} data={dataConverted} />
 })
