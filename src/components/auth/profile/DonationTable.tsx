@@ -17,7 +17,7 @@ import StarIcon from '@mui/icons-material/Star'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { money } from 'common/util/money'
 import { format, isAfter, isBefore, parseISO } from 'date-fns'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { useTranslation } from 'next-i18next'
 import { UserDonation } from 'gql/donations'
@@ -37,58 +37,44 @@ function DonationTable({ donations }: DonationTableProps) {
   const [toDate, setToDate] = React.useState<Date | null>(null)
   const [monthly, setMonthly] = React.useState(true)
   const [oneTime, setOneTime] = React.useState(true)
-  const [filteredDonations, setFilteredDonations] = useState(donations)
-  useEffect(() => {
-    setFilteredDonations(donations)
-  }, [donations])
-  useEffect(() => {
+  const filteredByTypeDonations = useMemo(() => {
     if (monthly && oneTime) {
-      setFilteredDonations(donations)
-      return
+      return donations
     }
     if (!monthly && !oneTime) {
-      setFilteredDonations([])
+      return []
     }
     if (monthly) {
-      setFilteredDonations(donations?.filter((d) => d.type !== 'donation'))
+      return donations?.filter((d) => d.type !== 'donation')
     }
     if (oneTime) {
-      setFilteredDonations(donations?.filter((d) => d.type === 'donation'))
+      return donations?.filter((d) => d.type === 'donation')
     }
-  }, [monthly, oneTime])
-  useEffect(() => {
+    return donations
+  }, [donations, monthly, oneTime])
+  const filteredDonations = useMemo(() => {
     if (!fromDate && !toDate) {
-      setFilteredDonations(donations)
-      return
+      return filteredByTypeDonations
     }
     if (fromDate && toDate) {
-      setFilteredDonations(
-        donations?.filter((d) => {
-          const createdAtDate = parseISO(d.createdAt)
-          return isAfter(createdAtDate, fromDate) && isBefore(createdAtDate, toDate)
-        }),
-      )
-      return
+      return filteredByTypeDonations?.filter((d) => {
+        const createdAtDate = parseISO(d.createdAt)
+        return isAfter(createdAtDate, fromDate) && isBefore(createdAtDate, toDate)
+      })
     }
     if (fromDate) {
-      setFilteredDonations(
-        donations?.filter((d) => {
-          const createdAtDate = parseISO(d.createdAt)
-          return isAfter(createdAtDate, fromDate)
-        }),
-      )
-      return
+      return filteredByTypeDonations?.filter((d) => {
+        const createdAtDate = parseISO(d.createdAt)
+        return isAfter(createdAtDate, fromDate)
+      })
     }
     if (toDate) {
-      setFilteredDonations(
-        donations?.filter((d) => {
-          const createdAtDate = parseISO(d.createdAt)
-          return isBefore(createdAtDate, toDate)
-        }),
-      )
-      return
+      return filteredByTypeDonations?.filter((d) => {
+        const createdAtDate = parseISO(d.createdAt)
+        return isBefore(createdAtDate, toDate)
+      })
     }
-  }, [fromDate, toDate])
+  }, [filteredByTypeDonations, fromDate, toDate])
   return (
     <Card sx={{ padding: theme.spacing(2) }}>
       <Grid container alignItems={'flex-start'} spacing={theme.spacing(2)}>
