@@ -1,11 +1,20 @@
-import { Box, Button, Link, Modal, Typography } from '@mui/material'
-import { useSession } from 'common/util/useSession'
-import Tab from './Tab'
-import EditIcon from '@mui/icons-material/Edit'
 import { useState } from 'react'
+import getConfig from 'next/config'
 import { makeStyles } from '@mui/styles'
+import EditIcon from '@mui/icons-material/Edit'
+import { Box, Button, Link, Modal, Typography } from '@mui/material'
 
-const useStyles = makeStyles({
+import { formatDateString } from 'common/util/date'
+import { useSession } from 'common/util/useSession'
+import ExternalLink from 'components/common/ExternalLink'
+import { useCurrentPerson } from 'common/util/useCurrentPerson'
+
+import ProfileTab from './ProfileTab'
+import { ProfileTabs } from './tabs'
+import UpdateNameModal from './UpdateNameModal'
+import UpdateBirthdayModal from './UpdateBirthdayModal'
+
+const useStyles = makeStyles((theme) => ({
   modal: {
     position: 'absolute',
     top: '50%',
@@ -28,7 +37,7 @@ const useStyles = makeStyles({
     lineHeight: '123.5%',
     letterSpacing: '0.25px',
     color: '#000000',
-    paddingLeft: '30px',
+    paddingLeft: theme.spacing(3),
   },
   bold: {
     fontWeight: 'bold',
@@ -59,72 +68,67 @@ const useStyles = makeStyles({
     lineHeight: '116.7%',
     margin: '0',
   },
-})
+}))
 
-function PersonalInfoTab(props: { value: number; index: number }) {
-  const { value, index } = props
+const {
+  publicRuntimeConfig: { keycloakConfig },
+} = getConfig()
+const link = `${keycloakConfig.url}/realms/${keycloakConfig.realm}/${keycloakConfig.clientId}/password`
+
+export default function PersonalInfoTab() {
   const { session } = useSession()
+  const { data: { user: person } = { user: null }, refetch } = useCurrentPerson()
   const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false)
+  const [isUpdateNameModalOpen, setIsUpdateNameModalOpen] = useState(false)
+  const [isUpdateBirthdayModalOpen, setIsUpdateBirthdayModalOpen] = useState(false)
   const classes = useStyles()
-
   return (
     <>
-      <Tab value={value} index={index}>
-        <Box
-          sx={{
-            backgroundColor: 'white',
-            padding: '10px 30px',
-            margin: '10px 0 0 0',
-          }}>
-          <h3 className={classes.h3}>Лична информация</h3>
-        </Box>
-        <Box sx={{ background: 'white', paddingTop: '30px' }}>
+      <ProfileTab name={ProfileTabs.personalInformation} title="Лична информация">
+        <Box sx={{ paddingTop: 2 }}>
           <h2 className={classes.heading}>Login информация:</h2>
-          <Box sx={{ display: 'flex', paddingLeft: '30px' }}>
+          <Box sx={{ display: 'flex', gap: '1rem' }}>
             <Box
               sx={{
                 backgroundColor: '#E9F6FF',
-                padding: '10px',
+                padding: 2,
                 flexBasis: '50%',
-                marginRight: '20px',
               }}>
-              <p className={classes.bold}>еmail адрес:</p>
+              <p className={classes.bold}>Email адрес:</p>
               <p>{session?.email}</p>
             </Box>
             <Box
               sx={{
                 backgroundColor: '#E9F6FF',
-                padding: '10px',
+                padding: 2,
                 flexBasis: '50%',
                 position: 'relative',
-                marginRight: '10px',
               }}>
-              <p className={classes.bold}>парола:</p>
+              <p className={classes.bold}>Парола:</p>
               <p>***********</p>
-              <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
-                <Link href="#">
+              <Box sx={{ position: 'absolute', right: '1rem', top: '.5rem' }}>
+                <ExternalLink href={link}>
                   <EditIcon className={classes.editIcon} />
                   <span className={classes.editSpan}>Редактирай</span>
-                </Link>
+                </ExternalLink>
               </Box>
             </Box>
           </Box>
-          <hr />
           <h2 className={classes.heading}>Лична информация:</h2>
-          <Box sx={{ display: 'flex' }}>
+          <Box sx={{ display: 'flex', gap: '1rem' }}>
             <Box
               sx={{
                 backgroundColor: '#E9F6FF',
-                padding: '10px',
+                padding: 2,
                 flexBasis: '50%',
-                marginRight: '20px',
                 position: 'relative',
-                marginLeft: '30px',
               }}>
               <p className={classes.bold}>Име:</p>
-              <p>{session?.name}</p>
-              <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
-                <Link href="#">
+              <p>
+                {person?.firstName} {person?.lastName}
+              </p>
+              <Box sx={{ position: 'absolute', right: '1rem', top: '.5rem' }}>
+                <Link href="#" onClick={() => setIsUpdateNameModalOpen(true)}>
                   <EditIcon className={classes.editIcon} />
                   <span className={classes.editSpan}>Редактирай</span>
                 </Link>
@@ -133,30 +137,30 @@ function PersonalInfoTab(props: { value: number; index: number }) {
             <Box
               sx={{
                 backgroundColor: '#E9F6FF',
-                padding: '10px',
+                padding: 2,
                 flexBasis: '50%',
                 position: 'relative',
-                marginRight: '10px',
               }}>
-              <p className={classes.bold}>рожден ден:</p>
-              <p className={classes.notAvaible}>не е наличен</p>
-              <Box sx={{ position: 'absolute', right: '5px', top: '5px' }}>
-                <Link href="#">
+              <p className={classes.bold}>Рожден ден:</p>
+              <p className={person?.birthday ? '' : classes.notAvaible}>
+                {person?.birthday ? formatDateString(person?.birthday) : 'не e наличен'}
+              </p>
+              <Box sx={{ position: 'absolute', right: '1rem', top: '.5rem' }}>
+                <Link href="#" onClick={() => setIsUpdateBirthdayModalOpen(true)}>
                   <EditIcon className={classes.editIcon} />
                   <span className={classes.editSpan}>Редактирай</span>
                 </Link>
               </Box>
             </Box>
           </Box>
-          <hr />
-          <Link
-            href="#"
-            className={classes.deleteAccountButton}
-            onClick={() => setIsDeleteAccountModalOpen(true)}>
-            изтриване на акаунт/ профил
-          </Link>
         </Box>
-      </Tab>
+        <Link
+          href="#"
+          className={classes.deleteAccountButton}
+          onClick={() => setIsDeleteAccountModalOpen(true)}>
+          изтриване на акаунт/ профил
+        </Link>
+      </ProfileTab>
       <Modal
         open={isDeleteAccountModalOpen}
         onClose={() => setIsDeleteAccountModalOpen(false)}
@@ -164,35 +168,54 @@ function PersonalInfoTab(props: { value: number; index: number }) {
         aria-describedby="modal-modal-description">
         <Box className={classes.modal}>
           <Typography variant="h6" component="h2">
-            Изтриване на профил
+            Изтриване на акаунт
           </Typography>
-          <Typography className={classes.graySpan}>Ние съжаляваме, че ни напущате</Typography>
+          <Typography className={classes.graySpan}>Съжаляваме, че ни напускате!</Typography>
           <Typography className={classes.heading}>Преди да ни напуснете ...</Typography>
           <hr />
           <ul style={{ listStyle: 'disc', paddingLeft: '20px' }}>
             <li className={classes.h5}>
-              Ако ви е писнало от емейли, деактивирайте ги от <Link href="#">тук</Link>.
+              Ако ви е омръзнало да получавате имейли, деактивирайте ги
+              <Link href="#"> тук</Link>.
             </li>
             <li className={classes.h5}>
               Ако .........................., моля пишете <Link href="#">тук</Link>.
             </li>
-            <li className={classes.h5}>Изтриването на акаунт е окончателно.</li>
-            <li className={classes.h5}>Няма да има начин да възстановите акаунта си.</li>
+            <li className={classes.h5}>Изтриването на акаунт е необратимо.</li>
+            <li className={classes.h5}>Ще бъде невъзможно да възстановите акаунта си.</li>
           </ul>
           <Button
             variant="contained"
             size="large"
             color="secondary"
             onClick={() => setIsDeleteAccountModalOpen(false)}>
-            Запази моя профил
+            Запази моя акаунт
           </Button>
           <Button variant="contained" size="large" color="secondary" style={{ marginLeft: '10px' }}>
-            Изтрий
+            Изтрий моя акаунт
           </Button>
         </Box>
       </Modal>
+      {person && (
+        <>
+          <UpdateNameModal
+            isOpen={isUpdateNameModalOpen}
+            person={person}
+            handleClose={() => {
+              setIsUpdateNameModalOpen(false)
+              refetch()
+            }}
+          />
+          <UpdateBirthdayModal
+            isOpen={isUpdateBirthdayModalOpen}
+            person={person}
+            handleClose={() => {
+              setIsUpdateBirthdayModalOpen(false)
+              refetch()
+            }}
+          />
+        </>
+      )}
     </>
   )
 }
-
-export default PersonalInfoTab

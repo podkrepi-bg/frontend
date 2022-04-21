@@ -6,6 +6,7 @@ import { CoordinatorResponse } from 'gql/coordinators'
 import { useCoordinatorsList } from 'common/hooks/coordinators'
 import GridActions from 'components/admin/GridActions'
 
+import { ModalStore } from '../CoordinatorsPage'
 import { commonProps } from './CoordinatorsGridHelper'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
@@ -42,18 +43,21 @@ export default function CoordinatorsGrid() {
       width: 180,
       renderCell: (p: GridRenderCellParams): React.ReactNode => {
         return (
-          <GridActions id={p.row.id} name={`${p.row.person.firstName} ${p.row.person.lastName}`} />
+          <GridActions
+            modalStore={ModalStore}
+            id={p.row.id}
+            name={`${p.row.person.firstName} ${p.row.person.lastName}`}
+          />
         )
       },
     },
   ]
 
   const { data }: UseQueryResult<CoordinatorResponse[]> = useCoordinatorsList()
+  const { isDetailsOpen } = ModalStore
 
   return (
     <>
-      <DetailsModal />
-      <DeleteModal />
       <DataGrid
         style={{
           background: 'white',
@@ -74,6 +78,10 @@ export default function CoordinatorsGrid() {
         autoPageSize
         disableSelectionOnClick
       />
+
+      {/* making sure we don't sent requests to the API when not needed */}
+      {isDetailsOpen && <DetailsModal />}
+      <DeleteModal />
     </>
   )
 }

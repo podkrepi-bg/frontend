@@ -180,6 +180,9 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
               name="startDate"
               label="campaigns:campaign.start-date"
               helperText={null}
+              InputLabelProps={{
+                shrink: true,
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -188,6 +191,9 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
               name="endDate"
               label="campaigns:campaign.end-date"
               helperText={null}
+              InputLabelProps={{
+                shrink: true,
+              }}
             />
           </Grid>
           <Grid item xs={12}>
