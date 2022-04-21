@@ -4,7 +4,7 @@ import { makeStyles } from '@mui/styles'
 import EditIcon from '@mui/icons-material/Edit'
 import { Box, Button, Link, Modal, Typography } from '@mui/material'
 
-import { getRelativeDate } from 'common/util/date'
+import { formatDateString } from 'common/util/date'
 import { useSession } from 'common/util/useSession'
 import ExternalLink from 'components/common/ExternalLink'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
@@ -82,7 +82,6 @@ export default function PersonalInfoTab() {
   const [isUpdateNameModalOpen, setIsUpdateNameModalOpen] = useState(false)
   const [isUpdateBirthdayModalOpen, setIsUpdateBirthdayModalOpen] = useState(false)
   const classes = useStyles()
-
   return (
     <>
       <ProfileTab name={ProfileTabs.personalInformation} title="Лична информация">
@@ -144,7 +143,7 @@ export default function PersonalInfoTab() {
               }}>
               <p className={classes.bold}>Рожден ден:</p>
               <p className={person?.birthday ? '' : classes.notAvaible}>
-                {person?.birthday ? getRelativeDate(person?.birthday) : 'не e наличен'}
+                {person?.birthday ? formatDateString(person?.birthday) : 'не e наличен'}
               </p>
               <Box sx={{ position: 'absolute', right: '1rem', top: '.5rem' }}>
                 <Link href="#" onClick={() => setIsUpdateBirthdayModalOpen(true)}>
