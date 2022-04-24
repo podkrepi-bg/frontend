@@ -1,12 +1,12 @@
-import { Close } from '@mui/icons-material'
 import { LoadingButton } from '@mui/lab'
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  IconButton,
+  Typography,
 } from '@mui/material'
 import useConfirm from 'common/hooks/confirm'
 import CloseModalButton from 'components/common/CloseModalButton'
@@ -30,7 +30,12 @@ function PersonSelectDialog({ onConfirm: confirmCallback }: Props) {
   })
   return (
     <>
-      <Button onClick={openHandler}>Open</Button>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Typography>{person ? person.firstName : 'No personSelected'}</Typography>
+        <Button color="primary" onClick={openHandler}>
+          Select Person
+        </Button>
+      </Box>
       <Dialog open={open} onClose={closeHandler}>
         <DialogTitle>
           Person Select
