@@ -21,6 +21,7 @@ import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
 import CurrencySelect from 'components/currency/CurrencySelect'
 import RecurringDonationStatusSelect from './grid/RecurringDonationStatusSelect'
+import PersonSelectDialog from 'components/person/PersonSelectDialog'
 
 export enum RecurringDonationStatus {
   trialing = 'trialing',
@@ -119,7 +120,12 @@ export default function EditForm() {
             <RecurringDonationStatusSelect />
           </Grid>
           <Grid item xs={6}>
-            <FormTextField type="text" label={t('recurring-donation:personId')} name="personId" />
+            <PersonSelectDialog
+              onConfirm={(person) => {
+                console.log(person)
+              }}
+            />
+            {/* <FormTextField type="text" label={t('recurring-donation:personId')} name="personId" /> */}
           </Grid>
           <Grid item xs={6}>
             <FormTextField
