@@ -116,16 +116,15 @@ export default function EditForm() {
           {id ? t('recurring-donation:edit-form-heading') : t('recurring-donation:form-heading')}
         </Typography>
         <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
-          <Grid item xs={6}>
-            <RecurringDonationStatusSelect />
-          </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <PersonSelectDialog
               onConfirm={(person) => {
                 console.log(person)
               }}
             />
-            {/* <FormTextField type="text" label={t('recurring-donation:personId')} name="personId" /> */}
+          </Grid>
+          <Grid item xs={6}>
+            <RecurringDonationStatusSelect />
           </Grid>
           <Grid item xs={6}>
             <FormTextField
