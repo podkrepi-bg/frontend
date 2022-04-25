@@ -6,7 +6,6 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Grid,
   Typography,
 } from '@mui/material'
 import useConfirm from 'common/hooks/confirm'
