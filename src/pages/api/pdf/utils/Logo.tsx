@@ -2,9 +2,10 @@ import { Svg, Path, StyleSheet, View } from '@react-pdf/renderer'
 
 const styles = StyleSheet.create({
   logo: {
-    marginLeft: '200',
+    marginLeft: '170',
     width: '250',
     height: '150',
+    marginTop: '30',
   },
 })
 
