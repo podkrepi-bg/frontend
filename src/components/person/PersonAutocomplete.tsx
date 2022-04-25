@@ -9,9 +9,11 @@ export type PersonAutocompleteProps = {
     AutocompleteProps<PersonResponse, undefined, undefined, undefined>,
     'renderInput' | 'options' | 'getOptionLabel' | 'onChange' | 'loading'
   >
+  showId: boolean
 }
 export default function PersonAutocomplete({
   onSelect,
+  showId,
   autocompleteProps,
 }: PersonAutocompleteProps) {
   const { t } = useTranslation('common')
@@ -29,9 +31,12 @@ export default function PersonAutocomplete({
     <Autocomplete
       isOptionEqualToValue={(option, value) => option.firstName === value.firstName}
       options={personList || []}
-      getOptionLabel={(person) => person.firstName + ' ' + person.lastName}
+      getOptionLabel={(person) =>
+        showId
+          ? `${person.firstName} ${person.lastName} (${person.id})`
+          : person.firstName + ' ' + person.lastName
+      }
       onChange={(e, person) => {
-        console.log(person)
         onSelect(person)
       }}
       onOpen={() => {
@@ -39,7 +44,13 @@ export default function PersonAutocomplete({
       }}
       loading={isLoading}
       renderInput={(params) => (
-        <TextField {...params} type="text" fullWidth defaultValue="" label={t('fields.' + name)} />
+        <TextField
+          {...params}
+          type="text"
+          fullWidth
+          defaultValue=""
+          label={t('donation:recurring.personSearch')}
+        />
       )}
       {...autocompleteProps}
     />
