@@ -6,9 +6,11 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Grid,
   Typography,
 } from '@mui/material'
 import useConfirm from 'common/hooks/confirm'
+import theme from 'common/theme'
 import CloseModalButton from 'components/common/CloseModalButton'
 import { PersonResponse } from 'gql/person'
 import React, { useState } from 'react'
@@ -31,35 +33,34 @@ function PersonSelectDialog({ onConfirm: confirmCallback }: Props) {
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Typography>{person ? person.firstName : 'No personSelected'}</Typography>
-        <Button color="primary" onClick={openHandler}>
+        <Typography>{person ? person.firstName : 'You need to select a person'}</Typography>
+        <Button
+          sx={{ marginLeft: theme.spacing(3) }}
+          variant="outlined"
+          color="primary"
+          onClick={openHandler}>
           Select Person
         </Button>
       </Box>
-      <Dialog open={open} onClose={closeHandler}>
-        <DialogTitle>
-          Person Select
-          {/* <IconButton
-            aria-label="close"
-            onClick={closeHandler}
-            sx={{
-              position: 'absolute',
-              right: 8,
-              top: 8,
-              color: (theme) => theme.palette.grey[500],
-            }}>
-            <Close />
-          </IconButton> */}
-        </DialogTitle>
+      <Dialog fullWidth open={open} onClose={closeHandler}>
+        <DialogTitle>Person Select</DialogTitle>
         <DialogContent>
           <PersonAutocomplete
             onSelect={(person) => {
               setPerson(person)
             }}
+            showId
           />
+          {person ? (
+            <Grid container>
+              <Grid item>ID: {person.id}</Grid>
+            </Grid>
+          ) : (
+            "You haven't selected a person"
+          )}
         </DialogContent>
         <DialogActions>
-          <CloseModalButton />
+          <CloseModalButton onClose={closeHandler} />
           <LoadingButton onClick={confirmHandler} loading={loading}>
             Confirm
           </LoadingButton>
