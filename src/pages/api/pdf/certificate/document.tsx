@@ -1,7 +1,14 @@
 import { Document, Page, StyleSheet, Text, View, Font } from '@react-pdf/renderer'
 import Logo from '../utils/Logo'
-import { useDonation } from 'common/hooks/donation'
-import { useViewPerson } from 'service/person'
+// import { useDonation } from 'common/hooks/donation'
+// import { useViewPerson } from 'service/person'
+// import { useQuery, UseQueryResult } from 'react-query'
+import { endpoints } from 'service/apiEndpoints'
+// import { queryFnFactory } from 'service/restRequests'
+import { DonationResponse } from 'gql/donations'
+import { PersonResponse } from 'gql/person'
+import { useEffect, useState } from 'react'
+import { apiClient } from 'service/apiClient'
 
 interface CertificateProps {
   donationId: string
@@ -58,12 +65,22 @@ const styles = StyleSheet.create({
 })
 
 export default function Certificate({ donationId }: CertificateProps) {
-  const { data: donation } = useDonation(donationId)
-  const { data: person } = useViewPerson(donation?.personId || '')
+  const [donation, setDonation] = useState<DonationResponse>()
+  const [person, setPerson] = useState<PersonResponse>()
 
-  const Name = () => <>{`${person?.firstName} ${person?.lastName}`}</>
+  useEffect(() => {
+    apiClient.get(endpoints.donation.getDonation(donationId).url).then((x) => {
+      setDonation(x.data)
+    })
 
-  const DocComponent = () => (
+    apiClient.get(endpoints.person.viewPerson(donation?.personId || '').url).then((x) => {
+      setPerson(x.data)
+    })
+  })
+
+  const name = `${person?.firstName} ${person?.lastName}`
+
+  return (
     <Document title="Дарение">
       <Page size="A4" style={styles.page}>
         <View>
@@ -74,12 +91,8 @@ export default function Certificate({ donationId }: CertificateProps) {
         <View>
           <Text style={styles.text1}>С този сертификат Управителният съвет на Сдружение</Text>
           <Text style={styles.text1}>„Подкрепи БГ“ удостоверява, че:</Text>
-          <Text
-            style={styles.name}
-            render={() => {
-              return `${person?.firstName} ${person?.lastName}`
-            }}>
-            <Name />
+          <Text style={styles.name} fixed>
+            {name}
           </Text>
         </View>
         <View>
@@ -101,6 +114,4 @@ export default function Certificate({ donationId }: CertificateProps) {
       </Page>
     </Document>
   )
-
-  return <DocComponent />
 }
