@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
 import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 
+import { ModalStore } from 'stores/dashboard/ModalStore'
 import { routes } from 'common/routes'
 import { RecurringDonationResponse } from 'gql/recurring-donation'
 import { useRecurringDonationList } from 'common/hooks/recurringDonation'
@@ -75,6 +76,7 @@ export default function Grid() {
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
         return (
           <GridActions
+            modalStore={ModalStore}
             id={params.row.id}
             name={params.row.name}
             editLink={routes.admin.recurringDonation.view(params.row.id)}
