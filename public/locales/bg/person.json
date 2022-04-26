@@ -1,0 +1,11 @@
+{
+  "selectDialog": {
+    "notSelected": "Не сте избрали човек",
+    "select": "Избиране",
+    "personSelect": "Изберете човек",
+    "confirm": "Потвърждавам"
+  },
+  "autocomplete": {
+    "personSearch": "Намерете човек"
+  }
+}

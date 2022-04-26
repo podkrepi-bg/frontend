@@ -1,0 +1,11 @@
+{
+  "selectDialog": {
+    "notSelected": "You haven't chosen a person",
+    "select": "Select",
+    "personSelect": "Person Select",
+    "confirm": "Confirm"
+  },
+  "autocomplete": {
+    "personSearch": "Find a person"
+  }
+}
