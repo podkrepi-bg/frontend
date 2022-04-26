@@ -28,7 +28,6 @@ function PersonSelectDialog({ onConfirm: confirmCallback, onClose: closeCallback
       closeCallback ? closeCallback(person) : null
     },
   })
-  console.log(person)
   return (
     <>
       <FormFieldButton
