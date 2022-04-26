@@ -19,7 +19,7 @@ import { AlertStore } from 'stores/AlertStore'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
 import CurrencySelect from 'components/currency/CurrencySelect'
-import RecurringDonationStatusSelect from './grid/RecurringDonationStatusSelect'
+import RecurringDonationStatusSelect from './RecurringDonationStatusSelect'
 import PersonSelectDialog from 'components/person/PersonSelectDialog'
 import { Formik } from 'formik'
 
