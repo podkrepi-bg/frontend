@@ -9,7 +9,7 @@ export type PersonAutocompleteProps = {
     AutocompleteProps<PersonResponse, undefined, undefined, undefined>,
     'renderInput' | 'options' | 'getOptionLabel' | 'onChange' | 'loading'
   >
-  showId: boolean
+  showId?: boolean
 }
 export default function PersonAutocomplete({
   onSelect,
@@ -22,10 +22,8 @@ export default function PersonAutocomplete({
     isLoading,
     refetch,
   } = usePersonList({
-    options: {
-      enabled: false,
-      refetchOnWindowFocus: false,
-    },
+    enabled: false,
+    refetchOnWindowFocus: false,
   })
   return (
     <Autocomplete
