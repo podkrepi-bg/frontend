@@ -2,7 +2,7 @@ import { Box, Grid, Theme, Typography } from '@mui/material'
 import createStyles from '@mui/styles/createStyles'
 import makeStyles from '@mui/styles/makeStyles'
 import theme from 'common/theme'
-import { format, parseISO } from 'date-fns'
+import { formatDateString } from 'common/util/date'
 import { PersonResponse } from 'gql/person'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
@@ -52,7 +52,7 @@ function PersonInfo({ person }: Props) {
         </Typography>
         <Box className={classes.infoWrapper}>
           <Typography>
-            {t('person:info.createdAt')}: {format(parseISO(person.createdAt), 'PPpp')}
+            {t('person:info.createdAt')}: {formatDateString(person.createdAt)}
           </Typography>
           <Typography>
             {t('person:info.company')}: {person.company}
