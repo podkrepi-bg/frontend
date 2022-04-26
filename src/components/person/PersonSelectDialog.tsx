@@ -6,11 +6,10 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  InputAdornment,
-  TextField,
   Typography,
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import { translateError } from 'common/form/validation'
 import useConfirm from 'common/hooks/confirm'
 import theme from 'common/theme'
 import CloseModalButton from 'components/common/CloseModalButton'
@@ -21,7 +20,9 @@ import PersonAutocomplete from './PersonAutocomplete'
 import PersonInfo from './PersonInfo'
 
 type Props = {
-  onConfirm: (person: PersonResponse) => void
+  onConfirm?: (person: PersonResponse | null) => void
+  onClose?: (person: PersonResponse | null) => void
+  error?: string
 }
 
 const useStyles = makeStyles({
@@ -34,22 +35,43 @@ const useStyles = makeStyles({
     padding: '8.5px 14px',
     cursor: 'pointer',
   },
+  errorInputBox: {
+    borderColor: '#d32f2f',
+    color: '#d32f2f',
+  },
+  errorText: {
+    color: '#d32f2f',
+    fontWeight: 400,
+    fontSize: '0.75rem',
+    lineHeight: 1.66,
+    letterSpacing: '0.03333em',
+    textAlign: 'left',
+    marginTop: '4px',
+    marginRight: '14px',
+    marginBottom: 0,
+    marginLeft: '14px',
+  },
 })
-function PersonSelectDialog({ onConfirm: confirmCallback }: Props) {
+function PersonSelectDialog({ onConfirm: confirmCallback, onClose: closeCallback, error }: Props) {
   const [person, setPerson] = useState<PersonResponse | null>(null)
   const { t } = useTranslation('person')
   const classes = useStyles()
   const { open, confirmHandler, closeHandler, openHandler, loading } = useConfirm({
     onConfirm: async () => {
-      confirmCallback(person as PersonResponse)
+      confirmCallback ? confirmCallback(person) : null
     },
     onClose: async () => {
-      null
+      closeCallback ? closeCallback(person) : null
     },
   })
+
   return (
     <>
-      <Box onClick={openHandler} className={classes.imitateInputBox}>
+      <Box
+        onClick={openHandler}
+        className={
+          error ? classes.imitateInputBox + ' ' + classes.errorInputBox : classes.imitateInputBox
+        }>
         <Typography>
           {person
             ? `${person.firstName} ${person.lastName} (${person.id})`
@@ -59,6 +81,7 @@ function PersonSelectDialog({ onConfirm: confirmCallback }: Props) {
           {t('person:selectDialog.select')}
         </Button>
       </Box>
+      {error ? <p className={classes.errorText}>{translateError(error, t)}</p> : null}
       <Dialog fullWidth open={open} onClose={closeHandler}>
         <DialogTitle>{t('person:selectDialog.personSelect')}</DialogTitle>
         <DialogContent>
