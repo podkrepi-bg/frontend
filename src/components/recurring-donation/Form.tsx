@@ -16,11 +16,12 @@ import { ApiErrors } from 'service/apiErrors'
 import { useCreateRecurringDonation, useEditRecurringDonation } from 'service/recurringDonation'
 import { endpoints } from 'service/apiEndpoints'
 import { AlertStore } from 'stores/AlertStore'
-import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
 import CurrencySelect from 'components/currency/CurrencySelect'
 import RecurringDonationStatusSelect from './grid/RecurringDonationStatusSelect'
+import PersonSelectDialog from 'components/person/PersonSelectDialog'
+import { Formik } from 'formik'
 
 export enum RecurringDonationStatus {
   trialing = 'trialing',
@@ -52,7 +53,6 @@ export default function EditForm() {
   const router = useRouter()
   const queryClient = useQueryClient()
   const { t } = useTranslation()
-
   let id = router.query.id
 
   let initialValues: RecurringDonationInput = {
@@ -106,56 +106,71 @@ export default function EditForm() {
   }
 
   return (
-    <GenericForm
+    <Formik
+      validateOnBlur
       onSubmit={onSubmit}
       initialValues={initialValues}
       validationSchema={validationSchema}>
-      <Box sx={{ marginTop: '5%', height: '62.6vh' }}>
-        <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
-          {id ? t('recurring-donation:edit-form-heading') : t('recurring-donation:form-heading')}
-        </Typography>
-        <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
-          <Grid item xs={6}>
-            <RecurringDonationStatusSelect />
-          </Grid>
-          <Grid item xs={6}>
-            <FormTextField type="text" label={t('recurring-donation:personId')} name="personId" />
-          </Grid>
-          <Grid item xs={6}>
-            <FormTextField
-              type="text"
-              label={t('recurring-donation:extSubscriptionId')}
-              name="extSubscriptionId"
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <FormTextField
-              type="text"
-              label={t('recurring-donation:extCustomerId')}
-              name="extCustomerId"
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <FormTextField type="number" label={t('recurring-donation:amount')} name="amount" />
-          </Grid>
-          <Grid item xs={6}>
-            <CurrencySelect />
-          </Grid>
-          <Grid item xs={6}>
-            <FormTextField type="text" label={t('recurring-donation:vaultId')} name="sourceVault" />
-          </Grid>
+      {({ errors, setFieldTouched, setFieldValue }) => (
+        <Box sx={{ marginTop: '5%', height: '62.6vh' }}>
+          <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
+            {id ? t('recurring-donation:edit-form-heading') : t('recurring-donation:form-heading')}
+          </Typography>
+          <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
+            <Grid item xs={12}>
+              <PersonSelectDialog
+                error={errors.personId}
+                onConfirm={(person) => {
+                  person ? setFieldValue('personId', person.id) : setFieldTouched('personId')
+                }}
+                onClose={(person) => {
+                  person ? setFieldValue('personId', person.id) : setFieldTouched('personId')
+                }}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <RecurringDonationStatusSelect />
+            </Grid>
+            <Grid item xs={6}>
+              <FormTextField
+                type="text"
+                label={t('recurring-donation:extSubscriptionId')}
+                name="extSubscriptionId"
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <FormTextField
+                type="text"
+                label={t('recurring-donation:extCustomerId')}
+                name="extCustomerId"
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <FormTextField type="number" label={t('recurring-donation:amount')} name="amount" />
+            </Grid>
+            <Grid item xs={6}>
+              <CurrencySelect />
+            </Grid>
+            <Grid item xs={6}>
+              <FormTextField
+                type="text"
+                label={t('recurring-donation:vaultId')}
+                name="sourceVault"
+              />
+            </Grid>
 
-          {id ? <></> : <></>}
-          <Grid item xs={6}>
-            <SubmitButton fullWidth label={t('recurring-donation:cta:submit')} />
+            {id ? <></> : <></>}
+            <Grid item xs={6}>
+              <SubmitButton fullWidth label={t('recurring-donation:cta:submit')} />
+            </Grid>
+            <Grid item xs={6}>
+              <Link href={routes.admin.recurringDonation.index} passHref>
+                <Button>{t('recurring-donation:cta:cancel')}</Button>
+              </Link>
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            <Link href={routes.admin.recurringDonation.index} passHref>
-              <Button>{t('recurring-donation:cta:cancel')}</Button>
-            </Link>
-          </Grid>
-        </Grid>
-      </Box>
-    </GenericForm>
+        </Box>
+      )}
+    </Formik>
   )
 }
