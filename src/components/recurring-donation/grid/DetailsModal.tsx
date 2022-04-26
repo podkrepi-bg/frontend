@@ -23,8 +23,8 @@ export default observer(function DetailsModal() {
     { name: t('amount'), value: `${data?.amount}` },
     { name: t('extSubscriptionId'), value: `${data?.extSubscriptionId}` },
     { name: t('extCustomerId'), value: `${data?.extCustomerId}` },
-    { name: t('vaultId'), value: `${data?.vaultId}` },
+    { name: t('vaultId'), value: `${data?.sourceVault}` },
   ]
 
-  return <DetailsDialog data={dataConverted} />
+  return <DetailsDialog modalStore={ModalStore} data={dataConverted} />
 })

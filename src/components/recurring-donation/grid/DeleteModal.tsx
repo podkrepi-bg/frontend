@@ -7,15 +7,14 @@ import { useTranslation } from 'next-i18next'
 import { RecurringDonationResponse } from 'gql/recurring-donation'
 import { ApiErrors } from 'service/apiErrors'
 import { useDeleteRecurringDonation } from 'service/recurringDonation'
-import { ModalStoreImpl as ModalStore } from 'stores/dashboard/ModalStore'
+import { ModalStore } from 'stores/dashboard/ModalStore'
 import { AlertStore } from 'stores/AlertStore'
 import { routes } from 'common/routes'
 import DeleteDialog from 'components/admin/DeleteDialog'
 
 export default observer(function DeleteModal() {
   const router = useRouter()
-  const ModalStoreInst = new ModalStore()
-  const { hideDelete, selectedRecord } = ModalStoreInst
+  const { hideDelete, selectedRecord } = ModalStore
   const { t } = useTranslation('recurring-donation')
 
   const mutationFn = useDeleteRecurringDonation(selectedRecord.id)
@@ -38,5 +37,5 @@ export default observer(function DeleteModal() {
     deleteMutation.mutate(selectedRecord.id)
   }
 
-  return <DeleteDialog modalStore={ModalStoreInst} deleteHandler={deleteHandler} />
+  return <DeleteDialog modalStore={ModalStore} deleteHandler={deleteHandler} />
 })
