@@ -16,7 +16,7 @@ export default function PersonAutocomplete({
   showId,
   autocompleteProps,
 }: PersonAutocompleteProps) {
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('person')
   const {
     data: personList,
     isLoading,
@@ -49,7 +49,7 @@ export default function PersonAutocomplete({
           type="text"
           fullWidth
           defaultValue=""
-          label={t('donation:recurring.personSearch')}
+          label={t('person:autocomplete.personSearch')}
         />
       )}
       {...autocompleteProps}
