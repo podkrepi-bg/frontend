@@ -7,5 +7,15 @@
   },
   "autocomplete": {
     "personSearch": "Намерете човек"
+  },
+  "info": {
+    "tel": "Тел",
+    "contact": "Контакти",
+    "address": "Адрес",
+    "email": "Имейл",
+    "general": "Генерална информация",
+    "createdAt": "Създаден в",
+    "company": "Компания",
+    "confirmedEmail": "Потвърден имейл"
   }
 }
