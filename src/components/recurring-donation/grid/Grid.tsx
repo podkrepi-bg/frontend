@@ -10,8 +10,8 @@ import { RecurringDonationResponse } from 'gql/recurring-donation'
 import { useRecurringDonationList } from 'common/hooks/recurringDonation'
 import GridActions from 'components/admin/GridActions'
 
-import DeleteModal from './DeleteModal'
-import DetailsModal from './DetailsModal'
+import DeleteModal from '../DeleteModal'
+import DetailsModal from '../DetailsModal'
 
 export default function Grid() {
   const { t } = useTranslation('recurring-donation')
