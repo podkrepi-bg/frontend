@@ -1,7 +1,7 @@
 import { LoadingButton } from '@mui/lab'
 import { Box, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material'
 import { translateError } from 'common/form/validation'
-import useConfirm from 'common/hooks/confirm'
+import useConfirm from 'common/hooks/useConfirm'
 import theme from 'common/theme'
 import CloseModalButton from 'components/common/CloseModalButton'
 import FormFieldButton from 'components/common/FormFieldButton'
@@ -28,7 +28,7 @@ function PersonSelectDialog({ onConfirm: confirmCallback, onClose: closeCallback
       closeCallback ? closeCallback(person) : null
     },
   })
-
+  console.log(person)
   return (
     <>
       <FormFieldButton
@@ -47,6 +47,7 @@ function PersonSelectDialog({ onConfirm: confirmCallback, onClose: closeCallback
                 setPerson(person)
               }}
               showId
+              autocompleteProps={{ defaultValue: person }}
             />
           </Box>
 
