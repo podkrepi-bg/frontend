@@ -50,6 +50,15 @@ const useStyles = makeStyles({
     marginBottom: 0,
     marginLeft: '14px',
   },
+  placeholderText: {
+    color: 'rgba(0, 0, 0, 0.6)',
+    fontSize: '1rem',
+    lineHeight: '1.4375em',
+    letterSpacing: '0.01071em',
+    fontFamily: '"Roboto","Helvetica","Arial","sans-serif"',
+    fontWeight: 400,
+    padding: 0,
+  },
 })
 
 function FormFieldButton({ error, onClick, value, placeholder, button, label }: Props) {
@@ -70,7 +79,9 @@ function FormFieldButton({ error, onClick, value, placeholder, button, label }: 
         className={
           error ? classes.imitateInputBox + ' ' + classes.errorInputBox : classes.imitateInputBox
         }>
-        <Typography>{value || placeholder}</Typography>
+        <Typography className={value ? '' : classes.placeholderText}>
+          {value || placeholder}
+        </Typography>
         {button ? (
           <Button tabIndex={-1} sx={{ padding: 0 }} onClick={onClick}>
             {button.label}
