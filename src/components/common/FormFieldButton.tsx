@@ -55,7 +55,7 @@ const useStyles = makeStyles({
     fontSize: '1rem',
     lineHeight: '1.4375em',
     letterSpacing: '0.01071em',
-    fontFamily: '"Roboto","Helvetica","Arial","sans-serif"',
+    fontFamily: theme.typography.fontFamily,
     fontWeight: 400,
     padding: 0,
   },
