@@ -32,7 +32,3 @@ export type CampaignTypeFormData = {
   description: string | null
   parentId?: string | null
 }
-
-export type DeleteMany = {
-  ids: string[]
-}
