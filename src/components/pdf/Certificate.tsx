@@ -1,18 +1,8 @@
 import { Document, Page, StyleSheet, Text, View, Font } from '@react-pdf/renderer'
-import Logo from '../utils/Logo'
-// import { useDonation } from 'common/hooks/donation'
-// import { useViewPerson } from 'service/person'
-// import { useQuery, UseQueryResult } from 'react-query'
-import { endpoints } from 'service/apiEndpoints'
-// import { queryFnFactory } from 'service/restRequests'
+
+import Logo from './Logo'
 import { DonationResponse } from 'gql/donations'
 import { PersonResponse } from 'gql/person'
-import { useEffect, useState } from 'react'
-import { apiClient } from 'service/apiClient'
-
-interface CertificateProps {
-  donationId: string
-}
 
 Font.register({
   family: 'Roboto',
@@ -63,21 +53,11 @@ const styles = StyleSheet.create({
     textDecoration: 'underline',
   },
 })
-
-export default function Certificate({ donationId }: CertificateProps) {
-  const [donation, setDonation] = useState<DonationResponse>()
-  const [person, setPerson] = useState<PersonResponse>()
-
-  // useEffect(() => {
-  //   apiClient.get(endpoints.donation.getDonation(donationId).url).then((x) => {
-  //     setDonation(x.data)
-  //   })
-
-  //   apiClient.get(endpoints.person.viewPerson(donation?.personId || '').url).then((x) => {
-  //     setPerson(x.data)
-  //   })
-  // })
-
+type Props = {
+  donation: DonationResponse
+  person?: PersonResponse
+}
+export default function Certificate({ donation, person }: Props) {
   const name = `${person?.firstName} ${person?.lastName}`
 
   return (
@@ -86,7 +66,7 @@ export default function Certificate({ donationId }: CertificateProps) {
         <View>
           <Logo />
           <Text style={styles.heading}>СЕРТИФИКАТ</Text>
-          <Text style={styles.subheading}>за дарение № </Text>
+          <Text style={styles.subheading}>за дарение № {donation.id}</Text>
         </View>
         <View>
           <Text style={styles.text1}>С този сертификат Управителният съвет на Сдружение</Text>
