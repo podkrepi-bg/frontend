@@ -9,7 +9,7 @@ export default function LoginPage() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   useEffect(() => {
     keycloak?.register({
-      redirectUri: `${baseUrl}${routes.profile.index}`,
+      redirectUri: `${baseUrl}${routes.profile.index}?register=true`,
     })
   }, [])
 
