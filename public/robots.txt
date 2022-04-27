@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://podkrepi.bg
+
+# Sitemaps
+Sitemap: https://podkrepi.bg/sitemap.xml

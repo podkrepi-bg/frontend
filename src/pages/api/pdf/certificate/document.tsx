@@ -68,15 +68,15 @@ export default function Certificate({ donationId }: CertificateProps) {
   const [donation, setDonation] = useState<DonationResponse>()
   const [person, setPerson] = useState<PersonResponse>()
 
-  useEffect(() => {
-    apiClient.get(endpoints.donation.getDonation(donationId).url).then((x) => {
-      setDonation(x.data)
-    })
+  // useEffect(() => {
+  //   apiClient.get(endpoints.donation.getDonation(donationId).url).then((x) => {
+  //     setDonation(x.data)
+  //   })
 
-    apiClient.get(endpoints.person.viewPerson(donation?.personId || '').url).then((x) => {
-      setPerson(x.data)
-    })
-  })
+  //   apiClient.get(endpoints.person.viewPerson(donation?.personId || '').url).then((x) => {
+  //     setPerson(x.data)
+  //   })
+  // })
 
   const name = `${person?.firstName} ${person?.lastName}`
 
