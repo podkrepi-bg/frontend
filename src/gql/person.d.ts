@@ -5,6 +5,13 @@ export type PersonResponse = {
   personId: string
   firstName: string
   lastName: string
+  email: string
+  phone: string
+  address: string
+  company: string
+  createdAt: string
+  newsletter: boolean
+  emailConfirmed: boolean
 }
 
 export type PersonFormData = {
