@@ -11,10 +11,10 @@ type CurrentPerson = {
   user: Person
 }
 
-export function createCurrentPerson() {
+export function getCurrentPerson(isNew = false) {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return useQuery<CurrentPerson>(
-    endpoints.account.new.url,
+    isNew ? endpoints.account.new.url : endpoints.account.me.url,
     authQueryFnFactory<CurrentPerson>(keycloak?.token),
   )
 }
@@ -38,4 +38,4 @@ export function updateCurrentPerson() {
   }
 }
 
-export default { useCurrentPerson, updateCurrentPerson, createCurrentPerson }
+export default { useCurrentPerson, updateCurrentPerson, getCurrentPerson }
