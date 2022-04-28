@@ -35,25 +35,39 @@ import CoordinatorType from './steps/CoordinatorType'
 import CoordinatorInfo from './steps/CoordinatorInfo'
 import CampaignDetails from './steps/CampaignDetails'
 import CampaignGeneralInfo from './steps/CampaignGeneralInfo'
+import theme from 'common/theme'
 
 const ColorlibConnector = withStyles({
+  alternativeLabel: {
+    top: 21,
+  },
   line: {
-    height: 2,
+    height: 3,
     border: 0,
-    backgroundColor: '#03a9f4',
+    backgroundColor: theme.palette.info.light,
     borderRadius: 1,
   },
 })(StepConnector)
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: { width: '100%' },
+    root: {
+      width: '100%',
+    },
     instructions: {
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(5),
     },
-    stepper: { backgroundColor: 'transparent', marginBottom: theme.spacing(8) },
-    content: { display: 'flex', justifyContent: 'center' },
+    stepper: {
+      backgroundColor: 'transparent',
+      marginBottom: theme.spacing(8),
+      alignItems: 'center',
+      [theme.breakpoints.down('sm')]: { display: 'none' },
+    },
+    content: {
+      display: 'flex',
+      justifyContent: 'center',
+    },
   }),
 )
 
@@ -184,19 +198,17 @@ export default function CampaignCreateForm() {
         initialValues={initialValues}
         validationSchema={validationSchema[activeStep]}
         innerRef={formRef}>
-        <Hidden mdDown>
-          <Stepper
-            alternativeLabel
-            activeStep={activeStep}
-            className={classes.stepper}
-            connector={<ColorlibConnector />}>
-            {steps.map((step, index) => (
-              <Step key={index}>
-                <StepLabel error={isStepFailed(index)} StepIconComponent={StepIcon} />
-              </Step>
-            ))}
-          </Stepper>
-        </Hidden>
+        <Stepper
+          alternativeLabel
+          activeStep={activeStep}
+          className={classes.stepper}
+          connector={<ColorlibConnector />}>
+          {steps.map((step, index) => (
+            <Step key={index}>
+              <StepLabel error={isStepFailed(index)} StepIconComponent={StepIcon} />
+            </Step>
+          ))}
+        </Stepper>
         {isCoordinatorTypeChoosingStep(activeStep, steps) ? (
           steps[activeStep].component
         ) : (
