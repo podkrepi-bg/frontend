@@ -1,5 +1,4 @@
 import { renderToStream } from '@react-pdf/renderer'
-import { QueryClient, QueryClientProvider } from 'react-query'
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
 import { PersonResponse } from 'gql/person'
@@ -23,11 +22,7 @@ const Handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
     person = data
   }
 
-  const pdfStream = await renderToStream(
-    <QueryClientProvider client={new QueryClient()}>
-      <Certificate donation={donation} person={person} />
-    </QueryClientProvider>,
-  )
+  const pdfStream = await renderToStream(<Certificate donation={donation} person={person} />)
   res.setHeader('Content-Type', 'application/pdf')
   pdfStream.pipe(res)
 }
