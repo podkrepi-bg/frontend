@@ -21,6 +21,8 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'center',
       letterSpacing: '-1.5px',
       color: '#000000',
+      maxWidth: '857px',
+      margin: 'auto',
     },
     avatar: {
       borderRadius: '50%',
