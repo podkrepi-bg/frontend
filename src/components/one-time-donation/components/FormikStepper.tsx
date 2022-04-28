@@ -64,8 +64,10 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
         if (isLastStep()) {
           await props.onSubmit(values, helpers)
           setStep((s) => s + 1)
+          window.scrollTo({ top: 0 })
         } else {
           setStep((s) => s + 1)
+          window.scrollTo({ top: 0 })
           helpers.setTouched({})
         }
       }}>
@@ -88,7 +90,10 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
             <Button
               className={classes.btnBack}
               disabled={isSubmitting}
-              onClick={() => setStep((s) => s - 1)}>
+              onClick={() => {
+                setStep((s) => s - 1)
+                window.scrollTo({ top: 0 })
+              }}>
               {t('btns.back')}
             </Button>
             <Button

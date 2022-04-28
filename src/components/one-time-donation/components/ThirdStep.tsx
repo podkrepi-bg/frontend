@@ -45,7 +45,7 @@ const useStyles = makeStyles(() =>
       marginBottom: '33px',
     },
     body: {
-      maxWidth: '539px',
+      maxWidth: '657px',
       marginLeft: 'auto',
       marginRight: 'auto',
     },
@@ -84,7 +84,7 @@ export default function ThirdStep() {
               {t('third-step.bank-details')}
             </Typography>
             <Divider className={classes.divider} />
-            <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
+            <Grid mx={11} my={3} item display="flex" justifyContent="space-between" xs={9}>
               <Typography>{bankAccountInfo.owner}</Typography>
               <CopyTextButton
                 label={t('third-step.btn-copy')}
@@ -94,7 +94,7 @@ export default function ThirdStep() {
                 color="info"
               />
             </Grid>
-            <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
+            <Grid mx={11} my={3} item display="flex" justifyContent="space-between" xs={9}>
               <Typography>{bankAccountInfo.bank}</Typography>
               <CopyTextButton
                 label={t('third-step.btn-copy')}
@@ -104,7 +104,7 @@ export default function ThirdStep() {
                 color="info"
               />
             </Grid>
-            <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
+            <Grid mx={11} my={3} item display="flex" justifyContent="space-between" xs={9}>
               <Typography> IBAN: BG66 UNCR 7000 1524 3490 32 </Typography>
               <CopyTextButton
                 label={t('third-step.btn-copy')}
@@ -118,7 +118,7 @@ export default function ThirdStep() {
               {t('third-step.reason-donation')}
             </Typography>
             <Divider className={classes.divider} />
-            <Grid mx={11} my={3} container display="flex" justifyContent="space-between" xs={9}>
+            <Grid mx={11} my={3} item display="flex" justifyContent="space-between" xs={9}>
               <Typography>{bankAccountInfo.campaign}</Typography>
               <CopyTextButton
                 text={bankAccountInfo.campaign!}

@@ -20,7 +20,6 @@ import { useVaultsList } from 'common/hooks/vaults'
 import { useCreateBankDonation } from 'service/donation'
 import { AxiosError, AxiosResponse } from 'axios'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
-import { AlertStore } from 'stores/AlertStore'
 import { FormikHelpers } from 'formik'
 import { validateFirst, validateSecond, validateThird } from '../helpers/validation-schema'
 
@@ -28,7 +27,7 @@ const initialValues: OneTimeDonation = {
   message: '',
   anonymous: false,
   amount: 0,
-  anonymousDonation: false,
+  anonymousDonation: true,
   personsFirstName: '',
   personsLastName: '',
   personsEmail: '',
@@ -52,9 +51,7 @@ export default function DonationStepper() {
     DonationBankInput
   >({
     mutationFn,
-    onError: () => AlertStore.show(t('donations:alerts:error'), 'error'),
     onSuccess: () => {
-      AlertStore.show(t('donations:alerts:create'), 'success')
       setStatus(true)
     },
   })
@@ -76,7 +73,7 @@ export default function DonationStepper() {
         targetVaultId: vault?.id,
       }
       console.log(data)
-      await mutation.mutateAsync(data)
+      // await mutation.mutateAsync(data)
       resetForm()
     } catch (error) {
       if (isAxiosError(error)) {
