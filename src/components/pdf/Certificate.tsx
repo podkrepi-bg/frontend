@@ -3,7 +3,7 @@ import { Document, Page, StyleSheet, Text, View, Font } from '@react-pdf/rendere
 import Logo from './Logo'
 import { DonationResponse } from 'gql/donations'
 import { PersonResponse } from 'gql/person'
-import { format } from 'date-fns'
+import { formatDateString } from 'common/util/date'
 
 Font.register({
   family: 'Roboto',
@@ -68,7 +68,7 @@ type Props = {
 }
 export default function Certificate({ donation, person }: Props) {
   const name = `${person?.firstName} ${person?.lastName}`
-  const formattedDate = format(Date.parse(donation.createdAt), 'dd.MM.yyyy')
+  const formattedDate = formatDateString(donation.createdAt)
   return (
     <Document title="Дарение">
       <Page size="A4" style={styles.page}>

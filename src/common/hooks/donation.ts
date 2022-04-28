@@ -16,7 +16,6 @@ import {
   UserDonationResult,
 } from 'gql/donations'
 import { createCheckoutSession } from 'service/donation'
-import { apiClient } from 'service/apiClient'
 
 export function usePriceList() {
   return useQuery<DonationPrice[]>(endpoints.donation.prices.url)
@@ -50,11 +49,7 @@ export async function prefetchDonationsList(client: QueryClient) {
 }
 
 export function useDonation(id: string) {
-  return useQuery<DonationResponse>(endpoints.donation.getDonation(id).url, {
-    queryFn: async () => {
-      return (await apiClient.get(endpoints.donation.getDonation(id).url)).data
-    },
-  })
+  return useQuery<DonationResponse>(endpoints.donation.getDonation(id).url)
 }
 
 export async function prefetchDonationById(client: QueryClient, id: string) {
