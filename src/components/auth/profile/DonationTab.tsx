@@ -20,7 +20,7 @@ import theme from 'common/theme'
 import { money } from 'common/util/money'
 import { useUserDonations } from 'common/hooks/donation'
 import { useCampaignList } from 'common/hooks/campaigns'
-import { createCurrentPerson, useCurrentPerson } from 'common/util/useCurrentPerson'
+import { getCurrentPerson } from 'common/util/useCurrentPerson'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import { useRouter } from 'next/router'
 
@@ -50,14 +50,11 @@ export default function DonationTab() {
   const { t } = useTranslation()
   const matches = useMediaQuery(theme.breakpoints.down('md'))
 
-  const { register } = router.query
-  let user
-  if (register) {
-    user = createCurrentPerson().data
-  } else {
-    user = useCurrentPerson().data
+  const { data: user } = getCurrentPerson(!!router.query?.register)
+  if (router.query?.register) {
+    delete router.query.register
+    router.replace({ pathname: router.pathname, query: router.query }, undefined, { shallow: true })
   }
-
   const { data: userDonations, isLoading: isUserDonationLoading } = useUserDonations()
   const { data: campaigns, isLoading: isCampaignLoading } = useCampaignList()
   return (
