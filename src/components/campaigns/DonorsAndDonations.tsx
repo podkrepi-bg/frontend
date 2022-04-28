@@ -47,8 +47,11 @@ export default function DonorsAndDonations({
   const { t, i18n } = useTranslation()
   const [donationsToShow, setDonationsToShow] = useState<CampaignDonation[] | undefined>()
   const [all, setAll] = useState<boolean>(false)
+  const shownDonationsNumber = 1
   useEffect(() => {
-    all ? setDonationsToShow(donations) : setDonationsToShow(donations?.slice(0, 1))
+    all
+      ? setDonationsToShow(donations)
+      : setDonationsToShow(donations?.slice(0, shownDonationsNumber))
   }, [donations, all])
   return (
     <>
@@ -85,9 +88,11 @@ export default function DonorsAndDonations({
         )}
       </Grid>
       <Grid>
-        <Button onClick={() => setAll((prev) => !prev)} className={classes.seeAllButton}>
-          {all ? t('campaigns:cta.see-less') : t('campaigns:cta.see-all')}
-        </Button>
+        {donations && donations.length > shownDonationsNumber && (
+          <Button onClick={() => setAll((prev) => !prev)} className={classes.seeAllButton}>
+            {all ? t('campaigns:cta.see-less') : t('campaigns:cta.see-all')}
+          </Button>
+        )}
       </Grid>
     </>
   )
