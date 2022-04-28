@@ -2,7 +2,7 @@ import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
 import { useTranslation } from 'react-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
-import { QueryClient, useMutation, useQuery } from 'react-query'
+import { QueryClient, useMutation, useQuery, UseQueryOptions } from 'react-query'
 
 import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
@@ -16,15 +16,16 @@ import {
   UserDonationResult,
 } from 'gql/donations'
 import { createCheckoutSession } from 'service/donation'
+import Stripe from 'stripe'
 
 export function usePriceList() {
   return useQuery<DonationPrice[]>(endpoints.donation.prices.url)
 }
-export function useSinglePriceList() {
-  return useQuery<DonationPrice[]>(endpoints.donation.singlePrices.url)
+export function useSinglePriceList(options: UseQueryOptions<Stripe.Price[]>) {
+  return useQuery<DonationPrice[]>(endpoints.donation.singlePrices.url, options)
 }
-export function useRecurringPriceList() {
-  return useQuery<DonationPrice[]>(endpoints.donation.recurringPrices.url)
+export function useRecurringPriceList(options: UseQueryOptions<Stripe.Price[]>) {
+  return useQuery<DonationPrice[]>(endpoints.donation.recurringPrices.url, options)
 }
 export function useDonationSession() {
   const { t } = useTranslation()

@@ -1,27 +1,19 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback } from 'react'
 import { useTranslation } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 import { baseUrl, routes } from 'common/routes'
 import { money } from 'common/util/money'
-import { useSinglePriceList, useDonationSession } from 'common/hooks/donation'
+import { useDonationSession } from 'common/hooks/donation'
 import LinkButton from 'components/common/LinkButton'
 import CampaignProgress from './CampaignProgress'
 import DonorsAndDonations from './DonorsAndDonations'
-import {
-  CircularProgress,
-  Grid,
-  List,
-  ListItem,
-  ListItemText,
-  Theme,
-  Typography,
-} from '@mui/material'
-import { Favorite } from '@mui/icons-material'
+import { CircularProgress, Grid, Theme, Typography } from '@mui/material'
 import ShareIcon from '@mui/icons-material/Share'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 import { useCampaignDonationHistory } from 'common/hooks/campaigns'
 import theme from 'common/theme'
+import DonationsChoice from './DonationsChoice'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -65,13 +57,9 @@ export default function InlineDonation({ campaign }: Props) {
   const classes = useStyles()
   const { t } = useTranslation()
 
-  const [showDonationPriceList, setDonationPriceList] = useState(false)
-  const onClick = () => setDonationPriceList(true)
-
   const target = campaign.targetAmount
   const summary = campaign.summary.find(() => true)
   const reached = summary ? summary.reachedAmount : 0
-  const { data: prices } = useSinglePriceList()
   const {
     data: donations,
     error: donationHistoryError,
@@ -96,14 +84,6 @@ export default function InlineDonation({ campaign }: Props) {
     },
     [mutation],
   )
-
-  const sortedPrices = useMemo(() => {
-    if (!prices) return []
-    return prices?.sort((a, b) => {
-      if (a.unit_amount === null || b.unit_amount === null) return 0
-      return a.unit_amount - b.unit_amount
-    })
-  }, [prices])
   return (
     <Grid item xs={12} md={4} mt={5} p={3} className={classes.inlineDonationWrapper}>
       <Grid mb={2}>
@@ -135,32 +115,14 @@ export default function InlineDonation({ campaign }: Props) {
           className={classes.shareButton}>
           {t('campaigns:cta.share')}
         </LinkButton>
-        <LinkButton
-          fullWidth
-          href="#"
-          onClick={onClick}
-          variant="contained"
-          color="secondary"
-          className={classes.supportButton}
-          startIcon={<Favorite color="action" />}>
-          {t('common:support')}
-        </LinkButton>
-        {showDonationPriceList && (
-          <List className={classes.donationPriceList}>
-            {sortedPrices.map((price, index) => {
-              if (!price) return null
-              return (
-                <ListItem button key={index}>
-                  <ListItemText
-                    onClick={() => donate(price.id)}
-                    primary={`${(price.unit_amount ?? 100) / 100} лв.`}
-                    secondary={price.metadata.title}
-                  />
-                </ListItem>
-              )
-            })}
-          </List>
-        )}
+        <DonationsChoice
+          onSingleClick={(priceId) => {
+            donate(priceId)
+          }}
+          onRecurringClick={(priceId) => {
+            donate(priceId)
+          }}
+        />
       </Grid>
       {donationHistoryError ? (
         'Error fetching donation history'
@@ -169,7 +131,6 @@ export default function InlineDonation({ campaign }: Props) {
       ) : (
         <DonorsAndDonations donations={donations} />
       )}
-      {/* <pre>{JSON.stringify(prices, null, 2)}</pre> */}
     </Grid>
   )
 }
