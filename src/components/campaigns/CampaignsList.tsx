@@ -1,19 +1,16 @@
 import Image from 'next/image'
-import { Box, Button, CircularProgress, Grid, Theme } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import { Box, Button, CircularProgress, Grid } from '@mui/material'
+
 import { CampaignResponse } from 'gql/campaigns'
 import useMobile from 'common/hooks/useMobile'
 
 import CampaignCard from './CampaignCard'
-import { useEffect, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useTranslation } from 'next-i18next'
-
 
 type Props = { campaignToShow: CampaignResponse[] }
 export default function CampaignsList({ campaignToShow }: Props) {
   const { t } = useTranslation()
-  const classes = useStyles()
   const { mobile } = useMobile()
   const numberOfMinimalShownCampaings = 6
   const [all, setAll] = useState<boolean>(false)
@@ -28,7 +25,7 @@ export default function CampaignsList({ campaignToShow }: Props) {
       <Grid container justifyContent="center" spacing={2}>
         {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
         {<CircularProgress size="large" />}
-        {campaignsToShow?.map((campaign, index) => (
+        {campaigns?.map((campaign, index) => (
           <Grid key={index} item xs={12} sm={6} lg={4}>
             <Box textAlign="center">
               <CampaignCard campaign={campaign} />
