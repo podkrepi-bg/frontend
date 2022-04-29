@@ -9,14 +9,6 @@ import CampaignCard from './CampaignCard'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    seeAllButton: {
-      border: `1px solid ${theme.palette.primary.main}`,
-      margin: `1em`,
-    },
-  }),
-)
 
 type Props = { campaignToShow: CampaignResponse[] }
 export default function CampaignsList({ campaignToShow }: Props) {
