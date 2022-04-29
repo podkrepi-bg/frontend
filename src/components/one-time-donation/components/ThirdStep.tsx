@@ -1,10 +1,9 @@
 import { Collapse, Grid, List, Divider, Typography, Button } from '@mui/material'
 import { createStyles, makeStyles } from '@mui/styles'
-import RadioGroupFormik from './RadioGroupFormik'
+import PriceRadioGroup from './PriceRadioGroup'
 import { useField } from 'formik'
 import { UseQueryResult } from 'react-query'
 import { useRouter } from 'next/router'
-import { routes } from 'common/routes'
 import { CampaignResponse } from 'gql/campaigns'
 import { useViewCampaign } from 'common/hooks/campaigns'
 import { CopyTextButton } from '../../common/CopyTextButton'
@@ -75,7 +74,7 @@ export default function ThirdStep() {
         <Typography className={classes.h2}>{t('third-step.title')}</Typography>
       </Grid>
       <Grid item mx={10}>
-        <RadioGroupFormik name="payment" options={options as []} />
+        <PriceRadioGroup name="payment" options={options as []} />
       </Grid>
       <Grid>
         <Collapse in={field.value === 'bank'} timeout="auto" unmountOnExit>
