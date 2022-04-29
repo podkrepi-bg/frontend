@@ -34,9 +34,9 @@ const useStyles = makeStyles(() =>
       marginLeft: '15px',
     },
     iconCheck: {
-      backgroundColor: '#0098E3',
+      backgroundColor: theme.palette.primary.main,
       borderRadius: '50px',
-      color: '#294E85',
+      color: theme.palette.primary.dark,
       marginRight: 5,
       marginLeft: '15px',
     },
