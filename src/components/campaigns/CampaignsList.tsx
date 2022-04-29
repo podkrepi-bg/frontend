@@ -38,7 +38,7 @@ export default function CampaignsList({ campaignToShow }: Props) {
       </Grid>
       {campaignToShow && campaignToShow?.length > numberOfMinimalShownCampaings ? (
         <Grid container justifyContent="center">
-          <Button onClick={() => setAll((prev) => !prev)} className={classes.seeAllButton}>
+          <Button onClick={() => setAll((prev) => !prev)} variant="outlined" sx={{ mt: 1 }}>
             {all ? t('campaigns:cta.see-less') : t('campaigns:cta.see-all')}
           </Button>
         </Grid>
