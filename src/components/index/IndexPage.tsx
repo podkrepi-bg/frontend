@@ -12,6 +12,7 @@ import WhatUnitesUsSection from './sections/WhatUnitesUsSection'
 import { RefObject } from 'react'
 import WantToHelpPodkrepiBgSection from './sections/WantToHelpPodkrepiBg'
 import FaqSection from './sections/FaqSection'
+import TeamMembersSection from './sections/TeamMembersSection'
 
 export default function IndexPage() {
   const scrollElement = useRef<HTMLAnchorElement>(null)
@@ -29,6 +30,7 @@ export default function IndexPage() {
         <CampaignsSection />
         <HowWeWorkSection />
         <ReadyToStartCampaignSection />
+        <TeamMembersSection />
         <WhatUnitesUsSection />
         <WantToHelpPodkrepiBgSection />
         <FaqSection />
