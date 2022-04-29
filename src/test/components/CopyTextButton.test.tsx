@@ -10,7 +10,7 @@ describe('CopyTextButton', () => {
 
   beforeEach(() => {
     expectedProps = {
-      text: 'BG66 UNCR 7000 1524 3490 32',
+      text: 'BG66 0000 0000 0000 0000 00',
       label: 'support:cta.copy-number',
     }
   })
