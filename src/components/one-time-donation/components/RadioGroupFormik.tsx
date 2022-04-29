@@ -8,11 +8,10 @@ import {
   Radio,
   RadioGroup,
 } from '@mui/material'
-import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import { TranslatableField, translateError } from 'common/form/validation'
 import { createStyles, makeStyles } from '@mui/styles'
 import CheckIcon from '@mui/icons-material/Check'
+import PriceRadioButton from './PriceRadioButton'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -74,12 +73,8 @@ export default function RadioGroupFormik({ name, options }: CheckboxFieldProps) 
             key={index}
             label={<span style={{ fontSize: '20px' }}>{label}</span>}
             control={
-              <Radio
-                sx={{ '& .MuiSvgIcon-root': { fontSize: 39 } }}
-                icon={<Icon className={classes.iconUncheck} />}
-                checkedIcon={<CheckIcon className={classes.iconCheck} />}
+              <PriceRadioButton
                 checked={Boolean(value === values)}
-                {...field}
                 onChange={() => {
                   setValue(values)
                 }}
