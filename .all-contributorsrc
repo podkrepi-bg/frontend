@@ -410,6 +410,150 @@
         "doc",
         "tool"
       ]
+    },
+    {
+      "login": "dplamenov",
+      "name": "Dimitar Plamenov Dimitrov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/30602242?v=4",
+      "profile": "https://github.com/dplamenov",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Simomir",
+      "name": "Simeon Shopov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/53947134?v=4",
+      "profile": "https://github.com/Simomir",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "angelina-7",
+      "name": "Angelina",
+      "avatar_url": "https://avatars.githubusercontent.com/u/62725741?v=4",
+      "profile": "https://github.com/angelina-7",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Kalin-Konstantinov",
+      "name": "Kalin Konstantinov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/63465745?v=4",
+      "profile": "https://github.com/Kalin-Konstantinov",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Marina-yoya",
+      "name": "Marina-yoya",
+      "avatar_url": "https://avatars.githubusercontent.com/u/64007447?v=4",
+      "profile": "https://github.com/Marina-yoya",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "borislavstoychev",
+      "name": "Borislav Stoychev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/67734870?v=4",
+      "profile": "https://borislavstoychev.github.io/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "dpmarkov",
+      "name": "Dimitar Markov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/71282381?v=4",
+      "profile": "https://github.com/dpmarkov",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "TodorBelchev",
+      "name": "Todor Belchev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/71307782?v=4",
+      "profile": "https://github.com/TodorBelchev",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "PepiPetrov",
+      "name": "Pepi Petrov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/74186271?v=4",
+      "profile": "https://github.com/PepiPetrov",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "stilian-nikolaev",
+      "name": "Stilian Nikolaev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/74594156?v=4",
+      "profile": "https://github.com/stilian-nikolaev",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "nradkova",
+      "name": "Neli Radkova",
+      "avatar_url": "https://avatars.githubusercontent.com/u/78322634?v=4",
+      "profile": "https://github.com/nradkova",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "KalinHar",
+      "name": "Kalin Harmandzhiev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/80389338?v=4",
+      "profile": "https://github.com/KalinHar",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "PetyrDzhunov",
+      "name": "Petar Dzhunov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/80568052?v=4",
+      "profile": "https://github.com/PetyrDzhunov",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "ivankraev",
+      "name": "Ivan Kraev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/89323943?v=4",
+      "profile": "https://github.com/ivankraev",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Yakimov1337",
+      "name": "Yakimov1337",
+      "avatar_url": "https://avatars.githubusercontent.com/u/92337248?v=4",
+      "profile": "https://github.com/Yakimov1337",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "GeorgyGenchev",
+      "name": "Georgy Genchev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/101862171?v=4",
+      "profile": "https://github.com/GeorgyGenchev",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -417,5 +561,6 @@
   "projectOwner": "podkrepi-bg",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "skipCi": true
+  "skipCi": true,
+  "commitConvention": "none"
 }
