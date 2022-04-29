@@ -24,12 +24,12 @@ export default function CampaignsList({ campaignToShow }: Props) {
   const classes = useStyles()
   const { mobile } = useMobile()
   const numberOfMinimalShownCampaings = 6
-  const [campaignsToShow, setCampaignsToShow] = useState<CampaignResponse[] | undefined>()
   const [all, setAll] = useState<boolean>(false)
-  useEffect(() => {
-    all
-      ? setCampaignsToShow(campaignToShow)
-      : setCampaignsToShow(campaignToShow?.slice(0, numberOfMinimalShownCampaings))
+  const campaigns = useMemo<CampaignResponse[]>(() => {
+    if (all) {
+      return campaignToShow ?? []
+    }
+    return campaignToShow?.slice(0, numberOfMinimalShownCampaings) ?? []
   }, [campaignToShow, all])
   return (
     <Grid container justifyContent="center" spacing={2}>
