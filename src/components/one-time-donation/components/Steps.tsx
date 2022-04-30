@@ -4,12 +4,6 @@ import SecondStep from './SecondStep'
 import ThirdStep from './ThirdStep'
 import Success from './Success'
 import Fail from './Fail'
-import {
-  DonationBankInput,
-  DonationResponse,
-  DonationStep as StepType,
-  OneTimeDonation,
-} from '../../../gql/donations'
 import { FormikStep, FormikStepper } from './FormikStepper'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
@@ -22,6 +16,12 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import { FormikHelpers } from 'formik'
 import { validateFirst, validateSecond, validateThird } from '../helpers/validation-schema'
+import {
+  DonationBankInput,
+  DonationResponse,
+  OneTimeDonation,
+  DonationStep as StepType,
+} from 'gql/donations'
 
 const initialValues: OneTimeDonation = {
   message: '',
