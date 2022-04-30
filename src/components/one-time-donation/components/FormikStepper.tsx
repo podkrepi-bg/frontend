@@ -17,7 +17,7 @@ const useStyles = makeStyles(() => ({
   customLabelStyle: {
     transform: 'scale(1.55)',
   },
-  stepper: {
+  container: {
     maxWidth: '662px',
     marginLeft: 'auto',
     marginRight: 'auto',
@@ -72,8 +72,8 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
         }
       }}>
       {({ isSubmitting }) => (
-        <Form autoComplete="off">
-          <Grid className={classes.stepper}>
+        <Form className={classes.container} autoComplete="off">
+          <Grid>
             <Stepper nonLinear alternativeLabel activeStep={step}>
               {childrenArray.map((child, index) => (
                 <Step key={index}>
@@ -85,8 +85,7 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
             </Stepper>
           </Grid>
           {currentChild}
-
-          <Grid className={classes.stepper} display={step === 3 ? 'none' : ''}>
+          <Grid display={step === 3 ? 'none' : ''}>
             <Button
               className={classes.btnBack}
               disabled={isSubmitting}

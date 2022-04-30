@@ -1,10 +1,12 @@
 import { Grid, Typography } from '@mui/material'
 import { createStyles, makeStyles } from '@mui/styles'
+import { useSinglePriceList } from 'common/hooks/donation'
 import FormTextField from 'components/common/form/FormTextField'
+import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
+import { money } from 'common/util/money'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import CheckboxField from './FormCheckField'
-import RadioGroupFormik from './RadioGroupFormik'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -24,30 +26,18 @@ const useStyles = makeStyles(() =>
       borderRadius: '32px',
       textAlign: 'left',
     },
-    body: {
-      maxWidth: '662px',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
   }),
 )
-const amounts = [
-  { values: '2', label: '2 лв.' },
-  { values: '20', label: '20 лв.' },
-  { values: '5', label: '5 лв.' },
-  { values: '50', label: '50 лв.' },
-  { values: '10', label: '10 лв.' },
-  { values: '100', label: '100 лв.' },
-]
 export default function FirstStep() {
   const classes = useStyles()
+  const { data: prices } = useSinglePriceList()
   const { t } = useTranslation('one-time-donation')
   return (
     <Grid>
       <Grid container justifyContent="center">
         <Typography className={classes.h3}>{t('first-step.wish')}</Typography>
       </Grid>
-      <Grid className={classes.body}>
+      <Grid>
         <FormTextField
           name="message"
           type="text"
@@ -66,8 +56,20 @@ export default function FirstStep() {
         <Typography variant="body1">{t('first-step.info-anonymous')}</Typography>
         <Typography className={classes.h3}>{t('first-step.amount')}</Typography>
       </Grid>
-      <Grid className={classes.body} my={5}>
-        <RadioGroupFormik name="amount" options={amounts as []} />
+      <Grid my={5}>
+        <RadioButtonGroup
+          name="amount"
+          options={
+            prices
+              ?.sort((a, b) => Number(a.unit_amount) - Number(b.unit_amount))
+              .map((v) => {
+                return {
+                  label: money(Number(v.unit_amount)),
+                  value: Number(v.unit_amount),
+                }
+              }) || []
+          }
+        />
       </Grid>
     </Grid>
   )
