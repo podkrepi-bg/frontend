@@ -7,11 +7,21 @@ import { useSinglePriceList, useDonationSession } from 'common/hooks/donation'
 import LinkButton from 'components/common/LinkButton'
 import CampaignProgress from './CampaignProgress'
 import DonorsAndDonations from './DonorsAndDonations'
-import { Grid, List, ListItem, ListItemText, Theme, Typography } from '@mui/material'
+import {
+  CircularProgress,
+  Grid,
+  List,
+  ListItem,
+  ListItemText,
+  Theme,
+  Typography,
+} from '@mui/material'
 import { Favorite } from '@mui/icons-material'
 import ShareIcon from '@mui/icons-material/Share'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
+import { useCampaignDonationHistory } from 'common/hooks/campaigns'
+import theme from 'common/theme'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -60,8 +70,14 @@ export default function InlineDonation({ campaign }: Props) {
 
   const target = campaign.targetAmount
   const summary = campaign.summary.find(() => true)
-  const reached = summary ? summary.reachedAmount : 0
+  const reached = summary?.reachedAmount ?? 0
+  const donors = summary?.donors ?? 0
   const { data: prices } = useSinglePriceList()
+  const {
+    data: donations,
+    error: donationHistoryError,
+    isLoading: isDonationHistoryLoading,
+  } = useCampaignDonationHistory(campaign.id)
   const mutation = useDonationSession()
 
   const donate = useCallback(
@@ -89,7 +105,6 @@ export default function InlineDonation({ campaign }: Props) {
       return a.unit_amount - b.unit_amount
     })
   }, [prices])
-
   return (
     <Grid item xs={12} md={4} mt={5} p={3} className={classes.inlineDonationWrapper}>
       <Grid mb={2}>
@@ -103,7 +118,7 @@ export default function InlineDonation({ campaign }: Props) {
       </Grid>
       <CampaignProgress raised={reached} target={target} />
       <Grid display="inline-block" m={3} ml={0}>
-        <Typography className={classes.donorsSharesCount}>{0}</Typography>
+        <Typography className={classes.donorsSharesCount}>{donors}</Typography>
         <Typography>{t('campaigns:campaign.donors')}</Typography>
       </Grid>
       <Grid display="inline-block" m={3} ml={0}>
@@ -148,7 +163,13 @@ export default function InlineDonation({ campaign }: Props) {
           </List>
         )}
       </Grid>
-      <DonorsAndDonations />
+      {donationHistoryError ? (
+        'Error fetching donation history'
+      ) : isDonationHistoryLoading ? (
+        <CircularProgress sx={{ display: 'block', margin: `${theme.spacing(3)} auto` }} />
+      ) : (
+        <DonorsAndDonations donations={donations} />
+      )}
       {/* <pre>{JSON.stringify(prices, null, 2)}</pre> */}
     </Grid>
   )

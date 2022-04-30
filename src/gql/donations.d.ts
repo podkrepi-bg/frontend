@@ -30,7 +30,7 @@ export type DonationResponse = {
   updatedAt: DateTime
   currency: Currency
   amount: number
-  personId: UUID
+  personId?: UUID
 }
 
 export type DonationInput = {
@@ -90,8 +90,13 @@ export type UserDonation = {
     }
   }
   amount: number
-  currency: number
+  currency: string
   createdAt: string
+  id: UUID
+  provider: string
+  status: string
+  type: string
+  personId: UUID
 }
 
 export type UserDonationResult = {

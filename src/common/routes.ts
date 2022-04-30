@@ -131,6 +131,11 @@ export const routes = {
       create: '/admin/transfers/create',
       view: (id: string) => `/admin/transfers/${id}`,
     },
+    recurringDonation: {
+      index: '/admin/recurring-donation',
+      create: '/admin/recurring-donation/create',
+      view: (id: string) => `/admin/recurring-donation/${id}`,
+    },
   },
   dev: {
     openData: '/open-data',

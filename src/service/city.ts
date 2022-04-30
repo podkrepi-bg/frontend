@@ -38,15 +38,3 @@ export function useDeleteCity() {
     )
   }
 }
-
-export function useDeleteMany() {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
-  return async (ids: string[]) => {
-    return ids.map(async (id) => {
-      return await apiClient.delete<CityResponse, AxiosResponse<CityResponse>>(
-        endpoints.city.deleteCity(id).url,
-        authConfig(keycloak?.token),
-      )
-    })
-  }
-}

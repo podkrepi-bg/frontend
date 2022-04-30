@@ -13,9 +13,9 @@ export const endpoints = {
     viewCampaignById: (id: string) => <Endpoint>{ url: `/campaign/byId/${id}`, method: 'GET' },
     editCampaign: (id: string) => <Endpoint>{ url: `/campaign/${id}`, method: 'PUT' },
     deleteCampaign: (id: string) => <Endpoint>{ url: `/campaign/${id}`, method: 'DELETE' },
-    deleteCampaigns: <Endpoint>{ url: '/campaign/deletemany', method: 'POST' },
     uploadFile: (campaignId: string) =>
       <Endpoint>{ url: `/campaign-file/${campaignId}`, method: 'POST' },
+    getDonations: (id: string) => <Endpoint>{ url: `/campaign/donations/${id}`, method: 'GET' },
   },
   campaignType: {
     listCampaignTypes: <Endpoint>{ url: '/campaign-type/list', method: 'GET' },
@@ -121,7 +121,6 @@ export const endpoints = {
     createBeneficiary: <Endpoint>{ url: '/beneficiary/create-beneficiary', method: 'POST' },
     viewPerson: (slug: string) => <Endpoint>{ url: `/person/${slug}`, method: 'GET' },
     createPerson: <Endpoint>{ url: '/person', method: 'POST' },
-    removemany: <Endpoint>{ url: '/person/deletemany', method: 'DELETE' },
   },
   company: {
     list: <Endpoint>{ url: '/company/list', method: 'GET' },
@@ -137,5 +136,15 @@ export const endpoints = {
   account: {
     me: <Endpoint>{ url: '/account/me', method: 'GET' },
     update: <Endpoint>{ url: '/account/me', method: 'PATCH' },
+  },
+  recurringDonation: {
+    recurringDonation: <Endpoint>{ url: '/recurring-donation', method: 'GET' },
+    getRecurringDonation: (id: string) =>
+      <Endpoint>{ url: `/recurring-donation/${id}`, method: 'GET' },
+    createRecurringDonation: <Endpoint>{ url: '/recurring-donation', method: 'POST' },
+    editRecurringDonation: (id: string) =>
+      <Endpoint>{ url: `/recurring-donation/${id}`, method: 'PUT' },
+    deleteRecurringDonation: (id: string) =>
+      <Endpoint>{ url: `/recurring-donation/${id}`, method: 'DELETE' },
   },
 }
