@@ -33,7 +33,7 @@ const useStyles = makeStyles(() =>
     },
   }),
 )
-export default function Unsuccess() {
+export default function Fail() {
   const classes = useStyles()
   const { t } = useTranslation('one-time-donation')
 
@@ -46,14 +46,14 @@ export default function Unsuccess() {
         <ErrorOutlineOutlinedIcon />
       </Grid>
       <Grid>
-        <Typography className={classes.h2}>{t('unsuccess.title')}</Typography>
+        <Typography className={classes.h2}>{t('fail.title')}</Typography>
       </Grid>
       <Grid container justifyContent="center">
-        <Typography>{t('unsuccess.subtitle')}</Typography>
+        <Typography>{t('fail.subtitle')}</Typography>
       </Grid>
       <Grid container display="flex" my={10}>
-        <Button className={classes.buttons}>{t('unsuccess.btn-again')}</Button>
-        <Button className={classes.buttons}>{t('unsuccess.btn-connect')}</Button>
+        <Button className={classes.buttons}>{t('fail.btn-again')}</Button>
+        <Button className={classes.buttons}>{t('fail.btn-connect')}</Button>
       </Grid>
     </Grid>
   )
