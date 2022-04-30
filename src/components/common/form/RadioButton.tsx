@@ -25,10 +25,10 @@ const useStyles = makeStyles(() =>
     checkedCircle: {
       width: 30,
       height: 30,
-      border: `1px solid ${theme.palette.primary.dark}`,
+      border: `1px solid ${theme.palette.primary.main}`,
       backgroundColor: theme.palette.primary.main,
       borderRadius: theme.borders.roundRadius,
-      color: theme.palette.primary.dark,
+      color: '#fff',
     },
     label: {
       fontSize: 20,
