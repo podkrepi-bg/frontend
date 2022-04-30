@@ -2,11 +2,11 @@ import { Grid, Typography } from '@mui/material'
 import { createStyles, makeStyles } from '@mui/styles'
 import { useSinglePriceList } from 'common/hooks/donation'
 import FormTextField from 'components/common/form/FormTextField'
+import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 import { money } from 'common/util/money'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import CheckboxField from './FormCheckField'
-import RadioButtonGroup from './RadioButtonGroup'
 
 const useStyles = makeStyles(() =>
   createStyles({
