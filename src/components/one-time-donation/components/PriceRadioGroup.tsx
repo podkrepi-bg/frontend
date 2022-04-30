@@ -21,16 +21,18 @@ export default function PriceRadioGroup({ name, options }: CheckboxFieldProps) {
     <FormControl required component="fieldset" error={Boolean(meta.error) && Boolean(meta.touched)}>
       <RadioGroup value={fieldValue} row={field.name === 'amount'} name={name}>
         {options ? (
-          options.map(({ unit_amount: optionValue }, index) => (
-            <PriceRadioButton
-              onChange={() => {
-                setValue(optionValue)
-              }}
-              checked={optionValue === fieldValue}
-              label={money(optionValue || 0)}
-              key={index}
-            />
-          ))
+          options
+            .sort((a, b) => Number(a.unit_amount) - Number(b.unit_amount))
+            .map(({ unit_amount: optionValue }, index) => (
+              <PriceRadioButton
+                onChange={() => {
+                  setValue(optionValue)
+                }}
+                checked={optionValue === fieldValue}
+                label={money(optionValue || 0)}
+                key={index}
+              />
+            ))
         ) : (
           <Typography>There are no avaliable donations you can make :(</Typography>
         )}

@@ -1,7 +1,6 @@
-import { createTheme, darken, responsiveFontSizes, ThemeOptions } from '@mui/material/styles'
+import { createTheme, darken, responsiveFontSizes, Theme, ThemeOptions } from '@mui/material/styles'
 
 const fontFamily = 'Montserrat'
-
 // Instead of exporting `colors` variable use theme:
 // import theme from 'common/theme'
 // <meta name="theme-color" content={theme.palette.primary.main} />
@@ -137,7 +136,17 @@ export const themeOptions: ThemeOptions = {
     },
   },
 }
-
+createTheme()
 // https://material-ui.com/customization/default-theme/#default-theme
-const theme = createTheme(themeOptions)
-export default responsiveFontSizes(theme)
+const theme: Theme = createTheme(themeOptions)
+const materialTheme = responsiveFontSizes(theme)
+const podkrepiTheme = {
+  borders: {
+    dark: colors.blue.dark,
+    light: colors.blue.main,
+    roundRadius: 60,
+  },
+  ...materialTheme,
+}
+
+export default podkrepiTheme
