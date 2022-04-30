@@ -37,7 +37,9 @@ export default function PriceRadioGroup({ name, options }: CheckboxFieldProps) {
           <Typography>There are no avaliable donations you can make :(</Typography>
         )}
       </RadioGroup>
-      {Boolean(meta.error) && <FormHelperText error>{t(helperText!)}</FormHelperText>}
+      {Boolean(meta.error) && (
+        <FormHelperText error>{t(helperText ? helperText : 'General error')}</FormHelperText>
+      )}
     </FormControl>
   )
 }
