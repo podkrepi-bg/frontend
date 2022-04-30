@@ -3,7 +3,7 @@ import FirstStep from './FirstStep'
 import SecondStep from './SecondStep'
 import ThirdStep from './ThirdStep'
 import Success from './Success'
-import Unsuccess from './Unsuccess'
+import Fail from './Fail'
 import {
   DonationBankInput,
   DonationResponse,
@@ -102,7 +102,7 @@ export default function DonationStepper() {
     },
     {
       label: 'Last Step',
-      component: success ? <Success /> : <Unsuccess />,
+      component: success ? <Success /> : <Fail />,
       validate: null,
     },
   ]
