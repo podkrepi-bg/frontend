@@ -6,7 +6,7 @@ import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 import { money } from 'common/util/money'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import CheckboxField from './FormCheckField'
+import CircleCheckboxField from 'components/common/form/CircleCheckboxField'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -42,17 +42,10 @@ export default function FirstStep() {
           name="message"
           type="text"
           label={t('first-step.message')}
-          variant="outlined"
-          color="primary"
           multiline
           rows={9}
-          InputProps={{
-            classes: {
-              root: classes.message,
-            },
-          }}
         />
-        <CheckboxField name="anonymous" label={t('first-step.check-box-label') as string} />
+        <CircleCheckboxField name="anonymous" label={t('first-step.check-box-label') as string} />
         <Typography variant="body1">{t('first-step.info-anonymous')}</Typography>
         <Typography className={classes.h3}>{t('first-step.amount')}</Typography>
       </Grid>
@@ -62,12 +55,10 @@ export default function FirstStep() {
           options={
             prices
               ?.sort((a, b) => Number(a.unit_amount) - Number(b.unit_amount))
-              .map((v) => {
-                return {
-                  label: money(Number(v.unit_amount)),
-                  value: Number(v.unit_amount),
-                }
-              }) || []
+              .map((v) => ({
+                label: money(Number(v.unit_amount)),
+                value: Number(v.unit_amount),
+              })) || []
           }
         />
       </Grid>
