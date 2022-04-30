@@ -57,18 +57,18 @@ export default observer(function Grid() {
     {
       field: 'status',
       headerName: t('donations:status'),
-      ...commonProps,
     },
     {
       field: 'provider',
       headerName: t('donations:provider'),
       ...commonProps,
+      width: 250,
     },
     {
       field: 'targetVaultId',
       headerName: t('donations:vault'),
       ...commonProps,
-      width: 350,
+      width: 250,
       renderCell: (params: GridRenderCellParams) => {
         return <RenderVaultCell params={params} />
       },
@@ -77,7 +77,7 @@ export default observer(function Grid() {
       field: 'person',
       headerName: t('donations:person'),
       ...commonProps,
-      width: 350,
+      width: 250,
       renderCell: (params: GridRenderCellParams) => {
         return <RenderPersonCell params={params} />
       },
@@ -91,11 +91,13 @@ export default observer(function Grid() {
       field: 'currency',
       headerName: t('donations:currency'),
       ...commonProps,
+      width: 100,
     },
     {
       field: 'createdAt',
-      headerName: t('donations:createdAt'),
+      headerName: t('donations:date'),
       ...commonProps,
+      width: 250,
       renderCell: (params: GridRenderCellParams) => {
         return getExactDate(params?.row.createdAt)
       },

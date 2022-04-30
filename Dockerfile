@@ -1,6 +1,6 @@
 # Build target dependencies #
 ###########################
-FROM node:14-alpine AS base
+FROM node:16.14.2-alpine3.15 AS base
 WORKDIR /app
 ARG NODE_ENV=production
 ENV PATH=/app/node_modules/.bin:$PATH \
@@ -34,6 +34,7 @@ ENV SENTRY_AUTH_TOKEN="$SENTRY_AUTH_TOKEN"
 COPY --from=dependencies /app/node_modules /app/node_modules
 COPY . /app
 RUN yarn build && \
+  yarn sitemap && \
   rm -rf node_modules
 
 # Build target production #

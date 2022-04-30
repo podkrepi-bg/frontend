@@ -10,6 +10,7 @@ import {
   Class,
   Shield,
   MoveUp,
+  VolunteerActivism,
   DisplaySettings,
 } from '@mui/icons-material'
 import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined'
@@ -39,6 +40,11 @@ export const menuPayments = [
   { label: 'Тегления', icon: LocalAtmIcon, href: routes.admin.withdrawals.index },
   { label: 'Прехвърляния', icon: MoveUp, href: routes.admin.transfer.index },
   { label: 'Разходи', icon: Paid, href: routes.admin.expenses.index },
+  {
+    label: 'Повтарящо се дарение',
+    icon: VolunteerActivism,
+    href: routes.admin.recurringDonation.index,
+  },
 ]
 
 export const menuSetings = [
@@ -72,4 +78,9 @@ export const menuItems = [
   { label: 'Трезори', icon: Shield, href: routes.admin.vaults.index },
   { label: 'Тегления', icon: LocalAtmIcon, href: routes.admin.withdrawals.index },
   { label: 'Прехвърляния', icon: MoveUp, href: routes.admin.transfer.index },
+  {
+    label: 'Повтарящо се дарение',
+    icon: VolunteerActivism,
+    href: routes.admin.recurringDonation.index,
+  },
 ]

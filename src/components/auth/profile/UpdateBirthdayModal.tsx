@@ -1,19 +1,45 @@
-import { useState } from 'react'
-import { Modal, Box, Grid, TextField, IconButton } from '@mui/material'
+import * as yup from 'yup'
+import { Modal, Box, Grid, IconButton } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import { Person, UpdatePerson } from 'gql/person'
 import { useMutation } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
-import { ApiErrors } from 'service/apiErrors'
+import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import { updateCurrentPerson } from 'common/util/useCurrentPerson'
-import DesktopDatePicker from '@mui/lab/DesktopDatePicker'
-import AdapterDateFns from '@mui/lab/AdapterDateFns'
-import LocalizationProvider from '@mui/lab/LocalizationProvider'
+
 import { AlertStore } from 'stores/AlertStore'
 import { useTranslation } from 'next-i18next'
 import CloseIcon from '@mui/icons-material/Close'
+import { format, parse, isDate } from 'date-fns'
+import { FormikHelpers } from 'formik'
+import FormTextField from 'components/common/form/FormTextField'
+
+const formatString = 'yyyy-MM-dd'
+
+const parseDateString = (value: string, originalValue: string) => {
+  const parsedDate = isDate(originalValue)
+    ? originalValue
+    : parse(originalValue, formatString, new Date())
+
+  return parsedDate
+}
+type BirthdayFormData = {
+  birthday: Date | string
+}
+const maxDate = new Date(new Date().setFullYear(new Date().getFullYear() - 18))
+
+const validationSchema: yup.SchemaOf<BirthdayFormData> = yup
+  .object()
+  .defined()
+  .shape({
+    birthday: yup
+      .date()
+      .transform(parseDateString)
+      .max(maxDate, `Трябва да си над 18 години за да може да се регистрираш.`)
+      .required(),
+  })
 
 const useStyles = makeStyles({
   modal: {
@@ -41,10 +67,11 @@ function UpdateBirthdayModal({
   person: UpdatePerson
 }) {
   const { t } = useTranslation()
-  const [value, setValue] = useState<Date | null>(person.birthday as Date)
 
-  const handleChange = (newValue: Date | null) => {
-    setValue(newValue)
+  const dateBefore18Years = new Date(new Date().setFullYear(new Date().getFullYear() - 18))
+
+  const initialValues: BirthdayFormData = {
+    birthday: format(new Date(person.birthday ?? dateBefore18Years), formatString),
   }
 
   const classes = useStyles()
@@ -55,10 +82,24 @@ function UpdateBirthdayModal({
     onSuccess: () => AlertStore.show(t('common:alerts.success'), 'success'),
   })
 
-  const onSubmit = async () => {
-    mutation.mutateAsync({ ...person, birthday: value }).then((data) => {
-      handleClose(data.data)
-    })
+  const onSubmit = async (
+    values: BirthdayFormData,
+    { setFieldError }: FormikHelpers<BirthdayFormData>,
+  ) => {
+    try {
+      const birthDate = new Date(values?.birthday)
+      await mutation.mutateAsync({ ...person, birthday: birthDate }).then((data) => {
+        handleClose(data.data)
+      })
+    } catch (error) {
+      console.error(error)
+      if (isAxiosError(error)) {
+        const { response } = error as AxiosError<ApiErrors>
+        response?.data.message.map(({ property, constraints }) => {
+          setFieldError(property, t(matchValidator(constraints)))
+        })
+      }
+    }
   }
 
   return (
@@ -72,17 +113,20 @@ function UpdateBirthdayModal({
           <CloseIcon />
         </IconButton>
         <h2>Обнови рожден ден</h2>
-        <GenericForm onSubmit={onSubmit} initialValues={person}>
+        <GenericForm<BirthdayFormData>
+          onSubmit={onSubmit}
+          initialValues={initialValues}
+          validationSchema={validationSchema}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={8}>
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DesktopDatePicker
-                  inputFormat="dd/MM/yyyy"
-                  value={value}
-                  onChange={handleChange}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
+              <FormTextField
+                type="date"
+                name="birthday"
+                label="Кога е твоят рожден ден?"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
             </Grid>
             <Grid item xs={6}>
               <SubmitButton fullWidth />
