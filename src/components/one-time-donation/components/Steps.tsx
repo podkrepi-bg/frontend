@@ -36,7 +36,7 @@ const initialValues: OneTimeDonation = {
 }
 
 export default function DonationStepper() {
-  const [status, setStatus] = React.useState(false)
+  const [success, setSuccess] = React.useState(false)
   const { t } = useTranslation('one-time-donation')
   const router = useRouter()
   const slug = String(router.query.slug)
@@ -52,7 +52,7 @@ export default function DonationStepper() {
   >({
     mutationFn,
     onSuccess: () => {
-      setStatus(true)
+      setSuccess(true)
     },
   })
   const onSubmit = async (
@@ -102,7 +102,7 @@ export default function DonationStepper() {
     },
     {
       label: 'Last Step',
-      component: status ? <Success /> : <Unsuccess />,
+      component: success ? <Success /> : <Unsuccess />,
       validate: null,
     },
   ]
