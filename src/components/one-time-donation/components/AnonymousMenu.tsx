@@ -18,22 +18,25 @@ const useStyles = makeStyles(() =>
   }),
 )
 
-export default function AnonimusMenu() {
+export default function AnonymousMenu() {
   const classes = useStyles()
   const [field] = useField('anonymousDonation')
   const { t } = useTranslation('one-time-donation')
 
   return (
     <>
-      <CheckboxField label={t('anonimus-menu.checkbox-label') as string} name="anonymousDonation" />
+      <CheckboxField
+        label={t('anonymous-menu.checkbox-label') as string}
+        name="anonymousDonation"
+      />
       <Collapse in={field.value} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          <Typography>{t('anonimus-menu.info-start')}</Typography>
+          <Typography>{t('anonymous-menu.info-start')}</Typography>
           <Grid my={'35px'}>
             <FormTextField
               name="personsFirstName"
               type="text"
-              label={t('anonimus-menu.name')}
+              label={t('anonymous-menu.name')}
               variant="outlined"
               color="primary"
               fullWidth
@@ -48,7 +51,7 @@ export default function AnonimusMenu() {
             <FormTextField
               name="personsLastName"
               type="text"
-              label={t('anonimus-menu.name')}
+              label={t('anonymous-menu.name')}
               variant="outlined"
               color="primary"
               fullWidth
@@ -78,7 +81,7 @@ export default function AnonimusMenu() {
             <FormTextField
               name="personsPhone"
               type="text"
-              label={t('anonimus-menu.phone')}
+              label={t('anonymous-menu.phone')}
               variant="outlined"
               color="primary"
               fullWidth
@@ -89,7 +92,7 @@ export default function AnonimusMenu() {
               }}
             />
           </Grid>
-          <Typography>{t('anonimus-menu.info-end')}</Typography>
+          <Typography>{t('anonymous-menu.info-end')}</Typography>
         </List>
       </Collapse>
     </>
