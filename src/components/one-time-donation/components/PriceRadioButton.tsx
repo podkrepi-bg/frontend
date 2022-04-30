@@ -1,44 +1,34 @@
 import { Check } from '@mui/icons-material'
-import { FormControlLabel, Icon, Radio } from '@mui/material'
+import { FormControlLabel, Radio, lighten } from '@mui/material'
 import { makeStyles, createStyles } from '@mui/styles'
 import theme from 'common/theme'
 import React from 'react'
 
 const useStyles = makeStyles(() =>
   createStyles({
+    radioWrapper: {
+      borderRadius: theme.borders.roundRadius,
+      border: `1px solid ${theme.borders.dark}`,
+      padding: theme.spacing(2),
+      minWidth: 310,
+    },
     checked: {
-      width: '309px',
-      height: '75px',
-      border: '1px solid #000000',
-      boxSizing: 'border-box',
-      borderRadius: '37.5px',
-      marginRight: '33px',
-      marginBottom: '20px',
-      background: '#D2F0FF',
+      background: lighten(theme.palette.primary.main, 0.8),
+      border: `1px solid ${theme.borders.light}`,
     },
-    unchecked: {
-      width: '309px',
-      height: '75px',
-      border: '1px solid #000000',
-      boxSizing: 'border-box',
-      borderRadius: '37.5px',
-      marginRight: '33px',
-      marginBottom: '20px',
+    circle: {
+      width: 30,
+      height: 30,
+      border: `1px solid ${theme.palette.primary.dark}`,
+      borderRadius: theme.borders.roundRadius,
     },
-    iconUncheck: {
-      fontSize: 39,
-      border: '1px solid #000000',
-      boxSizing: 'border-box',
-      borderRadius: '50px',
-      marginRight: 5,
-      marginLeft: '15px',
-    },
-    iconCheck: {
+    checkedCircle: {
+      width: 30,
+      height: 30,
+      border: `1px solid ${theme.palette.primary.dark}`,
       backgroundColor: theme.palette.primary.main,
-      borderRadius: '50px',
+      borderRadius: theme.borders.roundRadius,
       color: theme.palette.primary.dark,
-      marginRight: 5,
-      marginLeft: '15px',
     },
   }),
 )
@@ -53,12 +43,12 @@ function PriceRadioButton({ checked, onChange, label }: PriceRadioButtonProps) {
   const classes = useStyles()
   return (
     <FormControlLabel
-      className={checked ? classes.checked : classes.unchecked}
+      className={`${classes.radioWrapper} ${checked ? classes.checked : null}`}
       label={<span style={{ fontSize: '20px' }}>{label}</span>}
       control={
         <Radio
-          icon={<Icon className={classes.iconUncheck} />}
-          checkedIcon={<Check color="primary" className={classes.iconCheck} />}
+          icon={<div className={classes.circle} />}
+          checkedIcon={<Check color="primary" className={classes.checkedCircle} />}
           checked={checked}
           onChange={onChange}
         />
