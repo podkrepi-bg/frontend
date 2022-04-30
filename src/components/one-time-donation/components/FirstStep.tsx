@@ -2,10 +2,11 @@ import { Grid, Typography } from '@mui/material'
 import { createStyles, makeStyles } from '@mui/styles'
 import { useSinglePriceList } from 'common/hooks/donation'
 import FormTextField from 'components/common/form/FormTextField'
+import { money } from 'common/util/money'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import CheckboxField from './FormCheckField'
-import PriceRadioGroup from './PriceRadioGroup'
+import RadioButtonGroup from './RadioButtonGroup'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -56,7 +57,19 @@ export default function FirstStep() {
         <Typography className={classes.h3}>{t('first-step.amount')}</Typography>
       </Grid>
       <Grid my={5}>
-        <PriceRadioGroup name="amount" options={prices} />
+        <RadioButtonGroup
+          name="amount"
+          options={
+            prices
+              ?.sort((a, b) => Number(a.unit_amount) - Number(b.unit_amount))
+              .map((v) => {
+                return {
+                  label: money(Number(v.unit_amount)),
+                  value: Number(v.unit_amount),
+                }
+              }) || []
+          }
+        />
       </Grid>
     </Grid>
   )

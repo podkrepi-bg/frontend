@@ -1,5 +1,5 @@
 import { Check } from '@mui/icons-material'
-import { FormControlLabel, Radio, lighten, Typography } from '@mui/material'
+import { FormControlLabel, Radio, lighten, Typography, RadioProps } from '@mui/material'
 import { makeStyles, createStyles } from '@mui/styles'
 import theme from 'common/theme'
 import React from 'react'
@@ -37,13 +37,14 @@ const useStyles = makeStyles(() =>
   }),
 )
 
-type PriceRadioButtonProps = {
+type RadioButtonProps = {
   checked: boolean
   label: string
   onChange: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void
+  muiRadioButtonProps?: Partial<RadioProps>
 }
 
-function PriceRadioButton({ checked, onChange, label }: PriceRadioButtonProps) {
+function RadioButton({ checked, onChange, label, muiRadioButtonProps }: RadioButtonProps) {
   const classes = useStyles()
   return (
     <FormControlLabel
@@ -55,10 +56,11 @@ function PriceRadioButton({ checked, onChange, label }: PriceRadioButtonProps) {
           checkedIcon={<Check color="primary" className={classes.checkedCircle} />}
           checked={checked}
           onChange={onChange}
+          {...muiRadioButtonProps}
         />
       }
     />
   )
 }
 
-export default PriceRadioButton
+export default RadioButton
