@@ -1,6 +1,6 @@
 import { Collapse, Grid, List, Divider, Typography } from '@mui/material'
 import { createStyles, makeStyles } from '@mui/styles'
-import PriceRadioGroup from './PriceRadioGroup'
+import RadioButtonGroup from './RadioButtonGroup'
 import { useField } from 'formik'
 import { UseQueryResult } from 'react-query'
 import { useRouter } from 'next/router'
@@ -66,8 +66,8 @@ export default function ThirdStep() {
     campaign: data?.campaign.title,
   }
   const options = [
-    { values: 'card', label: t('third-step.card') },
-    { values: 'bank', label: t('third-step.bank-payment') },
+    { value: 'card', label: t('third-step.card') },
+    { value: 'bank', label: t('third-step.bank-payment') },
   ]
   return (
     <Grid className={classes.body}>
@@ -75,7 +75,13 @@ export default function ThirdStep() {
         <Typography className={classes.h2}>{t('third-step.title')}</Typography>
       </Grid>
       <Grid item mx={10}>
-        <PriceRadioGroup name="payment" options={options as []} />
+        <RadioButtonGroup
+          name="payment"
+          options={options}
+          muiRadioButtonGridProps={{
+            xs: 12,
+          }}
+        />
       </Grid>
       <Grid>
         <Collapse in={field.value === 'bank'} timeout="auto" unmountOnExit>
