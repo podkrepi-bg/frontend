@@ -6,12 +6,12 @@ import PriceRadioButton from './PriceRadioButton'
 import Stripe from 'stripe'
 import { money } from 'common/util/money'
 
-export type CheckboxFieldProps = {
+export type RadioGroupProps = {
   name: string
   options: Stripe.Price[] | undefined
 }
 
-export default function PriceRadioGroup({ name, options }: CheckboxFieldProps) {
+export default function PriceRadioGroup({ name, options }: RadioGroupProps) {
   const { t } = useTranslation('one-time-donation')
   const [field, meta, helpers] = useField(name)
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
