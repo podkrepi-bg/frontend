@@ -5,7 +5,7 @@ import Link from 'components/common/Link'
 import React from 'react'
 import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import AnonimusMenu from './AnonimusMenu'
+import AnonymousMenu from './AnonymousMenu'
 import { useTranslation } from 'next-i18next'
 
 const useStyles = makeStyles(() =>
@@ -117,7 +117,7 @@ export default function SecondStep() {
           <Link href="#"> {t('second-step.new-create-profile')} </Link>
         </Typography>
       </Stack>
-      <AnonimusMenu />
+      <AnonymousMenu />
     </Grid>
   )
 }
