@@ -74,7 +74,7 @@ export default function ThirdStep() {
         <Typography className={classes.h2}>{t('third-step.title')}</Typography>
       </Grid>
       <Grid item mx={10}>
-        <PriceRadioGroup name="payment" options={options as []} />
+        <PriceRadioGroup name="payment" options={options} />
       </Grid>
       <Grid>
         <Collapse in={field.value === 'bank'} timeout="auto" unmountOnExit>
