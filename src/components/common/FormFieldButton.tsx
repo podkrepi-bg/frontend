@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Typography, Box } from '@mui/material'
+import { Button, Typography, Box, ButtonBase } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import theme from 'common/theme'
 
@@ -18,7 +18,8 @@ const useStyles = makeStyles({
     alignItems: 'center',
     justifyContent: 'space-between',
     border: `1px solid rgba(0, 0, 0, 0.23)`,
-    borderRadius: '3px',
+    borderRadius: 60,
+    width: '100%',
     padding: '8.5px 14px',
     cursor: 'pointer',
     '&:hover': {
@@ -65,16 +66,8 @@ function FormFieldButton({ error, onClick, value, placeholder, button, label }: 
   const classes = useStyles()
   return (
     <>
-      <Box
+      <ButtonBase
         aria-label={label}
-        component="div"
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
-          if (e.keyCode === 32 || e.keyCode === 13) {
-            onClick ? onClick() : null
-          }
-        }}
         onClick={onClick}
         className={
           error ? classes.imitateInputBox + ' ' + classes.errorInputBox : classes.imitateInputBox
@@ -87,7 +80,7 @@ function FormFieldButton({ error, onClick, value, placeholder, button, label }: 
             {button.label}
           </Button>
         ) : null}
-      </Box>
+      </ButtonBase>
       {error ? <p className={classes.errorText}>{error}</p> : null}
     </>
   )
