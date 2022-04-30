@@ -95,6 +95,30 @@ export const themeOptions: ThemeOptions = {
       styleOverrides: {
         root: {
           fontSize: '1rem',
+          borderRadius: 60,
+        },
+        multiline: {
+          borderRadius: 20,
+        },
+      },
+    },
+    MuiFilledInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: 60,
+        },
+        multiline: {
+          borderRadius: 20,
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: 60,
+        },
+        multiline: {
+          borderRadius: 20,
         },
       },
     },
@@ -105,7 +129,6 @@ export const themeOptions: ThemeOptions = {
         },
       },
     },
-
     MuiAppBar: {
       styleOverrides: {
         root: {
