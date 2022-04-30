@@ -159,7 +159,6 @@ export const themeOptions: ThemeOptions = {
     },
   },
 }
-createTheme()
 // https://material-ui.com/customization/default-theme/#default-theme
 const theme: Theme = createTheme(themeOptions)
 const materialTheme = responsiveFontSizes(theme)
