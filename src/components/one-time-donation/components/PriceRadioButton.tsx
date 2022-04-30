@@ -1,5 +1,5 @@
 import { Check } from '@mui/icons-material'
-import { FormControlLabel, Radio, lighten } from '@mui/material'
+import { FormControlLabel, Radio, lighten, Typography } from '@mui/material'
 import { makeStyles, createStyles } from '@mui/styles'
 import theme from 'common/theme'
 import React from 'react'
@@ -30,6 +30,10 @@ const useStyles = makeStyles(() =>
       borderRadius: theme.borders.roundRadius,
       color: theme.palette.primary.dark,
     },
+    label: {
+      fontSize: 20,
+      marginLeft: theme.spacing(3),
+    },
   }),
 )
 
@@ -44,7 +48,7 @@ function PriceRadioButton({ checked, onChange, label }: PriceRadioButtonProps) {
   return (
     <FormControlLabel
       className={`${classes.radioWrapper} ${checked ? classes.checked : null}`}
-      label={<span style={{ fontSize: '20px' }}>{label}</span>}
+      label={<Typography className={classes.label}>{label}</Typography>}
       control={
         <Radio
           icon={<div className={classes.circle} />}
