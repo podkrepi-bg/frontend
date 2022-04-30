@@ -25,11 +25,6 @@ const useStyles = makeStyles(() =>
       borderRadius: '32px',
       textAlign: 'left',
     },
-    body: {
-      maxWidth: '662px',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
   }),
 )
 export default function FirstStep() {
@@ -41,7 +36,7 @@ export default function FirstStep() {
       <Grid container justifyContent="center">
         <Typography className={classes.h3}>{t('first-step.wish')}</Typography>
       </Grid>
-      <Grid className={classes.body}>
+      <Grid>
         <FormTextField
           name="message"
           type="text"
@@ -60,7 +55,7 @@ export default function FirstStep() {
         <Typography variant="body1">{t('first-step.info-anonimus')}</Typography>
         <Typography className={classes.h3}>{t('first-step.amount')}</Typography>
       </Grid>
-      <Grid className={classes.body} my={5}>
+      <Grid my={5}>
         <PriceRadioGroup name="amount" options={prices} />
       </Grid>
     </Grid>
