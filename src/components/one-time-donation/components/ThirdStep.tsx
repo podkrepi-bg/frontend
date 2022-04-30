@@ -1,14 +1,14 @@
-import { Collapse, Grid, List, Divider, Typography, Button } from '@mui/material'
+import { Collapse, Grid, List, Divider, Typography } from '@mui/material'
 import { createStyles, makeStyles } from '@mui/styles'
 import RadioGroupFormik from './RadioGroupFormik'
 import { useField } from 'formik'
 import { UseQueryResult } from 'react-query'
 import { useRouter } from 'next/router'
-import { routes } from 'common/routes'
 import { CampaignResponse } from 'gql/campaigns'
 import { useViewCampaign } from 'common/hooks/campaigns'
 import { CopyTextButton } from '../../common/CopyTextButton'
 import { useTranslation } from 'next-i18next'
+import { ibanNumber } from 'common/iban'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -62,7 +62,7 @@ export default function ThirdStep() {
   const bankAccountInfo = {
     owner: t('third-step.owner'),
     bank: t('third-step.bank'),
-    iban: 'BG66 UNCR 7000 1524 3490 32',
+    iban: ibanNumber,
     campaign: data?.campaign.title,
   }
   const options = [
@@ -105,7 +105,7 @@ export default function ThirdStep() {
               />
             </Grid>
             <Grid mx={11} my={3} item display="flex" justifyContent="space-between" xs={9}>
-              <Typography> IBAN: BG66 UNCR 7000 1524 3490 32 </Typography>
+              <Typography>{ibanNumber}</Typography>
               <CopyTextButton
                 label={t('third-step.btn-copy')}
                 text={bankAccountInfo.iban}
