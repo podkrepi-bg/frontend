@@ -1,6 +1,6 @@
 import { Collapse, Grid, List, Divider, Typography } from '@mui/material'
 import { createStyles, makeStyles } from '@mui/styles'
-import RadioButtonGroup from './RadioButtonGroup'
+import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 import { useField } from 'formik'
 import { UseQueryResult } from 'react-query'
 import { useRouter } from 'next/router'
