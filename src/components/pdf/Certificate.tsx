@@ -20,6 +20,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     height: '100%',
     width: '100%',
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     display: 'block',
   },
   heading: {
