@@ -1,71 +1,100 @@
-import { Grid, Theme, Typography } from '@mui/material'
+import { Box, Grid, Theme, Typography, useMediaQuery } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import createStyles from '@mui/styles/createStyles'
 import Layout from 'components/layout/Layout'
-import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
-import { UseQueryResult } from 'react-query'
-import { CampaignResponse } from 'gql/campaigns'
 import { useViewCampaign } from 'common/hooks/campaigns'
-import DonationStepper from './components/Steps'
 import { useRouter } from 'next/router'
+import theme from 'common/theme'
+import {
+  backgroundCampaignPictureUrl,
+  beneficiaryCampaignPictureUrl,
+} from 'common/util/campaignImageUrls'
+import { CampaignResponse } from 'gql/campaigns'
+import DonationStepper from './components/Steps'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    title: {
-      fontFamily: 'Montserrat',
-      fontStyle: 'normal',
-      fontSize: '45px',
-      lineHeight: '50px',
-      textAlign: 'center',
-      letterSpacing: '-1.5px',
-      color: '#000000',
-      maxWidth: '857px',
-      margin: 'auto',
+    bannerWrapper: {
+      '& span': {
+        position: 'inherit !important',
+      },
     },
-    avatar: {
-      borderRadius: '50%',
-      border: `10px solid ${theme.palette.common.white} !important`,
+    banner: {
+      zIndex: -1,
+      minHeight: '350px !important',
+      marginTop: `${theme.spacing(10)} !important`,
+      [theme.breakpoints.up('md')]: {
+        marginTop: `${theme.spacing(14)} !important`,
+      },
+    },
+    beneficiaryAvatarWrapper: {
       textAlign: 'center',
-      maxWidth: '307',
+      [theme.breakpoints.up('md')]: {
+        textAlign: 'center',
+      },
+    },
+    beneficiaryAvatar: {
+      borderRadius: '50%',
+      border: `4px solid ${theme.palette.common.white} !important`,
+      textAlign: 'center',
+    },
+    stepperWrapper: {
+      gap: theme.spacing(2),
+      display: 'grid',
     },
   }),
 )
 
 export default function OneTimeDonation() {
-  const { t } = useTranslation()
   const classes = useStyles()
   const router = useRouter()
+  const matches = useMediaQuery('sm')
   const slug = String(router.query.slug)
-  const { data }: UseQueryResult<{ campaign: CampaignResponse }> = useViewCampaign(slug)
-
+  const { data } = useViewCampaign(slug)
+  const { campaign } = data as { campaign: CampaignResponse }
+  const bannerSource = backgroundCampaignPictureUrl(campaign)
+  const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
   return (
-    <>
-      <Grid sx={{ pt: 10 }}>
-        <Grid sx={{ minHeight: '182px' }}>
+    <Layout maxWidth={false}>
+      <Grid
+        container
+        component="section"
+        maxWidth="lg"
+        justifyContent="center"
+        m="0 auto"
+        marginTop={theme.spacing(matches ? 20 : 25)}>
+        <Box className={classes.bannerWrapper}>
           <Image
-            sizes="100%"
+            src={bannerSource}
+            alt="Campaign banner image"
+            layout="fill"
             objectFit="cover"
-            width="1440px"
-            height="320px"
-            alt="The house from the offer."
-            src="/img/campaign-banner.png"
+            className={classes.banner}
           />
-        </Grid>
-        <Grid sx={{ maxWidth: '307px', ml: 'auto', mr: 'auto', mt: '-180px' }}>
+        </Box>
+
+        <Grid
+          item
+          xs={12}
+          justifyContent="center"
+          p={4}
+          className={classes.beneficiaryAvatarWrapper}>
           <Image
-            width="307"
-            height="307"
-            className={classes.avatar}
-            alt="The house from the offer."
-            src="/img/campaign-banner.png"
+            src={beneficiaryAvatarSource}
+            alt={campaign.title}
+            width={250}
+            height={250}
+            className={classes.beneficiaryAvatar}
           />
         </Grid>
-        <Typography className={classes.title}>{data?.campaign.title}</Typography>
+        <Grid className={classes.stepperWrapper}>
+          <Typography variant="h4" sx={{ textAlign: 'center', marginBottom: theme.spacing(4) }}>
+            {campaign.title}
+          </Typography>
+          <DonationStepper />
+        </Grid>
       </Grid>
-      <Layout>
-        <DonationStepper />
-      </Layout>
-    </>
+    </Layout>
   )
 }

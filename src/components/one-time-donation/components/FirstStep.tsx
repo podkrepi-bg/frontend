@@ -1,76 +1,51 @@
 import { Grid, Typography } from '@mui/material'
-import { createStyles, makeStyles } from '@mui/styles'
 import { useSinglePriceList } from 'common/hooks/donation'
 import FormTextField from 'components/common/form/FormTextField'
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 import { money } from 'common/util/money'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import CheckboxField from './FormCheckField'
+import CheckboxField from 'components/common/form/CheckboxField'
+import theme from 'common/theme'
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    h3: {
-      fontFamily: 'Montserrat',
-      fontStyle: 'normal',
-      fontWeight: '500',
-      fontSize: '25px',
-      lineHeight: '116.7%',
-      color: '#343434',
-      marginTop: '91px',
-      marginBottom: '25px',
-      textAlign: 'left',
-    },
-    message: {
-      background: '#FFFFFF',
-      borderRadius: '32px',
-      textAlign: 'left',
-    },
-  }),
-)
 export default function FirstStep() {
-  const classes = useStyles()
   const { data: prices } = useSinglePriceList()
   const { t } = useTranslation('one-time-donation')
   return (
-    <Grid>
+    <>
       <Grid container justifyContent="center">
-        <Typography className={classes.h3}>{t('first-step.wish')}</Typography>
+        <Typography variant="h4" sx={{ marginBottom: theme.spacing(4) }}>
+          {t('first-step.wish')}
+        </Typography>
       </Grid>
-      <Grid>
-        <FormTextField
-          name="message"
-          type="text"
-          label={t('first-step.message')}
-          variant="outlined"
-          color="primary"
-          multiline
-          rows={9}
-          InputProps={{
-            classes: {
-              root: classes.message,
-            },
-          }}
-        />
-        <CheckboxField name="anonymous" label={t('first-step.check-box-label') as string} />
-        <Typography variant="body1">{t('first-step.info-anonymous')}</Typography>
-        <Typography className={classes.h3}>{t('first-step.amount')}</Typography>
-      </Grid>
-      <Grid my={5}>
+      <FormTextField
+        name="message"
+        type="text"
+        label={t('first-step.message')}
+        multiline
+        rows={9}
+      />
+      <CheckboxField
+        name="anonymous"
+        label={<Typography fontWeight="bold">{t('first-step.check-box-label')}</Typography>}
+      />
+      <Typography variant="body1">{t('first-step.info-anonymous')}</Typography>
+      <Typography variant="h4" sx={{ marginTop: theme.spacing(8) }}>
+        {t('first-step.amount')}
+      </Typography>
+      <Grid marginTop={theme.spacing(4)}>
         <RadioButtonGroup
           name="amount"
           options={
             prices
               ?.sort((a, b) => Number(a.unit_amount) - Number(b.unit_amount))
-              .map((v) => {
-                return {
-                  label: money(Number(v.unit_amount)),
-                  value: Number(v.unit_amount),
-                }
-              }) || []
+              .map((v) => ({
+                label: money(Number(v.unit_amount)),
+                value: Number(v.unit_amount),
+              })) || []
           }
         />
       </Grid>
-    </Grid>
+    </>
   )
 }
