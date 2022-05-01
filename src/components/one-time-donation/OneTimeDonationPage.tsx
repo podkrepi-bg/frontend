@@ -28,17 +28,6 @@ const useStyles = makeStyles((theme: Theme) =>
         marginTop: `${theme.spacing(14)} !important`,
       },
     },
-    campaignTitle: {
-      color: theme.palette.common.white,
-      fontWeight: 500,
-      margin: 0,
-    },
-    campaignSubtitle: {
-      color: theme.palette.common.white,
-      padding: theme.spacing(0, 4.7),
-      fontSize: theme.spacing(4),
-      height: theme.spacing(16),
-    },
     beneficiaryAvatarWrapper: {
       textAlign: 'center',
       [theme.breakpoints.up('md')]: {
@@ -50,15 +39,9 @@ const useStyles = makeStyles((theme: Theme) =>
       border: `4px solid ${theme.palette.common.white} !important`,
       textAlign: 'center',
     },
-    campaignInfoWrapper: {
+    stepperWrapper: {
       gap: theme.spacing(2),
       display: 'grid',
-    },
-    coordinatorAvatar: {
-      borderRadius: '50%',
-    },
-    campaignDate: {
-      fontSize: '24px',
     },
   }),
 )
@@ -105,7 +88,7 @@ export default function OneTimeDonation() {
             className={classes.beneficiaryAvatar}
           />
         </Grid>
-        <Grid className={classes.campaignInfoWrapper}>
+        <Grid className={classes.stepperWrapper}>
           <Typography variant="h4" sx={{ textAlign: 'center', marginBottom: theme.spacing(4) }}>
             {campaign.title}
           </Typography>
