@@ -14,7 +14,7 @@ export default function FirstStep() {
   return (
     <>
       <Grid container justifyContent="center">
-        <Typography variant="h4" sx={{ marginBottom: theme.spacing(3) }}>
+        <Typography variant="h4" sx={{ marginBottom: theme.spacing(4) }}>
           {t('first-step.wish')}
         </Typography>
       </Grid>
@@ -27,10 +27,10 @@ export default function FirstStep() {
       />
       <CheckboxField name="anonymous" label={t('first-step.check-box-label') as string} />
       <Typography variant="body1">{t('first-step.info-anonymous')}</Typography>
-      <Typography variant="h4" sx={{ marginTop: theme.spacing(3) }}>
+      <Typography variant="h4" sx={{ marginTop: theme.spacing(8) }}>
         {t('first-step.amount')}
       </Typography>
-      <Grid my={5}>
+      <Grid marginTop={theme.spacing(4)}>
         <RadioButtonGroup
           name="amount"
           options={

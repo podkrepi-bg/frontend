@@ -1,4 +1,4 @@
-import { Grid, Theme, Typography, useMediaQuery } from '@mui/material'
+import { Box, Grid, Theme, Typography, useMediaQuery } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import createStyles from '@mui/styles/createStyles'
 import Layout from 'components/layout/Layout'
@@ -81,13 +81,16 @@ export default function OneTimeDonation() {
         justifyContent="center"
         m="0 auto"
         marginTop={theme.spacing(matches ? 20 : 25)}>
-        <Image
-          src={bannerSource}
-          alt="Campaign banner image"
-          layout="fill"
-          objectFit="cover"
-          className={classes.banner}
-        />
+        <Box className={classes.bannerWrapper}>
+          <Image
+            src={bannerSource}
+            alt="Campaign banner image"
+            layout="fill"
+            objectFit="cover"
+            className={classes.banner}
+          />
+        </Box>
+
         <Grid
           item
           xs={12}

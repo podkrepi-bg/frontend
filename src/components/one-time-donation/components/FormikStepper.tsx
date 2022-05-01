@@ -81,7 +81,7 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
               </Step>
             ))}
           </Stepper>
-          <Box my={4}>{currentChild}</Box>
+          <Box marginY={8}>{currentChild}</Box>
           {step === 3 ? null : (
             <Grid container rowSpacing={2} columnSpacing={2}>
               <Grid item xs={12} md={6}>
