@@ -20,8 +20,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     height: '100%',
     width: '100%',
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    // @ts-expect-error non-existent value passed to display property enum
     display: 'block',
   },
   heading: {
