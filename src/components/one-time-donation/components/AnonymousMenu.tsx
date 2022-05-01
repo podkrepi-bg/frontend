@@ -2,7 +2,7 @@ import { Collapse, Grid, List, Typography } from '@mui/material'
 import * as React from 'react'
 import { createStyles, makeStyles } from '@mui/styles'
 import FormTextField from 'components/common/form/FormTextField'
-import CheckboxField from './FormCheckField'
+import CheckboxField from 'components/common/form/CircleCheckboxField'
 import { useField } from 'formik'
 import { useTranslation } from 'next-i18next'
 
