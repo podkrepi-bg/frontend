@@ -1,4 +1,4 @@
-import { Document, Page, StyleSheet, Text, View, Font } from '@react-pdf/renderer'
+import { Document, Page, StyleSheet, Text, View, Font, Image } from '@react-pdf/renderer'
 
 import Logo from './Logo'
 import { DonationResponse } from 'gql/donations'
@@ -14,7 +14,14 @@ Font.load({ fontFamily: 'Roboto' })
 
 const styles = StyleSheet.create({
   page: {
-    backgroundColor: '#E1E4E5',
+    backgroundColor: '#fff',
+  },
+  backgroundImage: {
+    position: 'absolute',
+    height: '100%',
+    width: '100%',
+    // @ts-expect-error non-existent value passed to display property enum
+    display: 'block',
   },
   heading: {
     fontFamily: 'Roboto',
@@ -34,7 +41,6 @@ const styles = StyleSheet.create({
   },
   name: {
     fontFamily: 'Roboto',
-    textDecoration: 'underline',
     textAlign: 'center',
     fontSize: '50',
   },
@@ -51,14 +57,36 @@ const styles = StyleSheet.create({
   },
   date: {
     fontFamily: 'Roboto',
-    textDecoration: 'underline',
+    marginTop: '55',
+    marginLeft: '25',
   },
   dateText: {
     fontFamily: 'Roboto',
+    marginTop: '5',
+    marginLeft: '25',
   },
   members: {
     fontFamily: 'Roboto',
     fontSize: '10',
+    marginTop: '90',
+    marginRight: '60',
+  },
+  signs: {
+    position: 'absolute',
+    left: '350',
+    display: 'flex',
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+  },
+  signImage: {
+    width: '50',
+    height: '50',
+  },
+  thankYouImage: {
+    width: '120',
+    height: '120',
+    marginLeft: '240',
+    marginTop: '20',
   },
 })
 
@@ -71,7 +99,8 @@ export default function Certificate({ donation, person }: Props) {
   const formattedDate = formatDateString(donation.createdAt)
   return (
     <Document title="Дарение">
-      <Page size="A4" style={styles.page}>
+      <Page size="LETTER" style={styles.page}>
+        <Image src="public/img/pdf/background.png" style={styles.backgroundImage} />
         <View>
           <Logo />
           <Text style={styles.heading}>СЕРТИФИКАТ</Text>
@@ -80,9 +109,7 @@ export default function Certificate({ donation, person }: Props) {
         <View>
           <Text style={styles.text1}>С този сертификат Управителният съвет на Сдружение</Text>
           <Text style={styles.text1}>„Подкрепи БГ“ удостоверява, че:</Text>
-          <Text style={styles.name} fixed>
-            {name}
-          </Text>
+          <Text style={styles.name}>{name}</Text>
         </View>
         <View>
           <Text style={styles.donationText}>
@@ -95,13 +122,17 @@ export default function Certificate({ donation, person }: Props) {
             <Text style={styles.date}>{formattedDate}</Text>
             <Text style={styles.dateText}>Дата</Text>
           </View>
-          <View>
-            <Text>_______________</Text>
-            <Text style={styles.members}>Членове на УС</Text>
-            <Text style={styles.members}>Станка Черкезова-Калайджиева</Text>
-            <Text style={styles.members}>Ана Николова</Text>
+          <View style={styles.signs}>
+            <Image src="public/img/pdf/sign.png" style={styles.signImage} />
+            <Image src="public/img/pdf/sign1.png" style={styles.signImage} />
+          </View>
+          <View style={styles.members}>
+            <Text>Членове на УС</Text>
+            <Text>Станка Черкезова-Калайджиева</Text>
+            <Text>Ана Николова</Text>
           </View>
         </View>
+        <Image src="public/img/pdf/thank-you.png" style={styles.thankYouImage} />
       </Page>
     </Document>
   )
