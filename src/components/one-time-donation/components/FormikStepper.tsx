@@ -1,4 +1,5 @@
-import { Button, CircularProgress, Grid, Step, StepLabel, Stepper } from '@mui/material'
+import { LoadingButton } from '@mui/lab'
+import { Box, Button, Grid, Step, StepLabel, Stepper } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { Form, Formik, FormikConfig, FormikValues } from 'formik'
 import { useTranslation } from 'next-i18next'
@@ -14,9 +15,6 @@ export function FormikStep({ children }: FormikStepProps) {
 }
 
 const useStyles = makeStyles(() => ({
-  customLabelStyle: {
-    transform: 'scale(1.55)',
-  },
   container: {
     maxWidth: '662px',
     marginLeft: 'auto',
@@ -41,6 +39,9 @@ const useStyles = makeStyles(() => ({
     height: '80px',
     fontSize: '22px',
   },
+  stepIcon: {
+    transform: 'scale(1.15)',
+  },
 }))
 export type GenericFormProps<T> = PropsWithChildren<FormikConfig<T>>
 
@@ -48,7 +49,6 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
   const childrenArray = React.Children.toArray(children) as React.ReactElement<FormikStepProps>[]
   const [step, setStep] = useState(0)
   const currentChild = childrenArray[step]
-  // const [completed, setCompleted] = useState(false)
   const classes = useStyles()
 
   function isLastStep() {
@@ -64,47 +64,53 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
         if (isLastStep()) {
           await props.onSubmit(values, helpers)
           setStep((s) => s + 1)
-          window.scrollTo({ top: 0 })
         } else {
           setStep((s) => s + 1)
-          window.scrollTo({ top: 0 })
           helpers.setTouched({})
         }
-      }}>
-      {({ isSubmitting }) => (
-        <Form className={classes.container} autoComplete="off">
-          <Grid>
-            <Stepper nonLinear alternativeLabel activeStep={step}>
-              {childrenArray.map((child, index) => (
-                <Step key={index}>
-                  <StepLabel classes={{ iconContainer: classes.customLabelStyle }}>
-                    {child.props.label}
-                  </StepLabel>
-                </Step>
-              ))}
-            </Stepper>
-          </Grid>
-          {currentChild}
-          <Grid display={step === 3 ? 'none' : ''}>
-            <Button
-              className={classes.btnBack}
-              disabled={isSubmitting}
-              onClick={() => {
-                setStep((s) => s - 1)
-                window.scrollTo({ top: 0 })
-              }}>
-              {t('btns.back')}
-            </Button>
-            <Button
-              className={classes.btn}
-              startIcon={isSubmitting ? <CircularProgress size="1rem" /> : null}
-              disabled={isSubmitting}
-              variant="contained"
-              color="inherit"
-              type="submit">
-              {isSubmitting ? 'Потвърждение' : isLastStep() ? t('btns.end') : t('btns.next')}
-            </Button>
-          </Grid>
+      }}
+      validateOnBlur>
+      {({ isSubmitting, handleSubmit }) => (
+        <Form onSubmit={handleSubmit} className={classes.container} autoComplete="off">
+          <Stepper alternativeLabel activeStep={step}>
+            {childrenArray.map((child, index) => (
+              <Step key={index}>
+                <StepLabel classes={{ alternativeLabel: classes.stepIcon }}>
+                  {child.props.label}
+                </StepLabel>
+              </Step>
+            ))}
+          </Stepper>
+          <Box my={4}>{currentChild}</Box>
+          {step === 3 ? null : (
+            <Grid container rowSpacing={2} columnSpacing={2}>
+              <Grid item xs={12} md={6}>
+                <Button
+                  fullWidth
+                  type="submit"
+                  variant="text"
+                  disabled={step === 0 || isSubmitting}
+                  color="error"
+                  size="large"
+                  onClick={() => {
+                    setStep((s) => s - 1)
+                  }}>
+                  {t('btns.back')}
+                </Button>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <LoadingButton
+                  fullWidth
+                  type="submit"
+                  variant="contained"
+                  loading={isSubmitting}
+                  color="info"
+                  size="large">
+                  {isSubmitting ? 'Потвърждение' : isLastStep() ? t('btns.end') : t('btns.next')}
+                </LoadingButton>
+              </Grid>
+            </Grid>
+          )}
         </Form>
       )}
     </Formik>

@@ -36,21 +36,28 @@ export default function RadioButtonGroup({
   muiRadioButtonGridProps,
 }: RadioButtonGroup) {
   const { t } = useTranslation('one-time-donation')
-  const [field, meta, helpers] = useField(name)
+  const [field, meta, { setValue }] = useField(name)
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
-  const { setValue } = helpers
   return (
-    <FormControl required component="fieldset" error={Boolean(meta.error) && Boolean(meta.touched)}>
-      <RadioGroup value={field.value} name={name} {...muiRadioGroupProps}>
+    <FormControl
+      fullWidth
+      required
+      component="fieldset"
+      error={Boolean(meta.error) && Boolean(meta.touched)}>
+      <RadioGroup
+        onChange={(e, v) => {
+          setValue(v)
+        }}
+        value={field.value}
+        name={name}
+        {...muiRadioGroupProps}>
         <Grid rowSpacing={2} columnSpacing={2} container>
           {options ? (
             options.map(({ label: optionLabel, value: optionValue }, index) => (
-              <Grid key={index} item xs={6} {...muiRadioButtonGridProps}>
+              <Grid key={index} item xs={12} sm={6} {...muiRadioButtonGridProps}>
                 <PriceRadioButton
-                  onChange={() => {
-                    setValue(optionValue)
-                  }}
-                  checked={optionValue === field.value}
+                  value={optionValue}
+                  checked={optionValue == field.value}
                   label={optionLabel}
                 />
               </Grid>
