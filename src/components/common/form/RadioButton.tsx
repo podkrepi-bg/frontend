@@ -10,7 +10,7 @@ const useStyles = makeStyles(() =>
       borderRadius: theme.borders.roundRadius,
       border: `1px solid ${theme.borders.dark}`,
       padding: theme.spacing(2),
-      minWidth: 310,
+      width: '100%',
     },
     checked: {
       background: lighten(theme.palette.primary.main, 0.8),
@@ -40,22 +40,21 @@ const useStyles = makeStyles(() =>
 type RadioButtonProps = {
   checked: boolean
   label: string
-  onChange: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void
+  value: string | number
   muiRadioButtonProps?: Partial<RadioProps>
 }
 
-function RadioButton({ checked, onChange, label, muiRadioButtonProps }: RadioButtonProps) {
+function RadioButton({ checked, label, muiRadioButtonProps, value }: RadioButtonProps) {
   const classes = useStyles()
   return (
     <FormControlLabel
+      value={value}
       className={`${classes.radioWrapper} ${checked ? classes.checked : null}`}
       label={<Typography className={classes.label}>{label}</Typography>}
       control={
         <Radio
           icon={<div className={classes.circle} />}
           checkedIcon={<Check color="primary" className={classes.checkedCircle} />}
-          checked={checked}
-          onChange={onChange}
           {...muiRadioButtonProps}
         />
       }
