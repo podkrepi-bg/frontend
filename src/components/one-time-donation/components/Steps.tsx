@@ -72,8 +72,6 @@ export default function DonationStepper() {
         extPaymentMethodId: String(Math.random() * 5),
         targetVaultId: vault?.id,
       }
-      console.log(data)
-      // await mutation.mutateAsync(data)
       resetForm()
     } catch (error) {
       if (isAxiosError(error)) {
