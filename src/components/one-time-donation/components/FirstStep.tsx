@@ -25,7 +25,10 @@ export default function FirstStep() {
         multiline
         rows={9}
       />
-      <CheckboxField name="anonymous" label={t('first-step.check-box-label') as string} />
+      <CheckboxField
+        name="anonymous"
+        label={<Typography fontWeight="bold">{t('first-step.check-box-label')}</Typography>}
+      />
       <Typography variant="body1">{t('first-step.info-anonymous')}</Typography>
       <Typography variant="h4" sx={{ marginTop: theme.spacing(8) }}>
         {t('first-step.amount')}
