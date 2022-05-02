@@ -1,6 +1,7 @@
 import { LoadingButton } from '@mui/lab'
 import { Box, Button, Grid, Step, StepLabel, Stepper } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import { Form, Formik, FormikConfig, FormikValues } from 'formik'
 import { useTranslation } from 'next-i18next'
 import React, { PropsWithChildren, useState } from 'react'
@@ -48,11 +49,15 @@ export type GenericFormProps<T> = PropsWithChildren<FormikConfig<T>>
 export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
   const childrenArray = React.Children.toArray(children) as React.ReactElement<FormikStepProps>[]
   const [step, setStep] = useState(0)
-  const currentChild = childrenArray[step]
+  const currentChild = childrenArray[1]
   const classes = useStyles()
-
+  const { data: currentPerson } = useCurrentPerson()
   function isLastStep() {
     return step === childrenArray.length - 2
+  }
+
+  function isFirstStep() {
+    return step === 0
   }
   const { t } = useTranslation('one-time-donation')
 
@@ -64,6 +69,8 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
         if (isLastStep()) {
           await props.onSubmit(values, helpers)
           setStep((s) => s + 1)
+        } else if (isFirstStep() && currentPerson) {
+          setStep((s) => s + 2)
         } else {
           setStep((s) => s + 1)
           helpers.setTouched({})
@@ -93,6 +100,9 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
                   color="error"
                   size="large"
                   onClick={() => {
+                    if (step === 2 && currentPerson) {
+                      return setStep((s) => s - 2)
+                    }
                     setStep((s) => s - 1)
                   }}>
                   {t('btns.back')}
