@@ -10,7 +10,6 @@ import { useRouter } from 'next/router'
 import { useMutation, UseQueryResult } from 'react-query'
 import { CampaignResponse } from 'gql/campaigns'
 import { useViewCampaign } from 'common/hooks/campaigns'
-import { useVaultsList } from 'common/hooks/vaults'
 import { useCreateBankDonation } from 'service/donation'
 import { AxiosError, AxiosResponse } from 'axios'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
@@ -27,7 +26,7 @@ const initialValues: OneTimeDonation = {
   message: '',
   anonymous: false,
   amount: 0,
-  anonymousDonation: true,
+  anonymousDonation: false,
   personFirstName: '',
   personLastName: '',
   personEmail: '',
@@ -41,8 +40,6 @@ export default function DonationStepper() {
   const router = useRouter()
   const slug = String(router.query.slug)
   const { data }: UseQueryResult<{ campaign: CampaignResponse }> = useViewCampaign(slug as string)
-  const valts = useVaultsList().data
-  const vault = valts?.find((a) => a.campaignId === data?.campaign.id)
   const mutationFn = useCreateBankDonation()
 
   const mutation = useMutation<
@@ -70,7 +67,6 @@ export default function DonationStepper() {
         extCustomerId: String(Math.random() * 5),
         extPaymentIntentId: String(Math.random() * 5),
         extPaymentMethodId: String(Math.random() * 5),
-        targetVaultId: vault?.id,
       }
       resetForm()
     } catch (error) {
