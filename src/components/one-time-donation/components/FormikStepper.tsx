@@ -49,7 +49,7 @@ export type GenericFormProps<T> = PropsWithChildren<FormikConfig<T>>
 export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
   const childrenArray = React.Children.toArray(children) as React.ReactElement<FormikStepProps>[]
   const [step, setStep] = useState(0)
-  const currentChild = childrenArray[1]
+  const currentChild = childrenArray[step]
   const classes = useStyles()
   const { data: currentPerson } = useCurrentPerson()
   function isLastStep() {
@@ -66,10 +66,11 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
       {...props}
       validationSchema={currentChild.props.validationSchema}
       onSubmit={async (values, helpers) => {
+        console.log(currentPerson)
         if (isLastStep()) {
           await props.onSubmit(values, helpers)
           setStep((s) => s + 1)
-        } else if (isFirstStep() && currentPerson) {
+        } else if (isFirstStep() && currentPerson && currentPerson.status !== 'unauthenticated') {
           setStep((s) => s + 2)
         } else {
           setStep((s) => s + 1)
