@@ -20,12 +20,12 @@ function LoginForm() {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <FormTextField name="mail" type="text" label="Email" fullWidth size="medium" />
+          <FormTextField name="personsEmail" type="text" label="Email" fullWidth size="medium" />
         </Grid>
         <Grid item xs={12}>
           <FormTextField
-            name="password"
-            type="text"
+            name="personsPassword"
+            type="password"
             label={t('second-step.password')}
             fullWidth
             size="medium"
