@@ -30,7 +30,10 @@ function LoginForm() {
           />
         </Grid>
         <Box display={'flex'} justifyContent="space-between" width="100%" alignItems="center">
-          <FormControlLabel control={<Checkbox />} label="Remember" />
+          <FormControlLabel
+            control={<Checkbox />}
+            label={t('second-step.checkbox-label') as string}
+          />
           <Box sx={{ opacity: 0.85 }}>
             <Typography display="inline" color="GrayText">
               Don&apos;t have an account?
