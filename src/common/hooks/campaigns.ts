@@ -10,6 +10,10 @@ export function useCampaignList() {
   return useQuery<CampaignResponse[]>(endpoints.campaign.listCampaigns.url)
 }
 
+export function useCampaignAdminList() {
+  return useQuery<CampaignResponse[]>(endpoints.campaign.listAdminCampaigns.url)
+}
+
 export function useCampaignTypesList() {
   return useQuery<CampaignType[]>(endpoints.campaignTypes.listCampaignTypes.url)
 }

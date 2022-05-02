@@ -8,6 +8,7 @@ type Endpoint = {
 export const endpoints = {
   campaign: {
     listCampaigns: <Endpoint>{ url: '/campaign/list', method: 'GET' },
+    listAdminCampaigns: <Endpoint>{ url: '/campaign/list-all', method: 'GET' },
     createCampaign: <Endpoint>{ url: '/campaign/create-campaign', method: 'POST' },
     viewCampaign: (slug: string) => <Endpoint>{ url: `/campaign/${slug}`, method: 'GET' },
     viewCampaignById: (id: string) => <Endpoint>{ url: `/campaign/byId/${id}`, method: 'GET' },
