@@ -109,10 +109,10 @@ export type OneTimeDonation = {
   anonymous: boolean
   amount: number
   anonymousDonation: boolean
-  personsFirstName: string
-  personsLastName: string
-  personsEmail: string
-  personsPhone: string
+  personFirstName: string
+  personLastName: string
+  personEmail: string
+  personPhone: string
   payment?: 'bank' | 'card'
 }
 
