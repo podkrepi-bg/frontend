@@ -8,7 +8,7 @@ import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-
 
 import { routes } from 'common/routes'
 import { CampaignResponse } from 'gql/campaigns'
-import { useCampaignList } from 'common/hooks/campaigns'
+import { useCampaignAdminList } from 'common/hooks/campaigns'
 
 import GridActions from './GridActions'
 import DeleteModal from './modals/DeleteModal'
@@ -40,7 +40,7 @@ const DisplayCampaignType = ({ params }: CampaignCellProps) => {
 
 export default function CampaignGrid() {
   const { t } = useTranslation()
-  const { data = [], refetch }: UseQueryResult<CampaignResponse[]> = useCampaignList()
+  const { data = [], refetch }: UseQueryResult<CampaignResponse[]> = useCampaignAdminList()
   const [viewId, setViewId] = useState<string | undefined>()
   const [deleteId, setDeleteId] = useState<string | undefined>()
 
