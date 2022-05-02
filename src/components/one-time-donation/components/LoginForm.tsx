@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Typography } from '@mui/material'
+import { Box, Button, Checkbox, FormControlLabel, Grid, Typography } from '@mui/material'
 import theme from 'common/theme'
 import CheckboxField from 'components/common/form/CheckboxField'
 import FormTextField from 'components/common/form/FormTextField'
@@ -30,13 +30,13 @@ function LoginForm() {
           />
         </Grid>
         <Box display={'flex'} justifyContent="space-between" width="100%" alignItems="center">
-          <CheckboxField name="remember" label={t('second-step.checkbox-label') as string} />
+          <FormControlLabel control={<Checkbox />} label="Remember" />
           <Box sx={{ opacity: 0.85 }}>
             <Typography display="inline" color="GrayText">
               Don&apos;t have an account?
-            </Typography>
+            </Typography>{' '}
             <Link color={theme.palette.primary.dark} href="#">
-              Sign in
+              Sign up
             </Link>
           </Box>
         </Box>
