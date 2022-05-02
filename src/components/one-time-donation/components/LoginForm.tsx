@@ -1,16 +1,19 @@
-import { Box, Button, Checkbox, FormControlLabel, Grid, Typography } from '@mui/material'
+import { Box, Button, Checkbox, Collapse, FormControlLabel, Grid, Typography } from '@mui/material'
 import theme from 'common/theme'
 import FormTextField from 'components/common/form/FormTextField'
 import Link from 'components/common/Link'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 import Google from 'common/icons/Google'
+import { useFormikContext } from 'formik'
+import { OneTimeDonation } from 'gql/donations'
 
 function LoginForm() {
   const { t } = useTranslation('one-time-donation')
+  const formik = useFormikContext<OneTimeDonation>()
   return (
-    <Grid>
-      <Grid container rowSpacing={3}>
+    <Collapse in={!formik.values.anonymousDonation} timeout="auto">
+      <Grid sx={{ marginBottom: theme.spacing(4) }} container rowSpacing={3}>
         <Grid item xs={12}>
           <Typography fontWeight={'bold'} fontSize={18}>
             {t('second-step.login')}
@@ -42,22 +45,22 @@ function LoginForm() {
             </Link>
           </Box>
         </Box>
+        <Button color="info" variant="contained" fullWidth sx={{ marginTop: theme.spacing(3) }}>
+          {t('second-step.btn-login')}
+        </Button>
+        <Button
+          size="large"
+          color="primary"
+          variant="outlined"
+          fullWidth
+          sx={{ marginTop: theme.spacing(3) }}>
+          <Box display="inline-flex" alignItems="center" marginRight={theme.spacing(2)}>
+            <Google />
+          </Box>
+          Log in with Google
+        </Button>
       </Grid>
-      <Button color="info" variant="contained" fullWidth sx={{ marginTop: theme.spacing(3) }}>
-        {t('second-step.btn-login')}
-      </Button>
-      <Button
-        size="large"
-        color="primary"
-        variant="outlined"
-        fullWidth
-        sx={{ marginTop: theme.spacing(3) }}>
-        <Box display="inline-flex" alignItems="center" marginRight={theme.spacing(2)}>
-          <Google />
-        </Box>
-        Log in with Google
-      </Button>
-    </Grid>
+    </Collapse>
   )
 }
 
