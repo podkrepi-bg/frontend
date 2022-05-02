@@ -104,13 +104,11 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
                   color="error"
                   size="large"
                   onClick={() => {
-                    console.log('click')
                     if (step === 2 && isLogged()) {
                       setStep((s) => s - 2)
                       return
                     }
                     setStep((s) => s - 1)
-                    console.log(step)
                   }}>
                   {t('btns.back')}
                 </Button>
