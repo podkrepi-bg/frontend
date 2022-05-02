@@ -130,10 +130,10 @@ export type FirstStep = {
 
 export type SecondStep = {
   anonymousDonation?: boolean
-  personsFirstName: string
-  personsLastName: string
+  personsFirstName?: string
+  personsLastName?: string
+  personsPhone?: string
   personsEmail: string
-  personsPhone: string
 }
 
 export type ThirdStep = {
