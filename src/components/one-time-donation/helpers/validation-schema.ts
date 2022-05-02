@@ -17,9 +17,9 @@ export const validateSecond: yup.SchemaOf<SecondStep> = yup
       then: yup.boolean().required().oneOf([true, false], 'errors-fields.checkbox-anonimus'),
     }),
     personsEmail: email.required(),
-    personsFirstName: name.required(),
-    personsLastName: name.required(),
-    personsPhone: phone.required(),
+    personsFirstName: name.notRequired(),
+    personsLastName: name.notRequired(),
+    personsPhone: phone.notRequired(),
   })
 
 export const validateThird: yup.SchemaOf<ThirdStep> = yup
