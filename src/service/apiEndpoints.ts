@@ -135,6 +135,7 @@ export const endpoints = {
   account: {
     me: <Endpoint>{ url: '/account/me', method: 'GET' },
     update: <Endpoint>{ url: '/account/me', method: 'PATCH' },
+    new: <Endpoint>{ url: '/account/new', method: 'GET' },
   },
   recurringDonation: {
     recurringDonation: <Endpoint>{ url: '/recurring-donation', method: 'GET' },
