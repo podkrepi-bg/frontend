@@ -14,6 +14,7 @@ export default function AnonymousMenu() {
       <CircleCheckboxField
         label={
           <Typography
+            fontSize={16}
             display="inline-flex"
             alignItems="center"
             component="span"

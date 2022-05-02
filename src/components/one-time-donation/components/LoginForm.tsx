@@ -15,7 +15,7 @@ function LoginForm() {
     <Collapse in={!formik.values.anonymousDonation} timeout="auto">
       <Grid sx={{ marginBottom: theme.spacing(4) }} container rowSpacing={3}>
         <Grid item xs={12}>
-          <Typography fontWeight={'bold'} fontSize={18}>
+          <Typography fontWeight={'bold'} fontSize={16} color="#343434">
             {t('second-step.login')}
           </Typography>
         </Grid>
