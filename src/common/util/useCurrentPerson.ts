@@ -9,6 +9,7 @@ import { authConfig, authQueryFnFactory } from 'service/restRequests'
 
 type CurrentPerson = {
   user: Person
+  status: 'unauthenticated'
 }
 
 export function getCurrentPerson(isNew = false) {
