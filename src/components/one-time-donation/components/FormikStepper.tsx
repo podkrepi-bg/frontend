@@ -59,6 +59,10 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
   function isFirstStep() {
     return step === 0
   }
+
+  function isLogged() {
+    return currentPerson && currentPerson.status !== 'unauthenticated'
+  }
   const { t } = useTranslation('one-time-donation')
 
   return (
@@ -66,11 +70,10 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
       {...props}
       validationSchema={currentChild.props.validationSchema}
       onSubmit={async (values, helpers) => {
-        console.log(currentPerson)
         if (isLastStep()) {
           await props.onSubmit(values, helpers)
           setStep((s) => s + 1)
-        } else if (isFirstStep() && currentPerson && currentPerson.status !== 'unauthenticated') {
+        } else if (isFirstStep() && isLogged()) {
           setStep((s) => s + 2)
         } else {
           setStep((s) => s + 1)
@@ -95,16 +98,19 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
               <Grid item xs={12} md={6}>
                 <Button
                   fullWidth
-                  type="submit"
+                  type="button"
                   variant="text"
                   disabled={step === 0 || isSubmitting}
                   color="error"
                   size="large"
                   onClick={() => {
-                    if (step === 2 && currentPerson) {
-                      return setStep((s) => s - 2)
+                    console.log('click')
+                    if (step === 2 && isLogged()) {
+                      setStep((s) => s - 2)
+                      return
                     }
                     setStep((s) => s - 1)
+                    console.log(step)
                   }}>
                   {t('btns.back')}
                 </Button>
