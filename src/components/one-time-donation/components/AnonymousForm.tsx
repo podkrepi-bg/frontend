@@ -5,6 +5,7 @@ import CircleCheckboxField from 'components/common/form/CircleCheckboxField'
 import { useField } from 'formik'
 import { useTranslation } from 'next-i18next'
 import theme from 'common/theme'
+import { ExpandLess, ExpandMore } from '@mui/icons-material'
 
 export default function AnonymousMenu() {
   const [field] = useField('anonymousDonation')
@@ -14,8 +15,14 @@ export default function AnonymousMenu() {
     <Box marginTop={theme.spacing(5)}>
       <CircleCheckboxField
         label={
-          <Typography color="#343434" fontWeight="bold">
+          <Typography
+            display="inline-flex"
+            alignItems="center"
+            component="span"
+            color="#343434"
+            fontWeight="bold">
             {t('anonymous-menu.checkbox-label')}
+            {field.value ? <ExpandLess /> : <ExpandMore />}
           </Typography>
         }
         name="anonymousDonation"
