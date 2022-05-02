@@ -5,6 +5,7 @@ import InlineDonation from './InlineDonation'
 import CampaignDetails from './CampaignDetails'
 import NotFoundPage from 'pages/404'
 import { Grid } from '@mui/material'
+import IrregularityReport from './IrregularityReport'
 
 type Props = { slug: string }
 
@@ -17,7 +18,14 @@ export default function ViewCampaignPage({ slug }: Props) {
     <Layout maxWidth={false}>
       <Grid container component="section" maxWidth="lg" justifyContent="center" m="0 auto">
         <CampaignDetails campaign={campaign} />
-        <InlineDonation campaign={campaign} />
+        <Grid container item xs={4} flexDirection="column" flexWrap="nowrap">
+          <Grid item>
+            <InlineDonation campaign={campaign} />
+          </Grid>
+          <Grid item>
+            <IrregularityReport campaign={campaign} />
+          </Grid>
+        </Grid>
       </Grid>
     </Layout>
   )
