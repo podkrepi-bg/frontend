@@ -29,7 +29,7 @@ export type DonationResponse = {
   updatedAt: DateTime
   currency: Currency
   amount: number
-  personId: UUID
+  personId?: UUID
 }
 
 export type DonationInput = {

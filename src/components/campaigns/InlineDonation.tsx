@@ -70,7 +70,8 @@ export default function InlineDonation({ campaign }: Props) {
 
   const target = campaign.targetAmount
   const summary = campaign.summary.find(() => true)
-  const reached = summary ? summary.reachedAmount : 0
+  const reached = summary?.reachedAmount ?? 0
+  const donors = summary?.donors ?? 0
   const { data: prices } = useSinglePriceList()
   const {
     data: donations,
@@ -117,7 +118,7 @@ export default function InlineDonation({ campaign }: Props) {
       </Grid>
       <CampaignProgress raised={reached} target={target} />
       <Grid display="inline-block" m={3} ml={0}>
-        <Typography className={classes.donorsSharesCount}>{0}</Typography>
+        <Typography className={classes.donorsSharesCount}>{donors}</Typography>
         <Typography>{t('campaigns:campaign.donors')}</Typography>
       </Grid>
       <Grid display="inline-block" m={3} ml={0}>

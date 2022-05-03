@@ -18,7 +18,7 @@ export type CampaignFile = {
   filename: string
   mimetype: string
   campaignId: UUID
-  uploadedById: UUID
+  personId: UUID
   role: CampaignFileRole
 }
 
@@ -51,7 +51,7 @@ export type CampaignResponse = {
   }
   description: string
   targetAmount: number
-  summary: { reachedAmount: number }[]
+  summary: { reachedAmount: number; donors?: number }[]
   currency: string
   startDate: Date | null
   endDate: Date | null

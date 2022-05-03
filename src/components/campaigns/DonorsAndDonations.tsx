@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Button, Grid, Theme, Typography } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
@@ -45,10 +45,13 @@ export default function DonorsAndDonations({
 }) {
   const classes = useStyles()
   const { t, i18n } = useTranslation()
-  const [donationsToShow, setDonationsToShow] = useState<CampaignDonation[] | undefined>()
   const [all, setAll] = useState<boolean>(false)
-  useEffect(() => {
-    all ? setDonationsToShow(donations) : setDonationsToShow(donations?.slice(0, 1))
+  const shownDonationsNumber = 5
+  const donationsToShow = useMemo(() => {
+    if (all) {
+      return donations
+    }
+    return donations?.slice(0, shownDonationsNumber)
   }, [donations, all])
   return (
     <>
@@ -85,9 +88,11 @@ export default function DonorsAndDonations({
         )}
       </Grid>
       <Grid>
-        <Button onClick={() => setAll((prev) => !prev)} className={classes.seeAllButton}>
-          {all ? t('campaigns:cta.see-less') : t('campaigns:cta.see-all')}
-        </Button>
+        {donations && donations.length > shownDonationsNumber && (
+          <Button onClick={() => setAll((prev) => !prev)} className={classes.seeAllButton}>
+            {all ? t('campaigns:cta.see-less') : t('campaigns:cta.see-all')}
+          </Button>
+        )}
       </Grid>
     </>
   )
