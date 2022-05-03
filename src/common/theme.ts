@@ -63,8 +63,18 @@ export const themeOptions: ThemeOptions = {
             color: colors.blue.mainDark,
           },
         },
+        outlined: {
+          '&:hover': {
+            backgroundColor: colors.blue.dark,
+            color: colors.blue.light,
+          },
+        },
         outlinedPrimary: {
           color: colors.blue.dark,
+          '&:hover': {
+            color: colors.blue.light,
+            borderColor: colors.blue.mainDark,
+          },
         },
         containedPrimary: {
           backgroundColor: colors.blue.dark,
