@@ -36,7 +36,7 @@ export enum CampaignState {
   error,
 }
 
-export type CampaignResponse = {
+type BaseCampaignResponse = {
   id: UUID
   state: CampaignState
   slug: string
@@ -45,19 +45,34 @@ export type CampaignResponse = {
   coordinatorId: UUID
   beneficiaryId: UUID
   campaignTypeId: UUID
-  campaignType: {
-    name: string
-    category: CampaignTypeCategory
-  }
   description: string
   targetAmount: number
-  summary?: { reachedAmount: number; donors?: number }[]
   currency: string
   startDate: Date | null
   endDate: Date | null
   createdAt: Date
   updatedAt: Date | null
   deletedAt: Date | null
+}
+
+export type AdminCampaignResponse = BaseCampaignResponse & {
+  campaignType: {
+    name: string
+  }
+  beneficiary: {
+    person: { firstName: string; lastName: string }
+  }
+  coordinator: {
+    person: { firstName: string; lastName: string }
+  }
+}
+
+export type CampaignResponse = BaseCampaignResponse & {
+  campaignType: {
+    name: string
+    category: CampaignTypeCategory
+  }
+  summary: { reachedAmount: number; donors?: number }[]
   beneficiary: {
     id: UUID
     type: string
