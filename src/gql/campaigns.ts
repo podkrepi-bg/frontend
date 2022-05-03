@@ -18,7 +18,7 @@ export type CampaignFile = {
   filename: string
   mimetype: string
   campaignId: UUID
-  uploadedById: UUID
+  personId: UUID
   role: CampaignFileRole
 }
 
