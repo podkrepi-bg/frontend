@@ -1,0 +1,21 @@
+{
+  "selectDialog": {
+    "notSelected": "You haven't chosen a person",
+    "select": "Select",
+    "personSelect": "Person Select",
+    "confirm": "Confirm"
+  },
+  "autocomplete": {
+    "personSearch": "Find a person"
+  },
+  "info": {
+    "tel": "Тел",
+    "contact": "Contact info",
+    "address": "Address",
+    "email": "Email",
+    "general": "General information",
+    "createdAt": "Created at",
+    "company": "Company",
+    "confirmedEmail": "Confirmed email"
+  }
+}
