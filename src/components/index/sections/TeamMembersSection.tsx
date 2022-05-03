@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Container, Grid, Typography } from '@mui/material'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { useTranslation } from 'next-i18next'
 
@@ -13,7 +13,7 @@ export default function TeamMembersSection() {
   const { t } = useTranslation()
 
   return (
-    <>
+    <Container maxWidth="md">
       <Heading
         textAlign="center"
         variant="h4"
@@ -51,6 +51,6 @@ export default function TeamMembersSection() {
           {'Запознай се с екипа ни'}
         </LinkButton>
       </Grid>
-    </>
+    </Container>
   )
 }

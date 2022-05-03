@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Hidden, Typography } from '@mui/material'
+import { Box, Grid, Hidden, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import { Theme } from '@mui/material/styles'
@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingTop: theme.spacing(10),
       paddingBottom: theme.spacing(7),
       color: theme.palette.primary.dark,
+      fontFamily: 'Montserrat',
     },
     container: {
       marginBottom: theme.spacing(12),
@@ -33,13 +34,22 @@ export default function HowWeWorkSection() {
 
   return (
     <Grid container direction="column" component="section" className={classes.container}>
-      <Heading id="how-we-work" variant="h5" component="h2" className={classes.heading} linkable>
+      <Heading id="how-we-work" variant="h4" component="h2" className={classes.heading} linkable>
         {t('index:how-we-work.heading')}
       </Heading>
-      <Grid item rowSpacing={10}>
-        <Typography variant="body2">{t('index:how-we-work.text')}</Typography>
-      </Grid>
-      <Grid item className={classes.graphic}>
+      <Box
+        style={{
+          backgroundColor: '#F4F4F4',
+          paddingBottom: '60px',
+          paddingTop: '60px',
+          paddingLeft: '25vw',
+          paddingRight: '25vw',
+        }}>
+        <Grid item rowSpacing={10}>
+          <Typography variant="subtitle1">{t('index:how-we-work.text')}</Typography>
+        </Grid>
+      </Box>
+      <Grid item className={classes.graphic} maxWidth="md">
         <Hidden smUp>
           <Image src={`/infographic-${i18n.language}-mobile.svg`} width={320} height={1002} />
         </Hidden>
