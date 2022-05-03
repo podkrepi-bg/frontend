@@ -4,14 +4,19 @@ import { useKeycloak } from '@react-keycloak/ssr'
 
 import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
-import { CampaignDonation, CampaignResponse, CampaignType } from 'gql/campaigns'
+import {
+  CampaignDonation,
+  CampaignResponse,
+  CampaignType,
+  AdminCampaignResponse,
+} from 'gql/campaigns'
 
 export function useCampaignList() {
   return useQuery<CampaignResponse[]>(endpoints.campaign.listCampaigns.url)
 }
 
 export function useCampaignAdminList() {
-  return useQuery<CampaignResponse[]>(endpoints.campaign.listAdminCampaigns.url)
+  return useQuery<AdminCampaignResponse[]>(endpoints.campaign.listAdminCampaigns.url)
 }
 
 export function useCampaignTypesList() {
