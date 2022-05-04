@@ -1,4 +1,4 @@
-import { Box, Collapse, Grid, Typography } from '@mui/material'
+import { Collapse, Grid, Typography } from '@mui/material'
 import * as React from 'react'
 import FormTextField from 'components/common/form/FormTextField'
 import CircleCheckboxField from 'components/common/form/CircleCheckboxField'
