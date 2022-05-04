@@ -16,7 +16,11 @@ export function useCampaignList() {
 }
 
 export function useCampaignAdminList() {
-  return useQuery<AdminCampaignResponse[]>(endpoints.campaign.listAdminCampaigns.url)
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return useQuery<AdminCampaignResponse[]>(
+    endpoints.campaign.listAdminCampaigns.url,
+    authQueryFnFactory<AdminCampaignResponse[]>(keycloak?.token),
+  )
 }
 
 export function useCampaignTypesList() {
