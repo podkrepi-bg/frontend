@@ -6,7 +6,7 @@ import { useField } from 'formik'
 import { useTranslation } from 'next-i18next'
 import { ExpandLess, ExpandMore } from '@mui/icons-material'
 
-export default function AnonymousMenu() {
+export default function AnonymousForm() {
   const [field] = useField('anonymousDonation')
   const { t } = useTranslation('one-time-donation')
   return (
