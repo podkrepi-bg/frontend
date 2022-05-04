@@ -7,15 +7,15 @@ import { Box, Toolbar, Typography } from '@mui/material'
 import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { routes } from 'common/routes'
-import { CampaignResponse } from 'gql/campaigns'
-import { useCampaignList } from 'common/hooks/campaigns'
+import { AdminCampaignResponse } from 'gql/campaigns'
+import { useCampaignAdminList } from 'common/hooks/campaigns'
 
 import GridActions from './GridActions'
 import DeleteModal from './modals/DeleteModal'
 import DetailsModal from './modals/DetailsModal'
 
 interface CampaignCellProps {
-  params: GridRenderCellParams<CampaignResponse, CampaignResponse>
+  params: GridRenderCellParams<AdminCampaignResponse, AdminCampaignResponse>
 }
 
 const DisplayCoordinator = ({ params }: CampaignCellProps) => {
@@ -40,7 +40,7 @@ const DisplayCampaignType = ({ params }: CampaignCellProps) => {
 
 export default function CampaignGrid() {
   const { t } = useTranslation()
-  const { data = [], refetch }: UseQueryResult<CampaignResponse[]> = useCampaignList()
+  const { data = [], refetch }: UseQueryResult<AdminCampaignResponse[]> = useCampaignAdminList()
   const [viewId, setViewId] = useState<string | undefined>()
   const [deleteId, setDeleteId] = useState<string | undefined>()
 
