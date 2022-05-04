@@ -61,7 +61,7 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
   }
 
   function isLogged() {
-    return currentPerson && currentPerson.status !== 'unauthenticated'
+    return currentPerson && currentPerson.status && currentPerson.status !== 'unauthenticated'
   }
   const { t } = useTranslation('one-time-donation')
 
