@@ -123,9 +123,8 @@ export type DonationStep = {
 }
 
 export type FirstStep = {
-  message?: string
-  anonymous: boolean
-  amount: number
+  payment: string
+  amount?: number
 }
 
 export type SecondStep = {
@@ -137,5 +136,6 @@ export type SecondStep = {
 }
 
 export type ThirdStep = {
-  payment: string
+  message?: string
+  anonymous: boolean
 }
