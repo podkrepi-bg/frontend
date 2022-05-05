@@ -6,7 +6,8 @@ import {
   Steps,
   PersonFormData,
   InfoFormData,
-  DonorTypes,
+  NotifierTypes,
+  ReportReason,
   ReportFormDataSteps,
 } from './report.types'
 
@@ -23,8 +24,9 @@ const person: yup.SchemaOf<PersonFormData> = yup
 const info: yup.SchemaOf<InfoFormData> = yup
   .object()
   .shape({
-    donorType: yup.mixed().oneOf(Object.values(DonorTypes)),
-    description: yup.string().required(),
+    notifierType: yup.mixed().oneOf(Object.values(NotifierTypes)),
+    reason: yup.mixed().oneOf(Object.values(ReportReason)),
+    content: yup.string().required(),
   })
   .defined()
 

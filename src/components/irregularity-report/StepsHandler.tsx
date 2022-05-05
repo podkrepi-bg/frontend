@@ -1,13 +1,13 @@
 import React from 'react'
 import { FormikHelpers } from 'formik'
 
-import { Steps, ReportFormData } from './helpers/report.types'
+import { Steps, CampaignReportFormData } from './helpers/report.types'
 
 interface Props {
-  initialValues: ReportFormData
-  values: ReportFormData
-  actions: FormikHelpers<ReportFormData>
   activeStep: Steps
+  values: CampaignReportFormData
+  initialValues: CampaignReportFormData
+  actions: FormikHelpers<CampaignReportFormData>
   setActiveStep: (value: React.SetStateAction<Steps>) => void
   setFailedStep: (value: React.SetStateAction<Steps>) => void
 }

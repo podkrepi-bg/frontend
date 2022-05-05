@@ -1,13 +1,13 @@
 import React from 'react'
 
 import clsx from 'clsx'
-import makeStyles from '@mui/styles/makeStyles'
 
-import { StepIconProps } from '@mui/material/StepIcon'
-import createStyles from '@mui/styles/createStyles'
 import { Theme } from '@mui/material'
+import makeStyles from '@mui/styles/makeStyles'
+import createStyles from '@mui/styles/createStyles'
+import { StepIconProps } from '@mui/material/StepIcon'
 
-const useStepIconStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       alignItems: 'center',
@@ -36,7 +36,7 @@ const useStepIconStyles = makeStyles((theme: Theme) =>
 )
 
 export default function StepIcon(props: StepIconProps) {
-  const classes = useStepIconStyles()
+  const classes = useStyles()
   const { active, completed } = props
 
   const icons: { [index: string]: React.ReactElement } = {

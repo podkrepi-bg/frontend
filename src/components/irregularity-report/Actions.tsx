@@ -1,16 +1,17 @@
 import { MouseEvent } from 'react'
 import { useTranslation } from 'next-i18next'
 
-import { Button, Grid } from '@mui/material'
+import { Button, Grid, Theme } from '@mui/material'
 import { createStyles, makeStyles } from '@mui/styles'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
-import SubmitButton from 'components/common/form/SubmitButton'
-import LinkButton from 'components/common/LinkButton'
 import { CampaignResponse } from 'gql/campaigns'
 
-const useStyles = makeStyles(() =>
+import LinkButton from 'components/common/LinkButton'
+import SubmitButton from 'components/common/form/SubmitButton'
+
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     button: {
       backgroundColor: '#0098E3',
@@ -21,6 +22,10 @@ const useStyles = makeStyles(() =>
       color: '#FFFFFF',
       fontSize: '18px',
       '&:hover': { backgroundColor: '#62C4FB', color: '#000000' },
+    },
+    actions: {
+      justifyContent: 'space-between',
+      [theme.breakpoints.down('md')]: { justifyContent: 'center' },
     },
   }),
 )
@@ -48,8 +53,8 @@ export default function Actions({
   const classes = useStyles()
 
   return (
-    <Grid container item spacing={3} justifyContent="space-between" direction="row">
-      <Grid item xs={6} md={6} sx={{ textAlign: 'left' }}>
+    <Grid container item xs={12} spacing={3} className={classes.actions}>
+      <Grid item sx={{ textAlign: 'left' }}>
         {activeStep === 0 ? (
           <LinkButton
             href={`/campaigns/${campaign.slug}`}
@@ -69,7 +74,7 @@ export default function Actions({
           </Button>
         )}
       </Grid>
-      <Grid item xs={6} md={6} sx={{ textAlign: 'right' }}>
+      <Grid item sx={{ textAlign: 'right' }}>
         <SubmitButton
           fullWidth
           label={t(nextLabel)}
