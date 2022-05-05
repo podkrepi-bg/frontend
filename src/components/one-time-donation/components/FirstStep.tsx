@@ -1,12 +1,10 @@
-import { Collapse, Divider, Grid, List, Typography } from '@mui/material'
+import { Box, Collapse, Divider, Grid, List, Typography } from '@mui/material'
 import { makeStyles, createStyles } from '@mui/styles'
 import { useSinglePriceList } from 'common/hooks/donation'
-import FormTextField from 'components/common/form/FormTextField'
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 import { money } from 'common/util/money'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
-import CheckboxField from 'components/common/form/CheckboxField'
 import theme from 'common/theme'
 import { CopyTextButton } from 'components/common/CopyTextButton'
 import { ibanNumber } from 'common/iban'
@@ -48,12 +46,12 @@ export default function FirstStep() {
     <>
       <Typography variant="h4">{t('third-step.title')}</Typography>
 
-      <Grid>
+      <Box marginTop={theme.spacing(4)}>
         <RadioButtonGroup name="payment" options={options} />
-      </Grid>
+      </Box>
       <Collapse in={paymentField.value === 'bank'} timeout="auto">
         <List component="div" disablePadding>
-          <Typography my={2} variant="h6">
+          <Typography marginTop={theme.spacing(8)} variant="h6">
             {t('third-step.bank-details')}
           </Typography>
           <Divider className={classes.divider} />
@@ -90,7 +88,7 @@ export default function FirstStep() {
             </Grid>
           </Grid>
 
-          <Typography my={2} mx={10} variant="h6">
+          <Typography my={2} variant="h6">
             {t('third-step.reason-donation')}
           </Typography>
           <Divider className={classes.divider} />
@@ -107,7 +105,7 @@ export default function FirstStep() {
             </Grid>
           </Grid>
 
-          <Typography mx={10}>{t('third-step.message-warning')}</Typography>
+          <Typography>{t('third-step.message-warning')}</Typography>
         </List>
       </Collapse>
       <Collapse in={paymentField.value === 'card'} timeout="auto">

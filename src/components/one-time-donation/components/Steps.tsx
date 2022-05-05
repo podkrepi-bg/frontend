@@ -31,7 +31,7 @@ const initialValues: OneTimeDonation = {
   personLastName: '',
   personEmail: '',
   personPhone: '',
-  payment: 'bank',
+  payment: 'card',
 }
 
 export default function DonationStepper() {
