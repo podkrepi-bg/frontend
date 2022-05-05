@@ -107,7 +107,7 @@ export type UserDonationResult = {
 export type OneTimeDonation = {
   message?: string
   anonymous: boolean
-  amount: number
+  amount: string
   anonymousDonation: boolean
   personFirstName: string
   personLastName: string
@@ -124,7 +124,7 @@ export type DonationStep = {
 
 export type FirstStep = {
   payment: string
-  amount?: number
+  amount?: string
 }
 
 export type SecondStep = {
