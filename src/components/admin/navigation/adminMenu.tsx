@@ -15,6 +15,7 @@ import {
 import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined'
 import LocationCityRoundedIcon from '@mui/icons-material/LocationCityRounded'
 import LocalAtmIcon from '@mui/icons-material/LocalAtm'
+import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred'
 
 import { routes } from 'common/routes'
 import BeneficiaryIcon from 'common/icons/Beneficiary'
@@ -30,6 +31,7 @@ export const menuPeople = [
 export const menuCampaings = [
   { label: 'Кампании', icon: AssignmentInd, href: routes.admin.campaigns.index },
   { label: 'Документи', icon: FolderShared, href: routes.admin.documents.index },
+  { label: 'Сигнали', icon: ReportGmailerrorredIcon, href: routes.admin.campaignReport.index },
 ]
 
 export const menuPayments = [
@@ -72,4 +74,5 @@ export const menuItems = [
   { label: 'Трезори', icon: Shield, href: routes.admin.vaults.index },
   { label: 'Тегления', icon: LocalAtmIcon, href: routes.admin.withdrawals.index },
   { label: 'Прехвърляния', icon: MoveUp, href: routes.admin.transfer.index },
+  { label: 'Сигнали', icon: ReportGmailerrorredIcon, href: routes.admin.campaignReport.index },
 ]
