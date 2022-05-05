@@ -17,6 +17,7 @@ export const staticUrls = {
   devDocs: 'https://docs.podkrepi.bg/development',
   blog: 'https://blog.podkrepi.bg/',
   hostingProvider: 'https://superhosting.bg?rel=podkrepi.bg',
+  eduspace: 'https://eduspace-bg.business.site/',
 }
 
 export const socialUrls = {
