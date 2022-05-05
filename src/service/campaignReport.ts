@@ -18,7 +18,7 @@ export const createCampaignReport = async (data: CampaignReportInput) => {
   )
 }
 
-export const useDeleteCampaignReport = (id: string) => {
+export const deleteCampaignReport = (id: string) => {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return async () => {
     return await apiClient.delete<CampaignReportResponse, AxiosResponse<CampaignReportResponse>>(
