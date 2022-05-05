@@ -61,7 +61,13 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
   }
 
   function isLogged() {
-    return currentPerson && currentPerson.status && currentPerson.status !== 'unauthenticated'
+    if (currentPerson === undefined) {
+      return false
+    }
+    if (currentPerson?.status && currentPerson.status !== 'unauthenticated') {
+      return false
+    }
+    return true
   }
   const { t } = useTranslation('one-time-donation')
 
@@ -70,6 +76,7 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
       {...props}
       validationSchema={currentChild.props.validationSchema}
       onSubmit={async (values, helpers) => {
+        console.log(isLogged())
         if (isLastStep()) {
           await props.onSubmit(values, helpers)
           setStep((s) => s + 1)
@@ -104,6 +111,8 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
                   color="error"
                   size="large"
                   onClick={() => {
+                    console.log(step)
+                    console.log(isLogged())
                     if (step === 2 && isLogged()) {
                       setStep((s) => s - 2)
                       return

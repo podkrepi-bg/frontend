@@ -4,14 +4,13 @@ import createStyles from '@mui/styles/createStyles'
 import Layout from 'components/layout/Layout'
 import Image from 'next/image'
 import { useViewCampaign } from 'common/hooks/campaigns'
-import { useRouter } from 'next/router'
 import theme from 'common/theme'
 import {
   backgroundCampaignPictureUrl,
   beneficiaryCampaignPictureUrl,
 } from 'common/util/campaignImageUrls'
-import { CampaignResponse } from 'gql/campaigns'
 import DonationStepper from './components/Steps'
+import NotFoundPage from 'pages/404'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,13 +45,13 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-export default function OneTimeDonation() {
+export default function OneTimeDonation({ slug }: { slug: string }) {
   const classes = useStyles()
-  const router = useRouter()
-  const matches = useMediaQuery('sm')
-  const slug = String(router.query.slug)
   const { data } = useViewCampaign(slug)
-  const { campaign } = data as { campaign: CampaignResponse }
+  if (!data || !data.campaign) return <NotFoundPage />
+  const { campaign } = data
+  const matches = useMediaQuery('sm')
+
   const bannerSource = backgroundCampaignPictureUrl(campaign)
   const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
   return (
