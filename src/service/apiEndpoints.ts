@@ -25,6 +25,11 @@ export const endpoints = {
     createSupportRequest: <Endpoint>{ url: '/support/create-request', method: 'POST' },
     supportRequestList: <Endpoint>{ url: '/support/support-request/list', method: 'GET' },
     infoRequestList: <Endpoint>{ url: '/support/info-request/list', method: 'GET' },
+    createCampaignReport: <Endpoint>{ url: '/support/create-report', method: 'POST' },
+    campaignReportsList: <Endpoint>{ url: '/support/reports/list', method: 'GET' },
+    viewCampaignReport: (id: string) => <Endpoint>{ url: `/support/report/${id}`, method: 'GET' },
+    removeCampaignReport: (id: string) =>
+      <Endpoint>{ url: `/support/report/${id}`, method: 'DELETE' },
   },
   donation: {
     prices: <Endpoint>{ url: '/donation/prices', method: 'GET' },
