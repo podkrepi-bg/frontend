@@ -158,7 +158,7 @@ export const COMMON_QUESTIONS: ContentType[] = [
         проследяването и отчетността на насочените дарения към Сдружението. Веднъж месечно
         Подкрепи.бг изготвя публичен отчет на приходящите дарения от изминалия месец, както и на
         основанията за разходваните суми за същия период. Всички отчети до момента можете да видите
-        <ExternalLink variant="subtitle1" href={undefined}>
+        <ExternalLink variant="subtitle1" href="/npo/reports">
           {' тук. '}
         </ExternalLink>
       </ContentTypography>

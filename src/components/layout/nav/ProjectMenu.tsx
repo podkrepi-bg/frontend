@@ -31,6 +31,10 @@ const allNavItems: NavItem[] = [
     label: 'nav.about.support-us',
   },
   {
+    href: routes.reports,
+    label: 'nav.about.reports',
+  },
+  {
     href: routes.contact,
     label: 'nav.about.contacts',
   },
