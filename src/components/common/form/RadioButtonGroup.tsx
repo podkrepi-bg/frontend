@@ -67,8 +67,8 @@ export default function RadioButtonGroup({
           )}
         </Grid>
       </RadioGroup>
-      {Boolean(meta.error) && (
-        <FormHelperText error>{t(helperText ? helperText : 'General error')}</FormHelperText>
+      {Boolean(meta.error) && Boolean(meta.touched) && helperText && (
+        <FormHelperText error>{t(helperText)}</FormHelperText>
       )}
     </FormControl>
   )
