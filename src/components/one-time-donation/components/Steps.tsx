@@ -7,25 +7,20 @@ import Fail from './Fail'
 import { FormikStep, FormikStepper } from './FormikStepper'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
-import { useMutation, UseQueryResult } from 'react-query'
-import { CampaignResponse } from 'gql/campaigns'
 import { useViewCampaign } from 'common/hooks/campaigns'
-import { useCreateBankDonation } from 'service/donation'
-import { AxiosError, AxiosResponse } from 'axios'
+import { AxiosError } from 'axios'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import { FormikHelpers } from 'formik'
 import { validateFirst, validateSecond, validateThird } from '../helpers/validation-schema'
-import {
-  DonationBankInput,
-  DonationResponse,
-  OneTimeDonation,
-  DonationStep as StepType,
-} from 'gql/donations'
+import { OneTimeDonation, DonationStep as StepType } from 'gql/donations'
+import { useDonationSession } from 'common/hooks/donation'
+import NotFoundPage from 'pages/404'
+import { baseUrl, routes } from 'common/routes'
 
 const initialValues: OneTimeDonation = {
   message: '',
   anonymous: false,
-  amount: 0,
+  amount: '',
   anonymousDonation: false,
   personFirstName: '',
   personLastName: '',
@@ -39,19 +34,27 @@ export default function DonationStepper() {
   const { t } = useTranslation('one-time-donation')
   const router = useRouter()
   const slug = String(router.query.slug)
-  const { data }: UseQueryResult<{ campaign: CampaignResponse }> = useViewCampaign(slug as string)
-  const mutationFn = useCreateBankDonation()
+  const { data } = useViewCampaign(slug)
+  if (!data || !data.campaign) return <NotFoundPage />
+  const { campaign } = data
+  const mutation = useDonationSession()
 
-  const mutation = useMutation<
-    AxiosResponse<DonationResponse>,
-    AxiosError<ApiErrors>,
-    DonationBankInput
-  >({
-    mutationFn,
-    onSuccess: () => {
-      setSuccess(true)
+  const donate = React.useCallback(
+    async (priceId: string) => {
+      const { data } = await mutation.mutateAsync({
+        mode: 'payment',
+        priceId,
+        campaignId: campaign.id,
+        successUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}`,
+        cancelUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?error=true`,
+      })
+      if (data.session.url) {
+        window.location.href = data.session.url
+      }
     },
-  })
+    [mutation],
+  )
+
   const onSubmit = async (
     values: OneTimeDonation,
     { setFieldError, resetForm }: FormikHelpers<OneTimeDonation>,
@@ -59,15 +62,9 @@ export default function DonationStepper() {
     try {
       const data = {
         currency: 'BGN',
-        amount: Number(values.amount),
-        personsEmail: values.personEmail,
-        personsFirstName: values.personFirstName,
-        personsLastName: values.personLastName,
-        personsPhone: values.personPhone,
-        extCustomerId: String(Math.random() * 5),
-        extPaymentIntentId: String(Math.random() * 5),
-        extPaymentMethodId: String(Math.random() * 5),
+        amount: values.amount,
       }
+      await donate(data.amount)
       resetForm()
     } catch (error) {
       if (isAxiosError(error)) {

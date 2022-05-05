@@ -112,7 +112,7 @@ export default function FirstStep() {
         <Typography variant="h4" sx={{ marginTop: theme.spacing(8) }}>
           {t('first-step.amount')}
         </Typography>
-        <Grid marginTop={theme.spacing(4)}>
+        <Box marginTop={theme.spacing(4)}>
           <RadioButtonGroup
             name="amount"
             options={
@@ -120,11 +120,11 @@ export default function FirstStep() {
                 ?.sort((a, b) => Number(a.unit_amount) - Number(b.unit_amount))
                 .map((v) => ({
                   label: money(Number(v.unit_amount)),
-                  value: Number(v.unit_amount),
+                  value: v.id,
                 })) || []
             }
           />
-        </Grid>
+        </Box>
       </Collapse>
     </>
   )
