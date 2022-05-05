@@ -7,10 +7,10 @@ export const validateFirst: yup.SchemaOf<FirstStep> = yup
   .defined()
   .shape({
     payment: yup.string().required().oneOf(['card', 'bank']),
-    amount: yup.number().when('payment', {
+    amount: yup.string().when('payment', {
       is: 'card',
       // Here we should fetch the possible payments to put into the oneOf, but it's not that important
-      then: yup.number().required().oneOf([500, 1000]),
+      then: yup.string().required(),
     }),
   })
 
