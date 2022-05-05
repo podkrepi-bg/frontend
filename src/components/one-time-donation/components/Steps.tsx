@@ -32,7 +32,7 @@ const initialValues: OneTimeDonation = {
 export default function DonationStepper() {
   const { t } = useTranslation('one-time-donation')
   const router = useRouter()
-  const success = router.query.success
+  const success = router.query.success === 'true' ? true : false
   const slug = String(router.query.slug)
   const { data } = useViewCampaign(slug)
   if (!data || !data.campaign) return <NotFoundPage />
