@@ -36,6 +36,7 @@ export const routes = {
   logout: '/logout',
   contact: '/contact',
   support: '/support',
+  reports: '/npo/reports',
   campaigns: {
     index: '/campaigns',
     create: '/campaigns/create',
