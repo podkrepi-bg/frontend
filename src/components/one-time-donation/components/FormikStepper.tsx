@@ -1,10 +1,12 @@
 import { LoadingButton } from '@mui/lab'
 import { Box, Button, Grid, Step, StepLabel, Stepper } from '@mui/material'
 import { makeStyles } from '@mui/styles'
+import { useDonationSession } from 'common/hooks/donation'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import { Form, Formik, FormikConfig, FormikValues } from 'formik'
 import { useTranslation } from 'next-i18next'
-import React, { PropsWithChildren, useState } from 'react'
+import { useRouter } from 'next/router'
+import React, { PropsWithChildren, useCallback, useState } from 'react'
 
 export interface FormikStepProps
   extends Pick<FormikConfig<FormikValues>, 'children' | 'validationSchema'> {
@@ -48,7 +50,8 @@ export type GenericFormProps<T> = PropsWithChildren<FormikConfig<T>>
 
 export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
   const childrenArray = React.Children.toArray(children) as React.ReactElement<FormikStepProps>[]
-  const [step, setStep] = useState(0)
+  const router = useRouter()
+  const [step, setStep] = useState(router.query.success ? 3 : 0)
   const currentChild = childrenArray[step]
   const classes = useStyles()
   const { data: currentPerson } = useCurrentPerson()
@@ -76,7 +79,6 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
       {...props}
       validationSchema={currentChild.props.validationSchema}
       onSubmit={async (values, helpers) => {
-        console.log(isLogged())
         if (isLastStep()) {
           await props.onSubmit(values, helpers)
           setStep((s) => s + 1)
