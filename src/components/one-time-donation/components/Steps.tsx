@@ -30,9 +30,9 @@ const initialValues: OneTimeDonation = {
 }
 
 export default function DonationStepper() {
-  const [success, setSuccess] = React.useState(false)
   const { t } = useTranslation('one-time-donation')
   const router = useRouter()
+  const success = router.query.success
   const slug = String(router.query.slug)
   const { data } = useViewCampaign(slug)
   if (!data || !data.campaign) return <NotFoundPage />
@@ -45,8 +45,8 @@ export default function DonationStepper() {
         mode: 'payment',
         priceId,
         campaignId: campaign.id,
-        successUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}`,
-        cancelUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?error=true`,
+        successUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=true`,
+        cancelUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=false`,
       })
       if (data.session.url) {
         window.location.href = data.session.url
