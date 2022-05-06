@@ -70,8 +70,9 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
           helpers.setTouched({})
         }
       }}
+      validateOnMount
       validateOnBlur>
-      {({ isSubmitting, handleSubmit }) => (
+      {({ isSubmitting, handleSubmit, isValid }) => (
         <Form onSubmit={handleSubmit} className={classes.container} autoComplete="off">
           <Stepper alternativeLabel activeStep={step}>
             {childrenArray.map((child, index) => (
@@ -105,6 +106,7 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
               </Grid>
               <Grid item xs={12} md={6}>
                 <LoadingButton
+                  disabled={!isValid}
                   fullWidth
                   type="submit"
                   variant="contained"
