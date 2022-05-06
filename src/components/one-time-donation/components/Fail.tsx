@@ -4,10 +4,18 @@ import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import { useTranslation } from 'next-i18next'
+import { useContext, useEffect } from 'react'
+import { StepsContext } from './StepperContext'
+import { useRouter } from 'next/router'
 
 export default function Fail() {
   const { t } = useTranslation('one-time-donation')
-
+  const { setStep } = useContext(StepsContext)
+  const router = useRouter()
+  // Clear query so that the first step renders instead of success or fail page
+  useEffect(() => {
+    router.push(`${router.asPath.split('?')[0]}`)
+  }, [])
   return (
     <Grid>
       <Grid
@@ -42,13 +50,18 @@ export default function Fail() {
       </Grid>
       <Grid container rowSpacing={3} justifyContent="center">
         <Grid textAlign={'center'} item xs={12} md={6}>
-          <Button variant="contained" color="primary">
+          <Button
+            onClick={() => {
+              setStep(0)
+            }}
+            variant="contained"
+            color="primary">
             {t('fail.btn-again')}
           </Button>
         </Grid>
         <Grid textAlign={'center'} item xs={12} md={6}>
           <Button variant="contained" color="primary">
-            {t('fail.connect')}
+            {t('fail.btn-connect')}
           </Button>
         </Grid>
       </Grid>

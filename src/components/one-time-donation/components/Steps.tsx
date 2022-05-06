@@ -16,6 +16,7 @@ import { OneTimeDonation, DonationStep as StepType } from 'gql/donations'
 import { useDonationSession } from 'common/hooks/donation'
 import NotFoundPage from 'pages/404'
 import { baseUrl, routes } from 'common/routes'
+import { StepsContext } from './StepperContext'
 
 const initialValues: OneTimeDonation = {
   message: '',
@@ -97,13 +98,16 @@ export default function DonationStepper() {
       validate: null,
     },
   ]
+  const [step, setStep] = React.useState(0)
   return (
-    <FormikStepper onSubmit={onSubmit} initialValues={initialValues}>
-      {steps.map(({ label, component, validate }) => (
-        <FormikStep key={label} validationSchema={validate}>
-          {component}
-        </FormikStep>
-      ))}
-    </FormikStepper>
+    <StepsContext.Provider value={{ step, setStep }}>
+      <FormikStepper onSubmit={onSubmit} initialValues={initialValues}>
+        {steps.map(({ label, component, validate }) => (
+          <FormikStep key={label} validationSchema={validate}>
+            {component}
+          </FormikStep>
+        ))}
+      </FormikStepper>
+    </StepsContext.Provider>
   )
 }
