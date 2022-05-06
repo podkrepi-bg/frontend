@@ -1,5 +1,4 @@
 import { Grid, Typography, Button } from '@mui/material'
-import theme from 'common/theme'
 import SuccessIcon from 'common/icons/Success'
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined'
 import InstagramIcon from '@mui/icons-material/Instagram'

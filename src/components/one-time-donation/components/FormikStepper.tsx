@@ -5,7 +5,8 @@ import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import { Form, Formik, FormikConfig, FormikValues } from 'formik'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
-import React, { PropsWithChildren, useState } from 'react'
+import React, { PropsWithChildren, useContext } from 'react'
+import { StepsContext } from './StepperContext'
 
 export interface FormikStepProps
   extends Pick<FormikConfig<FormikValues>, 'children' | 'validationSchema'> {
@@ -22,25 +23,6 @@ const useStyles = makeStyles(() => ({
     marginLeft: 'auto',
     marginRight: 'auto',
   },
-  btnBack: {
-    background: 'rgba(255, 255, 255, 0.85)',
-    border: '1px solid #000000',
-    boxSizing: 'border-box',
-    borderRadius: '60px',
-    width: '284px',
-    height: '80px',
-    fontSize: '22px',
-    marginRight: '51px',
-  },
-  btn: {
-    background: '#62C4FB',
-    border: '1px solid #000000',
-    boxSizing: 'border-box',
-    borderRadius: '60px',
-    width: '284px',
-    height: '80px',
-    fontSize: '22px',
-  },
   stepIcon: {
     transform: 'scale(1.15)',
   },
@@ -49,8 +31,9 @@ export type GenericFormProps<T> = PropsWithChildren<FormikConfig<T>>
 
 export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
   const childrenArray = React.Children.toArray(children) as React.ReactElement<FormikStepProps>[]
+  const { step, setStep } = useContext(StepsContext)
   const router = useRouter()
-  const [step, setStep] = useState(router.query.success ? 3 : 0)
+  router.query.success === 'false' || router.query.success === 'true' ? setStep(3) : null
   const currentChild = childrenArray[step]
   const classes = useStyles()
   const { data: currentPerson } = useCurrentPerson()
