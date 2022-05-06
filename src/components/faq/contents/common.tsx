@@ -1,7 +1,7 @@
 import { ContentType } from './content-type'
 import ExternalLink from 'components/common/ExternalLink'
 import ContentTypography from './ContentTypography'
-import { staticUrls } from 'common/routes'
+import { routes, staticUrls } from 'common/routes'
 
 export const COMMON_QUESTIONS: ContentType[] = [
   {
@@ -98,7 +98,7 @@ export const COMMON_QUESTIONS: ContentType[] = [
       <ContentTypography>
         Да, напълно. Сдружение Подкрепи.бг не е обвързано с влияния от политически и друг тип
         организации и субекти. Можете да видите повече в
-        <ExternalLink variant="subtitle1" href="/terms-of-service">
+        <ExternalLink variant="subtitle1" href={routes.termsOfService}>
           {' Условията за ползване на Подкрепи.бг.'}
         </ExternalLink>
       </ContentTypography>
@@ -158,7 +158,7 @@ export const COMMON_QUESTIONS: ContentType[] = [
         проследяването и отчетността на насочените дарения към Сдружението. Веднъж месечно
         Подкрепи.бг изготвя публичен отчет на приходящите дарения от изминалия месец, както и на
         основанията за разходваните суми за същия период. Всички отчети до момента можете да видите
-        <ExternalLink variant="subtitle1" href={undefined}>
+        <ExternalLink variant="subtitle1" href={routes.reports}>
           {' тук. '}
         </ExternalLink>
       </ContentTypography>
@@ -254,11 +254,11 @@ export const COMMON_QUESTIONS: ContentType[] = [
           Очаква се в бъдеще да имаме логистични/ куриерски, телекомуникационни и други извънредни
           разходи. Към момента част от разходите ни са покрити от партньори, като например:
           безплатен хостинг от{' '}
-          <ExternalLink variant="subtitle1" href={'https://www.superhosting.bg/'}>
+          <ExternalLink variant="subtitle1" href={staticUrls.hostingProvider}>
             {' SuperHosting '}
           </ExternalLink>{' '}
           или офис пространство от
-          <ExternalLink variant="subtitle1" href={'https://eduspace-bg.business.site/'}>
+          <ExternalLink variant="subtitle1" href={staticUrls.eduspace}>
             {' Eduspace.'}
           </ExternalLink>
         </p>
@@ -272,7 +272,7 @@ export const COMMON_QUESTIONS: ContentType[] = [
       <ContentTypography>
         <p>
           Да, намира се в жк. Белите Брези, бл. 13 и ни е любезно и безвъзмездно предоставен от{' '}
-          <ExternalLink variant="subtitle1" href={'https://eduspace-bg.business.site/'}>
+          <ExternalLink variant="subtitle1" href={staticUrls.eduspace}>
             {' Eduspace.'}
           </ExternalLink>
         </p>
