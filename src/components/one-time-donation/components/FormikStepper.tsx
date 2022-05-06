@@ -1,12 +1,11 @@
 import { LoadingButton } from '@mui/lab'
 import { Box, Button, Grid, Step, StepLabel, Stepper } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import { useDonationSession } from 'common/hooks/donation'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import { Form, Formik, FormikConfig, FormikValues } from 'formik'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
-import React, { PropsWithChildren, useCallback, useState } from 'react'
+import React, { PropsWithChildren, useState } from 'react'
 
 export interface FormikStepProps
   extends Pick<FormikConfig<FormikValues>, 'children' | 'validationSchema'> {
@@ -81,7 +80,6 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
       onSubmit={async (values, helpers) => {
         if (isLastStep()) {
           await props.onSubmit(values, helpers)
-          setStep((s) => s + 1)
         } else if (isFirstStep() && isLogged()) {
           setStep((s) => s + 2)
         } else {
@@ -113,8 +111,6 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
                   color="error"
                   size="large"
                   onClick={() => {
-                    console.log(step)
-                    console.log(isLogged())
                     if (step === 2 && isLogged()) {
                       setStep((s) => s - 2)
                       return
