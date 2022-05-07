@@ -4,15 +4,12 @@ import { useSinglePriceList } from 'common/hooks/donation'
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 import { money } from 'common/util/money'
 import { useTranslation } from 'next-i18next'
-import React from 'react'
+import React, { useContext } from 'react'
 import theme from 'common/theme'
 import { CopyTextButton } from 'components/common/CopyTextButton'
 import { ibanNumber } from 'common/iban'
-import { useRouter } from 'next/router'
 import { useField } from 'formik'
-import { UseQueryResult } from 'react-query'
-import { CampaignResponse } from 'gql/campaigns'
-import { useViewCampaign } from 'common/hooks/campaigns'
+import { StepsContext } from './StepperContext'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -26,21 +23,17 @@ export default function FirstStep() {
   const { data: prices } = useSinglePriceList()
   const { t } = useTranslation('one-time-donation')
   const classes = useStyles()
-  const router = useRouter()
-
-  const slug = String(router.query.slug)
   const options = [
     { value: 'card', label: t('third-step.card') },
     { value: 'bank', label: t('third-step.bank-payment') },
   ]
 
   const [paymentField] = useField('payment')
-  const { data }: UseQueryResult<{ campaign: CampaignResponse }> = useViewCampaign(slug as string)
+  const { campaign } = useContext(StepsContext)!
   const bankAccountInfo = {
     owner: t('third-step.owner'),
     bank: t('third-step.bank'),
     iban: ibanNumber,
-    campaign: data?.campaign.title,
   }
   return (
     <>
@@ -94,9 +87,9 @@ export default function FirstStep() {
           <Divider className={classes.divider} />
           <Grid container justifyContent="center">
             <Grid my={3} item display="flex" justifyContent="space-between" xs={9}>
-              <Typography>ID to paste into the bank statement</Typography>
+              <Typography>{campaign.title}</Typography>
               <CopyTextButton
-                text={bankAccountInfo.campaign!}
+                text={campaign.title}
                 variant="contained"
                 color="info"
                 size="small"
