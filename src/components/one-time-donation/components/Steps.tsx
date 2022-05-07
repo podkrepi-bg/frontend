@@ -17,6 +17,7 @@ import { useDonationSession } from 'common/hooks/donation'
 import NotFoundPage from 'pages/404'
 import { baseUrl, routes } from 'common/routes'
 import { StepsContext } from './StepperContext'
+import { CircularProgress } from '@mui/material'
 
 const initialValues: OneTimeDonation = {
   message: '',
@@ -35,7 +36,7 @@ export default function DonationStepper() {
   const router = useRouter()
   const success = router.query.success === 'true' ? true : false
   const slug = String(router.query.slug)
-  const { data } = useViewCampaign(slug)
+  const { data, isLoading } = useViewCampaign(slug)
   if (!data || !data.campaign) return <NotFoundPage />
   const { campaign } = data
   const mutation = useDonationSession()
@@ -100,14 +101,18 @@ export default function DonationStepper() {
   ]
   const [step, setStep] = React.useState(0)
   return (
-    <StepsContext.Provider value={{ step, setStep }}>
-      <FormikStepper onSubmit={onSubmit} initialValues={initialValues}>
-        {steps.map(({ label, component, validate }) => (
-          <FormikStep key={label} validationSchema={validate}>
-            {component}
-          </FormikStep>
-        ))}
-      </FormikStepper>
+    <StepsContext.Provider value={{ step, setStep, campaign }}>
+      {isLoading ? (
+        <CircularProgress color="primary" />
+      ) : (
+        <FormikStepper onSubmit={onSubmit} initialValues={initialValues}>
+          {steps.map(({ label, component, validate }) => (
+            <FormikStep key={label} validationSchema={validate}>
+              {component}
+            </FormikStep>
+          ))}
+        </FormikStepper>
+      )}
     </StepsContext.Provider>
   )
 }

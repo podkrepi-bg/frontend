@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 
 export default function Fail() {
   const { t } = useTranslation('one-time-donation')
-  const { setStep } = useContext(StepsContext)
+  const { setStep } = useContext(StepsContext)!
   const router = useRouter()
   // Clear query so that the first step renders instead of success or fail page
   useEffect(() => {
