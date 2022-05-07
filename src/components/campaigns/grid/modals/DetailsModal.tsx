@@ -11,10 +11,10 @@ import {
 } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-import { CampaignResponse } from 'gql/campaigns'
+import { AdminCampaignResponse } from 'gql/campaigns'
 
 type Props = {
-  campaign: CampaignResponse
+  campaign: AdminCampaignResponse
   onClose: () => void
 }
 
