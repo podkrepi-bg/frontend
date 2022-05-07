@@ -29,7 +29,7 @@ const useStyles = makeStyles(() =>
       border: `1px solid ${theme.palette.primary.main}`,
       backgroundColor: theme.palette.primary.main,
       borderRadius: theme.borders.roundRadius,
-      color: '#fff',
+      color: theme.palette.common.white,
     },
     label: {
       fontSize: 20,
