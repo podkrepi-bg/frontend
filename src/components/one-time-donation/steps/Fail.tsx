@@ -2,10 +2,10 @@ import { useContext, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { Grid, Typography, Button } from '@mui/material'
-import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined'
-import InstagramIcon from '@mui/icons-material/Instagram'
-import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import FailIcon from 'common/icons/Fail'
+import theme from 'common/theme'
+import { routes } from 'common/routes'
+import LinkButton from 'components/common/LinkButton'
 import { StepsContext } from '../helpers/stepperContext'
 
 export default function Fail() {
@@ -28,24 +28,17 @@ export default function Fail() {
         }}>
         <FailIcon />
       </Grid>
-      <Grid container rowSpacing={2} justifyContent={'center'} textAlign="center">
+      <Grid
+        container
+        marginTop={theme.spacing(5)}
+        marginBottom={theme.spacing(3)}
+        rowSpacing={2}
+        justifyContent={'center'}
+        textAlign="center">
         <Grid item xs={12}>
           <Typography variant="h4" fontSize={14}>
             {t('fail.title')}
           </Typography>
-        </Grid>
-        <Grid
-          item
-          sx={{
-            '& .MuiSvgIcon-root': {
-              fontSize: '38px',
-              color: '#909090',
-              margin: 2,
-            },
-          }}>
-          <FacebookOutlinedIcon />
-          <InstagramIcon />
-          <LinkedInIcon />
         </Grid>
       </Grid>
       <Grid container rowSpacing={3} justifyContent="center">
@@ -60,9 +53,9 @@ export default function Fail() {
           </Button>
         </Grid>
         <Grid textAlign={'center'} item xs={12} md={6}>
-          <Button variant="contained" color="primary">
+          <LinkButton href={routes.contact} variant="contained" color="primary">
             {t('fail.btn-connect')}
-          </Button>
+          </LinkButton>
         </Grid>
       </Grid>
     </Grid>
