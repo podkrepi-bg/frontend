@@ -9,7 +9,7 @@ import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 import { money } from 'common/util/money'
 import { ibanNumber } from 'common/iban'
 import { CopyTextButton } from 'components/common/CopyTextButton'
-import { StepsContext } from './StepperContext'
+import { StepsContext } from '../helpers/stepperContext'
 
 const useStyles = makeStyles(() =>
   createStyles({
