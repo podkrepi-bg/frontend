@@ -1,11 +1,11 @@
+import React, { PropsWithChildren, useContext } from 'react'
+import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
+import { Form, Formik, FormikConfig, FormikValues } from 'formik'
 import { LoadingButton } from '@mui/lab'
 import { Box, Button, Grid, Step, StepLabel, Stepper } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
-import { Form, Formik, FormikConfig, FormikValues } from 'formik'
-import { useTranslation } from 'next-i18next'
-import { useRouter } from 'next/router'
-import React, { PropsWithChildren, useContext } from 'react'
 import { StepsContext } from './StepperContext'
 
 export interface FormikStepProps
@@ -84,6 +84,7 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
             ))}
           </Stepper>
           <Box marginY={8}>{currentChild}</Box>
+          {/* Controls of the form */}
           {step === 3 ? null : (
             <Grid container rowSpacing={2} columnSpacing={2}>
               <Grid item xs={12} md={6}>

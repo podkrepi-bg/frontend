@@ -1,10 +1,10 @@
-import { Collapse, Grid, Typography } from '@mui/material'
 import * as React from 'react'
-import FormTextField from 'components/common/form/FormTextField'
-import CircleCheckboxField from 'components/common/form/CircleCheckboxField'
 import { useField } from 'formik'
 import { useTranslation } from 'next-i18next'
+import { Collapse, Grid, Typography } from '@mui/material'
 import { ExpandLess, ExpandMore } from '@mui/icons-material'
+import FormTextField from 'components/common/form/FormTextField'
+import CircleCheckboxField from 'components/common/form/CircleCheckboxField'
 
 export default function AnonymousForm() {
   const [field] = useField('anonymousDonation')

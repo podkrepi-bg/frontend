@@ -1,12 +1,12 @@
+import React from 'react'
+import { useTranslation } from 'next-i18next'
+import { useFormikContext } from 'formik'
 import { Box, Button, Checkbox, Collapse, FormControlLabel, Grid, Typography } from '@mui/material'
 import theme from 'common/theme'
+import Google from 'common/icons/Google'
+import { OneTimeDonation } from 'gql/donations'
 import FormTextField from 'components/common/form/FormTextField'
 import Link from 'components/common/Link'
-import { useTranslation } from 'next-i18next'
-import React from 'react'
-import Google from 'common/icons/Google'
-import { useFormikContext } from 'formik'
-import { OneTimeDonation } from 'gql/donations'
 
 function LoginForm() {
   const { t } = useTranslation('one-time-donation')

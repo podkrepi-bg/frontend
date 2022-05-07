@@ -1,8 +1,8 @@
+import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@mui/material'
 import theme from 'common/theme'
 import CheckboxField from 'components/common/form/CheckboxField'
 import FormTextField from 'components/common/form/FormTextField'
-import { useTranslation } from 'next-i18next'
 
 export default function ThirdStep() {
   const { t } = useTranslation('one-time-donation')
