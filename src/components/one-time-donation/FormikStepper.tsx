@@ -6,7 +6,7 @@ import { LoadingButton } from '@mui/lab'
 import { Box, Button, Grid, Step, StepLabel, Stepper } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
-import { StepsContext } from './StepperContext'
+import { StepsContext } from './helpers/stepperContext'
 
 export interface FormikStepProps
   extends Pick<FormikConfig<FormikValues>, 'children' | 'validationSchema'> {

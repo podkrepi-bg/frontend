@@ -6,7 +6,7 @@ import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import FailIcon from 'common/icons/Fail'
-import { StepsContext } from './StepperContext'
+import { StepsContext } from '../helpers/stepperContext'
 
 export default function Fail() {
   const { t } = useTranslation('one-time-donation')

@@ -1,16 +1,16 @@
+import Image from 'next/image'
 import { Box, Grid, Theme, Typography, useMediaQuery } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import createStyles from '@mui/styles/createStyles'
 import Layout from 'components/layout/Layout'
-import Image from 'next/image'
 import { useViewCampaign } from 'common/hooks/campaigns'
 import theme from 'common/theme'
 import {
   backgroundCampaignPictureUrl,
   beneficiaryCampaignPictureUrl,
 } from 'common/util/campaignImageUrls'
-import DonationStepper from './components/Steps'
 import NotFoundPage from 'pages/404'
+import DonationStepper from './Steps'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
