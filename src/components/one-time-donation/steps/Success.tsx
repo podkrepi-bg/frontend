@@ -1,9 +1,11 @@
 import { useTranslation } from 'next-i18next'
 import { Grid, Typography, Button } from '@mui/material'
 import SuccessIcon from 'common/icons/Success'
+import { routes } from 'common/routes'
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
+import LinkButton from 'components/common/LinkButton'
 
 export default function Success() {
   const { t } = useTranslation('one-time-donation')
@@ -53,14 +55,14 @@ export default function Success() {
           </Button>
         </Grid>
         <Grid textAlign={'center'} item xs={12} md={6}>
-          <Button variant="contained" color="primary">
+          <LinkButton href={routes.contact} variant="contained" color="primary">
             {t('success.btn-say-to-us')}
-          </Button>
+          </LinkButton>
         </Grid>
         <Grid textAlign={'center'} item xs={12} md={6}>
-          <Button variant="contained" color="primary">
+          <LinkButton href={routes.campaigns.index} variant="contained" color="primary">
             {t('success.btn-other-campaign')}
-          </Button>
+          </LinkButton>
         </Grid>
       </Grid>
     </Grid>
