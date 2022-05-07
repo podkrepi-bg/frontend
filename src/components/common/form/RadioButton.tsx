@@ -11,6 +11,7 @@ const useStyles = makeStyles(() =>
       border: `1px solid ${theme.borders.dark}`,
       padding: theme.spacing(2),
       width: '100%',
+      margin: '0 auto',
     },
     checked: {
       background: lighten(theme.palette.primary.main, 0.8),
