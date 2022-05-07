@@ -1,12 +1,12 @@
+import { useContext, useEffect } from 'react'
+import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
 import { Grid, Typography, Button } from '@mui/material'
-import FailIcon from 'common/icons/Fail'
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
-import { useTranslation } from 'next-i18next'
-import { useContext, useEffect } from 'react'
+import FailIcon from 'common/icons/Fail'
 import { StepsContext } from './StepperContext'
-import { useRouter } from 'next/router'
 
 export default function Fail() {
   const { t } = useTranslation('one-time-donation')

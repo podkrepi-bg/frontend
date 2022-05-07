@@ -1,5 +1,5 @@
-import { CampaignResponse } from 'gql/campaigns'
 import { createContext } from 'react'
+import { CampaignResponse } from 'gql/campaigns'
 
 export const StepsContext =
   createContext<
