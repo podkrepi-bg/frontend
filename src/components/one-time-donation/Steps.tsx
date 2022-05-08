@@ -35,7 +35,6 @@ export default function DonationStepper() {
   const { t } = useTranslation('one-time-donation')
   const router = useRouter()
   const success = router.query.success === 'true' ? true : false
-  console.log(router.query)
   initialValues.amount = (router.query.price as string) || ''
   const slug = String(router.query.slug)
   const { data, isLoading } = useViewCampaign(slug)
