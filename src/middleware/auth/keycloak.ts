@@ -1,6 +1,11 @@
 import getConfig from 'next/config'
 import { parseCookies } from 'nookies'
-import { GetServerSideProps, GetServerSidePropsContext, Redirect } from 'next'
+import {
+  GetServerSideProps,
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  Redirect,
+} from 'next'
 import { getKeycloakInstance, SSRCookies } from '@react-keycloak/ssr'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { routes } from 'common/routes'
@@ -33,7 +38,10 @@ export const keycloakInstance = (ctx: GetServerSidePropsContext) => {
   return getKeycloakInstance(keycloakConfig, SSRCookies(cookies))
 }
 
-export const securedProps: GetServerSideProps<ServerUser> = async (ctx, returnUrl?: string) => {
+export const securedProps: (
+  ctx: GetServerSidePropsContext,
+  returnUrl?: string,
+) => GetServerSidePropsResult<ServerUser> = (ctx, returnUrl?: string) => {
   const cookies = parseKeycloakCookies(ctx)
   const keycloak = getKeycloakInstance(keycloakConfig, SSRCookies(cookies))
   if (!keycloak.token) {
