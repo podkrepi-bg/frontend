@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useContext } from 'react'
+import React, { PropsWithChildren, useContext, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { Form, Formik, FormikConfig, FormikValues } from 'formik'
@@ -34,7 +34,9 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<OneTim
   const childrenArray = React.Children.toArray(children) as React.ReactElement<FormikStepProps>[]
   const { step, setStep } = useContext(StepsContext)!
   const router = useRouter()
-  router.query.success === 'false' || router.query.success === 'true' ? setStep(3) : null
+  useEffect(() => {
+    router.query.success === 'false' || router.query.success === 'true' ? setStep(3) : null
+  }, [router.query.success])
   const currentChild = childrenArray[step]
   const classes = useStyles()
   const { data: currentPerson } = useCurrentPerson()
