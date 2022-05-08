@@ -171,7 +171,7 @@ export const themeOptions: ThemeOptions = {
 const theme: Theme = createTheme(themeOptions)
 const materialTheme = responsiveFontSizes(theme)
 const podkrepiTheme = {
-  ...borders,
+  borders,
   ...materialTheme,
 }
 
