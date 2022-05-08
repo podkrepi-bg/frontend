@@ -1,3 +1,5 @@
+import { i18n } from 'next-i18next'
+
 /**
  * Format money amounts
  *
@@ -7,7 +9,7 @@
  * @returns string
  */
 export const money = (number: number, currency = 'BGN', divisionFactor = 100) => {
-  return new Intl.NumberFormat('bg-BG', { style: 'currency', currency }).format(
+  return new Intl.NumberFormat(i18n?.language, { style: 'currency', currency }).format(
     number / divisionFactor,
   )
 }
