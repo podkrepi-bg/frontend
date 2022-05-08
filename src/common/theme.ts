@@ -27,8 +27,8 @@ const colors = {
 const borders = {
   dark: colors.blue.dark,
   light: colors.blue.main,
-  round: 60,
-  semiRound: 20,
+  round: '60px',
+  semiRound: '20px',
 }
 
 export const themeOptions: ThemeOptions = {
