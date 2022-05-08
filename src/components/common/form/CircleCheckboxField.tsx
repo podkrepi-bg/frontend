@@ -26,14 +26,14 @@ const useStyles = makeStyles(() =>
       width: 30,
       height: 30,
       border: `1px solid ${theme.palette.primary.dark}`,
-      borderRadius: theme.borders.roundRadius,
+      borderRadius: theme.borders.round,
     },
     checkedCircle: {
       width: 30,
       height: 30,
       border: `1px solid ${theme.palette.primary.main}`,
       backgroundColor: theme.palette.primary.main,
-      borderRadius: theme.borders.roundRadius,
+      borderRadius: theme.borders.round,
       color: '#fff',
     },
     label: {
