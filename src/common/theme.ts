@@ -1,6 +1,7 @@
 import { createTheme, darken, responsiveFontSizes, Theme, ThemeOptions } from '@mui/material/styles'
 
 const fontFamily = 'Montserrat'
+
 // Instead of exporting `colors` variable use theme:
 // import theme from 'common/theme'
 // <meta name="theme-color" content={theme.palette.primary.main} />
@@ -21,6 +22,13 @@ const colors = {
   white: {
     main: '#ffffff',
   },
+}
+
+const borders = {
+  dark: colors.blue.dark,
+  light: colors.blue.main,
+  round: 60,
+  semiRound: 20,
 }
 
 export const themeOptions: ThemeOptions = {
@@ -94,30 +102,30 @@ export const themeOptions: ThemeOptions = {
       styleOverrides: {
         root: {
           fontSize: '1rem',
-          borderRadius: 60,
+          borderRadius: borders.round,
         },
         multiline: {
-          borderRadius: 20,
+          borderRadius: borders.semiRound,
         },
       },
     },
     MuiFilledInput: {
       styleOverrides: {
         root: {
-          borderRadius: 60,
+          borderRadius: borders.round,
         },
         multiline: {
-          borderRadius: 20,
+          borderRadius: borders.semiRound,
         },
       },
     },
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          borderRadius: 60,
+          borderRadius: borders.round,
         },
         multiline: {
-          borderRadius: 20,
+          borderRadius: borders.semiRound,
         },
       },
     },
@@ -163,11 +171,7 @@ export const themeOptions: ThemeOptions = {
 const theme: Theme = createTheme(themeOptions)
 const materialTheme = responsiveFontSizes(theme)
 const podkrepiTheme = {
-  borders: {
-    dark: colors.blue.dark,
-    light: colors.blue.main,
-    roundRadius: 60,
-  },
+  ...borders,
   ...materialTheme,
 }
 

@@ -7,6 +7,7 @@ import { Box, Button, Grid, Step, StepLabel, Stepper } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import { StepsContext } from './helpers/stepperContext'
+import { OneTimeDonation } from 'gql/donations'
 
 export interface FormikStepProps
   extends Pick<FormikConfig<FormikValues>, 'children' | 'validationSchema'> {
@@ -29,7 +30,7 @@ const useStyles = makeStyles(() => ({
 }))
 export type GenericFormProps<T> = PropsWithChildren<FormikConfig<T>>
 
-export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
+export function FormikStepper<T>({ children, ...props }: GenericFormProps<OneTimeDonation>) {
   const childrenArray = React.Children.toArray(children) as React.ReactElement<FormikStepProps>[]
   const { step, setStep } = useContext(StepsContext)!
   const router = useRouter()
@@ -64,7 +65,17 @@ export function FormikStepper<T>({ children, ...props }: GenericFormProps<T>) {
         if (isLastStep()) {
           await props.onSubmit(values, helpers)
         } else if (isFirstStep() && isLogged()) {
-          setStep((s) => s + 2)
+          if (values.payment === 'bank') {
+            router.push({
+              pathname: router.route,
+              query: {
+                slug: router.query.slug,
+                success: true,
+              },
+            })
+          } else {
+            setStep((s) => s + 2)
+          }
         } else {
           setStep((s) => s + 1)
           helpers.setTouched({})
