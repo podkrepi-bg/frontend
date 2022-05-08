@@ -7,7 +7,7 @@ import React from 'react'
 const useStyles = makeStyles(() =>
   createStyles({
     radioWrapper: {
-      borderRadius: theme.borders.roundRadius,
+      borderRadius: theme.borders.round,
       border: `1px solid ${theme.borders.dark}`,
       padding: theme.spacing(2),
       width: '100%',
@@ -21,14 +21,14 @@ const useStyles = makeStyles(() =>
       width: 30,
       height: 30,
       border: `1px solid ${theme.palette.primary.dark}`,
-      borderRadius: theme.borders.roundRadius,
+      borderRadius: theme.borders.round,
     },
     checkedCircle: {
       width: 30,
       height: 30,
       border: `1px solid ${theme.palette.primary.main}`,
       backgroundColor: theme.palette.primary.main,
-      borderRadius: theme.borders.roundRadius,
+      borderRadius: theme.borders.round,
       color: theme.palette.common.white,
     },
     label: {
