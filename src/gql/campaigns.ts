@@ -42,11 +42,13 @@ type BaseCampaignResponse = {
   slug: string
   title: string
   essence: string
+  bankHash: string
   coordinatorId: UUID
   beneficiaryId: UUID
   campaignTypeId: UUID
   description: string
   targetAmount: number
+  allowDonationOnComplete: boolean
   currency: string
   startDate: Date | null
   endDate: Date | null
@@ -92,6 +94,7 @@ export type CampaignFormData = {
   beneficiaryId: string
   coordinatorId: string
   targetAmount: number
+  allowDonationOnComplete?: boolean
   startDate: Date | string | undefined
   endDate: Date | string | undefined
   description: string
@@ -108,6 +111,7 @@ export type CampaignInput = {
   beneficiaryId: UUID
   coordinatorId: UUID
   targetAmount: number
+  allowDonationOnComplete?: boolean
   currency: string
   startDate: Date | string | undefined
   endDate: Date | string | undefined
