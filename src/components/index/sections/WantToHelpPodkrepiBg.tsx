@@ -13,21 +13,25 @@ const useStyles = makeStyles(() =>
   createStyles({
     root: {
       display: 'flex',
-      paddingBottom: '2rem',
+      paddingTop: '36px',
+      paddingBottom: '36px',
+      paddingLeft: '25vw',
+      paddingRight: '25vw',
+      marginBottom: theme.spacing(12),
       flexDirection: 'column',
       alignItems: 'center',
+      backgroundColor: theme.palette.secondary.light,
     },
     text: {
       color: 'black',
-      textAlign: 'center',
-      marginTop: '1rem',
+      fontFamily: 'Montserrat',
     },
     button: {
       background: theme.palette.primary.main,
       border: `2px solid ${theme.palette.primary.main}`,
       borderRadius: '61px',
       color: 'black',
-      marginTop: '2rem',
+      margin: 'auto',
     },
   }),
 )
@@ -38,22 +42,33 @@ export default function WantToHelpPodkrepiBgSection() {
 
   return (
     <Grid className={classes.root}>
-      <Grid item>
-        <Heading textAlign="center" variant="h4">
-          {t('index:help-podkrepi-bg-section.want-to-help')}
-        </Heading>
-      </Grid>
-      <Grid item>
-        <Grid item>
-          <Typography variant="h5" className={classes.text}>
+      <Heading
+        textAlign="center"
+        variant="h4"
+        fontFamily="Montserrat"
+        color={theme.palette.primary.dark}>
+        {t('index:help-podkrepi-bg-section.want-to-help')}
+      </Heading>
+      <Grid
+        container
+        display="flex"
+        direction="row"
+        justifyContent="space-around"
+        alignItems="center"
+        paddingTop="36px">
+        <Grid item style={{ width: '60%' }}>
+          <Typography variant="subtitle1" className={classes.text}>
             {t('index:help-podkrepi-bg-section.text')}
           </Typography>
         </Grid>
-      </Grid>
-      <Grid item>
-        <LinkButton href={routes.support} className={classes.button} endIcon={<ChevronRightIcon />}>
-          {t('index:help-podkrepi-bg-section.become-volunteer')}
-        </LinkButton>
+        <Grid item>
+          <LinkButton
+            href={routes.support}
+            className={classes.button}
+            endIcon={<ChevronRightIcon />}>
+            {t('index:help-podkrepi-bg-section.become-volunteer')}
+          </LinkButton>
+        </Grid>
       </Grid>
     </Grid>
   )

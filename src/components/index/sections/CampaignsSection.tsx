@@ -1,4 +1,4 @@
-import { Grid, Box, Theme } from '@mui/material'
+import { Grid, Box, Theme, Container } from '@mui/material'
 import { createStyles, makeStyles } from '@mui/styles'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { useTranslation } from 'next-i18next'
@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
     heading: {
       paddingBottom: theme.spacing(7),
       color: theme.palette.primary.dark,
+      fontFamily: 'Montserrat',
       textAlign: 'center',
     },
     container: {
@@ -35,8 +36,8 @@ export default function CampaignsSection() {
     return null
   } else {
     return (
-      <>
-        <Heading id="what-we-do" variant="h5" component="h2" className={classes.heading}>
+      <Container maxWidth="md">
+        <Heading id="what-we-do" variant="h4" component="h2" className={classes.heading}>
           {t('index:campaign.emergency-causes')}
         </Heading>
         <Grid container justifyContent="center" spacing={2}>
@@ -55,7 +56,7 @@ export default function CampaignsSection() {
             {t('index:campaign.see-all')}
           </LinkButton>
         </Grid>
-      </>
+      </Container>
     )
   }
 }
