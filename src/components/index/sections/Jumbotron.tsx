@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) =>
       height: '730px',
       padding: theme.spacing(15, 1, 0, 1),
       marginBottom: theme.spacing(12),
-      marginTop: theme.spacing(6),
+      marginTop: theme.spacing(10),
       textAlign: 'center',
       color: theme.palette.common.white,
       position: 'relative',

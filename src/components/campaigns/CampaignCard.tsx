@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
   cardWrapper: {
     position: 'relative',
     minHeight: theme.spacing(87),
-    backgroundColor: theme.palette.grey[200],
+    backgroundColor: theme.palette.secondary.light,
     border: 'none',
     borderRadius: 0,
   },
