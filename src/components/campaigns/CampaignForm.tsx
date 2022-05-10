@@ -283,7 +283,12 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
             <AcceptPrivacyPolicyField name="gdpr" />
           </Grid>
           <Grid item xs={12}>
-            <SubmitButton fullWidth label="campaigns:cta.submit" loading={mutation.isLoading} />
+            <SubmitButton
+              fullWidth
+              label="campaigns:cta.submit"
+              loading={mutation.isLoading}
+              color="info"
+            />
           </Grid>
         </Grid>
       </GenericForm>
