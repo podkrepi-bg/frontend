@@ -2,6 +2,7 @@ import { Container, Grid, Theme } from '@mui/material'
 import { createStyles, makeStyles } from '@mui/styles'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { useTranslation } from 'next-i18next'
+import theme from 'common/theme'
 import LinkButton from 'components/common/LinkButton'
 import { routes } from 'common/routes'
 import * as data from '../../faq/contents'
@@ -47,7 +48,7 @@ export default function FaqSection() {
           href={routes.faq}
           variant="outlined"
           endIcon={<ChevronRightIcon />}
-          sx={{ marginTop: '1rem', marginBottom: '1rem' }}>
+          sx={{ marginY: theme.spacing(2) }}>
           {t('index:campaign.see-all')}
         </LinkButton>
       </Grid>

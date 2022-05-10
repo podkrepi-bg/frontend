@@ -27,9 +27,6 @@ const useStyles = makeStyles(() =>
       fontFamily: 'Montserrat',
     },
     button: {
-      background: theme.palette.primary.main,
-      border: `2px solid ${theme.palette.primary.main}`,
-      borderRadius: '61px',
       color: 'black',
       margin: 'auto',
     },
@@ -63,6 +60,7 @@ export default function WantToHelpPodkrepiBgSection() {
         </Grid>
         <Grid item>
           <LinkButton
+            variant="contained"
             href={routes.support}
             className={classes.button}
             endIcon={<ChevronRightIcon />}>
