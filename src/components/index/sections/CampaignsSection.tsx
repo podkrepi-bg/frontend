@@ -50,7 +50,8 @@ export default function CampaignsSection() {
           ))}
           <LinkButton
             href={routes.campaigns.index}
-            variant="outlined"
+            variant="contained"
+            color="info"
             endIcon={<ChevronRightIcon />}
             sx={{ marginTop: '2rem' }}>
             {t('index:campaign.see-all')}

@@ -8,6 +8,7 @@ import { routes } from 'common/routes'
 import { isAdmin } from 'common/util/roles'
 import { useSession } from 'common/util/useSession'
 import LinkMenuItem from 'components/common/LinkMenuItem'
+import theme from 'common/theme'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -46,7 +47,7 @@ export default function PrivateMenu() {
         {session.picture ? (
           <Avatar title={title} alt={title} src={session.picture} />
         ) : (
-          <AccountCircle color="info" />
+          <AccountCircle sx={{ fill: theme.palette.info.light }} />
         )}
       </IconButton>
       <Menu
