@@ -46,6 +46,11 @@ export const themeOptions: ThemeOptions = {
     background: {
       default: colors.white.main,
     },
+    info: {
+      main: colors.blue.dark,
+      light: colors.blue.mainDark,
+      dark: darken(colors.blue.dark, 0.2),
+    },
   },
   shape: {
     borderRadius: 3,
@@ -92,14 +97,14 @@ export const themeOptions: ThemeOptions = {
             borderColor: darken(colors.yellow.main, 0.15),
           },
         },
-        containedSecondary: {
-          backgroundColor: colors.yellow.dark,
-        },
         containedPrimary: {
           backgroundColor: colors.blue.main,
           '&:hover': {
             backgroundColor: darken(colors.blue.main, 0.2),
           },
+        },
+        containedSecondary: {
+          backgroundColor: colors.yellow.dark,
         },
       },
     },
