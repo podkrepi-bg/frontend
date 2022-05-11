@@ -10,16 +10,14 @@ import withStyles from '@mui/styles/withStyles'
 import createStyles from '@mui/styles/createStyles'
 import { Stepper, Step, StepLabel, StepConnector, Grid } from '@mui/material'
 
-import { useSession } from 'common/util/useSession'
-import { createCampaignReport } from 'service/campaignReport'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
+import { createCampaignReport, uploadCampaignReportFiles } from 'service/campaignReport'
 
 import theme from 'common/theme'
-import GenericForm from 'components/common/form/GenericForm'
 
+import { Person } from 'gql/person'
 import { CampaignResponse } from 'gql/campaigns'
 
-import stepsHandler from './StepsHandler'
 import {
   Steps,
   Step as StepType,
@@ -29,6 +27,8 @@ import {
   CampaignReportInput,
   CampaignReportResponse,
   ReportReason,
+  CampaignReportUploadImage,
+  UploadCampaignReportFiles,
 } from './helpers/report.types'
 import { validationSchema } from './helpers/validation-schema'
 
@@ -40,6 +40,8 @@ import Remark from './helpers/Remark'
 import Greeting from './steps/Greeting'
 import Contacts from './steps/Contacts'
 import Success from './helpers/Success'
+import stepsHandler from './StepsHandler'
+import GenericForm from 'components/common/form/GenericForm'
 
 const ColorlibConnector = withStyles({
   alternativeLabel: {
@@ -76,18 +78,6 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-const steps: StepType[] = [
-  {
-    component: <Greeting />,
-  },
-  {
-    component: <Contacts />,
-  },
-  {
-    component: <Info />,
-  },
-]
-
 const isFirstStep = (activeStep: number, steps: StepType[]): boolean => {
   return activeStep === steps.length - 3
 }
@@ -114,23 +104,32 @@ const initialValues: CampaignReportFormData = {
 
 type Props = {
   campaign: CampaignResponse
+  person?: Person
 }
 
-export default function CampaignReportForm({ campaign }: Props) {
+export default function CampaignReportForm({ campaign, person }: Props) {
   const { t } = useTranslation('irregularity-report')
   const classes = useStyles()
-  const { session } = useSession()
 
   const formRef = useRef<FormikProps<CampaignReportFormData>>(null)
 
   const [fail, setFail] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [files, setFiles] = useState<File[]>([])
   const [activeStep, setActiveStep] = useState<Steps>(Steps.GREETING)
   const [failedStep, setFailedStep] = useState<Steps>(Steps.NONE)
 
-  if (window) {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+  const steps: StepType[] = [
+    {
+      component: <Greeting />,
+    },
+    {
+      component: <Contacts />,
+    },
+    {
+      component: <Info files={files} setFiles={setFiles} />,
+    },
+  ]
 
   const isStepFailed = (step: Steps | number): boolean => {
     return step === failedStep
@@ -142,9 +141,14 @@ export default function CampaignReportForm({ campaign }: Props) {
     CampaignReportInput
   >({
     mutationFn: createCampaignReport,
-    onError: () => {
-      setFail(true)
-    },
+  })
+
+  const fileUploadMutation = useMutation<
+    AxiosResponse<CampaignReportUploadImage[]>,
+    AxiosError<ApiErrors>,
+    UploadCampaignReportFiles
+  >({
+    mutationFn: uploadCampaignReportFiles(),
   })
 
   const handleBack = () => {
@@ -178,12 +182,16 @@ export default function CampaignReportForm({ campaign }: Props) {
             phone: values.person.phone,
           },
         }
-        console.log('data', data)
-        await mutation.mutateAsync(data)
+        const response = await mutation.mutateAsync(data)
+        await fileUploadMutation.mutateAsync({
+          files,
+          campaignReportId: response.data.id,
+        })
         actions.resetForm()
         setSuccess(true)
       } catch (error) {
         console.error(error)
+        setFail(true)
         if (isAxiosError(error)) {
           const { response } = error as AxiosError<ApiErrors>
           response?.data.message.map(({ property, constraints }) => {
@@ -199,11 +207,12 @@ export default function CampaignReportForm({ campaign }: Props) {
     actions.setSubmitting(false)
 
     initialValues.info.campaignId = campaign.id
-    initialValues.person.firstName = session?.given_name || ''
-    initialValues.person.lastName = session?.family_name || ''
-    initialValues.person.email = session?.email || ''
+    initialValues.person.firstName = person?.firstName || ''
+    initialValues.person.lastName = person?.lastName || ''
+    initialValues.person.email = person?.email || ''
+    initialValues.person.phone = person?.phone || ''
 
-    await stepsHandler({ initialValues, values, actions, activeStep, setActiveStep, setFailedStep })
+    await stepsHandler({ actions, activeStep, setActiveStep, setFailedStep })
   }
 
   if (success) {
@@ -251,8 +260,8 @@ export default function CampaignReportForm({ campaign }: Props) {
           </Grid>
         </div>
       </GenericForm>
-      {activeStep === 0 && <Remark text={t('steps.greeting.remark')} />}
-      {activeStep === 1 && <Remark text={t('steps.contacts.remark')} />}
+      {activeStep === Steps.GREETING && <Remark text={t('steps.greeting.remark')} />}
+      {activeStep === Steps.CONTACTS && <Remark text={t('steps.contacts.remark')} />}
     </>
   )
 }
