@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'next-i18next'
 import { useField } from 'formik'
-import { Box, Collapse, Divider, Grid, List, Typography } from '@mui/material'
+import { Alert, Box, Collapse, Divider, Grid, List, Typography } from '@mui/material'
 import { makeStyles, createStyles } from '@mui/styles'
 import theme from 'common/theme'
 import { useSinglePriceList } from 'common/hooks/donation'
@@ -87,7 +87,9 @@ export default function FirstStep() {
           <Divider className={classes.divider} />
           <Grid container justifyContent="center">
             <Grid my={3} item display="flex" justifyContent="space-between" xs={9}>
-              <Typography>{campaign.title}</Typography>
+              <Alert severity="warning">
+                <Typography fontWeight="bold">{campaign.bankHash}</Typography>
+              </Alert>
               <CopyTextButton
                 text={campaign.title}
                 variant="contained"
