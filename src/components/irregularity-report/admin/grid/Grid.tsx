@@ -36,6 +36,9 @@ export default observer(function Grid() {
       headerName: t('admin.fields.status'),
       editable: false,
       width: 150,
+      valueGetter: (f) => {
+        return t('admin.fields.status-type.' + f.row.status)
+      },
     },
     {
       field: 'createdAt',
@@ -55,7 +58,10 @@ export default observer(function Grid() {
       field: 'reason',
       headerName: t('admin.fields.reason'),
       editable: false,
-      width: 150,
+      width: 200,
+      valueGetter: (f) => {
+        return t('reason.' + f.row.reason)
+      },
     },
     {
       field: 'reportContent',
@@ -75,12 +81,15 @@ export default observer(function Grid() {
       headerName: t('admin.fields.type'),
       editable: false,
       width: 150,
+      valueGetter: (f) => {
+        return t('admin.fields.notifier-type.' + f.row.notifierType)
+      },
     },
     {
       field: 'email',
       headerName: t('admin.fields.email'),
       editable: false,
-      width: 150,
+      width: 200,
       valueGetter: (f) => f.row.person.email,
     },
     {
