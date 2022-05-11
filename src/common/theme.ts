@@ -1,4 +1,10 @@
-import { createTheme, darken, responsiveFontSizes, ThemeOptions } from '@mui/material/styles'
+import {
+  createTheme,
+  darken,
+  lighten,
+  responsiveFontSizes,
+  ThemeOptions,
+} from '@mui/material/styles'
 
 const fontFamily = 'Montserrat'
 
@@ -14,6 +20,7 @@ const colors = {
   },
   yellow: {
     main: '#FFCB57',
+    dark: '#F6992B',
   },
   gray: {
     main: '#F5F5F5',
@@ -39,6 +46,11 @@ export const themeOptions: ThemeOptions = {
     background: {
       default: colors.white.main,
     },
+    info: {
+      main: colors.blue.dark,
+      light: colors.blue.mainDark,
+      dark: darken(colors.blue.dark, 0.2),
+    },
   },
   shape: {
     borderRadius: 3,
@@ -57,6 +69,10 @@ export const themeOptions: ThemeOptions = {
         root: {
           lineHeight: 2,
           borderRadius: '25px',
+          borderWidth: 2,
+          '&:hover': {
+            borderWidth: 2,
+          },
         },
         textPrimary: {
           color: colors.blue.dark,
@@ -65,24 +81,30 @@ export const themeOptions: ThemeOptions = {
           },
         },
         outlined: {
-          '&:hover': {
-            backgroundColor: colors.blue.dark,
-            color: colors.blue.light,
-          },
+          backgroundColor: colors.white.main,
         },
         outlinedPrimary: {
           color: colors.blue.dark,
           '&:hover': {
-            color: colors.blue.light,
-            borderColor: colors.blue.mainDark,
+            backgroundColor: lighten(colors.blue.main, 0.85),
+          },
+        },
+        outlinedSecondary: {
+          color: darken(colors.yellow.dark, 0.4),
+          borderColor: colors.yellow.main,
+          '&:hover': {
+            backgroundColor: lighten(colors.yellow.main, 0.85),
+            borderColor: darken(colors.yellow.main, 0.15),
           },
         },
         containedPrimary: {
-          backgroundColor: colors.blue.dark,
-          color: colors.blue.light,
+          backgroundColor: colors.blue.main,
           '&:hover': {
-            backgroundColor: darken(colors.blue.dark, 0.2),
+            backgroundColor: darken(colors.blue.main, 0.2),
           },
+        },
+        containedSecondary: {
+          backgroundColor: colors.yellow.dark,
         },
       },
     },

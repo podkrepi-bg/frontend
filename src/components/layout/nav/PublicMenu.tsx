@@ -9,6 +9,7 @@ import LinkMenuItem from 'components/common/LinkMenuItem'
 
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
+import theme from 'common/theme'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,7 +44,7 @@ export default function PublicMenu() {
   return (
     <Grid item>
       <IconButton onClick={handleMenu} size="large">
-        <AccountCircle color="info" />
+        <AccountCircle sx={{ fill: theme.palette.info.light }} />
       </IconButton>
       <Menu
         open={Boolean(anchorEl)}
