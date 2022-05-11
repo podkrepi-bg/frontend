@@ -30,7 +30,7 @@ const useStyles = makeStyles(() => ({
 }))
 export type GenericFormProps<T> = PropsWithChildren<FormikConfig<T>>
 
-export function FormikStepper<T>({ children, ...props }: GenericFormProps<OneTimeDonation>) {
+export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDonation>) {
   const childrenArray = React.Children.toArray(children) as React.ReactElement<FormikStepProps>[]
   const { step, setStep } = useContext(StepsContext)!
   const router = useRouter()
