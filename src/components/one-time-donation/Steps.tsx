@@ -65,9 +65,9 @@ export default function DonationStepper() {
     try {
       const data = {
         currency: 'BGN',
-        amount: values.amount,
+        priceId: values.amount,
       }
-      await donate(data.amount)
+      await donate(data.priceId)
       resetForm()
     } catch (error) {
       if (isAxiosError(error)) {
