@@ -1,11 +1,14 @@
 import { KeycloakInstance } from 'keycloak-js'
 import { useKeycloak } from '@react-keycloak/ssr'
-import { QueryClient, useQuery } from 'react-query'
+import { useQuery } from 'react-query'
 
 import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
 
-import { CampaignReportResponse } from 'components/irregularity-report/helpers/report.types'
+import {
+  CampaignReportFile,
+  CampaignReportResponse,
+} from 'components/irregularity-report/helpers/report.types'
 
 export function useCampaignReportList() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
@@ -23,9 +26,10 @@ export function useCampaignReport(id: string) {
   )
 }
 
-export async function prefetchCampaignReportList(client: QueryClient, token?: string) {
-  await client.prefetchQuery<CampaignReportResponse[]>(
-    endpoints.support.campaignReportsList.url,
-    authQueryFnFactory<CampaignReportResponse[]>(token),
+export function useCampaignReportFilesList(campaignReportId: string) {
+  const { keycloak } = useKeycloak<KeycloakInstance>()
+  return useQuery<CampaignReportFile[]>(
+    endpoints.campaignReportFile.listCampaignReportFiles(campaignReportId).url,
+    authQueryFnFactory<CampaignReportFile[]>(keycloak?.token),
   )
 }
