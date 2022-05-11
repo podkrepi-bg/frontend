@@ -1,10 +1,10 @@
 import { endpoints } from 'service/apiEndpoints'
 import { securedAdminProps } from 'middleware/auth/keycloak'
-import CampaignReportPage from 'components/irregularity-report/admin/CampaignReportPage'
+import EditPage from 'components/irregularity-report/admin/EditPage'
 
 export const getServerSideProps = securedAdminProps(
   ['common', 'auth', 'validation', 'irregularity-report', 'admin'],
-  () => endpoints.support.campaignReportsList.url,
+  (ctx) => endpoints.support.editCampaignReport(ctx.query.id as string).url,
 )
 
-export default CampaignReportPage
+export default EditPage
