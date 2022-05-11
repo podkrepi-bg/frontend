@@ -1,13 +1,14 @@
 import { useTranslation } from 'next-i18next'
-import { Grid, Typography, Button } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import SuccessIcon from 'common/icons/Success'
 import { routes } from 'common/routes'
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import LinkButton from 'components/common/LinkButton'
+import ExternalLinkButton from 'components/common/ExternalLinkButton'
 
-export default function Success() {
+export default function Success({ donationId }: { donationId?: string }) {
   const { t } = useTranslation('one-time-donation')
 
   return (
@@ -49,11 +50,16 @@ export default function Success() {
         </Grid>
       </Grid>
       <Grid container rowSpacing={3} justifyContent="center">
-        <Grid textAlign={'center'} item xs={12} md={6}>
-          <Button variant="contained" color="primary">
-            {t('success.btn-generate')}
-          </Button>
-        </Grid>
+        {donationId && (
+          <Grid textAlign={'center'} item xs={12} md={6}>
+            <ExternalLinkButton
+              href={routes.donation.viewCertificate(donationId)}
+              variant="contained"
+              color="primary">
+              {t('success.btn-generate')}
+            </ExternalLinkButton>
+          </Grid>
+        )}
         <Grid textAlign={'center'} item xs={12} md={6}>
           <LinkButton href={routes.contact} variant="contained" color="primary">
             {t('success.btn-say-to-us')}
