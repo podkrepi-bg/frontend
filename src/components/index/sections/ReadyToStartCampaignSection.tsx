@@ -16,10 +16,8 @@ const useStyles = makeStyles(() =>
       textAlign: 'center',
     },
     button: {
-      background: theme.palette.primary.main,
-      borderRadius: '61px',
-      color: 'black',
       margin: 'auto',
+      color: 'black',
     },
     content: {
       display: 'flex',
@@ -50,7 +48,8 @@ export default function ReadyToStartCampaignSection() {
       <Grid item>
         <LinkButton
           href={routes.campaigns.create}
-          variant="outlined"
+          variant="contained"
+          color="primary"
           endIcon={<ChevronRightIcon />}
           className={classes.button}>
           {t('index:ready-to-start-campaign-section.button')}

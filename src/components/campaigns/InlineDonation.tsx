@@ -42,17 +42,9 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: 'bold',
       fontSize: theme.spacing(2),
     },
-    shareButton: {
-      padding: theme.spacing(0.75, 0),
-      borderColor: theme.palette.warning.main,
-      color: 'black',
-    },
     donationPriceList: {
       display: 'contents',
       textAlignLast: 'center',
-    },
-    supportButton: {
-      background: theme.palette.warning.light,
     },
   }),
 )
@@ -130,10 +122,8 @@ export default function InlineDonation({ campaign }: Props) {
           fullWidth
           href="#"
           variant="outlined"
-          size="small"
           startIcon={<ShareIcon />}
-          color="secondary"
-          className={classes.shareButton}>
+          color="secondary">
           {t('campaigns:cta.share')}
         </LinkButton>
         <LinkButton
@@ -142,7 +132,6 @@ export default function InlineDonation({ campaign }: Props) {
           onClick={onClick}
           variant="contained"
           color="secondary"
-          className={classes.supportButton}
           startIcon={<Favorite color="action" />}>
           {t('common:support')}
         </LinkButton>

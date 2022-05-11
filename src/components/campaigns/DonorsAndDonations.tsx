@@ -32,9 +32,6 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: theme.spacing(1),
       alignSelf: 'center',
     },
-    seeAllButton: {
-      border: `1px solid ${theme.palette.primary.main}`,
-    },
   }),
 )
 
@@ -89,7 +86,7 @@ export default function DonorsAndDonations({
       </Grid>
       <Grid>
         {donations && donations.length > shownDonationsNumber && (
-          <Button onClick={() => setAll((prev) => !prev)} className={classes.seeAllButton}>
+          <Button onClick={() => setAll((prev) => !prev)} variant="outlined">
             {all ? t('campaigns:cta.see-less') : t('campaigns:cta.see-all')}
           </Button>
         )}
