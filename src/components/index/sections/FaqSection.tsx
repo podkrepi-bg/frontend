@@ -1,7 +1,8 @@
-import { Grid, Theme } from '@mui/material'
+import { Container, Grid, Theme } from '@mui/material'
 import { createStyles, makeStyles } from '@mui/styles'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { useTranslation } from 'next-i18next'
+import theme from 'common/theme'
 import LinkButton from 'components/common/LinkButton'
 import { routes } from 'common/routes'
 import * as data from '../../faq/contents'
@@ -12,13 +13,13 @@ import ExpandableListItem from 'components/faq/ExpandableListItem'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     heading: {
-      paddingBottom: theme.spacing(7),
+      paddingBottom: theme.spacing(10),
       color: theme.palette.primary.dark,
       textAlign: 'center',
+      fontFamily: 'Montserrat',
     },
     container: {
       marginBottom: theme.spacing(12),
-      textAlign: 'center',
     },
     graphic: {
       marginTop: theme.spacing(5),
@@ -31,11 +32,11 @@ export default function FaqSection() {
   const classes = useStyles()
 
   return (
-    <>
-      <Heading id="what-we-do" variant="h5" component="h2" className={classes.heading}>
+    <Container maxWidth="md">
+      <Heading id="what-we-do" variant="h4" component="h2" className={classes.heading}>
         {t('common:nav.campaigns.faq')}
       </Heading>
-      <Grid container justifyContent="center" spacing={2}>
+      <Grid container justifyContent="center" spacing={2} className={classes.container}>
         {data.COMMON_QUESTIONS.slice(0, 3).flatMap(({ header, content, visible }) =>
           visible === true ? (
             <ExpandableListItem key={header} header={header} content={content} />
@@ -47,10 +48,10 @@ export default function FaqSection() {
           href={routes.faq}
           variant="outlined"
           endIcon={<ChevronRightIcon />}
-          sx={{ marginTop: '1rem', marginBottom: '1rem' }}>
+          sx={{ marginY: theme.spacing(2) }}>
           {t('index:campaign.see-all')}
         </LinkButton>
       </Grid>
-    </>
+    </Container>
   )
 }

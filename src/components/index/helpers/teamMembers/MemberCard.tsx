@@ -24,7 +24,7 @@ export default function MemberCard({ info }: MemberCardProps) {
         <Typography gutterBottom variant="h6" component="div" align="center">
           {info.title}
         </Typography>
-        <Typography variant="subtitle2" align="center">
+        <Typography variant="subtitle1" align="center">
           {info.content}
         </Typography>
       </CardContent>
