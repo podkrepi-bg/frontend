@@ -8,12 +8,11 @@ import { FormControl, Grid, Typography } from '@mui/material'
 
 import theme from 'common/theme'
 
-import FileList from 'components/file-upload/FileList'
 import FileUpload from 'components/file-upload/FileUpload'
 import FormTextField from 'components/common/form/FormTextField'
-import { CampaignFileRole, FileRole } from 'components/campaign-file/roles'
 
 import Subtitle from '../helpers/Subtitle'
+import FileList from '../helpers/FileList'
 import { NotifierTypes } from '../helpers/report.types'
 import ReportReasonSelect from '../helpers/ReportReasonSelect'
 
@@ -22,17 +21,18 @@ const CssTextField = styled(FormTextField)({
     marginLeft: '8px',
   },
   '& .MuiOutlinedInput-root': {
-    // borderRadius: '42px',
     margin: '20px 0',
     padding: '20px',
   },
 })
 
-export default function Info() {
-  const { t } = useTranslation('irregularity-report')
+// type Props = {
+//   files: File[]
+//   setFiles: (files: File[]) => void
+// }
 
-  const [files, setFiles] = React.useState<File[]>([])
-  const [roles, setRoles] = React.useState<FileRole[]>([])
+export default function Info({ files, setFiles }) {
+  const { t } = useTranslation('irregularity-report')
 
   return (
     <ThemeProvider theme={theme}>
@@ -94,31 +94,19 @@ export default function Info() {
             <Typography sx={{ fontSize: '18px' }}>{t('steps.info.files')}</Typography>
           </Grid>
           <Grid container justifyContent="center">
-            <FileUpload // TODO: to be implemented
-              onUpload={(newFiles) => {
-                setFiles((prevFiles) => [...prevFiles, ...newFiles])
-                setRoles((prevRoles) => [
-                  ...prevRoles,
-                  ...newFiles.map((file) => ({
-                    file: file.name,
-                    role: CampaignFileRole.background,
-                  })),
-                ])
+            <FileUpload
+              onUpload={(newFiles: File[]) => {
+                setFiles((prevFiles: File[]) => [...prevFiles, ...newFiles])
               }}
               buttonLabel={t('cta.upload-files')}
             />
             <FileList
-              filesRole={roles}
               files={files}
-              onDelete={(deletedFile) =>
-                setFiles((prevFiles) => prevFiles.filter((file) => file.name !== deletedFile.name))
+              onDelete={(deletedFile: File) =>
+                setFiles((prevFiles: File[]) =>
+                  prevFiles.filter((file) => file.name !== deletedFile.name),
+                )
               }
-              onSetFileRole={(file, role) => {
-                setRoles((prevRoles) => [
-                  ...prevRoles.filter((f) => f.file !== file.name),
-                  { file: file.name, role },
-                ])
-              }}
             />
           </Grid>
         </Grid>
