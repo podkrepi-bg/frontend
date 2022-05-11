@@ -48,6 +48,10 @@ export default function Fail({ setFail, setActiveStep }: Props) {
   const classes = useStyles()
   const { t } = useTranslation('irregularity-report')
 
+  if (window) {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   const handleClick = () => {
     setFail(false)
     setActiveStep(0)

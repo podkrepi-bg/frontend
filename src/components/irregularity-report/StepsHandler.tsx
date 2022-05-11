@@ -5,16 +5,12 @@ import { Steps, CampaignReportFormData } from './helpers/report.types'
 
 interface Props {
   activeStep: Steps
-  values: CampaignReportFormData
-  initialValues: CampaignReportFormData
   actions: FormikHelpers<CampaignReportFormData>
   setActiveStep: (value: React.SetStateAction<Steps>) => void
   setFailedStep: (value: React.SetStateAction<Steps>) => void
 }
 
 export default async function stepsHandler({
-  initialValues,
-  values,
   actions,
   activeStep,
   setActiveStep,
@@ -23,18 +19,18 @@ export default async function stepsHandler({
   switch (activeStep) {
     case Steps.GREETING:
       {
-        console.log('1step', values)
-        console.log(activeStep)
         setActiveStep((prevActiveStep) => prevActiveStep + 1)
         setFailedStep(Steps.NONE)
       }
       break
     case Steps.CONTACTS:
       {
-        console.log('2step', values)
-
-        const errors = await actions.validateForm(values.person)
+        const errors = await actions.validateForm()
         if (errors.person) {
+          setFailedStep(Steps.CONTACTS)
+          return
+        }
+        if (errors.status) {
           setFailedStep(Steps.CONTACTS)
           return
         }
@@ -44,14 +40,11 @@ export default async function stepsHandler({
       break
     case Steps.INFO:
       {
-        console.log('3step', values)
-
-        const errors = await actions.validateForm(values.info)
+        const errors = await actions.validateForm()
         if (errors.info) {
           setFailedStep(Steps.INFO)
           return
         }
-
         setActiveStep((prevActiveStep) => prevActiveStep + 1)
         setFailedStep(Steps.NONE)
       }

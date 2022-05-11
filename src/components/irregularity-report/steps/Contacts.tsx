@@ -14,14 +14,9 @@ import FormTextField from 'components/common/form/FormTextField'
 import Subtitle from '../helpers/Subtitle'
 
 const CssTextField = styled(FormTextField)({
-  // '& label': {
-  //   marginLeft: '8px',
-  // },
   '& .MuiOutlinedInput-root': {
     borderRadius: '50px',
-    // border: '1px solid #909090',
     height: '40px',
-    // margin: '7px',
   },
 })
 
@@ -36,7 +31,7 @@ export default function Contacts() {
           <Typography variant="body1" textAlign="justify">
             {t('steps.contacts.text')}
             <Link href={routes.privacyPolicy}>
-              <span>{t('steps.contacts.text-link')}</span>
+              <span>{t('steps.contacts.text-link') + '.'}</span>
             </Link>
           </Typography>
           <Typography visibility="hidden" variant="body1">

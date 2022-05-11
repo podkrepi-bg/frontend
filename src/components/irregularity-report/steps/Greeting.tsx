@@ -8,6 +8,8 @@ import theme from 'common/theme'
 import { useSession } from 'common/util/useSession'
 
 import Subtitle from '../helpers/Subtitle'
+import Link from 'components/common/Link'
+import { routes } from 'common/routes'
 
 const greetingStyles = {
   fontWeight: 'bold',
@@ -35,7 +37,13 @@ export default function Greeting() {
             <Typography variant="body1">{t('steps.greeting.text-info')}</Typography>
           </Grid>
           <Grid item>
-            <Typography variant="body1">{t('steps.greeting.text-description')}</Typography>
+            <Typography variant="body1" textAlign="justify">
+              {t('steps.greeting.text-description-first')}
+              <Link href={routes.campaigns.create}>
+                <span>{t('steps.greeting.text-link')}</span>
+              </Link>
+              {t('steps.greeting.text-description-second')}
+            </Typography>
           </Grid>
           <Grid item>
             <Typography variant="body1">{t('steps.greeting.text-thanks')}</Typography>

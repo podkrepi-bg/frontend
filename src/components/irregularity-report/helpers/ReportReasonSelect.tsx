@@ -27,7 +27,6 @@ export default function ReportReasonSelect({ name = 'info.reason' }) {
       variant="outlined"
       fullWidth
       onChange={handleChange}
-      // label=""
       label={t('reason.label')}
       error={Boolean(meta.error) && Boolean(meta.touched)}
       helperText={helperText}>

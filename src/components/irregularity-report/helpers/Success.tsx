@@ -42,6 +42,10 @@ export default function Success() {
   const classes = useStyles()
   const { t } = useTranslation('irregularity-report')
 
+  if (window) {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <Grid container spacing={7} className={classes.container}>
