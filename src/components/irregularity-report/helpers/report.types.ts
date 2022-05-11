@@ -45,7 +45,7 @@ export type PersonFormData = {
   firstName: string
   lastName: string
   email: string
-  phone: string
+  phone: string | undefined
 }
 
 export type InfoFormData = {
@@ -78,7 +78,17 @@ export type CampaignReportInput = {
   person: PersonFormData
   notifierType: NotifierTypes
   status: ReportStatus
-  reason: ReportReason | string | undefined
+  reason: ReportReason
+  reportContent: string | undefined
+}
+
+export type CampaignReportEditInput = {
+  campaignId: UUID
+  personId: UUID
+  person: PersonFormData
+  notifierType: NotifierTypes
+  status: ReportStatus
+  reason: ReportReason
   reportContent: string | undefined
 }
 
@@ -94,4 +104,22 @@ export type CampaignReportResponse = {
   reportContent: string | undefined
   campaign: CampaignResponse
   person: PersonResponse
+  reportFiles: CampaignReportFile[]
+}
+
+export type CampaignReportFile = {
+  id: UUID
+  filename: string
+  mimetype: string
+  campaignReportId: UUID
+  uploadedById: UUID
+}
+
+export type UploadCampaignReportFiles = {
+  campaignReportId: UUID
+  files: File[]
+}
+
+export type CampaignReportUploadImage = {
+  title: string
 }
