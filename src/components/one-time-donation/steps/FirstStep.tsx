@@ -29,7 +29,7 @@ export default function FirstStep() {
   ]
 
   const [paymentField] = useField('payment')
-  const { campaign } = useContext(StepsContext)!
+  const { campaign } = useContext(StepsContext)
   const bankAccountInfo = {
     owner: t('third-step.owner'),
     bank: t('third-step.bank'),
