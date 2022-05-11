@@ -16,18 +16,20 @@ const useStyles = makeStyles(() =>
       textAlign: 'center',
     },
     button: {
-      background: theme.palette.primary.main,
-      border: `2px solid ${theme.palette.primary.main}`,
-      borderRadius: '61px',
+      margin: 'auto',
       color: 'black',
-      marginTop: '1rem',
     },
     content: {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-around',
-      flexDirection: 'column',
+      flexDirection: 'row',
       marginBottom: '1rem',
+      paddingTop: '60px',
+      paddingBottom: '60px',
+      paddingLeft: '20vw',
+      paddingRight: '20vw',
+      backgroundColor: theme.palette.secondary.light,
     },
   }),
 )
@@ -46,7 +48,8 @@ export default function ReadyToStartCampaignSection() {
       <Grid item>
         <LinkButton
           href={routes.campaigns.create}
-          variant="outlined"
+          variant="contained"
+          color="primary"
           endIcon={<ChevronRightIcon />}
           className={classes.button}>
           {t('index:ready-to-start-campaign-section.button')}

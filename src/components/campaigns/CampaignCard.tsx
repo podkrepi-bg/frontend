@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
   cardWrapper: {
     position: 'relative',
     minHeight: theme.spacing(87),
-    backgroundColor: theme.palette.grey[200],
+    backgroundColor: theme.palette.secondary.light,
     border: 'none',
     borderRadius: 0,
   },
@@ -91,14 +91,6 @@ const useStyles = makeStyles((theme) => ({
   },
   supportNowButton: {
     padding: theme.spacing(1, 4),
-  },
-  seeMoreButton: {
-    backgroundColor: theme.palette.common.white,
-    padding: theme.spacing(1, 4),
-    border: `2px solid ${theme.palette.primary.main}`,
-    '&:hover': {
-      border: `2px solid ${theme.palette.primary.dark}`,
-    },
   },
   progressBar: {
     margin: theme.spacing(2.5),
@@ -178,7 +170,6 @@ export default function CampaignCard({ campaign }: Props) {
                 href={routes.campaigns.oneTimeDonation(campaign.slug)}
                 variant="contained"
                 color="secondary"
-                className={classes.supportNowButton}
                 endIcon={<Favorite color="error" />}>
                 {t('campaigns:cta.support-now')}
               </LinkButton>
@@ -188,8 +179,6 @@ export default function CampaignCard({ campaign }: Props) {
                 fullWidth
                 href={routes.campaigns.viewCampaignBySlug(campaign.slug)}
                 variant="outlined"
-                size="small"
-                className={classes.seeMoreButton}
                 endIcon={<ArrowForwardIosIcon />}>
                 {t('campaigns:cta.see-more')}
               </LinkButton>
