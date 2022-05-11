@@ -1,12 +1,9 @@
 import { createContext } from 'react'
 import { CampaignResponse } from 'gql/campaigns'
 
-export const StepsContext =
-  createContext<
-    | {
-        step: number
-        setStep: React.Dispatch<React.SetStateAction<number>>
-        campaign: CampaignResponse
-      }
-    | undefined
-  >(undefined)
+type Steps = {
+  step: number
+  setStep: React.Dispatch<React.SetStateAction<number>>
+  campaign: CampaignResponse
+}
+export const StepsContext = createContext<Steps>({} as Steps)

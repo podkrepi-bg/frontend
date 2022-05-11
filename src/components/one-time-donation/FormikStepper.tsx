@@ -32,7 +32,7 @@ export type GenericFormProps<T> = PropsWithChildren<FormikConfig<T>>
 
 export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDonation>) {
   const childrenArray = React.Children.toArray(children) as React.ReactElement<FormikStepProps>[]
-  const { step, setStep } = useContext(StepsContext)!
+  const { step, setStep } = useContext(StepsContext)
   const router = useRouter()
   useEffect(() => {
     router.query.success === 'false' || router.query.success === 'true' ? setStep(3) : null
