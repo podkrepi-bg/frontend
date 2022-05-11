@@ -9,6 +9,7 @@ import {
   NotifierTypes,
   ReportReason,
   ReportFormDataSteps,
+  ReportStatus,
 } from './report.types'
 
 const person: yup.SchemaOf<PersonFormData> = yup
@@ -26,7 +27,7 @@ const info: yup.SchemaOf<InfoFormData> = yup
   .shape({
     notifierType: yup.mixed().oneOf(Object.values(NotifierTypes)),
     reason: yup.mixed().oneOf(Object.values(ReportReason)),
-    content: yup.string().required(),
+    reportContent: yup.string().trim().min(5).max(500).required(),
   })
   .defined()
 
@@ -39,12 +40,11 @@ export const validationSchema: {
 } = {
   [Steps.NONE]: undefined,
   [Steps.GREETING]: undefined,
-  [Steps.CONTACTS]: undefined,
-  [Steps.INFO]: undefined,
-  // [Steps.CONTACTS]: yup.object().shape({
-  //   person: person.required(),
-  // }),
-  // [Steps.INFO]: yup.object().shape({
-  //   info: info.required(),
-  // }),
+  [Steps.CONTACTS]: yup.object().shape({
+    person: person.required(),
+    status: yup.mixed().oneOf(Object.values(ReportStatus)),
+  }),
+  [Steps.INFO]: yup.object().shape({
+    info: info.required(),
+  }),
 }
