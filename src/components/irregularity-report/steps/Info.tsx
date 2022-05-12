@@ -26,12 +26,12 @@ const CssTextField = styled(FormTextField)({
   },
 })
 
-// type Props = {
-//   files: File[]
-//   setFiles: (files: File[]) => void
-// }
+type Props = {
+  files: File[]
+  setFiles: React.Dispatch<React.SetStateAction<File[]>>
+}
 
-export default function Info({ files, setFiles }) {
+export default function Info({ files, setFiles }: Props) {
   const { t } = useTranslation('irregularity-report')
 
   return (
@@ -95,16 +95,16 @@ export default function Info({ files, setFiles }) {
           </Grid>
           <Grid container justifyContent="center">
             <FileUpload
-              onUpload={(newFiles: File[]) => {
+              onUpload={(newFiles) => {
                 setFiles((prevFiles: File[]) => [...prevFiles, ...newFiles])
               }}
               buttonLabel={t('cta.upload-files')}
             />
             <FileList
               files={files}
-              onDelete={(deletedFile: File) =>
+              onDelete={(deletedFile) =>
                 setFiles((prevFiles: File[]) =>
-                  prevFiles.filter((file) => file.name !== deletedFile.name),
+                  prevFiles.filter((file: File) => file.name !== deletedFile.name),
                 )
               }
             />
