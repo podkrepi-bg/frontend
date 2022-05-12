@@ -32,7 +32,7 @@ export default observer(function DeleteModal() {
     onSuccess: () => {
       hideDelete()
       AlertStore.show(t('admin.alerts.delete'), 'success')
-      queryClient.invalidateQueries(endpoints.support.campaignReportsList.url)
+      queryClient.invalidateQueries(endpoints.campaignReport.campaignReportsList.url)
       router.push(routes.admin.campaignReport.index)
     },
   })

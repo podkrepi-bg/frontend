@@ -13,7 +13,7 @@ import {
 export function useCampaignReportList() {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return useQuery<CampaignReportResponse[]>(
-    endpoints.support.campaignReportsList.url,
+    endpoints.campaignReport.campaignReportsList.url,
     authQueryFnFactory<CampaignReportResponse[]>(keycloak?.token),
   )
 }
@@ -21,7 +21,7 @@ export function useCampaignReportList() {
 export function useCampaignReport(id: string) {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return useQuery<CampaignReportResponse>(
-    endpoints.support.viewCampaignReport(id).url,
+    endpoints.campaignReport.viewCampaignReport(id).url,
     authQueryFnFactory<CampaignReportResponse>(keycloak?.token),
   )
 }

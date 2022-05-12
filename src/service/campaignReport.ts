@@ -17,7 +17,7 @@ import {
 
 export const createCampaignReport = async (data: CampaignReportInput) => {
   return await apiClient.post<CampaignReportInput, AxiosResponse<CampaignReportResponse>>(
-    endpoints.support.createCampaignReport.url,
+    endpoints.campaignReport.createCampaignReport.url,
     data,
   )
 }
@@ -26,7 +26,7 @@ export const editCampaignReport = (id: string) => {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return async (data: CampaignReportEditInput) => {
     return await apiClient.put<CampaignReportEditInput, AxiosResponse<CampaignReportResponse>>(
-      endpoints.support.editCampaignReport(id).url,
+      endpoints.campaignReport.editCampaignReport(id).url,
       data,
       authConfig(keycloak?.token),
     )
@@ -37,7 +37,7 @@ export const deleteCampaignReport = (id: string) => {
   const { keycloak } = useKeycloak<KeycloakInstance>()
   return async () => {
     return await apiClient.delete<CampaignReportResponse, AxiosResponse<CampaignReportResponse>>(
-      endpoints.support.removeCampaignReport(id).url,
+      endpoints.campaignReport.removeCampaignReport(id).url,
       authConfig(keycloak?.token),
     )
   }

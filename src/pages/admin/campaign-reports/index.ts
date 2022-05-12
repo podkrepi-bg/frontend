@@ -4,7 +4,7 @@ import CampaignReportPage from 'components/irregularity-report/admin/CampaignRep
 
 export const getServerSideProps = securedAdminProps(
   ['common', 'auth', 'validation', 'irregularity-report', 'admin'],
-  () => endpoints.support.campaignReportsList.url,
+  () => endpoints.campaignReport.campaignReportsList.url,
 )
 
 export default CampaignReportPage

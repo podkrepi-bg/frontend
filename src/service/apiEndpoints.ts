@@ -26,12 +26,6 @@ export const endpoints = {
     createSupportRequest: <Endpoint>{ url: '/support/create-request', method: 'POST' },
     supportRequestList: <Endpoint>{ url: '/support/support-request/list', method: 'GET' },
     infoRequestList: <Endpoint>{ url: '/support/info-request/list', method: 'GET' },
-    createCampaignReport: <Endpoint>{ url: '/support/create-report', method: 'POST' },
-    campaignReportsList: <Endpoint>{ url: '/support/reports/list', method: 'GET' },
-    viewCampaignReport: (id: string) => <Endpoint>{ url: `/support/report/${id}`, method: 'GET' },
-    editCampaignReport: (id: string) => <Endpoint>{ url: `/support/report/${id}`, method: 'PUT' },
-    removeCampaignReport: (id: string) =>
-      <Endpoint>{ url: `/support/report/${id}`, method: 'DELETE' },
   },
   donation: {
     prices: <Endpoint>{ url: '/donation/prices', method: 'GET' },
@@ -161,5 +155,13 @@ export const endpoints = {
       <Endpoint>{ url: `/report-file/list/${campaignReportId}`, method: 'GET' },
     deleteCampaignReportFile: (id: string) =>
       <Endpoint>{ url: `/report-file/${id}`, method: 'DELETE' },
+  },
+  campaignReport: {
+    createCampaignReport: <Endpoint>{ url: '/campaign-report', method: 'POST' },
+    campaignReportsList: <Endpoint>{ url: '/campaign-report/list', method: 'GET' },
+    viewCampaignReport: (id: string) => <Endpoint>{ url: `/campaign-report/${id}`, method: 'GET' },
+    editCampaignReport: (id: string) => <Endpoint>{ url: `/campaign-report/${id}`, method: 'PUT' },
+    removeCampaignReport: (id: string) =>
+      <Endpoint>{ url: `/campaign-report/${id}`, method: 'DELETE' },
   },
 }

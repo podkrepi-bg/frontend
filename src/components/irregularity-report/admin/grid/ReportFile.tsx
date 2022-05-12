@@ -34,7 +34,7 @@ export default function ReportFile({ file, reportId }: Props) {
     onError: () => AlertStore.show(t('admin.alerts.error'), 'error'),
     onSuccess: () => {
       AlertStore.show(t('admin.alerts.delete-file'), 'success')
-      queryClient.invalidateQueries(endpoints.support.viewCampaignReport(reportId).url)
+      queryClient.invalidateQueries(endpoints.campaignReport.viewCampaignReport(reportId).url)
       router.push(routes.admin.campaignReport.index)
     },
   })

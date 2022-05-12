@@ -138,7 +138,7 @@ export default function EditForm({ campaigns, report, reportFiles }: Props) {
         campaignReportId: report.id,
       })
       AlertStore.show(t('common:alerts.message-sent'), 'success')
-      queryClient.invalidateQueries(endpoints.support.viewCampaignReport(report.id).url)
+      queryClient.invalidateQueries(endpoints.campaignReport.viewCampaignReport(report.id).url)
       router.push(routes.admin.campaignReport.index)
     } catch (error) {
       AlertStore.show(t('common:alerts.error'), 'error')
