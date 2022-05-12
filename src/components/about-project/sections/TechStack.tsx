@@ -1,15 +1,52 @@
 import { useTranslation } from 'next-i18next'
 
+import { styled } from '@mui/material/styles'
+
 import Heading from 'components/common/Heading'
 
-import { Box, Grid, Theme, Typography } from '@mui/material'
+import { Box, Grid, Typography } from '@mui/material'
 import JoinLeftIcon from '@mui/icons-material/JoinLeft'
 import ImportantDevicesIcon from '@mui/icons-material/ImportantDevices'
 import SettingsIcon from '@mui/icons-material/Settings'
 import CheckIcon from '@mui/icons-material/Check'
 
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
+const PREFIX = 'TechStack'
+
+const classes = {
+  heading: `${PREFIX}-heading`,
+  list: `${PREFIX}-list`,
+  listItem: `${PREFIX}-listItem`,
+  categoryWrapper: `${PREFIX}-categoryWrapper`,
+  categoryTitle: `${PREFIX}-categoryTitle`,
+}
+
+const StyledBox = styled(Box)(({ theme }) => ({
+  [`& .${classes.heading}`]: {
+    paddingTop: theme.spacing(10),
+    paddingBottom: theme.spacing(7),
+  },
+
+  [`& .${classes.list}`]: {
+    margin: '0 auto',
+  },
+
+  [`& .${classes.listItem}`]: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(1.5),
+  },
+
+  [`& .${classes.categoryWrapper}`]: {
+    marginBottom: theme.spacing(6),
+    '&:nth-of-type(3)': {
+      marginBottom: 0,
+    },
+  },
+
+  [`& .${classes.categoryTitle}`]: {
+    fontWeight: 600,
+  },
+}))
 
 const rows = [
   {
@@ -46,37 +83,11 @@ const rows = [
   },
 ]
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    heading: {
-      paddingTop: theme.spacing(10),
-      paddingBottom: theme.spacing(7),
-    },
-    list: {
-      margin: '0 auto',
-    },
-    listItem: {
-      display: 'flex',
-      alignItems: 'center',
-      gap: theme.spacing(1.5),
-    },
-    categoryWrapper: {
-      marginBottom: theme.spacing(6),
-      '&:nth-of-type(3)': {
-        marginBottom: 0,
-      },
-    },
-    categoryTitle: {
-      fontWeight: 600,
-    },
-  }),
-)
-
 export default function TechStack() {
   const { t } = useTranslation()
-  const classes = useStyles()
+
   return (
-    <Box my={'5rem'}>
+    <StyledBox my={'5rem'}>
       <Heading
         id="tech-stack"
         variant="h3"
@@ -108,6 +119,6 @@ export default function TechStack() {
           ))}
         </Grid>
       </Grid>
-    </Box>
+    </StyledBox>
   )
 }

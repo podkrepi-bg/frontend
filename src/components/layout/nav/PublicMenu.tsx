@@ -1,38 +1,42 @@
 import React, { useState } from 'react'
+import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import { AccountCircle } from '@mui/icons-material'
-import { Grid, IconButton, Menu, Typography, Theme, lighten } from '@mui/material'
+import { Grid, IconButton, Menu, Typography, lighten } from '@mui/material'
 
 import { routes } from 'common/routes'
 import LinkMenuItem from 'components/common/LinkMenuItem'
 
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import theme from 'common/theme'
 import { useSession } from 'next-auth/react'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    dropdownLinkButton: {
-      '&:hover': {
-        backgroundColor: lighten(theme.palette.primary.main, 0.9),
-      },
+const PREFIX = 'PublicMenu'
+
+const classes = {
+  dropdownLinkButton: `${PREFIX}-dropdownLinkButton`,
+  dropdownLinkText: `${PREFIX}-dropdownLinkText`,
+}
+
+const StyledGrid = styled(Grid)(({ theme }) => ({
+  [`& .${classes.dropdownLinkButton}`]: {
+    '&:hover': {
+      backgroundColor: lighten(theme.palette.primary.main, 0.9),
     },
-    dropdownLinkText: {
-      color: theme.palette.primary.dark,
-      width: '100%',
-      '&:hover': {
-        color: theme.palette.primary.main,
-      },
+  },
+
+  [`& .${classes.dropdownLinkText}`]: {
+    color: theme.palette.primary.dark,
+    width: '100%',
+    '&:hover': {
+      color: theme.palette.primary.main,
     },
-  }),
-)
+  },
+}))
 
 export default function PublicMenu() {
   const { t } = useTranslation()
   const { data: session } = useSession()
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
-  const classes = useStyles()
 
   const handleMenu = (event: React.MouseEvent) => setAnchorEl(event.currentTarget)
   const handleClose = () => setAnchorEl(null)
@@ -42,7 +46,7 @@ export default function PublicMenu() {
   }
 
   return (
-    <Grid item>
+    <StyledGrid item>
       <IconButton onClick={handleMenu} size="large">
         <AccountCircle sx={{ fill: theme.palette.info.light }} />
       </IconButton>
@@ -65,6 +69,6 @@ export default function PublicMenu() {
           </Typography>
         </LinkMenuItem>
       </Menu>
-    </Grid>
+    </StyledGrid>
   )
 }

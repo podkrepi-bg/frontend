@@ -1,9 +1,8 @@
 import React from 'react'
+import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import CheckIcon from '@mui/icons-material/Check'
-import { Grid, Theme, Typography } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
+import { Grid, Typography } from '@mui/material'
 import { staticUrls } from 'common/routes'
 import ExternalLink from 'components/common/ExternalLink'
 import Heading from 'components/common/Heading'
@@ -14,36 +13,48 @@ import VolunteersIcon from '../icons/VolunteersIcon'
 import InvestedHoursIcon from '../icons/InvestedHoursIcon'
 import { BankAccount } from '../../common/BankAccount'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    heading: {
-      paddingTop: theme.spacing(10),
-      paddingBottom: theme.spacing(7),
+const PREFIX = 'WhatIsDone'
+
+const classes = {
+  heading: `${PREFIX}-heading`,
+  container: `${PREFIX}-container`,
+  icons: `${PREFIX}-icons`,
+  list: `${PREFIX}-list`,
+  checkedLine: `${PREFIX}-checkedLine`,
+}
+
+const StyledGrid = styled(Grid)(({ theme }) => ({
+  [`& .${classes.heading}`]: {
+    paddingTop: theme.spacing(10),
+    paddingBottom: theme.spacing(7),
+  },
+
+  [`& .${classes.container}`]: {
+    marginBottom: theme.spacing(12),
+    textAlign: 'center',
+  },
+
+  [`& .${classes.icons}`]: {
+    marginBottom: theme.spacing(5),
+  },
+
+  [`& .${classes.list}`]: {
+    padding: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    '& span': {
+      textAlign: 'start',
     },
-    container: {
-      marginBottom: theme.spacing(12),
-      textAlign: 'center',
+  },
+
+  [`&.${classes.checkedLine}`]: {
+    display: 'flex',
+    marginBottom: theme.spacing(1.5),
+    marginRight: theme.spacing(2),
+    '& span': {
+      marginLeft: theme.spacing(1.5),
     },
-    icons: {
-      marginBottom: theme.spacing(5),
-    },
-    list: {
-      padding: theme.spacing(1),
-      marginRight: theme.spacing(1),
-      '& span': {
-        textAlign: 'start',
-      },
-    },
-    checkedLine: {
-      display: 'flex',
-      marginBottom: theme.spacing(1.5),
-      marginRight: theme.spacing(2),
-      '& span': {
-        marginLeft: theme.spacing(1.5),
-      },
-    },
-  }),
-)
+  },
+}))
 
 type CheckedLineProps = {
   label: string | React.ReactNode
@@ -52,9 +63,9 @@ type CheckedLineProps = {
 
 const CheckedLine = ({ label, href }: CheckedLineProps) => {
   const { t } = useTranslation()
-  const classes = useStyles()
+
   return (
-    <Grid item className={classes.checkedLine}>
+    <StyledGrid item className={classes.checkedLine}>
       <CheckIcon />
       <Typography variant="body2" component="span">
         {typeof label === 'string' ? t(label) : label}{' '}
@@ -64,7 +75,7 @@ const CheckedLine = ({ label, href }: CheckedLineProps) => {
           </ExternalLink>
         )}
       </Typography>
-    </Grid>
+    </StyledGrid>
   )
 }
 
@@ -113,7 +124,6 @@ const rightColumnLabels: CheckedLineProps[] = [
 
 export default function WhatIsDone() {
   const { t } = useTranslation()
-  const classes = useStyles()
 
   return (
     <Grid container direction="column" component="section" className={classes.container}>

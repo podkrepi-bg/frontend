@@ -1,5 +1,5 @@
 import React from 'react'
-import makeStyles from '@mui/styles/makeStyles'
+import { styled } from '@mui/material/styles'
 import clsx from 'clsx'
 
 import GroupAddIcon from '@mui/icons-material/GroupAdd'
@@ -9,8 +9,16 @@ import { AccessibilityNew } from '@mui/icons-material'
 import MailIcon from '@mui/icons-material/Mail'
 import HelpIcon from '@mui/icons-material/Help'
 
-const useStepIconStyles = makeStyles({
-  root: {
+const PREFIX = 'StepperIcon'
+
+const classes = {
+  root: `${PREFIX}-root`,
+  active: `${PREFIX}-active`,
+  completed: `${PREFIX}-completed`,
+}
+
+const Root = styled('div')({
+  [`&.${classes.root}`]: {
     alignItems: 'center',
     backgroundColor: '#ccc',
     borderRadius: '50%',
@@ -22,18 +30,17 @@ const useStepIconStyles = makeStyles({
     zIndex: 1,
   },
 
-  active: {
+  [`&.${classes.active}`]: {
     backgroundImage: 'linear-gradient(136deg, #4AC3FF 0%, #29a2df 50%, #1b88be 100%)',
     boxShadow: '0 4px 10px 0 rgba(0, 0, 0, 0.25)',
   },
 
-  completed: {
+  [`&.${classes.completed}`]: {
     backgroundImage: 'linear-gradient(136deg, #4AC3FF 0%, #29a2df 50%, #1b88be 100%)',
   },
 })
 
 export default function StepIcon(props: StepIconProps) {
-  const classes = useStepIconStyles()
   const { active, completed } = props
 
   const icons: { [index: string]: React.ReactElement } = {
@@ -45,12 +52,12 @@ export default function StepIcon(props: StepIconProps) {
   }
 
   return (
-    <div
+    <Root
       className={clsx(classes.root, {
         [classes.active]: active,
         [classes.completed]: completed,
       })}>
       {icons[String(props.icon)]}
-    </div>
+    </Root>
   )
 }

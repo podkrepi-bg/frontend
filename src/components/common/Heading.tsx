@@ -1,26 +1,32 @@
 import { PropsWithChildren, useState } from 'react'
 
-import { Theme, Typography, TypographyProps } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
+import { styled } from '@mui/material/styles'
+
+import { Typography, TypographyProps } from '@mui/material'
 import LinkIcon from '@mui/icons-material/Link'
 
 import LinkIconButton from 'components/common/LinkIconButton'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    linkIcon: {
-      transform: 'rotate(-45deg)',
-      color: theme.palette.primary.main,
-      '&:hover': {
-        color: theme.palette.primary.dark,
-      },
+const PREFIX = 'Heading'
+
+const classes = {
+  linkIcon: `${PREFIX}-linkIcon`,
+  hideLinkIcon: `${PREFIX}-hideLinkIcon`,
+}
+
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.linkIcon}`]: {
+    transform: 'rotate(-45deg)',
+    color: theme.palette.primary.main,
+    '&:hover': {
+      color: theme.palette.primary.dark,
     },
-    hideLinkIcon: {
-      visibility: 'hidden',
-    },
-  }),
-)
+  },
+
+  [`& .${classes.hideLinkIcon}`]: {
+    visibility: 'hidden',
+  },
+}))
 
 type Linkable =
   | {
@@ -35,10 +41,9 @@ type HeadingParams = PropsWithChildren<TypographyProps & Linkable> & {
 
 export default function Heading({ children, id, linkable, ...props }: HeadingParams) {
   const [linkIconIsShown, setlinkIconIsShown] = useState(false)
-  const classes = useStyles()
 
   return (
-    <div
+    <Root
       id={id}
       onMouseEnter={() => setlinkIconIsShown(true)}
       onMouseLeave={() => setlinkIconIsShown(false)}>
@@ -50,6 +55,6 @@ export default function Heading({ children, id, linkable, ...props }: HeadingPar
           </LinkIconButton>
         )}
       </Typography>
-    </div>
+    </Root>
   )
 }

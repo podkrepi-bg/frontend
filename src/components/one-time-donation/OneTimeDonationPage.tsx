@@ -1,7 +1,6 @@
 import Image from 'next/image'
-import { Box, Grid, Theme, Typography, useMediaQuery } from '@mui/material'
-import { makeStyles } from '@mui/styles'
-import createStyles from '@mui/styles/createStyles'
+import { styled } from '@mui/material/styles'
+import { Box, Grid, Typography, useMediaQuery } from '@mui/material'
 import Layout from 'components/layout/Layout'
 import { useViewCampaign } from 'common/hooks/campaigns'
 import theme from 'common/theme'
@@ -12,41 +11,52 @@ import {
 import NotFoundPage from 'pages/404'
 import DonationStepper from './Steps'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    bannerWrapper: {
-      '& span': {
-        position: 'inherit !important',
-      },
+const PREFIX = 'OneTimeDonationPage'
+
+const classes = {
+  bannerWrapper: `${PREFIX}-bannerWrapper`,
+  banner: `${PREFIX}-banner`,
+  beneficiaryAvatarWrapper: `${PREFIX}-beneficiaryAvatarWrapper`,
+  beneficiaryAvatar: `${PREFIX}-beneficiaryAvatar`,
+  stepperWrapper: `${PREFIX}-stepperWrapper`,
+}
+
+const StyledLayout = styled(Layout)(({ theme }) => ({
+  [`& .${classes.bannerWrapper}`]: {
+    '& span': {
+      position: 'inherit !important',
     },
-    banner: {
-      zIndex: -1,
-      minHeight: '350px !important',
-      marginTop: `${theme.spacing(10)} !important`,
-      [theme.breakpoints.up('md')]: {
-        marginTop: `${theme.spacing(14)} !important`,
-      },
+  },
+
+  [`& .${classes.banner}`]: {
+    zIndex: -1,
+    minHeight: '350px !important',
+    marginTop: `${theme.spacing(10)} !important`,
+    [theme.breakpoints.up('md')]: {
+      marginTop: `${theme.spacing(14)} !important`,
     },
-    beneficiaryAvatarWrapper: {
+  },
+
+  [`& .${classes.beneficiaryAvatarWrapper}`]: {
+    textAlign: 'center',
+    [theme.breakpoints.up('md')]: {
       textAlign: 'center',
-      [theme.breakpoints.up('md')]: {
-        textAlign: 'center',
-      },
     },
-    beneficiaryAvatar: {
-      borderRadius: '50%',
-      border: `4px solid ${theme.palette.common.white} !important`,
-      textAlign: 'center',
-    },
-    stepperWrapper: {
-      gap: theme.spacing(2),
-      display: 'grid',
-    },
-  }),
-)
+  },
+
+  [`& .${classes.beneficiaryAvatar}`]: {
+    borderRadius: '50%',
+    border: `4px solid ${theme.palette.common.white} !important`,
+    textAlign: 'center',
+  },
+
+  [`& .${classes.stepperWrapper}`]: {
+    gap: theme.spacing(2),
+    display: 'grid',
+  },
+}))
 
 export default function OneTimeDonation({ slug }: { slug: string }) {
-  const classes = useStyles()
   const { data } = useViewCampaign(slug)
   if (!data || !data.campaign) return <NotFoundPage />
   const { campaign } = data
@@ -55,7 +65,7 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
   const bannerSource = backgroundCampaignPictureUrl(campaign)
   const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
   return (
-    <Layout maxWidth={false}>
+    <StyledLayout maxWidth={false}>
       <Grid
         container
         component="section"
@@ -94,6 +104,6 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
           <DonationStepper />
         </Grid>
       </Grid>
-    </Layout>
+    </StyledLayout>
   )
 }

@@ -1,25 +1,26 @@
-import { Theme } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import { styled } from '@mui/material/styles'
 import Image from 'next/image'
 
 import { socialUrls } from 'common/routes'
 import ExternalLink from 'components/common/ExternalLink'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    teamImage: {
-      maxWidth: '100%',
-      marginTop: theme.spacing(3),
-      padding: theme.spacing(0, 2),
-    },
-  }),
-)
+const PREFIX = 'DiscordImage'
+
+const classes = {
+  teamImage: `${PREFIX}-teamImage`,
+}
+
+const StyledExternalLink = styled(ExternalLink)(({ theme }) => ({
+  [`& .${classes.teamImage}`]: {
+    maxWidth: '100%',
+    marginTop: theme.spacing(3),
+    padding: theme.spacing(0, 2),
+  },
+}))
 
 export default function DiscordImage() {
-  const classes = useStyles()
   return (
-    <ExternalLink href={socialUrls.discord} textAlign="center" display="block">
+    <StyledExternalLink href={socialUrls.discord} textAlign="center" display="block">
       <div className={classes.teamImage}>
         <Image
           src="/img/discord-team-image.png"
@@ -29,6 +30,6 @@ export default function DiscordImage() {
           objectFit="contain"
         />
       </div>
-    </ExternalLink>
+    </StyledExternalLink>
   )
 }

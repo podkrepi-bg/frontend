@@ -67,7 +67,7 @@ export default function Layout({
           <AppNavBar navMenuToggle={navMenuToggle} />
           <MobileNav mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
           {!disableOffset && (
-            <div
+            <Box
               sx={(theme) => ({
                 ...theme.mixins.toolbar,
                 marginBottom: theme.spacing(6),

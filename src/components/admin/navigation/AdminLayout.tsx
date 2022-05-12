@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useMemo } from 'react'
-import { makeStyles, useTheme } from '@mui/styles'
+import { useTheme } from '@mui/styles'
 import MuiDrawer from '@mui/material/Drawer'
 import { styled, Theme, CSSObject } from '@mui/material/styles'
 import { CssBaseline, IconButton, List, Box, Button, Typography } from '@mui/material'
@@ -14,15 +14,22 @@ import PanelFooter from './PanelFooter'
 import CustomListItem from './CustomListItem'
 import { AdminAppBar } from './AdminAppBar'
 
+const PREFIX = 'AdminLayout'
 const drawerWidth = 200
-const useStyles = makeStyles({
-  wrapper: {
+
+const classes = {
+  wrapper: `${PREFIX}-wrapper`,
+  appbarHeader: `${PREFIX}-appbarHeader`,
+}
+
+const StyledBox = styled(Box)({
+  [`&.${classes.wrapper}`]: {
     display: 'flex',
     position: 'relative',
     minHeight: '100vh',
     paddingRight: '24px',
   },
-  appbarHeader: {
+  [`& .${classes.appbarHeader}`]: {
     width: `calc(100% - ${drawerWidth}px)`,
     height: 64,
     marginLeft: '6rem',
@@ -55,8 +62,8 @@ const closedMixin = (theme: Theme): CSSObject => ({
   },
 })
 
-// @ts-expect-error bad MUI types for styled.div
-const DrawerHeader = styled('div')(({ theme }: { theme: Theme }) => ({
+// @ts-expect-error bad MUI types for mixins.toolbar
+const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
@@ -88,7 +95,6 @@ type Props = {
 
 export default function AdminLayout({ children }: Props) {
   const theme = useTheme()
-  const classes = useStyles()
 
   const initialOpen = useMemo<boolean>(() => {
     const item = window.localStorage.getItem('menu-open')
@@ -106,7 +112,7 @@ export default function AdminLayout({ children }: Props) {
 
   const toggleMenu = useCallback(() => setOpen((open) => !open), [])
   return (
-    <Box className={classes.wrapper}>
+    <StyledBox className={classes.wrapper}>
       <CssBaseline />
       <AdminAppBar isOpen={open}>
         <Box className={classes.appbarHeader}>
@@ -144,6 +150,6 @@ export default function AdminLayout({ children }: Props) {
         <Typography color="white">{'Вие сте логнат като администратор'}</Typography>
       </PanelFooter>
       <Snackbar />
-    </Box>
+    </StyledBox>
   )
 }

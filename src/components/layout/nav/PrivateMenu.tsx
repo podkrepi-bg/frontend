@@ -1,37 +1,42 @@
 import React, { useState } from 'react'
+import { styled } from '@mui/material/styles'
 import { useSession } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
 import { AccountCircle } from '@mui/icons-material'
-import { Avatar, Grid, IconButton, lighten, Menu, Theme, Typography } from '@mui/material'
-import { createStyles, makeStyles } from '@mui/styles'
+import { Avatar, Grid, IconButton, lighten, Menu, Typography } from '@mui/material'
 
 import theme from 'common/theme'
 import { routes } from 'common/routes'
 import { isAdmin } from 'common/util/roles'
 import LinkMenuItem from 'components/common/LinkMenuItem'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    dropdownLinkButton: {
-      '&:hover': {
-        backgroundColor: lighten(theme.palette.primary.main, 0.9),
-      },
+const PREFIX = 'PrivateMenu'
+
+const classes = {
+  dropdownLinkButton: `${PREFIX}-dropdownLinkButton`,
+  dropdownLinkText: `${PREFIX}-dropdownLinkText`,
+}
+
+const StyledGrid = styled(Grid)(({ theme }) => ({
+  [`& .${classes.dropdownLinkButton}`]: {
+    '&:hover': {
+      backgroundColor: lighten(theme.palette.primary.main, 0.9),
     },
-    dropdownLinkText: {
-      color: theme.palette.primary.dark,
-      width: '100%',
-      '&:hover': {
-        color: theme.palette.primary.main,
-      },
+  },
+
+  [`& .${classes.dropdownLinkText}`]: {
+    color: theme.palette.primary.dark,
+    width: '100%',
+    '&:hover': {
+      color: theme.palette.primary.main,
     },
-  }),
-)
+  },
+}))
 
 export default function PrivateMenu() {
   const { t } = useTranslation()
   const { data: session, status } = useSession()
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
-  const classes = useStyles()
 
   const handleMenu = (event: React.MouseEvent) => setAnchorEl(event.currentTarget)
   const handleClose = () => setAnchorEl(null)
@@ -42,7 +47,7 @@ export default function PrivateMenu() {
 
   const title = `${session.name}\n(${session.email})`
   return (
-    <Grid item>
+    <StyledGrid item>
       <IconButton onClick={handleMenu} size="large">
         {session?.user?.picture ? (
           <Avatar title={title} alt={title} src={session?.user?.picture} />
@@ -70,6 +75,6 @@ export default function PrivateMenu() {
           <Typography variant="button">{t('nav.logout')}</Typography>
         </LinkMenuItem>
       </Menu>
-    </Grid>
+    </StyledGrid>
   )
 }

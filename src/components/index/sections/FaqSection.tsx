@@ -1,5 +1,5 @@
-import { Container, Grid, Theme } from '@mui/material'
-import { createStyles, makeStyles } from '@mui/styles'
+import { Container, Grid } from '@mui/material'
+import { styled } from '@mui/material/styles'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { useTranslation } from 'next-i18next'
 import theme from 'common/theme'
@@ -10,29 +10,36 @@ import * as data from '../../faq/contents'
 import Heading from 'components/common/Heading'
 import ExpandableListItem from 'components/faq/ExpandableListItem'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    heading: {
-      paddingBottom: theme.spacing(10),
-      color: theme.palette.primary.dark,
-      textAlign: 'center',
-      fontFamily: 'Montserrat',
-    },
-    container: {
-      marginBottom: theme.spacing(12),
-    },
-    graphic: {
-      marginTop: theme.spacing(5),
-    },
-  }),
-)
+const PREFIX = 'FaqSection'
+
+const classes = {
+  heading: `${PREFIX}-heading`,
+  container: `${PREFIX}-container`,
+  graphic: `${PREFIX}-graphic`,
+}
+
+const StyledContainer = styled(Container)(({ theme }) => ({
+  [`& .${classes.heading}`]: {
+    paddingBottom: theme.spacing(10),
+    color: theme.palette.primary.dark,
+    textAlign: 'center',
+    fontFamily: 'Montserrat',
+  },
+
+  [`& .${classes.container}`]: {
+    marginBottom: theme.spacing(12),
+  },
+
+  [`& .${classes.graphic}`]: {
+    marginTop: theme.spacing(5),
+  },
+}))
 
 export default function FaqSection() {
   const { t } = useTranslation()
-  const classes = useStyles()
 
   return (
-    <Container maxWidth="md">
+    <StyledContainer maxWidth="md">
       <Heading id="what-we-do" variant="h4" component="h2" className={classes.heading}>
         {t('common:nav.campaigns.faq')}
       </Heading>
@@ -52,6 +59,6 @@ export default function FaqSection() {
           {t('index:campaign.see-all')}
         </LinkButton>
       </Grid>
-    </Container>
+    </StyledContainer>
   )
 }

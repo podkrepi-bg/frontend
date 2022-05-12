@@ -1,36 +1,11 @@
 import React from 'react'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
-import { Grid, Hidden, Theme, Typography } from '@mui/material'
-
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    heading: {
-      marginBottom: theme.spacing(5),
-      color: theme.palette.primary.dark,
-      fontSize: theme.typography.pxToRem(40),
-    },
-    container: {
-      marginBottom: theme.spacing(12),
-      textAlign: 'center',
-    },
-    content: {
-      fontSize: theme.typography.pxToRem(17.6),
-      marginBottom: theme.spacing(5),
-    },
-    graphic: {
-      height: theme.spacing(27),
-      width: theme.spacing(116),
-    },
-  }),
-)
+import { Grid, Hidden, Typography } from '@mui/material'
 
 export default function AboutPlatform() {
   const { t, i18n } = useTranslation()
-  const classes = useStyles()
+
   return (
     <Grid
       container
@@ -38,9 +13,15 @@ export default function AboutPlatform() {
       direction="column"
       component="section"
       alignContent="center"
-      className={classes.container}>
+      sx={{ mb: 12, textAlign: 'center' }}>
       <Grid item>
-        <Typography variant="h5" component="p" className={classes.content}>
+        <Typography
+          variant="h5"
+          component="p"
+          sx={(theme) => ({
+            fontSize: theme.typography.pxToRem(17.6),
+            mb: 5,
+          })}>
           {t('about-project:aboutPlatformDescription')}
         </Typography>
       </Grid>
