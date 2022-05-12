@@ -1,6 +1,7 @@
 import type { Currency } from './currency'
 import { Stripe } from 'stripe'
 import { UUID } from './types'
+import * as yup from 'yup'
 
 export type DonationPrice = Stripe.Price
 
@@ -43,6 +44,17 @@ export type DonationInput = {
   extPaymentIntentId: string
   extPaymentMethodId: string
   // personId: UUID
+}
+export type DonationBankInput = {
+  currency: string
+  amount: number
+  targetVaultId?: UUID
+  extPaymentIntentId?: string
+  extPaymentMethodId?: string
+  personsEmail: string
+  personsFirstName: string
+  personsLastName: string
+  personsPhone: string
 }
 
 enum DonationType {
@@ -90,4 +102,40 @@ export type UserDonation = {
 export type UserDonationResult = {
   donations: UserDonation[]
   total: number
+}
+
+export type OneTimeDonation = {
+  message?: string
+  anonymous: boolean
+  amount: string
+  anonymousDonation: boolean
+  personFirstName: string
+  personLastName: string
+  personEmail: string
+  personPhone: string
+  payment?: 'bank' | 'card'
+}
+
+export type DonationStep = {
+  label: string
+  component: JSX.Element
+  validate: yup.SchemaOf
+}
+
+export type FirstStep = {
+  payment: string
+  amount?: string
+}
+
+export type SecondStep = {
+  anonymousDonation?: boolean
+  personsFirstName?: string
+  personsLastName?: string
+  personsPhone?: string
+  personsEmail: string
+}
+
+export type ThirdStep = {
+  message?: string
+  anonymous: boolean
 }

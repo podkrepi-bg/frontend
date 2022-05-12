@@ -1,0 +1,60 @@
+{
+  "anonymous-menu": {
+    "checkbox-label": "Donate without registering",
+    "info-start": "For us to be sure that the donation will go to the right beneficient we would like to access your personal data. Your data would not be visible on the platform. Your certificate would be sent by email. You would not be able to see accountability and reporting",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "phone": "Telephone",
+    "info-end": "Your data would not be shared with anyone"
+  },
+  "first-step": {
+    "wish": "Would you like to wish something to the beneficiary:",
+    "message": "Your wish",
+    "check-box-label": "Anonymous donation",
+    "info-anonymous": "Anonymous donation means that the organisator and beneficiery would not be aware of your identity",
+    "amount": "How much would you like to donate?"
+  },
+  "second-step": {
+    "login": "Log in",
+    "password": "Password",
+    "checkbox-label": "Remember me",
+    "btn-login": "Log in",
+    "new-create": "Or",
+    "new-create-profile": "Create new profile"
+  },
+  "success": {
+    "title": "We thank you for your help and trust!",
+    "subtitle": "Your donation would help the campaign get to it's target sooner!",
+    "share-to": "Please share the message of this campaign so that it reaches more people",
+    "btn-generate": "Generate a certificate",
+    "btn-say-to-us": "Tell us what you think",
+    "btn-other-campaign": "See more campaigns"
+  },
+  "third-step": {
+    "title": "How would you like to pay",
+    "card": "Card",
+    "bank-payment": "Bank transfer",
+    "bank-details": "Details of our bank account:",
+    "btn-copy": "Copy",
+    "owner": "Сдружение Подкрепи БГ",
+    "bank": "Unicredit Bulbank",
+    "reason-donation": "For reason for transfer write",
+    "message-warning": "If you do not write the reason correctly we would not be able to distribute the money correctly"
+  },
+  "fail": {
+    "title": "Unfortunately there was a problem!",
+    "subtitle": "The transaction could not be done. The reasons for that many, including a problem with your internet connection.",
+    "btn-again": "Try again",
+    "btn-connect": "Contact us"
+  },
+  "errors-fields": {
+    "checkbox-anonymous": "Please select an option for anonymous donation or donation without registering if you would like to continue!",
+    "bank-payment": "We are sorry for the inconvenience, but you can currently donate only through a bank transfer",
+    "amount": "Please select the amount you would like to donate!"
+  },
+  "btns": {
+    "back": "Back",
+    "next": "Next",
+    "end": "Finish"
+  }
+}
