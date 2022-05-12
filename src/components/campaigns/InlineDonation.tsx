@@ -1,9 +1,9 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
-import { baseUrl, routes } from 'common/routes'
+import { routes } from 'common/routes'
 import { money } from 'common/util/money'
-import { useSinglePriceList, useDonationSession } from 'common/hooks/donation'
+import { useSinglePriceList } from 'common/hooks/donation'
 import LinkButton from 'components/common/LinkButton'
 import CampaignProgress from './CampaignProgress'
 import DonorsAndDonations from './DonorsAndDonations'
@@ -22,6 +22,7 @@ import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 import { useCampaignDonationHistory } from 'common/hooks/campaigns'
 import theme from 'common/theme'
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -56,7 +57,7 @@ type Props = {
 export default function InlineDonation({ campaign }: Props) {
   const classes = useStyles()
   const { t } = useTranslation()
-
+  const router = useRouter()
   const [showDonationPriceList, setDonationPriceList] = useState(false)
   const onClick = () => setDonationPriceList(true)
 
@@ -70,25 +71,6 @@ export default function InlineDonation({ campaign }: Props) {
     error: donationHistoryError,
     isLoading: isDonationHistoryLoading,
   } = useCampaignDonationHistory(campaign.id)
-  const mutation = useDonationSession()
-
-  const donate = useCallback(
-    async (priceId: string) => {
-      const { data } = await mutation.mutateAsync({
-        mode: 'payment',
-        priceId,
-        campaignId: campaign.id,
-        successUrl: `${baseUrl}${routes.campaigns.viewCampaignBySlug(campaign.slug)}`,
-        cancelUrl: `${baseUrl}${routes.campaigns.viewCampaignBySlug(campaign.slug)}`,
-      })
-      console.log(data)
-      console.log(data.session.url)
-      if (data.session.url) {
-        window.location.href = data.session.url
-      }
-    },
-    [mutation],
-  )
 
   const sortedPrices = useMemo(() => {
     if (!prices) return []
@@ -142,7 +124,14 @@ export default function InlineDonation({ campaign }: Props) {
               return (
                 <ListItem button key={index}>
                   <ListItemText
-                    onClick={() => donate(price.id)}
+                    onClick={() =>
+                      router.push({
+                        pathname: routes.campaigns.oneTimeDonation(campaign.slug),
+                        query: {
+                          price: price.id,
+                        },
+                      })
+                    }
                     primary={`${(price.unit_amount ?? 100) / 100} лв.`}
                     secondary={price.metadata.title}
                   />
