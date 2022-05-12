@@ -10,7 +10,9 @@ type MemberCardProps = {
 
 export default function MemberCard({ info }: MemberCardProps) {
   return (
-    <Card sx={{ maxWidth: 320 }} style={{ backgroundColor: theme.palette.secondary.light }}>
+    <Card
+      sx={{ maxWidth: 320, margin: '0 auto' }}
+      style={{ backgroundColor: theme.palette.secondary.light }}>
       <Box
         m="auto"
         width={200}
@@ -20,7 +22,7 @@ export default function MemberCard({ info }: MemberCardProps) {
         justifyContent="center">
         <Avatar src={info.img} sx={{ width: 150, height: 150 }} />
       </Box>
-      <CardContent>
+      <CardContent sx={{ paddingX: theme.spacing(1) }}>
         <Typography gutterBottom variant="h6" component="div" align="center">
           {info.title}
         </Typography>
