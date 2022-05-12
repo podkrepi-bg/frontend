@@ -8,6 +8,7 @@ type Endpoint = {
 export const endpoints = {
   campaign: {
     listCampaigns: <Endpoint>{ url: '/campaign/list', method: 'GET' },
+    listAdminCampaigns: <Endpoint>{ url: '/campaign/list-all', method: 'GET' },
     createCampaign: <Endpoint>{ url: '/campaign/create-campaign', method: 'POST' },
     viewCampaign: (slug: string) => <Endpoint>{ url: `/campaign/${slug}`, method: 'GET' },
     viewCampaignById: (id: string) => <Endpoint>{ url: `/campaign/byId/${id}`, method: 'GET' },
@@ -141,6 +142,7 @@ export const endpoints = {
   account: {
     me: <Endpoint>{ url: '/account/me', method: 'GET' },
     update: <Endpoint>{ url: '/account/me', method: 'PATCH' },
+    new: <Endpoint>{ url: '/account/new', method: 'GET' },
   },
   recurringDonation: {
     recurringDonation: <Endpoint>{ url: '/recurring-donation', method: 'GET' },

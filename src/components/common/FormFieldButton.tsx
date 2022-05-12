@@ -1,8 +1,10 @@
 import React from 'react'
-import { Button, Typography, Box } from '@mui/material'
+import { Button, Typography, Box, ButtonBase } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
+import theme from 'common/theme'
 
 type Props = {
+  label?: string
   error?: string
   onClick?: () => void
   placeholder?: string
@@ -16,16 +18,29 @@ const useStyles = makeStyles({
     alignItems: 'center',
     justifyContent: 'space-between',
     border: `1px solid rgba(0, 0, 0, 0.23)`,
-    borderRadius: '3px',
+    borderRadius: 60,
+    width: '100%',
     padding: '8.5px 14px',
     cursor: 'pointer',
+    '&:hover': {
+      outlineColor: 'rgba(0, 0, 0, 0.87)',
+      borderColor: 'rgba(0, 0, 0, 0.87)',
+    },
+    '&:focus': {
+      outlineColor: theme.palette.primary.main,
+      borderColor: theme.palette.primary.main,
+    },
   },
   errorInputBox: {
-    borderColor: '#d32f2f',
-    color: '#d32f2f',
+    borderColor: theme.palette.error.main,
+    color: theme.palette.error.main,
+    '&:hover,&:focus': {
+      outlineColor: `${theme.palette.error.main} !important`,
+      borderColor: `${theme.palette.error.main} !important`,
+    },
   },
   errorText: {
-    color: '#d32f2f',
+    color: theme.palette.error.main,
     fontWeight: 400,
     fontSize: '0.75rem',
     lineHeight: 1.66,
@@ -36,24 +51,36 @@ const useStyles = makeStyles({
     marginBottom: 0,
     marginLeft: '14px',
   },
+  placeholderText: {
+    color: 'rgba(0, 0, 0, 0.6)',
+    fontSize: '1rem',
+    lineHeight: '1.4375em',
+    letterSpacing: '0.01071em',
+    fontFamily: theme.typography.fontFamily,
+    fontWeight: 400,
+    padding: 0,
+  },
 })
 
-function FormFieldButton({ error, onClick, value, placeholder, button }: Props) {
+function FormFieldButton({ error, onClick, value, placeholder, button, label }: Props) {
   const classes = useStyles()
   return (
     <>
-      <Box
+      <ButtonBase
+        aria-label={label}
         onClick={onClick}
         className={
           error ? classes.imitateInputBox + ' ' + classes.errorInputBox : classes.imitateInputBox
         }>
-        <Typography>{value || placeholder}</Typography>
+        <Typography className={value ? '' : classes.placeholderText}>
+          {value || placeholder}
+        </Typography>
         {button ? (
-          <Button sx={{ padding: 0 }} onClick={onClick}>
+          <Button tabIndex={-1} sx={{ padding: 0 }} onClick={onClick}>
             {button.label}
           </Button>
         ) : null}
-      </Box>
+      </ButtonBase>
       {error ? <p className={classes.errorText}>{error}</p> : null}
     </>
   )

@@ -18,7 +18,7 @@ export type CampaignFile = {
   filename: string
   mimetype: string
   campaignId: UUID
-  uploadedById: UUID
+  personId: UUID
   role: CampaignFileRole
 }
 
@@ -36,28 +36,45 @@ export enum CampaignState {
   error,
 }
 
-export type CampaignResponse = {
+type BaseCampaignResponse = {
   id: UUID
   state: CampaignState
   slug: string
   title: string
   essence: string
+  bankHash: string
   coordinatorId: UUID
   beneficiaryId: UUID
   campaignTypeId: UUID
-  campaignType: {
-    name: string
-    category: CampaignTypeCategory
-  }
   description: string
   targetAmount: number
-  summary: { reachedAmount: number }[]
+  allowDonationOnComplete: boolean
   currency: string
   startDate: Date | null
   endDate: Date | null
   createdAt: Date
   updatedAt: Date | null
   deletedAt: Date | null
+}
+
+export type AdminCampaignResponse = BaseCampaignResponse & {
+  campaignType: {
+    name: string
+  }
+  beneficiary: {
+    person: { firstName: string; lastName: string }
+  }
+  coordinator: {
+    person: { firstName: string; lastName: string }
+  }
+}
+
+export type CampaignResponse = BaseCampaignResponse & {
+  campaignType: {
+    name: string
+    category: CampaignTypeCategory
+  }
+  summary: { reachedAmount: number; donors?: number }[]
   beneficiary: {
     id: UUID
     type: string
@@ -77,6 +94,7 @@ export type CampaignFormData = {
   beneficiaryId: string
   coordinatorId: string
   targetAmount: number
+  allowDonationOnComplete?: boolean
   startDate: Date | string | undefined
   endDate: Date | string | undefined
   description: string
@@ -93,6 +111,7 @@ export type CampaignInput = {
   beneficiaryId: UUID
   coordinatorId: UUID
   targetAmount: number
+  allowDonationOnComplete?: boolean
   currency: string
   startDate: Date | string | undefined
   endDate: Date | string | undefined
