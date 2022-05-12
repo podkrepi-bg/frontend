@@ -13,6 +13,7 @@ import { staticUrls } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
 
 import 'swiper/css'
+import 'swiper/css/a11y'
 
 const swiperOptions: SwiperProps = {
   loop: true,
@@ -76,6 +77,7 @@ export default function TeamMembersSection() {
               }
               swiper.params.navigation.prevEl = navigationPrevRef.current
               swiper.params.navigation.nextEl = navigationNextRef.current
+              swiper.navigation.update()
             }}>
             {data.map((x) => (
               <SwiperSlide key={x.title}>
