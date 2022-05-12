@@ -7,7 +7,6 @@ import { SwipeableDrawer, Hidden, Box, Grid, Button } from '@mui/material'
 
 import { isAdmin } from 'common/util/roles'
 import { routes, staticUrls } from 'common/routes'
-import { useSession } from 'common/util/useSession'
 import LinkButton from 'components/common/LinkButton'
 import PodkrepiIcon from 'components/brand/PodkrepiIcon'
 import CloseModalButton from 'components/common/CloseModalButton'
@@ -15,6 +14,7 @@ import CloseModalButton from 'components/common/CloseModalButton'
 import { navItems } from './ProjectMenu'
 import LocaleButton from '../LocaleButton'
 import DonationMenuMobile from './DonationMenuMobile'
+import { useSession } from 'next-auth/react'
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -45,7 +45,7 @@ type NavDeckProps = {
 }
 
 export const AuthLinks = () => {
-  const { keycloak, session } = useSession()
+  const { data: session, status } = useSession()
   const { t } = useTranslation()
 
   if (session) {
@@ -56,7 +56,7 @@ export const AuthLinks = () => {
             {t('nav.profile')}
           </LinkButton>
         </Grid>
-        {keycloak?.authenticated && isAdmin(keycloak) && (
+        {status === 'authenticated' && isAdmin(session) && (
           <Grid item>
             <Button fullWidth variant="outlined" href={routes.admin.index}>
               {t('nav.admin.index')}

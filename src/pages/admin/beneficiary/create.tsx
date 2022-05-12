@@ -1,5 +1,5 @@
 import CreatePage from 'components/beneficiary/CreatePage'
-import { securedPropsWithTranslation } from 'middleware/auth/keycloak'
+import { securedPropsWithTranslation } from 'middleware/auth/securedProps'
 
 export const getServerSideProps = securedPropsWithTranslation([
   'common',

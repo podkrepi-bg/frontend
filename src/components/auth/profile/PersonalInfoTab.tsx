@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import getConfig from 'next/config'
+import NextLink from 'next/link'
 import { makeStyles } from '@mui/styles'
+import { useSession } from 'next-auth/react'
 import EditIcon from '@mui/icons-material/Edit'
 import { Box, Button, Link, Modal, Typography } from '@mui/material'
 
 import { formatDateString } from 'common/util/date'
-import { useSession } from 'common/util/useSession'
-import ExternalLink from 'components/common/ExternalLink'
+import { routes } from 'common/routes'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
 
 import ProfileTab from './ProfileTab'
@@ -70,13 +70,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const {
-  publicRuntimeConfig: { keycloakConfig },
-} = getConfig()
-const link = `${keycloakConfig.url}/realms/${keycloakConfig.realm}/${keycloakConfig.clientId}/password`
-
 export default function PersonalInfoTab() {
-  const { session } = useSession()
+  const { data: session } = useSession()
   const { data: { user: person } = { user: null }, refetch } = useCurrentPerson()
   const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false)
   const [isUpdateNameModalOpen, setIsUpdateNameModalOpen] = useState(false)
@@ -95,7 +90,7 @@ export default function PersonalInfoTab() {
                 flexBasis: '50%',
               }}>
               <p className={classes.bold}>Email адрес:</p>
-              <p>{session?.email}</p>
+              <p>{session?.user?.email}</p>
             </Box>
             <Box
               sx={{
@@ -107,10 +102,10 @@ export default function PersonalInfoTab() {
               <p className={classes.bold}>Парола:</p>
               <p>***********</p>
               <Box sx={{ position: 'absolute', right: '1rem', top: '.5rem' }}>
-                <ExternalLink href={link}>
+                <NextLink href={routes.profile.index}>
                   <EditIcon className={classes.editIcon} />
                   <span className={classes.editSpan}>Редактирай</span>
-                </ExternalLink>
+                </NextLink>
               </Box>
             </Box>
           </Box>

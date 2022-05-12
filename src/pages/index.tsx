@@ -1,13 +1,14 @@
+import { Session } from 'next-auth'
 import { GetServerSideProps } from 'next'
+import { getSession } from 'next-auth/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { Session } from 'common/util/useSession'
 import IndexPage from 'components/index/IndexPage'
 
 export const getServerSideProps: GetServerSideProps<{
   session: Session | null
 }> = async (ctx) => {
-  const session = null // TODO: Add proper checking for session
+  const session = await getSession(ctx)
   return {
     props: {
       ...(await serverSideTranslations(ctx.locale ?? 'bg', ['common', 'index', 'campaigns'])),

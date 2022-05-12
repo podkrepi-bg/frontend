@@ -4,7 +4,7 @@ import { dehydrate } from 'react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { QueryClient } from 'react-query'
 import { queryFn } from 'service/restRequests'
-import { securedProps } from 'middleware/auth/keycloak'
+import { securedProps } from 'middleware/auth/securedProps'
 
 export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSidePropsContext) => {
   // const keycloak = keycloakInstance(params)

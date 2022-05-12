@@ -1,5 +1,4 @@
-import { KeycloakInstance } from 'keycloak-js'
-import { useKeycloak } from '@react-keycloak/ssr'
+import { useSession } from 'next-auth/react'
 import { QueryClient, useQuery } from 'react-query'
 
 import { endpoints } from 'service/apiEndpoints'
@@ -7,18 +6,18 @@ import { authQueryFnFactory } from 'service/restRequests'
 import { VaultResponse } from 'gql/vault'
 
 export function useVaultsList() {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery<VaultResponse[]>(
     endpoints.vaults.vaultsList.url,
-    authQueryFnFactory<VaultResponse[]>(keycloak?.token),
+    authQueryFnFactory<VaultResponse[]>(session?.accessToken),
   )
 }
 
 export function useVault(id: string) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery<VaultResponse>(
     endpoints.vaults.getVault(id).url,
-    authQueryFnFactory<VaultResponse>(keycloak?.token),
+    authQueryFnFactory<VaultResponse>(session?.accessToken),
   )
 }
 

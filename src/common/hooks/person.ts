@@ -1,15 +1,15 @@
-import { useKeycloak } from '@react-keycloak/ssr'
-import { PersonResponse } from 'gql/person'
-import { KeycloakInstance } from 'keycloak-js'
+import { useSession } from 'next-auth/react'
 import { useQuery, UseQueryOptions } from 'react-query'
+
+import { PersonResponse } from 'gql/person'
 import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
 
 export const usePersonList = (options?: UseQueryOptions<PersonResponse[]>) => {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery<PersonResponse[]>(
     endpoints.person.list.url,
-    authQueryFnFactory<PersonResponse[]>(keycloak?.token),
+    authQueryFnFactory<PersonResponse[]>(session?.accessToken),
     options,
   )
 }

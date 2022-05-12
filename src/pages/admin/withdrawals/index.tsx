@@ -1,4 +1,4 @@
-import { securedAdminProps } from 'middleware/auth/keycloak'
+import { securedAdminProps } from 'middleware/auth/securedProps'
 import WithdrawalsPage from 'components/withdrawals/WithdrawalPage'
 import { endpoints } from 'service/apiEndpoints'
 

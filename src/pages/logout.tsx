@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { routes, baseUrl } from 'common/routes'
-import { useSession } from 'common/util/useSession'
+import { signOut } from 'next-auth/react'
 
 const callbackUrl = `${baseUrl}${routes.index}`
 
@@ -14,10 +14,8 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
 })
 
 const Logout = () => {
-  const { keycloak } = useSession()
-
   useEffect(() => {
-    keycloak?.logout({ redirectUri: callbackUrl })
+    signOut({ callbackUrl })
   }, [])
 
   return null

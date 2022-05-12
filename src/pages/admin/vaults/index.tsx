@@ -1,4 +1,4 @@
-import { securedAdminProps } from 'middleware/auth/keycloak'
+import { securedAdminProps } from 'middleware/auth/securedProps'
 import VaultsPage from 'components/vaults/VaultsPage'
 import { endpoints } from 'service/apiEndpoints'
 

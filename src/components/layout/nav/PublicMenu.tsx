@@ -4,12 +4,12 @@ import { AccountCircle } from '@mui/icons-material'
 import { Grid, IconButton, Menu, Typography, Theme, lighten } from '@mui/material'
 
 import { routes } from 'common/routes'
-import { useSession } from 'common/util/useSession'
 import LinkMenuItem from 'components/common/LinkMenuItem'
 
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 import theme from 'common/theme'
+import { useSession } from 'next-auth/react'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function PublicMenu() {
   const { t } = useTranslation()
-  const { session } = useSession()
+  const { data: session } = useSession()
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
   const classes = useStyles()
 
