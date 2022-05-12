@@ -52,6 +52,7 @@ const validationSchema: yup.SchemaOf<CampaignFormData> = yup
     title: yup.string().trim().min(10).max(100).required(),
     description: yup.string().trim().min(50).max(500).required(),
     targetAmount: yup.number().required(),
+    allowDonationOnComplete: yup.bool().optional(),
     campaignTypeId: yup.string().uuid().required(),
     beneficiaryId: yup.string().uuid().required(),
     coordinatorId: yup.string().uuid().required(),
@@ -70,6 +71,7 @@ const defaults: CampaignFormData = {
   beneficiaryId: '',
   coordinatorId: '',
   targetAmount: 1000,
+  allowDonationOnComplete: false,
   startDate: format(new Date(), formatString),
   endDate: format(new Date().setMonth(new Date().getMonth() + 1), formatString),
   description: '',
@@ -129,6 +131,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
         slug: createSlug(values.title),
         description: values.description,
         targetAmount: values.targetAmount,
+        allowDonationOnComplete: values.allowDonationOnComplete,
         startDate: values.startDate,
         endDate: values.endDate,
         essence: '',
@@ -280,7 +283,12 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
             <AcceptPrivacyPolicyField name="gdpr" />
           </Grid>
           <Grid item xs={12}>
-            <SubmitButton fullWidth label="campaigns:cta.submit" loading={mutation.isLoading} />
+            <SubmitButton
+              fullWidth
+              label="campaigns:cta.submit"
+              loading={mutation.isLoading}
+              color="info"
+            />
           </Grid>
         </Grid>
       </GenericForm>

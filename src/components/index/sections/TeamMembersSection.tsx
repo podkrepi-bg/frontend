@@ -1,6 +1,5 @@
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Container, Grid, Typography } from '@mui/material'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import { useTranslation } from 'next-i18next'
 
 import theme from 'common/theme'
 import Heading from 'components/common/Heading'
@@ -10,10 +9,8 @@ import { staticUrls } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
 
 export default function TeamMembersSection() {
-  const { t } = useTranslation()
-
   return (
-    <>
+    <Container maxWidth="md">
       <Heading
         textAlign="center"
         variant="h4"
@@ -51,6 +48,6 @@ export default function TeamMembersSection() {
           {'Запознай се с екипа ни'}
         </LinkButton>
       </Grid>
-    </>
+    </Container>
   )
 }

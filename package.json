@@ -36,6 +36,7 @@
     "@mui/x-date-pickers": "^5.0.0-alpha.1",
     "@next/bundle-analyzer": "^12.1.0",
     "@react-keycloak/ssr": "3.3.0",
+    "@react-pdf/renderer": "^2.1.1",
     "@sentry/nextjs": "6.17.8",
     "@uppy/aws-s3": "2.0.5",
     "@uppy/core": "2.1.1",
@@ -47,6 +48,7 @@
     "axios": "0.21.4",
     "axios-hooks": "2.7.0",
     "bear-react-carousel": "^1.2.15",
+    "buffer": "^6.0.3",
     "date-fns": "2.24.0",
     "formik": "2.2.9",
     "highcharts": "9.1.0",
@@ -81,6 +83,7 @@
     "@types/yup": "0.29.11",
     "@typescript-eslint/eslint-plugin": "4.26.0",
     "@typescript-eslint/parser": "4.26.0",
+    "all-contributors-cli": "^6.20.0",
     "depcheck": "^1.4.3",
     "eslint": "7.27.0",
     "eslint-config-next": "^11.0.1",
@@ -107,5 +110,8 @@
       "yarn run format"
     ],
     "*.scss": "yarn run lint:styles"
+  },
+  "browser": {
+    "html-pdf": false
   }
 }

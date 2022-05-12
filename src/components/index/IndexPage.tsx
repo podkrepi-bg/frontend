@@ -9,7 +9,7 @@ import CampaignsSection from './sections/CampaignsSection'
 import HowWeWorkSection from './sections/HowWeWorkSection'
 import ReadyToStartCampaignSection from './sections/ReadyToStartCampaignSection'
 import WhatUnitesUsSection from './sections/WhatUnitesUsSection'
-import { RefObject } from 'react-transition-group/node_modules/@types/react'
+import { RefObject } from 'react'
 import WantToHelpPodkrepiBgSection from './sections/WantToHelpPodkrepiBg'
 import FaqSection from './sections/FaqSection'
 import TeamMembersSection from './sections/TeamMembersSection'
@@ -26,16 +26,16 @@ export default function IndexPage() {
       title={t('index:jumbotron.heading')}
       metaDescription={t('index:activity-section.content')}>
       <Jumbotron />
-      <Container ref={scrollElement as RefObject<HTMLDivElement>} maxWidth="md">
-        <CampaignsSection />
-        <HowWeWorkSection />
-        <ReadyToStartCampaignSection />
-        <TeamMembersSection />
-        <WhatUnitesUsSection />
-        <WantToHelpPodkrepiBgSection />
-        <FaqSection />
-        <ReadyToStartCampaignSection />
-      </Container>
+      {/* <Container ref={scrollElement as RefObject<HTMLDivElement>} maxWidth="md"> */}
+      <CampaignsSection />
+      <HowWeWorkSection />
+      <ReadyToStartCampaignSection />
+      <TeamMembersSection />
+      <WhatUnitesUsSection />
+      <WantToHelpPodkrepiBgSection />
+      <FaqSection />
+      <ReadyToStartCampaignSection />
+      {/* </Container> */}
     </Layout>
   )
 }
