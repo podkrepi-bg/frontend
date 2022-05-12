@@ -21,7 +21,7 @@ const colors = {
   },
   yellow: {
     main: '#FFCB57',
-    dark: '#F6992B',
+    dark: '#F6992B  ',
   },
   gray: {
     main: '#F5F5F5',
@@ -108,11 +108,14 @@ export const themeOptions: ThemeOptions = {
         containedPrimary: {
           backgroundColor: colors.blue.main,
           '&:hover': {
-            backgroundColor: darken(colors.blue.main, 0.2),
+            backgroundColor: darken(colors.blue.main, 0.15),
           },
         },
         containedSecondary: {
-          backgroundColor: colors.yellow.dark,
+          backgroundColor: colors.yellow.main,
+          '&:hover': {
+            backgroundColor: darken(colors.yellow.main, 0.15),
+          },
         },
       },
     },
