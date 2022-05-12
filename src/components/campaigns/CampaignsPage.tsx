@@ -1,65 +1,75 @@
 import React from 'react'
+import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import Layout from 'components/layout/Layout'
 import { Container, Typography } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import CampaignFilter from './CampaignFilter'
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    title: {
-      marginBottom: theme.spacing(3),
-      marginTop: theme.spacing(12),
-      fontWeight: '500',
-      color: '#2196F3',
-      fontFamily: 'Montserrat',
-      fontStyle: 'normal',
-      fontSize: '45px',
-      lineHeight: '112px',
-      alignItems: 'center',
-      textAlign: 'center',
-      letterSpacing: '-1.5px',
-    },
-    subheading: {
-      marginBottom: theme.spacing(3),
-      marginTop: theme.spacing(3),
-      fontFamily: 'Montserrat',
-      fontStyle: 'normal',
-      fontWeight: '400',
-      fontSize: '16px',
-      lineHeight: '175 %',
-      textAlign: 'center',
-      letterSpacing: '0.15px',
-    },
-    support: {
-      marginBottom: theme.spacing(6),
-      fontFamily: 'Montserrat',
-      fontStyle: 'normal',
-      fontWeight: '500',
-      fontSize: '35px',
-      lineHeight: '120%',
-      textAlign: 'center',
-      color: '#2196F3',
-      letterSpacing: '-0.5px',
-    },
-    applyButton: {
-      backgroundColor: theme.palette.primary.main,
-      padding: theme.spacing(1.5, 6),
-      margin: theme.spacing(5, 0),
-    },
-    arrowIcon: {
-      fontSize: theme.spacing(8),
-    },
-  }),
-)
+const PREFIX = 'CampaignsPage'
+
+const classes = {
+  title: `${PREFIX}-title`,
+  subheading: `${PREFIX}-subheading`,
+  support: `${PREFIX}-support`,
+  applyButton: `${PREFIX}-applyButton`,
+  arrowIcon: `${PREFIX}-arrowIcon`,
+}
+
+const StyledLayout = styled(Layout)(({ theme }) => ({
+  [`& .${classes.title}`]: {
+    marginBottom: theme.spacing(3),
+    marginTop: theme.spacing(12),
+    fontWeight: '500',
+    color: '#2196F3',
+    fontFamily: 'Montserrat',
+    fontStyle: 'normal',
+    fontSize: '45px',
+    lineHeight: '112px',
+    alignItems: 'center',
+    textAlign: 'center',
+    letterSpacing: '-1.5px',
+  },
+
+  [`& .${classes.subheading}`]: {
+    marginBottom: theme.spacing(3),
+    marginTop: theme.spacing(3),
+    fontFamily: 'Montserrat',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    fontSize: '16px',
+    lineHeight: '175 %',
+    textAlign: 'center',
+    letterSpacing: '0.15px',
+  },
+
+  [`& .${classes.support}`]: {
+    marginBottom: theme.spacing(6),
+    fontFamily: 'Montserrat',
+    fontStyle: 'normal',
+    fontWeight: '500',
+    fontSize: '35px',
+    lineHeight: '120%',
+    textAlign: 'center',
+    color: '#2196F3',
+    letterSpacing: '-0.5px',
+  },
+
+  [`& .${classes.applyButton}`]: {
+    backgroundColor: theme.palette.primary.main,
+    padding: theme.spacing(1.5, 6),
+    margin: theme.spacing(5, 0),
+  },
+
+  [`& .${classes.arrowIcon}`]: {
+    fontSize: theme.spacing(8),
+  },
+}))
 
 export default function CampaignsPage() {
-  const classes = useStyles()
   const { t } = useTranslation()
 
   return (
-    <Layout
+    <StyledLayout
       // sx={{ fontWeight: '500', color: '#2196F3' }}
       // title={t('campaigns:campaigns')}
       metaDescription={t('campaigns:campaign.subheading')}
@@ -83,6 +93,6 @@ export default function CampaignsPage() {
         </Typography>
         <CampaignFilter />
       </Container>
-    </Layout>
+    </StyledLayout>
   )
 }

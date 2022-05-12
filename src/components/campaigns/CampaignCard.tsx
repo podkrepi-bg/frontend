@@ -1,11 +1,11 @@
 import React from 'react'
+import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import { routes } from 'common/routes'
 import { money } from 'common/util/money'
 import LinkButton from 'components/common/LinkButton'
 import { CampaignResponse } from 'gql/campaigns'
 import CampaignProgress from './CampaignProgress'
-import makeStyles from '@mui/styles/makeStyles'
 import {
   Grid,
   Card,
@@ -21,20 +21,37 @@ import { Favorite } from '@mui/icons-material'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 
-const useStyles = makeStyles((theme) => ({
-  media: {
+const PREFIX = 'CampaignCard'
+
+const classes = {
+  media: `${PREFIX}-media`,
+  amountButtonGroup: `${PREFIX}-amountButtonGroup`,
+  amountButton: `${PREFIX}-amountButton`,
+  donate: `${PREFIX}-donate`,
+  cardActions: `${PREFIX}-cardActions`,
+  cardWrapper: `${PREFIX}-cardWrapper`,
+  campaignTitle: `${PREFIX}-campaignTitle`,
+  supportNowButton: `${PREFIX}-supportNowButton`,
+  progressBar: `${PREFIX}-progressBar`,
+  cardContent: `${PREFIX}-cardContent`,
+}
+
+const StyledCard = styled(Card)(({ theme }) => ({
+  [`& .${classes.media}`]: {
     backgroundSize: 'contain',
     height: 250,
     margin: theme.spacing(0, 4),
     transition: 'filter 0.3s, opacity 0.8s',
   },
-  amountButtonGroup: {
+
+  [`& .${classes.amountButtonGroup}`]: {
     backgroundColor: '#e60550',
     border: '0',
     borderRadius: '0',
     width: '100%',
   },
-  amountButton: {
+
+  [`& .${classes.amountButton}`]: {
     backgroundColor: '#e60550',
     border: '0',
     color: '#fff',
@@ -59,7 +76,8 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  donate: {
+
+  [`& .${classes.donate}`]: {
     backgroundColor: theme.palette.primary.main,
     border: '0',
     borderRadius: '0',
@@ -76,34 +94,39 @@ const useStyles = makeStyles((theme) => ({
       transition: 'all 0.2s ease-in-out',
     },
   },
-  cardActions: {
+
+  [`& .${classes.cardActions}`]: {
     padding: '0',
   },
-  cardWrapper: {
+
+  [`&.${classes.cardWrapper}`]: {
     position: 'relative',
     minHeight: theme.spacing(87),
     backgroundColor: theme.palette.secondary.light,
     border: 'none',
     borderRadius: 0,
   },
-  campaignTitle: {
+
+  [`& .${classes.campaignTitle}`]: {
     textTransform: 'capitalize',
   },
-  supportNowButton: {
+
+  [`& .${classes.supportNowButton}`]: {
     padding: theme.spacing(1, 4),
   },
-  progressBar: {
+
+  [`& .${classes.progressBar}`]: {
     margin: theme.spacing(2.5),
     textAlign: 'left',
   },
-  cardContent: {
+
+  [`& .${classes.cardContent}`]: {
     minHeight: theme.spacing(25),
   },
 }))
 
 type Props = { campaign: CampaignResponse }
 export default function CampaignCard({ campaign }: Props) {
-  const classes = useStyles()
   const { t } = useTranslation()
   //const amounts = [20, 50, 100]
   //const [alignment, setAlignment] = React.useState<string | null>('left')
@@ -117,7 +140,7 @@ export default function CampaignCard({ campaign }: Props) {
   const reached = summary ? summary.reachedAmount : 0
 
   return (
-    <Card variant="outlined" className={classes.cardWrapper}>
+    <StyledCard variant="outlined" className={classes.cardWrapper}>
       <CardActionArea>
         <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)}>
           <CardMedia
@@ -186,6 +209,6 @@ export default function CampaignCard({ campaign }: Props) {
           </Grid>
         </Grid>
       </CardActions>
-    </Card>
+    </StyledCard>
   )
 }

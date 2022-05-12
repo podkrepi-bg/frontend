@@ -1,30 +1,33 @@
 import React from 'react'
+import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
-import { Grid, Theme, Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import CommentIcon from '@mui/icons-material/Comment'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+const PREFIX = 'CampaignComments'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    commentsWrapper: {
-      margin: theme.spacing(5, 0),
-    },
-    commentsTitleWrapper: {
-      display: 'flex',
-      gap: theme.spacing(3),
-      alignItems: 'end',
-      marginBottom: theme.spacing(3),
-    },
-  }),
-)
+const classes = {
+  commentsWrapper: `${PREFIX}-commentsWrapper`,
+  commentsTitleWrapper: `${PREFIX}-commentsTitleWrapper`,
+}
+
+const StyledGrid = styled(Grid)(({ theme }) => ({
+  [`&.${classes.commentsWrapper}`]: {
+    margin: theme.spacing(5, 0),
+  },
+
+  [`& .${classes.commentsTitleWrapper}`]: {
+    display: 'flex',
+    gap: theme.spacing(3),
+    alignItems: 'end',
+    marginBottom: theme.spacing(3),
+  },
+}))
 
 export default function CampaignComments() {
-  const classes = useStyles()
   const { t } = useTranslation()
 
   return (
-    <Grid className={classes.commentsWrapper}>
+    <StyledGrid className={classes.commentsWrapper}>
       <Grid className={classes.commentsTitleWrapper}>
         <CommentIcon />
         <Typography>{t('campaigns:campaign.comments')}</Typography>
@@ -34,6 +37,6 @@ export default function CampaignComments() {
         ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
         laboris nisi ut aliquip ex ea commodo consequat.
       </Typography>
-    </Grid>
+    </StyledGrid>
   )
 }

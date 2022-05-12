@@ -1,19 +1,18 @@
 import React from 'react'
-import { Button, Typography, Box, ButtonBase } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import theme from 'common/theme'
+import { styled } from '@mui/material/styles'
+import { Button, Typography, ButtonBase } from '@mui/material'
 
-type Props = {
-  label?: string
-  error?: string
-  onClick?: () => void
-  placeholder?: string
-  value?: string
-  button?: { label: string }
+const PREFIX = 'FormFieldButton'
+
+const classes = {
+  imitateInputBox: `${PREFIX}-imitateInputBox`,
+  errorInputBox: `${PREFIX}-errorInputBox`,
+  errorText: `${PREFIX}-errorText`,
+  placeholderText: `${PREFIX}-placeholderText`,
 }
 
-const useStyles = makeStyles({
-  imitateInputBox: {
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.imitateInputBox}`]: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -31,7 +30,7 @@ const useStyles = makeStyles({
       borderColor: theme.palette.primary.main,
     },
   },
-  errorInputBox: {
+  [`& .${classes.errorInputBox}`]: {
     borderColor: theme.palette.error.main,
     color: theme.palette.error.main,
     '&:hover,&:focus': {
@@ -39,7 +38,7 @@ const useStyles = makeStyles({
       borderColor: `${theme.palette.error.main} !important`,
     },
   },
-  errorText: {
+  [`& .${classes.errorText}`]: {
     color: theme.palette.error.main,
     fontWeight: 400,
     fontSize: '0.75rem',
@@ -51,7 +50,7 @@ const useStyles = makeStyles({
     marginBottom: 0,
     marginLeft: '14px',
   },
-  placeholderText: {
+  [`& .${classes.placeholderText}`]: {
     color: 'rgba(0, 0, 0, 0.6)',
     fontSize: '1rem',
     lineHeight: '1.4375em',
@@ -60,12 +59,20 @@ const useStyles = makeStyles({
     fontWeight: 400,
     padding: 0,
   },
-})
+}))
+
+type Props = {
+  label?: string
+  error?: string
+  onClick?: () => void
+  placeholder?: string
+  value?: string
+  button?: { label: string }
+}
 
 function FormFieldButton({ error, onClick, value, placeholder, button, label }: Props) {
-  const classes = useStyles()
   return (
-    <>
+    <Root>
       <ButtonBase
         aria-label={label}
         onClick={onClick}
@@ -82,7 +89,7 @@ function FormFieldButton({ error, onClick, value, placeholder, button, label }: 
         ) : null}
       </ButtonBase>
       {error ? <p className={classes.errorText}>{error}</p> : null}
-    </>
+    </Root>
   )
 }
 

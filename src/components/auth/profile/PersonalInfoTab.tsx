@@ -1,6 +1,6 @@
 import { useState } from 'react'
+import { styled } from '@mui/material/styles'
 import NextLink from 'next/link'
-import { makeStyles } from '@mui/styles'
 import { useSession } from 'next-auth/react'
 import EditIcon from '@mui/icons-material/Edit'
 import { Box, Button, Link, Modal, Typography } from '@mui/material'
@@ -14,8 +14,24 @@ import { ProfileTabs } from './tabs'
 import UpdateNameModal from './UpdateNameModal'
 import UpdateBirthdayModal from './UpdateBirthdayModal'
 
-const useStyles = makeStyles((theme) => ({
-  modal: {
+const PREFIX = 'PersonalInfoTab'
+
+const classes = {
+  modal: `${PREFIX}-modal`,
+  editSpan: `${PREFIX}-editSpan`,
+  deleteAccountButton: `${PREFIX}-deleteAccountButton`,
+  editIcon: `${PREFIX}-editIcon`,
+  heading: `${PREFIX}-heading`,
+  bold: `${PREFIX}-bold`,
+  notAvaible: `${PREFIX}-notAvaible`,
+  graySpan: `${PREFIX}-graySpan`,
+  h5: `${PREFIX}-h5`,
+  h3: `${PREFIX}-h3`,
+}
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.modal}`]: {
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -24,12 +40,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#EEEEEE',
     padding: 20,
   },
-  editSpan: {
+
+  [`& .${classes.editSpan}`]: {
     color: '#294E85',
   },
-  deleteAccountButton: { color: '#294E85', float: 'right' },
-  editIcon: { position: 'relative', top: '7px' },
-  heading: {
+
+  [`& .${classes.deleteAccountButton}`]: { color: '#294E85', float: 'right' },
+  [`& .${classes.editIcon}`]: { position: 'relative', top: '7px' },
+
+  [`& .${classes.heading}`]: {
     fontFamily: 'Montserrat',
     fontStyle: 'normal',
     fontWeight: 400,
@@ -39,13 +58,16 @@ const useStyles = makeStyles((theme) => ({
     color: '#000000',
     paddingLeft: theme.spacing(3),
   },
-  bold: {
+
+  [`& .${classes.bold}`]: {
     fontWeight: 'bold',
   },
-  notAvaible: {
+
+  [`& .${classes.notAvaible}`]: {
     color: '#F22727',
   },
-  graySpan: {
+
+  [`& .${classes.graySpan}`]: {
     fontFamily: 'Lato, sans-serif',
     fontStyle: 'normal',
     fontWeight: '400',
@@ -53,14 +75,16 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: '133.4%',
     color: '#909090',
   },
-  h5: {
+
+  [`& .${classes.h5}`]: {
     fontFamily: 'Lato, sans-serif',
     fontStyle: 'normal',
     fontWeight: '600',
     fontSize: '22px',
     lineHeight: '133.4%',
   },
-  h3: {
+
+  [`& .${classes.h3}`]: {
     fontFamily: 'Montserrat',
     fontStyle: 'normal',
     fontWeight: '500',
@@ -76,9 +100,9 @@ export default function PersonalInfoTab() {
   const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false)
   const [isUpdateNameModalOpen, setIsUpdateNameModalOpen] = useState(false)
   const [isUpdateBirthdayModalOpen, setIsUpdateBirthdayModalOpen] = useState(false)
-  const classes = useStyles()
+
   return (
-    <>
+    <Root>
       <ProfileTab name={ProfileTabs.personalInformation} title="Лична информация">
         <Box sx={{ paddingTop: 2 }}>
           <h2 className={classes.heading}>Login информация:</h2>
@@ -211,6 +235,6 @@ export default function PersonalInfoTab() {
           />
         </>
       )}
-    </>
+    </Root>
   )
 }

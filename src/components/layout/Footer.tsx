@@ -1,6 +1,4 @@
 import { Grid, Container, lighten, useTheme, useMediaQuery } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -8,34 +6,6 @@ import { Facebook, Instagram, LinkedIn, YouTube } from '@mui/icons-material'
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 import ExternalLink from 'components/common/ExternalLink'
 import { routes, socialUrls, staticUrls } from 'common/routes'
-
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    container: {
-      backgroundColor: theme.palette.primary.dark,
-      color: lighten(theme.palette.primary.main, 0.75),
-      '& a': {
-        color: lighten(theme.palette.primary.main, 0.75),
-        '&:hover': {
-          color: lighten(theme.palette.primary.main, 0.55),
-        },
-      },
-    },
-    footer: {
-      textAlign: 'center',
-      padding: theme.spacing(5, 0),
-      [theme.breakpoints.up('sm')]: {
-        textAlign: 'left',
-        padding: theme.spacing(5),
-      },
-    },
-    footerWrapperLeft: {
-      [theme.breakpoints.down('sm')]: {
-        paddingBottom: theme.spacing(3),
-      },
-    },
-  }),
-)
 
 type FooterLink = {
   label: string
@@ -62,11 +32,32 @@ const footerItems: FooterLink[][] = [
 ]
 
 export default function Footer() {
-  const classes = useStyles()
   return (
-    <Container component="footer" maxWidth={false} disableGutters className={classes.container}>
+    <Container
+      component="footer"
+      maxWidth={false}
+      disableGutters
+      sx={(theme) => ({
+        backgroundColor: theme.palette.primary.dark,
+        color: lighten(theme.palette.primary.main, 0.75),
+        '& a': {
+          color: lighten(theme.palette.primary.main, 0.75),
+          '&:hover': {
+            color: lighten(theme.palette.primary.main, 0.55),
+          },
+        },
+      })}>
       <Container maxWidth="lg" disableGutters>
-        <Grid container className={classes.footer}>
+        <Grid
+          container
+          sx={(theme) => ({
+            xs: {
+              textAlign: 'center',
+              padding: theme.spacing(5, 0),
+            },
+            textAlign: 'left',
+            padding: theme.spacing(5),
+          })}>
           <Grid item xs={12} sm={8} md={5}>
             <InfoGrid />
           </Grid>
@@ -82,9 +73,9 @@ export default function Footer() {
 const InfoGrid = () => {
   const { t } = useTranslation()
   const { locale } = useRouter()
-  const classes = useStyles()
+
   return (
-    <Grid container direction="column" spacing={2} className={classes.footerWrapperLeft}>
+    <Grid container direction="column" spacing={2} sx={{ sm: { pb: 3 } }}>
       <Grid item>
         <Link href={routes.index}>
           <a>

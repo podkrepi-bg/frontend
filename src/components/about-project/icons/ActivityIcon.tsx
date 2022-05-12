@@ -1,43 +1,46 @@
 import React from 'react'
-import { SvgIconProps, Theme, Typography } from '@mui/material'
+import { styled } from '@mui/material/styles'
+import { SvgIconProps, Typography } from '@mui/material'
 
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
+const PREFIX = 'ActivityIcon'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    activity: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      color: theme.palette.primary.dark,
-      '& > p': {
-        fontSize: theme.typography.pxToRem(16),
-        maxWidth: theme.spacing(20),
-      },
-      '& > span': {
-        fontSize: theme.typography.pxToRem(64),
-        fontWeight: 'bold',
-      },
+const classes = {
+  activity: `${PREFIX}-activity`,
+  icon: `${PREFIX}-icon`,
+}
+
+const Root = styled('div')(({ theme }) => ({
+  [`&.${classes.activity}`]: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: theme.palette.primary.dark,
+    '& > p': {
+      fontSize: theme.typography.pxToRem(16),
+      maxWidth: theme.spacing(20),
     },
-    icon: {
-      fontSize: theme.typography.pxToRem(80),
-      padding: theme.spacing(1),
-      marginRight: theme.spacing(1),
+    '& > span': {
+      fontSize: theme.typography.pxToRem(64),
+      fontWeight: 'bold',
     },
-  }),
-)
+  },
+
+  [`& .${classes.icon}`]: {
+    fontSize: theme.typography.pxToRem(80),
+    padding: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+}))
+
 type ActivityIconProps = {
   Icon: React.ComponentType<SvgIconProps>
   count?: string
   description: string
 }
 export default function ActivityIcon({ Icon, count, description, ...props }: ActivityIconProps) {
-  const classes = useStyles()
-
   return (
-    <div className={classes.activity}>
+    <Root className={classes.activity}>
       <Icon {...props} className={classes.icon} />
       <Typography variant="h4" component="span">
         {count}
@@ -45,6 +48,6 @@ export default function ActivityIcon({ Icon, count, description, ...props }: Act
       <Typography variant="body2" component="p">
         {description}
       </Typography>
-    </div>
+    </Root>
   )
 }

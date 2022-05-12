@@ -1,6 +1,6 @@
 import ProfileTab from './ProfileTab'
+import { styled } from '@mui/material/styles'
 import { Box, Checkbox, Button } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import AdapterDateFns from '@mui/lab/AdapterDateFns'
 import LocalizationProvider from '@mui/lab/LocalizationProvider'
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker'
@@ -20,8 +20,16 @@ import React from 'react'
 import { useUserDonations } from 'common/hooks/donation'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { ProfileTabs } from './tabs'
-const useStyles = makeStyles({
-  h3: {
+const PREFIX = 'CertificatesTab'
+
+const classes = {
+  h3: `${PREFIX}-h3`,
+  thinFont: `${PREFIX}-thinFont`,
+  smallText: `${PREFIX}-smallText`,
+}
+
+const StyledProfileTab = styled(ProfileTab)({
+  [`& .${classes.h3}`]: {
     fontFamily: 'Montserrat',
     fontStyle: 'normal',
     fontWeight: '500',
@@ -29,7 +37,7 @@ const useStyles = makeStyles({
     lineHeight: '116.7%',
     margin: '0',
   },
-  thinFont: {
+  [`& .${classes.thinFont}`]: {
     fontFamily: 'Montserrat',
     fontStyle: 'normal',
     fontWeight: 400,
@@ -39,7 +47,7 @@ const useStyles = makeStyles({
     color: '#000000',
     margin: 0,
   },
-  smallText: {
+  [`& .${classes.smallText}`]: {
     fontFamily: 'Lato, sans-serif',
     fontStyle: 'normal',
     fontWeight: '500',
@@ -50,13 +58,12 @@ const useStyles = makeStyles({
 })
 
 export default function CertificatesTab() {
-  const classes = useStyles()
   const { data = { donations: [], total: 0 } } = useUserDonations()
   const [fromDate, setFromDate] = React.useState(new Date())
   const [toDate, setToDate] = React.useState(new Date())
 
   return (
-    <ProfileTab name={ProfileTabs.certificates} title="История на сертификати">
+    <StyledProfileTab name={ProfileTabs.certificates} title="История на сертификати">
       <Box>
         <Box sx={{ mt: 4 }}>
           <h3 className={classes.thinFont}>Онлайн дарения</h3>
@@ -139,6 +146,6 @@ export default function CertificatesTab() {
           <Box sx={{ fontSize: 20, mt: 4 }}>Към момента няма направени дарения</Box>
         )}
       </Box>
-    </ProfileTab>
+    </StyledProfileTab>
   )
 }

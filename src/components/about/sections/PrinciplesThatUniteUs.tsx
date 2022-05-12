@@ -1,9 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { Grid, Theme } from '@mui/material'
-
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import { Grid } from '@mui/material'
 
 import Heading from 'components/common/Heading'
 
@@ -16,19 +13,9 @@ import RespectIcon from '../icons/RespectIcon'
 import TransparencyIcon from '../icons/TransparencyIcon'
 import VoluntaryIcon from '../icons/VoluntaryIcon'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    title: {
-      color: theme.palette.primary.dark,
-      paddingTop: theme.spacing(5),
-      paddingBottom: theme.spacing(3),
-    },
-  }),
-)
-
 export default function PrinciplesThatUniteUs() {
   const { t } = useTranslation()
-  const classes = useStyles()
+
   return (
     <Grid container spacing={1}>
       <Grid xs={12} item>
@@ -37,7 +24,11 @@ export default function PrinciplesThatUniteUs() {
           variant="h4"
           component="h1"
           align="center"
-          className={classes.title}
+          sx={(theme) => ({
+            color: theme.palette.primary.dark,
+            pt: theme.spacing(5),
+            pb: theme.spacing(3),
+          })}
           linkable>
           {t('about:principlesThatUniteUs.title')}
         </Heading>

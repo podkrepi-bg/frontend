@@ -1,8 +1,8 @@
 import { Box, LinearProgress, useMediaQuery } from '@mui/material'
+import { styled } from '@mui/material/styles'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
 import React, { useMemo } from 'react'
-import { makeStyles } from '@mui/styles'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import {
@@ -19,8 +19,15 @@ import Layout from 'components/layout/Layout'
 
 import { ProfileTabs, ProfileTab, tabs } from './tabs'
 
-const useStyles = makeStyles({
-  h1: {
+const PREFIX = 'ProfilePage'
+
+const classes = {
+  h1: `${PREFIX}-h1`,
+  tabMobile: `${PREFIX}-tabMobile`,
+}
+
+const StyledLayout = styled(Layout)({
+  [`& .${classes.h1}`]: {
     fontFamily: 'Montserrat',
     fontStyle: 'normal',
     fontWeight: 500,
@@ -31,7 +38,7 @@ const useStyles = makeStyles({
     margin: '0',
     marginLeft: '10px',
   },
-  tabMobile: {
+  [`& .${classes.tabMobile}`]: {
     flex: 1,
   },
 })
@@ -39,7 +46,7 @@ const useStyles = makeStyles({
 export default function ProfilePage() {
   const { t } = useTranslation()
   const { status } = useSession()
-  const classes = useStyles()
+
   const router = useRouter()
   const matches = useMediaQuery(theme.breakpoints.down('sm'))
   const currentTab = router.query.slug ?? ProfileTabs.donations
@@ -53,12 +60,12 @@ export default function ProfilePage() {
 
   if (status !== 'authenticated') {
     return (
-      <Layout
+      <StyledLayout
         title={t('nav.profile')}
         githubUrl="https://github.com/podkrepi-bg/frontend/tree/master/src/components/auth/profile/ProfilePage.tsx"
         figmaUrl="https://www.figma.com/file/MmvFKzUv6yE5U2wrOpWtwS/Podkrepi.bg?node-id=5987%3A21094">
         Not authenticated
-      </Layout>
+      </StyledLayout>
     )
   }
 

@@ -1,75 +1,93 @@
 import React from 'react'
+import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import { CampaignResponse } from 'gql/campaigns'
 import LatestNews from './LatestNews'
 import CampaignComments from './CampaignComments'
 import CampaignSlider from './CampaignSlider'
-import { Grid, Theme, Typography } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import { Grid, Typography } from '@mui/material'
 import {
   backgroundCampaignPictureUrl,
   beneficiaryCampaignPictureUrl,
   coordinatorCampaignPictureUrl,
 } from 'common/util/campaignImageUrls'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    bannerWrapper: {
-      '& span': {
-        position: 'inherit !important',
-      },
+const PREFIX = 'CampaignDetails'
+
+const classes = {
+  bannerWrapper: `${PREFIX}-bannerWrapper`,
+  banner: `${PREFIX}-banner`,
+  campaignTitle: `${PREFIX}-campaignTitle`,
+  campaignSubtitle: `${PREFIX}-campaignSubtitle`,
+  beneficiaryAvatarWrapper: `${PREFIX}-beneficiaryAvatarWrapper`,
+  beneficiaryAvatar: `${PREFIX}-beneficiaryAvatar`,
+  campaignInfoWrapper: `${PREFIX}-campaignInfoWrapper`,
+  coordinatorAvatar: `${PREFIX}-coordinatorAvatar`,
+  campaignDate: `${PREFIX}-campaignDate`,
+}
+
+const StyledGrid = styled(Grid)(({ theme }) => ({
+  [`& .${classes.bannerWrapper}`]: {
+    '& span': {
+      position: 'inherit !important',
     },
-    banner: {
-      zIndex: -1,
-      minHeight: '504px !important',
-      marginTop: `${theme.spacing(10)} !important`,
-      [theme.breakpoints.up('md')]: {
-        marginTop: `${theme.spacing(14)} !important`,
-      },
+  },
+
+  [`& .${classes.banner}`]: {
+    zIndex: -1,
+    minHeight: '504px !important',
+    marginTop: `${theme.spacing(10)} !important`,
+    [theme.breakpoints.up('md')]: {
+      marginTop: `${theme.spacing(14)} !important`,
     },
-    campaignTitle: {
-      color: theme.palette.common.white,
-      fontWeight: 500,
-      margin: 0,
+  },
+
+  [`& .${classes.campaignTitle}`]: {
+    color: theme.palette.common.white,
+    fontWeight: 500,
+    margin: 0,
+  },
+
+  [`& .${classes.campaignSubtitle}`]: {
+    color: theme.palette.common.white,
+    padding: theme.spacing(0, 4.7),
+    fontSize: theme.spacing(4),
+    height: theme.spacing(16),
+  },
+
+  [`& .${classes.beneficiaryAvatarWrapper}`]: {
+    textAlign: 'center',
+    [theme.breakpoints.up('md')]: {
+      textAlign: 'left',
     },
-    campaignSubtitle: {
-      color: theme.palette.common.white,
-      padding: theme.spacing(0, 4.7),
-      fontSize: theme.spacing(4),
-      height: theme.spacing(16),
-    },
-    beneficiaryAvatarWrapper: {
-      textAlign: 'center',
-      [theme.breakpoints.up('md')]: {
-        textAlign: 'left',
-      },
-    },
-    beneficiaryAvatar: {
-      borderRadius: '50%',
-      border: `4px solid ${theme.palette.common.white} !important`,
-      textAlign: 'center',
-    },
-    campaignInfoWrapper: {
-      gap: theme.spacing(2),
-      display: 'grid',
-    },
-    coordinatorAvatar: {
-      borderRadius: '50%',
-    },
-    campaignDate: {
-      fontSize: '24px',
-    },
-  }),
-)
+  },
+
+  [`& .${classes.beneficiaryAvatar}`]: {
+    borderRadius: '50%',
+    border: `4px solid ${theme.palette.common.white} !important`,
+    textAlign: 'center',
+  },
+
+  [`& .${classes.campaignInfoWrapper}`]: {
+    gap: theme.spacing(2),
+    display: 'grid',
+  },
+
+  [`& .${classes.coordinatorAvatar}`]: {
+    borderRadius: '50%',
+  },
+
+  [`& .${classes.campaignDate}`]: {
+    fontSize: '24px',
+  },
+}))
 
 type Props = {
   campaign: CampaignResponse
 }
 
 export default function CampaignDetails({ campaign }: Props) {
-  const classes = useStyles()
   const { t } = useTranslation()
 
   const bannerSource = backgroundCampaignPictureUrl(campaign)
@@ -77,7 +95,7 @@ export default function CampaignDetails({ campaign }: Props) {
   const coordinatorAvatarSource = coordinatorCampaignPictureUrl(campaign)
 
   return (
-    <Grid item xs={12} md={8}>
+    <StyledGrid item xs={12} md={8}>
       <Grid className={classes.bannerWrapper}>
         <Image
           src={bannerSource}
@@ -137,6 +155,6 @@ export default function CampaignDetails({ campaign }: Props) {
         <LatestNews />
         <CampaignComments />
       </Grid>
-    </Grid>
+    </StyledGrid>
   )
 }

@@ -1,21 +1,30 @@
 import { useRouter } from 'next/router'
-import { makeStyles } from '@mui/styles'
+import { styled } from '@mui/material/styles'
 import React, { useState, useMemo } from 'react'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material'
 
 import CustomListItem from './CustomListItem'
 
-const useStyles = makeStyles({
-  open: {
+const PREFIX = 'HoverMenu'
+
+const classes = {
+  open: `${PREFIX}-open`,
+  close: `${PREFIX}-close`,
+}
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')({
+  [`& .${classes.open}`]: {
     marginTop: '25px',
     marginLeft: '155px',
   },
-  close: {
+  [`& .${classes.close}`]: {
     marginTop: '45px',
     marginLeft: '45px',
   },
 })
+
 type Props = {
   isOpen: boolean
   menu: string
@@ -29,7 +38,7 @@ type Submenu = {
 }
 export default function HoverMenu({ menu, items, icon: Icon, isOpen }: Props) {
   const router = useRouter()
-  const classes = useStyles()
+
   const [anchorMenu, setAnchorMenu] = useState<null | HTMLElement>(null)
 
   const isSelected = useMemo(
@@ -42,7 +51,7 @@ export default function HoverMenu({ menu, items, icon: Icon, isOpen }: Props) {
   const handleCloseMenu = () => setAnchorMenu(null)
 
   return (
-    <>
+    <Root>
       <ListItemButton
         selected={isSelected}
         onClick={handleOpenMenu}
@@ -90,6 +99,6 @@ export default function HoverMenu({ menu, items, icon: Icon, isOpen }: Props) {
           </MenuItem>
         ))}
       </Menu>
-    </>
+    </Root>
   )
 }
