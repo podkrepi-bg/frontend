@@ -1,10 +1,10 @@
-import { useKeycloak } from '@react-keycloak/ssr'
 import { AxiosResponse } from 'axios'
-import { Person, UpdatePerson } from 'gql/person'
-import { KeycloakInstance } from 'keycloak-js'
 import { useQuery } from 'react-query'
+import { useSession } from 'next-auth/react'
+
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
+import { Person, UpdatePerson } from 'gql/person'
 import { authConfig, authQueryFnFactory } from 'service/restRequests'
 
 type CurrentPerson = {
@@ -13,28 +13,28 @@ type CurrentPerson = {
 }
 
 export function getCurrentPerson(isNew = false) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery<CurrentPerson>(
     isNew ? endpoints.account.new.url : endpoints.account.me.url,
-    authQueryFnFactory<CurrentPerson>(keycloak?.token),
+    authQueryFnFactory<CurrentPerson>(session?.accessToken),
   )
 }
 
 export function useCurrentPerson() {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery<CurrentPerson>(
     endpoints.account.me.url,
-    authQueryFnFactory<CurrentPerson>(keycloak?.token),
+    authQueryFnFactory<CurrentPerson>(session?.accessToken),
   )
 }
 
 export function updateCurrentPerson() {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return async (data: UpdatePerson) => {
     return await apiClient.put<UpdatePerson, AxiosResponse<Person>>(
       endpoints.account.update.url,
       data,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
   }
 }

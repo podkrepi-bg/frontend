@@ -10,7 +10,7 @@ export const queryFn: QueryFunction = async function ({ queryKey }) {
 
 export const queryFnFactory = <T>(config?: AxiosRequestConfig): QueryFunction<T> =>
   async function ({ queryKey }) {
-    const response = await apiClient.get(queryKey.join('/'), config)
+    const response = await apiClient.get<T>(queryKey.join('/'), config)
     return await response.data
   }
 

@@ -1,22 +1,23 @@
-import { Box, useMediaQuery } from '@mui/material'
+import { Box, LinearProgress, useMediaQuery } from '@mui/material'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
 import React, { useMemo } from 'react'
 import { makeStyles } from '@mui/styles'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { routes } from 'common/routes'
-import Layout from 'components/layout/Layout'
-import { useSession } from 'common/util/useSession'
-
-import { ProfileTabs, ProfileTab, tabs } from './tabs'
-import theme from 'common/theme'
 import {
   VolunteerActivism as DonationIcon,
   AccountBox as AccountBoxIcon,
   HistoryEdu as ContractIcon,
   Assignment as CertificateIcon,
 } from '@mui/icons-material'
+import { useSession } from 'next-auth/react'
+
+import theme from 'common/theme'
+import { routes } from 'common/routes'
+import Layout from 'components/layout/Layout'
+
+import { ProfileTabs, ProfileTab, tabs } from './tabs'
 
 const useStyles = makeStyles({
   h1: {
@@ -37,7 +38,7 @@ const useStyles = makeStyles({
 
 export default function ProfilePage() {
   const { t } = useTranslation()
-  const { keycloak } = useSession()
+  const { status } = useSession()
   const classes = useStyles()
   const router = useRouter()
   const matches = useMediaQuery(theme.breakpoints.down('sm'))
@@ -46,7 +47,11 @@ export default function ProfilePage() {
     return tabs.find((tab) => tab.slug === currentTab) ?? tabs[0]
   }, [currentTab])
 
-  if (!keycloak?.authenticated) {
+  if (status === 'loading') {
+    return <LinearProgress />
+  }
+
+  if (status !== 'authenticated') {
     return (
       <Layout
         title={t('nav.profile')}

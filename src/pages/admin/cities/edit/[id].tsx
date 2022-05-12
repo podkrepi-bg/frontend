@@ -1,6 +1,6 @@
 import CityEditPage from 'components/cities/CityEditPage'
 import { endpoints } from 'service/apiEndpoints'
-import { securedAdminProps } from 'middleware/auth/keycloak'
+import { securedAdminProps } from 'middleware/auth/securedProps'
 
 export const getServerSideProps = securedAdminProps(
   ['common', 'auth', 'validation', 'campaigns', 'cities'],

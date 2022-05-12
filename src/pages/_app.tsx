@@ -1,27 +1,20 @@
 import Head from 'next/head'
 import { AppProps } from 'next/app'
-import getConfig from 'next/config'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
-import { appWithTranslation, useTranslation } from 'next-i18next'
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
-// MaterialUI
-import { LinearProgress } from '@mui/material'
-import { ThemeProvider, Theme, StyledEngineProvider } from '@mui/material/styles'
-import CssBaseline from '@mui/material/CssBaseline'
-import { CacheProvider } from '@emotion/react'
 import { EmotionCache } from '@emotion/cache'
-
-// Keycloak
-import { SSRKeycloakProvider, SSRCookies } from '@react-keycloak/ssr'
+import { CacheProvider } from '@emotion/react'
+import { SessionProvider } from 'next-auth/react'
+import React, { useEffect, useCallback } from 'react'
+import { appWithTranslation, useTranslation } from 'next-i18next'
+import { CssBaseline, ThemeProvider, Theme } from '@mui/material'
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 
 import theme from 'common/theme'
 import useGTM from 'common/util/useGTM'
+import { routes } from 'common/routes'
 import { queryFn } from 'service/restRequests'
+import { isAxiosError } from 'service/apiErrors'
 import createEmotionCache from 'common/createEmotionCache'
-const {
-  publicRuntimeConfig: { keycloakConfig },
-} = getConfig()
 
 import 'styles/global.scss'
 
@@ -39,28 +32,35 @@ interface CustomAppProps extends AppProps {
 function CustomApp({
   Component,
   emotionCache = clientSideEmotionCache,
-  pageProps,
+  pageProps: { session, dehydratedState, ...pageProps },
 }: CustomAppProps) {
   const router = useRouter()
   const { i18n } = useTranslation()
   const { initialize, trackEvent } = useGTM()
+  const onError = useCallback((error: unknown) => {
+    if (error && isAxiosError(error)) {
+      // Redirect to login
+      if (error.response?.status === 401) {
+        router.push(routes.login)
+      }
+    }
+  }, [])
+
   const [queryClient] = React.useState(
     () =>
       new QueryClient({
         defaultOptions: {
-          queries: { queryFn, staleTime: 25000 },
-          // mutations: { mutationFn },
+          queries: {
+            queryFn,
+            onError,
+            staleTime: 25000,
+          },
+          mutations: { onError },
         },
       }),
   )
 
   useEffect(() => {
-    // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector('#jss-server-side')
-    if (jssStyles && jssStyles.parentElement) {
-      jssStyles.parentElement.removeChild(jssStyles)
-    }
-
     // Init GTM
     initialize({
       events: { user_lang: i18n.language },
@@ -94,23 +94,17 @@ function CustomApp({
         <title>Podkrepi.bg</title>
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
-      <StyledEngineProvider injectFirst>
-        <ThemeProvider theme={theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <CssBaseline />
-          <SSRKeycloakProvider
-            LoadingComponent={<LinearProgress />}
-            onEvent={(e, err) => console.log(e, err)}
-            keycloakConfig={keycloakConfig}
-            persistor={SSRCookies(pageProps?.keyCookies ?? {})}>
-            <QueryClientProvider client={queryClient}>
-              <Hydrate state={pageProps.dehydratedState}>
-                <Component {...pageProps} />
-              </Hydrate>
-            </QueryClientProvider>
-          </SSRKeycloakProvider>
-        </ThemeProvider>
-      </StyledEngineProvider>
+      <ThemeProvider theme={theme}>
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <CssBaseline />
+        <SessionProvider session={session} refetchInterval={60}>
+          <QueryClientProvider client={queryClient}>
+            <Hydrate state={dehydratedState}>
+              <Component {...pageProps} />
+            </Hydrate>
+          </QueryClientProvider>
+        </SessionProvider>
+      </ThemeProvider>
     </CacheProvider>
   )
 }

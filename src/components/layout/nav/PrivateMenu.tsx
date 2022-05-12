@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
+import { useSession } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
 import { AccountCircle } from '@mui/icons-material'
 import { Avatar, Grid, IconButton, lighten, Menu, Theme, Typography } from '@mui/material'
 import { createStyles, makeStyles } from '@mui/styles'
 
+import theme from 'common/theme'
 import { routes } from 'common/routes'
 import { isAdmin } from 'common/util/roles'
-import { useSession } from 'common/util/useSession'
 import LinkMenuItem from 'components/common/LinkMenuItem'
-import theme from 'common/theme'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function PrivateMenu() {
   const { t } = useTranslation()
-  const { keycloak, session } = useSession()
+  const { data: session, status } = useSession()
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
   const classes = useStyles()
 
@@ -44,8 +44,8 @@ export default function PrivateMenu() {
   return (
     <Grid item>
       <IconButton onClick={handleMenu} size="large">
-        {session.picture ? (
-          <Avatar title={title} alt={title} src={session.picture} />
+        {session?.user?.picture ? (
+          <Avatar title={title} alt={title} src={session?.user?.picture} />
         ) : (
           <AccountCircle sx={{ fill: theme.palette.info.light }} />
         )}
@@ -61,7 +61,7 @@ export default function PrivateMenu() {
         <LinkMenuItem href={routes.profile.index} className={classes.dropdownLinkText}>
           <Typography variant="button">{t('nav.profile')}</Typography>
         </LinkMenuItem>
-        {keycloak?.authenticated && isAdmin(keycloak) && (
+        {status === 'authenticated' && isAdmin(session) && (
           <LinkMenuItem href={routes.admin.index} className={classes.dropdownLinkText}>
             <Typography variant="button">{t('nav.admin.index')}</Typography>
           </LinkMenuItem>
