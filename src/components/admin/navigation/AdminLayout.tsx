@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect, useMemo } from 'react'
 import { useTheme } from '@mui/styles'
 import MuiDrawer from '@mui/material/Drawer'
 import { styled, Theme, CSSObject } from '@mui/material/styles'
-import { CssBaseline, IconButton, List, Box, Button, Typography } from '@mui/material'
+import { IconButton, List, Box, Button, Typography } from '@mui/material'
 import { Notifications, Settings, MenuOpen, ChevronRight, GppGood } from '@mui/icons-material'
 
 import Snackbar from 'components/layout/Snackbar'
@@ -115,7 +115,6 @@ export default function AdminLayout({ children }: Props) {
   const toggleMenu = useCallback(() => setOpen((open) => !open), [])
   return (
     <StyledBox className={classes.wrapper}>
-      <CssBaseline />
       <AdminAppBar isOpen={open}>
         <Box className={classes.appbarHeader}>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
