@@ -8,6 +8,7 @@ resources:
 
 patches:
   - path: config-web.patch.yaml
+  - path: secrets-web.local.yaml
   - path: keycloak-config-web.patch.yaml
   - path: deployment.patch.yaml
   - path: ingress.patch.yaml
