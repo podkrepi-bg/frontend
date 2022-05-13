@@ -38,7 +38,7 @@ export default function FaqPage({ section }: { section: string }) {
     <Layout title={t('nav.campaigns.faq')}>
       <FaqIntro />
       <TabContext value={value}>
-        <Stack direction="row">
+        <Stack direction={{ xs: 'column', md: 'row' }}>
           <VerticalTabs setValue={setValue} />
           <TabPanel value="common-questions" sx={{ p: 0 }}>
             {COMMON_QUESTIONS.flatMap(({ header, content, visible }) =>

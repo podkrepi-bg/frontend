@@ -3,7 +3,6 @@ import { ExpandMore, ExpandLess } from '@mui/icons-material'
 import React, { useState } from 'react'
 
 import theme from 'common/theme'
-import useMobile from 'common/hooks/useMobile'
 
 type Props = {
   header: string
@@ -14,14 +13,12 @@ const withAccentColor = (open: boolean) => (open ? theme.palette.primary.main : 
 
 const ExpandableListItem = ({ header, content }: Props) => {
   const [open, setOpen] = useState(false)
-  const { mobile } = useMobile()
 
   return (
     <List
       sx={{
         my: 0,
-        mx: 3,
-        width: `${mobile ? '85vw' : '60vw'}`,
+        mx: { xs: 0, md: 3 },
         cursor: 'pointer',
       }}>
       <Paper elevation={1} sx={{ borderRadius: 2 }}>
@@ -44,7 +41,7 @@ const ExpandableListItem = ({ header, content }: Props) => {
         </Box>
         <Collapse in={open}>
           <List>
-            <Box sx={{ pl: 6, pb: 2, pr: 2 }}>{content}</Box>
+            <Box sx={{ pl: { xs: 3, md: 6 }, pb: 2, pr: 2 }}>{content}</Box>
           </List>
         </Collapse>
       </Paper>
