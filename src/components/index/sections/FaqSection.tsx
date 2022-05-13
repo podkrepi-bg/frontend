@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     container: {
       marginBottom: theme.spacing(12),
+      padding: theme.spacing(0, 2),
     },
     graphic: {
       marginTop: theme.spacing(5),
@@ -50,7 +51,7 @@ export default function FaqSection() {
           href={routes.faq}
           variant="outlined"
           endIcon={<ChevronRightIcon />}
-          sx={{ marginY: theme.spacing(2) }}>
+          sx={{ marginTop: theme.spacing(4) }}>
           {t('index:campaign.see-all')}
         </LinkButton>
       </Grid>
