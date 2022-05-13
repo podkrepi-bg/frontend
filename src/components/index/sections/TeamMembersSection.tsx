@@ -18,7 +18,8 @@ import 'swiper/css/a11y'
 
 const swiperOptions: SwiperProps = {
   loop: true,
-  loopAdditionalSlides: 1,
+  observer: true,
+  loopAdditionalSlides: 3,
   modules: [Navigation, A11y, Autoplay],
   autoplay: { delay: 5000 },
   breakpoints: {
@@ -65,9 +66,6 @@ export default function TeamMembersSection() {
           <IconButton style={{ order: 1 }} ref={navigationPrevRef} aria-label="Previouos slide">
             <ChevronLeftIcon />
           </IconButton>
-          <IconButton style={{ order: 3 }} ref={navigationNextRef} aria-label="Next slide">
-            <ChevronRightIcon />
-          </IconButton>
           <Swiper
             {...swiperOptions}
             style={{ marginLeft: theme.spacing(2), marginRight: theme.spacing(2), order: 2 }}
@@ -88,6 +86,9 @@ export default function TeamMembersSection() {
               </SwiperSlide>
             ))}
           </Swiper>
+          <IconButton style={{ order: 3 }} ref={navigationNextRef} aria-label="Next slide">
+            <ChevronRightIcon />
+          </IconButton>
         </Grid>
         <Grid item xs={12} textAlign="center">
           <LinkButton

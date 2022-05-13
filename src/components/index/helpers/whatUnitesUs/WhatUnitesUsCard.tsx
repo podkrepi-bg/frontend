@@ -1,7 +1,5 @@
 import { Box, Card, CardContent, CardHeader } from '@mui/material'
 
-import theme from 'common/theme'
-
 import { WhatUnitesUsItem } from './whatUnitesUsData'
 
 type WhatUnitesUsCardProps = {
