@@ -13,7 +13,6 @@ const PREFIX = 'WantToHelpPodkrepiBg'
 
 const classes = {
   root: `${PREFIX}-root`,
-  text: `${PREFIX}-text`,
   button: `${PREFIX}-button`,
 }
 
@@ -28,11 +27,6 @@ const StyledGrid = styled(Grid)(() => ({
     flexDirection: 'column',
     alignItems: 'center',
     backgroundColor: theme.palette.secondary.light,
-  },
-
-  [`& .${classes.text}`]: {
-    color: 'black',
-    fontFamily: 'Montserrat',
   },
 
   [`& .${classes.button}`]: {
@@ -60,12 +54,10 @@ export default function WantToHelpPodkrepiBgSection() {
         justifyContent="space-around"
         alignItems="center"
         paddingTop="36px">
-        <Grid item style={{ width: '60%' }}>
-          <Typography variant="subtitle1" className={classes.text}>
-            {t('index:help-podkrepi-bg-section.text')}
-          </Typography>
+        <Grid item xs={12} md={8} sx={{ p: 1 }}>
+          <Typography variant="subtitle1">{t('index:help-podkrepi-bg-section.text')}</Typography>
         </Grid>
-        <Grid item>
+        <Grid item xs={12} md={4} textAlign="right">
           <LinkButton
             variant="contained"
             href={routes.support}

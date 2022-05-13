@@ -28,7 +28,6 @@ const ExpandableListItem = ({ header, content }: Props) => {
           <ListItemText
             primary={header}
             primaryTypographyProps={{
-              fontFamily: 'Montserrat',
               variant: 'subtitle1',
               color: `${withAccentColor(open)}`,
             }}

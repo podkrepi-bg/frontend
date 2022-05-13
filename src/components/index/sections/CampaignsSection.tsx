@@ -21,7 +21,6 @@ const StyledContainer = styled(Container)(({ theme }) => ({
   [`& .${classes.heading}`]: {
     paddingBottom: theme.spacing(7),
     color: theme.palette.primary.dark,
-    fontFamily: 'Montserrat',
     textAlign: 'center',
   },
 

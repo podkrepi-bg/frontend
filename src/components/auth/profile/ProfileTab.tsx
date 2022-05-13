@@ -20,7 +20,6 @@ function ProfileTab({ children, name, title, ...other }: Props) {
         <Box
           component="h3"
           sx={{
-            fontFamily: 'Montserrat',
             fontStyle: 'normal',
             fontWeight: '500',
             fontSize: '25px',

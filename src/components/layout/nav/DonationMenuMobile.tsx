@@ -26,7 +26,6 @@ const StyledAccordion = styled(Accordion)(({ theme }) => ({
   },
 
   [`& .${classes.accordionSummary}`]: {
-    fontFamily: 'Montserrat',
     fontWeight: 500,
     fontSize: theme.spacing(1.75),
     minHeight: theme.spacing(5),

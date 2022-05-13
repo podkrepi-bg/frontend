@@ -28,12 +28,7 @@ const Root = styled('div')(({ theme }) => ({
   },
 }))
 
-type Linkable =
-  | {
-      id: string
-      linkable: true
-    }
-  | { linkable?: false }
+type Linkable = { id: string; linkable: true } | { linkable?: false }
 
 type HeadingParams = PropsWithChildren<TypographyProps & Linkable> & {
   component?: React.ElementType

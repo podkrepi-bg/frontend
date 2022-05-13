@@ -182,12 +182,16 @@ export const themeOptions: ThemeOptions = {
     h4: { fontFamily },
     h5: { fontFamily },
     h6: { fontFamily },
-    button: { fontFamily, textTransform: 'initial' },
+    subtitle1: { fontFamily },
+    subtitle2: { fontFamily },
     body1: {
       fontSize: '0.875rem',
       lineHeight: '1.43',
       letterSpacing: '0.01071em',
+      fontFamily,
     },
+    body2: { fontFamily },
+    button: { fontFamily, textTransform: 'initial' },
   },
 }
 // https://material-ui.com/customization/default-theme/#default-theme

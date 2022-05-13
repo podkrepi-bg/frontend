@@ -41,7 +41,6 @@ export const teamPieOptions: Options = {
         enabled: true,
         format: '<b>{point.name}</b>: {point.percentage:.1f} %',
         style: {
-          fontFamily: 'Montserrat',
           color: '#444444',
           fontSize: '12px',
         },
