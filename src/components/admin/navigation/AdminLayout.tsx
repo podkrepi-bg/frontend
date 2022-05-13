@@ -97,7 +97,7 @@ export default function AdminLayout({ children }: Props) {
   const theme = useTheme()
 
   const initialOpen = useMemo<boolean>(() => {
-    const item = window.localStorage.getItem('menu-open')
+    const item = typeof window !== 'undefined' ? window.localStorage.getItem('menu-open') : false
     if (item) {
       return Boolean(JSON.parse(item))
     }
@@ -107,7 +107,9 @@ export default function AdminLayout({ children }: Props) {
   const [open, setOpen] = useState<boolean>(initialOpen)
 
   useEffect(() => {
-    window.localStorage.setItem('menu-open', JSON.stringify(open))
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('menu-open', JSON.stringify(open))
+    }
   }, [open])
 
   const toggleMenu = useCallback(() => setOpen((open) => !open), [])

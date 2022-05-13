@@ -90,6 +90,7 @@ export default function HoverMenu({ menu, items, icon: Icon, isOpen }: Props) {
         {items.map(({ label, icon: Icon, href }, index) => (
           <MenuItem sx={{ p: 0 }} key={index} onClick={handleCloseMenu}>
             <CustomListItem
+              component="div"
               key={label}
               selected={href !== '#' && router.asPath.includes(href)}
               icon={<Icon />}
