@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react'
+import { styled } from '@mui/material/styles'
 import { IconButton, ImageList, Typography } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import { useCampaignList } from 'common/hooks/campaigns'
 import CampaignsList from './CampaignsList'
 import { CampaignResponse } from 'gql/campaigns'
@@ -23,33 +22,38 @@ import {
 } from '@mui/icons-material'
 import useMobile from 'common/hooks/useMobile'
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    filterButtons: {
-      display: 'block',
-      height: '100px',
-      borderRadius: 0,
-      borderBottom: '5px solid transparent',
-      '&:active': {
-        color: '#4AC3FF',
-        borderBottom: '5px solid #4AC3FF',
-      },
-      '&:hover': {
-        backgroundColor: 'white',
-        borderBottom: '5px solid #4AC3FF',
-        color: '#4AC3FF',
-      },
-      '&:focus': {
-        color: '#4AC3FF',
-        borderBottom: '5px solid #4AC3FF',
-      },
-      '&:selected': {
-        color: '#4AC3FF',
-        borderBottom: '5px solid #4AC3FF',
-      },
+const PREFIX = 'CampaignFilter'
+
+const classes = {
+  filterButtons: `${PREFIX}-filterButtons`,
+}
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')(() => ({
+  [`& .${classes.filterButtons}`]: {
+    display: 'block',
+    height: '100px',
+    borderRadius: 0,
+    borderBottom: '5px solid transparent',
+    '&:active': {
+      color: '#4AC3FF',
+      borderBottom: '5px solid #4AC3FF',
     },
-  }),
-)
+    '&:hover': {
+      backgroundColor: 'white',
+      borderBottom: '5px solid #4AC3FF',
+      color: '#4AC3FF',
+    },
+    '&:focus': {
+      color: '#4AC3FF',
+      borderBottom: '5px solid #4AC3FF',
+    },
+    '&:selected': {
+      color: '#4AC3FF',
+      borderBottom: '5px solid #4AC3FF',
+    },
+  },
+}))
 
 const categories: {
   [key in CampaignTypeCategory]: { icon?: React.ReactElement }
@@ -68,7 +72,6 @@ const categories: {
 }
 
 export default function CampaignFilter() {
-  const classes = useStyles()
   const { t } = useTranslation()
   const { mobile } = useMobile()
   const { data: campaigns } = useCampaignList()
@@ -86,7 +89,7 @@ export default function CampaignFilter() {
   }, [campaigns, selectedCategory])
 
   return (
-    <>
+    <Root>
       <ImageList
         cols={mobile ? 2 : 6}
         rowHeight={164}
@@ -118,6 +121,6 @@ export default function CampaignFilter() {
         </IconButton>
       </ImageList>
       <CampaignsList campaignToShow={campaignToShow} />
-    </>
+    </Root>
   )
 }

@@ -11,9 +11,9 @@ import {
   CircularProgress,
   useMediaQuery,
 } from '@mui/material'
+import { styled } from '@mui/material/styles'
 import React from 'react'
 import { sumBy, truncate } from 'lodash'
-import { makeStyles } from '@mui/styles'
 import { useTranslation } from 'next-i18next'
 
 import theme from 'common/theme'
@@ -28,11 +28,18 @@ import { ProfileTabs } from './tabs'
 import ProfileTab from './ProfileTab'
 import DonationTable from './DonationTable'
 
-const useStyles = makeStyles({
-  donationsBox: {
+const PREFIX = 'DonationTab'
+
+const classes = {
+  donationsBox: `${PREFIX}-donationsBox`,
+  donationsBoxRow: `${PREFIX}-donationsBoxRow`,
+}
+
+const StyledProfileTab = styled(ProfileTab)({
+  [`& .${classes.donationsBox}`]: {
     padding: theme.spacing(5),
   },
-  donationsBoxRow: {
+  [`& .${classes.donationsBoxRow}`]: {
     '&:first-child': {
       borderBottom: `1px solid ${theme.palette.divider}`,
       marginBottom: theme.spacing(5),
@@ -45,7 +52,6 @@ const useStyles = makeStyles({
 })
 
 export default function DonationTab() {
-  const classes = useStyles()
   const router = useRouter()
   const { t } = useTranslation()
   const matches = useMediaQuery(theme.breakpoints.down('md'))
@@ -58,7 +64,7 @@ export default function DonationTab() {
   const { data: userDonations, isLoading: isUserDonationLoading } = useUserDonations()
   const { data: campaigns, isLoading: isCampaignLoading } = useCampaignList()
   return (
-    <ProfileTab
+    <StyledProfileTab
       title={user?.user ? user.user.firstName + ' ' + user?.user.lastName : ''}
       name={ProfileTabs.donations}>
       <Typography variant="h5" fontWeight={'medium'}>
@@ -141,6 +147,6 @@ export default function DonationTab() {
           <DonationTable donations={userDonations?.donations} />
         </Grid>
       </Grid>
-    </ProfileTab>
+    </StyledProfileTab>
   )
 }

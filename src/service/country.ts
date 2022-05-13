@@ -1,5 +1,4 @@
-import { KeycloakInstance } from 'keycloak-js'
-import { useKeycloak } from '@react-keycloak/ssr'
+import { useSession } from 'next-auth/react'
 import { AxiosResponse } from 'axios'
 
 import { apiClient } from 'service/apiClient'
@@ -8,12 +7,12 @@ import { endpoints } from 'service/apiEndpoints'
 import { CountryInput, CountryResponse } from 'gql/countries'
 
 export const useCreateCountry = () => {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return async (data: CountryInput) =>
     await apiClient.post<CountryInput, AxiosResponse<CountryResponse>>(
       endpoints.country.createCountry.url,
       data,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
 }
 
@@ -24,22 +23,22 @@ export const getCountry = async (id: string) => {
 }
 
 export const useEditCountry = () => {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return async ({ id, data }: { id: string; data: CountryInput }) => {
     return await apiClient.patch<CountryResponse, AxiosResponse<CountryResponse>>(
       endpoints.country.editCountry(id).url,
       data,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
   }
 }
 
 export const useDeleteCountry = () => {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return async (id: string) => {
     return await apiClient.delete<string, AxiosResponse<CountryResponse>>(
       endpoints.country.deleteCountry(id).url,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
   }
 }

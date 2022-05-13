@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
+import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import { DataGrid, GridColumns } from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
 
@@ -13,64 +13,23 @@ import { ModalStore } from '../CountriesPage'
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 
-const useStyles = makeStyles({
-  gridWrapper: {
-    margin: '0 auto',
-  },
-  grid: {
-    marginBottom: 15,
-    border: 'none',
-    '& .MuiDataGrid-virtualScroller': {
-      overflow: 'hidden',
-    },
-    '& .MuiDataGrid-footerContainer': {
-      marginTop: '30px',
-      marginRight: '40px',
-    },
-    fontFamily: 'Lato',
-    fontSize: '12px',
-  },
-  gridColumn: {
+const PREFIX = 'CountryGrid'
+
+const classes = {
+  gridColumn: `${PREFIX}-gridColumn`,
+}
+
+const Root = styled('div')({
+  [`& .${classes.gridColumn}`]: {
     '& .MuiDataGrid-columnHeaderTitle': {
       fontFamily: 'Roboto',
       fontSize: '14px',
       fontWeight: '700',
     },
   },
-  gridBtn: {
-    background: '#FFFFFF',
-    boxShadow:
-      '0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px rgba(0, 0, 0, 0.14), 0px 1px 18px rgba(0, 0, 0, 0.12)',
-    borderRadius: '50%',
-    marginRight: '8px',
-    padding: '4px',
-  },
-  gridAddBtn: {
-    background: '#4AC3FF',
-    boxShadow:
-      '0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px rgba(0, 0, 0, 0.14), 0px 1px 18px rgba(0, 0, 0, 0.12)',
-    borderRadius: '50%',
-    padding: '8px',
-  },
-  gridTitleWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: '0px 10px 5px 23px',
-    height: '80px',
-  },
-  gridDescription: {
-    fontFamily: 'Lato',
-    fontSize: '12px',
-    color: '#666',
-    alignSelf: 'flex-start',
-  },
-  gridMainActionsBtns: {
-    alignSelf: 'flex-end',
-  },
 })
 
 export default observer(function Grid() {
-  const classes = useStyles()
   const [pageSize, setPageSize] = useState(5)
   const { t } = useTranslation('countries')
 
@@ -112,7 +71,7 @@ export default observer(function Grid() {
   ]
 
   return (
-    <>
+    <Root>
       <Box sx={{ marginTop: '2%', mx: 'auto', width: 700 }}>
         <DataGrid
           style={{
@@ -134,10 +93,8 @@ export default observer(function Grid() {
           disableSelectionOnClick
         />
       </Box>
-
-      {/* making sure we don't sent requests to the API when not needed */}
       {isDetailsOpen && <DetailsModal />}
       <DeleteModal />
-    </>
+    </Root>
   )
 })

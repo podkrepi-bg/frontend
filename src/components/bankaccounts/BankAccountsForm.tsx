@@ -3,10 +3,8 @@ import { useRouter } from 'next/router'
 import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import * as yup from 'yup'
-import createStyles from '@mui/styles/createStyles'
 import { AxiosError, AxiosResponse } from 'axios'
 import { Grid, Typography } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
 
 import LinkButton from 'components/common/LinkButton'
 import GenericForm from 'components/common/form/GenericForm'
@@ -34,18 +32,7 @@ export const validationSchemaBankAccForm: yup.SchemaOf<BankAccountsData> = yup
     fingerprint: yup.string().trim().min(10).max(100).required(),
   })
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    heading: {
-      marginBottom: theme.spacing(5),
-      color: theme.palette.primary.dark,
-      textAlign: 'center',
-    },
-  }),
-)
-
 export default function BankAccountsForm() {
-  const classes = useStyles()
   const { t } = useTranslation()
   const router = useRouter()
   const initialValues: BankAccountInput = {
@@ -78,7 +65,14 @@ export default function BankAccountsForm() {
   return (
     <Grid container direction="column" component="section">
       <Grid item xs={12}>
-        <Typography variant="h5" component="h2" className={classes.heading}>
+        <Typography
+          variant="h5"
+          component="h2"
+          sx={(theme) => ({
+            mb: 5,
+            color: theme.palette.primary.dark,
+            textAlign: 'center',
+          })}>
           {t('bankaccounts:headings.add')}
         </Typography>
       </Grid>

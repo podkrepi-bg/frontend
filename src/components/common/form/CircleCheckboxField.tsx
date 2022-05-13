@@ -12,36 +12,9 @@ import {
 } from '@mui/material'
 import { TranslatableField, translateError } from 'common/form/validation'
 import React from 'react'
-import { createStyles, makeStyles } from '@mui/styles'
 import CheckIcon from '@mui/icons-material/Check'
 import theme from 'common/theme'
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    checked: {
-      background: lighten(theme.palette.primary.main, 0.8),
-      border: `1px solid ${theme.borders.light}`,
-    },
-    circle: {
-      width: 30,
-      height: 30,
-      border: `1px solid ${theme.palette.primary.dark}`,
-      borderRadius: theme.borders.round,
-    },
-    checkedCircle: {
-      width: 30,
-      height: 30,
-      border: `1px solid ${theme.palette.primary.main}`,
-      backgroundColor: theme.palette.primary.main,
-      borderRadius: theme.borders.round,
-      color: '#fff',
-    },
-    label: {
-      fontWeight: 'bold',
-      marginLeft: theme.spacing(1),
-    },
-  }),
-)
 export type CircleCheckboxField = {
   name: string
   label: string | number | React.ReactElement
@@ -49,19 +22,47 @@ export type CircleCheckboxField = {
 }
 
 export default function CircleCheckboxField({ name, label, labelProps }: CircleCheckboxField) {
-  const classes = useStyles()
   const { t } = useTranslation('one-time-donation')
   const [field, meta] = useField(name)
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
   return (
     <FormControl required component="fieldset" error={Boolean(meta.error) && Boolean(meta.touched)}>
       <FormControlLabel
-        className={field.checked ? classes.checked : undefined}
-        label={<Typography className={classes.label}>{label}</Typography>}
+        sx={
+          field.checked
+            ? {
+                background: lighten(theme.palette.primary.main, 0.8),
+                border: `1px solid ${theme.borders.light}`,
+              }
+            : undefined
+        }
+        label={<Typography sx={{ fontWeight: 'bold', ml: 1 }}>{label}</Typography>}
         control={
           <Checkbox
-            icon={<Icon className={classes.circle} />}
-            checkedIcon={<CheckIcon className={classes.checkedCircle} />}
+            icon={
+              <Icon
+                sx={(theme) => ({
+                  width: 30,
+                  height: 30,
+                  border: `1px solid ${theme.palette.primary.dark}`,
+                  // @ts-expect-error theme doesn't include overrides
+                  borderRadius: theme.borders.round,
+                })}
+              />
+            }
+            checkedIcon={
+              <CheckIcon
+                sx={(theme) => ({
+                  width: 30,
+                  height: 30,
+                  border: `1px solid ${theme.palette.primary.main}`,
+                  backgroundColor: theme.palette.primary.main,
+                  // @ts-expect-error theme doesn't include overrides
+                  borderRadius: theme.borders.round,
+                  color: '#fff',
+                })}
+              />
+            }
             checked={Boolean(field.value)}
             {...field}
           />

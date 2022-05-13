@@ -1,22 +1,21 @@
 import { useQuery } from 'react-query'
-import { KeycloakInstance } from 'keycloak-js'
-import { useKeycloak } from '@react-keycloak/ssr'
+import { useSession } from 'next-auth/react'
 
 import { endpoints } from 'service/apiEndpoints'
 import { ExpenseResponse } from 'gql/expenses'
 import { authQueryFnFactory } from 'service/restRequests'
 
 export function useExpensesList() {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery<ExpenseResponse[]>(endpoints.expenses.listExpenses.url, {
-    queryFn: authQueryFnFactory(keycloak?.token),
+    queryFn: authQueryFnFactory(session?.accessToken),
   })
 }
 
 export function useViewExpense(id: string) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery<ExpenseResponse>(endpoints.expenses.viewExpense(id).url, {
     retry: 0,
-    queryFn: authQueryFnFactory(keycloak?.token),
+    queryFn: authQueryFnFactory(session?.accessToken),
   })
 }

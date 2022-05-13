@@ -1,9 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { Grid, Theme, Typography } from '@mui/material'
-
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
+import { Grid, Typography } from '@mui/material'
 
 import ActivityIcon from '../icons/ActivityIcon'
 import ApplyingForProgramIcon from '../icons/ApplyingForProgramIcon'
@@ -11,32 +8,22 @@ import FeesIcon from '../icons/FeesIcon'
 import DonationIcon from '../icons/DonationIcon'
 import CommissionIcon from '../icons/CommissionIcon'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    heading: {
-      marginBottom: theme.spacing(5),
-      color: theme.palette.primary.dark,
-      fontSize: theme.typography.pxToRem(40),
-    },
-    container: {
-      marginBottom: theme.spacing(12),
-      textAlign: 'center',
-    },
-    icons: {
-      marginBottom: theme.spacing(5),
-    },
-  }),
-)
-
 export default function SelfFinancing() {
   const { t } = useTranslation()
-  const classes = useStyles()
+
   return (
-    <Grid container direction="column" component="section" className={classes.container}>
-      <Typography variant="h4" component="h2" className={classes.heading}>
+    <Grid container direction="column" component="section" sx={{ mb: 12, textAlign: 'center' }}>
+      <Typography
+        variant="h4"
+        component="h2"
+        sx={(theme) => ({
+          mb: 5,
+          color: theme.palette.primary.dark,
+          fontSize: theme.typography.pxToRem(40),
+        })}>
         {t('about-project:selfFinancingTitle')}
       </Typography>
-      <Grid item container className={classes.icons}>
+      <Grid item container sx={{ mb: 5 }}>
         <Grid item xs={12} sm={3}>
           <ActivityIcon Icon={CommissionIcon} description={t('about-project:commission')} />
         </Grid>

@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
+import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import { useField } from 'formik'
 import { Alert, Box, Collapse, Divider, Grid, List, Typography } from '@mui/material'
-import { makeStyles, createStyles } from '@mui/styles'
 import theme from 'common/theme'
 import { useSinglePriceList } from 'common/hooks/donation'
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
@@ -11,18 +11,23 @@ import { ibanNumber } from 'common/iban'
 import { CopyTextButton } from 'components/common/CopyTextButton'
 import { StepsContext } from '../helpers/stepperContext'
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    divider: {
-      border: '1px solid #000000',
-    },
-  }),
-)
+const PREFIX = 'FirstStep'
+
+const classes = {
+  divider: `${PREFIX}-divider`,
+}
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')(() => ({
+  [`& .${classes.divider}`]: {
+    border: '1px solid #000000',
+  },
+}))
 
 export default function FirstStep() {
   const { data: prices } = useSinglePriceList()
   const { t } = useTranslation('one-time-donation')
-  const classes = useStyles()
+
   const options = [
     { value: 'card', label: t('third-step.card') },
     { value: 'bank', label: t('third-step.bank-payment') },
@@ -36,9 +41,8 @@ export default function FirstStep() {
     iban: ibanNumber,
   }
   return (
-    <>
+    <Root>
       <Typography variant="h4">{t('third-step.title')}</Typography>
-
       <Box marginTop={theme.spacing(4)}>
         <RadioButtonGroup name="payment" options={options} />
       </Box>
@@ -121,6 +125,6 @@ export default function FirstStep() {
           />
         </Box>
       </Collapse>
-    </>
+    </Root>
   )
 }

@@ -1,5 +1,5 @@
 import { Grid, Typography } from '@mui/material'
-import { createStyles, makeStyles } from '@mui/styles'
+import { styled } from '@mui/material/styles'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { useTranslation } from 'next-i18next'
 
@@ -9,36 +9,37 @@ import { routes } from 'common/routes'
 import theme from 'common/theme'
 import Heading from 'components/common/Heading'
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    root: {
-      display: 'flex',
-      paddingTop: '36px',
-      paddingBottom: '36px',
-      paddingLeft: '25vw',
-      paddingRight: '25vw',
-      marginBottom: theme.spacing(12),
-      flexDirection: 'column',
-      alignItems: 'center',
-      backgroundColor: theme.palette.secondary.light,
-    },
-    text: {
-      color: 'black',
-      fontFamily: 'Montserrat',
-    },
-    button: {
-      color: 'black',
-      margin: 'auto',
-    },
-  }),
-)
+const PREFIX = 'WantToHelpPodkrepiBg'
+
+const classes = {
+  root: `${PREFIX}-root`,
+  button: `${PREFIX}-button`,
+}
+
+const StyledGrid = styled(Grid)(() => ({
+  [`&.${classes.root}`]: {
+    display: 'flex',
+    paddingTop: '36px',
+    paddingBottom: '36px',
+    paddingLeft: '25vw',
+    paddingRight: '25vw',
+    marginBottom: theme.spacing(12),
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: theme.palette.secondary.light,
+  },
+
+  [`& .${classes.button}`]: {
+    color: 'black',
+    margin: 'auto',
+  },
+}))
 
 export default function WantToHelpPodkrepiBgSection() {
-  const classes = useStyles()
   const { t } = useTranslation()
 
   return (
-    <Grid className={classes.root}>
+    <StyledGrid className={classes.root}>
       <Heading
         textAlign="center"
         variant="h4"
@@ -53,12 +54,10 @@ export default function WantToHelpPodkrepiBgSection() {
         justifyContent="space-around"
         alignItems="center"
         paddingTop="36px">
-        <Grid item style={{ width: '60%' }}>
-          <Typography variant="subtitle1" className={classes.text}>
-            {t('index:help-podkrepi-bg-section.text')}
-          </Typography>
+        <Grid item xs={12} md={8} sx={{ p: 1 }}>
+          <Typography variant="subtitle1">{t('index:help-podkrepi-bg-section.text')}</Typography>
         </Grid>
-        <Grid item>
+        <Grid item xs={12} md={4} textAlign="right">
           <LinkButton
             variant="contained"
             href={routes.support}
@@ -68,6 +67,6 @@ export default function WantToHelpPodkrepiBgSection() {
           </LinkButton>
         </Grid>
       </Grid>
-    </Grid>
+    </StyledGrid>
   )
 }

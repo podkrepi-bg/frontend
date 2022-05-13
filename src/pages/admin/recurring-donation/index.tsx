@@ -1,5 +1,5 @@
 import RecurringDonationPage from 'components/recurring-donation/RecurringDonationPage'
-import { securedAdminProps } from 'middleware/auth/keycloak'
+import { securedAdminProps } from 'middleware/auth/securedProps'
 import { endpoints } from 'service/apiEndpoints'
 
 export const getServerSideProps = securedAdminProps(

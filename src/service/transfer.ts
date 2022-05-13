@@ -1,6 +1,5 @@
 import { AxiosResponse } from 'axios'
-import { KeycloakInstance } from 'keycloak-js'
-import { useKeycloak } from '@react-keycloak/ssr'
+import { useSession } from 'next-auth/react'
 
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
@@ -9,33 +8,33 @@ import { authConfig } from 'service/restRequests'
 import { TransferInput, TransferResponse } from 'gql/transfer'
 
 export const useCreateTransfer = () => {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return async (data: TransferInput) => {
     return await apiClient.post<TransferInput, AxiosResponse<TransferResponse>>(
       endpoints.transfer.createTransfer.url,
       data,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
   }
 }
 
 export const useEditTransfer = (id: string) => {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return async (data: TransferInput) => {
     return await apiClient.put<TransferInput, AxiosResponse<TransferResponse>>(
       endpoints.transfer.editTransfer(id).url,
       data,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
   }
 }
 
 export const useDeleteTransfer = (id: string) => {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return async () => {
     return await apiClient.delete<TransferResponse, AxiosResponse<TransferResponse>>(
       endpoints.transfer.removeTransfer(id).url,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
   }
 }

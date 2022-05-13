@@ -1,5 +1,4 @@
-import { KeycloakInstance } from 'keycloak-js'
-import { useKeycloak } from '@react-keycloak/ssr'
+import { useSession } from 'next-auth/react'
 import { QueryClient, useQuery } from 'react-query'
 
 import { endpoints } from 'service/apiEndpoints'
@@ -39,10 +38,10 @@ type SupportRequest = {
 }
 
 export function useSupportRequestList() {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery<SupportRequest[]>(
     endpoints.support.supportRequestList.url,
-    authQueryFnFactory<SupportRequest[]>(keycloak?.token),
+    authQueryFnFactory<SupportRequest[]>(session?.accessToken),
   )
 }
 
