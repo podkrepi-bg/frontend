@@ -1,4 +1,4 @@
-import { securedAdminProps } from 'middleware/auth/keycloak'
+import { securedAdminProps } from 'middleware/auth/securedProps'
 import BankAccountsEditPage from 'components/bankaccounts/BankAccountsEditPage'
 import { endpoints } from 'service/apiEndpoints'
 

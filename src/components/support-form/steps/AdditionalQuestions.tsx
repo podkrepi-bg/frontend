@@ -1,13 +1,12 @@
 import React from 'react'
 import { useFormikContext } from 'formik'
 import { useTranslation } from 'next-i18next'
-import { FormControl, FormGroup, FormHelperText, FormLabel, Grid, Typography } from '@mui/material'
+import { FormControl, FormGroup, FormHelperText, FormLabel, Grid } from '@mui/material'
 
 import { Option, RoleRenderObject, SupportFormData } from '../helpers/support-form.types'
 import CheckboxField from 'components/common/form/CheckboxField'
 import FormTextField from 'components/common/form/FormTextField'
-import theme from 'common/theme'
-import { useHeaderStyles } from '../helpers/header-styles'
+import HeaderTypography from '../helpers/HeaderTypography'
 
 type QuestionProps = {
   question?: RoleRenderObject
@@ -46,7 +45,6 @@ const Question = ({ question }: QuestionProps) => {
 export default function AdditionalQuestions() {
   const formik = useFormikContext<SupportFormData>()
   const { t } = useTranslation()
-  const classes = useHeaderStyles(theme)
   const questionsList: Array<RoleRenderObject> = [
     {
       key: 'benefactor',
@@ -212,9 +210,7 @@ export default function AdditionalQuestions() {
   return (
     <Grid container spacing={6} justifyContent="center">
       <Grid item xs={12}>
-        <Typography variant="h4" align="center" className={classes.subtitleText}>
-          {t('support:steps.addition-questions.subtitle')}
-        </Typography>
+        <HeaderTypography>{t('support:steps.addition-questions.subtitle')}</HeaderTypography>
       </Grid>
       <Grid item xs={12} md={10}>
         <Grid container spacing={6} justifyContent="center">

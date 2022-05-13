@@ -3,17 +3,12 @@ import { useMemo, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Box, BoxProps, Container, ContainerProps, Typography } from '@mui/material'
 
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
-
 import Footer from 'components/layout/Footer'
 import { defaultOgImage } from 'common/routes'
 import Snackbar from 'components/layout/Snackbar'
 import DetailsModal from 'components/modal/DetailsModal'
 
-import dynamic from 'next/dynamic'
-const AppNavBarWithNoSSR = dynamic(() => import('components/layout/AppNavBar'), { ssr: false })
-
+import AppNavBar from './AppNavBar'
 import MobileNav from './nav/MobileNav'
 import ImproveThisPageTag from './ImproveThisPageTag'
 
@@ -31,25 +26,6 @@ type LayoutProps = React.PropsWithChildren<
   }
 >
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    layout: {
-      position: 'relative',
-      minHeight: '100vh',
-    },
-    pageTitle: {
-      padding: theme.spacing(4),
-    },
-    offset: {
-      ...theme.mixins.toolbar,
-      marginBottom: theme.spacing(6),
-      [theme.breakpoints.down('lg')]: {
-        marginBottom: theme.spacing(0),
-      },
-    },
-  }),
-)
-
 export default function Layout({
   title,
   ogImage,
@@ -64,7 +40,6 @@ export default function Layout({
   profilePage = false,
   ...containerProps
 }: LayoutProps) {
-  const classes = useStyles()
   const { t } = useTranslation()
   const [mobileOpen, setMobileOpen] = useState(false)
   const navMenuToggle = () => setMobileOpen(!mobileOpen)
@@ -76,7 +51,10 @@ export default function Layout({
       maxWidth={false}
       disableGutters
       sx={{ backgroundColor: profilePage ? '#E9F6FF' : '' }}>
-      <Container className={classes.layout} maxWidth={maxWidth} {...containerProps}>
+      <Container
+        sx={{ position: 'relative', minHeight: '100vh' }}
+        maxWidth={maxWidth}
+        {...containerProps}>
         <Head>
           <title>{metaTitle}</title>
           <meta name="description" content={metaDescription ?? metaTitle} />
@@ -86,16 +64,21 @@ export default function Layout({
           <meta key="og:image:height" property="og:image:height" content="1000" />
         </Head>
         <Box pt={4} pb={disableOffset ? 0 : 10} {...boxProps}>
-          <AppNavBarWithNoSSR navMenuToggle={navMenuToggle} />
+          <AppNavBar navMenuToggle={navMenuToggle} />
           <MobileNav mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
-          {!disableOffset && <div className={classes.offset} />}
+          {!disableOffset && (
+            <Box
+              sx={(theme) => ({
+                ...theme.mixins.toolbar,
+                marginBottom: theme.spacing(6),
+                [theme.breakpoints.down('lg')]: {
+                  marginBottom: theme.spacing(0),
+                },
+              })}
+            />
+          )}
           {title && !disableOffset && (
-            <Typography
-              paragraph
-              variant="h2"
-              component="h1"
-              align="center"
-              className={classes.pageTitle}>
+            <Typography paragraph variant="h2" component="h1" align="center" sx={{ p: 4 }}>
               {title}
             </Typography>
           )}

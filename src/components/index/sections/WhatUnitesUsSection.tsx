@@ -47,7 +47,7 @@ export default function WhatUnitesUsSection() {
   const navigationNextRef = React.useRef(null)
   const classes = useStyles()
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" sx={{ pb: 12 }}>
       <Heading
         textAlign="center"
         variant="h4"
@@ -67,12 +67,6 @@ export default function WhatUnitesUsSection() {
             ref={navigationPrevRef}
             aria-label="Previouos slide">
             <ChevronLeftIcon />
-          </IconButton>
-          <IconButton
-            className={classes.sliderNavNext}
-            ref={navigationNextRef}
-            aria-label="Next slide">
-            <ChevronRightIcon />
           </IconButton>
           <Swiper
             {...swiperOptions}
@@ -94,6 +88,12 @@ export default function WhatUnitesUsSection() {
               </SwiperSlide>
             ))}
           </Swiper>
+          <IconButton
+            className={classes.sliderNavNext}
+            ref={navigationNextRef}
+            aria-label="Next slide">
+            <ChevronRightIcon />
+          </IconButton>
         </Grid>
       </Grid>
     </Container>

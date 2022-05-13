@@ -1,35 +1,39 @@
-import { Box, Grid, Theme, Typography } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
+import { Box, Grid, Typography } from '@mui/material'
+import { styled } from '@mui/material/styles'
 import theme from 'common/theme'
 import { formatDateString } from 'common/util/date'
 import { PersonResponse } from 'gql/person'
 import { useTranslation } from 'next-i18next'
 import React from 'react'
 
+const PREFIX = 'PersonInfo'
+
+const classes = {
+  infoHeading: `${PREFIX}-infoHeading`,
+  infoWrapper: `${PREFIX}-infoWrapper`,
+}
+
+const StyledGrid = styled(Grid)(({ theme }) => ({
+  [`& .${classes.infoHeading}`]: {
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2),
+  },
+
+  [`& .${classes.infoWrapper}`]: {
+    '&>*': {
+      marginBottom: theme.spacing(1),
+    },
+  },
+}))
+
 type Props = {
   person: PersonResponse
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    infoHeading: {
-      marginBottom: theme.spacing(2),
-      marginTop: theme.spacing(2),
-    },
-    infoWrapper: {
-      '&>*': {
-        marginBottom: theme.spacing(1),
-      },
-    },
-  }),
-)
-
 function PersonInfo({ person }: Props) {
-  const classes = useStyles()
   const { t } = useTranslation()
   return (
-    <Grid container>
+    <StyledGrid container>
       <Grid item xs={12} md={6}>
         <Typography className={classes.infoHeading} variant="h6" color={theme.palette.primary.dark}>
           {t('person:info.contact')}
@@ -62,7 +66,7 @@ function PersonInfo({ person }: Props) {
           </Typography>
         </Box>
       </Grid>
-    </Grid>
+    </StyledGrid>
   )
 }
 

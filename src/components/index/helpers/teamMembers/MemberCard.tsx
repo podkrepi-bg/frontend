@@ -10,9 +10,7 @@ type MemberCardProps = {
 
 export default function MemberCard({ info }: MemberCardProps) {
   return (
-    <Card
-      sx={{ maxWidth: 320, margin: '0 auto' }}
-      style={{ backgroundColor: theme.palette.secondary.light }}>
+    <Card sx={{ backgroundColor: theme.palette.secondary.light }}>
       <Box
         m="auto"
         width={200}

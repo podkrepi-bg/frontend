@@ -1,5 +1,4 @@
-import { KeycloakInstance } from 'keycloak-js'
-import { useKeycloak } from '@react-keycloak/ssr'
+import { useSession } from 'next-auth/react'
 
 import { endpoints } from './apiEndpoints'
 import { authConfig, authQueryFnFactory } from './restRequests'
@@ -8,54 +7,54 @@ import { QueryClient, useQuery } from 'react-query'
 import { apiClient } from './apiClient'
 
 export const useCampaignTypesList = () => {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
 
   return useQuery(
     endpoints.campaignTypes.listCampaignTypes.url,
-    authQueryFnFactory<CampaignTypesResponse[]>(keycloak?.token),
+    authQueryFnFactory<CampaignTypesResponse[]>(session?.accessToken),
   )
 }
 
 export const useCampaignType = (id: string) => {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery(
     endpoints.campaignTypes.viewCampaignType(id).url,
-    authQueryFnFactory<CampaignTypesResponse>(keycloak?.token),
+    authQueryFnFactory<CampaignTypesResponse>(session?.accessToken),
     { staleTime: 5 },
   )
 }
 
 export const useCreateCampaignType = () => {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
 
   return async (data: CampaignTypeFormData) => {
     return await apiClient.post(
       endpoints.campaignTypes.createCampaignType.url,
       data,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
   }
 }
 
 export const useEditCampaignType = (id: string) => {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
 
   return async (data: CampaignTypeFormData) => {
     return await apiClient.put(
       endpoints.campaignTypes.editCampaignType(id).url,
       data,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
   }
 }
 
 export const useRemoveCampaignType = () => {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
 
   return async (id: string) => {
     return await apiClient.delete(
       endpoints.campaignTypes.removeCampaignType(id).url,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
   }
 }
@@ -67,9 +66,6 @@ export async function prefetchCampaignTypeById(client: QueryClient, slug: string
   )
 }
 
-export async function prefetchCampaignTypesList(client: QueryClient, token?: string) {
-  await client.prefetchQuery<CampaignTypesResponse[]>(
-    endpoints.campaignTypes.listCampaignTypes.url,
-    authQueryFnFactory<CampaignTypesResponse[]>(token),
-  )
+export async function prefetchCampaignTypesList(client: QueryClient) {
+  await client.prefetchQuery<CampaignTypesResponse[]>(endpoints.campaignTypes.listCampaignTypes.url)
 }

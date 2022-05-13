@@ -1,6 +1,6 @@
 import * as yup from 'yup'
+import { styled } from '@mui/material/styles'
 import { Modal, Box, Grid, IconButton } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import { Person, UpdatePerson } from 'gql/person'
@@ -15,6 +15,29 @@ import CloseIcon from '@mui/icons-material/Close'
 import { format, parse, isDate } from 'date-fns'
 import { FormikHelpers } from 'formik'
 import FormTextField from 'components/common/form/FormTextField'
+
+const PREFIX = 'UpdateBirthdayModal'
+
+const classes = {
+  modal: `${PREFIX}-modal`,
+  close: `${PREFIX}-close`,
+}
+
+const StyledModal = styled(Modal)({
+  [`& .${classes.modal}`]: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 650,
+    backgroundColor: '#EEEEEE',
+    padding: 20,
+  },
+  [`& .${classes.close}`]: {
+    position: 'absolute',
+    right: '10px',
+  },
+})
 
 const formatString = 'yyyy-MM-dd'
 
@@ -41,22 +64,6 @@ const validationSchema: yup.SchemaOf<BirthdayFormData> = yup
       .required(),
   })
 
-const useStyles = makeStyles({
-  modal: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 650,
-    backgroundColor: '#EEEEEE',
-    padding: 20,
-  },
-  close: {
-    position: 'absolute',
-    right: '10px',
-  },
-})
-
 function UpdateBirthdayModal({
   isOpen,
   handleClose,
@@ -73,8 +80,6 @@ function UpdateBirthdayModal({
   const initialValues: BirthdayFormData = {
     birthday: format(new Date(person.birthday ?? dateBefore18Years), formatString),
   }
-
-  const classes = useStyles()
 
   const mutation = useMutation<AxiosResponse<Person>, AxiosError<ApiErrors>, UpdatePerson>({
     mutationFn: updateCurrentPerson(),
@@ -103,7 +108,7 @@ function UpdateBirthdayModal({
   }
 
   return (
-    <Modal
+    <StyledModal
       open={isOpen}
       onClose={() => handleClose()}
       aria-labelledby="modal-modal-title"
@@ -134,7 +139,7 @@ function UpdateBirthdayModal({
           </Grid>
         </GenericForm>
       </Box>
-    </Modal>
+    </StyledModal>
   )
 }
 

@@ -1,5 +1,4 @@
-import { KeycloakInstance } from 'keycloak-js'
-import { useKeycloak } from '@react-keycloak/ssr'
+import { useSession } from 'next-auth/react'
 import { QueryClient, useQuery } from 'react-query'
 
 import { endpoints } from 'service/apiEndpoints'
@@ -7,18 +6,18 @@ import { authQueryFnFactory } from 'service/restRequests'
 import { RecurringDonationResponse } from 'gql/recurring-donation'
 
 export function useRecurringDonationList() {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery<RecurringDonationResponse[]>(
     endpoints.recurringDonation.recurringDonation.url,
-    authQueryFnFactory<RecurringDonationResponse[]>(keycloak?.token),
+    authQueryFnFactory<RecurringDonationResponse[]>(session?.accessToken),
   )
 }
 
 export function useRecurringDonation(id: string) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery<RecurringDonationResponse>(
     endpoints.recurringDonation.getRecurringDonation(id).url,
-    authQueryFnFactory<RecurringDonationResponse>(keycloak?.token),
+    authQueryFnFactory<RecurringDonationResponse>(session?.accessToken),
   )
 }
 

@@ -6,7 +6,6 @@ import { useMutation } from 'react-query'
 import { Grid, Box, Typography, Link, Button } from '@mui/material'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useTranslation } from 'next-i18next'
-import { makeStyles } from '@mui/styles'
 
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
@@ -17,13 +16,6 @@ import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
-
-const useStyles = makeStyles({
-  container: {
-    maxWidth: '700px',
-    margin: '0 auto',
-  },
-})
 
 const validationSchema: yup.SchemaOf<BenefactorFormData> = yup.object().defined().shape({
   // id: yup.string().required(),
@@ -46,7 +38,6 @@ type BenefactorFormProps = { initialValues?: BenefactorFormData }
 export default function AddBenefactorForm({ initialValues = defaults }: BenefactorFormProps) {
   const { t } = useTranslation('benefactor')
 
-  const classes = useStyles()
   const mutation = useMutation<
     AxiosResponse<BenefactorResponse>,
     AxiosError<ApiErrors>,
@@ -85,7 +76,14 @@ export default function AddBenefactorForm({ initialValues = defaults }: Benefact
     }
   }
   return (
-    <Grid container direction="column" component="section" className={classes.container}>
+    <Grid
+      container
+      direction="column"
+      component="section"
+      sx={{
+        maxWidth: '700px',
+        margin: '0 auto',
+      }}>
       <GenericForm
         onSubmit={onSubmit}
         initialValues={initialValues}

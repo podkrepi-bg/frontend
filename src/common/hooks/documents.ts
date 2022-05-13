@@ -1,5 +1,4 @@
-import { KeycloakInstance } from 'keycloak-js'
-import { useKeycloak } from '@react-keycloak/ssr'
+import { useSession } from 'next-auth/react'
 import { QueryClient, useQuery } from 'react-query'
 
 import { endpoints } from 'service/apiEndpoints'
@@ -7,18 +6,18 @@ import { authQueryFnFactory } from 'service/restRequests'
 import { DocumentResponse } from 'gql/document'
 
 export function useDocumentsList() {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery<DocumentResponse[]>(
     endpoints.documents.documentsList.url,
-    authQueryFnFactory<DocumentResponse[]>(keycloak?.token),
+    authQueryFnFactory<DocumentResponse[]>(session?.accessToken),
   )
 }
 
 export function useDocument(id: string) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery<DocumentResponse>(
     endpoints.documents.getDocument(id).url,
-    authQueryFnFactory<DocumentResponse>(keycloak?.token),
+    authQueryFnFactory<DocumentResponse>(session?.accessToken),
   )
 }
 

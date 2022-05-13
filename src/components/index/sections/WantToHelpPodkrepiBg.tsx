@@ -1,5 +1,4 @@
-import { Box, Grid, Typography, useMediaQuery } from '@mui/material'
-import { createStyles, makeStyles } from '@mui/styles'
+import { Grid, Typography } from '@mui/material'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { useTranslation } from 'next-i18next'
 
@@ -9,31 +8,21 @@ import { routes } from 'common/routes'
 import theme from 'common/theme'
 import Heading from 'components/common/Heading'
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    root: {
-      marginBottom: theme.spacing(12),
-      padding: theme.spacing(6, 5),
-      alignItems: 'center',
-      backgroundColor: theme.palette.secondary.light,
-    },
-    text: {
-      color: 'black',
-      fontFamily: 'Montserrat',
-    },
-    button: {
-      color: 'black',
-      margin: 'auto',
-    },
-  }),
-)
-
 export default function WantToHelpPodkrepiBgSection() {
-  const classes = useStyles()
   const { t } = useTranslation()
-  const mdDown = useMediaQuery(theme.breakpoints.down('md'))
   return (
-    <Box className={classes.root}>
+    <Grid
+      sx={{
+        display: 'flex',
+        paddingTop: '36px',
+        paddingBottom: '36px',
+        paddingLeft: '25vw',
+        paddingRight: '25vw',
+        marginBottom: theme.spacing(12),
+        flexDirection: 'column',
+        alignItems: 'center',
+        backgroundColor: theme.palette.secondary.light,
+      }}>
       <Heading
         maxWidth="lg"
         margin="0 auto"
@@ -50,21 +39,15 @@ export default function WantToHelpPodkrepiBgSection() {
         alignItems="center"
         marginTop={theme.spacing(1)}
         rowSpacing={4}>
-        <Grid item xs={12} md={6} textAlign={mdDown ? 'center' : 'left'}>
-          <Typography variant="subtitle1" className={classes.text}>
-            {t('index:help-podkrepi-bg-section.text')}
-          </Typography>
+        <Grid item xs={12} md={6} sx={{ textAlign: 'left', xs: { textAlign: 'center' } }}>
+          <Typography variant="subtitle1">{t('index:help-podkrepi-bg-section.text')}</Typography>
         </Grid>
-        <Grid item xs={12} md={6} textAlign={mdDown ? 'center' : 'right'}>
-          <LinkButton
-            variant="contained"
-            href={routes.support}
-            className={classes.button}
-            endIcon={<ChevronRightIcon />}>
+        <Grid item xs={12} md={6} textAlign="right">
+          <LinkButton variant="contained" href={routes.support} endIcon={<ChevronRightIcon />}>
             {t('index:help-podkrepi-bg-section.become-volunteer')}
           </LinkButton>
         </Grid>
       </Grid>
-    </Box>
+    </Grid>
   )
 }

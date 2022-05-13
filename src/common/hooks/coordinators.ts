@@ -1,22 +1,21 @@
 import { useQuery } from 'react-query'
-import { KeycloakInstance } from 'keycloak-js'
-import { useKeycloak } from '@react-keycloak/ssr'
+import { useSession } from 'next-auth/react'
 
 import { endpoints } from 'service/apiEndpoints'
 import { CoordinatorResponse } from 'gql/coordinators'
 import { authQueryFnFactory } from 'service/restRequests'
 
 export function useCoordinatorsList() {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery<CoordinatorResponse[]>(endpoints.coordinators.coordinatorsList.url, {
-    queryFn: authQueryFnFactory(keycloak?.token),
+    queryFn: authQueryFnFactory(session?.accessToken),
   })
 }
 
 export function useViewCoordinator(slug: string) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery<CoordinatorResponse>(endpoints.coordinators.viewCoordinator(slug).url, {
     retry: 0,
-    queryFn: authQueryFnFactory(keycloak?.token),
+    queryFn: authQueryFnFactory(session?.accessToken),
   })
 }

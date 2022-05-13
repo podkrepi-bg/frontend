@@ -1,30 +1,54 @@
-import { KeycloakInstance } from 'keycloak-js'
+import { Session } from 'next-auth'
+import { JWT } from 'next-auth/jwt'
+
+export type RealmRole =
+  | 'view-supporters'
+  | 'view-contact-requests'
+  | 'team-support'
+  | 'offline_access'
+  | 'default-roles-webapp-dev'
+  | 'uma_authorization'
+
+export type ResourceRole =
+  | 'view-profile'
+  | 'account-view-supporters'
+  | 'account-view-contact-requests'
+  | 'manage-account'
+  | 'manage-account-links'
 
 export const roles = {
   resource: {
-    ViewContactRequests: 'account-view-contact-requests',
-    ViewSupporters: 'account-view-supporters',
+    ViewContactRequests: <const>'account-view-contact-requests',
+    ViewSupporters: <const>'account-view-supporters',
   },
   realm: {
-    RealmViewContactRequests: 'view-contact-requests',
-    RealmViewSupporters: 'view-supporters',
+    RealmViewContactRequests: <const>'view-contact-requests',
+    RealmViewSupporters: <const>'view-supporters',
   },
 }
 
-export const canViewContactRequests = (keycloak: KeycloakInstance) => {
+export const hasResourceRole = (session: Session | JWT, role: ResourceRole): boolean => {
+  return session.user.resource_access.account.roles.includes(role)
+}
+export const hasRealmRole = (session: Session | JWT, role: RealmRole): boolean => {
+  return session.user.realm_access.roles.includes(role)
+}
+
+export const canViewContactRequests = (session: Session | JWT): boolean => {
   return (
-    keycloak.hasResourceRole(roles.resource.ViewContactRequests) ||
-    keycloak.hasRealmRole(roles.realm.RealmViewContactRequests)
+    hasResourceRole(session, roles.resource.ViewContactRequests) ||
+    hasRealmRole(session, roles.realm.RealmViewContactRequests)
   )
 }
 
-export const canViewSupporters = (keycloak: KeycloakInstance) => {
+export const canViewSupporters = (session: Session | JWT): boolean => {
   return (
-    keycloak.hasResourceRole(roles.resource.ViewSupporters) ||
-    keycloak.hasRealmRole(roles.realm.RealmViewSupporters)
+    hasResourceRole(session, roles.resource.ViewSupporters) ||
+    hasRealmRole(session, roles.realm.RealmViewSupporters)
   )
 }
 
-export const isAdmin = (keycloak: KeycloakInstance) => {
-  return canViewContactRequests(keycloak) && canViewSupporters(keycloak)
+export const isAdmin = (session: Session | JWT | null): boolean => {
+  if (!session) return false
+  return canViewContactRequests(session) && canViewSupporters(session)
 }

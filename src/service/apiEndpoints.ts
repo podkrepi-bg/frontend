@@ -6,6 +6,10 @@ type Endpoint = {
 }
 
 export const endpoints = {
+  auth: {
+    login: <Endpoint>{ url: '/login', method: 'POST' },
+    register: <Endpoint>{ url: '/register', method: 'POST' },
+  },
   campaign: {
     listCampaigns: <Endpoint>{ url: '/campaign/list', method: 'GET' },
     listAdminCampaigns: <Endpoint>{ url: '/campaign/list-all', method: 'GET' },

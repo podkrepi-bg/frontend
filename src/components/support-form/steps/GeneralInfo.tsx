@@ -2,23 +2,19 @@ import React from 'react'
 import { useTranslation } from 'next-i18next'
 import { FormControl, Grid, Typography } from '@mui/material'
 
-import theme from 'common/theme'
 import FormTextField from 'components/common/form/FormTextField'
 import CheckboxField from 'components/common/form/CheckboxField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
-import { useHeaderStyles } from '../helpers/header-styles'
+import HeaderTypography from '../helpers/HeaderTypography'
 
 export default function GeneralInfo() {
   const { t } = useTranslation()
-  const classes = useHeaderStyles(theme)
 
   return (
     <Grid container spacing={3} justifyContent="center" direction="column" alignContent="center">
       <Grid item xs={12}>
-        <Typography variant="h4" align="center" paragraph className={classes.subtitleText}>
-          {t('support:steps.info.subtitle')}
-        </Typography>
+        <HeaderTypography>{t('support:steps.info.subtitle')}</HeaderTypography>
       </Grid>
       <Grid item xs={12} sm={8}>
         <Grid container spacing={3} justifyContent="center" direction="column">

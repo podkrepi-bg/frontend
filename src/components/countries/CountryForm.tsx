@@ -6,7 +6,6 @@ import { useMutation } from 'react-query'
 import { Button, Grid } from '@mui/material'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useTranslation } from 'next-i18next'
-import { makeStyles } from '@mui/styles'
 
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
@@ -18,13 +17,6 @@ import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import LinkButton from 'components/common/LinkButton'
-
-const useStyles = makeStyles({
-  container: {
-    maxWidth: '700px',
-    margin: '80px auto 0 auto',
-  },
-})
 
 const validationSchema: yup.SchemaOf<CountryInput> = yup.object().defined().shape({
   name: name.required(),
@@ -70,7 +62,6 @@ export default function CountryForm({ initialValues = defaults, id }: CountryFor
     onSuccess: () => AlertStore.show(t('alerts.edit-row.success'), 'success'),
   })
   const router = useRouter()
-  const classes = useStyles()
 
   const onSubmit = async (
     values: CountryInput,
@@ -100,7 +91,14 @@ export default function CountryForm({ initialValues = defaults, id }: CountryFor
   }
 
   return (
-    <Grid container direction="column" component="section" className={classes.container}>
+    <Grid
+      container
+      direction="column"
+      component="section"
+      sx={{
+        maxWidth: '700px',
+        margin: '80px auto 0 auto',
+      }}>
       <GenericForm
         onSubmit={onSubmit}
         initialValues={initialValues}
