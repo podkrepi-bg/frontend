@@ -41,7 +41,10 @@ function CustomApp({
     if (error && isAxiosError(error)) {
       // Redirect to login
       if (error.response?.status === 401) {
-        router.push(routes.login)
+        router.push({
+          pathname: routes.login,
+          query: { callbackUrl: router.asPath },
+        })
       }
     }
   }, [])
