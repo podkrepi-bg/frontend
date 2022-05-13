@@ -1,4 +1,4 @@
-import { securedAdminProps } from 'middleware/auth/keycloak'
+import { securedAdminProps } from 'middleware/auth/securedProps'
 import { endpoints } from 'service/apiEndpoints'
 import CountriesPage from 'components/countries/CountriesPage'
 

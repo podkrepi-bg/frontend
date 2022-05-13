@@ -10,7 +10,7 @@ export default function WhatUnitesUsSection() {
   const { t } = useTranslation()
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" sx={{ pb: 12 }}>
       <Heading
         textAlign="center"
         variant="h4"
@@ -18,15 +18,10 @@ export default function WhatUnitesUsSection() {
         paddingBottom={theme.spacing(7)}>
         {t('index:what-unites-us-section.heading')}
       </Heading>
-      <Grid
-        container
-        display="flex"
-        flexDirection="row"
-        alignItems="baseline"
-        paddingBottom={theme.spacing(12)}>
-        {data.map((x, index) => (
+      <Grid container display="flex" flexDirection="row" alignItems="baseline">
+        {data.map((item, index) => (
           <Grid key={index} item xs={12} sm={6} lg={4}>
-            <WhatUnitesUsCard info={x} />
+            <WhatUnitesUsCard info={item} />
           </Grid>
         ))}
       </Grid>

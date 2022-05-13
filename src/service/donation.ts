@@ -1,7 +1,6 @@
 import { AxiosResponse } from 'axios'
+import { useSession } from 'next-auth/react'
 
-import { apiClient } from 'service/apiClient'
-import { endpoints } from 'service/apiEndpoints'
 import {
   CheckoutSessionInput,
   CheckoutSessionResponse,
@@ -9,8 +8,8 @@ import {
   DonationInput,
   DonationResponse,
 } from 'gql/donations'
-import { useKeycloak } from '@react-keycloak/ssr'
-import { KeycloakInstance } from 'keycloak-js'
+import { apiClient } from 'service/apiClient'
+import { endpoints } from 'service/apiEndpoints'
 import { authConfig } from 'service/restRequests'
 
 export const createCheckoutSession = async (data: CheckoutSessionInput) => {
@@ -21,18 +20,18 @@ export const createCheckoutSession = async (data: CheckoutSessionInput) => {
 }
 
 export function useCreateDonation() {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return async (data: DonationInput) => {
     return await apiClient.post<DonationResponse, AxiosResponse<DonationResponse>>(
       endpoints.donation.createDonation.url,
       data,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
   }
 }
 
 export function useCreateBankDonation() {
-  // const { keycloak } = useKeycloak<KeycloakInstance>()
+  // const { data: session } = useSession()
   return async (data: DonationBankInput) => {
     return await apiClient.post<DonationResponse, AxiosResponse<DonationResponse>>(
       endpoints.donation.createBankDonation.url,
@@ -42,23 +41,23 @@ export function useCreateBankDonation() {
 }
 
 export function useEditDonation(id: string) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return async (data: DonationInput) => {
     return await apiClient.patch<DonationResponse, AxiosResponse<DonationResponse>>(
       endpoints.donation.editDonation(id).url,
       data,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
   }
 }
 
 export function useDeleteDonation(ids: string[]) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return async () => {
     return await apiClient.post<DonationResponse, AxiosResponse<DonationResponse>>(
       endpoints.donation.deleteDonation.url,
       ids,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
   }
 }

@@ -1,5 +1,4 @@
-import { KeycloakInstance } from 'keycloak-js'
-import { useKeycloak } from '@react-keycloak/ssr'
+import { useSession } from 'next-auth/react'
 import { QueryClient, useQuery } from 'react-query'
 
 import {
@@ -13,40 +12,40 @@ import { endpoints } from './apiEndpoints'
 import { authConfig, authQueryFnFactory } from './restRequests'
 
 export const useBeneficiariesList = () => {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery(
     endpoints.beneficiary.listBeneficiary.url,
-    authQueryFnFactory<BeneficiaryListResponse[]>(keycloak?.token),
+    authQueryFnFactory<BeneficiaryListResponse[]>(session?.accessToken),
   )
 }
 
 export const useViewBeneficiary = (id: string) => {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery(
     endpoints.beneficiary.viewBeneficiary(id).url,
-    authQueryFnFactory<ViewBeneficiaryResponse>(keycloak?.token),
+    authQueryFnFactory<ViewBeneficiaryResponse>(session?.accessToken),
   )
 }
 
 export const useCreateBeneficiary = () => {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return async (values: BeneficiaryFormData) => {
     return await apiClient.post(
       endpoints.beneficiary.createBeneficiary.url,
       values,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
   }
 }
 
 export const useEditBeneficiary = (id: string) => {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
 
   return async (vals: BeneficiaryFormData) => {
     return await apiClient.put(
       endpoints.beneficiary.editBeneficiary(id).url,
       vals,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
   }
 }
@@ -56,12 +55,12 @@ export function useDeleteBeneficiary(slug: string) {
 }
 
 export const useRemoveBeneficiary = () => {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
 
   return async (id: string) => {
     return await apiClient.delete(
       endpoints.beneficiary.removeBeneficiary(id).url,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
   }
 }

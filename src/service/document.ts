@@ -1,5 +1,4 @@
-import { KeycloakInstance } from 'keycloak-js'
-import { useKeycloak } from '@react-keycloak/ssr'
+import { useSession } from 'next-auth/react'
 import { AxiosResponse } from 'axios'
 
 import { apiClient } from 'service/apiClient'
@@ -8,33 +7,33 @@ import { endpoints } from 'service/apiEndpoints'
 import { DocumentInput, DocumentResponse } from 'gql/document'
 
 export function useCreateDocument() {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return async (data: DocumentInput) => {
     return await apiClient.post<DocumentResponse, AxiosResponse<DocumentResponse>>(
       endpoints.documents.createDocument.url,
       data,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
   }
 }
 
 export function useEditDocument(slug: string) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return async (data: DocumentInput) => {
     return await apiClient.put<DocumentResponse, AxiosResponse<DocumentResponse>>(
       endpoints.documents.editDocument(slug).url,
       data,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
   }
 }
 
 export function useDeleteDocument(slug: string) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return async () => {
     return await apiClient.delete<DocumentResponse, AxiosResponse<DocumentResponse>>(
       endpoints.documents.deleteDocument(slug).url,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
   }
 }

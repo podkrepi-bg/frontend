@@ -1,8 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { Grid, Theme } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
+import { Grid } from '@mui/material'
 import { Timeline as TimelineMaterial } from '@mui/lab'
 import {
   Folder,
@@ -24,38 +22,22 @@ import GlobeIcon from '../icons/GlobeIcon'
 import DiscordIcon from '../icons/DiscordIcon'
 import ChecklistIcon from '../icons/ChecklistIcon'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    heading: {
-      paddingTop: theme.spacing(10),
-      paddingBottom: theme.spacing(7),
-    },
-    container: {
-      textAlign: 'center',
-    },
-    timelineWrapper: {
-      padding: 0,
-    },
-  }),
-)
-
 export default function Timeline() {
   const { t } = useTranslation()
-  const classes = useStyles()
 
   return (
-    <Grid container direction="column" component="section" className={classes.container}>
+    <Grid container direction="column" component="section" sx={{ textAlign: 'center' }}>
       <Heading
+        linkable
         id="our-story"
         variant="h3"
         component="h2"
         align="center"
-        className={classes.heading}
-        linkable>
+        sx={{ pt: 10, pb: 7 }}>
         {t('about-project:timeline')}
       </Heading>
       <Grid item>
-        <TimelineMaterial position="alternate" className={classes.timelineWrapper}>
+        <TimelineMaterial position="alternate" sx={{ p: 0 }}>
           <TimelineItem Icon={PlayCircleFilledWhite} title={t('about-project:october-2020-title')}>
             <ul>
               <li>{t('about-project:platform-idea')}</li>

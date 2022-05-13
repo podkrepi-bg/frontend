@@ -1,47 +1,49 @@
 import React, { useMemo } from 'react'
+import { styled } from '@mui/material/styles'
 import LinearProgress from '@mui/material/LinearProgress'
 import { Grid } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import withStyles from '@mui/styles/withStyles'
+const PREFIX = 'CampaignProgress'
 
-const BorderLinearProgress = withStyles((theme) => ({
-  root: {
-    height: theme.spacing(1.5),
-    borderRadius: 5,
-  },
-  // colorPrimary: {
-  //  backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 700],
-  // },
-  bar: {
-    borderRadius: 5,
-    backgroundColor: '#1a90ff',
-  },
-}))(LinearProgress)
+const classes = {
+  root: `${PREFIX}-root`,
+  bar: `${PREFIX}-bar`,
+  donationProgress: `${PREFIX}-donationProgress`,
+  cardActions: `${PREFIX}-cardActions`,
+}
 
-const useStyles = makeStyles((theme) => ({
-  donationProgress: {
+const StyledGrid = styled(Grid)(({ theme }) => ({
+  [`&.${classes.donationProgress}`]: {
     width: '100%',
     '> div p': {
       color: theme.palette.text.secondary,
       padding: theme.spacing(1),
     },
   },
-  cardActions: {
+
+  [`& .${classes.cardActions}`]: {
     padding: '0',
   },
 }))
+
+const BorderLinearProgress = LinearProgress
 
 type Props = {
   raised: number
   target: number
 }
 export default function CampaignProgress({ raised, target }: Props) {
-  const classes = useStyles()
   const percentage = useMemo(() => (raised / target) * 100, [raised, target])
   return (
-    <Grid className={classes.donationProgress} container>
+    <StyledGrid className={classes.donationProgress} container>
       <Grid item xs={12}>
-        <BorderLinearProgress variant="determinate" value={percentage > 100 ? 100 : percentage} />
+        <BorderLinearProgress
+          variant="determinate"
+          value={percentage > 100 ? 100 : percentage}
+          classes={{
+            root: classes.root,
+            bar: classes.bar,
+          }}
+        />
       </Grid>
       {/* <Grid item xs={6}>
         <Typography gutterBottom color="primary" variant="body1" align="left">
@@ -58,6 +60,6 @@ export default function CampaignProgress({ raised, target }: Props) {
           </Typography>
         )}
       </Grid> */}
-    </Grid>
+    </StyledGrid>
   )
 }

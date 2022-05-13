@@ -1,18 +1,24 @@
 import React from 'react'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import { styled } from '@mui/material/styles'
 
 import theme from 'common/theme'
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    icon: { fill: theme.palette.primary.main },
-    iconAccent: { fill: theme.palette.secondary.main },
-    letters: {
-      fill: theme.palette.getContrastText(theme.palette.primary.main),
-    },
-  }),
-)
+const PREFIX = 'PodkrepiLogo'
+
+const classes = {
+  icon: `${PREFIX}-icon`,
+  iconAccent: `${PREFIX}-iconAccent`,
+  letters: `${PREFIX}-letters`,
+}
+
+const Root = styled('svg')(({ theme }) => ({
+  [`& .${classes.icon}`]: { fill: theme.palette.primary.main },
+  [`& .${classes.iconAccent}`]: { fill: theme.palette.secondary.main },
+
+  [`& .${classes.letters}`]: {
+    fill: theme.palette.getContrastText(theme.palette.primary.main),
+  },
+}))
 
 type ParkhandsLogoProps = {
   variant?: 'fixed' | 'adaptive'
@@ -30,10 +36,9 @@ export default function PodkrepiLogo({
   locale = 'bg',
   className,
 }: ParkhandsLogoProps) {
-  const classes = useStyles()
   const [width, height] = variant === 'fixed' ? sizes[size] : ['100%', '100%']
   return (
-    <svg width={width} height={height} viewBox="0 0 118 24" className={className}>
+    <Root width={width} height={height} viewBox="0 0 118 24" className={className}>
       <g>
         <g>
           <path
@@ -141,6 +146,6 @@ export default function PodkrepiLogo({
           </g>
         )}
       </g>
-    </svg>
+    </Root>
   )
 }

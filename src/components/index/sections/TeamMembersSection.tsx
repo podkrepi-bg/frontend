@@ -2,11 +2,12 @@ import { Box, Container, Grid, Typography } from '@mui/material'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 
 import theme from 'common/theme'
+import { staticUrls } from 'common/routes'
 import Heading from 'components/common/Heading'
+import LinkButton from 'components/common/LinkButton'
+
 import MemberCard from '../helpers/teamMembers/MemberCard'
 import { data } from '../helpers/teamMembers/memberData'
-import { staticUrls } from 'common/routes'
-import LinkButton from 'components/common/LinkButton'
 
 export default function TeamMembersSection() {
   return (
@@ -27,16 +28,11 @@ export default function TeamMembersSection() {
         от целта да създадем устойчива и прозрачна платформа за дарения, която подкрепя каузи и хора
         в нужда, като заедно с това популяризира и връща доверието към дарителството в България.
       </Typography>
-      <Grid
-        container
-        justifyContent="center"
-        spacing={6}
-        paddingTop={theme.spacing(7)}
-        paddingBottom={theme.spacing(12)}>
-        {data.map((x, index) => (
+      <Grid container justifyContent="center" spacing={6} sx={{ pt: 7, pb: 12 }}>
+        {data.map((member, index) => (
           <Grid key={index} item xs={12} sm={6} lg={4} paddingBottom={theme.spacing(7)}>
             <Box textAlign="center">
-              <MemberCard info={x} />
+              <MemberCard info={member} />
             </Box>
           </Grid>
         ))}

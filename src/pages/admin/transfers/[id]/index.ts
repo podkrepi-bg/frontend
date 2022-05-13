@@ -1,4 +1,4 @@
-import { securedAdminProps } from 'middleware/auth/keycloak'
+import { securedAdminProps } from 'middleware/auth/securedProps'
 import EditPage from 'components/transfers/EditPage'
 import { endpoints } from 'service/apiEndpoints'
 

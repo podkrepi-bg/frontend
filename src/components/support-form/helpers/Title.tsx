@@ -1,23 +1,10 @@
-import { Grid, lighten, Typography } from '@mui/material'
-import { createStyles, makeStyles } from '@mui/styles'
+import { Grid, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-import theme from 'common/theme'
-
-export const useHeaderStyles = makeStyles(() =>
-  createStyles({
-    subtitleText: {
-      color: lighten(theme.palette.primary.dark, 0.1),
-      width: '100%',
-    },
-  }),
-)
-
-interface TitleProps {
+type Props = {
   label: string
 }
-
-export default function Title({ label }: TitleProps) {
+export default function Title({ label }: Props) {
   const { t } = useTranslation()
   return (
     <Grid item xs={12}>

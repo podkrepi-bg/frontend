@@ -1,13 +1,26 @@
 import React, { PropsWithChildren, useContext, useEffect } from 'react'
+import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { Form, Formik, FormikConfig, FormikValues } from 'formik'
 import { LoadingButton } from '@mui/lab'
 import { Box, Button, Grid, Step, StepLabel, Stepper } from '@mui/material'
-import { makeStyles } from '@mui/styles'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import { StepsContext } from './helpers/stepperContext'
 import { OneTimeDonation } from 'gql/donations'
+
+const PREFIX = 'FormikStepper'
+
+const classes = {
+  container: `${PREFIX}-container`,
+  stepIcon: `${PREFIX}-stepIcon`,
+}
+
+const StyledStepper = styled('div')(() => ({
+  [`& .${classes.stepIcon}`]: {
+    transform: 'scale(1.15)',
+  },
+}))
 
 export interface FormikStepProps
   extends Pick<FormikConfig<FormikValues>, 'children' | 'validationSchema'> {
@@ -18,16 +31,6 @@ export function FormikStep({ children }: FormikStepProps) {
   return <>{children}</>
 }
 
-const useStyles = makeStyles(() => ({
-  container: {
-    maxWidth: '662px',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  },
-  stepIcon: {
-    transform: 'scale(1.15)',
-  },
-}))
 export type GenericFormProps<T> = PropsWithChildren<FormikConfig<T>>
 
 export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDonation>) {
@@ -38,7 +41,7 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
     router.query.success === 'false' || router.query.success === 'true' ? setStep(3) : null
   }, [router.query.success])
   const currentChild = childrenArray[step]
-  const classes = useStyles()
+
   const { data: currentPerson } = useCurrentPerson()
   function isLastStep() {
     return step === childrenArray.length - 2
@@ -86,16 +89,25 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
       validateOnMount
       validateOnBlur>
       {({ isSubmitting, handleSubmit, isValid }) => (
-        <Form onSubmit={handleSubmit} className={classes.container} autoComplete="off">
-          <Stepper alternativeLabel activeStep={step}>
-            {childrenArray.map((child, index) => (
-              <Step key={index}>
-                <StepLabel classes={{ alternativeLabel: classes.stepIcon }}>
-                  {child.props.label}
-                </StepLabel>
-              </Step>
-            ))}
-          </Stepper>
+        <Form
+          onSubmit={handleSubmit}
+          style={{
+            maxWidth: '662px',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+          }}
+          autoComplete="off">
+          <StyledStepper>
+            <Stepper alternativeLabel activeStep={step}>
+              {childrenArray.map((child, index) => (
+                <Step key={index}>
+                  <StepLabel classes={{ alternativeLabel: classes.stepIcon }}>
+                    {child.props.label}
+                  </StepLabel>
+                </Step>
+              ))}
+            </Stepper>
+          </StyledStepper>
           <Box marginY={8}>{currentChild}</Box>
           {/* Controls of the form */}
           {step === 3 ? null : (

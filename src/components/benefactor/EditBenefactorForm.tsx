@@ -6,7 +6,6 @@ import { useMutation } from 'react-query'
 import { Box, Button, Grid, Typography } from '@mui/material'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useTranslation } from 'next-i18next'
-import { makeStyles } from '@mui/styles'
 
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
@@ -16,15 +15,6 @@ import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import LinkButton from 'components/common/LinkButton'
-
-const useStyles = makeStyles({
-  container: {
-    maxWidth: '700px',
-    margin: '0 auto',
-    padding: '30px',
-    textAlign: 'center',
-  },
-})
 
 const validationSchema: yup.SchemaOf<BenefactorFormData> = yup.object().defined().shape({
   extCustomerId: yup.string().required(),
@@ -49,7 +39,6 @@ type EditBenefactorProp = {
 export default function EditBenefactorForm({ id, initialValues = defaults }: BenefactorFormProps) {
   const { t } = useTranslation('benefactor')
 
-  const classes = useStyles()
   const mutation = useMutation<
     AxiosResponse<BenefactorResponse>,
     AxiosError<ApiErrors>,
@@ -88,7 +77,16 @@ export default function EditBenefactorForm({ id, initialValues = defaults }: Ben
   }
 
   return (
-    <Grid container direction="column" component="section" className={classes.container}>
+    <Grid
+      container
+      direction="column"
+      component="section"
+      sx={{
+        maxWidth: '700px',
+        margin: '0 auto',
+        padding: '30px',
+        textAlign: 'center',
+      }}>
       <GenericForm
         enableReinitialize={true}
         onSubmit={onSubmit}

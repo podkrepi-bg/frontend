@@ -138,7 +138,6 @@ export default function Form() {
               defaultValue={initialValues.type}
               onChange={(e: SelectChangeEvent) => {
                 setBeneficiaryType(e.target.value)
-                console.log(beneficiaryType)
               }}>
               <MenuItem value="">
                 <em>None</em>
