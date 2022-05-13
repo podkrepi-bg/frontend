@@ -45,7 +45,6 @@ export default function RegisterForm({ initialValues = defaults }: RegisterFormP
   const { mutateAsync: register } = useRegister()
 
   const onSubmit = async (values: RegisterFormData) => {
-    AlertStore.show(t('auth:alerts.welcome'), 'success')
     try {
       setLoading(true)
 
@@ -58,15 +57,12 @@ export default function RegisterForm({ initialValues = defaults }: RegisterFormP
         password: values.password,
         redirect: false,
       })
-
-      if (resp?.ok) {
-        setLoading(false)
-        AlertStore.show(t('auth:alerts.welcome'), 'success')
-        router.push(routes.profile.index)
-        return
-      }
       if (resp?.error) {
         throw new Error(resp.error)
+      }
+      if (resp?.ok) {
+        AlertStore.show(t('auth:alerts.welcome'), 'success')
+        router.push(routes.profile.index)
       }
     } catch (error) {
       console.error(error)
