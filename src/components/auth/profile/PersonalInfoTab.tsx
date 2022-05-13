@@ -15,28 +15,16 @@ import UpdateBirthdayModal from './UpdateBirthdayModal'
 const PREFIX = 'PersonalInfoTab'
 
 const classes = {
-  modal: `${PREFIX}-modal`,
   editSpan: `${PREFIX}-editSpan`,
   editIcon: `${PREFIX}-editIcon`,
   heading: `${PREFIX}-heading`,
   bold: `${PREFIX}-bold`,
-  notAvaible: `${PREFIX}-notAvaible`,
   graySpan: `${PREFIX}-graySpan`,
   h5: `${PREFIX}-h5`,
   h3: `${PREFIX}-h3`,
 }
 
 const Root = styled('div')(({ theme }) => ({
-  [`& .${classes.modal}`]: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 650,
-    backgroundColor: '#EEEEEE',
-    padding: 20,
-  },
-
   [`& .${classes.editSpan}`]: {
     color: '#294E85',
   },
@@ -56,10 +44,6 @@ const Root = styled('div')(({ theme }) => ({
 
   [`& .${classes.bold}`]: {
     fontWeight: 'bold',
-  },
-
-  [`& .${classes.notAvaible}`]: {
-    color: '#F22727',
   },
 
   [`& .${classes.graySpan}`]: {
@@ -154,9 +138,9 @@ export default function PersonalInfoTab() {
                 position: 'relative',
               }}>
               <p className={classes.bold}>Рожден ден:</p>
-              <p className={person?.birthday ? '' : classes.notAvaible}>
+              <Typography sx={{ color: person?.birthday ? undefined : '#F22727' }}>
                 {person?.birthday ? formatDateString(person?.birthday) : 'не e наличен'}
-              </p>
+              </Typography>
               <Box sx={{ position: 'absolute', right: '1rem', top: '.5rem' }}>
                 <Link href="#" onClick={() => setIsUpdateBirthdayModalOpen(true)}>
                   <EditIcon className={classes.editIcon} />
@@ -178,7 +162,16 @@ export default function PersonalInfoTab() {
         onClose={() => setIsDeleteAccountModalOpen(false)}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description">
-        <Box className={classes.modal}>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            borderRadius: 4,
+            backgroundColor: '#EEEEEE',
+            p: 4,
+          }}>
           <Typography variant="h6" component="h2">
             Изтриване на акаунт
           </Typography>
