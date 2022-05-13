@@ -44,6 +44,16 @@ spec:
                 secretKeyRef:
                   name: secrets-web
                   key: next-auth-secret
+            - name: GOOGLE_ID
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-web
+                  key: google-id
+            - name: GOOGLE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-web
+                  key: google-secret
             - name: API_URL
               valueFrom:
                 configMapKeyRef:
