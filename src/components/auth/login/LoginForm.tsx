@@ -55,7 +55,7 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
       if (resp?.ok) {
         setLoading(false)
         AlertStore.show(t('auth:alerts.welcome'), 'success')
-        router.push(`${router.query.callbackUrl}`)
+        router.push(`${router.query.callbackUrl ?? routes.profile.index}`)
       }
     } catch (error) {
       console.error(error)
