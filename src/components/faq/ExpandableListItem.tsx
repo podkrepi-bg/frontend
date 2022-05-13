@@ -42,7 +42,7 @@ const ExpandableListItem = ({ header, content }: Props) => {
             <ExpandMore sx={{ color: `${withAccentColor(open)}` }} />
           )}
         </Box>
-        <Collapse in={open} unmountOnExit>
+        <Collapse in={open}>
           <List>
             <Box sx={{ pl: 6, pb: 2, pr: 2 }}>{content}</Box>
           </List>
