@@ -14,14 +14,14 @@ export default function RegisterPage({ providers }: RegisterPageProps) {
   const { t } = useTranslation()
 
   return (
-    <Layout title={t('auth:cta.login')} metaDescription={t('auth:cta.login')}>
+    <Layout title={t('auth:cta.register')} metaDescription={t('auth:cta.register')}>
       <Container maxWidth="sm">
         <RegisterForm />
         <Box mt={4}>
           <Grid container direction="column" spacing={1}>
             {providers &&
               Object.values(providers)
-                .filter((p) => p.name !== 'Credentials')
+                .filter((p) => p.id !== 'credentials')
                 .map((provider) => (
                   <Grid item key={provider.name}>
                     <Button
