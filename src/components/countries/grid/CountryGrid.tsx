@@ -16,70 +16,16 @@ import DeleteModal from './DeleteModal'
 const PREFIX = 'CountryGrid'
 
 const classes = {
-  gridWrapper: `${PREFIX}-gridWrapper`,
-  grid: `${PREFIX}-grid`,
   gridColumn: `${PREFIX}-gridColumn`,
-  gridBtn: `${PREFIX}-gridBtn`,
-  gridAddBtn: `${PREFIX}-gridAddBtn`,
-  gridTitleWrapper: `${PREFIX}-gridTitleWrapper`,
-  gridDescription: `${PREFIX}-gridDescription`,
-  gridMainActionsBtns: `${PREFIX}-gridMainActionsBtns`,
 }
 
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled('div')({
-  [`& .${classes.gridWrapper}`]: {
-    margin: '0 auto',
-  },
-  [`& .${classes.grid}`]: {
-    marginBottom: 15,
-    border: 'none',
-    '& .MuiDataGrid-virtualScroller': {
-      overflow: 'hidden',
-    },
-    '& .MuiDataGrid-footerContainer': {
-      marginTop: '30px',
-      marginRight: '40px',
-    },
-    fontFamily: 'Lato',
-    fontSize: '12px',
-  },
   [`& .${classes.gridColumn}`]: {
     '& .MuiDataGrid-columnHeaderTitle': {
       fontFamily: 'Roboto',
       fontSize: '14px',
       fontWeight: '700',
     },
-  },
-  [`& .${classes.gridBtn}`]: {
-    background: '#FFFFFF',
-    boxShadow:
-      '0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px rgba(0, 0, 0, 0.14), 0px 1px 18px rgba(0, 0, 0, 0.12)',
-    borderRadius: '50%',
-    marginRight: '8px',
-    padding: '4px',
-  },
-  [`& .${classes.gridAddBtn}`]: {
-    background: '#4AC3FF',
-    boxShadow:
-      '0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px rgba(0, 0, 0, 0.14), 0px 1px 18px rgba(0, 0, 0, 0.12)',
-    borderRadius: '50%',
-    padding: '8px',
-  },
-  [`& .${classes.gridTitleWrapper}`]: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: '0px 10px 5px 23px',
-    height: '80px',
-  },
-  [`& .${classes.gridDescription}`]: {
-    fontFamily: 'Lato',
-    fontSize: '12px',
-    color: '#666',
-    alignSelf: 'flex-start',
-  },
-  [`& .${classes.gridMainActionsBtns}`]: {
-    alignSelf: 'flex-end',
   },
 })
 
@@ -147,7 +93,6 @@ export default observer(function Grid() {
           disableSelectionOnClick
         />
       </Box>
-      {/* making sure we don't sent requests to the API when not needed */}
       {isDetailsOpen && <DetailsModal />}
       <DeleteModal />
     </Root>
