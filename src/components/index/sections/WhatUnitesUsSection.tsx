@@ -9,10 +9,10 @@ import theme from 'common/theme'
 import Heading from 'components/common/Heading'
 import WhatUnitesUsCard from '../helpers/whatUnitesUs/WhatUnitesUsCard'
 import { data } from '../helpers/whatUnitesUs/whatUnitesUsData'
-import { createStyles, makeStyles } from '@mui/styles'
 
 const swiperOptions: SwiperProps = {
   loop: true,
+  observer: true,
   loopAdditionalSlides: 1,
   modules: [Navigation, A11y, Autoplay],
   autoplay: { delay: 5000 },
@@ -30,22 +30,10 @@ const swiperOptions: SwiperProps = {
   spaceBetween: 20,
 }
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    sliderNavNext: {
-      order: 3,
-    },
-    sliderNavPrevious: {
-      order: 1,
-    },
-  }),
-)
-
 export default function WhatUnitesUsSection() {
   const { t } = useTranslation()
   const navigationPrevRef = React.useRef(null)
   const navigationNextRef = React.useRef(null)
-  const classes = useStyles()
   return (
     <Container maxWidth="lg" sx={{ pb: 12 }}>
       <Heading
@@ -62,10 +50,7 @@ export default function WhatUnitesUsSection() {
         alignItems="baseline"
         paddingBottom={theme.spacing(12)}>
         <Grid item xs={12} display="flex" alignItems="center" position="relative">
-          <IconButton
-            className={classes.sliderNavPrevious}
-            ref={navigationPrevRef}
-            aria-label="Previouos slide">
+          <IconButton style={{ order: 1 }} ref={navigationPrevRef} aria-label="Previouos slide">
             <ChevronLeftIcon />
           </IconButton>
           <Swiper
@@ -88,10 +73,7 @@ export default function WhatUnitesUsSection() {
               </SwiperSlide>
             ))}
           </Swiper>
-          <IconButton
-            className={classes.sliderNavNext}
-            ref={navigationNextRef}
-            aria-label="Next slide">
+          <IconButton style={{ order: 3 }} ref={navigationNextRef} aria-label="Next slide">
             <ChevronRightIcon />
           </IconButton>
         </Grid>
