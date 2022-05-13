@@ -32,7 +32,7 @@ export default function FaqSection() {
   const classes = useStyles()
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="lg">
       <Heading id="what-we-do" variant="h4" component="h2" className={classes.heading}>
         {t('common:nav.campaigns.faq')}
       </Heading>

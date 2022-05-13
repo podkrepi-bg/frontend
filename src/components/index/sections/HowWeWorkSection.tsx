@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Grid, Hidden, Typography } from '@mui/material'
+import { Box, Container, Grid, Hidden, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import { Theme } from '@mui/material/styles'
@@ -49,9 +49,9 @@ export default function HowWeWorkSection() {
           <Typography variant="subtitle1">{t('index:how-we-work.text')}</Typography>
         </Grid>
       </Box>
-      <Grid item className={classes.graphic} maxWidth="md">
+      <Grid item className={classes.graphic} maxWidth="lg">
         <Hidden smUp>
-          <Image src={`/infographic-${i18n.language}-mobile.svg`} width={320} height={1002} />
+          <Image src={`/infographic-${i18n.language}-mobile.svg`} width="100%" height={1002} />
         </Hidden>
         <Hidden smDown>
           <Image src={`/infographic-${i18n.language}.svg`} width={1096} height={1114.6} />

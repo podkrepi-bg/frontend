@@ -36,7 +36,7 @@ export default function CampaignsSection() {
     return null
   } else {
     return (
-      <Container maxWidth="md">
+      <Container maxWidth="lg">
         <Heading id="what-we-do" variant="h4" component="h2" className={classes.heading}>
           {t('index:campaign.emergency-causes')}
         </Heading>
