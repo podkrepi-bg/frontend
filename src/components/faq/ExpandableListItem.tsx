@@ -19,11 +19,11 @@ const ExpandableListItem = ({ header, content }: Props) => {
   return (
     <List
       sx={{
-        margin: `0 1rem 1rem ${small ? '1' : '2'}rem`,
         border: '0.2px',
         borderRadius: '6px',
         boxShadow: '0px 0.5px 1px #888888',
         cursor: 'pointer',
+        paddingX: theme.spacing(3),
       }}>
       <Box
         sx={{ display: 'flex', alignItems: 'center', padding: '0.2rem' }}
