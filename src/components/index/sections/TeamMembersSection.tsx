@@ -70,7 +70,6 @@ export default function TeamMembersSection() {
       <Grid
         container
         justifyContent="center"
-        spacing={6}
         paddingTop={theme.spacing(7)}
         paddingBottom={theme.spacing(12)}>
         <Grid item xs={12} display="flex" alignItems="center" position="relative">
@@ -112,7 +111,7 @@ export default function TeamMembersSection() {
             href={staticUrls.blog}
             variant="outlined"
             endIcon={<ChevronRightIcon />}
-            sx={{ marginTop: '2rem' }}>
+            sx={{ marginTop: theme.spacing(8) }}>
             {'Запознай се с екипа ни'}
           </LinkButton>
         </Grid>

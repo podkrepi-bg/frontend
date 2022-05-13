@@ -14,16 +14,16 @@ const withAccentColor = (open: boolean) => (open ? theme.palette.primary.main : 
 
 const ExpandableListItem = ({ header, content }: Props) => {
   const [open, setOpen] = useState(false)
-  const { mobile, small } = useMobile()
+  const { small } = useMobile()
 
   return (
     <List
       sx={{
         margin: `0 1rem 1rem ${small ? '1' : '2'}rem`,
-        width: `${mobile ? '85vw' : '60vw'}`,
         border: '0.2px',
         borderRadius: '6px',
         boxShadow: '0px 0.5px 1px #888888',
+        cursor: 'pointer',
       }}>
       <Box
         sx={{ display: 'flex', alignItems: 'center', padding: '0.2rem' }}
@@ -45,7 +45,7 @@ const ExpandableListItem = ({ header, content }: Props) => {
       </Box>
       <Collapse in={open} unmountOnExit>
         <List>
-          <Box sx={{ pl: 6, pb: 2, pr: 2 }}>{content}</Box>
+          <Box sx={{ px: theme.spacing(2) }}>{content}</Box>
         </List>
       </Collapse>
     </List>
