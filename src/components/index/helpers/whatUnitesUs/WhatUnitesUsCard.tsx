@@ -1,5 +1,6 @@
 import { Box, Card, CardContent, CardHeader } from '@mui/material'
 import { createStyles, makeStyles } from '@mui/styles'
+import theme from 'common/theme'
 import { WhatUnitesUsItem } from './whatUnitesUsData'
 
 type WhatUnitesUsCardProps = {
@@ -31,7 +32,7 @@ export default function WhatUnitesUsCard({ info }: WhatUnitesUsCardProps) {
         {info.icon ? <info.icon sx={{ height: 45, width: 45, fill: info.iconColor }} /> : null}
       </Box>
       <CardHeader title={info.title} />
-      <CardContent>{info.content}</CardContent>
+      <CardContent sx={{ paddingX: theme.spacing(1) }}>{info.content}</CardContent>
     </Card>
   )
 }
