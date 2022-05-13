@@ -1,6 +1,4 @@
 import { AxiosResponse } from 'axios'
-import { KeycloakInstance } from 'keycloak-js'
-import { useKeycloak } from '@react-keycloak/ssr'
 
 import { authConfig } from './restRequests'
 import { apiClient } from 'service/apiClient'
@@ -14,6 +12,7 @@ import {
   CampaignReportUploadImage,
   UploadCampaignReportFiles,
 } from 'components/irregularity-report/helpers/report.types'
+import { useSession } from 'next-auth/react'
 
 export const createCampaignReport = async (data: CampaignReportInput) => {
   return await apiClient.post<CampaignReportInput, AxiosResponse<CampaignReportResponse>>(
@@ -23,28 +22,31 @@ export const createCampaignReport = async (data: CampaignReportInput) => {
 }
 
 export const editCampaignReport = (id: string) => {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
+
   return async (data: CampaignReportEditInput) => {
     return await apiClient.put<CampaignReportEditInput, AxiosResponse<CampaignReportResponse>>(
       endpoints.campaignReport.editCampaignReport(id).url,
       data,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
   }
 }
 
 export const deleteCampaignReport = (id: string) => {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
+
   return async () => {
     return await apiClient.delete<CampaignReportResponse, AxiosResponse<CampaignReportResponse>>(
       endpoints.campaignReport.removeCampaignReport(id).url,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
   }
 }
 
 export const uploadCampaignReportFiles = () => {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
+
   return async ({ files, campaignReportId }: UploadCampaignReportFiles) => {
     const formData = new FormData()
     files.forEach((file: File) => {
@@ -55,7 +57,7 @@ export const uploadCampaignReportFiles = () => {
       formData,
       {
         headers: {
-          ...authConfig(keycloak?.token).headers,
+          ...authConfig(session?.accessToken).headers,
           'Content-Type': 'multipart/form-data',
         },
       },
@@ -64,11 +66,12 @@ export const uploadCampaignReportFiles = () => {
 }
 
 export const deleteCampaignReportFile = (id: string) => {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
+
   return async () => {
     return await apiClient.delete<CampaignReportFile, AxiosResponse<CampaignReportFile>>(
       endpoints.campaignReportFile.deleteCampaignReportFile(id).url,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
   }
 }

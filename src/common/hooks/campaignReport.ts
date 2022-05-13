@@ -1,6 +1,5 @@
-import { KeycloakInstance } from 'keycloak-js'
-import { useKeycloak } from '@react-keycloak/ssr'
 import { useQuery } from 'react-query'
+import { useSession } from 'next-auth/react'
 
 import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
@@ -11,25 +10,28 @@ import {
 } from 'components/irregularity-report/helpers/report.types'
 
 export function useCampaignReportList() {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
+
   return useQuery<CampaignReportResponse[]>(
     endpoints.campaignReport.campaignReportsList.url,
-    authQueryFnFactory<CampaignReportResponse[]>(keycloak?.token),
+    authQueryFnFactory<CampaignReportResponse[]>(session?.accessToken),
   )
 }
 
 export function useCampaignReport(id: string) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
+
   return useQuery<CampaignReportResponse>(
     endpoints.campaignReport.viewCampaignReport(id).url,
-    authQueryFnFactory<CampaignReportResponse>(keycloak?.token),
+    authQueryFnFactory<CampaignReportResponse>(session?.accessToken),
   )
 }
 
 export function useCampaignReportFilesList(campaignReportId: string) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
+
   return useQuery<CampaignReportFile[]>(
     endpoints.campaignReportFile.listCampaignReportFiles(campaignReportId).url,
-    authQueryFnFactory<CampaignReportFile[]>(keycloak?.token),
+    authQueryFnFactory<CampaignReportFile[]>(session?.accessToken),
   )
 }
