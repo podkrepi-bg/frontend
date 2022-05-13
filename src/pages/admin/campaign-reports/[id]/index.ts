@@ -1,5 +1,5 @@
 import { endpoints } from 'service/apiEndpoints'
-import { securedAdminProps } from 'middleware/auth/keycloak'
+import { securedAdminProps } from 'middleware/auth/securedProps'
 import EditPage from 'components/irregularity-report/admin/EditPage'
 
 export const getServerSideProps = securedAdminProps(
