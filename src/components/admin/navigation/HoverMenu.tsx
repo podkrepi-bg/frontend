@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { styled } from '@mui/material/styles'
 import React, { useState, useMemo } from 'react'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import { ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material'
+import { ListItemButton, ListItemIcon, ListItemText, Menu } from '@mui/material'
 
 import CustomListItem from './CustomListItem'
 
@@ -87,17 +87,15 @@ export default function HoverMenu({ menu, items, icon: Icon, isOpen }: Props) {
         className={isOpen ? classes.open : classes.close}
         anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
         transformOrigin={{ vertical: 'center', horizontal: 'left' }}>
-        {items.map(({ label, icon: Icon, href }, index) => (
-          <MenuItem sx={{ p: 0 }} key={index} onClick={handleCloseMenu}>
-            <CustomListItem
-              component="div"
-              key={label}
-              selected={href !== '#' && router.asPath.includes(href)}
-              icon={<Icon />}
-              label={label}
-              onClick={() => router.push(href)}
-            />
-          </MenuItem>
+        {items.map(({ label, icon: Icon, href }) => (
+          <CustomListItem
+            key={label}
+            sx={{ p: 0 }}
+            selected={href !== '#' && router.asPath.includes(href)}
+            icon={<Icon />}
+            label={label}
+            onClick={() => router.push(href)}
+          />
         ))}
       </Menu>
     </Root>

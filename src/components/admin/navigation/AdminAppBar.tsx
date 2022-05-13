@@ -52,9 +52,7 @@ export function AdminAppBar({ isOpen, children }: Props) {
           }}>
           <Box sx={{ width: 150, display: 'flex' }}>
             <Link href={routes.admin.index}>
-              <a>
-                <Image src={PictureLogo} width={40} height={40} />
-              </a>
+              <Image src={PictureLogo} width={40} height={40} />
             </Link>
           </Box>
         </Box>
