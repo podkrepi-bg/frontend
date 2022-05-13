@@ -25,13 +25,10 @@ const PREFIX = 'CampaignCard'
 
 const classes = {
   media: `${PREFIX}-media`,
-  amountButtonGroup: `${PREFIX}-amountButtonGroup`,
-  amountButton: `${PREFIX}-amountButton`,
   donate: `${PREFIX}-donate`,
   cardActions: `${PREFIX}-cardActions`,
   cardWrapper: `${PREFIX}-cardWrapper`,
   campaignTitle: `${PREFIX}-campaignTitle`,
-  supportNowButton: `${PREFIX}-supportNowButton`,
   progressBar: `${PREFIX}-progressBar`,
   cardContent: `${PREFIX}-cardContent`,
 }
@@ -42,57 +39,6 @@ const StyledCard = styled(Card)(({ theme }) => ({
     height: 250,
     margin: theme.spacing(0, 4),
     transition: 'filter 0.3s, opacity 0.8s',
-  },
-
-  [`& .${classes.amountButtonGroup}`]: {
-    backgroundColor: '#e60550',
-    border: '0',
-    borderRadius: '0',
-    width: '100%',
-  },
-
-  [`& .${classes.amountButton}`]: {
-    backgroundColor: '#e60550',
-    border: '0',
-    color: '#fff',
-    width: '100%',
-    /* stylelint-disable-next-line */
-    '&.Mui-selected': {
-      backgroundColor: '#e60550',
-      border: '0',
-      color: '#fff',
-      '&:active': {
-        backgroundColor: '#c40444',
-      },
-      '&:hover': {
-        backgroundColor: '#c40444',
-      },
-      '&:focus': {
-        backgroundColor: '#c40444',
-      },
-      '&:selected': {
-        backgroundColor: '#c40444',
-        color: '#fff',
-      },
-    },
-  },
-
-  [`& .${classes.donate}`]: {
-    backgroundColor: theme.palette.primary.main,
-    border: '0',
-    borderRadius: '0',
-    boxShadow: '0 3px 2x 2px rgba(255, 105, 135, 0.3)',
-    color: theme.palette.primary.contrastText,
-    padding: theme.spacing(1),
-    width: '100%',
-    '&:hover svg': {
-      transform: 'scale(1.5)',
-      transition: 'all 0.2s ease-out-in',
-    },
-    svg: {
-      transform: 'scale(1)',
-      transition: 'all 0.2s ease-in-out',
-    },
   },
 
   [`& .${classes.cardActions}`]: {
@@ -111,10 +57,6 @@ const StyledCard = styled(Card)(({ theme }) => ({
     textTransform: 'capitalize',
   },
 
-  [`& .${classes.supportNowButton}`]: {
-    padding: theme.spacing(1, 4),
-  },
-
   [`& .${classes.progressBar}`]: {
     margin: theme.spacing(2.5),
     textAlign: 'left',
@@ -128,11 +70,6 @@ const StyledCard = styled(Card)(({ theme }) => ({
 type Props = { campaign: CampaignResponse }
 export default function CampaignCard({ campaign }: Props) {
   const { t } = useTranslation()
-  //const amounts = [20, 50, 100]
-  //const [alignment, setAlignment] = React.useState<string | null>('left')
-  // const handleAlignment = (event: React.MouseEvent<HTMLElement>, newAlignment: string | null) => {
-  //   setAlignment(newAlignment)
-  // }
 
   const target = campaign.targetAmount
   const summary = campaign.summary.find(() => true)
@@ -167,25 +104,6 @@ export default function CampaignCard({ campaign }: Props) {
             {t('campaigns:campaign.reached')} <b>{money(reached)}</b> /{' '}
             {t('campaigns:campaign.target')} <b>{money(target)}</b>
           </Typography>
-          {/* <Grid item xs={12}>
-            <ToggleButtonGroup
-              exclusive
-              value={alignment}
-              onChange={handleAlignment}
-              aria-label={alignment ?? undefined}>
-              {amounts.map((amount, index) => {
-                return (
-                  <ToggleButton
-                    key={index}
-                    color="secondary"
-                    value={amount.toString()}
-                    aria-label={amount.toString() ?? undefined}>
-                    {amount}
-                  </ToggleButton>
-                )
-              })}
-            </ToggleButtonGroup>
-          </Grid> */}
           <Grid item xs={12}>
             <Box mx={2} mb={2}>
               <LinkButton
