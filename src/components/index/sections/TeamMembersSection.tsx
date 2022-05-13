@@ -50,7 +50,7 @@ export default function TeamMembersSection() {
   const navigationNextRef = React.useRef(null)
   const classes = useStyles()
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="lg">
       <Heading
         textAlign="center"
         variant="h4"
