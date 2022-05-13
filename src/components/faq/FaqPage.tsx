@@ -1,12 +1,11 @@
-import { TabContext } from '@mui/lab'
-import { useRouter } from 'next/router'
+import { TabContext, TabPanel } from '@mui/lab'
+import { Stack } from '@mui/material'
 import { useTranslation } from 'next-i18next'
-import React, { useMemo, useState } from 'react'
+import React, { useState } from 'react'
 
 import Layout from 'components/layout/Layout'
 
 import OnHold from './OnHold'
-import TabPanel from './TabPanel'
 import ContactUs from './ContactUs'
 import FaqIntro from './FaqIntro'
 import ScrollToTop from './ScrollToTop'
@@ -24,11 +23,9 @@ import {
 
 const faqOnHold = false // Remove this when FAQ is ready
 
-export default function FaqPage() {
+export default function FaqPage({ section }: { section: string }) {
   const { t } = useTranslation()
-  const router = useRouter()
-  const section = useMemo(() => Number(router.asPath.split('#').pop()), [])
-  const [value, setValue] = useState(isNaN(section) ? 0 : section)
+  const [value, setValue] = useState(section)
 
   if (faqOnHold) {
     return (
@@ -37,76 +34,48 @@ export default function FaqPage() {
       </Layout>
     )
   }
-
   return (
     <Layout title={t('nav.campaigns.faq')}>
       <FaqIntro />
-      <TabContext value={value.toString()}>
-        <VerticalTabs value={value} setValue={setValue}>
-          <TabPanel value={value} index={0}>
+      <TabContext value={value}>
+        <Stack direction="row">
+          <VerticalTabs setValue={setValue} />
+          <TabPanel value="common-questions" sx={{ p: 0 }}>
             {COMMON_QUESTIONS.flatMap(({ header, content, visible }) =>
-              visible === true ? (
-                <ExpandableListItem key={header} header={header} content={content} />
-              ) : (
-                []
-              ),
+              visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
             )}
           </TabPanel>
-          <TabPanel value={value} index={1}>
+          <TabPanel value="campaigns" sx={{ p: 0 }}>
             {CAMPAIGN_QUESTIONS.flatMap(({ header, content, visible }) =>
-              visible === true ? (
-                <ExpandableListItem key={header} header={header} content={content} />
-              ) : (
-                []
-              ),
+              visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
             )}
           </TabPanel>
-          <TabPanel value={value} index={2}>
+          <TabPanel value="donations" sx={{ p: 0 }}>
             {DONATION_QUESTIONS.flatMap(({ header, content, visible }) =>
-              visible === true ? (
-                <ExpandableListItem key={header} header={header} content={content} />
-              ) : (
-                []
-              ),
+              visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
             )}
           </TabPanel>
-          <TabPanel value={value} index={3}>
+          <TabPanel value="recurring-donations" sx={{ p: 0 }}>
             {MONTHLY_DONATION_QUESTIONS.flatMap(({ header, content, visible }) =>
-              visible === true ? (
-                <ExpandableListItem key={header} header={header} content={content} />
-              ) : (
-                []
-              ),
+              visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
             )}
           </TabPanel>
-          <TabPanel value={value} index={4}>
+          <TabPanel value="potential-fraud" sx={{ p: 0 }}>
             {POTENTION_SCAM_QUESTIONS.flatMap(({ header, content, visible }) =>
-              visible === true ? (
-                <ExpandableListItem key={header} header={header} content={content} />
-              ) : (
-                []
-              ),
+              visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
             )}
           </TabPanel>
-          <TabPanel value={value} index={5}>
+          <TabPanel value="attracting-donators" sx={{ p: 0 }}>
             {ATTRACTING_DONATORS_QUESTIONS.flatMap(({ header, content, visible }) =>
-              visible === true ? (
-                <ExpandableListItem key={header} header={header} content={content} />
-              ) : (
-                []
-              ),
+              visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
             )}
           </TabPanel>
-          <TabPanel value={value} index={6}>
+          <TabPanel value="corporate-partnership" sx={{ p: 0 }}>
             {PARTNERSHIPS_QUESTIONS.flatMap(({ header, content, visible }) =>
-              visible === true ? (
-                <ExpandableListItem key={header} header={header} content={content} />
-              ) : (
-                []
-              ),
+              visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
             )}
           </TabPanel>
-        </VerticalTabs>
+        </Stack>
       </TabContext>
       <ContactUs />
       <ScrollToTop />
