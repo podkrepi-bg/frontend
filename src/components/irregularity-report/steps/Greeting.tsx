@@ -1,11 +1,10 @@
 import React from 'react'
-import { useTranslation } from 'next-i18next'
-
 import { ThemeProvider } from '@mui/styles'
+import { useSession } from 'next-auth/react'
+import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@mui/material'
 
 import theme from 'common/theme'
-import { useSession } from 'common/util/useSession'
 
 import Subtitle from '../helpers/Subtitle'
 import Link from 'components/common/Link'
@@ -17,7 +16,7 @@ const greetingStyles = {
 
 export default function Greeting() {
   const { t } = useTranslation('irregularity-report')
-  const { session } = useSession()
+  const { data: session } = useSession()
 
   return (
     <ThemeProvider theme={theme}>
@@ -29,7 +28,9 @@ export default function Greeting() {
           <Typography variant="h6" sx={greetingStyles}>
             {t('steps.greeting.welcome')}{' '}
             {session &&
-              (session.preferred_username ? session.preferred_username : session.given_name)}
+              (session?.user?.preferred_username
+                ? session.user.preferred_username
+                : session.user.given_name)}
           </Typography>
         </Grid>
         <Grid container item spacing={3}>
