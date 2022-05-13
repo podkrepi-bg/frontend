@@ -1,4 +1,4 @@
-import { SvgIconTypeMap } from '@mui/material'
+import { SvgIconProps, SvgIconTypeMap } from '@mui/material'
 import { OverridableComponent } from '@mui/material/OverridableComponent'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied'
@@ -7,7 +7,7 @@ import BoyIcon from '@mui/icons-material/Boy'
 export type WhatUnitesUsItem = {
   title: string
   content: string
-  icon?: OverridableComponent<SvgIconTypeMap<Record<string, never>, 'svg'>>
+  icon?: OverridableComponent<SvgIconTypeMap<Record<string, SvgIconProps>, 'svg'>>
   iconColor?: string
 }
 
