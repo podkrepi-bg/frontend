@@ -1,12 +1,10 @@
 import { useState } from 'react'
 import { styled } from '@mui/material/styles'
-import NextLink from 'next/link'
 import { useSession } from 'next-auth/react'
 import EditIcon from '@mui/icons-material/Edit'
 import { Box, Button, Link, Modal, Typography } from '@mui/material'
 
 import { formatDateString } from 'common/util/date'
-import { routes } from 'common/routes'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
 
 import ProfileTab from './ProfileTab'
@@ -19,7 +17,6 @@ const PREFIX = 'PersonalInfoTab'
 const classes = {
   modal: `${PREFIX}-modal`,
   editSpan: `${PREFIX}-editSpan`,
-  deleteAccountButton: `${PREFIX}-deleteAccountButton`,
   editIcon: `${PREFIX}-editIcon`,
   heading: `${PREFIX}-heading`,
   bold: `${PREFIX}-bold`,
@@ -29,7 +26,6 @@ const classes = {
   h3: `${PREFIX}-h3`,
 }
 
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled('div')(({ theme }) => ({
   [`& .${classes.modal}`]: {
     position: 'absolute',
@@ -45,7 +41,6 @@ const Root = styled('div')(({ theme }) => ({
     color: '#294E85',
   },
 
-  [`& .${classes.deleteAccountButton}`]: { color: '#294E85', float: 'right' },
   [`& .${classes.editIcon}`]: { position: 'relative', top: '7px' },
 
   [`& .${classes.heading}`]: {
@@ -126,10 +121,8 @@ export default function PersonalInfoTab() {
               <p className={classes.bold}>Парола:</p>
               <p>***********</p>
               <Box sx={{ position: 'absolute', right: '1rem', top: '.5rem' }}>
-                <NextLink href={routes.profile.index}>
-                  <EditIcon className={classes.editIcon} />
-                  <span className={classes.editSpan}>Редактирай</span>
-                </NextLink>
+                <EditIcon className={classes.editIcon} />
+                <span className={classes.editSpan}>Редактирай</span>
               </Box>
             </Box>
           </Box>
@@ -175,7 +168,7 @@ export default function PersonalInfoTab() {
         </Box>
         <Link
           href="#"
-          className={classes.deleteAccountButton}
+          sx={{ color: '#294E85', float: 'right' }}
           onClick={() => setIsDeleteAccountModalOpen(true)}>
           изтриване на акаунт/ профил
         </Link>
