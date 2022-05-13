@@ -39,7 +39,9 @@ export default function FaqSection() {
       <Grid container justifyContent="center" spacing={2} className={classes.container}>
         {data.COMMON_QUESTIONS.slice(0, 3).flatMap(({ header, content, visible }) =>
           visible === true ? (
-            <ExpandableListItem key={header} header={header} content={content} />
+            <Grid item xs={12}>
+              <ExpandableListItem key={header} header={header} content={content} />
+            </Grid>
           ) : (
             []
           ),
