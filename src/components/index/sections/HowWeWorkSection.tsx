@@ -6,7 +6,7 @@ import { Theme } from '@mui/material/styles'
 
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
-
+import theme from 'common/theme'
 import Heading from 'components/common/Heading'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -38,20 +38,18 @@ export default function HowWeWorkSection() {
         {t('index:how-we-work.heading')}
       </Heading>
       <Box
-        style={{
+        sx={{
           backgroundColor: '#F4F4F4',
-          paddingBottom: '60px',
-          paddingTop: '60px',
-          paddingLeft: '25vw',
-          paddingRight: '25vw',
+          paddingY: theme.spacing(6),
+          paddingX: theme.spacing(5),
         }}>
-        <Grid item rowSpacing={10}>
+        <Grid item rowSpacing={10} maxWidth="lg" margin="0 auto">
           <Typography variant="subtitle1">{t('index:how-we-work.text')}</Typography>
         </Grid>
       </Box>
       <Grid item className={classes.graphic} maxWidth="lg">
         <Hidden smUp>
-          <Image src={`/infographic-${i18n.language}-mobile.svg`} width="100%" height={1002} />
+          <Image src={`/infographic-${i18n.language}-mobile.svg`} width={320} height={1002} />
         </Hidden>
         <Hidden smDown>
           <Image src={`/infographic-${i18n.language}.svg`} width={1096} height={1114.6} />
