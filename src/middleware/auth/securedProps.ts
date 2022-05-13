@@ -16,7 +16,9 @@ export const securedProps: (
   if (!session) {
     return {
       redirect: {
-        destination: `${routes.login}?pathname=${returnUrl || ctx.req.url}`,
+        destination: `${routes.login}?callbackUrl=${encodeURIComponent(
+          returnUrl ?? ctx.req.url ?? '',
+        )}`,
         permanent: false,
       },
     }

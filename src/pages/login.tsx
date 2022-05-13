@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { getProviders, getSession } from 'next-auth/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { baseUrl, routes } from 'common/routes'
+import { routes } from 'common/routes'
 import LoginPage from 'components/auth/login/LoginPage'
 
 export type LoginPageProps = {
@@ -14,7 +14,7 @@ export const getServerSideProps: GetServerSideProps<LoginPageProps> = async (ctx
   if (session) {
     return {
       redirect: {
-        destination: `${baseUrl}/${routes.profile.index}`,
+        destination: routes.profile.index,
         permanent: false,
       },
     }

@@ -41,7 +41,6 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
   const [loading, setLoading] = useState(false)
 
   const onSubmit = async (values: LoginFormData) => {
-    AlertStore.show(t('auth:alerts.welcome'), 'success')
     try {
       setLoading(true)
 
@@ -50,15 +49,13 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
         password: values.password,
         redirect: false,
       })
-
+      if (resp?.error) {
+        throw new Error(resp.error)
+      }
       if (resp?.ok) {
         setLoading(false)
         AlertStore.show(t('auth:alerts.welcome'), 'success')
-        router.push(routes.profile.index)
-        return
-      }
-      if (resp?.error) {
-        throw new Error(resp.error)
+        router.push(`${router.query.callbackUrl}`)
       }
     } catch (error) {
       console.error(error)

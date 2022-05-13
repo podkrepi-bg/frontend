@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { getProviders, getSession } from 'next-auth/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { baseUrl, routes } from 'common/routes'
+import { routes } from 'common/routes'
 import RegisterPage from 'components/auth/register/RegisterPage'
 
 export type RegisterPageProps = {
@@ -14,7 +14,7 @@ export const getServerSideProps: GetServerSideProps<RegisterPageProps> = async (
   if (session) {
     return {
       redirect: {
-        destination: `${baseUrl}/${routes.profile.index}`,
+        destination: routes.profile.index,
         permanent: false,
       },
     }
