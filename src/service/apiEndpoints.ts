@@ -6,6 +6,10 @@ type Endpoint = {
 }
 
 export const endpoints = {
+  auth: {
+    login: <Endpoint>{ url: '/login', method: 'POST' },
+    register: <Endpoint>{ url: '/register', method: 'POST' },
+  },
   campaign: {
     listCampaigns: <Endpoint>{ url: '/campaign/list', method: 'GET' },
     listAdminCampaigns: <Endpoint>{ url: '/campaign/list-all', method: 'GET' },
@@ -33,6 +37,7 @@ export const endpoints = {
     recurringPrices: <Endpoint>{ url: '/donation/prices/recurring', method: 'GET' },
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
     createDonation: <Endpoint>{ url: '/donation/create-payment', method: 'POST' },
+    createBankDonation: <Endpoint>{ url: '/donation/create-bank-payment', method: 'POST' },
     donationsList: <Endpoint>{ url: '/donation/list', method: 'GET' },
     getDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'GET' },
     editDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'PATCH' },

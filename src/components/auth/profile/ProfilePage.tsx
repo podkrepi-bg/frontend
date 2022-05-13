@@ -1,26 +1,33 @@
-import { Box, useMediaQuery } from '@mui/material'
+import { Box, LinearProgress, useMediaQuery } from '@mui/material'
+import { styled } from '@mui/material/styles'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
 import React, { useMemo } from 'react'
-import { makeStyles } from '@mui/styles'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { routes } from 'common/routes'
-import Layout from 'components/layout/Layout'
-import { useSession } from 'common/util/useSession'
-
-import { ProfileTabs, ProfileTab, tabs } from './tabs'
-import theme from 'common/theme'
 import {
   VolunteerActivism as DonationIcon,
   AccountBox as AccountBoxIcon,
   HistoryEdu as ContractIcon,
   Assignment as CertificateIcon,
 } from '@mui/icons-material'
+import { useSession } from 'next-auth/react'
 
-const useStyles = makeStyles({
-  h1: {
-    fontFamily: 'Montserrat',
+import theme from 'common/theme'
+import { routes } from 'common/routes'
+import Layout from 'components/layout/Layout'
+
+import { ProfileTabs, ProfileTab, tabs } from './tabs'
+
+const PREFIX = 'ProfilePage'
+
+const classes = {
+  h1: `${PREFIX}-h1`,
+  tabMobile: `${PREFIX}-tabMobile`,
+}
+
+const StyledLayout = styled(Layout)({
+  [`& .${classes.h1}`]: {
     fontStyle: 'normal',
     fontWeight: 500,
     fontSize: '45px',
@@ -30,15 +37,15 @@ const useStyles = makeStyles({
     margin: '0',
     marginLeft: '10px',
   },
-  tabMobile: {
+  [`& .${classes.tabMobile}`]: {
     flex: 1,
   },
 })
 
 export default function ProfilePage() {
   const { t } = useTranslation()
-  const { keycloak } = useSession()
-  const classes = useStyles()
+  const { status } = useSession()
+
   const router = useRouter()
   const matches = useMediaQuery(theme.breakpoints.down('sm'))
   const currentTab = router.query.slug ?? ProfileTabs.donations
@@ -46,14 +53,18 @@ export default function ProfilePage() {
     return tabs.find((tab) => tab.slug === currentTab) ?? tabs[0]
   }, [currentTab])
 
-  if (!keycloak?.authenticated) {
+  if (status === 'loading') {
+    return <LinearProgress />
+  }
+
+  if (status !== 'authenticated') {
     return (
-      <Layout
+      <StyledLayout
         title={t('nav.profile')}
         githubUrl="https://github.com/podkrepi-bg/frontend/tree/master/src/components/auth/profile/ProfilePage.tsx"
         figmaUrl="https://www.figma.com/file/MmvFKzUv6yE5U2wrOpWtwS/Podkrepi.bg?node-id=5987%3A21094">
         Not authenticated
-      </Layout>
+      </StyledLayout>
     )
   }
 

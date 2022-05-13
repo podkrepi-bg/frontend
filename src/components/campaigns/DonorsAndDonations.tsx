@@ -1,46 +1,54 @@
 import React, { useMemo, useState } from 'react'
-import { Button, Grid, Theme, Typography } from '@mui/material'
+import { styled } from '@mui/material/styles'
+import { Button, Grid, Typography } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import { useTranslation } from 'next-i18next'
 import { CampaignDonation } from 'gql/campaigns'
 import { formatRelative, parseISO } from 'date-fns'
 import { bg, enUS } from 'date-fns/locale'
 import theme from 'common/theme'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    donationsWrapper: {
-      marginTop: theme.spacing(5),
-      maxHeight: 400,
-      overflowY: 'scroll',
-    },
-    donationItemWrapper: {
-      display: 'flex',
-      gap: theme.spacing(1),
-      alignItems: 'center',
-      marginBottom: theme.spacing(2),
-    },
-    donationQuantityAndTimeWrapper: {
-      display: 'flex',
-      gap: theme.spacing(1),
-      color: theme.palette.grey[500],
-    },
-    separatorIcon: {
-      fontSize: theme.spacing(1),
-      alignSelf: 'center',
-    },
-  }),
-)
+const PREFIX = 'DonorsAndDonations'
+
+const classes = {
+  donationsWrapper: `${PREFIX}-donationsWrapper`,
+  donationItemWrapper: `${PREFIX}-donationItemWrapper`,
+  donationQuantityAndTimeWrapper: `${PREFIX}-donationQuantityAndTimeWrapper`,
+  separatorIcon: `${PREFIX}-separatorIcon`,
+}
+
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.donationsWrapper}`]: {
+    marginTop: theme.spacing(5),
+    maxHeight: 400,
+    overflowY: 'scroll',
+  },
+
+  [`& .${classes.donationItemWrapper}`]: {
+    display: 'flex',
+    gap: theme.spacing(1),
+    alignItems: 'center',
+    marginBottom: theme.spacing(2),
+  },
+
+  [`& .${classes.donationQuantityAndTimeWrapper}`]: {
+    display: 'flex',
+    gap: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
+
+  [`& .${classes.separatorIcon}`]: {
+    fontSize: theme.spacing(1),
+    alignSelf: 'center',
+  },
+}))
 
 export default function DonorsAndDonations({
   donations,
 }: {
   donations: CampaignDonation[] | undefined
 }) {
-  const classes = useStyles()
   const { t, i18n } = useTranslation()
   const [all, setAll] = useState<boolean>(false)
   const shownDonationsNumber = 5
@@ -51,7 +59,7 @@ export default function DonorsAndDonations({
     return donations?.slice(0, shownDonationsNumber)
   }, [donations, all])
   return (
-    <>
+    <Root>
       <Grid item className={classes.donationsWrapper}>
         {donationsToShow && donationsToShow.length !== 0 ? (
           donationsToShow.map(({ person, amount, createdAt }, key) => (
@@ -91,6 +99,6 @@ export default function DonorsAndDonations({
           </Button>
         )}
       </Grid>
-    </>
+    </Root>
   )
 }

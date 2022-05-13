@@ -1,12 +1,10 @@
 import { useState } from 'react'
-import getConfig from 'next/config'
-import { makeStyles } from '@mui/styles'
+import { styled } from '@mui/material/styles'
+import { useSession } from 'next-auth/react'
 import EditIcon from '@mui/icons-material/Edit'
 import { Box, Button, Link, Modal, Typography } from '@mui/material'
 
 import { formatDateString } from 'common/util/date'
-import { useSession } from 'common/util/useSession'
-import ExternalLink from 'components/common/ExternalLink'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
 
 import ProfileTab from './ProfileTab'
@@ -14,23 +12,26 @@ import { ProfileTabs } from './tabs'
 import UpdateNameModal from './UpdateNameModal'
 import UpdateBirthdayModal from './UpdateBirthdayModal'
 
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 650,
-    backgroundColor: '#EEEEEE',
-    padding: 20,
-  },
-  editSpan: {
+const PREFIX = 'PersonalInfoTab'
+
+const classes = {
+  editSpan: `${PREFIX}-editSpan`,
+  editIcon: `${PREFIX}-editIcon`,
+  heading: `${PREFIX}-heading`,
+  bold: `${PREFIX}-bold`,
+  graySpan: `${PREFIX}-graySpan`,
+  h5: `${PREFIX}-h5`,
+  h3: `${PREFIX}-h3`,
+}
+
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.editSpan}`]: {
     color: '#294E85',
   },
-  deleteAccountButton: { color: '#294E85', float: 'right' },
-  editIcon: { position: 'relative', top: '7px' },
-  heading: {
-    fontFamily: 'Montserrat',
+
+  [`& .${classes.editIcon}`]: { position: 'relative', top: '7px' },
+
+  [`& .${classes.heading}`]: {
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: '24px',
@@ -39,13 +40,12 @@ const useStyles = makeStyles((theme) => ({
     color: '#000000',
     paddingLeft: theme.spacing(3),
   },
-  bold: {
+
+  [`& .${classes.bold}`]: {
     fontWeight: 'bold',
   },
-  notAvaible: {
-    color: '#F22727',
-  },
-  graySpan: {
+
+  [`& .${classes.graySpan}`]: {
     fontFamily: 'Lato, sans-serif',
     fontStyle: 'normal',
     fontWeight: '400',
@@ -53,15 +53,16 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: '133.4%',
     color: '#909090',
   },
-  h5: {
+
+  [`& .${classes.h5}`]: {
     fontFamily: 'Lato, sans-serif',
     fontStyle: 'normal',
     fontWeight: '600',
     fontSize: '22px',
     lineHeight: '133.4%',
   },
-  h3: {
-    fontFamily: 'Montserrat',
+
+  [`& .${classes.h3}`]: {
     fontStyle: 'normal',
     fontWeight: '500',
     fontSize: '25px',
@@ -70,20 +71,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const {
-  publicRuntimeConfig: { keycloakConfig },
-} = getConfig()
-const link = `${keycloakConfig.url}/realms/${keycloakConfig.realm}/${keycloakConfig.clientId}/password`
-
 export default function PersonalInfoTab() {
-  const { session } = useSession()
+  const { data: session } = useSession()
   const { data: { user: person } = { user: null }, refetch } = useCurrentPerson()
   const [isDeleteAccountModalOpen, setIsDeleteAccountModalOpen] = useState(false)
   const [isUpdateNameModalOpen, setIsUpdateNameModalOpen] = useState(false)
   const [isUpdateBirthdayModalOpen, setIsUpdateBirthdayModalOpen] = useState(false)
-  const classes = useStyles()
+
   return (
-    <>
+    <Root>
       <ProfileTab name={ProfileTabs.personalInformation} title="Лична информация">
         <Box sx={{ paddingTop: 2 }}>
           <h2 className={classes.heading}>Login информация:</h2>
@@ -95,7 +91,7 @@ export default function PersonalInfoTab() {
                 flexBasis: '50%',
               }}>
               <p className={classes.bold}>Email адрес:</p>
-              <p>{session?.email}</p>
+              <p>{session?.user?.email}</p>
             </Box>
             <Box
               sx={{
@@ -107,10 +103,8 @@ export default function PersonalInfoTab() {
               <p className={classes.bold}>Парола:</p>
               <p>***********</p>
               <Box sx={{ position: 'absolute', right: '1rem', top: '.5rem' }}>
-                <ExternalLink href={link}>
-                  <EditIcon className={classes.editIcon} />
-                  <span className={classes.editSpan}>Редактирай</span>
-                </ExternalLink>
+                <EditIcon className={classes.editIcon} />
+                <span className={classes.editSpan}>Редактирай</span>
               </Box>
             </Box>
           </Box>
@@ -142,9 +136,9 @@ export default function PersonalInfoTab() {
                 position: 'relative',
               }}>
               <p className={classes.bold}>Рожден ден:</p>
-              <p className={person?.birthday ? '' : classes.notAvaible}>
+              <Typography sx={{ color: person?.birthday ? undefined : '#F22727' }}>
                 {person?.birthday ? formatDateString(person?.birthday) : 'не e наличен'}
-              </p>
+              </Typography>
               <Box sx={{ position: 'absolute', right: '1rem', top: '.5rem' }}>
                 <Link href="#" onClick={() => setIsUpdateBirthdayModalOpen(true)}>
                   <EditIcon className={classes.editIcon} />
@@ -156,7 +150,7 @@ export default function PersonalInfoTab() {
         </Box>
         <Link
           href="#"
-          className={classes.deleteAccountButton}
+          sx={{ color: '#294E85', float: 'right' }}
           onClick={() => setIsDeleteAccountModalOpen(true)}>
           изтриване на акаунт/ профил
         </Link>
@@ -166,7 +160,16 @@ export default function PersonalInfoTab() {
         onClose={() => setIsDeleteAccountModalOpen(false)}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description">
-        <Box className={classes.modal}>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            borderRadius: 4,
+            backgroundColor: '#EEEEEE',
+            p: 4,
+          }}>
           <Typography variant="h6" component="h2">
             Изтриване на акаунт
           </Typography>
@@ -216,6 +219,6 @@ export default function PersonalInfoTab() {
           />
         </>
       )}
-    </>
+    </Root>
   )
 }

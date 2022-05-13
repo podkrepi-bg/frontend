@@ -1,5 +1,4 @@
-import { KeycloakInstance } from 'keycloak-js'
-import { useKeycloak } from '@react-keycloak/ssr'
+import { useSession } from 'next-auth/react'
 import { AxiosResponse } from 'axios'
 
 import { apiClient } from 'service/apiClient'
@@ -8,33 +7,33 @@ import { endpoints } from 'service/apiEndpoints'
 import { BankAccountInput, BankAccountResponse } from 'gql/bankaccounts'
 
 export const useCreateBankAccount = () => {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return async (data: BankAccountInput) => {
     return await apiClient.post<BankAccountInput, AxiosResponse<BankAccountResponse>>(
       endpoints.bankAccounts.createBankAccount.url,
       data,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
   }
 }
 
 export const useEditBankAccount = (id: string) => {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return async (data: BankAccountInput) => {
     return await apiClient.patch<BankAccountInput, AxiosResponse<BankAccountResponse>>(
       endpoints.bankAccounts.editBankAccount(id).url,
       data,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
   }
 }
 
 export function useDeleteBankAccount(id: string) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return async () => {
     return await apiClient.delete<BankAccountResponse, AxiosResponse<BankAccountResponse>>(
       endpoints.bankAccounts.deleteBankAccount(id).url,
-      authConfig(keycloak?.token),
+      authConfig(session?.accessToken),
     )
   }
 }

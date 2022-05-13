@@ -7,19 +7,11 @@ const { version } = require('./package.json')
 const { i18n } = require('./next-i18next.config')
 
 /**
- * @type {import('keycloak-js').KeycloakConfig}
- */
-const keycloakConfig = {
-  url: process.env.KEYCLOAK_URL ?? 'https://keycloak.podkrepi.bg/auth',
-  realm: process.env.KEYCLOAK_REALM ?? 'webapp-dev',
-  clientId: process.env.KEYCLOAK_CLIENT_ID ?? 'account',
-}
-
-/**
  * @type {import('next').NextConfig}
  */
 const moduleExports = {
   i18n,
+  reactStrictMode: true,
   sassOptions: {
     includePaths: [path.join(__dirname, 'src/styles')],
   },
@@ -41,7 +33,6 @@ const moduleExports = {
     API_URL: process.env.API_URL,
     APP_URL: process.env.APP_URL,
     GTM_ID: 'GTM-TWQBXM6',
-    keycloakConfig,
     FEATURE_ENABLED: {
       CAMPAIGN: process.env.FEATURE_CAMPAIGN ?? false,
     },

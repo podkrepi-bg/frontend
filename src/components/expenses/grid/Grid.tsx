@@ -1,8 +1,8 @@
 import React from 'react'
+import { styled } from '@mui/material/styles'
 import { observer } from 'mobx-react'
 import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 import { useTranslation } from 'next-i18next'
-import { makeStyles } from '@mui/styles'
 
 import { useExpensesList } from 'common/hooks/expenses'
 import { usePersonList } from 'common/hooks/person'
@@ -14,8 +14,16 @@ import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 import { statusRenderCell } from './GridHelper'
 
-const useStyles = makeStyles({
-  grid: {
+const PREFIX = 'Grid'
+
+const classes = {
+  grid: `${PREFIX}-grid`,
+  gridColumn: `${PREFIX}-gridColumn`,
+}
+
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')({
+  [`& .${classes.grid}`]: {
     marginBottom: 15,
     border: 'none',
     '& .MuiDataGrid-virtualScroller': {
@@ -28,7 +36,7 @@ const useStyles = makeStyles({
     fontFamily: 'Lato',
     fontSize: '12px',
   },
-  gridColumn: {
+  [`& .${classes.gridColumn}`]: {
     '& .MuiDataGrid-columnHeaderTitle': {
       fontFamily: 'Roboto',
       fontSize: '14px',
@@ -40,7 +48,7 @@ const useStyles = makeStyles({
 export default observer(function Grid() {
   const { t } = useTranslation('')
   const { data } = useExpensesList()
-  const classes = useStyles()
+
   const [pageSize, setPageSize] = React.useState<number>(10)
   const { data: personList } = usePersonList()
 
@@ -132,7 +140,7 @@ export default observer(function Grid() {
   ]
 
   return (
-    <>
+    <Root>
       <DataGrid
         className={classes.grid}
         rows={data || []}
@@ -145,10 +153,9 @@ export default observer(function Grid() {
         checkboxSelection
         disableSelectionOnClick
       />
-
       {/* making sure we don't sent requests to the API when not needed */}
       {isDetailsOpen && <DetailsModal />}
       <DeleteModal />
-    </>
+    </Root>
   )
 })

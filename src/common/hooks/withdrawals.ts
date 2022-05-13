@@ -1,5 +1,4 @@
-import { KeycloakInstance } from 'keycloak-js'
-import { useKeycloak } from '@react-keycloak/ssr'
+import { useSession } from 'next-auth/react'
 import { QueryClient, useQuery } from 'react-query'
 
 import { endpoints } from 'service/apiEndpoints'
@@ -7,26 +6,26 @@ import { authQueryFnFactory } from 'service/restRequests'
 import { WithdrawalEditResponse, WithdrawalResponse } from 'gql/withdrawals'
 
 export function useWithdrawalsList() {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery<WithdrawalResponse[]>(
     endpoints.withdrawals.withdrawalsList.url,
-    authQueryFnFactory<WithdrawalResponse[]>(keycloak?.token),
+    authQueryFnFactory<WithdrawalResponse[]>(session?.accessToken),
   )
 }
 
 export function useWithdrawal(id: string) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery<WithdrawalEditResponse>(
     endpoints.withdrawals.getWithdrawal(id).url,
-    authQueryFnFactory<WithdrawalEditResponse>(keycloak?.token),
+    authQueryFnFactory<WithdrawalEditResponse>(session?.accessToken),
   )
 }
 
 export function useWithdrawalDetailsPage(id: string) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery<WithdrawalResponse>(
     endpoints.withdrawals.getWithdrawal(id).url,
-    authQueryFnFactory<WithdrawalResponse>(keycloak?.token),
+    authQueryFnFactory<WithdrawalResponse>(session?.accessToken),
   )
 }
 

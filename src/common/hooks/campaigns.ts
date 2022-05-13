@@ -1,6 +1,5 @@
-import { KeycloakInstance } from 'keycloak-js'
+import { useSession } from 'next-auth/react'
 import { QueryClient, useQuery } from 'react-query'
-import { useKeycloak } from '@react-keycloak/ssr'
 
 import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
@@ -16,10 +15,10 @@ export function useCampaignList() {
 }
 
 export function useCampaignAdminList() {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery<AdminCampaignResponse[]>(
     endpoints.campaign.listAdminCampaigns.url,
-    authQueryFnFactory<AdminCampaignResponse[]>(keycloak?.token),
+    authQueryFnFactory<AdminCampaignResponse[]>(session?.accessToken),
   )
 }
 
@@ -32,10 +31,10 @@ export function useViewCampaign(slug: string) {
 }
 
 export function useViewCampaignById(id: string) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery<CampaignResponse>(
     endpoints.campaign.viewCampaignById(id).url,
-    authQueryFnFactory<CampaignResponse>(keycloak?.token),
+    authQueryFnFactory<CampaignResponse>(session?.accessToken),
   )
 }
 
@@ -47,10 +46,10 @@ export async function prefetchCampaignById(client: QueryClient, id: string, toke
 }
 
 export function useCampaignDetailsPage(id: string) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery<CampaignResponse>(
     endpoints.campaign.viewCampaignById(id).url,
-    authQueryFnFactory<CampaignResponse>(keycloak?.token),
+    authQueryFnFactory<CampaignResponse>(session?.accessToken),
   )
 }
 

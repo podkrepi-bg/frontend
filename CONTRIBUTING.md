@@ -215,7 +215,7 @@ export default function AdvancedForm({ title = 'Nice', children, age }: Advanced
 
 ### Components
 
-#### Preferred export style :sun_with_face:
+#### Preferred export style :sun_with_face
 
 - Nice IDE support and readability
 
@@ -316,33 +316,26 @@ Single component that inherits all sizing props from MUI <https://material-ui.co
 </Box>
 ```
 
-#### Styles using `useStyles()` hook
+#### Styles using `sx` property
 
-:sun_with_face: Nice for very specific styling that levereges `theme` methods and props
+:sun_with_face: Nice for very specific styling that leverages `theme` methods and props
 
 ```tsx
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    pageTitle: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      padding: theme.spacing(4),
-      margin: theme.spacing(5, 3, 4),
-      color: theme.palette.secondary.main,
-      backgroundColor: theme.palette.primary.main,
-      '&:hover': {
-        color: theme.palette.secondary.dark,
-      },
-    },
-    // ...
-  }),
-)
-
 export default function SomeBox() {
-  const classes = useStyles()
   return (
-    <Box className={classes.pageTitle}>
+    <Box
+      sx={(theme) => ({
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        p: 4,
+        margin: theme.spacing(5, 3, 4),
+        color: theme.palette.secondary.main,
+        backgroundColor: theme.palette.primary.main,
+        '&:hover': {
+          color: theme.palette.secondary.dark,
+        },
+      })}>
       <p>{t('nav.forgottenPassword')}</p>
     </Box>
   )
@@ -351,7 +344,7 @@ export default function SomeBox() {
 
 :partly_sunny: Too verbose for simple use cases, if it contains less than 2 css rules. **Use `Box` instead**
 
-:partly_sunny: Not the best when dealing with stlying of deep nested structures within the same component. **Use `scss` instead**
+:partly_sunny: Not the best when dealing with styling of deep nested structures within the same component. **Use `scss` instead**
 
 #### Styles using SCSS files
 

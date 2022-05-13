@@ -1,4 +1,4 @@
-import { securedAdminProps } from 'middleware/auth/keycloak'
+import { securedAdminProps } from 'middleware/auth/securedProps'
 import BenefactorPage from 'components/benefactor/BenefactorPage'
 import { endpoints } from 'service/apiEndpoints'
 

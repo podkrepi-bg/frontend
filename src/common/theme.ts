@@ -3,6 +3,7 @@ import {
   darken,
   lighten,
   responsiveFontSizes,
+  Theme,
   ThemeOptions,
 } from '@mui/material/styles'
 
@@ -29,6 +30,13 @@ const colors = {
   white: {
     main: '#ffffff',
   },
+}
+
+const borders = {
+  dark: colors.blue.dark,
+  light: colors.blue.main,
+  round: '60px',
+  semiRound: '20px',
 }
 
 export const themeOptions: ThemeOptions = {
@@ -117,30 +125,30 @@ export const themeOptions: ThemeOptions = {
       styleOverrides: {
         root: {
           fontSize: '1rem',
-          borderRadius: 60,
+          borderRadius: borders.round,
         },
         multiline: {
-          borderRadius: 20,
+          borderRadius: borders.semiRound,
         },
       },
     },
     MuiFilledInput: {
       styleOverrides: {
         root: {
-          borderRadius: 60,
+          borderRadius: borders.round,
         },
         multiline: {
-          borderRadius: 20,
+          borderRadius: borders.semiRound,
         },
       },
     },
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
-          borderRadius: 60,
+          borderRadius: borders.round,
         },
         multiline: {
-          borderRadius: 20,
+          borderRadius: borders.semiRound,
         },
       },
     },
@@ -174,15 +182,24 @@ export const themeOptions: ThemeOptions = {
     h4: { fontFamily },
     h5: { fontFamily },
     h6: { fontFamily },
-    button: { fontFamily, textTransform: 'initial' },
+    subtitle1: { fontFamily },
+    subtitle2: { fontFamily },
     body1: {
       fontSize: '0.875rem',
       lineHeight: '1.43',
       letterSpacing: '0.01071em',
+      fontFamily,
     },
+    body2: { fontFamily },
+    button: { fontFamily, textTransform: 'initial' },
   },
 }
-
 // https://material-ui.com/customization/default-theme/#default-theme
-const theme = createTheme(themeOptions)
-export default responsiveFontSizes(theme)
+const theme: Theme = createTheme(themeOptions)
+const materialTheme = responsiveFontSizes(theme)
+const podkrepiTheme = {
+  borders,
+  ...materialTheme,
+}
+
+export default podkrepiTheme

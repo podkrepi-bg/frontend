@@ -1,5 +1,5 @@
 import DonationsPage from 'components/donations/DonationsPage'
-import { securedAdminProps } from 'middleware/auth/keycloak'
+import { securedAdminProps } from 'middleware/auth/securedProps'
 import { endpoints } from 'service/apiEndpoints'
 
 export const getServerSideProps = securedAdminProps(

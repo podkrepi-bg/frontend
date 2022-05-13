@@ -7,7 +7,7 @@ type WhatUnitesUsCardProps = {
 
 export default function WhatUnitesUsCard({ info }: WhatUnitesUsCardProps) {
   return (
-    <Card elevation={0}>
+    <Card elevation={0} sx={{ textAlign: 'center' }}>
       <CardHeader title={info.title} />
       <CardContent>{info.content}</CardContent>
     </Card>

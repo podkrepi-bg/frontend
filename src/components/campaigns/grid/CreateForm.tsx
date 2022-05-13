@@ -8,8 +8,6 @@ import { format, parse, isDate } from 'date-fns'
 import { AxiosError, AxiosResponse } from 'axios'
 import { Button, Grid, Typography } from '@mui/material'
 import Link from 'next/link'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 
 import { routes } from 'common/routes'
 import { Currency } from 'gql/currency'
@@ -80,23 +78,9 @@ const defaults: CampaignFormData = {
   gdpr: false,
 }
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    heading: {
-      marginBottom: theme.spacing(5),
-      color: theme.palette.primary.dark,
-      textAlign: 'center',
-    },
-    message: {
-      '& textarea': { resize: 'vertical' },
-    },
-  }),
-)
-
 export type CampaignFormProps = { initialValues?: CampaignFormData }
 
 export default function CampaignForm({ initialValues = defaults }: CampaignFormProps) {
-  const classes = useStyles()
   const router = useRouter()
   const [files, setFiles] = useState<File[]>([])
   const [roles, setRoles] = useState<FileRole[]>([])
@@ -159,7 +143,14 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   return (
     <Grid container direction="column" component="section">
       <Grid item xs={12}>
-        <Typography variant="h5" component="h2" className={classes.heading}>
+        <Typography
+          variant="h5"
+          component="h2"
+          sx={(theme) => ({
+            mb: 5,
+            color: theme.palette.primary.dark,
+            textAlign: 'center',
+          })}>
           {t('campaigns:form-heading')}
         </Typography>
       </Grid>
@@ -217,7 +208,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               name="description"
               label="campaigns:campaign.description"
               autoComplete="description"
-              className={classes.message}
+              sx={{ '& textarea': { resize: 'vertical' } }}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
