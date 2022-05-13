@@ -32,7 +32,6 @@ const Root = styled('div')(({ theme }) => ({
   [`& .${classes.editIcon}`]: { position: 'relative', top: '7px' },
 
   [`& .${classes.heading}`]: {
-    fontFamily: 'Montserrat',
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: '24px',
@@ -64,7 +63,6 @@ const Root = styled('div')(({ theme }) => ({
   },
 
   [`& .${classes.h3}`]: {
-    fontFamily: 'Montserrat',
     fontStyle: 'normal',
     fontWeight: '500',
     fontSize: '25px',

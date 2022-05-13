@@ -21,7 +21,6 @@ const StyledLayout = styled(Layout)(({ theme }) => ({
     marginTop: theme.spacing(12),
     fontWeight: '500',
     color: '#2196F3',
-    fontFamily: 'Montserrat',
     fontStyle: 'normal',
     fontSize: '45px',
     lineHeight: '112px',
@@ -33,7 +32,6 @@ const StyledLayout = styled(Layout)(({ theme }) => ({
   [`& .${classes.subheading}`]: {
     marginBottom: theme.spacing(3),
     marginTop: theme.spacing(3),
-    fontFamily: 'Montserrat',
     fontStyle: 'normal',
     fontWeight: '400',
     fontSize: '16px',
@@ -44,7 +42,6 @@ const StyledLayout = styled(Layout)(({ theme }) => ({
 
   [`& .${classes.support}`]: {
     marginBottom: theme.spacing(6),
-    fontFamily: 'Montserrat',
     fontStyle: 'normal',
     fontWeight: '500',
     fontSize: '35px',

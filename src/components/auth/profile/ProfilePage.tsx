@@ -28,7 +28,6 @@ const classes = {
 
 const StyledLayout = styled(Layout)({
   [`& .${classes.h1}`]: {
-    fontFamily: 'Montserrat',
     fontStyle: 'normal',
     fontWeight: 500,
     fontSize: '45px',

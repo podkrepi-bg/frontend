@@ -30,7 +30,6 @@ const classes = {
 
 const StyledProfileTab = styled(ProfileTab)({
   [`& .${classes.h3}`]: {
-    fontFamily: 'Montserrat',
     fontStyle: 'normal',
     fontWeight: '500',
     fontSize: '25px',
@@ -38,7 +37,6 @@ const StyledProfileTab = styled(ProfileTab)({
     margin: '0',
   },
   [`& .${classes.thinFont}`]: {
-    fontFamily: 'Montserrat',
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: '24px',
