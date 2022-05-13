@@ -1,5 +1,4 @@
-import { KeycloakInstance } from 'keycloak-js'
-import { useKeycloak } from '@react-keycloak/ssr'
+import { useSession } from 'next-auth/react'
 import { QueryClient, useQuery } from 'react-query'
 
 import { endpoints } from 'service/apiEndpoints'
@@ -8,18 +7,18 @@ import { authQueryFnFactory } from 'service/restRequests'
 import { TransferResponse } from 'gql/transfer'
 
 export function useTransferList() {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery<TransferResponse[]>(
     endpoints.transfer.listTransfer.url,
-    authQueryFnFactory<TransferResponse[]>(keycloak?.token),
+    authQueryFnFactory<TransferResponse[]>(session?.accessToken),
   )
 }
 
 export function useTransfer(id: string) {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery<TransferResponse>(
     endpoints.transfer.viewTransfer(id).url,
-    authQueryFnFactory<TransferResponse>(keycloak?.token),
+    authQueryFnFactory<TransferResponse>(session?.accessToken),
   )
 }
 

@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 import { routes } from 'common/routes'
@@ -7,55 +8,56 @@ import { useSinglePriceList } from 'common/hooks/donation'
 import LinkButton from 'components/common/LinkButton'
 import CampaignProgress from './CampaignProgress'
 import DonorsAndDonations from './DonorsAndDonations'
-import {
-  CircularProgress,
-  Grid,
-  List,
-  ListItem,
-  ListItemText,
-  Theme,
-  Typography,
-} from '@mui/material'
+import { CircularProgress, Grid, List, ListItem, ListItemText, Typography } from '@mui/material'
 import { Favorite } from '@mui/icons-material'
 import ShareIcon from '@mui/icons-material/Share'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import { useCampaignDonationHistory } from 'common/hooks/campaigns'
 import theme from 'common/theme'
 import { useRouter } from 'next/router'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    inlineDonationWrapper: {
-      backgroundColor: theme.palette.common.white,
-      borderRadius: theme.spacing(1),
-      height: 'fit-content',
-      boxShadow: '1px 2px 8px #8888888c',
-    },
-    reachedMoney: {
-      fontSize: theme.spacing(5),
-      fontWeight: 500,
-    },
-    targetMoney: {
-      fontSize: theme.spacing(3),
-    },
-    donorsSharesCount: {
-      fontWeight: 'bold',
-      fontSize: theme.spacing(2),
-    },
-    donationPriceList: {
-      display: 'contents',
-      textAlignLast: 'center',
-    },
-  }),
-)
+const PREFIX = 'InlineDonation'
+
+const classes = {
+  inlineDonationWrapper: `${PREFIX}-inlineDonationWrapper`,
+  reachedMoney: `${PREFIX}-reachedMoney`,
+  targetMoney: `${PREFIX}-targetMoney`,
+  donorsSharesCount: `${PREFIX}-donorsSharesCount`,
+  donationPriceList: `${PREFIX}-donationPriceList`,
+}
+
+const StyledGrid = styled(Grid)(({ theme }) => ({
+  [`&.${classes.inlineDonationWrapper}`]: {
+    backgroundColor: theme.palette.common.white,
+    borderRadius: theme.spacing(1),
+    height: 'fit-content',
+    boxShadow: '1px 2px 8px #8888888c',
+  },
+
+  [`& .${classes.reachedMoney}`]: {
+    fontSize: theme.spacing(5),
+    fontWeight: 500,
+  },
+
+  [`& .${classes.targetMoney}`]: {
+    fontSize: theme.spacing(3),
+  },
+
+  [`& .${classes.donorsSharesCount}`]: {
+    fontWeight: 'bold',
+    fontSize: theme.spacing(2),
+  },
+
+  [`& .${classes.donationPriceList}`]: {
+    display: 'contents',
+    textAlignLast: 'center',
+  },
+}))
 
 type Props = {
   campaign: CampaignResponse
 }
 
 export default function InlineDonation({ campaign }: Props) {
-  const classes = useStyles()
   const { t } = useTranslation()
   const router = useRouter()
   const [showDonationPriceList, setDonationPriceList] = useState(false)
@@ -80,7 +82,7 @@ export default function InlineDonation({ campaign }: Props) {
     })
   }, [prices])
   return (
-    <Grid item xs={12} md={4} mt={5} p={3} className={classes.inlineDonationWrapper}>
+    <StyledGrid item xs={12} md={4} mt={5} p={3} className={classes.inlineDonationWrapper}>
       <Grid mb={2}>
         <Typography component="span" className={classes.reachedMoney}>
           {money(reached)}
@@ -149,6 +151,6 @@ export default function InlineDonation({ campaign }: Props) {
         <DonorsAndDonations donations={donations} />
       )}
       {/* <pre>{JSON.stringify(prices, null, 2)}</pre> */}
-    </Grid>
+    </StyledGrid>
   )
 }

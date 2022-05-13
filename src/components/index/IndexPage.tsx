@@ -20,7 +20,6 @@ export default function IndexPage() {
       title={t('index:jumbotron.heading')}
       metaDescription={t('index:activity-section.content')}>
       <Jumbotron />
-      {/* <Container ref={scrollElement as RefObject<HTMLDivElement>} maxWidth="md"> */}
       <CampaignsSection />
       <HowWeWorkSection />
       <ReadyToStartCampaignSection />
@@ -29,7 +28,6 @@ export default function IndexPage() {
       <WantToHelpPodkrepiBgSection />
       <FaqSection />
       <ReadyToStartCampaignSection />
-      {/* </Container> */}
     </Layout>
   )
 }

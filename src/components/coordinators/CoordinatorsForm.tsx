@@ -2,10 +2,8 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
-import makeStyles from '@mui/styles/makeStyles'
 import { Grid, Typography } from '@mui/material'
 import { AxiosError, AxiosResponse } from 'axios'
-import createStyles from '@mui/styles/createStyles'
 
 import { routes } from 'common/routes'
 import { ApiErrors } from 'service/apiErrors'
@@ -17,18 +15,7 @@ import { CoorinatorInput, CoordinatorResponse } from 'gql/coordinators'
 
 import SelectCoordinator from './SelectCoordinator'
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    heading: {
-      marginBottom: theme.spacing(5),
-      color: theme.palette.primary.dark,
-      textAlign: 'center',
-    },
-  }),
-)
-
 export default function CoordinatorsForm() {
-  const classes = useStyles()
   const { t } = useTranslation()
   const router = useRouter()
 
@@ -56,7 +43,14 @@ export default function CoordinatorsForm() {
   return (
     <Grid container direction="column" component="section">
       <Grid item xs={12}>
-        <Typography variant="h5" component="h2" className={classes.heading}>
+        <Typography
+          variant="h5"
+          component="h2"
+          sx={(theme) => ({
+            mb: 5,
+            color: theme.palette.primary.dark,
+            textAlign: 'center',
+          })}>
           {t('coordinator:create:heading')}
         </Typography>
       </Grid>

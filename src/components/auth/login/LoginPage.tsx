@@ -1,23 +1,40 @@
-import React, { useEffect } from 'react'
-import { KeycloakInstance } from 'keycloak-js'
-import { LinearProgress } from '@mui/material'
-import { useKeycloak } from '@react-keycloak/ssr'
+import React from 'react'
 
-import { baseUrl, routes } from 'common/routes'
-import { useRouter } from 'next/router'
+import { signIn } from 'next-auth/react'
+import { useTranslation } from 'next-i18next'
+import { Box, Button, Container, Grid } from '@mui/material'
 
-export default function LoginPage() {
-  const router = useRouter()
-  const { keycloak } = useKeycloak<KeycloakInstance>()
-  const { pathname } = router.query
+import { baseUrl } from 'common/routes'
+import type { LoginPageProps } from 'pages/login'
+import Layout from 'components/layout/Layout'
 
-  const redirectPath = pathname ? pathname : routes.profile.index
+import LoginForm from './LoginForm'
 
-  useEffect(() => {
-    keycloak?.login({
-      redirectUri: `${baseUrl}${redirectPath}`,
-    })
-  }, [])
+export default function LoginPage({ providers }: LoginPageProps) {
+  const { t } = useTranslation()
 
-  return <LinearProgress />
+  return (
+    <Layout title={t('auth:cta.login')} metaDescription={t('auth:cta.login')}>
+      <Container maxWidth="sm">
+        <LoginForm />
+        <Box mt={4}>
+          <Grid container direction="column" spacing={1}>
+            {providers &&
+              Object.values(providers)
+                .filter((p) => p.name !== 'Credentials')
+                .map((provider) => (
+                  <Grid item key={provider.name}>
+                    <Button
+                      fullWidth
+                      variant="outlined"
+                      onClick={() => signIn(provider.id, { callbackUrl: baseUrl })}>
+                      {t('nav.login-with')} {provider.name}
+                    </Button>
+                  </Grid>
+                ))}
+          </Grid>
+        </Box>
+      </Container>
+    </Layout>
+  )
 }

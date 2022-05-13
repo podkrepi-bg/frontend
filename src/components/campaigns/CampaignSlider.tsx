@@ -1,20 +1,21 @@
 import BearCarousel, { TBearSlideItemDataList, BearSlideItem } from 'bear-react-carousel'
+import { styled } from '@mui/material/styles'
 import 'bear-react-carousel/dist/index.css'
-import { Theme } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+const PREFIX = 'CampaignSlider'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    campaignSlider: {
-      margin: theme.spacing(3, 0),
+const classes = {
+  campaignSlider: `${PREFIX}-campaignSlider`,
+}
 
-      '& .bear-react-carousel__pagination-group': {
-        top: '100%',
-      },
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.campaignSlider}`]: {
+    margin: theme.spacing(3, 0),
+
+    '& .bear-react-carousel__pagination-group': {
+      top: '100%',
     },
-  }),
-)
+  },
+}))
 
 const slideSource = '/img/campaign-banner.png'
 
@@ -32,27 +33,31 @@ const bearSlideItemData: TBearSlideItemDataList = images.map((row) => {
 })
 
 const CampaignSlider = () => {
-  const classes = useStyles()
+  if (images.length === 0) {
+    return null
+  }
 
-  return images.length > 0 ? (
-    <BearCarousel
-      data={bearSlideItemData}
-      slidesPerView={1}
-      isEnableLoop
-      isEnableNavButton={images.length > 1 ? true : false}
-      spaceBetween={15}
-      autoPlayTime={5000}
-      isEnableAutoPlay
-      isEnablePagination
-      aspectRatio={{ widthRatio: 16, heightRatio: 9 }}
-      className={classes.campaignSlider}
-      breakpoints={{
-        600: {
-          slidesPerView: 2,
-        },
-      }}
-    />
-  ) : null
+  return (
+    <Root>
+      <BearCarousel
+        data={bearSlideItemData}
+        slidesPerView={1}
+        isEnableLoop
+        isEnableNavButton={images.length > 1 ? true : false}
+        spaceBetween={15}
+        autoPlayTime={5000}
+        isEnableAutoPlay
+        isEnablePagination
+        aspectRatio={{ widthRatio: 16, heightRatio: 9 }}
+        className={classes.campaignSlider}
+        breakpoints={{
+          600: {
+            slidesPerView: 2,
+          },
+        }}
+      />
+    </Root>
+  )
 }
 
 export default CampaignSlider

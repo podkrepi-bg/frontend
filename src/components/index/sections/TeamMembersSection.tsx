@@ -1,20 +1,20 @@
 import React from 'react'
-import { Container, Grid, IconButton, Typography } from '@mui/material'
-import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import { Navigation, A11y, Autoplay } from 'swiper'
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react'
+import { Container, Grid, IconButton, Typography } from '@mui/material'
 
 import theme from 'common/theme'
+import { staticUrls } from 'common/routes'
 import Heading from 'components/common/Heading'
+import LinkButton from 'components/common/LinkButton'
+
 import MemberCard from '../helpers/teamMembers/MemberCard'
 import { data } from '../helpers/teamMembers/memberData'
-import { staticUrls } from 'common/routes'
-import LinkButton from 'components/common/LinkButton'
 
 import 'swiper/css'
 import 'swiper/css/a11y'
-import { createStyles, makeStyles } from '@mui/styles'
 
 const swiperOptions: SwiperProps = {
   loop: true,
@@ -35,20 +35,9 @@ const swiperOptions: SwiperProps = {
   spaceBetween: 30,
 }
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    sliderNavNext: {
-      order: 3,
-    },
-    sliderNavPrevious: {
-      order: 1,
-    },
-  }),
-)
 export default function TeamMembersSection() {
   const navigationPrevRef = React.useRef(null)
   const navigationNextRef = React.useRef(null)
-  const classes = useStyles()
   return (
     <Container maxWidth="lg">
       <Heading
@@ -73,16 +62,10 @@ export default function TeamMembersSection() {
         paddingTop={theme.spacing(7)}
         paddingBottom={theme.spacing(12)}>
         <Grid item xs={12} display="flex" alignItems="center" position="relative">
-          <IconButton
-            className={classes.sliderNavPrevious}
-            ref={navigationPrevRef}
-            aria-label="Previouos slide">
+          <IconButton style={{ order: 1 }} ref={navigationPrevRef} aria-label="Previouos slide">
             <ChevronLeftIcon />
           </IconButton>
-          <IconButton
-            className={classes.sliderNavNext}
-            ref={navigationNextRef}
-            aria-label="Next slide">
+          <IconButton style={{ order: 3 }} ref={navigationNextRef} aria-label="Next slide">
             <ChevronRightIcon />
           </IconButton>
           <Swiper
@@ -99,9 +82,9 @@ export default function TeamMembersSection() {
               swiper.params.navigation.prevEl = navigationPrevRef.current
               swiper.params.navigation.nextEl = navigationNextRef.current
             }}>
-            {data.map((x) => (
-              <SwiperSlide key={x.title}>
-                <MemberCard info={x} />
+            {data.map((member) => (
+              <SwiperSlide key={member.title}>
+                <MemberCard info={member} />
               </SwiperSlide>
             ))}
           </Swiper>

@@ -3,11 +3,7 @@ import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import React, { useState, useRef } from 'react'
 import { FormikHelpers, FormikProps } from 'formik'
-import { Theme } from '@mui/material/styles'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
-import withStyles from '@mui/styles/withStyles'
-import { Stepper, Step, StepLabel, StepConnector, Hidden, Grid } from '@mui/material'
+import { Stepper, Step, StepLabel, StepConnector, Hidden, Grid, Box } from '@mui/material'
 
 import { AlertStore } from 'stores/AlertStore'
 import { createSupportRequest } from 'service/support'
@@ -28,43 +24,6 @@ import {
   SupportRequestResponse,
   SupportRequestInput,
 } from './helpers/support-form.types'
-
-const ColorlibConnector = withStyles({
-  alternativeLabel: { top: 22 },
-  active: {
-    '& $line': {
-      backgroundImage: 'linear-gradient( 95deg, #4AC3FF 0%, #29a2df 50%, #1b88be 100%)',
-    },
-  },
-  completed: {
-    '& $line': {
-      backgroundImage: 'linear-gradient( 95deg, #4AC3FF 0%, #29a2df 50%, #1b88be 100%)',
-    },
-  },
-  line: {
-    height: 3,
-    border: 0,
-    backgroundColor: '#eaeaf0',
-    borderRadius: 1,
-  },
-})(StepConnector)
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: { width: '100%' },
-    instructions: {
-      marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(5),
-    },
-    stepper: { backgroundColor: 'transparent', marginBottom: theme.spacing(8) },
-    content: { display: 'flex', justifyContent: 'center' },
-    actionButtons: {
-      '& button': {
-        minWidth: theme.spacing(12),
-      },
-    },
-  }),
-)
 
 const initialValues: SupportFormData = {
   person: {
@@ -145,7 +104,7 @@ export type NewsletterDialogProps = {
 
 export default function SupportForm() {
   const { t } = useTranslation()
-  const classes = useStyles()
+
   const formRef = useRef<FormikProps<SupportFormData>>(null)
   const [activeStep, setActiveStep] = useState<Steps>(Steps.ROLES)
   const [failedStep, setFailedStep] = useState<Steps>(Steps.NONE)
@@ -268,8 +227,7 @@ export default function SupportForm() {
         <Stepper
           alternativeLabel
           activeStep={activeStep}
-          className={classes.stepper}
-          connector={<ColorlibConnector />}>
+          connector={<StepConnector sx={{ mt: 1.5 }} />}>
           {steps.map((step, index) => (
             <Step key={index}>
               <StepLabel error={isStepFailed(index)} StepIconComponent={StepIcon}>
@@ -282,12 +240,12 @@ export default function SupportForm() {
       {isThankYouStep(activeStep, steps) ? (
         steps[activeStep].component
       ) : (
-        <div className={classes.content}>
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <Grid container justifyContent="center">
-            <Grid item xs={12} className={classes.instructions}>
+            <Grid item xs={12} sx={{ mt: 1, mb: 5 }}>
               {steps[activeStep].component}
             </Grid>
-            <Grid item xs={12} className={classes.actionButtons}>
+            <Grid item xs={12} sx={(theme) => ({ '& button': { minWidth: theme.spacing(12) } })}>
               <Actions
                 disableBack={activeStep === 0}
                 onBack={handleBack}
@@ -298,7 +256,7 @@ export default function SupportForm() {
               />
             </Grid>
           </Grid>
-        </div>
+        </Box>
       )}
     </GenericForm>
   )

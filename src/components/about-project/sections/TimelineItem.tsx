@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { Card, SvgIconProps, Theme, Typography, CardContent, CardHeader } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
+import { styled } from '@mui/material/styles'
+
+import { Card, SvgIconProps, Typography, CardContent, CardHeader } from '@mui/material'
 import {
   TimelineConnector,
   TimelineContent,
@@ -12,45 +12,62 @@ import {
 } from '@mui/lab'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    connector: {
-      height: theme.spacing(10),
+const PREFIX = 'TimelineItem'
+
+const classes = {
+  connector: `${PREFIX}-connector`,
+  arrowIcon: `${PREFIX}-arrowIcon`,
+  icon: `${PREFIX}-icon`,
+  contentContainer: `${PREFIX}-contentContainer`,
+  contentPaper: `${PREFIX}-contentPaper`,
+  content: `${PREFIX}-content`,
+  timelineItem: `${PREFIX}-timelineItem`,
+}
+
+const StyledTimelineItemMaterial = styled(TimelineItemMaterial)(({ theme }) => ({
+  [`& .${classes.connector}`]: {
+    height: theme.spacing(10),
+  },
+
+  [`& .${classes.arrowIcon}`]: {
+    transform: 'rotate(90deg)',
+  },
+
+  [`& .${classes.icon}`]: {
+    fontSize: theme.typography.pxToRem(40),
+    // backgroundColor: theme.palette.primary.dark,
+    padding: '.5rem',
+    // borderRadius: '50%',
+    boxSizing: 'content-box',
+  },
+
+  [`& .${classes.contentContainer}`]: {},
+
+  [`& .${classes.contentPaper}`]: {
+    borderTop: `3px solid ${theme.palette.secondary.main}`,
+    textAlign: 'left',
+    padding: theme.spacing(2.5),
+  },
+
+  [`& .${classes.content}`]: {
+    paddingTop: theme.spacing(1),
+    paddingRight: 0,
+    '&:last-child': {
+      paddingBottom: theme.spacing(1),
     },
-    arrowIcon: {
-      transform: 'rotate(90deg)',
+    '& ul': {
+      listStyleType: 'disc',
+      paddingLeft: theme.spacing(2),
     },
-    icon: {
-      fontSize: theme.typography.pxToRem(40),
-      // backgroundColor: theme.palette.primary.dark,
-      padding: '.5rem',
-      // borderRadius: '50%',
-      boxSizing: 'content-box',
+  },
+
+  [`&.${classes.timelineItem}`]: {
+    [theme.breakpoints.down('md')]: {
+      display: 'block',
     },
-    contentContainer: {},
-    contentPaper: {
-      borderTop: `3px solid ${theme.palette.secondary.main}`,
-      textAlign: 'left',
-      padding: theme.spacing(2.5),
-    },
-    content: {
-      paddingTop: theme.spacing(1),
-      paddingRight: 0,
-      '&:last-child': {
-        paddingBottom: theme.spacing(1),
-      },
-      '& ul': {
-        listStyleType: 'disc',
-        paddingLeft: theme.spacing(2),
-      },
-    },
-    timelineItem: {
-      [theme.breakpoints.down('md')]: {
-        display: 'block',
-      },
-    },
-  }),
-)
+  },
+}))
+
 type TimelineItemProps = React.PropsWithChildren<
   TimelineItemPropsMaterial & {
     title?: string
@@ -60,9 +77,8 @@ type TimelineItemProps = React.PropsWithChildren<
 >
 
 export default function TimelineItem({ children, title, lastItem, Icon }: TimelineItemProps) {
-  const classes = useStyles()
   return (
-    <TimelineItemMaterial className={classes.timelineItem}>
+    <StyledTimelineItemMaterial className={classes.timelineItem}>
       <TimelineSeparator>
         <Icon className={classes.icon} color="primary" />
         <TimelineConnector className={classes.connector} />
@@ -78,6 +94,6 @@ export default function TimelineItem({ children, title, lastItem, Icon }: Timeli
           </CardContent>
         </Card>
       </TimelineContent>
-    </TimelineItemMaterial>
+    </StyledTimelineItemMaterial>
   )
 }

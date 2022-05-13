@@ -1,34 +1,32 @@
-import { PropsWithChildren, useState } from 'react'
-
-import { Theme, Typography, TypographyProps, useMediaQuery } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
-import makeStyles from '@mui/styles/makeStyles'
+import { styled } from '@mui/material/styles'
 import LinkIcon from '@mui/icons-material/Link'
+import { PropsWithChildren, useState } from 'react'
+import { Typography, TypographyProps } from '@mui/material'
 
 import LinkIconButton from 'components/common/LinkIconButton'
-import theme from 'common/theme'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    linkIcon: {
-      transform: 'rotate(-45deg)',
-      color: theme.palette.primary.main,
-      '&:hover': {
-        color: theme.palette.primary.dark,
-      },
-    },
-    hideLinkIcon: {
-      visibility: 'hidden',
-    },
-  }),
-)
+const PREFIX = 'Heading'
 
-type Linkable =
-  | {
-      id: string
-      linkable: true
-    }
-  | { linkable?: false }
+const classes = {
+  linkIcon: `${PREFIX}-linkIcon`,
+  hideLinkIcon: `${PREFIX}-hideLinkIcon`,
+}
+
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.linkIcon}`]: {
+    transform: 'rotate(-45deg)',
+    color: theme.palette.primary.main,
+    '&:hover': {
+      color: theme.palette.primary.dark,
+    },
+  },
+
+  [`& .${classes.hideLinkIcon}`]: {
+    visibility: 'hidden',
+  },
+}))
+
+type Linkable = { id: string; linkable: true } | { linkable?: false }
 
 type HeadingParams = PropsWithChildren<TypographyProps & Linkable> & {
   component?: React.ElementType
@@ -36,10 +34,8 @@ type HeadingParams = PropsWithChildren<TypographyProps & Linkable> & {
 
 export default function Heading({ children, id, linkable, ...props }: HeadingParams) {
   const [linkIconIsShown, setlinkIconIsShown] = useState(false)
-  const classes = useStyles()
-  const mdDown = useMediaQuery(theme.breakpoints.down('md'))
   return (
-    <div
+    <Root
       id={id}
       onMouseEnter={() => setlinkIconIsShown(true)}
       onMouseLeave={() => setlinkIconIsShown(false)}>
@@ -48,11 +44,14 @@ export default function Heading({ children, id, linkable, ...props }: HeadingPar
         {linkable && (
           <LinkIconButton
             href={`#${id}`}
-            className={linkIconIsShown || mdDown ? '' : classes.hideLinkIcon}>
+            sx={{
+              visibility: linkIconIsShown ? 'visible' : 'hidden',
+              md: { visibility: 'hidden' },
+            }}>
             <LinkIcon className={classes.linkIcon} />
           </LinkIconButton>
         )}
       </Typography>
-    </div>
+    </Root>
   )
 }

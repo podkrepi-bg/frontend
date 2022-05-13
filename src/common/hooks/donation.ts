@@ -1,5 +1,4 @@
-import { KeycloakInstance } from 'keycloak-js'
-import { useKeycloak } from '@react-keycloak/ssr'
+import { useSession } from 'next-auth/react'
 import { useTranslation } from 'react-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import { QueryClient, useMutation, useQuery } from 'react-query'
@@ -56,8 +55,8 @@ export async function prefetchDonationById(client: QueryClient, id: string) {
   await client.prefetchQuery<DonationResponse>(endpoints.donation.getDonation(id).url)
 }
 export function useUserDonations() {
-  const { keycloak } = useKeycloak<KeycloakInstance>()
+  const { data: session } = useSession()
   return useQuery<UserDonationResult>(endpoints.donation.userDonations.url, {
-    queryFn: authQueryFnFactory(keycloak?.token),
+    queryFn: authQueryFnFactory(session?.accessToken),
   })
 }

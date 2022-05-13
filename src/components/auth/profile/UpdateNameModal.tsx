@@ -1,5 +1,5 @@
 import { Modal, Box, Grid, IconButton } from '@mui/material'
-import { makeStyles } from '@mui/styles'
+import { styled } from '@mui/material/styles'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
@@ -12,8 +12,15 @@ import { AlertStore } from 'stores/AlertStore'
 import { useTranslation } from 'next-i18next'
 import CloseIcon from '@mui/icons-material/Close'
 
-const useStyles = makeStyles({
-  modal: {
+const PREFIX = 'UpdateNameModal'
+
+const classes = {
+  modal: `${PREFIX}-modal`,
+  close: `${PREFIX}-close`,
+}
+
+const StyledModal = styled(Modal)({
+  [`& .${classes.modal}`]: {
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -22,7 +29,7 @@ const useStyles = makeStyles({
     backgroundColor: '#EEEEEE',
     padding: 20,
   },
-  close: {
+  [`& .${classes.close}`]: {
     position: 'absolute',
     right: '10px',
   },
@@ -38,7 +45,6 @@ function UpdateNameModal({
   person: UpdatePerson
 }) {
   const { t } = useTranslation()
-  const classes = useStyles()
 
   const mutation = useMutation<AxiosResponse<Person>, AxiosError<ApiErrors>, UpdatePerson>({
     mutationFn: updateCurrentPerson(),
@@ -53,7 +59,7 @@ function UpdateNameModal({
   }
 
   return (
-    <Modal
+    <StyledModal
       open={isOpen}
       onClose={() => handleClose()}
       aria-labelledby="modal-modal-title"
@@ -87,7 +93,7 @@ function UpdateNameModal({
           </Grid>
         </GenericForm>
       </Box>
-    </Modal>
+    </StyledModal>
   )
 }
 

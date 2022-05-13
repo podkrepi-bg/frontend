@@ -1,7 +1,6 @@
 import { useTranslation } from 'next-i18next'
-import makeStyles from '@mui/styles/makeStyles'
+import { styled } from '@mui/material/styles'
 import { Grid, Typography } from '@mui/material'
-import createStyles from '@mui/styles/createStyles'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 import { routes } from 'common/routes'
@@ -10,22 +9,25 @@ import LinkButton from 'components/common/LinkButton'
 
 import NotFoundIllustration from './assets/NotFoundIllustration'
 
-const useStyles = makeStyles(() =>
-  createStyles({
-    root: {
-      flexGrow: 1,
-      height: '100vh',
-      margin: 0,
-    },
-  }),
-)
+const PREFIX = 'NotFoundPage'
+
+const classes = {
+  root: `${PREFIX}-root`,
+}
+
+const StyledLayout = styled(Layout)(() => ({
+  [`& .${classes.root}`]: {
+    flexGrow: 1,
+    height: '100vh',
+    margin: 0,
+  },
+}))
 
 export default function NotFoundPage() {
   const { t } = useTranslation()
-  const classes = useStyles()
 
   return (
-    <Layout maxWidth="sm" disableOffset disableGutters>
+    <StyledLayout maxWidth="sm" disableOffset disableGutters>
       <Grid container className={classes.root}>
         <Grid container direction="column" alignItems="center" justifyContent="center" spacing={4}>
           <Grid container item xs={8} sm={6} lg={4}>
@@ -46,6 +48,6 @@ export default function NotFoundPage() {
           </Grid>
         </Grid>
       </Grid>
-    </Layout>
+    </StyledLayout>
   )
 }

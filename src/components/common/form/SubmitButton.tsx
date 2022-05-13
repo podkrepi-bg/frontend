@@ -1,15 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { Theme } from '@mui/material/styles'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
 import { Button, ButtonProps, CircularProgress, CircularProgressProps } from '@mui/material'
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: { minWidth: theme.spacing(12) },
-  }),
-)
 
 export type SubmitButtonProps = {
   loading?: boolean
@@ -23,7 +14,6 @@ export default function SubmitButton({
   loadingColor,
   ...props
 }: SubmitButtonProps) {
-  const classes = useStyles()
   const { t } = useTranslation()
   const guessColor = props.color === 'primary' ? 'secondary' : 'primary'
   const progressColor = loadingColor ? loadingColor : guessColor
@@ -33,7 +23,7 @@ export default function SubmitButton({
       color="primary"
       variant="contained"
       disabled={loading}
-      className={classes.root}
+      sx={(theme) => ({ minWidth: theme.spacing(12) })}
       {...props}>
       {loading ? <CircularProgress color={progressColor} size="1.5rem" /> : t(label)}
     </Button>

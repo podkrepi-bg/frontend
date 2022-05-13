@@ -1,8 +1,8 @@
 import { useState, useCallback, useEffect, useMemo } from 'react'
-import { makeStyles, useTheme } from '@mui/styles'
+import { useTheme } from '@mui/styles'
 import MuiDrawer from '@mui/material/Drawer'
 import { styled, Theme, CSSObject } from '@mui/material/styles'
-import { CssBaseline, IconButton, List, Box, Button, Typography } from '@mui/material'
+import { IconButton, List, Box, Button, Typography } from '@mui/material'
 import { Notifications, Settings, MenuOpen, ChevronRight, GppGood } from '@mui/icons-material'
 
 import Snackbar from 'components/layout/Snackbar'
@@ -14,15 +14,22 @@ import PanelFooter from './PanelFooter'
 import CustomListItem from './CustomListItem'
 import { AdminAppBar } from './AdminAppBar'
 
+const PREFIX = 'AdminLayout'
 const drawerWidth = 200
-const useStyles = makeStyles({
-  wrapper: {
+
+const classes = {
+  wrapper: `${PREFIX}-wrapper`,
+  appbarHeader: `${PREFIX}-appbarHeader`,
+}
+
+const StyledBox = styled(Box)({
+  [`&.${classes.wrapper}`]: {
     display: 'flex',
     position: 'relative',
     minHeight: '100vh',
     paddingRight: '24px',
   },
-  appbarHeader: {
+  [`& .${classes.appbarHeader}`]: {
     width: `calc(100% - ${drawerWidth}px)`,
     height: 64,
     marginLeft: '6rem',
@@ -55,8 +62,8 @@ const closedMixin = (theme: Theme): CSSObject => ({
   },
 })
 
-// @ts-expect-error bad MUI types for styled.div
-const DrawerHeader = styled('div')(({ theme }: { theme: Theme }) => ({
+// @ts-expect-error bad MUI types for mixins.toolbar
+const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'flex-end',
@@ -88,10 +95,9 @@ type Props = {
 
 export default function AdminLayout({ children }: Props) {
   const theme = useTheme()
-  const classes = useStyles()
 
   const initialOpen = useMemo<boolean>(() => {
-    const item = window.localStorage.getItem('menu-open')
+    const item = typeof window !== 'undefined' ? window.localStorage.getItem('menu-open') : false
     if (item) {
       return Boolean(JSON.parse(item))
     }
@@ -101,13 +107,14 @@ export default function AdminLayout({ children }: Props) {
   const [open, setOpen] = useState<boolean>(initialOpen)
 
   useEffect(() => {
-    window.localStorage.setItem('menu-open', JSON.stringify(open))
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('menu-open', JSON.stringify(open))
+    }
   }, [open])
 
   const toggleMenu = useCallback(() => setOpen((open) => !open), [])
   return (
-    <Box className={classes.wrapper}>
-      <CssBaseline />
+    <StyledBox className={classes.wrapper}>
       <AdminAppBar isOpen={open}>
         <Box className={classes.appbarHeader}>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -144,6 +151,6 @@ export default function AdminLayout({ children }: Props) {
         <Typography color="white">{'Вие сте логнат като администратор'}</Typography>
       </PanelFooter>
       <Snackbar />
-    </Box>
+    </StyledBox>
   )
 }

@@ -1,8 +1,7 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { KeycloakInstance } from 'keycloak-js'
-import { useKeycloak } from '@react-keycloak/ssr'
+import { useSession } from 'next-auth/react'
 import { Box, Card, CardActionArea, CardContent, Grid, Typography } from '@mui/material'
 
 import { isAdmin } from 'common/util/roles'
@@ -14,8 +13,8 @@ import AdminContainer from './navigation/AdminContainer'
 export default function AdminPage() {
   const { t } = useTranslation()
   const router = useRouter()
-  const { keycloak } = useKeycloak<KeycloakInstance>()
-  if (!keycloak?.authenticated) {
+  const { data: session, status } = useSession()
+  if (status !== 'authenticated') {
     return (
       <AdminLayout>
         <AdminContainer title={t('nav.admin.index')}>
@@ -27,7 +26,7 @@ export default function AdminPage() {
     )
   }
 
-  if (!isAdmin(keycloak)) {
+  if (!isAdmin(session)) {
     return (
       <AdminLayout>
         <AdminContainer title={t('nav.admin.index')}>
