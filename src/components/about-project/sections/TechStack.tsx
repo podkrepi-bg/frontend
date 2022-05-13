@@ -66,6 +66,7 @@ const rows = [
     items: [
       'TypeScript',
       'Next.js',
+      'NextAuth',
       'React',
       'MaterialUI',
       'SCSS',
