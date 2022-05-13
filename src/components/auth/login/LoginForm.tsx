@@ -71,7 +71,7 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
   return (
     <GenericForm
       onSubmit={onSubmit}
-      initialValues={{ ...initialValues }}
+      initialValues={initialValues}
       validationSchema={validationSchema}>
       <FormInput type="hidden" name="csrfToken" />
       <Grid container spacing={3}>
