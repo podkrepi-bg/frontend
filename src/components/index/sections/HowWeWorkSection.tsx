@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Container, Grid, Hidden, Typography } from '@mui/material'
+import { Box, Grid, Hidden, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import { Theme } from '@mui/material/styles'
