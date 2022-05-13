@@ -27,6 +27,9 @@ const useStyles = makeStyles(() =>
       fontFamily: 'Montserrat',
     },
     button: {
+      background: theme.palette.primary.main,
+      border: `2px solid ${theme.palette.primary.main}`,
+      borderRadius: theme.shape.borderRadius,
       color: 'black',
       margin: 'auto',
     },

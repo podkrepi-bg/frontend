@@ -17,6 +17,9 @@ const useStyles = makeStyles(() =>
     },
     button: {
       margin: 'auto',
+      background: theme.palette.primary.main,
+      border: `2px solid ${theme.palette.primary.main}`,
+      borderRadius: theme.shape.borderRadius,
       color: 'black',
     },
     content: {

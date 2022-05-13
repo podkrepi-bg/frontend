@@ -7,13 +7,13 @@ import withStyles from '@mui/styles/withStyles'
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
     height: theme.spacing(1.5),
-    borderRadius: 5,
+    borderRadius: '6px',
   },
   // colorPrimary: {
   //  backgroundColor: theme.palette.grey[theme.palette.mode === 'light' ? 200 : 700],
   // },
   bar: {
-    borderRadius: 5,
+    borderRadius: '6px',
     backgroundColor: '#1a90ff',
   },
 }))(LinearProgress)

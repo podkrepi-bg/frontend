@@ -22,9 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     icon: {
       fontSize: theme.typography.pxToRem(40),
-      // backgroundColor: theme.palette.primary.dark,
       padding: '.5rem',
-      // borderRadius: '50%',
       boxSizing: 'content-box',
     },
     contentContainer: {},

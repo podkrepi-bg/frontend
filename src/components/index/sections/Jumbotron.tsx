@@ -38,47 +38,11 @@ const useStyles = makeStyles((theme) =>
       marginTop: theme.spacing(2),
       fontWeight: 400,
     },
-    aboutProjectButton: {
-      color: darken(theme.palette.secondary.main, 0.8),
-      border: `none`,
-      borderRadius: '500px',
-      padding: theme.spacing(1.5, 4),
-      fontWeight: 500,
-      fontSize: theme.typography.pxToRem(15),
-      minWidth: theme.spacing(27),
-      height: theme.spacing(7),
-      margin: theme.spacing(2),
-      [theme.breakpoints.up('sm')]: {
-        margin: theme.spacing(3),
-      },
-    },
-    podkrepiButton: {
-      border: `none`,
-      borderRadius: '500px',
-      fontWeight: 500,
-      fontSize: theme.typography.pxToRem(15),
-      minWidth: theme.spacing(27),
-      height: theme.spacing(7),
-      margin: theme.spacing(2),
-      [theme.breakpoints.up('sm')]: {
-        margin: theme.spacing(3),
-      },
-    },
     scrollButton: {
       marginTop: theme.spacing(7),
       zIndex: 10,
       [theme.breakpoints.up(1600)]: {
         marginTop: theme.spacing(20),
-      },
-    },
-    scrollButtonIcon: {
-      border: `1px solid ${theme.palette.common.white}`,
-      borderRadius: '50%',
-      width: theme.spacing(5),
-      height: theme.spacing(5),
-      '&:hover': {
-        cursor: 'pointer',
-        color: theme.palette.secondary.main,
       },
     },
   }),

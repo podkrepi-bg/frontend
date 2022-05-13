@@ -45,7 +45,6 @@ const ColorlibConnector = withStyles({
     height: 3,
     border: 0,
     backgroundColor: '#eaeaf0',
-    borderRadius: 1,
   },
 })(StepConnector)
 
