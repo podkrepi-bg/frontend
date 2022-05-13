@@ -14,6 +14,7 @@ import LinkButton from 'components/common/LinkButton'
 
 import 'swiper/css'
 import 'swiper/css/a11y'
+import { createStyles, makeStyles } from '@mui/styles'
 
 const swiperOptions: SwiperProps = {
   loop: true,
@@ -33,9 +34,21 @@ const swiperOptions: SwiperProps = {
   },
   spaceBetween: 30,
 }
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    sliderNavNext: {
+      order: 3,
+    },
+    sliderNavPrevious: {
+      order: 1,
+    },
+  }),
+)
 export default function TeamMembersSection() {
   const navigationPrevRef = React.useRef(null)
   const navigationNextRef = React.useRef(null)
+  const classes = useStyles()
   return (
     <Container maxWidth="md">
       <Heading
@@ -60,13 +73,22 @@ export default function TeamMembersSection() {
         spacing={6}
         paddingTop={theme.spacing(7)}
         paddingBottom={theme.spacing(12)}>
-        <Grid item xs={12} display="flex" alignItems="center">
-          <IconButton ref={navigationPrevRef} aria-label="Previouos slide">
+        <Grid item xs={12} display="flex" alignItems="center" position="relative">
+          <IconButton
+            className={classes.sliderNavPrevious}
+            ref={navigationPrevRef}
+            aria-label="Previouos slide">
             <ChevronLeftIcon />
+          </IconButton>
+          <IconButton
+            className={classes.sliderNavNext}
+            ref={navigationNextRef}
+            aria-label="Next slide">
+            <ChevronRightIcon />
           </IconButton>
           <Swiper
             {...swiperOptions}
-            style={{ marginLeft: theme.spacing(2), marginRight: theme.spacing(2) }}
+            style={{ marginLeft: theme.spacing(2), marginRight: theme.spacing(2), order: 2 }}
             navigation={{
               prevEl: navigationPrevRef.current,
               nextEl: navigationNextRef.current,
@@ -77,7 +99,6 @@ export default function TeamMembersSection() {
               }
               swiper.params.navigation.prevEl = navigationPrevRef.current
               swiper.params.navigation.nextEl = navigationNextRef.current
-              swiper.navigation.update()
             }}>
             {data.map((x) => (
               <SwiperSlide key={x.title}>
@@ -85,9 +106,6 @@ export default function TeamMembersSection() {
               </SwiperSlide>
             ))}
           </Swiper>
-          <IconButton ref={navigationNextRef} aria-label="Next slide">
-            <ChevronRightIcon />
-          </IconButton>
         </Grid>
         <Grid item xs={12} textAlign="center">
           <LinkButton
