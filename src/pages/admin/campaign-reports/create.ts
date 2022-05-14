@@ -1,4 +1,4 @@
-import { securedPropsWithTranslation } from 'middleware/auth/keycloak'
+import { securedPropsWithTranslation } from 'middleware/auth/securedProps'
 import CreatePage from 'components/irregularity-report/admin/CreatePage'
 
 export const getServerSideProps = securedPropsWithTranslation([
