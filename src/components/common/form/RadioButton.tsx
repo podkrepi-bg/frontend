@@ -14,7 +14,7 @@ const classes = {
   label: `${PREFIX}-label`,
 }
 
-const StyledCheck = styled(Check)(() => ({
+const StyledRadioButton = styled('div')(() => ({
   [`& .${classes.radioWrapper}`]: {
     borderRadius: theme.borders.round,
     border: `1px solid ${theme.borders.dark}`,
@@ -35,15 +35,6 @@ const StyledCheck = styled(Check)(() => ({
     borderRadius: theme.borders.round,
   },
 
-  [`&.${classes.checkedCircle}`]: {
-    width: 30,
-    height: 30,
-    border: `1px solid ${theme.palette.primary.main}`,
-    backgroundColor: theme.palette.primary.main,
-    borderRadius: theme.borders.round,
-    color: theme.palette.common.white,
-  },
-
   [`& .${classes.label}`]: {
     fontSize: 20,
     marginLeft: theme.spacing(3),
@@ -59,18 +50,37 @@ type RadioButtonProps = {
 
 function RadioButton({ checked, label, muiRadioButtonProps, value }: RadioButtonProps) {
   return (
-    <FormControlLabel
-      value={value}
-      className={`${classes.radioWrapper} ${checked ? classes.checked : null}`}
-      label={<Typography className={classes.label}>{label}</Typography>}
-      control={
-        <Radio
-          icon={<div className={classes.circle} />}
-          checkedIcon={<StyledCheck color="primary" className={classes.checkedCircle} />}
-          {...muiRadioButtonProps}
-        />
-      }
-    />
+    <StyledRadioButton>
+      <FormControlLabel
+        value={value}
+        className={`${classes.radioWrapper} ${checked ? classes.checked : null}`}
+        sx={checked ? {} : undefined}
+        label={<Typography className={classes.label}>{label}</Typography>}
+        control={
+          <Radio
+            icon={<div className={classes.circle} />}
+            checkedIcon={
+              <Check
+                color="primary"
+                sx={
+                  checked
+                    ? {
+                        width: 30,
+                        height: 30,
+                        border: `1px solid ${theme.palette.primary.main}`,
+                        backgroundColor: theme.palette.primary.main,
+                        borderRadius: theme.borders.round,
+                        color: theme.palette.common.white,
+                      }
+                    : undefined
+                }
+              />
+            }
+            {...muiRadioButtonProps}
+          />
+        }
+      />
+    </StyledRadioButton>
   )
 }
 

@@ -1,9 +1,7 @@
-import { PropsWithChildren, useState } from 'react'
-
 import { styled } from '@mui/material/styles'
-
-import { Typography, TypographyProps } from '@mui/material'
 import LinkIcon from '@mui/icons-material/Link'
+import { PropsWithChildren, useState } from 'react'
+import { Typography, TypographyProps } from '@mui/material'
 
 import LinkIconButton from 'components/common/LinkIconButton'
 
@@ -36,7 +34,6 @@ type HeadingParams = PropsWithChildren<TypographyProps & Linkable> & {
 
 export default function Heading({ children, id, linkable, ...props }: HeadingParams) {
   const [linkIconIsShown, setlinkIconIsShown] = useState(false)
-
   return (
     <Root
       id={id}
@@ -45,7 +42,12 @@ export default function Heading({ children, id, linkable, ...props }: HeadingPar
       <Typography {...props}>
         {children}
         {linkable && (
-          <LinkIconButton href={`#${id}`} className={linkIconIsShown ? '' : classes.hideLinkIcon}>
+          <LinkIconButton
+            href={`#${id}`}
+            sx={{
+              visibility: linkIconIsShown ? 'visible' : 'hidden',
+              md: { visibility: 'hidden' },
+            }}>
             <LinkIcon className={classes.linkIcon} />
           </LinkIconButton>
         )}

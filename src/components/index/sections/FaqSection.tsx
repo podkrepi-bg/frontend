@@ -12,7 +12,7 @@ export default function FaqSection() {
   const { t } = useTranslation()
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="lg">
       <Heading
         id="what-we-do"
         variant="h4"
@@ -22,13 +22,19 @@ export default function FaqSection() {
       </Heading>
       <Grid container justifyContent="center" spacing={2} sx={{ mb: 12 }}>
         {data.COMMON_QUESTIONS.slice(0, 3).flatMap(({ header, content, visible }) =>
-          visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
+          visible ? (
+            <Grid item xs={12} key={header}>
+              <ExpandableListItem header={header} content={content} />
+            </Grid>
+          ) : (
+            []
+          ),
         )}
         <LinkButton
           href={routes.faq}
           variant="outlined"
           endIcon={<ChevronRightIcon />}
-          sx={{ my: 3 }}>
+          sx={{ my: 4 }}>
           {t('index:campaign.see-all')}
         </LinkButton>
       </Grid>

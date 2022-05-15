@@ -1,4 +1,5 @@
-import { Card, CardContent, CardHeader } from '@mui/material'
+import { Box, Card, CardContent, CardHeader } from '@mui/material'
+
 import { WhatUnitesUsItem } from './whatUnitesUsData'
 
 type WhatUnitesUsCardProps = {
@@ -8,8 +9,21 @@ type WhatUnitesUsCardProps = {
 export default function WhatUnitesUsCard({ info }: WhatUnitesUsCardProps) {
   return (
     <Card elevation={0} sx={{ textAlign: 'center' }}>
+      <Box
+        sx={{
+          height: 75,
+          width: 75,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderRadius: '50%',
+          border: `2px solid ${info.iconColor}`,
+          m: 'auto',
+        }}>
+        {info.icon ? <info.icon sx={{ height: 45, width: 45, fill: info.iconColor }} /> : null}
+      </Box>
       <CardHeader title={info.title} />
-      <CardContent>{info.content}</CardContent>
+      <CardContent sx={{ px: 1 }}>{info.content}</CardContent>
     </Card>
   )
 }
