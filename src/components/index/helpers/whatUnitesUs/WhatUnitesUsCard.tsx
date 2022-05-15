@@ -7,7 +7,6 @@ type WhatUnitesUsCardProps = {
 }
 
 export default function WhatUnitesUsCard({ info }: WhatUnitesUsCardProps) {
-  console.log(info)
   return (
     <Card elevation={0} sx={{ textAlign: 'center' }}>
       <Box
