@@ -29,10 +29,13 @@ export const securedProps: (
   }
 }
 
-export const securedPropsWithTranslation: (namespaces?: string[]) => GetServerSideProps<Session> =
-  (namespaces = ['common', 'auth', 'validation']) =>
+export const securedPropsWithTranslation: (
+  namespaces?: string[],
+  returnUrl?: string,
+) => GetServerSideProps<Session> =
+  (namespaces = ['common', 'auth', 'validation'], returnUrl) =>
   async (ctx) => {
-    const response = await securedProps(ctx)
+    const response = await securedProps(ctx, returnUrl)
     if ('props' in response) {
       return {
         props: {
