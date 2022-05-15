@@ -65,7 +65,7 @@ export default function DonationTab() {
   const { data: campaigns, isLoading: isCampaignLoading } = useCampaignList()
   return (
     <StyledProfileTab
-      title={user?.user ? user.user.firstName + ' ' + user?.user.lastName : ''}
+      title={user?.user ? user.user.firstName + ',' : ''}
       name={ProfileTabs.donations}>
       <Typography variant="h5" fontWeight={'medium'}>
         {t('profile:donations.helpThanks')} ❤️
