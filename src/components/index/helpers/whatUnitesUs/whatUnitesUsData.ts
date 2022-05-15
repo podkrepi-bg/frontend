@@ -1,4 +1,4 @@
-import { SvgIconTypeMap } from '@mui/material'
+import { SvgIconProps, SvgIconTypeMap } from '@mui/material'
 import { OverridableComponent } from '@mui/material/OverridableComponent'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied'
@@ -7,15 +7,15 @@ import BoyIcon from '@mui/icons-material/Boy'
 export type WhatUnitesUsItem = {
   title: string
   content: string
-  icon?: OverridableComponent<SvgIconTypeMap<Record<string, never>, 'svg'>>
+  icon?: OverridableComponent<SvgIconTypeMap<Record<string, SvgIconProps>, 'svg'>>
   iconColor?: string
 }
 
 export const data: WhatUnitesUsItem[] = [
   {
-    title: 'Доброволно и про-боно',
+    title: 'Доброволство',
     content:
-      'Създадохме дарителска платформа в полза на нуждаещите се и организациите, които им помагат, без да търсим финансова или друга облага. Нашата награда е удовлетворението от приноса на Подкрепи.бг за отделните хора и обществото.',
+      'Създадохме дарителска платформа в полза на нуждаещите се и организациите, които им помагат, без да търсим финансова или друга облага.',
     icon: FavoriteIcon,
     iconColor: '#F44336',
   },

@@ -42,7 +42,7 @@ export default function CampaignsSection() {
     return null
   } else {
     return (
-      <StyledContainer maxWidth="md">
+      <StyledContainer maxWidth="lg">
         <Heading id="what-we-do" variant="h4" component="h2" className={classes.heading}>
           {t('index:campaign.emergency-causes')}
         </Heading>
@@ -54,14 +54,16 @@ export default function CampaignsSection() {
               </Box>
             </Grid>
           ))}
-          <LinkButton
-            href={routes.campaigns.index}
-            variant="contained"
-            color="info"
-            endIcon={<ChevronRightIcon />}
-            sx={{ marginTop: '2rem' }}>
-            {t('index:campaign.see-all')}
-          </LinkButton>
+          <Grid item xs={12} textAlign="center">
+            <LinkButton
+              href={routes.campaigns.index}
+              variant="outlined"
+              color="primary"
+              endIcon={<ChevronRightIcon />}
+              sx={{ marginTop: '2rem' }}>
+              {t('index:campaign.see-all')}
+            </LinkButton>
+          </Grid>
         </Grid>
       </StyledContainer>
     )
