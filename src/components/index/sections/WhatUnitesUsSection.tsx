@@ -53,6 +53,9 @@ export default function WhatUnitesUsSection() {
           <IconButton style={{ order: 1 }} ref={navigationPrevRef} aria-label="Previouos slide">
             <ChevronLeftIcon />
           </IconButton>
+          <IconButton style={{ order: 3 }} ref={navigationNextRef} aria-label="Next slide">
+            <ChevronRightIcon />
+          </IconButton>
           <Swiper
             {...swiperOptions}
             style={{ marginLeft: theme.spacing(2), marginRight: theme.spacing(2), order: 2 }}
@@ -73,9 +76,6 @@ export default function WhatUnitesUsSection() {
               </SwiperSlide>
             ))}
           </Swiper>
-          <IconButton style={{ order: 3 }} ref={navigationNextRef} aria-label="Next slide">
-            <ChevronRightIcon />
-          </IconButton>
         </Grid>
       </Grid>
     </Container>

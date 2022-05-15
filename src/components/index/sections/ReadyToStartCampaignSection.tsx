@@ -13,7 +13,6 @@ export default function ReadyToStartCampaignSection() {
       sx={{
         backgroundColor: '#F4F4F4',
         py: 6,
-        px: 5,
       }}>
       <Grid container maxWidth="lg" margin="0 auto">
         <Grid item xs={12} md={6} alignItems="center" display="flex">

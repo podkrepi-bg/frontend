@@ -22,8 +22,8 @@ export default function HowWeWorkSection() {
         })}>
         {t('index:how-we-work.heading')}
       </Heading>
-      <Box sx={{ backgroundColor: '#F4F4F4', py: 6, px: '25vw' }}>
-        <Grid item rowSpacing={10}>
+      <Box sx={{ backgroundColor: '#F4F4F4', py: 6 }}>
+        <Grid maxWidth="lg" margin="0 auto" item rowSpacing={10}>
           <Typography variant="subtitle1">{t('index:how-we-work.text')}</Typography>
         </Grid>
       </Box>

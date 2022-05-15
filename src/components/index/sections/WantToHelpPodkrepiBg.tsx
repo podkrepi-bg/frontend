@@ -16,8 +16,6 @@ export default function WantToHelpPodkrepiBgSection() {
         display: 'flex',
         paddingTop: '36px',
         paddingBottom: '36px',
-        paddingLeft: '25vw',
-        paddingRight: '25vw',
         marginBottom: theme.spacing(12),
         flexDirection: 'column',
         alignItems: 'center',
