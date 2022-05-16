@@ -12,13 +12,12 @@ export const securedProps: (
   returnUrl?: string,
 ) => Promise<GetServerSidePropsResult<Session>> = async (ctx, returnUrl?: string) => {
   const session = await getSession(ctx)
-
+  let url = returnUrl ?? ctx.req.url ?? ''
+  if (url.startsWith('_next') || url.startsWith('_error')) url = '/'
   if (!session) {
     return {
       redirect: {
-        destination: `${routes.login}?callbackUrl=${encodeURIComponent(
-          returnUrl ?? ctx.req.url ?? '',
-        )}`,
+        destination: `${routes.login}?callbackUrl=${encodeURIComponent(url)}`,
         permanent: false,
       },
     }
