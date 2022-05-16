@@ -2,6 +2,7 @@ import type { Currency } from './currency'
 import { Stripe } from 'stripe'
 import { UUID } from './types'
 import * as yup from 'yup'
+import { PersonResponse } from './person'
 
 export type DonationPrice = Stripe.Price
 
@@ -31,6 +32,10 @@ export type DonationResponse = {
   currency: Currency
   amount: number
   personId?: UUID
+}
+
+export type UserDonationResponse = DonationResponse & {
+  person: PersonResponse
 }
 
 export type DonationInput = {
