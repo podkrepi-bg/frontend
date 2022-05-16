@@ -13,7 +13,7 @@ export const securedProps: (
 ) => Promise<GetServerSidePropsResult<Session>> = async (ctx, returnUrl?: string) => {
   const session = await getSession(ctx)
   let url = returnUrl ?? ctx.req.url ?? ''
-  if (url.startsWith('_next') || url.startsWith('_error')) url = '/'
+  if (url.startsWith('/_next') || url.startsWith('/_error')) url = '/'
   if (!session) {
     return {
       redirect: {
