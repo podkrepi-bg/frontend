@@ -18,14 +18,14 @@ const Handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
   )
 
   if (!donation) {
-    res.send('What should happen?')
+    res.status(404).json({ notFound: true })
+  } else {
+    const pdfStream = await renderToStream(
+      <Certificate donation={donation} person={donation.person} />,
+    )
+    res.setHeader('Content-Type', 'application/pdf')
+    pdfStream.pipe(res)
   }
-
-  const pdfStream = await renderToStream(
-    <Certificate donation={donation} person={donation.person} />,
-  )
-  res.setHeader('Content-Type', 'application/pdf')
-  pdfStream.pipe(res)
 }
 
 export default Handler
