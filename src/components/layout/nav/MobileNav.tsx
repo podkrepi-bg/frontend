@@ -61,7 +61,7 @@ export const AuthLinks = () => {
             {t('nav.profile')}
           </LinkButton>
         </Grid>
-        {status === 'authenticated' && isAdmin(session) && (
+        {status === 'authenticated' && isAdmin(undefined, session) && (
           <Grid item>
             <Button fullWidth variant="outlined" href={routes.admin.index}>
               {t('nav.admin.index')}

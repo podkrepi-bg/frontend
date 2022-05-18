@@ -1,3 +1,5 @@
+import { Session } from 'next-auth'
+
 export type SessionRoles = {
   realmRoles: RealmRole[] | undefined
   resourceRoles: ResourceRole[] | undefined
@@ -49,6 +51,22 @@ export const canViewSupporters = (sessionRoles: SessionRoles): boolean => {
   )
 }
 
-export const isAdmin = (sessionRoles: SessionRoles): boolean => {
-  return canViewContactRequests(sessionRoles) && canViewSupporters(sessionRoles)
+export const isAdmin = (sessionRoles?: SessionRoles, session?: Session): boolean => {
+  if (sessionRoles) {
+    return (
+      canViewContactRequests(sessionRoles as SessionRoles) &&
+      canViewSupporters(sessionRoles as SessionRoles)
+    )
+  }
+  if (session) {
+    const sessionRoles: SessionRoles = {
+      realmRoles: session.user?.realm_access.roles,
+      resourceRoles: session.user?.resource_access.account.roles,
+    }
+    return (
+      canViewContactRequests(sessionRoles as SessionRoles) &&
+      canViewSupporters(sessionRoles as SessionRoles)
+    )
+  }
+  return false
 }
