@@ -87,7 +87,6 @@ declare module 'next-auth' {
   export interface Session {
     accessToken: string
     user: ServerUser | null
-    error?: string
   }
 
   /**
