@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material'
+import { Container, Grid, Typography } from '@mui/material'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { useTranslation } from 'next-i18next'
 
@@ -30,22 +30,23 @@ export default function WantToHelpPodkrepiBgSection() {
         color={theme.palette.primary.dark}>
         {t('index:help-podkrepi-bg-section.want-to-help')}
       </Heading>
-      <Grid
-        maxWidth="lg"
-        margin="0 auto"
-        container
-        alignItems="center"
-        marginTop={theme.spacing(1)}
-        rowSpacing={4}>
-        <Grid item xs={12} md={6} sx={{ textAlign: 'left', xs: { textAlign: 'center' } }}>
-          <Typography variant="subtitle1">{t('index:help-podkrepi-bg-section.text')}</Typography>
+      <Container maxWidth="lg">
+        <Grid
+          margin="0 auto"
+          container
+          alignItems="center"
+          marginTop={theme.spacing(1)}
+          rowSpacing={4}>
+          <Grid item xs={12} md={6} sx={{ textAlign: 'left', xs: { textAlign: 'center' } }}>
+            <Typography variant="subtitle1">{t('index:help-podkrepi-bg-section.text')}</Typography>
+          </Grid>
+          <Grid item xs={12} md={6} textAlign="right">
+            <LinkButton variant="contained" href={routes.support} endIcon={<ChevronRightIcon />}>
+              {t('index:help-podkrepi-bg-section.become-volunteer')}
+            </LinkButton>
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={6} textAlign="right">
-          <LinkButton variant="contained" href={routes.support} endIcon={<ChevronRightIcon />}>
-            {t('index:help-podkrepi-bg-section.become-volunteer')}
-          </LinkButton>
-        </Grid>
-      </Grid>
+      </Container>
     </Grid>
   )
 }
