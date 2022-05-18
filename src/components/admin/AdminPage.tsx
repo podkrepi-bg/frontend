@@ -26,7 +26,7 @@ export default function AdminPage() {
     )
   }
 
-  if (!isAdmin(undefined, session)) {
+  if (!isAdmin(session)) {
     return (
       <AdminLayout>
         <AdminContainer title={t('nav.admin.index')}>
