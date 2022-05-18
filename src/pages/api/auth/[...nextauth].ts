@@ -1,6 +1,8 @@
 import { AxiosResponse } from 'axios'
+import { parseJWT } from 'common/util/parseJWT'
 import { RealmRole, ResourceRole } from 'common/util/roles'
-import NextAuth, { EventCallbacks, NextAuthOptions } from 'next-auth'
+import NextAuth, { EventCallbacks, NextAuthOptions, Session } from 'next-auth'
+import { JWT } from 'next-auth/jwt'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 import { apiClient } from 'service/apiClient'
@@ -69,9 +71,10 @@ declare module 'next-auth/jwt' {
    * JWT contents which builds the session object
    */
   export interface JWT {
-    user: ServerUser
     accessToken: string
+    accessTokenExpires: number
     refreshToken: string
+    user: ServerUser | null
   }
 }
 declare module 'next-auth' {
@@ -82,25 +85,24 @@ declare module 'next-auth' {
    * Session object available everywhere
    */
   export interface Session {
-    user: ServerUser
     accessToken: string
-    refreshToken: string
+    user: ServerUser | null
   }
 
   /**
    * Login and SignUp response
    */
   export interface User {
-    user: ServerUser
+    expires: number
     accessToken: string
     refreshToken: string
   }
 }
 
-type LoginResponse = {
+type AuthResponse = {
   accessToken: string
   refreshToken: string
-  user: ServerUser
+  expires: number
 }
 type LoginInput = {
   email: string
@@ -116,6 +118,35 @@ const onCreate: EventCallbacks['createUser'] = async ({ user }) => {
     console.log(`❌ Unable to send welcome email to user (${email})`)
   }
 }
+async function refreshAccessToken(token: string): Promise<JWT> {
+  try {
+    const response = await apiClient.post<AuthResponse>(
+      endpoints.auth.refresh.url,
+      { refreshToken: token },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+      },
+    )
+
+    if (response.status !== 201) {
+      throw new Error()
+    }
+
+    const authRes = response.data
+    console.log('refreshed')
+    return {
+      ...authRes,
+      user: parseJWT<ServerUser>(authRes.accessToken),
+      accessTokenExpires: Date.now() + authRes.expires * 1000,
+    }
+  } catch (error) {
+    console.log(error)
+    throw new Error('RefreshAccessTokenError')
+  }
+}
 export const options: NextAuthOptions = {
   pages: {
     signIn: '/login',
@@ -125,11 +156,11 @@ export const options: NextAuthOptions = {
   },
   session: {
     strategy: 'jwt',
-    maxAge: 60 * 60 * 24 * 30,
+    maxAge: 60 * 60 * 10,
     updateAge: 60 * 60 * 24,
   },
   jwt: {
-    maxAge: 60 * 60 * 24 * 30,
+    maxAge: 300,
   },
   providers: [
     CredentialsProvider({
@@ -139,7 +170,7 @@ export const options: NextAuthOptions = {
           return null
         }
         try {
-          const { data } = await apiClient.post<LoginInput, AxiosResponse<LoginResponse>>(
+          const { data } = await apiClient.post<LoginInput, AxiosResponse<AuthResponse>>(
             endpoints.auth.login.url,
             {
               email: credentials.email,
@@ -153,6 +184,7 @@ export const options: NextAuthOptions = {
           return data
         } catch (error) {
           if (error instanceof Error) {
+            console.log(error)
             console.error(error)
           }
         }
@@ -171,15 +203,33 @@ export const options: NextAuthOptions = {
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
       console.log('SIGN IN CALLBACK', { user, account, profile, email, credentials })
+      console.log('signIn', user, account, profile)
       return true
     },
-    async session({ session, user, token }) {
-      console.log('SESSION CALLBACK', { session, user, token })
-      return Promise.resolve({ ...session, ...token })
+    async session({ session, token }): Promise<Session> {
+      session.user = token.user
+      session.accessToken = token.accessToken
+
+      return session
     },
-    async jwt({ token, user: authData, account, profile, isNewUser }) {
-      console.log('JWT CALLBACK', { token, user: authData, account, profile, isNewUser })
-      return Promise.resolve({ ...token, ...authData })
+    async jwt({ token, user, account }) {
+      // Initial sign in
+      if (account && user) {
+        return {
+          accessToken: user.accessToken,
+          accessTokenExpires: Date.now() + user.expires * 1000,
+          refreshToken: user.refreshToken,
+          user: parseJWT<ServerUser>(user.accessToken),
+        }
+      }
+
+      // Return previous token if the access token has not expired yet
+      if (Date.now() < token.accessTokenExpires) {
+        return token
+      }
+
+      // Access token has expired, try to update it
+      return await refreshAccessToken(token.refreshToken)
     },
   },
   events: { createUser: onCreate },
