@@ -51,7 +51,7 @@ export const canViewSupporters = (sessionRoles: SessionRoles): boolean => {
   )
 }
 
-export const isAdmin = (sessionRoles?: SessionRoles, session?: Session): boolean => {
+export const isAdmin = (sessionRoles?: SessionRoles, session?: Session | null): boolean => {
   if (sessionRoles) {
     return (
       canViewContactRequests(sessionRoles as SessionRoles) &&
