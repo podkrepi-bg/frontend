@@ -1,5 +1,4 @@
 import { Session } from 'next-auth'
-import { JWT } from 'next-auth/jwt'
 
 export type RealmRole =
   | 'view-supporters'
@@ -27,28 +26,28 @@ export const roles = {
   },
 }
 
-export const hasResourceRole = (session: Session | JWT, role: ResourceRole): boolean => {
-  return session.user.resource_access.account.roles.includes(role)
+export const hasResourceRole = (session: Session, role: ResourceRole): boolean => {
+  return session.user ? session.user.resource_access.account.roles.includes(role) : false
 }
-export const hasRealmRole = (session: Session | JWT, role: RealmRole): boolean => {
-  return session.user.realm_access.roles.includes(role)
+export const hasRealmRole = (session: Session, role: RealmRole): boolean => {
+  return session.user ? session.user.realm_access.roles.includes(role) : false
 }
 
-export const canViewContactRequests = (session: Session | JWT): boolean => {
+export const canViewContactRequests = (session: Session): boolean => {
   return (
     hasResourceRole(session, roles.resource.ViewContactRequests) ||
     hasRealmRole(session, roles.realm.RealmViewContactRequests)
   )
 }
 
-export const canViewSupporters = (session: Session | JWT): boolean => {
+export const canViewSupporters = (session: Session): boolean => {
   return (
     hasResourceRole(session, roles.resource.ViewSupporters) ||
     hasRealmRole(session, roles.realm.RealmViewSupporters)
   )
 }
 
-export const isAdmin = (session: Session | JWT | null): boolean => {
+export const isAdmin = (session: Session | null): boolean => {
   if (!session) return false
   return canViewContactRequests(session) && canViewSupporters(session)
 }
