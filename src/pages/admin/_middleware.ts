@@ -1,13 +1,16 @@
 // https://next-auth.js.org/configuration/nextjs#middleware
-import { isAdmin } from 'common/util/roles'
+import { isAdmin, SessionRoles } from 'common/util/roles'
+import { getServerSession } from 'next-auth'
 import withAuth from 'next-auth/middleware'
-import { getSession } from 'next-auth/react'
 
 export default withAuth({
   callbacks: {
-    authorized: async () => {
-      const session = await getSession()
-      return isAdmin(session)
+    authorized: async ({ token }) => {
+      const roles: SessionRoles = {
+        realmRoles: token?.user?.realm_access.roles,
+        resourceRoles: token?.user?.resource_access.account.roles,
+      }
+      return isAdmin(roles)
     },
   },
 })
