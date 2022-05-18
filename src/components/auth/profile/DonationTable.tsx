@@ -12,6 +12,7 @@ import {
   TableRow,
   Avatar,
   Button,
+  Link,
 } from '@mui/material'
 import { Box } from '@mui/system'
 import styled from '@emotion/styled'
@@ -27,6 +28,7 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import theme from 'common/theme'
 import { money } from 'common/util/money'
 import { UserDonation } from 'gql/donations'
+import { routes } from 'common/routes'
 
 export type DonationTableProps = {
   donations: UserDonation[] | undefined
@@ -148,8 +150,10 @@ function DonationTable({ donations }: DonationTableProps) {
                   <TableCell>{donation.targetVault.campaign.title}</TableCell>
                   <TableCell>{money(donation.amount)}</TableCell>
                   <TableCell>
-                    <Button variant="outlined">
-                      {t('profile:donations.download')} <ArrowForwardIcon />
+                    <Button variant="outlined" disabled={donation.status != 'succeeded'}>
+                      <Link target="_blank" href={routes.donation.viewCertificate(donation.id)}>
+                        {t('profile:donations.download')} <ArrowForwardIcon />
+                      </Link>
                     </Button>
                   </TableCell>
                 </TableRow>
