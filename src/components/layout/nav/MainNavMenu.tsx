@@ -26,7 +26,7 @@ export default function MainNavMenu({ children }: { children?: React.ReactNode }
       <Grid item>
         <DevelopmentMenu />
       </Grid>
-      {status === 'authenticated' && isAdmin(session) && (
+      {status === 'authenticated' && isAdmin(undefined, session) && (
         <Grid item>
           <AdminMenu />
         </Grid>
