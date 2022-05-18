@@ -9,6 +9,7 @@ export const endpoints = {
   auth: {
     login: <Endpoint>{ url: '/login', method: 'POST' },
     register: <Endpoint>{ url: '/register', method: 'POST' },
+    refresh: <Endpoint>{ url: '/refresh', method: 'POST' },
   },
   campaign: {
     listCampaigns: <Endpoint>{ url: '/campaign/list', method: 'GET' },
