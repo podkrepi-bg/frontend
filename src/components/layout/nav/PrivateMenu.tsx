@@ -66,7 +66,7 @@ export default function PrivateMenu() {
         <LinkMenuItem href={routes.profile.index} className={classes.dropdownLinkText}>
           <Typography variant="button">{t('nav.profile')}</Typography>
         </LinkMenuItem>
-        {status === 'authenticated' && isAdmin(undefined, session) && (
+        {status === 'authenticated' && isAdmin(session) && (
           <LinkMenuItem href={routes.admin.index} className={classes.dropdownLinkText}>
             <Typography variant="button">{t('nav.admin.index')}</Typography>
           </LinkMenuItem>

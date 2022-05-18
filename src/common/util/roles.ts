@@ -1,4 +1,5 @@
 import { Session } from 'next-auth'
+import { JWT } from 'next-auth/jwt'
 
 export type SessionRoles = {
   realmRoles: RealmRole[] | undefined
@@ -51,13 +52,7 @@ export const canViewSupporters = (sessionRoles: SessionRoles): boolean => {
   )
 }
 
-export const isAdmin = (sessionRoles?: SessionRoles, session?: Session | null): boolean => {
-  if (sessionRoles) {
-    return (
-      canViewContactRequests(sessionRoles as SessionRoles) &&
-      canViewSupporters(sessionRoles as SessionRoles)
-    )
-  }
+export const isAdmin = (session: Session | JWT | null): boolean => {
   if (session) {
     const sessionRoles: SessionRoles = {
       realmRoles: session.user?.realm_access.roles,
