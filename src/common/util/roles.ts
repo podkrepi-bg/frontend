@@ -1,5 +1,7 @@
-import { Session } from 'next-auth'
-
+export type SessionRoles = {
+  realmRoles: RealmRole[] | undefined
+  resourceRoles: ResourceRole[] | undefined
+}
 export type RealmRole =
   | 'view-supporters'
   | 'view-contact-requests'
@@ -26,28 +28,27 @@ export const roles = {
   },
 }
 
-export const hasResourceRole = (session: Session, role: ResourceRole): boolean => {
-  return session.user ? session.user.resource_access.account.roles.includes(role) : false
+export const hasResourceRole = (sessionRoles: SessionRoles, role: ResourceRole): boolean => {
+  return sessionRoles.resourceRoles ? sessionRoles.resourceRoles.includes(role) : false
 }
-export const hasRealmRole = (session: Session, role: RealmRole): boolean => {
-  return session.user ? session.user.realm_access.roles.includes(role) : false
+export const hasRealmRole = (sessionRoles: SessionRoles, role: RealmRole): boolean => {
+  return sessionRoles.realmRoles ? sessionRoles.realmRoles.includes(role) : false
 }
 
-export const canViewContactRequests = (session: Session): boolean => {
+export const canViewContactRequests = (sessionRoles: SessionRoles): boolean => {
   return (
-    hasResourceRole(session, roles.resource.ViewContactRequests) ||
-    hasRealmRole(session, roles.realm.RealmViewContactRequests)
+    hasResourceRole(sessionRoles, roles.resource.ViewContactRequests) ||
+    hasRealmRole(sessionRoles, roles.realm.RealmViewContactRequests)
   )
 }
 
-export const canViewSupporters = (session: Session): boolean => {
+export const canViewSupporters = (sessionRoles: SessionRoles): boolean => {
   return (
-    hasResourceRole(session, roles.resource.ViewSupporters) ||
-    hasRealmRole(session, roles.realm.RealmViewSupporters)
+    hasResourceRole(sessionRoles, roles.resource.ViewSupporters) ||
+    hasRealmRole(sessionRoles, roles.realm.RealmViewSupporters)
   )
 }
 
-export const isAdmin = (session: Session | null): boolean => {
-  if (!session) return false
-  return canViewContactRequests(session) && canViewSupporters(session)
+export const isAdmin = (sessionRoles: SessionRoles): boolean => {
+  return canViewContactRequests(sessionRoles) && canViewSupporters(sessionRoles)
 }
