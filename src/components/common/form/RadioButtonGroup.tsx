@@ -53,15 +53,17 @@ export default function RadioButtonGroup({
         {...muiRadioGroupProps}>
         <Grid rowSpacing={2} columnSpacing={2} container>
           {options ? (
-            options.map(({ label: optionLabel, value: optionValue }, index) => (
-              <Grid key={index} item xs={12} sm={6} {...muiRadioButtonGridProps}>
-                <PriceRadioButton
-                  value={optionValue}
-                  checked={optionValue == field.value}
-                  label={optionLabel}
-                />
-              </Grid>
-            ))
+            <>
+              {options.map(({ label: optionLabel, value: optionValue }, index) => (
+                <Grid key={index} item xs={12} sm={6} {...muiRadioButtonGridProps}>
+                  <PriceRadioButton
+                    value={optionValue}
+                    checked={optionValue == field.value}
+                    label={optionLabel}
+                  />
+                </Grid>
+              ))}
+            </>
           ) : (
             <Typography>There are no avaliable choices you can make :(</Typography>
           )}
