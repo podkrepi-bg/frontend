@@ -122,8 +122,13 @@ export const options: NextAuthOptions = {
       return session
     },
     async jwt({ token, user, account }) {
-      // Initial sign in
       if (account && user) {
+        // Initial sign in only triggered when a provider is logging
+        // Since when there are credentials the `user` and `account` are undefined
+        // With credentials the token is already with this structure since that is what is returned from the `authorize` function:
+        // accessToken: keycloakToken.accessToken,
+        // accessTokenExpires: Date.now() + Number(keycloakToken.expires) * 1000,
+        // refreshToken: keycloakToken.refreshToken,
         const keycloakToken = await getAccessTokenFromProvider(
           account.access_token,
           account.provider,
