@@ -10,6 +10,7 @@ export const endpoints = {
     login: <Endpoint>{ url: '/login', method: 'POST' },
     register: <Endpoint>{ url: '/register', method: 'POST' },
     refresh: <Endpoint>{ url: '/refresh', method: 'POST' },
+    providerLogin: <Endpoint>{ url: '/provider-login', method: 'POST' },
   },
   campaign: {
     listCampaigns: <Endpoint>{ url: '/campaign/list', method: 'GET' },
