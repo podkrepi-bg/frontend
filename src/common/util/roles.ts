@@ -58,10 +58,7 @@ export const isAdmin = (session: Session | JWT | null): boolean => {
       realmRoles: session.user?.realm_access.roles ?? [],
       resourceRoles: session.user?.resource_access.account.roles ?? [],
     }
-    return (
-      canViewContactRequests(sessionRoles) &&
-      canViewSupporters(sessionRoles)
-    )
+    return canViewContactRequests(sessionRoles) && canViewSupporters(sessionRoles)
   }
   return false
 }
