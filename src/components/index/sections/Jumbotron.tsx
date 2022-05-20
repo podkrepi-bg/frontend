@@ -45,7 +45,7 @@ export default function Jumbotron() {
         objectPosition="70% 50%"
         style={{ zIndex: -1 }}
       />
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         <Grid item textAlign="left" sx={{ xs: { mb: 4 }, mb: 8 }}>
           <Typography
             maxWidth="lg"
