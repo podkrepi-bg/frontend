@@ -27,6 +27,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.heading}`]: {
     paddingTop: theme.spacing(10),
     paddingBottom: theme.spacing(7),
+    textAlign: 'center',
   },
 
   [`& .${classes.container}`]: {
@@ -116,17 +117,18 @@ const rightColumnLabels: CheckedLineProps[] = [
     href: staticUrls.projectDocs,
   },
   { label: 'about-project:documentation-technical', href: staticUrls.devDocs },
-  {
-    label: 'about-project:high-level-map',
-    href: 'https://docs.podkrepi.bg/general/arkhitektura/architecture',
-  },
+  // Currently the architecture map is not available
+  // {
+  //   label: 'about-project:high-level-map',
+  //   href: 'https://docs.podkrepi.bg/general/arkhitektura/architecture',
+  // },
 ]
 
 export default function WhatIsDone() {
   const { t } = useTranslation()
 
   return (
-    <Grid container direction="column" component="section" className={classes.container}>
+    <StyledGrid container direction="column" className={classes.container}>
       <Heading id="what-is-done" variant="h3" component="h2" className={classes.heading} linkable>
         {t('about-project:whatIsDoneTitle')}
       </Heading>
@@ -161,6 +163,6 @@ export default function WhatIsDone() {
           ))}
         </Grid>
       </Grid>
-    </Grid>
+    </StyledGrid>
   )
 }
