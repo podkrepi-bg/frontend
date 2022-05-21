@@ -87,7 +87,6 @@ export const options: NextAuthOptions = {
               password: credentials.password,
             },
           )
-
           if (!data?.accessToken) {
             return null
           }
@@ -124,11 +123,18 @@ export const options: NextAuthOptions = {
     async jwt({ token, user, account }) {
       if (account && user) {
         // Initial sign in only triggered when a provider is logging
-        // Since when there are credentials the `user` and `account` are undefined
-        // With credentials the token is already with this structure since that is what is returned from the `authorize` function:
-        // accessToken: keycloakToken.accessToken,
-        // accessTokenExpires: Date.now() + Number(keycloakToken.expires) * 1000,
-        // refreshToken: keycloakToken.refreshToken,
+        if (account.provider === 'credentials') {
+          // With credentials the user is already a `AuthResponse` that is what is returned from the `authorize` function:
+          console.log(user)
+          return {
+            accessToken: user.accessToken,
+            // This is called the first time only here expires always exists and that calculates the timestamp that the token would actually expire in
+            accessTokenExpires: Date.now() + Number(user.expires) * 1000,
+            refreshToken: user.refreshToken,
+            user: jwtDecode<ServerUser>(user.accessToken),
+          }
+        }
+        // This is the flow for the providers login where a call is sent to get the `AuthResponse` from the provider access token
         const keycloakToken = await getAccessTokenFromProvider(
           account.access_token,
           account.provider,
