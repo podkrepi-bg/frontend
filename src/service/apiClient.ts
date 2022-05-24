@@ -8,7 +8,7 @@ const {
 } = getConfig()
 
 const cache = new LRU({ max: 10 })
-export const apiClient = Axios.create({ baseURL: `${API_URL}/api` })
+export const apiClient = Axios.create({ baseURL: `${API_URL}` })
 
 export const useAxios = makeUseAxios({
   axios: apiClient,

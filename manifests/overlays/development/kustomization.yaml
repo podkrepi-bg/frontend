@@ -8,7 +8,6 @@ resources:
 
 patches:
   - path: config-web.patch.yaml
-  - path: secrets-web.local.yaml
   - path: keycloak-config-web.patch.yaml
   - path: deployment.patch.yaml
   - path: ingress.patch.yaml
@@ -21,3 +20,7 @@ images:
     newTag: master
   - name: ghcr.io/podkrepi-bg/frontend/maintenance
     newTag: master
+
+secretGenerator:
+  - name: secrets-web
+    envs: [secrets-web.env]
