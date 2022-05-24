@@ -4,5 +4,5 @@ metadata:
   name: config-web
 data:
   app-url: https://podkrepi.bg
-  api-url: https://podkrepi.bg
+  api-url: https://podkrepi.bg/api/v1
   image-host: podkrepi.bg
