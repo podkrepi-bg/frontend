@@ -5,7 +5,7 @@ import { CampaignFileRole } from 'components/campaign-file/roles'
 const { publicRuntimeConfig } = getConfig()
 
 export function fileUrl(file: CampaignFile) {
-  return `${publicRuntimeConfig.API_URL}/api/campaign-file/${file.id}`
+  return `${publicRuntimeConfig.API_URL}/campaign-file/${file.id}`
 }
 
 /**
