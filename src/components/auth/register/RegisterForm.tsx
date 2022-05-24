@@ -66,7 +66,7 @@ export default function RegisterForm({ initialValues = defaults }: RegisterFormP
       }
     } catch (error) {
       console.error(error)
-      AlertStore.show(t('auth:alerts.invalid-login'), 'error')
+      AlertStore.show(t('auth:alerts.cannot-register'), 'error')
     } finally {
       setLoading(false)
     }
