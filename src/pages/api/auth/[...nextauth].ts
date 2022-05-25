@@ -59,7 +59,7 @@ const onCreate: EventCallbacks['createUser'] = async ({ user }) => {
   }
 }
 export const options: NextAuthOptions = {
-  debug: true,
+  debug: process.env.APP_ENV !== 'production',
   pages: {
     signIn: '/login',
     signOut: '/',
