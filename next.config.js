@@ -47,6 +47,14 @@ const moduleExports = {
       },
     ]
   },
+  async rewrites() {
+    return [
+      {
+        source: '/api/v1/:slug*',
+        destination: `${process.env.API_URL}/:slug*`, // Proxy to API
+      },
+    ]
+  },
 }
 
 const SentryWebpackPluginOptions = {
