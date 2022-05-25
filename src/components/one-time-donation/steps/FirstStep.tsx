@@ -120,7 +120,8 @@ export default function FirstStep() {
                 .map((v) => ({
                   label: money(Number(v.unit_amount)),
                   value: v.id,
-                })) || []
+                }))
+                .concat({ label: 'Other', value: 'other' }) || []
             }
           />
         </Box>

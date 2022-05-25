@@ -1,70 +1,17 @@
 import { AxiosResponse } from 'axios'
-import { parseJWT } from 'common/util/parseJWT'
-import { RealmRole, ResourceRole } from 'common/util/roles'
+import jwtDecode from 'jwt-decode'
 import NextAuth, { EventCallbacks, NextAuthOptions, Session } from 'next-auth'
-import { JWT } from 'next-auth/jwt'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
-
-interface KeycloakTokenParsed {
-  // keycloak-js
-  exp?: number
-  iat?: number
-  nonce?: string
-  sub?: string
-  session_state?: string
-  realm_access?: KeycloakRoles
-  resource_access?: KeycloakResourceAccess
-}
-interface KeycloakResourceAccess {
-  [key: string]: KeycloakRoles
-}
-
-interface KeycloakRoles {
-  roles: string[]
-}
-
-export type ParsedToken = KeycloakTokenParsed & {
-  name?: string
-  email?: string
-  given_name?: string
-  family_name?: string
-  preferred_username?: string
-  email_verified?: boolean
-  picture?: string
-  'allowed-origins'?: string[]
-}
-
-export type ServerUser = ParsedToken & {
-  scope: string
-  theme: string
-  locale: string
-  name: string
-  email: string
-  email_verified: boolean
-  given_name: string
-  family_name: string
-  preferred_username: string
-  picture?: string
-  session_state: string
-  'allowed-origins': string[]
-  // access
-  realm_access: { roles: RealmRole[] }
-  resource_access: { account: { roles: ResourceRole[] } }
-  // system
-  exp: number
-  iat: number
-  jti: string
-  iss: string
-  aud: string
-  sub: string
-  typ: string
-  azp: string
-  acr: string
-  sid: string
-}
+import {
+  AuthResponse,
+  getAccessTokenFromProvider,
+  LoginInput,
+  refreshAccessToken,
+  ServerUser,
+} from 'service/auth'
 
 declare module 'next-auth/jwt' {
   /**
@@ -75,6 +22,7 @@ declare module 'next-auth/jwt' {
     accessTokenExpires: number
     refreshToken: string
     user: ServerUser | null
+    expires?: number
   }
 }
 declare module 'next-auth' {
@@ -96,17 +44,8 @@ declare module 'next-auth' {
     expires: number
     accessToken: string
     refreshToken: string
+    picture: string
   }
-}
-
-type AuthResponse = {
-  accessToken: string
-  refreshToken: string
-  expires: number
-}
-type LoginInput = {
-  email: string
-  password: string
 }
 
 const onCreate: EventCallbacks['createUser'] = async ({ user }) => {
@@ -116,35 +55,6 @@ const onCreate: EventCallbacks['createUser'] = async ({ user }) => {
     console.log(`Sent email`)
   } catch (error) {
     console.log(`❌ Unable to send welcome email to user (${email})`)
-  }
-}
-async function refreshAccessToken(token: string): Promise<JWT> {
-  try {
-    const response = await apiClient.post<AuthResponse>(
-      endpoints.auth.refresh.url,
-      { refreshToken: token },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-      },
-    )
-
-    if (response.status !== 201) {
-      throw new Error()
-    }
-
-    const authRes = response.data
-    console.log('refreshed')
-    return {
-      ...authRes,
-      user: parseJWT<ServerUser>(authRes.accessToken),
-      accessTokenExpires: Date.now() + authRes.expires * 1000,
-    }
-  } catch (error) {
-    console.log(error)
-    throw new Error('RefreshAccessTokenError')
   }
 }
 export const options: NextAuthOptions = {
@@ -178,7 +88,6 @@ export const options: NextAuthOptions = {
               password: credentials.password,
             },
           )
-
           if (!data?.accessToken) {
             return null
           }
@@ -202,25 +111,42 @@ export const options: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-      console.log('SIGN IN CALLBACK', { user, account, profile, email, credentials })
-      console.log('signIn', user, account, profile)
+    async signIn({ user, account }) {
+      // Can be used to check if the user is allowed to log in or not
       return true
     },
     async session({ session, token }): Promise<Session> {
-      session.user = token.user
+      session.user = jwtDecode<ServerUser>(token.accessToken)
       session.accessToken = token.accessToken
 
       return session
     },
     async jwt({ token, user, account }) {
-      // Initial sign in
       if (account && user) {
+        // Initial sign in only triggered when a provider is logging
+        if (account.provider === 'credentials') {
+          // With credentials the user is already a `AuthResponse` that is what is returned from the `authorize` function:
+          console.log(user)
+          return {
+            accessToken: user.accessToken,
+            // This is called the first time only here expires always exists and that calculates the timestamp that the token would actually expire in
+            accessTokenExpires: Date.now() + Number(user.expires) * 1000,
+            refreshToken: user.refreshToken,
+            user: jwtDecode<ServerUser>(user.accessToken),
+          }
+        }
+        // This is the flow for the providers login where a call is sent to get the `AuthResponse` from the provider access token
+        const keycloakToken = await getAccessTokenFromProvider(
+          account.access_token,
+          account.provider,
+          token.picture as string,
+        )
         return {
-          accessToken: user.accessToken,
-          accessTokenExpires: Date.now() + user.expires * 1000,
-          refreshToken: user.refreshToken,
-          user: parseJWT<ServerUser>(user.accessToken),
+          accessToken: keycloakToken.accessToken,
+          // This is called the first time only here expires always exists and that calculates the timestamp that the token would actually expire in
+          accessTokenExpires: Date.now() + Number(keycloakToken.expires) * 1000,
+          refreshToken: keycloakToken.refreshToken,
+          user: jwtDecode<ServerUser>(keycloakToken.accessToken),
         }
       }
 

@@ -3,8 +3,6 @@ import { useTranslation } from 'next-i18next'
 import { Container, Grid, Theme, Typography } from '@mui/material'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Image from 'next/image'
-
-import Typewriter from '../helpers/Typewriter'
 import LinkButton from 'components/common/LinkButton'
 import theme from 'common/theme'
 import { routes } from 'common/routes'
@@ -45,7 +43,7 @@ export default function Jumbotron() {
         objectPosition="70% 50%"
         style={{ zIndex: -1 }}
       />
-      <Container maxWidth="xl">
+      <Container maxWidth="lg">
         <Grid item textAlign="left" sx={{ xs: { mb: 4 }, mb: 8 }}>
           <Typography
             maxWidth="lg"
