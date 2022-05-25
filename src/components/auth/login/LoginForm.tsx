@@ -92,7 +92,7 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
         </Grid>
         <Grid item xs={12}>
           <Button fullWidth onClick={onGoogleLogin}>
-            <Google /> {t('auth:nav.login-with')} Google
+            <Google /> {t('nav.login-with')} Google
           </Button>
         </Grid>
       </Grid>
