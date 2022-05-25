@@ -6,6 +6,9 @@ on:
     tags:
       - 'v*.*.*'
     branches: [master]
+    paths:
+      - '!manifests/**'
+      - '!.github/workflows/**'
 
 jobs:
   build-docker-image:
