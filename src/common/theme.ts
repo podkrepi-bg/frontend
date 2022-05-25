@@ -61,7 +61,7 @@ export const themeOptions: ThemeOptions = {
     },
   },
   shape: {
-    borderRadius: 3,
+    borderRadius: '25px',
   },
   components: {
     MuiLink: {

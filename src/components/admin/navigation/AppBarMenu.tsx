@@ -27,7 +27,7 @@ export default function AppBarMenu({ title }: Props) {
         <Typography fontSize={'18px'} sx={{ px: 0.5, height: '20px' }}>
           /
         </Typography>
-        <IconButton sx={{ borderRadius: '10px' }}>
+        <IconButton sx={{ borderRadius: '25px' }}>
           <Typography>{title}</Typography>
         </IconButton>
       </Box>

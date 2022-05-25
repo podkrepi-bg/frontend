@@ -11,7 +11,7 @@ export default function AdminContainer({ title, children }: Props) {
     <Container
       maxWidth={false}
       sx={{
-        borderRadius: '13px',
+        borderRadius: '25px',
         minHeight: 'calc(100vh - 64px)',
         position: 'relative',
         background: '#e9f6ff',
@@ -23,7 +23,7 @@ export default function AdminContainer({ title, children }: Props) {
             background: 'white',
             minHeight: '20rem',
             flexDirection: 'column',
-            borderRadius: '13px',
+            borderRadius: '25px',
           }}>
           <AppBarMenu title={title} />
           {children}
