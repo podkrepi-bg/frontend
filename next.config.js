@@ -51,7 +51,7 @@ const moduleExports = {
     return [
       {
         source: '/api/v1/:slug*',
-        destination: `${process.env.API_URL}/:slug*`, // Proxy to API
+        destination: `${process.env.API_URL ?? 'http://localhost:5010/api/v1'}/:slug*`, // Proxy to API
       },
     ]
   },
