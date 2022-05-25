@@ -1,10 +1,9 @@
 import { AxiosResponse } from 'axios'
 import jwtDecode from 'jwt-decode'
-import NextAuth, { EventCallbacks, NextAuthOptions, Session } from 'next-auth'
-import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
-import { apiClient } from 'service/apiClient'
-import { endpoints } from 'service/apiEndpoints'
+import CredentialsProvider from 'next-auth/providers/credentials'
+import NextAuth, { EventCallbacks, NextAuthOptions, Session } from 'next-auth'
+
 import {
   AuthResponse,
   getAccessTokenFromProvider,
@@ -12,6 +11,8 @@ import {
   refreshAccessToken,
   ServerUser,
 } from 'service/auth'
+import { apiClient } from 'service/apiClient'
+import { endpoints } from 'service/apiEndpoints'
 
 declare module 'next-auth/jwt' {
   /**
@@ -111,7 +112,7 @@ export const options: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user, account }) {
+    async signIn(/* { user, account } */) {
       // Can be used to check if the user is allowed to log in or not
       return true
     },
@@ -139,7 +140,7 @@ export const options: NextAuthOptions = {
         const keycloakToken = await getAccessTokenFromProvider(
           account.access_token,
           account.provider,
-          token.picture as string,
+          token.picture ?? '',
         )
         return {
           accessToken: keycloakToken.accessToken,

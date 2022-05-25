@@ -102,9 +102,7 @@ export async function refreshAccessToken(token: string): Promise<JWT> {
       endpoints.auth.refresh.url,
       { refreshToken: token },
       {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         method: 'POST',
       },
     )
@@ -136,9 +134,7 @@ export async function getAccessTokenFromProvider(
       endpoints.auth.providerLogin.url,
       { providerToken: token, provider, picture },
       {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         method: 'POST',
       },
     )
