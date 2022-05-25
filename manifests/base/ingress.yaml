@@ -7,12 +7,12 @@ spec:
     - host: podkrepi.bg
       http:
         paths:
-          - backend:
+          - pathType: ImplementationSpecific
+            backend:
               service:
                 name: frontend-headless
                 port:
                   number: 3040
-            pathType: ImplementationSpecific
           - path: /api/v1
             pathType: Prefix
             backend:
