@@ -148,6 +148,7 @@ async function refreshAccessToken(token: string): Promise<JWT> {
   }
 }
 export const options: NextAuthOptions = {
+  debug: true,
   pages: {
     signIn: '/login',
     signOut: '/',
