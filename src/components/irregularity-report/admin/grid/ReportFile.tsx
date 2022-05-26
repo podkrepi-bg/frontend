@@ -53,7 +53,7 @@ export default function ReportFile({ file, reportId }: Props) {
       <ListItemText primary={file.filename} />
       <Button>
         {/* TODO: to be discussed */}
-        <a href={API_URL + `/api/report-file/${file.id}`}>{t('admin.cta.download')}</a>
+        <a href={API_URL + `/report-file/${file.id}`}>{t('admin.cta.download')}</a>
       </Button>
       <Button onClick={deleteFileHandler}>{t('admin.cta.delete')}</Button>
     </ListItem>
