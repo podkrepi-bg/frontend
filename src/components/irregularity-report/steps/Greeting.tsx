@@ -28,7 +28,8 @@ export default function Greeting() {
           <Typography variant="h6" sx={greetingStyles}>
             {t('steps.greeting.welcome')}{' '}
             {session &&
-              (session?.user?.preferred_username
+              session.user &&
+              (session.user.preferred_username
                 ? session.user.preferred_username
                 : session.user.given_name)}
           </Typography>
