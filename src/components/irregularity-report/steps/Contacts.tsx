@@ -2,10 +2,8 @@ import React from 'react'
 import { useTranslation } from 'next-i18next'
 
 import { styled } from '@mui/system'
-import { ThemeProvider } from '@mui/styles'
 import { Grid, Typography } from '@mui/material'
 
-import theme from 'common/theme'
 import { routes } from 'common/routes'
 
 import Link from 'components/common/Link'
@@ -24,61 +22,59 @@ export default function Contacts() {
   const { t } = useTranslation('irregularity-report')
 
   return (
-    <ThemeProvider theme={theme}>
-      <Grid container spacing={4} alignContent="center">
-        <Subtitle label={t('steps.contacts.subtitle')} />
-        <Grid item xs={12}>
-          <Typography variant="body1" textAlign="justify">
-            {t('steps.contacts.text')}
-            <Link href={routes.privacyPolicy}>
-              <span>{t('steps.contacts.text-link') + '.'}</span>
-            </Link>
-          </Typography>
-          <Typography visibility="hidden" variant="body1">
-            {'helper'}
-          </Typography>
+    <Grid container spacing={4} alignContent="center">
+      <Subtitle label={t('steps.contacts.subtitle')} />
+      <Grid item xs={12}>
+        <Typography variant="body1" textAlign="justify">
+          {t('steps.contacts.text')}
+          <Link href={routes.privacyPolicy}>
+            <span>{t('steps.contacts.text-link') + '.'}</span>
+          </Link>
+        </Typography>
+        <Typography visibility="hidden" variant="body1">
+          {'helper'}
+        </Typography>
+      </Grid>
+      <Grid item container spacing={4} justifyContent="space-between" direction="row">
+        <Grid container item xs={12} md={6} flexWrap="nowrap">
+          <CssTextField
+            fullWidth
+            label={t('steps.contacts.first-name')}
+            type="text"
+            name="person.firstName"
+            autoComplete="off"
+          />
         </Grid>
-        <Grid item container spacing={4} justifyContent="space-between" direction="row">
-          <Grid container item xs={12} md={6} flexWrap="nowrap">
-            <CssTextField
-              fullWidth
-              label={t('steps.contacts.first-name')}
-              type="text"
-              name="person.firstName"
-              autoComplete="off"
-            />
-          </Grid>
-          <Grid container item xs={12} md={6} flexWrap="nowrap">
-            <CssTextField
-              fullWidth
-              label={t('steps.contacts.last-name')}
-              type="text"
-              name="person.lastName"
-              autoComplete="off"
-            />
-          </Grid>
-        </Grid>
-        <Grid item container spacing={4} justifyContent="space-between" direction="row">
-          <Grid container item xs={12} md={6} flexWrap="nowrap">
-            <CssTextField
-              fullWidth
-              label={t('steps.contacts.phone')}
-              type="phone"
-              name="person.phone"
-              autoComplete="off"
-            />
-          </Grid>
-          <Grid container item xs={12} md={6} flexWrap="nowrap">
-            <CssTextField
-              fullWidth
-              label={t('steps.contacts.email')}
-              type="email"
-              name="person.email"
-              autoComplete="off"
-            />
-          </Grid>
+        <Grid container item xs={12} md={6} flexWrap="nowrap">
+          <CssTextField
+            fullWidth
+            label={t('steps.contacts.last-name')}
+            type="text"
+            name="person.lastName"
+            autoComplete="off"
+          />
         </Grid>
       </Grid>
-    </ThemeProvider>
+      <Grid item container spacing={4} justifyContent="space-between" direction="row">
+        <Grid container item xs={12} md={6} flexWrap="nowrap">
+          <CssTextField
+            fullWidth
+            label={t('steps.contacts.phone')}
+            type="phone"
+            name="person.phone"
+            autoComplete="off"
+          />
+        </Grid>
+        <Grid container item xs={12} md={6} flexWrap="nowrap">
+          <CssTextField
+            fullWidth
+            label={t('steps.contacts.email')}
+            type="email"
+            name="person.email"
+            autoComplete="off"
+          />
+        </Grid>
+      </Grid>
+    </Grid>
   )
 }

@@ -1,44 +1,48 @@
 import { useTranslation } from 'next-i18next'
 
-import { Grid, Theme } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import { Grid } from '@mui/material'
+import { styled } from '@mui/material/styles'
 import { ReportGmailerrorred } from '@mui/icons-material'
 
 import { CampaignResponse } from 'gql/campaigns'
 
 import LinkButton from 'components/common/LinkButton'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    reportWrapper: {
-      backgroundColor: theme.palette.common.white,
-      borderRadius: theme.spacing(1),
-      height: 'fit-content',
-      boxShadow: '1px 2px 8px #8888888c',
-    },
-    reportButton: {
-      padding: theme.spacing(0.75, 1),
-      borderColor: theme.palette.warning.main,
-      color: 'black',
-      textAlign: 'center',
-    },
-    reportIcon: {
-      marginLeft: theme.spacing(2),
-    },
-  }),
-)
+const PREFIX = 'IrrregularityReport'
+
+const classes = {
+  irregularityReportWrapper: `${PREFIX}-irregularityReportWrapper`,
+  reportButton: `${PREFIX}-reportButton`,
+  reportIcon: `${PREFIX}-reportIcon`,
+}
+
+const StyledGrid = styled(Grid)(({ theme }) => ({
+  [`&.${classes.irregularityReportWrapper}`]: {
+    backgroundColor: theme.palette.common.white,
+    borderRadius: theme.spacing(1),
+    height: 'fit-content',
+    boxShadow: '1px 2px 8px #8888888c',
+  },
+  [`& .${classes.reportButton}`]: {
+    padding: theme.spacing(0.75, 1),
+    borderColor: theme.palette.warning.main,
+    color: 'black',
+    textAlign: 'center',
+  },
+  [`& .${classes.reportIcon}`]: {
+    marginLeft: theme.spacing(2),
+  },
+}))
 
 type Props = {
   campaign: CampaignResponse
 }
 
 export default function IrregularityReport({ campaign }: Props) {
-  const classes = useStyles()
   const { t } = useTranslation()
 
   return (
-    <Grid item xs={12} mt={5} p={3} className={classes.reportWrapper}>
+    <StyledGrid item xs={12} mt={5} p={3} className={classes.irregularityReportWrapper}>
       <LinkButton
         fullWidth
         href={`/campaigns/${campaign.slug}/report`}
@@ -49,6 +53,6 @@ export default function IrregularityReport({ campaign }: Props) {
         className={classes.reportButton}>
         {t('irregularity-report:report-btn')}
       </LinkButton>
-    </Grid>
+    </StyledGrid>
   )
 }

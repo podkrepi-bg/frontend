@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
     sideWrapper: {
       [theme.breakpoints.down('md')]: {
         maxWidth: 'max-content',
+        flexBasis: 'fit-content',
       },
     },
   }),

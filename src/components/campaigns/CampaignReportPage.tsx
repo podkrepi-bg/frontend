@@ -3,11 +3,11 @@ import React from 'react'
 import { Container } from '@mui/material'
 
 import { useViewCampaign } from 'common/hooks/campaigns'
+import { useCurrentPerson } from 'common/util/useCurrentPerson'
 
 import NotFoundPage from 'pages/404'
 import Layout from 'components/layout/Layout'
 import CampaignReportForm from 'components/irregularity-report/CampaignReportForm'
-import { useCurrentPerson } from 'common/util/useCurrentPerson'
 
 type Props = { slug: string }
 
@@ -17,7 +17,7 @@ export default function CampaignReportPage({ slug }: Props) {
   const { campaign } = data
 
   const { data: userData } = useCurrentPerson()
-  const person = userData?.user || undefined
+  const person = userData?.user || null
 
   return (
     <Layout maxWidth={false}>

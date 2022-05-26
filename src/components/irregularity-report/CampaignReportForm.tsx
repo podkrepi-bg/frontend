@@ -104,7 +104,7 @@ const initialValues: CampaignReportFormData = {
 
 type Props = {
   campaign: CampaignResponse
-  person?: Person
+  person: Person | null
 }
 
 export default function CampaignReportForm({ campaign, person }: Props) {
