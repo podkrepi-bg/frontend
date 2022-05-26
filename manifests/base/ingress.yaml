@@ -2,38 +2,41 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: web
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-buffer-size: '8k'
 spec:
   rules:
     - host: podkrepi.bg
       http:
         paths:
-          - backend:
+          - pathType: ImplementationSpecific
+            backend:
               service:
                 name: frontend-headless
                 port:
                   number: 3040
-            pathType: ImplementationSpecific
-          - backend:
+          - path: /api/v1
+            pathType: Prefix
+            backend:
               service:
                 name: api-headless
                 port:
                   number: 80
-            path: /docs
+          - path: /swagger
             pathType: Prefix
-          - backend:
+            backend:
               service:
                 name: api-headless
                 port:
                   number: 80
-            path: /docs-json
+          - path: /swagger-json
             pathType: Prefix
-          - backend:
+            backend:
               service:
                 name: api-headless
                 port:
                   number: 80
-            path: /api
-            pathType: Prefix
+
   tls:
     - hosts:
         - podkrepi.bg

@@ -9,6 +9,8 @@ export const endpoints = {
   auth: {
     login: <Endpoint>{ url: '/login', method: 'POST' },
     register: <Endpoint>{ url: '/register', method: 'POST' },
+    refresh: <Endpoint>{ url: '/refresh', method: 'POST' },
+    providerLogin: <Endpoint>{ url: '/provider-login', method: 'POST' },
   },
   campaign: {
     listCampaigns: <Endpoint>{ url: '/campaign/list', method: 'GET' },
@@ -40,6 +42,7 @@ export const endpoints = {
     createBankDonation: <Endpoint>{ url: '/donation/create-bank-payment', method: 'POST' },
     donationsList: <Endpoint>{ url: '/donation/list', method: 'GET' },
     getDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'GET' },
+    getUserDonation: (id: string) => <Endpoint>{ url: `/donation/user/${id}`, method: 'GET' },
     editDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'PATCH' },
     deleteDonation: <Endpoint>{ url: `/donation/delete`, method: 'POST' },
     userDonations: <Endpoint>{ url: 'donation/user-donations', method: 'GET' },

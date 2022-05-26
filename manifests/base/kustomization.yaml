@@ -3,7 +3,6 @@ kind: Kustomization
 
 resources:
   - config-web.yaml
-  - secrets-web.yaml
   - keycloak-config-web.yaml
   - ingress.yaml
   - service.yaml

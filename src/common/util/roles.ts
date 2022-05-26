@@ -1,6 +1,10 @@
 import { Session } from 'next-auth'
 import { JWT } from 'next-auth/jwt'
 
+export type SessionRoles = {
+  realmRoles: RealmRole[] | undefined
+  resourceRoles: ResourceRole[] | undefined
+}
 export type RealmRole =
   | 'view-supporters'
   | 'view-contact-requests'
@@ -27,28 +31,34 @@ export const roles = {
   },
 }
 
-export const hasResourceRole = (session: Session | JWT, role: ResourceRole): boolean => {
-  return session.user.resource_access.account.roles.includes(role)
+export const hasResourceRole = (sessionRoles: SessionRoles, role: ResourceRole): boolean => {
+  return sessionRoles.resourceRoles ? sessionRoles.resourceRoles.includes(role) : false
 }
-export const hasRealmRole = (session: Session | JWT, role: RealmRole): boolean => {
-  return session.user.realm_access.roles.includes(role)
+export const hasRealmRole = (sessionRoles: SessionRoles, role: RealmRole): boolean => {
+  return sessionRoles.realmRoles ? sessionRoles.realmRoles.includes(role) : false
 }
 
-export const canViewContactRequests = (session: Session | JWT): boolean => {
+export const canViewContactRequests = (sessionRoles: SessionRoles): boolean => {
   return (
-    hasResourceRole(session, roles.resource.ViewContactRequests) ||
-    hasRealmRole(session, roles.realm.RealmViewContactRequests)
+    hasResourceRole(sessionRoles, roles.resource.ViewContactRequests) ||
+    hasRealmRole(sessionRoles, roles.realm.RealmViewContactRequests)
   )
 }
 
-export const canViewSupporters = (session: Session | JWT): boolean => {
+export const canViewSupporters = (sessionRoles: SessionRoles): boolean => {
   return (
-    hasResourceRole(session, roles.resource.ViewSupporters) ||
-    hasRealmRole(session, roles.realm.RealmViewSupporters)
+    hasResourceRole(sessionRoles, roles.resource.ViewSupporters) ||
+    hasRealmRole(sessionRoles, roles.realm.RealmViewSupporters)
   )
 }
 
 export const isAdmin = (session: Session | JWT | null): boolean => {
-  if (!session) return false
-  return canViewContactRequests(session) && canViewSupporters(session)
+  if (session) {
+    const sessionRoles: SessionRoles = {
+      realmRoles: session.user?.realm_access.roles ?? [],
+      resourceRoles: session.user?.resource_access?.account.roles ?? [],
+    }
+    return canViewContactRequests(sessionRoles) && canViewSupporters(sessionRoles)
+  }
+  return false
 }

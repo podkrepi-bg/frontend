@@ -55,7 +55,7 @@ export default function HoverMenu({ menu, items, icon: Icon, isOpen }: Props) {
       <ListItemButton
         selected={isSelected}
         onClick={handleOpenMenu}
-        sx={{ borderRadius: '0 20px 20px 0' }}>
+        sx={{ borderRadius: '0 25px 25px 0' }}>
         <ListItemIcon
           title={menu}
           sx={(theme) => ({

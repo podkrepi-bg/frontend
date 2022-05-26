@@ -87,10 +87,10 @@ export default function CampaignCard({ campaign }: Props) {
           />
         </Link>
         <CardContent className={classes.cardContent}>
-          <Typography gutterBottom variant="h5" component="h2" className={classes.campaignTitle}>
+          <Typography textAlign={'left'} gutterBottom variant="h5" component="h2">
             {campaign.title}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography textAlign={'left'} variant="body2" color="textSecondary" component="p">
             {campaign.essence}
           </Typography>
         </CardContent>

@@ -27,7 +27,7 @@ export default function HowEverythingBegin() {
     <StyledGrid container alignItems="center" spacing={4}>
       <Grid xs={12} item>
         <Heading
-          id="principles-that-unite-us"
+          id="how-everyting-begin"
           variant="h4"
           component="h1"
           align="center"

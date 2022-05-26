@@ -20,7 +20,7 @@ export default function MemberCard({ info }: MemberCardProps) {
         justifyContent="center">
         <Avatar src={info.img} sx={{ width: 150, height: 150 }} />
       </Box>
-      <CardContent>
+      <CardContent sx={{ paddingX: theme.spacing(1) }}>
         <Typography gutterBottom variant="h6" component="div" align="center">
           {info.title}
         </Typography>

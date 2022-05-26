@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import { Grid } from '@mui/material'
+import { Button, Grid } from '@mui/material'
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { signIn } from 'next-auth/react'
@@ -12,6 +12,7 @@ import FormInput from 'components/common/form/FormInput'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
+import Google from 'common/icons/Google'
 
 export type LoginFormData = {
   email: string
@@ -64,7 +65,10 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
       setLoading(false)
     }
   }
-
+  const onGoogleLogin = () => {
+    const resp = signIn('google')
+    console.log(resp)
+  }
   return (
     <GenericForm
       onSubmit={onSubmit}
@@ -85,6 +89,11 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
         </Grid>
         <Grid item xs={12}>
           <SubmitButton fullWidth label="auth:cta.login" loading={loading} />
+        </Grid>
+        <Grid item xs={12}>
+          <Button fullWidth onClick={onGoogleLogin}>
+            <Google /> {t('nav.login-with')} Google
+          </Button>
         </Grid>
       </Grid>
     </GenericForm>
