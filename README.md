@@ -11,9 +11,7 @@
 <a target="_blank" rel="noopener noreferrer" href="https://github.com/podkrepi-bg/frontend/workflows/Build/badge.svg"><img src="https://github.com/podkrepi-bg/frontend/workflows/Build/badge.svg" alt="Build" style="max-width: 100%;"></a>
 <a href="https://github.com/podkrepi-bg/frontend/actions/workflows/docker-build-pr.yml"><img src="https://github.com/podkrepi-bg/frontend/actions/workflows/docker-build-pr.yml/badge.svg" alt="Build docker image" style="max-width: 100%;"></a></p>
   
-  <p align="center"><a target="_blank" rel="noopener noreferrer" href="https://img.shields.io/david/podkrepi-bg/frontend"><img src="https://img.shields.io/david/podkrepi-bg/frontend" alt="Dependencies" data-canonical-src="https://img.shields.io/david/podkrepi-bg/frontend" style="max-width: 100%;"></a>
-<a target="_blank" rel="noopener noreferrer" href="https://img.shields.io/david/dev/podkrepi-bg/frontend"><img src="https://img.shields.io/david/dev/podkrepi-bg/frontend" alt="Dev Dependencies" data-canonical-src="https://img.shields.io/david/dev/podkrepi-bg/frontend" style="max-width: 100%;"></a>
-<a target="_blank" rel="noopener noreferrer" href="https://img.shields.io/github/license/podkrepi-bg/frontend"><img src="https://img.shields.io/github/license/podkrepi-bg/frontend" alt="" data-canonical-src="https://img.shields.io/github/license/podkrepi-bg/frontend" style="max-width: 100%;"></a>
+  <p align="center"><a target="_blank" rel="noopener noreferrer" href="https://img.shields.io/github/license/podkrepi-bg/frontend"><img src="https://img.shields.io/github/license/podkrepi-bg/frontend" alt="" data-canonical-src="https://img.shields.io/github/license/podkrepi-bg/frontend" style="max-width: 100%;"></a>
 <a target="_blank" rel="noopener noreferrer" href="https://img.shields.io/github/issues/podkrepi-bg/frontend"><img src="https://img.shields.io/github/issues/podkrepi-bg/frontend" alt="" data-canonical-src="https://img.shields.io/github/issues/podkrepi-bg/frontend" style="max-width: 100%;"></a></p>
 
 </p>
