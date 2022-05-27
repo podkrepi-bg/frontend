@@ -1,14 +1,16 @@
 {
-  "title": "Podkrepi.bg",
+  "podkrepi": "Podkrepi.bg",
+  "title": "a transparent online donation platform",
   "jumbotron": {
-    "heading": "An online donation platform",
-    "maximum-transparency": "with a maximum degree of transparency",
-    "zero-commission": "with 0% commission from the contributor",
+    "heading": "We stimulate the donation culture through transparency in raising and allocating funds to the causes without deducting fees and commissions for Podkrepi.bg.",
+    "maximum-transparency": "with maximum transparency",
+    "zero-commission": "with 0% commission",
     "eliminate-misuse": "aimed at eliminating misuses of donation campaigns",
     "improve-donation-culture": "aimed at improving the donation culture in Bulgaria",
     "open-source": "open source",
     "about-project-button": "About the project",
-    "support-us-button": "Support us"
+    "support-us-button": "Support us",
+    "support-a-cause": "Support a cause ❤️"
   },
   "activity-section": {
     "heading": "What do we do?",
