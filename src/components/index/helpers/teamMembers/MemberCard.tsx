@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next'
 import { Avatar, Box, Button, Card, CardActions, CardContent, Typography } from '@mui/material'
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow'
 import { WhatUnitesUsItem } from './memberData'
@@ -9,6 +10,8 @@ type MemberCardProps = {
 }
 
 export default function MemberCard({ info }: MemberCardProps) {
+  const { t } = useTranslation()
+
   return (
     <Card sx={{ backgroundColor: theme.palette.secondary.light }}>
       <Box
@@ -34,7 +37,7 @@ export default function MemberCard({ info }: MemberCardProps) {
           variant="text"
           style={{ color: 'black' }}
           href={staticUrls.blog + info.blogLink}>
-          прочети още
+          {t('common:cta.read-more')}
         </Button>
         <DoubleArrowIcon fontSize="inherit" />
       </CardActions>
