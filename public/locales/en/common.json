@@ -67,6 +67,10 @@
     }
   },
   "or": "or",
+  "errors": {
+    "404Message": "Sorry, you landed on a non-existent page ...",
+    "backButtonLabel": "Back"
+  },
   "fields": {
     "currency": "Currency",
     "personId": "Person",
@@ -75,5 +79,8 @@
     "targetCampaignId": "Target campaign",
     "sourceVaultId": "Source vault",
     "targetVaultId": "Target vault"
+  },
+  "cta": {
+    "read-more": "Read more"
   }
 }

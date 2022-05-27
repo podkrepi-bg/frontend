@@ -80,5 +80,8 @@
     "vaultId": "Трезор",
     "sourceVaultId": "От трезор",
     "targetVaultId": "Към трезор"
+  },
+  "cta": {
+    "read-more": "Прочети още"
   }
 }
