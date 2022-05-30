@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import { Button, Grid } from '@mui/material'
+import { Button, Grid, IconButton, InputAdornment } from '@mui/material'
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { signIn } from 'next-auth/react'
@@ -13,6 +13,7 @@ import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import Google from 'common/icons/Google'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 
 export type LoginFormData = {
   email: string
@@ -40,7 +41,7 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
   const { t } = useTranslation()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
-
+  const [passwordType, setPasswordType] = useState('password')
   const onSubmit = async (values: LoginFormData) => {
     try {
       setLoading(true)
@@ -81,10 +82,26 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
         </Grid>
         <Grid item xs={12}>
           <FormTextField
-            type="password"
+            type={passwordType}
             name="password"
             autoComplete="password"
             label="auth:fields.password"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() =>
+                      passwordType === 'password'
+                        ? setPasswordType('text')
+                        : setPasswordType('password')
+                    }
+                    edge="end">
+                    {passwordType !== 'password' ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
         </Grid>
         <Grid item xs={12}>
