@@ -10,6 +10,8 @@ import { money } from 'common/util/money'
 import { ibanNumber } from 'common/iban'
 import { CopyTextButton } from 'components/common/CopyTextButton'
 import { StepsContext } from '../helpers/stepperContext'
+import FormTextField from 'components/common/form/FormTextField'
+import useMobile from 'common/hooks/useMobile'
 
 const PREFIX = 'FirstStep'
 
@@ -27,13 +29,14 @@ const Root = styled('div')(() => ({
 export default function FirstStep() {
   const { data: prices } = useSinglePriceList()
   const { t } = useTranslation('one-time-donation')
-
+  const { mobile } = useMobile()
   const options = [
     { value: 'card', label: t('third-step.card') },
     { value: 'bank', label: t('third-step.bank-payment') },
   ]
 
   const [paymentField] = useField('payment')
+  const [amount] = useField('amount')
   const { campaign } = useContext(StepsContext)
   const bankAccountInfo = {
     owner: t('third-step.owner'),
@@ -124,6 +127,25 @@ export default function FirstStep() {
                 .concat({ label: 'Other', value: 'other' }) || []
             }
           />
+          <Collapse in={amount.value === 'other'} timeout="auto">
+            <Grid
+              style={
+                !mobile
+                  ? {
+                      float: 'right',
+                      marginTop: theme.spacing(-10),
+                      width: 325,
+                    }
+                  : { marginTop: theme.spacing(2) }
+              }>
+              <FormTextField
+                name="otherAmount"
+                type="number"
+                label={t('first-step.amount')}
+                InputProps={{ style: { fontSize: 20, padding: 16 } }}
+              />
+            </Grid>
+          </Collapse>
         </Box>
       </Collapse>
     </Root>

@@ -12,6 +12,10 @@ export const validateFirst: yup.SchemaOf<FirstStep> = yup
       // Here we should fetch the possible payments to put into the oneOf, but it's not that important
       then: yup.string().required(),
     }),
+    otherAmount: yup.number().when('amount', {
+      is: 'other',
+      then: yup.number().min(100, 'one-time-donation:errors-fields.other-amount').required(),
+    }),
   })
 
 export const validateSecond: yup.SchemaOf<SecondStep> = yup
