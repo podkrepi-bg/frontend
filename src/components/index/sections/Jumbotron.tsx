@@ -12,6 +12,7 @@ export default function Jumbotron() {
   //Check if the media query is match and breakpoint is up sm device
   const matches = useMediaQuery<Theme>((theme) => theme.breakpoints.up('sm'))
   const imgSource = matches ? '/img/family.jpg' : '/img/family.jpg'
+
   return (
     <Grid
       container
