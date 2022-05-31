@@ -19,8 +19,8 @@ const classes = {
 const StyledAccordion = styled(Accordion)(({ theme }) => ({
   [`&.${classes.accordionWrapper}`]: {
     boxShadow: 'none',
-    border: '1px solid rgba(50, 169, 254, 0.5)',
-    borderRadius: `${theme.shape.borderRadius} !important`,
+    border: '2px solid rgba(50, 169, 254, 0.5)',
+    borderRadius: '25px !important',
     color: theme.palette.primary.dark,
     textAlign: 'center',
   },
