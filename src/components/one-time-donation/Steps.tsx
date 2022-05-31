@@ -68,7 +68,10 @@ export default function DonationStepper() {
       const data = {
         currency: 'BGN',
         priceId: values.amount !== 'other' ? values.amount : undefined,
-        amount: values.amount === 'other' ? values.otherAmount : undefined,
+        amount:
+          values.amount === 'other'
+            ? Math.round((values.otherAmount + Number.EPSILON) * 100)
+            : undefined,
       }
       await donate(data.amount, data.priceId)
       resetForm()

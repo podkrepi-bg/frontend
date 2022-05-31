@@ -14,7 +14,7 @@ export const validateFirst: yup.SchemaOf<FirstStep> = yup
     }),
     otherAmount: yup.number().when('amount', {
       is: 'other',
-      then: yup.number().min(100, 'one-time-donation:errors-fields.other-amount').required(),
+      then: yup.number().min(1, 'one-time-donation:errors-fields.other-amount').required(),
     }),
   })
 

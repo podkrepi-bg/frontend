@@ -2,7 +2,16 @@ import React, { useContext } from 'react'
 import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import { useField } from 'formik'
-import { Alert, Box, Collapse, Divider, Grid, List, Typography } from '@mui/material'
+import {
+  Alert,
+  Box,
+  Collapse,
+  Divider,
+  Grid,
+  InputAdornment,
+  List,
+  Typography,
+} from '@mui/material'
 import theme from 'common/theme'
 import { useSinglePriceList } from 'common/hooks/donation'
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
@@ -142,7 +151,14 @@ export default function FirstStep() {
                 name="otherAmount"
                 type="number"
                 label={t('first-step.amount')}
-                InputProps={{ style: { fontSize: 20, padding: 16 } }}
+                InputProps={{
+                  style: { fontSize: 20, padding: 16 },
+                  endAdornment: (
+                    <InputAdornment variant="filled" position="end">
+                      Лв.
+                    </InputAdornment>
+                  ),
+                }}
               />
             </Grid>
           </Collapse>
