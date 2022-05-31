@@ -12,7 +12,7 @@ import { customValidators } from 'common/form/useForm'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
-import PasswordVisibility from 'components/common/PasswordVisibility'
+import PasswordField from 'components/common/form/PasswordField'
 
 export type RegisterFormData = {
   firstName: string
@@ -44,7 +44,6 @@ export default function RegisterForm({ initialValues = defaults }: RegisterFormP
   const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
   const { mutateAsync: register } = useRegister()
-  const [passwordType, setPasswordType] = useState('password')
   const onSubmit = async (values: RegisterFormData) => {
     try {
       setLoading(true)
@@ -99,14 +98,7 @@ export default function RegisterForm({ initialValues = defaults }: RegisterFormP
           <FormTextField type="text" label="auth:fields.email" name="email" autoComplete="email" />
         </Grid>
         <Grid item xs={12}>
-          <FormTextField
-            type={passwordType}
-            label="auth:fields.password"
-            name="password"
-            InputProps={{
-              endAdornment: <PasswordVisibility type={passwordType} setType={setPasswordType} />,
-            }}
-          />
+          <PasswordField />
         </Grid>
         <Grid item xs={12}>
           <SubmitButton fullWidth label="auth:cta.register" loading={loading} />
