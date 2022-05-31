@@ -20,7 +20,7 @@ import { ibanNumber } from 'common/iban'
 import { CopyTextButton } from 'components/common/CopyTextButton'
 import { StepsContext } from '../helpers/stepperContext'
 import FormTextField from 'components/common/form/FormTextField'
-import useMobile from 'common/hooks/useMobile'
+import { useMediaQuery } from '@mui/material'
 
 const PREFIX = 'FirstStep'
 
@@ -38,7 +38,7 @@ const Root = styled('div')(() => ({
 export default function FirstStep() {
   const { data: prices } = useSinglePriceList()
   const { t } = useTranslation('one-time-donation')
-  const { mobile } = useMobile()
+  const mobile = useMediaQuery('(max-width:568px)')
   const options = [
     { value: 'card', label: t('third-step.card') },
     { value: 'bank', label: t('third-step.bank-payment') },
@@ -143,7 +143,7 @@ export default function FirstStep() {
                   ? {
                       float: 'right',
                       marginTop: theme.spacing(-10),
-                      width: 325,
+                      width: '49%',
                     }
                   : { marginTop: theme.spacing(2) }
               }>
