@@ -23,6 +23,7 @@ const initialValues: OneTimeDonation = {
   message: '',
   anonymous: false,
   amount: '',
+  otherAmount: 0,
   anonymousDonation: false,
   personFirstName: '',
   personLastName: '',
@@ -43,9 +44,10 @@ export default function DonationStepper() {
   const mutation = useDonationSession()
 
   const donate = React.useCallback(
-    async (priceId: string) => {
+    async (amount?: number, priceId?: string) => {
       const { data } = await mutation.mutateAsync({
         mode: 'payment',
+        amount,
         priceId,
         campaignId: campaign.id,
         successUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=true`,
@@ -65,9 +67,13 @@ export default function DonationStepper() {
     try {
       const data = {
         currency: 'BGN',
-        priceId: values.amount,
+        priceId: values.amount !== 'other' ? values.amount : undefined,
+        amount:
+          values.amount === 'other'
+            ? Math.round((values.otherAmount + Number.EPSILON) * 100)
+            : undefined,
       }
-      await donate(data.priceId)
+      await donate(data.amount, data.priceId)
       resetForm()
     } catch (error) {
       if (isAxiosError(error)) {
