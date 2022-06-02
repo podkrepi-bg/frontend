@@ -92,8 +92,8 @@ export default function Jumbotron() {
                   xs: 260,
                   md: 320,
                 },
-                marginRight: theme.spacing(4),
-                marginBottom: {
+                mr: theme.spacing(4),
+                mb: {
                   xs: theme.spacing(1.5),
                   sm: 0,
                 },
