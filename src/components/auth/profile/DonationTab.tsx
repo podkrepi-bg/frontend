@@ -33,6 +33,7 @@ const PREFIX = 'DonationTab'
 const classes = {
   donationsBox: `${PREFIX}-donationsBox`,
   donationsBoxRow: `${PREFIX}-donationsBoxRow`,
+  h1: `${PREFIX}-h1`,
 }
 
 const StyledProfileTab = styled(ProfileTab)({
@@ -49,6 +50,13 @@ const StyledProfileTab = styled(ProfileTab)({
     display: 'flex',
     justifyContent: 'space-between',
   },
+  [`& .${classes.h1}`]: {
+    fontStyle: 'normal',
+    fontWeight: '500',
+    fontSize: '45px',
+    lineHeight: '65px',
+    margin: '0',
+  },
 })
 
 export default function DonationTab() {
@@ -64,9 +72,8 @@ export default function DonationTab() {
   const { data: userDonations, isLoading: isUserDonationLoading } = useUserDonations()
   const { data: campaigns, isLoading: isCampaignLoading } = useCampaignList()
   return (
-    <StyledProfileTab
-      title={user?.user ? user.user.firstName + ',' : ''}
-      name={ProfileTabs.donations}>
+    <StyledProfileTab name={ProfileTabs.donations}>
+      <Typography className={classes.h1}>{user?.user ? user.user.firstName + ',' : ''}</Typography>
       <Typography variant="h5" fontWeight={'medium'}>
         {t('profile:donations.helpThanks')} ❤️
       </Typography>
