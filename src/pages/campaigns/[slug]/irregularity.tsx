@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { queryFn } from 'service/restRequests'
-import ViewCampaignPage from 'components/campaigns/ViewCampaignPage'
+import IrregularityPage from 'components/campaigns/IrregularityPage'
 
 export const getServerSideProps: GetServerSideProps = async ({ query, locale }) => {
   const { slug } = query
@@ -24,4 +24,4 @@ export const getServerSideProps: GetServerSideProps = async ({ query, locale }) 
   }
 }
 
-export default ViewCampaignPage
+export default IrregularityPage

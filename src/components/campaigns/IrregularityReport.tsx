@@ -45,13 +45,13 @@ export default function IrregularityReport({ campaign }: Props) {
     <StyledGrid item xs={12} mt={5} p={3} className={classes.irregularityReportWrapper}>
       <LinkButton
         fullWidth
-        href={`/campaigns/${campaign.slug}/report`}
+        href={`/campaigns/${campaign.slug}/irregularity`}
         variant="outlined"
         size="small"
         startIcon={<ReportGmailerrorred className={classes.reportIcon} />}
         color="secondary"
         className={classes.reportButton}>
-        {t('irregularity-report:report-btn')}
+        {t('irregularity:report-btn')}
       </LinkButton>
     </StyledGrid>
   )

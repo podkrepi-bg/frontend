@@ -12,7 +12,7 @@ import { TranslatableField } from 'common/form/validation'
 type Props = {
   label: string
   name: string
-  campaigns: CampaignResponse[]
+  campaigns?: CampaignResponse[]
 } & TextFieldProps
 
 export default function CampaignSelect({ label, name, campaigns, ...textFieldProps }: Props) {

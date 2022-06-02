@@ -32,7 +32,7 @@ export const menuPeople = [
 export const menuCampaings = [
   { label: 'Кампании', icon: AssignmentInd, href: routes.admin.campaigns.index },
   { label: 'Документи', icon: FolderShared, href: routes.admin.documents.index },
-  { label: 'Сигнали', icon: ReportGmailerrorredIcon, href: routes.admin.campaignReport.index },
+  { label: 'Злоупотреби', icon: ReportGmailerrorredIcon, href: routes.admin.irregularity.index },
 ]
 
 export const menuPayments = [
@@ -85,5 +85,5 @@ export const menuItems = [
     icon: VolunteerActivism,
     href: routes.admin.recurringDonation.index,
   },
-  { label: 'Сигнали', icon: ReportGmailerrorredIcon, href: routes.admin.campaignReport.index },
+  { label: 'Злоупотреби', icon: ReportGmailerrorredIcon, href: routes.admin.irregularity.index },
 ]

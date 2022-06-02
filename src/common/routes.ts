@@ -141,10 +141,10 @@ export const routes = {
       create: '/admin/recurring-donation/create',
       view: (id: string) => `/admin/recurring-donation/${id}`,
     },
-    campaignReport: {
-      index: '/admin/campaign-reports',
-      create: '/admin/campaign-reports/create',
-      view: (id: string) => `/admin/campaign-reports/${id}`,
+    irregularity: {
+      index: '/admin/irregularities',
+      create: '/admin/irregularities/create',
+      view: (id: string) => `/admin/irregularities/${id}`,
     },
   },
   dev: {

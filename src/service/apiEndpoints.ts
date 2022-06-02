@@ -156,20 +156,19 @@ export const endpoints = {
     deleteRecurringDonation: (id: string) =>
       <Endpoint>{ url: `/recurring-donation/${id}`, method: 'DELETE' },
   },
-  campaignReportFile: {
-    uploadCampaignReportFile: (campaignReportId: string) =>
-      <Endpoint>{ url: `/report-file/${campaignReportId}`, method: 'POST' },
-    listCampaignReportFiles: (campaignReportId: string) =>
-      <Endpoint>{ url: `/report-file/list/${campaignReportId}`, method: 'GET' },
-    deleteCampaignReportFile: (id: string) =>
-      <Endpoint>{ url: `/report-file/${id}`, method: 'DELETE' },
+  irregularityFile: {
+    uploadIrregularityFile: (irregularityId: string) =>
+      <Endpoint>{ url: `/irregularity-file/${irregularityId}`, method: 'POST' },
+    listIrregularityFiles: (irregularityId: string) =>
+      <Endpoint>{ url: `/irregularity-file/list/${irregularityId}`, method: 'GET' },
+    deleteIrregularityFile: (id: string) =>
+      <Endpoint>{ url: `/irregularity-file/${id}`, method: 'DELETE' },
   },
-  campaignReport: {
-    createCampaignReport: <Endpoint>{ url: '/campaign-report', method: 'POST' },
-    campaignReportsList: <Endpoint>{ url: '/campaign-report/list', method: 'GET' },
-    viewCampaignReport: (id: string) => <Endpoint>{ url: `/campaign-report/${id}`, method: 'GET' },
-    editCampaignReport: (id: string) => <Endpoint>{ url: `/campaign-report/${id}`, method: 'PUT' },
-    removeCampaignReport: (id: string) =>
-      <Endpoint>{ url: `/campaign-report/${id}`, method: 'DELETE' },
+  irregularity: {
+    createIrregularity: <Endpoint>{ url: '/irregularity', method: 'POST' },
+    irregularitysList: <Endpoint>{ url: '/irregularity/list', method: 'GET' },
+    viewIrregularity: (id: string) => <Endpoint>{ url: `/irregularity/${id}`, method: 'GET' },
+    editIrregularity: (id: string) => <Endpoint>{ url: `/irregularity/${id}`, method: 'PUT' },
+    removeIrregularity: (id: string) => <Endpoint>{ url: `/irregularity/${id}`, method: 'DELETE' },
   },
 }
