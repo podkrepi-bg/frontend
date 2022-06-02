@@ -24,17 +24,14 @@ export default function CampaignsList({ campaignToShow }: Props) {
     <Grid container justifyContent="center" spacing={2}>
       <Grid container justifyContent="center" spacing={2}>
         {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
-        {!campaignToShow.length ? (
-          <CircularProgress size={425} />
-        ) : (
+        {(!campaigns.length && <CircularProgress size={425} />) ||
           campaigns.map((campaign, index) => (
             <Grid key={index} item xs={12} sm={6} lg={4}>
               <Box textAlign="center">
                 <CampaignCard campaign={campaign} />
               </Box>
             </Grid>
-          ))
-        )}
+          ))}
       </Grid>
       {campaignToShow && campaignToShow?.length > numberOfMinimalShownCampaings ? (
         <Grid container justifyContent="center">
