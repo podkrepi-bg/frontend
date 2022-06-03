@@ -78,6 +78,7 @@ export default function ProfilePage() {
             backgroundColor: 'white',
             borderRadius: '25px 25px 0px 0px',
             padding: '10px 30px',
+            boxShadow: 3,
           }}>
           <h1 className={classes.h1}>Дарителски профил</h1>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
