@@ -15,7 +15,7 @@ export default function IrregularityPage() {
 
   return (
     <AdminLayout>
-      <AdminContainer title={t('admin.reports')}>
+      <AdminContainer title={t('admin.irregularities')}>
         <GridAppbar />
         <Grid />
       </AdminContainer>

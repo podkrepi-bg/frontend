@@ -26,7 +26,7 @@ export default function EditPage() {
 
   return (
     <AdminLayout>
-      <AdminContainer title={t('admin.irregularitys')}>
+      <AdminContainer title={t('admin.irregularities')}>
         <Container maxWidth="md" sx={{ py: 5 }}>
           {irregularity && campaigns && irregularityFiles && (
             <EditForm

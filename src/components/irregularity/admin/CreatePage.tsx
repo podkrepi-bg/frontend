@@ -20,7 +20,7 @@ export default function CreatePage() {
 
   return (
     <AdminLayout>
-      <AdminContainer title={t('admin.reports')}>
+      <AdminContainer title={t('admin.irregularities')}>
         <Container maxWidth="md" sx={{ py: 5 }}>
           <CreateForm campaigns={campaigns} person={person} />
         </Container>

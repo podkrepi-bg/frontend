@@ -199,7 +199,7 @@ export default function CreateForm({ campaigns, person }: Props) {
               multiline
               type="text"
               name="description"
-              label={t('admin.fields.content')}
+              label={t('admin.fields.description')}
               className={classes.content}
             />
           </Grid>

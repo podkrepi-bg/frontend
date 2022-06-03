@@ -32,7 +32,7 @@ export default function IrregularityReasonSelect({ name = 'info.reason' }) {
       helperText={helperText}>
       {values.map((value, index) => (
         <MenuItem key={index} value={value}>
-          {value === IrregularityReason.OTHER ? '' : t(`reason.${value}`)}
+          {t(`reason.${value}`)}
         </MenuItem>
       ))}
     </TextField>

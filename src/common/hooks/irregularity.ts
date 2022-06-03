@@ -13,7 +13,7 @@ export function useIrregularityList() {
   const { data: session } = useSession()
 
   return useQuery<IrregularityResponse[]>(
-    endpoints.irregularity.irregularitysList.url,
+    endpoints.irregularity.irregularityList.url,
     authQueryFnFactory<IrregularityResponse[]>(session?.accessToken),
   )
 }

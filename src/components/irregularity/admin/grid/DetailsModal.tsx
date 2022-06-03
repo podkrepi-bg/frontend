@@ -20,7 +20,7 @@ export default observer(function DetailsModal() {
     { name: t('admin.fields.createdAt'), value: data?.createdAt.toString().slice(0, 10) },
     { name: t('admin.fields.campaign'), value: data?.campaign.title },
     { name: t('admin.fields.reason'), value: t('reason.' + data?.reason) },
-    { name: t('admin.fields.content'), value: data?.description },
+    { name: t('admin.fields.description'), value: data?.description },
     {
       name: t('admin.fields.person'),
       value: `${data?.person?.firstName || ''} ${data?.person?.lastName || ''}`,

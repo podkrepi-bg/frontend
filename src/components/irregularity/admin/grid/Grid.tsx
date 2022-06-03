@@ -65,7 +65,7 @@ export default observer(function Grid() {
     },
     {
       field: 'description',
-      headerName: t('admin.fields.content'),
+      headerName: t('admin.fields.description'),
       editable: false,
       width: 300,
     },

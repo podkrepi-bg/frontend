@@ -4,7 +4,7 @@ import IrregularityPage from 'components/irregularity/admin/IrregularityPage'
 
 export const getServerSideProps = securedAdminProps(
   ['common', 'auth', 'validation', 'irregularity', 'admin'],
-  () => endpoints.irregularity.irregularitysList.url,
+  () => endpoints.irregularity.irregularityList.url,
 )
 
 export default IrregularityPage

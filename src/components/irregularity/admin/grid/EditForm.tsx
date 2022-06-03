@@ -207,7 +207,7 @@ export default function EditForm({ campaigns, irregularity, irregularityFiles }:
               multiline
               type="text"
               name="description"
-              label={t('admin.fields.content')}
+              label={t('admin.fields.description')}
               className={classes.content}
             />
           </Grid>

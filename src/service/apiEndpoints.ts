@@ -166,7 +166,7 @@ export const endpoints = {
   },
   irregularity: {
     createIrregularity: <Endpoint>{ url: '/irregularity', method: 'POST' },
-    irregularitysList: <Endpoint>{ url: '/irregularity/list', method: 'GET' },
+    irregularityList: <Endpoint>{ url: '/irregularity/list', method: 'GET' },
     viewIrregularity: (id: string) => <Endpoint>{ url: `/irregularity/${id}`, method: 'GET' },
     editIrregularity: (id: string) => <Endpoint>{ url: `/irregularity/${id}`, method: 'PUT' },
     removeIrregularity: (id: string) => <Endpoint>{ url: `/irregularity/${id}`, method: 'DELETE' },

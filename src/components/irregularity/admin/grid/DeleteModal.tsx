@@ -28,7 +28,7 @@ export default observer(function DeleteModal() {
     onSuccess: () => {
       hideDelete()
       AlertStore.show(t('admin.alerts.delete'), 'success')
-      queryClient.invalidateQueries(endpoints.irregularity.irregularitysList.url)
+      queryClient.invalidateQueries(endpoints.irregularity.irregularityList.url)
       router.push(routes.admin.irregularity.index)
     },
   })
