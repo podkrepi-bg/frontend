@@ -156,4 +156,19 @@ export const endpoints = {
     deleteRecurringDonation: (id: string) =>
       <Endpoint>{ url: `/recurring-donation/${id}`, method: 'DELETE' },
   },
+  irregularityFile: {
+    uploadIrregularityFile: (irregularityId: string) =>
+      <Endpoint>{ url: `/irregularity-file/${irregularityId}`, method: 'POST' },
+    listIrregularityFiles: (irregularityId: string) =>
+      <Endpoint>{ url: `/irregularity-file/list/${irregularityId}`, method: 'GET' },
+    deleteIrregularityFile: (id: string) =>
+      <Endpoint>{ url: `/irregularity-file/${id}`, method: 'DELETE' },
+  },
+  irregularity: {
+    createIrregularity: <Endpoint>{ url: '/irregularity', method: 'POST' },
+    irregularityList: <Endpoint>{ url: '/irregularity/list', method: 'GET' },
+    viewIrregularity: (id: string) => <Endpoint>{ url: `/irregularity/${id}`, method: 'GET' },
+    editIrregularity: (id: string) => <Endpoint>{ url: `/irregularity/${id}`, method: 'PUT' },
+    removeIrregularity: (id: string) => <Endpoint>{ url: `/irregularity/${id}`, method: 'DELETE' },
+  },
 }

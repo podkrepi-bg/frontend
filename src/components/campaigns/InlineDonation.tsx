@@ -82,7 +82,7 @@ export default function InlineDonation({ campaign }: Props) {
     })
   }, [prices])
   return (
-    <StyledGrid item xs={12} md={4} mt={5} p={3} className={classes.inlineDonationWrapper}>
+    <StyledGrid item xs={12} mt={5} p={3} className={classes.inlineDonationWrapper}>
       <Grid mb={2}>
         <Typography component="span" className={classes.reachedMoney}>
           {money(reached)}

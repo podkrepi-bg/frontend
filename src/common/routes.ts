@@ -141,6 +141,11 @@ export const routes = {
       create: '/admin/recurring-donation/create',
       view: (id: string) => `/admin/recurring-donation/${id}`,
     },
+    irregularity: {
+      index: '/admin/irregularities',
+      create: '/admin/irregularities/create',
+      view: (id: string) => `/admin/irregularities/${id}`,
+    },
   },
   dev: {
     openData: '/open-data',

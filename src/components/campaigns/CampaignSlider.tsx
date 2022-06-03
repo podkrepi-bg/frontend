@@ -39,7 +39,7 @@ const CampaignSlider = () => {
 
   return (
     <Root>
-      <BearCarousel
+      {/* <BearCarousel
         data={bearSlideItemData}
         slidesPerView={1}
         isEnableLoop
@@ -55,7 +55,7 @@ const CampaignSlider = () => {
             slidesPerView: 2,
           },
         }}
-      />
+      /> */}
     </Root>
   )
 }
