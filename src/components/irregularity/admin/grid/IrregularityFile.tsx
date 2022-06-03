@@ -5,7 +5,7 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { useMutation, useQueryClient } from 'react-query'
 
 import FilePresentIcon from '@mui/icons-material/FilePresent'
-import { Avatar, Button, ListItem, ListItemAvatar, ListItemText } from '@mui/material'
+import { Avatar, Button, ListItem, ListItemAvatar, ListItemText, Tooltip } from '@mui/material'
 
 import { ApiErrors } from 'service/apiErrors'
 import { endpoints } from 'service/apiEndpoints'
@@ -51,10 +51,18 @@ export default function IrregularityFile({ file, irregularityId }: Props) {
         </Avatar>
       </ListItemAvatar>
       <ListItemText primary={file.filename} />
-      <Button>
-        {/* TODO: to be discussed */}
-        <a href={API_URL + `/irregularity-file/${file.id}`}>{t('admin.cta.download')}</a>
-      </Button>
+      <></>
+      <Tooltip
+        title={
+          'Note: This link is public on the API side! Need to correct before official release!'
+        }>
+        <Button>
+          {/* TODO: to be discussed. Tracked in issue: https://github.com/podkrepi-bg/frontend/issues/811 */}
+          <a style={{ color: 'red' }} href={API_URL + `/irregularity-file/${file.id}`}>
+            {t('admin.cta.download') + '*'}
+          </a>
+        </Button>
+      </Tooltip>
       <Button onClick={deleteFileHandler}>{t('admin.cta.delete')}</Button>
     </ListItem>
   )
