@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { styled } from '@mui/material/styles'
-import { IconButton, ImageList, Typography } from '@mui/material'
+import { Box, CircularProgress, IconButton, ImageList, Typography } from '@mui/material'
 import { useCampaignList } from 'common/hooks/campaigns'
 import CampaignsList from './CampaignsList'
 import { CampaignResponse } from 'gql/campaigns'
@@ -28,7 +28,6 @@ const classes = {
   filterButtons: `${PREFIX}-filterButtons`,
 }
 
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled('div')(() => ({
   [`& .${classes.filterButtons}`]: {
     display: 'block',
@@ -74,7 +73,7 @@ const categories: {
 export default function CampaignFilter() {
   const { t } = useTranslation()
   const { mobile } = useMobile()
-  const { data: campaigns } = useCampaignList()
+  const { data: campaigns, isLoading } = useCampaignList()
   const [selectedCategory, setSelectedCategory] = useState<string | undefined>()
 
   const campaignToShow = useMemo<CampaignResponse[]>(() => {
@@ -120,7 +119,13 @@ export default function CampaignFilter() {
           </Typography>
         </IconButton>
       </ImageList>
-      <CampaignsList campaignToShow={campaignToShow} />
+      {isLoading ? (
+        <Box textAlign="center">
+          <CircularProgress size="3rem" />
+        </Box>
+      ) : (
+        <CampaignsList campaignToShow={campaignToShow} />
+      )}
     </Root>
   )
 }
