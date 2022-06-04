@@ -25,10 +25,10 @@ export default function MemberCard({ info }: MemberCardProps) {
       </Box>
       <CardContent sx={{ paddingX: theme.spacing(1) }}>
         <Typography gutterBottom variant="h6" component="div" align="center">
-          {info.title}
+          {t(info.title)}
         </Typography>
         <Typography variant="subtitle1" align="center">
-          {info.content}
+          {t(info.content)}
         </Typography>
       </CardContent>
       <CardActions style={{ justifyContent: 'center' }}>
