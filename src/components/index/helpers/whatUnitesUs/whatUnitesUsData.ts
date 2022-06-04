@@ -13,23 +13,20 @@ export type WhatUnitesUsItem = {
 
 export const data: WhatUnitesUsItem[] = [
   {
-    title: 'Доброволство',
-    content:
-      'Създадохме дарителска платформа в полза на нуждаещите се и организациите, които им помагат, без да търсим финансова или друга облага.',
+    title: 'index:what-unites-us-section.volunteering-title',
+    content: 'index:what-unites-us-section.volunteering-content',
     icon: FavoriteIcon,
     iconColor: '#F44336',
   },
   {
-    title: 'Уважение',
-    content:
-      'Отнасяме се с уважение един към друг, както и с хората, с които се срещаме в работата си. Изслушваме, съдействаме, а мнението на всеки се взема предвид, защото има значение.',
+    title: 'index:what-unites-us-section.respect-title',
+    content: 'index:what-unites-us-section.respect-content',
     icon: SentimentVerySatisfiedIcon,
     iconColor: '#FFB613',
   },
   {
-    title: 'Проактивност',
-    content:
-      'Всички доброволци отделят от собственото си свободно време, за да бъдат част от Подкрепи.бг. Те сами са инициирали включването си в Проекта.',
+    title: 'index:what-unites-us-section.productivity-title',
+    content: 'index:what-unites-us-section.productivity-content',
     icon: BoyIcon,
     iconColor: '#4AC3FF',
   },
