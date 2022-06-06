@@ -13,6 +13,7 @@ import { useCampaignAdminList } from 'common/hooks/campaigns'
 import GridActions from './GridActions'
 import DeleteModal from './modals/DeleteModal'
 import DetailsModal from './modals/DetailsModal'
+import ExternalLink from 'components/common/ExternalLink'
 
 interface CampaignCellProps {
   params: GridRenderCellParams<AdminCampaignResponse, AdminCampaignResponse>
@@ -48,14 +49,31 @@ export default function CampaignGrid() {
 
   const commonProps: Partial<GridColDef> = {
     align: 'left',
-    width: 180,
+    width: 100,
     headerAlign: 'left',
   }
 
   const columns: GridColumns = [
     {
+      field: 'actions',
+      headerName: t('campaigns:actions'),
+      width: 120,
+      type: 'actions',
+      headerAlign: 'left',
+      renderCell: (cellValues: GridRenderCellParams) => {
+        return (
+          <GridActions
+            id={cellValues.row.id}
+            onView={() => setViewId(cellValues.row.id)}
+            onDelete={() => setDeleteId(cellValues.row.id)}
+          />
+        )
+      },
+    },
+    {
       field: 'state',
       headerName: t('campaigns:status'),
+      width: 120,
       ...commonProps,
     },
     {
@@ -63,6 +81,11 @@ export default function CampaignGrid() {
       headerName: t('campaigns:title'),
       ...commonProps,
       width: 350,
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <ExternalLink href={`/campaigns/${cellValues.row.slug}`}>
+          {cellValues.row.title}
+        </ExternalLink>
+      ),
     },
     {
       field: 'essence',
@@ -78,6 +101,7 @@ export default function CampaignGrid() {
       renderCell: (params: GridRenderCellParams) => {
         return <DisplayCoordinator params={params} />
       },
+      width: 200,
     },
     {
       field: 'beneficiary',
@@ -86,6 +110,7 @@ export default function CampaignGrid() {
       renderCell: (params: GridRenderCellParams) => {
         return <DisplayBeneficiary params={params} />
       },
+      width: 200,
     },
     {
       field: 'campaignType',
@@ -148,22 +173,6 @@ export default function CampaignGrid() {
       align: 'left',
       width: 230,
       headerAlign: 'left',
-    },
-    {
-      field: 'actions',
-      headerName: t('campaigns:actions'),
-      width: 120,
-      type: 'actions',
-      headerAlign: 'left',
-      renderCell: (cellValues: GridRenderCellParams) => {
-        return (
-          <GridActions
-            id={cellValues.row.id}
-            onView={() => setViewId(cellValues.row.id)}
-            onDelete={() => setDeleteId(cellValues.row.id)}
-          />
-        )
-      },
     },
   ]
 

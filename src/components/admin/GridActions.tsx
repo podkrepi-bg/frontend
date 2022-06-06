@@ -2,9 +2,9 @@ import React from 'react'
 import Link from 'next/link'
 import { useTranslation } from 'next-i18next'
 import { IconButton, Tooltip } from '@mui/material'
-import EditIcon from '@mui/icons-material/Edit'
-import DeleteIcon from '@mui/icons-material/Delete'
-import ImportExportIcon from '@mui/icons-material/ImportExport'
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
+import PageviewOutlinedIcon from '@mui/icons-material/PageviewOutlined'
 
 import { ModalStoreImpl } from 'stores/dashboard/ModalStore'
 
@@ -33,14 +33,14 @@ export default function GridActions({ modalStore, id, name, editLink }: Props) {
     <>
       <Tooltip title={t('cta:view') || ''}>
         <IconButton size="small" color="primary" onClick={detailsClickHandler}>
-          <ImportExportIcon />
+          <PageviewOutlinedIcon />
         </IconButton>
       </Tooltip>
       {editLink ? (
         <Link href={editLink} passHref>
           <Tooltip title={t('cta:edit') || ''}>
             <IconButton size="small" color="primary">
-              <EditIcon />
+              <EditOutlinedIcon />
             </IconButton>
           </Tooltip>
         </Link>
@@ -49,7 +49,7 @@ export default function GridActions({ modalStore, id, name, editLink }: Props) {
       )}
       <Tooltip title={t('cta:delete') || ''}>
         <IconButton size="small" color="primary" onClick={deleteClickHandler}>
-          <DeleteIcon />
+          <DeleteOutlinedIcon />
         </IconButton>
       </Tooltip>
     </>

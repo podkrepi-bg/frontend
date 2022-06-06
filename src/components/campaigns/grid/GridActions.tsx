@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import React from 'react'
 import { Box, IconButton } from '@mui/material'
-import EditIcon from '@mui/icons-material/Edit'
-import DeleteIcon from '@mui/icons-material/Delete'
-import ShareIcon from '@mui/icons-material/ImportExport'
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
+import PageviewOutlinedIcon from '@mui/icons-material/PageviewOutlined'
 
 import { routes } from 'common/routes'
 
@@ -23,16 +23,16 @@ export default function GridActions({ id, onView, onDelete }: Props) {
         alignItems: 'center',
         justifyContent: 'space-evenly',
       }}>
-      <IconButton size="small" onClick={onView}>
-        <ShareIcon />
+      <IconButton size="small" color="primary" onClick={onView}>
+        <PageviewOutlinedIcon />
       </IconButton>
       <Link href={routes.admin.campaigns.edit(id)} passHref>
-        <IconButton size="small">
-          <EditIcon />
+        <IconButton size="small" color="primary">
+          <EditOutlinedIcon />
         </IconButton>
       </Link>
-      <IconButton size="small" onClick={onDelete}>
-        <DeleteIcon />
+      <IconButton size="small" color="primary" onClick={onDelete}>
+        <DeleteOutlinedIcon />
       </IconButton>
     </Box>
   )
