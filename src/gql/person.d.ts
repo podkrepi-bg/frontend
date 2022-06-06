@@ -66,3 +66,12 @@ export type UpdatePerson = Partial<
     | 'personalNumber'
   >
 >
+
+export type UpdateUserAccount = {
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  birthday: Date | string
+  password: string
+}
