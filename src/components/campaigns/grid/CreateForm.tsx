@@ -123,11 +123,13 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
         coordinatorId: values.coordinatorId,
         currency: Currency.BGN,
       })
-      await fileUploadMutation.mutateAsync({
-        files,
-        roles,
-        campaignId: response.data.id,
-      })
+      if (files.length > 0) {
+        await fileUploadMutation.mutateAsync({
+          files,
+          roles,
+          campaignId: response.data.id,
+        })
+      }
       router.push(routes.admin.campaigns.index)
     } catch (error) {
       console.error(error)
@@ -229,7 +231,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
                   })),
                 ])
               }}
-              buttonLabel="Добави документи"
+              buttonLabel="Добави файлове"
             />
             <FileList
               filesRole={roles}
