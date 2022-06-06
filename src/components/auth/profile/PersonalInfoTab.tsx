@@ -120,7 +120,7 @@ export default function PersonalInfoTab() {
       <Box className={classes.boxTitle}>
         <Typography className={classes.h3}>Лична информация</Typography>
       </Box>
-      <ProfileTab name={ProfileTabs.personalInformation} title={''}>
+      <ProfileTab name={ProfileTabs.personalInformation}>
         <Box>
           <h2 className={classes.heading}>Login информация:</h2>
           <Box className={classes.infoFlex}>
@@ -181,12 +181,6 @@ export default function PersonalInfoTab() {
             изтриване на акаунт/ профил
           </Link>
         </Box>
-        <Link
-          href="#"
-          sx={{ color: '#294E85', float: 'right' }}
-          onClick={() => setIsDisableAccountModalOpen(true)}>
-          изтриване на акаунт/ профил
-        </Link>
       </ProfileTab>
       {person && (
         <>

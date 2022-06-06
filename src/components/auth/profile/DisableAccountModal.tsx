@@ -118,13 +118,13 @@ function DisableAccountModal({
           <li className={classes.graySpan}>Изтриването на акаунт е необратимо.</li>
           <li className={classes.graySpan}>Ще бъде невъзможно да възстановите акаунта си.</li>
         </ul>
-        <Button variant="contained" size="large" color="secondary" onClick={() => handleClose()}>
+        <Button variant="contained" size="medium" color="primary" onClick={() => handleClose()}>
           Запази моя акаунт
         </Button>
         <Button
           variant="contained"
-          size="large"
-          color="secondary"
+          size="medium"
+          color="primary"
           style={{ marginLeft: '10px' }}
           onClick={() => handleDisableUser()}>
           Изтрий моя акаунт
