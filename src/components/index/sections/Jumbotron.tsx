@@ -12,6 +12,7 @@ export default function Jumbotron() {
   //Check if the media query is match and breakpoint is up sm device
   const matches = useMediaQuery<Theme>((theme) => theme.breakpoints.up('sm'))
   const imgSource = matches ? '/img/family.jpg' : '/img/family.jpg'
+
   return (
     <Grid
       container
@@ -26,7 +27,10 @@ export default function Jumbotron() {
           xl: theme.spacing(12, 1, 0, 1),
         },
         mb: 12,
-        mt: 10,
+        mt: {
+          xs: 6,
+          xl: 10,
+        },
         textAlign: 'center',
         color: theme.palette.common.white,
         position: 'relative',
@@ -83,7 +87,17 @@ export default function Jumbotron() {
               flexWrap: 'wrap',
             }}>
             <LinkButton
-              sx={{ minWidth: 320, marginRight: theme.spacing(4), marginBottom: theme.spacing(3) }}
+              sx={{
+                minWidth: {
+                  xs: 260,
+                  md: 320,
+                },
+                mr: theme.spacing(4),
+                mb: {
+                  xs: theme.spacing(1.5),
+                  sm: 0,
+                },
+              }}
               size="large"
               variant="outlined"
               color="primary"
@@ -91,7 +105,12 @@ export default function Jumbotron() {
               {t('common:nav.about.support-us')}
             </LinkButton>
             <LinkButton
-              sx={{ minWidth: 320, marginBottom: theme.spacing(3) }}
+              sx={{
+                minWidth: {
+                  xs: 260,
+                  md: 320,
+                },
+              }}
               size="large"
               variant="contained"
               color="secondary"

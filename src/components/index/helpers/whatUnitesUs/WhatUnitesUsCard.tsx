@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next'
 import { Box, Card, CardContent, CardHeader } from '@mui/material'
 
 import { WhatUnitesUsItem } from './whatUnitesUsData'
@@ -7,6 +8,8 @@ type WhatUnitesUsCardProps = {
 }
 
 export default function WhatUnitesUsCard({ info }: WhatUnitesUsCardProps) {
+  const { t } = useTranslation()
+
   return (
     <Card elevation={0} sx={{ textAlign: 'center' }}>
       <Box
@@ -22,8 +25,8 @@ export default function WhatUnitesUsCard({ info }: WhatUnitesUsCardProps) {
         }}>
         {info.icon ? <info.icon sx={{ height: 45, width: 45, fill: info.iconColor }} /> : null}
       </Box>
-      <CardHeader title={info.title} />
-      <CardContent sx={{ px: 1 }}>{info.content}</CardContent>
+      <CardHeader title={t(info.title)} />
+      <CardContent sx={{ px: 1 }}>{t(info.content)}</CardContent>
     </Card>
   )
 }

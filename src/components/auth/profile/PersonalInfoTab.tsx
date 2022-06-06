@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { styled } from '@mui/material/styles'
 import { useSession } from 'next-auth/react'
 import EditIcon from '@mui/icons-material/Edit'
-import { Box, Link, Typography } from '@mui/material'
+import { Box, Divider, Link, Typography } from '@mui/material'
 
 import { formatDateString } from 'common/util/date'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
@@ -25,6 +25,11 @@ const classes = {
   graySpan: `${PREFIX}-graySpan`,
   h5: `${PREFIX}-h5`,
   h3: `${PREFIX}-h3`,
+  boxTitle: `${PREFIX}-boxTitle`,
+  boxInfo: `${PREFIX}-boxInfo`,
+  divider: `${PREFIX}-divider`,
+  editBox: `${PREFIX}-editBox`,
+  infoFlex: `${PREFIX}-infoFlex`,
 }
 
 const Root = styled('div')(({ theme }) => ({
@@ -41,7 +46,6 @@ const Root = styled('div')(({ theme }) => ({
     lineHeight: '123.5%',
     letterSpacing: '0.25px',
     color: '#000000',
-    paddingLeft: theme.spacing(3),
   },
 
   [`& .${classes.bold}`]: {
@@ -72,6 +76,32 @@ const Root = styled('div')(({ theme }) => ({
     lineHeight: '116.7%',
     margin: '0',
   },
+  [`& .${classes.boxTitle}`]: {
+    backgroundColor: 'white',
+    padding: theme.spacing(3, 7),
+    paddingBottom: theme.spacing(3),
+    marginTop: theme.spacing(3),
+    boxShadow: theme.shadows[3],
+  },
+  [`& .${classes.boxInfo}`]: {
+    padding: theme.spacing(2, 2),
+    backgroundColor: '#E9F6FF',
+    flexBasis: '50%',
+    boxShadow: theme.shadows[3],
+    position: 'relative',
+  },
+  [`& .${classes.divider}`]: {
+    margin: theme.spacing(2, 0),
+  },
+  [`& .${classes.editBox}`]: {
+    position: 'absolute',
+    right: '1rem',
+    top: '.5rem',
+  },
+  [`& .${classes.infoFlex}`]: {
+    display: 'flex',
+    gap: '1rem',
+  },
 }))
 
 export default function PersonalInfoTab() {
@@ -87,17 +117,14 @@ export default function PersonalInfoTab() {
 
   return (
     <Root>
-      <ProfileTab name={ProfileTabs.personalInformation} title="Лична информация">
-        <Box sx={{ paddingTop: 2 }}>
+      <Box className={classes.boxTitle}>
+        <Typography className={classes.h3}>Лична информация</Typography>
+      </Box>
+      <ProfileTab name={ProfileTabs.personalInformation} title={''}>
+        <Box>
           <h2 className={classes.heading}>Login информация:</h2>
-          <Box sx={{ display: 'flex', gap: '1rem' }}>
-            <Box
-              sx={{
-                backgroundColor: '#E9F6FF',
-                padding: 2,
-                flexBasis: '50%',
-                position: 'relative',
-              }}>
+          <Box className={classes.infoFlex}>
+            <Box className={classes.boxInfo}>
               <p className={classes.bold}>Email адрес:</p>
               <p>{person?.email}</p>
               <Box sx={{ position: 'absolute', right: '1rem', top: '.5rem' }}>
@@ -107,16 +134,10 @@ export default function PersonalInfoTab() {
                 </Link>
               </Box>
             </Box>
-            <Box
-              sx={{
-                backgroundColor: '#E9F6FF',
-                padding: 2,
-                flexBasis: '50%',
-                position: 'relative',
-              }}>
+            <Box className={classes.boxInfo}>
               <p className={classes.bold}>Парола:</p>
               <p>***********</p>
-              <Box sx={{ position: 'absolute', right: '1rem', top: '.5rem' }}>
+              <Box className={classes.editBox}>
                 <Link href="#" onClick={() => setIsUpdatePasswordModalOpen(true)}>
                   <EditIcon className={classes.editIcon} />
                   <span className={classes.editSpan}>Редактирай</span>
@@ -124,38 +145,27 @@ export default function PersonalInfoTab() {
               </Box>
             </Box>
           </Box>
+          <Divider className={classes.divider} />
           <h2 className={classes.heading}>Лична информация:</h2>
-          <Box sx={{ display: 'flex', gap: '1rem' }}>
-            <Box
-              sx={{
-                backgroundColor: '#E9F6FF',
-                padding: 2,
-                flexBasis: '50%',
-                position: 'relative',
-              }}>
+          <Box className={classes.infoFlex}>
+            <Box className={classes.boxInfo}>
               <p className={classes.bold}>Име:</p>
               <p>
                 {person?.firstName} {person?.lastName}
               </p>
-              <Box sx={{ position: 'absolute', right: '1rem', top: '.5rem' }}>
+              <Box className={classes.editBox}>
                 <Link href="#" onClick={() => setIsUpdateNameModalOpen(true)}>
                   <EditIcon className={classes.editIcon} />
                   <span className={classes.editSpan}>Редактирай</span>
                 </Link>
               </Box>
             </Box>
-            <Box
-              sx={{
-                backgroundColor: '#E9F6FF',
-                padding: 2,
-                flexBasis: '50%',
-                position: 'relative',
-              }}>
+            <Box className={classes.boxInfo}>
               <p className={classes.bold}>Рожден ден:</p>
               <Typography sx={{ color: person?.birthday ? undefined : '#F22727' }}>
                 {person?.birthday ? formatDateString(person?.birthday) : 'не e наличен'}
               </Typography>
-              <Box sx={{ position: 'absolute', right: '1rem', top: '.5rem' }}>
+              <Box className={classes.editBox}>
                 <Link href="#" onClick={() => setIsUpdateBirthdayModalOpen(true)}>
                   <EditIcon className={classes.editIcon} />
                   <span className={classes.editSpan}>Редактирай</span>
@@ -163,6 +173,13 @@ export default function PersonalInfoTab() {
               </Box>
             </Box>
           </Box>
+          <Divider className={classes.divider} />
+          <Link
+            href="#"
+            sx={{ color: '#294E85', float: 'right' }}
+            onClick={() => setIsDisableAccountModalOpen(true)}>
+            изтриване на акаунт/ профил
+          </Link>
         </Box>
         <Link
           href="#"

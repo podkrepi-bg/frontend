@@ -1,36 +1,37 @@
 import { ReactNode } from 'react'
 import { Box } from '@mui/material'
-
+import theme from 'common/theme'
 import { ProfileTabs } from './tabs'
+import { styled } from '@mui/material/styles'
+
+const PREFIX = 'ProfileTab'
+
+const classes = {
+  boxContainer: `${PREFIX}-boxContainer`,
+}
+
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.boxContainer}`]: {
+    padding: theme.spacing(5, 7),
+    marginTop: theme.spacing(0.5),
+    backgroundColor: 'white ',
+    boxShadow: theme.shadows[3],
+    borderRadius: '0px 0px 25px 25px',
+  },
+}))
 
 type Props = {
   name: ProfileTabs
-  title: string
   children: ReactNode
 }
 
-function ProfileTab({ children, name, title, ...other }: Props) {
+function ProfileTab({ children, name, ...other }: Props) {
   return (
-    <div role="tabpanel" id={`tabpanel-${name}`} aria-labelledby={`tab-${name}`} {...other}>
-      <Box
-        sx={(theme) => ({
-          padding: theme.spacing(5, 4),
-          marginTop: theme.spacing(2),
-        })}>
-        <Box
-          component="h3"
-          sx={{
-            fontStyle: 'normal',
-            fontWeight: '500',
-            fontSize: '25px',
-            lineHeight: '116.7%',
-            margin: '0',
-          }}>
-          {title}
-        </Box>
+    <Root role="tabpanel" id={`tabpanel-${name}`} aria-labelledby={`tab-${name}`} {...other}>
+      <Box className={classes.boxContainer}>
         <Box>{children}</Box>
       </Box>
-    </div>
+    </Root>
   )
 }
 

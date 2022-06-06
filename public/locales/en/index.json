@@ -1,22 +1,29 @@
 {
-  "title": "Podkrepi.bg",
+  "podkrepi": "Podkrepi.bg",
+  "title": "a transparent online donation platform",
   "jumbotron": {
-    "heading": "An online donation platform",
-    "maximum-transparency": "with a maximum degree of transparency",
-    "zero-commission": "with 0% commission from the contributor",
+    "heading": "We stimulate the donation culture through transparency in raising and allocating funds to the causes without deducting fees and commissions for Podkrepi.bg.",
+    "maximum-transparency": "with maximum transparency",
+    "zero-commission": "with 0% commission",
     "eliminate-misuse": "aimed at eliminating misuses of donation campaigns",
     "improve-donation-culture": "aimed at improving the donation culture in Bulgaria",
     "open-source": "open source",
     "about-project-button": "About the project",
-    "support-us-button": "Support us"
+    "support-us-button": "Support us",
+    "support-a-cause": "Support a cause ❤️"
   },
   "activity-section": {
     "heading": "What do we do?",
     "content": "Podkrepi.bg is an association of professionals united by the idea of creating a free and completely transparent online donation platform, which can be used freely by citizens and organizations."
   },
   "team-section": {
-    "heading": "Who are we?",
-    "content": "We are volunteers from the IT community, lawyers, accountants, marketers, medics, and NGO representatives. We are united by the desire to create an improved fundraising environment in Bulgaria by developing the most transparent platform for donations. The platform will support itself by membership fees and grants and not by charging a percentage of the funds raised for the campaigns that go through it."
+    "heading": "Who is behind Podkrepi.bg?",
+    "content": "Podkrepi.bg is a community of specialists in the field of programming, law, marketing, design, medicine, finance, social entrepreneurship and others. We are united by the goal of creating a sustainable and transparent donation platform that supports causes and people in need, while promoting and restoring trust in donations in Bulgaria.",
+    "meet-our-team": "Meet out team",
+    "ilko-kacharov": "Ilko Kacharov",
+    "radoslav-bozhinov": "Radoslav Bozhinov",
+    "ana-nikolova": "Ana Nikolova",
+    "organizational-team": "Organizational team"
   },
   "team-chart-section": {
     "heading": "How it all started?",
@@ -61,11 +68,17 @@
     "text":"We have built a process of creating campaigns that ensures maximum security for donor funds and at the same time - attention and support to the needs of beneficiaries."
   },
   "ready-to-start-campaign-section":{
-    "button":"Create campaign",
+    "button":"Create a campaign",
     "text":"Are you ready to start a campaign?"
   },
   "what-unites-us-section":{
-    "heading":"What unites us?"
+    "heading":"What unites us?",
+    "productivity-title": "Productivity",
+    "respect-title": "Respect",
+    "volunteering-title": "Volunteering",
+    "productivity-content": "All volunteers spend their free time to be part of Podkrepi.bg. They initiated their participation in the Project by themselves.",
+    "respect-content": "We treat each other with respect, as well as the people we meet in our work. We listen, we cooperate, and everyone's opinion is taken into account because it matters.",
+    "volunteering-content": "We have created a donation platform for the benefit of those in need and the organizations that help them, without seeking financial or other benefits."
   },
   "help-podkrepi-bg-section":{
     "want-to-help":"I want to help Podkrepi.bg",

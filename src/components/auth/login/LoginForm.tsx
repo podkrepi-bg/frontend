@@ -13,6 +13,7 @@ import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import Google from 'common/icons/Google'
+import PasswordField from 'components/common/form/PasswordField'
 
 export type LoginFormData = {
   email: string
@@ -40,7 +41,6 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
   const { t } = useTranslation()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
-
   const onSubmit = async (values: LoginFormData) => {
     try {
       setLoading(true)
@@ -80,12 +80,7 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
           <FormTextField type="text" label="auth:fields.email" name="email" />
         </Grid>
         <Grid item xs={12}>
-          <FormTextField
-            type="password"
-            name="password"
-            autoComplete="password"
-            label="auth:fields.password"
-          />
+          <PasswordField />
         </Grid>
         <Grid item xs={12}>
           <SubmitButton fullWidth label="auth:cta.login" loading={loading} />

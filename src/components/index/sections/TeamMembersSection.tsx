@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'next-i18next'
 import { Navigation, A11y, Autoplay } from 'swiper'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
@@ -37,8 +38,10 @@ const swiperOptions: SwiperProps = {
 }
 
 export default function TeamMembersSection() {
+  const { t } = useTranslation()
   const navigationPrevRef = React.useRef(null)
   const navigationNextRef = React.useRef(null)
+
   return (
     <Container maxWidth="lg">
       <Heading
@@ -49,13 +52,10 @@ export default function TeamMembersSection() {
         color={theme.palette.primary.dark}
         paddingTop={theme.spacing(10)}
         paddingBottom={theme.spacing(7)}>
-        {'Кой стои зад Подкрепи.бг?'}
+        {t('index:team-section.heading')}
       </Heading>
       <Typography textAlign="center" fontFamily="Montserrat" fontSize={16}>
-        Подкрепи.бг представлява общност от специалисти в областта на програмирането, правото,
-        маркетинга, дизайна, медицината, финансите, социалното предприемачество и др. Обединени сме
-        от целта да създадем устойчива и прозрачна платформа за дарения, която подкрепя каузи и хора
-        в нужда, като заедно с това популяризира и връща доверието към дарителството в България.
+        {t('index:team-section.content')}
       </Typography>
       <Grid
         container
@@ -96,7 +96,7 @@ export default function TeamMembersSection() {
             variant="outlined"
             endIcon={<ChevronRightIcon />}
             sx={{ marginTop: theme.spacing(8) }}>
-            {'Запознай се с екипа ни'}
+            {t('index:team-section.meet-our-team')}
           </LinkButton>
         </Grid>
       </Grid>
