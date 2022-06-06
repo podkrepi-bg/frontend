@@ -39,6 +39,7 @@ const StyledModal = styled(Modal)({
 })
 
 export type Credentials = {
+  'previous-password': string
   password: string
 }
 
@@ -47,6 +48,7 @@ const validationSchema: yup.SchemaOf<Pick<UpdateUserAccount, 'password'>> = yup
   .defined()
   .shape({
     password: yup.string().min(6, customValidators.passwordMin).required(),
+    'confirm-password': yup.string().oneOf([yup.ref('password')], 'Паролите не съвпадат'),
   })
 
 function UpdatePasswordModal({
@@ -70,6 +72,16 @@ function UpdatePasswordModal({
 
   const onSubmit = async (values: Credentials) => {
     try {
+      const confirmPassword = await signIn<'credentials'>('credentials', {
+        email: person.email,
+        password: values['previous-password'],
+        redirect: false,
+      })
+      if (confirmPassword?.error) {
+        handleClose()
+        AlertStore.show(t('auth:alerts.invalid-login'), 'error')
+        throw new Error('Invalid login')
+      }
       const res = await mutation.mutateAsync(values)
       await signIn<'credentials'>('credentials', {
         email: person.email,
@@ -95,11 +107,17 @@ function UpdatePasswordModal({
         <h2>Обнови парола</h2>
         <GenericForm
           onSubmit={onSubmit}
-          initialValues={{ email: person.email, password: '' }}
+          initialValues={{ 'previous-password': '', password: '' }}
           validationSchema={validationSchema}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={8}>
-              <PasswordField />
+              <PasswordField name={'previous-password'} label={'auth:account.previous-password'} />
+            </Grid>
+            <Grid item xs={12} sm={8}>
+              <PasswordField name={'password'} label={'auth:account.new-password'} />
+            </Grid>
+            <Grid item xs={12} sm={8}>
+              <PasswordField name={'confirm-password'} label={'auth:account.confirm-password'} />
             </Grid>
             <Grid item xs={6}>
               <SubmitButton fullWidth />
