@@ -42,7 +42,7 @@ type BaseCampaignResponse = {
   slug: string
   title: string
   essence: string
-  bankHash: string
+  paymentReference: string
   coordinatorId: UUID
   beneficiaryId: UUID
   campaignTypeId: UUID

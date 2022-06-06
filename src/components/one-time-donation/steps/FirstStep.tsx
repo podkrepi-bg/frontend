@@ -104,10 +104,10 @@ export default function FirstStep() {
           <Grid container justifyContent="center">
             <Grid my={3} item display="flex" justifyContent="space-between" xs={9}>
               <Alert severity="warning">
-                <Typography fontWeight="bold">{campaign.bankHash}</Typography>
+                <Typography fontWeight="bold">{campaign.paymentReference}</Typography>
               </Alert>
               <CopyTextButton
-                text={campaign.title}
+                text={campaign.paymentReference}
                 variant="contained"
                 color="info"
                 size="small"
