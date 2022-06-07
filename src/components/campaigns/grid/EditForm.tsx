@@ -3,7 +3,7 @@ import { FormikHelpers } from 'formik'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { parse, isDate, format } from 'date-fns'
-import { useMutation } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import { Button, Grid, Link, Typography } from '@mui/material'
@@ -23,6 +23,7 @@ import {
   CampaignInput,
   CampaignUploadImage,
 } from 'gql/campaigns'
+import { CampaignState } from '../helpers/campaign.enums'
 
 import CampaignTypeSelect from '../CampaignTypeSelect'
 import CoordinatorSelect from './CoordinatorSelect'
@@ -30,6 +31,8 @@ import BeneficiarySelect from './BeneficiarySelect'
 import { CampaignFileRole, FileRole, UploadCampaignFiles } from 'components/campaign-file/roles'
 import FileList from 'components/file-upload/FileList'
 import FileUpload from 'components/file-upload/FileUpload'
+import CampaignStateSelect from '../CampaignStateSelect'
+import { endpoints } from 'service/apiEndpoints'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -57,12 +60,14 @@ const validationSchema: yup.SchemaOf<EditFormData> = yup
       .date()
       .transform(parseDateString)
       .min(yup.ref('startDate'), `end date can't be before start date`),
+    state: yup.mixed().oneOf(Object.values(CampaignState)).required(),
   })
 
 type EditFormData = Omit<CampaignFormData, 'gdpr' | 'terms'>
 
 export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
   const router = useRouter()
+  const queryClient = useQueryClient()
   const [files, setFiles] = useState<File[]>([])
   const [roles, setRoles] = useState<FileRole[]>([])
   const { t } = useTranslation()
@@ -76,6 +81,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
     allowDonationOnComplete: campaign.allowDonationOnComplete || false,
     startDate: format(new Date(campaign.startDate ?? new Date()), formatString),
     endDate: format(new Date(campaign.endDate ?? new Date()), formatString),
+    state: campaign.state,
     description: campaign.description || '',
   }
 
@@ -86,7 +92,11 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
   >({
     mutationFn: useEditCampaign(campaign.id),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
-    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
+    onSuccess: () => {
+      AlertStore.show(t('common:alerts.message-sent'), 'success')
+      //invalidate query for getting new values
+      queryClient.invalidateQueries(endpoints.campaign.viewCampaignById(campaign.id).url)
+    },
   })
 
   const fileUploadMutation = useMutation<
@@ -95,6 +105,11 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
     UploadCampaignFiles
   >({
     mutationFn: useUploadCampaignFiles(),
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    onSuccess: () => {
+      //invalidate query for getting new values
+      queryClient.invalidateQueries(endpoints.campaign.uploadFile(campaign.id).url)
+    },
   })
 
   const onSubmit = async (values: EditFormData, { setFieldError }: FormikHelpers<EditFormData>) => {
@@ -107,17 +122,24 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
         allowDonationOnComplete: campaign.allowDonationOnComplete,
         startDate: values.startDate,
         endDate: values.endDate,
+        state: values.state,
         essence: campaign.essence,
         campaignTypeId: values.campaignTypeId,
         beneficiaryId: values.beneficiaryId,
         coordinatorId: values.coordinatorId,
         currency: Currency.BGN,
       })
-      await fileUploadMutation.mutateAsync({
-        files,
-        roles,
-        campaignId: campaign.id,
-      })
+
+      if (files.length > 0) {
+        await fileUploadMutation.mutateAsync({
+          files,
+          roles,
+          campaignId: campaign.id,
+        })
+      }
+
+      //Go back to campaign list
+      queryClient.invalidateQueries(endpoints.campaign.listAdminCampaigns.url)
       router.push(routes.admin.campaigns.index)
     } catch (error) {
       console.error(error)
@@ -168,7 +190,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
               label="campaigns:campaign.amount"
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={4}>
             <FormTextField
               type="date"
               name="startDate"
@@ -179,7 +201,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
               }}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={4}>
             <FormTextField
               type="date"
               name="endDate"
@@ -189,6 +211,9 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
                 shrink: true,
               }}
             />
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <CampaignStateSelect />
           </Grid>
           <Grid item xs={12}>
             <FormTextField
@@ -202,14 +227,14 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <CoordinatorSelect />
+            <BeneficiarySelect />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <BeneficiarySelect />
+            <CoordinatorSelect />
           </Grid>
           <Grid item xs={12}>
             <FileUpload
-              buttonLabel="Добави документи"
+              buttonLabel="Добави файлове"
               onUpload={(newFiles) => {
                 setFiles((prevFiles) => [...prevFiles, ...newFiles])
                 setRoles((prevRoles) => [
