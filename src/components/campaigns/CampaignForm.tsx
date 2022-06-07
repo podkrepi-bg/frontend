@@ -29,9 +29,10 @@ import {
   CampaignInput,
   CampaignUploadImage,
 } from 'gql/campaigns'
-import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
-
+import { CampaignState } from './helpers/campaign.enums'
 import CampaignTypeSelect from './CampaignTypeSelect'
+
+import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -61,6 +62,7 @@ const validationSchema: yup.SchemaOf<CampaignFormData> = yup
       .min(yup.ref('startDate'), `end date can't be before start date`),
     terms: yup.bool().required().oneOf([true], 'validation:terms-of-use'),
     gdpr: yup.bool().required().oneOf([true], 'validation:terms-of-service'),
+    state: yup.mixed().oneOf(Object.values(CampaignState)).required(),
   })
 
 const defaults: CampaignFormData = {
@@ -73,6 +75,7 @@ const defaults: CampaignFormData = {
   startDate: format(new Date(), formatString),
   endDate: format(new Date().setMonth(new Date().getMonth() + 1), formatString),
   description: '',
+  state: CampaignState.draft,
   terms: false,
   gdpr: false,
 }
@@ -123,6 +126,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
         beneficiaryId: values.beneficiaryId,
         coordinatorId: values.coordinatorId,
         currency: Currency.BGN,
+        state: CampaignState.draft,
       })
       await fileUploadMutation.mutateAsync({
         files,
