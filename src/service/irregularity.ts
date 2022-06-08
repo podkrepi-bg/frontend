@@ -13,12 +13,20 @@ import {
   UploadIrregularityFiles,
 } from 'components/irregularity/helpers/irregularity.types'
 import { useSession } from 'next-auth/react'
+import { Session } from 'next-auth'
 
 export const createIrregularity = async (data: IrregularityInput) => {
   return await apiClient.post<IrregularityInput, AxiosResponse<IrregularityResponse>>(
     endpoints.irregularity.createIrregularity.url,
     data,
   )
+}
+
+export const download = (id: string, session: Session | null) => {
+  return apiClient(endpoints.irregularity.download(id).url, {
+    ...authConfig(session?.accessToken),
+    responseType: 'blob',
+  })
 }
 
 export const editIrregularity = (id: string) => {
