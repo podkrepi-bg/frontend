@@ -1,5 +1,17 @@
 {
-  "personalInformation": "Personal informatino",
+  "header":"Benefactor profile",
+  "personalInfo": {
+    "index":"Personal information",
+    "login":"Login information:",
+    "email": "Email:",
+    "edit":"Edit",
+    "password":"Password:",
+    "personal":"Personal information:",
+    "name":"Name:",
+    "birthday":"Birthdate:",
+    "noBirthday":"not available",
+    "delete":"delete account/ profile"
+  },
   "donations": {
     "index": "Donations",
     "helpThanks": "We thank you for your help!",
@@ -21,5 +33,34 @@
     "lv": "lv"
   },
   "donationsContract": "Donation contract",
-  "certificates": "Certificates"
+  "certificates": "Certificates",
+  "birthdateModal":{
+    "ageInvalid":"You have to be over 18 years old to register.",
+    "newDate":"Change birthdate",
+    "question":"When is your birthdate?"
+  },
+  "emailModal":{
+    "newEmail":"Change email"
+  },
+  "nameModal":{
+    "newName":"Change name",
+    "firstName":"First name",
+    "lastName":"Last name"
+  },
+  "passwordModal":{
+    "newPassword":"Change password",
+    "doNotMatch":"Passwords do not match."
+  },
+  "disableModal":{
+    "index": "Delete account",
+    "sorryMsg":"We are sorry you are leaving us!",
+    "beforeDisableMsg":"Before you leave ...",
+    "deactivateEmails":"If you do not want to receive this mailer, unsubscribe ",
+    "link":" here",
+    "writeUs" :"If .........................., please write us ",
+    "irreversibleAction":"Deleting an account is an irreversible action.",
+    "confirmDisable":"You would not be able to restore your account.",
+    "saveAccount":"Save my account",
+    "disableAccount":"Delete my account"
+  }
 }
