@@ -14,7 +14,8 @@
     "see-less": "See less",
     "see-top-10": "See TOP 10",
     "see-more": "See more",
-    "donor": "Donor"
+    "donor": "Donor",
+    "add-files": "Add files"
   },
   "campaign": {
     "subheading": "Your support for the world matters. All supporters through Podkrepi.bg are our partners in supporting the community campaign. As a generous benefactor, you become an important partner in supporting a campaign regarding someone's health or the success of a cause that is close to your heart.",
@@ -23,6 +24,7 @@
     "title": "Campaign name",
     "amount": "Target amount",
     "type": "Campaign type",
+    "state": "Campaign state",
     "reached": "reached",
     "target": "target",
     "from": "from",

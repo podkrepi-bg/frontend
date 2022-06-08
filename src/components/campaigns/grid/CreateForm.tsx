@@ -33,6 +33,7 @@ import {
 import CampaignTypeSelect from '../CampaignTypeSelect'
 import CoordinatorSelect from './CoordinatorSelect'
 import BeneficiarySelect from './BeneficiarySelect'
+import { CampaignState } from '../helpers/campaign.enums'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -56,6 +57,7 @@ const validationSchema: yup.SchemaOf<CampaignFormData> = yup
     beneficiaryId: yup.string().uuid().required(),
     coordinatorId: yup.string().uuid().required(),
     startDate: yup.date().transform(parseDateString).required(),
+    state: yup.mixed().oneOf(Object.values(CampaignState)).required(),
     endDate: yup
       .date()
       .transform(parseDateString)
@@ -72,6 +74,7 @@ const defaults: CampaignFormData = {
   targetAmount: 1000,
   allowDonationOnComplete: false,
   startDate: format(new Date(), formatString),
+  state: CampaignState.draft,
   endDate: format(new Date().setMonth(new Date().getMonth() + 1), formatString),
   description: '',
   terms: false,
@@ -117,17 +120,20 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
         allowDonationOnComplete: values.allowDonationOnComplete,
         startDate: values.startDate,
         endDate: values.endDate,
+        state: values.state,
         essence: '',
         campaignTypeId: values.campaignTypeId,
         beneficiaryId: values.beneficiaryId,
         coordinatorId: values.coordinatorId,
         currency: Currency.BGN,
       })
-      await fileUploadMutation.mutateAsync({
-        files,
-        roles,
-        campaignId: response.data.id,
-      })
+      if (files.length > 0) {
+        await fileUploadMutation.mutateAsync({
+          files,
+          roles,
+          campaignId: response.data.id,
+        })
+      }
       router.push(routes.admin.campaigns.index)
     } catch (error) {
       console.error(error)
@@ -229,7 +235,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
                   })),
                 ])
               }}
-              buttonLabel="Добави документи"
+              buttonLabel="Добави файлове"
             />
             <FileList
               filesRole={roles}

@@ -172,5 +172,6 @@ export const endpoints = {
     viewIrregularity: (id: string) => <Endpoint>{ url: `/irregularity/${id}`, method: 'GET' },
     editIrregularity: (id: string) => <Endpoint>{ url: `/irregularity/${id}`, method: 'PUT' },
     removeIrregularity: (id: string) => <Endpoint>{ url: `/irregularity/${id}`, method: 'DELETE' },
+    download: (id: string) => <Endpoint>{ url: `/irregularity-file/${id}`, method: 'GET' },
   },
 }

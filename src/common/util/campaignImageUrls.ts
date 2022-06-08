@@ -12,7 +12,7 @@ export function fileUrl(file: CampaignFile) {
  * Finds first file with given role
  */
 function findFileWithRole(campaign: CampaignResponse, role: CampaignFileRole) {
-  return campaign.campaignFiles?.find((file) => file.role == role)
+  return campaign?.campaignFiles?.find((file) => file.role == role)
 }
 
 export function campaignListPictureUrl(campaign: CampaignResponse): string {

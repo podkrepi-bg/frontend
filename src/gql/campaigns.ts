@@ -3,6 +3,7 @@ import type { CampaignFileRole } from 'components/campaign-file/roles'
 import type { CampaignTypeCategory } from 'components/campaign-types/categories'
 import { Currency } from './currency'
 import { PaymentProvider } from './donations'
+import { CampaignState } from 'components/campaigns/helpers/campaign.enums'
 
 export type CampaignType = {
   id: UUID
@@ -22,27 +23,13 @@ export type CampaignFile = {
   role: CampaignFileRole
 }
 
-export enum CampaignState {
-  initial,
-  draft,
-  pendingvalidation,
-  approved,
-  rejected,
-  active,
-  activependingvalidation,
-  suspended,
-  complete,
-  disabled,
-  error,
-}
-
 type BaseCampaignResponse = {
   id: UUID
   state: CampaignState
   slug: string
   title: string
   essence: string
-  bankHash: string
+  paymentReference: string
   coordinatorId: UUID
   beneficiaryId: UUID
   campaignTypeId: UUID
@@ -97,6 +84,7 @@ export type CampaignFormData = {
   allowDonationOnComplete?: boolean
   startDate: Date | string | undefined
   endDate: Date | string | undefined
+  state: CampaignState
   description: string
   terms: boolean
   gdpr: boolean
@@ -115,6 +103,7 @@ export type CampaignInput = {
   currency: string
   startDate: Date | string | undefined
   endDate: Date | string | undefined
+  state: CampaignState
 }
 
 export type CampaignUploadImage = {

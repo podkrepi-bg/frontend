@@ -38,7 +38,7 @@
     "btn-copy": "Copy",
     "owner": "Сдружение Подкрепи БГ",
     "bank": "Unicredit Bulbank",
-    "reason-donation": "For reason for transfer write",
+    "reason-donation": "For payment reference use:",
     "message-warning": "If you do not write the reason correctly we would not be able to distribute the money correctly"
   },
   "fail": {
