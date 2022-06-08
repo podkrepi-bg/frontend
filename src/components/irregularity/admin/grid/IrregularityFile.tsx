@@ -62,7 +62,7 @@ export default function IrregularityFile({ file, irregularityId }: Props) {
       <></>
       <Tooltip title={'download'}>
         <Button style={{ color: 'red' }} onClick={downloadFileHandler}>
-          {t('admin.cta.download') + '*'}
+          {t('admin.cta.download')}
         </Button>
       </Tooltip>
       <Button onClick={deleteFileHandler}>{t('admin.cta.delete')}</Button>
