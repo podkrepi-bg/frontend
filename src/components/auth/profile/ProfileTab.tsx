@@ -1,6 +1,5 @@
 import { ReactNode } from 'react'
 import { Box } from '@mui/material'
-import theme from 'common/theme'
 import { ProfileTabs } from './tabs'
 import { styled } from '@mui/material/styles'
 
@@ -17,6 +16,9 @@ const Root = styled('div')(({ theme }) => ({
     backgroundColor: 'white ',
     boxShadow: theme.shadows[3],
     borderRadius: '0px 0px 25px 25px',
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(5, 2),
+    },
   },
 }))
 

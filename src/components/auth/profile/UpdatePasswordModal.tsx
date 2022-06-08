@@ -22,7 +22,7 @@ const classes = {
   close: `${PREFIX}-close`,
 }
 
-const StyledModal = styled(Modal)({
+const StyledModal = styled(Modal)(({ theme }) => ({
   [`& .${classes.modal}`]: {
     position: 'absolute',
     top: '50%',
@@ -31,25 +31,20 @@ const StyledModal = styled(Modal)({
     width: 650,
     backgroundColor: '#EEEEEE',
     padding: 20,
+    [theme.breakpoints.down('md')]: {
+      width: '70%',
+    },
   },
   [`& .${classes.close}`]: {
     position: 'absolute',
     right: '10px',
   },
-})
+}))
 
 export type Credentials = {
   'previous-password': string
   password: string
 }
-
-const validationSchema: yup.SchemaOf<Pick<UpdateUserAccount, 'password'>> = yup
-  .object()
-  .defined()
-  .shape({
-    password: yup.string().min(6, customValidators.passwordMin).required(),
-    'confirm-password': yup.string().oneOf([yup.ref('password')], 'Паролите не съвпадат'),
-  })
 
 function UpdatePasswordModal({
   isOpen,
@@ -61,6 +56,16 @@ function UpdatePasswordModal({
   handleClose: (data?: boolean) => void
 }) {
   const { t } = useTranslation()
+
+  const validationSchema: yup.SchemaOf<Pick<UpdateUserAccount, 'password'>> = yup
+    .object()
+    .defined()
+    .shape({
+      password: yup.string().min(6, customValidators.passwordMin).required(),
+      'confirm-password': yup
+        .string()
+        .oneOf([yup.ref('password')], t('profile:passwordModal.doNotMatch')),
+    })
 
   const mutation = useMutation<AxiosResponse<boolean>, AxiosError<ApiErrors>, Credentials>({
     mutationFn: updateCurrentPersonPassword(),
@@ -104,7 +109,7 @@ function UpdatePasswordModal({
         <IconButton className={classes.close} onClick={() => handleClose()}>
           <CloseIcon />
         </IconButton>
-        <h2>Обнови парола</h2>
+        <h2>{t('profile:passwordModal.newPassword')}</h2>
         <GenericForm
           onSubmit={onSubmit}
           initialValues={{ 'previous-password': '', password: '' }}

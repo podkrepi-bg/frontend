@@ -23,7 +23,7 @@ const classes = {
   close: `${PREFIX}-close`,
 }
 
-const StyledModal = styled(Modal)({
+const StyledModal = styled(Modal)(({ theme }) => ({
   [`& .${classes.modal}`]: {
     position: 'absolute',
     top: '50%',
@@ -32,12 +32,15 @@ const StyledModal = styled(Modal)({
     width: 650,
     backgroundColor: '#EEEEEE',
     padding: 20,
+    [theme.breakpoints.down('md')]: {
+      width: '70%',
+    },
   },
   [`& .${classes.close}`]: {
     position: 'absolute',
     right: '10px',
   },
-})
+}))
 
 const validationSchema: yup.SchemaOf<Pick<UpdateUserAccount, 'email' | 'password'>> = yup
   .object()
@@ -105,7 +108,7 @@ function UpdateEmailModal({
         <IconButton className={classes.close} onClick={() => handleClose()}>
           <CloseIcon />
         </IconButton>
-        <h2>Обнови имейл</h2>
+        <h2>{t('profile:emailModal.newEmail')}</h2>
         <GenericForm
           onSubmit={onSubmit}
           initialValues={{ email: person?.email || '', password: '' }}

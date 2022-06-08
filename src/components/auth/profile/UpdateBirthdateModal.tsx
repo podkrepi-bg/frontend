@@ -18,14 +18,14 @@ import PasswordField from 'components/common/form/PasswordField'
 import { signIn } from 'next-auth/react'
 import { customValidators } from 'common/form/validation'
 
-const PREFIX = 'UpdateBirthdayModal'
+const PREFIX = 'UpdateBirthdateModal'
 
 const classes = {
   modal: `${PREFIX}-modal`,
   close: `${PREFIX}-close`,
 }
 
-const StyledModal = styled(Modal)({
+const StyledModal = styled(Modal)(({ theme }) => ({
   [`& .${classes.modal}`]: {
     position: 'absolute',
     top: '50%',
@@ -34,12 +34,15 @@ const StyledModal = styled(Modal)({
     width: 650,
     backgroundColor: '#EEEEEE',
     padding: 20,
+    [theme.breakpoints.down('md')]: {
+      width: '70%',
+    },
   },
   [`& .${classes.close}`]: {
     position: 'absolute',
     right: '10px',
   },
-})
+}))
 
 const formatString = 'yyyy-MM-dd'
 
@@ -53,19 +56,7 @@ const parseDateString = (value: string, originalValue: string) => {
 
 const maxDate = new Date(new Date().setFullYear(new Date().getFullYear() - 18))
 
-const validationSchema: yup.SchemaOf<Pick<UpdateUserAccount, 'birthday' | 'password'>> = yup
-  .object()
-  .defined()
-  .shape({
-    birthday: yup
-      .date()
-      .transform(parseDateString)
-      .max(maxDate, `Трябва да си над 18 години за да може да се регистрираш.`)
-      .required(),
-    password: yup.string().min(6, customValidators.passwordMin).required(),
-  })
-
-function UpdateBirthdayModal({
+function UpdateBirthdateModal({
   isOpen,
   handleClose,
   person,
@@ -75,6 +66,18 @@ function UpdateBirthdayModal({
   person: UpdatePerson
 }) {
   const { t } = useTranslation()
+
+  const validationSchema: yup.SchemaOf<Pick<UpdateUserAccount, 'birthday' | 'password'>> = yup
+    .object()
+    .defined()
+    .shape({
+      birthday: yup
+        .date()
+        .transform(parseDateString)
+        .max(maxDate, t('profile:birthdateModal.ageInvalid'))
+        .required(),
+      password: yup.string().min(6, customValidators.passwordMin).required(),
+    })
 
   const dateBefore18Years = new Date(new Date().setFullYear(new Date().getFullYear() - 18))
 
@@ -124,7 +127,7 @@ function UpdateBirthdayModal({
         <IconButton className={classes.close} onClick={() => handleClose()}>
           <CloseIcon />
         </IconButton>
-        <h2>Обнови рожден ден</h2>
+        <h2>{t('profile:birthdateModal.newDate')}</h2>
         <GenericForm<Pick<UpdateUserAccount, 'birthday' | 'password'>>
           onSubmit={onSubmit}
           initialValues={initialValues}
@@ -134,7 +137,7 @@ function UpdateBirthdayModal({
               <FormTextField
                 type="date"
                 name="birthday"
-                label="Кога е твоят рожден ден?"
+                label={t('profile:birthdateModal.question')}
                 InputLabelProps={{
                   shrink: true,
                 }}
@@ -153,4 +156,4 @@ function UpdateBirthdayModal({
   )
 }
 
-export default UpdateBirthdayModal
+export default UpdateBirthdateModal

@@ -10,10 +10,11 @@ import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import ProfileTab from './ProfileTab'
 import { ProfileTabs } from './tabs'
 import UpdateNameModal from './UpdateNameModal'
-import UpdateBirthdayModal from './UpdateBirthdayModal'
+import UpdateBirthdateModal from './UpdateBirthdateModal'
 import UpdateEmailModal from './UpdateEmailModal'
 import UpdatePasswordModal from './UpdatePasswordModal'
 import DisableAccountModal from './DisableAccountModal'
+import { useTranslation } from 'next-i18next'
 
 const PREFIX = 'PersonalInfoTab'
 
@@ -82,13 +83,22 @@ const Root = styled('div')(({ theme }) => ({
     paddingBottom: theme.spacing(3),
     marginTop: theme.spacing(3),
     boxShadow: theme.shadows[3],
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(3, 2),
+    },
   },
   [`& .${classes.boxInfo}`]: {
     padding: theme.spacing(2, 2),
     backgroundColor: '#E9F6FF',
-    flexBasis: '50%',
+    flexBasis: '40%',
     boxShadow: theme.shadows[3],
     position: 'relative',
+    [theme.breakpoints.down('md')]: {
+      flexBasis: '80%',
+    },
+    [theme.breakpoints.down('sm')]: {
+      flexBasis: '95%',
+    },
   },
   [`& .${classes.divider}`]: {
     margin: theme.spacing(2, 0),
@@ -97,78 +107,89 @@ const Root = styled('div')(({ theme }) => ({
     position: 'absolute',
     right: '1rem',
     top: '.5rem',
+    [theme.breakpoints.down('sm')]: {
+      position: 'none',
+    },
   },
   [`& .${classes.infoFlex}`]: {
     display: 'flex',
     gap: '1rem',
+    justifyContent: 'center',
+    [theme.breakpoints.down('md')]: {
+      flexWrap: 'wrap',
+    },
   },
 }))
 
 export default function PersonalInfoTab() {
-  const { data: session } = useSession()
+  const { t } = useTranslation()
   const { data: { user: person } = { user: null }, refetch } = useCurrentPerson()
   const [isDisableAccountModalOpen, setIsDisableAccountModalOpen] = useState(false)
   const [isUpdateEmailModalOpen, setIsUpdateEmailModalOpen] = useState(false)
   const [isUpdateNameModalOpen, setIsUpdateNameModalOpen] = useState(false)
-  const [isUpdateBirthdayModalOpen, setIsUpdateBirthdayModalOpen] = useState(false)
+  const [isUpdateBirthdateModalOpen, setIsUpdateBirthdateModalOpen] = useState(false)
   const [isUpdatePsswordModalOpen, setIsUpdatePasswordModalOpen] = useState(false)
 
+  // For test reasons:
+  const { data: session } = useSession()
   console.log('session', session)
 
   return (
     <Root>
       <Box className={classes.boxTitle}>
-        <Typography className={classes.h3}>Лична информация</Typography>
+        <Typography className={classes.h3}>{t('profile:personalInfo.index')}</Typography>
       </Box>
       <ProfileTab name={ProfileTabs.personalInformation}>
         <Box>
-          <h2 className={classes.heading}>Login информация:</h2>
+          <h2 className={classes.heading}>{t('profile:personalInfo.login')}</h2>
           <Box className={classes.infoFlex}>
             <Box className={classes.boxInfo}>
-              <p className={classes.bold}>Email адрес:</p>
+              <p className={classes.bold}>{t('profile:personalInfo.email')}</p>
               <p>{person?.email}</p>
               <Box sx={{ position: 'absolute', right: '1rem', top: '.5rem' }}>
                 <Link href="#" onClick={() => setIsUpdateEmailModalOpen(true)}>
                   <EditIcon className={classes.editIcon} />
-                  <span className={classes.editSpan}>Редактирай</span>
+                  <span className={classes.editSpan}>{t('profile:personalInfo.edit')}</span>
                 </Link>
               </Box>
             </Box>
             <Box className={classes.boxInfo}>
-              <p className={classes.bold}>Парола:</p>
+              <p className={classes.bold}>{t('profile:personalInfo.password')}</p>
               <p>***********</p>
               <Box className={classes.editBox}>
                 <Link href="#" onClick={() => setIsUpdatePasswordModalOpen(true)}>
                   <EditIcon className={classes.editIcon} />
-                  <span className={classes.editSpan}>Редактирай</span>
+                  <span className={classes.editSpan}>{t('profile:personalInfo.edit')}</span>
                 </Link>
               </Box>
             </Box>
           </Box>
           <Divider className={classes.divider} />
-          <h2 className={classes.heading}>Лична информация:</h2>
+          <h2 className={classes.heading}>{t('profile:personalInfo.personal')}</h2>
           <Box className={classes.infoFlex}>
             <Box className={classes.boxInfo}>
-              <p className={classes.bold}>Име:</p>
+              <p className={classes.bold}>{t('profile:personalInfo.name')}</p>
               <p>
                 {person?.firstName} {person?.lastName}
               </p>
               <Box className={classes.editBox}>
                 <Link href="#" onClick={() => setIsUpdateNameModalOpen(true)}>
                   <EditIcon className={classes.editIcon} />
-                  <span className={classes.editSpan}>Редактирай</span>
+                  <span className={classes.editSpan}>{t('profile:personalInfo.edit')}</span>
                 </Link>
               </Box>
             </Box>
             <Box className={classes.boxInfo}>
-              <p className={classes.bold}>Рожден ден:</p>
+              <p className={classes.bold}>{t('profile:personalInfo.birthday')}</p>
               <Typography sx={{ color: person?.birthday ? undefined : '#F22727' }}>
-                {person?.birthday ? formatDateString(person?.birthday) : 'не e наличен'}
+                {person?.birthday
+                  ? formatDateString(person?.birthday)
+                  : t('profile:personalInfo.noBirthday')}
               </Typography>
               <Box className={classes.editBox}>
-                <Link href="#" onClick={() => setIsUpdateBirthdayModalOpen(true)}>
+                <Link href="#" onClick={() => setIsUpdateBirthdateModalOpen(true)}>
                   <EditIcon className={classes.editIcon} />
-                  <span className={classes.editSpan}>Редактирай</span>
+                  <span className={classes.editSpan}>{t('profile:personalInfo.edit')}</span>
                 </Link>
               </Box>
             </Box>
@@ -178,7 +199,7 @@ export default function PersonalInfoTab() {
             href="#"
             sx={{ color: '#294E85', float: 'right' }}
             onClick={() => setIsDisableAccountModalOpen(true)}>
-            изтриване на акаунт/ профил
+            {t('profile:personalInfo.delete')}
           </Link>
         </Box>
       </ProfileTab>
@@ -192,11 +213,11 @@ export default function PersonalInfoTab() {
               refetch()
             }}
           />
-          <UpdateBirthdayModal
-            isOpen={isUpdateBirthdayModalOpen}
+          <UpdateBirthdateModal
+            isOpen={isUpdateBirthdateModalOpen}
             person={person}
             handleClose={() => {
-              setIsUpdateBirthdayModalOpen(false)
+              setIsUpdateBirthdateModalOpen(false)
               refetch()
             }}
           />

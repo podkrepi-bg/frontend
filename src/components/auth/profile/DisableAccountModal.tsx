@@ -15,11 +15,8 @@ const PREFIX = 'DisableUserModal'
 
 const classes = {
   modal: `${PREFIX}-modal`,
-  close: `${PREFIX}-close`,
-  heading: `${PREFIX}-heading`,
   graySpan: `${PREFIX}-graySpan`,
-  h5: `${PREFIX}-h5`,
-  h3: `${PREFIX}-h3`,
+  button: `${PREFIX}-button`,
 }
 
 const StyledModal = styled(Modal)(({ theme }) => ({
@@ -31,21 +28,11 @@ const StyledModal = styled(Modal)(({ theme }) => ({
     width: 650,
     backgroundColor: '#EEEEEE',
     padding: 20,
+    p: 4,
+    [theme.breakpoints.down('md')]: {
+      width: '70%',
+    },
   },
-  [`& .${classes.close}`]: {
-    position: 'absolute',
-    right: '10px',
-  },
-  [`& .${classes.heading}`]: {
-    fontStyle: 'normal',
-    fontWeight: 400,
-    fontSize: '24px',
-    lineHeight: '123.5%',
-    letterSpacing: '0.25px',
-    color: '#000000',
-    paddingLeft: theme.spacing(3),
-  },
-
   [`& .${classes.graySpan}`]: {
     fontFamily: 'Lato, sans-serif',
     fontStyle: 'normal',
@@ -53,6 +40,11 @@ const StyledModal = styled(Modal)(({ theme }) => ({
     fontSize: '18px',
     lineHeight: '133.4%',
     color: '#909090',
+  },
+  [`& .${classes.button}`]: {
+    [theme.breakpoints.down('sm')]: {
+      margin: theme.spacing(1),
+    },
   },
 }))
 
@@ -91,43 +83,43 @@ function DisableAccountModal({
       onClose={() => handleClose()}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description">
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          borderRadius: 4,
-          backgroundColor: '#EEEEEE',
-          p: 4,
-        }}>
+      <Box className={classes.modal}>
         <Typography variant="h6" component="h3">
-          Изтриване на акаунт
+          {t('profile:disableModal.index')}
         </Typography>
-        <Typography className={classes.graySpan}>Съжаляваме, че ни напускате!</Typography>
-        <Typography className={classes.graySpan}>Преди да ни напуснете ...</Typography>
+        <Typography className={classes.graySpan}>{t('profile:disableModal.sorryMsg')}</Typography>
+        <Typography className={classes.graySpan}>
+          {t('profile:disableModal.beforeDisableMsg')}
+        </Typography>
         <hr />
         <ul style={{ listStyle: 'disc', paddingLeft: '20px' }}>
           <li className={classes.graySpan}>
-            Ако ви е омръзнало да получавате имейли, деактивирайте ги
-            <Link href="#"> тук</Link>.
+            {t('profile:disableModal.deactivateEmails')}
+            <Link href="#">{t('profile:disableModal.link')}</Link>.
           </li>
           <li className={classes.graySpan}>
-            Ако .........................., моля пишете <Link href="#">тук</Link>.
+            {t('profile:disableModal.writeUs')}
+            <Link href="#">{t('profile:disableModal.link')}</Link>.
           </li>
-          <li className={classes.graySpan}>Изтриването на акаунт е необратимо.</li>
-          <li className={classes.graySpan}>Ще бъде невъзможно да възстановите акаунта си.</li>
+          <li className={classes.graySpan}>{t('profile:disableModal.irreversibleAction')}</li>
+          <li className={classes.graySpan}>{t('profile:disableModal.confirmDisable')}</li>
         </ul>
-        <Button variant="contained" size="medium" color="primary" onClick={() => handleClose()}>
-          Запази моя акаунт
+        <Button
+          className={classes.button}
+          variant="contained"
+          size="medium"
+          color="primary"
+          onClick={() => handleClose()}>
+          {t('profile:disableModal.saveAccount')}
         </Button>
         <Button
+          className={classes.button}
           variant="contained"
           size="medium"
           color="primary"
           style={{ marginLeft: '10px' }}
           onClick={() => handleDisableUser()}>
-          Изтрий моя акаунт
+          {t('profile:disableModal.disableAccount')}
         </Button>
       </Box>
     </StyledModal>

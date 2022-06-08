@@ -23,7 +23,7 @@ const classes = {
   close: `${PREFIX}-close`,
 }
 
-const StyledModal = styled(Modal)({
+const StyledModal = styled(Modal)(({ theme }) => ({
   [`& .${classes.modal}`]: {
     position: 'absolute',
     top: '50%',
@@ -32,12 +32,15 @@ const StyledModal = styled(Modal)({
     width: 650,
     backgroundColor: '#EEEEEE',
     padding: 20,
+    [theme.breakpoints.down('md')]: {
+      width: '70%',
+    },
   },
   [`& .${classes.close}`]: {
     position: 'absolute',
     right: '10px',
   },
-})
+}))
 
 const validationSchema: yup.SchemaOf<
   Pick<UpdateUserAccount, 'firstName' | 'lastName' | 'password'>
@@ -109,7 +112,7 @@ function UpdateNameModal({
         <IconButton className={classes.close} onClick={() => handleClose()}>
           <CloseIcon />
         </IconButton>
-        <h2>Обнови име</h2>
+        <h2>{t('profile:nameModal.newName')}</h2>
         <GenericForm
           onSubmit={onSubmit}
           validationSchema={validationSchema}
@@ -124,7 +127,7 @@ function UpdateNameModal({
                 type="text"
                 name="firstName"
                 autoComplete="firstName"
-                label="first name"
+                label={t('profile:nameModal.firstName')}
               />
             </Grid>
             <Grid item xs={12} sm={8}>
@@ -132,7 +135,7 @@ function UpdateNameModal({
                 type="text"
                 name="lastName"
                 autoComplete="lastName"
-                label="last name"
+                label={t('profile:nameModal.lastName')}
               />
             </Grid>
             <Grid item xs={12} sm={8}>
