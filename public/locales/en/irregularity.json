@@ -1,0 +1,124 @@
+{
+  "reason": {
+    "title": "Please, choose a reason for reporting this issue:",
+    "label": "Report reason",
+    "none": "None",
+    "duplicate": "Duplicate",
+    "inappropriate": "Inappropriate",
+    "illegalActivity": "Illegal activity",
+    "misinformation": "Misinformation",
+    "privacyViolation": "Privacy violation",
+    "spam": "Spam",
+    "irrelevant": "Irrelevant",
+    "political": "Political",
+    "discrimination": "Discrimination",
+    "explicitContent": "Explicit content",
+    "fraud": "Fraud",
+    "other": "Other"
+  },
+  "report-btn": "Report for irregularity",
+  "steps": {
+    "greeting": {
+      "subtitle": "Report for irregularity",
+      "welcome": "Здравейте,",
+      "text-info": "За нас е много важно да подкрепяме реални нужди и да не допуснем на платформата хора и организации, които биха злоупотребили с доверените им средства. Както самите нуждаещи се от подкрепа за своя кауза, така и дарителите са много важни за нас и искаме да бъдем сигурни, че техните средства се използват по честен начин.",
+      "text-description-first": "Подкрепи.бг изработи няколкостепенен процес на одобрение",
+      "text-description-second": ", през който преминава всяка кампания преди нейното стартиране. За съжаление, той не може да ни даде 100 % гаранция, че сме избегнали всяка възможност за злоупотреба. За допълнителна сигурност, изработихме тази система за сигнализиране от страна на дарители и трети лица.",
+      "text-link": " (link)",
+      "text-thanks": "Благодарим Ви за социалната ангажираност и че отделяте от времето си, за да отправите този сигнал!",
+      "remark": "*С приоритет се разглеждат сигнали, подадени от дарители на съответната кампания, тъй като те се явяват пряко засегната страна по случая."
+    },
+    "contacts": {
+      "subtitle": "Contacts",
+      "text": "Ще ни бъдат необходими Ваши контакти. Това ще ни позволи да се свържем с Вас, за да избегнем опити за злоупотреба от анонимни лица, отправящи несъстоятелни твърдения за злоупотреба. От друга страна - ще можем да Ви дадем обратно информация за резултатите от проверките, които предстои да направим за съответната кампания. Можете да се запознаете с Политиката на Подкрепи.бг за защита на личните данни тук",
+      "text-link": " (link)",
+      "first-name": "First name",
+      "last-name": "Last name",
+      "phone": "Phone",
+      "email": "Email",
+      "remark": "*Данните няма да бъдат разкривани пред трети лица, вкл. пред Организатора на съответната кампания. Ако се стигне до намеса на съответните компетентни органи обаче, при поискване от тяхна страна на данните Ви, ще бъдем длъжни да им ги предоставим и Ви молим да бъдете подготвени за евентуално съдействие."
+    },
+    "info": {
+      "subtitle": "Information",
+      "is-donor": "Are you a benefactor to this campaign?",
+      "yes": "Yes",
+      "no": "No",
+      "content": "Описание на забелязаното нарушение:",
+      "files": "Ако разполагате с материали, потвърждаващи твърденията Ви, можете да ги прикачите като файлове тук:",
+      "priority-message": "Разглеждането на сигналите за злоупотреба е с първи приоритет за работата на екип Кампании. Ще се свържем с Вас веднага щом завършим необходимите проверки.",
+      "share-message": "Ако и други хора са запознати с злоупотребате, които описвате, е добре те също да подадат сигнал. Можете да им изпратите линк с покана да попълнят този формуляр.",
+      "thanks-message": "Благодарим Ви отново за ангажираността и съдействието,",
+      "sign": "Екипът на Подкрепи.бг"
+    },
+    "success": {
+      "title": "Благодарим за изпратената информация!",
+      "subtitle": "Наш представител ще се свърже с Вас,  веднага след като бъде обработена!",
+      "label-campaigns": "Разгледайте",
+      "label-project": "Научете повече за"
+    },
+    "fail": {
+      "title": "За съжаление, възникна проблем!",
+      "subtitle": "Съобщението не може да бъде изпратено. Причините може да бъдат няколко, включително спорадичен проблем с Вашата интернет връзка. Моля, ",
+      "label-redo": "Използвайте",
+      "label-campaigns": "Разгледайте",
+      "label-project": "Научете повече за"
+    }
+  },
+  "cta": {
+    "back-to-campaign": "Back to campaign",
+    "next": "Next",
+    "back": "Back",
+    "save": "Save and continue",
+    "submit": "Submit",
+    "upload-files": "Upload files",
+    "campaigns": " CAMPAIGNS",
+    "project": "PROJECT",
+    "redo": "REPEAT MESSAGE"
+  },
+  "admin": {
+    "irregularities": "Irregularities",
+    "all": "All irregularities",
+    "create-form": "Create new irregularity report",
+    "edit-form": "Edit irregularity report",
+    "cta": {
+      "add": "Add",
+      "next": "Next",
+      "back": "Back",
+      "save": "Save and continue",
+      "submit": "Submit",
+      "upload-files": "Upload files",
+      "download": "Download",
+      "delete": "Delete"
+    },
+    "fields": {
+      "campaign": "Campaign",
+      "status": "Status",
+      "createdAt": "Сreated at",
+      "person": "Sent by",
+      "type": "Notifier type",
+      "email": "Email",
+      "phone": "Phone",
+      "reason": "Reason",
+      "description": "Description",
+      "actions": "Actions",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "notifier-type": {
+        "benefactor": "Benefactor",
+        "other": "Other"
+      },
+      "status-type": {
+        "initial": "Initial",
+        "confirmed": "Confirmed",
+        "declined": "Declined"
+      }
+    },
+    "alerts": {
+      "create": "Report has been created successfully!",
+      "edit": "Report has been edited successfully!",
+      "delete": "Report has been deleted successfully!",
+      "error": "An error has occured! Please try again later.",
+      "delete-file": "File has been deleted successfully!"
+    }
+  }
+}
