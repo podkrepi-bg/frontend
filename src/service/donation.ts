@@ -11,6 +11,7 @@ import {
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
 import { authConfig } from 'service/restRequests'
+import { UploadBankTransactionFiles } from 'components/bank-transactions-file/types'
 
 export const createCheckoutSession = async (data: CheckoutSessionInput) => {
   return await apiClient.post<CheckoutSessionInput, AxiosResponse<CheckoutSessionResponse>>(
@@ -58,6 +59,33 @@ export function useDeleteDonation(ids: string[]) {
       endpoints.donation.deleteDonation.url,
       ids,
       authConfig(session?.accessToken),
+    )
+  }
+}
+
+export const useUploadBankTransactionsFiles = () => {
+  const { data: session } = useSession()
+  return async ({
+    files,
+    types: filesType,
+    bankTransactionsFileId,
+  }: UploadBankTransactionFiles) => {
+    const formData = new FormData()
+    files.forEach((file: File) => {
+      formData.append('file', file)
+    })
+    filesType.forEach((fileType) => {
+      formData.append('types', fileType.type)
+    })
+    return await apiClient.post<FormData>(
+      endpoints.donation.uploadBankTransactionsFile(bankTransactionsFileId).url,
+      formData,
+      {
+        headers: {
+          ...authConfig(session?.accessToken).headers,
+          'Content-Type': 'multipart/form-data',
+        },
+      },
     )
   }
 }
