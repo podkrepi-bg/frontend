@@ -19,9 +19,9 @@ import FormTextField from 'components/common/form/FormTextField'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import {
   CampaignResponse,
-  CampaignFormData,
   CampaignInput,
   CampaignUploadImage,
+  CampaignEditFormData,
 } from 'gql/campaigns'
 import { CampaignState } from '../helpers/campaign.enums'
 
@@ -44,9 +44,8 @@ const parseDateString = (value: string, originalValue: string) => {
 
   return parsedDate
 }
-type EditFormData = Omit<CampaignFormData, 'gdpr' | 'terms'>
 
-const validationSchema: yup.SchemaOf<Omit<EditFormData, 'campaignFiles'>> = yup
+const validationSchema: yup.SchemaOf<Omit<CampaignEditFormData, 'campaignFiles'>> = yup
   .object()
   .defined()
   .shape({
@@ -72,7 +71,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
   const [roles, setRoles] = useState<FileRole[]>([])
   const { t } = useTranslation()
 
-  const initialValues: EditFormData = {
+  const initialValues: CampaignEditFormData = {
     title: campaign?.title || '',
     coordinatorId: campaign.coordinatorId,
     campaignTypeId: campaign.campaignTypeId,
@@ -113,7 +112,10 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
     },
   })
 
-  const onSubmit = async (values: EditFormData, { setFieldError }: FormikHelpers<EditFormData>) => {
+  const onSubmit = async (
+    values: CampaignEditFormData,
+    { setFieldError }: FormikHelpers<CampaignEditFormData>,
+  ) => {
     try {
       await mutation.mutateAsync({
         title: values.title,
@@ -167,7 +169,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
           {t('campaigns:edit-form-heading')}
         </Typography>
       </Grid>
-      <GenericForm<EditFormData>
+      <GenericForm<CampaignEditFormData>
         onSubmit={onSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}>

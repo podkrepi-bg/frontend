@@ -25,9 +25,9 @@ import { CampaignFileRole, FileRole, UploadCampaignFiles } from 'components/camp
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 import {
   CampaignResponse,
-  CampaignFormData,
   CampaignInput,
   CampaignUploadImage,
+  CampaignCreateFormData,
 } from 'gql/campaigns'
 
 import CampaignTypeSelect from '../CampaignTypeSelect'
@@ -45,9 +45,7 @@ const parseDateString = (value: string, originalValue: string) => {
   return parsedDate
 }
 
-type CreateFormData = Omit<CampaignFormData, 'campaignFiles'>
-
-const validationSchema: yup.SchemaOf<CreateFormData> = yup
+const validationSchema: yup.SchemaOf<CampaignCreateFormData> = yup
   .object()
   .defined()
   .shape({
@@ -68,7 +66,7 @@ const validationSchema: yup.SchemaOf<CreateFormData> = yup
     gdpr: yup.bool().required().oneOf([true], 'validation:terms-of-service'),
   })
 
-const defaults: CreateFormData = {
+const defaults: CampaignCreateFormData = {
   title: '',
   campaignTypeId: '',
   beneficiaryId: '',
@@ -83,7 +81,7 @@ const defaults: CreateFormData = {
   gdpr: false,
 }
 
-export type CampaignFormProps = { initialValues?: CreateFormData }
+export type CampaignFormProps = { initialValues?: CampaignCreateFormData }
 
 export default function CampaignForm({ initialValues = defaults }: CampaignFormProps) {
   const router = useRouter()
@@ -110,8 +108,8 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   })
 
   const onSubmit = async (
-    values: CreateFormData,
-    { setFieldError }: FormikHelpers<CreateFormData>,
+    values: CampaignCreateFormData,
+    { setFieldError }: FormikHelpers<CampaignCreateFormData>,
   ) => {
     try {
       const response = await mutation.mutateAsync({
