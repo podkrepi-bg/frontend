@@ -88,6 +88,7 @@ export type CampaignFormData = {
   description: string
   terms: boolean
   gdpr: boolean
+  campaignFiles: CampaignFile[]
 }
 
 export type CampaignInput = {
