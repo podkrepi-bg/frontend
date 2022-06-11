@@ -75,7 +75,7 @@ export type CampaignResponse = BaseCampaignResponse & {
   campaignFiles?: CampaignFile[]
 }
 
-export type CampaignFormData = {
+export type CampaignCreateFormData = {
   title: string
   campaignTypeId: string
   beneficiaryId: string
@@ -88,6 +88,19 @@ export type CampaignFormData = {
   description: string
   terms: boolean
   gdpr: boolean
+}
+
+export type CampaignEditFormData = {
+  title: string
+  campaignTypeId: string
+  beneficiaryId: string
+  coordinatorId: string
+  targetAmount: number
+  allowDonationOnComplete?: boolean
+  startDate: Date | string | undefined
+  endDate: Date | string | undefined
+  state: CampaignState
+  description: string
   campaignFiles: CampaignFile[]
 }
 

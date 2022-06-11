@@ -25,7 +25,7 @@ import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import { useCreateCampaign, useUploadCampaignFiles } from 'service/campaign'
 import {
   CampaignResponse,
-  CampaignFormData,
+  CampaignCreateFormData,
   CampaignInput,
   CampaignUploadImage,
 } from 'gql/campaigns'
@@ -44,7 +44,7 @@ const parseDateString = (value: string, originalValue: string) => {
   return parsedDate
 }
 
-const validationSchema: yup.SchemaOf<CampaignFormData> = yup
+const validationSchema: yup.SchemaOf<CampaignCreateFormData> = yup
   .object()
   .defined()
   .shape({
@@ -65,7 +65,7 @@ const validationSchema: yup.SchemaOf<CampaignFormData> = yup
     state: yup.mixed().oneOf(Object.values(CampaignState)).required(),
   })
 
-const defaults: CampaignFormData = {
+const defaults: CampaignCreateFormData = {
   title: '',
   campaignTypeId: '',
   beneficiaryId: '',
@@ -80,7 +80,7 @@ const defaults: CampaignFormData = {
   gdpr: false,
 }
 
-export type CampaignFormProps = { initialValues?: CampaignFormData }
+export type CampaignFormProps = { initialValues?: CampaignCreateFormData }
 
 export default function CampaignForm({ initialValues = defaults }: CampaignFormProps) {
   const { t } = useTranslation()
@@ -109,8 +109,8 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   })
 
   const onSubmit = async (
-    values: CampaignFormData,
-    { setFieldError, resetForm }: FormikHelpers<CampaignFormData>,
+    values: CampaignCreateFormData,
+    { setFieldError, resetForm }: FormikHelpers<CampaignCreateFormData>,
   ) => {
     try {
       const response = await mutation.mutateAsync({
