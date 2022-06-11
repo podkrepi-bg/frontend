@@ -1,0 +1,71 @@
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { AxiosError, AxiosResponse } from 'axios'
+import { useMutation, useQueryClient } from 'react-query'
+
+import FilePresentIcon from '@mui/icons-material/FilePresent'
+import { Avatar, Button, ListItem, ListItemAvatar, ListItemText, Tooltip } from '@mui/material'
+
+import { ApiErrors } from 'service/apiErrors'
+import { endpoints } from 'service/apiEndpoints'
+
+import { routes } from 'common/routes'
+import { AlertStore } from 'stores/AlertStore'
+import { useSession } from 'next-auth/react'
+import { CampaignFile } from 'gql/campaigns'
+import { deleteCampaignFile, downloadCampaignFile } from 'service/campaign'
+
+type Props = {
+  campaignId: string
+  file: CampaignFile
+}
+
+export default function UploadedCampaignFile({ file, campaignId }: Props) {
+  const { t } = useTranslation('campaigns')
+  const queryClient = useQueryClient()
+  const router = useRouter()
+  const { data: session } = useSession()
+
+  const mutation = useMutation<AxiosResponse<CampaignFile>, AxiosError<ApiErrors>>({
+    mutationFn: deleteCampaignFile(file.id),
+    onError: () => AlertStore.show(t('alerts.error'), 'error'),
+    onSuccess: () => {
+      AlertStore.show(t('alerts.deletedFile'), 'success')
+      queryClient.invalidateQueries(endpoints.campaign.viewCampaignById(campaignId).url)
+      router.push(routes.admin.campaigns.index)
+    },
+  })
+  const downloadFileHandler = async () => {
+    downloadCampaignFile(file.id, session)
+      .then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', `${file.filename}`)
+        link.click()
+      })
+      .catch((error) => console.log(error))
+  }
+
+  const deleteFileHandler = () => {
+    mutation.mutate()
+  }
+
+  return (
+    <ListItem key={file.id}>
+      <ListItemAvatar>
+        <Avatar>
+          <FilePresentIcon />
+        </Avatar>
+      </ListItemAvatar>
+      <ListItemText primary={file.filename} />
+      <></>
+      <Tooltip title={'download'}>
+        <Button style={{ color: 'red' }} onClick={downloadFileHandler}>
+          {t('cta.download')}
+        </Button>
+      </Tooltip>
+      <Button onClick={deleteFileHandler}>{t('cta.delete')}</Button>
+    </ListItem>
+  )
+}
