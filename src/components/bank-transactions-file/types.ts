@@ -8,7 +8,7 @@ export type FileType = {
   type: BankTransactionsFileType
 }
 
-export type UploadBankTransactionFiles = {
+export type UploadBankTransactionsFiles = {
   bankTransactionsFileId: string
   files: File[]
   types: FileType[]

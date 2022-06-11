@@ -100,6 +100,7 @@ export const routes = {
       index: '/admin/donations',
       create: '/admin/donations/create',
       edit: (id: string) => `/admin/donations/${id}/edit`,
+      addBankTransactionsFile: '/admin/donations/add-bank-transactions-file',
     },
     beneficiary: {
       index: '/admin/beneficiary',

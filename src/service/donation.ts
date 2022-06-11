@@ -2,6 +2,7 @@ import { AxiosResponse } from 'axios'
 import { useSession } from 'next-auth/react'
 
 import {
+  BankTransactionsUploadImage,
   CheckoutSessionInput,
   CheckoutSessionResponse,
   DonationBankInput,
@@ -11,7 +12,10 @@ import {
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
 import { authConfig } from 'service/restRequests'
-import { UploadBankTransactionFiles } from 'components/bank-transactions-file/types'
+import {
+  UploadBankTransactionFiles,
+  UploadBankTransactionsFiles,
+} from 'components/bank-transactions-file/types'
 
 export const createCheckoutSession = async (data: CheckoutSessionInput) => {
   return await apiClient.post<CheckoutSessionInput, AxiosResponse<CheckoutSessionResponse>>(
@@ -69,7 +73,7 @@ export const useUploadBankTransactionsFiles = () => {
     files,
     types: filesType,
     bankTransactionsFileId,
-  }: UploadBankTransactionFiles) => {
+  }: UploadBankTransactionsFiles) => {
     const formData = new FormData()
     files.forEach((file: File) => {
       formData.append('file', file)
@@ -77,7 +81,7 @@ export const useUploadBankTransactionsFiles = () => {
     filesType.forEach((fileType) => {
       formData.append('types', fileType.type)
     })
-    return await apiClient.post<FormData>(
+    return await apiClient.post<FormData, AxiosResponse<BankTransactionsUploadImage[]>>(
       endpoints.donation.uploadBankTransactionsFile(bankTransactionsFileId).url,
       formData,
       {
