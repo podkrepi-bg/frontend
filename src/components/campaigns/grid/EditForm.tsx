@@ -6,7 +6,7 @@ import { parse, isDate, format } from 'date-fns'
 import { useMutation, useQueryClient } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Button, Grid, Link, Typography } from '@mui/material'
+import { Button, Grid, Link, List, Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
 import { Currency } from 'gql/currency'
@@ -33,6 +33,7 @@ import FileList from 'components/file-upload/FileList'
 import FileUpload from 'components/file-upload/FileUpload'
 import CampaignStateSelect from '../CampaignStateSelect'
 import { endpoints } from 'service/apiEndpoints'
+import UploadedCampaignFile from './UploadedCampaignFile'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -43,8 +44,9 @@ const parseDateString = (value: string, originalValue: string) => {
 
   return parsedDate
 }
+type EditFormData = Omit<CampaignFormData, 'gdpr' | 'terms'>
 
-const validationSchema: yup.SchemaOf<EditFormData> = yup
+const validationSchema: yup.SchemaOf<Omit<EditFormData, 'campaignFiles'>> = yup
   .object()
   .defined()
   .shape({
@@ -62,8 +64,6 @@ const validationSchema: yup.SchemaOf<EditFormData> = yup
       .min(yup.ref('startDate'), `end date can't be before start date`),
     state: yup.mixed().oneOf(Object.values(CampaignState)).required(),
   })
-
-type EditFormData = Omit<CampaignFormData, 'gdpr' | 'terms'>
 
 export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
   const router = useRouter()
@@ -83,6 +83,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
     endDate: format(new Date(campaign.endDate ?? new Date()), formatString),
     state: campaign.state,
     description: campaign.description || '',
+    campaignFiles: campaign.campaignFiles || [],
   }
 
   const mutation = useMutation<
@@ -233,8 +234,15 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
             <CoordinatorSelect />
           </Grid>
           <Grid item xs={12}>
+            <List dense>
+              {(campaign?.campaignFiles || []).map((file, key) => (
+                <UploadedCampaignFile key={key} file={file} campaignId={campaign.id} />
+              ))}
+            </List>
+          </Grid>
+          <Grid item xs={12}>
             <FileUpload
-              buttonLabel="Добави файлове"
+              buttonLabel={t('campaigns:cta.add-files')}
               onUpload={(newFiles) => {
                 setFiles((prevFiles) => [...prevFiles, ...newFiles])
                 setRoles((prevRoles) => [
