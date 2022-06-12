@@ -39,6 +39,13 @@ const DisplayCampaignType = ({ params }: CampaignCellProps) => {
   return <>{params.row.campaignType.name}</>
 }
 
+const DisplayDonationAmount = ({ params }: CampaignCellProps) => {
+  if (params.row.vaults.length) {
+    return <>{params.row.vaults.reduce((acc, vault) => acc + vault.amount, 0)}</>
+  }
+  return <>0</>
+}
+
 export default function CampaignGrid() {
   const { t } = useTranslation()
   const { data = [], refetch }: UseQueryResult<AdminCampaignResponse[]> = useCampaignAdminList()
@@ -73,13 +80,15 @@ export default function CampaignGrid() {
     {
       field: 'state',
       headerName: t('campaigns:status'),
-      width: 120,
       ...commonProps,
+      align: 'left',
+      width: 120,
     },
     {
       field: 'title',
       headerName: t('campaigns:title'),
       ...commonProps,
+      align: 'left',
       width: 350,
       renderCell: (cellValues: GridRenderCellParams) => (
         <ExternalLink href={`/campaigns/${cellValues.row.slug}`}>
@@ -90,8 +99,8 @@ export default function CampaignGrid() {
     {
       field: 'essence',
       headerName: t('campaigns:essence'),
-      align: 'right',
       ...commonProps,
+      align: 'left',
       width: 350,
     },
     {
@@ -101,6 +110,7 @@ export default function CampaignGrid() {
       renderCell: (params: GridRenderCellParams) => {
         return <DisplayCoordinator params={params} />
       },
+      align: 'left',
       width: 200,
     },
     {
@@ -110,6 +120,7 @@ export default function CampaignGrid() {
       renderCell: (params: GridRenderCellParams) => {
         return <DisplayBeneficiary params={params} />
       },
+      align: 'left',
       width: 200,
     },
     {
@@ -119,25 +130,40 @@ export default function CampaignGrid() {
       renderCell: (params: GridRenderCellParams) => {
         return <DisplayCampaignType params={params} />
       },
+      align: 'left',
       width: 250,
     },
     {
       field: 'description',
       headerName: t('campaigns:description'),
-      align: 'right',
       ...commonProps,
+      align: 'left',
       width: 350,
+    },
+    {
+      field: 'vaults',
+      headerName: t('campaigns:amount'),
+      ...commonProps,
+      align: 'right',
+      width: 200,
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <ExternalLink href={`/admin/donations`}>
+          <DisplayDonationAmount params={cellValues} />
+        </ExternalLink>
+      ),
     },
     {
       field: 'targetAmount',
       headerName: t('campaigns:targetAmount'),
-      align: 'right',
       ...commonProps,
+      align: 'right',
+      width: 150,
     },
     {
       field: 'currency',
       headerName: t('campaigns:currency'),
       ...commonProps,
+      align: 'left',
     },
     {
       field: 'startDate',
