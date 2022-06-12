@@ -90,14 +90,14 @@ export default function DonationTab() {
                   component="img"
                   height="193"
                   image={campaignListPictureUrl(campaigns[0])}
-                  alt={campaigns[0].title}
+                  alt={campaigns[0]?.title}
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
-                    {campaigns[0].title}
+                    {campaigns[0]?.title}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {truncate(campaigns[0].description, { length: 120 })}
+                    {truncate(campaigns[0]?.description, { length: 120 })}
                   </Typography>
                 </CardContent>
               </CardActionArea>

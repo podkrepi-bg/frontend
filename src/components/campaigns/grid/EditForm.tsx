@@ -6,6 +6,7 @@ import { parse, isDate, format } from 'date-fns'
 import { useMutation, useQueryClient } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
+import NextLink from 'next/link'
 import { Button, Grid, Link, List, ListItemText, Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
@@ -230,9 +231,21 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
+            <p>
+              Select a Beneficiery or{' '}
+              <NextLink href={routes.admin.beneficiary.create} passHref>
+                <a>Create New</a>
+              </NextLink>
+            </p>
             <BeneficiarySelect />
           </Grid>
           <Grid item xs={12} sm={6}>
+            <p>
+              Select a Coordinator or{' '}
+              <NextLink href={routes.admin.coordinators.add} passHref>
+                <a>Create New</a>
+              </NextLink>
+            </p>
             <CoordinatorSelect />
           </Grid>
           <Grid item xs={12}>
@@ -273,9 +286,9 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
           </Grid>
           <Grid item xs={12}>
             <SubmitButton fullWidth label="campaigns:cta.submit" loading={mutation.isLoading} />
-            <Link href={routes.admin.campaigns.index}>
-              <Button fullWidth={true}>{t('Отказ')}</Button>
-            </Link>
+            <NextLink href={routes.admin.campaigns.index} passHref>
+              <Button fullWidth>{t('Отказ')}</Button>
+            </NextLink>
           </Grid>
         </Grid>
       </GenericForm>

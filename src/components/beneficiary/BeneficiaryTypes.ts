@@ -18,7 +18,7 @@ export const PersonRelation = {
   colleague: 'colleague',
 }
 
-export const LegalEntityType = {
+export const BeneficiaryType = {
   individual: 'individual',
   company: 'company',
 }

@@ -55,6 +55,24 @@ export default observer(function Grid() {
   }
   const columns: GridColumns = [
     {
+      field: 'actions',
+      headerName: t('beneficiary:actions'),
+      width: 120,
+      type: 'actions',
+      headerAlign: 'left',
+      sortable: false,
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        return (
+          <GridActions
+            modalStore={ModalStore}
+            id={params.row.id}
+            name={params.row.ibanNumber}
+            editLink={routes.admin.beneficiary.edit(params.row.id)}
+          />
+        )
+      },
+    },
+    {
       field: 'is-person',
       headerName: t('beneficiary:grid:type'),
       ...commonProps,
@@ -81,22 +99,10 @@ export default observer(function Grid() {
       },
     },
     {
-      field: 'actions',
-      headerName: t('beneficiary:actions'),
-      width: 120,
-      type: 'actions',
-      headerAlign: 'left',
-      sortable: false,
-      renderCell: (params: GridRenderCellParams): React.ReactNode => {
-        return (
-          <GridActions
-            modalStore={ModalStore}
-            id={params.row.id}
-            name={params.row.ibanNumber}
-            editLink={routes.admin.beneficiary.edit(params.row.id)}
-          />
-        )
-      },
+      field: 'description',
+      headerName: t('beneficiary:grid:description'),
+      flex: 1,
+      ...commonProps,
     },
   ]
 

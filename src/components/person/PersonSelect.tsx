@@ -1,12 +1,10 @@
-import { useTranslation } from 'react-i18next'
 import { FormControl, MenuItem } from '@mui/material'
 import { useField } from 'formik'
 
 import { usePersonList } from 'common/hooks/person'
 import FormTextField from 'components/common/form/FormTextField'
 
-export default function PersonSelect({ name = 'personId', namespace = 'common' }) {
-  const { t } = useTranslation(namespace)
+export default function PersonSelect({ name = 'personId', label = '' }) {
   const [field, meta] = useField(name)
   const { data: personList } = usePersonList()
 
@@ -16,22 +14,16 @@ export default function PersonSelect({ name = 'personId', namespace = 'common' }
       size="small"
       variant="outlined"
       error={Boolean(meta.error) && Boolean(meta.touched)}>
-      <FormTextField
-        select
-        type="text"
-        fullWidth
-        defaultValue=""
-        label={t('fields.' + name)}
-        {...field}>
+      <FormTextField select type="text" fullWidth defaultValue="" label={label} {...field}>
         <MenuItem value="" disabled>
-          {t('fields.' + name)}
+          {label}
         </MenuItem>
         <MenuItem key={'none'} value="">
-          <i>{t('fields.empty')}</i>
+          <i>---</i>
         </MenuItem>
         {personList?.map((person, index) => (
           <MenuItem key={index} value={person.id}>
-            {person.firstName} {person.lastName} (<i>{person.id}</i>)
+            {person.firstName} {person.lastName}
           </MenuItem>
         ))}
       </FormTextField>

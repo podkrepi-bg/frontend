@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { useMutation } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import { observer } from 'mobx-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useTranslation } from 'next-i18next'
@@ -13,8 +13,10 @@ import { routes } from 'common/routes'
 import DeleteDialog from 'components/admin/DeleteDialog'
 
 import { ModalStore } from '../BeneficiaryPage'
+import { endpoints } from 'service/apiEndpoints'
 
 export default observer(function DeleteModal() {
+  const queryClient = useQueryClient()
   const router = useRouter()
   const { hideDelete, selectedRecord } = ModalStore
   const { t } = useTranslation()
@@ -31,6 +33,7 @@ export default observer(function DeleteModal() {
     onSuccess: () => {
       hideDelete()
       AlertStore.show(t('documents:alerts:delete'), 'success')
+      queryClient.invalidateQueries(endpoints.beneficiary.listBeneficiary.url)
       router.push(routes.admin.beneficiary.index)
     },
   })

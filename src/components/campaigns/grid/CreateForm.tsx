@@ -218,9 +218,21 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
             />
           </Grid>
           <Grid item xs={12} sm={6}>
+            <p>
+              Select a Beneficiery or{' '}
+              <Link href={routes.admin.beneficiary.create} passHref>
+                Create New
+              </Link>
+            </p>
             <BeneficiarySelect />
           </Grid>
           <Grid item xs={12} sm={6}>
+            <p>
+              Select a Coordinator or{' '}
+              <Link href={routes.admin.coordinators.add} passHref>
+                Create New
+              </Link>
+            </p>
             <CoordinatorSelect />
           </Grid>
           <Grid item xs={12}>

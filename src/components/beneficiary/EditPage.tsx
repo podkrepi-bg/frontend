@@ -4,7 +4,7 @@ import { Container } from '@mui/material'
 import AdminContainer from 'components/admin/navigation/AdminContainer'
 import AdminLayout from 'components/admin/navigation/AdminLayout'
 
-import Form from './Form'
+import BeneficieryForm from './BeneficieryForm'
 
 export default function EditPage() {
   const { t } = useTranslation('beneficiary')
@@ -13,7 +13,7 @@ export default function EditPage() {
     <AdminLayout>
       <AdminContainer title={t('all')}>
         <Container maxWidth="md" sx={{ py: 5 }}>
-          <Form />
+          <BeneficieryForm />
         </Container>
       </AdminContainer>
     </AdminLayout>

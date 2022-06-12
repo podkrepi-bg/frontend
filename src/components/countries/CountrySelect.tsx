@@ -4,7 +4,7 @@ import { useCountriesList } from 'common/hooks/countries'
 import { useField } from 'formik'
 import { useTranslation } from 'react-i18next'
 
-export default function SelectCountry({ name = 'countryId' }) {
+export default function CountrySelect({ name = 'countryId' }) {
   const { t } = useTranslation()
   const { data } = useCountriesList()
   const [field, meta] = useField(name)
