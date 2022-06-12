@@ -1,6 +1,5 @@
 import { ReactNode } from 'react'
 import { Box } from '@mui/material'
-import theme from 'common/theme'
 import { ProfileTabs } from './tabs'
 import { styled } from '@mui/material/styles'
 
