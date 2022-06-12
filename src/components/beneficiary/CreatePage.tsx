@@ -13,7 +13,6 @@ export default function CreatePage() {
     <AdminLayout>
       <AdminContainer title={t('all')}>
         <Container maxWidth="md" sx={{ py: 5 }}>
-          {t}
           <BeneficieryForm />
         </Container>
       </AdminContainer>
