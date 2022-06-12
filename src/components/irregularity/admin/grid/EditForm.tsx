@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useMutation, useQueryClient } from 'react-query'
 
-import { Button, Grid, List, Typography } from '@mui/material'
+import { Button, Grid, List, ListItemText, Typography } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
 import createStyles from '@mui/styles/createStyles'
 
@@ -213,6 +213,7 @@ export default function EditForm({ campaigns, irregularity, irregularityFiles }:
           </Grid>
           <Grid item xs={12}>
             <List dense>
+              <ListItemText primary={t('cta.attached-files')} />
               {irregularityFiles.map((file, key) => (
                 <IrregularityFile key={key} file={file} irregularityId={irregularity.id} />
               ))}

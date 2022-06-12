@@ -4,7 +4,15 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { useMutation, useQueryClient } from 'react-query'
 
 import FilePresentIcon from '@mui/icons-material/FilePresent'
-import { Avatar, Button, ListItem, ListItemAvatar, ListItemText, Tooltip } from '@mui/material'
+import {
+  Avatar,
+  Button,
+  IconButton,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Tooltip,
+} from '@mui/material'
 
 import { ApiErrors } from 'service/apiErrors'
 import { endpoints } from 'service/apiEndpoints'
@@ -14,6 +22,7 @@ import { AlertStore } from 'stores/AlertStore'
 import { useSession } from 'next-auth/react'
 import { CampaignFile } from 'gql/campaigns'
 import { deleteCampaignFile, downloadCampaignFile } from 'service/campaign'
+import { Delete } from '@mui/icons-material'
 
 type Props = {
   campaignId: string
@@ -59,13 +68,14 @@ export default function UploadedCampaignFile({ file, campaignId }: Props) {
         </Avatar>
       </ListItemAvatar>
       <ListItemText primary={file.filename} />
+      <ListItemText primary={file.role} />
       <></>
       <Tooltip title={'download'}>
-        <Button style={{ color: 'red' }} onClick={downloadFileHandler}>
-          {t('cta.download')}
-        </Button>
+        <Button onClick={downloadFileHandler}>{t('cta.download')}</Button>
       </Tooltip>
-      <Button onClick={deleteFileHandler}>{t('cta.delete')}</Button>
+      <IconButton edge="end" aria-label="delete" onClick={deleteFileHandler}>
+        <Delete />
+      </IconButton>
     </ListItem>
   )
 }

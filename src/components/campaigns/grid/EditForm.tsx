@@ -6,7 +6,7 @@ import { parse, isDate, format } from 'date-fns'
 import { useMutation, useQueryClient } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Button, Grid, Link, List, Typography } from '@mui/material'
+import { Button, Grid, Link, List, ListItemText, Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
 import { Currency } from 'gql/currency'
@@ -237,6 +237,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
           </Grid>
           <Grid item xs={12}>
             <List dense>
+              <ListItemText primary={t('campaigns:cta.attached-files')} />
               {(campaign?.campaignFiles || []).map((file, key) => (
                 <UploadedCampaignFile key={key} file={file} campaignId={campaign.id} />
               ))}
