@@ -16,7 +16,7 @@ import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
-import SelectCountry from 'components/countries/SelectCountry'
+import CountrySelect from 'components/countries/CountrySelect'
 
 const validationSchema: yup.SchemaOf<CityFormData> = yup
   .object()
@@ -81,7 +81,7 @@ export default function EditForm() {
             />
           </Grid>
           <Grid item xs={12}>
-            <SelectCountry />
+            <CountrySelect />
           </Grid>
           <Grid item xs={6}>
             <SubmitButton fullWidth label={t('cities:cta:submit')} />

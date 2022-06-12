@@ -2,7 +2,6 @@ import { UUID } from './types'
 
 export type PersonResponse = {
   id: string
-  personId: string
   firstName: string
   lastName: string
   email: string

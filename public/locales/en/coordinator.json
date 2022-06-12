@@ -11,7 +11,9 @@
     "close": "Close"
   },
   "create": {
-    "heading": "Add new cordinator",
+    "heading": "Add new coordinator",
+    "info": "Coordinator can be any registered user in the platform",
+    "personSelect": "Select user",
     "submitButton": "Create"
   }
 }

@@ -6,7 +6,8 @@ import { parse, isDate, format } from 'date-fns'
 import { useMutation, useQueryClient } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Button, Grid, Link, Typography } from '@mui/material'
+import { Button, Grid, Typography } from '@mui/material'
+import Link from 'next/link'
 
 import { routes } from 'common/routes'
 import { Currency } from 'gql/currency'
@@ -227,9 +228,21 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
+            <p>
+              Select a Beneficiery or{' '}
+              <Link href={routes.admin.beneficiary.create} passHref>
+                Create New
+              </Link>
+            </p>
             <BeneficiarySelect />
           </Grid>
           <Grid item xs={12} sm={6}>
+            <p>
+              Select a Coordinator or{' '}
+              <Link href={routes.admin.coordinators.add} passHref>
+                Create New
+              </Link>
+            </p>
             <CoordinatorSelect />
           </Grid>
           <Grid item xs={12}>
@@ -262,7 +275,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
           </Grid>
           <Grid item xs={12}>
             <SubmitButton fullWidth label="campaigns:cta.submit" loading={mutation.isLoading} />
-            <Link href={routes.admin.campaigns.index}>
+            <Link href={routes.admin.campaigns.index} passHref>
               <Button fullWidth={true}>{t('Отказ')}</Button>
             </Link>
           </Grid>

@@ -73,7 +73,7 @@
   },
   "fields": {
     "currency": "Валута",
-    "personId": "Човек",
+    "personId": "Личност",
     "campaignId": "Кампания",
     "sourceCampaignId": "От кампания",
     "targetCampaignId": "Към кампания",

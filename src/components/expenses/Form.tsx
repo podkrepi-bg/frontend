@@ -24,7 +24,6 @@ import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import { ExpenseInput, ExpenseResponse, ExpenseStatus, ExpenseType } from 'gql/expenses'
 
 import VaultSelect from '../vaults/VaultSelect'
-import PersonSelect from '../person/PersonSelect'
 import ExpenseTypeSelect from './ExpenseTypeSelect'
 import ExpenseStatusSelect from './ExpenseStatusSelect'
 
@@ -143,15 +142,23 @@ export default function Form() {
               rows={5}
             />
           </Grid>
-          <Grid item xs={id ? 10 : 12}>
-            <PersonSelect name="approvedById" namespace="expenses" />
-          </Grid>
+          {id && (
+            <Grid item xs={id ? 10 : 12}>
+              <FormTextField
+                type="text"
+                name="approvedById"
+                label={t('expenses:fields:approvedBy')}
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
+            </Grid>
+          )}
           {id && (
             <Grid item xs={2}>
               <DeletedCheckbox />
             </Grid>
           )}
-
           <Grid item xs={6}>
             <SubmitButton fullWidth label={id ? 'expenses:btns.save' : 'expenses:btns.submit'} />
           </Grid>

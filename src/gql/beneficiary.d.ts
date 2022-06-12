@@ -1,9 +1,9 @@
-import { LegalEntityType, PersonRelation } from '../components/beneficiary/BeneficiaryTypes'
+import { BeneficiaryType, PersonRelation } from '../components/beneficiary/BeneficiaryTypes'
 import { Person } from './person'
 
 export type BeneficiaryListResponse = {
   id: string
-  type: LegalEntityType
+  type: BeneficiaryType
   personId?: string
   person?: Person
   company?: { name: string }
@@ -26,7 +26,7 @@ export type ViewBeneficiaryResponse = BeneficiaryListResponse & {
 }
 
 export type BeneficiaryFormData = {
-  type: LegalEntityType
+  type: BeneficiaryType
   personId?: string
   companyId?: string
   /// Coordinator for this beneficiary

@@ -38,7 +38,7 @@ function PersonSelectDialog({ onConfirm: confirmCallback, onClose: closeCallback
         error={error ? translateError(error, t) : undefined}
       />
       <Dialog fullWidth open={open} onClose={closeHandler}>
-        <DialogTitle>{t('person:selectDialog.personSelect')}</DialogTitle>
+        <DialogTitle>{t('person:personSelect')}</DialogTitle>
         <DialogContent>
           <Box sx={{ marginTop: theme.spacing(2) }}>
             <PersonAutocomplete
