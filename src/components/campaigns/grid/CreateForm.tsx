@@ -25,9 +25,9 @@ import { CampaignFileRole, FileRole, UploadCampaignFiles } from 'components/camp
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 import {
   CampaignResponse,
-  CampaignFormData,
   CampaignInput,
   CampaignUploadImage,
+  CampaignCreateFormData,
 } from 'gql/campaigns'
 
 import CampaignTypeSelect from '../CampaignTypeSelect'
@@ -45,7 +45,7 @@ const parseDateString = (value: string, originalValue: string) => {
   return parsedDate
 }
 
-const validationSchema: yup.SchemaOf<CampaignFormData> = yup
+const validationSchema: yup.SchemaOf<CampaignCreateFormData> = yup
   .object()
   .defined()
   .shape({
@@ -66,7 +66,7 @@ const validationSchema: yup.SchemaOf<CampaignFormData> = yup
     gdpr: yup.bool().required().oneOf([true], 'validation:terms-of-service'),
   })
 
-const defaults: CampaignFormData = {
+const defaults: CampaignCreateFormData = {
   title: '',
   campaignTypeId: '',
   beneficiaryId: '',
@@ -81,7 +81,7 @@ const defaults: CampaignFormData = {
   gdpr: false,
 }
 
-export type CampaignFormProps = { initialValues?: CampaignFormData }
+export type CampaignFormProps = { initialValues?: CampaignCreateFormData }
 
 export default function CampaignForm({ initialValues = defaults }: CampaignFormProps) {
   const router = useRouter()
@@ -108,8 +108,8 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   })
 
   const onSubmit = async (
-    values: CampaignFormData,
-    { setFieldError }: FormikHelpers<CampaignFormData>,
+    values: CampaignCreateFormData,
+    { setFieldError }: FormikHelpers<CampaignCreateFormData>,
   ) => {
     try {
       const response = await mutation.mutateAsync({
@@ -247,7 +247,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
                   })),
                 ])
               }}
-              buttonLabel="Добави файлове"
+              buttonLabel={t('campaigns:cta.add-files')}
             />
             <FileList
               filesRole={roles}

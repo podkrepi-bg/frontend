@@ -5,7 +5,8 @@ import { apiClient } from 'service/apiClient'
 import { authConfig } from 'service/restRequests'
 import { endpoints } from 'service/apiEndpoints'
 import { UploadCampaignFiles } from 'components/campaign-file/roles'
-import { CampaignResponse, CampaignInput, CampaignUploadImage } from 'gql/campaigns'
+import { CampaignResponse, CampaignInput, CampaignUploadImage, CampaignFile } from 'gql/campaigns'
+import { Session } from 'next-auth'
 
 export const useCreateCampaign = () => {
   const { data: session } = useSession()
@@ -61,6 +62,23 @@ export const useUploadCampaignFiles = () => {
           'Content-Type': 'multipart/form-data',
         },
       },
+    )
+  }
+}
+
+export const downloadCampaignFile = (id: string, session: Session | null) => {
+  return apiClient(endpoints.campaign.downloadFile(id).url, {
+    ...authConfig(session?.accessToken),
+    responseType: 'blob',
+  })
+}
+
+export const deleteCampaignFile = (id: string) => {
+  const { data: session } = useSession()
+  return async () => {
+    return await apiClient.delete<CampaignFile, AxiosResponse<CampaignFile>>(
+      endpoints.campaign.deleteFile(id).url,
+      authConfig(session?.accessToken),
     )
   }
 }
