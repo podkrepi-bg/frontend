@@ -48,8 +48,7 @@
     "lastName":"Фамилия"
   },
   "passwordModal":{
-    "newPassword":"Обнови парола",
-    "doNotMatch":"Паролите не съвпадат."
+    "newPassword":"Обнови парола"
   },
   "disableModal":{
     "index": "Изтриване на акаунт",

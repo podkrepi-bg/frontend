@@ -48,8 +48,7 @@
     "lastName":"Last name"
   },
   "passwordModal":{
-    "newPassword":"Change password",
-    "doNotMatch":"Passwords do not match."
+    "newPassword":"Change password"
   },
   "disableModal":{
     "index": "Delete account",
