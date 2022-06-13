@@ -16,7 +16,6 @@ import { CampaignResponse } from 'gql/campaigns'
 import { endpoints } from 'service/apiEndpoints'
 import { useEditTransfer } from 'service/transfer'
 import VaultSelect from 'components/vaults/VaultSelect'
-import PersonSelect from 'components/person/PersonSelect'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import CurrencySelect from 'components/currency/CurrencySelect'
@@ -142,7 +141,14 @@ export default function EditForm({ transfer, campaigns, id }: Props) {
             />
           </Grid>
           <Grid item xs={12}>
-            <PersonSelect name="approvedById" namespace="transfer" />
+            <FormTextField
+              type="text"
+              name="approvedById"
+              label={t('expenses:fields:approvedBy')}
+              InputProps={{
+                readOnly: true,
+              }}
+            />
           </Grid>
           <Grid item xs={12}>
             <CampaignSelect

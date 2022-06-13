@@ -3,7 +3,7 @@
   "grid": {
     "id": "ID",
     "individual": "Person",
-    "company": "Company",
+    "company": "Legal Entity",
     "coordinator": "Coordinator",
     "countryCode": "Country code",
     "not-person": "Not a person",
@@ -24,11 +24,13 @@
   "forms": {
     "add-heading": "Add beneficiary",
     "edit-heading": "Edit beneficiary",
+    "info": "Beneficiery could be any user or legal entity registered in the platform",
     "labels": {
       "type": {
         "individual": "Person",
-        "company": "Company"
-      }
+        "company": "Legal Entity"
+      },
+      "personSelect": "Select user"
     }
   },
   "actions": "Actions"

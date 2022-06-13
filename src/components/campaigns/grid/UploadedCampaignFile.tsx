@@ -4,39 +4,48 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { useMutation, useQueryClient } from 'react-query'
 
 import FilePresentIcon from '@mui/icons-material/FilePresent'
-import { Avatar, Button, ListItem, ListItemAvatar, ListItemText, Tooltip } from '@mui/material'
+import {
+  Avatar,
+  Button,
+  IconButton,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Tooltip,
+} from '@mui/material'
 
 import { ApiErrors } from 'service/apiErrors'
 import { endpoints } from 'service/apiEndpoints'
-import { deleteIrregularityFile, download } from 'service/irregularity'
 
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
-import { IrregularityFileResponse } from 'components/irregularity/helpers/irregularity.types'
 import { useSession } from 'next-auth/react'
+import { CampaignFile } from 'gql/campaigns'
+import { deleteCampaignFile, downloadCampaignFile } from 'service/campaign'
+import { Delete } from '@mui/icons-material'
 
 type Props = {
-  irregularityId: string
-  file: IrregularityFileResponse
+  campaignId: string
+  file: CampaignFile
 }
 
-export default function IrregularityFile({ file, irregularityId }: Props) {
-  const { t } = useTranslation('irregularity')
+export default function UploadedCampaignFile({ file, campaignId }: Props) {
+  const { t } = useTranslation('campaigns')
   const queryClient = useQueryClient()
   const router = useRouter()
   const { data: session } = useSession()
 
-  const mutation = useMutation<AxiosResponse<IrregularityFileResponse>, AxiosError<ApiErrors>>({
-    mutationFn: deleteIrregularityFile(file.id),
-    onError: () => AlertStore.show(t('admin.alerts.error'), 'error'),
+  const mutation = useMutation<AxiosResponse<CampaignFile>, AxiosError<ApiErrors>>({
+    mutationFn: deleteCampaignFile(file.id),
+    onError: () => AlertStore.show(t('alerts.error'), 'error'),
     onSuccess: () => {
-      AlertStore.show(t('admin.alerts.delete-file'), 'success')
-      queryClient.invalidateQueries(endpoints.irregularity.viewIrregularity(irregularityId).url)
-      router.push(routes.admin.irregularity.index)
+      AlertStore.show(t('alerts.deletedFile'), 'success')
+      queryClient.invalidateQueries(endpoints.campaign.viewCampaignById(campaignId).url)
+      router.push(routes.admin.campaigns.index)
     },
   })
   const downloadFileHandler = async () => {
-    download(file.id, session)
+    downloadCampaignFile(file.id, session)
       .then((response) => {
         const url = window.URL.createObjectURL(new Blob([response.data]))
         const link = document.createElement('a')
@@ -59,11 +68,14 @@ export default function IrregularityFile({ file, irregularityId }: Props) {
         </Avatar>
       </ListItemAvatar>
       <ListItemText primary={file.filename} />
+      <ListItemText primary={file.role} />
       <></>
       <Tooltip title={'download'}>
-        <Button onClick={downloadFileHandler}>{t('admin.cta.download')}</Button>
+        <Button onClick={downloadFileHandler}>{t('cta.download')}</Button>
       </Tooltip>
-      <Button onClick={deleteFileHandler}>{t('admin.cta.delete')}</Button>
+      <IconButton edge="end" aria-label="delete" onClick={deleteFileHandler}>
+        <Delete />
+      </IconButton>
     </ListItem>
   )
 }

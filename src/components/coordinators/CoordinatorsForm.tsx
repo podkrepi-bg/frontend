@@ -13,7 +13,7 @@ import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import { CoorinatorInput, CoordinatorResponse } from 'gql/coordinators'
 
-import SelectCoordinator from './SelectCoordinator'
+import PersonSelect from 'components/person/PersonSelect'
 
 export default function CoordinatorsForm() {
   const { t } = useTranslation()
@@ -54,10 +54,15 @@ export default function CoordinatorsForm() {
           {t('coordinator:create:heading')}
         </Typography>
       </Grid>
+      <Grid item xs={12}>
+        <Typography variant="body1" sx={{ textAlign: 'center', padding: '8px' }}>
+          {t('coordinator:create:info')}
+        </Typography>
+      </Grid>
       <GenericForm onSubmit={onSubmit} initialValues={initialValues}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <SelectCoordinator name="personId" />
+            <PersonSelect name="personId" label={t('coordinator:create:personSelect')} />
           </Grid>
         </Grid>
         <Grid item xs={12}>

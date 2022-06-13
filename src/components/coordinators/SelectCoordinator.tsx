@@ -11,7 +11,7 @@ export default function SelectCoordinator({ name = 'coordinatorId' }) {
   const { data: coordinatorList } = useCoordinatorsList()
 
   return (
-    <FormControl fullWidth>
+    <FormControl fullWidth size="small" variant="outlined">
       <InputLabel>Избери</InputLabel>
       <Select fullWidth defaultValue="" label={t('campaigns:campaign.type')} {...field}>
         {personList

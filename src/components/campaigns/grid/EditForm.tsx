@@ -6,7 +6,8 @@ import { parse, isDate, format } from 'date-fns'
 import { useMutation, useQueryClient } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Button, Grid, Link, Typography } from '@mui/material'
+import NextLink from 'next/link'
+import { Button, Grid, Link, List, ListItemText, Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
 import { Currency } from 'gql/currency'
@@ -19,9 +20,9 @@ import FormTextField from 'components/common/form/FormTextField'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import {
   CampaignResponse,
-  CampaignFormData,
   CampaignInput,
   CampaignUploadImage,
+  CampaignEditFormData,
 } from 'gql/campaigns'
 import { CampaignState } from '../helpers/campaign.enums'
 
@@ -33,6 +34,7 @@ import FileList from 'components/file-upload/FileList'
 import FileUpload from 'components/file-upload/FileUpload'
 import CampaignStateSelect from '../CampaignStateSelect'
 import { endpoints } from 'service/apiEndpoints'
+import UploadedCampaignFile from './UploadedCampaignFile'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -44,7 +46,7 @@ const parseDateString = (value: string, originalValue: string) => {
   return parsedDate
 }
 
-const validationSchema: yup.SchemaOf<EditFormData> = yup
+const validationSchema: yup.SchemaOf<Omit<CampaignEditFormData, 'campaignFiles'>> = yup
   .object()
   .defined()
   .shape({
@@ -63,8 +65,6 @@ const validationSchema: yup.SchemaOf<EditFormData> = yup
     state: yup.mixed().oneOf(Object.values(CampaignState)).required(),
   })
 
-type EditFormData = Omit<CampaignFormData, 'gdpr' | 'terms'>
-
 export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
   const router = useRouter()
   const queryClient = useQueryClient()
@@ -72,7 +72,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
   const [roles, setRoles] = useState<FileRole[]>([])
   const { t } = useTranslation()
 
-  const initialValues: EditFormData = {
+  const initialValues: CampaignEditFormData = {
     title: campaign?.title || '',
     coordinatorId: campaign.coordinatorId,
     campaignTypeId: campaign.campaignTypeId,
@@ -83,6 +83,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
     endDate: format(new Date(campaign.endDate ?? new Date()), formatString),
     state: campaign.state,
     description: campaign.description || '',
+    campaignFiles: campaign.campaignFiles || [],
   }
 
   const mutation = useMutation<
@@ -112,7 +113,10 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
     },
   })
 
-  const onSubmit = async (values: EditFormData, { setFieldError }: FormikHelpers<EditFormData>) => {
+  const onSubmit = async (
+    values: CampaignEditFormData,
+    { setFieldError }: FormikHelpers<CampaignEditFormData>,
+  ) => {
     try {
       await mutation.mutateAsync({
         title: values.title,
@@ -166,7 +170,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
           {t('campaigns:edit-form-heading')}
         </Typography>
       </Grid>
-      <GenericForm<EditFormData>
+      <GenericForm<CampaignEditFormData>
         onSubmit={onSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}>
@@ -227,14 +231,34 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
+            <p>
+              Select a Beneficiery or{' '}
+              <NextLink href={routes.admin.beneficiary.create} passHref>
+                <a>Create New</a>
+              </NextLink>
+            </p>
             <BeneficiarySelect />
           </Grid>
           <Grid item xs={12} sm={6}>
+            <p>
+              Select a Coordinator or{' '}
+              <NextLink href={routes.admin.coordinators.add} passHref>
+                <a>Create New</a>
+              </NextLink>
+            </p>
             <CoordinatorSelect />
           </Grid>
           <Grid item xs={12}>
+            <List dense>
+              <ListItemText primary={t('campaigns:cta.attached-files')} />
+              {(campaign?.campaignFiles || []).map((file, key) => (
+                <UploadedCampaignFile key={key} file={file} campaignId={campaign.id} />
+              ))}
+            </List>
+          </Grid>
+          <Grid item xs={12}>
             <FileUpload
-              buttonLabel="Добави файлове"
+              buttonLabel={t('campaigns:cta.add-files')}
               onUpload={(newFiles) => {
                 setFiles((prevFiles) => [...prevFiles, ...newFiles])
                 setRoles((prevRoles) => [
@@ -262,9 +286,9 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
           </Grid>
           <Grid item xs={12}>
             <SubmitButton fullWidth label="campaigns:cta.submit" loading={mutation.isLoading} />
-            <Link href={routes.admin.campaigns.index}>
-              <Button fullWidth={true}>{t('Отказ')}</Button>
-            </Link>
+            <NextLink href={routes.admin.campaigns.index} passHref>
+              <Button fullWidth>{t('Отказ')}</Button>
+            </NextLink>
           </Grid>
         </Grid>
       </GenericForm>

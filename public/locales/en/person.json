@@ -1,8 +1,9 @@
 {
+  "personSelect": "Person Select",
+  "emptySelectItem": "Not selected",
   "selectDialog": {
     "notSelected": "You haven't chosen a person",
     "select": "Select",
-    "personSelect": "Person Select",
     "confirm": "Confirm"
   },
   "autocomplete": {

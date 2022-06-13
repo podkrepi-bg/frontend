@@ -1,12 +1,13 @@
 {
+  "personSelect": "Изберете потребител",
+  "emptySelectItem": "Не е избран",
   "selectDialog": {
-    "notSelected": "Не сте избрали човек",
+    "notSelected": "Не сте избрали потребител",
     "select": "Избиране",
-    "personSelect": "Изберете човек",
     "confirm": "Потвърждавам"
   },
   "autocomplete": {
-    "personSearch": "Намерете човек"
+    "personSearch": "Намерете потребител"
   },
   "info": {
     "tel": "Тел",

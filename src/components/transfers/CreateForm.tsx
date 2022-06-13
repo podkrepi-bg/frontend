@@ -14,7 +14,6 @@ import { AlertStore } from 'stores/AlertStore'
 import { CampaignResponse } from 'gql/campaigns'
 import { useCreateTransfer } from 'service/transfer'
 import VaultSelect from 'components/vaults/VaultSelect'
-import PersonSelect from 'components/person/PersonSelect'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import CurrencySelect from 'components/currency/CurrencySelect'
@@ -120,9 +119,6 @@ export default function CreateForm({ campaigns }: Props) {
               name="documentId"
               autoComplete="documentId"
             />
-          </Grid>
-          <Grid item xs={12}>
-            <PersonSelect name="approvedById" namespace="transfer" />
           </Grid>
           <Grid item xs={12}>
             <CampaignSelect

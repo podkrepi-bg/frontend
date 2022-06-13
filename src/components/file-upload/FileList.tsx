@@ -47,12 +47,12 @@ function FileList({ files, onDelete, onSetFileRole, filesRole = [] }: Props) {
               <UploadFile />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary={file.type} />
           <ListItemText primary={file.name} />
           <FormControl>
             <InputLabel id="choose-type-label">{'Избери роля'}</InputLabel>
             <Select<CampaignFileRole>
               id="choose-type"
+              size="small"
               label="Избери роля"
               labelId="choose-type-label"
               value={
