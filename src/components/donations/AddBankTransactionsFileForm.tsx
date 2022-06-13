@@ -7,18 +7,13 @@ import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import { Button, Grid, Typography } from '@mui/material'
 import Link from 'next/link'
-
 import { routes } from 'common/routes'
-
 import { AlertStore } from 'stores/AlertStore'
-
 import FileUpload from 'components/file-upload/FileUpload'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
-
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
-
 import {
   BankTransactionsFileType,
   FileType,
