@@ -1,5 +1,6 @@
 {
   "form-heading": "Add new donation",
+  "form-heading-bank-transactions-file": "Add new file with bank transactions",
   "edit-form-heading": "Edit donation",
   "all": "All donations",
   "donations": "Doantions",
@@ -19,6 +20,8 @@
   "deleteTitle": "Are you sure?",
   "deleteContent": "This action will delete this item permanently!",
   "deleteAllContent": "This action will delete selected items permanently!",
+  "bankTransactionsFileId": "Number of bank transactions file",
+  "addFiles": "Add files",
   "actions": "Actions",
   "createdAt": "Created at",
   "alerts": {
