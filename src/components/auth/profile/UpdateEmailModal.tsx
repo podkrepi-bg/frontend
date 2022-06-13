@@ -12,9 +12,11 @@ import { AlertStore } from 'stores/AlertStore'
 import { useTranslation } from 'next-i18next'
 import CloseIcon from '@mui/icons-material/Close'
 import * as yup from 'yup'
-import { customValidators, email } from 'common/form/validation'
-import { signIn } from 'next-auth/react'
+import { email, password } from 'common/form/validation'
+import { signIn, signOut } from 'next-auth/react'
 import PasswordField from 'components/common/form/PasswordField'
+import { useState } from 'react'
+import { baseUrl, routes } from 'common/routes'
 
 const PREFIX = 'UpdateNameModal'
 
@@ -47,8 +49,10 @@ const validationSchema: yup.SchemaOf<Pick<UpdateUserAccount, 'email' | 'password
   .defined()
   .shape({
     email: email.required(),
-    password: yup.string().min(6, customValidators.passwordMin).required(),
+    password: password.required(),
   })
+
+const callbackUrl = `${baseUrl}${routes.login}`
 
 function UpdateEmailModal({
   isOpen,
@@ -60,6 +64,7 @@ function UpdateEmailModal({
   person: UpdatePerson
 }) {
   const { t } = useTranslation()
+  const [loading, setLoading] = useState(false)
 
   const mutation = useMutation<AxiosResponse<Person>, AxiosError<ApiErrors>, UpdatePerson>({
     mutationFn: updateCurrentPerson(),
@@ -69,6 +74,8 @@ function UpdateEmailModal({
 
   const onSubmit = async (values: Pick<UpdateUserAccount, 'email' | 'password'>) => {
     try {
+      setLoading(true)
+
       const confirmPassword = await signIn<'credentials'>('credentials', {
         email: person.email,
         password: values.password,
@@ -79,22 +86,28 @@ function UpdateEmailModal({
         AlertStore.show(t('auth:alerts.invalid-login'), 'error')
         throw new Error('Invalid login')
       }
-      const input = {
-        email: values.email,
-        password: values.password,
-      }
-      const data = await mutation.mutateAsync({
+
+      const updateUser = await mutation.mutateAsync({
         ...person,
-        ...input,
-      })
-      await signIn<'credentials'>('credentials', {
         email: values.email,
+      })
+
+      const reLogin = await signIn<'credentials'>('credentials', {
+        email: person.email,
         password: values.password,
         redirect: false,
       })
-      handleClose(data.data)
+      if (reLogin?.error) {
+        await signOut({ callbackUrl })
+        AlertStore.show(t('auth:alerts.re-login'), 'info')
+      }
+
+      handleClose(updateUser.data)
     } catch (error) {
+      handleClose()
       console.error(error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -121,7 +134,7 @@ function UpdateEmailModal({
               <PasswordField />
             </Grid>
             <Grid item xs={6}>
-              <SubmitButton fullWidth />
+              <SubmitButton fullWidth label="auth:cta.send" loading={loading} />
             </Grid>
           </Grid>
         </GenericForm>

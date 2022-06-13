@@ -11,10 +11,12 @@ import { updateCurrentPerson } from 'common/util/useCurrentPerson'
 import { AlertStore } from 'stores/AlertStore'
 import { useTranslation } from 'next-i18next'
 import CloseIcon from '@mui/icons-material/Close'
-import { signIn } from 'next-auth/react'
+import { signIn, signOut } from 'next-auth/react'
 import PasswordField from 'components/common/form/PasswordField'
-import { customValidators, name } from 'common/form/validation'
+import { name, password } from 'common/form/validation'
 import * as yup from 'yup'
+import { useState } from 'react'
+import { baseUrl, routes } from 'common/routes'
 
 const PREFIX = 'UpdateNameModal'
 
@@ -44,14 +46,13 @@ const StyledModal = styled(Modal)(({ theme }) => ({
 
 const validationSchema: yup.SchemaOf<
   Pick<UpdateUserAccount, 'firstName' | 'lastName' | 'password'>
-> = yup
-  .object()
-  .defined()
-  .shape({
-    firstName: name.required(),
-    lastName: name.required(),
-    password: yup.string().min(6, customValidators.passwordMin).required(),
-  })
+> = yup.object().defined().shape({
+  firstName: name.required(),
+  lastName: name.required(),
+  password: password.required(),
+})
+
+const callbackUrl = `${baseUrl}${routes.login}`
 
 function UpdateNameModal({
   isOpen,
@@ -63,19 +64,20 @@ function UpdateNameModal({
   person: UpdatePerson
 }) {
   const { t } = useTranslation()
+  const [loading, setLoading] = useState(false)
 
   const mutation = useMutation<AxiosResponse<Person>, AxiosError<ApiErrors>, UpdatePerson>({
     mutationFn: updateCurrentPerson(),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
-    onSuccess: () => {
-      AlertStore.show(t('common:alerts.success'), 'success')
-    },
+    onSuccess: () => AlertStore.show(t('common:alerts.success'), 'success'),
   })
 
   const onSubmit = async (
     values: Pick<UpdateUserAccount, 'firstName' | 'lastName' | 'password'>,
   ) => {
     try {
+      setLoading(true)
+
       const confirmPassword = await signIn<'credentials'>('credentials', {
         email: person.email,
         password: values.password,
@@ -86,19 +88,28 @@ function UpdateNameModal({
         AlertStore.show(t('auth:alerts.invalid-login'), 'error')
         throw new Error('Invalid login')
       }
-      const input = {
+
+      const updateUser = await mutation.mutateAsync({
+        ...person,
         firstName: values.firstName,
         lastName: values.lastName,
-      }
-      const data = await mutation.mutateAsync({ ...person, ...input })
-      await signIn<'credentials'>('credentials', {
+      })
+
+      const reLogin = await signIn<'credentials'>('credentials', {
         email: person.email,
         password: values.password,
         redirect: false,
       })
-      handleClose(data.data)
+      if (reLogin?.error) {
+        await signOut({ callbackUrl })
+        AlertStore.show(t('auth:alerts.re-login'), 'info')
+      }
+
+      handleClose(updateUser.data)
     } catch (error) {
       console.error(error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -142,7 +153,7 @@ function UpdateNameModal({
               <PasswordField />
             </Grid>
             <Grid item xs={6}>
-              <SubmitButton fullWidth />
+              <SubmitButton fullWidth label="auth:cta.send" loading={loading} />
             </Grid>
           </Grid>
         </GenericForm>

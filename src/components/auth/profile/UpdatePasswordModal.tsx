@@ -11,9 +11,11 @@ import { AlertStore } from 'stores/AlertStore'
 import { useTranslation } from 'next-i18next'
 import CloseIcon from '@mui/icons-material/Close'
 import PasswordField from 'components/common/form/PasswordField'
-import { signIn } from 'next-auth/react'
-import { customValidators } from 'common/form/validation'
+import { signIn, signOut } from 'next-auth/react'
+import { password } from 'common/form/validation'
 import * as yup from 'yup'
+import { useState } from 'react'
+import { baseUrl, routes } from 'common/routes'
 
 const PREFIX = 'UpdateNameModal'
 
@@ -46,6 +48,16 @@ export type Credentials = {
   password: string
 }
 
+const validationSchema: yup.SchemaOf<Pick<UpdateUserAccount, 'password'>> = yup
+  .object()
+  .defined()
+  .shape({
+    password: password.required(),
+    'confirm-password': yup.string().oneOf([yup.ref('password')], 'validation:password-match'),
+  })
+
+const callbackUrl = `${baseUrl}${routes.login}`
+
 function UpdatePasswordModal({
   isOpen,
   person,
@@ -56,27 +68,18 @@ function UpdatePasswordModal({
   handleClose: (data?: boolean) => void
 }) {
   const { t } = useTranslation()
-
-  const validationSchema: yup.SchemaOf<Pick<UpdateUserAccount, 'password'>> = yup
-    .object()
-    .defined()
-    .shape({
-      password: yup.string().min(6, customValidators.passwordMin).required(),
-      'confirm-password': yup
-        .string()
-        .oneOf([yup.ref('password')], t('profile:passwordModal.doNotMatch')),
-    })
+  const [loading, setLoading] = useState(false)
 
   const mutation = useMutation<AxiosResponse<boolean>, AxiosError<ApiErrors>, Credentials>({
     mutationFn: updateCurrentPersonPassword(),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
-    onSuccess: () => {
-      AlertStore.show(t('common:alerts.success'), 'success')
-    },
+    onSuccess: () => AlertStore.show(t('common:alerts.success'), 'success'),
   })
 
   const onSubmit = async (values: Credentials) => {
     try {
+      setLoading(true)
+
       const confirmPassword = await signIn<'credentials'>('credentials', {
         email: person.email,
         password: values['previous-password'],
@@ -87,15 +90,24 @@ function UpdatePasswordModal({
         AlertStore.show(t('auth:alerts.invalid-login'), 'error')
         throw new Error('Invalid login')
       }
-      const res = await mutation.mutateAsync(values)
-      await signIn<'credentials'>('credentials', {
+
+      const updateUser = await mutation.mutateAsync(values)
+
+      const reLogin = await signIn<'credentials'>('credentials', {
         email: person.email,
         password: values.password,
         redirect: false,
       })
-      handleClose(res.data)
+      if (reLogin?.error) {
+        await signOut({ callbackUrl })
+        AlertStore.show(t('auth:alerts.re-login'), 'info')
+      }
+
+      handleClose(updateUser.data)
     } catch (error) {
       console.log('error', error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -125,7 +137,7 @@ function UpdatePasswordModal({
               <PasswordField name={'confirm-password'} label={'auth:account.confirm-password'} />
             </Grid>
             <Grid item xs={6}>
-              <SubmitButton fullWidth />
+              <SubmitButton fullWidth label="auth:cta.send" loading={loading} />
             </Grid>
           </Grid>
         </GenericForm>
