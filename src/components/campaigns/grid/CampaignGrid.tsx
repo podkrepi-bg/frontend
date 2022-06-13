@@ -147,7 +147,7 @@ export default function CampaignGrid() {
       align: 'right',
       width: 200,
       renderCell: (cellValues: GridRenderCellParams) => (
-        <ExternalLink href={`/admin/donations`}>
+        <ExternalLink href={`/admin/donations/campaign/${cellValues.row.id}`}>
           <DisplayDonationAmount params={cellValues} />
         </ExternalLink>
       ),

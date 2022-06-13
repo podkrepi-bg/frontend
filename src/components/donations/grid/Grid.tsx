@@ -7,7 +7,7 @@ import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
 import { useVault } from 'common/hooks/vaults'
-import { useDonationsList } from 'common/hooks/donation'
+import { useCampaingDonationsList, useDonationsList } from 'common/hooks/donation'
 import { useViewPerson } from 'service/person'
 import { DonationResponse } from 'gql/donations'
 import GridActions from 'components/admin/GridActions'
@@ -16,6 +16,7 @@ import DetailsModal from '../modals/DetailsModal'
 import DeleteModal from '../modals/DeleteModal'
 import { ModalStore } from '../DonationsPage'
 import { getExactDate } from 'common/util/date'
+import { useRouter } from 'next/router'
 
 interface PersonCellProps {
   params: GridRenderCellParams
@@ -24,10 +25,13 @@ interface PersonCellProps {
 export default observer(function Grid() {
   const [pageSize, setPageSize] = useState(5)
   const { t } = useTranslation()
-
-  const { data }: UseQueryResult<DonationResponse[]> = useDonationsList()
+  const router = useRouter()
+  // const { data }: UseQueryResult<DonationResponse[]> = useDonationsList()
   const { isDetailsOpen } = ModalStore
-
+  const id = router.query.id
+  const { data }: UseQueryResult<DonationResponse[]> = id
+    ? useCampaingDonationsList(id as string)
+    : useDonationsList()
   const RenderVaultCell = ({ params }: PersonCellProps) => {
     const vault = useVault(params.row.targetVaultId)
     return <>{vault.data?.name}</>
