@@ -137,7 +137,7 @@ export default function BankTransactionsFileForm({
             />
           </Grid>
           <Link href={routes.admin.campaigns.index} passHref>
-            <Button fullWidth={true}>{t('Отказ')}</Button>
+            <Button fullWidth={true}>{t('donations:cta:cancel')}</Button>
           </Link>
         </Grid>
       </GenericForm>
