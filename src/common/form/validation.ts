@@ -68,7 +68,7 @@ export const phone = string().trim().matches(phoneRegex, customValidators.phone)
 export const name = string().trim().matches(noNumbersRegex, customValidators.name).min(2).max(50)
 export const companyName = string().trim().min(2).max(50)
 
-// according to password policy in Keycloak- 1 upperCase, 1 digit, 1 special character, min 8 characters
+// according to password policy in Keycloak- 1 uppercase, 1 digit, 1 special character, min 8 characters
 export const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*_.?])[A-Za-z\d!@#$%^&*_.?]{8,30}$/
 export const password = string()
   .trim()
