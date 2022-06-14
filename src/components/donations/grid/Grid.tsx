@@ -26,7 +26,6 @@ export default observer(function Grid() {
   const [pageSize, setPageSize] = useState(5)
   const { t } = useTranslation()
   const router = useRouter()
-  // const { data }: UseQueryResult<DonationResponse[]> = useDonationsList()
   const { isDetailsOpen } = ModalStore
   const id = router.query.id
   const { data }: UseQueryResult<DonationResponse[]> = id

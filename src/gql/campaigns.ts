@@ -54,12 +54,7 @@ export type AdminCampaignResponse = BaseCampaignResponse & {
   coordinator: {
     person: { firstName: string; lastName: string }
   }
-  vaults: [
-    {
-      id: string
-      amount: number
-    },
-  ]
+  reachedAmound: number
 }
 
 export type CampaignResponse = BaseCampaignResponse & {

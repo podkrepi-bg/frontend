@@ -14,6 +14,9 @@ import GridActions from './GridActions'
 import DeleteModal from './modals/DeleteModal'
 import DetailsModal from './modals/DetailsModal'
 import ExternalLink from 'components/common/ExternalLink'
+import { money } from 'common/util/money'
+import { formatRelative, parseISO } from 'date-fns'
+import { bg, enUS } from 'date-fns/locale'
 
 interface CampaignCellProps {
   params: GridRenderCellParams<AdminCampaignResponse, AdminCampaignResponse>
@@ -40,18 +43,14 @@ const DisplayCampaignType = ({ params }: CampaignCellProps) => {
 }
 
 const DisplayDonationAmount = ({ params }: CampaignCellProps) => {
-  if (params.row.vaults.length) {
-    return <>{params.row.vaults.reduce((acc, vault) => acc + vault.amount, 0)}</>
-  }
-  return <>0</>
+  return <>{money(params.row.reachedAmound)}</>
 }
 
 export default function CampaignGrid() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const { data = [], refetch }: UseQueryResult<AdminCampaignResponse[]> = useCampaignAdminList()
   const [viewId, setViewId] = useState<string | undefined>()
   const [deleteId, setDeleteId] = useState<string | undefined>()
-
   const selectedCampaign = useMemo(() => data.find((c) => c.id === viewId), [data, viewId])
 
   const commonProps: Partial<GridColDef> = {
@@ -141,7 +140,7 @@ export default function CampaignGrid() {
       width: 350,
     },
     {
-      field: 'vaults',
+      field: 'reachedAmound',
       headerName: t('campaigns:amount'),
       ...commonProps,
       align: 'right',
@@ -158,6 +157,7 @@ export default function CampaignGrid() {
       ...commonProps,
       align: 'right',
       width: 150,
+      renderCell: (cellValues: GridRenderCellParams) => <>{money(cellValues.row.targetAmount)}</>,
     },
     {
       field: 'currency',
@@ -171,6 +171,13 @@ export default function CampaignGrid() {
       align: 'left',
       width: 230,
       headerAlign: 'left',
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <>
+          {formatRelative(parseISO(cellValues.row.startDate), new Date(), {
+            locale: i18n.language == 'bg' ? bg : enUS,
+          })}
+        </>
+      ),
     },
     {
       field: 'endDate',
@@ -178,6 +185,13 @@ export default function CampaignGrid() {
       align: 'left',
       width: 230,
       headerAlign: 'left',
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <>
+          {formatRelative(parseISO(cellValues.row.endDate), new Date(), {
+            locale: i18n.language == 'bg' ? bg : enUS,
+          })}
+        </>
+      ),
     },
     {
       field: 'createdAt',
@@ -185,6 +199,13 @@ export default function CampaignGrid() {
       align: 'left',
       width: 230,
       headerAlign: 'left',
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <>
+          {formatRelative(parseISO(cellValues.row.createdAt), new Date(), {
+            locale: i18n.language == 'bg' ? bg : enUS,
+          })}
+        </>
+      ),
     },
     {
       field: 'updatedAt',
@@ -192,6 +213,13 @@ export default function CampaignGrid() {
       align: 'left',
       width: 230,
       headerAlign: 'left',
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <>
+          {formatRelative(parseISO(cellValues.row.updatedAt), new Date(), {
+            locale: i18n.language == 'bg' ? bg : enUS,
+          })}
+        </>
+      ),
     },
     {
       field: 'deletedAt',
