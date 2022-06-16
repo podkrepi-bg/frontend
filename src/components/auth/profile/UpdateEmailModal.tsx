@@ -93,7 +93,7 @@ function UpdateEmailModal({
       })
 
       const reLogin = await signIn<'credentials'>('credentials', {
-        email: person.email,
+        email: values.email,
         password: values.password,
         redirect: false,
       })
