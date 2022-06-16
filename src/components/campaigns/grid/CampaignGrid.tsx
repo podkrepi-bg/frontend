@@ -17,6 +17,7 @@ import ExternalLink from 'components/common/ExternalLink'
 import { money } from 'common/util/money'
 import { formatRelative, parseISO } from 'date-fns'
 import { bg, enUS } from 'date-fns/locale'
+import { getExactDate, getRelativeDate } from 'common/util/date'
 
 interface CampaignCellProps {
   params: GridRenderCellParams<AdminCampaignResponse, AdminCampaignResponse>
@@ -53,6 +54,7 @@ const DisplayCurrentAmount = ({ params }: CampaignCellProps) => {
 
 export default function CampaignGrid() {
   const { t, i18n } = useTranslation()
+  const locale = i18n.language == 'bg' ? bg : enUS
   const { data = [], refetch }: UseQueryResult<AdminCampaignResponse[]> = useCampaignAdminList()
   const [viewId, setViewId] = useState<string | undefined>()
   const [deleteId, setDeleteId] = useState<string | undefined>()
@@ -187,11 +189,7 @@ export default function CampaignGrid() {
       width: 230,
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
-        <>
-          {formatRelative(parseISO(cellValues.row.startDate), new Date(), {
-            locale: i18n.language == 'bg' ? bg : enUS,
-          })}
-        </>
+        <>{getRelativeDate(cellValues.row.startDate, locale)}</>
       ),
     },
     {
@@ -201,11 +199,7 @@ export default function CampaignGrid() {
       width: 230,
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
-        <>
-          {formatRelative(parseISO(cellValues.row.endDate), new Date(), {
-            locale: i18n.language == 'bg' ? bg : enUS,
-          })}
-        </>
+        <>{getRelativeDate(cellValues.row.endDate, locale)}</>
       ),
     },
     {
@@ -215,11 +209,7 @@ export default function CampaignGrid() {
       width: 230,
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
-        <>
-          {formatRelative(parseISO(cellValues.row.createdAt), new Date(), {
-            locale: i18n.language == 'bg' ? bg : enUS,
-          })}
-        </>
+        <>{getRelativeDate(cellValues.row.createdAt, locale)}</>
       ),
     },
     {
@@ -229,11 +219,7 @@ export default function CampaignGrid() {
       width: 230,
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
-        <>
-          {formatRelative(parseISO(cellValues.row.updatedAt), new Date(), {
-            locale: i18n.language == 'bg' ? bg : enUS,
-          })}
-        </>
+        <>{getRelativeDate(cellValues.row.updatedAt, locale)}</>
       ),
     },
     {
