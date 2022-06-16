@@ -42,8 +42,13 @@ const DisplayCampaignType = ({ params }: CampaignCellProps) => {
   return <>{params.row.campaignType.name}</>
 }
 
-const DisplayDonationAmount = ({ params }: CampaignCellProps) => {
-  return <>{money(params.row.reachedAmound)}</>
+// #TODO: Remove when vaults work properly
+const DisplayCurrentAmount = ({ params }: CampaignCellProps) => {
+  const incoming = params.row.incomingTransfers.reduce((acc, transfer) => acc + transfer.amount, 0)
+  const outgoing = params.row.outgoingTransfers.reduce((acc, transfer) => acc + transfer.amount, 0)
+  const result = incoming - outgoing
+  const avilableAmount = params.row.reachedAmount - result
+  return <>{money(avilableAmount)}</>
 }
 
 export default function CampaignGrid() {
@@ -52,7 +57,7 @@ export default function CampaignGrid() {
   const [viewId, setViewId] = useState<string | undefined>()
   const [deleteId, setDeleteId] = useState<string | undefined>()
   const selectedCampaign = useMemo(() => data.find((c) => c.id === viewId), [data, viewId])
-
+  console.log(data)
   const commonProps: Partial<GridColDef> = {
     align: 'left',
     width: 100,
@@ -140,14 +145,14 @@ export default function CampaignGrid() {
       width: 350,
     },
     {
-      field: 'reachedAmound',
-      headerName: t('campaigns:amount'),
+      field: 'reachedAmount',
+      headerName: t('campaigns:donationsAmount'),
       ...commonProps,
       align: 'right',
       width: 200,
       renderCell: (cellValues: GridRenderCellParams) => (
-        <ExternalLink href={`/admin/donations/campaign/${cellValues.row.id}`}>
-          <DisplayDonationAmount params={cellValues} />
+        <ExternalLink href={`/admin/donations?campaignId=${cellValues.row.id}`}>
+          {money(cellValues.row.reachedAmount)}
         </ExternalLink>
       ),
     },
@@ -158,6 +163,16 @@ export default function CampaignGrid() {
       align: 'right',
       width: 150,
       renderCell: (cellValues: GridRenderCellParams) => <>{money(cellValues.row.targetAmount)}</>,
+    },
+    {
+      field: 'currentAmound',
+      headerName: t('campaigns:amount'),
+      ...commonProps,
+      align: 'right',
+      width: 200,
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <DisplayCurrentAmount params={cellValues} />
+      ),
     },
     {
       field: 'currency',

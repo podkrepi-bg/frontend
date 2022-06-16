@@ -43,7 +43,7 @@ export function useDonationsList() {
   return useQuery<DonationResponse[]>(endpoints.donation.donationsList.url)
 }
 
-export function useCampaingDonationsList(id: string) {
+export function useCampaignDonationsList(id: string) {
   return useQuery<DonationResponse[]>(endpoints.campaign.getDonations(id).url)
 }
 
