@@ -52,6 +52,7 @@ const validationSchema: yup.SchemaOf<Pick<UpdateUserAccount, 'password'>> = yup
   .object()
   .defined()
   .shape({
+    'previous-password': password.required(),
     password: password.required(),
     'confirm-password': yup.string().oneOf([yup.ref('password')], 'validation:password-match'),
   })
@@ -124,7 +125,7 @@ function UpdatePasswordModal({
         <h2>{t('profile:passwordModal.newPassword')}</h2>
         <GenericForm
           onSubmit={onSubmit}
-          initialValues={{ 'previous-password': '', password: '' }}
+          initialValues={{ 'previous-password': '', password: '', 'confirm-password': '' }}
           validationSchema={validationSchema}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={8}>
