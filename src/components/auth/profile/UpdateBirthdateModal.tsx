@@ -14,11 +14,7 @@ import { useTranslation } from 'next-i18next'
 import CloseIcon from '@mui/icons-material/Close'
 import { format, parse, isDate } from 'date-fns'
 import FormTextField from 'components/common/form/FormTextField'
-import PasswordField from 'components/common/form/PasswordField'
-import { signIn, signOut } from 'next-auth/react'
-import { password } from 'common/form/validation'
 import { useState } from 'react'
-import { baseUrl, routes } from 'common/routes'
 
 const PREFIX = 'UpdateBirthdateModal'
 
@@ -58,7 +54,7 @@ const parseDateString = (value: string, originalValue: string) => {
 
 const maxDate = new Date(new Date().setFullYear(new Date().getFullYear() - 18))
 
-const validationSchema: yup.SchemaOf<Pick<UpdateUserAccount, 'birthday' | 'password'>> = yup
+const validationSchema: yup.SchemaOf<Pick<UpdateUserAccount, 'birthday'>> = yup
   .object()
   .defined()
   .shape({
@@ -67,10 +63,7 @@ const validationSchema: yup.SchemaOf<Pick<UpdateUserAccount, 'birthday' | 'passw
       .transform(parseDateString)
       .max(maxDate, 'profile:birthdateModal.ageInvalid')
       .required(),
-    password: password.required(),
   })
-
-const callbackUrl = `${baseUrl}${routes.login}`
 
 function UpdateBirthdateModal({
   isOpen,
@@ -86,9 +79,8 @@ function UpdateBirthdateModal({
 
   const dateBefore18Years = new Date(new Date().setFullYear(new Date().getFullYear() - 18))
 
-  const initialValues: Pick<UpdateUserAccount, 'birthday' | 'password'> = {
+  const initialValues: Pick<UpdateUserAccount, 'birthday'> = {
     birthday: format(new Date(person.birthday ?? dateBefore18Years), formatString) || '',
-    password: '',
   }
 
   const mutation = useMutation<AxiosResponse<Person>, AxiosError<ApiErrors>, UpdatePerson>({
@@ -97,34 +89,12 @@ function UpdateBirthdateModal({
     onSuccess: () => AlertStore.show(t('common:alerts.success'), 'success'),
   })
 
-  const onSubmit = async (values: Pick<UpdateUserAccount, 'birthday' | 'password'>) => {
+  const onSubmit = async (values: Pick<UpdateUserAccount, 'birthday'>) => {
     try {
       setLoading(true)
-
-      const confirmPassword = await signIn<'credentials'>('credentials', {
-        email: person.email,
-        password: values.password,
-        redirect: false,
-      })
-      if (confirmPassword?.error) {
-        AlertStore.show(t('auth:alerts.invalid-login'), 'error')
-        throw new Error('Invalid login')
-      }
-
       const birthDate = new Date(values.birthday)
-      const updateUser = await mutation.mutateAsync({ ...person, birthday: birthDate })
-
-      const reLogin = await signIn<'credentials'>('credentials', {
-        email: person.email,
-        password: values.password,
-        redirect: false,
-      })
-      if (reLogin?.error) {
-        await signOut({ callbackUrl })
-        AlertStore.show(t('auth:alerts.re-login'), 'info')
-      }
-
-      handleClose(updateUser.data)
+      const res = await mutation.mutateAsync({ ...person, birthday: birthDate })
+      handleClose(res.data)
     } catch (error) {
       handleClose()
       console.error(error)
@@ -144,7 +114,7 @@ function UpdateBirthdateModal({
           <CloseIcon />
         </IconButton>
         <h2>{t('profile:birthdateModal.newDate')}</h2>
-        <GenericForm<Pick<UpdateUserAccount, 'birthday' | 'password'>>
+        <GenericForm<Pick<UpdateUserAccount, 'birthday'>>
           onSubmit={onSubmit}
           initialValues={initialValues}
           validationSchema={validationSchema}>
@@ -158,9 +128,6 @@ function UpdateBirthdateModal({
                   shrink: true,
                 }}
               />
-            </Grid>
-            <Grid item xs={12} sm={8}>
-              <PasswordField />
             </Grid>
             <Grid item xs={6}>
               <SubmitButton fullWidth label="auth:cta.send" loading={loading} />
