@@ -7,7 +7,7 @@ import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
 import { useVault } from 'common/hooks/vaults'
-import { useCampaingDonationsList, useDonationsList } from 'common/hooks/donation'
+import { useCampaignDonationsList, useDonationsList } from 'common/hooks/donation'
 import { useViewPerson } from 'service/person'
 import { DonationResponse } from 'gql/donations'
 import GridActions from 'components/admin/GridActions'
@@ -27,9 +27,9 @@ export default observer(function Grid() {
   const { t } = useTranslation()
   const router = useRouter()
   const { isDetailsOpen } = ModalStore
-  const id = router.query.id
-  const { data }: UseQueryResult<DonationResponse[]> = id
-    ? useCampaingDonationsList(id as string)
+  const campaignId = router.query.campaignId
+  const { data }: UseQueryResult<DonationResponse[]> = campaignId
+    ? useCampaignDonationsList(campaignId as string)
     : useDonationsList()
   const RenderVaultCell = ({ params }: PersonCellProps) => {
     const vault = useVault(params.row.targetVaultId)
