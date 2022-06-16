@@ -128,11 +128,10 @@ export default function PersonalInfoTab() {
   const [isUpdateEmailModalOpen, setIsUpdateEmailModalOpen] = useState(false)
   const [isUpdateNameModalOpen, setIsUpdateNameModalOpen] = useState(false)
   const [isUpdateBirthdateModalOpen, setIsUpdateBirthdateModalOpen] = useState(false)
-  const [isUpdatePsswordModalOpen, setIsUpdatePasswordModalOpen] = useState(false)
+  const [isUpdatePasswordModalOpen, setIsUpdatePasswordModalOpen] = useState(false)
 
-  // For test reasons:
   const { data: session } = useSession()
-  console.log('session', session)
+  const isAuthenticatedByGoogle = session?.user?.email.includes('@gmail')
 
   return (
     <Root>
@@ -146,22 +145,26 @@ export default function PersonalInfoTab() {
             <Box className={classes.boxInfo}>
               <p className={classes.bold}>{t('profile:personalInfo.email')}</p>
               <p>{person?.email}</p>
-              <Box sx={{ position: 'absolute', right: '1rem', top: '.5rem' }}>
-                <Link href="#" onClick={() => setIsUpdateEmailModalOpen(true)}>
-                  <EditIcon className={classes.editIcon} />
-                  <span className={classes.editSpan}>{t('profile:personalInfo.edit')}</span>
-                </Link>
-              </Box>
+              {!isAuthenticatedByGoogle && (
+                <Box sx={{ position: 'absolute', right: '1rem', top: '.5rem' }}>
+                  <Link href="#" onClick={() => setIsUpdateEmailModalOpen(true)}>
+                    <EditIcon className={classes.editIcon} />
+                    <span className={classes.editSpan}>{t('profile:personalInfo.edit')}</span>
+                  </Link>
+                </Box>
+              )}
             </Box>
             <Box className={classes.boxInfo}>
               <p className={classes.bold}>{t('profile:personalInfo.password')}</p>
               <p>***********</p>
-              <Box className={classes.editBox}>
-                <Link href="#" onClick={() => setIsUpdatePasswordModalOpen(true)}>
-                  <EditIcon className={classes.editIcon} />
-                  <span className={classes.editSpan}>{t('profile:personalInfo.edit')}</span>
-                </Link>
-              </Box>
+              {!isAuthenticatedByGoogle && (
+                <Box className={classes.editBox}>
+                  <Link href="#" onClick={() => setIsUpdatePasswordModalOpen(true)}>
+                    <EditIcon className={classes.editIcon} />
+                    <span className={classes.editSpan}>{t('profile:personalInfo.edit')}</span>
+                  </Link>
+                </Box>
+              )}
             </Box>
           </Box>
           <Divider className={classes.divider} />
@@ -172,12 +175,14 @@ export default function PersonalInfoTab() {
               <p>
                 {person?.firstName} {person?.lastName}
               </p>
-              <Box className={classes.editBox}>
-                <Link href="#" onClick={() => setIsUpdateNameModalOpen(true)}>
-                  <EditIcon className={classes.editIcon} />
-                  <span className={classes.editSpan}>{t('profile:personalInfo.edit')}</span>
-                </Link>
-              </Box>
+              {!isAuthenticatedByGoogle && (
+                <Box className={classes.editBox}>
+                  <Link href="#" onClick={() => setIsUpdateNameModalOpen(true)}>
+                    <EditIcon className={classes.editIcon} />
+                    <span className={classes.editSpan}>{t('profile:personalInfo.edit')}</span>
+                  </Link>
+                </Box>
+              )}
             </Box>
             <Box className={classes.boxInfo}>
               <p className={classes.bold}>{t('profile:personalInfo.birthday')}</p>
@@ -230,7 +235,7 @@ export default function PersonalInfoTab() {
             }}
           />
           <UpdatePasswordModal
-            isOpen={isUpdatePsswordModalOpen}
+            isOpen={isUpdatePasswordModalOpen}
             person={person}
             handleClose={() => {
               setIsUpdatePasswordModalOpen(false)
