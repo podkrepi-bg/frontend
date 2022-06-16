@@ -3,7 +3,7 @@ import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import AddIcon from '@mui/icons-material/Add'
 import React, { useMemo, useState } from 'react'
-import { Box, Toolbar, Typography } from '@mui/material'
+import { Box, Button, Toolbar, Tooltip, Typography } from '@mui/material'
 import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { routes } from 'common/routes'
@@ -15,7 +15,6 @@ import DeleteModal from './modals/DeleteModal'
 import DetailsModal from './modals/DetailsModal'
 import ExternalLink from 'components/common/ExternalLink'
 import { money } from 'common/util/money'
-import { formatRelative, parseISO } from 'date-fns'
 import { bg, enUS } from 'date-fns/locale'
 import { getExactDate, getRelativeDate } from 'common/util/date'
 
@@ -59,7 +58,6 @@ export default function CampaignGrid() {
   const [viewId, setViewId] = useState<string | undefined>()
   const [deleteId, setDeleteId] = useState<string | undefined>()
   const selectedCampaign = useMemo(() => data.find((c) => c.id === viewId), [data, viewId])
-  console.log(data)
   const commonProps: Partial<GridColDef> = {
     align: 'left',
     width: 100,
@@ -133,11 +131,11 @@ export default function CampaignGrid() {
       field: 'campaignType',
       headerName: t('campaigns:campaignType'),
       ...commonProps,
+      align: 'left',
+      width: 250,
       renderCell: (params: GridRenderCellParams) => {
         return <DisplayCampaignType params={params} />
       },
-      align: 'left',
-      width: 250,
     },
     {
       field: 'description',
@@ -189,7 +187,9 @@ export default function CampaignGrid() {
       width: 230,
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
-        <>{getRelativeDate(cellValues.row.startDate, locale)}</>
+        <Tooltip title={getExactDate(cellValues.row.startDate)}>
+          <Button color="inherit">{getRelativeDate(cellValues.row.startDate, locale)}</Button>
+        </Tooltip>
       ),
     },
     {
@@ -199,7 +199,9 @@ export default function CampaignGrid() {
       width: 230,
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
-        <>{getRelativeDate(cellValues.row.endDate, locale)}</>
+        <Tooltip title={getExactDate(cellValues.row.endDate)}>
+          <Button color="inherit">{getRelativeDate(cellValues.row.endDate, locale)}</Button>
+        </Tooltip>
       ),
     },
     {
@@ -209,7 +211,9 @@ export default function CampaignGrid() {
       width: 230,
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
-        <>{getRelativeDate(cellValues.row.createdAt, locale)}</>
+        <Tooltip title={getExactDate(cellValues.row.createdAt)}>
+          <Button color="inherit">{getRelativeDate(cellValues.row.createdAt, locale)}</Button>
+        </Tooltip>
       ),
     },
     {
@@ -219,7 +223,9 @@ export default function CampaignGrid() {
       width: 230,
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
-        <>{getRelativeDate(cellValues.row.updatedAt, locale)}</>
+        <Tooltip title={getExactDate(cellValues.row.updatedAt)}>
+          <Button color="inherit">{getRelativeDate(cellValues.row.updatedAt, locale)}</Button>
+        </Tooltip>
       ),
     },
     {
