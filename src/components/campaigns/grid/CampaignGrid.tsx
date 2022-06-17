@@ -14,6 +14,7 @@ import GridActions from './GridActions'
 import DeleteModal from './modals/DeleteModal'
 import DetailsModal from './modals/DetailsModal'
 import ExternalLink from 'components/common/ExternalLink'
+import { GridCellExpand } from 'components/common/GridCellExpand'
 
 interface CampaignCellProps {
   params: GridRenderCellParams<AdminCampaignResponse, AdminCampaignResponse>
@@ -37,6 +38,10 @@ const DisplayBeneficiary = ({ params }: CampaignCellProps) => {
 
 const DisplayCampaignType = ({ params }: CampaignCellProps) => {
   return <>{params.row.campaignType.name}</>
+}
+
+const DisplayExpandableDescription = (params: GridRenderCellParams<string>) => {
+  return <GridCellExpand value={params.value || ''} width={params.colDef.computedWidth} />
 }
 
 export default function CampaignGrid() {
@@ -127,6 +132,7 @@ export default function CampaignGrid() {
       align: 'right',
       ...commonProps,
       width: 350,
+      renderCell: DisplayExpandableDescription,
     },
     {
       field: 'targetAmount',
