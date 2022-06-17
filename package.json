@@ -14,7 +14,7 @@
     "lint": "eslint . --fix --ext=ts,tsx",
     "lint:next": "next lint",
     "lint:styles": "stylelint **.scss",
-    "format": "prettier --write .",
+    "format": "prettier --list-different --write .",
     "type-check": "tsc --noEmit",
     "prepare": "husky install",
     "release": "./manifests/release.sh",
