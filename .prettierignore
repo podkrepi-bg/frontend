@@ -2,5 +2,6 @@ node_modules
 .next
 yarn.lock
 package-lock.json
-public
+public/fonts
+public/img
 manifests
