@@ -46,7 +46,7 @@ const DisplayCampaignType = ({ params }: CampaignCellProps) => {
 const DisplayExpandableDescription = (params: GridRenderCellParams<string>) => {
   return <GridCellExpand value={params.value || ''} width={params.colDef.computedWidth} />
 }
-  
+
 const DisplayReachedAmount = ({ params }: CampaignCellProps) => {
   const summary = params.row.summary.find(() => true)
   const reached = summary?.reachedAmount ?? 0
