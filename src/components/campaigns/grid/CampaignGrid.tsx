@@ -42,12 +42,20 @@ const DisplayCampaignType = ({ params }: CampaignCellProps) => {
   return <>{params.row.campaignType.name}</>
 }
 
+const DisplayReachedAmount = ({ params }: CampaignCellProps) => {
+  const summary = params.row.summary.find(() => true)
+  const reached = summary?.reachedAmount ?? 0
+  return <>{money(reached)}</>
+}
+
 // #TODO: Remove when vaults work properly
 const DisplayCurrentAmount = ({ params }: CampaignCellProps) => {
   const incoming = params.row.incomingTransfers.reduce((acc, transfer) => acc + transfer.amount, 0)
   const outgoing = params.row.outgoingTransfers.reduce((acc, transfer) => acc + transfer.amount, 0)
   const result = incoming - outgoing
-  const avilableAmount = params.row.reachedAmount - result
+  const summary = params.row.summary.find(() => true)
+  const reached = summary?.reachedAmount ?? 0
+  const avilableAmount = reached - result
   return <>{money(avilableAmount)}</>
 }
 
@@ -152,7 +160,7 @@ export default function CampaignGrid() {
       width: 200,
       renderCell: (cellValues: GridRenderCellParams) => (
         <ExternalLink href={`/admin/donations?campaignId=${cellValues.row.id}`}>
-          {money(cellValues.row.reachedAmount)}
+          <DisplayReachedAmount params={cellValues} />
         </ExternalLink>
       ),
     },

@@ -56,7 +56,7 @@ export type AdminCampaignResponse = BaseCampaignResponse & {
   }
   incomingTransfers: { amount: number }[]
   outgoingTransfers: { amount: number }[]
-  reachedAmount: number
+  summary: { reachedAmount: number }[]
 }
 
 export type CampaignResponse = BaseCampaignResponse & {
