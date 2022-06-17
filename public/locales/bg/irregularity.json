@@ -104,14 +104,14 @@
       "actions": "Действия",
       "firstName": "Име",
       "lastName": "Фамилия",
-      "notifier-type":{
-        "benefactor":"Дарител",
-        "other":"Друг"
+      "notifier-type": {
+        "benefactor": "Дарител",
+        "other": "Друг"
       },
-      "status-type":{
-        "initial":"Предварителен",
-        "confirmed":"Потвърден",
-        "declined":"Отхвърлен"
+      "status-type": {
+        "initial": "Предварителен",
+        "confirmed": "Потвърден",
+        "declined": "Отхвърлен"
       }
     },
     "alerts": {
