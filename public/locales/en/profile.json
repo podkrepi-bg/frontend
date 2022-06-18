@@ -60,6 +60,7 @@
     "irreversibleAction":"Deleting an account is an irreversible action.",
     "confirmDisable":"You would not be able to restore your account.",
     "saveAccount":"Save my account",
-    "disableAccount":"Delete my account"
+    "disableAccount":"Delete my account",
+    "disabled":"Your account has been deleted."
   }
 }
