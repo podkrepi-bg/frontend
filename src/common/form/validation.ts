@@ -34,6 +34,11 @@ export const customValidators = {
     key: 'validation:password-min',
     values: { min },
   }),
+  passwordMax: ({ max }: { max: number }) => ({
+    key: 'validation:password-max',
+    values: { max },
+  }),
+  password: () => ({ key: 'validation:password' }),
   phone: () => ({ key: 'validation:phone' }),
   name: () => ({ key: 'validation:invalid' }),
 }
@@ -62,3 +67,11 @@ export const email = string().trim().email()
 export const phone = string().trim().matches(phoneRegex, customValidators.phone).min(9).max(15)
 export const name = string().trim().matches(noNumbersRegex, customValidators.name).min(2).max(50)
 export const companyName = string().trim().min(2).max(50)
+
+// according to password policy in Keycloak- 1 uppercase, 1 digit, 1 special character, min 8 characters
+export const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*_.?])[A-Za-z\d!@#$%^&*_.?]{8,30}$/
+export const password = string()
+  .trim()
+  .min(8, customValidators.passwordMin)
+  .max(30, customValidators.passwordMax)
+  .matches(passwordRegex, customValidators.password)

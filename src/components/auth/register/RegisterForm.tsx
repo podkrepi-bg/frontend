@@ -8,11 +8,11 @@ import { useTranslation } from 'next-i18next'
 import { routes } from 'common/routes'
 import { useRegister } from 'service/auth'
 import { AlertStore } from 'stores/AlertStore'
-import { customValidators } from 'common/form/useForm'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import PasswordField from 'components/common/form/PasswordField'
+import { email, password } from 'common/form/validation'
 
 export type RegisterFormData = {
   firstName: string
@@ -27,8 +27,8 @@ const validationSchema: yup.SchemaOf<RegisterFormData> = yup
   .shape({
     firstName: yup.string().min(3).max(10).required(),
     lastName: yup.string().min(3).max(10).required(),
-    email: yup.string().email().required(),
-    password: yup.string().min(6, customValidators.passwordMin).required(),
+    email: email.required(),
+    password: password.required(),
   })
 
 const defaults: RegisterFormData = {

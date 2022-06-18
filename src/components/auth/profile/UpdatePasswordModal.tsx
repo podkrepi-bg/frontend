@@ -2,18 +2,17 @@ import { Modal, Box, Grid, IconButton } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
-import FormTextField from 'components/common/form/FormTextField'
-import { Person, UpdateUserAccount, UpdatePerson } from 'gql/person'
+import { Person, UpdateUserAccount } from 'gql/person'
 import { useMutation } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { ApiErrors } from 'service/apiErrors'
-import { updateCurrentPerson } from 'common/util/useCurrentPerson'
+import { updateCurrentPersonPassword } from 'common/util/useCurrentPerson'
 import { AlertStore } from 'stores/AlertStore'
 import { useTranslation } from 'next-i18next'
 import CloseIcon from '@mui/icons-material/Close'
-import { signIn, signOut } from 'next-auth/react'
 import PasswordField from 'components/common/form/PasswordField'
-import { name, password } from 'common/form/validation'
+import { signIn, signOut } from 'next-auth/react'
+import { password } from 'common/form/validation'
 import * as yup from 'yup'
 import { useState } from 'react'
 import { baseUrl, routes } from 'common/routes'
@@ -44,43 +43,47 @@ const StyledModal = styled(Modal)(({ theme }) => ({
   },
 }))
 
-const validationSchema: yup.SchemaOf<
-  Pick<UpdateUserAccount, 'firstName' | 'lastName' | 'password'>
-> = yup.object().defined().shape({
-  firstName: name.required(),
-  lastName: name.required(),
-  password: password.required(),
-})
+export type Credentials = {
+  'previous-password': string
+  password: string
+}
+
+const validationSchema: yup.SchemaOf<Pick<UpdateUserAccount, 'password'>> = yup
+  .object()
+  .defined()
+  .shape({
+    'previous-password': password.required(),
+    password: password.required(),
+    'confirm-password': yup.string().oneOf([yup.ref('password')], 'validation:password-match'),
+  })
 
 const callbackUrl = `${baseUrl}${routes.login}`
 
-function UpdateNameModal({
+function UpdatePasswordModal({
   isOpen,
-  handleClose,
   person,
+  handleClose,
 }: {
   isOpen: boolean
-  handleClose: (data?: Person) => void
-  person: UpdatePerson
+  person: Person
+  handleClose: (data?: boolean) => void
 }) {
   const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
 
-  const mutation = useMutation<AxiosResponse<Person>, AxiosError<ApiErrors>, UpdatePerson>({
-    mutationFn: updateCurrentPerson(),
+  const mutation = useMutation<AxiosResponse<boolean>, AxiosError<ApiErrors>, Credentials>({
+    mutationFn: updateCurrentPersonPassword(),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => AlertStore.show(t('common:alerts.success'), 'success'),
   })
 
-  const onSubmit = async (
-    values: Pick<UpdateUserAccount, 'firstName' | 'lastName' | 'password'>,
-  ) => {
+  const onSubmit = async (values: Credentials) => {
     try {
       setLoading(true)
 
       const confirmPassword = await signIn<'credentials'>('credentials', {
         email: person.email,
-        password: values.password,
+        password: values['previous-password'],
         redirect: false,
       })
       if (confirmPassword?.error) {
@@ -89,11 +92,7 @@ function UpdateNameModal({
         throw new Error('Invalid login')
       }
 
-      const updateUser = await mutation.mutateAsync({
-        ...person,
-        firstName: values.firstName,
-        lastName: values.lastName,
-      })
+      const updateUser = await mutation.mutateAsync(values)
 
       const reLogin = await signIn<'credentials'>('credentials', {
         email: person.email,
@@ -107,7 +106,7 @@ function UpdateNameModal({
 
       handleClose(updateUser.data)
     } catch (error) {
-      console.error(error)
+      console.log('error', error)
     } finally {
       setLoading(false)
     }
@@ -123,34 +122,20 @@ function UpdateNameModal({
         <IconButton className={classes.close} onClick={() => handleClose()}>
           <CloseIcon />
         </IconButton>
-        <h2>{t('profile:nameModal.newName')}</h2>
+        <h2>{t('profile:passwordModal.newPassword')}</h2>
         <GenericForm
           onSubmit={onSubmit}
-          validationSchema={validationSchema}
-          initialValues={{
-            firstName: person?.firstName || '',
-            lastName: person?.lastName || '',
-            password: '',
-          }}>
+          initialValues={{ 'previous-password': '', password: '', 'confirm-password': '' }}
+          validationSchema={validationSchema}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={8}>
-              <FormTextField
-                type="text"
-                name="firstName"
-                autoComplete="firstName"
-                label={t('profile:nameModal.firstName')}
-              />
+              <PasswordField name={'previous-password'} label={'auth:account.previous-password'} />
             </Grid>
             <Grid item xs={12} sm={8}>
-              <FormTextField
-                type="text"
-                name="lastName"
-                autoComplete="lastName"
-                label={t('profile:nameModal.lastName')}
-              />
+              <PasswordField name={'password'} label={'auth:account.new-password'} />
             </Grid>
             <Grid item xs={12} sm={8}>
-              <PasswordField />
+              <PasswordField name={'confirm-password'} label={'auth:account.confirm-password'} />
             </Grid>
             <Grid item xs={6}>
               <SubmitButton fullWidth label="auth:cta.send" loading={loading} />
@@ -162,4 +147,4 @@ function UpdateNameModal({
   )
 }
 
-export default UpdateNameModal
+export default UpdatePasswordModal

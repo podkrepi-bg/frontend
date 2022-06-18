@@ -6,6 +6,7 @@ import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
 import { Person, UpdatePerson } from 'gql/person'
 import { authConfig, authQueryFnFactory } from 'service/restRequests'
+import { Credentials } from 'components/auth/profile/UpdatePasswordModal'
 
 type CurrentPerson = {
   user: Person
@@ -34,6 +35,27 @@ export function updateCurrentPerson() {
     return await apiClient.put<UpdatePerson, AxiosResponse<Person>>(
       endpoints.account.update.url,
       data,
+      authConfig(session?.accessToken),
+    )
+  }
+}
+
+export function updateCurrentPersonPassword() {
+  const { data: session } = useSession()
+  return async (data: Credentials) => {
+    return await apiClient.put<Credentials, AxiosResponse<boolean>>(
+      endpoints.account.updatePassword.url,
+      data,
+      authConfig(session?.accessToken),
+    )
+  }
+}
+
+export function disableCurrentPerson() {
+  const { data: session } = useSession()
+  return async () => {
+    return await apiClient.delete<UpdatePerson, AxiosResponse<Person>>(
+      endpoints.account.update.url,
       authConfig(session?.accessToken),
     )
   }

@@ -3,27 +3,27 @@ import { styled } from '@mui/material/styles'
 import { Modal, Box, Grid, IconButton } from '@mui/material'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
-import { Person, UpdatePerson } from 'gql/person'
+import { Person, UpdateUserAccount, UpdatePerson } from 'gql/person'
 import { useMutation } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
-import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
+import { ApiErrors } from 'service/apiErrors'
 import { updateCurrentPerson } from 'common/util/useCurrentPerson'
 
 import { AlertStore } from 'stores/AlertStore'
 import { useTranslation } from 'next-i18next'
 import CloseIcon from '@mui/icons-material/Close'
 import { format, parse, isDate } from 'date-fns'
-import { FormikHelpers } from 'formik'
 import FormTextField from 'components/common/form/FormTextField'
+import { useState } from 'react'
 
-const PREFIX = 'UpdateBirthdayModal'
+const PREFIX = 'UpdateBirthdateModal'
 
 const classes = {
   modal: `${PREFIX}-modal`,
   close: `${PREFIX}-close`,
 }
 
-const StyledModal = styled(Modal)({
+const StyledModal = styled(Modal)(({ theme }) => ({
   [`& .${classes.modal}`]: {
     position: 'absolute',
     top: '50%',
@@ -32,12 +32,15 @@ const StyledModal = styled(Modal)({
     width: 650,
     backgroundColor: '#EEEEEE',
     padding: 20,
+    [theme.breakpoints.down('md')]: {
+      width: '70%',
+    },
   },
   [`& .${classes.close}`]: {
     position: 'absolute',
     right: '10px',
   },
-})
+}))
 
 const formatString = 'yyyy-MM-dd'
 
@@ -48,23 +51,21 @@ const parseDateString = (value: string, originalValue: string) => {
 
   return parsedDate
 }
-type BirthdayFormData = {
-  birthday: Date | string
-}
+
 const maxDate = new Date(new Date().setFullYear(new Date().getFullYear() - 18))
 
-const validationSchema: yup.SchemaOf<BirthdayFormData> = yup
+const validationSchema: yup.SchemaOf<Pick<UpdateUserAccount, 'birthday'>> = yup
   .object()
   .defined()
   .shape({
     birthday: yup
       .date()
       .transform(parseDateString)
-      .max(maxDate, `Трябва да си над 18 години за да може да се регистрираш.`)
+      .max(maxDate, 'profile:birthdateModal.ageInvalid')
       .required(),
   })
 
-function UpdateBirthdayModal({
+function UpdateBirthdateModal({
   isOpen,
   handleClose,
   person,
@@ -74,11 +75,12 @@ function UpdateBirthdayModal({
   person: UpdatePerson
 }) {
   const { t } = useTranslation()
+  const [loading, setLoading] = useState(false)
 
   const dateBefore18Years = new Date(new Date().setFullYear(new Date().getFullYear() - 18))
 
-  const initialValues: BirthdayFormData = {
-    birthday: format(new Date(person.birthday ?? dateBefore18Years), formatString),
+  const initialValues: Pick<UpdateUserAccount, 'birthday'> = {
+    birthday: format(new Date(person.birthday ?? dateBefore18Years), formatString) || '',
   }
 
   const mutation = useMutation<AxiosResponse<Person>, AxiosError<ApiErrors>, UpdatePerson>({
@@ -87,23 +89,17 @@ function UpdateBirthdayModal({
     onSuccess: () => AlertStore.show(t('common:alerts.success'), 'success'),
   })
 
-  const onSubmit = async (
-    values: BirthdayFormData,
-    { setFieldError }: FormikHelpers<BirthdayFormData>,
-  ) => {
+  const onSubmit = async (values: Pick<UpdateUserAccount, 'birthday'>) => {
     try {
-      const birthDate = new Date(values?.birthday)
-      await mutation.mutateAsync({ ...person, birthday: birthDate }).then((data) => {
-        handleClose(data.data)
-      })
+      setLoading(true)
+      const birthDate = new Date(values.birthday)
+      const res = await mutation.mutateAsync({ ...person, birthday: birthDate })
+      handleClose(res.data)
     } catch (error) {
+      handleClose()
       console.error(error)
-      if (isAxiosError(error)) {
-        const { response } = error as AxiosError<ApiErrors>
-        response?.data.message.map(({ property, constraints }) => {
-          setFieldError(property, t(matchValidator(constraints)))
-        })
-      }
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -117,8 +113,8 @@ function UpdateBirthdayModal({
         <IconButton className={classes.close} onClick={() => handleClose()}>
           <CloseIcon />
         </IconButton>
-        <h2>Обнови рожден ден</h2>
-        <GenericForm<BirthdayFormData>
+        <h2>{t('profile:birthdateModal.newDate')}</h2>
+        <GenericForm<Pick<UpdateUserAccount, 'birthday'>>
           onSubmit={onSubmit}
           initialValues={initialValues}
           validationSchema={validationSchema}>
@@ -127,14 +123,14 @@ function UpdateBirthdayModal({
               <FormTextField
                 type="date"
                 name="birthday"
-                label="Кога е твоят рожден ден?"
+                label={t('profile:birthdateModal.question')}
                 InputLabelProps={{
                   shrink: true,
                 }}
               />
             </Grid>
             <Grid item xs={6}>
-              <SubmitButton fullWidth />
+              <SubmitButton fullWidth label="auth:cta.send" loading={loading} />
             </Grid>
           </Grid>
         </GenericForm>
@@ -143,4 +139,4 @@ function UpdateBirthdayModal({
   )
 }
 
-export default UpdateBirthdayModal
+export default UpdateBirthdateModal
