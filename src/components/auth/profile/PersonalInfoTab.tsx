@@ -131,7 +131,7 @@ export default function PersonalInfoTab() {
   const [isUpdatePasswordModalOpen, setIsUpdatePasswordModalOpen] = useState(false)
 
   const { data: session } = useSession()
-  const isAuthenticatedByGoogle = session?.user?.email.includes('@gmail')
+  const isAuthenticatedByGoogle = session?.user?.iss.includes('google')
 
   return (
     <Root>
