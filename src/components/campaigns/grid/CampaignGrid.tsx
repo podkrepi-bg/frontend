@@ -3,7 +3,7 @@ import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import AddIcon from '@mui/icons-material/Add'
 import React, { useMemo, useState } from 'react'
-import { Box, Toolbar, Typography } from '@mui/material'
+import { Box, Button, Toolbar, Tooltip, Typography } from '@mui/material'
 import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { routes } from 'common/routes'
@@ -14,6 +14,9 @@ import GridActions from './GridActions'
 import DeleteModal from './modals/DeleteModal'
 import DetailsModal from './modals/DetailsModal'
 import ExternalLink from 'components/common/ExternalLink'
+import { money } from 'common/util/money'
+import { bg, enUS } from 'date-fns/locale'
+import { getExactDate, getRelativeDate } from 'common/util/date'
 
 interface CampaignCellProps {
   params: GridRenderCellParams<AdminCampaignResponse, AdminCampaignResponse>
@@ -39,14 +42,30 @@ const DisplayCampaignType = ({ params }: CampaignCellProps) => {
   return <>{params.row.campaignType.name}</>
 }
 
+const DisplayReachedAmount = ({ params }: CampaignCellProps) => {
+  const summary = params.row.summary.find(() => true)
+  const reached = summary?.reachedAmount ?? 0
+  return <>{money(reached)}</>
+}
+
+// #TODO: Remove when vaults work properly
+const DisplayCurrentAmount = ({ params }: CampaignCellProps) => {
+  const incoming = params.row.incomingTransfers.reduce((acc, transfer) => acc + transfer.amount, 0)
+  const outgoing = params.row.outgoingTransfers.reduce((acc, transfer) => acc + transfer.amount, 0)
+  const result = incoming - outgoing
+  const summary = params.row.summary.find(() => true)
+  const reached = summary?.reachedAmount ?? 0
+  const avilableAmount = reached - result
+  return <>{money(avilableAmount)}</>
+}
+
 export default function CampaignGrid() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const locale = i18n.language == 'bg' ? bg : enUS
   const { data = [], refetch }: UseQueryResult<AdminCampaignResponse[]> = useCampaignAdminList()
   const [viewId, setViewId] = useState<string | undefined>()
   const [deleteId, setDeleteId] = useState<string | undefined>()
-
   const selectedCampaign = useMemo(() => data.find((c) => c.id === viewId), [data, viewId])
-
   const commonProps: Partial<GridColDef> = {
     align: 'left',
     width: 100,
@@ -73,13 +92,15 @@ export default function CampaignGrid() {
     {
       field: 'state',
       headerName: t('campaigns:status'),
-      width: 120,
       ...commonProps,
+      align: 'left',
+      width: 120,
     },
     {
       field: 'title',
       headerName: t('campaigns:title'),
       ...commonProps,
+      align: 'left',
       width: 350,
       renderCell: (cellValues: GridRenderCellParams) => (
         <ExternalLink href={`/campaigns/${cellValues.row.slug}`}>
@@ -90,8 +111,8 @@ export default function CampaignGrid() {
     {
       field: 'essence',
       headerName: t('campaigns:essence'),
-      align: 'right',
       ...commonProps,
+      align: 'left',
       width: 350,
     },
     {
@@ -101,6 +122,7 @@ export default function CampaignGrid() {
       renderCell: (params: GridRenderCellParams) => {
         return <DisplayCoordinator params={params} />
       },
+      align: 'left',
       width: 200,
     },
     {
@@ -110,34 +132,61 @@ export default function CampaignGrid() {
       renderCell: (params: GridRenderCellParams) => {
         return <DisplayBeneficiary params={params} />
       },
+      align: 'left',
       width: 200,
     },
     {
       field: 'campaignType',
       headerName: t('campaigns:campaignType'),
       ...commonProps,
+      align: 'left',
+      width: 250,
       renderCell: (params: GridRenderCellParams) => {
         return <DisplayCampaignType params={params} />
       },
-      width: 250,
     },
     {
       field: 'description',
       headerName: t('campaigns:description'),
-      align: 'right',
       ...commonProps,
+      align: 'left',
       width: 350,
+    },
+    {
+      field: 'reachedAmount',
+      headerName: t('campaigns:donationsAmount'),
+      ...commonProps,
+      align: 'right',
+      width: 200,
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <ExternalLink href={`/admin/donations?campaignId=${cellValues.row.id}`}>
+          <DisplayReachedAmount params={cellValues} />
+        </ExternalLink>
+      ),
     },
     {
       field: 'targetAmount',
       headerName: t('campaigns:targetAmount'),
-      align: 'right',
       ...commonProps,
+      align: 'right',
+      width: 150,
+      renderCell: (cellValues: GridRenderCellParams) => <>{money(cellValues.row.targetAmount)}</>,
+    },
+    {
+      field: 'currentAmound',
+      headerName: t('campaigns:amount'),
+      ...commonProps,
+      align: 'right',
+      width: 200,
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <DisplayCurrentAmount params={cellValues} />
+      ),
     },
     {
       field: 'currency',
       headerName: t('campaigns:currency'),
       ...commonProps,
+      align: 'left',
     },
     {
       field: 'startDate',
@@ -145,6 +194,11 @@ export default function CampaignGrid() {
       align: 'left',
       width: 230,
       headerAlign: 'left',
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <Tooltip title={getExactDate(cellValues.row.startDate)}>
+          <Button color="inherit">{getRelativeDate(cellValues.row.startDate, locale)}</Button>
+        </Tooltip>
+      ),
     },
     {
       field: 'endDate',
@@ -152,6 +206,11 @@ export default function CampaignGrid() {
       align: 'left',
       width: 230,
       headerAlign: 'left',
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <Tooltip title={getExactDate(cellValues.row.endDate)}>
+          <Button color="inherit">{getRelativeDate(cellValues.row.endDate, locale)}</Button>
+        </Tooltip>
+      ),
     },
     {
       field: 'createdAt',
@@ -159,6 +218,11 @@ export default function CampaignGrid() {
       align: 'left',
       width: 230,
       headerAlign: 'left',
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <Tooltip title={getExactDate(cellValues.row.createdAt)}>
+          <Button color="inherit">{getRelativeDate(cellValues.row.createdAt, locale)}</Button>
+        </Tooltip>
+      ),
     },
     {
       field: 'updatedAt',
@@ -166,6 +230,11 @@ export default function CampaignGrid() {
       align: 'left',
       width: 230,
       headerAlign: 'left',
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <Tooltip title={getExactDate(cellValues.row.updatedAt)}>
+          <Button color="inherit">{getRelativeDate(cellValues.row.updatedAt, locale)}</Button>
+        </Tooltip>
+      ),
     },
     {
       field: 'deletedAt',

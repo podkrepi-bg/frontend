@@ -1,4 +1,4 @@
-import { format, formatRelative, intervalToDuration } from 'date-fns'
+import { format, formatRelative, intervalToDuration, Locale } from 'date-fns'
 
 export const formatDate = 'dd-MM-yyyy'
 export const formatDatetime = 'dd-MM-yyyy H:ii:ss'
@@ -19,9 +19,9 @@ export const formatDateString = (dateString: string | Date) => {
   return `${day}.${month}.${year}`
 }
 
-export const getRelativeDate = (value: Date | string) => {
+export const getRelativeDate = (value: Date | string, locale?: Locale) => {
   const date = new Date(value)
-  return formatRelative(date, new Date())
+  return formatRelative(date, new Date(), { locale })
 }
 
 /**

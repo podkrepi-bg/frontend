@@ -16,6 +16,7 @@
   "campaignType": "Вид на капманията",
   "description": "Описание",
   "targetAmount": "Целева сума",
+  "donationsAmount": "Събрана сума",
   "startDate": "Стартова дата",
   "endDate": "Крайна дата",
   "createDate": "Съдадена на",
@@ -161,6 +162,6 @@
   "donations": {
     "anonymous": "Анонимен",
     "none": "Няма направени дарения",
-    "lv":"лв"
+    "lv": "лв"
   }
 }

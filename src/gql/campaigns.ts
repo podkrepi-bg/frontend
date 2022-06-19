@@ -54,6 +54,9 @@ export type AdminCampaignResponse = BaseCampaignResponse & {
   coordinator: {
     person: { firstName: string; lastName: string }
   }
+  incomingTransfers: { amount: number }[]
+  outgoingTransfers: { amount: number }[]
+  summary: { reachedAmount: number }[]
 }
 
 export type CampaignResponse = BaseCampaignResponse & {
