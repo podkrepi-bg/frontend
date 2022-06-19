@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { bg, enUS } from 'date-fns/locale'
 import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import AddIcon from '@mui/icons-material/Add'
@@ -7,16 +8,16 @@ import { Box, Button, Toolbar, Tooltip, Typography } from '@mui/material'
 import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { routes } from 'common/routes'
+import { money } from 'common/util/money'
 import { AdminCampaignResponse } from 'gql/campaigns'
+import ExternalLink from 'components/common/ExternalLink'
 import { useCampaignAdminList } from 'common/hooks/campaigns'
+import { getExactDate, getRelativeDate } from 'common/util/date'
+import { GridCellExpand } from 'components/common/GridCellExpand'
 
 import GridActions from './GridActions'
 import DeleteModal from './modals/DeleteModal'
 import DetailsModal from './modals/DetailsModal'
-import ExternalLink from 'components/common/ExternalLink'
-import { money } from 'common/util/money'
-import { bg, enUS } from 'date-fns/locale'
-import { getExactDate, getRelativeDate } from 'common/util/date'
 
 interface CampaignCellProps {
   params: GridRenderCellParams<AdminCampaignResponse, AdminCampaignResponse>
@@ -42,6 +43,10 @@ const DisplayCampaignType = ({ params }: CampaignCellProps) => {
   return <>{params.row.campaignType.name}</>
 }
 
+const DisplayExpandableDescription = (params: GridRenderCellParams<string>) => {
+  return <GridCellExpand value={params.value || ''} width={params.colDef.computedWidth} />
+}
+  
 const DisplayReachedAmount = ({ params }: CampaignCellProps) => {
   const summary = params.row.summary.find(() => true)
   const reached = summary?.reachedAmount ?? 0
@@ -151,6 +156,7 @@ export default function CampaignGrid() {
       ...commonProps,
       align: 'left',
       width: 350,
+      renderCell: DisplayExpandableDescription,
     },
     {
       field: 'reachedAmount',
