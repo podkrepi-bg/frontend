@@ -1,11 +1,10 @@
-import ProfilePage from 'components/auth/profile/ProfilePage'
+import AddBankTransactionsFile from 'components/donations/AddBankTransactionsFile'
 import { securedPropsWithTranslation } from 'middleware/auth/securedProps'
 
 export const getServerSideProps = securedPropsWithTranslation([
-  'auth',
-  'profile',
   'common',
+  'auth',
+  'donations',
   'validation',
 ])
-
-export default ProfilePage
+export default AddBankTransactionsFile

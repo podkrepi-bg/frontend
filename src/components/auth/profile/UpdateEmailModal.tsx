@@ -11,10 +11,10 @@ import { updateCurrentPerson } from 'common/util/useCurrentPerson'
 import { AlertStore } from 'stores/AlertStore'
 import { useTranslation } from 'next-i18next'
 import CloseIcon from '@mui/icons-material/Close'
+import * as yup from 'yup'
+import { email, password } from 'common/form/validation'
 import { signIn, signOut } from 'next-auth/react'
 import PasswordField from 'components/common/form/PasswordField'
-import { name, password } from 'common/form/validation'
-import * as yup from 'yup'
 import { useState } from 'react'
 import { baseUrl, routes } from 'common/routes'
 
@@ -44,17 +44,17 @@ const StyledModal = styled(Modal)(({ theme }) => ({
   },
 }))
 
-const validationSchema: yup.SchemaOf<
-  Pick<UpdateUserAccount, 'firstName' | 'lastName' | 'password'>
-> = yup.object().defined().shape({
-  firstName: name.required(),
-  lastName: name.required(),
-  password: password.required(),
-})
+const validationSchema: yup.SchemaOf<Pick<UpdateUserAccount, 'email' | 'password'>> = yup
+  .object()
+  .defined()
+  .shape({
+    email: email.required(),
+    password: password.required(),
+  })
 
 const callbackUrl = `${baseUrl}${routes.login}`
 
-function UpdateNameModal({
+function UpdateEmailModal({
   isOpen,
   handleClose,
   person,
@@ -72,9 +72,7 @@ function UpdateNameModal({
     onSuccess: () => AlertStore.show(t('common:alerts.success'), 'success'),
   })
 
-  const onSubmit = async (
-    values: Pick<UpdateUserAccount, 'firstName' | 'lastName' | 'password'>,
-  ) => {
+  const onSubmit = async (values: Pick<UpdateUserAccount, 'email' | 'password'>) => {
     try {
       setLoading(true)
 
@@ -91,12 +89,11 @@ function UpdateNameModal({
 
       const updateUser = await mutation.mutateAsync({
         ...person,
-        firstName: values.firstName,
-        lastName: values.lastName,
+        email: values.email,
       })
 
       const reLogin = await signIn<'credentials'>('credentials', {
-        email: person.email,
+        email: values.email,
         password: values.password,
         redirect: false,
       })
@@ -107,6 +104,7 @@ function UpdateNameModal({
 
       handleClose(updateUser.data)
     } catch (error) {
+      handleClose()
       console.error(error)
     } finally {
       setLoading(false)
@@ -123,31 +121,14 @@ function UpdateNameModal({
         <IconButton className={classes.close} onClick={() => handleClose()}>
           <CloseIcon />
         </IconButton>
-        <h2>{t('profile:nameModal.newName')}</h2>
+        <h2>{t('profile:emailModal.newEmail')}</h2>
         <GenericForm
           onSubmit={onSubmit}
-          validationSchema={validationSchema}
-          initialValues={{
-            firstName: person?.firstName || '',
-            lastName: person?.lastName || '',
-            password: '',
-          }}>
+          initialValues={{ email: person?.email || '', password: '' }}
+          validationSchema={validationSchema}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={8}>
-              <FormTextField
-                type="text"
-                name="firstName"
-                autoComplete="firstName"
-                label={t('profile:nameModal.firstName')}
-              />
-            </Grid>
-            <Grid item xs={12} sm={8}>
-              <FormTextField
-                type="text"
-                name="lastName"
-                autoComplete="lastName"
-                label={t('profile:nameModal.lastName')}
-              />
+              <FormTextField type="text" name="email" label="email" />
             </Grid>
             <Grid item xs={12} sm={8}>
               <PasswordField />
@@ -162,4 +143,4 @@ function UpdateNameModal({
   )
 }
 
-export default UpdateNameModal
+export default UpdateEmailModal

@@ -80,7 +80,7 @@ export default function ProfilePage() {
             padding: '10px 30px',
             boxShadow: 3,
           }}>
-          <h1 className={classes.h1}>Дарителски профил</h1>
+          <h1 className={classes.h1}>{t('profile:header')}</h1>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={tab.slug}>
               <Tab
@@ -94,7 +94,7 @@ export default function ProfilePage() {
               <Tab
                 className={matches ? classes.tabMobile : ''}
                 value={ProfileTabs.personalInformation}
-                label={matches ? undefined : t('profile:personalInformation')}
+                label={matches ? undefined : t('profile:personalInfo.index')}
                 aria-label={matches ? t('profile:personalInformation') : undefined}
                 onClick={() => router.push(routes.profile.personalInformation)}
                 icon={matches ? <AccountBoxIcon /> : undefined}

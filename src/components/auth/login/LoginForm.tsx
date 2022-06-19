@@ -7,26 +7,23 @@ import { useTranslation } from 'next-i18next'
 
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
-import { customValidators } from 'common/form/useForm'
 import FormInput from 'components/common/form/FormInput'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import Google from 'common/icons/Google'
 import PasswordField from 'components/common/form/PasswordField'
+import { email, password } from 'common/form/validation'
 
 export type LoginFormData = {
   email: string
   password?: string
 }
 
-const validationSchema: yup.SchemaOf<LoginFormData> = yup
-  .object()
-  .defined()
-  .shape({
-    email: yup.string().email().required(),
-    password: yup.string().min(6, customValidators.passwordMin), // .required(),
-  })
+const validationSchema: yup.SchemaOf<LoginFormData> = yup.object().defined().shape({
+  email: email.required(),
+  password: password.required(),
+})
 
 const defaults: LoginFormData = {
   email: '',

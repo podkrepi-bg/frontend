@@ -43,6 +43,10 @@ export function useDonationsList() {
   return useQuery<DonationResponse[]>(endpoints.donation.donationsList.url)
 }
 
+export function useCampaignDonationsList(id: string) {
+  return useQuery<DonationResponse[]>(endpoints.campaign.getDonations(id).url)
+}
+
 export async function prefetchDonationsList(client: QueryClient) {
   await client.prefetchQuery<DonationResponse[]>(endpoints.donation.donationsList.url)
 }

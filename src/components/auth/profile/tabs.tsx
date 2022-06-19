@@ -29,7 +29,7 @@ export const tabs: ProfileTab[] = [
   },
   {
     slug: ProfileTabs.certificates,
-    label: 'Лична информация',
+    label: 'Сертификати',
     Component: CertificatesTab,
   },
   {

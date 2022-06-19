@@ -48,6 +48,8 @@ export const endpoints = {
     editDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'PATCH' },
     deleteDonation: <Endpoint>{ url: `/donation/delete`, method: 'POST' },
     userDonations: <Endpoint>{ url: 'donation/user-donations', method: 'GET' },
+    uploadBankTransactionsFile: (bankTransactionsFileId: string) =>
+      <Endpoint>{ url: `/bank-transactions-file/${bankTransactionsFileId}`, method: 'POST' },
   },
   documents: {
     documentsList: <Endpoint>{ url: '/document', method: 'GET' },
@@ -146,6 +148,8 @@ export const endpoints = {
   account: {
     me: <Endpoint>{ url: '/account/me', method: 'GET' },
     update: <Endpoint>{ url: '/account/me', method: 'PATCH' },
+    updatePassword: <Endpoint>{ url: '/account/me/credentials', method: 'PATCH' },
+    delete: <Endpoint>{ url: '/account/me', method: 'DELETE' },
     new: <Endpoint>{ url: '/account/new', method: 'GET' },
   },
   recurringDonation: {
