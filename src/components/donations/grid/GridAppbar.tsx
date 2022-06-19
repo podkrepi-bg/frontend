@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
-import { Add as AddIcon } from '@mui/icons-material'
+import { Add as AddIcon, Receipt } from '@mui/icons-material'
 
 import { routes } from 'common/routes'
 
@@ -31,6 +31,13 @@ export default function GridAppbar() {
       </Box>
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Tooltip title={t('donations:form-heading-bank-transactions-file') || ''}>
+            <Receipt
+              sx={addIconStyles}
+              fontSize="large"
+              onClick={() => router.push(routes.admin.donations.addBankTransactionsFile)}
+            />
+          </Tooltip>
           <Tooltip title={t('donations:cta:add') || ''}>
             <AddIcon
               sx={addIconStyles}

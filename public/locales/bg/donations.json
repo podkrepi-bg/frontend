@@ -1,5 +1,6 @@
 {
   "form-heading": "Добави ново дарение",
+  "form-heading-bank-transactions-file": "Добави нов файл с банкови транзакции",
   "edit-form-heading": "Редактирай дарение",
   "all": "Всички дарения",
   "donations": "Дарения",
@@ -21,6 +22,8 @@
   "deleteAllContent": "Това действие ще изтрие избраните елементи завинаги!",
   "actions": "Действия",
   "createdAt": "Направено на",
+  "bankTransactionsFileId": "Номер на файла с банкови транзакции",
+  "addFiles": "Добави файлове",
   "alerts": {
     "selectRow": "Моля изберете ред",
     "create": "Дарението беше създадено успешно!",

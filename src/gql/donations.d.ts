@@ -146,3 +146,9 @@ export type ThirdStep = {
   message?: string
   anonymous: boolean
 }
+export type BankTransactionsUploadImage = {
+  bankTransactionsFileId: string
+}
+export type BankTransactionsFileFormData = {
+  bankTransactionsFileId: string
+}
