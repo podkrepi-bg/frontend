@@ -12,6 +12,7 @@ import {
   beneficiaryCampaignPictureUrl,
   coordinatorCampaignPictureUrl,
 } from 'common/util/campaignImageUrls'
+import { getExactDate } from 'common/util/date'
 
 const PREFIX = 'CampaignDetails'
 
@@ -79,7 +80,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 
   [`& .${classes.campaignDate}`]: {
-    fontSize: '24px',
+    fontSize: '14px',
   },
 }))
 
@@ -125,15 +126,18 @@ export default function CampaignDetails({ campaign }: Props) {
           className={classes.beneficiaryAvatar}
         />
       </Grid>
-      <Typography variant="subtitle2" component="p" className={classes.campaignDate}>
-        {t('campaigns:campaign.start-date')} {campaign.startDate}
-      </Typography>
       <Grid className={classes.campaignInfoWrapper}>
-        <Typography variant="subtitle2" component="p" className={classes.campaignDate}>
-          {t('campaigns:campaign.end-date')}
-          {campaign.endDate}
+        <Typography variant="body1" component="p" className={classes.campaignDate}>
+          {t('campaigns:campaign.start-date')} {getExactDate(campaign.startDate)}
         </Typography>
-        <Typography variant="subtitle2" component="p">
+        <Typography variant="body1" component="p" className={classes.campaignDate}>
+          {t('campaigns:campaign.end-date')} {getExactDate(campaign.endDate)}
+        </Typography>
+
+        <Typography variant="h6" component="p">
+          {t('campaigns:campaign.description')}
+        </Typography>
+        <Typography variant="body1" component="p">
           {campaign.description}
         </Typography>
         <CampaignSlider />
