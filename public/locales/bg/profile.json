@@ -1,16 +1,16 @@
 {
-  "header":"Дарителски профил",
+  "header": "Дарителски профил",
   "personalInfo": {
-    "index":"Лична информация",
-    "login":"Login информация:",
+    "index": "Лична информация",
+    "login": "Login информация:",
     "email": "Email адрес:",
-    "edit":"Редактирай",
-    "password":"Парола:",
-    "personal":"Лична информация:",
-    "name":"Име:",
-    "birthday":"Рожден ден:",
-    "noBirthday":"не e наличен",
-    "delete":"изтриване на акаунт/ профил"
+    "edit": "Редактирай",
+    "password": "Парола:",
+    "personal": "Лична информация:",
+    "name": "Име:",
+    "birthday": "Рожден ден:",
+    "noBirthday": "не e наличен",
+    "delete": "изтриване на акаунт/ профил"
   },
   "donations": {
     "index": "Дарения",
@@ -34,33 +34,33 @@
   },
   "donationsContract": "Договор дарение",
   "certificates": "Сертификати",
-  "birthdateModal":{
-    "ageInvalid":"Трябва да си над 18 години за да може да се регистрираш.",
-    "newDate":"Обнови рожден ден",
-    "question":"Кога е твоят рожден ден?"
+  "birthdateModal": {
+    "ageInvalid": "Трябва да си над 18 години за да може да се регистрираш.",
+    "newDate": "Обнови рожден ден",
+    "question": "Кога е твоят рожден ден?"
   },
-  "emailModal":{
-    "newEmail":"Обнови имейл"
+  "emailModal": {
+    "newEmail": "Обнови имейл"
   },
-  "nameModal":{
-    "newName":"Обнови име",
-    "firstName":"Име",
-    "lastName":"Фамилия"
+  "nameModal": {
+    "newName": "Обнови име",
+    "firstName": "Име",
+    "lastName": "Фамилия"
   },
-  "passwordModal":{
-    "newPassword":"Обнови парола"
+  "passwordModal": {
+    "newPassword": "Обнови парола"
   },
-  "disableModal":{
+  "disableModal": {
     "index": "Изтриване на акаунт",
-    "sorryMsg":"Съжаляваме, че ни напускате!",
-    "beforeDisableMsg":"Преди да ни напуснете ...",
-    "deactivateEmails":"Ако ви е омръзнало да получавате имейли, деактивирайте ги ",
-    "link":" тук",
-    "writeUs" :"Ако .........................., моля пишете ",
-    "irreversibleAction":"Изтриването на акаунт е необратимо.",
-    "confirmDisable":"Ще бъде невъзможно да възстановите акаунта си.",
-    "saveAccount":"Запази моя акаунт",
-    "disableAccount":"Изтрий моя акаунт",
-    "disabled":"Акаунтът ви е изтрит."
+    "sorryMsg": "Съжаляваме, че ни напускате!",
+    "beforeDisableMsg": "Преди да ни напуснете ...",
+    "deactivateEmails": "Ако ви е омръзнало да получавате имейли, деактивирайте ги ",
+    "link": " тук",
+    "writeUs": "Ако .........................., моля пишете ",
+    "irreversibleAction": "Изтриването на акаунт е необратимо.",
+    "confirmDisable": "Ще бъде невъзможно да възстановите акаунта си.",
+    "saveAccount": "Запази моя акаунт",
+    "disableAccount": "Изтрий моя акаунт",
+    "disabled": "Акаунтът ви е изтрит."
   }
 }
