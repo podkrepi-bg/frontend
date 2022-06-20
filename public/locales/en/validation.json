@@ -3,7 +3,7 @@
   "required": "Required field",
   "email": "Invalid email",
   "phone": "Invalid phone number",
-  "password":"Password should include at least 1 uppercase, 1 digit and 1 special character",
+  "password": "Password should include at least 1 uppercase, 1 digit and 1 special character",
   "password-min": "Password should be at least {{min}} characters",
   "password-max": "Password should be at most {{max}} characters",
   "password-match": "Password doesn't match",
