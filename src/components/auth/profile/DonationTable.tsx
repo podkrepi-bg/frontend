@@ -125,6 +125,7 @@ function DonationTable({ donations }: DonationTableProps) {
               <TableRow>
                 <TableCell>№</TableCell>
                 <TableCell>{t('profile:donations.date')}</TableCell>
+                <TableCell>{t('profile:donations.sort')}</TableCell>
                 <TableCell>{t('profile:donations.type')}</TableCell>
                 <TableCell>{t('profile:donations.cause')}</TableCell>
                 <TableCell>{t('profile:donations.amount')}</TableCell>
@@ -141,6 +142,11 @@ function DonationTable({ donations }: DonationTableProps) {
                     {format(parseISO(donation.createdAt), 'd.LL.yyyy', {
                       locale: i18n.language === 'bg' ? bg : enUS,
                     })}
+                  </TableCell>
+                  <TableCell>
+                    {donation.provider === 'bank'
+                      ? t('profile:donations.bank')
+                      : t('profile:donations.card')}
                   </TableCell>
                   <TableCell>
                     <Avatar sx={{ background: darken(theme.palette.secondary.main, 0.175) }}>
