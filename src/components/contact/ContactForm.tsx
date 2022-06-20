@@ -26,7 +26,7 @@ const validationSchema: yup.SchemaOf<ContactFormData> = yup
     email: email.required(),
     company: companyName,
     phone: phone.required(),
-    message: yup.string().trim().min(10).max(2000).required(),
+    message: yup.string().trim().min(10).max(500).required(),
     terms: yup.bool().required().oneOf([true], 'validation:terms-of-use'),
     gdpr: yup.bool().required().oneOf([true], 'validation:terms-of-service'),
   })
