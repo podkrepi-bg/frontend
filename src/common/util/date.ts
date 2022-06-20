@@ -1,7 +1,7 @@
 import { format, formatRelative, intervalToDuration, Locale } from 'date-fns'
 
 export const formatDate = 'dd-MM-yyyy'
-export const formatDatetime = 'dd-MM-yyyy H:ii:ss'
+export const formatDatetime = 'dd MMMM yyyy H:ii:ss'
 
 export const dateFormatter = (value: Date | string | number) => {
   const date = new Date(value)
@@ -32,7 +32,9 @@ export const getDurationUntilNow = (date: Date) => {
   return intervalToDuration({ start: date, end: new Date() })
 }
 
-export const getExactDate = (value: Date | string | number) => {
+export const getExactDate = (value: Date | string | number | undefined) => {
+  if (!value) return '---'
+
   const date = new Date(value)
   return format(date, formatDatetime)
 }
