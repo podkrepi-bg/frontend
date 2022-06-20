@@ -74,12 +74,12 @@ export default function CampaignFilter() {
   const { t } = useTranslation()
   const { mobile } = useMobile()
   const { data: campaigns, isLoading } = useCampaignList()
-  const [selectedCategory, setSelectedCategory] = useState<string | undefined>()
+  const [selectedCategory, setSelectedCategory] = useState<string>('ALL')
 
   const campaignToShow = useMemo<CampaignResponse[]>(() => {
     return (
       campaigns?.filter((campaign) => {
-        if (selectedCategory) {
+        if (selectedCategory != 'ALL') {
           return campaign.campaignType.category === selectedCategory
         }
         return campaign
@@ -109,10 +109,7 @@ export default function CampaignFilter() {
             </IconButton>
           )
         })}
-        <IconButton
-          disabled={!selectedCategory}
-          className={classes.filterButtons}
-          onClick={() => setSelectedCategory(undefined)}>
+        <IconButton className={classes.filterButtons} onClick={() => setSelectedCategory('ALL')}>
           <FilterNone fontSize="large" />
           <Typography>
             {t(`campaigns:filters.all`)} ({campaigns?.length ?? 0})
