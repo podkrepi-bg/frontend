@@ -93,6 +93,7 @@ export type UserDonation = {
   targetVault: {
     campaign: {
       title: string
+      id: string
     }
   }
   amount: number

@@ -130,19 +130,37 @@ export default function DonationTab() {
                   {/* <Typography>Я, Ф, М, А 2022</Typography> */}
                 </Box>
                 <Typography fontWeight="medium" variant="h5">
-                  {money(sumBy(userDonations.donations, 'amount'))}
+                  0,00 лв.
+                </Typography>
+              </Box>
+              <Box className={classes.donationsBoxRow}>
+                <Typography variant="h5">{t('profile:campaigns')}</Typography>
+                <Typography fontWeight="medium" variant="h5">
+                  {
+                    new Set(
+                      userDonations.donations?.map((donation) => donation.targetVault.campaign.id),
+                    ).size
+                  }
                 </Typography>
               </Box>
               <Box className={classes.donationsBoxRow}>
                 <Typography variant="h5">{t('profile:donations.cardDonations')}</Typography>
                 <Typography fontWeight="medium" variant="h5">
-                  {money(userDonations.total)}
+                  {money(
+                    userDonations.donations
+                      .filter((a) => a.provider == 'stripe')
+                      .reduce((a, b) => a + b.amount, 0),
+                  )}
                 </Typography>
               </Box>
               <Box className={classes.donationsBoxRow}>
                 <Typography variant="h5">{t('profile:donations.bankDonations')}</Typography>
                 <Typography fontWeight="medium" variant="h5">
-                  {money(userDonations.total)}
+                  {money(
+                    userDonations.donations
+                      .filter((a) => a.provider == 'bank')
+                      .reduce((a, b) => a + b.amount, 0),
+                  )}
                 </Typography>
               </Box>
             </Card>
