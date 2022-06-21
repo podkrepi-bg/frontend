@@ -13,6 +13,7 @@ import {
   Avatar,
   Button,
   Link,
+  Typography,
 } from '@mui/material'
 import { Box } from '@mui/system'
 import styled from '@emotion/styled'
@@ -79,7 +80,8 @@ function DonationTable({ donations }: DonationTableProps) {
     }
   }, [filteredByTypeDonations, fromDate, toDate])
   return (
-    <Card sx={{ padding: theme.spacing(2) }}>
+    <Card sx={{ padding: theme.spacing(2), boxShadow: theme.shadows[0] }}>
+      <Typography variant="h5">{t('profile:donations.onlineDonations')}</Typography>
       <Grid container alignItems={'flex-start'} spacing={theme.spacing(2)}>
         <Grid item xs={6} sm={3}>
           <CheckboxLabel>{t('profile:donations.oneTime')}</CheckboxLabel>
@@ -168,7 +170,7 @@ function DonationTable({ donations }: DonationTableProps) {
           </Table>
         </TableContainer>
       ) : (
-        <Box sx={{ fontSize: 20, mt: 4 }}>Към момента няма направени дарения</Box>
+        <Box sx={{ fontSize: 20, mt: 4 }}>{t('profile:donations.noDonations')}</Box>
       )}
     </Card>
   )

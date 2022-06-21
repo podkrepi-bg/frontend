@@ -13,7 +13,7 @@ import {
 } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import React from 'react'
-import { sumBy, truncate } from 'lodash'
+import { truncate } from 'lodash'
 import { useTranslation } from 'next-i18next'
 
 import theme from 'common/theme'
@@ -32,13 +32,21 @@ const PREFIX = 'DonationTab'
 
 const classes = {
   donationsBox: `${PREFIX}-donationsBox`,
+  campaignBox: `${PREFIX}-campaignBox`,
   donationsBoxRow: `${PREFIX}-donationsBoxRow`,
   h1: `${PREFIX}-h1`,
+  h3: `${PREFIX}-h3`,
+  h2: `${PREFIX}-h2`,
+  boxTitle: `${PREFIX}-boxTitle`,
 }
 
-const StyledProfileTab = styled(ProfileTab)({
+const Root = styled('div')(({ theme }) => ({
   [`& .${classes.donationsBox}`]: {
     padding: theme.spacing(5),
+    boxShadow: theme.shadows[3],
+  },
+  [`& .${classes.campaignBox}`]: {
+    boxShadow: theme.shadows[3],
   },
   [`& .${classes.donationsBoxRow}`]: {
     '&:first-child': {
@@ -53,11 +61,31 @@ const StyledProfileTab = styled(ProfileTab)({
   [`& .${classes.h1}`]: {
     fontStyle: 'normal',
     fontWeight: '500',
-    fontSize: '45px',
+    fontSize: '35px',
     lineHeight: '65px',
+  },
+  [`& .${classes.h3}`]: {
+    fontStyle: 'normal',
+    fontWeight: '500',
+    fontSize: '25px',
+    lineHeight: '116.7%',
     margin: '0',
   },
-})
+  [`& .${classes.h2}`]: {
+    fontStyle: 'normal',
+    fontWeight: '500',
+    fontSize: '23px',
+    lineHeight: '116.7%',
+    marginBottom: theme.spacing(3),
+  },
+  [`& .${classes.boxTitle}`]: {
+    backgroundColor: 'white',
+    padding: theme.spacing(3, 9),
+    paddingBottom: theme.spacing(3),
+    marginTop: theme.spacing(3),
+    boxShadow: theme.shadows[3],
+  },
+}))
 
 export default function DonationTab() {
   const router = useRouter()
@@ -72,18 +100,16 @@ export default function DonationTab() {
   const { data: userDonations, isLoading: isUserDonationLoading } = useUserDonations()
   const { data: campaigns, isLoading: isCampaignLoading } = useCampaignList()
   return (
-    <StyledProfileTab name={ProfileTabs.donations}>
-      <Typography className={classes.h1}>{user?.user ? user.user.firstName + ',' : ''}</Typography>
-      <Typography variant="h5" fontWeight={'medium'}>
-        {t('profile:donations.helpThanks')} ❤️
-      </Typography>
-      <Grid
-        container
-        spacing={theme.spacing(2)}
-        marginTop={theme.spacing(1)}
-        alignItems={'flex-end'}>
+    <Root>
+      <Grid container spacing={theme.spacing(2)} alignItems={'flex-end'}>
         <Grid order={matches ? 3 : 1} item xs={12} md={4}>
-          <Card>
+          <Grid>
+            <Typography className={classes.h1}>
+              ❤️ {user?.user ? user.user.firstName + ',' : ''}
+            </Typography>
+            <Typography className={classes.h2}>{t('profile:donations.helpThanks')}</Typography>
+          </Grid>
+          <Card className={classes.campaignBox}>
             {!isCampaignLoading && campaigns ? (
               <CardActionArea>
                 <CardMedia
@@ -104,14 +130,14 @@ export default function DonationTab() {
             ) : (
               <CircularProgress />
             )}
-            <CardActions>
+            <CardActions sx={{ float: 'right' }}>
               <Button variant="contained" size="medium" color="secondary">
                 {t('profile:donations.donateNow')} ❤️
               </Button>
             </CardActions>
           </Card>
         </Grid>
-        <Grid order={matches ? 1 : 2} item xs={12} md={8}>
+        <Grid order={matches ? 3 : 1} item xs={12} md={8}>
           {!isUserDonationLoading && userDonations ? (
             <Card className={classes.donationsBox}>
               <Box className={classes.donationsBoxRow}>
@@ -168,10 +194,13 @@ export default function DonationTab() {
             <CircularProgress />
           )}
         </Grid>
-        <Grid order={matches ? 2 : 3} item xs={12}>
-          <DonationTable donations={userDonations?.donations} />
-        </Grid>
       </Grid>
-    </StyledProfileTab>
+      <Box className={classes.boxTitle}>
+        <Typography className={classes.h3}>{t('profile:donations.historyDonations')}</Typography>
+      </Box>
+      <ProfileTab name={ProfileTabs.donations}>
+        <DonationTable donations={userDonations?.donations} />
+      </ProfileTab>
+    </Root>
   )
 }
