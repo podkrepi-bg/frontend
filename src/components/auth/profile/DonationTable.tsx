@@ -128,7 +128,6 @@ function DonationTable({ donations }: DonationTableProps) {
                 <TableCell>№</TableCell>
                 <TableCell>{t('profile:donations.date')}</TableCell>
                 <TableCell>{t('profile:donations.sort')}</TableCell>
-                <TableCell>{t('profile:donations.type')}</TableCell>
                 <TableCell>{t('profile:donations.cause')}</TableCell>
                 <TableCell>{t('profile:donations.amount')}</TableCell>
                 <TableCell>{t('profile:donations.certificate')}</TableCell>
@@ -149,11 +148,6 @@ function DonationTable({ donations }: DonationTableProps) {
                     {donation.provider === 'bank'
                       ? t('profile:donations.bank')
                       : t('profile:donations.card')}
-                  </TableCell>
-                  <TableCell>
-                    <Avatar sx={{ background: darken(theme.palette.secondary.main, 0.175) }}>
-                      <StarIcon />
-                    </Avatar>
                   </TableCell>
                   <TableCell>{donation.targetVault.campaign.title}</TableCell>
                   <TableCell>{money(donation.amount)}</TableCell>
