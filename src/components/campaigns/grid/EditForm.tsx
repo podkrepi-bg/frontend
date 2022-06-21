@@ -7,7 +7,7 @@ import { useMutation, useQueryClient } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import NextLink from 'next/link'
-import { Button, Grid, Link, List, ListItemText, Typography } from '@mui/material'
+import { Button, Grid, List, ListItemText, Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
 import { Currency } from 'gql/currency'
@@ -191,7 +191,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
               type="number"
               name="targetAmount"
               autoComplete="target-amount"
-              label="campaigns:campaign.amount"
+              label={t('campaigns:campaign.amount') + ` (${campaign.currency})`}
             />
           </Grid>
           <Grid item xs={12} sm={4}>
