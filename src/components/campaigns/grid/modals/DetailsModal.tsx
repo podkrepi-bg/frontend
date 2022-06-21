@@ -21,6 +21,9 @@ type Props = {
 export default function DetailsModal({ campaign, onClose }: Props) {
   const { t } = useTranslation()
 
+  const beneficiaryName = `${campaign.beneficiary.person.firstName} ${campaign.beneficiary.person.lastName}`
+  const coordinatorName = `${campaign.coordinator.person.firstName} ${campaign.coordinator.person.lastName}`
+
   return (
     <Dialog open scroll="body" onClose={onClose}>
       <DialogTitle>{t('Детайли на кампанията')}</DialogTitle>
@@ -35,16 +38,11 @@ export default function DetailsModal({ campaign, onClose }: Props) {
           <Typography variant="body1">Стартова дата: {campaign.startDate}</Typography>
           <Typography variant="body1">Крайна Дата: {campaign.endDate}</Typography>
           <Typography variant="body1">Същество: {campaign.essence}</Typography>
-          <Typography variant="body1">Тип на кампанията: {campaign.campaignTypeId}</Typography>
-          <Typography variant="body1">Бенефициент: {campaign.beneficiaryId}</Typography>
-          <Typography variant="body1">Кординатор: {campaign.coordinatorId}</Typography>
+          <Typography variant="body1">Тип на кампанията: {campaign.campaignType.name}</Typography>
+          <Typography variant="body1">Бенефициент: {beneficiaryName}</Typography>
+          <Typography variant="body1">Кординатор: {coordinatorName}</Typography>
           <Typography variant="body1">Валута: {campaign.currency}</Typography>
-          <Typography variant="body1">
-            Описание: {campaign.description}
-            {campaign.description}
-            {campaign.description}
-            {campaign.description}
-          </Typography>
+          <Typography variant="body1">Описание: {campaign.description}</Typography>
         </CardContent>
       </Card>
       <DialogActions>
