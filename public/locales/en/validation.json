@@ -18,5 +18,6 @@
   "informed-agree-with": "I understand and I agree to the",
   "terms-and-conditions": "Terms and Conditions",
   "gdpr": "General Data Protection Regulation (GDPR)",
-  "legal-entity": "Legal entity"
+  "legal-entity": "Legal entity",
+  "sum-not-negative": "Sum should not be a negative value"
 }
