@@ -52,7 +52,7 @@ const validationSchema: yup.SchemaOf<Omit<CampaignEditFormData, 'campaignFiles'>
   .shape({
     title: yup.string().trim().min(10).max(100).required(),
     description: yup.string().trim().min(50).max(4000).required(),
-    targetAmount: yup.number().required(),
+    targetAmount: yup.number().min(0, 'validation:sum-not-negative').required(),
     allowDonationOnComplete: yup.bool().optional(),
     campaignTypeId: yup.string().uuid().required(),
     beneficiaryId: yup.string().required(),
