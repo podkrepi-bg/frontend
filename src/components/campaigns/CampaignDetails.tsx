@@ -3,8 +3,7 @@ import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import { CampaignResponse } from 'gql/campaigns'
-import LatestNews from './LatestNews'
-import CampaignComments from './CampaignComments'
+import CampaignMessages from './CampaignMessages'
 import CampaignSlider from './CampaignSlider'
 import { Grid, Typography } from '@mui/material'
 import {
@@ -12,7 +11,6 @@ import {
   beneficiaryCampaignPictureUrl,
   coordinatorCampaignPictureUrl,
 } from 'common/util/campaignImageUrls'
-import { getExactDate } from 'common/util/date'
 
 const PREFIX = 'CampaignDetails'
 
@@ -171,8 +169,7 @@ export default function CampaignDetails({ campaign }: Props) {
             {campaign.coordinator.person.firstName} {campaign.coordinator.person.lastName}
           </Typography>
         </Grid>
-        <LatestNews />
-        <CampaignComments />
+        <CampaignMessages />
       </Grid>
     </StyledGrid>
   )
