@@ -30,7 +30,7 @@ export default function LatestNews() {
     <StyledGrid className={classes.latestNewsWrapper}>
       <Grid className={classes.latestNewsTitleWrapper}>
         <FeedIcon />
-        <Typography>{t('campaigns:campaign.latest-news')}</Typography>
+        <Typography variant="h6">{t('campaigns:campaign.latest-news')}</Typography>
       </Grid>
       <Typography>25 Януари 2022</Typography>
       <Typography>

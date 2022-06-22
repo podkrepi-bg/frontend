@@ -30,7 +30,7 @@ export default function CampaignComments() {
     <StyledGrid className={classes.commentsWrapper}>
       <Grid className={classes.commentsTitleWrapper}>
         <CommentIcon />
-        <Typography>{t('campaigns:campaign.comments')}</Typography>
+        <Typography variant="h6">{t('campaigns:campaign.comments')}</Typography>
       </Grid>
       <Typography>
         1. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
