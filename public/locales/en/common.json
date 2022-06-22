@@ -81,6 +81,7 @@
     "targetVaultId": "Target vault"
   },
   "cta": {
-    "read-more": "Read more"
+    "read-more": "Read more",
+    "see-profile": "See profile"
   }
 }
