@@ -26,6 +26,7 @@ const classes = {
   campaignInfoWrapper: `${PREFIX}-campaignInfoWrapper`,
   coordinatorAvatar: `${PREFIX}-coordinatorAvatar`,
   campaignDate: `${PREFIX}-campaignDate`,
+  beneficiaryName: `${PREFIX}-beneficiaryName`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
@@ -39,13 +40,9 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     zIndex: -1,
     minHeight: '504px !important',
     marginTop: `${theme.spacing(10)} !important`,
-    [theme.breakpoints.up('md')]: {
-      marginTop: `${theme.spacing(14)} !important`,
-    },
   },
 
   [`& .${classes.campaignTitle}`]: {
-    color: theme.palette.common.white,
     fontWeight: 500,
     margin: 0,
   },
@@ -58,15 +55,18 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 
   [`& .${classes.beneficiaryAvatarWrapper}`]: {
-    textAlign: 'center',
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    marginTop: theme.spacing(41.125),
     [theme.breakpoints.up('md')]: {
       textAlign: 'left',
+      flexDirection: 'initial',
     },
   },
 
   [`& .${classes.beneficiaryAvatar}`]: {
     borderRadius: '50%',
-    border: `4px solid ${theme.palette.common.white} !important`,
     textAlign: 'center',
   },
 
@@ -80,7 +80,15 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 
   [`& .${classes.campaignDate}`]: {
-    fontSize: '14px',
+    fontSize: theme.spacing(2),
+  },
+
+  [`& .${classes.beneficiaryName}`]: {
+    marginTop: theme.spacing(2),
+    fontSize: theme.spacing(4),
+    [theme.breakpoints.up('md')]: {
+      marginTop: theme.spacing(4),
+    },
   },
 }))
 
@@ -95,6 +103,20 @@ export default function CampaignDetails({ campaign }: Props) {
   const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
   const coordinatorAvatarSource = coordinatorCampaignPictureUrl(campaign)
 
+  const startDate = new Date(campaign.startDate)
+  const formattedStartDate = startDate.toLocaleDateString('bg-BG', {
+    day: 'numeric',
+    month: 'long',
+    year: '2-digit',
+  })
+
+  const endDate = new Date(campaign.endDate)
+  const formattedEndDate = endDate.toLocaleDateString('bg-BG', {
+    day: 'numeric',
+    month: 'long',
+    year: '2-digit',
+  })
+
   return (
     <StyledGrid item xs={12} md={8}>
       <Grid className={classes.bannerWrapper}>
@@ -106,18 +128,7 @@ export default function CampaignDetails({ campaign }: Props) {
           className={classes.banner}
         />
       </Grid>
-      <Typography paragraph variant="h2" component="h1" p={4} className={classes.campaignTitle}>
-        {campaign.title}
-      </Typography>
-      <Typography
-        paragraph
-        variant="subtitle1"
-        component="p"
-        p={4}
-        className={classes.campaignSubtitle}>
-        Subheader {/* This value has to come from db */}
-      </Typography>
-      <Grid item p={4} className={classes.beneficiaryAvatarWrapper}>
+      <Grid item py={4} className={classes.beneficiaryAvatarWrapper}>
         <Image
           src={beneficiaryAvatarSource}
           alt={campaign.title}
@@ -125,19 +136,23 @@ export default function CampaignDetails({ campaign }: Props) {
           height={250}
           className={classes.beneficiaryAvatar}
         />
+        <Typography variant="subtitle2" component="p" className={classes.beneficiaryName}>
+          {campaign.beneficiary.person.firstName}
+        </Typography>
+      </Grid>
+      <Typography paragraph variant="h2" component="h2" py={4} className={classes.campaignTitle}>
+        {campaign.title}
+      </Typography>
+      <Grid container justifyContent="space-between" mb={4}>
+        <Typography variant="subtitle2" component="p" className={classes.campaignDate}>
+          {t('campaigns:campaign.start-date')} {formattedStartDate}
+        </Typography>
+        <Typography variant="subtitle2" component="p" className={classes.campaignDate}>
+          {t('campaigns:campaign.end-date')} {formattedEndDate}
+        </Typography>
       </Grid>
       <Grid className={classes.campaignInfoWrapper}>
-        <Typography variant="body1" component="p" className={classes.campaignDate}>
-          {t('campaigns:campaign.start-date')} {getExactDate(campaign.startDate)}
-        </Typography>
-        <Typography variant="body1" component="p" className={classes.campaignDate}>
-          {t('campaigns:campaign.end-date')} {getExactDate(campaign.endDate)}
-        </Typography>
-
-        <Typography variant="h6" component="p">
-          {t('campaigns:campaign.description')}
-        </Typography>
-        <Typography variant="body1" component="p">
+        <Typography variant="subtitle2" component="p">
           {campaign.description}
         </Typography>
         <CampaignSlider />
