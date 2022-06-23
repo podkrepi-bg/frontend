@@ -8,6 +8,7 @@ import { styled } from '@mui/material/styles'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import WhatshotIcon from '@mui/icons-material/Whatshot'
+import EmailIcon from '@mui/icons-material/Email'
 import Divider from '@mui/material/Divider'
 
 const PREFIX = 'CampaignInfo'
@@ -91,8 +92,7 @@ export default function CampaignInfo({ campaign }: Props) {
           display="flex"
           className={classes.campaignText}>
           <FavoriteIcon color="action" className={classes.campaignInfoIcon} />
-          {/* TODO: get data from endpoint */}
-          <strong>Социална Подкрепа</strong>
+          <strong>{t('campaigns:campaign.type')}</strong> {campaign.campaignType?.name}
         </Typography>
         <Typography
           variant="subtitle2"
@@ -156,12 +156,18 @@ export default function CampaignInfo({ campaign }: Props) {
               <strong>{t('campaigns:campaign.operator')}</strong>
             </Typography>
             <Typography variant="subtitle2" component="p">
-              {/* TODO: get data from endpoint */}
+              {/* TODO: get operator data from endpoint */}
               {campaign.coordinator.person.firstName} {campaign.coordinator.person.lastName}
-            </Typography>{' '}
+            </Typography>
             <Button href={''} className={classes.linkButton}>
               {t('common:cta.question')}
             </Button>
+            <Grid container alignItems="center">
+              <EmailIcon color="action" />
+              <Button href={''} className={classes.trustedButton}>
+                {t('campaigns:campaign.write-to-operator')}
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
