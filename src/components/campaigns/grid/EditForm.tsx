@@ -35,6 +35,7 @@ import FileUpload from 'components/file-upload/FileUpload'
 import CampaignStateSelect from '../CampaignStateSelect'
 import { endpoints } from 'service/apiEndpoints'
 import UploadedCampaignFile from './UploadedCampaignFile'
+import { toMoney } from 'common/util/money'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -122,7 +123,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
         title: values.title,
         slug: createSlug(values.title),
         description: values.description,
-        targetAmount: values.targetAmount,
+        targetAmount: toMoney(values.targetAmount),
         allowDonationOnComplete: campaign.allowDonationOnComplete,
         startDate: values.startDate,
         endDate: values.endDate,
