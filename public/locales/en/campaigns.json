@@ -92,6 +92,7 @@
       "create": "Create coordinator"
     },
     "operator": "Podkrepi.bg Operator:",
+    "write-to-operator": "Write to Operator",
     "description": "Description",
     "start-date": "Start date:",
     "end-date": "End date:",
