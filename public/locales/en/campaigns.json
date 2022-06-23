@@ -32,8 +32,9 @@
     "from": "from",
     "donors": "donors",
     "shares": "shares",
-    "latest-news": "Latest news",
     "messages": "Messages:",
+    "profile": "Profile:",
+    "status": "Status:",
     "types": {
       "treatment-and-rehabilitation": "Treatment and rehabilitation",
       "helping-the-needy": "Helping the needy",
@@ -90,6 +91,7 @@
       "add": "Add coordinator",
       "create": "Create coordinator"
     },
+    "operator": "Podkrepi.bg Operator:",
     "description": "Description",
     "start-date": "Start date:",
     "end-date": "End date:",
