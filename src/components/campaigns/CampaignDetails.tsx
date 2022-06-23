@@ -102,7 +102,7 @@ export default function CampaignDetails({ campaign }: Props) {
           className={classes.beneficiaryAvatar}
         />
         <Typography variant="subtitle2" component="p" className={classes.beneficiaryName}>
-          {campaign.beneficiary.person.firstName}
+          {campaign.beneficiary.person.firstName} {campaign.beneficiary.person.lastName}
         </Typography>
       </Grid>
       <Typography paragraph variant="h2" component="h2" my={8} className={classes.campaignTitle}>
