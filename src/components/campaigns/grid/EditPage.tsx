@@ -6,7 +6,6 @@ import { CampaignResponse } from 'gql/campaigns'
 import { useViewCampaignById } from 'common/hooks/campaigns'
 import AdminLayout from 'components/admin/navigation/AdminLayout'
 import AdminContainer from 'components/admin/navigation/AdminContainer'
-import NotFoundIllustration from 'components/errors/assets/NotFoundIllustration'
 
 import EditForm from './EditForm'
 
@@ -17,7 +16,7 @@ export default function EditPage() {
     <AdminLayout>
       <AdminContainer title={'Кампании'}>
         <Container maxWidth="md" sx={{ py: 5 }}>
-          {campaign ? <EditForm campaign={campaign} /> : <NotFoundIllustration />}
+          {campaign && <EditForm campaign={campaign} />}
         </Container>
       </AdminContainer>
     </AdminLayout>
