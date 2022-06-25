@@ -35,7 +35,7 @@ import FileUpload from 'components/file-upload/FileUpload'
 import CampaignStateSelect from '../CampaignStateSelect'
 import { endpoints } from 'service/apiEndpoints'
 import UploadedCampaignFile from './UploadedCampaignFile'
-import { toMoney } from 'common/util/money'
+import { fromMoney, toMoney } from 'common/util/money'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -53,7 +53,7 @@ const validationSchema: yup.SchemaOf<Omit<CampaignEditFormData, 'campaignFiles'>
   .shape({
     title: yup.string().trim().min(10).max(100).required(),
     description: yup.string().trim().min(50).max(4000).required(),
-    targetAmount: yup.number().required(),
+    targetAmount: yup.number().integer().positive().required(),
     allowDonationOnComplete: yup.bool().optional(),
     campaignTypeId: yup.string().uuid().required(),
     beneficiaryId: yup.string().required(),
@@ -78,7 +78,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
     coordinatorId: campaign.coordinatorId,
     campaignTypeId: campaign.campaignTypeId,
     beneficiaryId: campaign.beneficiaryId,
-    targetAmount: campaign.targetAmount || 0,
+    targetAmount: fromMoney(campaign.targetAmount) || 0,
     allowDonationOnComplete: campaign.allowDonationOnComplete || false,
     startDate: format(new Date(campaign.startDate ?? new Date()), formatString),
     endDate: format(new Date(campaign.endDate ?? new Date()), formatString),
