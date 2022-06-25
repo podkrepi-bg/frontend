@@ -110,7 +110,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => {
       //invalidate query for getting new values
-      queryClient.invalidateQueries(endpoints.campaign.uploadFile(campaign.id).url)
+      queryClient.invalidateQueries(endpoints.campaign.viewCampaignById(campaign.id).url)
     },
   })
 
