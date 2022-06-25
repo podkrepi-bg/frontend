@@ -267,18 +267,13 @@ export default function CampaignGrid() {
           borderTop: '1px solid lightgrey',
           display: 'flex',
           justifyContent: 'space-between',
-          height: '72px',
+          height: '64px',
         }}>
-        <Box sx={{ height: '64px', display: 'flex', alignItems: 'start', pt: 1 }}>
-          <Typography>Всички кампании</Typography>
-        </Box>
-        <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Link href={routes.admin.campaigns.create} passHref>
-              <AddIcon sx={addIconStyles} fontSize="large" />
-            </Link>
-          </Box>
-        </Box>
+        <Link href={routes.admin.campaigns.create} passHref>
+          <Button variant="outlined" endIcon={<AddIcon />}>
+            <Typography>Създай нова кампания</Typography>
+          </Button>
+        </Link>
       </Toolbar>
       <DataGrid
         style={{
