@@ -87,6 +87,11 @@ const Root = styled('div')(({ theme }) => ({
   },
 }))
 
+enum PaymentProvider {
+  'stripe',
+  'bank',
+}
+
 export default function DonationTab() {
   const router = useRouter()
   const { t } = useTranslation()
@@ -174,7 +179,7 @@ export default function DonationTab() {
                 <Typography fontWeight="medium" variant="h5">
                   {money(
                     userDonations.donations
-                      .filter((a) => a.provider == 'stripe')
+                      .filter((a) => a.provider == PaymentProvider[0])
                       .reduce((a, b) => a + b.amount, 0),
                   )}
                 </Typography>
@@ -184,7 +189,7 @@ export default function DonationTab() {
                 <Typography fontWeight="medium" variant="h5">
                   {money(
                     userDonations.donations
-                      .filter((a) => a.provider == 'bank')
+                      .filter((a) => a.provider == PaymentProvider[1])
                       .reduce((a, b) => a + b.amount, 0),
                   )}
                 </Typography>
