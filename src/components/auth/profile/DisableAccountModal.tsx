@@ -1,4 +1,4 @@
-import { Modal, Box, Typography, Button, Grid, Divider, IconButton } from '@mui/material'
+import { Modal, Box, Typography, Button, Grid, IconButton } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { Person, UpdatePerson, UpdateUserAccount } from 'gql/person'
 import { useMutation } from 'react-query'

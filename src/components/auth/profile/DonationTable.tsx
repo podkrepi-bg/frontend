@@ -25,7 +25,6 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import theme from 'common/theme'
 import { money } from 'common/util/money'
 import { UserDonation } from 'gql/donations'
-import { PaymentProvider } from 'gql/donations.enums'
 import { routes } from 'common/routes'
 
 export type DonationTableProps = {

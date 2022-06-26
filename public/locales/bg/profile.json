@@ -1,5 +1,5 @@
 {
-  "header": "Дарителски профил",
+  "header": "Личен профил",
   "campaigns": "Подкрепени кампании",
   "personalInfo": {
     "index": "Лична информация",
@@ -15,7 +15,7 @@
   },
   "donations": {
     "index": "Дарения",
-    "helpThanks": "Благодарим за помощта ви!",
+    "helpThanks": "благодарим за помощта ви!",
     "donateNow": "Подкрепи сега",
     "totalDonations": "Всички дарения",
     "recurringDonations": "Повтарящи дарения",
