@@ -1,7 +1,6 @@
 import {
   Card,
   Checkbox,
-  darken,
   TableBody,
   TableCell,
   TableContainer,
@@ -10,17 +9,14 @@ import {
   Grid,
   Table,
   TableRow,
-  Avatar,
   Button,
   Link,
-  Typography,
 } from '@mui/material'
 import { Box } from '@mui/system'
 import styled from '@emotion/styled'
 import React, { useMemo } from 'react'
 import { bg, enUS } from 'date-fns/locale'
 import { useTranslation } from 'next-i18next'
-import StarIcon from '@mui/icons-material/Star'
 import { format, isAfter, isBefore, parseISO } from 'date-fns'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
@@ -29,6 +25,7 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import theme from 'common/theme'
 import { money } from 'common/util/money'
 import { UserDonation } from 'gql/donations'
+import { PaymentProvider } from 'gql/donations.enums'
 import { routes } from 'common/routes'
 
 export type DonationTableProps = {
@@ -81,7 +78,6 @@ function DonationTable({ donations }: DonationTableProps) {
   }, [filteredByTypeDonations, fromDate, toDate])
   return (
     <Card sx={{ padding: theme.spacing(2), boxShadow: theme.shadows[0] }}>
-      <Typography variant="h5">{t('profile:donations.onlineDonations')}</Typography>
       <Grid container alignItems={'flex-start'} spacing={theme.spacing(2)}>
         <Grid item xs={6} sm={3}>
           <CheckboxLabel>{t('profile:donations.oneTime')}</CheckboxLabel>
@@ -144,19 +140,18 @@ function DonationTable({ donations }: DonationTableProps) {
                       locale: i18n.language === 'bg' ? bg : enUS,
                     })}
                   </TableCell>
-                  <TableCell>
-                    {donation.provider === 'bank'
-                      ? t('profile:donations.bank')
-                      : t('profile:donations.card')}
-                  </TableCell>
+                  <TableCell>{donation.provider}</TableCell>
                   <TableCell>{donation.targetVault.campaign.title}</TableCell>
                   <TableCell>{money(donation.amount)}</TableCell>
                   <TableCell>
-                    <Button variant="outlined" disabled={donation.status != 'succeeded'}>
-                      <Link target="_blank" href={routes.donation.viewCertificate(donation.id)}>
-                        {t('profile:donations.download')} <ArrowForwardIcon />
-                      </Link>
-                    </Button>
+                    <Link target="_blank" href={routes.donation.viewCertificate(donation.id)}>
+                      <Button
+                        variant="outlined"
+                        disabled={donation.status != 'succeeded'}
+                        endIcon={<ArrowForwardIcon />}>
+                        {t('profile:donations.download')}
+                      </Button>
+                    </Link>
                   </TableCell>
                 </TableRow>
               ))}
