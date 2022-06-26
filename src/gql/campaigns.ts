@@ -37,8 +37,8 @@ type BaseCampaignResponse = {
   targetAmount: number
   allowDonationOnComplete: boolean
   currency: string
-  startDate: Date | null
-  endDate: Date | null
+  startDate: string | number | Date
+  endDate: string | number | Date
   createdAt: Date
   updatedAt: Date | null
   deletedAt: Date | null

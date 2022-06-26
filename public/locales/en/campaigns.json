@@ -16,7 +16,8 @@
     "see-more": "See more",
     "donor": "Donor",
     "add-files": "Add files",
-    "attached-files": "Attached files"
+    "attached-files": "Attached files",
+    "trusted": "Trusted"
   },
   "campaign": {
     "subheading": "Your support for the world matters. All supporters through Podkrepi.bg are our partners in supporting the community campaign. As a generous benefactor, you become an important partner in supporting a campaign regarding someone's health or the success of a cause that is close to your heart.",
@@ -31,8 +32,9 @@
     "from": "from",
     "donors": "donors",
     "shares": "shares",
-    "latest-news": "Latest news",
-    "comments": "Comments",
+    "messages": "Messages:",
+    "profile": "Profile:",
+    "status": "Status:",
     "types": {
       "treatment-and-rehabilitation": "Treatment and rehabilitation",
       "helping-the-needy": "Helping the needy",
@@ -89,6 +91,8 @@
       "add": "Add coordinator",
       "create": "Create coordinator"
     },
+    "operator": "Podkrepi.bg Operator:",
+    "write-to-operator": "Write to Operator",
     "description": "Description",
     "start-date": "Start date:",
     "end-date": "End date:",
@@ -112,6 +116,6 @@
   "donations": {
     "anonymous": "Anonymous",
     "none": "No donations yet",
-    "lv":"lv"
+    "lv": "lv"
   }
 }

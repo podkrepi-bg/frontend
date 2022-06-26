@@ -7,7 +7,7 @@ import { useMutation, useQueryClient } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import NextLink from 'next/link'
-import { Button, Grid, Link, List, ListItemText, Typography } from '@mui/material'
+import { Button, Grid, List, ListItemText, Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
 import { Currency } from 'gql/currency'
@@ -35,6 +35,7 @@ import FileUpload from 'components/file-upload/FileUpload'
 import CampaignStateSelect from '../CampaignStateSelect'
 import { endpoints } from 'service/apiEndpoints'
 import UploadedCampaignFile from './UploadedCampaignFile'
+import { fromMoney, toMoney } from 'common/util/money'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -51,8 +52,8 @@ const validationSchema: yup.SchemaOf<Omit<CampaignEditFormData, 'campaignFiles'>
   .defined()
   .shape({
     title: yup.string().trim().min(10).max(100).required(),
-    description: yup.string().trim().min(50).max(500).required(),
-    targetAmount: yup.number().required(),
+    description: yup.string().trim().min(50).max(4000).required(),
+    targetAmount: yup.number().integer().positive().required(),
     allowDonationOnComplete: yup.bool().optional(),
     campaignTypeId: yup.string().uuid().required(),
     beneficiaryId: yup.string().required(),
@@ -77,7 +78,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
     coordinatorId: campaign.coordinatorId,
     campaignTypeId: campaign.campaignTypeId,
     beneficiaryId: campaign.beneficiaryId,
-    targetAmount: campaign.targetAmount || 0,
+    targetAmount: fromMoney(campaign.targetAmount) || 0,
     allowDonationOnComplete: campaign.allowDonationOnComplete || false,
     startDate: format(new Date(campaign.startDate ?? new Date()), formatString),
     endDate: format(new Date(campaign.endDate ?? new Date()), formatString),
@@ -109,7 +110,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => {
       //invalidate query for getting new values
-      queryClient.invalidateQueries(endpoints.campaign.uploadFile(campaign.id).url)
+      queryClient.invalidateQueries(endpoints.campaign.viewCampaignById(campaign.id).url)
     },
   })
 
@@ -122,7 +123,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
         title: values.title,
         slug: createSlug(values.title),
         description: values.description,
-        targetAmount: values.targetAmount,
+        targetAmount: toMoney(values.targetAmount),
         allowDonationOnComplete: campaign.allowDonationOnComplete,
         startDate: values.startDate,
         endDate: values.endDate,

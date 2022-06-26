@@ -2,20 +2,21 @@ import React from 'react'
 import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@mui/material'
-import FeedIcon from '@mui/icons-material/Feed'
-const PREFIX = 'LatestNews'
+import RateReviewIcon from '@mui/icons-material/RateReview'
+
+const PREFIX = 'CampaignMessages'
 
 const classes = {
-  latestNewsWrapper: `${PREFIX}-latestNewsWrapper`,
-  latestNewsTitleWrapper: `${PREFIX}-latestNewsTitleWrapper`,
+  messagesWrapper: `${PREFIX}-messagesWrapper`,
+  messagesTitleWrapper: `${PREFIX}-messagesTitleWrapper`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
-  [`&.${classes.latestNewsWrapper}`]: {
-    margin: theme.spacing(20, 0, 5, 0),
+  [`&.${classes.messagesWrapper}`]: {
+    margin: theme.spacing(5, 0),
   },
 
-  [`& .${classes.latestNewsTitleWrapper}`]: {
+  [`& .${classes.messagesTitleWrapper}`]: {
     display: 'flex',
     gap: theme.spacing(3),
     alignItems: 'end',
@@ -23,16 +24,15 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 }))
 
-export default function LatestNews() {
+export default function CampaignMessages() {
   const { t } = useTranslation()
 
   return (
-    <StyledGrid className={classes.latestNewsWrapper}>
-      <Grid className={classes.latestNewsTitleWrapper}>
-        <FeedIcon />
-        <Typography>{t('campaigns:campaign.latest-news')}</Typography>
+    <StyledGrid className={classes.messagesWrapper}>
+      <Grid className={classes.messagesTitleWrapper}>
+        <RateReviewIcon color="action" />
+        <Typography variant="h6">{t('campaigns:campaign.messages')}</Typography>
       </Grid>
-      <Typography>25 Януари 2022</Typography>
       <Typography>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
         labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
