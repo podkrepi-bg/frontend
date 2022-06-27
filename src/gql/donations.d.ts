@@ -3,6 +3,7 @@ import { Stripe } from 'stripe'
 import { UUID } from './types'
 import * as yup from 'yup'
 import { PersonResponse } from './person'
+import { PaymentProvider } from './donations.enums'
 
 export type DonationPrice = Stripe.Price
 
@@ -63,36 +64,11 @@ export type DonationBankInput = {
   personsPhone: string
 }
 
-enum DonationType {
-  'donation',
-}
-
-enum DonationStatus {
-  'initial',
-  'invalid',
-  'incomplete',
-  'declined',
-  'waiting',
-  'cancelled',
-  'succeeded',
-  'deleted',
-  'refund',
-  'paymentRequested',
-}
-
-enum PaymentProvider {
-  'none',
-  'stripe',
-  'paypal',
-  'epay',
-  'bank',
-  'cash',
-}
-
 export type UserDonation = {
   targetVault: {
     campaign: {
       title: string
+      id: string
     }
   }
   amount: number
