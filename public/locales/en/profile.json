@@ -1,5 +1,5 @@
 {
-  "header": "Benefactor profile",
+  "header": "Personal profile",
   "personalInfo": {
     "index": "Personal information",
     "login": "Login information:",
@@ -14,7 +14,7 @@
   },
   "donations": {
     "index": "Donations",
-    "helpThanks": "We thank you for your help!",
+    "helpThanks": "thank you for your help!",
     "donateNow": "Donate now",
     "totalDonations": "All donations",
     "recurringDonations": "Recurring donations",

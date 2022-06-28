@@ -82,6 +82,8 @@
     "targetVaultId": "Към трезор"
   },
   "cta": {
-    "read-more": "Прочети още"
+    "read-more": "Прочети още",
+    "see-profile": "Вижте профил",
+    "question": "Имате въпрос?"
   }
 }

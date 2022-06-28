@@ -1,7 +1,6 @@
 import {
   Card,
   Checkbox,
-  darken,
   TableBody,
   TableCell,
   TableContainer,
@@ -10,7 +9,6 @@ import {
   Grid,
   Table,
   TableRow,
-  Avatar,
   Button,
   Link,
 } from '@mui/material'
@@ -19,7 +17,6 @@ import styled from '@emotion/styled'
 import React, { useMemo } from 'react'
 import { bg, enUS } from 'date-fns/locale'
 import { useTranslation } from 'next-i18next'
-import StarIcon from '@mui/icons-material/Star'
 import { format, isAfter, isBefore, parseISO } from 'date-fns'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
@@ -79,7 +76,7 @@ function DonationTable({ donations }: DonationTableProps) {
     }
   }, [filteredByTypeDonations, fromDate, toDate])
   return (
-    <Card sx={{ padding: theme.spacing(2) }}>
+    <Card sx={{ padding: theme.spacing(2), boxShadow: theme.shadows[0] }}>
       <Grid container alignItems={'flex-start'} spacing={theme.spacing(2)}>
         <Grid item xs={6} sm={3}>
           <CheckboxLabel>{t('profile:donations.oneTime')}</CheckboxLabel>
@@ -125,7 +122,7 @@ function DonationTable({ donations }: DonationTableProps) {
               <TableRow>
                 <TableCell>№</TableCell>
                 <TableCell>{t('profile:donations.date')}</TableCell>
-                <TableCell>{t('profile:donations.type')}</TableCell>
+                <TableCell>{t('profile:donations.sort')}</TableCell>
                 <TableCell>{t('profile:donations.cause')}</TableCell>
                 <TableCell>{t('profile:donations.amount')}</TableCell>
                 <TableCell>{t('profile:donations.certificate')}</TableCell>
@@ -142,19 +139,18 @@ function DonationTable({ donations }: DonationTableProps) {
                       locale: i18n.language === 'bg' ? bg : enUS,
                     })}
                   </TableCell>
-                  <TableCell>
-                    <Avatar sx={{ background: darken(theme.palette.secondary.main, 0.175) }}>
-                      <StarIcon />
-                    </Avatar>
-                  </TableCell>
+                  <TableCell>{donation.provider}</TableCell>
                   <TableCell>{donation.targetVault.campaign.title}</TableCell>
                   <TableCell>{money(donation.amount)}</TableCell>
                   <TableCell>
-                    <Button variant="outlined" disabled={donation.status != 'succeeded'}>
-                      <Link target="_blank" href={routes.donation.viewCertificate(donation.id)}>
-                        {t('profile:donations.download')} <ArrowForwardIcon />
-                      </Link>
-                    </Button>
+                    <Link target="_blank" href={routes.donation.viewCertificate(donation.id)}>
+                      <Button
+                        variant="outlined"
+                        disabled={donation.status != 'succeeded'}
+                        endIcon={<ArrowForwardIcon />}>
+                        {t('profile:donations.download')}
+                      </Button>
+                    </Link>
                   </TableCell>
                 </TableRow>
               ))}
@@ -162,7 +158,7 @@ function DonationTable({ donations }: DonationTableProps) {
           </Table>
         </TableContainer>
       ) : (
-        <Box sx={{ fontSize: 20, mt: 4 }}>Към момента няма направени дарения</Box>
+        <Box sx={{ fontSize: 20, mt: 4 }}>{t('profile:donations.noDonations')}</Box>
       )}
     </Card>
   )

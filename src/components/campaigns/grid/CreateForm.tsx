@@ -34,6 +34,7 @@ import CampaignTypeSelect from '../CampaignTypeSelect'
 import CoordinatorSelect from './CoordinatorSelect'
 import BeneficiarySelect from './BeneficiarySelect'
 import { CampaignState } from '../helpers/campaign.enums'
+import { toMoney } from 'common/util/money'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -51,7 +52,7 @@ const validationSchema: yup.SchemaOf<CampaignCreateFormData> = yup
   .shape({
     title: yup.string().trim().min(10).max(100).required(),
     description: yup.string().trim().min(50).max(4000).required(),
-    targetAmount: yup.number().min(0, 'validation:sum-not-negative').required(),
+    targetAmount: yup.number().integer().positive().required(),
     allowDonationOnComplete: yup.bool().optional(),
     campaignTypeId: yup.string().uuid().required(),
     beneficiaryId: yup.string().uuid().required(),
@@ -116,7 +117,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
         title: values.title,
         slug: createSlug(values.title),
         description: values.description,
-        targetAmount: values.targetAmount,
+        targetAmount: toMoney(values.targetAmount),
         allowDonationOnComplete: values.allowDonationOnComplete,
         startDate: values.startDate,
         endDate: values.endDate,

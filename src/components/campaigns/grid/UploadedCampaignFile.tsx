@@ -17,7 +17,6 @@ import {
 import { ApiErrors } from 'service/apiErrors'
 import { endpoints } from 'service/apiEndpoints'
 
-import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
 import { useSession } from 'next-auth/react'
 import { CampaignFile } from 'gql/campaigns'
@@ -41,7 +40,6 @@ export default function UploadedCampaignFile({ file, campaignId }: Props) {
     onSuccess: () => {
       AlertStore.show(t('alerts.deletedFile'), 'success')
       queryClient.invalidateQueries(endpoints.campaign.viewCampaignById(campaignId).url)
-      router.push(routes.admin.campaigns.index)
     },
   })
   const downloadFileHandler = async () => {

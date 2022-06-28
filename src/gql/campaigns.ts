@@ -2,7 +2,7 @@ import { UUID } from './types'
 import type { CampaignFileRole } from 'components/campaign-file/roles'
 import type { CampaignTypeCategory } from 'components/campaign-types/categories'
 import { Currency } from './currency'
-import { PaymentProvider } from './donations'
+import { PaymentProvider } from './donations.enums'
 import { CampaignState } from 'components/campaigns/helpers/campaign.enums'
 
 export type CampaignType = {
@@ -37,8 +37,8 @@ type BaseCampaignResponse = {
   targetAmount: number
   allowDonationOnComplete: boolean
   currency: string
-  startDate?: Date
-  endDate?: Date
+  startDate: string | number | Date
+  endDate: string | number | Date
   createdAt: Date
   updatedAt: Date | null
   deletedAt: Date | null
