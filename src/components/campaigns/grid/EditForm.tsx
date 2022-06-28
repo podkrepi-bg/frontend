@@ -36,6 +36,7 @@ import CampaignStateSelect from '../CampaignStateSelect'
 import { endpoints } from 'service/apiEndpoints'
 import UploadedCampaignFile from './UploadedCampaignFile'
 import { fromMoney, toMoney } from 'common/util/money'
+import CurrencySelect from 'components/currency/CurrencySelect'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -64,6 +65,7 @@ const validationSchema: yup.SchemaOf<Omit<CampaignEditFormData, 'campaignFiles'>
       .transform(parseDateString)
       .min(yup.ref('startDate'), `end date can't be before start date`),
     state: yup.mixed().oneOf(Object.values(CampaignState)).required(),
+    currency: yup.mixed().oneOf(Object.values(Currency)).required(),
   })
 
 export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
@@ -72,6 +74,8 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
   const [files, setFiles] = useState<File[]>([])
   const [roles, setRoles] = useState<FileRole[]>([])
   const { t } = useTranslation()
+
+  const disableCurrency = campaign.state !== CampaignState.active
 
   const initialValues: CampaignEditFormData = {
     title: campaign?.title || '',
@@ -85,6 +89,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
     state: campaign.state,
     description: campaign.description || '',
     campaignFiles: campaign.campaignFiles || [],
+    currency: Currency[campaign.currency as keyof typeof Currency],
   }
 
   const mutation = useMutation<
@@ -132,7 +137,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
         campaignTypeId: values.campaignTypeId,
         beneficiaryId: values.beneficiaryId,
         coordinatorId: values.coordinatorId,
-        currency: Currency.BGN,
+        currency: values.currency,
       })
 
       if (files.length > 0) {
@@ -184,16 +189,19 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
               autoComplete="title"
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={5}>
             <CampaignTypeSelect />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={5}>
             <FormTextField
               type="number"
               name="targetAmount"
               autoComplete="target-amount"
               label={t('campaigns:campaign.amount') + ` (${campaign.currency})`}
             />
+          </Grid>
+          <Grid item xs={12} sm={2}>
+            <CurrencySelect disabled={true} />
           </Grid>
           <Grid item xs={12} sm={4}>
             <FormTextField

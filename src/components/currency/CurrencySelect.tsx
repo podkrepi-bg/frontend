@@ -5,11 +5,21 @@ import { useField } from 'formik'
 import { Currency } from 'gql/currency'
 import FormTextField from 'components/common/form/FormTextField'
 
-export default function CurrencySelect({ name = 'currency', translationNamespace = 'common' }) {
+export default function CurrencySelect({
+  name = 'currency',
+  translationNamespace = 'common',
+  disabled = false,
+}: {
+  name?: string
+  translationNamespace?: string
+  disabled?: boolean
+}) {
   const { t } = useTranslation(translationNamespace)
 
   const values = Object.keys(Currency)
   const [field, meta] = useField(name)
+
+  console.log(disabled)
 
   return (
     <FormControl
@@ -18,6 +28,7 @@ export default function CurrencySelect({ name = 'currency', translationNamespace
       variant="outlined"
       error={Boolean(meta.error) && Boolean(meta.touched)}>
       <FormTextField
+        disabled={disabled}
         select
         type="text"
         fullWidth
