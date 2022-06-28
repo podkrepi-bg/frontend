@@ -12,7 +12,7 @@ import {
 import { useTranslation } from 'next-i18next'
 
 import { AdminCampaignResponse } from 'gql/campaigns'
-import { formatDateString } from 'common/util/date'
+import { money } from 'common/util/money'
 
 type Props = {
   campaign: AdminCampaignResponse
@@ -21,9 +21,6 @@ type Props = {
 
 export default function DetailsModal({ campaign, onClose }: Props) {
   const { t } = useTranslation()
-
-  const beneficiaryName = `${campaign.beneficiary.person.firstName} ${campaign.beneficiary.person.lastName}`
-  const coordinatorName = `${campaign.coordinator.person.firstName} ${campaign.coordinator.person.lastName}`
 
   return (
     <Dialog open scroll="body" onClose={onClose}>
@@ -35,18 +32,20 @@ export default function DetailsModal({ campaign, onClose }: Props) {
             {t('Заглавие')}: {campaign.title}
           </Typography>
           <Typography variant="body1">Слъг: {campaign.slug}</Typography>
-          <Typography variant="body1">Целева сума: {campaign.targetAmount}</Typography>
-          <Typography variant="body1">Валута: {campaign.currency}</Typography>
-          <Typography variant="body1">
-            Стартова дата: {formatDateString(campaign.startDate || '')}
-          </Typography>
-          <Typography variant="body1">
-            Крайна Дата: {formatDateString(campaign.endDate || '')}
-          </Typography>
+          <Typography variant="body1">Целева сума: {money(campaign.targetAmount)}</Typography>
+          <Typography variant="body1">Стартова дата: {campaign.startDate}</Typography>
+          <Typography variant="body1">Крайна Дата: {campaign.endDate}</Typography>
           <Typography variant="body1">Същество: {campaign.essence}</Typography>
           <Typography variant="body1">Тип на кампанията: {campaign.campaignType.name}</Typography>
-          <Typography variant="body1">Бенефициент: {beneficiaryName}</Typography>
-          <Typography variant="body1">Кординатор: {coordinatorName}</Typography>
+          <Typography variant="body1">
+            Бенефициент: {campaign.beneficiary.person.firstName}{' '}
+            {campaign.beneficiary.person.lastName}
+          </Typography>
+          <Typography variant="body1">
+            Кординатор: {campaign.coordinator.person.firstName}{' '}
+            {campaign.coordinator.person.lastName}
+          </Typography>
+          <Typography variant="body1">Валута: {campaign.currency}</Typography>
           <Typography variant="body1">Описание: {campaign.description}</Typography>
         </CardContent>
       </Card>
