@@ -126,12 +126,12 @@ export default function Certificate({ donation, person }: Props) {
           <Text style={styles.text2}>„Подкрепи БГ“ удостоверява, че:</Text>
           <Text style={styles.name}>{name}</Text>
         </View>
-        {donation?.amount && <View>
+        <View>
           <Text style={styles.donationText}>
-            дари сума в размер на <Text style={{ color: '#2A4E84' }}>{money(donation.amount)} </Text>
+            дари сума в размер на <Text style={{ color: '#2A4E84' }}>{money(donation?.amount ?? 0)}</Text>{' '}
             лева за дейността на сдружението.
           </Text>
-        </View>}
+        </View>
         <View style={styles.dateAndSignView}>
           <View>
             <Text style={styles.date}>{formattedDate}</Text>
