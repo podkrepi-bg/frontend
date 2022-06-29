@@ -4,6 +4,7 @@ import Logo from './Logo'
 import { DonationResponse } from 'gql/donations'
 import { PersonResponse } from 'gql/person'
 import { formatDateString } from 'common/util/date'
+import { money } from 'common/util/money'
 
 Font.register({
   family: 'Arial',
@@ -127,7 +128,7 @@ export default function Certificate({ donation, person }: Props) {
         </View>
         <View>
           <Text style={styles.donationText}>
-            дари сума в размер на <Text style={{ color: '#2A4E84' }}>{donation?.amount} </Text>
+            дари сума в размер на <Text style={{ color: '#2A4E84' }}>{money(donation?.amount ?? 0)}</Text>{' '}
             лева за дейността на сдружението.
           </Text>
         </View>
