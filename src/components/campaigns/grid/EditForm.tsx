@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 import { FormikHelpers } from 'formik'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { parse, isDate, format } from 'date-fns'
 import { useMutation, useQueryClient } from 'react-query'
 import { useTranslation } from 'next-i18next'
@@ -23,6 +23,7 @@ import {
   CampaignInput,
   CampaignUploadImage,
   CampaignEditFormData,
+  AdminSingleCampaignResponse,
 } from 'gql/campaigns'
 import { CampaignState } from '../helpers/campaign.enums'
 
@@ -36,6 +37,7 @@ import CampaignStateSelect from '../CampaignStateSelect'
 import { endpoints } from 'service/apiEndpoints'
 import UploadedCampaignFile from './UploadedCampaignFile'
 import { fromMoney, toMoney } from 'common/util/money'
+import CurrencySelect from 'components/currency/CurrencySelect'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -64,14 +66,30 @@ const validationSchema: yup.SchemaOf<Omit<CampaignEditFormData, 'campaignFiles'>
       .transform(parseDateString)
       .min(yup.ref('startDate'), `end date can't be before start date`),
     state: yup.mixed().oneOf(Object.values(CampaignState)).required(),
+    currency: yup.mixed().oneOf(Object.values(Currency)).required(),
   })
 
-export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
+export default function EditForm({ campaign }: { campaign: AdminSingleCampaignResponse }) {
   const router = useRouter()
   const queryClient = useQueryClient()
   const [files, setFiles] = useState<File[]>([])
   const [roles, setRoles] = useState<FileRole[]>([])
   const { t } = useTranslation()
+
+  const incomingTransfersAmount = useMemo(() => {
+    return campaign.incomingTransfers.reduce((acc, transfer) => {
+      return acc + transfer.amount
+    }, 0)
+  }, [campaign])
+
+  const donationsAmount = useMemo(() => {
+    return campaign.vaults.reduce((acc, vault) => {
+      return acc + vault.amount
+    }, 0)
+  }, [campaign])
+
+  const disabledCurrencySelect =
+    campaign.state === CampaignState.active && (incomingTransfersAmount > 0 || donationsAmount > 0)
 
   const initialValues: CampaignEditFormData = {
     title: campaign?.title || '',
@@ -85,6 +103,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
     state: campaign.state,
     description: campaign.description || '',
     campaignFiles: campaign.campaignFiles || [],
+    currency: Currency[campaign.currency as keyof typeof Currency],
   }
 
   const mutation = useMutation<
@@ -132,7 +151,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
         campaignTypeId: values.campaignTypeId,
         beneficiaryId: values.beneficiaryId,
         coordinatorId: values.coordinatorId,
-        currency: Currency.BGN,
+        currency: values.currency,
       })
 
       if (files.length > 0) {
@@ -184,16 +203,19 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
               autoComplete="title"
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={5}>
             <CampaignTypeSelect />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={5}>
             <FormTextField
               type="number"
               name="targetAmount"
               autoComplete="target-amount"
               label="campaigns:campaign.amount"
             />
+          </Grid>
+          <Grid item xs={12} sm={2}>
+            <CurrencySelect disabled={disabledCurrencySelect} />
           </Grid>
           <Grid item xs={12} sm={4}>
             <FormTextField

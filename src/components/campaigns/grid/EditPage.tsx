@@ -2,7 +2,7 @@ import { Container } from '@mui/material'
 import { useRouter } from 'next/router'
 import { UseQueryResult } from 'react-query'
 
-import { CampaignResponse } from 'gql/campaigns'
+import { AdminSingleCampaignResponse } from 'gql/campaigns'
 import { useViewCampaignById } from 'common/hooks/campaigns'
 import AdminLayout from 'components/admin/navigation/AdminLayout'
 import AdminContainer from 'components/admin/navigation/AdminContainer'
@@ -11,7 +11,9 @@ import EditForm from './EditForm'
 
 export default function EditPage() {
   const { query } = useRouter()
-  const { data: campaign }: UseQueryResult<CampaignResponse> = useViewCampaignById(String(query.id))
+  const { data: campaign }: UseQueryResult<AdminSingleCampaignResponse> = useViewCampaignById(
+    String(query.id),
+  )
   return (
     <AdminLayout>
       <AdminContainer title={'Кампании'}>
