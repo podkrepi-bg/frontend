@@ -96,6 +96,9 @@ export type CampaignCreateFormData = {
   description: string
   terms: boolean
   gdpr: boolean
+}
+
+export type CampaignAdminCreateFormData = CampaignCreateFormData & {
   currency: Currency
 }
 

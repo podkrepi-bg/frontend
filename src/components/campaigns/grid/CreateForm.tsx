@@ -27,7 +27,7 @@ import {
   CampaignResponse,
   CampaignInput,
   CampaignUploadImage,
-  CampaignCreateFormData,
+  CampaignAdminCreateFormData,
 } from 'gql/campaigns'
 
 import CampaignTypeSelect from '../CampaignTypeSelect'
@@ -47,7 +47,7 @@ const parseDateString = (value: string, originalValue: string) => {
   return parsedDate
 }
 
-const validationSchema: yup.SchemaOf<CampaignCreateFormData> = yup
+const validationSchema: yup.SchemaOf<CampaignAdminCreateFormData> = yup
   .object()
   .defined()
   .shape({
@@ -69,7 +69,7 @@ const validationSchema: yup.SchemaOf<CampaignCreateFormData> = yup
     currency: yup.mixed().oneOf(Object.values(Currency)).required(),
   })
 
-const defaults: CampaignCreateFormData = {
+const defaults: CampaignAdminCreateFormData = {
   title: '',
   campaignTypeId: '',
   beneficiaryId: '',
@@ -85,7 +85,7 @@ const defaults: CampaignCreateFormData = {
   currency: Currency.BGN,
 }
 
-export type CampaignFormProps = { initialValues?: CampaignCreateFormData }
+export type CampaignFormProps = { initialValues?: CampaignAdminCreateFormData }
 
 export default function CampaignForm({ initialValues = defaults }: CampaignFormProps) {
   const router = useRouter()
@@ -112,8 +112,8 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   })
 
   const onSubmit = async (
-    values: CampaignCreateFormData,
-    { setFieldError }: FormikHelpers<CampaignCreateFormData>,
+    values: CampaignAdminCreateFormData,
+    { setFieldError }: FormikHelpers<CampaignAdminCreateFormData>,
   ) => {
     try {
       const response = await mutation.mutateAsync({
