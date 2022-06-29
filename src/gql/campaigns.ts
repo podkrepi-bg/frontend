@@ -91,6 +91,7 @@ export type CampaignCreateFormData = {
   description: string
   terms: boolean
   gdpr: boolean
+  currency: Currency
 }
 
 export type CampaignEditFormData = {
@@ -105,6 +106,7 @@ export type CampaignEditFormData = {
   state: CampaignState
   description: string
   campaignFiles: CampaignFile[]
+  currency: Currency
 }
 
 export type CampaignInput = {
