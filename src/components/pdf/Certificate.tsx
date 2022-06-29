@@ -4,6 +4,7 @@ import Logo from './Logo'
 import { DonationResponse } from 'gql/donations'
 import { PersonResponse } from 'gql/person'
 import { formatDateString } from 'common/util/date'
+import { money } from 'common/util/money'
 
 Font.register({
   family: 'Arial',
@@ -125,12 +126,12 @@ export default function Certificate({ donation, person }: Props) {
           <Text style={styles.text2}>„Подкрепи БГ“ удостоверява, че:</Text>
           <Text style={styles.name}>{name}</Text>
         </View>
-        <View>
+        {donation?.amount && <View>
           <Text style={styles.donationText}>
-            дари сума в размер на <Text style={{ color: '#2A4E84' }}>{donation?.amount} </Text>
+            дари сума в размер на <Text style={{ color: '#2A4E84' }}>{money(donation.amount)} </Text>
             лева за дейността на сдружението.
           </Text>
-        </View>
+        </View>}
         <View style={styles.dateAndSignView}>
           <View>
             <Text style={styles.date}>{formattedDate}</Text>
