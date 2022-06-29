@@ -59,6 +59,11 @@ export type AdminCampaignResponse = BaseCampaignResponse & {
   summary: { reachedAmount: number }[]
 }
 
+export type AdminSingleCampaignResponse = CampaignResponse & {
+  incomingTransfers: { amount: number }[]
+  vaults: { amount: number }[]
+}
+
 export type CampaignResponse = BaseCampaignResponse & {
   campaignType: {
     name: string

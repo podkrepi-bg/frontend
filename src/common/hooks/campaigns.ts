@@ -8,6 +8,7 @@ import {
   CampaignResponse,
   CampaignType,
   AdminCampaignResponse,
+  AdminSingleCampaignResponse,
 } from 'gql/campaigns'
 
 export function useCampaignList() {
@@ -32,16 +33,16 @@ export function useViewCampaign(slug: string) {
 
 export function useViewCampaignById(id: string) {
   const { data: session } = useSession()
-  return useQuery<CampaignResponse>(
+  return useQuery<AdminSingleCampaignResponse>(
     endpoints.campaign.viewCampaignById(id).url,
-    authQueryFnFactory<CampaignResponse>(session?.accessToken),
+    authQueryFnFactory<AdminSingleCampaignResponse>(session?.accessToken),
   )
 }
 
 export async function prefetchCampaignById(client: QueryClient, id: string, token?: string) {
-  await client.prefetchQuery<CampaignResponse>(
+  await client.prefetchQuery<AdminSingleCampaignResponse>(
     endpoints.campaign.viewCampaignById(id).url,
-    authQueryFnFactory<CampaignResponse>(token),
+    authQueryFnFactory<AdminSingleCampaignResponse>(token),
   )
 }
 
