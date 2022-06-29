@@ -33,7 +33,9 @@ export default function DetailsModal({ campaign, onClose }: Props) {
             {t('Заглавие')}: {campaign.title}
           </Typography>
           <Typography variant="body1">Слъг: {campaign.slug}</Typography>
-          <Typography variant="body1">Целева сума: {money(campaign.targetAmount)}</Typography>
+          <Typography variant="body1">
+            Целева сума: {money(campaign.targetAmount, campaign.currency)}
+          </Typography>
           <Typography variant="body1">
             Стартова дата: {formatDateString(campaign.startDate.toLocaleString())}
           </Typography>
