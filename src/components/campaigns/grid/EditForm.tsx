@@ -69,6 +69,15 @@ const validationSchema: yup.SchemaOf<Omit<CampaignEditFormData, 'campaignFiles'>
     currency: yup.mixed().oneOf(Object.values(Currency)).required(),
   })
 
+const statesForDisableCurrencySelect = [
+  CampaignState.rejected,
+  CampaignState.suspended,
+  CampaignState.complete,
+  CampaignState.disabled,
+  CampaignState.error,
+  CampaignState.deleted,
+]
+
 export default function EditForm({ campaign }: { campaign: AdminSingleCampaignResponse }) {
   const router = useRouter()
   const queryClient = useQueryClient()
@@ -88,8 +97,10 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
     }, 0)
   }, [campaign])
 
-  const disabledCurrencySelect =
-    campaign.state === CampaignState.active && (incomingTransfersAmount > 0 || donationsAmount > 0)
+  const IsCurrencySelectDisabled =
+    statesForDisableCurrencySelect.includes(campaign.state) ||
+    (campaign.state === CampaignState.active &&
+      (incomingTransfersAmount > 0 || donationsAmount > 0))
 
   const initialValues: CampaignEditFormData = {
     title: campaign?.title || '',
@@ -215,7 +226,7 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
             />
           </Grid>
           <Grid item xs={12} sm={2}>
-            <CurrencySelect disabled={disabledCurrencySelect} />
+            <CurrencySelect disabled={IsCurrencySelectDisabled} />
           </Grid>
           <Grid item xs={12} sm={4}>
             <FormTextField
