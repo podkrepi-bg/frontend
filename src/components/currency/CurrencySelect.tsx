@@ -5,7 +5,11 @@ import { useField } from 'formik'
 import { Currency } from 'gql/currency'
 import FormTextField from 'components/common/form/FormTextField'
 
-export default function CurrencySelect({ name = 'currency', translationNamespace = 'common' }) {
+export default function CurrencySelect({
+  name = 'currency',
+  translationNamespace = 'common',
+  disabled = false,
+}) {
   const { t } = useTranslation(translationNamespace)
 
   const values = Object.keys(Currency)
@@ -22,6 +26,7 @@ export default function CurrencySelect({ name = 'currency', translationNamespace
         type="text"
         fullWidth
         defaultValue=""
+        disabled={disabled}
         label={t('fields.' + name)}
         {...field}>
         <MenuItem value="" disabled>
