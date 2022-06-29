@@ -46,12 +46,7 @@ export default function DetailsModal({ campaign, onClose }: Props) {
             {campaign.coordinator.person.lastName}
           </Typography>
           <Typography variant="body1">Валута: {campaign.currency}</Typography>
-          <Typography variant="body1">
-            Описание: {campaign.description}
-            {campaign.description}
-            {campaign.description}
-            {campaign.description}
-          </Typography>
+          <Typography variant="body1">Описание: {campaign.description}</Typography>
         </CardContent>
       </Card>
       <DialogActions>
