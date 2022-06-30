@@ -37,6 +37,10 @@ import { endpoints } from 'service/apiEndpoints'
 import UploadedCampaignFile from './UploadedCampaignFile'
 import { fromMoney, toMoney } from 'common/util/money'
 
+import dynamic from 'next/dynamic'
+import 'react-quill/dist/quill.snow.css'
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
+
 const formatString = 'yyyy-MM-dd'
 
 const parseDateString = (value: string, originalValue: string) => {
@@ -71,6 +75,8 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
   const queryClient = useQueryClient()
   const [files, setFiles] = useState<File[]>([])
   const [roles, setRoles] = useState<FileRole[]>([])
+  const [richDescription, setRichDescription] = useState(campaign.description || '')
+
   const { t } = useTranslation()
 
   const initialValues: CampaignEditFormData = {
@@ -122,7 +128,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
       await mutation.mutateAsync({
         title: values.title,
         slug: createSlug(values.title),
-        description: values.description,
+        description: richDescription,
         targetAmount: toMoney(values.targetAmount),
         allowDonationOnComplete: campaign.allowDonationOnComplete,
         startDate: values.startDate,
@@ -221,15 +227,7 @@ export default function EditForm({ campaign }: { campaign: CampaignResponse }) {
             <CampaignStateSelect />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField
-              rows={5}
-              multiline
-              type="text"
-              name="description"
-              label="campaigns:campaign.description"
-              autoComplete="description"
-              sx={{ '& textarea': { resize: 'vertical' } }}
-            />
+            <ReactQuill theme="snow" value={richDescription} onChange={setRichDescription} />
           </Grid>
           <Grid item xs={12} sm={6}>
             <p>

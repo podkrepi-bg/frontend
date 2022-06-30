@@ -12,6 +12,10 @@ import CampaignInfo from './CampaignInfo'
 import { styled } from '@mui/material/styles'
 import { Grid, Typography } from '@mui/material'
 
+import dynamic from 'next/dynamic'
+import 'react-quill/dist/quill.bubble.css'
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
+
 const PREFIX = 'CampaignDetails'
 
 const classes = {
@@ -110,9 +114,7 @@ export default function CampaignDetails({ campaign }: Props) {
       </Typography>
       <CampaignInfo campaign={campaign} />
       <Grid>
-        <Typography variant="subtitle2" component="p" mb={5}>
-          {campaign.description}
-        </Typography>
+        <ReactQuill readOnly theme="bubble" value={campaign.description} />
         <CampaignSlider />
         <CampaignMessages />
       </Grid>
