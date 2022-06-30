@@ -128,8 +128,9 @@ export default function Certificate({ donation, person }: Props) {
         </View>
         <View>
           <Text style={styles.donationText}>
-            дари сума в размер на <Text style={{ color: '#2A4E84' }}>{money(donation?.amount ?? 0)}</Text>{' '}
-            за дейността на сдружението.
+            дари сума в размер на{' '}
+            <Text style={{ color: '#2A4E84' }}>{money(donation?.amount ?? 0)}</Text> за дейността на
+            сдружението.
           </Text>
         </View>
         <View style={styles.dateAndSignView}>

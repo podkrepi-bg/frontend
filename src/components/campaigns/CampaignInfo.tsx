@@ -7,7 +7,6 @@ import { Button, Grid, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import FavoriteIcon from '@mui/icons-material/Favorite'
-import WhatshotIcon from '@mui/icons-material/Whatshot'
 import EmailIcon from '@mui/icons-material/Email'
 import Divider from '@mui/material/Divider'
 
@@ -92,17 +91,17 @@ export default function CampaignInfo({ campaign }: Props) {
           display="flex"
           className={classes.campaignText}>
           <FavoriteIcon color="action" className={classes.campaignInfoIcon} />
-          <strong>{t('campaigns:campaign.type')}</strong> {campaign.campaignType?.name}
+          <strong>{t('campaigns:campaign.type')}</strong>: {campaign.campaignType?.name}
         </Typography>
-        <Typography
+        {/* TODO: Dynamic campaign tagging is needed here based on activity (urgent, hot, the long-shot, etc) */}
+        {/* <Typography
           variant="subtitle2"
           component="p"
           display="flex"
           className={classes.campaignText}>
           <WhatshotIcon color="action" className={classes.campaignInfoIcon} />
-          {/* TODO: get data from endpoint */}
-          <strong>{t('campaigns:campaign.profile')}</strong> Спешна
-        </Typography>
+          <strong>{t('campaigns:campaign.profile')}</strong>Спешна
+        </Typography> */}
         <Typography variant="subtitle2" component="p" className={classes.campaignText}>
           <strong>{t('campaigns:campaign.status')}</strong> {campaign.state}
         </Typography>

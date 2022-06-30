@@ -1,6 +1,5 @@
 import React from 'react'
 import Image from 'next/image'
-import { useTranslation } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 import CampaignMessages from './CampaignMessages'
 import CampaignSlider from './CampaignSlider'
@@ -81,8 +80,6 @@ type Props = {
 }
 
 export default function CampaignDetails({ campaign }: Props) {
-  const { t } = useTranslation()
-
   const bannerSource = backgroundCampaignPictureUrl(campaign)
   const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
 
