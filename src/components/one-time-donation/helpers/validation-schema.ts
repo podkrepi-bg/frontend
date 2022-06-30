@@ -24,7 +24,7 @@ export const validateSecond: yup.SchemaOf<SecondStep> = yup
   .shape({
     anonymousDonation: yup.boolean().when('anonymous', {
       is: false,
-      then: yup.boolean().required().oneOf([true], 'errors-fields.checkbox-anonimus'),
+      then: yup.boolean().required(),
     }),
     personsEmail: email.required(),
     personsFirstName: name.notRequired(),
