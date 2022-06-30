@@ -27,7 +27,7 @@ import {
   CampaignResponse,
   CampaignInput,
   CampaignUploadImage,
-  CampaignCreateFormData,
+  CampaignAdminCreateFormData,
 } from 'gql/campaigns'
 
 import CampaignTypeSelect from '../CampaignTypeSelect'
@@ -35,6 +35,7 @@ import CoordinatorSelect from './CoordinatorSelect'
 import BeneficiarySelect from './BeneficiarySelect'
 import { CampaignState } from '../helpers/campaign.enums'
 import { toMoney } from 'common/util/money'
+import CurrencySelect from 'components/currency/CurrencySelect'
 
 import dynamic from 'next/dynamic'
 import 'react-quill/dist/quill.snow.css'
@@ -50,7 +51,7 @@ const parseDateString = (value: string, originalValue: string) => {
   return parsedDate
 }
 
-const validationSchema: yup.SchemaOf<CampaignCreateFormData> = yup
+const validationSchema: yup.SchemaOf<CampaignAdminCreateFormData> = yup
   .object()
   .defined()
   .shape({
@@ -69,9 +70,10 @@ const validationSchema: yup.SchemaOf<CampaignCreateFormData> = yup
       .min(yup.ref('startDate'), `end date can't be before start date`),
     terms: yup.bool().required().oneOf([true], 'validation:terms-of-use'),
     gdpr: yup.bool().required().oneOf([true], 'validation:terms-of-service'),
+    currency: yup.mixed().oneOf(Object.values(Currency)).required(),
   })
 
-const defaults: CampaignCreateFormData = {
+const defaults: CampaignAdminCreateFormData = {
   title: '',
   campaignTypeId: '',
   beneficiaryId: '',
@@ -84,9 +86,10 @@ const defaults: CampaignCreateFormData = {
   description: '',
   terms: false,
   gdpr: false,
+  currency: Currency.BGN,
 }
 
-export type CampaignFormProps = { initialValues?: CampaignCreateFormData }
+export type CampaignFormProps = { initialValues?: CampaignAdminCreateFormData }
 
 export default function CampaignForm({ initialValues = defaults }: CampaignFormProps) {
   const router = useRouter()
@@ -115,8 +118,8 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   })
 
   const onSubmit = async (
-    values: CampaignCreateFormData,
-    { setFieldError }: FormikHelpers<CampaignCreateFormData>,
+    values: CampaignAdminCreateFormData,
+    { setFieldError }: FormikHelpers<CampaignAdminCreateFormData>,
   ) => {
     try {
       const response = await mutation.mutateAsync({
@@ -132,7 +135,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
         campaignTypeId: values.campaignTypeId,
         beneficiaryId: values.beneficiaryId,
         coordinatorId: values.coordinatorId,
-        currency: Currency.BGN,
+        currency: values.currency.toString(),
       })
       if (files.length > 0) {
         await fileUploadMutation.mutateAsync({
@@ -180,16 +183,19 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               autoComplete="title"
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={5}>
             <CampaignTypeSelect />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={5}>
             <FormTextField
               type="number"
               name="targetAmount"
               autoComplete="target-amount"
               label="campaigns:campaign.amount"
             />
+          </Grid>
+          <Grid item xs={12} sm={2}>
+            <CurrencySelect />
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormTextField

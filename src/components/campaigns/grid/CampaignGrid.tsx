@@ -50,7 +50,7 @@ const DisplayExpandableDescription = (params: GridRenderCellParams<string>) => {
 const DisplayReachedAmount = ({ params }: CampaignCellProps) => {
   const summary = params.row.summary.find(() => true)
   const reached = summary?.reachedAmount ?? 0
-  return <>{money(reached)}</>
+  return <>{money(reached, params.row.currency)}</>
 }
 
 // #TODO: Remove when vaults work properly
@@ -61,7 +61,7 @@ const DisplayCurrentAmount = ({ params }: CampaignCellProps) => {
   const summary = params.row.summary.find(() => true)
   const reached = summary?.reachedAmount ?? 0
   const avilableAmount = reached - result
-  return <>{money(avilableAmount)}</>
+  return <>{money(avilableAmount, params.row.currency)}</>
 }
 
 export default function CampaignGrid() {
@@ -176,10 +176,12 @@ export default function CampaignGrid() {
       ...commonProps,
       align: 'right',
       width: 150,
-      renderCell: (cellValues: GridRenderCellParams) => <>{money(cellValues.row.targetAmount)}</>,
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <>{money(cellValues.row.targetAmount, cellValues.row.currency)}</>
+      ),
     },
     {
-      field: 'currentAmound',
+      field: 'currentAmount',
       headerName: t('campaigns:amount'),
       ...commonProps,
       align: 'right',

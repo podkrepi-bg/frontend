@@ -59,6 +59,11 @@ export type AdminCampaignResponse = BaseCampaignResponse & {
   summary: { reachedAmount: number }[]
 }
 
+export type AdminSingleCampaignResponse = CampaignResponse & {
+  incomingTransfers: { amount: number }[]
+  vaults: { amount: number }[]
+}
+
 export type CampaignResponse = BaseCampaignResponse & {
   campaignType: {
     name: string
@@ -93,6 +98,10 @@ export type CampaignCreateFormData = {
   gdpr: boolean
 }
 
+export type CampaignAdminCreateFormData = CampaignCreateFormData & {
+  currency: Currency
+}
+
 export type CampaignEditFormData = {
   title: string
   campaignTypeId: string
@@ -105,6 +114,7 @@ export type CampaignEditFormData = {
   state: CampaignState
   description: string
   campaignFiles: CampaignFile[]
+  currency: Currency
 }
 
 export type CampaignInput = {
