@@ -65,6 +65,7 @@
     "react-gtm-module": "2.0.11",
     "react-in-viewport": "1.0.0-alpha.17",
     "react-query": "^3.23.2",
+    "react-quill": "^2.0.0-beta.4",
     "sass": "1.34.1",
     "sharp": "^0.30.5",
     "slugify": "^1.6.0",

@@ -36,6 +36,10 @@ import BeneficiarySelect from './BeneficiarySelect'
 import { CampaignState } from '../helpers/campaign.enums'
 import { toMoney } from 'common/util/money'
 
+import dynamic from 'next/dynamic'
+import 'react-quill/dist/quill.snow.css'
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
+
 const formatString = 'yyyy-MM-dd'
 
 const parseDateString = (value: string, originalValue: string) => {
@@ -88,6 +92,8 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   const router = useRouter()
   const [files, setFiles] = useState<File[]>([])
   const [roles, setRoles] = useState<FileRole[]>([])
+  const [richDescription, setRichDescription] = useState<string>('')
+
   const { t } = useTranslation()
 
   const mutation = useMutation<
@@ -116,7 +122,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
       const response = await mutation.mutateAsync({
         title: values.title,
         slug: createSlug(values.title),
-        description: values.description,
+        description: richDescription,
         targetAmount: toMoney(values.targetAmount),
         allowDonationOnComplete: values.allowDonationOnComplete,
         startDate: values.startDate,
@@ -208,15 +214,8 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
             />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField
-              rows={5}
-              multiline
-              type="text"
-              name="description"
-              label="campaigns:campaign.description"
-              autoComplete="description"
-              sx={{ '& textarea': { resize: 'vertical' } }}
-            />
+            <Typography>{t('campaigns:campaign.description')}</Typography>
+            <ReactQuill theme="snow" value={richDescription} onChange={setRichDescription} />
           </Grid>
           <Grid item xs={12} sm={6}>
             <p>
