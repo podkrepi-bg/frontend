@@ -76,6 +76,7 @@ const statesForDisableCurrencySelect = [
   CampaignState.disabled,
   CampaignState.error,
   CampaignState.deleted,
+  CampaignState.active,
 ]
 
 export default function EditForm({ campaign }: { campaign: AdminSingleCampaignResponse }) {
@@ -98,9 +99,9 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
   }, [campaign])
 
   const IsCurrencySelectDisabled =
-    statesForDisableCurrencySelect.includes(campaign.state) ||
-    (campaign.state === CampaignState.active &&
-      (incomingTransfersAmount > 0 || donationsAmount > 0))
+    incomingTransfersAmount > 0 ||
+    donationsAmount > 0 ||
+    statesForDisableCurrencySelect.includes(campaign.state)
 
   const initialValues: CampaignEditFormData = {
     title: campaign?.title || '',
