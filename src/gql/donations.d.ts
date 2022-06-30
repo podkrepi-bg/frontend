@@ -97,6 +97,8 @@ export type OneTimeDonation = {
   personEmail: string
   personPhone: string
   payment?: 'bank' | 'card'
+  loginPassword?: string
+  loginEmail?: string
 }
 
 export type DonationStep = {

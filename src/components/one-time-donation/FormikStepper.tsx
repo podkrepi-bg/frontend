@@ -5,9 +5,9 @@ import { useRouter } from 'next/router'
 import { Form, Formik, FormikConfig, FormikValues } from 'formik'
 import { LoadingButton } from '@mui/lab'
 import { Box, Button, Grid, Step, StepLabel, Stepper } from '@mui/material'
-import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import { StepsContext } from './helpers/stepperContext'
 import { OneTimeDonation } from 'gql/donations'
+import { useSession } from 'next-auth/react'
 
 const PREFIX = 'FormikStepper'
 
@@ -41,8 +41,7 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
     router.query.success === 'false' || router.query.success === 'true' ? setStep(3) : null
   }, [router.query.success])
   const currentChild = childrenArray[step]
-
-  const { data: currentPerson } = useCurrentPerson()
+  const { data: session } = useSession()
   function isLastStep() {
     return step === childrenArray.length - 2
   }
@@ -52,12 +51,10 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
   }
 
   function isLogged() {
-    if (currentPerson === undefined) {
+    if (!session?.accessToken) {
       return false
     }
-    if (currentPerson?.status && currentPerson.status !== 'unauthenticated') {
-      return false
-    }
+
     return true
   }
   const { t } = useTranslation('one-time-donation')
@@ -79,7 +76,7 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
               },
             })
           } else {
-            setStep((s) => s + 2)
+            !isLogged ? setStep((s) => s + 1) : setStep((s) => s + 2)
           }
         } else {
           setStep((s) => s + 1)
