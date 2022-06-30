@@ -1,7 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import { useFormikContext } from 'formik'
-import { Box, Button, Checkbox, Collapse, FormControlLabel, Grid, Typography } from '@mui/material'
+import {
+  Box,
+  Button,
+  Checkbox,
+  CircularProgress,
+  Collapse,
+  FormControlLabel,
+  Grid,
+  Typography,
+} from '@mui/material'
 import theme from 'common/theme'
 import Google from 'common/icons/Google'
 import { OneTimeDonation } from 'gql/donations'
@@ -9,11 +18,13 @@ import FormTextField from 'components/common/form/FormTextField'
 import Link from 'components/common/Link'
 import { signIn } from 'next-auth/react'
 import { StepsContext } from './helpers/stepperContext'
+import { AlertStore } from 'stores/AlertStore'
 
 function LoginForm() {
   const { t } = useTranslation('one-time-donation')
   const [isLogedin, setIsLogedin] = useState(false)
-  const { step, setStep } = useContext(StepsContext)
+  const [loading, setLoading] = useState(false)
+  const { setStep } = useContext(StepsContext)
   const formik = useFormikContext<OneTimeDonation>()
 
   useEffect(() => {
@@ -21,6 +32,8 @@ function LoginForm() {
   }, [isLogedin])
   const onClick = async () => {
     try {
+      setLoading(true)
+
       const resp = await signIn<'credentials'>('credentials', {
         email: formik.values.loginEmail,
         password: formik.values.loginPassword,
@@ -30,16 +43,16 @@ function LoginForm() {
         throw new Error(resp.error)
       }
       if (resp?.ok) {
-        console.log('Succes')
+        setLoading(false)
+
         setIsLogedin(true)
-        // AlertStore.show(t('auth:alerts.welcome'), 'success')
-        // router.push(`${router.query.callbackUrl ?? routes.profile.index}`)
+        AlertStore.show(t('auth:alerts.welcome'), 'success')
       }
     } catch (error) {
       console.error(error)
-      // AlertStore.show(t('auth:alerts.invalid-login'), 'error')
+      AlertStore.show(t('auth:alerts.invalid-login'), 'error')
     } finally {
-      // setLoading(false)
+      setLoading(false)
     }
   }
   return (
@@ -77,12 +90,17 @@ function LoginForm() {
           </Box>
         </Box>
         <Button
-          color="info"
+          size="large"
+          color="primary"
           variant="contained"
           fullWidth
           sx={{ marginTop: theme.spacing(3) }}
           onClick={onClick}>
-          {t('second-step.btn-login')}
+          {loading ? (
+            <CircularProgress color="inherit" size="1.5rem" />
+          ) : (
+            t('second-step.btn-login')
+          )}
         </Button>
         <Button
           size="large"
