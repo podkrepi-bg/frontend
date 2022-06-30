@@ -251,14 +251,6 @@ export default function CampaignGrid() {
     },
   ]
 
-  const addIconStyles = {
-    background: '#4ac3ff',
-    borderRadius: '50%',
-    cursor: 'pointer',
-    padding: 1.2,
-    boxShadow: 3,
-  }
-
   return (
     <>
       <Toolbar
