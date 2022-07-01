@@ -1,0 +1,123 @@
+import { Button, CircularProgress, Dialog, Grid, DialogTitle, DialogContent } from '@mui/material'
+import React, { useContext, useEffect, useState } from 'react'
+import { signIn } from 'next-auth/react'
+import { useTranslation } from 'next-i18next'
+import theme from 'common/theme'
+import { useRegister } from 'service/auth'
+import { AlertStore } from 'stores/AlertStore'
+import FormTextField from 'components/common/form/FormTextField'
+import PasswordField from 'components/common/form/PasswordField'
+import { useFormikContext } from 'formik'
+import { OneTimeDonation } from 'gql/donations'
+import { RegisterFormData } from 'components/auth/register/RegisterForm'
+import { StepsContext } from './helpers/stepperContext'
+
+export default function RegisterDialog() {
+  const { t } = useTranslation()
+  const [isLogedin, setIsLogedin] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const { mutateAsync: register } = useRegister()
+  const formik = useFormikContext<OneTimeDonation>()
+  const [open, setOpen] = useState(false)
+  const { setStep } = useContext(StepsContext)
+  useEffect(() => {
+    isLogedin ? setStep(2) : null
+  }, [isLogedin])
+  const handleClickOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
+  const values: RegisterFormData = {
+    firstName: formik.values.registerFirstName as string,
+    lastName: formik.values.registerLastName as string,
+    email: formik.values.registerEmail as string,
+    password: formik.values.registerPassword as string,
+  }
+  const onClick = async () => {
+    try {
+      setLoading(true)
+
+      // Register in Keycloak
+      await register(values)
+
+      // Authenticate
+      const resp = await signIn<'credentials'>('credentials', {
+        email: values.email,
+        password: values.password,
+        redirect: false,
+      })
+      if (resp?.error) {
+        throw new Error(resp.error)
+      }
+      if (resp?.ok) {
+        AlertStore.show(t('auth:alerts.welcome'), 'success')
+        setIsLogedin(true)
+      }
+    } catch (error) {
+      console.error(error)
+      AlertStore.show(t('auth:alerts.invalid-login'), 'error')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <>
+      <Button color="primary" size="large" onClick={handleClickOpen}>
+        Sign up
+      </Button>
+      <Dialog open={open} onClose={handleClose} onBackdropClick={() => false}>
+        <DialogTitle
+          sx={{
+            m: 'auto',
+          }}>
+          Регистрация
+        </DialogTitle>
+        <DialogContent>
+          <Grid container spacing={3} p={5} borderRadius={5}>
+            <Grid item xs={12} sm={6}>
+              <FormTextField
+                type="text"
+                label="auth:fields.first-name"
+                name="registerFirstName"
+                autoComplete="first-name"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <FormTextField
+                type="text"
+                label="auth:fields.last-name"
+                name="registerLastName"
+                autoComplete="last-name"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FormTextField
+                type="text"
+                label="auth:fields.email"
+                name="registerEmail"
+                autoComplete="email"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <PasswordField name="registerPassword" />
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                size="large"
+                color="primary"
+                variant="contained"
+                fullWidth
+                sx={{ marginTop: theme.spacing(3) }}
+                onClick={onClick}>
+                {loading ? (
+                  <CircularProgress color="inherit" size="1.5rem" />
+                ) : (
+                  t('auth:cta.register')
+                )}
+              </Button>
+            </Grid>
+          </Grid>
+        </DialogContent>
+      </Dialog>
+    </>
+  )
+}
