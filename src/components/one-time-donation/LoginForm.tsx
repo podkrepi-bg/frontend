@@ -19,6 +19,7 @@ import { signIn } from 'next-auth/react'
 import { StepsContext } from './helpers/stepperContext'
 import { AlertStore } from 'stores/AlertStore'
 import RegisterDialog from './RegisterDialog'
+import PasswordField from 'components/common/form/PasswordField'
 
 function LoginForm() {
   const { t } = useTranslation('one-time-donation')
@@ -67,7 +68,7 @@ function LoginForm() {
           <FormTextField name="loginEmail" type="text" label="Email" fullWidth size="medium" />
         </Grid>
         <Grid item xs={12}>
-          <FormTextField
+          <PasswordField
             name="loginPassword"
             type="password"
             label={t('second-step.password')}
