@@ -18,7 +18,9 @@ import FileUpload from 'components/file-upload/FileUpload'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
+import FormRichTextField from 'components/common/form/FormRichTextField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
+
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import { useCreateCampaign, useUploadCampaignFiles } from 'service/campaign'
 import { CampaignFileRole, FileRole, UploadCampaignFiles } from 'components/campaign-file/roles'
@@ -36,10 +38,6 @@ import BeneficiarySelect from './BeneficiarySelect'
 import { CampaignState } from '../helpers/campaign.enums'
 import { toMoney } from 'common/util/money'
 import CurrencySelect from 'components/currency/CurrencySelect'
-
-import dynamic from 'next/dynamic'
-import 'react-quill/dist/quill.snow.css'
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 
 const formatString = 'yyyy-MM-dd'
 
@@ -95,7 +93,6 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   const router = useRouter()
   const [files, setFiles] = useState<File[]>([])
   const [roles, setRoles] = useState<FileRole[]>([])
-  const [richDescription, setRichDescription] = useState<string>('')
 
   const { t } = useTranslation()
 
@@ -125,7 +122,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
       const response = await mutation.mutateAsync({
         title: values.title,
         slug: createSlug(values.title),
-        description: richDescription,
+        description: values.description,
         targetAmount: toMoney(values.targetAmount),
         allowDonationOnComplete: values.allowDonationOnComplete,
         startDate: values.startDate,
@@ -221,7 +218,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           </Grid>
           <Grid item xs={12}>
             <Typography>{t('campaigns:campaign.description')}</Typography>
-            <ReactQuill theme="snow" value={richDescription} onChange={setRichDescription} />
+            <FormRichTextField name="description" />
           </Grid>
           <Grid item xs={12} sm={6}>
             <p>
