@@ -17,6 +17,8 @@ import { createSlug } from 'common/util/createSlug'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
+import FormRichTextField from 'components/common/form/FormRichTextField'
+
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import {
   CampaignResponse,
@@ -38,10 +40,6 @@ import { endpoints } from 'service/apiEndpoints'
 import UploadedCampaignFile from './UploadedCampaignFile'
 import { fromMoney, toMoney } from 'common/util/money'
 import CurrencySelect from 'components/currency/CurrencySelect'
-
-import dynamic from 'next/dynamic'
-import 'react-quill/dist/quill.snow.css'
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 
 const formatString = 'yyyy-MM-dd'
 
@@ -88,7 +86,6 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
   const queryClient = useQueryClient()
   const [files, setFiles] = useState<File[]>([])
   const [roles, setRoles] = useState<FileRole[]>([])
-  const [richDescription, setRichDescription] = useState(campaign.description || '')
 
   const { t } = useTranslation()
 
@@ -159,7 +156,7 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
       await mutation.mutateAsync({
         title: values.title,
         slug: createSlug(values.title),
-        description: richDescription,
+        description: values.description,
         targetAmount: toMoney(values.targetAmount),
         allowDonationOnComplete: campaign.allowDonationOnComplete,
         startDate: values.startDate,
@@ -261,7 +258,8 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
             <CampaignStateSelect />
           </Grid>
           <Grid item xs={12}>
-            <ReactQuill theme="snow" value={richDescription} onChange={setRichDescription} />
+            <Typography>{t('campaigns:campaign.description')}</Typography>
+            <FormRichTextField name="description" />
           </Grid>
           <Grid item xs={12} sm={6}>
             <p>
