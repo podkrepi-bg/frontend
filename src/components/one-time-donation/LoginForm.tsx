@@ -15,10 +15,10 @@ import theme from 'common/theme'
 import Google from 'common/icons/Google'
 import { OneTimeDonation } from 'gql/donations'
 import FormTextField from 'components/common/form/FormTextField'
-import Link from 'components/common/Link'
 import { signIn } from 'next-auth/react'
 import { StepsContext } from './helpers/stepperContext'
 import { AlertStore } from 'stores/AlertStore'
+import RegisterDialog from './RegisterDialog'
 
 function LoginForm() {
   const { t } = useTranslation('one-time-donation')
@@ -84,9 +84,7 @@ function LoginForm() {
             <Typography display="inline" color="GrayText">
               Don&apos;t have an account?
             </Typography>{' '}
-            <Link color={theme.palette.primary.dark} href="#">
-              Sign up
-            </Link>
+            <RegisterDialog />
           </Box>
         </Box>
         <Button

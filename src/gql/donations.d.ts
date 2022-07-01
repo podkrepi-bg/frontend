@@ -99,6 +99,10 @@ export type OneTimeDonation = {
   payment?: 'bank' | 'card'
   loginPassword?: string
   loginEmail?: string
+  registerFirstName?: string
+  registerLastName?: string
+  registerEmail?: string
+  registerPassword?: string
 }
 
 export type DonationStep = {
