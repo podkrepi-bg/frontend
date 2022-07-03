@@ -81,6 +81,7 @@ export default function InlineDonation({ campaign }: Props) {
       return a.unit_amount - b.unit_amount
     })
   }, [prices])
+
   return (
     <StyledGrid item xs={12} mt={5} p={3} className={classes.inlineDonationWrapper}>
       <Grid mb={2}>

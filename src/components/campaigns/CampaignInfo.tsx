@@ -3,22 +3,24 @@ import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import { CampaignResponse } from 'gql/campaigns'
 import { coordinatorCampaignPictureUrl } from 'common/util/campaignImageUrls'
-import { Button, Grid, Typography } from '@mui/material'
+import { Button, Grid, Typography, Divider } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import EmailIcon from '@mui/icons-material/Email'
-import Divider from '@mui/material/Divider'
 
 const PREFIX = 'CampaignInfo'
 
 const classes = {
+  organizerOperatorWrapper: `${PREFIX}-organizerOperatorWrapper`,
+  organizerOperatorInfo: `${PREFIX}-organizerOperatorInfo`,
+  infoBlockWrapper: `${PREFIX}-infoBlockWrapper`,
+  infoButtonWrapper: `${PREFIX}-infoButtonWrapper`,
   coordinatorAvatar: `${PREFIX}-coordinatorAvatar`,
   campaignText: `${PREFIX}-campaignText`,
   linkButton: `${PREFIX}-linkButton`,
-  organizerOperatorWrapper: `${PREFIX}-organizerOperatorWrapper`,
-  organizerOperatorInfo: `${PREFIX}-organizerOperatorInfo`,
   trustedButton: `${PREFIX}-trustedButton`,
+  divider: `${PREFIX}-divider`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
@@ -49,12 +51,14 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 
   [`& .${classes.organizerOperatorInfo}`]: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    // [theme.breakpoints.down('sm')]: {
-    //   width: '100%',
-    // },
+    width: '100%',
+    textAlign: 'center',
+    [theme.breakpoints.up('lg')]: {
+      width: 'initial',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+    },
   },
 
   [`& .${classes.trustedButton}`]: {
@@ -64,6 +68,29 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     '&:hover': {
       backgroundColor: 'unset',
       textDecoration: 'underline',
+    },
+  },
+
+  [`& .${classes.divider}`]: {
+    borderRightWidth: 2,
+    margin: theme.spacing(2, 0),
+    [theme.breakpoints.up('sm')]: {
+      margin: 0,
+    },
+  },
+
+  [`& .${classes.infoBlockWrapper}`]: {
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    [theme.breakpoints.up('lg')]: {
+      justifyContent: 'start',
+    },
+  },
+
+  [`& .${classes.infoButtonWrapper}`]: {
+    justifyContent: 'center',
+    [theme.breakpoints.up('lg')]: {
+      justifyContent: 'start',
     },
   },
 }))
@@ -127,7 +154,7 @@ export default function CampaignInfo({ campaign }: Props) {
         </Grid>
       </Grid>
       <Grid container gap={2} className={classes.organizerOperatorWrapper}>
-        <Grid container gap={3} alignItems="flex-start">
+        <Grid container gap={3} className={classes.infoBlockWrapper}>
           <Image
             src={coordinatorAvatarSource}
             alt={campaign.title}
@@ -145,7 +172,7 @@ export default function CampaignInfo({ campaign }: Props) {
             <Button href={''} className={classes.linkButton}>
               {t('common:cta.see-profile')}
             </Button>
-            <Grid container alignItems="center">
+            <Grid container alignItems="center" className={classes.infoButtonWrapper}>
               <ThumbUpIcon color="action" />
               <Button href={''} className={classes.trustedButton}>
                 {t('campaigns:cta.trusted')}
@@ -153,8 +180,8 @@ export default function CampaignInfo({ campaign }: Props) {
             </Grid>
           </Grid>
         </Grid>
-        <Divider sx={{ borderRightWidth: 2, margin: 2 }} />
-        <Grid container gap={3} alignItems="flex-start">
+        <Divider className={classes.divider} />
+        <Grid container gap={3} className={classes.infoBlockWrapper}>
           <Image
             src={coordinatorAvatarSource}
             alt={campaign.title}
@@ -173,7 +200,7 @@ export default function CampaignInfo({ campaign }: Props) {
             <Button href={''} className={classes.linkButton}>
               {t('common:cta.question')}
             </Button>
-            <Grid container alignItems="center">
+            <Grid container alignItems="center" className={classes.infoButtonWrapper}>
               <EmailIcon color="action" />
               <Button href={''} className={classes.trustedButton}>
                 {t('campaigns:campaign.write-to-operator')}
