@@ -17,8 +17,8 @@ const classes = {
   campaignText: `${PREFIX}-campaignText`,
   linkButton: `${PREFIX}-linkButton`,
   organizerOperatorWrapper: `${PREFIX}-organizerOperatorWrapper`,
+  organizerOperatorInfo: `${PREFIX}-organizerOperatorInfo`,
   trustedButton: `${PREFIX}-trustedButton`,
-  campaignInfoIcon: `${PREFIX}-campaignInfoIcon`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
@@ -28,6 +28,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
 
   [`& .${classes.campaignText}`]: {
     fontSize: theme.spacing(2),
+    flexWrap: 'wrap',
   },
 
   [`& .${classes.linkButton}`]: {
@@ -39,9 +40,21 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 
   [`& .${classes.organizerOperatorWrapper}`]: {
+    display: 'block',
+    [theme.breakpoints.up('sm')]: {
+      display: 'flex',
+      flexDirection: 'row',
+      flexWrap: 'initial',
+    },
+  },
+
+  [`& .${classes.organizerOperatorInfo}`]: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
+    // [theme.breakpoints.down('sm')]: {
+    //   width: '100%',
+    // },
   },
 
   [`& .${classes.trustedButton}`]: {
@@ -52,10 +65,6 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
       backgroundColor: 'unset',
       textDecoration: 'underline',
     },
-  },
-
-  [`& .${classes.campaignInfoIcon}`]: {
-    marginRight: theme.spacing(1),
   },
 }))
 
@@ -89,9 +98,12 @@ export default function CampaignInfo({ campaign }: Props) {
           variant="subtitle2"
           component="p"
           display="flex"
+          gap="5px"
+          pr={2}
           className={classes.campaignText}>
-          <FavoriteIcon color="action" className={classes.campaignInfoIcon} />
-          <strong>{t('campaigns:campaign.type')}</strong>: {campaign.campaignType?.name}
+          <FavoriteIcon color="action" />
+          <strong>{t('campaigns:campaign.type')}: </strong>
+          {campaign.campaignType?.name}
         </Typography>
         {/* TODO: Dynamic campaign tagging is needed here based on activity (urgent, hot, the long-shot, etc) */}
         {/* <Typography
@@ -99,7 +111,7 @@ export default function CampaignInfo({ campaign }: Props) {
           component="p"
           display="flex"
           className={classes.campaignText}>
-          <WhatshotIcon color="action" className={classes.campaignInfoIcon} />
+          <WhatshotIcon color="action" />
           <strong>{t('campaigns:campaign.profile')}</strong>Спешна
         </Typography> */}
         <Typography variant="subtitle2" component="p" className={classes.campaignText}>
@@ -114,7 +126,7 @@ export default function CampaignInfo({ campaign }: Props) {
           </Typography>
         </Grid>
       </Grid>
-      <Grid container flexDirection="row" flexWrap="initial">
+      <Grid container gap={2} className={classes.organizerOperatorWrapper}>
         <Grid container gap={3} alignItems="flex-start">
           <Image
             src={coordinatorAvatarSource}
@@ -123,7 +135,7 @@ export default function CampaignInfo({ campaign }: Props) {
             height={100}
             className={classes.coordinatorAvatar}
           />
-          <Grid className={classes.organizerOperatorWrapper}>
+          <Grid className={classes.organizerOperatorInfo}>
             <Typography variant="subtitle2" component="p">
               <strong>{t('campaigns:campaign.coordinator.name')}</strong>
             </Typography>
@@ -141,7 +153,7 @@ export default function CampaignInfo({ campaign }: Props) {
             </Grid>
           </Grid>
         </Grid>
-        <Divider sx={{ borderRightWidth: 2, marginRight: '15px' }} />
+        <Divider sx={{ borderRightWidth: 2, margin: 2 }} />
         <Grid container gap={3} alignItems="flex-start">
           <Image
             src={coordinatorAvatarSource}
@@ -150,7 +162,7 @@ export default function CampaignInfo({ campaign }: Props) {
             height={100}
             className={classes.coordinatorAvatar}
           />
-          <Grid className={classes.organizerOperatorWrapper}>
+          <Grid className={classes.organizerOperatorInfo}>
             <Typography variant="subtitle2" component="p">
               <strong>{t('campaigns:campaign.operator')}</strong>
             </Typography>
