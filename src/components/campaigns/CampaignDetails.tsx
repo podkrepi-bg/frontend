@@ -111,7 +111,7 @@ export default function CampaignDetails({ campaign }: Props) {
       </Typography>
       <CampaignInfo campaign={campaign} />
       <Grid>
-        <ReactQuill readOnly theme="bubble" value={campaign.description} />
+        <Typography>{campaign.description}</Typography>
         <CampaignSlider />
         <CampaignMessages />
       </Grid>
