@@ -28,6 +28,7 @@ export const menuPeople = [
   { label: 'Координатори', icon: People, href: routes.admin.coordinators.index },
   { label: 'Потребители', icon: Group, href: '#' },
   { label: 'Доброволци', icon: People, href: routes.admin.supporters },
+  { label: 'Организатори', icon: Group, href: routes.admin.organizers.index },
 ]
 export const menuCampaings = [
   { label: 'Кампании', icon: AssignmentInd, href: routes.admin.campaigns.index },
@@ -86,4 +87,5 @@ export const menuItems = [
     href: routes.admin.recurringDonation.index,
   },
   { label: 'Злоупотреби', icon: ReportGmailerrorredIcon, href: routes.admin.irregularity.index },
+  { label: 'Организатори', icon: Group, href: routes.admin.organizers.index },
 ]
