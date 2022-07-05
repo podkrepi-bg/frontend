@@ -82,7 +82,7 @@ export default function CampaignCard({ campaign }: Props) {
         <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)}>
           <CardMedia className={classes.media} title="campaign image placeholder">
             <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-              <Image src={pictureUrl} layout="fill" objectFit="contain" />
+              <Image src={pictureUrl} layout="fill" objectFit="fill" />
             </div>
           </CardMedia>
         </Link>
