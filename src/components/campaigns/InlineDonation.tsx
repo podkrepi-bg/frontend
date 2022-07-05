@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
-import { routes } from 'common/routes'
+import { baseUrl, routes } from 'common/routes'
 import { money } from 'common/util/money'
 import { useSinglePriceList } from 'common/hooks/donation'
 import LinkButton from 'components/common/LinkButton'
@@ -14,6 +14,7 @@ import ShareIcon from '@mui/icons-material/Share'
 import { useCampaignDonationHistory } from 'common/hooks/campaigns'
 import theme from 'common/theme'
 import { useRouter } from 'next/router'
+import { CopyTextButton } from 'components/common/CopyTextButton'
 
 const PREFIX = 'InlineDonation'
 
@@ -60,6 +61,7 @@ type Props = {
 export default function InlineDonation({ campaign }: Props) {
   const { t } = useTranslation()
   const router = useRouter()
+  const { asPath } = useRouter()
   const [showDonationPriceList, setDonationPriceList] = useState(false)
   const onClick = () => setDonationPriceList(true)
 
@@ -103,14 +105,15 @@ export default function InlineDonation({ campaign }: Props) {
         <Typography>{t('campaigns:campaign.shares')}</Typography>
       </Grid>
       <Grid container gap={2}>
-        <LinkButton
+        <CopyTextButton
           fullWidth
+          text={baseUrl + asPath}
           href="#"
           variant="outlined"
           startIcon={<ShareIcon />}
-          color="secondary">
-          {t('campaigns:cta.share')}
-        </LinkButton>
+          color="secondary"
+          label={t('campaigns:cta.share')}
+        />
         <LinkButton
           fullWidth
           href="#"
