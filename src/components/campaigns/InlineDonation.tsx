@@ -108,7 +108,6 @@ export default function InlineDonation({ campaign }: Props) {
         <CopyTextButton
           fullWidth
           text={baseUrl + asPath}
-          href="#"
           variant="outlined"
           startIcon={<ShareIcon />}
           color="secondary"
