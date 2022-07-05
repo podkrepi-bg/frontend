@@ -20,6 +20,7 @@ import {
 import { Favorite } from '@mui/icons-material'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
+import Image from 'next/image'
 
 const PREFIX = 'CampaignCard'
 
@@ -70,7 +71,6 @@ const StyledCard = styled(Card)(({ theme }) => ({
 type Props = { campaign: CampaignResponse }
 export default function CampaignCard({ campaign }: Props) {
   const { t } = useTranslation()
-
   const target = campaign.targetAmount
   const summary = campaign.summary.find(() => true)
   const pictureUrl = campaignListPictureUrl(campaign)
@@ -80,11 +80,11 @@ export default function CampaignCard({ campaign }: Props) {
     <StyledCard variant="outlined" className={classes.cardWrapper}>
       <CardActionArea>
         <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)}>
-          <CardMedia
-            className={classes.media}
-            image={pictureUrl}
-            title="campaign image placeholder"
-          />
+          <CardMedia className={classes.media} title="campaign image placeholder">
+            <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+              <Image src={pictureUrl} layout="fill" objectFit="contain" />
+            </div>
+          </CardMedia>
         </Link>
         <CardContent className={classes.cardContent}>
           <Typography textAlign={'left'} gutterBottom variant="h5" component="h2">
