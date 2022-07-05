@@ -178,4 +178,10 @@ export const endpoints = {
     removeIrregularity: (id: string) => <Endpoint>{ url: `/irregularity/${id}`, method: 'DELETE' },
     download: (id: string) => <Endpoint>{ url: `/irregularity-file/${id}`, method: 'GET' },
   },
+  organizer: {
+    createOrganizer: <Endpoint>{ url: '/organizer', method: 'POST' },
+    viewOrganizer: (id: string) => <Endpoint>{ url: `/organizer/${id}`, method: 'GET' },
+    listOrganizer: <Endpoint>{ url: '/organizer/list', method: 'GET' },
+    removeOrganizer: (id: string) => <Endpoint>{ url: `/organizer/${id}`, method: 'DELETE' },
+  },
 }
