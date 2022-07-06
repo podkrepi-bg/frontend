@@ -8,6 +8,7 @@ import { styled } from '@mui/material/styles'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import EmailIcon from '@mui/icons-material/Email'
+import { getExactDate } from 'common/util/date'
 
 const PREFIX = 'CampaignInfo'
 
@@ -104,20 +105,6 @@ export default function CampaignInfo({ campaign }: Props) {
 
   const coordinatorAvatarSource = coordinatorCampaignPictureUrl(campaign)
 
-  const startDate = new Date(campaign.startDate)
-  const formattedStartDate = startDate.toLocaleDateString('bg-BG', {
-    day: 'numeric',
-    month: 'long',
-    year: '2-digit',
-  })
-
-  const endDate = new Date(campaign.endDate)
-  const formattedEndDate = endDate.toLocaleDateString('bg-BG', {
-    day: 'numeric',
-    month: 'long',
-    year: '2-digit',
-  })
-
   return (
     <StyledGrid mb={5}>
       <Grid container justifyContent="space-between" mb={4}>
@@ -146,10 +133,11 @@ export default function CampaignInfo({ campaign }: Props) {
         </Typography>
         <Grid container justifyContent="space-between">
           <Typography variant="subtitle2" component="p" className={classes.campaignText}>
-            <strong>{t('campaigns:campaign.start-date')}</strong> {formattedStartDate}
+            <strong>{t('campaigns:campaign.start-date')}</strong> {getExactDate(campaign.startDate)}
           </Typography>
           <Typography variant="subtitle2" component="p" className={classes.campaignText}>
-            <strong>{t('campaigns:campaign.end-date')}</strong> {formattedEndDate}
+            <strong>{t('campaigns:campaign.end-date')}</strong>{' '}
+            {campaign.endDate ? getExactDate(campaign.endDate) : 'не е въведена'}
           </Typography>
         </Grid>
       </Grid>
