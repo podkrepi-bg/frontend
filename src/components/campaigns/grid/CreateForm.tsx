@@ -80,7 +80,7 @@ const defaults: CampaignAdminCreateFormData = {
   allowDonationOnComplete: false,
   startDate: format(new Date(), formatString),
   state: CampaignState.draft,
-  endDate: format(new Date().setMonth(new Date().getMonth() + 1), formatString),
+  endDate: '',
   description: '',
   terms: false,
   gdpr: false,
