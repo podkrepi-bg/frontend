@@ -114,7 +114,7 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
     targetAmount: fromMoney(campaign.targetAmount) || 0,
     allowDonationOnComplete: campaign.allowDonationOnComplete || false,
     startDate: format(new Date(campaign.startDate ?? new Date()), formatString),
-    endDate: campaign.endDate,
+    endDate: campaign.endDate ? format(new Date(campaign.endDate), formatString) : '',
     state: campaign.state,
     description: campaign.description || '',
     campaignFiles: campaign.campaignFiles || [],
