@@ -57,7 +57,7 @@
     "mobx": "6.3.2",
     "mobx-react": "7.2.0",
     "next": "^12.1.0",
-    "next-auth": "^4.5.0",
+    "next-auth": "^4.9.0",
     "next-i18next": "8.4.0",
     "nookies": "^2.5.2",
     "react": "17.0.2",
