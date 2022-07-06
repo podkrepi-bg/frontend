@@ -8,6 +8,7 @@ import { CampaignDonation } from 'gql/campaigns'
 import { formatRelative, parseISO } from 'date-fns'
 import { bg, enUS } from 'date-fns/locale'
 import theme from 'common/theme'
+import { money } from 'common/util/money'
 
 const PREFIX = 'DonorsAndDonations'
 
@@ -62,7 +63,7 @@ export default function DonorsAndDonations({
     <Root>
       <Grid item className={classes.donationsWrapper}>
         {donationsToShow && donationsToShow.length !== 0 ? (
-          donationsToShow.map(({ person, amount, createdAt }, key) => (
+          donationsToShow.map(({ person, amount, createdAt, currency }, key) => (
             <Grid key={key} className={classes.donationItemWrapper}>
               <AccountCircleIcon fontSize="large" color="disabled" />
               <Grid>
@@ -73,9 +74,7 @@ export default function DonorsAndDonations({
                     : t('campaigns:donations.anonymous')}
                 </Typography>
                 <Grid className={classes.donationQuantityAndTimeWrapper}>
-                  <Typography>
-                    {(amount / 100).toFixed(2) + ' ' + t('campaigns:donations.lv')}
-                  </Typography>
+                  <Typography>{money(amount, currency)}</Typography>
                   <FiberManualRecordIcon className={classes.separatorIcon} />
                   <Typography>
                     {formatRelative(parseISO(createdAt), new Date(), {
