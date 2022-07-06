@@ -49,7 +49,7 @@ export default function DetailsModal({ campaign, onClose }: Props) {
             {campaign.beneficiary.person.lastName}
           </Typography>
           <Typography variant="body1">
-            Кординатор: {campaign.coordinator.person.firstName}{' '}
+            Координатор: {campaign.coordinator.person.firstName}{' '}
             {campaign.coordinator.person.lastName}
           </Typography>
           <Typography variant="body1">Валута: {campaign.currency}</Typography>

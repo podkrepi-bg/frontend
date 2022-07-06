@@ -16,10 +16,10 @@ export default function CoordinatorSelect({ name = 'coordinatorId' }) {
       size="small"
       variant="outlined"
       error={Boolean(meta.error) && Boolean(meta.touched)}>
-      <InputLabel>{t('Кординатор')}</InputLabel>
-      <Select fullWidth defaultValue="" label={t('Кординатор')} {...field}>
+      <InputLabel>{t('campaigns:coordinator')}</InputLabel>
+      <Select fullWidth defaultValue="" label={t('campaigns:coordinator')} {...field}>
         <MenuItem value="" disabled>
-          {t('Кординатор')}
+          {t('campaigns:coordinator')}
         </MenuItem>
         {data?.map((coordinator, index) => (
           <MenuItem key={index} value={coordinator.id}>
