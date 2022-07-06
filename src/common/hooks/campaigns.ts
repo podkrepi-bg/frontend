@@ -10,6 +10,7 @@ import {
   AdminCampaignResponse,
   AdminSingleCampaignResponse,
 } from 'gql/campaigns'
+import { DonationStatus } from 'gql/donations.enums'
 
 export function useCampaignList() {
   return useQuery<CampaignResponse[]>(endpoints.campaign.listCampaigns.url)
@@ -55,5 +56,7 @@ export function useCampaignDetailsPage(id: string) {
 }
 
 export function useCampaignDonationHistory(id: string) {
-  return useQuery<CampaignDonation[]>(endpoints.campaign.getDonations(id).url)
+  return useQuery<CampaignDonation[]>(
+    endpoints.donation.getDonations(id, DonationStatus.succeeded).url,
+  )
 }
