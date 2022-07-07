@@ -16,10 +16,10 @@ export default function OrganizerSelect({ name = 'organizerId' }) {
       size="small"
       variant="outlined"
       error={Boolean(meta.error) && Boolean(meta.touched)}>
-      <InputLabel>{t('Организатор')}</InputLabel>
-      <Select fullWidth defaultValue="" label={t('Организатор')} {...field}>
+      <InputLabel>{t('campaigns:organizer')}</InputLabel>
+      <Select fullWidth defaultValue="" label={t('campaigns:organizer')} {...field}>
         <MenuItem value="" disabled>
-          {t('Организатор')}
+          {t('campaigns:organizer')}
         </MenuItem>
         {data?.map((organizer, index) => (
           <MenuItem key={index} value={organizer.id}>

@@ -16,10 +16,10 @@ export default function BeneficiarySelect({ name = 'beneficiaryId' }) {
       size="small"
       variant="outlined"
       error={Boolean(meta.error) && Boolean(meta.touched)}>
-      <InputLabel>{t('Бенефициент')}</InputLabel>
-      <Select fullWidth defaultValue="" label={t('Бенефициент')} {...field}>
+      <InputLabel>{t('campaigns:beneficiary')}</InputLabel>
+      <Select fullWidth defaultValue="" label={t('campaigns:beneficiary')} {...field}>
         <MenuItem value="" disabled>
-          {t('Бенефициент')}
+          {t('campaigns:beneficiary')}
         </MenuItem>
         {data?.map((beneficiary, index) => (
           <MenuItem key={index} value={beneficiary.id}>
