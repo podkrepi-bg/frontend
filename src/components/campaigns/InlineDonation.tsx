@@ -2,18 +2,32 @@ import { useMemo, useState } from 'react'
 import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
-import { routes } from 'common/routes'
+import { baseUrl, routes } from 'common/routes'
 import { money } from 'common/util/money'
 import { useSinglePriceList } from 'common/hooks/donation'
 import LinkButton from 'components/common/LinkButton'
 import CampaignProgress from './CampaignProgress'
 import DonorsAndDonations from './DonorsAndDonations'
-import { CircularProgress, Grid, List, ListItem, ListItemText, Typography } from '@mui/material'
-import { Favorite } from '@mui/icons-material'
+import {
+  Button,
+  CircularProgress,
+  Grid,
+  lighten,
+  List,
+  ListItem,
+  ListItemText,
+  Menu,
+  Typography,
+} from '@mui/material'
+import { AddLinkOutlined, Favorite } from '@mui/icons-material'
 import ShareIcon from '@mui/icons-material/Share'
 import { useCampaignDonationHistory } from 'common/hooks/campaigns'
 import theme from 'common/theme'
 import { useRouter } from 'next/router'
+import CustomListItem from 'components/admin/navigation/CustomListItem'
+import { socialMedia } from './helpers/socialMedia'
+import { useCopyToClipboard } from 'common/util/useCopyToClipboard'
+import { AlertStore } from 'stores/AlertStore'
 
 const PREFIX = 'InlineDonation'
 
@@ -23,6 +37,8 @@ const classes = {
   targetMoney: `${PREFIX}-targetMoney`,
   donorsSharesCount: `${PREFIX}-donorsSharesCount`,
   donationPriceList: `${PREFIX}-donationPriceList`,
+  dropdownLinkButton: `${PREFIX}-dropdownLinkButton`,
+  dropdownLinkText: `${PREFIX}-dropdownLinkText`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
@@ -51,6 +67,19 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     display: 'contents',
     textAlignLast: 'center',
   },
+  [`& .${classes.dropdownLinkButton}`]: {
+    '&:hover': {
+      backgroundColor: lighten(theme.palette.primary.main, 0.9),
+    },
+  },
+
+  [`& .${classes.dropdownLinkText}`]: {
+    color: theme.palette.primary.dark,
+    width: '100%',
+    '&:hover': {
+      color: theme.palette.primary.main,
+    },
+  },
 }))
 
 type Props = {
@@ -60,9 +89,11 @@ type Props = {
 export default function InlineDonation({ campaign }: Props) {
   const { t } = useTranslation()
   const router = useRouter()
+  const { asPath } = useRouter()
   const [showDonationPriceList, setDonationPriceList] = useState(false)
   const onClick = () => setDonationPriceList(true)
-
+  const [status, copyUrl] = useCopyToClipboard(baseUrl + asPath, 1000)
+  const active = status === 'copied' ? 'inherit' : 'primary'
   const target = campaign.targetAmount
   const summary = campaign.summary.find(() => true)
   const reached = summary?.reachedAmount ?? 0
@@ -73,6 +104,11 @@ export default function InlineDonation({ campaign }: Props) {
     error: donationHistoryError,
     isLoading: isDonationHistoryLoading,
   } = useCampaignDonationHistory(campaign.id)
+
+  const [anchorEl, setAnchorEl] = useState<Element | null>(null)
+
+  const handleMenu = (event: React.MouseEvent) => setAnchorEl(event.currentTarget)
+  const handleClose = () => setAnchorEl(null)
 
   const sortedPrices = useMemo(() => {
     if (!prices) return []
@@ -103,14 +139,45 @@ export default function InlineDonation({ campaign }: Props) {
         <Typography>{t('campaigns:campaign.shares')}</Typography>
       </Grid>
       <Grid container gap={2}>
-        <LinkButton
+        <Button
           fullWidth
-          href="#"
           variant="outlined"
           startIcon={<ShareIcon />}
-          color="secondary">
+          color="secondary"
+          onClickCapture={handleMenu}>
           {t('campaigns:cta.share')}
-        </LinkButton>
+        </Button>
+        <Menu
+          keepMounted
+          id="share"
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          open={Boolean(anchorEl)}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'center' }}>
+          {socialMedia(baseUrl + asPath).map(({ label, icon: Icon, url }) => (
+            <CustomListItem
+              key={label}
+              icon={<Icon />}
+              label={label}
+              className={classes.dropdownLinkText}
+              onClick={() => {
+                window.open(url, '_blank')?.focus()
+                return false
+              }}
+            />
+          ))}
+          <CustomListItem
+            className={classes.dropdownLinkText}
+            icon={<AddLinkOutlined />}
+            label="Копирайте връзка към кампанията"
+            onClick={() => {
+              AlertStore.show(t('common:alerts.message-copy'), 'success')
+              copyUrl()
+            }}
+            color={active}
+          />
+        </Menu>
         <LinkButton
           fullWidth
           href="#"
