@@ -1,4 +1,5 @@
 import { Method } from 'axios'
+import { DonationStatus } from 'gql/donations.enums'
 
 type Endpoint = {
   url: string
@@ -44,6 +45,11 @@ export const endpoints = {
     createBankDonation: <Endpoint>{ url: '/donation/create-bank-payment', method: 'POST' },
     donationsList: <Endpoint>{ url: '/donation/list', method: 'GET' },
     getDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'GET' },
+    getDonations: (campaignId: string, status: DonationStatus) =>
+      <Endpoint>{
+        url: `/donation/listPublic/?campaignId=${campaignId}&status=${status}`,
+        method: 'GET',
+      },
     getUserDonation: (id: string) => <Endpoint>{ url: `/donation/user/${id}`, method: 'GET' },
     editDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'PATCH' },
     deleteDonation: <Endpoint>{ url: `/donation/delete`, method: 'POST' },

@@ -57,7 +57,7 @@ const validationSchema: yup.SchemaOf<Omit<CampaignEditFormData, 'campaignFiles'>
   .defined()
   .shape({
     title: yup.string().trim().min(10).max(100).required(),
-    description: yup.string().trim().min(50).max(4000).required(),
+    description: yup.string().trim().min(50).max(20000).required(),
     targetAmount: yup.number().integer().positive().required(),
     allowDonationOnComplete: yup.bool().optional(),
     campaignTypeId: yup.string().uuid().required(),
@@ -117,7 +117,7 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
     targetAmount: fromMoney(campaign.targetAmount) || 0,
     allowDonationOnComplete: campaign.allowDonationOnComplete || false,
     startDate: format(new Date(campaign.startDate ?? new Date()), formatString),
-    endDate: format(new Date(campaign.endDate ?? new Date()), formatString),
+    endDate: campaign.endDate ? format(new Date(campaign.endDate), formatString) : '',
     state: campaign.state,
     description: campaign.description || '',
     campaignFiles: campaign.campaignFiles || [],

@@ -3,22 +3,25 @@ import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import { CampaignResponse } from 'gql/campaigns'
 import { coordinatorCampaignPictureUrl } from 'common/util/campaignImageUrls'
-import { Button, Grid, Typography } from '@mui/material'
+import { Button, Grid, Typography, Divider } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import EmailIcon from '@mui/icons-material/Email'
-import Divider from '@mui/material/Divider'
+import { getExactDate } from 'common/util/date'
 
 const PREFIX = 'CampaignInfo'
 
 const classes = {
+  organizerOperatorWrapper: `${PREFIX}-organizerOperatorWrapper`,
+  organizerOperatorInfo: `${PREFIX}-organizerOperatorInfo`,
+  infoBlockWrapper: `${PREFIX}-infoBlockWrapper`,
+  infoButtonWrapper: `${PREFIX}-infoButtonWrapper`,
   coordinatorAvatar: `${PREFIX}-coordinatorAvatar`,
   campaignText: `${PREFIX}-campaignText`,
   linkButton: `${PREFIX}-linkButton`,
-  organizerOperatorWrapper: `${PREFIX}-organizerOperatorWrapper`,
   trustedButton: `${PREFIX}-trustedButton`,
-  campaignInfoIcon: `${PREFIX}-campaignInfoIcon`,
+  divider: `${PREFIX}-divider`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
@@ -28,6 +31,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
 
   [`& .${classes.campaignText}`]: {
     fontSize: theme.spacing(2),
+    flexWrap: 'wrap',
   },
 
   [`& .${classes.linkButton}`]: {
@@ -39,9 +43,23 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 
   [`& .${classes.organizerOperatorWrapper}`]: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
+    display: 'block',
+    [theme.breakpoints.up('sm')]: {
+      display: 'flex',
+      flexDirection: 'row',
+      flexWrap: 'initial',
+    },
+  },
+
+  [`& .${classes.organizerOperatorInfo}`]: {
+    width: '100%',
+    textAlign: 'center',
+    [theme.breakpoints.up('lg')]: {
+      width: 'initial',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'flex-start',
+    },
   },
 
   [`& .${classes.trustedButton}`]: {
@@ -54,8 +72,27 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     },
   },
 
-  [`& .${classes.campaignInfoIcon}`]: {
-    marginRight: theme.spacing(1),
+  [`& .${classes.divider}`]: {
+    borderRightWidth: 2,
+    margin: theme.spacing(2, 0),
+    [theme.breakpoints.up('sm')]: {
+      margin: 0,
+    },
+  },
+
+  [`& .${classes.infoBlockWrapper}`]: {
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    [theme.breakpoints.up('lg')]: {
+      justifyContent: 'start',
+    },
+  },
+
+  [`& .${classes.infoButtonWrapper}`]: {
+    justifyContent: 'center',
+    [theme.breakpoints.up('lg')]: {
+      justifyContent: 'start',
+    },
   },
 }))
 
@@ -68,20 +105,6 @@ export default function CampaignInfo({ campaign }: Props) {
 
   const coordinatorAvatarSource = coordinatorCampaignPictureUrl(campaign)
 
-  const startDate = new Date(campaign.startDate)
-  const formattedStartDate = startDate.toLocaleDateString('bg-BG', {
-    day: 'numeric',
-    month: 'long',
-    year: '2-digit',
-  })
-
-  const endDate = new Date(campaign.endDate)
-  const formattedEndDate = endDate.toLocaleDateString('bg-BG', {
-    day: 'numeric',
-    month: 'long',
-    year: '2-digit',
-  })
-
   return (
     <StyledGrid mb={5}>
       <Grid container justifyContent="space-between" mb={4}>
@@ -89,9 +112,12 @@ export default function CampaignInfo({ campaign }: Props) {
           variant="subtitle2"
           component="p"
           display="flex"
+          gap="5px"
+          pr={2}
           className={classes.campaignText}>
-          <FavoriteIcon color="action" className={classes.campaignInfoIcon} />
-          <strong>{t('campaigns:campaign.type')}</strong>: {campaign.campaignType?.name}
+          <FavoriteIcon color="action" />
+          <strong>{t('campaigns:campaign.type')}: </strong>
+          {campaign.campaignType?.name}
         </Typography>
         {/* TODO: Dynamic campaign tagging is needed here based on activity (urgent, hot, the long-shot, etc) */}
         {/* <Typography
@@ -99,7 +125,7 @@ export default function CampaignInfo({ campaign }: Props) {
           component="p"
           display="flex"
           className={classes.campaignText}>
-          <WhatshotIcon color="action" className={classes.campaignInfoIcon} />
+          <WhatshotIcon color="action" />
           <strong>{t('campaigns:campaign.profile')}</strong>Спешна
         </Typography> */}
         <Typography variant="subtitle2" component="p" className={classes.campaignText}>
@@ -107,15 +133,16 @@ export default function CampaignInfo({ campaign }: Props) {
         </Typography>
         <Grid container justifyContent="space-between">
           <Typography variant="subtitle2" component="p" className={classes.campaignText}>
-            <strong>{t('campaigns:campaign.start-date')}</strong> {formattedStartDate}
+            <strong>{t('campaigns:campaign.start-date')}</strong> {getExactDate(campaign.startDate)}
           </Typography>
           <Typography variant="subtitle2" component="p" className={classes.campaignText}>
-            <strong>{t('campaigns:campaign.end-date')}</strong> {formattedEndDate}
+            <strong>{t('campaigns:campaign.end-date')}</strong>{' '}
+            {campaign.endDate ? getExactDate(campaign.endDate) : 'не е въведена'}
           </Typography>
         </Grid>
       </Grid>
-      <Grid container flexDirection="row" flexWrap="initial">
-        <Grid container gap={3} alignItems="flex-start">
+      <Grid container gap={2} className={classes.organizerOperatorWrapper}>
+        <Grid container gap={3} className={classes.infoBlockWrapper}>
           <Image
             src={coordinatorAvatarSource}
             alt={campaign.title}
@@ -123,7 +150,7 @@ export default function CampaignInfo({ campaign }: Props) {
             height={100}
             className={classes.coordinatorAvatar}
           />
-          <Grid className={classes.organizerOperatorWrapper}>
+          <Grid className={classes.organizerOperatorInfo}>
             <Typography variant="subtitle2" component="p">
               <strong>{t('campaigns:campaign.coordinator.name')}</strong>
             </Typography>
@@ -133,7 +160,7 @@ export default function CampaignInfo({ campaign }: Props) {
             <Button href={''} className={classes.linkButton}>
               {t('common:cta.see-profile')}
             </Button>
-            <Grid container alignItems="center">
+            <Grid container alignItems="center" className={classes.infoButtonWrapper}>
               <ThumbUpIcon color="action" />
               <Button href={''} className={classes.trustedButton}>
                 {t('campaigns:cta.trusted')}
@@ -141,8 +168,8 @@ export default function CampaignInfo({ campaign }: Props) {
             </Grid>
           </Grid>
         </Grid>
-        <Divider sx={{ borderRightWidth: 2, marginRight: '15px' }} />
-        <Grid container gap={3} alignItems="flex-start">
+        <Divider className={classes.divider} />
+        <Grid container gap={3} className={classes.infoBlockWrapper}>
           <Image
             src={coordinatorAvatarSource}
             alt={campaign.title}
@@ -150,7 +177,7 @@ export default function CampaignInfo({ campaign }: Props) {
             height={100}
             className={classes.coordinatorAvatar}
           />
-          <Grid className={classes.organizerOperatorWrapper}>
+          <Grid className={classes.organizerOperatorInfo}>
             <Typography variant="subtitle2" component="p">
               <strong>{t('campaigns:campaign.operator')}</strong>
             </Typography>
@@ -161,7 +188,7 @@ export default function CampaignInfo({ campaign }: Props) {
             <Button href={''} className={classes.linkButton}>
               {t('common:cta.question')}
             </Button>
-            <Grid container alignItems="center">
+            <Grid container alignItems="center" className={classes.infoButtonWrapper}>
               <EmailIcon color="action" />
               <Button href={''} className={classes.trustedButton}>
                 {t('campaigns:campaign.write-to-operator')}

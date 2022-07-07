@@ -40,6 +40,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 
   [`& .${classes.campaignTitle}`]: {
+    fontSize: theme.spacing(4),
     fontWeight: 500,
     textAlign: 'center',
     [theme.breakpoints.up('md')]: {
@@ -67,7 +68,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 
   [`& .${classes.beneficiaryName}`]: {
-    fontSize: theme.spacing(4),
+    fontSize: theme.spacing(3),
     marginTop: theme.spacing(3),
     [theme.breakpoints.up('md')]: {
       marginTop: theme.spacing(8),
@@ -106,7 +107,7 @@ export default function CampaignDetails({ campaign }: Props) {
           {campaign.beneficiary.person.firstName} {campaign.beneficiary.person.lastName}
         </Typography>
       </Grid>
-      <Typography paragraph variant="h2" component="h2" my={8} className={classes.campaignTitle}>
+      <Typography variant="h1" component="h1" my={8} className={classes.campaignTitle}>
         {campaign.title}
       </Typography>
       <CampaignInfo campaign={campaign} />

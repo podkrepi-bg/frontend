@@ -55,7 +55,7 @@ const validationSchema: yup.SchemaOf<CampaignAdminCreateFormData> = yup
   .defined()
   .shape({
     title: yup.string().trim().min(10).max(100).required(),
-    description: yup.string().trim().min(50).max(4000).required(),
+    description: yup.string().trim().min(50).max(20000).required(),
     targetAmount: yup.number().integer().positive().required(),
     allowDonationOnComplete: yup.bool().optional(),
     campaignTypeId: yup.string().uuid().required(),
@@ -83,7 +83,7 @@ const defaults: CampaignAdminCreateFormData = {
   allowDonationOnComplete: false,
   startDate: format(new Date(), formatString),
   state: CampaignState.draft,
-  endDate: format(new Date().setMonth(new Date().getMonth() + 1), formatString),
+  endDate: '',
   description: '',
   terms: false,
   gdpr: false,

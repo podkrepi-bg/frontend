@@ -13,7 +13,7 @@ import { useTranslation } from 'next-i18next'
 
 import { AdminCampaignResponse } from 'gql/campaigns'
 import { money } from 'common/util/money'
-import { formatDateString } from 'common/util/date'
+import { getExactDate } from 'common/util/date'
 
 type Props = {
   campaign: AdminCampaignResponse
@@ -36,12 +36,8 @@ export default function DetailsModal({ campaign, onClose }: Props) {
           <Typography variant="body1">
             Целева сума: {money(campaign.targetAmount, campaign.currency)}
           </Typography>
-          <Typography variant="body1">
-            Стартова дата: {formatDateString(campaign.startDate.toLocaleString())}
-          </Typography>
-          <Typography variant="body1">
-            Крайна Дата: {formatDateString(campaign.endDate.toLocaleString())}
-          </Typography>
+          <Typography variant="body1">Стартова дата: {getExactDate(campaign.startDate)}</Typography>
+          <Typography variant="body1">Крайна Дата: {getExactDate(campaign.endDate)}</Typography>
           <Typography variant="body1">Същество: {campaign.essence}</Typography>
           <Typography variant="body1">Тип на кампанията: {campaign.campaignType.name}</Typography>
           <Typography variant="body1">
@@ -49,7 +45,7 @@ export default function DetailsModal({ campaign, onClose }: Props) {
             {campaign.beneficiary.person.lastName}
           </Typography>
           <Typography variant="body1">
-            Кординатор: {campaign.coordinator.person.firstName}{' '}
+            Координатор: {campaign.coordinator.person.firstName}{' '}
             {campaign.coordinator.person.lastName}
           </Typography>
           <Typography variant="body1">
