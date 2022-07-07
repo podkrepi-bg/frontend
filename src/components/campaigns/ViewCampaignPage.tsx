@@ -21,6 +21,10 @@ const useStyles = makeStyles((theme: Theme) =>
         paddingLeft: theme.spacing(0),
       },
     },
+    donationWrapper: {
+      position: 'sticky',
+      top: theme.spacing(12),
+    },
   }),
 )
 
@@ -44,10 +48,8 @@ export default function ViewCampaignPage({ slug }: Props) {
           direction="column"
           flexWrap="nowrap"
           className={classes.sideWrapper}>
-          <Grid item>
+          <Grid item className={classes.donationWrapper}>
             <InlineDonation campaign={campaign} />
-          </Grid>
-          <Grid item>
             <IrregularityReport campaign={campaign} />
           </Grid>
         </Grid>
