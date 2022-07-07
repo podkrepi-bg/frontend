@@ -1,5 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
+import { bg, enUS } from 'date-fns/locale'
+
 import Image from 'next/image'
 import { CampaignResponse } from 'gql/campaigns'
 import {
@@ -104,7 +106,8 @@ type Props = {
 }
 
 export default function CampaignInfo({ campaign }: Props) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const locale = i18n.language == 'bg' ? bg : enUS
 
   const coordinatorAvatarSource = coordinatorCampaignPictureUrl(campaign)
   const organizerAvatarSource = organizerCampaignPictureUrl(campaign)
@@ -137,11 +140,12 @@ export default function CampaignInfo({ campaign }: Props) {
         </Typography>
         <Grid container justifyContent="space-between">
           <Typography variant="subtitle2" component="p" className={classes.campaignText}>
-            <strong>{t('campaigns:campaign.start-date')}</strong> {getExactDate(campaign.startDate)}
+            <strong>{t('campaigns:campaign.start-date')}</strong>{' '}
+            {getExactDate(campaign.startDate, locale)}
           </Typography>
           <Typography variant="subtitle2" component="p" className={classes.campaignText}>
             <strong>{t('campaigns:campaign.end-date')}</strong>{' '}
-            {campaign.endDate ? getExactDate(campaign.endDate) : 'не е въведена'}
+            {campaign.endDate ? getExactDate(campaign.endDate, locale) : 'не е въведена'}
           </Typography>
         </Grid>
       </Grid>

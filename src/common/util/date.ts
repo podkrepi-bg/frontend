@@ -1,12 +1,12 @@
 import { format, formatRelative, intervalToDuration, Locale } from 'date-fns'
 
-export const formatDate = 'dd-MM-yyyy'
-export const formatDatetime = 'dd MMMM yyyy H:ii:ss'
+export const formatDate = 'dd MMM yyyy'
+export const formatDatetime = 'dd MMM yyyy H:ii:ss'
 
-export const dateFormatter = (value: Date | string | number) => {
+export const dateFormatter = (value: Date | string | number, locale?: Locale) => {
   const date = new Date(value)
-  const exact = format(date, formatDatetime)
-  const relative = formatRelative(date, new Date())
+  const exact = format(date, formatDatetime, { locale })
+  const relative = formatRelative(date, new Date(), { locale })
   return `${exact} (${relative})`
 }
 
@@ -32,9 +32,16 @@ export const getDurationUntilNow = (date: Date) => {
   return intervalToDuration({ start: date, end: new Date() })
 }
 
-export const getExactDate = (value: Date | string | number | undefined) => {
+export const getExactDateTime = (value: Date | string | number | undefined, locale?: Locale) => {
   if (!value) return '---'
 
   const date = new Date(value)
-  return format(date, formatDatetime)
+  return format(date, formatDatetime, { locale })
+}
+
+export const getExactDate = (value: Date | string | number | undefined, locale?: Locale) => {
+  if (!value) return '---'
+
+  const date = new Date(value)
+  return format(date, formatDate, { locale })
 }
