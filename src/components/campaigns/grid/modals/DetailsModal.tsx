@@ -13,7 +13,7 @@ import { useTranslation } from 'next-i18next'
 
 import { AdminCampaignResponse } from 'gql/campaigns'
 import { money } from 'common/util/money'
-import { getExactDate } from 'common/util/date'
+import { getExactDateTime } from 'common/util/date'
 
 type Props = {
   campaign: AdminCampaignResponse
@@ -36,8 +36,10 @@ export default function DetailsModal({ campaign, onClose }: Props) {
           <Typography variant="body1">
             Целева сума: {money(campaign.targetAmount, campaign.currency)}
           </Typography>
-          <Typography variant="body1">Стартова дата: {getExactDate(campaign.startDate)}</Typography>
-          <Typography variant="body1">Крайна Дата: {getExactDate(campaign.endDate)}</Typography>
+          <Typography variant="body1">
+            Стартова дата: {getExactDateTime(campaign.startDate)}
+          </Typography>
+          <Typography variant="body1">Крайна Дата: {getExactDateTime(campaign.endDate)}</Typography>
           <Typography variant="body1">Същество: {campaign.essence}</Typography>
           <Typography variant="body1">Тип на кампанията: {campaign.campaignType.name}</Typography>
           <Typography variant="body1">
