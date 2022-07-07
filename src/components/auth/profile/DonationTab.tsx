@@ -36,7 +36,7 @@ const Root = styled('div')(({ theme }) => ({
     boxShadow: theme.shadows[3],
   },
   [`& .${classes.donationsBoxRow}`]: {
-    '&:first-child': {
+    '&:first-of-type': {
       borderBottom: `1px solid ${theme.palette.divider}`,
       marginBottom: theme.spacing(1),
       paddingBottom: theme.spacing(1),
