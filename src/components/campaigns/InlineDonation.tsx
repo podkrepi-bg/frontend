@@ -162,7 +162,7 @@ export default function InlineDonation({ campaign }: Props) {
               label={label}
               className={classes.dropdownLinkText}
               onClick={() => {
-                window.open(url, 'pop', 'width=600, height=400, scrollbars=no')
+                window.open(url, '_blank')?.focus()
                 return false
               }}
             />
