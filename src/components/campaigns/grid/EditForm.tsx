@@ -40,6 +40,7 @@ import { endpoints } from 'service/apiEndpoints'
 import UploadedCampaignFile from './UploadedCampaignFile'
 import { fromMoney, toMoney } from 'common/util/money'
 import CurrencySelect from 'components/currency/CurrencySelect'
+import OrganizerSelect from './OrganizerSelect'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -62,6 +63,7 @@ const validationSchema: yup.SchemaOf<Omit<CampaignEditFormData, 'campaignFiles'>
     campaignTypeId: yup.string().uuid().required(),
     beneficiaryId: yup.string().required(),
     coordinatorId: yup.string().required(),
+    organizerId: yup.string().required(),
     startDate: yup.date().transform(parseDateString).required(),
     endDate: yup
       .date()
@@ -111,6 +113,7 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
     coordinatorId: campaign.coordinatorId,
     campaignTypeId: campaign.campaignTypeId,
     beneficiaryId: campaign.beneficiaryId,
+    organizerId: campaign.organizerId || '',
     targetAmount: fromMoney(campaign.targetAmount) || 0,
     allowDonationOnComplete: campaign.allowDonationOnComplete || false,
     startDate: format(new Date(campaign.startDate ?? new Date()), formatString),
@@ -166,6 +169,7 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
         campaignTypeId: values.campaignTypeId,
         beneficiaryId: values.beneficiaryId,
         coordinatorId: values.coordinatorId,
+        organizerId: values.organizerId,
         currency: values.currency,
       })
 
@@ -261,7 +265,7 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
             <Typography>{t('campaigns:campaign.description')}</Typography>
             <FormRichTextField name="description" />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12}>
             <p>
               Select a Beneficiery or{' '}
               <NextLink href={routes.admin.beneficiary.create} passHref>
@@ -278,6 +282,15 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
               </NextLink>
             </p>
             <CoordinatorSelect />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <p>
+              Select an Organizer or{' '}
+              <NextLink href={routes.admin.organizers.create} passHref>
+                <a>Create New</a>
+              </NextLink>
+            </p>
+            <OrganizerSelect />
           </Grid>
           <Grid item xs={12}>
             <List dense>

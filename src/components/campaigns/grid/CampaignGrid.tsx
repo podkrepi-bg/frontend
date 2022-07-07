@@ -30,6 +30,13 @@ const DisplayCoordinator = ({ params }: CampaignCellProps) => {
     </>
   )
 }
+const DisplayOrganizer = ({ params }: CampaignCellProps) => {
+  return (
+    <>
+      {params.row.organizer?.person.firstName || ''} {params.row.organizer?.person.lastName || ''}
+    </>
+  )
+}
 
 const DisplayBeneficiary = ({ params }: CampaignCellProps) => {
   return (
@@ -126,6 +133,16 @@ export default function CampaignGrid() {
       ...commonProps,
       renderCell: (params: GridRenderCellParams) => {
         return <DisplayCoordinator params={params} />
+      },
+      align: 'left',
+      width: 200,
+    },
+    {
+      field: 'organizer',
+      headerName: t('campaigns:organizer'),
+      ...commonProps,
+      renderCell: (params: GridRenderCellParams) => {
+        return <DisplayOrganizer params={params} />
       },
       align: 'left',
       width: 200,

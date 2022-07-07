@@ -52,6 +52,10 @@ export default function DetailsModal({ campaign, onClose }: Props) {
             Кординатор: {campaign.coordinator.person.firstName}{' '}
             {campaign.coordinator.person.lastName}
           </Typography>
+          <Typography variant="body1">
+            Организатор: {campaign.organizer?.person.firstName || ''}{' '}
+            {campaign.organizer?.person.lastName || ''}
+          </Typography>
           <Typography variant="body1">Валута: {campaign.currency}</Typography>
           <Typography variant="body1">Описание: {campaign.description}</Typography>
         </CardContent>

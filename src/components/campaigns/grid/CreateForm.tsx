@@ -38,6 +38,7 @@ import BeneficiarySelect from './BeneficiarySelect'
 import { CampaignState } from '../helpers/campaign.enums'
 import { toMoney } from 'common/util/money'
 import CurrencySelect from 'components/currency/CurrencySelect'
+import OrganizerSelect from './OrganizerSelect'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -60,6 +61,7 @@ const validationSchema: yup.SchemaOf<CampaignAdminCreateFormData> = yup
     campaignTypeId: yup.string().uuid().required(),
     beneficiaryId: yup.string().uuid().required(),
     coordinatorId: yup.string().uuid().required(),
+    organizerId: yup.string().uuid().required(),
     startDate: yup.date().transform(parseDateString).required(),
     state: yup.mixed().oneOf(Object.values(CampaignState)).required(),
     endDate: yup
@@ -76,6 +78,7 @@ const defaults: CampaignAdminCreateFormData = {
   campaignTypeId: '',
   beneficiaryId: '',
   coordinatorId: '',
+  organizerId: '',
   targetAmount: 1000,
   allowDonationOnComplete: false,
   startDate: format(new Date(), formatString),
@@ -132,6 +135,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
         campaignTypeId: values.campaignTypeId,
         beneficiaryId: values.beneficiaryId,
         coordinatorId: values.coordinatorId,
+        organizerId: values.organizerId,
         currency: values.currency.toString(),
       })
       if (files.length > 0) {
@@ -220,7 +224,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
             <Typography>{t('campaigns:campaign.description')}</Typography>
             <FormRichTextField name="description" />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12}>
             <p>
               Select a Beneficiery or{' '}
               <Link href={routes.admin.beneficiary.create} passHref>
@@ -237,6 +241,15 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               </Link>
             </p>
             <CoordinatorSelect />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <p>
+              Select an Organizer or{' '}
+              <Link href={routes.admin.organizers.create} passHref>
+                Create New
+              </Link>
+            </p>
+            <OrganizerSelect />
           </Grid>
           <Grid item xs={12}>
             <FileUpload
