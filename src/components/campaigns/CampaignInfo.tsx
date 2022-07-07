@@ -16,11 +16,11 @@ import { getExactDate } from 'common/util/date'
 const PREFIX = 'CampaignInfo'
 
 const classes = {
-  operatorWrapper: `${PREFIX}-operatorWrapper`,
-  operatorInfo: `${PREFIX}-operatorInfo`,
+  personWrapper: `${PREFIX}-personWrapper`,
+  personInfo: `${PREFIX}-personInfo`,
   infoBlockWrapper: `${PREFIX}-infoBlockWrapper`,
   infoButtonWrapper: `${PREFIX}-infoButtonWrapper`,
-  operatorAvatar: `${PREFIX}-operatorAvatar`,
+  personAvatar: `${PREFIX}-personAvatar`,
   campaignText: `${PREFIX}-campaignText`,
   linkButton: `${PREFIX}-linkButton`,
   trustedButton: `${PREFIX}-trustedButton`,
@@ -28,7 +28,7 @@ const classes = {
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
-  [`& .${classes.operatorAvatar}`]: {
+  [`& .${classes.personAvatar}`]: {
     borderRadius: '50%',
   },
 
@@ -45,7 +45,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     },
   },
 
-  [`& .${classes.operatorWrapper}`]: {
+  [`& .${classes.personWrapper}`]: {
     display: 'block',
     [theme.breakpoints.up('sm')]: {
       display: 'flex',
@@ -54,7 +54,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     },
   },
 
-  [`& .${classes.operatorInfo}`]: {
+  [`& .${classes.personInfo}`]: {
     width: '100%',
     textAlign: 'center',
     [theme.breakpoints.up('lg')]: {
@@ -68,7 +68,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.trustedButton}`]: {
     color: theme.palette.primary.main,
     textDecoration: 'underline',
-    fontSize: theme.spacing(2),
+    fontSize: '14px',
     '&:hover': {
       backgroundColor: 'unset',
       textDecoration: 'underline',
@@ -145,16 +145,16 @@ export default function CampaignInfo({ campaign }: Props) {
           </Typography>
         </Grid>
       </Grid>
-      <Grid container gap={2} className={classes.operatorWrapper}>
+      <Grid container gap={2} className={classes.personWrapper}>
         <Grid container gap={3} className={classes.infoBlockWrapper}>
           <Image
             src={organizerAvatarSource}
             alt={campaign.title}
             width={100}
             height={100}
-            className={classes.operatorAvatar}
+            className={classes.personAvatar}
           />
-          <Grid className={classes.operatorInfo}>
+          <Grid className={classes.personInfo}>
             <Typography variant="subtitle2" component="p">
               <strong>{t('campaigns:campaign.organizer.name')}</strong>
             </Typography>
@@ -180,11 +180,11 @@ export default function CampaignInfo({ campaign }: Props) {
             alt={campaign.title}
             width={100}
             height={100}
-            className={classes.operatorAvatar}
+            className={classes.personAvatar}
           />
-          <Grid className={classes.operatorInfo}>
+          <Grid className={classes.personInfo}>
             <Typography variant="subtitle2" component="p">
-              <strong>{t('campaigns:campaign.operator')}</strong>
+              <strong>{t('campaigns:campaign.podkrepi-bg-coordinator')}</strong>
             </Typography>
             <Typography variant="subtitle2" component="p">
               {/* TODO: get operator data from endpoint */}
@@ -196,7 +196,7 @@ export default function CampaignInfo({ campaign }: Props) {
             <Grid container alignItems="center" className={classes.infoButtonWrapper}>
               <EmailIcon color="action" />
               <Button href={''} className={classes.trustedButton}>
-                {t('campaigns:campaign.write-to-operator')}
+                {t('campaigns:campaign.write-to-coordinator')}
               </Button>
             </Grid>
           </Grid>
