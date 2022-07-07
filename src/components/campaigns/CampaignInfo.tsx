@@ -2,7 +2,10 @@ import React from 'react'
 import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import { CampaignResponse } from 'gql/campaigns'
-import { coordinatorCampaignPictureUrl } from 'common/util/campaignImageUrls'
+import {
+  coordinatorCampaignPictureUrl,
+  organizerCampaignPictureUrl,
+} from 'common/util/campaignImageUrls'
 import { Button, Grid, Typography, Divider } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
@@ -13,11 +16,11 @@ import { getExactDate } from 'common/util/date'
 const PREFIX = 'CampaignInfo'
 
 const classes = {
-  organizerOperatorWrapper: `${PREFIX}-organizerOperatorWrapper`,
-  organizerOperatorInfo: `${PREFIX}-organizerOperatorInfo`,
+  operatorWrapper: `${PREFIX}-operatorWrapper`,
+  operatorInfo: `${PREFIX}-operatorInfo`,
   infoBlockWrapper: `${PREFIX}-infoBlockWrapper`,
   infoButtonWrapper: `${PREFIX}-infoButtonWrapper`,
-  coordinatorAvatar: `${PREFIX}-coordinatorAvatar`,
+  operatorAvatar: `${PREFIX}-operatorAvatar`,
   campaignText: `${PREFIX}-campaignText`,
   linkButton: `${PREFIX}-linkButton`,
   trustedButton: `${PREFIX}-trustedButton`,
@@ -25,7 +28,7 @@ const classes = {
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
-  [`& .${classes.coordinatorAvatar}`]: {
+  [`& .${classes.operatorAvatar}`]: {
     borderRadius: '50%',
   },
 
@@ -42,7 +45,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     },
   },
 
-  [`& .${classes.organizerOperatorWrapper}`]: {
+  [`& .${classes.operatorWrapper}`]: {
     display: 'block',
     [theme.breakpoints.up('sm')]: {
       display: 'flex',
@@ -51,7 +54,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     },
   },
 
-  [`& .${classes.organizerOperatorInfo}`]: {
+  [`& .${classes.operatorInfo}`]: {
     width: '100%',
     textAlign: 'center',
     [theme.breakpoints.up('lg')]: {
@@ -104,6 +107,7 @@ export default function CampaignInfo({ campaign }: Props) {
   const { t } = useTranslation()
 
   const coordinatorAvatarSource = coordinatorCampaignPictureUrl(campaign)
+  const organizerAvatarSource = organizerCampaignPictureUrl(campaign)
 
   return (
     <StyledGrid mb={5}>
@@ -141,21 +145,22 @@ export default function CampaignInfo({ campaign }: Props) {
           </Typography>
         </Grid>
       </Grid>
-      <Grid container gap={2} className={classes.organizerOperatorWrapper}>
+      <Grid container gap={2} className={classes.operatorWrapper}>
         <Grid container gap={3} className={classes.infoBlockWrapper}>
           <Image
-            src={coordinatorAvatarSource}
+            src={organizerAvatarSource}
             alt={campaign.title}
             width={100}
             height={100}
-            className={classes.coordinatorAvatar}
+            className={classes.operatorAvatar}
           />
-          <Grid className={classes.organizerOperatorInfo}>
+          <Grid className={classes.operatorInfo}>
             <Typography variant="subtitle2" component="p">
-              <strong>{t('campaigns:campaign.coordinator.name')}</strong>
+              <strong>{t('campaigns:campaign.organizer.name')}</strong>
             </Typography>
             <Typography variant="subtitle2" component="p">
-              {campaign.coordinator.person.firstName} {campaign.coordinator.person.lastName}
+              {campaign.organizer?.person.firstName || ''}{' '}
+              {campaign.organizer?.person.lastName || ''}
             </Typography>{' '}
             <Button href={''} className={classes.linkButton}>
               {t('common:cta.see-profile')}
@@ -175,9 +180,9 @@ export default function CampaignInfo({ campaign }: Props) {
             alt={campaign.title}
             width={100}
             height={100}
-            className={classes.coordinatorAvatar}
+            className={classes.operatorAvatar}
           />
-          <Grid className={classes.organizerOperatorInfo}>
+          <Grid className={classes.operatorInfo}>
             <Typography variant="subtitle2" component="p">
               <strong>{t('campaigns:campaign.operator')}</strong>
             </Typography>
