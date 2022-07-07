@@ -11,7 +11,8 @@
   "status": "Статут",
   "title": "Заглавие",
   "essence": "Същност",
-  "coordinator": "Координатор",
+  "coordinator": "Кoординатор",
+  "organizer": "Организатор",
   "beneficiary": "Бенефициент",
   "campaignType": "Вид на капманията",
   "description": "Описание",
@@ -137,12 +138,17 @@
       "create": "Създай бенефициент"
     },
     "coordinator": {
+      "name": "Координатор:",
+      "add": "Добави координатор",
+      "create": "Създай координатор"
+    },
+    "organizer": {
       "name": "Организатор:",
       "add": "Добави организатор",
       "create": "Създай организатор"
     },
-    "operator": "Подкрепи.бг Оператор:",
-    "write-to-operator": "Пишете на Оператор",
+    "podkrepi-bg-coordinator": "Подкрепи.бг Координатор:",
+    "write-to-coordinator": "Пишете на Координатор",
     "description": "Описание",
     "start-date": "Начална дата:",
     "end-date": "Крайна дата:",

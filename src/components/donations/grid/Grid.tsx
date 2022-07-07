@@ -15,7 +15,7 @@ import GridActions from 'components/admin/GridActions'
 import DetailsModal from '../modals/DetailsModal'
 import DeleteModal from '../modals/DeleteModal'
 import { ModalStore } from '../DonationsPage'
-import { getExactDate } from 'common/util/date'
+import { getExactDateTime } from 'common/util/date'
 import { useRouter } from 'next/router'
 import { money } from 'common/util/money'
 
@@ -110,7 +110,7 @@ export default observer(function Grid() {
       ...commonProps,
       width: 250,
       renderCell: (params: GridRenderCellParams) => {
-        return getExactDate(params?.row.createdAt)
+        return getExactDateTime(params?.row.createdAt)
       },
     },
     {

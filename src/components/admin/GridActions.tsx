@@ -31,14 +31,14 @@ export default function GridActions({ modalStore, id, name, editLink }: Props) {
 
   return (
     <>
-      <Tooltip title={t('cta:view') || ''}>
+      <Tooltip title={t('cta.view') || ''}>
         <IconButton size="small" color="primary" onClick={detailsClickHandler}>
           <PageviewOutlinedIcon />
         </IconButton>
       </Tooltip>
       {editLink ? (
         <Link href={editLink} passHref>
-          <Tooltip title={t('cta:edit') || ''}>
+          <Tooltip title={t('cta.edit') || ''}>
             <IconButton size="small" color="primary">
               <EditOutlinedIcon />
             </IconButton>
@@ -47,7 +47,7 @@ export default function GridActions({ modalStore, id, name, editLink }: Props) {
       ) : (
         ''
       )}
-      <Tooltip title={t('cta:delete') || ''}>
+      <Tooltip title={t('cta.delete') || ''}>
         <IconButton size="small" color="primary" onClick={deleteClickHandler}>
           <DeleteOutlinedIcon />
         </IconButton>

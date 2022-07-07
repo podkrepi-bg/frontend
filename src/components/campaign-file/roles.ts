@@ -7,6 +7,7 @@ export enum CampaignFileRole {
   profilePhoto = 'profilePhoto',
   campaignListPhoto = 'campaignListPhoto',
   beneficiaryPhoto = 'beneficiaryPhoto',
+  organizerPhoto = 'organizerPhoto',
 }
 
 export type FileRole = {

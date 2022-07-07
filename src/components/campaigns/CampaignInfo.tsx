@@ -1,8 +1,13 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
+import { bg, enUS } from 'date-fns/locale'
+
 import Image from 'next/image'
 import { CampaignResponse } from 'gql/campaigns'
-import { coordinatorCampaignPictureUrl } from 'common/util/campaignImageUrls'
+import {
+  coordinatorCampaignPictureUrl,
+  organizerCampaignPictureUrl,
+} from 'common/util/campaignImageUrls'
 import { Button, Grid, Typography, Divider } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
@@ -13,11 +18,11 @@ import { getExactDate } from 'common/util/date'
 const PREFIX = 'CampaignInfo'
 
 const classes = {
-  organizerOperatorWrapper: `${PREFIX}-organizerOperatorWrapper`,
-  organizerOperatorInfo: `${PREFIX}-organizerOperatorInfo`,
+  personWrapper: `${PREFIX}-personWrapper`,
+  personInfo: `${PREFIX}-personInfo`,
   infoBlockWrapper: `${PREFIX}-infoBlockWrapper`,
   infoButtonWrapper: `${PREFIX}-infoButtonWrapper`,
-  coordinatorAvatar: `${PREFIX}-coordinatorAvatar`,
+  personAvatar: `${PREFIX}-personAvatar`,
   campaignText: `${PREFIX}-campaignText`,
   linkButton: `${PREFIX}-linkButton`,
   trustedButton: `${PREFIX}-trustedButton`,
@@ -25,7 +30,7 @@ const classes = {
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
-  [`& .${classes.coordinatorAvatar}`]: {
+  [`& .${classes.personAvatar}`]: {
     borderRadius: '50%',
   },
 
@@ -42,7 +47,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     },
   },
 
-  [`& .${classes.organizerOperatorWrapper}`]: {
+  [`& .${classes.personWrapper}`]: {
     display: 'block',
     [theme.breakpoints.up('sm')]: {
       display: 'flex',
@@ -51,7 +56,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     },
   },
 
-  [`& .${classes.organizerOperatorInfo}`]: {
+  [`& .${classes.personInfo}`]: {
     width: '100%',
     textAlign: 'center',
     [theme.breakpoints.up('lg')]: {
@@ -65,7 +70,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.trustedButton}`]: {
     color: theme.palette.primary.main,
     textDecoration: 'underline',
-    fontSize: theme.spacing(2),
+    fontSize: '14px',
     '&:hover': {
       backgroundColor: 'unset',
       textDecoration: 'underline',
@@ -101,9 +106,11 @@ type Props = {
 }
 
 export default function CampaignInfo({ campaign }: Props) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const locale = i18n.language == 'bg' ? bg : enUS
 
   const coordinatorAvatarSource = coordinatorCampaignPictureUrl(campaign)
+  const organizerAvatarSource = organizerCampaignPictureUrl(campaign)
 
   return (
     <StyledGrid mb={5}>
@@ -133,29 +140,31 @@ export default function CampaignInfo({ campaign }: Props) {
         </Typography>
         <Grid container justifyContent="space-between">
           <Typography variant="subtitle2" component="p" className={classes.campaignText}>
-            <strong>{t('campaigns:campaign.start-date')}</strong> {getExactDate(campaign.startDate)}
+            <strong>{t('campaigns:campaign.start-date')}</strong>{' '}
+            {getExactDate(campaign.startDate, locale)}
           </Typography>
           <Typography variant="subtitle2" component="p" className={classes.campaignText}>
             <strong>{t('campaigns:campaign.end-date')}</strong>{' '}
-            {campaign.endDate ? getExactDate(campaign.endDate) : 'не е въведена'}
+            {campaign.endDate ? getExactDate(campaign.endDate, locale) : 'не е въведена'}
           </Typography>
         </Grid>
       </Grid>
-      <Grid container gap={2} className={classes.organizerOperatorWrapper}>
+      <Grid container gap={2} className={classes.personWrapper}>
         <Grid container gap={3} className={classes.infoBlockWrapper}>
           <Image
-            src={coordinatorAvatarSource}
+            src={organizerAvatarSource}
             alt={campaign.title}
             width={100}
             height={100}
-            className={classes.coordinatorAvatar}
+            className={classes.personAvatar}
           />
-          <Grid className={classes.organizerOperatorInfo}>
+          <Grid className={classes.personInfo}>
             <Typography variant="subtitle2" component="p">
-              <strong>{t('campaigns:campaign.coordinator.name')}</strong>
+              <strong>{t('campaigns:campaign.organizer.name')}</strong>
             </Typography>
             <Typography variant="subtitle2" component="p">
-              {campaign.coordinator.person.firstName} {campaign.coordinator.person.lastName}
+              {campaign.organizer?.person.firstName || ''}{' '}
+              {campaign.organizer?.person.lastName || ''}
             </Typography>{' '}
             <Button href={''} className={classes.linkButton}>
               {t('common:cta.see-profile')}
@@ -175,11 +184,11 @@ export default function CampaignInfo({ campaign }: Props) {
             alt={campaign.title}
             width={100}
             height={100}
-            className={classes.coordinatorAvatar}
+            className={classes.personAvatar}
           />
-          <Grid className={classes.organizerOperatorInfo}>
+          <Grid className={classes.personInfo}>
             <Typography variant="subtitle2" component="p">
-              <strong>{t('campaigns:campaign.operator')}</strong>
+              <strong>{t('campaigns:campaign.podkrepi-bg-coordinator')}</strong>
             </Typography>
             <Typography variant="subtitle2" component="p">
               {/* TODO: get operator data from endpoint */}
@@ -191,7 +200,7 @@ export default function CampaignInfo({ campaign }: Props) {
             <Grid container alignItems="center" className={classes.infoButtonWrapper}>
               <EmailIcon color="action" />
               <Button href={''} className={classes.trustedButton}>
-                {t('campaigns:campaign.write-to-operator')}
+                {t('campaigns:campaign.write-to-coordinator')}
               </Button>
             </Grid>
           </Grid>

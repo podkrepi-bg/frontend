@@ -1,0 +1,33 @@
+{
+  "admin": {
+    "headings": {
+      "info": "Organizers",
+      "all": "All organizers"
+    },
+    "fields": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "createdAt": "Created at",
+      "actions": "Actions",
+      "campaigns": "Campaigns"
+    },
+    "cta": {
+      "add": "Create",
+      "save": "Save",
+      "close": "Close"
+    },
+    "alerts": {
+      "success": "You have successfully created a new organizer",
+      "delete": "You have successfully deleted an organizer",
+      "add-error": "An error occurred while creating a new organizer",
+      "delete-error": "An error occurred while deleting an organizer"
+    },
+    "create": {
+      "heading": "Create a new organizer",
+      "info": "An organizer could be each registered user of the platform",
+      "personSelect": "Choose a person",
+      "submitButton": "Submit"
+    }
+  }
+}
