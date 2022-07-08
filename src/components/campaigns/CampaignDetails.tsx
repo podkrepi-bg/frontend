@@ -74,6 +74,12 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
       marginTop: theme.spacing(8),
     },
   },
+  ['& .ql-editor']: {
+    fontSize: theme.spacing(2),
+    fontWeight: 500,
+    fontFamily: 'Montserrat',
+    lineHeight: theme.spacing(4),
+  },
 }))
 
 type Props = {
