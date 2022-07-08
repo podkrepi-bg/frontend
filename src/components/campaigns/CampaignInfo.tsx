@@ -111,7 +111,20 @@ export default function CampaignInfo({ campaign }: Props) {
 
   const coordinatorAvatarSource = coordinatorCampaignPictureUrl(campaign)
   const organizerAvatarSource = organizerCampaignPictureUrl(campaign)
-
+  const status = {
+    initial: t('campaigns:campaign-info.initial'),
+    draft: t('campaigns:campaign-info.draft'),
+    pending_validation: t('campaigns:campaign-info.pending-validation'),
+    approved: t('campaigns:campaign-info.approved'),
+    rejected: t('campaigns:campaign-info.rejected'),
+    active: t('campaigns:campaign-info.active'),
+    active_pending_validation: t('campaigns:campaign-info.active-pending-validation'),
+    suspended: t('campaigns:campaign-info.suspended'),
+    complete: t('campaigns:campaign-info.complete'),
+    disabled: t('campaigns:campaign-info.disabled'),
+    error: t('campaigns:campaign-info.error'),
+    deleted: t('campaigns:campaign-info.deleted'),
+  }
   return (
     <StyledGrid mb={5}>
       <Grid container justifyContent="space-between" mb={4}>
@@ -136,7 +149,8 @@ export default function CampaignInfo({ campaign }: Props) {
           <strong>{t('campaigns:campaign.profile')}</strong>Спешна
         </Typography> */}
         <Typography variant="subtitle2" component="p" className={classes.campaignText}>
-          <strong>{t('campaigns:campaign.status')}</strong> {campaign.state}
+          <strong>{t('campaigns:campaign.status')}</strong>{' '}
+          {campaign.state in status ? status[campaign.state] : ''}
         </Typography>
         <Grid container justifyContent="space-between">
           <Typography variant="subtitle2" component="p" className={classes.campaignText}>
