@@ -3,7 +3,7 @@ import { securedAdminProps } from 'middleware/auth/securedProps'
 import { endpoints } from 'service/apiEndpoints'
 
 export const getServerSideProps = securedAdminProps(
-  ['common', 'auth', 'campaign-types', 'validation', 'documents'],
+  ['common', 'auth', 'campaigns', 'campaign-types', 'validation', 'documents'],
   (ctx) => endpoints.campaignTypes.viewCampaignType(ctx.query.id as string).url,
 )
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
 
@@ -15,8 +15,8 @@ import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 
 export default observer(function Grid() {
-  const [pageSize, setPageSize] = useState(5)
-  const { t } = useTranslation('campaign-types')
+  const [pageSize, setPageSize] = useState(10)
+  const { t } = useTranslation()
 
   const { data }: UseQueryResult<CampaignTypesResponse[]> = useCampaignTypesList()
   const { isDetailsOpen } = ModalStore
@@ -29,16 +29,8 @@ export default observer(function Grid() {
 
   const columns: GridColumns = [
     {
-      field: t('grid.name'),
-      flex: 1,
-      ...commonProps,
-      renderCell: (cellValues: GridRenderCellParams) => {
-        return cellValues.row.name
-      },
-    },
-    {
       field: 'actions',
-      headerName: t('actions'),
+      headerName: t('campaign-types:actions'),
       width: 120,
       type: 'actions',
       headerAlign: 'left',
@@ -52,6 +44,30 @@ export default observer(function Grid() {
             editLink={routes.admin.campaignTypes.edit(params.row.id)}
           />
         )
+      },
+    },
+    {
+      field: t('campaign-types:grid.name'),
+      flex: 1,
+      ...commonProps,
+      renderCell: (cellValues: GridRenderCellParams) => {
+        return cellValues.row.name
+      },
+    },
+    {
+      field: t('campaign-types:grid.category'),
+      flex: 1,
+      ...commonProps,
+      renderCell: (cellValues: GridRenderCellParams) => {
+        return <Typography>{t(`campaigns:filters.${cellValues.row.category}`)}</Typography>
+      },
+    },
+    {
+      field: t('campaign-types:grid.description'),
+      flex: 1,
+      ...commonProps,
+      renderCell: (cellValues: GridRenderCellParams) => {
+        return cellValues.row.description
       },
     },
   ]
