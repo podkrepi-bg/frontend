@@ -117,5 +117,19 @@
     "anonymous": "Anonymous",
     "none": "No donations yet",
     "lv": "lv"
+  },
+  "campaign-status": {
+    "initial": "initial",
+    "draft": "draft",
+    "pending-validation": "pending validation",
+    "approved": "approved",
+    "rejected": "rejected",
+    "active": "active",
+    "active-pending-validation": "active pending validation",
+    "suspended": "suspended",
+    "complete": "complete",
+    "disabled": "disabled",
+    "error": "error",
+    "deleted": "deleted"
   }
 }
