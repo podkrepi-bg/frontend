@@ -6,6 +6,7 @@ import CampaignSlider from './CampaignSlider'
 import {
   backgroundCampaignPictureUrl,
   beneficiaryCampaignPictureUrl,
+  campaignSliderUrls,
 } from 'common/util/campaignImageUrls'
 import CampaignInfo from './CampaignInfo'
 import { styled } from '@mui/material/styles'
@@ -83,6 +84,7 @@ type Props = {
 export default function CampaignDetails({ campaign }: Props) {
   const bannerSource = backgroundCampaignPictureUrl(campaign)
   const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
+  const sliderImages = campaignSliderUrls(campaign)
 
   return (
     <StyledGrid item xs={12} md={8}>
@@ -113,7 +115,7 @@ export default function CampaignDetails({ campaign }: Props) {
       <CampaignInfo campaign={campaign} />
       <Grid>
         <ReactQuill readOnly theme="bubble" value={campaign.description} />
-        <CampaignSlider />
+        <CampaignSlider sliderImages={sliderImages} />
         <CampaignMessages />
       </Grid>
     </StyledGrid>
