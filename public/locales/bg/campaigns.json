@@ -173,5 +173,19 @@
     "anonymous": "Анонимен",
     "none": "Няма направени дарения",
     "lv": "лв"
+  },
+  "campaign-info": {
+    "initial": "в начален етапп",
+    "draft": "чернова",
+    "pending-validation": "чакаща валидация",
+    "approved": "одобрена",
+    "rejected": "отхвърлена",
+    "active": "активна",
+    "active-pending-validation": "активна чака валидиране",
+    "suspended": "спряна",
+    "complete": "завършена",
+    "disabled": "отхвърлена",
+    "error": "грешна",
+    "deleted": "изтрита"
   }
 }
