@@ -174,7 +174,7 @@
     "none": "Няма направени дарения",
     "lv": "лв"
   },
-  "campaign-info": {
+  "campaign-status": {
     "initial": "в начален етапп",
     "draft": "чернова",
     "pending-validation": "чакаща валидация",
@@ -184,7 +184,7 @@
     "active-pending-validation": "активна чака валидиране",
     "suspended": "спряна",
     "complete": "завършена",
-    "disabled": "отхвърлена",
+    "disabled": "деактивирана",
     "error": "грешна",
     "deleted": "изтрита"
   }
