@@ -31,9 +31,10 @@ const classes = {
 const Root = styled('div')(() => ({
   [`& .${classes.filterButtons}`]: {
     display: 'block',
-    height: '100px',
+    height: '80px',
     borderRadius: 0,
-    borderBottom: '5px solid transparent',
+    borderBottom: '1px solid transparent',
+    padding: 1,
     '&:active': {
       color: '#4AC3FF',
       borderBottom: '5px solid #4AC3FF',
@@ -57,16 +58,16 @@ const Root = styled('div')(() => ({
 const categories: {
   [key in CampaignTypeCategory]: { icon?: React.ReactElement }
 } = {
-  medical: { icon: <MedicalServices fontSize="large" /> },
-  charity: { icon: <VolunteerActivism fontSize="large" /> },
-  disasters: { icon: <BusAlert fontSize="large" /> },
-  education: { icon: <School fontSize="large" /> },
-  events: { icon: <TheaterComedy fontSize="large" /> },
-  environment: { icon: <Apartment fontSize="large" /> },
-  sport: { icon: <SportsTennis fontSize="large" /> },
-  art: { icon: <Brush fontSize="large" /> },
-  animals: { icon: <Pets fontSize="large" /> },
-  nature: { icon: <Forest fontSize="large" /> },
+  medical: { icon: <MedicalServices fontSize="small" /> },
+  charity: { icon: <VolunteerActivism fontSize="small" /> },
+  disasters: { icon: <BusAlert fontSize="small" /> },
+  education: { icon: <School fontSize="small" /> },
+  events: { icon: <TheaterComedy fontSize="small" /> },
+  environment: { icon: <Apartment fontSize="small" /> },
+  sport: { icon: <SportsTennis fontSize="small" /> },
+  art: { icon: <Brush fontSize="small" /> },
+  animals: { icon: <Pets fontSize="small" /> },
+  nature: { icon: <Forest fontSize="small" /> },
   others: {},
 }
 
@@ -91,7 +92,8 @@ export default function CampaignFilter() {
     <Root>
       <ImageList
         cols={mobile ? 2 : 6}
-        rowHeight={164}
+        rowHeight={120}
+        gap={2}
         sx={{ maxWidth: 'lg', margin: '0 auto', my: 6 }}>
         {Object.values(CampaignTypeCategory).map((category) => {
           const count =
@@ -102,7 +104,7 @@ export default function CampaignFilter() {
               disabled={count === 0}
               className={classes.filterButtons}
               onClick={() => setSelectedCategory(category)}>
-              {categories[category].icon ?? <Category fontSize="large" />}
+              {categories[category].icon ?? <Category fontSize="small" />}
               <Typography>
                 {t(`campaigns:filters.${category}`)} ({count})
               </Typography>
@@ -110,7 +112,7 @@ export default function CampaignFilter() {
           )
         })}
         <IconButton className={classes.filterButtons} onClick={() => setSelectedCategory('ALL')}>
-          <FilterNone fontSize="large" />
+          <FilterNone fontSize="small" />
           <Typography>
             {t(`campaigns:filters.all`)} ({campaigns?.length ?? 0})
           </Typography>

@@ -18,12 +18,12 @@ const classes = {
 const StyledLayout = styled(Layout)(({ theme }) => ({
   [`& .${classes.title}`]: {
     marginBottom: theme.spacing(3),
-    marginTop: theme.spacing(12),
+    marginTop: theme.spacing(6),
     fontWeight: '500',
     color: '#2196F3',
     fontStyle: 'normal',
     fontSize: '45px',
-    lineHeight: '112px',
+    lineHeight: '45px',
     alignItems: 'center',
     textAlign: 'center',
     letterSpacing: '-1.5px',
@@ -41,10 +41,10 @@ const StyledLayout = styled(Layout)(({ theme }) => ({
   },
 
   [`& .${classes.support}`]: {
-    marginBottom: theme.spacing(6),
+    marginBottom: theme.spacing(3),
     fontStyle: 'normal',
     fontWeight: '500',
-    fontSize: '35px',
+    fontSize: '25px',
     lineHeight: '120%',
     textAlign: 'center',
     color: '#2196F3',
@@ -76,17 +76,8 @@ export default function CampaignsPage() {
         <Typography variant="h1" component="p" className={classes.title}>
           {t('campaigns:campaigns')}
         </Typography>
-        <Typography variant="h2" component="p" className={classes.support}>
+        <Typography variant="h6" component="p" className={classes.support}>
           {t('campaigns:cta.support-cause-today')}
-        </Typography>
-        <Typography variant="subtitle2" component="p" className={classes.subheading}>
-          {t('campaigns:campaign.subheading')}
-        </Typography>
-        <Typography variant="h6" component="p" className={classes.subheading}>
-          {t('campaigns:campaign.subheading-bold')}
-        </Typography>
-        <Typography variant="h6" component="p" className={classes.subheading}>
-          {t('campaigns:campaign.subheading-bold-secondary')}
         </Typography>
         <CampaignFilter />
       </Container>
