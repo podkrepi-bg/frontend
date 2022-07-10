@@ -62,7 +62,6 @@ const closedMixin = (theme: Theme): CSSObject => ({
   },
 })
 
-// @ts-expect-error bad MUI types for mixins.toolbar
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
