@@ -1,4 +1,5 @@
 {
+  "campaigns": "Campaigns",
   "subtitle": "Help a person in need",
   "form-heading": "Create new campaign",
   "cta": {
@@ -6,7 +7,7 @@
     "save": "Save",
     "submit": "Submit",
     "apply": "Apply",
-    "support-now": "Support now",
+    "support-now": "Donate now",
     "support-cause-today": "Support a campaign today!",
     "share": "Share",
     "donate-now": "Donate now",
