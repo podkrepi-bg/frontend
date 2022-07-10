@@ -72,6 +72,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     color: theme.palette.primary.main,
     textDecoration: 'underline',
     fontSize: '14px',
+    padding: 0,
     '&:hover': {
       backgroundColor: 'unset',
       textDecoration: 'underline',
@@ -196,15 +197,12 @@ export default function CampaignInfo({ campaign }: Props) {
               {/* TODO: get operator data from endpoint */}
               {campaign.coordinator.person.firstName} {campaign.coordinator.person.lastName}
             </Typography>
-            <Button href={''} className={classes.linkButton}>
-              {t('common:cta.question')}
+            <Button
+              startIcon={<EmailIcon color="action" />}
+              href={'mailto:info@podkrepi.bg?subject=Question about: ' + campaign.title}
+              className={classes.trustedButton}>
+              info@podkrepi.bg
             </Button>
-            <Grid container alignItems="center" className={classes.infoButtonWrapper}>
-              <EmailIcon color="action" />
-              <Button href={''} className={classes.trustedButton}>
-                {t('campaigns:campaign.write-to-coordinator')}
-              </Button>
-            </Grid>
           </Grid>
         </Grid>
       </Grid>
