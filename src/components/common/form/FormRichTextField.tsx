@@ -28,24 +28,6 @@ const modules = {
     matchVisual: false,
   },
 }
-/*
- * Quill editor formats
- * See https://quilljs.com/docs/formats/
- */
-const formats = [
-  'header',
-  'size',
-  'bold',
-  'italic',
-  'underline',
-  'strike',
-  'blockquote',
-  'list',
-  'bullet',
-  'indent',
-  'link',
-  'video',
-]
 
 export default function FormRichTextField({ name }: RegisterFormProps) {
   const { t } = useTranslation()
