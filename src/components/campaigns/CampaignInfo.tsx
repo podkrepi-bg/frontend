@@ -32,6 +32,7 @@ const classes = {
 const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.personAvatar}`]: {
     borderRadius: '50%',
+    objectFit: 'cover',
   },
 
   [`& .${classes.campaignText}`]: {
