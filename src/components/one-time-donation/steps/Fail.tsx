@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { Grid, Typography, Button } from '@mui/material'
-import FailIcon from 'common/icons/Fail'
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline'
 import theme from 'common/theme'
 import { routes } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
@@ -18,15 +18,8 @@ export default function Fail() {
   }, [])
   return (
     <Grid>
-      <Grid
-        container
-        justifyContent="center"
-        sx={{
-          width: 450,
-          height: 450,
-          margin: '0 auto',
-        }}>
-        <FailIcon />
+      <Grid container justifyContent="center">
+        <ErrorOutlineIcon sx={{ fontSize: 80 }} color="error" />
       </Grid>
       <Grid
         container

@@ -102,8 +102,8 @@ export default function FirstStep() {
           </Typography>
           <Divider className={classes.divider} />
           <Grid container justifyContent="center">
-            <Grid my={3} item display="flex" justifyContent="space-between" xs={9}>
-              <Alert severity="warning">
+            <Grid my={2} item display="flex" justifyContent="space-between" xs={9}>
+              <Alert severity="info">
                 <Typography fontWeight="bold">{campaign.paymentReference}</Typography>
               </Alert>
               <CopyTextButton
@@ -138,11 +138,14 @@ export default function FirstStep() {
           />
           <Collapse in={amount.value === 'other'} timeout="auto">
             <Grid
+              rowSpacing={2}
+              columnSpacing={2}
+              container
               style={
                 !mobile
                   ? {
                       float: 'right',
-                      marginTop: theme.spacing(-10),
+                      marginTop: -50,
                       width: '49%',
                     }
                   : { marginTop: theme.spacing(2) }
@@ -152,10 +155,10 @@ export default function FirstStep() {
                 type="number"
                 label={t('first-step.amount')}
                 InputProps={{
-                  style: { fontSize: 20, padding: 16 },
+                  style: { fontSize: 14, padding: 7 },
                   endAdornment: (
                     <InputAdornment variant="filled" position="end">
-                      Лв.
+                      лв.
                     </InputAdornment>
                   ),
                 }}

@@ -18,6 +18,7 @@ import Fail from './steps/Fail'
 import { FormikStep, FormikStepper } from './FormikStepper'
 import { validateFirst, validateSecond, validateThird } from './helpers/validation-schema'
 import { StepsContext } from './helpers/stepperContext'
+import { toMoney } from 'common/util/money'
 
 const initialValues: OneTimeDonation = {
   message: '',
@@ -72,12 +73,9 @@ export default function DonationStepper() {
   ) => {
     try {
       const data = {
-        currency: 'BGN',
+        currency: campaign.currency,
         priceId: values.amount !== 'other' ? values.amount : undefined,
-        amount:
-          values.amount === 'other'
-            ? Math.round((values.otherAmount + Number.EPSILON) * 100)
-            : undefined,
+        amount: values.amount === 'other' ? toMoney(values.otherAmount) : undefined,
       }
       await donate(data.amount, data.priceId)
       resetForm()

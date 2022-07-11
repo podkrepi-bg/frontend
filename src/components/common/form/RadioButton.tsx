@@ -18,7 +18,7 @@ const StyledRadioButton = styled('div')(() => ({
   [`& .${classes.radioWrapper}`]: {
     borderRadius: theme.borders.round,
     border: `1px solid ${theme.borders.dark}`,
-    padding: theme.spacing(2),
+    padding: 0,
     width: '100%',
     margin: '0 auto',
   },
@@ -36,7 +36,7 @@ const StyledRadioButton = styled('div')(() => ({
   },
 
   [`& .${classes.label}`]: {
-    fontSize: 20,
+    fontSize: 14,
     marginLeft: theme.spacing(3),
   },
 }))

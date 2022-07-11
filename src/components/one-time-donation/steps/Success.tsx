@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@mui/material'
-import SuccessIcon from 'common/icons/Success'
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import { routes } from 'common/routes'
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined'
 import InstagramIcon from '@mui/icons-material/Instagram'
@@ -13,15 +13,8 @@ export default function Success({ donationId }: { donationId?: string }) {
 
   return (
     <Grid>
-      <Grid
-        container
-        justifyContent="center"
-        sx={{
-          width: 450,
-          height: 450,
-          margin: '0 auto',
-        }}>
-        <SuccessIcon />
+      <Grid container justifyContent="center">
+        <CheckCircleOutlineIcon sx={{ fontSize: 80 }} color="success" />
       </Grid>
       <Grid container rowSpacing={2} justifyContent={'center'} textAlign="center">
         <Grid item xs={12}>

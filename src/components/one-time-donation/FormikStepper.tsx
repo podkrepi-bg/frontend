@@ -105,7 +105,7 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
               ))}
             </Stepper>
           </StyledStepper>
-          <Box marginY={8}>{currentChild}</Box>
+          <Box marginY={2}>{currentChild}</Box>
           {/* Controls of the form */}
           {step === 3 ? null : (
             <Grid container rowSpacing={2} columnSpacing={2}>
