@@ -10,7 +10,8 @@ import {
 } from 'common/util/campaignImageUrls'
 import CampaignInfo from './CampaignInfo'
 import { styled } from '@mui/material/styles'
-import { Grid, Typography } from '@mui/material'
+import { Divider, Grid, Typography } from '@mui/material'
+import CampaignInfoCoordinator from './CampaignInfoCoordinator'
 
 import dynamic from 'next/dynamic'
 import 'react-quill/dist/quill.bubble.css'
@@ -80,6 +81,8 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     fontWeight: 500,
     fontFamily: 'Montserrat',
     lineHeight: theme.spacing(4),
+    paddingLeft: '0',
+    paddingRight: '0',
   },
 }))
 
@@ -119,10 +122,22 @@ export default function CampaignDetails({ campaign }: Props) {
         {campaign.title}
       </Typography>
       <CampaignInfo campaign={campaign} />
-      <Grid>
-        <ReactQuill readOnly theme="bubble" value={campaign.description} />
-        <CampaignSlider sliderImages={sliderImages} />
-        <CampaignMessages />
+      <Grid container spacing={8}>
+        <Grid item xs={12}>
+          <ReactQuill readOnly theme="bubble" value={campaign.description} />
+        </Grid>
+        <Grid item xs={12}>
+          <CampaignSlider sliderImages={sliderImages} />
+        </Grid>
+        <Grid item xs={12}>
+          <Divider />
+        </Grid>
+        <Grid item xs={12}>
+          <CampaignInfoCoordinator campaign={campaign} />
+        </Grid>
+        {/* <Grid item xs={12}>
+          <CampaignMessages />
+        </Grid> */}
       </Grid>
     </StyledGrid>
   )
