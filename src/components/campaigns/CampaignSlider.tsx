@@ -4,13 +4,16 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Image from 'next/image'
 import { styled } from '@mui/material/styles'
+import { Typography } from '@mui/material'
+import { useTranslation } from 'next-i18next'
+import theme from 'common/theme'
 
 const classes = {
   container: 'container',
   slider: 'slider',
 }
 
-const Root = styled('div')(({ theme }) => ({
+const Root = styled('div')(() => ({
   [`& .${classes.container}`]: {
     margin: theme.spacing(5, 0),
   },
@@ -69,6 +72,8 @@ type Props = {
 }
 
 export default function CampaignSlider({ sliderImages }: Props) {
+  const { t } = useTranslation()
+
   if (sliderImages.length === 0) {
     return null
   }
@@ -89,6 +94,9 @@ export default function CampaignSlider({ sliderImages }: Props) {
   }
   return (
     <Root className={classes.container}>
+      <Typography variant="h4" sx={{ my: theme.spacing(3), fontWeight: '500' }}>
+        {t('campaigns:campaign.gallery')}
+      </Typography>
       <Slider {...settings} className={classes.slider}>
         {sliderImages.map((image, index) => (
           <div key={index}>
