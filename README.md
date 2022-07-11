@@ -63,7 +63,7 @@ Follow the instructions at <https://github.com/podkrepi-bg/api/blob/master/TESTI
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-50-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-51-orange.svg?style=flat-square)](#contributors-)
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
@@ -153,6 +153,7 @@ Thanks goes to these wonderful people:
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/GeorgyGenchev"><img src="https://avatars.githubusercontent.com/u/101862171?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Georgy Genchev</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=GeorgyGenchev" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=GeorgyGenchev" title="Documentation">📖</a> <a href="#tool-GeorgyGenchev" title="Tools">🔧</a></td>
+    <td align="center"><a href="https://github.com/ilievZlatko"><img src="https://avatars.githubusercontent.com/u/18635490?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Zlatko</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=ilievZlatko" title="Code">💻</a></td>
   </tr>
 </table>
 

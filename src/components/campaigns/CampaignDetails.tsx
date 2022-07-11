@@ -1,16 +1,20 @@
 import React from 'react'
 import Image from 'next/image'
-import { useTranslation } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 import CampaignMessages from './CampaignMessages'
 import CampaignSlider from './CampaignSlider'
 import {
   backgroundCampaignPictureUrl,
   beneficiaryCampaignPictureUrl,
+  campaignSliderUrls,
 } from 'common/util/campaignImageUrls'
 import CampaignInfo from './CampaignInfo'
 import { styled } from '@mui/material/styles'
 import { Grid, Typography } from '@mui/material'
+
+import dynamic from 'next/dynamic'
+import 'react-quill/dist/quill.bubble.css'
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 
 const PREFIX = 'CampaignDetails'
 
@@ -37,6 +41,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 
   [`& .${classes.campaignTitle}`]: {
+    fontSize: theme.spacing(4),
     fontWeight: 500,
     textAlign: 'center',
     [theme.breakpoints.up('md')]: {
@@ -64,11 +69,17 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 
   [`& .${classes.beneficiaryName}`]: {
-    fontSize: theme.spacing(4),
+    fontSize: theme.spacing(3),
     marginTop: theme.spacing(3),
     [theme.breakpoints.up('md')]: {
       marginTop: theme.spacing(8),
     },
+  },
+  ['& .ql-editor']: {
+    fontSize: theme.spacing(2),
+    fontWeight: 500,
+    fontFamily: 'Montserrat',
+    lineHeight: theme.spacing(4),
   },
 }))
 
@@ -77,10 +88,9 @@ type Props = {
 }
 
 export default function CampaignDetails({ campaign }: Props) {
-  const { t } = useTranslation()
-
   const bannerSource = backgroundCampaignPictureUrl(campaign)
   const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
+  const sliderImages = campaignSliderUrls(campaign)
 
   return (
     <StyledGrid item xs={12} md={8}>
@@ -105,15 +115,13 @@ export default function CampaignDetails({ campaign }: Props) {
           {campaign.beneficiary.person.firstName} {campaign.beneficiary.person.lastName}
         </Typography>
       </Grid>
-      <Typography paragraph variant="h2" component="h2" my={8} className={classes.campaignTitle}>
+      <Typography variant="h1" component="h1" my={8} className={classes.campaignTitle}>
         {campaign.title}
       </Typography>
       <CampaignInfo campaign={campaign} />
       <Grid>
-        <Typography variant="subtitle2" component="p" mb={5}>
-          {campaign.description}
-        </Typography>
-        <CampaignSlider />
+        <ReactQuill readOnly theme="bubble" value={campaign.description} />
+        <CampaignSlider sliderImages={sliderImages} />
         <CampaignMessages />
       </Grid>
     </StyledGrid>

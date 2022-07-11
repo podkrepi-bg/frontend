@@ -49,12 +49,13 @@ const validationSchema: yup.SchemaOf<CampaignCreateFormData> = yup
   .defined()
   .shape({
     title: yup.string().trim().min(10).max(100).required(),
-    description: yup.string().trim().min(50).max(4000).required(),
+    description: yup.string().trim().min(50).max(20000).required(),
     targetAmount: yup.number().required(),
     allowDonationOnComplete: yup.bool().optional(),
     campaignTypeId: yup.string().uuid().required(),
     beneficiaryId: yup.string().uuid().required(),
     coordinatorId: yup.string().uuid().required(),
+    organizerId: yup.string().uuid().required(),
     startDate: yup.date().transform(parseDateString).required(),
     endDate: yup
       .date()
@@ -70,6 +71,7 @@ const defaults: CampaignCreateFormData = {
   campaignTypeId: '',
   beneficiaryId: '',
   coordinatorId: '',
+  organizerId: '',
   targetAmount: 1000,
   allowDonationOnComplete: false,
   startDate: format(new Date(), formatString),
@@ -125,6 +127,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
         campaignTypeId: values.campaignTypeId,
         beneficiaryId: values.beneficiaryId,
         coordinatorId: values.coordinatorId,
+        organizerId: values.organizerId,
         currency: Currency.BGN,
         state: CampaignState.draft,
       })

@@ -147,6 +147,11 @@ export const routes = {
       create: '/admin/irregularities/create',
       view: (id: string) => `/admin/irregularities/${id}`,
     },
+    organizers: {
+      index: '/admin/organizers',
+      create: '/admin/organizers/create',
+      view: (id: string) => `/admin/organizers/${id}`,
+    },
   },
   dev: {
     openData: '/open-data',

@@ -25,8 +25,8 @@ const validationSchema: yup.SchemaOf<RegisterFormData> = yup
   .object()
   .defined()
   .shape({
-    firstName: yup.string().min(3).max(10).required(),
-    lastName: yup.string().min(3).max(10).required(),
+    firstName: yup.string().min(3).max(100).required(),
+    lastName: yup.string().min(3).max(100).required(),
     email: email.required(),
     password: password.required(),
   })

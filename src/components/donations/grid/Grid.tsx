@@ -15,10 +15,11 @@ import GridActions from 'components/admin/GridActions'
 import DetailsModal from '../modals/DetailsModal'
 import DeleteModal from '../modals/DeleteModal'
 import { ModalStore } from '../DonationsPage'
-import { getExactDate } from 'common/util/date'
+import { getExactDateTime } from 'common/util/date'
 import { useRouter } from 'next/router'
+import { money } from 'common/util/money'
 
-interface PersonCellProps {
+interface RenderCellProps {
   params: GridRenderCellParams
 }
 
@@ -31,14 +32,19 @@ export default observer(function Grid() {
   const { data }: UseQueryResult<DonationResponse[]> = campaignId
     ? useCampaignDonationsList(campaignId as string)
     : useDonationsList()
-  const RenderVaultCell = ({ params }: PersonCellProps) => {
+
+  const RenderVaultCell = ({ params }: RenderCellProps) => {
     const vault = useVault(params.row.targetVaultId)
     return <>{vault.data?.name}</>
   }
 
-  const RenderPersonCell = ({ params }: PersonCellProps) => {
+  const RenderPersonCell = ({ params }: RenderCellProps) => {
     const person = useViewPerson(params.row.personId)
     return <>{person.data?.firstName + ' ' + person.data?.lastName}</>
+  }
+
+  const RenderMoneyCell = ({ params }: RenderCellProps) => {
+    return <>{money(params.row.amount, params.row.currency)}</>
   }
 
   const commonProps: Partial<GridColDef> = {
@@ -87,8 +93,10 @@ export default observer(function Grid() {
     },
     {
       field: 'amount',
-      type: 'number',
       headerName: t('donations:amount'),
+      renderCell: (params: GridRenderCellParams) => {
+        return <RenderMoneyCell params={params} />
+      },
     },
     {
       field: 'currency',
@@ -102,7 +110,7 @@ export default observer(function Grid() {
       ...commonProps,
       width: 250,
       renderCell: (params: GridRenderCellParams) => {
-        return getExactDate(params?.row.createdAt)
+        return getExactDateTime(params?.row.createdAt)
       },
     },
     {

@@ -13,6 +13,7 @@ import { useTranslation } from 'next-i18next'
 
 import { AdminCampaignResponse } from 'gql/campaigns'
 import { money } from 'common/util/money'
+import { getExactDateTime } from 'common/util/date'
 
 type Props = {
   campaign: AdminCampaignResponse
@@ -32,9 +33,13 @@ export default function DetailsModal({ campaign, onClose }: Props) {
             {t('Заглавие')}: {campaign.title}
           </Typography>
           <Typography variant="body1">Слъг: {campaign.slug}</Typography>
-          <Typography variant="body1">Целева сума: {money(campaign.targetAmount)}</Typography>
-          <Typography variant="body1">Стартова дата: {campaign.startDate}</Typography>
-          <Typography variant="body1">Крайна Дата: {campaign.endDate}</Typography>
+          <Typography variant="body1">
+            Целева сума: {money(campaign.targetAmount, campaign.currency)}
+          </Typography>
+          <Typography variant="body1">
+            Стартова дата: {getExactDateTime(campaign.startDate)}
+          </Typography>
+          <Typography variant="body1">Крайна Дата: {getExactDateTime(campaign.endDate)}</Typography>
           <Typography variant="body1">Същество: {campaign.essence}</Typography>
           <Typography variant="body1">Тип на кампанията: {campaign.campaignType.name}</Typography>
           <Typography variant="body1">
@@ -42,16 +47,15 @@ export default function DetailsModal({ campaign, onClose }: Props) {
             {campaign.beneficiary.person.lastName}
           </Typography>
           <Typography variant="body1">
-            Кординатор: {campaign.coordinator.person.firstName}{' '}
+            Координатор: {campaign.coordinator.person.firstName}{' '}
             {campaign.coordinator.person.lastName}
           </Typography>
-          <Typography variant="body1">Валута: {campaign.currency}</Typography>
           <Typography variant="body1">
-            Описание: {campaign.description}
-            {campaign.description}
-            {campaign.description}
-            {campaign.description}
+            Организатор: {campaign.organizer?.person.firstName || ''}{' '}
+            {campaign.organizer?.person.lastName || ''}
           </Typography>
+          <Typography variant="body1">Валута: {campaign.currency}</Typography>
+          <Typography variant="body1">Описание: {campaign.description}</Typography>
         </CardContent>
       </Card>
       <DialogActions>

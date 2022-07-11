@@ -1,13 +1,12 @@
-import CreatePage from 'components/campaign-types/CreatePage'
 import { securedPropsWithTranslation } from 'middleware/auth/securedProps'
+import CreatePage from 'components/organizers/CreatePage'
 
 export const getServerSideProps = securedPropsWithTranslation([
   'common',
   'auth',
-  'campaigns',
-  'campaign-types',
   'validation',
-  'documents',
+  'organizer',
+  'admin',
 ])
 
 export default CreatePage

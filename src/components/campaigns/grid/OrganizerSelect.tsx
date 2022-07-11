@@ -1,12 +1,12 @@
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material'
 import { TranslatableField, translateError } from 'common/form/validation'
+import { useOrganizersList } from 'common/hooks/organizer'
 import { useField } from 'formik'
 import { useTranslation } from 'react-i18next'
-import { useBeneficiariesList } from 'service/beneficiary'
 
-export default function BeneficiarySelect({ name = 'beneficiaryId' }) {
+export default function OrganizerSelect({ name = 'organizerId' }) {
   const { t } = useTranslation()
-  const { data } = useBeneficiariesList()
+  const { data } = useOrganizersList()
   const [field, meta] = useField(name)
 
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
@@ -16,16 +16,14 @@ export default function BeneficiarySelect({ name = 'beneficiaryId' }) {
       size="small"
       variant="outlined"
       error={Boolean(meta.error) && Boolean(meta.touched)}>
-      <InputLabel>{t('campaigns:beneficiary')}</InputLabel>
-      <Select fullWidth defaultValue="" label={t('campaigns:beneficiary')} {...field}>
+      <InputLabel>{t('campaigns:organizer')}</InputLabel>
+      <Select fullWidth defaultValue="" label={t('campaigns:organizer')} {...field}>
         <MenuItem value="" disabled>
-          {t('campaigns:beneficiary')}
+          {t('campaigns:organizer')}
         </MenuItem>
-        {data?.map((beneficiary, index) => (
-          <MenuItem key={index} value={beneficiary.id}>
-            {beneficiary.person
-              ? `${beneficiary.person.firstName} ${beneficiary.person.lastName}`
-              : `${beneficiary.company?.name}`}
+        {data?.map((organizer, index) => (
+          <MenuItem key={index} value={organizer.id}>
+            {organizer.person.firstName} {organizer.person.lastName}
           </MenuItem>
         ))}
       </Select>

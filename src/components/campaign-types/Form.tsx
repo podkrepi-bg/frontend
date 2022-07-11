@@ -19,12 +19,7 @@ import {
 import { CampaignTypeFormData, CampaignTypesResponse } from 'gql/campaign-types'
 import { routes } from 'common/routes'
 import { ApiErrors } from 'service/apiErrors'
-import {
-  useCampaignType,
-  useEditCampaignType,
-  useCreateCampaignType,
-  useCampaignTypesList,
-} from 'service/campaignTypes'
+import { useCampaignType, useEditCampaignType, useCreateCampaignType } from 'service/campaignTypes'
 import { createSlug } from 'common/util/createSlug'
 import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
@@ -35,21 +30,20 @@ import { CampaignTypeCategory } from './categories'
 const validationSchema = yup.object().defined().shape({
   name: yup.string().required(),
   description: yup.string().notRequired(),
-  parentId: yup.string().notRequired(),
 })
 
 export default function Form() {
   const router = useRouter()
   const { t } = useTranslation()
   let id = router.query.id
-  const [parentId, setParentId] = useState<string>('')
-  const campaignTypes = useCampaignTypesList().data
+  const [selectedCategory, setCategory] = useState<string>('')
+  //TODO: add parent-child campaignTypes
+  //const campaignTypes = useCampaignTypesList().data
 
   let initialValues: CampaignTypeFormData = {
     name: '',
     category: CampaignTypeCategory.others,
     description: '',
-    parentId,
   }
 
   if (id) {
@@ -60,7 +54,6 @@ export default function Form() {
       name: data?.name || '',
       category: data?.category || '',
       description: data?.description || '',
-      parentId: data?.parentId || '',
     }
   }
   const mutationFn = id ? useEditCampaignType(id) : useCreateCampaignType()
@@ -79,10 +72,7 @@ export default function Form() {
   })
 
   async function onSubmit(data: CampaignTypeFormData) {
-    data.parentId = parentId
-    if (data.parentId === '') {
-      delete data['parentId']
-    }
+    data.category = selectedCategory
     data.slug = createSlug(data.name)
     mutation.mutateAsync(data)
   }
@@ -96,18 +86,46 @@ export default function Form() {
         <Typography variant="h5" component="h2" sx={{ textAlign: 'center' }}>
           {id ? t('campaign-types:forms:edit-heading') : t('campaign-types:forms:add-heading')}
         </Typography>
-        <Grid sx={{ display: 'flex', marginTop: '1%' }}>
-          <Grid item xs={6} sx={{ marginRight: '10%' }}>
+        <Grid
+          sx={{ display: 'flex', marginTop: '1%' }}
+          container
+          direction="column"
+          component="section"
+          spacing={2}>
+          <Grid item xs={6} md={6}>
             <FormTextField
               type="text"
               name="name"
               autoComplete="target-amount"
               label={t('campaign-types:grid:name')}
-              multiline
-              rows={1.5}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} md={6}>
+            <InputLabel>{t('campaign-types:grid:category')}</InputLabel>
+            <Select
+              fullWidth
+              size="small"
+              sx={{
+                height: '55%',
+              }}
+              name="category"
+              defaultValue={initialValues.category || ''}
+              onChange={(e: SelectChangeEvent) => {
+                setCategory(e.target.value)
+              }}>
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              {Object.values(CampaignTypeCategory).map((type) => {
+                return (
+                  <MenuItem key={type} value={type}>
+                    {t(`campaigns:filters.${type}`)}
+                  </MenuItem>
+                )
+              })}
+            </Select>
+          </Grid>
+          <Grid item xs={12}>
             <FormTextField
               type="text"
               name="description"
@@ -117,38 +135,12 @@ export default function Form() {
               rows={3}
             />
           </Grid>
-        </Grid>
-        <Grid container spacing={2} sx={{ marginTop: '1%' }}>
-          <Grid item xs={12}>
-            <InputLabel>{t('campaign-types:grid:category')}</InputLabel>
-            <Select
-              fullWidth
-              sx={{
-                height: '55%',
-              }}
-              name="parentId"
-              defaultValue={initialValues.parentId || ''}
-              onChange={(e: SelectChangeEvent) => {
-                setParentId(e.target.value)
-              }}>
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              {Object.values(campaignTypes || [])?.map((type) => {
-                return (
-                  <MenuItem key={type.id} value={type.id}>
-                    {type.name}
-                  </MenuItem>
-                )
-              })}
-            </Select>
-          </Grid>
           <Grid item xs={6}>
             <SubmitButton fullWidth label={t('documents:cta:submit')} />
           </Grid>
           <Grid item xs={6}>
             <Link href={routes.admin.campaignTypes.index} passHref>
-              <Button>{t('documents:cta:cancel')}</Button>
+              <Button fullWidth>{t('documents:cta:cancel')}</Button>
             </Link>
           </Grid>
         </Grid>

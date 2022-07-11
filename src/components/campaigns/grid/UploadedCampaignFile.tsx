@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useMutation, useQueryClient } from 'react-query'
@@ -31,7 +30,6 @@ type Props = {
 export default function UploadedCampaignFile({ file, campaignId }: Props) {
   const { t } = useTranslation('campaigns')
   const queryClient = useQueryClient()
-  const router = useRouter()
   const { data: session } = useSession()
 
   const mutation = useMutation<AxiosResponse<CampaignFile>, AxiosError<ApiErrors>>({

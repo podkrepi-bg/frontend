@@ -14,10 +14,16 @@ import IrregularityReport from './IrregularityReport'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     sideWrapper: {
+      paddingLeft: theme.spacing(2),
       [theme.breakpoints.down('md')]: {
         maxWidth: 'max-content',
         flexBasis: 'fit-content',
+        paddingLeft: theme.spacing(0),
       },
+    },
+    donationWrapper: {
+      position: 'sticky',
+      top: theme.spacing(12),
     },
   }),
 )
@@ -37,14 +43,13 @@ export default function ViewCampaignPage({ slug }: Props) {
         <Grid
           container
           item
-          xs={4}
-          className={classes.sideWrapper}
+          xs={12}
+          sm={4}
           direction="column"
-          flexWrap="nowrap">
-          <Grid item>
+          flexWrap="nowrap"
+          className={classes.sideWrapper}>
+          <Grid item className={classes.donationWrapper}>
             <InlineDonation campaign={campaign} />
-          </Grid>
-          <Grid item>
             <IrregularityReport campaign={campaign} />
           </Grid>
         </Grid>

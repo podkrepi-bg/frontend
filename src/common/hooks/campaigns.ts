@@ -8,7 +8,9 @@ import {
   CampaignResponse,
   CampaignType,
   AdminCampaignResponse,
+  AdminSingleCampaignResponse,
 } from 'gql/campaigns'
+import { DonationStatus } from 'gql/donations.enums'
 
 export function useCampaignList() {
   return useQuery<CampaignResponse[]>(endpoints.campaign.listCampaigns.url)
@@ -32,16 +34,16 @@ export function useViewCampaign(slug: string) {
 
 export function useViewCampaignById(id: string) {
   const { data: session } = useSession()
-  return useQuery<CampaignResponse>(
+  return useQuery<AdminSingleCampaignResponse>(
     endpoints.campaign.viewCampaignById(id).url,
-    authQueryFnFactory<CampaignResponse>(session?.accessToken),
+    authQueryFnFactory<AdminSingleCampaignResponse>(session?.accessToken),
   )
 }
 
 export async function prefetchCampaignById(client: QueryClient, id: string, token?: string) {
-  await client.prefetchQuery<CampaignResponse>(
+  await client.prefetchQuery<AdminSingleCampaignResponse>(
     endpoints.campaign.viewCampaignById(id).url,
-    authQueryFnFactory<CampaignResponse>(token),
+    authQueryFnFactory<AdminSingleCampaignResponse>(token),
   )
 }
 
@@ -54,5 +56,7 @@ export function useCampaignDetailsPage(id: string) {
 }
 
 export function useCampaignDonationHistory(id: string) {
-  return useQuery<CampaignDonation[]>(endpoints.campaign.getDonations(id).url)
+  return useQuery<CampaignDonation[]>(
+    endpoints.donation.getDonations(id, DonationStatus.succeeded).url,
+  )
 }

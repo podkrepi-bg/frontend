@@ -32,13 +32,14 @@ type BaseCampaignResponse = {
   paymentReference: string
   coordinatorId: UUID
   beneficiaryId: UUID
+  organizerId: UUID | undefined
   campaignTypeId: UUID
   description: string
   targetAmount: number
   allowDonationOnComplete: boolean
   currency: string
-  startDate: string | number | Date
-  endDate: string | number | Date
+  startDate?: Date
+  endDate?: Date
   createdAt: Date
   updatedAt: Date | null
   deletedAt: Date | null
@@ -54,9 +55,17 @@ export type AdminCampaignResponse = BaseCampaignResponse & {
   coordinator: {
     person: { firstName: string; lastName: string }
   }
+  organizer?: {
+    person: { firstName: string; lastName: string }
+  }
   incomingTransfers: { amount: number }[]
   outgoingTransfers: { amount: number }[]
   summary: { reachedAmount: number }[]
+}
+
+export type AdminSingleCampaignResponse = CampaignResponse & {
+  incomingTransfers: { amount: number }[]
+  vaults: { amount: number }[]
 }
 
 export type CampaignResponse = BaseCampaignResponse & {
@@ -75,6 +84,10 @@ export type CampaignResponse = BaseCampaignResponse & {
     id: UUID
     person: { id: UUID; firstName: string; lastName: string }
   }
+  organizer?: {
+    id: UUID
+    person: { id: UUID; firstName: string; lastName: string }
+  }
   campaignFiles?: CampaignFile[]
 }
 
@@ -83,6 +96,7 @@ export type CampaignCreateFormData = {
   campaignTypeId: string
   beneficiaryId: string
   coordinatorId: string
+  organizerId: string
   targetAmount: number
   allowDonationOnComplete?: boolean
   startDate: Date | string | undefined
@@ -93,11 +107,16 @@ export type CampaignCreateFormData = {
   gdpr: boolean
 }
 
+export type CampaignAdminCreateFormData = CampaignCreateFormData & {
+  currency: Currency
+}
+
 export type CampaignEditFormData = {
   title: string
   campaignTypeId: string
   beneficiaryId: string
   coordinatorId: string
+  organizerId: string
   targetAmount: number
   allowDonationOnComplete?: boolean
   startDate: Date | string | undefined
@@ -105,6 +124,7 @@ export type CampaignEditFormData = {
   state: CampaignState
   description: string
   campaignFiles: CampaignFile[]
+  currency: Currency
 }
 
 export type CampaignInput = {
@@ -115,6 +135,7 @@ export type CampaignInput = {
   campaignTypeId: UUID
   beneficiaryId: UUID
   coordinatorId: UUID
+  organizerId: UUID
   targetAmount: number
   allowDonationOnComplete?: boolean
   currency: string

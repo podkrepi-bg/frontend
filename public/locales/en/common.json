@@ -25,7 +25,7 @@
       "open-source": "Open Source",
       "open-data": "Open Data"
     },
-    "donation-menu": "Donation",
+    "donation-menu": "Donatе",
     "blog": "Blog",
     "profile": "Profile",
     "login": "Login",
@@ -47,7 +47,7 @@
   },
   "close": "Close",
   "link": "Link",
-  "support": "Support",
+  "support": "Donate",
   "improve-this-page": "Improve this page:",
   "github-link-text": "GitHub Source",
   "figma-link-text": "Figma Design",

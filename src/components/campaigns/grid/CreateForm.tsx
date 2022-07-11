@@ -18,7 +18,9 @@ import FileUpload from 'components/file-upload/FileUpload'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
+import FormRichTextField from 'components/common/form/FormRichTextField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
+
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import { useCreateCampaign, useUploadCampaignFiles } from 'service/campaign'
 import { CampaignFileRole, FileRole, UploadCampaignFiles } from 'components/campaign-file/roles'
@@ -27,7 +29,7 @@ import {
   CampaignResponse,
   CampaignInput,
   CampaignUploadImage,
-  CampaignCreateFormData,
+  CampaignAdminCreateFormData,
 } from 'gql/campaigns'
 
 import CampaignTypeSelect from '../CampaignTypeSelect'
@@ -35,6 +37,8 @@ import CoordinatorSelect from './CoordinatorSelect'
 import BeneficiarySelect from './BeneficiarySelect'
 import { CampaignState } from '../helpers/campaign.enums'
 import { toMoney } from 'common/util/money'
+import CurrencySelect from 'components/currency/CurrencySelect'
+import OrganizerSelect from './OrganizerSelect'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -46,17 +50,18 @@ const parseDateString = (value: string, originalValue: string) => {
   return parsedDate
 }
 
-const validationSchema: yup.SchemaOf<CampaignCreateFormData> = yup
+const validationSchema: yup.SchemaOf<CampaignAdminCreateFormData> = yup
   .object()
   .defined()
   .shape({
     title: yup.string().trim().min(10).max(100).required(),
-    description: yup.string().trim().min(50).max(4000).required(),
+    description: yup.string().trim().min(50).max(20000).required(),
     targetAmount: yup.number().integer().positive().required(),
     allowDonationOnComplete: yup.bool().optional(),
     campaignTypeId: yup.string().uuid().required(),
     beneficiaryId: yup.string().uuid().required(),
     coordinatorId: yup.string().uuid().required(),
+    organizerId: yup.string().uuid().required(),
     startDate: yup.date().transform(parseDateString).required(),
     state: yup.mixed().oneOf(Object.values(CampaignState)).required(),
     endDate: yup
@@ -65,29 +70,33 @@ const validationSchema: yup.SchemaOf<CampaignCreateFormData> = yup
       .min(yup.ref('startDate'), `end date can't be before start date`),
     terms: yup.bool().required().oneOf([true], 'validation:terms-of-use'),
     gdpr: yup.bool().required().oneOf([true], 'validation:terms-of-service'),
+    currency: yup.mixed().oneOf(Object.values(Currency)).required(),
   })
 
-const defaults: CampaignCreateFormData = {
+const defaults: CampaignAdminCreateFormData = {
   title: '',
   campaignTypeId: '',
   beneficiaryId: '',
   coordinatorId: '',
+  organizerId: '',
   targetAmount: 1000,
   allowDonationOnComplete: false,
   startDate: format(new Date(), formatString),
   state: CampaignState.draft,
-  endDate: format(new Date().setMonth(new Date().getMonth() + 1), formatString),
+  endDate: '',
   description: '',
   terms: false,
   gdpr: false,
+  currency: Currency.BGN,
 }
 
-export type CampaignFormProps = { initialValues?: CampaignCreateFormData }
+export type CampaignFormProps = { initialValues?: CampaignAdminCreateFormData }
 
 export default function CampaignForm({ initialValues = defaults }: CampaignFormProps) {
   const router = useRouter()
   const [files, setFiles] = useState<File[]>([])
   const [roles, setRoles] = useState<FileRole[]>([])
+
   const { t } = useTranslation()
 
   const mutation = useMutation<
@@ -109,8 +118,8 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
   })
 
   const onSubmit = async (
-    values: CampaignCreateFormData,
-    { setFieldError }: FormikHelpers<CampaignCreateFormData>,
+    values: CampaignAdminCreateFormData,
+    { setFieldError }: FormikHelpers<CampaignAdminCreateFormData>,
   ) => {
     try {
       const response = await mutation.mutateAsync({
@@ -126,7 +135,8 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
         campaignTypeId: values.campaignTypeId,
         beneficiaryId: values.beneficiaryId,
         coordinatorId: values.coordinatorId,
-        currency: Currency.BGN,
+        organizerId: values.organizerId,
+        currency: values.currency.toString(),
       })
       if (files.length > 0) {
         await fileUploadMutation.mutateAsync({
@@ -174,16 +184,19 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               autoComplete="title"
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={5}>
             <CampaignTypeSelect />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={5}>
             <FormTextField
               type="number"
               name="targetAmount"
               autoComplete="target-amount"
               label="campaigns:campaign.amount"
             />
+          </Grid>
+          <Grid item xs={12} sm={2}>
+            <CurrencySelect />
           </Grid>
           <Grid item xs={12} sm={6}>
             <FormTextField
@@ -208,17 +221,10 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
             />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField
-              rows={5}
-              multiline
-              type="text"
-              name="description"
-              label="campaigns:campaign.description"
-              autoComplete="description"
-              sx={{ '& textarea': { resize: 'vertical' } }}
-            />
+            <Typography>{t('campaigns:campaign.description')}</Typography>
+            <FormRichTextField name="description" />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12}>
             <p>
               Select a Beneficiery or{' '}
               <Link href={routes.admin.beneficiary.create} passHref>
@@ -235,6 +241,15 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               </Link>
             </p>
             <CoordinatorSelect />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <p>
+              Select an Organizer or{' '}
+              <Link href={routes.admin.organizers.create} passHref>
+                Create New
+              </Link>
+            </p>
+            <OrganizerSelect />
           </Grid>
           <Grid item xs={12}>
             <FileUpload

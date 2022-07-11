@@ -20,6 +20,7 @@ import {
 import { Favorite } from '@mui/icons-material'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
+import Image from 'next/image'
 
 const PREFIX = 'CampaignCard'
 
@@ -63,14 +64,13 @@ const StyledCard = styled(Card)(({ theme }) => ({
   },
 
   [`& .${classes.cardContent}`]: {
-    minHeight: theme.spacing(25),
+    minHeight: theme.spacing(20),
   },
 }))
 
 type Props = { campaign: CampaignResponse }
 export default function CampaignCard({ campaign }: Props) {
   const { t } = useTranslation()
-
   const target = campaign.targetAmount
   const summary = campaign.summary.find(() => true)
   const pictureUrl = campaignListPictureUrl(campaign)
@@ -80,14 +80,14 @@ export default function CampaignCard({ campaign }: Props) {
     <StyledCard variant="outlined" className={classes.cardWrapper}>
       <CardActionArea>
         <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)}>
-          <CardMedia
-            className={classes.media}
-            image={pictureUrl}
-            title="campaign image placeholder"
-          />
+          <CardMedia className={classes.media} title="campaign image placeholder">
+            <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+              <Image src={pictureUrl} layout="fill" objectFit="contain" />
+            </div>
+          </CardMedia>
         </Link>
         <CardContent className={classes.cardContent}>
-          <Typography textAlign={'left'} gutterBottom variant="h5" component="h2">
+          <Typography textAlign={'center'} gutterBottom variant="h5" component="h2">
             {campaign.title}
           </Typography>
           <Typography textAlign={'left'} variant="body2" color="textSecondary" component="p">
@@ -100,8 +100,8 @@ export default function CampaignCard({ campaign }: Props) {
           <Box p={2} width={1}>
             <CampaignProgress raised={reached} target={target} />
           </Box>
-          <Typography variant="subtitle1" component="p" className={classes.progressBar}>
-            {t('campaigns:campaign.reached')} <b>{money(reached)}</b> /{' '}
+          <Typography variant="body1" component="p" className={classes.progressBar}>
+            {t('campaigns:campaign.reached')} <b>{money(reached)}</b> {t('campaigns:campaign.from')}{' '}
             {t('campaigns:campaign.target')} <b>{money(target)}</b>
           </Typography>
           <Grid item xs={12}>

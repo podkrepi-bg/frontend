@@ -11,7 +11,8 @@
   "status": "Статут",
   "title": "Заглавие",
   "essence": "Същност",
-  "coordinator": "Кординатор",
+  "coordinator": "Кoординатор",
+  "organizer": "Организатор",
   "beneficiary": "Бенефициент",
   "campaignType": "Вид на капманията",
   "description": "Описание",
@@ -48,7 +49,7 @@
     "save": "Запази",
     "submit": "Изпрати",
     "apply": "Кандидатствайте",
-    "support-now": "Подкрепете сега",
+    "support-now": "Дари сега",
     "support-cause-today": "Подкрепете кауза днес!",
     "share": "Сподели",
     "donate-now": "Дари сега",
@@ -137,12 +138,17 @@
       "create": "Създай бенефициент"
     },
     "coordinator": {
+      "name": "Координатор:",
+      "add": "Добави координатор",
+      "create": "Създай координатор"
+    },
+    "organizer": {
       "name": "Организатор:",
       "add": "Добави организатор",
       "create": "Създай организатор"
     },
-    "operator": "Подкрепи.бг Оператор:",
-    "write-to-operator": "Пишете на Оператор",
+    "podkrepi-bg-coordinator": "Подкрепи.бг Координатор:",
+    "write-to-coordinator": "Пишете на Координатор",
     "description": "Описание",
     "start-date": "Начална дата:",
     "end-date": "Крайна дата:",
@@ -167,5 +173,19 @@
     "anonymous": "Анонимен",
     "none": "Няма направени дарения",
     "lv": "лв"
+  },
+  "campaign-status": {
+    "initial": "в начален етапп",
+    "draft": "чернова",
+    "pending-validation": "чакаща валидация",
+    "approved": "одобрена",
+    "rejected": "отхвърлена",
+    "active": "активна",
+    "active-pending-validation": "активна чака валидиране",
+    "suspended": "спряна",
+    "complete": "завършена",
+    "disabled": "деактивирана",
+    "error": "грешна",
+    "deleted": "изтрита"
   }
 }
