@@ -64,7 +64,7 @@ export default function UploadedCampaignFile({ file, campaignId }: Props) {
         </Avatar>
       </ListItemAvatar>
       <ListItemText primary={file.filename} />
-      <ListItemText primary={file.role} />
+      <ListItemText primary={file.role} sx={{ textAlign: 'right', pr: 'inherit' }} />
       <></>
       <Tooltip title={'download'}>
         <Button onClick={downloadFileHandler}>{t('cta.download')}</Button>
