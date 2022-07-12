@@ -11,7 +11,6 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 const PREFIX = 'CampaignInfoOrganizer'
 
 const classes = {
-  organizerWrapper: `${PREFIX}-organizerWrapper`,
   infoButtonWrapper: `${PREFIX}-infoButtonWrapper`,
   infoButtonIcon: `${PREFIX}-infoButtonIcon`,
   personAvatar: `${PREFIX}-personAvatar`,
@@ -21,13 +20,6 @@ const classes = {
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
-  [`& .${classes.organizerWrapper}`]: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'nowrap',
-    alignItems: 'flex-start',
-  },
-
   [`& .${classes.avatarWrapper}`]: {
     paddingLeft: theme.spacing(2.5),
     [theme.breakpoints.up('lg')]: {
@@ -80,8 +72,8 @@ export default function CampaignInfoOrganizer({ campaign }: Props) {
   const organizerAvatarSource = organizerCampaignPictureUrl(campaign)
 
   return (
-    <StyledGrid container gap={3} className={classes.organizerWrapper} flexWrap="nowrap">
-      <Grid item className={classes.avatarWrapper}>
+    <StyledGrid container item gap={3}>
+      <Grid item className={classes.avatarWrapper} minWidth="max-content">
         <Image
           src={organizerAvatarSource}
           alt={campaign.title}

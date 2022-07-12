@@ -21,10 +21,11 @@ const classes = {
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.coordinatorWrapper}`]: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'nowrap',
-    alignItems: 'flex-start',
+    // display: 'flex',
+    // flexDirection: 'row',
+    // flexWrap: 'nowrap',
+    // alignItems: 'flex-start',
+    // backgroundColor: 'red',
   },
 
   [`& .${classes.avatarWrapper}`]: {
