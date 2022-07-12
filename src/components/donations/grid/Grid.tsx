@@ -8,7 +8,6 @@ import { observer } from 'mobx-react'
 import { routes } from 'common/routes'
 import { useVault } from 'common/hooks/vaults'
 import { useCampaignDonationsList, useDonationsList } from 'common/hooks/donation'
-import { useViewPerson } from 'service/person'
 import { DonationResponse } from 'gql/donations'
 import GridActions from 'components/admin/GridActions'
 
@@ -32,15 +31,13 @@ export default observer(function Grid() {
   const { data }: UseQueryResult<DonationResponse[]> = campaignId
     ? useCampaignDonationsList(campaignId as string)
     : useDonationsList()
-
   const RenderVaultCell = ({ params }: RenderCellProps) => {
     const vault = useVault(params.row.targetVaultId)
     return <>{vault.data?.name}</>
   }
-
   const RenderPersonCell = ({ params }: RenderCellProps) => {
-    const person = useViewPerson(params.row.personId)
-    return <>{person.data?.firstName + ' ' + person.data?.lastName}</>
+    const { firstName, lastName } = params.row.person
+    return <>{firstName + ' ' + lastName}</>
   }
 
   const RenderMoneyCell = ({ params }: RenderCellProps) => {
