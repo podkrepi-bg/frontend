@@ -95,8 +95,8 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
           }}
           autoComplete="off">
           <StyledStepper>
-            <Stepper alternativeLabel activeStep={step}>
-              {childrenArray.map((child, index) => (
+            <Stepper activeStep={step}>
+              {childrenArray.map((child, index, label) => (
                 <Step key={index}>
                   <StepLabel classes={{ alternativeLabel: classes.stepIcon }}>
                     {child.props.label}
