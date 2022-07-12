@@ -50,8 +50,10 @@ export default function DonationStepper() {
   if (!data || !data.campaign) return <NotFoundPage />
   const { campaign } = data
   const mutation = useDonationSession()
+
   const { data: session } = useSession()
   const userEmail = session?.user?.email
+
   const donate = React.useCallback(
     async (amount?: number, priceId?: string, values?: OneTimeDonation) => {
       const { data } = await mutation.mutateAsync({
@@ -66,7 +68,9 @@ export default function DonationStepper() {
         successUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=true`,
         cancelUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=false`,
       })
-      if (data.session.url) {
+
+      if (data.session.url && values?.payment != 'bank') {
+        //send the user to payment provider
         window.location.href = data.session.url
       }
     },
@@ -77,6 +81,11 @@ export default function DonationStepper() {
     values: OneTimeDonation,
     { setFieldError, resetForm }: FormikHelpers<OneTimeDonation>,
   ) => {
+    if (values?.payment === 'bank') {
+      router.push(`${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=true`)
+      return
+    }
+
     try {
       const data = {
         currency: campaign.currency,
@@ -96,22 +105,22 @@ export default function DonationStepper() {
   }
   const steps: StepType[] = [
     {
-      label: 'First Step',
+      label: 'amount',
       component: <FirstStep />,
       validate: validateFirst,
     },
     {
-      label: 'Second Step',
+      label: 'personal-info',
       component: <SecondStep />,
       validate: validateSecond,
     },
     {
-      label: 'Third Step',
+      label: 'wish',
       component: <ThirdStep />,
       validate: validateThird,
     },
     {
-      label: 'Last Step',
+      label: 'payment',
       component: success ? <Success /> : <Fail />,
       validate: null,
     },
@@ -124,7 +133,7 @@ export default function DonationStepper() {
       ) : (
         <FormikStepper onSubmit={onSubmit} initialValues={initialValues}>
           {steps.map(({ label, component, validate }) => (
-            <FormikStep key={label} validationSchema={validate}>
+            <FormikStep key={label} label={t(`step-labels.${label}`)} validationSchema={validate}>
               {component}
             </FormikStep>
           ))}

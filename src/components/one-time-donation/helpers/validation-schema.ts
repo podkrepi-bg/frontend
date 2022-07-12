@@ -26,7 +26,7 @@ export const validateSecond: yup.SchemaOf<SecondStep> = yup
       is: false,
       then: yup.boolean().required(),
     }),
-    personsEmail: email.required(),
+    personsEmail: email.notRequired(),
     personsFirstName: name.notRequired(),
     personsLastName: name.notRequired(),
     personsPhone: phone.notRequired(),

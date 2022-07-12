@@ -125,7 +125,7 @@ export type SecondStep = {
   personsFirstName?: string
   personsLastName?: string
   personsPhone?: string
-  personsEmail: string
+  personsEmail?: string
 }
 
 export type ThirdStep = {
