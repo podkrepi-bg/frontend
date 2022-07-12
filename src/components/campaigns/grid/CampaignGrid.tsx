@@ -46,10 +46,6 @@ const DisplayBeneficiary = ({ params }: CampaignCellProps) => {
   )
 }
 
-const DisplayCampaignType = ({ params }: CampaignCellProps) => {
-  return <>{params.row.campaignType.name}</>
-}
-
 const DisplayExpandableDescription = (params: GridRenderCellParams<string>) => {
   return <GridCellExpand value={params.value || ''} width={params.colDef.computedWidth} />
 }
@@ -83,7 +79,6 @@ export default function CampaignGrid() {
     width: 100,
     headerAlign: 'left',
   }
-
   const columns: GridColumns = [
     {
       field: 'actions',
@@ -163,9 +158,9 @@ export default function CampaignGrid() {
       ...commonProps,
       align: 'left',
       width: 250,
-      renderCell: (params: GridRenderCellParams) => {
-        return <DisplayCampaignType params={params} />
-      },
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <>{t('campaigns:campaign.types.' + `${cellValues.row.campaignType.slug}`)}</>
+      ),
     },
     {
       field: 'description',
