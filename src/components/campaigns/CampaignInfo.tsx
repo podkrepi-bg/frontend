@@ -19,7 +19,8 @@ const classes = {
   campaignText: `${PREFIX}-campaignText`,
   campaignTextWithIcon: `${PREFIX}-campaignTextWithIcon`,
   divider: `${PREFIX}-divider`,
-  stateDivider: `${PREFIX}-stateDivider`,
+  stateActiveDivider: `${PREFIX}-stateActiveDivider`,
+  stateCompletedDivider: `${PREFIX}-stateCompletedDivider`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
@@ -52,22 +53,38 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 
   [`& .${classes.campaignText}`]: {
-    fontSize: theme.spacing(2),
+    fontSize: theme.spacing(1.8),
     flexWrap: 'wrap',
     paddingLeft: theme.spacing(3.5),
+    [theme.breakpoints.up('lg')]: {
+      fontSize: theme.spacing(2),
+    },
   },
 
   [`& .${classes.campaignTextWithIcon}`]: {
-    fontSize: theme.spacing(2),
+    fontSize: theme.spacing(1.8),
     flexWrap: 'wrap',
+    [theme.breakpoints.up('lg')]: {
+      fontSize: theme.spacing(2),
+    },
   },
 
-  [`& .${classes.stateDivider}`]: {
+  [`& .${classes.stateActiveDivider}`]: {
     borderRightWidth: 2,
     borderBottomWidth: 2,
     borderColor: '#00FF00',
     marginLeft: theme.spacing(3.5),
-    width: '160px',
+    width: '145px',
+    [theme.breakpoints.up('lg')]: {
+      display: 'none',
+    },
+  },
+  [`& .${classes.stateCompletedDivider}`]: {
+    borderRightWidth: 2,
+    borderBottomWidth: 2,
+    borderColor: '#00FF00',
+    marginLeft: theme.spacing(3.5),
+    width: '163px',
     [theme.breakpoints.up('lg')]: {
       display: 'none',
     },
@@ -85,18 +102,22 @@ export default function CampaignInfo({ campaign }: Props) {
   return (
     <StyledGrid mb={5}>
       <Grid container gap={0} className={classes.infoBlockWrapper}>
-        <CampaignInfoOrganizer campaign={campaign} />
+        <Grid item xs={12} lg={5}>
+          <CampaignInfoOrganizer campaign={campaign} />
+        </Grid>
         <Divider className={classes.divider} />
-        <Grid container mb={4} className={classes.infoDetailsWrapper}>
+        <Grid container item xs={12} lg={6} mb={4} className={classes.infoDetailsWrapper}>
           <Typography
             variant="subtitle2"
             component="p"
-            display="flex"
+            display="block"
             gap="5px"
-            pr={2}
             className={classes.campaignTextWithIcon}>
-            <FavoriteIcon color="action" />
-            <strong>{campaign.campaignType?.name}</strong>
+            <FavoriteIcon color="action" sx={{ mb: '-6px', mr: '3px' }} />
+            <strong>
+              {t('campaigns:filters.' + `${campaign.campaignType.category}`)}/{' '}
+              {t('campaigns:campaign.types.' + `${campaign.campaignType?.slug}`)}
+            </strong>
           </Typography>
           {/* TODO: Dynamic campaign tagging is needed here based on activity (urgent, hot, the long-shot, etc) 
          <Typography
@@ -111,7 +132,11 @@ export default function CampaignInfo({ campaign }: Props) {
             <strong>{t('campaigns:campaign.status')}</strong>{' '}
             {t(`campaigns:campaign-status.${campaign.state}`)}
           </Typography>
-          <Divider className={classes.stateDivider} />
+          {campaign.state === 'active' ? (
+            <Divider className={classes.stateActiveDivider} />
+          ) : (
+            <Divider className={classes.stateCompletedDivider} />
+          )}
           <Typography
             variant="subtitle2"
             component="p"

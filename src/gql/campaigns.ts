@@ -48,6 +48,7 @@ type BaseCampaignResponse = {
 export type AdminCampaignResponse = BaseCampaignResponse & {
   campaignType: {
     name: string
+    slug: string
   }
   beneficiary: {
     person: { firstName: string; lastName: string }
@@ -72,6 +73,7 @@ export type CampaignResponse = BaseCampaignResponse & {
   campaignType: {
     name: string
     category: CampaignTypeCategory
+    slug: string
   }
   summary: { reachedAmount: number; donors?: number }[]
   beneficiary: {
