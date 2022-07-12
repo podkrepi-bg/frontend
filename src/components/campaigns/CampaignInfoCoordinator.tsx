@@ -11,7 +11,6 @@ import EmailIcon from '@mui/icons-material/Email'
 const PREFIX = 'CampaignInfoCoordinator'
 
 const classes = {
-  coordinatorWrapper: `${PREFIX}-coordinatorWrapper`,
   infoButtonWrapper: `${PREFIX}-infoButtonWrapper`,
   personAvatar: `${PREFIX}-personAvatar`,
   avatarWrapper: `${PREFIX}-avatarWrapper`,
@@ -20,14 +19,6 @@ const classes = {
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
-  [`& .${classes.coordinatorWrapper}`]: {
-    // display: 'flex',
-    // flexDirection: 'row',
-    // flexWrap: 'nowrap',
-    // alignItems: 'flex-start',
-    // backgroundColor: 'red',
-  },
-
   [`& .${classes.avatarWrapper}`]: {
     paddingLeft: theme.spacing(2.5),
     [theme.breakpoints.up('lg')]: {
@@ -70,7 +61,7 @@ export default function CampaignInfoCoordinator({ campaign }: Props) {
   const coordinatorAvatarSource = coordinatorCampaignPictureUrl(campaign)
 
   return (
-    <StyledGrid container gap={3} className={classes.coordinatorWrapper}>
+    <StyledGrid container gap={3}>
       <Grid item className={classes.avatarWrapper}>
         <Image
           src={coordinatorAvatarSource}
