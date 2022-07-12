@@ -34,6 +34,7 @@ export type DonationResponse = {
   currency: Currency
   amount: number
   personId?: UUID
+  person: { firsName: string; lastNAme: string }
 }
 
 export type UserDonationResponse = DonationResponse & {
