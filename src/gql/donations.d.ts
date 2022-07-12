@@ -18,6 +18,10 @@ export type CheckoutSessionInput = {
   campaignId: string
   successUrl?: string
   cancelUrl?: string
+  firstName?: string
+  lastName?: string
+  personEmail: string
+  phone?: string | null
 }
 
 export type DonationResponse = {
@@ -92,10 +96,10 @@ export type OneTimeDonation = {
   amount: string
   otherAmount: number
   anonymousDonation: boolean
-  personFirstName: string
-  personLastName: string
-  personEmail: string
-  personPhone: string
+  personsFirstName: string
+  personsLastName: string
+  personsEmail: string
+  personsPhone: string
   payment?: 'bank' | 'card'
   loginPassword?: string
   loginEmail?: string

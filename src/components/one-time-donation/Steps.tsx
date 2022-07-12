@@ -18,6 +18,7 @@ import Fail from './steps/Fail'
 import { FormikStep, FormikStepper } from './FormikStepper'
 import { validateFirst, validateSecond, validateThird } from './helpers/validation-schema'
 import { StepsContext } from './helpers/stepperContext'
+import { useSession } from 'next-auth/react'
 import { toMoney } from 'common/util/money'
 
 const initialValues: OneTimeDonation = {
@@ -26,10 +27,10 @@ const initialValues: OneTimeDonation = {
   amount: '',
   otherAmount: 0,
   anonymousDonation: false,
-  personFirstName: '',
-  personLastName: '',
-  personEmail: '',
-  personPhone: '',
+  personsFirstName: '',
+  personsLastName: '',
+  personsEmail: '',
+  personsPhone: '',
   payment: 'card',
   loginEmail: '',
   loginPassword: '',
@@ -49,14 +50,19 @@ export default function DonationStepper() {
   if (!data || !data.campaign) return <NotFoundPage />
   const { campaign } = data
   const mutation = useDonationSession()
-
+  const { data: session } = useSession()
+  const userEmail = session?.user?.email
   const donate = React.useCallback(
-    async (amount?: number, priceId?: string) => {
+    async (amount?: number, priceId?: string, values?: OneTimeDonation) => {
       const { data } = await mutation.mutateAsync({
         mode: 'payment',
         amount,
         priceId,
         campaignId: campaign.id,
+        firstName: values?.personsFirstName ? values.personsFirstName : 'Anonymous',
+        lastName: values?.personsLastName ? values.personsLastName : 'Donor',
+        personEmail: values?.personsEmail ? values.personsEmail : userEmail!,
+        phone: values?.personsPhone ? values.personsPhone : null,
         successUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=true`,
         cancelUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=false`,
       })
@@ -77,7 +83,7 @@ export default function DonationStepper() {
         priceId: values.amount !== 'other' ? values.amount : undefined,
         amount: values.amount === 'other' ? toMoney(values.otherAmount) : undefined,
       }
-      await donate(data.amount, data.priceId)
+      await donate(data.amount, data.priceId, values)
       resetForm()
     } catch (error) {
       if (isAxiosError(error)) {
