@@ -12,6 +12,9 @@ import CampaignInfo from './CampaignInfo'
 import { styled } from '@mui/material/styles'
 import { Divider, Grid, Typography } from '@mui/material'
 import CampaignInfoCoordinator from './CampaignInfoCoordinator'
+import SecurityIcon from '@mui/icons-material/Security'
+import { useTranslation } from 'next-i18next'
+import LinkButton from 'components/common/LinkButton'
 
 import dynamic from 'next/dynamic'
 import 'react-quill/dist/quill.bubble.css'
@@ -26,6 +29,7 @@ const classes = {
   beneficiaryAvatarWrapper: `${PREFIX}-beneficiaryAvatarWrapper`,
   beneficiaryAvatar: `${PREFIX}-beneficiaryAvatar`,
   beneficiaryName: `${PREFIX}-beneficiaryName`,
+  linkButton: `${PREFIX}-linkButton`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
@@ -84,6 +88,11 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     paddingLeft: '0',
     paddingRight: '0',
   },
+  [`& .${classes.linkButton}`]: {
+    textDecoration: 'underline',
+    fontSize: theme.spacing(1.5),
+    color: 'initial',
+  },
 }))
 
 type Props = {
@@ -91,6 +100,7 @@ type Props = {
 }
 
 export default function CampaignDetails({ campaign }: Props) {
+  const { t } = useTranslation()
   const bannerSource = backgroundCampaignPictureUrl(campaign)
   const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
   const sliderImages = campaignSliderUrls(campaign)
@@ -138,6 +148,24 @@ export default function CampaignDetails({ campaign }: Props) {
         {/* <Grid item xs={12}>
           <CampaignMessages />
         </Grid> */}
+        <Grid container item xs={12}>
+          <Grid item xs={12}>
+            <LinkButton
+              startIcon={<SecurityIcon color="action" />}
+              href={'mailto:info@podkrepi.bg?subject=Feedback: ' + campaign.title}
+              className={classes.linkButton}>
+              {t('campaigns:campaign.feedback')}
+            </LinkButton>
+          </Grid>
+          <Grid item xs={12}>
+            <LinkButton
+              startIcon={<SecurityIcon color="action" />}
+              href={`/campaigns/${campaign.slug}/irregularity`}
+              className={classes.linkButton}>
+              {t('campaigns:campaign.report-irregularity')}
+            </LinkButton>
+          </Grid>
+        </Grid>
       </Grid>
     </StyledGrid>
   )
