@@ -49,10 +49,16 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.reachedMoney}`]: {
     fontSize: theme.spacing(5),
     fontWeight: 500,
+    [theme.breakpoints.down('md')]: {
+      fontSize: theme.spacing(3),
+    },
   },
 
   [`& .${classes.targetMoney}`]: {
     fontSize: theme.spacing(3),
+    [theme.breakpoints.down('md')]: {
+      fontSize: theme.spacing(2),
+    },
   },
 
   [`& .${classes.donorsSharesCount}`]: {
@@ -64,6 +70,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     display: 'contents',
     textAlignLast: 'center',
   },
+
   [`& .${classes.dropdownLinkButton}`]: {
     '&:hover': {
       backgroundColor: lighten(theme.palette.primary.main, 0.9),
@@ -77,6 +84,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
       color: theme.palette.primary.main,
     },
   },
+
   [`& .${classes.buttonContainer}`]: {
     [theme.breakpoints.down('md')]: {
       display: 'flex',
@@ -84,11 +92,13 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
       marginTop: theme.spacing(2),
     },
   },
+
   [`& .${classes.sharesContainer}`]: {
     [theme.breakpoints.down('md')]: {
       display: 'none',
     },
   },
+
   [`& .${classes.openButton}`]: {
     textAlign: 'center',
     marginBottom: `-${theme.spacing(7)}`,
@@ -135,10 +145,10 @@ export default function InlineDonation({ campaign }: Props) {
       <Grid mb={2}>
         <Typography component="span" className={classes.reachedMoney}>
           {money(reached)}
-        </Typography>{' '}
-        {t('campaigns:campaign.from')}{' '}
+        </Typography>
         <Typography component="span" className={classes.targetMoney}>
-          {money(target)}
+          {' '}
+          {t('campaigns:campaign.from')} {money(target)}
         </Typography>
       </Grid>
       <CampaignProgress raised={reached} target={target} />
