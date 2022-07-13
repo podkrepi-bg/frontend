@@ -6,6 +6,8 @@
   "name": "Name",
   "currency": "Currency",
   "amount": "Amount",
+  "blocked-amount": "Blocked Amount",
+  "reached-amount": "Reached Amount",
   "createdAt": "Created at",
   "updatedAt": "Updated at",
   "campaignId": "Campaign ID",
