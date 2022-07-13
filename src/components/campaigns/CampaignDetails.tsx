@@ -145,7 +145,7 @@ export default function CampaignDetails({ campaign }: Props) {
         <Grid item xs={12}>
           <CampaignInfoCoordinator campaign={campaign} />
         </Grid>
-        {/* temporaryy disabled */}
+        {/* temporarily disabled */}
         {/* <Grid item xs={12}>
           <CampaignMessages />
         </Grid> */}
