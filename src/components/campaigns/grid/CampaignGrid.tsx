@@ -51,19 +51,21 @@ const DisplayExpandableDescription = (params: GridRenderCellParams<string>) => {
 }
 
 const DisplayReachedAmount = ({ params }: CampaignCellProps) => {
-  const summary = params.row.summary.find(() => true)
-  const reached = summary?.reachedAmount ?? 0
+  let reached = 0
+  params.row.vaults.forEach((el) => (reached += el.donations.reduce((a, b) => a + b.amount, 0)))
   return <>{money(reached, params.row.currency)}</>
 }
 
-// #TODO: Remove when vaults work properly
+const DisplayBlockedAmount = ({ params }: CampaignCellProps) => {
+  const blocked = params.row.vaults.reduce((a, b) => a + b.blockedAmount, 0)
+  return <>{money(blocked, params.row.currency)}</>
+}
+
 const DisplayCurrentAmount = ({ params }: CampaignCellProps) => {
-  const incoming = params.row.incomingTransfers.reduce((acc, transfer) => acc + transfer.amount, 0)
-  const outgoing = params.row.outgoingTransfers.reduce((acc, transfer) => acc + transfer.amount, 0)
-  const result = incoming - outgoing
-  const summary = params.row.summary.find(() => true)
-  const reached = summary?.reachedAmount ?? 0
-  const avilableAmount = reached - result
+  let reached = 0
+  const blocked = params.row.vaults.reduce((a, b) => a + b.blockedAmount, 0)
+  params.row.vaults.forEach((el) => (reached += el.donations.reduce((a, b) => a + b.amount, 0)))
+  const avilableAmount = reached - blocked
   return <>{money(avilableAmount, params.row.currency)}</>
 }
 
@@ -79,6 +81,7 @@ export default function CampaignGrid() {
     width: 100,
     headerAlign: 'left',
   }
+
   const columns: GridColumns = [
     {
       field: 'actions',
@@ -183,13 +186,13 @@ export default function CampaignGrid() {
       ),
     },
     {
-      field: 'targetAmount',
-      headerName: t('campaigns:targetAmount'),
+      field: 'blockedAmount',
+      headerName: t('campaigns:blocked-amount'),
       ...commonProps,
       align: 'right',
-      width: 150,
+      width: 200,
       renderCell: (cellValues: GridRenderCellParams) => (
-        <>{money(cellValues.row.targetAmount, cellValues.row.currency)}</>
+        <DisplayBlockedAmount params={cellValues} />
       ),
     },
     {
@@ -200,6 +203,16 @@ export default function CampaignGrid() {
       width: 200,
       renderCell: (cellValues: GridRenderCellParams) => (
         <DisplayCurrentAmount params={cellValues} />
+      ),
+    },
+    {
+      field: 'targetAmount',
+      headerName: t('campaigns:targetAmount'),
+      ...commonProps,
+      align: 'right',
+      width: 150,
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <>{money(cellValues.row.targetAmount, cellValues.row.currency)}</>
       ),
     },
     {
