@@ -145,6 +145,7 @@ export default function CampaignDetails({ campaign }: Props) {
         <Grid item xs={12}>
           <CampaignInfoCoordinator campaign={campaign} />
         </Grid>
+        {/* temporaryy disabled */}
         {/* <Grid item xs={12}>
           <CampaignMessages />
         </Grid> */}
@@ -152,7 +153,7 @@ export default function CampaignDetails({ campaign }: Props) {
           <Grid item xs={12}>
             <LinkButton
               startIcon={<SecurityIcon color="action" />}
-              href={'mailto:info@podkrepi.bg?subject=Feedback: ' + campaign.title}
+              href={'/contact'}
               className={classes.linkButton}>
               {t('campaigns:campaign.feedback')}
             </LinkButton>
