@@ -50,7 +50,7 @@ export default function ViewCampaignPage({ slug }: Props) {
           className={classes.sideWrapper}>
           <Grid item className={classes.donationWrapper}>
             <InlineDonation campaign={campaign} />
-            <IrregularityReport campaign={campaign} />
+            {/* <IrregularityReport campaign={campaign} /> */}
           </Grid>
         </Grid>
       </Grid>
