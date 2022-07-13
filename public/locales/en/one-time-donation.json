@@ -1,7 +1,13 @@
 {
+  "step-labels": {
+    "amount": "Select amount",
+    "personal-profile": "Personal profile",
+    "wish": "Send a wish",
+    "payment": "Payment"
+  },
   "anonymous-menu": {
-    "checkbox-label": "Donate without registering",
-    "info-start": "For us to be sure that the donation will go to the right beneficient we would like to access your personal data. Your data would not be visible on the platform. Your certificate would be sent by email. You would not be able to see accountability and reporting",
+    "checkbox-label": "Donate anonymously",
+    "info-start": "When donating without registration we won't be able to send you back a donation certificate or a list of your donations. If you still want to receive a certificate, please share at least your contact data - it will not be visible in the platform.",
     "firstName": "First name",
     "lastName": "Last name",
     "phone": "Telephone",
@@ -20,7 +26,9 @@
     "checkbox-label": "Remember me",
     "btn-login": "Log in",
     "new-create": "Or",
-    "new-create-profile": "Create new profile"
+    "new-create-profile": "Create new profile",
+    "donate-anonymously": "Donate anonymously",
+    "intro-text": "You can donate with personal profile or anonymously."
   },
   "success": {
     "title": "We thank you for your help and trust!",

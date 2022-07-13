@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import { name, phone, email } from 'common/form/validation'
+import { name, phone, email, password } from 'common/form/validation'
 import { FirstStep, SecondStep, ThirdStep } from 'gql/donations'
 
 export const validateFirst: yup.SchemaOf<FirstStep> = yup
@@ -24,12 +24,18 @@ export const validateSecond: yup.SchemaOf<SecondStep> = yup
   .shape({
     anonymousDonation: yup.boolean().when('anonymous', {
       is: false,
-      then: yup.boolean().required().oneOf([true], 'errors-fields.checkbox-anonimus'),
+      then: yup.boolean().required(),
     }),
-    personsEmail: email.required(),
+    personsEmail: email.notRequired(),
     personsFirstName: name.notRequired(),
     personsLastName: name.notRequired(),
     personsPhone: phone.notRequired(),
+    loginEmail: email.notRequired(),
+    loginPassword: password.notRequired(),
+    registerEmail: email.notRequired(),
+    registerFirstName: yup.string().notRequired(),
+    registerLastName: yup.string().notRequired(),
+    registerPassword: password.notRequired(),
   })
 
 export const validateThird: yup.SchemaOf<ThirdStep> = yup.object().defined().shape({
