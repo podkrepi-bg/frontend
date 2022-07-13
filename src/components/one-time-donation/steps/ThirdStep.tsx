@@ -1,7 +1,6 @@
 import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@mui/material'
 import theme from 'common/theme'
-import CheckboxField from 'components/common/form/CheckboxField'
 import FormTextField from 'components/common/form/FormTextField'
 
 export default function ThirdStep() {
@@ -21,15 +20,6 @@ export default function ThirdStep() {
           multiline
           rows={9}
         />
-      </Grid>
-      <Grid item xs={12}>
-        <CheckboxField
-          name="anonymous"
-          label={<Typography fontWeight="bold">{t('first-step.check-box-label')}</Typography>}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <Typography variant="body1">{t('first-step.info-anonymous')}</Typography>
       </Grid>
     </Grid>
   )

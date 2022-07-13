@@ -63,7 +63,7 @@ export default function DonationStepper() {
         campaignId: campaign.id,
         firstName: values?.personsFirstName ? values.personsFirstName : 'Anonymous',
         lastName: values?.personsLastName ? values.personsLastName : 'Donor',
-        personEmail: values?.personsEmail ? values.personsEmail : userEmail!,
+        personEmail: values?.personsEmail ? values.personsEmail : userEmail,
         phone: values?.personsPhone ? values.personsPhone : null,
         successUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=true`,
         cancelUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=false`,
@@ -110,7 +110,7 @@ export default function DonationStepper() {
       validate: validateFirst,
     },
     {
-      label: 'personal-info',
+      label: 'personal-profile',
       component: <SecondStep />,
       validate: validateSecond,
     },

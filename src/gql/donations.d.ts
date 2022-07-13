@@ -20,7 +20,7 @@ export type CheckoutSessionInput = {
   cancelUrl?: string
   firstName?: string
   lastName?: string
-  personEmail: string
+  personEmail?: string
   phone?: string | null
 }
 
