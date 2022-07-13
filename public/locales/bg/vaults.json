@@ -6,6 +6,8 @@
   "name": "Име",
   "currency": "Валута",
   "amount": "Налични средства",
+  "blocked-amount": "Блокирани средства",
+  "reached-amount": "Събрани средства",
   "createdAt": "Създаден на",
   "updatedAt": "Обновен на",
   "campaignId": "ID на кампания",
