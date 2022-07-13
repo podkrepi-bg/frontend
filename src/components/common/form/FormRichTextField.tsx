@@ -16,10 +16,13 @@ export type RegisterFormProps = {
 
 const modules = {
   toolbar: [
-    [{ header: '1' }, { header: '2' }, { header: '2' }],
+    [{ header: '1' }, { header: '2' }],
     [{ size: [] }],
-    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+    ['bold', 'italic', 'underline', 'strike', 'blockquote', 'code'],
+    [{ color: [] }],
+    [{ background: [] }],
     [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
+    [{ align: [] }],
     ['link', 'video'],
     ['clean'],
   ],
