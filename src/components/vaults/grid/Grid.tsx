@@ -13,6 +13,7 @@ import GridActions from 'components/admin/GridActions'
 import { ModalStore } from '../VaultsPage'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
+import { money } from 'common/util/money'
 
 export default observer(function Grid() {
   const { t } = useTranslation('vaults')
@@ -40,8 +41,27 @@ export default observer(function Grid() {
     },
     {
       field: 'amount',
+      headerName: 'Събрани средства',
+      ...commonProps,
+      renderCell: (params: GridRenderCellParams) => (
+        <>{money(params.row.amount, params.row.currency)}</>
+      ),
+    },
+    {
+      field: 'blockedAmount',
+      headerName: 'Блокирани средства',
+      ...commonProps,
+      renderCell: (params: GridRenderCellParams) => (
+        <>{money(params.row.blockedAmount, params.row.currency)}</>
+      ),
+    },
+    {
+      field: 'reachedAmound',
       headerName: t('amount'),
       ...commonProps,
+      renderCell: (params: GridRenderCellParams) => (
+        <>{money(params.row.amount - params.row.blockedAmount, params.row.currency)}</>
+      ),
     },
     {
       field: 'createdAt',
