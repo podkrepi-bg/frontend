@@ -51,7 +51,7 @@ export default function IrregularityReport({ campaign }: Props) {
         startIcon={<ReportGmailerrorred className={classes.reportIcon} />}
         color="secondary"
         className={classes.reportButton}>
-        {t('irregularity:report-btn')}
+        {t('campaigns:campaign.report-irregularity')}
       </LinkButton>
     </StyledGrid>
   )
