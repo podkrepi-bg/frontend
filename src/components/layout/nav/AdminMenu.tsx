@@ -56,7 +56,7 @@ const allNavItems: NavItem[] = [
 
 export const navItems = allNavItems.filter((el) => typeof el.enabled === 'undefined' ?? el.enabled)
 
-export default function DevelopmentMenu() {
+export default function AdminMenu() {
   const { t } = useTranslation()
   const router = useRouter()
 
