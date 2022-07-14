@@ -4,8 +4,9 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Menu } from '@mui/icons-material'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
-import { AppBar, Toolbar, IconButton, Grid, Hidden, ButtonBase } from '@mui/material'
+import { AppBar, Toolbar, IconButton, Grid, Hidden, ButtonBase, Typography } from '@mui/material'
 
+import theme from 'common/theme'
 import { routes } from 'common/routes'
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 
@@ -20,8 +21,11 @@ type AppBarDeckProps = {
 }
 export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
   const { locale } = useRouter()
-  const { status } = useSession()
+  const { status, data: session } = useSession()
   const shrink = useScrollTrigger()
+
+  const username = session?.user?.given_name
+
   return (
     <AppBar
       position="fixed"
@@ -92,6 +96,18 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
             <Grid item>
               <MainNavMenu>
                 {status === 'authenticated' ? <PrivateMenu /> : <PublicMenu />}
+                {status === 'authenticated' && username && (
+                  <Typography
+                    sx={{
+                      fontSize: username.length < 20 ? 'initial' : '0.75rem',
+                      [theme.breakpoints.down('lg')]: {
+                        width: theme.spacing(10),
+                        wordBreak: 'break-all',
+                      },
+                    }}>
+                    {username}
+                  </Typography>
+                )}
                 <Grid item>
                   <LocaleButton />
                 </Grid>

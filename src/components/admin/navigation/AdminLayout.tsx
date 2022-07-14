@@ -13,6 +13,7 @@ import HoverMenu from './HoverMenu'
 import PanelFooter from './PanelFooter'
 import CustomListItem from './CustomListItem'
 import { AdminAppBar } from './AdminAppBar'
+import { useSession } from 'next-auth/react'
 
 const PREFIX = 'AdminLayout'
 const drawerWidth = 200
@@ -94,6 +95,7 @@ type Props = {
 
 export default function AdminLayout({ children }: Props) {
   const theme = useTheme()
+  const { status, data: session } = useSession()
 
   const initialOpen = useMemo<boolean>(() => {
     const item = typeof window !== 'undefined' ? window.localStorage.getItem('menu-open') : false
@@ -121,6 +123,18 @@ export default function AdminLayout({ children }: Props) {
               <Notifications color="info" />
             </IconButton>
             <PrivateMenu />
+            {status === 'authenticated' && session.user && (
+              <Typography
+                sx={{
+                  fontSize: session.user.given_name.length < 20 ? 'initial' : '0.75rem',
+                  [theme.breakpoints.down('lg')]: {
+                    width: theme.spacing(30),
+                    wordBreak: 'break-all',
+                  },
+                }}>
+                {session.user.given_name}
+              </Typography>
+            )}
           </Box>
         </Box>
       </AdminAppBar>
