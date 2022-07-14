@@ -157,6 +157,7 @@ export default function EditForm() {
               id="campaignId"
               name="campaignId"
               value={campaignId}
+              disabled={true}
               onChange={(event) => setCampaignId(event.target.value)}>
               {campaigns?.map((camp) => {
                 return (
@@ -174,6 +175,7 @@ export default function EditForm() {
               id="vaultId"
               name="vaultId"
               value={vaultId}
+              disabled={true}
               onChange={(event) => setVaultId(event.target.value)}>
               {vaults?.map((acc) => {
                 return (

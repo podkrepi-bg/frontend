@@ -155,10 +155,11 @@ export default function EditForm({ transfer, campaigns, id }: Props) {
               name="sourceCampaignId"
               label="sourceCampaign"
               campaigns={campaigns || []}
+              disabled={true}
             />
           </Grid>
           <Grid item xs={12}>
-            <VaultSelect name="sourceVaultId" />
+            <VaultSelect disabled={true} name="sourceVaultId" />
           </Grid>
           <Grid item xs={12}>
             <CampaignSelect

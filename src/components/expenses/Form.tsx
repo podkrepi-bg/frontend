@@ -128,7 +128,7 @@ export default function Form() {
             <CurrencySelect />
           </Grid>
           <Grid item xs={6}>
-            <VaultSelect />
+            <VaultSelect disabled={id ? true : false} />
           </Grid>
           <Grid item xs={6}>
             <DocumentSelect />
