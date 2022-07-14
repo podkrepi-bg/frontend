@@ -39,6 +39,7 @@ export type DonationResponse = {
   amount: number
   personId?: UUID
   person?: { firsName: string; lastName: string }
+  targetVault: { name: string }
 }
 
 export type UserDonationResponse = DonationResponse & {
