@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 import { Form, Formik, FormikConfig, FormikValues } from 'formik'
 import { LoadingButton } from '@mui/lab'
-import { Box, Button, Grid, Step, StepLabel, Stepper } from '@mui/material'
+import { Box, Button, Grid, Step, StepLabel, Stepper, useMediaQuery } from '@mui/material'
 import { StepsContext } from './helpers/stepperContext'
 import { OneTimeDonation } from 'gql/donations'
 import { useSession } from 'next-auth/react'
@@ -37,6 +37,7 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
   const childrenArray = React.Children.toArray(children) as React.ReactElement<FormikStepProps>[]
   const { step, setStep } = useContext(StepsContext)
   const router = useRouter()
+  const mobile = useMediaQuery('(max-width:568px)')
   useEffect(() => {
     router.query.success === 'false' || router.query.success === 'true' ? setStep(3) : null
   }, [router.query.success])
@@ -99,7 +100,7 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
               {childrenArray.map((child, index) => (
                 <Step key={index}>
                   <StepLabel classes={{ alternativeLabel: classes.stepIcon }}>
-                    {child.props.label}
+                    {!mobile && child.props.label}
                   </StepLabel>
                 </Step>
               ))}
