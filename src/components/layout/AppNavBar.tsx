@@ -60,7 +60,7 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
               transition: 'height .5s',
               height: theme.spacing(7.5),
               minWidth: theme.spacing(15),
-              marginLeft: theme.spacing(5),
+              marginLeft: theme.spacing(2),
               [theme.breakpoints.up('lg')]: {
                 marginLeft: theme.spacing(10),
               },
