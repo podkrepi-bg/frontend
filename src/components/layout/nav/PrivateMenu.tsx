@@ -9,6 +9,7 @@ import theme from 'common/theme'
 import { routes } from 'common/routes'
 import { isAdmin } from 'common/util/roles'
 import LinkMenuItem from 'components/common/LinkMenuItem'
+import { useRouter } from 'next/router'
 
 const PREFIX = 'PrivateMenu'
 
@@ -33,9 +34,32 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 }))
 
+type NavItem = {
+  href: string
+  label: string
+  target?: string
+  enabled?: boolean
+}
+
+const adminItems: NavItem[] = [
+  {
+    href: routes.admin.index,
+    label: 'nav.admin.index',
+  },
+  {
+    href: routes.admin.infoRequests,
+    label: 'nav.admin.info-requests',
+  },
+  {
+    href: routes.admin.supporters,
+    label: 'nav.admin.supporters',
+  },
+]
+
 export default function PrivateMenu() {
   const { t } = useTranslation()
   const { data: session, status } = useSession()
+  const router = useRouter()
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
 
   const handleMenu = (event: React.MouseEvent) => setAnchorEl(event.currentTarget)
@@ -52,7 +76,7 @@ export default function PrivateMenu() {
         {session?.user?.picture ? (
           <Avatar title={title} alt={title} src={session?.user?.picture} />
         ) : (
-          <AccountCircle sx={{ fill: theme.palette.info.light }} />
+          <AccountCircle sx={{ fill: theme.palette.success.light }} />
         )}
       </IconButton>
       <Menu
@@ -66,11 +90,20 @@ export default function PrivateMenu() {
         <LinkMenuItem href={routes.profile.index} className={classes.dropdownLinkText}>
           <Typography variant="button">{t('nav.profile')}</Typography>
         </LinkMenuItem>
-        {status === 'authenticated' && isAdmin(session) && (
-          <LinkMenuItem href={routes.admin.index} className={classes.dropdownLinkText}>
-            <Typography variant="button">{t('nav.admin.index')}</Typography>
-          </LinkMenuItem>
-        )}
+        {status === 'authenticated' &&
+          isAdmin(session) &&
+          adminItems.map(({ href, label, target }, key) => (
+            <LinkMenuItem
+              href={href}
+              selected={router.asPath === href}
+              key={key}
+              target={target}
+              className={classes.dropdownLinkButton}>
+              <Typography variant="button" className={classes.dropdownLinkText}>
+                {t(label)}
+              </Typography>
+            </LinkMenuItem>
+          ))}
         <LinkMenuItem href={routes.logout} className={classes.dropdownLinkText}>
           <Typography variant="button">{t('nav.logout')}</Typography>
         </LinkMenuItem>
