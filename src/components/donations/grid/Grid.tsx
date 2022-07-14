@@ -37,6 +37,8 @@ export default observer(function Grid() {
   }
   const RenderPersonCell = ({ params }: RenderCellProps) => {
     const { firstName, lastName } = params.row.person
+      ? params.row.person
+      : { firstName: 'Anonymous', lastName: 'Donor' }
     return <>{firstName + ' ' + lastName}</>
   }
 
