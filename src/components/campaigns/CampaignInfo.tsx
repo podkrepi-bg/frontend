@@ -9,6 +9,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite'
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday'
 import { getExactDate } from 'common/util/date'
 import CampaignInfoOrganizer from './CampaignInfoOrganizer'
+import { createSlug } from 'common/util/createSlug'
 
 const PREFIX = 'CampaignInfo'
 
@@ -99,6 +100,8 @@ export default function CampaignInfo({ campaign }: Props) {
   const { t, i18n } = useTranslation()
   const locale = i18n.language == 'bg' ? bg : enUS
 
+  const campaignTypeSlug = campaign.campaignType.slug || createSlug(campaign.campaignType.name)
+
   return (
     <StyledGrid mb={5}>
       <Grid container gap={0} className={classes.infoBlockWrapper}>
@@ -115,8 +118,8 @@ export default function CampaignInfo({ campaign }: Props) {
             className={classes.campaignTextWithIcon}>
             <FavoriteIcon color="action" sx={{ mb: '-6px', mr: '3px' }} />
             <strong>
-              {t('campaigns:filters.' + `${campaign.campaignType.category}`)}/{' '}
-              {t('campaigns:campaign.types.' + `${campaign.campaignType?.slug}`)}
+              {t(`campaigns:filters.${campaign.campaignType.category}`)}/{' '}
+              {t(`campaigns:campaign.types.${campaignTypeSlug}`)}
             </strong>
           </Typography>
           {/* TODO: Dynamic campaign tagging is needed here based on activity (urgent, hot, the long-shot, etc) 

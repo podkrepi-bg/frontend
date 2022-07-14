@@ -14,6 +14,7 @@ import { useTranslation } from 'next-i18next'
 import { AdminCampaignResponse } from 'gql/campaigns'
 import { money } from 'common/util/money'
 import { getExactDateTime } from 'common/util/date'
+import { createSlug } from 'common/util/createSlug'
 
 type Props = {
   campaign: AdminCampaignResponse
@@ -22,6 +23,7 @@ type Props = {
 
 export default function DetailsModal({ campaign, onClose }: Props) {
   const { t } = useTranslation()
+  const campaignTypeSlug = campaign.campaignType.slug || createSlug(campaign.campaignType.name)
 
   return (
     <Dialog open scroll="body" onClose={onClose}>
@@ -42,7 +44,7 @@ export default function DetailsModal({ campaign, onClose }: Props) {
           <Typography variant="body1">Крайна Дата: {getExactDateTime(campaign.endDate)}</Typography>
           <Typography variant="body1">Същество: {campaign.essence}</Typography>
           <Typography variant="body1">
-            Тип на кампанията: {t('campaigns:campaign.types.' + `${campaign.campaignType.slug}`)}
+            Тип на кампанията: {t(`campaigns:campaign.types.${campaignTypeSlug}`)}
           </Typography>
           <Typography variant="body1">
             Бенефициент: {campaign.beneficiary.person.firstName}{' '}

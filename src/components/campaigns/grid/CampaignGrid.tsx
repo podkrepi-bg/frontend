@@ -18,6 +18,7 @@ import { GridCellExpand } from 'components/common/GridCellExpand'
 import GridActions from './GridActions'
 import DeleteModal from './modals/DeleteModal'
 import DetailsModal from './modals/DetailsModal'
+import { createSlug } from 'common/util/createSlug'
 
 interface CampaignCellProps {
   params: GridRenderCellParams<AdminCampaignResponse, AdminCampaignResponse>
@@ -159,7 +160,13 @@ export default function CampaignGrid() {
       align: 'left',
       width: 250,
       renderCell: (cellValues: GridRenderCellParams) => (
-        <>{t('campaigns:campaign.types.' + `${cellValues.row.campaignType.slug}`)}</>
+        <>
+          {t(
+            `campaigns:campaign.types.${
+              cellValues.row.campaignType.slug || createSlug(cellValues.row.campaignType.name)
+            }`,
+          )}
+        </>
       ),
     },
     {

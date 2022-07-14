@@ -1,6 +1,7 @@
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material'
 import { TranslatableField, translateError } from 'common/form/validation'
 import { useCampaignTypesList } from 'common/hooks/campaigns'
+import { createSlug } from 'common/util/createSlug'
 import { useField } from 'formik'
 import { useTranslation } from 'react-i18next'
 
@@ -8,8 +9,6 @@ export default function CampaignTypeSelect({ name = 'campaignTypeId' }) {
   const { t } = useTranslation()
   const { data } = useCampaignTypesList()
   const [field, meta] = useField(name)
-
-  console.log(data)
 
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
   return (
@@ -25,7 +24,7 @@ export default function CampaignTypeSelect({ name = 'campaignTypeId' }) {
         </MenuItem>
         {data?.map((campaignType, index) => (
           <MenuItem key={index} value={campaignType.id}>
-            {t('campaigns:campaign.types.' + `${campaignType.slug}`)}
+            {t(`campaigns:campaign.types.${campaignType.slug || createSlug(campaignType.name)}`)}
           </MenuItem>
         ))}
       </Select>
