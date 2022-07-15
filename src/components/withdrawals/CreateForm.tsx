@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useMutation } from 'react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
-import { Box, Button, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material'
+import { Box, Button, Grid, Typography } from '@mui/material'
 
 import { WithdrawalData, WithdrawalInput, WithdrawalResponse } from 'gql/withdrawals'
 import { routes } from 'common/routes'
@@ -14,41 +14,54 @@ import { useCreateWithdrawal } from 'service/withdrawal'
 import { AlertStore } from 'stores/AlertStore'
 import SubmitButton from 'components/common/form/SubmitButton'
 import { WithdrawalStatus } from './WithdrawalTypes'
-import { useBankAccountsList } from 'common/hooks/bankaccounts'
 import { useCampaignList } from 'common/hooks/campaigns'
-import { usePersonList } from 'common/hooks/person'
 import { useVaultsList } from 'common/hooks/vaults'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import CurrencySelect from 'components/currency/CurrencySelect'
-
-const validationSchema: yup.SchemaOf<WithdrawalData> = yup
-  .object()
-  .defined()
-  .shape({
-    status: yup.string().trim().min(1).max(10).required(),
-    amount: yup.number().required(),
-    reason: yup.string().trim().min(1).max(300).required(),
-    currency: yup.string().trim().min(1).max(10),
-    sourceVaultId: yup.string(),
-    sourceCampaignId: yup.string(),
-    bankAccountId: yup.string(),
-    documentId: yup.string(),
-    approvedById: yup.string(),
-  })
+import BankAccountSelect from 'components/bankaccounts/BankAccountSelect'
+import CampaignSelect from 'components/campaigns/CampaignSelect'
+import VaultSelect from 'components/vaults/VaultSelect'
+import PersonSelect from 'components/person/PersonSelect'
 
 export default function CreateForm() {
   const router = useRouter()
-  const { data: bankAccounts } = useBankAccountsList()
   const { data: campaigns } = useCampaignList()
-  const { data: personList } = usePersonList()
   const { data: vaults } = useVaultsList()
-
-  const [approvedById, setApprovedById] = useState('')
-  const [bankAccountId, setBankAccountId] = useState('')
-  const [vaultId, setVaultId] = useState('')
-  const [campaignId, setCampaignId] = useState('')
-
+  const { t } = useTranslation('withdrawals')
+  const validationSchema: yup.SchemaOf<WithdrawalData> = yup
+    .object()
+    .defined()
+    .shape({
+      status: yup.string().trim().min(1).max(10).required(),
+      amount: yup.number().when('sourceVaultId', {
+        is: (value: string) => value !== undefined,
+        then: yup
+          .number()
+          .positive()
+          .required()
+          .test({
+            name: 'max',
+            exclusive: false,
+            params: {},
+            message: t('transfer:amount-unavailable'),
+            test: function (value) {
+              const currentValt = vaults?.find((curr) => curr.id == this.parent.sourceVaultId)
+              console.log(currentValt)
+              const currentAmount = Number(currentValt?.amount) - Number(currentValt?.blockedAmount)
+              return value! < Number(currentAmount)
+            },
+          }),
+        otherwise: yup.number().positive().integer().required(),
+      }),
+      reason: yup.string().trim().min(1).max(300).required(),
+      currency: yup.string().trim().min(1).max(10),
+      sourceVaultId: yup.string().trim().uuid().required(),
+      sourceCampaignId: yup.string(),
+      bankAccountId: yup.string(),
+      documentId: yup.string(),
+      approvedById: yup.string(),
+    })
   const initialValues: WithdrawalInput = {
     status: WithdrawalStatus.initial,
     currency: '',
@@ -60,7 +73,6 @@ export default function CreateForm() {
     documentId: '',
     approvedById: '',
   }
-  const { t } = useTranslation()
 
   const mutationFn = useCreateWithdrawal()
 
@@ -83,11 +95,11 @@ export default function CreateForm() {
       currency: values.currency,
       amount: values.amount,
       reason: values.reason,
-      sourceVaultId: vaultId,
-      sourceCampaignId: campaignId,
-      bankAccountId: bankAccountId,
+      sourceVaultId: values.sourceVaultId,
+      sourceCampaignId: values.sourceCampaignId,
+      bankAccountId: values.bankAccountId,
       documentId: 'ff89a831-34da-4b2d-91bc-742247efd9b8',
-      approvedById: approvedById,
+      approvedById: values.approvedById,
     }
     mutation.mutate(data)
   }
@@ -99,102 +111,45 @@ export default function CreateForm() {
       validationSchema={validationSchema}>
       <Box>
         <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
-          {t('withdrawals:form-heading')}
+          {t('form-heading')}
         </Typography>
         <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
           <Grid item xs={12}>
             <FormTextField
               type="number"
-              label="wihdrawals:Сума"
+              label={t('amount-input')}
               name="amount"
               autoComplete="amount"
             />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField
-              type="string"
-              label="wihdrawals:Причина"
-              name="reason"
-              autoComplete="reason"
-            />
+            <FormTextField type="string" label={t('reason')} name="reason" autoComplete="reason" />
           </Grid>
           <Grid item xs={12}>
             <CurrencySelect />
           </Grid>
           <Grid item xs={12}>
-            <InputLabel htmlFor="my-input">Банков акаунт</InputLabel>
-            <Select
-              fullWidth
-              id="bankAccountId"
-              name="bankAccountId"
-              value={bankAccountId}
-              onChange={(event) => setBankAccountId(event.target.value)}>
-              {bankAccounts?.map((acc) => {
-                return (
-                  <MenuItem key={acc.id} value={acc.id}>
-                    {acc.accountHolderName}
-                  </MenuItem>
-                )
-              })}
-            </Select>
+            <BankAccountSelect />
           </Grid>
           <Grid item xs={12}>
-            <InputLabel htmlFor="my-input">Кампании</InputLabel>
-            <Select
-              fullWidth
-              id="campaignId"
-              name="campaignId"
-              value={campaignId}
-              onChange={(event) => setCampaignId(event.target.value)}>
-              {campaigns?.map((camp) => {
-                return (
-                  <MenuItem key={camp.id} value={camp.id}>
-                    {camp.title}
-                  </MenuItem>
-                )
-              })}
-            </Select>
+            <CampaignSelect
+              name="sourceCampaignId"
+              label="withdrawals:sourceCampaign"
+              campaigns={campaigns}
+            />
           </Grid>
           <Grid item xs={12}>
-            <InputLabel htmlFor="my-input">Трезор</InputLabel>
-            <Select
-              fullWidth
-              id="vaultId"
-              name="vaultId"
-              value={vaultId}
-              onChange={(event) => setVaultId(event.target.value)}>
-              {vaults?.map((acc) => {
-                return (
-                  <MenuItem key={acc.id} value={acc.id}>
-                    {acc.name}
-                  </MenuItem>
-                )
-              })}
-            </Select>
+            <VaultSelect name="sourceVaultId" />
           </Grid>
           <Grid item xs={12}>
-            <InputLabel htmlFor="my-input">Одобрен от</InputLabel>
-            <Select
-              fullWidth
-              id="approvedById"
-              name="approvedById"
-              value={approvedById}
-              onChange={(event) => setApprovedById(event.target.value)}>
-              {personList?.map((acc) => {
-                return (
-                  <MenuItem key={acc.id} value={acc.id}>
-                    {acc.firstName} {acc.lastName}
-                  </MenuItem>
-                )
-              })}
-            </Select>
+            <PersonSelect name="approvedById" label={t('approvedBy')} />
           </Grid>
           <Grid item xs={6}>
-            <SubmitButton fullWidth label={t('withdrawals:cta:submit')} />
+            <SubmitButton fullWidth label={t('cta.submit')} />
           </Grid>
           <Grid item xs={6}>
             <Link href={routes.admin.withdrawals.index} passHref>
-              <Button fullWidth={true}>{t('withdrawals:cta:cancel')}</Button>
+              <Button fullWidth={true}>{t('cta.cancel')}</Button>
             </Link>
           </Grid>
         </Grid>
