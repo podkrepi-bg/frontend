@@ -158,9 +158,7 @@ export default function CampaignGrid() {
       ...commonProps,
       align: 'left',
       width: 250,
-      renderCell: (cellValues: GridRenderCellParams) => (
-        <>{t('campaigns:campaign.types.' + `${cellValues.row.campaignType.slug}`)}</>
-      ),
+      renderCell: (cellValues: GridRenderCellParams) => <>{cellValues.row.campaignType.name}</>,
     },
     {
       field: 'description',

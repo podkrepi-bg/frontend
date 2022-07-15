@@ -9,8 +9,6 @@ export default function CampaignTypeSelect({ name = 'campaignTypeId' }) {
   const { data } = useCampaignTypesList()
   const [field, meta] = useField(name)
 
-  console.log(data)
-
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
   return (
     <FormControl
@@ -25,7 +23,7 @@ export default function CampaignTypeSelect({ name = 'campaignTypeId' }) {
         </MenuItem>
         {data?.map((campaignType, index) => (
           <MenuItem key={index} value={campaignType.id}>
-            {t('campaigns:campaign.types.' + `${campaignType.slug}`)}
+            {campaignType.name}
           </MenuItem>
         ))}
       </Select>
