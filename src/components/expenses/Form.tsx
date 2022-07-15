@@ -26,34 +26,52 @@ import { ExpenseInput, ExpenseResponse, ExpenseStatus, ExpenseType } from 'gql/e
 import VaultSelect from '../vaults/VaultSelect'
 import ExpenseTypeSelect from './ExpenseTypeSelect'
 import ExpenseStatusSelect from './ExpenseStatusSelect'
+import { useVaultsList } from 'common/hooks/vaults'
 
 const validTypes = Object.keys(ExpenseType)
 const validStatuses = Object.keys(ExpenseStatus)
 const validCurrencies = Object.keys(Currency)
 
-const validationSchema = yup
-  .object()
-  .defined()
-  .shape({
-    type: yup.string().trim().oneOf(validTypes).required(),
-    status: yup.string().trim().oneOf(validStatuses).required(),
-    currency: yup.string().trim().oneOf(validCurrencies).required(),
-    amount: yup.number().positive().integer().required(),
-    vaultId: yup.string().trim().uuid().required(),
-    deleted: yup.boolean().required(),
-    description: yup.string().trim().notRequired(),
-    documentId: yup.string().trim().uuid().notRequired(),
-    approvedById: yup.string().trim().notRequired(),
-  })
-
 export default function Form() {
   const queryClient = useQueryClient()
   const router = useRouter()
   const { t } = useTranslation('expenses')
-
   let id = router.query.id
   let data: ExpenseResponse | undefined
-
+  const { data: valts } = useVaultsList()
+  const validationSchema = yup
+    .object()
+    .defined()
+    .shape({
+      type: yup.string().trim().oneOf(validTypes).required(),
+      status: yup.string().trim().oneOf(validStatuses).required(),
+      currency: yup.string().trim().oneOf(validCurrencies).required(),
+      amount: yup.number().when('vaultId', {
+        is: (value: string) => value !== undefined,
+        then: yup
+          .number()
+          .positive()
+          .integer()
+          .required()
+          .test({
+            name: 'max',
+            exclusive: false,
+            params: {},
+            message: 'Не достатъчна наличност в трезора!',
+            test: function (value) {
+              const currentValt = valts?.find((curr) => curr.id == this.parent.vaultId)
+              const currentAmount = Number(currentValt?.amount) - Number(currentValt?.blockedAmount)
+              return value! < Number(currentAmount)
+            },
+          }),
+        otherwise: yup.number().positive().integer().required(),
+      }),
+      vaultId: yup.string().trim().uuid().required(),
+      deleted: yup.boolean().required(),
+      description: yup.string().trim().notRequired(),
+      documentId: yup.string().trim().uuid().notRequired(),
+      approvedById: yup.string().trim().notRequired(),
+    })
   if (id) {
     id = String(id)
     data = useViewExpense(id).data
