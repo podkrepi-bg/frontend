@@ -68,7 +68,6 @@ export default function DonorsAndDonations({
               <AccountCircleIcon fontSize="large" color="disabled" />
               <Grid>
                 <Typography>
-                  {t('campaigns:cta.donor')} {key + 1}.{' '}
                   {person
                     ? person.firstName + ' ' + person.lastName
                     : t('campaigns:donations.anonymous')}
