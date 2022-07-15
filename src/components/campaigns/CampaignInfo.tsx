@@ -132,11 +132,14 @@ export default function CampaignInfo({ campaign }: Props) {
             <strong>{t('campaigns:campaign.status')}</strong>{' '}
             {t(`campaigns:campaign-status.${campaign.state}`)}
           </Typography>
-          {campaign.state === 'active' ? (
-            <Divider className={classes.stateActiveDivider} />
-          ) : (
-            <Divider className={classes.stateCompletedDivider} />
-          )}
+          {
+            // campaign.state === 'active'
+            // ? (
+            //   <Divider className={classes.stateActiveDivider} />
+            // ) : (
+            //   <Divider className={classes.stateCompletedDivider} />
+            // )
+          }
           <Typography
             variant="subtitle2"
             component="p"
