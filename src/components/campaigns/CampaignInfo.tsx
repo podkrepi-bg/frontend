@@ -93,7 +93,7 @@ export default function CampaignInfo({ campaign }: Props) {
             <FavoriteIcon color="action" sx={{ mb: '-6px', mr: '6px', ml: '-2px' }} />
             <strong>
               {t('campaigns:filters.' + `${campaign.campaignType.category}`)}/{' '}
-              {t('campaigns:campaign.types.' + `${campaign.campaignType?.slug}`)}
+              {campaign.campaignType.name}
             </strong>
           </Typography>
           {/* TODO: Dynamic campaign tagging is needed here based on activity (urgent, hot, the long-shot, etc) 

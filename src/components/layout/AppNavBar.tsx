@@ -22,6 +22,7 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
   const { locale } = useRouter()
   const { status } = useSession()
   const shrink = useScrollTrigger()
+
   return (
     <AppBar
       position="fixed"

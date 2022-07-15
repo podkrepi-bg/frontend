@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { styled } from '@mui/material/styles'
-import { useRouter } from 'next/router'
-import { Typography, lighten } from '@mui/material'
+import { useSession } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
+import { Avatar, Grid, IconButton, lighten, Menu, Typography } from '@mui/material'
 
+import theme from 'common/theme'
 import { routes } from 'common/routes'
 import LinkMenuItem from 'components/common/LinkMenuItem'
-
-import GenericMenu from './GenericMenu'
+import { useRouter } from 'next/router'
 
 const PREFIX = 'AdminMenu'
 
@@ -16,7 +16,7 @@ const classes = {
   dropdownLinkText: `${PREFIX}-dropdownLinkText`,
 }
 
-const StyledGenericMenu = styled(GenericMenu)(({ theme }) => ({
+const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.dropdownLinkButton}`]: {
     '&:hover': {
       backgroundColor: lighten(theme.palette.primary.main, 0.9),
@@ -39,41 +39,77 @@ type NavItem = {
   enabled?: boolean
 }
 
-const allNavItems: NavItem[] = [
+const adminItems: NavItem[] = [
+  {
+    href: routes.profile.index,
+    label: 'nav.profile',
+  },
   {
     href: routes.admin.index,
     label: 'nav.admin.index',
   },
   {
-    href: routes.admin.infoRequests,
-    label: 'nav.admin.info-requests',
-  },
-  {
-    href: routes.admin.supporters,
-    label: 'nav.admin.supporters',
+    href: routes.logout,
+    label: 'nav.logout',
   },
 ]
 
-export const navItems = allNavItems.filter((el) => typeof el.enabled === 'undefined' ?? el.enabled)
-
-export default function DevelopmentMenu() {
+export default function AdminMenu() {
   const { t } = useTranslation()
+  const { data: session } = useSession()
   const router = useRouter()
+  const [anchorEl, setAnchorEl] = useState<Element | null>(null)
+
+  const handleMenu = (event: React.MouseEvent) => setAnchorEl(event.currentTarget)
+  const handleClose = () => setAnchorEl(null)
+
+  if (!session) {
+    return null
+  }
+
+  const title = `${session.name}\n(${session.email})`
+  const lettersAvatar = `${session.user?.given_name.charAt(0)}${session.user?.family_name.charAt(
+    0,
+  )}`.toUpperCase()
 
   return (
-    <StyledGenericMenu label={t('nav.admin.index')}>
-      {navItems.map(({ href, label, target }, key) => (
-        <LinkMenuItem
-          href={href}
-          selected={router.asPath === href}
-          key={key}
-          target={target}
-          className={classes.dropdownLinkButton}>
-          <Typography variant="button" className={classes.dropdownLinkText}>
-            {t(label)}
-          </Typography>
-        </LinkMenuItem>
-      ))}
-    </StyledGenericMenu>
+    <StyledGrid item>
+      <IconButton onClick={handleMenu} size="large">
+        {session?.user?.picture ? (
+          <Avatar title={title} alt={title} src={session?.user?.picture} />
+        ) : (
+          <Avatar
+            sx={{
+              bgcolor: theme.palette.success.light,
+              height: theme.spacing(4.5),
+              width: theme.spacing(4.5),
+              fontSize: '1rem',
+            }}>
+            {lettersAvatar}
+          </Avatar>
+        )}
+      </IconButton>
+      <Menu
+        keepMounted
+        id="menu-appbar"
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        open={Boolean(anchorEl)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}>
+        {adminItems.map(({ href, label, target }, key) => (
+          <LinkMenuItem
+            href={href}
+            selected={router.asPath === href}
+            key={key}
+            target={target}
+            className={classes.dropdownLinkButton}>
+            <Typography variant="button" className={classes.dropdownLinkText}>
+              {t(label)}
+            </Typography>
+          </LinkMenuItem>
+        ))}
+      </Menu>
+    </StyledGrid>
   )
 }

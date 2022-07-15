@@ -6,13 +6,13 @@ import { IconButton, List, Box, Button, Typography } from '@mui/material'
 import { Notifications, Settings, MenuOpen, ChevronRight, GppGood } from '@mui/icons-material'
 
 import Snackbar from 'components/layout/Snackbar'
-import PrivateMenu from 'components/layout/nav/PrivateMenu'
 
 import { items } from './adminMenu'
 import HoverMenu from './HoverMenu'
 import PanelFooter from './PanelFooter'
 import CustomListItem from './CustomListItem'
 import { AdminAppBar } from './AdminAppBar'
+import AdminMenu from 'components/layout/nav/AdminMenu'
 
 const PREFIX = 'AdminLayout'
 const drawerWidth = 200
@@ -120,7 +120,7 @@ export default function AdminLayout({ children }: Props) {
             <IconButton>
               <Notifications color="info" />
             </IconButton>
-            <PrivateMenu />
+            <AdminMenu />
           </Box>
         </Box>
       </AdminAppBar>

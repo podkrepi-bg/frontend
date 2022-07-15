@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { bg, enUS } from 'date-fns/locale'
 import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
@@ -10,7 +9,7 @@ import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-
 import { routes } from 'common/routes'
 import { money } from 'common/util/money'
 import { AdminCampaignResponse } from 'gql/campaigns'
-import ExternalLink from 'components/common/ExternalLink'
+import Link from 'components/common/Link'
 import { useCampaignAdminList } from 'common/hooks/campaigns'
 import { getExactDateTime, getRelativeDate } from 'common/util/date'
 import { GridCellExpand } from 'components/common/GridCellExpand'
@@ -110,9 +109,7 @@ export default function CampaignGrid() {
       align: 'left',
       width: 350,
       renderCell: (cellValues: GridRenderCellParams) => (
-        <ExternalLink href={`/campaigns/${cellValues.row.slug}`}>
-          {cellValues.row.title}
-        </ExternalLink>
+        <Link href={`/campaigns/${cellValues.row.slug}`}>{cellValues.row.title}</Link>
       ),
     },
     {
@@ -158,9 +155,7 @@ export default function CampaignGrid() {
       ...commonProps,
       align: 'left',
       width: 250,
-      renderCell: (cellValues: GridRenderCellParams) => (
-        <>{t('campaigns:campaign.types.' + `${cellValues.row.campaignType.slug}`)}</>
-      ),
+      renderCell: (cellValues: GridRenderCellParams) => <>{cellValues.row.campaignType.name}</>,
     },
     {
       field: 'description',
@@ -177,9 +172,9 @@ export default function CampaignGrid() {
       align: 'right',
       width: 200,
       renderCell: (cellValues: GridRenderCellParams) => (
-        <ExternalLink href={`/admin/donations?campaignId=${cellValues.row.id}`}>
+        <Link href={`/admin/donations?campaignId=${cellValues.row.id}`}>
           <DisplayReachedAmount params={cellValues} />
-        </ExternalLink>
+        </Link>
       ),
     },
     {
@@ -275,7 +270,7 @@ export default function CampaignGrid() {
           justifyContent: 'space-between',
           height: '64px',
         }}>
-        <Link href={routes.admin.campaigns.create} passHref>
+        <Link href={routes.admin.campaigns.create}>
           <Button variant="outlined" endIcon={<AddIcon />}>
             <Typography>Създай нова кампания</Typography>
           </Button>
