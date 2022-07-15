@@ -7,12 +7,12 @@ resources:
   - ../../base
 
 patches:
-  - path: secrets-web.local.yaml
+#  - path: secrets-web.local.yaml
   - path: keycloak-config-web.patch.yaml
   - path: deployment.patch.yaml
 
 images:
   - name: ghcr.io/podkrepi-bg/frontend
-    newTag: v0.9.8
+    newTag: v0.9.9
   - name: ghcr.io/podkrepi-bg/frontend/maintenance
     newTag: master
