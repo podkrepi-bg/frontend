@@ -14,7 +14,7 @@
     "info-end": "Your data would not be shared with anyone"
   },
   "first-step": {
-    "wish": "Would you like to wish something to the beneficiary:",
+    "wish": "Would you like to wish something to the beneficiary?",
     "message": "Your wish",
     "check-box-label": "Anonymous donation",
     "info-anonymous": "Anonymous donation means that the organisator and beneficiery would not be aware of your identity",

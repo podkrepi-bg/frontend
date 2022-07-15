@@ -45,14 +45,6 @@ const adminItems: NavItem[] = [
     href: routes.admin.index,
     label: 'nav.admin.index',
   },
-  {
-    href: routes.admin.infoRequests,
-    label: 'nav.admin.info-requests',
-  },
-  {
-    href: routes.admin.supporters,
-    label: 'nav.admin.supporters',
-  },
 ]
 
 export default function PrivateMenu() {
