@@ -19,7 +19,6 @@ const classes = {
   campaignText: `${PREFIX}-campaignText`,
   campaignTextWithIcon: `${PREFIX}-campaignTextWithIcon`,
   divider: `${PREFIX}-divider`,
-  stateSpan: `${PREFIX}-stateSpan`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
@@ -67,12 +66,6 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
       fontSize: theme.spacing(2),
     },
   },
-  [`& .${classes.stateSpan}`]: {
-    borderBottom: '2px solid #00FF00',
-    [theme.breakpoints.up('lg')]: {
-      borderBottom: 'none',
-    },
-  },
 }))
 
 type Props = {
@@ -113,10 +106,8 @@ export default function CampaignInfo({ campaign }: Props) {
          <strong>{t('campaigns:campaign.profile')}</strong>Спешна
         </Typography>  */}
           <Typography variant="subtitle2" component="p" className={classes.campaignText}>
-            <span className={classes.stateSpan}>
-              <strong>{t('campaigns:campaign.status')}</strong>{' '}
-              {t(`campaigns:campaign-status.${campaign.state}`)}
-            </span>
+            <strong>{t('campaigns:campaign.status')}</strong>{' '}
+            {t(`campaigns:campaign-status.${campaign.state}`)}
           </Typography>
           <Typography
             variant="subtitle2"
