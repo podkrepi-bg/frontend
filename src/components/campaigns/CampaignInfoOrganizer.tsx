@@ -94,10 +94,10 @@ export default function CampaignInfoOrganizer({ campaign }: Props) {
           {t('common:cta.see-profile')}
         </Button> */}
         <Grid container alignItems="center" className={classes.infoButtonWrapper}>
-          <ThumbUpIcon color="action" className={classes.infoButtonIcon} />
-          <Button href={''} className={classes.trustedButton}>
+          <ThumbUpIcon color="success" className={classes.infoButtonIcon} />
+          <Typography variant="subtitle2" component="p">
             {t('campaigns:cta.trusted')}
-          </Button>
+          </Typography>
         </Grid>
       </Grid>
     </StyledGrid>

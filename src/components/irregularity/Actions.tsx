@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: '#FFFFFF',
       fontSize: '18px',
       '&:hover': { backgroundColor: '#62C4FB', color: '#000000' },
+      [theme.breakpoints.down('sm')]: { fontSize: '12px' },
     },
     actions: {
       justifyContent: 'space-between',

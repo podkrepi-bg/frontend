@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     donationMobileWrapper: {
       top: theme.spacing(10),
-      position: 'sticky',
       order: -1,
       marginTop: `-${theme.spacing(2)}`,
       minWidth: '100vw',

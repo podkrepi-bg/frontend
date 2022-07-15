@@ -1,4 +1,5 @@
 import { useTranslation } from 'next-i18next'
+import { useEffect } from 'react'
 
 import { ThemeProvider } from '@mui/styles'
 import { createStyles, makeStyles } from '@mui/styles'
@@ -21,6 +22,7 @@ const useStyles = makeStyles(() =>
       color: '#FFFFFF',
       fontSize: '16px',
       '&:hover': { backgroundColor: '#62C4FB', color: '#000000' },
+      [theme.breakpoints.down('sm')]: { fontSize: '12px' },
     },
     container: {
       marginTop: '20%',
@@ -48,9 +50,11 @@ export default function Fail({ setFail, setActiveStep }: Props) {
   const classes = useStyles()
   const { t } = useTranslation('irregularity')
 
-  if (window) {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+  useEffect(() => {
+    if (window) {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }, [])
 
   const handleClick = () => {
     setFail(false)

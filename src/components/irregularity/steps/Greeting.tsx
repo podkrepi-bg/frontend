@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSession } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@mui/material'
@@ -14,6 +14,12 @@ const greetingStyles = {
 export default function Greeting() {
   const { t } = useTranslation('irregularity')
   const { data: session } = useSession()
+
+  useEffect(() => {
+    if (window) {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }, [])
 
   return (
     <Grid container spacing={3} alignContent="center">
@@ -35,7 +41,7 @@ export default function Greeting() {
           <Typography variant="body1">{t('steps.greeting.text-info')}</Typography>
         </Grid>
         <Grid item>
-          <Typography variant="body1" textAlign="justify">
+          <Typography variant="body1">
             {t('steps.greeting.text-description-first')}
             <Link href={routes.campaigns.create}>
               <span>{t('steps.greeting.text-link')}</span>

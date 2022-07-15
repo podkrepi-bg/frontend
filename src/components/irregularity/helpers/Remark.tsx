@@ -6,7 +6,6 @@ type RemarkProps = {
 
 const textStyles = {
   fontSize: '13px',
-  textAlign: 'center',
   marginTop: '100px',
 }
 

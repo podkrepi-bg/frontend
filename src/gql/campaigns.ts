@@ -84,7 +84,7 @@ export type CampaignResponse = BaseCampaignResponse & {
   }
   coordinator: {
     id: UUID
-    person: { id: UUID; firstName: string; lastName: string }
+    person: { id: UUID; firstName: string; lastName: string; email: string }
   }
   organizer?: {
     id: UUID
