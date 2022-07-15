@@ -23,8 +23,9 @@ export default function SecondStep() {
       <Typography>{t('second-step.intro-text')}</Typography>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <TabList
-          variant="scrollable"
+          variant="fullWidth"
           orientation={mobile ? 'vertical' : 'horizontal'}
+          centered
           value={value}
           onChange={handleChange}
           aria-label="personal info">
