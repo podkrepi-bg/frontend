@@ -15,27 +15,8 @@ export default function AnonymousForm() {
         <Grid item xs={12} color="#343434" sx={{ opacity: 0.9 }}>
           <Typography>{t('anonymous-menu.info-start')}</Typography>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <FormTextField
-            name="personsFirstName"
-            type="text"
-            label={t('anonymous-menu.firstName')}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <FormTextField
-            name="personsLastName"
-            type="text"
-            label={t('anonymous-menu.lastName')}
-            fullWidth
-          />
-        </Grid>
         <Grid item xs={12} md={12}>
           <FormTextField name="personsEmail" type="text" label="Email" fullWidth />
-        </Grid>
-        <Grid item xs={12}>
-          <Typography>{t('anonymous-menu.info-end')}</Typography>
         </Grid>
       </Grid>
     </>
