@@ -90,7 +90,7 @@ export default function CampaignInfo({ campaign }: Props) {
             display="block"
             gap="5px"
             className={classes.campaignTextWithIcon}>
-            <FavoriteIcon color="action" sx={{ mb: '-6px', mr: '5px', ml: '-2px' }} />
+            <FavoriteIcon color="action" sx={{ mb: '-6px', mr: '6px', ml: '-2px' }} />
             <strong>
               {t('campaigns:filters.' + `${campaign.campaignType.category}`)}/{' '}
               {t('campaigns:campaign.types.' + `${campaign.campaignType?.slug}`)}
