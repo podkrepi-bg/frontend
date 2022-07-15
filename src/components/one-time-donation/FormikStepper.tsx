@@ -43,6 +43,7 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
   }, [router.query.success])
   const currentChild = childrenArray[step]
   const { data: session } = useSession()
+
   function isLastStep() {
     return step === childrenArray.length - 2
   }
@@ -66,6 +67,7 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
       validationSchema={currentChild.props.validationSchema}
       onSubmit={async (values, helpers) => {
         if (isLastStep()) {
+          values.isAnonymous = !isLogged()
           await props.onSubmit(values, helpers)
         } else if (isFirstStep() && isLogged()) {
           if (values.payment === 'bank') {

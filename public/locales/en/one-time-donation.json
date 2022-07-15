@@ -7,7 +7,7 @@
   },
   "anonymous-menu": {
     "checkbox-label": "Donate anonymously",
-    "info-start": "When donating without registration we won't be able to send you back a donation certificate or a list of your donations. If you still want to receive a certificate, please share at least your contact data - it will not be visible in the platform.",
+    "info-start": "When donating without registration we won't be able to send you back a donation certificate or a list of your donations. If you still want to receive a certificate, please share at least your email - it will not be visible in the platform.",
     "firstName": "First name",
     "lastName": "Last name",
     "phone": "Telephone",
