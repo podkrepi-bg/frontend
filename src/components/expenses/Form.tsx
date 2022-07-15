@@ -51,13 +51,12 @@ export default function Form() {
         then: yup
           .number()
           .positive()
-          .integer()
           .required()
           .test({
             name: 'max',
             exclusive: false,
             params: {},
-            message: 'Не достатъчна наличност в трезора!',
+            message: t('fields-error.amount-unavailable'),
             test: function (value) {
               const currentValt = valts?.find((curr) => curr.id == this.parent.vaultId)
               const currentAmount = Number(currentValt?.amount) - Number(currentValt?.blockedAmount)

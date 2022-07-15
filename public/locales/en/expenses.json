@@ -1,4 +1,7 @@
 {
+  "fields-error": {
+    "amount-unavailable": "Insufficient stock in the vault!"
+  },
   "fields": {
     "type": "Type",
     "status": "Status",
