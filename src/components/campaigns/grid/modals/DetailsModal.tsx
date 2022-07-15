@@ -41,9 +41,7 @@ export default function DetailsModal({ campaign, onClose }: Props) {
           </Typography>
           <Typography variant="body1">Крайна Дата: {getExactDateTime(campaign.endDate)}</Typography>
           <Typography variant="body1">Същество: {campaign.essence}</Typography>
-          <Typography variant="body1">
-            Тип на кампанията: {t('campaigns:campaign.types.' + `${campaign.campaignType.slug}`)}
-          </Typography>
+          <Typography variant="body1">Тип на кампанията: {campaign.campaignType.name}</Typography>
           <Typography variant="body1">
             Бенефициент: {campaign.beneficiary.person.firstName}{' '}
             {campaign.beneficiary.person.lastName}
