@@ -1,4 +1,5 @@
 {
+  "amount-unavailable": "Insufficient stock in the vault!",
   "transfers": "Tranfers",
   "transfer": "Transfer",
   "form-heading": "Add new transfer",

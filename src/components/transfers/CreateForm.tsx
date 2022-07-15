@@ -23,20 +23,7 @@ import { TransferData, TransferInput, TransferResponse } from 'gql/transfer'
 import SelectDate from './custom/SelectDate'
 import { TransferStatus } from './TransferTypes'
 import CampaignSelect from '../campaigns/CampaignSelect'
-
-const validationSchema: yup.SchemaOf<TransferData> = yup.object().shape({
-  status: yup.string().oneOf(Object.values(TransferStatus)),
-  currency: yup.string().oneOf(Object.values(Currency)).required(),
-  amount: yup.number().positive('Amount must be a positive number.').required(),
-  reason: yup.string().trim().min(1).max(300).required(),
-  documentId: yup.string().uuid().notRequired().nullable(),
-  targetDate: yup.date().min(new Date(), 'Date is invalid.').notRequired().nullable(),
-  approvedById: yup.string().uuid().notRequired().nullable(),
-  sourceVaultId: yup.string().uuid().required(),
-  sourceCampaignId: yup.string().uuid().required(),
-  targetVaultId: yup.string().uuid().required(),
-  targetCampaignId: yup.string().uuid().required(),
-})
+import { useVaultsList } from 'common/hooks/vaults'
 
 type Props = {
   campaigns: CampaignResponse[]
@@ -59,7 +46,39 @@ const initialValues: TransferInput = {
 export default function CreateForm({ campaigns }: Props) {
   const { t } = useTranslation('transfer')
   const router = useRouter()
+  const { data: valts } = useVaultsList()
 
+  const validationSchema: yup.SchemaOf<TransferData> = yup.object().shape({
+    status: yup.string().oneOf(Object.values(TransferStatus)),
+    currency: yup.string().oneOf(Object.values(Currency)).required(),
+    amount: yup.number().when('sourceVaultId', {
+      is: (value: string) => value !== undefined,
+      then: yup
+        .number()
+        .positive()
+        .required()
+        .test({
+          name: 'max',
+          exclusive: false,
+          params: {},
+          message: t('amount-unavailable'),
+          test: function (value) {
+            const currentValt = valts?.find((curr) => curr.id == this.parent.sourceVaultId)
+            const currentAmount = Number(currentValt?.amount) - Number(currentValt?.blockedAmount)
+            return value! < Number(currentAmount)
+          },
+        }),
+      otherwise: yup.number().positive().integer().required(),
+    }),
+    reason: yup.string().trim().min(1).max(300).required(),
+    documentId: yup.string().uuid().notRequired().nullable(),
+    targetDate: yup.date().min(new Date(), 'Date is invalid.').notRequired().nullable(),
+    approvedById: yup.string().uuid().notRequired().nullable(),
+    sourceVaultId: yup.string().uuid().required(),
+    sourceCampaignId: yup.string().uuid().required(),
+    targetVaultId: yup.string().uuid().required(),
+    targetCampaignId: yup.string().uuid().required(),
+  })
   const mutation = useMutation<
     AxiosResponse<TransferResponse>,
     AxiosError<ApiErrors>,
