@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
-import { AccountCircle } from '@mui/icons-material'
-import { Grid, IconButton, Menu, Typography, lighten } from '@mui/material'
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline'
+import { Grid, IconButton, Menu, Typography, lighten, Avatar } from '@mui/material'
 
 import { routes } from 'common/routes'
 import LinkMenuItem from 'components/common/LinkMenuItem'
@@ -48,7 +48,14 @@ export default function PublicMenu() {
   return (
     <StyledGrid item>
       <IconButton onClick={handleMenu} size="large">
-        <AccountCircle sx={{ fill: theme.palette.info.light }} />
+        <Avatar
+          sx={{
+            bgcolor: theme.palette.info.light,
+            height: theme.spacing(4.5),
+            width: theme.spacing(4.5),
+          }}>
+          <PersonOutlineIcon />
+        </Avatar>
       </IconButton>
       <Menu
         open={Boolean(anchorEl)}
