@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 
 import { styled } from '@mui/system'
@@ -21,11 +21,17 @@ const CssTextField = styled(FormTextField)({
 export default function Contacts() {
   const { t } = useTranslation('irregularity')
 
+  useEffect(() => {
+    if (window) {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }, [])
+
   return (
     <Grid container spacing={4} alignContent="center">
       <Subtitle label={t('steps.contacts.subtitle')} />
       <Grid item xs={12}>
-        <Typography variant="body1" textAlign="justify">
+        <Typography variant="body1">
           {t('steps.contacts.text')}
           <Link href={routes.privacyPolicy}>
             <span>{t('steps.contacts.text-link') + '.'}</span>

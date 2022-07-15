@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Field } from 'formik'
 import { useTranslation } from 'next-i18next'
 
@@ -30,6 +30,12 @@ type Props = {
 
 export default function Info({ files, setFiles }: Props) {
   const { t } = useTranslation('irregularity')
+
+  useEffect(() => {
+    if (window) {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }, [])
 
   return (
     <Grid container spacing={4} justifyContent="center" alignContent="center">
@@ -85,11 +91,11 @@ export default function Info({ files, setFiles }: Props) {
           <CssTextField label="" type="text" multiline rows={6} name="info.description" />
         </Grid>
       </Grid>
-      <Grid container item rowSpacing={2}>
+      <Grid container item>
         <Grid item xs={12}>
           <Typography sx={{ fontSize: '18px' }}>{t('steps.info.files')}</Typography>
         </Grid>
-        <Grid container justifyContent="center">
+        <Grid container justifyContent="center" mt={2}>
           <FileUpload
             onUpload={(newFiles) => {
               setFiles((prevFiles: File[]) => [...prevFiles, ...newFiles])
