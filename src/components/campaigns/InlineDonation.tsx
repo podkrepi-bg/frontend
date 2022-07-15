@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 import { baseUrl, routes } from 'common/routes'
-import { money } from 'common/util/money'
+import { moneyPublic } from 'common/util/money'
 import CampaignProgress from './CampaignProgress'
 import DonorsAndDonations from './DonorsAndDonations'
 import { Button, CircularProgress, Grid, lighten, Menu, Typography } from '@mui/material'
@@ -132,8 +132,8 @@ export default function InlineDonation({ campaign }: Props) {
   const { mobile } = useMobile()
   const [isOpen, setIsOpen] = useState(false)
 
+  const currency = campaign.currency
   const detailsShown = isOpen || !mobile
-  console.log('detailsShown', detailsShown)
 
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
 
@@ -144,11 +144,11 @@ export default function InlineDonation({ campaign }: Props) {
     <StyledGrid item xs={12} mt={5} p={3} className={classes.inlineDonationWrapper}>
       <Grid mb={2}>
         <Typography component="span" className={classes.reachedMoney}>
-          {money(reached)}
+          {moneyPublic(reached, currency)}
         </Typography>
         <Typography component="span" className={classes.targetMoney}>
           {' '}
-          {t('campaigns:campaign.from')} {money(target)}
+          {t('campaigns:campaign.from')} {moneyPublic(target, currency)}
         </Typography>
       </Grid>
       <CampaignProgress raised={reached} target={target} />

@@ -2,7 +2,7 @@ import React from 'react'
 import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import { routes } from 'common/routes'
-import { money } from 'common/util/money'
+import { moneyPublic } from 'common/util/money'
 import LinkButton from 'components/common/LinkButton'
 import { CampaignResponse } from 'gql/campaigns'
 import CampaignProgress from './CampaignProgress'
@@ -75,6 +75,7 @@ export default function CampaignCard({ campaign }: Props) {
   const summary = campaign.summary.find(() => true)
   const pictureUrl = campaignListPictureUrl(campaign)
   const reached = summary ? summary.reachedAmount : 0
+  const currency = campaign.currency
 
   return (
     <StyledCard variant="outlined" className={classes.cardWrapper}>
@@ -101,8 +102,9 @@ export default function CampaignCard({ campaign }: Props) {
             <CampaignProgress raised={reached} target={target} />
           </Box>
           <Typography variant="body1" component="p" className={classes.progressBar}>
-            {t('campaigns:campaign.reached')} <b>{money(reached)}</b> {t('campaigns:campaign.from')}{' '}
-            {t('campaigns:campaign.target')} <b>{money(target)}</b>
+            {t('campaigns:campaign.reached')} <b>{moneyPublic(reached, currency)}</b>{' '}
+            {t('campaigns:campaign.from')} {t('campaigns:campaign.target')}{' '}
+            <b>{moneyPublic(target, currency)}</b>
           </Typography>
           <Grid item xs={12}>
             <Box mx={2} mb={2}>
