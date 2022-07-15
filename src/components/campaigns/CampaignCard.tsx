@@ -64,11 +64,23 @@ const StyledCard = styled(Card)(({ theme }) => ({
   },
 
   [`& .${classes.cardContent}`]: {
-    minHeight: theme.spacing(20),
+    minHeight: theme.spacing(24),
+    maxHeight: theme.spacing(24),
   },
 }))
 
 type Props = { campaign: CampaignResponse }
+
+const titleSize = (campaign: CampaignResponse) => {
+  if (campaign.title.length > 120) {
+    return 'subtitle1'
+  }
+  if (campaign.title.length > 90) {
+    return 'h6'
+  }
+  return 'h5'
+}
+
 export default function CampaignCard({ campaign }: Props) {
   const { t } = useTranslation()
   const target = campaign.targetAmount
@@ -88,7 +100,7 @@ export default function CampaignCard({ campaign }: Props) {
           </CardMedia>
         </Link>
         <CardContent className={classes.cardContent}>
-          <Typography textAlign={'center'} gutterBottom variant="h5" component="h2">
+          <Typography textAlign={'center'} gutterBottom variant={titleSize(campaign)}>
             {campaign.title}
           </Typography>
           <Typography textAlign={'left'} variant="body2" color="textSecondary" component="p">
