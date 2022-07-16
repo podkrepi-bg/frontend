@@ -38,7 +38,7 @@ export default function Form() {
   const { t } = useTranslation('expenses')
   let id = router.query.id
   let data: ExpenseResponse | undefined
-  const { data: valts } = useVaultsList()
+  const { data: vaults } = useVaultsList()
   const validationSchema = yup
     .object()
     .defined()
@@ -58,7 +58,7 @@ export default function Form() {
             params: {},
             message: t('fields-error.amount-unavailable'),
             test: function (value) {
-              const currentValt = valts?.find((curr) => curr.id == this.parent.vaultId)
+              const currentValt = vaults?.find((curr) => curr.id == this.parent.vaultId)
               const currentAmount = Number(currentValt?.amount) - Number(currentValt?.blockedAmount)
               return value! < Number(currentAmount)
             },

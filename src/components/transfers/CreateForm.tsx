@@ -46,7 +46,7 @@ const initialValues: TransferInput = {
 export default function CreateForm({ campaigns }: Props) {
   const { t } = useTranslation('transfer')
   const router = useRouter()
-  const { data: valts } = useVaultsList()
+  const { data: vaults } = useVaultsList()
 
   const validationSchema: yup.SchemaOf<TransferData> = yup.object().shape({
     status: yup.string().oneOf(Object.values(TransferStatus)),
@@ -63,7 +63,7 @@ export default function CreateForm({ campaigns }: Props) {
           params: {},
           message: t('amount-unavailable'),
           test: function (value) {
-            const currentValt = valts?.find((curr) => curr.id == this.parent.sourceVaultId)
+            const currentValt = vaults?.find((curr) => curr.id == this.parent.sourceVaultId)
             const currentAmount = Number(currentValt?.amount) - Number(currentValt?.blockedAmount)
             return value! < Number(currentAmount)
           },
