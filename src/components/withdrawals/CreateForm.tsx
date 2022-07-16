@@ -23,6 +23,7 @@ import BankAccountSelect from 'components/bankaccounts/BankAccountSelect'
 import CampaignSelect from 'components/campaigns/CampaignSelect'
 import VaultSelect from 'components/vaults/VaultSelect'
 import PersonSelect from 'components/person/PersonSelect'
+import { Currency } from 'gql/currency'
 
 export default function CreateForm() {
   const router = useRouter()
@@ -47,7 +48,6 @@ export default function CreateForm() {
             message: t('transfer:amount-unavailable'),
             test: function (value) {
               const currentValt = vaults?.find((curr) => curr.id == this.parent.sourceVaultId)
-              console.log(currentValt)
               const currentAmount = Number(currentValt?.amount) - Number(currentValt?.blockedAmount)
               return value! < Number(currentAmount)
             },
@@ -55,12 +55,12 @@ export default function CreateForm() {
         otherwise: yup.number().positive().integer().required(),
       }),
       reason: yup.string().trim().min(1).max(300).required(),
-      currency: yup.string().trim().min(1).max(10),
-      sourceVaultId: yup.string().trim().uuid().required(),
-      sourceCampaignId: yup.string(),
-      bankAccountId: yup.string(),
-      documentId: yup.string(),
-      approvedById: yup.string(),
+      currency: yup.string().oneOf(Object.values(Currency)).required(),
+      sourceVaultId: yup.string().uuid().required(),
+      sourceCampaignId: yup.string().uuid().required(),
+      bankAccountId: yup.string().uuid().required(),
+      documentId: yup.string().uuid().required(),
+      approvedById: yup.string().uuid().required(),
     })
   const initialValues: WithdrawalInput = {
     status: WithdrawalStatus.initial,
@@ -98,7 +98,7 @@ export default function CreateForm() {
       sourceVaultId: values.sourceVaultId,
       sourceCampaignId: values.sourceCampaignId,
       bankAccountId: values.bankAccountId,
-      documentId: 'ff89a831-34da-4b2d-91bc-742247efd9b8',
+      documentId: values.documentId,
       approvedById: values.approvedById,
     }
     mutation.mutate(data)
@@ -130,6 +130,14 @@ export default function CreateForm() {
           </Grid>
           <Grid item xs={12}>
             <BankAccountSelect />
+          </Grid>
+          <Grid item xs={12}>
+            <FormTextField
+              type="string"
+              label={t('documentId')}
+              name="documentId"
+              autoComplete="documentId"
+            />
           </Grid>
           <Grid item xs={12}>
             <CampaignSelect
