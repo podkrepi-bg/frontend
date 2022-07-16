@@ -5,7 +5,7 @@ import { useField } from 'formik'
 import { useVaultsList } from 'common/hooks/vaults'
 import FormTextField from 'components/common/form/FormTextField'
 
-export default function VaultSelect({ name = 'vaultId', disabled = false }) {
+export default function VaultSelect({ name = 'vaultId', ...textFieldProps }) {
   const { t } = useTranslation()
 
   const values = useVaultsList().data?.map((record) => record.id)
@@ -24,7 +24,7 @@ export default function VaultSelect({ name = 'vaultId', disabled = false }) {
         defaultValue=""
         label={t('fields.' + name)}
         {...field}
-        disabled={disabled}>
+        {...textFieldProps}>
         <MenuItem value="" disabled>
           {t('fields.' + name)}
         </MenuItem>
