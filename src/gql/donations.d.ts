@@ -21,6 +21,7 @@ export type CheckoutSessionInput = {
   firstName?: string
   lastName?: string
   personEmail?: string
+  isAnonymous: boolean
   phone?: string | null
 }
 
@@ -38,7 +39,8 @@ export type DonationResponse = {
   currency: Currency
   amount: number
   personId?: UUID
-  person: { firsName: string; lastNAme: string }
+  person?: { firsName: string; lastName: string }
+  targetVault: { name: string }
 }
 
 export type UserDonationResponse = DonationResponse & {
@@ -93,10 +95,9 @@ export type UserDonationResult = {
 
 export type OneTimeDonation = {
   message?: string
-  anonymous: boolean
+  isAnonymous: boolean
   amount: string
   otherAmount: number
-  anonymousDonation: boolean
   personsFirstName: string
   personsLastName: string
   personsEmail: string
@@ -122,7 +123,7 @@ export type FirstStep = {
 }
 
 export type SecondStep = {
-  anonymousDonation?: boolean
+  isAnonymous: boolean
   personsFirstName?: string
   personsLastName?: string
   personsPhone?: string
@@ -131,7 +132,6 @@ export type SecondStep = {
 
 export type ThirdStep = {
   message?: string
-  anonymous: boolean
 }
 export type BankTransactionsUploadImage = {
   bankTransactionsFileId: string

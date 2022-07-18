@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { Typography, lighten } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-import { routes, staticUrls } from 'common/routes'
+import { staticUrls } from 'common/routes'
 import LinkMenuItem from 'components/common/LinkMenuItem'
 
 import GenericMenu from './GenericMenu'
@@ -55,11 +55,11 @@ const allNavItems: NavItem[] = [
     label: 'nav.dev.open-source',
     target: '_blank',
   },
-  {
-    href: routes.dev.openData,
-    label: 'nav.dev.open-data',
-    target: '_blank',
-  },
+  // {
+  //   href: routes.dev.openData,
+  //   label: 'nav.dev.open-data',
+  //   target: '_blank',
+  // },
 ]
 
 export const navItems = allNavItems.filter((el) => typeof el.enabled === 'undefined' ?? el.enabled)

@@ -58,9 +58,10 @@ export default function DonationMenuMobile() {
         <LinkButton variant="text" href={routes.campaigns.index} className={classes.menuItem}>
           {t('nav.campaigns.index')}
         </LinkButton>
-        <LinkButton variant="text" href={routes.campaigns.create} className={classes.menuItem}>
+        {/* temporarily disabled */}
+        {/* <LinkButton variant="text" href={routes.campaigns.create} className={classes.menuItem}>
           {t('nav.campaigns.create')}
-        </LinkButton>
+        </LinkButton> */}
         <LinkButton variant="text" href={routes.termsOfService} className={classes.menuItem}>
           {t('components.footer.terms-of-service')}
         </LinkButton>

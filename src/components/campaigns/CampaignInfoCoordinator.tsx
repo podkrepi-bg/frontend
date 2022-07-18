@@ -83,9 +83,14 @@ export default function CampaignInfoCoordinator({ campaign }: Props) {
         </Typography>
         <Button
           startIcon={<EmailIcon color="action" />}
-          href={'mailto:info@podkrepi.bg?subject=Question about: ' + campaign.title}
+          href={
+            'mailto:' +
+            campaign.coordinator.person.email +
+            '?subject=Question about: ' +
+            campaign.title
+          }
           className={classes.trustedButton}>
-          info@podkrepi.bg
+          {campaign.coordinator.person.email}
         </Button>
       </Grid>
     </StyledGrid>

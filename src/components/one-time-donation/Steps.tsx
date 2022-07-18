@@ -23,10 +23,9 @@ import { toMoney } from 'common/util/money'
 
 const initialValues: OneTimeDonation = {
   message: '',
-  anonymous: false,
+  isAnonymous: true,
   amount: '',
   otherAmount: 0,
-  anonymousDonation: false,
   personsFirstName: '',
   personsLastName: '',
   personsEmail: '',
@@ -64,6 +63,7 @@ export default function DonationStepper() {
         firstName: values?.personsFirstName ? values.personsFirstName : 'Anonymous',
         lastName: values?.personsLastName ? values.personsLastName : 'Donor',
         personEmail: values?.personsEmail ? values.personsEmail : userEmail,
+        isAnonymous: values?.isAnonymous ?? true,
         phone: values?.personsPhone ? values.personsPhone : null,
         successUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=true`,
         cancelUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=false`,

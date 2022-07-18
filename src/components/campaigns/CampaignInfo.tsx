@@ -19,8 +19,6 @@ const classes = {
   campaignText: `${PREFIX}-campaignText`,
   campaignTextWithIcon: `${PREFIX}-campaignTextWithIcon`,
   divider: `${PREFIX}-divider`,
-  stateActiveDivider: `${PREFIX}-stateActiveDivider`,
-  stateCompletedDivider: `${PREFIX}-stateCompletedDivider`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
@@ -55,7 +53,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.campaignText}`]: {
     fontSize: theme.spacing(1.8),
     flexWrap: 'wrap',
-    paddingLeft: theme.spacing(3.5),
+    paddingLeft: '29px',
     [theme.breakpoints.up('lg')]: {
       fontSize: theme.spacing(2),
     },
@@ -66,27 +64,6 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     flexWrap: 'wrap',
     [theme.breakpoints.up('lg')]: {
       fontSize: theme.spacing(2),
-    },
-  },
-
-  [`& .${classes.stateActiveDivider}`]: {
-    borderRightWidth: 2,
-    borderBottomWidth: 2,
-    borderColor: '#00FF00',
-    marginLeft: theme.spacing(3.5),
-    width: '145px',
-    [theme.breakpoints.up('lg')]: {
-      display: 'none',
-    },
-  },
-  [`& .${classes.stateCompletedDivider}`]: {
-    borderRightWidth: 2,
-    borderBottomWidth: 2,
-    borderColor: '#00FF00',
-    marginLeft: theme.spacing(3.5),
-    width: '163px',
-    [theme.breakpoints.up('lg')]: {
-      display: 'none',
     },
   },
 }))
@@ -113,10 +90,10 @@ export default function CampaignInfo({ campaign }: Props) {
             display="block"
             gap="5px"
             className={classes.campaignTextWithIcon}>
-            <FavoriteIcon color="action" sx={{ mb: '-6px', mr: '3px' }} />
+            <FavoriteIcon color="action" sx={{ mb: '-6px', mr: '6px', ml: '-2px' }} />
             <strong>
               {t('campaigns:filters.' + `${campaign.campaignType.category}`)}/{' '}
-              {t('campaigns:campaign.types.' + `${campaign.campaignType?.slug}`)}
+              {campaign.campaignType.name}
             </strong>
           </Typography>
           {/* TODO: Dynamic campaign tagging is needed here based on activity (urgent, hot, the long-shot, etc) 
@@ -132,11 +109,6 @@ export default function CampaignInfo({ campaign }: Props) {
             <strong>{t('campaigns:campaign.status')}</strong>{' '}
             {t(`campaigns:campaign-status.${campaign.state}`)}
           </Typography>
-          {campaign.state === 'active' ? (
-            <Divider className={classes.stateActiveDivider} />
-          ) : (
-            <Divider className={classes.stateCompletedDivider} />
-          )}
           <Typography
             variant="subtitle2"
             component="p"
@@ -144,7 +116,7 @@ export default function CampaignInfo({ campaign }: Props) {
             gap="5px"
             pr={2}
             className={classes.campaignTextWithIcon}>
-            <CalendarTodayIcon fontSize="small" color="action" />
+            <CalendarTodayIcon fontSize="small" color="action" sx={{ mr: '4px' }} />
             <strong>{t('campaigns:campaign.start-date')}</strong>{' '}
             {getExactDate(campaign.startDate, locale)}
           </Typography>

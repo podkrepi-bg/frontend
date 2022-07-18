@@ -6,7 +6,6 @@ import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-
 import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
-import { useVault } from 'common/hooks/vaults'
 import { useCampaignDonationsList, useDonationsList } from 'common/hooks/donation'
 import { DonationResponse } from 'gql/donations'
 import GridActions from 'components/admin/GridActions'
@@ -32,11 +31,12 @@ export default observer(function Grid() {
     ? useCampaignDonationsList(campaignId as string)
     : useDonationsList()
   const RenderVaultCell = ({ params }: RenderCellProps) => {
-    const vault = useVault(params.row.targetVaultId)
-    return <>{vault.data?.name}</>
+    return <>{params.row.targetVault.name}</>
   }
   const RenderPersonCell = ({ params }: RenderCellProps) => {
     const { firstName, lastName } = params.row.person
+      ? params.row.person
+      : { firstName: 'Anonymous', lastName: 'Donor' }
     return <>{firstName + ' ' + lastName}</>
   }
 

@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 import { baseUrl, routes } from 'common/routes'
-import { money } from 'common/util/money'
+import { moneyPublic } from 'common/util/money'
 import CampaignProgress from './CampaignProgress'
 import DonorsAndDonations from './DonorsAndDonations'
 import { Button, CircularProgress, Grid, lighten, Menu, Typography } from '@mui/material'
@@ -16,7 +16,9 @@ import CustomListItem from 'components/admin/navigation/CustomListItem'
 import { socialMedia } from './helpers/socialMedia'
 import { useCopyToClipboard } from 'common/util/useCopyToClipboard'
 import { AlertStore } from 'stores/AlertStore'
-
+import useMobile from 'common/hooks/useMobile'
+import ExpandLessIcon from '@mui/icons-material/ExpandLess'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 const PREFIX = 'InlineDonation'
 
 const classes = {
@@ -27,23 +29,36 @@ const classes = {
   donationPriceList: `${PREFIX}-donationPriceList`,
   dropdownLinkButton: `${PREFIX}-dropdownLinkButton`,
   dropdownLinkText: `${PREFIX}-dropdownLinkText`,
+  buttonContainer: `${PREFIX}-buttonContainer`,
+  sharesContainer: `${PREFIX}-sharesContainer`,
+  openButton: `${PREFIX}-openButton`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
   [`&.${classes.inlineDonationWrapper}`]: {
-    backgroundColor: theme.palette.common.white,
+    backgroundColor: '#EEEEEE',
     borderRadius: theme.spacing(1),
     height: 'fit-content',
-    boxShadow: '1px 2px 8px #8888888c',
+    boxShadow: '2px 4px 5px rgba(0, 0, 0, 0.25)',
+    [theme.breakpoints.down('md')]: {
+      margin: theme.spacing(0),
+      borderRadius: theme.spacing(0),
+    },
   },
 
   [`& .${classes.reachedMoney}`]: {
     fontSize: theme.spacing(5),
     fontWeight: 500,
+    [theme.breakpoints.down('md')]: {
+      fontSize: theme.spacing(3),
+    },
   },
 
   [`& .${classes.targetMoney}`]: {
     fontSize: theme.spacing(3),
+    [theme.breakpoints.down('md')]: {
+      fontSize: theme.spacing(2),
+    },
   },
 
   [`& .${classes.donorsSharesCount}`]: {
@@ -55,6 +70,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     display: 'contents',
     textAlignLast: 'center',
   },
+
   [`& .${classes.dropdownLinkButton}`]: {
     '&:hover': {
       backgroundColor: lighten(theme.palette.primary.main, 0.9),
@@ -67,6 +83,30 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     '&:hover': {
       color: theme.palette.primary.main,
     },
+  },
+
+  [`& .${classes.buttonContainer}`]: {
+    [theme.breakpoints.down('md')]: {
+      display: 'flex',
+      flexWrap: 'nowrap',
+      marginTop: theme.spacing(2),
+    },
+  },
+
+  [`& .${classes.sharesContainer}`]: {
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
+    },
+  },
+
+  [`& .${classes.openButton}`]: {
+    textAlign: 'center',
+    marginBottom: `-${theme.spacing(7)}`,
+    borderRadius: '50%',
+    border: 'none',
+    backgroundColor: '#EEEEEE',
+    minWidth: theme.spacing(5),
+    paddingBottom: 'unset',
   },
 }))
 
@@ -89,6 +129,11 @@ export default function InlineDonation({ campaign }: Props) {
     error: donationHistoryError,
     isLoading: isDonationHistoryLoading,
   } = useCampaignDonationHistory(campaign.id)
+  const { mobile } = useMobile()
+  const [isOpen, setIsOpen] = useState(false)
+
+  const currency = campaign.currency
+  const detailsShown = isOpen || !mobile
 
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
 
@@ -99,23 +144,27 @@ export default function InlineDonation({ campaign }: Props) {
     <StyledGrid item xs={12} mt={5} p={3} className={classes.inlineDonationWrapper}>
       <Grid mb={2}>
         <Typography component="span" className={classes.reachedMoney}>
-          {money(reached)}
-        </Typography>{' '}
-        {t('campaigns:campaign.from')}{' '}
+          {moneyPublic(reached, currency)}
+        </Typography>
         <Typography component="span" className={classes.targetMoney}>
-          {money(target)}
+          {' '}
+          {t('campaigns:campaign.from')} {moneyPublic(target, currency)}
         </Typography>
       </Grid>
       <CampaignProgress raised={reached} target={target} />
-      <Grid display="inline-block" m={3} ml={0}>
-        <Typography className={classes.donorsSharesCount}>{donors}</Typography>
-        <Typography>{t('campaigns:campaign.donors')}</Typography>
-      </Grid>
-      <Grid display="inline-block" m={3} ml={0}>
-        <Typography className={classes.donorsSharesCount}>{0}</Typography>
-        <Typography>{t('campaigns:campaign.shares')}</Typography>
-      </Grid>
-      <Grid container gap={2}>
+      {detailsShown && (
+        <>
+          <Grid display="inline-block" m={3} ml={0}>
+            <Typography className={classes.donorsSharesCount}>{donors}</Typography>
+            <Typography>{t('campaigns:campaign.donors')}</Typography>
+          </Grid>
+          <Grid display="inline-block" m={3} ml={0}>
+            <Typography className={classes.donorsSharesCount}>{0}</Typography>
+            <Typography>{t('campaigns:campaign.shares')}</Typography>
+          </Grid>
+        </>
+      )}
+      <Grid container gap={2} className={classes.buttonContainer}>
         <Button
           fullWidth
           variant="outlined"
@@ -168,14 +217,22 @@ export default function InlineDonation({ campaign }: Props) {
           {t('common:support')}
         </Button>
       </Grid>
-      {donationHistoryError ? (
-        'Error fetching donation history'
-      ) : isDonationHistoryLoading ? (
-        <CircularProgress sx={{ display: 'block', margin: `${theme.spacing(3)} auto` }} />
-      ) : (
-        <DonorsAndDonations donations={donations} />
-      )}
+      {detailsShown &&
+        (donationHistoryError ? (
+          'Error fetching donation history'
+        ) : isDonationHistoryLoading ? (
+          <CircularProgress sx={{ display: 'block', margin: `${theme.spacing(3)} auto` }} />
+        ) : (
+          <DonorsAndDonations donations={donations} />
+        ))}
       {/* <pre>{JSON.stringify(prices, null, 2)}</pre> */}
+      {mobile && (
+        <Grid textAlign="center">
+          <Button variant="text" onClick={() => setIsOpen(!isOpen)} className={classes.openButton}>
+            {isOpen ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />}
+          </Button>
+        </Grid>
+      )}
     </StyledGrid>
   )
 }

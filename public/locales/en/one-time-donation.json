@@ -7,14 +7,14 @@
   },
   "anonymous-menu": {
     "checkbox-label": "Donate anonymously",
-    "info-start": "When donating without registration we won't be able to send you back a donation certificate or a list of your donations. If you still want to receive a certificate, please share at least your contact data - it will not be visible in the platform.",
+    "info-start": "When donating without registration we won't be able to send you back a donation certificate or a list of your donations. If you still want to receive a certificate, please share at least your email - it will not be visible in the platform.",
     "firstName": "First name",
     "lastName": "Last name",
     "phone": "Telephone",
     "info-end": "Your data would not be shared with anyone"
   },
   "first-step": {
-    "wish": "Would you like to wish something to the beneficiary:",
+    "wish": "Would you like to wish something to the beneficiary?",
     "message": "Your wish",
     "check-box-label": "Anonymous donation",
     "info-anonymous": "Anonymous donation means that the organisator and beneficiery would not be aware of your identity",

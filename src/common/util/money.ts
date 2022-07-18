@@ -14,6 +14,21 @@ export const money = (number: number, currency = 'BGN', divisionFactor = 100) =>
   )
 }
 
+export const moneyPublic = (number: number, currency = 'BGN', divisionFactor = 100) => {
+  const amount = new Intl.NumberFormat('en-US', {
+    style: 'decimal',
+    maximumFractionDigits: 0,
+  }).format(number / divisionFactor)
+
+  if (currency === 'EUR') {
+    return `€${amount}`
+  }
+  if (currency === 'USD') {
+    return `$${amount}`
+  }
+  return `${amount} лв.`
+}
+
 /**
  * Used for formatting a number into internal Money value
  *

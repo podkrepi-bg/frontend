@@ -9,7 +9,7 @@ import NotFoundPage from 'pages/404'
 import Layout from 'components/layout/Layout'
 import InlineDonation from './InlineDonation'
 import CampaignDetails from './CampaignDetails'
-import IrregularityReport from './IrregularityReport'
+import useMobile from 'common/hooks/useMobile'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,11 +19,19 @@ const useStyles = makeStyles((theme: Theme) =>
         maxWidth: 'max-content',
         flexBasis: 'fit-content',
         paddingLeft: theme.spacing(0),
+        flexDirection: 'column',
       },
     },
-    donationWrapper: {
+    donationDesktopWrapper: {
       position: 'sticky',
       top: theme.spacing(12),
+    },
+    donationMobileWrapper: {
+      top: theme.spacing(10),
+      order: -1,
+      marginTop: `-${theme.spacing(2)}`,
+      minWidth: '100vw',
+      boxShadow: '2px 4px 5px rgba(0, 0, 0, 0.25)',
     },
   }),
 )
@@ -35,24 +43,30 @@ export default function ViewCampaignPage({ slug }: Props) {
   const { data } = useViewCampaign(slug)
   if (!data || !data.campaign) return <NotFoundPage />
   const { campaign } = data
+  const { mobile, small } = useMobile()
 
   return (
     <Layout maxWidth={false}>
       <Grid container component="section" maxWidth="lg" justifyContent="center" m="0 auto">
         <CampaignDetails campaign={campaign} />
-        <Grid
-          container
-          item
-          xs={12}
-          sm={4}
-          direction="column"
-          flexWrap="nowrap"
-          className={classes.sideWrapper}>
-          <Grid item className={classes.donationWrapper}>
+        {mobile || small ? (
+          <Grid item className={classes.donationMobileWrapper}>
             <InlineDonation campaign={campaign} />
-            {/* <IrregularityReport campaign={campaign} /> */}
           </Grid>
-        </Grid>
+        ) : (
+          <Grid
+            container
+            item
+            xs={12}
+            sm={4}
+            direction="column"
+            flexWrap="nowrap"
+            className={classes.sideWrapper}>
+            <Grid item className={classes.donationDesktopWrapper}>
+              <InlineDonation campaign={campaign} />
+            </Grid>
+          </Grid>
+        )}
       </Grid>
     </Layout>
   )
