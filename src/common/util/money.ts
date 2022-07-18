@@ -15,9 +15,21 @@ export const money = (number: number, currency = 'BGN', divisionFactor = 100) =>
 }
 
 export const moneyPublic = (number: number, currency = 'BGN', divisionFactor = 100) => {
-  const locales =
-    !i18n?.language || i18n.language === 'bg' || i18n.language === 'bg-BG' ? 'de-DE' : i18n.language
-  return new Intl.NumberFormat(locales, {
+  if (!i18n?.language || i18n.language === 'bg' || i18n.language === 'bg-BG') {
+    const amount = new Intl.NumberFormat('de-DE', {
+      style: 'decimal',
+      maximumFractionDigits: 0,
+    }).format(number / divisionFactor)
+
+    if (currency === 'EUR') {
+      return `${amount} €`
+    }
+    if (currency === 'USD') {
+      return `${amount} $`
+    }
+    return `${amount} лв.`
+  }
+  return new Intl.NumberFormat(i18n.language, {
     style: 'currency',
     currency,
     maximumFractionDigits: 0,
