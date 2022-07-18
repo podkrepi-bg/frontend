@@ -24,6 +24,7 @@ import SelectDate from './custom/SelectDate'
 import { TransferStatus } from './TransferTypes'
 import CampaignSelect from '../campaigns/CampaignSelect'
 import { useVaultsList } from 'common/hooks/vaults'
+import PersonSelect from 'components/person/PersonSelect'
 
 type Props = {
   campaigns: CampaignResponse[]
@@ -129,7 +130,7 @@ export default function CreateForm({ campaigns }: Props) {
             <FormTextField type="number" label={t('amount')} name="amount" />
           </Grid>
           <Grid item xs={12}>
-            <SelectDate label={t('targetDate')} name="targetDate" />
+            <SelectDate name="targetDate" />
           </Grid>
           <Grid item xs={12}>
             <FormTextField
@@ -158,6 +159,9 @@ export default function CreateForm({ campaigns }: Props) {
           </Grid>
           <Grid item xs={12}>
             <VaultSelect name="targetVaultId" />
+          </Grid>
+          <Grid item xs={12}>
+            <PersonSelect name="approvedById" label={t('approvedBy')} />
           </Grid>
           <Grid item xs={6}>
             <SubmitButton fullWidth label={t('transfer:cta:submit')} />
