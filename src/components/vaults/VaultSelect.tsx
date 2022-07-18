@@ -4,7 +4,6 @@ import { useField } from 'formik'
 
 import { useVaultsList } from 'common/hooks/vaults'
 import FormTextField from 'components/common/form/FormTextField'
-import { VaultResponse } from 'gql/vault'
 
 export default function VaultSelect({ name = 'vaultId', ...textFieldProps }) {
   const { t } = useTranslation()
