@@ -145,7 +145,7 @@ export default function EditForm() {
             <VaultSelect name="sourceVaultId" disabled={true} />
           </Grid>
           <Grid item xs={12}>
-            <PersonSelect name="approvedById" label={t('approvedBy')} />
+            <PersonSelect disabled name="approvedById" label={t('approvedBy')} />
           </Grid>
           <Grid item xs={6}>
             <SubmitButton fullWidth label={t('cta.submit')} />
