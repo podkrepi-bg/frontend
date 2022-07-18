@@ -153,7 +153,7 @@ export default function EditForm({ transfer, campaigns, id }: Props) {
           <Grid item xs={12}>
             <CampaignSelect
               name="sourceCampaignId"
-              label="sourceCampaign"
+              label="transfer:sourceCampaign"
               campaigns={campaigns || []}
               disabled={true}
             />
@@ -164,7 +164,7 @@ export default function EditForm({ transfer, campaigns, id }: Props) {
           <Grid item xs={12}>
             <CampaignSelect
               name="targetCampaignId"
-              label="targetCampaign"
+              label="transfer:targetCampaign"
               campaigns={campaigns || []}
             />
           </Grid>
