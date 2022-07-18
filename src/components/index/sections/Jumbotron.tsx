@@ -58,7 +58,7 @@ export default function Jumbotron() {
         alt="Podkrepi.bg jumbotron heading"
         layout="fill"
         objectFit="cover"
-        objectPosition="70% 50%"
+        objectPosition="70% 12%"
         style={{ zIndex: -1 }}
       />
       <Container maxWidth="lg">
