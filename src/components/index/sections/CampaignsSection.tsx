@@ -8,6 +8,7 @@ import { useCampaignList } from 'common/hooks/campaigns'
 import { routes } from 'common/routes'
 
 import Heading from 'components/common/Heading'
+import { CampaignResponse } from 'gql/campaigns'
 
 const PREFIX = 'CampaignsSection'
 
@@ -34,6 +35,17 @@ const StyledContainer = styled(Container)(({ theme }) => ({
   },
 }))
 
+const cardAlignment = (index: number, array: CampaignResponse[]) => {
+  if (index === array.length - 1 && array.length % 2 === 1) {
+    return 'center'
+  }
+  if (index % 2 === 0) {
+    return 'right'
+  } else {
+    return 'left'
+  }
+}
+
 export default function CampaignsSection() {
   const { data } = useCampaignList()
   const { t } = useTranslation()
@@ -47,9 +59,14 @@ export default function CampaignsSection() {
           {t('index:campaign.emergency-causes')}
         </Heading>
         <Grid container justifyContent="center" spacing={2}>
-          {data?.slice(0, 3).map((campaign, index) => (
+          {data?.slice(0, 3).map((campaign, index, array) => (
             <Grid key={index} item xs={12} sm={6} lg={4}>
-              <Box textAlign="center">
+              <Box
+                sx={(theme) => ({
+                  textAlign: 'center',
+                  [theme.breakpoints.down('lg')]: { textAlign: cardAlignment(index, array) },
+                  [theme.breakpoints.down('md')]: { textAlign: 'center' },
+                })}>
                 <CampaignCard campaign={campaign} />
               </Box>
             </Grid>
