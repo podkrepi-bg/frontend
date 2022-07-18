@@ -45,7 +45,7 @@ export default function CreateForm() {
             name: 'max',
             exclusive: false,
             params: {},
-            message: t('transfer:amount-unavailable'),
+            message: t('amount-unavailable'),
             test: function (value) {
               const currentValt = vaults?.find((curr) => curr.id == this.parent.sourceVaultId)
               const currentAmount = Number(currentValt?.amount) - Number(currentValt?.blockedAmount)
