@@ -15,10 +15,12 @@ export const money = (number: number, currency = 'BGN', divisionFactor = 100) =>
 }
 
 export const moneyPublic = (number: number, currency = 'BGN', divisionFactor = 100) => {
-  return new Intl.NumberFormat(i18n?.language || 'bg-BG', {
+  const locales =
+    !i18n?.language || i18n.language === 'bg' || i18n.language === 'bg-BG' ? 'de-DE' : i18n.language
+  return new Intl.NumberFormat(locales, {
     style: 'currency',
     currency,
-    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
   }).format(number / divisionFactor)
 }
 
