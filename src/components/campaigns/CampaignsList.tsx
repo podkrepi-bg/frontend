@@ -8,7 +8,19 @@ import CampaignCard from './CampaignCard'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 
+const cardAlignment = (index: number, array: CampaignResponse[]) => {
+  if (index === array.length - 1 && array.length % 2 === 1) {
+    return 'center'
+  }
+  if (index % 2 === 0) {
+    return 'right'
+  } else {
+    return 'left'
+  }
+}
+
 type Props = { campaignToShow: CampaignResponse[] }
+
 export default function CampaignsList({ campaignToShow }: Props) {
   const { t } = useTranslation()
   const { mobile } = useMobile()
@@ -20,13 +32,19 @@ export default function CampaignsList({ campaignToShow }: Props) {
     }
     return campaignToShow?.slice(0, numberOfMinimalShownCampaigns) ?? []
   }, [campaignToShow, all])
+
   return (
     <Grid container justifyContent="center" spacing={2}>
-      <Grid container justifyContent="center" spacing={2}>
+      <Grid container justifyContent="center" spacing={2} ml={0}>
         {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
-        {campaigns?.map((campaign, index) => (
+        {campaigns?.map((campaign, index, array) => (
           <Grid key={index} item xs={12} sm={8} md={6} lg={3}>
-            <Box textAlign="center">
+            <Box
+              sx={(theme) => ({
+                textAlign: 'center',
+                [theme.breakpoints.down('lg')]: { textAlign: cardAlignment(index, array) },
+                [theme.breakpoints.down('md')]: { textAlign: 'center' },
+              })}>
               <CampaignCard campaign={campaign} />
             </Box>
           </Grid>
