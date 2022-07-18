@@ -56,6 +56,12 @@ const StyledCard = styled(Card)(({ theme }) => ({
     },
     [theme.breakpoints.down('md')]: {
       minHeight: theme.spacing(77),
+      maxWidth: '400px',
+      width: '100%',
+    },
+    [theme.breakpoints.down('sm')]: {
+      minHeight: theme.spacing(77),
+      maxWidth: '300px',
       width: '100%',
     },
   },
@@ -69,6 +75,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
   [`& .${classes.progressBar}`]: {
     margin: theme.spacing(2.5),
     textAlign: 'left',
+    minHeight: theme.spacing(5),
   },
 
   [`& .${classes.cardContent}`]: {
@@ -77,6 +84,9 @@ const StyledCard = styled(Card)(({ theme }) => ({
     [theme.breakpoints.down('md')]: {
       minHeight: theme.spacing(25),
       maxHeight: theme.spacing(25),
+    },
+    [theme.breakpoints.down('sm')]: {
+      maxHeight: 'fit-content',
     },
   },
 }))
