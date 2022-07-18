@@ -27,6 +27,7 @@ import VaultSelect from '../vaults/VaultSelect'
 import ExpenseTypeSelect from './ExpenseTypeSelect'
 import ExpenseStatusSelect from './ExpenseStatusSelect'
 import { useVaultsList } from 'common/hooks/vaults'
+import PersonSelect from 'components/person/PersonSelect'
 
 const validTypes = Object.keys(ExpenseType)
 const validStatuses = Object.keys(ExpenseStatus)
@@ -164,7 +165,7 @@ export default function Form() {
               rows={5}
             />
           </Grid>
-          {id && (
+          {(id && (
             <Grid item xs={id ? 10 : 12}>
               <FormTextField
                 type="text"
@@ -174,6 +175,10 @@ export default function Form() {
                   readOnly: true,
                 }}
               />
+            </Grid>
+          )) || (
+            <Grid item xs={12}>
+              <PersonSelect name="approvedById" label={t('expenses:fields:approvedBy')} />
             </Grid>
           )}
           {id && (
