@@ -126,7 +126,7 @@ export default function EditForm({ transfer, campaigns, id }: Props) {
             <CurrencySelect name="currency" />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField type="number" label={t('amount')} name="amount" />
+            <FormTextField disabled type="number" label={t('amount')} name="amount" />
           </Grid>
           <Grid item xs={12}>
             <SelectDate label={t('targetDate')} name="targetDate" />
@@ -144,7 +144,7 @@ export default function EditForm({ transfer, campaigns, id }: Props) {
             <FormTextField
               type="text"
               name="approvedById"
-              label={t('expenses:fields:approvedBy')}
+              label={t('approvedBy')}
               InputProps={{
                 readOnly: true,
               }}

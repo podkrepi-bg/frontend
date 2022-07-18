@@ -139,7 +139,12 @@ export default function Form() {
             <ExpenseStatusSelect />
           </Grid>
           <Grid item xs={6}>
-            <FormTextField type="number" name="amount" label="expenses:fields.amount" />
+            <FormTextField
+              disabled={id ? true : false}
+              type="number"
+              name="amount"
+              label="expenses:fields.amount"
+            />
           </Grid>
           <Grid item xs={6}>
             <CurrencySelect />
