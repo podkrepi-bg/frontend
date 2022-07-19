@@ -1,7 +1,7 @@
 {
   "title": "About the project",
   "aboutPlatformTitle": "What is the platform Podkrepi.bg",
-  "aboutPlatformDescription": "We want to create an open-source technology solution that significantly reduces the chances of misuse of donated funds, both by campaign organizers and by the internal team of the donation platform.",
+  "aboutPlatformDescription": "We want to create an open-source charity platform, in which the transparency removes the chances of misuse of the donated funds, both by campaign organizers and by the internal team of the donation platform.",
   "whatIsDoneTitle": "What has been done already",
   "volunteersIcon": "volunteers signed up",
   "members": "members of the association",
@@ -58,9 +58,9 @@
   "self-support-model": "Choosing a business model for self-support of the platform",
   "september-2021-title": "September 2021",
   "hackathons": "Two dev hackathons boosting up the development productivity.",
-  "october-2021-title": "October 2021",
-  "tests-performing": "Performing tests on the platform on a real environment.",
-  "december-2021-title": "December 2021",
+  "october-2021-title": "April 2021",
+  "tests-performing": "Impementing the base functinality for creating campaigns, donation, user registration and the needed operations with base entities of the platform.",
+  "december-2021-title": "July 2022",
   "beta-version-launch": "Launch of a beta version of the platform.",
   "tech-stack": {
     "title": "Tech Stack",

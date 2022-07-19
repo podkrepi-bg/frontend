@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import { CampaignResponse } from 'gql/campaigns'
 import { organizerCampaignPictureUrl } from 'common/util/campaignImageUrls'
-import { Button, Grid, Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 
