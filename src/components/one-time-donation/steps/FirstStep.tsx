@@ -1,17 +1,19 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
-import { useField } from 'formik'
+import { useField, useFormikContext } from 'formik'
 import { Box, Collapse, Divider, Grid, InputAdornment, List, Typography } from '@mui/material'
 import theme from 'common/theme'
 import { useSinglePriceList } from 'common/hooks/donation'
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
-import { moneyPublic } from 'common/util/money'
+import { moneyPublic, moneyPublicDecimals2, toMoney } from 'common/util/money'
 import { ibanNumber } from 'common/iban'
 import { CopyTextButton } from 'components/common/CopyTextButton'
 import { StepsContext } from '../helpers/stepperContext'
 import FormTextField from 'components/common/form/FormTextField'
 import { useMediaQuery } from '@mui/material'
+import { OneTimeDonation } from 'gql/donations'
+import ExternalLink from 'components/common/ExternalLink'
 
 const PREFIX = 'FirstStep'
 
@@ -37,12 +39,28 @@ export default function FirstStep() {
 
   const [paymentField] = useField('payment')
   const [amount] = useField('amount')
+  const [amountWithFees] = useField('amountWithFees')
+  const [amountWithoutFees] = useField<number>('amountWithoutFees')
+
+  const formik = useFormikContext<OneTimeDonation>()
+
   const { campaign } = useContext(StepsContext)
   const bankAccountInfo = {
     owner: t('third-step.owner'),
     bank: t('third-step.bank'),
     iban: ibanNumber,
   }
+
+  useEffect(() => {
+    if (amount.value === 'other') {
+      formik.setFieldValue('amountWithoutFees', toMoney(formik.values.otherAmount))
+      formik.setFieldValue('amountWithFees', (toMoney(formik.values.otherAmount) + 50) / 0.986)
+    } else {
+      formik.setFieldValue('amountWithoutFees', Number(formik.values.amount))
+      formik.setFieldValue('amountWithFees', (Number(formik.values.amount) + 50) / 0.986)
+    }
+  }, [formik.values.otherAmount, formik.values.amount])
+
   return (
     <Root>
       <Typography variant="h4">{t('third-step.title')}</Typography>
@@ -115,7 +133,14 @@ export default function FirstStep() {
         </List>
       </Collapse>
       <Collapse in={paymentField.value === 'card'} timeout="auto">
-        <Typography variant="h4" sx={{ marginTop: theme.spacing(8) }}>
+        <Typography variant="body2" sx={{ marginTop: theme.spacing(2) }}>
+          {t('third-step.card-fees')}
+          <ExternalLink href="https://stripe.com/en-bg/pricing">
+            https://stripe.com/en-bg/pricing
+          </ExternalLink>
+        </Typography>
+
+        <Typography variant="h4" sx={{ marginTop: theme.spacing(3) }}>
           {t('first-step.amount')}
         </Typography>
         <Box marginTop={theme.spacing(4)}>
@@ -126,7 +151,7 @@ export default function FirstStep() {
                 ?.sort((a, b) => Number(a.unit_amount) - Number(b.unit_amount))
                 .map((v) => ({
                   label: moneyPublic(Number(v.unit_amount)),
-                  value: v.id,
+                  value: String(Number(v.unit_amount)),
                 }))
                 .concat({ label: t('first-step.other'), value: 'other' }) || []
             }
@@ -160,6 +185,15 @@ export default function FirstStep() {
               />
             </Grid>
           </Collapse>
+          {amount.value ? (
+            <Typography marginTop={theme.spacing(2)}>
+              {t('third-step.card-calculated-fees', {
+                amount: moneyPublicDecimals2(amountWithoutFees.value),
+                fees: moneyPublicDecimals2(amountWithFees.value - amountWithoutFees.value),
+                totalAmount: moneyPublicDecimals2(amountWithFees.value),
+              })}
+            </Typography>
+          ) : null}
         </Box>
       </Collapse>
     </Root>

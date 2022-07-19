@@ -97,6 +97,7 @@ export type OneTimeDonation = {
   message?: string
   isAnonymous: boolean
   amount: string
+  amountWithFees: number
   otherAmount: number
   personsFirstName: string
   personsLastName: string
