@@ -7,11 +7,11 @@ import AdminContainer from 'components/admin/navigation/AdminContainer'
 import CreateForm from './CreateForm'
 
 export default function CreatePage() {
-  const { t } = useTranslation('organizer')
+  const { t } = useTranslation()
 
   return (
     <AdminLayout>
-      <AdminContainer title={t('admin.create.heading')}>
+      <AdminContainer title={t('person:admin.fields.create-heading')}>
         <Container maxWidth="md" sx={{ py: 5 }}>
           <CreateForm />
         </Container>
