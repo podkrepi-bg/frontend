@@ -22,12 +22,12 @@ export default function IndexPage() {
       <Jumbotron />
       <CampaignsSection />
       <HowWeWorkSection />
-      <ReadyToStartCampaignSection />
+      {/* <ReadyToStartCampaignSection /> */}
       <TeamMembersSection />
       <WhatUnitesUsSection />
       <WantToHelpPodkrepiBgSection />
       <FaqSection />
-      <ReadyToStartCampaignSection />
+      {/* <ReadyToStartCampaignSection /> */}
     </Layout>
   )
 }
