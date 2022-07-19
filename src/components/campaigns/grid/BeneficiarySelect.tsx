@@ -25,7 +25,7 @@ export default function BeneficiarySelect({ name = 'beneficiaryId' }) {
           <MenuItem key={index} value={beneficiary.id}>
             {beneficiary.person
               ? `${beneficiary.person.firstName} ${beneficiary.person.lastName}`
-              : `${beneficiary.company?.name}`}
+              : `${beneficiary.company?.companyName}`}
           </MenuItem>
         ))}
       </Select>
