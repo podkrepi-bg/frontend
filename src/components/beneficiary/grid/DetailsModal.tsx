@@ -17,7 +17,7 @@ export default observer(function DetailsModal() {
 
   const companyOrIndividual =
     data?.companyId != ''
-      ? { name: t('grid.company'), value: data?.company?.name }
+      ? { name: t('grid.company'), value: data?.company?.companyName }
       : {
           name: t('grid.individual'),
           value: `${data?.person?.firstName} ${data?.person?.lastName}`,
