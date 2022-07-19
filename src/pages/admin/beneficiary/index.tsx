@@ -1,9 +1,9 @@
-import DocumentsPage from 'components/beneficiary/BeneficiaryPage'
+import BeneficiaryPage from 'components/beneficiary/BeneficiaryPage'
 import { securedAdminProps } from 'middleware/auth/securedProps'
 import { endpoints } from 'service/apiEndpoints'
 
 export const getServerSideProps = securedAdminProps(
-  ['common', 'auth', 'beneficiary', 'validation', 'admin', 'documents'],
+  ['common', 'auth', 'beneficiary', 'validation', 'admin'],
   () => endpoints.documents.documentsList.url,
 )
-export default DocumentsPage
+export default BeneficiaryPage
