@@ -21,20 +21,26 @@ interface BeneficiaryCellProps {
 const DisplayCompany = ({ params }: BeneficiaryCellProps) => {
   const { t } = useTranslation()
   const { company } = params.row
-  return <>{company?.name || t('beneficiary:grid:not-company')}</>
+  return <>{company?.companyName || t('beneficiary:grid:not-company')}</>
 }
 
 const DisplayPerson = ({ params }: BeneficiaryCellProps) => {
   const { t } = useTranslation()
   const { person } = params.row
-  return <>{person?.firstName + ' ' + person?.lastName || t('beneficiary:grid:not-person')}</>
+  return (
+    <>
+      {person?.firstName
+        ? `${person?.firstName} ${person?.lastName}`
+        : t('beneficiary:grid:not-person')}
+    </>
+  )
 }
 
 const DisplayBeneficiaryType = ({ params }: BeneficiaryCellProps) => {
   const { t } = useTranslation()
   return (
     <>
-      {params.row.type == 'company'
+      {params.row.type === 'company'
         ? t('beneficiary:grid:company')
         : t('beneficiary:grid:individual')}
     </>
