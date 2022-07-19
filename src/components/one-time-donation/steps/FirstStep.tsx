@@ -2,20 +2,11 @@ import React, { useContext } from 'react'
 import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import { useField } from 'formik'
-import {
-  Alert,
-  Box,
-  Collapse,
-  Divider,
-  Grid,
-  InputAdornment,
-  List,
-  Typography,
-} from '@mui/material'
+import { Box, Collapse, Divider, Grid, InputAdornment, List, Typography } from '@mui/material'
 import theme from 'common/theme'
 import { useSinglePriceList } from 'common/hooks/donation'
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
-import { money } from 'common/util/money'
+import { moneyPublic } from 'common/util/money'
 import { ibanNumber } from 'common/iban'
 import { CopyTextButton } from 'components/common/CopyTextButton'
 import { StepsContext } from '../helpers/stepperContext'
@@ -60,8 +51,14 @@ export default function FirstStep() {
       </Box>
       <Collapse in={paymentField.value === 'bank'} timeout="auto">
         <List component="div" disablePadding>
-          <Typography marginTop={theme.spacing(8)} variant="h6">
+          <Typography marginTop={theme.spacing(4)} variant="h6">
             {t('third-step.bank-details')}
+          </Typography>
+          <Typography variant="body1" marginBottom={theme.spacing(1)}>
+            {t('third-step.bank-instructions1')}
+          </Typography>
+          <Typography variant="body1" marginBottom={theme.spacing(1)}>
+            {t('third-step.bank-instructions2')}
           </Typography>
           <Divider className={classes.divider} />
           <Grid container justifyContent="center">
@@ -85,11 +82,11 @@ export default function FirstStep() {
                 color="info"
               />
             </Grid>
-            <Grid my={2} item display="flex" justifyContent="space-between" xs={9}>
+            <Grid my={1} item display="flex" justifyContent="space-between" xs={9}>
               <Typography>{ibanNumber}</Typography>
               <CopyTextButton
                 label={t('third-step.btn-copy')}
-                text={bankAccountInfo.iban}
+                text={bankAccountInfo.iban.replace(/\s+/g, '')} //remove spaces in IBAN on copy
                 variant="contained"
                 size="small"
                 color="info"
@@ -97,15 +94,13 @@ export default function FirstStep() {
             </Grid>
           </Grid>
 
-          <Typography my={2} variant="h6">
+          <Typography my={1} variant="h6">
             {t('third-step.reason-donation')}
           </Typography>
           <Divider className={classes.divider} />
           <Grid container justifyContent="center">
             <Grid my={2} item display="flex" justifyContent="space-between" xs={9}>
-              <Alert severity="info">
-                <Typography fontWeight="bold">{campaign.paymentReference}</Typography>
-              </Alert>
+              <Typography fontWeight="bold">{campaign.paymentReference}</Typography>
               <CopyTextButton
                 text={campaign.paymentReference}
                 variant="contained"
@@ -130,10 +125,10 @@ export default function FirstStep() {
               prices
                 ?.sort((a, b) => Number(a.unit_amount) - Number(b.unit_amount))
                 .map((v) => ({
-                  label: money(Number(v.unit_amount)),
+                  label: moneyPublic(Number(v.unit_amount)),
                   value: v.id,
                 }))
-                .concat({ label: 'Other', value: 'other' }) || []
+                .concat({ label: t('first-step.other'), value: 'other' }) || []
             }
           />
           <Collapse in={amount.value === 'other'} timeout="auto">
