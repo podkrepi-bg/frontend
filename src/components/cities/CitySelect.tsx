@@ -6,16 +6,16 @@ import { MenuItem, TextField, TextFieldProps } from '@mui/material'
 
 import { translateError } from 'common/form/useForm'
 import { TranslatableField } from 'common/form/validation'
-import { CityResponse } from 'gql/cities'
+import { useCitiesList } from 'common/hooks/cities'
 
 type Props = {
-  label: string
   name: string
-  cityList?: CityResponse[]
+  disabled?: boolean
 } & TextFieldProps
 
-export default function CitySelect({ label, name, cityList, ...textFieldProps }: Props) {
+export default function CitySelect({ name, disabled = false, ...textFieldProps }: Props) {
   const { t } = useTranslation()
+  const { data: cityList } = useCitiesList()
 
   const [field, meta] = useField(name)
   const { setFieldValue } = useFormikContext()
@@ -26,18 +26,26 @@ export default function CitySelect({ label, name, cityList, ...textFieldProps }:
     setFieldValue(name, event.target.value)
   }
 
+  if (!cityList) {
+    return null
+  }
+
   return (
     <TextField
       {...textFieldProps}
       {...field}
       select
+      disabled={disabled}
       variant="outlined"
       size="small"
       fullWidth
       onChange={handleChange}
-      label={t(label)}
+      label={t('cities:city-label')}
       error={Boolean(meta.error) && Boolean(meta.touched)}
       helperText={helperText}>
+      <MenuItem value="" disabled>
+        {t('cities:select-city')}
+      </MenuItem>
       {cityList?.map((city) => {
         return (
           <MenuItem key={city.id} value={city.id}>
