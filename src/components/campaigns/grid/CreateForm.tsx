@@ -39,6 +39,7 @@ import { CampaignState } from '../helpers/campaign.enums'
 import { toMoney } from 'common/util/money'
 import CurrencySelect from 'components/currency/CurrencySelect'
 import OrganizerSelect from './OrganizerSelect'
+import AllowDonationOnComplete from 'components/common/form/AllowDonationOnComplete'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -198,6 +199,9 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           <Grid item xs={12} sm={2}>
             <CurrencySelect />
           </Grid>
+          <Grid item xs={12} sm={12}>
+            <AllowDonationOnComplete name="allowDonationOnComplete" />
+          </Grid>
           <Grid item xs={12} sm={6}>
             <FormTextField
               type="date"
@@ -279,7 +283,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               }}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item container direction="column" xs={12}>
             <AcceptTermsField name="terms" />
             <AcceptPrivacyPolicyField name="gdpr" />
           </Grid>

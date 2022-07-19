@@ -33,6 +33,7 @@ import { CampaignState } from './helpers/campaign.enums'
 import CampaignTypeSelect from './CampaignTypeSelect'
 
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
+import AllowDonationOnComplete from 'components/common/form/AllowDonationOnComplete'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -187,6 +188,9 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               label="campaigns:campaign.amount"
             />
           </Grid>
+          <Grid item xs={12} sm={12}>
+            <AllowDonationOnComplete name="allowDonationOnComplete" />
+          </Grid>
           <Grid item xs={12} sm={6}>
             <FormTextField
               type="date"
@@ -276,7 +280,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               }}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item container direction="column" xs={12}>
             <AcceptTermsField name="terms" />
             <AcceptPrivacyPolicyField name="gdpr" />
           </Grid>
