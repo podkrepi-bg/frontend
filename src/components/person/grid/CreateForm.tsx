@@ -1,54 +1,64 @@
 import React from 'react'
 import * as yup from 'yup'
 import { Grid } from '@mui/material'
-import { FormikConfig } from 'formik'
 
 import GenericForm from 'components/common/form/GenericForm'
 import { name, phone, email } from 'common/form/validation'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
-import { PersonFormData } from 'gql/person'
-import CompanyForm from '../CompanyForm'
+import { AdminPersonFormData, AdminPersonResponse } from 'gql/person'
+import { useMutation } from 'react-query'
+import { AxiosError, AxiosResponse } from 'axios'
+import { ApiErrors } from 'service/apiErrors'
+import { useCreatePerson } from 'service/person'
+import { AlertStore } from 'stores/AlertStore'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { routes } from 'common/routes'
 
-const validationSchema: yup.SchemaOf<PersonFormData> = yup.object().defined().shape({
-  // Person
+const validationSchema: yup.SchemaOf<AdminPersonFormData> = yup.object().defined().shape({
   firstName: name.required(),
   lastName: name.required(),
   email: email.required(),
-  phone: phone.required(),
-  // Company
-  legalEntity: yup.boolean().required(),
-  companyName: name,
-  companyNumber: yup.string(),
-  legalPersonName: name,
-  address: yup.string(),
+  phone: phone.notRequired(),
 })
 
-const defaults: PersonFormData = {
+const defaults: AdminPersonFormData = {
   firstName: '',
   lastName: '',
   email: '',
   phone: '',
-  legalEntity: false,
-  companyName: '',
-  companyNumber: '',
-  legalPersonName: '',
-  address: '',
 }
 
-export type PersonFormProps = {
-  initialValues?: PersonFormData
+type FormProps = {
+  initialValues?: AdminPersonFormData
 }
 
-export default function PersonForm({ initialValues = defaults }: PersonFormProps) {
-  async function onSubmit(values: PersonFormData) {
-    return
+export default function PersonForm({ initialValues = defaults }: FormProps) {
+  const router = useRouter()
+  const { t } = useTranslation()
+
+  const mutation = useMutation<
+    AxiosResponse<AdminPersonResponse>,
+    AxiosError<ApiErrors>,
+    AdminPersonFormData
+  >({
+    mutationFn: useCreatePerson(),
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    onSuccess: () => {
+      AlertStore.show(t('common:alerts.success'), 'success')
+      router.push(routes.admin.index)
+    },
+  })
+
+  function handleSubmit(values: AdminPersonFormData) {
+    mutation.mutate(values)
   }
 
   return (
     <Grid container direction="column" component="section">
       <GenericForm
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}>
         <Grid container spacing={3}>
@@ -56,7 +66,7 @@ export default function PersonForm({ initialValues = defaults }: PersonFormProps
             <FormTextField
               autoFocus
               type="text"
-              label="auth:fields.first-name"
+              label="person:admin.fields.first-name"
               name="firstName"
               autoComplete="first-name"
             />
@@ -64,7 +74,7 @@ export default function PersonForm({ initialValues = defaults }: PersonFormProps
           <Grid item xs={12} sm={6}>
             <FormTextField
               type="text"
-              label="auth:fields.last-name"
+              label="person:admin.fields.last-name"
               name="lastName"
               autoComplete="family-name"
             />
@@ -73,7 +83,7 @@ export default function PersonForm({ initialValues = defaults }: PersonFormProps
             <FormTextField
               inputMode="email"
               type="text"
-              label="auth:fields.email"
+              label="person:admin.fields.email"
               name="email"
               autoComplete="email"
             />
@@ -84,12 +94,11 @@ export default function PersonForm({ initialValues = defaults }: PersonFormProps
               name="phone"
               inputMode="tel"
               autoComplete="tel"
-              label="auth:fields.phone"
+              label="person:admin.fields.phone"
             />
           </Grid>
-          <CompanyForm />
           <Grid item xs={4} margin="auto">
-            <SubmitButton fullWidth label="campaigns:cta.save" />
+            <SubmitButton fullWidth label="person:admin.cta.create" />
           </Grid>
         </Grid>
       </GenericForm>
