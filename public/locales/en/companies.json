@@ -1,0 +1,17 @@
+{
+  "admin": {
+    "fields": {
+      "create-heading": "Create a company",
+      "company-name": "Company name",
+      "company-number": "BULSTAT",
+      "legal-person-name": "Legal person name",
+      "address": "Address"
+    },
+    "cta": {
+      "create": "Create",
+      "select-country": "Select country or",
+      "select-city": "Select city or",
+      "create-new": "create new"
+    }
+  }
+}
