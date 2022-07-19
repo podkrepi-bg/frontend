@@ -6,7 +6,8 @@ export const getServerSideProps = securedPropsWithTranslation([
   'auth',
   'beneficiary',
   'validation',
-  'documents',
+  'countries',
+  'cities',
 ])
 
 export default CreatePage
