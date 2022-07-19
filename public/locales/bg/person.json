@@ -18,5 +18,17 @@
     "createdAt": "Създаден в",
     "company": "Компания",
     "confirmedEmail": "Потвърден имейл"
+  },
+  "admin": {
+    "fields": {
+      "create-heading": "Създаване на потребител",
+      "first-name": "Име",
+      "last-name": "Фамилия",
+      "email": "Имейл",
+      "phone": "Телефон"
+    },
+    "cta": {
+      "create": "Създай"
+    }
   }
 }

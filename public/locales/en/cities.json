@@ -30,5 +30,7 @@
     "edit": "Edit",
     "details": "Details",
     "submit": "Submit"
-  }
+  },
+  "city-label": "City",
+  "select-city": "Select city"
 }

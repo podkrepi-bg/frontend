@@ -18,5 +18,17 @@
     "createdAt": "Created at",
     "company": "Company",
     "confirmedEmail": "Confirmed email"
+  },
+  "admin": {
+    "fields": {
+      "create-heading": "Create a new person",
+      "first-name": "First name",
+      "last-name": "Last name",
+      "email": "Email",
+      "phone": "phone"
+    },
+    "cta": {
+      "create": "Create"
+    }
   }
 }

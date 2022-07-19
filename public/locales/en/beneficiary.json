@@ -5,11 +5,13 @@
     "individual": "Person",
     "company": "Legal Entity",
     "coordinator": "Coordinator",
+    "organizer": "Organizer",
     "countryCode": "Country code",
     "not-person": "Not a person",
     "not-company": "Not a company",
     "city": "City",
     "coordinatorRelation": "Coordinator relation",
+    "organizerRelation": "Organizer relation",
     "type": "Beneficiary type",
     "description": "Description",
     "campaigns-count": "Campaigns count",
@@ -19,7 +21,9 @@
   "cta": {
     "details": "Beneficiary details",
     "submit": "Submit",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "add": "Add"
   },
   "forms": {
     "add-heading": "Add beneficiary",
@@ -30,8 +34,16 @@
         "individual": "Person",
         "company": "Legal Entity"
       },
-      "personSelect": "Select user"
+      "person-select": "Select person or",
+      "company-select": "Select company or",
+      "organizer-select": "Select organizer or",
+      "create-new": "create new",
+      "person-label": "Person",
+      "company-label": "Company",
+      "organizer-label": "Organizer"
     }
   },
-  "actions": "Actions"
+  "actions": "Actions",
+  "deleteContent": "Are you sure you want to delete this beneficiary?",
+  "deleteTitle": "Delete"
 }
