@@ -141,6 +141,7 @@ export const endpoints = {
     createPerson: <Endpoint>{ url: '/person', method: 'POST' },
   },
   company: {
+    createCompany: <Endpoint>{ url: '/company/create-company', method: 'POST' },
     list: <Endpoint>{ url: '/company/list', method: 'GET' },
     viewCompany: (slug: string) => <Endpoint>{ url: `/company/${slug}`, method: 'GET' },
   },
