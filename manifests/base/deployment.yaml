@@ -83,11 +83,11 @@ spec:
             - containerPort: 3040
           resources:
             limits:
-              memory: 512Mi
-              cpu: '1'
+              memory: 350Mi
+              cpu: 500m
             requests:
               memory: 256Mi
-              cpu: '0.2'
+              cpu: 200m
           livenessProbe:
             httpGet:
               path: /api/healthcheck
