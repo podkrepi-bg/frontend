@@ -31,7 +31,7 @@ export default function GridAppbar() {
       </Box>
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Tooltip title={t('documents:cta:add') || ''}>
+          <Tooltip title={t('beneficiary:cta.add') || ''}>
             <AddIcon
               sx={addIconStyles}
               fontSize="large"
