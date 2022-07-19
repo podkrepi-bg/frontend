@@ -7,6 +7,9 @@ import FormTextField from 'components/common/form/FormTextField'
 export default function PersonSelect({ name = 'personId', label = '' }) {
   const [field, meta] = useField(name)
   const { data: personList } = usePersonList()
+  if (!personList) {
+    return null
+  }
 
   return (
     <FormControl
@@ -21,7 +24,7 @@ export default function PersonSelect({ name = 'personId', label = '' }) {
         <MenuItem key={'none'} value="">
           <i>---</i>
         </MenuItem>
-        {personList?.map((person, index) => (
+        {personList.map((person, index) => (
           <MenuItem key={index} value={person.id}>
             {person.firstName} {person.lastName}
           </MenuItem>
