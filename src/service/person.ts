@@ -1,9 +1,11 @@
 import { useSession } from 'next-auth/react'
 
 import { endpoints } from './apiEndpoints'
-import { PersonResponse } from 'gql/person'
-import { authQueryFnFactory } from './restRequests'
+import { AdminPersonFormData, AdminPersonResponse, PersonResponse } from 'gql/person'
+import { authConfig, authQueryFnFactory } from './restRequests'
 import { useQuery } from 'react-query'
+import { apiClient } from './apiClient'
+import { AxiosResponse } from 'axios'
 
 export const usePeopleList = () => {
   const { data: session } = useSession()
@@ -21,4 +23,15 @@ export const useViewPerson = (id: string) => {
     endpoints.person.viewPerson(id).url,
     authQueryFnFactory<PersonResponse>(session?.accessToken),
   )
+}
+
+export const useCreatePerson = () => {
+  const { data: session } = useSession()
+  return async (data: AdminPersonFormData) => {
+    return await apiClient.post<AdminPersonFormData, AxiosResponse<AdminPersonResponse>>(
+      endpoints.person.createPerson.url,
+      data,
+      authConfig(session?.accessToken),
+    )
+  }
 }
