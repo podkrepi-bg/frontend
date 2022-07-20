@@ -29,10 +29,10 @@ export default observer(function DeleteModal() {
     string
   >({
     mutationFn,
-    onError: () => AlertStore.show(t('documents:alerts:error'), 'error'),
+    onError: () => AlertStore.show(t('common:alerts:error'), 'error'),
     onSuccess: () => {
       hideDelete()
-      AlertStore.show(t('documents:alerts:delete'), 'success')
+      AlertStore.show(t('common:alerts:success-deleted'), 'success')
       queryClient.invalidateQueries(endpoints.beneficiary.listBeneficiary.url)
       router.push(routes.admin.beneficiary.index)
     },
