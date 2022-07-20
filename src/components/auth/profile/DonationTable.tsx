@@ -151,14 +151,17 @@ function DonationTable({ donations }: DonationTableProps) {
                   </TableCell>
                   <TableCell>{money(donation.amount)}</TableCell>
                   <TableCell>
-                    <Link target="_blank" href={routes.donation.viewCertificate(donation.id)}>
-                      <Button
-                        variant="outlined"
-                        disabled={donation.status != 'succeeded'}
-                        endIcon={<ArrowForwardIcon />}>
+                    <Button
+                      variant="outlined"
+                      disabled={donation.status !== 'succeeded'}
+                      endIcon={<ArrowForwardIcon />}>
+                      <Link
+                        sx={{ color: donation.status !== 'succeeded' ? 'inherit' : '#32A9FE' }}
+                        target="_blank"
+                        href={routes.donation.viewCertificate(donation.id)}>
                         {t('profile:donations.download')}
-                      </Button>
-                    </Link>
+                      </Link>
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
