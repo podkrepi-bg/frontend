@@ -14,6 +14,10 @@ import FormTextField from 'components/common/form/FormTextField'
 import { useMediaQuery } from '@mui/material'
 import { OneTimeDonation } from 'gql/donations'
 import ExternalLink from 'components/common/ExternalLink'
+import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../helpers/stripe-fee-calculator'
+import CheckboxField from 'components/common/form/CheckboxField'
+import FormSelectField from 'components/common/form/FormSelectField'
+import { CardRegion } from 'gql/donations.enums'
 
 const PREFIX = 'FirstStep'
 
@@ -41,6 +45,7 @@ export default function FirstStep() {
   const [amount] = useField('amount')
   const [amountWithFees] = useField('amountWithFees')
   const [amountWithoutFees] = useField<number>('amountWithoutFees')
+  const [stripeFees] = useField<number>('stripeFees')
 
   const formik = useFormikContext<OneTimeDonation>()
 
@@ -52,14 +57,28 @@ export default function FirstStep() {
   }
 
   useEffect(() => {
-    if (amount.value === 'other') {
-      formik.setFieldValue('amountWithoutFees', toMoney(formik.values.otherAmount))
-      formik.setFieldValue('amountWithFees', (toMoney(formik.values.otherAmount) + 50) / 0.986)
+    const chosenAmount =
+      amount.value === 'other' ? toMoney(formik.values.otherAmount) : Number(formik.values.amount)
+
+    if (formik.values.cardIncludeFees) {
+      formik.setFieldValue('amountWithoutFees', chosenAmount)
+      formik.setFieldValue(
+        'amountWithFees',
+        stripeIncludeFeeCalculator(chosenAmount, formik.values.cardRegion),
+      )
     } else {
-      formik.setFieldValue('amountWithoutFees', Number(formik.values.amount))
-      formik.setFieldValue('amountWithFees', (Number(formik.values.amount) + 50) / 0.986)
+      formik.setFieldValue(
+        'amountWithoutFees',
+        chosenAmount - stripeFeeCalculator(chosenAmount, formik.values.cardRegion),
+      )
+      formik.setFieldValue('amountWithFees', chosenAmount)
     }
-  }, [formik.values.otherAmount, formik.values.amount])
+  }, [
+    formik.values.otherAmount,
+    formik.values.amount,
+    formik.values.cardIncludeFees,
+    formik.values.cardRegion,
+  ])
 
   return (
     <Root>
@@ -186,13 +205,37 @@ export default function FirstStep() {
             </Grid>
           </Collapse>
           {amount.value ? (
-            <Typography marginTop={theme.spacing(2)}>
-              {t('third-step.card-calculated-fees', {
-                amount: moneyPublicDecimals2(amountWithoutFees.value),
-                fees: moneyPublicDecimals2(amountWithFees.value - amountWithoutFees.value),
-                totalAmount: moneyPublicDecimals2(amountWithFees.value),
-              })}
-            </Typography>
+            <Box>
+              <Grid container>
+                <Grid item xs={10}>
+                  <CheckboxField
+                    name="cardIncludeFees"
+                    label={
+                      <Typography variant="body2">{t('third-step.card-include-fees')}</Typography>
+                    }
+                  />
+                </Grid>
+                <Grid item xs={2}>
+                  <FormSelectField
+                    name="cardRegion"
+                    label="Card Region"
+                    options={[
+                      { key: CardRegion.EU, value: CardRegion.EU, name: CardRegion.EU },
+                      { key: CardRegion.UK, value: CardRegion.UK, name: CardRegion.UK },
+                      { key: CardRegion.Other, value: CardRegion.Other, name: CardRegion.Other },
+                    ]}
+                  />
+                </Grid>
+              </Grid>
+
+              <Typography marginTop={theme.spacing(2)}>
+                {t('third-step.card-calculated-fees', {
+                  amount: moneyPublicDecimals2(amountWithoutFees.value),
+                  fees: moneyPublicDecimals2(amountWithFees.value - amountWithoutFees.value),
+                  totalAmount: moneyPublicDecimals2(amountWithFees.value),
+                })}
+              </Typography>
+            </Box>
           ) : null}
         </Box>
       </Collapse>

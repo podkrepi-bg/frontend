@@ -19,12 +19,15 @@ import { FormikStep, FormikStepper } from './FormikStepper'
 import { validateFirst, validateSecond, validateThird } from './helpers/validation-schema'
 import { StepsContext } from './helpers/stepperContext'
 import { useSession } from 'next-auth/react'
+import { CardRegion } from 'gql/donations.enums'
 
 const initialValues: OneTimeDonation = {
   message: '',
   isAnonymous: true,
   amount: '',
   amountWithFees: 0,
+  cardIncludeFees: false,
+  cardRegion: CardRegion.EU,
   otherAmount: 0,
   personsFirstName: '',
   personsLastName: '',
