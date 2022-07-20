@@ -109,17 +109,16 @@ export default function Jumbotron() {
               display: 'flex',
               justifyContent: 'start',
               flexWrap: 'wrap',
+              gap: {
+                xs: '12px',
+                md: '50px',
+              },
             }}>
             <LinkButton
               sx={{
                 minWidth: {
                   xs: 260,
                   md: 320,
-                },
-                mr: theme.spacing(4),
-                mb: {
-                  xs: theme.spacing(1.5),
-                  sm: theme.spacing(1.5),
                 },
               }}
               size="large"
@@ -133,10 +132,6 @@ export default function Jumbotron() {
                 minWidth: {
                   xs: 260,
                   md: 320,
-                },
-                mb: {
-                  xs: theme.spacing(1.5),
-                  sm: theme.spacing(1.5),
                 },
               }}
               size="large"

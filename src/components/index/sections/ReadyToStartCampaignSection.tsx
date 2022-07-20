@@ -15,13 +15,17 @@ export default function ReadyToStartCampaignSection() {
         py: 6,
       }}>
       <Container maxWidth="lg">
-        <Grid container margin="0 auto">
-          <Grid item xs={12} md={6} alignItems="center" display="flex">
-            <Typography sx={{ xs: { textAlign: 'center' }, textAlign: 'left', m: 0 }} variant="h5">
+        <Grid container textAlign="center">
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            sx={{ marginBottom: { xs: 2, sm: 0 }, textAlign: { xs: 'center', sm: 'left' } }}>
+            <Typography sx={{}} variant="h5">
               {t('index:ready-to-start-campaign-section.text')}
             </Typography>
           </Grid>
-          <Grid item xs={12} md={6} sx={{ xs: { textAlign: 'center' }, textAlign: 'right' }}>
+          <Grid item xs={12} sm={6} sx={{ textAlign: { xs: 'center', sm: 'right' } }}>
             <LinkButton
               href={routes.campaigns.create}
               variant="contained"
