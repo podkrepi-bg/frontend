@@ -140,7 +140,15 @@ function DonationTable({ donations }: DonationTableProps) {
                     })}
                   </TableCell>
                   <TableCell>{donation.provider}</TableCell>
-                  <TableCell>{donation.targetVault.campaign.title}</TableCell>
+                  <TableCell>
+                    <Link
+                      target="_blank"
+                      href={routes.campaigns.viewCampaignBySlug(
+                        donation.targetVault.campaign.slug,
+                      )}>
+                      {donation.targetVault.campaign.title}
+                    </Link>{' '}
+                  </TableCell>
                   <TableCell>{money(donation.amount)}</TableCell>
                   <TableCell>
                     <Link target="_blank" href={routes.donation.viewCertificate(donation.id)}>
