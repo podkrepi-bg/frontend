@@ -43,7 +43,8 @@
     "message-copy": "Message was successfully copied to your clipboard!",
     "error": "There was an error processing your message!",
     "noselected": "Please, select at least one row!",
-    "success": "Successfully saved!"
+    "success": "Successfully saved!",
+    "success-deleted": "Successfully deleted!"
   },
   "close": "Close",
   "link": "Link",
