@@ -87,7 +87,6 @@ export default function Jumbotron() {
             {t('index:podkrepi')} -
             <br />
             {t('index:title')}
-            {/* <Typewriter /> */}
             <Typography
               maxWidth="md"
               variant="h5"
