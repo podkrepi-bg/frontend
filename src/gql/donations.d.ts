@@ -76,6 +76,7 @@ export type UserDonation = {
     campaign: {
       title: string
       id: string
+      slug: string
     }
   }
   amount: number
