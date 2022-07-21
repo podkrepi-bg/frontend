@@ -10,10 +10,9 @@ import { useCitiesList } from 'common/hooks/cities'
 
 type Props = {
   name: string
-  disabled?: boolean
 } & TextFieldProps
 
-export default function CitySelect({ name, disabled = false, ...textFieldProps }: Props) {
+export default function CitySelect({ name, ...textFieldProps }: Props) {
   const { t } = useTranslation()
   const { data: cityList } = useCitiesList()
 
@@ -35,7 +34,6 @@ export default function CitySelect({ name, disabled = false, ...textFieldProps }
       {...textFieldProps}
       {...field}
       select
-      disabled={disabled}
       variant="outlined"
       size="small"
       fullWidth
