@@ -32,12 +32,35 @@ import CountrySelect from 'components/countries/CountrySelect'
 import { endpoints } from 'service/apiEndpoints'
 import CompanySelect from 'components/companies/CompanySelect'
 import Link from 'components/common/Link'
-import OrganizerSelect from 'components/campaigns/grid/OrganizerSelect'
 import OrganizerRelationSelect from './OrganizerRelationSelect'
 
-const validationSchema = yup.object().defined().shape({
-  description: yup.string().notRequired(),
-})
+const validationSchema = yup
+  .object()
+  .defined()
+  .shape({
+    type: yup.mixed().oneOf(Object.values(BeneficiaryType)),
+    personId: yup.string().when('type', {
+      is: (value: string) => value === 'individual',
+      then: yup.string().required(),
+      otherwise: yup.string().notRequired(),
+    }),
+    companyId: yup.string().when('type', {
+      is: (value: string) => value === 'company',
+      then: yup.string().required(),
+      otherwise: yup.string().notRequired(),
+    }),
+    description: yup.string().notRequired(),
+    cityId: yup.string().when('type', {
+      is: (value: string) => value === 'individual',
+      then: yup.string().required(),
+      otherwise: yup.string().notRequired(),
+    }),
+    countryCode: yup.string().when('type', {
+      is: (value: string) => value === 'individual',
+      then: yup.string().required(),
+      otherwise: yup.string().notRequired(),
+    }),
+  })
 
 export default function EditForm() {
   const queryClient = useQueryClient()
@@ -45,13 +68,12 @@ export default function EditForm() {
   const { t } = useTranslation()
   const id = router.query.id
   const { data: companies } = useCompaniesList()
-
   const { data }: UseQueryResult<BeneficiaryListResponse> = useViewBeneficiary(String(id))
+
   const initialValues = {
     type: data?.type,
     cityId: data?.cityId || '',
     companyId: data?.companyId || undefined,
-    organizerId: data?.organizerId || '',
     countryCode: data?.countryCode || '',
     description: data?.description || '',
     personId: data?.personId || undefined,
@@ -81,10 +103,9 @@ export default function EditForm() {
       type: values.type,
       personId: values.personId,
       companyId: values.companyId,
-      organizerId: values.organizerId,
       countryCode:
         companies?.find((c) => c.id === values.companyId)?.countryCode || values.countryCode,
-      cityId: values.cityId || companies?.find((c) => c.id === values.companyId)?.cityId || '',
+      cityId: companies?.find((c) => c.id === values.companyId)?.cityId || values.cityId,
       organizerRelation: values.organizerRelation,
       description: values.description,
       campaigns: values.campaigns,
@@ -134,15 +155,26 @@ export default function EditForm() {
             />
           </Grid>
           {initialValues.type === BeneficiaryType.individual ? (
-            <Grid item xs={12}>
-              <Typography paddingLeft={'inherit'} marginBottom={2}>
-                {t('beneficiary:forms.labels.person-select')}{' '}
-                <Link href={routes.admin.persons.create}>
-                  {t('beneficiary:forms.labels.create-new')}
-                </Link>
-              </Typography>
-              <PersonSelect name="personId" label={t('beneficiary:forms.labels.person-label')} />
-            </Grid>
+            <>
+              <Grid item xs={12}>
+                <Typography paddingLeft={'inherit'} marginBottom={2}>
+                  {t('beneficiary:forms.labels.person-select')}{' '}
+                  <Link href={routes.admin.persons.create}>
+                    {t('beneficiary:forms.labels.create-new')}
+                  </Link>
+                </Typography>
+                <PersonSelect name="personId" label={t('beneficiary:forms.labels.person-label')} />
+              </Grid>
+              <Grid item xs={6}>
+                <CountrySelect name="countryCode" />
+              </Grid>
+              <Grid item xs={6}>
+                <CitySelect
+                  disabled={initialValues.type === BeneficiaryType.company}
+                  name="cityId"
+                />
+              </Grid>
+            </>
           ) : (
             <Grid item xs={12}>
               <Typography paddingLeft={'inherit'} marginBottom={2}>
@@ -154,24 +186,6 @@ export default function EditForm() {
               <CompanySelect name="companyId" label={t('beneficiary:forms.labels.company-label')} />
             </Grid>
           )}
-          <Grid item xs={12}>
-            <Typography paddingLeft={'inherit'} marginBottom={2}>
-              {t('beneficiary:forms.labels.organizer-select')}{' '}
-              <Link href={routes.admin.organizers.create}>
-                {t('beneficiary:forms.labels.create-new')}
-              </Link>
-            </Typography>
-            <OrganizerSelect label={'beneficiary:forms.labels.organizer-label'} />
-          </Grid>
-          <Grid item xs={6}>
-            <CountrySelect
-              disabled={initialValues.type === BeneficiaryType.company}
-              name="countryCode"
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <CitySelect disabled={initialValues.type === BeneficiaryType.company} name="cityId" />
-          </Grid>
           <Grid item xs={12}>
             <FormTextField
               type="text"
