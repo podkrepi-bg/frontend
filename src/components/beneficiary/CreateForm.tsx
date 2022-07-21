@@ -5,17 +5,7 @@ import { useTranslation } from 'next-i18next'
 
 import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
-import {
-  Box,
-  Button,
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  Typography,
-} from '@mui/material'
+import { Box, Button, Grid, Typography } from '@mui/material'
 
 import { BeneficiaryFormData, BeneficiaryListResponse } from 'gql/beneficiary'
 import { BeneficiaryType } from './BeneficiaryTypes'
@@ -33,18 +23,41 @@ import CountrySelect from 'components/countries/CountrySelect'
 import { endpoints } from 'service/apiEndpoints'
 import CompanySelect from 'components/companies/CompanySelect'
 import Link from 'components/common/Link'
-import OrganizerSelect from 'components/campaigns/grid/OrganizerSelect'
 import OrganizerRelationSelect from './OrganizerRelationSelect'
+import BeneficiaryTypeSelect from './BeneficiaryTypeSelect'
 
-const validationSchema = yup.object().defined().shape({
-  description: yup.string().notRequired(),
-})
+const validationSchema = yup
+  .object()
+  .defined()
+  .shape({
+    type: yup.mixed().oneOf(Object.values(BeneficiaryType)),
+    personId: yup.string().when('type', {
+      is: (value: string) => value === 'individual',
+      then: yup.string().required(),
+      otherwise: yup.string().notRequired(),
+    }),
+    companyId: yup.string().when('type', {
+      is: (value: string) => value === 'company',
+      then: yup.string().required(),
+      otherwise: yup.string().notRequired(),
+    }),
+    description: yup.string().notRequired(),
+    cityId: yup.string().when('type', {
+      is: (value: string) => value === 'individual',
+      then: yup.string().required(),
+      otherwise: yup.string().notRequired(),
+    }),
+    countryCode: yup.string().when('type', {
+      is: (value: string) => value === 'individual',
+      then: yup.string().required(),
+      otherwise: yup.string().notRequired(),
+    }),
+  })
 
 const initialValues: BeneficiaryFormData = {
   type: BeneficiaryType.individual,
   personId: undefined,
   companyId: undefined,
-  organizerId: '',
   countryCode: 'BG',
   cityId: '',
   description: '',
@@ -78,13 +91,12 @@ export default function CreateForm() {
 
   async function onSubmit(values: BeneficiaryFormData) {
     const data = {
-      type: beneficiaryType,
-      personId: values.personId,
-      companyId: values.companyId,
-      organizerId: values.organizerId,
+      type: values.type,
+      personId: values.type == BeneficiaryType.individual ? values.personId : undefined,
+      companyId: values.type == BeneficiaryType.company ? values.companyId : undefined,
       countryCode:
         companies?.find((c) => c.id === values.companyId)?.countryCode || values.countryCode,
-      cityId: values.cityId || companies?.find((c) => c.id === values.companyId)?.cityId || '',
+      cityId: companies?.find((c) => c.id === values.companyId)?.cityId || values.cityId,
       organizerRelation: values.organizerRelation,
       description: values.description,
       campaigns: values.campaigns,
@@ -106,28 +118,7 @@ export default function CreateForm() {
         </Typography>
         <Grid container spacing={3}>
           <Grid item xs={6}>
-            <FormControl fullWidth variant="outlined" size="small">
-              <InputLabel>{t('beneficiary:grid:type')}</InputLabel>
-              <Select
-                fullWidth
-                name="type"
-                defaultValue={initialValues.type}
-                label={t('beneficiary:grid:type')}
-                onChange={(e: SelectChangeEvent) => {
-                  setBeneficiaryType(e.target.value)
-                }}>
-                <MenuItem value={undefined} disabled>
-                  <em>None</em>
-                </MenuItem>
-                {Object.values(BeneficiaryType)?.map((type) => {
-                  return (
-                    <MenuItem key={type} value={type}>
-                      {t('beneficiary:grid:' + type)}
-                    </MenuItem>
-                  )
-                })}
-              </Select>
-            </FormControl>
+            <BeneficiaryTypeSelect name={'type'} setBeneficiaryType={setBeneficiaryType} />
           </Grid>
           <Grid item xs={6}>
             <OrganizerRelationSelect
@@ -136,15 +127,23 @@ export default function CreateForm() {
             />
           </Grid>
           {beneficiaryType === BeneficiaryType.individual ? (
-            <Grid item xs={12}>
-              <Typography paddingLeft={'inherit'} marginBottom={2}>
-                {t('beneficiary:forms.labels.person-select')}{' '}
-                <Link href={routes.admin.persons.create}>
-                  {t('beneficiary:forms.labels.create-new')}
-                </Link>
-              </Typography>
-              <PersonSelect name="personId" label={t('beneficiary:forms.labels.person-label')} />
-            </Grid>
+            <>
+              <Grid item xs={12}>
+                <Typography paddingLeft={'inherit'} marginBottom={2}>
+                  {t('beneficiary:forms.labels.person-select')}{' '}
+                  <Link href={routes.admin.persons.create}>
+                    {t('beneficiary:forms.labels.create-new')}
+                  </Link>
+                </Typography>
+                <PersonSelect name="personId" label={t('beneficiary:forms.labels.person-label')} />
+              </Grid>
+              <Grid item xs={6}>
+                <CountrySelect name="countryCode" />
+              </Grid>
+              <Grid item xs={6}>
+                <CitySelect name="cityId" />
+              </Grid>
+            </>
           ) : (
             <Grid item xs={12}>
               <Typography paddingLeft={'inherit'} marginBottom={2}>
@@ -156,21 +155,6 @@ export default function CreateForm() {
               <CompanySelect name="companyId" label={t('beneficiary:forms.labels.company-label')} />
             </Grid>
           )}
-          <Grid item xs={12}>
-            <Typography paddingLeft={'inherit'} marginBottom={2}>
-              {t('beneficiary:forms.labels.organizer-select')}{' '}
-              <Link href={routes.admin.organizers.create}>
-                {t('beneficiary:forms.labels.create-new')}
-              </Link>
-            </Typography>
-            <OrganizerSelect label={'beneficiary:forms.labels.organizer-label'} />
-          </Grid>
-          <Grid item xs={6}>
-            {beneficiaryType === BeneficiaryType.individual && <CountrySelect name="countryCode" />}
-          </Grid>
-          <Grid item xs={6}>
-            {beneficiaryType === BeneficiaryType.individual && <CitySelect name="cityId" />}
-          </Grid>
           <Grid item xs={12}>
             <FormTextField
               type="text"

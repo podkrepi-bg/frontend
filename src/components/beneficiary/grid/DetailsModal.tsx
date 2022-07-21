@@ -26,10 +26,6 @@ export default observer(function DetailsModal() {
   const dataConverted = [
     { name: 'ID', value: `${data?.id}` },
     companyOrIndividual,
-    {
-      name: t('grid.organizer'),
-      value: `${data?.organizer?.person.firstName || ''} ${data?.organizer?.person.lastName || ''}`,
-    },
     { name: t('grid.countryCode'), value: data?.countryCode },
     { name: t('grid.city'), value: data?.city?.name },
     { name: t('grid.organizerRelation'), value: data?.organizerRelation },
