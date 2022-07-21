@@ -29,7 +29,9 @@
     "new-create": "Or",
     "new-create-profile": "Create new profile",
     "donate-anonymously": "Donate anonymously",
-    "intro-text": "You can donate with personal profile or anonymously."
+    "intro-text": "You can donate with personal profile or anonymously.",
+    "logged-user": "You are currently logged in",
+    "info-logged-user": "Your donation would be connected with name: {{fullName}} and email: {{email}}, unless you deside to donate anonimously."
   },
   "success": {
     "title": "We thank you for your help and trust!",

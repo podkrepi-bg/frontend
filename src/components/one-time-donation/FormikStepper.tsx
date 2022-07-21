@@ -69,18 +69,6 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
         if (isLastStep()) {
           values.isAnonymous = !isLogged()
           await props.onSubmit(values, helpers)
-        } else if (isFirstStep() && isLogged()) {
-          if (values.payment === 'bank') {
-            router.push({
-              pathname: router.route,
-              query: {
-                slug: router.query.slug,
-                success: true,
-              },
-            })
-          } else {
-            !isLogged ? setStep((s) => s + 1) : setStep((s) => s + 2)
-          }
         } else {
           setStep((s) => s + 1)
           helpers.setTouched({})
@@ -121,10 +109,6 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
                   color="error"
                   size="large"
                   onClick={() => {
-                    if (step === 2 && isLogged()) {
-                      setStep((s) => s - 2)
-                      return
-                    }
                     setStep((s) => s - 1)
                   }}>
                   {t('btns.back')}
