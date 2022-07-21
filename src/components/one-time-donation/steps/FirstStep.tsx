@@ -45,7 +45,6 @@ export default function FirstStep() {
   const [amount] = useField('amount')
   const [amountWithFees] = useField('amountWithFees')
   const [amountWithoutFees] = useField<number>('amountWithoutFees')
-  const [stripeFees] = useField<number>('stripeFees')
 
   const formik = useFormikContext<OneTimeDonation>()
 
