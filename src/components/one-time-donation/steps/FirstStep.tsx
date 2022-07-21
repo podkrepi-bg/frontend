@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { styled } from '@mui/material/styles'
-import { useTranslation } from 'next-i18next'
+import { Trans, useTranslation } from 'next-i18next'
 import { useField, useFormikContext } from 'formik'
 import { Box, Collapse, Divider, Grid, InputAdornment, List, Typography } from '@mui/material'
 import theme from 'common/theme'
@@ -152,7 +152,7 @@ export default function FirstStep() {
         </List>
       </Collapse>
       <Collapse in={paymentField.value === 'card'} timeout="auto">
-        <Typography variant="body2" sx={{ marginTop: theme.spacing(2) }}>
+        <Typography paragraph={true} variant="body2" sx={{ marginTop: theme.spacing(2) }}>
           {t('third-step.card-fees')}
           <ExternalLink href="https://stripe.com/en-bg/pricing">
             https://stripe.com/en-bg/pricing
@@ -218,7 +218,7 @@ export default function FirstStep() {
                 <Grid item xs={2}>
                   <FormSelectField
                     name="cardRegion"
-                    label="Card Region"
+                    label={t('third-step.card-region')}
                     options={[
                       { key: CardRegion.EU, value: CardRegion.EU, name: CardRegion.EU },
                       { key: CardRegion.UK, value: CardRegion.UK, name: CardRegion.UK },
@@ -227,14 +227,15 @@ export default function FirstStep() {
                   />
                 </Grid>
               </Grid>
-
-              <Typography marginTop={theme.spacing(2)}>
-                {t('third-step.card-calculated-fees', {
+              <Trans
+                t={t}
+                i18nKey="third-step.card-calculated-fees"
+                values={{
                   amount: moneyPublicDecimals2(amountWithoutFees.value),
                   fees: moneyPublicDecimals2(amountWithFees.value - amountWithoutFees.value),
                   totalAmount: moneyPublicDecimals2(amountWithFees.value),
-                })}
-              </Typography>
+                }}
+              />
             </Box>
           ) : null}
         </Box>
