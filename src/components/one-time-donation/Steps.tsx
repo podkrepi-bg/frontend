@@ -54,6 +54,11 @@ export default function DonationStepper() {
   const mutation = useDonationSession()
 
   const { data: session } = useSession()
+  function isLogged() {
+    return session && session.accessToken ? true : false
+  }
+
+  initialValues.isAnonymous = !isLogged()
   const userEmail = session?.user?.email
 
   const donate = React.useCallback(
@@ -65,7 +70,7 @@ export default function DonationStepper() {
         firstName: values?.personsFirstName ? values.personsFirstName : 'Anonymous',
         lastName: values?.personsLastName ? values.personsLastName : 'Donor',
         personEmail: values?.personsEmail ? values.personsEmail : userEmail,
-        isAnonymous: values?.isAnonymous ?? true,
+        isAnonymous: values?.isAnonymous ?? !isLogged(),
         phone: values?.personsPhone ? values.personsPhone : null,
         successUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=true`,
         cancelUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=false`,

@@ -11,7 +11,8 @@
     "firstName": "First name",
     "lastName": "Last name",
     "phone": "Telephone",
-    "info-end": "Your data would not be shared with anyone"
+    "info-end": "Your data would not be shared with anyone",
+    "want-anonymous-donation": "I want to donate anonymously!"
   },
   "first-step": {
     "wish": "Would you like to wish something to the beneficiary?",
