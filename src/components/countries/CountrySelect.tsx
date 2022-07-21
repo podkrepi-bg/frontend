@@ -4,7 +4,7 @@ import { useCountriesList } from 'common/hooks/countries'
 import { useField } from 'formik'
 import { useTranslation } from 'react-i18next'
 
-export default function CountrySelect({ name = 'countryCode', disabled = false }) {
+export default function CountrySelect({ name = 'countryCode' }) {
   const { t } = useTranslation()
   const { data } = useCountriesList()
   const [field, meta] = useField(name)
@@ -17,7 +17,6 @@ export default function CountrySelect({ name = 'countryCode', disabled = false }
   return (
     <FormControl
       fullWidth
-      disabled={disabled}
       size="small"
       variant="outlined"
       error={Boolean(meta.error) && Boolean(meta.touched)}>
