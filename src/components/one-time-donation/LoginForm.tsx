@@ -31,15 +31,14 @@ function LoginForm() {
       }
       if (resp?.ok) {
         setLoading(false)
-
+        formik.values.isAnonymous = false
         setStep(2)
         AlertStore.show(t('auth:alerts.welcome'), 'success')
       }
     } catch (error) {
       console.error(error)
-      AlertStore.show(t('auth:alerts.invalid-login'), 'error')
-    } finally {
       setLoading(false)
+      AlertStore.show(t('auth:alerts.invalid-login'), 'error')
     }
   }
   return (

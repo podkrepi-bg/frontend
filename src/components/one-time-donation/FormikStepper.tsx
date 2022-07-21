@@ -48,10 +48,6 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
     return step === childrenArray.length - 2
   }
 
-  function isFirstStep() {
-    return step === 0
-  }
-
   function isLogged() {
     if (!session?.accessToken) {
       return false
@@ -67,7 +63,7 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
       validationSchema={currentChild.props.validationSchema}
       onSubmit={async (values, helpers) => {
         if (isLastStep()) {
-          values.isAnonymous = !isLogged()
+          values.isAnonymous = isLogged() === false ? true : values.isAnonymous ?? !isLogged()
           await props.onSubmit(values, helpers)
         } else {
           setStep((s) => s + 1)
