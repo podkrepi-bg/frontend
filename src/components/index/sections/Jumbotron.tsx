@@ -19,17 +19,31 @@ export default function Jumbotron() {
       direction="column"
       component="section"
       sx={(theme) => ({
-        height: '730px',
+        height: {
+          xl: '623px',
+          lg: '632px',
+          md: '535px',
+        },
         background:
           'linear-gradient(99deg, rgba(0,0,0,0.7707457983193278) 0%, rgba(27,54,75,0) 100%)',
         padding: {
-          xs: theme.spacing(9, 1, 0, 1),
-          xl: theme.spacing(12, 1, 0, 1),
+          xs: theme.spacing(5, 1, 0, 1),
+          md: theme.spacing(5, 1, 0, 1),
+          lg: theme.spacing(7, 1, 0, 1),
+          xl: theme.spacing(8, 1, 0, 1),
         },
-        mb: 12,
+        mb: {
+          xs: 5,
+          sm: 5,
+          md: 5,
+          lg: 7,
+          xl: 5,
+        },
         mt: {
-          xs: 6,
-          xl: 10,
+          xs: 3,
+          md: 5,
+          lg: 7,
+          xl: 9,
         },
         textAlign: 'center',
         color: theme.palette.common.white,
@@ -44,7 +58,7 @@ export default function Jumbotron() {
         alt="Podkrepi.bg jumbotron heading"
         layout="fill"
         objectFit="cover"
-        objectPosition="70% 50%"
+        objectPosition="70% 12%"
         style={{ zIndex: -1 }}
       />
       <Container maxWidth="lg">
@@ -61,20 +75,29 @@ export default function Jumbotron() {
                 fontSize: theme.typography.pxToRem(65),
               },
               [theme.breakpoints.down('md')]: {
-                fontSize: theme.typography.pxToRem(55),
+                fontSize: theme.typography.pxToRem(50),
               },
               [theme.breakpoints.down('sm')]: {
-                fontSize: theme.typography.pxToRem(45),
+                fontSize: theme.typography.pxToRem(40),
               },
               [theme.breakpoints.only('xs')]: {
-                fontSize: theme.typography.pxToRem(35),
+                fontSize: theme.typography.pxToRem(30),
               },
             })}>
             {t('index:podkrepi')} -
             <br />
             {t('index:title')}
-            {/* <Typewriter /> */}
-            <Typography maxWidth="md" variant="h5" component="p" sx={{ mt: 2, fontWeight: 400 }}>
+            <Typography
+              maxWidth="md"
+              variant="h5"
+              component="p"
+              sx={{
+                mt: 2,
+                fontWeight: 400,
+                [theme.breakpoints.down('md')]: {
+                  fontSize: '1rem',
+                },
+              }}>
               {t('index:jumbotron.heading')}
             </Typography>
           </Typography>
@@ -85,17 +108,16 @@ export default function Jumbotron() {
               display: 'flex',
               justifyContent: 'start',
               flexWrap: 'wrap',
+              gap: {
+                xs: '12px',
+                md: '50px',
+              },
             }}>
             <LinkButton
               sx={{
                 minWidth: {
                   xs: 260,
                   md: 320,
-                },
-                mr: theme.spacing(4),
-                mb: {
-                  xs: theme.spacing(1.5),
-                  sm: 0,
                 },
               }}
               size="large"

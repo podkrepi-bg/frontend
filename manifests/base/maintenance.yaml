@@ -35,11 +35,11 @@ spec:
             - containerPort: 80
           resources:
             limits:
-              memory: 512Mi
-              cpu: '1'
+              memory: 40Mi
+              cpu: 150m
             requests:
-              memory: 256Mi
-              cpu: '0.2'
+              memory: 20Mi
+              cpu: 100m
           livenessProbe:
             httpGet:
               path: /

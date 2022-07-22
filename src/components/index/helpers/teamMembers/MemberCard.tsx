@@ -16,7 +16,7 @@ export default function MemberCard({ info }: MemberCardProps) {
     <Card sx={{ backgroundColor: theme.palette.secondary.light }}>
       <Box
         m="auto"
-        width={200}
+        maxWidth={200}
         height={200}
         display="flex"
         alignItems="center"

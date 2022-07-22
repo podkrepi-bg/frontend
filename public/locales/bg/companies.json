@@ -1,0 +1,17 @@
+{
+  "admin": {
+    "fields": {
+      "create-heading": "Създаване на ЮЛНЦ",
+      "company-name": "Име на ЮЛНЦ",
+      "company-number": "ЕИК по БУЛСТАТ",
+      "legal-person-name": "МОЛ",
+      "address": "Адрес на седалище"
+    },
+    "cta": {
+      "create": "Създай",
+      "select-country": "Изберете държава или",
+      "select-city": "Изберете град или",
+      "create-new": "създайте нов/a"
+    }
+  }
+}

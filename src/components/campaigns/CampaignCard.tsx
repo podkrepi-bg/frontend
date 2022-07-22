@@ -26,7 +26,6 @@ const PREFIX = 'CampaignCard'
 
 const classes = {
   media: `${PREFIX}-media`,
-  donate: `${PREFIX}-donate`,
   cardActions: `${PREFIX}-cardActions`,
   cardWrapper: `${PREFIX}-cardWrapper`,
   campaignTitle: `${PREFIX}-campaignTitle`,
@@ -37,8 +36,7 @@ const classes = {
 const StyledCard = styled(Card)(({ theme }) => ({
   [`& .${classes.media}`]: {
     backgroundSize: 'contain',
-    height: 250,
-    margin: theme.spacing(0, 4),
+    height: 200,
     transition: 'filter 0.3s, opacity 0.8s',
   },
 
@@ -52,26 +50,53 @@ const StyledCard = styled(Card)(({ theme }) => ({
     backgroundColor: theme.palette.secondary.light,
     border: 'none',
     borderRadius: 0,
+    [theme.breakpoints.down('lg')]: {
+      width: '70%',
+      display: 'inline-block',
+    },
+    [theme.breakpoints.down('md')]: {
+      minHeight: theme.spacing(77),
+      maxWidth: '400px',
+      width: '100%',
+    },
+    [theme.breakpoints.down('sm')]: {
+      minHeight: theme.spacing(77),
+      maxWidth: '300px',
+      width: '100%',
+    },
   },
 
   [`& .${classes.campaignTitle}`]: {
-    textTransform: 'capitalize',
+    [theme.breakpoints.down('md')]: {
+      fontSize: '0.9rem',
+    },
   },
 
   [`& .${classes.progressBar}`]: {
     margin: theme.spacing(2.5),
     textAlign: 'left',
+    minHeight: theme.spacing(5),
   },
 
   [`& .${classes.cardContent}`]: {
-    minHeight: theme.spacing(24),
-    maxHeight: theme.spacing(24),
+    minHeight: theme.spacing(32),
+    maxHeight: theme.spacing(32),
+    [theme.breakpoints.down('md')]: {
+      minHeight: theme.spacing(25),
+      maxHeight: theme.spacing(25),
+    },
+    [theme.breakpoints.down('sm')]: {
+      maxHeight: 'fit-content',
+    },
   },
 }))
 
 type Props = { campaign: CampaignResponse }
 
 const titleSize = (campaign: CampaignResponse) => {
+  if (campaign.title.length > 150) {
+    return 'subtitle2'
+  }
   if (campaign.title.length > 120) {
     return 'subtitle1'
   }
@@ -94,13 +119,18 @@ export default function CampaignCard({ campaign }: Props) {
       <CardActionArea>
         <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)}>
           <CardMedia className={classes.media} title="campaign image placeholder">
-            <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-              <Image src={pictureUrl} layout="fill" objectFit="contain" />
+            <div
+              style={{ position: 'relative', width: '100%', minHeight: '100%', maxHeight: '100%' }}>
+              <Image src={pictureUrl} layout="fill" objectFit="fill" />
             </div>
           </CardMedia>
         </Link>
         <CardContent className={classes.cardContent}>
-          <Typography textAlign={'center'} gutterBottom variant={titleSize(campaign)}>
+          <Typography
+            textAlign={'center'}
+            gutterBottom
+            variant={titleSize(campaign)}
+            className={classes.campaignTitle}>
             {campaign.title}
           </Typography>
           <Typography textAlign={'left'} variant="body2" color="textSecondary" component="p">

@@ -3,7 +3,7 @@ import { Stripe } from 'stripe'
 import { UUID } from './types'
 import * as yup from 'yup'
 import { PersonResponse } from './person'
-import { PaymentProvider } from './donations.enums'
+import { PaymentProvider, CardRegion } from './donations.enums'
 
 export type DonationPrice = Stripe.Price
 
@@ -76,6 +76,7 @@ export type UserDonation = {
     campaign: {
       title: string
       id: string
+      slug: string
     }
   }
   amount: number
@@ -97,12 +98,15 @@ export type OneTimeDonation = {
   message?: string
   isAnonymous: boolean
   amount: string
+  amountWithFees: number
   otherAmount: number
   personsFirstName: string
   personsLastName: string
   personsEmail: string
   personsPhone: string
   payment?: 'bank' | 'card'
+  cardRegion: CardRegion
+  cardIncludeFees: boolean
   loginPassword?: string
   loginEmail?: string
   registerFirstName?: string

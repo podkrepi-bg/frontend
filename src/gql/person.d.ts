@@ -74,3 +74,26 @@ export type UpdateUserAccount = {
   birthday: Date | string
   password: string
 }
+
+export type AdminPersonFormData = Pick<PersonFormData, 'firstName' | 'lastName' | 'email' | 'phone'>
+
+export type AdminPersonResponse = Pick<
+  PersonResponse,
+  'id' | 'firstName' | 'lastName' | 'email' | 'phone'
+>
+
+export type AdminCompanyFormData = Pick<
+  PersonFormData,
+  'companyName' | 'companyNumber' | 'address' | 'legalPersonName'
+> & {
+  countryId: string
+  cityId: string
+}
+
+export type AdminCompanyResponse = Pick<
+  PersonFormData,
+  'companyName' | 'companyNumber' | 'address' | 'legalPersonName'
+> & {
+  countryId: string
+  cityId: string
+}

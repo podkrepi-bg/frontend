@@ -6,36 +6,31 @@ export type BeneficiaryListResponse = {
   type: BeneficiaryType
   personId?: string
   person?: Person
-  company?: { name: string }
+  company?: { companyName: string }
   companyId?: string
-  /// Coordinator for this beneficiary
-  coordinatorId: string
   countryCode: string
   cityId: string
   description: string
   publicData?: string
   privateData?: string
   campaigns: []
-  coordinatorRelation: PersonRelation
+  organizerRelation?: PersonRelation
 }
 
 export type ViewBeneficiaryResponse = BeneficiaryListResponse & {
   city: { name: string }
-  coordinator: { person: Person }
-  company?: { name: string }
+  company?: { companyName: string }
 }
 
 export type BeneficiaryFormData = {
   type: BeneficiaryType
   personId?: string
   companyId?: string
-  /// Coordinator for this beneficiary
-  coordinatorId: string
   countryCode: string
   cityId: string
-  description: string
+  description?: string
   publicData?: string
   privateData?: string
   campaigns: []
-  coordinatorRelation: PersonRelation
+  organizerRelation?: PersonRelation
 }

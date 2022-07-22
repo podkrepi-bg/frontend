@@ -14,19 +14,38 @@ export const money = (number: number, currency = 'BGN', divisionFactor = 100) =>
   )
 }
 
-export const moneyPublic = (number: number, currency = 'BGN', divisionFactor = 100) => {
-  const amount = new Intl.NumberFormat('en-US', {
-    style: 'decimal',
-    maximumFractionDigits: 0,
-  }).format(number / divisionFactor)
+export const moneyPublic = (
+  number: number,
+  currency = 'BGN',
+  divisionFactor = 100,
+  maximumFractionDigits = 0,
+  minimumFractionDigits = 0,
+) => {
+  if (!i18n?.language || i18n.language === 'bg' || i18n.language === 'bg-BG') {
+    const amount = new Intl.NumberFormat('de-DE', {
+      style: 'decimal',
+      maximumFractionDigits,
+      minimumFractionDigits,
+    }).format(number / divisionFactor)
 
-  if (currency === 'EUR') {
-    return `€${amount}`
+    if (currency === 'EUR') {
+      return `${amount} €`
+    }
+    if (currency === 'USD') {
+      return `${amount} $`
+    }
+    return `${amount} лв.`
   }
-  if (currency === 'USD') {
-    return `$${amount}`
-  }
-  return `${amount} лв.`
+  return new Intl.NumberFormat(i18n.language, {
+    style: 'currency',
+    currency,
+    maximumFractionDigits,
+    minimumFractionDigits,
+  }).format(number / divisionFactor)
+}
+
+export const moneyPublicDecimals2 = (number: number, currency = 'BGN', divisionFactor = 100) => {
+  return moneyPublic(number, currency, divisionFactor, 2, 2)
 }
 
 /**
@@ -38,7 +57,7 @@ export const moneyPublic = (number: number, currency = 'BGN', divisionFactor = 1
  * @returns number
  */
 
-export const toMoney = (number: number, currency = 'BGN', divisionFactor = 100): number => {
+export const toMoney = (number: number, divisionFactor = 100): number => {
   return number * divisionFactor
 }
 
@@ -50,6 +69,6 @@ export const toMoney = (number: number, currency = 'BGN', divisionFactor = 100):
  * @param divisionFactor number @default 100
  * @returns number
  */
-export const fromMoney = (number: number, currency = 'BGN', divisionFactor = 100): number => {
+export const fromMoney = (number: number, divisionFactor = 100): number => {
   return number / divisionFactor
 }

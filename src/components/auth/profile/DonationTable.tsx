@@ -140,17 +140,28 @@ function DonationTable({ donations }: DonationTableProps) {
                     })}
                   </TableCell>
                   <TableCell>{donation.provider}</TableCell>
-                  <TableCell>{donation.targetVault.campaign.title}</TableCell>
+                  <TableCell>
+                    <Link
+                      target="_blank"
+                      href={routes.campaigns.viewCampaignBySlug(
+                        donation.targetVault.campaign.slug,
+                      )}>
+                      {donation.targetVault.campaign.title}
+                    </Link>{' '}
+                  </TableCell>
                   <TableCell>{money(donation.amount)}</TableCell>
                   <TableCell>
-                    <Link target="_blank" href={routes.donation.viewCertificate(donation.id)}>
-                      <Button
-                        variant="outlined"
-                        disabled={donation.status != 'succeeded'}
-                        endIcon={<ArrowForwardIcon />}>
+                    <Button
+                      variant="outlined"
+                      disabled={donation.status !== 'succeeded'}
+                      endIcon={<ArrowForwardIcon />}>
+                      <Link
+                        sx={{ color: donation.status !== 'succeeded' ? 'inherit' : '#32A9FE' }}
+                        target="_blank"
+                        href={routes.donation.viewCertificate(donation.id)}>
                         {t('profile:donations.download')}
-                      </Button>
-                    </Link>
+                      </Link>
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}

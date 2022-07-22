@@ -13,14 +13,10 @@ import PasswordField from 'components/common/form/PasswordField'
 
 function LoginForm() {
   const { t } = useTranslation('one-time-donation')
-  const [isLogedin, setIsLogedin] = useState(false)
   const [loading, setLoading] = useState(false)
   const { setStep } = useContext(StepsContext)
   const formik = useFormikContext<OneTimeDonation>()
 
-  useEffect(() => {
-    isLogedin ? setStep(2) : null
-  }, [isLogedin])
   const onClick = async () => {
     try {
       setLoading(true)
@@ -35,15 +31,14 @@ function LoginForm() {
       }
       if (resp?.ok) {
         setLoading(false)
-
-        setIsLogedin(true)
+        formik.values.isAnonymous = false
+        setStep(2)
         AlertStore.show(t('auth:alerts.welcome'), 'success')
       }
     } catch (error) {
       console.error(error)
-      AlertStore.show(t('auth:alerts.invalid-login'), 'error')
-    } finally {
       setLoading(false)
+      AlertStore.show(t('auth:alerts.invalid-login'), 'error')
     }
   }
   return (

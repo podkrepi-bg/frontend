@@ -19,12 +19,15 @@ import { FormikStep, FormikStepper } from './FormikStepper'
 import { validateFirst, validateSecond, validateThird } from './helpers/validation-schema'
 import { StepsContext } from './helpers/stepperContext'
 import { useSession } from 'next-auth/react'
-import { toMoney } from 'common/util/money'
+import { CardRegion } from 'gql/donations.enums'
 
 const initialValues: OneTimeDonation = {
   message: '',
   isAnonymous: true,
   amount: '',
+  amountWithFees: 0,
+  cardIncludeFees: false,
+  cardRegion: CardRegion.EU,
   otherAmount: 0,
   personsFirstName: '',
   personsLastName: '',
@@ -51,19 +54,23 @@ export default function DonationStepper() {
   const mutation = useDonationSession()
 
   const { data: session } = useSession()
+  function isLogged() {
+    return session && session.accessToken ? true : false
+  }
+
+  initialValues.isAnonymous = !isLogged()
   const userEmail = session?.user?.email
 
   const donate = React.useCallback(
-    async (amount?: number, priceId?: string, values?: OneTimeDonation) => {
+    async (amount?: number, values?: OneTimeDonation) => {
       const { data } = await mutation.mutateAsync({
         mode: 'payment',
         amount,
-        priceId,
         campaignId: campaign.id,
         firstName: values?.personsFirstName ? values.personsFirstName : 'Anonymous',
         lastName: values?.personsLastName ? values.personsLastName : 'Donor',
         personEmail: values?.personsEmail ? values.personsEmail : userEmail,
-        isAnonymous: values?.isAnonymous ?? true,
+        isAnonymous: values?.isAnonymous ?? !isLogged(),
         phone: values?.personsPhone ? values.personsPhone : null,
         successUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=true`,
         cancelUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=false`,
@@ -89,10 +96,9 @@ export default function DonationStepper() {
     try {
       const data = {
         currency: campaign.currency,
-        priceId: values.amount !== 'other' ? values.amount : undefined,
-        amount: values.amount === 'other' ? toMoney(values.otherAmount) : undefined,
+        amount: Math.round(values.amountWithFees),
       }
-      await donate(data.amount, data.priceId, values)
+      await donate(data.amount, values)
       resetForm()
     } catch (error) {
       if (isAxiosError(error)) {

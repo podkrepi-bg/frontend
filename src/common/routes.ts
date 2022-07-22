@@ -152,6 +152,12 @@ export const routes = {
       create: '/admin/organizers/create',
       view: (id: string) => `/admin/organizers/${id}`,
     },
+    person: {
+      create: '/admin/persons/create',
+    },
+    company: {
+      create: '/admin/companies/create',
+    },
   },
   dev: {
     openData: '/open-data',

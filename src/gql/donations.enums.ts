@@ -23,3 +23,9 @@ export enum PaymentProvider {
   bank = 'bank',
   cash = 'cash',
 }
+
+export enum CardRegion {
+  EU = 'EU',
+  UK = 'UK',
+  Other = 'Other',
+}

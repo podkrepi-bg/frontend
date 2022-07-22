@@ -14,14 +14,10 @@ import { StepsContext } from './helpers/stepperContext'
 
 export default function RegisterForm() {
   const { t } = useTranslation()
-  const [isLogedin, setIsLogedin] = useState(false)
   const [loading, setLoading] = useState(false)
   const { mutateAsync: register } = useRegister()
   const formik = useFormikContext<OneTimeDonation>()
   const { setStep } = useContext(StepsContext)
-  useEffect(() => {
-    isLogedin ? setStep(2) : null
-  }, [isLogedin])
 
   const values: RegisterFormData = {
     firstName: formik.values.registerFirstName as string,
@@ -46,14 +42,15 @@ export default function RegisterForm() {
         throw new Error(resp.error)
       }
       if (resp?.ok) {
+        setLoading(false)
         AlertStore.show(t('auth:alerts.welcome'), 'success')
-        setIsLogedin(true)
+        formik.values.isAnonymous = false
+        setStep(2)
       }
     } catch (error) {
       console.error(error)
-      AlertStore.show(t('auth:alerts.invalid-login'), 'error')
-    } finally {
       setLoading(false)
+      AlertStore.show(t('auth:alerts.invalid-login'), 'error')
     }
   }
 
