@@ -159,7 +159,7 @@ export default function EditForm() {
               <Grid item xs={12}>
                 <Typography paddingLeft={'inherit'} marginBottom={2}>
                   {t('beneficiary:forms.labels.person-select')}{' '}
-                  <Link href={routes.admin.persons.create}>
+                  <Link href={routes.admin.person.create}>
                     {t('beneficiary:forms.labels.create-new')}
                   </Link>
                 </Typography>
@@ -179,7 +179,7 @@ export default function EditForm() {
             <Grid item xs={12}>
               <Typography paddingLeft={'inherit'} marginBottom={2}>
                 {t('beneficiary:forms.labels.company-select')}{' '}
-                <Link href={routes.admin.companies.create}>
+                <Link href={routes.admin.company.create}>
                   {t('beneficiary:forms.labels.create-new')}
                 </Link>
               </Typography>
@@ -194,7 +194,6 @@ export default function EditForm() {
               label={t('beneficiary:grid:description')}
               multiline
               rows={1.5}
-              defaultValue={initialValues.description}
             />
           </Grid>
           <Grid item xs={6}>
