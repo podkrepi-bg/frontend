@@ -152,10 +152,10 @@ export const routes = {
       create: '/admin/organizers/create',
       view: (id: string) => `/admin/organizers/${id}`,
     },
-    persons: {
+    person: {
       create: '/admin/persons/create',
     },
-    companies: {
+    company: {
       create: '/admin/companies/create',
     },
   },
