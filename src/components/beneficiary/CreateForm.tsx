@@ -159,7 +159,6 @@ export default function CreateForm() {
             <FormTextField
               type="text"
               name="description"
-              autoComplete="target-amount"
               label={t('beneficiary:grid:description')}
               multiline
               rows={1.5}
