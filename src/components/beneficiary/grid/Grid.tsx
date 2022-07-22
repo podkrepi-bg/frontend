@@ -13,6 +13,7 @@ import { useBeneficiariesList } from 'service/beneficiary'
 import { ModalStore } from '../BeneficiaryPage'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
+import { BeneficiaryType } from '../BeneficiaryTypes'
 
 interface BeneficiaryCellProps {
   params: GridRenderCellParams<BeneficiaryListResponse, BeneficiaryListResponse>
@@ -40,7 +41,7 @@ const DisplayBeneficiaryType = ({ params }: BeneficiaryCellProps) => {
   const { t } = useTranslation()
   return (
     <>
-      {params.row.type === 'company'
+      {params.row.type === BeneficiaryType.company
         ? t('beneficiary:grid:company')
         : t('beneficiary:grid:individual')}
     </>
