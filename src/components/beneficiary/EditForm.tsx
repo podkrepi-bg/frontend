@@ -192,7 +192,7 @@ export default function EditForm() {
               name="description"
               label={t('beneficiary:grid:description')}
               multiline
-              rows={1.5}
+              rows={2}
             />
           </Grid>
           <Grid item xs={6}>
