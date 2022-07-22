@@ -50,22 +50,15 @@ const DisplayExpandableDescription = (params: GridRenderCellParams<string>) => {
 }
 
 const DisplayReachedAmount = ({ params }: CampaignCellProps) => {
-  let reached = 0
-  params.row.vaults.forEach((el) => (reached += el.donations.reduce((a, b) => a + b.amount, 0)))
-  return <>{money(reached, params.row.currency)}</>
+  return <>{money(params.row.summary.reachedAmount ?? 0, params.row.currency)}</>
 }
 
 const DisplayBlockedAmount = ({ params }: CampaignCellProps) => {
-  const blocked = params.row.vaults.reduce((a, b) => a + b.blockedAmount, 0)
-  return <>{money(blocked, params.row.currency)}</>
+  return <>{money(params.row.summary.blockedAmount ?? 0, params.row.currency)}</>
 }
 
 const DisplayCurrentAmount = ({ params }: CampaignCellProps) => {
-  let reached = 0
-  const blocked = params.row.vaults.reduce((a, b) => a + b.blockedAmount, 0)
-  params.row.vaults.forEach((el) => (reached += el.donations.reduce((a, b) => a + b.amount, 0)))
-  const avilableAmount = reached - blocked
-  return <>{money(avilableAmount, params.row.currency)}</>
+  return <>{money(params.row.summary.currentAmount ?? 0, params.row.currency)}</>
 }
 
 export default function CampaignGrid() {
@@ -80,7 +73,7 @@ export default function CampaignGrid() {
     width: 100,
     headerAlign: 'left',
   }
-
+  console.log(data)
   const columns: GridColumns = [
     {
       field: 'actions',
