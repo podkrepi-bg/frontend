@@ -3,12 +3,17 @@ import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@mui/material'
 import RateReviewIcon from '@mui/icons-material/RateReview'
+import { useDonationWishesList } from 'common/hooks/donationWish'
+import { getExactDate } from 'common/util/date'
+import { bg, enUS } from 'date-fns/locale'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 
 const PREFIX = 'CampaignMessages'
 
 const classes = {
   messagesWrapper: `${PREFIX}-messagesWrapper`,
   messagesTitleWrapper: `${PREFIX}-messagesTitleWrapper`,
+  wishWrapper: `${PREFIX}-wishWrapper`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
@@ -22,10 +27,18 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     alignItems: 'end',
     marginBottom: theme.spacing(3),
   },
+  [`& .${classes.wishWrapper}`]: {
+    display: 'flex',
+    gap: theme.spacing(1),
+    alignItems: 'flex-start',
+    marginBottom: theme.spacing(2),
+  },
 }))
 
-export default function CampaignMessages() {
-  const { t } = useTranslation()
+export default function CampaignMessages({ campaignId }: { campaignId: string }) {
+  const { t, i18n } = useTranslation()
+  const locale = i18n.language == 'bg' ? bg : enUS
+  const { data: list } = useDonationWishesList(campaignId)
 
   return (
     <StyledGrid className={classes.messagesWrapper}>
@@ -33,11 +46,24 @@ export default function CampaignMessages() {
         <RateReviewIcon color="action" />
         <Typography variant="h6">{t('campaigns:campaign.messages')}</Typography>
       </Grid>
-      <Typography>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        laboris nisi ut aliquip ex ea commodo consequat.
-      </Typography>
+      {list?.map((wish) => (
+        <Grid container key={wish.id} className={classes.wishWrapper}>
+          <Grid item width={'40px'}>
+            <AccountCircleIcon fontSize="large" color="disabled" />
+          </Grid>
+          <Grid item>
+            <Typography>
+              {wish.person
+                ? wish.person.firstName + ' ' + wish.person.lastName
+                : t('campaigns:donations.anonymous')}
+            </Typography>
+            <Typography>
+              <q>{wish.message}</q>
+            </Typography>
+            <Typography>{getExactDate(wish.createdAt, locale)}</Typography>
+          </Grid>
+        </Grid>
+      ))}
     </StyledGrid>
   )
 }
