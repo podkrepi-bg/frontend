@@ -20,6 +20,8 @@ import { validateFirst, validateSecond, validateThird } from './helpers/validati
 import { StepsContext } from './helpers/stepperContext'
 import { useSession } from 'next-auth/react'
 import { CardRegion } from 'gql/donations.enums'
+import { createDonationWish } from 'service/donationWish'
+import { useCurrentPerson } from 'common/util/useCurrentPerson'
 
 const initialValues: OneTimeDonation = {
   message: '',
@@ -52,6 +54,7 @@ export default function DonationStepper() {
   if (!data || !data.campaign) return <NotFoundPage />
   const { campaign } = data
   const mutation = useDonationSession()
+  const { data: { user: person } = { user: null } } = useCurrentPerson()
 
   const { data: session } = useSession()
   function isLogged() {
@@ -74,8 +77,8 @@ export default function DonationStepper() {
         phone: values?.personsPhone ? values.personsPhone : null,
         successUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=true`,
         cancelUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=false`,
+        message: values?.message,
       })
-
       if (data.session.url && values?.payment != 'bank') {
         //send the user to payment provider
         window.location.href = data.session.url
@@ -88,12 +91,19 @@ export default function DonationStepper() {
     values: OneTimeDonation,
     { setFieldError, resetForm }: FormikHelpers<OneTimeDonation>,
   ) => {
-    if (values?.payment === 'bank') {
-      router.push(`${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=true`)
-      return
-    }
-
     try {
+      if (values?.payment === 'bank') {
+        if (values?.message) {
+          await createDonationWish({
+            message: values.message,
+            campaignId: campaign.id,
+            personId: !values.isAnonymous && person?.id ? person.id : null,
+          })
+        }
+        router.push(`${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=true`)
+        return
+      }
+
       const data = {
         currency: campaign.currency,
         amount: Math.round(values.amountWithFees),
