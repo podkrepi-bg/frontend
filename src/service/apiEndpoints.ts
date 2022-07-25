@@ -191,4 +191,9 @@ export const endpoints = {
     listOrganizer: <Endpoint>{ url: '/organizer/list', method: 'GET' },
     removeOrganizer: (id: string) => <Endpoint>{ url: `/organizer/${id}`, method: 'DELETE' },
   },
+  donationWish: {
+    createDonationWish: <Endpoint>{ url: '/donation-wish', method: 'POST' },
+    listDonationWishes: (campaignId: string) =>
+      <Endpoint>{ url: `/donation-wish/list/${campaignId}`, method: 'GET' },
+  },
 }
