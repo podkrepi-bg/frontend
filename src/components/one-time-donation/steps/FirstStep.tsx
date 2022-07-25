@@ -118,7 +118,7 @@ export default function FirstStep() {
                 color="info"
               />
             </Grid>
-            <Grid my={1} item display="flex" justifyContent="space-between" xs={9}>
+            <Grid my={2} item display="flex" justifyContent="space-between" xs={9}>
               <Typography>{ibanNumber}</Typography>
               <CopyTextButton
                 label={t('third-step.btn-copy')}

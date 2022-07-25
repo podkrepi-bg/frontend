@@ -4,7 +4,8 @@
     "about": {
       "about-project": "The Project",
       "about-us": "About us",
-      "support-us": "Support us",
+      "support_us": "Support us",
+      "support-us": "Join us",
       "reports": "Reports",
       "contacts": "Contacts"
     },
@@ -27,6 +28,7 @@
     },
     "donation-menu": "Donatе",
     "blog": "Blog",
+    "support_us_button": "Support Podkrepi.bg",
     "profile": "Profile",
     "login": "Login",
     "login-with": "Login with",
