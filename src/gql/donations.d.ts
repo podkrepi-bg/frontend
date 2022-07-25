@@ -23,6 +23,7 @@ export type CheckoutSessionInput = {
   personEmail?: string
   isAnonymous: boolean
   phone?: string | null
+  message?: string
 }
 
 export type DonationResponse = {
