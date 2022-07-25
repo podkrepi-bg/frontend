@@ -4,6 +4,7 @@
     "about": {
       "about-project": "За проекта",
       "about-us": "За нас",
+      "support_us": "Подкрепи ни",
       "support-us": "Стани доброволец",
       "reports": "Отчети",
       "contacts": "Контакти"
@@ -27,6 +28,7 @@
     },
     "donation-menu": "Дарете",
     "blog": "Блог",
+    "support_us_button": "Подкрепи Подкрепи.бг",
     "profile": "Моят профил",
     "login": "Вход",
     "login-with": "Вход с",

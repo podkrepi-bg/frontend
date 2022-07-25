@@ -48,6 +48,10 @@ const allNavItems: NavItem[] = [
     label: 'nav.about.about-us',
   },
   {
+    href: routes.support_us,
+    label: 'nav.about.support_us',
+  },
+  {
     href: routes.support,
     label: 'nav.about.support-us',
   },
