@@ -121,14 +121,15 @@ export default function InlineDonation({ campaign }: Props) {
   const [status, copyUrl] = useCopyToClipboard(baseUrl + asPath, 1000)
   const active = status === 'copied' ? 'inherit' : 'primary'
   const target = campaign.targetAmount
-  const summary = campaign.summary.find(() => true)
-  const reached = summary?.reachedAmount ?? 0
-  const donors = summary?.donors ?? 0
+  // const summary = campaign.summary.find(() => true)
+  // const reached = summary?.reachedAmount ?? 0
+  // const donors = summary?.donors ?? 0
   const {
     data: donations,
     error: donationHistoryError,
     isLoading: isDonationHistoryLoading,
   } = useCampaignDonationHistory(campaign.id)
+  console.log(donations)
   const { mobile } = useMobile()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -144,18 +145,18 @@ export default function InlineDonation({ campaign }: Props) {
     <StyledGrid item xs={12} mt={5} p={3} className={classes.inlineDonationWrapper}>
       <Grid mb={2}>
         <Typography component="span" className={classes.reachedMoney}>
-          {moneyPublic(reached, currency)}
+          {moneyPublic(campaign.summary.reachedAmount, currency)}
         </Typography>
         <Typography component="span" className={classes.targetMoney}>
           {' '}
           {t('campaigns:campaign.from')} {moneyPublic(target, currency)}
         </Typography>
       </Grid>
-      <CampaignProgress raised={reached} target={target} />
+      <CampaignProgress raised={campaign.summary.reachedAmount} target={target} />
       {detailsShown && (
         <>
           <Grid display="inline-block" m={3} ml={0}>
-            <Typography className={classes.donorsSharesCount}>{donors}</Typography>
+            <Typography className={classes.donorsSharesCount}>{campaign.summary.donors}</Typography>
             <Typography>{t('campaigns:campaign.donors')}</Typography>
           </Grid>
           <Grid display="inline-block" m={3} ml={0}>
@@ -223,7 +224,7 @@ export default function InlineDonation({ campaign }: Props) {
         ) : isDonationHistoryLoading ? (
           <CircularProgress sx={{ display: 'block', margin: `${theme.spacing(3)} auto` }} />
         ) : (
-          <DonorsAndDonations donations={donations} />
+          <DonorsAndDonations donations={donations?.items} />
         ))}
       {/* <pre>{JSON.stringify(prices, null, 2)}</pre> */}
       {mobile && (

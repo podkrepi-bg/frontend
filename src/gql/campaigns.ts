@@ -77,7 +77,12 @@ export type CampaignResponse = BaseCampaignResponse & {
     category: CampaignTypeCategory
     slug: string
   }
-  summary: { reachedAmount: number; donors?: number }[]
+  summary: {
+    reachedAmount: number
+    currentAmount: number
+    blockedAmount: number
+    donors?: number
+  }
   beneficiary: {
     id: UUID
     type: string

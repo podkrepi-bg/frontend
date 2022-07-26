@@ -109,9 +109,9 @@ const titleSize = (campaign: CampaignResponse) => {
 export default function CampaignCard({ campaign }: Props) {
   const { t } = useTranslation()
   const target = campaign.targetAmount
-  const summary = campaign.summary.find(() => true)
+  // const summary = campaign.summary.find(() => true)
   const pictureUrl = campaignListPictureUrl(campaign)
-  const reached = summary ? summary.reachedAmount : 0
+  // const reached = summary ? summary.reachedAmount : 0
   const currency = campaign.currency
 
   return (
@@ -141,10 +141,11 @@ export default function CampaignCard({ campaign }: Props) {
       <CardActions className={classes.cardActions}>
         <Grid container justifyContent="space-around">
           <Box p={2} width={1}>
-            <CampaignProgress raised={reached} target={target} />
+            <CampaignProgress raised={campaign.summary.reachedAmount} target={target} />
           </Box>
           <Typography variant="body1" component="p" className={classes.progressBar}>
-            {t('campaigns:campaign.reached')} <b>{moneyPublic(reached, currency)}</b>{' '}
+            {t('campaigns:campaign.reached')}{' '}
+            <b>{moneyPublic(campaign.summary.reachedAmount, currency)}</b>{' '}
             {t('campaigns:campaign.from')} {t('campaigns:campaign.target')}{' '}
             <b>{moneyPublic(target, currency)}</b>
           </Typography>
