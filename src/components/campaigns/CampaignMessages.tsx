@@ -47,16 +47,19 @@ export default function CampaignMessages({ campaignId }: { campaignId: string })
         <Typography variant="h6">{t('campaigns:campaign.messages')}</Typography>
       </Grid>
       {list?.map((wish) => (
-        <Grid container key={wish.id} className={classes.wishWrapper}>
-          <Grid item width={'40px'}>
-            <AccountCircleIcon fontSize="large" color="disabled" />
-          </Grid>
-          <Grid item>
-            <Typography>
+        <Grid item container key={wish.id} className={classes.wishWrapper}>
+          <Grid item xs={12}>
+            <AccountCircleIcon
+              sx={{ fontSize: '1.8rem', mr: '6px', mb: '-11px' }}
+              color="disabled"
+            />
+            <span>
               {wish.person
                 ? wish.person.firstName + ' ' + wish.person.lastName
                 : t('campaigns:donations.anonymous')}
-            </Typography>
+            </span>
+          </Grid>
+          <Grid item xs={12} pl={'33px'}>
             <Typography>
               <q>{wish.message}</q>
             </Typography>
