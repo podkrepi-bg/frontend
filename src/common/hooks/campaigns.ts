@@ -4,11 +4,11 @@ import { QueryClient, useQuery } from 'react-query'
 import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
 import {
-  CampaignDonation,
   CampaignResponse,
   CampaignType,
   AdminCampaignResponse,
   AdminSingleCampaignResponse,
+  CampaignDonationHistoryResponse,
 } from 'gql/campaigns'
 import { DonationStatus } from 'gql/donations.enums'
 
@@ -56,7 +56,7 @@ export function useCampaignDetailsPage(id: string) {
 }
 
 export function useCampaignDonationHistory(id: string) {
-  return useQuery<CampaignDonation[]>(
+  return useQuery<CampaignDonationHistoryResponse>(
     endpoints.donation.getDonations(id, DonationStatus.succeeded).url,
   )
 }
