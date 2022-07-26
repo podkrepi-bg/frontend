@@ -23,13 +23,13 @@ interface RenderCellProps {
 
 export default observer(function Grid() {
   const [pageSize, setPageSize] = useState(5)
+  const [page, setPage] = useState<number>(0)
   const { t } = useTranslation()
   const router = useRouter()
   const { isDetailsOpen } = ModalStore
-  const campaignId = router.query.campaignId
-  const { data }: UseQueryResult<DonationResponse[]> = campaignId
-    ? useCampaignDonationsList(campaignId as string)
-    : useDonationsList()
+  const campaignId = router.query.campaignId as string | undefined
+  const { data }: UseQueryResult<DonationResponse[]> = useDonationsList(campaignId, page, pageSize)
+
   const RenderVaultCell = ({ params }: RenderCellProps) => {
     return <>{params.row.targetVault.name}</>
   }
@@ -143,13 +143,17 @@ export default observer(function Grid() {
             overflowX: 'hidden',
             borderRadius: '0 0 13px 13px',
           }}
-          rows={data || []}
+          rows={data?.items || []}
+          autoHeight
           columns={columns}
           rowsPerPageOptions={[5, 10]}
           pageSize={pageSize}
+          pagination
+          page={page}
+          onPageChange={(params) => setPage(params)}
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          autoHeight
-          autoPageSize
+          paginationMode="server"
+          rowCount={data?.total}
           disableSelectionOnClick
         />
       </Box>
