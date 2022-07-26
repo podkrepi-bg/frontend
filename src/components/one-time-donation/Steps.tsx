@@ -142,6 +142,23 @@ export default function DonationStepper() {
     },
   ]
   const [step, setStep] = React.useState(0)
+
+  const onChangeStepScrollWindow = () => {
+    const bannerWrapper = document.getElementsByClassName('OneTimeDonationPage-bannerWrapper')[0]
+    const avatarWrapper = document.getElementsByClassName(
+      'OneTimeDonationPage-beneficiaryAvatarWrapper',
+    )[0]
+    let calculatedScrollY = 0
+    if (bannerWrapper && avatarWrapper) {
+      calculatedScrollY = bannerWrapper.clientHeight + avatarWrapper.clientHeight / 2
+    }
+    window.scroll(window.scrollX, calculatedScrollY)
+  }
+
+  React.useEffect(() => {
+    onChangeStepScrollWindow()
+  }, [step])
+
   return (
     <StepsContext.Provider value={{ step, setStep, campaign }}>
       {isLoading ? (
