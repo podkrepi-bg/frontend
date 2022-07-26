@@ -43,8 +43,11 @@ const initialValues: OneTimeDonation = {
   registerFirstName: '',
   registerPassword: '',
 }
+interface DonationStepperProps {
+  onStepChange: () => void
+}
 
-export default function DonationStepper() {
+export default function DonationStepper({ onStepChange }: DonationStepperProps) {
   const { t } = useTranslation('one-time-donation')
   const router = useRouter()
   const success = router.query.success === 'true' ? true : false
@@ -143,20 +146,8 @@ export default function DonationStepper() {
   ]
   const [step, setStep] = React.useState(0)
 
-  const onChangeStepScrollWindow = () => {
-    const bannerWrapper = document.getElementsByClassName('OneTimeDonationPage-bannerWrapper')[0]
-    const avatarWrapper = document.getElementsByClassName(
-      'OneTimeDonationPage-beneficiaryAvatarWrapper',
-    )[0]
-    let calculatedScrollY = 0
-    if (bannerWrapper && avatarWrapper) {
-      calculatedScrollY = bannerWrapper.clientHeight + avatarWrapper.clientHeight / 2
-    }
-    window.scroll(window.scrollX, calculatedScrollY)
-  }
-
   React.useEffect(() => {
-    onChangeStepScrollWindow()
+    onStepChange()
   }, [step])
 
   return (
