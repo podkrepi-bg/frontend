@@ -8,7 +8,7 @@ export type DonationWishInput = {
 export type DonationWishResponse = {
   id: UUID
   message: string
-  campaignId: string
+  campaignId: UUID
   donationId?: UUID
   personId?: UUID
   person?: { firstName: string; lastName: string }
