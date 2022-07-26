@@ -39,8 +39,14 @@ export function useDonationSession() {
   return mutation
 }
 
-export function useDonationsList() {
-  return useQuery<DonationResponse[]>(endpoints.donation.donationsList.url)
+export function useDonationsList(id?: string, pageindex?: number, pagesize?: number) {
+  const { data: session } = useSession()
+  return useQuery<DonationResponse[]>(
+    endpoints.donation.donationsList(id, pageindex, pagesize).url,
+    {
+      queryFn: authQueryFnFactory(session?.accessToken),
+    },
+  )
 }
 
 export function useCampaignDonationsList(id: string) {
