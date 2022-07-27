@@ -6,7 +6,7 @@ import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-
 import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
-import { useCampaignDonationsList, useDonationsList } from 'common/hooks/donation'
+import { useDonationsList } from 'common/hooks/donation'
 import { DonationResponse } from 'gql/donations'
 import GridActions from 'components/admin/GridActions'
 
