@@ -22,7 +22,7 @@ export const moneyPublic = (
   minimumFractionDigits = 0,
 ) => {
   if (!i18n?.language || i18n.language === 'bg' || i18n.language === 'bg-BG') {
-    const amount = new Intl.NumberFormat('de-DE', {
+    const amount = new Intl.NumberFormat('bg-BG', {
       style: 'decimal',
       maximumFractionDigits,
       minimumFractionDigits,
