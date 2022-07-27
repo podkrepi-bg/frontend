@@ -55,8 +55,8 @@ export function useCampaignDetailsPage(id: string) {
   )
 }
 
-export function useCampaignDonationHistory(id: string) {
+export function useCampaignDonationHistory(id: string, pageindex?: number, pagesize?: number) {
   return useQuery<CampaignDonationHistoryResponse>(
-    endpoints.donation.getDonations(id, DonationStatus.succeeded).url,
+    endpoints.donation.getDonations(id, DonationStatus.succeeded, pageindex, pagesize).url,
   )
 }

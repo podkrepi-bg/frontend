@@ -51,9 +51,14 @@ export const endpoints = {
         method: 'GET',
       },
     getDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'GET' },
-    getDonations: (campaignId: string, status: DonationStatus) =>
+    getDonations: (
+      campaignId: string,
+      status: DonationStatus,
+      pageindex?: number,
+      pagesize?: number,
+    ) =>
       <Endpoint>{
-        url: `/donation/listPublic/?campaignId=${campaignId}&status=${status}`,
+        url: `/donation/listPublic/?campaignId=${campaignId}&status=${status}&pageindex=${pageindex}&pagesize=${pagesize}`,
         method: 'GET',
       },
     getUserDonation: (id: string) => <Endpoint>{ url: `/donation/user/${id}`, method: 'GET' },
