@@ -15,6 +15,7 @@ import {
   UserDonationResult,
 } from 'gql/donations'
 import { createCheckoutSession } from 'service/donation'
+import { CampaignDonationHistoryResponse } from 'gql/campaigns'
 
 export function usePriceList() {
   return useQuery<DonationPrice[]>(endpoints.donation.prices.url)
@@ -41,7 +42,7 @@ export function useDonationSession() {
 
 export function useDonationsList(id?: string, pageindex?: number, pagesize?: number) {
   const { data: session } = useSession()
-  return useQuery<DonationResponse[]>(
+  return useQuery<CampaignDonationHistoryResponse>(
     endpoints.donation.donationsList(id, pageindex, pagesize).url,
     {
       queryFn: authQueryFnFactory(session?.accessToken),

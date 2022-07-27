@@ -7,7 +7,6 @@ import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
 import { useDonationsList } from 'common/hooks/donation'
-import { DonationResponse } from 'gql/donations'
 import GridActions from 'components/admin/GridActions'
 
 import DetailsModal from '../modals/DetailsModal'
@@ -16,6 +15,7 @@ import { ModalStore } from '../DonationsPage'
 import { getExactDateTime } from 'common/util/date'
 import { useRouter } from 'next/router'
 import { money } from 'common/util/money'
+import { CampaignDonationHistoryResponse } from 'gql/campaigns'
 
 interface RenderCellProps {
   params: GridRenderCellParams
@@ -28,7 +28,11 @@ export default observer(function Grid() {
   const router = useRouter()
   const { isDetailsOpen } = ModalStore
   const campaignId = router.query.campaignId as string | undefined
-  const { data }: UseQueryResult<DonationResponse[]> = useDonationsList(campaignId, page, pageSize)
+  const {
+    data: { items: donations, total: all_rows } = { items: [], total: 0 },
+    error: donationHistoryError,
+    isLoading: isDonationHistoryLoading,
+  }: UseQueryResult<CampaignDonationHistoryResponse> = useDonationsList(campaignId, page, pageSize)
 
   const RenderVaultCell = ({ params }: RenderCellProps) => {
     return <>{params.row.targetVault.name}</>
@@ -143,17 +147,19 @@ export default observer(function Grid() {
             overflowX: 'hidden',
             borderRadius: '0 0 13px 13px',
           }}
-          rows={data?.items || []}
+          rows={donations || []}
           autoHeight
           columns={columns}
-          rowsPerPageOptions={[5, 10]}
+          rowsPerPageOptions={[5, 10, 20]}
           pageSize={pageSize}
           pagination
+          loading={isDonationHistoryLoading}
+          error={donationHistoryError}
           page={page}
           onPageChange={(params) => setPage(params)}
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
           paginationMode="server"
-          rowCount={data?.total}
+          rowCount={all_rows}
           disableSelectionOnClick
         />
       </Box>
