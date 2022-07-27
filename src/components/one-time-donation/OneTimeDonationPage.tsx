@@ -63,7 +63,7 @@ const scrollWindow = () => {
   if (bannerWrapper && avatarWrapper) {
     calculatedScrollY = bannerWrapper.clientHeight + avatarWrapper.clientHeight / 2
   }
-  window.scroll(window.scrollX, calculatedScrollY)
+  window.scrollTo({ top: calculatedScrollY, behavior: 'smooth' })
 }
 
 export default function OneTimeDonation({ slug }: { slug: string }) {
