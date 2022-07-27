@@ -1,11 +1,10 @@
 {
-  "title": "Support us",
+  "title": "Join us",
   "steps": {
     "role": {
       "title": "Role",
       "subtitle": "How would you like to help?",
-      "first-subtitle": "Support us with a bank transfer:",
-      "second-subtitle": "Join the organization as:",
+      "first-subtitle": "Join the organization as:",
       "fields": {
         "benefactor": {
           "title": "Benefactor",

@@ -125,7 +125,7 @@ export default function InlineDonation({ campaign }: Props) {
   const reached = summary?.reachedAmount ?? 0
   const donors = summary?.donors ?? 0
   const {
-    data: donations,
+    data: { items: donations } = { items: [] },
     error: donationHistoryError,
     isLoading: isDonationHistoryLoading,
   } = useCampaignDonationHistory(campaign.id)
