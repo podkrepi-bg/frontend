@@ -145,10 +145,9 @@ export default function CampaignDetails({ campaign }: Props) {
         <Grid item xs={12}>
           <CampaignInfoCoordinator campaign={campaign} />
         </Grid>
-        {/* temporarily disabled */}
-        {/* <Grid item xs={12}>
-          <CampaignMessages />
-        </Grid> */}
+        <Grid item xs={12}>
+          <CampaignMessages campaignId={campaign?.id} />
+        </Grid>
         <Grid container item xs={12}>
           <Grid item xs={12}>
             <LinkButton

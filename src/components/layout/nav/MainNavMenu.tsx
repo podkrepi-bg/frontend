@@ -1,8 +1,8 @@
 import React from 'react'
-import { Button, Grid } from '@mui/material'
+import { Button, Grid, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-import { staticUrls } from 'common/routes'
+import { routes, staticUrls } from 'common/routes'
 
 import DonationMenu from './DonationMenu'
 import ProjectMenu from './ProjectMenu'
@@ -30,6 +30,11 @@ export default function MainNavMenu({ children }: { children?: React.ReactNode }
           href={staticUrls.blog}
           style={{ whiteSpace: 'nowrap' }}>
           {t('nav.blog')}
+        </Button>
+      </Grid>
+      <Grid item>
+        <Button variant="outlined" color="primary" href={routes.support_us}>
+          <Typography noWrap>{t('nav.support_us_button')}</Typography>
         </Button>
       </Grid>
       {children}

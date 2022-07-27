@@ -171,3 +171,8 @@ export type CampaignDonation = {
     lastName: string
   }
 }
+
+export type CampaignDonationHistoryResponse = {
+  items: CampaignDonation[]
+  total: number
+}

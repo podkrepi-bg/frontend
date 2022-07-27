@@ -21,15 +21,6 @@ export default function Roles() {
           {t('support:steps.role.first-subtitle')}
         </Typography>
         <Divider />
-        <div>
-          <BankTransfer />
-        </div>
-      </Grid>
-      <Grid item xs={12} md={8}>
-        <Typography variant="h5" paragraph>
-          {t('support:steps.role.second-subtitle')}
-        </Typography>
-        <Divider />
         <FormControl fullWidth required error={!!error} component="fieldset">
           <FormGroup>
             <Role name="roles.benefactor" label={t('support:steps.role.fields.benefactor.title')} />
