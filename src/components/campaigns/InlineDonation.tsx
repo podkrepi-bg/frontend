@@ -121,7 +121,7 @@ export default function InlineDonation({ campaign }: Props) {
   const [status, copyUrl] = useCopyToClipboard(baseUrl + asPath, 1000)
   const active = status === 'copied' ? 'inherit' : 'primary'
   const target = campaign.targetAmount
-  const summary = campaign.summary.find(() => true)
+  const summary = campaign.summary
   const reached = summary?.reachedAmount ?? 0
   const donors = summary?.donors ?? 0
   const {

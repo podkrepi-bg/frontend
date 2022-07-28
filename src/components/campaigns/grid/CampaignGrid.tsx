@@ -73,7 +73,6 @@ export default function CampaignGrid() {
     width: 100,
     headerAlign: 'left',
   }
-  console.log(data)
   const columns: GridColumns = [
     {
       field: 'actions',
