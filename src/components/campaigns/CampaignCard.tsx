@@ -116,9 +116,9 @@ export default function CampaignCard({ campaign }: Props) {
 
   return (
     <StyledCard variant="outlined" className={classes.cardWrapper}>
-      <CardActionArea>
+      <CardActionArea href={routes.campaigns.viewCampaignBySlug(campaign.slug)}>
         <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)}>
-          <CardMedia className={classes.media} title="campaign image placeholder">
+          <CardMedia className={classes.media} title={campaign.title}>
             <div
               style={{ position: 'relative', width: '100%', minHeight: '100%', maxHeight: '100%' }}>
               <Image src={pictureUrl} layout="fill" objectFit="fill" />
