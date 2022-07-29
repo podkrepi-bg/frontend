@@ -59,7 +59,7 @@ export default function Layout({
           <title>{metaTitle}</title>
           <meta name="description" content={metaDescription ?? metaTitle} />
           <meta key="og:title" property="og:title" content={metaTitle} />
-          <meta key="og:image" property="og:image" content={ogImage ?? defaultOgImage} />
+          {/* <meta key="og:image" property="og:image" content={ogImage ?? defaultOgImage} /> */}
           <meta key="og:image:width" property="og:image:width" content="1910" />
           <meta key="og:image:height" property="og:image:height" content="1000" />
         </Head>
