@@ -20,7 +20,7 @@ import { useTranslation } from 'next-i18next'
 import { format, isAfter, isBefore, parseISO } from 'date-fns'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
 
 import theme from 'common/theme'
 import { money } from 'common/util/money'
@@ -75,6 +75,7 @@ function DonationTable({ donations }: DonationTableProps) {
       })
     }
   }, [filteredByTypeDonations, fromDate, toDate])
+  console.log(fromDate, toDate)
   return (
     <Card sx={{ padding: theme.spacing(2), boxShadow: theme.shadows[0] }}>
       <Grid container alignItems={'flex-start'} spacing={theme.spacing(2)}>
@@ -98,7 +99,7 @@ function DonationTable({ donations }: DonationTableProps) {
           locale={i18n.language === 'bg' ? bg : enUS}
           dateAdapter={AdapterDateFns}>
           <Grid item xs={12} sm={3}>
-            <DatePicker
+            <DateTimePicker
               label={t('profile:donations.fromDate')}
               value={fromDate}
               onChange={setFromDate}
@@ -106,7 +107,7 @@ function DonationTable({ donations }: DonationTableProps) {
             />
           </Grid>
           <Grid item xs={12} sm={3}>
-            <DatePicker
+            <DateTimePicker
               label={t('profile:donations.toDate')}
               value={toDate}
               onChange={setToDate}
