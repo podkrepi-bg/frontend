@@ -60,8 +60,10 @@ export default function TeamMembersSection() {
       <Grid
         container
         justifyContent="center"
-        paddingTop={theme.spacing(7)}
-        paddingBottom={theme.spacing(12)}>
+        paddingTop={theme.spacing(3)}
+        paddingBottom={theme.spacing(7)}>
+        {/* TODO: fix swiper as it displays mixed names and images when they are more than 3
+        // 
         <Grid item xs={12} display="flex" alignItems="center" position="relative">
           <IconButton style={{ order: 1 }} ref={navigationPrevRef} aria-label="Previouos slide">
             <ChevronLeftIcon />
@@ -89,13 +91,12 @@ export default function TeamMembersSection() {
               </SwiperSlide>
             ))}
           </Swiper>
-        </Grid>
+        </Grid> */}
         <Grid item xs={12} textAlign="center">
           <LinkButton
-            href={staticUrls.blog}
+            href={staticUrls.blog + '/tag/team'}
             variant="outlined"
-            endIcon={<ChevronRightIcon />}
-            sx={{ marginTop: theme.spacing(8) }}>
+            endIcon={<ChevronRightIcon />}>
             {t('index:team-section.meet-our-team')}
           </LinkButton>
         </Grid>
