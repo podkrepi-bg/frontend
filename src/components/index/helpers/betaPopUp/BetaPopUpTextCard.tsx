@@ -14,8 +14,8 @@ export default function BetaPopUpTextCard({ translationKey }: BetaPopUpTextProps
       <CheckCircleIcon sx={() => ({ height: '28px', color: '#00B0FF', marginRight: '10px' })} />
       <Typography
         sx={(theme) => ({
-          marginBottom: '20px',
-          lineHeight: '30px',
+          marginBottom: '10px',
+          lineHeight: '28px',
           fontWeight: '600',
           letterSpacing: '0.15px',
           [theme.breakpoints.down('md')]: {
