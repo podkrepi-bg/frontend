@@ -14,10 +14,14 @@ spec:
       labels:
         app: frontend
     spec:
+      automountServiceAccountToken: false
       containers:
         - name: frontend
           image: ghcr.io/podkrepi-bg/frontend
           imagePullPolicy: Always
+          securityContext:
+            runAsNonRoot: true
+            readOnlyRootFilesystem: true
           env:
             - name: NODE_ENV
               value: production
