@@ -56,41 +56,17 @@ export default observer(function Grid() {
 
   const columns: GridColumns = [
     {
-      field: 'id',
-      headerName: 'ID',
-      hide: true,
-    },
-    {
-      field: 'type',
-      headerName: t('donations:type'),
+      field: 'createdAt',
+      headerName: t('donations:date'),
+      ...commonProps,
+      width: 250,
+      renderCell: (params: GridRenderCellParams) => {
+        return getExactDateTime(params?.row.createdAt)
+      },
     },
     {
       field: 'status',
       headerName: t('donations:status'),
-    },
-    {
-      field: 'provider',
-      headerName: t('donations:provider'),
-      ...commonProps,
-      width: 250,
-    },
-    {
-      field: 'targetVaultId',
-      headerName: t('donations:vault'),
-      ...commonProps,
-      width: 250,
-      renderCell: (params: GridRenderCellParams) => {
-        return <RenderVaultCell params={params} />
-      },
-    },
-    {
-      field: 'person',
-      headerName: t('donations:person'),
-      ...commonProps,
-      width: 250,
-      renderCell: (params: GridRenderCellParams) => {
-        return <RenderPersonCell params={params} />
-      },
     },
     {
       field: 'amount',
@@ -106,28 +82,46 @@ export default observer(function Grid() {
       width: 100,
     },
     {
-      field: 'createdAt',
-      headerName: t('donations:date'),
+      field: 'person',
+      headerName: t('donations:person'),
       ...commonProps,
       width: 250,
       renderCell: (params: GridRenderCellParams) => {
-        return getExactDateTime(params?.row.createdAt)
+        return <RenderPersonCell params={params} />
       },
     },
     {
-      field: 'actions',
-      headerName: t('donations:actions'),
-      width: 200,
-      align: 'right',
-      renderCell: (cellValues: GridRenderCellParams) => {
-        return (
-          <GridActions
-            modalStore={ModalStore}
-            id={cellValues.row.id}
-            name={cellValues.row.name}
-            editLink={routes.admin.donations.edit(cellValues.row.id)}
-          />
-        )
+      field: 'billingName',
+      headerName: 'Billing Name',
+      width: 250,
+    },
+    {
+      field: 'billingEmail',
+      headerName: 'Billing Email',
+      width: 250,
+    },
+    {
+      field: 'id',
+      headerName: 'ID',
+      hide: true,
+    },
+    {
+      field: 'type',
+      headerName: t('donations:type'),
+    },
+    {
+      field: 'provider',
+      headerName: t('donations:provider'),
+      ...commonProps,
+      width: 250,
+    },
+    {
+      field: 'targetVaultId',
+      headerName: t('donations:vault'),
+      ...commonProps,
+      width: 250,
+      renderCell: (params: GridRenderCellParams) => {
+        return <RenderVaultCell params={params} />
       },
     },
   ]
