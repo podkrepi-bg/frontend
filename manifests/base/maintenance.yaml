@@ -29,6 +29,9 @@ spec:
         app: frontend-maintenance
     spec:
       automountServiceAccountToken: false
+      volumes:
+        - name: tmp
+          emptyDir: {}
       containers:
         - name: frontend
           image: ghcr.io/podkrepi-bg/frontend/maintenance:master
@@ -36,6 +39,9 @@ spec:
           securityContext:
             runAsNonRoot: true
             readOnlyRootFilesystem: true
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
           ports:
             - containerPort: 8080
           resources:
