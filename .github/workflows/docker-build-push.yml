@@ -9,6 +9,8 @@ on:
     paths:
       - 'src/**'
       - 'public/**'
+      - Dockerfile
+      - Dockerfile.maintenance
       - '!manifests/**'
       - '!.github/workflows/**'
 

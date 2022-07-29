@@ -15,6 +15,7 @@ import {
   UserDonationResult,
 } from 'gql/donations'
 import { createCheckoutSession } from 'service/donation'
+import { CampaignDonationHistoryResponse } from 'gql/campaigns'
 
 export function usePriceList() {
   return useQuery<DonationPrice[]>(endpoints.donation.prices.url)
@@ -39,8 +40,14 @@ export function useDonationSession() {
   return mutation
 }
 
-export function useDonationsList() {
-  return useQuery<DonationResponse[]>(endpoints.donation.donationsList.url)
+export function useDonationsList(id?: string, pageindex?: number, pagesize?: number) {
+  const { data: session } = useSession()
+  return useQuery<CampaignDonationHistoryResponse>(
+    endpoints.donation.donationsList(id, pageindex, pagesize).url,
+    {
+      queryFn: authQueryFnFactory(session?.accessToken),
+    },
+  )
 }
 
 export function useCampaignDonationsList(id: string) {
@@ -48,7 +55,7 @@ export function useCampaignDonationsList(id: string) {
 }
 
 export async function prefetchDonationsList(client: QueryClient) {
-  await client.prefetchQuery<DonationResponse[]>(endpoints.donation.donationsList.url)
+  await client.prefetchQuery<DonationResponse[]>(endpoints.donation.donationsList().url)
 }
 
 export function useDonation(id: string) {

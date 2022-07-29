@@ -14,10 +14,20 @@ spec:
       labels:
         app: frontend
     spec:
+      automountServiceAccountToken: false
+      volumes:
+        - name: tmp
+          emptyDir: {}
       containers:
         - name: frontend
           image: ghcr.io/podkrepi-bg/frontend
           imagePullPolicy: Always
+          securityContext:
+            runAsNonRoot: true
+            readOnlyRootFilesystem: false
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
           env:
             - name: NODE_ENV
               value: production

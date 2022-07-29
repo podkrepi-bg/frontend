@@ -6,7 +6,15 @@ import { baseUrl, routes } from 'common/routes'
 import { moneyPublic } from 'common/util/money'
 import CampaignProgress from './CampaignProgress'
 import DonorsAndDonations from './DonorsAndDonations'
-import { Button, CircularProgress, Grid, lighten, Menu, Typography } from '@mui/material'
+import {
+  Button,
+  CircularProgress,
+  Grid,
+  IconButton,
+  lighten,
+  Menu,
+  Typography,
+} from '@mui/material'
 import { AddLinkOutlined, Favorite } from '@mui/icons-material'
 import ShareIcon from '@mui/icons-material/Share'
 import { useCampaignDonationHistory } from 'common/hooks/campaigns'
@@ -19,6 +27,8 @@ import { AlertStore } from 'stores/AlertStore'
 import useMobile from 'common/hooks/useMobile'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 const PREFIX = 'InlineDonation'
 
 const classes = {
@@ -120,18 +130,20 @@ export default function InlineDonation({ campaign }: Props) {
   const { asPath } = useRouter()
   const [status, copyUrl] = useCopyToClipboard(baseUrl + asPath, 1000)
   const active = status === 'copied' ? 'inherit' : 'primary'
+  const [page, setPage] = useState<number>(0)
+  const pageSize = 5
   const target = campaign.targetAmount
   const summary = campaign.summary.find(() => true)
   const reached = summary?.reachedAmount ?? 0
   const donors = summary?.donors ?? 0
   const {
-    data: { items: donations } = { items: [] },
+    data: { items: donations, total: all_rows } = { items: [] },
     error: donationHistoryError,
     isLoading: isDonationHistoryLoading,
-  } = useCampaignDonationHistory(campaign.id)
+  } = useCampaignDonationHistory(campaign.id, page, pageSize)
   const { mobile } = useMobile()
   const [isOpen, setIsOpen] = useState(false)
-
+  const rowCount = page * pageSize + donations.length
   const currency = campaign.currency
   const detailsShown = isOpen || !mobile
 
@@ -223,7 +235,28 @@ export default function InlineDonation({ campaign }: Props) {
         ) : isDonationHistoryLoading ? (
           <CircularProgress sx={{ display: 'block', margin: `${theme.spacing(3)} auto` }} />
         ) : (
-          <DonorsAndDonations donations={donations} />
+          <>
+            <DonorsAndDonations donations={donations} />
+            {donations && donations.length !== 0 ? (
+              <Grid container justifyContent="flex-end">
+                <Typography m={1}>{`${page * pageSize + 1}-${rowCount}  ${t(
+                  'campaigns:of',
+                )}  ${all_rows}`}</Typography>
+                <IconButton
+                  aria-label="back"
+                  disabled={page == 0}
+                  onClick={() => setPage((index) => index - 1)}>
+                  <ArrowBackIosIcon fontSize="small" />
+                </IconButton>
+                <IconButton
+                  aria-label="next"
+                  disabled={rowCount == all_rows}
+                  onClick={() => setPage((index) => index + 1)}>
+                  <ArrowForwardIosIcon fontSize="small" />
+                </IconButton>
+              </Grid>
+            ) : null}
+          </>
         ))}
       {/* <pre>{JSON.stringify(prices, null, 2)}</pre> */}
       {mobile && (

@@ -66,6 +66,7 @@ export const items = [
 
 export const menuItems = [
   { label: 'Кампании', icon: AssignmentInd, href: routes.admin.campaigns.index },
+  { label: 'Дарения', icon: VolunteerActivismOutlinedIcon, href: routes.admin.donations.index },
   { label: 'Доброволци', icon: People, href: routes.admin.supporters },
   { label: 'Контакти', icon: ContactPhone, href: routes.admin.infoRequests },
   { label: 'Плащания', icon: Payment, href: routes.admin.bankaccounts.index },
@@ -79,7 +80,6 @@ export const menuItems = [
   { label: 'Държави', icon: Public, href: routes.admin.countries.index },
   { label: 'Координатори', icon: People, href: routes.admin.coordinators.index },
   { label: 'Разходи', icon: Paid, href: routes.admin.expenses.index },
-  { label: 'Дарения', icon: VolunteerActivismOutlinedIcon, href: routes.admin.donations.index },
   { label: 'Трезори', icon: Shield, href: routes.admin.vaults.index },
   { label: 'Тегления', icon: LocalAtmIcon, href: routes.admin.withdrawals.index },
   { label: 'Прехвърляния', icon: MoveUp, href: routes.admin.transfer.index },

@@ -7,10 +7,11 @@ import InstagramIcon from '@mui/icons-material/Instagram'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import LinkButton from 'components/common/LinkButton'
 import ExternalLinkButton from 'components/common/ExternalLinkButton'
+import { useField } from 'formik'
 
 export default function Success({ donationId }: { donationId?: string }) {
   const { t } = useTranslation('one-time-donation')
-
+  const [field] = useField('payment')
   return (
     <Grid>
       <Grid container justifyContent="center">
@@ -19,11 +20,13 @@ export default function Success({ donationId }: { donationId?: string }) {
       <Grid container rowSpacing={2} justifyContent={'center'} textAlign="center">
         <Grid item xs={12}>
           <Typography variant="h4" fontSize={14}>
-            {t('success.title')}
+            {(field.value === 'bank' && t('success.title-bank')) || t('success.title')}
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Typography>{t('success.subtitle')}</Typography>
+          <Typography>
+            {(field.value === 'bank' && t('success.subtitle-bank')) || t('success.subtitle')}
+          </Typography>
         </Grid>
         <Grid item xs={12}>
           <Typography>{t('success.share-to')}</Typography>
