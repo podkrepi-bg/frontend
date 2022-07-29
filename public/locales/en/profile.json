@@ -32,6 +32,10 @@
     "download": "Download",
     "lv": "lv"
   },
+  "sertificates": {
+    "index": "Certificate history",
+    "title": "Online donations"
+  },
   "donationsContract": "Donation contract",
   "certificates": "Certificates",
   "birthdateModal": {
