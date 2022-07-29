@@ -37,7 +37,14 @@
     "download": "Свали",
     "lv": "лв",
     "bank": "Банка",
-    "card": "Карта"
+    "card": "Карта",
+    "status": {
+      "header": "Статус",
+      "initial": "създадено",
+      "waiting": "чакащо",
+      "succeeded": "успешно",
+      "cancelled": "отменено"
+    }
   },
   "sertificates": {
     "index": "История на сертификати",

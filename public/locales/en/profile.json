@@ -30,7 +30,14 @@
     "amount": "Amount",
     "certificate": "Certificate",
     "download": "Download",
-    "lv": "lv"
+    "lv": "lv",
+    "status": {
+      "header": "Status",
+      "initial": "initial",
+      "waiting": "waiting",
+      "succeeded": "succeeded",
+      "cancelled": "cancelled"
+    }
   },
   "sertificates": {
     "index": "Certificate history",
