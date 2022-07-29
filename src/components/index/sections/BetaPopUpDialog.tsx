@@ -39,13 +39,11 @@ export default function BetaPopUpDialog() {
   }, [showAgainProp])
 
   const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>, checked: boolean) => {
-    console.log('changed')
     setShowAgain(!checked)
   }
 
   return (
     <Dialog
-      fullWidth={true}
       maxWidth="xl"
       open={open}
       onClose={handleClose}
@@ -53,7 +51,7 @@ export default function BetaPopUpDialog() {
       PaperProps={{
         sx: {
           background: 'transparent',
-          width: '100vw',
+          maxHeight: '600px',
           boxShadow: 'none',
           overflow: {
             xl: 'hidden',
