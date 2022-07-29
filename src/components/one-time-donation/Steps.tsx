@@ -103,7 +103,11 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
             personId: !values.isAnonymous && person?.id ? person.id : null,
           })
         }
-        router.push(`${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=true`)
+        router.push(
+          `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=true&payment=${
+            values?.payment
+          }`,
+        )
         return
       }
 

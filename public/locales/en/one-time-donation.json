@@ -36,10 +36,12 @@
   },
   "success": {
     "title": "We thank you for your help and trust!",
+    "title-bank": "We look forward to your donation!",
     "subtitle": "Your donation would help the campaign get to it's target sooner!",
+    "subtitle-bank": "Thank you for your trust and don't forget to enter the donation code as the reason for your transfer!",
     "share-to": "Please share the message of this campaign so that it reaches more people",
     "btn-generate": "Generate a certificate",
-    "btn-say-to-us": "Tell us what you think",
+    "btn-say-to-us": "Feedback",
     "btn-other-campaign": "See more campaigns"
   },
   "third-step": {

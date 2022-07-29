@@ -7,10 +7,12 @@ import InstagramIcon from '@mui/icons-material/Instagram'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import LinkButton from 'components/common/LinkButton'
 import ExternalLinkButton from 'components/common/ExternalLinkButton'
+import { useRouter } from 'next/router'
 
 export default function Success({ donationId }: { donationId?: string }) {
   const { t } = useTranslation('one-time-donation')
-
+  const router = useRouter()
+  const payment = router.query.payment as string | undefined
   return (
     <Grid>
       <Grid container justifyContent="center">
@@ -19,11 +21,13 @@ export default function Success({ donationId }: { donationId?: string }) {
       <Grid container rowSpacing={2} justifyContent={'center'} textAlign="center">
         <Grid item xs={12}>
           <Typography variant="h4" fontSize={14}>
-            {t('success.title')}
+            {(payment && t('success.title-bank')) || t('success.title')}
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Typography>{t('success.subtitle')}</Typography>
+          <Typography>
+            {(payment && t('success.subtitle-bank')) || t('success.subtitle')}
+          </Typography>
         </Grid>
         <Grid item xs={12}>
           <Typography>{t('success.share-to')}</Typography>
