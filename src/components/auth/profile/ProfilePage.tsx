@@ -8,7 +8,6 @@ import { useTranslation } from 'next-i18next'
 import {
   VolunteerActivism as DonationIcon,
   AccountBox as AccountBoxIcon,
-  HistoryEdu as ContractIcon,
   Assignment as CertificateIcon,
 } from '@mui/icons-material'
 import { useSession } from 'next-auth/react'
@@ -107,14 +106,15 @@ export default function ProfilePage() {
                 onClick={() => router.push(routes.profile.certificates)}
                 icon={matches ? <CertificateIcon /> : undefined}
               />
-              <Tab
+              {/* Currently we don't generate donation contract, when such document is generated we can either combine it with the certificate or unhide the contracts section. */}
+              {/* <Tab
                 className={matches ? classes.tabMobile : ''}
                 value={ProfileTabs.contractDonation}
                 label={matches ? undefined : t('profile:donationsContract')}
                 aria-label={matches ? t('profile:donationsContract') : undefined}
                 onClick={() => router.push(routes.profile.contractDonation)}
                 icon={matches ? <ContractIcon /> : undefined}
-              />
+              /> */}
             </Tabs>
           </Box>
         </Box>
