@@ -238,9 +238,9 @@ export default function InlineDonation({ campaign }: Props) {
           <>
             <DonorsAndDonations donations={donations} />
             <Grid container justifyContent="flex-end">
-              <Typography m={1}>{`${
-                rowCount - (pageSize - 1)
-              }-${rowCount} of ${all_rows}`}</Typography>
+              <Typography m={1}>{`${rowCount - (pageSize - 1)}-${rowCount}  ${t(
+                'campaigns:of',
+              )}  ${all_rows}`}</Typography>
               <IconButton
                 aria-label="back"
                 disabled={page == 0}
