@@ -237,23 +237,25 @@ export default function InlineDonation({ campaign }: Props) {
         ) : (
           <>
             <DonorsAndDonations donations={donations} />
-            <Grid container justifyContent="flex-end">
-              <Typography m={1}>{`${rowCount - (pageSize - 1)}-${rowCount}  ${t(
-                'campaigns:of',
-              )}  ${all_rows}`}</Typography>
-              <IconButton
-                aria-label="back"
-                disabled={page == 0}
-                onClick={() => setPage((index) => index - 1)}>
-                <ArrowBackIosIcon fontSize="small" />
-              </IconButton>
-              <IconButton
-                aria-label="next"
-                disabled={rowCount == all_rows}
-                onClick={() => setPage((index) => index + 1)}>
-                <ArrowForwardIosIcon fontSize="small" />
-              </IconButton>
-            </Grid>
+            {donations && donations.length !== 0 ? (
+              <Grid container justifyContent="flex-end">
+                <Typography m={1}>{`${page * pageSize + 1}-${rowCount}  ${t(
+                  'campaigns:of',
+                )}  ${all_rows}`}</Typography>
+                <IconButton
+                  aria-label="back"
+                  disabled={page == 0}
+                  onClick={() => setPage((index) => index - 1)}>
+                  <ArrowBackIosIcon fontSize="small" />
+                </IconButton>
+                <IconButton
+                  aria-label="next"
+                  disabled={rowCount == all_rows}
+                  onClick={() => setPage((index) => index + 1)}>
+                  <ArrowForwardIosIcon fontSize="small" />
+                </IconButton>
+              </Grid>
+            ) : null}
           </>
         ))}
       {/* <pre>{JSON.stringify(prices, null, 2)}</pre> */}

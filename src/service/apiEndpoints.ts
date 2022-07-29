@@ -43,14 +43,14 @@ export const endpoints = {
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
     createDonation: <Endpoint>{ url: '/donation/create-payment', method: 'POST' },
     createBankDonation: <Endpoint>{ url: '/donation/create-bank-payment', method: 'POST' },
-    donationsList: (id?: string, pageindex?: number, pagesize?: number) =>
+    getDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'GET' },
+    donationsList: (campaignId?: string, pageindex?: number, pagesize?: number) =>
       <Endpoint>{
-        url: id
-          ? `/donation/list?campaignId=${id}&pageindex=${pageindex}&pagesize=${pagesize}`
+        url: campaignId
+          ? `/donation/list?campaignId=${campaignId}&pageindex=${pageindex}&pagesize=${pagesize}`
           : `/donation/list?&pageindex=${pageindex}&pagesize=${pagesize}`,
         method: 'GET',
       },
-    getDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'GET' },
     getDonations: (
       campaignId: string,
       status: DonationStatus,
