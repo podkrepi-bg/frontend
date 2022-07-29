@@ -34,7 +34,7 @@ export default function BetaPopUpDialog() {
     if (showAgainProp === true && open === false) {
       setTimeout(() => {
         setOpen(true)
-      }, 30000)
+      }, 10000)
     }
   }, [showAgainProp])
 
@@ -101,13 +101,7 @@ export default function BetaPopUpDialog() {
 
           <FormControl>
             <FormControlLabel
-              control={
-                <Checkbox
-                  onChange={handleCheckboxChange}
-                  checkedIcon={<CheckCircleOutlineIcon />}
-                  icon={<CircleOutlined sx={() => ({ height: '24px' })} />}
-                />
-              }
+              control={<Checkbox onChange={handleCheckboxChange} />}
               label={
                 <Typography fontSize={12}>
                   {t('beta-pop-up.do-not-show-again').toString()}
@@ -133,7 +127,7 @@ export default function BetaPopUpDialog() {
             width: '370px',
           },
         })}>
-        <BetaManIcon
+        {/* <BetaManIcon
           sx={(theme) => ({
             height: '325px',
             width: '180px',
@@ -152,7 +146,7 @@ export default function BetaPopUpDialog() {
               width: '131px',
             },
           })}
-        />
+        /> */}
       </Grid>
     </Dialog>
   )

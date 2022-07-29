@@ -16,7 +16,7 @@ export default function BetaPopUpTextCard({ translationKey }: BetaPopUpTextProps
         sx={(theme) => ({
           marginBottom: '10px',
           lineHeight: '28px',
-          fontWeight: '600',
+          fontWeight: '500',
           letterSpacing: '0.15px',
           [theme.breakpoints.down('md')]: {
             lineHeight: '24px',
