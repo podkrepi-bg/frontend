@@ -40,7 +40,7 @@
     "card": "Карта",
     "status": {
       "header": "Статус",
-      "initial": "създадено",
+      "initial": "започнато",
       "waiting": "чакащо",
       "succeeded": "успешно",
       "cancelled": "отменено"
