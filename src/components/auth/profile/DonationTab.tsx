@@ -12,7 +12,7 @@ import { useRouter } from 'next/router'
 import { ProfileTabs } from './tabs'
 import ProfileTab from './ProfileTab'
 import DonationTable from './DonationTable'
-import { PaymentProvider } from 'gql/donations.enums'
+import { DonationStatus, PaymentProvider } from 'gql/donations.enums'
 
 const PREFIX = 'DonationTab'
 
@@ -130,7 +130,11 @@ export default function DonationTab() {
             <Typography fontWeight="medium" variant="h6">
               {money(
                 userDonations.donations
-                  .filter((a) => a.provider === PaymentProvider.stripe)
+                  .filter(
+                    (a) =>
+                      a.provider === PaymentProvider.stripe &&
+                      a.status === DonationStatus.succeeded,
+                  )
                   .reduce((a, b) => a + b.amount, 0),
               )}
             </Typography>
@@ -140,7 +144,10 @@ export default function DonationTab() {
             <Typography fontWeight="medium" variant="h6">
               {money(
                 userDonations.donations
-                  .filter((a) => a.provider === PaymentProvider.bank)
+                  .filter(
+                    (a) =>
+                      a.provider === PaymentProvider.bank && a.status === DonationStatus.succeeded,
+                  )
                   .reduce((a, b) => a + b.amount, 0),
               )}
             </Typography>
