@@ -131,6 +131,7 @@ export default function InlineDonation({ campaign }: Props) {
   const [status, copyUrl] = useCopyToClipboard(baseUrl + asPath, 1000)
   const active = status === 'copied' ? 'inherit' : 'primary'
   const [page, setPage] = useState<number>(0)
+  const pageSize = 5
   const target = campaign.targetAmount
   const summary = campaign.summary.find(() => true)
   const reached = summary?.reachedAmount ?? 0
@@ -139,10 +140,10 @@ export default function InlineDonation({ campaign }: Props) {
     data: { items: donations, total: all_rows } = { items: [] },
     error: donationHistoryError,
     isLoading: isDonationHistoryLoading,
-  } = useCampaignDonationHistory(campaign.id, page, 5)
+  } = useCampaignDonationHistory(campaign.id, page, pageSize)
   const { mobile } = useMobile()
   const [isOpen, setIsOpen] = useState(false)
-  const rowCount = page * 5 + donations.length
+  const rowCount = page * pageSize + donations.length
   const currency = campaign.currency
   const detailsShown = isOpen || !mobile
 
