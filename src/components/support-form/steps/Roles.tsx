@@ -4,7 +4,6 @@ import { useTranslation } from 'next-i18next'
 import { Divider, FormControl, FormGroup, FormHelperText, Grid, Typography } from '@mui/material'
 
 import Role from './Role'
-import { BankTransfer } from '../../common/BankTransfer'
 import HeaderTypography from '../helpers/HeaderTypography'
 
 export default function Roles() {
