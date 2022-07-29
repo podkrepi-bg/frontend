@@ -90,20 +90,6 @@
     "gallery": "Gallery",
     "report-irregularity": "Report irregularity",
     "feedback": "Feedback",
-    "types": {
-      "treatment-and-rehabilitation": "Treatment and rehabilitation",
-      "lifesaving": "Lifesaving",
-      "disasters": "Disasters",
-      "social": "Social",
-      "education": "Education",
-      "culture": "Culture",
-      "sports": "Sports",
-      "community": "Community",
-      "human-rights": "Human rights",
-      "environment": "Environment",
-      "animals": "Animals",
-      "free-speech": "Freedom of speech"
-    },
     "images": {
       "add": "Add image",
       "add-more": "Add more",
