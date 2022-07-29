@@ -157,16 +157,16 @@
   },
   "filters": {
     "all": "Всички",
-    "medical": "Медицина",
-    "charity": "Дарения",
+    "medical": "Лечение",
+    "charity": "Социални",
     "disasters": "Бедствия",
-    "education": "Обучение",
-    "events": "Събития",
-    "environment": "Околна среда",
+    "education": "Образование ",
+    "events": "Култура",
+    "environment": "Човешки права",
     "sport": "Спорт",
     "art": "Изкуство",
     "animals": "Животни",
-    "nature": "Природа",
+    "nature": "Околна среда",
     "others": "Други"
   },
   "donations": {

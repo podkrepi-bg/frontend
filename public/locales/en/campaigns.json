@@ -157,15 +157,15 @@
   "filters": {
     "all": "All",
     "medical": "Medical",
-    "charity": "Charity",
+    "charity": "Social",
     "disasters": "Disasters",
     "education": "Education",
-    "events": "Events",
-    "environment": "Environment",
+    "events": "Culture",
+    "environment": "Human rights",
     "sport": "Sport",
     "art": "Art",
     "animals": "Animals",
-    "nature": "Nature",
+    "nature": "Environment",
     "others": "Others"
   },
   "donations": {
