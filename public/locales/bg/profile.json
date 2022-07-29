@@ -39,6 +39,10 @@
     "bank": "Банка",
     "card": "Карта"
   },
+  "sertificates": {
+    "index": "История на сертификати",
+    "title": "Онлайн дарения"
+  },
   "donationsContract": "Договор дарение",
   "certificates": "Сертификати",
   "birthdateModal": {
