@@ -1,6 +1,12 @@
 {
   "podkrepi": "Podkrepi.bg",
   "title": "a transparent online donation platform",
+  "beta-pop-up": {
+    "beta-version": "This is the beta version of the <1>Podkrepi.bg</1> platform before the official launch in the fall.",
+    "feedback": "We would be grateful if you could help us by testing the platform and giving us feedback at <1>feedback@podkrepi.bg</1> with the things you think can be improved.",
+    "close": "Close",
+    "do-not-show-again": "Don't show again!"
+  },
   "jumbotron": {
     "heading": "We stimulate the donation culture through transparency in raising and allocating funds to the causes without deducting fees and commissions for Podkrepi.bg.",
     "maximum-transparency": "with maximum transparency",
