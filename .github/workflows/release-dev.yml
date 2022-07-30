@@ -46,6 +46,9 @@ jobs:
     name: Release to dev
     runs-on: ubuntu-latest
     needs: [build-docker-image]
+    environment:
+      name: dev
+      url: https://dev.podkrepi.bg
     steps:
       - uses: actions/checkout@v3
 
