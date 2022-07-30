@@ -1,0 +1,19 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  gh-release:
+    name: Github release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          generate_release_notes: true

@@ -6,13 +6,8 @@ on:
     tags:
       - 'v*.*.*'
     branches: [master]
-    paths:
-      - 'src/**'
-      - 'public/**'
-      - Dockerfile
-      - Dockerfile.maintenance
-      - '!manifests/**'
-      - '!.github/workflows/**'
+    paths-ignore:
+      - '**/*.md'
 
 jobs:
   build-docker-image:
