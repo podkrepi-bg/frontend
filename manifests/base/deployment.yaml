@@ -18,16 +18,20 @@ spec:
       volumes:
         - name: tmp
           emptyDir: {}
+        - name: nextjs-cache
+          emptyDir: {}
       containers:
         - name: frontend
           image: ghcr.io/podkrepi-bg/frontend
           imagePullPolicy: Always
           securityContext:
             runAsNonRoot: true
-            readOnlyRootFilesystem: false
+            readOnlyRootFilesystem: true
           volumeMounts:
             - name: tmp
               mountPath: /tmp
+            - name: nextjs-cache
+              mountPath: /app/.next/cache
           env:
             - name: NODE_ENV
               value: production
