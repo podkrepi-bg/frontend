@@ -14,3 +14,7 @@ spec:
       containers:
         - name: frontend
           imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              memory: 350Mi
+              cpu: 800m
