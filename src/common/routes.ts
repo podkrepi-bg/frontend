@@ -39,7 +39,7 @@ export const routes = {
   contact: '/contact',
   support: '/support',
   support_us: '/support_us',
-  reports: '/npo/reports',
+  reports: '/finance-report',
   campaigns: {
     index: '/campaigns',
     create: '/campaigns/create',
