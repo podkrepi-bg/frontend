@@ -11,12 +11,9 @@ export const CAMPAIGN_QUESTIONS: ContentType[] = [
         <ExternalLink variant="subtitle1" href={'https://podkrepi.bg/terms-of-service'}>
           {'Тук '}
         </ExternalLink>{' '}
-        можете да се запознаете с Общите условия на Подкрепи.бг, а страницата за създаване на
-        кампания ще намерите{' '}
-        <ExternalLink variant="subtitle1" href={'/campaigns/create'}>
-          {' тук. '}
-        </ExternalLink>
-        При още въпроси, можете да ни изпратите email на този адрес: info@podkrepi.bg
+        можете да се запознаете с Общите условия на Подкрепи.бг за процеса по създаване на кампания.
+        Все още сме в Бета тест период и засега, ако имате интерес за създаване на кампания можете
+        да ни изпратите email на този адрес: <ExternalLink>info@podkrepi.bg</ExternalLink>
       </ContentTypography>
     ),
   },

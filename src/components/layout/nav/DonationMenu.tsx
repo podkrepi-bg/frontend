@@ -43,11 +43,10 @@ const allNavItems: NavItem[] = [
     href: routes.campaigns.index,
     label: 'nav.campaigns.index',
   },
-  // temporarily disabled
-  // {
-  //   href: routes.campaigns.create,
-  //   label: 'nav.campaigns.create',
-  // },
+  {
+    href: routes.faq_campaigns, //temporarily lead to FAQ
+    label: 'nav.campaigns.create',
+  },
   {
     href: routes.termsOfService,
     label: 'components.footer.terms-of-service',

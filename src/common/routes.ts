@@ -32,6 +32,7 @@ export const socialUrls = {
 export const routes = {
   index: '/',
   faq: '/faq',
+  faq_campaigns: '/faq/campaigns',
   about: '/about',
   login: '/login',
   logout: '/logout',
