@@ -32,13 +32,14 @@ export const socialUrls = {
 export const routes = {
   index: '/',
   faq: '/faq',
+  faq_campaigns: '/faq/campaigns',
   about: '/about',
   login: '/login',
   logout: '/logout',
   contact: '/contact',
   support: '/support',
   support_us: '/support_us',
-  reports: '/npo/reports',
+  reports: '/finance-report',
   campaigns: {
     index: '/campaigns',
     create: '/campaigns/create',

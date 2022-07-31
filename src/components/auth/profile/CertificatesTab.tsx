@@ -55,12 +55,12 @@ export default function CertificatesTab() {
   return (
     <Root>
       <Box className={classes.boxTitle}>
-        <Typography className={classes.h3}>{t('profile:sertificates.index')}</Typography>
+        <Typography className={classes.h3}>{t('profile:certificates.index')}</Typography>
       </Box>
       <ProfileTab name={ProfileTabs.certificates}>
         <Box>
           <Box sx={{ mt: 4 }}>
-            <h3 className={classes.thinFont}>{t('profile:sertificates.title')}</h3>
+            <h3 className={classes.thinFont}>{t('profile:certificates.title')}</h3>
             <DonationTable donations={data.donations} />
           </Box>
         </Box>
