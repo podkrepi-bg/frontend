@@ -94,7 +94,7 @@ export default function TeamMembersSection() {
         </Grid> */}
         <Grid item xs={12} textAlign="center">
           <LinkButton
-            href={staticUrls.blog + '/tag/team'}
+            href={staticUrls.blog + 'tag/team'}
             variant="outlined"
             endIcon={<ChevronRightIcon />}>
             {t('index:team-section.meet-our-team')}
