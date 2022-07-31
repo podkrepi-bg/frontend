@@ -121,7 +121,7 @@ export default function CampaignCard({ campaign }: Props) {
           <CardMedia className={classes.media} title={campaign.title}>
             <div
               style={{ position: 'relative', width: '100%', minHeight: '100%', maxHeight: '100%' }}>
-              <Image src={pictureUrl} layout="fill" objectFit="fill" />
+              <Image src={pictureUrl} layout="fill" objectFit="contain" />
             </div>
           </CardMedia>
         </Link>
