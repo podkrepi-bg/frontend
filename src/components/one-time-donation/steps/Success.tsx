@@ -28,21 +28,8 @@ export default function Success({ donationId }: { donationId?: string }) {
             {(field.value === 'bank' && t('success.subtitle-bank')) || t('success.subtitle')}
           </Typography>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} pb={2}>
           <Typography>{t('success.share-to')}</Typography>
-        </Grid>
-        <Grid
-          item
-          sx={{
-            '& .MuiSvgIcon-root': {
-              fontSize: '38px',
-              color: '#909090',
-              margin: 2,
-            },
-          }}>
-          <FacebookOutlinedIcon />
-          <InstagramIcon />
-          <LinkedInIcon />
         </Grid>
       </Grid>
       <Grid container rowSpacing={3} justifyContent="center">
