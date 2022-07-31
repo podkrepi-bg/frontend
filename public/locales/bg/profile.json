@@ -15,7 +15,7 @@
   },
   "donations": {
     "index": "Дарения",
-    "helpThanks": "благодарим за помощта ви!",
+    "helpThanks": "благодарим за помощта Ви!",
     "donateNow": "Подкрепи сега",
     "totalDonations": "Всички дарения",
     "recurringDonations": "Повтарящи дарения",
@@ -34,7 +34,7 @@
     "cause": "Кауза",
     "amount": "Сума",
     "certificate": "Сертификат",
-    "download": "Свали",
+    "download": "Свалете",
     "lv": "лв",
     "bank": "Банка",
     "card": "Карта",
@@ -46,39 +46,39 @@
       "cancelled": "отменено"
     }
   },
-  "sertificates": {
+  "certificates": {
     "index": "История на сертификати",
     "title": "Онлайн дарения"
   },
   "donationsContract": "Договор дарение",
   "certificates": "Сертификати",
   "birthdateModal": {
-    "ageInvalid": "Трябва да си над 18 години за да може да се регистрираш.",
-    "newDate": "Обнови рожден ден",
-    "question": "Кога е твоят рожден ден?"
+    "ageInvalid": "Трябва да сте над 18 години, за да можете да се регистрирате.",
+    "newDate": "Порменете рожден ден",
+    "question": "Кога е Вашият рожден ден?"
   },
   "emailModal": {
-    "newEmail": "Обнови имейл"
+    "newEmail": "Променете имейл"
   },
   "nameModal": {
-    "newName": "Обнови име",
+    "newName": "Променете име",
     "firstName": "Име",
     "lastName": "Фамилия"
   },
   "passwordModal": {
-    "newPassword": "Обнови парола"
+    "newPassword": "Сменете парола"
   },
   "disableModal": {
     "index": "Изтриване на акаунт",
     "sorryMsg": "Съжаляваме, че ни напускате!",
     "beforeDisableMsg": "Преди да ни напуснете ...",
-    "deactivateEmails": "Ако ви е омръзнало да получавате имейли, деактивирайте ги ",
+    "deactivateEmails": "Ако Ви е омръзнало да получавате имейли, деактивирайте ги ",
     "link": " тук",
     "writeUs": "Ако .........................., моля пишете ",
     "irreversibleAction": "Изтриването на акаунт е необратимо.",
     "confirmDisable": "Ще бъде невъзможно да възстановите акаунта си.",
     "saveAccount": "Запази моя акаунт",
     "disableAccount": "Изтрий моя акаунт",
-    "disabled": "Акаунтът ви е изтрит."
+    "disabled": "Акаунтът Ви е изтрит."
   }
 }
