@@ -18,8 +18,8 @@ export default function IndexPage() {
       maxWidth={false}
       disableOffset
       disableGutters
-      title={t('index:jumbotron.heading')}
-      metaDescription={t('index:jumbotron.heading')}>
+      title={t('index:metaDescription')}
+      metaDescription={t('index:metaDescription')}>
       <BetaPopUpDialog />
       <Jumbotron />
       <CampaignsSection />
