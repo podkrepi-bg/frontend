@@ -18,6 +18,8 @@ export const staticUrls = {
   blog: 'https://blog.podkrepi.bg/',
   hostingProvider: 'https://superhosting.bg?rel=podkrepi.bg',
   eduspace: 'https://eduspace-bg.business.site/',
+  dmsBg: 'https://dmsbg.com',
+  platformata: 'https://platformata.bg',
 }
 
 export const socialUrls = {
