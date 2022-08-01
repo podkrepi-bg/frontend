@@ -24,6 +24,21 @@ export default function BetaPopUpDialog() {
   const { t } = useTranslation('index')
   const [open, setOpen] = useState(false)
   const [showAgain, setShowAgain] = useState(true)
+  useEffect(() => {
+    if (!showAgain) {
+      // Only set it if we are switching it off. The other way around is not possible
+      localStorage.setItem('showBetaPopup', JSON.stringify(showAgain))
+    }
+  }, [showAgain])
+
+  useEffect(() => {
+    const initialShowAgain = localStorage.getItem('showBetaPopup')
+    if (initialShowAgain !== undefined && initialShowAgain !== null) {
+      const showBetaPopup = JSON.parse(initialShowAgain) as boolean
+      console.log('betaPopup', showBetaPopup)
+      showAgainProp = showBetaPopup
+    }
+  })
 
   const handleClose = () => {
     setOpen(false)
