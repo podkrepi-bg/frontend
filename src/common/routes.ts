@@ -5,7 +5,7 @@ const {
 } = getConfig()
 
 export const baseUrl = APP_URL
-export const defaultOgImage = `${baseUrl}/img/og-image.png`
+export const defaultOgImage = `${baseUrl}/img/og_image.jpeg`
 
 export const staticUrls = {
   github:

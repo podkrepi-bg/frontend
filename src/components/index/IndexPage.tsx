@@ -18,7 +18,7 @@ export default function IndexPage() {
       maxWidth={false}
       disableOffset
       disableGutters
-      title={t('index:metaDescription')}
+      title={t('index:title2')}
       metaDescription={t('index:metaDescription')}>
       <BetaPopUpDialog />
       <Jumbotron />
