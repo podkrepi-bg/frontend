@@ -38,6 +38,11 @@ export default function Timeline() {
       </Heading>
       <Grid item>
         <TimelineMaterial position="alternate" sx={{ p: 0 }}>
+          <TimelineItem Icon={PodkrepiIcon} title={t('about-project:august-2022-title')}>
+            <ul>
+              <li>{t('about-project:beta-launch')}</li>
+            </ul>
+          </TimelineItem>
           <TimelineItem Icon={PlayCircleFilledWhite} title={t('about-project:october-2020-title')}>
             <ul>
               <li>{t('about-project:platform-idea')}</li>

@@ -35,7 +35,6 @@ export default function BetaPopUpDialog() {
     const initialShowAgain = localStorage.getItem('showBetaPopup')
     if (initialShowAgain !== undefined && initialShowAgain !== null) {
       const showBetaPopup = JSON.parse(initialShowAgain) as boolean
-      console.log('betaPopup', showBetaPopup)
       showAgainProp = showBetaPopup
     }
   })
