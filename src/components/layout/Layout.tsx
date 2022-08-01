@@ -58,8 +58,11 @@ export default function Layout({
         <Head>
           <title>{metaTitle}</title>
           <meta name="description" content={metaDescription ?? metaTitle} />
+          <meta property="og:type" content="article" />
+          <meta property="og:locale" content="bg_BG" />{' '}
+          {/* TODO: think of how to make campaign level localization */}
           <meta key="og:title" property="og:title" content={metaTitle} />
-          <meta key="og:image" property="og:image" content={ogImage ?? defaultOgImage} />
+          {/* <meta key="og:image" property="og:image" content={ogImage ?? defaultOgImage} /> */}
           <meta key="og:image:width" property="og:image:width" content="1910" />
           <meta key="og:image:height" property="og:image:height" content="1000" />
         </Head>

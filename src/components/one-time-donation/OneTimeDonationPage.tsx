@@ -56,6 +56,16 @@ const StyledLayout = styled(Layout)(({ theme }) => ({
   },
 }))
 
+const scrollWindow = () => {
+  const bannerWrapper = document.getElementsByClassName(classes.bannerWrapper)[0]
+  const avatarWrapper = document.getElementsByClassName(classes.beneficiaryAvatarWrapper)[0]
+  let calculatedScrollY = 0
+  if (bannerWrapper && avatarWrapper) {
+    calculatedScrollY = bannerWrapper.clientHeight + avatarWrapper.clientHeight / 2
+  }
+  window.scrollTo({ top: calculatedScrollY, behavior: 'smooth' })
+}
+
 export default function OneTimeDonation({ slug }: { slug: string }) {
   const { data } = useViewCampaign(slug)
   if (!data || !data.campaign) return <NotFoundPage />
@@ -101,7 +111,7 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
           <Typography variant="h4" sx={{ textAlign: 'center', marginBottom: theme.spacing(4) }}>
             {campaign.title}
           </Typography>
-          <DonationStepper />
+          <DonationStepper onStepChange={scrollWindow} />
         </Grid>
       </Grid>
     </StyledLayout>

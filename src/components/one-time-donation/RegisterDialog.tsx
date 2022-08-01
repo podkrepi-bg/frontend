@@ -1,5 +1,5 @@
 import { Button, CircularProgress, Grid, Typography } from '@mui/material'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
 import theme from 'common/theme'

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    spec:
+      containers:
+        - name: frontend
+          imagePullPolicy: Always
+          resources:
+            limits:
+              memory: 350Mi
+              cpu: 400m
+          env:
+            - name: FEATURE_CAMPAIGN
+              value: 'true'

@@ -1,7 +1,6 @@
 import DonationTab from './DonationTab'
 import CertificatesTab from './CertificatesTab'
 import PersonalInfoTab from './PersonalInfoTab'
-import DonationAgreementTab from './DonationAgreementTab'
 
 export enum ProfileTabs {
   donations = 'donations',
@@ -32,9 +31,10 @@ export const tabs: ProfileTab[] = [
     label: 'Сертификати',
     Component: CertificatesTab,
   },
-  {
-    slug: ProfileTabs.contractDonation,
-    label: 'Договор дарение',
-    Component: DonationAgreementTab,
-  },
+  //  Currently we don't generate donation contract, when such document is generated we can either combine it with the certificate or unhide the contracts section.
+  // {
+  //   slug: ProfileTabs.contractDonation,
+  //   label: 'Договор дарение',
+  //   Component: DonationAgreementTab,
+  // },
 ]

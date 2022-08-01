@@ -43,8 +43,11 @@ const initialValues: OneTimeDonation = {
   registerFirstName: '',
   registerPassword: '',
 }
+interface DonationStepperProps {
+  onStepChange: () => void
+}
 
-export default function DonationStepper() {
+export default function DonationStepper({ onStepChange }: DonationStepperProps) {
   const { t } = useTranslation('one-time-donation')
   const router = useRouter()
   const success = router.query.success === 'true' ? true : false
@@ -142,6 +145,11 @@ export default function DonationStepper() {
     },
   ]
   const [step, setStep] = React.useState(0)
+
+  React.useEffect(() => {
+    onStepChange()
+  }, [step])
+
   return (
     <StepsContext.Provider value={{ step, setStep, campaign }}>
       {isLoading ? (

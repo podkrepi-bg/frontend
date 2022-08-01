@@ -1,6 +1,12 @@
 {
   "podkrepi": "Podkrepi.bg",
   "title": "a transparent online donation platform",
+  "beta-pop-up": {
+    "beta-version": "This is the beta version of the <1>Podkrepi.bg</1> platform before the official launch in the fall.",
+    "feedback": "We would be grateful if you could help us by testing the platform and giving us feedback at <1>feedback@podkrepi.bg</1> with the things you think can be improved.",
+    "close": "Close",
+    "do-not-show-again": "Don't show again!"
+  },
   "jumbotron": {
     "heading": "We stimulate the donation culture through transparency in raising and allocating funds to the causes without deducting fees and commissions for Podkrepi.bg.",
     "maximum-transparency": "with maximum transparency",
@@ -19,7 +25,7 @@
   "team-section": {
     "heading": "Who is behind Podkrepi.bg?",
     "content": "Podkrepi.bg is a community of specialists in the field of programming, law, marketing, design, medicine, finance, social entrepreneurship and others. We are united by the goal of creating a sustainable and transparent donation platform that supports causes and people in need, while promoting and restoring trust in donations in Bulgaria.",
-    "meet-our-team": "Meet out team",
+    "meet-our-team": "Meet our team in the blog",
     "ilko-kacharov": "Ilko Kacharov",
     "radoslav-bozhinov": "Radoslav Bozhinov",
     "ana-nikolova": "Ana Nikolova",

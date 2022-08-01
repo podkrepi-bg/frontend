@@ -17,15 +17,16 @@ import styled from '@emotion/styled'
 import React, { useMemo } from 'react'
 import { bg, enUS } from 'date-fns/locale'
 import { useTranslation } from 'next-i18next'
-import { format, isAfter, isBefore, parseISO } from 'date-fns'
+import { isAfter, isBefore, parseISO } from 'date-fns'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
 
 import theme from 'common/theme'
 import { money } from 'common/util/money'
 import { UserDonation } from 'gql/donations'
 import { routes } from 'common/routes'
+import { getExactDateTime } from 'common/util/date'
 
 export type DonationTableProps = {
   donations: UserDonation[] | undefined
@@ -75,6 +76,7 @@ function DonationTable({ donations }: DonationTableProps) {
       })
     }
   }, [filteredByTypeDonations, fromDate, toDate])
+  console.log(fromDate, toDate)
   return (
     <Card sx={{ padding: theme.spacing(2), boxShadow: theme.shadows[0] }}>
       <Grid container alignItems={'flex-start'} spacing={theme.spacing(2)}>
@@ -86,6 +88,7 @@ function DonationTable({ donations }: DonationTableProps) {
             name="oneTime"
           />
         </Grid>
+        {/* TODO: pending implementation on recuring donations
         <Grid item xs={6} sm={3}>
           <CheckboxLabel>{t('profile:donations.monthly')}</CheckboxLabel>
           <Checkbox
@@ -93,12 +96,12 @@ function DonationTable({ donations }: DonationTableProps) {
             checked={monthly}
             name="monthly"
           />
-        </Grid>
+        </Grid> */}
         <LocalizationProvider
           locale={i18n.language === 'bg' ? bg : enUS}
           dateAdapter={AdapterDateFns}>
           <Grid item xs={12} sm={3}>
-            <DatePicker
+            <DateTimePicker
               label={t('profile:donations.fromDate')}
               value={fromDate}
               onChange={setFromDate}
@@ -106,7 +109,7 @@ function DonationTable({ donations }: DonationTableProps) {
             />
           </Grid>
           <Grid item xs={12} sm={3}>
-            <DatePicker
+            <DateTimePicker
               label={t('profile:donations.toDate')}
               value={toDate}
               onChange={setToDate}
@@ -120,8 +123,8 @@ function DonationTable({ donations }: DonationTableProps) {
           <Table sx={{ minWidth: 650, backgroundColor: 'white' }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>№</TableCell>
                 <TableCell>{t('profile:donations.date')}</TableCell>
+                <TableCell>{t('profile:donations.status.header')}</TableCell>
                 <TableCell>{t('profile:donations.sort')}</TableCell>
                 <TableCell>{t('profile:donations.cause')}</TableCell>
                 <TableCell>{t('profile:donations.amount')}</TableCell>
@@ -131,14 +134,8 @@ function DonationTable({ donations }: DonationTableProps) {
             <TableBody>
               {filteredDonations.map((donation, index) => (
                 <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                  <TableCell component="th" scope="row">
-                    {index + 1}
-                  </TableCell>
-                  <TableCell>
-                    {format(parseISO(donation.createdAt), 'd.LL.yyyy', {
-                      locale: i18n.language === 'bg' ? bg : enUS,
-                    })}
-                  </TableCell>
+                  <TableCell>{getExactDateTime(donation.createdAt)}</TableCell>
+                  <TableCell>{`${t('profile:donations.status.' + donation.status)}`}</TableCell>
                   <TableCell>{donation.provider}</TableCell>
                   <TableCell>
                     <Link

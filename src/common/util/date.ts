@@ -1,7 +1,7 @@
 import { format, formatRelative, intervalToDuration, Locale } from 'date-fns'
 
 export const formatDate = 'dd MMM yyyy'
-export const formatDatetime = 'dd MMM yyyy H:ii:ss'
+export const formatDatetime = 'dd MMM yyyy HH:mm:ss'
 
 export const dateFormatter = (value: Date | string | number, locale?: Locale) => {
   const date = new Date(value)

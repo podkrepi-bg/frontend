@@ -8,6 +8,7 @@ import WhatUnitesUsSection from './sections/WhatUnitesUsSection'
 import WantToHelpPodkrepiBgSection from './sections/WantToHelpPodkrepiBg'
 import FaqSection from './sections/FaqSection'
 import TeamMembersSection from './sections/TeamMembersSection'
+import BetaPopUpDialog from './sections/BetaPopUpDialog'
 
 export default function IndexPage() {
   const { t } = useTranslation()
@@ -18,7 +19,8 @@ export default function IndexPage() {
       disableOffset
       disableGutters
       title={t('index:jumbotron.heading')}
-      metaDescription={t('index:activity-section.content')}>
+      metaDescription={t('index:jumbotron.heading')}>
+      <BetaPopUpDialog />
       <Jumbotron />
       <CampaignsSection />
       <HowWeWorkSection />

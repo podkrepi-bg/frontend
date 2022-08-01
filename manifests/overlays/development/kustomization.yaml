@@ -15,6 +15,9 @@ patches:
       kind: Ingress
       name: web
 
+patchesStrategicMerge:
+  - maintenance-delete.yaml
+
 images:
   - name: ghcr.io/podkrepi-bg/frontend
     newTag: master

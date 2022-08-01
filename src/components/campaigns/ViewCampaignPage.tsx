@@ -4,6 +4,7 @@ import { Grid, Theme } from '@mui/material'
 import { createStyles, makeStyles } from '@mui/styles'
 
 import { useViewCampaign } from 'common/hooks/campaigns'
+import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 
 import NotFoundPage from 'pages/404'
 import Layout from 'components/layout/Layout'
@@ -44,9 +45,10 @@ export default function ViewCampaignPage({ slug }: Props) {
   if (!data || !data.campaign) return <NotFoundPage />
   const { campaign } = data
   const { mobile, small } = useMobile()
+  const ogImageUrl = campaignListPictureUrl(campaign)
 
   return (
-    <Layout maxWidth={false}>
+    <Layout maxWidth={false} ogImage={ogImageUrl} metaDescription={campaign.title}>
       <Grid container component="section" maxWidth="lg" justifyContent="center" m="0 auto">
         <CampaignDetails campaign={campaign} />
         {mobile || small ? (

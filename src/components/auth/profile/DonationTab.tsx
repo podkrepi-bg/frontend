@@ -4,7 +4,7 @@ import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism'
 import React from 'react'
 import { useTranslation } from 'next-i18next'
 
-import { money } from 'common/util/money'
+import { moneyPublic } from 'common/util/money'
 import { useUserDonations } from 'common/hooks/donation'
 import { getCurrentPerson } from 'common/util/useCurrentPerson'
 import { useRouter } from 'next/router'
@@ -12,7 +12,7 @@ import { useRouter } from 'next/router'
 import { ProfileTabs } from './tabs'
 import ProfileTab from './ProfileTab'
 import DonationTable from './DonationTable'
-import { PaymentProvider } from 'gql/donations.enums'
+import { DonationStatus, PaymentProvider } from 'gql/donations.enums'
 
 const PREFIX = 'DonationTab'
 
@@ -101,7 +101,7 @@ export default function DonationTab() {
               {t('profile:donations.totalDonations')}
             </Typography>
             <Typography fontWeight="medium" variant="h6">
-              {money(userDonations.total)}
+              {moneyPublic(userDonations.total)}
             </Typography>
           </Box>
           <Box className={classes.donationsBoxRow}>
@@ -128,9 +128,13 @@ export default function DonationTab() {
           <Box className={classes.donationsBoxRow}>
             <Typography variant="h6">{t('profile:donations.cardDonations')}</Typography>
             <Typography fontWeight="medium" variant="h6">
-              {money(
+              {moneyPublic(
                 userDonations.donations
-                  .filter((a) => a.provider === PaymentProvider.stripe)
+                  .filter(
+                    (a) =>
+                      a.provider === PaymentProvider.stripe &&
+                      a.status === DonationStatus.succeeded,
+                  )
                   .reduce((a, b) => a + b.amount, 0),
               )}
             </Typography>
@@ -138,9 +142,12 @@ export default function DonationTab() {
           <Box className={classes.donationsBoxRow}>
             <Typography variant="h6">{t('profile:donations.bankDonations')}</Typography>
             <Typography fontWeight="medium" variant="h6">
-              {money(
+              {moneyPublic(
                 userDonations.donations
-                  .filter((a) => a.provider === PaymentProvider.bank)
+                  .filter(
+                    (a) =>
+                      a.provider === PaymentProvider.bank && a.status === DonationStatus.succeeded,
+                  )
                   .reduce((a, b) => a + b.amount, 0),
               )}
             </Typography>
