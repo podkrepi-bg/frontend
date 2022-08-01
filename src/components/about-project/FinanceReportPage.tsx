@@ -17,7 +17,7 @@ export default function FinanceReportPage() {
         <Typography>Финансов репорт за 2021:</Typography>
         <LinkButton
           endIcon={<FileDownloadIcon />}
-          href="/finance-reports/Podkrepi.bg_Financial_Report_062022.pdf">
+          href="/finance-reports/Podkrepi.bg_Financial_Report_2021_1.pdf">
           Свалете от тук
         </LinkButton>
       </Container>
@@ -25,7 +25,7 @@ export default function FinanceReportPage() {
         <Typography>Финансов репорт за 2022 Януари-Юни:</Typography>
         <LinkButton
           endIcon={<FileDownloadIcon />}
-          href="/finance-reports/Podkrepi.bg_Financial_Report_2021_1.pdf">
+          href="/finance-reports/Podkrepi.bg_Financial_Report_062022.pdf">
           Свалете от тук
         </LinkButton>
       </Container>
