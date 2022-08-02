@@ -62,7 +62,7 @@ export default function CampaignInfoCoordinator({ campaign }: Props) {
 
   return (
     <StyledGrid container gap={3}>
-      <Grid item className={classes.avatarWrapper}>
+      <Grid item className={classes.avatarWrapper} minWidth="max-content" flex={1}>
         <Image
           src={coordinatorAvatarSource}
           alt={campaign.title}
@@ -71,7 +71,7 @@ export default function CampaignInfoCoordinator({ campaign }: Props) {
           className={classes.personAvatar}
         />
       </Grid>
-      <Grid item>
+      <Grid item flex={6}>
         <Typography variant="subtitle2" component="p">
           <strong>{t('campaigns:campaign.podkrepi-bg-coordinator')}</strong>
         </Typography>
