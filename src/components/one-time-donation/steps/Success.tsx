@@ -31,6 +31,9 @@ export default function Success({ donationId }: { donationId?: string }) {
         <Grid item xs={12} pb={2}>
           <Typography>{t('success.share-to')}</Typography>
         </Grid>
+        <Grid item xs={12} pb={2}>
+          <Typography>{t('success.say-to-us')}</Typography>
+        </Grid>
       </Grid>
       <Grid container rowSpacing={3} justifyContent="center">
         {donationId && (
