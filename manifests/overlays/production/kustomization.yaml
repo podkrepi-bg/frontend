@@ -13,6 +13,6 @@ patches:
 
 images:
   - name: ghcr.io/podkrepi-bg/frontend
-    newTag: v0.9.13
+    newTag: v0.9.15
   - name: ghcr.io/podkrepi-bg/frontend/maintenance
     newTag: master
