@@ -1,18 +1,23 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: podkrepibg
+namespace: podkrepibg-dev
 
 resources:
-  - ../../base
+- ../../base
 
 patches:
-#  - path: secrets-web.local.yaml
-  - path: keycloak-config-web.patch.yaml
-  - path: deployment.patch.yaml
+- path: manual/config-web.patch.yaml
+- path: manual/keycloak-config-web.patch.yaml
+- path: manual/deployment.patch.yaml
+- path: manual/ingress.patch.yaml
+  target:
+    kind: Ingress
+    name: web
 
 images:
-  - name: ghcr.io/podkrepi-bg/frontend
-    newTag: v0.9.15
-  - name: ghcr.io/podkrepi-bg/frontend/maintenance
-    newTag: master
+- name: ghcr.io/podkrepi-bg/frontend
+  newName: ghcr.io/podkrepi-bg/frontend
+  newTag: master
+- name: ghcr.io/podkrepi-bg/frontend/maintenance
+  newTag: master

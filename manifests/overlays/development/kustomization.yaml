@@ -4,26 +4,23 @@ kind: Kustomization
 namespace: podkrepibg-dev
 
 resources:
-  - ../../base
+- ../../base
 
 patches:
-  - path: config-web.patch.yaml
-  - path: keycloak-config-web.patch.yaml
-  - path: deployment.patch.yaml
-  - path: ingress.patch.yaml
-    target:
-      kind: Ingress
-      name: web
+- path: manual/config-web.patch.yaml
+- path: manual/keycloak-config-web.patch.yaml
+- path: manual/deployment.patch.yaml
+- path: manual/ingress.patch.yaml
+  target:
+    kind: Ingress
+    name: web
 
 patchesStrategicMerge:
-  - maintenance-delete.yaml
+- manual/maintenance-delete.yaml
 
 images:
-  - name: ghcr.io/podkrepi-bg/frontend
-    newTag: master
-  - name: ghcr.io/podkrepi-bg/frontend/maintenance
-    newTag: master
-
-secretGenerator:
-  - name: secrets-web
-    envs: [secrets-web.env]
+- name: ghcr.io/podkrepi-bg/frontend
+  newName: ghcr.io/podkrepi-bg/frontend
+  newTag: test
+- name: ghcr.io/podkrepi-bg/frontend/maintenance
+  newTag: master
