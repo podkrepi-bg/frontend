@@ -7,17 +7,20 @@ resources:
 - ../../base
 
 patches:
-- path: ../production/config-web.patch.yaml
-- path: ../production/keycloak-config-web.patch.yaml
-- path: ../production/deployment.patch.yaml
-- path: ../production/ingress.patch.yaml
+- path: ../development/config-web.patch.yaml
+- path: ../development/keycloak-config-web.patch.yaml
+- path: ../development/deployment.patch.yaml
+- path: ../development/ingress.patch.yaml
   target:
     kind: Ingress
     name: web
 
+patchesStrategicMerge:
+- ../development/maintenance-delete.yaml
+
 images:
 - name: ghcr.io/podkrepi-bg/frontend
   newName: ghcr.io/podkrepi-bg/frontend
-  newTag: master
+  newTag: test
 - name: ghcr.io/podkrepi-bg/frontend/maintenance
   newTag: master
