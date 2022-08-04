@@ -90,6 +90,9 @@ export default function Jumbotron() {
               [theme.breakpoints.down('md')]: {
                 fontSize: '1rem',
               },
+              [theme.breakpoints.up('lg')]: {
+                maxWidth: '65%',
+              },
             }}>
             {t('index:jumbotron.heading')}
           </Typography>

@@ -46,7 +46,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
 
   [`&.${classes.cardWrapper}`]: {
     position: 'relative',
-    minHeight: theme.spacing(81),
+    minHeight: theme.spacing(87),
     backgroundColor: theme.palette.secondary.light,
     border: 'none',
     borderRadius: 0,
@@ -78,11 +78,11 @@ const StyledCard = styled(Card)(({ theme }) => ({
   },
 
   [`& .${classes.cardContent}`]: {
-    minHeight: theme.spacing(26),
-    maxHeight: theme.spacing(26),
+    minHeight: theme.spacing(32),
+    maxHeight: theme.spacing(32),
     [theme.breakpoints.down('md')]: {
-      minHeight: theme.spacing(23),
-      maxHeight: theme.spacing(23),
+      minHeight: theme.spacing(25),
+      maxHeight: theme.spacing(25),
     },
     [theme.breakpoints.down('sm')]: {
       maxHeight: 'fit-content',
@@ -91,19 +91,6 @@ const StyledCard = styled(Card)(({ theme }) => ({
 }))
 
 type Props = { campaign: CampaignResponse }
-
-const titleSize = (campaign: CampaignResponse) => {
-  if (campaign.title.length > 150) {
-    return 'subtitle2'
-  }
-  if (campaign.title.length > 120) {
-    return 'subtitle1'
-  }
-  if (campaign.title.length > 90) {
-    return 'h6'
-  }
-  return 'h5'
-}
 
 export default function CampaignCard({ campaign }: Props) {
   const { t } = useTranslation()
@@ -125,7 +112,7 @@ export default function CampaignCard({ campaign }: Props) {
           </CardMedia>
         </Link>
         <CardContent className={classes.cardContent}>
-          <Typography gutterBottom variant={titleSize(campaign)} className={classes.campaignTitle}>
+          <Typography gutterBottom variant="h5" className={classes.campaignTitle}>
             {campaign.title}
           </Typography>
           <Typography textAlign={'left'} variant="body2" color="textSecondary" component="p">
