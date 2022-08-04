@@ -46,7 +46,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
 
   [`&.${classes.cardWrapper}`]: {
     position: 'relative',
-    minHeight: theme.spacing(87),
+    minHeight: theme.spacing(81),
     backgroundColor: theme.palette.secondary.light,
     border: 'none',
     borderRadius: 0,
@@ -67,9 +67,8 @@ const StyledCard = styled(Card)(({ theme }) => ({
   },
 
   [`& .${classes.campaignTitle}`]: {
-    [theme.breakpoints.down('md')]: {
-      fontSize: '0.9rem',
-    },
+    fontWeight: '500',
+    textAlign: 'left',
   },
 
   [`& .${classes.progressBar}`]: {
@@ -79,11 +78,11 @@ const StyledCard = styled(Card)(({ theme }) => ({
   },
 
   [`& .${classes.cardContent}`]: {
-    minHeight: theme.spacing(32),
-    maxHeight: theme.spacing(32),
+    minHeight: theme.spacing(26),
+    maxHeight: theme.spacing(26),
     [theme.breakpoints.down('md')]: {
-      minHeight: theme.spacing(25),
-      maxHeight: theme.spacing(25),
+      minHeight: theme.spacing(23),
+      maxHeight: theme.spacing(23),
     },
     [theme.breakpoints.down('sm')]: {
       maxHeight: 'fit-content',
@@ -126,11 +125,7 @@ export default function CampaignCard({ campaign }: Props) {
           </CardMedia>
         </Link>
         <CardContent className={classes.cardContent}>
-          <Typography
-            textAlign={'center'}
-            gutterBottom
-            variant={titleSize(campaign)}
-            className={classes.campaignTitle}>
+          <Typography gutterBottom variant={titleSize(campaign)} className={classes.campaignTitle}>
             {campaign.title}
           </Typography>
           <Typography textAlign={'left'} variant="body2" color="textSecondary" component="p">
