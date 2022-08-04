@@ -73,7 +73,7 @@ export default function CampaignInfoOrganizer({ campaign }: Props) {
 
   return (
     <StyledGrid container item gap={3}>
-      <Grid item className={classes.avatarWrapper} minWidth="max-content">
+      <Grid item className={classes.avatarWrapper} minWidth="max-content" flex={1}>
         <Image
           src={organizerAvatarSource}
           alt={campaign.title}
@@ -82,7 +82,7 @@ export default function CampaignInfoOrganizer({ campaign }: Props) {
           className={classes.personAvatar}
         />
       </Grid>
-      <Grid item>
+      <Grid item flex={6}>
         <Typography variant="subtitle2" component="p">
           <strong>{t('campaigns:campaign.organizer.name')}</strong>
         </Typography>
