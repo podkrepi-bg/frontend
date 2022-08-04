@@ -12,7 +12,7 @@ import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import PasswordField from 'components/common/form/PasswordField'
-import { email, password } from 'common/form/validation'
+import { email, password, name } from 'common/form/validation'
 
 export type RegisterFormData = {
   firstName: string
@@ -25,10 +25,11 @@ const validationSchema: yup.SchemaOf<RegisterFormData> = yup
   .object()
   .defined()
   .shape({
-    firstName: yup.string().min(3).max(100).required(),
-    lastName: yup.string().min(3).max(100).required(),
+    firstName: name.required(),
+    lastName: name.required(),
     email: email.required(),
     password: password.required(),
+    'confirm-password': yup.string().oneOf([yup.ref('password')], 'validation:password-match'),
   })
 
 const defaults: RegisterFormData = {
@@ -99,6 +100,9 @@ export default function RegisterForm({ initialValues = defaults }: RegisterFormP
         </Grid>
         <Grid item xs={12}>
           <PasswordField />
+        </Grid>
+        <Grid item xs={12}>
+          <PasswordField name={'confirm-password'} label={'auth:account.confirm-password'} />
         </Grid>
         <Grid item xs={12}>
           <SubmitButton fullWidth label="auth:cta.register" loading={loading} />
