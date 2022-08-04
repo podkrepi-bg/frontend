@@ -21,12 +21,16 @@ export type RegisterFormData = {
   password: string
 }
 
-const validationSchema: yup.SchemaOf<RegisterFormData> = yup.object().defined().shape({
-  firstName: name.required(),
-  lastName: name.required(),
-  email: email.required(),
-  password: password.required(),
-})
+const validationSchema: yup.SchemaOf<RegisterFormData> = yup
+  .object()
+  .defined()
+  .shape({
+    firstName: name.required(),
+    lastName: name.required(),
+    email: email.required(),
+    password: password.required(),
+    'confirm-password': yup.string().oneOf([yup.ref('password')], 'validation:password-match'),
+  })
 
 const defaults: RegisterFormData = {
   firstName: '',
@@ -96,6 +100,9 @@ export default function RegisterForm({ initialValues = defaults }: RegisterFormP
         </Grid>
         <Grid item xs={12}>
           <PasswordField />
+        </Grid>
+        <Grid item xs={12}>
+          <PasswordField name={'confirm-password'} label={'auth:account.confirm-password'} />
         </Grid>
         <Grid item xs={12}>
           <SubmitButton fullWidth label="auth:cta.register" loading={loading} />
