@@ -101,14 +101,12 @@ export default function CampaignCard({ campaign }: Props) {
   return (
     <StyledCard variant="outlined" className={classes.cardWrapper}>
       <CardActionArea href={routes.campaigns.viewCampaignBySlug(campaign.slug)}>
-        <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)}>
-          <CardMedia className={classes.media} title={campaign.title}>
-            <div
-              style={{ position: 'relative', width: '100%', minHeight: '100%', maxHeight: '100%' }}>
-              <Image src={pictureUrl} layout="fill" objectFit="contain" />
-            </div>
-          </CardMedia>
-        </Link>
+        <CardMedia className={classes.media} title={campaign.title}>
+          <div
+            style={{ position: 'relative', width: '100%', minHeight: '100%', maxHeight: '100%' }}>
+            <Image src={pictureUrl} layout="fill" objectFit="contain" />
+          </div>
+        </CardMedia>
         <CardContent className={classes.cardContent}>
           <Typography gutterBottom variant="h5" className={classes.campaignTitle}>
             {campaign.title}

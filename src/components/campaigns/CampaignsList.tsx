@@ -60,7 +60,7 @@ export default function CampaignsList({ campaignToShow }: Props) {
       <Grid>
         <Box sx={{ my: 10 }}>
           {mobile ? (
-            <Image src="/img/ArtboardMobile.svg" width={250} height={400} />
+            <Image src="/img/ArtboardMobile.svg" width={300} height={300} />
           ) : (
             <Image src="/img/Artboard.png" width={813} height={358} />
           )}
