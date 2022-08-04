@@ -78,7 +78,6 @@ export default function FirstStep() {
     formik.values.cardIncludeFees,
     formik.values.cardRegion,
   ])
-  console.log(i18n?.language)
   return (
     <Root>
       <Typography variant="h4">{t('third-step.title')}</Typography>
