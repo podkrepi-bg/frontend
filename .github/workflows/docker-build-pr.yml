@@ -29,8 +29,6 @@ jobs:
           build-args: SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
           tags: ghcr.io/podkrepi-bg/frontend:pr
           outputs: image
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
 
       - name: Scan with Mondoo
         uses: mondoohq/actions@main
