@@ -55,12 +55,10 @@ const StyledCard = styled(Card)(({ theme }) => ({
       display: 'inline-block',
     },
     [theme.breakpoints.down('md')]: {
-      minHeight: theme.spacing(77),
       maxWidth: '400px',
       width: '100%',
     },
     [theme.breakpoints.down('sm')]: {
-      minHeight: theme.spacing(77),
       maxWidth: '300px',
       width: '100%',
     },
