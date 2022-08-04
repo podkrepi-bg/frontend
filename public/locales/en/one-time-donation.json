@@ -20,7 +20,8 @@
     "check-box-label": "Anonymous donation",
     "info-anonymous": "Anonymous donation means that the organisator and beneficiery would not be aware of your identity",
     "amount": "How much would you like to donate?",
-    "other": "Other amount"
+    "other": "Other amount",
+    "BGN": "BGN"
   },
   "second-step": {
     "login": "Log in",
@@ -71,7 +72,8 @@
   "errors-fields": {
     "checkbox-anonymous": "Please select an option for anonymous donation or donation without registering if you would like to continue!",
     "bank-payment": "We are sorry for the inconvenience, but you can currently donate only through a bank transfer",
-    "amount": "Please select the amount you would like to donate!"
+    "amount": "Please select the amount you would like to donate!",
+    "other-amount": "The minimum amount you can donate with a card is BGN 1."
   },
   "btns": {
     "back": "Back",
