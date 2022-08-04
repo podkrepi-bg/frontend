@@ -12,7 +12,7 @@ import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import PasswordField from 'components/common/form/PasswordField'
-import { email, password } from 'common/form/validation'
+import { email, password, name } from 'common/form/validation'
 
 export type RegisterFormData = {
   firstName: string
@@ -21,15 +21,12 @@ export type RegisterFormData = {
   password: string
 }
 
-const validationSchema: yup.SchemaOf<RegisterFormData> = yup
-  .object()
-  .defined()
-  .shape({
-    firstName: yup.string().min(3).max(100).required(),
-    lastName: yup.string().min(3).max(100).required(),
-    email: email.required(),
-    password: password.required(),
-  })
+const validationSchema: yup.SchemaOf<RegisterFormData> = yup.object().defined().shape({
+  firstName: name.required(),
+  lastName: name.required(),
+  email: email.required(),
+  password: password.required(),
+})
 
 const defaults: RegisterFormData = {
   firstName: '',
