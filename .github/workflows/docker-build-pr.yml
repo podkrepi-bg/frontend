@@ -15,12 +15,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build frontend
+      - name: Build
+        uses: docker/build-push-action@v2
         env:
+          NODE_ENV: production
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-        run: |
-          docker build . \
-            --file ./Dockerfile \
-            --target production \
-            --build-arg NODE_ENV=production \
-            --build-arg SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
+        with:
+          push: false
+          target: production
+          build-args: SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
+          tags: ghcr.io/podkrepi-bg/frontend:pr
+
+      - name: Scan with Mondoo
+        uses: mondoohq/actions@main
+        with:
+          service_account_credentials: ${{ secrets.MONDOO_SECRET }}
+          scan_type: docker_image
+          docker_image_name: ghcr.io/podkrepi-bg/frontend:pr

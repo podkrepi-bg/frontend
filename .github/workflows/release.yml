@@ -42,6 +42,13 @@ jobs:
           build-args: SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
           tags: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}
 
+      - name: Scan with Mondoo
+        uses: mondoohq/actions@main
+        with:
+          service_account_credentials: ${{ secrets.MONDOO_SECRET }}
+          scan_type: docker_image
+          docker_image_name: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}
+
   release-dev:
     name: Release to dev
     runs-on: ubuntu-latest
