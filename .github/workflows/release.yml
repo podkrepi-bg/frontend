@@ -10,8 +10,36 @@ on:
       - '**/*.md'
 
 jobs:
-  build-docker-image:
-    name: Build docker image
+  build-maintenance-image:
+    name: Build frontent container image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Login to GitHub Packages Docker Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: devops-podkrepi-bg
+          password: ${{ secrets.DEVOPS_PACKAGES_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          file: Dockerfile.maintenance
+          tags: ghcr.io/podkrepi-bg/frontend/maintenance:master
+
+      - name: Scan with Mondoo
+        uses: mondoohq/actions@main
+        with:
+          service_account_credentials: ${{ secrets.MONDOO_SECRET }}
+          scan_type: docker_image
+          docker_image_name: ghcr.io/podkrepi-bg/frontend/maintenance:master
+
+
+  build-frontend-image:
+    name: Build frontent container image
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -42,10 +70,17 @@ jobs:
           build-args: SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
           tags: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}
 
+      - name: Scan with Mondoo
+        uses: mondoohq/actions@main
+        with:
+          service_account_credentials: ${{ secrets.MONDOO_SECRET }}
+          scan_type: docker_image
+          docker_image_name: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}
+
   release-dev:
     name: Release to dev
     runs-on: ubuntu-latest
-    needs: [build-docker-image]
+    needs: [build-frontend-image,build-maintenance-image]
     environment:
       name: dev
       url: https://dev.podkrepi.bg
@@ -75,6 +110,15 @@ jobs:
 
       - name: Apply new manifests
         run: kubectl apply -k manifests/overlays/development --kubeconfig config.yaml
+
+      - uses: sarisia/actions-status-discord@v1
+        if: always()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          title: "deploy"
+          url: https://dev.podkrepi.bg/
+          description: "Version ${{ env.VERSION }} of the website is deployed"
+          color: 0x26A641
 
       - name: Delete kubeconfig
         if: always()
@@ -123,19 +167,15 @@ jobs:
       - name: Apply new manifests
         run: kubectl apply -k manifests/overlays/production --kubeconfig config.yaml
 
+      - uses: sarisia/actions-status-discord@v1
+        if: always()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+          title: "deploy"
+          url: https://podkrepi.bg/
+          description: "Version ${{ env.VERSION }} of the website is deployed"
+          color: 0x26A641
+
       - name: Delete kubeconfig
         if: always()
         run: rm config.yaml
-
-  # deploy-discord:
-  #   needs: [build-docker-image]
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - uses: sarisia/actions-status-discord@v1
-  #       if: always()
-  #       with:
-  #         webhook: ${{ secrets.APP_DISCORD_WEBHOOK }}
-  #         title: "deploy"
-  #         description: "A new version of the website is deployed: https://podkrepi.bg/"
-  #         color: 0x26A641

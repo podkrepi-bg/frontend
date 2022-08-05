@@ -1,0 +1,85 @@
+name: Check PR
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [master]
+
+jobs:
+  build-frontend:
+    name: Build and scan frontend container image
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build
+        uses: docker/build-push-action@v3
+        env:
+          NODE_ENV: production
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        with:
+          push: false
+          target: production
+          build-args: SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
+          tags: ghcr.io/podkrepi-bg/frontend:pr
+
+      - name: Scan with Mondoo
+        uses: mondoohq/actions@main
+        with:
+          service_account_credentials: ${{ secrets.MONDOO_SECRET }}
+          scan_type: docker_image
+          docker_image_name: ghcr.io/podkrepi-bg/frontend:pr
+
+  build-maintenance:
+    name: Build and scan maintenance container image
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build
+        uses: docker/build-push-action@v3
+        with:
+          push: false
+          file: Dockerfile.maintenance
+          tags: ghcr.io/podkrepi-bg/maintenance:pr
+
+      - name: Scan with Mondoo
+        uses: mondoohq/actions@main
+        with:
+          service_account_credentials: ${{ secrets.MONDOO_SECRET }}
+          scan_type: docker_image
+          docker_image_name: ghcr.io/podkrepi-bg/maintenance:pr
+
+  scan-manifests:
+    name: Scan k8s manifests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install kustomize
+        uses: imranismail/setup-kustomize@v1
+
+      - name: Build development manifests
+        run: kustomize build manifests/overlays/development > dev-manifests.yaml
+
+      - name: Scan development manifests with Mondoo
+        uses: mondoohq/actions@main
+        with:
+          service_account_credentials: ${{ secrets.MONDOO_SECRET }}
+          scan_type: k8s
+          path: dev-manifests.yaml
+
+      - name: Build production manifests
+        run: kustomize build manifests/overlays/production > prod-manifests.yaml
+
+      - name: Scan production manifests with Mondoo
+        uses: mondoohq/actions@main
+        with:
+          service_account_credentials: ${{ secrets.MONDOO_SECRET }}
+          scan_type: k8s
+          path: prod-manifests.yaml
+
+
+

@@ -11,14 +11,15 @@ EXPOSE 3040
 # Build target dependencies #
 ###########################
 FROM base AS dependencies
+
+RUN apk --no-cache add curl g++ make python3
+
 # Install prod dependencies
 RUN yarn install --production && \
   # Cache prod dependencies
   cp -R node_modules /prod_node_modules && \
   # Install dev dependencies
   yarn install --production=false
-
-RUN apk --no-cache add curl g++ make python3
 
 # Build target development #
 ############################
