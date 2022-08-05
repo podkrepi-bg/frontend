@@ -199,7 +199,7 @@ jobs:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           title: "deploy"
           url: https://podkrepi.bg/
-          description: "Version ${{ env.VERSION }} of the website is deployed"
+          description: Version ${{ env.VERSION }} of the website is deployed. The list of changes can be found at https://github.com/podkrepi-bg/frontend/releases/tag/${{ env.VERSION }}
           color: 0x26A641
 
       - name: Delete kubeconfig
