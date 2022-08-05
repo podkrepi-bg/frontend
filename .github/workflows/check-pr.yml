@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-frontend:
-    name: Build and scan frontend container
+    name: Build and scan frontend container image
     runs-on: ubuntu-latest
 
     steps:
@@ -32,7 +32,7 @@ jobs:
           docker_image_name: ghcr.io/podkrepi-bg/frontend:pr
 
   build-maintenance:
-    name: Build and scan maintenance container
+    name: Build and scan maintenance container image
     runs-on: ubuntu-latest
 
     steps:
