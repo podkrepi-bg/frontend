@@ -12,6 +12,15 @@ import AppNavBar from './AppNavBar'
 import MobileNav from './nav/MobileNav'
 import ImproveThisPageTag from './ImproveThisPageTag'
 
+const createPageTitle = (title?: string) => {
+  const { t } = useTranslation()
+  const suffix = t('meta.title')
+  if (title) {
+    return `${title} | ${suffix}`
+  }
+  return suffix
+}
+
 type LayoutProps = React.PropsWithChildren<
   ContainerProps & {
     title?: string
@@ -21,6 +30,7 @@ type LayoutProps = React.PropsWithChildren<
     hideFooter?: boolean
     disableOffset?: boolean
     boxProps?: BoxProps
+    metaTitle?: string
     metaDescription?: string
     profilePage?: boolean
   }
@@ -36,15 +46,14 @@ export default function Layout({
   figmaUrl,
   hideFooter = false,
   boxProps,
+  metaTitle,
   metaDescription,
   profilePage = false,
   ...containerProps
 }: LayoutProps) {
-  const { t } = useTranslation()
   const [mobileOpen, setMobileOpen] = useState(false)
   const navMenuToggle = () => setMobileOpen(!mobileOpen)
-  const suffix = t('meta.title')
-  const metaTitle = useMemo(() => (title ? `${title} | ${suffix}` : suffix), [title, suffix])
+  const metaTitleInternal = useMemo(() => createPageTitle(metaTitle ?? title), [metaTitle, title])
 
   return (
     <Container
@@ -56,9 +65,9 @@ export default function Layout({
         maxWidth={maxWidth}
         {...containerProps}>
         <Head>
-          <title>{metaTitle}</title>
-          <meta name="description" content={metaDescription ?? metaTitle} />
-          <meta name="og:description" content={metaDescription ?? metaTitle} />
+          <title>{metaTitleInternal}</title>
+          <meta name="description" content={metaDescription ?? metaTitleInternal} />
+          <meta name="og:description" content={metaDescription ?? metaTitleInternal} />
           <meta property="og:type" content="article" />
           <meta property="og:locale" content="bg_BG" />{' '}
           {/* TODO: think of how to make campaign level localization */}

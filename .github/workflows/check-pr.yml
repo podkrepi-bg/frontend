@@ -80,6 +80,3 @@ jobs:
           service_account_credentials: ${{ secrets.MONDOO_SECRET }}
           scan_type: k8s
           path: prod-manifests.yaml
-
-
-

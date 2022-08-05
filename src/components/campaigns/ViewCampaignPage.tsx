@@ -52,7 +52,7 @@ export default function ViewCampaignPage({ slug }: Props) {
     <Layout
       maxWidth={false}
       ogImage={ogImageUrl}
-      title={campaign.title}
+      metaTitle={campaign.title}
       metaDescription={campaign.title}>
       <Grid container component="section" maxWidth="lg" justifyContent="center" m="0 auto">
         <CampaignDetails campaign={campaign} />
