@@ -83,10 +83,39 @@ jobs:
           scan_type: docker_image
           docker_image_name: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}
 
+  scan-manifests:
+    name: Scan k8s manifests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install kustomize
+        uses: imranismail/setup-kustomize@v1
+
+      - name: Build development manifests
+        run: kustomize build manifests/overlays/development > dev-manifests.yaml
+
+      - name: Scan development manifests with Mondoo
+        uses: mondoohq/actions@main
+        with:
+          service_account_credentials: ${{ secrets.MONDOO_SECRET }}
+          scan_type: k8s
+          path: dev-manifests.yaml
+
+      - name: Build production manifests
+        run: kustomize build manifests/overlays/production > prod-manifests.yaml
+
+      - name: Scan production manifests with Mondoo
+        uses: mondoohq/actions@main
+        with:
+          service_account_credentials: ${{ secrets.MONDOO_SECRET }}
+          scan_type: k8s
+          path: prod-manifests.yaml
+
   release-dev:
     name: Release to dev
     runs-on: ubuntu-latest
-    needs: [build-frontend-image,build-maintenance-image]
+    needs: [build-frontend-image,build-maintenance-image,scan-manifests]
     environment:
       name: dev
       url: https://dev.podkrepi.bg
@@ -116,15 +145,6 @@ jobs:
 
       - name: Apply new manifests
         run: kubectl apply -k manifests/overlays/development --kubeconfig config.yaml
-
-      - uses: sarisia/actions-status-discord@v1
-        if: always()
-        with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          title: "deploy"
-          url: https://dev.podkrepi.bg/
-          description: "Version ${{ env.VERSION }} of the website is deployed"
-          color: 0x26A641
 
       - name: Delete kubeconfig
         if: always()

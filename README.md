@@ -7,15 +7,15 @@
 
 <p align="center">
 
-  <p align="center"><a target="_blank" rel="noopener noreferrer" href="https://github.com/podkrepi-bg/frontend/workflows/Lint/badge.svg"><img src="https://github.com/podkrepi-bg/frontend/workflows/Lint/badge.svg" alt="Lint" style="max-width: 100%;"></a>
-<a target="_blank" rel="noopener noreferrer" href="https://github.com/podkrepi-bg/frontend/workflows/Build/badge.svg"><img src="https://github.com/podkrepi-bg/frontend/workflows/Build/badge.svg" alt="Build" style="max-width: 100%;"></a>
-<a href="https://github.com/podkrepi-bg/frontend/actions/workflows/docker-build-pr.yml"><img src="https://github.com/podkrepi-bg/frontend/actions/workflows/docker-build-pr.yml/badge.svg" alt="Build docker image" style="max-width: 100%;"></a></p>
+  <p align="center"><a target="_blank" rel="noopener noreferrer" href="https://github.com/podkrepi-bg/frontend/actions/workflows/lint.yml"><img src="https://github.com/podkrepi-bg/frontend/actions/workflows/lint.yml/badge.svg" alt="Lint" style="max-width: 100%;"></a>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/podkrepi-bg/frontend/actions/workflows/release.yml"><img src="https://github.com/podkrepi-bg/frontend/actions/workflows/release.yml/badge.svg" alt="Build" style="max-width: 100%;"></a>
+<a href="https://github.com/podkrepi-bg/frontend/actions/workflows/check-pr.yml"><img src="https://github.com/podkrepi-bg/frontend/actions/workflows/check-pr.yml/badge.svg" alt="Build docker image" style="max-width: 100%;"></a></p>
   
   <p align="center"><a target="_blank" rel="noopener noreferrer" href="https://img.shields.io/github/license/podkrepi-bg/frontend"><img src="https://img.shields.io/github/license/podkrepi-bg/frontend" alt="" data-canonical-src="https://img.shields.io/github/license/podkrepi-bg/frontend" style="max-width: 100%;"></a>
 <a target="_blank" rel="noopener noreferrer" href="https://img.shields.io/github/issues/podkrepi-bg/frontend"><img src="https://img.shields.io/github/issues/podkrepi-bg/frontend" alt="" data-canonical-src="https://img.shields.io/github/issues/podkrepi-bg/frontend" style="max-width: 100%;"></a></p>
 
 </p>
-  
+
 ## What's in the box
 
 - Frontend
