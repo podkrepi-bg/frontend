@@ -55,21 +55,18 @@ const StyledCard = styled(Card)(({ theme }) => ({
       display: 'inline-block',
     },
     [theme.breakpoints.down('md')]: {
-      minHeight: theme.spacing(77),
       maxWidth: '400px',
       width: '100%',
     },
     [theme.breakpoints.down('sm')]: {
-      minHeight: theme.spacing(77),
       maxWidth: '300px',
       width: '100%',
     },
   },
 
   [`& .${classes.campaignTitle}`]: {
-    [theme.breakpoints.down('md')]: {
-      fontSize: '0.9rem',
-    },
+    fontWeight: '500',
+    textAlign: 'left',
   },
 
   [`& .${classes.progressBar}`]: {
@@ -93,19 +90,6 @@ const StyledCard = styled(Card)(({ theme }) => ({
 
 type Props = { campaign: CampaignResponse }
 
-const titleSize = (campaign: CampaignResponse) => {
-  if (campaign.title.length > 150) {
-    return 'subtitle2'
-  }
-  if (campaign.title.length > 120) {
-    return 'subtitle1'
-  }
-  if (campaign.title.length > 90) {
-    return 'h6'
-  }
-  return 'h5'
-}
-
 export default function CampaignCard({ campaign }: Props) {
   const { t } = useTranslation()
   const target = campaign.targetAmount
@@ -117,25 +101,20 @@ export default function CampaignCard({ campaign }: Props) {
   return (
     <StyledCard variant="outlined" className={classes.cardWrapper}>
       <CardActionArea href={routes.campaigns.viewCampaignBySlug(campaign.slug)}>
-        <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)}>
-          <CardMedia className={classes.media} title={campaign.title}>
-            <div
-              style={{ position: 'relative', width: '100%', minHeight: '100%', maxHeight: '100%' }}>
-              <Image src={pictureUrl} layout="fill" objectFit="contain" />
-            </div>
-          </CardMedia>
-        </Link>
+        <CardMedia className={classes.media} title={campaign.title}>
+          <div
+            style={{ position: 'relative', width: '100%', minHeight: '100%', maxHeight: '100%' }}>
+            <Image src={pictureUrl} layout="fill" objectFit="contain" />
+          </div>
+        </CardMedia>
         <CardContent className={classes.cardContent}>
-          <Typography
-            textAlign={'center'}
-            gutterBottom
-            variant={titleSize(campaign)}
-            className={classes.campaignTitle}>
+          <Typography gutterBottom variant="h5" className={classes.campaignTitle}>
             {campaign.title}
           </Typography>
-          <Typography textAlign={'left'} variant="body2" color="textSecondary" component="p">
+          {/* Campaign subtext is currently not needed */}
+          {/* <Typography textAlign={'left'} variant="body2" color="textSecondary" component="p">
             {campaign.essence}
-          </Typography>
+          </Typography> */}
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.cardActions}>

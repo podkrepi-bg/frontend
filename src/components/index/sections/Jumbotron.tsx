@@ -28,14 +28,11 @@ export default function Jumbotron() {
           'linear-gradient(99deg, rgba(0,0,0,0.7707457983193278) 0%, rgba(27,54,75,0) 100%)',
         padding: {
           xs: theme.spacing(5, 1, 0, 1),
-          md: theme.spacing(5, 1, 0, 1),
           lg: theme.spacing(7, 1, 0, 1),
           xl: theme.spacing(8, 1, 0, 1),
         },
         mb: {
           xs: 5,
-          sm: 5,
-          md: 5,
           lg: 7,
           xl: 5,
         },
@@ -64,42 +61,40 @@ export default function Jumbotron() {
       <Container maxWidth="lg">
         <Grid item textAlign="left" sx={{ xs: { mb: 4 }, mb: 8 }}>
           <Typography
-            maxWidth="lg"
             component={'h1'}
             sx={(theme) => ({
               color: theme.palette.common.white,
               fontWeight: 500,
-              mb: 4,
-              fontSize: `${theme.typography.pxToRem(75)}`,
-              [theme.breakpoints.down('lg')]: {
-                fontSize: theme.typography.pxToRem(65),
-              },
-              [theme.breakpoints.down('md')]: {
+              mb: 3,
+              fontSize: theme.typography.pxToRem(30),
+              [theme.breakpoints.up('sm')]: {
                 fontSize: theme.typography.pxToRem(50),
               },
-              [theme.breakpoints.down('sm')]: {
-                fontSize: theme.typography.pxToRem(40),
-              },
-              [theme.breakpoints.only('xs')]: {
-                fontSize: theme.typography.pxToRem(30),
+              [theme.breakpoints.up('lg')]: {
+                fontSize: theme.typography.pxToRem(60),
+                maxWidth: 'md',
               },
             })}>
             {t('index:podkrepi')} -
             <br />
             {t('index:title')}
-            <Typography
-              maxWidth="md"
-              variant="h5"
-              component="p"
-              sx={{
-                mt: 2,
-                fontWeight: 400,
-                [theme.breakpoints.down('md')]: {
-                  fontSize: '1rem',
-                },
-              }}>
-              {t('index:jumbotron.heading')}
-            </Typography>
+          </Typography>
+          <Typography
+            maxWidth="md"
+            variant="h5"
+            component="p"
+            sx={{
+              mt: 2,
+              mb: 4,
+              fontWeight: 400,
+              [theme.breakpoints.down('md')]: {
+                fontSize: '1rem',
+              },
+              [theme.breakpoints.up('lg')]: {
+                maxWidth: '65%',
+              },
+            }}>
+            {t('index:jumbotron.heading')}
           </Typography>
           <Grid
             item
@@ -116,7 +111,7 @@ export default function Jumbotron() {
             <LinkButton
               sx={{
                 minWidth: {
-                  xs: 260,
+                  xs: 270,
                   md: 320,
                 },
               }}
@@ -129,7 +124,7 @@ export default function Jumbotron() {
             <LinkButton
               sx={{
                 minWidth: {
-                  xs: 260,
+                  xs: 270,
                   md: 320,
                 },
               }}

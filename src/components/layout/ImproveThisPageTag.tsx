@@ -13,7 +13,7 @@ export default function ImproveThisPageTag({ githubUrl, figmaUrl }: Props) {
   if (!githubUrl && !figmaUrl) return null
   return (
     <Container maxWidth="sm">
-      <Box mt={8}>
+      <Box>
         <Alert variant="outlined" color="info" severity="info">
           <AlertTitle>{t('improve-this-page')}</AlertTitle>
           {githubUrl && (
