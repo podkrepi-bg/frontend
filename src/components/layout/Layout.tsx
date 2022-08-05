@@ -12,9 +12,7 @@ import AppNavBar from './AppNavBar'
 import MobileNav from './nav/MobileNav'
 import ImproveThisPageTag from './ImproveThisPageTag'
 
-const createPageTitle = (title?: string) => {
-  const { t } = useTranslation()
-  const suffix = t('meta.title')
+const createPageTitle = (suffix: string, title?: string) => {
   if (title) {
     return `${title} | ${suffix}`
   }
@@ -51,9 +49,13 @@ export default function Layout({
   profilePage = false,
   ...containerProps
 }: LayoutProps) {
+  const { t } = useTranslation()
   const [mobileOpen, setMobileOpen] = useState(false)
   const navMenuToggle = () => setMobileOpen(!mobileOpen)
-  const metaTitleInternal = useMemo(() => createPageTitle(metaTitle ?? title), [metaTitle, title])
+  const metaTitleInternal = useMemo(
+    () => createPageTitle(t('meta.title'), metaTitle ?? title),
+    [metaTitle, title],
+  )
 
   return (
     <Container
