@@ -11,7 +11,7 @@ on:
 
 jobs:
   build-maintenance-image:
-    name: Build frontent container image
+    name: Build maintenance container image
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -41,7 +41,7 @@ jobs:
           docker_image_name: ghcr.io/podkrepi-bg/frontend/maintenance:master
 
   build-frontend-image:
-    name: Build frontent container image
+    name: Build frontend container image
     runs-on: ubuntu-latest
     permissions:
       contents: read
