@@ -52,7 +52,7 @@ export default function Layout({
   const { t } = useTranslation()
   const [mobileOpen, setMobileOpen] = useState(false)
   const navMenuToggle = () => setMobileOpen(!mobileOpen)
-  const metaTitleInternal = useMemo(
+  const pageTitle = useMemo(
     () => createPageTitle(t('meta.title'), metaTitle ?? title),
     [metaTitle, title],
   )
@@ -67,11 +67,11 @@ export default function Layout({
         maxWidth={maxWidth}
         {...containerProps}>
         <Head>
-          <title>{metaTitleInternal}</title>
-          <meta name="description" content={metaDescription ?? metaTitleInternal} />
-          <meta name="og:description" content={metaDescription ?? metaTitleInternal} />
+          <title>{pageTitle}</title>
+          <meta name="description" content={metaDescription ?? pageTitle} />
+          <meta name="og:description" content={metaDescription ?? pageTitle} />
           <meta property="og:type" content="article" />
-          <meta property="og:locale" content="bg_BG" />{' '}
+          <meta property="og:locale" content="bg_BG" />
           {/* TODO: think of how to make campaign level localization */}
           <meta key="og:title" property="og:title" content={title} />
           <meta key="og:image" property="og:image" content={ogImage ?? defaultOgImage} />
@@ -82,15 +82,7 @@ export default function Layout({
           <AppNavBar navMenuToggle={navMenuToggle} />
           <MobileNav mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
           {!disableOffset && (
-            <Box
-              sx={(theme) => ({
-                ...theme.mixins.toolbar,
-                marginBottom: theme.spacing(6),
-                [theme.breakpoints.down('lg')]: {
-                  marginBottom: theme.spacing(0),
-                },
-              })}
-            />
+            <Box sx={(theme) => ({ ...theme.mixins.toolbar, mb: { xs: 0, md: 3, lg: 6 } })} />
           )}
           {title && !disableOffset && (
             <Typography paragraph variant="h2" component="h1" align="center" sx={{ p: 4 }}>
