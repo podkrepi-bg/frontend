@@ -111,9 +111,10 @@ export default function CampaignCard({ campaign }: Props) {
           <Typography gutterBottom variant="h5" className={classes.campaignTitle}>
             {campaign.title}
           </Typography>
-          <Typography textAlign={'left'} variant="body2" color="textSecondary" component="p">
+          {/* Campaign subtext is currently not needed */}
+          {/* <Typography textAlign={'left'} variant="body2" color="textSecondary" component="p">
             {campaign.essence}
-          </Typography>
+          </Typography> */}
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.cardActions}>
