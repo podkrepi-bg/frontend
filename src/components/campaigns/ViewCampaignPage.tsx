@@ -49,7 +49,11 @@ export default function ViewCampaignPage({ slug }: Props) {
   const ogImageUrl = campaignListPictureUrl(campaign)
 
   return (
-    <Layout maxWidth={false} ogImage={ogImageUrl} metaDescription={campaign.title}>
+    <Layout
+      maxWidth={false}
+      ogImage={ogImageUrl}
+      metaTitle={campaign.title}
+      metaDescription={campaign.title}>
       <Grid container component="section" maxWidth="lg" justifyContent="center" m="0 auto">
         <CampaignDetails campaign={campaign} />
         {mobile || small ? (

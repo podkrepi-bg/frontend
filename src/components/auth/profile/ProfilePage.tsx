@@ -70,7 +70,7 @@ export default function ProfilePage() {
   const { Component: SelectedTab } = tab
 
   return (
-    <Layout profilePage={true}>
+    <Layout profilePage>
       <Box sx={{ width: '100%' }}>
         <Box
           sx={{

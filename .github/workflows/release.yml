@@ -40,7 +40,6 @@ jobs:
           scan_type: docker_image
           docker_image_name: ghcr.io/podkrepi-bg/frontend/maintenance:master
 
-
   build-frontend-image:
     name: Build frontent container image
     runs-on: ubuntu-latest
@@ -115,7 +114,7 @@ jobs:
   release-dev:
     name: Release to dev
     runs-on: ubuntu-latest
-    needs: [build-frontend-image,build-maintenance-image,scan-manifests]
+    needs: [build-frontend-image, build-maintenance-image, scan-manifests]
     environment:
       name: dev
       url: https://dev.podkrepi.bg
@@ -197,7 +196,7 @@ jobs:
         if: always()
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
-          title: "deploy"
+          title: 'deploy'
           url: https://podkrepi.bg/
           description: Version ${{ env.VERSION }} of the website is deployed. The list of changes can be found at https://github.com/podkrepi-bg/frontend/releases/tag/${{ env.VERSION }}
           color: 0x26A641

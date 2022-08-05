@@ -12,6 +12,13 @@ import AppNavBar from './AppNavBar'
 import MobileNav from './nav/MobileNav'
 import ImproveThisPageTag from './ImproveThisPageTag'
 
+const createPageTitle = (suffix: string, title?: string) => {
+  if (title) {
+    return `${title} | ${suffix}`
+  }
+  return suffix
+}
+
 type LayoutProps = React.PropsWithChildren<
   ContainerProps & {
     title?: string
@@ -21,6 +28,7 @@ type LayoutProps = React.PropsWithChildren<
     hideFooter?: boolean
     disableOffset?: boolean
     boxProps?: BoxProps
+    metaTitle?: string
     metaDescription?: string
     profilePage?: boolean
   }
@@ -36,6 +44,7 @@ export default function Layout({
   figmaUrl,
   hideFooter = false,
   boxProps,
+  metaTitle,
   metaDescription,
   profilePage = false,
   ...containerProps
@@ -43,8 +52,10 @@ export default function Layout({
   const { t } = useTranslation()
   const [mobileOpen, setMobileOpen] = useState(false)
   const navMenuToggle = () => setMobileOpen(!mobileOpen)
-  const suffix = t('meta.title')
-  const metaTitle = useMemo(() => (title ? `${title} | ${suffix}` : suffix), [title, suffix])
+  const pageTitle = useMemo(
+    () => createPageTitle(t('meta.title'), metaTitle ?? title),
+    [metaTitle, title],
+  )
 
   return (
     <Container
@@ -56,11 +67,11 @@ export default function Layout({
         maxWidth={maxWidth}
         {...containerProps}>
         <Head>
-          <title>{metaTitle}</title>
-          <meta name="description" content={metaDescription ?? metaTitle} />
-          <meta name="og:description" content={metaDescription ?? metaTitle} />
+          <title>{pageTitle}</title>
+          <meta name="description" content={metaDescription ?? pageTitle} />
+          <meta name="og:description" content={metaDescription ?? pageTitle} />
           <meta property="og:type" content="article" />
-          <meta property="og:locale" content="bg_BG" />{' '}
+          <meta property="og:locale" content="bg_BG" />
           {/* TODO: think of how to make campaign level localization */}
           <meta key="og:title" property="og:title" content={title} />
           <meta key="og:image" property="og:image" content={ogImage ?? defaultOgImage} />
@@ -71,15 +82,7 @@ export default function Layout({
           <AppNavBar navMenuToggle={navMenuToggle} />
           <MobileNav mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
           {!disableOffset && (
-            <Box
-              sx={(theme) => ({
-                ...theme.mixins.toolbar,
-                marginBottom: theme.spacing(6),
-                [theme.breakpoints.down('lg')]: {
-                  marginBottom: theme.spacing(0),
-                },
-              })}
-            />
+            <Box sx={(theme) => ({ ...theme.mixins.toolbar, mb: { xs: 0, md: 3, lg: 6 } })} />
           )}
           {title && !disableOffset && (
             <Typography paragraph variant="h2" component="h1" align="center" sx={{ p: 4 }}>
