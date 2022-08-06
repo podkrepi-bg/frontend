@@ -67,7 +67,7 @@ export default function PrivateMenu() {
 
   return (
     <StyledGrid item>
-      <IconButton onClick={handleMenu} size="large">
+      <IconButton onClick={handleMenu} size="medium">
         {session?.user?.picture ? (
           <Avatar title={title} alt={title} src={session?.user?.picture} />
         ) : (

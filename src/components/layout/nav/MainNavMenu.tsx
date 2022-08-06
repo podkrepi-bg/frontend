@@ -11,7 +11,7 @@ export default function MainNavMenu({ children }: { children?: React.ReactNode }
   const { t } = useTranslation()
 
   return (
-    <Grid container direction="row" wrap="nowrap" alignItems="baseline" spacing={1}>
+    <Grid container direction="row" wrap="nowrap" alignItems="baseline" spacing={4}>
       <Grid item>
         <Button
           variant="outlined"
@@ -22,7 +22,10 @@ export default function MainNavMenu({ children }: { children?: React.ReactNode }
         </Button>
       </Grid>
       <Grid item>
-        <Button color="inherit" href={routes.support_us}>
+        <Button
+          color="inherit"
+          href={routes.support_us}
+          style={{ whiteSpace: 'nowrap', padding: '6px 16px' }}>
           {t('nav.support_us_button')}
         </Button>
       </Grid>

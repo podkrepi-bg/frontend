@@ -2,12 +2,13 @@ import React, { useState } from 'react'
 import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import PersonIcon from '@mui/icons-material/Person'
-import { Grid, IconButton, Menu, Typography, lighten, Avatar } from '@mui/material'
+import { Grid, Button, Menu, Typography, lighten } from '@mui/material'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 
 import { routes } from 'common/routes'
 import LinkMenuItem from 'components/common/LinkMenuItem'
 
-import theme from 'common/theme'
 import { useSession } from 'next-auth/react'
 
 const PREFIX = 'PublicMenu'
@@ -15,6 +16,7 @@ const PREFIX = 'PublicMenu'
 const classes = {
   dropdownLinkButton: `${PREFIX}-dropdownLinkButton`,
   dropdownLinkText: `${PREFIX}-dropdownLinkText`,
+  dropdownArrowIcon: `${PREFIX}-dropdownArrowIcon`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
@@ -31,12 +33,17 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
       color: theme.palette.primary.main,
     },
   },
+
+  [`& .${classes.dropdownArrowIcon}`]: {
+    marginLeft: '2px',
+  },
 }))
 
 export default function PublicMenu() {
   const { t } = useTranslation()
   const { data: session } = useSession()
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
+  const open = Boolean(anchorEl)
 
   const handleMenu = (event: React.MouseEvent) => setAnchorEl(event.currentTarget)
   const handleClose = () => setAnchorEl(null)
@@ -47,9 +54,16 @@ export default function PublicMenu() {
 
   return (
     <StyledGrid item>
-      <IconButton onClick={handleMenu} size="large" color="inherit">
+      <Button
+        onClick={handleMenu}
+        size="medium"
+        color="inherit"
+        classes={{ endIcon: classes.dropdownArrowIcon }}
+        endIcon={
+          open ? <ArrowDropUpIcon color="primary" /> : <ArrowDropDownIcon color="primary" />
+        }>
         <PersonIcon />
-      </IconButton>
+      </Button>
       <Menu
         open={Boolean(anchorEl)}
         keepMounted
