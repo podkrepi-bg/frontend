@@ -95,7 +95,7 @@ const InfoGrid = () => {
       </Grid>
       {process.env.APP_VERSION && (
         <Grid item>
-          {t('components.footer.version')} v{process.env.APP_VERSION}
+          {t('components.footer.version')} {process.env.APP_VERSION}
         </Grid>
       )}
     </Grid>
