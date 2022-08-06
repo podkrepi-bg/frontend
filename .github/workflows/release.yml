@@ -72,7 +72,9 @@ jobs:
         with:
           push: true
           target: production
-          build-args: SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
+          build-args: |
+            SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
+            VERSION=${{ env.VERSION }}
           tags: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}
 
       - name: Scan with Mondoo
