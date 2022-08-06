@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { styled } from '@mui/material/styles'
-import { Trans, useTranslation, i18n } from 'next-i18next'
+import { Trans, useTranslation } from 'next-i18next'
 import { useField, useFormikContext } from 'formik'
 import { Box, Collapse, Divider, Grid, InputAdornment, List, Typography } from '@mui/material'
 import theme from 'common/theme'
@@ -78,6 +78,7 @@ export default function FirstStep() {
     formik.values.cardIncludeFees,
     formik.values.cardRegion,
   ])
+
   return (
     <Root>
       <Typography variant="h4">{t('third-step.title')}</Typography>
@@ -191,35 +192,19 @@ export default function FirstStep() {
                 name="otherAmount"
                 type="number"
                 label={t('first-step.amount')}
-                InputProps={
-                  i18n?.language === 'bg'
-                    ? {
-                        inputProps: { min: 1 },
-                        style: { fontSize: 14, padding: theme.spacing(0.88) },
-                        endAdornment: (
-                          <InputAdornment variant="filled" position="end">
-                            {t('first-step.BGN')}
-                          </InputAdornment>
-                        ),
-                      }
-                    : {
-                        inputProps: { min: 1 },
-                        style: { fontSize: 14, padding: theme.spacing(0.88) },
-                        startAdornment: (
-                          <InputAdornment
-                            style={{ marginRight: theme.spacing(2) }}
-                            variant="filled"
-                            position="end">
-                            {t('first-step.BGN')}
-                          </InputAdornment>
-                        ),
-                      }
-                }
+                InputProps={{
+                  style: { fontSize: 14, padding: 7 },
+                  endAdornment: (
+                    <InputAdornment variant="filled" position="end">
+                      {t('first-step.BGN')}
+                    </InputAdornment>
+                  ),
+                }}
               />
             </Grid>
           </Collapse>
           {amount.value ? (
-            <Box mt={theme.spacing(2)}>
+            <Box sx={{ mt: 4 }}>
               <Grid container>
                 <Grid item xs={10}>
                   <CheckboxField
