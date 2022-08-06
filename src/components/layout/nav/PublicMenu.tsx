@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline'
+import PersonIcon from '@mui/icons-material/Person'
 import { Grid, IconButton, Menu, Typography, lighten, Avatar } from '@mui/material'
 
 import { routes } from 'common/routes'
@@ -47,15 +47,8 @@ export default function PublicMenu() {
 
   return (
     <StyledGrid item>
-      <IconButton onClick={handleMenu} size="large">
-        <Avatar
-          sx={{
-            bgcolor: theme.palette.info.light,
-            height: theme.spacing(4.5),
-            width: theme.spacing(4.5),
-          }}>
-          <PersonOutlineIcon />
-        </Avatar>
+      <IconButton onClick={handleMenu} size="large" color="inherit">
+        <PersonIcon />
       </IconButton>
       <Menu
         open={Boolean(anchorEl)}

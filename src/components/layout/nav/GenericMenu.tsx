@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Menu } from '@mui/material'
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 
 type Props = {
   label: string
@@ -19,10 +19,12 @@ export default function GenericMenu({ label, children }: Props) {
     <>
       <Button
         variant="text"
-        color="primary"
+        color="inherit"
         onClick={handleMenu}
         sx={{ whiteSpace: 'nowrap', px: 2 }}
-        endIcon={open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}>
+        endIcon={
+          open ? <ArrowDropUpIcon color="primary" /> : <ArrowDropDownIcon color="primary" />
+        }>
         {label}
       </Button>
       <Menu

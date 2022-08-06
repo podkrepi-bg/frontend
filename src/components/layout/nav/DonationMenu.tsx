@@ -24,11 +24,7 @@ const StyledGenericMenu = styled(GenericMenu)(({ theme }) => ({
   },
 
   [`& .${classes.dropdownLinkText}`]: {
-    color: theme.palette.primary.dark,
     width: '100%',
-    '&:hover': {
-      color: theme.palette.primary.main,
-    },
   },
 }))
 
