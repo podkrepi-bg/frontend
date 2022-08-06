@@ -30,10 +30,18 @@ CMD [ "yarn", "dev" ]
 # Build target builder #
 ########################
 FROM base AS builder
+ARG VERSION=unversioned
 ARG SENTRY_AUTH_TOKEN
 ENV SENTRY_AUTH_TOKEN="$SENTRY_AUTH_TOKEN"
 COPY --from=dependencies /app/node_modules /app/node_modules
 COPY . /app
+
+RUN apk add --no-cache jq && \
+  mv package.json package.json.bak && \
+  jq --arg version "$VERSION" '.version=$version' package.json.bak > package.json && \
+  rm package.json.bak && \
+  apk del jq
+
 RUN yarn build && \
   yarn sitemap && \
   rm -rf node_modules
@@ -41,17 +49,11 @@ RUN yarn build && \
 # Build target production #
 ###########################
 FROM base AS production
-ARG VERSION=unversioned
+
 COPY --from=builder /app/.next /app/.next
 COPY --from=builder /app/public /app/public
 COPY --from=dependencies /prod_node_modules /app/node_modules
 COPY next.config.js next-i18next.config.js /app/
-
-RUN apk add --no-cache jq && \
-  mv package.json package.json.bak && \
-  jq --arg version "$VERSION" '.version=$version' package.json.bak > package.json && \
-  rm package.json.bak && \
-  apk del jq
 
 USER 1000:1001
 
