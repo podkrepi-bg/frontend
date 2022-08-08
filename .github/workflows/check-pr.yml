@@ -80,3 +80,30 @@ jobs:
           service_account_credentials: ${{ secrets.MONDOO_SECRET }}
           scan_type: k8s
           path: prod-manifests.yaml
+
+  run-cypress:
+    name: Run cypress
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          repository: podkrepi-bg/api
+          ref: simplify-local-env
+          path: './api'
+
+      - name: Run api
+        working-directory: api
+        run: docker compose up -d --force-recreate
+
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
+        with:
+          ## limits ssh access and adds the ssh public key for the user which triggered the workflow
+          limit-access-to-actor: true
+          ## limits ssh access and adds the ssh public keys of the listed GitHub users
+          limit-access-to-users: imilchev
+
+      
