@@ -86,6 +86,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          path: './frontend'
 
       - name: Checkout
         uses: actions/checkout@v3
@@ -95,12 +97,13 @@ jobs:
           path: './api'
 
       - name: Run api
-        working-directory: api
+        working-directory: ./api
         run: docker compose up -d --force-recreate
 
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
+          working-directory: './frontend'
           build: yarn build
           start: yarn start
 
