@@ -98,9 +98,12 @@ jobs:
         working-directory: api
         run: docker compose up -d --force-recreate
 
-      - name: Install deps
-        run: sleep 1
-        
+      - name: Cypress run
+        uses: cypress-io/github-action@v4
+        with:
+          build: yarn build
+          start: yarn start
+
       - name: Setup upterm session
         uses: lhotari/action-upterm@v1
         with:
@@ -108,5 +111,3 @@ jobs:
           limit-access-to-actor: true
           ## limits ssh access and adds the ssh public keys of the listed GitHub users
           limit-access-to-users: imilchev
-
-      
