@@ -96,6 +96,11 @@ jobs:
           ref: master
           path: './api'
 
+      - uses: actions/cache@v3
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
       - name: Run db
         working-directory: ./api
         run: docker compose up -d pg-db
@@ -111,6 +116,10 @@ jobs:
       - name: Install dependencies
         working-directory: ./frontend
         run: yarn
+
+      - name: Build frontend
+        working-directory: ./frontend
+        run: yarn run next build
 
       - name: Start frontend
         working-directory: ./frontend
