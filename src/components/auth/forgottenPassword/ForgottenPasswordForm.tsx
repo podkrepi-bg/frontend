@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as yup from 'yup'
 import { useTranslation } from 'next-i18next'
 import { Typography, Grid } from '@mui/material'
@@ -6,6 +6,12 @@ import { Typography, Grid } from '@mui/material'
 import SubmitButton from 'components/common/form/SubmitButton'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
+import { useMutation } from 'react-query'
+import { AxiosError, AxiosResponse } from 'axios'
+import { ApiErrors } from 'service/apiErrors'
+import { AlertStore } from 'stores/AlertStore'
+import { forgottenPassword } from 'common/util/useCurrentPerson'
+import { useRouter } from 'next/router'
 
 export type ForgottenPasswordForm = {
   email: string
@@ -27,9 +33,24 @@ export default function ForgottenPasswordForm({
   initialValues = defaults,
 }: ForgottenPasswordFormProps) {
   const { t } = useTranslation()
+  const [loading, setLoading] = useState<boolean>(false)
+  const router = useRouter()
 
-  const onSubmit = (values: ForgottenPasswordForm) => {
-    console.log(values)
+  const mutation = useMutation<AxiosResponse, AxiosError<ApiErrors>, ForgottenPasswordForm>({
+    mutationFn: forgottenPassword(),
+    onError: () => AlertStore.show('Потребителя не е намерен, моля опитайте отново!', 'error'),
+    onSuccess: () => AlertStore.show('Моля проверете имейла си!', 'success'),
+  })
+
+  const onSubmit = async (values: ForgottenPasswordForm) => {
+    try {
+      setLoading(true)
+      const res = await mutation.mutateAsync(values)
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -45,7 +66,7 @@ export default function ForgottenPasswordForm({
           <FormTextField type="text" label="auth:fields.email" name="email" />
         </Grid>
         <Grid item xs={12}>
-          <SubmitButton fullWidth label="auth:cta.send" />
+          <SubmitButton loading={loading} fullWidth label="auth:cta.send" />
         </Grid>
       </Grid>
     </GenericForm>
