@@ -131,6 +131,14 @@ jobs:
         working-directory: ./frontend
         run: npx playwright install --with-deps
 
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
+        with:
+          ## limits ssh access and adds the ssh public key for the user which triggered the workflow
+          limit-access-to-actor: true
+          ## limits ssh access and adds the ssh public keys of the listed GitHub users
+          limit-access-to-users: imilchev
+
       - name: Run Playwright tests
         working-directory: ./frontend
         run: yarn playwright test e2e/local
@@ -142,10 +150,4 @@ jobs:
           path: ./frontend/playwright-report/
           retention-days: 30
 
-      - name: Setup upterm session
-        uses: lhotari/action-upterm@v1
-        with:
-          ## limits ssh access and adds the ssh public key for the user which triggered the workflow
-          limit-access-to-actor: true
-          ## limits ssh access and adds the ssh public keys of the listed GitHub users
-          limit-access-to-users: imilchev
+      
