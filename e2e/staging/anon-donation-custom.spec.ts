@@ -15,12 +15,9 @@ test('test anonymous donation on staging - custom amount', async ({ page }) => {
   // Click button:has-text("Подкрепи")
   await page.locator('button:has-text("Подкрепи")').click()
 
-  await Promise.all([
-    page.waitForNavigation(),
-    expect(page).toHaveURL(
-      'https://dev.podkrepi.bg/campaigns/donation/uchilishe-za-deca-s-narusheno-zrenie-gr-varna-staya-za-ergoterapiya',
-    ),
-  ])
+  await expect(page).toHaveURL(
+    'https://dev.podkrepi.bg/campaigns/donation/uchilishe-za-deca-s-narusheno-zrenie-gr-varna-staya-za-ergoterapiya',
+  )
 
   // Click label:has-text("Друга сума")
   await page.locator('label:has-text("Друга сума")').click()
@@ -67,10 +64,7 @@ test('test anonymous donation on staging - custom amount', async ({ page }) => {
   // Click text=Премини към плащане
   await page.locator('text=Премини към плащане').click()
 
-  await Promise.all([
-    page.waitForNavigation(),
-    expect(page.url()).toContain('https://checkout.stripe.com/pay/cs_test_'),
-  ])
+  await page.waitForURL('https://checkout.stripe.com/pay/cs_test_**')
 
   // Click [placeholder="\31 234 1234 1234 1234"]
   await page.locator('[placeholder="\\31 234 1234 1234 1234"]').click()
@@ -99,12 +93,10 @@ test('test anonymous donation on staging - custom amount', async ({ page }) => {
   // Click [data-testid="hosted-payment-submit-button"]
   await page.locator('[data-testid="hosted-payment-submit-button"]').click()
 
-  await Promise.all([
-    page.waitForNavigation(),
-    expect(page).toHaveURL(
-      'https://dev.podkrepi.bg/campaigns/donation/uchilishe-za-deca-s-narusheno-zrenie-gr-varna-staya-za-ergoterapiya?success=true',
-    ),
-  ])
+  await page.waitForURL(
+    'https://dev.podkrepi.bg/campaigns/donation/uchilishe-za-deca-s-narusheno-zrenie-gr-varna-staya-za-ergoterapiya?success=true',
+  )
+
   // Click text=Благодарим за доверието и подкрепата!
   await page.locator('text=Благодарим за доверието и подкрепата!').click()
 })
