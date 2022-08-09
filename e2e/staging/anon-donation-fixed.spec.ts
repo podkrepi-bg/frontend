@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 
-test('test anonymous donation on staging', async ({ page }) => {
+test('test anonymous donation on staging - fixed amount', async ({ page }) => {
   // Go to https://dev.podkrepi.bg/
   await page.goto('https://dev.podkrepi.bg/')
 
