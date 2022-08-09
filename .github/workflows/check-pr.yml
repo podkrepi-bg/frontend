@@ -80,3 +80,57 @@ jobs:
           service_account_credentials: ${{ secrets.MONDOO_SECRET }}
           scan_type: k8s
           path: prod-manifests.yaml
+
+  run-playwright:
+    name: Run Playwright
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          path: './frontend'
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          repository: podkrepi-bg/api
+          ref: master
+          path: './api'
+
+      - name: Run db
+        working-directory: ./api
+        run: docker compose up -d pg-db
+
+      - name: Run api
+        working-directory: ./api
+        run: docker compose up -d --force-recreate --no-build migrate-db seed-db api keycloak
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: yarn
+
+      - name: Install Playwright Browsers
+        working-directory: ./frontend
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        working-directory: ./frontend
+        run: yarn playwright test e2e/local
+
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: ./frontend/playwright-report
+          path: ./frontend/playwright-report/
+          retention-days: 30
+
+      - name: Setup upterm session
+        uses: lhotari/action-upterm@v1
+        with:
+          ## limits ssh access and adds the ssh public key for the user which triggered the workflow
+          limit-access-to-actor: true
+          ## limits ssh access and adds the ssh public keys of the listed GitHub users
+          limit-access-to-users: imilchev
