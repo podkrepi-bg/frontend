@@ -4,7 +4,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto('http://localhost:3040/')
 })
 
-test.skip('test homepage', async ({ page }) => {
+test('test homepage', async ({ page }) => {
   // Go to http://localhost:3040/
 
   // Click text=Текущи кампании
