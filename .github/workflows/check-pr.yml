@@ -98,7 +98,9 @@ jobs:
 
       - uses: actions/cache@v3
         with:
-          path: '**/node_modules'
+          path: |
+            **/node_modules
+            **/.next/cache
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       - name: Run db
