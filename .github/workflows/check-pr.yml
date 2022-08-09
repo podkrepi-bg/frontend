@@ -112,6 +112,10 @@ jobs:
         working-directory: ./frontend
         run: yarn
 
+      - name: Start frontend
+        working-directory: ./frontend
+        run: yarn start &
+
       - name: Install Playwright Browsers
         working-directory: ./frontend
         run: npx playwright install --with-deps
