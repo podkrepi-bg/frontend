@@ -51,9 +51,10 @@ test('test anonymous donation on staging', async ({ page }) => {
 
   // Click text=Премини към плащане
   await page.locator('text=Премини към плащане').click()
-  await expect(page).toHaveURL(
-    'https://checkout.stripe.com/pay/cs_test_a1hBL53EVDYCIqVo99GCJ7Yo4rR8r1Dj24Wbj1J862CJNKO5WsCuEhwgUP#fidkdWxOYHwnPyd1blpxYHZxWjA0TFdhdlBORHVCb1NCZDxxXGswalNUcnE2d3xnYExyS01EfFJXPWtEXGEzT2ROfFF8RzFdNWI2QGJ%2FTEBCY3RySFxqNl9WaXE8YkdAfVFDa1NqaENRS0BKNTU9Z29qS11WfScpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl',
-  )
+
+  await page.waitForTimeout(3000)
+
+  await expect(page.url()).toContain('https://checkout.stripe.com/pay/cs_test_')
 
   // Click [placeholder="\31 234 1234 1234 1234"]
   await page.locator('[placeholder="\\31 234 1234 1234 1234"]').click()
