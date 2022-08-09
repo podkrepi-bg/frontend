@@ -47,3 +47,6 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
+/test-results/
+/playwright-report/
+/playwright/.cache/
