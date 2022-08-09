@@ -4,7 +4,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto('http://localhost:3040/')
 })
 
-test('test support page', async ({ page }) => {
+test.skip('test support page', async ({ page }) => {
   // Click text=Станете доброволец >> nth=0
   await page.locator('text=Станете доброволец').first().click()
 
