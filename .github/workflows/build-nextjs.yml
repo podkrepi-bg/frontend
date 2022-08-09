@@ -12,14 +12,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
       - uses: actions/cache@v3
         with:
           path: |
-            .next/cache
-            node_modules
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+            **/.next/cache
           key: ${{ runner.os }}-build-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-build-yarn-
 
       - name: Install dependencies
         run: yarn
