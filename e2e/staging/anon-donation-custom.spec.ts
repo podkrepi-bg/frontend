@@ -64,7 +64,11 @@ test('test anonymous donation on staging - custom amount', async ({ page }) => {
   // Click text=Премини към плащане
   await page.locator('text=Премини към плащане').click()
 
-  await page.waitForURL('https://checkout.stripe.com/pay/cs_test_**')
+  await page.waitForURL((url) =>
+    url.toString().startsWith('https://checkout.stripe.com/pay/cs_test_'),
+  )
+
+  await expect(page.url()).toContain('https://checkout.stripe.com/pay/cs_test_')
 
   // Click [placeholder="\31 234 1234 1234 1234"]
   await page.locator('[placeholder="\\31 234 1234 1234 1234"]').click()
