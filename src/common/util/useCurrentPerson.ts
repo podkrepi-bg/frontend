@@ -8,6 +8,7 @@ import { Person, UpdatePerson } from 'gql/person'
 import { authConfig, authQueryFnFactory } from 'service/restRequests'
 import { Credentials } from 'components/auth/profile/UpdatePasswordModal'
 import { ForgottenPasswordForm } from 'components/auth/forgottenPassword/ForgottenPasswordForm'
+import { ChangePasswordFormData } from 'components/auth/changePassword/ChangePasswordForm'
 
 type CurrentPerson = {
   user: Person
@@ -56,6 +57,15 @@ export function forgottenPassword() {
   return async (data: ForgottenPasswordForm) => {
     return await apiClient.post<ForgottenPasswordForm, AxiosResponse<boolean>>(
       endpoints.account.forgottenPassword.url,
+      data,
+    )
+  }
+}
+
+export function resetPassword() {
+  return async (data: ChangePasswordFormData) => {
+    return await apiClient.post<ChangePasswordFormData, AxiosResponse<boolean>>(
+      endpoints.account.resetPassword.url,
       data,
     )
   }

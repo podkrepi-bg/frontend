@@ -1,15 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as yup from 'yup'
 import { Grid } from '@mui/material'
 
 import { customValidators } from 'common/form/useForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import GenericForm from 'components/common/form/GenericForm'
-import FormTextField from 'components/common/form/FormTextField'
+import { routes } from 'common/routes'
+import { useRouter } from 'next/router'
+import { useMutation } from 'react-query'
+import { AxiosError, AxiosResponse } from 'axios'
+import { ApiErrors } from 'service/apiErrors'
+import PasswordField from 'components/common/form/PasswordField'
+import { resetPassword } from 'common/util/useCurrentPerson'
+import { AlertStore } from 'stores/AlertStore'
 
 export type ChangePasswordFormData = {
   password: string
   confirmPassword: string
+  token?: string | string[]
 }
 
 const validationSchema: yup.SchemaOf<ChangePasswordFormData> = yup
@@ -22,11 +30,13 @@ const validationSchema: yup.SchemaOf<ChangePasswordFormData> = yup
       .min(6, customValidators.passwordMin)
       .required()
       .oneOf([yup.ref('password'), null], 'validation:password-match'),
+    token: yup.string(),
   })
 
 const defaults: ChangePasswordFormData = {
   password: '',
   confirmPassword: '',
+  token: '',
 }
 
 export type ChangePasswordFormProps = {
@@ -34,8 +44,36 @@ export type ChangePasswordFormProps = {
 }
 
 export default function ChangePasswordForm({ initialValues = defaults }: ChangePasswordFormProps) {
-  const onSubmit = (values: ChangePasswordFormData) => {
-    console.log(values)
+  const [loading, setLoading] = useState<boolean>(false)
+  const router = useRouter()
+  const token = router.query.token
+
+  const mutation = useMutation<AxiosResponse, AxiosError<ApiErrors>, ChangePasswordFormData>({
+    mutationFn: resetPassword(),
+    onError: (error) =>
+      AlertStore.show(
+        error.message == 'Request failed with status code 400'
+          ? 'Невалиден линк!'
+          : 'Потребителя не е открит, опитайте отново или се свържете със съпорта!',
+        'error',
+      ),
+    onSuccess: () => AlertStore.show('Може да се логнете с новата парола', 'success'),
+  })
+  const onSubmit = async (values: ChangePasswordFormData) => {
+    values.token = token
+    try {
+      setLoading(true)
+      const res = await mutation.mutateAsync(values)
+      console.log(res)
+      if (!res) {
+        throw new Error(res)
+      }
+      router.push(routes.login)
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -45,17 +83,17 @@ export default function ChangePasswordForm({ initialValues = defaults }: ChangeP
       validationSchema={validationSchema}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <FormTextField type="password" label="auth:fields.password" name="password" />
+          <PasswordField type="password" label="auth:fields.password" name="password" />
         </Grid>
         <Grid item xs={12}>
-          <FormTextField
+          <PasswordField
             type="password"
             label="auth:fields.confirm-password"
             name="confirmPassword"
           />
         </Grid>
         <Grid item xs={12}>
-          <SubmitButton fullWidth label="auth:cta.reset" />
+          <SubmitButton loading={loading} fullWidth label="auth:cta.reset" />
         </Grid>
       </Grid>
     </GenericForm>
