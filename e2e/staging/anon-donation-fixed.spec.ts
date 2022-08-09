@@ -52,8 +52,7 @@ test('test anonymous donation on staging - fixed amount', async ({ page }) => {
   // Click text=Премини към плащане
   await page.locator('text=Премини към плащане').click()
 
-  await page.waitForTimeout(3000)
-
+  await page.waitForNavigation()
   await expect(page.url()).toContain('https://checkout.stripe.com/pay/cs_test_')
 
   // Click [placeholder="\31 234 1234 1234 1234"]
