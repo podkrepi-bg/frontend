@@ -13,7 +13,6 @@ import PasswordField from 'components/common/form/PasswordField'
 
 const onGoogleLogin = () => {
   const resp = signIn('google')
-  console.log(resp)
 }
 
 function LoginForm() {
