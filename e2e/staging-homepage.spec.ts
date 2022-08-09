@@ -4,7 +4,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto('https://dev.podkrepi.bg/')
 })
 
-test('test staging homepage', async ({ page }) => {
+test('test homepage on staging', async ({ page }) => {
   // Go to http://dev.podkrepi.bg/
 
   // Click text=Текущи кампании
