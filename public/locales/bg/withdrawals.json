@@ -1,11 +1,14 @@
 {
+  "amount-unavailable": "Недостатъчна наличност в трезора!",
+  "documentId": "ID на документа",
+  "amount-input": "Въведете сума",
   "form-heading": "Добави ново теглене",
   "edit-form-heading": "Редактирай теглене",
   "all": "Всички тегления",
   "withdrawals": "Тегления",
   "name": "Име",
   "currency": "Валута",
-  "amount": "Налични средства",
+  "amount": "Сума",
   "reason": "Причина",
   "status": "Статут",
   "targetDate": "Целева дата",
@@ -37,5 +40,8 @@
     "edit": "Редактирай",
     "details": "Детайли за тегленето",
     "submit": "Изпрати"
+  },
+  "fields": {
+    "bankAccountId": "Банкови акаунти"
   }
 }

@@ -98,9 +98,11 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
   }, [campaign])
 
   const donationsAmount = useMemo(() => {
-    return campaign.vaults.reduce((acc, vault) => {
-      return acc + vault.amount
-    }, 0)
+    if (campaign.vaults)
+      return campaign.vaults.reduce((acc, vault) => {
+        return acc + vault.amount
+      }, 0)
+    else return 0
   }, [campaign])
 
   const IsCurrencySelectDisabled =

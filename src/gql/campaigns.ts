@@ -59,9 +59,11 @@ export type AdminCampaignResponse = BaseCampaignResponse & {
   organizer?: {
     person: { firstName: string; lastName: string }
   }
-  incomingTransfers: { amount: number }[]
-  outgoingTransfers: { amount: number }[]
-  summary: { reachedAmount: number }[]
+  summary: {
+    reachedAmount: number
+    currentAmount: number
+    blockedAmount: number
+  }
 }
 
 export type AdminSingleCampaignResponse = CampaignResponse & {
@@ -75,7 +77,7 @@ export type CampaignResponse = BaseCampaignResponse & {
     category: CampaignTypeCategory
     slug: string
   }
-  summary: { reachedAmount: number; donors?: number }[]
+  summary: { reachedAmount: number; donors?: number }
   beneficiary: {
     id: UUID
     type: string

@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useMutation, useQueryClient, UseQueryResult } from 'react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
 import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
-import { Box, Button, Grid, InputLabel, MenuItem, Select, Typography } from '@mui/material'
+import { Box, Button, Grid, Typography } from '@mui/material'
 
 import {
   WithdrawalData,
@@ -21,27 +21,30 @@ import { AlertStore } from 'stores/AlertStore'
 import SubmitButton from 'components/common/form/SubmitButton'
 import { WithdrawalStatus } from './WithdrawalTypes'
 import { endpoints } from 'service/apiEndpoints'
-import { usePersonList } from 'common/hooks/person'
 import { useCampaignList } from 'common/hooks/campaigns'
-import { useVaultsList } from 'common/hooks/vaults'
-import { useBankAccountsList } from 'common/hooks/bankaccounts'
 import FormTextField from 'components/common/form/FormTextField'
 import GenericForm from 'components/common/form/GenericForm'
 import CurrencySelect from 'components/currency/CurrencySelect'
+import CampaignSelect from 'components/campaigns/CampaignSelect'
+import VaultSelect from 'components/vaults/VaultSelect'
+import PersonSelect from 'components/person/PersonSelect'
+import BankAccountSelect from 'components/bankaccounts/BankAccountSelect'
+import { Currency } from 'gql/currency'
+import { fromMoney, toMoney } from 'common/util/money'
 
 const validationSchema: yup.SchemaOf<WithdrawalData> = yup
   .object()
   .defined()
   .shape({
     status: yup.string().trim().min(1).max(10).required(),
-    amount: yup.number().required(),
+    amount: yup.number().positive().integer().required(),
     reason: yup.string().trim().min(1).max(300).required(),
-    currency: yup.string().trim().min(1).max(10),
-    sourceVaultId: yup.string(),
-    sourceCampaignId: yup.string(),
-    bankAccountId: yup.string(),
-    documentId: yup.string(),
-    approvedById: yup.string(),
+    currency: yup.string().oneOf(Object.values(Currency)).required(),
+    sourceVaultId: yup.string().uuid().required(),
+    sourceCampaignId: yup.string().uuid().required(),
+    bankAccountId: yup.string().uuid().required(),
+    documentId: yup.string().uuid().required(),
+    approvedById: yup.string().uuid().required(),
   })
 
 export default function EditForm() {
@@ -49,30 +52,21 @@ export default function EditForm() {
   const router = useRouter()
   const id = router.query.id
   const { data }: UseQueryResult<WithdrawalEditResponse> = useWithdrawal(String(id))
-  const { data: bankAccounts } = useBankAccountsList()
+  const { t } = useTranslation('withdrawals')
   const { data: campaigns } = useCampaignList()
-  const { data: personList } = usePersonList()
-  const { data: vaults } = useVaultsList()
-
-  const [bankAccountId, setBankAccountId] = useState(data?.bankAccountId)
-  const [vaultId, setVaultId] = useState(data?.sourceVaultId)
-  const [campaignId, setCampaignId] = useState(data?.sourceCampaignId)
-  const [approvedById, setApprovedById] = useState(data?.approvedById)
-
-  const { t } = useTranslation()
 
   const mutationFn = useEditWithdrawal(String(id))
 
   const initialValues: WithdrawalInput = {
     status: WithdrawalStatus.initial,
     currency: data?.currency,
-    amount: data?.amount,
+    amount: fromMoney(data?.amount ?? 0),
     reason: data?.reason,
-    sourceVaultId: vaultId,
-    sourceCampaignId: campaignId,
-    bankAccountId: bankAccountId,
-    documentId: '',
-    approvedById: approvedById,
+    sourceVaultId: data?.sourceVaultId,
+    sourceCampaignId: data?.sourceCampaignId,
+    bankAccountId: data?.bankAccountId,
+    documentId: data?.documentId,
+    approvedById: data?.approvedById,
   }
 
   const mutation = useMutation<
@@ -93,13 +87,13 @@ export default function EditForm() {
     const data: WithdrawalInput = {
       status: WithdrawalStatus.initial,
       currency: values.currency,
-      amount: values.amount,
+      amount: toMoney(values.amount),
       reason: values.reason,
-      sourceVaultId: vaultId,
-      sourceCampaignId: campaignId,
-      bankAccountId: bankAccountId,
-      documentId: 'ff89a831-34da-4b2d-91bc-742247efd9b8',
-      approvedById: approvedById,
+      sourceVaultId: values.sourceVaultId,
+      sourceCampaignId: values.sourceCampaignId,
+      bankAccountId: values.bankAccountId,
+      documentId: values.documentId,
+      approvedById: values.approvedById,
     }
     mutation.mutate(data)
   }
@@ -111,102 +105,55 @@ export default function EditForm() {
       validationSchema={validationSchema}>
       <Box>
         <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
-          {t('withdrawals:form-heading')}
+          {t('edit-form-heading')}
         </Typography>
         <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
           <Grid item xs={12}>
             <FormTextField
               type="number"
-              label="wihdrawals:Сума"
+              label={t('amount-input')}
               name="amount"
               autoComplete="amount"
+              disabled={true}
             />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField
-              type="string"
-              label="wihdrawals:Причина"
-              name="reason"
-              autoComplete="reason"
-            />
+            <FormTextField type="string" label={t('reason')} name="reason" autoComplete="reason" />
           </Grid>
           <Grid item xs={12}>
             <CurrencySelect />
           </Grid>
           <Grid item xs={12}>
-            <InputLabel htmlFor="my-input">Банков акаунт</InputLabel>
-            <Select
-              fullWidth
-              id="bankAccountId"
-              name="bankAccountId"
-              value={bankAccountId}
-              onChange={(event) => setBankAccountId(event.target.value)}>
-              {bankAccounts?.map((acc) => {
-                return (
-                  <MenuItem key={acc.id} value={acc.id}>
-                    {acc.accountHolderName}
-                  </MenuItem>
-                )
-              })}
-            </Select>
+            <BankAccountSelect />
           </Grid>
           <Grid item xs={12}>
-            <InputLabel htmlFor="my-input">Кампании</InputLabel>
-            <Select
-              fullWidth
-              id="campaignId"
-              name="campaignId"
-              value={campaignId}
-              onChange={(event) => setCampaignId(event.target.value)}>
-              {campaigns?.map((camp) => {
-                return (
-                  <MenuItem key={camp.id} value={camp.id}>
-                    {camp.title}
-                  </MenuItem>
-                )
-              })}
-            </Select>
+            <FormTextField
+              type="string"
+              label={t('documentId')}
+              name="documentId"
+              autoComplete="documentId"
+            />
           </Grid>
           <Grid item xs={12}>
-            <InputLabel htmlFor="my-input">Трезор</InputLabel>
-            <Select
-              fullWidth
-              id="vaultId"
-              name="vaultId"
-              value={vaultId}
-              onChange={(event) => setVaultId(event.target.value)}>
-              {vaults?.map((acc) => {
-                return (
-                  <MenuItem key={acc.id} value={acc.id}>
-                    {acc.name}
-                  </MenuItem>
-                )
-              })}
-            </Select>
+            <CampaignSelect
+              name="sourceCampaignId"
+              label="withdrawals:sourceCampaign"
+              campaigns={campaigns}
+              disabled={true}
+            />
           </Grid>
           <Grid item xs={12}>
-            <InputLabel htmlFor="my-input">Одобрен от</InputLabel>
-            <Select
-              fullWidth
-              id="approvedById"
-              name="approvedById"
-              value={approvedById}
-              onChange={(event) => setApprovedById(event.target.value)}>
-              {personList?.map((acc) => {
-                return (
-                  <MenuItem key={acc.id} value={acc.id}>
-                    {acc.firstName} {acc.lastName}
-                  </MenuItem>
-                )
-              })}
-            </Select>
+            <VaultSelect name="sourceVaultId" disabled={true} />
+          </Grid>
+          <Grid item xs={12}>
+            <PersonSelect disabled name="approvedById" label={t('approvedBy')} />
           </Grid>
           <Grid item xs={6}>
-            <SubmitButton fullWidth label={t('withdrawals:cta:submit')} />
+            <SubmitButton fullWidth label={t('cta.submit')} />
           </Grid>
           <Grid item xs={6}>
             <Link href={routes.admin.withdrawals.index} passHref>
-              <Button fullWidth={true}>{t('withdrawals:cta:cancel')}</Button>
+              <Button fullWidth={true}>{t('cta.cancel')}</Button>
             </Link>
           </Grid>
         </Grid>

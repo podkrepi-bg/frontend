@@ -50,20 +50,15 @@ const DisplayExpandableDescription = (params: GridRenderCellParams<string>) => {
 }
 
 const DisplayReachedAmount = ({ params }: CampaignCellProps) => {
-  const summary = params.row.summary.find(() => true)
-  const reached = summary?.reachedAmount ?? 0
-  return <>{money(reached, params.row.currency)}</>
+  return <>{money(params.row.summary.reachedAmount ?? 0, params.row.currency)}</>
 }
 
-// #TODO: Remove when vaults work properly
+const DisplayBlockedAmount = ({ params }: CampaignCellProps) => {
+  return <>{money(params.row.summary.blockedAmount ?? 0, params.row.currency)}</>
+}
+
 const DisplayCurrentAmount = ({ params }: CampaignCellProps) => {
-  const incoming = params.row.incomingTransfers.reduce((acc, transfer) => acc + transfer.amount, 0)
-  const outgoing = params.row.outgoingTransfers.reduce((acc, transfer) => acc + transfer.amount, 0)
-  const result = incoming - outgoing
-  const summary = params.row.summary.find(() => true)
-  const reached = summary?.reachedAmount ?? 0
-  const avilableAmount = reached - result
-  return <>{money(avilableAmount, params.row.currency)}</>
+  return <>{money(params.row.summary.currentAmount ?? 0, params.row.currency)}</>
 }
 
 export default function CampaignGrid() {
@@ -178,13 +173,13 @@ export default function CampaignGrid() {
       ),
     },
     {
-      field: 'targetAmount',
-      headerName: t('campaigns:targetAmount'),
+      field: 'blockedAmount',
+      headerName: t('campaigns:blockedAmount'),
       ...commonProps,
       align: 'right',
-      width: 150,
+      width: 200,
       renderCell: (cellValues: GridRenderCellParams) => (
-        <>{money(cellValues.row.targetAmount, cellValues.row.currency)}</>
+        <DisplayBlockedAmount params={cellValues} />
       ),
     },
     {
@@ -195,6 +190,16 @@ export default function CampaignGrid() {
       width: 200,
       renderCell: (cellValues: GridRenderCellParams) => (
         <DisplayCurrentAmount params={cellValues} />
+      ),
+    },
+    {
+      field: 'targetAmount',
+      headerName: t('campaigns:targetAmount'),
+      ...commonProps,
+      align: 'right',
+      width: 150,
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <>{money(cellValues.row.targetAmount, cellValues.row.currency)}</>
       ),
     },
     {

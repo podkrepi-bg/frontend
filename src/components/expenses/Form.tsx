@@ -26,34 +26,52 @@ import { ExpenseInput, ExpenseResponse, ExpenseStatus, ExpenseType } from 'gql/e
 import VaultSelect from '../vaults/VaultSelect'
 import ExpenseTypeSelect from './ExpenseTypeSelect'
 import ExpenseStatusSelect from './ExpenseStatusSelect'
+import { useVaultsList } from 'common/hooks/vaults'
+import PersonSelect from 'components/person/PersonSelect'
 
 const validTypes = Object.keys(ExpenseType)
 const validStatuses = Object.keys(ExpenseStatus)
 const validCurrencies = Object.keys(Currency)
 
-const validationSchema = yup
-  .object()
-  .defined()
-  .shape({
-    type: yup.string().trim().oneOf(validTypes).required(),
-    status: yup.string().trim().oneOf(validStatuses).required(),
-    currency: yup.string().trim().oneOf(validCurrencies).required(),
-    amount: yup.number().positive().integer().required(),
-    vaultId: yup.string().trim().uuid().required(),
-    deleted: yup.boolean().required(),
-    description: yup.string().trim().notRequired(),
-    documentId: yup.string().trim().uuid().notRequired(),
-    approvedById: yup.string().trim().notRequired(),
-  })
-
 export default function Form() {
   const queryClient = useQueryClient()
   const router = useRouter()
   const { t } = useTranslation('expenses')
-
   let id = router.query.id
   let data: ExpenseResponse | undefined
-
+  const { data: vaults } = useVaultsList()
+  const validationSchema = yup
+    .object()
+    .defined()
+    .shape({
+      type: yup.string().trim().oneOf(validTypes).required(),
+      status: yup.string().trim().oneOf(validStatuses).required(),
+      currency: yup.string().trim().oneOf(validCurrencies).required(),
+      amount: yup.number().when('vaultId', {
+        is: (value: string) => value !== undefined,
+        then: yup
+          .number()
+          .positive()
+          .required()
+          .test({
+            name: 'max',
+            exclusive: false,
+            params: {},
+            message: t('fields-error.amount-unavailable'),
+            test: function (value) {
+              const currentValt = vaults?.find((curr) => curr.id == this.parent.vaultId)
+              const currentAmount = Number(currentValt?.amount) - Number(currentValt?.blockedAmount)
+              return value! < Number(currentAmount)
+            },
+          }),
+        otherwise: yup.number().positive().integer().required(),
+      }),
+      vaultId: yup.string().trim().uuid().required(),
+      deleted: yup.boolean().required(),
+      description: yup.string().trim().notRequired(),
+      documentId: yup.string().trim().uuid().notRequired(),
+      approvedById: yup.string().trim().notRequired(),
+    })
   if (id) {
     id = String(id)
     data = useViewExpense(id).data
@@ -122,13 +140,18 @@ export default function Form() {
             <ExpenseStatusSelect />
           </Grid>
           <Grid item xs={6}>
-            <FormTextField type="number" name="amount" label="expenses:fields.amount" />
+            <FormTextField
+              disabled={id ? true : false}
+              type="number"
+              name="amount"
+              label="expenses:fields.amount"
+            />
           </Grid>
           <Grid item xs={6}>
             <CurrencySelect />
           </Grid>
           <Grid item xs={6}>
-            <VaultSelect />
+            <VaultSelect disabled={id ? true : false} />
           </Grid>
           <Grid item xs={6}>
             <DocumentSelect />
@@ -142,7 +165,7 @@ export default function Form() {
               rows={5}
             />
           </Grid>
-          {id && (
+          {(id && (
             <Grid item xs={id ? 10 : 12}>
               <FormTextField
                 type="text"
@@ -152,6 +175,10 @@ export default function Form() {
                   readOnly: true,
                 }}
               />
+            </Grid>
+          )) || (
+            <Grid item xs={12}>
+              <PersonSelect name="approvedById" label={t('expenses:fields:approvedBy')} />
             </Grid>
           )}
           {id && (

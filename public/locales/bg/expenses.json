@@ -1,4 +1,7 @@
 {
+  "fields-error": {
+    "amount-unavailable": "Недостатъчна наличност в трезора!"
+  },
   "fields": {
     "type": "Тип",
     "status": "Статус",
