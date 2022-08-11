@@ -19,7 +19,7 @@
   "description": "Description",
   "targetAmount": "Target amount",
   "donationsAmount": "Donations amount",
-  "blocked-amount": "Blocked amount",
+  "blockedAmount": "Blocked amount",
   "startDate": "Start date",
   "endDate": "End date",
   "createDate": "Created at",

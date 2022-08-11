@@ -174,7 +174,7 @@ export default function CampaignGrid() {
     },
     {
       field: 'blockedAmount',
-      headerName: t('campaigns:blocked-amount'),
+      headerName: t('campaigns:blockedAmount'),
       ...commonProps,
       align: 'right',
       width: 200,

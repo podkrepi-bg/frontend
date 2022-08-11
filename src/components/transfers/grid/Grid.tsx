@@ -13,6 +13,7 @@ import { useTransferList } from 'common/hooks/transfers'
 import { ModalStore } from '../TransferPage'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
+import { fromMoney } from 'common/util/money'
 
 export default observer(function Grid() {
   const { t } = useTranslation('transfer')
@@ -23,6 +24,23 @@ export default observer(function Grid() {
   const [pageSize, setPageSize] = useState(5)
 
   const columns: GridColumns = [
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: t('actions'),
+      width: 200,
+      align: 'center',
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        return (
+          <GridActions
+            modalStore={ModalStore}
+            id={params.row.id}
+            name={params.row.id}
+            editLink={routes.admin.transfer.view(params.row.id)}
+          />
+        )
+      },
+    },
     {
       field: 'id',
       headerName: 'ID',
@@ -45,6 +63,7 @@ export default observer(function Grid() {
       headerName: t('amount'),
       editable: false,
       width: 100,
+      valueGetter: (f) => fromMoney(f.row.amount),
     },
     {
       field: 'documentId',
@@ -100,23 +119,6 @@ export default observer(function Grid() {
       editable: false,
       width: 200,
       valueGetter: (f) => f.row.targetVault.name,
-    },
-    {
-      field: 'actions',
-      type: 'actions',
-      headerName: t('actions'),
-      width: 200,
-      align: 'center',
-      renderCell: (params: GridRenderCellParams): React.ReactNode => {
-        return (
-          <GridActions
-            modalStore={ModalStore}
-            id={params.row.id}
-            name={params.row.id}
-            editLink={routes.admin.transfer.view(params.row.id)}
-          />
-        )
-      },
     },
   ]
 

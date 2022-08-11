@@ -24,6 +24,7 @@ import CampaignSelect from 'components/campaigns/CampaignSelect'
 import VaultSelect from 'components/vaults/VaultSelect'
 import PersonSelect from 'components/person/PersonSelect'
 import { Currency } from 'gql/currency'
+import { toMoney } from 'common/util/money'
 
 export default function CreateForm() {
   const router = useRouter()
@@ -93,7 +94,7 @@ export default function CreateForm() {
     const data: WithdrawalInput = {
       status: WithdrawalStatus.initial,
       currency: values.currency,
-      amount: values.amount,
+      amount: toMoney(values.amount),
       reason: values.reason,
       sourceVaultId: values.sourceVaultId,
       sourceCampaignId: values.sourceCampaignId,

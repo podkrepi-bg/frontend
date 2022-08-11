@@ -25,6 +25,7 @@ import { TransferStatus } from './TransferTypes'
 import CampaignSelect from '../campaigns/CampaignSelect'
 import { useVaultsList } from 'common/hooks/vaults'
 import PersonSelect from 'components/person/PersonSelect'
+import { toMoney } from 'common/util/money'
 
 type Props = {
   campaigns: CampaignResponse[]
@@ -97,7 +98,7 @@ export default function CreateForm({ campaigns }: Props) {
     const data: TransferInput = {
       status: TransferStatus.initial,
       currency: values.currency,
-      amount: values.amount,
+      amount: toMoney(values.amount),
       reason: values.reason,
       documentId: values.documentId ? values.documentId : null,
       targetDate: values.targetDate ? new Date(values.targetDate) : null,

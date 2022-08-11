@@ -41,7 +41,7 @@ export default observer(function Grid() {
     },
     {
       field: 'amount',
-      headerName: t('reached-amount'),
+      headerName: t('reachedАmount'),
       ...commonProps,
       renderCell: (params: GridRenderCellParams) => (
         <>{money(params.row.amount, params.row.currency)}</>
@@ -49,7 +49,7 @@ export default observer(function Grid() {
     },
     {
       field: 'blockedAmount',
-      headerName: t('blocked-amount'),
+      headerName: t('blockedAmount'),
       ...commonProps,
       renderCell: (params: GridRenderCellParams) => (
         <>{money(params.row.blockedAmount, params.row.currency)}</>

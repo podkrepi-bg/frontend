@@ -26,6 +26,7 @@ import SelectDate from './custom/SelectDate'
 import { TransferStatus } from './TransferTypes'
 import TransferStatusSelect from './TransferStatusSelect'
 import CampaignSelect from '../campaigns/CampaignSelect'
+import { fromMoney, toMoney } from 'common/util/money'
 
 const dateParser = (date: Date | undefined) => {
   if (date) {
@@ -64,7 +65,7 @@ export default function EditForm({ transfer, campaigns, id }: Props) {
   const initialValues: TransferInput = {
     status: transfer.status,
     currency: transfer.currency,
-    amount: transfer.amount,
+    amount: fromMoney(transfer.amount),
     reason: transfer.reason,
     documentId: transfer.documentId || '',
     targetDate: dateParser(transfer.targetDate) || '',
@@ -93,7 +94,7 @@ export default function EditForm({ transfer, campaigns, id }: Props) {
     const data: TransferInput = {
       status: values.status,
       currency: values.currency,
-      amount: values.amount,
+      amount: toMoney(values.amount),
       reason: values.reason,
       documentId: values.documentId ? values.documentId : null,
       targetDate: values.targetDate ? new Date(values.targetDate) : null,

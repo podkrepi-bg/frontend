@@ -30,6 +30,7 @@ import VaultSelect from 'components/vaults/VaultSelect'
 import PersonSelect from 'components/person/PersonSelect'
 import BankAccountSelect from 'components/bankaccounts/BankAccountSelect'
 import { Currency } from 'gql/currency'
+import { fromMoney, toMoney } from 'common/util/money'
 
 const validationSchema: yup.SchemaOf<WithdrawalData> = yup
   .object()
@@ -59,7 +60,7 @@ export default function EditForm() {
   const initialValues: WithdrawalInput = {
     status: WithdrawalStatus.initial,
     currency: data?.currency,
-    amount: data?.amount,
+    amount: fromMoney(data?.amount ?? 0),
     reason: data?.reason,
     sourceVaultId: data?.sourceVaultId,
     sourceCampaignId: data?.sourceCampaignId,
@@ -86,7 +87,7 @@ export default function EditForm() {
     const data: WithdrawalInput = {
       status: WithdrawalStatus.initial,
       currency: values.currency,
-      amount: values.amount,
+      amount: toMoney(values.amount),
       reason: values.reason,
       sourceVaultId: values.sourceVaultId,
       sourceCampaignId: values.sourceCampaignId,
