@@ -120,7 +120,7 @@ export default function DonationTab() {
             <Typography fontWeight="medium" variant="h6">
               {
                 new Set(
-                  userDonations.donations?.map((donation) => donation.targetVault.campaign.id),
+                  userDonations.donations?.map((donation) => donation.targetVault.campaign.slug),
                 ).size
               }
             </Typography>

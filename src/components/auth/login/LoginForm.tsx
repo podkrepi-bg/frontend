@@ -64,7 +64,6 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
   }
   const onGoogleLogin = () => {
     const resp = signIn('google')
-    console.log(resp)
   }
   return (
     <GenericForm
