@@ -168,7 +168,7 @@ export const endpoints = {
     update: <Endpoint>{ url: '/account/me', method: 'PATCH' },
     updatePassword: <Endpoint>{ url: '/account/me/credentials', method: 'PATCH' },
     forgottenPassword: <Endpoint>{ url: '/login/forgot-password', method: 'POST' },
-    resetPassword: <Endpoint>{ url: '/login/recovery-password', method: 'POST' },
+    resetPassword: <Endpoint>{ url: '/login/reset-password', method: 'POST' },
     delete: <Endpoint>{ url: '/account/me', method: 'DELETE' },
     new: <Endpoint>{ url: '/account/new', method: 'GET' },
   },
