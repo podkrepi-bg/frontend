@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as yup from 'yup'
 import { useTranslation } from 'next-i18next'
 import { Typography, Grid } from '@mui/material'
@@ -6,6 +6,11 @@ import { Typography, Grid } from '@mui/material'
 import SubmitButton from 'components/common/form/SubmitButton'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
+import { useMutation } from 'react-query'
+import { AxiosError, AxiosResponse } from 'axios'
+import { ApiErrors } from 'service/apiErrors'
+import { AlertStore } from 'stores/AlertStore'
+import { forgottenPassword } from 'common/util/useCurrentPerson'
 
 export type ForgottenPasswordForm = {
   email: string
@@ -27,9 +32,23 @@ export default function ForgottenPasswordForm({
   initialValues = defaults,
 }: ForgottenPasswordFormProps) {
   const { t } = useTranslation()
+  const [loading, setLoading] = useState<boolean>(false)
 
-  const onSubmit = (values: ForgottenPasswordForm) => {
-    console.log(values)
+  const mutation = useMutation<AxiosResponse, AxiosError<ApiErrors>, ForgottenPasswordForm>({
+    mutationFn: forgottenPassword(),
+    onError: () => AlertStore.show(t('auth:alerts.forgotten-password-error'), 'error'),
+    onSuccess: () => AlertStore.show(t('auth:alerts.forgotten-password-success'), 'success'),
+  })
+
+  const onSubmit = async (values: ForgottenPasswordForm) => {
+    try {
+      setLoading(true)
+      await mutation.mutateAsync(values)
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -45,7 +64,7 @@ export default function ForgottenPasswordForm({
           <FormTextField type="text" label="auth:fields.email" name="email" />
         </Grid>
         <Grid item xs={12}>
-          <SubmitButton fullWidth label="auth:cta.send" />
+          <SubmitButton loading={loading} fullWidth label="auth:cta.send" />
         </Grid>
       </Grid>
     </GenericForm>

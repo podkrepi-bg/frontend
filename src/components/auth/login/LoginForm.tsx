@@ -14,6 +14,7 @@ import FormTextField from 'components/common/form/FormTextField'
 import Google from 'common/icons/Google'
 import PasswordField from 'components/common/form/PasswordField'
 import { email, password } from 'common/form/validation'
+import LinkButton from 'components/common/LinkButton'
 
 export type LoginFormData = {
   email: string
@@ -77,6 +78,11 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
         </Grid>
         <Grid item xs={12}>
           <PasswordField />
+        </Grid>
+        <Grid container justifyContent="flex-end">
+          <LinkButton href={routes.forgottenPassword}>
+            {t('auth:account.forgotten-password')}
+          </LinkButton>
         </Grid>
         <Grid item xs={12}>
           <SubmitButton fullWidth label="auth:cta.login" loading={loading} />
