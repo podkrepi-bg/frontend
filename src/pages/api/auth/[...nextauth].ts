@@ -35,6 +35,7 @@ declare module 'next-auth' {
    */
   export interface Session {
     accessToken: string
+    refreshToken: string
     user: ServerUser | null
   }
 
@@ -68,11 +69,11 @@ export const options: NextAuthOptions = {
   },
   session: {
     strategy: 'jwt',
-    maxAge: 60 * 60 * 10,
-    updateAge: 60 * 60 * 24,
+    maxAge: 60 * 60 * 1, //1 hours
+    updateAge: 60 * 1, // one minutes
   },
   jwt: {
-    maxAge: 300,
+    maxAge: 60 * 60 * 1, // 1 hour
   },
   providers: [
     CredentialsProvider({
@@ -119,6 +120,9 @@ export const options: NextAuthOptions = {
     async session({ session, token }): Promise<Session> {
       session.user = jwtDecode<ServerUser>(token.accessToken)
       session.accessToken = token.accessToken
+      session.refreshToken = token.refreshToken
+
+      console.log('Returning session from api/auth')
 
       return session
     },

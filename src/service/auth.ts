@@ -96,7 +96,7 @@ export function useRegister() {
 }
 
 export async function refreshAccessToken(token: string): Promise<JWT> {
-  console.log(token)
+  console.log('Refreshing token: ' + token)
   try {
     const response = await apiClient.post<AuthResponse>(
       endpoints.auth.refresh.url,
@@ -119,7 +119,7 @@ export async function refreshAccessToken(token: string): Promise<JWT> {
       accessTokenExpires: Date.now() + authRes.expires * 1000,
     }
   } catch (error) {
-    console.log(error)
+    console.log("Couldn't refresh token. Error: ", error)
     throw new Error('RefreshAccessTokenError')
   }
 }
