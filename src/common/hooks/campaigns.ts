@@ -21,6 +21,7 @@ export function useCampaignAdminList() {
   return useQuery<AdminCampaignResponse[]>(
     endpoints.campaign.listAdminCampaigns.url,
     authQueryFnFactory<AdminCampaignResponse[]>(session?.accessToken),
+    { enabled: !!session?.accessToken },
   )
 }
 

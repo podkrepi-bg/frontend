@@ -24,7 +24,7 @@ export function stripeIncludeFeeCalculator(netAmount: number, region: CardRegion
 }
 
 export function stripeIncludeFeeCalculatorEU(netAmount: number) {
-  return (netAmount + 50) / (1 - 0.014)
+  return (netAmount + 50) / (1 - 0.012)
 }
 
 export function stripeIncludeFeeCalculatorUK(netAmount: number) {
@@ -47,7 +47,7 @@ export function stripeIncludeFeeCalculatorOther(netAmount: number) {
 export function stripeFeeCalculator(chargedAmount: number, region: CardRegion) {
   switch (region) {
     case CardRegion.EU: {
-      return chargedAmount * 0.014 + 50
+      return chargedAmount * 0.012 + 50
     }
     case CardRegion.UK: {
       return chargedAmount * 0.025 + 50
