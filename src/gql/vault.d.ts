@@ -6,6 +6,7 @@ export type VaultResponse = {
   name: string
   currency: Currency
   amount: number
+  blockedAmount: number
   campaignId: UUID
   createdAt: Date
   updatedAt: Date | null

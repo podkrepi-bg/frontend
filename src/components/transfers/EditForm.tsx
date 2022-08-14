@@ -26,6 +26,7 @@ import SelectDate from './custom/SelectDate'
 import { TransferStatus } from './TransferTypes'
 import TransferStatusSelect from './TransferStatusSelect'
 import CampaignSelect from '../campaigns/CampaignSelect'
+import { fromMoney, toMoney } from 'common/util/money'
 
 const dateParser = (date: Date | undefined) => {
   if (date) {
@@ -64,7 +65,7 @@ export default function EditForm({ transfer, campaigns, id }: Props) {
   const initialValues: TransferInput = {
     status: transfer.status,
     currency: transfer.currency,
-    amount: transfer.amount,
+    amount: fromMoney(transfer.amount),
     reason: transfer.reason,
     documentId: transfer.documentId || '',
     targetDate: dateParser(transfer.targetDate) || '',
@@ -93,7 +94,7 @@ export default function EditForm({ transfer, campaigns, id }: Props) {
     const data: TransferInput = {
       status: values.status,
       currency: values.currency,
-      amount: values.amount,
+      amount: toMoney(values.amount),
       reason: values.reason,
       documentId: values.documentId ? values.documentId : null,
       targetDate: values.targetDate ? new Date(values.targetDate) : null,
@@ -126,7 +127,7 @@ export default function EditForm({ transfer, campaigns, id }: Props) {
             <CurrencySelect name="currency" />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField type="number" label={t('amount')} name="amount" />
+            <FormTextField disabled type="number" label={t('amount')} name="amount" />
           </Grid>
           <Grid item xs={12}>
             <SelectDate label={t('targetDate')} name="targetDate" />
@@ -144,7 +145,7 @@ export default function EditForm({ transfer, campaigns, id }: Props) {
             <FormTextField
               type="text"
               name="approvedById"
-              label={t('expenses:fields:approvedBy')}
+              label={t('approvedBy')}
               InputProps={{
                 readOnly: true,
               }}
@@ -153,17 +154,18 @@ export default function EditForm({ transfer, campaigns, id }: Props) {
           <Grid item xs={12}>
             <CampaignSelect
               name="sourceCampaignId"
-              label="sourceCampaign"
+              label="transfer:sourceCampaign"
               campaigns={campaigns || []}
+              disabled={true}
             />
           </Grid>
           <Grid item xs={12}>
-            <VaultSelect name="sourceVaultId" />
+            <VaultSelect disabled={true} name="sourceVaultId" />
           </Grid>
           <Grid item xs={12}>
             <CampaignSelect
               name="targetCampaignId"
-              label="targetCampaign"
+              label="transfer:targetCampaign"
               campaigns={campaigns || []}
             />
           </Grid>

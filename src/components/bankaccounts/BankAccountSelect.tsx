@@ -1,22 +1,14 @@
-import React from 'react'
+import { useTranslation } from 'react-i18next'
+import { FormControl, MenuItem } from '@mui/material'
 import { useField } from 'formik'
-import { useTranslation } from 'next-i18next'
-
-import { FormControl, MenuItem, TextFieldProps } from '@mui/material'
-
-import { CampaignResponse } from 'gql/campaigns'
 
 import FormTextField from 'components/common/form/FormTextField'
+import { useBankAccountsList } from 'common/hooks/bankaccounts'
 
-type Props = {
-  label: string
-  name: string
-  campaigns?: CampaignResponse[]
-} & TextFieldProps
-
-export default function CampaignSelect({ label, name, campaigns, ...textFieldProps }: Props) {
+export default function BankAccountSelect({ name = 'bankAccountId', disabled = false }) {
   const { t } = useTranslation()
 
+  const { data: values } = useBankAccountsList()
   const [field, meta] = useField(name)
 
   return (
@@ -30,15 +22,15 @@ export default function CampaignSelect({ label, name, campaigns, ...textFieldPro
         type="text"
         fullWidth
         defaultValue=""
-        label={t(label)}
+        label={t('withdrawals:fields.' + name)}
         {...field}
-        {...textFieldProps}>
+        disabled={disabled}>
         <MenuItem value="" disabled>
-          {t(label)}
+          {t('withdrawals:fields.' + name)}
         </MenuItem>
-        {campaigns?.map((value, index) => (
+        {values?.map((value, index) => (
           <MenuItem key={index} value={value.id}>
-            {value.title}
+            {value.accountHolderName}
           </MenuItem>
         ))}
       </FormTextField>

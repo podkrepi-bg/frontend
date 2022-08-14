@@ -1,4 +1,7 @@
 {
+  "amount-unavailable": "Insufficient stock in the vault!",
+  "documentId": "Document ID",
+  "amount-input": "Amount",
   "form-heading": "Add new withdrawal",
   "edit-form-heading": "Edit withdrawal",
   "all": "All withdrawals",
@@ -32,5 +35,8 @@
     "edit": "Edit",
     "details": "Details",
     "submit": "Submit"
+  },
+  "fields": {
+    "bankAccountId": "Bank accounts"
   }
 }

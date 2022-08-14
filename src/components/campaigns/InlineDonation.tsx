@@ -133,7 +133,7 @@ export default function InlineDonation({ campaign }: Props) {
   const [page, setPage] = useState<number>(0)
   const pageSize = 5
   const target = campaign.targetAmount
-  const summary = campaign.summary.find(() => true)
+  const summary = campaign.summary
   const reached = summary?.reachedAmount ?? 0
   const donors = summary?.donors ?? 0
   const {

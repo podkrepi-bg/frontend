@@ -93,7 +93,7 @@ type Props = { campaign: CampaignResponse }
 export default function CampaignCard({ campaign }: Props) {
   const { t } = useTranslation()
   const target = campaign.targetAmount
-  const summary = campaign.summary.find(() => true)
+  const summary = campaign.summary
   const pictureUrl = campaignListPictureUrl(campaign)
   const reached = summary ? summary.reachedAmount : 0
   const currency = campaign.currency

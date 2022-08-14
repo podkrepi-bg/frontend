@@ -23,20 +23,9 @@ import { TransferData, TransferInput, TransferResponse } from 'gql/transfer'
 import SelectDate from './custom/SelectDate'
 import { TransferStatus } from './TransferTypes'
 import CampaignSelect from '../campaigns/CampaignSelect'
-
-const validationSchema: yup.SchemaOf<TransferData> = yup.object().shape({
-  status: yup.string().oneOf(Object.values(TransferStatus)),
-  currency: yup.string().oneOf(Object.values(Currency)).required(),
-  amount: yup.number().positive('Amount must be a positive number.').required(),
-  reason: yup.string().trim().min(1).max(300).required(),
-  documentId: yup.string().uuid().notRequired().nullable(),
-  targetDate: yup.date().min(new Date(), 'Date is invalid.').notRequired().nullable(),
-  approvedById: yup.string().uuid().notRequired().nullable(),
-  sourceVaultId: yup.string().uuid().required(),
-  sourceCampaignId: yup.string().uuid().required(),
-  targetVaultId: yup.string().uuid().required(),
-  targetCampaignId: yup.string().uuid().required(),
-})
+import { useVaultsList } from 'common/hooks/vaults'
+import PersonSelect from 'components/person/PersonSelect'
+import { toMoney } from 'common/util/money'
 
 type Props = {
   campaigns: CampaignResponse[]
@@ -59,7 +48,39 @@ const initialValues: TransferInput = {
 export default function CreateForm({ campaigns }: Props) {
   const { t } = useTranslation('transfer')
   const router = useRouter()
+  const { data: vaults } = useVaultsList()
 
+  const validationSchema: yup.SchemaOf<TransferData> = yup.object().shape({
+    status: yup.string().oneOf(Object.values(TransferStatus)),
+    currency: yup.string().oneOf(Object.values(Currency)).required(),
+    amount: yup.number().when('sourceVaultId', {
+      is: (value: string) => value !== undefined,
+      then: yup
+        .number()
+        .positive()
+        .required()
+        .test({
+          name: 'max',
+          exclusive: false,
+          params: {},
+          message: t('amount-unavailable'),
+          test: function (value) {
+            const currentValt = vaults?.find((curr) => curr.id == this.parent.sourceVaultId)
+            const currentAmount = Number(currentValt?.amount) - Number(currentValt?.blockedAmount)
+            return value! < Number(currentAmount)
+          },
+        }),
+      otherwise: yup.number().positive().integer().required(),
+    }),
+    reason: yup.string().trim().min(1).max(300).required(),
+    documentId: yup.string().uuid().notRequired().nullable(),
+    targetDate: yup.date().min(new Date(), 'Date is invalid.').notRequired().nullable(),
+    approvedById: yup.string().uuid().notRequired().nullable(),
+    sourceVaultId: yup.string().uuid().required(),
+    sourceCampaignId: yup.string().uuid().required(),
+    targetVaultId: yup.string().uuid().required(),
+    targetCampaignId: yup.string().uuid().required(),
+  })
   const mutation = useMutation<
     AxiosResponse<TransferResponse>,
     AxiosError<ApiErrors>,
@@ -77,7 +98,7 @@ export default function CreateForm({ campaigns }: Props) {
     const data: TransferInput = {
       status: TransferStatus.initial,
       currency: values.currency,
-      amount: values.amount,
+      amount: toMoney(values.amount),
       reason: values.reason,
       documentId: values.documentId ? values.documentId : null,
       targetDate: values.targetDate ? new Date(values.targetDate) : null,
@@ -110,7 +131,7 @@ export default function CreateForm({ campaigns }: Props) {
             <FormTextField type="number" label={t('amount')} name="amount" />
           </Grid>
           <Grid item xs={12}>
-            <SelectDate label={t('targetDate')} name="targetDate" />
+            <SelectDate name="targetDate" />
           </Grid>
           <Grid item xs={12}>
             <FormTextField
@@ -123,7 +144,7 @@ export default function CreateForm({ campaigns }: Props) {
           <Grid item xs={12}>
             <CampaignSelect
               name="sourceCampaignId"
-              label="sourceCampaign"
+              label="transfer:sourceCampaign"
               campaigns={campaigns || []}
             />
           </Grid>
@@ -133,12 +154,15 @@ export default function CreateForm({ campaigns }: Props) {
           <Grid item xs={12}>
             <CampaignSelect
               name="targetCampaignId"
-              label="targetCampaign"
+              label="transfer:targetCampaign"
               campaigns={campaigns || []}
             />
           </Grid>
           <Grid item xs={12}>
             <VaultSelect name="targetVaultId" />
+          </Grid>
+          <Grid item xs={12}>
+            <PersonSelect name="approvedById" label={t('approvedBy')} />
           </Grid>
           <Grid item xs={6}>
             <SubmitButton fullWidth label={t('transfer:cta:submit')} />

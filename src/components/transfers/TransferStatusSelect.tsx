@@ -1,12 +1,13 @@
 import React from 'react'
 import { useField } from 'formik'
 import { useTranslation } from 'next-i18next'
-import { MenuItem, TextField, TextFieldProps } from '@mui/material'
+import { MenuItem, TextFieldProps } from '@mui/material'
 
 import { translateError } from 'common/form/useForm'
 import { TranslatableField } from 'common/form/validation'
 
 import { TransferStatus } from './TransferTypes'
+import FormTextField from 'components/common/form/FormTextField'
 
 type Props = {
   label: string
@@ -19,13 +20,14 @@ export default function TransferStatusSelect({ label, name, ...textFieldProps }:
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
 
   return (
-    <TextField
+    <FormTextField
       {...textFieldProps}
       {...field}
       select
       variant="outlined"
       fullWidth
       label={t(label)}
+      type="text"
       error={Boolean(meta.error) && Boolean(meta.touched)}
       helperText={helperText}>
       {Object.values(TransferStatus).map((status) => {
@@ -35,6 +37,6 @@ export default function TransferStatusSelect({ label, name, ...textFieldProps }:
           </MenuItem>
         )
       })}
-    </TextField>
+    </FormTextField>
   )
 }

@@ -13,6 +13,7 @@ import { useWithdrawalsList } from 'common/hooks/withdrawals'
 import { ModalStore } from '../WithdrawalPage'
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
+import { fromMoney } from 'common/util/money'
 
 export default observer(function Grid() {
   const { t } = useTranslation()
@@ -28,6 +29,23 @@ export default observer(function Grid() {
 
   const columns: GridColumns = [
     {
+      field: 'actions',
+      headerName: t('withdrawals:actions'),
+      width: 120,
+      type: 'actions',
+      headerAlign: 'left',
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        return (
+          <GridActions
+            modalStore={ModalStore}
+            id={params.row.id}
+            name={params.row.id}
+            editLink={routes.admin.withdrawals.edit(params.row.id)}
+          />
+        )
+      },
+    },
+    {
       field: 'status',
       headerName: t('withdrawals:status'),
       ...commonProps,
@@ -42,6 +60,9 @@ export default observer(function Grid() {
       headerName: t('withdrawals:amount'),
       align: 'right',
       ...commonProps,
+      valueGetter: (c) => {
+        return fromMoney(c.row.amount)
+      },
     },
     {
       field: 'reason',
@@ -100,23 +121,6 @@ export default observer(function Grid() {
       align: 'left',
       width: 230,
       headerAlign: 'left',
-    },
-    {
-      field: 'actions',
-      headerName: t('withdrawals:actions'),
-      width: 120,
-      type: 'actions',
-      headerAlign: 'left',
-      renderCell: (params: GridRenderCellParams): React.ReactNode => {
-        return (
-          <GridActions
-            modalStore={ModalStore}
-            id={params.row.id}
-            name={params.row.id}
-            editLink={routes.admin.withdrawals.edit(params.row.id)}
-          />
-        )
-      },
     },
   ]
 

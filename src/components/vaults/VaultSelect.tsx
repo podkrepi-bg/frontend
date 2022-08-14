@@ -5,10 +5,10 @@ import { useField } from 'formik'
 import { useVaultsList } from 'common/hooks/vaults'
 import FormTextField from 'components/common/form/FormTextField'
 
-export default function VaultSelect({ name = 'vaultId' }) {
+export default function VaultSelect({ name = 'vaultId', ...textFieldProps }) {
   const { t } = useTranslation()
 
-  const values = useVaultsList().data?.map((record) => record.id)
+  const { data: values } = useVaultsList()
   const [field, meta] = useField(name)
 
   return (
@@ -23,13 +23,14 @@ export default function VaultSelect({ name = 'vaultId' }) {
         fullWidth
         defaultValue=""
         label={t('fields.' + name)}
-        {...field}>
+        {...field}
+        {...textFieldProps}>
         <MenuItem value="" disabled>
           {t('fields.' + name)}
         </MenuItem>
         {values?.map((value, index) => (
-          <MenuItem key={index} value={value}>
-            {value}
+          <MenuItem key={index} value={value.id}>
+            {value.id}
           </MenuItem>
         ))}
       </FormTextField>
