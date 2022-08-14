@@ -39,7 +39,7 @@
       "cancelled": "cancelled"
     }
   },
-  "certificates": {
+  "certificates-history": {
     "index": "Certificate history",
     "title": "Online donations"
   },
