@@ -11,7 +11,6 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
 import { forgottenPassword } from 'common/util/useCurrentPerson'
-import { useRouter } from 'next/router'
 
 export type ForgottenPasswordForm = {
   email: string
@@ -34,18 +33,17 @@ export default function ForgottenPasswordForm({
 }: ForgottenPasswordFormProps) {
   const { t } = useTranslation()
   const [loading, setLoading] = useState<boolean>(false)
-  const router = useRouter()
 
   const mutation = useMutation<AxiosResponse, AxiosError<ApiErrors>, ForgottenPasswordForm>({
     mutationFn: forgottenPassword(),
-    onError: () => AlertStore.show('Потребителя не е намерен, моля опитайте отново!', 'error'),
-    onSuccess: () => AlertStore.show('Моля проверете имейла си!', 'success'),
+    onError: () => AlertStore.show(t('auth:alerts.forgotten-password-error'), 'error'),
+    onSuccess: () => AlertStore.show(t('auth:alerts.forgotten-password-success'), 'success'),
   })
 
   const onSubmit = async (values: ForgottenPasswordForm) => {
     try {
       setLoading(true)
-      const res = await mutation.mutateAsync(values)
+      await mutation.mutateAsync(values)
     } catch (error) {
       console.error(error)
     } finally {

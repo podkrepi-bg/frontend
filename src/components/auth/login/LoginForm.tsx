@@ -81,7 +81,9 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
           <PasswordField />
         </Grid>
         <Grid container justifyContent="flex-end">
-          <LinkButton href={routes.forgottenPassword}> Забравена парола</LinkButton>
+          <LinkButton href={routes.forgottenPassword}>
+            {t('auth:account.forgotten-password')}
+          </LinkButton>
         </Grid>
         <Grid item xs={12}>
           <SubmitButton fullWidth label="auth:cta.login" loading={loading} />

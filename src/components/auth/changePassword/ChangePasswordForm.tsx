@@ -13,6 +13,7 @@ import { ApiErrors } from 'service/apiErrors'
 import PasswordField from 'components/common/form/PasswordField'
 import { resetPassword } from 'common/util/useCurrentPerson'
 import { AlertStore } from 'stores/AlertStore'
+import { useTranslation } from 'next-i18next'
 
 export type ChangePasswordFormData = {
   password: string
@@ -47,17 +48,12 @@ export default function ChangePasswordForm({ initialValues = defaults }: ChangeP
   const [loading, setLoading] = useState<boolean>(false)
   const router = useRouter()
   const token = router.query.token
+  const { t } = useTranslation()
 
   const mutation = useMutation<AxiosResponse, AxiosError<ApiErrors>, ChangePasswordFormData>({
     mutationFn: resetPassword(),
-    onError: (error) =>
-      AlertStore.show(
-        error.message == 'Request failed with status code 400'
-          ? 'Невалиден линк!'
-          : 'Потребителя не е открит, опитайте отново или се свържете със съпорта!',
-        'error',
-      ),
-    onSuccess: () => AlertStore.show('Може да се логнете с новата парола', 'success'),
+    onError: () => AlertStore.show(t('auth:alerts.change-password-error'), 'error'),
+    onSuccess: () => AlertStore.show(t('auth:alerts.change-password-success'), 'success'),
   })
   const onSubmit = async (values: ChangePasswordFormData) => {
     values.token = token
