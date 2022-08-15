@@ -113,10 +113,14 @@ jobs:
           scan_type: k8s
           path: prod-manifests.yaml
 
+  run-playwright:
+    name: Run Playwright
+    uses: ./.github/workflows/playwright.yml
+
   release-dev:
     name: Release to dev
     runs-on: ubuntu-latest
-    needs: [build-frontend-image, build-maintenance-image, scan-manifests]
+    needs: [build-frontend-image, build-maintenance-image, scan-manifests, run-playwright]
     environment:
       name: dev
       url: https://dev.podkrepi.bg
