@@ -5,23 +5,18 @@ test.beforeEach(async ({ page }) => {
 })
 
 test('test homepage', async ({ page }) => {
-  // Go to http://localhost:3040/
-
-  // Click text=Текущи кампании
-  await page.locator('text=Текущи кампании').click()
-
   // Click text=Това е бета версията на платформата на Подкрепи.бг преди предстоящия наесен офиц
-  await page
-    .locator(
+  await expect(
+    page.locator(
       'text=Това е бета версията на платформата на Подкрепи.бг преди предстоящия наесен офиц',
-    )
-    .click()
-
-  // Check input[type="checkbox"]
-  await page.locator('input[type="checkbox"]').check()
+    ),
+  ).toBeDefined()
 
   // Click text=Затвори
   await page.locator('text=Затвори').click()
+
+  // Click text=Текущи кампании
+  await page.locator('text=Текущи кампании').click()
 
   // Click text=Как работи Подкрепи.бг?
   await page.locator('text=Как работи Подкрепи.бг?').click()

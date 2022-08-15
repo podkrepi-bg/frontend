@@ -1,10 +1,20 @@
-import { test } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test.beforeEach(async ({ page }) => {
   await page.goto('http://localhost:3040/')
 })
 
 test('test support page', async ({ page }) => {
+  // Click text=Това е бета версията на платформата на Подкрепи.бг преди предстоящия наесен офиц
+  await expect(
+    page.locator(
+      'text=Това е бета версията на платформата на Подкрепи.бг преди предстоящия наесен офиц',
+    ),
+  ).toBeDefined()
+
+  // Click text=Затвори
+  await page.locator('text=Затвори').click()
+
   // Click text=Станете доброволец >> nth=0
   await page.locator('text=Станете доброволец').first().click()
 
@@ -59,20 +69,20 @@ test('test support page', async ({ page }) => {
   // Click text=Изпратете
   await page.locator('text=Изпратете').click()
 
-  // Click text=Задължително поле
-  await page.locator('text=Задължително поле').click()
-
   // Click text=Изпратете
   await page.locator('text=Изпратете').click()
+
+  // Click #mui-3-helper-text
+  await page.locator('#mui-1-helper-text').click()
+
+  // Click #mui-4-helper-text
+  await page.locator('#mui-2-helper-text').click()
 
   // Click #mui-3-helper-text
   await page.locator('#mui-3-helper-text').click()
 
   // Click #mui-4-helper-text
   await page.locator('#mui-4-helper-text').click()
-
-  // Click #mui-5-helper-text
-  await page.locator('#mui-5-helper-text').click()
 
   // Click text=Моля, приемете oбщите условия
   await page.locator('text=Моля, приемете oбщите условия').click()
