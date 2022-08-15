@@ -10,7 +10,7 @@
   <p align="center"><a target="_blank" rel="noopener noreferrer" href="https://github.com/podkrepi-bg/frontend/actions/workflows/lint.yml"><img src="https://github.com/podkrepi-bg/frontend/actions/workflows/lint.yml/badge.svg" alt="Lint" style="max-width: 100%;"></a>
 <a target="_blank" rel="noopener noreferrer" href="https://github.com/podkrepi-bg/frontend/actions/workflows/release.yml"><img src="https://github.com/podkrepi-bg/frontend/actions/workflows/release.yml/badge.svg" alt="Build" style="max-width: 100%;"></a>
 <a href="https://github.com/podkrepi-bg/frontend/actions/workflows/check-pr.yml"><img src="https://github.com/podkrepi-bg/frontend/actions/workflows/check-pr.yml/badge.svg" alt="Build docker image" style="max-width: 100%;"></a></p>
-  
+
   <p align="center"><a target="_blank" rel="noopener noreferrer" href="https://img.shields.io/github/license/podkrepi-bg/frontend"><img src="https://img.shields.io/github/license/podkrepi-bg/frontend" alt="" data-canonical-src="https://img.shields.io/github/license/podkrepi-bg/frontend" style="max-width: 100%;"></a>
 <a target="_blank" rel="noopener noreferrer" href="https://img.shields.io/github/issues/podkrepi-bg/frontend"><img src="https://img.shields.io/github/issues/podkrepi-bg/frontend" alt="" data-canonical-src="https://img.shields.io/github/issues/podkrepi-bg/frontend" style="max-width: 100%;"></a></p>
 
@@ -25,6 +25,8 @@
   - [Formik](https://formik.org/) / [MobX](https://mobx.js.org/)
   - [ESlint](https://eslint.org/) / [Prettier](https://prettier.io/) / [Husky](https://github.com/typicode/husky) / [Stylelint](https://stylelint.io/) / [Lint Staged](https://github.com/okonet/lint-staged)
   - [Sentry](https://sentry.io/organizations/podkrepibg/)
+- Testing
+  - [Playwright](https://playwright.dev/)
 
 ## Initial setup
 
@@ -58,6 +60,12 @@ Follow API instructions at <https://github.com/podkrepi-bg/api#setup-development
 In order to use the frontend together with the API and be able to test donations and payments you would need to install and start a StripeCLI
 
 Follow the instructions at <https://github.com/podkrepi-bg/api/blob/master/TESTING.md>
+
+## Testing
+
+End to end testing is done on every PR with [Playwright](https://playwright.dev/). Github Workflows start the whole stack and run tests in headless mode.
+
+Read more at [End-2-End Testing](https://github.com/podkrepi-bg/frontend/blob/master/e2e/README.md)
 
 ## Contributors ✨
 

@@ -1,0 +1,75 @@
+name: Playwright tests
+on:
+  workflow_call:
+
+jobs:
+  run-playwright:
+    name: Run Playwright
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          path: './frontend'
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          repository: podkrepi-bg/api
+          ref: master
+          path: './api'
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+            **/.next/cache
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Run db
+        working-directory: ./api
+        run: docker compose up -d pg-db
+
+      - name: Run api
+        working-directory: ./api
+        run: docker compose up -d --force-recreate --no-build migrate-db seed-db api keycloak
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: yarn
+
+      - name: Build frontend
+        working-directory: ./frontend
+        run: yarn run next build
+
+      - name: Setup env
+        working-directory: ./frontend
+        run: cp .env.local.example .env.local
+
+      - name: Start frontend
+        working-directory: ./frontend
+        run: yarn start &
+
+      - name: Install Playwright Browsers
+        working-directory: ./frontend
+        run: npx playwright install --with-deps
+
+      - name: Run Playwright tests
+        working-directory: ./frontend
+        run: yarn playwright test e2e/local
+
+      - uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: playwright-report
+          path: ./frontend/playwright-report/
+          retention-days: 30
