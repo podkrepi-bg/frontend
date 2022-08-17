@@ -4,6 +4,7 @@
     "about": {
       "about-project": "The Project",
       "about-us": "About us",
+      "who-are-we": "Who are we?",
       "support_us": "Support us",
       "support-us": "Join us",
       "reports": "Reports",
@@ -11,7 +12,8 @@
     },
     "campaigns": {
       "index": "Campaigns",
-      "create": "Suggest campaign",
+      "all-campaigns": "All campaigns",
+      "create": "Suggest a campaign",
       "faq": "Frequently Asked Questions"
     },
     "admin": {
@@ -27,7 +29,7 @@
       "open-data": "Open Data"
     },
     "donatе": "Donate",
-    "donation-menu": "Donation",
+    "donation-menu": "Campaigns",
     "blog": "Blog",
     "support_us_button": "Support us",
     "profile": "Profile",

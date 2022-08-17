@@ -22,14 +22,6 @@ export default function MainNavMenu({ children }: { children?: React.ReactNode }
         </Button>
       </Grid>
       <Grid item>
-        <Button
-          color="inherit"
-          href={routes.support_us}
-          style={{ whiteSpace: 'nowrap', padding: '6px 16px' }}>
-          {t('nav.support_us_button')}
-        </Button>
-      </Grid>
-      <Grid item>
         <DonationMenu />
       </Grid>
       <Grid item>
