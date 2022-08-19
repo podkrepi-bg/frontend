@@ -11,12 +11,8 @@ import {
   FormControlLabel,
   Typography,
 } from '@mui/material'
-import { CircleOutlined } from '@mui/icons-material'
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 
 import BetaPopUpTextCard from 'components/index/helpers/betaPopUp/BetaPopUpTextCard'
-import BetaManIcon from 'components/index/icons/BetaManIcon'
-import BetaWomanIcon from 'components/index/icons/BetaWomanIcon'
 
 let showAgainProp = true
 
