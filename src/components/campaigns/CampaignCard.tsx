@@ -18,7 +18,6 @@ import {
   Link,
 } from '@mui/material'
 import { Favorite } from '@mui/icons-material'
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import Image from 'next/image'
 
@@ -31,6 +30,7 @@ const classes = {
   campaignTitle: `${PREFIX}-campaignTitle`,
   progressBar: `${PREFIX}-progressBar`,
   cardContent: `${PREFIX}-cardContent`,
+  seeMoreButton: `${PREFIX}-seeMoreButton`,
 }
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -86,6 +86,16 @@ const StyledCard = styled(Card)(({ theme }) => ({
       maxHeight: 'fit-content',
     },
   },
+
+  [`& .${classes.seeMoreButton}`]: {
+    background: 'transparent',
+    color: theme.palette.primary.dark,
+    textDecoration: 'underline',
+
+    '&:hover': {
+      color: theme.palette.primary.main,
+    },
+  },
 }))
 
 type Props = { campaign: CampaignResponse }
@@ -134,17 +144,15 @@ export default function CampaignCard({ campaign }: Props) {
                 variant="contained"
                 color="secondary"
                 endIcon={<Favorite color="error" />}>
-                {t('campaigns:cta.support-now')}
+                {t('campaigns:cta.support')}
               </LinkButton>
             </Box>
-            <Box mx={2} mb={2}>
-              <LinkButton
-                fullWidth
+            <Box mt={3} textAlign="center">
+              <Link
                 href={routes.campaigns.viewCampaignBySlug(campaign.slug)}
-                variant="outlined"
-                endIcon={<ArrowForwardIosIcon />}>
+                className={classes.seeMoreButton}>
                 {t('campaigns:cta.see-more')}
-              </LinkButton>
+              </Link>
             </Box>
           </Grid>
         </Grid>

@@ -116,23 +116,10 @@ export default function Jumbotron() {
                 },
               }}
               size="large"
-              variant="outlined"
-              color="primary"
-              href={routes.support}>
-              {t('common:nav.about.support-us')}
-            </LinkButton>
-            <LinkButton
-              sx={{
-                minWidth: {
-                  xs: 270,
-                  md: 320,
-                },
-              }}
-              size="large"
               variant="contained"
               color="secondary"
               href={routes.campaigns.index}>
-              {t('index:jumbotron.support-a-cause')}
+              {t('index:jumbotron.donate')}
             </LinkButton>
           </Grid>
         </Grid>
