@@ -30,6 +30,7 @@ const colors = {
   white: {
     main: '#ffffff',
   },
+  black: '#000000',
 }
 
 const borders = {
