@@ -5,16 +5,6 @@ test.beforeEach(async ({ page }) => {
 })
 
 test('test support page', async ({ page }) => {
-  // Click text=Това е бета версията на платформата на Подкрепи.бг преди предстоящия наесен офиц
-  await expect(
-    page.locator(
-      'text=Това е бета версията на платформата на Подкрепи.бг преди предстоящия наесен офиц',
-    ),
-  ).toBeDefined()
-
-  // Click text=Затвори
-  await page.locator('text=Затвори').click()
-
   // Click text=Станете доброволец >> nth=0
   await page.locator('text=Станете доброволец').first().click()
 

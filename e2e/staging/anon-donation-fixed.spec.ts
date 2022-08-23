@@ -4,9 +4,6 @@ test('test anonymous donation on staging - fixed amount', async ({ page }) => {
   // Go to https://dev.podkrepi.bg/
   await page.goto('https://dev.podkrepi.bg/')
 
-  // Click text=Затвори
-  await page.locator('text=Затвори').click()
-
   // Click text=Дарете сега >> nth=0
   await page.locator('text=Дарете сега').first().click()
   await expect(page).toHaveURL(
