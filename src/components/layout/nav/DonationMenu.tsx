@@ -24,11 +24,7 @@ const StyledGenericMenu = styled(GenericMenu)(({ theme }) => ({
   },
 
   [`& .${classes.dropdownLinkText}`]: {
-    color: theme.palette.primary.dark,
     width: '100%',
-    '&:hover': {
-      color: theme.palette.primary.main,
-    },
   },
 }))
 
@@ -41,19 +37,11 @@ type NavItem = {
 const allNavItems: NavItem[] = [
   {
     href: routes.campaigns.index,
-    label: 'nav.campaigns.index',
+    label: 'nav.campaigns.all-campaigns',
   },
   {
     href: routes.faq_campaigns, //temporarily lead to FAQ
     label: 'nav.campaigns.create',
-  },
-  {
-    href: routes.termsOfService,
-    label: 'components.footer.terms-of-service',
-  },
-  {
-    href: routes.faq,
-    label: 'nav.campaigns.faq',
   },
 ]
 

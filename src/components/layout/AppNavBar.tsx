@@ -30,14 +30,13 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
       sx={(theme) => ({
         overflow: 'hidden',
         transition: 'height .5s, background-color .5s ease 0s',
-        height: theme.spacing(14),
-        lineHeight: theme.spacing(14),
+        height: theme.spacing(11),
         [theme.breakpoints.down('md')]: {
-          height: theme.spacing(10),
+          height: theme.spacing(8),
         },
         '&.shrink': {
-          height: theme.spacing(10),
-          lineHeight: theme.spacing(10),
+          height: theme.spacing(8),
+          lineHeight: theme.spacing(8),
           backgroundColor: 'hsla(0,0%,100%,0.85)',
           backdropFilter: 'saturate(180%) blur(5px)',
         },

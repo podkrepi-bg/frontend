@@ -4,6 +4,7 @@
     "about": {
       "about-project": "За проекта",
       "about-us": "За нас",
+      "who-are-we": "Кои сме ние?",
       "support_us": "Подкрепете ни",
       "support-us": "Станете доброволец",
       "reports": "Отчети",
@@ -11,6 +12,7 @@
     },
     "campaigns": {
       "index": "Кампании",
+      "all-campaigns": "Всички кампании",
       "create": "Предложете кампания",
       "faq": "Често задавани въпроси"
     },
@@ -26,9 +28,10 @@
       "open-source": "Отворен Код",
       "open-data": "Отворени Данни"
     },
-    "donation-menu": "Дарете",
+    "donatе": "Дарете",
+    "donation-menu": "Кампании",
     "blog": "Блог",
-    "support_us_button": "Подкрепи Подкрепи.бг",
+    "support_us_button": "Подкрепете ни",
     "profile": "Моят профил",
     "login": "Вход",
     "login-with": "Вход с",

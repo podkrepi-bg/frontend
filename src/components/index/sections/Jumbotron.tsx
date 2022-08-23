@@ -40,7 +40,6 @@ export default function Jumbotron() {
           xs: 3,
           md: 5,
           lg: 7,
-          xl: 9,
         },
         textAlign: 'center',
         color: theme.palette.common.white,

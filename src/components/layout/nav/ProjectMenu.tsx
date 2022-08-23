@@ -40,12 +40,12 @@ type NavItem = {
 
 const allNavItems: NavItem[] = [
   {
-    href: routes.aboutProject,
-    label: 'nav.about.about-project',
+    href: routes.about,
+    label: 'nav.about.who-are-we',
   },
   {
-    href: routes.about,
-    label: 'nav.about.about-us',
+    href: routes.aboutProject,
+    label: 'nav.about.about-project',
   },
   {
     href: routes.support_us,
@@ -63,6 +63,14 @@ const allNavItems: NavItem[] = [
     href: routes.contact,
     label: 'nav.about.contacts',
   },
+  {
+    href: routes.termsOfService,
+    label: 'components.footer.terms-of-service',
+  },
+  {
+    href: routes.faq,
+    label: 'nav.campaigns.faq',
+  },
 ]
 
 export const navItems = allNavItems.filter((el) => typeof el.enabled === 'undefined' ?? el.enabled)
@@ -72,7 +80,7 @@ export default function ProjectMenu() {
   const router = useRouter()
 
   return (
-    <StyledGenericMenu label={t('nav.about.about-project')}>
+    <StyledGenericMenu label={t('nav.about.about-us')}>
       {navItems.map(({ href, label }, key) => (
         <LinkMenuItem
           href={href}
