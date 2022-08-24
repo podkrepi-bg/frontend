@@ -10,9 +10,6 @@ test('test homepage on staging', async ({ page }) => {
   // Click text=Текущи кампании
   await page.locator('text=Текущи кампании').click()
 
-  // Check input[type="checkbox"]
-  await page.locator('input[type="checkbox"]').check()
-
   // Click text=Как работи Подкрепи.бг?
   await page.locator('text=Как работи Подкрепи.бг?').click()
 

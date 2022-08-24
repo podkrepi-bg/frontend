@@ -18,7 +18,6 @@ export default function IndexPage() {
       disableGutters
       title={t('index:title2')}
       metaDescription={t('index:metaDescription')}>
-      {/* <BetaPopUpDialog /> */}
       <Jumbotron />
       <CampaignsSection />
       <HowWeWorkSection />
