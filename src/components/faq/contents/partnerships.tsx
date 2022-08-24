@@ -10,7 +10,9 @@ export const PARTNERSHIPS_QUESTIONS: ContentType[] = [
       <ContentTypography>
         Да, щастливи и благодарни сме за доверието и партньорството с други организации. Пълният
         списък с партньорите на Подкрепи.бг можете да откриете
-        <ExternalLink variant="subtitle1" href={undefined}>
+        <ExternalLink
+          variant="subtitle1"
+          href="https://docs.google.com/spreadsheets/d/1TThb0VmaDJpM4mWV3BFLXquWQoL7AZ34o-ygANGU_UY/edit#gid=0">
           {' тук. '}
         </ExternalLink>
       </ContentTypography>
