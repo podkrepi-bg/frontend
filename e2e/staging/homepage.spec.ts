@@ -10,19 +10,6 @@ test('test homepage on staging', async ({ page }) => {
   // Click text=Текущи кампании
   await page.locator('text=Текущи кампании').click()
 
-  // Click text=Това е бета версията на платформата на Подкрепи.бг преди предстоящия наесен офиц
-  await page
-    .locator(
-      'text=Това е бета версията на платформата на Подкрепи.бг преди предстоящия наесен офиц',
-    )
-    .click()
-
-  // Check input[type="checkbox"]
-  await page.locator('input[type="checkbox"]').check()
-
-  // Click text=Затвори
-  await page.locator('text=Затвори').click()
-
   // Click text=Как работи Подкрепи.бг?
   await page.locator('text=Как работи Подкрепи.бг?').click()
 
