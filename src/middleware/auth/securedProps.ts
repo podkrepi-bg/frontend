@@ -1,5 +1,5 @@
-import { Session } from 'next-auth'
-import { getSession } from 'next-auth/react'
+import { unstable_getServerSession, Session } from 'next-auth'
+import { authOptions } from '../../pages/api/auth/[...nextauth]'
 import { dehydrate, QueryClient } from 'react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
@@ -10,11 +10,17 @@ import { authQueryFnFactory } from 'service/restRequests'
 export const securedProps: (
   ctx: GetServerSidePropsContext,
   returnUrl?: string,
-) => Promise<GetServerSidePropsResult<Session>> = async (ctx, returnUrl?: string) => {
-  const session = await getSession(ctx)
+) => Promise<GetServerSidePropsResult<{ session: Session }>> = async (ctx, returnUrl?: string) => {
+  //For getting session on server side the docs recommend using unstable_getServerSession as per
+  //here: https://next-auth.js.org/getting-started/introduction#server-side
+  //the docs say there is noting unstable, it just may change in next versions
+  const session = await unstable_getServerSession(ctx.req, ctx.res, authOptions)
+
   let url = returnUrl ?? ctx.req.url ?? ''
   if (url.startsWith('/_next') || url.startsWith('/_error')) url = '/'
+
   if (!session) {
+    console.log('no server side session, login required')
     return {
       redirect: {
         destination: `${routes.login}?callbackUrl=${encodeURIComponent(url)}`,
@@ -24,14 +30,14 @@ export const securedProps: (
   }
 
   return {
-    props: session,
+    props: { session },
   }
 }
 
 export const securedPropsWithTranslation: (
   namespaces?: string[],
   returnUrl?: string,
-) => GetServerSideProps<Session> =
+) => GetServerSideProps<{ session: Session }> =
   (namespaces = ['common', 'auth', 'validation'], returnUrl) =>
   async (ctx) => {
     const response = await securedProps(ctx, returnUrl)
@@ -49,14 +55,15 @@ export const securedPropsWithTranslation: (
 export const securedAdminProps: (
   namespaces?: string[],
   resolveEndpoint?: (ctx: GetServerSidePropsContext) => string,
-) => GetServerSideProps<Session> = (namespaces, resolveEndpoint) => async (ctx) => {
+) => GetServerSideProps<{ session: Session }> = (namespaces, resolveEndpoint) => async (ctx) => {
   const result = securedPropsWithTranslation(namespaces)
   const response = await result(ctx)
   if ('props' in response) {
     const client = new QueryClient()
+    const { session } = await response.props
+
     if (resolveEndpoint) {
-      const { accessToken } = await response.props
-      await client.prefetchQuery(resolveEndpoint(ctx), authQueryFnFactory(accessToken))
+      await client.prefetchQuery(resolveEndpoint(ctx), authQueryFnFactory(session.accessToken))
     }
     return {
       props: {

@@ -4,18 +4,16 @@ import { useRouter } from 'next/router'
 import { EmotionCache } from '@emotion/cache'
 import { CacheProvider } from '@emotion/react'
 import { SessionProvider } from 'next-auth/react'
-import React, { useEffect, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import { appWithTranslation, useTranslation } from 'next-i18next'
 import { CssBaseline, ThemeProvider, Theme } from '@mui/material'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 
 import theme from 'common/theme'
 import useGTM from 'common/util/useGTM'
-import { isAxiosError } from 'service/apiErrors'
 import createEmotionCache from 'common/createEmotionCache'
 
 import 'styles/global.scss'
-import { refreshAccessToken } from 'service/auth'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -65,7 +63,7 @@ function CustomApp({
     return () => router.events.off('routeChangeComplete', onRouteChange)
   }, [i18n.language])
 
-  const queryClient = new QueryClient()
+  const [queryClient] = useState(() => new QueryClient())
 
   return (
     <CacheProvider value={emotionCache}>
