@@ -3,8 +3,6 @@ import { Session } from 'next-auth'
 import { AxiosRequestConfig } from 'axios'
 
 import { apiClient } from 'service/apiClient'
-import { String } from 'lodash'
-import { Console } from 'console'
 
 export async function fetchSession(): Promise<Session | null> {
   const res = await fetch('/api/auth/session')
