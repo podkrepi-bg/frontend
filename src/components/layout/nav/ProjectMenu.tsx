@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { Typography, lighten } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-import { routes } from 'common/routes'
+import { routes, staticUrls } from 'common/routes'
 import LinkMenuItem from 'components/common/LinkMenuItem'
 
 import GenericMenu from './GenericMenu'
@@ -36,6 +36,7 @@ type NavItem = {
   href: string
   label: string
   enabled?: boolean
+  target?: string
 }
 
 const allNavItems: NavItem[] = [
@@ -46,6 +47,11 @@ const allNavItems: NavItem[] = [
   {
     href: routes.aboutProject,
     label: 'nav.about.about-project',
+  },
+  {
+    href: staticUrls.blog,
+    label: 'nav.blog',
+    target: '_blank',
   },
   {
     href: routes.support_us,
@@ -81,11 +87,12 @@ export default function ProjectMenu() {
 
   return (
     <StyledGenericMenu label={t('nav.about.about-us')}>
-      {navItems.map(({ href, label }, key) => (
+      {navItems.map(({ href, label, target }, key) => (
         <LinkMenuItem
           href={href}
           selected={router.asPath === href}
           key={key}
+          target={target}
           className={classes.dropdownLinkButton}>
           <Typography variant="button" className={classes.dropdownLinkText}>
             {t(label)}
