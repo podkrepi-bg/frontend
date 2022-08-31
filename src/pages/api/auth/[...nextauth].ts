@@ -26,28 +26,6 @@ declare module 'next-auth/jwt' {
     expires?: number
   }
 }
-declare module 'next-auth' {
-  // export interface Profile {}
-  // export interface Account {}
-
-  /**
-   * Session object available everywhere
-   */
-  export interface Session {
-    accessToken: string
-    user: ServerUser | null
-  }
-
-  /**
-   * Login and SignUp response
-   */
-  export interface User {
-    expires: number
-    accessToken: string
-    refreshToken: string
-    picture: string
-  }
-}
 
 const onCreate: EventCallbacks['createUser'] = async ({ user }) => {
   const { email } = user
@@ -58,7 +36,7 @@ const onCreate: EventCallbacks['createUser'] = async ({ user }) => {
     console.log(`❌ Unable to send welcome email to user (${email})`)
   }
 }
-export const options: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   debug: process.env.APP_ENV !== 'production',
   pages: {
     signIn: '/login',
@@ -68,11 +46,11 @@ export const options: NextAuthOptions = {
   },
   session: {
     strategy: 'jwt',
-    maxAge: 60 * 60 * 10,
-    updateAge: 60 * 60 * 24,
+    maxAge: 60 * 60 * 1, //1 hours
+    updateAge: 60 * 10, // 10 minutes
   },
   jwt: {
-    maxAge: 300,
+    maxAge: 60 * 60 * 1, // 1 hour
   },
   providers: [
     CredentialsProvider({
@@ -119,6 +97,9 @@ export const options: NextAuthOptions = {
     async session({ session, token }): Promise<Session> {
       session.user = jwtDecode<ServerUser>(token.accessToken)
       session.accessToken = token.accessToken
+      session.refreshToken = token.refreshToken
+
+      console.log('Returning session from api/auth')
 
       return session
     },
@@ -131,7 +112,7 @@ export const options: NextAuthOptions = {
           return {
             accessToken: user.accessToken,
             // This is called the first time only here expires always exists and that calculates the timestamp that the token would actually expire in
-            accessTokenExpires: Date.now() + Number(user.expires) * 1000,
+            accessTokenExpires: Date.now() + Number(user.expires) * 1000 - 10000,
             refreshToken: user.refreshToken,
             user: jwtDecode<ServerUser>(user.accessToken),
           }
@@ -144,8 +125,10 @@ export const options: NextAuthOptions = {
         )
         return {
           accessToken: keycloakToken.accessToken,
-          // This is called the first time only here expires always exists and that calculates the timestamp that the token would actually expire in
-          accessTokenExpires: Date.now() + Number(keycloakToken.expires) * 1000,
+          // This is called the first time only
+          // here expires value always exists and it contains the time interval that the token would actually expire in milliseconds
+          // we decrease it with 10sec for the refresh to run before the actual expiration
+          accessTokenExpires: Date.now() + Number(keycloakToken.expires) * 1000 - 10000,
           refreshToken: keycloakToken.refreshToken,
           user: jwtDecode<ServerUser>(keycloakToken.accessToken),
         }
@@ -162,4 +145,4 @@ export const options: NextAuthOptions = {
   },
   events: { createUser: onCreate },
 }
-export default NextAuth(options)
+export default NextAuth(authOptions)
