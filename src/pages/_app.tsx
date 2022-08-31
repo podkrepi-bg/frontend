@@ -14,6 +14,7 @@ import useGTM from 'common/util/useGTM'
 import createEmotionCache from 'common/createEmotionCache'
 
 import 'styles/global.scss'
+import { queryFn } from 'service/restRequests'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -63,7 +64,17 @@ function CustomApp({
     return () => router.events.off('routeChangeComplete', onRouteChange)
   }, [i18n.language])
 
-  const [queryClient] = useState(() => new QueryClient())
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            queryFn,
+            staleTime: 25000,
+          },
+        },
+      }),
+  )
 
   return (
     <CacheProvider value={emotionCache}>
