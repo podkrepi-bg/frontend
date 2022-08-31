@@ -1,0 +1,125 @@
+{
+  "reason": {
+    "title": "Please select a reason for reporting this:",
+    "label": "Reason for the signal",
+    "none": "Not listed",
+    "duplicate": "Duplication",
+    "inappropriate": "Inappropriate",
+    "illegalActivity": "Illegal activity",
+    "misinformation": "Incorrect information",
+    "privacyViolation": "Violation of personal data",
+    "spam": "Spam",
+    "irrelevant": "Irrelevant",
+    "political": "Political character",
+    "discrimination": "Discrimination",
+    "explicitContent": "Explicit content",
+    "fraud": "Fraud",
+    "other": "Other"
+  },
+  "report-btn": "Report irregularity",
+  "steps": {
+    "greeting": {
+      "subtitle": "Irregularity signal",
+      "welcome": "Welcome,",
+      "text-info": "It is very important for us to support real needs and not allow people and organizations on the platform that would abuse the funds entrusted to them. Both those who need support for their cause and donors are very important to us and we want to make sure that their funds are used in an honest way.",
+      "text-description-first": "Podkrepi.bg has developed a multi-step approval process",
+      "text-description-second": ", which every campaign goes through before it starts. Unfortunately, it cannot give us a 100% guarantee that we have avoided every possibility of irregularity. For added security we have developed this system to alert donors and third parties.",
+      "text-link": " (link)",
+      "text-thanks": "Thank you for your social engagement and for taking the time to send this signal!",
+      "remark": "*Priority is given to signals submitted by donors to the relevant campaign, as they are a directly affected party in the case."
+    },
+    "contacts": {
+      "subtitle": "Contacts",
+      "text": "We will need your contacts. This will allow us to contact you to avoid irregularity attempts by anonymous individuals making unfounded claims of irregularity. On the other hand, we will be able to give you information about the results of the checks that we are about to do for the corresponding campaign. Here you can get familiar with the Privacy Policy of Podkrepi.bg",
+      "text-link": " (link)",
+      "first-name": "Name",
+      "last-name": "Surname",
+      "phone": "Phone",
+      "email": "Email",
+      "remark": "*The data will not be disclosed to third parties, including to the Organizer of the relevant campaign. However, if the relevant competent authorities intervene, upon their request for your data, we will be obliged to provide them and we ask you to be prepared for possible assistance."
+    },
+    "info": {
+      "subtitle": "Information",
+      "is-donor": "Have you donated to the respective campaign?",
+      "yes": "Yes",
+      "no": "No",
+      "content": "Description of the observed violation:",
+      "files": "If you have material supporting your claims, you can attach them as files here:",
+      "priority-message": "Addressing irregularity reports is a top priority for the Campaigns team. We will contact you as soon as we have completed the necessary checks.",
+      "share-message": "If other people are aware of the irregularity you describe, it's a good idea for them to report it as well. You can send them a link inviting them to fill out this form.",
+      "thanks-message": "Thank you again for your commitment and assistance,",
+      "sign": "Podkrepi.bg team"
+    },
+    "success": {
+      "title": "Thanks for the sent information!",
+      "subtitle": "Our representative will contact you as soon as it is processed!",
+      "label-campaigns": "Take a look",
+      "label-project": "Learn more about"
+    },
+    "fail": {
+      "title": "Sorry, there was a problem!",
+      "subtitle": "The message could not be sent. The reasons could be several, including a sporadic problem with your Internet connection. Please",
+      "label-redo": "Use",
+      "label-campaigns": "Take a look",
+      "label-project": "Learn more about"
+    }
+  },
+  "cta": {
+    "back-to-campaign": "Back to the campaign",
+    "next": "Continue",
+    "back": "Back",
+    "save": "Save and continue",
+    "submit": "Submit",
+    "upload-files": "Upload files",
+    "attached-files": "Attached files",
+    "campaigns": " CAMPAIGNS",
+    "project": "THE PROJECT",
+    "redo": " REPEAT THE MESSAGE"
+  },
+  "admin": {
+    "irregularities": "Irregularities",
+    "all": "All irregularities",
+    "create-form": "New irregularity signal",
+    "edit-form": "Edit an irregularity",
+    "cta": {
+      "add": "Add",
+      "next": "Next",
+      "back": "Back",
+      "save": "Save and continue",
+      "submit": "Submit",
+      "upload-files": "Attached files",
+      "download": "Download",
+      "delete": "Delete"
+    },
+    "fields": {
+      "campaign": "Campaign name",
+      "status": "Status",
+      "createdAt": "Created at",
+      "person": "Submitted by",
+      "type": "Sender type",
+      "email": "Email",
+      "phone": "Phone",
+      "reason": "Reason",
+      "description": "Description",
+      "actions": "Actions",
+      "firstName": "Name",
+      "lastName": "Surname",
+      "notifier-type": {
+        "benefactor": "Benefactor",
+        "other": "Other"
+      },
+      "status-type": {
+        "initial": "Initial",
+        "confirmed": "Confirmed",
+        "declined": "Declined"
+      }
+    },
+    "alerts": {
+      "create": "Signal created successfully!",
+      "edit": "Signal edited successfully!",
+      "delete": "Signal deleted successfully!",
+      "delete-file": "File deleted successfully!",
+      "error": "An error occurred! Please try again later."
+    }
+  }
+}
