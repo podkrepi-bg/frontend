@@ -38,9 +38,9 @@ export const menuCampaings = [
 ]
 
 export const menuPayments = [
-  { label: 'Плащания', icon: Payment, href: routes.admin.bankaccounts.index },
   { label: 'Дарения', icon: VolunteerActivismOutlinedIcon, href: routes.admin.donations.index },
   { label: 'Трезори', icon: Shield, href: routes.admin.vaults.index },
+  { label: 'Банкови сметки', icon: Payment, href: routes.admin.bankaccounts.index },
   { label: 'Тегления', icon: LocalAtmIcon, href: routes.admin.withdrawals.index },
   { label: 'Прехвърляния', icon: MoveUp, href: routes.admin.transfer.index },
   { label: 'Разходи', icon: Paid, href: routes.admin.expenses.index },
@@ -64,30 +64,31 @@ export const items = [
   { items: menuSetings, menu: 'Системни', icon: DisplaySettings },
 ]
 
-export const menuItems = [
+export const adminCards = [
   { label: 'Кампании', icon: AssignmentInd, href: routes.admin.campaigns.index },
   { label: 'Дарения', icon: VolunteerActivismOutlinedIcon, href: routes.admin.donations.index },
-  { label: 'Доброволци', icon: People, href: routes.admin.supporters },
-  { label: 'Контакти', icon: ContactPhone, href: routes.admin.infoRequests },
-  { label: 'Плащания', icon: Payment, href: routes.admin.bankaccounts.index },
-  { label: 'Потребители', icon: Group, href: routes.admin.person.create },
-  { label: 'ЮЛНЦ', icon: Group, href: routes.admin.company.create },
-  { label: 'Документи', icon: FolderShared, href: routes.admin.documents.index },
-  { label: 'Бенефактори', icon: BeneficiaryIcon, href: routes.admin.benefactor.index },
   { label: 'Бенефициенти', icon: BeneficiaryIcon, href: routes.admin.beneficiary.index },
-  { label: 'Типове кампании', icon: Class, href: routes.admin.campaignTypes.index },
-  { label: 'Градове', icon: LocationCityRoundedIcon, href: routes.admin.cities.home },
-  { label: 'Държави', icon: Public, href: routes.admin.countries.index },
   { label: 'Координатори', icon: People, href: routes.admin.coordinators.index },
+  { label: 'Организатори', icon: Group, href: routes.admin.organizers.index },
+  { label: 'ЮЛНЦ', icon: Group, href: routes.admin.company.create },
+  { label: 'Банкови сметки', icon: Payment, href: routes.admin.bankaccounts.index },
+  { label: 'Тегления', icon: LocalAtmIcon, href: routes.admin.withdrawals.index },
   { label: 'Разходи', icon: Paid, href: routes.admin.expenses.index },
   { label: 'Трезори', icon: Shield, href: routes.admin.vaults.index },
-  { label: 'Тегления', icon: LocalAtmIcon, href: routes.admin.withdrawals.index },
   { label: 'Прехвърляния', icon: MoveUp, href: routes.admin.transfer.index },
   {
     label: 'Повтарящо се дарение',
     icon: VolunteerActivism,
     href: routes.admin.recurringDonation.index,
   },
+  { label: 'Доброволци', icon: People, href: routes.admin.supporters },
+  { label: 'Контакти', icon: ContactPhone, href: routes.admin.infoRequests },
+  { label: 'Потребители', icon: Group, href: routes.admin.person.create },
+  { label: 'Документи', icon: FolderShared, href: routes.admin.documents.index },
+  { label: 'Бенефактори', icon: BeneficiaryIcon, href: routes.admin.benefactor.index },
+  { label: 'Типове кампании', icon: Class, href: routes.admin.campaignTypes.index },
+  { label: 'Градове', icon: LocationCityRoundedIcon, href: routes.admin.cities.home },
+  { label: 'Държави', icon: Public, href: routes.admin.countries.index },
+
   { label: 'Злоупотреби', icon: ReportGmailerrorredIcon, href: routes.admin.irregularity.index },
-  { label: 'Организатори', icon: Group, href: routes.admin.organizers.index },
 ]

@@ -7,7 +7,7 @@ import { Box, Card, CardActionArea, CardContent, Grid, Typography } from '@mui/m
 import { isAdmin } from 'common/util/roles'
 import AdminLayout from 'components/admin/navigation/AdminLayout'
 
-import { menuItems } from './navigation/adminMenu'
+import { adminCards } from './navigation/adminMenu'
 import AdminContainer from './navigation/AdminContainer'
 
 export default function AdminPage() {
@@ -45,7 +45,7 @@ export default function AdminPage() {
           <Typography variant="h6">{'Добре дошли!'}</Typography>
         </Box>
         <Grid container spacing={2} rowSpacing={4} px={4} pb={4}>
-          {menuItems.map(({ label, href, icon: Icon }, index) => (
+          {adminCards.map(({ label, href, icon: Icon }, index) => (
             <Grid xs={12} sm={6} md={4} lg={2} item key={index}>
               <Card sx={{ maxWidth: 345 }}>
                 <CardActionArea onClick={() => router.push(href)}>
