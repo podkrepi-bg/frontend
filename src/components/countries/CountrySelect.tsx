@@ -2,12 +2,21 @@ import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/
 import { TranslatableField, translateError } from 'common/form/validation'
 import { useCountriesList } from 'common/hooks/countries'
 import { useField } from 'formik'
+import { CountryResponse } from 'gql/countries'
 import { useTranslation } from 'react-i18next'
 
-export default function CountrySelect({ name = 'countryCode' }) {
+type Props = {
+  formField?: string
+  valueName?: keyof CountryResponse
+}
+
+export default function CountrySelect({
+  formField = 'countryCode',
+  valueName = 'countryCode',
+}: Props) {
   const { t } = useTranslation()
   const { data } = useCountriesList()
-  const [field, meta] = useField(name)
+  const [field, meta] = useField(formField)
 
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
   if (!data) {
@@ -26,7 +35,7 @@ export default function CountrySelect({ name = 'countryCode' }) {
           {t('countries:select-country')}
         </MenuItem>
         {data?.map((country) => (
-          <MenuItem key={country.id} value={country.countryCode}>
+          <MenuItem key={country.id} value={country[valueName] as string}>
             {country.name}
           </MenuItem>
         ))}

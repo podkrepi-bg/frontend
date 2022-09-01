@@ -78,7 +78,7 @@ export default function EditForm() {
             />
           </Grid>
           <Grid item xs={12}>
-            <CountrySelect />
+            <CountrySelect formField="countryId" valueName="id" />
           </Grid>
           <Grid item xs={6}>
             <SubmitButton fullWidth label={t('cities:cta:submit')} />
