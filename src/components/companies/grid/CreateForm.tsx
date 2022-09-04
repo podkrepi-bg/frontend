@@ -104,7 +104,7 @@ export default function CreateForm() {
                 {t('companies:admin.cta.create-new')}
               </Link>
             </p>
-            <CountrySelect name="countryId" />
+            <CountrySelect formField="countryId" valueName="id" />
           </Grid>
           <Grid item xs={6}>
             <p>

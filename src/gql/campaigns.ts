@@ -4,6 +4,7 @@ import type { CampaignTypeCategory } from 'components/campaign-types/categories'
 import { Currency } from './currency'
 import { PaymentProvider } from './donations.enums'
 import { CampaignState } from 'components/campaigns/helpers/campaign.enums'
+import { BeneficiaryType } from '../components/beneficiary/BeneficiaryTypes'
 
 export type CampaignType = {
   id: UUID
@@ -51,7 +52,11 @@ export type AdminCampaignResponse = BaseCampaignResponse & {
     slug: string
   }
   beneficiary: {
-    person: { firstName: string; lastName: string }
+    id: UUID
+    type: BeneficiaryType
+    publicData: string
+    person: { id: UUID; firstName: string; lastName: string }
+    company: { id: UUID; companyName: string }
   }
   coordinator: {
     person: { firstName: string; lastName: string }
@@ -80,9 +85,10 @@ export type CampaignResponse = BaseCampaignResponse & {
   summary: { reachedAmount: number; donors?: number }
   beneficiary: {
     id: UUID
-    type: string
+    type: BeneficiaryType
     publicData: string
     person: { id: UUID; firstName: string; lastName: string }
+    company: { id: UUID; companyName: string }
   }
   coordinator: {
     id: UUID

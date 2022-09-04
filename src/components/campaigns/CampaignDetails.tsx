@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { CampaignResponse } from 'gql/campaigns'
+import { BeneficiaryType } from 'components/beneficiary/BeneficiaryTypes'
 import CampaignMessages from './CampaignMessages'
 import CampaignSlider from './CampaignSlider'
 import {
@@ -125,7 +126,9 @@ export default function CampaignDetails({ campaign }: Props) {
           className={classes.beneficiaryAvatar}
         />
         <Typography variant="subtitle2" component="p" className={classes.beneficiaryName}>
-          {campaign.beneficiary.person.firstName} {campaign.beneficiary.person.lastName}
+          {campaign.beneficiary.type === BeneficiaryType.individual
+            ? campaign.beneficiary.person.firstName + ' ' + campaign.beneficiary.person?.lastName
+            : campaign.beneficiary.company.companyName}
         </Typography>
       </Grid>
       <Typography variant="h1" component="h1" my={8} className={classes.campaignTitle}>

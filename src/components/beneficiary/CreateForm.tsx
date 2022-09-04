@@ -138,7 +138,7 @@ export default function CreateForm() {
                 <PersonSelect name="personId" label={t('beneficiary:forms.labels.person-label')} />
               </Grid>
               <Grid item xs={6}>
-                <CountrySelect name="countryCode" />
+                <CountrySelect />
               </Grid>
               <Grid item xs={6}>
                 <CitySelect name="cityId" />
