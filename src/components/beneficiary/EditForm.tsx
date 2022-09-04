@@ -169,10 +169,7 @@ export default function EditForm() {
                 <CountrySelect />
               </Grid>
               <Grid item xs={6}>
-                <CitySelect
-                  disabled={initialValues.type === BeneficiaryType.company}
-                  name="cityId"
-                />
+                <CitySelect name="cityId" />
               </Grid>
             </>
           ) : (

@@ -17,6 +17,7 @@ import { GridCellExpand } from 'components/common/GridCellExpand'
 import GridActions from './GridActions'
 import DeleteModal from './modals/DeleteModal'
 import DetailsModal from './modals/DetailsModal'
+import { BeneficiaryType } from 'components/beneficiary/BeneficiaryTypes'
 
 interface CampaignCellProps {
   params: GridRenderCellParams<AdminCampaignResponse, AdminCampaignResponse>
@@ -40,7 +41,9 @@ const DisplayOrganizer = ({ params }: CampaignCellProps) => {
 const DisplayBeneficiary = ({ params }: CampaignCellProps) => {
   return (
     <>
-      {params.row.beneficiary.person.firstName} {params.row.beneficiary.person.lastName}
+      {params.row.beneficiary.type === BeneficiaryType.individual
+        ? params.row.beneficiary.person.firstName + ' ' + params.row.beneficiary.person?.lastName
+        : params.row.beneficiary.company.companyName}
     </>
   )
 }

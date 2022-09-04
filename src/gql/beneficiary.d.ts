@@ -3,7 +3,7 @@ import { Person } from './person'
 
 export type BeneficiaryListResponse = {
   id: string
-  type: BeneficiaryType
+  type?: BeneficiaryType
   personId?: string
   person?: Person
   company?: { companyName: string }
@@ -23,7 +23,7 @@ export type ViewBeneficiaryResponse = BeneficiaryListResponse & {
 }
 
 export type BeneficiaryFormData = {
-  type: BeneficiaryType
+  type?: BeneficiaryType
   personId?: string
   companyId?: string
   countryCode: string

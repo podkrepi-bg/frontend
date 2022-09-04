@@ -18,7 +18,7 @@ export const PersonRelation = {
   colleague: 'colleague',
 }
 
-export const BeneficiaryType = {
-  individual: 'individual',
-  company: 'company',
+export enum BeneficiaryType {
+  individual = 'individual',
+  company = 'company',
 }
