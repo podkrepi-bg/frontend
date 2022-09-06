@@ -20,28 +20,7 @@
   "team-section": {
     "heading": "Who is behind Podkrepi.bg?",
     "content": "Podkrepi.bg is a community of specialists in the field of programming, law, marketing, design, medicine, finance, social entrepreneurship and others. We are united by the goal of creating a sustainable and transparent donation platform that supports causes and people in need, while promoting and restoring trust in donations in Bulgaria.",
-    "meet-our-team": "Meet our team in the blog",
-    "ilko-kacharov": "Ilko Kacharov",
-    "radoslav-bozhinov": "Radoslav Bozhinov",
-    "ana-nikolova": "Ana Nikolova",
-    "organizational-team": "Organizational team"
-  },
-  "team-chart-section": {
-    "heading": "How it all started?",
-    "data": {
-      "back-end": "Backend (146)",
-      "frontend": "Frontend (89)",
-      "full-stack": "Full-Stack (82)",
-      "dev-ops": "DevOps (78)",
-      "qa": "QA (61)",
-      "design": "Design (35)",
-      "law": "Law (16)",
-      "management": "Management (88)",
-      "accounting": "Accounting and Finance (16)",
-      "marketing": "Marketing and PR (72)",
-      "ngo": "NGO/Volunteering (37)",
-      "others": "Others (16)"
-    }
+    "meet-our-team": "Meet our team in the blog"
   },
   "support-us-section": {
     "heading": "Support us as:",
