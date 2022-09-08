@@ -1,23 +1,34 @@
-import { Grid, Theme, Typography } from '@mui/material'
+import { Grid, Theme, Typography, Button, Link } from '@mui/material'
 import Heading from 'components/common/Heading'
 import { useTranslation } from 'next-i18next'
 import { data } from './helpers/teamData'
 import Image from 'next/image'
 import { createStyles, makeStyles } from '@mui/styles'
 import { LinkedIn } from '@mui/icons-material'
-import LinkButton from 'components/common/LinkButton'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     managemtenBoardMembersWrapper: {
       display: 'flex',
+      justifyContent: 'space-between',
+      gap: theme.spacing(2),
     },
     teamMemberWrapper: {
-      background: 'transparent',
-      maxWidth: '20%',
+      flexGrow: 1,
+      flexBasis: 0,
+      width: '10%',
     },
-    teamMemberAvatar: {
+    avatar: {
       borderRadius: '50%',
+      textAlign: 'center',
+      width: '150px',
+    },
+    name: {
+      fontWeight: 700,
+      margin: theme.spacing(3, 0),
+    },
+    linkedIn: {
+      display: 'block',
     },
   }),
 )
@@ -35,17 +46,21 @@ export default function ManagementBoardMembers() {
         {data.map((teamMember) => (
           <Grid key={teamMember.img} className={classes.teamMemberWrapper}>
             <Image
-              alt="avatar"
+              alt="teamMemberAvatar"
               src={teamMember.img}
-              width={150}
-              height={150}
-              className={classes.teamMemberAvatar}
+              width="200px"
+              height="200px"
+              className={classes.avatar}
             />
-            <Typography variant="subtitle1">{teamMember.name}</Typography>
+            <Typography variant="subtitle1" className={classes.name}>
+              {teamMember.name}
+            </Typography>
             <Typography variant="subtitle1">{teamMember.description}</Typography>
-            <LinkButton href={teamMember.linkedInProfile} startIcon={<LinkedIn color="action" />}>
+            <Link href={teamMember.blogUrl}>{t('about.see-more')}</Link>
+            <Link href={teamMember.linkedInProfile} className={classes.linkedIn}>
+              <LinkedIn color="action" />
               {t('about.linkedIn')}
-            </LinkButton>
+            </Link>
           </Grid>
         ))}
       </Grid>
