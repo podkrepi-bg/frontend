@@ -5,7 +5,7 @@ import ManagementBoardMembers from './ManagementBoardMembers'
 export default function AboutPage() {
   const { t } = useTranslation()
   return (
-    <Layout title={t('about:about.title')}>
+    <Layout title={t('about:about.title')} maxWidth="xl">
       <ManagementBoardMembers />
       {/* <PrinciplesThatUniteUs /> */}
     </Layout>

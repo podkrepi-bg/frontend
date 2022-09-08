@@ -11,24 +11,59 @@ const useStyles = makeStyles((theme: Theme) =>
     managemtenBoardMembersWrapper: {
       display: 'flex',
       justifyContent: 'space-between',
-      gap: theme.spacing(2),
+      gap: theme.spacing(3),
+      flexWrap: 'wrap',
+    },
+    managementBoardMembersHeading: {
+      fontWeight: 500,
     },
     teamMemberWrapper: {
       flexGrow: 1,
-      flexBasis: 0,
-      width: '10%',
+      width: '100%',
+      textAlign: 'center',
+      marginBottom: theme.spacing(3),
+      [theme.breakpoints.up('sm')]: {
+        width: '10%',
+        flex: '1 0 40%',
+        marginBottom: theme.spacing(0),
+      },
+      [theme.breakpoints.up('md')]: {
+        flex: '1 0 30%',
+      },
+      [theme.breakpoints.up('lg')]: {
+        flex: '1 0 10%',
+      },
+    },
+    description: {
+      textAlign: 'initial',
     },
     avatar: {
       borderRadius: '50%',
       textAlign: 'center',
       width: '150px',
+      objectFit: 'cover',
     },
     name: {
       fontWeight: 700,
       margin: theme.spacing(3, 0),
     },
-    linkedIn: {
-      display: 'block',
+    linkedInButton: {
+      display: 'flex',
+      alignItems: 'center',
+      marginTop: theme.spacing(3),
+      '&:hover': {
+        '&>svg, &>h6': {
+          textDecoration: 'underline',
+          color: theme.palette.primary.main,
+        },
+      },
+    },
+    LinkedInIcon: {
+      marginLeft: '-4px',
+    },
+    linkedInText: {
+      marginLeft: theme.spacing(1),
+      color: theme.palette.common.black,
     },
   }),
 )
@@ -38,9 +73,14 @@ export default function ManagementBoardMembers() {
   const classes = useStyles()
 
   return (
-    <Grid>
-      <Heading variant="h4" component="h2" textAlign="center" mb={8}>
-        {t('about.managementBoardMembers')}
+    <Grid component="section">
+      <Heading
+        variant="h4"
+        component="h2"
+        textAlign="center"
+        mb={8}
+        className={classes.managementBoardMembersHeading}>
+        {t('about.management-board-members')}
       </Heading>
       <Grid className={classes.managemtenBoardMembersWrapper}>
         {data.map((teamMember) => (
@@ -55,11 +95,17 @@ export default function ManagementBoardMembers() {
             <Typography variant="subtitle1" className={classes.name}>
               {teamMember.name}
             </Typography>
-            <Typography variant="subtitle1">{teamMember.description}</Typography>
-            <Link href={teamMember.blogUrl}>{t('about.see-more')}</Link>
-            <Link href={teamMember.linkedInProfile} className={classes.linkedIn}>
-              <LinkedIn color="action" />
-              {t('about.linkedIn')}
+            <Typography variant="body2" className={classes.description}>
+              {teamMember.description}
+            </Typography>
+            <Link
+              href={teamMember.linkedInProfile}
+              target="_blank"
+              className={classes.linkedInButton}>
+              <LinkedIn color="action" fontSize="large" className={classes.LinkedInIcon} />
+              <Typography variant="subtitle1" className={classes.linkedInText}>
+                {t('about.linkedIn')}
+              </Typography>
             </Link>
           </Grid>
         ))}
