@@ -1,11 +1,8 @@
 {
   "about": {
-    "title": "About us",
-    "description": "We are a group of volunteers with a common goal: to create a transparent platform for donations that does not take a commission from successful campaigns."
-  },
-  "howEverythingBegin": {
-    "title": "How everything started?",
-    "volunteers": "We are volunteers from the IT community, lawyers, accountants, marketers, medics, and NGO representatives. We are united by the desire to create an improved fundraising environment in Bulgaria by developing the most transparent platform for donations. The platform will support itself by membership fees and grants and not by charging a percentage of the funds raised for the campaigns that go through it."
+    "title": "Who are we?",
+    "managementBoardMembers": "Management Board members",
+    "linkedIn": "LinkedIn"
   },
   "principlesThatUniteUs": {
     "title": "Our principles",
