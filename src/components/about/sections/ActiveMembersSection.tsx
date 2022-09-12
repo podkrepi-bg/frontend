@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'inline-flex',
       alignItems: 'center',
       textAlign: 'center',
+      marginTop: theme.spacing(3),
       '&:hover': {
         '&>svg, &>h6': {
           textDecoration: 'underline',
@@ -93,11 +94,12 @@ export default function ActiveMembers() {
             <Typography variant="subtitle1" className={classes.name}>
               {teamMember.name}
             </Typography>
+            <Typography variant="body2">{teamMember.description}</Typography>
             <Link
               href={teamMember.linkedInProfile}
               target="_blank"
               className={classes.linkedInButton}>
-              <LinkedIn color="action" fontSize="large" className={classes.LinkedInIcon} />
+              <LinkedIn color="primary" fontSize="large" className={classes.LinkedInIcon} />
               <Typography variant="subtitle1" className={classes.linkedInText}>
                 {t('about.linkedIn')}
               </Typography>
