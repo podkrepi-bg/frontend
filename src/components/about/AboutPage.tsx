@@ -1,7 +1,7 @@
 import Layout from 'components/layout/Layout'
 import { useTranslation } from 'next-i18next'
 import ManagementBoardSection from './sections/ManagementBoardSection'
-import ActiveMembers from './sections/ActiveMembers'
+import ActiveMembers from './sections/ActiveMembersSection'
 import SupervisoryBoardSection from './sections/SupervisoryBoardSection'
 import AboutTheTeamSection from './sections/AboutTheTeamSection'
 
