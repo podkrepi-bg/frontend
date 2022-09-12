@@ -2,7 +2,7 @@ export type TeamData = {
   img: string
   name: string
   description: string
-  linkedInProfile: string
+  linkedInProfile?: string
 }
 
 export const data: TeamData[] = [
@@ -25,7 +25,6 @@ export const data: TeamData[] = [
     name: 'Марияна Каролева',
     description:
       'От години се занимавам с доброволчество, като подкрепям каузи на различни организации, и в качеството си на частно лице помагам със средства, време и внимание на хора в нужда. Като ръководител на Екип Кампании участвам  в процеса по структуриране и управление на кампаниите и платформата, в изграждането на различните експертни съвети и набирането на членовете им и в избора и обработката на първите кампании.',
-    linkedInProfile: 'https://www.linkedin.com/in/anatnikolova/',
   },
   {
     img: '/img/team-photos/JulianKalderon.png',
