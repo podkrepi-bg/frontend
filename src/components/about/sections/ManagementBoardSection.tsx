@@ -98,15 +98,17 @@ export default function ManagementBoardSection() {
             <Typography variant="body2" className={classes.description}>
               {teamMember.description}
             </Typography>
-            <Link
-              href={teamMember.linkedInProfile}
-              target="_blank"
-              className={classes.linkedInButton}>
-              <LinkedIn color="action" fontSize="large" className={classes.LinkedInIcon} />
-              <Typography variant="subtitle1" className={classes.linkedInText}>
-                {t('about.linkedIn')}
-              </Typography>
-            </Link>
+            {teamMember.linkedInProfile ? (
+              <Link
+                href={teamMember.linkedInProfile}
+                target="_blank"
+                className={classes.linkedInButton}>
+                <LinkedIn color="primary" fontSize="large" className={classes.LinkedInIcon} />
+                <Typography variant="subtitle1" className={classes.linkedInText}>
+                  {t('about.linkedIn')}
+                </Typography>
+              </Link>
+            ) : null}
           </Grid>
         ))}
       </Grid>
