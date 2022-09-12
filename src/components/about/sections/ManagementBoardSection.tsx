@@ -4,7 +4,7 @@ import { Grid, Theme, Typography, Link } from '@mui/material'
 import Heading from 'components/common/Heading'
 import { createStyles, makeStyles } from '@mui/styles'
 import { LinkedIn } from '@mui/icons-material'
-import { data } from '../helpers/teamData'
+import { data } from '../helpers/managementBoardData'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
       gap: theme.spacing(3),
       flexWrap: 'wrap',
     },
-    managementBoardMembersHeading: {
+    managementBoardHeading: {
       fontWeight: 500,
       marginBottom: theme.spacing(8),
     },
@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-export default function ManagementBoardMembersSection() {
+export default function ManagementBoardSection() {
   const { t } = useTranslation('about')
   const classes = useStyles()
 
@@ -79,7 +79,7 @@ export default function ManagementBoardMembersSection() {
         variant="h4"
         component="h2"
         textAlign="center"
-        className={classes.managementBoardMembersHeading}>
+        className={classes.managementBoardHeading}>
         {t('about.management-board-members')}
       </Heading>
       <Grid className={classes.managemtenBoardMembersWrapper}>
