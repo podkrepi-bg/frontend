@@ -43,7 +43,7 @@ export const data: TeamData[] = [
     linkedInProfile: 'https://www.linkedin.com/in/joroivanoff/',
   },
   {
-    img: '/img/team-photos/MarianaGeorgieva.jpg',
+    img: '/podkrepi-icon.png',
     name: 'Мариана Георгиева',
     description: 'Дизайн',
     linkedInProfile: 'https://www.linkedin.com/in/mariana-georgieva-45302615a',

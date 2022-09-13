@@ -84,7 +84,7 @@ export default function ManagementBoardMembers() {
       </Heading>
       <Grid className={classes.managementBoardWrapper}>
         {data.map((teamMember) => (
-          <Grid key={teamMember.img} className={classes.teamMemberWrapper}>
+          <Grid key={teamMember.name} className={classes.teamMemberWrapper}>
             <Image
               alt="teamMemberAvatar"
               src={teamMember.img}

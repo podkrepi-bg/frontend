@@ -1,22 +1,22 @@
 import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import { Grid, Theme, Typography, Link } from '@mui/material'
+import Heading from 'components/common/Heading'
 import { createStyles, makeStyles } from '@mui/styles'
 import { LinkedIn } from '@mui/icons-material'
-import Heading from 'components/common/Heading'
-import { data } from '../helpers/activeMembersData'
+import { data } from '../helpers/associationMembersData'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    activeMembersWrapper: {
+    associationMembersWrapper: {
       display: 'flex',
       justifyContent: 'space-between',
       gap: theme.spacing(3),
       flexWrap: 'wrap',
     },
-    activeMembersHeading: {
+    associationMembersHeading: {
       fontWeight: 500,
-      marginTop: theme.spacing(15),
+      margin: theme.spacing(15, 0, 8, 0),
     },
     teamMemberWrapper: {
       flexGrow: 1,
@@ -46,9 +46,9 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(3, 0),
     },
     linkedInButton: {
-      display: 'inline-flex',
+      display: 'flex',
       alignItems: 'center',
-      textAlign: 'center',
+      justifyContent: 'center',
       marginTop: theme.spacing(3),
       '&:hover': {
         '&>svg, &>h6': {
@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-export default function ActiveMembersSection() {
+export default function AssociationMembersSection() {
   const { t } = useTranslation('about')
   const classes = useStyles()
 
@@ -77,11 +77,10 @@ export default function ActiveMembersSection() {
         variant="h4"
         component="h2"
         textAlign="center"
-        mb={8}
-        className={classes.activeMembersHeading}>
-        {t('about.active-team-members')}
+        className={classes.associationMembersHeading}>
+        {t('about.association-members')}
       </Heading>
-      <Grid className={classes.activeMembersWrapper}>
+      <Grid className={classes.associationMembersWrapper}>
         {data.map((teamMember) => (
           <Grid key={teamMember.name} className={classes.teamMemberWrapper}>
             <Image
@@ -94,16 +93,17 @@ export default function ActiveMembersSection() {
             <Typography variant="subtitle1" className={classes.name}>
               {teamMember.name}
             </Typography>
-            <Typography variant="body2">{teamMember.description}</Typography>
-            <Link
-              href={teamMember.linkedInProfile}
-              target="_blank"
-              className={classes.linkedInButton}>
-              <LinkedIn color="action" fontSize="large" className={classes.LinkedInIcon} />
-              <Typography variant="subtitle1" className={classes.linkedInText}>
-                {t('about.linkedIn')}
-              </Typography>
-            </Link>
+            {teamMember.linkedInProfile ? (
+              <Link
+                href={teamMember.linkedInProfile}
+                target="_blank"
+                className={classes.linkedInButton}>
+                <LinkedIn color="action" fontSize="large" className={classes.LinkedInIcon} />
+                <Typography variant="subtitle1" className={classes.linkedInText}>
+                  {t('about.linkedIn')}
+                </Typography>
+              </Link>
+            ) : null}
           </Grid>
         ))}
       </Grid>

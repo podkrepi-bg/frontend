@@ -109,7 +109,7 @@ export default function SupervisoryBoardSection() {
       </Heading>
       <Grid className={classes.supervisoryBoardMembersWrapper}>
         {data.map((teamMember) => (
-          <Grid key={teamMember.img} className={classes.teamMemberWrapper}>
+          <Grid key={teamMember.name} className={classes.teamMemberWrapper}>
             <Grid className={classes.infoWrapper}>
               <Image
                 alt="Team member avatar"
