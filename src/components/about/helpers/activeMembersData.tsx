@@ -31,27 +31,9 @@ export const data: TeamData[] = [
     linkedInProfile: 'https://www.linkedin.com/in/ani-kalpachka-937170105/',
   },
   {
-    img: '/img/team-photos/IvanMilchev.jpeg',
-    name: 'Иван Милчев',
-    description: 'Софтуерна инфраструктура',
-    linkedInProfile: 'https://www.linkedin.com/in/ivanmilchev/',
-  },
-  {
-    img: '/img/team-photos/StanislavStoychev.jpg',
-    name: 'Станислав Стойчев',
-    description: 'Софтуерна разработка, Продуктов Мениджмънт',
-    linkedInProfile: 'https://www.linkedin.com/in/stanislav-stoychev-61490435/',
-  },
-  {
     img: '/img/team-photos/NeliRadkova.jpg',
     name: 'Нели Радкова',
     description: 'Софтуерна разработка',
     linkedInProfile: 'https://www.linkedin.com/in/neli-radkova-8771041b6/',
-  },
-  {
-    img: '/img/team-photos/GeorgiIvanov.jpg',
-    name: 'Георги Иванов',
-    description: 'Маркетинг',
-    linkedInProfile: 'https://www.linkedin.com/in/joroivanoff/',
   },
 ]
