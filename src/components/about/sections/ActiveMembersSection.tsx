@@ -1,22 +1,22 @@
 import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import { Grid, Theme, Typography, Link } from '@mui/material'
-import Heading from 'components/common/Heading'
 import { createStyles, makeStyles } from '@mui/styles'
 import { LinkedIn } from '@mui/icons-material'
-import { data } from '../helpers/managementBoardData'
+import Heading from 'components/common/Heading'
+import { data } from '../helpers/activeMembersData'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    managemtenBoardMembersWrapper: {
+    activeMembersWrapper: {
       display: 'flex',
       justifyContent: 'space-between',
       gap: theme.spacing(3),
       flexWrap: 'wrap',
     },
-    managementBoardHeading: {
+    activeMembersHeading: {
       fontWeight: 500,
-      marginBottom: theme.spacing(8),
+      marginTop: theme.spacing(15),
     },
     teamMemberWrapper: {
       flexGrow: 1,
@@ -32,11 +32,8 @@ const useStyles = makeStyles((theme: Theme) =>
         flex: '1 0 30%',
       },
       [theme.breakpoints.up('lg')]: {
-        flex: '1 0 10%',
+        flex: '1 0 12%',
       },
-    },
-    description: {
-      textAlign: 'initial',
     },
     avatar: {
       borderRadius: '50%',
@@ -49,8 +46,9 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: theme.spacing(3, 0),
     },
     linkedInButton: {
-      display: 'flex',
+      display: 'inline-flex',
       alignItems: 'center',
+      textAlign: 'center',
       marginTop: theme.spacing(3),
       '&:hover': {
         '&>svg, &>h6': {
@@ -69,7 +67,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-export default function ManagementBoardSection() {
+export default function ActiveMembersSection() {
   const { t } = useTranslation('about')
   const classes = useStyles()
 
@@ -79,10 +77,11 @@ export default function ManagementBoardSection() {
         variant="h4"
         component="h2"
         textAlign="center"
-        className={classes.managementBoardHeading}>
-        {t('about.management-board-members')}
+        mb={8}
+        className={classes.activeMembersHeading}>
+        {t('about.active-team-members')}
       </Heading>
-      <Grid className={classes.managemtenBoardMembersWrapper}>
+      <Grid className={classes.activeMembersWrapper}>
         {data.map((teamMember) => (
           <Grid key={teamMember.name} className={classes.teamMemberWrapper}>
             <Image
@@ -95,20 +94,16 @@ export default function ManagementBoardSection() {
             <Typography variant="subtitle1" className={classes.name}>
               {teamMember.name}
             </Typography>
-            <Typography variant="body2" className={classes.description}>
-              {teamMember.description}
-            </Typography>
-            {teamMember.linkedInProfile ? (
-              <Link
-                href={teamMember.linkedInProfile}
-                target="_blank"
-                className={classes.linkedInButton}>
-                <LinkedIn color="action" fontSize="large" className={classes.LinkedInIcon} />
-                <Typography variant="subtitle1" className={classes.linkedInText}>
-                  {t('about.linkedIn')}
-                </Typography>
-              </Link>
-            ) : null}
+            <Typography variant="body2">{teamMember.description}</Typography>
+            <Link
+              href={teamMember.linkedInProfile}
+              target="_blank"
+              className={classes.linkedInButton}>
+              <LinkedIn color="action" fontSize="large" className={classes.LinkedInIcon} />
+              <Typography variant="subtitle1" className={classes.linkedInText}>
+                {t('about.linkedIn')}
+              </Typography>
+            </Link>
           </Grid>
         ))}
       </Grid>

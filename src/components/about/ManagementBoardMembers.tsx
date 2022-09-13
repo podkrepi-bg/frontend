@@ -1,4 +1,4 @@
-import { Grid, Theme, Typography, Button, Link } from '@mui/material'
+import { Grid, Theme, Typography, Link } from '@mui/material'
 import Heading from 'components/common/Heading'
 import { useTranslation } from 'next-i18next'
 import { data } from './helpers/managementBoardData'
@@ -8,7 +8,7 @@ import { LinkedIn } from '@mui/icons-material'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    managemtenBoardWrapper: {
+    managementBoardWrapper: {
       display: 'flex',
       justifyContent: 'space-between',
       gap: theme.spacing(3),
@@ -82,9 +82,9 @@ export default function ManagementBoardMembers() {
         className={classes.managementBoardHeading}>
         {t('about.management-board-members')}
       </Heading>
-      <Grid className={classes.managemtenBoardWrapper}>
+      <Grid className={classes.managementBoardWrapper}>
         {data.map((teamMember) => (
-          <Grid key={teamMember.img} className={classes.teamMemberWrapper}>
+          <Grid key={teamMember.name} className={classes.teamMemberWrapper}>
             <Image
               alt="teamMemberAvatar"
               src={teamMember.img}

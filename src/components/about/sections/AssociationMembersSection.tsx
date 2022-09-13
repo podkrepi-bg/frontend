@@ -4,19 +4,19 @@ import { Grid, Theme, Typography, Link } from '@mui/material'
 import Heading from 'components/common/Heading'
 import { createStyles, makeStyles } from '@mui/styles'
 import { LinkedIn } from '@mui/icons-material'
-import { data } from '../helpers/managementBoardData'
+import { data } from '../helpers/associationMembersData'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    managemtenBoardMembersWrapper: {
+    associationMembersWrapper: {
       display: 'flex',
       justifyContent: 'space-between',
       gap: theme.spacing(3),
       flexWrap: 'wrap',
     },
-    managementBoardHeading: {
+    associationMembersHeading: {
       fontWeight: 500,
-      marginBottom: theme.spacing(8),
+      margin: theme.spacing(15, 0, 8, 0),
     },
     teamMemberWrapper: {
       flexGrow: 1,
@@ -32,11 +32,8 @@ const useStyles = makeStyles((theme: Theme) =>
         flex: '1 0 30%',
       },
       [theme.breakpoints.up('lg')]: {
-        flex: '1 0 10%',
+        flex: '1 0 12%',
       },
-    },
-    description: {
-      textAlign: 'initial',
     },
     avatar: {
       borderRadius: '50%',
@@ -51,6 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
     linkedInButton: {
       display: 'flex',
       alignItems: 'center',
+      justifyContent: 'center',
       marginTop: theme.spacing(3),
       '&:hover': {
         '&>svg, &>h6': {
@@ -69,7 +67,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )
 
-export default function ManagementBoardSection() {
+export default function AssociationMembersSection() {
   const { t } = useTranslation('about')
   const classes = useStyles()
 
@@ -79,10 +77,10 @@ export default function ManagementBoardSection() {
         variant="h4"
         component="h2"
         textAlign="center"
-        className={classes.managementBoardHeading}>
-        {t('about.management-board-members')}
+        className={classes.associationMembersHeading}>
+        {t('about.association-members')}
       </Heading>
-      <Grid className={classes.managemtenBoardMembersWrapper}>
+      <Grid className={classes.associationMembersWrapper}>
         {data.map((teamMember) => (
           <Grid key={teamMember.name} className={classes.teamMemberWrapper}>
             <Image
@@ -94,9 +92,6 @@ export default function ManagementBoardSection() {
             />
             <Typography variant="subtitle1" className={classes.name}>
               {teamMember.name}
-            </Typography>
-            <Typography variant="body2" className={classes.description}>
-              {teamMember.description}
             </Typography>
             {teamMember.linkedInProfile ? (
               <Link

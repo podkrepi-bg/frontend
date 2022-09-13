@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     AboutTheTeamHeading: {
       fontWeight: 500,
-      margin: theme.spacing(10, 0, 8, 0),
+      margin: theme.spacing(15, 0, 8, 0),
     },
     DiscordTeamImage: {
       marginTop: theme.spacing(8),

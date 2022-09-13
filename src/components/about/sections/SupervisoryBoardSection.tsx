@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     supervisoryBoardHeading: {
       fontWeight: 500,
-      margin: theme.spacing(8, 0),
+      margin: theme.spacing(15, 0, 8, 0),
     },
     teamMemberWrapper: {
       width: '100%',
@@ -70,6 +70,9 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       marginTop: theme.spacing(3),
       alignSelf: 'center',
+      [theme.breakpoints.up('md')]: {
+        alignSelf: 'start',
+      },
       '&:hover': {
         '&>svg, &>h6': {
           textDecoration: 'underline',
@@ -106,7 +109,7 @@ export default function SupervisoryBoardSection() {
       </Heading>
       <Grid className={classes.supervisoryBoardMembersWrapper}>
         {data.map((teamMember) => (
-          <Grid key={teamMember.img} className={classes.teamMemberWrapper}>
+          <Grid key={teamMember.name} className={classes.teamMemberWrapper}>
             <Grid className={classes.infoWrapper}>
               <Image
                 alt="Team member avatar"
@@ -123,7 +126,7 @@ export default function SupervisoryBoardSection() {
                   href={teamMember.linkedInProfile}
                   target="_blank"
                   className={classes.linkedInButton}>
-                  <LinkedIn color="primary" fontSize="large" className={classes.LinkedInIcon} />
+                  <LinkedIn color="action" fontSize="large" className={classes.LinkedInIcon} />
                   <Typography variant="subtitle1" className={classes.linkedInText}>
                     {t('about.linkedIn')}
                   </Typography>
