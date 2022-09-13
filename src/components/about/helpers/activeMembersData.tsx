@@ -36,4 +36,16 @@ export const data: TeamData[] = [
     description: 'Софтуерна разработка',
     linkedInProfile: 'https://www.linkedin.com/in/neli-radkova-8771041b6/',
   },
+  {
+    img: '/img/team-photos/GeorgiIvanov.jpg',
+    name: 'Георги Иванов',
+    description: 'Маркетинг',
+    linkedInProfile: 'https://www.linkedin.com/in/joroivanoff/',
+  },
+  {
+    img: '/img/team-photos/MarianaGeorgieva.jpg',
+    name: 'Мариана Георгиева',
+    description: 'Дизайн',
+    linkedInProfile: 'https://www.linkedin.com/in/mariana-georgieva-45302615a',
+  },
 ]
