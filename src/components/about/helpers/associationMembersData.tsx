@@ -59,7 +59,7 @@ export const data: TeamData[] = [
     linkedInProfile: 'https://www.linkedin.com/in/preslavgerchev/',
   },
   {
-    img: '/img/team-photos/IvanMilchev.jpeg',
+    img: '/img/team-photos/IvanMilchev.jpg',
     name: 'Иван Милчев',
     linkedInProfile: 'https://www.linkedin.com/in/ivanmilchev/',
   },
