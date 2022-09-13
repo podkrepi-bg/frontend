@@ -48,4 +48,16 @@ export const data: TeamData[] = [
     description: 'Дизайн',
     linkedInProfile: 'https://www.linkedin.com/in/mariana-georgieva-45302615a',
   },
+  {
+    img: '/img/team-photos/IvanMilchev.jpeg',
+    name: 'Иван Милчев',
+    description: 'Софтуерна инфраструктура',
+    linkedInProfile: 'https://www.linkedin.com/in/ivanmilchev/',
+  },
+  {
+    img: '/img/team-photos/StanislavStoychev.jpg',
+    name: 'Станислав Стойчев',
+    description: 'Софтуерна разработка, Продуктов Мениджмънт',
+    linkedInProfile: 'https://www.linkedin.com/in/stanislav-stoychev-61490435/',
+  },
 ]
