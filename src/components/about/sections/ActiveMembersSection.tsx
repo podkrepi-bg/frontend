@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     activeMembersHeading: {
       fontWeight: 500,
-      marginTop: theme.spacing(15),
+      margin: theme.spacing(15, 0, 8, 0),
     },
     teamMemberWrapper: {
       flexGrow: 1,
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
         flex: '1 0 30%',
       },
       [theme.breakpoints.up('lg')]: {
-        flex: '1 0 12%',
+        flex: '1 0 18%',
       },
     },
     avatar: {
@@ -77,7 +77,6 @@ export default function ActiveMembersSection() {
         variant="h4"
         component="h2"
         textAlign="center"
-        mb={8}
         className={classes.activeMembersHeading}>
         {t('about.active-team-members')}
       </Heading>

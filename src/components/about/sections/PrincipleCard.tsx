@@ -7,7 +7,6 @@ const PREFIX = 'PrincipleCard'
 const classes = {
   contentContainer: `${PREFIX}-contentContainer`,
   heading: `${PREFIX}-heading`,
-  content: `${PREFIX}-content`,
   cardHeader: `${PREFIX}-cardHeader`,
   cardHeaderAction: `${PREFIX}-cardHeaderAction`,
   cardHeaderTitleRoot: `${PREFIX}-cardHeaderTitleRoot`,
@@ -16,10 +15,9 @@ const classes = {
 
 const StyledCard = styled(Card)(({ theme }) => ({
   [`& .${classes.contentContainer}`]: {
-    padding: theme.spacing(0),
-    margin: theme.spacing(2, 0),
+    margin: theme.spacing(2, 0, 5, 0),
     '&:last-child': {
-      paddingBottom: theme.spacing(0),
+      paddingBottom: 0,
     },
   },
 
@@ -29,13 +27,12 @@ const StyledCard = styled(Card)(({ theme }) => ({
     fontSize: theme.typography.pxToRem(18),
   },
 
-  [`& .${classes.content}`]: {
-    marginBottom: theme.spacing(0),
-    paddingRight: theme.spacing(6),
-  },
-
   [`& .${classes.cardHeader}`]: {
     padding: theme.spacing(0),
+    justifyContent: 'center',
+    [theme.breakpoints.up('sm')]: {
+      justifyContent: 'initial',
+    },
   },
 
   [`& .${classes.cardHeaderAction}`]: {
@@ -76,9 +73,7 @@ export default function PrincipleCard({ Icon, heading, content }: PrincipleCardP
         }}
       />
       <CardContent className={classes.contentContainer}>
-        <Typography className={classes.content} variant="body1">
-          {content}
-        </Typography>
+        <Typography variant="body1">{content}</Typography>
       </CardContent>
     </StyledCard>
   )

@@ -1,10 +1,11 @@
 import Layout from 'components/layout/Layout'
 import { useTranslation } from 'next-i18next'
 import ManagementBoardSection from './sections/ManagementBoardSection'
-import ActiveMembers from './sections/ActiveMembersSection'
+import ActiveMembersSection from './sections/ActiveMembersSection'
 import SupervisoryBoardSection from './sections/SupervisoryBoardSection'
-import AssociationMEmbersSection from './sections/AssociationMembersSection'
+import AssociationMembersSection from './sections/AssociationMembersSection'
 import AboutTheTeamSection from './sections/AboutTheTeamSection'
+import PrinciplesThatUniteUs from './sections/PrinciplesThatUniteUs'
 
 export default function AboutPage() {
   const { t } = useTranslation()
@@ -12,8 +13,8 @@ export default function AboutPage() {
     <Layout title={t('about:about.title')} maxWidth="xl">
       <ManagementBoardSection />
       <SupervisoryBoardSection />
-      <ActiveMembers />
-      <AssociationMEmbersSection />
+      <ActiveMembersSection />
+      <AssociationMembersSection />
       <AboutTheTeamSection />
       {/* <PrinciplesThatUniteUs /> */}
     </Layout>
