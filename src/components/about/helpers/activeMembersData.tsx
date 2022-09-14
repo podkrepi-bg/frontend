@@ -49,7 +49,7 @@ export const data: TeamData[] = [
     linkedInProfile: 'https://www.linkedin.com/in/mariana-georgieva-45302615a',
   },
   {
-    img: '/img/team-photos/IvanMilchev.jpeg',
+    img: '/img/team-photos/IvanMilchev.jpg',
     name: 'Иван Милчев',
     description: 'Софтуерна инфраструктура',
     linkedInProfile: 'https://www.linkedin.com/in/ivanmilchev/',
