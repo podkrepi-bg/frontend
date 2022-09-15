@@ -60,4 +60,10 @@ export const data: TeamData[] = [
     description: 'Софтуерна разработка, Продуктов Мениджмънт',
     linkedInProfile: 'https://www.linkedin.com/in/stanislav-stoychev-61490435/',
   },
+  {
+    img: '/img/team-photos/ZhanaBorisova.png',
+    name: 'Жана Борисова',
+    description: 'QA',
+    linkedInProfile: 'https://www.linkedin.com/in/zhanab/',
+  },
 ]
