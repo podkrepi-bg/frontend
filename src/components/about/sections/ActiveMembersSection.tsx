@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
         flex: '1 0 30%',
       },
       [theme.breakpoints.up('lg')]: {
-        flex: '1 0 12%',
+        flex: '1 0 18%',
       },
     },
     avatar: {

@@ -43,7 +43,7 @@ export const data: TeamData[] = [
     linkedInProfile: 'https://www.linkedin.com/in/joroivanoff/',
   },
   {
-    img: '/podkrepi-icon.png',
+    img: '/img/team-photos/MarianaGeorgieva.png',
     name: 'Мариана Георгиева',
     description: 'Дизайн',
     linkedInProfile: 'https://www.linkedin.com/in/mariana-georgieva-45302615a',
@@ -59,5 +59,11 @@ export const data: TeamData[] = [
     name: 'Станислав Стойчев',
     description: 'Софтуерна разработка, Продуктов Мениджмънт',
     linkedInProfile: 'https://www.linkedin.com/in/stanislav-stoychev-61490435/',
+  },
+  {
+    img: '/img/team-photos/ZhanaBorisova.png',
+    name: 'Жана Борисова',
+    description: 'QA',
+    linkedInProfile: 'https://www.linkedin.com/in/zhanab/',
   },
 ]
