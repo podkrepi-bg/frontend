@@ -25,7 +25,7 @@ import { TransferStatus } from './TransferTypes'
 import CampaignSelect from '../campaigns/CampaignSelect'
 import { useVaultsList } from 'common/hooks/vaults'
 import PersonSelect from 'components/person/PersonSelect'
-import { toMoney } from 'common/util/money'
+import { fromMoney, toMoney } from 'common/util/money'
 
 type Props = {
   campaigns: CampaignResponse[]
@@ -67,7 +67,7 @@ export default function CreateForm({ campaigns }: Props) {
           test: function (value) {
             const currentValt = vaults?.find((curr) => curr.id == this.parent.sourceVaultId)
             const currentAmount = Number(currentValt?.amount) - Number(currentValt?.blockedAmount)
-            return value! < Number(currentAmount)
+            return value ? value < Number(fromMoney(currentAmount)) : false
           },
         }),
       otherwise: yup.number().positive().integer().required(),
