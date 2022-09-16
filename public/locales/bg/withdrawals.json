@@ -1,6 +1,7 @@
 {
   "amount-unavailable": "Недостатъчна наличност в трезора!",
   "documentId": "ID на документа",
+  "amount-available": "Налична сума",
   "amount-input": "Въведете сума",
   "form-heading": "Създай нов превод",
   "edit-form-heading": "Редактирай превод",

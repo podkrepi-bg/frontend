@@ -1,15 +1,36 @@
 import { useTranslation } from 'react-i18next'
-import { FormControl, MenuItem } from '@mui/material'
-import { useField } from 'formik'
+import { FormControl, MenuItem, TextFieldProps } from '@mui/material'
+import { useField, useFormikContext } from 'formik'
 
-import { useVaultsList } from 'common/hooks/vaults'
 import FormTextField from 'components/common/form/FormTextField'
+import { VaultResponse } from 'gql/vault'
 
-export default function VaultSelect({ name = 'vaultId', ...textFieldProps }) {
+export type SetFieldValueType = (field: string, value: unknown, shouldValidate?: boolean) => void
+
+type Props = {
+  label: string
+  name: string
+  vaults?: VaultResponse[]
+  handleVaultSelected?: (vaultId: string, setFieldValue: SetFieldValueType) => void
+} & TextFieldProps
+
+export default function VaultSelect({
+  label,
+  name,
+  vaults,
+  handleVaultSelected,
+  ...textFieldProps
+}: Props) {
   const { t } = useTranslation()
 
-  const { data: values } = useVaultsList()
   const [field, meta] = useField(name)
+  const { setFieldValue } = useFormikContext()
+
+  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setFieldValue(name, event.target.value)
+
+    if (handleVaultSelected) handleVaultSelected(event.target.value as string, setFieldValue)
+  }
 
   return (
     <FormControl
@@ -22,15 +43,16 @@ export default function VaultSelect({ name = 'vaultId', ...textFieldProps }) {
         type="text"
         fullWidth
         defaultValue=""
-        label={t('fields.' + name)}
+        label={t(label)}
         {...field}
-        {...textFieldProps}>
+        {...textFieldProps}
+        onChange={handleChange}>
         <MenuItem value="" disabled>
           {t('fields.' + name)}
         </MenuItem>
-        {values?.map((value, index) => (
+        {vaults?.map((value, index) => (
           <MenuItem key={index} value={value.id}>
-            {value.id}
+            {value.name}
           </MenuItem>
         ))}
       </FormTextField>
