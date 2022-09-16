@@ -51,7 +51,7 @@ export default function Jumbotron() {
       <Image
         priority
         src={imgSource}
-        alt="Podkrepi.bg jumbotron heading"
+        alt="Podkrepi.bg heading"
         layout="fill"
         objectFit="cover"
         objectPosition="70% 12%"

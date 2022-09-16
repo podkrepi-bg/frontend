@@ -4,7 +4,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { Container, Grid, Typography } from '@mui/material'
 
 import theme from 'common/theme'
-import { staticUrls } from 'common/routes'
+import { routes } from 'common/routes'
 import Heading from 'components/common/Heading'
 import LinkButton from 'components/common/LinkButton'
 
@@ -34,10 +34,7 @@ export default function TeamMembersSection() {
         paddingTop={theme.spacing(3)}
         paddingBottom={theme.spacing(7)}>
         <Grid item xs={12} textAlign="center">
-          <LinkButton
-            href={staticUrls.blog + 'tag/team'}
-            variant="outlined"
-            endIcon={<ChevronRightIcon />}>
+          <LinkButton href={routes.about} variant="outlined" endIcon={<ChevronRightIcon />}>
             {t('index:team-section.meet-our-team')}
           </LinkButton>
         </Grid>
