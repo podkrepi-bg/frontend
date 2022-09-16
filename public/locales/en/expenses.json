@@ -6,7 +6,7 @@
     "type": "Type",
     "status": "Status",
     "amount": "Amount",
-    "vaultId": "Vault Id",
+    "vault": "Vault",
     "deleted": "Deleted",
     "description": "Description",
     "documentId": "Document Id",

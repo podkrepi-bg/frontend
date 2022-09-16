@@ -82,10 +82,7 @@
     "personId": "Личност",
     "campaignId": "Кампания",
     "sourceCampaignId": "От кампания",
-    "targetCampaignId": "Към кампания",
-    "vaultId": "Трезор",
-    "sourceVaultId": "От трезор",
-    "targetVaultId": "Към трезор"
+    "targetCampaignId": "Към кампания"
   },
   "cta": {
     "read-more": "Прочетете още",
