@@ -149,7 +149,7 @@ export default function CreateForm({ campaigns }: Props) {
             />
           </Grid>
           <Grid item xs={12}>
-            <VaultSelect name="sourceVaultId" />
+            <VaultSelect label="transfer:sourceVault" name="sourceVaultId" vaults={vaults} />
           </Grid>
           <Grid item xs={12}>
             <CampaignSelect
@@ -159,7 +159,7 @@ export default function CreateForm({ campaigns }: Props) {
             />
           </Grid>
           <Grid item xs={12}>
-            <VaultSelect name="targetVaultId" />
+            <VaultSelect label="transfer:targetVault" name="targetVaultId" vaults={vaults} />
           </Grid>
           <Grid item xs={12}>
             <PersonSelect name="approvedById" label={t('approvedBy')} />
