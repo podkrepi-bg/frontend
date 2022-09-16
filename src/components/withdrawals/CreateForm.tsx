@@ -23,7 +23,7 @@ import CampaignSelect, { SetFieldValueType } from 'components/campaigns/Campaign
 import VaultSelect from 'components/vaults/VaultSelect'
 import PersonSelect from 'components/person/PersonSelect'
 import { Currency } from 'gql/currency'
-import { toMoney } from 'common/util/money'
+import { fromMoney, toMoney } from 'common/util/money'
 
 export default function CreateForm() {
   const router = useRouter()
@@ -50,7 +50,7 @@ export default function CreateForm() {
               const currentVault = vaults?.find((curr) => curr.id === this.parent.sourceVaultId)
               const currentAmount =
                 Number(currentVault?.amount) - Number(currentVault?.blockedAmount)
-              return value! < Number(currentAmount)
+              return Number(value) < Number(fromMoney(currentAmount))
             },
           }),
         otherwise: yup.number().positive().integer().required(),
@@ -67,6 +67,7 @@ export default function CreateForm() {
     status: WithdrawalStatus.initial,
     currency: '',
     amount: 0,
+    amountAvailable: 0,
     reason: '',
     sourceVaultId: '',
     sourceCampaignId: '',
@@ -80,7 +81,7 @@ export default function CreateForm() {
   const mutation = useMutation<
     AxiosResponse<WithdrawalResponse>,
     AxiosError<ApiErrors>,
-    WithdrawalInput
+    WithdrawalData
   >({
     mutationFn,
     onError: () => AlertStore.show(t('withdrawals:alerts:error'), 'error'),
@@ -91,7 +92,7 @@ export default function CreateForm() {
   })
 
   function handleSubmit(values: WithdrawalInput) {
-    const data: WithdrawalInput = {
+    const data: WithdrawalData = {
       status: WithdrawalStatus.initial,
       currency: values.currency,
       amount: toMoney(values.amount),
@@ -109,6 +110,16 @@ export default function CreateForm() {
     const selectedCampaign = campaigns?.find((campaign) => campaign.id === campaignId)
     if (selectedCampaign) {
       setFieldValue('currency', selectedCampaign?.currency)
+    }
+  }
+
+  function handleVaultSelected(vaultId: string, setFieldValue: SetFieldValueType) {
+    const selectedVault = vaults?.find((vault) => vault.id === vaultId)
+    if (selectedVault) {
+      setFieldValue(
+        'amountAvailable',
+        fromMoney(selectedVault.amount - selectedVault.blockedAmount),
+      )
     }
   }
 
@@ -131,7 +142,32 @@ export default function CreateForm() {
             />
           </Grid>
           <Grid item xs={12}>
-            <VaultSelect name="sourceVaultId" />
+            <VaultSelect
+              name="sourceVaultId"
+              label="withdrawals:sourceVault"
+              vaults={vaults}
+              handleVaultSelected={handleVaultSelected}
+            />
+          </Grid>
+          <Grid item xs={8}>
+            <FormTextField
+              type="number"
+              label={t('amount-available')}
+              name="amountAvailable"
+              InputProps={{
+                readOnly: true,
+              }}
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <FormTextField
+              type="text"
+              label={t('currency')}
+              name="currency"
+              InputProps={{
+                readOnly: true,
+              }}
+            />
           </Grid>
           <Grid item xs={12}>
             <FormTextField
@@ -142,18 +178,9 @@ export default function CreateForm() {
             />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField
-              type="text"
-              label={t('currency')}
-              name="currency"
-              InputProps={{
-                readOnly: true,
-              }}
-            />
-            <Grid item xs={12}>
-              <FormTextField type="text" label={t('reason')} name="reason" autoComplete="reason" />
-            </Grid>
+            <FormTextField type="text" label={t('reason')} name="reason" autoComplete="reason" />
           </Grid>
+
           <Grid item xs={12}>
             <BankAccountSelect />
           </Grid>

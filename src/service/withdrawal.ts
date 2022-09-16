@@ -2,14 +2,14 @@ import { AxiosResponse } from 'axios'
 import { useSession } from 'next-auth/react'
 
 import { apiClient } from 'service/apiClient'
-import { WithdrawalResponse, WithdrawalInput } from 'gql/withdrawals'
+import { WithdrawalResponse, WithdrawalData } from 'gql/withdrawals'
 
 import { endpoints } from './apiEndpoints'
 import { authConfig } from './restRequests'
 
 export function useCreateWithdrawal() {
   const { data: session } = useSession()
-  return async (data: WithdrawalInput) => {
+  return async (data: WithdrawalData) => {
     return await apiClient.post<WithdrawalResponse, AxiosResponse<WithdrawalResponse>>(
       endpoints.withdrawals.createWithdrawal.url,
       data,
@@ -20,7 +20,7 @@ export function useCreateWithdrawal() {
 
 export function useEditWithdrawal(slug: string) {
   const { data: session } = useSession()
-  return async (data: WithdrawalInput) => {
+  return async (data: WithdrawalData) => {
     return await apiClient.patch<WithdrawalResponse, AxiosResponse<WithdrawalResponse>>(
       endpoints.withdrawals.editWithdrawal(slug).url,
       data,
