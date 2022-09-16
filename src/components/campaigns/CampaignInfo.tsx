@@ -46,12 +46,12 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 
   [`& .${classes.campaignText}`]: {
-    fontSize: '14px',
+    fontSize: theme.spacing(1.75),
     flexWrap: 'wrap',
   },
 
   [`& .${classes.campaignTextWithIcon}`]: {
-    fontSize: '14px',
+    fontSize: theme.spacing(1.75),
     flexWrap: 'wrap',
   },
 }))

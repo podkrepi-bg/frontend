@@ -44,7 +44,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.trustedButton}`]: {
     color: theme.palette.primary.main,
     textDecoration: 'underline',
-    fontSize: '14px',
+    fontSize: theme.spacing(1.75),
     padding: 0,
     paddingLeft: 2,
     '&:hover': {
