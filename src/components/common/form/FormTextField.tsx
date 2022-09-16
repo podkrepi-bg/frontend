@@ -24,8 +24,8 @@ export default function FormTextField({ label, name, ...textFieldProps }: Regist
       variant="outlined"
       error={Boolean(meta.error) && Boolean(meta.touched)}
       helperText={helperText}
+      {...field} //this and the following needs to be in exact this order for the onChange event to not be overriden and silenced
       {...textFieldProps}
-      {...field}
     />
   )
 }

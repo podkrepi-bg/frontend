@@ -18,9 +18,8 @@ import { useCampaignList } from 'common/hooks/campaigns'
 import { useVaultsList } from 'common/hooks/vaults'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
-import CurrencySelect from 'components/currency/CurrencySelect'
 import BankAccountSelect from 'components/bankaccounts/BankAccountSelect'
-import CampaignSelect from 'components/campaigns/CampaignSelect'
+import CampaignSelect, { SetFieldValueType } from 'components/campaigns/CampaignSelect'
 import VaultSelect from 'components/vaults/VaultSelect'
 import PersonSelect from 'components/person/PersonSelect'
 import { Currency } from 'gql/currency'
@@ -48,8 +47,9 @@ export default function CreateForm() {
             params: {},
             message: t('amount-unavailable'),
             test: function (value) {
-              const currentValt = vaults?.find((curr) => curr.id == this.parent.sourceVaultId)
-              const currentAmount = Number(currentValt?.amount) - Number(currentValt?.blockedAmount)
+              const currentVault = vaults?.find((curr) => curr.id === this.parent.sourceVaultId)
+              const currentAmount =
+                Number(currentVault?.amount) - Number(currentVault?.blockedAmount)
               return value! < Number(currentAmount)
             },
           }),
@@ -105,8 +105,15 @@ export default function CreateForm() {
     mutation.mutate(data)
   }
 
+  function handleCampaignSelected(campaignId: string, setFieldValue: SetFieldValueType) {
+    const selectedCampaign = campaigns?.find((campaign) => campaign.id === campaignId)
+    if (selectedCampaign) {
+      setFieldValue('currency', selectedCampaign?.currency)
+    }
+  }
+
   return (
-    <GenericForm
+    <GenericForm<WithdrawalInput>
       onSubmit={handleSubmit}
       initialValues={initialValues}
       validationSchema={validationSchema}>
@@ -116,6 +123,17 @@ export default function CreateForm() {
         </Typography>
         <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
           <Grid item xs={12}>
+            <CampaignSelect
+              name="sourceCampaignId"
+              label="withdrawals:sourceCampaign"
+              campaigns={campaigns}
+              handleCampaignSelected={handleCampaignSelected}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <VaultSelect name="sourceVaultId" />
+          </Grid>
+          <Grid item xs={12}>
             <FormTextField
               type="number"
               label={t('amount-input')}
@@ -124,10 +142,17 @@ export default function CreateForm() {
             />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField type="string" label={t('reason')} name="reason" autoComplete="reason" />
-          </Grid>
-          <Grid item xs={12}>
-            <CurrencySelect />
+            <FormTextField
+              type="text"
+              label={t('currency')}
+              name="currency"
+              InputProps={{
+                readOnly: true,
+              }}
+            />
+            <Grid item xs={12}>
+              <FormTextField type="text" label={t('reason')} name="reason" autoComplete="reason" />
+            </Grid>
           </Grid>
           <Grid item xs={12}>
             <BankAccountSelect />
@@ -139,16 +164,6 @@ export default function CreateForm() {
               name="documentId"
               autoComplete="documentId"
             />
-          </Grid>
-          <Grid item xs={12}>
-            <CampaignSelect
-              name="sourceCampaignId"
-              label="withdrawals:sourceCampaign"
-              campaigns={campaigns}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <VaultSelect name="sourceVaultId" />
           </Grid>
           <Grid item xs={12}>
             <PersonSelect name="approvedById" label={t('approvedBy')} />
