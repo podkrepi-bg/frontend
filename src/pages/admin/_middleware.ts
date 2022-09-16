@@ -5,7 +5,7 @@ import withAuth from 'next-auth/middleware'
 export default withAuth({
   callbacks: {
     authorized: ({ token }) => {
-      return isAdmin(token)
+      return token ? token.accessTokenExpires > Date.now() && isAdmin(token) : false
     },
   },
 })

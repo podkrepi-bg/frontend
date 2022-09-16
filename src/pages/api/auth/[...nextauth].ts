@@ -108,7 +108,7 @@ export const authOptions: NextAuthOptions = {
         // Initial sign in only triggered when a provider is logging
         if (account.provider === 'credentials') {
           // With credentials the user is already a `AuthResponse` that is what is returned from the `authorize` function:
-          console.log(user)
+          console.log('user: ' + user)
           return {
             accessToken: user.accessToken,
             // This is called the first time only here expires always exists and that calculates the timestamp that the token would actually expire in
