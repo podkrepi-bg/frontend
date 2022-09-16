@@ -110,6 +110,7 @@ export default function CampaignDetails({ campaign }: Props) {
     <StyledGrid item xs={12} md={8}>
       <Grid className={classes.bannerWrapper}>
         <Image
+          priority
           src={bannerSource}
           alt="Campaign banner image"
           layout="fill"

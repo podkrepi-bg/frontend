@@ -4,9 +4,10 @@ import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import { CampaignResponse } from 'gql/campaigns'
 import { organizerCampaignPictureUrl } from 'common/util/campaignImageUrls'
-import { Grid, Typography } from '@mui/material'
+import { Button, Grid, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
+import EmailIcon from '@mui/icons-material/Email'
 
 const PREFIX = 'CampaignInfoOrganizer'
 
@@ -43,8 +44,9 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.trustedButton}`]: {
     color: theme.palette.primary.main,
     textDecoration: 'underline',
-    fontSize: '14px',
+    fontSize: theme.spacing(1.75),
     padding: 0,
+    paddingLeft: 2,
     '&:hover': {
       backgroundColor: 'unset',
       textDecoration: 'underline',
@@ -88,7 +90,18 @@ export default function CampaignInfoOrganizer({ campaign }: Props) {
         </Typography>
         <Typography variant="subtitle2" component="p">
           {campaign.organizer?.person.firstName || ''} {campaign.organizer?.person.lastName || ''}
-        </Typography>{' '}
+        </Typography>
+        <Button
+          startIcon={<EmailIcon color="action" />}
+          href={
+            'mailto:' +
+            campaign?.organizer?.person.email +
+            '?subject=Question about: ' +
+            campaign.title
+          }
+          className={classes.trustedButton}>
+          {campaign.coordinator.person.email}
+        </Button>
         {/*TODO: No current implementation of organizer profile */}
         {/* <Button href={''} className={classes.linkButton}>
           {t('common:cta.see-profile')}

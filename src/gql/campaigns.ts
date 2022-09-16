@@ -96,7 +96,7 @@ export type CampaignResponse = BaseCampaignResponse & {
   }
   organizer?: {
     id: UUID
-    person: { id: UUID; firstName: string; lastName: string }
+    person: { id: UUID; firstName: string; lastName: string; email: string }
   }
   campaignFiles?: CampaignFile[]
 }
