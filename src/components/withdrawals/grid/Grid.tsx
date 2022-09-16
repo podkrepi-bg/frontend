@@ -90,7 +90,7 @@ export default observer(function Grid() {
       headerName: t('withdrawals:sourceCampaign'),
       ...commonProps,
       valueGetter: (c) => {
-        return c.row.sourceCampaign.state
+        return c.row.sourceCampaign.title
       },
     },
     {
