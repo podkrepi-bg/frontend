@@ -41,7 +41,7 @@ export const menuPayments = [
   { label: 'Дарения', icon: VolunteerActivismOutlinedIcon, href: routes.admin.donations.index },
   { label: 'Трезори', icon: Shield, href: routes.admin.vaults.index },
   { label: 'Банкови сметки', icon: Payment, href: routes.admin.bankaccounts.index },
-  { label: 'Тегления', icon: LocalAtmIcon, href: routes.admin.withdrawals.index },
+  { label: 'Преводи', icon: LocalAtmIcon, href: routes.admin.withdrawals.index },
   { label: 'Прехвърляния', icon: MoveUp, href: routes.admin.transfer.index },
   { label: 'Разходи', icon: Paid, href: routes.admin.expenses.index },
   {
@@ -72,7 +72,7 @@ export const adminCards = [
   { label: 'Организатори', icon: Group, href: routes.admin.organizers.index },
   { label: 'ЮЛНЦ', icon: Group, href: routes.admin.company.create },
   { label: 'Банкови сметки', icon: Payment, href: routes.admin.bankaccounts.index },
-  { label: 'Тегления', icon: LocalAtmIcon, href: routes.admin.withdrawals.index },
+  { label: 'Преводи', icon: LocalAtmIcon, href: routes.admin.withdrawals.index },
   { label: 'Разходи', icon: Paid, href: routes.admin.expenses.index },
   { label: 'Трезори', icon: Shield, href: routes.admin.vaults.index },
   { label: 'Прехвърляния', icon: MoveUp, href: routes.admin.transfer.index },
