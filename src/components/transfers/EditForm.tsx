@@ -160,7 +160,7 @@ export default function EditForm({ transfer, campaigns, id }: Props) {
             />
           </Grid>
           <Grid item xs={12}>
-            <VaultSelect disabled={true} name="sourceVaultId" />
+            <VaultSelect label="transfer:sourceVault" disabled={true} name="sourceVaultId" />
           </Grid>
           <Grid item xs={12}>
             <CampaignSelect
@@ -170,7 +170,7 @@ export default function EditForm({ transfer, campaigns, id }: Props) {
             />
           </Grid>
           <Grid item xs={12}>
-            <VaultSelect name="targetVaultId" />
+            <VaultSelect name="targetVaultId" label="transfer:targetVault" />
           </Grid>
           <Grid item xs={6}>
             <SubmitButton fullWidth label={t('transfer:cta:submit')} />

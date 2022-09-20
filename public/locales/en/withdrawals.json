@@ -1,7 +1,8 @@
 {
   "amount-unavailable": "Insufficient stock in the vault!",
   "documentId": "Document ID",
-  "amount-input": "Amount",
+  "amount-available": "Available amount",
+  "amount-input": "Withdrawal amount",
   "form-heading": "Add new withdrawal",
   "edit-form-heading": "Edit withdrawal",
   "all": "All withdrawals",

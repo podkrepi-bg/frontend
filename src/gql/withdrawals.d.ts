@@ -30,6 +30,7 @@ export type WithdrawalInput = {
   status: WithdrawalStatus | undefined
   currency: Currency | undefined
   amount: number
+  amountAvailable: number
   reason: string | undefined
   documentId?: UUID | undefined
   approvedById?: UUID | undefined

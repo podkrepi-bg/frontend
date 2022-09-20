@@ -61,6 +61,7 @@ export default function EditForm() {
     status: WithdrawalStatus.initial,
     currency: data?.currency,
     amount: fromMoney(data?.amount ?? 0),
+    amountAvailable: 0,
     reason: data?.reason,
     sourceVaultId: data?.sourceVaultId,
     sourceCampaignId: data?.sourceCampaignId,
@@ -72,7 +73,7 @@ export default function EditForm() {
   const mutation = useMutation<
     AxiosResponse<WithdrawalResponse>,
     AxiosError<ApiErrors>,
-    WithdrawalInput
+    WithdrawalData
   >({
     mutationFn,
     onError: () => AlertStore.show(t('withdrawals:alerts:error'), 'error'),
@@ -84,7 +85,7 @@ export default function EditForm() {
   })
 
   function handleSubmit(values: WithdrawalInput) {
-    const data: WithdrawalInput = {
+    const data: WithdrawalData = {
       status: WithdrawalStatus.initial,
       currency: values.currency,
       amount: toMoney(values.amount),
@@ -143,7 +144,7 @@ export default function EditForm() {
             />
           </Grid>
           <Grid item xs={12}>
-            <VaultSelect name="sourceVaultId" disabled={true} />
+            <VaultSelect name="sourceVaultId" label="withdrawals:sourceVault" disabled={true} />
           </Grid>
           <Grid item xs={12}>
             <PersonSelect disabled name="approvedById" label={t('approvedBy')} />
