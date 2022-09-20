@@ -131,7 +131,7 @@ export default function CreateForm() {
               <Grid item xs={12}>
                 <Typography paddingLeft={'inherit'} marginBottom={2}>
                   {t('beneficiary:forms.labels.person-select')}{' '}
-                  <Link href={routes.admin.person.create}>
+                  <Link href={routes.admin.person.create} target="_blank">
                     {t('beneficiary:forms.labels.create-new')}
                   </Link>
                 </Typography>
@@ -148,7 +148,7 @@ export default function CreateForm() {
             <Grid item xs={12}>
               <Typography paddingLeft={'inherit'} marginBottom={2}>
                 {t('beneficiary:forms.labels.company-select')}{' '}
-                <Link href={routes.admin.company.create}>
+                <Link href={routes.admin.company.create} target="_blank">
                   {t('beneficiary:forms.labels.create-new')}
                 </Link>
               </Typography>

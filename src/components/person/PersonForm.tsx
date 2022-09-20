@@ -9,6 +9,7 @@ import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import { PersonFormData } from 'gql/person'
 import CompanyForm from './CompanyForm'
+import CheckboxField from 'components/common/form/CheckboxField'
 
 const validationSchema: yup.SchemaOf<PersonFormData> = yup.object().defined().shape({
   // Person
@@ -66,6 +67,12 @@ export default function PersonForm({ onSubmit, initialValues = defaults }: Perso
               label="auth:fields.last-name"
               name="lastName"
               autoComplete="family-name"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <CheckboxField
+              name="skipRegistration"
+              label="Бенефициента ще бъде представляван от организатора"
             />
           </Grid>
           <Grid item xs={12}>
