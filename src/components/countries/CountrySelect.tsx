@@ -3,7 +3,7 @@ import { TranslatableField, translateError } from 'common/form/validation'
 import { useCountriesList } from 'common/hooks/countries'
 import { useField } from 'formik'
 import { CountryResponse } from 'gql/countries'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 type Props = {
   formField?: string
@@ -29,8 +29,8 @@ export default function CountrySelect({
       size="small"
       variant="outlined"
       error={Boolean(meta.error) && Boolean(meta.touched)}>
-      <InputLabel>{t('countries:country-label')}</InputLabel>
-      <Select fullWidth defaultValue="" label={t('countries:country-label')} {...field}>
+      <InputLabel>{t('countries:country')}</InputLabel>
+      <Select fullWidth defaultValue="" label={t('countries:country')} {...field}>
         <MenuItem value="" disabled>
           {t('countries:select-country')}
         </MenuItem>

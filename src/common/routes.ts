@@ -157,7 +157,10 @@ export const routes = {
       view: (id: string) => `/admin/organizers/${id}`,
     },
     person: {
+      index: '/admin/persons',
       create: '/admin/persons/create',
+      view: (id: string) => `/admin/persons/${id}`,
+      edit: (id: string) => `/admin/persons/${id}/edit`,
     },
     company: {
       create: '/admin/companies/create',

@@ -100,7 +100,7 @@ export default function CreateForm() {
           <Grid item xs={6}>
             <p>
               {t('companies:admin.cta.select-country')}{' '}
-              <Link href={routes.admin.countries.create}>
+              <Link href={routes.admin.countries.create} target="_blank">
                 {t('companies:admin.cta.create-new')}
               </Link>
             </p>
@@ -109,7 +109,9 @@ export default function CreateForm() {
           <Grid item xs={6}>
             <p>
               {t('companies:admin.cta.select-city')}{' '}
-              <Link href={routes.admin.cities.create}>{t('companies:admin.cta.create-new')}</Link>
+              <Link href={routes.admin.cities.create} target="_blank">
+                {t('companies:admin.cta.create-new')}
+              </Link>
             </p>
             <CitySelect name="cityId" />
           </Grid>

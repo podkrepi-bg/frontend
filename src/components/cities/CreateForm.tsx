@@ -67,12 +67,12 @@ export default function EditForm() {
         </Typography>
         <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
           <Grid item xs={12}>
-            <FormTextField type="text" label="Cities: Име" name="name" autoComplete="name" />
+            <FormTextField type="text" label={t('cities:name')} name="name" autoComplete="name" />
           </Grid>
           <Grid item xs={12}>
             <FormTextField
               type="string"
-              label="Cities:Пощенски код"
+              label={t('cities:postalCode')}
               name="postalCode"
               autoComplete="postal-code"
             />

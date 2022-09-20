@@ -69,6 +69,12 @@ export default function PersonForm({ onSubmit, initialValues = defaults }: Perso
             />
           </Grid>
           <Grid item xs={12}>
+            {/* TODO <CheckboxField
+              name="skipRegistration"
+              label="Бенефициента ще бъде представляван от организатора"
+            /> */}
+          </Grid>
+          <Grid item xs={12}>
             <FormTextField
               inputMode="email"
               type="text"

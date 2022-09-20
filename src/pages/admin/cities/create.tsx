@@ -6,6 +6,7 @@ export const getServerSideProps = securedPropsWithTranslation([
   'auth',
   'validation',
   'cities',
+  'countries',
   'campaigns',
 ])
 
