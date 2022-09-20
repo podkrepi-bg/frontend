@@ -35,3 +35,24 @@ export const useCreatePerson = () => {
     )
   }
 }
+
+export const useEditPerson = (id: string) => {
+  const { data: session } = useSession()
+  return async (data: AdminPersonFormData) => {
+    return await apiClient.patch<AdminPersonFormData, AxiosResponse<AdminPersonResponse>>(
+      endpoints.person.editPerson(id).url,
+      data,
+      authConfig(session?.accessToken),
+    )
+  }
+}
+
+export function useDeletePerson(id: string) {
+  const { data: session } = useSession()
+  return async () => {
+    return await apiClient.delete<PersonResponse, AxiosResponse<PersonResponse>>(
+      endpoints.person.deletePerson(id).url,
+      authConfig(session?.accessToken),
+    )
+  }
+}
