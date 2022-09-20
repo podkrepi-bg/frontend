@@ -45,6 +45,6 @@
     "edit": "Редактирай",
     "delete": "Изтрий"
   },
-  "country-label": "Държава",
+  "country": "Държава",
   "select-country": "Изберете държава"
 }

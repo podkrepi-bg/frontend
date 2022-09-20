@@ -15,6 +15,7 @@ import { AlertStore } from 'stores/AlertStore'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { routes } from 'common/routes'
+import CheckboxField from 'components/common/form/CheckboxField'
 
 const validationSchema: yup.SchemaOf<AdminPersonFormData> = yup.object().defined().shape({
   firstName: name.required(),
@@ -77,6 +78,12 @@ export default function PersonForm({ initialValues = defaults }: FormProps) {
               label="person:admin.fields.last-name"
               name="lastName"
               autoComplete="family-name"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <CheckboxField
+              name="skipRegistration"
+              label="Бенефициента ще бъде представляван от организатора"
             />
           </Grid>
           <Grid item xs={12}>
