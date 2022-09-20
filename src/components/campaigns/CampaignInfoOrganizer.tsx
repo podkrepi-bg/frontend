@@ -100,7 +100,7 @@ export default function CampaignInfoOrganizer({ campaign }: Props) {
             campaign.title
           }
           className={classes.trustedButton}>
-          {campaign.coordinator.person.email}
+          {campaign?.organizer?.person.email}
         </Button>
         {/*TODO: No current implementation of organizer profile */}
         {/* <Button href={''} className={classes.linkButton}>
