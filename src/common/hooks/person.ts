@@ -13,3 +13,11 @@ export const usePersonList = (options?: UseQueryOptions<PersonResponse[]>) => {
     options,
   )
 }
+
+export function usePerson(id: string) {
+  const { data: session } = useSession()
+  return useQuery<PersonResponse>(
+    endpoints.person.viewPerson(id).url,
+    authQueryFnFactory<PersonResponse>(session?.accessToken),
+  )
+}

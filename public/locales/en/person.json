@@ -20,7 +20,15 @@
     "confirmedEmail": "Confirmed email"
   },
   "admin": {
+    "headings": {
+      "info": "Users",
+      "all": "All users",
+      "create": "Create new user",
+      "edit": "Edit user"
+    },
     "fields": {
+      "actions": "Actions",
+      "name": "Name",
       "create-heading": "Create a new person",
       "first-name": "First name",
       "last-name": "Last name",
@@ -28,7 +36,8 @@
       "phone": "phone"
     },
     "cta": {
-      "create": "Create"
+      "create": "Create",
+      "edit": "Save"
     }
   }
 }

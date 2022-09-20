@@ -11,7 +11,7 @@ export default function CreatePage() {
 
   return (
     <AdminLayout>
-      <AdminContainer title={t('person:admin.headings.create')}>
+      <AdminContainer title={t('person:admin.headings.edit')}>
         <Container maxWidth="md" sx={{ py: 5 }}>
           <PersonForm />
         </Container>
