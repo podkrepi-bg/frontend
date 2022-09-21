@@ -102,7 +102,7 @@ export default function CampaignInfo({ campaign }: Props) {
           <Grid item>
             <Typography variant="subtitle2" component="p" className={classes.campaignTextWithIcon}>
               <strong>{t('campaigns:campaign.end-date')}</strong>{' '}
-              {campaign.endDate ? getExactDate(campaign.endDate, locale) : 'не е въведена'}
+              {campaign.endDate ? getExactDate(campaign.endDate, locale) : 'безсрочна'}
             </Typography>
           </Grid>
         </Grid>

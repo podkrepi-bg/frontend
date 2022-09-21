@@ -17,7 +17,11 @@ import { createSlug } from 'common/util/createSlug'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
-import FormRichTextField from 'components/common/form/FormRichTextField'
+
+import dynamic from 'next/dynamic'
+const FormRichTextField = dynamic(() => import('components/common/form/FormRichTextField'), {
+  ssr: false,
+})
 
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import {
