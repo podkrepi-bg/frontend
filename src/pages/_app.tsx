@@ -70,7 +70,6 @@ function CustomApp({
         defaultOptions: {
           queries: {
             queryFn,
-            staleTime: 25000,
           },
         },
       }),
