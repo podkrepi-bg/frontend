@@ -6,9 +6,17 @@ import { Typography } from '@mui/material'
 import { translateError } from 'common/form/useForm'
 import { TranslatableField } from 'common/form/validation'
 
-import dynamic from 'next/dynamic'
 import 'react-quill/dist/quill.snow.css'
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
+
+import ReactQuill, { Quill } from 'react-quill'
+
+import BlotFormatter from 'quill-blot-formatter/'
+Quill.register('modules/blotFormatter', BlotFormatter)
+
+import htmlEditButton from 'quill-html-edit-button'
+Quill.register({
+  'modules/htmlEditButton': htmlEditButton,
+})
 
 export type RegisterFormProps = {
   name: string
@@ -30,6 +38,14 @@ const modules = {
     // toggle to add extra line breaks when pasting HTML:
     matchVisual: false,
   },
+  blotFormatter: {
+    overlay: {
+      style: {
+        border: '2px solid red',
+      },
+    },
+  },
+  htmlEditButton: {},
 }
 
 export default function FormRichTextField({ name }: RegisterFormProps) {
