@@ -78,7 +78,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     fontSize: theme.spacing(3),
     marginTop: theme.spacing(3),
     [theme.breakpoints.up('md')]: {
-      marginTop: theme.spacing(8),
+      marginTop: theme.spacing(12),
     },
   },
   ['& .ql-editor']: {
