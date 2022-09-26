@@ -19,6 +19,8 @@ const classes = {
 const StyledAccordion = styled(Accordion)(({ theme }) => ({
   [`&.${classes.accordionWrapper}`]: {
     boxShadow: 'none',
+    borderTop: '2px solid lightgrey',
+    borderRadius: 0,
   },
 
   [`& .${classes.accordionSummary}`]: {
@@ -29,6 +31,10 @@ const StyledAccordion = styled(Accordion)(({ theme }) => ({
   [`& .${classes.menuItem}`]: {
     justifyContent: 'start',
     fontWeight: 300,
+  },
+
+  '.Mui-expanded': {
+    backgroundColor: '#F0F0F0',
   },
 }))
 

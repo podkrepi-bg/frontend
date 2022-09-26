@@ -20,7 +20,6 @@ const PREFIX = 'AuthLinks'
 const classes = {
   navMenuDrawer: `${PREFIX}-navMenuDrawer`,
   navMenuPaper: `${PREFIX}-navMenuPaper`,
-  icon: `${PREFIX}-icon`,
   accordion: `${PREFIX}-accordion`,
 }
 
@@ -35,12 +34,6 @@ const Root = styled('nav')(({ theme }) => ({
       width: '100%',
       flexShrink: 0,
     },
-  },
-
-  [`& .${classes.icon}`]: {
-    fontSize: theme.typography.pxToRem(80),
-    marginTop: theme.spacing(5),
-    marginBottom: theme.spacing(5),
   },
 }))
 
@@ -78,13 +71,12 @@ export const AuthLinks = () => {
   }
   return (
     <>
-      <Grid item>
-        <LinkButton fullWidth variant="outlined" href={routes.login}>
+      <Grid item style={{ display: 'flex', borderTop: '2px solid lightgrey' }}>
+        <LinkButton href={routes.login} style={{ color: '#000000', marginLeft: '2px' }}>
           {t('nav.login')}
         </LinkButton>
-      </Grid>
-      <Grid item>
-        <LinkButton fullWidth variant="outlined" href={routes.register}>
+        /
+        <LinkButton href={routes.register} style={{ color: '#000000' }}>
           {t('nav.register')}
         </LinkButton>
       </Grid>
@@ -94,7 +86,6 @@ export const AuthLinks = () => {
 
 export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
   const router = useRouter()
-  const { t } = useTranslation()
   const closeNavMenu = () => setMobileOpen(false)
 
   // Register route change event handlers
@@ -117,12 +108,17 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
           onOpen={() => setMobileOpen(true)}
           onClose={closeNavMenu}
           classes={{ paper: classes.navMenuPaper }}>
-          <CloseModalButton edge="end" fontSize="inherit" onClose={closeNavMenu} />
+          <CloseModalButton
+            edge="end"
+            fontSize="inherit"
+            onClose={closeNavMenu}
+            style={{ marginRight: '10px' }}
+          />
           <Box display="flex" justifyContent="center" px={2}>
-            <Grid container justifyContent="center" direction="column" spacing={2}>
+            <Grid container direction="column">
               <Grid item>
                 <Box width="100%" textAlign="center">
-                  <PodkrepiIcon className={classes.icon} />
+                  <PodkrepiIcon style={{ margin: '23px 0 12px 0' }} />
                 </Box>
               </Grid>
               <Grid item>
@@ -132,7 +128,10 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
                 <ProjectMenuMobile />
               </Grid>
               <AuthLinks />
-              <Box my={4} textAlign="center">
+              <Box
+                style={{
+                  borderTop: '2px solid lightgrey',
+                }}>
                 <LocaleButton />
               </Box>
             </Grid>
