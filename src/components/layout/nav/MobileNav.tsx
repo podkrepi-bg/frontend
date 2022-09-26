@@ -5,15 +5,15 @@ import { useTranslation } from 'next-i18next'
 import { SwipeableDrawer, Hidden, Box, Grid, Button } from '@mui/material'
 
 import { isAdmin } from 'common/util/roles'
-import { routes, staticUrls } from 'common/routes'
+import { routes } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
 import PodkrepiIcon from 'components/brand/PodkrepiIcon'
 import CloseModalButton from 'components/common/CloseModalButton'
 
-import { navItems } from './ProjectMenu'
 import LocaleButton from '../LocaleButton'
 import DonationMenuMobile from './DonationMenuMobile'
 import { useSession } from 'next-auth/react'
+import ProjectMenuMobile from './ProjectMenuMobile'
 
 const PREFIX = 'AuthLinks'
 
@@ -125,23 +125,13 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
                   <PodkrepiIcon className={classes.icon} />
                 </Box>
               </Grid>
-              {navItems.map(({ href, label }, key) => (
-                <Grid item key={key}>
-                  <LinkButton fullWidth variant="outlined" href={href}>
-                    {t(label)}
-                  </LinkButton>
-                </Grid>
-              ))}
-              <Grid item>
-                <Button href={staticUrls.blog} target="_blank" fullWidth variant="outlined">
-                  {t('nav.blog')}
-                </Button>
-              </Grid>
               <Grid item>
                 <DonationMenuMobile />
               </Grid>
+              <Grid item>
+                <ProjectMenuMobile />
+              </Grid>
               <AuthLinks />
-
               <Box my={4} textAlign="center">
                 <LocaleButton />
               </Box>

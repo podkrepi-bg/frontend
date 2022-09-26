@@ -6,9 +6,9 @@ import AccordionDetails from '@mui/material/AccordionDetails'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import LinkButton from 'components/common/LinkButton'
 import { useTranslation } from 'next-i18next'
-import { navItems } from './DonationMenu'
+import { navItems } from './ProjectMenu'
 
-const PREFIX = 'DonationMenuMobile'
+const PREFIX = 'ProfileMenuMobile'
 
 const classes = {
   accordionWrapper: `${PREFIX}-accordionWrapper`,
@@ -32,7 +32,7 @@ const StyledAccordion = styled(Accordion)(({ theme }) => ({
   },
 }))
 
-export default function DonationMenuMobile() {
+export default function ProjectMenuMobile() {
   const { t } = useTranslation()
 
   return (
@@ -41,7 +41,7 @@ export default function DonationMenuMobile() {
         className={classes.accordionSummary}
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content">
-        {t('nav.campaigns.index')}
+        {t('nav.about.about-us')}
       </AccordionSummary>
       <AccordionDetails>
         {navItems.map(({ href, label }, key) => (
