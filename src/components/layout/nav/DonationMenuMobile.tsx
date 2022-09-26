@@ -25,12 +25,13 @@ const StyledAccordion = styled(Accordion)(({ theme }) => ({
 
   [`& .${classes.accordionSummary}`]: {
     fontWeight: 500,
-    minHeight: theme.spacing(5),
+    minHeight: theme.spacing(8),
   },
 
   [`& .${classes.menuItem}`]: {
     justifyContent: 'start',
     fontWeight: 300,
+    color: theme.palette.common.black,
   },
 
   '.Mui-expanded': {

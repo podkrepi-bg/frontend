@@ -13,12 +13,14 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       borderTop: '2px solid lightgrey',
       marginLeft: theme.spacing(0.25),
+      minHeight: theme.spacing(8),
     },
     authLink: {
       color: theme.palette.common.black,
     },
     slashSymbol: {
-      marginTop: theme.spacing(1),
+      display: 'flex',
+      alignItems: 'center',
     },
   }),
 )

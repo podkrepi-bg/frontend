@@ -25,12 +25,13 @@ const StyledAccordion = styled(Accordion)(({ theme }) => ({
 
   [`& .${classes.accordionSummary}`]: {
     fontWeight: 500,
-    minHeight: theme.spacing(5),
+    minHeight: theme.spacing(8),
   },
 
   [`& .${classes.menuItem}`]: {
     justifyContent: 'start',
     fontWeight: 300,
+    color: theme.palette.common.black,
   },
 
   '.Mui-expanded': {
@@ -44,9 +45,9 @@ export default function ProjectMenuMobile() {
   return (
     <StyledAccordion className={classes.accordionWrapper}>
       <AccordionSummary
-        className={classes.accordionSummary}
         expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel1a-content">
+        aria-controls="panel1a-content"
+        className={classes.accordionSummary}>
         {t('nav.about.about-us')}
       </AccordionSummary>
       <AccordionDetails>
