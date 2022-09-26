@@ -11,6 +11,7 @@ import { createStyles, makeStyles } from '@mui/styles'
 import { AuthLinks } from './AuthLinks'
 import { routes } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
+import FavoriteIcon from '@mui/icons-material/Favorite'
 
 type NavDeckProps = {
   mobileOpen: boolean
@@ -36,13 +37,19 @@ const useStyles = makeStyles((theme: Theme) =>
     podkrepiLogoIcon: {
       margin: '23px 0 12px 0',
     },
-    donateButton: {
+    donateButtonWrapper: {
       borderTop: '2px solid lightgrey',
       textAlign: 'center',
       minHeight: theme.spacing(8),
       display: 'flex',
       justifyContent: 'center',
       paddingTop: theme.spacing(3),
+    },
+    donateButton: {
+      padding: theme.spacing(1, 6),
+    },
+    donateIcon: {
+      fontSize: '14px',
     },
   }),
 )
@@ -94,12 +101,14 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
             <Grid item className={classes.localeButton}>
               <LocaleButton />
             </Grid>
-            <Grid item className={classes.donateButton}>
+            <Grid item className={classes.donateButtonWrapper}>
               <LinkButton
                 size="large"
                 variant="outlined"
                 color="primary"
-                href={routes.campaigns.index}>
+                href={routes.campaigns.index}
+                className={classes.donateButton}
+                endIcon={<FavoriteIcon color="primary" className={classes.donateIcon} />}>
                 {t('nav.donatе')}
               </LinkButton>
             </Grid>
