@@ -34,11 +34,10 @@ jobs:
           tags: ghcr.io/podkrepi-bg/frontend/maintenance:master
 
       - name: Scan with Mondoo
-        uses: mondoohq/actions@98ef1608cb60ca3a3aed5a41f6aa86f579943e19
+        uses: mondoohq/actions/docker-image@main
         with:
-          service_account_credentials: ${{ secrets.MONDOO_SECRET }}
-          scan_type: docker_image
-          docker_image_name: ghcr.io/podkrepi-bg/frontend/maintenance:master
+          service-account-credentials: ${{ secrets.MONDOO_SECRET }}
+          image: ghcr.io/podkrepi-bg/frontend/maintenance:master
 
   build-frontend-image:
     name: Build frontend container image
@@ -78,11 +77,10 @@ jobs:
           tags: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}
 
       - name: Scan with Mondoo
-        uses: mondoohq/actions@98ef1608cb60ca3a3aed5a41f6aa86f579943e19
+        uses: mondoohq/actions/docker-image@main
         with:
-          service_account_credentials: ${{ secrets.MONDOO_SECRET }}
-          scan_type: docker_image
-          docker_image_name: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}
+          service-account-credentials: ${{ secrets.MONDOO_SECRET }}
+          image: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}
 
   scan-manifests:
     name: Scan k8s manifests
@@ -97,20 +95,18 @@ jobs:
         run: kustomize build manifests/overlays/development > dev-manifests.yaml
 
       - name: Scan development manifests with Mondoo
-        uses: mondoohq/actions@98ef1608cb60ca3a3aed5a41f6aa86f579943e19
+        uses: mondoohq/actions/k8s-manifest@main
         with:
-          service_account_credentials: ${{ secrets.MONDOO_SECRET }}
-          scan_type: k8s
+          service-account-credentials: ${{ secrets.MONDOO_SECRET }}
           path: dev-manifests.yaml
 
       - name: Build production manifests
         run: kustomize build manifests/overlays/production > prod-manifests.yaml
 
       - name: Scan production manifests with Mondoo
-        uses: mondoohq/actions@98ef1608cb60ca3a3aed5a41f6aa86f579943e19
+        uses: mondoohq/actions/k8s-manifest@main
         with:
-          service_account_credentials: ${{ secrets.MONDOO_SECRET }}
-          scan_type: k8s
+          service-account-credentials: ${{ secrets.MONDOO_SECRET }}
           path: prod-manifests.yaml
 
   run-playwright:
