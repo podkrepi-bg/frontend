@@ -1,7 +1,6 @@
 import React from 'react'
 import { styled } from '@mui/material/styles'
 
-import theme from 'common/theme'
 import SVGLogoBetaBG from './podkrepi-logo-beta-bg'
 import SVGLogoBetaEN from './podkrepi-logo-beta-en'
 
