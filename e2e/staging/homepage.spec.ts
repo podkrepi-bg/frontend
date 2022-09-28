@@ -64,9 +64,4 @@ test('test homepage on staging', async ({ page }) => {
   // Click text=Вижте всички >> nth=1
   await page.locator('text=Вижте всички').nth(1).click()
   await expect(page).toHaveURL('https://dev.podkrepi.bg/faq')
-
-  // Click text=Моделът ни на работа се основава на Принципите, които ни обединяват
-  await page
-    .locator('text=Моделът ни на работа се основава на Принципите, които ни обединяват')
-    .click()
 })

@@ -7,7 +7,6 @@ import Layout from 'components/layout/Layout'
 
 import OnHold from './OnHold'
 import ContactUs from './ContactUs'
-import FaqIntro from './FaqIntro'
 import ScrollToTop from './ScrollToTop'
 import VerticalTabs from './VerticalTabs'
 import ExpandableListItem from './ExpandableListItem'
@@ -34,7 +33,7 @@ export default function FaqPage({ section }: { section: string }) {
   }
   return (
     <Layout title={t('nav.campaigns.faq')}>
-      <FaqIntro />
+      {/* <FaqIntro /> */}
       <TabContext value={value}>
         <Stack direction={{ xs: 'column', md: 'row' }}>
           <VerticalTabs setValue={setValue} />

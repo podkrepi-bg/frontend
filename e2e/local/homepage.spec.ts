@@ -62,9 +62,4 @@ test('test homepage', async ({ page }) => {
   // Click text=Вижте всички >> nth=1
   await page.locator('text=Вижте всички').nth(1).click()
   await expect(page).toHaveURL('http://localhost:3040/faq')
-
-  // Click text=Моделът ни на работа се основава на Принципите, които ни обединяват
-  await page
-    .locator('text=Моделът ни на работа се основава на Принципите, които ни обединяват')
-    .click()
 })
