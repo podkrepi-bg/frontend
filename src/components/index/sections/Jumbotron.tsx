@@ -78,23 +78,6 @@ export default function Jumbotron() {
             <br />
             {t('index:title')}
           </Typography>
-          <Typography
-            maxWidth="md"
-            variant="h5"
-            component="p"
-            sx={{
-              mt: 2,
-              mb: 4,
-              fontWeight: 400,
-              [theme.breakpoints.down('md')]: {
-                fontSize: '1rem',
-              },
-              [theme.breakpoints.up('lg')]: {
-                maxWidth: '65%',
-              },
-            }}>
-            {t('index:jumbotron.heading')}
-          </Typography>
           <Grid
             item
             xs={12}
