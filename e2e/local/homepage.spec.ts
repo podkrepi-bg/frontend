@@ -33,6 +33,12 @@ test('test homepage', async ({ page }) => {
     )
     .click()
 
+  // Click text=Какво е „безкомпромисна прозрачност”?
+  await page.locator('text=Какво е „безкомпромисна прозрачност”?').click()
+
+  // Click text=Нашето разбиране за „безкомпромисна прозрачност” е:
+  await page.locator('text=Нашето разбиране за „безкомпромисна прозрачност” е:').click()
+
   // Click text=Какви са технологичните ви предимства?
   await page.locator('text=Какви са технологичните ви предимства?').click()
 
