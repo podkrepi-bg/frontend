@@ -7,15 +7,12 @@ import Layout from 'components/layout/Layout'
 
 import OnHold from './OnHold'
 import ContactUs from './ContactUs'
-import FaqIntro from './FaqIntro'
 import ScrollToTop from './ScrollToTop'
 import VerticalTabs from './VerticalTabs'
 import ExpandableListItem from './ExpandableListItem'
 import {
   DONATION_QUESTIONS,
   COMMON_QUESTIONS,
-  MONTHLY_DONATION_QUESTIONS,
-  POTENTION_SCAM_QUESTIONS,
   CAMPAIGN_QUESTIONS,
   ATTRACTING_DONATORS_QUESTIONS,
   PARTNERSHIPS_QUESTIONS,
@@ -36,7 +33,7 @@ export default function FaqPage({ section }: { section: string }) {
   }
   return (
     <Layout title={t('nav.campaigns.faq')}>
-      <FaqIntro />
+      {/* <FaqIntro /> */}
       <TabContext value={value}>
         <Stack direction={{ xs: 'column', md: 'row' }}>
           <VerticalTabs setValue={setValue} />
@@ -52,16 +49,6 @@ export default function FaqPage({ section }: { section: string }) {
           </TabPanel>
           <TabPanel value="donations" sx={{ p: 0 }}>
             {DONATION_QUESTIONS.flatMap(({ header, content, visible }) =>
-              visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
-            )}
-          </TabPanel>
-          <TabPanel value="recurring-donations" sx={{ p: 0 }}>
-            {MONTHLY_DONATION_QUESTIONS.flatMap(({ header, content, visible }) =>
-              visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
-            )}
-          </TabPanel>
-          <TabPanel value="potential-fraud" sx={{ p: 0 }}>
-            {POTENTION_SCAM_QUESTIONS.flatMap(({ header, content, visible }) =>
               visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
             )}
           </TabPanel>

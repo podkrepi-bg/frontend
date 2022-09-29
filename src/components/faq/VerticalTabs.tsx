@@ -33,8 +33,6 @@ const VerticalTabs = ({ setValue }: Props) => {
         <Tab label="Общи въпроси" value="common-questions" />
         <Tab label="Кампании" value="campaigns" />
         <Tab label="Дарения" value="donations" />
-        <Tab label="Месечни дарения" value="recurring-donations" />
-        <Tab label="Потенциални злоупотреби" value="potential-fraud" />
         <Tab label="Привличане на дарители" value="attracting-donators" />
         <Tab label="Корпоративни партньорства" value="corporate-partnership" />
       </TabList>
