@@ -5,8 +5,8 @@ test.beforeEach(async ({ page }) => {
 })
 
 test('test homepage', async ({ page }) => {
-  // Click text=Текущи кампании
-  await page.locator('text=Текущи кампании').click()
+  // Click text=Спешни кампании
+  await page.locator('text=Спешни кампании').click()
 
   // Click text=Как работи Подкрепи.бг?
   await page.locator('text=Как работи Подкрепи.бг?').click()

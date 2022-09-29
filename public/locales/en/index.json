@@ -9,8 +9,7 @@
     "eliminate-misuse": "aimed at eliminating misuses of donation campaigns",
     "improve-donation-culture": "aimed at improving the donation culture in Bulgaria",
     "open-source": "open source",
-    "about-project-button": "About the project",
-    "donate": "Donate ❤️"
+    "about-project-button": "About the project"
   },
   "activity-section": {
     "heading": "What do we do?",
@@ -40,7 +39,7 @@
   },
   "campaign": {
     "see-all": "See all",
-    "emergency-causes": "Current campaigns"
+    "emergency-causes": "Urgent campaigns"
   },
   "how-we-work": {
     "heading": "How does Pordkprepi.bg work?",
