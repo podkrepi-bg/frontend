@@ -21,8 +21,13 @@ const classes = {
 const StyledContainer = styled(Container)(({ theme }) => ({
   [`& .${classes.heading}`]: {
     paddingBottom: theme.spacing(7),
-    color: theme.palette.primary.dark,
+    color: theme.palette.common.black,
     textAlign: 'center',
+    fontWeight: 500,
+
+    [theme.breakpoints.up('lg')]: {
+      fontSize: theme.spacing(6),
+    },
   },
 
   [`& .${classes.container}`]: {
@@ -55,7 +60,7 @@ export default function CampaignsSection() {
   } else {
     return (
       <StyledContainer maxWidth="lg">
-        <Heading id="what-we-do" variant="h4" component="h2" className={classes.heading}>
+        <Heading id="what-we-do" variant="h3" component="h2" className={classes.heading}>
           {t('index:campaign.emergency-causes')}
         </Heading>
         <Grid container justifyContent="center" spacing={2}>

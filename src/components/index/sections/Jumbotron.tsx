@@ -4,14 +4,14 @@ import { Container, Grid, Theme, Typography } from '@mui/material'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Image from 'next/image'
 import LinkButton from 'components/common/LinkButton'
-import theme from 'common/theme'
 import { routes } from 'common/routes'
+import theme from 'common/theme'
 
 export default function Jumbotron() {
   const { t } = useTranslation()
   //Check if the media query is match and breakpoint is up sm device
   const matches = useMediaQuery<Theme>((theme) => theme.breakpoints.up('sm'))
-  const imgSource = matches ? '/img/family.jpg' : '/img/family.jpg'
+  const imgSource = matches ? '/img/family.jpg' : '/img/family-mobile.png'
 
   return (
     <Grid
@@ -20,21 +20,16 @@ export default function Jumbotron() {
       component="section"
       sx={(theme) => ({
         height: {
-          xl: '623px',
-          lg: '632px',
+          lg: '554px',
           md: '535px',
         },
-        background:
-          'linear-gradient(99deg, rgba(0,0,0,0.7707457983193278) 0%, rgba(27,54,75,0) 100%)',
         padding: {
           xs: theme.spacing(5, 1, 0, 1),
-          lg: theme.spacing(7, 1, 0, 1),
-          xl: theme.spacing(8, 1, 0, 1),
+          lg: theme.spacing(11, 1, 0, 1),
         },
         mb: {
           xs: 5,
-          lg: 7,
-          xl: 5,
+          lg: 10,
         },
         mt: {
           xs: 3,
@@ -51,23 +46,23 @@ export default function Jumbotron() {
       <Image
         priority
         src={imgSource}
-        alt="Podkrepi.bg heading"
+        alt="Podkrepi.bg banner"
         layout="fill"
         objectFit="cover"
-        objectPosition="70% 12%"
+        objectPosition="75%"
         style={{ zIndex: -1 }}
       />
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         <Grid item textAlign="left" sx={{ xs: { mb: 4 }, mb: 8 }}>
           <Typography
             component={'h1'}
             sx={(theme) => ({
               color: theme.palette.common.white,
               fontWeight: 500,
-              mb: 3,
+              mb: 4,
               fontSize: theme.typography.pxToRem(30),
               [theme.breakpoints.up('sm')]: {
-                fontSize: theme.typography.pxToRem(50),
+                fontSize: theme.typography.pxToRem(48),
               },
               [theme.breakpoints.up('lg')]: {
                 fontSize: theme.typography.pxToRem(60),
@@ -93,15 +88,24 @@ export default function Jumbotron() {
             <LinkButton
               sx={{
                 minWidth: {
-                  xs: 270,
-                  md: 320,
+                  xs: 200,
+                  sm: 320,
+                },
+                fontWeight: 600,
+                fontSize: {
+                  xs: 14,
+                  sm: 22,
+                },
+                borderRadius: theme.borders.round,
+                backgroundColor: '#4AC3FF',
+                '&:hover': {
+                  backgroundColor: '#32A9FE',
                 },
               }}
               size="large"
               variant="contained"
-              color="secondary"
               href={routes.campaigns.index}>
-              {t('index:jumbotron.donate')}
+              {t('common:nav.donatе')}
             </LinkButton>
           </Grid>
         </Grid>
