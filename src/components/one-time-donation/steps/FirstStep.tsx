@@ -206,7 +206,7 @@ export default function FirstStep() {
           {amount.value ? (
             <Box sx={{ mt: 4 }}>
               <Grid container>
-                <Grid item xs={10}>
+                <Grid item xs={8}>
                   <CheckboxField
                     name="cardIncludeFees"
                     label={
@@ -214,15 +214,28 @@ export default function FirstStep() {
                     }
                   />
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item xs={4}>
                   <FormSelectField
                     name="cardRegion"
-                    label={t('third-step.card-region')}
+                    label={t('third-step.card-region.title')}
                     options={[
-                      { key: CardRegion.EU, value: CardRegion.EU, name: CardRegion.EU },
-                      { key: CardRegion.UK, value: CardRegion.UK, name: CardRegion.UK },
-                      { key: CardRegion.Other, value: CardRegion.Other, name: CardRegion.Other },
+                      {
+                        key: CardRegion.EU,
+                        value: CardRegion.EU,
+                        name: t(`third-step.card-region.${CardRegion.EU}`),
+                      },
+                      {
+                        key: CardRegion.UK,
+                        value: CardRegion.UK,
+                        name: t(`third-step.card-region.${CardRegion.UK}`),
+                      },
+                      {
+                        key: CardRegion.Other,
+                        value: CardRegion.Other,
+                        name: t(`third-step.card-region.${CardRegion.Other}`),
+                      },
                     ]}
+                    InputProps={{ style: { fontSize: 14 } }}
                   />
                 </Grid>
               </Grid>

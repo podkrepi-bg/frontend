@@ -14,7 +14,7 @@ test('test anonymous donation on staging - fixed amount', async ({ page }) => {
   await page.locator('label:has-text("10 лв.")').click()
 
   // Click text=Искам да покрия таксите за плащане с карта издадена в:
-  await page.locator('text=Искам да покрия таксите за плащане с карта издадена в:').click()
+  await page.locator('text=Искам да покрия таксата за карта издадена в:').click()
 
   // Click text=10,65 лв.
   await page.locator('text=10,65 лв.').click()
