@@ -52,7 +52,12 @@
     "card-include-fees": "I want to cover transaction fees for card issued in:",
     "card-fees": "For donations by card we use the services of Stripe and for every transfer they charge a fee depending on region of your card issuer. To orient you about the net donation, after you choose the desired amount, we will show you the calculated fee below. More details for Stripe fees can be found here: ",
     "card-calculated-fees": "For your donation of <strong>{{amount}}</strong>, the fee from Stripe will be <strong>{{fees}}</strong>, and the total charged amount will be <strong>{{totalAmount}}</strong>",
-    "card-region": "region",
+    "card-region": {
+      "title": "region",
+      "EU": "Europe",
+      "UK": "Great Britain",
+      "Other": "other"
+    },
     "bank-payment": "Bank transfer",
     "bank-instructions1": "To donate via bank transfer, please use your bank recommonded application with entering our bank details from below. The donation will not be updated immediatelly as the implemnetation of the automated bank integration is still pending.",
     "bank-instructions2": "We trust you to register or to leave an email on the next step, so that we can link your donation to your account. Thank you!!!",
