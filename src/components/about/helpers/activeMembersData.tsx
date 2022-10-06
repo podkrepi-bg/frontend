@@ -66,4 +66,10 @@ export const data: TeamData[] = [
     description: 'QA',
     linkedInProfile: 'https://www.linkedin.com/in/zhanab/',
   },
+  {
+    img: '/img/team-photos/AlexanderAlexandrov.jpg',
+    name: 'Александър Александров',
+    description: 'PR',
+    linkedInProfile: 'https://www.linkedin.com/in/alexanderalexandrov/',
+  },
 ]
