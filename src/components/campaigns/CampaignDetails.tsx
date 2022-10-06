@@ -85,9 +85,14 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
       textTransform: 'uppercase',
     },
     [theme.breakpoints.up('sm')]: {
-      paddingTop: theme.spacing(4),
       display: 'table-cell',
       verticalAlign: 'middle',
+    },
+    [theme.breakpoints.up('md')]: {
+      paddingTop: theme.spacing(4),
+    },
+    [theme.breakpoints.up('lg')]: {
+      paddingTop: theme.spacing(10),
     },
   },
   ['& .ql-editor']: {
