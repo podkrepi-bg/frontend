@@ -90,6 +90,7 @@ export default function AdminMenu() {
         )}
       </IconButton>
       <Menu
+        disableScrollLock={true}
         keepMounted
         id="menu-appbar"
         anchorEl={anchorEl}

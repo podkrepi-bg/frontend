@@ -83,6 +83,7 @@ export default function PrivateMenu() {
         )}
       </IconButton>
       <Menu
+        disableScrollLock={true}
         keepMounted
         id="menu-appbar"
         anchorEl={anchorEl}
