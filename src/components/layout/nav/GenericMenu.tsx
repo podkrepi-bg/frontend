@@ -28,6 +28,7 @@ export default function GenericMenu({ label, children }: Props) {
         {label}
       </Button>
       <Menu
+        disableScrollLock={true}
         keepMounted
         id="menu-donation"
         anchorEl={anchorEl}
