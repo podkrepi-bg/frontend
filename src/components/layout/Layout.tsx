@@ -10,7 +10,6 @@ import DetailsModal from 'components/modal/DetailsModal'
 
 import AppNavBar from './AppNavBar'
 import MobileNav from './nav/MobileNav'
-import ImproveThisPageTag from './ImproveThisPageTag'
 
 const createPageTitle = (suffix: string, title?: string) => {
   if (title) {
@@ -90,7 +89,6 @@ export default function Layout({
             </Typography>
           )}
           {children}
-          <ImproveThisPageTag githubUrl={githubUrl} figmaUrl={figmaUrl} />
         </Box>
         <Snackbar />
         <DetailsModal />
