@@ -65,6 +65,7 @@ export default function PublicMenu() {
         <PersonIcon />
       </Button>
       <Menu
+        disableScrollLock={true}
         open={Boolean(anchorEl)}
         keepMounted
         id="menu-appbar"
