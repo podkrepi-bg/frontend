@@ -27,7 +27,7 @@ const classes = {
   bannerWrapper: `${PREFIX}-bannerWrapper`,
   banner: `${PREFIX}-banner`,
   campaignTitle: `${PREFIX}-campaignTitle`,
-  beneficiaryAvatarWrapper: `${PREFIX}-beneficiaryAvatarWrapper`,
+  beneficiaryWrapper: `${PREFIX}-beneficiaryWrapper`,
   beneficiaryAvatar: `${PREFIX}-beneficiaryAvatar`,
   beneficiaryName: `${PREFIX}-beneficiaryName`,
   linkButton: `${PREFIX}-linkButton`,
@@ -55,12 +55,14 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     },
   },
 
-  [`& .${classes.beneficiaryAvatarWrapper}`]: {
+  [`& .${classes.beneficiaryWrapper}`]: {
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
     marginTop: theme.spacing(47),
+
     [theme.breakpoints.up('md')]: {
+      display: 'table',
       textAlign: 'left',
       flexDirection: 'initial',
     },
@@ -77,8 +79,20 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.beneficiaryName}`]: {
     fontSize: theme.spacing(3),
     marginTop: theme.spacing(3),
+    textAlign: 'center',
+
+    '&::first-letter': {
+      textTransform: 'uppercase',
+    },
+    [theme.breakpoints.up('sm')]: {
+      display: 'table-cell',
+      verticalAlign: 'middle',
+    },
     [theme.breakpoints.up('md')]: {
-      marginTop: theme.spacing(12),
+      paddingTop: theme.spacing(4),
+    },
+    [theme.breakpoints.up('lg')]: {
+      paddingTop: theme.spacing(10),
     },
   },
   ['& .ql-editor']: {
@@ -118,7 +132,7 @@ export default function CampaignDetails({ campaign }: Props) {
           className={classes.banner}
         />
       </Grid>
-      <Grid item className={classes.beneficiaryAvatarWrapper}>
+      <Grid item className={classes.beneficiaryWrapper}>
         <Image
           src={beneficiaryAvatarSource}
           alt={campaign.title}
