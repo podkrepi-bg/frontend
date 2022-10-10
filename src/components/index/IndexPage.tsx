@@ -3,7 +3,6 @@ import Layout from 'components/layout/Layout'
 import Jumbotron from './sections/Jumbotron'
 import CampaignsSection from './sections/CampaignsSection'
 import HowWeWorkSection from './sections/HowWeWorkSection'
-import WhatUnitesUsSection from './sections/WhatUnitesUsSection'
 import WantToHelpPodkrepiBgSection from './sections/WantToHelpPodkrepiBg'
 import FaqSection from './sections/FaqSection'
 import TeamMembersSection from './sections/TeamMembersSection'
@@ -23,7 +22,6 @@ export default function IndexPage() {
       <HowWeWorkSection />
       {/* <ReadyToStartCampaignSection /> */}
       <TeamMembersSection />
-      <WhatUnitesUsSection />
       <WantToHelpPodkrepiBgSection />
       <FaqSection />
       {/* <ReadyToStartCampaignSection /> */}
