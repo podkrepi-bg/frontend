@@ -54,9 +54,6 @@
   "close": "Close",
   "link": "Link",
   "support": "Donate",
-  "improve-this-page": "Improve this page:",
-  "github-link-text": "GitHub Source",
-  "figma-link-text": "Figma Design",
   "components": {
     "footer": {
       "about-us": "About us",
