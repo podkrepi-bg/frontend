@@ -9,8 +9,6 @@ import { StepsContext } from './helpers/stepperContext'
 import { OneTimeDonation } from 'gql/donations'
 import { useSession } from 'next-auth/react'
 
-import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
-
 const PREFIX = 'FormikStepper'
 
 const classes = {
@@ -123,36 +121,6 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
                   size="large">
                   {isSubmitting ? 'Потвърждение' : isLastStep() ? t('btns.end') : t('btns.next')}
                 </LoadingButton>
-                <PayPalScriptProvider options={{ 'client-id': 'test' }}>
-                  <PayPalButtons
-                    createOrder={(data, actions) => {
-                      //TODO: send create to backend
-                      return actions.order.create({
-                        purchase_units: [
-                          {
-                            amount: {
-                              value: '100.00',
-                            },
-                          },
-                        ],
-                      })
-                    }}
-                    onApprove={(data, actions) => {
-                      if (actions.order) {
-                        //TODO: send capture to backend
-
-                        return actions.order.capture().then((details) => {
-                          const name = details?.payer?.name?.given_name
-                          alert(`Transaction completed by ${name}`)
-                        })
-                      } else {
-                        return new Promise(() => {
-                          alert(`Transaction failed for orderId: ` + data.orderID)
-                        })
-                      }
-                    }}
-                  />
-                </PayPalScriptProvider>
               </Grid>
             </Grid>
           )}
