@@ -61,7 +61,7 @@ export default function CampaignsSection() {
     return (
       <StyledContainer maxWidth="lg">
         <Heading id="what-we-do" variant="h3" component="h2" className={classes.heading}>
-          {t('index:campaign.emergency-causes')}
+          {t('index:campaign.urgent-campaigns')}
         </Heading>
         <Grid container justifyContent="center" spacing={2}>
           {data?.slice(0, 3).map((campaign, index, array) => (
