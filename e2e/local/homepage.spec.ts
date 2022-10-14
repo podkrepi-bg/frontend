@@ -14,8 +14,8 @@ test('test homepage', async ({ page }) => {
   // Click text=Кой стои зад Подкрепи.бг?
   await page.locator('text=Кой стои зад Подкрепи.бг?').click()
 
-  // Click text=Защо не се присъедините към Подкрепи.бг?
-  await page.locator('text=Защо не се присъедините към Подкрепи.бг?').click()
+  // Click text=Присъединете се към Подкрепи.бг
+  await page.locator('text=Присъединете се към Подкрепи.бг').click()
 
   // Click h2:has-text("Често задавани въпроси")
   await page.locator('h2:has-text("Често задавани въпроси")').click()
