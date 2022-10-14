@@ -1,113 +1,106 @@
 import React from 'react'
+
 import { useTranslation } from 'next-i18next'
-import { Container, Grid, Theme, Typography } from '@mui/material'
-import useMediaQuery from '@mui/material/useMediaQuery'
-import Image from 'next/image'
+
 import LinkButton from 'components/common/LinkButton'
 import { routes } from 'common/routes'
 import theme from 'common/theme'
 
+import { Container, Grid, Typography } from '@mui/material'
+import { createStyles, makeStyles } from '@mui/styles'
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    jumbotronWrapper: {
+      height: theme.spacing(49.375),
+      padding: theme.spacing(6.25, 1),
+      margin: theme.spacing(4, 0, 10, 0),
+      backgroundPosition: '76%',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+
+      [theme.breakpoints.up('sm')]: {
+        backgroundPosition: '75%',
+      },
+
+      [theme.breakpoints.up('md')]: {
+        marginTop: theme.spacing(7),
+      },
+    },
+
+    textWrapper: {
+      textAlign: 'left',
+
+      [theme.breakpoints.up('md')]: {
+        paddingLeft: theme.spacing(11),
+      },
+    },
+
+    heading: {
+      color: theme.palette.common.white,
+      fontWeight: 500,
+      marginBottom: theme.spacing(4),
+      fontSize: theme.typography.pxToRem(30),
+      maxWidth: theme.spacing(56),
+
+      [theme.breakpoints.up('md')]: {
+        fontSize: theme.typography.pxToRem(32),
+      },
+
+      [theme.breakpoints.up('lg')]: {
+        fontSize: theme.typography.pxToRem(42),
+        maxWidth: theme.spacing(73),
+      },
+    },
+
+    donateButton: {
+      minWidth: theme.spacing(25),
+      fontWeight: 600,
+      borderRadius: theme.borders.round,
+      backgroundColor: '#4AC3FF',
+
+      '&:hover': {
+        backgroundColor: '#32A9FE',
+      },
+
+      [theme.breakpoints.up('md')]: {
+        minWidth: theme.spacing(40),
+      },
+
+      [theme.breakpoints.up('sm')]: {
+        fontSize: theme.typography.pxToRem(22),
+      },
+    },
+  }),
+)
+
 export default function Jumbotron() {
   const { t } = useTranslation()
-  //Check if the media query is match and breakpoint is up sm device
-  const matches = useMediaQuery<Theme>((theme) => theme.breakpoints.up('sm'))
-  const imgSource = matches ? '/img/family.jpg' : '/img/family-mobile.png'
+  const classes = useStyles()
+
+  const bannerSource = '/img/family.jpg'
 
   return (
     <Grid
       container
       direction="column"
       component="section"
-      sx={(theme) => ({
-        height: {
-          lg: '554px',
-          md: '535px',
-        },
-        padding: {
-          xs: theme.spacing(5, 1, 0, 1),
-          lg: theme.spacing(11, 1, 0, 1),
-        },
-        mb: {
-          xs: 5,
-          lg: 10,
-        },
-        mt: {
-          xs: 3,
-          md: 5,
-          lg: 7,
-        },
-        textAlign: 'center',
-        color: theme.palette.common.white,
-        position: 'relative',
-        lg: {
-          height: '950px',
-        },
-      })}>
-      <Image
-        priority
-        src={imgSource}
-        alt="Podkrepi.bg banner"
-        layout="fill"
-        objectFit="cover"
-        objectPosition="75%"
-        style={{ zIndex: -1 }}
-      />
+      className={classes.jumbotronWrapper}
+      style={{ backgroundImage: `url(${bannerSource})` }}>
       <Container maxWidth="xl">
-        <Grid item textAlign="left" sx={{ xs: { mb: 4 }, mb: 8 }}>
-          <Typography
-            component={'h1'}
-            sx={(theme) => ({
-              color: theme.palette.common.white,
-              fontWeight: 500,
-              mb: 4,
-              fontSize: theme.typography.pxToRem(30),
-              [theme.breakpoints.up('sm')]: {
-                fontSize: theme.typography.pxToRem(48),
-              },
-              [theme.breakpoints.up('lg')]: {
-                fontSize: theme.typography.pxToRem(60),
-                maxWidth: 'md',
-              },
-            })}>
+        <Grid item className={classes.textWrapper}>
+          <Typography component={'h1'} className={classes.heading}>
             {t('index:podkrepi')} -
             <br />
             {t('index:title')}
           </Typography>
-          <Grid
-            item
-            xs={12}
-            sx={{
-              display: 'flex',
-              justifyContent: 'start',
-              flexWrap: 'wrap',
-              gap: {
-                xs: '12px',
-                md: '50px',
-              },
-            }}>
-            <LinkButton
-              sx={{
-                minWidth: {
-                  xs: 200,
-                  sm: 320,
-                },
-                fontWeight: 600,
-                fontSize: {
-                  xs: 14,
-                  sm: 22,
-                },
-                borderRadius: theme.borders.round,
-                backgroundColor: '#4AC3FF',
-                '&:hover': {
-                  backgroundColor: '#32A9FE',
-                },
-              }}
-              size="large"
-              variant="contained"
-              href={routes.campaigns.index}>
-              {t('common:nav.donatе')}
-            </LinkButton>
-          </Grid>
+          <LinkButton
+            className={classes.donateButton}
+            size="large"
+            variant="contained"
+            href={routes.campaigns.index}>
+            {t('common:nav.donatе')}
+          </LinkButton>
         </Grid>
       </Container>
     </Grid>

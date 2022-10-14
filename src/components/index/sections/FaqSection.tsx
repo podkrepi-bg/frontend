@@ -21,7 +21,7 @@ export default function FaqSection() {
         {t('common:nav.campaigns.faq')}
       </Heading>
       <Grid container justifyContent="center" spacing={2} sx={{ mb: 12 }}>
-        {data.COMMON_QUESTIONS.slice(0, 3).flatMap(({ header, content, visible }) =>
+        {data.COMMON_QUESTIONS.slice(0, 5).flatMap(({ header, content, visible }) =>
           visible ? (
             <Grid item xs={12} key={header}>
               <ExpandableListItem header={header} content={content} />
