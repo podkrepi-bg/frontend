@@ -41,7 +41,7 @@ const useStyles = makeStyles(() =>
       fontWeight: 500,
       marginBottom: theme.spacing(4),
       fontSize: theme.typography.pxToRem(30),
-      maxWidth: '320px',
+      maxWidth: theme.spacing(56),
 
       [theme.breakpoints.up('md')]: {
         fontSize: theme.typography.pxToRem(32),
@@ -49,12 +49,12 @@ const useStyles = makeStyles(() =>
 
       [theme.breakpoints.up('lg')]: {
         fontSize: theme.typography.pxToRem(42),
-        maxWidth: '47%',
+        maxWidth: theme.spacing(73),
       },
     },
 
     donateButton: {
-      minWidth: '200px',
+      minWidth: theme.spacing(25),
       fontWeight: 600,
       borderRadius: theme.borders.round,
       backgroundColor: '#4AC3FF',
@@ -64,7 +64,7 @@ const useStyles = makeStyles(() =>
       },
 
       [theme.breakpoints.up('md')]: {
-        minWidth: '320px',
+        minWidth: theme.spacing(40),
       },
 
       [theme.breakpoints.up('sm')]: {
