@@ -23,7 +23,7 @@ import { isAdmin } from 'common/util/roles'
 import { useSession } from 'next-auth/react'
 
 import dynamic from 'next/dynamic'
-const PaypalButtonsWrapper = dynamic(() => import('../helpers/paypalButtonWrapper'), {
+const PaypalDonationButton = dynamic(() => import('../helpers/paypalDonationButton'), {
   ssr: false,
 })
 
@@ -272,8 +272,9 @@ export default function FirstStep() {
           <Grid my={2} item display="flex" justifyContent="center" xs={9}>
             <Typography>
               <b>
-                Note: This is a test Paypal implementation visible only to logged users with admin
-                rights. Using real cards will not charge any money.
+                Note 1: This is a test Paypal implementation visible only to logged users with admin
+                rights. Using real cards will not charge any money. Note 2: Paypal transaction fee
+                is 3.4% + 0.35 euro cents.
               </b>
             </Typography>
           </Grid>
@@ -298,7 +299,7 @@ export default function FirstStep() {
                 'client-id': `${process.env.PAYPAL_CLIENT_ID}`,
                 currency: 'EUR',
               }}>
-              <PaypalButtonsWrapper
+              <PaypalDonationButton
                 campaignId={campaign.id}
                 amount={otherAmount.value as number}
                 currency={'EUR'}

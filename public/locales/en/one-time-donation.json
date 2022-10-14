@@ -68,6 +68,10 @@
     "reason-donation": "For payment reference use:",
     "message-warning": "If you don't enter the exact reference we may not be able to assign the money to the desired campaign."
   },
+  "alerts": {
+    "success": "Donation was processed successfully!",
+    "error": "Error ocurred during processing of the donation!"
+  },
   "fail": {
     "title": "Unfortunately there was a problem!",
     "subtitle": "The transaction could not be done. The reasons for that many, including a problem with your internet connection.",
