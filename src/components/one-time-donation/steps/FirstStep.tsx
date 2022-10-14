@@ -18,6 +18,14 @@ import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../helpers/stri
 import CheckboxField from 'components/common/form/CheckboxField'
 import FormSelectField from 'components/common/form/FormSelectField'
 import { CardRegion } from 'gql/donations.enums'
+import { PayPalScriptProvider } from '@paypal/react-paypal-js'
+import { isAdmin } from 'common/util/roles'
+import { useSession } from 'next-auth/react'
+
+import dynamic from 'next/dynamic'
+const PaypalDonationButton = dynamic(() => import('../helpers/paypalDonationButton'), {
+  ssr: false,
+})
 
 const PREFIX = 'FirstStep'
 
@@ -33,16 +41,19 @@ const Root = styled('div')(() => ({
 }))
 
 export default function FirstStep() {
+  const { data: session } = useSession()
   const { data: prices } = useSinglePriceList()
   const { t } = useTranslation('one-time-donation')
   const mobile = useMediaQuery('(max-width:600px)')
-  const options = [
+  const paymentOptions = [
     { value: 'card', label: t('third-step.card') },
+    { value: 'paypal', label: 'PayPal', hidden: !isAdmin(session) },
     { value: 'bank', label: t('third-step.bank-payment') },
   ]
 
   const [paymentField] = useField('payment')
   const [amount] = useField('amount')
+  const [otherAmount] = useField('otherAmount')
   const [amountWithFees] = useField('amountWithFees')
   const [amountWithoutFees] = useField<number>('amountWithoutFees')
 
@@ -83,7 +94,11 @@ export default function FirstStep() {
     <Root>
       <Typography variant="h4">{t('third-step.title')}</Typography>
       <Box marginTop={theme.spacing(4)}>
-        <RadioButtonGroup name="payment" options={options} />
+        <RadioButtonGroup
+          name="payment"
+          columns={paymentOptions.filter((option) => option.hidden != true).length}
+          options={paymentOptions}
+        />
       </Box>
       <Collapse in={paymentField.value === 'bank'} timeout="auto">
         <List component="div" disablePadding>
@@ -251,6 +266,47 @@ export default function FirstStep() {
             </Box>
           ) : null}
         </Box>
+      </Collapse>
+      <Collapse in={paymentField.value === 'paypal'}>
+        <Grid container justifyContent="center">
+          <Grid my={2} item display="flex" justifyContent="center" xs={9}>
+            <Typography>
+              <b>
+                Note 1: This is a test Paypal implementation visible only to logged users with admin
+                rights. Using real cards will not charge any money. Note 2: Paypal transaction fee
+                is 3.4% + 0.35 euro cents.
+              </b>
+            </Typography>
+          </Grid>
+          <Grid my={2} item display="flex" justifyContent="space-between" xs={9}>
+            <FormTextField
+              name="otherAmount"
+              type="number"
+              label={t('first-step.amount')}
+              InputProps={{
+                style: { fontSize: 14, padding: 7 },
+                endAdornment: (
+                  <InputAdornment variant="filled" position="end">
+                    {t('first-step.BGN')}
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Grid>
+          <Grid my={2} item display="flex" justifyContent="center" xs={9}>
+            <PayPalScriptProvider
+              options={{
+                'client-id': `${process.env.PAYPAL_CLIENT_ID}`,
+                currency: 'EUR',
+              }}>
+              <PaypalDonationButton
+                campaignId={campaign.id}
+                amount={otherAmount.value as number}
+                currency={'EUR'}
+              />
+            </PayPalScriptProvider>
+          </Grid>
+        </Grid>
       </Collapse>
     </Root>
   )

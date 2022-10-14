@@ -37,6 +37,7 @@
     "@mui/x-data-grid": "^5.5.1",
     "@mui/x-date-pickers": "^5.0.0-alpha.1",
     "@next/bundle-analyzer": "^12.1.0",
+    "@paypal/react-paypal-js": "^7.8.1",
     "@react-pdf/renderer": "^2.1.1",
     "@sentry/nextjs": "6.17.8",
     "@types/react-slick": "^0.23.10",

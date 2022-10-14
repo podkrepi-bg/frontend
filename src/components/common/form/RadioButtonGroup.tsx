@@ -12,12 +12,16 @@ import {
 import { TranslatableField, translateError } from 'common/form/validation'
 import PriceRadioButton from './RadioButton'
 
+export type RadioButtonGroupOptions = {
+  label: string
+  value: string | number
+  hidden?: boolean
+}
+
 export type RadioButtonGroup = {
   name: string
-  options: {
-    label: string
-    value: string | number
-  }[]
+  options: RadioButtonGroupOptions[]
+  columns?: number
   muiRadioGroupProps?: Partial<RadioGroupProps>
   /**
    * Props that get passed to the `<Grid>` that wraps around each rendered button
@@ -32,6 +36,7 @@ export type RadioButtonGroup = {
 export default function RadioButtonGroup({
   name,
   options,
+  columns = 2,
   muiRadioGroupProps,
   muiRadioButtonGridProps,
 }: RadioButtonGroup) {
@@ -54,15 +59,18 @@ export default function RadioButtonGroup({
         <Grid rowSpacing={2} columnSpacing={2} container>
           {options ? (
             <>
-              {options.map(({ label: optionLabel, value: optionValue }, index) => (
-                <Grid key={index} item xs={12} sm={6} {...muiRadioButtonGridProps}>
-                  <PriceRadioButton
-                    value={optionValue}
-                    checked={optionValue == field.value}
-                    label={optionLabel}
-                  />
-                </Grid>
-              ))}
+              {options.flatMap(
+                ({ label: optionLabel, value: optionValue, hidden }, index) =>
+                  !hidden && (
+                    <Grid key={index} item xs={12} sm={12 / columns} {...muiRadioButtonGridProps}>
+                      <PriceRadioButton
+                        value={optionValue}
+                        checked={optionValue == field.value}
+                        label={optionLabel}
+                      />
+                    </Grid>
+                  ),
+              )}
             </>
           ) : (
             <Typography>There are no avaliable choices you can make :(</Typography>
