@@ -28,6 +28,14 @@ const useStyles = makeStyles(() =>
       },
     },
 
+    textWrapper: {
+      textAlign: 'left',
+
+      [theme.breakpoints.up('md')]: {
+        paddingLeft: theme.spacing(11),
+      },
+    },
+
     heading: {
       color: theme.palette.common.white,
       fontWeight: 500,
@@ -35,9 +43,13 @@ const useStyles = makeStyles(() =>
       fontSize: theme.typography.pxToRem(30),
       maxWidth: '320px',
 
+      [theme.breakpoints.up('md')]: {
+        fontSize: theme.typography.pxToRem(32),
+      },
+
       [theme.breakpoints.up('lg')]: {
-        fontSize: theme.typography.pxToRem(60),
-        maxWidth: '55%',
+        fontSize: theme.typography.pxToRem(42),
+        maxWidth: '47%',
       },
     },
 
@@ -76,7 +88,7 @@ export default function Jumbotron() {
       className={classes.jumbotronWrapper}
       style={{ backgroundImage: `url(${bannerSource})` }}>
       <Container maxWidth="xl">
-        <Grid item textAlign="left">
+        <Grid item className={classes.textWrapper}>
           <Typography component={'h1'} className={classes.heading}>
             {t('index:podkrepi')} -
             <br />

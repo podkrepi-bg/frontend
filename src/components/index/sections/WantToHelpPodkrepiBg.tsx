@@ -38,6 +38,14 @@ export default function WantToHelpPodkrepiBgSection() {
         <Typography variant="subtitle1" marginBottom={theme.spacing(2)}>
           {t('index:join-podkrepi-bg-section.text')}
         </Typography>
+        <Box sx={{ margin: '30px 0' }}>
+          <Image
+            alt="Discord team image"
+            src={discordTeamImagePath}
+            width="1189px"
+            height="789px"
+          />
+        </Box>
         <LinkButton variant="contained" href={routes.support} endIcon={<ChevronRightIcon />}>
           {t('index:join-podkrepi-bg-section.become-volunteer')}
         </LinkButton>
