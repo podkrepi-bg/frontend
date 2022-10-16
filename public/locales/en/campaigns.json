@@ -82,6 +82,7 @@
     "state": "Campaign state",
     "reached": "reached",
     "target": "target",
+    "from": "from",
     "donors": "donors",
     "shares": "shares",
     "messages": "Messages:",
