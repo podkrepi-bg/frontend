@@ -64,8 +64,8 @@ export default function CampaignsSection() {
           {t('index:campaign.urgent-campaigns')}
         </Heading>
         <Grid container justifyContent="center" spacing={2}>
-          {data?.slice(0, 3).map((campaign, index, array) => (
-            <Grid key={index} item xs={12} sm={6} lg={4}>
+          {data?.slice(0, 4).map((campaign, index, array) => (
+            <Grid key={index} item xs={12} sm={6} lg={3}>
               <Box
                 sx={(theme) => ({
                   textAlign: 'center',
