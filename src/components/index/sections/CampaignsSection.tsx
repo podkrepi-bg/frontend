@@ -16,6 +16,7 @@ const classes = {
   heading: `${PREFIX}-heading`,
   container: `${PREFIX}-container`,
   graphic: `${PREFIX}-graphic`,
+  seeAll: `${PREFIX}-seeAll`,
 }
 
 const StyledContainer = styled(Container)(({ theme }) => ({
@@ -38,6 +39,16 @@ const StyledContainer = styled(Container)(({ theme }) => ({
   [`& .${classes.graphic}`]: {
     marginTop: theme.spacing(5),
   },
+
+  [`& .${classes.seeAll}`]: {
+    marginTop: theme.spacing(5),
+    fontWeight: 'bold',
+    color: theme.palette.common.black,
+
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing(35),
+    },
+  },
 }))
 
 const cardAlignment = (index: number, array: CampaignResponse[]) => {
@@ -59,11 +70,11 @@ export default function CampaignsSection() {
     return null
   } else {
     return (
-      <StyledContainer maxWidth="lg">
-        <Heading id="what-we-do" variant="h3" component="h2" className={classes.heading}>
+      <StyledContainer maxWidth="xl">
+        <Heading variant="h3" component="h2" className={classes.heading}>
           {t('index:campaign.urgent-campaigns')}
         </Heading>
-        <Grid container justifyContent="center" spacing={2}>
+        <Grid container justifyContent="center" spacing={4}>
           {data?.slice(0, 4).map((campaign, index, array) => (
             <Grid key={index} item xs={12} sm={6} lg={3}>
               <Box
@@ -80,9 +91,8 @@ export default function CampaignsSection() {
             <LinkButton
               href={routes.campaigns.index}
               variant="outlined"
-              color="primary"
               endIcon={<ChevronRightIcon />}
-              sx={{ marginTop: '2rem' }}>
+              className={classes.seeAll}>
               {t('index:campaign.see-all')}
             </LinkButton>
           </Grid>
