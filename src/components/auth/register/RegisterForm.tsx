@@ -6,13 +6,15 @@ import { signIn } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
 
 import { routes } from 'common/routes'
+import { email, password, name } from 'common/form/validation'
 import { useRegister } from 'service/auth'
 import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import PasswordField from 'components/common/form/PasswordField'
-import { email, password, name } from 'common/form/validation'
+import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
+import AcceptTermsField from 'components/common/form/AcceptTermsField'
 
 export type RegisterFormData = {
   firstName: string
@@ -103,6 +105,10 @@ export default function RegisterForm({ initialValues = defaults }: RegisterFormP
         </Grid>
         <Grid item xs={12}>
           <PasswordField name={'confirm-password'} label={'auth:account.confirm-password'} />
+        </Grid>
+        <Grid item xs={12}>
+          <AcceptTermsField name="terms" />
+          <AcceptPrivacyPolicyField name="gdpr" />
         </Grid>
         <Grid item xs={12}>
           <SubmitButton fullWidth label="auth:cta.register" loading={loading} />
