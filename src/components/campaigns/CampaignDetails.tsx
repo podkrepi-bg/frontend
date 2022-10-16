@@ -62,12 +62,14 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     marginTop: theme.spacing(47),
 
     [theme.breakpoints.up('md')]: {
-      display: 'table',
-      textAlign: 'left',
       flexDirection: 'initial',
     },
     [theme.breakpoints.up('lg')]: {
       marginTop: theme.spacing(41),
+    },
+
+    '& span:first-of-type': {
+      minWidth: '250px',
     },
   },
 
@@ -87,11 +89,11 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     [theme.breakpoints.up('sm')]: {
       display: 'table-cell',
       verticalAlign: 'middle',
+      textAlign: 'left',
+      paddingTop: theme.spacing(7),
+      paddingLeft: '16px',
     },
     [theme.breakpoints.up('md')]: {
-      paddingTop: theme.spacing(4),
-    },
-    [theme.breakpoints.up('lg')]: {
       paddingTop: theme.spacing(10),
     },
   },
