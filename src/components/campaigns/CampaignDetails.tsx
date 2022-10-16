@@ -69,7 +69,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     },
 
     '& span:first-of-type': {
-      minWidth: '250px',
+      minWidth: '250px !important',
     },
   },
 
@@ -86,15 +86,12 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     '&::first-letter': {
       textTransform: 'uppercase',
     },
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       display: 'table-cell',
       verticalAlign: 'middle',
       textAlign: 'left',
-      paddingTop: theme.spacing(7),
-      paddingLeft: '16px',
-    },
-    [theme.breakpoints.up('md')]: {
       paddingTop: theme.spacing(10),
+      paddingLeft: theme.spacing(2),
     },
   },
   ['& .ql-editor']: {
