@@ -93,6 +93,11 @@ spec:
                 configMapKeyRef:
                   name: keycloak-config-web
                   key: client-id
+            - name: PAYPAL_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: secrets-web
+                  key: paypal-client-id
           ports:
             - containerPort: 3040
           resources:
