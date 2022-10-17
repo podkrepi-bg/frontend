@@ -39,8 +39,6 @@ export default function Layout({
   children,
   maxWidth = 'lg',
   disableOffset = false,
-  githubUrl,
-  figmaUrl,
   hideFooter = false,
   boxProps,
   metaTitle,
@@ -66,6 +64,7 @@ export default function Layout({
         maxWidth={maxWidth}
         {...containerProps}>
         <Head>
+          <script async src="https://www.googleoptimize.com/optimize.js?id=OPT-W89QK8X" />
           <title>{pageTitle}</title>
           <meta name="description" content={metaDescription ?? pageTitle} />
           <meta name="og:description" content={metaDescription ?? pageTitle} />
