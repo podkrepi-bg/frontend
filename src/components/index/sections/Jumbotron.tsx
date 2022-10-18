@@ -7,76 +7,9 @@ import { routes } from 'common/routes'
 import theme from 'common/theme'
 
 import { Container, Grid, Typography } from '@mui/material'
-import { createStyles, makeStyles } from '@mui/styles'
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    jumbotronWrapper: {
-      height: theme.spacing(49.375),
-      padding: theme.spacing(6.25, 1),
-      margin: theme.spacing(4, 0, 10, 0),
-      backgroundPosition: '76%',
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-
-      [theme.breakpoints.up('sm')]: {
-        backgroundPosition: '75%',
-      },
-
-      [theme.breakpoints.up('md')]: {
-        marginTop: theme.spacing(7),
-      },
-    },
-
-    textWrapper: {
-      textAlign: 'left',
-
-      [theme.breakpoints.up('md')]: {
-        paddingLeft: theme.spacing(11),
-      },
-    },
-
-    heading: {
-      color: theme.palette.common.white,
-      fontWeight: 500,
-      marginBottom: theme.spacing(4),
-      fontSize: theme.typography.pxToRem(30),
-      maxWidth: theme.spacing(56),
-
-      [theme.breakpoints.up('md')]: {
-        fontSize: theme.typography.pxToRem(32),
-      },
-
-      [theme.breakpoints.up('lg')]: {
-        fontSize: theme.typography.pxToRem(42),
-        maxWidth: theme.spacing(73),
-      },
-    },
-
-    donateButton: {
-      minWidth: theme.spacing(25),
-      fontWeight: 600,
-      borderRadius: theme.borders.round,
-      backgroundColor: '#4AC3FF',
-
-      '&:hover': {
-        backgroundColor: '#32A9FE',
-      },
-
-      [theme.breakpoints.up('md')]: {
-        minWidth: theme.spacing(40),
-      },
-
-      [theme.breakpoints.up('sm')]: {
-        fontSize: theme.typography.pxToRem(22),
-      },
-    },
-  }),
-)
 
 export default function Jumbotron() {
   const { t } = useTranslation()
-  const classes = useStyles()
 
   const bannerSource = '/img/family.jpg'
 
@@ -85,20 +18,55 @@ export default function Jumbotron() {
       container
       direction="column"
       component="section"
-      className={classes.jumbotronWrapper}
-      style={{ backgroundImage: `url(${bannerSource})` }}>
+      sx={{
+        backgroundImage: `url(${bannerSource})`,
+        height: theme.spacing(49.375),
+        padding: theme.spacing(6.25, 1),
+        margin: theme.spacing(4, 0, 10, 0),
+        backgroundPosition: '75%',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        marginTop: { md: theme.spacing(7) },
+      }}>
       <Container maxWidth="xl">
-        <Grid item className={classes.textWrapper}>
-          <Typography component={'h1'} className={classes.heading}>
+        <Grid
+          item
+          sx={{
+            textAlign: 'left',
+            paddingLeft: { md: theme.spacing(11) },
+          }}>
+          <Typography
+            component={'h1'}
+            sx={{
+              color: theme.palette.common.white,
+              fontWeight: 500,
+              marginBottom: theme.spacing(4),
+              fontSize: {
+                xs: theme.typography.pxToRem(30),
+                md: theme.typography.pxToRem(32),
+                lg: theme.typography.pxToRem(42),
+              },
+              maxWidth: { xs: theme.spacing(56), lg: theme.spacing(73) },
+            }}>
             {t('index:podkrepi')} -
             <br />
             {t('index:title')}
           </Typography>
           <LinkButton
-            className={classes.donateButton}
             size="large"
             variant="contained"
-            href={routes.campaigns.index}>
+            href={routes.campaigns.index}
+            sx={{
+              minWidth: { xs: theme.spacing(25), md: theme.spacing(40) },
+              fontWeight: 600,
+              borderRadius: theme.borders.round,
+              backgroundColor: '#4AC3FF',
+              fontSize: { sm: theme.typography.pxToRem(22) },
+
+              '&:hover': {
+                backgroundColor: '#32A9FE',
+              },
+            }}>
             {t('common:nav.donatе')}
           </LinkButton>
         </Grid>
