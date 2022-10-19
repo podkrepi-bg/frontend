@@ -57,6 +57,7 @@ export const routes = {
     personalInformation: '/profile/personal-information',
     certificates: '/profile/certificates',
     contractDonation: '/profile/contract-donation',
+    myCampaigns: '/profile/my-campaigns',
   },
   register: '/register',
   aboutProject: '/about-project',

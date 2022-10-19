@@ -23,14 +23,14 @@ interface CampaignCellProps {
   params: GridRenderCellParams<AdminCampaignResponse, AdminCampaignResponse>
 }
 
-const DisplayCoordinator = ({ params }: CampaignCellProps) => {
+export const DisplayCoordinator = ({ params }: CampaignCellProps) => {
   return (
     <>
       {params.row.coordinator.person.firstName} {params.row.coordinator.person.lastName}
     </>
   )
 }
-const DisplayOrganizer = ({ params }: CampaignCellProps) => {
+export const DisplayOrganizer = ({ params }: CampaignCellProps) => {
   return (
     <>
       {params.row.organizer?.person.firstName || ''} {params.row.organizer?.person.lastName || ''}
@@ -38,7 +38,7 @@ const DisplayOrganizer = ({ params }: CampaignCellProps) => {
   )
 }
 
-const DisplayBeneficiary = ({ params }: CampaignCellProps) => {
+export const DisplayBeneficiary = ({ params }: CampaignCellProps) => {
   return (
     <>
       {params.row.beneficiary.type === BeneficiaryType.individual
@@ -48,19 +48,19 @@ const DisplayBeneficiary = ({ params }: CampaignCellProps) => {
   )
 }
 
-const DisplayExpandableDescription = (params: GridRenderCellParams<string>) => {
+export const DisplayExpandableDescription = (params: GridRenderCellParams<string>) => {
   return <GridCellExpand value={params.value || ''} width={params.colDef.computedWidth} />
 }
 
-const DisplayReachedAmount = ({ params }: CampaignCellProps) => {
+export const DisplayReachedAmount = ({ params }: CampaignCellProps) => {
   return <>{money(params.row.summary.reachedAmount ?? 0, params.row.currency)}</>
 }
 
-const DisplayBlockedAmount = ({ params }: CampaignCellProps) => {
+export const DisplayBlockedAmount = ({ params }: CampaignCellProps) => {
   return <>{money(params.row.summary.blockedAmount ?? 0, params.row.currency)}</>
 }
 
-const DisplayCurrentAmount = ({ params }: CampaignCellProps) => {
+export const DisplayCurrentAmount = ({ params }: CampaignCellProps) => {
   return <>{money(params.row.summary.currentAmount ?? 0, params.row.currency)}</>
 }
 
