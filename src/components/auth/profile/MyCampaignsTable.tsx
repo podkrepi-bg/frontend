@@ -230,7 +230,6 @@ export default function MyCampaingsTable() {
         <DataGrid
           style={{
             background: 'white',
-            height: 'calc(100vh - 300px)',
             border: 'none',
             width: 'calc(100% - 48px)',
             left: '24px',
@@ -246,7 +245,7 @@ export default function MyCampaingsTable() {
           autoPageSize
         />
       ) : (
-        <Box sx={{ fontSize: 20, mt: 4 }}>{t('profile:myCampaigns.noCampaigns')}</Box>
+        <Box sx={{ fontSize: 20 }}>{t('profile:myCampaigns.noCampaigns')}</Box>
       )}
       <Box>
         {selectedCampaign && (

@@ -33,14 +33,14 @@ export default function MyDonatedToCampaignTable() {
       headerName: t('campaigns:status'),
       ...commonProps,
       align: 'left',
-      width: 120,
+      width: 130,
     },
     {
       field: 'title',
       headerName: t('campaigns:title'),
       ...commonProps,
       align: 'left',
-      width: 370,
+      width: 380,
       renderCell: (cellValues: GridRenderCellParams) => (
         <Link href={`/campaigns/${cellValues.row.slug}`}>{cellValues.row.title}</Link>
       ),
@@ -50,7 +50,7 @@ export default function MyDonatedToCampaignTable() {
       headerName: t('campaigns:essence'),
       ...commonProps,
       align: 'left',
-      width: 370,
+      width: 380,
     },
     {
       field: 'coordinator',
@@ -60,7 +60,7 @@ export default function MyDonatedToCampaignTable() {
         return <DisplayCoordinator params={params} />
       },
       align: 'left',
-      width: 220,
+      width: 230,
     },
     {
       field: 'organizer',
@@ -70,7 +70,7 @@ export default function MyDonatedToCampaignTable() {
         return <DisplayOrganizer params={params} />
       },
       align: 'left',
-      width: 220,
+      width: 230,
     },
     {
       field: 'beneficiary',
@@ -80,14 +80,14 @@ export default function MyDonatedToCampaignTable() {
         return <DisplayBeneficiary params={params} />
       },
       align: 'left',
-      width: 220,
+      width: 230,
     },
     {
       field: 'campaignType',
       headerName: t('campaigns:campaignType'),
       ...commonProps,
       align: 'left',
-      width: 270,
+      width: 280,
       renderCell: (cellValues: GridRenderCellParams) => <>{cellValues.row.campaignType.name}</>,
     },
     {
@@ -95,7 +95,7 @@ export default function MyDonatedToCampaignTable() {
       headerName: t('campaigns:description'),
       ...commonProps,
       align: 'left',
-      width: 370,
+      width: 380,
       renderCell: DisplayExpandableDescription,
     },
     {
@@ -103,7 +103,7 @@ export default function MyDonatedToCampaignTable() {
       headerName: t('campaigns:donationsAmount'),
       ...commonProps,
       align: 'right',
-      width: 220,
+      width: 250,
       renderCell: (cellValues: GridRenderCellParams) => (
         <Link href={`/admin/donations?campaignId=${cellValues.row.id}`}>
           <DisplayReachedAmount params={cellValues} />
@@ -111,21 +111,11 @@ export default function MyDonatedToCampaignTable() {
       ),
     },
     {
-      field: 'currentAmount',
-      headerName: t('campaigns:amount'),
-      ...commonProps,
-      align: 'right',
-      width: 220,
-      renderCell: (cellValues: GridRenderCellParams) => (
-        <DisplayCurrentAmount params={cellValues} />
-      ),
-    },
-    {
       field: 'targetAmount',
       headerName: t('campaigns:targetAmount'),
       ...commonProps,
       align: 'right',
-      width: 170,
+      width: 180,
       renderCell: (cellValues: GridRenderCellParams) => (
         <>{money(cellValues.row.targetAmount, cellValues.row.currency)}</>
       ),
@@ -140,7 +130,7 @@ export default function MyDonatedToCampaignTable() {
       field: 'startDate',
       headerName: t('campaigns:startDate'),
       align: 'left',
-      width: 250,
+      width: 270,
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.startDate)}>
@@ -152,7 +142,7 @@ export default function MyDonatedToCampaignTable() {
       field: 'endDate',
       headerName: t('campaigns:endDate'),
       align: 'left',
-      width: 250,
+      width: 270,
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.endDate)}>
@@ -164,7 +154,7 @@ export default function MyDonatedToCampaignTable() {
       field: 'createdAt',
       headerName: t('campaigns:createDate'),
       align: 'left',
-      width: 250,
+      width: 270,
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.createdAt)}>
@@ -176,7 +166,7 @@ export default function MyDonatedToCampaignTable() {
       field: 'updatedAt',
       headerName: t('campaigns:updatedAt'),
       align: 'left',
-      width: 250,
+      width: 270,
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.updatedAt)}>
@@ -188,7 +178,7 @@ export default function MyDonatedToCampaignTable() {
       field: 'deletedAt',
       headerName: t('campaigns:deletedAt'),
       align: 'left',
-      width: 250,
+      width: 270,
       headerAlign: 'left',
     },
   ]
@@ -198,7 +188,6 @@ export default function MyDonatedToCampaignTable() {
         <DataGrid
           style={{
             background: 'white',
-            height: 'calc(100vh - 300px)',
             border: 'none',
             width: 'calc(100% - 48px)',
             left: '24px',
@@ -214,7 +203,7 @@ export default function MyDonatedToCampaignTable() {
           autoPageSize
         />
       ) : (
-        <Box sx={{ fontSize: 20, mt: 4 }}>{t('profile:donations.noDonations')}</Box>
+        <Box sx={{ fontSize: 20 }}>{t('profile:donations.noDonations')}</Box>
       )}
     </>
   )

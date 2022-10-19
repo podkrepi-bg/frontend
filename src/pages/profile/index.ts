@@ -6,6 +6,7 @@ export const getServerSideProps = securedPropsWithTranslation([
   'profile',
   'common',
   'validation',
+  'campaigns',
 ])
 
 export default ProfilePage
