@@ -40,12 +40,19 @@ export default function TeamMembersSection() {
       <Typography textAlign="center" fontFamily="Montserrat" fontSize={16}>
         {t('index:team-section.content')}
       </Typography>
-      <Grid container justifyContent="center" paddingTop={theme.spacing(6)}>
-        <Grid item xs={12} textAlign="center">
-          <LinkButton href={routes.about} variant="outlined" endIcon={<ChevronRightIcon />}>
-            {t('index:team-section.meet-our-team')}
-          </LinkButton>
-        </Grid>
+      <Grid item xs={12} textAlign="center">
+        <LinkButton
+          href={routes.about}
+          variant="outlined"
+          endIcon={<ChevronRightIcon />}
+          sx={{
+            marginTop: theme.spacing(6),
+            fontWeight: 'bold',
+            color: theme.palette.common.black,
+            minWidth: { sm: theme.spacing(35) },
+          }}>
+          {t('index:team-section.meet-our-team')}
+        </LinkButton>
       </Grid>
     </Container>
   )

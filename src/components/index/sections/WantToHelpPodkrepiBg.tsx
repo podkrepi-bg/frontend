@@ -45,7 +45,7 @@ export default function WantToHelpPodkrepiBgSection() {
         <Typography marginBottom={theme.spacing(6)}>
           {t('index:join-podkrepi-bg-section.text')}
         </Typography>
-        <Box sx={{ margin: '30px 0' }}>
+        <Box sx={{ marginTop: theme.spacing(4) }}>
           <Image
             alt="Discord team image"
             src={discordTeamImagePath}
@@ -54,7 +54,15 @@ export default function WantToHelpPodkrepiBgSection() {
             priority
           />
         </Box>
-        <LinkButton variant="contained" href={routes.support} endIcon={<ChevronRightIcon />}>
+        <LinkButton
+          variant="contained"
+          href={routes.support}
+          endIcon={<ChevronRightIcon />}
+          sx={{
+            marginTop: theme.spacing(6),
+            fontWeight: 'bold',
+            minWidth: { sm: theme.spacing(35) },
+          }}>
           {t('index:join-podkrepi-bg-section.become-volunteer')}
         </LinkButton>
       </Box>
