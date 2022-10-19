@@ -22,7 +22,7 @@ export default function Jumbotron() {
         backgroundImage: `url(${bannerSource})`,
         height: theme.spacing(49.375),
         padding: theme.spacing(6.25, 1),
-        margin: theme.spacing(4, 0, 10, 0),
+        margin: { xs: theme.spacing(4, 0, 8, 0), sx: theme.spacing(4, 0, 12, 0) },
         backgroundPosition: '75%',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',

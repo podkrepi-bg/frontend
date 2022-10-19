@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import { Grid, Typography } from '@mui/material'
+import { Grid, Typography, Container } from '@mui/material'
 
 import theme from 'common/theme'
 import { routes } from 'common/routes'
@@ -14,14 +14,25 @@ export default function TeamMembersSection() {
   const { t } = useTranslation()
 
   return (
-    <Grid component="section" maxWidth="lg" mx={3}>
+    <Container
+      component="section"
+      maxWidth="lg"
+      sx={{
+        padding: theme.spacing(0, 3),
+        marginTop: theme.spacing(8),
+        [theme.breakpoints.up('sm')]: {
+          marginTop: theme.spacing(12),
+        },
+        [theme.breakpoints.up('md')]: {
+          padding: theme.spacing(0),
+        },
+      }}>
       <Heading
         textAlign="center"
         variant="h4"
         component="h2"
         fontFamily="Montserrat"
         color={theme.palette.primary.dark}
-        paddingTop={theme.spacing(10)}
         marginBottom={theme.spacing(6)}
         fontWeight="500">
         {t('index:team-section.heading')}
@@ -29,17 +40,13 @@ export default function TeamMembersSection() {
       <Typography textAlign="center" fontFamily="Montserrat" fontSize={16}>
         {t('index:team-section.content')}
       </Typography>
-      <Grid
-        container
-        justifyContent="center"
-        paddingTop={theme.spacing(3)}
-        paddingBottom={theme.spacing(7)}>
+      <Grid container justifyContent="center" paddingTop={theme.spacing(6)}>
         <Grid item xs={12} textAlign="center">
           <LinkButton href={routes.about} variant="outlined" endIcon={<ChevronRightIcon />}>
             {t('index:team-section.meet-our-team')}
           </LinkButton>
         </Grid>
       </Grid>
-    </Grid>
+    </Container>
   )
 }

@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material'
+import { Container, Grid } from '@mui/material'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { useTranslation } from 'next-i18next'
 import LinkButton from 'components/common/LinkButton'
@@ -13,7 +13,7 @@ export default function FaqSection() {
   const { t } = useTranslation()
 
   return (
-    <Grid component="section" maxWidth="lg" px={3}>
+    <Container component="section" maxWidth="lg" style={{ padding: theme.spacing(0, 3) }}>
       <Heading
         id="what-we-do"
         variant="h4"
@@ -51,6 +51,6 @@ export default function FaqSection() {
           </LinkButton>
         </Grid>
       </Grid>
-    </Grid>
+    </Container>
   )
 }

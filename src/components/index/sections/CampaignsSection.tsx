@@ -20,10 +20,10 @@ const classes = {
 }
 
 const StyledContainer = styled('section')(({ theme }) => ({
-  margin: theme.spacing(7, 2, 0, 2),
+  margin: theme.spacing(7, 3, 0, 3),
 
   [theme.breakpoints.up('sm')]: {
-    margin: theme.spacing(11, 4, 0, 4),
+    margin: theme.spacing(12, 4, 0, 4),
   },
 
   [`& .${classes.heading}`]: {

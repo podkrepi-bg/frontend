@@ -13,7 +13,7 @@ export default function HowWeWorkSection() {
       container
       direction="column"
       component="section"
-      sx={{ textAlign: 'center', mt: 12, px: 3 }}>
+      sx={{ textAlign: 'center', mt: { xs: 8, sm: 12 }, px: 3 }}>
       <Heading
         variant="h4"
         component="h2"

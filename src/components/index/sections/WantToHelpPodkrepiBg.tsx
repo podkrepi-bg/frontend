@@ -23,6 +23,10 @@ export default function WantToHelpPodkrepiBgSection() {
         flexDirection: 'column',
         alignItems: 'center',
         backgroundColor: theme.palette.secondary.light,
+        marginTop: theme.spacing(8),
+        [theme.breakpoints.up('sm')]: {
+          marginTop: theme.spacing(12),
+        },
       }}>
       <Heading
         maxWidth="lg"
@@ -33,11 +37,12 @@ export default function WantToHelpPodkrepiBgSection() {
         fontFamily="Montserrat"
         color={theme.palette.primary.dark}
         marginBottom={theme.spacing(6)}
-        fontWeight="500">
+        fontWeight="500"
+        fontSize="16px">
         {t('index:join-podkrepi-bg-section.heading')}
       </Heading>
-      <Box maxWidth="lg" textAlign="center">
-        <Typography variant="subtitle1" marginBottom={theme.spacing(2)}>
+      <Box textAlign="center">
+        <Typography marginBottom={theme.spacing(6)}>
           {t('index:join-podkrepi-bg-section.text')}
         </Typography>
         <Box sx={{ margin: '30px 0' }}>
