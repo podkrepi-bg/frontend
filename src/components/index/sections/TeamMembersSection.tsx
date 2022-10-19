@@ -23,6 +23,7 @@ export default function TeamMembersSection() {
       sx={{
         padding: theme.spacing(0, 3),
         marginTop: theme.spacing(8),
+        textAlign: 'center',
         [theme.breakpoints.up('sm')]: {
           marginTop: theme.spacing(12),
         },
@@ -46,7 +47,7 @@ export default function TeamMembersSection() {
         style={{ paddingBottom: theme.spacing(6), fontSize: 16 }}>
         {t('index:team-section.content')}
       </Typography>
-      <Image alt="Team image" src={teamImagePath} width="1095px" height="150px" />
+      <Image alt="Team image" src={teamImagePath} width="1095px" height="150px" margin="0 auto" />
       <Grid item xs={12} textAlign="center">
         <LinkButton
           href={routes.about}
