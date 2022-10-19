@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import { Container, Grid, Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 
 import theme from 'common/theme'
 import { routes } from 'common/routes'
@@ -14,7 +14,7 @@ export default function TeamMembersSection() {
   const { t } = useTranslation()
 
   return (
-    <Container maxWidth="lg">
+    <Grid component="section" maxWidth="lg" mx={3}>
       <Heading
         textAlign="center"
         variant="h4"
@@ -22,7 +22,7 @@ export default function TeamMembersSection() {
         fontFamily="Montserrat"
         color={theme.palette.primary.dark}
         paddingTop={theme.spacing(10)}
-        paddingBottom={theme.spacing(7)}
+        marginBottom={theme.spacing(6)}
         fontWeight="500">
         {t('index:team-section.heading')}
       </Heading>
@@ -40,6 +40,6 @@ export default function TeamMembersSection() {
           </LinkButton>
         </Grid>
       </Grid>
-    </Container>
+    </Grid>
   )
 }

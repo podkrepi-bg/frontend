@@ -1,4 +1,4 @@
-import { Grid, Box, Container } from '@mui/material'
+import { Grid, Box } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { useTranslation } from 'next-i18next'
@@ -20,10 +20,14 @@ const classes = {
 }
 
 const StyledContainer = styled('section')(({ theme }) => ({
-  margin: theme.spacing(10, 4, 0, 4),
+  margin: theme.spacing(7, 2, 0, 2),
+
+  [theme.breakpoints.up('sm')]: {
+    margin: theme.spacing(11, 4, 0, 4),
+  },
 
   [`& .${classes.heading}`]: {
-    paddingBottom: theme.spacing(7),
+    marginBottom: theme.spacing(6),
     color: theme.palette.common.black,
     textAlign: 'center',
     fontWeight: 500,
@@ -43,7 +47,7 @@ const StyledContainer = styled('section')(({ theme }) => ({
   },
 
   [`& .${classes.seeAll}`]: {
-    marginTop: theme.spacing(5),
+    marginTop: theme.spacing(3),
     fontWeight: 'bold',
     color: theme.palette.common.black,
 

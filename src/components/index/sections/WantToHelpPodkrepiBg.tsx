@@ -15,9 +15,10 @@ export default function WantToHelpPodkrepiBgSection() {
 
   return (
     <Grid
+      component="section"
       sx={{
         display: 'flex',
-        padding: '80px 0',
+        padding: theme.spacing(10, 3),
         marginBottom: theme.spacing(12),
         flexDirection: 'column',
         alignItems: 'center',
@@ -31,7 +32,7 @@ export default function WantToHelpPodkrepiBgSection() {
         variant="h4"
         fontFamily="Montserrat"
         color={theme.palette.primary.dark}
-        paddingBottom={theme.spacing(7)}
+        marginBottom={theme.spacing(6)}
         fontWeight="500">
         {t('index:join-podkrepi-bg-section.heading')}
       </Heading>
