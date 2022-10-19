@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { Grid, Typography, Container } from '@mui/material'
@@ -10,8 +11,10 @@ import LinkButton from 'components/common/LinkButton'
 
 import 'swiper/css'
 import 'swiper/css/a11y'
+
 export default function TeamMembersSection() {
   const { t } = useTranslation()
+  const teamImagePath = '/img/team-photos/team-image.png'
 
   return (
     <Container
@@ -37,9 +40,13 @@ export default function TeamMembersSection() {
         fontWeight="500">
         {t('index:team-section.heading')}
       </Heading>
-      <Typography textAlign="center" fontFamily="Montserrat" fontSize={16}>
+      <Typography
+        textAlign="center"
+        fontFamily="Montserrat"
+        style={{ paddingBottom: theme.spacing(6), fontSize: 16 }}>
         {t('index:team-section.content')}
       </Typography>
+      <Image alt="Team image" src={teamImagePath} width="1095px" height="150px" />
       <Grid item xs={12} textAlign="center">
         <LinkButton
           href={routes.about}
