@@ -31,7 +31,8 @@ export default function WantToHelpPodkrepiBgSection() {
         variant="h4"
         fontFamily="Montserrat"
         color={theme.palette.primary.dark}
-        paddingBottom={theme.spacing(7)}>
+        paddingBottom={theme.spacing(7)}
+        fontWeight="500">
         {t('index:join-podkrepi-bg-section.heading')}
       </Heading>
       <Box maxWidth="lg" textAlign="center">
@@ -44,6 +45,7 @@ export default function WantToHelpPodkrepiBgSection() {
             src={discordTeamImagePath}
             width="1189px"
             height="789px"
+            priority
           />
         </Box>
         <LinkButton variant="contained" href={routes.support} endIcon={<ChevronRightIcon />}>

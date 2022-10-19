@@ -11,15 +11,14 @@ export default function HowWeWorkSection() {
   return (
     <Grid container direction="column" component="section" sx={{ textAlign: 'center', mb: 5 }}>
       <Heading
-        id="how-we-work"
         variant="h4"
         component="h2"
-        linkable
         sx={(theme) => ({
           pt: 10,
           pb: 7,
           px: 2,
           color: theme.palette.primary.dark,
+          fontWeight: 500,
         })}>
         {t('index:how-we-work.heading')}
       </Heading>
