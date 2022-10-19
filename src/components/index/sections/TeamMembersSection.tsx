@@ -47,7 +47,7 @@ export default function TeamMembersSection() {
         style={{ paddingBottom: theme.spacing(6), fontSize: 16 }}>
         {t('index:team-section.content')}
       </Typography>
-      <Image alt="Team image" src={teamImagePath} width="1095px" height="150px" margin="0 auto" />
+      <Image alt="Team image" src={teamImagePath} width="1095px" height="150px" />
       <Grid item xs={12} textAlign="center">
         <LinkButton
           href={routes.about}
