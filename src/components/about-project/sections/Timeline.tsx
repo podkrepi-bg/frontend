@@ -27,13 +27,7 @@ export default function Timeline() {
 
   return (
     <Grid container direction="column" component="section" sx={{ textAlign: 'center' }}>
-      <Heading
-        linkable
-        id="our-story"
-        variant="h3"
-        component="h2"
-        align="center"
-        sx={{ pt: 10, pb: 7 }}>
+      <Heading variant="h3" component="h2" align="center" sx={{ pt: 10, pb: 7 }}>
         {t('about-project:timeline')}
       </Heading>
       <Grid item>

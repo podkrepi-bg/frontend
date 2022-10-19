@@ -22,7 +22,8 @@ export default function TeamMembersSection() {
         fontFamily="Montserrat"
         color={theme.palette.primary.dark}
         paddingTop={theme.spacing(10)}
-        paddingBottom={theme.spacing(7)}>
+        paddingBottom={theme.spacing(7)}
+        fontWeight="500">
         {t('index:team-section.heading')}
       </Heading>
       <Typography textAlign="center" fontFamily="Montserrat" fontSize={16}>

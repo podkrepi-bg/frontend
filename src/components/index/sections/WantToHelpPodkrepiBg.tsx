@@ -31,7 +31,8 @@ export default function WantToHelpPodkrepiBgSection() {
         variant="h4"
         fontFamily="Montserrat"
         color={theme.palette.primary.dark}
-        paddingBottom={theme.spacing(7)}>
+        paddingBottom={theme.spacing(7)}
+        fontWeight="500">
         {t('index:join-podkrepi-bg-section.heading')}
       </Heading>
       <Box maxWidth="lg" textAlign="center">

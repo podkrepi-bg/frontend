@@ -18,6 +18,7 @@ export default function HowWeWorkSection() {
           pb: 7,
           px: 2,
           color: theme.palette.primary.dark,
+          fontWeight: 500,
         })}>
         {t('index:how-we-work.heading')}
       </Heading>

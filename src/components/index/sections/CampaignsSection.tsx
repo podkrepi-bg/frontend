@@ -19,7 +19,9 @@ const classes = {
   seeAll: `${PREFIX}-seeAll`,
 }
 
-const StyledContainer = styled(Container)(({ theme }) => ({
+const StyledContainer = styled('section')(({ theme }) => ({
+  margin: theme.spacing(10, 4, 0, 4),
+
   [`& .${classes.heading}`]: {
     paddingBottom: theme.spacing(7),
     color: theme.palette.common.black,
@@ -46,7 +48,7 @@ const StyledContainer = styled(Container)(({ theme }) => ({
     color: theme.palette.common.black,
 
     [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(35),
+      minWidth: theme.spacing(35),
     },
   },
 }))
@@ -70,7 +72,7 @@ export default function CampaignsSection() {
     return null
   } else {
     return (
-      <StyledContainer maxWidth="xl">
+      <StyledContainer>
         <Heading variant="h3" component="h2" className={classes.heading}>
           {t('index:campaign.urgent-campaigns')}
         </Heading>

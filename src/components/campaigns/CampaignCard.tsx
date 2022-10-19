@@ -134,7 +134,7 @@ export default function CampaignCard({ campaign }: Props) {
             <CampaignProgress raised={reached} target={target} />
           </Box>
           <Typography variant="body1" component="p" className={classes.progressBar}>
-            {t('campaigns:campaign.reached')}
+            {t('campaigns:campaign.reached')}{' '}
             <b>
               {moneyPublic(reached, currency)}
               {' / '}
