@@ -1,4 +1,4 @@
-import { Grid, Box, Container } from '@mui/material'
+import { Grid, Box } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { useTranslation } from 'next-i18next'
@@ -16,11 +16,18 @@ const classes = {
   heading: `${PREFIX}-heading`,
   container: `${PREFIX}-container`,
   graphic: `${PREFIX}-graphic`,
+  seeAll: `${PREFIX}-seeAll`,
 }
 
-const StyledContainer = styled(Container)(({ theme }) => ({
+const StyledContainer = styled('section')(({ theme }) => ({
+  margin: theme.spacing(7, 3, 0, 3),
+
+  [theme.breakpoints.up('sm')]: {
+    margin: theme.spacing(12, 4, 0, 4),
+  },
+
   [`& .${classes.heading}`]: {
-    paddingBottom: theme.spacing(7),
+    marginBottom: theme.spacing(6),
     color: theme.palette.common.black,
     textAlign: 'center',
     fontWeight: 500,
@@ -37,6 +44,16 @@ const StyledContainer = styled(Container)(({ theme }) => ({
 
   [`& .${classes.graphic}`]: {
     marginTop: theme.spacing(5),
+  },
+
+  [`& .${classes.seeAll}`]: {
+    marginTop: theme.spacing(3),
+    fontWeight: 'bold',
+    color: theme.palette.common.black,
+
+    [theme.breakpoints.up('sm')]: {
+      minWidth: theme.spacing(35),
+    },
   },
 }))
 
@@ -59,11 +76,11 @@ export default function CampaignsSection() {
     return null
   } else {
     return (
-      <StyledContainer maxWidth="lg">
-        <Heading id="what-we-do" variant="h3" component="h2" className={classes.heading}>
+      <StyledContainer>
+        <Heading variant="h3" component="h2" className={classes.heading}>
           {t('index:campaign.urgent-campaigns')}
         </Heading>
-        <Grid container justifyContent="center" spacing={2}>
+        <Grid container justifyContent="center" spacing={4}>
           {data?.slice(0, 4).map((campaign, index, array) => (
             <Grid key={index} item xs={12} sm={6} lg={3}>
               <Box
@@ -80,9 +97,8 @@ export default function CampaignsSection() {
             <LinkButton
               href={routes.campaigns.index}
               variant="outlined"
-              color="primary"
               endIcon={<ChevronRightIcon />}
-              sx={{ marginTop: '2rem' }}>
+              className={classes.seeAll}>
               {t('index:campaign.see-all')}
             </LinkButton>
           </Grid>

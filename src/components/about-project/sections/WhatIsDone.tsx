@@ -129,7 +129,7 @@ export default function WhatIsDone() {
 
   return (
     <StyledGrid container direction="column" className={classes.container}>
-      <Heading id="what-is-done" variant="h3" component="h2" className={classes.heading} linkable>
+      <Heading variant="h3" component="h2" className={classes.heading}>
         {t('about-project:whatIsDoneTitle')}
       </Heading>
       <Grid item container className={classes.icons}>

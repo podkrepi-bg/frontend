@@ -9,21 +9,22 @@ export default function HowWeWorkSection() {
   const { t, i18n } = useTranslation()
 
   return (
-    <Grid container direction="column" component="section" sx={{ textAlign: 'center', mb: 5 }}>
+    <Grid
+      container
+      direction="column"
+      component="section"
+      sx={{ textAlign: 'center', mt: { xs: 8, sm: 12 }, px: 3 }}>
       <Heading
-        id="how-we-work"
         variant="h4"
         component="h2"
-        linkable
         sx={(theme) => ({
-          pt: 10,
-          pb: 7,
-          px: 2,
+          mb: 6,
           color: theme.palette.primary.dark,
+          fontWeight: 500,
         })}>
         {t('index:how-we-work.heading')}
       </Heading>
-      <Box sx={{ px: 3 }}>
+      <Box>
         <Grid maxWidth="lg" margin="0 auto" item rowSpacing={10}>
           <Typography variant="subtitle1">{t('index:how-we-work.text')}</Typography>
         </Grid>

@@ -94,8 +94,7 @@ export default function TechStack() {
         variant="h3"
         component="h2"
         align="center"
-        className={classes.heading}
-        linkable>
+        className={classes.heading}>
         {t('about-project:tech-stack.title')}
       </Heading>
       <Grid container direction="column" component="section">

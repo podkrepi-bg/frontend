@@ -15,13 +15,18 @@ export default function WantToHelpPodkrepiBgSection() {
 
   return (
     <Grid
+      component="section"
       sx={{
         display: 'flex',
-        padding: '80px 0',
+        padding: theme.spacing(10, 3),
         marginBottom: theme.spacing(12),
         flexDirection: 'column',
         alignItems: 'center',
         backgroundColor: theme.palette.secondary.light,
+        marginTop: theme.spacing(8),
+        [theme.breakpoints.up('sm')]: {
+          marginTop: theme.spacing(12),
+        },
       }}>
       <Heading
         maxWidth="lg"
@@ -31,22 +36,33 @@ export default function WantToHelpPodkrepiBgSection() {
         variant="h4"
         fontFamily="Montserrat"
         color={theme.palette.primary.dark}
-        paddingBottom={theme.spacing(7)}>
+        marginBottom={theme.spacing(6)}
+        fontWeight="500"
+        fontSize="16px">
         {t('index:join-podkrepi-bg-section.heading')}
       </Heading>
-      <Box maxWidth="lg" textAlign="center">
-        <Typography variant="subtitle1" marginBottom={theme.spacing(2)}>
+      <Box textAlign="center">
+        <Typography marginBottom={theme.spacing(6)}>
           {t('index:join-podkrepi-bg-section.text')}
         </Typography>
-        <Box sx={{ margin: '30px 0' }}>
+        <Box sx={{ marginTop: theme.spacing(4) }}>
           <Image
             alt="Discord team image"
             src={discordTeamImagePath}
             width="1189px"
             height="789px"
+            priority
           />
         </Box>
-        <LinkButton variant="contained" href={routes.support} endIcon={<ChevronRightIcon />}>
+        <LinkButton
+          variant="contained"
+          href={routes.support}
+          endIcon={<ChevronRightIcon />}
+          sx={{
+            marginTop: theme.spacing(6),
+            fontWeight: 'bold',
+            minWidth: { sm: theme.spacing(35) },
+          }}>
           {t('index:join-podkrepi-bg-section.become-volunteer')}
         </LinkButton>
       </Box>

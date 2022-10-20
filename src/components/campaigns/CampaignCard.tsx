@@ -15,9 +15,9 @@ import {
   CardMedia,
   Typography,
   Box,
-  Link,
 } from '@mui/material'
 import { Favorite } from '@mui/icons-material'
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import Image from 'next/image'
 
@@ -31,9 +31,26 @@ const classes = {
   progressBar: `${PREFIX}-progressBar`,
   cardContent: `${PREFIX}-cardContent`,
   seeMoreButton: `${PREFIX}-seeMoreButton`,
+  supportNowButton: `${PREFIX}-supportNowButton`,
 }
 
 const StyledCard = styled(Card)(({ theme }) => ({
+  [`&.${classes.cardWrapper}`]: {
+    position: 'relative',
+    minHeight: theme.spacing(81),
+    backgroundColor: theme.palette.secondary.light,
+    border: 'none',
+    borderRadius: 0,
+
+    '@media(min-width: 325px)': {
+      minHeight: theme.spacing(79),
+    },
+
+    [theme.breakpoints.up('md')]: {
+      minHeight: theme.spacing(87),
+    },
+  },
+
   [`& .${classes.media}`]: {
     backgroundSize: 'contain',
     height: 200,
@@ -42,26 +59,6 @@ const StyledCard = styled(Card)(({ theme }) => ({
 
   [`& .${classes.cardActions}`]: {
     padding: '0',
-  },
-
-  [`&.${classes.cardWrapper}`]: {
-    position: 'relative',
-    minHeight: theme.spacing(87),
-    backgroundColor: theme.palette.secondary.light,
-    border: 'none',
-    borderRadius: 0,
-    [theme.breakpoints.down('lg')]: {
-      width: '70%',
-      display: 'inline-block',
-    },
-    [theme.breakpoints.down('md')]: {
-      maxWidth: '400px',
-      width: '100%',
-    },
-    [theme.breakpoints.down('sm')]: {
-      maxWidth: '300px',
-      width: '100%',
-    },
   },
 
   [`& .${classes.campaignTitle}`]: {
@@ -87,10 +84,14 @@ const StyledCard = styled(Card)(({ theme }) => ({
     },
   },
 
+  [`& .${classes.supportNowButton}`]: {
+    fontWeight: 'bold',
+  },
+
   [`& .${classes.seeMoreButton}`]: {
     background: 'transparent',
-    color: theme.palette.primary.dark,
-    textDecoration: 'underline',
+    color: theme.palette.common.black,
+    fontWeight: 'bold',
 
     '&:hover': {
       color: theme.palette.primary.main,
@@ -132,9 +133,12 @@ export default function CampaignCard({ campaign }: Props) {
             <CampaignProgress raised={reached} target={target} />
           </Box>
           <Typography variant="body1" component="p" className={classes.progressBar}>
-            {t('campaigns:campaign.reached')} <b>{moneyPublic(reached, currency)}</b>{' '}
-            {t('campaigns:campaign.from')} {t('campaigns:campaign.target')}{' '}
-            <b>{moneyPublic(target, currency)}</b>
+            {t('campaigns:campaign.reached')}{' '}
+            <b>
+              {moneyPublic(reached, currency)}
+              {' / '}
+            </b>
+            {t('campaigns:campaign.target')} <b>{moneyPublic(target, currency)}</b>
           </Typography>
           <Grid item xs={12}>
             <Box mx={2} mb={2}>
@@ -143,16 +147,18 @@ export default function CampaignCard({ campaign }: Props) {
                 href={routes.campaigns.oneTimeDonation(campaign.slug)}
                 variant="contained"
                 color="secondary"
-                endIcon={<Favorite color="error" />}>
-                {t('campaigns:cta.support')}
+                endIcon={<Favorite color="error" />}
+                className={classes.supportNowButton}>
+                {t('campaigns:cta.support-now')}
               </LinkButton>
             </Box>
             <Box mt={3} textAlign="center">
-              <Link
+              <LinkButton
                 href={routes.campaigns.viewCampaignBySlug(campaign.slug)}
+                endIcon={<KeyboardDoubleArrowRightIcon />}
                 className={classes.seeMoreButton}>
                 {t('campaigns:cta.see-more')}
-              </Link>
+              </LinkButton>
             </Box>
           </Grid>
         </Grid>

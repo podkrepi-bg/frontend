@@ -26,32 +26,14 @@ const Root = styled('div')(({ theme }) => ({
   },
 }))
 
-type Linkable = { id: string; linkable: true } | { linkable?: false }
-
-type HeadingParams = PropsWithChildren<TypographyProps & Linkable> & {
+type HeadingParams = PropsWithChildren<TypographyProps> & {
   component?: React.ElementType
 }
 
-export default function Heading({ children, id, linkable, ...props }: HeadingParams) {
-  const [linkIconIsShown, setlinkIconIsShown] = useState(false)
+export default function Heading({ children, id, ...props }: HeadingParams) {
   return (
-    <Root
-      id={id}
-      onMouseEnter={() => setlinkIconIsShown(true)}
-      onMouseLeave={() => setlinkIconIsShown(false)}>
-      <Typography {...props}>
-        {children}
-        {linkable && (
-          <LinkIconButton
-            href={`#${id}`}
-            sx={{
-              visibility: linkIconIsShown ? 'visible' : 'hidden',
-              md: { visibility: 'hidden' },
-            }}>
-            <LinkIcon className={classes.linkIcon} />
-          </LinkIconButton>
-        )}
-      </Typography>
+    <Root id={id}>
+      <Typography {...props}>{children}</Typography>
     </Root>
   )
 }
