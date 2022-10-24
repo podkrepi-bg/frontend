@@ -87,6 +87,7 @@ export default function CampaignGrid() {
         return (
           <GridActions
             id={cellValues.row.id}
+            allowDelete={true}
             onView={() => setViewId(cellValues.row.id)}
             onDelete={() => setDeleteId(cellValues.row.id)}
           />
