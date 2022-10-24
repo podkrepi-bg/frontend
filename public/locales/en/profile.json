@@ -45,9 +45,9 @@
   },
   "myCampaigns": {
     "index": "My campaigns",
-    "history": "My campaigns history",
-    "noCampaigns": "You are not organizer,coordinator or beneficiery to any campaign",
-    "donatedTo": "Campaigns, which You donated to"
+    "history": "Manage my campaigns",
+    "noCampaigns": "You are not in organizer, coordinator or beneficiery role in any campaign",
+    "donatedTo": "Campaigns I donated to"
   },
   "donationsContract": "Donation contract",
   "certificates": "Certificates",
