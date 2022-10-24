@@ -24,6 +24,21 @@ export function useCampaignAdminList() {
   )
 }
 
+export const useGetUserCampaigns = () => {
+  const { data: session } = useSession()
+  return useQuery<AdminCampaignResponse[]>(
+    endpoints.campaign.getUserCamapaigns.url,
+    authQueryFnFactory<AdminCampaignResponse[]>(session?.accessToken),
+  )
+}
+
+export function useUserDonationsCampaigns() {
+  const { data: session } = useSession()
+  return useQuery<AdminCampaignResponse[]>(endpoints.campaign.getUserDonatedToCampaigns.url, {
+    queryFn: authQueryFnFactory(session?.accessToken),
+  })
+}
+
 export function useCampaignTypesList() {
   return useQuery<CampaignType[]>(endpoints.campaignTypes.listCampaignTypes.url)
 }

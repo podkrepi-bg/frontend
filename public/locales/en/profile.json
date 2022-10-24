@@ -43,6 +43,12 @@
     "index": "Certificate history",
     "title": "Online donations"
   },
+  "myCampaigns": {
+    "index": "My campaigns",
+    "history": "Manage my campaigns",
+    "noCampaigns": "You are not in organizer, coordinator or beneficiery role in any campaign",
+    "donatedTo": "Campaigns I donated to"
+  },
   "donationsContract": "Donation contract",
   "certificates": "Certificates",
   "birthdateModal": {

@@ -16,7 +16,12 @@ export const endpoints = {
   campaign: {
     listCampaigns: <Endpoint>{ url: '/campaign/list', method: 'GET' },
     listAdminCampaigns: <Endpoint>{ url: '/campaign/list-all', method: 'GET' },
+    getUserDonatedToCampaigns: <Endpoint>{
+      url: '/campaign/user-donations-campaigns',
+      method: 'GET',
+    },
     createCampaign: <Endpoint>{ url: '/campaign/create-campaign', method: 'POST' },
+    getUserCamapaigns: <Endpoint>{ url: '/campaign/get-user-campaigns', method: 'GET' },
     viewCampaign: (slug: string) => <Endpoint>{ url: `/campaign/${slug}`, method: 'GET' },
     viewCampaignById: (id: string) => <Endpoint>{ url: `/campaign/byId/${id}`, method: 'GET' },
     editCampaign: (id: string) => <Endpoint>{ url: `/campaign/${id}`, method: 'PUT' },

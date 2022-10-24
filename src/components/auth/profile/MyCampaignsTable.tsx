@@ -1,76 +1,81 @@
 import { bg, enUS } from 'date-fns/locale'
-import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
-import AddIcon from '@mui/icons-material/Add'
-import React, { useMemo, useState } from 'react'
-import { Box, Button, Toolbar, Tooltip, Typography } from '@mui/material'
+import { useState, useMemo } from 'react'
 import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { Tooltip, Button, Box, Typography, styled } from '@mui/material'
 
-import { routes } from 'common/routes'
-import { money } from 'common/util/money'
-import { AdminCampaignResponse } from 'gql/campaigns'
-import Link from 'components/common/Link'
-import { useCampaignAdminList } from 'common/hooks/campaigns'
 import { getExactDateTime, getRelativeDate } from 'common/util/date'
-import { GridCellExpand } from 'components/common/GridCellExpand'
+import { money } from 'common/util/money'
+import { useGetUserCampaigns } from 'common/hooks/campaigns'
+import Link from 'components/common/Link'
+import GridActions from 'components/campaigns/grid/GridActions'
+import {
+  DisplayBeneficiary,
+  DisplayBlockedAmount,
+  DisplayCoordinator,
+  DisplayCurrentAmount,
+  DisplayExpandableDescription,
+  DisplayOrganizer,
+  DisplayReachedAmount,
+} from 'components/campaigns/grid/CampaignGrid'
+import DetailsModal from '../../campaigns/grid/modals/DetailsModal'
+import DeleteModal from '../../campaigns/grid/modals/DeleteModal'
+import ProfileTab from './ProfileTab'
+import { ProfileTabs } from './tabs'
 
-import GridActions from './GridActions'
-import DeleteModal from './modals/DeleteModal'
-import DetailsModal from './modals/DetailsModal'
-import { BeneficiaryType } from 'components/beneficiary/BeneficiaryTypes'
+const PREFIX = 'MyCampaignsTab'
 
-interface CampaignCellProps {
-  params: GridRenderCellParams<AdminCampaignResponse, AdminCampaignResponse>
+const classes = {
+  h3: `${PREFIX}-h3`,
+  thinFont: `${PREFIX}-thinFont`,
+  smallText: `${PREFIX}-smallText`,
+  boxTitle: `${PREFIX}-boxTitle`,
 }
 
-export const DisplayCoordinator = ({ params }: CampaignCellProps) => {
-  return (
-    <>
-      {params.row.coordinator.person.firstName} {params.row.coordinator.person.lastName}
-    </>
-  )
-}
-export const DisplayOrganizer = ({ params }: CampaignCellProps) => {
-  return (
-    <>
-      {params.row.organizer?.person.firstName || ''} {params.row.organizer?.person.lastName || ''}
-    </>
-  )
-}
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.h3}`]: {
+    fontStyle: 'normal',
+    fontWeight: '500',
+    fontSize: '25px',
+    lineHeight: '116.7%',
+    margin: '0',
+  },
+  [`& .${classes.thinFont}`]: {
+    fontStyle: 'normal',
+    fontWeight: 400,
+    fontSize: '24px',
+    lineHeight: '123.5%',
+    letterSpacing: '0.25px',
+    color: '#000000',
+    margin: 0,
+  },
+  [`& .${classes.smallText}`]: {
+    fontFamily: 'Lato, sans-serif',
+    fontStyle: 'normal',
+    fontWeight: '500',
+    fontSize: '15px',
+    lineHeight: '160%',
+    letterSpacing: '0.15px',
+  },
+  [`& .${classes.boxTitle}`]: {
+    backgroundColor: 'white',
+    padding: theme.spacing(3, 7),
+    paddingBottom: theme.spacing(3),
+    marginTop: theme.spacing(3),
+    boxShadow: theme.shadows[3],
+  },
+}))
 
-export const DisplayBeneficiary = ({ params }: CampaignCellProps) => {
-  return (
-    <>
-      {params.row.beneficiary.type === BeneficiaryType.individual
-        ? params.row.beneficiary.person.firstName + ' ' + params.row.beneficiary.person?.lastName
-        : params.row.beneficiary.company.companyName}
-    </>
-  )
-}
-
-export const DisplayExpandableDescription = (params: GridRenderCellParams<string>) => {
-  return <GridCellExpand value={params.value || ''} width={params.colDef.computedWidth} />
-}
-
-export const DisplayReachedAmount = ({ params }: CampaignCellProps) => {
-  return <>{money(params.row.summary.reachedAmount ?? 0, params.row.currency)}</>
-}
-
-export const DisplayBlockedAmount = ({ params }: CampaignCellProps) => {
-  return <>{money(params.row.summary.blockedAmount ?? 0, params.row.currency)}</>
-}
-
-export const DisplayCurrentAmount = ({ params }: CampaignCellProps) => {
-  return <>{money(params.row.summary.currentAmount ?? 0, params.row.currency)}</>
-}
-
-export default function CampaignGrid() {
+export default function MyCampaingsTable() {
   const { t, i18n } = useTranslation()
   const locale = i18n.language == 'bg' ? bg : enUS
-  const { data = [], refetch }: UseQueryResult<AdminCampaignResponse[]> = useCampaignAdminList()
   const [viewId, setViewId] = useState<string | undefined>()
   const [deleteId, setDeleteId] = useState<string | undefined>()
-  const selectedCampaign = useMemo(() => data.find((c) => c.id === viewId), [data, viewId])
+  const { data: campaigns = [], refetch } = useGetUserCampaigns()
+  const selectedCampaign = useMemo(
+    () => campaigns.find((c) => c.id === viewId),
+    [campaigns, viewId],
+  )
   const commonProps: Partial<GridColDef> = {
     align: 'left',
     width: 100,
@@ -267,42 +272,34 @@ export default function CampaignGrid() {
       headerAlign: 'left',
     },
   ]
-
   return (
     <>
-      <Toolbar
-        sx={{
-          background: 'white',
-          borderTop: '1px solid lightgrey',
-          display: 'flex',
-          justifyContent: 'space-between',
-          height: '64px',
-        }}>
-        <Link href={routes.admin.campaigns.create}>
-          <Button variant="outlined" endIcon={<AddIcon />}>
-            <Typography>Създай нова кампания</Typography>
-          </Button>
-        </Link>
-      </Toolbar>
-      <DataGrid
-        style={{
-          background: 'white',
-          position: 'absolute',
-          height: 'calc(100vh - 300px)',
-          border: 'none',
-          width: 'calc(100% - 48px)',
-          left: '24px',
-          overflowY: 'auto',
-          overflowX: 'hidden',
-          borderRadius: '0 0 13px 13px',
-        }}
-        rows={data || []}
-        columns={columns}
-        pageSize={5}
-        editMode="row"
-        autoHeight
-        autoPageSize
-      />
+      {campaigns.length !== 0 ? (
+        <>
+          <Box className={classes.boxTitle}>
+            <Typography className={classes.h3}>{t('profile:myCampaigns.history')}</Typography>
+          </Box>
+          <ProfileTab name={ProfileTabs.myCampaigns}>
+            <DataGrid
+              style={{
+                background: 'white',
+                border: 'none',
+                width: 'calc(100% - 48px)',
+                left: '24px',
+                overflowY: 'auto',
+                overflowX: 'hidden',
+                borderRadius: '0 0 13px 13px',
+              }}
+              rows={campaigns || []}
+              columns={columns}
+              pageSize={5}
+              editMode="row"
+              autoHeight
+              autoPageSize
+            />
+          </ProfileTab>
+        </>
+      ) : null}
       <Box>
         {selectedCampaign && (
           <DetailsModal campaign={selectedCampaign} onClose={() => setViewId(undefined)} />

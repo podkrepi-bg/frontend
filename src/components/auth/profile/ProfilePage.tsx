@@ -9,6 +9,7 @@ import {
   VolunteerActivism as DonationIcon,
   AccountBox as AccountBoxIcon,
   Assignment as CertificateIcon,
+  AssignmentInd as CampaignIcon,
 } from '@mui/icons-material'
 import { useSession } from 'next-auth/react'
 
@@ -105,6 +106,14 @@ export default function ProfilePage() {
                 aria-label={matches ? t('profile:certificates') : undefined}
                 onClick={() => router.push(routes.profile.certificates)}
                 icon={matches ? <CertificateIcon /> : undefined}
+              />
+              <Tab
+                className={matches ? classes.tabMobile : ''}
+                value={ProfileTabs.myCampaigns}
+                label={matches ? undefined : t('profile:myCampaigns.index')}
+                aria-label={matches ? t('profile:myCampaigns.index') : undefined}
+                onClick={() => router.push(routes.profile.myCampaigns)}
+                icon={matches ? <CampaignIcon /> : undefined}
               />
               {/* Currently we don't generate donation contract, when such document is generated we can either combine it with the certificate or unhide the contracts section. */}
               {/* <Tab
