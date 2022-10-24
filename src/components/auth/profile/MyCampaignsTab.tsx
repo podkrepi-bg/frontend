@@ -55,12 +55,7 @@ export default function MyCampaignsTab() {
   const { t } = useTranslation()
   return (
     <Root>
-      <Box className={classes.boxTitle}>
-        <Typography className={classes.h3}>{t('profile:myCampaigns.history')}</Typography>
-      </Box>
-      <ProfileTab name={ProfileTabs.myCampaigns}>
-        <MyCampaingsTable />
-      </ProfileTab>
+      <MyCampaingsTable />
       <Box className={classes.boxTitle}>
         <Typography className={classes.h3}>{t('profile:myCampaigns.donatedTo')}</Typography>
       </Box>

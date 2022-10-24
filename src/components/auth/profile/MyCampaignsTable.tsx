@@ -2,7 +2,7 @@ import { bg, enUS } from 'date-fns/locale'
 import { useTranslation } from 'next-i18next'
 import { useState, useMemo } from 'react'
 import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
-import { Tooltip, Button, Box } from '@mui/material'
+import { Tooltip, Button, Box, Typography, styled } from '@mui/material'
 
 import { getExactDateTime, getRelativeDate } from 'common/util/date'
 import { money } from 'common/util/money'
@@ -20,14 +20,62 @@ import {
 } from 'components/campaigns/grid/CampaignGrid'
 import DetailsModal from '../../campaigns/grid/modals/DetailsModal'
 import DeleteModal from '../../campaigns/grid/modals/DeleteModal'
+import ProfileTab from './ProfileTab'
+import { ProfileTabs } from './tabs'
+
+const PREFIX = 'MyCampaignsTab'
+
+const classes = {
+  h3: `${PREFIX}-h3`,
+  thinFont: `${PREFIX}-thinFont`,
+  smallText: `${PREFIX}-smallText`,
+  boxTitle: `${PREFIX}-boxTitle`,
+}
+
+const Root = styled('div')(({ theme }) => ({
+  [`& .${classes.h3}`]: {
+    fontStyle: 'normal',
+    fontWeight: '500',
+    fontSize: '25px',
+    lineHeight: '116.7%',
+    margin: '0',
+  },
+  [`& .${classes.thinFont}`]: {
+    fontStyle: 'normal',
+    fontWeight: 400,
+    fontSize: '24px',
+    lineHeight: '123.5%',
+    letterSpacing: '0.25px',
+    color: '#000000',
+    margin: 0,
+  },
+  [`& .${classes.smallText}`]: {
+    fontFamily: 'Lato, sans-serif',
+    fontStyle: 'normal',
+    fontWeight: '500',
+    fontSize: '15px',
+    lineHeight: '160%',
+    letterSpacing: '0.15px',
+  },
+  [`& .${classes.boxTitle}`]: {
+    backgroundColor: 'white',
+    padding: theme.spacing(3, 7),
+    paddingBottom: theme.spacing(3),
+    marginTop: theme.spacing(3),
+    boxShadow: theme.shadows[3],
+  },
+}))
 
 export default function MyCampaingsTable() {
   const { t, i18n } = useTranslation()
   const locale = i18n.language == 'bg' ? bg : enUS
   const [viewId, setViewId] = useState<string | undefined>()
   const [deleteId, setDeleteId] = useState<string | undefined>()
-  const { data = [], refetch } = useGetUserCampaigns()
-  const selectedCampaign = useMemo(() => data.find((c) => c.id === viewId), [data, viewId])
+  const { data: campaigns = [], refetch } = useGetUserCampaigns()
+  const selectedCampaign = useMemo(
+    () => campaigns.find((c) => c.id === viewId),
+    [campaigns, viewId],
+  )
   const commonProps: Partial<GridColDef> = {
     align: 'left',
     width: 100,
@@ -226,27 +274,32 @@ export default function MyCampaingsTable() {
   ]
   return (
     <>
-      {data.length !== 0 ? (
-        <DataGrid
-          style={{
-            background: 'white',
-            border: 'none',
-            width: 'calc(100% - 48px)',
-            left: '24px',
-            overflowY: 'auto',
-            overflowX: 'hidden',
-            borderRadius: '0 0 13px 13px',
-          }}
-          rows={data || []}
-          columns={columns}
-          pageSize={5}
-          editMode="row"
-          autoHeight
-          autoPageSize
-        />
-      ) : (
-        <Box sx={{ fontSize: 20 }}>{t('profile:myCampaigns.noCampaigns')}</Box>
-      )}
+      {campaigns.length !== 0 ? (
+        <>
+          <Box className={classes.boxTitle}>
+            <Typography className={classes.h3}>{t('profile:myCampaigns.history')}</Typography>
+          </Box>
+          <ProfileTab name={ProfileTabs.myCampaigns}>
+            <DataGrid
+              style={{
+                background: 'white',
+                border: 'none',
+                width: 'calc(100% - 48px)',
+                left: '24px',
+                overflowY: 'auto',
+                overflowX: 'hidden',
+                borderRadius: '0 0 13px 13px',
+              }}
+              rows={campaigns || []}
+              columns={columns}
+              pageSize={5}
+              editMode="row"
+              autoHeight
+              autoPageSize
+            />
+          </ProfileTab>
+        </>
+      ) : null}
       <Box>
         {selectedCampaign && (
           <DetailsModal campaign={selectedCampaign} onClose={() => setViewId(undefined)} />
