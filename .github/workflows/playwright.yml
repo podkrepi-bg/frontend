@@ -20,7 +20,7 @@ jobs:
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
 
       - uses: actions/cache@v3
         with:
@@ -39,7 +39,7 @@ jobs:
         working-directory: ./api
         run: docker compose up -d --force-recreate --no-build migrate-db seed-db api keycloak
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: '14.x'
 
@@ -67,7 +67,7 @@ jobs:
         working-directory: ./frontend
         run: yarn playwright test e2e/local
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         if: always()
         with:
           name: playwright-report
