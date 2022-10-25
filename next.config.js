@@ -20,7 +20,6 @@ const moduleExports = {
     APP_VERSION: version,
     SENTRY_DSN: process.env.SENTRY_DSN,
     DEPLOY_TAG: process.env.DEPLOY_TAG,
-    PAYPAL_CLIENT_ID: process.env.PAYPAL_CLIENT_ID,
   },
   serverRuntimeConfig: {
     DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
@@ -31,6 +30,7 @@ const moduleExports = {
     API_URL: process.env.API_URL,
     APP_URL: process.env.APP_URL,
     GTM_ID: process.env.GTM_ID ?? 'GTM-TWQBXM6',
+    PAYPAL_CLIENT_ID: process.env.PAYPAL_CLIENT_ID,
     FEATURE_ENABLED: {
       CAMPAIGN: process.env.FEATURE_CAMPAIGN ?? false,
     },
