@@ -9,11 +9,12 @@ import { routes } from 'common/routes'
 
 type Props = {
   id: string
+  allowDelete: boolean
   onView: () => void
   onDelete: () => void
 }
 
-export default function GridActions({ id, onView, onDelete }: Props) {
+export default function GridActions({ id, allowDelete, onView, onDelete }: Props) {
   return (
     <Box
       style={{
@@ -31,9 +32,11 @@ export default function GridActions({ id, onView, onDelete }: Props) {
           <EditOutlinedIcon />
         </IconButton>
       </Link>
-      <IconButton size="small" color="primary" onClick={onDelete}>
-        <DeleteOutlinedIcon />
-      </IconButton>
+      {allowDelete && (
+        <IconButton size="small" color="primary" onClick={onDelete}>
+          <DeleteOutlinedIcon />
+        </IconButton>
+      )}
     </Box>
   )
 }

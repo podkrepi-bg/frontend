@@ -2,7 +2,7 @@ import { bg, enUS } from 'date-fns/locale'
 import { useTranslation } from 'next-i18next'
 import { useState, useMemo } from 'react'
 import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
-import { Tooltip, Button, Box, Typography, styled } from '@mui/material'
+import { Tooltip, Button, Box, Typography } from '@mui/material'
 
 import { getExactDateTime, getRelativeDate } from 'common/util/date'
 import { money } from 'common/util/money'
@@ -19,7 +19,6 @@ import {
   DisplayReachedAmount,
 } from 'components/campaigns/grid/CampaignGrid'
 import DetailsModal from '../../campaigns/grid/modals/DetailsModal'
-import DeleteModal from '../../campaigns/grid/modals/DeleteModal'
 import ProfileTab from './ProfileTab'
 import { ProfileTabs } from './tabs'
 
@@ -32,46 +31,11 @@ const classes = {
   boxTitle: `${PREFIX}-boxTitle`,
 }
 
-const Root = styled('div')(({ theme }) => ({
-  [`& .${classes.h3}`]: {
-    fontStyle: 'normal',
-    fontWeight: '500',
-    fontSize: '25px',
-    lineHeight: '116.7%',
-    margin: '0',
-  },
-  [`& .${classes.thinFont}`]: {
-    fontStyle: 'normal',
-    fontWeight: 400,
-    fontSize: '24px',
-    lineHeight: '123.5%',
-    letterSpacing: '0.25px',
-    color: '#000000',
-    margin: 0,
-  },
-  [`& .${classes.smallText}`]: {
-    fontFamily: 'Lato, sans-serif',
-    fontStyle: 'normal',
-    fontWeight: '500',
-    fontSize: '15px',
-    lineHeight: '160%',
-    letterSpacing: '0.15px',
-  },
-  [`& .${classes.boxTitle}`]: {
-    backgroundColor: 'white',
-    padding: theme.spacing(3, 7),
-    paddingBottom: theme.spacing(3),
-    marginTop: theme.spacing(3),
-    boxShadow: theme.shadows[3],
-  },
-}))
-
 export default function MyCampaingsTable() {
   const { t, i18n } = useTranslation()
   const locale = i18n.language == 'bg' ? bg : enUS
   const [viewId, setViewId] = useState<string | undefined>()
-  const [deleteId, setDeleteId] = useState<string | undefined>()
-  const { data: campaigns = [], refetch } = useGetUserCampaigns()
+  const { data: campaigns = [] } = useGetUserCampaigns()
   const selectedCampaign = useMemo(
     () => campaigns.find((c) => c.id === viewId),
     [campaigns, viewId],
@@ -92,8 +56,9 @@ export default function MyCampaingsTable() {
         return (
           <GridActions
             id={cellValues.row.id}
+            allowDelete={false}
             onView={() => setViewId(cellValues.row.id)}
-            onDelete={() => setDeleteId(cellValues.row.id)}
+            onDelete={() => null}
           />
         )
       },
@@ -303,16 +268,6 @@ export default function MyCampaingsTable() {
       <Box>
         {selectedCampaign && (
           <DetailsModal campaign={selectedCampaign} onClose={() => setViewId(undefined)} />
-        )}
-        {deleteId && (
-          <DeleteModal
-            id={deleteId}
-            onDelete={() => {
-              refetch()
-              setDeleteId(undefined)
-            }}
-            onClose={() => setDeleteId(undefined)}
-          />
         )}
       </Box>
     </>
