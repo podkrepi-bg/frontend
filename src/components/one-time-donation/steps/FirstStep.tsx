@@ -21,6 +21,7 @@ import { CardRegion } from 'gql/donations.enums'
 import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 import { isAdmin } from 'common/util/roles'
 import { useSession } from 'next-auth/react'
+import getConfig from 'next/config'
 
 import dynamic from 'next/dynamic'
 const PaypalDonationButton = dynamic(() => import('../helpers/paypalDonationButton'), {
@@ -296,7 +297,7 @@ export default function FirstStep() {
           <Grid my={2} item display="flex" justifyContent="center" xs={9}>
             <PayPalScriptProvider
               options={{
-                'client-id': `${process.env.PAYPAL_CLIENT_ID}`,
+                'client-id': `${getConfig().publicRuntimeConfig.PAYPAL_CLIENT_ID}`,
                 currency: 'EUR',
               }}>
               <PaypalDonationButton
