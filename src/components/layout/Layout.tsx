@@ -18,6 +18,12 @@ const hotjarVersion = 6
 
 Hotjar.init(siteId, hotjarVersion)
 
+const head = document.getElementsByTagName('head')[0]
+const script = document.createElement('script')
+script.type = 'text/javascript'
+script.src = 'https://www.googleoptimize.com/optimize.js?id=OPT-W89QK8X'
+head.appendChild(script)
+
 const createPageTitle = (suffix: string, title?: string) => {
   if (title) {
     return `${title} | ${suffix}`
@@ -71,7 +77,6 @@ export default function Layout({
         maxWidth={maxWidth}
         {...containerProps}>
         <Head>
-          <script async src="https://www.googleoptimize.com/optimize.js?id=OPT-W89QK8X" />
           <title>{pageTitle}</title>
           <meta name="description" content={metaDescription ?? pageTitle} />
           <meta name="og:description" content={metaDescription ?? pageTitle} />
