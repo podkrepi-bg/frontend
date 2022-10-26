@@ -682,6 +682,11 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@hotjar/browser@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@hotjar/browser/-/browser-1.0.6.tgz#5e1c9a2b0c7c21d65acb741b76c39ed81eaa4e5f"
+  integrity sha512-yq8pFrCk/pGe1LeI9kgd4NZNI3C8eQlck+ISmWnL3T8RtN/YYEmzDFEZ1AFZ9GGAbxyxG6xUdaL3/S7sOSqeCQ==
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
   resolved "https://registry.npmjs.org/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz"

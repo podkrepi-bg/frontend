@@ -11,6 +11,13 @@ import DetailsModal from 'components/modal/DetailsModal'
 import AppNavBar from './AppNavBar'
 import MobileNav from './nav/MobileNav'
 
+import Hotjar from '@hotjar/browser'
+
+const siteId = 3217553
+const hotjarVersion = 6
+
+Hotjar.init(siteId, hotjarVersion)
+
 const createPageTitle = (suffix: string, title?: string) => {
   if (title) {
     return `${title} | ${suffix}`
