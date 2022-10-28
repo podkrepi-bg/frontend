@@ -56,7 +56,6 @@ export default function MyCampaingsTable() {
         return (
           <GridActions
             id={cellValues.row.id}
-            allowDelete={false}
             onView={() => setViewId(cellValues.row.id)}
             onDelete={() => null}
           />
