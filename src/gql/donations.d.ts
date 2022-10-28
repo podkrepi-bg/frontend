@@ -60,6 +60,10 @@ export type DonationInput = {
   extPaymentMethodId: string
   // personId: UUID
 }
+export type UserDonationInput = DonationInput & {
+  targetPersonId?: UUID
+}
+
 export type DonationBankInput = {
   currency: string
   amount: number

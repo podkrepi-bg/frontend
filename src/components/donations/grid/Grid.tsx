@@ -2,12 +2,16 @@ import React, { useState } from 'react'
 import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
-import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import {
+  DataGrid,
+  GridColDef,
+  GridColumns,
+  GridRenderCellParams,
+  GridRenderEditCellParams,
+} from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
 
-import { routes } from 'common/routes'
 import { useDonationsList } from 'common/hooks/donation'
-import GridActions from 'components/admin/GridActions'
 
 import DetailsModal from '../modals/DetailsModal'
 import DeleteModal from '../modals/DeleteModal'
@@ -16,6 +20,9 @@ import { getExactDateTime } from 'common/util/date'
 import { useRouter } from 'next/router'
 import { money } from 'common/util/money'
 import { CampaignDonationHistoryResponse } from 'gql/campaigns'
+import { PersonResponse } from 'gql/person'
+import { usePersonList } from 'common/hooks/person'
+import EditPersonCell from './EditPersonCell'
 
 interface RenderCellProps {
   params: GridRenderCellParams
@@ -34,9 +41,11 @@ export default observer(function Grid() {
     isLoading: isDonationHistoryLoading,
   }: UseQueryResult<CampaignDonationHistoryResponse> = useDonationsList(campaignId, page, pageSize)
 
+  const { data }: UseQueryResult<PersonResponse[]> = usePersonList()
   const RenderVaultCell = ({ params }: RenderCellProps) => {
     return <>{params.row.targetVault.name}</>
   }
+
   const RenderPersonCell = ({ params }: RenderCellProps) => {
     const { firstName, lastName } = params.row.person
       ? params.row.person
@@ -85,9 +94,13 @@ export default observer(function Grid() {
       field: 'person',
       headerName: t('donations:person'),
       ...commonProps,
-      width: 250,
+      editable: true,
+      width: 280,
       renderCell: (params: GridRenderCellParams) => {
         return <RenderPersonCell params={params} />
+      },
+      renderEditCell: (params: GridRenderEditCellParams) => {
+        return <EditPersonCell params={params} personList={data} />
       },
     },
     {
