@@ -14,7 +14,6 @@ import {
   DisplayBlockedAmount,
   DisplayCoordinator,
   DisplayCurrentAmount,
-  DisplayExpandableDescription,
   DisplayOrganizer,
   DisplayReachedAmount,
 } from 'components/campaigns/grid/CampaignGrid'
@@ -123,14 +122,6 @@ export default function MyCampaingsTable() {
       align: 'left',
       width: 250,
       renderCell: (cellValues: GridRenderCellParams) => <>{cellValues.row.campaignType.name}</>,
-    },
-    {
-      field: 'description',
-      headerName: t('campaigns:description'),
-      ...commonProps,
-      align: 'left',
-      width: 350,
-      renderCell: DisplayExpandableDescription,
     },
     {
       field: 'reachedAmount',

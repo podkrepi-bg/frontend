@@ -12,7 +12,6 @@ import { AdminCampaignResponse } from 'gql/campaigns'
 import Link from 'components/common/Link'
 import { useCampaignAdminList } from 'common/hooks/campaigns'
 import { getExactDateTime, getRelativeDate } from 'common/util/date'
-import { GridCellExpand } from 'components/common/GridCellExpand'
 
 import GridActions from './GridActions'
 import DeleteModal from './modals/DeleteModal'
@@ -46,10 +45,6 @@ export const DisplayBeneficiary = ({ params }: CampaignCellProps) => {
         : params.row.beneficiary.company.companyName}
     </>
   )
-}
-
-export const DisplayExpandableDescription = (params: GridRenderCellParams<string>) => {
-  return <GridCellExpand value={params.value || ''} width={params.colDef.computedWidth} />
 }
 
 export const DisplayReachedAmount = ({ params }: CampaignCellProps) => {
@@ -155,14 +150,6 @@ export default function CampaignGrid() {
       align: 'left',
       width: 250,
       renderCell: (cellValues: GridRenderCellParams) => <>{cellValues.row.campaignType.name}</>,
-    },
-    {
-      field: 'description',
-      headerName: t('campaigns:description'),
-      ...commonProps,
-      align: 'left',
-      width: 350,
-      renderCell: DisplayExpandableDescription,
     },
     {
       field: 'reachedAmount',
