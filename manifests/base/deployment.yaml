@@ -27,6 +27,9 @@ spec:
           securityContext:
             runAsNonRoot: true
             readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - NET_RAW
           volumeMounts:
             - name: tmp
               mountPath: /tmp
