@@ -10,8 +10,6 @@ import Link from 'components/common/Link'
 import {
   DisplayBeneficiary,
   DisplayCoordinator,
-  DisplayCurrentAmount,
-  DisplayExpandableDescription,
   DisplayOrganizer,
   DisplayReachedAmount,
 } from 'components/campaigns/grid/CampaignGrid'
@@ -89,14 +87,6 @@ export default function MyDonatedToCampaignTable() {
       align: 'left',
       width: 280,
       renderCell: (cellValues: GridRenderCellParams) => <>{cellValues.row.campaignType.name}</>,
-    },
-    {
-      field: 'description',
-      headerName: t('campaigns:description'),
-      ...commonProps,
-      align: 'left',
-      width: 380,
-      renderCell: DisplayExpandableDescription,
     },
     {
       field: 'reachedAmount',

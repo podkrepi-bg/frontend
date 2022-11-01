@@ -48,10 +48,6 @@ export const DisplayBeneficiary = ({ params }: CampaignCellProps) => {
   )
 }
 
-export const DisplayExpandableDescription = (params: GridRenderCellParams<string>) => {
-  return <GridCellExpand value={params.value || ''} width={params.colDef.computedWidth} />
-}
-
 export const DisplayReachedAmount = ({ params }: CampaignCellProps) => {
   return <>{money(params.row.summary.reachedAmount ?? 0, params.row.currency)}</>
 }
@@ -155,14 +151,6 @@ export default function CampaignGrid() {
       align: 'left',
       width: 250,
       renderCell: (cellValues: GridRenderCellParams) => <>{cellValues.row.campaignType.name}</>,
-    },
-    {
-      field: 'description',
-      headerName: t('campaigns:description'),
-      ...commonProps,
-      align: 'left',
-      width: 350,
-      renderCell: DisplayExpandableDescription,
     },
     {
       field: 'reachedAmount',
