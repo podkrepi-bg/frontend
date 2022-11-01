@@ -12,7 +12,6 @@ import { AdminCampaignResponse } from 'gql/campaigns'
 import Link from 'components/common/Link'
 import { useCampaignAdminList } from 'common/hooks/campaigns'
 import { getExactDateTime, getRelativeDate } from 'common/util/date'
-import { GridCellExpand } from 'components/common/GridCellExpand'
 
 import GridActions from './GridActions'
 import DeleteModal from './modals/DeleteModal'
