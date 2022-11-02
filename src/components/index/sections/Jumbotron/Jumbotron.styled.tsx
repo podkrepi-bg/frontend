@@ -11,7 +11,6 @@ export const Root = styled('section')(() => ({
   height: theme.spacing(49.375),
   padding: theme.spacing(6.25, 1),
   margin: theme.spacing(4, 0, 8, 0),
-
   backgroundPosition: '75%',
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',
@@ -53,11 +52,11 @@ export const MainTitle = styled('h1')(() => ({
 export const DonateButton = styled(LinkButton)(() => ({
   fontWeight: 600,
   borderRadius: theme.borders.round,
-  backgroundColor: '#4AC3FF',
+  backgroundColor: theme.palette.primary.light,
   minWidth: theme.spacing(25),
 
   '&:hover': {
-    backgroundColor: '#32A9FE',
+    backgroundColor: theme.palette.primary.main,
   },
 
   [theme.breakpoints.up('md')]: {
