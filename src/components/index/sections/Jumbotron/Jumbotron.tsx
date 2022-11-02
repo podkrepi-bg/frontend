@@ -2,10 +2,9 @@ import React from 'react'
 
 import { useTranslation } from 'next-i18next'
 
-import { routes } from 'common/routes'
-
 import { Container } from '@mui/material'
 
+import { routes } from 'common/routes'
 import { Root, JumbotronWrapper, MainTitle, DonateButton } from './Jumbotron.styled'
 
 export default function Jumbotron() {

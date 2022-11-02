@@ -1,8 +1,8 @@
-import LinkButton from 'components/common/LinkButton'
-import theme from 'common/theme'
-
 import { Grid } from '@mui/material'
 import { styled } from '@mui/system'
+
+import LinkButton from 'components/common/LinkButton'
+import theme from 'common/theme'
 
 const bannerSource = '/img/family.jpg'
 
