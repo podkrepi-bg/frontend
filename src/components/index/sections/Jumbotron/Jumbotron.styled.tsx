@@ -1,17 +1,12 @@
-import React from 'react'
-
-import { useTranslation } from 'next-i18next'
-
 import LinkButton from 'components/common/LinkButton'
-import { routes } from 'common/routes'
 import theme from 'common/theme'
 
-import { Container, Grid } from '@mui/material'
-import { styled } from '@mui/material/styles'
+import { Grid } from '@mui/material'
+import { styled } from '@mui/system'
 
 const bannerSource = '/img/family.jpg'
 
-const Root = styled('section')(() => ({
+export const Root = styled('section')(() => ({
   backgroundImage: `url(${bannerSource})`,
   height: theme.spacing(49.375),
   padding: theme.spacing(6.25, 1),
@@ -30,7 +25,7 @@ const Root = styled('section')(() => ({
   },
 }))
 
-const JumbotronWrapper = styled(Grid)(() => ({
+export const JumbotronWrapper = styled(Grid)(() => ({
   textAlign: 'left',
 
   [theme.breakpoints.up('md')]: {
@@ -38,7 +33,7 @@ const JumbotronWrapper = styled(Grid)(() => ({
   },
 }))
 
-const MainTitle = styled('h1')(() => ({
+export const MainTitle = styled('h1')(() => ({
   color: theme.palette.common.white,
   fontWeight: 500,
   marginBottom: theme.spacing(4),
@@ -55,7 +50,7 @@ const MainTitle = styled('h1')(() => ({
   },
 }))
 
-const DonateButton = styled(LinkButton)(() => ({
+export const DonateButton = styled(LinkButton)(() => ({
   fontWeight: 600,
   borderRadius: theme.borders.round,
   backgroundColor: '#4AC3FF',
@@ -73,24 +68,3 @@ const DonateButton = styled(LinkButton)(() => ({
     minWidth: theme.spacing(40),
   },
 }))
-
-export default function Jumbotron() {
-  const { t } = useTranslation()
-
-  return (
-    <Root>
-      <Container maxWidth="xl">
-        <JumbotronWrapper item>
-          <MainTitle>
-            {t('index:podkrepi')} -
-            <br />
-            {t('index:title')}
-          </MainTitle>
-          <DonateButton size="large" variant="contained" href={routes.campaigns.index}>
-            {t('common:nav.donatе')}
-          </DonateButton>
-        </JumbotronWrapper>
-      </Container>
-    </Root>
-  )
-}

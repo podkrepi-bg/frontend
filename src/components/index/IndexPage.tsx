@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next'
 import Layout from 'components/layout/Layout'
-import Jumbotron from './sections/Jumbotron'
+import Jumbotron from './sections/Jumbotron/Jumbotron'
 import CampaignsSection from './sections/CampaignsSection'
 import HowWeWorkSection from './sections/HowWeWorkSection'
 import WantToHelpPodkrepiBgSection from './sections/WantToHelpPodkrepiBg'
