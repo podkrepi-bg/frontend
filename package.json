@@ -78,7 +78,6 @@
     "slick-carousel": "^1.8.1",
     "slugify": "^1.6.0",
     "swiper": "^8.1.4",
-    "typewriter-effect": "2.17.0",
     "yup": "0.32.9"
   },
   "devDependencies": {
