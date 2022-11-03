@@ -9,12 +9,12 @@ import { routes } from 'common/routes'
 
 type Props = {
   id: string
-  allowDelete: boolean
+  allowDelete?: boolean
   onView: () => void
   onDelete: () => void
 }
 
-export default function GridActions({ id, allowDelete, onView, onDelete }: Props) {
+export default function GridActions({ id, allowDelete = false, onView, onDelete }: Props) {
   return (
     <Box
       style={{

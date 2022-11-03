@@ -9,6 +9,7 @@ import { routes } from 'common/routes'
 
 import Heading from 'components/common/Heading'
 import { CampaignResponse } from 'gql/campaigns'
+import { shuffleArray } from 'common/util/shuffle'
 
 const PREFIX = 'CampaignsSection'
 
@@ -75,6 +76,10 @@ export default function CampaignsSection() {
   if (data === undefined) {
     return null
   } else {
+    // NOTE: this sorts the campaigns so that each gets its fair chance to be on top row
+    // TODO: add filters&sorting of campaigns so people can select based on personal preferences
+    shuffleArray(data)
+
     return (
       <StyledContainer>
         <Heading variant="h3" component="h2" className={classes.heading}>

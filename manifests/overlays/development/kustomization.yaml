@@ -21,6 +21,6 @@ patchesStrategicMerge:
 images:
 - name: ghcr.io/podkrepi-bg/frontend
   newName: ghcr.io/podkrepi-bg/frontend
-  newTag: test
+  newTag: master
 - name: ghcr.io/podkrepi-bg/frontend/maintenance
   newTag: master

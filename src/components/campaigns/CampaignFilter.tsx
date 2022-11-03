@@ -21,6 +21,7 @@ import {
   VolunteerActivism,
 } from '@mui/icons-material'
 import useMobile from 'common/hooks/useMobile'
+import { shuffleArray } from 'common/util/shuffle'
 
 const PREFIX = 'CampaignFilter'
 
@@ -75,6 +76,11 @@ export default function CampaignFilter() {
   const { t } = useTranslation()
   const { mobile } = useMobile()
   const { data: campaigns, isLoading } = useCampaignList()
+
+  // NOTE: this sorts the campaigns so that each gets its fair chance to be on top row
+  // TODO: add filters&sorting of campaigns so people can select based on personal preferences
+  if (campaigns) shuffleArray(campaigns)
+
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL')
 
   const campaignToShow = useMemo<CampaignResponse[]>(() => {
