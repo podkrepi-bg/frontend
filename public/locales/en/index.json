@@ -3,14 +3,6 @@
   "title": "a transparent online donation platform",
   "title2": "Podkrepi.bg - a transparent online donation platform",
   "metaDescription": "Podkrepi.bg is a transparent online donation platform created by a team of volunteers from the Podkrepi BG organization.",
-  "jumbotron": {
-    "maximum-transparency": "with maximum transparency",
-    "zero-commission": "with 0% commission",
-    "eliminate-misuse": "aimed at eliminating misuses of donation campaigns",
-    "improve-donation-culture": "aimed at improving the donation culture in Bulgaria",
-    "open-source": "open source",
-    "about-project-button": "About the project"
-  },
   "activity-section": {
     "heading": "What do we do?",
     "content": "Podkrepi.bg is an association of professionals united by the idea of creating a free and completely transparent online donation platform, which can be used freely by citizens and organizations."
@@ -44,10 +36,6 @@
   "how-we-work": {
     "heading": "How does Pordkprepi.bg work?",
     "text": "We have built a process of creating campaigns that ensures maximum security for donor funds and at the same time - attention and support to the needs of beneficiaries."
-  },
-  "ready-to-start-campaign-section": {
-    "button": "Create a campaign",
-    "text": "Are you ready to start a campaign?"
   },
   "join-podkrepi-bg-section": {
     "heading": "Join Podkrepi.bg",
