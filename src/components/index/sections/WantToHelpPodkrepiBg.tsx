@@ -28,17 +28,7 @@ export default function WantToHelpPodkrepiBgSection() {
           marginTop: theme.spacing(12),
         },
       }}>
-      <Heading
-        maxWidth="lg"
-        margin="0 auto"
-        textAlign="center"
-        component="h2"
-        variant="h4"
-        fontFamily="Montserrat"
-        color={theme.palette.primary.dark}
-        marginBottom={theme.spacing(6)}
-        fontWeight="500"
-        fontSize="16px">
+      <Heading component="h2" variant="h4">
         {t('index:join-podkrepi-bg-section.heading')}
       </Heading>
       <Box textAlign="center">

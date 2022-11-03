@@ -31,14 +31,7 @@ export default function TeamMembersSection() {
           padding: theme.spacing(0),
         },
       }}>
-      <Heading
-        textAlign="center"
-        variant="h4"
-        component="h2"
-        fontFamily="Montserrat"
-        color={theme.palette.primary.dark}
-        marginBottom={theme.spacing(6)}
-        fontWeight="500">
+      <Heading variant="h4" component="h2">
         {t('index:team-section.heading')}
       </Heading>
       <Typography

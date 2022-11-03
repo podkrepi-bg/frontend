@@ -35,6 +35,7 @@ export const JumbotronWrapper = styled(Grid)(() => ({
 export const MainTitle = styled('h1')(() => ({
   color: theme.palette.common.white,
   fontWeight: 500,
+  marginTop: 0,
   marginBottom: theme.spacing(4),
   fontSize: theme.typography.pxToRem(30),
   maxWidth: theme.spacing(56),

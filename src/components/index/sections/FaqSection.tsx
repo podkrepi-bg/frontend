@@ -14,16 +14,7 @@ export default function FaqSection() {
 
   return (
     <Container component="section" maxWidth="lg" style={{ padding: theme.spacing(0, 3) }}>
-      <Heading
-        id="what-we-do"
-        variant="h4"
-        component="h2"
-        sx={(theme) => ({
-          mb: 6,
-          color: theme.palette.primary.dark,
-          textAlign: 'center',
-          fontWeight: 500,
-        })}>
+      <Heading variant="h4" component="h2">
         {t('common:nav.campaigns.faq')}
       </Heading>
       <Grid container justifyContent="center" spacing={2} sx={{ mb: 12 }}>

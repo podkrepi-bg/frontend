@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next'
 import { Hidden } from '@mui/material'
 
 import { Root, InfographicWrapper, InfoText } from './HowWeWorkSection.styled'
-import { Heading } from 'components/index/IndexPage.styled'
+import Heading from 'components/common/Heading'
 
 export default function HowWeWorkSection() {
   const { t, i18n } = useTranslation('index')
@@ -16,7 +16,9 @@ export default function HowWeWorkSection() {
 
   return (
     <Root>
-      <Heading>{t('how-we-work.heading')}</Heading>
+      <Heading variant="h4" component="h2">
+        {t('how-we-work.heading')}
+      </Heading>
       <InfoText maxWidth="lg">{t('how-we-work.text')}</InfoText>
       <InfographicWrapper>
         <Hidden smUp>
