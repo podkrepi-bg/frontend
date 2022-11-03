@@ -20,7 +20,7 @@ export const Root = styled('section')(() => ({
   },
 
   [theme.breakpoints.up('md')]: {
-    marginTop: { md: theme.spacing(7) },
+    marginTop: theme.spacing(7),
   },
 }))
 
