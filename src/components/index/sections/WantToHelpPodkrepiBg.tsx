@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Grid } from '@mui/material'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
@@ -8,6 +8,7 @@ import LinkButton from 'components/common/LinkButton'
 import { routes } from 'common/routes'
 import theme from 'common/theme'
 import Heading from 'components/common/Heading'
+import { InfoText } from '../IndexPage.styled'
 
 export default function WantToHelpPodkrepiBgSection() {
   const { t } = useTranslation()
@@ -32,10 +33,8 @@ export default function WantToHelpPodkrepiBgSection() {
         {t('index:join-podkrepi-bg-section.heading')}
       </Heading>
       <Box textAlign="center">
-        <Typography marginBottom={theme.spacing(6)}>
-          {t('index:join-podkrepi-bg-section.text')}
-        </Typography>
-        <Box sx={{ marginTop: theme.spacing(4) }}>
+        <InfoText>{t('index:join-podkrepi-bg-section.text')}</InfoText>
+        <Box>
           <Image
             alt="Discord team image"
             src={discordTeamImagePath}

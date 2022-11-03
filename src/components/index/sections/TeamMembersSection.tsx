@@ -11,6 +11,7 @@ import LinkButton from 'components/common/LinkButton'
 
 import 'swiper/css'
 import 'swiper/css/a11y'
+import { InfoText } from '../IndexPage.styled'
 
 export default function TeamMembersSection() {
   const { t } = useTranslation()
@@ -34,12 +35,7 @@ export default function TeamMembersSection() {
       <Heading variant="h4" component="h2">
         {t('index:team-section.heading')}
       </Heading>
-      <Typography
-        textAlign="center"
-        fontFamily="Montserrat"
-        style={{ paddingBottom: theme.spacing(6), fontSize: 16 }}>
-        {t('index:team-section.content')}
-      </Typography>
+      <InfoText>{t('index:team-section.content')}</InfoText>
       <Image alt="Team image" src={teamImagePath} width="1095px" height="150px" />
       <Grid item xs={12} textAlign="center">
         <LinkButton

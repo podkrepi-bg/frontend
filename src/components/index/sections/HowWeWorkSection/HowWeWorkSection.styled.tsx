@@ -1,4 +1,3 @@
-import { Grid } from '@mui/material'
 import { styled } from '@mui/system'
 
 import theme from 'common/theme'
@@ -11,13 +10,4 @@ export const Root = styled('section')(() => ({
   [theme.breakpoints.up('sm')]: {
     marginTop: theme.spacing(12),
   },
-}))
-
-export const InfoText = styled(Grid)(() => ({
-  display: 'inline-block',
-  textAlign: 'center',
-}))
-
-export const InfographicWrapper = styled(Grid)(() => ({
-  marginTop: theme.spacing(5),
 }))
