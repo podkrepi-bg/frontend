@@ -1,8 +1,9 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { GridRenderEditCellParams } from '@mui/x-data-grid'
 import { useMutation } from 'react-query'
-import { Autocomplete, createFilterOptions, TextField, Tooltip } from '@mui/material'
+import { useTranslation } from 'next-i18next'
+import { GridRenderEditCellParams, GridCellModes } from '@mui/x-data-grid'
+import { Autocomplete, createFilterOptions, TextField, Tooltip, Box } from '@mui/material'
 import { Save } from '@mui/icons-material'
 
 import { PersonResponse } from 'gql/person'
@@ -25,6 +26,8 @@ const addIconStyles = {
 }
 
 export default observer(function EditCellModal({ params, personList }: RenderCellProps) {
+  const { t } = useTranslation()
+
   const initialPerson = {
     firstName:
       params.row.person && params.row.person.firstName ? params.row.person.firstName : 'Anonymous',
@@ -32,7 +35,6 @@ export default observer(function EditCellModal({ params, personList }: RenderCel
       params.row.person && params.row.person.lastName ? params.row.person.lastName : 'Donor',
     email: params.row.email || params.row.billingEmail || null,
   }
-
   const [value, setValue] = React.useState<PersonResponse | null>({
     ...initialPerson,
   } as PersonResponse)
@@ -47,24 +49,25 @@ export default observer(function EditCellModal({ params, personList }: RenderCel
     UserDonationInput
   >({
     mutationFn,
-    onError: () => AlertStore.show('Error', 'error'),
-    onSuccess: () => AlertStore.show('Edit', 'success'),
+    onError: () => AlertStore.show(t('donations:alerts.error'), 'error'),
+    onSuccess: () => AlertStore.show(t('donations:alerts.editDonor'), 'success'),
   })
 
-  const onClick = async () => {
+  const onClick = () => {
     if (value) {
       const donationData: UserDonationInput = params.row
       donationData.targetPersonId = value.id
       mutation.mutate(donationData)
+      params.api.setCellMode(params.row.id, params.field, GridCellModes.View)
     } else {
-      AlertStore.show('No person provided', 'error')
+      AlertStore.show(t('donations:alerts.requiredError'), 'error')
     }
   }
 
   return (
-    <>
+    <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', padding: 0.7 }}>
       <Autocomplete
-        // disablePortal
+        disablePortal
         value={value}
         onChange={(
           event: React.SyntheticEvent<Element, Event>,
@@ -78,11 +81,11 @@ export default observer(function EditCellModal({ params, personList }: RenderCel
           setInputValue(parsed)
         }}
         id="controllable-states-demo"
-        options={(personList || []).filter((value, index, self) => self.indexOf(value) === index)} //is it necessary?
+        options={personList ? personList : []}
         getOptionLabel={(option: PersonResponse) =>
           `${option.firstName} ${option.lastName} - ${option.email}`
         }
-        sx={{ width: 300 }}
+        sx={{ width: 300, fontSize: 'small' }}
         renderInput={(params) => <TextField {...params} variant="standard" fullWidth />}
         isOptionEqualToValue={(option, value) => {
           return (
@@ -97,11 +100,10 @@ export default observer(function EditCellModal({ params, personList }: RenderCel
           ignoreCase: true,
           trim: true,
         })}
-        onClose={(event, reason) => console.log(reason)}
       />
-      <Tooltip title="Запис">
+      <Tooltip title={t('donations:cta.save')}>
         <Save sx={addIconStyles} color="action" fontSize="medium" onClick={onClick} />
       </Tooltip>
-    </>
+    </Box>
   )
 })
