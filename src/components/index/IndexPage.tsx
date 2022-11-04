@@ -3,9 +3,9 @@ import Layout from 'components/layout/Layout'
 import Jumbotron from './sections/Jumbotron/Jumbotron'
 import CampaignsSection from './sections/CampaignsSection'
 import HowWeWorkSection from './sections/HowWeWorkSection/HowWeWorkSection'
+import TeamMembersSection from './sections/TeamMembersSection/TeamMembersSection'
 import WantToHelpPodkrepiBgSection from './sections/WantToHelpPodkrepiBg'
 import FaqSection from './sections/FaqSection'
-import TeamMembersSection from './sections/TeamMembersSection'
 
 export default function IndexPage() {
   const { t } = useTranslation()

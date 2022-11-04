@@ -1,13 +1,13 @@
 import { Container, Grid } from '@mui/material'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { useTranslation } from 'next-i18next'
-import LinkButton from 'components/common/LinkButton'
 import { routes } from 'common/routes'
 import * as data from '../../faq/contents'
 import theme from 'common/theme'
 
 import Heading from 'components/common/Heading'
 import ExpandableListItem from 'components/faq/ExpandableListItem'
+import { OutlinedButton } from '../IndexPage.styled'
 
 export default function FaqSection() {
   const { t } = useTranslation()
@@ -27,19 +27,10 @@ export default function FaqSection() {
             []
           ),
         )}
-        <Grid item xs={12} textAlign="center">
-          <LinkButton
-            href={routes.faq}
-            variant="outlined"
-            sx={{
-              marginTop: theme.spacing(3),
-              fontWeight: 'bold',
-              color: theme.palette.common.black,
-              minWidth: { sm: theme.spacing(35) },
-            }}
-            endIcon={<ChevronRightIcon />}>
+        <Grid>
+          <OutlinedButton href={routes.faq} variant="outlined" endIcon={<ChevronRightIcon />}>
             {t('index:campaign.see-all')}
-          </LinkButton>
+          </OutlinedButton>
         </Grid>
       </Grid>
     </Container>

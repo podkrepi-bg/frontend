@@ -3,13 +3,13 @@ import { styled } from '@mui/material/styles'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { useTranslation } from 'next-i18next'
 import CampaignCard from 'components/campaigns/CampaignCard'
-import LinkButton from 'components/common/LinkButton'
 import { useCampaignList } from 'common/hooks/campaigns'
 import { routes } from 'common/routes'
 
 import Heading from 'components/common/Heading'
 import { CampaignResponse } from 'gql/campaigns'
 import { shuffleArray } from 'common/util/shuffle'
+import { OutlinedButton } from '../IndexPage.styled'
 
 const PREFIX = 'CampaignsSection'
 
@@ -17,7 +17,6 @@ const classes = {
   heading: `${PREFIX}-heading`,
   container: `${PREFIX}-container`,
   graphic: `${PREFIX}-graphic`,
-  seeAll: `${PREFIX}-seeAll`,
 }
 
 const StyledContainer = styled('section')(({ theme }) => ({
@@ -45,16 +44,6 @@ const StyledContainer = styled('section')(({ theme }) => ({
 
   [`& .${classes.graphic}`]: {
     marginTop: theme.spacing(5),
-  },
-
-  [`& .${classes.seeAll}`]: {
-    marginTop: theme.spacing(3),
-    fontWeight: 'bold',
-    color: theme.palette.common.black,
-
-    [theme.breakpoints.up('sm')]: {
-      minWidth: theme.spacing(35),
-    },
   },
 }))
 
@@ -99,13 +88,12 @@ export default function CampaignsSection() {
             </Grid>
           ))}
           <Grid item xs={12} textAlign="center">
-            <LinkButton
+            <OutlinedButton
               href={routes.campaigns.index}
               variant="outlined"
-              endIcon={<ChevronRightIcon />}
-              className={classes.seeAll}>
+              endIcon={<ChevronRightIcon />}>
               {t('index:campaign.see-all')}
-            </LinkButton>
+            </OutlinedButton>
           </Grid>
         </Grid>
       </StyledContainer>
