@@ -6,6 +6,7 @@ import { useTranslation } from 'next-i18next'
 import { Grid, Hidden } from '@mui/material'
 
 import Heading from 'components/common/Heading'
+
 import { Root } from './HowWeWorkSection.styled'
 import { InfoText } from 'components/index/IndexPage.styled'
 

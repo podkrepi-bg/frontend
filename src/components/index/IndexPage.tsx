@@ -4,7 +4,7 @@ import Jumbotron from './sections/Jumbotron/Jumbotron'
 import CampaignsSection from './sections/CampaignsSection'
 import HowWeWorkSection from './sections/HowWeWorkSection/HowWeWorkSection'
 import TeamMembersSection from './sections/TeamMembersSection/TeamMembersSection'
-import WantToHelpPodkrepiBgSection from './sections/WantToHelpPodkrepiBg'
+import JoinPodkrepiBgSection from './sections/JoinPodkrepiBgSection/JoinPodkrepiBgSection'
 import FaqSection from './sections/FaqSection'
 
 export default function IndexPage() {
@@ -21,7 +21,7 @@ export default function IndexPage() {
       <CampaignsSection />
       <HowWeWorkSection />
       <TeamMembersSection />
-      <WantToHelpPodkrepiBgSection />
+      <JoinPodkrepiBgSection />
       <FaqSection />
     </Layout>
   )

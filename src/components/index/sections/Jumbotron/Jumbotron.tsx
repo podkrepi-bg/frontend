@@ -5,6 +5,7 @@ import { useTranslation } from 'next-i18next'
 import { Container } from '@mui/material'
 
 import { routes } from 'common/routes'
+
 import { Root, JumbotronWrapper, MainTitle, DonateButton } from './Jumbotron.styled'
 
 export default function Jumbotron() {
