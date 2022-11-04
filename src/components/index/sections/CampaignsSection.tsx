@@ -87,7 +87,7 @@ export default function CampaignsSection() {
               </Box>
             </Grid>
           ))}
-          <Grid item xs={12} textAlign="center">
+          <Grid>
             <OutlinedButton
               href={routes.campaigns.index}
               variant="outlined"

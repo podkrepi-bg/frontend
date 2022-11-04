@@ -14,7 +14,7 @@ export const InfoText = styled(Typography)(() => ({
 }))
 
 export const OutlinedButton = styled(LinkButton)(() => ({
-  marginTop: theme.spacing(3),
+  marginTop: theme.spacing(6),
   fontWeight: 'bold',
   color: theme.palette.common.black,
 
