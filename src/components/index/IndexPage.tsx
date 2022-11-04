@@ -5,7 +5,7 @@ import CampaignsSection from './sections/CampaignsSection'
 import HowWeWorkSection from './sections/HowWeWorkSection/HowWeWorkSection'
 import TeamMembersSection from './sections/TeamMembersSection/TeamMembersSection'
 import JoinPodkrepiBgSection from './sections/JoinPodkrepiBgSection/JoinPodkrepiBgSection'
-import FaqSection from './sections/FaqSection'
+import FaqSection from './sections/FaqSection/FaqSection'
 
 export default function IndexPage() {
   const { t } = useTranslation()
