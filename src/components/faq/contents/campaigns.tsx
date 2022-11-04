@@ -173,7 +173,7 @@ export const CAMPAIGN_QUESTIONS: ContentType[] = [
   },
   {
     visible: true,
-    header: 'Какво означава „Гарант на кампания?"',
+    header: 'Какво означава “Гарант на кампания?”',
     content: (
       <ContentTypography>
         Гарантът на кампания е инструмент за повишаване на доверието към нея. Гарант може да стане
