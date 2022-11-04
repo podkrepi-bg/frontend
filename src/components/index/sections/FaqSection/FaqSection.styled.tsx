@@ -4,6 +4,8 @@ import { styled } from '@mui/system'
 import theme from 'common/theme'
 
 export const Root = styled('section')(() => ({
+  display: 'flex',
+  justifyContent: 'center',
   padding: theme.spacing(0, 3),
 }))
 

@@ -33,7 +33,7 @@ const StyledContainer = styled('section')(({ theme }) => ({
     fontWeight: 500,
 
     [theme.breakpoints.up('lg')]: {
-      fontSize: theme.spacing(6),
+      fontSize: theme.typography.pxToRem(48),
     },
   },
 
@@ -60,7 +60,7 @@ const cardAlignment = (index: number, array: CampaignResponse[]) => {
 
 export default function CampaignsSection() {
   const { data } = useCampaignList()
-  const { t } = useTranslation()
+  const { t } = useTranslation('index')
 
   if (data === undefined) {
     return null
@@ -72,7 +72,7 @@ export default function CampaignsSection() {
     return (
       <StyledContainer>
         <Heading variant="h3" component="h2" className={classes.heading}>
-          {t('index:campaign.urgent-campaigns')}
+          {t('campaign.urgent-campaigns')}
         </Heading>
         <Grid container justifyContent="center" spacing={4}>
           {data?.slice(0, 8).map((campaign, index, array) => (
@@ -92,7 +92,7 @@ export default function CampaignsSection() {
               href={routes.campaigns.index}
               variant="outlined"
               endIcon={<ChevronRightIcon />}>
-              {t('index:campaign.see-all')}
+              {t('campaign.see-all')}
             </OutlinedButton>
           </Grid>
         </Grid>

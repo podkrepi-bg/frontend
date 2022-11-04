@@ -16,25 +16,27 @@ export default function FaqSection() {
 
   return (
     <Root>
-      <Heading variant="h4" component="h2">
-        {t('common:nav.campaigns.faq')}
-      </Heading>
-      <FaqWrapper container spacing={2}>
-        {data.COMMON_QUESTIONS.slice(0, 5).flatMap(({ header, content, visible }) =>
-          visible ? (
-            <Grid item xs={12} key={header}>
-              <ExpandableListItem header={header} content={content} />
-            </Grid>
-          ) : (
-            []
-          ),
-        )}
-        <Grid>
-          <OutlinedButton href={routes.faq} variant="outlined" endIcon={<ChevronRightIcon />}>
-            {t('index:campaign.see-all')}
-          </OutlinedButton>
-        </Grid>
-      </FaqWrapper>
+      <Grid maxWidth="lg">
+        <Heading variant="h4" component="h2">
+          {t('common:nav.campaigns.faq')}
+        </Heading>
+        <FaqWrapper container spacing={2}>
+          {data.COMMON_QUESTIONS.slice(0, 5).flatMap(({ header, content, visible }) =>
+            visible ? (
+              <Grid item xs={12} key={header}>
+                <ExpandableListItem header={header} content={content} />
+              </Grid>
+            ) : (
+              []
+            ),
+          )}
+          <Grid>
+            <OutlinedButton href={routes.faq} variant="outlined" endIcon={<ChevronRightIcon />}>
+              {t('index:campaign.see-all')}
+            </OutlinedButton>
+          </Grid>
+        </FaqWrapper>
+      </Grid>
     </Root>
   )
 }
