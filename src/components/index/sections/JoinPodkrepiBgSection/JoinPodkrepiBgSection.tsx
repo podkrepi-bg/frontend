@@ -5,10 +5,9 @@ import { Box } from '@mui/material'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 
 import { routes } from 'common/routes'
-import Heading from 'components/common/Heading'
 
-import { InfoText } from '../../IndexPage.styled'
-import { BecomeVolunteerButton, Root } from './JoinPodkrepiBgSection.styled'
+import { InfoText, Heading } from '../../IndexPage.styled'
+import { Root, BecomeVolunteerButton } from './JoinPodkrepiBgSection.styled'
 
 export default function WantToHelpPodkrepiBgSection() {
   const { t } = useTranslation('index')
@@ -17,9 +16,7 @@ export default function WantToHelpPodkrepiBgSection() {
 
   return (
     <Root>
-      <Heading component="h2" variant="h4">
-        {t('join-podkrepi-bg-section.heading')}
-      </Heading>
+      <Heading variant="h4">{t('join-podkrepi-bg-section.heading')}</Heading>
       <Box textAlign="center">
         <InfoText>{t('join-podkrepi-bg-section.text')}</InfoText>
         <Box>

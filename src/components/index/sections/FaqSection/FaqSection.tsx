@@ -5,10 +5,9 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 
 import * as data from '../../../faq/contents'
 import { routes } from 'common/routes'
-import Heading from 'components/common/Heading'
 import ExpandableListItem from 'components/faq/ExpandableListItem'
 
-import { OutlinedButton } from '../../IndexPage.styled'
+import { Heading, OutlinedButton } from '../../IndexPage.styled'
 import { Root, FaqWrapper } from './FaqSection.styled'
 
 export default function FaqSection() {
@@ -17,9 +16,7 @@ export default function FaqSection() {
   return (
     <Root>
       <Grid maxWidth="lg">
-        <Heading variant="h4" component="h2">
-          {t('common:nav.campaigns.faq')}
-        </Heading>
+        <Heading variant="h4">{t('common:nav.campaigns.faq')}</Heading>
         <FaqWrapper container spacing={2}>
           {data.COMMON_QUESTIONS.slice(0, 5).flatMap(({ header, content, visible }) =>
             visible ? (

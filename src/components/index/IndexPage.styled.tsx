@@ -4,6 +4,13 @@ import { styled } from '@mui/system'
 import theme from 'common/theme'
 import LinkButton from 'components/common/LinkButton'
 
+export const Heading = styled(Typography)(({ theme }) => ({
+  color: theme.palette.primary.dark,
+  textAlign: 'center',
+  fontWeight: 500,
+  marginBottom: theme.spacing(6),
+}))
+
 export const InfoText = styled(Typography)(() => ({
   display: 'inline-block',
   textAlign: 'center',

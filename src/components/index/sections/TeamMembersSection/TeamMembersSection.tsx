@@ -5,9 +5,8 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import { Grid } from '@mui/material'
 
 import { routes } from 'common/routes'
-import Heading from 'components/common/Heading'
 
-import { InfoText, OutlinedButton } from '../../IndexPage.styled'
+import { Heading, InfoText, OutlinedButton } from '../../IndexPage.styled'
 import { Root } from './TeamMembersSection.styled'
 
 export default function TeamMembersSection() {

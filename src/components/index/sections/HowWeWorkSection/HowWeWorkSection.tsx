@@ -5,10 +5,8 @@ import { useTranslation } from 'next-i18next'
 
 import { Grid, Hidden } from '@mui/material'
 
-import Heading from 'components/common/Heading'
-
 import { Root } from './HowWeWorkSection.styled'
-import { InfoText } from 'components/index/IndexPage.styled'
+import { Heading, InfoText } from 'components/index/IndexPage.styled'
 
 export default function HowWeWorkSection() {
   const { t, i18n } = useTranslation('index')
@@ -18,9 +16,7 @@ export default function HowWeWorkSection() {
 
   return (
     <Root>
-      <Heading variant="h4" component="h2">
-        {t('how-we-work.heading')}
-      </Heading>
+      <Heading variant="h4">{t('how-we-work.heading')}</Heading>
       <InfoText maxWidth="lg">{t('how-we-work.text')}</InfoText>
       <Grid>
         <Hidden smUp>
