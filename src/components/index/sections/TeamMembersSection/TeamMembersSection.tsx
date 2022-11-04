@@ -15,9 +15,7 @@ export default function TeamMembersSection() {
 
   return (
     <Root>
-      <Heading variant="h4" component="h2">
-        {t('team-section.heading')}
-      </Heading>
+      <Heading variant="h4">{t('team-section.heading')}</Heading>
       <InfoText maxWidth="lg">{t('team-section.content')}</InfoText>
       <Image alt="Team image" src={teamImagePath} width="1095px" height="150px" />
       <Grid>

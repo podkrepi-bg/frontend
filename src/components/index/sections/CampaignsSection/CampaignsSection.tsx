@@ -24,7 +24,7 @@ export default function CampaignsSection() {
 
     return (
       <Root>
-        <UrgentCampaignsHeading variant="h3" component="h2">
+        <UrgentCampaignsHeading variant="h3">
           {t('campaign.urgent-campaigns')}
         </UrgentCampaignsHeading>
         <Grid container justifyContent="center" spacing={4}>
@@ -35,14 +35,14 @@ export default function CampaignsSection() {
               </Box>
             </Grid>
           ))}
-          <Grid>
-            <OutlinedButton
-              href={routes.campaigns.index}
-              variant="outlined"
-              endIcon={<ChevronRightIcon />}>
-              {t('campaign.see-all')}
-            </OutlinedButton>
-          </Grid>
+        </Grid>
+        <Grid textAlign="center">
+          <OutlinedButton
+            href={routes.campaigns.index}
+            variant="outlined"
+            endIcon={<ChevronRightIcon />}>
+            {t('campaign.see-all')}
+          </OutlinedButton>
         </Grid>
       </Root>
     )

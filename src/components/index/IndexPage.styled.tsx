@@ -4,7 +4,7 @@ import { styled } from '@mui/system'
 import theme from 'common/theme'
 import LinkButton from 'components/common/LinkButton'
 
-export const Heading = styled(Typography)(({ theme }) => ({
+export const Heading = styled(Typography)(() => ({
   color: theme.palette.primary.dark,
   textAlign: 'center',
   fontWeight: 500,

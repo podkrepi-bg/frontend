@@ -1,9 +1,9 @@
+import { Typography } from '@mui/material'
 import { styled } from '@mui/system'
 
-import Heading from 'components/common/Heading'
 import theme from 'common/theme'
 
-export const Root = styled('section')(({ theme }) => ({
+export const Root = styled('section')(() => ({
   margin: theme.spacing(7, 3, 0, 3),
 
   [theme.breakpoints.up('sm')]: {
@@ -11,7 +11,7 @@ export const Root = styled('section')(({ theme }) => ({
   },
 }))
 
-export const UrgentCampaignsHeading = styled(Heading)(() => ({
+export const UrgentCampaignsHeading = styled(Typography)(() => ({
   marginBottom: theme.spacing(6),
   color: theme.palette.common.black,
   textAlign: 'center',
