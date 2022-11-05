@@ -50,7 +50,7 @@ jobs:
 
       - name: Run backend
         working-directory: ./api
-        run: yarn start &
+        run: yarn start
 
       - name: Install dependencies
         working-directory: ./frontend
