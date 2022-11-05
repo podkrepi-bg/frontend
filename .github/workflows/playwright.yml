@@ -50,12 +50,12 @@ jobs:
 
       - name: Run backend
         working-directory: ./api
-        run: yarn start
+        run: yarn start &
 
       - name: Wait on backend
         uses: iFaxity/wait-on-action@v1
         with:
-          resource: http://localhost:5010
+          resource: http://localhost:5010/api/v1/campaign/list
 
       - name: Install dependencies
         working-directory: ./frontend
