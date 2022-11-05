@@ -36,9 +36,9 @@ jobs:
         working-directory: ./api
         run: docker compose up -d pg-db
 
-      # - name: Run api
-      #   working-directory: ./api
-      #   run: docker compose up -d --force-recreate --no-build migrate-db seed-db api keycloak
+      - name: Run api
+        working-directory: ./api
+        run: docker compose up -d --force-recreate --no-build migrate-db seed-db keycloak
 
       - uses: actions/setup-node@v3
         with:
@@ -46,7 +46,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./api
-        run: yarn && yarn prisma generate && yarn prisma db push && yarn prisma db seed
+        run: yarn && yarn prisma generate
 
       - name: Run backend
         working-directory: ./api
