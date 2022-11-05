@@ -50,7 +50,12 @@ jobs:
 
       - name: Run backend
         working-directory: ./api
-        run: yarn start
+        run: yarn start &
+
+      - name: Wait on backend
+        uses: iFaxity/wait-on-action@v1
+        with:
+          resource: http://localhost:5010
 
       - name: Install dependencies
         working-directory: ./frontend
@@ -76,6 +81,11 @@ jobs:
       - name: Start frontend
         working-directory: ./frontend
         run: yarn start &
+
+      - name: Wait on frontend
+        uses: iFaxity/wait-on-action@v1
+        with:
+          resource: http://localhost:3040
 
       - name: Install Playwright Browsers
         working-directory: ./frontend
