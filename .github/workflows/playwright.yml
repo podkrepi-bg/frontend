@@ -55,6 +55,15 @@ jobs:
         working-directory: ./frontend
         run: cp .env.local.example .env.local
 
+      - name: Test Backend Before tests
+        id: backendRequest
+        uses: fjogeleit/http-request-action@v1.11.1
+        with:
+          url: "http://localhost:5010/api/v1/campaign/list"
+      - name: Show Backend Response
+        run: |
+          echo ${{ steps.backendRequest.outputs.response }}
+          
       - name: Start frontend
         working-directory: ./frontend
         run: yarn start &
