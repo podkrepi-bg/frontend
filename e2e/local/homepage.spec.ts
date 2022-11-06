@@ -17,8 +17,8 @@ test('test homepage', async ({ page }) => {
   // Click text=Присъединете се към Подкрепи.бг
   await expect(page.locator('text=Присъединете се към Подкрепи.бг')).toBeVisible()
 
-  // Click h2:has-text("Често задавани въпроси")
-  await expect(page.locator('h2', { hasText: 'Често задавани въпроси' })).toBeVisible()
+  // // Click h2:has-text("Често задавани въпроси")
+  // await expect(page.locator('h2', { hasText: 'Често задавани въпроси' })).toBeVisible()
 
   // Click text=Какво е Подкрепи.бг?
   await page.locator('text=Какво е Подкрепи.бг?').click()
