@@ -46,7 +46,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./api
-        run: yarn && yarn prisma generate
+        run: yarn && yarn prisma generate && yarn prisma migrate deploy && yarn prisma db seed
 
       - name: Run backend
         working-directory: ./api
