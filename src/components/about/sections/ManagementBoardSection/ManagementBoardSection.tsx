@@ -1,5 +1,4 @@
 import { useTranslation } from 'next-i18next'
-import Image from 'next/image'
 
 import { Grid, Theme, Typography, Link } from '@mui/material'
 import { createStyles, makeStyles } from '@mui/styles'
@@ -10,35 +9,14 @@ import { data } from '../../helpers/managementBoardData'
 import {
   ManagementBoardHeading,
   ManagemtenBoardMembersWrapper,
+  ТeamMemberWrapper,
 } from './ManagementBoardsection.styled'
+import { Avatar } from 'components/about/AboutPage.styled'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    teamMemberWrapper: {
-      flexGrow: 1,
-      width: '100%',
-      textAlign: 'center',
-      marginBottom: theme.spacing(3),
-      [theme.breakpoints.up('sm')]: {
-        width: '10%',
-        flex: '1 0 40%',
-        marginBottom: theme.spacing(0),
-      },
-      [theme.breakpoints.up('md')]: {
-        flex: '1 0 30%',
-      },
-      [theme.breakpoints.up('lg')]: {
-        flex: '1 0 10%',
-      },
-    },
     description: {
       textAlign: 'initial',
-    },
-    avatar: {
-      borderRadius: '50%',
-      textAlign: 'center',
-      width: '150px',
-      objectFit: 'cover',
     },
     name: {
       fontWeight: 700,
@@ -76,14 +54,8 @@ export default function ManagementBoardSection() {
       </ManagementBoardHeading>
       <ManagemtenBoardMembersWrapper>
         {data.map((teamMember) => (
-          <Grid key={teamMember.name} className={classes.teamMemberWrapper}>
-            <Image
-              alt="Team member avatar"
-              src={teamMember.img}
-              width="200px"
-              height="200px"
-              className={classes.avatar}
-            />
+          <ТeamMemberWrapper key={teamMember.name}>
+            <Avatar alt="Team member avatar" src={teamMember.img} width="200px" height="200px" />
             <Typography variant="subtitle1" className={classes.name}>
               {teamMember.name}
             </Typography>
@@ -101,7 +73,7 @@ export default function ManagementBoardSection() {
                 </Typography>
               </Link>
             ) : null}
-          </Grid>
+          </ТeamMemberWrapper>
         ))}
       </ManagemtenBoardMembersWrapper>
     </Grid>
