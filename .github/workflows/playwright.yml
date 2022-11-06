@@ -1,6 +1,7 @@
 name: Playwright tests
 on:
   workflow_call:
+  workflow_dispatch:
 
 jobs:
   run-playwright:
@@ -34,16 +35,19 @@ jobs:
       - name: Run db
         working-directory: ./api
         run: docker compose up -d pg-db
-
-      - name: Run api
-        working-directory: ./api
-        run: docker compose up -d --force-recreate --no-build migrate-db seed-db api keycloak
-
       - uses: actions/setup-node@v3
         with:
-          node-version: '14.x'
+          node-version: '16.x'
 
-      - name: Install dependencies
+      - name: Install backend dependencies and seed database
+        working-directory: ./api
+        run: yarn && yarn prisma generate && yarn prisma migrate deploy && yarn prisma db seed
+
+      - name: Run backend
+        working-directory: ./api
+        run: yarn start &
+
+      - name: Install Frontend Dependencies
         working-directory: ./frontend
         run: yarn
 
@@ -55,6 +59,16 @@ jobs:
         working-directory: ./frontend
         run: cp .env.local.example .env.local
 
+      - name: Wait on backend
+        uses: iFaxity/wait-on-action@v1
+        with:
+          resource: http-get://localhost:5010/api/v1/campaign/list
+          timeout: 120000
+
+      - name: Test Backend is ready
+        working-directory: ./frontend
+        run: curl http://localhost:5010/api/v1/campaign/list
+
       - name: Start frontend
         working-directory: ./frontend
         run: yarn start &
@@ -63,7 +77,13 @@ jobs:
         working-directory: ./frontend
         run: npx playwright install --with-deps
 
-      - name: Run Playwright tests
+      - name: Wait on frontend
+        uses: iFaxity/wait-on-action@v1
+        with:
+          resource: http-get://localhost:3040
+          timeout: 120000
+
+      - name: Run Frontend Tests
         working-directory: ./frontend
         run: yarn playwright test e2e/local
 
@@ -72,4 +92,4 @@ jobs:
         with:
           name: playwright-report
           path: ./frontend/playwright-report/
-          retention-days: 30
+          retention-days: 14

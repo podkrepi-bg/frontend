@@ -14,7 +14,7 @@ const fontFamily = 'Montserrat'
 // <meta name="theme-color" content={theme.palette.primary.main} />
 const colors = {
   blue: {
-    light: '#F3FDFF',
+    light: '#4AC3FF',
     main: '#32A9FE',
     mainDark: darken('#32A9FE', 0.2),
     dark: '#294E85',
