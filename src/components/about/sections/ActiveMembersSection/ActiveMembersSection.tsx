@@ -1,46 +1,16 @@
 import { useTranslation } from 'next-i18next'
-import Image from 'next/image'
+
 import { Grid, Theme, Typography, Link } from '@mui/material'
 import { createStyles, makeStyles } from '@mui/styles'
 import { LinkedIn } from '@mui/icons-material'
-import Heading from 'components/common/Heading'
-import { data } from '../helpers/activeMembersData'
+
+import { data } from '../../helpers/activeMembersData'
+
+import { ActiveMembersWrapper, Avatar, ТeamMemberWrapper } from './ActiveMembersSection.styled'
+import { AboutHeading } from 'components/about/AboutPage.styled'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    activeMembersWrapper: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      gap: theme.spacing(3),
-      flexWrap: 'wrap',
-    },
-    activeMembersHeading: {
-      fontWeight: 500,
-      margin: theme.spacing(15, 0, 8, 0),
-    },
-    teamMemberWrapper: {
-      flexGrow: 1,
-      width: '100%',
-      textAlign: 'center',
-      marginBottom: theme.spacing(3),
-      [theme.breakpoints.up('sm')]: {
-        width: '10%',
-        flex: '1 0 40%',
-        marginBottom: theme.spacing(0),
-      },
-      [theme.breakpoints.up('md')]: {
-        flex: '1 0 30%',
-      },
-      [theme.breakpoints.up('lg')]: {
-        flex: '1 0 14%',
-      },
-    },
-    avatar: {
-      borderRadius: '50%',
-      textAlign: 'center',
-      width: '150px',
-      objectFit: 'cover',
-    },
     name: {
       fontWeight: 700,
       margin: theme.spacing(3, 0),
@@ -73,23 +43,11 @@ export default function ActiveMembersSection() {
 
   return (
     <Grid component="section">
-      <Heading
-        variant="h4"
-        component="h2"
-        textAlign="center"
-        className={classes.activeMembersHeading}>
-        {t('about.active-team-members')}
-      </Heading>
-      <Grid className={classes.activeMembersWrapper}>
+      <AboutHeading variant="h4">{t('about.active-team-members')}</AboutHeading>
+      <ActiveMembersWrapper>
         {data.map((teamMember) => (
-          <Grid key={teamMember.name} className={classes.teamMemberWrapper}>
-            <Image
-              alt="Team member avatar"
-              src={teamMember.img}
-              width="200px"
-              height="200px"
-              className={classes.avatar}
-            />
+          <ТeamMemberWrapper key={teamMember.name}>
+            <Avatar alt="Team member avatar" src={teamMember.img} width="200px" height="200px" />
             <Typography variant="subtitle1" className={classes.name}>
               {teamMember.name}
             </Typography>
@@ -103,9 +61,9 @@ export default function ActiveMembersSection() {
                 {t('about.linkedIn')}
               </Typography>
             </Link>
-          </Grid>
+          </ТeamMemberWrapper>
         ))}
-      </Grid>
+      </ActiveMembersWrapper>
     </Grid>
   )
 }

@@ -1,4 +1,5 @@
 import { SvgIconProps } from '@mui/material'
+
 import VoluntaryIcon from '../icons/VoluntaryIcon'
 import ProactiveIcon from '../icons/ProactiveIcon'
 import ExpertiseIcon from '../icons/ExpertiseIcon'
