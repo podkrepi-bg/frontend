@@ -58,28 +58,17 @@ jobs:
       - name: Setup env
         working-directory: ./frontend
         run: cp .env.local.example .env.local
-
-      - name: Test Backend is ready
-        working-directory: ./frontend
-        run: curl http://localhost:5010/api/v1/campaign/list
-
+      
       - name: Wait on backend
         uses: iFaxity/wait-on-action@v1
         with:
           resource: http-get://localhost:5010/api/v1/campaign/list
           timeout: 120000
+      
+      - name: Test Backend is ready
+        working-directory: ./frontend
+        run: curl http://localhost:5010/api/v1/campaign/list
 
-      - name: Test Backend Before tests
-        id: backendRequest
-        uses: fjogeleit/http-request-action@v1.11.1
-        with:
-        
-          url: "http://localhost:5010/api/v1/campaign/list"
-          method: 'GET'
-      - name: Show Backend Response
-        run: |
-          echo ${{ steps.backendRequest.outputs.response }}
-          
       - name: Start frontend
         working-directory: ./frontend
         run: yarn start &
