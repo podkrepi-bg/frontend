@@ -1,23 +1,19 @@
 import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
+
 import { Grid, Theme, Typography, Link } from '@mui/material'
-import Heading from 'components/common/Heading'
 import { createStyles, makeStyles } from '@mui/styles'
 import { LinkedIn } from '@mui/icons-material'
+
 import { data } from '../../helpers/managementBoardData'
+
+import {
+  ManagementBoardHeading,
+  ManagemtenBoardMembersWrapper,
+} from './ManagementBoardsection.styled'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    managemtenBoardMembersWrapper: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      gap: theme.spacing(3),
-      flexWrap: 'wrap',
-    },
-    managementBoardHeading: {
-      fontWeight: 500,
-      marginBottom: theme.spacing(8),
-    },
     teamMemberWrapper: {
       flexGrow: 1,
       width: '100%',
@@ -75,14 +71,10 @@ export default function ManagementBoardSection() {
 
   return (
     <Grid component="section">
-      <Heading
-        variant="h4"
-        component="h2"
-        textAlign="center"
-        className={classes.managementBoardHeading}>
+      <ManagementBoardHeading variant="h4">
         {t('about.management-board-members')}
-      </Heading>
-      <Grid className={classes.managemtenBoardMembersWrapper}>
+      </ManagementBoardHeading>
+      <ManagemtenBoardMembersWrapper>
         {data.map((teamMember) => (
           <Grid key={teamMember.name} className={classes.teamMemberWrapper}>
             <Image
@@ -111,7 +103,7 @@ export default function ManagementBoardSection() {
             ) : null}
           </Grid>
         ))}
-      </Grid>
+      </ManagemtenBoardMembersWrapper>
     </Grid>
   )
 }

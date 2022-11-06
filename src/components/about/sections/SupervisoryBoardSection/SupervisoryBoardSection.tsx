@@ -1,10 +1,11 @@
 import { useTranslation } from 'next-i18next'
-import Image from 'next/image'
+
 import { Grid, Theme, Typography, Link } from '@mui/material'
-import Heading from 'components/common/Heading'
 import { createStyles, makeStyles } from '@mui/styles'
 import { LinkedIn } from '@mui/icons-material'
-import { data } from '../helpers/supervisoryBoardData'
+
+import { data } from '../../helpers/supervisoryBoardData'
+import { AboutHeading, Avatar, Description, LinkedInText } from 'components/about/AboutPage.styled'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,10 +19,6 @@ const useStyles = makeStyles((theme: Theme) =>
         display: 'flex',
         gap: theme.spacing(3),
       },
-    },
-    supervisoryBoardHeading: {
-      fontWeight: 500,
-      margin: theme.spacing(15, 0, 8, 0),
     },
     teamMemberWrapper: {
       width: '100%',
@@ -37,12 +34,6 @@ const useStyles = makeStyles((theme: Theme) =>
         marginBottom: theme.spacing(0),
         flex: '1 0 30%',
       },
-    },
-    avatar: {
-      borderRadius: '50%',
-      textAlign: 'center',
-      width: '150px',
-      objectFit: 'cover',
     },
     infoWrapper: {
       dispay: 'block',
@@ -83,14 +74,6 @@ const useStyles = makeStyles((theme: Theme) =>
     LinkedInIcon: {
       marginLeft: '-4px',
     },
-    linkedInText: {
-      marginLeft: theme.spacing(1),
-      color: theme.palette.common.black,
-      fontWeight: 500,
-    },
-    description: {
-      textAlign: 'initial',
-    },
   }),
 )
 
@@ -100,24 +83,12 @@ export default function SupervisoryBoardSection() {
 
   return (
     <Grid component="section">
-      <Heading
-        variant="h4"
-        component="h2"
-        textAlign="center"
-        className={classes.supervisoryBoardHeading}>
-        {t('about.supervisory-board-members')}
-      </Heading>
+      <AboutHeading variant="h4">{t('about.supervisory-board-members')}</AboutHeading>
       <Grid className={classes.supervisoryBoardMembersWrapper}>
         {data.map((teamMember) => (
           <Grid key={teamMember.name} className={classes.teamMemberWrapper}>
             <Grid className={classes.infoWrapper}>
-              <Image
-                alt="Team member avatar"
-                src={teamMember.img}
-                width="200px"
-                height="200px"
-                className={classes.avatar}
-              />
+              <Avatar alt="Team member avatar" src={teamMember.img} width="200px" height="200px" />
               <Grid className={classes.imageLinkedInWrapper}>
                 <Typography variant="subtitle1" className={classes.name}>
                   {teamMember.name}
@@ -127,15 +98,11 @@ export default function SupervisoryBoardSection() {
                   target="_blank"
                   className={classes.linkedInButton}>
                   <LinkedIn color="action" fontSize="large" className={classes.LinkedInIcon} />
-                  <Typography variant="subtitle1" className={classes.linkedInText}>
-                    {t('about.linkedIn')}
-                  </Typography>
+                  <LinkedInText variant="subtitle1">{t('about.linkedIn')}</LinkedInText>
                 </Link>
               </Grid>
             </Grid>
-            <Typography variant="body2" className={classes.description}>
-              {teamMember.description}
-            </Typography>
+            <Description variant="body2">{teamMember.description}</Description>
           </Grid>
         ))}
       </Grid>

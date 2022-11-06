@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 import Layout from 'components/layout/Layout'
 import ManagementBoardSection from './sections/ManagementBoardSection/ManagementBoardSection'
 import ActiveMembersSection from './sections/ActiveMembersSection/ActiveMembersSection'
-import SupervisoryBoardSection from './sections/SupervisoryBoardSection'
+import SupervisoryBoardSection from './sections/SupervisoryBoardSection/SupervisoryBoardSection'
 import AssociationMembersSection from './sections/AssociationMembersSection/AssociationMembersSection'
 import AboutTheTeamSection from './sections/AboutTheTeamSection/AboutTheTeamSection'
 

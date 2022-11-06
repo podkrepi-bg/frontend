@@ -2,17 +2,6 @@ import React from 'react'
 import { styled } from '@mui/material/styles'
 import { Typography, CardContent, CardHeader, Card, SvgIconProps } from '@mui/material'
 
-const PREFIX = 'PrincipleCard'
-
-const classes = {
-  contentContainer: `${PREFIX}-contentContainer`,
-  heading: `${PREFIX}-heading`,
-  cardHeader: `${PREFIX}-cardHeader`,
-  cardHeaderAction: `${PREFIX}-cardHeaderAction`,
-  cardHeaderTitleRoot: `${PREFIX}-cardHeaderTitleRoot`,
-  icon: `${PREFIX}-icon`,
-}
-
 const StyledCard = styled(Card)(({ theme }) => ({
   [`& .${classes.contentContainer}`]: {
     margin: theme.spacing(2, 0, 5, 0),

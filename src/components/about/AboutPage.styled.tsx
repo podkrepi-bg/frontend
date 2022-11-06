@@ -45,3 +45,7 @@ export const LinkedInText = styled(Typography)(() => ({
   marginLeft: theme.spacing(1),
   color: theme.palette.common.black,
 }))
+
+export const Description = styled(Typography)(() => ({
+  textAlign: 'initial',
+}))
