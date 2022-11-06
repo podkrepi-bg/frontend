@@ -3,14 +3,14 @@ import { Grid } from '@mui/material'
 
 import theme from 'common/theme'
 
-export const ActiveMembersWrapper = styled(Grid)(() => ({
+export const AssociationMembersWrapper = styled(Grid)(() => ({
   display: 'flex',
   justifyContent: 'space-between',
   gap: theme.spacing(3),
   flexWrap: 'wrap',
 }))
 
-export const ТeamMemberWrapper = styled(Grid)(() => ({
+export const TeamMemberWrapper = styled(Grid)(() => ({
   flexGrow: 1,
   width: '100%',
   textAlign: 'center',
@@ -24,6 +24,6 @@ export const ТeamMemberWrapper = styled(Grid)(() => ({
     flex: '1 0 30%',
   },
   [theme.breakpoints.up('lg')]: {
-    flex: '1 0 14%',
+    flex: '1 0 12%',
   },
 }))

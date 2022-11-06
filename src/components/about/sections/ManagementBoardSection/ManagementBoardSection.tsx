@@ -4,7 +4,7 @@ import { Grid, Theme, Typography, Link } from '@mui/material'
 import Heading from 'components/common/Heading'
 import { createStyles, makeStyles } from '@mui/styles'
 import { LinkedIn } from '@mui/icons-material'
-import { data } from '../helpers/managementBoardData'
+import { data } from '../../helpers/managementBoardData'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

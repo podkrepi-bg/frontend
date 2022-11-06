@@ -3,9 +3,8 @@ import { useTranslation } from 'next-i18next'
 
 import { Grid, Typography } from '@mui/material'
 
-import Heading from 'components/common/Heading'
-
 import { DiscordTeamImage } from './AboutTheTeamSection.styled'
+import { AboutHeading } from 'components/about/AboutPage.styled'
 
 export default function AboutTheTeamSection() {
   const { t } = useTranslation('about')
@@ -13,9 +12,7 @@ export default function AboutTheTeamSection() {
 
   return (
     <Grid component="section">
-      <Heading variant="h4" component="h2">
-        {t('about.about-the-team')}
-      </Heading>
+      <AboutHeading variant="h4">{t('about.about-the-team')}</AboutHeading>
       <Typography variant="body2">{t('about.team-description')}</Typography>
       <DiscordTeamImage>
         <Image alt="Discord team image" src={discordTeamImagePath} width="1189px" height="789px" />
