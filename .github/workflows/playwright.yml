@@ -36,9 +36,9 @@ jobs:
         working-directory: ./api
         run: docker compose up -d pg-db
 
-      - name: Run api
-        working-directory: ./api
-        run: docker compose up -d --force-recreate --no-build migrate-db seed-db keycloak
+      # - name: Run api
+      #   working-directory: ./api
+      #   run: docker compose up -d --force-recreate --no-build migrate-db seed-db keycloak
 
       - uses: actions/setup-node@v3
         with:
@@ -51,12 +51,6 @@ jobs:
       - name: Run backend
         working-directory: ./api
         run: yarn start &
-
-      # - name: Wait on backend
-      #   uses: iFaxity/wait-on-action@v1
-      #   with:
-      #     resource: http://localhost:5010/api/v1/campaign/list
-
       - name: Install dependencies
         working-directory: ./frontend
         run: yarn
@@ -73,11 +67,19 @@ jobs:
         working-directory: ./frontend
         run: curl http://localhost:5010/api/v1/campaign/list
 
+      - name: Wait on backend
+        uses: iFaxity/wait-on-action@v1
+        with:
+          resource: http-get://localhost:5010/api/v1/campaign/list
+          timeout: 120000
+
       - name: Test Backend Before tests
         id: backendRequest
         uses: fjogeleit/http-request-action@v1.11.1
         with:
+        
           url: "http://localhost:5010/api/v1/campaign/list"
+          method: 'GET'
       - name: Show Backend Response
         run: |
           echo ${{ steps.backendRequest.outputs.response }}
@@ -86,14 +88,15 @@ jobs:
         working-directory: ./frontend
         run: yarn start &
 
-      - name: Wait on frontend
-        uses: iFaxity/wait-on-action@v1
-        with:
-          resource: http://localhost:3040
-
       - name: Install Playwright Browsers
         working-directory: ./frontend
         run: npx playwright install --with-deps
+
+      - name: Wait on frontend
+        uses: iFaxity/wait-on-action@v1
+        with:
+          resource: http-get://localhost:3040
+          timeout: 120000
 
       - name: Run Playwright tests
         working-directory: ./frontend
