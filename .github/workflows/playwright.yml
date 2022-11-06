@@ -58,13 +58,13 @@ jobs:
       - name: Setup env
         working-directory: ./frontend
         run: cp .env.local.example .env.local
-      
+
       - name: Wait on backend
         uses: iFaxity/wait-on-action@v1
         with:
           resource: http-get://localhost:5010/api/v1/campaign/list
           timeout: 120000
-      
+
       - name: Test Backend is ready
         working-directory: ./frontend
         run: curl http://localhost:5010/api/v1/campaign/list
