@@ -1,5 +1,5 @@
 import { styled } from '@mui/system'
-import { Grid, Typography } from '@mui/material'
+import { Grid, Link, Typography } from '@mui/material'
 
 import theme from 'common/theme'
 
@@ -16,7 +16,7 @@ export const ManagementBoardHeading = styled(Typography)(() => ({
   textAlign: 'center',
 }))
 
-export const ТeamMemberWrapper = styled(Typography)(() => ({
+export const ТeamMemberWrapper = styled(Grid)(() => ({
   flexGrow: 1,
   width: '100%',
   textAlign: 'center',
@@ -31,5 +31,18 @@ export const ТeamMemberWrapper = styled(Typography)(() => ({
   },
   [theme.breakpoints.up('lg')]: {
     flex: '1 0 10%',
+  },
+}))
+
+export const LinkedInButton = styled(Link)(() => ({
+  display: 'inline-flex',
+  alignItems: 'center',
+  float: 'left',
+  marginTop: theme.spacing(3),
+  '&:hover': {
+    '&>svg, &>h6': {
+      textDecoration: 'underline',
+      color: theme.palette.primary.main,
+    },
   },
 }))
