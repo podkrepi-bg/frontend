@@ -2,6 +2,11 @@ import Head from 'next/head'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Box, BoxProps, Container, ContainerProps, Typography } from '@mui/material'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Router from 'react-router'
+import routes from './routes'
+import TagManager from 'react-gtm-module'
 
 import Footer from 'components/layout/Footer'
 import { defaultOgImage } from 'common/routes'
@@ -11,12 +16,14 @@ import DetailsModal from 'components/modal/DetailsModal'
 import AppNavBar from './AppNavBar'
 import MobileNav from './nav/MobileNav'
 
-import Hotjar from '@hotjar/browser'
+const tagManagerArgs = {
+  gtmId: 'GTM-W3QGRT3',
+}
 
-const siteId = 3217553
-const hotjarVersion = 6
+const app = document.getElementById('app')
+ReactDOM.render(<Router routes={routes} />, app)
 
-Hotjar.init(siteId, hotjarVersion)
+TagManager.initialize(tagManagerArgs)
 
 const head = document.getElementsByTagName('head')[0]
 const script = document.createElement('script')
