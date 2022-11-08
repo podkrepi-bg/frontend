@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Box, BoxProps, Container, ContainerProps, Typography } from '@mui/material'
 
-import Footer from 'components/layout/Footer'
+import Footer from 'components/layout/Footer/Footer'
 import { defaultOgImage } from 'common/routes'
 import Snackbar from 'components/layout/Snackbar'
 import DetailsModal from 'components/modal/DetailsModal'
