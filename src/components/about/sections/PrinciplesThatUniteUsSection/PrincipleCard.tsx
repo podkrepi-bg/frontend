@@ -15,11 +15,7 @@ export default function PrincipleCard({ Icon, heading, content }: PrincipleCardP
     <Grid>
       <StyledCardHeader
         avatar={<Icon fontSize="large" />}
-        title={
-          <PrincipleHeading variant="body2" component="div">
-            {heading}
-          </PrincipleHeading>
-        }
+        title={<PrincipleHeading variant="body2">{heading}</PrincipleHeading>}
       />
       <ContentContainer>
         <Typography variant="body1">{content}</Typography>
