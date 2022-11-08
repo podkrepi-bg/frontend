@@ -30,12 +30,16 @@ export const ТeamMemberWrapper = styled(Grid)(() => ({
 export const LinkedInButton = styled(Link)(() => ({
   display: 'inline-flex',
   alignItems: 'center',
-  float: 'left',
   marginTop: theme.spacing(3),
+
   '&:hover': {
     '&>svg, &>h6': {
       textDecoration: 'underline',
       color: theme.palette.primary.main,
     },
+  },
+
+  [theme.breakpoints.up('sm')]: {
+    float: 'left',
   },
 }))

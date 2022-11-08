@@ -4,7 +4,11 @@ import { Grid } from '@mui/material'
 
 import { data } from '../../helpers/managementBoardData'
 
-import { ManagementBoardHeading, ТeamMemberWrapper } from './ManagementBoardsection.styled'
+import {
+  ManagementBoardHeading,
+  ТeamMemberWrapper,
+  LinkedInButton,
+} from './ManagementBoardsection.styled'
 import {
   AboutWrapper,
   Avatar,
@@ -12,7 +16,6 @@ import {
   TeamMemberName,
   LinkedInIcon,
   LinkedInText,
-  LinkedInButton,
 } from 'components/about/AboutPage.styled'
 
 export default function ManagementBoardSection() {
@@ -30,10 +33,7 @@ export default function ManagementBoardSection() {
             <TeamMemberName variant="subtitle1">{teamMember.name}</TeamMemberName>
             <Description variant="body2">{teamMember.description}</Description>
             {teamMember.linkedInProfile ? (
-              <LinkedInButton
-                href={teamMember.linkedInProfile}
-                target="_blank"
-                style={{ float: 'left' }}>
+              <LinkedInButton href={teamMember.linkedInProfile} target="_blank">
                 <LinkedInIcon color="action" fontSize="large" />
                 <LinkedInText variant="subtitle1">{t('about.linkedIn')}</LinkedInText>
               </LinkedInButton>
