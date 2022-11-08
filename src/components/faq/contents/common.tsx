@@ -115,7 +115,6 @@ export const COMMON_QUESTIONS: ContentType[] = [
         <ExternalLink variant="subtitle1" href={routes.reports}>
           тук.
         </ExternalLink>
-        .
       </ContentTypography>
     ),
   },
