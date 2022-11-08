@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 
 import { Grid } from '@mui/material'
 
-import PrincipleCard from './../PrincipleCard'
+import PrincipleCard from './PrincipleCard'
 import { principlesData } from '../../helpers/principlesData'
 
 import { AboutHeading } from 'components/about/AboutPage.styled'
