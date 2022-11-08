@@ -26,7 +26,6 @@ export const InfoGrid = () => {
       <Grid item>
         <SocialIcons />
       </Grid>
-      <Grid item>{t('components.footer.copyrights')}</Grid>
     </InfoGridWrapper>
   )
 }

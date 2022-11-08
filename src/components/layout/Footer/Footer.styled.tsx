@@ -30,7 +30,7 @@ export const FooterWrapper = styled(Grid)(() => ({
 
 export const InfoGridWrapper = styled(Grid)(() => ({
   [theme.breakpoints.up('sm')]: {
-    padding: theme.spacing(3),
+    padding: theme.spacing(3, 0),
   },
 }))
 
