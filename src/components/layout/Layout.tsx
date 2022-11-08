@@ -65,6 +65,10 @@ export default function Layout({
         {...containerProps}>
         <Head>
           <script async src="https://www.googleoptimize.com/optimize.js?id=OPT-W89QK8X" />
+          <script
+            async
+            src="//c.webtrends-optimize.com/acs/accounts/cb8ee022-f41d-453f-ae82-37fcf0c1426b/js/wt.js"
+          />
           <title>{pageTitle}</title>
           <meta name="description" content={metaDescription ?? pageTitle} />
           <meta name="og:description" content={metaDescription ?? pageTitle} />
