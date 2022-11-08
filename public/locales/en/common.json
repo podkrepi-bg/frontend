@@ -56,10 +56,7 @@
   "support": "Donate",
   "components": {
     "footer": {
-      "about-us": "About us",
       "about-project": "The project",
-      "docs": "Documentation",
-      "dev-docs": "Technical Documentation",
       "support": "Support us",
       "contact": "Contact",
       "privacy-policy": "Privacy Policy",

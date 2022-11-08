@@ -15,8 +15,8 @@ export const footerItems: FooterLink[][] = [
     { label: 'nav.about.who-are-we', href: routes.about },
     { label: 'components.footer.about-project', href: routes.aboutProject },
     { label: 'nav.about.support_us', href: routes.support_us },
-    { label: 'components.footer.support', href: routes.reports },
-    { label: 'nav.about.reports', href: routes.support },
+    { label: 'components.footer.support', href: routes.support },
+    { label: 'nav.about.reports', href: routes.reports },
   ],
   [
     { external: true, label: 'nav.blog', href: staticUrls.blog },
@@ -26,6 +26,6 @@ export const footerItems: FooterLink[][] = [
   [
     { label: 'components.footer.privacy-policy', href: routes.privacyPolicy },
     { label: 'components.footer.terms-of-service', href: routes.termsOfService },
-    { label: 'GitHub', href: staticUrls.github },
+    { external: true, label: 'GitHub', href: staticUrls.github },
   ],
 ]
