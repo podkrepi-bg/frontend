@@ -4,12 +4,9 @@ import { Grid } from '@mui/material'
 
 import { data } from '../../helpers/managementBoardData'
 
+import { ManagementBoardHeading, ТeamMemberWrapper } from './ManagementBoardsection.styled'
 import {
-  ManagementBoardHeading,
-  ManagemtenBoardMembersWrapper,
-  ТeamMemberWrapper,
-} from './ManagementBoardsection.styled'
-import {
+  AboutWrapper,
   Avatar,
   Description,
   TeamMemberName,
@@ -26,7 +23,7 @@ export default function ManagementBoardSection() {
       <ManagementBoardHeading variant="h4">
         {t('about.management-board-members')}
       </ManagementBoardHeading>
-      <ManagemtenBoardMembersWrapper>
+      <AboutWrapper>
         {data.map((teamMember) => (
           <ТeamMemberWrapper key={teamMember.name}>
             <Avatar alt="Team member avatar" src={teamMember.img} width="200px" height="200px" />
@@ -43,7 +40,7 @@ export default function ManagementBoardSection() {
             ) : null}
           </ТeamMemberWrapper>
         ))}
-      </ManagemtenBoardMembersWrapper>
+      </AboutWrapper>
     </Grid>
   )
 }

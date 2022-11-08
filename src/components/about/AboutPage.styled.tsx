@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
 import { styled } from '@mui/system'
-import { Link, Typography } from '@mui/material'
+import { Grid, Link, Typography } from '@mui/material'
 
 import theme from 'common/theme'
 import { LinkedIn } from '@mui/icons-material'
@@ -48,4 +48,11 @@ export const LinkedInText = styled(Typography)(() => ({
 
 export const Description = styled(Typography)(() => ({
   textAlign: 'initial',
+}))
+
+export const AboutWrapper = styled(Grid)(() => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  gap: theme.spacing(3),
+  flexWrap: 'wrap',
 }))

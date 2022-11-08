@@ -4,9 +4,10 @@ import { Grid, Typography } from '@mui/material'
 
 import { data } from '../../helpers/activeMembersData'
 
-import { ActiveMembersWrapper, ТeamMemberWrapper } from './ActiveMembersSection.styled'
+import { ТeamMemberWrapper } from './ActiveMembersSection.styled'
 import {
   AboutHeading,
+  AboutWrapper,
   Avatar,
   LinkedInButton,
   LinkedInIcon,
@@ -20,7 +21,7 @@ export default function ActiveMembersSection() {
   return (
     <Grid component="section">
       <AboutHeading variant="h4">{t('about.active-team-members')}</AboutHeading>
-      <ActiveMembersWrapper>
+      <AboutWrapper>
         {data.map((teamMember) => (
           <ТeamMemberWrapper key={teamMember.name}>
             <Avatar alt="Team member avatar" src={teamMember.img} width="200px" height="200px" />
@@ -32,7 +33,7 @@ export default function ActiveMembersSection() {
             </LinkedInButton>
           </ТeamMemberWrapper>
         ))}
-      </ActiveMembersWrapper>
+      </AboutWrapper>
     </Grid>
   )
 }

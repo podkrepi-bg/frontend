@@ -3,13 +3,6 @@ import { Grid } from '@mui/material'
 
 import theme from 'common/theme'
 
-export const AssociationMembersWrapper = styled(Grid)(() => ({
-  display: 'flex',
-  justifyContent: 'space-between',
-  gap: theme.spacing(3),
-  flexWrap: 'wrap',
-}))
-
 export const TeamMemberWrapper = styled(Grid)(() => ({
   flexGrow: 1,
   width: '100%',
