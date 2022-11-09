@@ -8,7 +8,7 @@ import { RecurringDonationResponse } from 'gql/recurring-donation'
 export function useRecurringDonationList() {
   const { data: session } = useSession()
   return useQuery<RecurringDonationResponse[]>(
-    endpoints.recurringDonation.recurringDonation.url,
+    endpoints.recurringDonation.list.url,
     authQueryFnFactory<RecurringDonationResponse[]>(session?.accessToken),
   )
 }

@@ -180,7 +180,7 @@ export const endpoints = {
     new: <Endpoint>{ url: '/account/new', method: 'GET' },
   },
   recurringDonation: {
-    recurringDonation: <Endpoint>{ url: '/recurring-donation', method: 'GET' },
+    list: <Endpoint>{ url: '/recurring-donation/list', method: 'GET' },
     getRecurringDonation: (id: string) =>
       <Endpoint>{ url: `/recurring-donation/${id}`, method: 'GET' },
     createRecurringDonation: <Endpoint>{ url: '/recurring-donation', method: 'POST' },

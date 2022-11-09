@@ -30,6 +30,18 @@
 
 ## Initial setup
 
+# for Ubuntu users:
+
+# make sure cmdtest is not installed, it has a different yarn command
+
+# for installing node.js: https://github.com/nodesource/distributions
+
+# if you have newer node version, you can use this to downgrade:
+
+# > sudo npm install -g n
+
+# > sudo n stable
+
 ```shell
 git clone git@github.com:podkrepi-bg/frontend.git
 cd frontend

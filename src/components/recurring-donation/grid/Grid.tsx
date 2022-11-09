@@ -13,10 +13,27 @@ import GridActions from 'components/admin/GridActions'
 import DeleteModal from '../DeleteModal'
 import DetailsModal from '../DetailsModal'
 
+function prettyRows(rows: RecurringDonationResponse[]) {
+  const { t } = useTranslation('recurring-donation')
+
+  return rows.map((row) => ({
+    ...row,
+    campaignTitle: row.sourceVault.campaign.title,
+    personName: row.person?.firstName + ' ' + row.person?.lastName,
+    amount: row.amount / 100 + ' ' + row.currency,
+    currency: row.currency.toUpperCase(),
+    status: t('statuses.' + row.status),
+  }))
+}
+
 export default function Grid() {
   const { t } = useTranslation('recurring-donation')
-  const { data }: UseQueryResult<RecurringDonationResponse[]> = useRecurringDonationList()
+  let { data }: UseQueryResult<RecurringDonationResponse[]> = useRecurringDonationList()
   const [pageSize, setPageSize] = useState(5)
+
+  if (data) {
+    data = prettyRows(data)
+  }
 
   const commonProps: Partial<GridColDef> = {
     align: 'left',
@@ -32,38 +49,21 @@ export default function Grid() {
       ...commonProps,
     },
     {
-      field: 'currency',
-      headerName: t('currency'),
-      flex: 1.5,
-      ...commonProps,
-    },
-    {
       field: 'amount',
       headerName: t('amount'),
       flex: 1.5,
       ...commonProps,
     },
+
     {
-      field: 'extSubscriptionId',
-      headerName: t('extSubscriptionId'),
+      field: 'personName',
+      headerName: t('person'),
       ...commonProps,
       width: 300,
     },
     {
-      field: 'extCustomerId',
-      headerName: t('extCustomerId'),
-      ...commonProps,
-      width: 300,
-    },
-    {
-      field: 'personId',
-      headerName: t('personId'),
-      ...commonProps,
-      width: 300,
-    },
-    {
-      field: 'vaultId',
-      headerName: t('vaultId'),
+      field: 'campaignTitle',
+      headerName: t('campaign'),
       ...commonProps,
       width: 300,
     },

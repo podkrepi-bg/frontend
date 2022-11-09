@@ -7,12 +7,15 @@ import { useTranslation } from 'next-i18next'
 import { moneyPublic } from 'common/util/money'
 import { useUserDonations } from 'common/hooks/donation'
 import { getCurrentPerson } from 'common/util/useCurrentPerson'
+import { useRecurringDonationList } from 'common/hooks/recurringDonation'
 import { useRouter } from 'next/router'
 
 import { ProfileTabs } from './tabs'
 import ProfileTab from './ProfileTab'
 import DonationTable from './DonationTable'
 import { DonationStatus, PaymentProvider } from 'gql/donations.enums'
+import { RecurringDonationStatus } from 'gql/recurring-donation-status.d'
+import { RecurringDonationResponse } from 'gql/recurring-donation'
 
 const PREFIX = 'DonationTab'
 
@@ -75,16 +78,32 @@ const Root = styled('div')(({ theme }) => ({
   },
 }))
 
+//TODO: is this the correct file to put this in?
+//TODO: Convert different currencies to the default currency
+//Sum the active donations
+function recurreningDonationsSum(donations: RecurringDonationResponse[] | undefined) {
+  if (!donations) {
+    return 0.0
+  }
+
+  return donations
+    .filter((donation) => donation.status === RecurringDonationStatus.active)
+    .reduce((sum, donation) => sum + donation.amount, 0.0)
+}
+
 export default function DonationTab() {
   const router = useRouter()
   const { t } = useTranslation()
 
   const { data: user } = getCurrentPerson(!!router.query?.register)
+
   if (router.query?.register) {
     delete router.query.register
     router.replace({ pathname: router.pathname, query: router.query }, undefined, { shallow: true })
   }
   const { data: userDonations, isLoading: isUserDonationLoading } = useUserDonations()
+  const { data: recurringDonations } = useRecurringDonationList()
+
   return (
     <Root>
       <Box className={classes.boxTitle}>
@@ -106,13 +125,13 @@ export default function DonationTab() {
           </Box>
           <Box className={classes.donationsBoxRow}>
             <Box>
-              <Typography variant="h6">{t('profile:donations.recurringDonations')}</Typography>
-              {/* TODO: Use date-fns to format and localize the months,
+              <Typography variant="h6">{t('profile:donations.recurringDonations')} </Typography>
+              {/* TODO: Use date-fns to format and localize trecurringDonationshe months,
                      that the user has recurring donations when that is possible */}
               {/* <Typography>Я, Ф, М, А 2022</Typography> */}
             </Box>
             <Typography fontWeight="medium" variant="h6">
-              0,00 лв.
+              {moneyPublic(recurreningDonationsSum(recurringDonations))}
             </Typography>
           </Box>
           <Box className={classes.donationsBoxRow}>

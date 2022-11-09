@@ -8,11 +8,13 @@ export type VaultResponse = {
   amount: number
   blockedAmount: number
   campaignId: UUID
+  campaign: Campaign
   createdAt: Date
   updatedAt: Date | null
 }
 
 export type VaultInput = {
+  id: UUID
   name?: string
   campaignId?: UUID
   currency?: Currency | ''

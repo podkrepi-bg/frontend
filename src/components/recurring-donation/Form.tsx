@@ -1,4 +1,3 @@
-import React from 'react'
 import { useMutation, useQueryClient, UseQueryResult } from 'react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -6,11 +5,13 @@ import Link from 'next/link'
 import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
 import { Box, Button, Grid, Typography } from '@mui/material'
+import { UUID } from 'gql/types'
 
 import { RecurringDonationInput, RecurringDonationResponse } from 'gql/recurring-donation'
 
 import { Currency } from 'gql/currency'
 import { useRecurringDonation } from 'common/hooks/recurringDonation'
+import { useCampaignList } from 'common/hooks/campaigns'
 import { routes } from 'common/routes'
 import { ApiErrors } from 'service/apiErrors'
 import { useCreateRecurringDonation, useEditRecurringDonation } from 'service/recurringDonation'
@@ -22,16 +23,10 @@ import CurrencySelect from 'components/currency/CurrencySelect'
 import RecurringDonationStatusSelect from './RecurringDonationStatusSelect'
 import PersonSelectDialog from 'components/person/PersonSelectDialog'
 import { Form, Formik } from 'formik'
-
-export enum RecurringDonationStatus {
-  trialing = 'trialing',
-  active = 'active',
-  canceled = 'canceled',
-  incomplete = 'incomplete',
-  incompleteExpired = 'incompleteExpired',
-  pastDue = 'pastDue',
-  unpaid = 'unpaid',
-}
+import { RecurringDonationStatus } from 'gql/recurring-donation-status.d'
+import { PersonResponse } from 'gql/person'
+import CampaignSelect from 'components/campaigns/CampaignSelect'
+import { fromMoney, toMoney } from 'common/util/money'
 
 const validCurrencies = Object.keys(Currency)
 const validStatuses = Object.keys(RecurringDonationStatus)
@@ -41,12 +36,12 @@ const validationSchema = yup
   .defined()
   .shape({
     status: yup.string().oneOf(validStatuses).required(),
-    personId: yup.string().trim().max(50).required(),
-    extSubscriptionId: yup.string().trim().max(50).required(),
-    extCustomerId: yup.string().trim().max(50).required(),
-    amount: yup.number().positive().integer().required(),
+    personId: yup.string().trim().uuid().required(),
+    extSubscriptionId: yup.string().trim().uuid().required(),
+    extCustomerId: yup.string().trim().uuid().required(),
+    money: yup.number().min(0).integer().required(),
     currency: yup.string().oneOf(validCurrencies).required(),
-    sourceVault: yup.string().trim().uuid().required(),
+    campaignId: yup.string().trim().uuid().required(),
   })
 
 export default function EditForm() {
@@ -54,6 +49,19 @@ export default function EditForm() {
   const queryClient = useQueryClient()
   const { t } = useTranslation()
   let id = router.query.id
+
+  const { data: campaigns } = useCampaignList()
+
+  //since only the campaign can be selected by the admin
+  //we need a map from campaignId to vaultId
+  //use the first vaultId for now
+  //campaigns without vaults are filtered out
+  const defaultVaults = {}
+  campaigns?.forEach((campaign) => {
+    if (campaign.vaults && campaign.vaults.length > 0) {
+      defaultVaults[campaign.id] = campaign.vaults[0].id
+    }
+  })
 
   let initialValues: RecurringDonationInput = {
     status: '',
@@ -66,6 +74,7 @@ export default function EditForm() {
   }
 
   if (id) {
+    // if id is present, we are editing an existing recurring donation
     id = String(id)
     const { data }: UseQueryResult<RecurringDonationResponse> = useRecurringDonation(id)
 
@@ -74,9 +83,11 @@ export default function EditForm() {
       personId: data?.personId,
       extSubscriptionId: data?.extSubscriptionId,
       extCustomerId: data?.extCustomerId,
-      amount: data?.amount,
+      money: fromMoney(data?.amount),
       currency: data?.currency,
       sourceVault: data?.sourceVault,
+      campaignId: data?.sourceVault.campaign.id,
+      vaultId: data?.sourceVault.id,
     }
   }
 
@@ -102,7 +113,32 @@ export default function EditForm() {
     },
   })
   async function onSubmit(data: RecurringDonationInput) {
+    data.amount = toMoney(data.money)
+    data.sourceVault = defaultVaults[data.campaignId]
+    data.vaultId = data.sourceVault
+
     mutation.mutate(data)
+  }
+
+  let selectedPerson: PersonResponse | null = null
+  let selectedCampaignId: UUID = ''
+  if (id) {
+    //for a new recurring donation, we don't have a person or campaign yet
+    const { data }: UseQueryResult<RecurringDonationResponse> = useRecurringDonation(id)
+
+    selectedPerson = {
+      id: data?.personId,
+      firstName: data?.person?.firstName,
+      lastName: data?.person?.lastName,
+      email: data?.person?.email,
+      phone: data?.person?.phone,
+      address: data?.person?.address,
+      createdAt: data?.person?.createdAt,
+    }
+
+    if (data?.sourceVault) {
+      selectedCampaignId = data?.sourceVault.campaign.id
+    }
   }
 
   return (
@@ -123,6 +159,7 @@ export default function EditForm() {
               <Grid item xs={12}>
                 <PersonSelectDialog
                   error={errors.personId}
+                  selectedPerson={selectedPerson}
                   onConfirm={(person) => {
                     person ? setFieldValue('personId', person.id) : setFieldTouched('personId')
                   }}
@@ -130,6 +167,20 @@ export default function EditForm() {
                     person ? setFieldValue('personId', person.id) : setFieldTouched('personId')
                   }}
                 />
+              </Grid>
+              <Grid item xs={12}>
+                <CampaignSelect
+                  label={t('recurring-donation:campaign')}
+                  name="campaignId"
+                  campaigns={campaigns}
+                  selectedCampaign={selectedCampaignId}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <FormTextField type="number" label={t('recurring-donation:amount')} name="money" />
+              </Grid>
+              <Grid item xs={6}>
+                <CurrencySelect />
               </Grid>
               <Grid item xs={6}>
                 <RecurringDonationStatusSelect />
@@ -141,24 +192,11 @@ export default function EditForm() {
                   name="extSubscriptionId"
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12}>
                 <FormTextField
                   type="text"
                   label={t('recurring-donation:extCustomerId')}
                   name="extCustomerId"
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <FormTextField type="number" label={t('recurring-donation:amount')} name="amount" />
-              </Grid>
-              <Grid item xs={6}>
-                <CurrencySelect />
-              </Grid>
-              <Grid item xs={6}>
-                <FormTextField
-                  type="text"
-                  label={t('recurring-donation:vaultId')}
-                  name="sourceVault"
                 />
               </Grid>
               <Grid item xs={6}>
