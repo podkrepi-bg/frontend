@@ -60,25 +60,28 @@ export default observer(function Grid() {
     const { firstName, lastName } = params.row.person
       ? params.row.person
       : { firstName: 'Anonymous', lastName: 'Donor' }
-
     return (
       <>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
           {firstName + ' ' + lastName}
-          <Tooltip title={t('donations:cta.edit')}>
-            <Edit
-              sx={addIconStyles}
-              color="action"
-              fontSize="medium"
-              onClick={() => {
-                if (focusedRowId) {
-                  params.api.setCellMode(focusedRowId, params.field, GridCellModes.View)
-                }
-                params.api.setCellMode(params.row.id, params.field, GridCellModes.Edit)
-                setFocusedRowId(params.row.id)
-              }}
-            />
-          </Tooltip>
+          {params.isEditable ? (
+            <Tooltip title={t('donations:cta.edit')}>
+              <Edit
+                sx={addIconStyles}
+                color="action"
+                fontSize="medium"
+                onClick={() => {
+                  if (focusedRowId) {
+                    params.api.setCellMode(focusedRowId, params.field, GridCellModes.View)
+                  }
+                  params.api.setCellMode(params.row.id, params.field, GridCellModes.Edit)
+                  setFocusedRowId(params.row.id)
+                }}
+              />
+            </Tooltip>
+          ) : (
+            <></>
+          )}
         </Box>
       </>
     )
@@ -199,6 +202,7 @@ export default observer(function Grid() {
           paginationMode="server"
           rowCount={all_rows}
           disableSelectionOnClick
+          isCellEditable={(params) => params.row.provider.includes('bank')}
         />
       </Box>
 
