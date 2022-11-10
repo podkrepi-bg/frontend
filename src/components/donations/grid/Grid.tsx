@@ -24,7 +24,7 @@ import { money } from 'common/util/money'
 import { CampaignDonationHistoryResponse } from 'gql/campaigns'
 import { PersonResponse } from 'gql/person'
 import { usePersonList } from 'common/hooks/person'
-import EditPersonCell from './EditPersonCell'
+import RenderEditPersonCell from './RenderEditPersonCell'
 
 interface RenderCellProps {
   params: GridRenderCellParams
@@ -49,6 +49,7 @@ export default observer(function Grid() {
     data: { items: donations, total: all_rows } = { items: [], total: 0 },
     error: donationHistoryError,
     isLoading: isDonationHistoryLoading,
+    refetch,
   }: UseQueryResult<CampaignDonationHistoryResponse> = useDonationsList(campaignId, page, pageSize)
 
   const { data }: UseQueryResult<PersonResponse[]> = usePersonList()
@@ -130,7 +131,7 @@ export default observer(function Grid() {
         return <RenderPersonCell params={params} />
       },
       renderEditCell: (params: GridRenderEditCellParams) => {
-        return <EditPersonCell params={params} personList={data} />
+        return <RenderEditPersonCell params={params} personList={data} onUpdate={refetch} />
       },
     },
     {
@@ -198,9 +199,6 @@ export default observer(function Grid() {
           paginationMode="server"
           rowCount={all_rows}
           disableSelectionOnClick
-          onCellEditStart={() => console.log('start')}
-          onCellEditStop={() => console.log('stop')}
-          onCellFocusOut={() => console.log('lose focus')}
         />
       </Box>
 

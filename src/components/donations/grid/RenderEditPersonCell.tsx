@@ -1,5 +1,5 @@
 import React from 'react'
-import { observer } from 'mobx-react'
+import { AxiosError, AxiosResponse } from 'axios'
 import { useMutation } from 'react-query'
 import { useTranslation } from 'next-i18next'
 import { GridRenderEditCellParams, GridCellModes } from '@mui/x-data-grid'
@@ -7,15 +7,15 @@ import { Autocomplete, createFilterOptions, TextField, Tooltip, Box } from '@mui
 import { Save } from '@mui/icons-material'
 
 import { PersonResponse } from 'gql/person'
+import { DonationResponse, UserDonationInput } from 'gql/donations'
 import { useEditDonation } from 'service/donation'
 import { ApiErrors } from 'service/apiErrors'
-import { AxiosError, AxiosResponse } from 'axios'
-import { DonationResponse, UserDonationInput } from 'gql/donations'
 import { AlertStore } from 'stores/AlertStore'
 
-interface RenderCellProps {
+interface RenderEditCellProps {
   params: GridRenderEditCellParams
   personList?: PersonResponse[]
+  onUpdate(): void
 }
 const addIconStyles = {
   background: '#4ac3ff',
@@ -25,7 +25,11 @@ const addIconStyles = {
   boxShadow: 3,
 }
 
-export default observer(function EditCellModal({ params, personList }: RenderCellProps) {
+export default function RenderEditPersonCell({
+  params,
+  personList,
+  onUpdate,
+}: RenderEditCellProps) {
   const { t } = useTranslation()
 
   const initialPerson = {
@@ -35,12 +39,9 @@ export default observer(function EditCellModal({ params, personList }: RenderCel
       params.row.person && params.row.person.lastName ? params.row.person.lastName : 'Donor',
     email: params.row.email || params.row.billingEmail || null,
   }
-  const [value, setValue] = React.useState<PersonResponse | null>({
+  const [person, setPerson] = React.useState<PersonResponse | null>({
     ...initialPerson,
   } as PersonResponse)
-  const [inputValue, setInputValue] = React.useState(
-    initialPerson.firstName + ' ' + initialPerson.lastName,
-  )
   const mutationFn = useEditDonation(params.row.id)
 
   const mutation = useMutation<
@@ -50,15 +51,18 @@ export default observer(function EditCellModal({ params, personList }: RenderCel
   >({
     mutationFn,
     onError: () => AlertStore.show(t('donations:alerts.error'), 'error'),
-    onSuccess: () => AlertStore.show(t('donations:alerts.editDonor'), 'success'),
+    onSuccess: () => {
+      AlertStore.show(t('donations:alerts.editDonor'), 'success')
+      onUpdate()
+      params.api.setCellMode(params.row.id, params.field, GridCellModes.View)
+    },
   })
 
   const onClick = () => {
-    if (value) {
+    if (person) {
       const donationData: UserDonationInput = params.row
-      donationData.targetPersonId = value.id
+      donationData.targetPersonId = person.id
       mutation.mutate(donationData)
-      params.api.setCellMode(params.row.id, params.field, GridCellModes.View)
     } else {
       AlertStore.show(t('donations:alerts.requiredError'), 'error')
     }
@@ -67,43 +71,35 @@ export default observer(function EditCellModal({ params, personList }: RenderCel
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', width: '100%', padding: 0.7 }}>
       <Autocomplete
-        disablePortal
-        value={value}
-        onChange={(
-          event: React.SyntheticEvent<Element, Event>,
-          newValue: PersonResponse | null,
-        ) => {
-          setValue(newValue)
+        id="edit-person-cell"
+        sx={{ width: 300 }}
+        value={person}
+        onChange={(event, newValue: PersonResponse | null) => {
+          setPerson(newValue)
         }}
-        inputValue={inputValue}
-        onInputChange={(event, newInputValue) => {
-          const parsed = newInputValue.split(' - ')[0]
-          setInputValue(parsed)
-        }}
-        id="controllable-states-demo"
-        options={personList ? personList : []}
-        getOptionLabel={(option: PersonResponse) =>
-          `${option.firstName} ${option.lastName} - ${option.email}`
-        }
-        sx={{ width: 300, fontSize: 'small' }}
+        options={personList || []}
+        getOptionLabel={(option: PersonResponse) => `${option.firstName} ${option.lastName}`}
         renderInput={(params) => <TextField {...params} variant="standard" fullWidth />}
-        isOptionEqualToValue={(option, value) => {
-          return (
-            option.firstName.includes(value.firstName) ||
-            option.lastName.includes(value.lastName) ||
-            !value
-          )
-        }}
+        renderOption={(params, option: PersonResponse) => (
+          <Box component="li" {...params} key={option.id}>
+            {`${option.firstName} ${option.lastName} (${option.email ? option.email : ''})`}
+          </Box>
+        )}
+        isOptionEqualToValue={(option, value) => option.firstName === value.firstName}
         filterOptions={createFilterOptions<PersonResponse>({
           matchFrom: 'any',
           limit: 5,
           ignoreCase: true,
           trim: true,
         })}
+        clearText={t('donations:cta.clear')}
+        noOptionsText={t('donations:noOptions')}
+        openText={t('donations:cta.open')}
+        closeText={t('donations:cta.close')}
       />
       <Tooltip title={t('donations:cta.save')}>
         <Save sx={addIconStyles} color="action" fontSize="medium" onClick={onClick} />
       </Tooltip>
     </Box>
   )
-})
+}

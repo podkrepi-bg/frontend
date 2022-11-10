@@ -24,6 +24,7 @@
   "addFiles": "Add files",
   "actions": "Actions",
   "createdAt": "Created at",
+  "noOptions": "No results",
   "alerts": {
     "selectRow": "Please choose a row",
     "create": "Document has been created successfully!",
@@ -43,6 +44,9 @@
     "edit": "Edit",
     "details": "Donation Details",
     "submit": "Submit",
-    "save": "Save"
+    "save": "Save",
+    "open": "Open",
+    "clear": "Clear",
+    "close": "Close"
   }
 }
