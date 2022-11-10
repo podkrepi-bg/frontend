@@ -1,0 +1,23 @@
+import { Typography } from '@mui/material'
+import { styled } from '@mui/system'
+
+import theme from 'common/theme'
+
+export const Root = styled('section')(() => ({
+  margin: theme.spacing(7, 3, 0, 3),
+
+  [theme.breakpoints.up('sm')]: {
+    margin: theme.spacing(12, 4, 0, 4),
+  },
+}))
+
+export const UrgentCampaignsHeading = styled(Typography)(() => ({
+  marginBottom: theme.spacing(6),
+  color: theme.palette.common.black,
+  textAlign: 'center',
+  fontWeight: 500,
+
+  [theme.breakpoints.up('lg')]: {
+    fontSize: theme.typography.pxToRem(48),
+  },
+}))
