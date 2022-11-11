@@ -22,8 +22,7 @@ export const Root = styled(Container)(() => ({
 export const FooterWrapper = styled(Grid)(() => ({
   padding: theme.spacing(4),
 
-  [theme.breakpoints.up('md')]: {
-    textAlign: 'left',
+  [theme.breakpoints.up('lg')]: {
     padding: theme.spacing(4, 0),
   },
 }))

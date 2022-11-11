@@ -56,6 +56,10 @@
   "support": "Donate",
   "components": {
     "footer": {
+      "donatе": "Donate",
+      "about-us": "About us",
+      "resources": "Resources",
+      "others": "Others",
       "about-project": "The project",
       "support": "Support us",
       "contact": "Contact",
