@@ -1,13 +1,19 @@
 import React, { useState } from 'react'
 import { UseQueryResult } from 'react-query'
 import { useTranslation } from 'next-i18next'
-import { Box } from '@mui/material'
-import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { Box, Tooltip } from '@mui/material'
+import { Edit } from '@mui/icons-material'
+import {
+  DataGrid,
+  GridCellModes,
+  GridColDef,
+  GridColumns,
+  GridRenderCellParams,
+  GridRenderEditCellParams,
+} from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
 
-import { routes } from 'common/routes'
 import { useDonationsList } from 'common/hooks/donation'
-import GridActions from 'components/admin/GridActions'
 
 import DetailsModal from '../modals/DetailsModal'
 import DeleteModal from '../modals/DeleteModal'
@@ -16,14 +22,25 @@ import { getExactDateTime } from 'common/util/date'
 import { useRouter } from 'next/router'
 import { money } from 'common/util/money'
 import { CampaignDonationHistoryResponse } from 'gql/campaigns'
+import { PersonResponse } from 'gql/person'
+import { usePersonList } from 'common/hooks/person'
+import RenderEditPersonCell from './RenderEditPersonCell'
 
 interface RenderCellProps {
   params: GridRenderCellParams
 }
-
+const addIconStyles = {
+  background: '#4ac3ff',
+  borderRadius: '50%',
+  cursor: 'pointer',
+  padding: 0.7,
+  boxShadow: 3,
+}
 export default observer(function Grid() {
   const [pageSize, setPageSize] = useState(5)
   const [page, setPage] = useState<number>(0)
+  const [focusedRowId, setFocusedRowId] = useState(null as string | null)
+
   const { t } = useTranslation()
   const router = useRouter()
   const { isDetailsOpen } = ModalStore
@@ -32,8 +49,10 @@ export default observer(function Grid() {
     data: { items: donations, total: all_rows } = { items: [], total: 0 },
     error: donationHistoryError,
     isLoading: isDonationHistoryLoading,
+    refetch,
   }: UseQueryResult<CampaignDonationHistoryResponse> = useDonationsList(campaignId, page, pageSize)
 
+  const { data }: UseQueryResult<PersonResponse[]> = usePersonList()
   const RenderVaultCell = ({ params }: RenderCellProps) => {
     return <>{params.row.targetVault.name}</>
   }
@@ -41,7 +60,31 @@ export default observer(function Grid() {
     const { firstName, lastName } = params.row.person
       ? params.row.person
       : { firstName: 'Anonymous', lastName: 'Donor' }
-    return <>{firstName + ' ' + lastName}</>
+    return (
+      <>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+          {firstName + ' ' + lastName}
+          {params.isEditable ? (
+            <Tooltip title={t('donations:cta.edit')}>
+              <Edit
+                sx={addIconStyles}
+                color="action"
+                fontSize="medium"
+                onClick={() => {
+                  if (focusedRowId) {
+                    params.api.setCellMode(focusedRowId, params.field, GridCellModes.View)
+                  }
+                  params.api.setCellMode(params.row.id, params.field, GridCellModes.Edit)
+                  setFocusedRowId(params.row.id)
+                }}
+              />
+            </Tooltip>
+          ) : (
+            <></>
+          )}
+        </Box>
+      </>
+    )
   }
 
   const RenderMoneyCell = ({ params }: RenderCellProps) => {
@@ -85,9 +128,13 @@ export default observer(function Grid() {
       field: 'person',
       headerName: t('donations:person'),
       ...commonProps,
-      width: 250,
+      editable: true,
+      width: 280,
       renderCell: (params: GridRenderCellParams) => {
         return <RenderPersonCell params={params} />
+      },
+      renderEditCell: (params: GridRenderEditCellParams) => {
+        return <RenderEditPersonCell params={params} personList={data} onUpdate={refetch} />
       },
     },
     {
@@ -155,6 +202,7 @@ export default observer(function Grid() {
           paginationMode="server"
           rowCount={all_rows}
           disableSelectionOnClick
+          isCellEditable={(params) => params.row.provider.includes('bank')}
         />
       </Box>
 
