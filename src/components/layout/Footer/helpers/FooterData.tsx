@@ -25,7 +25,7 @@ export const footerItems: FooterSection[] = [
       { label: 'components.footer.who-are-we', href: routes.about },
       { label: 'components.footer.about-project', href: routes.aboutProject },
       { label: 'components.footer.support-us', href: routes.support_us },
-      { label: 'components.footer.support', href: routes.support },
+      { label: 'components.footer.vecome-a-volunteer', href: routes.support },
       { label: 'components.footer.reports', href: routes.reports },
     ],
   },
