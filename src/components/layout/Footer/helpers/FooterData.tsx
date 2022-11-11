@@ -11,7 +11,7 @@ type FooterSection = {
   links: FooterLink[]
 }
 
-export const footerItems: FooterSection[] = [
+export const footerLinks: FooterSection[] = [
   {
     title: 'components.footer.donatе',
     links: [

@@ -1,4 +1,4 @@
-import { Container, Grid, lighten } from '@mui/material'
+import { Container, Grid, lighten, Typography } from '@mui/material'
 import { styled } from '@mui/system'
 
 import theme from 'common/theme'
@@ -35,4 +35,17 @@ export const InfoGridWrapper = styled(Grid)(() => ({
 
 export const FooterLinksWrapper = styled(Grid)(() => ({
   paddingTop: theme.spacing(3),
+}))
+
+export const FooterLinkTitle = styled(Typography)(() => ({
+  fontWeight: 600,
+  fontSize: theme.typography.pxToRem(16),
+  marginBottom: theme.spacing(1),
+  paddingBottom: theme.spacing(0.5),
+  width: 'fit-content',
+  borderBottom: '2px solid #B0E5FF',
+}))
+
+export const FooterLink = styled(Grid)(() => ({
+  padding: theme.spacing(0.5, 0),
 }))
