@@ -8,6 +8,7 @@ import {
   DonationBankInput,
   DonationInput,
   DonationResponse,
+  UserDonationInput,
 } from 'gql/donations'
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
@@ -44,7 +45,7 @@ export function useCreateBankDonation() {
 
 export function useEditDonation(id: string) {
   const { data: session } = useSession()
-  return async (data: DonationInput) => {
+  return async (data: UserDonationInput) => {
     return await apiClient.patch<DonationResponse, AxiosResponse<DonationResponse>>(
       endpoints.donation.editDonation(id).url,
       data,
