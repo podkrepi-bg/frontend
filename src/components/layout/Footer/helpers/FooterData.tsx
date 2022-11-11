@@ -15,26 +15,26 @@ export const footerItems: FooterSection[] = [
   {
     title: 'components.footer.donatе',
     links: [
-      { label: 'components.footer.about-us', href: routes.about },
-      { label: 'components.footer.about-project', href: routes.aboutProject },
-      { label: 'components.footer.support', href: routes.support },
-      { label: 'components.footer.contact', href: routes.contact },
-      { external: true, label: 'nav.blog', href: staticUrls.blog },
+      { label: 'components.footer.all-campaigns', href: routes.campaigns.index },
+      { label: 'components.footer.suggest-campaign', href: routes.campaigns.create },
     ],
   },
   {
     title: 'components.footer.about-us',
     links: [
-      { external: true, label: 'GitHub', href: staticUrls.github },
-      { external: true, label: 'components.footer.docs', href: staticUrls.projectDocs },
-      { external: true, label: 'components.footer.dev-docs', href: staticUrls.devDocs },
+      { label: 'components.footer.who-are-we', href: routes.about },
+      { label: 'components.footer.about-project', href: routes.aboutProject },
+      { label: 'components.footer.support-us', href: routes.support_us },
+      { label: 'components.footer.support', href: routes.support },
+      { label: 'components.footer.reports', href: routes.reports },
     ],
   },
   {
     title: 'components.footer.resources',
     links: [
-      { label: 'components.footer.privacy-policy', href: routes.privacyPolicy },
-      { label: 'components.footer.terms-of-service', href: routes.termsOfService },
+      { external: true, label: 'nav.blog', href: staticUrls.blog },
+      { label: 'components.footer.contact', href: routes.contact },
+      { label: 'components.footer.faq', href: routes.faq },
     ],
   },
   {
@@ -42,6 +42,7 @@ export const footerItems: FooterSection[] = [
     links: [
       { label: 'components.footer.privacy-policy', href: routes.privacyPolicy },
       { label: 'components.footer.terms-of-service', href: routes.termsOfService },
+      { external: true, label: 'GitHub', href: staticUrls.github },
     ],
   },
 ]

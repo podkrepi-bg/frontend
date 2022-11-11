@@ -2,7 +2,7 @@
   "nav": {
     "home": "Home",
     "about": {
-      "about-project": "The Project",
+      "about-project": "The project",
       "about-us": "About us",
       "who-are-we": "Who are we?",
       "support_us": "Support us",
@@ -14,7 +14,7 @@
       "index": "Campaigns",
       "all-campaigns": "All campaigns",
       "create": "Suggest a campaign",
-      "faq": "Frequently Asked Questions"
+      "faq": "Frequently asked questions"
     },
     "admin": {
       "index": "Administration",
@@ -60,11 +60,17 @@
       "about-us": "About us",
       "resources": "Resources",
       "others": "Others",
-      "about-project": "The project",
+      "all-campaigns": "All campaigns",
+      "who-are-we": "Who are We?",
+      "suggest-campaign": "Suggest a campaign",
+      "about-project": "About the project",
+      "support-us": "Support us",
       "support": "Support us",
+      "reports": "Reports",
       "contact": "Contact",
+      "faq": "Frequently asked questions",
       "privacy-policy": "Privacy Policy",
-      "terms-of-service": "Terms of service",
+      "terms-of-service": "Terms of Service",
       "copyrights": "Podkrepi.bg ©2022 All rights reserved."
     }
   },
