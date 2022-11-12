@@ -12,9 +12,9 @@ export const FooterLinks = () => {
   const { t } = useTranslation()
 
   return (
-    <FooterLinksWrapper container spacing={3}>
+    <FooterLinksWrapper item xs={12} sm={4} md={7}>
       {footerLinks.map((data, index) => (
-        <Grid container key={index} item xs={12} md={3} direction="column" spacing={1}>
+        <Grid container key={index} item xs={12} md={3} direction="column" mb={3}>
           <FooterLinkTitle>{t(data.title)}</FooterLinkTitle>
           {data.links.map(({ label, href, external }, linkIndex) => (
             <FooterLink key={linkIndex}>
