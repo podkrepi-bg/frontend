@@ -56,17 +56,22 @@
   "link": "Линк",
   "components": {
     "footer": {
-      "about-us": "За доброволците",
+      "donatе": "Дарете",
+      "about-us": "За нас",
+      "resources": "Ресурси",
+      "others": "Други",
+      "all-campaigns": "Всички кампании",
+      "suggest-campaign": "Предложете кампания",
+      "who-are-we": "Кои сме ние?",
       "about-project": "За проекта",
-      "docs": "Документация",
-      "dev-docs": "Техническа  Документация",
-      "support": "Станете доброволец",
+      "support-us": "Подкрепете ни",
+      "become-a-volunteer": "Станете доброволец",
+      "reports": "Отчети",
       "contact": "Контакти",
+      "faq": "Често задавани въпроси",
       "privacy-policy": "Защита на лични данни",
       "terms-of-service": "Общи условия",
-      "hosting-partner": "Хостинг партньор:",
-      "copyrights": "Podkrepi.bg ©2022 Всички права запазени.",
-      "version": "Версия"
+      "copyrights": "Podkrepi.bg ©2022 Всички права запазени."
     }
   },
   "or": "или",
