@@ -1,5 +1,4 @@
 import { test, expect } from '@playwright/test'
-import { AuthPage } from '../AuthPage'
 
 test.beforeEach(async ({ page }) => {
   await page.goto('http://localhost:3040/', { waitUntil: 'networkidle' })
