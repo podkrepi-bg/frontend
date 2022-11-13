@@ -7,6 +7,7 @@ import ProfileTab from './ProfileTab'
 import { ProfileTabs } from './tabs'
 import MyCampaingsTable from './MyCampaignsTable'
 import MyDonatedToCampaignTable from './MyDonatedToCampaignsTable'
+import MyRecurringCampaignsTable from './MyRecurringCampaignsTable'
 
 const PREFIX = 'MyCampaignsTab'
 
@@ -61,6 +62,12 @@ export default function MyCampaignsTab() {
       </Box>
       <ProfileTab name={ProfileTabs.myCampaigns}>
         <MyDonatedToCampaignTable />
+      </ProfileTab>
+      <Box className={classes.boxTitle}>
+        <Typography className={classes.h3}>{t('profile:donations.recurringDonations')}</Typography>
+      </Box>
+      <ProfileTab name={ProfileTabs.myCampaigns}>
+        <MyRecurringCampaignsTable />
       </ProfileTab>
     </Root>
   )

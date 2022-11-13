@@ -21,7 +21,6 @@ export const endpoints = {
       method: 'GET',
     },
     createCampaign: <Endpoint>{ url: '/campaign/create-campaign', method: 'POST' },
-    getUserCamapaigns: <Endpoint>{ url: '/campaign/get-user-campaigns', method: 'GET' },
     viewCampaign: (slug: string) => <Endpoint>{ url: `/campaign/${slug}`, method: 'GET' },
     viewCampaignById: (id: string) => <Endpoint>{ url: `/campaign/byId/${id}`, method: 'GET' },
     editCampaign: (id: string) => <Endpoint>{ url: `/campaign/${id}`, method: 'PUT' },
@@ -188,6 +187,13 @@ export const endpoints = {
       <Endpoint>{ url: `/recurring-donation/${id}`, method: 'PUT' },
     deleteRecurringDonation: (id: string) =>
       <Endpoint>{ url: `/recurring-donation/${id}`, method: 'DELETE' },
+    cancelRecurringDonation: (id: string) =>
+      <Endpoint>{ url: `/recurring-donation/cancel/${id}`, method: 'POST' },
+
+    getUserRecurringDonations: <Endpoint>{
+      url: '/recurring-donation/user-donations',
+      method: 'GET',
+    },
   },
   irregularityFile: {
     uploadIrregularityFile: (irregularityId: string) =>

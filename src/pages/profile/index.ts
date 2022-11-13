@@ -7,6 +7,7 @@ export const getServerSideProps = securedPropsWithTranslation([
   'common',
   'validation',
   'campaigns',
+  'recurring-donation',
 ])
 
 export default ProfilePage

@@ -7,7 +7,7 @@ import { useTranslation } from 'next-i18next'
 import { moneyPublic } from 'common/util/money'
 import { useUserDonations } from 'common/hooks/donation'
 import { getCurrentPerson } from 'common/util/useCurrentPerson'
-import { useRecurringDonationList } from 'common/hooks/recurringDonation'
+import { useGetUserRecurringDonations } from 'common/hooks/recurringDonation'
 import { useRouter } from 'next/router'
 
 import { ProfileTabs } from './tabs'
@@ -102,7 +102,7 @@ export default function DonationTab() {
     router.replace({ pathname: router.pathname, query: router.query }, undefined, { shallow: true })
   }
   const { data: userDonations, isLoading: isUserDonationLoading } = useUserDonations()
-  const { data: recurringDonations } = useRecurringDonationList()
+  const { data: recurringDonations } = useGetUserRecurringDonations()
 
   return (
     <Root>
