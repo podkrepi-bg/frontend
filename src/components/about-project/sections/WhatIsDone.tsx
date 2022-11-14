@@ -25,7 +25,6 @@ const classes = {
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.heading}`]: {
-    paddingTop: theme.spacing(10),
     paddingBottom: theme.spacing(7),
     textAlign: 'center',
   },

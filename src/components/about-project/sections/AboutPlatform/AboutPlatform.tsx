@@ -1,19 +1,17 @@
 import React from 'react'
+
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
+
 import { Grid, Hidden, Typography } from '@mui/material'
+
+import { Root } from './AboutPlatform.styled'
 
 export default function AboutPlatform() {
   const { t, i18n } = useTranslation()
 
   return (
-    <Grid
-      container
-      spacing={5}
-      direction="column"
-      component="section"
-      alignContent="center"
-      sx={{ mb: 12, textAlign: 'center' }}>
+    <Root>
       <Grid item>
         <Typography
           variant="h5"
@@ -43,6 +41,6 @@ export default function AboutPlatform() {
           height={1114.6}
         />
       </Hidden>
-    </Grid>
+    </Root>
   )
 }
