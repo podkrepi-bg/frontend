@@ -24,7 +24,7 @@ type Props = { campaignToShow: CampaignResponse[] }
 export default function CampaignsList({ campaignToShow }: Props) {
   const { t } = useTranslation()
   const { mobile } = useMobile()
-  const numberOfMinimalShownCampaigns = 6
+  const numberOfMinimalShownCampaigns = 12
   const [all, setAll] = useState<boolean>(false)
   const campaigns = useMemo<CampaignResponse[]>(() => {
     if (all) {
