@@ -48,6 +48,8 @@ export const LinkedInText = styled(Typography)(() => ({
 
 export const Description = styled(Typography)(() => ({
   textAlign: 'initial',
+  marginBottom: theme.spacing(3),
+  overflow: 'hidden',
 }))
 
 export const AboutWrapper = styled(Grid)(() => ({
