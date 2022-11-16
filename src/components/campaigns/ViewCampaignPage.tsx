@@ -38,6 +38,7 @@ export default function ViewCampaignPage({ slug }: Props) {
               order: -1,
               marginTop: `-${theme.spacing(3)}`,
               minWidth: '100vw',
+              zIndex: 100,
             }}>
             <InlineDonation campaign={campaign} />
           </Grid>
