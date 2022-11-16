@@ -12,7 +12,6 @@ import { devices } from '@playwright/test'
  */
 const config: PlaywrightTestConfig = {
   testDir: './e2e',
-  globalSetup: './e2e/globalSetup.ts',
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
   expect: {
