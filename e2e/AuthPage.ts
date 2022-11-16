@@ -20,11 +20,11 @@ export class AuthPage {
   }
 
   async login() {
-    await Promise.all([this.page.goto('/login'), this.page.waitForNavigation()])
+    await Promise.all([
+      this.page.goto('http://localhost:3040/login'),
+      this.page.waitForNavigation(),
+    ])
 
     await this._submitLoginForm()
-
-    // if there's a redirect back to main page
-    await this.page.waitForURL('/profile', { waitUntil: 'networkidle' })
   }
 }
