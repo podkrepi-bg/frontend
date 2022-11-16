@@ -20,6 +20,7 @@ import { Favorite } from '@mui/icons-material'
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import Image from 'next/image'
+import SuccessfullCampaignTag from './SuccessfullCampaignTag'
 
 const PREFIX = 'CampaignCard'
 
@@ -116,6 +117,7 @@ export default function CampaignCard({ campaign }: Props) {
           <div
             style={{ position: 'relative', width: '100%', minHeight: '100%', maxHeight: '100%' }}>
             <Image src={pictureUrl} layout="fill" objectFit="contain" />
+            {reached >= target ? <SuccessfullCampaignTag /> : ''}
           </div>
         </CardMedia>
         <CardContent className={classes.cardContent}>
