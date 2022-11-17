@@ -10,18 +10,32 @@ export const dateFormatter = (value: Date | string | number, locale?: Locale) =>
   return `${exact} (${relative})`
 }
 
-export const formatDateString = (dateString: string | Date) => {
-  const date = new Date(dateString)
-  const day = date.getDate().toString().padStart(2, '0')
-  const month = (date.getMonth() + 1).toString().padStart(2, '0')
-  const year = date.getFullYear()
-
-  return `${day}.${month}.${year}`
+export const formatDateString = (dateString: string | Date, locale?: string | undefined) => {
+  return format(new Date(dateString), getDateFormat(locale ?? ''))
 }
 
 export const getRelativeDate = (value: Date | string, locale?: Locale) => {
   const date = new Date(value)
   return formatRelative(date, new Date(), { locale })
+}
+
+/**
+ * Value format for storing and passing date strings. Should be used whenever we pass date strings between components.
+ */
+export const DATE_VALUE_FORMAT = 'yyyy-MM-dd'
+
+/**
+ * Utility to return localized date format string. Should be used whenever dates are displayed to end users.
+ * @param language Language to get the corresponding date format
+ * @returns Format string
+ */
+export const getDateFormat = (language: string) => {
+  const defaultFormat = 'dd.MM.yyyy'
+  const languageDateFormats: { [language: string]: string } = {
+    bg: defaultFormat,
+    'en-US': 'MM/dd/yyyy',
+  }
+  return languageDateFormats[language] ?? defaultFormat
 }
 
 /**
