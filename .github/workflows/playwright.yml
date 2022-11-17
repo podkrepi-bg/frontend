@@ -47,6 +47,10 @@ jobs:
         working-directory: ./api
         run: yarn start &
 
+      - name: Run stripe webhook
+        working-directory: ./api
+        run: yarn run stripe:listen-webhook
+
       - name: Install Frontend Dependencies
         working-directory: ./frontend
         run: yarn
