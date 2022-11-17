@@ -6,7 +6,7 @@ import { Container } from '@mui/material'
 
 import Layout from 'components/layout/Layout'
 import Timeline from './sections/Timeline'
-import TechStack from './sections/TechStack'
+import TechStack from './sections/TechStack/TechStack'
 import WhatIsDone from './sections/WhatIsDone'
 import AboutPlatform from './sections/AboutPlatform/AboutPlatform'
 
