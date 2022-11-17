@@ -2,7 +2,9 @@ import { test, expect } from '@playwright/test'
 import { AuthPage } from '../AuthPage'
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('/campaigns/donation/repellat-recusandae-aliquid')
+  await page.goto('http://localhost:3040/', { waitUntil: 'networkidle' })
+  await page.locator('text="Подкрепете сега"').first().click()
+  await page.waitForURL((url) => url.pathname.includes('/campaigns/donation'))
 })
 
 test.describe('donation page init', () => {
@@ -19,26 +21,12 @@ test.describe('donation page init', () => {
 })
 
 test.describe('logged in user donation flow', () => {
-  test.beforeEach(async ({ page }) => {
-    await new AuthPage(page).login()
-    await page.goto('/campaigns/donation/repellat-recusandae-aliquid')
-  })
   test('choosing a predefined value and donate', async ({ page }) => {
-    //First step
-    await page
-      .locator('[role="radiogroup"]')
-      .locator('label', { has: page.locator('text=Друга сума') })
-      .locator('input[type="radio"]')
-      .check()
-
     // Choose a predefined value from the radio buttons
-    await page
-      .locator('[role="radiogroup"]')
-      .locator('label', { has: page.locator('text=5 лв.') })
-      .locator('input[type="radio"]')
-      .check()
+    await page.locator('input[value="card"]').check()
+    await page.locator('input[value="500"]').check()
 
-    // Click checbox to cover the tax by stripe
+    // Click checkbox to cover the tax by stripe
     await page.locator('input[name="cardIncludeFees"]').check()
     await page.locator('button:has-text("Напред")').click()
 
@@ -60,30 +48,30 @@ test.describe('logged in user donation flow', () => {
 
     await page.locator('button[data-testid="hosted-payment-submit-button"]').click()
 
-    await page.waitForURL((url) => url.searchParams.get('success') === 'true', {
-      waitUntil: 'networkidle',
-    })
+    await page.waitForURL((url) => url.searchParams.get('success') === 'true')
 
     await expect(page.locator('text=Благодарим за доверието и подкрепата!')).toBeDefined()
   })
 })
 
-test('choosing a custom value and continuing', async ({ page }) => {
-  await page
-    .locator('[role="radiogroup"]')
-    .locator('label', { has: page.locator('text=Друга сума') })
-    .locator('input[type="radio"]')
-    .check()
+test.describe('anonymous user donation flow', () => {
+  test('choosing a custom value and continuing', async ({ page }) => {
+    await page
+      .locator('[role="radiogroup"]')
+      .locator('label', { has: page.locator('text=Друга сума') })
+      .locator('input[type="radio"]')
+      .check()
 
-  // Choose a custom value
-  await page
-    .locator(
-      // This selector is needed because MUI doubles the input field when using collapse animation
-      'div.MuiCollapse-root:not(.MuiCollapse-hidden) input[name="otherAmount"][aria-invalid=false]',
-    )
-    .fill('100')
+    // Choose a custom value
+    await page
+      .locator(
+        // This selector is needed because MUI doubles the input field when using collapse animation
+        'div.MuiCollapse-root:not(.MuiCollapse-hidden) input[name="otherAmount"][aria-invalid=false]',
+      )
+      .fill('100')
 
-  // Click checbox to cover the tax by stripe
-  await page.locator('input[name="cardIncludeFees"]').check()
-  await page.locator('button:has-text("Напред")').click()
+    // Click checbox to cover the tax by stripe
+    await page.locator('input[name="cardIncludeFees"]').check()
+    await page.locator('button:has-text("Напред")').click()
+  })
 })

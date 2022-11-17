@@ -17,6 +17,7 @@ export class AuthPage {
     await this.page.click('input[type="password"]')
     await this.page.fill('input[type="password"]', credentials.password)
     await this.page.click('text="Вход"')
+    await this.page.waitForNavigation({ waitUntil: 'networkidle' })
   }
 
   async login() {
