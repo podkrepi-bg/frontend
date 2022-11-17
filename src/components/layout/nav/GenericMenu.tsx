@@ -1,12 +1,32 @@
 import React, { useState } from 'react'
-import { Button, Menu } from '@mui/material'
+import { Button, Menu, MenuProps } from '@mui/material'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+import { styled } from '@mui/styles'
 
 type Props = {
   label: string
   children: React.ReactNode
 }
+
+const StyledMenu = styled((props: MenuProps) => (
+  <Menu
+    elevation={6}
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'right',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'right',
+    }}
+    {...props}
+  />
+))(({ theme }) => ({
+  '& .MuiPaper-root': {
+    marginTop: theme.spacing(1),
+  },
+}))
 
 export default function GenericMenu({ label, children }: Props) {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
@@ -27,18 +47,15 @@ export default function GenericMenu({ label, children }: Props) {
         }>
         {label}
       </Button>
-      <Menu
+      <StyledMenu
         disableScrollLock={true}
         keepMounted
         id="menu-donation"
         anchorEl={anchorEl}
-        elevation={6}
         onClose={handleClose}
-        open={Boolean(anchorEl)}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}>
+        open={Boolean(anchorEl)}>
         {children}
-      </Menu>
+      </StyledMenu>
     </>
   )
 }
