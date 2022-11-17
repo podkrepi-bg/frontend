@@ -2,13 +2,13 @@ import { useTranslation } from 'next-i18next'
 
 import { styled } from '@mui/material/styles'
 
-import Heading from 'components/common/Heading'
-
 import { Box, Grid, Typography } from '@mui/material'
 import JoinLeftIcon from '@mui/icons-material/JoinLeft'
 import ImportantDevicesIcon from '@mui/icons-material/ImportantDevices'
 import SettingsIcon from '@mui/icons-material/Settings'
 import CheckIcon from '@mui/icons-material/Check'
+
+import Heading from 'components/common/Heading'
 
 const PREFIX = 'TechStack'
 
@@ -20,7 +20,7 @@ const classes = {
   categoryTitle: `${PREFIX}-categoryTitle`,
 }
 
-const StyledBox = styled(Box)(({ theme }) => ({
+const Root = styled(Box)(({ theme }) => ({
   [`& .${classes.heading}`]: {
     paddingTop: theme.spacing(10),
     paddingBottom: theme.spacing(7),
@@ -88,7 +88,7 @@ export default function TechStack() {
   const { t } = useTranslation()
 
   return (
-    <StyledBox my={'5rem'}>
+    <Root my={'5rem'}>
       <Heading
         id="tech-stack"
         variant="h3"
@@ -119,6 +119,6 @@ export default function TechStack() {
           ))}
         </Grid>
       </Grid>
-    </StyledBox>
+    </Root>
   )
 }
