@@ -35,6 +35,7 @@ const StyledLayout = styled(Layout)(({ theme }) => ({
     [theme.breakpoints.up('md')]: {
       marginTop: `${theme.spacing(14)} !important`,
     },
+    objectFit: 'cover',
   },
 
   [`& .${classes.beneficiaryAvatarWrapper}`]: {
@@ -85,13 +86,7 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
         marginTop={theme.spacing(matches ? 20 : 25)}>
         <Box className={classes.bannerWrapper}>
           {/* A11Y TODO: Translate alt text */}
-          <Image
-            src={bannerSource}
-            alt="Campaign banner image"
-            layout="fill"
-            objectFit="cover"
-            className={classes.banner}
-          />
+          <Image src={bannerSource} alt="Campaign banner image" fill className={classes.banner} />
         </Box>
 
         <Grid

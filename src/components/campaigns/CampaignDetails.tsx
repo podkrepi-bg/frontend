@@ -44,6 +44,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     zIndex: -1,
     minHeight: '504px !important',
     marginTop: `${theme.spacing(10)} !important`,
+    objectFit: 'cover',
   },
 
   [`& .${classes.campaignTitle}`]: {
@@ -127,8 +128,7 @@ export default function CampaignDetails({ campaign }: Props) {
           priority
           src={bannerSource}
           alt="Campaign banner image"
-          layout="fill"
-          objectFit="cover"
+          fill
           className={classes.banner}
         />
       </Grid>
