@@ -85,7 +85,7 @@ export default function RegisterForm() {
           />
         </Grid>
         <Grid item xs={12}>
-          <PasswordField name="registerPassword" />
+          <PasswordField name="registerPassword" autoComplete="new-password" />
         </Grid>
         <Grid item xs={12}>
           <Button
