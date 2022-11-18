@@ -35,14 +35,11 @@ const classes = {
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.bannerWrapper}`]: {
-    '& span': {
-      position: 'inherit !important',
-    },
+    position: 'inherit !important',
   },
-
   [`& .${classes.banner}`]: {
     zIndex: -1,
-    minHeight: '504px !important',
+    maxHeight: '504px !important',
     marginTop: `${theme.spacing(10)} !important`,
     objectFit: 'cover',
   },
@@ -129,6 +126,7 @@ export default function CampaignDetails({ campaign }: Props) {
           src={bannerSource}
           alt="Campaign banner image"
           fill
+          sizes="100vw"
           className={classes.banner}
         />
       </Grid>

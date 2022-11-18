@@ -98,12 +98,11 @@ export default function AdminMenu() {
         open={Boolean(anchorEl)}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}>
-        {adminItems.map(({ href, label, target }, key) => (
+        {adminItems.map(({ href, label }, key) => (
           <LinkMenuItem
             href={href}
             selected={router.asPath === href}
             key={key}
-            target={target}
             className={classes.dropdownLinkButton}>
             <Typography variant="button" className={classes.dropdownLinkText}>
               {t(label)}

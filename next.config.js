@@ -38,7 +38,6 @@ const moduleExports = {
   images: {
     domains: [process.env.IMAGE_HOST ?? 'localhost'],
   },
-  swcMinify: true,
   async redirects() {
     return [
       {
