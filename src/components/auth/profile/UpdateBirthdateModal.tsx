@@ -1,20 +1,21 @@
 import * as yup from 'yup'
 import { styled } from '@mui/material/styles'
+import { useState } from 'react'
 import { Modal, Box, Grid, IconButton } from '@mui/material'
-import GenericForm from 'components/common/form/GenericForm'
-import SubmitButton from 'components/common/form/SubmitButton'
-import { Person, UpdateUserAccount, UpdatePerson } from 'gql/person'
 import { useMutation } from 'react-query'
 import { AxiosError, AxiosResponse } from 'axios'
-import { ApiErrors } from 'service/apiErrors'
-import { updateCurrentPerson } from 'common/util/useCurrentPerson'
-
-import { AlertStore } from 'stores/AlertStore'
 import { useTranslation } from 'next-i18next'
 import CloseIcon from '@mui/icons-material/Close'
 import { format, parse, isDate } from 'date-fns'
-import FormTextField from 'components/common/form/FormTextField'
-import { useState } from 'react'
+
+import GenericForm from 'components/common/form/GenericForm'
+import SubmitButton from 'components/common/form/SubmitButton'
+import { Person, UpdateUserAccount, UpdatePerson } from 'gql/person'
+import { ApiErrors } from 'service/apiErrors'
+import { updateCurrentPerson } from 'common/util/useCurrentPerson'
+import { AlertStore } from 'stores/AlertStore'
+import FormDatePicker from 'components/common/form/FormDatePicker'
+import { DATE_VALUE_FORMAT } from 'common/util/date'
 
 const PREFIX = 'UpdateBirthdateModal'
 
@@ -42,12 +43,10 @@ const StyledModal = styled(Modal)(({ theme }) => ({
   },
 }))
 
-const formatString = 'yyyy-MM-dd'
-
 const parseDateString = (value: string, originalValue: string) => {
   const parsedDate = isDate(originalValue)
     ? originalValue
-    : parse(originalValue, formatString, new Date())
+    : parse(originalValue, DATE_VALUE_FORMAT, new Date())
 
   return parsedDate
 }
@@ -80,7 +79,7 @@ function UpdateBirthdateModal({
   const dateBefore18Years = new Date(new Date().setFullYear(new Date().getFullYear() - 18))
 
   const initialValues: Pick<UpdateUserAccount, 'birthday'> = {
-    birthday: format(new Date(person.birthday ?? dateBefore18Years), formatString) || '',
+    birthday: format(new Date(person.birthday ?? dateBefore18Years), DATE_VALUE_FORMAT) || '',
   }
 
   const mutation = useMutation<AxiosResponse<Person>, AxiosError<ApiErrors>, UpdatePerson>({
@@ -120,14 +119,7 @@ function UpdateBirthdateModal({
           validationSchema={validationSchema}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={8}>
-              <FormTextField
-                type="date"
-                name="birthday"
-                label={t('profile:birthdateModal.question')}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-              />
+              <FormDatePicker name="birthday" label={t('profile:birthdateModal.question')} />
             </Grid>
             <Grid item xs={6}>
               <SubmitButton fullWidth label="auth:cta.send" loading={loading} />
