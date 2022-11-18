@@ -49,6 +49,11 @@ yarn dev
 
 Visit <http://localhost:3040/>
 
+To run and develop the module NodeJS 16.13.0 is required. 
+You can use nvm (Node version manager) in order to use the NodeJS version 16.13.0
+- [nvm](https://github.com/nvm-sh/nvm)
+- [nvm for windows](https://github.com/coreybutler/nvm-windows)
+
 ## Starting the backend
 
 In order to use the frontend together with the API for it you need to clone and start the backend project.

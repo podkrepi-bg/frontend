@@ -22,7 +22,12 @@ Table of contents:
 
 ### Setup local dev environment
 
-To run and develop the module NodeJS 16 is required. In this section 2 ways of configuring a development environment are described.
+To run and develop the module NodeJS 16.13.0 is required. 
+You can use nvm (Node version manager) in order to use the NodeJS version 16.13.0
+- [nvm](https://github.com/nvm-sh/nvm)
+- [nvm for windows](https://github.com/coreybutler/nvm-windows)
+
+In this section 2 ways of configuring a development environment are described.
 
 ### Installing the dependencies
 
@@ -47,11 +52,8 @@ ln -hfs .env.local.example .env.local
 # Symlink dev environment on Windows
 mklink .env.local .env.local.example
 
-# Install dependencies
-yarn
-```
-
-### NOTE! For existing clones update github remote to podkrepi-bg/frontend
+cal .env.local.example
+ng clones update github remote to podkrepi-bg/frontend
 
 ```
 # View existing remotes
