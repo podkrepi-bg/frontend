@@ -140,8 +140,8 @@ function UpdatePasswordModal({
             </Grid>
             <Grid item xs={12} sm={8}>
               <PasswordField
-                name={'confirm-password'}
-                label={'auth:account.confirm-password'}
+                name="confirm-password"
+                label="auth:account.confirm-password"
                 autoComplete="new-password"
               />
             </Grid>
