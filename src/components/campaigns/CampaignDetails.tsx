@@ -122,6 +122,7 @@ export default function CampaignDetails({ campaign }: Props) {
   return (
     <StyledGrid item xs={12} md={8}>
       <Grid className={classes.bannerWrapper}>
+        {/* A11Y TODO: Translate alt text or get the alt text based on the image */}
         <Image
           priority
           src={bannerSource}

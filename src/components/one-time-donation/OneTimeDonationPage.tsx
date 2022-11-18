@@ -84,6 +84,7 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
         m="0 auto"
         marginTop={theme.spacing(matches ? 20 : 25)}>
         <Box className={classes.bannerWrapper}>
+          {/* A11Y TODO: Translate alt text */}
           <Image
             src={bannerSource}
             alt="Campaign banner image"
@@ -101,7 +102,8 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
           className={classes.beneficiaryAvatarWrapper}>
           <Image
             src={beneficiaryAvatarSource}
-            alt={campaign.title}
+            // A11Y TODO: Translate alt text
+            alt={`Image of ${campaign.beneficiary.person.firstName} ${campaign.beneficiary.person.lastName}`}
             width={250}
             height={250}
             className={classes.beneficiaryAvatar}
