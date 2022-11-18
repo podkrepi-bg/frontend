@@ -37,7 +37,7 @@ cd frontend
 # Symlink dev environment on Mac / Linux
 ln -nfs .env.local.example .env.local
 
-# Symlink dev environment on Windows
+# Symlink dev environment on Windows (CMD. run as admin)
 mklink .env.local .env.local.example
 
 # Install dependencies
@@ -56,9 +56,15 @@ You can use nvm (Node version manager) in order to use the NodeJS version 16.13.
 
 ## Starting the backend
 
-In order to use the frontend together with the API for it you need to clone and start the backend project.
+In order to use the frontend together with the API for it you need to clone and start the backend project or you can use the API in production https://dev.podkrepi.bg/api/v1.
 
-Follow API instructions at <https://github.com/podkrepi-bg/api#setup-development-environment>
+To start the backend project follow API instructions at <https://github.com/podkrepi-bg/api#setup-development-environment>
+
+To use the API in production change .env.local.example
+```
+API_URL=http://podkrepi.bg/api/v1
+IMAGE_HOST=podkrepi.bg
+```
 
 ## Using Stripe and testing payments
 

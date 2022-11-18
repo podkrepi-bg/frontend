@@ -49,7 +49,7 @@ cd frontend
 # Symlink dev environment on unix
 ln -hfs .env.local.example .env.local
 
-# Symlink dev environment on Windows
+# Symlink dev environment on Windows (CMD. run as admin)
 mklink .env.local .env.local.example
 
 cal .env.local.example
