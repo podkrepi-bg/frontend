@@ -3,7 +3,7 @@ import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { format } from 'date-fns'
 import { useField, useFormikContext } from 'formik'
-import { i18n } from 'next-i18next'
+import { useTranslation } from 'next-i18next'
 
 import { DATE_VALUE_FORMAT, getDateFormat } from 'common/util/date'
 
@@ -16,8 +16,9 @@ import { DATE_VALUE_FORMAT, getDateFormat } from 'common/util/date'
 export default function FormDatePicker({ name, label }: { name: string; label: string }) {
   const [field] = useField(name)
   const { setFieldValue } = useFormikContext()
+  const { i18n } = useTranslation()
 
-  const dateViewFormat = getDateFormat(i18n?.language ?? '')
+  const dateViewFormat = getDateFormat(i18n.language)
   const mask = dateViewFormat.replace(new RegExp(/[^./]/g), '_')
 
   const updateValue = (newValue: Date) => {

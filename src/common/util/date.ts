@@ -11,7 +11,10 @@ export const dateFormatter = (value: Date | string | number, locale?: Locale) =>
 }
 
 export const formatDateString = (dateString: string | Date, locale?: string | undefined) => {
-  return format(new Date(dateString), getDateFormat(locale ?? ''))
+  if (locale) {
+    return Intl.DateTimeFormat(locale.split('-')).format(new Date(dateString))
+  }
+  return new Date(dateString).toLocaleDateString()
 }
 
 export const getRelativeDate = (value: Date | string, locale?: Locale) => {
@@ -25,17 +28,32 @@ export const getRelativeDate = (value: Date | string, locale?: Locale) => {
 export const DATE_VALUE_FORMAT = 'yyyy-MM-dd'
 
 /**
- * Utility to return localized date format string. Should be used whenever dates are displayed to end users.
+ * Utility to return localized date format string.
  * @param language Language to get the corresponding date format
  * @returns Format string
  */
 export const getDateFormat = (language: string) => {
-  const defaultFormat = 'dd.MM.yyyy'
-  const languageDateFormats: { [language: string]: string } = {
-    bg: defaultFormat,
-    'en-US': 'MM/dd/yyyy',
-  }
-  return languageDateFormats[language] ?? defaultFormat
+  const dateParts = Intl.DateTimeFormat(language.split('-')).formatToParts(new Date())
+
+  // Find the separator i.e. ".", "/", etc.
+  const literal = dateParts.find((part) => part.type === 'literal')
+
+  // Extract the locale date format
+  return dateParts
+    .filter((part) => part.type !== 'literal')
+    .map((part) => {
+      switch (part.type) {
+        case 'day':
+          return 'dd'
+        case 'month':
+          return 'MM'
+        case 'year':
+          return 'yyyy'
+        default:
+          return ''
+      }
+    })
+    .join(literal?.value ?? '')
 }
 
 /**
