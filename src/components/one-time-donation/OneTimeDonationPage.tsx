@@ -30,7 +30,7 @@ const StyledLayout = styled(Layout)(({ theme }) => ({
 
   [`& .${classes.banner}`]: {
     zIndex: -1,
-    minHeight: '350px !important',
+    maxHeight: '350px !important',
     marginTop: `${theme.spacing(10)} !important`,
     [theme.breakpoints.up('md')]: {
       marginTop: `${theme.spacing(14)} !important`,
@@ -86,7 +86,13 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
         marginTop={theme.spacing(matches ? 20 : 25)}>
         <Box className={classes.bannerWrapper}>
           {/* A11Y TODO: Translate alt text */}
-          <Image src={bannerSource} alt="Campaign banner image" fill className={classes.banner} />
+          <Image
+            src={bannerSource}
+            alt="Campaign banner image"
+            sizes="100vw"
+            fill
+            className={classes.banner}
+          />
         </Box>
 
         <Grid
