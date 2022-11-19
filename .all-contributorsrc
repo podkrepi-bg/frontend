@@ -641,6 +641,19 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "stann1",
+      "name": "stann1",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3273143?v=4",
+      "profile": "https://github.com/stann1",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "security",
+        "projectManagement"
+      ]
     }
   ],
   "contributorsPerLine": 7,
