@@ -126,8 +126,5 @@
   },
   "browser": {
     "html-pdf": false
-  },
-  "resolutions": {
-    "@types/react": "18.0.25"
   }
 }
