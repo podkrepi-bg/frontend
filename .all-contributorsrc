@@ -632,6 +632,15 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "devkishor8007",
+      "name": "Kishor Kc",
+      "avatar_url": "https://avatars.githubusercontent.com/u/73419211?v=4",
+      "profile": "https://devkishor8007.vercel.app/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
