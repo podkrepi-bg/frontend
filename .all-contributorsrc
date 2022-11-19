@@ -613,6 +613,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "batebobo",
+      "name": "Boyan Vushkov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6130708?v=4",
+      "profile": "https://www.last.fm/user/batebobo",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
