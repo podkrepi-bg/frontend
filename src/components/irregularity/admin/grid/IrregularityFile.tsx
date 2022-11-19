@@ -44,7 +44,7 @@ export default function IrregularityFile({ file, irregularityId }: Props) {
         link.setAttribute('download', `${file.filename}`)
         link.click()
       })
-      .catch((error) => console.log(error))
+      .catch((error) => console.error(error))
   }
 
   const deleteFileHandler = () => {

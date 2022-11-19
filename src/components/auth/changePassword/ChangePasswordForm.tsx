@@ -60,7 +60,6 @@ export default function ChangePasswordForm({ initialValues = defaults }: ChangeP
     try {
       setLoading(true)
       const res = await mutation.mutateAsync(values)
-      console.log(res)
       if (!res) {
         throw new Error(res)
       }
