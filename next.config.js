@@ -15,6 +15,7 @@ const moduleExports = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'src/styles')],
   },
+  swcMinify: true,
   env: {
     APP_ENV: process.env.APP_ENV,
     APP_VERSION: version,
