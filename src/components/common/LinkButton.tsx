@@ -3,13 +3,12 @@ import Link, { LinkProps } from 'next/link'
 import { Button, ButtonProps } from '@mui/material'
 
 export type LinkRef = HTMLButtonElement
-export type NextLinkProps = Omit<ButtonProps, 'href'> &
-  Pick<LinkProps, 'href' | 'as' | 'prefetch' | 'locale'>
+export type NextLinkProps = ButtonProps & Pick<LinkProps, 'href' | 'as' | 'prefetch' | 'locale'>
 
-const LinkButton = ({ href, as, prefetch, locale, ...props }: LinkProps, ref: Ref<LinkRef>) => (
+const LinkButton = ({ href, as, prefetch, locale, ...props }: NextLinkProps, ref: Ref<LinkRef>) => (
   <Link href={href} as={as} prefetch={prefetch} locale={locale} passHref>
     <Button ref={ref} {...props} />
   </Link>
 )
 
-export default forwardRef<LinkRef, NextLinkProps>(LinkButton)
+export default forwardRef(LinkButton)

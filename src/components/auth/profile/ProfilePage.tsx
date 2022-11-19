@@ -58,14 +58,7 @@ export default function ProfilePage() {
   }
 
   if (status !== 'authenticated') {
-    return (
-      <StyledLayout
-        title={t('nav.profile')}
-        githubUrl="https://github.com/podkrepi-bg/frontend/tree/master/src/components/auth/profile/ProfilePage.tsx"
-        figmaUrl="https://www.figma.com/file/MmvFKzUv6yE5U2wrOpWtwS/Podkrepi.bg?node-id=5987%3A21094">
-        Not authenticated
-      </StyledLayout>
-    )
+    return <StyledLayout title={t('nav.profile')}>Not authenticated</StyledLayout>
   }
 
   const { Component: SelectedTab } = tab

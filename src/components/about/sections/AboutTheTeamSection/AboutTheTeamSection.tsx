@@ -15,7 +15,8 @@ export default function AboutTheTeamSection() {
       <AboutHeading variant="h4">{t('about.about-the-team')}</AboutHeading>
       <Typography variant="body2">{t('about.team-description')}</Typography>
       <DiscordTeamImage>
-        <Image alt="Discord team image" src={discordTeamImagePath} width="1189px" height="789px" />
+        {/* A11Y TODO: Translate alt text */}
+        <Image alt="Discord team image" src={discordTeamImagePath} width={1189} height={789} />
       </DiscordTeamImage>
     </Grid>
   )

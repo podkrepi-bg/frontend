@@ -10,6 +10,7 @@ import DetailsModal from 'components/modal/DetailsModal'
 
 import AppNavBar from './AppNavBar'
 import MobileNav from './nav/MobileNav'
+import Script from 'next/script'
 
 const createPageTitle = (suffix: string, title?: string) => {
   if (title) {
@@ -22,8 +23,6 @@ type LayoutProps = React.PropsWithChildren<
   ContainerProps & {
     title?: string
     ogImage?: string
-    githubUrl?: string
-    figmaUrl?: string
     hideFooter?: boolean
     disableOffset?: boolean
     boxProps?: BoxProps
@@ -64,7 +63,6 @@ export default function Layout({
         maxWidth={maxWidth}
         {...containerProps}>
         <Head>
-          <script async src="https://www.googleoptimize.com/optimize.js?id=OPT-W89QK8X" />
           <title>{pageTitle}</title>
           <meta name="description" content={metaDescription ?? pageTitle} />
           <meta name="og:description" content={metaDescription ?? pageTitle} />
@@ -76,6 +74,7 @@ export default function Layout({
           <meta key="og:image:width" property="og:image:width" content="1640" />
           <meta key="og:image:height" property="og:image:height" content="624" />
         </Head>
+        <Script async src="https://www.googleoptimize.com/optimize.js?id=OPT-W89QK8X" />
         <Box pt={4} pb={disableOffset ? 0 : 10} {...boxProps}>
           <AppNavBar navMenuToggle={navMenuToggle} />
           <MobileNav mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />

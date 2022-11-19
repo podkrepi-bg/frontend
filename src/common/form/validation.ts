@@ -1,8 +1,8 @@
 import { setLocale, string } from 'yup'
-import { TOptions } from 'i18next'
 import { TFunction } from 'next-i18next'
-
-export type TranslatableField = (string | undefined) | { key: string; values?: TOptions }
+export type TranslatableField =
+  | (string | undefined)
+  | { key: string; values?: Record<string, string> }
 
 export const translateError = (
   field: TranslatableField,
