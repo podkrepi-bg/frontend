@@ -63,7 +63,6 @@ export default function Layout({
         maxWidth={maxWidth}
         {...containerProps}>
         <Head>
-          <Script async src="https://www.googleoptimize.com/optimize.js?id=OPT-W89QK8X" />
           <title>{pageTitle}</title>
           <meta name="description" content={metaDescription ?? pageTitle} />
           <meta name="og:description" content={metaDescription ?? pageTitle} />
@@ -75,6 +74,7 @@ export default function Layout({
           <meta key="og:image:width" property="og:image:width" content="1640" />
           <meta key="og:image:height" property="og:image:height" content="624" />
         </Head>
+        <Script async src="https://www.googleoptimize.com/optimize.js?id=OPT-W89QK8X" />
         <Box pt={4} pb={disableOffset ? 0 : 10} {...boxProps}>
           <AppNavBar navMenuToggle={navMenuToggle} />
           <MobileNav mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
