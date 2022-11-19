@@ -5,9 +5,10 @@ import { Typography, lighten } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import { routes, staticUrls } from 'common/routes'
-import LinkMenuItem from 'components/common/LinkMenuItem'
 
 import GenericMenu from './GenericMenu'
+import ExternalLinkMenuItem from 'components/common/ExternalLinkMenuItem'
+import LinkMenuItem from 'components/common/LinkMenuItem'
 
 const PREFIX = 'ProjectMenu'
 
@@ -87,18 +88,30 @@ export default function ProjectMenu() {
 
   return (
     <StyledGenericMenu label={t('nav.about.about-us')}>
-      {navItems.map(({ href, label, target }, key) => (
-        <LinkMenuItem
-          href={href}
-          selected={router.asPath === href}
-          key={key}
-          target={target}
-          className={classes.dropdownLinkButton}>
-          <Typography variant="button" className={classes.dropdownLinkText}>
-            {t(label)}
-          </Typography>
-        </LinkMenuItem>
-      ))}
+      {navItems.map(({ href, label, target }, key) =>
+        target ? (
+          <ExternalLinkMenuItem
+            href={href}
+            selected={router.asPath === href}
+            key={key}
+            target={target || ''}
+            className={classes.dropdownLinkButton}>
+            <Typography variant="button" className={classes.dropdownLinkText}>
+              {t(label)}
+            </Typography>
+          </ExternalLinkMenuItem>
+        ) : (
+          <LinkMenuItem
+            href={href}
+            selected={router.asPath === href}
+            key={key}
+            className={classes.dropdownLinkButton}>
+            <Typography variant="button" className={classes.dropdownLinkText}>
+              {t(label)}
+            </Typography>
+          </LinkMenuItem>
+        ),
+      )}
     </StyledGenericMenu>
   )
 }

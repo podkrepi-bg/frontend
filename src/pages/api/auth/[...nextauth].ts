@@ -5,7 +5,6 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import NextAuth, { EventCallbacks, NextAuthOptions, Session, User } from 'next-auth'
 
 import {
-  AuthResponse,
   getAccessTokenFromProvider,
   LoginInput,
   refreshAccessToken,

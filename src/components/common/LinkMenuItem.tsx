@@ -5,7 +5,6 @@ import theme from 'common/theme'
 
 export type LinkRef = HTMLAnchorElement
 export type NextLinkProps = MenuItemProps & Pick<LinkProps, 'href' | 'as' | 'prefetch' | 'locale'>
-
 export default function LinkMenuItem({ href, as, prefetch, locale, ...props }: NextLinkProps) {
   return (
     <Link
