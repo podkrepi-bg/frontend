@@ -21,6 +21,8 @@ export type RegisterFormData = {
   lastName: string
   email: string
   password: string
+  terms: boolean
+  gdpr: boolean
 }
 
 const validationSchema: yup.SchemaOf<RegisterFormData> = yup
@@ -32,6 +34,8 @@ const validationSchema: yup.SchemaOf<RegisterFormData> = yup
     email: email.required(),
     password: password.required(),
     'confirm-password': yup.string().oneOf([yup.ref('password')], 'validation:password-match'),
+    terms: yup.bool().required().oneOf([true], 'validation:terms-of-use'),
+    gdpr: yup.bool().required().oneOf([true], 'validation:terms-of-service'),
   })
 
 const defaults: RegisterFormData = {
@@ -39,6 +43,8 @@ const defaults: RegisterFormData = {
   lastName: '',
   email: '',
   password: '',
+  terms: false,
+  gdpr: false,
 }
 export type RegisterFormProps = { initialValues?: RegisterFormData }
 
