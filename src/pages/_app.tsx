@@ -14,7 +14,7 @@ import createEmotionCache from 'common/createEmotionCache'
 
 import 'styles/global.scss'
 import { queryFn } from 'service/restRequests'
-import AuthContext from 'stores/AuthContext'
+import { SessionProvider } from 'next-auth/react'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -84,13 +84,13 @@ function CustomApp({
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <AuthContext session={session} refetchInterval={60} refetchOnWindowFocus={true}>
+        <SessionProvider session={session} refetchInterval={60} refetchOnWindowFocus={true}>
           <QueryClientProvider client={queryClient}>
             <Hydrate state={dehydratedState}>
               <Component {...pageProps} />
             </Hydrate>
           </QueryClientProvider>
-        </AuthContext>
+        </SessionProvider>
       </ThemeProvider>
     </CacheProvider>
   )
