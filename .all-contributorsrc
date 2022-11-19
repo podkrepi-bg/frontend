@@ -622,6 +622,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "valkirilov",
+      "name": "Valentin Kirilov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1233496?v=4",
+      "profile": "http://valkirilov.github.io",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
