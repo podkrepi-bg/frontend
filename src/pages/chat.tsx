@@ -22,6 +22,7 @@ export const getServerSideProps: GetServerSideProps<LoginPageProps> = async (ctx
 export default function Chat() {
   return (
     <Layout hideFooter maxWidth={false} boxProps={{ pb: 0 }}>
+      {/* @ts-expect-error pass css string instead of number */}
       <WidgetBot
         server="778984868146577458"
         channel="778984868146577461"
