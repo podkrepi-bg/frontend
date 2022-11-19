@@ -8,17 +8,15 @@ test('test support page', async ({ page }) => {
   // Click text=Станете доброволец >> nth=0
   await page.locator('text=Станете доброволец').first().click()
 
-  // Go to http://localhost:3040/support
-  await page.goto('http://localhost:3040/support')
-
+  await page.waitForURL('http://localhost:3040/support')
   // Click h1:has-text("Станете доброволец")
-  await page.locator('h1:has-text("Станете доброволец")').click()
+  await expect(page.locator('h1:has-text("Станете доброволец")')).toBeVisible()
 
   // Click text=Как искате да ни подкрепите?
-  await page.locator('text=Как искате да ни подкрепите?').click()
+  await expect(page.locator('text=Как искате да ни подкрепите?')).toBeVisible()
 
   // Click text=Включете се в организацията като:
-  await page.locator('text=Включете се в организацията като:').click()
+  await expect(page.locator('text=Включете се в организацията като:')).toBeVisible()
 
   // Check input[name="roles\.benefactor"]
   await page.locator('input[name="roles\\.benefactor"]').check()
@@ -30,13 +28,13 @@ test('test support page', async ({ page }) => {
   await page.locator('text=Напред').click()
 
   // Click text=В каква роля искате да ни подкрепите?
-  await page.locator('text=В каква роля искате да ни подкрепите?').click()
+  await expect(page.locator('text=В каква роля искате да ни подкрепите?')).toBeVisible()
 
   // Click text=Назад
   await page.locator('text=Назад').click()
 
   // Click text=Как искате да ни подкрепите?
-  await page.locator('text=Как искате да ни подкрепите?').click()
+  await expect(page.locator('text=Как искате да ни подкрепите?')).toBeVisible()
 
   // Click text=Напред
   await page.locator('text=Напред').click()
@@ -45,40 +43,31 @@ test('test support page', async ({ page }) => {
   await page.locator('input[name="benefactor\\.campaignBenefactor"]').check()
 
   // Click text=Дарител в бъдещи кампании
-  await page.locator('text=Дарител в бъдещи кампании').click()
+  await expect(page.locator('text=Дарител в бъдещи кампании')).toBeVisible()
 
   // Click text=Моля, изберете си роля
-  await page.locator('text=Моля, изберете си роля').click()
+  // await page.locator('text=Моля, изберете си роля').click()
 
   // Click text=Дарител в бъдещи кампании
-  await page.locator('text=Дарител в бъдещи кампании').click()
+  // await page.locator('text=Дарител в бъдещи кампании').click()
 
   // Click text=Напред
   await page.locator('text=Напред').click()
 
   // Click text=Изпратете
+  // Formik seems to have problems validating in webkit and chromium on the first click for some reason
+  await page.locator('text=Изпратете').click()
   await page.locator('text=Изпратете').click()
 
-  // Click text=Изпратете
-  await page.locator('text=Изпратете').click()
-
-  // Click #mui-3-helper-text
-  await page.locator('#mui-1-helper-text').click()
-
-  // Click #mui-4-helper-text
-  await page.locator('#mui-2-helper-text').click()
-
-  // Click #mui-3-helper-text
-  await page.locator('#mui-3-helper-text').click()
-
-  // Click #mui-4-helper-text
-  await page.locator('#mui-4-helper-text').click()
+  expect(await page.locator('text=Задължително поле').count()).toBe(4)
 
   // Click text=Моля, приемете oбщите условия
-  await page.locator('text=Моля, приемете oбщите условия').click()
+  await expect(page.locator('text=Моля, приемете oбщите условия')).toBeVisible()
 
   // Click text=Моля, приемете политиката за защита на личните данни
-  await page.locator('text=Моля, приемете политиката за защита на личните данни').click()
+  await expect(
+    page.locator('text=Моля, приемете политиката за защита на личните данни'),
+  ).toBeVisible()
 
   // Click input[name="person\.firstName"]
   await page.locator('input[name="person\\.firstName"]').click()
@@ -123,12 +112,12 @@ test('test support page', async ({ page }) => {
   await page.locator('text=Изпратете').click()
 
   // Click text=Благодарим Ви, че ни подкрепихте!
-  await page.locator('text=Благодарим Ви, че ни подкрепихте!').click()
+  await expect(page.locator('text=Благодарим Ви, че ни подкрепихте!')).toBeVisible()
 
   // Click text=Очаквайте представител на Подкрепи.бг да се свърже с Вас на посочения имейл адре
   await page
     .locator(
-      'text=Очаквайте представител на Подкрепи.бг да се свърже с Вас на посочения имейл адре',
+      'text=Очаквайте представител на Подкрепи.бг да се свърже с Вас на посочения имейл адрес',
     )
     .click()
 })
