@@ -24,6 +24,8 @@ export default function RegisterForm() {
     lastName: formik.values.registerLastName as string,
     email: formik.values.registerEmail as string,
     password: formik.values.registerPassword as string,
+    terms: formik.values.terms as boolean,
+    gdpr: formik.values.gdpr as boolean,
   }
   const onClick = async () => {
     try {
