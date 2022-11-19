@@ -70,7 +70,7 @@ Read more at [End-2-End Testing](https://github.com/podkrepi-bg/frontend/blob/ma
 ## Contributors ✨
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-55-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-56-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Please check [contributors guide](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md) for:
@@ -165,6 +165,7 @@ Thanks goes to these wonderful people:
       <td align="center"><a href="https://github.com/marinovl7"><img src="https://avatars.githubusercontent.com/u/99186919?v=4?s=100" width="100px;" alt="Lachezar Marinov"/><br /><sub><b>Lachezar Marinov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=marinovl7" title="Code">💻</a></td>
       <td align="center"><a href="https://www.last.fm/user/batebobo"><img src="https://avatars.githubusercontent.com/u/6130708?v=4?s=100" width="100px;" alt="Boyan Vushkov"/><br /><sub><b>Boyan Vushkov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=batebobo" title="Code">💻</a></td>
       <td align="center"><a href="http://valkirilov.github.io"><img src="https://avatars.githubusercontent.com/u/1233496?v=4?s=100" width="100px;" alt="Valentin Kirilov"/><br /><sub><b>Valentin Kirilov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=valkirilov" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=valkirilov" title="Documentation">📖</a></td>
+      <td align="center"><a href="https://devkishor8007.vercel.app/"><img src="https://avatars.githubusercontent.com/u/73419211?v=4?s=100" width="100px;" alt="Kishor Kc"/><br /><sub><b>Kishor Kc</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=devkishor8007" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
