@@ -50,7 +50,6 @@ export const navItems = allNavItems.filter((el) => typeof el.enabled === 'undefi
 export default function DonationMenu() {
   const { t } = useTranslation()
   const router = useRouter()
-
   return (
     <StyledGenericMenu label={t('nav.donation-menu')}>
       {navItems.map(({ href, label }, key) => (

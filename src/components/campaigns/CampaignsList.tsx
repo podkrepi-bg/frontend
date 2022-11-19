@@ -60,9 +60,11 @@ export default function CampaignsList({ campaignToShow }: Props) {
       <Grid>
         <Box sx={{ my: 10 }}>
           {mobile ? (
-            <Image src="/img/ArtboardMobile.svg" width={300} height={300} />
+            // A11Y TODO: Add alt text
+            <Image alt="" src="/img/ArtboardMobile.svg" width={300} height={300} />
           ) : (
-            <Image src="/img/Artboard.png" width={813} height={358} />
+            // A11Y TODO: Add alt text
+            <Image alt="Informatino artboard" src="/img/Artboard.png" width={813} height={358} />
           )}
         </Box>
       </Grid>

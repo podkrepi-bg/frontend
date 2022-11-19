@@ -5,9 +5,9 @@ import { Typography, lighten } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import { staticUrls } from 'common/routes'
-import LinkMenuItem from 'components/common/LinkMenuItem'
 
 import GenericMenu from './GenericMenu'
+import ExternalLinkMenuItem from 'components/common/ExternalLinkMenuItem'
 
 const PREFIX = 'DevelopmentMenu'
 
@@ -71,16 +71,16 @@ export default function DevelopmentMenu() {
   return (
     <StyledGenericMenu label={t('nav.dev.index')}>
       {navItems.map(({ href, label, target }, key) => (
-        <LinkMenuItem
-          href={href}
+        <ExternalLinkMenuItem
           selected={router.asPath === href}
           key={key}
-          target={target}
+          href={href}
+          target={target || ''}
           className={classes.dropdownLinkButton}>
           <Typography variant="button" className={classes.dropdownLinkText}>
             {t(label)}
           </Typography>
-        </LinkMenuItem>
+        </ExternalLinkMenuItem>
       ))}
     </StyledGenericMenu>
   )

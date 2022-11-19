@@ -66,7 +66,7 @@ export default function CampaignInfo({ campaign }: Props) {
 
   return (
     <StyledGrid mb={5}>
-      <Grid container xs={12} gap={0} className={classes.infoBlockWrapper}>
+      <Grid container item xs={12} gap={0} className={classes.infoBlockWrapper}>
         <Grid item container xs={4} spacing={0} className={classes.infoDetailsWrapper}>
           <Grid item>
             <Typography

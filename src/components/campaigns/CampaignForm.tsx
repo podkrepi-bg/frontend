@@ -229,7 +229,6 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
                 label={t('campaigns:campaign.coordinator.add')}
                 onSubmit={async (values: PersonFormData) => {
                   setCoordinator(values)
-                  console.log('new coordinator', { values })
                 }}
               />
             )}
@@ -246,7 +245,6 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
                 label={t('campaigns:campaign.beneficiary.add')}
                 onSubmit={async (values: PersonFormData) => {
                   setBeneficiary(values)
-                  console.log('new beneficiary', { values })
                 }}
               />
             )}
