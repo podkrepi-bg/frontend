@@ -7,15 +7,6 @@ export function ManagementBoardDescription({ description }) {
   const { t } = useTranslation('about')
 
   const [show, setShow] = useState(false)
-  const [text, setText] = useState('See more')
-
-  useEffect(() => setText(t('about.see-more')), [])
-
-  function handleClick() {
-    setShow(!show)
-    const buttonText = show ? t('about.see-more') : t('about.see-less')
-    setText(buttonText)
-  }
 
   return (
     <>
@@ -23,8 +14,8 @@ export function ManagementBoardDescription({ description }) {
         {description}
       </Description>
       <div>
-        <Button variant="outlined" onClick={handleClick}>
-          {text}
+        <Button variant="outlined" onClick={() => setShow(!show)}>
+          {show ? t('about.see-less') : t('about.see-more')}
         </Button>
       </div>
     </>
