@@ -38,6 +38,9 @@ jobs:
 
       - name: Run stripe webhook
         working-directory: ./api
+        env:
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY}}
         run: docker compose up -d stripe-webhook
 
       - uses: actions/setup-node@v3
@@ -50,6 +53,9 @@ jobs:
 
       - name: Run backend
         working-directory: ./api
+        env:
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY}}
         run: yarn start &
 
       - name: Install Frontend Dependencies
@@ -63,14 +69,6 @@ jobs:
       - name: Setup env
         working-directory: ./frontend
         run: cp .env.local.example .env.local
-
-      - name: Setup upterm session
-        uses: lhotari/action-upterm@v1
-        with:
-          ## limits ssh access and adds the ssh public key for the user which triggered the workflow
-          limit-access-to-actor: true
-          ## limits ssh access and adds the ssh public keys of the listed GitHub users
-          limit-access-to-users: imilchev
 
       - name: Wait on backend
         uses: iFaxity/wait-on-action@v1
