@@ -76,7 +76,6 @@ function DonationTable({ donations }: DonationTableProps) {
       })
     }
   }, [filteredByTypeDonations, fromDate, toDate])
-  console.log(fromDate, toDate)
   return (
     <Card sx={{ padding: theme.spacing(2), boxShadow: theme.shadows[0] }}>
       <Grid container alignItems={'flex-start'} spacing={theme.spacing(2)}>

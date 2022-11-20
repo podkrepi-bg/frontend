@@ -21,9 +21,7 @@ export const FooterLinks = () => {
               {external ? (
                 <ExternalLink href={href}>{t(label)}</ExternalLink>
               ) : (
-                <Link href={href}>
-                  <a>{t(label)}</a>
-                </Link>
+                <Link href={href}>{t(label)}</Link>
               )}
             </FooterLink>
           ))}

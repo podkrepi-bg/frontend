@@ -20,8 +20,8 @@ export default function SuccessfullCampaignTag() {
       <Image
         alt="Successfull campaign tag"
         src={successfullCampaignTagSource}
-        width="200px"
-        height="70px"
+        width={200}
+        height={70}
       />
     </Grid>
   )

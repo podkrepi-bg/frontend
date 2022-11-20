@@ -116,7 +116,7 @@ export default function CampaignCard({ campaign }: Props) {
         <CardMedia className={classes.media} title={campaign.title}>
           <div
             style={{ position: 'relative', width: '100%', minHeight: '100%', maxHeight: '100%' }}>
-            <Image src={pictureUrl} layout="fill" objectFit="contain" />
+            <Image alt={campaign.title} src={pictureUrl} fill style={{ objectFit: 'contain' }} />
             {reached >= target ? <SuccessfullCampaignTag /> : ''}
           </div>
         </CardMedia>

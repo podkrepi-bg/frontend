@@ -50,7 +50,6 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
         }}>
         <Link href={routes.index} passHref>
           <ButtonBase
-            component="a"
             className={clsx({ shrink })}
             sx={(theme) => ({
               transition: 'height .5s',

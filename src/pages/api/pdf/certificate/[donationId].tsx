@@ -12,7 +12,12 @@ const Handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
   const id = Array.isArray(req.query.donationId) ? req.query.donationId[0] : req.query.donationId
 
   const jwt = await getToken({ req })
+  if (!id) {
+    res.status(500).send('No donation id provided')
+    return
+  }
   const { data: donation } = await apiClient.get<UserDonationResponse>(
+    // Casting to string here might lead to an error
     endpoints.donation.getUserDonation(id).url,
     authConfig(jwt?.accessToken),
   )
