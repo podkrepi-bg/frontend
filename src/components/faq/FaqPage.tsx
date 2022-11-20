@@ -5,7 +5,6 @@ import React, { useState } from 'react'
 
 import Layout from 'components/layout/Layout'
 
-import OnHold from './OnHold'
 import ContactUs from './ContactUs'
 import ScrollToTop from './ScrollToTop'
 import VerticalTabs from './VerticalTabs'
@@ -18,51 +17,39 @@ import {
   PARTNERSHIPS_QUESTIONS,
 } from './contents'
 import { FaqCategory } from './contents/faq-categories.enum'
+import { ContentType } from './contents/content-type'
+import { filterFaqQuestionByVisibility } from './helpers/filters'
 
-const faqOnHold = false // Remove this when FAQ is ready
+const FAQ_PAGE_QUESTIONS: Record<string, ContentType[]> = {
+  [FaqCategory.Common]: COMMON_QUESTIONS,
+  [FaqCategory.Campaigns]: CAMPAIGN_QUESTIONS,
+  [FaqCategory.Donations]: DONATION_QUESTIONS,
+  [FaqCategory.AttractDonators]: ATTRACTING_DONATORS_QUESTIONS,
+  [FaqCategory.CorporatePartnership]: PARTNERSHIPS_QUESTIONS,
+}
 
 export default function FaqPage({ section }: { section: FaqCategory }) {
   const { t } = useTranslation()
   const [value, setValue] = useState(section)
 
-  if (faqOnHold) {
-    return (
-      <Layout title={t('nav.campaigns.faq')}>
-        <OnHold />
-      </Layout>
-    )
-  }
   return (
     <Layout title={t('nav.campaigns.faq')}>
       {/* <FaqIntro /> */}
       <TabContext value={value}>
         <Stack direction={{ xs: 'column', md: 'row' }}>
           <VerticalTabs setValue={setValue} />
-          <TabPanel value={FaqCategory.Common} sx={{ p: 0 }}>
-            {COMMON_QUESTIONS.flatMap(({ header, content, visible }) =>
-              visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
-            )}
-          </TabPanel>
-          <TabPanel value={FaqCategory.Campaigns} sx={{ p: 0 }}>
-            {CAMPAIGN_QUESTIONS.flatMap(({ header, content, visible }) =>
-              visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
-            )}
-          </TabPanel>
-          <TabPanel value={FaqCategory.Donations} sx={{ p: 0 }}>
-            {DONATION_QUESTIONS.flatMap(({ header, content, visible }) =>
-              visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
-            )}
-          </TabPanel>
-          <TabPanel value={FaqCategory.AttractDonators} sx={{ p: 0 }}>
-            {ATTRACTING_DONATORS_QUESTIONS.flatMap(({ header, content, visible }) =>
-              visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
-            )}
-          </TabPanel>
-          <TabPanel value={FaqCategory.CorporatePartnership} sx={{ p: 0 }}>
-            {PARTNERSHIPS_QUESTIONS.flatMap(({ header, content, visible }) =>
-              visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
-            )}
-          </TabPanel>
+
+          {Object.keys(FAQ_PAGE_QUESTIONS).map((categoryKey) => {
+            return (
+              <TabPanel key={categoryKey} value={categoryKey} sx={{ p: 0 }}>
+                {FAQ_PAGE_QUESTIONS[categoryKey]
+                  .filter(filterFaqQuestionByVisibility)
+                  .flatMap(({ header, content }) => (
+                    <ExpandableListItem key={header} header={header} content={content} />
+                  ))}
+              </TabPanel>
+            )
+          })}
         </Stack>
       </TabContext>
       <ContactUs />
