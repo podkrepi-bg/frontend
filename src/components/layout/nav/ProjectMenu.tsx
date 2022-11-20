@@ -7,7 +7,7 @@ import { useTranslation } from 'next-i18next'
 import { routes, staticUrls } from 'common/routes'
 import LinkMenuItem from 'components/common/LinkMenuItem'
 
-import GenericMenu from './GenericMenu'
+import GenericNavMenu from './GenericNavMenu'
 
 const PREFIX = 'ProjectMenu'
 
@@ -16,7 +16,7 @@ const classes = {
   dropdownLinkText: `${PREFIX}-dropdownLinkText`,
 }
 
-const StyledGenericMenu = styled(GenericMenu)(({ theme }) => ({
+const StyledGenericNavMenu = styled(GenericNavMenu)(({ theme }) => ({
   [`& .${classes.dropdownLinkButton}`]: {
     '&:hover': {
       backgroundColor: lighten(theme.palette.primary.main, 0.9),
@@ -86,7 +86,7 @@ export default function ProjectMenu() {
   const router = useRouter()
 
   return (
-    <StyledGenericMenu label={t('nav.about.about-us')}>
+    <StyledGenericNavMenu id="menu-project" label={t('nav.about.about-us')}>
       {navItems.map(({ href, label, target }, key) => (
         <LinkMenuItem
           href={href}
@@ -99,6 +99,6 @@ export default function ProjectMenu() {
           </Typography>
         </LinkMenuItem>
       ))}
-    </StyledGenericMenu>
+    </StyledGenericNavMenu>
   )
 }
