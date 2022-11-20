@@ -1,6 +1,8 @@
 import { TabContext, TabList } from '@mui/lab'
 import TabPanel from '@mui/lab/TabPanel'
 import { Box, Tab, Typography, useMediaQuery } from '@mui/material'
+import { useFormikContext } from 'formik'
+import { OneTimeDonation } from 'gql/donations'
 import { useSession } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
 import React, { useState } from 'react'
@@ -15,8 +17,13 @@ export default function SecondStep() {
   const { data: session } = useSession()
 
   const [value, setValue] = useState('1')
-
+  const formik = useFormikContext<OneTimeDonation>()
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    if (Number(newValue) === 3) {
+      formik.setFieldValue('isAnonymous', true)
+    } else {
+      formik.setFieldValue('isAnonymous', false)
+    }
     setValue(newValue)
   }
 

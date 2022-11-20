@@ -21,16 +21,6 @@ export default function AnonymousForm() {
         <Grid item xs={12} color="#343434" sx={{ opacity: 0.9 }}>
           <Typography>{t('anonymous-menu.info-start')}</Typography>
         </Grid>
-        {isLogged() ? (
-          <Grid item xs={12}>
-            <CheckboxField
-              name="isAnonymous"
-              label={t('anonymous-menu.want-anonymous-donation').toString()}
-            />
-          </Grid>
-        ) : (
-          ''
-        )}
         <Grid item xs={12} md={12}>
           <FormTextField name="personsEmail" type="text" label="Email" fullWidth />
         </Grid>
