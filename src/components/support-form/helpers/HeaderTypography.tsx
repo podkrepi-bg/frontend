@@ -1,4 +1,5 @@
-import { lighten, Typography } from '@mui/material'
+import { Typography } from '@mui/material'
+import { lighten } from '@mui/material/styles'
 import { ReactNode } from 'react'
 
 export default function HeaderTypography({ children }: { children: ReactNode }) {

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { styled } from '@mui/material/styles'
+import { styled, lighten } from '@mui/material/styles'
 import { useSession } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
-import { Avatar, Grid, IconButton, lighten, Menu, Typography } from '@mui/material'
+import { Avatar, Grid, IconButton, Menu, Typography } from '@mui/material'
 
 import theme from 'common/theme'
 import { routes } from 'common/routes'
