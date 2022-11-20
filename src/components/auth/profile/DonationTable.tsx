@@ -11,8 +11,8 @@ import {
   TableRow,
   Button,
   Link,
+  Box,
 } from '@mui/material'
-import { Box } from '@mui/system'
 import styled from '@emotion/styled'
 import React, { useMemo } from 'react'
 import { bg, enUS } from 'date-fns/locale'

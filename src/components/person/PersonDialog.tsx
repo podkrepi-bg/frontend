@@ -7,8 +7,8 @@ import {
   Alert,
   AlertTitle,
   IconButton,
+  Box,
 } from '@mui/material'
-import { Box } from '@mui/system'
 import { FormikConfig } from 'formik'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
