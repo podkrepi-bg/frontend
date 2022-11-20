@@ -46,7 +46,7 @@ export default function RegisterForm() {
       if (resp?.ok) {
         setLoading(false)
         AlertStore.show(t('auth:alerts.welcome'), 'success')
-        formik.values.isAnonymous = false
+        formik.setFieldValue('isAnonymous', false)
         setStep(2)
       }
     } catch (error) {
