@@ -1,8 +1,7 @@
 import ProfileTab from './ProfileTab'
 import { ProfileTabs } from './tabs'
 import { styled } from '@mui/material/styles'
-import { Box } from '@mui/system'
-import { Typography } from '@mui/material'
+import { Typography, Box } from '@mui/material'
 
 const PREFIX = 'CertificatesTab'
 

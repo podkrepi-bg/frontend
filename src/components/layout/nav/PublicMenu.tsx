@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { styled } from '@mui/material/styles'
+import { styled, lighten } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import PersonIcon from '@mui/icons-material/Person'
-import { Grid, Button, Menu, Typography, lighten } from '@mui/material'
+import { Grid, Button, Menu, Typography } from '@mui/material'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 

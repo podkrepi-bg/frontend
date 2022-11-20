@@ -1,6 +1,6 @@
 import { Check } from '@mui/icons-material'
-import { styled } from '@mui/material/styles'
-import { FormControlLabel, Radio, lighten, Typography, RadioProps } from '@mui/material'
+import { styled, lighten } from '@mui/material/styles'
+import { FormControlLabel, Radio, Typography, RadioProps } from '@mui/material'
 import theme from 'common/theme'
 import React from 'react'
 
