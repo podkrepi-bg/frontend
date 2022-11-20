@@ -35,7 +35,7 @@ function LoginForm() {
       }
       if (resp?.ok) {
         setLoading(false)
-        formik.values.isAnonymous = false
+        formik.setFieldValue('isAnonymous', false)
         setStep(2)
         AlertStore.show(t('auth:alerts.welcome'), 'success')
       }
