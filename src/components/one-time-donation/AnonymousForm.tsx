@@ -1,16 +1,10 @@
 import * as React from 'react'
 import { useTranslation } from 'next-i18next'
-import { useSession } from 'next-auth/react'
 import { Grid, Typography } from '@mui/material'
 import FormTextField from 'components/common/form/FormTextField'
-import CheckboxField from 'components/common/form/CheckboxField'
 
 export default function AnonymousForm() {
   const { t } = useTranslation('one-time-donation')
-  const { data: session } = useSession()
-  function isLogged() {
-    return session && session.accessToken ? true : false
-  }
   return (
     <>
       <Typography variant="subtitle2" fontWeight="bold">

@@ -62,9 +62,6 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
   const { t } = useTranslation('one-time-donation')
   const hideNextButton = useCallback(
     (isAnonymous: boolean) => {
-      console.log('anon', isAnonymous)
-      console.log('logged', isLogged())
-      console.log('loginStep', isLoginStep())
       if (isLoginStep() && !isLogged() && !isAnonymous) {
         return true
       }
