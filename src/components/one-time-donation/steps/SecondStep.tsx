@@ -12,9 +12,9 @@ import LoginForm from '../LoginForm'
 import RegisterForm from '../RegisterDialog'
 
 enum Tabs {
-  Login = 1,
-  Register = 2,
-  Anonymous = 3,
+  Login = '1',
+  Register = '2',
+  Anonymous = '3',
 }
 export default function SecondStep() {
   const { t } = useTranslation('one-time-donation')
