@@ -5,6 +5,7 @@ test.beforeEach(async ({ page }) => {
 })
 
 test('test homepage', async ({ page }) => {
+  await page.waitForURL('http://localhost:3040/')
   // Click text=Спешни кампании
   await expect(page.locator('text=Спешни кампании')).toBeVisible()
 
@@ -24,51 +25,48 @@ test('test homepage', async ({ page }) => {
   await page.locator('text=Какво е Подкрепи.бг?').click()
 
   // Click text=Ние сме общност от доброволци, обединени от идеята да създаваме устойчиви решения за развитието на дарителството в България.
-  await expect(
-    page.locator(
+  await page
+    .locator(
       'text=Ние сме общност от доброволци, обединени от идеята да създаваме устойчиви решения за развитието на дарителството в България. ',
-    ),
-  ).toBeVisible()
+    )
+    .waitFor({ state: 'visible' })
 
   // Click text=Какво е „безкомпромисна прозрачност”?
   await page.locator('text=Какво е „безкомпромисна прозрачност”?').click()
-
-  // Click text=Нашето разбиране за „безкомпромисна прозрачност” е:
-  await expect(
-    page.locator('text=Нашето разбиране за „безкомпромисна прозрачност” е:'),
-  ).toBeVisible()
+  await page
+    .locator('text=Нашето разбиране за „безкомпромисна прозрачност” е:')
+    .waitFor({ state: 'visible' })
 
   // Click text=Какви са технологичните ви предимства?
   await page.locator('text=Какви са технологичните ви предимства?').click()
 
   // Click text=Използваме модерни решения и технологии за подсигуряване на платформата – React, Next.js като frontend, PostgreSQL като база данни, а цялостната инфраструктура се управлява на принципа на Infrastructure-as-Codе.
-  await expect(
-    page.locator(
+  await page
+    .locator(
       'text=Използваме модерни решения и технологии за подсигуряване на платформата – React, Next.js като frontend, PostgreSQL като база данни, а цялостната инфраструктура се управлява на принципа на Infrastructure-as-Codе.',
-    ),
-  ).toBeVisible()
-
+    )
+    .waitFor({ state: 'visible' })
   // Click text=Какво представляват „устойчивите решения”?
   await page.locator('text=Какво представляват „устойчивите решения”?').click()
 
   // Click text=Една африканска поговорка гласи „Ако искаш да стигнеш бързо, тръгни сам, ако искаш да стигнеш далеч, вървете заедно”.
-  await expect(
-    page.locator(
+  page
+    .locator(
       'text=Една африканска поговорка гласи „Ако искаш да стигнеш бързо, тръгни сам, ако искаш да стигнеш далеч, вървете заедно”.',
-    ),
-  ).toBeVisible()
+    )
+    .waitFor({ state: 'visible' })
 
   // Click text=Какво представляват „устойчивите решения”?
   await page.locator('text=Как се финансира Подкрепи.бг?').click()
 
   // Click text=Подкрепи.бг НЕ удържа комисиони или такси за дейността си от събраните средства за кампаниите.
-  await expect(
-    page.locator(
+  await page
+    .locator(
       'text=Подкрепи.бг НЕ удържа комисиони или такси за дейността си от събраните средства за кампаниите.',
-    ),
-  ).toBeVisible()
-
-  // Click text=Вижте всички >> nth=1
-  await page.locator('text=Вижте всички').nth(1).click()
+    )
+    .waitFor({ state: 'visible' }),
+    // Click text=Вижте всички >> nth=1
+    await page.locator('button[data-testid="faq-see-more-button"]').click()
+  await page.waitForURL('http://localhost:3040/faq')
   await expect(page).toHaveURL('http://localhost:3040/faq')
 })

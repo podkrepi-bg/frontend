@@ -10,18 +10,50 @@ export const dateFormatter = (value: Date | string | number, locale?: Locale) =>
   return `${exact} (${relative})`
 }
 
-export const formatDateString = (dateString: string | Date) => {
-  const date = new Date(dateString)
-  const day = date.getDate().toString().padStart(2, '0')
-  const month = (date.getMonth() + 1).toString().padStart(2, '0')
-  const year = date.getFullYear()
-
-  return `${day}.${month}.${year}`
+export const formatDateString = (dateString: string | Date, locale?: string | undefined) => {
+  if (locale) {
+    return Intl.DateTimeFormat(locale.split('-')).format(new Date(dateString))
+  }
+  return new Date(dateString).toLocaleDateString()
 }
 
 export const getRelativeDate = (value: Date | string, locale?: Locale) => {
   const date = new Date(value)
   return formatRelative(date, new Date(), { locale })
+}
+
+/**
+ * Value format for storing and passing date strings. Should be used whenever we pass date strings between components.
+ */
+export const DATE_VALUE_FORMAT = 'yyyy-MM-dd'
+
+/**
+ * Utility to return localized date format string.
+ * @param language Language to get the corresponding date format
+ * @returns Format string
+ */
+export const getDateFormat = (language: string) => {
+  const dateParts = Intl.DateTimeFormat(language.split('-')).formatToParts(new Date())
+
+  // Find the separator i.e. ".", "/", etc.
+  const literal = dateParts.find((part) => part.type === 'literal')
+
+  // Extract the locale date format
+  return dateParts
+    .filter((part) => part.type !== 'literal')
+    .map((part) => {
+      switch (part.type) {
+        case 'day':
+          return 'dd'
+        case 'month':
+          return 'MM'
+        case 'year':
+          return 'yyyy'
+        default:
+          return ''
+      }
+    })
+    .join(literal?.value ?? '')
 }
 
 /**

@@ -9,7 +9,7 @@ import {
   VolunteerActivism as DonationIcon,
   AccountBox as AccountBoxIcon,
   Assignment as CertificateIcon,
-  AssignmentInd as CampaignIcon,
+  AccountBalance as CampaignIcon,
 } from '@mui/icons-material'
 import { useSession } from 'next-auth/react'
 
@@ -58,14 +58,7 @@ export default function ProfilePage() {
   }
 
   if (status !== 'authenticated') {
-    return (
-      <StyledLayout
-        title={t('nav.profile')}
-        githubUrl="https://github.com/podkrepi-bg/frontend/tree/master/src/components/auth/profile/ProfilePage.tsx"
-        figmaUrl="https://www.figma.com/file/MmvFKzUv6yE5U2wrOpWtwS/Podkrepi.bg?node-id=5987%3A21094">
-        Not authenticated
-      </StyledLayout>
-    )
+    return <StyledLayout title={t('nav.profile')}>Not authenticated</StyledLayout>
   }
 
   const { Component: SelectedTab } = tab
@@ -77,12 +70,14 @@ export default function ProfilePage() {
           sx={{
             backgroundColor: 'white',
             borderRadius: '25px 25px 0px 0px',
-            padding: '10px 30px',
+            padding: '10px 10px',
             boxShadow: 3,
           }}>
-          <h1 className={classes.h1}>{t('profile:header')}</h1>
+          <h1 className={classes.h1} style={{ marginLeft: '20px' }}>
+            {t('profile:header')}
+          </h1>
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={tab.slug}>
+            <Tabs value={tab.slug} variant="scrollable" scrollButtons allowScrollButtonsMobile>
               <Tab
                 className={matches ? classes.tabMobile : ''}
                 value={ProfileTabs.donations}

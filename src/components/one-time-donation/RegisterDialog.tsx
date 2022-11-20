@@ -24,6 +24,8 @@ export default function RegisterForm() {
     lastName: formik.values.registerLastName as string,
     email: formik.values.registerEmail as string,
     password: formik.values.registerPassword as string,
+    terms: formik.values.terms as boolean,
+    gdpr: formik.values.gdpr as boolean,
   }
   const onClick = async () => {
     try {
@@ -44,7 +46,7 @@ export default function RegisterForm() {
       if (resp?.ok) {
         setLoading(false)
         AlertStore.show(t('auth:alerts.welcome'), 'success')
-        formik.values.isAnonymous = false
+        formik.setFieldValue('isAnonymous', false)
         setStep(2)
       }
     } catch (error) {

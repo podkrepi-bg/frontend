@@ -20,10 +20,17 @@ export default function HowWeWorkSection() {
       <InfoText maxWidth="lg">{t('how-we-work.text')}</InfoText>
       <Grid>
         <Hidden smUp>
-          <Image src={mobileInfographicPath} width={320} height={1002} />
+          {/* A11Y TODO: Render the svg without an <Image /> so screenreaders can read it out */}
+          <Image alt="Podkrepi infographic" src={mobileInfographicPath} width={320} height={1002} />
         </Hidden>
         <Hidden smDown>
-          <Image src={desktopInfographicPath} width={1096} height={1114.6} />
+          {/* A11Y TODO: Render the svg without an <Image /> so screenreaders can read it out */}
+          <Image
+            alt="Podkrepi infographic"
+            src={desktopInfographicPath}
+            width={1096}
+            height={1114.6}
+          />
         </Hidden>
       </Grid>
     </Root>

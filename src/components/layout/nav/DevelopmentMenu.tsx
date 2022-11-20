@@ -5,9 +5,9 @@ import { Typography, lighten } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import { staticUrls } from 'common/routes'
-import LinkMenuItem from 'components/common/LinkMenuItem'
 
-import GenericMenu from './GenericMenu'
+import GenericNavMenu from './GenericNavMenu'
+import ExternalLinkMenuItem from 'components/common/ExternalLinkMenuItem'
 
 const PREFIX = 'DevelopmentMenu'
 
@@ -16,7 +16,7 @@ const classes = {
   dropdownLinkText: `${PREFIX}-dropdownLinkText`,
 }
 
-const StyledGenericMenu = styled(GenericMenu)(({ theme }) => ({
+const StyledGenericNavMenu = styled(GenericNavMenu)(({ theme }) => ({
   [`& .${classes.dropdownLinkButton}`]: {
     '&:hover': {
       backgroundColor: lighten(theme.palette.primary.main, 0.9),
@@ -69,19 +69,19 @@ export default function DevelopmentMenu() {
   const router = useRouter()
 
   return (
-    <StyledGenericMenu label={t('nav.dev.index')}>
+    <StyledGenericNavMenu id="menu-development" label={t('nav.dev.index')}>
       {navItems.map(({ href, label, target }, key) => (
-        <LinkMenuItem
-          href={href}
+        <ExternalLinkMenuItem
           selected={router.asPath === href}
           key={key}
-          target={target}
+          href={href}
+          target={target || ''}
           className={classes.dropdownLinkButton}>
           <Typography variant="button" className={classes.dropdownLinkText}>
             {t(label)}
           </Typography>
-        </LinkMenuItem>
+        </ExternalLinkMenuItem>
       ))}
-    </StyledGenericMenu>
+    </StyledGenericNavMenu>
   )
 }

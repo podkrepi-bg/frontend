@@ -79,7 +79,6 @@ export default function PersonDialog({ label, type, onSubmit }: Props) {
             )}
           </Box>
           <PersonForm
-            {...type}
             onSubmit={(...args) => {
               onSubmit(...args)
               handleClose()

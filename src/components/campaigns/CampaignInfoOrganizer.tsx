@@ -78,9 +78,10 @@ export default function CampaignInfoOrganizer({ campaign }: Props) {
       <Grid item className={classes.avatarWrapper} minWidth="max-content" flex={1}>
         <Image
           src={organizerAvatarSource}
-          alt={campaign.title}
-          width="100px"
-          height="100px"
+          //  A11Y TODO: Translate alt text
+          alt={`Image of ${campaign.organizer?.person.firstName} ${campaign.organizer?.person.lastName}`}
+          width={100}
+          height={100}
           className={classes.personAvatar}
         />
       </Grid>
