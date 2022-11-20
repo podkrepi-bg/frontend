@@ -1,7 +1,8 @@
 import React from 'react'
 import { styled } from '@mui/material/styles'
 import { useRouter } from 'next/router'
-import { Typography, lighten } from '@mui/material'
+import { Typography } from '@mui/material'
+import { lighten } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 
 import { routes, staticUrls } from 'common/routes'
