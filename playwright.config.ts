@@ -40,6 +40,8 @@ const config: PlaywrightTestConfig = {
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    /* Record videos for every test but keep only the ones for the failed tests */
+    video: 'retain-on-failure',
   },
 
   /* Configure projects for major browsers */
