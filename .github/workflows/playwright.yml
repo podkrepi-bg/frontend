@@ -35,6 +35,11 @@ jobs:
       - name: Run db
         working-directory: ./api
         run: docker compose up -d pg-db
+
+      - name: Run stripe webhook
+        working-directory: ./api
+        run: docker compose up -d stripe-webhook
+
       - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
