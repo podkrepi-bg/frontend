@@ -75,7 +75,7 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
         firstName: values?.personsFirstName ? values.personsFirstName : 'Anonymous',
         lastName: values?.personsLastName ? values.personsLastName : 'Donor',
         personEmail: values?.personsEmail ? values.personsEmail : userEmail,
-        isAnonymous: values?.isAnonymous ? values.isAnonymous : true,
+        isAnonymous: values?.isAnonymous !== undefined ? values.isAnonymous : true,
         phone: values?.personsPhone ? values.personsPhone : null,
         successUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=true`,
         cancelUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=false`,
