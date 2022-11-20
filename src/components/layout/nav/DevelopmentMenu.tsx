@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next'
 
 import { staticUrls } from 'common/routes'
 
-import GenericMenu from './GenericMenu'
+import GenericNavMenu from './GenericNavMenu'
 import ExternalLinkMenuItem from 'components/common/ExternalLinkMenuItem'
 
 const PREFIX = 'DevelopmentMenu'
@@ -16,7 +16,7 @@ const classes = {
   dropdownLinkText: `${PREFIX}-dropdownLinkText`,
 }
 
-const StyledGenericMenu = styled(GenericMenu)(({ theme }) => ({
+const StyledGenericNavMenu = styled(GenericNavMenu)(({ theme }) => ({
   [`& .${classes.dropdownLinkButton}`]: {
     '&:hover': {
       backgroundColor: lighten(theme.palette.primary.main, 0.9),
@@ -69,7 +69,7 @@ export default function DevelopmentMenu() {
   const router = useRouter()
 
   return (
-    <StyledGenericMenu label={t('nav.dev.index')}>
+    <StyledGenericNavMenu id="menu-development" label={t('nav.dev.index')}>
       {navItems.map(({ href, label, target }, key) => (
         <ExternalLinkMenuItem
           selected={router.asPath === href}
@@ -82,6 +82,6 @@ export default function DevelopmentMenu() {
           </Typography>
         </ExternalLinkMenuItem>
       ))}
-    </StyledGenericMenu>
+    </StyledGenericNavMenu>
   )
 }

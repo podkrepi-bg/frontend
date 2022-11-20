@@ -4,11 +4,12 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 
 type Props = {
+  id: string
   label: string
   children: React.ReactNode
 }
 
-export default function GenericMenu({ label, children }: Props) {
+export default function GenericNavMenu({ id, label, children }: Props) {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
   const open = Boolean(anchorEl)
 
@@ -28,15 +29,16 @@ export default function GenericMenu({ label, children }: Props) {
         {label}
       </Button>
       <Menu
-        disableScrollLock={true}
         keepMounted
-        id="menu-donation"
+        disableScrollLock
+        id={`main-nav-menu--${id}`}
         anchorEl={anchorEl}
-        elevation={6}
         onClose={handleClose}
         open={Boolean(anchorEl)}
+        elevation={6}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}>
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        PaperProps={{ sx: { mt: 1 } }}>
         {children}
       </Menu>
     </>
