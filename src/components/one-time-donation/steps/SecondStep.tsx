@@ -11,6 +11,11 @@ import LoggedUserDialog from '../LoggedUserDialog'
 import LoginForm from '../LoginForm'
 import RegisterForm from '../RegisterDialog'
 
+enum Tabs {
+  Login = 1,
+  Register = 2,
+  Anonymous = 3,
+}
 export default function SecondStep() {
   const { t } = useTranslation('one-time-donation')
   const mobile = useMediaQuery('(max-width:575px)')
@@ -18,13 +23,13 @@ export default function SecondStep() {
 
   const [value, setValue] = useState('1')
   const formik = useFormikContext<OneTimeDonation>()
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    if (Number(newValue) === 3) {
+  const handleChange = (event: React.SyntheticEvent, newTab: string) => {
+    if (newTab === Tabs.Anonymous) {
       formik.setFieldValue('isAnonymous', true)
     } else {
       formik.setFieldValue('isAnonymous', false)
     }
-    setValue(newValue)
+    setValue(newTab)
   }
 
   return (
