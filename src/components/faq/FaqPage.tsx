@@ -17,10 +17,11 @@ import {
   ATTRACTING_DONATORS_QUESTIONS,
   PARTNERSHIPS_QUESTIONS,
 } from './contents'
+import { FaqCategory } from './contents/faq-categories.enum'
 
 const faqOnHold = false // Remove this when FAQ is ready
 
-export default function FaqPage({ section }: { section: string }) {
+export default function FaqPage({ section }: { section: FaqCategory }) {
   const { t } = useTranslation()
   const [value, setValue] = useState(section)
 
@@ -37,27 +38,27 @@ export default function FaqPage({ section }: { section: string }) {
       <TabContext value={value}>
         <Stack direction={{ xs: 'column', md: 'row' }}>
           <VerticalTabs setValue={setValue} />
-          <TabPanel value="common-questions" sx={{ p: 0 }}>
+          <TabPanel value={FaqCategory.Common} sx={{ p: 0 }}>
             {COMMON_QUESTIONS.flatMap(({ header, content, visible }) =>
               visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
             )}
           </TabPanel>
-          <TabPanel value="campaigns" sx={{ p: 0 }}>
+          <TabPanel value={FaqCategory.Campaigns} sx={{ p: 0 }}>
             {CAMPAIGN_QUESTIONS.flatMap(({ header, content, visible }) =>
               visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
             )}
           </TabPanel>
-          <TabPanel value="donations" sx={{ p: 0 }}>
+          <TabPanel value={FaqCategory.Donations} sx={{ p: 0 }}>
             {DONATION_QUESTIONS.flatMap(({ header, content, visible }) =>
               visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
             )}
           </TabPanel>
-          <TabPanel value="attracting-donators" sx={{ p: 0 }}>
+          <TabPanel value={FaqCategory.AttractDonators} sx={{ p: 0 }}>
             {ATTRACTING_DONATORS_QUESTIONS.flatMap(({ header, content, visible }) =>
               visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
             )}
           </TabPanel>
-          <TabPanel value="corporate-partnership" sx={{ p: 0 }}>
+          <TabPanel value={FaqCategory.CorporatePartnership} sx={{ p: 0 }}>
             {PARTNERSHIPS_QUESTIONS.flatMap(({ header, content, visible }) =>
               visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
             )}
