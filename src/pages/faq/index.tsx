@@ -5,7 +5,7 @@ import FaqPage from '../../components/faq/FaqPage'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale ?? 'bg', ['common'])),
+    ...(await serverSideTranslations(locale ?? 'bg', ['common', 'faq'])),
     section: FaqCategory.Common,
   },
 })
