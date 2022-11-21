@@ -1,6 +1,8 @@
-export function shuffleArray(array: unknown[]) {
-  for (let i = array.length - 1; i > 0; i--) {
+export function shuffleArray<T>(array: T[]) {
+  const arrCopy = [...array]
+  for (let i = arrCopy.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
-    ;[array[i], array[j]] = [array[j], array[i]]
+    ;[arrCopy[i], arrCopy[j]] = [arrCopy[j], arrCopy[i]]
   }
+  return arrCopy
 }
