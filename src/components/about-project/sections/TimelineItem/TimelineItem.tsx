@@ -1,65 +1,14 @@
 import React from 'react'
 
-import { styled } from '@mui/material/styles'
-
-import { Card, SvgIconProps, Typography, CardContent, CardHeader } from '@mui/material'
+import { SvgIconProps, Typography, CardHeader } from '@mui/material'
 import {
   TimelineContent,
-  TimelineItem as TimelineItemMaterial,
   TimelineItemProps as TimelineItemPropsMaterial,
   TimelineSeparator,
 } from '@mui/lab'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import { Connector } from './TimelineItem.styled'
 
-const PREFIX = 'TimelineItem'
-
-const classes = {
-  arrowIcon: `${PREFIX}-arrowIcon`,
-  icon: `${PREFIX}-icon`,
-  contentContainer: `${PREFIX}-contentContainer`,
-  contentPaper: `${PREFIX}-contentPaper`,
-  content: `${PREFIX}-content`,
-  timelineItem: `${PREFIX}-timelineItem`,
-}
-
-const StyledTimelineItemMaterial = styled(TimelineItemMaterial)(({ theme }) => ({
-  [`& .${classes.arrowIcon}`]: {
-    transform: 'rotate(90deg)',
-  },
-
-  [`& .${classes.icon}`]: {
-    fontSize: theme.typography.pxToRem(40),
-    padding: '.5rem',
-    boxSizing: 'content-box',
-  },
-
-  [`& .${classes.contentContainer}`]: {},
-
-  [`& .${classes.contentPaper}`]: {
-    borderTop: `3px solid ${theme.palette.secondary.main}`,
-    textAlign: 'left',
-    padding: theme.spacing(2.5),
-  },
-
-  [`& .${classes.content}`]: {
-    paddingTop: theme.spacing(1),
-    paddingRight: 0,
-    '&:last-child': {
-      paddingBottom: theme.spacing(1),
-    },
-    '& ul': {
-      listStyleType: 'disc',
-      paddingLeft: theme.spacing(2),
-    },
-  },
-
-  [`&.${classes.timelineItem}`]: {
-    [theme.breakpoints.down('md')]: {
-      display: 'block',
-    },
-  },
-}))
+import { Connector, Content, ContentPaper, Root, TimelineIcon } from './TimelineItem.styled'
 
 type TimelineItemProps = React.PropsWithChildren<
   TimelineItemPropsMaterial & {
@@ -68,25 +17,26 @@ type TimelineItemProps = React.PropsWithChildren<
     Icon: React.ComponentType<SvgIconProps>
   }
 >
-
 export default function TimelineItem({ children, title, lastItem, Icon }: TimelineItemProps) {
   return (
-    <StyledTimelineItemMaterial className={classes.timelineItem}>
+    <Root>
       <TimelineSeparator>
-        <Icon className={classes.icon} color="primary" />
+        <TimelineIcon>
+          <Icon color="primary" />
+        </TimelineIcon>
         <Connector />
-        {lastItem ? <ArrowForwardIosIcon className={classes.arrowIcon} color="primary" /> : ''}
+        {lastItem ? <ArrowForwardIosIcon color="primary" /> : ''}
       </TimelineSeparator>
-      <TimelineContent classes={{ root: classes.contentContainer }}>
-        <Card variant="outlined" className={classes.contentPaper}>
+      <TimelineContent>
+        <ContentPaper variant="outlined">
           {title && <CardHeader titleTypographyProps={{ color: 'textSecondary' }} title={title} />}
-          <CardContent className={classes.content}>
+          <Content>
             <Typography variant="body2" component="div">
               {children}
             </Typography>
-          </CardContent>
-        </Card>
+          </Content>
+        </ContentPaper>
       </TimelineContent>
-    </StyledTimelineItemMaterial>
+    </Root>
   )
 }
