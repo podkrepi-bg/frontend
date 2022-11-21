@@ -3,17 +3,17 @@ import { BankAccount } from 'components/common/BankAccount'
 
 export const leftColumnLabels = [
   {
-    label: 'about-project:work-organisation',
+    label: 'work-organisation',
   },
   {
-    label: 'about-project:choice-of-logo-and-design',
+    label: 'choice-of-logo-and-design',
   },
   {
-    label: 'about-project:register-association',
+    label: 'register-association',
   },
-  { label: 'about-project:hosting-partnerships' },
+  { label: 'hosting-partnerships' },
   {
-    label: 'about-project:self-sufficiency-measures',
+    label: 'self-sufficiency-measures',
   },
   {
     label: <BankAccount />,
@@ -22,26 +22,26 @@ export const leftColumnLabels = [
 
 export const rightColumnLabels = [
   {
-    label: 'about-project:ngo-talks',
+    label: 'ngo-talks',
   },
   {
-    label: 'about-project:user-stories',
+    label: 'user-stories',
   },
   {
-    label: 'about-project:active-teams',
+    label: 'active-teams',
   },
   {
-    label: 'about-project:microservice-architecture',
+    label: 'microservice-architecture',
   },
-  { label: 'about-project:github-project', href: staticUrls.github },
+  { label: 'github-project', href: staticUrls.github },
   {
-    label: 'about-project:documentation-social',
+    label: 'documentation-social',
     href: staticUrls.projectDocs,
   },
-  { label: 'about-project:documentation-technical', href: staticUrls.devDocs },
+  { label: 'documentation-technical', href: staticUrls.devDocs },
   // Currently the architecture map is not available
   // {
-  //   label: 'about-project:high-level-map',
+  //   label: 'high-level-map',
   //   href: 'https://docs.podkrepi.bg/general/arkhitektura/architecture',
   // },
 ]

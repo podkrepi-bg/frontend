@@ -25,7 +25,7 @@ type CheckedLineProps = {
 }
 
 const CheckedLine = ({ label, href }: CheckedLineProps) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation('about-project')
 
   return (
     <Checked item>
@@ -43,27 +43,23 @@ const CheckedLine = ({ label, href }: CheckedLineProps) => {
 }
 
 export default function WhatIsDone() {
-  const { t } = useTranslation()
+  const { t } = useTranslation('about-project')
 
   return (
     <Root>
-      <Heading variant="h3">{t('about-project:whatIsDoneTitle')}</Heading>
+      <Heading variant="h3">{t('whatIsDoneTitle')}</Heading>
       <IconsWrapper item container>
         <Grid item xs={12} sm={4}>
-          <ActivityIcon Icon={VolunteersIcon} count="17" description={t('about-project:members')} />
+          <ActivityIcon Icon={VolunteersIcon} count="17" description={t('members')} />
         </Grid>
         <Grid item xs={12} sm={4}>
-          <ActivityIcon
-            Icon={MeetingsIcon}
-            count="100+"
-            description={t('about-project:meetingsIcon')}
-          />
+          <ActivityIcon Icon={MeetingsIcon} count="100+" description={t('meetingsIcon')} />
         </Grid>
         <Grid item xs={12} sm={4}>
           <ActivityIcon
             Icon={InvestedHoursIcon}
             count="1000+"
-            description={t('about-project:investedHoursIcon')}
+            description={t('investedHoursIcon')}
           />
         </Grid>
       </IconsWrapper>
