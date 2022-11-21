@@ -116,5 +116,5 @@ jobs:
         if: failure()
         with:
           name: api-logs
-          path: ./api/api-logs
+          path: ./api-logs
           retention-days: 7
