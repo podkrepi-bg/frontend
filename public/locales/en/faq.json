@@ -1,0 +1,14 @@
+{
+  "filters": {
+    "searchKeyword": {
+      "placeholder": "Type to search a \"Frequently asked question\"..."
+    }
+  },
+  "categories": {
+    "common-questions": "Common questions",
+    "campaigns": "Campaigns",
+    "donations": "Donations",
+    "attracting-donators": "Attracting donators",
+    "corporate-partnership": "Corporate partnership"
+  }
+}
