@@ -15,7 +15,6 @@ export const AboutHeading = styled(Typography)(() => ({
 export const Avatar = styled(Image)(() => ({
   borderRadius: '50%',
   textAlign: 'center',
-  width: '150px',
   objectFit: 'cover',
 }))
 
