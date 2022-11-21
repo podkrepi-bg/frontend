@@ -12,11 +12,12 @@ import {
 import {
   AboutWrapper,
   Avatar,
-  Description,
   TeamMemberName,
   LinkedInIcon,
   LinkedInText,
+  TeamMemberDescription,
 } from 'components/about/AboutPage.styled'
+import ExpandableText from 'components/common/ExpandableText'
 
 export default function ManagementBoardSection() {
   const { t } = useTranslation('about')
@@ -30,8 +31,12 @@ export default function ManagementBoardSection() {
         {data.map((teamMember) => (
           <ТeamMemberWrapper key={teamMember.name}>
             <Avatar alt="Team member avatar" src={teamMember.img} width="200px" height="200px" />
-            <TeamMemberName variant="subtitle1">{teamMember.name}</TeamMemberName>
-            <Description variant="body2">{teamMember.description}</Description>
+            <TeamMemberName variant="subtitle1" height={50}>
+              {teamMember.name}
+            </TeamMemberName>
+            <TeamMemberDescription variant="body2" height="auto">
+              <ExpandableText text={teamMember.description} rows={18} />
+            </TeamMemberDescription>
             {teamMember.linkedInProfile ? (
               <LinkedInButton href={teamMember.linkedInProfile} target="_blank">
                 <LinkedInIcon color="action" fontSize="large" />

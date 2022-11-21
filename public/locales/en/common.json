@@ -90,5 +90,9 @@
     "read-more": "Read more",
     "see-profile": "See profile",
     "question": "Have a question?"
+  },
+  "expandable-text": {
+    "show": "Show more",
+    "hide": "Show less"
   }
 }

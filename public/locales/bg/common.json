@@ -91,5 +91,9 @@
     "read-more": "Прочетете още",
     "see-profile": "Вижте профил",
     "question": "Имате въпрос?"
+  },
+  "expandable-text": {
+    "show": "Покажи повече",
+    "hide": "Скрий"
   }
 }

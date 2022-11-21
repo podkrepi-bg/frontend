@@ -50,6 +50,10 @@ export const Description = styled(Typography)(() => ({
   textAlign: 'initial',
 }))
 
+export const TeamMemberDescription = styled(Typography)(() => ({
+  textAlign: 'initial',
+}))
+
 export const AboutWrapper = styled(Grid)(() => ({
   display: 'flex',
   justifyContent: 'space-between',
