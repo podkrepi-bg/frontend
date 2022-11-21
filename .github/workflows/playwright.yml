@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: podkrepi-bg/api
-          ref: master
+          ref: 366-feature-dump-error-logs-to-a-file-with-an-artifact-in-the-cicd
           path: './api'
 
       - name: Get yarn cache directory path
@@ -110,4 +110,13 @@ jobs:
         with:
           name: playwright-results
           path: ./frontend/test-results/
+          retention-days: 7
+
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: api-logs
+          repository: podkrepi-bg/api
+          ref: 366-feature-dump-error-logs-to-a-file-with-an-artifact-in-the-cicd
+          path: ./api/api-error.log
           retention-days: 7
