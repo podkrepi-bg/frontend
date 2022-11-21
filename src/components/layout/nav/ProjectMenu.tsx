@@ -1,12 +1,13 @@
 import React from 'react'
 import { styled } from '@mui/material/styles'
 import { useRouter } from 'next/router'
-import { Typography, lighten } from '@mui/material'
+import { Typography } from '@mui/material'
+import { lighten } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 
 import { routes, staticUrls } from 'common/routes'
 
-import GenericMenu from './GenericMenu'
+import GenericNavMenu from './GenericNavMenu'
 import ExternalLinkMenuItem from 'components/common/ExternalLinkMenuItem'
 import LinkMenuItem from 'components/common/LinkMenuItem'
 
@@ -17,7 +18,7 @@ const classes = {
   dropdownLinkText: `${PREFIX}-dropdownLinkText`,
 }
 
-const StyledGenericMenu = styled(GenericMenu)(({ theme }) => ({
+const StyledGenericNavMenu = styled(GenericNavMenu)(({ theme }) => ({
   [`& .${classes.dropdownLinkButton}`]: {
     '&:hover': {
       backgroundColor: lighten(theme.palette.primary.main, 0.9),
@@ -87,7 +88,7 @@ export default function ProjectMenu() {
   const router = useRouter()
 
   return (
-    <StyledGenericMenu label={t('nav.about.about-us')}>
+    <StyledGenericNavMenu id="menu-project" label={t('nav.about.about-us')}>
       {navItems.map(({ href, label, target }, key) =>
         target ? (
           <ExternalLinkMenuItem
@@ -112,6 +113,6 @@ export default function ProjectMenu() {
           </LinkMenuItem>
         ),
       )}
-    </StyledGenericMenu>
+    </StyledGenericNavMenu>
   )
 }

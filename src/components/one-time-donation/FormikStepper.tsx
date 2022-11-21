@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useContext, useEffect } from 'react'
+import React, { PropsWithChildren, useCallback, useContext, useEffect } from 'react'
 import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
@@ -44,6 +44,10 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
   const currentChild = childrenArray[step]
   const { data: session } = useSession()
 
+  function isLoginStep() {
+    return step === childrenArray.length - 3
+  }
+
   function isLastStep() {
     return step === childrenArray.length - 2
   }
@@ -56,7 +60,15 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
     return true
   }
   const { t } = useTranslation('one-time-donation')
-
+  const hideNextButton = useCallback(
+    (isAnonymous: boolean) => {
+      if (isLoginStep() && !isLogged() && !isAnonymous) {
+        return true
+      }
+      return false
+    },
+    [step],
+  )
   return (
     <Formik
       {...props}
@@ -72,7 +84,7 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
       }}
       validateOnMount
       validateOnBlur>
-      {({ isSubmitting, handleSubmit, isValid }) => (
+      {({ isSubmitting, handleSubmit, isValid, values: { isAnonymous } }) => (
         <Form
           onSubmit={handleSubmit}
           style={{
@@ -112,7 +124,7 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
               </Grid>
               <Grid item xs={12} md={6}>
                 <LoadingButton
-                  disabled={!isValid}
+                  disabled={!isValid || isSubmitting || hideNextButton(isAnonymous)}
                   fullWidth
                   type="submit"
                   variant="contained"

@@ -6,15 +6,8 @@ import { baseUrl, routes } from 'common/routes'
 import { moneyPublic } from 'common/util/money'
 import CampaignProgress from './CampaignProgress'
 import DonorsAndDonations from './DonorsAndDonations'
-import {
-  Button,
-  CircularProgress,
-  Grid,
-  IconButton,
-  lighten,
-  Menu,
-  Typography,
-} from '@mui/material'
+import { Button, CircularProgress, Grid, IconButton, Menu, Typography } from '@mui/material'
+import { lighten } from '@mui/material/styles'
 import { AddLinkOutlined, Favorite } from '@mui/icons-material'
 import ShareIcon from '@mui/icons-material/Share'
 import { useCampaignDonationHistory } from 'common/hooks/campaigns'

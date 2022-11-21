@@ -20,6 +20,8 @@ const StyledGrid = styled(Grid)(() => ({
 export const BankTransfer = () => {
   const { t } = useTranslation()
 
+  const trimmedIban = ibanNumber.replace(/\s/g, '')
+
   return (
     <StyledGrid container justifyContent="space-between" className={classes.firstRow}>
       <Grid item xs={12}>
@@ -41,7 +43,7 @@ export const BankTransfer = () => {
             </Typography>
           </Grid>
           <Grid item>
-            <CopyTextButton text={ibanNumber} label="support:cta.copy-number" />
+            <CopyTextButton text={trimmedIban} label="support:cta.copy-number" />
           </Grid>
         </Grid>
       </Grid>
