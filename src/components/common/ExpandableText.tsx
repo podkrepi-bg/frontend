@@ -9,18 +9,24 @@ type ExpandableTextParams = {
 
 export default function ExpandableText({ text, rows }: ExpandableTextParams) {
   const [limit, setLimit] = useState(rows)
-  const [initialHeight, setInitialHeight] = useState(0)
+  const [initialHeight, setInitialHeight] = useState<number | undefined>(0)
   const [isExpandable, setIsExpandable] = useState(false)
   const textElementRef = useRef<HTMLSpanElement | null>(null)
   const { t } = useTranslation('common')
 
-  const isTextTruncated = () => {
+  const isTextCollapsable = () => {
     if (!rows) {
       return false
     }
 
     const currentTextHeight = textElementRef?.current?.clientHeight // only visible height
-    const currentScrollHeight = textElementRef?.current?.scrollHeight // total height + hidden parts\
+    const currentScrollHeight = textElementRef?.current?.scrollHeight // total height + hidden parts
+
+    if (initialHeight && currentTextHeight) {
+      if (!limit && initialHeight < currentTextHeight) {
+        return true
+      }
+    }
     return currentTextHeight !== currentScrollHeight
   }
 
@@ -33,19 +39,17 @@ export default function ExpandableText({ text, rows }: ExpandableTextParams) {
   }
 
   const handleResize = () => {
-    console.log(initialHeight, 'ih')
-    setIsExpandable(isTextTruncated())
+    setIsExpandable(isTextCollapsable())
   }
 
   useEffect(() => {
-    setIsExpandable(isTextTruncated())
-    console.log(!initialHeight, typeof textElementRef?.current?.clientHeight)
-    if (!initialHeight && (textElementRef?.current?.clientHeight as number) > 0)
-      setInitialHeight(textElementRef?.current?.clientHeight as number)
-
+    setIsExpandable(isTextCollapsable())
+    if (!initialHeight) {
+      setInitialHeight(textElementRef.current?.clientHeight)
+    }
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
-  }, [])
+  }, [isExpandable])
 
   return (
     <>
