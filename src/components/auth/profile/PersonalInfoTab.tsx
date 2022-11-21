@@ -14,7 +14,7 @@ import UpdateBirthdateModal from './UpdateBirthdateModal'
 import UpdateEmailModal from './UpdateEmailModal'
 import UpdatePasswordModal from './UpdatePasswordModal'
 import DisableAccountModal from './DisableAccountModal'
-import { useTranslation } from 'next-i18next'
+import { i18n, useTranslation } from 'next-i18next'
 
 const PREFIX = 'PersonalInfoTab'
 
@@ -188,7 +188,7 @@ export default function PersonalInfoTab() {
               <p className={classes.bold}>{t('profile:personalInfo.birthday')}</p>
               <Typography sx={{ color: person?.birthday ? undefined : '#F22727' }}>
                 {person?.birthday
-                  ? formatDateString(person?.birthday)
+                  ? formatDateString(person?.birthday, i18n?.language)
                   : t('profile:personalInfo.noBirthday')}
               </Typography>
               <Box className={classes.editBox}>
