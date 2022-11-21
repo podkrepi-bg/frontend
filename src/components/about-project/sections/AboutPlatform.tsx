@@ -26,10 +26,22 @@ export default function AboutPlatform() {
         </Typography>
       </Grid>
       <Hidden smUp>
-        <Image src={`/infographic-${i18n.language}-mobile.svg`} width={320} height={1002} />
+        {/* A11Y TODO: Render the svg without an <Image /> so screenreaders can read it out */}
+        <Image
+          alt="Podkrepi infographic"
+          src={`/infographic-${i18n.language}-mobile.svg`}
+          width={320}
+          height={1002}
+        />
       </Hidden>
       <Hidden smDown>
-        <Image src={`/infographic-${i18n.language}.svg`} width={1096} height={1114.6} />
+        {/* A11Y TODO: Render the svg without an <Image /> so screenreaders can read it out */}
+        <Image
+          alt="Podkrepi infographic"
+          src={`/infographic-${i18n.language}.svg`}
+          width={1096}
+          height={1114.6}
+        />
       </Hidden>
     </Grid>
   )

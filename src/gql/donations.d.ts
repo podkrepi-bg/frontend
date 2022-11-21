@@ -60,6 +60,10 @@ export type DonationInput = {
   extPaymentMethodId: string
   // personId: UUID
 }
+export type UserDonationInput = DonationInput & {
+  targetPersonId?: UUID
+}
+
 export type DonationBankInput = {
   currency: string
   amount: number
@@ -114,6 +118,8 @@ export type OneTimeDonation = {
   registerLastName?: string
   registerEmail?: string
   registerPassword?: string
+  terms?: boolean
+  gdpr?: boolean
 }
 
 export type DonationStep = {

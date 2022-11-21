@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     height: '100%',
     width: '100%',
-    // @ts-expect-error non-existent value passed to display property enum
     display: 'block',
   },
   heading: {

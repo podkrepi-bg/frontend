@@ -7,8 +7,8 @@ import {
   Alert,
   AlertTitle,
   IconButton,
+  Box,
 } from '@mui/material'
-import { Box } from '@mui/system'
 import { FormikConfig } from 'formik'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -79,7 +79,6 @@ export default function PersonDialog({ label, type, onSubmit }: Props) {
             )}
           </Box>
           <PersonForm
-            {...type}
             onSubmit={(...args) => {
               onSubmit(...args)
               handleClose()

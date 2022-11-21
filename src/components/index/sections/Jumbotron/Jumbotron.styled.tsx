@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material'
-import { styled } from '@mui/system'
+import { styled } from '@mui/material/styles'
 
 import LinkButton from 'components/common/LinkButton'
 import theme from 'common/theme'

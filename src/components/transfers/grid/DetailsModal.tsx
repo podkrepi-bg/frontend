@@ -27,7 +27,7 @@ export default observer(function DetailsModal() {
       value: `${data?.approvedBy?.firstName || ''} ${data?.approvedBy?.lastName || ''}`,
     },
     { name: t('documentId'), value: data?.documentId || '' },
-    { name: t('targetDate'), value: data?.targetDate || '' },
+    { name: t('targetDate'), value: data?.targetDate?.toLocaleString() || '' },
     { name: t('sourceCampaign'), value: data?.sourceCampaign?.title },
     { name: t('sourceVault'), value: data?.sourceVault?.name },
     { name: t('targetCampaign'), value: data?.targetCampaign?.title },

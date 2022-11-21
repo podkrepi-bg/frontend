@@ -20,7 +20,7 @@ export const securedProps: (
   if (url.startsWith('/_next') || url.startsWith('/_error')) url = '/'
 
   if (!session) {
-    console.log('no server side session, login required')
+    console.warn('no server side session, login required')
     return {
       redirect: {
         destination: `${routes.login}?callbackUrl=${encodeURIComponent(url)}`,

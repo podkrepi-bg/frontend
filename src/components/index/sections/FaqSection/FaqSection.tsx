@@ -28,7 +28,11 @@ export default function FaqSection() {
             ),
           )}
           <Grid>
-            <OutlinedButton href={routes.faq} variant="outlined" endIcon={<ChevronRightIcon />}>
+            <OutlinedButton
+              href={routes.faq}
+              variant="outlined"
+              data-testid="faq-see-more-button"
+              endIcon={<ChevronRightIcon />}>
               {t('index:campaign.see-all')}
             </OutlinedButton>
           </Grid>

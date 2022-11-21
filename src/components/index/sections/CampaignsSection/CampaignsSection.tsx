@@ -28,7 +28,7 @@ export default function CampaignsSection() {
           {t('campaign.urgent-campaigns')}
         </UrgentCampaignsHeading>
         <Grid container justifyContent="center" spacing={4}>
-          {data?.slice(0, 8).map((campaign, index) => (
+          {data?.slice(0, 12).map((campaign, index) => (
             <Grid key={index} item xs={12} sm={6} lg={3}>
               <Box>
                 <CampaignCard campaign={campaign} />

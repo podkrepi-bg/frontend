@@ -1,13 +1,13 @@
 import React from 'react'
-import { styled } from '@mui/material/styles'
+import { styled, lighten } from '@mui/material/styles'
 import { useRouter } from 'next/router'
-import { Typography, lighten } from '@mui/material'
+import { Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import { routes } from 'common/routes'
 import LinkMenuItem from 'components/common/LinkMenuItem'
 
-import GenericMenu from './GenericMenu'
+import GenericNavMenu from './GenericNavMenu'
 
 const PREFIX = 'DonationMenu'
 
@@ -16,7 +16,7 @@ const classes = {
   dropdownLinkText: `${PREFIX}-dropdownLinkText`,
 }
 
-const StyledGenericMenu = styled(GenericMenu)(({ theme }) => ({
+const StyledGenericNavMenu = styled(GenericNavMenu)(({ theme }) => ({
   [`& .${classes.dropdownLinkButton}`]: {
     '&:hover': {
       backgroundColor: lighten(theme.palette.primary.main, 0.9),
@@ -50,9 +50,8 @@ export const navItems = allNavItems.filter((el) => typeof el.enabled === 'undefi
 export default function DonationMenu() {
   const { t } = useTranslation()
   const router = useRouter()
-
   return (
-    <StyledGenericMenu label={t('nav.donation-menu')}>
+    <StyledGenericNavMenu id="menu-donation" label={t('nav.donation-menu')}>
       {navItems.map(({ href, label }, key) => (
         <LinkMenuItem
           href={href}
@@ -64,6 +63,6 @@ export default function DonationMenu() {
           </Typography>
         </LinkMenuItem>
       ))}
-    </StyledGenericMenu>
+    </StyledGenericNavMenu>
   )
 }

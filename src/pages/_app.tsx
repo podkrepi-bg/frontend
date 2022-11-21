@@ -3,10 +3,10 @@ import { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
 import { EmotionCache } from '@emotion/cache'
 import { CacheProvider } from '@emotion/react'
-import { SessionProvider } from 'next-auth/react'
 import React, { useEffect, useState } from 'react'
 import { appWithTranslation, useTranslation } from 'next-i18next'
-import { CssBaseline, ThemeProvider, Theme } from '@mui/material'
+import { ThemeProvider, Theme } from '@mui/material/styles'
+import { CssBaseline } from '@mui/material'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 
 import theme from 'common/theme'
@@ -15,6 +15,7 @@ import createEmotionCache from 'common/createEmotionCache'
 
 import 'styles/global.scss'
 import { queryFn } from 'service/restRequests'
+import { SessionProvider } from 'next-auth/react'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()

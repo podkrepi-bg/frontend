@@ -81,13 +81,8 @@ export default function CampaignSlider({ sliderImages }: Props) {
     return (
       <Root className={classes.container}>
         <div style={{ textAlign: 'center' }}>
-          <Image
-            src={sliderImages[0]}
-            alt="campaign"
-            height="300px"
-            width="400px"
-            objectFit="cover"
-          />
+          {/* A11Y TODO: Add proper alt text*/}
+          <Image src={sliderImages[0]} alt="campaign" height={300} width={400} objectFit="cover" />
         </div>
       </Root>
     )
@@ -100,7 +95,8 @@ export default function CampaignSlider({ sliderImages }: Props) {
       <Slider {...settings} className={classes.slider}>
         {sliderImages.map((image, index) => (
           <div key={index}>
-            <Image src={image} alt="campaign" height="300px" width="400px" objectFit="cover" />
+            {/* A11Y TODO: Add proper alt text*/}
+            <Image src={image} alt="campaign" height={300} width={400} objectFit="cover" />
           </div>
         ))}
       </Slider>

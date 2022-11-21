@@ -1,4 +1,4 @@
-import { styled } from '@mui/system'
+import { styled } from '@mui/material/styles'
 import { Grid, Link, Typography } from '@mui/material'
 
 import theme from 'common/theme'

@@ -2,7 +2,7 @@
   "nav": {
     "home": "Home",
     "about": {
-      "about-project": "The Project",
+      "about-project": "The project",
       "about-us": "About us",
       "who-are-we": "Who are we?",
       "support_us": "Support us",
@@ -14,7 +14,7 @@
       "index": "Campaigns",
       "all-campaigns": "All campaigns",
       "create": "Suggest a campaign",
-      "faq": "Frequently Asked Questions"
+      "faq": "Frequently asked questions"
     },
     "admin": {
       "index": "Administration",
@@ -56,17 +56,23 @@
   "support": "Donate",
   "components": {
     "footer": {
+      "donatе": "Donate",
       "about-us": "About us",
-      "about-project": "The project",
-      "docs": "Documentation",
-      "dev-docs": "Technical Documentation",
-      "support": "Support us",
+      "resources": "Resources",
+      "others": "Others",
+      "all-campaigns": "All campaigns",
+      "who-are-we": "Who are we?",
+      "suggest-campaign": "Suggest a campaign",
+      "about-project": "About the project",
+      "support-us": "Support us",
+      "become-a-volunteer": "Become a volunteer",
+      "reports": "Reports",
       "contact": "Contact",
+      "faq": "Frequently asked questions",
       "privacy-policy": "Privacy Policy",
-      "terms-of-service": "Terms of service",
-      "hosting-partner": "Hosting partner:",
+      "terms-of-service": "Terms of Service",
       "copyrights": "Podkrepi.bg ©2022 All rights reserved.",
-      "version": "Version"
+      "hosting-partner": "Hosting partner:"
     }
   },
   "or": "or",

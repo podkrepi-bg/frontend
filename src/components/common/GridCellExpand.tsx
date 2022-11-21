@@ -1,5 +1,4 @@
-import { Paper, Popper, Typography } from '@mui/material'
-import { Box } from '@mui/system'
+import { Paper, Popper, Typography, Box } from '@mui/material'
 import * as React from 'react'
 
 interface GridCellExpandProps {

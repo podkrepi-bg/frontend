@@ -1,13 +1,15 @@
 import React from 'react'
 import { styled } from '@mui/material/styles'
 import { useRouter } from 'next/router'
-import { Typography, lighten } from '@mui/material'
+import { Typography } from '@mui/material'
+import { lighten } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 
 import { routes, staticUrls } from 'common/routes'
-import LinkMenuItem from 'components/common/LinkMenuItem'
 
-import GenericMenu from './GenericMenu'
+import GenericNavMenu from './GenericNavMenu'
+import ExternalLinkMenuItem from 'components/common/ExternalLinkMenuItem'
+import LinkMenuItem from 'components/common/LinkMenuItem'
 
 const PREFIX = 'ProjectMenu'
 
@@ -16,7 +18,7 @@ const classes = {
   dropdownLinkText: `${PREFIX}-dropdownLinkText`,
 }
 
-const StyledGenericMenu = styled(GenericMenu)(({ theme }) => ({
+const StyledGenericNavMenu = styled(GenericNavMenu)(({ theme }) => ({
   [`& .${classes.dropdownLinkButton}`]: {
     '&:hover': {
       backgroundColor: lighten(theme.palette.primary.main, 0.9),
@@ -86,19 +88,31 @@ export default function ProjectMenu() {
   const router = useRouter()
 
   return (
-    <StyledGenericMenu label={t('nav.about.about-us')}>
-      {navItems.map(({ href, label, target }, key) => (
-        <LinkMenuItem
-          href={href}
-          selected={router.asPath === href}
-          key={key}
-          target={target}
-          className={classes.dropdownLinkButton}>
-          <Typography variant="button" className={classes.dropdownLinkText}>
-            {t(label)}
-          </Typography>
-        </LinkMenuItem>
-      ))}
-    </StyledGenericMenu>
+    <StyledGenericNavMenu id="menu-project" label={t('nav.about.about-us')}>
+      {navItems.map(({ href, label, target }, key) =>
+        target ? (
+          <ExternalLinkMenuItem
+            href={href}
+            selected={router.asPath === href}
+            key={key}
+            target={target || ''}
+            className={classes.dropdownLinkButton}>
+            <Typography variant="button" className={classes.dropdownLinkText}>
+              {t(label)}
+            </Typography>
+          </ExternalLinkMenuItem>
+        ) : (
+          <LinkMenuItem
+            href={href}
+            selected={router.asPath === href}
+            key={key}
+            className={classes.dropdownLinkButton}>
+            <Typography variant="button" className={classes.dropdownLinkText}>
+              {t(label)}
+            </Typography>
+          </LinkMenuItem>
+        ),
+      )}
+    </StyledGenericNavMenu>
   )
 }

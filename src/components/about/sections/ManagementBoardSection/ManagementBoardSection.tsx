@@ -29,7 +29,7 @@ export default function ManagementBoardSection() {
       <AboutWrapper>
         {data.map((teamMember) => (
           <ТeamMemberWrapper key={teamMember.name}>
-            <Avatar alt="Team member avatar" src={teamMember.img} width="200px" height="200px" />
+            <Avatar alt="Team member avatar" src={teamMember.img} width={200} height={200} />
             <TeamMemberName variant="subtitle1">{teamMember.name}</TeamMemberName>
             <Description variant="body2">{teamMember.description}</Description>
             {teamMember.linkedInProfile ? (

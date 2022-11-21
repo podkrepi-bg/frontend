@@ -24,13 +24,16 @@
   "addFiles": "Add files",
   "actions": "Actions",
   "createdAt": "Created at",
+  "noOptions": "No results",
   "alerts": {
     "selectRow": "Please choose a row",
     "create": "Document has been created successfully!",
     "edit": "Document has been edited successfully!",
     "delete": "Document has been deleted successfully!",
     "deleteAll": "Documents have been deleted successfully!",
-    "error": "An error has occured! Please try again later."
+    "editDonor": "Donation donor has been edited successfully!",
+    "error": "An error has occured! Please try again later.",
+    "requiredError": "Fields is required!"
   },
   "cta": {
     "add": "Add",
@@ -40,6 +43,10 @@
     "deleteSelected": "Delete selected rows",
     "edit": "Edit",
     "details": "Donation Details",
-    "submit": "Submit"
+    "submit": "Submit",
+    "save": "Save",
+    "open": "Open",
+    "clear": "Clear",
+    "close": "Close"
   }
 }
