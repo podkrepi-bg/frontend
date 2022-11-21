@@ -15,6 +15,11 @@ export const Root = styled(Grid)(() => ({
   },
 }))
 
+export const Heading = styled(Typography)(() => ({
+  textAlign: 'center',
+  padding: theme.spacing(10, 0, 7, 0),
+}))
+
 export const Count = styled('span')(() => ({
   fontSize: theme.typography.pxToRem(64),
   fontWeight: 'bold',

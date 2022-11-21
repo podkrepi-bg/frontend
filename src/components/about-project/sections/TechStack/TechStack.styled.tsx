@@ -7,11 +7,6 @@ export const Root = styled('section')(() => ({
   margin: theme.spacing(5, 0),
 }))
 
-export const Heading = styled(Typography)(() => ({
-  textAlign: 'center',
-  padding: theme.spacing(10, 0, 7, 0),
-}))
-
 export const CategoryWrapper = styled(Grid)(() => ({
   textAlign: 'center',
   marginBottom: theme.spacing(6),

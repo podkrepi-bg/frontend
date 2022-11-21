@@ -5,7 +5,8 @@ import CheckIcon from '@mui/icons-material/Check'
 
 import { data } from '../../helpers/technologyStackData'
 
-import { CategoryTitle, CategoryWrapper, Heading, Root, TechnologyItem } from './TechStack.styled'
+import { CategoryTitle, CategoryWrapper, Root, TechnologyItem } from './TechStack.styled'
+import { Heading } from 'components/about-project/AboutProject.styled'
 
 export default function TechStack() {
   const { t } = useTranslation()

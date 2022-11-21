@@ -4,18 +4,17 @@ import { styled } from '@mui/material/styles'
 
 import { Card, SvgIconProps, Typography, CardContent, CardHeader } from '@mui/material'
 import {
-  TimelineConnector,
   TimelineContent,
   TimelineItem as TimelineItemMaterial,
   TimelineItemProps as TimelineItemPropsMaterial,
   TimelineSeparator,
 } from '@mui/lab'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import { Connector } from './TimelineItem.styled'
 
 const PREFIX = 'TimelineItem'
 
 const classes = {
-  connector: `${PREFIX}-connector`,
   arrowIcon: `${PREFIX}-arrowIcon`,
   icon: `${PREFIX}-icon`,
   contentContainer: `${PREFIX}-contentContainer`,
@@ -25,10 +24,6 @@ const classes = {
 }
 
 const StyledTimelineItemMaterial = styled(TimelineItemMaterial)(({ theme }) => ({
-  [`& .${classes.connector}`]: {
-    height: theme.spacing(10),
-  },
-
   [`& .${classes.arrowIcon}`]: {
     transform: 'rotate(90deg)',
   },
@@ -79,7 +74,7 @@ export default function TimelineItem({ children, title, lastItem, Icon }: Timeli
     <StyledTimelineItemMaterial className={classes.timelineItem}>
       <TimelineSeparator>
         <Icon className={classes.icon} color="primary" />
-        <TimelineConnector className={classes.connector} />
+        <Connector />
         {lastItem ? <ArrowForwardIosIcon className={classes.arrowIcon} color="primary" /> : ''}
       </TimelineSeparator>
       <TimelineContent classes={{ root: classes.contentContainer }}>
