@@ -74,7 +74,7 @@ jobs:
         uses: iFaxity/wait-on-action@v1
         with:
           resource: http-get://localhost:5010/api/v1/campaign/list
-          timeout: 120000
+          timeout: 300000
 
       - name: Test Backend is ready
         working-directory: ./frontend
