@@ -19,9 +19,9 @@ export default function Timeline() {
       </Heading>
       <Grid item>
         <TimelineMaterial position="alternate" sx={{ p: 0 }}>
-          {timelineData.map(({ icon, title, items }, index: number) => (
-            <TimelineItem key={index} Icon={icon} title={title}>
-              {items}
+          {timelineData.map(({ icon, title, items }, index) => (
+            <TimelineItem key={index} Icon={icon} title={t(title)}>
+              {t(items)}
             </TimelineItem>
           ))}
         </TimelineMaterial>

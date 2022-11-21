@@ -3,7 +3,7 @@ import { Grid, Typography } from '@mui/material'
 
 import theme from 'common/theme'
 
-export const Root = styled(Typography)(() => ({
+export const Root = styled('section')(() => ({
   margin: theme.spacing(5, 0),
 }))
 
