@@ -74,7 +74,7 @@ jobs:
         uses: iFaxity/wait-on-action@v1
         with:
           resource: http-get://localhost:5010/api/v1/campaign/list
-          timeout: 300000
+          timeout: 120000
 
       - name: Test Backend is ready
         working-directory: ./frontend
@@ -116,7 +116,5 @@ jobs:
         if: failure()
         with:
           name: api-logs
-          repository: podkrepi-bg/api
-          ref: 366-feature-dump-error-logs-to-a-file-with-an-artifact-in-the-cicd
-          path: ./api/api-error.log
+          path: ./api/api-logs
           retention-days: 7
