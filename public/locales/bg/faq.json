@@ -3,5 +3,12 @@
     "searchKeyword": {
       "placeholder": "Търси из \"Често задаваните въпроси\"..."
     }
+  },
+  "categories": {
+    "common-questions": "Общи въпроси",
+    "campaigns": "Кампании",
+    "donations": "Дарения",
+    "attracting-donators": "Привличане на дарители",
+    "corporate-partnership": "Корпоративни партньорства"
   }
 }

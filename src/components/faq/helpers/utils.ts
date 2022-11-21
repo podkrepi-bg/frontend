@@ -1,3 +1,6 @@
+import { ContentType } from '../contents/content-type'
+import { filterFaqQuestionByVisibility, filterFaqQuestionBySearchKeyword } from './filters'
+
 export function removeHtmlTags(html: string): string {
   return html.replace(/<[^>]+>/g, '')
 }
@@ -26,4 +29,23 @@ export function getTextContentFromJSX(elem: React.ReactElement | string): string
   }
 
   return getTextContentFromJSX(children)
+}
+
+export function filterFaqQuestions(
+  faqPageData: Record<string, ContentType[]>,
+  searchKeyword: string,
+): Record<string, ContentType[]> {
+  const filteredFaqQuestions: Record<string, ContentType[]> = {}
+
+  for (const categoryKey in faqPageData) {
+    const faqQuestions = faqPageData[categoryKey]
+      .filter(filterFaqQuestionByVisibility)
+      .filter((question) => filterFaqQuestionBySearchKeyword(question, searchKeyword))
+
+    if (faqQuestions.length > 0) {
+      filteredFaqQuestions[categoryKey] = faqQuestions
+    }
+  }
+
+  return filteredFaqQuestions
 }

@@ -4,13 +4,16 @@ import { TabList } from '@mui/lab'
 import Box from '@mui/material/Box'
 import { useRouter } from 'next/router'
 import { FaqCategory } from './contents/faq-categories.enum'
+import { useTranslation } from 'react-i18next'
 
 type Props = {
-  setValue: (newValue: FaqCategory) => void
+  faqCategories: FaqCategory[]
+  setSelectedFaqCategory: (newValue: FaqCategory) => void
 }
 
-const VerticalTabs = ({ setValue }: Props) => {
+const VerticalTabs = ({ faqCategories, setSelectedFaqCategory }: Props) => {
   const router = useRouter()
+  const { t } = useTranslation('faq')
 
   const handleChange = (event: React.SyntheticEvent<Element, Event>, newValue: FaqCategory) => {
     router.push(
@@ -21,7 +24,7 @@ const VerticalTabs = ({ setValue }: Props) => {
       undefined,
       { shallow: true },
     )
-    setValue(newValue)
+    setSelectedFaqCategory(newValue)
   }
 
   return (
@@ -31,11 +34,9 @@ const VerticalTabs = ({ setValue }: Props) => {
         variant="scrollable"
         onChange={handleChange}
         sx={{ borderRight: 1, borderColor: 'divider', mb: 4 }}>
-        <Tab label="Общи въпроси" value={FaqCategory.Common} />
-        <Tab label="Кампании" value={FaqCategory.Campaigns} />
-        <Tab label="Дарения" value={FaqCategory.Donations} />
-        <Tab label="Привличане на дарители" value={FaqCategory.AttractDonators} />
-        <Tab label="Корпоративни партньорства" value={FaqCategory.CorporatePartnership} />
+        {faqCategories.map((category) => {
+          return <Tab key={category} value={category} label={t(`categories.${category}`)} />
+        })}
       </TabList>
     </Box>
   )

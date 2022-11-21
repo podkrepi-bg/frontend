@@ -20,6 +20,7 @@ import { FaqCategory } from './contents/faq-categories.enum'
 import { ContentType } from './contents/content-type'
 import { filterFaqQuestionBySearchKeyword, filterFaqQuestionByVisibility } from './helpers/filters'
 import FaqSearch from './FaqSearch'
+import { filterFaqQuestions } from './helpers/utils'
 
 const FAQ_PAGE_QUESTIONS: Record<string, ContentType[]> = {
   [FaqCategory.Common]: COMMON_QUESTIONS,
@@ -34,17 +35,20 @@ export default function FaqPage({ section }: { section: FaqCategory }) {
   const [value, setValue] = useState(section)
   const [searchKeyword, setSearchKeyword] = useState('')
 
+  const faqQuestionsData = filterFaqQuestions(FAQ_PAGE_QUESTIONS, searchKeyword)
+  const faqCategories = Object.keys(faqQuestionsData) as FaqCategory[]
+
   return (
     <Layout title={t('nav.campaigns.faq')}>
       {/* <FaqIntro /> */}
       <FaqSearch onChange={setSearchKeyword} />
       <TabContext value={value}>
         <Stack direction={{ xs: 'column', md: 'row' }}>
-          <VerticalTabs setValue={setValue} />
-          {Object.keys(FAQ_PAGE_QUESTIONS).map((categoryKey) => {
+          <VerticalTabs faqCategories={faqCategories} setSelectedFaqCategory={setValue} />
+          {faqCategories.map((categoryKey) => {
             return (
               <TabPanel key={categoryKey} value={categoryKey} sx={{ p: 0 }}>
-                {FAQ_PAGE_QUESTIONS[categoryKey]
+                {faqQuestionsData[categoryKey]
                   .filter(filterFaqQuestionByVisibility)
                   .filter((question) => filterFaqQuestionBySearchKeyword(question, searchKeyword))
                   .flatMap(({ header, content }) => (
