@@ -4,18 +4,18 @@ import { Box } from '@mui/material'
 
 type ExpandableTextParams = {
   text: string
-  rows: number | null
+  rowsLimit: number | null
 }
 
-export default function ExpandableText({ text, rows }: ExpandableTextParams) {
-  const [limit, setLimit] = useState(rows)
+export default function ExpandableText({ text, rowsLimit }: ExpandableTextParams) {
+  const [limit, setLimit] = useState(rowsLimit)
   const [initialHeight, setInitialHeight] = useState<number | undefined>(0)
   const [isExpandable, setIsExpandable] = useState(false)
   const textElementRef = useRef<HTMLSpanElement | null>(null)
   const { t } = useTranslation('common')
 
   const isTextCollapsable = () => {
-    if (!rows) {
+    if (!rowsLimit) {
       return false
     }
 
@@ -32,7 +32,7 @@ export default function ExpandableText({ text, rows }: ExpandableTextParams) {
 
   const handleExpand = () => {
     if (!limit) {
-      setLimit(rows)
+      setLimit(rowsLimit)
     } else {
       setLimit(null)
     }

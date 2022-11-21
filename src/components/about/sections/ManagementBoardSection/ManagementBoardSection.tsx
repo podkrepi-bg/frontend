@@ -35,7 +35,7 @@ export default function ManagementBoardSection() {
               {teamMember.name}
             </TeamMemberName>
             <TeamMemberDescription variant="body2" height="auto">
-              <ExpandableText text={teamMember.description} rows={18} />
+              <ExpandableText text={teamMember.description} rowsLimit={18} />
             </TeamMemberDescription>
             {teamMember.linkedInProfile ? (
               <LinkedInButton href={teamMember.linkedInProfile} target="_blank">
