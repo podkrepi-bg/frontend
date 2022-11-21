@@ -3,7 +3,10 @@ import { Description } from 'components/about/AboutPage.styled'
 import { useTranslation } from 'next-i18next'
 import { useEffect, useState } from 'react'
 
-export function ManagementBoardDescription({ description }) {
+type Props = {
+  description: string
+}
+export function ManagementBoardDescription({ description }: Props) {
   const { t } = useTranslation('about')
 
   const [show, setShow] = useState(false)
