@@ -1,13 +1,14 @@
 import React from 'react'
+
 import { useTranslation } from 'next-i18next'
+
 import { Container } from '@mui/material'
 
 import Layout from 'components/layout/Layout'
-
-import Timeline from './sections/Timeline'
-import TechStack from './sections/TechStack'
-import WhatIsDone from './sections/WhatIsDone'
-import AboutPlatform from './sections/AboutPlatform'
+import Timeline from './sections/TimeLine/Timeline'
+import TechStack from './sections/TechStack/TechStack'
+import WhatIsDone from './sections/WhatIsDone/WhatIsDone'
+import AboutPlatform from './sections/AboutPlatform/AboutPlatform'
 
 export default function AboutProject() {
   const { t } = useTranslation()
