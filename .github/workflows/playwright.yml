@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: podkrepi-bg/api
-          ref: master
+          ref: 366-feature-dump-error-logs-to-a-file-with-an-artifact-in-the-cicd
           path: './api'
 
       - name: Get yarn cache directory path
@@ -35,6 +35,14 @@ jobs:
       - name: Run db
         working-directory: ./api
         run: docker compose up -d pg-db
+
+      - name: Run stripe webhook
+        working-directory: ./api
+        env:
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY}}
+        run: docker compose up -d stripe-webhook
+
       - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
@@ -93,3 +101,17 @@ jobs:
           name: playwright-report
           path: ./frontend/playwright-report/
           retention-days: 14
+
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: playwright-results
+          path: ./frontend/test-results/
+          retention-days: 7
+
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: api-logs
+          path: ./api/api-logs
+          retention-days: 7

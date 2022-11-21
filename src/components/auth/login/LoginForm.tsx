@@ -73,7 +73,7 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
       <FormInput type="hidden" name="csrfToken" />
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <FormTextField type="text" label="auth:fields.email" name="email" />
+          <FormTextField type="email" label="auth:fields.email" name="email" />
         </Grid>
         <Grid item xs={12}>
           <PasswordField />
