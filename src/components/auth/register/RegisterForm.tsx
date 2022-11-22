@@ -107,10 +107,14 @@ export default function RegisterForm({ initialValues = defaults }: RegisterFormP
           <FormTextField type="text" label="auth:fields.email" name="email" autoComplete="email" />
         </Grid>
         <Grid item xs={12}>
-          <PasswordField />
+          <PasswordField autoComplete="new-password" />
         </Grid>
         <Grid item xs={12}>
-          <PasswordField name={'confirm-password'} label={'auth:account.confirm-password'} />
+          <PasswordField
+            name="confirm-password"
+            label="auth:account.confirm-password"
+            autoComplete="new-password"
+          />
         </Grid>
         <Grid item xs={12}>
           <AcceptTermsField name="terms" />

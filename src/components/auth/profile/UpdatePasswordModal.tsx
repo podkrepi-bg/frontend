@@ -132,10 +132,18 @@ function UpdatePasswordModal({
               <PasswordField name={'previous-password'} label={'auth:account.previous-password'} />
             </Grid>
             <Grid item xs={12} sm={8}>
-              <PasswordField name={'password'} label={'auth:account.new-password'} />
+              <PasswordField
+                name="password"
+                label="auth:account.new-password"
+                autoComplete="new-password"
+              />
             </Grid>
             <Grid item xs={12} sm={8}>
-              <PasswordField name={'confirm-password'} label={'auth:account.confirm-password'} />
+              <PasswordField
+                name="confirm-password"
+                label="auth:account.confirm-password"
+                autoComplete="new-password"
+              />
             </Grid>
             <Grid item xs={6}>
               <SubmitButton fullWidth label="auth:cta.send" loading={loading} />
