@@ -63,7 +63,7 @@ export const securedAdminProps: (
     const { session } = await response.props
 
     if (resolveEndpoint) {
-      await client.prefetchQuery(resolveEndpoint(ctx), authQueryFnFactory(session.accessToken))
+      await client.prefetchQuery([resolveEndpoint(ctx)], authQueryFnFactory(session.accessToken))
     }
     return {
       props: {

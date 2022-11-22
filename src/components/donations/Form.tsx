@@ -158,7 +158,6 @@ export default function EditForm() {
                 value={initialValues.status}
                 onChange={(e) => {
                   setStatus(e.target.value)
-                  console.log(e.target.value)
                 }}>
                 {validDonationStatuses.map((stat) => {
                   return (

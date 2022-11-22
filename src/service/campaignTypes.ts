@@ -1,7 +1,7 @@
 import { useSession } from 'next-auth/react'
 
 import { endpoints } from './apiEndpoints'
-import { authConfig, authQueryFnFactory, queryFn } from './restRequests'
+import { authConfig, authQueryFnFactory, queryFnFactory } from './restRequests'
 import { CampaignTypeFormData, CampaignTypesResponse } from 'gql/campaign-types'
 import { QueryClient, useQuery } from '@tanstack/react-query'
 import { apiClient } from './apiClient'
@@ -69,6 +69,6 @@ export async function prefetchCampaignTypeById(client: QueryClient, slug: string
 export async function prefetchCampaignTypesList(client: QueryClient) {
   await client.prefetchQuery<CampaignTypesResponse[]>(
     [endpoints.campaignTypes.listCampaignTypes.url],
-    queryFn,
+    queryFnFactory<CampaignTypesResponse[]>(),
   )
 }

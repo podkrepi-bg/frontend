@@ -4,11 +4,15 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import CampaignsPage from 'components/campaigns/CampaignsPage'
 import { prefetchCampaignTypesList } from 'service/campaignTypes'
 import { endpoints } from 'service/apiEndpoints'
-import { queryFn } from 'service/restRequests'
+import { queryFnFactory } from 'service/restRequests'
+import { CampaignResponse } from 'gql/campaigns'
 
 export const getServerSideProps: GetServerSideProps = async (params) => {
   const client = new QueryClient()
-  await client.prefetchQuery(endpoints.campaign.listCampaigns.url, queryFn)
+  await client.prefetchQuery<CampaignResponse[]>(
+    [endpoints.campaign.listCampaigns.url],
+    queryFnFactory<CampaignResponse[]>(),
+  )
   await prefetchCampaignTypesList(client)
   return {
     props: {

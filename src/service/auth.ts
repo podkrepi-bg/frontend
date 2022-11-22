@@ -90,7 +90,7 @@ export const register = async (data: RegisterInput) => {
 
 export function useRegister() {
   return useMutation<AxiosResponse<RegisterResponse>, unknown, RegisterInput>(
-    endpoints.auth.register.url,
+    [endpoints.auth.register.url],
     { mutationFn: register },
   )
 }
