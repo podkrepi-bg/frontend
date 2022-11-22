@@ -1,4 +1,4 @@
-import { QueryFunction } from 'react-query'
+import { QueryFunction } from '@tanstack/react-query'
 import { Session } from 'next-auth'
 import { AxiosRequestConfig } from 'axios'
 

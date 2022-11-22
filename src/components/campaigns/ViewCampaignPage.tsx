@@ -16,9 +16,9 @@ type Props = { slug: string }
 
 export default function ViewCampaignPage({ slug }: Props) {
   const { data } = useViewCampaign(slug)
+  const { mobile, small } = useMobile()
   if (!data || !data.campaign) return <NotFoundPage />
   const { campaign } = data
-  const { mobile, small } = useMobile()
   const ogImageUrl = campaignListPictureUrl(campaign)
 
   return (

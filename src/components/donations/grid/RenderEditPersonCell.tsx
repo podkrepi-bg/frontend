@@ -1,6 +1,6 @@
 import React from 'react'
 import { AxiosError, AxiosResponse } from 'axios'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { GridRenderEditCellParams, GridCellModes } from '@mui/x-data-grid'
 import { TextField, Tooltip, Box } from '@mui/material'

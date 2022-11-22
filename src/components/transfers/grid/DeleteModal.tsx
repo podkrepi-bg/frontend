@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { ApiErrors } from 'service/apiErrors'
 import { endpoints } from 'service/apiEndpoints'
@@ -26,7 +26,7 @@ export default observer(function DeleteModal() {
     onSuccess: () => {
       hideDelete()
       AlertStore.show(t('alerts.delete'), 'success')
-      queryClient.invalidateQueries(endpoints.transfer.listTransfer.url)
+      queryClient.invalidateQueries([endpoints.transfer.listTransfer.url])
     },
   })
 

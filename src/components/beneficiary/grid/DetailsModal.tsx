@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react'
-import { UseQueryResult } from 'react-query'
+import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 
 import { useViewBeneficiary } from 'service/beneficiary'

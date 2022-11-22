@@ -1,5 +1,5 @@
 import { bg, enUS } from 'date-fns/locale'
-import { UseQueryResult } from 'react-query'
+import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import AddIcon from '@mui/icons-material/Add'
 import React, { useMemo, useState } from 'react'

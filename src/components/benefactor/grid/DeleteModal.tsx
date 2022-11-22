@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { observer } from 'mobx-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useTranslation } from 'next-i18next'

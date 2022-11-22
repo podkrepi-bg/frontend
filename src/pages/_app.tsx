@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react'
 import { appWithTranslation, useTranslation } from 'next-i18next'
 import { ThemeProvider, Theme } from '@mui/material/styles'
 import { CssBaseline } from '@mui/material'
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
+import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import theme from 'common/theme'
 import useGTM from 'common/util/useGTM'

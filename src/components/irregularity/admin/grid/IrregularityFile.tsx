@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import FilePresentIcon from '@mui/icons-material/FilePresent'
 import { Avatar, Button, ListItem, ListItemAvatar, ListItemText, Tooltip } from '@mui/material'
@@ -31,7 +31,7 @@ export default function IrregularityFile({ file, irregularityId }: Props) {
     onError: () => AlertStore.show(t('admin.alerts.error'), 'error'),
     onSuccess: () => {
       AlertStore.show(t('admin.alerts.delete-file'), 'success')
-      queryClient.invalidateQueries(endpoints.irregularity.viewIrregularity(irregularityId).url)
+      queryClient.invalidateQueries([endpoints.irregularity.viewIrregularity(irregularityId).url])
       router.push(routes.admin.irregularity.index)
     },
   })

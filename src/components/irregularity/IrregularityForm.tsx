@@ -1,4 +1,4 @@
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import React, { useState, useRef } from 'react'
 import { AxiosError, AxiosResponse } from 'axios'
