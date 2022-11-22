@@ -1,5 +1,5 @@
 import React from 'react'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
@@ -97,7 +97,7 @@ export default function Form() {
       onError: () =>
         AlertStore.show(id ? t('alerts.edit-row.error') : t('alerts.new-row.error'), 'error'),
       onSuccess: () => {
-        queryClient.invalidateQueries(endpoints.expenses.listExpenses.url)
+        queryClient.invalidateQueries([endpoints.expenses.listExpenses.url])
         router.push(routes.admin.expenses.index)
         AlertStore.show(id ? t('alerts.edit-row.success') : t('alerts.new-row.success'), 'success')
       },

@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { ApiErrors } from 'service/apiErrors'
 import { endpoints } from 'service/apiEndpoints'
@@ -28,7 +28,7 @@ export default observer(function DeleteModal() {
     onSuccess: () => {
       hideDelete()
       AlertStore.show(t('admin.alerts.delete'), 'success')
-      queryClient.invalidateQueries(endpoints.irregularity.irregularityList.url)
+      queryClient.invalidateQueries([endpoints.irregularity.irregularityList.url])
       router.push(routes.admin.irregularity.index)
     },
   })

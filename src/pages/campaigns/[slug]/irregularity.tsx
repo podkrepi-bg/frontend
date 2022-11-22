@@ -1,4 +1,4 @@
-import { dehydrate, QueryClient } from 'react-query'
+import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 

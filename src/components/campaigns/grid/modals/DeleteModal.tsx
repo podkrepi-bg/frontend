@@ -1,5 +1,5 @@
 import React from 'react'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { Dialog, Card, CardContent, Box, Button, Typography, DialogTitle } from '@mui/material'
 import { useTranslation } from 'next-i18next'
@@ -29,7 +29,7 @@ export default function DeleteModal({ id, onClose, onDelete }: Props) {
     onError: () => AlertStore.show(t('campaigns:alerts:error'), 'error'),
     onSuccess: () => {
       AlertStore.show(t('Кампанията беше преместена в кошчето.'), 'warning')
-      queryClient.removeQueries(endpoints.campaign.viewCampaignById(id).url)
+      queryClient.removeQueries([endpoints.campaign.viewCampaignById(id).url])
       onDelete()
       router.push(routes.admin.campaigns.index)
     },

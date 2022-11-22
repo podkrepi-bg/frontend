@@ -1,6 +1,6 @@
 import { unstable_getServerSession, Session } from 'next-auth'
 import { authOptions } from '../../pages/api/auth/[...nextauth]'
-import { dehydrate, QueryClient } from 'react-query'
+import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 

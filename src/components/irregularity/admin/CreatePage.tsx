@@ -1,4 +1,4 @@
-import { UseQueryResult } from 'react-query'
+import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 
 import { Container } from '@mui/material'

@@ -1,4 +1,4 @@
-import { UseQueryResult } from 'react-query'
+import { UseQueryResult } from '@tanstack/react-query'
 import { observer } from 'mobx-react'
 import { useTranslation } from 'next-i18next'
 

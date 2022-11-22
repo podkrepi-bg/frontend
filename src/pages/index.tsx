@@ -4,7 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import IndexPage from 'components/index/IndexPage'
 import { authOptions } from './api/auth/[...nextauth]'
-import { QueryClient } from 'react-query'
+import { QueryClient } from '@tanstack/react-query'
 import { queryFn } from 'service/restRequests'
 
 export const getServerSideProps: GetServerSideProps<{

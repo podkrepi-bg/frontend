@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@mui/material'
 import { AxiosError, AxiosResponse } from 'axios'
-import { useMutation, UseQueryResult } from 'react-query'
+import { useMutation, UseQueryResult } from '@tanstack/react-query'
 
 import { routes } from 'common/routes'
 import { ApiErrors } from 'service/apiErrors'

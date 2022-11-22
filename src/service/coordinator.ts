@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios'
 import { useSession } from 'next-auth/react'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 
 import { apiClient } from 'service/apiClient'
 import { CoorinatorInput, CoordinatorResponse } from 'gql/coordinators'
@@ -12,7 +12,7 @@ export const useCoordinatorsList = () => {
   const { data: session } = useSession()
 
   return useQuery(
-    endpoints.coordinators.coordinatorsList.url,
+    [endpoints.coordinators.coordinatorsList.url],
     authQueryFnFactory<CoordinatorResponse[]>(session?.accessToken),
   )
 }

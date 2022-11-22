@@ -79,14 +79,16 @@ export default function CampaignFilter() {
 
   // TODO: add filters&sorting of campaigns so people can select based on personal preferences
   const campaignToShow = useMemo<CampaignResponse[]>(() => {
-    return (
+    console.log('unf', campaigns)
+    const filteredCampaigns =
       campaigns?.filter((campaign) => {
         if (selectedCategory != 'ALL') {
           return campaign.campaignType.category === selectedCategory
         }
         return campaign
       }) ?? []
-    )
+    console.log('filt', filteredCampaigns)
+    return filteredCampaigns
   }, [campaigns, selectedCategory])
 
   return (

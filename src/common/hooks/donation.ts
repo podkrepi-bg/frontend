@@ -1,7 +1,7 @@
 import { useSession } from 'next-auth/react'
 import { useTranslation } from 'react-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
-import { QueryClient, useMutation, useQuery } from 'react-query'
+import { QueryClient, useMutation, useQuery } from '@tanstack/react-query'
 
 import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
@@ -18,13 +18,13 @@ import { createCheckoutSession } from 'service/donation'
 import { CampaignDonationHistoryResponse } from 'gql/campaigns'
 
 export function usePriceList() {
-  return useQuery<DonationPrice[]>(endpoints.donation.prices.url)
+  return useQuery<DonationPrice[]>([endpoints.donation.prices.url])
 }
 export function useSinglePriceList() {
-  return useQuery<DonationPrice[]>(endpoints.donation.singlePrices.url)
+  return useQuery<DonationPrice[]>([endpoints.donation.singlePrices.url])
 }
 export function useRecurringPriceList() {
-  return useQuery<DonationPrice[]>(endpoints.donation.recurringPrices.url)
+  return useQuery<DonationPrice[]>([endpoints.donation.recurringPrices.url])
 }
 export function useDonationSession() {
   const { t } = useTranslation()
@@ -43,7 +43,7 @@ export function useDonationSession() {
 export function useDonationsList(id?: string, pageindex?: number, pagesize?: number) {
   const { data: session } = useSession()
   return useQuery<CampaignDonationHistoryResponse>(
-    endpoints.donation.donationsList(id, pageindex, pagesize).url,
+    [endpoints.donation.donationsList(id, pageindex, pagesize).url],
     {
       queryFn: authQueryFnFactory(session?.accessToken),
     },
@@ -51,23 +51,23 @@ export function useDonationsList(id?: string, pageindex?: number, pagesize?: num
 }
 
 export function useCampaignDonationsList(id: string) {
-  return useQuery<DonationResponse[]>(endpoints.campaign.getDonations(id).url)
+  return useQuery<DonationResponse[]>([endpoints.campaign.getDonations(id).url])
 }
 
 export async function prefetchDonationsList(client: QueryClient) {
-  await client.prefetchQuery<DonationResponse[]>(endpoints.donation.donationsList().url)
+  await client.prefetchQuery<DonationResponse[]>([endpoints.donation.donationsList().url])
 }
 
 export function useDonation(id: string) {
-  return useQuery<DonationResponse>(endpoints.donation.getDonation(id).url)
+  return useQuery<DonationResponse>([endpoints.donation.getDonation(id).url])
 }
 
 export async function prefetchDonationById(client: QueryClient, id: string) {
-  await client.prefetchQuery<DonationResponse>(endpoints.donation.getDonation(id).url)
+  await client.prefetchQuery<DonationResponse>([endpoints.donation.getDonation(id).url])
 }
 export function useUserDonations() {
   const { data: session } = useSession()
-  return useQuery<UserDonationResult>(endpoints.donation.userDonations.url, {
+  return useQuery<UserDonationResult>([endpoints.donation.userDonations.url], {
     queryFn: authQueryFnFactory(session?.accessToken),
   })
 }

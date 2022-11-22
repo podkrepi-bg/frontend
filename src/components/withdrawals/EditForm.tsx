@@ -1,5 +1,5 @@
 import React from 'react'
-import { useMutation, useQueryClient, UseQueryResult } from 'react-query'
+import { useMutation, useQueryClient, UseQueryResult } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
@@ -78,7 +78,7 @@ export default function EditForm() {
     mutationFn,
     onError: () => AlertStore.show(t('withdrawals:alerts:error'), 'error'),
     onSuccess: () => {
-      queryClient.invalidateQueries(endpoints.withdrawals.getWithdrawal(String(id)).url)
+      queryClient.invalidateQueries([endpoints.withdrawals.getWithdrawal(String(id)).url])
       AlertStore.show(t('withdrawals:alerts:edit'), 'success')
       router.push(routes.admin.withdrawals.index)
     },

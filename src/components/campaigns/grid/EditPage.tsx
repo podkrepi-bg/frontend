@@ -1,6 +1,6 @@
 import { Container } from '@mui/material'
 import { useRouter } from 'next/router'
-import { UseQueryResult } from 'react-query'
+import { UseQueryResult } from '@tanstack/react-query'
 
 import { AdminSingleCampaignResponse } from 'gql/campaigns'
 import { useViewCampaignById } from 'common/hooks/campaigns'

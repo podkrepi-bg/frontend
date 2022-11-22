@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { JWT } from 'next-auth/jwt'
 
 import { apiClient } from 'service/apiClient'
