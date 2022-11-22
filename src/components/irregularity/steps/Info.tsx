@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Field } from 'formik'
 import { useTranslation } from 'next-i18next'
 
-import { styled } from '@mui/system'
+import { styled } from '@mui/material/styles'
 import { FormControl, Grid, Typography } from '@mui/material'
 
 import FileUpload from 'components/file-upload/FileUpload'

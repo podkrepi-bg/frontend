@@ -1,5 +1,6 @@
-import { Container, Grid, lighten, Typography } from '@mui/material'
-import { styled } from '@mui/system'
+import { Container, Grid, Typography } from '@mui/material'
+import { lighten } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 
 import theme from 'common/theme'
 

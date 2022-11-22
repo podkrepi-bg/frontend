@@ -14,7 +14,7 @@ export async function fetchSession(): Promise<Session | null> {
     console.log('Fetching session successful.')
     return session
   }
-  console.log('Fetching session returned null.')
+  console.warn('Fetching session returned null.')
   return null
 }
 
@@ -30,7 +30,7 @@ export const queryFnFactory = <T>(token?: string): QueryFunction<T> =>
       token = session?.accessToken
     }
 
-    if (!token) console.log('XHR without token!!!')
+    if (!token) console.warn('XHR without token!!!')
 
     const response = await apiClient.get<T>(queryKey.join('/'), authConfig(token))
     return await response.data

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { styled } from '@mui/material/styles'
+import { styled, lighten } from '@mui/material/styles'
 import { useSession } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
-import { Avatar, Grid, IconButton, lighten, Menu, Typography } from '@mui/material'
+import { Avatar, Grid, IconButton, Menu, Typography } from '@mui/material'
 
 import theme from 'common/theme'
 import { routes } from 'common/routes'
@@ -67,7 +67,7 @@ export default function AdminMenu() {
     return null
   }
 
-  const title = `${session.name}\n(${session.email})`
+  const title = `${session.user.name}\n(${session.user.email})`
   const lettersAvatar = `${session.user?.given_name.charAt(0)}${session.user?.family_name.charAt(
     0,
   )}`.toUpperCase()
@@ -98,12 +98,11 @@ export default function AdminMenu() {
         open={Boolean(anchorEl)}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}>
-        {adminItems.map(({ href, label, target }, key) => (
+        {adminItems.map(({ href, label }, key) => (
           <LinkMenuItem
             href={href}
             selected={router.asPath === href}
             key={key}
-            target={target}
             className={classes.dropdownLinkButton}>
             <Typography variant="button" className={classes.dropdownLinkText}>
               {t(label)}

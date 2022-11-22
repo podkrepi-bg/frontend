@@ -69,9 +69,7 @@ export default function CampaignsPage() {
     <StyledLayout
       // sx={{ fontWeight: '500', color: '#2196F3' }}
       // title={t('campaigns:campaigns')}
-      metaDescription={t('campaigns:campaign.subheading')}
-      githubUrl="https://github.com/podkrepi-bg/frontend/tree/master/src/components/campaigns/CampaignsPage.tsx"
-      figmaUrl="https://www.figma.com/file/MmvFKzUv6yE5U2wrOpWtwS/Podkrepi.bg?node-id=5100%3A21216">
+      metaDescription={t('campaigns:campaign.subheading')}>
       <Container maxWidth="lg">
         <Typography variant="h1" component="p" className={classes.title}>
           {t('campaigns:campaigns')}

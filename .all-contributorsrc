@@ -613,6 +613,56 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "batebobo",
+      "name": "Boyan Vushkov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6130708?v=4",
+      "profile": "https://www.last.fm/user/batebobo",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "valkirilov",
+      "name": "Valentin Kirilov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1233496?v=4",
+      "profile": "http://valkirilov.github.io",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "devkishor8007",
+      "name": "Kishor Kc",
+      "avatar_url": "https://avatars.githubusercontent.com/u/73419211?v=4",
+      "profile": "https://devkishor8007.vercel.app/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "stann1",
+      "name": "stann1",
+      "avatar_url": "https://avatars.githubusercontent.com/u/3273143?v=4",
+      "profile": "https://github.com/stann1",
+      "contributions": [
+        "code",
+        "doc",
+        "tool",
+        "security",
+        "projectManagement"
+      ]
+    },
+    {
+      "login": "AnzheloD",
+      "name": "Anzhelo Dimitrov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/32179794?v=4",
+      "profile": "https://github.com/AnzheloD",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
