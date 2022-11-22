@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/react'
 import { QueryClient, QueryFunction, useQuery } from '@tanstack/react-query'
-
+import { shuffle } from 'lodash'
 import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
 import {
@@ -12,13 +12,11 @@ import {
 } from 'gql/campaigns'
 import { DonationStatus } from 'gql/donations.enums'
 import { apiClient } from 'service/apiClient'
-import { shuffleArray } from 'common/util/shuffle'
 
 // NOTE: shuffling the campaigns so that each gets its fair chance to be on top row
 const shuffleQueryFn: QueryFunction<CampaignResponse[]> = async ({ queryKey }) => {
   const response = await apiClient.get(queryKey.join('/'))
-  const shuffeledCampaigns = shuffleArray<CampaignResponse>(response.data)
-  return shuffeledCampaigns
+  return shuffle<CampaignResponse>(response.data)
 }
 
 export function useCampaignList() {
