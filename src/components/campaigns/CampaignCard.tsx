@@ -21,6 +21,7 @@ import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArro
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import Image from 'next/image'
 import SuccessfullCampaignTag from './SuccessfullCampaignTag'
+import { CampaignState } from './helpers/campaign.enums'
 
 const PREFIX = 'CampaignCard'
 
@@ -119,7 +120,7 @@ export default function CampaignCard({ campaign }: Props) {
           <div
             style={{ position: 'relative', width: '100%', minHeight: '100%', maxHeight: '100%' }}>
             <Image alt={campaign.title} src={pictureUrl} fill style={{ objectFit: 'contain' }} />
-            {campaignState === 'complete' ? <SuccessfullCampaignTag /> : ''}
+            {campaignState === CampaignState.complete ? <SuccessfullCampaignTag /> : ''}
           </div>
         </CardMedia>
         <CardContent className={classes.cardContent}>
