@@ -104,11 +104,13 @@ type Props = { campaign: CampaignResponse }
 
 export default function CampaignCard({ campaign }: Props) {
   const { t } = useTranslation()
+
   const target = campaign.targetAmount
   const summary = campaign.summary
   const pictureUrl = campaignListPictureUrl(campaign)
   const reached = summary ? summary.reachedAmount : 0
   const currency = campaign.currency
+  const campaignState = campaign.state
 
   return (
     <StyledCard variant="outlined" className={classes.cardWrapper}>
@@ -117,7 +119,7 @@ export default function CampaignCard({ campaign }: Props) {
           <div
             style={{ position: 'relative', width: '100%', minHeight: '100%', maxHeight: '100%' }}>
             <Image alt={campaign.title} src={pictureUrl} fill style={{ objectFit: 'contain' }} />
-            {reached >= target ? <SuccessfullCampaignTag /> : ''}
+            {campaignState === 'complete' ? <SuccessfullCampaignTag /> : ''}
           </div>
         </CardMedia>
         <CardContent className={classes.cardContent}>
