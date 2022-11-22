@@ -1,7 +1,7 @@
 import { TabContext, TabPanel } from '@mui/lab'
 import { Stack } from '@mui/material'
 import { useTranslation } from 'next-i18next'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Layout from 'components/layout/Layout'
 
@@ -32,22 +32,31 @@ const FAQ_PAGE_QUESTIONS: Record<string, ContentType[]> = {
 
 export default function FaqPage({ section }: { section: FaqCategory }) {
   const { t } = useTranslation()
-  const [value, setValue] = useState(section)
+  const [selectedFaqCategory, setSelectedFaqCategory] = useState(section)
   const [searchKeyword, setSearchKeyword] = useState('')
 
   const faqQuestionsData = filterFaqQuestions(FAQ_PAGE_QUESTIONS, searchKeyword)
   const faqCategories = Object.keys(faqQuestionsData) as FaqCategory[]
 
+  useEffect(() => {
+    if (faqCategories.length > 0 && !faqCategories.includes(selectedFaqCategory)) {
+      setSelectedFaqCategory(faqCategories[0])
+    }
+  }, [searchKeyword])
+
   return (
     <Layout title={t('nav.campaigns.faq')}>
       {/* <FaqIntro /> */}
       <FaqSearch onChange={setSearchKeyword} />
-      <TabContext value={value}>
+      <TabContext value={selectedFaqCategory}>
         <Stack direction={{ xs: 'column', md: 'row' }}>
-          <VerticalTabs faqCategories={faqCategories} setSelectedFaqCategory={setValue} />
+          <VerticalTabs
+            faqCategories={faqCategories}
+            setSelectedFaqCategory={setSelectedFaqCategory}
+          />
           {faqCategories.map((categoryKey) => {
             return (
-              <TabPanel key={categoryKey} value={categoryKey} sx={{ p: 0 }}>
+              <TabPanel key={categoryKey} value={categoryKey} sx={{ p: 0, flex: 4 }}>
                 {faqQuestionsData[categoryKey]
                   .filter(filterFaqQuestionByVisibility)
                   .filter((question) => filterFaqQuestionBySearchKeyword(question, searchKeyword))
