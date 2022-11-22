@@ -69,9 +69,9 @@ const scrollWindow = () => {
 
 export default function OneTimeDonation({ slug }: { slug: string }) {
   const { data } = useViewCampaign(slug)
+  const matches = useMediaQuery('sm')
   if (!data || !data.campaign) return <NotFoundPage />
   const { campaign } = data
-  const matches = useMediaQuery('sm')
 
   const bannerSource = backgroundCampaignPictureUrl(campaign)
   const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
