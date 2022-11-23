@@ -1,15 +1,20 @@
-import { QueryFunction } from '@tanstack/react-query'
+import getConfig from 'next/config'
 import { Session } from 'next-auth'
+
+import { QueryFunction } from '@tanstack/react-query'
 import { AxiosRequestConfig } from 'axios'
 
 import { apiClient } from 'service/apiClient'
 
+const {
+  publicRuntimeConfig: { APP_URL },
+} = getConfig()
 export async function fetchSession(): Promise<Session | null> {
-  const res = await fetch('/api/auth/session')
-  const session = await res.json()
-
+  const res = await apiClient.get('/api/auth/session', { baseURL: APP_URL })
+  const session = res.data
   console.log('Fetching session from /api/auth/session')
 
+  console.log(session)
   if (Object.keys(session).length) {
     console.log('Fetching session successful.')
     return session
