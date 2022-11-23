@@ -16,7 +16,7 @@
     "new": "New",
     "validated": "Validated",
     "verified": "Verified",
-    "verification_failed": "Verified Failed",
+    "verification_failed": "Verification Failed",
     "errored": "Errored"
   },
   "accountHolderType": {
