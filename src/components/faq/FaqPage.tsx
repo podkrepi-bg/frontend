@@ -1,7 +1,7 @@
 import { TabContext, TabPanel } from '@mui/lab'
 import { Stack } from '@mui/material'
 import { useTranslation } from 'next-i18next'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 import Layout from 'components/layout/Layout'
 
@@ -30,19 +30,31 @@ const FAQ_PAGE_QUESTIONS: Record<string, ContentType[]> = {
   [FaqCategory.CorporatePartnership]: PARTNERSHIPS_QUESTIONS,
 }
 
-export default function FaqPage({ section }: { section: FaqCategory }) {
+type Props = {
+  section: FaqCategory
+}
+
+export default function FaqPage({ section }: Props) {
   const { t } = useTranslation()
-  const [selectedFaqCategory, setSelectedFaqCategory] = useState(section)
   const [searchKeyword, setSearchKeyword] = useState('')
 
-  const faqQuestionsData = filterFaqQuestions(FAQ_PAGE_QUESTIONS, searchKeyword)
-  const faqCategories = Object.keys(faqQuestionsData) as FaqCategory[]
+  const faqQuestionsData = useMemo(
+    () => filterFaqQuestions(FAQ_PAGE_QUESTIONS, searchKeyword),
+    [searchKeyword],
+  )
+  const faqCategories = useMemo(
+    () => Object.keys(faqQuestionsData) as FaqCategory[],
+    [faqQuestionsData],
+  )
 
-  useEffect(() => {
-    if (faqCategories.length > 0 && !faqCategories.includes(selectedFaqCategory)) {
-      setSelectedFaqCategory(faqCategories[0])
+  // Always keep a selected category in the Tabs panel (useful when filtering)
+  const selectedFaqCategory = useMemo(() => {
+    if (faqCategories.length > 0 && !faqCategories.includes(section)) {
+      return faqCategories[0]
     }
-  }, [searchKeyword])
+
+    return section
+  }, [faqCategories, section])
 
   return (
     <Layout title={t('nav.campaigns.faq')}>
@@ -52,7 +64,7 @@ export default function FaqPage({ section }: { section: FaqCategory }) {
         <Stack direction={{ xs: 'column', md: 'row' }}>
           <VerticalTabs
             faqCategories={faqCategories}
-            setSelectedFaqCategory={setSelectedFaqCategory}
+            // setSelectedFaqCategory={setSelectedFaqCategory}
           />
           {faqCategories.map((categoryKey) => {
             return (

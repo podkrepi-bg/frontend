@@ -8,23 +8,17 @@ import { useTranslation } from 'react-i18next'
 
 type Props = {
   faqCategories: FaqCategory[]
-  setSelectedFaqCategory: (newValue: FaqCategory) => void
 }
 
-const VerticalTabs = ({ faqCategories, setSelectedFaqCategory }: Props) => {
+const VerticalTabs = ({ faqCategories }: Props) => {
   const router = useRouter()
   const { t } = useTranslation('faq')
 
   const handleChange = (event: React.SyntheticEvent<Element, Event>, newValue: FaqCategory) => {
-    router.push(
-      {
-        pathname: '/faq/[section]',
-        query: { section: newValue },
-      },
-      undefined,
-      { shallow: true },
-    )
-    setSelectedFaqCategory(newValue)
+    router.push({
+      pathname: '/faq/[section]',
+      query: { section: newValue },
+    })
   }
 
   return (
