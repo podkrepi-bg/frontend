@@ -74,9 +74,9 @@ jobs:
           push: true
           target: production
           build-args: |
-            SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
-            GHOST_API_URL=$GHOST_API_URL
-            GHOST_CONTENT_KEY=$GHOST_CONTENT_KEY
+            SENTRY_AUTH_TOKEN=${{ env.SENTRY_AUTH_TOKEN }}
+            GHOST_API_URL=${{ env.GHOST_API_URL }}
+            GHOST_CONTENT_KEY=${{ env.GHOST_CONTENT_KEY }}
             VERSION=${{ env.VERSION }}
           tags: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}
 
