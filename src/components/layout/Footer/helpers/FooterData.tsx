@@ -32,7 +32,7 @@ export const footerLinks: FooterSection[] = [
   {
     title: 'components.footer.resources',
     links: [
-      { external: true, label: 'nav.blog', href: routes.blog.index },
+      { label: 'nav.blog', href: routes.blog.index },
       { label: 'components.footer.contact', href: routes.contact },
       { label: 'components.footer.faq', href: routes.faq },
     ],
