@@ -15,7 +15,6 @@ import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import { AccountHolderType, BankAccountStatus } from './BankAccountTypes'
 import FormSelectField from 'components/common/form/FormSelectField'
-import { capitalize } from '../../common/util/text'
 import LinkButton from 'components/common/LinkButton'
 import { BankAccountInput, BankAccountResponse } from 'gql/bankaccounts'
 
