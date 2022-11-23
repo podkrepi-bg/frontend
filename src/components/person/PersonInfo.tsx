@@ -31,7 +31,7 @@ type Props = {
 }
 
 function PersonInfo({ person }: Props) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   return (
     <StyledGrid container>
       <Grid item xs={12} md={6}>
@@ -56,7 +56,7 @@ function PersonInfo({ person }: Props) {
         </Typography>
         <Box className={classes.infoWrapper}>
           <Typography>
-            {t('person:info.createdAt')}: {formatDateString(person.createdAt)}
+            {t('person:info.createdAt')}: {formatDateString(person.createdAt, i18n.language)}
           </Typography>
           <Typography>
             {t('person:info.company')}: {person.company}

@@ -1,4 +1,3 @@
-import { bg, enUS } from 'date-fns/locale'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import AddIcon from '@mui/icons-material/Add'
@@ -61,7 +60,6 @@ export const DisplayCurrentAmount = ({ params }: CampaignCellProps) => {
 
 export default function CampaignGrid() {
   const { t, i18n } = useTranslation()
-  const locale = i18n.language == 'bg' ? bg : enUS
   const { data = [], refetch }: UseQueryResult<AdminCampaignResponse[]> = useCampaignAdminList()
   const [viewId, setViewId] = useState<string | undefined>()
   const [deleteId, setDeleteId] = useState<string | undefined>()
@@ -207,7 +205,9 @@ export default function CampaignGrid() {
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.startDate)}>
-          <Button color="inherit">{getRelativeDate(cellValues.row.startDate, locale)}</Button>
+          <Button color="inherit">
+            {getRelativeDate(cellValues.row.startDate, i18n.language)}
+          </Button>
         </Tooltip>
       ),
     },
@@ -219,7 +219,7 @@ export default function CampaignGrid() {
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.endDate)}>
-          <Button color="inherit">{getRelativeDate(cellValues.row.endDate, locale)}</Button>
+          <Button color="inherit">{getRelativeDate(cellValues.row.endDate, i18n.language)}</Button>
         </Tooltip>
       ),
     },
@@ -231,7 +231,9 @@ export default function CampaignGrid() {
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.createdAt)}>
-          <Button color="inherit">{getRelativeDate(cellValues.row.createdAt, locale)}</Button>
+          <Button color="inherit">
+            {getRelativeDate(cellValues.row.createdAt, i18n.language)}
+          </Button>
         </Tooltip>
       ),
     },
@@ -243,7 +245,9 @@ export default function CampaignGrid() {
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.updatedAt)}>
-          <Button color="inherit">{getRelativeDate(cellValues.row.updatedAt, locale)}</Button>
+          <Button color="inherit">
+            {getRelativeDate(cellValues.row.updatedAt, i18n.language)}
+          </Button>
         </Tooltip>
       ),
     },

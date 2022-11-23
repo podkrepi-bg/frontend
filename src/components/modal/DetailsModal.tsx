@@ -14,13 +14,13 @@ import React from 'react'
 import { observer } from 'mobx-react'
 import { DialogStore } from 'stores/DialogStore'
 import { useTranslation } from 'react-i18next'
-import { dateFormatter } from 'common/util/date'
+import { formatDateString } from 'common/util/date'
 import { Check, Clear } from '@mui/icons-material'
 
 function DetailsModal() {
   const { getDialogs } = DialogStore
   const handleClose = () => DialogStore.hide()
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   return (
     <>
@@ -47,7 +47,7 @@ function DetailsModal() {
                   <ListItem>
                     <ListItemText primary={row.row.person.email} secondary={row.row.person.phone} />
                   </ListItem>
-                  <ListItem>{dateFormatter(row.row.createdAt)}</ListItem>
+                  <ListItem>{formatDateString(row.row.createdAt, i18n.language)}</ListItem>
                   <ListItem>
                     <Typography variant="body2">{row.row.message || row.row.comment}</Typography>
                   </ListItem>
