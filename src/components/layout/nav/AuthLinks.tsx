@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     authLinksWrapper: {
       display: 'flex',
+      alignItems: 'center',
       borderTop: '2px solid lightgrey',
       marginLeft: theme.spacing(0.25),
       minHeight: theme.spacing(8),
