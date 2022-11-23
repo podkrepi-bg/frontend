@@ -13,14 +13,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup env
-        run: cp .env.local.example .env.local
-
       - name: Build
         uses: docker/build-push-action@v3
         env:
           NODE_ENV: production
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          GHOST_API_URL: https://blog.podkrepi.bg
+          GHOST_CONTENT_KEY: ${{ secrets.GHOST_CONTENT_KEY }}
         with:
           push: false
           target: production
