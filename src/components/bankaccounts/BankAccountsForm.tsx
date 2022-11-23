@@ -85,48 +85,48 @@ export default function BankAccountsForm() {
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <FormSelectField
-              label="bankaccounts:status"
+              label="bankaccounts:fields.status"
               name="status"
               options={Object.keys(BankAccountStatus).map((key: string) => {
                 return {
                   key,
                   value: BankAccountStatus[key as BankAccountStatus],
-                  name: capitalize(BankAccountStatus[key as BankAccountStatus]),
+                  name: t(`bankaccounts:status.${key}`),
                 }
               })}
             />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField type="text" name="ibanNumber" label="bankaccounts:ibanNumber" />
+            <FormTextField type="text" name="ibanNumber" label="bankaccounts:fields.ibanNumber" />
           </Grid>
           <Grid item xs={12}>
             <FormTextField
               type="text"
               name="accountHolderName"
-              label="bankaccounts:accountHolderName"
+              label="bankaccounts:fields.accountHolderName"
             />
           </Grid>
           <Grid item xs={12}>
             <FormSelectField
               name="accountHolderType"
-              label="bankaccounts:AccountHolderType"
+              label="bankaccounts:fields.accountHolderType"
               options={Object.keys(AccountHolderType).map((key: string) => {
                 return {
                   key,
                   value: AccountHolderType[key as AccountHolderType],
-                  name: capitalize(AccountHolderType[key as AccountHolderType]),
+                  name: t(`bankaccounts:accountHolderType.${key}`),
                 }
               })}
             />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField type="text" name="bankName" label="bankaccounts:bankName" />
+            <FormTextField type="text" name="bankName" label="bankaccounts:fields.bankName" />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField type="text" name="bankIdCode" label="bankaccounts:bankIdCode" />
+            <FormTextField type="text" name="bankIdCode" label="bankaccounts:fields.bankIdCode" />
           </Grid>
           {/* <Grid item xs={12}>
-            <FormTextField type="text" name="fingerprint" label="bankaccounts:fingerprint" />
+            <FormTextField type="text" name="fingerprint" label="bankaccounts:fields.fingerprint" />
           </Grid> */}
           <Grid item xs={6}>
             <SubmitButton fullWidth label="admin:cta.submit" loading={mutation.isLoading} />
