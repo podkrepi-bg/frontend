@@ -38,7 +38,8 @@
     "logout": "Logout",
     "register": "Signup",
     "changePassword": "Change your password",
-    "forgottenPassword": "Forgotten password?"
+    "forgottenPassword": "Forgotten password?",
+    "go-back": "Go back"
   },
   "meta": {
     "title": "Podkrepi.bg"

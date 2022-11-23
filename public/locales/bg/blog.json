@@ -1,0 +1,10 @@
+{
+  "title": "Блог",
+  "description": "Място за истории, идеи и добри каузи.",
+  "created-on": "Създаден на:",
+  "reading-time": {
+    "label": "Време за прочитане:",
+    "count_one": "{{count}} минутa",
+    "count_other": "{{count}} минути"
+  }
+}

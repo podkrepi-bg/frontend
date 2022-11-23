@@ -5,7 +5,11 @@ const {
 } = getConfig()
 
 export const baseUrl = APP_URL
-export const defaultOgImage = `${baseUrl}/img/og_image.jpeg`
+export const defaultOgImage = {
+  src: `${baseUrl}/img/og_image.jpeg`,
+  width: '1640',
+  height: '624',
+}
 
 export const staticUrls = {
   github:
@@ -15,7 +19,6 @@ export const staticUrls = {
   howToContribute:
     'https://docs.podkrepi.bg/general/communication/faq#kak-da-se-vkliucha-v-organizaciata',
   devDocs: 'https://docs.podkrepi.bg/development',
-  blog: 'https://blog.podkrepi.bg/',
   hostingProvider: 'https://superhosting.bg?rel=podkrepi.bg',
   eduspace: 'https://eduspace-bg.business.site/',
   dmsBg: 'https://dmsbg.com',
@@ -42,6 +45,11 @@ export const routes = {
   support: '/support',
   support_us: '/support_us',
   reports: '/finance-report',
+  blog: {
+    index: '/blog',
+    postBySlug: (slug: string) => `/blog/${slug}`,
+    pageBySlug: (slug: string) => `/page/${slug}`,
+  },
   campaigns: {
     index: '/campaigns',
     create: '/campaigns/create',
