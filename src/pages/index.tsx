@@ -8,12 +8,16 @@ import { endpoints } from 'service/apiEndpoints'
 import IndexPage from 'components/index/IndexPage'
 
 import { authOptions } from './api/auth/[...nextauth]'
+import { queryFnFactory } from 'service/restRequests'
 
 export const getServerSideProps: GetServerSideProps<{
   session: Session | null
 }> = async (ctx) => {
   const client = new QueryClient()
-  await client.prefetchQuery<CampaignResponse[]>([endpoints.campaign.listCampaigns.url])
+  await client.prefetchQuery<CampaignResponse[]>(
+    [endpoints.campaign.listCampaigns.url],
+    queryFnFactory<CampaignResponse[]>(),
+  )
 
   //For getting session on server side the docs recommend using unstable_getServerSession as per
   //here: https://next-auth.js.org/getting-started/introduction#server-side

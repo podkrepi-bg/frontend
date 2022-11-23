@@ -1,7 +1,7 @@
 import getConfig from 'next/config'
 import { Session } from 'next-auth'
 
-import { QueryFunction } from '@tanstack/react-query'
+import { QueryFunction, QueryFunctionContext } from '@tanstack/react-query'
 import { AxiosRequestConfig } from 'axios'
 
 import { apiClient } from 'service/apiClient'
@@ -28,7 +28,13 @@ export const queryFn: QueryFunction = async function ({ queryKey }) {
   return await response.data
 }
 
-export const queryFnFactory = <T>(token?: string): QueryFunction<T> =>
+export const queryFnFactory = <T>(): QueryFunction<T> =>
+  async function ({ queryKey }) {
+    const response = await apiClient.get(queryKey.join('/'))
+    return await response.data
+  }
+
+const attachTokenToQueryFn = <T>(token?: string): QueryFunction<T> =>
   async function ({ queryKey }) {
     if (!token) {
       const session = await fetchSession()
@@ -42,7 +48,7 @@ export const queryFnFactory = <T>(token?: string): QueryFunction<T> =>
   }
 
 export const authQueryFnFactory = <T>(token?: string): QueryFunction<T> => {
-  return queryFnFactory<T>(token)
+  return attachTokenToQueryFn<T>(token)
 }
 
 export const authConfig = (token?: string): AxiosRequestConfig => {
