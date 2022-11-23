@@ -31,7 +31,6 @@ export const validationSchemaBankAccForm: yup.SchemaOf<BankAccountsData> = yup
     accountHolderType: yup.string().trim().min(1).max(100).required(),
     bankName: yup.string().trim().min(10).max(100).required(),
     bankIdCode: yup.string().trim().min(8).max(11).required(),
-    // fingerprint: yup.string().trim().min(10).max(100).required(),
   })
 
 export default function BankAccountsForm() {
@@ -44,7 +43,6 @@ export default function BankAccountsForm() {
     accountHolderType: AccountHolderType.individual,
     bankName: '',
     bankIdCode: '',
-    // fingerprint: '',
   }
 
   const mutation = useMutation<
@@ -105,9 +103,6 @@ export default function BankAccountsForm() {
           <Grid item xs={12}>
             <FormTextField type="text" name="bankIdCode" label="bankaccounts:fields.bankIdCode" />
           </Grid>
-          {/* <Grid item xs={12}>
-            <FormTextField type="text" name="fingerprint" label="bankaccounts:fields.fingerprint" />
-          </Grid> */}
           <Grid item xs={6}>
             <SubmitButton fullWidth label="admin:cta.submit" loading={mutation.isLoading} />
           </Grid>

@@ -35,7 +35,6 @@ export default function BankAccountsEditForm({ id }: Props) {
     accountHolderType: data?.accountHolderType,
     bankName: data?.bankName,
     bankIdCode: data?.bankIdCode,
-    // fingerprint: data?.fingerprint,
   }
 
   const mutation = useMutation<
@@ -96,9 +95,6 @@ export default function BankAccountsEditForm({ id }: Props) {
           <Grid item xs={12}>
             <FormTextField type="text" name="bankIdCode" label="bankaccounts:fields.bankIdCode" />
           </Grid>
-          {/* <Grid item xs={12}>
-            <FormTextField type="text" name="fingerprint" label="bankaccounts:fields.fingerprint" />
-          </Grid> */}
           <Grid item xs={6}>
             <SubmitButton fullWidth label="admin:cta.submit" loading={mutation.isLoading} />
           </Grid>
