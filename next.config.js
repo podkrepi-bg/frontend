@@ -39,7 +39,7 @@ const moduleExports = {
   images: {
     domains: [
       process.env.IMAGE_HOST ?? 'localhost',
-      process.env.GHOST_API_URL?.replace('https://', ''),
+      process.env.GHOST_API_URL?.replace('https://', '') || 'blog.podkrepi.bg',
     ],
   },
   async redirects() {
