@@ -18,6 +18,8 @@ import { ApiErrors } from 'service/apiErrors'
 import { routes } from 'common/routes'
 
 import { AccountHolderType, BankAccountStatus } from './BankAccountTypes'
+import BankAccountStatusSelect from './BankAccountStatusSelect'
+import AccountHolderSelect from './AccountHolderSelect'
 
 export const validationSchemaBankAccForm: yup.SchemaOf<BankAccountsData> = yup
   .object()
@@ -26,10 +28,9 @@ export const validationSchemaBankAccForm: yup.SchemaOf<BankAccountsData> = yup
     status: yup.string().trim().min(1).max(100).required(),
     ibanNumber: yup.string().trim().min(5).max(34).required(),
     accountHolderName: yup.string().trim().min(10).max(100).required(),
-    AccountHolderType: yup.string().trim().min(1).max(100).required(),
+    accountHolderType: yup.string().trim().min(1).max(100).required(),
     bankName: yup.string().trim().min(10).max(100).required(),
     bankIdCode: yup.string().trim().min(8).max(11).required(),
-    fingerprint: yup.string().trim().min(10).max(100).required(),
   })
 
 export default function BankAccountsForm() {
@@ -42,7 +43,6 @@ export default function BankAccountsForm() {
     accountHolderType: AccountHolderType.individual,
     bankName: '',
     bankIdCode: '',
-    fingerprint: '',
   }
 
   const mutation = useMutation<
@@ -82,33 +82,26 @@ export default function BankAccountsForm() {
         validationSchema={validationSchemaBankAccForm}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <FormTextField type="text" label="bankaccounts:status" name="status" />
+            <BankAccountStatusSelect />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField type="text" name="ibanNumber" label="bankaccounts:ibanNumber" />
+            <FormTextField type="text" name="ibanNumber" label="bankaccounts:fields.ibanNumber" />
           </Grid>
           <Grid item xs={12}>
             <FormTextField
               type="text"
               name="accountHolderName"
-              label="bankaccounts:accountHolderName"
+              label="bankaccounts:fields.accountHolderName"
             />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField
-              type="text"
-              name="AccountHolderType"
-              label="bankaccounts:AccountHolderType"
-            />
+            <AccountHolderSelect />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField type="text" name="bankName" label="bankaccounts:bankName" />
+            <FormTextField type="text" name="bankName" label="bankaccounts:fields.bankName" />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField type="text" name="bankIdCode" label="bankaccounts:bankIdCode" />
-          </Grid>
-          <Grid item xs={12}>
-            <FormTextField type="text" name="fingerprint" label="bankaccounts:fingerprint" />
+            <FormTextField type="text" name="bankIdCode" label="bankaccounts:fields.bankIdCode" />
           </Grid>
           <Grid item xs={6}>
             <SubmitButton fullWidth label="admin:cta.submit" loading={mutation.isLoading} />

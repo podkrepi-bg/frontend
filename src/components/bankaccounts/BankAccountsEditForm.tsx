@@ -15,6 +15,8 @@ import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import LinkButton from 'components/common/LinkButton'
 import { BankAccountInput, BankAccountResponse } from 'gql/bankaccounts'
+import BankAccountStatusSelect from './BankAccountStatusSelect'
+import AccountHolderSelect from './AccountHolderSelect'
 
 import { validationSchemaBankAccForm } from './BankAccountsForm'
 
@@ -33,7 +35,6 @@ export default function BankAccountsEditForm({ id }: Props) {
     accountHolderType: data?.accountHolderType,
     bankName: data?.bankName,
     bankIdCode: data?.bankIdCode,
-    fingerprint: data?.fingerprint,
   }
 
   const mutation = useMutation<
@@ -73,33 +74,26 @@ export default function BankAccountsEditForm({ id }: Props) {
         validationSchema={validationSchemaBankAccForm}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <FormTextField type="text" label="bankaccounts:status" name="status" />
+            <BankAccountStatusSelect />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField type="text" name="ibanNumber" label="bankaccounts:ibanNumber" />
+            <FormTextField type="text" name="ibanNumber" label="bankaccounts:fields.ibanNumber" />
           </Grid>
           <Grid item xs={12}>
             <FormTextField
               type="text"
               name="accountHolderName"
-              label="bankaccounts:accountHolderName"
+              label="bankaccounts:fields.accountHolderName"
             />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField
-              type="text"
-              name="AccountHolderType"
-              label="bankaccounts:AccountHolderType"
-            />
+            <AccountHolderSelect />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField type="text" name="bankName" label="bankaccounts:bankName" />
+            <FormTextField type="text" name="bankName" label="bankaccounts:fields.bankName" />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField type="text" name="bankIdCode" label="bankaccounts:bankIdCode" />
-          </Grid>
-          <Grid item xs={12}>
-            <FormTextField type="text" name="fingerprint" label="bankaccounts:fingerprint" />
+            <FormTextField type="text" name="bankIdCode" label="bankaccounts:fields.bankIdCode" />
           </Grid>
           <Grid item xs={6}>
             <SubmitButton fullWidth label="admin:cta.submit" loading={mutation.isLoading} />
