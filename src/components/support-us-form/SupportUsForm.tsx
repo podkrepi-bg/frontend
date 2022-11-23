@@ -67,7 +67,6 @@ export default function SupportUsForm() {
           />
         </Grid>
       </Grid>
-
       <Typography variant="h6">{t('third-step.reason-donation')}</Typography>
       <Divider className={classes.divider} />
       <Grid container justifyContent="center">

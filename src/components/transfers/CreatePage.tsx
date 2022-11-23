@@ -1,6 +1,6 @@
 import { Container } from '@mui/material'
 import { useTranslation } from 'next-i18next'
-import { UseQueryResult } from 'react-query'
+import { UseQueryResult } from '@tanstack/react-query'
 
 import { CampaignResponse } from 'gql/campaigns'
 import { useCampaignList } from 'common/hooks/campaigns'

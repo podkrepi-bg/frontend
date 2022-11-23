@@ -2,7 +2,7 @@ import React from 'react'
 import * as yup from 'yup'
 import { AxiosError, AxiosResponse } from 'axios'
 import { FormikHelpers } from 'formik'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@mui/material'
 

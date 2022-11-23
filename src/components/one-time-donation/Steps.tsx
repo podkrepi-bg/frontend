@@ -54,15 +54,11 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
   initialValues.amount = (router.query.price as string) || ''
   const slug = String(router.query.slug)
   const { data, isLoading } = useViewCampaign(slug)
+  const mutation = useDonationSession()
+  const { data: session } = useSession()
+  const { data: { user: person } = { user: null } } = useCurrentPerson()
   if (!data || !data.campaign) return <NotFoundPage />
   const { campaign } = data
-  const mutation = useDonationSession()
-  const { data: { user: person } = { user: null } } = useCurrentPerson()
-
-  const { data: session } = useSession()
-  function isLogged() {
-    return session && session.accessToken ? true : false
-  }
 
   const userEmail = session?.user?.email
 

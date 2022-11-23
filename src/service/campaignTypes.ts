@@ -1,16 +1,16 @@
 import { useSession } from 'next-auth/react'
 
 import { endpoints } from './apiEndpoints'
-import { authConfig, authQueryFnFactory } from './restRequests'
+import { authConfig, authQueryFnFactory, queryFnFactory } from './restRequests'
 import { CampaignTypeFormData, CampaignTypesResponse } from 'gql/campaign-types'
-import { QueryClient, useQuery } from 'react-query'
+import { QueryClient, useQuery } from '@tanstack/react-query'
 import { apiClient } from './apiClient'
 
 export const useCampaignTypesList = () => {
   const { data: session } = useSession()
 
   return useQuery(
-    endpoints.campaignTypes.listCampaignTypes.url,
+    [endpoints.campaignTypes.listCampaignTypes.url],
     authQueryFnFactory<CampaignTypesResponse[]>(session?.accessToken),
   )
 }
@@ -18,7 +18,7 @@ export const useCampaignTypesList = () => {
 export const useCampaignType = (id: string) => {
   const { data: session } = useSession()
   return useQuery(
-    endpoints.campaignTypes.viewCampaignType(id).url,
+    [endpoints.campaignTypes.viewCampaignType(id).url],
     authQueryFnFactory<CampaignTypesResponse>(session?.accessToken),
     { staleTime: 5 },
   )
@@ -61,11 +61,14 @@ export const useRemoveCampaignType = () => {
 
 export async function prefetchCampaignTypeById(client: QueryClient, slug: string, token?: string) {
   await client.prefetchQuery<CampaignTypesResponse>(
-    endpoints.campaignTypes.viewCampaignType(slug).url,
+    [endpoints.campaignTypes.viewCampaignType(slug).url],
     authQueryFnFactory<CampaignTypesResponse>(token),
   )
 }
 
 export async function prefetchCampaignTypesList(client: QueryClient) {
-  await client.prefetchQuery<CampaignTypesResponse[]>(endpoints.campaignTypes.listCampaignTypes.url)
+  await client.prefetchQuery<CampaignTypesResponse[]>(
+    [endpoints.campaignTypes.listCampaignTypes.url],
+    queryFnFactory<CampaignTypesResponse[]>(),
+  )
 }

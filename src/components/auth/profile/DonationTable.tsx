@@ -97,7 +97,7 @@ function DonationTable({ donations }: DonationTableProps) {
           />
         </Grid> */}
         <LocalizationProvider
-          locale={i18n.language === 'bg' ? bg : enUS}
+          adapterLocale={i18n.language === 'bg' ? bg : enUS}
           dateAdapter={AdapterDateFns}>
           <Grid item xs={12} sm={3}>
             <DateTimePicker
