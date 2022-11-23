@@ -16,7 +16,7 @@
     "new": "Нов",
     "validated": "Валидиран",
     "verified": "Верифициран",
-    "verification_failed": "Неуспешно верифициран",
+    "verification_failed": "Неуспешна верификация",
     "errored": "С грешки"
   },
   "accountHolderType": {
