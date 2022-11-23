@@ -31,6 +31,7 @@ export default function BlogIndexPage({ posts }: Props) {
                       height="18rem"
                       showPlaceholder
                       objectFit="cover"
+                      objectPosition="center top"
                       src={post.feature_image}
                       alt={post.feature_image_alt ?? post.title ?? ''}
                       title={post.feature_image_caption ?? post.title}

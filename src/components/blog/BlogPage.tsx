@@ -14,7 +14,7 @@ import RenderContent from './RenderContent'
 type Props = {
   page: PostOrPage
 }
-export default function BlogpagePage({ page }: Props) {
+export default function BlogPage({ page }: Props) {
   return (
     <Layout
       canonicalUrl={`${baseUrl}${routes.blog.pageBySlug(page.slug)}`}
