@@ -13,6 +13,9 @@ import GenericForm from 'components/common/form/GenericForm'
 import { useViewBankAccount } from 'common/hooks/bankaccounts'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
+import { AccountHolderType, BankAccountStatus } from './BankAccountTypes'
+import FormSelectField from 'components/common/form/FormSelectField'
+import { capitalize } from '../../common/util/text'
 import LinkButton from 'components/common/LinkButton'
 import { BankAccountInput, BankAccountResponse } from 'gql/bankaccounts'
 
@@ -33,7 +36,7 @@ export default function BankAccountsEditForm({ id }: Props) {
     accountHolderType: data?.accountHolderType,
     bankName: data?.bankName,
     bankIdCode: data?.bankIdCode,
-    fingerprint: data?.fingerprint,
+    // fingerprint: data?.fingerprint,
   }
 
   const mutation = useMutation<
@@ -73,7 +76,17 @@ export default function BankAccountsEditForm({ id }: Props) {
         validationSchema={validationSchemaBankAccForm}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <FormTextField type="text" label="bankaccounts:status" name="status" />
+            <FormSelectField
+              label="bankaccounts:status"
+              name="status"
+              options={Object.keys(BankAccountStatus).map((key: string) => {
+                return {
+                  key,
+                  value: BankAccountStatus[key as BankAccountStatus],
+                  name: capitalize(BankAccountStatus[key as BankAccountStatus]),
+                }
+              })}
+            />
           </Grid>
           <Grid item xs={12}>
             <FormTextField type="text" name="ibanNumber" label="bankaccounts:ibanNumber" />
@@ -86,10 +99,16 @@ export default function BankAccountsEditForm({ id }: Props) {
             />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField
-              type="text"
-              name="AccountHolderType"
+            <FormSelectField
+              name="accountHolderType"
               label="bankaccounts:AccountHolderType"
+              options={Object.keys(AccountHolderType).map((key: string) => {
+                return {
+                  key,
+                  value: AccountHolderType[key as AccountHolderType],
+                  name: capitalize(AccountHolderType[key as AccountHolderType]),
+                }
+              })}
             />
           </Grid>
           <Grid item xs={12}>
@@ -98,9 +117,9 @@ export default function BankAccountsEditForm({ id }: Props) {
           <Grid item xs={12}>
             <FormTextField type="text" name="bankIdCode" label="bankaccounts:bankIdCode" />
           </Grid>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <FormTextField type="text" name="fingerprint" label="bankaccounts:fingerprint" />
-          </Grid>
+          </Grid> */}
           <Grid item xs={6}>
             <SubmitButton fullWidth label="admin:cta.submit" loading={mutation.isLoading} />
           </Grid>

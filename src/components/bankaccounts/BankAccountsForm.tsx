@@ -18,6 +18,8 @@ import { ApiErrors } from 'service/apiErrors'
 import { routes } from 'common/routes'
 
 import { AccountHolderType, BankAccountStatus } from './BankAccountTypes'
+import FormSelectField from 'components/common/form/FormSelectField'
+import { capitalize } from '../../common/util/text'
 
 export const validationSchemaBankAccForm: yup.SchemaOf<BankAccountsData> = yup
   .object()
@@ -26,10 +28,10 @@ export const validationSchemaBankAccForm: yup.SchemaOf<BankAccountsData> = yup
     status: yup.string().trim().min(1).max(100).required(),
     ibanNumber: yup.string().trim().min(5).max(34).required(),
     accountHolderName: yup.string().trim().min(10).max(100).required(),
-    AccountHolderType: yup.string().trim().min(1).max(100).required(),
+    accountHolderType: yup.string().trim().min(1).max(100).required(),
     bankName: yup.string().trim().min(10).max(100).required(),
     bankIdCode: yup.string().trim().min(8).max(11).required(),
-    fingerprint: yup.string().trim().min(10).max(100).required(),
+    // fingerprint: yup.string().trim().min(10).max(100).required(),
   })
 
 export default function BankAccountsForm() {
@@ -42,7 +44,7 @@ export default function BankAccountsForm() {
     accountHolderType: AccountHolderType.individual,
     bankName: '',
     bankIdCode: '',
-    fingerprint: '',
+    // fingerprint: '',
   }
 
   const mutation = useMutation<
@@ -82,7 +84,17 @@ export default function BankAccountsForm() {
         validationSchema={validationSchemaBankAccForm}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <FormTextField type="text" label="bankaccounts:status" name="status" />
+            <FormSelectField
+              label="bankaccounts:status"
+              name="status"
+              options={Object.keys(BankAccountStatus).map((key: string) => {
+                return {
+                  key,
+                  value: BankAccountStatus[key as BankAccountStatus],
+                  name: capitalize(BankAccountStatus[key as BankAccountStatus]),
+                }
+              })}
+            />
           </Grid>
           <Grid item xs={12}>
             <FormTextField type="text" name="ibanNumber" label="bankaccounts:ibanNumber" />
@@ -95,10 +107,16 @@ export default function BankAccountsForm() {
             />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField
-              type="text"
-              name="AccountHolderType"
+            <FormSelectField
+              name="accountHolderType"
               label="bankaccounts:AccountHolderType"
+              options={Object.keys(AccountHolderType).map((key: string) => {
+                return {
+                  key,
+                  value: AccountHolderType[key as AccountHolderType],
+                  name: capitalize(AccountHolderType[key as AccountHolderType]),
+                }
+              })}
             />
           </Grid>
           <Grid item xs={12}>
@@ -107,9 +125,9 @@ export default function BankAccountsForm() {
           <Grid item xs={12}>
             <FormTextField type="text" name="bankIdCode" label="bankaccounts:bankIdCode" />
           </Grid>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <FormTextField type="text" name="fingerprint" label="bankaccounts:fingerprint" />
-          </Grid>
+          </Grid> */}
           <Grid item xs={6}>
             <SubmitButton fullWidth label="admin:cta.submit" loading={mutation.isLoading} />
           </Grid>
