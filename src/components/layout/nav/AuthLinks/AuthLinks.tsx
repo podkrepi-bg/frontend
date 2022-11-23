@@ -6,9 +6,8 @@ import { useSession } from 'next-auth/react'
 import { Grid, Button } from '@mui/material'
 import { isAdmin } from 'common/util/roles'
 import { routes } from 'common/routes'
-import LinkButton from 'components/common/LinkButton'
 
-import { AuthLink, AuthLinksWrapper, SlashSymbol } from './AuthLinks.styled'
+import { AuthLink, AuthLinksWrapper, ProfileLogOut, SlashSymbol } from './AuthLinks.styled'
 
 export const AuthLinks = () => {
   const { t } = useTranslation()
@@ -19,9 +18,9 @@ export const AuthLinks = () => {
     return (
       <>
         <Grid item>
-          <LinkButton fullWidth href={routes.profile.index}>
+          <ProfileLogOut fullWidth href={routes.profile.index}>
             {t('nav.profile')}
-          </LinkButton>
+          </ProfileLogOut>
         </Grid>
         {status === 'authenticated' && isAdmin(session) && (
           <Grid item>
@@ -31,9 +30,9 @@ export const AuthLinks = () => {
           </Grid>
         )}
         <Grid item>
-          <LinkButton fullWidth href={routes.logout}>
+          <ProfileLogOut fullWidth href={routes.logout}>
             {t('nav.logout')}
-          </LinkButton>
+          </ProfileLogOut>
         </Grid>
       </>
     )

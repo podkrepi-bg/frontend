@@ -20,3 +20,13 @@ export const SlashSymbol = styled('span')(() => ({
   display: 'flex',
   alignItems: 'center',
 }))
+
+export const ProfileLogOut = styled(LinkButton)(() => ({
+  justifyContent: 'left',
+  fontWeight: 500,
+  minHeight: theme.spacing(8),
+  padding: theme.spacing(0, 2),
+  borderTop: '2px solid lightgrey',
+  borderRadius: 0,
+  color: theme.palette.common.black,
+}))
