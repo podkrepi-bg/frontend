@@ -18,13 +18,11 @@ export default function MyDonatedToCampaignTable() {
   const { t, i18n } = useTranslation()
   const locale = i18n.language == 'bg' ? bg : enUS
   const { data = [] } = useUserDonationsCampaigns()
-  console.log(data)
   const commonProps: Partial<GridColDef> = {
     align: 'left',
     width: 100,
     headerAlign: 'left',
   }
-  console.log(data)
   const columns: GridColumns = [
     {
       field: 'state',

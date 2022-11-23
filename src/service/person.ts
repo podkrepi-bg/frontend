@@ -3,7 +3,7 @@ import { useSession } from 'next-auth/react'
 import { endpoints } from './apiEndpoints'
 import { AdminPersonFormData, AdminPersonResponse, PersonResponse } from 'gql/person'
 import { authConfig, authQueryFnFactory } from './restRequests'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 import { apiClient } from './apiClient'
 import { AxiosResponse } from 'axios'
 
@@ -11,7 +11,7 @@ export const usePeopleList = () => {
   const { data: session } = useSession()
 
   return useQuery(
-    endpoints.person.list.url,
+    [endpoints.person.list.url],
     authQueryFnFactory<PersonResponse[]>(session?.accessToken),
   )
 }
@@ -20,7 +20,7 @@ export const useViewPerson = (id: string) => {
   const { data: session } = useSession()
 
   return useQuery(
-    endpoints.person.viewPerson(id).url,
+    [endpoints.person.viewPerson(id).url],
     authQueryFnFactory<PersonResponse>(session?.accessToken),
   )
 }

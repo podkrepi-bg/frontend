@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/react'
-import { QueryClient, useQuery } from 'react-query'
-
+import { QueryClient, QueryFunction, useQuery } from '@tanstack/react-query'
+import { shuffle } from 'lodash'
 import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
 import {
@@ -11,15 +11,22 @@ import {
   CampaignDonationHistoryResponse,
 } from 'gql/campaigns'
 import { DonationStatus } from 'gql/donations.enums'
+import { apiClient } from 'service/apiClient'
+
+// NOTE: shuffling the campaigns so that each gets its fair chance to be on top row
+const shuffleQueryFn: QueryFunction<CampaignResponse[]> = async ({ queryKey }) => {
+  const response = await apiClient.get(queryKey.join('/'))
+  return shuffle<CampaignResponse>(response.data)
+}
 
 export function useCampaignList() {
-  return useQuery<CampaignResponse[]>(endpoints.campaign.listCampaigns.url)
+  return useQuery<CampaignResponse[]>([endpoints.campaign.listCampaigns.url], shuffleQueryFn)
 }
 
 export function useCampaignAdminList() {
   const { data: session } = useSession()
   return useQuery<AdminCampaignResponse[]>(
-    endpoints.campaign.listAdminCampaigns.url,
+    [endpoints.campaign.listAdminCampaigns.url],
     authQueryFnFactory<AdminCampaignResponse[]>(session?.accessToken),
   )
 }
@@ -27,37 +34,37 @@ export function useCampaignAdminList() {
 export const useGetUserCampaigns = () => {
   const { data: session } = useSession()
   return useQuery<AdminCampaignResponse[]>(
-    endpoints.campaign.getUserCamapaigns.url,
+    [endpoints.campaign.getUserCamapaigns.url],
     authQueryFnFactory<AdminCampaignResponse[]>(session?.accessToken),
   )
 }
 
 export function useUserDonationsCampaigns() {
   const { data: session } = useSession()
-  return useQuery<AdminCampaignResponse[]>(endpoints.campaign.getUserDonatedToCampaigns.url, {
+  return useQuery<AdminCampaignResponse[]>([endpoints.campaign.getUserDonatedToCampaigns.url], {
     queryFn: authQueryFnFactory(session?.accessToken),
   })
 }
 
 export function useCampaignTypesList() {
-  return useQuery<CampaignType[]>(endpoints.campaignTypes.listCampaignTypes.url)
+  return useQuery<CampaignType[]>([endpoints.campaignTypes.listCampaignTypes.url])
 }
 
 export function useViewCampaign(slug: string) {
-  return useQuery<{ campaign: CampaignResponse }>(endpoints.campaign.viewCampaign(slug).url)
+  return useQuery<{ campaign: CampaignResponse }>([endpoints.campaign.viewCampaign(slug).url])
 }
 
 export function useViewCampaignById(id: string) {
   const { data: session } = useSession()
   return useQuery<AdminSingleCampaignResponse>(
-    endpoints.campaign.viewCampaignById(id).url,
+    [endpoints.campaign.viewCampaignById(id).url],
     authQueryFnFactory<AdminSingleCampaignResponse>(session?.accessToken),
   )
 }
 
 export async function prefetchCampaignById(client: QueryClient, id: string, token?: string) {
   await client.prefetchQuery<AdminSingleCampaignResponse>(
-    endpoints.campaign.viewCampaignById(id).url,
+    [endpoints.campaign.viewCampaignById(id).url],
     authQueryFnFactory<AdminSingleCampaignResponse>(token),
   )
 }
@@ -65,7 +72,7 @@ export async function prefetchCampaignById(client: QueryClient, id: string, toke
 export function useCampaignDetailsPage(id: string) {
   const { data: session } = useSession()
   return useQuery<CampaignResponse>(
-    endpoints.campaign.viewCampaignById(id).url,
+    [endpoints.campaign.viewCampaignById(id).url],
     authQueryFnFactory<CampaignResponse>(session?.accessToken),
   )
 }
@@ -75,7 +82,7 @@ export function useCampaignDonationHistory(
   pageindex?: number,
   pagesize?: number,
 ) {
-  return useQuery<CampaignDonationHistoryResponse>(
+  return useQuery<CampaignDonationHistoryResponse>([
     endpoints.donation.getDonations(campaignId, DonationStatus.succeeded, pageindex, pagesize).url,
-  )
+  ])
 }

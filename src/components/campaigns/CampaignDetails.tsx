@@ -35,15 +35,13 @@ const classes = {
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.bannerWrapper}`]: {
-    '& span': {
-      position: 'inherit !important',
-    },
+    position: 'inherit !important',
   },
-
   [`& .${classes.banner}`]: {
     zIndex: -1,
-    minHeight: '504px !important',
+    maxHeight: '504px !important',
     marginTop: `${theme.spacing(10)} !important`,
+    objectFit: 'cover',
   },
 
   [`& .${classes.campaignTitle}`]: {
@@ -122,12 +120,13 @@ export default function CampaignDetails({ campaign }: Props) {
   return (
     <StyledGrid item xs={12} md={8}>
       <Grid className={classes.bannerWrapper}>
+        {/* A11Y TODO: Translate alt text or get the alt text based on the image */}
         <Image
           priority
           src={bannerSource}
           alt="Campaign banner image"
-          layout="fill"
-          objectFit="cover"
+          fill
+          sizes="100vw"
           className={classes.banner}
         />
       </Grid>

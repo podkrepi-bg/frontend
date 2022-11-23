@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import { Person, UpdateUserAccount } from 'gql/person'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { ApiErrors } from 'service/apiErrors'
 import { updateCurrentPersonPassword } from 'common/util/useCurrentPerson'
@@ -106,7 +106,7 @@ function UpdatePasswordModal({
 
       handleClose(updateUser.data)
     } catch (error) {
-      console.log('error', error)
+      console.error('error', error)
     } finally {
       setLoading(false)
     }
@@ -132,10 +132,18 @@ function UpdatePasswordModal({
               <PasswordField name={'previous-password'} label={'auth:account.previous-password'} />
             </Grid>
             <Grid item xs={12} sm={8}>
-              <PasswordField name={'password'} label={'auth:account.new-password'} />
+              <PasswordField
+                name="password"
+                label="auth:account.new-password"
+                autoComplete="new-password"
+              />
             </Grid>
             <Grid item xs={12} sm={8}>
-              <PasswordField name={'confirm-password'} label={'auth:account.confirm-password'} />
+              <PasswordField
+                name="confirm-password"
+                label="auth:account.confirm-password"
+                autoComplete="new-password"
+              />
             </Grid>
             <Grid item xs={6}>
               <SubmitButton fullWidth label="auth:cta.send" loading={loading} />

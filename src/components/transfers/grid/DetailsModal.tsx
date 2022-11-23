@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react'
-import { UseQueryResult } from 'react-query'
+import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 
 import { useTransfer } from 'common/hooks/transfers'
@@ -27,7 +27,7 @@ export default observer(function DetailsModal() {
       value: `${data?.approvedBy?.firstName || ''} ${data?.approvedBy?.lastName || ''}`,
     },
     { name: t('documentId'), value: data?.documentId || '' },
-    { name: t('targetDate'), value: data?.targetDate || '' },
+    { name: t('targetDate'), value: data?.targetDate?.toLocaleString() || '' },
     { name: t('sourceCampaign'), value: data?.sourceCampaign?.title },
     { name: t('sourceVault'), value: data?.sourceVault?.name },
     { name: t('targetCampaign'), value: data?.targetCampaign?.title },

@@ -1,5 +1,5 @@
 import React from 'react'
-import { UseQueryResult } from 'react-query'
+import { UseQueryResult } from '@tanstack/react-query'
 import { GridColumns, DataGrid, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { CoordinatorResponse } from 'gql/coordinators'

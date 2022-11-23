@@ -20,11 +20,12 @@ export default function WantToHelpPodkrepiBgSection() {
       <Box textAlign="center">
         <InfoText>{t('join-podkrepi-bg-section.text')}</InfoText>
         <Box>
+          {/* A11Y TODO: Translate alt text */}
           <Image
             alt="Discord team image"
             src={discordTeamImagePath}
-            width="1189px"
-            height="789px"
+            width={1189}
+            height={789}
             priority
           />
         </Box>

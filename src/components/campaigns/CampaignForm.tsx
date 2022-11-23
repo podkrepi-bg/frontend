@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import * as yup from 'yup'
 import { useRouter } from 'next/router'
 import { FormikHelpers } from 'formik'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { format, parse, isDate } from 'date-fns'
 import { AxiosError, AxiosResponse } from 'axios'
@@ -229,7 +229,6 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
                 label={t('campaigns:campaign.coordinator.add')}
                 onSubmit={async (values: PersonFormData) => {
                   setCoordinator(values)
-                  console.log('new coordinator', { values })
                 }}
               />
             )}
@@ -246,7 +245,6 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
                 label={t('campaigns:campaign.beneficiary.add')}
                 onSubmit={async (values: PersonFormData) => {
                   setBeneficiary(values)
-                  console.log('new beneficiary', { values })
                 }}
               />
             )}

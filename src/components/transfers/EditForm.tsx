@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { Box, Button, Grid, Typography } from '@mui/material'
 
@@ -85,7 +85,7 @@ export default function EditForm({ transfer, campaigns, id }: Props) {
     onError: () => AlertStore.show(t('alerts:error'), 'error'),
     onSuccess: () => {
       AlertStore.show(t('alerts:create'), 'success')
-      queryClient.invalidateQueries(endpoints.transfer.viewTransfer(id).url)
+      queryClient.invalidateQueries([endpoints.transfer.viewTransfer(id).url])
       router.push(routes.admin.transfer.index)
     },
   })

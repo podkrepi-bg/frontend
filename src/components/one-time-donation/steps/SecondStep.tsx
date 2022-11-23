@@ -1,6 +1,8 @@
 import { TabContext, TabList } from '@mui/lab'
 import TabPanel from '@mui/lab/TabPanel'
 import { Box, Tab, Typography, useMediaQuery } from '@mui/material'
+import { useFormikContext } from 'formik'
+import { OneTimeDonation } from 'gql/donations'
 import { useSession } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
 import React, { useState } from 'react'
@@ -9,15 +11,25 @@ import LoggedUserDialog from '../LoggedUserDialog'
 import LoginForm from '../LoginForm'
 import RegisterForm from '../RegisterDialog'
 
+enum Tabs {
+  Login = '1',
+  Register = '2',
+  Anonymous = '3',
+}
 export default function SecondStep() {
   const { t } = useTranslation('one-time-donation')
   const mobile = useMediaQuery('(max-width:575px)')
   const { data: session } = useSession()
 
   const [value, setValue] = useState('1')
-
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue)
+  const formik = useFormikContext<OneTimeDonation>()
+  const handleChange = (event: React.SyntheticEvent, newTab: string) => {
+    if (newTab === Tabs.Anonymous) {
+      formik.setFieldValue('isAnonymous', true)
+    } else {
+      formik.setFieldValue('isAnonymous', false)
+    }
+    setValue(newTab)
   }
 
   return (

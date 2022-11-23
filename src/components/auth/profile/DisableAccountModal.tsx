@@ -1,7 +1,7 @@
 import { Modal, Box, Typography, Button, Grid, IconButton } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { Person, UpdatePerson, UpdateUserAccount } from 'gql/person'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { ApiErrors } from 'service/apiErrors'
 import { disableCurrentPerson } from 'common/util/useCurrentPerson'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useMutation, useQueryClient, UseQueryResult } from 'react-query'
+import { useMutation, useQueryClient, UseQueryResult } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
@@ -91,9 +91,9 @@ export default function EditForm() {
     onError: () => AlertStore.show(t('recurring-donation:alerts:error'), 'error'),
     onSuccess: () => {
       if (id)
-        queryClient.invalidateQueries(
+        queryClient.invalidateQueries([
           endpoints.recurringDonation.getRecurringDonation(String(id)).url,
-        )
+        ])
       AlertStore.show(
         id ? t('recurring-donation:alerts:edit') : t('recurring-donation:alerts:create'),
         'success',

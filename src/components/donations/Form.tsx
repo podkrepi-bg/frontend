@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useMutation, UseQueryResult } from 'react-query'
+import { useMutation, UseQueryResult } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
@@ -158,7 +158,6 @@ export default function EditForm() {
                 value={initialValues.status}
                 onChange={(e) => {
                   setStatus(e.target.value)
-                  console.log(e.target.value)
                 }}>
                 {validDonationStatuses.map((stat) => {
                   return (

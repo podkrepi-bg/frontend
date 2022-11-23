@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { observer } from 'mobx-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useTranslation } from 'next-i18next'
@@ -24,7 +24,7 @@ export default observer(function DeleteModal() {
       mutationFn,
       onError: () => AlertStore.show(t('alerts.delete-row.error'), 'error'),
       onSuccess: () => {
-        queryClient.invalidateQueries(endpoints.expenses.listExpenses.url)
+        queryClient.invalidateQueries([endpoints.expenses.listExpenses.url])
         hideDelete()
         AlertStore.show(t('alerts.delete-row.success'), 'success')
       },

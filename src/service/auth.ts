@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { JWT } from 'next-auth/jwt'
 
 import { apiClient } from 'service/apiClient'
@@ -90,13 +90,12 @@ export const register = async (data: RegisterInput) => {
 
 export function useRegister() {
   return useMutation<AxiosResponse<RegisterResponse>, unknown, RegisterInput>(
-    endpoints.auth.register.url,
+    [endpoints.auth.register.url],
     { mutationFn: register },
   )
 }
 
 export async function refreshAccessToken(token: string): Promise<JWT> {
-  console.log('Refreshing token: ' + token)
   try {
     const response = await apiClient.post<AuthResponse>(
       endpoints.auth.refresh.url,
@@ -112,7 +111,6 @@ export async function refreshAccessToken(token: string): Promise<JWT> {
     }
 
     const authRes = response.data
-    console.log('refreshed')
     return {
       ...authRes,
       user: jwtDecode<ServerUser>(authRes.accessToken),
@@ -120,7 +118,7 @@ export async function refreshAccessToken(token: string): Promise<JWT> {
       accessTokenExpires: Date.now() + authRes.expires * 1000 - 10000,
     }
   } catch (error) {
-    console.log("Couldn't refresh token. Error: ", error)
+    console.warn("Couldn't refresh token. Error: ", error)
     throw new Error('RefreshAccessTokenError')
   }
 }

@@ -20,9 +20,9 @@ export default function PasswordField({
   return (
     <FormTextField
       name={name}
+      autoComplete="current-password"
       {...props}
       type={showPassword ? 'text' : 'password'}
-      autoComplete="current-password"
       label={t(label)}
       InputProps={{
         endAdornment: (

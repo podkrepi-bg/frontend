@@ -63,9 +63,8 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
       setLoading(false)
     }
   }
-  const onGoogleLogin = () => {
-    const resp = signIn('google')
-  }
+  const onGoogleLogin = () => signIn('google')
+
   return (
     <GenericForm
       onSubmit={onSubmit}
@@ -88,7 +87,7 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
           <SubmitButton fullWidth label="auth:cta.login" loading={loading} />
         </Grid>
         <Grid item xs={12}>
-          <Button fullWidth onClick={onGoogleLogin}>
+          <Button variant="outlined" fullWidth onClick={onGoogleLogin}>
             <Google /> {t('nav.login-with')} Google
           </Button>
         </Grid>

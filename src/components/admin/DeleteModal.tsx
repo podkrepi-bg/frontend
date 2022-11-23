@@ -1,5 +1,5 @@
 import React from 'react'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { observer } from 'mobx-react'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useTranslation } from 'next-i18next'
@@ -31,7 +31,7 @@ export default observer(function DeleteModal({
     onSuccess: () => {
       hideDelete()
       AlertStore.show(t('alerts.delete'), 'warning')
-      queryClient.invalidateQueries(endpoint)
+      queryClient.invalidateQueries([endpoint])
     },
   })
 
