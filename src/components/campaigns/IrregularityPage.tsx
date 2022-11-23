@@ -13,10 +13,10 @@ type Props = { slug: string }
 
 export default function IrregularityPage({ slug }: Props) {
   const { data } = useViewCampaign(slug)
+  const { data: userData } = useCurrentPerson()
   if (!data || !data.campaign) return <NotFoundPage />
   const { campaign } = data
 
-  const { data: userData } = useCurrentPerson()
   const person = userData?.user || undefined
 
   return (

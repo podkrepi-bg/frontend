@@ -1,5 +1,5 @@
 import React from 'react'
-import { UseQueryResult } from 'react-query'
+import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { GridColumns, DataGrid, GridRenderCellParams } from '@mui/x-data-grid'
 import { observer } from 'mobx-react'

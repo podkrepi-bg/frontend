@@ -36,8 +36,14 @@ const moduleExports = {
       CAMPAIGN: process.env.FEATURE_CAMPAIGN ?? false,
     },
   },
+  sentry: {
+    hideSourceMaps: true,
+  },
   images: {
-    domains: [process.env.IMAGE_HOST ?? 'localhost'],
+    domains: [
+      process.env.IMAGE_HOST ?? 'localhost',
+      process.env.GHOST_API_URL?.replace('https://', '') || 'blog.podkrepi.bg',
+    ],
   },
   async redirects() {
     return [

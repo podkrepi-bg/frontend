@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 
 import { apiClient } from 'service/apiClient'
@@ -18,7 +18,7 @@ type CurrentPerson = {
 export function getCurrentPerson(isNew = false) {
   const { data: session } = useSession()
   return useQuery<CurrentPerson>(
-    isNew ? endpoints.account.new.url : endpoints.account.me.url,
+    [isNew ? endpoints.account.new.url : endpoints.account.me.url],
     authQueryFnFactory<CurrentPerson>(session?.accessToken),
   )
 }
@@ -26,7 +26,7 @@ export function getCurrentPerson(isNew = false) {
 export function useCurrentPerson() {
   const { data: session } = useSession()
   return useQuery<CurrentPerson>(
-    endpoints.account.me.url,
+    [endpoints.account.me.url],
     authQueryFnFactory<CurrentPerson>(session?.accessToken),
   )
 }

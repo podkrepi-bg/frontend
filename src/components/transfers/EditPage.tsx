@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { Container } from '@mui/material'
-import { UseQueryResult } from 'react-query'
+import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 
 import { TransferResponse } from 'gql/transfer'

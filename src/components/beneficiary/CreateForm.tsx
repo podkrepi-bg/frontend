@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
@@ -84,7 +84,7 @@ export default function CreateForm() {
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => {
       AlertStore.show(t('common:alerts.success'), 'success')
-      queryClient.invalidateQueries(endpoints.beneficiary.listBeneficiary.url)
+      queryClient.invalidateQueries([endpoints.beneficiary.listBeneficiary.url])
       router.push(routes.admin.beneficiary.index)
     },
   })

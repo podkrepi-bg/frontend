@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { Button, Grid, List, ListItemText, Typography } from '@mui/material'
 import makeStyles from '@mui/styles/makeStyles'
@@ -138,7 +138,7 @@ export default function EditForm({ campaigns, irregularity, irregularityFiles }:
         irregularityId: irregularity.id,
       })
       AlertStore.show(t('common:alerts.message-sent'), 'success')
-      queryClient.invalidateQueries(endpoints.irregularity.viewIrregularity(irregularity.id).url)
+      queryClient.invalidateQueries([endpoints.irregularity.viewIrregularity(irregularity.id).url])
       router.push(routes.admin.irregularity.index)
     } catch (error) {
       AlertStore.show(t('common:alerts.error'), 'error')

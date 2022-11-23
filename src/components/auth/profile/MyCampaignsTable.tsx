@@ -1,4 +1,3 @@
-import { bg, enUS } from 'date-fns/locale'
 import { useTranslation } from 'next-i18next'
 import { useState, useMemo } from 'react'
 import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
@@ -32,7 +31,6 @@ const classes = {
 
 export default function MyCampaingsTable() {
   const { t, i18n } = useTranslation()
-  const locale = i18n.language == 'bg' ? bg : enUS
   const [viewId, setViewId] = useState<string | undefined>()
   const { data: campaigns = [] } = useGetUserCampaigns()
   const selectedCampaign = useMemo(
@@ -179,7 +177,9 @@ export default function MyCampaingsTable() {
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.startDate)}>
-          <Button color="inherit">{getRelativeDate(cellValues.row.startDate, locale)}</Button>
+          <Button color="inherit">
+            {getRelativeDate(cellValues.row.startDate, i18n.language)}
+          </Button>
         </Tooltip>
       ),
     },
@@ -191,7 +191,7 @@ export default function MyCampaingsTable() {
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.endDate)}>
-          <Button color="inherit">{getRelativeDate(cellValues.row.endDate, locale)}</Button>
+          <Button color="inherit">{getRelativeDate(cellValues.row.endDate, i18n.language)}</Button>
         </Tooltip>
       ),
     },
@@ -203,7 +203,9 @@ export default function MyCampaingsTable() {
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.createdAt)}>
-          <Button color="inherit">{getRelativeDate(cellValues.row.createdAt, locale)}</Button>
+          <Button color="inherit">
+            {getRelativeDate(cellValues.row.createdAt, i18n.language)}
+          </Button>
         </Tooltip>
       ),
     },
@@ -215,7 +217,9 @@ export default function MyCampaingsTable() {
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.updatedAt)}>
-          <Button color="inherit">{getRelativeDate(cellValues.row.updatedAt, locale)}</Button>
+          <Button color="inherit">
+            {getRelativeDate(cellValues.row.updatedAt, i18n.language)}
+          </Button>
         </Tooltip>
       ),
     },

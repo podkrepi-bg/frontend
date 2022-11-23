@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { UseQueryResult } from 'react-query'
+import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { Box, Tooltip } from '@mui/material'
 import { Edit } from '@mui/icons-material'

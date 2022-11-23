@@ -51,13 +51,13 @@ jobs:
         working-directory: ./frontend
         run: yarn
 
-      - name: Build frontend
-        working-directory: ./frontend
-        run: yarn run next build
-
       - name: Setup env
         working-directory: ./frontend
         run: cp .env.local.example .env.local
+
+      - name: Build frontend
+        working-directory: ./frontend
+        run: yarn run next build
 
       - name: Wait on backend
         uses: iFaxity/wait-on-action@v1

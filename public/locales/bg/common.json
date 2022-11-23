@@ -38,7 +38,8 @@
     "logout": "Изход",
     "register": "Регистрация",
     "changePassword": "Смяна на парола",
-    "forgottenPassword": "Забравена парола?"
+    "forgottenPassword": "Забравена парола?",
+    "go-back": "Назад"
   },
   "meta": {
     "title": "Подкрепи.бг"

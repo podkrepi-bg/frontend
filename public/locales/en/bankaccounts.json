@@ -3,13 +3,26 @@
     "add": "Add new account",
     "edit": "Edit account"
   },
-  "status": "Status",
-  "ibanNumber": "IBAN",
-  "accountHolderName": "Account holder name",
-  "AccountHolderType": "Account holder type",
-  "bankName": "Bank name",
-  "bankIdCode": "BIC/SWIFT",
-  "fingerprint": "E-Sign",
+  "fields": {
+    "status": "Status",
+    "ibanNumber": "IBAN",
+    "accountHolderName": "Account holder name",
+    "AccountHolderType": "Account holder type",
+    "bankName": "Bank name",
+    "bankIdCode": "BIC/SWIFT",
+    "fingerprint": "E-Sign"
+  },
+  "status": {
+    "new": "New",
+    "validated": "Validated",
+    "verified": "Verified",
+    "verification_failed": "Verification Failed",
+    "errored": "Errored"
+  },
+  "accountHolderType": {
+    "individual": "Individual",
+    "company": "Company"
+  },
   "withdrawals": "Withdrawals",
   "actions": "Actions",
   "alerts": {

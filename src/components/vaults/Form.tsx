@@ -1,5 +1,5 @@
 import React from 'react'
-import { useMutation, useQueryClient, UseQueryResult } from 'react-query'
+import { useMutation, useQueryClient, UseQueryResult } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
@@ -61,7 +61,7 @@ export default function EditForm() {
     mutationFn,
     onError: () => AlertStore.show(t('vaults:alerts:error'), 'error'),
     onSuccess: () => {
-      if (id) queryClient.invalidateQueries(endpoints.vaults.getVault(String(id)).url)
+      if (id) queryClient.invalidateQueries([endpoints.vaults.getVault(String(id)).url])
       AlertStore.show(id ? t('vaults:alerts:edit') : t('vaults:alerts:create'), 'success')
       router.push(routes.admin.vaults.index)
     },

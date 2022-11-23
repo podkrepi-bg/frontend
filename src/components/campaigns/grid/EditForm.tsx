@@ -3,7 +3,7 @@ import { FormikHelpers } from 'formik'
 import { useRouter } from 'next/router'
 import React, { useMemo, useState } from 'react'
 import { parse, isDate, format } from 'date-fns'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import NextLink from 'next/link'
@@ -140,7 +140,7 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
     onSuccess: () => {
       AlertStore.show(t('common:alerts.message-sent'), 'success')
       //invalidate query for getting new values
-      queryClient.invalidateQueries(endpoints.campaign.viewCampaignById(campaign.id).url)
+      queryClient.invalidateQueries([endpoints.campaign.viewCampaignById(campaign.id).url])
     },
   })
 
@@ -153,7 +153,7 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => {
       //invalidate query for getting new values
-      queryClient.invalidateQueries(endpoints.campaign.viewCampaignById(campaign.id).url)
+      queryClient.invalidateQueries([endpoints.campaign.viewCampaignById(campaign.id).url])
     },
   })
 
@@ -188,7 +188,7 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
       }
 
       //Go back to campaign list
-      queryClient.invalidateQueries(endpoints.campaign.listAdminCampaigns.url)
+      queryClient.invalidateQueries([endpoints.campaign.listAdminCampaigns.url])
       router.push(routes.admin.campaigns.index)
     } catch (error) {
       console.error(error)

@@ -1,7 +1,7 @@
 import { TabContext, TabPanel } from '@mui/lab'
 import { Stack } from '@mui/material'
 import { useTranslation } from 'next-i18next'
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 import Layout from 'components/layout/Layout'
 
@@ -30,24 +30,45 @@ const FAQ_PAGE_QUESTIONS: Record<string, ContentType[]> = {
   [FaqCategory.CorporatePartnership]: PARTNERSHIPS_QUESTIONS,
 }
 
-export default function FaqPage({ section }: { section: FaqCategory }) {
+type Props = {
+  section: FaqCategory
+}
+
+export default function FaqPage({ section }: Props) {
   const { t } = useTranslation()
-  const [value, setValue] = useState(section)
   const [searchKeyword, setSearchKeyword] = useState('')
 
-  const faqQuestionsData = filterFaqQuestions(FAQ_PAGE_QUESTIONS, searchKeyword)
-  const faqCategories = Object.keys(faqQuestionsData) as FaqCategory[]
+  const faqQuestionsData = useMemo(
+    () => filterFaqQuestions(FAQ_PAGE_QUESTIONS, searchKeyword),
+    [searchKeyword],
+  )
+  const faqCategories = useMemo(
+    () => Object.keys(faqQuestionsData) as FaqCategory[],
+    [faqQuestionsData],
+  )
+
+  // Always keep a selected category in the Tabs panel (useful when filtering)
+  const selectedFaqCategory = useMemo(() => {
+    if (faqCategories.length > 0 && !faqCategories.includes(section)) {
+      return faqCategories[0]
+    }
+
+    return section
+  }, [faqCategories, section])
 
   return (
     <Layout title={t('nav.campaigns.faq')}>
       {/* <FaqIntro /> */}
       <FaqSearch onChange={setSearchKeyword} />
-      <TabContext value={value}>
+      <TabContext value={selectedFaqCategory}>
         <Stack direction={{ xs: 'column', md: 'row' }}>
-          <VerticalTabs faqCategories={faqCategories} setSelectedFaqCategory={setValue} />
+          <VerticalTabs
+            faqCategories={faqCategories}
+            // setSelectedFaqCategory={setSelectedFaqCategory}
+          />
           {faqCategories.map((categoryKey) => {
             return (
-              <TabPanel key={categoryKey} value={categoryKey} sx={{ p: 0 }}>
+              <TabPanel key={categoryKey} value={categoryKey} sx={{ p: 0, flex: 4 }}>
                 {faqQuestionsData[categoryKey]
                   .filter(filterFaqQuestionByVisibility)
                   .filter((question) => filterFaqQuestionBySearchKeyword(question, searchKeyword))
