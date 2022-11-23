@@ -10,7 +10,7 @@ import Snackbar from 'components/layout/Snackbar'
 import DetailsModal from 'components/modal/DetailsModal'
 
 import AppNavBar from './AppNavBar'
-import MobileNav from './nav/MobileNav'
+import MobileNav from './nav/MobileNav/MobileNav'
 
 const createPageTitle = (suffix: string, title?: string) => {
   if (title) {
