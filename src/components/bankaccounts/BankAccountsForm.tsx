@@ -18,7 +18,8 @@ import { ApiErrors } from 'service/apiErrors'
 import { routes } from 'common/routes'
 
 import { AccountHolderType, BankAccountStatus } from './BankAccountTypes'
-import FormSelectField from 'components/common/form/FormSelectField'
+import BankAccountStatusSelect from './BankAccountStatusSelect'
+import AccountHolderSelect from './AccountHolderSelect'
 
 export const validationSchemaBankAccForm: yup.SchemaOf<BankAccountsData> = yup
   .object()
@@ -83,17 +84,7 @@ export default function BankAccountsForm() {
         validationSchema={validationSchemaBankAccForm}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <FormSelectField
-              label="bankaccounts:fields.status"
-              name="status"
-              options={Object.keys(BankAccountStatus).map((key: string) => {
-                return {
-                  key,
-                  value: BankAccountStatus[key as BankAccountStatus],
-                  name: t(`bankaccounts:status.${key}`),
-                }
-              })}
-            />
+            <BankAccountStatusSelect />
           </Grid>
           <Grid item xs={12}>
             <FormTextField type="text" name="ibanNumber" label="bankaccounts:fields.ibanNumber" />
@@ -106,17 +97,7 @@ export default function BankAccountsForm() {
             />
           </Grid>
           <Grid item xs={12}>
-            <FormSelectField
-              name="accountHolderType"
-              label="bankaccounts:fields.accountHolderType"
-              options={Object.keys(AccountHolderType).map((key: string) => {
-                return {
-                  key,
-                  value: AccountHolderType[key as AccountHolderType],
-                  name: t(`bankaccounts:accountHolderType.${key}`),
-                }
-              })}
-            />
+            <AccountHolderSelect />
           </Grid>
           <Grid item xs={12}>
             <FormTextField type="text" name="bankName" label="bankaccounts:fields.bankName" />

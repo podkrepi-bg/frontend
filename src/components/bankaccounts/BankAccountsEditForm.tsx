@@ -13,10 +13,10 @@ import GenericForm from 'components/common/form/GenericForm'
 import { useViewBankAccount } from 'common/hooks/bankaccounts'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
-import { AccountHolderType, BankAccountStatus } from './BankAccountTypes'
-import FormSelectField from 'components/common/form/FormSelectField'
 import LinkButton from 'components/common/LinkButton'
 import { BankAccountInput, BankAccountResponse } from 'gql/bankaccounts'
+import BankAccountStatusSelect from './BankAccountStatusSelect'
+import AccountHolderSelect from './AccountHolderSelect'
 
 import { validationSchemaBankAccForm } from './BankAccountsForm'
 
@@ -75,17 +75,7 @@ export default function BankAccountsEditForm({ id }: Props) {
         validationSchema={validationSchemaBankAccForm}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <FormSelectField
-              label="bankaccounts:fields.status"
-              name="status"
-              options={Object.keys(BankAccountStatus).map((key: string) => {
-                return {
-                  key,
-                  value: BankAccountStatus[key as BankAccountStatus],
-                  name: t(`bankaccounts:status.${key}`),
-                }
-              })}
-            />
+            <BankAccountStatusSelect />
           </Grid>
           <Grid item xs={12}>
             <FormTextField type="text" name="ibanNumber" label="bankaccounts:fields.ibanNumber" />
@@ -98,17 +88,7 @@ export default function BankAccountsEditForm({ id }: Props) {
             />
           </Grid>
           <Grid item xs={12}>
-            <FormSelectField
-              name="accountHolderType"
-              label="bankaccounts:fields.accountHolderType"
-              options={Object.keys(AccountHolderType).map((key: string) => {
-                return {
-                  key,
-                  value: AccountHolderType[key as AccountHolderType],
-                  name: t(`bankaccounts:accountHolderType.${key}`),
-                }
-              })}
-            />
+            <AccountHolderSelect />
           </Grid>
           <Grid item xs={12}>
             <FormTextField type="text" name="bankName" label="bankaccounts:fields.bankName" />
