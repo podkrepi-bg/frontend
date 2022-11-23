@@ -1,3 +1,4 @@
+import { Box } from '@mui/material'
 import Image, { ImageProps } from 'next/image'
 import { PropsWithChildren } from 'react'
 
@@ -47,5 +48,14 @@ export default function FeaturedImage({
 }
 
 const ImageWrapper = ({ height, children }: PropsWithChildren<{ height: string }>) => (
-  <div style={{ position: 'relative', width: '100%', height }}>{children}</div>
+  <Box
+    sx={{
+      position: 'relative',
+      width: '100%',
+      height,
+      borderRadius: 4,
+      overflow: 'hidden',
+    }}>
+    {children}
+  </Box>
 )
