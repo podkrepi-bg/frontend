@@ -1,15 +1,21 @@
 import * as React from 'react'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 import { CircularProgress } from '@mui/material'
 import { AxiosError } from 'axios'
 import { FormikHelpers } from 'formik'
+
+import { CardRegion } from 'gql/donations.enums'
+import { OneTimeDonation, DonationStep as StepType } from 'gql/donations'
+import { createDonationWish } from 'service/donationWish'
+import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
+import { useCurrentPerson } from 'common/util/useCurrentPerson'
+import CenteredSpinner from 'components/common/CenteredSpinner'
 import { useDonationSession } from 'common/hooks/donation'
 import { useViewCampaign } from 'common/hooks/campaigns'
 import { baseUrl, routes } from 'common/routes'
-import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
-import { OneTimeDonation, DonationStep as StepType } from 'gql/donations'
-import NotFoundPage from 'pages/404'
+
 import FirstStep from './steps/FirstStep'
 import SecondStep from './steps/SecondStep'
 import ThirdStep from './steps/ThirdStep'
@@ -18,10 +24,6 @@ import Fail from './steps/Fail'
 import { FormikStep, FormikStepper } from './FormikStepper'
 import { validateFirst, validateSecond, validateThird } from './helpers/validation-schema'
 import { StepsContext } from './helpers/stepperContext'
-import { useSession } from 'next-auth/react'
-import { CardRegion } from 'gql/donations.enums'
-import { createDonationWish } from 'service/donationWish'
-import { useCurrentPerson } from 'common/util/useCurrentPerson'
 
 const initialValues: OneTimeDonation = {
   message: '',
@@ -57,7 +59,7 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
   const mutation = useDonationSession()
   const { data: session } = useSession()
   const { data: { user: person } = { user: null } } = useCurrentPerson()
-  if (!data || !data.campaign) return <NotFoundPage />
+  if (isLoading || !data) return <CenteredSpinner size="2rem" />
   const { campaign } = data
 
   const userEmail = session?.user?.email
