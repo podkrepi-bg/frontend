@@ -83,7 +83,7 @@ export default function BankAccountsEditForm({ id }: Props) {
                 return {
                   key,
                   value: BankAccountStatus[key as BankAccountStatus],
-                  name: `bankaccounts:status.${key}`,
+                  name: t(`bankaccounts:status.${key}`),
                 }
               })}
             />
@@ -106,7 +106,7 @@ export default function BankAccountsEditForm({ id }: Props) {
                 return {
                   key,
                   value: AccountHolderType[key as AccountHolderType],
-                  name: `bankaccounts:accountHolderType.${key}`,
+                  name: t(`bankaccounts:accountHolderType.${key}`),
                 }
               })}
             />
