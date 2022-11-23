@@ -1,32 +1,32 @@
 import React from 'react'
+
 import { useTranslation } from 'next-i18next'
+
 import { Container, Typography } from '@mui/material'
+import FileDownloadIcon from '@mui/icons-material/FileDownload'
 
 import Layout from 'components/layout/Layout'
-import FileDownloadIcon from '@mui/icons-material/FileDownload'
 import LinkButton from 'components/common/LinkButton'
 
 export default function FinanceReportPage() {
-  const { t } = useTranslation()
+  const { t } = useTranslation('about-project')
 
   return (
-    <Layout
-      title={t('about-project:financeReport')}
-      metaDescription={t('about-project:financeReport')}>
+    <Layout title={t('finance-report-page.financeReport')} metaDescription={t('financeReport')}>
       <Container>
-        <Typography>Финансов репорт за 2021:</Typography>
+        <Typography>{t('finance-report-page.finance-report-2021')}</Typography>
         <LinkButton
           endIcon={<FileDownloadIcon />}
           href="/finance-reports/Podkrepi.bg_Financial_Report_2021.pdf">
-          Свалете от тук
+          {t('finance-report-page.download-from-here')}
         </LinkButton>
       </Container>
       <Container>
-        <Typography>Финансов репорт за 2022 Януари-Юни:</Typography>
+        <Typography>{t('finance-report-page.finance-report-2022')}</Typography>
         <LinkButton
           endIcon={<FileDownloadIcon />}
           href="/finance-reports/Podkrepi.bg_Financial_Report_062022.pdf">
-          Свалете от тук
+          {t('finance-report-page.download-from-here')}
         </LinkButton>
       </Container>
     </Layout>

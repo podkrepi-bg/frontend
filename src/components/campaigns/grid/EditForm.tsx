@@ -275,7 +275,7 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
             <p>
               Select a Beneficiery or{' '}
               <NextLink href={routes.admin.beneficiary.create} passHref>
-                <a>Create New</a>
+                Create New
               </NextLink>
             </p>
             <BeneficiarySelect />
@@ -284,7 +284,7 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
             <p>
               Select a Coordinator or{' '}
               <NextLink href={routes.admin.coordinators.add} passHref>
-                <a>Create New</a>
+                Create New
               </NextLink>
             </p>
             <CoordinatorSelect />
@@ -293,7 +293,7 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
             <p>
               Select an Organizer or{' '}
               <NextLink href={routes.admin.organizers.create} passHref>
-                <a>Create New</a>
+                Create New
               </NextLink>
             </p>
             <OrganizerSelect />

@@ -15,6 +15,7 @@ const moduleExports = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'src/styles')],
   },
+  swcMinify: true,
   env: {
     APP_ENV: process.env.APP_ENV,
     APP_VERSION: version,
@@ -38,7 +39,6 @@ const moduleExports = {
   images: {
     domains: [process.env.IMAGE_HOST ?? 'localhost'],
   },
-  swcMinify: true,
   async redirects() {
     return [
       {
@@ -55,6 +55,16 @@ const moduleExports = {
         destination: `${process.env.API_URL ?? 'http://localhost:5010/api/v1'}/:slug*`, // Proxy to API
       },
     ]
+  },
+  experimental: {
+    modularizeImports: {
+      '@mui/material': {
+        transform: '@mui/material/{{member}}',
+      },
+      '@mui/icons-material/?(((\\w*)?/?)*)': {
+        transform: '@mui/icons-material/{{ matches.[1] }}/{{member}}',
+      },
+    },
   },
 }
 

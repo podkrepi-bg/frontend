@@ -30,11 +30,12 @@ const StyledLayout = styled(Layout)(({ theme }) => ({
 
   [`& .${classes.banner}`]: {
     zIndex: -1,
-    minHeight: '350px !important',
+    maxHeight: '350px !important',
     marginTop: `${theme.spacing(10)} !important`,
     [theme.breakpoints.up('md')]: {
       marginTop: `${theme.spacing(14)} !important`,
     },
+    objectFit: 'cover',
   },
 
   [`& .${classes.beneficiaryAvatarWrapper}`]: {
@@ -84,11 +85,12 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
         m="0 auto"
         marginTop={theme.spacing(matches ? 20 : 25)}>
         <Box className={classes.bannerWrapper}>
+          {/* A11Y TODO: Translate alt text */}
           <Image
             src={bannerSource}
             alt="Campaign banner image"
-            layout="fill"
-            objectFit="cover"
+            sizes="100vw"
+            fill
             className={classes.banner}
           />
         </Box>
@@ -101,7 +103,8 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
           className={classes.beneficiaryAvatarWrapper}>
           <Image
             src={beneficiaryAvatarSource}
-            alt={campaign.title}
+            // A11Y TODO: Translate alt text
+            alt={`Image of ${campaign.beneficiary.person.firstName} ${campaign.beneficiary.person.lastName}`}
             width={250}
             height={250}
             className={classes.beneficiaryAvatar}

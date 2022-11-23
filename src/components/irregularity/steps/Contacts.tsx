@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 
-import { styled } from '@mui/system'
+import { styled } from '@mui/material/styles'
 import { Grid, Typography } from '@mui/material'
 
 import { routes } from 'common/routes'

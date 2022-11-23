@@ -25,7 +25,7 @@ import { useCurrentPerson } from 'common/util/useCurrentPerson'
 
 const initialValues: OneTimeDonation = {
   message: '',
-  isAnonymous: true,
+  isAnonymous: false,
   amount: '',
   amountWithFees: 0,
   cardIncludeFees: false,
@@ -64,7 +64,6 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
     return session && session.accessToken ? true : false
   }
 
-  initialValues.isAnonymous = !isLogged()
   const userEmail = session?.user?.email
 
   const donate = React.useCallback(
@@ -76,7 +75,7 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
         firstName: values?.personsFirstName ? values.personsFirstName : 'Anonymous',
         lastName: values?.personsLastName ? values.personsLastName : 'Donor',
         personEmail: values?.personsEmail ? values.personsEmail : userEmail,
-        isAnonymous: values?.isAnonymous ?? !isLogged(),
+        isAnonymous: values?.isAnonymous !== undefined ? values.isAnonymous : true,
         phone: values?.personsPhone ? values.personsPhone : null,
         successUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=true`,
         cancelUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=false`,

@@ -7,9 +7,9 @@ import {
   FormControlLabelProps,
   FormHelperText,
   Icon,
-  lighten,
   Typography,
 } from '@mui/material'
+import { lighten } from '@mui/material/styles'
 import { TranslatableField, translateError } from 'common/form/validation'
 import React from 'react'
 import CheckIcon from '@mui/icons-material/Check'
