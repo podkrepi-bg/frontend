@@ -48,7 +48,7 @@ export default function VaultSelect({
         {...textFieldProps}
         onChange={handleChange}>
         <MenuItem value="" disabled>
-          {t('fields.' + name)}
+          {t(label)}
         </MenuItem>
         {vaults?.map((value, index) => (
           <MenuItem key={index} value={value.id}>
