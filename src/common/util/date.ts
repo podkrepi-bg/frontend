@@ -1,25 +1,23 @@
 import { format, formatRelative, intervalToDuration, Locale } from 'date-fns'
+import { bg, enUS } from 'date-fns/locale'
 
 export const formatDate = 'dd MMM yyyy'
 export const formatDatetime = 'dd MMM yyyy HH:mm:ss'
 
-export const dateFormatter = (value: Date | string | number, locale?: Locale) => {
-  const date = new Date(value)
-  const exact = format(date, formatDatetime, { locale })
-  const relative = formatRelative(date, new Date(), { locale })
-  return `${exact} (${relative})`
-}
-
-export const formatDateString = (dateString: string | Date, locale?: string | undefined) => {
-  if (locale) {
-    return Intl.DateTimeFormat(locale.split('-')).format(new Date(dateString))
+export const formatDateString = (dateString: string | Date, language?: string) => {
+  if (language) {
+    return Intl.DateTimeFormat(language).format(new Date(dateString))
   }
   return new Date(dateString).toLocaleDateString()
 }
 
-export const getRelativeDate = (value: Date | string, locale?: Locale) => {
+const matchLocale = (language?: string): Locale => {
+  return language === 'en' ? enUS : bg
+}
+
+export const getRelativeDate = (value: Date | string, language: string) => {
   const date = new Date(value)
-  return formatRelative(date, new Date(), { locale })
+  return formatRelative(date, new Date(), { locale: matchLocale(language) })
 }
 
 /**

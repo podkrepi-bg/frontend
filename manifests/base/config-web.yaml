@@ -6,3 +6,5 @@ data:
   app-url: https://podkrepi.bg
   api-url: https://podkrepi.bg/api/v1
   image-host: podkrepi.bg
+  ghost-api-url: https://blog.podkrepi.bg
+  ghost-content-key: 86ec17c4b9660acd66b6034682

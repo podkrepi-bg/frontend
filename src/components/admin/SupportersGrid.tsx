@@ -3,7 +3,7 @@ import { Check, Clear } from '@mui/icons-material'
 import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { DialogStore } from 'stores/DialogStore'
-import { dateFormatter } from 'common/util/date'
+import { formatDateString } from 'common/util/date'
 import { useSupportRequestList } from 'common/hooks/supportRequest'
 
 const renderCell = (params: GridRenderCellParams) =>
@@ -37,7 +37,7 @@ const columns: GridColumns = [
   {
     field: 'createdAt',
     headerName: 'Date',
-    valueFormatter: (d) => typeof d.value === 'string' && dateFormatter(d.value),
+    valueFormatter: (d) => typeof d.value === 'string' && formatDateString(d.value),
     width: 200,
   },
   { ...commonProps, field: 'associationMember', headerName: 'Association member' },

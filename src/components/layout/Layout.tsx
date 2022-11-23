@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Script from 'next/script'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Box, BoxProps, Container, ContainerProps, Typography } from '@mui/material'
@@ -10,7 +11,6 @@ import DetailsModal from 'components/modal/DetailsModal'
 
 import AppNavBar from './AppNavBar'
 import MobileNav from './nav/MobileNav'
-import Script from 'next/script'
 
 const createPageTitle = (suffix: string, title?: string) => {
   if (title) {
@@ -29,6 +29,7 @@ type LayoutProps = React.PropsWithChildren<
     metaTitle?: string
     metaDescription?: string
     profilePage?: boolean
+    canonicalUrl?: string
   }
 >
 
@@ -39,13 +40,14 @@ export default function Layout({
   maxWidth = 'lg',
   disableOffset = false,
   hideFooter = false,
+  canonicalUrl,
   boxProps,
   metaTitle,
   metaDescription,
   profilePage = false,
   ...containerProps
 }: LayoutProps) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [mobileOpen, setMobileOpen] = useState(false)
   const navMenuToggle = () => setMobileOpen(!mobileOpen)
   const pageTitle = useMemo(
@@ -66,13 +68,27 @@ export default function Layout({
           <title>{pageTitle}</title>
           <meta name="description" content={metaDescription ?? pageTitle} />
           <meta name="og:description" content={metaDescription ?? pageTitle} />
+          {canonicalUrl && (
+            <>
+              <link rel="canonical" href={canonicalUrl} />
+              <meta property="og:url" content={canonicalUrl} />
+            </>
+          )}
           <meta property="og:type" content="article" />
-          <meta property="og:locale" content="bg_BG" />
+          <meta property="og:locale" content={i18n.language === 'bg' ? 'bg_BG' : 'en_US'} />
           {/* TODO: think of how to make campaign level localization */}
           <meta key="og:title" property="og:title" content={title} />
-          <meta key="og:image" property="og:image" content={ogImage ?? defaultOgImage} />
-          <meta key="og:image:width" property="og:image:width" content="1640" />
-          <meta key="og:image:height" property="og:image:height" content="624" />
+          <meta key="og:image" property="og:image" content={ogImage ?? defaultOgImage.src} />
+          {!ogImage && (
+            <meta key="og:image:width" property="og:image:width" content={defaultOgImage.width} />
+          )}
+          {!ogImage && (
+            <meta
+              key="og:image:height"
+              property="og:image:height"
+              content={defaultOgImage.height}
+            />
+          )}
         </Head>
         <Script async src="https://www.googleoptimize.com/optimize.js?id=OPT-W89QK8X" />
         <Box pt={4} pb={disableOffset ? 0 : 10} {...boxProps}>

@@ -1,4 +1,3 @@
-import { bg, enUS } from 'date-fns/locale'
 import { useTranslation } from 'next-i18next'
 import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 import { Tooltip, Button, Box } from '@mui/material'
@@ -16,7 +15,6 @@ import {
 
 export default function MyDonatedToCampaignTable() {
   const { t, i18n } = useTranslation()
-  const locale = i18n.language == 'bg' ? bg : enUS
   const { data = [] } = useUserDonationsCampaigns()
   const commonProps: Partial<GridColDef> = {
     align: 'left',
@@ -122,7 +120,9 @@ export default function MyDonatedToCampaignTable() {
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.startDate)}>
-          <Button color="inherit">{getRelativeDate(cellValues.row.startDate, locale)}</Button>
+          <Button color="inherit">
+            {getRelativeDate(cellValues.row.startDate, i18n.language)}
+          </Button>
         </Tooltip>
       ),
     },
@@ -134,7 +134,7 @@ export default function MyDonatedToCampaignTable() {
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.endDate)}>
-          <Button color="inherit">{getRelativeDate(cellValues.row.endDate, locale)}</Button>
+          <Button color="inherit">{getRelativeDate(cellValues.row.endDate, i18n.language)}</Button>
         </Tooltip>
       ),
     },
@@ -146,7 +146,9 @@ export default function MyDonatedToCampaignTable() {
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.createdAt)}>
-          <Button color="inherit">{getRelativeDate(cellValues.row.createdAt, locale)}</Button>
+          <Button color="inherit">
+            {getRelativeDate(cellValues.row.createdAt, i18n.language)}
+          </Button>
         </Tooltip>
       ),
     },
@@ -158,7 +160,9 @@ export default function MyDonatedToCampaignTable() {
       headerAlign: 'left',
       renderCell: (cellValues: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(cellValues.row.updatedAt)}>
-          <Button color="inherit">{getRelativeDate(cellValues.row.updatedAt, locale)}</Button>
+          <Button color="inherit">
+            {getRelativeDate(cellValues.row.updatedAt, i18n.language)}
+          </Button>
         </Tooltip>
       ),
     },

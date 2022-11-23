@@ -1,0 +1,10 @@
+{
+  "title": "Blog",
+  "description": "A place for stories, ideas and good causes.",
+  "created-on": "Created on:",
+  "reading-time": {
+    "label": "Reading time:",
+    "count_one": "{{count}} minute",
+    "count_other": "{{count}} minutes"
+  }
+}
