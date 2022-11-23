@@ -1,25 +1,25 @@
-import React from 'react'
-import { styled } from '@mui/material/styles'
-import { useTranslation } from 'next-i18next'
-import { routes } from 'common/routes'
-import { moneyPublic } from 'common/util/money'
-import LinkButton from 'components/common/LinkButton'
-import { CampaignResponse } from 'gql/campaigns'
-import CampaignProgress from './CampaignProgress'
+import { Favorite } from '@mui/icons-material'
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight'
 import {
-  Grid,
+  Box,
   Card,
   CardActionArea,
   CardActions,
   CardContent,
   CardMedia,
+  Grid,
   Typography,
-  Box,
 } from '@mui/material'
-import { Favorite } from '@mui/icons-material'
-import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight'
+import { styled } from '@mui/material/styles'
+import { routes } from 'common/routes'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
+import { moneyPublic } from 'common/util/money'
+import LinkButton from 'components/common/LinkButton'
+import { CampaignResponse } from 'gql/campaigns'
+import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
+import Link from 'next/link'
+import CampaignProgress from './CampaignProgress'
 import SuccessfullCampaignTag from './SuccessfullCampaignTag'
 
 const PREFIX = 'CampaignCard'
@@ -112,7 +112,9 @@ export default function CampaignCard({ campaign }: Props) {
 
   return (
     <StyledCard variant="outlined" className={classes.cardWrapper}>
-      <CardActionArea href={routes.campaigns.viewCampaignBySlug(campaign.slug)}>
+      <CardActionArea
+        LinkComponent={Link}
+        href={routes.campaigns.viewCampaignBySlug(campaign.slug)}>
         <CardMedia className={classes.media} title={campaign.title}>
           <div
             style={{ position: 'relative', width: '100%', minHeight: '100%', maxHeight: '100%' }}>
