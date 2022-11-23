@@ -36,6 +36,9 @@ const moduleExports = {
       CAMPAIGN: process.env.FEATURE_CAMPAIGN ?? false,
     },
   },
+  sentry: {
+    hideSourceMaps: true,
+  },
   images: {
     domains: [
       process.env.IMAGE_HOST ?? 'localhost',
