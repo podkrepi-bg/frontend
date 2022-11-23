@@ -19,7 +19,6 @@ import { routes } from 'common/routes'
 
 import { AccountHolderType, BankAccountStatus } from './BankAccountTypes'
 import FormSelectField from 'components/common/form/FormSelectField'
-import { capitalize } from '../../common/util/text'
 
 export const validationSchemaBankAccForm: yup.SchemaOf<BankAccountsData> = yup
   .object()
