@@ -179,4 +179,4 @@ export const routes = {
     openData: '/open-data',
     apiDocs: '/docs',
   },
-}
+} as const

@@ -44,7 +44,8 @@
     "share-to": "Please support this campaign by sharing its link to social networks for reaching more people!",
     "btn-generate": "Generate a certificate",
     "btn-say-to-us": "Feedback",
-    "btn-other-campaign": "See more campaigns"
+    "btn-other-campaign": "See more campaigns",
+    "btn-back-to-campaign": "See the campaign"
   },
   "third-step": {
     "title": "How would you like to pay",
@@ -76,7 +77,8 @@
     "title": "Unfortunately there was a problem!",
     "subtitle": "The transaction could not be done. The reasons for that many, including a problem with your internet connection.",
     "btn-again": "Try again",
-    "btn-connect": "Contact us"
+    "btn-connect": "Contact us",
+    "btn-back-to-campaign": "See the campaign"
   },
   "errors-fields": {
     "checkbox-anonymous": "Please select an option for anonymous donation or donation without registering if you would like to continue!",
