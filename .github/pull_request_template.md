@@ -37,7 +37,9 @@ Paste screenshot|Paste screenshot
 
 ### New environment variables:
 
-- `env var` : env var details
+<!-- Mark with [x] when variable is added to `.env.local.example`  -->
+
+- [ ] `NEW_ENV_VAR`: env var details
 
 ### New or updated dependencies:
 
