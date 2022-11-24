@@ -45,6 +45,7 @@ import UploadedCampaignFile from './UploadedCampaignFile'
 import { fromMoney, toMoney } from 'common/util/money'
 import CurrencySelect from 'components/currency/CurrencySelect'
 import OrganizerSelect from './OrganizerSelect'
+import AllowDonationOnComplete from '../../common/form/AllowDonationOnComplete'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -167,7 +168,7 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
         slug: createSlug(values.title),
         description: values.description,
         targetAmount: toMoney(values.targetAmount),
-        allowDonationOnComplete: campaign.allowDonationOnComplete,
+        allowDonationOnComplete: values.allowDonationOnComplete,
         startDate: values.startDate,
         endDate: values.endDate,
         state: values.state,
@@ -241,6 +242,9 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
           </Grid>
           <Grid item xs={12} sm={2}>
             <CurrencySelect disabled={IsCurrencySelectDisabled} />
+          </Grid>
+          <Grid item xs={12} sm={12}>
+            <AllowDonationOnComplete name="allowDonationOnComplete" />
           </Grid>
           <Grid item xs={12} sm={4}>
             <FormTextField
