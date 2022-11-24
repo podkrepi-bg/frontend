@@ -6,7 +6,7 @@ import { CircularProgress } from '@mui/material'
 import { AxiosError } from 'axios'
 import { FormikHelpers } from 'formik'
 
-import { CardRegion } from 'gql/donations.enums'
+import { CardRegion, PaymentProvider } from 'gql/donations.enums'
 import { OneTimeDonation, DonationStep as StepType } from 'gql/donations'
 import { createDonationWish } from 'service/donationWish'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
@@ -79,7 +79,11 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
         cancelUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=false`,
         message: values?.message,
       })
-      if (data.session.url && values?.payment != 'bank') {
+      if (values?.payment === PaymentProvider.bank) {
+        // Do not redirect for bank payments
+        return
+      }
+      if (data.session.url) {
         //send the user to payment provider
         window.location.href = data.session.url
       }
@@ -92,7 +96,7 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
     { setFieldError, resetForm }: FormikHelpers<OneTimeDonation>,
   ) => {
     try {
-      if (values?.payment === 'bank') {
+      if (values?.payment === PaymentProvider.bank) {
         if (values?.message) {
           await createDonationWish({
             message: values.message,
@@ -137,7 +141,7 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
     },
     {
       label: 'payment',
-      component: success ? <Success /> : <Fail />,
+      component: success ? <Success campaignSlug={slug} /> : <Fail campaignSlug={slug} />,
       validate: null,
     },
   ]

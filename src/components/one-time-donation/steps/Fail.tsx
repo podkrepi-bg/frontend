@@ -8,7 +8,10 @@ import { routes } from 'common/routes'
 import LinkButton from 'components/common/LinkButton'
 import { StepsContext } from '../helpers/stepperContext'
 
-export default function Fail() {
+type Props = {
+  campaignSlug: string
+}
+export default function Fail({ campaignSlug }: Props) {
   const { t } = useTranslation('one-time-donation')
   const { setStep } = useContext(StepsContext)
   const router = useRouter()
@@ -35,17 +38,20 @@ export default function Fail() {
         </Grid>
       </Grid>
       <Grid container rowSpacing={3} justifyContent="center">
-        <Grid textAlign={'center'} item xs={12} md={6}>
-          <Button
-            onClick={() => {
-              setStep(0)
-            }}
-            variant="contained"
-            color="primary">
+        <Grid textAlign="center" item xs={12} md={4}>
+          <Button onClick={() => setStep(0)} variant="contained" color="primary">
             {t('fail.btn-again')}
           </Button>
         </Grid>
-        <Grid textAlign={'center'} item xs={12} md={6}>
+        <Grid textAlign="center" item xs={12} md={4}>
+          <LinkButton
+            href={routes.campaigns.viewCampaignBySlug(campaignSlug)}
+            variant="contained"
+            color="primary">
+            {t('fail.btn-back-to-campaign')}
+          </LinkButton>
+        </Grid>
+        <Grid textAlign="center" item xs={12} md={4}>
           <LinkButton href={routes.contact} variant="contained" color="primary">
             {t('fail.btn-connect')}
           </LinkButton>

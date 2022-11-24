@@ -1,14 +1,16 @@
+import Link from 'next/link'
 import Image from 'next/image'
 import { styled } from '@mui/material/styles'
 import { Box, Grid, Typography, useMediaQuery } from '@mui/material'
 
-import { useViewCampaign } from 'common/hooks/campaigns'
 import theme from 'common/theme'
+import { routes } from 'common/routes'
 import {
   backgroundCampaignPictureUrl,
   beneficiaryCampaignPictureUrl,
 } from 'common/util/campaignImageUrls'
 import Layout from 'components/layout/Layout'
+import { useViewCampaign } from 'common/hooks/campaigns'
 import CenteredSpinner from 'components/common/CenteredSpinner'
 
 import DonationStepper from './Steps'
@@ -113,9 +115,14 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
           />
         </Grid>
         <Grid className={classes.stepperWrapper}>
-          <Typography variant="h4" sx={{ textAlign: 'center', marginBottom: theme.spacing(4) }}>
-            {campaign.title}
-          </Typography>
+          <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)} passHref>
+            <Typography
+              variant="h4"
+              color="info.dark"
+              sx={{ textAlign: 'center', marginBottom: theme.spacing(4) }}>
+              {campaign.title}
+            </Typography>
+          </Link>
           <DonationStepper onStepChange={scrollWindow} />
         </Grid>
       </Grid>
