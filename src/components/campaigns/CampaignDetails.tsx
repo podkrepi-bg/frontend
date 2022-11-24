@@ -140,7 +140,7 @@ export default function CampaignDetails({ campaign }: Props) {
         />
         <Typography variant="subtitle2" component="p" className={classes.beneficiaryName}>
           {campaign.beneficiary.type === BeneficiaryType.individual
-            ? campaign.beneficiary.person.firstName + ' ' + campaign.beneficiary.person?.lastName
+            ? campaign.beneficiary.person?.firstName + ' ' + campaign.beneficiary.person?.lastName
             : campaign.beneficiary.company.companyName}
         </Typography>
       </Grid>

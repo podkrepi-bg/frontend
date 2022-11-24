@@ -40,8 +40,8 @@ export const DisplayBeneficiary = ({ params }: CampaignCellProps) => {
   return (
     <>
       {params.row.beneficiary.type === BeneficiaryType.individual
-        ? params.row.beneficiary.person.firstName + ' ' + params.row.beneficiary.person?.lastName
-        : params.row.beneficiary.company.companyName}
+        ? params.row.beneficiary.person?.firstName + ' ' + params.row.beneficiary?.person?.lastName
+        : params.row.beneficiary.company?.companyName}
     </>
   )
 }

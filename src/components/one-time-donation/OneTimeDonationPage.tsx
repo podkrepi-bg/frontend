@@ -108,7 +108,7 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
           <Image
             src={beneficiaryAvatarSource}
             // A11Y TODO: Translate alt text
-            alt={`Image of ${campaign.beneficiary.person.firstName} ${campaign.beneficiary.person.lastName}`}
+            alt={`Image of ${campaign.beneficiary.person?.firstName} ${campaign.beneficiary.person?.lastName}`}
             width={250}
             height={250}
             className={classes.beneficiaryAvatar}
