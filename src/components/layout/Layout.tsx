@@ -77,7 +77,7 @@ export default function Layout({
           <meta property="og:type" content="article" />
           <meta property="og:locale" content={i18n.language === 'bg' ? 'bg_BG' : 'en_US'} />
           {/* TODO: think of how to make campaign level localization */}
-          <meta key="og:title" property="og:title" content={title} />
+          <meta key="og:title" property="og:title" content={pageTitle} />
           <meta key="og:image" property="og:image" content={ogImage ?? defaultOgImage.src} />
           {!ogImage && (
             <meta key="og:image:width" property="og:image:width" content={defaultOgImage.width} />
