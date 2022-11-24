@@ -2,10 +2,10 @@ import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import { queryFnFactory } from 'service/restRequests'
 import ViewCampaignPage from 'components/campaigns/ViewCampaignPage'
 import { endpoints } from 'service/apiEndpoints'
 import { CampaignResponse } from 'gql/campaigns'
+import { queryFnFactory } from 'service/restRequests'
 
 export const getServerSideProps: GetServerSideProps = async ({ query, locale }) => {
   const { slug } = query

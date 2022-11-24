@@ -1,9 +1,10 @@
 import { useSession } from 'next-auth/react'
+import { QueryClient, useQuery } from '@tanstack/react-query'
+
+import { CampaignTypeFormData, CampaignTypesResponse } from 'gql/campaign-types'
 
 import { endpoints } from './apiEndpoints'
 import { authConfig, authQueryFnFactory, queryFnFactory } from './restRequests'
-import { CampaignTypeFormData, CampaignTypesResponse } from 'gql/campaign-types'
-import { QueryClient, useQuery } from '@tanstack/react-query'
 import { apiClient } from './apiClient'
 
 export const useCampaignTypesList = () => {

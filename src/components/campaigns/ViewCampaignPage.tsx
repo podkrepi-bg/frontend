@@ -5,19 +5,19 @@ import { Grid } from '@mui/material'
 import { useViewCampaign } from 'common/hooks/campaigns'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import theme from 'common/theme'
-
-import NotFoundPage from 'pages/404'
+import useMobile from 'common/hooks/useMobile'
 import Layout from 'components/layout/Layout'
+import CenteredSpinner from 'components/common/CenteredSpinner'
+
 import InlineDonation from './InlineDonation'
 import CampaignDetails from './CampaignDetails'
-import useMobile from 'common/hooks/useMobile'
 
 type Props = { slug: string }
 
 export default function ViewCampaignPage({ slug }: Props) {
-  const { data } = useViewCampaign(slug)
+  const { data, isLoading } = useViewCampaign(slug)
   const { mobile, small } = useMobile()
-  if (!data || !data.campaign) return <NotFoundPage />
+  if (isLoading || !data) return <CenteredSpinner size="2rem" />
   const { campaign } = data
   const ogImageUrl = campaignListPictureUrl(campaign)
 

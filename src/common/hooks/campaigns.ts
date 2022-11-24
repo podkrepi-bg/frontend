@@ -20,7 +20,10 @@ const shuffleQueryFn: QueryFunction<CampaignResponse[]> = async ({ queryKey }) =
 }
 
 export function useCampaignList() {
-  return useQuery<CampaignResponse[]>([endpoints.campaign.listCampaigns.url], shuffleQueryFn)
+  return useQuery<CampaignResponse[]>([endpoints.campaign.listCampaigns.url], shuffleQueryFn, {
+    // Add 15 minutes of cache time
+    staleTime: 1000 * 60 * 15,
+  })
 }
 
 export function useCampaignAdminList() {

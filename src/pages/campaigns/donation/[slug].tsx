@@ -1,17 +1,16 @@
-import { dehydrate } from '@tanstack/react-query'
-import { QueryClient } from '@tanstack/react-query'
 import { GetServerSideProps, GetServerSidePropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { QueryClient, dehydrate } from '@tanstack/react-query'
 
-import { queryFnFactory } from 'service/restRequests'
 import OneTimeDonation from 'components/one-time-donation/OneTimeDonationPage'
 import { endpoints } from 'service/apiEndpoints'
+import { queryFnFactory } from 'service/restRequests'
 import { CampaignResponse } from 'gql/campaigns'
 
 export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { slug } = ctx.query
   const client = new QueryClient()
-  await client.prefetchQuery(
+  await client.prefetchQuery<CampaignResponse>(
     [endpoints.campaign.viewCampaign(slug as string)],
     queryFnFactory<CampaignResponse>(),
   )

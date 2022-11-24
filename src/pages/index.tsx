@@ -1,13 +1,14 @@
 import { Session, unstable_getServerSession } from 'next-auth'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-
-import IndexPage from 'components/index/IndexPage'
-import { authOptions } from './api/auth/[...nextauth]'
 import { QueryClient } from '@tanstack/react-query'
-import { queryFnFactory } from 'service/restRequests'
+
 import { CampaignResponse } from 'gql/campaigns'
 import { endpoints } from 'service/apiEndpoints'
+import IndexPage from 'components/index/IndexPage'
+
+import { authOptions } from './api/auth/[...nextauth]'
+import { queryFnFactory } from 'service/restRequests'
 
 export const getServerSideProps: GetServerSideProps<{
   session: Session | null

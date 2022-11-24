@@ -1,14 +1,16 @@
 import Image from 'next/image'
 import { styled } from '@mui/material/styles'
 import { Box, Grid, Typography, useMediaQuery } from '@mui/material'
-import Layout from 'components/layout/Layout'
+
 import { useViewCampaign } from 'common/hooks/campaigns'
 import theme from 'common/theme'
 import {
   backgroundCampaignPictureUrl,
   beneficiaryCampaignPictureUrl,
 } from 'common/util/campaignImageUrls'
-import NotFoundPage from 'pages/404'
+import Layout from 'components/layout/Layout'
+import CenteredSpinner from 'components/common/CenteredSpinner'
+
 import DonationStepper from './Steps'
 
 const PREFIX = 'OneTimeDonationPage'
@@ -68,9 +70,9 @@ const scrollWindow = () => {
 }
 
 export default function OneTimeDonation({ slug }: { slug: string }) {
-  const { data } = useViewCampaign(slug)
+  const { data, isLoading } = useViewCampaign(slug)
   const matches = useMediaQuery('sm')
-  if (!data || !data.campaign) return <NotFoundPage />
+  if (isLoading || !data) return <CenteredSpinner size="2rem" />
   const { campaign } = data
 
   const bannerSource = backgroundCampaignPictureUrl(campaign)
