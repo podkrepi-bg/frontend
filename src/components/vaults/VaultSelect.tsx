@@ -21,7 +21,7 @@ export default function VaultSelect({
   handleVaultSelected,
   ...textFieldProps
 }: Props) {
-  const { t } = useTranslation()
+  const { t } = useTranslation('vaults')
 
   const [field, meta] = useField(name)
   const { setFieldValue } = useFormikContext()
@@ -48,7 +48,7 @@ export default function VaultSelect({
         {...textFieldProps}
         onChange={handleChange}>
         <MenuItem value="" disabled>
-          {t('fields.' + name)}
+          {t(`fields.${name}`)}
         </MenuItem>
         {vaults?.map((value, index) => (
           <MenuItem key={index} value={value.id}>

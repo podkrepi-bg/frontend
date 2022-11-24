@@ -32,5 +32,10 @@
     "edit": "Edit",
     "details": "Details",
     "submit": "Submit"
+  },
+  "fields": {
+    "vaultId": "Vault",
+    "sourceVaultId": "Source Vault",
+    "targetVaultId": "Target Vault"
   }
 }

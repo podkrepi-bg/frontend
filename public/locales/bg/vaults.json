@@ -32,5 +32,10 @@
     "edit": "Редактирай",
     "details": "Детайли за трезора",
     "submit": "Изпрати"
+  },
+  "fields": {
+    "vaultId": "Трезор",
+    "sourceVaultId": "От трезор",
+    "targetVaultId": "Към трезор"
   }
 }
