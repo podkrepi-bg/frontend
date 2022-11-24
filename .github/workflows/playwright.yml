@@ -53,6 +53,9 @@ jobs:
 
       - name: Run backend
         working-directory: ./api
+        env:
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY}}
         run: yarn start &> api.log &
 
       - name: Install Frontend Dependencies
