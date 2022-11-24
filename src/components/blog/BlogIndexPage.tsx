@@ -23,7 +23,7 @@ export default function BlogIndexPage({ posts }: Props) {
       <Container maxWidth="lg">
         <Grid2 container rowSpacing={2} columnSpacing={2}>
           {posts.map((post) => (
-            <Grid2 key={post.id} xs={4}>
+            <Grid2 key={post.id} xs={12} sm={6} md={4}>
               <Grid2 container direction="column" spacing={2}>
                 <Grid2 xs={12}>
                   <NextLink href={routes.blog.postBySlug(post.slug)}>
