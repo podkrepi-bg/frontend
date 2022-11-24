@@ -672,6 +672,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "antonmihaylov",
+      "name": "Anton Mihaylov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/57956282?v=4",
+      "profile": "https://antomic.net",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
