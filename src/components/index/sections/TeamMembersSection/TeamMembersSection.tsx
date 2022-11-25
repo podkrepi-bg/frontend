@@ -18,7 +18,7 @@ export default function TeamMembersSection() {
       <Heading variant="h4">{t('team-section.heading')}</Heading>
       <InfoText maxWidth="lg">{t('team-section.content')}</InfoText>
       {/* A11Y TODO: Translate alt text */}
-      <Image alt="Team image" src={teamImagePath} width={1095} height={150} />
+      <Image alt="Team image" src={teamImagePath} width={1095} height={150} layout="intrinsic" />
       <Grid>
         <OutlinedButton href={routes.about} variant="outlined" endIcon={<ChevronRightIcon />}>
           {t('team-section.meet-our-team')}

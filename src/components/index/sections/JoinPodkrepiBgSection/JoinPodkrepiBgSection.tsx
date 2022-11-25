@@ -26,6 +26,7 @@ export default function WantToHelpPodkrepiBgSection() {
             src={discordTeamImagePath}
             width={1189}
             height={789}
+            layout="intrinsic"
             priority
           />
         </Box>
