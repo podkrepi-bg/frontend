@@ -21,7 +21,8 @@ const useStyles = makeStyles((theme: Theme) =>
       width: 'auto',
       color: '#FFFFFF',
       fontSize: '18px',
-      '&:hover': { backgroundColor: '#62C4FB', color: '#000000' },
+
+      '&:hover': { backgroundColor: '#62C4FB', color: '#000000', border: '1px solid #909090' },
       [theme.breakpoints.down('sm')]: { fontSize: '12px' },
     },
     actions: {
