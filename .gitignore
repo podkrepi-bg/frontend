@@ -26,6 +26,10 @@ coverage
 .settings/
 *.sublime-workspace
 .vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 .vs
 
 .env
@@ -50,3 +54,12 @@ bld/
 /test-results/
 /playwright-report/
 /playwright/.cache/
+
+# https://yarnpkg.com/getting-started/qa/#which-files-should-be-gitignored
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

@@ -16,6 +16,7 @@ const moduleExports = {
     includePaths: [path.join(__dirname, 'src/styles')],
   },
   swcMinify: true,
+  output: 'standalone',
   env: {
     APP_ENV: process.env.APP_ENV,
     APP_VERSION: version,
