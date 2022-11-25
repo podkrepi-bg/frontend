@@ -35,8 +35,9 @@ jobs:
 
       - name: Scan with Mondoo
         uses: mondoohq/actions/docker-image@main
+        env:
+          MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
         with:
-          service-account-credentials: ${{ secrets.MONDOO_SECRET }}
           image: ghcr.io/podkrepi-bg/frontend/maintenance:master
 
   build-frontend-image:
@@ -82,8 +83,9 @@ jobs:
 
       - name: Scan with Mondoo
         uses: mondoohq/actions/docker-image@main
+        env:
+          MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
         with:
-          service-account-credentials: ${{ secrets.MONDOO_SECRET }}
           image: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}
 
   scan-manifests:
@@ -100,8 +102,9 @@ jobs:
 
       - name: Scan development manifests with Mondoo
         uses: mondoohq/actions/k8s-manifest@main
+        env:
+          MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
         with:
-          service-account-credentials: ${{ secrets.MONDOO_SECRET }}
           path: dev-manifests.yaml
 
       - name: Build production manifests
@@ -109,8 +112,9 @@ jobs:
 
       - name: Scan production manifests with Mondoo
         uses: mondoohq/actions/k8s-manifest@main
+        env:
+          MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
         with:
-          service-account-credentials: ${{ secrets.MONDOO_SECRET }}
           path: prod-manifests.yaml
 
   run-playwright:
