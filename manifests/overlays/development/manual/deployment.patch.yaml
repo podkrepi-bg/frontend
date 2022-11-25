@@ -13,7 +13,6 @@ spec:
     spec:
       containers:
         - name: frontend
-          imagePullPolicy: Always
           resources:
             limits:
               memory: 350Mi
