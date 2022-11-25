@@ -26,6 +26,10 @@ coverage
 .settings/
 *.sublime-workspace
 .vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 .vs
 
 .env

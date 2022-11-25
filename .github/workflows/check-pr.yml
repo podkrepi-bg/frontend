@@ -22,7 +22,7 @@ jobs:
           GHOST_CONTENT_KEY: ${{ secrets.GHOST_CONTENT_KEY }}
         with:
           push: false
-          target: production
+          target: runner
           build-args: |
             SENTRY_AUTH_TOKEN=${{ env.SENTRY_AUTH_TOKEN }}
             GHOST_API_URL=${{ env.GHOST_API_URL }}
