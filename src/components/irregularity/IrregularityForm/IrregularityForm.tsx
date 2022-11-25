@@ -1,19 +1,18 @@
-import { useMutation } from '@tanstack/react-query'
-import { useTranslation } from 'next-i18next'
 import React, { useState, useRef } from 'react'
-import { AxiosError, AxiosResponse } from 'axios'
-import { FormikHelpers, FormikProps } from 'formik'
 
-import withStyles from '@mui/styles/withStyles'
-import { StepLabel, StepConnector, Grid } from '@mui/material'
-
-import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
-import { createIrregularity, uploadIrregularityFiles } from 'service/irregularity'
-
-import theme from 'common/theme'
+import { useTranslation } from 'next-i18next'
 
 import { Person } from 'gql/person'
 import { CampaignResponse } from 'gql/campaigns'
+
+import { useMutation } from '@tanstack/react-query'
+import { AxiosError, AxiosResponse } from 'axios'
+import { FormikHelpers, FormikProps } from 'formik'
+
+import { StepLabel, Grid } from '@mui/material'
+
+import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
+import { createIrregularity, uploadIrregularityFiles } from 'service/irregularity'
 
 import {
   Steps,
@@ -36,9 +35,10 @@ import StepIcon from '../StepperIcon'
 import Remark from '../helpers/Remark'
 import Greeting from '../steps/Greeting'
 import Contacts from '../steps/Contacts'
-import Success from '../helpers/Success'
+import Success from '../helpers/Success/Success'
 import stepsHandler from '../StepsHandler'
 import GenericForm from 'components/common/form/GenericForm'
+
 import {
   ColorlibConnector,
   Instructions,
