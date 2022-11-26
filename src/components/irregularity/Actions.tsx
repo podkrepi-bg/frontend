@@ -22,7 +22,11 @@ const useStyles = makeStyles((theme: Theme) =>
       color: '#FFFFFF',
       fontSize: '18px',
 
-      '&:hover': { backgroundColor: '#62C4FB', color: '#000000', border: '1px solid #909090' },
+      '&:hover': {
+        backgroundColor: '#62C4FB',
+        color: theme.palette.common.black,
+        border: '1px solid #909090',
+      },
       [theme.breakpoints.down('sm')]: { fontSize: '12px' },
     },
     actions: {
