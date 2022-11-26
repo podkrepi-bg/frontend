@@ -8,7 +8,13 @@ import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined'
 
 import theme from 'common/theme'
 
-import { Root, ButtonsWrapper, Icon, ActionButton } from './Irregularity.styled'
+import {
+  Root,
+  ButtonsWrapper,
+  Icon,
+  ActionButton,
+  RepeatMessageButton,
+} from './Irregularity.styled'
 
 type Props = {
   setFail: (fail: boolean) => void
@@ -31,14 +37,14 @@ export default function Fail({ setFail, setActiveStep }: Props) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Root container spacing={7}>
+      <Root container>
         <Icon item xs={12} color="#F44336">
           <ErrorOutlineOutlinedIcon />
         </Icon>
         <Grid item xs={12}>
           <Typography variant="h5">{t('steps.fail.title')}</Typography>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} my={5}>
           <Typography variant="h6">{t('steps.fail.subtitle')}</Typography>
         </Grid>
         <ButtonsWrapper container item>
@@ -56,9 +62,9 @@ export default function Fail({ setFail, setActiveStep }: Props) {
           </Grid>
           <Grid item>
             <Typography variant="body1">{t('steps.fail.label-redo')}</Typography>
-            <Button onClick={handleClick} variant="outlined">
+            <RepeatMessageButton onClick={handleClick} variant="outlined">
               {t('cta.redo')}
-            </Button>
+            </RepeatMessageButton>
           </Grid>
         </ButtonsWrapper>
       </Root>
