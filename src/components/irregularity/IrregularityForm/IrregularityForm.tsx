@@ -35,7 +35,7 @@ import StepIcon from '../StepperIcon'
 import Remark from '../helpers/Remark'
 import Greeting from '../steps/Greeting'
 import Contacts from '../steps/Contacts'
-import Success from '../helpers/Success/Success'
+import Success from '../helpers/Success'
 import stepsHandler from '../StepsHandler'
 import GenericForm from 'components/common/form/GenericForm'
 

@@ -9,9 +9,8 @@ export const Root = styled(Grid)(() => ({
   textAlign: 'center',
 }))
 
-export const SuccessIcon = styled(Grid)(() => ({
+export const Icon = styled(Grid)(() => ({
   justifyContent: 'center',
-  color: '#4BD12A',
   marginBottom: theme.spacing(4),
 
   '& svg': {
@@ -19,11 +18,11 @@ export const SuccessIcon = styled(Grid)(() => ({
   },
 }))
 
-export const SuccessButtonsWrapper = styled(Grid)(() => ({
+export const ButtonsWrapper = styled(Grid)(() => ({
   justifyContent: 'space-evenly',
 }))
 
-export const SuccessButton = styled(LinkButton)(() => ({
+export const ActionButton = styled(LinkButton)(() => ({
   backgroundColor: '#0098E3',
   border: '1px solid #909090',
   padding: theme.spacing(1, 5),

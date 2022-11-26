@@ -1,45 +1,14 @@
-import { useTranslation } from 'next-i18next'
 import { useEffect } from 'react'
 
+import { useTranslation } from 'next-i18next'
+
 import { ThemeProvider } from '@mui/styles'
-import { createStyles, makeStyles } from '@mui/styles'
 import { Grid, Typography, Button } from '@mui/material'
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined'
 
 import theme from 'common/theme'
 
-import LinkButton from 'components/common/LinkButton'
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    button: {
-      backgroundColor: '#0098E3',
-      border: '1px solid #909090',
-      padding: '10px 30px',
-      marginBottom: '5%',
-      borderRadius: '60px',
-      width: 'auto',
-      color: '#FFFFFF',
-      fontSize: '16px',
-      '&:hover': { backgroundColor: '#62C4FB', color: '#000000' },
-      [theme.breakpoints.down('sm')]: { fontSize: '12px' },
-    },
-    container: {
-      marginTop: '20%',
-      justifyContent: 'center',
-    },
-    gridIcon: {
-      marginBottom: '5%',
-      textAlign: 'center',
-    },
-    gridItem: {
-      textAlign: 'center',
-    },
-    containerButtons: {
-      justifyContent: 'space-evenly',
-    },
-  }),
-)
+import { Root, ButtonsWrapper, Icon, ActionButton } from './Irregularity.styled'
 
 type Props = {
   setFail: (fail: boolean) => void
@@ -47,7 +16,6 @@ type Props = {
 }
 
 export default function Fail({ setFail, setActiveStep }: Props) {
-  const classes = useStyles()
   const { t } = useTranslation('irregularity')
 
   useEffect(() => {
@@ -63,37 +31,37 @@ export default function Fail({ setFail, setActiveStep }: Props) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid container spacing={7} className={classes.container}>
-        <Grid item xs={12} className={classes.gridIcon}>
-          <ErrorOutlineOutlinedIcon sx={{ transform: 'scale(5.0)', color: '#F44336' }} />
-        </Grid>
-        <Grid item xs={12} className={classes.gridItem}>
+      <Root container spacing={7}>
+        <Icon item xs={12} color="#F44336">
+          <ErrorOutlineOutlinedIcon />
+        </Icon>
+        <Grid item xs={12}>
           <Typography variant="h5">{t('steps.fail.title')}</Typography>
         </Grid>
-        <Grid item xs={12} className={classes.gridItem}>
+        <Grid item xs={12}>
           <Typography variant="h6">{t('steps.fail.subtitle')}</Typography>
         </Grid>
-        <Grid container item className={classes.containerButtons}>
+        <ButtonsWrapper container item>
           <Grid item>
             <Typography variant="body1">{t('steps.fail.label-campaigns')}</Typography>
-            <LinkButton href={`/campaigns`} variant="outlined" className={classes.button}>
+            <ActionButton href={`/campaigns`} variant="outlined">
               {t('cta.campaigns')}
-            </LinkButton>
+            </ActionButton>
           </Grid>
           <Grid item>
             <Typography variant="body1">{t('steps.fail.label-project')}</Typography>
-            <LinkButton href={`/about-project`} variant="outlined" className={classes.button}>
+            <ActionButton href={`/about-project`} variant="outlined">
               {t('cta.project')}
-            </LinkButton>
+            </ActionButton>
           </Grid>
           <Grid item>
             <Typography variant="body1">{t('steps.fail.label-redo')}</Typography>
-            <Button onClick={handleClick} variant="outlined" className={classes.button}>
+            <Button onClick={handleClick} variant="outlined">
               {t('cta.redo')}
             </Button>
           </Grid>
-        </Grid>
-      </Grid>
+        </ButtonsWrapper>
+      </Root>
     </ThemeProvider>
   )
 }
