@@ -2,7 +2,7 @@ import React from 'react'
 
 import { StepIconProps } from '@mui/material/StepIcon'
 
-import { Root } from './StepperIcon.styled'
+import { StyledStepperIcon } from './IrregularityForm.styled'
 
 export default function StepIcon(props: StepIconProps) {
   const icons: { [index: string]: React.ReactElement } = {
@@ -11,5 +11,5 @@ export default function StepIcon(props: StepIconProps) {
     3: <span>3</span>,
   }
 
-  return <Root>{icons[String(props.icon)]}</Root>
+  return <StyledStepperIcon>{icons[String(props.icon)]}</StyledStepperIcon>
 }

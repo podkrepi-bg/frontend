@@ -40,3 +40,16 @@ export const ColorlibConnector = styled(StepConnector)(() => ({
   height: 3,
   backgroundColor: theme.palette.info.light,
 }))
+
+export const StyledStepperIcon = styled(Grid)(() => ({
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: theme.borders.round,
+  border: `3px solid ${theme.palette.info.light}`,
+  color: theme.palette.common.black,
+  display: 'flex',
+  width: theme.spacing(5),
+  height: theme.spacing(5),
+  zIndex: 1,
+  fontSize: theme.typography.pxToRem(28),
+}))

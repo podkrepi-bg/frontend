@@ -25,17 +25,17 @@ import {
   IrregularityReason,
   IrregularityUploadImage,
   UploadIrregularityFiles,
-} from '../helpers/irregularity.types'
-import { validationSchema } from '../helpers/validation-schema'
+} from './irregularity.types'
+import { validationSchema } from './validation-schema'
 
 import Actions from '../Actions'
 import Info from '../steps/Info'
-import Fail from '../helpers/Fail'
-import StepIcon from '../StepperIcon/StepperIcon'
-import Remark from '../helpers/Remark'
+import Fail from './Fail'
+import StepIcon from './StepperIcon'
+import Remark from './Remark'
 import Greeting from '../steps/Greeting'
 import Contacts from '../steps/Contacts'
-import Success from '../helpers/Success'
+import Success from './Success'
 import stepsHandler from '../StepsHandler'
 import GenericForm from 'components/common/form/GenericForm'
 
