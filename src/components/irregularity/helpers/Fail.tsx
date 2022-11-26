@@ -8,13 +8,7 @@ import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined'
 
 import theme from 'common/theme'
 
-import {
-  Root,
-  ButtonsWrapper,
-  Icon,
-  ActionButton,
-  RepeatMessageButton,
-} from './Irregularity.styled'
+import { Root, ButtonsWrapper, Icon, ActionLinkButton, ActionButton } from './Irregularity.styled'
 
 type Props = {
   setFail: (fail: boolean) => void
@@ -50,21 +44,21 @@ export default function Fail({ setFail, setActiveStep }: Props) {
         <ButtonsWrapper container item>
           <Grid item>
             <Typography variant="body1">{t('steps.fail.label-campaigns')}</Typography>
-            <ActionButton href={`/campaigns`} variant="outlined">
+            <ActionLinkButton href={`/campaigns`} variant="outlined">
               {t('cta.campaigns')}
-            </ActionButton>
+            </ActionLinkButton>
           </Grid>
           <Grid item>
             <Typography variant="body1">{t('steps.fail.label-project')}</Typography>
-            <ActionButton href={`/about-project`} variant="outlined">
+            <ActionLinkButton href={`/about-project`} variant="outlined">
               {t('cta.project')}
-            </ActionButton>
+            </ActionLinkButton>
           </Grid>
           <Grid item>
             <Typography variant="body1">{t('steps.fail.label-redo')}</Typography>
-            <RepeatMessageButton onClick={handleClick} variant="outlined">
+            <ActionButton onClick={handleClick} variant="outlined">
               {t('cta.redo')}
-            </RepeatMessageButton>
+            </ActionButton>
           </Grid>
         </ButtonsWrapper>
       </Root>

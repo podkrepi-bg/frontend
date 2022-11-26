@@ -22,7 +22,7 @@ export const ButtonsWrapper = styled(Grid)(() => ({
   justifyContent: 'space-evenly',
 }))
 
-export const ActionButton = styled(LinkButton)(() => ({
+export const ActionLinkButton = styled(LinkButton)(() => ({
   backgroundColor: '#0098E3',
   border: '1px solid #909090',
   padding: theme.spacing(1, 5),
@@ -42,7 +42,7 @@ export const ActionButton = styled(LinkButton)(() => ({
   },
 }))
 
-export const RepeatMessageButton = styled(Button)(() => ({
+export const ActionButton = styled(Button)(() => ({
   backgroundColor: '#0098E3',
   border: '1px solid #909090',
   padding: theme.spacing(1, 5),

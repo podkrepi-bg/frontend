@@ -1,40 +1,14 @@
 import { MouseEvent } from 'react'
-import { useTranslation } from 'next-i18next'
 
-import { Button, Grid, Theme } from '@mui/material'
-import { createStyles, makeStyles } from '@mui/styles'
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import { useTranslation } from 'next-i18next'
 
 import { CampaignResponse } from 'gql/campaigns'
 
-import LinkButton from 'components/common/LinkButton'
-import SubmitButton from 'components/common/form/SubmitButton'
+import { Grid } from '@mui/material'
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    button: {
-      backgroundColor: '#0098E3',
-      border: '1px solid #909090',
-      padding: '10px 40px',
-      borderRadius: '60px',
-      width: 'auto',
-      color: '#FFFFFF',
-      fontSize: '18px',
-
-      '&:hover': {
-        backgroundColor: '#62C4FB',
-        color: theme.palette.common.black,
-        border: '1px solid #909090',
-      },
-      [theme.breakpoints.down('sm')]: { fontSize: '12px' },
-    },
-    actions: {
-      justifyContent: 'space-between',
-      [theme.breakpoints.down('md')]: { justifyContent: 'center' },
-    },
-  }),
-)
+import { ActionButton, ActionLinkButton, Root } from './helpers/Irregularity.styled'
 
 type ActionsProps = {
   nextLabel: string
@@ -50,45 +24,37 @@ export default function Actions({
   onBack,
   nextLabel,
   backLabel,
-  loading = false,
   disableBack = false,
   activeStep,
   campaign,
 }: ActionsProps) {
   const { t } = useTranslation('irregularity')
-  const classes = useStyles()
 
   return (
-    <Grid container item xs={12} spacing={3} className={classes.actions}>
+    <Root container item xs={12} spacing={3} justifyContent="space-between">
       <Grid item sx={{ textAlign: 'left' }}>
         {activeStep === 0 ? (
-          <LinkButton
+          <ActionLinkButton
             href={`/campaigns/${campaign.slug}`}
             variant="outlined"
-            startIcon={<ArrowBackIosIcon sx={{ transform: 'scale(0.8)' }} />}
-            className={classes.button}>
+            startIcon={<ArrowBackIosIcon sx={{ transform: 'scale(0.8)' }} />}>
             {t(backLabel)}
-          </LinkButton>
+          </ActionLinkButton>
         ) : (
-          <Button
+          <ActionButton
             fullWidth
             disabled={disableBack}
             onClick={onBack}
-            startIcon={<ArrowBackIosIcon sx={{ transform: 'scale(0.8)' }} />}
-            className={classes.button}>
+            startIcon={<ArrowBackIosIcon sx={{ transform: 'scale(0.8)' }} />}>
             {t(backLabel)}
-          </Button>
+          </ActionButton>
         )}
       </Grid>
       <Grid item sx={{ textAlign: 'right' }}>
-        <SubmitButton
-          fullWidth
-          label={t(nextLabel)}
-          loading={loading}
-          endIcon={<ArrowForwardIosIcon sx={{ transform: 'scale(0.8)' }} />}
-          className={classes.button}
-        />
+        <ActionButton fullWidth endIcon={<ArrowForwardIosIcon sx={{ transform: 'scale(0.8)' }} />}>
+          {t(nextLabel)}
+        </ActionButton>
       </Grid>
-    </Grid>
+    </Root>
   )
 }

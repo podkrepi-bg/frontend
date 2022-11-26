@@ -9,7 +9,7 @@ import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined'
 import theme from 'common/theme'
 import { routes } from 'common/routes'
 
-import { Root, ActionButton, ButtonsWrapper, Icon } from './Irregularity.styled'
+import { Root, ActionLinkButton, ButtonsWrapper, Icon } from './Irregularity.styled'
 
 export default function Success() {
   const { t } = useTranslation('irregularity')
@@ -37,15 +37,15 @@ export default function Success() {
         <ButtonsWrapper container>
           <Grid item xs={12} sm={6}>
             <Typography variant="body1">{t('steps.success.label-campaigns')}</Typography>
-            <ActionButton href={routes.campaigns.index} variant="outlined">
+            <ActionLinkButton href={routes.campaigns.index} variant="outlined">
               {t('cta.campaigns')}
-            </ActionButton>
+            </ActionLinkButton>
           </Grid>
           <Grid item xs={12} sm={6}>
             <Typography variant="body1">{t('steps.success.label-project')}</Typography>
-            <ActionButton href={routes.aboutProject} variant="outlined">
+            <ActionLinkButton href={routes.aboutProject} variant="outlined">
               {t('cta.project')}
-            </ActionButton>
+            </ActionLinkButton>
           </Grid>
         </ButtonsWrapper>
       </Root>
