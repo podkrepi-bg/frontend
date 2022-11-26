@@ -9,6 +9,17 @@ export const StyledStep = styled(Step)(() => ({
   '& span': {
     padding: 0,
   },
+
+  '& .Mui-active': {
+    backgroundColor: theme.palette.info.light,
+    height: theme.spacing(5.25),
+    width: theme.spacing(5.25),
+    borderRadius: theme.borders.round,
+
+    '& span': {
+      color: theme.palette.common.white,
+    },
+  },
 }))
 
 export const StyledStepper = styled(Stepper)(() => ({

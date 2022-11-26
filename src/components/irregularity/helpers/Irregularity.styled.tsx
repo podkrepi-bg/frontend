@@ -2,6 +2,7 @@ import { styled } from '@mui/material/styles'
 import { Button, Grid } from '@mui/material'
 
 import LinkButton from 'components/common/LinkButton'
+import SubmitButton from 'components/common/form/SubmitButton'
 import theme from 'common/theme'
 
 export const Root = styled(Grid)(() => ({
@@ -43,6 +44,26 @@ export const ActionLinkButton = styled(LinkButton)(() => ({
 }))
 
 export const ActionButton = styled(Button)(() => ({
+  backgroundColor: '#0098E3',
+  border: '1px solid #909090',
+  padding: theme.spacing(1, 5),
+  borderRadius: theme.borders.round,
+  color: theme.palette.common.white,
+  fontSize: theme.typography.pxToRem(18),
+
+  '&:hover': {
+    backgroundColor: '#62C4FB',
+    color: theme.palette.common.black,
+    border: '1px solid #909090',
+  },
+
+  [theme.breakpoints.down('md')]: {
+    fontSize: theme.typography.pxToRem(11),
+    marginBottom: theme.spacing(4),
+  },
+}))
+
+export const ActionSubmitButton = styled(SubmitButton)(() => ({
   backgroundColor: '#0098E3',
   border: '1px solid #909090',
   padding: theme.spacing(1, 5),

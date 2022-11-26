@@ -8,7 +8,12 @@ import { Grid } from '@mui/material'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
-import { ActionButton, ActionLinkButton, Root } from './helpers/Irregularity.styled'
+import {
+  ActionButton,
+  ActionLinkButton,
+  ActionSubmitButton,
+  Root,
+} from './helpers/Irregularity.styled'
 
 type ActionsProps = {
   nextLabel: string
@@ -26,6 +31,7 @@ export default function Actions({
   backLabel,
   disableBack = false,
   activeStep,
+  loading = false,
   campaign,
 }: ActionsProps) {
   const { t } = useTranslation('irregularity')
@@ -50,10 +56,13 @@ export default function Actions({
           </ActionButton>
         )}
       </Grid>
-      <Grid item sx={{ textAlign: 'right' }}>
-        <ActionButton fullWidth endIcon={<ArrowForwardIosIcon sx={{ transform: 'scale(0.8)' }} />}>
-          {t(nextLabel)}
-        </ActionButton>
+      <Grid item>
+        <ActionSubmitButton
+          fullWidth
+          label={t(nextLabel)}
+          loading={loading}
+          endIcon={<ArrowForwardIosIcon sx={{ transform: 'scale(0.8)' }} />}
+        />
       </Grid>
     </Root>
   )
