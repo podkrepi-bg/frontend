@@ -1,14 +1,22 @@
-import * as yup from 'yup'
-import Link from 'next/link'
 import { useState } from 'react'
+
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+
+import * as yup from 'yup'
+
 import { AxiosError, AxiosResponse } from 'axios'
+
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-import { Button, Grid, List, ListItemText, Typography } from '@mui/material'
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
+import { ApiErrors } from 'service/apiErrors'
+import { endpoints } from 'service/apiEndpoints'
+import { editIrregularity, uploadIrregularityFiles } from 'service/irregularity'
+
+import { CampaignResponse } from 'gql/campaigns'
+
+import { Button, Grid, List, ListItemText } from '@mui/material'
 
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
@@ -16,9 +24,6 @@ import FileUpload from 'components/file-upload/FileUpload'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
-import { ApiErrors } from 'service/apiErrors'
-
-import { CampaignResponse } from 'gql/campaigns'
 import {
   IrregularityEditInput,
   IrregularityFileResponse,
@@ -31,16 +36,14 @@ import {
   UploadIrregularityFiles,
 } from 'components/irregularity/helpers/irregularity.types'
 import { email, name, phone } from 'common/form/validation'
-
-import { endpoints } from 'service/apiEndpoints'
-import { editIrregularity, uploadIrregularityFiles } from 'service/irregularity'
-
 import IrregularityFile from './IrregularityFile'
 import FileList from 'components/irregularity/helpers/FileList'
 import CampaignSelect from 'components/campaigns/CampaignSelect'
 import NotifierTypeSelect from 'components/irregularity/helpers/NotifierTypeSelect'
 import StatusSelect from 'components/irregularity/helpers/StatusSelect'
 import IrregularityReasonSelect from 'components/irregularity/helpers/IrregularityReasonSelect'
+
+import { Content, Heading } from './CommonAdminStyles.styled'
 
 const validationSchema: yup.SchemaOf<IrregularityInput> = yup
   .object()
@@ -59,19 +62,6 @@ const validationSchema: yup.SchemaOf<IrregularityInput> = yup
     }),
   })
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    heading: {
-      marginBottom: theme.spacing(5),
-      color: theme.palette.primary.dark,
-      textAlign: 'center',
-    },
-    content: {
-      '& textarea': { resize: 'vertical' },
-    },
-  }),
-)
-
 type Props = {
   campaigns: CampaignResponse[]
   irregularity: IrregularityResponse
@@ -82,7 +72,6 @@ export default function EditForm({ campaigns, irregularity, irregularityFiles }:
   const { t } = useTranslation('irregularity')
   const router = useRouter()
   const queryClient = useQueryClient()
-  const classes = useStyles()
 
   const [files, setFiles] = useState<File[]>([])
 
@@ -148,9 +137,7 @@ export default function EditForm({ campaigns, irregularity, irregularityFiles }:
   return (
     <Grid container direction="column" component="section">
       <Grid item xs={12}>
-        <Typography variant="h5" component="h2" className={classes.heading}>
-          {t('admin.edit-form')}
-        </Typography>
+        <Heading variant="h5">{t('admin.edit-form')}</Heading>
       </Grid>
       <GenericForm
         onSubmit={onSubmit}
@@ -202,13 +189,12 @@ export default function EditForm({ campaigns, irregularity, irregularityFiles }:
             </Grid>
           </Grid>
           <Grid item xs={12}>
-            <FormTextField
+            <Content
               rows={5}
               multiline
               type="text"
               name="description"
               label={t('admin.fields.description')}
-              className={classes.content}
             />
           </Grid>
           <Grid item xs={12}>

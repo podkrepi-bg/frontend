@@ -1,26 +1,31 @@
-import * as yup from 'yup'
-import Link from 'next/link'
 import { useState } from 'react'
+
+import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
+
+import * as yup from 'yup'
+
+import { useMutation } from '@tanstack/react-query'
+
 import { AxiosError, AxiosResponse } from 'axios'
 
-import makeStyles from '@mui/styles/makeStyles'
-import createStyles from '@mui/styles/createStyles'
-import { Button, Grid, Typography } from '@mui/material'
+import { Button, Grid } from '@mui/material'
 
 import { routes } from 'common/routes'
+
 import { ApiErrors } from 'service/apiErrors'
+import { createIrregularity, uploadIrregularityFiles } from 'service/irregularity'
+
 import { AlertStore } from 'stores/AlertStore'
+
+import { Person } from 'gql/person'
+import { CampaignResponse } from 'gql/campaigns'
 
 import FileUpload from 'components/file-upload/FileUpload'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
-
-import { Person } from 'gql/person'
-import { CampaignResponse } from 'gql/campaigns'
 import {
   IrregularityInput,
   IrregularityResponse,
@@ -30,15 +35,15 @@ import {
   IrregularityStatus,
   UploadIrregularityFiles,
 } from 'components/irregularity/helpers/irregularity.types'
-
 import { email, name, phone } from 'common/form/validation'
-import { createIrregularity, uploadIrregularityFiles } from 'service/irregularity'
 
 import CampaignSelect from 'components/campaigns/CampaignSelect'
 import FileList from 'components/irregularity/helpers/FileList'
 import StatusSelect from 'components/irregularity/helpers/StatusSelect'
 import NotifierTypeSelect from 'components/irregularity/helpers/NotifierTypeSelect'
 import IrregularityReasonSelect from 'components/irregularity/helpers/IrregularityReasonSelect'
+
+import { Content, Heading } from './CommonAdminStyles.styled'
 
 const validationSchema: yup.SchemaOf<IrregularityInput> = yup
   .object()
@@ -57,26 +62,12 @@ const validationSchema: yup.SchemaOf<IrregularityInput> = yup
     }),
   })
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    heading: {
-      marginBottom: theme.spacing(5),
-      color: theme.palette.primary.dark,
-      textAlign: 'center',
-    },
-    content: {
-      '& textarea': { resize: 'vertical' },
-    },
-  }),
-)
-
 type Props = {
   campaigns?: CampaignResponse[]
   person?: Person
 }
 
 export default function CreateForm({ campaigns, person }: Props) {
-  const classes = useStyles()
   const router = useRouter()
   const [files, setFiles] = useState<File[]>([])
   const { t } = useTranslation('irregularity')
@@ -140,9 +131,7 @@ export default function CreateForm({ campaigns, person }: Props) {
   return (
     <Grid container direction="column" component="section">
       <Grid item xs={12}>
-        <Typography variant="h5" component="h2" className={classes.heading}>
-          {t('admin.create-form')}
-        </Typography>
+        <Heading variant="h5">{t('admin.create-form')}</Heading>
       </Grid>
       <GenericForm
         onSubmit={onSubmit}
@@ -194,13 +183,12 @@ export default function CreateForm({ campaigns, person }: Props) {
             </Grid>
           </Grid>
           <Grid item xs={12}>
-            <FormTextField
+            <Content
               rows={5}
               multiline
               type="text"
               name="description"
               label={t('admin.fields.description')}
-              className={classes.content}
             />
           </Grid>
           <Grid item xs={12}>
