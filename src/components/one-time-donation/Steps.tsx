@@ -1,15 +1,21 @@
 import * as React from 'react'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
 import { CircularProgress } from '@mui/material'
 import { AxiosError } from 'axios'
 import { FormikHelpers } from 'formik'
+
+import { CardRegion, PaymentProvider } from 'gql/donations.enums'
+import { OneTimeDonation, DonationStep as StepType } from 'gql/donations'
+import { createDonationWish } from 'service/donationWish'
+import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
+import { useCurrentPerson } from 'common/util/useCurrentPerson'
+import CenteredSpinner from 'components/common/CenteredSpinner'
 import { useDonationSession } from 'common/hooks/donation'
 import { useViewCampaign } from 'common/hooks/campaigns'
 import { baseUrl, routes } from 'common/routes'
-import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
-import { OneTimeDonation, DonationStep as StepType } from 'gql/donations'
-import NotFoundPage from 'pages/404'
+
 import FirstStep from './steps/FirstStep'
 import SecondStep from './steps/SecondStep'
 import ThirdStep from './steps/ThirdStep'
@@ -18,10 +24,6 @@ import Fail from './steps/Fail'
 import { FormikStep, FormikStepper } from './FormikStepper'
 import { validateFirst, validateSecond, validateThird } from './helpers/validation-schema'
 import { StepsContext } from './helpers/stepperContext'
-import { useSession } from 'next-auth/react'
-import { CardRegion } from 'gql/donations.enums'
-import { createDonationWish } from 'service/donationWish'
-import { useCurrentPerson } from 'common/util/useCurrentPerson'
 
 const initialValues: OneTimeDonation = {
   message: '',
@@ -54,15 +56,11 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
   initialValues.amount = (router.query.price as string) || ''
   const slug = String(router.query.slug)
   const { data, isLoading } = useViewCampaign(slug)
-  if (!data || !data.campaign) return <NotFoundPage />
-  const { campaign } = data
   const mutation = useDonationSession()
-  const { data: { user: person } = { user: null } } = useCurrentPerson()
-
   const { data: session } = useSession()
-  function isLogged() {
-    return session && session.accessToken ? true : false
-  }
+  const { data: { user: person } = { user: null } } = useCurrentPerson()
+  if (isLoading || !data) return <CenteredSpinner size="2rem" />
+  const { campaign } = data
 
   const userEmail = session?.user?.email
 
@@ -81,7 +79,11 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
         cancelUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=false`,
         message: values?.message,
       })
-      if (data.session.url && values?.payment != 'bank') {
+      if (values?.payment === PaymentProvider.bank) {
+        // Do not redirect for bank payments
+        return
+      }
+      if (data.session.url) {
         //send the user to payment provider
         window.location.href = data.session.url
       }
@@ -94,7 +96,7 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
     { setFieldError, resetForm }: FormikHelpers<OneTimeDonation>,
   ) => {
     try {
-      if (values?.payment === 'bank') {
+      if (values?.payment === PaymentProvider.bank) {
         if (values?.message) {
           await createDonationWish({
             message: values.message,
@@ -139,7 +141,7 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
     },
     {
       label: 'payment',
-      component: success ? <Success /> : <Fail />,
+      component: success ? <Success campaignSlug={slug} /> : <Fail campaignSlug={slug} />,
       validate: null,
     },
   ]

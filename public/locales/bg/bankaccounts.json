@@ -3,13 +3,26 @@
     "add": "Добави нова сметка",
     "edit": "Редактирай сметка"
   },
-  "status": "Статус",
-  "ibanNumber": "IBAN",
-  "accountHolderName": "Собственик",
-  "AccountHolderType": "Вид акаунт",
-  "bankName": "Име на банка",
-  "bankIdCode": "BIC/SWIFT",
-  "fingerprint": "Е-Подпис",
+  "fields": {
+    "status": "Статус",
+    "ibanNumber": "IBAN",
+    "accountHolderName": "Собственик",
+    "accountHolderType": "Вид акаунт",
+    "bankName": "Име на банка",
+    "bankIdCode": "BIC/SWIFT",
+    "fingerprint": "Е-Подпис"
+  },
+  "status": {
+    "new": "Нов",
+    "validated": "Валидиран",
+    "verified": "Верифициран",
+    "verification_failed": "Неуспешна верификация",
+    "errored": "С грешки"
+  },
+  "accountHolderType": {
+    "individual": "Индивидуален",
+    "company": "Компания"
+  },
   "withdrawals": "Извлечения",
   "actions": "Действия",
   "alerts": {

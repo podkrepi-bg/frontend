@@ -1,11 +1,10 @@
 import { TabContext, TabPanel } from '@mui/lab'
 import { Stack } from '@mui/material'
 import { useTranslation } from 'next-i18next'
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 
 import Layout from 'components/layout/Layout'
 
-import OnHold from './OnHold'
 import ContactUs from './ContactUs'
 import ScrollToTop from './ScrollToTop'
 import VerticalTabs from './VerticalTabs'
@@ -17,51 +16,68 @@ import {
   ATTRACTING_DONATORS_QUESTIONS,
   PARTNERSHIPS_QUESTIONS,
 } from './contents'
+import { FaqCategory } from './contents/faq-categories.enum'
+import { ContentType } from './contents/content-type'
+import { filterFaqQuestionBySearchKeyword, filterFaqQuestionByVisibility } from './helpers/filters'
+import FaqSearch from './FaqSearch'
+import { filterFaqQuestions } from './helpers/utils'
 
-const faqOnHold = false // Remove this when FAQ is ready
+const FAQ_PAGE_QUESTIONS: Record<string, ContentType[]> = {
+  [FaqCategory.Common]: COMMON_QUESTIONS,
+  [FaqCategory.Campaigns]: CAMPAIGN_QUESTIONS,
+  [FaqCategory.Donations]: DONATION_QUESTIONS,
+  [FaqCategory.AttractDonators]: ATTRACTING_DONATORS_QUESTIONS,
+  [FaqCategory.CorporatePartnership]: PARTNERSHIPS_QUESTIONS,
+}
 
-export default function FaqPage({ section }: { section: string }) {
+type Props = {
+  section: FaqCategory
+}
+
+export default function FaqPage({ section }: Props) {
   const { t } = useTranslation()
-  const [value, setValue] = useState(section)
+  const [searchKeyword, setSearchKeyword] = useState('')
 
-  if (faqOnHold) {
-    return (
-      <Layout title={t('nav.campaigns.faq')}>
-        <OnHold />
-      </Layout>
-    )
-  }
+  const faqQuestionsData = useMemo(
+    () => filterFaqQuestions(FAQ_PAGE_QUESTIONS, searchKeyword),
+    [searchKeyword],
+  )
+  const faqCategories = useMemo(
+    () => Object.keys(faqQuestionsData) as FaqCategory[],
+    [faqQuestionsData],
+  )
+
+  // Always keep a selected category in the Tabs panel (useful when filtering)
+  const selectedFaqCategory = useMemo(() => {
+    if (faqCategories.length > 0 && !faqCategories.includes(section)) {
+      return faqCategories[0]
+    }
+
+    return section
+  }, [faqCategories, section])
+
   return (
     <Layout title={t('nav.campaigns.faq')}>
       {/* <FaqIntro /> */}
-      <TabContext value={value}>
+      <FaqSearch onChange={setSearchKeyword} />
+      <TabContext value={selectedFaqCategory}>
         <Stack direction={{ xs: 'column', md: 'row' }}>
-          <VerticalTabs setValue={setValue} />
-          <TabPanel value="common-questions" sx={{ p: 0 }}>
-            {COMMON_QUESTIONS.flatMap(({ header, content, visible }) =>
-              visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
-            )}
-          </TabPanel>
-          <TabPanel value="campaigns" sx={{ p: 0 }}>
-            {CAMPAIGN_QUESTIONS.flatMap(({ header, content, visible }) =>
-              visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
-            )}
-          </TabPanel>
-          <TabPanel value="donations" sx={{ p: 0 }}>
-            {DONATION_QUESTIONS.flatMap(({ header, content, visible }) =>
-              visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
-            )}
-          </TabPanel>
-          <TabPanel value="attracting-donators" sx={{ p: 0 }}>
-            {ATTRACTING_DONATORS_QUESTIONS.flatMap(({ header, content, visible }) =>
-              visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
-            )}
-          </TabPanel>
-          <TabPanel value="corporate-partnership" sx={{ p: 0 }}>
-            {PARTNERSHIPS_QUESTIONS.flatMap(({ header, content, visible }) =>
-              visible ? <ExpandableListItem key={header} header={header} content={content} /> : [],
-            )}
-          </TabPanel>
+          <VerticalTabs
+            faqCategories={faqCategories}
+            // setSelectedFaqCategory={setSelectedFaqCategory}
+          />
+          {faqCategories.map((categoryKey) => {
+            return (
+              <TabPanel key={categoryKey} value={categoryKey} sx={{ p: 0, flex: 4 }}>
+                {faqQuestionsData[categoryKey]
+                  .filter(filterFaqQuestionByVisibility)
+                  .filter((question) => filterFaqQuestionBySearchKeyword(question, searchKeyword))
+                  .flatMap(({ header, content }) => (
+                    <ExpandableListItem key={header} header={header} content={content} />
+                  ))}
+              </TabPanel>
+            )
+          })}
         </Stack>
       </TabContext>
       <ContactUs />

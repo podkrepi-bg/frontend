@@ -35,8 +35,9 @@ jobs:
 
       - name: Scan with Mondoo
         uses: mondoohq/actions/docker-image@main
+        env:
+          MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
         with:
-          service-account-credentials: ${{ secrets.MONDOO_SECRET }}
           image: ghcr.io/podkrepi-bg/frontend/maintenance:master
 
   build-frontend-image:
@@ -68,18 +69,23 @@ jobs:
         env:
           NODE_ENV: production
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          GHOST_API_URL: https://blog.podkrepi.bg
+          GHOST_CONTENT_KEY: ${{ secrets.GHOST_CONTENT_KEY }}
         with:
           push: true
-          target: production
+          target: runner
           build-args: |
-            SENTRY_AUTH_TOKEN=$SENTRY_AUTH_TOKEN
+            SENTRY_AUTH_TOKEN=${{ env.SENTRY_AUTH_TOKEN }}
+            GHOST_API_URL=${{ env.GHOST_API_URL }}
+            GHOST_CONTENT_KEY=${{ env.GHOST_CONTENT_KEY }}
             VERSION=${{ env.VERSION }}
           tags: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}
 
       - name: Scan with Mondoo
         uses: mondoohq/actions/docker-image@main
+        env:
+          MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
         with:
-          service-account-credentials: ${{ secrets.MONDOO_SECRET }}
           image: ghcr.io/podkrepi-bg/frontend:${{ env.VERSION }}
 
   scan-manifests:
@@ -96,8 +102,9 @@ jobs:
 
       - name: Scan development manifests with Mondoo
         uses: mondoohq/actions/k8s-manifest@main
+        env:
+          MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
         with:
-          service-account-credentials: ${{ secrets.MONDOO_SECRET }}
           path: dev-manifests.yaml
 
       - name: Build production manifests
@@ -105,8 +112,9 @@ jobs:
 
       - name: Scan production manifests with Mondoo
         uses: mondoohq/actions/k8s-manifest@main
+        env:
+          MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
         with:
-          service-account-credentials: ${{ secrets.MONDOO_SECRET }}
           path: prod-manifests.yaml
 
   run-playwright:

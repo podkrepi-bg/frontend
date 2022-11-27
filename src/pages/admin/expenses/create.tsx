@@ -7,6 +7,7 @@ export const getServerSideProps = securedPropsWithTranslation([
   'validation',
   'admin',
   'expenses',
+  'vaults',
 ])
 
 export default ExpensesCreatePage

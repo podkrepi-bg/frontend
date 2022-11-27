@@ -2,7 +2,7 @@ import React from 'react'
 import { DataGrid, GridColumns } from '@mui/x-data-grid'
 
 import { DialogStore } from 'stores/DialogStore'
-import { dateFormatter } from 'common/util/date'
+import { formatDateString } from 'common/util/date'
 import { useInfoRequestList } from 'common/hooks/infoRequest'
 
 const columns: GridColumns = [
@@ -27,7 +27,7 @@ const columns: GridColumns = [
   {
     field: 'createdAt',
     headerName: 'Date',
-    valueFormatter: (d) => typeof d.value === 'string' && dateFormatter(d.value),
+    valueFormatter: (d) => typeof d.value === 'string' && formatDateString(d.value),
     minWidth: 300,
   },
 ]

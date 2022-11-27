@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+  frontend:
+    image: frontend
+    container_name: frontend
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      # args:
+      #   SENTRY_AUTH_TOKEN: ${SENTRY_AUTH_TOKEN}
+      #   GHOST_API_URL: ${GHOST_API_URL}
+      #   GHOST_CONTENT_KEY: ${GHOST_CONTENT_KEY}
+    env_file:
+      - .env.local
+    ports:
+      - '3040:3040'

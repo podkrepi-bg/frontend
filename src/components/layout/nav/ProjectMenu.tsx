@@ -5,7 +5,7 @@ import { Typography } from '@mui/material'
 import { lighten } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 
-import { routes, staticUrls } from 'common/routes'
+import { routes } from 'common/routes'
 
 import GenericNavMenu from './GenericNavMenu'
 import ExternalLinkMenuItem from 'components/common/ExternalLinkMenuItem'
@@ -51,9 +51,8 @@ const allNavItems: NavItem[] = [
     label: 'nav.about.about-project',
   },
   {
-    href: staticUrls.blog,
+    href: routes.blog.index,
     label: 'nav.blog',
-    target: '_blank',
   },
   {
     href: routes.support_us,

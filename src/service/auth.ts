@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { JWT } from 'next-auth/jwt'
 
 import { apiClient } from 'service/apiClient'
@@ -90,7 +90,7 @@ export const register = async (data: RegisterInput) => {
 
 export function useRegister() {
   return useMutation<AxiosResponse<RegisterResponse>, unknown, RegisterInput>(
-    endpoints.auth.register.url,
+    [endpoints.auth.register.url],
     { mutationFn: register },
   )
 }

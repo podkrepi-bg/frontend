@@ -101,6 +101,16 @@ spec:
                 secretKeyRef:
                   name: secrets-web
                   key: paypal-client-id
+            - name: GHOST_API_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: config-web
+                  key: ghost-api-url
+            - name: GHOST_CONTENT_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: config-web
+                  key: ghost-content-key
           ports:
             - containerPort: 3040
           resources:

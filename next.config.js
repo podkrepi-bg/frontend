@@ -16,6 +16,7 @@ const moduleExports = {
     includePaths: [path.join(__dirname, 'src/styles')],
   },
   swcMinify: true,
+  output: 'standalone',
   env: {
     APP_ENV: process.env.APP_ENV,
     APP_VERSION: version,
@@ -36,8 +37,14 @@ const moduleExports = {
       CAMPAIGN: process.env.FEATURE_CAMPAIGN ?? false,
     },
   },
+  sentry: {
+    hideSourceMaps: true,
+  },
   images: {
-    domains: [process.env.IMAGE_HOST ?? 'localhost'],
+    domains: [
+      process.env.IMAGE_HOST ?? 'localhost',
+      process.env.GHOST_API_URL?.replace('https://', '') || 'blog.podkrepi.bg',
+    ],
   },
   async redirects() {
     return [

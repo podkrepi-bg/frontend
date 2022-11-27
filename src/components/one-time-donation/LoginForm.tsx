@@ -78,11 +78,10 @@ function LoginForm() {
         color="primary"
         variant="outlined"
         fullWidth
-        sx={{ marginTop: theme.spacing(3) }}>
+        sx={{ marginTop: theme.spacing(3) }}
+        onClick={onGoogleLogin}>
         <Box display="inline-flex" alignItems="center" marginRight={theme.spacing(2)}>
-          <Button fullWidth onClick={onGoogleLogin}>
-            <Google /> {t('common:nav.login-with')} Google
-          </Button>
+          <Google /> {t('common:nav.login-with')} Google
         </Box>
       </Button>
     </Grid>

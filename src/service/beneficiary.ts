@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/react'
-import { QueryClient, useQuery } from 'react-query'
+import { QueryClient, useQuery } from '@tanstack/react-query'
 
 import {
   BeneficiaryFormData,
@@ -14,7 +14,7 @@ import { authConfig, authQueryFnFactory } from './restRequests'
 export const useBeneficiariesList = () => {
   const { data: session } = useSession()
   return useQuery(
-    endpoints.beneficiary.listBeneficiary.url,
+    [endpoints.beneficiary.listBeneficiary.url],
     authQueryFnFactory<BeneficiaryListResponse[]>(session?.accessToken),
   )
 }
@@ -22,7 +22,7 @@ export const useBeneficiariesList = () => {
 export const useViewBeneficiary = (id: string) => {
   const { data: session } = useSession()
   return useQuery(
-    endpoints.beneficiary.viewBeneficiary(id).url,
+    [endpoints.beneficiary.viewBeneficiary(id).url],
     authQueryFnFactory<ViewBeneficiaryResponse>(session?.accessToken),
   )
 }
@@ -51,7 +51,7 @@ export const useEditBeneficiary = (id: string) => {
 }
 
 export function useDeleteBeneficiary(slug: string) {
-  return useQuery<null>(endpoints.beneficiary.removeBeneficiary(slug).url)
+  return useQuery<null>([endpoints.beneficiary.removeBeneficiary(slug).url])
 }
 
 export const useRemoveBeneficiary = () => {
@@ -67,14 +67,14 @@ export const useRemoveBeneficiary = () => {
 
 export async function prefetchBeneficiaryById(client: QueryClient, slug: string, token?: string) {
   await client.prefetchQuery<BeneficiaryListResponse>(
-    endpoints.beneficiary.viewBeneficiary(slug).url,
+    [endpoints.beneficiary.viewBeneficiary(slug).url],
     authQueryFnFactory<BeneficiaryListResponse>(token),
   )
 }
 
 export async function prefetchBeneficiariesList(client: QueryClient, token?: string) {
   await client.prefetchQuery<BeneficiaryListResponse[]>(
-    endpoints.beneficiary.listBeneficiary.url,
+    [endpoints.beneficiary.listBeneficiary.url],
     authQueryFnFactory<BeneficiaryListResponse[]>(token),
   )
 }

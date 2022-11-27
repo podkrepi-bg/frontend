@@ -1,14 +1,18 @@
+import Link from 'next/link'
 import Image from 'next/image'
 import { styled } from '@mui/material/styles'
 import { Box, Grid, Typography, useMediaQuery } from '@mui/material'
-import Layout from 'components/layout/Layout'
-import { useViewCampaign } from 'common/hooks/campaigns'
+
 import theme from 'common/theme'
+import { routes } from 'common/routes'
 import {
   backgroundCampaignPictureUrl,
   beneficiaryCampaignPictureUrl,
 } from 'common/util/campaignImageUrls'
-import NotFoundPage from 'pages/404'
+import Layout from 'components/layout/Layout'
+import { useViewCampaign } from 'common/hooks/campaigns'
+import CenteredSpinner from 'components/common/CenteredSpinner'
+
 import DonationStepper from './Steps'
 
 const PREFIX = 'OneTimeDonationPage'
@@ -68,10 +72,10 @@ const scrollWindow = () => {
 }
 
 export default function OneTimeDonation({ slug }: { slug: string }) {
-  const { data } = useViewCampaign(slug)
-  if (!data || !data.campaign) return <NotFoundPage />
-  const { campaign } = data
+  const { data, isLoading } = useViewCampaign(slug)
   const matches = useMediaQuery('sm')
+  if (isLoading || !data) return <CenteredSpinner size="2rem" />
+  const { campaign } = data
 
   const bannerSource = backgroundCampaignPictureUrl(campaign)
   const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
@@ -104,16 +108,21 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
           <Image
             src={beneficiaryAvatarSource}
             // A11Y TODO: Translate alt text
-            alt={`Image of ${campaign.beneficiary.person.firstName} ${campaign.beneficiary.person.lastName}`}
+            alt={`Image of ${campaign.beneficiary.person?.firstName} ${campaign.beneficiary.person?.lastName}`}
             width={250}
             height={250}
             className={classes.beneficiaryAvatar}
           />
         </Grid>
         <Grid className={classes.stepperWrapper}>
-          <Typography variant="h4" sx={{ textAlign: 'center', marginBottom: theme.spacing(4) }}>
-            {campaign.title}
-          </Typography>
+          <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)} passHref>
+            <Typography
+              variant="h4"
+              color="info.dark"
+              sx={{ textAlign: 'center', marginBottom: theme.spacing(4) }}>
+              {campaign.title}
+            </Typography>
+          </Link>
           <DonationStepper onStepChange={scrollWindow} />
         </Grid>
       </Grid>

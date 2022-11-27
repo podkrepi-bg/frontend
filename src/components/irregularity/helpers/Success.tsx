@@ -9,6 +9,7 @@ import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined'
 import theme from 'common/theme'
 
 import LinkButton from 'components/common/LinkButton'
+import { routes } from 'common/routes'
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -65,13 +66,13 @@ export default function Success() {
         <Grid container item className={classes.containerButtons}>
           <Grid>
             <Typography variant="body1">{t('steps.success.label-campaigns')}</Typography>
-            <LinkButton href={`/campaigns`} variant="outlined" className={classes.button}>
+            <LinkButton href={routes.campaigns.index} variant="outlined" className={classes.button}>
               {t('cta.campaigns')}
             </LinkButton>
           </Grid>
           <Grid>
             <Typography variant="body1">{t('steps.success.label-project')}</Typography>
-            <LinkButton href={`/about-project`} variant="outlined" className={classes.button}>
+            <LinkButton href={routes.aboutProject} variant="outlined" className={classes.button}>
               {t('cta.project')}
             </LinkButton>
           </Grid>

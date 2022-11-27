@@ -7,7 +7,7 @@ import SubmitButton from 'components/common/form/SubmitButton'
 import GenericForm from 'components/common/form/GenericForm'
 import { routes } from 'common/routes'
 import { useRouter } from 'next/router'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { ApiErrors } from 'service/apiErrors'
 import PasswordField from 'components/common/form/PasswordField'
@@ -78,13 +78,19 @@ export default function ChangePasswordForm({ initialValues = defaults }: ChangeP
       validationSchema={validationSchema}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <PasswordField type="password" label="auth:fields.password" name="password" />
+          <PasswordField
+            type="password"
+            label="auth:fields.password"
+            name="password"
+            autoComplete="new-password"
+          />
         </Grid>
         <Grid item xs={12}>
           <PasswordField
             type="password"
             label="auth:fields.confirm-password"
             name="confirmPassword"
+            autoComplete="new-password"
           />
         </Grid>
         <Grid item xs={12}>

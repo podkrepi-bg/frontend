@@ -20,15 +20,13 @@ export type BankAccountInput = {
   accountHolderType: AccountHolderType | undefined
   bankName?: string | undefined
   bankIdCode?: string | undefined
-  fingerprint?: string | undefined
 }
 
 export type BankAccountsData = {
   status: string
   ibanNumber: string
   accountHolderName: string
-  AccountHolderType: string
+  accountHolderType: string
   bankName: string
   bankIdCode: string
-  fingerprint: string
 }

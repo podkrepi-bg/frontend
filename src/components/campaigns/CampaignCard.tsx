@@ -1,26 +1,27 @@
-import React from 'react'
-import { styled } from '@mui/material/styles'
-import { useTranslation } from 'next-i18next'
-import { routes } from 'common/routes'
-import { moneyPublic } from 'common/util/money'
-import LinkButton from 'components/common/LinkButton'
-import { CampaignResponse } from 'gql/campaigns'
-import CampaignProgress from './CampaignProgress'
+import { Favorite } from '@mui/icons-material'
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight'
 import {
-  Grid,
+  Box,
   Card,
   CardActionArea,
   CardActions,
   CardContent,
   CardMedia,
+  Grid,
   Typography,
-  Box,
 } from '@mui/material'
-import { Favorite } from '@mui/icons-material'
-import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight'
+import { styled } from '@mui/material/styles'
+import { routes } from 'common/routes'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
+import { moneyPublic } from 'common/util/money'
+import LinkButton from 'components/common/LinkButton'
+import { CampaignResponse } from 'gql/campaigns'
+import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
+import Link from 'next/link'
+import CampaignProgress from './CampaignProgress'
 import SuccessfullCampaignTag from './SuccessfullCampaignTag'
+import { CampaignState } from './helpers/campaign.enums'
 
 const PREFIX = 'CampaignCard'
 
@@ -104,20 +105,24 @@ type Props = { campaign: CampaignResponse }
 
 export default function CampaignCard({ campaign }: Props) {
   const { t } = useTranslation()
+
   const target = campaign.targetAmount
   const summary = campaign.summary
   const pictureUrl = campaignListPictureUrl(campaign)
   const reached = summary ? summary.reachedAmount : 0
   const currency = campaign.currency
+  const campaignState = campaign.state
 
   return (
     <StyledCard variant="outlined" className={classes.cardWrapper}>
-      <CardActionArea href={routes.campaigns.viewCampaignBySlug(campaign.slug)}>
+      <CardActionArea
+        LinkComponent={Link}
+        href={routes.campaigns.viewCampaignBySlug(campaign.slug)}>
         <CardMedia className={classes.media} title={campaign.title}>
           <div
             style={{ position: 'relative', width: '100%', minHeight: '100%', maxHeight: '100%' }}>
             <Image alt={campaign.title} src={pictureUrl} fill style={{ objectFit: 'contain' }} />
-            {reached >= target ? <SuccessfullCampaignTag /> : ''}
+            {campaignState === CampaignState.complete ? <SuccessfullCampaignTag /> : ''}
           </div>
         </CardMedia>
         <CardContent className={classes.cardContent}>

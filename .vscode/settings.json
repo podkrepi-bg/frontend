@@ -1,0 +1,11 @@
+{
+  "files.exclude": {
+    "**/.yarn": true
+  },
+  "search.exclude": {
+    "**/.yarn": true
+  },
+  "files.watcherExclude": {
+    "**/.yarn": true
+  }
+}

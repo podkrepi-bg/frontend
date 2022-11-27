@@ -7,6 +7,7 @@ export const getServerSideProps = securedPropsWithTranslation([
   'validation',
   'transfer',
   'admin',
+  'vaults',
 ])
 
 export default CreatePage

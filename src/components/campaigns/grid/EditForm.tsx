@@ -3,7 +3,7 @@ import { FormikHelpers } from 'formik'
 import { useRouter } from 'next/router'
 import React, { useMemo, useState } from 'react'
 import { parse, isDate, format } from 'date-fns'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import NextLink from 'next/link'
@@ -45,6 +45,7 @@ import UploadedCampaignFile from './UploadedCampaignFile'
 import { fromMoney, toMoney } from 'common/util/money'
 import CurrencySelect from 'components/currency/CurrencySelect'
 import OrganizerSelect from './OrganizerSelect'
+import AllowDonationOnComplete from '../../common/form/AllowDonationOnComplete'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -140,7 +141,7 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
     onSuccess: () => {
       AlertStore.show(t('common:alerts.message-sent'), 'success')
       //invalidate query for getting new values
-      queryClient.invalidateQueries(endpoints.campaign.viewCampaignById(campaign.id).url)
+      queryClient.invalidateQueries([endpoints.campaign.viewCampaignById(campaign.id).url])
     },
   })
 
@@ -153,7 +154,7 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => {
       //invalidate query for getting new values
-      queryClient.invalidateQueries(endpoints.campaign.viewCampaignById(campaign.id).url)
+      queryClient.invalidateQueries([endpoints.campaign.viewCampaignById(campaign.id).url])
     },
   })
 
@@ -167,7 +168,7 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
         slug: createSlug(values.title),
         description: values.description,
         targetAmount: toMoney(values.targetAmount),
-        allowDonationOnComplete: campaign.allowDonationOnComplete,
+        allowDonationOnComplete: values.allowDonationOnComplete,
         startDate: values.startDate,
         endDate: values.endDate,
         state: values.state,
@@ -188,7 +189,7 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
       }
 
       //Go back to campaign list
-      queryClient.invalidateQueries(endpoints.campaign.listAdminCampaigns.url)
+      queryClient.invalidateQueries([endpoints.campaign.listAdminCampaigns.url])
       router.push(routes.admin.campaigns.index)
     } catch (error) {
       console.error(error)
@@ -241,6 +242,9 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
           </Grid>
           <Grid item xs={12} sm={2}>
             <CurrencySelect disabled={IsCurrencySelectDisabled} />
+          </Grid>
+          <Grid item xs={12} sm={12}>
+            <AllowDonationOnComplete name="allowDonationOnComplete" />
           </Grid>
           <Grid item xs={12} sm={4}>
             <FormTextField

@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import FilePresentIcon from '@mui/icons-material/FilePresent'
 import {
@@ -37,7 +37,7 @@ export default function UploadedCampaignFile({ file, campaignId }: Props) {
     onError: () => AlertStore.show(t('alerts.error'), 'error'),
     onSuccess: () => {
       AlertStore.show(t('alerts.deletedFile'), 'success')
-      queryClient.invalidateQueries(endpoints.campaign.viewCampaignById(campaignId).url)
+      queryClient.invalidateQueries([endpoints.campaign.viewCampaignById(campaignId).url])
     },
   })
   const downloadFileHandler = async () => {

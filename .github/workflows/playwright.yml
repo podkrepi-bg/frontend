@@ -21,7 +21,7 @@ jobs:
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
 
       - uses: actions/cache@v3
         with:
@@ -45,7 +45,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: '18'
 
       - name: Install backend dependencies and seed database
         working-directory: ./api
@@ -59,13 +59,13 @@ jobs:
         working-directory: ./frontend
         run: yarn
 
-      - name: Build frontend
-        working-directory: ./frontend
-        run: yarn run next build
-
       - name: Setup env
         working-directory: ./frontend
         run: cp .env.local.example .env.local
+
+      - name: Build frontend
+        working-directory: ./frontend
+        run: yarn run next build
 
       - name: Wait on backend
         uses: iFaxity/wait-on-action@v1
