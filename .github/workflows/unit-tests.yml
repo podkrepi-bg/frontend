@@ -1,4 +1,4 @@
-name: Test
+name: Component Tests
 
 on:
   workflow_dispatch:
@@ -12,7 +12,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        node-version: [14.x]
+        node-version: [18.x]
 
     steps:
       - uses: actions/checkout@v3
@@ -24,7 +24,7 @@ jobs:
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
 
       - uses: actions/cache@v3
         with:

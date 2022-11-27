@@ -21,7 +21,7 @@ jobs:
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+        run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
 
       - uses: actions/cache@v3
         with:
@@ -37,7 +37,7 @@ jobs:
         run: docker compose up -d pg-db
       - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: '18'
 
       - name: Install backend dependencies and seed database
         working-directory: ./api
