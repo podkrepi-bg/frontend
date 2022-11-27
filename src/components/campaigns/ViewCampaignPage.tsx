@@ -36,7 +36,10 @@ export default function ViewCampaignPage({ slug }: Props) {
               position: 'sticky',
               top: 0,
               order: -1,
-              marginTop: `-${theme.spacing(3)}`,
+              marginTop: `-${theme.spacing(4)}`,
+              [theme.breakpoints.down('sm')]: {
+                marginTop: `-${theme.spacing(3)}`,
+              },
               minWidth: '100vw',
               zIndex: 100,
             }}>
