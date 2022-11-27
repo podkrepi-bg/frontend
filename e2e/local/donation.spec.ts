@@ -19,6 +19,8 @@ test.describe('donation page init', () => {
   })
 })
 
+//This test will not pass since the keycloak is not yet working in the e2e tests
+
 // test.describe('logged in user donation flow', () => {
 //   test('choosing a predefined value and donate', async ({ page }) => {
 //     // Choose a predefined value from the radio buttons
