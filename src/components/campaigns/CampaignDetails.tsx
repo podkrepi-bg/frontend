@@ -43,7 +43,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     marginTop: `${theme.spacing(10)} !important`,
     objectFit: 'cover',
     [theme.breakpoints.down('md')]: {
-      top: '173px !important',
+      marginTop: `${theme.spacing(30.5)} !important`,
     },
   },
 
