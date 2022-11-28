@@ -20,12 +20,18 @@ spec:
           emptyDir: {}
         - name: nextjs-cache
           emptyDir: {}
+        - name: npm-logs
+          emptyDir: {}
+        - name: cacache
+          emptyDir: {}
       containers:
         - name: frontend
           image: ghcr.io/podkrepi-bg/frontend
           imagePullPolicy: Always
           securityContext:
             runAsNonRoot: true
+            runAsUser: 1001
+            runAsGroup: 1001
             readOnlyRootFilesystem: true
             capabilities:
               drop:
@@ -35,6 +41,10 @@ spec:
               mountPath: /tmp
             - name: nextjs-cache
               mountPath: /app/.next/cache
+            - name: npm-logs
+              mountPath: /home/nextjs/.npm/_logs
+            - name: cacache
+              mountPath: /home/nextjs/.npm/_cacache
           env:
             - name: NODE_ENV
               value: production
