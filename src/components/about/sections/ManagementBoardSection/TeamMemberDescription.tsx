@@ -2,6 +2,8 @@ import { useState } from 'react'
 
 import { useTranslation } from 'next-i18next'
 
+import theme from 'common/theme'
+
 import { ShowMoreButton, Description } from './ManagementBoardsection.styled'
 
 type Props = {
@@ -14,7 +16,7 @@ export function TeamMemberDescription({ description }: Props) {
 
   return (
     <>
-      <Description variant="body2" height={show ? 'auto' : '200px'}>
+      <Description variant="body2" height={show ? 'auto' : theme.spacing(25)}>
         {description}
       </Description>
       <ShowMoreButton onClick={() => setShow(!show)}>
