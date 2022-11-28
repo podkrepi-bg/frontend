@@ -13,18 +13,14 @@ import { moneyPublic } from 'common/util/money'
 const PREFIX = 'DonorsAndDonations'
 
 const classes = {
-  donationsWrapper: `${PREFIX}-donationsWrapper`,
   donationItemWrapper: `${PREFIX}-donationItemWrapper`,
   donationQuantityAndTimeWrapper: `${PREFIX}-donationQuantityAndTimeWrapper`,
   separatorIcon: `${PREFIX}-separatorIcon`,
 }
 
 const Root = styled('div')(({ theme }) => ({
-  [`& .${classes.donationsWrapper}`]: {
-    marginTop: theme.spacing(5),
-    maxHeight: 400,
-    overflowY: 'scroll',
-  },
+  marginTop: theme.spacing(5),
+  overflowY: 'auto',
 
   [`& .${classes.donationItemWrapper}`]: {
     display: 'flex',
@@ -62,7 +58,7 @@ export default function DonorsAndDonations({
 
   return (
     <Root>
-      <Grid item className={classes.donationsWrapper}>
+      <Grid item>
         {donationsToShow && donationsToShow.length !== 0 ? (
           donationsToShow.map(({ person, amount, createdAt, currency }, key) => (
             <Grid key={key} className={classes.donationItemWrapper}>

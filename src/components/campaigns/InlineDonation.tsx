@@ -28,6 +28,7 @@ const classes = {
   inlineDonationWrapper: `${PREFIX}-inlineDonationWrapper`,
   reachedMoney: `${PREFIX}-reachedMoney`,
   targetMoney: `${PREFIX}-targetMoney`,
+  donorsSharesWrapper: `${PREFIX}-donorsSharesWrapper`,
   donorsSharesCount: `${PREFIX}-donorsSharesCount`,
   donationPriceList: `${PREFIX}-donationPriceList`,
   dropdownLinkButton: `${PREFIX}-dropdownLinkButton`,
@@ -41,8 +42,11 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   [`&.${classes.inlineDonationWrapper}`]: {
     backgroundColor: '#EEEEEE',
     borderRadius: theme.spacing(1),
-    height: 'fit-content',
+    maxHeight: '70vh',
     boxShadow: '2px 4px 5px rgba(0, 0, 0, 0.25)',
+    display: 'flex',
+    flexDirection: 'column',
+    overflow: 'hidden',
     [theme.breakpoints.down('md')]: {
       margin: theme.spacing(0),
       borderRadius: theme.spacing(0),
@@ -62,6 +66,11 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     [theme.breakpoints.down('md')]: {
       fontSize: theme.spacing(2),
     },
+  },
+
+  [`& .${classes.donorsSharesWrapper}`]: {
+    display: 'flex',
+    flexDirection: 'row',
   },
 
   [`& .${classes.donorsSharesCount}`]: {
@@ -158,7 +167,7 @@ export default function InlineDonation({ campaign }: Props) {
       </Grid>
       <CampaignProgress raised={reached} target={target} />
       {detailsShown && (
-        <>
+        <Grid className={classes.donorsSharesWrapper}>
           <Grid display="inline-block" m={3} ml={0}>
             <Typography className={classes.donorsSharesCount}>{donors}</Typography>
             <Typography>{t('campaigns:campaign.donors')}</Typography>
@@ -167,7 +176,7 @@ export default function InlineDonation({ campaign }: Props) {
             <Typography className={classes.donorsSharesCount}>{0}</Typography>
             <Typography>{t('campaigns:campaign.shares')}</Typography>
           </Grid>
-        </>
+        </Grid>
       )}
       <Grid container gap={2} className={classes.buttonContainer}>
         <Button
@@ -251,7 +260,6 @@ export default function InlineDonation({ campaign }: Props) {
             ) : null}
           </>
         ))}
-      {/* <pre>{JSON.stringify(prices, null, 2)}</pre> */}
       {mobile && (
         <Grid textAlign="center">
           <Button variant="text" onClick={() => setIsOpen(!isOpen)} className={classes.openButton}>
