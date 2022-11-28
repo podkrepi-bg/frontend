@@ -135,7 +135,7 @@ jobs:
         uses: azure/setup-kubectl@v3
 
       - name: Install kustomize
-        uses: imranismail/setup-kustomize@v1
+        uses: imranismail/setup-kustomize@v2
 
       - name: Get tag
         if: ${{ startsWith(github.ref, 'refs/tags/v') }}
