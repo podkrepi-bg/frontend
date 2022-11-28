@@ -25,7 +25,7 @@ export default function Jumbotron() {
             size="large"
             variant="contained"
             href={routes.campaigns.index}>
-            {t('common:nav.donatе')}
+            {t('common:nav.donate')}
           </DonateButton>
         </JumbotronWrapper>
       </Container>

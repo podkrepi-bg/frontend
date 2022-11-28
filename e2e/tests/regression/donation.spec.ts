@@ -1,8 +1,13 @@
 import { test, expect } from '@playwright/test'
-import { expectCopied } from '../helpers'
+import { expectCopied } from '../../utils/helpers'
+import { HomePage } from '../../pages/web-pages/home.page';
+
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('http://localhost:3040/', { waitUntil: 'networkidle' })
+  let homepage: HomePage;
+  homepage = new HomePage(page)
+  await homepage.navigateToDevEnvHomepage();
+  // await page.goto('http://localhost:3040/', { waitUntil: 'networkidle' })
   await page.locator('button:not([disabled]):has-text("Подкрепете сега")').first().click()
   await page.waitForURL((url) => url.pathname.includes('/campaigns/donation'))
 })

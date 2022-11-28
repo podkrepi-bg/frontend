@@ -5,6 +5,8 @@ const credentials = {
   password: process.env.PASSWORD ?? '$ecurePa33',
 }
 
+// TODO: This should be refactored and used after discussions with the devs
+// Also move the credentials out of the repo
 export class AuthPage {
   page: Page
   constructor(page: Page) {
