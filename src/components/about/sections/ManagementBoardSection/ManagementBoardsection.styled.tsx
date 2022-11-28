@@ -1,5 +1,5 @@
 import { styled } from '@mui/material/styles'
-import { Grid, Link, Typography } from '@mui/material'
+import { Button, Grid, Link, Typography } from '@mui/material'
 
 import theme from 'common/theme'
 
@@ -42,4 +42,20 @@ export const LinkedInButton = styled(Link)(() => ({
   [theme.breakpoints.up('sm')]: {
     float: 'left',
   },
+}))
+
+export const ShowMoreButton = styled(Button)(() => ({
+  display: 'inherit',
+  padding: 0,
+
+  '&:hover': {
+    backgroundColor: 'transparent',
+    textDecoration: 'underline',
+  },
+}))
+
+export const Description = styled(Typography)(() => ({
+  textAlign: 'initial',
+  marginBottom: theme.spacing(3),
+  overflow: 'hidden',
 }))

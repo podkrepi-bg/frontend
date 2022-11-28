@@ -16,7 +16,7 @@ import {
   LinkedInIcon,
   LinkedInText,
 } from 'components/about/AboutPage.styled'
-import { ManagementBoardDescription } from './ManagementBoardDescription'
+import { TeamMemberDescription } from './TeamMemberDescription'
 
 export default function ManagementBoardSection() {
   const { t } = useTranslation('about')
@@ -33,9 +33,9 @@ export default function ManagementBoardSection() {
             <TeamMemberName variant="subtitle1" height={50}>
               {teamMember.name}
             </TeamMemberName>
-            <ManagementBoardDescription description={teamMember.description} />
+            <TeamMemberDescription description={teamMember.description} />
             {teamMember.linkedInProfile ? (
-              <LinkedInButton height={50} href={teamMember.linkedInProfile} target="_blank">
+              <LinkedInButton href={teamMember.linkedInProfile} target="_blank">
                 <LinkedInIcon color="action" fontSize="large" />
                 <LinkedInText variant="subtitle1">{t('about.linkedIn')}</LinkedInText>
               </LinkedInButton>
