@@ -156,7 +156,7 @@ jobs:
         run: kubectl apply -k manifests/overlays/development --kubeconfig config.yaml
 
       - name: Wait until deployment is ready
-        run: kubectl -n podkrepibg-dev wait --for=condition=Ready pods --all --timeout=180s --kubeconfig config.yaml
+        run: kubectl wait --for=condition=Available=True deployment/frontend --timeout=180s -n podkrepibg-dev --kubeconfig config.yaml
 
       - name: Delete kubeconfig
         if: always()
@@ -206,7 +206,7 @@ jobs:
         run: kubectl apply -k manifests/overlays/production --kubeconfig config.yaml
 
       - name: Wait until deployment is ready
-        run: kubectl -n podkrepibg wait --for=condition=Ready pods --all --timeout=180s --kubeconfig config.yaml
+        run: kubectl wait --for=condition=Available=True deployment/frontend --timeout=180s -n podkrepibg --kubeconfig config.yaml
 
       - uses: sarisia/actions-status-discord@v1
         if: always()
