@@ -1,5 +1,6 @@
 import { expect, Page } from '@playwright/test'
 
+// TODO: Refactor this page. It is not needed in general, because there are easier ways to check this.
 /**
  * @param page The page to get the clipboard text from.
  * @param textToCheck The text to check for in the clipboard.

@@ -103,7 +103,7 @@ jobs:
 
       - name: Run Frontend Tests
         working-directory: ./frontend
-        run: yarn playwright test e2e/local
+        run: yarn playwright test e2e/tests
 
       - uses: actions/upload-artifact@v3
         if: always()
