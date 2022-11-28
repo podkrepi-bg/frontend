@@ -5,7 +5,7 @@ import { Container } from '@mui/material'
 import { useViewCampaign } from 'common/hooks/campaigns'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import Layout from 'components/layout/Layout'
-import IrregularityForm from 'components/irregularity/IrregularityForm'
+import IrregularityForm from 'components/irregularity/helpers/IrregularityForm'
 import CenteredSpinner from 'components/common/CenteredSpinner'
 
 type Props = { slug: string }

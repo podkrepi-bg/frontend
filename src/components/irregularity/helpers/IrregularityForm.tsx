@@ -1,22 +1,18 @@
-import { useMutation } from '@tanstack/react-query'
-import { useTranslation } from 'next-i18next'
 import React, { useState, useRef } from 'react'
-import { AxiosError, AxiosResponse } from 'axios'
-import { FormikHelpers, FormikProps } from 'formik'
 
-import { Theme } from '@mui/material/styles'
-import makeStyles from '@mui/styles/makeStyles'
-import withStyles from '@mui/styles/withStyles'
-import createStyles from '@mui/styles/createStyles'
-import { Stepper, Step, StepLabel, StepConnector, Grid } from '@mui/material'
-
-import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
-import { createIrregularity, uploadIrregularityFiles } from 'service/irregularity'
-
-import theme from 'common/theme'
+import { useTranslation } from 'next-i18next'
 
 import { Person } from 'gql/person'
 import { CampaignResponse } from 'gql/campaigns'
+
+import { useMutation } from '@tanstack/react-query'
+import { AxiosError, AxiosResponse } from 'axios'
+import { FormikHelpers, FormikProps } from 'formik'
+
+import { StepLabel, Grid } from '@mui/material'
+
+import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
+import { createIrregularity, uploadIrregularityFiles } from 'service/irregularity'
 
 import {
   Steps,
@@ -29,54 +25,26 @@ import {
   IrregularityReason,
   IrregularityUploadImage,
   UploadIrregularityFiles,
-} from './helpers/irregularity.types'
-import { validationSchema } from './helpers/validation-schema'
+} from './irregularity.types'
+import { validationSchema } from './validation-schema'
 
-import Actions from './Actions'
-import Info from './steps/Info'
-import Fail from './helpers/Fail'
+import Actions from '../Actions'
+import Info from '../steps/Info'
+import Fail from './Fail'
 import StepIcon from './StepperIcon'
-import Remark from './helpers/Remark'
-import Greeting from './steps/Greeting'
-import Contacts from './steps/Contacts'
-import Success from './helpers/Success'
-import stepsHandler from './StepsHandler'
+import Remark from './Remark'
+import Greeting from '../steps/Greeting'
+import Contacts from '../steps/Contacts'
+import Success from './Success'
+import stepsHandler from '../StepsHandler'
 import GenericForm from 'components/common/form/GenericForm'
 
-const ColorlibConnector = withStyles({
-  alternativeLabel: {
-    top: 21,
-  },
-  line: {
-    height: 3,
-    border: 0,
-    backgroundColor: theme.palette.info.light,
-    borderRadius: 1,
-  },
-})(StepConnector)
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      width: '100%',
-    },
-    instructions: {
-      marginTop: theme.spacing(1),
-      marginBottom: theme.spacing(5),
-    },
-    stepper: {
-      backgroundColor: 'transparent',
-      marginTop: theme.spacing(10),
-      marginBottom: theme.spacing(8),
-      alignItems: 'center',
-      [theme.breakpoints.down('sm')]: { display: 'none' },
-    },
-    content: {
-      display: 'flex',
-      justifyContent: 'center',
-    },
-  }),
-)
+import {
+  ColorlibConnector,
+  Instructions,
+  StyledStep,
+  StyledStepper,
+} from './IrregularityForm.styled'
 
 const isFirstStep = (activeStep: number, steps: StepType[]): boolean => {
   return activeStep === steps.length - 3
@@ -109,7 +77,6 @@ type Props = {
 
 export default function IrregularityForm({ campaign, person }: Props) {
   const { t } = useTranslation('irregularity')
-  const classes = useStyles()
 
   const formRef = useRef<FormikProps<IrregularityFormData>>(null)
 
@@ -230,35 +197,29 @@ export default function IrregularityForm({ campaign, person }: Props) {
         initialValues={initialValues}
         validationSchema={validationSchema[activeStep]}
         innerRef={formRef}>
-        <Stepper
-          alternativeLabel
-          activeStep={activeStep}
-          className={classes.stepper}
-          connector={<ColorlibConnector />}>
+        <StyledStepper activeStep={activeStep} connector={<ColorlibConnector />}>
           {steps.map((step, index) => (
-            <Step key={index}>
+            <StyledStep key={index}>
               <StepLabel error={isStepFailed(index)} StepIconComponent={StepIcon} />
-            </Step>
+            </StyledStep>
           ))}
-        </Stepper>
-        <div className={classes.content}>
-          <Grid container spacing={5} justifyContent="center" className={classes.instructions}>
-            <Grid container item xs={12}>
-              {activeStep < steps.length && steps[activeStep].component}
-            </Grid>
-            <Grid container item spacing={3}>
-              <Actions
-                activeStep={activeStep}
-                disableBack={activeStep === 0}
-                onBack={handleBack}
-                loading={mutation.isLoading}
-                campaign={campaign}
-                nextLabel={isLastStep(activeStep, steps) ? 'cta.submit' : 'cta.next'}
-                backLabel={isFirstStep(activeStep, steps) ? 'cta.back-to-campaign' : 'cta.back'}
-              />
-            </Grid>
+        </StyledStepper>
+        <Instructions container spacing={5}>
+          <Grid container item xs={12}>
+            {activeStep < steps.length && steps[activeStep].component}
           </Grid>
-        </div>
+          <Grid container item spacing={3}>
+            <Actions
+              activeStep={activeStep}
+              disableBack={activeStep === 0}
+              onBack={handleBack}
+              loading={mutation.isLoading}
+              campaign={campaign}
+              nextLabel={isLastStep(activeStep, steps) ? 'cta.submit' : 'cta.next'}
+              backLabel={isFirstStep(activeStep, steps) ? 'cta.back-to-campaign' : 'cta.back'}
+            />
+          </Grid>
+        </Instructions>
       </GenericForm>
       {activeStep === Steps.GREETING && <Remark text={t('steps.greeting.remark')} />}
       {activeStep === Steps.CONTACTS && <Remark text={t('steps.contacts.remark')} />}
