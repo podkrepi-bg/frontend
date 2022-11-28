@@ -16,7 +16,6 @@ const moduleExports = {
     includePaths: [path.join(__dirname, 'src/styles')],
   },
   swcMinify: true,
-  output: 'standalone',
   env: {
     APP_ENV: process.env.APP_ENV,
     APP_VERSION: version,
@@ -83,8 +82,10 @@ const SentryWebpackPluginOptions = {
 // ensure that your source maps include changes from all other Webpack plugins
 module.exports = withSentryConfig(moduleExports, SentryWebpackPluginOptions)
 
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-})
+if (process.env.ANALYZE === 'true') {
+  const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: process.env.ANALYZE === 'true',
+  })
 
-module.exports = withBundleAnalyzer(module.exports)
+  module.exports = withBundleAnalyzer(module.exports)
+}
