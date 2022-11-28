@@ -12,11 +12,11 @@ import {
 import {
   AboutWrapper,
   Avatar,
-  Description,
   TeamMemberName,
   LinkedInIcon,
   LinkedInText,
 } from 'components/about/AboutPage.styled'
+import { ManagementBoardDescription } from './ManagementBoardDescription'
 
 export default function ManagementBoardSection() {
   const { t } = useTranslation('about')
@@ -30,10 +30,12 @@ export default function ManagementBoardSection() {
         {data.map((teamMember) => (
           <ТeamMemberWrapper key={teamMember.name}>
             <Avatar alt="Team member avatar" src={teamMember.img} width={200} height={200} />
-            <TeamMemberName variant="subtitle1">{teamMember.name}</TeamMemberName>
-            <Description variant="body2">{teamMember.description}</Description>
+            <TeamMemberName variant="subtitle1" height={50}>
+              {teamMember.name}
+            </TeamMemberName>
+            <ManagementBoardDescription description={teamMember.description} />
             {teamMember.linkedInProfile ? (
-              <LinkedInButton href={teamMember.linkedInProfile} target="_blank">
+              <LinkedInButton height={50} href={teamMember.linkedInProfile} target="_blank">
                 <LinkedInIcon color="action" fontSize="large" />
                 <LinkedInText variant="subtitle1">{t('about.linkedIn')}</LinkedInText>
               </LinkedInButton>
