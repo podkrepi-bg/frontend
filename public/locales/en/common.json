@@ -10,6 +10,16 @@
       "reports": "Reports",
       "contacts": "Contacts"
     },
+    "report-form": {
+      "triggerLabel": "Report a problem",
+      "title": "Report a problem",
+      "description": "Description of your problem",
+      "email": "Your email",
+      "type": "Type of the problem",
+      "bug": "Bug",
+      "feedback": "Feedback",
+      "other": "Other"
+    },
     "campaigns": {
       "index": "Campaigns",
       "all-campaigns": "All campaigns",

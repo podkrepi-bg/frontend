@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import { IconButton, Popover } from '@mui/material'
 import { ErrorOutline } from '@mui/icons-material'
 import ReportForm from './ReportForm'
@@ -21,7 +21,7 @@ export default function ReportButton() {
   return (
     <>
       <IconButton
-        aria-label={t('common:report')}
+        aria-label={t('nav.report-form.trigger-label')}
         aria-describedby={id}
         size="small"
         onClick={handleClick}>

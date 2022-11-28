@@ -1,3 +1,5 @@
+import { TFunction } from 'next-i18next'
+
 /**
  *
  * @param enumType Enumeration type to get the array of options from
@@ -12,7 +14,6 @@
 export const getOptionsArrayFromEnum = (enumType: Record<string, string | number>) => {
   return Object.keys(enumType).map((key) => ({
     value: enumType[key],
-    name: key,
     key,
   }))
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 import * as yup from 'yup'
 import { Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
 
@@ -47,17 +47,20 @@ function ReportForm() {
       <Grid2 container spacing={3} padding={3} maxWidth={330}>
         <Grid2 xs={12}>
           <Typography variant="h6" component="h2">
-            {t('common:reportForm.header')}
+            {t('nav.report-form.title')}
           </Typography>
         </Grid2>
         <Grid2 xs={12}>
-          <FormTextField type="text" label={t('nav:report.email')} name="email" />
+          <FormTextField type="text" label={t('nav.report-form.email')} name="email" />
         </Grid2>
         <Grid2 xs={12}>
           <FormSelectField
-            label={t('nav:report.type')}
+            label={t('nav.report-form.type')}
             name="type"
-            options={getOptionsArrayFromEnum(ReportType)}
+            options={getOptionsArrayFromEnum(ReportType).map((option) => ({
+              ...option,
+              name: t(`nav.report-form.${option.key.toLowerCase()}`),
+            }))}
           />
         </Grid2>
         <Grid2 xs={12}>
@@ -65,7 +68,7 @@ function ReportForm() {
             type="textarea"
             multiline
             rows={4}
-            label={t('nav:report.description')}
+            label={t('nav.report-form.description')}
             name="email"
           />
         </Grid2>
