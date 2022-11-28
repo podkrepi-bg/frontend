@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { IconButton, Popover, Typography } from '@mui/material'
+import { IconButton, Popover } from '@mui/material'
 import { ErrorOutline } from '@mui/icons-material'
+import ReportForm from './ReportForm'
 
 export default function ReportButton() {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
@@ -35,7 +36,7 @@ export default function ReportButton() {
           vertical: 'bottom',
           horizontal: 'left',
         }}>
-        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+        <ReportForm />
       </Popover>
     </>
   )
