@@ -10,6 +10,7 @@ import { routes } from 'common/routes'
 import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 
 import LocaleButton from './LocaleButton'
+import ReportButton from './ReportButton'
 import PublicMenu from './nav/PublicMenu'
 import PrivateMenu from './nav/PrivateMenu'
 import MainNavMenu from './nav/MainNavMenu'
@@ -93,6 +94,9 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
                 {status === 'authenticated' ? <PrivateMenu /> : <PublicMenu />}
                 <Grid item>
                   <LocaleButton />
+                </Grid>
+                <Grid item>
+                  <ReportButton />
                 </Grid>
               </MainNavMenu>
             </Grid>
