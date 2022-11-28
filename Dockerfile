@@ -50,9 +50,12 @@ RUN apk --no-cache add curl
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=nextjs:nodejs /app/next-i18next.config.js ./
+COPY --from=builder --chown=nextjs:nodejs /app/next.config.js ./
+COPY --from=builder --chown=nextjs:nodejs /app/package.json ./
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
 
 USER nextjs
 
@@ -60,6 +63,6 @@ ENV PORT 3040
 
 EXPOSE 3040
 
-CMD [ "node", "server.js" ]
+CMD [ "npm", "run", "start" ]
 
 HEALTHCHECK --interval=5s --timeout=3s --retries=3 CMD curl --fail http://localhost:3040 || exit 1
