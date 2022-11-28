@@ -62,7 +62,7 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
               [theme.breakpoints.down('md')]: {
                 marginLeft: 0,
                 width: '100%',
-                height: '50%',
+                height: '40px',
               },
               '&.shrink': {
                 height: '50%',

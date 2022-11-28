@@ -10,6 +10,7 @@ export const AuthLinksWrapper = styled(Box)(() => ({
   borderTop: '2px solid lightgrey',
   marginLeft: theme.spacing(0.25),
   minHeight: theme.spacing(8),
+  paddingLeft: theme.spacing(1),
 }))
 
 export const AuthLink = styled(LinkButton)(() => ({
