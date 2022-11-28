@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import Link from 'next/link'
 
 import { SwipeableDrawer, Hidden, Grid } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
@@ -11,13 +12,14 @@ import DonationMenuMobile from '../DonationMenuMobile'
 import ProjectMenuMobile from '../ProjectMenuMobile'
 import { AuthLinks } from '../AuthLinks/AuthLinks'
 import { routes } from 'common/routes'
+import PodkrepiIcon from 'components/brand/PodkrepiIcon'
 
 import {
   CloseButton,
-  NavMenuWrapper,
-  LocaleButtonWrapper,
-  StyledPodkrepiIcon,
   DonateButton,
+  LocaleButtonWrapper,
+  NavMenuWrapper,
+  OpenMenuHeader,
 } from './MobileNav.styled'
 
 type NavDeckProps = {
@@ -49,11 +51,13 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
         ModalProps={{ keepMounted: true }}
         onOpen={() => setMobileOpen(true)}
         onClose={closeNavMenu}>
-        <CloseButton edge="end" fontSize="inherit" onClose={closeNavMenu} />
         <NavMenuWrapper>
-          <Grid item textAlign="center">
-            <StyledPodkrepiIcon />
-          </Grid>
+          <OpenMenuHeader>
+            <Link href={routes.index} passHref>
+              <PodkrepiIcon />
+            </Link>
+            <CloseButton edge="end" fontSize="large" onClose={closeNavMenu} />
+          </OpenMenuHeader>
           <Grid item>
             <DonationMenuMobile />
           </Grid>

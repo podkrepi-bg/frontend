@@ -13,7 +13,7 @@ export const LogoSocialIcons = () => {
   return (
     <Grid item xs={12} sm={8} md={5} container direction="column">
       <Grid item>
-        <Link href={routes.index}>
+        <Link href={routes.index} passHref>
           <PodkrepiLogo locale={locale} size="large" variant="fixed" />
         </Link>
       </Grid>

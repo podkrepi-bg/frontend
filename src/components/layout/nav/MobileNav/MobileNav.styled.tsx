@@ -2,17 +2,18 @@ import { Box } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import theme from 'common/theme'
-import PodkrepiIcon from 'components/brand/PodkrepiIcon'
 import CloseModalButton from 'components/common/CloseModalButton'
 import Grid from 'components/recurring-donation/grid/Grid'
 import LinkButton from 'components/common/LinkButton'
 
 export const CloseButton = styled(CloseModalButton)(() => ({
   marginRight: theme.spacing(1.25),
+  right: theme.spacing(1.25),
+  top: theme.spacing(0.25),
 }))
 
-export const StyledPodkrepiIcon = styled(PodkrepiIcon)(() => ({
-  margin: theme.spacing(0.7, 0, 1.5, 0),
+export const OpenMenuHeader = styled(Box)(() => ({
+  margin: theme.spacing(0.5, 3, 2),
 }))
 
 export const NavMenuWrapper = styled(Box)(() => ({
@@ -41,6 +42,7 @@ export const LocaleButtonWrapper = styled(Box)(() => ({
   borderBottom: '2px solid lightgrey',
   display: 'flex',
   minHeight: theme.spacing(8),
+  paddingLeft: theme.spacing(1),
 
   '& button': {
     justifyContent: 'start',
