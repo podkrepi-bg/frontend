@@ -25,7 +25,12 @@ export const getServerSideProps: GetServerSideProps<{
   const session = await unstable_getServerSession(ctx.req, ctx.res, authOptions)
   return {
     props: {
-      ...(await serverSideTranslations(ctx.locale ?? 'bg', ['common', 'index', 'campaigns'])),
+      ...(await serverSideTranslations(ctx.locale ?? 'bg', [
+        'common',
+        'index',
+        'campaigns',
+        'validation',
+      ])),
       session,
     },
   }

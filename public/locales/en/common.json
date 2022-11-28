@@ -16,7 +16,7 @@
       "description": "Description of your problem",
       "email": "Your email",
       "type": "Type of the problem",
-      "bug": "Bug",
+      "bug": "Bug 🐞",
       "feedback": "Feedback",
       "other": "Other"
     },

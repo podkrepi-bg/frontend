@@ -1,8 +1,10 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
 import * as yup from 'yup'
-import { Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
+import { CircularProgress, IconButton, Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
+import { Send } from '@mui/icons-material'
 
+import theme from 'common/theme'
 import { email } from 'common/form/validation'
 import { getOptionsArrayFromEnum } from 'common/form/helpers'
 import GenericForm from 'components/common/form/GenericForm'
@@ -41,7 +43,7 @@ function ReportForm() {
   const onSubmit = (data: ReportFormData) => {
     console.log(data)
   }
-
+  const loading = false
   return (
     <GenericForm onSubmit={onSubmit} initialValues={defaults} validationSchema={validationSchema}>
       <Grid2 container spacing={3} padding={3} maxWidth={330}>
@@ -69,8 +71,13 @@ function ReportForm() {
             multiline
             rows={4}
             label={t('nav.report-form.description')}
-            name="email"
+            name="description"
           />
+        </Grid2>
+        <Grid2 xs={12} display="flex" justifyContent="flex-end">
+          <IconButton type="submit" aria-label={t('nav.report-form.send')}>
+            <Send />
+          </IconButton>
         </Grid2>
       </Grid2>
     </GenericForm>
