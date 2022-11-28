@@ -25,7 +25,7 @@ export const ButtonsWrapper = styled(Grid)(() => ({
 
 export const ActionLinkButton = styled(LinkButton)(() => ({
   backgroundColor: '#0098E3',
-  border: '1px solid #909090',
+  border: `1px solid ${theme.palette.secondary.light}`,
   padding: theme.spacing(1, 5),
   borderRadius: theme.borders.round,
   color: theme.palette.common.white,
@@ -34,7 +34,7 @@ export const ActionLinkButton = styled(LinkButton)(() => ({
   '&:hover': {
     backgroundColor: '#62C4FB',
     color: theme.palette.common.black,
-    border: '1px solid #909090',
+    border: `1px solid ${theme.palette.secondary.light}`,
   },
 
   [theme.breakpoints.down('md')]: {
@@ -45,7 +45,7 @@ export const ActionLinkButton = styled(LinkButton)(() => ({
 
 export const ActionButton = styled(Button)(() => ({
   backgroundColor: '#0098E3',
-  border: '1px solid #909090',
+  border: `1px solid ${theme.palette.secondary.light}`,
   padding: theme.spacing(1, 5),
   borderRadius: theme.borders.round,
   color: theme.palette.common.white,
@@ -54,7 +54,7 @@ export const ActionButton = styled(Button)(() => ({
   '&:hover': {
     backgroundColor: '#62C4FB',
     color: theme.palette.common.black,
-    border: '1px solid #909090',
+    border: `1px solid ${theme.palette.secondary.light}`,
   },
 
   [theme.breakpoints.down('md')]: {
@@ -65,7 +65,7 @@ export const ActionButton = styled(Button)(() => ({
 
 export const ActionSubmitButton = styled(SubmitButton)(() => ({
   backgroundColor: '#0098E3',
-  border: '1px solid #909090',
+  border: `1px solid ${theme.palette.secondary.light}`,
   padding: theme.spacing(1, 5),
   borderRadius: theme.borders.round,
   color: theme.palette.common.white,
@@ -74,7 +74,7 @@ export const ActionSubmitButton = styled(SubmitButton)(() => ({
   '&:hover': {
     backgroundColor: '#62C4FB',
     color: theme.palette.common.black,
-    border: '1px solid #909090',
+    border: `1px solid ${theme.palette.secondary.light}`,
   },
 
   [theme.breakpoints.down('md')]: {

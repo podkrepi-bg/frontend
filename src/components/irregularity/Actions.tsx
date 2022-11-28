@@ -43,7 +43,7 @@ export default function Actions({
           <ActionLinkButton
             href={`/campaigns/${campaign.slug}`}
             variant="outlined"
-            startIcon={<ArrowBackIosIcon sx={{ transform: 'scale(0.8)' }} />}>
+            startIcon={<ArrowBackIosIcon fontSize="small" />}>
             {t(backLabel)}
           </ActionLinkButton>
         ) : (
@@ -51,7 +51,7 @@ export default function Actions({
             fullWidth
             disabled={disableBack}
             onClick={onBack}
-            startIcon={<ArrowBackIosIcon sx={{ transform: 'scale(0.8)' }} />}>
+            startIcon={<ArrowBackIosIcon fontSize="small" />}>
             {t(backLabel)}
           </ActionButton>
         )}
@@ -61,7 +61,7 @@ export default function Actions({
           fullWidth
           label={t(nextLabel)}
           loading={loading}
-          endIcon={<ArrowForwardIosIcon sx={{ transform: 'scale(0.8)' }} />}
+          endIcon={<ArrowForwardIosIcon fontSize="small" />}
         />
       </Grid>
     </Root>

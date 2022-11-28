@@ -3,10 +3,11 @@ import { useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 
 import { ThemeProvider } from '@mui/styles'
-import { Grid, Typography, Button } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined'
 
 import theme from 'common/theme'
+import { routes } from 'common/routes'
 
 import { Root, ButtonsWrapper, Icon, ActionLinkButton, ActionButton } from './Irregularity.styled'
 
@@ -44,13 +45,13 @@ export default function Fail({ setFail, setActiveStep }: Props) {
         <ButtonsWrapper container item>
           <Grid item>
             <Typography variant="body1">{t('steps.fail.label-campaigns')}</Typography>
-            <ActionLinkButton href={`/campaigns`} variant="outlined">
+            <ActionLinkButton href={routes.campaigns.index} variant="outlined">
               {t('cta.campaigns')}
             </ActionLinkButton>
           </Grid>
           <Grid item>
             <Typography variant="body1">{t('steps.fail.label-project')}</Typography>
-            <ActionLinkButton href={`/about-project`} variant="outlined">
+            <ActionLinkButton href={routes.aboutProject} variant="outlined">
               {t('cta.project')}
             </ActionLinkButton>
           </Grid>
