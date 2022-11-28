@@ -42,6 +42,9 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     maxHeight: '504px !important',
     marginTop: `${theme.spacing(10)} !important`,
     objectFit: 'cover',
+    [theme.breakpoints.down('md')]: {
+      marginTop: `${theme.spacing(30.5)} !important`,
+    },
   },
 
   [`& .${classes.campaignTitle}`]: {
