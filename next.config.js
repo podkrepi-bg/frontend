@@ -46,15 +46,6 @@ const moduleExports = {
       process.env.GHOST_API_URL?.replace('https://', '') || 'blog.podkrepi.bg',
     ],
   },
-  async redirects() {
-    return [
-      {
-        source: '/profile',
-        destination: '/profile/donations',
-        permanent: true,
-      },
-    ]
-  },
   async rewrites() {
     return [
       {
