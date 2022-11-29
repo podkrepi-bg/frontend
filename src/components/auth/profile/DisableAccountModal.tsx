@@ -50,7 +50,7 @@ const StyledModal = styled(Modal)(({ theme }) => ({
     fontSize: theme.typography.pxToRem(14),
     lineHeight: theme.spacing(3),
     color: theme.palette.primary.main,
-    margin: `${theme.spacing(1)} 0`,
+    margin: theme.spacing(1, 0),
   },
   [`& .${classes.graySpan}`]: {
     fontFamily: 'Lato, sans-serif',
