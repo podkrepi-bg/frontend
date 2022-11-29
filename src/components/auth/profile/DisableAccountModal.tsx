@@ -40,7 +40,7 @@ const StyledModal = styled(Modal)(({ theme }) => ({
     p: 4,
     whiteSpace: 'pre-line',
     [theme.breakpoints.down('md')]: {
-      width: '70%',
+      width: '90%',
     },
   },
   [`& .${classes.subtitle}`]: {
