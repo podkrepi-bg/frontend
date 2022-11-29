@@ -1,15 +1,15 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
 import * as yup from 'yup'
-import { CircularProgress, IconButton, Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
+import { IconButton, Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
 import { Send } from '@mui/icons-material'
 
-import theme from 'common/theme'
 import { email } from 'common/form/validation'
 import { getOptionsArrayFromEnum } from 'common/form/helpers'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import FormSelectField from 'components/common/form/FormSelectField'
+import AnimatedTick from 'components/common/AnimatedTick'
 
 enum ReportType {
   Bug = 'bug',
@@ -80,6 +80,7 @@ function ReportForm() {
           </IconButton>
         </Grid2>
       </Grid2>
+      <AnimatedTick />
     </GenericForm>
   )
 }
