@@ -70,9 +70,7 @@ Read more at [End-2-End Testing](https://github.com/podkrepi-bg/frontend/blob/ma
 ## Contributors ✨
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-60-orange.svg?style=flat-square)](#contributors-)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-61-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Please check [contributors guide](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md) for:
@@ -174,6 +172,7 @@ Thanks goes to these wonderful people:
       <td align="center"><a href="https://github.com/AnzheloD"><img src="https://avatars.githubusercontent.com/u/32179794?v=4?s=100" width="100px;" alt="Anzhelo Dimitrov"/><br /><sub><b>Anzhelo Dimitrov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=AnzheloD" title="Code">💻</a></td>
       <td align="center"><a href="https://github.com/AndreyGoranov"><img src="https://avatars.githubusercontent.com/u/55912299?v=4?s=100" width="100px;" alt="Andrey Goranov"/><br /><sub><b>Andrey Goranov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=AndreyGoranov" title="Code">💻</a></td>
       <td align="center"><a href="https://antomic.net"><img src="https://avatars.githubusercontent.com/u/57956282?v=4?s=100" width="100px;" alt="Anton Mihaylov"/><br /><sub><b>Anton Mihaylov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=antonmihaylov" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/kabaivanov"><img src="https://avatars.githubusercontent.com/u/118026471?v=4?s=100" width="100px;" alt="kabaivanov"/><br /><sub><b>kabaivanov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=kabaivanov" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
