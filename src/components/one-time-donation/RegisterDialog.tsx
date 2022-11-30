@@ -24,6 +24,7 @@ export default function RegisterForm() {
     lastName: formik.values.registerLastName as string,
     email: formik.values.registerEmail as string,
     password: formik.values.registerPassword as string,
+    confirmPassword: formik.values.confirmPassword as string,
     terms: formik.values.terms as boolean,
     gdpr: formik.values.gdpr as boolean,
   }
@@ -88,6 +89,13 @@ export default function RegisterForm() {
         </Grid>
         <Grid item xs={12}>
           <PasswordField name="registerPassword" autoComplete="new-password" />
+        </Grid>
+        <Grid item xs={12}>
+          <PasswordField
+            name="confirmPassword"
+            label="auth:account.confirm-password"
+            autoComplete="new-password"
+          />
         </Grid>
         <Grid item xs={12}>
           <Button

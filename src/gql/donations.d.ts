@@ -118,6 +118,7 @@ export type OneTimeDonation = {
   registerLastName?: string
   registerEmail?: string
   registerPassword?: string
+  confirmPassword?: string
   terms?: boolean
   gdpr?: boolean
 }
