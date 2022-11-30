@@ -69,13 +69,12 @@
   },
   "disableModal": {
     "index": "Delete account",
-    "sorryMsg": "We are sorry you are leaving us!",
-    "beforeDisableMsg": "Before you leave ...",
+    "thankYouSubtitle": "Thank you for being a part of Podkrepi.bg!",
+    "beforeDisableMsg": "Before you leave...",
     "deactivateEmails": "If you do not want to receive this mailer, unsubscribe ",
-    "link": " here",
-    "writeUs": "If .........................., please write us ",
-    "irreversibleAction": "Deleting an account is an irreversible action.",
-    "confirmDisable": "You would not be able to restore your account.",
+    "link": "here",
+    "writeUs": "We would love to hear from you if you have any suggestions on how to improve this platform, please share your suggestions or problems you encountered ",
+    "irreversibleAction": "Deleting your account is permanent.\n You will not be able to restore it later.",
     "saveAccount": "Save my account",
     "disableAccount": "Delete my account",
     "disabled": "Your account has been deleted."

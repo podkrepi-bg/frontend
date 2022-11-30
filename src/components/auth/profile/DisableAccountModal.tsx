@@ -22,8 +22,9 @@ const PREFIX = 'DisableUserModal'
 
 const classes = {
   modal: `${PREFIX}-modal`,
+  subtitle: `${PREFIX}-subtitle`,
   graySpan: `${PREFIX}-graySpan`,
-  button: `${PREFIX}-button`,
+  irrevirsibleAction: `${PREFIX}-irrevirsibleAction`,
   close: `${PREFIX}-close`,
 }
 
@@ -37,23 +38,39 @@ const StyledModal = styled(Modal)(({ theme }) => ({
     backgroundColor: '#EEEEEE',
     padding: 20,
     p: 4,
+    whiteSpace: 'pre-line',
     [theme.breakpoints.down('md')]: {
-      width: '70%',
+      width: '90%',
     },
+  },
+  [`& .${classes.subtitle}`]: {
+    fontFamily: 'Lato, sans-serif',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    fontSize: theme.typography.pxToRem(14),
+    lineHeight: theme.spacing(3),
+    color: theme.palette.primary.main,
+    margin: theme.spacing(1, 0),
   },
   [`& .${classes.graySpan}`]: {
     fontFamily: 'Lato, sans-serif',
     fontStyle: 'normal',
     fontWeight: '400',
-    fontSize: '18px',
+    fontSize: theme.typography.pxToRem(14),
     lineHeight: '133.4%',
     color: '#909090',
-  },
-  [`& .${classes.button}`]: {
-    marginBottom: '20px',
-    [theme.breakpoints.down('sm')]: {
-      margin: theme.spacing(1),
+
+    '> a > div': {
+      display: 'inline',
     },
+  },
+  [`& .${classes.irrevirsibleAction}`]: {
+    fontFamily: 'Lato, sans-serif',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    fontSize: theme.typography.pxToRem(14),
+    lineHeight: theme.spacing(3),
+    color: theme.palette.common.black,
   },
   [`& .${classes.close}`]: {
     position: 'absolute',
@@ -141,11 +158,13 @@ function DisableAccountModal({
         <Typography variant="h6" component="h3">
           {t('profile:disableModal.index')}
         </Typography>
-        <Typography className={classes.graySpan}>{t('profile:disableModal.sorryMsg')}</Typography>
+        <Typography className={classes.subtitle}>
+          {t('profile:disableModal.thankYouSubtitle')}
+        </Typography>
+        <hr />
         <Typography className={classes.graySpan}>
           {t('profile:disableModal.beforeDisableMsg')}
         </Typography>
-        <hr />
         <ul style={{ listStyle: 'disc', paddingLeft: '20px' }}>
           <li className={classes.graySpan}>
             {t('profile:disableModal.deactivateEmails')}
@@ -155,29 +174,35 @@ function DisableAccountModal({
             {t('profile:disableModal.writeUs')}
             <Link href="#">{t('profile:disableModal.link')}</Link>.
           </li>
-          <li className={classes.graySpan}>{t('profile:disableModal.irreversibleAction')}</li>
-          <li className={classes.graySpan}>{t('profile:disableModal.confirmDisable')}</li>
         </ul>
+        <br />
+        <Typography className={classes.irrevirsibleAction}>
+          {t('profile:disableModal.irreversibleAction')}
+        </Typography>
+        <br />
         {isAuthenticatedByGoogle ? (
-          <>
-            <Button
-              className={classes.button}
-              variant="contained"
-              size="medium"
-              color="primary"
-              onClick={() => handleClose()}>
-              {t('profile:disableModal.saveAccount')}
-            </Button>
-            <Button
-              className={classes.button}
-              variant="contained"
-              size="medium"
-              color="primary"
-              style={{ marginLeft: '10px' }}
-              onClick={() => handleDisableUser()}>
-              {t('profile:disableModal.disableAccount')}
-            </Button>
-          </>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={6}>
+              <Button
+                fullWidth
+                variant="contained"
+                size="medium"
+                color="primary"
+                onClick={() => handleClose()}>
+                {t('profile:disableModal.saveAccount')}
+              </Button>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Button
+                fullWidth
+                variant="contained"
+                size="medium"
+                color="error"
+                onClick={() => handleDisableUser()}>
+                {t('profile:disableModal.disableAccount')}
+              </Button>
+            </Grid>
+          </Grid>
         ) : (
           <GenericForm
             onSubmit={onSubmit}
@@ -187,10 +212,21 @@ function DisableAccountModal({
               <Grid item xs={12} sm={8}>
                 <PasswordField />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  size="medium"
+                  color="primary"
+                  onClick={() => handleClose()}>
+                  {t('profile:disableModal.saveAccount')}
+                </Button>
+              </Grid>
+              <Grid item xs={12} sm={6}>
                 <SubmitButton
                   fullWidth
                   label="profile:disableModal.disableAccount"
+                  color="error"
                   loading={loading}
                 />
               </Grid>
