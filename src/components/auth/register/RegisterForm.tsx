@@ -6,7 +6,7 @@ import { signIn } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
 
 import { routes } from 'common/routes'
-import {email, password, name, confirmPassword} from 'common/form/validation'
+import { email, password, name, confirmPassword } from 'common/form/validation'
 import { useRegister } from 'service/auth'
 import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
