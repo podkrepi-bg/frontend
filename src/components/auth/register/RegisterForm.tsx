@@ -6,7 +6,7 @@ import { signIn } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
 
 import { routes } from 'common/routes'
-import { email, password, name } from 'common/form/validation'
+import { email, password, name, confirmPassword } from 'common/form/validation'
 import { useRegister } from 'service/auth'
 import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
@@ -21,6 +21,7 @@ export type RegisterFormData = {
   lastName: string
   email: string
   password: string
+  confirmPassword: string
   terms: boolean
   gdpr: boolean
 }
@@ -33,7 +34,7 @@ const validationSchema: yup.SchemaOf<RegisterFormData> = yup
     lastName: name.required(),
     email: email.required(),
     password: password.required(),
-    'confirm-password': yup.string().oneOf([yup.ref('password')], 'validation:password-match'),
+    confirmPassword: confirmPassword.required('validation:password-match'),
     terms: yup.bool().required().oneOf([true], 'validation:terms-of-use'),
     gdpr: yup.bool().required().oneOf([true], 'validation:terms-of-service'),
   })
@@ -43,6 +44,7 @@ const defaults: RegisterFormData = {
   lastName: '',
   email: '',
   password: '',
+  confirmPassword: '',
   terms: false,
   gdpr: false,
 }
@@ -71,7 +73,7 @@ export default function RegisterForm({ initialValues = defaults }: RegisterFormP
       }
       if (resp?.ok) {
         AlertStore.show(t('auth:alerts.welcome'), 'success')
-        router.push(routes.profile.index)
+        await router.push(routes.profile.index)
       }
     } catch (error) {
       console.error(error)
@@ -111,7 +113,7 @@ export default function RegisterForm({ initialValues = defaults }: RegisterFormP
         </Grid>
         <Grid item xs={12}>
           <PasswordField
-            name="confirm-password"
+            name="confirmPassword"
             label="auth:account.confirm-password"
             autoComplete="new-password"
           />
