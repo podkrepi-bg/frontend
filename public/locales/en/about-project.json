@@ -57,6 +57,8 @@
   "tests-performing": "Impementing the base functinality for creating campaigns, donation, user registration and the needed operations with base entities of the platform.",
   "august-2022-title": "Augustт 2022",
   "beta-version-launch": "Launch of a beta version of the platform.",
+  "november-2022-title": "November 2022",
+  "official-version-launch": "Official launch of version 1.0 of the platform.",
   "tech-stack": {
     "title": "Tech Stack",
     "docker": "Local Docker-Compose stack",
