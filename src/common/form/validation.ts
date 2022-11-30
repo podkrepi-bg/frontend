@@ -1,5 +1,6 @@
 import { setLocale, string } from 'yup'
 import { TFunction } from 'next-i18next'
+import * as yup from 'yup'
 export type TranslatableField =
   | (string | undefined)
   | { key: string; values?: Record<string, string> }
@@ -39,6 +40,7 @@ export const customValidators = {
     values: { max },
   }),
   password: () => ({ key: 'validation:password' }),
+  confirmPassword: () => ({ key: 'validation:password-match' }),
   phone: () => ({ key: 'validation:phone' }),
   name: () => ({ key: 'validation:invalid' }),
 }
@@ -76,3 +78,8 @@ export const password = string()
   .min(8, customValidators.passwordMin)
   .max(30, customValidators.passwordMax)
   .matches(passwordRegex, customValidators.password)
+
+export const confirmPassword = string().oneOf(
+  [yup.ref('password')],
+  customValidators.confirmPassword,
+)
