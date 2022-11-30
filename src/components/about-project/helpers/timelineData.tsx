@@ -15,6 +15,7 @@ import DiscordIcon from '../icons/DiscordIcon'
 import ChecklistIcon from '../icons/ChecklistIcon'
 import GlobeIcon from '../icons/GlobeIcon'
 import HandIcon from '../icons/HandIcon'
+import RocketIcon from '../icons/RocketIcon'
 
 export type TimelineData = {
   icon: React.ComponentType<SvgIconProps>
@@ -84,5 +85,10 @@ export const timelineData: TimelineData[] = [
     icon: Telegram,
     title: 'august-2022-title',
     items: ['beta-version-launch'],
+  },
+  {
+    icon: RocketIcon,
+    title: 'november-2022-title',
+    items: ['official-version-launch'],
   },
 ]
