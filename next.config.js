@@ -53,6 +53,15 @@ const moduleExports = {
       },
     ]
   },
+  async redirects() {
+    return [
+      {
+        source: '/profile',
+        destination: '/profile/donations',
+        permanent: false,
+      },
+    ]
+  },
   experimental: {
     modularizeImports: {
       '@mui/material': {
