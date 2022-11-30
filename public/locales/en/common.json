@@ -18,7 +18,8 @@
       "type": "Type of the problem",
       "bug": "Bug 🐞",
       "feedback": "Feedback",
-      "other": "Other"
+      "other": "Other",
+      "send": "Send"
     },
     "campaigns": {
       "index": "Campaigns",

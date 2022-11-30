@@ -3,6 +3,7 @@ import { QueryClient, useQuery } from '@tanstack/react-query'
 
 import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
+import { apiClient } from 'service/apiClient'
 
 type SupportRequest = {
   id: string
@@ -50,4 +51,13 @@ export async function prefetchSupportRequestList(client: QueryClient, token?: st
     [endpoints.support.supportRequestList.url],
     authQueryFnFactory<SupportRequest[]>(token),
   )
+}
+
+export type UserReport = {
+  email: string
+  type: string
+  description: string
+}
+export async function createUserReport(data: UserReport) {
+  return await apiClient.post<UserReport>(endpoints.support.createUserReport.url, data)
 }

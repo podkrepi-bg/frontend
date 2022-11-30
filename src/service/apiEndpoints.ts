@@ -38,6 +38,7 @@ export const endpoints = {
   support: {
     createInfoRequest: <Endpoint>{ url: '/support/create-inquiry', method: 'POST' },
     createSupportRequest: <Endpoint>{ url: '/support/create-request', method: 'POST' },
+    createUserReport: <Endpoint>{ url: '/support/create-user-report', method: 'POST' },
     supportRequestList: <Endpoint>{ url: '/support/support-request/list', method: 'GET' },
     infoRequestList: <Endpoint>{ url: '/support/info-request/list', method: 'GET' },
   },

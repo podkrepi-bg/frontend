@@ -33,7 +33,6 @@ export const DonateButtonWrapper = styled(Grid)(() => ({
 
 export const DonateButton = styled(LinkButton)(() => ({
   padding: theme.spacing(1, 6),
-  marginTop: theme.spacing(3),
 }))
 
 export const LocaleButtonWrapper = styled(Box)(() => ({

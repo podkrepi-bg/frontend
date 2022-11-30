@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
 import * as yup from 'yup'
-import { IconButton, Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
+import { Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
 import { Send } from '@mui/icons-material'
 
 import { email } from 'common/form/validation'
@@ -9,7 +9,13 @@ import { getOptionsArrayFromEnum } from 'common/form/helpers'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import FormSelectField from 'components/common/form/FormSelectField'
-import AnimatedTick from 'components/common/AnimatedTick'
+import { useMutation } from '@tanstack/react-query'
+import { AxiosError, AxiosResponse } from 'axios'
+import { UserReport } from 'common/hooks/supportRequest'
+import { AlertStore } from 'stores/AlertStore'
+import { createUserReport } from 'common/hooks/supportRequest'
+import { ApiErrors } from 'service/apiErrors'
+import { LoadingButton } from '@mui/lab'
 
 enum ReportType {
   Bug = 'bug',
@@ -40,10 +46,19 @@ const defaults: ReportFormData = {
 
 function ReportForm() {
   const { t } = useTranslation()
+  const mutation = useMutation<AxiosResponse<UserReport>, AxiosError<ApiErrors>, UserReport>({
+    mutationFn: createUserReport,
+    onError: () => AlertStore.show(t('withdrawals:alerts:error'), 'error'),
+    onSuccess: () => {
+      AlertStore.show(t('withdrawals:alerts:create'), 'success')
+    },
+  })
+
   const onSubmit = (data: ReportFormData) => {
     console.log(data)
+    mutation.mutate(data)
   }
-  const loading = false
+
   return (
     <GenericForm onSubmit={onSubmit} initialValues={defaults} validationSchema={validationSchema}>
       <Grid2 container spacing={3} padding={3} maxWidth={330}>
@@ -75,12 +90,15 @@ function ReportForm() {
           />
         </Grid2>
         <Grid2 xs={12} display="flex" justifyContent="flex-end">
-          <IconButton type="submit" aria-label={t('nav.report-form.send')}>
-            <Send />
-          </IconButton>
+          <LoadingButton
+            loading={mutation.isLoading}
+            loadingPosition="end"
+            endIcon={<Send />}
+            variant="outlined">
+            {t('nav.report-form.send')}
+          </LoadingButton>
         </Grid2>
       </Grid2>
-      <AnimatedTick />
     </GenericForm>
   )
 }

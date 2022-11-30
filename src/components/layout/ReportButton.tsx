@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'next-i18next'
-import { IconButton, Popover } from '@mui/material'
+import { IconButton, IconButtonProps, Popover } from '@mui/material'
 import { ErrorOutline } from '@mui/icons-material'
 import ReportForm from './ReportForm'
 
-export default function ReportButton() {
+export type ReportButtonProps = Omit<IconButtonProps, 'aria-label' | 'aria-describedby'>
+export default function ReportButton(props: ReportButtonProps) {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
   const { t } = useTranslation()
 
-  const handleClick = (event: React.MouseEvent) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
+    props.onClick ? props.onClick(event) : null
   }
 
   const handleClose = () => {
@@ -23,9 +25,9 @@ export default function ReportButton() {
       <IconButton
         aria-label={t('nav.report-form.trigger-label')}
         aria-describedby={id}
-        size="small"
-        onClick={handleClick}>
-        <ErrorOutline />
+        onClick={handleClick}
+        {...props}>
+        <ErrorOutline sx={{ fontSize: '1.4rem' }} />
       </IconButton>
       <Popover
         id={id}

@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 
-import { SwipeableDrawer, Hidden, Grid } from '@mui/material'
+import { SwipeableDrawer, Hidden, Grid, Box } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 
 import LocaleButton from '../../LocaleButton'
@@ -19,6 +19,7 @@ import {
   StyledPodkrepiIcon,
   DonateButton,
 } from './MobileNav.styled'
+import ReportButton from 'components/layout/ReportButton'
 
 type NavDeckProps = {
   mobileOpen: boolean
@@ -64,7 +65,7 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
           <LocaleButtonWrapper>
             <LocaleButton />
           </LocaleButtonWrapper>
-          <Grid textAlign="center">
+          <Box marginTop={3} textAlign="center">
             <DonateButton
               size="large"
               variant="outlined"
@@ -72,7 +73,8 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
               endIcon={<FavoriteIcon color="primary" fontSize="medium" />}>
               {t('nav.donatе')}
             </DonateButton>
-          </Grid>
+            <ReportButton />
+          </Box>
         </NavMenuWrapper>
       </SwipeableDrawer>
     </Hidden>
