@@ -690,6 +690,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "Katzarov",
+      "name": "Lyoubomir Katzarov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/14837592?v=4",
+      "profile": "https://github.com/Katzarov",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
