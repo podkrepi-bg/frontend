@@ -60,8 +60,6 @@ export default function DonorsAndDonations({
     return donations?.slice(0, shownDonationsNumber)
   }, [donations, all])
 
-  console.log(donations)
-
   return (
     <Root>
       <Grid item className={classes.donationsWrapper}>
