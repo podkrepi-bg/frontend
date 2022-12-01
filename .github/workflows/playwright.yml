@@ -47,9 +47,14 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install backend dependencies and seed database
+      - name: Install backend dependencies
         working-directory: ./api
-        run: yarn && yarn prisma generate && yarn prisma migrate deploy && yarn prisma db seed
+        run: yarn set version berry && yarn
+
+      - name: Seed database
+        working-directory: ./api
+        run: yarn prisma generate && yarn prisma migrate deploy && yarn prisma db seed
+
 
       - name: Run backend
         working-directory: ./api
