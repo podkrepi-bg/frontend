@@ -19,6 +19,9 @@ jobs:
           ref: master
           path: './api'
 
+      - name: Set yarn version
+        run: yarn set version berry
+
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
@@ -49,7 +52,7 @@ jobs:
 
       - name: Install backend dependencies
         working-directory: ./api
-        run: yarn set version berry && yarn
+        run: yarn
 
       - name: Seed database
         working-directory: ./api
