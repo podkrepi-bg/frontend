@@ -40,7 +40,7 @@ jobs:
         working-directory: ./api
         env:
           STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
-          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY}}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
         run: docker compose up -d stripe-webhook
 
       - uses: actions/setup-node@v3
@@ -55,13 +55,12 @@ jobs:
         working-directory: ./api
         run: yarn prisma generate && yarn prisma migrate deploy && yarn prisma db seed
 
-
       - name: Run backend
         working-directory: ./api
         env:
           STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
-          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY}}
-        run: STRIPE_WEBHOOK_SECRET=${{ secrets.STRIPE_WEBHOOK_SECRET }} STRIPE_SECRET_KEY=${{ secrets.STRIPE_SECRET_KEY}} yarn start &> api.log &
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+        run: yarn start &> api.log &
 
       - name: Install Frontend Dependencies
         working-directory: ./frontend
