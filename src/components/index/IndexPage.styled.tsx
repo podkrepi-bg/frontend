@@ -14,7 +14,6 @@ export const Heading = styled(Typography)(() => ({
 export const InfoText = styled(Typography)(() => ({
   display: 'inline-block',
   textAlign: 'center',
-  fontFamily: 'Montserrat',
   fontSize: theme.typography.pxToRem(16),
   lineHeight: theme.spacing(3),
   paddingBottom: theme.spacing(6),
