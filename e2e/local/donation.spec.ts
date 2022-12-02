@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test'
+import { expectCopied } from '../helpers'
 
 test.beforeEach(async ({ page }) => {
   await page.goto('http://localhost:3040/', { waitUntil: 'networkidle' })
@@ -19,7 +20,7 @@ test.describe('donation page init', () => {
   })
 })
 
-test.describe('anonymous user donation flow', () => {
+test.describe('anonymous user card donation flow', () => {
   test('choosing a predefined value and donating', async ({ page }) => {
     // Choose a predefined value from the radio buttons
     await page.locator('input[value="card"]').check()
@@ -45,9 +46,9 @@ test.describe('anonymous user donation flow', () => {
 
     await page.locator('button[data-testid="hosted-payment-submit-button"]').click()
 
-    await page.waitForURL((url) => url.searchParams.get('success') === 'true')
+    await page.waitForURL((url) => url.pathname.includes('/campaigns/donation'))
 
-    await expect(page.locator('text=Благодарим за доверието и подкрепата!')).toBeDefined()
+    expect(page.locator('text=Благодарим за доверието и подкрепата!')).toBeDefined()
   })
 
   test('choosing a custom value and donating', async ({ page }) => {
@@ -77,8 +78,30 @@ test.describe('anonymous user donation flow', () => {
 
     await page.locator('button[data-testid="hosted-payment-submit-button"]').click()
 
-    await page.waitForURL((url) => url.searchParams.get('success') === 'true')
+    await page.waitForURL((url) => url.pathname.includes('/campaigns/donation'))
+    expect(page.url().search('success=true')).not.toBe(-1)
 
-    await expect(page.locator('text=Благодарим за доверието и подкрепата!')).toBeDefined()
+    expect(page.locator('text=Благодарим за доверието и подкрепата!')).toBeDefined()
+  })
+})
+
+test.describe('user bank transfer donation flow', () => {
+  test('check copied values', async ({ page }) => {
+    // Choose a predefined value from the radio buttons
+    await page.locator('input[value="bank"]').check()
+    expect(await page.locator('text="Копирай"').count()).toBe(4)
+
+    if (page.context().browser()?.browserType().name() === 'chromium') {
+      await page.context().grantPermissions(['clipboard-read', 'clipboard-write'])
+      await page.locator('text="Копирай"').nth(0).click()
+      await expectCopied(page, 'Сдружение Подкрепи БГ')
+      await page.locator('text="Копирай"').nth(1).click()
+      await expectCopied(page, 'Уникредит Булбанк')
+      await page.locator('text="Копирай"').nth(2).click()
+      await expectCopied(page, 'BG66UNCR70001524349032')
+      await page.locator('text="Копирай"').nth(3).click()
+      const reference = await page.locator('p[data-testid="payment-reference-field"]').innerText()
+      await expectCopied(page, reference)
+    }
   })
 })
