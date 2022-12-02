@@ -11,6 +11,7 @@ import { Montserrat } from '@next/font/google'
 
 export const montserrat = Montserrat({
   display: 'swap',
+  subsets: ['latin'],
 })
 
 // Instead of exporting `colors` variable use theme:
