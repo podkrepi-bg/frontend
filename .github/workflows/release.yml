@@ -120,6 +120,7 @@ jobs:
   run-playwright:
     name: Run Playwright
     uses: ./.github/workflows/playwright.yml
+    secrets: inherit
 
   release-dev:
     name: Release to dev
