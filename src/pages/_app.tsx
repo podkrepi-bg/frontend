@@ -1,21 +1,21 @@
-import Head from 'next/head'
-import { AppProps } from 'next/app'
-import { useRouter } from 'next/router'
 import { EmotionCache } from '@emotion/cache'
 import { CacheProvider } from '@emotion/react'
-import React, { useEffect, useState } from 'react'
-import { appWithTranslation, useTranslation } from 'next-i18next'
-import { ThemeProvider, Theme } from '@mui/material/styles'
 import { CssBaseline } from '@mui/material'
+import { Theme, ThemeProvider } from '@mui/material/styles'
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { appWithTranslation, useTranslation } from 'next-i18next'
+import { AppProps } from 'next/app'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 
+import createEmotionCache from 'common/createEmotionCache'
 import theme from 'common/theme'
 import useGTM from 'common/util/useGTM'
-import createEmotionCache from 'common/createEmotionCache'
 
-import 'styles/global.scss'
-import { queryFn } from 'service/restRequests'
 import { SessionProvider } from 'next-auth/react'
+import { queryFn } from 'service/restRequests'
+import 'styles/global.scss'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -28,6 +28,7 @@ declare module '@mui/styles/defaultTheme' {
 interface CustomAppProps extends AppProps {
   emotionCache?: EmotionCache
 }
+
 function CustomApp({
   Component,
   emotionCache = clientSideEmotionCache,

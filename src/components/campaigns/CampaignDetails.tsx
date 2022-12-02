@@ -98,7 +98,6 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   ['& .ql-editor']: {
     fontSize: theme.spacing(2),
     fontWeight: 500,
-    fontFamily: 'Montserrat',
     lineHeight: theme.spacing(4),
     paddingLeft: '0',
     paddingRight: '0',

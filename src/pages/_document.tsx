@@ -14,11 +14,7 @@ export default class CustomDocument extends Document {
         <Head>
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Lato&display=swap"
-            rel="stylesheet"
-          />
+
           <FaviconMetadata />
           {/* Inject MUI styles first to match with the prepend: true configuration. */}
           {(this.props as any).emotionStyleTags}

@@ -35,7 +35,6 @@ const Root = styled('div')(({ theme }) => ({
     margin: 0,
   },
   [`& .${classes.smallText}`]: {
-    fontFamily: 'Lato, sans-serif',
     fontStyle: 'normal',
     fontWeight: '500',
     fontSize: '15px',

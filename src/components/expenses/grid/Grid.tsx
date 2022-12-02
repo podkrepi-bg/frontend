@@ -33,12 +33,10 @@ const Root = styled('div')({
       marginTop: '30px',
       marginRight: '40px',
     },
-    fontFamily: 'Lato',
     fontSize: '12px',
   },
   [`& .${classes.gridColumn}`]: {
     '& .MuiDataGrid-columnHeaderTitle': {
-      fontFamily: 'Roboto',
       fontSize: '14px',
       fontWeight: '700',
     },

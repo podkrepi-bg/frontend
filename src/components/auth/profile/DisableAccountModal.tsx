@@ -44,18 +44,12 @@ const StyledModal = styled(Modal)(({ theme }) => ({
     },
   },
   [`& .${classes.subtitle}`]: {
-    fontFamily: 'Lato, sans-serif',
-    fontStyle: 'normal',
-    fontWeight: '400',
     fontSize: theme.typography.pxToRem(14),
     lineHeight: theme.spacing(3),
     color: theme.palette.primary.main,
     margin: theme.spacing(1, 0),
   },
   [`& .${classes.graySpan}`]: {
-    fontFamily: 'Lato, sans-serif',
-    fontStyle: 'normal',
-    fontWeight: '400',
     fontSize: theme.typography.pxToRem(14),
     lineHeight: '133.4%',
     color: '#909090',
@@ -65,7 +59,6 @@ const StyledModal = styled(Modal)(({ theme }) => ({
     },
   },
   [`& .${classes.irrevirsibleAction}`]: {
-    fontFamily: 'Lato, sans-serif',
     fontStyle: 'normal',
     fontWeight: '400',
     fontSize: theme.typography.pxToRem(14),
