@@ -22,6 +22,8 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
+import LinkButton from '../common/LinkButton'
+import { CampaignState } from './helpers/campaign.enums'
 const PREFIX = 'InlineDonation'
 
 const classes = {
@@ -119,25 +121,32 @@ type Props = {
 
 export default function InlineDonation({ campaign }: Props) {
   const { t } = useTranslation()
-  const router = useRouter()
   const { asPath } = useRouter()
   const [status, copyUrl] = useCopyToClipboard(baseUrl + asPath, 1000)
   const active = status === 'copied' ? 'inherit' : 'primary'
   const [page, setPage] = useState<number>(0)
   const pageSize = 5
-  const target = campaign.targetAmount
-  const summary = campaign.summary
+
+  const {
+    id: campaignId,
+    targetAmount: target,
+    summary,
+    currency,
+    allowDonationOnComplete,
+    state: campaignState,
+    slug: campaignSlug,
+  } = campaign
+
   const reached = summary?.reachedAmount ?? 0
   const donors = summary?.donors ?? 0
   const {
     data: { items: donations, total: all_rows } = { items: [] },
     error: donationHistoryError,
     isLoading: isDonationHistoryLoading,
-  } = useCampaignDonationHistory(campaign.id, page, pageSize)
+  } = useCampaignDonationHistory(campaignId, page, pageSize)
   const { mobile } = useMobile()
   const [isOpen, setIsOpen] = useState(false)
   const rowCount = page * pageSize + donations.length
-  const currency = campaign.currency
   const detailsShown = isOpen || !mobile
 
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
@@ -209,18 +218,17 @@ export default function InlineDonation({ campaign }: Props) {
             color={active}
           />
         </Menu>
-        <Button
-          fullWidth
-          onClick={() =>
-            router.push({
-              pathname: routes.campaigns.oneTimeDonation(campaign.slug),
-            })
-          }
-          variant="contained"
-          color="secondary"
-          startIcon={<Favorite color="action" />}>
-          {t('common:support')}
-        </Button>
+        <Grid item xs={12}>
+          <LinkButton
+            fullWidth
+            href={routes.campaigns.oneTimeDonation(campaignSlug)}
+            disabled={campaignState === CampaignState.complete && !allowDonationOnComplete}
+            variant="contained"
+            color="secondary"
+            startIcon={<Favorite color="action" />}>
+            {t('common:support')}
+          </LinkButton>
+        </Grid>
       </Grid>
       {detailsShown &&
         (donationHistoryError ? (

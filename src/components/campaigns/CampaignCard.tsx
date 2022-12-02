@@ -106,31 +106,36 @@ type Props = { campaign: CampaignResponse }
 export default function CampaignCard({ campaign }: Props) {
   const { t } = useTranslation()
 
-  const target = campaign.targetAmount
-  const summary = campaign.summary
+  const {
+    targetAmount: target,
+    summary,
+    currency,
+    state: campaignState,
+    allowDonationOnComplete,
+    slug,
+    title,
+    essence,
+  } = campaign
+
   const pictureUrl = campaignListPictureUrl(campaign)
   const reached = summary ? summary.reachedAmount : 0
-  const currency = campaign.currency
-  const campaignState = campaign.state
 
   return (
     <StyledCard variant="outlined" className={classes.cardWrapper}>
-      <CardActionArea
-        LinkComponent={Link}
-        href={routes.campaigns.viewCampaignBySlug(campaign.slug)}>
-        <CardMedia className={classes.media} title={campaign.title}>
+      <CardActionArea LinkComponent={Link} href={routes.campaigns.viewCampaignBySlug(slug)}>
+        <CardMedia className={classes.media} title={title}>
           <div
             style={{ position: 'relative', width: '100%', minHeight: '100%', maxHeight: '100%' }}>
-            <Image alt={campaign.title} src={pictureUrl} fill style={{ objectFit: 'contain' }} />
+            <Image alt={title} src={pictureUrl} fill style={{ objectFit: 'contain' }} />
             {campaignState === CampaignState.complete ? <SuccessfullCampaignTag /> : ''}
           </div>
         </CardMedia>
         <CardContent className={classes.cardContent}>
           <Typography gutterBottom variant="h5" className={classes.campaignTitle}>
-            {campaign.title}
+            {title}
           </Typography>
           <Typography textAlign={'left'} variant="body2" color="textSecondary" component="p">
-            {campaign.essence}
+            {essence}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -151,7 +156,8 @@ export default function CampaignCard({ campaign }: Props) {
             <Box mx={2} mb={2}>
               <LinkButton
                 fullWidth
-                href={routes.campaigns.oneTimeDonation(campaign.slug)}
+                href={routes.campaigns.oneTimeDonation(slug)}
+                disabled={campaignState === CampaignState.complete && !allowDonationOnComplete}
                 variant="contained"
                 color="secondary"
                 endIcon={<Favorite color="error" />}
@@ -161,7 +167,7 @@ export default function CampaignCard({ campaign }: Props) {
             </Box>
             <Box mt={3} textAlign="center">
               <LinkButton
-                href={routes.campaigns.viewCampaignBySlug(campaign.slug)}
+                href={routes.campaigns.viewCampaignBySlug(slug)}
                 endIcon={<KeyboardDoubleArrowRightIcon />}
                 className={classes.seeMoreButton}>
                 {t('campaigns:cta.see-more')}
