@@ -152,7 +152,9 @@ export default function FirstStep() {
           <Divider className={classes.divider} />
           <Grid container justifyContent="center">
             <Grid my={2} item display="flex" justifyContent="space-between" xs={9}>
-              <Typography fontWeight="bold">{campaign.paymentReference}</Typography>
+              <Typography data-testid="payment-reference-field" fontWeight="bold">
+                {campaign.paymentReference}
+              </Typography>
               <CopyTextButton
                 text={campaign.paymentReference}
                 variant="contained"
