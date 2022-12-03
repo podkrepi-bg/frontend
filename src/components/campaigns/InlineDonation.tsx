@@ -1,29 +1,39 @@
 import { useState } from 'react'
-import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
-import { CampaignResponse } from 'gql/campaigns'
-import { baseUrl, routes } from 'common/routes'
-import { moneyPublic } from 'common/util/money'
-import CampaignProgress from './CampaignProgress'
-import DonorsAndDonations from './DonorsAndDonations'
-import { Button, CircularProgress, Grid, IconButton, Menu, Typography } from '@mui/material'
-import { lighten } from '@mui/material/styles'
-import { AddLinkOutlined, Favorite } from '@mui/icons-material'
-import ShareIcon from '@mui/icons-material/Share'
-import { useCampaignDonationHistory } from 'common/hooks/campaigns'
-import theme from 'common/theme'
 import { useRouter } from 'next/router'
-import CustomListItem from 'components/admin/navigation/CustomListItem'
-import { socialMedia } from './helpers/socialMedia'
-import { useCopyToClipboard } from 'common/util/useCopyToClipboard'
-import { AlertStore } from 'stores/AlertStore'
-import useMobile from 'common/hooks/useMobile'
+
+import {
+  Alert,
+  Box,
+  Button,
+  CircularProgress,
+  Grid,
+  IconButton,
+  Typography,
+  Unstable_Grid2 as Grid2,
+} from '@mui/material'
+import { styled } from '@mui/material/styles'
+import { lighten } from '@mui/material/styles'
+import { Favorite, Info } from '@mui/icons-material'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
+
+import { CampaignResponse } from 'gql/campaigns'
+import { baseUrl, routes } from 'common/routes'
+import { moneyPublic } from 'common/util/money'
+import { useCampaignDonationHistory } from 'common/hooks/campaigns'
+import theme from 'common/theme'
+import { useCopyToClipboard } from 'common/util/useCopyToClipboard'
+import useMobile from 'common/hooks/useMobile'
+
 import LinkButton from '../common/LinkButton'
+import CampaignProgress from './CampaignProgress'
+import DonorsAndDonations from './DonorsAndDonations'
 import { CampaignState } from './helpers/campaign.enums'
+import MoneyFormatted from './MoneyFormatted'
+
 const PREFIX = 'InlineDonation'
 
 const classes = {
@@ -149,75 +159,14 @@ export default function InlineDonation({ campaign }: Props) {
   const rowCount = page * pageSize + donations.length
   const detailsShown = isOpen || !mobile
 
-  const [anchorEl, setAnchorEl] = useState<Element | null>(null)
-
-  const handleMenu = (event: React.MouseEvent) => setAnchorEl(event.currentTarget)
-  const handleClose = () => setAnchorEl(null)
-
   return (
     <StyledGrid item xs={12} mt={5} p={3} className={classes.inlineDonationWrapper}>
-      <Grid mb={2}>
-        <Typography component="span" className={classes.reachedMoney}>
-          {moneyPublic(reached, currency)}
-        </Typography>
-        <Typography component="span" className={classes.targetMoney}>
-          {' '}
-          {t('campaigns:campaign.from')} {moneyPublic(target, currency)}
-        </Typography>
-      </Grid>
+      <Grid2 mb={1} display="flex" justifyContent="space-between">
+        <MoneyFormatted money={reached} currency={currency} />
+        <MoneyFormatted money={target} currency={currency} />
+      </Grid2>
       <CampaignProgress raised={reached} target={target} />
-      {detailsShown && (
-        <>
-          <Grid display="inline-block" m={3} ml={0}>
-            <Typography className={classes.donorsSharesCount}>{donors}</Typography>
-            <Typography>{t('campaigns:campaign.donors')}</Typography>
-          </Grid>
-          <Grid display="inline-block" m={3} ml={0}>
-            <Typography className={classes.donorsSharesCount}>{0}</Typography>
-            <Typography>{t('campaigns:campaign.shares')}</Typography>
-          </Grid>
-        </>
-      )}
-      <Grid container gap={2} className={classes.buttonContainer}>
-        <Button
-          fullWidth
-          variant="outlined"
-          startIcon={<ShareIcon />}
-          color="secondary"
-          onClickCapture={handleMenu}>
-          {t('campaigns:cta.share')}
-        </Button>
-        <Menu
-          keepMounted
-          id="share"
-          anchorEl={anchorEl}
-          onClose={handleClose}
-          open={Boolean(anchorEl)}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-          transformOrigin={{ vertical: 'top', horizontal: 'center' }}>
-          {socialMedia(baseUrl + asPath).map(({ label, icon: Icon, url }) => (
-            <CustomListItem
-              key={label}
-              icon={<Icon />}
-              label={label}
-              className={classes.dropdownLinkText}
-              onClick={() => {
-                window.open(url, '_blank')?.focus()
-                return false
-              }}
-            />
-          ))}
-          <CustomListItem
-            className={classes.dropdownLinkText}
-            icon={<AddLinkOutlined />}
-            label="Копирайте връзка към кампанията"
-            onClick={() => {
-              AlertStore.show(t('common:alerts.message-copy'), 'success')
-              copyUrl()
-            }}
-            color={active}
-          />
-        </Menu>
+      <Grid container gap={1} className={classes.buttonContainer}>
         <Grid item xs={12}>
           <LinkButton
             fullWidth
@@ -229,7 +178,19 @@ export default function InlineDonation({ campaign }: Props) {
             {t('common:support')}
           </LinkButton>
         </Grid>
+        <Box display="flex">
+          <Info color="warning" sx={{ fontSize: '1rem', mr: 1 }} />
+          <Typography fontSize="0.7rem">
+            Подкрепи.бг работи с 0% комисиона. Единствено се заплащат банкови такси, които изрично
+            се упоменават преди да направите дарението си.
+          </Typography>
+        </Box>
       </Grid>
+      {detailsShown && (
+        <Typography className={classes.donorsSharesCount}>
+          {donors} {t('campaigns:campaign.donors')}
+        </Typography>
+      )}
       {detailsShown &&
         (donationHistoryError ? (
           'Error fetching donation history'

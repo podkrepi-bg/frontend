@@ -16,7 +16,7 @@ export const money = (number: number, currency = 'BGN', divisionFactor = 100) =>
 
 export const moneyPublic = (
   number: number,
-  currency = 'BGN',
+  currency: string | null,
   divisionFactor = 100,
   maximumFractionDigits = 0,
   minimumFractionDigits = 0,
@@ -34,17 +34,34 @@ export const moneyPublic = (
     if (currency === 'USD') {
       return `${amount} $`
     }
-    return `${amount} лв.`
+    if (currency === 'BGN') {
+      return `${amount} лв.`
+    }
+    return `${amount}`
   }
   return new Intl.NumberFormat(i18n.language, {
     style: 'currency',
-    currency,
+    currency: currency || undefined,
     maximumFractionDigits,
     minimumFractionDigits,
   }).format(number / divisionFactor)
 }
 
-export const moneyPublicDecimals2 = (number: number, currency = 'BGN', divisionFactor = 100) => {
+/**
+ *  Format money amounts with currency symbol
+ *
+ * @param number  number
+ * @param currency  string 'BGN' | 'EUR' | 'USD' | null for no currency symbol
+ * @param divisionFactor  number 100
+ * @returns string
+ * @description
+ * - 1000 => 10.00 лв.
+ */
+export const moneyPublicDecimals2 = (
+  number: number,
+  currency: string | null,
+  divisionFactor = 100,
+) => {
   return moneyPublic(number, currency, divisionFactor, 2, 2)
 }
 
