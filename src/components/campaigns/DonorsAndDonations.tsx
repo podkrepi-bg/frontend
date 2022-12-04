@@ -1,5 +1,5 @@
+import { East } from '@mui/icons-material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 import { Button, Grid, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import theme from 'common/theme'
@@ -23,7 +23,6 @@ const Root = styled('div')(({ theme }) => ({
   [`& .${classes.donationsWrapper}`]: {
     marginTop: theme.spacing(5),
     maxHeight: 400,
-    overflowY: 'scroll',
   },
 
   [`& .${classes.donationItemWrapper}`]: {
@@ -37,11 +36,6 @@ const Root = styled('div')(({ theme }) => ({
     display: 'flex',
     gap: theme.spacing(1),
     color: theme.palette.grey[500],
-  },
-
-  [`& .${classes.separatorIcon}`]: {
-    fontSize: theme.spacing(1),
-    alignSelf: 'center',
   },
 }))
 
@@ -74,8 +68,7 @@ export default function DonorsAndDonations({
                     : t('campaigns:donations.anonymous')}
                 </Typography>
                 <Grid className={classes.donationQuantityAndTimeWrapper}>
-                  <Typography>{moneyPublic(amount, currency)}</Typography>
-                  <FiberManualRecordIcon className={classes.separatorIcon} />
+                  <Typography>{moneyPublic(amount, currency)}</Typography>|
                   <Typography>
                     {formatDistanceStrict(parseISO(createdAt), new Date(), {
                       locale: i18n.language == 'bg' ? bg : enUS,
@@ -92,13 +85,10 @@ export default function DonorsAndDonations({
           </Typography>
         )}
       </Grid>
-      <Grid>
-        {donations && donations.length > shownDonationsNumber && (
-          <Button onClick={() => setAll((prev) => !prev)} variant="outlined">
-            {all ? t('campaigns:cta.see-less') : t('campaigns:cta.see-all')}
-          </Button>
-        )}
-      </Grid>
+      <Button variant="text" onClick={() => setAll((prev) => !prev)}>
+        {all ? t('campaigns:cta.see-less') : t('campaigns:cta.see-all')}{' '}
+        <East fontSize="small" sx={{ ml: theme.spacing(1) }} />
+      </Button>
     </Root>
   )
 }

@@ -1,14 +1,11 @@
 import { useState } from 'react'
 import { useTranslation } from 'next-i18next'
-import { useRouter } from 'next/router'
 
 import {
-  Alert,
   Box,
   Button,
   CircularProgress,
   Grid,
-  IconButton,
   Typography,
   Unstable_Grid2 as Grid2,
 } from '@mui/material'
@@ -17,15 +14,11 @@ import { lighten } from '@mui/material/styles'
 import { Favorite, Info } from '@mui/icons-material'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 
 import { CampaignResponse } from 'gql/campaigns'
-import { baseUrl, routes } from 'common/routes'
-import { moneyPublic } from 'common/util/money'
+import { routes } from 'common/routes'
 import { useCampaignDonationHistory } from 'common/hooks/campaigns'
 import theme from 'common/theme'
-import { useCopyToClipboard } from 'common/util/useCopyToClipboard'
 import useMobile from 'common/hooks/useMobile'
 
 import LinkButton from '../common/LinkButton'
@@ -52,7 +45,7 @@ const classes = {
 const StyledGrid = styled(Grid)(({ theme }) => ({
   [`&.${classes.inlineDonationWrapper}`]: {
     backgroundColor: '#EEEEEE',
-    borderRadius: theme.spacing(1),
+    borderRadius: theme.spacing(2),
     height: 'fit-content',
     boxShadow: '2px 4px 5px rgba(0, 0, 0, 0.25)',
     [theme.breakpoints.down('md')]: {
@@ -131,9 +124,6 @@ type Props = {
 
 export default function InlineDonation({ campaign }: Props) {
   const { t } = useTranslation()
-  const { asPath } = useRouter()
-  const [status, copyUrl] = useCopyToClipboard(baseUrl + asPath, 1000)
-  const active = status === 'copied' ? 'inherit' : 'primary'
   const [page, setPage] = useState<number>(0)
   const pageSize = 5
 
@@ -161,9 +151,20 @@ export default function InlineDonation({ campaign }: Props) {
 
   return (
     <StyledGrid item xs={12} mt={5} p={3} className={classes.inlineDonationWrapper}>
+      <Grid2 container gap={1} mb={2}>
+        <Typography>
+          <strong>Документи:</strong> Проверена
+        </Typography>
+        <Typography>
+          <strong>Гарант:</strong> Елена Стойкова
+        </Typography>
+        <Typography>
+          <strong>Други:</strong> Проверена на място
+        </Typography>
+      </Grid2>
       <Grid2 mb={1} display="flex" justifyContent="space-between">
-        <MoneyFormatted money={reached} currency={currency} />
-        <MoneyFormatted money={target} currency={currency} />
+        <MoneyFormatted money={reached} />
+        <MoneyFormatted money={target} />
       </Grid2>
       <CampaignProgress raised={reached} target={target} />
       <Grid container gap={1} className={classes.buttonContainer}>
@@ -187,8 +188,8 @@ export default function InlineDonation({ campaign }: Props) {
         </Box>
       </Grid>
       {detailsShown && (
-        <Typography className={classes.donorsSharesCount}>
-          {donors} {t('campaigns:campaign.donors')}
+        <Typography>
+          {t('campaigns:campaign.donors')}: {donors}
         </Typography>
       )}
       {detailsShown &&
@@ -199,25 +200,6 @@ export default function InlineDonation({ campaign }: Props) {
         ) : (
           <>
             <DonorsAndDonations donations={donations} />
-            {donations && donations.length !== 0 ? (
-              <Grid container justifyContent="flex-end">
-                <Typography m={1}>{`${page * pageSize + 1}-${rowCount}  ${t(
-                  'campaigns:of',
-                )}  ${all_rows}`}</Typography>
-                <IconButton
-                  aria-label="back"
-                  disabled={page == 0}
-                  onClick={() => setPage((index) => index - 1)}>
-                  <ArrowBackIosIcon fontSize="small" />
-                </IconButton>
-                <IconButton
-                  aria-label="next"
-                  disabled={rowCount == all_rows}
-                  onClick={() => setPage((index) => index + 1)}>
-                  <ArrowForwardIosIcon fontSize="small" />
-                </IconButton>
-              </Grid>
-            ) : null}
           </>
         ))}
       {/* <pre>{JSON.stringify(prices, null, 2)}</pre> */}
