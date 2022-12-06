@@ -43,6 +43,7 @@ export default function ForgottenPasswordForm({
   const onSubmit = async (values: ForgottenPasswordForm) => {
     try {
       setLoading(true)
+      values.email = values.email.trim()
       await mutation.mutateAsync(values)
     } catch (error) {
       console.error(error)
