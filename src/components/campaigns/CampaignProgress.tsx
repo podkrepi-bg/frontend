@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { styled } from '@mui/material/styles'
 import LinearProgress from '@mui/material/LinearProgress'
-import { Grid } from '@mui/material'
+import { Unstable_Grid2 as Grid2, Grid2Props } from '@mui/material'
 const PREFIX = 'CampaignProgress'
 
 const classes = {
@@ -11,7 +11,7 @@ const classes = {
   cardActions: `${PREFIX}-cardActions`,
 }
 
-const StyledGrid = styled(Grid)(({ theme }) => ({
+const StyledGrid = styled(Grid2)(({ theme }) => ({
   [`&.${classes.donationProgress}`]: {
     width: '100%',
     '> div p': {
@@ -25,18 +25,16 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 }))
 
-const BorderLinearProgress = LinearProgress
-
-type Props = {
+interface Props extends Grid2Props {
   raised: number
   target: number
 }
-export default function CampaignProgress({ raised, target }: Props) {
+export default function CampaignProgress({ raised, target, ...props }: Props) {
   const percentage = useMemo(() => (raised / target) * 100, [raised, target])
   return (
-    <StyledGrid className={classes.donationProgress} container>
-      <Grid item xs={12}>
-        <BorderLinearProgress
+    <StyledGrid className={classes.donationProgress} container {...props}>
+      <Grid2 xs={12}>
+        <LinearProgress
           variant="determinate"
           value={percentage > 100 ? 100 : percentage}
           classes={{
@@ -44,22 +42,7 @@ export default function CampaignProgress({ raised, target }: Props) {
             bar: classes.bar,
           }}
         />
-      </Grid>
-      {/* <Grid item xs={6}>
-        <Typography gutterBottom color="primary" variant="body1" align="left">
-          {money(raised)}
-        </Typography>
-      </Grid>
-      <Grid item xs={6}>
-        <Typography gutterBottom color="primary" variant="body1" align="right">
-          {money(target)}
-        </Typography>
-        {raised > target && (
-          <Typography gutterBottom color="primary" variant="body1" align="right">
-            (+ {money(raised - target)})
-          </Typography>
-        )}
-      </Grid> */}
+      </Grid2>
     </StyledGrid>
   )
 }

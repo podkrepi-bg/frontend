@@ -1,14 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'next-i18next'
 
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Grid,
-  Typography,
-  Unstable_Grid2 as Grid2,
-} from '@mui/material'
+import { Box, Button, CircularProgress, Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { lighten } from '@mui/material/styles'
 import { Favorite, Info } from '@mui/icons-material'
@@ -37,12 +30,11 @@ const classes = {
   donationPriceList: `${PREFIX}-donationPriceList`,
   dropdownLinkButton: `${PREFIX}-dropdownLinkButton`,
   dropdownLinkText: `${PREFIX}-dropdownLinkText`,
-  buttonContainer: `${PREFIX}-buttonContainer`,
   sharesContainer: `${PREFIX}-sharesContainer`,
   openButton: `${PREFIX}-openButton`,
 }
 
-const StyledGrid = styled(Grid)(({ theme }) => ({
+const StyledContainer = styled(Grid2)(({ theme }) => ({
   [`&.${classes.inlineDonationWrapper}`]: {
     backgroundColor: '#EEEEEE',
     borderRadius: theme.spacing(2),
@@ -93,14 +85,6 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     },
   },
 
-  [`& .${classes.buttonContainer}`]: {
-    [theme.breakpoints.down('md')]: {
-      display: 'flex',
-      flexWrap: 'nowrap',
-      marginTop: theme.spacing(2),
-    },
-  },
-
   [`& .${classes.sharesContainer}`]: {
     [theme.breakpoints.down('md')]: {
       display: 'none',
@@ -124,14 +108,13 @@ type Props = {
 
 export default function InlineDonation({ campaign }: Props) {
   const { t } = useTranslation()
-  const [page, setPage] = useState<number>(0)
+  const page = 0
   const pageSize = 5
 
   const {
     id: campaignId,
     targetAmount: target,
     summary,
-    currency,
     allowDonationOnComplete,
     state: campaignState,
     slug: campaignSlug,
@@ -140,17 +123,16 @@ export default function InlineDonation({ campaign }: Props) {
   const reached = summary?.reachedAmount ?? 0
   const donors = summary?.donors ?? 0
   const {
-    data: { items: donations, total: all_rows } = { items: [] },
+    data: { items: donations } = { items: [] },
     error: donationHistoryError,
     isLoading: isDonationHistoryLoading,
   } = useCampaignDonationHistory(campaignId, page, pageSize)
   const { mobile } = useMobile()
   const [isOpen, setIsOpen] = useState(false)
-  const rowCount = page * pageSize + donations.length
   const detailsShown = isOpen || !mobile
 
   return (
-    <StyledGrid item xs={12} mt={5} p={3} className={classes.inlineDonationWrapper}>
+    <StyledContainer xs={12} mt={5} p={3} className={classes.inlineDonationWrapper}>
       <Grid2 container gap={1} mb={2}>
         <Typography>
           <strong>Документи:</strong> Проверена
@@ -162,13 +144,15 @@ export default function InlineDonation({ campaign }: Props) {
           <strong>Други:</strong> Проверена на място
         </Typography>
       </Grid2>
-      <Grid2 mb={1} display="flex" justifyContent="space-between">
+      <Box mb={1} display="flex" justifyContent="space-between">
         <MoneyFormatted money={reached} />
         <MoneyFormatted money={target} />
-      </Grid2>
-      <CampaignProgress raised={reached} target={target} />
-      <Grid container gap={1} className={classes.buttonContainer}>
-        <Grid item xs={12}>
+      </Box>
+      <Box>
+        <CampaignProgress raised={reached} target={target} />
+      </Box>
+      <Grid2 container gap={1}>
+        <Grid2 xs={12}>
           <LinkButton
             fullWidth
             href={routes.campaigns.oneTimeDonation(campaignSlug)}
@@ -178,7 +162,7 @@ export default function InlineDonation({ campaign }: Props) {
             startIcon={<Favorite color="action" />}>
             {t('common:support')}
           </LinkButton>
-        </Grid>
+        </Grid2>
         <Box display="flex">
           <Info color="warning" sx={{ fontSize: '1rem', mr: 1 }} />
           <Typography fontSize="0.7rem">
@@ -186,7 +170,7 @@ export default function InlineDonation({ campaign }: Props) {
             се упоменават преди да направите дарението си.
           </Typography>
         </Box>
-      </Grid>
+      </Grid2>
       {detailsShown && (
         <Typography>
           {t('campaigns:campaign.donors')}: {donors}
@@ -202,14 +186,13 @@ export default function InlineDonation({ campaign }: Props) {
             <DonorsAndDonations donations={donations} />
           </>
         ))}
-      {/* <pre>{JSON.stringify(prices, null, 2)}</pre> */}
       {mobile && (
-        <Grid textAlign="center">
+        <Box textAlign="center">
           <Button variant="text" onClick={() => setIsOpen(!isOpen)} className={classes.openButton}>
             {isOpen ? <ExpandLessIcon fontSize="large" /> : <ExpandMoreIcon fontSize="large" />}
           </Button>
-        </Grid>
+        </Box>
       )}
-    </StyledGrid>
+    </StyledContainer>
   )
 }
