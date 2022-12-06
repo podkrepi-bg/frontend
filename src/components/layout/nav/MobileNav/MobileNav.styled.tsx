@@ -13,13 +13,15 @@ export const CloseButton = styled(CloseModalButton)(() => ({
 }))
 
 export const OpenMenuHeader = styled(Box)(() => ({
-  margin: theme.spacing(0.5, 3, 2),
+  margin: theme.spacing(0.5, 2, 1.5),
+  height: theme.spacing(5),
+  display: 'flex',
 }))
 
 export const NavMenuWrapper = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'center',
-  padding: theme.spacing(2),
+  padding: theme.spacing(1, 2),
   flexDirection: 'column',
 }))
 
