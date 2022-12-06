@@ -16,6 +16,7 @@ const ExpandableListItem = ({ header, content }: Props) => {
 
   return (
     <List
+      component="div"
       sx={{
         my: 0,
         mx: { xs: 0, md: 3 },
