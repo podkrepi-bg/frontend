@@ -54,7 +54,6 @@ const Root = styled('div')(({ theme }) => ({
   },
 
   [`& .${classes.graySpan}`]: {
-    fontFamily: 'Lato, sans-serif',
     fontStyle: 'normal',
     fontWeight: '400',
     fontSize: '18px',
@@ -63,7 +62,6 @@ const Root = styled('div')(({ theme }) => ({
   },
 
   [`& .${classes.h5}`]: {
-    fontFamily: 'Lato, sans-serif',
     fontStyle: 'normal',
     fontWeight: '600',
     fontSize: '22px',

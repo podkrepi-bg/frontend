@@ -55,7 +55,6 @@ const Root = styled('div')(({ theme }) => ({
     fontSize: '1rem',
     lineHeight: '1.4375em',
     letterSpacing: '0.01071em',
-    fontFamily: theme.typography.fontFamily,
     fontWeight: 400,
     padding: 0,
   },

@@ -7,7 +7,12 @@ import {
   ThemeOptions,
 } from '@mui/material/styles'
 
-const fontFamily = 'Montserrat'
+import { Montserrat } from '@next/font/google'
+
+export const montserrat = Montserrat({
+  display: 'auto',
+  subsets: ['latin', 'cyrillic'],
+})
 
 // Instead of exporting `colors` variable use theme:
 // import theme from 'common/theme'
@@ -179,22 +184,15 @@ export const themeOptions: ThemeOptions = {
   },
 
   typography: {
-    h1: { fontFamily },
-    h2: { fontFamily },
-    h3: { fontFamily, color: colors.blue.dark },
-    h4: { fontFamily },
-    h5: { fontFamily },
-    h6: { fontFamily },
-    subtitle1: { fontFamily },
-    subtitle2: { fontFamily },
+    fontFamily: montserrat.style.fontFamily,
+    h3: { color: colors.blue.dark },
+
     body1: {
       fontSize: '0.875rem',
       lineHeight: '1.43',
       letterSpacing: '0.01071em',
-      fontFamily,
     },
-    body2: { fontFamily },
-    button: { fontFamily, textTransform: 'initial' },
+    button: { textTransform: 'initial' },
   },
 }
 // https://material-ui.com/customization/default-theme/#default-theme

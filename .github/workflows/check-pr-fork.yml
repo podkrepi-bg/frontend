@@ -1,0 +1,57 @@
+name: Check PR (forks)
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, labeled]
+
+permissions:
+  contents: read
+
+jobs:
+  check-label:
+    name: Check label
+    runs-on: ubuntu-latest
+    # If this is not a fork do not start this step
+    if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' || github.event.pull_request.head.repo.fork }}
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+      - name: Check whether tests are enabled for this PR
+        run: |
+          echo "IS_FORK=${{ github.event.pull_request.user.login == 'dependabot[bot]' || github.event.pull_request.head.repo.fork }}" >> $GITHUB_ENV
+          echo "HAS_LABEL=${{ contains(github.event.pull_request.labels.*.name, 'run tests') }}" >> $GITHUB_ENV
+      - name: Remove 'run tests' label
+        # If the PR is created by dependabot or is a fork and has the 'run tests' label, remove it
+        if: ${{ env.IS_FORK == 'true' && env.HAS_LABEL == 'true' }}
+        run: |
+          gh pr edit ${{ github.event.pull_request.number }} --remove-label "run tests"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Fail workflow
+        if: ${{ env.IS_FORK == 'true' && env.HAS_LABEL == 'false' }}
+        run: |
+          echo "Not all tests have run for this PR. Please add the `run tests` label to trigger them."
+          exit 1
+      - name: Update PR comment
+        uses: mshick/add-pr-comment@v2
+        if: always()
+        with:
+          message: |
+            ✅ Tests will run for this PR. Once they succeed it can be merged.
+          message-failure: |
+            ❌ Not all tests have run for this PR. Please add the `run tests` label to trigger them.
+
+
+  tests:
+    name: Tests
+    needs: [check-label]
+    uses: ./.github/workflows/tests.yml
+    secrets:
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      GHOST_CONTENT_KEY: ${{ secrets.GHOST_CONTENT_KEY }}
+      MONDOO_SECRET: ${{ secrets.MONDOO_SECRET }}
+      STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}

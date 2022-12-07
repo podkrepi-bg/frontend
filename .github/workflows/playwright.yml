@@ -19,6 +19,9 @@ jobs:
           ref: master
           path: './api'
 
+      - name: Set yarn version
+        run: yarn set version berry
+
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
@@ -35,17 +38,32 @@ jobs:
       - name: Run db
         working-directory: ./api
         run: docker compose up -d pg-db
+
+      - name: Run stripe webhook
+        working-directory: ./api
+        env:
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+        run: docker compose up -d stripe-webhook
+
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      - name: Install backend dependencies and seed database
+      - name: Install backend dependencies
         working-directory: ./api
-        run: yarn && yarn prisma generate && yarn prisma migrate deploy && yarn prisma db seed
+        run: yarn
+
+      - name: Seed database
+        working-directory: ./api
+        run: yarn prisma generate && yarn prisma migrate deploy && yarn prisma db seed
 
       - name: Run backend
         working-directory: ./api
-        run: yarn start &
+        env:
+          STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+        run: yarn start &> api.log &
 
       - name: Install Frontend Dependencies
         working-directory: ./frontend
@@ -71,7 +89,7 @@ jobs:
 
       - name: Start frontend
         working-directory: ./frontend
-        run: yarn start &
+        run: yarn start &> frontend.log &
 
       - name: Install Playwright Browsers
         working-directory: ./frontend
@@ -92,4 +110,13 @@ jobs:
         with:
           name: playwright-report
           path: ./frontend/playwright-report/
+          retention-days: 14
+
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: logs
+          path: |
+            ./frontend/frontend.log
+            ./api/api.log
           retention-days: 14

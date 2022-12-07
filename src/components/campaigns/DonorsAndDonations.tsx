@@ -1,14 +1,14 @@
-import React, { useMemo, useState } from 'react'
-import { styled } from '@mui/material/styles'
-import { Button, Grid, Typography } from '@mui/material'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
-import { useTranslation } from 'next-i18next'
-import { CampaignDonation } from 'gql/campaigns'
-import { formatRelative, parseISO } from 'date-fns'
-import { bg, enUS } from 'date-fns/locale'
+import { Button, Grid, Typography } from '@mui/material'
+import { styled } from '@mui/material/styles'
 import theme from 'common/theme'
 import { moneyPublic } from 'common/util/money'
+import { formatDistanceStrict, parseISO } from 'date-fns'
+import { bg, enUS } from 'date-fns/locale'
+import { CampaignDonation } from 'gql/campaigns'
+import { useTranslation } from 'next-i18next'
+import { useMemo, useState } from 'react'
 
 const PREFIX = 'DonorsAndDonations'
 
@@ -70,15 +70,16 @@ export default function DonorsAndDonations({
               <Grid>
                 <Typography>
                   {person
-                    ? person.firstName + ' ' + person.lastName
+                    ? `${person.firstName} ${person.lastName}`
                     : t('campaigns:donations.anonymous')}
                 </Typography>
                 <Grid className={classes.donationQuantityAndTimeWrapper}>
                   <Typography>{moneyPublic(amount, currency)}</Typography>
                   <FiberManualRecordIcon className={classes.separatorIcon} />
                   <Typography>
-                    {formatRelative(parseISO(createdAt), new Date(), {
+                    {formatDistanceStrict(parseISO(createdAt), new Date(), {
                       locale: i18n.language == 'bg' ? bg : enUS,
+                      addSuffix: true,
                     })}
                   </Typography>
                 </Grid>

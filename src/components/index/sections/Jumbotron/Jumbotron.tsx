@@ -20,7 +20,11 @@ export default function Jumbotron() {
             <br />
             {t('index:title')}
           </MainTitle>
-          <DonateButton size="large" variant="contained" href={routes.campaigns.index}>
+          <DonateButton
+            data-testid="jumbotron-donate-button"
+            size="large"
+            variant="contained"
+            href={routes.campaigns.index}>
             {t('common:nav.donatе')}
           </DonateButton>
         </JumbotronWrapper>
