@@ -7,13 +7,12 @@ import Grid from 'components/recurring-donation/grid/Grid'
 import LinkButton from 'components/common/LinkButton'
 
 export const CloseButton = styled(CloseModalButton)(() => ({
-  marginRight: theme.spacing(1.25),
-  right: theme.spacing(1.25),
+  right: theme.spacing(0.5),
   top: theme.spacing(0.25),
 }))
 
 export const OpenMenuHeader = styled(Box)(() => ({
-  margin: theme.spacing(0.5, 2, 1.5),
+  margin: theme.spacing(0.5, 0, 1.5),
   height: theme.spacing(5),
   display: 'flex',
 }))

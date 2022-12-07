@@ -51,6 +51,7 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
           height: '100%',
           display: 'flex',
           justifyContent: 'space-between',
+          padding: 0,
         }}>
         <Link href={routes.index} passHref>
           <ButtonBase
