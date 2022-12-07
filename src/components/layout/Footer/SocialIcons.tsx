@@ -2,7 +2,7 @@ import { Facebook, LinkedIn, YouTube, Instagram } from '@mui/icons-material'
 
 import { socialUrls } from 'common/routes'
 import ExternalLink from 'components/common/ExternalLink'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 import { SocialIconsWrapper } from './Footer.styled'
 
