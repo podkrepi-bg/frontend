@@ -31,7 +31,7 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
         overflow: 'hidden',
         transition: 'height .5s, background-color .5s ease 0s',
         height: theme.spacing(11),
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('sm')]: {
           height: theme.spacing(8),
         },
         '&.shrink': {
@@ -39,6 +39,10 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
           lineHeight: theme.spacing(8),
           backgroundColor: 'hsla(0,0%,100%,0.85)',
           backdropFilter: 'saturate(180%) blur(5px)',
+
+          [theme.breakpoints.down('sm')]: {
+            height: theme.spacing(7),
+          },
         },
         backgroundColor: theme.palette.common.white,
       })}>
@@ -47,6 +51,7 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
           height: '100%',
           display: 'flex',
           justifyContent: 'space-between',
+          padding: 0,
         }}>
         <Link href={routes.index} passHref>
           <ButtonBase
@@ -63,9 +68,6 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
                 marginLeft: 0,
                 width: '100%',
                 height: theme.spacing(5),
-              },
-              '&.shrink': {
-                height: '50%',
               },
               '& > svg': {
                 display: 'block',

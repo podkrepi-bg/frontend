@@ -7,19 +7,20 @@ import Grid from 'components/recurring-donation/grid/Grid'
 import LinkButton from 'components/common/LinkButton'
 
 export const CloseButton = styled(CloseModalButton)(() => ({
-  marginRight: theme.spacing(1.25),
-  right: theme.spacing(1.25),
+  right: theme.spacing(0.5),
   top: theme.spacing(0.25),
 }))
 
 export const OpenMenuHeader = styled(Box)(() => ({
-  margin: theme.spacing(0.5, 3, 2),
+  margin: theme.spacing(0.5, 0, 1.5),
+  height: theme.spacing(5),
+  display: 'flex',
 }))
 
 export const NavMenuWrapper = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'center',
-  padding: theme.spacing(2),
+  padding: theme.spacing(1, 2),
   flexDirection: 'column',
 }))
 
@@ -42,11 +43,11 @@ export const LocaleButtonWrapper = styled(Box)(() => ({
   borderBottom: '2px solid lightgrey',
   display: 'flex',
   minHeight: theme.spacing(8),
-  paddingLeft: theme.spacing(1),
 
   '& button': {
     justifyContent: 'start',
-    marginLeft: theme.spacing(1.3),
+    marginLeft: theme.spacing(1),
+    padding: 0,
     fontSize: theme.typography.pxToRem(14),
   },
 }))

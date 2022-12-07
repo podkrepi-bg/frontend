@@ -3,11 +3,11 @@ import React from 'react'
 import { useTranslation } from 'next-i18next'
 import { useSession } from 'next-auth/react'
 
-import { Grid, Button } from '@mui/material'
+import { Grid } from '@mui/material'
 import { isAdmin } from 'common/util/roles'
 import { routes } from 'common/routes'
 
-import { AuthLink, AuthLinksWrapper, ProfileLogOut, SlashSymbol } from './AuthLinks.styled'
+import { AuthLink, AuthLinksWrapper, StyledAuthButton, SlashSymbol } from './AuthLinks.styled'
 
 export const AuthLinks = () => {
   const { t } = useTranslation()
@@ -18,21 +18,21 @@ export const AuthLinks = () => {
     return (
       <>
         <Grid item>
-          <ProfileLogOut fullWidth href={routes.profile.index}>
+          <StyledAuthButton fullWidth href={routes.profile.index}>
             {t('nav.profile')}
-          </ProfileLogOut>
+          </StyledAuthButton>
         </Grid>
         {status === 'authenticated' && isAdmin(session) && (
           <Grid item>
-            <Button fullWidth href={routes.admin.index}>
+            <StyledAuthButton fullWidth href={routes.admin.index}>
               {t('nav.admin.index')}
-            </Button>
+            </StyledAuthButton>
           </Grid>
         )}
         <Grid item>
-          <ProfileLogOut fullWidth href={routes.logout}>
+          <StyledAuthButton fullWidth href={routes.logout}>
             {t('nav.logout')}
-          </ProfileLogOut>
+          </StyledAuthButton>
         </Grid>
       </>
     )

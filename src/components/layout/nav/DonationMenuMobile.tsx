@@ -26,7 +26,7 @@ const StyledAccordion = styled(Accordion)(({ theme }) => ({
   [`& .${classes.accordionSummary}`]: {
     fontWeight: 500,
     minHeight: theme.spacing(8),
-    padding: theme.spacing(0, 3),
+    padding: theme.spacing(0, 1),
   },
 
   [`& .${classes.menuItem}`]: {
