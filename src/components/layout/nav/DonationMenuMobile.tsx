@@ -47,7 +47,7 @@ export default function DonationMenuMobile() {
     <StyledAccordion className={classes.accordionWrapper}>
       <AccordionSummary
         className={classes.accordionSummary}
-        expandIcon={<ExpandMoreIcon fontSize="large" />}
+        expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content">
         {t('nav.campaigns.index')}
       </AccordionSummary>
