@@ -14,6 +14,7 @@ import PublicMenu from './nav/PublicMenu'
 import PrivateMenu from './nav/PrivateMenu'
 import MainNavMenu from './nav/MainNavMenu'
 import { useSession } from 'next-auth/react'
+import { useTranslation } from 'next-i18next'
 
 type AppBarDeckProps = {
   navMenuToggle: () => void
@@ -22,6 +23,7 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
   const { locale } = useRouter()
   const { status } = useSession()
   const shrink = useScrollTrigger()
+  const { t } = useTranslation()
 
   return (
     <AppBar
@@ -56,6 +58,7 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
         <Link href={routes.index} passHref>
           <ButtonBase
             className={clsx({ shrink })}
+            aria-label={t('meta.title')}
             sx={(theme) => ({
               transition: 'height .5s',
               height: theme.spacing(7.5),

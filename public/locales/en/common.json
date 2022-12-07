@@ -73,7 +73,13 @@
       "privacy-policy": "Privacy Policy",
       "terms-of-service": "Terms of Service",
       "copyrights": "Podkrepi.bg ©2022 All rights reserved.",
-      "hosting-partner": "Hosting partner:"
+      "hosting-partner": "Hosting partner:",
+      "social": {
+        "facebook": "Facebook",
+        "linkedin": "Linkedin",
+        "youtube": "YouTube",
+        "instagram": "Instagram"
+      }
     }
   },
   "or": "or",

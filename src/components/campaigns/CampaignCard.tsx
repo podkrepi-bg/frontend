@@ -107,6 +107,7 @@ export default function CampaignCard({ campaign }: Props) {
   const { t } = useTranslation()
 
   const {
+    id,
     targetAmount: target,
     summary,
     currency,
@@ -142,9 +143,13 @@ export default function CampaignCard({ campaign }: Props) {
       <CardActions className={classes.cardActions}>
         <Grid container justifyContent="space-around">
           <Box p={2} width={1}>
-            <CampaignProgress raised={reached} target={target} />
+            <CampaignProgress campaignId={id} raised={reached} target={target} />
           </Box>
-          <Typography variant="body1" component="p" className={classes.progressBar}>
+          <Typography
+            id={`campaign-${id}--donations-progressbar`}
+            variant="body1"
+            component="p"
+            className={classes.progressBar}>
             {t('campaigns:campaign.reached')}{' '}
             <b>
               {moneyPublic(reached, currency)}

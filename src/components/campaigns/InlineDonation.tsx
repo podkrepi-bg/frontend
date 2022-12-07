@@ -165,7 +165,7 @@ export default function InlineDonation({ campaign }: Props) {
           {t('campaigns:campaign.from')} {moneyPublic(target, currency)}
         </Typography>
       </Grid>
-      <CampaignProgress raised={reached} target={target} />
+      <CampaignProgress campaignId={campaignId} raised={reached} target={target} />
       {detailsShown && (
         <>
           <Grid display="inline-block" m={3} ml={0}>
