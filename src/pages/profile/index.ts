@@ -1,5 +1,5 @@
-import { securedPropsWithTranslation } from 'middleware/auth/securedProps'
 import ProfilePage from 'components/auth/profile/ProfilePage'
+import { securedPropsWithTranslation } from 'middleware/auth/securedProps'
 
 export const getServerSideProps = securedPropsWithTranslation([
   'auth',

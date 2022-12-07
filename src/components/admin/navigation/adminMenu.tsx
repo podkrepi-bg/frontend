@@ -45,7 +45,7 @@ export const menuPayments = [
   { label: 'Прехвърляния', icon: MoveUp, href: routes.admin.transfer.index },
   { label: 'Разходи', icon: Paid, href: routes.admin.expenses.index },
   {
-    label: 'Повтарящо се дарение',
+    label: 'Повтарящи се дарения',
     icon: VolunteerActivism,
     href: routes.admin.recurringDonation.index,
   },

@@ -13,7 +13,6 @@ export type CheckoutSessionResponse = {
 
 export type CheckoutSessionInput = {
   mode: Stripe.Checkout.Session.Mode
-  priceId?: string
   amount?: number
   campaignId: string
   successUrl?: string

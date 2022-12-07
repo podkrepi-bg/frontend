@@ -18,20 +18,11 @@ import { endpoints } from 'service/apiEndpoints'
 import { AlertStore } from 'stores/AlertStore'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
-import CurrencySelect from 'components/currency/CurrencySelect'
-import RecurringDonationStatusSelect from './RecurringDonationStatusSelect'
 import PersonSelectDialog from 'components/person/PersonSelectDialog'
 import { Form, Formik } from 'formik'
-
-export enum RecurringDonationStatus {
-  trialing = 'trialing',
-  active = 'active',
-  canceled = 'canceled',
-  incomplete = 'incomplete',
-  incompleteExpired = 'incompleteExpired',
-  pastDue = 'pastDue',
-  unpaid = 'unpaid',
-}
+import { RecurringDonationStatus } from 'gql/recurring-donation-status.d'
+import { PersonResponse } from 'gql/person'
+import { fromMoney, toMoney } from 'common/util/money'
 
 const validCurrencies = Object.keys(Currency)
 const validStatuses = Object.keys(RecurringDonationStatus)
@@ -41,12 +32,12 @@ const validationSchema = yup
   .defined()
   .shape({
     status: yup.string().oneOf(validStatuses).required(),
-    personId: yup.string().trim().max(50).required(),
-    extSubscriptionId: yup.string().trim().max(50).required(),
-    extCustomerId: yup.string().trim().max(50).required(),
-    amount: yup.number().positive().integer().required(),
+    personId: yup.string().trim().uuid().required(),
+    extSubscriptionId: yup.string().trim().required(),
+    extCustomerId: yup.string().trim().required(),
+    money: yup.number().min(0).integer().required(),
     currency: yup.string().oneOf(validCurrencies).required(),
-    sourceVault: yup.string().trim().uuid().required(),
+    vaultId: yup.string().trim().uuid().required(),
   })
 
 export default function EditForm() {
@@ -66,6 +57,7 @@ export default function EditForm() {
   }
 
   if (id) {
+    // if id is present, we are editing an existing recurring donation
     id = String(id)
     const { data }: UseQueryResult<RecurringDonationResponse> = useRecurringDonation(id)
 
@@ -74,9 +66,10 @@ export default function EditForm() {
       personId: data?.personId,
       extSubscriptionId: data?.extSubscriptionId,
       extCustomerId: data?.extCustomerId,
-      amount: data?.amount,
+      money: fromMoney(data?.amount),
       currency: data?.currency,
-      sourceVault: data?.sourceVault,
+      campaign: data?.sourceVault.campaign.title,
+      vaultId: data?.sourceVault.id,
     }
   }
 
@@ -102,7 +95,28 @@ export default function EditForm() {
     },
   })
   async function onSubmit(data: RecurringDonationInput) {
+    data.amount = toMoney(data.money)
+    data.sourceVault = data.vaultId
+    delete data.money
+    delete data.campaign
+
     mutation.mutate(data)
+  }
+
+  let selectedPerson: PersonResponse | null = null
+  if (id) {
+    //for a new recurring donation, we don't have a person or campaign yet
+    const { data }: UseQueryResult<RecurringDonationResponse> = useRecurringDonation(id)
+
+    selectedPerson = {
+      id: data?.personId,
+      firstName: data?.person?.firstName,
+      lastName: data?.person?.lastName,
+      email: data?.person?.email,
+      phone: data?.person?.phone,
+      address: data?.person?.address,
+      createdAt: data?.person?.createdAt,
+    }
   }
 
   return (
@@ -123,6 +137,7 @@ export default function EditForm() {
               <Grid item xs={12}>
                 <PersonSelectDialog
                   error={errors.personId}
+                  selectedPerson={selectedPerson}
                   onConfirm={(person) => {
                     person ? setFieldValue('personId', person.id) : setFieldTouched('personId')
                   }}
@@ -131,34 +146,60 @@ export default function EditForm() {
                   }}
                 />
               </Grid>
+              <Grid item xs={12}>
+                <FormTextField
+                  type="Campaign"
+                  label={t('recurring-donation:campaign')}
+                  name="campaign"
+                  disabled={true}
+                />
+              </Grid>
               <Grid item xs={6}>
-                <RecurringDonationStatusSelect />
+                <FormTextField
+                  type="number"
+                  label={t('recurring-donation:amount')}
+                  name="money"
+                  disabled={true}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <FormTextField
+                  type="text"
+                  label={t('recurring-donation:currency')}
+                  name="currency"
+                  disabled={true}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <FormTextField
+                  type="text"
+                  label={t('recurring-donation:status')}
+                  name="status"
+                  disabled={true}
+                />
               </Grid>
               <Grid item xs={6}>
                 <FormTextField
                   type="text"
                   label={t('recurring-donation:extSubscriptionId')}
                   name="extSubscriptionId"
+                  disabled={true}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12}>
                 <FormTextField
                   type="text"
                   label={t('recurring-donation:extCustomerId')}
                   name="extCustomerId"
+                  disabled={true}
                 />
               </Grid>
-              <Grid item xs={6}>
-                <FormTextField type="number" label={t('recurring-donation:amount')} name="amount" />
-              </Grid>
-              <Grid item xs={6}>
-                <CurrencySelect />
-              </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12}>
                 <FormTextField
                   type="text"
                   label={t('recurring-donation:vaultId')}
-                  name="sourceVault"
+                  name="vaultId"
+                  disabled={true}
                 />
               </Grid>
               <Grid item xs={6}>
