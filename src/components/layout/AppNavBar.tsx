@@ -14,7 +14,7 @@ import PublicMenu from './nav/PublicMenu'
 import PrivateMenu from './nav/PrivateMenu'
 import MainNavMenu from './nav/MainNavMenu'
 import { useSession } from 'next-auth/react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from 'next-i18next'
 
 type AppBarDeckProps = {
   navMenuToggle: () => void
