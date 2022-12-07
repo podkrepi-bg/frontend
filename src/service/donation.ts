@@ -95,7 +95,7 @@ export const useUploadBankTransactionsFiles = () => {
 export const useExportToExcel = () => {
   const { data: session } = useSession()
   return async () => {
-    return await apiClient('donation/export-excel', {
+    return await apiClient(endpoints.donation.exportToExcel.url, {
       ...authConfig(session?.accessToken),
       responseType: 'blob',
     })
