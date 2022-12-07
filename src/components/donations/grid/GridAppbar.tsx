@@ -1,9 +1,12 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
-import { Add as AddIcon, Receipt } from '@mui/icons-material'
+import { Add as AddIcon, Receipt, GetApp as DownloadFileIcon } from '@mui/icons-material'
 
 import { routes } from 'common/routes'
+import { useMutation } from '@tanstack/react-query'
+import { useExportToExcel } from 'service/donation'
+import { AlertStore } from 'stores/AlertStore'
 
 const addIconStyles = {
   background: '#4ac3ff',
@@ -16,6 +19,24 @@ const addIconStyles = {
 export default function GridAppbar() {
   const router = useRouter()
   const { t } = useTranslation()
+  //todo go to reusable component with the button with icon and everything
+  const exportToExcel = useMutation({
+    mutationFn: useExportToExcel(),
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    onSuccess: ({ data }) => {
+      console.log(data, 'data')
+
+      const url = window.URL.createObjectURL(data)
+      console.log(url, 'url')
+      const anchor = document.createElement('a')
+      console.log()
+      anchor.href = url
+      anchor.download = 'download.xls'
+      anchor.dispatchEvent(new MouseEvent('click'))
+      window.URL.revokeObjectURL(url)
+      AlertStore.show(t('common:alerts.message-sent'), 'success')
+    },
+  })
 
   return (
     <Toolbar
@@ -43,6 +64,13 @@ export default function GridAppbar() {
               sx={addIconStyles}
               fontSize="large"
               onClick={() => router.push(routes.admin.donations.create)}
+            />
+          </Tooltip>
+          <Tooltip title={t('donations:cta:download') || ''}>
+            <DownloadFileIcon
+              sx={addIconStyles}
+              fontSize="large"
+              onClick={() => exportToExcel.mutate()}
             />
           </Tooltip>
         </Box>

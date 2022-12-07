@@ -56,6 +56,7 @@ export default observer(function Grid() {
   const RenderVaultCell = ({ params }: RenderCellProps) => {
     return <>{params.row.targetVault.name}</>
   }
+  console.log(donations, 'donats')
   const RenderPersonCell = ({ params }: RenderCellProps) => {
     const { firstName, lastName } = params.row.person
       ? params.row.person
