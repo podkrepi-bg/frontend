@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles'
 
 import theme from 'common/theme'
 
-export const Root = styled(Container)(() => ({
+export const Root = styled('footer')(() => ({
   display: 'flex',
   justifyContent: 'center',
   textAlign: 'left',
