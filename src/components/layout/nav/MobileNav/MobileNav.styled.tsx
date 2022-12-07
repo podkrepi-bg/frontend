@@ -43,11 +43,11 @@ export const LocaleButtonWrapper = styled(Box)(() => ({
   borderBottom: '2px solid lightgrey',
   display: 'flex',
   minHeight: theme.spacing(8),
-  paddingLeft: theme.spacing(1),
 
   '& button': {
     justifyContent: 'start',
-    marginLeft: theme.spacing(1.3),
+    marginLeft: theme.spacing(1),
+    padding: 0,
     fontSize: theme.typography.pxToRem(14),
   },
 }))

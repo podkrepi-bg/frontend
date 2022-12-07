@@ -26,7 +26,7 @@ const StyledAccordion = styled(Accordion)(({ theme }) => ({
   [`& .${classes.accordionSummary}`]: {
     fontWeight: 500,
     minHeight: theme.spacing(8),
-    padding: theme.spacing(0, 3),
+    padding: theme.spacing(0, 1),
   },
 
   [`& .${classes.menuItem}`]: {
@@ -47,7 +47,7 @@ export default function DonationMenuMobile() {
     <StyledAccordion className={classes.accordionWrapper}>
       <AccordionSummary
         className={classes.accordionSummary}
-        expandIcon={<ExpandMoreIcon />}
+        expandIcon={<ExpandMoreIcon fontSize="large" />}
         aria-controls="panel1a-content">
         {t('nav.campaigns.index')}
       </AccordionSummary>
