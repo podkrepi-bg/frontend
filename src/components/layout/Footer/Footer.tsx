@@ -13,7 +13,7 @@ export default function Footer() {
   const { t } = useTranslation()
 
   return (
-    <Root maxWidth={false} disableGutters>
+    <Root maxWidth={false} disableGutters component="footer">
       <FooterWrapper container maxWidth="xl">
         <LogoSocialIcons />
         <FooterLinks />
