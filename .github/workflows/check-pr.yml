@@ -8,6 +8,8 @@ on:
 jobs:
   tests:
     name: Tests
+    if: |
+      !github.event.pull_request.head.repo.fork && github.event.pull_request.user.login != 'dependabot[bot]'
     uses: ./.github/workflows/tests.yml
     secrets:
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
