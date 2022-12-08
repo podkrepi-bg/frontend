@@ -44,7 +44,7 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
       setLoading(true)
 
       const resp = await signIn<'credentials'>('credentials', {
-        email: values.email,
+        email: values.email.trim(),
         password: values.password,
         redirect: false,
       })

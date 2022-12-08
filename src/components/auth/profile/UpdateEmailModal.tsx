@@ -87,6 +87,7 @@ function UpdateEmailModal({
         throw new Error('Invalid login')
       }
 
+      values.email = values.email.trim()
       const updateUser = await mutation.mutateAsync({
         ...person,
         email: values.email,

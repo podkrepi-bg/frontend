@@ -58,6 +58,9 @@ export default function RegisterForm({ initialValues = defaults }: RegisterFormP
   const onSubmit = async (values: RegisterFormData) => {
     try {
       setLoading(true)
+      values.firstName = values.firstName.trim()
+      values.lastName = values.lastName.trim()
+      values.email = values.email.trim()
 
       // Register in Keycloak
       await register(values)
