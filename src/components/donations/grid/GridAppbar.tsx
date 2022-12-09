@@ -19,22 +19,17 @@ const addIconStyles = {
 export default function GridAppbar() {
   const router = useRouter()
   const { t } = useTranslation()
-  //todo go to reusable component with the button with icon and everything
   const exportToExcel = useMutation({
     mutationFn: useExportToExcel(),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
-    onSuccess: ({ data }) => {
-      console.log(data, 'data')
-
-      const url = window.URL.createObjectURL(data)
-      console.log(url, 'url')
+    onSuccess: (response) => {
+      const url = window.URL.createObjectURL(response.data)
       const anchor = document.createElement('a')
-      console.log()
       anchor.href = url
-      anchor.download = 'download.xls'
+      anchor.download = 'Donations.xls'
       anchor.dispatchEvent(new MouseEvent('click'))
       window.URL.revokeObjectURL(url)
-      AlertStore.show(t('common:alerts.message-sent'), 'success')
+      AlertStore.show(t('common:alerts.success'), 'success')
     },
   })
 
