@@ -7,6 +7,7 @@ import { routes } from 'common/routes'
 import { useMutation } from '@tanstack/react-query'
 import { useExportToExcel } from 'service/donation'
 import { AlertStore } from 'stores/AlertStore'
+import { downloadFile } from './../../../common/util/downloadFile'
 
 const addIconStyles = {
   background: '#4ac3ff',
@@ -22,13 +23,8 @@ export default function GridAppbar() {
   const exportToExcel = useMutation({
     mutationFn: useExportToExcel(),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
-    onSuccess: (response) => {
-      const url = window.URL.createObjectURL(response.data)
-      const anchor = document.createElement('a')
-      anchor.href = url
-      anchor.download = 'Donations.xls'
-      anchor.dispatchEvent(new MouseEvent('click'))
-      window.URL.revokeObjectURL(url)
+    onSuccess: ({ data }) => {
+      downloadFile('Donations.xls', data)
       AlertStore.show(t('common:alerts.success'), 'success')
     },
   })
