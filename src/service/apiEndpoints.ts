@@ -72,6 +72,7 @@ export const endpoints = {
     userDonations: <Endpoint>{ url: 'donation/user-donations', method: 'GET' },
     uploadBankTransactionsFile: (bankTransactionsFileId: string) =>
       <Endpoint>{ url: `/bank-transactions-file/${bankTransactionsFileId}`, method: 'POST' },
+    exportToExcel: <Endpoint>{ url: '/donation/export-excel', method: 'GET' },
   },
   documents: {
     documentsList: <Endpoint>{ url: '/document', method: 'GET' },
