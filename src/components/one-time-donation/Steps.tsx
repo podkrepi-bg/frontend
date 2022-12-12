@@ -50,7 +50,7 @@ interface DonationStepperProps {
 }
 
 export default function DonationStepper({ onStepChange }: DonationStepperProps) {
-  const { t } = useTranslation('one-time-donation')
+  const { t, i18n } = useTranslation('one-time-donation')
   const router = useRouter()
   const success = router.query.success === 'true' ? true : false
   initialValues.amount = (router.query.price as string) || ''
@@ -63,7 +63,6 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
   const { campaign } = data
 
   const userEmail = session?.user?.email
-
   const donate = React.useCallback(
     async (amount?: number, values?: OneTimeDonation) => {
       const { data } = await mutation.mutateAsync({
@@ -75,8 +74,12 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
         personEmail: values?.personsEmail ? values.personsEmail : userEmail,
         isAnonymous: values?.isAnonymous !== undefined ? values.isAnonymous : true,
         phone: values?.personsPhone ? values.personsPhone : null,
-        successUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=true`,
-        cancelUrl: `${baseUrl}${routes.campaigns.oneTimeDonation(campaign.slug)}?success=false`,
+        successUrl: `${baseUrl}/${i18n.language}/${routes.campaigns.oneTimeDonation(
+          campaign.slug,
+        )}?success=true`,
+        cancelUrl: `${baseUrl}/${i18n.language}/${routes.campaigns.oneTimeDonation(
+          campaign.slug,
+        )}?success=false`,
         message: values?.message,
       })
       if (values?.payment === PaymentProvider.bank) {
