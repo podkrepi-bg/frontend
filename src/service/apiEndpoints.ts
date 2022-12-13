@@ -214,7 +214,10 @@ export const endpoints = {
   },
   donationWish: {
     createDonationWish: <Endpoint>{ url: '/donation-wish', method: 'POST' },
-    listDonationWishes: (campaignId: string) =>
-      <Endpoint>{ url: `/donation-wish/list/${campaignId}`, method: 'GET' },
+    listDonationWishes: (campaignId?: string, pageIndex?: number, pageSize?: number) =>
+      <Endpoint>{
+        url: `/donation-wish/list/${campaignId}?pageindex=${pageIndex}&pagesize=${pageSize}`,
+        method: 'GET',
+      },
   },
 }
