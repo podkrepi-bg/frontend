@@ -61,7 +61,7 @@ export default function CampaignMessages({ campaignId }: { campaignId: string })
         <RateReviewIcon color="action" />
         <Typography variant="h6">{t('campaigns:campaign.messages')}</Typography>
       </Grid>
-      {isSuccess && numOfPages! > 1 && (
+      {isSuccess && !!numOfPages && numOfPages > 1 && (
         <Pagination
           className={classes.pagination}
           count={numOfPages}
