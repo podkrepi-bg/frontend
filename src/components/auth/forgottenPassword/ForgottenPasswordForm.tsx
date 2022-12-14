@@ -5,7 +5,7 @@ import { Typography, Grid } from '@mui/material'
 
 import SubmitButton from 'components/common/form/SubmitButton'
 import GenericForm from 'components/common/form/GenericForm'
-import FormTextField from 'components/common/form/FormTextField'
+import EmailField from 'components/common/form/EmailField'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError, AxiosResponse } from 'axios'
 import { ApiErrors } from 'service/apiErrors'
@@ -62,7 +62,7 @@ export default function ForgottenPasswordForm({
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <FormTextField type="text" label="auth:fields.email" name="email" />
+          <EmailField label="auth:fields.email" name="email" />
         </Grid>
         <Grid item xs={12}>
           <SubmitButton loading={loading} fullWidth label="auth:cta.send" />
