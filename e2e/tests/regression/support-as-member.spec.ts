@@ -33,7 +33,8 @@ test.describe.serial('Support page - Join us as member - BG language version', a
     homepage = new HomePage(page);
     headerPage = new HeaderPage(page);
     supportPage = new SupportPage(page);
-    // TODO Change here to localhost and leave comment for the devs
+    // For local executions use method navigateToLocalhostHomepage();
+    // await homepage.navigateToLocalhostHomepage();
     await homepage.navigateToDevEnvHomepage();
     await headerPage.clickJoinUsHeaderNavButton();
   });

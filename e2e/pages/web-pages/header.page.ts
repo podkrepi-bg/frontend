@@ -58,15 +58,16 @@ export class HeaderPage extends BasePage {
     
     /**
      * Click on the header submenu navigation link by text
+     * @param {LanguagesEnum} language
      * @param {string} navTextBg
      * @param {string} navTextEn
-     * @param {LanguagesEnum} language
      */
-    async clickHeaderSubmenuNavLink(navTextBg: string, navTextEn: string, language: LanguagesEnum): Promise<void> {
-        await this.waitForElementToBePresentedBySelector(this.headerSubmenuLinks);
+    async clickHeaderSubmenuNavLink(language: LanguagesEnum, navTextBg: string, navTextEn: string): Promise<void> {
         if (language === LanguagesEnum.BG) {
+            await this.waitForElementToBeReadyBySelector(this.headerSubmenuLinks, {hasText: navTextBg});
             await this.clickElement(this.headerSubmenuLinks, {hasText: navTextBg});
         } else if (language === LanguagesEnum.EN) {
+            await this.waitForElementToBeReadyBySelector(this.headerSubmenuLinks, {hasText: navTextEn});
             await this.clickElement(this.headerSubmenuLinks, {hasText: navTextEn});
         } else {
             throw new Error("Invalid language selection. Please, check 'languages.enum.ts'.");
@@ -93,7 +94,7 @@ export class HeaderPage extends BasePage {
      */
     async clickCampaignsHeaderNavButton(language: LanguagesEnum = LanguagesEnum.BG): Promise<void> {
         await this.clickHeaderNavLink(this.bgCampaignsNavLink, this.enCampaignsNavLink, language);
-        await this.clickHeaderSubmenuNavLink(this.bgAllCampaignsNavLink, this.enAllCampaignsNavLink, language);
+        await this.clickHeaderSubmenuNavLink(language, this.bgAllCampaignsNavLink, this.enAllCampaignsNavLink);
     }
     
     /**
@@ -110,7 +111,7 @@ export class HeaderPage extends BasePage {
      */
     async clickJoinUsHeaderNavButton(language: LanguagesEnum = LanguagesEnum.BG): Promise<void> {
         await this.clickAboutUsHeaderNavButton(language);
-        await this.clickHeaderSubmenuNavLink(this.bgJoinUsNavLink, this.enJoinUsNavLink, language);
+        await this.clickHeaderSubmenuNavLink(language, this.bgJoinUsNavLink, this.enJoinUsNavLink);
     }
     
     /**

@@ -1,5 +1,6 @@
 import { expect, Locator, Page } from '@playwright/test';
 
+// Here we define all base methods, which are inherited into the other pages
 export class BasePage {
 
     protected page: Page;
@@ -52,11 +53,11 @@ export class BasePage {
      * @param {any} options
      * @param {number} timeoutParam
      */
-    async waitForElementToBeReadyBySelector(elementSelector: string, options: any, timeoutParam: number = 10000): Promise<void> {
+    async waitForElementToBeReadyBySelector(elementSelector: string, options?: any, timeoutParam: number = 10000): Promise<void> {
         if (options) {
-            await this.page.locator(elementSelector, options).waitFor({state: 'visible', timeout: timeoutParam});
+            await this.page.locator(elementSelector, options).first().waitFor({state: 'visible', timeout: timeoutParam});
         } else {
-            await this.page.waitForSelector(elementSelector, {state: 'visible', timeout: timeoutParam});
+            await this.page.locator(elementSelector).first().waitFor({state: 'visible', timeout: timeoutParam});
         }
     }
     
@@ -373,6 +374,7 @@ export class BasePage {
      * @param {string} elementSelector
      */
     async getCountOfElementsBySelector(elementSelector: string): Promise<number> {
+        await this.waitForElementToBePresentedBySelector(elementSelector);
         return this.page.locator(elementSelector).count();
     }
 

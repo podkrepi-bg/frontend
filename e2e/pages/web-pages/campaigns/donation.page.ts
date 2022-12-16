@@ -215,6 +215,6 @@ export class DonationPage extends CampaignsPage {
      * @param {LanguagesEnum} language - the default value is BG
      */
     async isSuccessfulDonationTitleVisible(language: LanguagesEnum = LanguagesEnum.BG): Promise<boolean> {
-        return this.isH4HeadingVisible(this.bgSuccessfulDonationTitle, this.enSuccessfulDonationTitle, language);
+        return this.isH4HeadingVisible(language, this.bgSuccessfulDonationTitle, this.enSuccessfulDonationTitle);
     }
 }
