@@ -70,63 +70,73 @@ export class HomePage extends BasePage {
     }
 
     /**
-     * Check if Heading is visible by CSS Selector and text with timeout
-     * @param {string} elementSelector
-     * @param {LanguagesEnum} language
+     * Check if H1 heading is visible by text with timeout
      * @param {string} headingBg
      * @param {string | null} headingEn
+     * @param {LanguagesEnum} language
      */
-    async isHeadingVisibleBySelector(elementSelector: string, language: LanguagesEnum, headingBg: string, headingEn: string | null): Promise<boolean> {
-        await this.waitForElementToBePresentedByLocator(this.page.locator(elementSelector).first());
+    async isH1HeadingVisible(headingBg: string, headingEn: string | null, language: LanguagesEnum): Promise<boolean> {
+        await this.waitForElementToBePresentedByLocator(this.page.locator(this.containerRootElement).first());
         if (language === LanguagesEnum.BG) {
-            return this.isElementVisibleBySelectorWithTimeout(elementSelector, {hasText: headingBg});
+            return this.isElementVisibleBySelectorWithTimeout(this.h1HeadingsSelector, {hasText: headingBg});
         } else if (language === LanguagesEnum.EN) {
-            return this.isElementVisibleBySelectorWithTimeout(elementSelector, {hasText: headingEn});
+            return this.isElementVisibleBySelectorWithTimeout(this.h1HeadingsSelector, {hasText: headingEn});
+        } else {
+            throw new Error("Language not found!");
+        }
+    }
+    
+    /**
+     * Check if H4 heading is visible by text with timeout
+     * @param {string} headingBg
+     * @param {string | null} headingEn
+     * @param {LanguagesEnum} language
+     */
+    async isH4HeadingVisible(headingBg: string, headingEn: string | null, language: LanguagesEnum): Promise<boolean> {
+        await this.waitForElementToBePresentedByLocator(this.page.locator(this.containerRootElement).first());
+        if (language === LanguagesEnum.BG) {
+            return this.isElementVisibleBySelectorWithTimeout(this.h4HeadingsSelector, {hasText: headingBg});
+        } else if (language === LanguagesEnum.EN) {
+            return this.isElementVisibleBySelectorWithTimeout(this.h4HeadingsSelector, {hasText: headingEn});
         } else {
             throw new Error("Language not found!");
         }
     }
 
     /**
-     * Check if H1 heading is visible by text with timeout
-     * @param {LanguagesEnum} language
-     * @param {string} headingBg
-     * @param {string | null} headingEn
-     */
-    async isH1HeadingVisible(language: LanguagesEnum, headingBg: string, headingEn: string | null): Promise<boolean> {
-        return this.isHeadingVisibleBySelector(this.h1HeadingsSelector, language, headingBg, headingEn);
-    }
- 
-    /**
-     * Check if H4 heading is visible by text with timeout
-     * @param {LanguagesEnum} language
-     * @param {string} headingBg
-     * @param {string | null} headingEn
-     */
-    async isH4HeadingVisible(language: LanguagesEnum, headingBg: string, headingEn: string | null): Promise<boolean> {
-        return this.isHeadingVisibleBySelector(this.h4HeadingsSelector, language, headingBg, headingEn);
-    }
-
-    /**
      * Check if H5 heading is visible by text with timeout
-     * @param {LanguagesEnum} language
      * @param {string} headingBg
      * @param {string | null} headingEn
+     * @param {LanguagesEnum} language
      */
-    async isH5HeadingVisible(language: LanguagesEnum, headingBg: string, headingEn: string | null): Promise<boolean> {
-        return this.isHeadingVisibleBySelector(this.h5HeadingsSelector, language, headingBg, headingEn);
+    async isH5HeadingVisible(language: LanguagesEnum, headingBg: string | null, headingEn?: string): Promise<boolean> {
+        await this.waitForElementToBePresentedByLocator(this.page.locator(this.containerRootElement).first());
+        if (language === LanguagesEnum.BG) {
+            return this.isElementVisibleBySelectorWithTimeout(this.h5HeadingsSelector, {hasText: headingBg});
+        } else if (language === LanguagesEnum.EN) {
+            return this.isElementVisibleBySelectorWithTimeout(this.h5HeadingsSelector, {hasText: headingEn});
+        } else {
+            throw new Error("Language not found!");
+        }
     }
 
     /**
      * Check if H6 heading is visible by text with timeout
-     * @param {LanguagesEnum} language
      * @param {string} headingBg
      * @param {string | null} headingEn
+     * @param {LanguagesEnum} language
      */
-    async isH6HeadingVisible(language: LanguagesEnum, headingBg: string, headingEn: string | null): Promise<boolean> {
-        return this.isHeadingVisibleBySelector(this.h6HeadingsSelector, language, headingBg, headingEn);
+    async isH6HeadingVisible(language: LanguagesEnum, headingBg: string | null, headingEn?: string): Promise<boolean> {
+        await this.waitForElementToBePresentedByLocator(this.page.locator(this.containerRootElement).first());
+        if (language === LanguagesEnum.BG) {
+            return this.isElementVisibleBySelectorWithTimeout(this.h6HeadingsSelector, {hasText: headingBg});
+        } else if (language === LanguagesEnum.EN) {
+            return this.isElementVisibleBySelectorWithTimeout(this.h6HeadingsSelector, {hasText: headingEn});
+        } else {
+            throw new Error("Language not found!");
+        }
     }
- 
+    
     /**
      * Check if H6 homepage FAQ heading is visible with timeout
      * @param {LanguagesEnum} language
@@ -166,9 +176,9 @@ export class HomePage extends BasePage {
      * Click H5 heading by text
      * @param {LanguagesEnum} language
      * @param {string} headingBg
-     * @param {string | null} headingEn
+     * @param {string} headingEn
      */
-    async clickH5HeadingByText(language: LanguagesEnum = LanguagesEnum.BG, headingBg: string, headingEn: string | null): Promise<void> {
+    async clickH5HeadingByText(language: LanguagesEnum = LanguagesEnum.BG, headingBg: string, headingEn?: string): Promise<void> {
         if (await this.isH5HeadingVisible(language, headingBg, headingEn)) {
             if (language === LanguagesEnum.BG) {
                 await this.scrollToElementCenterBySelector(this.h5HeadingsSelector, {hasText: headingBg});
@@ -207,35 +217,35 @@ export class HomePage extends BasePage {
     }
 
     /**
-     * Check if "How we work" heading is visible with timeout
+     * Check if 'Kak raboti Podkrepi/How we work' heading is visible with timeout
      * @param {LanguagesEnum} language - the default value is BG
      */
     async isHowWeWorkHeadingVisible(language: LanguagesEnum = LanguagesEnum.BG): Promise<boolean> {
-        return this.isH4HeadingVisible(language, this.bgHowDoesPodkrepiWork, this.enHowDoesPodkrepiWork);
+        return this.isH4HeadingVisible(this.bgHowDoesPodkrepiWork, this.enHowDoesPodkrepiWork, language);
     }
 
     /**
-     * Check if "Who is behind Podkrepi" heading is visible with timeout
+     * Check if 'Koi stoi zad Podkrepi/Who is behind Podkrepi' heading is visible with timeout
      * @param {LanguagesEnum} language - the default value is BG
      */
     async isTeamSectionHeadingVisible(language: LanguagesEnum = LanguagesEnum.BG): Promise<boolean> {
-        return this.isH4HeadingVisible(language, this.bgTeamSection, this.enTeamSection);
+        return this.isH4HeadingVisible(this.bgTeamSection, this.enTeamSection, language);
     }
 
     /**
-     * Check if "Join Podkrepi" heading is visible with timeout
+     * Check if 'Prisyedinete se kym Podkrepi/Join Podkrepi' heading is visible with timeout
      * @param {LanguagesEnum} language - the default value is BG
      */
     async isJoinPodkrepiSectionHeadingVisible(language: LanguagesEnum = LanguagesEnum.BG): Promise<boolean> {
-        return this.isH4HeadingVisible(language, this.bgJoinPodkrepiSection, this.enJoinPodkrepiSection);
+        return this.isH4HeadingVisible(this.bgJoinPodkrepiSection, this.enJoinPodkrepiSection, language);
     }
 
     /**
-     * Check if "FAQ" heading is visible with timeout
+     * Check if 'Chesto zadavani vyprosi/FAQ' heading is visible with timeout
      * @param {LanguagesEnum} language - the default value is BG
      */
     async isFaqSectionHeadingVisible(language: LanguagesEnum = LanguagesEnum.BG): Promise<boolean> {
-        return this.isH4HeadingVisible(language, this.bgFaqSection, this.enFaqSection);
+        return this.isH4HeadingVisible(this.bgFaqSection, this.enFaqSection, language);
     }
 
     /**
@@ -247,7 +257,7 @@ export class HomePage extends BasePage {
     }
     
     /**
-     * Check if "What is Podkrepi" FAQ list item is visible with timeout
+     * Check if 'What is Podkrepi' FAQ list item is visible with timeout
      */
     async isPodkrepiFaqListAnswerVisible(language: LanguagesEnum = LanguagesEnum.BG): Promise<void> {
         const faqAnswerText = await this.getTextOfHomeH6FaqAnswer(language);

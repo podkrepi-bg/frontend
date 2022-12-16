@@ -12,9 +12,8 @@ test.describe('Homepage smoke tests - BG language version', async () => {
     homepage = new HomePage(page);
   });
 
+  // TODO Change here to localhost and leave comment for the devs
   test.beforeEach(async () => {
-    // For local executions use method navigateToLocalhostHomepage();
-    // await homepage.navigateToLocalhostHomepage();
     await homepage.navigateToDevEnvHomepage();
   });
   

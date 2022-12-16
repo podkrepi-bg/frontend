@@ -33,8 +33,7 @@ test.describe.serial('Anonymous contributor is able to donate custom amount - BG
     campaignsPage = new CampaignsPage(page);
     donationPage = new DonationPage(page);
     stripeCheckoutPage = new StripeCheckoutPage(page);
-    // For local executions use method navigateToLocalhostHomepage();
-    // await homepage.navigateToLocalhostHomepage();
+    // TODO Change here to localhost and leave comment for the devs
     await homepage.navigateToDevEnvHomepage();
   });
 
@@ -89,16 +88,16 @@ test.describe.serial('Anonymous contributor is able to donate custom amount - BG
     expect(await donationPage.isSendAWishStepActive(), "Send a wish step is not active.").toBeTruthy();
   });
 
-  test('After sending a wish, the user is redirected to Stripe', async () => {
+  test('The user is able to send a wish', async () => {
     await donationPage.fillSendAWishField("E2E test - anonymous donation.");
     await donationPage.clickFinishButton();
+  });
+
+  test('The user is able to pay via Stripe', async () => {
     const stripeTotalAmount = await stripeCheckoutPage.getTotalAmountText();
     const actualStripeEmail = await stripeCheckoutPage.getReadonlyEmailText();
     expect.soft(stripeTotalAmount, "The Stripe total donation amount is not correct.").toContain("13.56");
     expect(actualStripeEmail, "The user e-mail is not sent correctly to Stripe.").toEqual(testEmail);
-  });
-
-  test('The user is able to pay via Stripe', async () => {
     await stripeCheckoutPage.fillPaymentForm([anonDonationTestData.cardNumber, anonDonationTestData.cardExpDate,
       anonDonationTestData.cardCvc, anonDonationTestData.billingName, anonDonationTestData.country]);
 

@@ -136,7 +136,7 @@ export class SupportPage extends HomePage {
      * @param {string} language
      */
     async isThankYouSupportH4HeadingVisible(language: LanguagesEnum = LanguagesEnum.BG): Promise<boolean> {
-        return this.isH4HeadingVisible(language, this.bgThankYouForSupportH4, this.enThankYouForSupportH4);
+        return this.isH4HeadingVisible(this.bgThankYouForSupportH4, this.enThankYouForSupportH4, language);
     }
 
     /**

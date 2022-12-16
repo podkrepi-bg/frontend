@@ -1,6 +1,6 @@
 import { expect, Locator, Page } from '@playwright/test';
 import { LanguagesEnum } from '../../../data/enums/languages.enum';
-import { bgLocalizationCampaigns, enLocalizationCampaigns } from '../../../data/localization';
+import { bgLocalizationCampaigns, bgLocalizationIndex, enLocalizationCampaigns } from '../../../data/localization';
 import { HomePage } from '../home.page';
 
 
@@ -39,14 +39,13 @@ export class CampaignsPage extends HomePage {
      * @param {LanguagesEnum} language, the default is BG
      */
     async clickCampaignSchoolChildrenVarna(language: LanguagesEnum = LanguagesEnum.BG): Promise<void> {
-        await this.clickH5HeadingByText(language, this.campaignSchoolVarnaText, null);
+        await this.clickH5HeadingByText(language, this.campaignSchoolVarnaText);
     }
 
     /**
      * Get filter buttons count on the Campaigns page
      */
     async getFilterButtonsCount(): Promise<number> {
-        await this.waitForElementToBeReadyBySelector(this.filterButtonsCommonSelector);
         return this.getCountOfElementsBySelector(this.filterButtonsCommonSelector);
     }
 
@@ -55,7 +54,7 @@ export class CampaignsPage extends HomePage {
      * @param {LanguagesEnum} language - the default value is BG
      */
     async isCampaignsHeadingVisible(language: LanguagesEnum = LanguagesEnum.BG): Promise<boolean> {
-        return this.isH1HeadingVisible(language, this.bgMainCampaignsHeading, this.enMainCampaignsHeading);
+        return this.isH1HeadingVisible(this.bgMainCampaignsHeading, this.enMainCampaignsHeading, language);
     }
 
     /**
@@ -71,7 +70,7 @@ export class CampaignsPage extends HomePage {
      * @param {LanguagesEnum} language - the default value is BG
      */
     async isSchoolChildrenVarnaHeadingVisible(language: LanguagesEnum = LanguagesEnum.BG): Promise<boolean> {
-        return this.isH1HeadingVisible(language, this.campaignSchoolVarnaText, null);
+        return this.isH1HeadingVisible(this.campaignSchoolVarnaText, null, language);
     }
 
     /**
@@ -79,7 +78,7 @@ export class CampaignsPage extends HomePage {
      * @param {LanguagesEnum} language, the default is BG
      */
     async clickCampaignCrisisCenter(language: LanguagesEnum = LanguagesEnum.BG): Promise<void> {
-        await this.clickH5HeadingByText(language, this.campaignCrisisCenterText, null);
+        await this.clickH5HeadingByText(language, this.campaignCrisisCenterText);
     }
 
     /**
@@ -87,7 +86,7 @@ export class CampaignsPage extends HomePage {
      * @param {LanguagesEnum} language - the default value is BG
      */
     async isCrisiCenterHeading1Visible(language: LanguagesEnum = LanguagesEnum.BG): Promise<boolean> {
-        return this.isH1HeadingVisible(language, this.campaignCrisisCenterText, null);
+        return this.isH1HeadingVisible(this.campaignCrisisCenterText, null, language);
     }
 
     /**
@@ -95,7 +94,7 @@ export class CampaignsPage extends HomePage {
      * @param {LanguagesEnum} language - the default value is BG
      */
     async isCrisiCenterHeading4Visible(language: LanguagesEnum = LanguagesEnum.BG): Promise<boolean> {
-        return this.isH4HeadingVisible(language, this.campaignCrisisCenterText, null);
+        return this.isH4HeadingVisible(this.campaignCrisisCenterText, null, language);
     }
 
     /**

@@ -1,3 +1,33 @@
+// import { test, expect } from '@playwright/test'
+
+// test.beforeEach(async ({ page }) => {
+//   await page.goto('/')
+//   await page.locator('button[data-testid="jumbotron-donate-button"]').click()
+//   await page.waitForURL('/campaigns')
+// })
+
+// test.describe('campaigns page', () => {
+//   test('test rendering and defaults', async ({ page }) => {
+//     expect(page.locator('text=Кампании')).toBeDefined()
+//     expect(page.locator('text=Подкрепете кауза днес!')).toBeDefined()
+//   })
+//   test('click donate button of active campaign', async ({ page }) => {
+//     await page.locator('button:has-text("Подкрепете сега"):not([disabled])').first().click()
+//     await page.waitForURL((url) => url.pathname.includes('/campaigns/donation'))
+//     expect(page.locator('text=Как желаете да дарите?')).toBeDefined()
+//     expect(page.locator('text=Карта')).toBeDefined()
+//     expect(page.locator('text=5 лв.')).toBeDefined()
+//   })
+//   test('successful campaign has a disabled donate button', async ({ page }) => {
+//     expect(page.locator('button:has-text("Подкрепете сега"):is([disabled])')).toBeDefined()
+//   })
+//   test('click show more button leads to campaign details', async ({ page }) => {
+//     await page.locator('text="Вижте повече"').first().click()
+//     await page.waitForURL((url) => url.pathname.includes('/campaigns/'))
+//     expect(page.locator('text=Сподели')).toBeDefined()
+//   })
+// })
+
 import { test, expect, Page } from '@playwright/test'
 import { CampaignsPage } from '../../pages/web-pages/campaigns/campaigns.page';
 import { DonationPage } from '../../pages/web-pages/campaigns/donation.page';
@@ -6,7 +36,7 @@ import { HomePage } from '../../pages/web-pages/home.page';
 
 // This spec contains smoke E2E tests for the Campaigns page
 // The tests are dependent, the whole describe should be runned
-test.describe('Campaigns page smoke tests - BG language version', async () => {
+test.describe.only('Campaigns page smoke tests - BG language version', async () => {
 
   let page: Page;
   let homepage: HomePage;
@@ -21,8 +51,7 @@ test.describe('Campaigns page smoke tests - BG language version', async () => {
     headerPage = new HeaderPage(page);
     campaignsPage = new CampaignsPage(page);
     donationPage = new DonationPage(page);
-    // For local executions use method navigateToLocalhostHomepage();
-    // await homepage.navigateToLocalhostHomepage();
+    // TODO Change here to localhost and leave comment for the devs
     await homepage.navigateToDevEnvHomepage();
     await headerPage.clickCampaignsHeaderNavButton();
   });
