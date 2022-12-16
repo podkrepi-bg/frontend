@@ -13,19 +13,6 @@ import {
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
 
-declare module 'next-auth/jwt' {
-  /**
-   * JWT contents which builds the session object
-   */
-  export interface JWT {
-    accessToken: string
-    accessTokenExpires: number
-    refreshToken: string
-    user: ServerUser | null
-    expires?: number
-  }
-}
-
 const onCreate: EventCallbacks['createUser'] = async ({ user }) => {
   const { email } = user
 
