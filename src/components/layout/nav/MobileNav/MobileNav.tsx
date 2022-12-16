@@ -7,12 +7,12 @@ import Link from 'next/link'
 import { SwipeableDrawer, Hidden, Grid } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 
+import PodkrepiLogo from 'components/brand/PodkrepiLogo'
 import LocaleButton from '../../LocaleButton'
 import DonationMenuMobile from '../DonationMenuMobile'
 import ProjectMenuMobile from '../ProjectMenuMobile'
 import { AuthLinks } from '../AuthLinks/AuthLinks'
 import { routes } from 'common/routes'
-import PodkrepiIcon from 'components/brand/PodkrepiIcon'
 
 import {
   CloseButton,
@@ -31,6 +31,7 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
   const { t } = useTranslation()
 
   const router = useRouter()
+  const { locale } = useRouter()
   const closeNavMenu = () => setMobileOpen(false)
 
   // Register route change event handlers
@@ -54,7 +55,7 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
         <NavMenuWrapper>
           <OpenMenuHeader>
             <Link href={routes.index} passHref>
-              <PodkrepiIcon />
+              <PodkrepiLogo locale={locale} variant="adaptive" />
             </Link>
             <CloseButton edge="end" fontSize="large" onClose={closeNavMenu} />
           </OpenMenuHeader>

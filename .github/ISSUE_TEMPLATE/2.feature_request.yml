@@ -1,0 +1,41 @@
+name: Feature Report
+description: Create a feature report
+labels: ['type: enhancement', 'template: enhancement']
+body:
+  - type: dropdown
+    attributes:
+      label: Which area(s) of Podkrepi.bg are affected? (leave empty if unsure)
+      multiple: true
+      options:
+        - 'Desktop layout'
+        - 'Mobile layout'
+        - 'Images'
+        - 'Campaigns'
+        - 'Donations'
+        - 'Contacts'
+        - 'SEO & Metadata'
+        - 'Administration'
+        - 'Authentication'
+        - 'Translations (i18n)'
+        - 'TypeScript'
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to file a feature request! Please fill out this form as completely as possible.
+  - type: textarea
+    attributes:
+      label: Describe the feature you'd like to request
+      description: A clear and concise description of what you want and what your use case is. Please provide (paste) **screenshots** if applicable.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Describe the solution you'd like
+      description: A clear and concise description of what you want to happen.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Describe alternatives you've considered
+      description: A clear and concise description of any alternative solutions or features you've considered.
+    validations:
+      required: false

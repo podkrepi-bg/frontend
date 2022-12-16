@@ -14,6 +14,7 @@ import PublicMenu from './nav/PublicMenu'
 import PrivateMenu from './nav/PrivateMenu'
 import MainNavMenu from './nav/MainNavMenu'
 import { useSession } from 'next-auth/react'
+import { useTranslation } from 'next-i18next'
 
 type AppBarDeckProps = {
   navMenuToggle: () => void
@@ -22,6 +23,7 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
   const { locale } = useRouter()
   const { status } = useSession()
   const shrink = useScrollTrigger()
+  const { t } = useTranslation()
 
   return (
     <AppBar
@@ -31,7 +33,7 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
         overflow: 'hidden',
         transition: 'height .5s, background-color .5s ease 0s',
         height: theme.spacing(11),
-        [theme.breakpoints.down('md')]: {
+        [theme.breakpoints.down('sm')]: {
           height: theme.spacing(8),
         },
         '&.shrink': {
@@ -39,6 +41,10 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
           lineHeight: theme.spacing(8),
           backgroundColor: 'hsla(0,0%,100%,0.85)',
           backdropFilter: 'saturate(180%) blur(5px)',
+
+          [theme.breakpoints.down('sm')]: {
+            height: theme.spacing(7),
+          },
         },
         backgroundColor: theme.palette.common.white,
       })}>
@@ -47,10 +53,12 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
           height: '100%',
           display: 'flex',
           justifyContent: 'space-between',
+          padding: 0,
         }}>
         <Link href={routes.index} passHref>
           <ButtonBase
             className={clsx({ shrink })}
+            aria-label={t('meta.title')}
             sx={(theme) => ({
               transition: 'height .5s',
               height: theme.spacing(7.5),
@@ -63,9 +71,6 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
                 marginLeft: 0,
                 width: '100%',
                 height: theme.spacing(5),
-              },
-              '&.shrink': {
-                height: '50%',
               },
               '& > svg': {
                 display: 'block',

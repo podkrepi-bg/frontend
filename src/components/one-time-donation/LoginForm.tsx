@@ -5,7 +5,7 @@ import { Box, Button, CircularProgress, Grid, Typography } from '@mui/material'
 import theme from 'common/theme'
 import Google from 'common/icons/Google'
 import { OneTimeDonation } from 'gql/donations'
-import FormTextField from 'components/common/form/FormTextField'
+import EmailField from '../common/form/EmailField'
 import { signIn } from 'next-auth/react'
 import { StepsContext } from './helpers/stepperContext'
 import { AlertStore } from 'stores/AlertStore'
@@ -53,7 +53,7 @@ function LoginForm() {
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <FormTextField name="loginEmail" type="text" label="Email" fullWidth size="medium" />
+        <EmailField name="loginEmail" label="Email" fullWidth size="medium" />
       </Grid>
       <Grid item xs={12}>
         <PasswordField

@@ -1,0 +1,101 @@
+name: Tests
+
+on:
+  workflow_call:
+    secrets:
+      SENTRY_AUTH_TOKEN:
+        required: true
+      GHOST_CONTENT_KEY:
+        required: true
+      MONDOO_SECRET:
+        required: true
+      STRIPE_WEBHOOK_SECRET:
+        required: true
+      STRIPE_SECRET_KEY:
+        required: true
+
+jobs:
+  build-frontend:
+    name: Build and scan frontend container image
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build
+        uses: docker/build-push-action@v3
+        env:
+          NODE_ENV: production
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          GHOST_API_URL: https://blog.podkrepi.bg
+          GHOST_CONTENT_KEY: ${{ secrets.GHOST_CONTENT_KEY }}
+        with:
+          push: false
+          target: runner
+          build-args: |
+            SENTRY_AUTH_TOKEN=${{ env.SENTRY_AUTH_TOKEN }}
+            GHOST_API_URL=${{ env.GHOST_API_URL }}
+            GHOST_CONTENT_KEY=${{ env.GHOST_CONTENT_KEY }}
+          tags: ghcr.io/podkrepi-bg/frontend:pr
+
+      - name: Scan with Mondoo
+        uses: mondoohq/actions/docker-image@main
+        env:
+          MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
+        with:
+          image: ghcr.io/podkrepi-bg/frontend:pr
+
+  build-maintenance:
+    name: Build and scan maintenance container image
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Build
+        uses: docker/build-push-action@v3
+        with:
+          push: false
+          file: Dockerfile.maintenance
+          tags: ghcr.io/podkrepi-bg/maintenance:pr
+
+      - name: Scan with Mondoo
+        uses: mondoohq/actions/docker-image@main
+        env:
+          MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
+        with:
+          image: ghcr.io/podkrepi-bg/maintenance:pr
+
+  scan-manifests:
+    name: Scan k8s manifests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install kustomize
+        uses: imranismail/setup-kustomize@v1
+
+      - name: Build development manifests
+        run: kustomize build manifests/overlays/development > dev-manifests.yaml
+
+      - name: Scan development manifests with Mondoo
+        uses: mondoohq/actions/k8s-manifest@main
+        env:
+          MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
+        with:
+          path: dev-manifests.yaml
+
+      - name: Build production manifests
+        run: kustomize build manifests/overlays/production > prod-manifests.yaml
+
+      - name: Scan production manifests with Mondoo
+        uses: mondoohq/actions/k8s-manifest@main
+        env:
+          MONDOO_CONFIG_BASE64: ${{ secrets.MONDOO_SECRET }}
+        with:
+          path: prod-manifests.yaml
+
+  run-playwright:
+    name: Run Playwright
+    uses: ./.github/workflows/playwright.yml
+    secrets: inherit

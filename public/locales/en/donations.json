@@ -36,6 +36,7 @@
     "requiredError": "Fields is required!"
   },
   "cta": {
+    "download": "Download",
     "add": "Add",
     "confirm": "Confirm",
     "cancel": "Cancel",

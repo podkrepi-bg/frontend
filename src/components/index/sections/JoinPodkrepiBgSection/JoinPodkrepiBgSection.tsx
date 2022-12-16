@@ -23,9 +23,13 @@ export default function WantToHelpPodkrepiBgSection() {
           {/* A11Y TODO: Translate alt text */}
           <Image
             alt="Discord team image"
-            src={discordTeamImagePath}
             width={1189}
             height={789}
+            style={{
+              width: '100%',
+              height: 'auto',
+            }}
+            src={discordTeamImagePath}
             priority
           />
         </Box>

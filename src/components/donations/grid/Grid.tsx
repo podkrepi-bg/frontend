@@ -53,9 +53,11 @@ export default observer(function Grid() {
   }: UseQueryResult<CampaignDonationHistoryResponse> = useDonationsList(campaignId, page, pageSize)
 
   const { data }: UseQueryResult<PersonResponse[]> = usePersonList()
+
   const RenderVaultCell = ({ params }: RenderCellProps) => {
     return <>{params.row.targetVault.name}</>
   }
+
   const RenderPersonCell = ({ params }: RenderCellProps) => {
     const { firstName, lastName } = params.row.person
       ? params.row.person
