@@ -45,14 +45,8 @@ Options:
 yarn test:e2e
 ```
 
-### Run only local test suites
+### Run test suites in headed mode with enabled debug
 
 ```shell
-yarn test:e2e local
-```
-
-### Run local test suites in headed mode with enabled debug
-
-```shell
-yarn test:e2e local --headed --debug -x -g support
+yarn test:e2e --headed --debug -x -g support
 ```
