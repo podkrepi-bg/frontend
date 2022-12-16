@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import { CampaignResponse } from 'gql/campaigns'
 import { BeneficiaryType } from 'components/beneficiary/BeneficiaryTypes'
-import CampaignMessages from './CampaignMessages'
+import DonationWishes from './DonationWishes'
 import CampaignSlider from './CampaignSlider'
 import {
   backgroundCampaignPictureUrl,
@@ -164,7 +164,7 @@ export default function CampaignDetails({ campaign }: Props) {
           <CampaignInfoCoordinator campaign={campaign} />
         </Grid>
         <Grid item xs={12}>
-          <CampaignMessages campaignId={campaign?.id} />
+          <DonationWishes campaignId={campaign?.id} />
         </Grid>
         <Grid container item xs={12}>
           <Grid item xs={12}>
