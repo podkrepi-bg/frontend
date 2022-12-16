@@ -10,7 +10,7 @@ import { AlertStore } from 'stores/AlertStore'
 import FormInput from 'components/common/form/FormInput'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
-import FormTextField from 'components/common/form/FormTextField'
+import EmailField from 'components/common/form/EmailField'
 import Google from 'common/icons/Google'
 import PasswordField from 'components/common/form/PasswordField'
 import { email, password } from 'common/form/validation'
@@ -73,7 +73,7 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
       <FormInput type="hidden" name="csrfToken" />
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <FormTextField type="text" label="auth:fields.email" name="email" />
+          <EmailField label="auth:fields.email" name="email" />
         </Grid>
         <Grid item xs={12}>
           <PasswordField />
