@@ -2,7 +2,7 @@ import { Modal, Box, Grid, IconButton } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
-import FormTextField from 'components/common/form/FormTextField'
+import EmailField from 'components/common/form/EmailField'
 import { Person, UpdateUserAccount, UpdatePerson } from 'gql/person'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError, AxiosResponse } from 'axios'
@@ -129,7 +129,7 @@ function UpdateEmailModal({
           validationSchema={validationSchema}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={8}>
-              <FormTextField type="text" name="email" label="email" />
+              <EmailField name="email" label="email" />
             </Grid>
             <Grid item xs={12} sm={8}>
               <PasswordField />

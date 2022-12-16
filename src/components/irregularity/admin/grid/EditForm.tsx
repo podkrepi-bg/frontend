@@ -24,6 +24,8 @@ import FileUpload from 'components/file-upload/FileUpload'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
+import EmailField from 'components/common/form/EmailField'
+
 import {
   IrregularityEditInput,
   IrregularityFileResponse,
@@ -162,7 +164,7 @@ export default function EditForm({ campaigns, irregularity, irregularityFiles }:
           </Grid>
           <Grid container item spacing={3}>
             <Grid item xs={12} sm={6}>
-              <FormTextField type="email" name="person.email" label={t('admin.fields.email')} />
+              <EmailField name="person.email" label={t('admin.fields.email')} />
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormTextField type="phone" name="person.phone" label={t('admin.fields.phone')} />
