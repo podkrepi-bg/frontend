@@ -18,7 +18,7 @@ export default function MainNavMenu({ children }: { children?: React.ReactNode }
           variant="outlined"
           size="large"
           color="inherit"
-          style={{ borderColor: '#32A9FE' }}
+          sx={{ borderColor: '#32A9FE' }}
           href={routes.campaigns.index}>
           <Typography variant="button" color="#000000DE">
             {t('nav.donatе')}
