@@ -3,6 +3,8 @@ import { useMutation } from '@tanstack/react-query'
 import { AlertStore } from 'stores/AlertStore'
 import { endpoints } from 'service/apiEndpoints'
 import { useSession } from 'next-auth/react'
+import { useState } from 'react'
+import ConfirmationDialog from 'components/common/ConfirmationDialog'
 
 import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 import { IconButton, Tooltip, Box } from '@mui/material'
@@ -21,9 +23,11 @@ export default function MyRecurringCampaignsTable() {
   const { data: recurringDonations } = useGetUserRecurringDonations()
   const { data: session } = useSession()
 
+  const [openDialog, setOpenDialog] = useState(false)
+  const [selectedRecurringDonation, setSelectedRecurringDonation] = useState<number | null>(null)
+
   const cancelMutation = useMutation({
     mutationFn: async (id: string) => {
-      //TODO: this '/api/v1' does not look right here
       apiClient.get(
         endpoints.recurringDonation.cancelRecurringDonation(id).url,
         authConfig(session?.accessToken),
@@ -36,9 +40,7 @@ export default function MyRecurringCampaignsTable() {
   })
 
   const cancelRecurringDonation = (id: string) => {
-    if (confirm(t('recurring-donation:alerts.cancel-confirm'))) {
-      cancelMutation.mutate(id)
-    }
+    cancelMutation.mutate(id)
   }
 
   const commonProps: Partial<GridColDef> = {
@@ -105,7 +107,10 @@ export default function MyRecurringCampaignsTable() {
             <IconButton
               size="small"
               color="primary"
-              onClick={async () => cancelRecurringDonation(cellValues.row.id)}>
+              onClick={async () => {
+                setSelectedRecurringDonation(cellValues.row.id)
+                setOpenDialog(true)
+              }}>
               <CancelPresentationIcon />
             </IconButton>
           </Tooltip>
@@ -136,6 +141,20 @@ export default function MyRecurringCampaignsTable() {
       ) : (
         <Box sx={{ fontSize: 20 }}>{t('profile:donations.recurringDonations')}</Box>
       )}
+      <ConfirmationDialog
+        isOpen={openDialog}
+        handleCancel={() => setOpenDialog(false)}
+        handleConfirm={() => {
+          if (selectedRecurringDonation) {
+            cancelRecurringDonation(selectedRecurringDonation.toString())
+          }
+          setOpenDialog(false)
+        }}
+        title={t('recurring-donation:deleteTitle')}
+        content={t('recurring-donation:alerts.cancel-confirm')}
+        confirmButtonLabel={t('recurring-donation:cta.confirm')}
+        cancelButtonLabel={t('recurring-donation:cta.cancel')}
+      />
     </>
   )
 }

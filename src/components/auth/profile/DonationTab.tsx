@@ -80,7 +80,7 @@ const Root = styled('div')(({ theme }) => ({
 }))
 
 //Sum the active donations
-function recurreningDonationsSum(donations: RecurringDonationResponse[] | undefined) {
+function recurringDonationsSum(donations: RecurringDonationResponse[] | undefined) {
   if (!donations) {
     return 0.0
   }
@@ -130,7 +130,7 @@ export default function DonationTab() {
               {/* <Typography>Я, Ф, М, А 2022</Typography> */}
             </Box>
             <Typography fontWeight="medium" variant="h6">
-              {moneyPublic(recurreningDonationsSum(recurringDonations))}
+              {moneyPublic(recurringDonationsSum(recurringDonations))}
             </Typography>
           </Box>
           <Box className={classes.donationsBoxRow}>
