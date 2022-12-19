@@ -1,11 +1,8 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 import { getToken } from 'next-auth/jwt'
-import { AxiosResponse } from 'axios'
 import { renderToStream } from '@react-pdf/renderer'
 
 import { UserDonationResponse } from 'gql/donations'
-import { VaultResponse } from 'gql/vault'
-import { CampaignResponse } from 'gql/campaigns'
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
 import { authConfig } from 'service/restRequests'
@@ -25,26 +22,10 @@ const Handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
     authConfig(jwt?.accessToken),
   )
 
-  const { data: campaign } = await apiClient
-    .get<VaultResponse>(
-      endpoints.vaults.getVault(donation.targetVaultId).url,
-      authConfig(jwt?.accessToken),
-    )
-    .then((res) => {
-      const campaignPromise: Promise<AxiosResponse<CampaignResponse>> =
-        apiClient.get<CampaignResponse>(
-          endpoints.campaign.viewCampaignById(res.data.campaignId).url,
-          authConfig(jwt?.accessToken),
-        )
-      return campaignPromise
-    })
-
   if (!donation) {
     res.status(404).json({ notFound: true })
   } else {
-    const pdfStream = await renderToStream(
-      <Certificate donation={donation} person={donation.person} campaign={campaign} />,
-    )
+    const pdfStream = await renderToStream(<Certificate donation={donation} />)
     res.setHeader('Content-Type', 'application/pdf')
     pdfStream.pipe(res)
   }

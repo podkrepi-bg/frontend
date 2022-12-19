@@ -40,8 +40,20 @@ export type DonationResponse = {
   currency: Currency
   amount: number
   personId?: UUID
-  person?: { firsName: string; lastName: string }
-  targetVault: { name: string }
+  person?: {
+    id: string
+    firstName: string
+    lastName: string
+  }
+  targetVault?: {
+    id: string
+    name: string
+    campaign?: {
+      id: string
+      slug: string
+      title: string
+    }
+  }
 }
 
 export type UserDonationResponse = DonationResponse & {
