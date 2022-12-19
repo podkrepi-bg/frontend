@@ -47,7 +47,6 @@ export type DonationResponse = {
   }
   targetVault?: {
     id: string
-    name: string
     campaign?: {
       id: string
       slug: string
