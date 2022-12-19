@@ -5,6 +5,7 @@ import { DonationResponse } from 'gql/donations'
 import { PersonResponse } from 'gql/person'
 import { formatDateString } from 'common/util/date'
 import { money } from 'common/util/money'
+import { CampaignResponse } from 'gql/campaigns'
 
 Font.register({
   family: 'Arial',
@@ -106,9 +107,10 @@ const styles = StyleSheet.create({
 
 type Props = {
   donation: DonationResponse
+  campaign: CampaignResponse
   person?: PersonResponse
 }
-export default function Certificate({ donation, person }: Props) {
+export default function Certificate({ donation, person, campaign }: Props) {
   const name = `${person?.firstName} ${person?.lastName}`
   const formattedDate = formatDateString(donation.createdAt)
   return (
@@ -128,8 +130,8 @@ export default function Certificate({ donation, person }: Props) {
         <View>
           <Text style={styles.donationText}>
             дари сума в размер на{' '}
-            <Text style={{ color: '#2A4E84' }}>{money(donation?.amount ?? 0)}</Text> за дейността на
-            сдружението.
+            <Text style={{ color: '#2A4E84' }}>{money(donation?.amount ?? 0)}</Text> за кампания{' '}
+            {campaign.title}
           </Text>
         </View>
         <View style={styles.dateAndSignView}>

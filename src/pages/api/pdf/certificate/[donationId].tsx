@@ -7,6 +7,9 @@ import { endpoints } from 'service/apiEndpoints'
 import Certificate from 'components/pdf/Certificate'
 import { authConfig } from 'service/restRequests'
 import { getToken } from 'next-auth/jwt'
+import { VaultResponse } from 'gql/vault'
+import { CampaignResponse } from 'gql/campaigns'
+import { AxiosResponse } from 'axios'
 
 const Handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const id = Array.isArray(req.query.donationId) ? req.query.donationId[0] : req.query.donationId
@@ -21,12 +24,27 @@ const Handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
     endpoints.donation.getUserDonation(id).url,
     authConfig(jwt?.accessToken),
   )
+  //get the target vault from the donation
+  const { data: campaign } = await apiClient
+    .get<VaultResponse>(
+      // Casting to string here might lead to an error
+      endpoints.vaults.getVault(donation.targetVaultId).url,
+      authConfig(jwt?.accessToken),
+    )
+    .then((res) => {
+      const campaignPromise: Promise<AxiosResponse<CampaignResponse>> =
+        apiClient.get<CampaignResponse>(
+          endpoints.campaign.viewCampaignById(res.data.campaignId).url,
+          authConfig(jwt?.accessToken),
+        )
+      return campaignPromise
+    })
 
   if (!donation) {
     res.status(404).json({ notFound: true })
   } else {
     const pdfStream = await renderToStream(
-      <Certificate donation={donation} person={donation.person} />,
+      <Certificate donation={donation} person={donation.person} campaign={campaign} />,
     )
     res.setHeader('Content-Type', 'application/pdf')
     pdfStream.pipe(res)
