@@ -13,6 +13,7 @@ body:
         - 'Campaigns'
         - 'Donations'
         - 'Contacts'
+        - 'Blog'
         - 'SEO & Metadata'
         - 'Administration'
         - 'Authentication'
