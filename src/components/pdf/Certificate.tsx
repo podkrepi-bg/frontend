@@ -2,7 +2,6 @@ import { Document, Page, StyleSheet, Text, View, Font, Image } from '@react-pdf/
 
 import Logo from './Logo'
 import { DonationResponse } from 'gql/donations'
-import { PersonResponse } from 'gql/person'
 import { formatDateString } from 'common/util/date'
 import { money } from 'common/util/money'
 
@@ -22,7 +21,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     height: '100%',
     width: '100%',
-    display: 'block',
   },
   heading: {
     fontSize: '36',
@@ -52,37 +50,44 @@ const styles = StyleSheet.create({
   },
   donationText: {
     textAlign: 'center',
-    marginTop: '50',
+    paddingTop: '5',
     width: '300',
     alignSelf: 'center',
     fontSize: '16',
+  },
+  donationRow: {
+    textAlign: 'center',
+    color: '#2A4E84',
+    fontSize: '14',
+    width: '450',
+    height: '55',
+    alignSelf: 'center',
   },
   dateAndSignView: {
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: '15',
   },
   date: {
-    marginTop: '25',
+    marginTop: '10',
     marginLeft: '50',
   },
   dateText: {
-    marginTop: '2',
+    marginTop: '5',
     marginLeft: '50',
     fontSize: '11',
   },
   members: {
     fontSize: '11',
-    marginTop: '71',
+    marginTop: '60',
     marginRight: '60',
     marginLeft: '50',
   },
   signs: {
     position: 'absolute',
     left: '350',
-    top: '20',
+    top: '5',
     display: 'flex',
     justifyContent: 'space-around',
     flexDirection: 'row',
@@ -106,11 +111,8 @@ const styles = StyleSheet.create({
 
 type Props = {
   donation: DonationResponse
-  person?: PersonResponse
 }
-export default function Certificate({ donation, person }: Props) {
-  const name = `${person?.firstName} ${person?.lastName}`
-  const formattedDate = formatDateString(donation.createdAt)
+export default function Certificate({ donation }: Props) {
   return (
     <Document title="Дарение">
       <Page size="LETTER" style={styles.page}>
@@ -121,20 +123,23 @@ export default function Certificate({ donation, person }: Props) {
           <Text style={styles.subheading}>за дарение № {donation.id.slice(0, 2)}</Text>
         </View>
         <View>
-          <Text style={styles.text1}>С този сертификат Управителният съвет на Сдружение</Text>
-          <Text style={styles.text2}>„Подкрепи БГ“ удостоверява, че:</Text>
-          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.text1}>С този сертификат Управителният съвет на</Text>
+          <Text style={styles.text2}>Сдружение „Подкрепи БГ“ удостоверява, че:</Text>
+          <Text style={styles.name}>
+            {donation.person?.firstName} {donation.person?.lastName}
+          </Text>
         </View>
-        <View>
+        <View style={{ marginTop: '10' }}>
           <Text style={styles.donationText}>
             дари сума в размер на{' '}
-            <Text style={{ color: '#2A4E84' }}>{money(donation?.amount ?? 0)}</Text> за дейността на
-            сдружението.
+            <Text style={styles.donationRow}>{money(donation?.amount ?? 0)}</Text>
           </Text>
+          <Text style={styles.donationText}>за кампания:</Text>
+          <Text style={styles.donationRow}>{donation?.targetVault?.campaign?.title ?? '-'}</Text>
         </View>
         <View style={styles.dateAndSignView}>
           <View>
-            <Text style={styles.date}>{formattedDate}</Text>
+            <Text style={styles.date}>{formatDateString(donation.createdAt)}</Text>
             <Text style={styles.dateText}>Дата</Text>
           </View>
           <View style={styles.signs}>

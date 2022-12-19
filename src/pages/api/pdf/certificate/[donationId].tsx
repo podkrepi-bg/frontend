@@ -1,12 +1,13 @@
-import { renderToStream } from '@react-pdf/renderer'
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
-
-import { apiClient } from 'service/apiClient'
-import { UserDonationResponse } from 'gql/donations'
-import { endpoints } from 'service/apiEndpoints'
-import Certificate from 'components/pdf/Certificate'
-import { authConfig } from 'service/restRequests'
 import { getToken } from 'next-auth/jwt'
+import { renderToStream } from '@react-pdf/renderer'
+
+import { UserDonationResponse } from 'gql/donations'
+import { apiClient } from 'service/apiClient'
+import { endpoints } from 'service/apiEndpoints'
+import { authConfig } from 'service/restRequests'
+
+import Certificate from 'components/pdf/Certificate'
 
 const Handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const id = Array.isArray(req.query.donationId) ? req.query.donationId[0] : req.query.donationId
@@ -17,7 +18,6 @@ const Handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
     return
   }
   const { data: donation } = await apiClient.get<UserDonationResponse>(
-    // Casting to string here might lead to an error
     endpoints.donation.getUserDonation(id).url,
     authConfig(jwt?.accessToken),
   )
@@ -25,9 +25,7 @@ const Handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
   if (!donation) {
     res.status(404).json({ notFound: true })
   } else {
-    const pdfStream = await renderToStream(
-      <Certificate donation={donation} person={donation.person} />,
-    )
+    const pdfStream = await renderToStream(<Certificate donation={donation} />)
     res.setHeader('Content-Type', 'application/pdf')
     pdfStream.pipe(res)
   }
