@@ -21,14 +21,12 @@ const Handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
     return
   }
   const { data: donation } = await apiClient.get<UserDonationResponse>(
-    // Casting to string here might lead to an error
     endpoints.donation.getUserDonation(id).url,
     authConfig(jwt?.accessToken),
   )
-  //get the target vault from the donation
+
   const { data: campaign } = await apiClient
     .get<VaultResponse>(
-      // Casting to string here might lead to an error
       endpoints.vaults.getVault(donation.targetVaultId).url,
       authConfig(jwt?.accessToken),
     )
