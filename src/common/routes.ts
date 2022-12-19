@@ -153,7 +153,7 @@ export const routes = {
     recurringDonation: {
       index: '/admin/recurring-donation',
       create: '/admin/recurring-donation/create',
-      view: (id: string) => `/admin/recurring-donation/${id}`,
+      edit: (id: string) => `/admin/recurring-donation/${id}`,
     },
     irregularity: {
       index: '/admin/irregularities',

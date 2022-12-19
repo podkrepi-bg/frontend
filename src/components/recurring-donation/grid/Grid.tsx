@@ -19,6 +19,7 @@ import { apiClient } from 'service/apiClient'
 import { authConfig } from 'service/restRequests'
 import CancelPresentationIcon from '@mui/icons-material/CancelPresentation'
 import EditIcon from '@mui/icons-material/Edit'
+import { routes } from 'common/routes'
 
 export default function Grid() {
   const { t } = useTranslation('recurring-donation')
@@ -54,7 +55,7 @@ export default function Grid() {
 
   const editRecurringDonation = (id: string) => {
     //open the edit page
-    router.push('/admin/recurring-donation/' + id)
+    router.push(routes.admin.recurringDonation.edit(id))
   }
 
   const columns: GridColumns = [
@@ -102,9 +103,6 @@ export default function Grid() {
       type: 'actions',
       headerAlign: 'center',
       renderCell: (cellValues: GridRenderCellParams): React.ReactNode => {
-        if (cellValues.row.status !== 'active') {
-          return null
-        }
         return (
           <div>
             <Tooltip title={t('recurring-donation:cta.edit') || ''}>

@@ -24,7 +24,7 @@ export default function MyRecurringCampaignsTable() {
   const { data: session } = useSession()
 
   const [openDialog, setOpenDialog] = useState(false)
-  const [selectedRecurringDonation, setSelectedRecurringDonation] = useState<number | null>(null)
+  const [selectedRecurringDonation, setSelectedRecurringDonation] = useState<string | null>(null)
 
   const cancelMutation = useMutation({
     mutationFn: async (id: string) => {
@@ -33,7 +33,7 @@ export default function MyRecurringCampaignsTable() {
         authConfig(session?.accessToken),
       )
     },
-    onError: (err) => AlertStore.show(t('common:alerts.error') + err, 'error'),
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => {
       AlertStore.show(t('recurring-donation:alerts.cancel'), 'success')
     },
@@ -146,7 +146,7 @@ export default function MyRecurringCampaignsTable() {
         handleCancel={() => setOpenDialog(false)}
         handleConfirm={() => {
           if (selectedRecurringDonation) {
-            cancelRecurringDonation(selectedRecurringDonation.toString())
+            cancelRecurringDonation(selectedRecurringDonation)
           }
           setOpenDialog(false)
         }}

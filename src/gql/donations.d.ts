@@ -15,6 +15,7 @@ export type CheckoutSessionInput = {
   mode: Stripe.Checkout.Session.Mode
   amount?: number
   campaignId: string
+  personId: string
   successUrl?: string
   cancelUrl?: string
   firstName?: string
@@ -101,6 +102,7 @@ export type UserDonationResult = {
 export type OneTimeDonation = {
   message?: string
   isAnonymous: boolean
+  isRecurring: boolean
   amount: string
   amountWithFees: number
   otherAmount: number

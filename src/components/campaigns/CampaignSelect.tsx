@@ -31,10 +31,10 @@ export default function CampaignSelect({
   const [field, meta] = useField(name)
   const { setFieldValue } = useFormikContext()
 
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFieldValue(name, event.target.value)
     if (handleCampaignSelected) {
-      handleCampaignSelected(event.target.value as string, setFieldValue)
+      handleCampaignSelected(event.target.value, setFieldValue)
     }
   }
 
@@ -60,7 +60,7 @@ export default function CampaignSelect({
           .map((value, index) => (
             //select the element that matches the selectedCampaign
             <MenuItem key={index} value={value.id} selected={value.id === selectedCampaign}>
-              {value.title} ({value.id}) s({value.id === selectedCampaign})
+              {value.title}
             </MenuItem>
           ))}
       </FormTextField>

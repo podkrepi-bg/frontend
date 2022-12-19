@@ -30,4 +30,6 @@ export type RecurringDonationInput = {
   amount?: number
   currency?: Currency | string
   sourceVault?: UUID
+  money: number
+  campaign: string
 }

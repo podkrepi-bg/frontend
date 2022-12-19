@@ -70,6 +70,8 @@ export type AdminCampaignResponse = BaseCampaignResponse & {
     currentAmount: number
     blockedAmount: number
   }
+  vaults: { id: UUID }[],
+  category: CampaignTypeCategory
 }
 
 export type AdminSingleCampaignResponse = CampaignResponse & {
