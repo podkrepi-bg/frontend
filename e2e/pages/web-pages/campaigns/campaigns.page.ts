@@ -1,4 +1,4 @@
-import { expect, Locator, Page } from '@playwright/test';
+import { Page } from '@playwright/test';
 import { LanguagesEnum } from '../../../data/enums/languages.enum';
 import { bgLocalizationCampaigns, enLocalizationCampaigns } from '../../../data/localization';
 import { HomePage } from '../home.page';
@@ -102,9 +102,8 @@ export class CampaignsPage extends HomePage {
      * Click card action button by its H5 heading
      * @param {string} heading
      * @param {string} action
-     * @param {LanguagesEnum} language - the default value is BG
      */
-    async clickCampaignCardButtonByHeading(heading: string, action: string, language?: LanguagesEnum): Promise<void> {
+    async clickCampaignCardButtonByHeading(heading: string, action: string): Promise<void> {
         const cardActionButtonElement = this.page.locator(this.h5HeadingsSelector, {hasText: heading}).locator("../../..").locator(this.cardActionButtons, {hasText: action});
         await this.clickElementByLocator(cardActionButtonElement);
     }

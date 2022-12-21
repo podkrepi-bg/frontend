@@ -20,9 +20,8 @@ test.describe.serial('Anonymous contributor is able to donate fixed amount - EN 
   let donationPage: DonationPage;
   let stripeCheckoutPage: StripeCheckoutPage;
   // For the URL is used RegExp so the tests will pass for each environment - localhost, dev, etc.
-  // TODO Temporaly removed EN version due to bug (https://github.com/podkrepi-bg/frontend/issues/1247)
-  const campaignCrisisCenterPageUrl = "podkrepi.bg/campaigns/krizisen-centur-za-postradali-ot-nasilie-shans-za-nov-zhivot$";
-  const campaignDonationCrisisCenterPageUrl = "podkrepi.bg/campaigns/donation/krizisen-centur-za-postradali-ot-nasilie-shans-za-nov-zhivot$";
+  const campaignCrisisCenterPageUrl = "podkrepi.bg/en/campaigns/krizisen-centur-za-postradali-ot-nasilie-shans-za-nov-zhivot$";
+  const campaignDonationCrisisCenterPageUrl = "podkrepi.bg/en/campaigns/donation/krizisen-centur-za-postradali-ot-nasilie-shans-za-nov-zhivot$";
   const testEmail = "E2E_Test_Anon_Donation@e2etest.com";
   // Localization texts
   const enCardIncludeFeesText = enLocalizationOneTimeDonation['third-step']['card-include-fees'];
@@ -56,8 +55,6 @@ test.describe.serial('Anonymous contributor is able to donate fixed amount - EN 
   test('The total charge, fee tax and donation amount are visible on the Campaign page', async () => {
     await campaignsPage.clickDonationSupportButton();
     await donationPage.checkPageUrlByRegExp(campaignDonationCrisisCenterPageUrl);
-    // TODO: Remove the next line when the followin bug is fixed: https://github.com/podkrepi-bg/frontend/issues/1247
-    await headerPage.changeanguageHeaderButtonToBe(LanguagesEnum.EN);
     expect.soft(await donationPage.isSelectAmountStepActive(LanguagesEnum.EN), "Select Amount step is not active.").toBeTruthy();
     await donationPage.selectRadioButtonByLabelText(["10"]);
     await donationPage.setDonationRegionFromTheDropdown(enDonationRegions.EUROPE);

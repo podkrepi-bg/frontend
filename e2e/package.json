@@ -10,7 +10,7 @@
     "playwright-core": "1.28.1"
   },
   "devDependencies": {
-    "@playwright/test": "1.28.1"
+    "@playwright/test": "1.29.1"
   },
   "scripts": {},
   "keywords": [],

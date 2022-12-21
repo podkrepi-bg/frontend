@@ -1,4 +1,4 @@
-import { expect, Locator, Page } from '@playwright/test';
+import { Page } from '@playwright/test';
 import { LanguagesEnum } from '../../data/enums/languages.enum';
 import { bgLocalizationSupport, bgLocalizationValidation, enLocalizationSupport } from '../../data/localization';
 import { HomePage } from './home.page';

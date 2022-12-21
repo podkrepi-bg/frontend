@@ -1,5 +1,4 @@
 import type { PlaywrightTestConfig } from '@playwright/test'
-import { devices } from '@playwright/test'
 import path from 'path'
 
 const e2eReportsFolder = path.resolve(__dirname, 'e2e-reports');
@@ -32,7 +31,10 @@ const config: PlaywrightTestConfig = {
   use: {
     browserName: 'chromium',
     headless: false,
-    screenshot: 'only-on-failure',
+    screenshot: {
+      mode: 'only-on-failure',
+      fullPage: true
+  },
     video: {
       mode: 'retain-on-failure',
       size: {

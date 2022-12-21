@@ -1,4 +1,4 @@
-import { expect, Locator, Page } from '@playwright/test';
+import { Page } from '@playwright/test';
 import { BasePage } from '../web-pages/base.page';
 import { bgLocalizationCommon, enLocalizationCommon } from '../../data/localization';
 import { LanguagesEnum } from '../../data/enums/languages.enum';
@@ -12,7 +12,7 @@ export class HeaderPage extends BasePage {
     private readonly muiToolbarRootSelector = ".MuiToolbar-root";
     private readonly headerLogo = this.muiToolbarRootSelector + " .PodkrepiLogo-letters";
     private readonly toolbarCommonButtonsSelector = this.muiToolbarRootSelector + " button";
-    private readonly toolbarAnchorButtonSelector = this.muiToolbarRootSelector + " a.MuiButton-root";
+    private readonly toolbarAnchorButtonSelector = this.muiToolbarRootSelector + " a .MuiButton-root";
     private readonly headerSubmenuLinks = ".MuiMenu-list a span";
 
     // Values from the localization json file
@@ -79,6 +79,7 @@ export class HeaderPage extends BasePage {
      * @param {LanguagesEnum} language - the default is BG
      */
     async clickDonateHeaderNavButton(language: LanguagesEnum = LanguagesEnum.BG): Promise<void> {
+        await this.waitForElementToBePresentedBySelector(this.toolbarAnchorButtonSelector);
         if (language === LanguagesEnum.BG) {
             await this.clickElement(this.toolbarAnchorButtonSelector, {hasText: this.bgDonateNavLink});
         } else if (language === LanguagesEnum.EN) {

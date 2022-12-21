@@ -1,4 +1,4 @@
-import { expect, Locator, Page } from '@playwright/test';
+import { Page } from '@playwright/test';
 import { LanguagesEnum } from '../../../data/enums/languages.enum';
 import { bgLocalizationOneTimeDonation, enLocalizationOneTimeDonation } from '../../../data/localization';
 import { CampaignsPage } from './campaigns.page';
