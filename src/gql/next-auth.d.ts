@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth'
+import { ServerUser } from 'service/auth'
 
 /**
  * Declaring the Session and User type as per docs here:
@@ -26,5 +26,18 @@ declare module 'next-auth' {
     accessToken: string
     refreshToken: string
     picture: string
+  }
+}
+
+declare module 'next-auth/jwt' {
+  /**
+   * JWT contents which builds the session object
+   */
+  export interface JWT {
+    accessToken: string
+    accessTokenExpires: number
+    refreshToken: string
+    user: ServerUser | null
+    expires?: number
   }
 }

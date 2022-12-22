@@ -14,3 +14,8 @@ export type DonationWishResponse = {
   person?: { firstName: string; lastName: string }
   createdAt: DateTime
 }
+
+export type DonationWishPaginatedResponse = {
+  items: DonationWishResponse[]
+  totalCount: number
+}

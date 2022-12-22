@@ -60,7 +60,7 @@ export default function PrivateMenu() {
     return null
   }
 
-  const title = `${session.user.name}\n(${session.user.email})`
+  const title = `${session?.user?.name}\n(${session?.user?.email})`
   const lettersAvatar = `${session.user?.given_name.charAt(0)}${session.user?.family_name.charAt(
     0,
   )}`.toUpperCase()
