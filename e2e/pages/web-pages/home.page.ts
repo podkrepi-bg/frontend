@@ -91,7 +91,9 @@ export class HomePage extends BasePage {
     if (language === LanguagesEnum.BG) {
       return this.isElementVisibleBySelectorWithTimeout(elementSelector, { hasText: headingBg })
     } else if (language === LanguagesEnum.EN) {
-      return this.isElementVisibleBySelectorWithTimeout(elementSelector, { hasText: headingEn })
+      return this.isElementVisibleBySelectorWithTimeout(elementSelector, {
+        hasText: headingEn || undefined,
+      })
     } else {
       throw new Error('Language not found!')
     }
@@ -214,8 +216,10 @@ export class HomePage extends BasePage {
         await this.scrollToElementCenterBySelector(this.h5HeadingsSelector, { hasText: headingBg })
         await this.clickElement(this.h5HeadingsSelector, { hasText: headingBg })
       } else if (language === LanguagesEnum.EN) {
-        await this.scrollToElementCenterBySelector(this.h5HeadingsSelector, { hasText: headingEn })
-        await this.clickElement(this.h5HeadingsSelector, { hasText: headingEn })
+        await this.scrollToElementCenterBySelector(this.h5HeadingsSelector, {
+          hasText: headingEn || undefined,
+        })
+        await this.clickElement(this.h5HeadingsSelector, { hasText: headingEn || undefined })
       } else {
         throw new Error('Language not found!')
       }
