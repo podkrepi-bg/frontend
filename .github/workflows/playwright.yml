@@ -68,6 +68,10 @@ jobs:
       - name: Install Frontend Dependencies
         working-directory: ./frontend
         run: yarn
+        
+      - name: Install e2e Dependencies
+        working-directory: ./frontend/e2e
+        run: yarn
 
       - name: Setup env
         working-directory: ./frontend
