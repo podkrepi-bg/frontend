@@ -57,6 +57,7 @@ bld/
 /test-results/
 /playwright-report/
 /playwright/.cache/
+/e2e-reports/
 
 # https://yarnpkg.com/getting-started/qa/#which-files-should-be-gitignored
 .pnp.*

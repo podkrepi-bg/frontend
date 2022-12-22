@@ -3,16 +3,15 @@
   "version": "1.0.0",
   "description": "- <https://playwright.dev/>",
   "main": "index.js",
+  "scripts": {
+    "test:e2e": "playwright test"
+  },
   "directories": {
     "test": "tests"
   },
   "dependencies": {
-    "playwright-core": "1.28.1"
-  },
-  "devDependencies": {
     "@playwright/test": "1.29.1"
   },
-  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC"
