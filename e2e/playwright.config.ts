@@ -1,7 +1,7 @@
 import type { PlaywrightTestConfig } from '@playwright/test'
 import path from 'path'
 
-const e2eReportsFolder = path.resolve(__dirname, 'e2e-reports');
+const e2eReportsFolder = path.resolve(__dirname, 'e2e-reports')
 
 /**
  * See https://playwright.dev/docs/test-configuration
@@ -26,36 +26,33 @@ const config: PlaywrightTestConfig = {
   workers: process.env.CI ? 1 : undefined,
   // outputDir: path.resolve(e2eReportsFolder, 'output-tests'),
   reporter: [
-    ['html', {outputFolder: path.resolve(e2eReportsFolder, 'html-report'), open: 'never'}]
+    ['html', { outputFolder: path.resolve(e2eReportsFolder, 'html-report'), open: 'never' }],
   ],
   use: {
     browserName: 'chromium',
     headless: false,
     screenshot: {
       mode: 'only-on-failure',
-      fullPage: true
-  },
+      fullPage: true,
+    },
     video: {
       mode: 'retain-on-failure',
       size: {
         width: 1500,
-        height: 900
-      }
+        height: 900,
+      },
     },
     trace: 'retain-on-failure',
     launchOptions: {
-      args: [
-        '--use-fake-ui-for-media-stream',
-        '--use-fake-device-for-media-stream'
-      ],
-      downloadsPath: path.resolve(e2eReportsFolder, 'downloads')
+      args: ['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream'],
+      downloadsPath: path.resolve(e2eReportsFolder, 'downloads'),
     },
     baseURL: 'http://localhost:3040',
     viewport: { width: 1280, height: 720 },
-    ignoreHTTPSErrors: true
-  }
+    ignoreHTTPSErrors: true,
+  },
   // TODO Update here later
-  
+
   /* Configure projects for major browsers */
   // projects: [
   //   {
@@ -109,4 +106,4 @@ const config: PlaywrightTestConfig = {
   // ]
 }
 
-export default config;
+export default config

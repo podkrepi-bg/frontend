@@ -1,4 +1,4 @@
-export {};
+export {}
 // import { Page } from '@playwright/test';
 
 // const credentials = {
