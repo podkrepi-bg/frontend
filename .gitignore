@@ -22,7 +22,7 @@ test-results/
 playwright-report/
 playwright/.cache/
 e2e-reports/
-e2e/.yarn
+e2e/.yarn/*
 
 # IDEs and editors
 .idea
