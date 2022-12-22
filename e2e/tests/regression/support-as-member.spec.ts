@@ -35,9 +35,8 @@ test.describe.serial('Support page - Join us as member - BG language version', a
     homepage = new HomePage(page)
     headerPage = new HeaderPage(page)
     supportPage = new SupportPage(page)
-    // For local executions use method navigateToLocalhostHomepage();
-    // await homepage.navigateToLocalhostHomepage();
-    await homepage.navigateToDevEnvHomepage()
+
+    await homepage.navigateToEnvHomepage()
     await headerPage.clickJoinUsHeaderNavButton()
   })
 

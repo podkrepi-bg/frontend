@@ -38,7 +38,7 @@ test.describe.serial(
       stripeCheckoutPage = new StripeCheckoutPage(page)
       // For local executions use method navigateToLocalhostHomepage();
       // await homepage.navigateToLocalhostHomepage();
-      await homepage.navigateToDevEnvHomepage()
+      await homepage.navigateToEnvHomepage()
     })
 
     test.afterAll(async () => {

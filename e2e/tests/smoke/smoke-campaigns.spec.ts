@@ -21,9 +21,8 @@ test.describe('Campaigns page smoke tests - BG language version', async () => {
     headerPage = new HeaderPage(page)
     campaignsPage = new CampaignsPage(page)
     donationPage = new DonationPage(page)
-    // For local executions use method navigateToLocalhostHomepage();
-    // await homepage.navigateToLocalhostHomepage();
-    await homepage.navigateToDevEnvHomepage()
+
+    await homepage.navigateToEnvHomepage()
     await headerPage.clickCampaignsHeaderNavButton()
   })
 

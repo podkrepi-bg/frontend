@@ -13,10 +13,6 @@ export class HomePage extends BasePage {
     super(page)
   }
 
-  private readonly localhostHomepageLink = 'http://localhost:3040/'
-  private readonly devEnvHomepageLink = 'https://dev.podkrepi.bg/'
-  private readonly prodHomepageLink = 'https://podkrepi.bg/'
-
   private readonly containerRootElement = '.MuiContainer-root'
   private readonly h1HeadingsSelector = '.MuiTypography-h1'
   private readonly h4HeadingsSelector = '.MuiTypography-h4'
@@ -52,26 +48,12 @@ export class HomePage extends BasePage {
     'Ние сме общност от доброволци, обединени от идеята да създаваме устойчиви решения за развитието на дарителството в България.'
 
   /**
-   * Navigate to the Localhost homepage
-   */
-  async navigateToLocalhostHomepage(): Promise<void> {
-    await this.navigateToUrl(this.localhostHomepageLink)
-  }
-
-  /**
    * Navigate to the Dev test environment homepage
    * NOTE: We could use this method for direct tests against the Dev environment
    */
-  async navigateToDevEnvHomepage(): Promise<void> {
-    await this.navigateToUrl(this.devEnvHomepageLink)
-  }
-
-  /**
-   * Navigate to the Prod homepage
-   * NOTE: We could use this method for after deploy smoke tests
-   */
-  async navigateToProdHomepage(): Promise<void> {
-    await this.navigateToUrl(this.prodHomepageLink)
+  async navigateToEnvHomepage(): Promise<void> {
+    //Navigating to the homeapage based on the baseUrl from the config file
+    await this.navigateToUrl('/')
   }
 
   /**

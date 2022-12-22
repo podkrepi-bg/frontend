@@ -12,9 +12,7 @@ test.describe('Homepage smoke tests - BG language version', async () => {
   })
 
   test.beforeEach(async () => {
-    // For local executions use method navigateToLocalhostHomepage();
-    // await homepage.navigateToLocalhostHomepage();
-    await homepage.navigateToDevEnvHomepage()
+    await homepage.navigateToEnvHomepage()
   })
 
   test.afterAll(async () => {
