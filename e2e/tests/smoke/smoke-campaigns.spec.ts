@@ -1,4 +1,6 @@
 import { test, expect, Page } from '@playwright/test'
+import { campaignData } from '../../data/campaigns-env.data'
+
 import { CampaignsPage } from '../../pages/web-pages/campaigns/campaigns.page'
 import { DonationPage } from '../../pages/web-pages/campaigns/donation.page'
 import { HeaderPage } from '../../pages/web-pages/header.page'
@@ -12,8 +14,7 @@ test.describe('Campaigns page smoke tests - BG language version', async () => {
   let headerPage: HeaderPage
   let campaignsPage: CampaignsPage
   let donationPage: DonationPage
-  const campaignDonationCrisisCenterPageUrl =
-    'podkrepi.bg/campaigns/donation/krizisen-centur-za-postradali-ot-nasilie-shans-za-nov-zhivot$'
+  const firstCampaignDonationUrl = `/donation/${campaignData[0].slug}`
 
   test.beforeAll(async ({ browser }) => {
     page = await browser.newPage()
@@ -52,7 +53,7 @@ test.describe('Campaigns page smoke tests - BG language version', async () => {
 
   test('Support Now action button navigates to the Donation page for particular campaign', async () => {
     await campaignsPage.clickActionButtonSupportNowCrisisCenter()
-    await donationPage.checkPageUrlByRegExp(campaignDonationCrisisCenterPageUrl)
+    await donationPage.checkPageUrlByRegExp(firstCampaignDonationUrl)
     expect
       .soft(await donationPage.isSelectAmountStepActive(), 'Select Amount step is not active.')
       .toBeTruthy()

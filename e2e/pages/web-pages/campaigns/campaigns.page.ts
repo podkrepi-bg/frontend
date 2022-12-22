@@ -1,4 +1,5 @@
 import { Page } from '@playwright/test'
+import { campaignData } from '../../../data/campaigns-env.data'
 import { LanguagesEnum } from '../../../data/enums/languages.enum'
 import { bgLocalizationCampaigns, enLocalizationCampaigns } from '../../../data/localization'
 import { HomePage } from '../home.page'
@@ -15,10 +16,8 @@ export class CampaignsPage extends HomePage {
   private readonly cardActions = '.MuiCardActions-root'
   private readonly cardActionButtons = this.cardActions + ' button'
   // Focused campaigns for tests (hardcoded text here because I didn't find it anywhere else)
-  protected readonly campaignSchoolVarnaText =
-    'Училище за деца с нарушено зрение гр. Варна - стая за ерготерапия'
-  protected readonly campaignCrisisCenterText =
-    'Кризисен център за пострадали от насилие - шанс за нов живот'
+  protected readonly firstCampaignTitle = campaignData[0].title
+  protected readonly secondCampaignTitle = campaignData[1].title
   // Main headings
   private readonly bgMainCampaignsHeading = bgLocalizationCampaigns.campaigns
   private readonly enMainCampaignsHeading = enLocalizationCampaigns.campaigns
@@ -41,7 +40,7 @@ export class CampaignsPage extends HomePage {
   async clickCampaignSchoolChildrenVarna(
     language: LanguagesEnum = LanguagesEnum.BG,
   ): Promise<void> {
-    await this.clickH5HeadingByText(language, this.campaignSchoolVarnaText, null)
+    await this.clickH5HeadingByText(language, this.firstCampaignTitle, null)
   }
 
   /**
@@ -85,7 +84,7 @@ export class CampaignsPage extends HomePage {
   async isSchoolChildrenVarnaHeadingVisible(
     language: LanguagesEnum = LanguagesEnum.BG,
   ): Promise<boolean> {
-    return this.isH1HeadingVisible(language, this.campaignSchoolVarnaText, null)
+    return this.isH1HeadingVisible(language, this.firstCampaignTitle, null)
   }
 
   /**
@@ -93,7 +92,7 @@ export class CampaignsPage extends HomePage {
    * @param {LanguagesEnum} language, the default is BG
    */
   async clickCampaignCrisisCenter(language: LanguagesEnum = LanguagesEnum.BG): Promise<void> {
-    await this.clickH5HeadingByText(language, this.campaignCrisisCenterText, null)
+    await this.clickH5HeadingByText(language, this.secondCampaignTitle, null)
   }
 
   /**
@@ -101,7 +100,7 @@ export class CampaignsPage extends HomePage {
    * @param {LanguagesEnum} language - the default value is BG
    */
   async isCrisiCenterHeading1Visible(language: LanguagesEnum = LanguagesEnum.BG): Promise<boolean> {
-    return this.isH1HeadingVisible(language, this.campaignCrisisCenterText, null)
+    return this.isH1HeadingVisible(language, this.secondCampaignTitle, null)
   }
 
   /**
@@ -109,7 +108,7 @@ export class CampaignsPage extends HomePage {
    * @param {LanguagesEnum} language - the default value is BG
    */
   async isCrisiCenterHeading4Visible(language: LanguagesEnum = LanguagesEnum.BG): Promise<boolean> {
-    return this.isH4HeadingVisible(language, this.campaignCrisisCenterText, null)
+    return this.isH4HeadingVisible(language, this.secondCampaignTitle, null)
   }
 
   /**
@@ -134,12 +133,12 @@ export class CampaignsPage extends HomePage {
   ): Promise<void> {
     if (language === LanguagesEnum.BG) {
       await this.clickCampaignCardButtonByHeading(
-        this.campaignCrisisCenterText,
+        this.secondCampaignTitle,
         this.bgSupportNowActionButtonText,
       )
     } else if (language === LanguagesEnum.EN) {
       await this.clickCampaignCardButtonByHeading(
-        this.campaignCrisisCenterText,
+        this.secondCampaignTitle,
         this.enSupportNowActionButtonText,
       )
     } else {

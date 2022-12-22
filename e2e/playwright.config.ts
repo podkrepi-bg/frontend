@@ -47,7 +47,7 @@ const config: PlaywrightTestConfig = {
       args: ['--use-fake-ui-for-media-stream', '--use-fake-device-for-media-stream'],
       downloadsPath: path.resolve(e2eReportsFolder, 'downloads'),
     },
-    baseURL: 'http://localhost:3040',
+    baseURL: process.env.STAGING ? 'https://dev.podkrepi.bg' : 'http://localhost:3040',
     viewport: { width: 1280, height: 720 },
     ignoreHTTPSErrors: true,
   },
