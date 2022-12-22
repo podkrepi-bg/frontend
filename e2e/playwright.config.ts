@@ -30,7 +30,7 @@ const config: PlaywrightTestConfig = {
   ],
   use: {
     browserName: 'chromium',
-    headless: false,
+    headless: true,
     screenshot: {
       mode: 'only-on-failure',
       fullPage: true,
