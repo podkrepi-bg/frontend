@@ -67,6 +67,13 @@ End to end testing is done on every PR with [Playwright](https://playwright.dev/
 
 Read more at [End-2-End Testing](https://github.com/podkrepi-bg/frontend/blob/master/e2e/README.md)
 
+## Stay up-to-date with latest progress
+
+Watch releases of this repository to be notified about future updates:
+
+![Peek 2022-12-23 11-14](https://user-images.githubusercontent.com/893608/209307945-e229aa4a-0106-49f4-aa7e-e498b08ca464.gif)
+
+
 ## Contributors ✨
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
