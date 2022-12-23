@@ -71,7 +71,7 @@ Read more at [End-2-End Testing](https://github.com/podkrepi-bg/frontend/blob/ma
 
 Watch releases of this repository to be notified about future updates:
 
-![Peek 2022-12-23 11-14](https://user-images.githubusercontent.com/893608/209307945-e229aa4a-0106-49f4-aa7e-e498b08ca464.gif)
+![Peek 2022-12-23 11-19](https://user-images.githubusercontent.com/893608/209308853-ddb8dfe8-1c42-4c18-be9c-4d55f8599d73.gif)
 
 
 ## Contributors ✨
