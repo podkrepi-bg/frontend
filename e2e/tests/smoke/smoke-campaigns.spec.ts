@@ -14,7 +14,7 @@ test.describe('Campaigns page smoke tests - BG language version', async () => {
   let headerPage: HeaderPage
   let campaignsPage: CampaignsPage
   let donationPage: DonationPage
-  const firstCampaignDonationUrl = `/donation/${campaignData[0].slug}`
+  const firstCampaignDonationUrl = `campaigns/donation/${campaignData[1].slug}`
 
   test.beforeAll(async ({ browser }) => {
     page = await browser.newPage()

@@ -8,6 +8,7 @@ import { enDonationRegions } from '../../../data/enums/donation-regions.enum'
 import { StripeCheckoutPage } from '../../../pages/web-pages/external/stripe-checkout.page'
 import { anonDonationTestData } from '../../../data/support-page-tests.data'
 import { LanguagesEnum } from '../../../data/enums/languages.enum'
+import { campaignData } from '../../../data/campaigns-env.data'
 
 // This spec contains E2E tests related to anonymous donation flow - fixed amount
 // The tests are dependent, the whole describe should be runned
@@ -21,21 +22,21 @@ test.describe.serial(
     let donationPage: DonationPage
     let stripeCheckoutPage: StripeCheckoutPage
     // For the URL is used RegExp so the tests will pass for each environment - localhost, dev, etc.
-    const campaignCrisisCenterPageUrl =
-      'podkrepi.bg/en/campaigns/krizisen-centur-za-postradali-ot-nasilie-shans-za-nov-zhivot$'
-    const campaignDonationCrisisCenterPageUrl =
-      'podkrepi.bg/en/campaigns/donation/krizisen-centur-za-postradali-ot-nasilie-shans-za-nov-zhivot$'
+    let campaignUrl: string
+    let campaignDonationUrl: string
     const testEmail = 'E2E_Test_Anon_Donation@e2etest.com'
     // Localization texts
     const enCardIncludeFeesText = enLocalizationOneTimeDonation['third-step']['card-include-fees']
 
-    test.beforeAll(async ({ browser }) => {
+    test.beforeAll(async ({ browser, baseURL }) => {
       page = await browser.newPage()
       homepage = new HomePage(page)
       headerPage = new HeaderPage(page)
       campaignsPage = new CampaignsPage(page)
       donationPage = new DonationPage(page)
       stripeCheckoutPage = new StripeCheckoutPage(page)
+      campaignUrl = `${baseURL}/en/campaigns/${campaignData[1].slug}`
+      campaignDonationUrl = `${baseURL}/en/campaigns/donation/${campaignData[1].slug}`
       // For local executions use method navigateToLocalhostHomepage();
       // await homepage.navigateToLocalhostHomepage();
       await homepage.navigateToEnvHomepage()
@@ -51,7 +52,7 @@ test.describe.serial(
       await campaignsPage.clickCampaignCrisisCenter()
 
       // We move from the common Campaigns page to the particular campain page
-      await campaignsPage.checkPageUrlByRegExp(campaignCrisisCenterPageUrl)
+      await campaignsPage.checkPageUrlByRegExp(campaignUrl)
       expect(
         await campaignsPage.isCrisiCenterHeading1Visible(),
         'The campaign H1 heading is not visible on the Campaign page.',
@@ -60,7 +61,7 @@ test.describe.serial(
 
     test('The total charge, fee tax and donation amount are visible on the Campaign page', async () => {
       await campaignsPage.clickDonationSupportButton()
-      await donationPage.checkPageUrlByRegExp(campaignDonationCrisisCenterPageUrl)
+      await donationPage.checkPageUrlByRegExp(campaignDonationUrl)
       expect
         .soft(
           await donationPage.isSelectAmountStepActive(LanguagesEnum.EN),

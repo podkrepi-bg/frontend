@@ -7,6 +7,7 @@ import { DonationPage } from '../../../pages/web-pages/campaigns/donation.page'
 import { bgDonationRegions } from '../../../data/enums/donation-regions.enum'
 import { StripeCheckoutPage } from '../../../pages/web-pages/external/stripe-checkout.page'
 import { anonDonationTestData } from '../../../data/support-page-tests.data'
+import { campaignData } from '../../../data/campaigns-env.data'
 
 // This spec contains E2E tests related to anonymous donation flow - custom amount
 // The tests are dependent, the whole describe should be runned
@@ -20,10 +21,8 @@ test.describe.serial(
     let donationPage: DonationPage
     let stripeCheckoutPage: StripeCheckoutPage
     // For the URL is used RegExp so the tests will pass for each environment - localhost, dev, etc.
-    const campaignSchoolVarnaPageUrl =
-      'podkrepi.bg/campaigns/uchilishe-za-deca-s-narusheno-zrenie-gr-varna-staya-za-ergoterapiya$'
-    const campaignDonationSchoolVarnaPageUrl =
-      'podkrepi.bg/campaigns/donation/uchilishe-za-deca-s-narusheno-zrenie-gr-varna-staya-za-ergoterapiya$'
+    const firstCampaignPageUrl = `/campaigns/${campaignData[0].slug}`
+    const firstCampaignDonationUrl = `/campaigns/donation/${campaignData[0].slug}`
     const testEmail = 'E2E_Test_Anon_Donation@e2etest.com'
     // Localization texts
     const otherAmountText = bgLocalizationOneTimeDonation['first-step'].other
@@ -49,7 +48,7 @@ test.describe.serial(
       await headerPage.clickDonateHeaderNavButton()
       await campaignsPage.clickCampaignSchoolChildrenVarna()
       // We move from the common Campaigns page to the particular campain page
-      await campaignsPage.checkPageUrlByRegExp(campaignSchoolVarnaPageUrl)
+      await campaignsPage.checkPageUrlByRegExp(firstCampaignPageUrl)
       expect(
         await campaignsPage.isSchoolChildrenVarnaHeadingVisible(),
         'The campaign H1 heading is not visible on the Campaign page.',
@@ -58,7 +57,7 @@ test.describe.serial(
 
     test('The total charge, fee tax and donation amount are visible on the Campaign page', async () => {
       await campaignsPage.clickDonationSupportButton()
-      await donationPage.checkPageUrlByRegExp(campaignDonationSchoolVarnaPageUrl)
+      await donationPage.checkPageUrlByRegExp(firstCampaignDonationUrl)
       expect
         .soft(await donationPage.isSelectAmountStepActive(), 'Select Amount step is not active.')
         .toBeTruthy()
