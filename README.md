@@ -73,7 +73,6 @@ Watch releases of this repository to be notified about future updates:
 
 ![Peek 2022-12-23 11-19](https://user-images.githubusercontent.com/893608/209308853-ddb8dfe8-1c42-4c18-be9c-4d55f8599d73.gif)
 
-
 ## Contributors ✨
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->

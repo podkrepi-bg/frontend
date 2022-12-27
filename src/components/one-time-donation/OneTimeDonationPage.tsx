@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { styled } from '@mui/material/styles'
 import { Box, Grid, Typography, useMediaQuery } from '@mui/material'
 
-import theme from 'common/theme'
+import theme, { montserrat } from 'common/theme'
 import { routes } from 'common/routes'
 import {
   backgroundCampaignPictureUrl,
@@ -15,7 +15,7 @@ import CenteredSpinner from 'components/common/CenteredSpinner'
 
 import DonationStepper from './Steps'
 import { Elements, PaymentElement } from '@stripe/react-stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
+import { Appearance, loadStripe } from '@stripe/stripe-js'
 import { useCreatePaymentIntent } from 'service/donation'
 import { Currencies } from 'components/withdrawals/WithdrawalTypes'
 import { useEffect } from 'react'
@@ -84,6 +84,22 @@ const stripePromise = loadStripe(
     'pk_test_51HmiW8JLlnbRmnT5Kb8o0mPGXdD1zee0ev97LZoDeaBv6JnH7S2UDYMNNBnVJhnQlZKCPCQ6BEbqb6h7an8ameJO00P1Mis8mw',
 )
 
+const appearance: Appearance = {
+  theme: 'stripe',
+  variables: {
+    colorPrimary: theme.palette.primary.main,
+    colorBackground: theme.palette.background.paper,
+    colorText: theme.palette.text.primary,
+    colorDanger: theme.palette.error.main,
+    fontFamily: "Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif",
+    fontSizeSm: theme.typography.pxToRem(12),
+    fontSizeBase: theme.typography.pxToRem(16),
+    fontSizeLg: theme.typography.pxToRem(18),
+    fontSizeXl: theme.typography.pxToRem(20),
+    spacingUnit: theme.spacing(0),
+    borderRadius: theme.borders.round,
+  },
+}
 export default function OneTimeDonation({ slug }: { slug: string }) {
   const mutation = useCreatePaymentIntent({ amount: 100, currency: Currencies.BGN })
   useEffect(() => {
@@ -146,7 +162,10 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
         ) : (
           <Elements
             stripe={stripePromise}
-            options={{ clientSecret: mutation.data?.data.client_secret ?? undefined }}>
+            options={{
+              clientSecret: mutation.data?.data.client_secret ?? undefined,
+              appearance,
+            }}>
             <PaymentElement />
           </Elements>
         )}
