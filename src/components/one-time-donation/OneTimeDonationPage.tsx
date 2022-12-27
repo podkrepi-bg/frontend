@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { styled } from '@mui/material/styles'
 import { Box, Grid, Typography, useMediaQuery } from '@mui/material'
 
-import theme, { montserrat } from 'common/theme'
+import theme from 'common/theme'
 import { routes } from 'common/routes'
 import {
   backgroundCampaignPictureUrl,
@@ -14,15 +14,6 @@ import { useViewCampaign } from 'common/hooks/campaigns'
 import CenteredSpinner from 'components/common/CenteredSpinner'
 
 import DonationStepper from './Steps'
-import { Elements, PaymentElement } from '@stripe/react-stripe-js'
-import { Appearance, loadStripe } from '@stripe/stripe-js'
-import { useCreatePaymentIntent } from 'service/donation'
-import { Currencies } from 'components/withdrawals/WithdrawalTypes'
-import { useEffect } from 'react'
-import getConfig from 'next/config'
-const {
-  publicRuntimeConfig: { STRIPE_PUBLIC_KEY },
-} = getConfig()
 
 const PREFIX = 'OneTimeDonationPage'
 
@@ -79,32 +70,8 @@ const scrollWindow = () => {
   }
   window.scrollTo({ top: calculatedScrollY, behavior: 'smooth' })
 }
-const stripePromise = loadStripe(
-  process.env.STRIPE_PUBLIC_KEY ||
-    'pk_test_51HmiW8JLlnbRmnT5Kb8o0mPGXdD1zee0ev97LZoDeaBv6JnH7S2UDYMNNBnVJhnQlZKCPCQ6BEbqb6h7an8ameJO00P1Mis8mw',
-)
 
-const appearance: Appearance = {
-  theme: 'stripe',
-  variables: {
-    colorPrimary: theme.palette.primary.main,
-    colorBackground: theme.palette.background.paper,
-    colorText: theme.palette.text.primary,
-    colorDanger: theme.palette.error.main,
-    fontFamily: "Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif",
-    fontSizeSm: theme.typography.pxToRem(12),
-    fontSizeBase: theme.typography.pxToRem(16),
-    fontSizeLg: theme.typography.pxToRem(18),
-    fontSizeXl: theme.typography.pxToRem(20),
-    spacingUnit: theme.spacing(0),
-    borderRadius: theme.borders.round,
-  },
-}
 export default function OneTimeDonation({ slug }: { slug: string }) {
-  const mutation = useCreatePaymentIntent({ amount: 100, currency: Currencies.BGN })
-  useEffect(() => {
-    mutation.mutate()
-  }, [])
   const { data, isLoading } = useViewCampaign(slug)
   const matches = useMediaQuery('sm')
   if (isLoading || !data) return <CenteredSpinner size="2rem" />
@@ -157,18 +124,6 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
           </Link>
           <DonationStepper onStepChange={scrollWindow} />
         </Grid>
-        {mutation.isLoading ? (
-          <CenteredSpinner size="2rem" />
-        ) : (
-          <Elements
-            stripe={stripePromise}
-            options={{
-              clientSecret: mutation.data?.data.client_secret ?? undefined,
-              appearance,
-            }}>
-            <PaymentElement />
-          </Elements>
-        )}
       </Grid>
     </StyledLayout>
   )
