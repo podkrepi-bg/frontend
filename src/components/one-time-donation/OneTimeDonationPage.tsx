@@ -14,6 +14,15 @@ import { useViewCampaign } from 'common/hooks/campaigns'
 import CenteredSpinner from 'components/common/CenteredSpinner'
 
 import DonationStepper from './Steps'
+import { Elements, PaymentElement } from '@stripe/react-stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
+import { useCreatePaymentIntent } from 'service/donation'
+import { Currencies } from 'components/withdrawals/WithdrawalTypes'
+import { useEffect } from 'react'
+import getConfig from 'next/config'
+const {
+  publicRuntimeConfig: { STRIPE_PUBLIC_KEY },
+} = getConfig()
 
 const PREFIX = 'OneTimeDonationPage'
 
@@ -70,8 +79,16 @@ const scrollWindow = () => {
   }
   window.scrollTo({ top: calculatedScrollY, behavior: 'smooth' })
 }
+const stripePromise = loadStripe(
+  process.env.STRIPE_PUBLIC_KEY ||
+    'pk_test_51HmiW8JLlnbRmnT5Kb8o0mPGXdD1zee0ev97LZoDeaBv6JnH7S2UDYMNNBnVJhnQlZKCPCQ6BEbqb6h7an8ameJO00P1Mis8mw',
+)
 
 export default function OneTimeDonation({ slug }: { slug: string }) {
+  const mutation = useCreatePaymentIntent({ amount: 100, currency: Currencies.BGN })
+  useEffect(() => {
+    mutation.mutate()
+  }, [])
   const { data, isLoading } = useViewCampaign(slug)
   const matches = useMediaQuery('sm')
   if (isLoading || !data) return <CenteredSpinner size="2rem" />
@@ -98,7 +115,6 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
             className={classes.banner}
           />
         </Box>
-
         <Grid
           item
           xs={12}
@@ -125,6 +141,15 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
           </Link>
           <DonationStepper onStepChange={scrollWindow} />
         </Grid>
+        {mutation.isLoading ? (
+          <CenteredSpinner size="2rem" />
+        ) : (
+          <Elements
+            stripe={stripePromise}
+            options={{ clientSecret: mutation.data?.data.client_secret ?? undefined }}>
+            <PaymentElement />
+          </Elements>
+        )}
       </Grid>
     </StyledLayout>
   )

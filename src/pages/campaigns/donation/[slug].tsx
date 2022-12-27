@@ -1,6 +1,6 @@
+import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { GetServerSideProps, GetServerSidePropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { QueryClient, dehydrate } from '@tanstack/react-query'
 
 import OneTimeDonation from 'components/one-time-donation/OneTimeDonationPage'
 import { endpoints } from 'service/apiEndpoints'

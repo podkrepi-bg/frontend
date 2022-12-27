@@ -90,7 +90,6 @@ function DetailsModal() {
                     ))}
                 </List>
               </Grid>
-              {/*  */}
             </DialogContent>
             <DialogActions>
               <Button autoFocus onClick={handleClose} color="primary">
