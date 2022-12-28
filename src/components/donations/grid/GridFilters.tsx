@@ -50,14 +50,14 @@ export default observer(function GridFilters() {
         adapterLocale={i18n.language === 'bg' ? bg : enUS}
         dateAdapter={AdapterDateFns}>
         <DateTimePicker
-          label={t('profile:donations.fromDate')}
+          label={t('donations:cta.from')}
           value={donationStore.donationFilters.date?.from || null}
           onChange={(date: Date | null | 'Invalid Date') => handleDatePick(date, 'from')}
           renderInput={(params) => <TextField size="small" sx={{ marginRight: 1 }} {...params} />}
           maxDate={donationStore.donationFilters.date?.to}
         />
         <DateTimePicker
-          label={t('profile:donations.toDate')}
+          label={t('donations:cta.to')}
           value={donationStore.donationFilters.date?.to || null}
           onChange={(date: Date | null | 'Invalid Date') => handleDatePick(date, 'to')}
           renderInput={(params) => <TextField size="small" sx={{ marginRight: 1 }} {...params} />}
