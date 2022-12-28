@@ -16,6 +16,7 @@ import {
 } from 'gql/donations'
 import { createCheckoutSession } from 'service/donation'
 import { CampaignDonationHistoryResponse } from 'gql/campaigns'
+import { DonationStatus, DonationType } from 'gql/donations.enums'
 
 export function usePriceList() {
   return useQuery<DonationPrice[]>([endpoints.donation.prices.url])
@@ -40,10 +41,18 @@ export function useDonationSession() {
   return mutation
 }
 
-export function useDonationsList(id?: string, pageindex?: number, pagesize?: number) {
+export function useDonationsList(
+  id?: string,
+  paginationData?: { pageIndex: number; pageSize: number },
+  filterData?: {
+    status: DonationStatus
+    type: DonationType
+    date: { from: Date | null; to: Date | null }
+  },
+) {
   const { data: session } = useSession()
   return useQuery<CampaignDonationHistoryResponse>(
-    [endpoints.donation.donationsList(id, pageindex, pagesize).url],
+    [endpoints.donation.donationsList(id, paginationData, filterData).url],
     {
       queryFn: authQueryFnFactory(session?.accessToken),
     },

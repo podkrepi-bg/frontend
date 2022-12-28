@@ -1,5 +1,5 @@
 import { Method } from 'axios'
-import { DonationStatus } from 'gql/donations.enums'
+import { DonationStatus, DonationType } from 'gql/donations.enums'
 
 type Endpoint = {
   url: string
@@ -49,13 +49,31 @@ export const endpoints = {
     createDonation: <Endpoint>{ url: '/donation/create-payment', method: 'POST' },
     createBankDonation: <Endpoint>{ url: '/donation/create-bank-payment', method: 'POST' },
     getDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'GET' },
-    donationsList: (campaignId?: string, pageindex?: number, pagesize?: number) =>
-      <Endpoint>{
-        url: campaignId
-          ? `/donation/list?campaignId=${campaignId}&pageindex=${pageindex}&pagesize=${pagesize}`
-          : `/donation/list?&pageindex=${pageindex}&pagesize=${pagesize}`,
-        method: 'GET',
+    donationsList: (
+      campaignId?: string,
+      paginationData?: { pageIndex: number; pageSize: number },
+      filterData?: {
+        status: DonationStatus
+        type: DonationType
+        date: { from: Date | null; to: Date | null }
       },
+    ) => {
+      const { pageIndex, pageSize } = paginationData as { pageIndex: number; pageSize: number }
+      const { status, type, date } = filterData as {
+        status: DonationStatus
+        type: DonationType
+        date: { from: Date | null; to: Date | null }
+      }
+      const { from, to } = date || {}
+
+      return <Endpoint>{
+        url: campaignId
+          ? `/donation/list?campaignId=${campaignId}&pageindex=${pageIndex}&pagesize=${pageSize}&status=${status}&type=${type}&from=${from}&to=${to}`
+          : `/donation/list?pageindex=${pageIndex}&pagesize=${pageSize}&status=${status}&type=${type}&from=${from}&to=${to}`,
+        method: 'GET',
+      }
+    },
+
     getDonations: (
       campaignId: string,
       status: DonationStatus,
