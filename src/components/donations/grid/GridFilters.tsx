@@ -13,14 +13,14 @@ export default observer(function GridFilters() {
   const { t, i18n } = useTranslation()
   const donationStatusOptions = {
     name: 'status',
-    label: 'Status',
+    label: 'donations:cta.status',
   }
 
   const donationStatusMenuItems = Object.values(DonationStatus)
 
   const donationTypeOptions = {
     name: 'type',
-    label: 'Type',
+    label: 'donations:cta.type',
   }
 
   const donationTypeMenuItems = Object.values(DonationType)

@@ -50,6 +50,8 @@
     "clear": "Clear",
     "close": "Close",
     "from": "From",
-    "to": "To"
+    "to": "To",
+    "status": "Status",
+    "type": "Type"
   }
 }

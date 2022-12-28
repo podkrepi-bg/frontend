@@ -36,7 +36,7 @@ export default function DropdownFilter(props: DropdownFilterProps) {
   }
 
   const selectElementStyle = {
-    minWidth: 100,
+    minWidth: 115,
     marginRight: 1,
     marginLeft: 1,
   }
@@ -48,14 +48,14 @@ export default function DropdownFilter(props: DropdownFilterProps) {
 
   return (
     <FormControl style={selectElementStyle}>
-      <InputLabel size="small">{label}</InputLabel>
+      <InputLabel size="small">{t(label)}</InputLabel>
       <Select
         startAdornment={
           value ? <Close style={closeIconStyle} onClick={(e) => handleClear(e, name, '')} /> : null
         }
         name={name}
         value={value}
-        label={label}
+        label={t(label)}
         size="small"
         onChange={(e) => handleChange(e)}>
         {menuItems.map((key) => {
