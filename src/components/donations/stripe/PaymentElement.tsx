@@ -1,12 +1,8 @@
-import { useEffect } from 'react'
 import getConfig from 'next/config'
 import { Appearance, loadStripe } from '@stripe/stripe-js'
 import { Elements, PaymentElement } from '@stripe/react-stripe-js'
 
 import theme from 'common/theme'
-import { useCreatePaymentIntent } from 'service/donation'
-import { Currencies } from 'components/withdrawals/WithdrawalTypes'
-import CenteredSpinner from 'components/common/CenteredSpinner'
 const {
   publicRuntimeConfig: { STRIPE_PUBLIC_KEY },
 } = getConfig()
@@ -33,18 +29,19 @@ const stripePromise = loadStripe(
     'pk_test_51HmiW8JLlnbRmnT5Kb8o0mPGXdD1zee0ev97LZoDeaBv6JnH7S2UDYMNNBnVJhnQlZKCPCQ6BEbqb6h7an8ameJO00P1Mis8mw',
 )
 
-export default function PaymentDetailsStripeForm() {
-  const mutation = useCreatePaymentIntent({ amount: 100, currency: Currencies.BGN })
-  useEffect(() => {
-    mutation.mutate()
-  }, [])
-  return mutation.isLoading ? (
-    <CenteredSpinner size="2rem" />
-  ) : (
+export type PaymentDetailsStripeFormProps = {
+  clientSecret: string
+}
+export default function PaymentDetailsStripeForm({ clientSecret }: PaymentDetailsStripeFormProps) {
+  //   const mutation = useCreatePaymentIntent({ amount: 100, currency: Currencies.BGN })
+  //   useEffect(() => {
+  //     mutation.mutate()
+  //   }, [])
+  return (
     <Elements
       stripe={stripePromise}
       options={{
-        clientSecret: mutation.data?.data.client_secret ?? undefined,
+        clientSecret: clientSecret,
         appearance,
       }}>
       <PaymentElement />
