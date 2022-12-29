@@ -37,10 +37,7 @@ const appearance: Appearance = {
   },
 }
 
-const stripePromise = loadStripe(
-  STRIPE_PUBLIC_KEY ||
-    'pk_test_51HmiW8JLlnbRmnT5Kb8o0mPGXdD1zee0ev97LZoDeaBv6JnH7S2UDYMNNBnVJhnQlZKCPCQ6BEbqb6h7an8ameJO00P1Mis8mw',
-)
+const stripePromise = loadStripe(STRIPE_PUBLIC_KEY)
 
 export type PaymentDetailsStripeFormProps = {
   clientSecret: string
