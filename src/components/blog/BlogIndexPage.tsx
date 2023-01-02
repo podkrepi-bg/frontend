@@ -13,7 +13,7 @@ import Pagination from '@mui/material/Pagination'
 
 import theme from 'common/theme'
 
-import { routes } from 'common/routes'
+import { baseUrl, routes } from 'common/routes'
 import Link from 'components/common/Link'
 import Layout from 'components/layout/Layout'
 
@@ -27,10 +27,14 @@ type Props = {
 }
 export default function BlogIndexPage({ posts, pagination }: Props) {
   const { t } = useTranslation()
-  const { pages, page } = pagination
+  const { pages, page, prev, next } = pagination
 
   return (
-    <Layout title={t('blog:title')} metaDescription={t('blog:description')}>
+    <Layout
+      title={t('blog:title')}
+      metaDescription={t('blog:description')}
+      prevPage={prev ? `${baseUrl}${routes.blog.indexPaginated(prev)}` : undefined}
+      nextPage={next ? `${baseUrl}${routes.blog.indexPaginated(next)}` : undefined}>
       <Container maxWidth="lg">
         <Grid2 container rowSpacing={2} columnSpacing={2}>
           {posts.map((post) => (
