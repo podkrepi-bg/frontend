@@ -4,15 +4,19 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import BlogIndexPage from 'components/blog/BlogIndexPage'
 import { createGhostClient } from 'common/util/ghost-client'
+import { isString } from 'lodash'
 
-export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ query, locale }) => {
   try {
+    const queriedPage = isString(query.page) && parseInt(query.page) > 0 ? parseInt(query.page) : 1
     const client = createGhostClient()
-    const posts = await client.posts.browse()
+    const posts = await client.posts.browse({ limit: '9', page: queriedPage })
+    const { pagination } = posts.meta
 
     return {
       props: {
         posts,
+        pagination,
         ...(await serverSideTranslations(locale ?? 'bg', ['common', 'blog'])),
       },
     }
@@ -22,6 +26,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
     return {
       props: {
         posts: [],
+        pagination: {},
         ...(await serverSideTranslations(locale ?? 'bg', ['common', 'blog'])),
       },
     }

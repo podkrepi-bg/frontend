@@ -47,6 +47,7 @@ export const routes = {
   reports: '/finance-report',
   blog: {
     index: '/blog',
+    indexPaginated: (page: number) => `/blog?page=${page}`,
     postBySlug: (slug: string) => `/blog/${slug}`,
     pageBySlug: (slug: string) => `/page/${slug}`,
   },
