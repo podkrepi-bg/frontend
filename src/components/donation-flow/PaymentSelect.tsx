@@ -1,20 +1,40 @@
-import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material'
+import React from 'react'
+import { Box, BoxProps, FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import theme from 'common/theme'
-import React from 'react'
 
-export const StyledFormControlLabel = styled(FormControlLabel)(() => ({
+export const StyledSelectItem = styled(Box)(() => ({
   '&:not(:last-child)': {
     borderBottom: `1px solid ${theme.borders.dark}`,
   },
   padding: theme.spacing(2),
   margin: 0,
+  display: 'flex',
+  justifyContent: 'space-between',
 }))
+interface PaymentSelectItemProps extends BoxProps {
+  control: React.ReactNode
+  icon: React.ReactNode
+}
+
+function PaymentSelectItem({ control, icon, ...rest }: PaymentSelectItemProps) {
+  return (
+    <StyledSelectItem {...rest}>
+      {control}
+      {icon}
+    </StyledSelectItem>
+  )
+}
+
+const options = [
+  { value: 'male', label: 'Male' },
+  { value: 'female', label: 'Female' },
+]
 
 function PaymentSelect() {
   const [value, setValue] = React.useState('female')
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>, value: string) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
   }
 
@@ -29,13 +49,21 @@ function PaymentSelect() {
           border: `1px solid ${theme.borders.dark}`,
           borderRadius: theme.borders.semiRound,
         }}>
-        <StyledFormControlLabel
-          sx={{ borderBottom: `1px solid ${theme.borders.dark}`, padding: theme.spacing(2) }}
-          value="female"
-          control={<Radio />}
-          label="Female"
-        />
-        <StyledFormControlLabel value="male" control={<Radio />} label="Male" />
+        {options.map((option) => (
+          <PaymentSelectItem
+            key={option.value}
+            onClick={() => setValue(option.value)}
+            control={
+              <FormControlLabel
+                value={option.value}
+                control={<Radio />}
+                label={option.label}
+                sx={{ margin: 0 }}
+              />
+            }
+            icon={<div>Icon</div>}
+          />
+        ))}
       </RadioGroup>
     </FormControl>
   )
