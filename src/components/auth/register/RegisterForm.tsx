@@ -15,6 +15,7 @@ import FormTextField from 'components/common/form/FormTextField'
 import PasswordField from 'components/common/form/PasswordField'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
+import EmailField from 'components/common/form/EmailField'
 
 export type RegisterFormData = {
   firstName: string
@@ -109,7 +110,7 @@ export default function RegisterForm({ initialValues = defaults }: RegisterFormP
           />
         </Grid>
         <Grid item xs={12}>
-          <FormTextField type="text" label="auth:fields.email" name="email" autoComplete="email" />
+          <EmailField label="auth:fields.email" name="email" />
         </Grid>
         <Grid item xs={12}>
           <PasswordField autoComplete="new-password" />

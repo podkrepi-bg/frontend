@@ -7,6 +7,7 @@ import { useRegister } from 'service/auth'
 import { AlertStore } from 'stores/AlertStore'
 import FormTextField from 'components/common/form/FormTextField'
 import PasswordField from 'components/common/form/PasswordField'
+import EmailField from 'components/common/form/EmailField'
 import { useFormikContext } from 'formik'
 import { OneTimeDonation } from 'gql/donations'
 import { RegisterFormData } from 'components/auth/register/RegisterForm'
@@ -80,12 +81,7 @@ export default function RegisterForm() {
           />
         </Grid>
         <Grid item xs={12}>
-          <FormTextField
-            type="text"
-            label="auth:fields.email"
-            name="registerEmail"
-            autoComplete="email"
-          />
+          <EmailField label="auth:fields.email" name="registerEmail" />
         </Grid>
         <Grid item xs={12}>
           <PasswordField name="registerPassword" autoComplete="new-password" />

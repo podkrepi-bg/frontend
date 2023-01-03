@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@mui/material'
-import FormTextField from 'components/common/form/FormTextField'
+import EmailField from 'components/common/form/EmailField'
 
 export default function AnonymousForm() {
   const { t } = useTranslation('one-time-donation')
@@ -16,7 +16,7 @@ export default function AnonymousForm() {
           <Typography>{t('anonymous-menu.info-start')}</Typography>
         </Grid>
         <Grid item xs={12} md={12}>
-          <FormTextField name="personsEmail" type="text" label="Email" fullWidth />
+          <EmailField name="personsEmail" label="Email" fullWidth />
         </Grid>
       </Grid>
     </>

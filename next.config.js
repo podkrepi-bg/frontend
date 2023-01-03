@@ -22,10 +22,6 @@ const moduleExports = {
     SENTRY_DSN: process.env.SENTRY_DSN,
     DEPLOY_TAG: process.env.DEPLOY_TAG,
   },
-  serverRuntimeConfig: {
-    DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
-    DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
-  },
   publicRuntimeConfig: {
     APP_ENV: process.env.APP_ENV,
     API_URL: process.env.API_URL,

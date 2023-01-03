@@ -6,6 +6,7 @@ import GenericForm from 'components/common/form/GenericForm'
 import { name, phone, email } from 'common/form/validation'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
+import EmailField from 'components/common/form/EmailField'
 import { AdminPersonFormData, AdminPersonResponse, PersonResponse } from 'gql/person'
 import { useMutation, UseQueryResult } from '@tanstack/react-query'
 import { AxiosError, AxiosResponse } from 'axios'
@@ -100,13 +101,7 @@ export default function PersonForm({ initialValues = defaults }: FormProps) {
             /> */}
           </Grid>
           <Grid item xs={12}>
-            <FormTextField
-              inputMode="email"
-              type="text"
-              label="person:admin.fields.email"
-              name="email"
-              autoComplete="email"
-            />
+            <EmailField label="person:admin.fields.email" name="email" />
           </Grid>
           <Grid item xs={12}>
             <FormTextField

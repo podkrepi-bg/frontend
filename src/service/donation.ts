@@ -1,3 +1,4 @@
+import Stripe from 'stripe'
 import { AxiosResponse } from 'axios'
 import { useSession } from 'next-auth/react'
 
@@ -14,12 +15,24 @@ import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
 import { authConfig } from 'service/restRequests'
 import { UploadBankTransactionsFiles } from 'components/bank-transactions-file/types'
+import { useMutation } from '@tanstack/react-query'
 
 export const createCheckoutSession = async (data: CheckoutSessionInput) => {
   return await apiClient.post<CheckoutSessionInput, AxiosResponse<CheckoutSessionResponse>>(
     endpoints.donation.createCheckoutSession.url,
     data,
   )
+}
+
+export function useCreatePaymentIntent(params: Stripe.PaymentIntentCreateParams) {
+  //Create payment intent useing the react-query mutation
+  const { data: session } = useSession()
+  return useMutation(async () => {
+    return await apiClient.post<
+      Stripe.PaymentIntentCreateParams,
+      AxiosResponse<Stripe.PaymentIntent>
+    >(endpoints.donation.createPaymentIntent.url, params, authConfig(session?.accessToken))
+  })
 }
 
 export function useCreateDonation() {

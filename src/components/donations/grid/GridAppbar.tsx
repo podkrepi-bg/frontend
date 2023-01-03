@@ -24,7 +24,7 @@ export default function GridAppbar() {
     mutationFn: useExportToExcel(),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: ({ data }) => {
-      downloadFile('Donations.xls', data)
+      downloadFile('Donations.xlsx', data)
       AlertStore.show(t('common:alerts.success'), 'success')
     },
   })

@@ -16,6 +16,7 @@ import FormTextField from 'components/common/form/FormTextField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import { name, companyName, phone, email } from 'common/form/validation'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
+import EmailField from 'components/common/form/EmailField'
 
 const validationSchema: yup.SchemaOf<ContactFormData> = yup
   .object()
@@ -110,13 +111,7 @@ export default function ContactForm({ initialValues = defaults }: ContactFormPro
             />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField
-              inputMode="email"
-              type="text"
-              label="auth:fields.email"
-              name="email"
-              autoComplete="email"
-            />
+            <EmailField label="auth:fields.email" name="email" />
           </Grid>
           <Grid item xs={12}>
             <FormTextField

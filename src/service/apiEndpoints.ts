@@ -46,6 +46,7 @@ export const endpoints = {
     singlePrices: <Endpoint>{ url: '/donation/prices/single', method: 'GET' },
     recurringPrices: <Endpoint>{ url: '/donation/prices/recurring', method: 'GET' },
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
+    createPaymentIntent: <Endpoint>{ url: '/donation/create-payment-intent', method: 'POST' },
     createDonation: <Endpoint>{ url: '/donation/create-payment', method: 'POST' },
     createBankDonation: <Endpoint>{ url: '/donation/create-bank-payment', method: 'POST' },
     getDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'GET' },
@@ -232,7 +233,10 @@ export const endpoints = {
   },
   donationWish: {
     createDonationWish: <Endpoint>{ url: '/donation-wish', method: 'POST' },
-    listDonationWishes: (campaignId: string) =>
-      <Endpoint>{ url: `/donation-wish/list/${campaignId}`, method: 'GET' },
+    listDonationWishes: (campaignId?: string, pageIndex?: number, pageSize?: number) =>
+      <Endpoint>{
+        url: `/donation-wish/list/${campaignId}?pageindex=${pageIndex}&pagesize=${pageSize}`,
+        method: 'GET',
+      },
   },
 }
