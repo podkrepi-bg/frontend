@@ -2,6 +2,7 @@ import React from 'react'
 import { Box, BoxProps, FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import theme from 'common/theme'
+import CardIcon from './CardIcon'
 
 export const StyledSelectItem = styled(Box)(() => ({
   '&:not(:last-child)': {
@@ -11,7 +12,10 @@ export const StyledSelectItem = styled(Box)(() => ({
   margin: 0,
   display: 'flex',
   justifyContent: 'space-between',
+  alignItems: 'center',
+  cursor: 'pointer',
 }))
+
 interface PaymentSelectItemProps extends BoxProps {
   control: React.ReactNode
   icon: React.ReactNode
@@ -54,14 +58,9 @@ function PaymentSelect() {
             key={option.value}
             onClick={() => setValue(option.value)}
             control={
-              <FormControlLabel
-                value={option.value}
-                control={<Radio />}
-                label={option.label}
-                sx={{ margin: 0 }}
-              />
+              <FormControlLabel value={option.value} control={<Radio />} label={option.label} />
             }
-            icon={<div>Icon</div>}
+            icon={<CardIcon sx={{ width: 50, height: 50 }} />}
           />
         ))}
       </RadioGroup>
