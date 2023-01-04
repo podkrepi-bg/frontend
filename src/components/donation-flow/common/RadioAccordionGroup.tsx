@@ -13,8 +13,8 @@ import {
 } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import theme from 'common/theme'
-import CardIcon from './CardIcon'
-import BankIcon from './BankIcon'
+import CardIcon from '../icons/CardIcon'
+import BankIcon from '../icons/BankIcon'
 
 export const StyledRadioAccordionItem = styled(Box)(() => ({
   '&:not(:last-child)': {
