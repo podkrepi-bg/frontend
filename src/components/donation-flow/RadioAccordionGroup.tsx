@@ -2,12 +2,14 @@ import React from 'react'
 import {
   Box,
   BoxProps,
+  Button,
   Collapse,
   FormControl,
   FormControlLabel,
   Radio,
   RadioGroup,
   RadioGroupProps,
+  TextField,
 } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import theme from 'common/theme'
@@ -35,7 +37,12 @@ export const testRadioOptions: Option[] = [
   {
     value: 'card',
     label: 'Card',
-    content: <div>TODO: Add card form</div>,
+    content: (
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <TextField sx={{ mb: 3 }} placeholder="Card info" />
+        <Button variant="contained">Content</Button>
+      </div>
+    ),
     icon: <CardIcon sx={{ width: 50, height: 50 }} />,
   },
   {
@@ -75,10 +82,11 @@ type Option = {
 
 export interface RadioAccordionGroupProps extends RadioGroupProps {
   options: Option[]
+  defaultValue?: string
 }
 
-function RadioAccordionGroup({ options }: RadioAccordionGroupProps) {
-  const [value, setValue] = React.useState('card')
+function RadioAccordionGroup({ options, defaultValue }: RadioAccordionGroupProps) {
+  const [value, setValue] = React.useState(defaultValue)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
