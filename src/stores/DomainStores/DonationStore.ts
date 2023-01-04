@@ -24,12 +24,8 @@ class DonationStore {
 
   constructor() {
     makeObservable(this, {
-      donations: observable,
       donationFilters: observable,
       setDonationFilters: action,
-      clear: action,
-      setDonations: action,
-      getDonations: computed,
       getDonationFilters: computed,
     })
   }

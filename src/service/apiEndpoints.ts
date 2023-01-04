@@ -1,5 +1,6 @@
 import { Method } from 'axios'
-import { DonationStatus, DonationType } from 'gql/donations.enums'
+import { DonationStatus } from 'gql/donations.enums'
+import { FilterData, PaginationData } from 'gql/types'
 
 type Endpoint = {
   url: string
@@ -52,19 +53,11 @@ export const endpoints = {
     getDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'GET' },
     donationsList: (
       campaignId?: string,
-      paginationData?: { pageIndex: number; pageSize: number },
-      filterData?: {
-        status: DonationStatus
-        type: DonationType
-        date: { from: Date | null; to: Date | null }
-      },
+      paginationData?: PaginationData,
+      filterData?: FilterData,
     ) => {
-      const { pageIndex, pageSize } = paginationData as { pageIndex: number; pageSize: number }
-      const { status, type, date } = filterData as {
-        status: DonationStatus
-        type: DonationType
-        date: { from: Date | null; to: Date | null }
-      }
+      const { pageIndex, pageSize } = paginationData as PaginationData
+      const { status, type, date } = filterData as FilterData
       const { from, to } = date || {}
 
       return <Endpoint>{

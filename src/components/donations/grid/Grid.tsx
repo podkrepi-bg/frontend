@@ -62,12 +62,6 @@ export default observer(function Grid() {
 
   const { data }: UseQueryResult<PersonResponse[]> = usePersonList()
 
-  useEffect(() => {
-    if (donations) {
-      donationStore.setDonations(donations)
-    }
-  }, [donations])
-
   const RenderVaultCell = ({ params }: RenderCellProps) => {
     return <>{params.row.targetVault.name}</>
   }
@@ -204,7 +198,7 @@ export default observer(function Grid() {
             overflowX: 'hidden',
             borderRadius: '0 0 13px 13px',
           }}
-          rows={donationStore.donations || []}
+          rows={donations || []}
           columns={columns}
           rowsPerPageOptions={[5, 10, 20]}
           pageSize={paginationData.pageSize}
