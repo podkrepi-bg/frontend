@@ -14,6 +14,7 @@ import { useViewCampaign } from 'common/hooks/campaigns'
 import CenteredSpinner from 'components/common/CenteredSpinner'
 
 import DonationStepper from './Steps'
+// import RadioAccordionGroup, { testRadioOptions } from 'components/donation-flow/RadioAccordionGroup'
 // import PaymentDetailsStripeForm from 'components/donations/stripe/PaymentDetailsStripeForm'
 
 const PREFIX = 'OneTimeDonationPage'
@@ -122,6 +123,7 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
             className={classes.beneficiaryAvatar}
           />
         </Grid>
+
         <Grid className={classes.stepperWrapper}>
           <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)} passHref>
             <Typography
@@ -140,6 +142,7 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
             />
           )} */}
           <DonationStepper onStepChange={scrollWindow} />
+          {/* <RadioAccordionGroup options={testRadioOptions} /> */}
         </Grid>
       </Grid>
     </StyledLayout>
