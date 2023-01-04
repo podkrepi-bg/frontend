@@ -19,6 +19,7 @@ export const StyledRadioCardItem = styled(Card)(() => ({
   padding: theme.spacing(2),
   margin: 0,
   cursor: 'pointer',
+  border: `1px solid ${theme.borders.dark}`,
 }))
 
 interface StyledRadioCardItemProps extends CardProps {
