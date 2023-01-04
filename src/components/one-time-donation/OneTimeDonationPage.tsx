@@ -14,7 +14,7 @@ import { useViewCampaign } from 'common/hooks/campaigns'
 import CenteredSpinner from 'components/common/CenteredSpinner'
 
 import DonationStepper from './Steps'
-import PaymentSelect from 'components/donation-flow/PaymentSelect'
+import RadioAccordionGroup, { testRadioOptions } from 'components/donation-flow/RadioAccordionGroup'
 // import PaymentDetailsStripeForm from 'components/donations/stripe/PaymentDetailsStripeForm'
 
 const PREFIX = 'OneTimeDonationPage'
@@ -142,7 +142,7 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
             />
           )} */}
           <DonationStepper onStepChange={scrollWindow} />
-          <PaymentSelect />
+          <RadioAccordionGroup options={testRadioOptions} />
         </Grid>
       </Grid>
     </StyledLayout>
