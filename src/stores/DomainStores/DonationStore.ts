@@ -21,6 +21,7 @@ class DonationStore {
       to: '',
     },
   }
+  donationSearch: string
 
   constructor() {
     makeObservable(this, {

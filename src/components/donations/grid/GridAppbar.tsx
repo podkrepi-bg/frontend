@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
+import { Box, TextField, Toolbar, Tooltip, Typography } from '@mui/material'
 import { Add as AddIcon, Receipt, GetApp as DownloadFileIcon } from '@mui/icons-material'
 
 import { routes } from 'common/routes'
@@ -8,6 +8,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useExportToExcel } from 'service/donation'
 import { AlertStore } from 'stores/AlertStore'
 import { downloadFile } from './../../../common/util/downloadFile'
+import { useState } from 'react'
 
 const addIconStyles = {
   background: '#4ac3ff',
@@ -28,6 +29,12 @@ export default function GridAppbar() {
       AlertStore.show(t('common:alerts.success'), 'success')
     },
   })
+  const [searchValue, setSearchValue] = useState('')
+
+  const handleSearch = (e) => {
+    setSearchValue(e.target.value)
+    setDonationSearch(e.target.value)
+  }
 
   return (
     <Toolbar
@@ -41,6 +48,14 @@ export default function GridAppbar() {
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'start', pt: 1 }}>
         <Typography>{t('donations:all')}</Typography>
       </Box>
+      <TextField
+        label="Search"
+        type="search"
+        variant="outlined"
+        size="small"
+        value={searchValue}
+        onChange={handleSearch}
+      />
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Tooltip title={t('donations:form-heading-bank-transactions-file') || ''}>
