@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { styled } from '@mui/material/styles'
 import { useFormikContext } from 'formik'
 
@@ -6,6 +6,8 @@ import { OneTimeDonation } from 'gql/donations'
 import RadioCardGroup from '../common/RadioCardGroup'
 import CardIcon from '../icons/CardIcon'
 import BankIcon from '../icons/BankIcon'
+import PaymentDetailsStripeForm from '../stripe/PaymentDetailsStripeForm'
+import { DonationFlowContext } from '../DonationFlowContext'
 
 const PREFIX = 'AMOUNT'
 
@@ -22,6 +24,10 @@ const Root = styled('div')(() => ({
 
 export default function PaymentMethod() {
   const formik = useFormikContext<OneTimeDonation>()
+  const DonationContext = useContext(DonationFlowContext)
+  if (!DonationContext.stripePaymentIntent) {
+    return null
+  }
   const options = [
     {
       value: 'card',
@@ -38,6 +44,13 @@ export default function PaymentMethod() {
   return (
     <Root>
       <RadioCardGroup columns={2} name="payment" options={options} />
+      {DonationContext.stripePaymentIntent ? (
+        <PaymentDetailsStripeForm
+          clientSecret={DonationContext.stripePaymentIntent.client_secret as string}
+        />
+      ) : (
+        'There is a problem with picking your price. Please try again later.'
+      )}
     </Root>
   )
 }
