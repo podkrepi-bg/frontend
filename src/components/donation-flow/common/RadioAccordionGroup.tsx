@@ -84,7 +84,6 @@ type Option = {
 export interface RadioAccordionGroupProps extends RadioGroupProps {
   options: Option[]
   name: string
-  defaultValue?: string
 }
 
 function RadioAccordionGroup({ options, name, ...rest }: RadioAccordionGroupProps) {

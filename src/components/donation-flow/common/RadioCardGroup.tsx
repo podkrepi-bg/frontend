@@ -14,6 +14,7 @@ import { styled, lighten } from '@mui/material/styles'
 import theme from 'common/theme'
 import CardIcon from '../icons/CardIcon'
 import BankIcon from '../icons/BankIcon'
+import { useField } from 'formik'
 
 export const StyledRadioCardItem = styled(Card)(() => ({
   padding: theme.spacing(2),
@@ -68,21 +69,20 @@ type Option = {
 
 export interface RadioCardGroupProps extends RadioGroupProps {
   options: Option[]
-  defaultValue?: string
+  name: string
 }
 
-function RadioCardGroup({ options, defaultValue }: RadioCardGroupProps) {
-  const [value, setValue] = React.useState(defaultValue)
-
+function RadioCardGroup({ options, name }: RadioCardGroupProps) {
+  const [field, meta, { setValue }] = useField(name)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
   }
   return (
-    <FormControl>
+    <FormControl required component="fieldset" error={Boolean(meta.error) && Boolean(meta.touched)}>
       <RadioGroup
         aria-labelledby="TODO: Label by the title"
         name="controlled-radio-buttons-group"
-        value={value}
+        value={field.value}
         onChange={handleChange}>
         <Grid2 spacing={2} container>
           {options.map((option) => (
@@ -109,7 +109,7 @@ function RadioCardGroup({ options, defaultValue }: RadioCardGroupProps) {
                   />
                 }
                 icon={option.icon}
-                selected={value === option.value}
+                selected={field.value === option.value}
               />
             </Grid2>
           ))}
