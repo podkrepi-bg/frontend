@@ -1,26 +1,165 @@
-import React from 'react'
-import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
-import { useSinglePriceList } from 'common/hooks/donation'
-import { moneyPublic } from 'common/util/money'
-import { useTranslation } from 'react-i18next'
+import React, { useEffect } from 'react'
+import { Trans, useTranslation } from 'next-i18next'
+import { useMediaQuery, Box, Collapse, Grid, InputAdornment, Typography } from '@mui/material'
+import { styled } from '@mui/material/styles'
+import { useField, useFormikContext } from 'formik'
 
-function ChooseAmount() {
-  const { data: prices } = useSinglePriceList()
-  const { t } = useTranslation('one-time-donation')
-  return (
-    <RadioButtonGroup
-      name="payment"
-      options={
-        prices
-          ?.sort((a, b) => Number(a.unit_amount) - Number(b.unit_amount))
-          .map((v) => ({
-            label: moneyPublic(Number(v.unit_amount)),
-            value: String(Number(v.unit_amount)),
-          }))
-          .concat({ label: t('first-step.other'), value: 'other' }) || []
-      }
-    />
-  )
+import { OneTimeDonation } from 'gql/donations'
+import { CardRegion } from 'gql/donations.enums'
+
+import theme from 'common/theme'
+import { useSinglePriceList } from 'common/hooks/donation'
+import { moneyPublic, moneyPublicDecimals2, toMoney } from 'common/util/money'
+
+import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
+import FormTextField from 'components/common/form/FormTextField'
+import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../stripe/stripe-fee-calculator'
+import CheckboxField from 'components/common/form/CheckboxField'
+import FormSelectField from 'components/common/form/FormSelectField'
+
+const PREFIX = 'FirstStep'
+
+const classes = {
+  divider: `${PREFIX}-divider`,
 }
 
-export default ChooseAmount
+// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
+const Root = styled('div')(() => ({
+  [`& .${classes.divider}`]: {
+    border: '1px solid #000000',
+  },
+}))
+
+export default function FirstStep() {
+  const { data: prices } = useSinglePriceList()
+  const { t } = useTranslation('one-time-donation')
+  const mobile = useMediaQuery('(max-width:600px)')
+
+  const [amount] = useField('amount')
+  const [amountWithFees] = useField('amountWithFees')
+  const [amountWithoutFees] = useField<number>('amountWithoutFees')
+
+  const formik = useFormikContext<OneTimeDonation>()
+
+  useEffect(() => {
+    const chosenAmount =
+      amount.value === 'other' ? toMoney(formik.values.otherAmount) : Number(formik.values.amount)
+
+    if (formik.values.cardIncludeFees) {
+      formik.setFieldValue('amountWithoutFees', chosenAmount)
+      formik.setFieldValue(
+        'amountWithFees',
+        stripeIncludeFeeCalculator(chosenAmount, formik.values.cardRegion),
+      )
+    } else {
+      formik.setFieldValue(
+        'amountWithoutFees',
+        chosenAmount - stripeFeeCalculator(chosenAmount, formik.values.cardRegion),
+      )
+      formik.setFieldValue('amountWithFees', chosenAmount)
+    }
+  }, [
+    formik.values.otherAmount,
+    formik.values.amount,
+    formik.values.cardIncludeFees,
+    formik.values.cardRegion,
+  ])
+
+  return (
+    <Root>
+      <Typography variant="h4" sx={{ marginTop: theme.spacing(3) }}>
+        {t('first-step.amount')}
+      </Typography>
+      <Box marginTop={theme.spacing(4)}>
+        <RadioButtonGroup
+          name="amount"
+          options={
+            prices
+              ?.sort((a, b) => Number(a.unit_amount) - Number(b.unit_amount))
+              .map((v) => ({
+                label: moneyPublic(Number(v.unit_amount)),
+                value: String(Number(v.unit_amount)),
+              }))
+              .concat({ label: t('first-step.other'), value: 'other' }) || []
+          }
+        />
+        <Collapse in={amount.value === 'other'} timeout="auto">
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            style={
+              !mobile
+                ? {
+                    float: 'right',
+                    marginTop: -50,
+                    width: '49%',
+                  }
+                : { marginTop: theme.spacing(2) }
+            }>
+            <FormTextField
+              name="otherAmount"
+              type="number"
+              label={t('first-step.amount')}
+              InputProps={{
+                style: { fontSize: 14, padding: 7 },
+                endAdornment: (
+                  <InputAdornment variant="filled" position="end">
+                    {t('first-step.BGN')}
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Grid>
+        </Collapse>
+        {amount.value ? (
+          <Box sx={{ mt: 4 }}>
+            <Grid container>
+              <Grid item xs={8}>
+                <CheckboxField
+                  name="cardIncludeFees"
+                  label={
+                    <Typography variant="body2">{t('third-step.card-include-fees')}</Typography>
+                  }
+                />
+              </Grid>
+              <Grid item xs={4}>
+                <FormSelectField
+                  name="cardRegion"
+                  label={t('third-step.card-region.title')}
+                  options={[
+                    {
+                      key: CardRegion.EU,
+                      value: CardRegion.EU,
+                      name: t(`third-step.card-region.${CardRegion.EU}`),
+                    },
+                    {
+                      key: CardRegion.UK,
+                      value: CardRegion.UK,
+                      name: t(`third-step.card-region.${CardRegion.UK}`),
+                    },
+                    {
+                      key: CardRegion.Other,
+                      value: CardRegion.Other,
+                      name: t(`third-step.card-region.${CardRegion.Other}`),
+                    },
+                  ]}
+                  InputProps={{ style: { fontSize: 14 } }}
+                />
+              </Grid>
+            </Grid>
+            <Trans
+              t={t}
+              i18nKey="third-step.card-calculated-fees"
+              values={{
+                amount: moneyPublicDecimals2(amountWithoutFees.value),
+                fees: moneyPublicDecimals2(amountWithFees.value - amountWithoutFees.value),
+                totalAmount: moneyPublicDecimals2(amountWithFees.value),
+              }}
+            />
+          </Box>
+        ) : null}
+      </Box>
+    </Root>
+  )
+}

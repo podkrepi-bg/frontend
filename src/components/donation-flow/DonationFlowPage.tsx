@@ -14,6 +14,7 @@ import { useViewCampaign } from 'common/hooks/campaigns'
 import CenteredSpinner from 'components/common/CenteredSpinner'
 import ChooseAmount from './steps/ChooseAmount'
 import { DonationFlowForm } from './DonationFlowForm'
+import { DonationFlowProvider } from './DonationFlowContext'
 // import RadioAccordionGroup, { testRadioOptions } from 'components/donation-flow/RadioAccordionGroup'
 // import PaymentDetailsStripeForm from 'components/donations/stripe/PaymentDetailsStripeForm'
 
@@ -80,50 +81,51 @@ export default function DonationFlowPage({ slug }: { slug: string }) {
   const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
 
   return (
-    <StyledLayout maxWidth={false}>
-      <Grid
-        container
-        component="section"
-        maxWidth="lg"
-        justifyContent="center"
-        m="0 auto"
-        marginTop={theme.spacing(matches ? 20 : 25)}>
-        <Box className={classes.bannerWrapper}>
-          {/* A11Y TODO: Translate alt text */}
-          <Image
-            src={bannerSource}
-            alt="Campaign banner image"
-            sizes="100vw"
-            fill
-            className={classes.banner}
-          />
-        </Box>
+    <DonationFlowProvider>
+      <StyledLayout maxWidth={false}>
         <Grid
-          item
-          xs={12}
+          container
+          component="section"
+          maxWidth="lg"
           justifyContent="center"
-          p={4}
-          className={classes.beneficiaryAvatarWrapper}>
-          <Image
-            src={beneficiaryAvatarSource}
-            // A11Y TODO: Translate alt text
-            alt={`Image of ${campaign.beneficiary.person?.firstName} ${campaign.beneficiary.person?.lastName}`}
-            width={250}
-            height={250}
-            className={classes.beneficiaryAvatar}
-          />
-        </Grid>
+          m="0 auto"
+          marginTop={theme.spacing(matches ? 20 : 25)}>
+          <Box className={classes.bannerWrapper}>
+            {/* A11Y TODO: Translate alt text */}
+            <Image
+              src={bannerSource}
+              alt="Campaign banner image"
+              sizes="100vw"
+              fill
+              className={classes.banner}
+            />
+          </Box>
+          <Grid
+            item
+            xs={12}
+            justifyContent="center"
+            p={4}
+            className={classes.beneficiaryAvatarWrapper}>
+            <Image
+              src={beneficiaryAvatarSource}
+              // A11Y TODO: Translate alt text
+              alt={`Image of ${campaign.beneficiary.person?.firstName} ${campaign.beneficiary.person?.lastName}`}
+              width={250}
+              height={250}
+              className={classes.beneficiaryAvatar}
+            />
+          </Grid>
 
-        <Grid className={classes.stepperWrapper}>
-          <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)} passHref>
-            <Typography
-              variant="h4"
-              color="info.dark"
-              sx={{ textAlign: 'center', marginBottom: theme.spacing(4) }}>
-              {campaign.title}
-            </Typography>
-          </Link>
-          {/* {paymentIntentMutation.isLoading ? (
+          <Grid className={classes.stepperWrapper}>
+            <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)} passHref>
+              <Typography
+                variant="h4"
+                color="info.dark"
+                sx={{ textAlign: 'center', marginBottom: theme.spacing(4) }}>
+                {campaign.title}
+              </Typography>
+            </Link>
+            {/* {paymentIntentMutation.isLoading ? (
             <CenteredSpinner size="2rem" />
           ) : (
             <PaymentDetailsStripeForm
@@ -131,10 +133,11 @@ export default function DonationFlowPage({ slug }: { slug: string }) {
               containerProps={{ maxWidth: 400 }}
             />
           )} */}
-          {/* <RadioAccordionGroup options={testRadioOptions} /> */}
-          <DonationFlowForm />
+            {/* <RadioAccordionGroup options={testRadioOptions} /> */}
+            <DonationFlowForm />
+          </Grid>
         </Grid>
-      </Grid>
-    </StyledLayout>
+      </StyledLayout>
+    </DonationFlowProvider>
   )
 }

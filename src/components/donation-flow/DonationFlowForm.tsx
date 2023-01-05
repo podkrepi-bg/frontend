@@ -1,12 +1,18 @@
 import React from 'react'
-import yup from 'yup'
+import * as yup from 'yup'
 import { Form, Formik } from 'formik'
 import { FirstStep } from 'gql/donations'
 import ChooseAmount from './steps/ChooseAmount'
+import { CardRegion } from 'gql/donations.enums'
+import SubmitButton from 'components/common/form/SubmitButton'
 
-const initialValues: FirstStep = {
+const initialValues = {
   amount: '',
   payment: 'card',
+  amountWithFees: 0,
+  cardIncludeFees: false,
+  cardRegion: CardRegion.EU,
+  otherAmount: 0,
 }
 
 export const validationSchema: yup.SchemaOf<FirstStep> = yup
@@ -35,7 +41,7 @@ export function DonationFlowForm() {
       }}
       validateOnMount
       validateOnBlur>
-      {({ isSubmitting, handleSubmit, isValid }) => (
+      {({ handleSubmit }) => (
         <Form
           onSubmit={handleSubmit}
           style={{
@@ -45,6 +51,7 @@ export function DonationFlowForm() {
           }}
           autoComplete="off">
           <ChooseAmount />
+          <SubmitButton>Submit</SubmitButton>
         </Form>
       )}
     </Formik>
