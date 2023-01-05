@@ -4,6 +4,7 @@ import { Elements, PaymentElement } from '@stripe/react-stripe-js'
 
 import theme from 'common/theme'
 import { Box, BoxProps } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 const {
   publicRuntimeConfig: { STRIPE_PUBLIC_KEY },
 } = getConfig()
@@ -47,12 +48,14 @@ export default function PaymentDetailsStripeForm({
   clientSecret,
   containerProps,
 }: PaymentDetailsStripeFormProps) {
+  const { i18n } = useTranslation()
   return (
     <Elements
       stripe={stripePromise}
       options={{
         clientSecret: clientSecret,
         appearance,
+        locale: i18n.language,
       }}>
       <Box {...containerProps}>
         <PaymentElement />
