@@ -12,6 +12,7 @@ import {
   TextField,
 } from '@mui/material'
 import { styled } from '@mui/material/styles'
+import { useField } from 'formik'
 import theme from 'common/theme'
 import CardIcon from '../icons/CardIcon'
 import BankIcon from '../icons/BankIcon'
@@ -82,27 +83,26 @@ type Option = {
 
 export interface RadioAccordionGroupProps extends RadioGroupProps {
   options: Option[]
+  name: string
   defaultValue?: string
 }
 
-function RadioAccordionGroup({ options, defaultValue }: RadioAccordionGroupProps) {
-  const [value, setValue] = React.useState(defaultValue)
-
+function RadioAccordionGroup({ options, name, ...rest }: RadioAccordionGroupProps) {
+  const [field, meta, { setValue }] = useField(name)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
   }
 
   return (
-    <FormControl>
+    <FormControl required component="fieldset" error={Boolean(meta.error) && Boolean(meta.touched)}>
       <RadioGroup
-        aria-labelledby="TODO: Label by the title"
-        name="controlled-radio-buttons-group"
-        value={value}
+        value={field.value}
         onChange={handleChange}
         sx={{
           border: `1px solid ${theme.borders.dark}`,
           borderRadius: theme.borders.semiRound,
-        }}>
+        }}
+        {...rest}>
         {options.map((option) => (
           <RadioAccordionItem
             key={option.value}
@@ -111,7 +111,7 @@ function RadioAccordionGroup({ options, defaultValue }: RadioAccordionGroupProps
               <FormControlLabel value={option.value} control={<Radio />} label={option.label} />
             }
             icon={option.icon}
-            selected={value === option.value}
+            selected={field.value === option.value}
             content={option.content}
           />
         ))}
