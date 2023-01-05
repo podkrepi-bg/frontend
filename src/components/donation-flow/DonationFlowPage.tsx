@@ -12,7 +12,7 @@ import {
 import Layout from 'components/layout/Layout'
 import { useViewCampaign } from 'common/hooks/campaigns'
 import CenteredSpinner from 'components/common/CenteredSpinner'
-import ChooseAmount from './steps/ChooseAmount'
+import ChooseAmount from './steps/Amount'
 import { DonationFlowForm } from './DonationFlowForm'
 import { DonationFlowProvider } from './DonationFlowContext'
 // import RadioAccordionGroup, { testRadioOptions } from 'components/donation-flow/RadioAccordionGroup'

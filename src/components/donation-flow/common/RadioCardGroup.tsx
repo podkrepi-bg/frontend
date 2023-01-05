@@ -12,43 +12,40 @@ import {
 } from '@mui/material'
 import { styled, lighten } from '@mui/material/styles'
 import theme from 'common/theme'
-import CardIcon from '../icons/CardIcon'
-import BankIcon from '../icons/BankIcon'
 import { useField } from 'formik'
 
-export const StyledRadioCardItem = styled(Card)(() => ({
+export const BaseRadioCardItem = styled(Card)(() => ({
   padding: theme.spacing(2),
   margin: 0,
   cursor: 'pointer',
   border: `1px solid ${theme.borders.dark}`,
+  width: '100%',
+}))
+
+export const DisabledRadioCardItem = styled(BaseRadioCardItem)(() => ({
+  opacity: 0.7,
+  backgroundColor: `${theme.palette.grey[300]} !important`,
+  pointerEvents: 'none',
+}))
+
+export const SelectedRadioCardItem = styled(BaseRadioCardItem)(() => ({
+  backgroundColor: lighten(theme.palette.primary.light, 0.7),
 }))
 
 interface StyledRadioCardItemProps extends CardProps {
   control: React.ReactNode
   icon: React.ReactNode
+  disabled?: boolean
   selected?: boolean
 }
 
-// Temporarily here for testing until the components starts being used
-export const testRadioOptions: Option[] = [
-  {
-    value: 'card',
-    label: 'Card',
-    icon: <CardIcon sx={{ width: 80, height: 80 }} />,
-  },
-  {
-    value: 'bank',
-    label: 'Bank',
-    icon: <BankIcon sx={{ width: 80, height: 80 }} />,
-  },
-  {
-    value: 'paypal',
-    label: 'PayPal',
-    icon: <BankIcon sx={{ width: 80, height: 80 }} />,
-  },
-]
-
-function RadioCardItem({ control, icon, selected, ...rest }: StyledRadioCardItemProps) {
+function RadioCardItem({ control, icon, selected, disabled, ...rest }: StyledRadioCardItemProps) {
+  let StyledRadioCardItem = BaseRadioCardItem
+  if (disabled) {
+    StyledRadioCardItem = DisabledRadioCardItem
+  } else if (selected) {
+    StyledRadioCardItem = SelectedRadioCardItem
+  }
   return (
     <StyledRadioCardItem
       sx={{ backgroundColor: selected ? lighten(theme.palette.primary.light, 0.7) : 'inherit' }}
@@ -65,51 +62,50 @@ type Option = {
   value: string
   label: string
   icon: React.ReactNode
+  disabled?: boolean
 }
 
 export interface RadioCardGroupProps extends RadioGroupProps {
   options: Option[]
   name: string
+  columns: 1 | 2 | 3 | 4 | 6 | 12
 }
 
-function RadioCardGroup({ options, name }: RadioCardGroupProps) {
+function RadioCardGroup({ options, name, columns }: RadioCardGroupProps) {
   const [field, meta, { setValue }] = useField(name)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
   }
   return (
-    <FormControl required component="fieldset" error={Boolean(meta.error) && Boolean(meta.touched)}>
-      <RadioGroup
-        aria-labelledby="TODO: Label by the title"
-        name="controlled-radio-buttons-group"
-        value={field.value}
-        onChange={handleChange}>
+    <FormControl
+      fullWidth
+      required
+      component="fieldset"
+      error={Boolean(meta.error) && Boolean(meta.touched)}>
+      <RadioGroup value={field.value} onChange={handleChange}>
         <Grid2 spacing={2} container>
           {options.map((option) => (
-            <Grid2 xs={4} key={option.value}>
+            <Grid2 xs={12} sm={12 / columns} key={option.value}>
               <RadioCardItem
                 onClick={() => setValue(option.value)}
                 control={
                   <FormControlLabel
                     value={option.value}
                     disableTypography
+                    disabled={option.disabled}
                     sx={{ margin: 0, ...theme.typography.h6 }}
                     control={
                       <Radio
+                        disabled={option.disabled}
                         sx={{ opacity: 0, position: 'absolute', width: 0, height: 0 }}
-                        inputProps={{
-                          style: {
-                            width: 0,
-                            height: 0,
-                          },
-                        }}
                       />
                     }
                     label={option.label}
                   />
                 }
                 icon={option.icon}
-                selected={field.value === option.value}
+                selected={field.value === option.value && !option.disabled}
+                disabled={option.disabled}
               />
             </Grid2>
           ))}

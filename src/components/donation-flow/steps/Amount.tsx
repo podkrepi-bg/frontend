@@ -17,7 +17,7 @@ import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../stripe/strip
 import CheckboxField from 'components/common/form/CheckboxField'
 import FormSelectField from 'components/common/form/FormSelectField'
 
-const PREFIX = 'FirstStep'
+const PREFIX = 'AMOUNT'
 
 const classes = {
   divider: `${PREFIX}-divider`,
@@ -30,7 +30,7 @@ const Root = styled('div')(() => ({
   },
 }))
 
-export default function FirstStep() {
+export default function Amount() {
   const { data: prices } = useSinglePriceList()
   const { t } = useTranslation('one-time-donation')
   const mobile = useMediaQuery('(max-width:600px)')
