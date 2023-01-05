@@ -67,13 +67,6 @@ const StyledLayout = styled(Layout)(({ theme }) => ({
 export default function DonationFlowPage({ slug }: { slug: string }) {
   const { data, isLoading } = useViewCampaign(slug)
   const matches = useMediaQuery('sm')
-  // const paymentIntentMutation = useCreatePaymentIntent({
-  //   amount: 100,
-  //   currency: 'BGN',
-  // })
-  // useEffect(() => {
-  //   paymentIntentMutation.mutate()
-  // }, [])
   if (isLoading || !data) return <CenteredSpinner size="2rem" />
   const { campaign } = data
 

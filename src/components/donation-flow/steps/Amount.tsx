@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Trans, useTranslation } from 'next-i18next'
 import { useMediaQuery, Box, Collapse, Grid, InputAdornment, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
@@ -16,6 +16,8 @@ import FormTextField from 'components/common/form/FormTextField'
 import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../stripe/stripe-fee-calculator'
 import CheckboxField from 'components/common/form/CheckboxField'
 import FormSelectField from 'components/common/form/FormSelectField'
+import { useCreatePaymentIntent } from 'service/donation'
+import { DonationFlowContext } from '../DonationFlowContext'
 
 const PREFIX = 'AMOUNT'
 
@@ -32,13 +34,28 @@ const Root = styled('div')(() => ({
 
 export default function Amount() {
   const { data: prices } = useSinglePriceList()
+  const DonationContext = useContext(DonationFlowContext)
   const { t } = useTranslation('one-time-donation')
   const mobile = useMediaQuery('(max-width:600px)')
 
   const [amount] = useField('amount')
   const [amountWithFees] = useField('amountWithFees')
   const [amountWithoutFees] = useField<number>('amountWithoutFees')
+  const paymentIntentMutation = useCreatePaymentIntent({
+    amount: Number(amount.value),
+    currency: 'BGN',
+  })
 
+  useEffect(() => {
+    if (amount.value) {
+      paymentIntentMutation.mutate()
+    }
+  }, [amount.value])
+
+  useEffect(() => {
+    const intent = paymentIntentMutation.data?.data
+    DonationContext.setStripePaymentIntent(intent || null)
+  }, [paymentIntentMutation])
   const formik = useFormikContext<OneTimeDonation>()
 
   useEffect(() => {

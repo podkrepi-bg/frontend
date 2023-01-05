@@ -47,10 +47,6 @@ export default function PaymentDetailsStripeForm({
   clientSecret,
   containerProps,
 }: PaymentDetailsStripeFormProps) {
-  //   const mutation = useCreatePaymentIntent({ amount: 100, currency: Currencies.BGN })
-  //   useEffect(() => {
-  //     mutation.mutate()
-  //   }, [])
   return (
     <Elements
       stripe={stripePromise}
