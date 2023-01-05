@@ -2,9 +2,10 @@ import React from 'react'
 import * as yup from 'yup'
 import { Form, Formik } from 'formik'
 import { FirstStep } from 'gql/donations'
-import ChooseAmount from './steps/ChooseAmount'
 import { CardRegion } from 'gql/donations.enums'
 import SubmitButton from 'components/common/form/SubmitButton'
+import Amount from './steps/Amount'
+import PaymentMethod from './steps/PaymentMethod'
 
 const initialValues = {
   amount: '',
@@ -50,7 +51,8 @@ export function DonationFlowForm() {
             marginRight: 'auto',
           }}
           autoComplete="off">
-          <ChooseAmount />
+          <Amount />
+          <PaymentMethod />
           <SubmitButton>Submit</SubmitButton>
         </Form>
       )}
