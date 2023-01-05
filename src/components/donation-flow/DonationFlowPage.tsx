@@ -12,6 +12,7 @@ import {
 import Layout from 'components/layout/Layout'
 import { useViewCampaign } from 'common/hooks/campaigns'
 import CenteredSpinner from 'components/common/CenteredSpinner'
+import ChooseAmount from './ChooseAmount'
 // import RadioAccordionGroup, { testRadioOptions } from 'components/donation-flow/RadioAccordionGroup'
 // import PaymentDetailsStripeForm from 'components/donations/stripe/PaymentDetailsStripeForm'
 
@@ -130,6 +131,7 @@ export default function DonationFlowPage({ slug }: { slug: string }) {
             />
           )} */}
           {/* <RadioAccordionGroup options={testRadioOptions} /> */}
+          <ChooseAmount />
         </Grid>
       </Grid>
     </StyledLayout>
