@@ -56,8 +56,8 @@ export const endpoints = {
       paginationData?: PaginationData,
       filterData?: FilterData,
     ) => {
-      const { pageIndex, pageSize } = paginationData as PaginationData
-      const { status, type, date } = filterData as FilterData
+      const { pageIndex, pageSize } = (paginationData as PaginationData) || {}
+      const { status, type, date } = (filterData as FilterData) || {}
       const { from, to } = date || {}
 
       return <Endpoint>{
