@@ -25,9 +25,6 @@ const Root = styled('div')(() => ({
 export default function PaymentMethod() {
   const formik = useFormikContext<OneTimeDonation>()
   const DonationContext = useContext(DonationFlowContext)
-  if (!DonationContext.stripePaymentIntent) {
-    return null
-  }
   const options = [
     {
       value: 'card',

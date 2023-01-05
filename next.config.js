@@ -28,6 +28,7 @@ const moduleExports = {
     APP_URL: process.env.APP_URL,
     GTM_ID: process.env.GTM_ID ?? 'GTM-TWQBXM6',
     PAYPAL_CLIENT_ID: process.env.PAYPAL_CLIENT_ID,
+    STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLIC_KEY,
     FEATURE_ENABLED: {
       CAMPAIGN: process.env.FEATURE_CAMPAIGN ?? false,
     },
