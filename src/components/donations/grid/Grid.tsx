@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { Box, Tooltip } from '@mui/material'
@@ -25,6 +25,7 @@ import { CampaignDonationHistoryResponse } from 'gql/campaigns'
 import { PersonResponse } from 'gql/person'
 import { usePersonList } from 'common/hooks/person'
 import RenderEditPersonCell from './RenderEditPersonCell'
+import { useStores } from './../../../common/hooks/useStores'
 
 interface RenderCellProps {
   params: GridRenderCellParams
@@ -37,20 +38,27 @@ const addIconStyles = {
   boxShadow: 3,
 }
 export default observer(function Grid() {
-  const [pageSize, setPageSize] = useState(5)
-  const [page, setPage] = useState<number>(0)
+  const { donationStore } = useStores()
+  const [paginationData, setPaginationData] = useState({
+    pageIndex: 0,
+    pageSize: 20,
+  })
   const [focusedRowId, setFocusedRowId] = useState(null as string | null)
-
   const { t } = useTranslation()
   const router = useRouter()
   const { isDetailsOpen } = ModalStore
   const campaignId = router.query.campaignId as string | undefined
+
   const {
     data: { items: donations, total: all_rows } = { items: [], total: 0 },
     error: donationHistoryError,
     isLoading: isDonationHistoryLoading,
     refetch,
-  }: UseQueryResult<CampaignDonationHistoryResponse> = useDonationsList(campaignId, page, pageSize)
+  }: UseQueryResult<CampaignDonationHistoryResponse> = useDonationsList(
+    campaignId,
+    paginationData,
+    donationStore.donationFilters,
+  )
 
   const { data }: UseQueryResult<PersonResponse[]> = usePersonList()
 
@@ -177,7 +185,7 @@ export default observer(function Grid() {
 
   return (
     <>
-      <Box sx={{ marginTop: '2%', mx: 'auto', width: 700 }}>
+      <Box sx={{ mx: 'auto', width: 700 }}>
         <DataGrid
           style={{
             background: 'white',
@@ -191,16 +199,15 @@ export default observer(function Grid() {
             borderRadius: '0 0 13px 13px',
           }}
           rows={donations || []}
-          autoHeight
           columns={columns}
           rowsPerPageOptions={[5, 10, 20]}
-          pageSize={pageSize}
+          pageSize={paginationData.pageSize}
           pagination
           loading={isDonationHistoryLoading}
           error={donationHistoryError}
-          page={page}
-          onPageChange={(params) => setPage(params)}
-          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+          page={paginationData.pageIndex}
+          onPageChange={(pageIndex) => setPaginationData({ ...paginationData, pageIndex })}
+          onPageSizeChange={(pageSize) => setPaginationData({ ...paginationData, pageSize })}
           paginationMode="server"
           rowCount={all_rows}
           disableSelectionOnClick
