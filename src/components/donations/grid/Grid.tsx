@@ -58,6 +58,7 @@ export default observer(function Grid() {
     campaignId,
     paginationData,
     donationStore.donationFilters,
+    donationStore.donationSearch,
   )
 
   const { data }: UseQueryResult<PersonResponse[]> = usePersonList()

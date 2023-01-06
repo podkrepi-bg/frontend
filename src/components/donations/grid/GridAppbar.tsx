@@ -9,6 +9,8 @@ import { useExportToExcel } from 'service/donation'
 import { AlertStore } from 'stores/AlertStore'
 import { downloadFile } from './../../../common/util/downloadFile'
 import { useState } from 'react'
+import { useStores } from 'common/hooks/useStores'
+import { debounce } from 'lodash'
 
 const addIconStyles = {
   background: '#4ac3ff',
@@ -20,6 +22,7 @@ const addIconStyles = {
 
 export default function GridAppbar() {
   const router = useRouter()
+  const { donationStore } = useStores()
   const { t } = useTranslation()
   const exportToExcel = useMutation({
     mutationFn: useExportToExcel(),
@@ -31,9 +34,14 @@ export default function GridAppbar() {
   })
   const [searchValue, setSearchValue] = useState('')
 
-  const handleSearch = (e) => {
-    setSearchValue(e.target.value)
-    setDonationSearch(e.target.value)
+  const debounceSearch = debounce((text: string) => {
+    donationStore.setDonationSearch(text)
+  }, 500)
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const searchText = event.target.value
+    setSearchValue(searchText)
+    debounceSearch(searchText)
   }
 
   return (

@@ -45,10 +45,11 @@ export function useDonationsList(
   id?: string,
   paginationData?: PaginationData,
   filterData?: FilterData,
+  searchData?: string,
 ) {
   const { data: session } = useSession()
   return useQuery<CampaignDonationHistoryResponse>(
-    [endpoints.donation.donationsList(id, paginationData, filterData).url],
+    [endpoints.donation.donationsList(id, paginationData, filterData, searchData).url],
     {
       queryFn: authQueryFnFactory(session?.accessToken),
     },

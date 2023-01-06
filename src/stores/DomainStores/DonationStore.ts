@@ -28,6 +28,8 @@ class DonationStore {
       donationFilters: observable,
       setDonationFilters: action,
       getDonationFilters: computed,
+      setDonationSearch: action,
+      getDonationSearch: computed,
     })
   }
 
@@ -46,12 +48,20 @@ class DonationStore {
     this.donationFilters[key] = value
   }
 
+  setDonationSearch(value: string) {
+    this.donationSearch = value
+  }
+
   get getDonations() {
     return this.donations
   }
 
   get getDonationFilters() {
     return this.donationFilters
+  }
+
+  get getDonationSearch() {
+    return this.donationSearch
   }
 }
 
