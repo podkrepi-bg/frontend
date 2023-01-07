@@ -91,8 +91,8 @@ function UpdateNameModal({
 
       const updateUser = await mutation.mutateAsync({
         ...person,
-        firstName: values.firstName,
-        lastName: values.lastName,
+        firstName: values.firstName.trim(),
+        lastName: values.lastName.trim(),
       })
 
       const reLogin = await signIn<'credentials'>('credentials', {

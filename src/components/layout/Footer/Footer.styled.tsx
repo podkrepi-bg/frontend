@@ -1,10 +1,10 @@
-import { Container, Grid, Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import { lighten } from '@mui/material/styles'
 import { styled } from '@mui/material/styles'
 
 import theme from 'common/theme'
 
-export const Root = styled(Container)(() => ({
+export const Root = styled('footer')(() => ({
   display: 'flex',
   justifyContent: 'center',
   textAlign: 'left',

@@ -10,10 +10,10 @@ import { AlertStore } from 'stores/AlertStore'
 import FormInput from 'components/common/form/FormInput'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
-import FormTextField from 'components/common/form/FormTextField'
+import EmailField from 'components/common/form/EmailField'
 import Google from 'common/icons/Google'
 import PasswordField from 'components/common/form/PasswordField'
-import { email, password } from 'common/form/validation'
+import { email, loginPassword } from 'common/form/validation'
 import LinkButton from 'components/common/LinkButton'
 
 export type LoginFormData = {
@@ -23,7 +23,7 @@ export type LoginFormData = {
 
 const validationSchema: yup.SchemaOf<LoginFormData> = yup.object().defined().shape({
   email: email.required(),
-  password: password.required(),
+  password: loginPassword.required(),
 })
 
 const defaults: LoginFormData = {
@@ -44,7 +44,7 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
       setLoading(true)
 
       const resp = await signIn<'credentials'>('credentials', {
-        email: values.email,
+        email: values.email.trim(),
         password: values.password,
         redirect: false,
       })
@@ -73,7 +73,7 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
       <FormInput type="hidden" name="csrfToken" />
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          <FormTextField type="text" label="auth:fields.email" name="email" />
+          <EmailField label="auth:fields.email" name="email" />
         </Grid>
         <Grid item xs={12}>
           <PasswordField />

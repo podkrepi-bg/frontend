@@ -1,5 +1,6 @@
 import { Method } from 'axios'
 import { DonationStatus } from 'gql/donations.enums'
+import { FilterData, PaginationData } from 'gql/types'
 
 type Endpoint = {
   url: string
@@ -45,16 +46,27 @@ export const endpoints = {
     singlePrices: <Endpoint>{ url: '/donation/prices/single', method: 'GET' },
     recurringPrices: <Endpoint>{ url: '/donation/prices/recurring', method: 'GET' },
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
+    createPaymentIntent: <Endpoint>{ url: '/donation/create-payment-intent', method: 'POST' },
     createDonation: <Endpoint>{ url: '/donation/create-payment', method: 'POST' },
     createBankDonation: <Endpoint>{ url: '/donation/create-bank-payment', method: 'POST' },
     getDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'GET' },
-    donationsList: (campaignId?: string, pageindex?: number, pagesize?: number) =>
-      <Endpoint>{
+    donationsList: (
+      campaignId?: string,
+      paginationData?: PaginationData,
+      filterData?: FilterData,
+    ) => {
+      const { pageIndex, pageSize } = (paginationData as PaginationData) || {}
+      const { status, type, date } = (filterData as FilterData) || {}
+      const { from, to } = date || {}
+
+      return <Endpoint>{
         url: campaignId
-          ? `/donation/list?campaignId=${campaignId}&pageindex=${pageindex}&pagesize=${pagesize}`
-          : `/donation/list?&pageindex=${pageindex}&pagesize=${pagesize}`,
+          ? `/donation/list?campaignId=${campaignId}&pageindex=${pageIndex}&pagesize=${pageSize}&status=${status}&type=${type}&from=${from}&to=${to}`
+          : `/donation/list?pageindex=${pageIndex}&pagesize=${pageSize}&status=${status}&type=${type}&from=${from}&to=${to}`,
         method: 'GET',
-      },
+      }
+    },
+
     getDonations: (
       campaignId: string,
       status: DonationStatus,
@@ -71,6 +83,7 @@ export const endpoints = {
     userDonations: <Endpoint>{ url: 'donation/user-donations', method: 'GET' },
     uploadBankTransactionsFile: (bankTransactionsFileId: string) =>
       <Endpoint>{ url: `/bank-transactions-file/${bankTransactionsFileId}`, method: 'POST' },
+    exportToExcel: <Endpoint>{ url: '/donation/export-excel', method: 'GET' },
   },
   documents: {
     documentsList: <Endpoint>{ url: '/document', method: 'GET' },
@@ -219,7 +232,10 @@ export const endpoints = {
   },
   donationWish: {
     createDonationWish: <Endpoint>{ url: '/donation-wish', method: 'POST' },
-    listDonationWishes: (campaignId: string) =>
-      <Endpoint>{ url: `/donation-wish/list/${campaignId}`, method: 'GET' },
+    listDonationWishes: (campaignId?: string, pageIndex?: number, pageSize?: number) =>
+      <Endpoint>{
+        url: `/donation-wish/list/${campaignId}?pageindex=${pageIndex}&pagesize=${pageSize}`,
+        method: 'GET',
+      },
   },
 }
