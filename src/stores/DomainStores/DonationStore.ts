@@ -21,11 +21,12 @@ class DonationStore {
       to: '',
     },
   }
-  donationSearch: string
+  donationSearch: string | undefined = undefined
 
   constructor() {
     makeObservable(this, {
       donationFilters: observable,
+      donationSearch: observable,
       setDonationFilters: action,
       getDonationFilters: computed,
       setDonationSearch: action,
@@ -48,7 +49,7 @@ class DonationStore {
     this.donationFilters[key] = value
   }
 
-  setDonationSearch(value: string) {
+  setDonationSearch(value: string | undefined) {
     this.donationSearch = value
   }
 

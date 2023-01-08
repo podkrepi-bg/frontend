@@ -36,9 +36,10 @@ export default function GridAppbar() {
 
   const debounceSearch = debounce((text: string) => {
     donationStore.setDonationSearch(text)
-  }, 500)
+  }, 1500)
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault()
     const searchText = event.target.value
     setSearchValue(searchText)
     debounceSearch(searchText)
