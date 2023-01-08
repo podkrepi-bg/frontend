@@ -42,7 +42,7 @@ export default function DropdownFilter(props: DropdownFilterProps) {
   }
 
   const closeIconStyle = {
-    color: 'grey',
+    color: '#365b99',
     cursor: 'pointer',
   }
 
