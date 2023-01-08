@@ -46,7 +46,8 @@ export default function DonationWishes({ campaignId, pageSize = 12 }: Props) {
         </Stack>
       </Grid2>
       <Grid2 container direction="column" rowGap={3}>
-        {isSuccess && data &&
+        {isSuccess &&
+          data &&
           data.items.map((wish) => (
             <Grid2
               gap={2}
