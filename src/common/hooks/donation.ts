@@ -24,9 +24,7 @@ export function usePriceList() {
 export function useSinglePriceList() {
   return useQuery<DonationPrice[]>([endpoints.donation.singlePrices.url])
 }
-export function useRecurringPriceList() {
-  return useQuery<DonationPrice[]>([endpoints.donation.recurringPrices.url])
-}
+
 export function useDonationSession() {
   const { t } = useTranslation()
   const mutation = useMutation<

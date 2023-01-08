@@ -1,27 +1,61 @@
 import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
-import { Box } from '@mui/material'
+import { IconButton, Tooltip, Box } from '@mui/material'
 import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 
-import { ModalStore } from 'stores/dashboard/ModalStore'
-import { routes } from 'common/routes'
 import { RecurringDonationResponse } from 'gql/recurring-donation'
-import { useRecurringDonationList } from 'common/hooks/recurringDonation'
-import GridActions from 'components/admin/GridActions'
+import { useAllRecurringDonations } from 'common/hooks/recurringDonation'
+import { money } from 'common/util/money'
+import { useMutation } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
+import { endpoints } from 'service/apiEndpoints'
+import { useSession } from 'next-auth/react'
+import { AlertStore } from 'stores/AlertStore'
 
 import DeleteModal from '../DeleteModal'
 import DetailsModal from '../DetailsModal'
+import { apiClient } from 'service/apiClient'
+import { authConfig } from 'service/restRequests'
+import CancelPresentationIcon from '@mui/icons-material/CancelPresentation'
+import EditIcon from '@mui/icons-material/Edit'
+import { routes } from 'common/routes'
 
 export default function Grid() {
   const { t } = useTranslation('recurring-donation')
-  const { data }: UseQueryResult<RecurringDonationResponse[]> = useRecurringDonationList()
+  const { data }: UseQueryResult<RecurringDonationResponse[]> = useAllRecurringDonations()
   const [pageSize, setPageSize] = useState(5)
+  const { data: session } = useSession()
+  const router = useRouter()
 
   const commonProps: Partial<GridColDef> = {
     align: 'left',
     width: 150,
     headerAlign: 'left',
+  }
+
+  const cancelMutation = useMutation({
+    mutationFn: async (id: string) => {
+      apiClient.get(
+        endpoints.recurringDonation.cancelRecurringDonation(id).url,
+        authConfig(session?.accessToken),
+      )
+    },
+    onError: (err) => AlertStore.show(t('common:alerts.error') + err, 'error'),
+    onSuccess: () => {
+      AlertStore.show(t('recurring-donation:alerts.cancel'), 'success')
+    },
+  })
+
+  const cancelRecurringDonation = (id: string) => {
+    if (confirm(t('recurring-donation:alerts.cancel-confirm'))) {
+      cancelMutation.mutate(id)
+    }
+  }
+
+  const editRecurringDonation = (id: string) => {
+    //open the edit page
+    router.push(routes.admin.recurringDonation.edit(id))
   }
 
   const columns: GridColumns = [
@@ -30,42 +64,37 @@ export default function Grid() {
       headerName: t('recurring-donation:status'),
       flex: 1.5,
       ...commonProps,
-    },
-    {
-      field: 'currency',
-      headerName: t('currency'),
-      flex: 1.5,
-      ...commonProps,
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <>{t('statuses.' + cellValues.row.status)}</>
+      ),
     },
     {
       field: 'amount',
       headerName: t('amount'),
       flex: 1.5,
       ...commonProps,
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <>{money(cellValues.row.amount, cellValues.row.currency)}</>
+      ),
     },
+
     {
-      field: 'extSubscriptionId',
-      headerName: t('extSubscriptionId'),
+      field: 'personName',
+      headerName: t('person'),
       ...commonProps,
       width: 300,
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <>{cellValues.row.person?.firstName + ' ' + cellValues.row.person?.lastName}</>
+      ),
     },
     {
-      field: 'extCustomerId',
-      headerName: t('extCustomerId'),
+      field: 'campaignTitle',
+      headerName: t('campaign'),
       ...commonProps,
       width: 300,
-    },
-    {
-      field: 'personId',
-      headerName: t('personId'),
-      ...commonProps,
-      width: 300,
-    },
-    {
-      field: 'vaultId',
-      headerName: t('vaultId'),
-      ...commonProps,
-      width: 300,
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <>{cellValues.row.sourceVault.campaign.title}</>
+      ),
     },
     {
       field: 'actions',
@@ -73,14 +102,26 @@ export default function Grid() {
       width: 120,
       type: 'actions',
       headerAlign: 'center',
-      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+      renderCell: (cellValues: GridRenderCellParams): React.ReactNode => {
         return (
-          <GridActions
-            modalStore={ModalStore}
-            id={params.row.id}
-            name={params.row.name}
-            editLink={routes.admin.recurringDonation.view(params.row.id)}
-          />
+          <div>
+            <Tooltip title={t('recurring-donation:cta.edit') || ''}>
+              <IconButton
+                size="small"
+                color="primary"
+                onClick={async () => editRecurringDonation(cellValues.row.id)}>
+                <EditIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title={t('recurring-donation:cta.cancel') || ''}>
+              <IconButton
+                size="small"
+                color="primary"
+                onClick={async () => cancelRecurringDonation(cellValues.row.id)}>
+                <CancelPresentationIcon />
+              </IconButton>
+            </Tooltip>
+          </div>
         )
       },
     },

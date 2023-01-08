@@ -173,6 +173,7 @@ export default function CreateForm({ campaigns, person }: Props) {
                 label={t('admin.fields.campaign')}
                 name="campaignId"
                 campaigns={campaigns}
+                selectedCampaign={initialValues.campaignId}
               />
             </Grid>
           </Grid>

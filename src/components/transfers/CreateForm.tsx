@@ -146,6 +146,7 @@ export default function CreateForm({ campaigns }: Props) {
               name="sourceCampaignId"
               label="transfer:sourceCampaign"
               campaigns={campaigns || []}
+              selectedCampaign={initialValues.sourceCampaignId as string}
             />
           </Grid>
           <Grid item xs={12}>
@@ -156,6 +157,7 @@ export default function CreateForm({ campaigns }: Props) {
               name="targetCampaignId"
               label="transfer:targetCampaign"
               campaigns={campaigns || []}
+              selectedCampaign={initialValues.sourceCampaignId as string}
             />
           </Grid>
           <Grid item xs={12}>

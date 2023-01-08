@@ -15,10 +15,16 @@ type Props = {
   onConfirm?: (person: PersonResponse | null) => void
   onClose?: (person: PersonResponse | null) => void
   error?: string
+  selectedPerson: PersonResponse | null
 }
 
-function PersonSelectDialog({ onConfirm: confirmCallback, onClose: closeCallback, error }: Props) {
-  const [person, setPerson] = useState<PersonResponse | null>(null)
+function PersonSelectDialog({
+  onConfirm: confirmCallback,
+  onClose: closeCallback,
+  error,
+  selectedPerson,
+}: Props) {
+  const [person, setPerson] = useState<PersonResponse | null>(selectedPerson)
   const { t } = useTranslation()
   const { open, confirmHandler, closeHandler, openHandler, loading } = useConfirm({
     onConfirm: async () => {
@@ -32,8 +38,8 @@ function PersonSelectDialog({ onConfirm: confirmCallback, onClose: closeCallback
     <>
       <FormFieldButton
         onClick={openHandler}
-        placeholder={t('person:selectDialog.notSelected')}
-        value={person ? `${person.firstName} ${person.lastName} (${person.id})` : undefined}
+        placeholder={t('person:personSelect')}
+        value={person ? `${person.firstName} ${person.lastName}` : undefined}
         button={{ label: t('person:selectDialog.select') }}
         error={error ? translateError(error, t) : undefined}
       />

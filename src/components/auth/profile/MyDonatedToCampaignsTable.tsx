@@ -21,6 +21,7 @@ export default function MyDonatedToCampaignTable() {
     width: 100,
     headerAlign: 'left',
   }
+
   const columns: GridColumns = [
     {
       field: 'state',

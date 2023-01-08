@@ -141,6 +141,7 @@ export default function EditForm() {
               label="withdrawals:sourceCampaign"
               campaigns={campaigns}
               disabled={true}
+              selectedCampaign={initialValues.sourceCampaignId as string}
             />
           </Grid>
           <Grid item xs={12}>
