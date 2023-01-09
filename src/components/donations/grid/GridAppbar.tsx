@@ -8,7 +8,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useExportToExcel } from 'service/donation'
 import { AlertStore } from 'stores/AlertStore'
 import { downloadFile } from './../../../common/util/downloadFile'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useStores } from 'common/hooks/useStores'
 import { debounce } from 'lodash'
 
@@ -34,9 +34,17 @@ export default function GridAppbar() {
   })
   const [searchValue, setSearchValue] = useState('')
 
-  const debounceSearch = debounce((text: string) => {
-    donationStore.setDonationSearch(text)
-  }, 1500)
+  const debounceSearch = useMemo(
+    () =>
+      debounce(
+        (text: string) => {
+          donationStore.setDonationSearch(text)
+        },
+        1000,
+        { leading: false, trailing: true },
+      ),
+    [],
+  )
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault()
@@ -64,6 +72,7 @@ export default function GridAppbar() {
         size="small"
         value={searchValue}
         onChange={handleSearch}
+        sx={{ minWidth: 250 }}
       />
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
