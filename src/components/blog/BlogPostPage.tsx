@@ -13,8 +13,9 @@ import RenderContent from './RenderContent'
 
 type Props = {
   post: PostOrPage
+  referer: string | null
 }
-export default function BlogPostPage({ post }: Props) {
+export default function BlogPostPage({ post, referer }: Props) {
   return (
     <Layout
       canonicalUrl={`${baseUrl}${routes.blog.postBySlug(post.slug)}`}
@@ -24,7 +25,7 @@ export default function BlogPostPage({ post }: Props) {
       <Container maxWidth="lg">
         <Grid2 container spacing={2}>
           <Grid2 xs={12} xsOffset={0}>
-            <BackButton href={routes.blog.index} />
+            <BackButton href={referer ?? routes.blog.index} />
           </Grid2>
           <Grid2 xs={12}>
             <Typography paragraph variant="h3" component="h1" align="center">
@@ -49,7 +50,7 @@ export default function BlogPostPage({ post }: Props) {
             <RenderContent html={post.html} />
           </Grid2>
           <Grid2 xs={12} textAlign="center">
-            <BackButton href={routes.blog.index} />
+            <BackButton href={referer ?? routes.blog.index} />
           </Grid2>
         </Grid2>
       </Container>

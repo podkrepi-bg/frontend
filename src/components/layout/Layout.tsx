@@ -30,6 +30,8 @@ type LayoutProps = React.PropsWithChildren<
     metaDescription?: string
     profilePage?: boolean
     canonicalUrl?: string
+    prevPage?: string
+    nextPage?: string
   }
 >
 
@@ -41,6 +43,8 @@ export default function Layout({
   disableOffset = false,
   hideFooter = false,
   canonicalUrl,
+  prevPage,
+  nextPage,
   boxProps,
   metaTitle,
   metaDescription,
@@ -72,6 +76,16 @@ export default function Layout({
             <>
               <link rel="canonical" href={canonicalUrl} />
               <meta property="og:url" content={canonicalUrl} />
+            </>
+          )}
+          {prevPage && (
+            <>
+              <link rel="prev" href={prevPage} />
+            </>
+          )}
+          {nextPage && (
+            <>
+              <link rel="next" href={nextPage} />
             </>
           )}
           <meta property="og:type" content="article" />

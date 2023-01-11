@@ -1,10 +1,19 @@
 import React from 'react'
 import NextLink from 'next/link'
 import { useTranslation } from 'next-i18next'
-import { PostsOrPages } from '@tryghost/content-api'
-import { Container, Stack, Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
+import { PostsOrPages, Pagination as GhostPagination } from '@tryghost/content-api'
+import {
+  Container,
+  Stack,
+  Typography,
+  Unstable_Grid2 as Grid2,
+  PaginationItem,
+} from '@mui/material'
+import Pagination from '@mui/material/Pagination'
 
-import { routes } from 'common/routes'
+import theme from 'common/theme'
+
+import { baseUrl, routes } from 'common/routes'
 import Link from 'components/common/Link'
 import Layout from 'components/layout/Layout'
 
@@ -14,12 +23,18 @@ import FeaturedImage from './FeaturedImage'
 
 type Props = {
   posts: PostsOrPages
+  pagination: GhostPagination
 }
-export default function BlogIndexPage({ posts }: Props) {
+export default function BlogIndexPage({ posts, pagination }: Props) {
   const { t } = useTranslation()
+  const { pages, page, prev, next } = pagination
 
   return (
-    <Layout title={t('blog:title')} metaDescription={t('blog:description')}>
+    <Layout
+      title={t('blog:title')}
+      metaDescription={t('blog:description')}
+      prevPage={prev ? `${baseUrl}${routes.blog.indexPaginated(prev)}` : undefined}
+      nextPage={next ? `${baseUrl}${routes.blog.indexPaginated(next)}` : undefined}>
       <Container maxWidth="lg">
         <Grid2 container rowSpacing={2} columnSpacing={2}>
           {posts.map((post) => (
@@ -58,6 +73,25 @@ export default function BlogIndexPage({ posts }: Props) {
               </Grid2>
             </Grid2>
           ))}
+        </Grid2>
+        <Grid2 xs={12}>
+          {pages > 1 && (
+            <Pagination
+              count={pages}
+              page={page}
+              sx={{ ul: { justifyContent: 'center' }, marginTop: theme.spacing(6) }}
+              renderItem={(item) => {
+                if (item.disabled || !item.page) {
+                  return <PaginationItem {...item} />
+                }
+                return (
+                  <Link href={routes.blog.indexPaginated(item.page)}>
+                    <PaginationItem {...item} />
+                  </Link>
+                )
+              }}
+            />
+          )}
         </Grid2>
       </Container>
     </Layout>
