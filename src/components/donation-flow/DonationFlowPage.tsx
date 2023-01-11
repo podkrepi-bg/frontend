@@ -12,10 +12,7 @@ import {
 import Layout from 'components/layout/Layout'
 import { useViewCampaign } from 'common/hooks/campaigns'
 import CenteredSpinner from 'components/common/CenteredSpinner'
-
-import DonationStepper from './Steps'
-// import RadioAccordionGroup, { testRadioOptions } from 'components/donation-flow/common/RadioAccordionGroup'
-// import RadioCardGroup, { testRadioOptions } from 'components/donation-flow/common/RadioCardGroup'
+// import RadioAccordionGroup, { testRadioOptions } from 'components/donation-flow/RadioAccordionGroup'
 // import PaymentDetailsStripeForm from 'components/donations/stripe/PaymentDetailsStripeForm'
 
 const PREFIX = 'OneTimeDonationPage'
@@ -64,17 +61,7 @@ const StyledLayout = styled(Layout)(({ theme }) => ({
   },
 }))
 
-const scrollWindow = () => {
-  const bannerWrapper = document.getElementsByClassName(classes.bannerWrapper)[0]
-  const avatarWrapper = document.getElementsByClassName(classes.beneficiaryAvatarWrapper)[0]
-  let calculatedScrollY = 0
-  if (bannerWrapper && avatarWrapper) {
-    calculatedScrollY = bannerWrapper.clientHeight + avatarWrapper.clientHeight / 2
-  }
-  window.scrollTo({ top: calculatedScrollY, behavior: 'smooth' })
-}
-
-export default function OneTimeDonation({ slug }: { slug: string }) {
+export default function DonationFlowPage({ slug }: { slug: string }) {
   const { data, isLoading } = useViewCampaign(slug)
   const matches = useMediaQuery('sm')
   // const paymentIntentMutation = useCreatePaymentIntent({
@@ -142,8 +129,6 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
               containerProps={{ maxWidth: 400 }}
             />
           )} */}
-          <DonationStepper onStepChange={scrollWindow} />
-          {/* <RadioCardGroup options={testRadioOptions} /> */}
           {/* <RadioAccordionGroup options={testRadioOptions} /> */}
         </Grid>
       </Grid>
