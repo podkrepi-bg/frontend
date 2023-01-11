@@ -708,6 +708,17 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "slavcho",
+      "name": "Slavcho Ivanov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/99622?v=4",
+      "profile": "http://www.intellingencenode.com",
+      "contributions": [
+        "code",
+        "review",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 10,
