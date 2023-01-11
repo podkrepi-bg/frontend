@@ -40,7 +40,7 @@ export default function GridAppbar() {
         (text: string) => {
           donationStore.setDonationSearch(text)
         },
-        1000,
+        300,
         { leading: false, trailing: true },
       ),
     [],
