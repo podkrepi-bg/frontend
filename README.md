@@ -28,19 +28,29 @@
 - Testing
   - [Playwright](https://playwright.dev/)
 
+## Perequisites
+
+- Node.js
+  - Installation 
+    - [Windows / MacOS](https://nodejs.org/en/download/)
+    - [Debian and Ubuntu based Linux distributions](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions)
+    ```shell
+    sudo apt install nodejs
+    ```
+  - If you have newer Node version, you can downgrade it with [`n`](https://www.npmjs.com/package/n):
+  ```shell
+  sudo npm install -g n
+  sudo n stable
+  ```
+- Yarn > 3.3.0 (Berry)
+  - Installation https://yarnpkg.com/getting-started/install
+  ```shell
+  corepack enable
+  yarn set version berry 
+  ```
+  - make sure `cmdtest` is not installed, it has a different `yarn` command
+  
 ## Initial setup
-
-# for Ubuntu users:
-
-# make sure cmdtest is not installed, it has a different yarn command
-
-# for installing node.js: https://github.com/nodesource/distributions
-
-# if you have newer node version, you can use this to downgrade:
-
-# > sudo npm install -g n
-
-# > sudo n stable
 
 ```shell
 git clone git@github.com:podkrepi-bg/frontend.git
