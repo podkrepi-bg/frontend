@@ -54,6 +54,7 @@ export const endpoints = {
       campaignId?: string,
       paginationData?: PaginationData,
       filterData?: FilterData,
+      searchData?: string,
     ) => {
       const { pageIndex, pageSize } = (paginationData as PaginationData) || {}
       const { status, type, date } = (filterData as FilterData) || {}
@@ -61,8 +62,8 @@ export const endpoints = {
 
       return <Endpoint>{
         url: campaignId
-          ? `/donation/list?campaignId=${campaignId}&pageindex=${pageIndex}&pagesize=${pageSize}&status=${status}&type=${type}&from=${from}&to=${to}`
-          : `/donation/list?pageindex=${pageIndex}&pagesize=${pageSize}&status=${status}&type=${type}&from=${from}&to=${to}`,
+          ? `/donation/list?campaignId=${campaignId}&pageindex=${pageIndex}&pagesize=${pageSize}&status=${status}&type=${type}&from=${from}&to=${to}&search=${searchData}`
+          : `/donation/list?pageindex=${pageIndex}&pagesize=${pageSize}&status=${status}&type=${type}&from=${from}&to=${to}&search=${searchData}`,
         method: 'GET',
       }
     },
