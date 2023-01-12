@@ -31,6 +31,7 @@ export interface FormikStepProps
 export function FormikStep({ children, initialValues }: FormikStepProps) {
   const { setStep } = useContext(StepsContext)
   const formik = useFormikContext<OneTimeDonation>()
+  const { data: session } = useSession()
 
   useEffect(() => {
     if (localStorage.getItem('campaignName') === null) return
@@ -48,6 +49,11 @@ export function FormikStep({ children, initialValues }: FormikStepProps) {
         localStorage.getItem('donationData') || '',
       )
 
+      if (session && session.accessToken) {
+        localDonationData.isAnonymous = false
+        localStorage.setItem('donationData', JSON.stringify(localDonationData))
+      }
+
       formik.setFormikState((prevState) => {
         return {
           ...prevState,
@@ -59,7 +65,7 @@ export function FormikStep({ children, initialValues }: FormikStepProps) {
         setStep(2)
       }
     }
-  }, [])
+  }, [session])
 
   return <>{children}</>
 }
