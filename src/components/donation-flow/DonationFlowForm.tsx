@@ -6,6 +6,7 @@ import { CardRegion } from 'gql/donations.enums'
 import SubmitButton from 'components/common/form/SubmitButton'
 import Amount from './steps/Amount'
 import PaymentMethod from './steps/PaymentMethod'
+import StepSplitter from './common/StepSplitter'
 
 const initialValues = {
   amount: '',
@@ -52,7 +53,10 @@ export function DonationFlowForm() {
           }}
           autoComplete="off">
           <Amount />
+          <StepSplitter content="1" />
           <PaymentMethod />
+          <StepSplitter content="2" />
+
           <SubmitButton>Submit</SubmitButton>
         </Form>
       )}
