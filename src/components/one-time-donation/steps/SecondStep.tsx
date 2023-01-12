@@ -50,7 +50,9 @@ export default function SecondStep() {
             value="2"
             disabled={session && session.accessToken ? true : false}
           />
-          <Tab label={t('second-step.donate-anonymously')} value="3" />
+          {formik.values.isRecurring ? null : (
+            <Tab label={t('second-step.donate-anonymously')} value="3" />
+          )}
         </TabList>
       </Box>
       <TabPanel value="1">
@@ -59,9 +61,11 @@ export default function SecondStep() {
       <TabPanel value="2">
         <RegisterForm />
       </TabPanel>
-      <TabPanel value="3">
-        <AnonymousMenu />
-      </TabPanel>
+      {formik.values.isRecurring ? null : (
+        <TabPanel value="3">
+          <AnonymousMenu />
+        </TabPanel>
+      )}
     </TabContext>
   )
 }

@@ -67,7 +67,8 @@
     "owner": "Association Podkrepi BG",
     "bank": "Unicredit Bulbank",
     "reason-donation": "For payment reference use:",
-    "message-warning": "If you don't enter the exact reference we may not be able to assign the money to the desired campaign."
+    "message-warning": "If you don't enter the exact reference we may not be able to assign the money to the desired campaign.",
+    "recurring-donation": "Donate the same amount every month until the end of the campaign! Cancel anytime."
   },
   "alerts": {
     "success": "Donation was processed successfully!",

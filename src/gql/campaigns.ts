@@ -5,6 +5,7 @@ import { Currency } from './currency'
 import { PaymentProvider } from './donations.enums'
 import { CampaignState } from 'components/campaigns/helpers/campaign.enums'
 import { BeneficiaryType } from '../components/beneficiary/BeneficiaryTypes'
+import { VaultResponse } from './vault'
 
 export type CampaignType = {
   id: UUID
@@ -69,6 +70,8 @@ export type AdminCampaignResponse = BaseCampaignResponse & {
     currentAmount: number
     blockedAmount: number
   }
+  vaults: { id: UUID }[]
+  category: CampaignTypeCategory
 }
 
 export type AdminSingleCampaignResponse = CampaignResponse & {
@@ -99,6 +102,8 @@ export type CampaignResponse = BaseCampaignResponse & {
     person: { id: UUID; firstName: string; lastName: string; email: string }
   }
   campaignFiles?: CampaignFile[]
+  vaults?: VaultResponse[]
+  defaultVault?: UUID
 }
 
 export type CampaignCreateFormData = {

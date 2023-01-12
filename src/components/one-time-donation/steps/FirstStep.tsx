@@ -43,7 +43,7 @@ const Root = styled('div')(() => ({
 
 export default function FirstStep() {
   const { data: session } = useSession()
-  const { data: prices } = useSinglePriceList()
+  const { data: oneTimePrices } = useSinglePriceList()
   const { t } = useTranslation('one-time-donation')
   const mobile = useMediaQuery('(max-width:600px)')
   const paymentOptions = [
@@ -89,7 +89,12 @@ export default function FirstStep() {
     formik.values.amount,
     formik.values.cardIncludeFees,
     formik.values.cardRegion,
+    formik.values.isRecurring,
   ])
+
+  function isLogged() {
+    return session && session.accessToken ? true : false
+  }
 
   return (
     <Root>
@@ -183,7 +188,7 @@ export default function FirstStep() {
           <RadioButtonGroup
             name="amount"
             options={
-              prices
+              oneTimePrices
                 ?.sort((a, b) => Number(a.unit_amount) - Number(b.unit_amount))
                 .map((v) => ({
                   label: moneyPublic(Number(v.unit_amount)),
@@ -266,6 +271,14 @@ export default function FirstStep() {
                   totalAmount: moneyPublicDecimals2(amountWithFees.value),
                 }}
               />
+              <Typography variant="h5" sx={{ marginTop: theme.spacing(3) }}>
+                <CheckboxField
+                  name="isRecurring"
+                  label={
+                    <Typography variant="body2">{t('third-step.recurring-donation')}</Typography>
+                  }
+                />
+              </Typography>
             </Box>
           ) : null}
         </Box>

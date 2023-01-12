@@ -1,21 +1,12 @@
 import { useTranslation } from 'react-i18next'
 import { FormControl, MenuItem } from '@mui/material'
 import { useField } from 'formik'
+import { RecurringDonationStatus } from 'gql/recurring-donation-status.d'
 
 import FormTextField from 'components/common/form/FormTextField'
 
 export default function RecurringDonationStatusSelect({ name = 'status' }) {
   const { t } = useTranslation('recurring-donation')
-
-  enum RecurringDonationStatus {
-    trialing = 'trialing',
-    active = 'active',
-    canceled = 'canceled',
-    incomplete = 'incomplete',
-    incompleteExpired = 'incompleteExpired',
-    pastDue = 'pastDue',
-    unpaid = 'unpaid',
-  }
 
   const values = Object.keys(RecurringDonationStatus)
   const [field, meta] = useField(name)
@@ -32,7 +23,7 @@ export default function RecurringDonationStatusSelect({ name = 'status' }) {
         </MenuItem>
         {values?.map((value, index) => (
           <MenuItem key={index} value={value}>
-            {value}
+            {t('statuses.' + value)}
           </MenuItem>
         ))}
       </FormTextField>

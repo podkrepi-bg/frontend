@@ -44,6 +44,7 @@ const initialValues: OneTimeDonation = {
   registerLastName: '',
   registerFirstName: '',
   registerPassword: '',
+  isRecurring: false,
 }
 interface DonationStepperProps {
   onStepChange: () => void
@@ -62,13 +63,21 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
   if (isLoading || !data) return <CenteredSpinner size="2rem" />
   const { campaign } = data
 
+  function isLogged() {
+    return session && session.accessToken ? true : false
+  }
+
+  initialValues.isAnonymous = !isLogged()
+  initialValues.isRecurring = false
+
   const userEmail = session?.user?.email
   const donate = React.useCallback(
     async (amount?: number, values?: OneTimeDonation) => {
       const { data } = await mutation.mutateAsync({
-        mode: 'payment',
+        mode: values?.isRecurring ? 'subscription' : 'payment',
         amount,
         campaignId: campaign.id,
+        personId: person ? person?.id : '',
         firstName: values?.personsFirstName ? values.personsFirstName : 'Anonymous',
         lastName: values?.personsLastName ? values.personsLastName : 'Donor',
         personEmail: values?.personsEmail ? values.personsEmail : userEmail,

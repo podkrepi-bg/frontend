@@ -36,66 +36,34 @@ function DonationTable({ donations }: DonationTableProps) {
   const { t, i18n } = useTranslation()
   const [fromDate, setFromDate] = React.useState<Date | null>(null)
   const [toDate, setToDate] = React.useState<Date | null>(null)
-  const [monthly, setMonthly] = React.useState(true)
-  const [oneTime, setOneTime] = React.useState(true)
-  const filteredByTypeDonations = useMemo(() => {
-    if (monthly && oneTime) {
-      return donations
-    }
-    if (!monthly && !oneTime) {
-      return []
-    }
-    if (monthly) {
-      return donations?.filter((d) => d.type !== 'donation')
-    }
-    if (oneTime) {
-      return donations?.filter((d) => d.type === 'donation')
-    }
-    return donations
-  }, [donations, monthly, oneTime])
+
   const filteredDonations = useMemo(() => {
     if (!fromDate && !toDate) {
-      return filteredByTypeDonations
+      return donations
     }
     if (fromDate && toDate) {
-      return filteredByTypeDonations?.filter((d) => {
+      return donations?.filter((d) => {
         const createdAtDate = parseISO(d.createdAt)
         return isAfter(createdAtDate, fromDate) && isBefore(createdAtDate, toDate)
       })
     }
     if (fromDate) {
-      return filteredByTypeDonations?.filter((d) => {
+      return donations?.filter((d) => {
         const createdAtDate = parseISO(d.createdAt)
         return isAfter(createdAtDate, fromDate)
       })
     }
     if (toDate) {
-      return filteredByTypeDonations?.filter((d) => {
+      return donations?.filter((d) => {
         const createdAtDate = parseISO(d.createdAt)
         return isBefore(createdAtDate, toDate)
       })
     }
-  }, [filteredByTypeDonations, fromDate, toDate])
+  }, [donations, fromDate, toDate])
+
   return (
     <Card sx={{ padding: theme.spacing(2), boxShadow: theme.shadows[0] }}>
       <Grid container alignItems={'flex-start'} spacing={theme.spacing(2)}>
-        <Grid item xs={6} sm={3}>
-          <CheckboxLabel>{t('profile:donations.oneTime')}</CheckboxLabel>
-          <Checkbox
-            onChange={(e, checked) => setOneTime(checked)}
-            checked={oneTime}
-            name="oneTime"
-          />
-        </Grid>
-        {/* TODO: pending implementation on recuring donations
-        <Grid item xs={6} sm={3}>
-          <CheckboxLabel>{t('profile:donations.monthly')}</CheckboxLabel>
-          <Checkbox
-            onChange={(e, checked) => setMonthly(checked)}
-            checked={monthly}
-            name="monthly"
-          />
-        </Grid> */}
         <LocalizationProvider
           adapterLocale={i18n.language === 'bg' ? bg : enUS}
           dateAdapter={AdapterDateFns}>

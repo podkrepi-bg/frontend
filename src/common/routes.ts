@@ -47,6 +47,7 @@ export const routes = {
   reports: '/finance-report',
   blog: {
     index: '/blog',
+    indexPaginated: (page: number) => `/blog?page=${page}`,
     postBySlug: (slug: string) => `/blog/${slug}`,
     pageBySlug: (slug: string) => `/page/${slug}`,
   },
@@ -153,7 +154,7 @@ export const routes = {
     recurringDonation: {
       index: '/admin/recurring-donation',
       create: '/admin/recurring-donation/create',
-      view: (id: string) => `/admin/recurring-donation/${id}`,
+      edit: (id: string) => `/admin/recurring-donation/${id}`,
     },
     irregularity: {
       index: '/admin/irregularities',

@@ -17,6 +17,9 @@ import { SessionProvider } from 'next-auth/react'
 import { queryFn } from 'service/restRequests'
 import 'styles/global.scss'
 
+import { Provider } from 'mobx-react'
+import { stores } from 'stores/DomainStores/stores'
+
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
 
@@ -89,7 +92,9 @@ function CustomApp({
         <SessionProvider session={session} refetchInterval={60} refetchOnWindowFocus={true}>
           <QueryClientProvider client={queryClient}>
             <Hydrate state={dehydratedState}>
-              <Component {...pageProps} />
+              <Provider {...stores}>
+                <Component {...pageProps} />
+              </Provider>
             </Hydrate>
           </QueryClientProvider>
         </SessionProvider>

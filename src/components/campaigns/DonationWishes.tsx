@@ -21,7 +21,7 @@ export default function DonationWishes({ campaignId, pageSize = 12 }: Props) {
   const [pageIndex, setPageIndex] = useState<number>(0)
   const { data, isSuccess } = useDonationWishesList(campaignId, pageIndex, pageSize)
 
-  const numOfPages = isSuccess ? Math.ceil(data.totalCount / pageSize) : 0
+  const numOfPages = isSuccess && data ? Math.ceil(data.totalCount / pageSize) : 0
 
   const handlePageChange = (_e: React.ChangeEvent<unknown>, page: number) => {
     // <Pagination /> 's impl is 1 index based
@@ -47,6 +47,7 @@ export default function DonationWishes({ campaignId, pageSize = 12 }: Props) {
       </Grid2>
       <Grid2 container direction="column" rowGap={3}>
         {isSuccess &&
+          data &&
           data.items.map((wish) => (
             <Grid2
               gap={2}

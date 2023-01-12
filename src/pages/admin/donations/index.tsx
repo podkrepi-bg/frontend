@@ -4,7 +4,7 @@ import { endpoints } from 'service/apiEndpoints'
 
 export const getServerSideProps = securedAdminProps(
   ['common', 'auth', 'admin', 'donations', 'validation'],
-  () => endpoints.donation.donationsList(undefined, 0, 20).url,
+  () => endpoints.donation.donationsList(undefined, { pageIndex: 0, pageSize: 20 }).url,
 )
 
 export default DonationsPage

@@ -4,6 +4,7 @@ import AdminContainer from 'components/admin/navigation/AdminContainer'
 import AdminLayout from 'components/admin/navigation/AdminLayout'
 import Grid from './grid/Grid'
 import GridAppbar from './grid/GridAppbar'
+import GridFilters from './grid/GridFilters'
 
 export const ModalStore = new ModalStoreImpl()
 
@@ -14,6 +15,7 @@ export default function DocumentsPage() {
     <AdminLayout>
       <AdminContainer title={t('donations:donations')}>
         <GridAppbar />
+        <GridFilters />
         <Grid />
       </AdminContainer>
     </AdminLayout>

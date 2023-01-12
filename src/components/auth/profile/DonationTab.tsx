@@ -7,12 +7,16 @@ import { useTranslation } from 'next-i18next'
 import { moneyPublic } from 'common/util/money'
 import { useUserDonations } from 'common/hooks/donation'
 import { getCurrentPerson } from 'common/util/useCurrentPerson'
+import { useGetUserRecurringDonations } from 'common/hooks/recurringDonation'
 import { useRouter } from 'next/router'
 
 import { ProfileTabs } from './tabs'
 import ProfileTab from './ProfileTab'
 import DonationTable from './DonationTable'
 import { DonationStatus, PaymentProvider } from 'gql/donations.enums'
+import { RecurringDonationStatus } from 'gql/recurring-donation-status.d'
+import { RecurringDonationResponse } from 'gql/recurring-donation'
+import MyRecurringCampaignsTable from './MyRecurringCampaignsTable'
 
 const PREFIX = 'DonationTab'
 
@@ -75,16 +79,30 @@ const Root = styled('div')(({ theme }) => ({
   },
 }))
 
+//Sum the active donations
+function recurringDonationsSum(donations: RecurringDonationResponse[] | undefined) {
+  if (!donations) {
+    return 0.0
+  }
+
+  return donations
+    .filter((donation) => donation.status === RecurringDonationStatus.active)
+    .reduce((sum, donation) => sum + donation.amount, 0.0)
+}
+
 export default function DonationTab() {
   const router = useRouter()
   const { t } = useTranslation()
 
   const { data: user } = getCurrentPerson(!!router.query?.register)
+
   if (router.query?.register) {
     delete router.query.register
     router.replace({ pathname: router.pathname, query: router.query }, undefined, { shallow: true })
   }
   const { data: userDonations, isLoading: isUserDonationLoading } = useUserDonations()
+  const { data: recurringDonations } = useGetUserRecurringDonations()
+
   return (
     <Root>
       <Box className={classes.boxTitle}>
@@ -112,7 +130,7 @@ export default function DonationTab() {
               {/* <Typography>Я, Ф, М, А 2022</Typography> */}
             </Box>
             <Typography fontWeight="medium" variant="h6">
-              0,00 лв.
+              {moneyPublic(recurringDonationsSum(recurringDonations))}
             </Typography>
           </Box>
           <Box className={classes.donationsBoxRow}>
@@ -161,6 +179,12 @@ export default function DonationTab() {
       </Box>
       <ProfileTab name={ProfileTabs.donations}>
         <DonationTable donations={userDonations?.donations} />
+      </ProfileTab>
+      <Box className={classes.boxTitle}>
+        <Typography className={classes.h3}>{t('profile:donations.recurringDonations')}</Typography>
+      </Box>
+      <ProfileTab name={ProfileTabs.myCampaigns}>
+        <MyRecurringCampaignsTable />
       </ProfileTab>
     </Root>
   )

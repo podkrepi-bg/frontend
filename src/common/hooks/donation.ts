@@ -16,6 +16,7 @@ import {
 } from 'gql/donations'
 import { createCheckoutSession } from 'service/donation'
 import { CampaignDonationHistoryResponse } from 'gql/campaigns'
+import { FilterData, PaginationData } from 'gql/types'
 
 export function usePriceList() {
   return useQuery<DonationPrice[]>([endpoints.donation.prices.url])
@@ -23,9 +24,7 @@ export function usePriceList() {
 export function useSinglePriceList() {
   return useQuery<DonationPrice[]>([endpoints.donation.singlePrices.url])
 }
-export function useRecurringPriceList() {
-  return useQuery<DonationPrice[]>([endpoints.donation.recurringPrices.url])
-}
+
 export function useDonationSession() {
   const { t } = useTranslation()
   const mutation = useMutation<
@@ -40,10 +39,15 @@ export function useDonationSession() {
   return mutation
 }
 
-export function useDonationsList(id?: string, pageindex?: number, pagesize?: number) {
+export function useDonationsList(
+  id?: string,
+  paginationData?: PaginationData,
+  filterData?: FilterData,
+  searchData?: string,
+) {
   const { data: session } = useSession()
   return useQuery<CampaignDonationHistoryResponse>(
-    [endpoints.donation.donationsList(id, pageindex, pagesize).url],
+    [endpoints.donation.donationsList(id, paginationData, filterData, searchData).url],
     {
       queryFn: authQueryFnFactory(session?.accessToken),
     },
