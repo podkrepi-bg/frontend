@@ -174,6 +174,14 @@ export default function Amount() {
                 totalAmount: moneyPublicDecimals2(amountWithFees.value),
               }}
             />
+            <Typography variant="h5" sx={{ marginTop: theme.spacing(3) }}>
+              <CheckboxField
+                name="isRecurring"
+                label={
+                  <Typography variant="body2">{t('third-step.recurring-donation')}</Typography>
+                }
+              />
+            </Typography>
           </Box>
         ) : null}
       </Box>
