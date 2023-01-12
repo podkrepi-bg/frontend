@@ -27,7 +27,7 @@ export const data: TeamData[] = [
   {
     img: '/img/team-photos/AniKalpachka.jpg',
     name: 'Ани Калпачка',
-    description: 'Софтуерна разработка, фронтенд',
+    description: 'Софтуерна разработка, Фронтенд',
     linkedInProfile: 'https://www.linkedin.com/in/ani-kalpachka-937170105/',
   },
   {
@@ -71,5 +71,11 @@ export const data: TeamData[] = [
     name: 'Александър Александров',
     description: 'PR',
     linkedInProfile: 'https://www.linkedin.com/in/alexanderalexandrov/',
+  },
+  {
+    img: '/img/team-photos/DimitarNizamov.png',
+    name: 'Димитър Низамов',
+    description: 'Софтуерна разработка',
+    linkedInProfile: 'https://www.linkedin.com/in/dimitar-nizamov-9180121a2/',
   },
 ]
