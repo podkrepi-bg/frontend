@@ -11,17 +11,18 @@ import { StepsContext } from './helpers/stepperContext'
 import { AlertStore } from 'stores/AlertStore'
 import PasswordField from 'components/common/form/PasswordField'
 
-const onGoogleLogin = () => {
-  const resp = signIn('google')
-}
-
 function LoginForm() {
   const { t } = useTranslation('one-time-donation')
   const [loading, setLoading] = useState(false)
   const { setStep } = useContext(StepsContext)
   const formik = useFormikContext<OneTimeDonation>()
 
-  const onClick = async () => {
+  const googleLoginHandler = () => {
+    signIn('google')
+    localStorage.setItem('googleLogin', 'true')
+  }
+
+  const regularLoginHandler = async () => {
     try {
       setLoading(true)
 
@@ -70,7 +71,7 @@ function LoginForm() {
         variant="contained"
         fullWidth
         sx={{ marginTop: theme.spacing(3) }}
-        onClick={onClick}>
+        onClick={regularLoginHandler}>
         {loading ? <CircularProgress color="inherit" size="1.5rem" /> : t('second-step.btn-login')}
       </Button>
       <Button
@@ -79,7 +80,7 @@ function LoginForm() {
         variant="outlined"
         fullWidth
         sx={{ marginTop: theme.spacing(3) }}
-        onClick={onGoogleLogin}>
+        onClick={googleLoginHandler}>
         <Box display="inline-flex" alignItems="center" marginRight={theme.spacing(2)}>
           <Google /> {t('common:nav.login-with')} Google
         </Box>

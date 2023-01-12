@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useCallback, useContext, useEffect } from 're
 import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
-import { Form, Formik, FormikConfig, FormikValues } from 'formik'
+import { Form, Formik, FormikConfig, FormikValues, useFormikContext } from 'formik'
 import { LoadingButton } from '@mui/lab'
 import { Box, Button, Grid, Step, StepLabel, Stepper, useMediaQuery } from '@mui/material'
 import { StepsContext } from './helpers/stepperContext'
@@ -25,9 +25,42 @@ const StyledStepper = styled('div')(() => ({
 export interface FormikStepProps
   extends Pick<FormikConfig<FormikValues>, 'children' | 'validationSchema'> {
   label?: string
+  initialValues: OneTimeDonation
 }
 
-export function FormikStep({ children }: FormikStepProps) {
+export function FormikStep({ children, initialValues }: FormikStepProps) {
+  const { setStep } = useContext(StepsContext)
+  const formik = useFormikContext<OneTimeDonation>()
+
+  useEffect(() => {
+    if (localStorage.getItem('campaignName') === null) return
+
+    if (localStorage.getItem('donationData') === null) {
+      formik.setFormikState((prevState) => {
+        return {
+          ...prevState,
+          values: initialValues,
+        }
+      })
+      setStep(0)
+    } else {
+      const localDonationData: OneTimeDonation = JSON.parse(
+        localStorage.getItem('donationData') || '',
+      )
+
+      formik.setFormikState((prevState) => {
+        return {
+          ...prevState,
+          values: localDonationData,
+        }
+      })
+
+      if (localStorage.getItem('googleLogin') !== null) {
+        setStep(2)
+      }
+    }
+  }, [])
+
   return <>{children}</>
 }
 
@@ -74,6 +107,10 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
       {...props}
       validationSchema={currentChild.props.validationSchema}
       onSubmit={async (values, helpers) => {
+        localStorage.setItem('donationData', JSON.stringify(values))
+
+        if (localStorage.getItem('googleLogin') !== null) localStorage.removeItem('googleLogin')
+
         if (isLastStep()) {
           values.isAnonymous = isLogged() === false ? true : values.isAnonymous ?? !isLogged()
           await props.onSubmit(values, helpers)
@@ -117,6 +154,8 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
                   color="error"
                   size="large"
                   onClick={() => {
+                    if (localStorage.getItem('googleLogin') !== null)
+                      localStorage.removeItem('googleLogin')
                     setStep((s) => s - 1)
                   }}>
                   {t('btns.back')}

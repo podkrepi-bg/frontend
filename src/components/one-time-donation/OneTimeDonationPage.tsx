@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { styled } from '@mui/material/styles'
@@ -75,6 +76,7 @@ const scrollWindow = () => {
 
 export default function OneTimeDonation({ slug }: { slug: string }) {
   const { data, isLoading } = useViewCampaign(slug)
+
   const matches = useMediaQuery('sm')
   // const paymentIntentMutation = useCreatePaymentIntent({
   //   amount: 100,
@@ -83,6 +85,17 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
   // useEffect(() => {
   //   paymentIntentMutation.mutate()
   // }, [])
+
+  useEffect(() => {
+    if (slug !== localStorage.getItem('campaignName')) {
+      localStorage.removeItem('donationData')
+      localStorage.removeItem('step')
+      localStorage.setItem('campaignName', `${slug}`)
+    } else {
+      localStorage.setItem('campaignName', `${slug}`)
+    }
+  }, [slug])
+
   if (isLoading || !data) return <CenteredSpinner size="2rem" />
   const { campaign } = data
 

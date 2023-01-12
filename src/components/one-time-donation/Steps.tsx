@@ -126,6 +126,7 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
       }
     }
   }
+
   const steps: StepType[] = [
     {
       label: 'amount',
@@ -148,10 +149,12 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
       validate: null,
     },
   ]
-  const [step, setStep] = React.useState(0)
+
+  const [step, setStep] = React.useState(Number(localStorage.getItem('step')) || 0)
 
   React.useEffect(() => {
     onStepChange()
+    localStorage.setItem('step', `${step}`)
   }, [step])
 
   return (
@@ -161,7 +164,11 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
       ) : (
         <FormikStepper onSubmit={onSubmit} initialValues={initialValues}>
           {steps.map(({ label, component, validate }) => (
-            <FormikStep key={label} label={t(`step-labels.${label}`)} validationSchema={validate}>
+            <FormikStep
+              initialValues={initialValues}
+              key={label}
+              label={t(`step-labels.${label}`)}
+              validationSchema={validate}>
               {component}
             </FormikStep>
           ))}

@@ -15,6 +15,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
 
 const Logout = () => {
   useEffect(() => {
+    localStorage.removeItem('googleLogin')
     signOut({ callbackUrl })
   }, [])
 

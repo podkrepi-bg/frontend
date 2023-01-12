@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@mui/material'
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
@@ -14,6 +15,13 @@ type Props = {
 export default function Success({ campaignSlug, donationId }: Props) {
   const { t } = useTranslation('one-time-donation')
   const [field] = useField('payment')
+
+  useEffect(() => {
+    localStorage.removeItem('donationData')
+    localStorage.removeItem('step')
+    localStorage.removeItem('campaignName')
+  }, [])
+
   return (
     <Grid>
       <Grid container justifyContent="center">
