@@ -9,8 +9,8 @@ import {
   backgroundCampaignPictureUrl,
   beneficiaryCampaignPictureUrl,
 } from 'common/util/campaignImageUrls'
-import Layout from 'components/layout/Layout'
 import { useViewCampaign } from 'common/hooks/campaigns'
+import Layout from 'components/layout/Layout'
 import CenteredSpinner from 'components/common/CenteredSpinner'
 
 import { DonationFlowForm } from './DonationFlowForm'

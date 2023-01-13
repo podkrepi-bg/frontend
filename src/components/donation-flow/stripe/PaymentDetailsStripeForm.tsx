@@ -39,6 +39,7 @@ const appearance: Appearance = {
 }
 
 const stripePromise = loadStripe(STRIPE_PUBLIC_KEY)
+console.log('loadStripe')
 
 export type PaymentDetailsStripeFormProps = {
   clientSecret: string
@@ -58,7 +59,7 @@ export default function PaymentDetailsStripeForm({
         locale: i18n.language,
       }}>
       <Box {...containerProps}>
-        <PaymentElement />
+        <PaymentElement onChange={console.log} />
       </Box>
     </Elements>
   )

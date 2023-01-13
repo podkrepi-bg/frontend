@@ -1,21 +1,19 @@
 import React, { useContext, useEffect } from 'react'
-import { Trans, useTranslation } from 'next-i18next'
+import { useTranslation } from 'next-i18next'
 import { useMediaQuery, Box, Collapse, Grid, InputAdornment, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { useField, useFormikContext } from 'formik'
 
 import { OneTimeDonation } from 'gql/donations'
-import { CardRegion } from 'gql/donations.enums'
 
 import theme from 'common/theme'
 import { useSinglePriceList } from 'common/hooks/donation'
-import { moneyPublic, moneyPublicDecimals2, toMoney } from 'common/util/money'
+import { moneyPublic, toMoney } from 'common/util/money'
 
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 import FormTextField from 'components/common/form/FormTextField'
 import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../stripe/stripe-fee-calculator'
 import CheckboxField from 'components/common/form/CheckboxField'
-import FormSelectField from 'components/common/form/FormSelectField'
 import { useCreatePaymentIntent } from 'service/donation'
 import { DonationFlowContext } from '../DonationFlowContext'
 
@@ -39,8 +37,6 @@ export default function Amount() {
   const mobile = useMediaQuery('(max-width:600px)')
 
   const [amount] = useField('amount')
-  const [amountWithFees] = useField('amountWithFees')
-  const [amountWithoutFees] = useField<number>('amountWithoutFees')
   const paymentIntentMutation = useCreatePaymentIntent({
     amount: Number(amount.value),
     currency: 'BGN',
@@ -131,49 +127,6 @@ export default function Amount() {
         </Collapse>
         {amount.value ? (
           <Box sx={{ mt: 4 }}>
-            <Grid container>
-              <Grid item xs={8}>
-                <CheckboxField
-                  name="cardIncludeFees"
-                  label={
-                    <Typography variant="body2">{t('third-step.card-include-fees')}</Typography>
-                  }
-                />
-              </Grid>
-              <Grid item xs={4}>
-                <FormSelectField
-                  name="cardRegion"
-                  label={t('third-step.card-region.title')}
-                  options={[
-                    {
-                      key: CardRegion.EU,
-                      value: CardRegion.EU,
-                      name: t(`third-step.card-region.${CardRegion.EU}`),
-                    },
-                    {
-                      key: CardRegion.UK,
-                      value: CardRegion.UK,
-                      name: t(`third-step.card-region.${CardRegion.UK}`),
-                    },
-                    {
-                      key: CardRegion.Other,
-                      value: CardRegion.Other,
-                      name: t(`third-step.card-region.${CardRegion.Other}`),
-                    },
-                  ]}
-                  InputProps={{ style: { fontSize: 14 } }}
-                />
-              </Grid>
-            </Grid>
-            <Trans
-              t={t}
-              i18nKey="third-step.card-calculated-fees"
-              values={{
-                amount: moneyPublicDecimals2(amountWithoutFees.value),
-                fees: moneyPublicDecimals2(amountWithFees.value - amountWithoutFees.value),
-                totalAmount: moneyPublicDecimals2(amountWithFees.value),
-              }}
-            />
             <Typography variant="h5" sx={{ marginTop: theme.spacing(3) }}>
               <CheckboxField
                 name="isRecurring"

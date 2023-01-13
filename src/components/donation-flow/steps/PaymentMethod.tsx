@@ -1,33 +1,78 @@
 import React, { useContext } from 'react'
-import { styled } from '@mui/material/styles'
-import { useFormikContext } from 'formik'
+import { Trans, useTranslation } from 'react-i18next'
+import { Box, Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
+import { useField, useFormikContext } from 'formik'
 
+import { CardRegion } from 'gql/donations.enums'
 import { OneTimeDonation } from 'gql/donations'
 import useMobile from 'common/hooks/useMobile'
+import CheckboxField from 'components/common/form/CheckboxField'
+import FormSelectField from 'components/common/form/FormSelectField'
+
 import RadioCardGroup from '../common/RadioCardGroup'
+import RadioAccordionGroup from '../common/RadioAccordionGroup'
 import CardIcon from '../icons/CardIcon'
 import BankIcon from '../icons/BankIcon'
 import PaymentDetailsStripeForm from '../stripe/PaymentDetailsStripeForm'
 import { DonationFlowContext } from '../DonationFlowContext'
-import RadioAccordionGroup from '../common/RadioAccordionGroup'
+import { moneyPublicDecimals2 } from 'common/util/money'
+import CenteredSpinner from 'components/common/CenteredSpinner'
 
-const PREFIX = 'AMOUNT'
-
-const classes = {
-  divider: `${PREFIX}-divider`,
+const TaxesCheckbox = () => {
+  const { t } = useTranslation('one-time-donation')
+  const [amountWithFees] = useField('amountWithFees')
+  const [amountWithoutFees] = useField<number>('amountWithoutFees')
+  return (
+    <>
+      <Grid2 container>
+        <Grid2 xs={8}>
+          <CheckboxField
+            name="cardIncludeFees"
+            label={<Typography variant="body2">{t('third-step.card-include-fees')}</Typography>}
+          />
+        </Grid2>
+        <Grid2 xs={4}>
+          <FormSelectField
+            name="cardRegion"
+            label={t('third-step.card-region.title')}
+            options={[
+              {
+                key: CardRegion.EU,
+                value: CardRegion.EU,
+                name: t(`third-step.card-region.${CardRegion.EU}`),
+              },
+              {
+                key: CardRegion.UK,
+                value: CardRegion.UK,
+                name: t(`third-step.card-region.${CardRegion.UK}`),
+              },
+              {
+                key: CardRegion.Other,
+                value: CardRegion.Other,
+                name: t(`third-step.card-region.${CardRegion.Other}`),
+              },
+            ]}
+            InputProps={{ style: { fontSize: 14 } }}
+          />
+        </Grid2>
+      </Grid2>
+      <Trans
+        t={t}
+        i18nKey="third-step.card-calculated-fees"
+        values={{
+          amount: moneyPublicDecimals2(amountWithoutFees.value),
+          fees: moneyPublicDecimals2(amountWithFees.value - amountWithoutFees.value),
+          totalAmount: moneyPublicDecimals2(amountWithFees.value),
+        }}
+      />
+    </>
+  )
 }
-
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')(() => ({
-  [`& .${classes.divider}`]: {
-    border: '1px solid #000000',
-  },
-}))
-
 export default function PaymentMethod() {
   const formik = useFormikContext<OneTimeDonation>()
   const DonationContext = useContext(DonationFlowContext)
   const { small } = useMobile()
+  const [payment] = useField('payment')
   const options = [
     {
       value: 'card',
@@ -66,19 +111,25 @@ export default function PaymentMethod() {
   ]
 
   return (
-    <Root>
+    <Box>
       {small ? (
         <RadioAccordionGroup name="payment" options={mobileOptions} />
       ) : (
         <>
           <RadioCardGroup columns={2} name="payment" options={options} />
-          {DonationContext.stripePaymentIntent ? (
+          {DonationContext.stripePaymentIntent && payment.value === 'card' ? (
             <PaymentDetailsStripeForm
+              containerProps={{ sx: { mb: 2 } }}
               clientSecret={DonationContext.stripePaymentIntent.client_secret as string}
             />
-          ) : null}
+          ) : (
+            <Box display="flex" justifyContent="center" alignItems={'center'}>
+              <CenteredSpinner size={136} />
+            </Box>
+          )}
+          <TaxesCheckbox />
         </>
       )}
-    </Root>
+    </Box>
   )
 }
