@@ -18,7 +18,7 @@ const appearance: Appearance = {
     colorDanger: theme.palette.error.main,
     fontFamily: "Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif",
     fontSizeSm: theme.typography.pxToRem(12),
-    fontSizeBase: theme.typography.pxToRem(16),
+    fontSizeBase: theme.typography.pxToRem(14),
     fontSizeLg: theme.typography.pxToRem(18),
     fontSizeXl: theme.typography.pxToRem(20),
     spacingUnit: theme.spacing(0),
