@@ -70,6 +70,11 @@ export default function FormRichTextField({ name }: RegisterFormProps) {
           />
         )}
       </Field>
+      {meta.touched && meta.error && (
+        <Typography className="error" color="red">
+          {helperText}
+        </Typography>
+      )}
     </div>
   )
 }
