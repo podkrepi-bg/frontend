@@ -12,9 +12,10 @@ import { moneyPublic, toMoney } from 'common/util/money'
 
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 import FormTextField from 'components/common/form/FormTextField'
-import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../stripe/stripe-fee-calculator'
 import CheckboxField from 'components/common/form/CheckboxField'
 import { useCreatePaymentIntent } from 'service/donation'
+
+import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../stripe/stripe-fee-calculator'
 import { DonationFlowContext } from '../DonationFlowContext'
 
 const PREFIX = 'AMOUNT'

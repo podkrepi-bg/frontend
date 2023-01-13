@@ -1,24 +1,23 @@
 import React from 'react'
 import { Avatar, Box, Typography } from '@mui/material'
 import { styled } from '@mui/styles'
-import theme from 'common/theme'
 import { grey } from '@mui/material/colors'
+
+import theme from 'common/theme'
 
 type StepSplitterProps = {
   content: string
   active?: boolean
 }
 
-const StyledLine = styled('div')(() => ({
-  width: '100%',
-  height: '1px',
-  backgroundColor: grey[400],
-}))
+const Line = () => {
+  return <Box width="100%" height="1px" sx={{ backgroundColor: grey[400] }} />
+}
 
 function StepSplitter({ content, active }: StepSplitterProps) {
   return (
     <Box justifyContent="center" alignItems="center" display="flex" marginY={theme.spacing(3)}>
-      <StyledLine />
+      <Line />
       <Avatar
         sx={{
           bgcolor: active ? theme.palette.primary.main : grey[400],
@@ -28,7 +27,7 @@ function StepSplitter({ content, active }: StepSplitterProps) {
         }}>
         <Typography fontSize={theme.typography.fontSize}>{content}</Typography>
       </Avatar>
-      <StyledLine />
+      <Line />
     </Box>
   )
 }

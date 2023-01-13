@@ -1,11 +1,12 @@
 import React, { useContext } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import { Box, Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
+import { Box, CircularProgress, Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
 import { useField, useFormikContext } from 'formik'
 
 import { CardRegion } from 'gql/donations.enums'
 import { OneTimeDonation } from 'gql/donations'
 import useMobile from 'common/hooks/useMobile'
+import { moneyPublicDecimals2 } from 'common/util/money'
 import CheckboxField from 'components/common/form/CheckboxField'
 import FormSelectField from 'components/common/form/FormSelectField'
 
@@ -15,8 +16,6 @@ import CardIcon from '../icons/CardIcon'
 import BankIcon from '../icons/BankIcon'
 import PaymentDetailsStripeForm from '../stripe/PaymentDetailsStripeForm'
 import { DonationFlowContext } from '../DonationFlowContext'
-import { moneyPublicDecimals2 } from 'common/util/money'
-import CenteredSpinner from 'components/common/CenteredSpinner'
 
 const TaxesCheckbox = () => {
   const { t } = useTranslation('one-time-donation')
@@ -68,6 +67,7 @@ const TaxesCheckbox = () => {
     </>
   )
 }
+
 export default function PaymentMethod() {
   const formik = useFormikContext<OneTimeDonation>()
   const DonationContext = useContext(DonationFlowContext)
@@ -109,7 +109,6 @@ export default function PaymentMethod() {
       content: <>TODO: Add Bank Transfer Content</>,
     },
   ]
-
   return (
     <Box>
       {small ? (
@@ -117,17 +116,21 @@ export default function PaymentMethod() {
       ) : (
         <>
           <RadioCardGroup columns={2} name="payment" options={options} />
-          {DonationContext.stripePaymentIntent && payment.value === 'card' ? (
-            <PaymentDetailsStripeForm
-              containerProps={{ sx: { mb: 2 } }}
-              clientSecret={DonationContext.stripePaymentIntent.client_secret as string}
-            />
-          ) : (
-            <Box display="flex" justifyContent="center" alignItems={'center'}>
-              <CenteredSpinner size={136} />
-            </Box>
-          )}
-          <TaxesCheckbox />
+          {payment.value === 'card' ? (
+            DonationContext.stripePaymentIntent ? (
+              <>
+                <PaymentDetailsStripeForm
+                  containerProps={{ sx: { mb: 3 } }}
+                  clientSecret={DonationContext.stripePaymentIntent.client_secret as string}
+                />
+                <TaxesCheckbox />
+              </>
+            ) : (
+              <Box display="flex" justifyContent="center" alignItems={'center'}>
+                <CircularProgress size={136} />
+              </Box>
+            )
+          ) : null}
         </>
       )}
     </Box>

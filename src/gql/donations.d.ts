@@ -142,7 +142,7 @@ export type DonationStep = {
 }
 
 export type FirstStep = {
-  payment: string
+  payment?: string
   amount?: string
 }
 
