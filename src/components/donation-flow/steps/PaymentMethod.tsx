@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import { Box, CircularProgress, Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
+import { Box, Typography, Unstable_Grid2 as Grid2, useMediaQuery } from '@mui/material'
 import { useField, useFormikContext } from 'formik'
 
 import { CardRegion } from 'gql/donations.enums'
 import { OneTimeDonation } from 'gql/donations'
-import useMobile from 'common/hooks/useMobile'
+import theme from 'common/theme'
 import { moneyPublicDecimals2 } from 'common/util/money'
 import CheckboxField from 'components/common/form/CheckboxField'
 import FormSelectField from 'components/common/form/FormSelectField'
@@ -71,7 +71,7 @@ const TaxesCheckbox = () => {
 export default function PaymentMethod() {
   const formik = useFormikContext<OneTimeDonation>()
   const DonationContext = useContext(DonationFlowContext)
-  const { small } = useMobile()
+  const isSmall = useMediaQuery(theme.breakpoints.down('md'))
   const [payment] = useField('payment')
   const options = [
     {
@@ -111,25 +111,19 @@ export default function PaymentMethod() {
   ]
   return (
     <Box>
-      {small ? (
+      {isSmall ? (
         <RadioAccordionGroup name="payment" options={mobileOptions} />
       ) : (
         <>
           <RadioCardGroup columns={2} name="payment" options={options} />
-          {payment.value === 'card' ? (
-            DonationContext.stripePaymentIntent ? (
-              <>
-                <PaymentDetailsStripeForm
-                  containerProps={{ sx: { mb: 3 } }}
-                  clientSecret={DonationContext.stripePaymentIntent.client_secret as string}
-                />
-                <TaxesCheckbox />
-              </>
-            ) : (
-              <Box display="flex" justifyContent="center" alignItems={'center'}>
-                <CircularProgress size={136} />
-              </Box>
-            )
+          {payment.value === 'card' && DonationContext.stripePaymentIntent ? (
+            <>
+              <PaymentDetailsStripeForm
+                containerProps={{ sx: { mb: 3 } }}
+                clientSecret={DonationContext.stripePaymentIntent.client_secret as string}
+              />
+              <TaxesCheckbox />
+            </>
           ) : null}
         </>
       )}

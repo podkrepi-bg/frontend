@@ -48,7 +48,7 @@ export function DonationFlowForm() {
       validateOnMount
       validateOnBlur>
       {({ handleSubmit }) => (
-        <Grid2 container>
+        <Grid2 spacing={4} container>
           <Grid2 sm={12} md={8}>
             <Form
               onSubmit={handleSubmit}

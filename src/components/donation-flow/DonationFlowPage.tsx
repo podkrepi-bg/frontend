@@ -48,9 +48,9 @@ const StyledBeneficiaryAvatar = styled(Image)(({ theme }) => ({
   },
 }))
 
-const StyledStepperWrapper = styled(Grid2)(({ theme }) => ({
-  gap: theme.spacing(2),
-  display: 'grid',
+const StyledStepsWrapper = styled(Grid2)(() => ({
+  width: '100%',
+  maxWidth: '960px',
 }))
 
 export default function DonationFlowPage({ slug }: { slug: string }) {
@@ -86,7 +86,7 @@ export default function DonationFlowPage({ slug }: { slug: string }) {
             />
           </StyledBeneficiaryAvatarWrapper>
 
-          <StyledStepperWrapper>
+          <StyledStepsWrapper>
             <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)} passHref>
               <Typography
                 variant="h4"
@@ -96,7 +96,7 @@ export default function DonationFlowPage({ slug }: { slug: string }) {
               </Typography>
             </Link>
             <DonationFlowForm />
-          </StyledStepperWrapper>
+          </StyledStepsWrapper>
         </Grid2>
       </Layout>
     </DonationFlowProvider>
