@@ -3,11 +3,13 @@ import { styled } from '@mui/material/styles'
 import { useFormikContext } from 'formik'
 
 import { OneTimeDonation } from 'gql/donations'
+import useMobile from 'common/hooks/useMobile'
 import RadioCardGroup from '../common/RadioCardGroup'
 import CardIcon from '../icons/CardIcon'
 import BankIcon from '../icons/BankIcon'
 import PaymentDetailsStripeForm from '../stripe/PaymentDetailsStripeForm'
 import { DonationFlowContext } from '../DonationFlowContext'
+import RadioAccordionGroup from '../common/RadioAccordionGroup'
 
 const PREFIX = 'AMOUNT'
 
@@ -25,6 +27,7 @@ const Root = styled('div')(() => ({
 export default function PaymentMethod() {
   const formik = useFormikContext<OneTimeDonation>()
   const DonationContext = useContext(DonationFlowContext)
+  const { small } = useMobile()
   const options = [
     {
       value: 'card',
@@ -38,15 +41,43 @@ export default function PaymentMethod() {
       icon: <BankIcon sx={{ width: 80, height: 80 }} />,
     },
   ]
+  const mobileOptions = [
+    {
+      value: 'card',
+      label: 'Card',
+      icon: <CardIcon sx={{ width: 80, height: 80 }} />,
+      disabled: !formik.values.amount,
+      content: (
+        <>
+          {DonationContext.stripePaymentIntent ? (
+            <PaymentDetailsStripeForm
+              clientSecret={DonationContext.stripePaymentIntent.client_secret as string}
+            />
+          ) : null}
+        </>
+      ),
+    },
+    {
+      value: 'bank',
+      label: 'Bank Transfer',
+      icon: <BankIcon sx={{ width: 80, height: 80 }} />,
+      content: <>TODO: Add Bank Transfer Content</>,
+    },
+  ]
+
   return (
     <Root>
-      <RadioCardGroup columns={2} name="payment" options={options} />
-      {DonationContext.stripePaymentIntent ? (
-        <PaymentDetailsStripeForm
-          clientSecret={DonationContext.stripePaymentIntent.client_secret as string}
-        />
+      {small ? (
+        <RadioAccordionGroup name="payment" options={mobileOptions} />
       ) : (
-        'There is a problem with picking your price. Please try again later.'
+        <>
+          <RadioCardGroup columns={2} name="payment" options={options} />
+          {DonationContext.stripePaymentIntent ? (
+            <PaymentDetailsStripeForm
+              clientSecret={DonationContext.stripePaymentIntent.client_secret as string}
+            />
+          ) : null}
+        </>
       )}
     </Root>
   )

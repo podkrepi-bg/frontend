@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, Box, Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
+import { Avatar, Box, Typography } from '@mui/material'
 import { styled } from '@mui/styles'
 import theme from 'common/theme'
 import { grey } from '@mui/material/colors'
@@ -13,12 +13,11 @@ const StyledLine = styled('div')(() => ({
   width: '100%',
   height: '1px',
   backgroundColor: grey[400],
-  margin: '0 0 0 0',
 }))
 
 function StepSplitter({ content, active }: StepSplitterProps) {
   return (
-    <Box justifyContent="center" alignItems="center" display="flex" marginY={theme.spacing(2)}>
+    <Box justifyContent="center" alignItems="center" display="flex" marginY={theme.spacing(3)}>
       <StyledLine />
       <Avatar
         sx={{

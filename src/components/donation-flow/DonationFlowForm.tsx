@@ -52,10 +52,10 @@ export function DonationFlowForm() {
             marginRight: 'auto',
           }}
           autoComplete="off">
-          <Amount />
           <StepSplitter content="1" />
-          <PaymentMethod />
+          <Amount />
           <StepSplitter content="2" />
+          <PaymentMethod />
 
           <SubmitButton>Submit</SubmitButton>
         </Form>
