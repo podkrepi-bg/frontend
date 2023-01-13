@@ -16,16 +16,6 @@ import CenteredSpinner from 'components/common/CenteredSpinner'
 import { DonationFlowForm } from './DonationFlowForm'
 import { DonationFlowProvider } from './DonationFlowContext'
 
-const PREFIX = 'OneTimeDonationPage'
-
-const classes = {
-  bannerWrapper: `${PREFIX}-bannerWrapper`,
-  banner: `${PREFIX}-banner`,
-  beneficiaryAvatarWrapper: `${PREFIX}-beneficiaryAvatarWrapper`,
-  beneficiaryAvatar: `${PREFIX}-beneficiaryAvatar`,
-  stepperWrapper: `${PREFIX}-stepperWrapper`,
-}
-
 const StyledBannerWrapper = styled(Box)(() => ({
   '& span': {
     position: 'inherit !important',
@@ -63,42 +53,6 @@ const StyledStepperWrapper = styled(Grid2)(({ theme }) => ({
   display: 'grid',
 }))
 
-const StyledLayout = styled(Layout)(({ theme }) => ({
-  [`& .${classes.bannerWrapper}`]: {
-    '& span': {
-      position: 'inherit !important',
-    },
-  },
-
-  [`& .${classes.banner}`]: {
-    zIndex: -1,
-    maxHeight: '350px !important',
-    marginTop: `${theme.spacing(10)} !important`,
-    [theme.breakpoints.up('md')]: {
-      marginTop: `${theme.spacing(14)} !important`,
-    },
-    objectFit: 'cover',
-  },
-
-  [`& .${classes.beneficiaryAvatarWrapper}`]: {
-    textAlign: 'center',
-    [theme.breakpoints.up('md')]: {
-      textAlign: 'center',
-    },
-  },
-
-  [`& .${classes.beneficiaryAvatar}`]: {
-    borderRadius: '50%',
-    border: `4px solid ${theme.palette.common.white} !important`,
-    textAlign: 'center',
-  },
-
-  [`& .${classes.stepperWrapper}`]: {
-    gap: theme.spacing(2),
-    display: 'grid',
-  },
-}))
-
 export default function DonationFlowPage({ slug }: { slug: string }) {
   const { data, isLoading } = useViewCampaign(slug)
   const matches = useMediaQuery('sm')
@@ -110,7 +64,7 @@ export default function DonationFlowPage({ slug }: { slug: string }) {
 
   return (
     <DonationFlowProvider>
-      <StyledLayout maxWidth={false}>
+      <Layout maxWidth={false}>
         <Grid2
           container
           component="section"
@@ -144,7 +98,7 @@ export default function DonationFlowPage({ slug }: { slug: string }) {
             <DonationFlowForm />
           </StyledStepperWrapper>
         </Grid2>
-      </StyledLayout>
+      </Layout>
     </DonationFlowProvider>
   )
 }
