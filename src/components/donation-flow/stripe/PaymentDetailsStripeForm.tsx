@@ -1,10 +1,11 @@
-import { Appearance } from '@stripe/stripe-js'
-import { Elements, PaymentElement } from '@stripe/react-stripe-js'
-import { Box, BoxProps } from '@mui/material'
+import { useSession } from 'next-auth/react'
 import { useTranslation } from 'react-i18next'
+import { Appearance } from '@stripe/stripe-js'
+import { Elements, LinkAuthenticationElement, PaymentElement } from '@stripe/react-stripe-js'
+import { Box, BoxProps } from '@mui/material'
 
-import theme from 'common/theme'
 import { stripePromise } from 'pages/_app'
+import theme from 'common/theme'
 
 const appearance: Appearance = {
   theme: 'stripe',
@@ -45,6 +46,8 @@ export default function PaymentDetailsStripeForm({
   containerProps,
 }: PaymentDetailsStripeFormProps) {
   const { i18n } = useTranslation()
+  // use session to get the email
+  const { data: session } = useSession()
   return (
     <Elements
       stripe={stripePromise}
@@ -54,6 +57,13 @@ export default function PaymentDetailsStripeForm({
         locale: i18n.language,
       }}>
       <Box {...containerProps}>
+        <LinkAuthenticationElement
+          options={{
+            defaultValues: {
+              email: session?.user?.email || '',
+            },
+          }}
+        />
         <PaymentElement />
       </Box>
     </Elements>
