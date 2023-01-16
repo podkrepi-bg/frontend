@@ -52,3 +52,10 @@ ul {
     }
   }
 }
+
+// Add outline to all MuiFocusVisible elements
+// https://github.com/mui/material-ui/issues/35843
+/* stylelint-disable selector-class-pattern */
+.Mui-focusVisible {
+  outline: 2px solid $theme-primary-dark;
+}

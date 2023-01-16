@@ -1,4 +1,5 @@
 import React from 'react'
+import { useField } from 'formik'
 import {
   Card,
   CardProps,
@@ -12,7 +13,6 @@ import {
 } from '@mui/material'
 import { styled, lighten } from '@mui/material/styles'
 import theme from 'common/theme'
-import { useField } from 'formik'
 
 export const StyledRadioCardItem = styled(Card)(() => ({
   padding: theme.spacing(2),
@@ -20,10 +20,8 @@ export const StyledRadioCardItem = styled(Card)(() => ({
   cursor: 'pointer',
   border: `1px solid ${theme.borders.dark}`,
   width: '100%',
-  // add black outline to selected card
-  '&:focus': {
-    outline: 'none',
-    border: `1px solid ${theme.palette.primary.main}`,
+  '&:focus-within': {
+    outline: `2px solid ${theme.palette.common.black}`,
   },
 }))
 
