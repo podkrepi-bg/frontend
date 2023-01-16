@@ -16,7 +16,7 @@ const LinkButton = (
     locale={locale}
     passHref
     style={{ pointerEvents: disabled ? 'none' : 'all' }}>
-    <Button ref={ref} disabled={disabled} {...props} />
+    <Button tabIndex={-1} ref={ref} disabled={disabled} {...props} />
   </Link>
 )
 
