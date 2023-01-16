@@ -14,22 +14,17 @@ import { styled, lighten } from '@mui/material/styles'
 import theme from 'common/theme'
 import { useField } from 'formik'
 
-export const BaseRadioCardItem = styled(Card)(() => ({
+export const StyledRadioCardItem = styled(Card)(() => ({
   padding: theme.spacing(2),
   margin: 0,
   cursor: 'pointer',
   border: `1px solid ${theme.borders.dark}`,
   width: '100%',
-}))
-
-export const DisabledRadioCardItem = styled(BaseRadioCardItem)(() => ({
-  opacity: 0.7,
-  backgroundColor: `${theme.palette.grey[300]} !important`,
-  pointerEvents: 'none',
-}))
-
-export const SelectedRadioCardItem = styled(BaseRadioCardItem)(() => ({
-  backgroundColor: lighten(theme.palette.primary.light, 0.7),
+  // add black outline to selected card
+  '&:focus': {
+    outline: 'none',
+    border: `1px solid ${theme.palette.primary.main}`,
+  },
 }))
 
 interface StyledRadioCardItemProps extends CardProps {
@@ -40,16 +35,24 @@ interface StyledRadioCardItemProps extends CardProps {
 }
 
 function RadioCardItem({ control, icon, selected, disabled, ...rest }: StyledRadioCardItemProps) {
-  let StyledRadioCardItem = BaseRadioCardItem
-  if (disabled) {
-    StyledRadioCardItem = DisabledRadioCardItem
-  } else if (selected) {
-    StyledRadioCardItem = SelectedRadioCardItem
+  const selectedStyles = {
+    backgroundColor: selected ? lighten(theme.palette.primary.light, 0.7) : 'inherit',
   }
+  const disabledStyles = {
+    opacity: 0.7,
+    backgroundColor: `${theme.palette.grey[300]} !important`,
+    pointerEvents: 'none',
+  }
+
+  let styles = {}
+  if (disabled) {
+    styles = disabledStyles
+  } else if (selected) {
+    styles = selectedStyles
+  }
+
   return (
-    <StyledRadioCardItem
-      sx={{ backgroundColor: selected ? lighten(theme.palette.primary.light, 0.7) : 'inherit' }}
-      {...rest}>
+    <StyledRadioCardItem sx={styles} {...rest}>
       <Stack justifyContent="center" alignItems="center">
         {icon}
         {control}
@@ -97,7 +100,10 @@ function RadioCardGroup({ options, name, columns }: RadioCardGroupProps) {
                     control={
                       <Radio
                         disabled={option.disabled}
-                        sx={{ opacity: 0, position: 'absolute', width: 0, height: 0 }}
+                        sx={{
+                          'clip-path': 'polygon(0 0)',
+                          position: 'absolute',
+                        }}
                       />
                     }
                     label={option.label}
