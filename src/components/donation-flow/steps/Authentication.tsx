@@ -4,6 +4,7 @@ import { Box } from '@mui/material'
 
 import RadioAccordionGroup from '../common/RadioAccordionGroup'
 import { DonationFlowContext } from '../DonationFlowContext'
+import InlineLoginForm from './InlineLoginForm'
 
 export default function Authentication() {
   const DonationContext = useContext(DonationFlowContext)
@@ -13,7 +14,7 @@ export default function Authentication() {
       value: 'login',
       label: 'Login',
       disabled: Boolean(session?.user),
-      content: <>Login form</>,
+      content: <InlineLoginForm />,
     },
     {
       value: 'register',
