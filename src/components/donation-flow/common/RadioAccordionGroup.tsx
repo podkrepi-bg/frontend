@@ -14,10 +14,13 @@ import { useField } from 'formik'
 import theme from 'common/theme'
 
 export const BaseRadioAccordionItem = styled(Box)(() => ({
-  '&:not(:last-child)': {
+  '&:first-child': {
     borderBottom: `1px solid ${theme.borders.dark}`,
     borderTopLeftRadius: theme.borders.semiRound,
     borderTopRightRadius: theme.borders.semiRound,
+  },
+  '&:not(:last-child)': {
+    borderBottom: `1px solid ${theme.borders.dark}`,
   },
   '&:last-child': {
     borderBottomLeftRadius: theme.borders.semiRound,
@@ -36,7 +39,7 @@ export const DisabledRadioAccordionItem = styled(BaseRadioAccordionItem)(() => (
 
 interface RadioAccordionItemProps extends BoxProps {
   control: React.ReactNode
-  icon: React.ReactNode
+  icon?: React.ReactNode
   content?: React.ReactNode
   selected?: boolean
   disabled?: boolean
@@ -71,7 +74,7 @@ type Option = {
   value: string
   label: string
   content: React.ReactNode
-  icon: React.ReactNode
+  icon?: React.ReactNode
   disabled?: boolean
 }
 
