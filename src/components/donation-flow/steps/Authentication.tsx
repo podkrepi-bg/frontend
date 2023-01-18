@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useSession } from 'next-auth/react'
 import { Box } from '@mui/material'
 
@@ -9,6 +10,7 @@ import InlineLoginForm from './InlineLoginForm'
 export default function Authentication() {
   const DonationContext = useContext(DonationFlowContext)
   const { data: session } = useSession()
+  const { t } = useTranslation('one-time-donation')
   const options = [
     {
       value: 'login',
@@ -25,7 +27,7 @@ export default function Authentication() {
     {
       value: 'anonymous',
       label: 'Anonymous',
-      content: <>Anonymous </>,
+      content: <p>{t('anonymous-menu.checkbox-label')} </p>,
     },
   ]
   return (
