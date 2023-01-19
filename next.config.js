@@ -18,7 +18,6 @@ const moduleExports = {
   typescript: {
     tsconfigPath: 'tsconfig.build.json',
   },
-  tsconfigPath: 'tsconfig.build.json',
   swcMinify: true,
   env: {
     APP_ENV: process.env.APP_ENV,
