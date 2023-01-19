@@ -292,8 +292,6 @@ export default function CampaignGrid() {
         columns={columns}
         pageSize={10}
         editMode="row"
-        autoHeight
-        autoPageSize
       />
       <Box>
         {selectedCampaign && (
