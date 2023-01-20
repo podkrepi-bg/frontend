@@ -3,7 +3,6 @@ import * as yup from 'yup'
 import { Form, Formik } from 'formik'
 import { Alert, Hidden, Unstable_Grid2 as Grid2 } from '@mui/material'
 
-import { FirstStep } from 'gql/donations'
 import { CardRegion } from 'gql/donations.enums'
 import SubmitButton from 'components/common/form/SubmitButton'
 
@@ -11,37 +10,88 @@ import StepSplitter from './common/StepSplitter'
 import Amount from './steps/Amount'
 import PaymentMethod from './steps/PaymentMethod'
 import Authentication from './steps/Authentication'
+import { useSession } from 'next-auth/react'
 
-const initialValues = {
-  amount: '',
-  payment: '',
-  amountWithFees: 0,
+export enum DonationFormDataAuthState {
+  LOGIN = 'login',
+  REGISTER = 'register',
+  ANONYMOUS = 'anonymous',
+  AUTHENTICATED = 'authenticated',
+}
+
+export enum DonationFormDataPaymentOption {
+  CARD = 'card',
+  BANK = 'bank',
+}
+export type DonationFormDataV2 = {
+  authentication: DonationFormDataAuthState
+  payment?: DonationFormDataPaymentOption
+  email?: string
+  cardRegion?: CardRegion
+  cardIncludeFees?: boolean
+  amountWithFees?: number
+  otherAmount?: number
+  amount?: string
+}
+
+const initialValues: DonationFormDataV2 = {
+  amount: undefined,
+  email: undefined,
+  payment: undefined,
+  amountWithFees: undefined,
   cardIncludeFees: false,
   cardRegion: CardRegion.EU,
   otherAmount: 0,
+  authentication: DonationFormDataAuthState.LOGIN,
 }
-
 //TODO: Should be a SchemaOf the whole form
-export const validationSchema: yup.SchemaOf<FirstStep> = yup
+export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
   .object()
   .defined()
   .shape({
-    payment: yup.string().oneOf(['card', 'bank']),
+    payment: yup
+      .string()
+      .oneOf(Object.values(DonationFormDataPaymentOption))
+      .required() as yup.SchemaOf<DonationFormDataPaymentOption>,
     amount: yup.string().when('payment', {
       is: 'card',
-      // Here we should fetch the possible payments to put into the oneOf, but it's not that important
-      then: yup.string().required(),
+      then: () => yup.string().required(),
+    }),
+    amountWithFees: yup.number().when('payment', {
+      is: 'card',
+      then: () =>
+        yup.number().min(1, 'one-time-donation:errors-fields.amount-with-fees').required(),
     }),
     otherAmount: yup.number().when('amount', {
       is: 'other',
-      then: yup.number().min(1, 'one-time-donation:errors-fields.other-amount').required(),
+      then: () => yup.number().min(1, 'one-time-donation:errors-fields.other-amount').required(),
     }),
+    cardIncludeFees: yup.boolean(),
+    cardRegion: yup
+      .string()
+      .oneOf(Object.values(CardRegion))
+      .when('payment', {
+        is: 'card',
+        then: () => yup.string().oneOf(Object.values(CardRegion)).required(),
+      }) as yup.SchemaOf<CardRegion>,
+    authentication: yup
+      .string()
+      .oneOf(Object.values(DonationFormDataAuthState))
+      .required() as yup.SchemaOf<DonationFormDataAuthState>,
+    email: yup
+      .string()
+      .required()
+      .when('authentication', {
+        is: 'anonymous',
+        then: () => yup.string().email('one-time-donation:errors-fields.email').required(),
+      }),
   })
 
 export function DonationFlowForm() {
+  const { data: session } = useSession()
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={{ initialValues, email: session?.user?.email ?? '' }}
       validationSchema={validationSchema}
       onSubmit={async (values) => {
         console.log(values)

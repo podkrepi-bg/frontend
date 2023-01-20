@@ -110,7 +110,7 @@ function RadioAccordionGroup({ options, name, ...rest }: RadioAccordionGroupProp
             control={
               <FormControlLabel
                 value={option.value}
-                control={<Radio checked={option.value === field.value} />}
+                control={<Radio />}
                 label={option.label}
                 disabled={option.disabled}
               />

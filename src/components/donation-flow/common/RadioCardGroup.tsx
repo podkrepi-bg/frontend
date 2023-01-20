@@ -99,7 +99,7 @@ function RadioCardGroup({ options, name, columns }: RadioCardGroupProps) {
                       <Radio
                         disabled={option.disabled}
                         sx={{
-                          'clip-path': 'polygon(0 0)',
+                          clipPath: 'polygon(0 0)',
                           position: 'absolute',
                         }}
                       />
