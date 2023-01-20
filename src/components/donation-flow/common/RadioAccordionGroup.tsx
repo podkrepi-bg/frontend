@@ -14,7 +14,7 @@ import { useField } from 'formik'
 import theme from 'common/theme'
 
 export const BaseRadioAccordionItem = styled(Box)(() => ({
-  '&:first-child': {
+  '&:first-of-type': {
     borderBottom: `1px solid ${theme.borders.dark}`,
     borderTopLeftRadius: theme.borders.semiRound,
     borderTopRightRadius: theme.borders.semiRound,
@@ -110,7 +110,7 @@ function RadioAccordionGroup({ options, name, ...rest }: RadioAccordionGroupProp
             control={
               <FormControlLabel
                 value={option.value}
-                control={<Radio />}
+                control={<Radio checked={option.value === field.value} />}
                 label={option.label}
                 disabled={option.disabled}
               />
