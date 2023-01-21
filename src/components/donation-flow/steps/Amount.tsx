@@ -97,7 +97,7 @@ export default function Amount() {
               .concat({ label: t('first-step.other'), value: 'other' }) || []
           }
         />
-        <Collapse in={amount.value === 'other'} timeout="auto">
+        <Collapse unmountOnExit in={amount.value === 'other'} timeout="auto">
           <Grid
             item
             xs={12}

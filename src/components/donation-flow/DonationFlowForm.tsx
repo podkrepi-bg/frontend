@@ -55,7 +55,7 @@ export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
       .required() as yup.SchemaOf<DonationFormDataPaymentOption>,
     amount: yup.string().when('payment', {
       is: 'card',
-      then: () => yup.string().required(),
+      then: yup.string().required(),
     }),
     amountWithFees: yup.number().when('payment', {
       is: 'card',
@@ -64,7 +64,7 @@ export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
     }),
     otherAmount: yup.number().when('amount', {
       is: 'other',
-      then: () => yup.number().min(1, 'one-time-donation:errors-fields.other-amount').required(),
+      then: yup.number().min(1, 'one-time-donation:errors-fields.other-amount').required(),
     }),
     cardIncludeFees: yup.boolean(),
     cardRegion: yup
@@ -72,7 +72,7 @@ export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
       .oneOf(Object.values(CardRegion))
       .when('payment', {
         is: 'card',
-        then: () => yup.string().oneOf(Object.values(CardRegion)).required(),
+        then: yup.string().oneOf(Object.values(CardRegion)).required(),
       }) as yup.SchemaOf<CardRegion>,
     authentication: yup
       .string()
@@ -83,7 +83,7 @@ export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
       .required()
       .when('authentication', {
         is: 'anonymous',
-        then: () => yup.string().email('one-time-donation:errors-fields.email').required(),
+        then: yup.string().email('one-time-donation:errors-fields.email').required(),
       }),
   })
 

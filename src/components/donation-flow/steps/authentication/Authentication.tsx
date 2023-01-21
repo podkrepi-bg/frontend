@@ -1,14 +1,20 @@
-import { useTranslation } from 'react-i18next'
 import { useSession } from 'next-auth/react'
 import { Box, Checkbox, Radio } from '@mui/material'
 
 import RadioAccordionGroup from '../../common/RadioAccordionGroup'
 import InlineLoginForm from './InlineLoginForm'
 import InlineRegisterForm from './InlineRegisterForm'
+import { useEffect } from 'react'
+import { useFormikContext } from 'formik'
 
 export default function Authentication() {
   const { data: session } = useSession()
-  const { t } = useTranslation('one-time-donation')
+  const formik = useFormikContext()
+  useEffect(() => {
+    if (session?.user) {
+      formik.setFieldValue('authentication', undefined)
+    }
+  }, [session?.user])
   const options = [
     {
       value: 'login',
@@ -29,6 +35,7 @@ export default function Authentication() {
       content: <></>,
     },
   ]
+
   return (
     <Box>
       <RadioAccordionGroup name="authentication" options={options} />
