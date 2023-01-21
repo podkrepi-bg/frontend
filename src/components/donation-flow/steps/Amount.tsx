@@ -81,10 +81,10 @@ export default function Amount() {
 
   return (
     <Root>
-      <Typography variant="h4" sx={{ marginTop: theme.spacing(3) }}>
+      <Typography variant="h5" my={3}>
         {t('first-step.amount')}
       </Typography>
-      <Box marginTop={theme.spacing(4)}>
+      <Box>
         <RadioButtonGroup
           name="amount"
           options={

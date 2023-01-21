@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/react'
-import { Box, Checkbox, Radio } from '@mui/material'
+import { Box, Checkbox, Radio, Typography } from '@mui/material'
 
 import RadioAccordionGroup from '../../common/RadioAccordionGroup'
 import InlineLoginForm from './InlineLoginForm'
@@ -38,6 +38,9 @@ export default function Authentication() {
 
   return (
     <Box>
+      <Typography mb={3} variant="h5">
+        Как предпочитате да продължите?
+      </Typography>
       <RadioAccordionGroup name="authentication" options={options} />
     </Box>
   )

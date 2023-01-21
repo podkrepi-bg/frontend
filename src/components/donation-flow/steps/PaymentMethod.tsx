@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import { Box, Typography, Unstable_Grid2 as Grid2, useMediaQuery } from '@mui/material'
+import { Typography, Unstable_Grid2 as Grid2, useMediaQuery } from '@mui/material'
 import { useField, useFormikContext } from 'formik'
 
 import { CardRegion } from 'gql/donations.enums'
@@ -111,6 +111,9 @@ export default function PaymentMethod() {
   ]
   return (
     <>
+      <Typography mb={3} variant="h5">
+        Как желаете да дарите?
+      </Typography>
       {isSmall ? (
         <RadioAccordionGroup name="payment" options={mobileOptions} />
       ) : (
