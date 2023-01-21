@@ -9,7 +9,7 @@ import {
   RadioGroup,
   RadioGroupProps,
   Stack,
-  Unstable_Grid2 as Grid2,
+  Grid,
 } from '@mui/material'
 import { styled, lighten } from '@mui/material/styles'
 import theme from 'common/theme'
@@ -84,9 +84,9 @@ function RadioCardGroup({ options, name, columns }: RadioCardGroupProps) {
       component="fieldset"
       error={Boolean(meta.error) && Boolean(meta.touched)}>
       <RadioGroup value={field.value} onChange={handleChange}>
-        <Grid2 spacing={2} container>
+        <Grid columnSpacing={3} container>
           {options.map((option) => (
-            <Grid2 xs={12} sm={12 / columns} key={option.value}>
+            <Grid item xs={12} sm={12 / columns} key={option.value}>
               <RadioCardItem
                 onClick={() => setValue(option.value)}
                 control={
@@ -111,9 +111,9 @@ function RadioCardGroup({ options, name, columns }: RadioCardGroupProps) {
                 selected={field.value === option.value && !option.disabled}
                 disabled={option.disabled}
               />
-            </Grid2>
+            </Grid>
           ))}
-        </Grid2>
+        </Grid>
       </RadioGroup>
     </FormControl>
   )

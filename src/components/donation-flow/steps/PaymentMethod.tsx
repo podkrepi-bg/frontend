@@ -110,7 +110,7 @@ export default function PaymentMethod() {
     },
   ]
   return (
-    <Box>
+    <>
       {isSmall ? (
         <RadioAccordionGroup name="payment" options={mobileOptions} />
       ) : (
@@ -127,6 +127,6 @@ export default function PaymentMethod() {
           ) : null}
         </>
       )}
-    </Box>
+    </>
   )
 }
