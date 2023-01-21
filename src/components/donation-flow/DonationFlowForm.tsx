@@ -1,7 +1,7 @@
 import React from 'react'
 import * as yup from 'yup'
 import { Form, Formik } from 'formik'
-import { Alert, Hidden, Unstable_Grid2 as Grid2 } from '@mui/material'
+import { Alert, Box, Hidden, Unstable_Grid2 as Grid2 } from '@mui/material'
 
 import { CardRegion } from 'gql/donations.enums'
 import SubmitButton from 'components/common/form/SubmitButton'
@@ -115,24 +115,25 @@ export function DonationFlowForm() {
                 marginRight: 'auto',
               }}
               autoComplete="off">
-              <StepSplitter content="1" active={Boolean(values.amount)} />
-              <Amount />
-              <StepSplitter
-                content="2"
-                active={Boolean(values.amount) && Boolean(values.payment)}
-              />
-              <PaymentMethod />
-              <StepSplitter
-                content="3"
-                active={
-                  Boolean(values.amount) &&
-                  Boolean(values.payment) &&
-                  Boolean(values.authentication)
-                }
-              />
-              <Authentication />
-
-              <SubmitButton>Submit</SubmitButton>
+              <Box mb={2}>
+                <StepSplitter content="1" active={Boolean(values.amount)} />
+                <Amount />
+                <StepSplitter
+                  content="2"
+                  active={Boolean(values.amount) && Boolean(values.payment)}
+                />
+                <PaymentMethod />
+                <StepSplitter
+                  content="3"
+                  active={
+                    Boolean(values.amount) &&
+                    Boolean(values.payment) &&
+                    Boolean(values.authentication)
+                  }
+                />
+                <Authentication />
+              </Box>
+              <SubmitButton label="Donate" fullWidth />
             </Form>
           </Grid2>
           <Hidden mdDown>

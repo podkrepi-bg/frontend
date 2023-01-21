@@ -24,9 +24,9 @@ export default function Authentication() {
     },
     {
       value: 'anonymous',
-      label: 'Anonymous',
-      content: <p>{t('anonymous-menu.checkbox-label')} </p>,
+      label: 'Without registration',
       control: session?.user ? <Checkbox /> : <Radio />,
+      content: <></>,
     },
   ]
   return (
