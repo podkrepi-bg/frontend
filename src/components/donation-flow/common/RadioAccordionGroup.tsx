@@ -35,6 +35,7 @@ export const DisabledRadioAccordionItem = styled(BaseRadioAccordionItem)(() => (
   opacity: 0.7,
   backgroundColor: `${theme.palette.grey[300]} !important`,
   pointerEvents: 'none',
+  borderColor: `${theme.palette.grey[500]} !important`,
 }))
 
 interface RadioAccordionItemProps extends BoxProps {
@@ -80,10 +81,37 @@ type Option = {
 }
 
 export interface RadioAccordionGroupProps extends RadioGroupProps {
+  /**
+   * The options to display in the radio group.
+   */
   options: Option[]
+
+  /**
+   * The name of the field.
+   * This is used to link the radio group to the form.
+   */
   name: string
 }
 
+/**
+ * A radio group that displays a list of options. Each option can be expanded to show more content.
+ * @example
+ * <RadioAccordionGroup
+ *  name="authentication"
+ *  options={[
+ *  {
+ *  value: 'login',
+ *  label: 'Login',
+ *  disabled: Boolean(session?.user),
+ *  content: <LoginForm />,
+ * },
+ * {
+ *  value: 'register',
+ *  label: 'Register',
+ *  disabled: Boolean(session?.user),
+ *  content: <RegisterForm />,
+ * }] />
+ */
 function RadioAccordionGroup({ options, name, ...rest }: RadioAccordionGroupProps) {
   const [field, meta, { setValue }] = useField(name)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

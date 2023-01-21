@@ -12,7 +12,7 @@ const appearance: Appearance = {
   variables: {
     colorPrimary: theme.palette.primary.main,
     colorBackground: theme.palette.background.paper,
-    // colorText: theme.palette.text.primary resolves to rgba(0, 0, 0, 0.87) and Stripe doesn't like that
+    // colorText: theme.palette.text.primary resolves to rgba(0, 0, 0, 0.87) and Stripe doesn't accept rgba values
     colorText: 'rgb(0, 0, 0)',
     colorDanger: theme.palette.error.main,
     fontFamily: "Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif",
@@ -46,7 +46,6 @@ export default function PaymentDetailsStripeForm({
   containerProps,
 }: PaymentDetailsStripeFormProps) {
   const { i18n } = useTranslation()
-  // use session to get the email
   const { data: session } = useSession()
   return (
     <Elements

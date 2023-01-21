@@ -34,6 +34,7 @@ const Root = styled('div')(() => ({
 export default function Amount() {
   const { data: prices } = useSinglePriceList()
   const DonationContext = useContext(DonationFlowContext)
+  const formik = useFormikContext<OneTimeDonation>()
   const { t } = useTranslation('one-time-donation')
   const mobile = useMediaQuery('(max-width:600px)')
 
@@ -53,7 +54,6 @@ export default function Amount() {
     const intent = paymentIntentMutation.data?.data
     DonationContext.setStripePaymentIntent(intent || null)
   }, [paymentIntentMutation])
-  const formik = useFormikContext<OneTimeDonation>()
 
   useEffect(() => {
     const chosenAmount =
