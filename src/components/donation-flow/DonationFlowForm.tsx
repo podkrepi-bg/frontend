@@ -8,7 +8,7 @@ import SubmitButton from 'components/common/form/SubmitButton'
 
 import StepSplitter from './common/StepSplitter'
 import Amount from './steps/Amount'
-import PaymentMethod from './steps/PaymentMethod'
+import PaymentMethod from './steps/payment-method/PaymentMethod'
 import Authentication from './steps/authentication/Authentication'
 import { useSession } from 'next-auth/react'
 
