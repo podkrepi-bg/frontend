@@ -76,6 +76,7 @@ type Option = {
   content: React.ReactNode
   icon?: React.ReactNode
   disabled?: boolean
+  control?: React.ReactElement
 }
 
 export interface RadioAccordionGroupProps extends RadioGroupProps {
@@ -110,7 +111,7 @@ function RadioAccordionGroup({ options, name, ...rest }: RadioAccordionGroupProp
             control={
               <FormControlLabel
                 value={option.value}
-                control={<Radio />}
+                control={option.control || <Radio />}
                 label={option.label}
                 disabled={option.disabled}
               />

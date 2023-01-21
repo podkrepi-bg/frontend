@@ -1,14 +1,12 @@
-import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSession } from 'next-auth/react'
-import { Box } from '@mui/material'
+import { Box, Checkbox, Radio } from '@mui/material'
 
 import RadioAccordionGroup from '../common/RadioAccordionGroup'
-import { DonationFlowContext } from '../DonationFlowContext'
 import InlineLoginForm from './InlineLoginForm'
+import InlineRegisterForm from './InlineRegisterForm'
 
 export default function Authentication() {
-  const DonationContext = useContext(DonationFlowContext)
   const { data: session } = useSession()
   const { t } = useTranslation('one-time-donation')
   const options = [
@@ -22,12 +20,13 @@ export default function Authentication() {
       value: 'register',
       label: 'Register',
       disabled: Boolean(session?.user),
-      content: <>Register Form</>,
+      content: <InlineRegisterForm />,
     },
     {
       value: 'anonymous',
       label: 'Anonymous',
       content: <p>{t('anonymous-menu.checkbox-label')} </p>,
+      control: session?.user ? <Checkbox /> : <Radio />,
     },
   ]
   return (

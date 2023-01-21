@@ -35,16 +35,16 @@ export type DonationFormDataV2 = {
 }
 
 const initialValues: DonationFormDataV2 = {
-  amount: undefined,
-  email: undefined,
-  payment: undefined,
-  amountWithFees: undefined,
+  amount: '',
+  email: '',
+  payment: DonationFormDataPaymentOption.CARD,
+  amountWithFees: 0,
   cardIncludeFees: false,
   cardRegion: CardRegion.EU,
   otherAmount: 0,
-  authentication: DonationFormDataAuthState.LOGIN,
+  authentication: DonationFormDataAuthState.ANONYMOUS,
 }
-//TODO: Should be a SchemaOf the whole form
+
 export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
   .object()
   .defined()
@@ -91,14 +91,20 @@ export function DonationFlowForm() {
   const { data: session } = useSession()
   return (
     <Formik
-      initialValues={{ initialValues, email: session?.user?.email ?? '' }}
+      initialValues={{
+        ...initialValues,
+        email: session?.user?.email ?? '',
+        authentication: session?.user
+          ? DonationFormDataAuthState.AUTHENTICATED
+          : DonationFormDataAuthState.ANONYMOUS,
+      }}
       validationSchema={validationSchema}
       onSubmit={async (values) => {
         console.log(values)
       }}
       validateOnMount
       validateOnBlur>
-      {({ handleSubmit }) => (
+      {({ handleSubmit, values }) => (
         <Grid2 spacing={4} container>
           <Grid2 sm={12} md={8}>
             <Form
@@ -109,19 +115,31 @@ export function DonationFlowForm() {
                 marginRight: 'auto',
               }}
               autoComplete="off">
-              <StepSplitter content="1" />
+              <StepSplitter content="1" active={Boolean(values.amount)} />
               <Amount />
-              <StepSplitter content="2" />
+              <StepSplitter
+                content="2"
+                active={Boolean(values.amount) && Boolean(values.payment)}
+              />
               <PaymentMethod />
-              <StepSplitter content="3" />
+              <StepSplitter
+                content="3"
+                active={
+                  Boolean(values.amount) &&
+                  Boolean(values.payment) &&
+                  Boolean(values.authentication)
+                }
+              />
               <Authentication />
 
               <SubmitButton>Submit</SubmitButton>
             </Form>
           </Grid2>
           <Hidden mdDown>
-            <Grid2 md={4}>
-              <Alert color="error">TODO: Alerts row here</Alert>
+            <Grid2 sx={{ overflow: 'auto' }} md={4}>
+              <Alert sx={{ position: 'sticky', top: 0 }} color="error">
+                TODO: Alerts row here
+              </Alert>
             </Grid2>
           </Hidden>
         </Grid2>

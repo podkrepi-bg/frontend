@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import { useFormikContext } from 'formik'
 import { Box, Button, CircularProgress, Grid, Typography } from '@mui/material'
@@ -9,15 +9,16 @@ import { signIn } from 'next-auth/react'
 import { AlertStore } from 'stores/AlertStore'
 import PasswordField from 'components/common/form/PasswordField'
 import EmailField from 'components/common/form/EmailField'
-
-const onGoogleLogin = () => {
-  const resp = signIn('google')
-}
+import { DonationFlowContext } from '../DonationFlowContext'
 
 function InlineLoginForm() {
   const { t } = useTranslation('one-time-donation')
   const [loading, setLoading] = useState(false)
   const formik = useFormikContext<OneTimeDonation>()
+  const { campaign } = useContext(DonationFlowContext)
+  const onGoogleLogin = () => {
+    signIn('google', { callbackUrl: `campaigns/donation-v2/${campaign?.slug}` })
+  }
 
   const onClick = async () => {
     try {
@@ -42,7 +43,7 @@ function InlineLoginForm() {
     }
   }
   return (
-    <Grid sx={{ marginBottom: theme.spacing(4) }} container rowSpacing={3}>
+    <Grid p={2} container rowSpacing={3}>
       <Grid item xs={12}>
         <EmailField name="loginEmail" label="Email" fullWidth />
       </Grid>
