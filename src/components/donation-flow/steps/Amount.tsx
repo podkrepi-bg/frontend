@@ -15,7 +15,7 @@ import FormTextField from 'components/common/form/FormTextField'
 import CheckboxField from 'components/common/form/CheckboxField'
 import { useCreatePaymentIntent } from 'service/donation'
 
-import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../stripe/stripe-fee-calculator'
+import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../helpers/stripe-fee-calculator'
 import { DonationFlowContext } from '../DonationFlowContext'
 
 const PREFIX = 'AMOUNT'
