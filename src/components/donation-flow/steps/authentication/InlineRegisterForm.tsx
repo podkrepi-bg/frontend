@@ -1,17 +1,18 @@
-import { Button, CircularProgress, Grid, Typography } from '@mui/material'
 import React, { useState } from 'react'
+import { Button, CircularProgress, Grid } from '@mui/material'
+import { useFormikContext } from 'formik'
 import { signIn } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
+
 import theme from 'common/theme'
 import { useRegister } from 'service/auth'
 import { AlertStore } from 'stores/AlertStore'
 import FormTextField from 'components/common/form/FormTextField'
 import PasswordField from 'components/common/form/PasswordField'
 import EmailField from 'components/common/form/EmailField'
-import { useFormikContext } from 'formik'
-import { OneTimeDonation } from 'gql/donations'
 import { RegisterFormData } from 'components/auth/register/RegisterForm'
-import { DonationFormDataAuthState } from '../DonationFlowForm'
+import { OneTimeDonation } from 'gql/donations'
+import { DonationFormDataAuthState } from '../../DonationFlowForm'
 
 export default function InlineRegisterForm() {
   const { t } = useTranslation()

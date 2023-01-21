@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { useSession } from 'next-auth/react'
 import { Box, Checkbox, Radio } from '@mui/material'
 
-import RadioAccordionGroup from '../common/RadioAccordionGroup'
+import RadioAccordionGroup from '../../common/RadioAccordionGroup'
 import InlineLoginForm from './InlineLoginForm'
 import InlineRegisterForm from './InlineRegisterForm'
 

@@ -1,15 +1,16 @@
 import React, { useContext, useState } from 'react'
 import { useTranslation } from 'next-i18next'
+import { signIn } from 'next-auth/react'
 import { useFormikContext } from 'formik'
-import { Box, Button, CircularProgress, Grid, Typography } from '@mui/material'
+import { Box, Button, CircularProgress, Grid } from '@mui/material'
+
 import theme from 'common/theme'
 import Google from 'common/icons/Google'
-import { OneTimeDonation } from 'gql/donations'
-import { signIn } from 'next-auth/react'
-import { AlertStore } from 'stores/AlertStore'
 import PasswordField from 'components/common/form/PasswordField'
 import EmailField from 'components/common/form/EmailField'
-import { DonationFlowContext } from '../DonationFlowContext'
+import { OneTimeDonation } from 'gql/donations'
+import { AlertStore } from 'stores/AlertStore'
+import { DonationFlowContext } from '../../DonationFlowContext'
 
 function InlineLoginForm() {
   const { t } = useTranslation('one-time-donation')
