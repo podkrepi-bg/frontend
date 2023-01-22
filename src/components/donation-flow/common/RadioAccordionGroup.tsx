@@ -98,19 +98,20 @@ export interface RadioAccordionGroupProps extends RadioGroupProps {
  * @example
  * <RadioAccordionGroup
  *  name="authentication"
- *  options={[
+ * options={[
  *  {
- *  value: 'login',
+ *   value: 'login',
  *  label: 'Login',
- *  disabled: Boolean(session?.user),
- *  content: <LoginForm />,
+ * disabled: Boolean(session?.user),
+ * content: <LoginForm />,
  * },
  * {
- *  value: 'register',
- *  label: 'Register',
- *  disabled: Boolean(session?.user),
- *  content: <RegisterForm />,
- * }] />
+ * value: 'register',
+ * label: 'Register',
+ * disabled: Boolean(session?.user),
+ * content: <RegisterForm />,
+ * }]
+
  */
 function RadioAccordionGroup({ options, name, ...rest }: RadioAccordionGroupProps) {
   const [field, meta, { setValue }] = useField(name)

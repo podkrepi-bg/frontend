@@ -61,7 +61,6 @@ export default function DonationFlowPage({ slug }: { slug: string }) {
 
   const bannerSource = backgroundCampaignPictureUrl(campaign)
   const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
-
   return (
     <DonationFlowProvider>
       <Layout maxWidth={false}>

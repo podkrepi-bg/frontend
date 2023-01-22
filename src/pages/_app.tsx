@@ -8,8 +8,6 @@ import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import getConfig from 'next/config'
-import { loadStripe } from '@stripe/stripe-js'
 
 import createEmotionCache from 'common/createEmotionCache'
 import theme from 'common/theme'
@@ -21,14 +19,8 @@ import 'styles/global.scss'
 
 import { Provider } from 'mobx-react'
 import { stores } from 'stores/DomainStores/stores'
-const {
-  publicRuntimeConfig: { STRIPE_PUBLIC_KEY },
-} = getConfig()
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
-
-// Stripe promise needed for stripe elements
-export const stripePromise = loadStripe(STRIPE_PUBLIC_KEY)
 
 declare module '@mui/styles/defaultTheme' {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface

@@ -1,11 +1,12 @@
+import { useContext } from 'react'
 import { useSession } from 'next-auth/react'
 import { useTranslation } from 'react-i18next'
 import { Appearance } from '@stripe/stripe-js'
 import { Elements, LinkAuthenticationElement, PaymentElement } from '@stripe/react-stripe-js'
 import { Box, BoxProps } from '@mui/material'
 
-import { stripePromise } from 'pages/_app'
 import theme from 'common/theme'
+import { DonationFlowContext } from '../DonationFlowContext'
 
 const appearance: Appearance = {
   theme: 'stripe',
@@ -46,7 +47,9 @@ export default function PaymentDetailsStripeForm({
   containerProps,
 }: PaymentDetailsStripeFormProps) {
   const { i18n } = useTranslation()
+  // use session to get the email
   const { data: session } = useSession()
+  const { stripePromise } = useContext(DonationFlowContext)
   return (
     <Elements
       stripe={stripePromise}
