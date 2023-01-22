@@ -6,7 +6,7 @@ import { Elements, LinkAuthenticationElement, PaymentElement } from '@stripe/rea
 import { Box, BoxProps } from '@mui/material'
 
 import theme from 'common/theme'
-import { DonationFlowContext } from '../DonationFlowContext'
+import { DonationFlowContext } from '../../DonationFlowContext'
 
 const appearance: Appearance = {
   theme: 'stripe',
