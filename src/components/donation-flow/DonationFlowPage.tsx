@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { styled } from '@mui/material/styles'
-import { Box, Grid, Typography, useMediaQuery } from '@mui/material'
+import { Box, Unstable_Grid2 as Grid2, Typography, useMediaQuery } from '@mui/material'
 
 import theme from 'common/theme'
 import { routes } from 'common/routes'
@@ -9,129 +9,95 @@ import {
   backgroundCampaignPictureUrl,
   beneficiaryCampaignPictureUrl,
 } from 'common/util/campaignImageUrls'
-import Layout from 'components/layout/Layout'
 import { useViewCampaign } from 'common/hooks/campaigns'
+import Layout from 'components/layout/Layout'
 import CenteredSpinner from 'components/common/CenteredSpinner'
-// import RadioAccordionGroup, { testRadioOptions } from 'components/donation-flow/RadioAccordionGroup'
-// import PaymentDetailsStripeForm from 'components/donations/stripe/PaymentDetailsStripeForm'
 
-const PREFIX = 'OneTimeDonationPage'
+import { DonationFlowForm } from './DonationFlowForm'
+import { DonationFlowProvider } from './DonationFlowContext'
 
-const classes = {
-  bannerWrapper: `${PREFIX}-bannerWrapper`,
-  banner: `${PREFIX}-banner`,
-  beneficiaryAvatarWrapper: `${PREFIX}-beneficiaryAvatarWrapper`,
-  beneficiaryAvatar: `${PREFIX}-beneficiaryAvatar`,
-  stepperWrapper: `${PREFIX}-stepperWrapper`,
-}
-
-const StyledLayout = styled(Layout)(({ theme }) => ({
-  [`& .${classes.bannerWrapper}`]: {
-    '& span': {
-      position: 'inherit !important',
-    },
+const StyledBannerWrapper = styled(Box)(() => ({
+  '& span': {
+    position: 'inherit !important',
   },
+}))
 
-  [`& .${classes.banner}`]: {
-    zIndex: -1,
-    maxHeight: '350px !important',
-    marginTop: `${theme.spacing(10)} !important`,
-    [theme.breakpoints.up('md')]: {
-      marginTop: `${theme.spacing(14)} !important`,
-    },
-    objectFit: 'cover',
+const StyledBanner = styled(Image)(({ theme }) => ({
+  zIndex: -1,
+  maxHeight: '350px !important',
+  marginTop: `${theme.spacing(10)} !important`,
+  [theme.breakpoints.up('md')]: {
+    marginTop: `${theme.spacing(14)} !important`,
   },
+  objectFit: 'cover',
+}))
 
-  [`& .${classes.beneficiaryAvatarWrapper}`]: {
+const StyledBeneficiaryAvatarWrapper = styled(Grid2)(({ theme }) => ({
+  textAlign: 'center',
+  [theme.breakpoints.up('md')]: {
     textAlign: 'center',
-    [theme.breakpoints.up('md')]: {
-      textAlign: 'center',
-    },
   },
+}))
 
-  [`& .${classes.beneficiaryAvatar}`]: {
-    borderRadius: '50%',
+const StyledBeneficiaryAvatar = styled(Image)(({ theme }) => ({
+  borderRadius: '50%',
+  border: `4px solid ${theme.palette.common.white} !important`,
+  textAlign: 'center',
+  [theme.breakpoints.up('md')]: {
     border: `4px solid ${theme.palette.common.white} !important`,
-    textAlign: 'center',
   },
+}))
 
-  [`& .${classes.stepperWrapper}`]: {
-    gap: theme.spacing(2),
-    display: 'grid',
-  },
+const StyledStepsWrapper = styled(Grid2)(() => ({
+  width: '100%',
+  maxWidth: '960px',
 }))
 
 export default function DonationFlowPage({ slug }: { slug: string }) {
   const { data, isLoading } = useViewCampaign(slug)
   const matches = useMediaQuery('sm')
-  // const paymentIntentMutation = useCreatePaymentIntent({
-  //   amount: 100,
-  //   currency: 'BGN',
-  // })
-  // useEffect(() => {
-  //   paymentIntentMutation.mutate()
-  // }, [])
   if (isLoading || !data) return <CenteredSpinner size="2rem" />
   const { campaign } = data
 
   const bannerSource = backgroundCampaignPictureUrl(campaign)
   const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
-
   return (
-    <StyledLayout maxWidth={false}>
-      <Grid
-        container
-        component="section"
-        maxWidth="lg"
-        justifyContent="center"
-        m="0 auto"
-        marginTop={theme.spacing(matches ? 20 : 25)}>
-        <Box className={classes.bannerWrapper}>
-          {/* A11Y TODO: Translate alt text */}
-          <Image
-            src={bannerSource}
-            alt="Campaign banner image"
-            sizes="100vw"
-            fill
-            className={classes.banner}
-          />
-        </Box>
-        <Grid
-          item
-          xs={12}
+    <DonationFlowProvider>
+      <Layout maxWidth={false}>
+        <Grid2
+          container
+          component="section"
+          maxWidth="lg"
           justifyContent="center"
-          p={4}
-          className={classes.beneficiaryAvatarWrapper}>
-          <Image
-            src={beneficiaryAvatarSource}
-            // A11Y TODO: Translate alt text
-            alt={`Image of ${campaign.beneficiary.person?.firstName} ${campaign.beneficiary.person?.lastName}`}
-            width={250}
-            height={250}
-            className={classes.beneficiaryAvatar}
-          />
-        </Grid>
-
-        <Grid className={classes.stepperWrapper}>
-          <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)} passHref>
-            <Typography
-              variant="h4"
-              color="info.dark"
-              sx={{ textAlign: 'center', marginBottom: theme.spacing(4) }}>
-              {campaign.title}
-            </Typography>
-          </Link>
-          {/* {paymentIntentMutation.isLoading ? (
-            <CenteredSpinner size="2rem" />
-          ) : (
-            <PaymentDetailsStripeForm
-              clientSecret={paymentIntentMutation.data?.data.client_secret as string}
-              containerProps={{ maxWidth: 400 }}
+          m="0 auto"
+          marginTop={theme.spacing(matches ? 20 : 25)}>
+          <StyledBannerWrapper>
+            {/* A11Y TODO: Translate alt text */}
+            <StyledBanner src={bannerSource} alt="Campaign banner image" sizes="100vw" fill />
+          </StyledBannerWrapper>
+          <StyledBeneficiaryAvatarWrapper xs={12} justifyContent="center" p={4}>
+            <StyledBeneficiaryAvatar
+              src={beneficiaryAvatarSource}
+              // A11Y TODO: Translate alt text
+              alt={`Image of ${campaign.beneficiary.person?.firstName} ${campaign.beneficiary.person?.lastName}`}
+              width={250}
+              height={250}
             />
-          )} */}
-          {/* <RadioAccordionGroup options={testRadioOptions} /> */}
-        </Grid>
-      </Grid>
-    </StyledLayout>
+          </StyledBeneficiaryAvatarWrapper>
+
+          <StyledStepsWrapper>
+            <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)} passHref>
+              <Typography
+                variant="h4"
+                color="info.dark"
+                sx={{ textAlign: 'center', marginBottom: theme.spacing(4) }}>
+                {campaign.title}
+              </Typography>
+            </Link>
+            <DonationFlowForm />
+          </StyledStepsWrapper>
+        </Grid2>
+      </Layout>
+    </DonationFlowProvider>
   )
 }

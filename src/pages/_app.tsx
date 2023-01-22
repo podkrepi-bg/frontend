@@ -19,7 +19,6 @@ import 'styles/global.scss'
 
 import { Provider } from 'mobx-react'
 import { stores } from 'stores/DomainStores/stores'
-
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
 
@@ -89,7 +88,7 @@ function CustomApp({
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <SessionProvider session={session} refetchInterval={60} refetchOnWindowFocus={true}>
+        <SessionProvider session={session} refetchInterval={10 * 60} refetchOnWindowFocus={true}>
           <QueryClientProvider client={queryClient}>
             <Hydrate state={dehydratedState}>
               <Provider {...stores}>

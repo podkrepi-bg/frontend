@@ -2,27 +2,36 @@ import React from 'react'
 import {
   Box,
   BoxProps,
-  Button,
   Collapse,
   FormControl,
   FormControlLabel,
   Radio,
   RadioGroup,
   RadioGroupProps,
-  TextField,
 } from '@mui/material'
 import { styled } from '@mui/material/styles'
+import { useField } from 'formik'
 import theme from 'common/theme'
-import CardIcon from '../icons/CardIcon'
-import BankIcon from '../icons/BankIcon'
 
-export const StyledRadioAccordionItem = styled(Box)(() => ({
+export const BaseRadioAccordionItem = styled(Box)(() => ({
   '&:not(:last-child)': {
     borderBottom: `1px solid ${theme.borders.dark}`,
+    borderTopLeftRadius: theme.borders.semiRound,
+    borderTopRightRadius: theme.borders.semiRound,
+  },
+  '&:last-child': {
+    borderBottomLeftRadius: theme.borders.semiRound,
+    borderBottomRightRadius: theme.borders.semiRound,
   },
   padding: theme.spacing(2),
   margin: 0,
   cursor: 'pointer',
+}))
+
+export const DisabledRadioAccordionItem = styled(BaseRadioAccordionItem)(() => ({
+  opacity: 0.7,
+  backgroundColor: `${theme.palette.grey[300]} !important`,
+  pointerEvents: 'none',
 }))
 
 interface RadioAccordionItemProps extends BoxProps {
@@ -30,36 +39,21 @@ interface RadioAccordionItemProps extends BoxProps {
   icon: React.ReactNode
   content?: React.ReactNode
   selected?: boolean
+  disabled?: boolean
 }
-
-// Temporarily here for testing until the components starts being used
-export const testRadioOptions: Option[] = [
-  {
-    value: 'card',
-    label: 'Card',
-    content: (
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <TextField sx={{ mb: 3 }} placeholder="Card info" />
-        <Button variant="contained">Content</Button>
-      </div>
-    ),
-    icon: <CardIcon sx={{ width: 50, height: 50 }} />,
-  },
-  {
-    value: 'bank',
-    label: 'Bank',
-    content: <div>TODO: Add bank form</div>,
-    icon: <BankIcon sx={{ width: 45, height: 45 }} />,
-  },
-]
 
 function RadioAccordionItem({
   control,
   icon,
   selected,
   content,
+  disabled,
   ...rest
 }: RadioAccordionItemProps) {
+  let StyledRadioAccordionItem = BaseRadioAccordionItem
+  if (disabled) {
+    StyledRadioAccordionItem = DisabledRadioAccordionItem
+  }
   return (
     <StyledRadioAccordionItem {...rest}>
       <Box display="flex" justifyContent="space-between" alignItems="center">
@@ -78,41 +72,50 @@ type Option = {
   label: string
   content: React.ReactNode
   icon: React.ReactNode
+  disabled?: boolean
 }
 
 export interface RadioAccordionGroupProps extends RadioGroupProps {
   options: Option[]
-  defaultValue?: string
+  name: string
 }
 
-function RadioAccordionGroup({ options, defaultValue }: RadioAccordionGroupProps) {
-  const [value, setValue] = React.useState(defaultValue)
-
+function RadioAccordionGroup({ options, name, ...rest }: RadioAccordionGroupProps) {
+  const [field, meta, { setValue }] = useField(name)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
   }
 
   return (
-    <FormControl>
+    <FormControl
+      fullWidth
+      required
+      component="fieldset"
+      error={Boolean(meta.error) && Boolean(meta.touched)}>
       <RadioGroup
-        aria-labelledby="TODO: Label by the title"
-        name="controlled-radio-buttons-group"
-        value={value}
+        value={field.value}
         onChange={handleChange}
         sx={{
           border: `1px solid ${theme.borders.dark}`,
           borderRadius: theme.borders.semiRound,
-        }}>
+        }}
+        {...rest}>
         {options.map((option) => (
           <RadioAccordionItem
             key={option.value}
             onClick={() => setValue(option.value)}
             control={
-              <FormControlLabel value={option.value} control={<Radio />} label={option.label} />
+              <FormControlLabel
+                value={option.value}
+                control={<Radio />}
+                label={option.label}
+                disabled={option.disabled}
+              />
             }
             icon={option.icon}
-            selected={value === option.value}
+            selected={field.value === option.value}
             content={option.content}
+            disabled={option.disabled}
           />
         ))}
       </RadioGroup>
