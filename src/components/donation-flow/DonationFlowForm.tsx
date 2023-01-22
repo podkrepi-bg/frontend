@@ -15,7 +15,6 @@ import { useSession } from 'next-auth/react'
 export enum DonationFormDataAuthState {
   LOGIN = 'login',
   REGISTER = 'register',
-  ANONYMOUS = 'anonymous',
   AUTHENTICATED = 'authenticated',
 }
 
@@ -24,25 +23,27 @@ export enum DonationFormDataPaymentOption {
   BANK = 'bank',
 }
 export type DonationFormDataV2 = {
-  authentication: DonationFormDataAuthState
-  payment?: DonationFormDataPaymentOption
-  email?: string
-  cardRegion?: CardRegion
-  cardIncludeFees?: boolean
+  anonymous: boolean
+  authentication: DonationFormDataAuthState | null
+  payment: DonationFormDataPaymentOption | null
+  email: string
+  cardRegion: CardRegion
+  cardIncludeFees: boolean
+  amount?: string
   amountWithFees?: number
   otherAmount?: number
-  amount?: string
 }
 
 const initialValues: DonationFormDataV2 = {
   amount: '',
   email: '',
-  payment: DonationFormDataPaymentOption.CARD,
+  payment: null,
   amountWithFees: 0,
   cardIncludeFees: false,
   cardRegion: CardRegion.EU,
   otherAmount: 0,
-  authentication: DonationFormDataAuthState.ANONYMOUS,
+  authentication: null,
+  anonymous: false,
 }
 
 export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
@@ -66,7 +67,7 @@ export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
       is: 'other',
       then: yup.number().min(1, 'one-time-donation:errors-fields.other-amount').required(),
     }),
-    cardIncludeFees: yup.boolean(),
+    cardIncludeFees: yup.boolean().required(),
     cardRegion: yup
       .string()
       .oneOf(Object.values(CardRegion))
@@ -78,6 +79,7 @@ export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
       .string()
       .oneOf(Object.values(DonationFormDataAuthState))
       .required() as yup.SchemaOf<DonationFormDataAuthState>,
+    anonymous: yup.boolean().required(),
     email: yup
       .string()
       .required()
@@ -94,9 +96,7 @@ export function DonationFlowForm() {
       initialValues={{
         ...initialValues,
         email: session?.user?.email ?? '',
-        authentication: session?.user
-          ? DonationFormDataAuthState.AUTHENTICATED
-          : DonationFormDataAuthState.ANONYMOUS,
+        authentication: session?.user ? DonationFormDataAuthState.AUTHENTICATED : null,
       }}
       validationSchema={validationSchema}
       onSubmit={async (values) => {

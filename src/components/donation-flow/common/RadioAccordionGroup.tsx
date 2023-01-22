@@ -113,7 +113,7 @@ export interface RadioAccordionGroupProps extends RadioGroupProps {
  * }]
 
  */
-function RadioAccordionGroup({ options, name, ...rest }: RadioAccordionGroupProps) {
+function RadioAccordionGroup({ options, name, sx, ...rest }: RadioAccordionGroupProps) {
   const [field, meta, { setValue }] = useField(name)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
@@ -131,6 +131,7 @@ function RadioAccordionGroup({ options, name, ...rest }: RadioAccordionGroupProp
         sx={{
           border: `1px solid ${theme.borders.dark}`,
           borderRadius: theme.borders.semiRound,
+          ...sx,
         }}
         {...rest}>
         {options.map((option) => (
