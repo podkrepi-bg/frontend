@@ -78,7 +78,9 @@ export default function Authentication() {
               onChange={(_, checked) => {
                 if (checked) {
                   setFieldValue('authentication', DonationFormDataAuthState.NOREGISTER)
+                  return
                 }
+                setFieldValue('authentication', null)
               }}
             />
           }
