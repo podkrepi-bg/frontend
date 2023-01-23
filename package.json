@@ -48,6 +48,7 @@
     "axios-hooks": "2.7.0",
     "date-fns": "2.24.0",
     "formik": "2.2.9",
+    "formik-persist-values": "^1.4.1",
     "i18next": "^21.6.16",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",

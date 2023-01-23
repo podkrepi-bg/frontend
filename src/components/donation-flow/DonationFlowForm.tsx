@@ -13,6 +13,7 @@ import Amount from './steps/Amount'
 import PaymentMethod from './steps/payment-method/PaymentMethod'
 import Authentication from './steps/authentication/Authentication'
 import { DonationFlowContext } from './DonationFlowContext'
+import { PersistFormikValues } from 'formik-persist-values'
 
 export enum DonationFormDataAuthState {
   LOGIN = 'login',
@@ -152,6 +153,7 @@ export function DonationFlowForm() {
                 <Authentication />
               </Box>
               <SubmitButton label="Donate" fullWidth />
+              <PersistFormikValues debounce={3000} storage="sessionStorage" name="donation-form" />
             </Form>
           </Grid2>
           <Hidden mdDown>
