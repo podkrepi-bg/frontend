@@ -16,6 +16,7 @@ export enum DonationFormDataAuthState {
   LOGIN = 'login',
   REGISTER = 'register',
   AUTHENTICATED = 'authenticated',
+  NOREGISTER = 'noregister',
 }
 
 export enum DonationFormDataPaymentOption {
