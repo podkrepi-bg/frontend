@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { useElements, useStripe } from '@stripe/react-stripe-js'
 import { useSession } from 'next-auth/react'
 import * as yup from 'yup'
 import { Form, Formik } from 'formik'
@@ -11,6 +12,7 @@ import StepSplitter from './common/StepSplitter'
 import Amount from './steps/Amount'
 import PaymentMethod from './steps/payment-method/PaymentMethod'
 import Authentication from './steps/authentication/Authentication'
+import { DonationFlowContext } from './DonationFlowContext'
 
 export enum DonationFormDataAuthState {
   LOGIN = 'login',
@@ -92,6 +94,9 @@ export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
 
 export function DonationFlowForm() {
   const { data: session } = useSession()
+  const { campaign } = useContext(DonationFlowContext)
+  const stripe = useStripe()
+  const elements = useElements()
   return (
     <Formik
       initialValues={{
@@ -99,9 +104,21 @@ export function DonationFlowForm() {
         email: session?.user?.email ?? '',
         authentication: session?.user ? DonationFormDataAuthState.AUTHENTICATED : null,
       }}
-      validationSchema={validationSchema}
+      // validationSchema={validationSchema}
       onSubmit={async (values) => {
-        console.log(values)
+        if (!stripe || !elements) {
+          // Stripe.js has not yet loaded.
+          // Make sure to disable form submission until Stripe.js has loaded.
+          throw new Error('Stripe.js has not yet loaded')
+        }
+        console.log('sent')
+        const { error } = await stripe.confirmPayment({
+          //`Elements` instance that was used to create the Payment Element
+          elements,
+          confirmParams: {
+            return_url: `${window.location.origin}/campaigns/donation-v2/${campaign.slug}`,
+          },
+        })
       }}
       validateOnMount
       validateOnBlur>
