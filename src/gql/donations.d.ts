@@ -26,6 +26,17 @@ export type CheckoutSessionInput = {
   message?: string
 }
 
+export type StripeDonationInput = {
+  mode: Stripe.Checkout.Session.Mode
+  campaignId: string
+  amount?: number
+  firstName?: string
+  lastName?: string
+  personEmail?: string
+  isAnonymous: boolean
+  phone?: string | null
+}
+
 export type DonationResponse = {
   id: UUID
   type: DonationType

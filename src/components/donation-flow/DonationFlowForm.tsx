@@ -14,6 +14,7 @@ import PaymentMethod from './steps/payment-method/PaymentMethod'
 import Authentication from './steps/authentication/Authentication'
 import { DonationFlowContext } from './DonationFlowContext'
 import { PersistFormikValues } from 'formik-persist-values'
+import { AlertStore } from 'stores/AlertStore'
 
 export enum DonationFormDataAuthState {
   LOGIN = 'login',
@@ -112,7 +113,6 @@ export function DonationFlowForm() {
           // Make sure to disable form submission until Stripe.js has loaded.
           throw new Error('Stripe.js has not yet loaded')
         }
-        console.log('sent')
         const { error } = await stripe.confirmPayment({
           //`Elements` instance that was used to create the Payment Element
           elements,
@@ -120,6 +120,13 @@ export function DonationFlowForm() {
             return_url: `${window.location.origin}/campaigns/donation-v2/${campaign.slug}`,
           },
         })
+
+        if (error) {
+          AlertStore.show(
+            error?.message || 'Unkown error. Please contact is through the support form',
+            'error',
+          )
+        }
       }}
       validateOnMount
       validateOnBlur>
