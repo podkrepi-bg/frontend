@@ -19,6 +19,7 @@ import 'styles/global.scss'
 
 import { Provider } from 'mobx-react'
 import { stores } from 'stores/DomainStores/stores'
+import getConfig from 'next/config'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -40,6 +41,20 @@ function CustomApp({
   const router = useRouter()
   const { i18n } = useTranslation()
   const { initialize, trackEvent } = useGTM()
+  const { publicRuntimeConfig } = getConfig()
+  const socketClientStore = stores.socketClientStore
+
+  useEffect(() => {
+    if (session?.accessToken) {
+      socketClientStore?.initiate(publicRuntimeConfig.API_URL, {
+        transports: ['websocket'],
+        withCredentials: true,
+        query: {
+          token: session?.accessToken || null,
+        },
+      })
+    }
+  }, [session])
 
   useEffect(() => {
     // Init GTM
