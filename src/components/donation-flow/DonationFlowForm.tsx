@@ -17,6 +17,7 @@ import PaymentMethod from './steps/payment-method/PaymentMethod'
 import Authentication from './steps/authentication/Authentication'
 import { DonationFlowContext } from './DonationFlowContext'
 import { PersistFormikValues } from 'formik-persist-values'
+import { AlertStore } from 'stores/AlertStore'
 
 export enum DonationFormDataAuthState {
   LOGIN = 'login',
