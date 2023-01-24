@@ -36,9 +36,8 @@ export default function CampaignsList({ campaignToShow }: Props) {
   return (
     <Grid container justifyContent="center" spacing={2}>
       <Grid container justifyContent="center" spacing={2} ml={0}>
-        {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
         {campaigns?.map((campaign, index, array) => (
-          <Grid key={index} item xs={12} sm={8} md={6} lg={3}>
+          <Grid key={index} item xs={12} sm={6} lg={3}>
             <Box
               sx={(theme) => ({
                 textAlign: 'center',
