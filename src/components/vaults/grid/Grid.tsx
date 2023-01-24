@@ -29,15 +29,33 @@ export default observer(function Grid() {
 
   const columns: GridColumns = [
     {
+      field: 'actions',
+      headerName: t('actions'),
+      width: 120,
+      type: 'actions',
+      headerAlign: 'left',
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        return (
+          <GridActions
+            modalStore={ModalStore}
+            id={params.row.id}
+            name={params.row.name}
+            editLink={routes.admin.vaults.edit(params.row.id)}
+          />
+        )
+      },
+    },
+    {
       field: 'name',
       headerName: t('name'),
-      flex: 1,
       ...commonProps,
+      width: 200,
     },
     {
       field: 'currency',
       headerName: t('currency'),
       ...commonProps,
+      width: 80,
     },
     {
       field: 'amount',
@@ -78,23 +96,6 @@ export default observer(function Grid() {
       headerName: t('campaignId'),
       ...commonProps,
       width: 450,
-    },
-    {
-      field: 'actions',
-      headerName: t('actions'),
-      width: 120,
-      type: 'actions',
-      headerAlign: 'left',
-      renderCell: (params: GridRenderCellParams): React.ReactNode => {
-        return (
-          <GridActions
-            modalStore={ModalStore}
-            id={params.row.id}
-            name={params.row.name}
-            editLink={routes.admin.vaults.edit(params.row.id)}
-          />
-        )
-      },
     },
   ]
 
