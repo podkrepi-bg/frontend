@@ -27,6 +27,14 @@
     "deleteAll": "Withdrawals have been deleted successfully!",
     "error": "An error has occured! Please try again later."
   },
+  "statuses": {
+    "initial": "initial",
+    "invalid": "invalid",
+    "incomplete": "incomplete",
+    "declined": "declined",
+    "cancelled": "cancelled",
+    "succeeded": "succeeded"
+  },
   "cta": {
     "add": "Add",
     "confirm": "Confirm",
