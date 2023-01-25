@@ -3,12 +3,12 @@ import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { QueryClient } from '@tanstack/react-query'
 
+import IndexPage from 'components/index/IndexPage'
+import { campaignsOrderQueryFunction } from 'common/hooks/campaigns'
 import { CampaignResponse } from 'gql/campaigns'
 import { endpoints } from 'service/apiEndpoints'
-import IndexPage from 'components/index/IndexPage'
 
 import { authOptions } from './api/auth/[...nextauth]'
-import { queryFnFactory } from 'service/restRequests'
 
 export const getServerSideProps: GetServerSideProps<{
   session: Session | null
@@ -16,7 +16,7 @@ export const getServerSideProps: GetServerSideProps<{
   const client = new QueryClient()
   await client.prefetchQuery<CampaignResponse[]>(
     [endpoints.campaign.listCampaigns.url],
-    queryFnFactory<CampaignResponse[]>(),
+    campaignsOrderQueryFunction,
   )
 
   //For getting session on server side the docs recommend using unstable_getServerSession as per

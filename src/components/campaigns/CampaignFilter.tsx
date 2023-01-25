@@ -76,7 +76,6 @@ export default function CampaignFilter() {
   const { mobile } = useMobile()
   const { data: campaigns, isLoading } = useCampaignList()
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL')
-
   // TODO: add filters&sorting of campaigns so people can select based on personal preferences
   const campaignToShow = useMemo<CampaignResponse[]>(() => {
     const filteredCampaigns =

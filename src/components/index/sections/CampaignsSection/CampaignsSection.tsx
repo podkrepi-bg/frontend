@@ -12,7 +12,6 @@ import { Root, UrgentCampaignsHeading } from './CampaignsSection.styled'
 export default function CampaignsSection() {
   const { data } = useCampaignList()
   const { t } = useTranslation('index')
-
   if (data === undefined) {
     return null
   } else {
