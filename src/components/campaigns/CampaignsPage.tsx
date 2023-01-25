@@ -18,15 +18,17 @@ const classes = {
 }
 
 const Root = styled(Grid)(({ theme }) => ({
-  margin: theme.spacing(7, 3, 0, 3),
+  paddingTop: theme.spacing(7),
+  width: '100%',
+  margin: '0 auto',
 
   [theme.breakpoints.up('sm')]: {
-    margin: theme.spacing(12, 4, 0, 4),
+    paddingTop: theme.spacing(12),
   },
 
   [theme.breakpoints.up(2000)]: {
     maxWidth: theme.spacing(165),
-    margin: `${theme.spacing(4)} auto`,
+    paddingTop: theme.spacing(4),
   },
 
   [`& .${classes.title}`]: {
