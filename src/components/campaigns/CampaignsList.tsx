@@ -37,6 +37,7 @@ export default function CampaignsList({ campaignToShow }: Props) {
     <Grid
       container
       justifyContent="center"
+      spacing={4}
       sx={(theme) => ({
         width: `calc(100% + ${theme.spacing(1.5)})`,
         marginLeft: `-${theme.spacing(2.75)}`,
@@ -46,8 +47,6 @@ export default function CampaignsList({ campaignToShow }: Props) {
           <Box
             sx={(theme) => ({
               textAlign: 'center',
-              marginLeft: '16px',
-              paddingLeft: theme.spacing(2),
               [theme.breakpoints.down('lg')]: { textAlign: cardAlignment(index, array) },
               [theme.breakpoints.down('md')]: { textAlign: 'center' },
             })}>
