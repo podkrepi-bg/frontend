@@ -111,6 +111,14 @@ export default function EditForm() {
         <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
           {t('edit-form-heading')}
         </Typography>
+        <Typography
+          variant="subtitle2"
+          component="h2"
+          sx={{ marginBottom: 2, textAlign: 'center' }}>
+          {initialValues.status === WithdrawalStatus.succeeded
+            ? t('withdrawals:alerts.no-edit')
+            : ''}
+        </Typography>
         <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
           <Grid item xs={8}>
             <FormTextField
@@ -135,14 +143,20 @@ export default function EditForm() {
                   name: t(`statuses.${key}`),
                 }
               })}
-              InputProps={{ style: { fontSize: 14 } }}
+              disabled={initialValues.status === WithdrawalStatus.succeeded}
             />
           </Grid>
           <Grid item xs={12}>
-            <FormTextField type="string" label={t('reason')} name="reason" autoComplete="reason" />
+            <FormTextField
+              type="string"
+              label={t('reason')}
+              name="reason"
+              autoComplete="reason"
+              disabled={initialValues.status === WithdrawalStatus.succeeded}
+            />
           </Grid>
           <Grid item xs={12}>
-            <BankAccountSelect />
+            <BankAccountSelect disabled={initialValues.status === WithdrawalStatus.succeeded} />
           </Grid>
           <Grid item xs={12}>
             <FormTextField
@@ -150,6 +164,7 @@ export default function EditForm() {
               label={t('documentId')}
               name="documentId"
               autoComplete="documentId"
+              disabled={initialValues.status === WithdrawalStatus.succeeded}
             />
           </Grid>
           <Grid item xs={12}>
@@ -173,7 +188,11 @@ export default function EditForm() {
             <PersonSelect disabled name="approvedById" label={t('approvedBy')} />
           </Grid>
           <Grid item xs={6}>
-            <SubmitButton fullWidth label={t('cta.submit')} />
+            <SubmitButton
+              fullWidth
+              label={t('cta.submit')}
+              disabled={initialValues.status === WithdrawalStatus.succeeded}
+            />
           </Grid>
           <Grid item xs={6}>
             <Link href={routes.admin.withdrawals.index} passHref>
