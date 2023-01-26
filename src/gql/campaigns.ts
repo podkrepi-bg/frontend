@@ -69,6 +69,7 @@ export type AdminCampaignResponse = BaseCampaignResponse & {
     reachedAmount: number
     currentAmount: number
     blockedAmount: number
+    withdrawnAmount: number
   }
   vaults: { id: UUID }[]
   category: CampaignTypeCategory
