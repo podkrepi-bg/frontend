@@ -69,6 +69,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.donorsSharesCount}`]: {
     fontWeight: 'bold',
     fontSize: theme.spacing(2),
+    textTransform: 'capitalize',
   },
 
   [`& .${classes.donationPriceList}`]: {
@@ -120,7 +121,7 @@ type Props = {
 }
 
 export default function InlineDonation({ campaign }: Props) {
-  const { t } = useTranslation()
+  const { t } = useTranslation('campaigns')
   const { asPath } = useRouter()
   const [status, copyUrl] = useCopyToClipboard(baseUrl + asPath, 1000)
   const active = status === 'copied' ? 'inherit' : 'primary'
@@ -151,7 +152,6 @@ export default function InlineDonation({ campaign }: Props) {
 
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
 
-  const handleMenu = (event: React.MouseEvent) => setAnchorEl(event.currentTarget)
   const handleClose = () => setAnchorEl(null)
 
   return (
@@ -162,31 +162,11 @@ export default function InlineDonation({ campaign }: Props) {
         </Typography>
         <Typography component="span" className={classes.targetMoney}>
           {' '}
-          {t('campaigns:campaign.from')} {moneyPublic(target, currency)}
+          {t('campaign.from')} {moneyPublic(target, currency)}
         </Typography>
       </Grid>
       <CampaignProgress campaignId={campaignId} raised={reached} target={target} />
-      {detailsShown && (
-        <>
-          <Grid display="inline-block" m={3} ml={0}>
-            <Typography className={classes.donorsSharesCount}>{donors}</Typography>
-            <Typography>{t('campaigns:campaign.donors')}</Typography>
-          </Grid>
-          <Grid display="inline-block" m={3} ml={0}>
-            <Typography className={classes.donorsSharesCount}>{0}</Typography>
-            <Typography>{t('campaigns:campaign.shares')}</Typography>
-          </Grid>
-        </>
-      )}
       <Grid container gap={2} className={classes.buttonContainer}>
-        <Button
-          fullWidth
-          variant="outlined"
-          startIcon={<ShareIcon />}
-          color="secondary"
-          onClickCapture={handleMenu}>
-          {t('campaigns:cta.share')}
-        </Button>
         <Menu
           keepMounted
           id="share"
@@ -218,15 +198,15 @@ export default function InlineDonation({ campaign }: Props) {
             color={active}
           />
         </Menu>
-        <Grid item xs={12}>
+        <Grid item xs={12} mt={2}>
           <LinkButton
             fullWidth
             href={routes.campaigns.oneTimeDonation(campaignSlug)}
             disabled={campaignState === CampaignState.complete && !allowDonationOnComplete}
             variant="contained"
             color="secondary"
-            startIcon={<Favorite color="action" />}>
-            {t('common:support')}
+            endIcon={<Favorite color="action" />}>
+            {t('cta.support')}
           </LinkButton>
         </Grid>
       </Grid>
@@ -237,6 +217,11 @@ export default function InlineDonation({ campaign }: Props) {
           <CircularProgress sx={{ display: 'block', margin: `${theme.spacing(3)} auto` }} />
         ) : (
           <>
+            <Grid display="inline-block" m={1} ml={0}>
+              <Typography className={classes.donorsSharesCount}>
+                {t('campaign.donors')}: {donors}
+              </Typography>
+            </Grid>
             <DonorsAndDonations donations={donations} />
             {donations && donations.length !== 0 ? (
               <Grid container justifyContent="flex-end">
