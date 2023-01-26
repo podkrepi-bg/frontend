@@ -1,9 +1,10 @@
 import React from 'react'
 
 import { useTranslation } from 'next-i18next'
-import { Container, Grid, Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 
 import CampaignFilter from './CampaignFilter'
+import Layout from 'components/layout/Layout'
 
 import { styled } from '@mui/material/styles'
 
@@ -17,11 +18,7 @@ const classes = {
   arrowIcon: `${PREFIX}-arrowIcon`,
 }
 
-const Root = styled(Grid)(({ theme }) => ({
-  paddingTop: theme.spacing(7),
-  width: '100%',
-  margin: '0 auto',
-
+const Root = styled(Layout)(({ theme }) => ({
   [theme.breakpoints.up('sm')]: {
     paddingTop: theme.spacing(12),
   },
@@ -81,8 +78,8 @@ export default function CampaignsPage() {
   const { t } = useTranslation()
 
   return (
-    <Root>
-      <Container maxWidth={false}>
+    <Root maxWidth={false}>
+      <Grid>
         <Typography variant="h1" component="p" className={classes.title}>
           {t('campaigns:campaigns')}
         </Typography>
@@ -90,7 +87,7 @@ export default function CampaignsPage() {
           {t('campaigns:cta.support-cause-today')}
         </Typography>
         <CampaignFilter />
-      </Container>
+      </Grid>
     </Root>
   )
 }
