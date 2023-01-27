@@ -37,6 +37,7 @@ const classes = {
   sharesContainer: `${PREFIX}-sharesContainer`,
   openButton: `${PREFIX}-openButton`,
   donateButton: `${PREFIX}-donateButton`,
+  noCommissionInfo: `${PREFIX}-noCommissionInfo`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
@@ -130,6 +131,12 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     '&:hover': {
       backgroundColor: '#0098e3',
     },
+  },
+
+  [`& .${classes.noCommissionInfo}`]: {
+    fontSize: theme.typography.pxToRem(12),
+    color: theme.palette.common.black,
+    marginTop: theme.spacing(1.7),
   },
 }))
 
@@ -235,6 +242,9 @@ export default function InlineDonation({ campaign }: Props) {
           <CircularProgress sx={{ display: 'block', margin: `${theme.spacing(3)} auto` }} />
         ) : (
           <>
+            <Typography className={classes.noCommissionInfo}>
+              {t('campaign.noCommissionInfo')}
+            </Typography>
             <Typography className={classes.donorsSharesCount}>
               {t('campaign.donors')}: {donors}
             </Typography>
