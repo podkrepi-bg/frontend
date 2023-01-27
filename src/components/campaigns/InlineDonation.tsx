@@ -9,7 +9,6 @@ import DonorsAndDonations from './DonorsAndDonations'
 import { Button, CircularProgress, Grid, IconButton, Menu, Typography } from '@mui/material'
 import { lighten } from '@mui/material/styles'
 import { AddLinkOutlined, Favorite } from '@mui/icons-material'
-import ShareIcon from '@mui/icons-material/Share'
 import { useCampaignDonationHistory } from 'common/hooks/campaigns'
 import theme from 'common/theme'
 import { useRouter } from 'next/router'
@@ -67,9 +66,10 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 
   [`& .${classes.donorsSharesCount}`]: {
-    fontWeight: 'bold',
-    fontSize: theme.spacing(2),
     textTransform: 'capitalize',
+    margin: theme.spacing(1.7, 0),
+    fontSize: theme.typography.pxToRem(14),
+    color: theme.palette.common.black,
   },
 
   [`& .${classes.donationPriceList}`]: {
@@ -217,11 +217,9 @@ export default function InlineDonation({ campaign }: Props) {
           <CircularProgress sx={{ display: 'block', margin: `${theme.spacing(3)} auto` }} />
         ) : (
           <>
-            <Grid display="inline-block" m={1} ml={0}>
-              <Typography className={classes.donorsSharesCount}>
-                {t('campaign.donors')}: {donors}
-              </Typography>
-            </Grid>
+            <Typography className={classes.donorsSharesCount}>
+              {t('campaign.donors')}: {donors}
+            </Typography>
             <DonorsAndDonations donations={donations} />
             {donations && donations.length !== 0 ? (
               <Grid container justifyContent="flex-end">
