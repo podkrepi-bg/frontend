@@ -36,6 +36,7 @@ const classes = {
   buttonContainer: `${PREFIX}-buttonContainer`,
   sharesContainer: `${PREFIX}-sharesContainer`,
   openButton: `${PREFIX}-openButton`,
+  donateButton: `${PREFIX}-donateButton`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
@@ -113,6 +114,22 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     backgroundColor: '#EEEEEE',
     minWidth: theme.spacing(5),
     paddingBottom: 'unset',
+  },
+
+  [`& .${classes.donateButton}`]: {
+    boxShadow:
+      '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px rgb(0 0 0 / 14%), 0px 1px 3px rgb(0 0 0 / 12%)',
+    height: theme.spacing(5.125),
+    fontSize: theme.typography.pxToRem(16),
+    letterSpacing: theme.typography.pxToRem(0.4),
+
+    '& span': {
+      color: '#ab2f26',
+    },
+
+    '&:hover': {
+      backgroundColor: '#0098e3',
+    },
   },
 }))
 
@@ -205,7 +222,8 @@ export default function InlineDonation({ campaign }: Props) {
             disabled={campaignState === CampaignState.complete && !allowDonationOnComplete}
             variant="contained"
             color="secondary"
-            endIcon={<Favorite color="action" />}>
+            endIcon={<Favorite />}
+            className={classes.donateButton}>
             {t('cta.support')}
           </LinkButton>
         </Grid>
