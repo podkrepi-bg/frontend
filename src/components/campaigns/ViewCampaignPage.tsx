@@ -63,7 +63,13 @@ export default function ViewCampaignPage({ slug }: Props) {
                 flexDirection: 'column',
               },
             }}>
-            <Grid item sx={{ position: 'sticky', top: theme.spacing(12) }}>
+            <Grid
+              item
+              sx={{
+                position: 'sticky',
+                top: theme.spacing(12),
+                width: theme.spacing(50),
+              }}>
               <InlineDonation campaign={campaign} />
             </Grid>
           </Grid>

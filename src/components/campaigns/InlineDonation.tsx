@@ -46,10 +46,11 @@ const classes = {
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
   [`&.${classes.inlineDonationWrapper}`]: {
-    backgroundColor: '#EEEEEE',
-    borderRadius: theme.spacing(1),
-    height: 'fit-content',
     boxShadow: '2px 4px 5px rgba(0, 0, 0, 0.25)',
+    borderRadius: theme.spacing(2.25),
+    backgroundColor: '#EEEEEE',
+    height: theme.spacing(62.5),
+
     [theme.breakpoints.down('md')]: {
       margin: theme.spacing(0),
       borderRadius: theme.spacing(0),
@@ -58,7 +59,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
 
   [`& .${classes.reachedAndTargetMoneyWrapper}`]: {
     display: 'flex',
-    justifyЦontent: 'space-between',
+    justifyContent: 'space-between',
     padding: theme.spacing(0, 1.75),
   },
 
@@ -204,7 +205,7 @@ export default function InlineDonation({ campaign }: Props) {
   const handleClose = () => setAnchorEl(null)
 
   return (
-    <StyledGrid item xs={12} mt={5} p={3} className={classes.inlineDonationWrapper}>
+    <StyledGrid item xs={12} p={3} className={classes.inlineDonationWrapper}>
       <Grid className={classes.reachedAndTargetMoneyWrapper}>
         <Typography component="span" className={classes.reachedAndTargetMoney}>
           {moneyPublic(reached, currency)}

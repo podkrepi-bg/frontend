@@ -23,7 +23,6 @@ const classes = {
 const Root = styled('div')(({ theme }) => ({
   [`& .${classes.donationsWrapper}`]: {
     maxHeight: 400,
-    overflowY: 'scroll',
   },
 
   [`& .${classes.donationItemWrapper}`]: {
