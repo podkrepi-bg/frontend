@@ -29,8 +29,8 @@ const PREFIX = 'InlineDonation'
 
 const classes = {
   inlineDonationWrapper: `${PREFIX}-inlineDonationWrapper`,
-  reachedMoney: `${PREFIX}-reachedMoney`,
-  targetMoney: `${PREFIX}-targetMoney`,
+  reachedAndTargetMoneyWrapper: `${PREFIX}-reachedAndTargetMoneyWrapper`,
+  reachedAndTargetMoney: `${PREFIX}-reachedAndTargetMoney`,
   donorsSharesCount: `${PREFIX}-donorsSharesCount`,
   donationPriceList: `${PREFIX}-donationPriceList`,
   dropdownLinkButton: `${PREFIX}-dropdownLinkButton`,
@@ -56,19 +56,15 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     },
   },
 
-  [`& .${classes.reachedMoney}`]: {
-    fontSize: theme.spacing(5),
-    fontWeight: 500,
-    [theme.breakpoints.down('md')]: {
-      fontSize: theme.spacing(3),
-    },
+  [`& .${classes.reachedAndTargetMoneyWrapper}`]: {
+    display: 'flex',
+    justifyЦontent: 'space-between',
+    padding: theme.spacing(0, 1.75),
   },
 
-  [`& .${classes.targetMoney}`]: {
-    fontSize: theme.spacing(3),
-    [theme.breakpoints.down('md')]: {
-      fontSize: theme.spacing(2),
-    },
+  [`& .${classes.reachedAndTargetMoney}`]: {
+    fontSize: theme.typography.pxToRem(16),
+    color: theme.palette.common.black,
   },
 
   [`& .${classes.donorsSharesCount}`]: {
@@ -209,13 +205,12 @@ export default function InlineDonation({ campaign }: Props) {
 
   return (
     <StyledGrid item xs={12} mt={5} p={3} className={classes.inlineDonationWrapper}>
-      <Grid mb={2}>
-        <Typography component="span" className={classes.reachedMoney}>
+      <Grid className={classes.reachedAndTargetMoneyWrapper}>
+        <Typography component="span" className={classes.reachedAndTargetMoney}>
           {moneyPublic(reached, currency)}
         </Typography>
-        <Typography component="span" className={classes.targetMoney}>
-          {' '}
-          {t('campaign.from')} {moneyPublic(target, currency)}
+        <Typography component="span" className={classes.reachedAndTargetMoney}>
+          {moneyPublic(target, currency)}
         </Typography>
       </Grid>
       <Grid className={classes.progressBar}>
