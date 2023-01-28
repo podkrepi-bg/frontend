@@ -23,6 +23,8 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import LinkButton from '../common/LinkButton'
 import { CampaignState } from './helpers/campaign.enums'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+
 const PREFIX = 'InlineDonation'
 
 const classes = {
@@ -38,6 +40,8 @@ const classes = {
   openButton: `${PREFIX}-openButton`,
   donateButton: `${PREFIX}-donateButton`,
   noCommissionInfo: `${PREFIX}-noCommissionInfo`,
+  infoIcon: `${PREFIX}-infoIcon`,
+  progressBar: `${PREFIX}-progressBar`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
@@ -123,8 +127,9 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     height: theme.spacing(5.125),
     fontSize: theme.typography.pxToRem(16),
     letterSpacing: theme.typography.pxToRem(0.4),
+    backgroundColor: theme.palette.secondary.main,
 
-    '& span': {
+    '& svg': {
       color: '#ab2f26',
     },
 
@@ -134,9 +139,33 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 
   [`& .${classes.noCommissionInfo}`]: {
-    fontSize: theme.typography.pxToRem(12),
-    color: theme.palette.common.black,
+    display: 'flex',
+    gap: theme.spacing(0.25),
     marginTop: theme.spacing(1.7),
+
+    '& p': {
+      fontSize: theme.typography.pxToRem(12),
+      color: theme.palette.common.black,
+    },
+  },
+
+  [`& .${classes.infoIcon}`]: {
+    marginTop: `-${theme.spacing(0.25)}`,
+    fontSize: theme.typography.pxToRem(16),
+    color: '#6d6d6d',
+  },
+
+  [`& .${classes.progressBar}`]: {
+    '.CampaignProgress-root': {
+      background: '#c6ced9',
+      borderRadius: theme.spacing(6),
+      boxShadow: 'inset 0px 0px 0px 1px #b8b8b8',
+
+      '& span': {
+        borderRadius: theme.spacing(6),
+        backgroundColor: 'rgba(40, 78, 132, 0.5)',
+      },
+    },
   },
 }))
 
@@ -189,7 +218,9 @@ export default function InlineDonation({ campaign }: Props) {
           {t('campaign.from')} {moneyPublic(target, currency)}
         </Typography>
       </Grid>
-      <CampaignProgress campaignId={campaignId} raised={reached} target={target} />
+      <Grid className={classes.progressBar}>
+        <CampaignProgress campaignId={campaignId} raised={reached} target={target} />
+      </Grid>
       <Grid container gap={2} className={classes.buttonContainer}>
         <Menu
           keepMounted
@@ -228,7 +259,6 @@ export default function InlineDonation({ campaign }: Props) {
             href={routes.campaigns.oneTimeDonation(campaignSlug)}
             disabled={campaignState === CampaignState.complete && !allowDonationOnComplete}
             variant="contained"
-            color="secondary"
             endIcon={<Favorite />}
             className={classes.donateButton}>
             {t('cta.support')}
@@ -242,9 +272,10 @@ export default function InlineDonation({ campaign }: Props) {
           <CircularProgress sx={{ display: 'block', margin: `${theme.spacing(3)} auto` }} />
         ) : (
           <>
-            <Typography className={classes.noCommissionInfo}>
-              {t('campaign.noCommissionInfo')}
-            </Typography>
+            <Grid className={classes.noCommissionInfo}>
+              <InfoOutlinedIcon className={classes.infoIcon} />
+              <Typography>{t('campaign.noCommissionInfo')}</Typography>
+            </Grid>
             <Typography className={classes.donorsSharesCount}>
               {t('campaign.donors')}: {donors}
             </Typography>
