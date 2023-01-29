@@ -22,6 +22,7 @@ import {
   DonationFormDataPaymentOption,
   DonationFormDataV2,
 } from './helpers/types'
+import PaymentSummaryAlert from './alerts/PaymentSummaryAlert'
 
 const initialValues: DonationFormDataV2 = {
   amount: '',
@@ -165,6 +166,7 @@ export function DonationFlowForm() {
               <AlertsColumn
                 sectionsRefArray={[paymentMethodSectionRef, authenticationSectionRef]}
               />
+              <PaymentSummaryAlert donationAmount={Number(values.amount)} />
             </Grid2>
           </Hidden>
         </Grid2>
