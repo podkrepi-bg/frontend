@@ -3,16 +3,16 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate, QueryClient } from '@tanstack/react-query'
 
 import CampaignsPage from 'components/campaigns/CampaignsPage'
+import { campaignsOrderQueryFunction } from 'common/hooks/campaigns'
 import { prefetchCampaignTypesList } from 'service/campaignTypes'
 import { endpoints } from 'service/apiEndpoints'
-import { queryFnFactory } from 'service/restRequests'
 import { CampaignResponse } from 'gql/campaigns'
 
 export const getServerSideProps: GetServerSideProps = async (params) => {
   const client = new QueryClient()
   await client.prefetchQuery<CampaignResponse[]>(
     [endpoints.campaign.listCampaigns.url],
-    queryFnFactory<CampaignResponse[]>(),
+    campaignsOrderQueryFunction,
   )
   await prefetchCampaignTypesList(client)
   return {
