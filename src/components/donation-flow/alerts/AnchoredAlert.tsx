@@ -7,7 +7,6 @@ export interface AnchoredAlertProps extends AlertProps {
 
 export const AnchoredAlert = (props: AnchoredAlertProps) => {
   const { sectionRef, ...alertProps } = props
-  console.log('AnchoredAlert', sectionRef?.current)
   return (
     <Alert
       sx={{

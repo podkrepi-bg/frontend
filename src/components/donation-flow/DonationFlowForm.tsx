@@ -4,7 +4,7 @@ import { useElements, useStripe } from '@stripe/react-stripe-js'
 import * as yup from 'yup'
 import { Form, Formik } from 'formik'
 import { PersistFormikValues } from 'formik-persist-values'
-import { Box, Hidden, Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
+import { Box, Hidden, Unstable_Grid2 as Grid2 } from '@mui/material'
 
 import { AlertStore } from 'stores/AlertStore'
 import { useCreateStripePayment } from 'service/donation'
@@ -16,30 +16,12 @@ import Amount from './steps/Amount'
 import PaymentMethod from './steps/payment-method/PaymentMethod'
 import Authentication from './steps/authentication/Authentication'
 import { DonationFlowContext } from './DonationFlowContext'
-import AlertsColumn, { SectionAlertProps } from './alerts/AlertsColumn'
-
-export enum DonationFormDataAuthState {
-  LOGIN = 'login',
-  REGISTER = 'register',
-  AUTHENTICATED = 'authenticated',
-  NOREGISTER = 'noregister',
-}
-
-export enum DonationFormDataPaymentOption {
-  CARD = 'card',
-  BANK = 'bank',
-}
-export type DonationFormDataV2 = {
-  isAnonymous: boolean
-  authentication: DonationFormDataAuthState | null
-  payment: DonationFormDataPaymentOption | null
-  email: string
-  cardRegion: CardRegion
-  cardIncludeFees: boolean
-  amount?: string
-  amountWithFees?: number
-  otherAmount?: number
-}
+import AlertsColumn from './alerts/AlertsColumn'
+import {
+  DonationFormDataAuthState,
+  DonationFormDataPaymentOption,
+  DonationFormDataV2,
+} from './helpers/types'
 
 const initialValues: DonationFormDataV2 = {
   amount: '',
@@ -107,29 +89,6 @@ export function DonationFlowForm() {
   const paymentMethodSectionRef = React.useRef<HTMLDivElement>(null)
   const authenticationSectionRef = React.useRef<HTMLDivElement>(null)
 
-  const alerts: SectionAlertProps[] = [
-    {
-      sectionRef: amountSectionRef,
-      alertProps: {
-        color: 'info',
-        children: <Typography>Amount selected is wrong</Typography>,
-      },
-    },
-    {
-      sectionRef: paymentMethodSectionRef,
-      alertProps: {
-        color: 'info',
-        children: <Typography>Amount selected is wrong</Typography>,
-      },
-    },
-    {
-      sectionRef: authenticationSectionRef,
-      alertProps: {
-        color: 'info',
-        children: <Typography>Amount selected is wrong</Typography>,
-      },
-    },
-  ]
   return (
     <Formik
       initialValues={{
@@ -204,7 +163,13 @@ export function DonationFlowForm() {
           </Grid2>
           <Hidden mdDown>
             <Grid2 sx={{ overflow: 'auto' }} md={4}>
-              <AlertsColumn refAlertArray={alerts} />
+              <AlertsColumn
+                sectionsRefArray={[
+                  amountSectionRef,
+                  paymentMethodSectionRef,
+                  authenticationSectionRef,
+                ]}
+              />
             </Grid2>
           </Hidden>
         </Grid2>

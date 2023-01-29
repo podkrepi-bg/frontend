@@ -1,20 +1,19 @@
-import InlineRegisterForm from './InlineRegisterForm'
 import { useEffect } from 'react'
 import { useFormikContext } from 'formik'
 import { useSession } from 'next-auth/react'
-import { Alert, Box, IconButton, Tooltip, Typography } from '@mui/material'
+import { Box, IconButton, Tooltip, Typography, Alert } from '@mui/material'
 import { Info } from '@mui/icons-material'
-
-import CheckboxField from 'components/common/form/CheckboxField'
-import theme from 'common/theme'
-import {
-  DonationFormDataAuthState,
-  DonationFormDataV2,
-} from 'components/donation-flow/DonationFlowForm'
-import EmailField from 'components/common/form/EmailField'
 
 import RadioAccordionGroup from '../../common/RadioAccordionGroup'
 import InlineLoginForm from './InlineLoginForm'
+import InlineRegisterForm from './InlineRegisterForm'
+import CheckboxField from 'components/common/form/CheckboxField'
+import {
+  DonationFormDataAuthState,
+  DonationFormDataV2,
+} from 'components/donation-flow/helpers/types'
+import theme from 'common/theme'
+import EmailField from 'components/common/form/EmailField'
 
 export default function Authentication({
   sectionRef,
