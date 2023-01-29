@@ -4,6 +4,7 @@ import {
   bgLocalizationOneTimeDonation,
   enLocalizationOneTimeDonation,
 } from '../../../data/localization'
+import { SLUG_REGEX } from '../../../utils/helpers'
 import { CampaignsPage } from './campaigns.page'
 
 export class DonationPage extends CampaignsPage {
@@ -58,6 +59,13 @@ export class DonationPage extends CampaignsPage {
   private readonly enFinishButtonText = enLocalizationOneTimeDonation.btns.end
   private readonly bgSuccessfulDonationTitle = bgLocalizationOneTimeDonation.success.title
   private readonly enSuccessfulDonationTitle = enLocalizationOneTimeDonation.success.title
+
+  async checkPageUrlByRegExp(urlRegExpAsString?: string, timeoutParam = 10000): Promise<void> {
+    super.checkPageUrlByRegExp(
+      urlRegExpAsString || `^(.*?)/campaigns/donation/${SLUG_REGEX}`,
+      timeoutParam,
+    )
+  }
 
   /**
    * Is "Select amount" step active

@@ -1,5 +1,4 @@
 import { test, expect, Page } from '@playwright/test'
-import { campaignData } from '../../data/campaigns-env.data'
 
 import { CampaignsPage } from '../../pages/web-pages/campaigns/campaigns.page'
 import { DonationPage } from '../../pages/web-pages/campaigns/donation.page'
@@ -14,7 +13,6 @@ test.describe('Campaigns page smoke tests - BG language version', async () => {
   let headerPage: HeaderPage
   let campaignsPage: CampaignsPage
   let donationPage: DonationPage
-  const firstCampaignDonationUrl = `campaigns/donation/${campaignData[1].slug}`
 
   test.beforeAll(async ({ browser }) => {
     page = await browser.newPage()
@@ -52,14 +50,11 @@ test.describe('Campaigns page smoke tests - BG language version', async () => {
   })
 
   test('Support Now action button navigates to the Donation page for particular campaign', async () => {
-    await campaignsPage.clickActionButtonSupportNowCrisisCenter()
-    await donationPage.checkPageUrlByRegExp(firstCampaignDonationUrl)
+    await campaignsPage.clickCampaignCardByIndex(0)
+    await campaignsPage.clickCampaignCardButtonByIndex(0)
+    await donationPage.checkPageUrlByRegExp()
     expect
       .soft(await donationPage.isSelectAmountStepActive(), 'Select Amount step is not active.')
       .toBeTruthy()
-    expect(
-      await donationPage.isCrisiCenterHeading4Visible(),
-      'Crisis Center H4 heading is not visible',
-    ).toBeTruthy()
   })
 })

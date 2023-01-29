@@ -1,6 +1,7 @@
 import { Page } from '@playwright/test'
 import { LanguagesEnum } from '../../../data/enums/languages.enum'
 import { bgLocalizationCampaigns, enLocalizationCampaigns } from '../../../data/localization'
+import { SLUG_REGEX } from '../../../utils/helpers'
 import { HomePage } from '../home.page'
 
 export class CampaignsPage extends HomePage {
@@ -21,6 +22,10 @@ export class CampaignsPage extends HomePage {
   private readonly enSupportCauseTodayHeading = enLocalizationCampaigns.cta['support-cause-today']
   private readonly bgSupportNowActionButtonText = bgLocalizationCampaigns.cta['support-now']
   private readonly enSupportNowActionButtonText = enLocalizationCampaigns.cta['support-now']
+
+  async checkPageUrlByRegExp(urlRegExpAsString?: string, timeoutParam = 10000): Promise<void> {
+    super.checkPageUrlByRegExp(urlRegExpAsString || `^(.*?)/campaigns/${SLUG_REGEX}`, timeoutParam)
+  }
 
   /**
    * Click donation Support button into the donation grid container
@@ -80,7 +85,7 @@ export class CampaignsPage extends HomePage {
    * @param {string} action
    */
   async clickCampaignCardButtonByIndex(
-    index: string,
+    index: number,
     language: LanguagesEnum = LanguagesEnum.BG,
   ): Promise<void> {
     let supportButtonText = ''
