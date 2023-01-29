@@ -15,6 +15,7 @@ import Authentication from './steps/authentication/Authentication'
 import { DonationFlowContext } from './DonationFlowContext'
 import { PersistFormikValues } from 'formik-persist-values'
 import { AlertStore } from 'stores/AlertStore'
+import { useCreateStripePayment } from 'service/donation'
 
 export enum DonationFormDataAuthState {
   LOGIN = 'login',
@@ -96,9 +97,10 @@ export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
 
 export function DonationFlowForm() {
   const { data: session } = useSession()
-  const { campaign } = useContext(DonationFlowContext)
+  const { campaign, stripePaymentIntent } = useContext(DonationFlowContext)
   const stripe = useStripe()
   const elements = useElements()
+  const createStripePaymentMutation = useCreateStripePayment()
   return (
     <Formik
       initialValues={{
@@ -108,18 +110,26 @@ export function DonationFlowForm() {
       }}
       // validationSchema={validationSchema}
       onSubmit={async (values) => {
-        if (!stripe || !elements) {
+        if (!stripe || !elements || !stripePaymentIntent) {
           // Stripe.js has not yet loaded.
           // Make sure to disable form submission until Stripe.js has loaded.
           throw new Error('Stripe.js has not yet loaded')
         }
-        // const { error } = await stripe.confirmPayment({
-        //   //`Elements` instance that was used to create the Payment Element
-        //   elements,
-        //   confirmParams: {
-        //     return_url: `${window.location.origin}/campaigns/donation-v2/${campaign.slug}`,
-        //   },
-        // })
+        await createStripePaymentMutation.mutateAsync({
+          isAnonymous: values.isAnonymous,
+          personEmail: session?.user?.email || values.email,
+          paymentIntentId: stripePaymentIntent?.id,
+          firstName: session?.user?.given_name || null,
+          lastName: session?.user?.family_name || null,
+          phone: null,
+        })
+        const { error } = await stripe.confirmPayment({
+          //`Elements` instance that was used to create the Payment Element
+          elements,
+          confirmParams: {
+            return_url: `${window.location.origin}/campaigns/donation-v2/${campaign.slug}`,
+          },
+        })
 
         if (error) {
           AlertStore.show(

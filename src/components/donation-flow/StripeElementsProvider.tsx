@@ -40,7 +40,7 @@ const appearance: Appearance = {
 
 export function StripeElementsProvider({ children }: PropsWithChildren) {
   const { i18n } = useTranslation()
-  const { stripePromise, setStripePaymentIntent } = useContext(DonationFlowContext)
+  const { stripePromise, setStripePaymentIntent, campaign } = useContext(DonationFlowContext)
 
   //Initial amount is arbitarary, it will be updated when the user selects an amount
   const createPaymentIntentMutation = useCreatePaymentIntent()
@@ -49,6 +49,9 @@ export function StripeElementsProvider({ children }: PropsWithChildren) {
     createPaymentIntentMutation.mutate({
       amount: 100,
       currency: 'BGN',
+      metadata: {
+        campaignId: campaign.id,
+      },
     })
   }, [])
 
