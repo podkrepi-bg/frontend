@@ -68,7 +68,7 @@ export default function DonorsAndDonations({
 }) {
   const { t, i18n } = useTranslation()
   const [all, setAll] = useState<boolean>(false)
-  const shownDonationsNumber = 5
+  const shownDonationsNumber = 3
   const donationsToShow = useMemo(() => {
     if (all) {
       return donations

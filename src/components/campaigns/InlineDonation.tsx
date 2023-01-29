@@ -42,6 +42,9 @@ const classes = {
   noCommissionInfo: `${PREFIX}-noCommissionInfo`,
   infoIcon: `${PREFIX}-infoIcon`,
   progressBar: `${PREFIX}-progressBar`,
+  campaignInfoWrapper: `${PREFIX}-campaignInfoWrapper`,
+  campaignInfoKey: `${PREFIX}-campaignInfoKey`,
+  campaignInfoValue: `${PREFIX}-campaignInfoValue`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
@@ -164,6 +167,29 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
       },
     },
   },
+
+  [`& .${classes.campaignInfoWrapper}`]: {
+    display: 'flex',
+    gap: theme.spacing(1.7),
+    marginBottom: theme.spacing(4.5),
+  },
+
+  [`& .${classes.campaignInfoKey}`]: {
+    color: '#343434',
+    fontWeight: 700,
+    textTransform: 'capitalize',
+    textAlign: 'end',
+  },
+
+  [`& .${classes.campaignInfoValue}`]: {
+    color: '#707070',
+    fontWeight: 400,
+    textTransform: 'capitalize',
+
+    '&:hover': {
+      color: '#0098e3',
+    },
+  },
 }))
 
 type Props = {
@@ -206,6 +232,18 @@ export default function InlineDonation({ campaign }: Props) {
 
   return (
     <StyledGrid item xs={12} p={3} className={classes.inlineDonationWrapper}>
+      <Grid className={classes.campaignInfoWrapper}>
+        <Grid>
+          <Typography className={classes.campaignInfoKey}>{t('campaign.documents')}:</Typography>
+          <Typography className={classes.campaignInfoKey}>{t('campaign.guarantor')}:</Typography>
+          <Typography className={classes.campaignInfoKey}>{t('campaign.others')}:</Typography>
+        </Grid>
+        <Grid>
+          <Typography className={classes.campaignInfoValue}>test</Typography>
+          <Typography className={classes.campaignInfoValue}>test</Typography>
+          <Typography className={classes.campaignInfoValue}>test</Typography>
+        </Grid>
+      </Grid>
       <Grid className={classes.reachedAndTargetMoneyWrapper}>
         <Typography component="span" className={classes.reachedAndTargetMoney}>
           {moneyPublic(reached, currency)}
