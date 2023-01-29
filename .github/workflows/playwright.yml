@@ -96,8 +96,8 @@ jobs:
         run: yarn start &> frontend.log &
 
       - name: Install Playwright Browsers
-        working-directory: ./frontend
-        run: npx playwright install --with-deps
+        working-directory: ./frontend/e2e
+        run: yarn run playwright:install
 
       - name: Wait on frontend
         uses: iFaxity/wait-on-action@v1
