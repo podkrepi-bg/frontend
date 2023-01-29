@@ -24,6 +24,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import LinkButton from '../common/LinkButton'
 import { CampaignState } from './helpers/campaign.enums'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+import ExternalLink from 'components/common/ExternalLink'
 
 const PREFIX = 'InlineDonation'
 
@@ -45,6 +46,7 @@ const classes = {
   campaignInfoWrapper: `${PREFIX}-campaignInfoWrapper`,
   campaignInfoKey: `${PREFIX}-campaignInfoKey`,
   campaignInfoValue: `${PREFIX}-campaignInfoValue`,
+  pagination: `${PREFIX}-pagination`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
@@ -171,7 +173,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.campaignInfoWrapper}`]: {
     display: 'flex',
     gap: theme.spacing(1.7),
-    marginBottom: theme.spacing(4.5),
+    marginBottom: theme.spacing(3.8),
   },
 
   [`& .${classes.campaignInfoKey}`]: {
@@ -188,6 +190,17 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
 
     '&:hover': {
       color: '#0098e3',
+      textDecoration: 'underline',
+    },
+  },
+
+  [`& .${classes.pagination}`]: {
+    justifyContent: 'flex-end',
+
+    '& svg': {
+      margin: 0,
+      padding: 0,
+      fontSize: theme.typography.pxToRem(15),
     },
   },
 }))
@@ -239,9 +252,15 @@ export default function InlineDonation({ campaign }: Props) {
           <Typography className={classes.campaignInfoKey}>{t('campaign.others')}:</Typography>
         </Grid>
         <Grid>
-          <Typography className={classes.campaignInfoValue}>test</Typography>
-          <Typography className={classes.campaignInfoValue}>test</Typography>
-          <Typography className={classes.campaignInfoValue}>test</Typography>
+          <ExternalLink href={''}>
+            <Typography className={classes.campaignInfoValue}>test</Typography>
+          </ExternalLink>
+          <ExternalLink href={''}>
+            <Typography className={classes.campaignInfoValue}>test</Typography>
+          </ExternalLink>
+          <ExternalLink href={''}>
+            <Typography className={classes.campaignInfoValue}>test</Typography>
+          </ExternalLink>
         </Grid>
       </Grid>
       <Grid className={classes.reachedAndTargetMoneyWrapper}>
@@ -315,7 +334,7 @@ export default function InlineDonation({ campaign }: Props) {
             </Typography>
             <DonorsAndDonations donations={donations} />
             {donations && donations.length !== 0 ? (
-              <Grid container justifyContent="flex-end">
+              <Grid container className={classes.pagination}>
                 <Typography m={1}>{`${page * pageSize + 1}-${rowCount}  ${t(
                   'campaigns:of',
                 )}  ${all_rows}`}</Typography>
@@ -335,7 +354,6 @@ export default function InlineDonation({ campaign }: Props) {
             ) : null}
           </>
         ))}
-      {/* <pre>{JSON.stringify(prices, null, 2)}</pre> */}
       {mobile && (
         <Grid textAlign="center">
           <Button variant="text" onClick={() => setIsOpen(!isOpen)} className={classes.openButton}>

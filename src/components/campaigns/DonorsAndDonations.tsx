@@ -1,5 +1,5 @@
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import { Button, Grid, Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import theme from 'common/theme'
 import { moneyPublic } from 'common/util/money'
@@ -31,6 +31,10 @@ const Root = styled('div')(({ theme }) => ({
     alignItems: 'center',
     marginBottom: theme.spacing(1.7),
     maxHeight: theme.spacing(4.5),
+
+    '&:last-of-type': {
+      marginBottom: 0,
+    },
   },
 
   [`& .${classes.donationQuantityAndTimeWrapper}`]: {
@@ -106,13 +110,6 @@ export default function DonorsAndDonations({
           <Typography sx={{ textAlign: 'center', marginBottom: theme.spacing(4) }}>
             {t('campaigns:donations.none')}
           </Typography>
-        )}
-      </Grid>
-      <Grid>
-        {donations && donations.length > shownDonationsNumber && (
-          <Button onClick={() => setAll((prev) => !prev)} variant="outlined">
-            {all ? t('campaigns:cta.see-less') : t('campaigns:cta.see-all')}
-          </Button>
         )}
       </Grid>
     </Root>
