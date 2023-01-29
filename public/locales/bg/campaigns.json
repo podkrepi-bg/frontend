@@ -20,6 +20,8 @@
   "targetAmount": "Целева сума",
   "donationsAmount": "Събрани средства",
   "blockedAmount": "Блокирани средства",
+  "withdrawnAmount": "Преведени средства",
+
   "startDate": "Стартова дата",
   "endDate": "Крайна дата",
   "createDate": "Съдадена на",

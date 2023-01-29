@@ -22,8 +22,8 @@
   "deleteAllContent": "Това действие ще изтрие избраните елементи завинаги!",
   "actions": "Действия",
   "createdAt": "Направено на",
-  "bankTransactionsFileId": "Номер на файла с банкови транзакции",
-  "addFiles": "Добави файлове",
+  "bankTransactionsFileId": "Име на файла с банкови транзакции",
+  "addFiles": "Избери файл",
   "noOptions": "Няма резултати",
   "alerts": {
     "selectRow": "Моля изберете ред",
