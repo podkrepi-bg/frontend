@@ -1,5 +1,4 @@
 import { Page } from '@playwright/test'
-import { campaignData } from '../../../data/campaigns-env.data'
 import { LanguagesEnum } from '../../../data/enums/languages.enum'
 import { bgLocalizationCampaigns, enLocalizationCampaigns } from '../../../data/localization'
 import { HomePage } from '../home.page'
@@ -15,9 +14,6 @@ export class CampaignsPage extends HomePage {
   // private readonly campaignContainerItem = ".MuiGrid-container .MuiGrid-item";
   private readonly cardActions = '.MuiCardActions-root'
   private readonly cardActionButtons = this.cardActions + ' button'
-  // Focused campaigns for tests (hardcoded text here because I didn't find it anywhere else)
-  protected readonly firstCampaignTitle = campaignData[0].title
-  protected readonly secondCampaignTitle = campaignData[1].title
   // Main headings
   private readonly bgMainCampaignsHeading = bgLocalizationCampaigns.campaigns
   private readonly enMainCampaignsHeading = enLocalizationCampaigns.campaigns
@@ -31,16 +27,6 @@ export class CampaignsPage extends HomePage {
    */
   async clickDonationSupportButton(): Promise<void> {
     await this.clickElement(this.donationSupportButton)
-  }
-
-  /**
-   * Open campaign "School for children Varna" H5 heading link on the main Campaigns page
-   * @param {LanguagesEnum} language, the default is BG
-   */
-  async clickCampaignSchoolChildrenVarna(
-    language: LanguagesEnum = LanguagesEnum.BG,
-  ): Promise<void> {
-    await this.clickH5HeadingByText(language, this.firstCampaignTitle, null)
   }
 
   /**
@@ -78,37 +64,14 @@ export class CampaignsPage extends HomePage {
   }
 
   /**
-   * Check if "School children Varna" campaign H1 heading is visible on the Campaigns page
-   * @param {LanguagesEnum} language - the default value is BG
+   * Click card action button by its H5 heading
+   * @param {string} heading
+   * @param {string} action
    */
-  async isSchoolChildrenVarnaHeadingVisible(
-    language: LanguagesEnum = LanguagesEnum.BG,
-  ): Promise<boolean> {
-    return this.isH1HeadingVisible(language, this.firstCampaignTitle, null)
-  }
+  async clickCampaignCardByIndex(index: number): Promise<void> {
+    const cardActionButtonElement = this.page.locator(`[data-testid="campaign-card-${index}"]`)
 
-  /**
-   * Open campaign "Crisis Center - New Life Chance" H5 heading link on the main Campaigns page
-   * @param {LanguagesEnum} language, the default is BG
-   */
-  async clickCampaignCrisisCenter(language: LanguagesEnum = LanguagesEnum.BG): Promise<void> {
-    await this.clickH5HeadingByText(language, this.secondCampaignTitle, null)
-  }
-
-  /**
-   * Check if "Crisis Center - New Life Chance" campaign H1 heading is visible on the Campaigns page
-   * @param {LanguagesEnum} language - the default value is BG
-   */
-  async isCrisiCenterHeading1Visible(language: LanguagesEnum = LanguagesEnum.BG): Promise<boolean> {
-    return this.isH1HeadingVisible(language, this.secondCampaignTitle, null)
-  }
-
-  /**
-   * Check if "Crisis Center - New Life Chance" campaign H4 heading is visible on the Campaigns page
-   * @param {LanguagesEnum} language - the default value is BG
-   */
-  async isCrisiCenterHeading4Visible(language: LanguagesEnum = LanguagesEnum.BG): Promise<boolean> {
-    return this.isH4HeadingVisible(language, this.secondCampaignTitle, null)
+    await this.clickElementByLocator(cardActionButtonElement)
   }
 
   /**
@@ -116,33 +79,22 @@ export class CampaignsPage extends HomePage {
    * @param {string} heading
    * @param {string} action
    */
-  async clickCampaignCardButtonByHeading(heading: string, action: string): Promise<void> {
-    const cardActionButtonElement = this.page
-      .locator(this.h5HeadingsSelector, { hasText: heading })
-      .locator('../../..')
-      .locator(this.cardActionButtons, { hasText: action })
-    await this.clickElementByLocator(cardActionButtonElement)
-  }
-
-  /**
-   * Click Support Now action button on card "Crisis Center - New Life Chance"
-   * @param {LanguagesEnum} language - the default value is BG
-   */
-  async clickActionButtonSupportNowCrisisCenter(
+  async clickCampaignCardButtonByIndex(
+    index: string,
     language: LanguagesEnum = LanguagesEnum.BG,
   ): Promise<void> {
+    let supportButtonText = ''
     if (language === LanguagesEnum.BG) {
-      await this.clickCampaignCardButtonByHeading(
-        this.secondCampaignTitle,
-        this.bgSupportNowActionButtonText,
-      )
+      supportButtonText = this.bgSupportNowActionButtonText
     } else if (language === LanguagesEnum.EN) {
-      await this.clickCampaignCardButtonByHeading(
-        this.secondCampaignTitle,
-        this.enSupportNowActionButtonText,
-      )
+      supportButtonText = this.enSupportNowActionButtonText
     } else {
       throw new Error('Invalid language!')
     }
+    const cardActionButtonElement = this.page
+      .locator(`[data-testid="campaign-card-${index}"]`)
+      .locator('../../..')
+      .locator(this.cardActionButtons, { hasText: supportButtonText })
+    await this.clickElementByLocator(cardActionButtonElement)
   }
 }
