@@ -1,19 +1,20 @@
-import { useSession } from 'next-auth/react'
-import { Alert, Box, IconButton, Tooltip, Typography } from '@mui/material'
-
-import RadioAccordionGroup from '../../common/RadioAccordionGroup'
-import InlineLoginForm from './InlineLoginForm'
 import InlineRegisterForm from './InlineRegisterForm'
 import { useEffect } from 'react'
 import { useFormikContext } from 'formik'
+import { useSession } from 'next-auth/react'
+import { Alert, Box, IconButton, Tooltip, Typography } from '@mui/material'
+import { Info } from '@mui/icons-material'
+
 import CheckboxField from 'components/common/form/CheckboxField'
 import theme from 'common/theme'
-import { Info } from '@mui/icons-material'
 import {
   DonationFormDataAuthState,
   DonationFormDataV2,
 } from 'components/donation-flow/DonationFlowForm'
 import EmailField from 'components/common/form/EmailField'
+
+import RadioAccordionGroup from '../../common/RadioAccordionGroup'
+import InlineLoginForm from './InlineLoginForm'
 
 export default function Authentication() {
   const { data: session } = useSession()

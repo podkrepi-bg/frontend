@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSession } from 'next-auth/react'
 import * as yup from 'yup'
 import { Form, Formik } from 'formik'
 import { Alert, Box, Hidden, Unstable_Grid2 as Grid2 } from '@mui/material'
@@ -10,7 +11,6 @@ import StepSplitter from './common/StepSplitter'
 import Amount from './steps/Amount'
 import PaymentMethod from './steps/payment-method/PaymentMethod'
 import Authentication from './steps/authentication/Authentication'
-import { useSession } from 'next-auth/react'
 
 export enum DonationFormDataAuthState {
   LOGIN = 'login',
