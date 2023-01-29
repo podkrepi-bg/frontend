@@ -39,6 +39,7 @@ export default function EditForm() {
   let id = router.query.id
 
   let initialValues: VaultInput = {
+    id: '',
     name: '',
     currency: '',
     campaignId: '',
@@ -49,6 +50,7 @@ export default function EditForm() {
     const { data }: UseQueryResult<VaultResponse> = useVault(id)
 
     initialValues = {
+      id: data?.id || '',
       name: data?.name,
       currency: data?.currency,
       campaignId: data?.campaignId,

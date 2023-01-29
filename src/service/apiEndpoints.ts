@@ -1,5 +1,6 @@
 import { Method } from 'axios'
 import { DonationStatus } from 'gql/donations.enums'
+import { FilterData, PaginationData } from 'gql/types'
 
 type Endpoint = {
   url: string
@@ -21,7 +22,6 @@ export const endpoints = {
       method: 'GET',
     },
     createCampaign: <Endpoint>{ url: '/campaign/create-campaign', method: 'POST' },
-    getUserCamapaigns: <Endpoint>{ url: '/campaign/get-user-campaigns', method: 'GET' },
     viewCampaign: (slug: string) => <Endpoint>{ url: `/campaign/${slug}`, method: 'GET' },
     viewCampaignById: (id: string) => <Endpoint>{ url: `/campaign/byId/${id}`, method: 'GET' },
     editCampaign: (id: string) => <Endpoint>{ url: `/campaign/${id}`, method: 'PUT' },
@@ -46,16 +46,28 @@ export const endpoints = {
     singlePrices: <Endpoint>{ url: '/donation/prices/single', method: 'GET' },
     recurringPrices: <Endpoint>{ url: '/donation/prices/recurring', method: 'GET' },
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
+    createPaymentIntent: <Endpoint>{ url: '/donation/create-payment-intent', method: 'POST' },
     createDonation: <Endpoint>{ url: '/donation/create-payment', method: 'POST' },
     createBankDonation: <Endpoint>{ url: '/donation/create-bank-payment', method: 'POST' },
     getDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'GET' },
-    donationsList: (campaignId?: string, pageindex?: number, pagesize?: number) =>
-      <Endpoint>{
+    donationsList: (
+      campaignId?: string,
+      paginationData?: PaginationData,
+      filterData?: FilterData,
+      searchData?: string,
+    ) => {
+      const { pageIndex, pageSize } = (paginationData as PaginationData) || {}
+      const { status, type, date } = (filterData as FilterData) || {}
+      const { from, to } = date || {}
+
+      return <Endpoint>{
         url: campaignId
-          ? `/donation/list?campaignId=${campaignId}&pageindex=${pageindex}&pagesize=${pagesize}`
-          : `/donation/list?&pageindex=${pageindex}&pagesize=${pagesize}`,
+          ? `/donation/list?campaignId=${campaignId}&pageindex=${pageIndex}&pagesize=${pageSize}&status=${status}&type=${type}&from=${from}&to=${to}&search=${searchData}`
+          : `/donation/list?pageindex=${pageIndex}&pagesize=${pageSize}&status=${status}&type=${type}&from=${from}&to=${to}&search=${searchData}`,
         method: 'GET',
-      },
+      }
+    },
+
     getDonations: (
       campaignId: string,
       status: DonationStatus,
@@ -181,7 +193,7 @@ export const endpoints = {
     new: <Endpoint>{ url: '/account/new', method: 'GET' },
   },
   recurringDonation: {
-    recurringDonation: <Endpoint>{ url: '/recurring-donation', method: 'GET' },
+    list: <Endpoint>{ url: '/recurring-donation/list', method: 'GET' },
     getRecurringDonation: (id: string) =>
       <Endpoint>{ url: `/recurring-donation/${id}`, method: 'GET' },
     createRecurringDonation: <Endpoint>{ url: '/recurring-donation', method: 'POST' },
@@ -189,6 +201,13 @@ export const endpoints = {
       <Endpoint>{ url: `/recurring-donation/${id}`, method: 'PUT' },
     deleteRecurringDonation: (id: string) =>
       <Endpoint>{ url: `/recurring-donation/${id}`, method: 'DELETE' },
+    cancelRecurringDonation: (id: string) =>
+      <Endpoint>{ url: `/recurring-donation/cancel/${id}`, method: 'POST' },
+
+    getUserRecurringDonations: <Endpoint>{
+      url: '/recurring-donation/user-donations',
+      method: 'GET',
+    },
   },
   irregularityFile: {
     uploadIrregularityFile: (irregularityId: string) =>

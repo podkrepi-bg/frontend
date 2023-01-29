@@ -13,7 +13,7 @@ import SubmitButton from 'components/common/form/SubmitButton'
 import EmailField from 'components/common/form/EmailField'
 import Google from 'common/icons/Google'
 import PasswordField from 'components/common/form/PasswordField'
-import { email, password } from 'common/form/validation'
+import { email, loginPassword } from 'common/form/validation'
 import LinkButton from 'components/common/LinkButton'
 
 export type LoginFormData = {
@@ -23,7 +23,7 @@ export type LoginFormData = {
 
 const validationSchema: yup.SchemaOf<LoginFormData> = yup.object().defined().shape({
   email: email.required(),
-  password: password.required(),
+  password: loginPassword.required(),
 })
 
 const defaults: LoginFormData = {

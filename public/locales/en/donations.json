@@ -48,6 +48,10 @@
     "save": "Save",
     "open": "Open",
     "clear": "Clear",
-    "close": "Close"
+    "close": "Close",
+    "from": "From",
+    "to": "To",
+    "status": "Status",
+    "type": "Type"
   }
 }

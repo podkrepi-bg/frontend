@@ -290,7 +290,7 @@ export default function CampaignGrid() {
         }}
         rows={data || []}
         columns={columns}
-        pageSize={5}
+        pageSize={10}
         editMode="row"
         autoHeight
         autoPageSize

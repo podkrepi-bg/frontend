@@ -14,6 +14,7 @@ type Props = {
   label: string
   name: string
   campaigns?: CampaignResponse[]
+  selectedCampaign: string
   handleCampaignSelected?: (campaignId: string, setFieldValue: SetFieldValueType) => void
 } & TextFieldProps
 
@@ -21,6 +22,7 @@ export default function CampaignSelect({
   label,
   name,
   campaigns,
+  selectedCampaign,
   handleCampaignSelected,
   ...textFieldProps
 }: Props) {
@@ -29,10 +31,11 @@ export default function CampaignSelect({
   const [field, meta] = useField(name)
   const { setFieldValue } = useFormikContext()
 
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFieldValue(name, event.target.value)
-
-    if (handleCampaignSelected) handleCampaignSelected(event.target.value as string, setFieldValue)
+    if (handleCampaignSelected) {
+      handleCampaignSelected(event.target.value, setFieldValue)
+    }
   }
 
   return (
@@ -45,19 +48,21 @@ export default function CampaignSelect({
         select
         type="text"
         fullWidth
-        defaultValue=""
+        defaultValue={selectedCampaign}
         label={t(label)}
         {...textFieldProps}
         {...field}
         onChange={handleChange}>
-        <MenuItem value="" disabled>
-          {t(label)}
-        </MenuItem>
-        {campaigns?.map((value, index) => (
-          <MenuItem key={index} value={value.id}>
-            {value.title}
-          </MenuItem>
-        ))}
+        {campaigns
+          ?.filter((value) => {
+            return value.vaults && value.vaults.length > 0
+          })
+          .map((value, index) => (
+            //select the element that matches the selectedCampaign
+            <MenuItem key={index} value={value.id} selected={value.id === selectedCampaign}>
+              {value.title}
+            </MenuItem>
+          ))}
       </FormTextField>
     </FormControl>
   )

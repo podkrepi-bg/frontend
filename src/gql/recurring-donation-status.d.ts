@@ -1,5 +1,5 @@
 export enum RecurringDonationStatus {
-  trialing = 'trialing',
+  trailing = 'trailing',
   active = 'active',
   canceled = 'canceled',
   incomplete = 'incomplete',

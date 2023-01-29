@@ -13,9 +13,9 @@ export type CheckoutSessionResponse = {
 
 export type CheckoutSessionInput = {
   mode: Stripe.Checkout.Session.Mode
-  priceId?: string
   amount?: number
   campaignId: string
+  personId: string
   successUrl?: string
   cancelUrl?: string
   firstName?: string
@@ -40,8 +40,19 @@ export type DonationResponse = {
   currency: Currency
   amount: number
   personId?: UUID
-  person?: { firsName: string; lastName: string }
-  targetVault: { name: string }
+  person?: {
+    id: string
+    firstName: string
+    lastName: string
+  }
+  targetVault?: {
+    id: string
+    campaign?: {
+      id: string
+      slug: string
+      title: string
+    }
+  }
 }
 
 export type UserDonationResponse = DonationResponse & {
@@ -102,6 +113,7 @@ export type UserDonationResult = {
 export type OneTimeDonation = {
   message?: string
   isAnonymous: boolean
+  isRecurring: boolean
   amount: string
   amountWithFees: number
   otherAmount: number

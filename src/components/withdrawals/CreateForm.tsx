@@ -139,6 +139,7 @@ export default function CreateForm() {
               label="withdrawals:sourceCampaign"
               campaigns={campaigns}
               handleCampaignSelected={handleCampaignSelected}
+              selectedCampaign={initialValues.sourceCampaignId as string}
             />
           </Grid>
           <Grid item xs={12}>
