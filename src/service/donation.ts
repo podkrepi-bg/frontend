@@ -25,14 +25,25 @@ export const createCheckoutSession = async (data: CheckoutSessionInput) => {
   )
 }
 
-export function useCreatePaymentIntent(data: Stripe.PaymentIntentCreateParams) {
+export function useCreatePaymentIntent() {
   //Create payment intent useing the react-query mutation
   const { data: session } = useSession()
-  return useMutation(async () => {
+  return useMutation(async (data: Stripe.PaymentIntentCreateParams) => {
     return await apiClient.post<
       Stripe.PaymentIntentCreateParams,
       AxiosResponse<Stripe.PaymentIntent>
     >(endpoints.donation.createPaymentIntent.url, data, authConfig(session?.accessToken))
+  })
+}
+
+export function useUpdatePaymentIntent(id: string) {
+  //Create payment intent useing the react-query mutation
+  const { data: session } = useSession()
+  return useMutation(async (data: Stripe.PaymentIntentUpdateParams) => {
+    return await apiClient.post<
+      Stripe.PaymentIntentUpdateParams,
+      AxiosResponse<Stripe.PaymentIntent>
+    >(endpoints.donation.updatePaymentIntent(id).url, data, authConfig(session?.accessToken))
   })
 }
 

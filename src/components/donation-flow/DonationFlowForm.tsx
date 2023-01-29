@@ -113,13 +113,13 @@ export function DonationFlowForm() {
           // Make sure to disable form submission until Stripe.js has loaded.
           throw new Error('Stripe.js has not yet loaded')
         }
-        const { error } = await stripe.confirmPayment({
-          //`Elements` instance that was used to create the Payment Element
-          elements,
-          confirmParams: {
-            return_url: `${window.location.origin}/campaigns/donation-v2/${campaign.slug}`,
-          },
-        })
+        // const { error } = await stripe.confirmPayment({
+        //   //`Elements` instance that was used to create the Payment Element
+        //   elements,
+        //   confirmParams: {
+        //     return_url: `${window.location.origin}/campaigns/donation-v2/${campaign.slug}`,
+        //   },
+        // })
 
         if (error) {
           AlertStore.show(

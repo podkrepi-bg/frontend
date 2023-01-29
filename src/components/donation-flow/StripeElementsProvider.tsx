@@ -43,28 +43,29 @@ export function StripeElementsProvider({ children }: PropsWithChildren) {
   const { stripePromise, setStripePaymentIntent } = useContext(DonationFlowContext)
 
   //Initial amount is arbitarary, it will be updated when the user selects an amount
-  const paymentIntentMutation = useCreatePaymentIntent({
-    amount: 100,
-    currency: 'BGN',
-  })
+  const createPaymentIntentMutation = useCreatePaymentIntent()
 
   useEffect(() => {
-    paymentIntentMutation.mutate()
+    createPaymentIntentMutation.mutate({
+      amount: 100,
+      currency: 'BGN',
+    })
   }, [])
 
   useEffect(() => {
-    const intent = paymentIntentMutation.data?.data
+    const intent = createPaymentIntentMutation.data?.data
     setStripePaymentIntent(intent || null)
-  }, [paymentIntentMutation])
+  }, [createPaymentIntentMutation])
+
   return (
     <>
-      {paymentIntentMutation.isLoading ? (
+      {createPaymentIntentMutation.isLoading ? (
         <CenteredSpinner />
       ) : (
         <Elements
           stripe={stripePromise}
           options={{
-            clientSecret: paymentIntentMutation.data?.data.client_secret as string,
+            clientSecret: createPaymentIntentMutation.data?.data.client_secret as string,
             appearance,
             locale: i18n.language,
           }}>

@@ -8,7 +8,6 @@ export type PaymentDetailsStripeFormProps = {
 export default function PaymentDetailsStripeForm({
   containerProps,
 }: PaymentDetailsStripeFormProps) {
-  // use session to get the email
   const { data: session } = useSession()
   return (
     <Box {...containerProps}>

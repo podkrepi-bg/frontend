@@ -37,15 +37,7 @@ export default function PaymentMethod() {
       label: 'Card',
       icon: <CardIcon sx={{ width: 80, height: 80 }} />,
       disabled: !formik.values.amount,
-      content: (
-        <>
-          {DonationContext.stripePaymentIntent ? (
-            <PaymentDetailsStripeForm
-              clientSecret={DonationContext.stripePaymentIntent.client_secret as string}
-            />
-          ) : null}
-        </>
-      ),
+      content: <>{DonationContext.stripePaymentIntent ? <PaymentDetailsStripeForm /> : null}</>,
     },
     {
       value: 'bank',
@@ -66,10 +58,7 @@ export default function PaymentMethod() {
           <RadioCardGroup columns={2} name="payment" options={options} />
           {payment.value === 'card' && DonationContext.stripePaymentIntent ? (
             <>
-              <PaymentDetailsStripeForm
-                containerProps={{ sx: { my: 3 } }}
-                clientSecret={DonationContext.stripePaymentIntent.client_secret as string}
-              />
+              <PaymentDetailsStripeForm containerProps={{ sx: { my: 3 } }} />
               <TaxesCheckbox />
             </>
           ) : null}
