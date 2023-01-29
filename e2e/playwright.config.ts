@@ -36,7 +36,7 @@ const config: PlaywrightTestConfig = {
       fullPage: true,
     },
     video: {
-      mode: 'retain-on-failure',
+      mode: 'off',
       size: {
         width: 1500,
         height: 900,
