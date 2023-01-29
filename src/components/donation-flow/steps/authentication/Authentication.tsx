@@ -13,11 +13,12 @@ import {
   DonationFormDataAuthState,
   DonationFormDataV2,
 } from 'components/donation-flow/DonationFlowForm'
+import EmailField from 'components/common/form/EmailField'
 
 export default function Authentication() {
   const { data: session } = useSession()
   const {
-    values: { isAnonymous, authentication },
+    values: { authentication },
     setFieldValue,
   } = useFormikContext<DonationFormDataV2>()
 
@@ -27,11 +28,6 @@ export default function Authentication() {
     }
   }, [session?.user])
 
-  useEffect(() => {
-    if (isAnonymous) {
-      setFieldValue('authentication', null)
-    }
-  }, [isAnonymous])
   const options = [
     {
       value: DonationFormDataAuthState.LOGIN,
@@ -51,8 +47,9 @@ export default function Authentication() {
       disabled: Boolean(session?.user),
       content: (
         <Box>
+          <EmailField label="Email" name="email" sx={{ mb: 1 }} />
           <Alert color="info">
-            Ако не се регистрирате, няма да можем да Ви изпратим сертификат за дарение, който да
+            Ако не се регистрирате, ще получите само разписка, без сертификат за дарение, който да
             използвате за данъчни облекчения.
           </Alert>
         </Box>
