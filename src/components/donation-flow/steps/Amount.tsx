@@ -13,7 +13,7 @@ import { moneyPublic, toMoney } from 'common/util/money'
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 import FormTextField from 'components/common/form/FormTextField'
 import CheckboxField from 'components/common/form/CheckboxField'
-import { useCreatePaymentIntent, useUpdatePaymentIntent } from 'service/donation'
+import { useUpdatePaymentIntent } from 'service/donation'
 
 import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../helpers/stripe-fee-calculator'
 import { DonationFlowContext } from '../DonationFlowContext'

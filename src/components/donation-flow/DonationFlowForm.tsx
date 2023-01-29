@@ -1,10 +1,13 @@
 import React, { useContext } from 'react'
-import { useElements, useStripe } from '@stripe/react-stripe-js'
 import { useSession } from 'next-auth/react'
+import { useElements, useStripe } from '@stripe/react-stripe-js'
 import * as yup from 'yup'
 import { Form, Formik } from 'formik'
+import { PersistFormikValues } from 'formik-persist-values'
 import { Alert, Box, Hidden, Unstable_Grid2 as Grid2 } from '@mui/material'
 
+import { AlertStore } from 'stores/AlertStore'
+import { useCreateStripePayment } from 'service/donation'
 import { CardRegion } from 'gql/donations.enums'
 import SubmitButton from 'components/common/form/SubmitButton'
 
@@ -13,9 +16,6 @@ import Amount from './steps/Amount'
 import PaymentMethod from './steps/payment-method/PaymentMethod'
 import Authentication from './steps/authentication/Authentication'
 import { DonationFlowContext } from './DonationFlowContext'
-import { PersistFormikValues } from 'formik-persist-values'
-import { AlertStore } from 'stores/AlertStore'
-import { useCreateStripePayment } from 'service/donation'
 
 export enum DonationFormDataAuthState {
   LOGIN = 'login',

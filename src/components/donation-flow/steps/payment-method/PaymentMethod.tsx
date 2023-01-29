@@ -5,13 +5,13 @@ import { useField, useFormikContext } from 'formik'
 import { OneTimeDonation } from 'gql/donations'
 import theme from 'common/theme'
 
+import { TaxesCheckbox } from './TaxesCheckbox'
 import RadioCardGroup from '../../common/RadioCardGroup'
 import RadioAccordionGroup from '../../common/RadioAccordionGroup'
 import CardIcon from '../../icons/CardIcon'
 import BankIcon from '../../icons/BankIcon'
 import PaymentDetailsStripeForm from './PaymentDetailsStripeForm'
 import { DonationFlowContext } from '../../DonationFlowContext'
-import { TaxesCheckbox } from './TaxesCheckbox'
 
 export default function PaymentMethod() {
   const formik = useFormikContext<OneTimeDonation>()

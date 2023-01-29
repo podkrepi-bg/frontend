@@ -4,9 +4,10 @@ import { Appearance } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 
 import theme from 'common/theme'
-import { DonationFlowContext } from './DonationFlowContext'
 import { useCreatePaymentIntent } from 'service/donation'
 import CenteredSpinner from 'components/common/CenteredSpinner'
+
+import { DonationFlowContext } from './DonationFlowContext'
 
 const appearance: Appearance = {
   theme: 'stripe',
