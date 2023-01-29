@@ -24,7 +24,7 @@ export enum DonationFormDataPaymentOption {
   BANK = 'bank',
 }
 export type DonationFormDataV2 = {
-  anonymous: boolean
+  isAnonymous: boolean
   authentication: DonationFormDataAuthState | null
   payment: DonationFormDataPaymentOption | null
   email: string
@@ -44,7 +44,7 @@ const initialValues: DonationFormDataV2 = {
   cardRegion: CardRegion.EU,
   otherAmount: 0,
   authentication: null,
-  anonymous: false,
+  isAnonymous: false,
 }
 
 export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
@@ -80,12 +80,12 @@ export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
       .string()
       .oneOf(Object.values(DonationFormDataAuthState))
       .required() as yup.SchemaOf<DonationFormDataAuthState>,
-    anonymous: yup.boolean().required(),
+    isAnonymous: yup.boolean().required(),
     email: yup
       .string()
       .required()
       .when('authentication', {
-        is: 'anonymous',
+        is: 'isAnonymous',
         then: yup.string().email('one-time-donation:errors-fields.email').required(),
       }),
   })
