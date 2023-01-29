@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Typography, useMediaQuery } from '@mui/material'
+import { Box, Typography, useMediaQuery } from '@mui/material'
 import { useField, useFormikContext } from 'formik'
 
 import { OneTimeDonation } from 'gql/donations'
@@ -13,7 +13,11 @@ import BankIcon from '../../icons/BankIcon'
 import PaymentDetailsStripeForm from './PaymentDetailsStripeForm'
 import { DonationFlowContext } from '../../DonationFlowContext'
 
-export default function PaymentMethod() {
+export default function PaymentMethod({
+  sectionRef,
+}: {
+  sectionRef: React.MutableRefObject<HTMLDivElement | null>
+}) {
   const formik = useFormikContext<OneTimeDonation>()
   const DonationContext = useContext(DonationFlowContext)
   const isSmall = useMediaQuery(theme.breakpoints.down('md'))
@@ -47,7 +51,7 @@ export default function PaymentMethod() {
     },
   ]
   return (
-    <>
+    <Box ref={sectionRef} component="section" id="select-payment-method">
       <Typography mb={3} variant="h5">
         Как желаете да дарите?
       </Typography>
@@ -64,6 +68,6 @@ export default function PaymentMethod() {
           ) : null}
         </>
       )}
-    </>
+    </Box>
   )
 }

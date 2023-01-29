@@ -4,7 +4,7 @@ import { useElements, useStripe } from '@stripe/react-stripe-js'
 import * as yup from 'yup'
 import { Form, Formik } from 'formik'
 import { PersistFormikValues } from 'formik-persist-values'
-import { Alert, Box, Hidden, Unstable_Grid2 as Grid2 } from '@mui/material'
+import { Box, Hidden, Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
 
 import { AlertStore } from 'stores/AlertStore'
 import { useCreateStripePayment } from 'service/donation'
@@ -16,6 +16,7 @@ import Amount from './steps/Amount'
 import PaymentMethod from './steps/payment-method/PaymentMethod'
 import Authentication from './steps/authentication/Authentication'
 import { DonationFlowContext } from './DonationFlowContext'
+import AlertsColumn, { SectionAlertProps } from './alerts/AlertsColumn'
 
 export enum DonationFormDataAuthState {
   LOGIN = 'login',
@@ -101,6 +102,34 @@ export function DonationFlowForm() {
   const stripe = useStripe()
   const elements = useElements()
   const createStripePaymentMutation = useCreateStripePayment()
+
+  const amountSectionRef = React.useRef<HTMLDivElement>(null)
+  const paymentMethodSectionRef = React.useRef<HTMLDivElement>(null)
+  const authenticationSectionRef = React.useRef<HTMLDivElement>(null)
+
+  const alerts: SectionAlertProps[] = [
+    {
+      sectionRef: amountSectionRef,
+      alertProps: {
+        color: 'info',
+        children: <Typography>Amount selected is wrong</Typography>,
+      },
+    },
+    {
+      sectionRef: paymentMethodSectionRef,
+      alertProps: {
+        color: 'info',
+        children: <Typography>Amount selected is wrong</Typography>,
+      },
+    },
+    {
+      sectionRef: authenticationSectionRef,
+      alertProps: {
+        color: 'info',
+        children: <Typography>Amount selected is wrong</Typography>,
+      },
+    },
+  ]
   return (
     <Formik
       initialValues={{
@@ -153,12 +182,12 @@ export function DonationFlowForm() {
               autoComplete="off">
               <Box mb={2}>
                 <StepSplitter content="1" active={Boolean(values.amount)} />
-                <Amount />
+                <Amount sectionRef={amountSectionRef} />
                 <StepSplitter
                   content="2"
                   active={Boolean(values.amount) && Boolean(values.payment)}
                 />
-                <PaymentMethod />
+                <PaymentMethod sectionRef={paymentMethodSectionRef} />
                 <StepSplitter
                   content="3"
                   active={
@@ -167,7 +196,7 @@ export function DonationFlowForm() {
                     Boolean(values.authentication)
                   }
                 />
-                <Authentication />
+                <Authentication sectionRef={authenticationSectionRef} />
               </Box>
               <SubmitButton label="Donate" fullWidth />
               <PersistFormikValues debounce={3000} storage="sessionStorage" name="donation-form" />
@@ -175,9 +204,7 @@ export function DonationFlowForm() {
           </Grid2>
           <Hidden mdDown>
             <Grid2 sx={{ overflow: 'auto' }} md={4}>
-              <Alert sx={{ position: 'sticky', top: 0 }} color="error">
-                TODO: Alerts row here
-              </Alert>
+              <AlertsColumn refAlertArray={alerts} />
             </Grid2>
           </Hidden>
         </Grid2>

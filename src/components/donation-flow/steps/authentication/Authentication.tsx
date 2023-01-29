@@ -16,7 +16,11 @@ import EmailField from 'components/common/form/EmailField'
 import RadioAccordionGroup from '../../common/RadioAccordionGroup'
 import InlineLoginForm from './InlineLoginForm'
 
-export default function Authentication() {
+export default function Authentication({
+  sectionRef,
+}: {
+  sectionRef: React.MutableRefObject<HTMLDivElement | null>
+}) {
   const { data: session } = useSession()
   const {
     values: { authentication },
@@ -59,7 +63,7 @@ export default function Authentication() {
   ]
 
   return (
-    <Box>
+    <Box ref={sectionRef} component="section" id="select-authentication">
       <Typography mb={3} variant="h5">
         Как предпочитате да продължите?
       </Typography>

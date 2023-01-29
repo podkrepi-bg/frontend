@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import { useMediaQuery, Box, Collapse, Grid, InputAdornment, Typography } from '@mui/material'
-import { styled } from '@mui/material/styles'
 import { useField, useFormikContext } from 'formik'
 
 import { OneTimeDonation } from 'gql/donations'
@@ -19,20 +18,11 @@ import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../helpers/stri
 import { DonationFlowContext } from '../DonationFlowContext'
 import { Currencies } from 'components/withdrawals/WithdrawalTypes'
 
-const PREFIX = 'AMOUNT'
-
-const classes = {
-  divider: `${PREFIX}-divider`,
-}
-
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')(() => ({
-  [`& .${classes.divider}`]: {
-    border: '1px solid #000000',
-  },
-}))
-
-export default function Amount() {
+export default function Amount({
+  sectionRef,
+}: {
+  sectionRef: React.MutableRefObject<HTMLDivElement | null>
+}) {
   const { data: prices } = useSinglePriceList()
   const { stripePaymentIntent } = useContext(DonationFlowContext)
   const formik = useFormikContext<OneTimeDonation>()
@@ -77,7 +67,7 @@ export default function Amount() {
   ])
 
   return (
-    <Root>
+    <Box ref={sectionRef} component="section" id="select-amount">
       <Typography variant="h5" my={3}>
         {t('first-step.amount')}
       </Typography>
@@ -136,6 +126,6 @@ export default function Amount() {
           </Box>
         ) : null}
       </Box>
-    </Root>
+    </Box>
   )
 }

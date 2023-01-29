@@ -31,6 +31,7 @@ export type RadioButtonGroup = {
    * <Grid />
    */
   muiRadioButtonGridProps?: Partial<GridProps>
+  ref?: React.RefObject<HTMLDivElement>
 }
 
 export default function RadioButtonGroup({

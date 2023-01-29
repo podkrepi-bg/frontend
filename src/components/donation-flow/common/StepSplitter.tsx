@@ -1,6 +1,5 @@
 import React from 'react'
 import { Avatar, Box, Typography } from '@mui/material'
-import { styled } from '@mui/styles'
 import { grey } from '@mui/material/colors'
 
 import theme from 'common/theme'
