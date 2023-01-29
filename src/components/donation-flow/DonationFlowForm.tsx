@@ -162,11 +162,16 @@ export function DonationFlowForm() {
             </Form>
           </Grid2>
           <Hidden mdDown>
-            <Grid2 sx={{ overflow: 'auto' }} md={4}>
+            <Grid2 display={'flex'} alignItems="flex-end" sx={{ overflow: 'auto' }} md={4}>
               <AlertsColumn
                 sectionsRefArray={[paymentMethodSectionRef, authenticationSectionRef]}
               />
-              <PaymentSummaryAlert donationAmount={Number(values.amount)} />
+              <PaymentSummaryAlert
+                donationAmount={Number(values.amount)}
+                sx={{
+                  flex: 1,
+                }}
+              />
             </Grid2>
           </Hidden>
         </Grid2>

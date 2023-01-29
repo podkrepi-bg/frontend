@@ -1,44 +1,71 @@
-import { Alert, Box, Stack, Typography } from '@mui/material'
+import { Info } from '@mui/icons-material'
+import { Alert, Box, BoxProps, IconButton, Stack, Tooltip, Typography } from '@mui/material'
+import { styled } from '@mui/styles'
 import theme from 'common/theme'
-import { moneyPublicDecimals2, toMoney } from 'common/util/money'
+import { moneyPublicDecimals2 } from 'common/util/money'
 import { stripeFeeCalculator } from 'components/one-time-donation/helpers/stripe-fee-calculator'
 import { CardRegion } from 'gql/donations.enums'
 import React from 'react'
 
-function PaymentSummaryAlert({ donationAmount }: { donationAmount: number }) {
+const StyledTypography = styled(Typography)(({ theme }) => ({
+  fontSize: theme.typography.pxToRem(16),
+}))
+
+function PaymentSummaryAlert({
+  donationAmount,
+  sx,
+  boxProps,
+}: {
+  donationAmount: number
+  sx?: BoxProps['sx']
+  boxProps?: BoxProps
+}) {
   const fullAmount = donationAmount + stripeFeeCalculator(donationAmount, CardRegion.EU)
   return (
     <Box
       sx={{
         borderRadius: theme.borders.semiRound,
         border: `1px solid ${theme.palette.primary.dark}`,
-      }}>
+        ...sx,
+      }}
+      {...boxProps}>
       <Box
         sx={{
-          p: 3,
+          py: 2,
+          px: 3,
         }}>
         <Stack direction={'row'} justifyContent="space-between">
-          <Typography>Дарение: </Typography>
-          <Typography>{moneyPublicDecimals2(donationAmount)}</Typography>
+          <StyledTypography>Дарение: </StyledTypography>
+          <StyledTypography>{moneyPublicDecimals2(donationAmount)}</StyledTypography>
         </Stack>
 
         <Stack direction={'row'} justifyContent="space-between">
-          <Typography>Трансакция: </Typography>
-          <Typography>{moneyPublicDecimals2(fullAmount - donationAmount)}</Typography>
+          <StyledTypography>
+            Трансакция
+            <Tooltip title="Таксите отнасящи се към трансакцията">
+              <IconButton sx={{ padding: '5px', height: 30, width: 30 }}>
+                <Info sx={{ height: 20, width: 20 }} />
+              </IconButton>
+            </Tooltip>
+            :{' '}
+          </StyledTypography>
+          <StyledTypography>{moneyPublicDecimals2(fullAmount - donationAmount)}</StyledTypography>
         </Stack>
       </Box>
       <Alert
         sx={{
+          display: 'block',
           borderBottomLeftRadius: theme.borders.semiRound,
           borderBottomRightRadius: theme.borders.semiRound,
+          borderTop: `1px solid ${theme.palette.primary.dark}`,
           py: 1,
           px: 3,
         }}
         color="info"
         icon={false}>
         <Stack direction={'row'} justifyContent="space-between">
-          <Typography>Общо: </Typography>
-          <Typography>{moneyPublicDecimals2(fullAmount)}</Typography>
+          <StyledTypography>Общо: </StyledTypography>
+          <StyledTypography>{moneyPublicDecimals2(fullAmount)}</StyledTypography>
         </Stack>
       </Alert>
     </Box>
