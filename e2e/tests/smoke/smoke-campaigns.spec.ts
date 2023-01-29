@@ -50,7 +50,6 @@ test.describe('Campaigns page smoke tests - BG language version', async () => {
   })
 
   test('Support Now action button navigates to the Donation page for particular campaign', async () => {
-    await campaignsPage.clickCampaignCardByIndex(0)
     await campaignsPage.clickCampaignCardButtonByIndex(0)
     await donationPage.checkPageUrlByRegExp()
     expect
