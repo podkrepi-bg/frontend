@@ -1,6 +1,5 @@
 import React from 'react'
-import { useSession } from 'next-auth/react'
-import { Box, List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material'
+import { Box, List, ListItem, ListItemText, Typography } from '@mui/material'
 import { useFormikContext } from 'formik'
 import { AnchoredAlert, AnchoredAlertProps } from './AnchoredAlert'
 import {
@@ -25,7 +24,7 @@ function AlertsColumn({
   const {
     values: { payment, authentication },
   } = useFormikContext<DonationFormDataV2>()
-
+  console.log(Boolean(payment))
   const alerts: Omit<AnchoredAlertProps, 'sectionRef'>[] = [
     {
       color: 'info',
@@ -35,7 +34,9 @@ function AlertsColumn({
       color: 'info',
       children: <Typography>{payment && paymentMethodAlertMap[payment]}</Typography>,
       icon: false,
-      hidden: !payment,
+      sx: {
+        display: payment ? 'flex' : 'none',
+      },
     },
     {
       color: 'info',
@@ -66,7 +67,9 @@ function AlertsColumn({
         </Box>
       ),
       icon: false,
-      hidden: authentication === DonationFormDataAuthState.AUTHENTICATED,
+      sx: {
+        display: authentication === DonationFormDataAuthState.AUTHENTICATED ? 'none' : 'flex',
+      },
     },
   ]
 
