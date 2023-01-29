@@ -1,7 +1,7 @@
 import React from 'react'
-import { Box, List, ListItem, ListItemText, Typography } from '@mui/material'
+import { AlertProps, Box, List, ListItem, ListItemText, Typography } from '@mui/material'
 import { useFormikContext } from 'formik'
-import { AnchoredAlert, AnchoredAlertProps } from './AnchoredAlert'
+import { AnchoredAlert } from './AnchoredAlert'
 import {
   DonationFormDataAuthState,
   DonationFormDataPaymentOption,
@@ -25,12 +25,9 @@ function AlertsColumn({
     values: { payment, authentication },
   } = useFormikContext<DonationFormDataV2>()
   console.log(Boolean(payment))
-  const alerts: Omit<AnchoredAlertProps, 'sectionRef'>[] = [
-    {
-      color: 'info',
-      children: <Typography>Amount selected is wrong</Typography>,
-    },
-    {
+
+  const alerts: { [key: string]: AlertProps } = {
+    'select-payment-method': {
       color: 'info',
       children: <Typography>{payment && paymentMethodAlertMap[payment]}</Typography>,
       icon: false,
@@ -38,7 +35,7 @@ function AlertsColumn({
         display: payment ? 'flex' : 'none',
       },
     },
-    {
+    'select-authentication': {
       color: 'info',
       children: (
         <Box>
@@ -71,12 +68,13 @@ function AlertsColumn({
         display: authentication === DonationFormDataAuthState.AUTHENTICATED ? 'none' : 'flex',
       },
     },
-  ]
+  }
 
   return (
     <>
       {sectionsRefArray.map((ref, index) => {
-        return <AnchoredAlert key={index} sectionRef={ref} {...alerts[index]} />
+        const alert = alerts[ref.current?.id as keyof typeof alerts]
+        return <AnchoredAlert key={index} sectionRef={ref} {...alert} />
       })}
     </>
   )

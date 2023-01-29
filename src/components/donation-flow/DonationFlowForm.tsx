@@ -85,7 +85,6 @@ export function DonationFlowForm() {
   const elements = useElements()
   const createStripePaymentMutation = useCreateStripePayment()
 
-  const amountSectionRef = React.useRef<HTMLDivElement>(null)
   const paymentMethodSectionRef = React.useRef<HTMLDivElement>(null)
   const authenticationSectionRef = React.useRef<HTMLDivElement>(null)
 
@@ -141,7 +140,7 @@ export function DonationFlowForm() {
               autoComplete="off">
               <Box mb={2}>
                 <StepSplitter content="1" active={Boolean(values.amount)} />
-                <Amount sectionRef={amountSectionRef} />
+                <Amount />
                 <StepSplitter
                   content="2"
                   active={Boolean(values.amount) && Boolean(values.payment)}
@@ -164,11 +163,7 @@ export function DonationFlowForm() {
           <Hidden mdDown>
             <Grid2 sx={{ overflow: 'auto' }} md={4}>
               <AlertsColumn
-                sectionsRefArray={[
-                  amountSectionRef,
-                  paymentMethodSectionRef,
-                  authenticationSectionRef,
-                ]}
+                sectionsRefArray={[paymentMethodSectionRef, authenticationSectionRef]}
               />
             </Grid2>
           </Hidden>

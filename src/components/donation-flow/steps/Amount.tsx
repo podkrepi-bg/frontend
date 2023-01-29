@@ -11,7 +11,6 @@ import { moneyPublic, toMoney } from 'common/util/money'
 
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 import FormTextField from 'components/common/form/FormTextField'
-import CheckboxField from 'components/common/form/CheckboxField'
 import { useUpdatePaymentIntent } from 'service/donation'
 
 import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../helpers/stripe-fee-calculator'
@@ -21,7 +20,7 @@ import { Currencies } from 'components/withdrawals/WithdrawalTypes'
 export default function Amount({
   sectionRef,
 }: {
-  sectionRef: React.MutableRefObject<HTMLDivElement | null>
+  sectionRef?: React.MutableRefObject<HTMLDivElement | null>
 }) {
   const { data: prices } = useSinglePriceList()
   const { stripePaymentIntent } = useContext(DonationFlowContext)
@@ -113,7 +112,9 @@ export default function Amount({
             />
           </Grid>
         </Collapse>
-        {amount.value ? (
+        {/* TODO: Recurring donation should be added in the future */}
+        {/* Take a look at https://github.com/podkrepi-bg/frontend/issues/1308 */}
+        {/* {amount.value ? (
           <Box sx={{ mt: 4 }}>
             <Typography variant="h5" sx={{ marginTop: theme.spacing(3) }}>
               <CheckboxField
@@ -124,7 +125,7 @@ export default function Amount({
               />
             </Typography>
           </Box>
-        ) : null}
+        ) : null} */}
       </Box>
     </Box>
   )
