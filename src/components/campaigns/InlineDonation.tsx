@@ -54,12 +54,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     boxShadow: '2px 4px 5px rgba(0, 0, 0, 0.25)',
     borderRadius: theme.spacing(2.25),
     backgroundColor: '#EEEEEE',
-    height: theme.spacing(62.5),
-
-    [theme.breakpoints.down('md')]: {
-      margin: theme.spacing(0),
-      borderRadius: theme.spacing(0),
-    },
+    height: 'fit-content',
   },
 
   [`& .${classes.reachedAndTargetMoneyWrapper}`]: {
@@ -249,7 +244,7 @@ export default function InlineDonation({ campaign }: Props) {
         <Grid>
           <Typography className={classes.campaignInfoKey}>{t('campaign.documents')}:</Typography>
           <Typography className={classes.campaignInfoKey}>{t('campaign.guarantor')}:</Typography>
-          <Typography className={classes.campaignInfoKey}>{t('campaign.others')}:</Typography>
+          {/* <Typography className={classes.campaignInfoKey}>{t('campaign.others')}:</Typography> */}
         </Grid>
         <Grid>
           <ExternalLink href={''}>
@@ -258,9 +253,9 @@ export default function InlineDonation({ campaign }: Props) {
           <ExternalLink href={''}>
             <Typography className={classes.campaignInfoValue}>test</Typography>
           </ExternalLink>
-          <ExternalLink href={''}>
-            <Typography className={classes.campaignInfoValue}>test</Typography>
-          </ExternalLink>
+          {/* <ExternalLink href={''}>
+            <Typography className={classes.campaignInfoValue}></Typography>
+          </ExternalLink> */}
         </Grid>
       </Grid>
       <Grid className={classes.reachedAndTargetMoneyWrapper}>
