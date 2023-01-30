@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Box, Typography, useMediaQuery } from '@mui/material'
+import { Alert, Box, Typography, useMediaQuery } from '@mui/material'
 import { useField, useFormikContext } from 'formik'
 
 import { OneTimeDonation } from 'gql/donations'
@@ -12,6 +12,7 @@ import CardIcon from '../../icons/CardIcon'
 import BankIcon from '../../icons/BankIcon'
 import PaymentDetailsStripeForm from './PaymentDetailsStripeForm'
 import { DonationFlowContext } from '../../DonationFlowContext'
+import { DonationFormDataPaymentOption } from 'components/donation-flow/helpers/types'
 
 export default function PaymentMethod({
   sectionRef,
@@ -35,19 +36,49 @@ export default function PaymentMethod({
       icon: <BankIcon sx={{ width: 80, height: 80 }} />,
     },
   ]
+  const cardAlertDescription = `Таксата на Stripe се изчислява според района на картодържателя: 1.2% + 0.5лв. за Европейската икономическа зона`
+  const bankAlertDescription = `Таксата за транзакция при банков превод зависи от индивидуалните условия на Вашата банка. от (0-4лв)`
+
+  const paymentMethodAlertMap = {
+    [DonationFormDataPaymentOption.CARD]: cardAlertDescription,
+    [DonationFormDataPaymentOption.BANK]: bankAlertDescription,
+  }
+
   const mobileOptions = [
     {
       value: 'card',
       label: 'Card',
       icon: <CardIcon sx={{ width: 80, height: 80 }} />,
       disabled: !formik.values.amount,
-      content: <>{DonationContext.stripePaymentIntent ? <PaymentDetailsStripeForm /> : null}</>,
+      content: (
+        <>
+          {DonationContext.stripePaymentIntent ? (
+            <Box>
+              <Alert sx={{ mt: 1, mb: 2, mx: -2 }} color="info" icon={false}>
+                <Typography>
+                  {paymentMethodAlertMap[payment.value as DonationFormDataPaymentOption]}
+                </Typography>
+              </Alert>
+              <PaymentDetailsStripeForm />
+            </Box>
+          ) : null}
+        </>
+      ),
     },
     {
       value: 'bank',
       label: 'Bank Transfer',
       icon: <BankIcon sx={{ width: 80, height: 80 }} />,
-      content: <>TODO: Add Bank Transfer Content</>,
+      content: (
+        <Box>
+          <Alert sx={{ my: 2, mx: -2 }} color="info" icon={false}>
+            <Typography>
+              {paymentMethodAlertMap[payment.value as DonationFormDataPaymentOption]}
+            </Typography>
+          </Alert>
+          TODO: Bank Payment Information here
+        </Box>
+      ),
     },
   ]
   return (

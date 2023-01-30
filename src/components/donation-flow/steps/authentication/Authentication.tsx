@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
-import { Box, Typography, Alert } from '@mui/material'
+import { useEffect, useState } from 'react'
+import { Box, Typography, Alert, ListItem, List, ListItemText, SxProps } from '@mui/material'
 import { useFormikContext } from 'formik'
 import { useSession } from 'next-auth/react'
 
@@ -31,18 +31,100 @@ export default function Authentication({
     }
   }, [session?.user])
 
+  const liSx: SxProps = {
+    py: 0,
+  }
+
+  const [showMobileAlert, setShowMobileAlert] = useState(true)
+
   const options = [
     {
       value: DonationFormDataAuthState.LOGIN,
       label: 'Login',
       disabled: Boolean(session?.user),
-      content: <InlineLoginForm />,
+      content: (
+        <Box>
+          {showMobileAlert ? (
+            <Alert
+              onClose={() => {
+                setShowMobileAlert(false)
+              }}
+              color="info"
+              icon={false}
+              sx={{ mx: -2, sx: {} }}>
+              <Box>
+                <Typography>Избирайки да се впишете. ще можете да:</Typography>
+                <List
+                  sx={{
+                    listStyleType: 'disc',
+                    pl: 2,
+                    '& .MuiListItem-root': {
+                      display: 'list-item',
+                    },
+                  }}>
+                  <ListItem sx={liSx}>
+                    <ListItemText primary="създадете акаунт като физическо или юридическо лице" />
+                  </ListItem>
+                  <ListItem sx={liSx}>
+                    <ListItemText primary="получите сертификат за дарение" />
+                  </ListItem>
+                  <ListItem sx={liSx}>
+                    <ListItemText primary="правите месечни дарения по избрана кампания" />
+                  </ListItem>
+                  <ListItem sx={liSx}>
+                    <ListItemText primary="получавате и известия за статуса на подкрепени вече кампании" />
+                  </ListItem>
+                </List>
+              </Box>
+            </Alert>
+          ) : null}
+          <InlineLoginForm />
+        </Box>
+      ),
     },
     {
       value: DonationFormDataAuthState.REGISTER,
       label: 'Register',
       disabled: Boolean(session?.user),
-      content: <InlineRegisterForm />,
+      content: (
+        <Box>
+          {showMobileAlert ? (
+            <Alert
+              onClose={() => {
+                setShowMobileAlert(false)
+              }}
+              color="info"
+              icon={false}
+              sx={{ mx: -2, sx: {} }}>
+              <Box>
+                <Typography>Избирайки да се впишете. ще можете да:</Typography>
+                <List
+                  sx={{
+                    listStyleType: 'disc',
+                    pl: 2,
+                    '& .MuiListItem-root': {
+                      display: 'list-item',
+                    },
+                  }}>
+                  <ListItem sx={liSx}>
+                    <ListItemText primary="създадете акаунт като физическо или юридическо лице" />
+                  </ListItem>
+                  <ListItem sx={liSx}>
+                    <ListItemText primary="получите сертификат за дарение" />
+                  </ListItem>
+                  <ListItem sx={liSx}>
+                    <ListItemText primary="правите месечни дарения по избрана кампания" />
+                  </ListItem>
+                  <ListItem sx={liSx}>
+                    <ListItemText primary="получавате и известия за статуса на подкрепени вече кампании" />
+                  </ListItem>
+                </List>
+              </Box>
+            </Alert>
+          ) : null}
+          <InlineRegisterForm />
+        </Box>
+      ),
     },
     {
       value: DonationFormDataAuthState.NOREGISTER,
@@ -50,11 +132,11 @@ export default function Authentication({
       disabled: Boolean(session?.user),
       content: (
         <Box>
-          <EmailField label="Email" name="email" sx={{ mb: 1 }} />
           <Alert color="info">
             Ако не се регистрирате, ще получите само разписка, без сертификат за дарение, който да
             използвате за данъчни облекчения.
           </Alert>
+          <EmailField label="Email" name="email" sx={{ mb: 1 }} />
         </Box>
       ),
     },
