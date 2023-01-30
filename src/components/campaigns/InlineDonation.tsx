@@ -59,6 +59,10 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     borderRadius: theme.spacing(2.25),
     backgroundColor: '#EEEEEE',
     height: 'fit-content',
+
+    [theme.breakpoints.down('md')]: {
+      borderRadius: 0,
+    },
   },
 
   [`& .${classes.reachedAndTargetMoneyWrapper}`]: {
@@ -118,7 +122,8 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     borderRadius: '50%',
     border: 'none',
     backgroundColor: '#EEEEEE',
-    minWidth: theme.spacing(5),
+    minWidth: theme.spacing(6.35),
+    minHeight: theme.spacing(6.35),
     paddingBottom: 'unset',
   },
 
@@ -244,24 +249,25 @@ export default function InlineDonation({ campaign }: Props) {
 
   return (
     <StyledGrid item xs={12} p={3} className={classes.inlineDonationWrapper}>
-      <Grid className={classes.campaignInfoWrapper}>
-        <Grid>
+      {/* //TODO */}
+      {/* <Grid className={classes.campaignInfoWrapper}>
+         <Grid>
           <Typography className={classes.campaignInfoKey}>{t('campaign.documents')}:</Typography>
           <Typography className={classes.campaignInfoKey}>{t('campaign.guarantor')}:</Typography>
-          {/* <Typography className={classes.campaignInfoKey}>{t('campaign.others')}:</Typography> */}
+          <Typography className={classes.campaignInfoKey}>{t('campaign.others')}:</Typography>
         </Grid>
         <Grid>
           <ExternalLink href={''}>
-            <Typography className={classes.campaignInfoValue}>test</Typography>
+            <Typography className={classes.campaignInfoValue}>documents</Typography>
           </ExternalLink>
           <ExternalLink href={''}>
-            <Typography className={classes.campaignInfoValue}>test</Typography>
+            <Typography className={classes.campaignInfoValue}>guarant</Typography>
           </ExternalLink>
-          {/* <ExternalLink href={''}>
-            <Typography className={classes.campaignInfoValue}></Typography>
-          </ExternalLink> */}
+          <ExternalLink href={''}>
+            <Typography className={classes.campaignInfoValue}>others</Typography>
+          </ExternalLink>
         </Grid>
-      </Grid>
+      </Grid> */}
       <Grid className={classes.reachedAndTargetMoneyWrapper}>
         <Typography component="span" className={classes.reachedAndTargetMoney}>
           {moneyPublic(reached, currency)}
