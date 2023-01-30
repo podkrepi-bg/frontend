@@ -34,7 +34,7 @@ export const moneyPublic = (
     if (currency === 'USD') {
       return `${amount} $`
     }
-    return `${amount} лв.`
+    return `${amount} лева`
   }
   return new Intl.NumberFormat(i18n.language, {
     style: 'currency',
