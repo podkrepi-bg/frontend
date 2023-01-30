@@ -1,19 +1,18 @@
 import { useEffect } from 'react'
+import { Box, Typography, Alert } from '@mui/material'
 import { useFormikContext } from 'formik'
 import { useSession } from 'next-auth/react'
-import { Box, IconButton, Tooltip, Typography, Alert } from '@mui/material'
-import { Info } from '@mui/icons-material'
 
-import RadioAccordionGroup from '../../common/RadioAccordionGroup'
-import InlineLoginForm from './InlineLoginForm'
-import InlineRegisterForm from './InlineRegisterForm'
-import CheckboxField from 'components/common/form/CheckboxField'
 import {
   DonationFormDataAuthState,
   DonationFormDataV2,
 } from 'components/donation-flow/helpers/types'
 import theme from 'common/theme'
 import EmailField from 'components/common/form/EmailField'
+
+import RadioAccordionGroup from '../../common/RadioAccordionGroup'
+import InlineLoginForm from './InlineLoginForm'
+import InlineRegisterForm from './InlineRegisterForm'
 
 export default function Authentication({
   sectionRef,
@@ -77,19 +76,6 @@ export default function Authentication({
           />
         </>
       )}
-      <CheckboxField
-        label={
-          <Box display="flex" alignItems="center">
-            <Typography>Искам да съм анонимен</Typography>
-            <Tooltip title="Ако дарете анонимно, данните ще останат недостъпни за бенефициента.">
-              <IconButton color="primary">
-                <Info />
-              </IconButton>
-            </Tooltip>
-          </Box>
-        }
-        name="isAnonymous"
-      />
     </Box>
   )
 }

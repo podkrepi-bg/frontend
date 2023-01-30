@@ -1,5 +1,5 @@
 import React from 'react'
-import { AlertProps, Box, List, ListItem, ListItemText, Typography } from '@mui/material'
+import { AlertProps, Box, List, ListItem, ListItemText, SxProps, Typography } from '@mui/material'
 import { useFormikContext } from 'formik'
 import { AnchoredAlert } from './AnchoredAlert'
 import {
@@ -24,7 +24,10 @@ function AlertsColumn({
   const {
     values: { payment, authentication },
   } = useFormikContext<DonationFormDataV2>()
-  console.log(Boolean(payment))
+
+  const liSx: SxProps = {
+    py: 0,
+  }
 
   const alerts: { [key: string]: AlertProps } = {
     'select-payment-method': {
@@ -48,16 +51,16 @@ function AlertsColumn({
                 display: 'list-item',
               },
             }}>
-            <ListItem>
+            <ListItem sx={liSx}>
               <ListItemText primary="създадете акаунт като физическо или юридическо лице" />
             </ListItem>
-            <ListItem>
+            <ListItem sx={liSx}>
               <ListItemText primary="получите сертификат за дарение" />
             </ListItem>
-            <ListItem>
+            <ListItem sx={liSx}>
               <ListItemText primary="правите месечни дарения по избрана кампания" />
             </ListItem>
-            <ListItem>
+            <ListItem sx={liSx}>
               <ListItemText primary="получавате и известия за статуса на подкрепени вече кампании" />
             </ListItem>
           </List>

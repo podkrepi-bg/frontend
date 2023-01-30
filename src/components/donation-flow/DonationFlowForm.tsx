@@ -4,7 +4,14 @@ import { useElements, useStripe } from '@stripe/react-stripe-js'
 import * as yup from 'yup'
 import { Form, Formik } from 'formik'
 import { PersistFormikValues } from 'formik-persist-values'
-import { Box, Hidden, Unstable_Grid2 as Grid2 } from '@mui/material'
+import {
+  Box,
+  Hidden,
+  IconButton,
+  Tooltip,
+  Typography,
+  Unstable_Grid2 as Grid2,
+} from '@mui/material'
 
 import { AlertStore } from 'stores/AlertStore'
 import { useCreateStripePayment } from 'service/donation'
@@ -23,6 +30,9 @@ import {
   DonationFormDataV2,
 } from './helpers/types'
 import PaymentSummaryAlert from './alerts/PaymentSummaryAlert'
+import CheckboxField from 'components/common/form/CheckboxField'
+import { Info } from '@mui/icons-material'
+import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
 const initialValues: DonationFormDataV2 = {
   amount: '',
@@ -157,6 +167,21 @@ export function DonationFlowForm() {
                 />
                 <Authentication sectionRef={authenticationSectionRef} />
               </Box>
+              <StepSplitter />
+              <CheckboxField
+                label={
+                  <Box display="flex" alignItems="center">
+                    <Typography>Искам да съм анонимен</Typography>
+                    <Tooltip title="Ако дарете анонимно, данните ще останат недостъпни за бенефициента.">
+                      <IconButton color="primary">
+                        <Info />
+                      </IconButton>
+                    </Tooltip>
+                  </Box>
+                }
+                name="isAnonymous"
+              />
+              <AcceptPrivacyPolicyField name="privacy" />
               <SubmitButton label="Donate" fullWidth />
               <PersistFormikValues debounce={3000} storage="sessionStorage" name="donation-form" />
             </Form>
