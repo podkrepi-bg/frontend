@@ -20,7 +20,8 @@ function PaymentSummaryAlert({
   sx?: BoxProps['sx']
   boxProps?: BoxProps
 }) {
-  const fullAmount = donationAmount + stripeFeeCalculator(donationAmount, CardRegion.EU)
+  const fullAmount =
+    donationAmount !== 0 ? donationAmount + stripeFeeCalculator(donationAmount, CardRegion.EU) : 0
   return (
     <Box
       sx={{

@@ -19,6 +19,7 @@ export type DonationFormDataV2 = {
   email: string
   cardRegion: CardRegion
   cardIncludeFees: boolean
+  privacy: boolean
   amount?: string
   amountWithFees?: number
   otherAmount?: number

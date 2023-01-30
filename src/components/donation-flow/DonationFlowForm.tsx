@@ -44,6 +44,7 @@ const initialValues: DonationFormDataV2 = {
   otherAmount: 0,
   authentication: null,
   isAnonymous: false,
+  privacy: false,
 }
 
 export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
@@ -87,6 +88,7 @@ export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
         is: 'NOREGISTER',
         then: yup.string().email('one-time-donation:errors-fields.email').required(),
       }),
+    privacy: yup.bool().required().isTrue(),
   })
 
 export function DonationFlowForm() {
