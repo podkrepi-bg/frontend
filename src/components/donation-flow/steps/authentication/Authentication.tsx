@@ -148,7 +148,7 @@ export default function Authentication({
         Как предпочитате да продължите?
       </Typography>
       {authentication === DonationFormDataAuthState.AUTHENTICATED ? (
-        <Alert color="info">Вие сте влезли в системата като {session?.user?.email}</Alert>
+        <Alert color="info">Вие сте влезли като {session?.user?.email}</Alert>
       ) : (
         <>
           <RadioAccordionGroup
