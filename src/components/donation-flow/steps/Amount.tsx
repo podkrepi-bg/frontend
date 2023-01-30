@@ -15,7 +15,7 @@ import FormTextField from 'components/common/form/FormTextField'
 import CheckboxField from 'components/common/form/CheckboxField'
 import { useCreatePaymentIntent } from 'service/donation'
 
-import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../stripe/stripe-fee-calculator'
+import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../helpers/stripe-fee-calculator'
 import { DonationFlowContext } from '../DonationFlowContext'
 
 const PREFIX = 'AMOUNT'
@@ -34,6 +34,7 @@ const Root = styled('div')(() => ({
 export default function Amount() {
   const { data: prices } = useSinglePriceList()
   const DonationContext = useContext(DonationFlowContext)
+  const formik = useFormikContext<OneTimeDonation>()
   const { t } = useTranslation('one-time-donation')
   const mobile = useMediaQuery('(max-width:600px)')
 
@@ -53,7 +54,6 @@ export default function Amount() {
     const intent = paymentIntentMutation.data?.data
     DonationContext.setStripePaymentIntent(intent || null)
   }, [paymentIntentMutation])
-  const formik = useFormikContext<OneTimeDonation>()
 
   useEffect(() => {
     const chosenAmount =
@@ -81,10 +81,10 @@ export default function Amount() {
 
   return (
     <Root>
-      <Typography variant="h4" sx={{ marginTop: theme.spacing(3) }}>
+      <Typography variant="h5" my={3}>
         {t('first-step.amount')}
       </Typography>
-      <Box marginTop={theme.spacing(4)}>
+      <Box>
         <RadioButtonGroup
           name="amount"
           options={
@@ -97,7 +97,7 @@ export default function Amount() {
               .concat({ label: t('first-step.other'), value: 'other' }) || []
           }
         />
-        <Collapse in={amount.value === 'other'} timeout="auto">
+        <Collapse unmountOnExit in={amount.value === 'other'} timeout="auto">
           <Grid
             item
             xs={12}

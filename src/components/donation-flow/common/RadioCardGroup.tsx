@@ -9,7 +9,7 @@ import {
   RadioGroup,
   RadioGroupProps,
   Stack,
-  Unstable_Grid2 as Grid2,
+  Grid,
 } from '@mui/material'
 import { styled, lighten } from '@mui/material/styles'
 import theme from 'common/theme'
@@ -40,6 +40,7 @@ function RadioCardItem({ control, icon, selected, disabled, ...rest }: StyledRad
     opacity: 0.7,
     backgroundColor: `${theme.palette.grey[300]} !important`,
     pointerEvents: 'none',
+    borderColor: `${theme.palette.grey[500]} !important`,
   }
 
   let styles = {}
@@ -72,6 +73,24 @@ export interface RadioCardGroupProps extends RadioGroupProps {
   columns: 1 | 2 | 3 | 4 | 6 | 12
 }
 
+/**
+ * RadioCardGroup is a group of radio buttons that display a card for each option.
+ * The <input> element is hidden, but accessible to screen readers.
+ * @example
+ * <RadioCardGroup
+ *  name="donationAmount"
+ *  options={[
+ *  {
+ *  value: '10',
+ *  label: '$10',
+ *  icon: <MoneyIcon />,
+ * },
+ * {
+ * value: '25',
+ * label: '$25',
+ * icon: <MoneyIcon />,
+ * },
+ */
 function RadioCardGroup({ options, name, columns }: RadioCardGroupProps) {
   const [field, meta, { setValue }] = useField(name)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,9 +103,9 @@ function RadioCardGroup({ options, name, columns }: RadioCardGroupProps) {
       component="fieldset"
       error={Boolean(meta.error) && Boolean(meta.touched)}>
       <RadioGroup value={field.value} onChange={handleChange}>
-        <Grid2 spacing={2} container>
+        <Grid columnSpacing={3} container>
           {options.map((option) => (
-            <Grid2 xs={12} sm={12 / columns} key={option.value}>
+            <Grid item xs={12} sm={12 / columns} key={option.value}>
               <RadioCardItem
                 onClick={() => setValue(option.value)}
                 control={
@@ -99,7 +118,7 @@ function RadioCardGroup({ options, name, columns }: RadioCardGroupProps) {
                       <Radio
                         disabled={option.disabled}
                         sx={{
-                          'clip-path': 'polygon(0 0)',
+                          clipPath: 'polygon(0 0)',
                           position: 'absolute',
                         }}
                       />
@@ -111,9 +130,9 @@ function RadioCardGroup({ options, name, columns }: RadioCardGroupProps) {
                 selected={field.value === option.value && !option.disabled}
                 disabled={option.disabled}
               />
-            </Grid2>
+            </Grid>
           ))}
-        </Grid2>
+        </Grid>
       </RadioGroup>
     </FormControl>
   )

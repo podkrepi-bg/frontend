@@ -1,53 +1,111 @@
 import React from 'react'
+import { useSession } from 'next-auth/react'
 import * as yup from 'yup'
 import { Form, Formik } from 'formik'
-import { Alert, Hidden, Unstable_Grid2 as Grid2 } from '@mui/material'
+import { Alert, Box, Hidden, Unstable_Grid2 as Grid2 } from '@mui/material'
 
-import { FirstStep } from 'gql/donations'
 import { CardRegion } from 'gql/donations.enums'
 import SubmitButton from 'components/common/form/SubmitButton'
 
-import Amount from './steps/Amount'
-import PaymentMethod from './steps/PaymentMethod'
 import StepSplitter from './common/StepSplitter'
+import Amount from './steps/Amount'
+import PaymentMethod from './steps/payment-method/PaymentMethod'
+import Authentication from './steps/authentication/Authentication'
 
-const initialValues = {
+export enum DonationFormDataAuthState {
+  LOGIN = 'login',
+  REGISTER = 'register',
+  AUTHENTICATED = 'authenticated',
+  NOREGISTER = 'noregister',
+}
+
+export enum DonationFormDataPaymentOption {
+  CARD = 'card',
+  BANK = 'bank',
+}
+export type DonationFormDataV2 = {
+  isAnonymous: boolean
+  authentication: DonationFormDataAuthState | null
+  payment: DonationFormDataPaymentOption | null
+  email: string
+  cardRegion: CardRegion
+  cardIncludeFees: boolean
+  amount?: string
+  amountWithFees?: number
+  otherAmount?: number
+}
+
+const initialValues: DonationFormDataV2 = {
   amount: '',
-  payment: '',
+  email: '',
+  payment: null,
   amountWithFees: 0,
   cardIncludeFees: false,
   cardRegion: CardRegion.EU,
   otherAmount: 0,
+  authentication: null,
+  isAnonymous: false,
 }
 
-//TODO: Should be a SchemaOf the whole form
-export const validationSchema: yup.SchemaOf<FirstStep> = yup
+export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
   .object()
   .defined()
   .shape({
-    payment: yup.string().oneOf(['card', 'bank']),
+    payment: yup
+      .string()
+      .oneOf(Object.values(DonationFormDataPaymentOption))
+      .required() as yup.SchemaOf<DonationFormDataPaymentOption>,
     amount: yup.string().when('payment', {
       is: 'card',
-      // Here we should fetch the possible payments to put into the oneOf, but it's not that important
       then: yup.string().required(),
+    }),
+    amountWithFees: yup.number().when('payment', {
+      is: 'card',
+      then: () =>
+        yup.number().min(1, 'one-time-donation:errors-fields.amount-with-fees').required(),
     }),
     otherAmount: yup.number().when('amount', {
       is: 'other',
       then: yup.number().min(1, 'one-time-donation:errors-fields.other-amount').required(),
     }),
+    cardIncludeFees: yup.boolean().required(),
+    cardRegion: yup
+      .string()
+      .oneOf(Object.values(CardRegion))
+      .when('payment', {
+        is: 'card',
+        then: yup.string().oneOf(Object.values(CardRegion)).required(),
+      }) as yup.SchemaOf<CardRegion>,
+    authentication: yup
+      .string()
+      .oneOf(Object.values(DonationFormDataAuthState))
+      .required() as yup.SchemaOf<DonationFormDataAuthState>,
+    isAnonymous: yup.boolean().required(),
+    email: yup
+      .string()
+      .required()
+      .when('authentication', {
+        is: 'isAnonymous',
+        then: yup.string().email('one-time-donation:errors-fields.email').required(),
+      }),
   })
 
 export function DonationFlowForm() {
+  const { data: session } = useSession()
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={{
+        ...initialValues,
+        email: session?.user?.email ?? '',
+        authentication: session?.user ? DonationFormDataAuthState.AUTHENTICATED : null,
+      }}
       validationSchema={validationSchema}
       onSubmit={async (values) => {
         console.log(values)
       }}
       validateOnMount
       validateOnBlur>
-      {({ handleSubmit }) => (
+      {({ handleSubmit, values }) => (
         <Grid2 spacing={4} container>
           <Grid2 sm={12} md={8}>
             <Form
@@ -58,17 +116,32 @@ export function DonationFlowForm() {
                 marginRight: 'auto',
               }}
               autoComplete="off">
-              <StepSplitter content="1" />
-              <Amount />
-              <StepSplitter content="2" />
-              <PaymentMethod />
-
-              <SubmitButton>Submit</SubmitButton>
+              <Box mb={2}>
+                <StepSplitter content="1" active={Boolean(values.amount)} />
+                <Amount />
+                <StepSplitter
+                  content="2"
+                  active={Boolean(values.amount) && Boolean(values.payment)}
+                />
+                <PaymentMethod />
+                <StepSplitter
+                  content="3"
+                  active={
+                    Boolean(values.amount) &&
+                    Boolean(values.payment) &&
+                    Boolean(values.authentication)
+                  }
+                />
+                <Authentication />
+              </Box>
+              <SubmitButton label="Donate" fullWidth />
             </Form>
           </Grid2>
           <Hidden mdDown>
-            <Grid2 md={4}>
-              <Alert color="error">TODO: Alerts row here</Alert>
+            <Grid2 sx={{ overflow: 'auto' }} md={4}>
+              <Alert sx={{ position: 'sticky', top: 0 }} color="error">
+                TODO: Alerts row here
+              </Alert>
             </Grid2>
           </Hidden>
         </Grid2>

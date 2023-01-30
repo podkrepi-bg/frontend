@@ -6,14 +6,14 @@ import { Elements, LinkAuthenticationElement, PaymentElement } from '@stripe/rea
 import { Box, BoxProps } from '@mui/material'
 
 import theme from 'common/theme'
-import { DonationFlowContext } from '../DonationFlowContext'
+import { DonationFlowContext } from '../../DonationFlowContext'
 
 const appearance: Appearance = {
   theme: 'stripe',
   variables: {
     colorPrimary: theme.palette.primary.main,
     colorBackground: theme.palette.background.paper,
-    // colorText: theme.palette.text.primary resolves to rgba(0, 0, 0, 0.87) and Stripe doesn't like that
+    // colorText: theme.palette.text.primary resolves to rgba(0, 0, 0, 0.87) and Stripe doesn't accept rgba values
     colorText: 'rgb(0, 0, 0)',
     colorDanger: theme.palette.error.main,
     fontFamily: "Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif",

@@ -78,7 +78,6 @@ export default function DonationFlowPage({ slug }: { slug: string }) {
           <StyledBeneficiaryAvatarWrapper xs={12} justifyContent="center" p={4}>
             <StyledBeneficiaryAvatar
               src={beneficiaryAvatarSource}
-              // A11Y TODO: Translate alt text
               alt={`Image of ${campaign.beneficiary.person?.firstName} ${campaign.beneficiary.person?.lastName}`}
               width={250}
               height={250}

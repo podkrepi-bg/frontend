@@ -14,10 +14,13 @@ import { useField } from 'formik'
 import theme from 'common/theme'
 
 export const BaseRadioAccordionItem = styled(Box)(() => ({
-  '&:not(:last-child)': {
+  '&:first-of-type': {
     borderBottom: `1px solid ${theme.borders.dark}`,
     borderTopLeftRadius: theme.borders.semiRound,
     borderTopRightRadius: theme.borders.semiRound,
+  },
+  '&:not(:last-child)': {
+    borderBottom: `1px solid ${theme.borders.dark}`,
   },
   '&:last-child': {
     borderBottomLeftRadius: theme.borders.semiRound,
@@ -32,11 +35,12 @@ export const DisabledRadioAccordionItem = styled(BaseRadioAccordionItem)(() => (
   opacity: 0.7,
   backgroundColor: `${theme.palette.grey[300]} !important`,
   pointerEvents: 'none',
+  borderColor: `${theme.palette.grey[500]} !important`,
 }))
 
 interface RadioAccordionItemProps extends BoxProps {
   control: React.ReactNode
-  icon: React.ReactNode
+  icon?: React.ReactNode
   content?: React.ReactNode
   selected?: boolean
   disabled?: boolean
@@ -71,16 +75,45 @@ type Option = {
   value: string
   label: string
   content: React.ReactNode
-  icon: React.ReactNode
+  icon?: React.ReactNode
   disabled?: boolean
+  control?: React.ReactElement
 }
 
 export interface RadioAccordionGroupProps extends RadioGroupProps {
+  /**
+   * The options to display in the radio group.
+   */
   options: Option[]
+
+  /**
+   * The name of the field.
+   * This is used to link the radio group to the form.
+   */
   name: string
 }
 
-function RadioAccordionGroup({ options, name, ...rest }: RadioAccordionGroupProps) {
+/**
+ * A radio group that displays a list of options. Each option can be expanded to show more content.
+ * @example
+ * <RadioAccordionGroup
+ *  name="authentication"
+ * options={[
+ *  {
+ *   value: 'login',
+ *  label: 'Login',
+ * disabled: Boolean(session?.user),
+ * content: <LoginForm />,
+ * },
+ * {
+ * value: 'register',
+ * label: 'Register',
+ * disabled: Boolean(session?.user),
+ * content: <RegisterForm />,
+ * }]
+
+ */
+function RadioAccordionGroup({ options, name, sx, ...rest }: RadioAccordionGroupProps) {
   const [field, meta, { setValue }] = useField(name)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
@@ -98,6 +131,7 @@ function RadioAccordionGroup({ options, name, ...rest }: RadioAccordionGroupProp
         sx={{
           border: `1px solid ${theme.borders.dark}`,
           borderRadius: theme.borders.semiRound,
+          ...sx,
         }}
         {...rest}>
         {options.map((option) => (
@@ -107,7 +141,7 @@ function RadioAccordionGroup({ options, name, ...rest }: RadioAccordionGroupProp
             control={
               <FormControlLabel
                 value={option.value}
-                control={<Radio />}
+                control={option.control || <Radio />}
                 label={option.label}
                 disabled={option.disabled}
               />
