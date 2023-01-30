@@ -90,7 +90,7 @@ export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
       .string()
       .required()
       .when('authentication', {
-        is: 'isAnonymous',
+        is: 'NOREGISTER',
         then: yup.string().email('one-time-donation:errors-fields.email').required(),
       }),
   })
