@@ -108,7 +108,7 @@ export function DonationFlowForm() {
         email: session?.user?.email ?? '',
         authentication: session?.user ? DonationFormDataAuthState.AUTHENTICATED : null,
       }}
-      // validationSchema={validationSchema}
+      validationSchema={validationSchema}
       onSubmit={async (values) => {
         if (!stripe || !elements || !stripePaymentIntent) {
           // Stripe.js has not yet loaded.
