@@ -4,7 +4,7 @@ import { HomePage } from '../../../pages/web-pages/home.page'
 import { CampaignsPage } from '../../../pages/web-pages/campaigns/campaigns.page'
 import { enLocalizationOneTimeDonation } from '../../../data/localization'
 import { DonationPage } from '../../../pages/web-pages/campaigns/donation.page'
-import { enDonationRegions } from '../../../data/enums/donation-regions.enum'
+import { DonationRegions } from '../../../data/enums/donation-regions.enum'
 import { StripeCheckoutPage } from '../../../pages/web-pages/external/stripe-checkout.page'
 import { anonDonationTestData } from '../../../data/support-page-tests.data'
 import { LanguagesEnum } from '../../../data/enums/languages.enum'
@@ -64,7 +64,7 @@ test.describe.serial(
         )
         .toBeTruthy()
       await donationPage.selectRadioButtonByLabelText(['10'])
-      await donationPage.setDonationRegionFromTheDropdown(enDonationRegions.EUROPE)
+      await donationPage.setDonationRegionFromTheDropdown(DonationRegions.EUROPE)
       await donationPage.selectCheckboxByLabelText([enCardIncludeFeesText])
       // Expected pattern:
       // For your donation of {donationAmountText}, the fee from Stripe will be {feeAmountText}, and the total charged amount will be {totalChargedAmountText}.

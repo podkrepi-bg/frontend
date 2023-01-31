@@ -1,4 +1,5 @@
-import { Page } from '@playwright/test'
+import { Page, expect } from '@playwright/test'
+import { DonationRegions } from '../../../data/enums/donation-regions.enum'
 import { LanguagesEnum } from '../../../data/enums/languages.enum'
 import {
   bgLocalizationOneTimeDonation,
@@ -61,9 +62,12 @@ export class DonationPage extends CampaignsPage {
   private readonly enSuccessfulDonationTitle = enLocalizationOneTimeDonation.success.title
 
   async checkPageUrlByRegExp(urlRegExpAsString?: string, timeoutParam = 10000): Promise<void> {
-    super.checkPageUrlByRegExp(
-      urlRegExpAsString || `^(.*?)/campaigns/donation/${SLUG_REGEX}`,
-      timeoutParam,
+    await this.page.waitForTimeout(1000)
+    await expect(this.page, 'The URL is not correct!').toHaveURL(
+      new RegExp(urlRegExpAsString || `^(.*?)/campaigns/donation/${SLUG_REGEX}`),
+      {
+        timeout: timeoutParam,
+      },
     )
   }
 
@@ -132,9 +136,9 @@ export class DonationPage extends CampaignsPage {
    * Set donation region from the dropdown menu
    * @param {string} desiredRegion
    */
-  async setDonationRegionFromTheDropdown(desiredRegion: string): Promise<void> {
+  async setDonationRegionFromTheDropdown(desiredRegion: DonationRegions): Promise<void> {
     await this.clickElement(this.regionsDropdownRootElement)
-    await this.clickElement(this.regionsMenuList, { hasText: desiredRegion })
+    await this.clickElement(this.regionsMenuList + `[data-value=${desiredRegion}]`)
   }
 
   /**

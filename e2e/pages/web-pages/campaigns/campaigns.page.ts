@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test'
+import { Page, expect } from '@playwright/test'
 import { LanguagesEnum } from '../../../data/enums/languages.enum'
 import { bgLocalizationCampaigns, enLocalizationCampaigns } from '../../../data/localization'
 import { SLUG_REGEX } from '../../../utils/helpers'
@@ -23,8 +23,17 @@ export class CampaignsPage extends HomePage {
   private readonly bgSupportNowActionButtonText = bgLocalizationCampaigns.cta['support-now']
   private readonly enSupportNowActionButtonText = enLocalizationCampaigns.cta['support-now']
 
+  /**
+   * Ovverride the method from the BasePage and add the specific selector for the Campaigns page as default
+   */
   async checkPageUrlByRegExp(urlRegExpAsString?: string, timeoutParam = 10000): Promise<void> {
-    super.checkPageUrlByRegExp(urlRegExpAsString || `^(.*?)/campaigns/${SLUG_REGEX}`, timeoutParam)
+    await this.page.waitForTimeout(1000)
+    await expect(this.page, 'The URL is not correct!').toHaveURL(
+      new RegExp(urlRegExpAsString || `^(.*?)/campaigns/${SLUG_REGEX}`),
+      {
+        timeout: timeoutParam,
+      },
+    )
   }
 
   /**
