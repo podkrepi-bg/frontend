@@ -24,6 +24,7 @@ import VaultSelect from 'components/vaults/VaultSelect'
 import PersonSelect from 'components/person/PersonSelect'
 import { Currency } from 'gql/currency'
 import { fromMoney, toMoney } from 'common/util/money'
+import { v4 as uuidv4 } from 'uuid'
 
 export default function CreateForm() {
   const router = useRouter()
@@ -72,7 +73,7 @@ export default function CreateForm() {
     sourceVaultId: '',
     sourceCampaignId: '',
     bankAccountId: '',
-    documentId: '',
+    documentId: uuidv4(), //this will be the id of the uploaded doc when attachments are implemented
     approvedById: '',
   }
 

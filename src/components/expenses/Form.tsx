@@ -59,8 +59,9 @@ export default function Form() {
             params: {},
             message: t('fields-error.amount-unavailable'),
             test: function (value) {
-              const currentValt = vaults?.find((curr) => curr.id == this.parent.vaultId)
-              const currentAmount = Number(currentValt?.amount) - Number(currentValt?.blockedAmount)
+              const currentVault = vaults?.find((curr) => curr.id == this.parent.vaultId)
+              const currentAmount =
+                Number(currentVault?.amount) - Number(currentVault?.blockedAmount)
               return value! < Number(currentAmount)
             },
           }),

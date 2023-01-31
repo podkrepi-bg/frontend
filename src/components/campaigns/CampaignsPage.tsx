@@ -1,9 +1,12 @@
 import React from 'react'
-import { styled } from '@mui/material/styles'
+
 import { useTranslation } from 'next-i18next'
-import Layout from 'components/layout/Layout'
-import { Container, Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
+
 import CampaignFilter from './CampaignFilter'
+import Layout from 'components/layout/Layout'
+
+import { styled } from '@mui/material/styles'
 
 const PREFIX = 'CampaignsPage'
 
@@ -15,7 +18,16 @@ const classes = {
   arrowIcon: `${PREFIX}-arrowIcon`,
 }
 
-const StyledLayout = styled(Layout)(({ theme }) => ({
+const Root = styled(Layout)(({ theme }) => ({
+  [theme.breakpoints.up('sm')]: {
+    paddingTop: theme.spacing(12),
+  },
+
+  [theme.breakpoints.up(2000)]: {
+    maxWidth: theme.spacing(165),
+    paddingTop: theme.spacing(4),
+  },
+
   [`& .${classes.title}`]: {
     marginBottom: theme.spacing(3),
     marginTop: theme.spacing(6),
@@ -66,11 +78,8 @@ export default function CampaignsPage() {
   const { t } = useTranslation()
 
   return (
-    <StyledLayout
-      // sx={{ fontWeight: '500', color: '#2196F3' }}
-      // title={t('campaigns:campaigns')}
-      metaDescription={t('campaigns:campaign.subheading')}>
-      <Container maxWidth="lg">
+    <Root maxWidth={false}>
+      <Grid>
         <Typography variant="h1" component="p" className={classes.title}>
           {t('campaigns:campaigns')}
         </Typography>
@@ -78,7 +87,7 @@ export default function CampaignsPage() {
           {t('campaigns:cta.support-cause-today')}
         </Typography>
         <CampaignFilter />
-      </Container>
-    </StyledLayout>
+      </Grid>
+    </Root>
   )
 }

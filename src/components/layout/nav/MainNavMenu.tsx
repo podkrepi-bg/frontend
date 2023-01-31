@@ -21,7 +21,7 @@ export default function MainNavMenu({ children }: { children?: React.ReactNode }
           sx={{ borderColor: '#32A9FE' }}
           href={routes.campaigns.index}>
           <Typography variant="button" color="#000000DE">
-            {t('nav.donatе')}
+            {t('nav.donate')}
           </Typography>
         </LinkButton>
       </Grid>

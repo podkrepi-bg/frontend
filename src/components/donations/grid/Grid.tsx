@@ -212,7 +212,7 @@ export default observer(function Grid() {
           paginationMode="server"
           rowCount={all_rows}
           disableSelectionOnClick
-          isCellEditable={(params) => params.row.provider.includes('bank')}
+          isCellEditable={() => true}
         />
       </Box>
 

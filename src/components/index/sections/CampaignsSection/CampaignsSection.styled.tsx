@@ -9,6 +9,11 @@ export const Root = styled('section')(() => ({
   [theme.breakpoints.up('sm')]: {
     margin: theme.spacing(12, 4, 0, 4),
   },
+
+  [theme.breakpoints.up(2000)]: {
+    maxWidth: theme.spacing(165),
+    margin: `${theme.spacing(4)} auto`,
+  },
 }))
 
 export const UrgentCampaignsHeading = styled(Typography)(() => ({
