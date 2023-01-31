@@ -75,7 +75,7 @@ export default function MobileNav({ mobileOpen, setMobileOpen }: NavDeckProps) {
               variant="outlined"
               href={routes.campaigns.index}
               endIcon={<FavoriteIcon color="primary" fontSize="medium" />}>
-              {t('nav.donatе')}
+              {t('nav.donate')}
             </DonateButton>
           </Grid>
         </NavMenuWrapper>

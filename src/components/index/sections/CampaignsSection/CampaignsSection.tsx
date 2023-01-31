@@ -24,7 +24,7 @@ export default function CampaignsSection() {
           {data?.slice(0, 12).map((campaign, index) => (
             <Grid key={index} item xs={12} sm={6} lg={3}>
               <Box>
-                <CampaignCard campaign={campaign} />
+                <CampaignCard index={index} campaign={campaign} />
               </Box>
             </Grid>
           ))}

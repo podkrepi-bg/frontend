@@ -50,7 +50,7 @@ export default function CampaignsList({ campaignToShow }: Props) {
               [theme.breakpoints.down('lg')]: { textAlign: cardAlignment(index, array) },
               [theme.breakpoints.down('md')]: { textAlign: 'center' },
             })}>
-            <CampaignCard campaign={campaign} />
+            <CampaignCard index={index} campaign={campaign} />
           </Box>
         </Grid>
       ))}
