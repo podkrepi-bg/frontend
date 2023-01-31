@@ -1,35 +1,41 @@
 import { useState } from 'react'
-import { styled } from '@mui/material/styles'
+
 import { useTranslation } from 'next-i18next'
-import { CampaignResponse } from 'gql/campaigns'
-import { baseUrl, routes } from 'common/routes'
-import { moneyPublic } from 'common/util/money'
-import CampaignProgress from './CampaignProgress'
-import DonorsAndDonations from './DonorsAndDonations'
-import { Button, CircularProgress, Grid, IconButton, Menu, Typography } from '@mui/material'
-import { lighten } from '@mui/material/styles'
-import { AddLinkOutlined, Favorite } from '@mui/icons-material'
-import ShareIcon from '@mui/icons-material/Share'
-import { useCampaignDonationHistory } from 'common/hooks/campaigns'
-import theme from 'common/theme'
 import { useRouter } from 'next/router'
-import CustomListItem from 'components/admin/navigation/CustomListItem'
-import { socialMedia } from './helpers/socialMedia'
-import { useCopyToClipboard } from 'common/util/useCopyToClipboard'
-import { AlertStore } from 'stores/AlertStore'
-import useMobile from 'common/hooks/useMobile'
+
+import { CampaignResponse } from 'gql/campaigns'
+
+import { Button, CircularProgress, Grid, IconButton, Menu, Typography } from '@mui/material'
+import { AddLinkOutlined, Favorite } from '@mui/icons-material'
+import { lighten } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+
+import { baseUrl, routes } from 'common/routes'
+import { moneyPublic } from 'common/util/money'
+import { useCampaignDonationHistory } from 'common/hooks/campaigns'
+import theme from 'common/theme'
+import { useCopyToClipboard } from 'common/util/useCopyToClipboard'
+import useMobile from 'common/hooks/useMobile'
 import LinkButton from '../common/LinkButton'
+import CampaignProgress from './CampaignProgress'
+import DonorsAndDonations from './DonorsAndDonations'
+import CustomListItem from 'components/admin/navigation/CustomListItem'
+import ExternalLink from 'components/common/ExternalLink'
+import { socialMedia } from './helpers/socialMedia'
 import { CampaignState } from './helpers/campaign.enums'
+import { AlertStore } from 'stores/AlertStore'
+
 const PREFIX = 'InlineDonation'
 
 const classes = {
   inlineDonationWrapper: `${PREFIX}-inlineDonationWrapper`,
-  reachedMoney: `${PREFIX}-reachedMoney`,
-  targetMoney: `${PREFIX}-targetMoney`,
+  reachedAndTargetMoneyWrapper: `${PREFIX}-reachedAndTargetMoneyWrapper`,
+  reachedAndTargetMoney: `${PREFIX}-reachedAndTargetMoney`,
   donorsSharesCount: `${PREFIX}-donorsSharesCount`,
   donationPriceList: `${PREFIX}-donationPriceList`,
   dropdownLinkButton: `${PREFIX}-dropdownLinkButton`,
@@ -37,38 +43,44 @@ const classes = {
   buttonContainer: `${PREFIX}-buttonContainer`,
   sharesContainer: `${PREFIX}-sharesContainer`,
   openButton: `${PREFIX}-openButton`,
+  donateButton: `${PREFIX}-donateButton`,
+  noCommissionInfo: `${PREFIX}-noCommissionInfo`,
+  infoIcon: `${PREFIX}-infoIcon`,
+  progressBar: `${PREFIX}-progressBar`,
+  campaignInfoWrapper: `${PREFIX}-campaignInfoWrapper`,
+  campaignInfoKey: `${PREFIX}-campaignInfoKey`,
+  campaignInfoValue: `${PREFIX}-campaignInfoValue`,
+  pagination: `${PREFIX}-pagination`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
   [`&.${classes.inlineDonationWrapper}`]: {
-    backgroundColor: '#EEEEEE',
-    borderRadius: theme.spacing(1),
-    height: 'fit-content',
     boxShadow: '2px 4px 5px rgba(0, 0, 0, 0.25)',
+    borderRadius: theme.spacing(2.25),
+    backgroundColor: '#EEEEEE',
+    height: 'fit-content',
+
     [theme.breakpoints.down('md')]: {
-      margin: theme.spacing(0),
-      borderRadius: theme.spacing(0),
+      borderRadius: 0,
     },
   },
 
-  [`& .${classes.reachedMoney}`]: {
-    fontSize: theme.spacing(5),
-    fontWeight: 500,
-    [theme.breakpoints.down('md')]: {
-      fontSize: theme.spacing(3),
-    },
+  [`& .${classes.reachedAndTargetMoneyWrapper}`]: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: theme.spacing(0, 1.75),
   },
 
-  [`& .${classes.targetMoney}`]: {
-    fontSize: theme.spacing(3),
-    [theme.breakpoints.down('md')]: {
-      fontSize: theme.spacing(2),
-    },
+  [`& .${classes.reachedAndTargetMoney}`]: {
+    fontSize: theme.typography.pxToRem(16),
+    color: theme.palette.common.black,
   },
 
   [`& .${classes.donorsSharesCount}`]: {
-    fontWeight: 'bold',
-    fontSize: theme.spacing(2),
+    textTransform: 'capitalize',
+    margin: theme.spacing(1.7, 0),
+    fontSize: theme.typography.pxToRem(14),
+    color: theme.palette.common.black,
   },
 
   [`& .${classes.donationPriceList}`]: {
@@ -110,8 +122,90 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     borderRadius: '50%',
     border: 'none',
     backgroundColor: '#EEEEEE',
-    minWidth: theme.spacing(5),
+    minWidth: theme.spacing(6.35),
+    minHeight: theme.spacing(6.35),
     paddingBottom: 'unset',
+  },
+
+  [`& .${classes.donateButton}`]: {
+    boxShadow:
+      '0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px rgb(0 0 0 / 14%), 0px 1px 3px rgb(0 0 0 / 12%)',
+    height: theme.spacing(5.125),
+    fontSize: theme.typography.pxToRem(16),
+    letterSpacing: theme.typography.pxToRem(0.4),
+    backgroundColor: theme.palette.secondary.main,
+
+    '& svg': {
+      color: '#ab2f26',
+    },
+
+    '&:hover': {
+      backgroundColor: '#0098e3',
+    },
+  },
+
+  [`& .${classes.noCommissionInfo}`]: {
+    display: 'flex',
+    gap: theme.spacing(0.25),
+    marginTop: theme.spacing(1.7),
+
+    '& p': {
+      fontSize: theme.typography.pxToRem(12),
+      color: theme.palette.common.black,
+    },
+  },
+
+  [`& .${classes.infoIcon}`]: {
+    marginTop: `-${theme.spacing(0.25)}`,
+    fontSize: theme.typography.pxToRem(16),
+    color: '#6d6d6d',
+  },
+
+  [`& .${classes.progressBar}`]: {
+    '.CampaignProgress-root': {
+      background: '#c6ced9',
+      borderRadius: theme.spacing(6),
+      boxShadow: 'inset 0px 0px 0px 1px #b8b8b8',
+
+      '& span': {
+        borderRadius: theme.spacing(6),
+        backgroundColor: 'rgba(40, 78, 132, 0.5)',
+      },
+    },
+  },
+
+  [`& .${classes.campaignInfoWrapper}`]: {
+    display: 'flex',
+    gap: theme.spacing(1.7),
+    marginBottom: theme.spacing(3.8),
+  },
+
+  [`& .${classes.campaignInfoKey}`]: {
+    color: '#343434',
+    fontWeight: 700,
+    textTransform: 'capitalize',
+    textAlign: 'end',
+  },
+
+  [`& .${classes.campaignInfoValue}`]: {
+    color: '#707070',
+    fontWeight: 400,
+    textTransform: 'capitalize',
+
+    '&:hover': {
+      color: '#0098e3',
+      textDecoration: 'underline',
+    },
+  },
+
+  [`& .${classes.pagination}`]: {
+    justifyContent: 'flex-end',
+
+    '& svg': {
+      margin: 0,
+      padding: 0,
+      fontSize: theme.typography.pxToRem(15),
+    },
   },
 }))
 
@@ -120,7 +214,7 @@ type Props = {
 }
 
 export default function InlineDonation({ campaign }: Props) {
-  const { t } = useTranslation()
+  const { t } = useTranslation('campaigns')
   const { asPath } = useRouter()
   const [status, copyUrl] = useCopyToClipboard(baseUrl + asPath, 1000)
   const active = status === 'copied' ? 'inherit' : 'primary'
@@ -151,42 +245,41 @@ export default function InlineDonation({ campaign }: Props) {
 
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
 
-  const handleMenu = (event: React.MouseEvent) => setAnchorEl(event.currentTarget)
   const handleClose = () => setAnchorEl(null)
 
   return (
-    <StyledGrid item xs={12} mt={5} p={3} className={classes.inlineDonationWrapper}>
-      <Grid mb={2}>
-        <Typography component="span" className={classes.reachedMoney}>
+    <StyledGrid item xs={12} p={3} className={classes.inlineDonationWrapper}>
+      {/* //TODO */}
+      {/* <Grid className={classes.campaignInfoWrapper}>
+         <Grid>
+          <Typography className={classes.campaignInfoKey}>{t('campaign.documents')}:</Typography>
+          <Typography className={classes.campaignInfoKey}>{t('campaign.guarantor')}:</Typography>
+          <Typography className={classes.campaignInfoKey}>{t('campaign.others')}:</Typography>
+        </Grid>
+        <Grid>
+          <ExternalLink href={''}>
+            <Typography className={classes.campaignInfoValue}>documents</Typography>
+          </ExternalLink>
+          <ExternalLink href={''}>
+            <Typography className={classes.campaignInfoValue}>guarant</Typography>
+          </ExternalLink>
+          <ExternalLink href={''}>
+            <Typography className={classes.campaignInfoValue}>others</Typography>
+          </ExternalLink>
+        </Grid>
+      </Grid> */}
+      <Grid className={classes.reachedAndTargetMoneyWrapper}>
+        <Typography component="span" className={classes.reachedAndTargetMoney}>
           {moneyPublic(reached, currency)}
         </Typography>
-        <Typography component="span" className={classes.targetMoney}>
-          {' '}
-          {t('campaigns:campaign.from')} {moneyPublic(target, currency)}
+        <Typography component="span" className={classes.reachedAndTargetMoney}>
+          {moneyPublic(target, currency)}
         </Typography>
       </Grid>
-      <CampaignProgress campaignId={campaignId} raised={reached} target={target} />
-      {detailsShown && (
-        <>
-          <Grid display="inline-block" m={3} ml={0}>
-            <Typography className={classes.donorsSharesCount}>{donors}</Typography>
-            <Typography>{t('campaigns:campaign.donors')}</Typography>
-          </Grid>
-          <Grid display="inline-block" m={3} ml={0}>
-            <Typography className={classes.donorsSharesCount}>{0}</Typography>
-            <Typography>{t('campaigns:campaign.shares')}</Typography>
-          </Grid>
-        </>
-      )}
+      <Grid className={classes.progressBar}>
+        <CampaignProgress campaignId={campaignId} raised={reached} target={target} />
+      </Grid>
       <Grid container gap={2} className={classes.buttonContainer}>
-        <Button
-          fullWidth
-          variant="outlined"
-          startIcon={<ShareIcon />}
-          color="secondary"
-          onClickCapture={handleMenu}>
-          {t('campaigns:cta.share')}
-        </Button>
         <Menu
           keepMounted
           id="share"
@@ -218,15 +311,15 @@ export default function InlineDonation({ campaign }: Props) {
             color={active}
           />
         </Menu>
-        <Grid item xs={12}>
+        <Grid item xs={12} mt={2}>
           <LinkButton
             fullWidth
             href={routes.campaigns.oneTimeDonation(campaignSlug)}
             disabled={campaignState === CampaignState.complete && !allowDonationOnComplete}
             variant="contained"
-            color="secondary"
-            startIcon={<Favorite color="action" />}>
-            {t('common:support')}
+            endIcon={<Favorite />}
+            className={classes.donateButton}>
+            {t('cta.support')}
           </LinkButton>
         </Grid>
       </Grid>
@@ -237,9 +330,16 @@ export default function InlineDonation({ campaign }: Props) {
           <CircularProgress sx={{ display: 'block', margin: `${theme.spacing(3)} auto` }} />
         ) : (
           <>
+            <Grid className={classes.noCommissionInfo}>
+              <InfoOutlinedIcon className={classes.infoIcon} />
+              <Typography>{t('campaign.noCommissionInfo')}</Typography>
+            </Grid>
+            <Typography className={classes.donorsSharesCount}>
+              {t('campaign.donors')}: {donors}
+            </Typography>
             <DonorsAndDonations donations={donations} />
             {donations && donations.length !== 0 ? (
-              <Grid container justifyContent="flex-end">
+              <Grid container className={classes.pagination}>
                 <Typography m={1}>{`${page * pageSize + 1}-${rowCount}  ${t(
                   'campaigns:of',
                 )}  ${all_rows}`}</Typography>
@@ -259,7 +359,6 @@ export default function InlineDonation({ campaign }: Props) {
             ) : null}
           </>
         ))}
-      {/* <pre>{JSON.stringify(prices, null, 2)}</pre> */}
       {mobile && (
         <Grid textAlign="center">
           <Button variant="text" onClick={() => setIsOpen(!isOpen)} className={classes.openButton}>

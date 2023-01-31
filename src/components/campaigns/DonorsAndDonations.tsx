@@ -1,14 +1,17 @@
+import { useMemo, useState } from 'react'
+
+import { useTranslation } from 'next-i18next'
+
+import { CampaignDonation } from 'gql/campaigns'
+
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
-import { Button, Grid, Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
+
 import theme from 'common/theme'
 import { moneyPublic } from 'common/util/money'
 import { formatDistanceStrict, parseISO } from 'date-fns'
 import { bg, enUS } from 'date-fns/locale'
-import { CampaignDonation } from 'gql/campaigns'
-import { useTranslation } from 'next-i18next'
-import { useMemo, useState } from 'react'
 
 const PREFIX = 'DonorsAndDonations'
 
@@ -17,31 +20,52 @@ const classes = {
   donationItemWrapper: `${PREFIX}-donationItemWrapper`,
   donationQuantityAndTimeWrapper: `${PREFIX}-donationQuantityAndTimeWrapper`,
   separatorIcon: `${PREFIX}-separatorIcon`,
+  donatorName: `${PREFIX}-donatorName`,
+  donatorAvatar: `${PREFIX}-donatorAvatar`,
 }
 
 const Root = styled('div')(({ theme }) => ({
   [`& .${classes.donationsWrapper}`]: {
-    marginTop: theme.spacing(5),
     maxHeight: 400,
-    overflowY: 'scroll',
   },
 
   [`& .${classes.donationItemWrapper}`]: {
     display: 'flex',
     gap: theme.spacing(1),
     alignItems: 'center',
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(1.7),
+    maxHeight: theme.spacing(4.5),
+
+    '&:last-of-type': {
+      marginBottom: 0,
+    },
   },
 
   [`& .${classes.donationQuantityAndTimeWrapper}`]: {
     display: 'flex',
     gap: theme.spacing(1),
-    color: theme.palette.grey[500],
+    color: '#909090',
+    alignItems: 'center',
+    lineHeight: '145%',
+
+    '& p': {
+      fontSize: theme.typography.pxToRem(12),
+    },
   },
 
   [`& .${classes.separatorIcon}`]: {
-    fontSize: theme.spacing(1),
-    alignSelf: 'center',
+    fontSize: theme.typography.pxToRem(21),
+    fontWeight: 200,
+  },
+
+  [`& .${classes.donatorName}`]: {
+    color: theme.palette.common.black,
+  },
+
+  [`& .${classes.donatorAvatar}`]: {
+    width: theme.spacing(4.5),
+    flexBasis: 'fit-content',
+    height: theme.spacing(5.25),
   },
 }))
 
@@ -52,7 +76,7 @@ export default function DonorsAndDonations({
 }) {
   const { t, i18n } = useTranslation()
   const [all, setAll] = useState<boolean>(false)
-  const shownDonationsNumber = 5
+  const shownDonationsNumber = 3
   const donationsToShow = useMemo(() => {
     if (all) {
       return donations
@@ -66,16 +90,16 @@ export default function DonorsAndDonations({
         {donationsToShow && donationsToShow.length !== 0 ? (
           donationsToShow.map(({ person, amount, createdAt, currency }, key) => (
             <Grid key={key} className={classes.donationItemWrapper}>
-              <AccountCircleIcon fontSize="large" color="disabled" />
+              <AccountCircleIcon color="disabled" className={classes.donatorAvatar} />
               <Grid>
-                <Typography>
+                <Typography className={classes.donatorName}>
                   {person
                     ? `${person.firstName} ${person.lastName}`
                     : t('campaigns:donations.anonymous')}
                 </Typography>
                 <Grid className={classes.donationQuantityAndTimeWrapper}>
                   <Typography>{moneyPublic(amount, currency)}</Typography>
-                  <FiberManualRecordIcon className={classes.separatorIcon} />
+                  <span className={classes.separatorIcon}>|</span>
                   <Typography>
                     {formatDistanceStrict(parseISO(createdAt), new Date(), {
                       locale: i18n.language == 'bg' ? bg : enUS,
@@ -90,13 +114,6 @@ export default function DonorsAndDonations({
           <Typography sx={{ textAlign: 'center', marginBottom: theme.spacing(4) }}>
             {t('campaigns:donations.none')}
           </Typography>
-        )}
-      </Grid>
-      <Grid>
-        {donations && donations.length > shownDonationsNumber && (
-          <Button onClick={() => setAll((prev) => !prev)} variant="outlined">
-            {all ? t('campaigns:cta.see-less') : t('campaigns:cta.see-all')}
-          </Button>
         )}
       </Grid>
     </Root>
