@@ -17,6 +17,11 @@ import { AlertStore } from 'stores/AlertStore'
 
 import { DonationFlowContext } from '../../DonationFlowContext'
 
+export const initialLoginFormValues = {
+  loginEmail: '',
+  loginPassword: '',
+}
+
 export const loginValidation = {
   loginEmail: yup.string().when('authentication', {
     is: DonationFormDataAuthState.LOGIN,

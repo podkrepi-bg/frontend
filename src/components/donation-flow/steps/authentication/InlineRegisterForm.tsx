@@ -19,6 +19,16 @@ import {
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
+export const initialRegisterFormValues = {
+  registerEmail: '',
+  registerPassword: '',
+  registerConfirmPassword: '',
+  registerFirstName: '',
+  registerLastName: '',
+  registerGdpr: false,
+  registerTerms: false,
+}
+
 export const registerFormValidation = {
   registerEmail: yup.string().when('authentication', {
     is: DonationFormDataAuthState.REGISTER,

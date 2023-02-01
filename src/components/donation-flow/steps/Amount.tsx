@@ -4,6 +4,7 @@ import { useTranslation } from 'next-i18next'
 import { useMediaQuery, Box, Collapse, Grid, InputAdornment, Typography } from '@mui/material'
 import { useField, useFormikContext } from 'formik'
 
+import { CardRegion } from 'gql/donations.enums'
 import theme from 'common/theme'
 import { useSinglePriceList } from 'common/hooks/donation'
 import { moneyPublic, toMoney } from 'common/util/money'
@@ -13,7 +14,15 @@ import FormTextField from 'components/common/form/FormTextField'
 
 import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../helpers/stripe-fee-calculator'
 import { DonationFormDataV2 } from '../helpers/types'
-import { CardRegion } from 'gql/donations.enums'
+
+export const initialAmountFormValues = {
+  amount: 'other',
+  amountChosen: '',
+  finalAmount: 0,
+  otherAmount: 0,
+  cardIncludeFees: false,
+  cardRegion: CardRegion.EU,
+}
 
 export const amountValidation = {
   amountChosen: yup.string().when('payment', {
@@ -40,6 +49,7 @@ export const amountValidation = {
       then: yup.string().oneOf(Object.values(CardRegion)).required(),
     }) as yup.SchemaOf<CardRegion>,
 }
+
 export default function Amount({
   sectionRef,
 }: {

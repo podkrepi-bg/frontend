@@ -12,39 +12,36 @@ import {
   Typography,
   Unstable_Grid2 as Grid2,
 } from '@mui/material'
+import { Info } from '@mui/icons-material'
 
 import { useCreateStripePayment, useUpdatePaymentIntent } from 'service/donation'
-import { CardRegion } from 'gql/donations.enums'
 import SubmitButton from 'components/common/form/SubmitButton'
 
 import StepSplitter from './common/StepSplitter'
-import Amount, { amountValidation } from './steps/Amount'
 import PaymentMethod from './steps/payment-method/PaymentMethod'
 import Authentication from './steps/authentication/Authentication'
+import Amount, { amountValidation, initialAmountFormValues } from './steps/Amount'
+import { initialLoginFormValues, loginValidation } from './steps/authentication/InlineLoginForm'
+import {
+  initialRegisterFormValues,
+  registerFormValidation,
+} from './steps/authentication/InlineRegisterForm'
 import { DonationFlowContext } from './DonationFlowContext'
 import AlertsColumn from './alerts/AlertsColumn'
+import PaymentSummaryAlert from './alerts/PaymentSummaryAlert'
 import {
   DonationFormDataAuthState,
   DonationFormDataPaymentOption,
   DonationFormDataV2,
 } from './helpers/types'
-import PaymentSummaryAlert from './alerts/PaymentSummaryAlert'
 import CheckboxField from 'components/common/form/CheckboxField'
-import { Info } from '@mui/icons-material'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
-import { registerFormValidation } from './steps/authentication/InlineRegisterForm'
-import { loginValidation } from './steps/authentication/InlineLoginForm'
 
-const initialValues: DonationFormDataV2 = {
-  amountChosen: '',
-  email: '',
+const initialGeneralFormValues = {
   payment: null,
-  finalAmount: 0,
-  cardIncludeFees: false,
-  cardRegion: CardRegion.EU,
-  otherAmount: 0,
   authentication: null,
   isAnonymous: false,
+  email: '',
   privacy: false,
 }
 
@@ -68,6 +65,14 @@ const generalValidation = {
     }),
   privacy: yup.bool().required().isTrue('one-time-donation:errors-fields.privacy'),
 }
+
+const initialValues: DonationFormDataV2 = {
+  ...initialGeneralFormValues,
+  ...initialAmountFormValues,
+  ...initialLoginFormValues,
+  ...initialRegisterFormValues,
+}
+
 export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
   .object()
   .defined()
