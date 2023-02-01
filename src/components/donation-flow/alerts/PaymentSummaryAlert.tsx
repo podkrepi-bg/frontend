@@ -20,8 +20,8 @@ function PaymentSummaryAlert({
   sx?: BoxProps['sx']
   boxProps?: BoxProps
 }) {
-  const fullAmount =
-    donationAmount !== 0 ? donationAmount + stripeFeeCalculator(donationAmount, CardRegion.EU) : 0
+  const feeAmount = stripeFeeCalculator(donationAmount, CardRegion.EU)
+
   return (
     <Box
       sx={{
@@ -37,7 +37,7 @@ function PaymentSummaryAlert({
         }}>
         <Stack direction={'row'} justifyContent="space-between">
           <StyledTypography>Дарение: </StyledTypography>
-          <StyledTypography>{moneyPublicDecimals2(donationAmount)}</StyledTypography>
+          <StyledTypography>{moneyPublicDecimals2(donationAmount - feeAmount)}</StyledTypography>
         </Stack>
 
         <Stack direction={'row'} justifyContent="space-between">
@@ -50,7 +50,7 @@ function PaymentSummaryAlert({
             </Tooltip>
             :{' '}
           </StyledTypography>
-          <StyledTypography>{moneyPublicDecimals2(fullAmount - donationAmount)}</StyledTypography>
+          <StyledTypography>{moneyPublicDecimals2(feeAmount)}</StyledTypography>
         </Stack>
       </Box>
       <Alert
@@ -66,7 +66,7 @@ function PaymentSummaryAlert({
         icon={false}>
         <Stack direction={'row'} justifyContent="space-between">
           <StyledTypography>Общо: </StyledTypography>
-          <StyledTypography>{moneyPublicDecimals2(fullAmount)}</StyledTypography>
+          <StyledTypography>{moneyPublicDecimals2(donationAmount)}</StyledTypography>
         </Stack>
       </Alert>
     </Box>

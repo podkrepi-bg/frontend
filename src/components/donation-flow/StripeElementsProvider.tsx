@@ -1,4 +1,4 @@
-import { PropsWithChildren, useContext, useEffect } from 'react'
+import React, { PropsWithChildren, useContext, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Appearance } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'

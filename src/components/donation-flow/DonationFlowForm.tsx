@@ -85,7 +85,8 @@ export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
 
 export function DonationFlowForm() {
   const { data: session } = useSession()
-  const { campaign, stripePaymentIntent, setPaymentError } = useContext(DonationFlowContext)
+  const { campaign, stripePaymentIntent, paymentError, setPaymentError } =
+    useContext(DonationFlowContext)
   const stripe = useStripe()
   const elements = useElements()
   const createStripePaymentMutation = useCreateStripePayment()
@@ -112,53 +113,53 @@ export function DonationFlowForm() {
         if (!stripePaymentIntent) {
           throw new Error('Stripe payment intent does not exist when trying to submit the form')
         }
-        console.log(values)
-        // try {
-        //   await updatePaymentIntentMutation.mutateAsync({
-        //     id: stripePaymentIntent.id,
-        //     payload: {
-        //       amount: values.finalAmount,
-        //       currency: campaign.currency,
-        //     },
-        //   })
-        // } catch (error) {
-        //   setPaymentError({
-        //     type: 'invalid_request_error',
-        //     message: "We couldn't update the payment intent. Please try again later.",
-        //   })
-        // }
 
-        // try {
-        //   await createStripePaymentMutation.mutateAsync({
-        //     isAnonymous: values.isAnonymous,
-        //     personEmail: session?.user?.email || values.email,
-        //     paymentIntentId: stripePaymentIntent?.id,
-        //     firstName: session?.user?.given_name || null,
-        //     lastName: session?.user?.family_name || null,
-        //     phone: null,
-        //   })
-        // } catch (error) {
-        //   setPaymentError({
-        //     type: 'invalid_request_error',
-        //     message: "We couldn't create the payment. Please try again later.",
-        //   })
-        // }
+        try {
+          await updatePaymentIntentMutation.mutateAsync({
+            id: stripePaymentIntent.id,
+            payload: {
+              amount: Math.round(Number(values.finalAmount)),
+              currency: campaign.currency,
+            },
+          })
+        } catch (error) {
+          setPaymentError({
+            type: 'invalid_request_error',
+            message: "We couldn't update the payment intent. Please try again later.",
+          })
+        }
 
-        // const { error } = await stripe.confirmPayment({
-        //   //`Elements` instance that was used to create the Payment Element
-        //   elements,
-        //   confirmParams: {
-        //     return_url: `${window.location.origin}/campaigns/donation-v2/${campaign.slug}`,
-        //   },
-        // })
+        try {
+          await createStripePaymentMutation.mutateAsync({
+            isAnonymous: values.isAnonymous,
+            personEmail: session?.user?.email || values.email,
+            paymentIntentId: stripePaymentIntent?.id,
+            firstName: session?.user?.given_name || null,
+            lastName: session?.user?.family_name || null,
+            phone: null,
+          })
+        } catch (error) {
+          setPaymentError({
+            type: 'invalid_request_error',
+            message: "We couldn't create the payment. Please try again later.",
+          })
+        }
 
-        // if (error) {
-        //   setPaymentError(error)
-        // }
+        const { error } = await stripe.confirmPayment({
+          //`Elements` instance that was used to create the Payment Element
+          elements,
+          confirmParams: {
+            return_url: `${window.location.origin}/campaigns/donation-v2/${campaign.slug}`,
+          },
+        })
+
+        if (error) {
+          setPaymentError(error)
+        }
       }}
       validateOnMount
       validateOnBlur>
-      {({ handleSubmit, values, errors }) => (
+      {({ handleSubmit, values }) => (
         <Grid2 spacing={4} container>
           <Grid2 sm={12} md={8}>
             <Form
@@ -201,6 +202,7 @@ export function DonationFlowForm() {
                 }
                 name="isAnonymous"
               />
+              {JSON.stringify(paymentError)}
               <AcceptPrivacyPolicyField name="privacy" />
               <SubmitButton label="Donate" fullWidth />
               <PersistFormikValues debounce={3000} storage="sessionStorage" name="donation-form" />
