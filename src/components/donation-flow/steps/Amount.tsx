@@ -16,7 +16,6 @@ import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../helpers/stri
 import { DonationFormDataV2 } from '../helpers/types'
 
 export const initialAmountFormValues = {
-  amount: 'other',
   amountChosen: '',
   finalAmount: 0,
   otherAmount: 0,
@@ -33,7 +32,7 @@ export const amountValidation = {
     is: 'card',
     then: () => yup.number().min(1, 'one-time-donation:errors-fields.amount-with-fees').required(),
   }),
-  otherAmount: yup.number().when('chosenAmount', {
+  otherAmount: yup.number().when('amountChosen', {
     is: 'other',
     then: yup.number().min(1, 'one-time-donation:errors-fields.other-amount').required(),
   }),
@@ -60,26 +59,26 @@ export default function Amount({
   const { t } = useTranslation('one-time-donation')
   const mobile = useMediaQuery('(max-width:600px)')
 
-  const [amount] = useField('chosenAmount')
+  const [{ value }] = useField('amountChosen')
 
   useEffect(() => {
-    const chosenAmount =
-      amount.value === 'other'
+    const amountChosen =
+      value === 'other'
         ? toMoney(Number(formik.values.otherAmount))
         : Number(formik.values.amountChosen)
 
     if (formik.values.cardIncludeFees) {
-      formik.setFieldValue('amountWithoutFees', chosenAmount)
+      formik.setFieldValue('amountWithoutFees', amountChosen)
       formik.setFieldValue(
         'finalAmount',
-        stripeIncludeFeeCalculator(chosenAmount, formik.values.cardRegion as CardRegion),
+        stripeIncludeFeeCalculator(amountChosen, formik.values.cardRegion as CardRegion),
       )
     } else {
       formik.setFieldValue(
         'amountWithoutFees',
-        chosenAmount - stripeFeeCalculator(chosenAmount, formik.values.cardRegion as CardRegion),
+        amountChosen - stripeFeeCalculator(amountChosen, formik.values.cardRegion as CardRegion),
       )
-      formik.setFieldValue('finalAmount', chosenAmount)
+      formik.setFieldValue('finalAmount', amountChosen)
     }
   }, [
     formik.values.otherAmount,
@@ -106,19 +105,19 @@ export default function Amount({
               .concat({ label: t('first-step.other'), value: 'other' }) || []
           }
         />
-        <Collapse unmountOnExit in={amount.value === 'other'} timeout="auto">
+        <Collapse unmountOnExit in={value === 'other'} timeout="auto">
           <Grid
             item
             xs={12}
             sm={6}
             style={
-              !mobile
+              !mobile && Number(prices?.length) % 2 === 0
                 ? {
                     float: 'right',
                     marginTop: -50,
                     width: '49%',
                   }
-                : { marginTop: theme.spacing(2) }
+                : { marginTop: theme.spacing(2), width: mobile ? '100%' : '49%' }
             }>
             <FormTextField
               name="otherAmount"
