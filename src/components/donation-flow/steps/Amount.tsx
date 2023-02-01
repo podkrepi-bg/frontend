@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import * as yup from 'yup'
 import { useTranslation } from 'next-i18next'
 import { useMediaQuery, Box, Collapse, Grid, InputAdornment, Typography } from '@mui/material'
 import { useField, useFormikContext } from 'formik'
@@ -14,6 +15,31 @@ import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../helpers/stri
 import { DonationFormDataV2 } from '../helpers/types'
 import { CardRegion } from 'gql/donations.enums'
 
+export const amountValidation = {
+  amountChosen: yup.string().when('payment', {
+    is: 'card',
+    then: yup.string().required(),
+  }),
+  finalAmount: yup.number().when('payment', {
+    is: 'card',
+    then: () => yup.number().min(1, 'one-time-donation:errors-fields.amount-with-fees').required(),
+  }),
+  otherAmount: yup.number().when('amount', {
+    is: 'other',
+    then: yup.number().min(1, 'one-time-donation:errors-fields.other-amount').required(),
+  }),
+  cardIncludeFees: yup.boolean().when('payment', {
+    is: 'card',
+    then: yup.boolean().required(),
+  }),
+  cardRegion: yup
+    .string()
+    .oneOf(Object.values(CardRegion))
+    .when('payment', {
+      is: 'card',
+      then: yup.string().oneOf(Object.values(CardRegion)).required(),
+    }) as yup.SchemaOf<CardRegion>,
+}
 export default function Amount({
   sectionRef,
 }: {

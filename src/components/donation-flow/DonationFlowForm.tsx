@@ -18,7 +18,7 @@ import { CardRegion } from 'gql/donations.enums'
 import SubmitButton from 'components/common/form/SubmitButton'
 
 import StepSplitter from './common/StepSplitter'
-import Amount from './steps/Amount'
+import Amount, { amountValidation } from './steps/Amount'
 import PaymentMethod from './steps/payment-method/PaymentMethod'
 import Authentication from './steps/authentication/Authentication'
 import { DonationFlowContext } from './DonationFlowContext'
@@ -33,6 +33,7 @@ import CheckboxField from 'components/common/form/CheckboxField'
 import { Info } from '@mui/icons-material'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 import { registerFormValidation } from './steps/authentication/InlineRegisterForm'
+import { loginValidation } from './steps/authentication/InlineLoginForm'
 
 const initialValues: DonationFormDataV2 = {
   amountChosen: '',
@@ -47,62 +48,33 @@ const initialValues: DonationFormDataV2 = {
   privacy: false,
 }
 
+const generalValidation = {
+  payment: yup
+    .string()
+    .oneOf(Object.values(DonationFormDataPaymentOption))
+    .required() as yup.SchemaOf<DonationFormDataPaymentOption>,
+  authentication: yup
+    .string()
+    .oneOf(Object.values(DonationFormDataAuthState))
+    .required() as yup.SchemaOf<DonationFormDataAuthState>,
+  isAnonymous: yup.boolean().required(),
+  email: yup
+    .string()
+    .email('one-time-donation:errors-fields.email')
+    .required()
+    .when('authentication', {
+      is: 'NOREGISTER',
+      then: yup.string().email('one-time-donation:errors-fields.email').required(),
+    }),
+  privacy: yup.bool().required().isTrue('one-time-donation:errors-fields.privacy'),
+}
 export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
   .object()
   .defined()
   .shape({
-    //General validation
-    payment: yup
-      .string()
-      .oneOf(Object.values(DonationFormDataPaymentOption))
-      .required() as yup.SchemaOf<DonationFormDataPaymentOption>,
-    authentication: yup
-      .string()
-      .oneOf(Object.values(DonationFormDataAuthState))
-      .required() as yup.SchemaOf<DonationFormDataAuthState>,
-    isAnonymous: yup.boolean().required(),
-    email: yup
-      .string()
-      .email('one-time-donation:errors-fields.email')
-      .required()
-      .when('authentication', {
-        is: 'NOREGISTER',
-        then: yup.string().email('one-time-donation:errors-fields.email').required(),
-      }),
-    privacy: yup.bool().required().isTrue('one-time-donation:errors-fields.privacy'),
-    //Card payment related validation
-    amountChosen: yup.string().when('payment', {
-      is: 'card',
-      then: yup.string().required(),
-    }),
-    finalAmount: yup.number().when('payment', {
-      is: 'card',
-      then: () =>
-        yup.number().min(1, 'one-time-donation:errors-fields.amount-with-fees').required(),
-    }),
-    otherAmount: yup.number().when('amount', {
-      is: 'other',
-      then: yup.number().min(1, 'one-time-donation:errors-fields.other-amount').required(),
-    }),
-    cardIncludeFees: yup.boolean().when('payment', {
-      is: 'card',
-      then: yup.boolean().required(),
-    }),
-    cardRegion: yup
-      .string()
-      .oneOf(Object.values(CardRegion))
-      .when('payment', {
-        is: 'card',
-        then: yup.string().oneOf(Object.values(CardRegion)).required(),
-      }) as yup.SchemaOf<CardRegion>,
-    loginEmail: yup.string().when('authentication', {
-      is: DonationFormDataAuthState.LOGIN,
-      then: yup.string().email('one-time-donation:errors-fields.email').required(),
-    }),
-    loginPassword: yup.string().when('authentication', {
-      is: DonationFormDataAuthState.LOGIN,
-      then: yup.string().required(),
-    }),
+    ...generalValidation,
+    ...amountValidation,
+    ...loginValidation,
     ...registerFormValidation,
   })
 
