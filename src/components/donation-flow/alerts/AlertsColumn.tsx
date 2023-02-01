@@ -1,12 +1,13 @@
 import React from 'react'
 import { AlertProps, Box, List, ListItem, ListItemText, SxProps, Typography } from '@mui/material'
-import { useField, useFormikContext } from 'formik'
+import { useFormikContext } from 'formik'
 import { AnchoredAlert } from './AnchoredAlert'
 import {
   DonationFormDataAuthState,
   DonationFormDataPaymentOption,
   DonationFormDataV2,
 } from '../helpers/types'
+import { useElements } from '@stripe/react-stripe-js'
 
 const cardAlertDescription = `Таксата на Stripe се изчислява според района на картодържателя: 1.2% + 0.5лв. за Европейската икономическа зона`
 const bankAlertDescription = `Таксата за транзакция при банков превод зависи от индивидуалните условия на Вашата банка. от (0-4лв)`
@@ -28,8 +29,13 @@ function AlertsColumn({
   const liSx: SxProps = {
     py: 0,
   }
-
-  const [{ value }] = useField('authentication')
+  const [updatedRefArray, setUpdatedRefArray] =
+    React.useState<React.MutableRefObject<HTMLDivElement | null>[]>(sectionsRefArray)
+  const elements = useElements()
+  const paymentElement = elements?.getElement('payment')
+  paymentElement?.once('ready', () => {
+    setUpdatedRefArray([...sectionsRefArray])
+  })
   const alerts: { [key: string]: AlertProps } = {
     'select-payment-method': {
       color: 'info',
@@ -69,14 +75,17 @@ function AlertsColumn({
       ),
       icon: false,
       sx: {
-        display: authentication === DonationFormDataAuthState.AUTHENTICATED ? 'none' : 'flex',
+        display:
+          authentication === DonationFormDataAuthState.AUTHENTICATED || authentication === null
+            ? 'none'
+            : 'flex',
       },
     },
   }
 
   return (
     <>
-      {sectionsRefArray.map((ref, index) => {
+      {updatedRefArray.map((ref, index) => {
         const alert = alerts[ref.current?.id as keyof typeof alerts]
         return <AnchoredAlert key={index} sectionRef={ref} {...alert} />
       })}
