@@ -25,7 +25,6 @@ import LinkButton from '../common/LinkButton'
 import CampaignProgress from './CampaignProgress'
 import DonorsAndDonations from './DonorsAndDonations'
 import CustomListItem from 'components/admin/navigation/CustomListItem'
-import ExternalLink from 'components/common/ExternalLink'
 import { socialMedia } from './helpers/socialMedia'
 import { CampaignState } from './helpers/campaign.enums'
 import { AlertStore } from 'stores/AlertStore'
@@ -46,7 +45,6 @@ const classes = {
   donateButton: `${PREFIX}-donateButton`,
   noCommissionInfo: `${PREFIX}-noCommissionInfo`,
   infoIcon: `${PREFIX}-infoIcon`,
-  progressBar: `${PREFIX}-progressBar`,
   campaignInfoWrapper: `${PREFIX}-campaignInfoWrapper`,
   campaignInfoKey: `${PREFIX}-campaignInfoKey`,
   campaignInfoValue: `${PREFIX}-campaignInfoValue`,
@@ -161,19 +159,6 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     color: '#6d6d6d',
   },
 
-  [`& .${classes.progressBar}`]: {
-    '.CampaignProgress-root': {
-      background: '#c6ced9',
-      borderRadius: theme.spacing(6),
-      boxShadow: 'inset 0px 0px 0px 1px #b8b8b8',
-
-      '& span': {
-        borderRadius: theme.spacing(6),
-        backgroundColor: 'rgba(40, 78, 132, 0.5)',
-      },
-    },
-  },
-
   [`& .${classes.campaignInfoWrapper}`]: {
     display: 'flex',
     gap: theme.spacing(1.7),
@@ -276,7 +261,7 @@ export default function InlineDonation({ campaign }: Props) {
           {moneyPublic(target, currency)}
         </Typography>
       </Grid>
-      <Grid className={classes.progressBar}>
+      <Grid>
         <CampaignProgress campaignId={campaignId} raised={reached} target={target} />
       </Grid>
       <Grid container gap={2} className={classes.buttonContainer}>
