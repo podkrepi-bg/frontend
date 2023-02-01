@@ -85,7 +85,7 @@ export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
 
 export function DonationFlowForm() {
   const { data: session } = useSession()
-  const { campaign, stripePaymentIntent } = useContext(DonationFlowContext)
+  const { campaign, stripePaymentIntent, setPaymentError } = useContext(DonationFlowContext)
   const stripe = useStripe()
   const elements = useElements()
   const createStripePaymentMutation = useCreateStripePayment()
@@ -106,44 +106,55 @@ export function DonationFlowForm() {
         if (!stripe || !elements) {
           // Stripe.js has not yet loaded.
           // Make sure to disable form submission until Stripe.js has loaded.
-          throw new Error('Stripe.js has not yet loaded')
+          throw new Error('Stripe.js has not loaded when trying to submit the form')
         }
 
         if (!stripePaymentIntent) {
-          throw new Error('Stripe payment intent does not exist')
+          throw new Error('Stripe payment intent does not exist when trying to submit the form')
         }
-        console.log(values)
-        // await updatePaymentIntentMutation.mutateAsync({
-        //   id: stripePaymentIntent.id,
-        //   payload: {
-        //     amount: values.amountWithFees,
-        //     currency: campaign.currency,
-        //   },
-        // })
 
-        // await createStripePaymentMutation.mutateAsync({
-        //   isAnonymous: values.isAnonymous,
-        //   personEmail: session?.user?.email || values.email,
-        //   paymentIntentId: stripePaymentIntent?.id,
-        //   firstName: session?.user?.given_name || null,
-        //   lastName: session?.user?.family_name || null,
-        //   phone: null,
-        // })
+        try {
+          await updatePaymentIntentMutation.mutateAsync({
+            id: stripePaymentIntent.id,
+            payload: {
+              amount: values.finalAmount,
+              currency: campaign.currency,
+            },
+          })
+        } catch (error) {
+          setPaymentError({
+            type: 'invalid_request_error',
+            message: "We couldn't update the payment intent. Please try again later.",
+          })
+        }
 
-        // const { error } = await stripe.confirmPayment({
-        //   //`Elements` instance that was used to create the Payment Element
-        //   elements,
-        //   confirmParams: {
-        //     return_url: `${window.location.origin}/campaigns/donation-v2/${campaign.slug}`,
-        //   },
-        // })
+        try {
+          await createStripePaymentMutation.mutateAsync({
+            isAnonymous: values.isAnonymous,
+            personEmail: session?.user?.email || values.email,
+            paymentIntentId: stripePaymentIntent?.id,
+            firstName: session?.user?.given_name || null,
+            lastName: session?.user?.family_name || null,
+            phone: null,
+          })
+        } catch (error) {
+          setPaymentError({
+            type: 'invalid_request_error',
+            message: "We couldn't create the payment. Please try again later.",
+          })
+        }
 
-        // if (error) {
-        //   AlertStore.show(
-        //     error?.message || 'Unkown error. Please contact is through the support form',
-        //     'error',
-        //   )
-        // }
+        const { error } = await stripe.confirmPayment({
+          //`Elements` instance that was used to create the Payment Element
+          elements,
+          confirmParams: {
+            return_url: `${window.location.origin}/campaigns/donation-v2/${campaign.slug}`,
+          },
+        })
+
+        if (error) {
+          setPaymentError(error)
+        }
       }}
       validateOnMount
       validateOnBlur>
