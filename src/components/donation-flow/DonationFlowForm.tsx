@@ -32,6 +32,7 @@ import PaymentSummaryAlert from './alerts/PaymentSummaryAlert'
 import CheckboxField from 'components/common/form/CheckboxField'
 import { Info } from '@mui/icons-material'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
+import { registerFormValidation } from './steps/authentication/InlineRegisterForm'
 
 const initialValues: DonationFormDataV2 = {
   amountChosen: '',
@@ -102,6 +103,7 @@ export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
       is: DonationFormDataAuthState.LOGIN,
       then: yup.string().required(),
     }),
+    ...registerFormValidation,
   })
 
 export function DonationFlowForm() {
