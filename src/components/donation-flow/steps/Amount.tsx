@@ -33,7 +33,7 @@ export const amountValidation = {
     is: 'card',
     then: () => yup.number().min(1, 'one-time-donation:errors-fields.amount-with-fees').required(),
   }),
-  otherAmount: yup.number().when('amount', {
+  otherAmount: yup.number().when('chosenAmount', {
     is: 'other',
     then: yup.number().min(1, 'one-time-donation:errors-fields.other-amount').required(),
   }),
@@ -60,7 +60,7 @@ export default function Amount({
   const { t } = useTranslation('one-time-donation')
   const mobile = useMediaQuery('(max-width:600px)')
 
-  const [amount] = useField('amount')
+  const [amount] = useField('chosenAmount')
 
   useEffect(() => {
     const chosenAmount =
