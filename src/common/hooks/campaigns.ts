@@ -14,16 +14,37 @@ import { DonationStatus } from 'gql/donations.enums'
 import { apiClient } from 'service/apiClient'
 
 // NOTE: shuffling the campaigns so that each gets its fair chance to be on top row
-const shuffleQueryFn: QueryFunction<CampaignResponse[]> = async ({ queryKey }) => {
+export const campaignsOrderQueryFunction: QueryFunction<CampaignResponse[]> = async ({
+  queryKey,
+}) => {
   const response = await apiClient.get(queryKey.join('/'))
-  return shuffle<CampaignResponse>(response.data)
+  // Put the campaigns in 2 arrays, one for active and one for inactive
+  const activeCampaigns: CampaignResponse[] = []
+  const inactiveCampaigns: CampaignResponse[] = []
+  response.data.forEach((campaign: CampaignResponse) => {
+    if (campaign.state === 'active') {
+      activeCampaigns.push(campaign)
+    } else {
+      inactiveCampaigns.push(campaign)
+    }
+  })
+  // Shuffle the active campaigns
+  const shuffledActiveCampaigns = shuffle(activeCampaigns)
+  // Shuffle the inactive campaigns
+  const shuffledInactiveCampaigns = shuffle(inactiveCampaigns)
+  // Concatenate the two arrays
+  return shuffledActiveCampaigns.concat(shuffledInactiveCampaigns)
 }
 
 export function useCampaignList() {
-  return useQuery<CampaignResponse[]>([endpoints.campaign.listCampaigns.url], shuffleQueryFn, {
-    // Add 15 minutes of cache time
-    staleTime: 1000 * 60 * 15,
-  })
+  return useQuery<CampaignResponse[]>(
+    [endpoints.campaign.listCampaigns.url],
+    campaignsOrderQueryFunction,
+    {
+      // Add 15 minutes of cache time
+      staleTime: 1000 * 60 * 15,
+    },
+  )
 }
 
 export function useCampaignAdminList() {

@@ -20,6 +20,7 @@
   "targetAmount": "Target amount",
   "donationsAmount": "Donations amount",
   "blockedAmount": "Blocked amount",
+  "withdrawnAmount": "Withdrawn amount",
   "startDate": "Start date",
   "endDate": "End date",
   "createDate": "Created at",

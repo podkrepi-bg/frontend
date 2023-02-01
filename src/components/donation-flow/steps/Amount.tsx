@@ -13,10 +13,11 @@ import { moneyPublic, toMoney } from 'common/util/money'
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 import FormTextField from 'components/common/form/FormTextField'
 import CheckboxField from 'components/common/form/CheckboxField'
-import { useCreatePaymentIntent } from 'service/donation'
+import { useUpdatePaymentIntent } from 'service/donation'
 
 import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../helpers/stripe-fee-calculator'
 import { DonationFlowContext } from '../DonationFlowContext'
+import { Currencies } from 'components/withdrawals/WithdrawalTypes'
 
 const PREFIX = 'AMOUNT'
 
@@ -33,27 +34,23 @@ const Root = styled('div')(() => ({
 
 export default function Amount() {
   const { data: prices } = useSinglePriceList()
-  const DonationContext = useContext(DonationFlowContext)
+  const { stripePaymentIntent } = useContext(DonationFlowContext)
   const formik = useFormikContext<OneTimeDonation>()
   const { t } = useTranslation('one-time-donation')
   const mobile = useMediaQuery('(max-width:600px)')
 
   const [amount] = useField('amount')
-  const paymentIntentMutation = useCreatePaymentIntent({
-    amount: Number(amount.value),
-    currency: 'BGN',
-  })
+  //stripePaymentIntent is always a string if this element is rendered
+  const updatePaymentIntentMutation = useUpdatePaymentIntent(stripePaymentIntent?.id as string)
 
   useEffect(() => {
     if (amount.value) {
-      paymentIntentMutation.mutate()
+      updatePaymentIntentMutation.mutate({
+        amount: Number(amount.value),
+        currency: Currencies.BGN,
+      })
     }
   }, [amount.value])
-
-  useEffect(() => {
-    const intent = paymentIntentMutation.data?.data
-    DonationContext.setStripePaymentIntent(intent || null)
-  }, [paymentIntentMutation])
 
   useEffect(() => {
     const chosenAmount =

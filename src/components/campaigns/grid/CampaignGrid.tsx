@@ -58,6 +58,10 @@ export const DisplayCurrentAmount = ({ params }: CampaignCellProps) => {
   return <>{money(params.row.summary.currentAmount ?? 0, params.row.currency)}</>
 }
 
+export const DisplayWithdrawnAmount = ({ params }: CampaignCellProps) => {
+  return <>{money(params.row.summary.withdrawnAmount ?? 0, params.row.currency)}</>
+}
+
 export default function CampaignGrid() {
   const { t, i18n } = useTranslation()
   const { data = [], refetch }: UseQueryResult<AdminCampaignResponse[]> = useCampaignAdminList()
@@ -150,6 +154,16 @@ export default function CampaignGrid() {
       renderCell: (cellValues: GridRenderCellParams) => <>{cellValues.row.campaignType.name}</>,
     },
     {
+      field: 'targetAmount',
+      headerName: t('campaigns:targetAmount'),
+      ...commonProps,
+      align: 'right',
+      width: 150,
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <>{money(cellValues.row.targetAmount, cellValues.row.currency)}</>
+      ),
+    },
+    {
       field: 'reachedAmount',
       headerName: t('campaigns:donationsAmount'),
       ...commonProps,
@@ -159,16 +173,6 @@ export default function CampaignGrid() {
         <Link href={`/admin/donations?campaignId=${cellValues.row.id}`}>
           <DisplayReachedAmount params={cellValues} />
         </Link>
-      ),
-    },
-    {
-      field: 'blockedAmount',
-      headerName: t('campaigns:blockedAmount'),
-      ...commonProps,
-      align: 'right',
-      width: 200,
-      renderCell: (cellValues: GridRenderCellParams) => (
-        <DisplayBlockedAmount params={cellValues} />
       ),
     },
     {
@@ -182,13 +186,23 @@ export default function CampaignGrid() {
       ),
     },
     {
-      field: 'targetAmount',
-      headerName: t('campaigns:targetAmount'),
+      field: 'blockedAmount',
+      headerName: t('campaigns:blockedAmount'),
       ...commonProps,
       align: 'right',
-      width: 150,
+      width: 200,
       renderCell: (cellValues: GridRenderCellParams) => (
-        <>{money(cellValues.row.targetAmount, cellValues.row.currency)}</>
+        <DisplayBlockedAmount params={cellValues} />
+      ),
+    },
+    {
+      field: 'withdrawnAmount',
+      headerName: t('campaigns:withdrawnAmount'),
+      ...commonProps,
+      align: 'right',
+      width: 200,
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <DisplayWithdrawnAmount params={cellValues} />
       ),
     },
     {
@@ -292,8 +306,6 @@ export default function CampaignGrid() {
         columns={columns}
         pageSize={10}
         editMode="row"
-        autoHeight
-        autoPageSize
       />
       <Box>
         {selectedCampaign && (

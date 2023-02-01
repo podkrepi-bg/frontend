@@ -1,5 +1,6 @@
 import { expect, Page } from '@playwright/test'
 
+// TODO: Refactor this page. It is not needed in general, because there are easier ways to check this.
 /**
  * @param page The page to get the clipboard text from.
  * @param textToCheck The text to check for in the clipboard.
@@ -20,3 +21,10 @@ export const expectCopied = async (page: Page, textToCheck: string) => {
     await newPage.evaluate(() => document.querySelector('#clipboard-tester-div')?.textContent),
   ).toBe(textToCheck)
 }
+
+/**
+ * @description
+ * - (?:-[a-z0-9]+)* matches the characters - and a-z0-9 between one and unlimited times, as many times as possible, giving back as needed (greedy) and does not remember the match
+ * - $ asserts position at the end of the string
+ */
+export const SLUG_REGEX = `[a-z0-9]+(?:-[a-z0-9]+)*$`

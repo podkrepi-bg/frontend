@@ -15,6 +15,7 @@ import CenteredSpinner from 'components/common/CenteredSpinner'
 
 import { DonationFlowForm } from './DonationFlowForm'
 import { DonationFlowProvider } from './DonationFlowContext'
+import { StripeElementsProvider } from './StripeElementsProvider'
 
 const StyledBannerWrapper = styled(Box)(() => ({
   '& span': {
@@ -63,40 +64,42 @@ export default function DonationFlowPage({ slug }: { slug: string }) {
   const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
   return (
     <DonationFlowProvider>
-      <Layout maxWidth={false}>
-        <Grid2
-          container
-          component="section"
-          maxWidth="lg"
-          justifyContent="center"
-          m="0 auto"
-          marginTop={theme.spacing(matches ? 20 : 25)}>
-          <StyledBannerWrapper>
-            {/* A11Y TODO: Translate alt text */}
-            <StyledBanner src={bannerSource} alt="Campaign banner image" sizes="100vw" fill />
-          </StyledBannerWrapper>
-          <StyledBeneficiaryAvatarWrapper xs={12} justifyContent="center" p={4}>
-            <StyledBeneficiaryAvatar
-              src={beneficiaryAvatarSource}
-              alt={`Image of ${campaign.beneficiary.person?.firstName} ${campaign.beneficiary.person?.lastName}`}
-              width={250}
-              height={250}
-            />
-          </StyledBeneficiaryAvatarWrapper>
+      <StripeElementsProvider>
+        <Layout maxWidth={false}>
+          <Grid2
+            container
+            component="section"
+            maxWidth="lg"
+            justifyContent="center"
+            m="0 auto"
+            marginTop={theme.spacing(matches ? 20 : 25)}>
+            <StyledBannerWrapper>
+              {/* A11Y TODO: Translate alt text */}
+              <StyledBanner src={bannerSource} alt="Campaign banner image" sizes="100vw" fill />
+            </StyledBannerWrapper>
+            <StyledBeneficiaryAvatarWrapper xs={12} justifyContent="center" p={4}>
+              <StyledBeneficiaryAvatar
+                src={beneficiaryAvatarSource}
+                alt={`Image of ${campaign.beneficiary.person?.firstName} ${campaign.beneficiary.person?.lastName}`}
+                width={250}
+                height={250}
+              />
+            </StyledBeneficiaryAvatarWrapper>
 
-          <StyledStepsWrapper>
-            <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)} passHref>
-              <Typography
-                variant="h4"
-                color="info.dark"
-                sx={{ textAlign: 'center', marginBottom: theme.spacing(4) }}>
-                {campaign.title}
-              </Typography>
-            </Link>
-            <DonationFlowForm />
-          </StyledStepsWrapper>
-        </Grid2>
-      </Layout>
+            <StyledStepsWrapper>
+              <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)} passHref>
+                <Typography
+                  variant="h4"
+                  color="info.dark"
+                  sx={{ textAlign: 'center', marginBottom: theme.spacing(4) }}>
+                  {campaign.title}
+                </Typography>
+              </Link>
+              <DonationFlowForm />
+            </StyledStepsWrapper>
+          </Grid2>
+        </Layout>
+      </StripeElementsProvider>
     </DonationFlowProvider>
   )
 }

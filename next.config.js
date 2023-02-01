@@ -15,6 +15,9 @@ const moduleExports = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'src/styles')],
   },
+  typescript: {
+    tsconfigPath: 'tsconfig.build.json',
+  },
   swcMinify: true,
   env: {
     APP_ENV: process.env.APP_ENV,
@@ -60,11 +63,20 @@ const moduleExports = {
     ]
   },
   modularizeImports: {
+    lodash: {
+      transform: 'lodash/{{member}}',
+    },
     '@mui/material': {
       transform: '@mui/material/{{member}}',
     },
     '@mui/icons-material': {
       transform: '@mui/icons-material/{{member}}',
+    },
+    '@mui/core/': {
+      transform: '@mui/core/{{member}}',
+    },
+    '@mui/lab/': {
+      transform: '@mui/lab/{{member}}',
     },
   },
 }

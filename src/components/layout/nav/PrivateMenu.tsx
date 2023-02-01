@@ -61,9 +61,9 @@ export default function PrivateMenu() {
   }
 
   const title = `${session?.user?.name}\n(${session?.user?.email})`
-  const lettersAvatar = `${session.user?.given_name.charAt(0)}${session.user?.family_name.charAt(
-    0,
-  )}`.toUpperCase()
+  const lettersAvatar = `${session.user?.given_name?.charAt(0) || session.user?.email?.charAt(0)}${
+    session.user?.family_name?.charAt(0) || session.user?.email?.charAt(1)
+  }`.toUpperCase()
 
   return (
     <StyledGrid item>

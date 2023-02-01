@@ -15,7 +15,7 @@ import { DonationFlowContext } from '../../DonationFlowContext'
 function InlineLoginForm() {
   const { t } = useTranslation('one-time-donation')
   const [loading, setLoading] = useState(false)
-  const formik = useFormikContext<OneTimeDonation>()
+  const { values, setFieldValue } = useFormikContext<OneTimeDonation>()
   const { campaign } = useContext(DonationFlowContext)
   const onGoogleLogin = () => {
     signIn('google', { callbackUrl: `campaigns/donation-v2/${campaign?.slug}` })
@@ -26,8 +26,8 @@ function InlineLoginForm() {
       setLoading(true)
 
       const resp = await signIn<'credentials'>('credentials', {
-        email: formik.values.loginEmail,
-        password: formik.values.loginPassword,
+        email: values.loginEmail,
+        password: values.loginPassword,
         redirect: false,
       })
       if (resp?.error) {
@@ -35,7 +35,7 @@ function InlineLoginForm() {
       }
       if (resp?.ok) {
         setLoading(false)
-        formik.setFieldValue('isAnonymous', false)
+        setFieldValue('isAnonymous', false)
         AlertStore.show(t('auth:alerts.welcome'), 'success')
       }
     } catch (error) {

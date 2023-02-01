@@ -46,7 +46,10 @@ export const endpoints = {
     singlePrices: <Endpoint>{ url: '/donation/prices/single', method: 'GET' },
     recurringPrices: <Endpoint>{ url: '/donation/prices/recurring', method: 'GET' },
     createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
+    createStripePayment: <Endpoint>{ url: '/donation/create-stripe-payment', method: 'POST' },
     createPaymentIntent: <Endpoint>{ url: '/donation/payment-intent', method: 'POST' },
+    updatePaymentIntent: (id: string) =>
+      <Endpoint>{ url: `/donation/payment-intent/${id}`, method: 'POST' },
     createDonation: <Endpoint>{ url: '/donation/create-payment', method: 'POST' },
     createBankDonation: <Endpoint>{ url: '/donation/create-bank-payment', method: 'POST' },
     getDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'GET' },

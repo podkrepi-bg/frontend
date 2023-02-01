@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useSession } from 'next-auth/react'
+import { useElements, useStripe } from '@stripe/react-stripe-js'
 import * as yup from 'yup'
 import { Form, Formik } from 'formik'
+import { PersistFormikValues } from 'formik-persist-values'
 import { Alert, Box, Hidden, Unstable_Grid2 as Grid2 } from '@mui/material'
 
+import { AlertStore } from 'stores/AlertStore'
+import { useCreateStripePayment } from 'service/donation'
 import { CardRegion } from 'gql/donations.enums'
 import SubmitButton from 'components/common/form/SubmitButton'
 
@@ -11,6 +15,7 @@ import StepSplitter from './common/StepSplitter'
 import Amount from './steps/Amount'
 import PaymentMethod from './steps/payment-method/PaymentMethod'
 import Authentication from './steps/authentication/Authentication'
+import { DonationFlowContext } from './DonationFlowContext'
 
 export enum DonationFormDataAuthState {
   LOGIN = 'login',
@@ -85,13 +90,17 @@ export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
       .string()
       .required()
       .when('authentication', {
-        is: 'isAnonymous',
+        is: 'NOREGISTER',
         then: yup.string().email('one-time-donation:errors-fields.email').required(),
       }),
   })
 
 export function DonationFlowForm() {
   const { data: session } = useSession()
+  const { campaign, stripePaymentIntent } = useContext(DonationFlowContext)
+  const stripe = useStripe()
+  const elements = useElements()
+  const createStripePaymentMutation = useCreateStripePayment()
   return (
     <Formik
       initialValues={{
@@ -101,7 +110,33 @@ export function DonationFlowForm() {
       }}
       validationSchema={validationSchema}
       onSubmit={async (values) => {
-        console.log(values)
+        if (!stripe || !elements || !stripePaymentIntent) {
+          // Stripe.js has not yet loaded.
+          // Make sure to disable form submission until Stripe.js has loaded.
+          throw new Error('Stripe.js has not yet loaded')
+        }
+        await createStripePaymentMutation.mutateAsync({
+          isAnonymous: values.isAnonymous,
+          personEmail: session?.user?.email || values.email,
+          paymentIntentId: stripePaymentIntent?.id,
+          firstName: session?.user?.given_name || null,
+          lastName: session?.user?.family_name || null,
+          phone: null,
+        })
+        const { error } = await stripe.confirmPayment({
+          //`Elements` instance that was used to create the Payment Element
+          elements,
+          confirmParams: {
+            return_url: `${window.location.origin}/campaigns/donation-v2/${campaign.slug}`,
+          },
+        })
+
+        if (error) {
+          AlertStore.show(
+            error?.message || 'Unkown error. Please contact is through the support form',
+            'error',
+          )
+        }
       }}
       validateOnMount
       validateOnBlur>
@@ -135,6 +170,7 @@ export function DonationFlowForm() {
                 <Authentication />
               </Box>
               <SubmitButton label="Donate" fullWidth />
+              <PersistFormikValues debounce={3000} storage="sessionStorage" name="donation-form" />
             </Form>
           </Grid2>
           <Hidden mdDown>

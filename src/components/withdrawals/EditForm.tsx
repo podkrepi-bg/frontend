@@ -31,6 +31,8 @@ import PersonSelect from 'components/person/PersonSelect'
 import BankAccountSelect from 'components/bankaccounts/BankAccountSelect'
 import { Currency } from 'gql/currency'
 import { fromMoney, toMoney } from 'common/util/money'
+import { useVaultsList } from 'common/hooks/vaults'
+import FormSelectField from 'components/common/form/FormSelectField'
 
 const validationSchema: yup.SchemaOf<WithdrawalData> = yup
   .object()
@@ -54,11 +56,12 @@ export default function EditForm() {
   const { data }: UseQueryResult<WithdrawalEditResponse> = useWithdrawal(String(id))
   const { t } = useTranslation('withdrawals')
   const { data: campaigns } = useCampaignList()
+  const { data: vaults } = useVaultsList()
 
   const mutationFn = useEditWithdrawal(String(id))
 
   const initialValues: WithdrawalInput = {
-    status: WithdrawalStatus.initial,
+    status: data?.status,
     currency: data?.currency,
     amount: fromMoney(data?.amount ?? 0),
     amountAvailable: 0,
@@ -86,7 +89,7 @@ export default function EditForm() {
 
   function handleSubmit(values: WithdrawalInput) {
     const data: WithdrawalData = {
-      status: WithdrawalStatus.initial,
+      status: values.status,
       currency: values.currency,
       amount: toMoney(values.amount),
       reason: values.reason,
@@ -108,8 +111,16 @@ export default function EditForm() {
         <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
           {t('edit-form-heading')}
         </Typography>
+        <Typography
+          variant="subtitle2"
+          component="h2"
+          sx={{ marginBottom: 2, textAlign: 'center' }}>
+          {initialValues.status === WithdrawalStatus.succeeded
+            ? t('withdrawals:alerts.no-edit')
+            : ''}
+        </Typography>
         <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
-          <Grid item xs={12}>
+          <Grid item xs={8}>
             <FormTextField
               type="number"
               label={t('amount-input')}
@@ -118,14 +129,34 @@ export default function EditForm() {
               disabled={true}
             />
           </Grid>
-          <Grid item xs={12}>
-            <FormTextField type="string" label={t('reason')} name="reason" autoComplete="reason" />
+          <Grid item xs={4}>
+            <CurrencySelect disabled={true} />
           </Grid>
           <Grid item xs={12}>
-            <CurrencySelect />
+            <FormSelectField
+              name="status"
+              label={t('status')}
+              options={Object.keys(WithdrawalStatus).map((key: string) => {
+                return {
+                  key,
+                  value: WithdrawalStatus[key as WithdrawalStatus],
+                  name: t(`statuses.${key}`),
+                }
+              })}
+              disabled={initialValues.status === WithdrawalStatus.succeeded}
+            />
           </Grid>
           <Grid item xs={12}>
-            <BankAccountSelect />
+            <FormTextField
+              type="string"
+              label={t('reason')}
+              name="reason"
+              autoComplete="reason"
+              disabled={initialValues.status === WithdrawalStatus.succeeded}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <BankAccountSelect disabled={initialValues.status === WithdrawalStatus.succeeded} />
           </Grid>
           <Grid item xs={12}>
             <FormTextField
@@ -133,6 +164,7 @@ export default function EditForm() {
               label={t('documentId')}
               name="documentId"
               autoComplete="documentId"
+              disabled={initialValues.status === WithdrawalStatus.succeeded}
             />
           </Grid>
           <Grid item xs={12}>
@@ -145,13 +177,22 @@ export default function EditForm() {
             />
           </Grid>
           <Grid item xs={12}>
-            <VaultSelect name="sourceVaultId" label="withdrawals:sourceVault" disabled={true} />
+            <VaultSelect
+              name="sourceVaultId"
+              label="withdrawals:sourceVault"
+              vaults={vaults}
+              disabled={true}
+            />
           </Grid>
           <Grid item xs={12}>
             <PersonSelect disabled name="approvedById" label={t('approvedBy')} />
           </Grid>
           <Grid item xs={6}>
-            <SubmitButton fullWidth label={t('cta.submit')} />
+            <SubmitButton
+              fullWidth
+              label={t('cta.submit')}
+              disabled={initialValues.status === WithdrawalStatus.succeeded}
+            />
           </Grid>
           <Grid item xs={6}>
             <Link href={routes.admin.withdrawals.index} passHref>

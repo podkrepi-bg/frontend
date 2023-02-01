@@ -26,6 +26,15 @@ export type CheckoutSessionInput = {
   message?: string
 }
 
+export type StripePaymentInput = {
+  paymentIntentId: Stripe.PaymentIntent['id']
+  firstName: string | null
+  lastName: string | null
+  phone: string | null
+  personEmail: string
+  isAnonymous: boolean
+}
+
 export type DonationResponse = {
   id: UUID
   type: DonationType
