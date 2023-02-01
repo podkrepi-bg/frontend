@@ -1,5 +1,14 @@
 import { useEffect, useState } from 'react'
-import { Box, Typography, Alert, ListItem, List, ListItemText, SxProps } from '@mui/material'
+import {
+  Box,
+  Typography,
+  Alert,
+  ListItem,
+  List,
+  ListItemText,
+  SxProps,
+  useMediaQuery,
+} from '@mui/material'
 import { useFormikContext } from 'formik'
 import { useSession } from 'next-auth/react'
 
@@ -36,6 +45,7 @@ export default function Authentication({
   }
 
   const [showMobileAlert, setShowMobileAlert] = useState(true)
+  const isSmall = useMediaQuery(theme.breakpoints.down('md'))
 
   const options = [
     {
@@ -44,7 +54,7 @@ export default function Authentication({
       disabled: Boolean(session?.user),
       content: (
         <Box>
-          {showMobileAlert ? (
+          {isSmall && showMobileAlert ? (
             <Alert
               onClose={() => {
                 setShowMobileAlert(false)
@@ -88,7 +98,7 @@ export default function Authentication({
       disabled: Boolean(session?.user),
       content: (
         <Box>
-          {showMobileAlert ? (
+          {isSmall && showMobileAlert ? (
             <Alert
               onClose={() => {
                 setShowMobileAlert(false)
@@ -132,7 +142,7 @@ export default function Authentication({
       disabled: Boolean(session?.user),
       content: (
         <Box>
-          <Alert color="info">
+          <Alert color="info" icon={false} sx={{ mb: 1 }}>
             Ако не се регистрирате, ще получите само разписка, без сертификат за дарение, който да
             използвате за данъчни облекчения.
           </Alert>

@@ -43,7 +43,7 @@ function PaymentSummaryAlert({
         <Stack direction={'row'} justifyContent="space-between">
           <StyledTypography>
             Трансакция
-            <Tooltip title="Таксите отнасящи се към трансакцията">
+            <Tooltip title="Начислената такса трансакция е единствено за покриване на паричния превод и се определя от метода на плащане. “Подкрепи.бг” работи с 0% комисионна.">
               <IconButton sx={{ padding: '5px', height: 30, width: 30 }}>
                 <Info sx={{ height: 20, width: 20 }} />
               </IconButton>

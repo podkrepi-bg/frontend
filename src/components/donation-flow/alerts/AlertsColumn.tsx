@@ -1,6 +1,6 @@
 import React from 'react'
 import { AlertProps, Box, List, ListItem, ListItemText, SxProps, Typography } from '@mui/material'
-import { useFormikContext } from 'formik'
+import { useField, useFormikContext } from 'formik'
 import { AnchoredAlert } from './AnchoredAlert'
 import {
   DonationFormDataAuthState,
@@ -29,6 +29,7 @@ function AlertsColumn({
     py: 0,
   }
 
+  const [{ value }] = useField('authentication')
   const alerts: { [key: string]: AlertProps } = {
     'select-payment-method': {
       color: 'info',
