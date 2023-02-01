@@ -142,7 +142,7 @@ export default function Authentication({
       disabled: Boolean(session?.user),
       content: (
         <Box>
-          <Alert color="info" icon={false} sx={{ mb: 1 }}>
+          <Alert color="info" icon={false} sx={{ mb: 1, mx: -2 }}>
             Ако не се регистрирате, ще получите само разписка, без сертификат за дарение, който да
             използвате за данъчни облекчения.
           </Alert>
