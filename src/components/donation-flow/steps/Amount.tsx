@@ -1,9 +1,7 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'next-i18next'
 import { useMediaQuery, Box, Collapse, Grid, InputAdornment, Typography } from '@mui/material'
 import { useField, useFormikContext } from 'formik'
-
-import { OneTimeDonation } from 'gql/donations'
 
 import theme from 'common/theme'
 import { useSinglePriceList } from 'common/hooks/donation'
@@ -11,11 +9,10 @@ import { moneyPublic, toMoney } from 'common/util/money'
 
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 import FormTextField from 'components/common/form/FormTextField'
-import { useUpdatePaymentIntent } from 'service/donation'
 
 import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../helpers/stripe-fee-calculator'
-import { DonationFlowContext } from '../DonationFlowContext'
-import { Currencies } from 'components/withdrawals/WithdrawalTypes'
+import { DonationFormDataV2 } from '../helpers/types'
+import { CardRegion } from 'gql/donations.enums'
 
 export default function Amount({
   sectionRef,
@@ -23,44 +20,34 @@ export default function Amount({
   sectionRef?: React.MutableRefObject<HTMLDivElement | null>
 }) {
   const { data: prices } = useSinglePriceList()
-  const { stripePaymentIntent } = useContext(DonationFlowContext)
-  const formik = useFormikContext<OneTimeDonation>()
+  const formik = useFormikContext<DonationFormDataV2>()
   const { t } = useTranslation('one-time-donation')
   const mobile = useMediaQuery('(max-width:600px)')
 
   const [amount] = useField('amount')
-  //stripePaymentIntent is always a string if this element is rendered
-  const updatePaymentIntentMutation = useUpdatePaymentIntent(stripePaymentIntent?.id as string)
-
-  useEffect(() => {
-    if (amount.value) {
-      updatePaymentIntentMutation.mutate({
-        amount: Number(amount.value),
-        currency: Currencies.BGN,
-      })
-    }
-  }, [amount.value])
 
   useEffect(() => {
     const chosenAmount =
-      amount.value === 'other' ? toMoney(formik.values.otherAmount) : Number(formik.values.amount)
+      amount.value === 'other'
+        ? toMoney(Number(formik.values.otherAmount))
+        : Number(formik.values.amountChosen)
 
     if (formik.values.cardIncludeFees) {
       formik.setFieldValue('amountWithoutFees', chosenAmount)
       formik.setFieldValue(
-        'amountWithFees',
-        stripeIncludeFeeCalculator(chosenAmount, formik.values.cardRegion),
+        'finalAmount',
+        stripeIncludeFeeCalculator(chosenAmount, formik.values.cardRegion as CardRegion),
       )
     } else {
       formik.setFieldValue(
         'amountWithoutFees',
-        chosenAmount - stripeFeeCalculator(chosenAmount, formik.values.cardRegion),
+        chosenAmount - stripeFeeCalculator(chosenAmount, formik.values.cardRegion as CardRegion),
       )
-      formik.setFieldValue('amountWithFees', chosenAmount)
+      formik.setFieldValue('finalAmount', chosenAmount)
     }
   }, [
     formik.values.otherAmount,
-    formik.values.amount,
+    formik.values.amountChosen,
     formik.values.cardIncludeFees,
     formik.values.cardRegion,
   ])
@@ -72,7 +59,7 @@ export default function Amount({
       </Typography>
       <Box>
         <RadioButtonGroup
-          name="amount"
+          name="amountChosen"
           options={
             prices
               ?.sort((a, b) => Number(a.unit_amount) - Number(b.unit_amount))

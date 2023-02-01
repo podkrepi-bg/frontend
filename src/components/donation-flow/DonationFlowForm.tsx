@@ -13,8 +13,7 @@ import {
   Unstable_Grid2 as Grid2,
 } from '@mui/material'
 
-import { AlertStore } from 'stores/AlertStore'
-import { useCreateStripePayment } from 'service/donation'
+import { useCreateStripePayment, useUpdatePaymentIntent } from 'service/donation'
 import { CardRegion } from 'gql/donations.enums'
 import SubmitButton from 'components/common/form/SubmitButton'
 
@@ -35,10 +34,10 @@ import { Info } from '@mui/icons-material'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
 const initialValues: DonationFormDataV2 = {
-  amount: '',
+  amountChosen: '',
   email: '',
   payment: null,
-  amountWithFees: 0,
+  finalAmount: 0,
   cardIncludeFees: false,
   cardRegion: CardRegion.EU,
   otherAmount: 0,
@@ -51,15 +50,31 @@ export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
   .object()
   .defined()
   .shape({
+    //General validation
     payment: yup
       .string()
       .oneOf(Object.values(DonationFormDataPaymentOption))
       .required() as yup.SchemaOf<DonationFormDataPaymentOption>,
-    amount: yup.string().when('payment', {
+    authentication: yup
+      .string()
+      .oneOf(Object.values(DonationFormDataAuthState))
+      .required() as yup.SchemaOf<DonationFormDataAuthState>,
+    isAnonymous: yup.boolean().required(),
+    email: yup
+      .string()
+      .email('one-time-donation:errors-fields.email')
+      .required()
+      .when('authentication', {
+        is: 'NOREGISTER',
+        then: yup.string().email('one-time-donation:errors-fields.email').required(),
+      }),
+    privacy: yup.bool().required().isTrue('one-time-donation:errors-fields.privacy'),
+    //Card payment related validation
+    amountChosen: yup.string().when('payment', {
       is: 'card',
       then: yup.string().required(),
     }),
-    amountWithFees: yup.number().when('payment', {
+    finalAmount: yup.number().when('payment', {
       is: 'card',
       then: () =>
         yup.number().min(1, 'one-time-donation:errors-fields.amount-with-fees').required(),
@@ -68,7 +83,10 @@ export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
       is: 'other',
       then: yup.number().min(1, 'one-time-donation:errors-fields.other-amount').required(),
     }),
-    cardIncludeFees: yup.boolean().required(),
+    cardIncludeFees: yup.boolean().when('payment', {
+      is: 'card',
+      then: yup.boolean().required(),
+    }),
     cardRegion: yup
       .string()
       .oneOf(Object.values(CardRegion))
@@ -76,19 +94,14 @@ export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
         is: 'card',
         then: yup.string().oneOf(Object.values(CardRegion)).required(),
       }) as yup.SchemaOf<CardRegion>,
-    authentication: yup
-      .string()
-      .oneOf(Object.values(DonationFormDataAuthState))
-      .required() as yup.SchemaOf<DonationFormDataAuthState>,
-    isAnonymous: yup.boolean().required(),
-    email: yup
-      .string()
-      .required()
-      .when('authentication', {
-        is: 'NOREGISTER',
-        then: yup.string().email('one-time-donation:errors-fields.email').required(),
-      }),
-    privacy: yup.bool().required().isTrue(),
+    loginEmail: yup.string().when('authentication', {
+      is: DonationFormDataAuthState.LOGIN,
+      then: yup.string().email('one-time-donation:errors-fields.email').required(),
+    }),
+    loginPassword: yup.string().when('authentication', {
+      is: DonationFormDataAuthState.LOGIN,
+      then: yup.string().required(),
+    }),
   })
 
 export function DonationFlowForm() {
@@ -97,6 +110,7 @@ export function DonationFlowForm() {
   const stripe = useStripe()
   const elements = useElements()
   const createStripePaymentMutation = useCreateStripePayment()
+  const updatePaymentIntentMutation = useUpdatePaymentIntent()
 
   const paymentMethodSectionRef = React.useRef<HTMLDivElement>(null)
   const authenticationSectionRef = React.useRef<HTMLDivElement>(null)
@@ -110,33 +124,47 @@ export function DonationFlowForm() {
       }}
       validationSchema={validationSchema}
       onSubmit={async (values) => {
-        if (!stripe || !elements || !stripePaymentIntent) {
+        if (!stripe || !elements) {
           // Stripe.js has not yet loaded.
           // Make sure to disable form submission until Stripe.js has loaded.
           throw new Error('Stripe.js has not yet loaded')
         }
-        await createStripePaymentMutation.mutateAsync({
-          isAnonymous: values.isAnonymous,
-          personEmail: session?.user?.email || values.email,
-          paymentIntentId: stripePaymentIntent?.id,
-          firstName: session?.user?.given_name || null,
-          lastName: session?.user?.family_name || null,
-          phone: null,
-        })
-        const { error } = await stripe.confirmPayment({
-          //`Elements` instance that was used to create the Payment Element
-          elements,
-          confirmParams: {
-            return_url: `${window.location.origin}/campaigns/donation-v2/${campaign.slug}`,
-          },
-        })
 
-        if (error) {
-          AlertStore.show(
-            error?.message || 'Unkown error. Please contact is through the support form',
-            'error',
-          )
+        if (!stripePaymentIntent) {
+          throw new Error('Stripe payment intent does not exist')
         }
+        console.log(values)
+        // await updatePaymentIntentMutation.mutateAsync({
+        //   id: stripePaymentIntent.id,
+        //   payload: {
+        //     amount: values.amountWithFees,
+        //     currency: campaign.currency,
+        //   },
+        // })
+
+        // await createStripePaymentMutation.mutateAsync({
+        //   isAnonymous: values.isAnonymous,
+        //   personEmail: session?.user?.email || values.email,
+        //   paymentIntentId: stripePaymentIntent?.id,
+        //   firstName: session?.user?.given_name || null,
+        //   lastName: session?.user?.family_name || null,
+        //   phone: null,
+        // })
+
+        // const { error } = await stripe.confirmPayment({
+        //   //`Elements` instance that was used to create the Payment Element
+        //   elements,
+        //   confirmParams: {
+        //     return_url: `${window.location.origin}/campaigns/donation-v2/${campaign.slug}`,
+        //   },
+        // })
+
+        // if (error) {
+        //   AlertStore.show(
+        //     error?.message || 'Unkown error. Please contact is through the support form',
+        //     'error',
+        //   )
+        // }
       }}
       validateOnMount
       validateOnBlur>
@@ -152,17 +180,17 @@ export function DonationFlowForm() {
               }}
               autoComplete="off">
               <Box mb={2}>
-                <StepSplitter content="1" active={Boolean(values.amount)} />
+                <StepSplitter content="1" active={Boolean(values.amountChosen)} />
                 <Amount />
                 <StepSplitter
                   content="2"
-                  active={Boolean(values.amount) && Boolean(values.payment)}
+                  active={Boolean(values.amountChosen) && Boolean(values.payment)}
                 />
                 <PaymentMethod sectionRef={paymentMethodSectionRef} />
                 <StepSplitter
                   content="3"
                   active={
-                    Boolean(values.amount) &&
+                    Boolean(values.amountChosen) &&
                     Boolean(values.payment) &&
                     Boolean(values.authentication)
                   }
@@ -194,7 +222,7 @@ export function DonationFlowForm() {
                 sectionsRefArray={[paymentMethodSectionRef, authenticationSectionRef]}
               />
               <PaymentSummaryAlert
-                donationAmount={Number(values.amount)}
+                donationAmount={Number(values.finalAmount)}
                 sx={{
                   flex: 1,
                 }}

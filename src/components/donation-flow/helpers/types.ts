@@ -17,10 +17,10 @@ export type DonationFormDataV2 = {
   authentication: DonationFormDataAuthState | null
   payment: DonationFormDataPaymentOption | null
   email: string
-  cardRegion: CardRegion
-  cardIncludeFees: boolean
   privacy: boolean
-  amount?: string
-  amountWithFees?: number
+  cardRegion?: CardRegion
+  cardIncludeFees?: boolean
+  finalAmount?: number
+  amountChosen?: string
   otherAmount?: number
 }

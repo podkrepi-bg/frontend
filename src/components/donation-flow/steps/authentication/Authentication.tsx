@@ -61,7 +61,7 @@ export default function Authentication({
               }}
               color="info"
               icon={false}
-              sx={{ mx: -2, sx: {} }}>
+              sx={{ mx: -2 }}>
               <Box>
                 <Typography>Избирайки да се впишете. ще можете да:</Typography>
                 <List
@@ -105,7 +105,7 @@ export default function Authentication({
               }}
               color="info"
               icon={false}
-              sx={{ mx: -2, sx: {} }}>
+              sx={{ mx: -2 }}>
               <Box>
                 <Typography>Избирайки да се впишете. ще можете да:</Typography>
                 <List
