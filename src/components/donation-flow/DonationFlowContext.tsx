@@ -22,7 +22,7 @@ type DonationContext = {
   stripePromise: Promise<StripeType | null>
 }
 
-export const DonationFlowContext = React.createContext({} as DonationContext)
+const DonationFlowContext = React.createContext({} as DonationContext)
 
 export const DonationFlowProvider = ({ children }: PropsWithChildren) => {
   //get the campaign with react-query and pass it to the context
@@ -43,4 +43,12 @@ export const DonationFlowProvider = ({ children }: PropsWithChildren) => {
     stripePromise,
   }
   return <DonationFlowContext.Provider value={value}>{children}</DonationFlowContext.Provider>
+}
+
+export function useDonationFlow() {
+  const context = React.useContext(DonationFlowContext)
+  if (context === undefined) {
+    throw new Error('useDonationFlow must be used within a DonationFlowProvider')
+  }
+  return context
 }

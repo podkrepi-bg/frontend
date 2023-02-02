@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Alert, Box, Typography, useMediaQuery } from '@mui/material'
 import { useField, useFormikContext } from 'formik'
 
@@ -12,7 +12,7 @@ import RadioAccordionGroup from '../../common/RadioAccordionGroup'
 import CardIcon from '../../icons/CardIcon'
 import BankIcon from '../../icons/BankIcon'
 import PaymentDetailsStripeForm from './PaymentDetailsStripeForm'
-import { DonationFlowContext } from '../../DonationFlowContext'
+import { useDonationFlow } from 'components/donation-flow/DonationFlowContext'
 
 export default function PaymentMethod({
   sectionRef,
@@ -20,7 +20,7 @@ export default function PaymentMethod({
   sectionRef: React.MutableRefObject<HTMLDivElement | null>
 }) {
   const formik = useFormikContext<OneTimeDonation>()
-  const DonationContext = useContext(DonationFlowContext)
+  const { stripePaymentIntent } = useDonationFlow()
   const isSmall = useMediaQuery(theme.breakpoints.down('md'))
   const [payment] = useField('payment')
   const options = [
@@ -52,7 +52,7 @@ export default function PaymentMethod({
       disabled: !formik.values.amount,
       content: (
         <>
-          {DonationContext.stripePaymentIntent ? (
+          {stripePaymentIntent ? (
             <Box>
               <Alert sx={{ mt: 1, mb: 2, mx: -2 }} color="info" icon={false}>
                 <Typography>
@@ -91,7 +91,7 @@ export default function PaymentMethod({
       ) : (
         <>
           <RadioCardGroup columns={2} name="payment" options={options} />
-          {payment.value === 'card' && DonationContext.stripePaymentIntent ? (
+          {payment.value === 'card' && stripePaymentIntent ? (
             <>
               <PaymentDetailsStripeForm containerProps={{ sx: { my: 3 } }} />
               <TaxesCheckbox />

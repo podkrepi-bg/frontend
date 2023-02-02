@@ -9,6 +9,7 @@ import {
 } from '../helpers/types'
 import { useElements } from '@stripe/react-stripe-js'
 
+//TODO: Should be replaced by translated content
 const cardAlertDescription = `Таксата на Stripe се изчислява според района на картодържателя: 1.2% + 0.5лв. за Европейската икономическа зона`
 const bankAlertDescription = `Таксата за транзакция при банков превод зависи от индивидуалните условия на Вашата банка. от (0-4лв)`
 
@@ -29,6 +30,7 @@ function AlertsColumn({
   const liSx: SxProps = {
     py: 0,
   }
+
   const [updatedRefArray, setUpdatedRefArray] =
     React.useState<React.MutableRefObject<HTMLDivElement | null>[]>(sectionsRefArray)
   const elements = useElements()

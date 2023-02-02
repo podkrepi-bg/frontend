@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useSession } from 'next-auth/react'
 import { useElements, useStripe } from '@stripe/react-stripe-js'
 import * as yup from 'yup'
@@ -26,7 +26,7 @@ import {
   initialRegisterFormValues,
   registerFormValidation,
 } from './steps/authentication/InlineRegisterForm'
-import { DonationFlowContext } from './DonationFlowContext'
+import { useDonationFlow } from './DonationFlowContext'
 import AlertsColumn from './alerts/AlertsColumn'
 import PaymentSummaryAlert from './alerts/PaymentSummaryAlert'
 import {
@@ -85,8 +85,7 @@ export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
 
 export function DonationFlowForm() {
   const { data: session } = useSession()
-  const { campaign, stripePaymentIntent, paymentError, setPaymentError } =
-    useContext(DonationFlowContext)
+  const { campaign, stripePaymentIntent, paymentError, setPaymentError } = useDonationFlow()
   const stripe = useStripe()
   const elements = useElements()
   const createStripePaymentMutation = useCreateStripePayment()
