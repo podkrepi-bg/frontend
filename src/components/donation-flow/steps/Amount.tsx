@@ -110,6 +110,8 @@ export default function Amount({
             item
             xs={12}
             sm={6}
+            //Since we can't put the otherAmount field in the same grid as the radio buttons
+            //if the amount of prices are not even and there is empty space to the right, we need to float it to the right
             style={
               !mobile && Number(prices?.length) % 2 === 0
                 ? {
