@@ -6,13 +6,14 @@ import { Form, Formik } from 'formik'
 import { PersistFormikValues } from 'formik-persist-values'
 import {
   Box,
+  Button,
   Hidden,
   IconButton,
   Tooltip,
   Typography,
   Unstable_Grid2 as Grid2,
 } from '@mui/material'
-import { Info } from '@mui/icons-material'
+import { ArrowBack, ArrowLeft, Info } from '@mui/icons-material'
 
 import { useCreateStripePayment, useUpdatePaymentIntent } from 'service/donation'
 import SubmitButton from 'components/common/form/SubmitButton'
@@ -36,6 +37,10 @@ import {
 } from './helpers/types'
 import CheckboxField from 'components/common/form/CheckboxField'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
+import BackButton from 'components/navigation/BackButton'
+import ConfirmationDialog from 'components/common/ConfirmationDialog'
+import { useRouter } from 'next/router'
+import { routes } from 'common/routes'
 
 const initialGeneralFormValues = {
   payment: null,
@@ -94,6 +99,8 @@ export function DonationFlowForm() {
   const paymentMethodSectionRef = React.useRef<HTMLDivElement>(null)
   const authenticationSectionRef = React.useRef<HTMLDivElement>(null)
 
+  const [showCancelDialog, setShowCancelDialog] = React.useState(false)
+  const router = useRouter()
   return (
     <Formik
       initialValues={{
@@ -169,6 +176,25 @@ export function DonationFlowForm() {
                 marginRight: 'auto',
               }}
               autoComplete="off">
+              <ConfirmationDialog
+                isOpen={showCancelDialog}
+                handleCancel={() => setShowCancelDialog(false)}
+                title="Наистина ли искате да откажете дарението?"
+                content="Така ще изгубите всички въведени данни."
+                confirmButtonLabel="Откажи дарението"
+                cancelButtonLabel="Продължи дарението"
+                handleConfirm={() => {
+                  router.push(routes.campaigns.viewCampaignBySlug(campaign.slug))
+                }}
+              />
+              <Button
+                size="large"
+                variant="outlined"
+                onClick={() => {
+                  setShowCancelDialog(true)
+                }}>
+                <ArrowBack sx={{ mr: 2 }} /> Назад
+              </Button>
               <Box mb={2}>
                 <StepSplitter content="1" active={Boolean(values.amountChosen)} />
                 <Amount />
