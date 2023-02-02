@@ -1,14 +1,5 @@
 import { useEffect, useState } from 'react'
-import {
-  Box,
-  Typography,
-  Alert,
-  ListItem,
-  List,
-  ListItemText,
-  SxProps,
-  useMediaQuery,
-} from '@mui/material'
+import { Box, Typography, Alert, useMediaQuery } from '@mui/material'
 import { useFormikContext } from 'formik'
 import { useSession } from 'next-auth/react'
 
@@ -22,6 +13,7 @@ import EmailField from 'components/common/form/EmailField'
 import RadioAccordionGroup from '../../common/RadioAccordionGroup'
 import InlineLoginForm from './InlineLoginForm'
 import InlineRegisterForm from './InlineRegisterForm'
+import { AuthenticateAlertContent } from 'components/donation-flow/alerts/AlertsContent'
 
 export default function Authentication({
   sectionRef,
@@ -40,11 +32,9 @@ export default function Authentication({
     }
   }, [session?.user])
 
-  const liSx: SxProps = {
-    py: 0,
-  }
+  const [showAuthAlert, setShowAuthAlert] = useState(true)
+  const [showNoRegisterAlert, setShowNoRegisterAlert] = useState(true)
 
-  const [showMobileAlert, setShowMobileAlert] = useState(true)
   const isSmall = useMediaQuery(theme.breakpoints.down('md'))
 
   const options = [
@@ -54,38 +44,15 @@ export default function Authentication({
       disabled: Boolean(session?.user),
       content: (
         <Box>
-          {isSmall && showMobileAlert ? (
+          {isSmall && showAuthAlert ? (
             <Alert
               onClose={() => {
-                setShowMobileAlert(false)
+                setShowAuthAlert(false)
               }}
               color="info"
               icon={false}
               sx={{ mx: -2 }}>
-              <Box>
-                <Typography>Избирайки да се впишете. ще можете да:</Typography>
-                <List
-                  sx={{
-                    listStyleType: 'disc',
-                    pl: 2,
-                    '& .MuiListItem-root': {
-                      display: 'list-item',
-                    },
-                  }}>
-                  <ListItem sx={liSx}>
-                    <ListItemText primary="създадете акаунт като физическо или юридическо лице" />
-                  </ListItem>
-                  <ListItem sx={liSx}>
-                    <ListItemText primary="получите сертификат за дарение" />
-                  </ListItem>
-                  <ListItem sx={liSx}>
-                    <ListItemText primary="правите месечни дарения по избрана кампания" />
-                  </ListItem>
-                  <ListItem sx={liSx}>
-                    <ListItemText primary="получавате и известия за статуса на подкрепени вече кампании" />
-                  </ListItem>
-                </List>
-              </Box>
+              <AuthenticateAlertContent />
             </Alert>
           ) : null}
           <InlineLoginForm />
@@ -98,38 +65,15 @@ export default function Authentication({
       disabled: Boolean(session?.user),
       content: (
         <Box>
-          {isSmall && showMobileAlert ? (
+          {isSmall && showAuthAlert ? (
             <Alert
               onClose={() => {
-                setShowMobileAlert(false)
+                setShowAuthAlert(false)
               }}
               color="info"
               icon={false}
               sx={{ mx: -2 }}>
-              <Box>
-                <Typography>Избирайки да се впишете. ще можете да:</Typography>
-                <List
-                  sx={{
-                    listStyleType: 'disc',
-                    pl: 2,
-                    '& .MuiListItem-root': {
-                      display: 'list-item',
-                    },
-                  }}>
-                  <ListItem sx={liSx}>
-                    <ListItemText primary="създадете акаунт като физическо или юридическо лице" />
-                  </ListItem>
-                  <ListItem sx={liSx}>
-                    <ListItemText primary="получите сертификат за дарение" />
-                  </ListItem>
-                  <ListItem sx={liSx}>
-                    <ListItemText primary="правите месечни дарения по избрана кампания" />
-                  </ListItem>
-                  <ListItem sx={liSx}>
-                    <ListItemText primary="получавате и известия за статуса на подкрепени вече кампании" />
-                  </ListItem>
-                </List>
-              </Box>
+              <AuthenticateAlertContent />
             </Alert>
           ) : null}
           <InlineRegisterForm />
@@ -142,10 +86,18 @@ export default function Authentication({
       disabled: Boolean(session?.user),
       content: (
         <Box>
-          <Alert color="info" icon={false} sx={{ mb: 1, mx: -2 }}>
-            Ако не се регистрирате, ще получите само разписка, без сертификат за дарение, който да
-            използвате за данъчни облекчения.
-          </Alert>
+          {showNoRegisterAlert && (
+            <Alert
+              onClose={() => {
+                setShowNoRegisterAlert(false)
+              }}
+              color="info"
+              icon={false}
+              sx={{ mb: 1, mx: -2 }}>
+              Ако не се регистрирате, ще получите само разписка, без сертификат за дарение, който да
+              използвате за данъчни облекчения.
+            </Alert>
+          )}
           <EmailField label="Email" name="email" sx={{ mb: 1 }} />
         </Box>
       ),

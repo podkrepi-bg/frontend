@@ -85,7 +85,7 @@ export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
 
 export function DonationFlowForm() {
   const { data: session } = useSession()
-  const { campaign, stripePaymentIntent, paymentError, setPaymentError } = useDonationFlow()
+  const { campaign, stripePaymentIntent, setPaymentError } = useDonationFlow()
   const stripe = useStripe()
   const elements = useElements()
   const createStripePaymentMutation = useCreateStripePayment()

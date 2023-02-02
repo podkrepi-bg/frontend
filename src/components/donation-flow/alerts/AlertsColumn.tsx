@@ -1,5 +1,5 @@
 import React from 'react'
-import { AlertProps, Box, List, ListItem, ListItemText, SxProps, Typography } from '@mui/material'
+import { AlertProps, Typography } from '@mui/material'
 import { useFormikContext } from 'formik'
 import { AnchoredAlert } from './AnchoredAlert'
 import {
@@ -8,6 +8,7 @@ import {
   DonationFormDataV2,
 } from '../helpers/types'
 import { useElements } from '@stripe/react-stripe-js'
+import { AuthenticateAlertContent } from './AlertsContent'
 
 //TODO: Should be replaced by translated content
 const cardAlertDescription = `Таксата на Stripe се изчислява според района на картодържателя: 1.2% + 0.5лв. за Европейската икономическа зона`
@@ -27,10 +28,6 @@ function AlertsColumn({
     values: { payment, authentication },
   } = useFormikContext<DonationFormDataV2>()
 
-  const liSx: SxProps = {
-    py: 0,
-  }
-
   const [updatedRefArray, setUpdatedRefArray] =
     React.useState<React.MutableRefObject<HTMLDivElement | null>[]>(sectionsRefArray)
   const elements = useElements()
@@ -49,32 +46,7 @@ function AlertsColumn({
     },
     'select-authentication': {
       color: 'info',
-      children: (
-        <Box>
-          <Typography>Избирайки да се впишете. ще можете да:</Typography>
-          <List
-            sx={{
-              listStyleType: 'disc',
-              pl: 2,
-              '& .MuiListItem-root': {
-                display: 'list-item',
-              },
-            }}>
-            <ListItem sx={liSx}>
-              <ListItemText primary="създадете акаунт като физическо или юридическо лице" />
-            </ListItem>
-            <ListItem sx={liSx}>
-              <ListItemText primary="получите сертификат за дарение" />
-            </ListItem>
-            <ListItem sx={liSx}>
-              <ListItemText primary="правите месечни дарения по избрана кампания" />
-            </ListItem>
-            <ListItem sx={liSx}>
-              <ListItemText primary="получавате и известия за статуса на подкрепени вече кампании" />
-            </ListItem>
-          </List>
-        </Box>
-      ),
+      children: <AuthenticateAlertContent />,
       icon: false,
       sx: {
         display:
