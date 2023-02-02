@@ -201,7 +201,8 @@ export function DonationFlowForm() {
                 }
                 name="isAnonymous"
               />
-              {JSON.stringify(paymentError)}
+              {/* TODO: Handle the possible API and Stripe Errors */}
+              {/* {JSON.stringify(paymentError)} */}
               <AcceptPrivacyPolicyField name="privacy" />
               <SubmitButton label="Donate" fullWidth />
               <PersistFormikValues debounce={3000} storage="sessionStorage" name="donation-form" />
