@@ -1,89 +1,100 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import * as yup from 'yup'
 import { useTranslation } from 'next-i18next'
 import { useMediaQuery, Box, Collapse, Grid, InputAdornment, Typography } from '@mui/material'
-import { styled } from '@mui/material/styles'
 import { useField, useFormikContext } from 'formik'
 
-import { OneTimeDonation } from 'gql/donations'
-
+import { CardRegion } from 'gql/donations.enums'
 import theme from 'common/theme'
 import { useSinglePriceList } from 'common/hooks/donation'
 import { moneyPublic, toMoney } from 'common/util/money'
 
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 import FormTextField from 'components/common/form/FormTextField'
-import CheckboxField from 'components/common/form/CheckboxField'
-import { useUpdatePaymentIntent } from 'service/donation'
 
 import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../helpers/stripe-fee-calculator'
-import { DonationFlowContext } from '../DonationFlowContext'
-import { Currencies } from 'components/withdrawals/WithdrawalTypes'
+import { DonationFormDataV2 } from '../helpers/types'
 
-const PREFIX = 'AMOUNT'
-
-const classes = {
-  divider: `${PREFIX}-divider`,
+export const initialAmountFormValues = {
+  amountChosen: '',
+  finalAmount: 0,
+  otherAmount: 0,
+  cardIncludeFees: false,
+  cardRegion: CardRegion.EU,
 }
 
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')(() => ({
-  [`& .${classes.divider}`]: {
-    border: '1px solid #000000',
-  },
-}))
+export const amountValidation = {
+  amountChosen: yup.string().when('payment', {
+    is: 'card',
+    then: yup.string().required(),
+  }),
+  finalAmount: yup.number().when('payment', {
+    is: 'card',
+    then: () => yup.number().min(1, 'one-time-donation:errors-fields.amount-with-fees').required(),
+  }),
+  otherAmount: yup.number().when('amountChosen', {
+    is: 'other',
+    then: yup.number().min(1, 'one-time-donation:errors-fields.other-amount').required(),
+  }),
+  cardIncludeFees: yup.boolean().when('payment', {
+    is: 'card',
+    then: yup.boolean().required(),
+  }),
+  cardRegion: yup
+    .string()
+    .oneOf(Object.values(CardRegion))
+    .when('payment', {
+      is: 'card',
+      then: yup.string().oneOf(Object.values(CardRegion)).required(),
+    }) as yup.SchemaOf<CardRegion>,
+}
 
-export default function Amount() {
+export default function Amount({
+  sectionRef,
+}: {
+  sectionRef?: React.MutableRefObject<HTMLDivElement | null>
+}) {
   const { data: prices } = useSinglePriceList()
-  const { stripePaymentIntent } = useContext(DonationFlowContext)
-  const formik = useFormikContext<OneTimeDonation>()
+  const formik = useFormikContext<DonationFormDataV2>()
   const { t } = useTranslation('one-time-donation')
   const mobile = useMediaQuery('(max-width:600px)')
 
-  const [amount] = useField('amount')
-  //stripePaymentIntent is always a string if this element is rendered
-  const updatePaymentIntentMutation = useUpdatePaymentIntent(stripePaymentIntent?.id as string)
+  const [{ value }] = useField('amountChosen')
 
   useEffect(() => {
-    if (amount.value) {
-      updatePaymentIntentMutation.mutate({
-        amount: Number(amount.value),
-        currency: Currencies.BGN,
-      })
-    }
-  }, [amount.value])
-
-  useEffect(() => {
-    const chosenAmount =
-      amount.value === 'other' ? toMoney(formik.values.otherAmount) : Number(formik.values.amount)
+    const amountChosen =
+      value === 'other'
+        ? toMoney(Number(formik.values.otherAmount))
+        : Number(formik.values.amountChosen)
 
     if (formik.values.cardIncludeFees) {
-      formik.setFieldValue('amountWithoutFees', chosenAmount)
+      formik.setFieldValue('amountWithoutFees', amountChosen)
       formik.setFieldValue(
-        'amountWithFees',
-        stripeIncludeFeeCalculator(chosenAmount, formik.values.cardRegion),
+        'finalAmount',
+        stripeIncludeFeeCalculator(amountChosen, formik.values.cardRegion as CardRegion),
       )
     } else {
       formik.setFieldValue(
         'amountWithoutFees',
-        chosenAmount - stripeFeeCalculator(chosenAmount, formik.values.cardRegion),
+        amountChosen - stripeFeeCalculator(amountChosen, formik.values.cardRegion as CardRegion),
       )
-      formik.setFieldValue('amountWithFees', chosenAmount)
+      formik.setFieldValue('finalAmount', amountChosen)
     }
   }, [
     formik.values.otherAmount,
-    formik.values.amount,
+    formik.values.amountChosen,
     formik.values.cardIncludeFees,
     formik.values.cardRegion,
   ])
 
   return (
-    <Root>
+    <Box ref={sectionRef} component="section" id="select-amount">
       <Typography variant="h5" my={3}>
         {t('first-step.amount')}
       </Typography>
       <Box>
         <RadioButtonGroup
-          name="amount"
+          name="amountChosen"
           options={
             prices
               ?.sort((a, b) => Number(a.unit_amount) - Number(b.unit_amount))
@@ -94,19 +105,21 @@ export default function Amount() {
               .concat({ label: t('first-step.other'), value: 'other' }) || []
           }
         />
-        <Collapse unmountOnExit in={amount.value === 'other'} timeout="auto">
+        <Collapse unmountOnExit in={value === 'other'} timeout="auto">
           <Grid
             item
             xs={12}
             sm={6}
+            //Since we can't put the otherAmount field in the same grid as the radio buttons
+            //if the amount of prices are not even and there is empty space to the right, we need to float it to the right
             style={
-              !mobile
+              !mobile && Number(prices?.length) % 2 === 0
                 ? {
                     float: 'right',
                     marginTop: -50,
                     width: '49%',
                   }
-                : { marginTop: theme.spacing(2) }
+                : { marginTop: theme.spacing(2), width: mobile ? '100%' : '49%' }
             }>
             <FormTextField
               name="otherAmount"
@@ -123,7 +136,9 @@ export default function Amount() {
             />
           </Grid>
         </Collapse>
-        {amount.value ? (
+        {/* TODO: Recurring donation should be added in the future */}
+        {/* Take a look at https://github.com/podkrepi-bg/frontend/issues/1308 */}
+        {/* {amount.value ? (
           <Box sx={{ mt: 4 }}>
             <Typography variant="h5" sx={{ marginTop: theme.spacing(3) }}>
               <CheckboxField
@@ -134,8 +149,8 @@ export default function Amount() {
               />
             </Typography>
           </Box>
-        ) : null}
+        ) : null} */}
       </Box>
-    </Root>
+    </Box>
   )
 }

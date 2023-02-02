@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Button, CircularProgress, Grid } from '@mui/material'
 import { useFormikContext } from 'formik'
+import * as yup from 'yup'
 import { signIn } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
 
@@ -11,23 +12,68 @@ import FormTextField from 'components/common/form/FormTextField'
 import PasswordField from 'components/common/form/PasswordField'
 import EmailField from 'components/common/form/EmailField'
 import { RegisterFormData } from 'components/auth/register/RegisterForm'
-import { OneTimeDonation } from 'gql/donations'
-import { DonationFormDataAuthState } from '../../DonationFlowForm'
+import {
+  DonationFormDataAuthState,
+  DonationFormDataV2,
+} from 'components/donation-flow/helpers/types'
+import AcceptTermsField from 'components/common/form/AcceptTermsField'
+import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
+
+export const initialRegisterFormValues = {
+  registerEmail: '',
+  registerPassword: '',
+  registerConfirmPassword: '',
+  registerFirstName: '',
+  registerLastName: '',
+  registerGdpr: false,
+  registerTerms: false,
+}
+
+export const registerFormValidation = {
+  registerEmail: yup.string().when('authentication', {
+    is: DonationFormDataAuthState.REGISTER,
+    then: yup.string().email('one-time-donation:errors-fields.email').required(),
+  }),
+  registerPassword: yup.string().when('authentication', {
+    is: DonationFormDataAuthState.REGISTER,
+    then: yup.string().required(),
+  }),
+  registerConfirmPassword: yup.string().when('authentication', {
+    is: DonationFormDataAuthState.REGISTER,
+    then: yup.string().required(),
+  }),
+  registerFirstName: yup.string().when('authentication', {
+    is: DonationFormDataAuthState.REGISTER,
+    then: yup.string().required(),
+  }),
+  registerLastName: yup.string().when('authentication', {
+    is: DonationFormDataAuthState.REGISTER,
+    then: yup.string().required(),
+  }),
+  registerGdpr: yup.boolean().when('authentication', {
+    is: DonationFormDataAuthState.REGISTER,
+    then: yup.boolean().required(),
+  }),
+  registerTerms: yup.boolean().when('authentication', {
+    is: DonationFormDataAuthState.REGISTER,
+    then: yup.boolean().required(),
+  }),
+}
 
 export default function InlineRegisterForm() {
   const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
   const { mutateAsync: register } = useRegister()
-  const formik = useFormikContext<OneTimeDonation>()
+  const formik = useFormikContext<DonationFormDataV2>()
 
   const values: RegisterFormData = {
     firstName: formik.values.registerFirstName as string,
     lastName: formik.values.registerLastName as string,
     email: formik.values.registerEmail as string,
     password: formik.values.registerPassword as string,
-    confirmPassword: formik.values.confirmPassword as string,
-    terms: formik.values.terms as boolean,
-    gdpr: formik.values.gdpr as boolean,
+    confirmPassword: formik.values.registerConfirmPassword as string,
+    terms: formik.values.registerTerms as boolean,
+    gdpr: formik.values.registerGdpr as boolean,
   }
 
   const onClick = async () => {
@@ -90,6 +136,11 @@ export default function InlineRegisterForm() {
             autoComplete="new-password"
           />
         </Grid>
+        <Grid item xs={12}>
+          <AcceptTermsField name="registerTerms" />
+          <AcceptPrivacyPolicyField name="registerGdpr" />
+        </Grid>
+
         <Grid item xs={12}>
           <Button
             size="large"

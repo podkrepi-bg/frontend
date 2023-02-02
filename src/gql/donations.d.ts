@@ -35,6 +35,11 @@ export type StripePaymentInput = {
   isAnonymous: boolean
 }
 
+export type UpdatePaymentIntentInput = {
+  id: string
+  payload: Stripe.PaymentIntentUpdateParams
+}
+
 export type DonationResponse = {
   id: UUID
   type: DonationType

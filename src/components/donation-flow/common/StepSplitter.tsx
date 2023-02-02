@@ -1,12 +1,11 @@
 import React from 'react'
 import { Avatar, Box, Typography } from '@mui/material'
-import { styled } from '@mui/styles'
 import { grey } from '@mui/material/colors'
 
 import theme from 'common/theme'
 
 type StepSplitterProps = {
-  content: string
+  content?: string
   active?: boolean
 }
 
@@ -18,15 +17,17 @@ function StepSplitter({ content, active }: StepSplitterProps) {
   return (
     <Box justifyContent="center" alignItems="center" display="flex" marginY={theme.spacing(3)}>
       <Line />
-      <Avatar
-        sx={{
-          bgcolor: active ? theme.palette.primary.main : grey[400],
-          width: 22,
-          height: 22,
-          marginX: theme.spacing(2),
-        }}>
-        <Typography fontSize={theme.typography.fontSize}>{content}</Typography>
-      </Avatar>
+      {content ? (
+        <Avatar
+          sx={{
+            bgcolor: active ? theme.palette.primary.main : grey[400],
+            width: 22,
+            height: 22,
+            marginX: theme.spacing(2),
+          }}>
+          <Typography fontSize={theme.typography.fontSize}>{content}</Typography>
+        </Avatar>
+      ) : null}
       <Line />
     </Box>
   )

@@ -10,7 +10,7 @@ import FormSelectField from 'components/common/form/FormSelectField'
 
 export const TaxesCheckbox = () => {
   const { t } = useTranslation('one-time-donation')
-  const [amountWithFees] = useField('amountWithFees')
+  const [amountWithFees] = useField('finalAmount')
   const [amountWithoutFees] = useField<number>('amountWithoutFees')
   return (
     <>

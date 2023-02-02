@@ -1,4 +1,4 @@
-import { PropsWithChildren, useContext, useEffect } from 'react'
+import React, { PropsWithChildren, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Appearance } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
@@ -7,7 +7,7 @@ import theme from 'common/theme'
 import { useCreatePaymentIntent } from 'service/donation'
 import CenteredSpinner from 'components/common/CenteredSpinner'
 
-import { DonationFlowContext } from './DonationFlowContext'
+import { useDonationFlow } from './DonationFlowContext'
 
 const appearance: Appearance = {
   theme: 'stripe',
@@ -41,7 +41,8 @@ const appearance: Appearance = {
 
 export function StripeElementsProvider({ children }: PropsWithChildren) {
   const { i18n } = useTranslation()
-  const { stripePromise, setStripePaymentIntent, campaign } = useContext(DonationFlowContext)
+
+  const { stripePromise, setStripePaymentIntent, campaign } = useDonationFlow()
 
   //Initial amount is arbitarary, it will be updated when the user selects an amount
   const createPaymentIntentMutation = useCreatePaymentIntent()

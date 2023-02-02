@@ -1,4 +1,5 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
+import * as yup from 'yup'
 import { useTranslation } from 'next-i18next'
 import { signIn } from 'next-auth/react'
 import { useFormikContext } from 'formik'
@@ -8,15 +9,33 @@ import theme from 'common/theme'
 import Google from 'common/icons/Google'
 import PasswordField from 'components/common/form/PasswordField'
 import EmailField from 'components/common/form/EmailField'
-import { OneTimeDonation } from 'gql/donations'
+import { useDonationFlow } from 'components/donation-flow/DonationFlowContext'
+import {
+  DonationFormDataAuthState,
+  DonationFormDataV2,
+} from 'components/donation-flow/helpers/types'
 import { AlertStore } from 'stores/AlertStore'
-import { DonationFlowContext } from '../../DonationFlowContext'
 
+export const initialLoginFormValues = {
+  loginEmail: '',
+  loginPassword: '',
+}
+
+export const loginValidation = {
+  loginEmail: yup.string().when('authentication', {
+    is: DonationFormDataAuthState.LOGIN,
+    then: yup.string().email('one-time-donation:errors-fields.email').required(),
+  }),
+  loginPassword: yup.string().when('authentication', {
+    is: DonationFormDataAuthState.LOGIN,
+    then: yup.string().required(),
+  }),
+}
 function InlineLoginForm() {
   const { t } = useTranslation('one-time-donation')
   const [loading, setLoading] = useState(false)
-  const { values, setFieldValue } = useFormikContext<OneTimeDonation>()
-  const { campaign } = useContext(DonationFlowContext)
+  const { values, setFieldValue } = useFormikContext<DonationFormDataV2>()
+  const { campaign } = useDonationFlow()
   const onGoogleLogin = () => {
     signIn('google', { callbackUrl: `campaigns/donation-v2/${campaign?.slug}` })
   }
