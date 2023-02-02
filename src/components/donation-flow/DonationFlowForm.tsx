@@ -178,14 +178,12 @@ export function DonationFlowForm() {
               autoComplete="off">
               <ConfirmationDialog
                 isOpen={showCancelDialog}
-                handleCancel={() => setShowCancelDialog(false)}
+                handleCancel={() => router.push(routes.campaigns.viewCampaignBySlug(campaign.slug))}
                 title="Наистина ли искате да откажете дарението?"
                 content="Така ще изгубите всички въведени данни."
-                confirmButtonLabel="Откажи дарението"
-                cancelButtonLabel="Продължи дарението"
-                handleConfirm={() => {
-                  router.push(routes.campaigns.viewCampaignBySlug(campaign.slug))
-                }}
+                confirmButtonLabel="Продължи дарението"
+                cancelButtonLabel="Откажи дарението"
+                handleConfirm={() => setShowCancelDialog(false)}
               />
               <Button
                 size="large"
