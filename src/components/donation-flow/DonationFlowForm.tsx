@@ -204,6 +204,16 @@ export function DonationFlowForm() {
               {/* TODO: Handle the possible API and Stripe Errors */}
               {/* {JSON.stringify(paymentError)} */}
               <AcceptPrivacyPolicyField name="privacy" />
+              <Hidden mdUp>
+                <PaymentSummaryAlert
+                  donationAmount={Number(values.finalAmount)}
+                  sx={{
+                    flex: 1,
+                    my: 2,
+                  }}
+                />
+              </Hidden>
+
               <SubmitButton label="Donate" fullWidth />
               <PersistFormikValues debounce={3000} storage="sessionStorage" name="donation-form" />
             </Form>
