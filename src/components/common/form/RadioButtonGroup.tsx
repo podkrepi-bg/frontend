@@ -21,6 +21,7 @@ export type RadioButtonGroupOptions = {
 export type RadioButtonGroup = {
   name: string
   options: RadioButtonGroupOptions[]
+  disabled?: boolean
   columns?: number
   muiRadioGroupProps?: Partial<RadioGroupProps>
   /**
@@ -37,6 +38,7 @@ export type RadioButtonGroup = {
 export default function RadioButtonGroup({
   name,
   options,
+  disabled,
   columns = 2,
   muiRadioGroupProps,
   muiRadioButtonGridProps,
@@ -47,6 +49,7 @@ export default function RadioButtonGroup({
   return (
     <FormControl
       fullWidth
+      disabled={disabled}
       required
       component="fieldset"
       error={Boolean(meta.error) && Boolean(meta.touched)}>
@@ -65,6 +68,7 @@ export default function RadioButtonGroup({
                   !hidden && (
                     <Grid key={index} item xs={12} sm={12 / columns} {...muiRadioButtonGridProps}>
                       <PriceRadioButton
+                        disabled={disabled}
                         value={optionValue}
                         checked={optionValue == field.value}
                         label={optionLabel}

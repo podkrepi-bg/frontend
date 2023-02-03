@@ -50,8 +50,10 @@ export const amountValidation = {
 }
 
 export default function Amount({
+  disabled,
   sectionRef,
 }: {
+  disabled?: boolean
   sectionRef?: React.MutableRefObject<HTMLDivElement | null>
 }) {
   const { data: prices } = useSinglePriceList()
@@ -94,6 +96,7 @@ export default function Amount({
       </Typography>
       <Box>
         <RadioButtonGroup
+          disabled={disabled}
           name="amountChosen"
           options={
             prices

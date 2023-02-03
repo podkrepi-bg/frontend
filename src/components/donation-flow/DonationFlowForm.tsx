@@ -198,7 +198,7 @@ export function DonationFlowForm() {
               </Button>
               <Box mb={2}>
                 <StepSplitter content="1" active={Boolean(values.amountChosen)} />
-                <Amount />
+                <Amount disabled={values.payment === DonationFormDataPaymentOption.BANK} />
                 <StepSplitter
                   content="2"
                   active={Boolean(values.amountChosen) && Boolean(values.payment)}
