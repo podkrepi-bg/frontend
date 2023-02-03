@@ -2,15 +2,15 @@ import { GetServerSideProps, GetServerSidePropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { QueryClient, dehydrate } from '@tanstack/react-query'
 import Stripe from 'stripe'
+import { AxiosResponse } from 'axios'
 
+import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
 import { queryFnFactory } from 'service/restRequests'
 import { CampaignResponse } from 'gql/campaigns'
 
 import { Currencies } from 'components/withdrawals/WithdrawalTypes'
 import DonationFlowPage from 'components/donation-flow/DonationFlowPage'
-import { apiClient } from 'service/apiClient'
-import { AxiosResponse } from 'axios'
 
 export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { slug } = ctx.query

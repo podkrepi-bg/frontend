@@ -1,11 +1,9 @@
-import React, { PropsWithChildren, useEffect } from 'react'
+import React, { PropsWithChildren } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Appearance } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 
 import theme from 'common/theme'
-import { useCreatePaymentIntent } from 'service/donation'
-import CenteredSpinner from 'components/common/CenteredSpinner'
 
 import { useDonationFlow } from './DonationFlowContext'
 
