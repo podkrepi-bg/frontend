@@ -90,7 +90,7 @@ function BankPayment() {
       </Grid2>
 
       <Typography>{t('third-step.message-warning')}</Typography>
-      <Alert sx={{ mt: 2, mx: mobile && -2 }} severity="error">
+      <Alert sx={{ mt: 2, mx: mobile ? -2 : 0 }} severity="error">
         <AlertTitle>ВАЖНО!</AlertTitle>
         Моля попълнете следващата стъпка свързана с аутентикацията, за да се свържем с Вас, ако има
         проблем.
