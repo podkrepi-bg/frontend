@@ -43,7 +43,15 @@ function NotificationSnackBar({
       open={open && !!notificationStack?.getNotifications.length}
       onClose={handleSnackBarClose}>
       <SnackbarContent
-        message={<DonationNotificationLayout data={notificationStack?.notifications?.[0]} />}
+        message={
+          <DonationNotificationLayout
+            data={
+              notificationStack?.getNotifications.length
+                ? notificationStack?.notifications?.[0]
+                : undefined
+            }
+          />
+        }
         {...notificationStack?.snackbarContentProps}
       />
     </Snackbar>
