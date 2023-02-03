@@ -3,7 +3,7 @@ import { Alert, Box, Collapse, Typography, useMediaQuery } from '@mui/material'
 import { useField } from 'formik'
 
 import theme from 'common/theme'
-import { DonationFormDataPaymentOption } from 'components/donation-flow/helpers/types'
+import { DonationFormPaymentMethod } from 'components/donation-flow/helpers/types'
 
 import { TaxesCheckbox } from './TaxesCheckbox'
 import RadioCardGroup from '../../common/RadioCardGroup'
@@ -36,8 +36,8 @@ export default function PaymentMethod({
   const bankAlertDescription = `Таксата за транзакция при банков превод зависи от индивидуалните условия на Вашата банка. от (0-4лв)`
 
   const paymentMethodAlertMap = {
-    [DonationFormDataPaymentOption.CARD]: cardAlertDescription,
-    [DonationFormDataPaymentOption.BANK]: bankAlertDescription,
+    [DonationFormPaymentMethod.CARD]: cardAlertDescription,
+    [DonationFormPaymentMethod.BANK]: bankAlertDescription,
   }
 
   const mobileOptions = [
@@ -49,7 +49,7 @@ export default function PaymentMethod({
         <Box>
           <Alert sx={{ mt: 1, mb: 2, mx: -2 }} color="info" icon={false}>
             <Typography>
-              {paymentMethodAlertMap[payment.value as DonationFormDataPaymentOption]}
+              {paymentMethodAlertMap[payment.value as DonationFormPaymentMethod]}
             </Typography>
           </Alert>
           <PaymentDetailsStripeForm />
@@ -64,7 +64,7 @@ export default function PaymentMethod({
         <Box>
           <Alert sx={{ my: 2, mx: -2 }} color="info" icon={false}>
             <Typography>
-              {paymentMethodAlertMap[payment.value as DonationFormDataPaymentOption]}
+              {paymentMethodAlertMap[payment.value as DonationFormPaymentMethod]}
             </Typography>
           </Alert>
           <BankPayment />
@@ -82,11 +82,11 @@ export default function PaymentMethod({
       ) : (
         <>
           <RadioCardGroup columns={2} name="payment" options={options} />
-          <Collapse in={payment.value === DonationFormDataPaymentOption.CARD}>
+          <Collapse in={payment.value === DonationFormPaymentMethod.CARD}>
             <PaymentDetailsStripeForm containerProps={{ sx: { my: 3 } }} />
             <TaxesCheckbox />
           </Collapse>
-          <Collapse in={payment.value === DonationFormDataPaymentOption.BANK}>
+          <Collapse in={payment.value === DonationFormPaymentMethod.BANK}>
             <BankPayment />
           </Collapse>
         </>

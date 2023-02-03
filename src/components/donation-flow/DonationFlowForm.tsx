@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { useElements, useStripe } from '@stripe/react-stripe-js'
 import * as yup from 'yup'
@@ -16,6 +17,10 @@ import {
 import { ArrowBack, Info } from '@mui/icons-material'
 
 import { useCreateStripePayment, useUpdatePaymentIntent } from 'service/donation'
+import { routes } from 'common/routes'
+import CheckboxField from 'components/common/form/CheckboxField'
+import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
+import ConfirmationDialog from 'components/common/ConfirmationDialog'
 import SubmitButton from 'components/common/form/SubmitButton'
 
 import StepSplitter from './common/StepSplitter'
@@ -31,15 +36,10 @@ import { useDonationFlow } from './DonationFlowContext'
 import AlertsColumn from './alerts/AlertsColumn'
 import PaymentSummaryAlert from './alerts/PaymentSummaryAlert'
 import {
-  DonationFormDataAuthState,
-  DonationFormDataPaymentOption,
+  DonationFormAuthState,
+  DonationFormPaymentMethod,
   DonationFormDataV2,
 } from './helpers/types'
-import CheckboxField from 'components/common/form/CheckboxField'
-import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
-import ConfirmationDialog from 'components/common/ConfirmationDialog'
-import { useRouter } from 'next/router'
-import { routes } from 'common/routes'
 
 const initialGeneralFormValues = {
   payment: null,
@@ -52,12 +52,12 @@ const initialGeneralFormValues = {
 const generalValidation = {
   payment: yup
     .string()
-    .oneOf(Object.values(DonationFormDataPaymentOption))
-    .required() as yup.SchemaOf<DonationFormDataPaymentOption>,
+    .oneOf(Object.values(DonationFormPaymentMethod))
+    .required() as yup.SchemaOf<DonationFormPaymentMethod>,
   authentication: yup
     .string()
-    .oneOf(Object.values(DonationFormDataAuthState))
-    .required() as yup.SchemaOf<DonationFormDataAuthState>,
+    .oneOf(Object.values(DonationFormAuthState))
+    .required() as yup.SchemaOf<DonationFormAuthState>,
   isAnonymous: yup.boolean().required(),
   email: yup
     .string()
@@ -104,11 +104,11 @@ export function DonationFlowForm() {
       initialValues={{
         ...initialValues,
         email: session?.user?.email ?? '',
-        authentication: session?.user ? DonationFormDataAuthState.AUTHENTICATED : null,
+        authentication: session?.user ? DonationFormAuthState.AUTHENTICATED : null,
       }}
       validationSchema={validationSchema}
       onSubmit={async (values) => {
-        if (values.payment === DonationFormDataPaymentOption.BANK) {
+        if (values.payment === DonationFormPaymentMethod.BANK) {
           // TODO: Handle form after bank transfer
         }
         setSubmitPaymentLoading(true)
@@ -201,7 +201,7 @@ export function DonationFlowForm() {
               </Button>
               <Box mb={2}>
                 <StepSplitter content="1" active={Boolean(values.amountChosen)} />
-                <Amount disabled={values.payment === DonationFormDataPaymentOption.BANK} />
+                <Amount disabled={values.payment === DonationFormPaymentMethod.BANK} />
                 <StepSplitter
                   content="2"
                   active={Boolean(values.amountChosen) && Boolean(values.payment)}

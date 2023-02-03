@@ -10,10 +10,7 @@ import Google from 'common/icons/Google'
 import PasswordField from 'components/common/form/PasswordField'
 import EmailField from 'components/common/form/EmailField'
 import { useDonationFlow } from 'components/donation-flow/DonationFlowContext'
-import {
-  DonationFormDataAuthState,
-  DonationFormDataV2,
-} from 'components/donation-flow/helpers/types'
+import { DonationFormAuthState, DonationFormDataV2 } from 'components/donation-flow/helpers/types'
 import { AlertStore } from 'stores/AlertStore'
 
 export const initialLoginFormValues = {
@@ -23,11 +20,11 @@ export const initialLoginFormValues = {
 
 export const loginValidation = {
   loginEmail: yup.string().when('authentication', {
-    is: DonationFormDataAuthState.LOGIN,
+    is: DonationFormAuthState.LOGIN,
     then: yup.string().email('one-time-donation:errors-fields.email').required(),
   }),
   loginPassword: yup.string().when('authentication', {
-    is: DonationFormDataAuthState.LOGIN,
+    is: DonationFormAuthState.LOGIN,
     then: yup.string().required(),
   }),
 }
