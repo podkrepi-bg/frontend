@@ -10,6 +10,7 @@ import {
   Button,
   Hidden,
   IconButton,
+  Stack,
   Tooltip,
   Typography,
   Unstable_Grid2 as Grid2,
@@ -39,6 +40,7 @@ import {
   DonationFormAuthState,
   DonationFormPaymentMethod,
   DonationFormDataV2,
+  DonationFormPaymentStatus,
 } from './helpers/types'
 
 const initialGeneralFormValues = {
@@ -89,7 +91,14 @@ export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
 
 export function DonationFlowForm() {
   const { data: session } = useSession()
-  const { campaign, stripePaymentIntent, setPaymentError } = useDonationFlow()
+  const {
+    campaign,
+    stripePaymentIntent,
+    paymentError,
+    setPaymentError,
+    paymentStatus,
+    setPaymentStatus,
+  } = useDonationFlow()
   const stripe = useStripe()
   const elements = useElements()
   const router = useRouter()
@@ -167,7 +176,10 @@ export function DonationFlowForm() {
         setSubmitPaymentLoading(false)
         if (error) {
           setPaymentError(error)
+          return
         }
+        const { paymentIntent } = await stripe.retrievePaymentIntent(stripePaymentIntent.id)
+        setPaymentStatus((paymentIntent?.status as DonationFormPaymentStatus) || null)
       }}
       validateOnMount
       validateOnBlur>
@@ -250,6 +262,10 @@ export function DonationFlowForm() {
                 label="Donate"
                 fullWidth
               />
+              <Stack direction={'column'}>
+                <Box>{paymentError?.message}</Box>
+                <Box>{paymentStatus || 'No payment status'}</Box>
+              </Stack>
               <PersistFormikValues debounce={3000} storage="sessionStorage" name="donation-form" />
             </Form>
           </Grid2>

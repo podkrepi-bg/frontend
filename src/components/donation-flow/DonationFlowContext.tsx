@@ -2,11 +2,12 @@ import React, { PropsWithChildren } from 'react'
 import getConfig from 'next/config'
 import { useRouter } from 'next/router'
 import Stripe from 'stripe'
-import { loadStripe, Stripe as StripeType, StripeError } from '@stripe/stripe-js'
+import { loadStripe, PaymentIntent, Stripe as StripeType, StripeError } from '@stripe/stripe-js'
 
 import { useViewCampaign } from 'common/hooks/campaigns'
 import CenteredSpinner from 'components/common/CenteredSpinner'
 import { CampaignResponse } from 'gql/campaigns'
+import { DonationFormPaymentStatus } from './helpers/types'
 const {
   publicRuntimeConfig: { STRIPE_PUBLIC_KEY },
 } = getConfig()
@@ -17,6 +18,8 @@ type DonationContext = {
   stripePaymentIntent: Stripe.PaymentIntent
   paymentError: StripeError | null
   setPaymentError: React.Dispatch<React.SetStateAction<StripeError | null>>
+  paymentStatus: DonationFormPaymentStatus | null
+  setPaymentStatus: React.Dispatch<React.SetStateAction<DonationFormPaymentStatus | null>>
   campaign: CampaignResponse
   stripePromise: Promise<StripeType | null>
 }
@@ -29,17 +32,19 @@ export const DonationFlowProvider = ({
 }: PropsWithChildren<{
   paymentIntent: Stripe.PaymentIntent
 }>) => {
-  //get the campaign with react-query and pass it to the context
   const router = useRouter()
   const slug = String(router.query.slug)
   const { data, isLoading } = useViewCampaign(slug)
   const [paymentError, setPaymentError] = React.useState<StripeError | null>(null)
+  const [paymentStatus, setPaymentStatus] = React.useState<DonationFormPaymentStatus | null>(null)
   if (isLoading || !data) return <CenteredSpinner size="2rem" />
   const { campaign } = data
   const value = {
     stripePaymentIntent: paymentIntent,
     paymentError,
     setPaymentError,
+    paymentStatus,
+    setPaymentStatus,
     campaign,
     stripePromise,
   }

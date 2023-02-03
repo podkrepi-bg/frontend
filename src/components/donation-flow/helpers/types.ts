@@ -12,11 +12,16 @@ export enum DonationFormPaymentMethod {
   BANK = 'bank',
 }
 
+// "canceled" | "processing" | "requires_action" | "requires_capture" | "requires_confirmation" | "requires_payment_method" | "succeeded"
 export enum DonationFormPaymentStatus {
   SUCEEDED = 'succeeded',
   PROCESSING = 'processing',
   // This values is based on what stripe returns https://stripe.com/docs/payments/accept-a-payment?platform=web&ui=elements&client=react#blik
   FAILED = 'requires_payment_method',
+  CANCELED = 'canceled',
+  REQUIRES_ACTION = 'requires_action',
+  REQUIRES_CAPTURE = 'requires_capture',
+  REQUIRES_CONFIRMATION = 'requires_confirmation',
 }
 
 export type DonationFormDataV2 = {
