@@ -77,7 +77,7 @@ export default function PaymentMethod({
               {paymentMethodAlertMap[payment.value as DonationFormDataPaymentOption]}
             </Typography>
           </Alert>
-          TODO: Bank Payment Information here
+          <BankPayment />
         </Box>
       ),
     },

@@ -16,7 +16,7 @@ import { CopyTextButton } from 'components/common/CopyTextButton'
 import { useDonationFlow } from 'components/donation-flow/DonationFlowContext'
 
 function BankPayment() {
-  const { t } = useTranslation()
+  const { t } = useTranslation('one-time-donation')
   const bankAccountInfo = {
     owner: t('third-step.owner'),
     bank: t('third-step.bank'),
@@ -36,8 +36,8 @@ function BankPayment() {
         {t('third-step.bank-instructions2')}
       </Typography>
       <Divider />
-      <Grid2 container justifyContent="center">
-        <Grid2 my={2} display="flex" justifyContent="space-between" xs={9}>
+      <Grid2 rowSpacing={2} my={2} container justifyContent="center">
+        <Grid2 display="flex" alignItems="center" justifyContent="space-between" xs={12}>
           <Typography>{bankAccountInfo.owner}</Typography>
           <CopyTextButton
             label={t('third-step.btn-copy')}
@@ -47,7 +47,7 @@ function BankPayment() {
             color="info"
           />
         </Grid2>
-        <Grid2 my={2} display="flex" justifyContent="space-between" xs={9}>
+        <Grid2 display="flex" alignItems="center" justifyContent="space-between" xs={12}>
           <Typography>{bankAccountInfo.bank}</Typography>
           <CopyTextButton
             label={t('third-step.btn-copy')}
@@ -57,7 +57,7 @@ function BankPayment() {
             color="info"
           />
         </Grid2>
-        <Grid2 my={2} display="flex" justifyContent="space-between" xs={9}>
+        <Grid2 display="flex" alignItems="center" justifyContent="space-between" xs={12}>
           <Typography>{ibanNumber}</Typography>
           <CopyTextButton
             label={t('third-step.btn-copy')}
@@ -73,8 +73,8 @@ function BankPayment() {
         {t('third-step.reason-donation')}
       </Typography>
       <Divider />
-      <Grid2 container justifyContent="center">
-        <Grid2 my={2} display="flex" justifyContent="space-between" xs={9}>
+      <Grid2 my={1} container justifyContent="center">
+        <Grid2 display="flex" alignItems="center" justifyContent="space-between" xs={12}>
           <Typography data-testid="payment-reference-field" fontWeight="bold">
             {campaign.paymentReference}
           </Typography>
