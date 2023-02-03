@@ -13,6 +13,7 @@ import CardIcon from '../../icons/CardIcon'
 import BankIcon from '../../icons/BankIcon'
 import PaymentDetailsStripeForm from './PaymentDetailsStripeForm'
 import { useDonationFlow } from 'components/donation-flow/DonationFlowContext'
+import BankPayment from './BankPayment'
 
 export default function PaymentMethod({
   sectionRef,
@@ -91,12 +92,13 @@ export default function PaymentMethod({
       ) : (
         <>
           <RadioCardGroup columns={2} name="payment" options={options} />
-          {payment.value === 'card' && stripePaymentIntent ? (
+          {payment.value === 'card' && stripePaymentIntent && (
             <>
               <PaymentDetailsStripeForm containerProps={{ sx: { my: 3 } }} />
               <TaxesCheckbox />
             </>
-          ) : null}
+          )}
+          {payment.value === 'bank' && <BankPayment />}
         </>
       )}
     </Box>
