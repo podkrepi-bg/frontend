@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alert, Box, Typography, useMediaQuery } from '@mui/material'
+import { Alert, Box, Collapse, Typography, useMediaQuery } from '@mui/material'
 import { useField } from 'formik'
 
 import theme from 'common/theme'
@@ -82,13 +82,13 @@ export default function PaymentMethod({
       ) : (
         <>
           <RadioCardGroup columns={2} name="payment" options={options} />
-          {payment.value === 'card' && (
-            <>
-              <PaymentDetailsStripeForm containerProps={{ sx: { my: 3 } }} />
-              <TaxesCheckbox />
-            </>
-          )}
-          {payment.value === 'bank' && <BankPayment />}
+          <Collapse in={payment.value === DonationFormDataPaymentOption.CARD}>
+            <PaymentDetailsStripeForm containerProps={{ sx: { my: 3 } }} />
+            <TaxesCheckbox />
+          </Collapse>
+          <Collapse in={payment.value === DonationFormDataPaymentOption.BANK}>
+            <BankPayment />
+          </Collapse>
         </>
       )}
     </Box>
