@@ -2,10 +2,11 @@ import { action, makeObservable, observable } from 'mobx'
 import { enableStaticRendering, inject } from 'mobx-react'
 import { io, Socket } from 'socket.io-client'
 import Stores from './DomainStores/stores'
-import NotificationStore from './NotificationStore'
+import { NotificationStore } from './NotificationStore'
+import { NotificationLayoutData } from 'components/layout/NotificationSnackBar/DonationNotificationLayout'
 
 enableStaticRendering(typeof window === 'undefined')
-class SocketClientStore {
+export class SocketClientStore {
   socketClient: Socket | null = null
   notificationStore: NotificationStore | null = null
 
@@ -26,19 +27,13 @@ class SocketClientStore {
         console.log('Websocket connection established')
       })
 
-      this.socketClient.on('successfulDonation', (notification: string) => {
-        console.log('Got donation')
-        this.handleDonationNotification(notification)
+      this.socketClient.on('successfulDonation', (notificationData: NotificationLayoutData) => {
+        this.handleDonationNotification(notificationData)
       })
     }
   }
 
-  handleDonationNotification(notification: string) {
-    console.log('handle fired')
-    this.notificationStore?.globalNotifications?.add(notification)
-    // this.notificationStore?.addGlobalNotification(notification)
-    // this.notificationStore?.updatePesho('pesho' + Math.random())
+  handleDonationNotification(notificationData: NotificationLayoutData) {
+    this.notificationStore?.globalNotifications?.add(notificationData)
   }
 }
-
-export default SocketClientStore

@@ -49,3 +49,14 @@ export function filterFaqQuestions(
 
   return filteredFaqQuestions
 }
+
+export const dateToTime = (dateString: string | undefined) => {
+  if (!dateString) {
+    return
+  }
+
+  const date = new Date(dateString)
+  const localTime = date.toLocaleTimeString()
+
+  return localTime
+}

@@ -1,42 +1,51 @@
-import { action, makeObservable, observable } from 'mobx'
+import { Slide, SnackbarProps, PaperProps } from '@mui/material'
+import { NotificationLayoutData } from 'components/layout/NotificationSnackBar/DonationNotificationLayout'
+import { makeAutoObservable } from 'mobx'
 import { enableStaticRendering } from 'mobx-react'
 
 enableStaticRendering(typeof window === 'undefined')
-
-export interface NotificationStackInterface {
-  notifications: string[]
-  add(notification: string): void
-  remove(): void
-}
-
 export class NotificationStack {
-  notifications: string[] = []
+  snackbarProps: SnackbarProps
+  snackbarContentProps: PaperProps
+  notifications: NotificationLayoutData[] = []
 
-  add(notification: string) {
-    console.log('add fired')
+  add(notification: NotificationLayoutData) {
     this.notifications = [...this.notifications, notification]
   }
 
   remove() {
-    console.log('remove fired')
     this.notifications = this.notifications.slice(1)
   }
 
   get getNotifications() {
     return this.notifications
   }
-}
 
-export class NotificationStore {
-  globalNotifications: NotificationStack = new NotificationStack()
-  testNotifications: NotificationStack = new NotificationStack()
-
-  constructor() {
-    makeObservable(this, {
-      globalNotifications: observable,
-      testNotifications: observable,
-    })
+  constructor(snackbarProps: SnackbarProps, snackbarContentProps: PaperProps) {
+    this.snackbarProps = snackbarProps
+    this.snackbarContentProps = snackbarContentProps
+    makeAutoObservable(this)
   }
 }
 
-export default NotificationStore
+export class NotificationStore {
+  globalNotifications: NotificationStack = new NotificationStack(
+    {
+      anchorOrigin: { vertical: 'bottom', horizontal: 'left' },
+      autoHideDuration: 3000,
+      transitionDuration: 2000,
+      TransitionComponent: Slide,
+    },
+    {
+      sx: {
+        minWidth: '300px',
+        backgroundColor: 'white',
+        color: 'black',
+      },
+    },
+  )
+
+  constructor() {
+    makeAutoObservable(this)
+  }
+}
