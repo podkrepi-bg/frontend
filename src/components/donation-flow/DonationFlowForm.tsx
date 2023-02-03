@@ -92,14 +92,13 @@ export function DonationFlowForm() {
   const { campaign, stripePaymentIntent, setPaymentError } = useDonationFlow()
   const stripe = useStripe()
   const elements = useElements()
+  const router = useRouter()
   const createStripePaymentMutation = useCreateStripePayment()
   const updatePaymentIntentMutation = useUpdatePaymentIntent()
-
   const paymentMethodSectionRef = React.useRef<HTMLDivElement>(null)
   const authenticationSectionRef = React.useRef<HTMLDivElement>(null)
-
   const [showCancelDialog, setShowCancelDialog] = React.useState(false)
-  const router = useRouter()
+  const [submitPaymentLoading, setSubmitPaymentLoading] = React.useState(false)
   return (
     <Formik
       initialValues={{
@@ -109,13 +108,16 @@ export function DonationFlowForm() {
       }}
       validationSchema={validationSchema}
       onSubmit={async (values) => {
+        setSubmitPaymentLoading(true)
         if (!stripe || !elements) {
           // Stripe.js has not yet loaded.
-          // Make sure to disable form submission until Stripe.js has loaded.
+          // Form should be disabled but TS doesn't know that.
+          setSubmitPaymentLoading(false)
           throw new Error('Stripe.js has not loaded when trying to submit the form')
         }
 
         if (!stripePaymentIntent) {
+          setSubmitPaymentLoading(false)
           throw new Error('Stripe payment intent does not exist when trying to submit the form')
         }
 
@@ -128,6 +130,7 @@ export function DonationFlowForm() {
             },
           })
         } catch (error) {
+          setSubmitPaymentLoading(false)
           setPaymentError({
             type: 'invalid_request_error',
             message: "We couldn't update the payment intent. Please try again later.",
@@ -144,6 +147,7 @@ export function DonationFlowForm() {
             phone: null,
           })
         } catch (error) {
+          setSubmitPaymentLoading(false)
           setPaymentError({
             type: 'invalid_request_error',
             message: "We couldn't create the payment. Please try again later.",
@@ -157,14 +161,14 @@ export function DonationFlowForm() {
             return_url: `${window.location.origin}/campaigns/donation-v2/${campaign.slug}`,
           },
         })
-
+        setSubmitPaymentLoading(false)
         if (error) {
           setPaymentError(error)
         }
       }}
       validateOnMount
       validateOnBlur>
-      {({ handleSubmit, values }) => (
+      {({ handleSubmit, values, isValid }) => (
         <Grid2 spacing={4} container>
           <Grid2 sm={12} md={8}>
             <Form
@@ -237,7 +241,12 @@ export function DonationFlowForm() {
                 />
               </Hidden>
 
-              <SubmitButton label="Donate" fullWidth />
+              <SubmitButton
+                loading={submitPaymentLoading}
+                disabled={!isValid || !stripe || !elements}
+                label="Donate"
+                fullWidth
+              />
               <PersistFormikValues debounce={3000} storage="sessionStorage" name="donation-form" />
             </Form>
           </Grid2>
