@@ -19,6 +19,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSideP
     [endpoints.campaign.viewCampaign(String(slug)).url],
     queryFnFactory<CampaignResponse>(),
   )
+  await client.prefetchQuery(
+    [endpoints.donation.singlePrices.url],
+    queryFnFactory<Stripe.Price[]>(),
+  )
 
   //create and prefetch the payment intent
   const { data: paymentIntent } = await apiClient.post<
