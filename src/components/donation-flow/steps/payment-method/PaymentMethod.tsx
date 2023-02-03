@@ -1,12 +1,9 @@
 import React from 'react'
 import { Alert, Box, Typography, useMediaQuery } from '@mui/material'
-import { useField, useFormikContext } from 'formik'
+import { useField } from 'formik'
 
 import theme from 'common/theme'
-import {
-  DonationFormDataPaymentOption,
-  DonationFormDataV2,
-} from 'components/donation-flow/helpers/types'
+import { DonationFormDataPaymentOption } from 'components/donation-flow/helpers/types'
 
 import { TaxesCheckbox } from './TaxesCheckbox'
 import RadioCardGroup from '../../common/RadioCardGroup'
@@ -21,7 +18,6 @@ export default function PaymentMethod({
 }: {
   sectionRef: React.MutableRefObject<HTMLDivElement | null>
 }) {
-  const formik = useFormikContext<DonationFormDataV2>()
   const isSmall = useMediaQuery(theme.breakpoints.down('md'))
   const [payment] = useField('payment')
   const options = [
@@ -29,7 +25,6 @@ export default function PaymentMethod({
       value: 'card',
       label: 'Card',
       icon: <CardIcon sx={{ width: 80, height: 80 }} />,
-      disabled: !formik.values.amountChosen,
     },
     {
       value: 'bank',
@@ -50,7 +45,6 @@ export default function PaymentMethod({
       value: 'card',
       label: 'Card',
       icon: <CardIcon sx={{ width: 80, height: 80 }} />,
-      disabled: !formik.values.amountChosen,
       content: (
         <Box>
           <Alert sx={{ mt: 1, mb: 2, mx: -2 }} color="info" icon={false}>

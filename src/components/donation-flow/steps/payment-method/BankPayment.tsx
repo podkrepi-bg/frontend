@@ -4,10 +4,10 @@ import {
   Alert,
   AlertTitle,
   Divider,
-  Hidden,
   List,
   Typography,
   Unstable_Grid2 as Grid2,
+  useMediaQuery,
 } from '@mui/material'
 
 import { ibanNumber } from 'common/iban'
@@ -24,6 +24,7 @@ function BankPayment() {
   }
 
   const { campaign } = useDonationFlow()
+  const mobile = useMediaQuery(theme.breakpoints.down('md'))
   return (
     <List component="div" disablePadding>
       <Typography marginTop={theme.spacing(4)} variant="h6">
@@ -89,12 +90,11 @@ function BankPayment() {
       </Grid2>
 
       <Typography>{t('third-step.message-warning')}</Typography>
-      <Hidden mdUp>
-        <Alert severity="error">
-          <AlertTitle>ВАЖНО!</AlertTitle>
-          Моля попълнете следващата стъпка, за да се свържем с Вас, ако има проблем.
-        </Alert>
-      </Hidden>
+      <Alert sx={{ mt: 2, mx: mobile && -2 }} severity="error">
+        <AlertTitle>ВАЖНО!</AlertTitle>
+        Моля попълнете следващата стъпка свързана с аутентикацията, за да се свържем с Вас, ако има
+        проблем.
+      </Alert>
     </List>
   )
 }
