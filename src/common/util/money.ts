@@ -18,8 +18,8 @@ export const moneyPublic = (
   number: number,
   currency = 'BGN',
   divisionFactor = 100,
-  maximumFractionDigits = 0,
-  minimumFractionDigits = 0,
+  maximumFractionDigits = 2,
+  minimumFractionDigits = 2,
 ) => {
   if (!i18n?.language || i18n.language === 'bg' || i18n.language === 'bg-BG') {
     const amount = new Intl.NumberFormat('bg-BG', {
