@@ -14,8 +14,7 @@ const {
 const stripePromise = loadStripe(STRIPE_PUBLIC_KEY)
 
 type DonationContext = {
-  stripePaymentIntent: Stripe.PaymentIntent | null
-  setStripePaymentIntent: React.Dispatch<React.SetStateAction<Stripe.PaymentIntent | null>>
+  stripePaymentIntent: Stripe.PaymentIntent
   paymentError: StripeError | null
   setPaymentError: React.Dispatch<React.SetStateAction<StripeError | null>>
   campaign: CampaignResponse
@@ -24,19 +23,21 @@ type DonationContext = {
 
 const DonationFlowContext = React.createContext({} as DonationContext)
 
-export const DonationFlowProvider = ({ children }: PropsWithChildren) => {
+export const DonationFlowProvider = ({
+  paymentIntent,
+  children,
+}: PropsWithChildren<{
+  paymentIntent: Stripe.PaymentIntent
+}>) => {
   //get the campaign with react-query and pass it to the context
   const router = useRouter()
   const slug = String(router.query.slug)
   const { data, isLoading } = useViewCampaign(slug)
-  const [stripePaymentIntent, setStripePaymentIntent] =
-    React.useState<Stripe.PaymentIntent | null>(null)
   const [paymentError, setPaymentError] = React.useState<StripeError | null>(null)
   if (isLoading || !data) return <CenteredSpinner size="2rem" />
   const { campaign } = data
   const value = {
-    stripePaymentIntent,
-    setStripePaymentIntent,
+    stripePaymentIntent: paymentIntent,
     paymentError,
     setPaymentError,
     campaign,

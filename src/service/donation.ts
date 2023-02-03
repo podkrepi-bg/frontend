@@ -30,6 +30,7 @@ export function useCreatePaymentIntent() {
   //Create payment intent useing the react-query mutation
   const { data: session } = useSession()
   return useMutation({
+    mutationKey: [endpoints.donation.createPaymentIntent.url],
     mutationFn: async (data: Stripe.PaymentIntentCreateParams) => {
       return await apiClient.post<
         Stripe.PaymentIntentCreateParams,

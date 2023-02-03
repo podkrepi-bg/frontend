@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { styled } from '@mui/material/styles'
 import { Box, Unstable_Grid2 as Grid2, Typography, useMediaQuery } from '@mui/material'
+import Stripe from 'stripe'
 
 import theme from 'common/theme'
 import { routes } from 'common/routes'
@@ -54,7 +55,13 @@ const StyledStepsWrapper = styled(Grid2)(() => ({
   maxWidth: '960px',
 }))
 
-export default function DonationFlowPage({ slug }: { slug: string }) {
+export default function DonationFlowPage({
+  slug,
+  paymentIntent,
+}: {
+  slug: string
+  paymentIntent: Stripe.PaymentIntent
+}) {
   const { data, isLoading } = useViewCampaign(slug)
   const matches = useMediaQuery('sm')
   if (isLoading || !data) return <CenteredSpinner size="2rem" />
@@ -63,7 +70,7 @@ export default function DonationFlowPage({ slug }: { slug: string }) {
   const bannerSource = backgroundCampaignPictureUrl(campaign)
   const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
   return (
-    <DonationFlowProvider>
+    <DonationFlowProvider paymentIntent={paymentIntent}>
       <StripeElementsProvider>
         <Layout maxWidth={false}>
           <Grid2

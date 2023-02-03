@@ -42,41 +42,19 @@ const appearance: Appearance = {
 export function StripeElementsProvider({ children }: PropsWithChildren) {
   const { i18n } = useTranslation()
 
-  const { stripePromise, setStripePaymentIntent, campaign } = useDonationFlow()
-
-  //Initial amount is arbitarary, it will be updated when the user selects an amount
-  const createPaymentIntentMutation = useCreatePaymentIntent()
-
-  useEffect(() => {
-    createPaymentIntentMutation.mutate({
-      amount: 100,
-      currency: 'BGN',
-      metadata: {
-        campaignId: campaign.id,
-      },
-    })
-  }, [])
-
-  useEffect(() => {
-    const intent = createPaymentIntentMutation.data?.data
-    setStripePaymentIntent(intent || null)
-  }, [createPaymentIntentMutation])
+  const { stripePromise, stripePaymentIntent } = useDonationFlow()
 
   return (
     <>
-      {createPaymentIntentMutation.isLoading ? (
-        <CenteredSpinner />
-      ) : (
-        <Elements
-          stripe={stripePromise}
-          options={{
-            clientSecret: createPaymentIntentMutation.data?.data.client_secret as string,
-            appearance,
-            locale: i18n.language,
-          }}>
-          {children}
-        </Elements>
-      )}
+      <Elements
+        stripe={stripePromise}
+        options={{
+          clientSecret: stripePaymentIntent.client_secret || undefined,
+          appearance,
+          locale: i18n.language,
+        }}>
+        {children}
+      </Elements>
     </>
   )
 }

@@ -141,7 +141,7 @@ export function DonationFlowForm() {
           await createStripePaymentMutation.mutateAsync({
             isAnonymous: values.isAnonymous,
             personEmail: session?.user?.email || values.email,
-            paymentIntentId: stripePaymentIntent?.id,
+            paymentIntentId: stripePaymentIntent.id,
             firstName: session?.user?.given_name || null,
             lastName: session?.user?.family_name || null,
             phone: null,

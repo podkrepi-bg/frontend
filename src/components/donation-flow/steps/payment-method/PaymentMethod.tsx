@@ -2,9 +2,11 @@ import React from 'react'
 import { Alert, Box, Typography, useMediaQuery } from '@mui/material'
 import { useField, useFormikContext } from 'formik'
 
-import { OneTimeDonation } from 'gql/donations'
 import theme from 'common/theme'
-import { DonationFormDataPaymentOption } from 'components/donation-flow/helpers/types'
+import {
+  DonationFormDataPaymentOption,
+  DonationFormDataV2,
+} from 'components/donation-flow/helpers/types'
 
 import { TaxesCheckbox } from './TaxesCheckbox'
 import RadioCardGroup from '../../common/RadioCardGroup'
@@ -12,7 +14,6 @@ import RadioAccordionGroup from '../../common/RadioAccordionGroup'
 import CardIcon from '../../icons/CardIcon'
 import BankIcon from '../../icons/BankIcon'
 import PaymentDetailsStripeForm from './PaymentDetailsStripeForm'
-import { useDonationFlow } from 'components/donation-flow/DonationFlowContext'
 import BankPayment from './BankPayment'
 
 export default function PaymentMethod({
@@ -20,8 +21,7 @@ export default function PaymentMethod({
 }: {
   sectionRef: React.MutableRefObject<HTMLDivElement | null>
 }) {
-  const formik = useFormikContext<OneTimeDonation>()
-  const { stripePaymentIntent } = useDonationFlow()
+  const formik = useFormikContext<DonationFormDataV2>()
   const isSmall = useMediaQuery(theme.breakpoints.down('md'))
   const [payment] = useField('payment')
   const options = [
@@ -29,7 +29,7 @@ export default function PaymentMethod({
       value: 'card',
       label: 'Card',
       icon: <CardIcon sx={{ width: 80, height: 80 }} />,
-      disabled: !formik.values.amount,
+      disabled: !formik.values.amountChosen,
     },
     {
       value: 'bank',
@@ -50,20 +50,16 @@ export default function PaymentMethod({
       value: 'card',
       label: 'Card',
       icon: <CardIcon sx={{ width: 80, height: 80 }} />,
-      disabled: !formik.values.amount,
+      disabled: !formik.values.amountChosen,
       content: (
-        <>
-          {stripePaymentIntent ? (
-            <Box>
-              <Alert sx={{ mt: 1, mb: 2, mx: -2 }} color="info" icon={false}>
-                <Typography>
-                  {paymentMethodAlertMap[payment.value as DonationFormDataPaymentOption]}
-                </Typography>
-              </Alert>
-              <PaymentDetailsStripeForm />
-            </Box>
-          ) : null}
-        </>
+        <Box>
+          <Alert sx={{ mt: 1, mb: 2, mx: -2 }} color="info" icon={false}>
+            <Typography>
+              {paymentMethodAlertMap[payment.value as DonationFormDataPaymentOption]}
+            </Typography>
+          </Alert>
+          <PaymentDetailsStripeForm />
+        </Box>
       ),
     },
     {
@@ -92,7 +88,7 @@ export default function PaymentMethod({
       ) : (
         <>
           <RadioCardGroup columns={2} name="payment" options={options} />
-          {payment.value === 'card' && stripePaymentIntent && (
+          {payment.value === 'card' && (
             <>
               <PaymentDetailsStripeForm containerProps={{ sx: { my: 3 } }} />
               <TaxesCheckbox />
