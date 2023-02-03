@@ -108,6 +108,9 @@ export function DonationFlowForm() {
       }}
       validationSchema={validationSchema}
       onSubmit={async (values) => {
+        if (values.payment === DonationFormDataPaymentOption.BANK) {
+          // TODO: Handle form after bank transfer
+        }
         setSubmitPaymentLoading(true)
         if (!stripe || !elements) {
           // Stripe.js has not yet loaded.
