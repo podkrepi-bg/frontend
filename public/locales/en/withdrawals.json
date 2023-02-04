@@ -25,7 +25,16 @@
     "edit": "Withdrawal has been edited successfully!",
     "delete": "Withdrawal has been deleted successfully!",
     "deleteAll": "Withdrawals have been deleted successfully!",
-    "error": "An error has occured! Please try again later."
+    "error": "An error has occured! Please try again later.",
+    "no-edit": "This withdrawal is completed successfully and cannot be changed."
+  },
+  "statuses": {
+    "initial": "initial",
+    "invalid": "invalid",
+    "incomplete": "incomplete",
+    "declined": "declined",
+    "cancelled": "cancelled",
+    "succeeded": "succeeded"
   },
   "cta": {
     "add": "Add",

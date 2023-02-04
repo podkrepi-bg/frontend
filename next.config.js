@@ -15,6 +15,9 @@ const moduleExports = {
   sassOptions: {
     includePaths: [path.join(__dirname, 'src/styles')],
   },
+  typescript: {
+    tsconfigPath: 'tsconfig.build.json',
+  },
   swcMinify: true,
   env: {
     APP_ENV: process.env.APP_ENV,

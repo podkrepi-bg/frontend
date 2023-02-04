@@ -31,7 +31,7 @@
 ## Perequisites
 
 - Node.js
-  - Installation 
+  - Installation
     - [Windows / MacOS](https://nodejs.org/en/download/)
     - [Debian and Ubuntu based Linux distributions](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions)
     ```shell
@@ -46,10 +46,10 @@
   - Installation https://yarnpkg.com/getting-started/install
   ```shell
   corepack enable
-  yarn set version berry 
+  yarn set version berry
   ```
   - make sure `cmdtest` is not installed, it has a different `yarn` command
-  
+
 ## Initial setup
 
 ```shell
@@ -98,7 +98,9 @@ Watch releases of this repository to be notified about future updates:
 ## Contributors ✨
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
 [![All Contributors](https://img.shields.io/badge/all_contributors-64-orange.svg?style=flat-square)](#contributors-)
+
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Please check [contributors guide](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md) for:

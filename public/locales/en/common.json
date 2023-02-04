@@ -28,7 +28,7 @@
       "open-source": "Open Source",
       "open-data": "Open Data"
     },
-    "donatе": "Donate",
+    "donate": "Donate",
     "donation-menu": "Campaigns",
     "blog": "Blog",
     "support_us_button": "Support us",
@@ -54,7 +54,6 @@
   },
   "close": "Close",
   "link": "Link",
-  "support": "Donate",
   "components": {
     "footer": {
       "donatе": "Donate",

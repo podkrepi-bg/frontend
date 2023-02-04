@@ -55,15 +55,24 @@ export default function ViewCampaignPage({ slug }: Props) {
             flexWrap="nowrap"
             sx={{
               position: 'sticky',
-              paddingLeft: theme.spacing(2),
               [theme.breakpoints.down('md')]: {
                 maxWidth: 'max-content',
                 flexBasis: 'fit-content',
-                paddingLeft: theme.spacing(0),
                 flexDirection: 'column',
               },
             }}>
-            <Grid item sx={{ position: 'sticky', top: theme.spacing(12) }}>
+            <Grid
+              item
+              sx={{
+                position: 'sticky',
+                top: theme.spacing(12),
+                width: theme.spacing(50),
+
+                [theme.breakpoints.down('lg')]: {
+                  width: 'fit-content',
+                  height: 'fit-content',
+                },
+              }}>
               <InlineDonation campaign={campaign} />
             </Grid>
           </Grid>
