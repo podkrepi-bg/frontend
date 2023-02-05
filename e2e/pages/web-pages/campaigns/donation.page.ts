@@ -1,4 +1,4 @@
-import { Page } from '@playwright/test'
+import { Page, expect } from '@playwright/test'
 import { LanguagesEnum } from '../../../data/enums/languages.enum'
 import {
   bgLocalizationOneTimeDonation,
@@ -61,9 +61,12 @@ export class DonationPage extends CampaignsPage {
   private readonly enSuccessfulDonationTitle = enLocalizationOneTimeDonation.success.title
 
   async checkPageUrlByRegExp(urlRegExpAsString?: string, timeoutParam = 10000): Promise<void> {
-    super.checkPageUrlByRegExp(
-      urlRegExpAsString || `^(.*?)/campaigns/donation/${SLUG_REGEX}`,
-      timeoutParam,
+    await this.page.waitForTimeout(1000)
+    await expect(this.page, 'The URL is not correct!').toHaveURL(
+      new RegExp(urlRegExpAsString || `^(.*?)/campaigns/donation/${SLUG_REGEX}`),
+      {
+        timeout: timeoutParam,
+      },
     )
   }
 
