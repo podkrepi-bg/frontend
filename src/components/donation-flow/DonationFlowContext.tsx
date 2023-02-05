@@ -1,18 +1,13 @@
 import React, { PropsWithChildren } from 'react'
-import getConfig from 'next/config'
 import { useRouter } from 'next/router'
 import Stripe from 'stripe'
-import { loadStripe, PaymentIntent, Stripe as StripeType, StripeError } from '@stripe/stripe-js'
+import { Stripe as StripeType, StripeError } from '@stripe/stripe-js'
 
 import { useViewCampaign } from 'common/hooks/campaigns'
 import CenteredSpinner from 'components/common/CenteredSpinner'
+import { stripe } from 'service/stripeClient'
 import { CampaignResponse } from 'gql/campaigns'
 import { DonationFormPaymentStatus } from './helpers/types'
-const {
-  publicRuntimeConfig: { STRIPE_PUBLIC_KEY },
-} = getConfig()
-
-const stripePromise = loadStripe(STRIPE_PUBLIC_KEY)
 
 type DonationContext = {
   stripePaymentIntent: Stripe.PaymentIntent
@@ -21,7 +16,7 @@ type DonationContext = {
   paymentStatus: DonationFormPaymentStatus | null
   setPaymentStatus: React.Dispatch<React.SetStateAction<DonationFormPaymentStatus | null>>
   campaign: CampaignResponse
-  stripePromise: Promise<StripeType | null>
+  stripe: StripeType | null
 }
 
 const DonationFlowContext = React.createContext({} as DonationContext)
@@ -46,7 +41,7 @@ export const DonationFlowProvider = ({
     paymentStatus,
     setPaymentStatus,
     campaign,
-    stripePromise,
+    stripe,
   }
   return <DonationFlowContext.Provider value={value}>{children}</DonationFlowContext.Provider>
 }
