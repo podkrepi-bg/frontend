@@ -139,6 +139,9 @@ export function DonationFlowForm() {
             payload: {
               amount: Math.round(Number(values.finalAmount)),
               currency: campaign.currency,
+              metadata: {
+                campaignId: campaign.id,
+              },
             },
           })
         } catch (error) {
@@ -147,6 +150,7 @@ export function DonationFlowForm() {
             type: 'invalid_request_error',
             message: "We couldn't update the payment intent. Please try again later.",
           })
+          return
         }
 
         try {
@@ -164,13 +168,14 @@ export function DonationFlowForm() {
             type: 'invalid_request_error',
             message: "We couldn't create the payment. Please try again later.",
           })
+          return
         }
 
         const { error } = await stripe.confirmPayment({
           //`Elements` instance that was used to create the Payment Element
           elements,
           confirmParams: {
-            return_url: `${window.location.origin}/campaigns/donation-v2/${campaign.slug}`,
+            return_url: `${window.location.origin}/campaigns/donation-v2/${campaign.slug}/status`,
           },
         })
         setSubmitPaymentLoading(false)
@@ -258,7 +263,7 @@ export function DonationFlowForm() {
 
               <SubmitButton
                 loading={submitPaymentLoading}
-                disabled={!isValid || !stripe || !elements}
+                disabled={!isValid || !stripe || !elements || submitPaymentLoading}
                 label="Donate"
                 fullWidth
               />
