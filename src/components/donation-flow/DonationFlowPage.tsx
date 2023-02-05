@@ -3,8 +3,8 @@ import { useViewCampaign } from 'common/hooks/campaigns'
 import CenteredSpinner from 'components/common/CenteredSpinner'
 
 import { DonationFlowForm } from './DonationFlowForm'
-import { DonationFlowProvider } from './DonationFlowContext'
-import { StripeElementsProvider } from './StripeElementsProvider'
+import { DonationFlowProvider } from './contexts/DonationFlowProvider'
+import { StripeElementsProvider } from './contexts/StripeElementsProvider'
 import DonationFlowLayout from './DonationFlowLayout'
 
 export default function DonationFlowPage({

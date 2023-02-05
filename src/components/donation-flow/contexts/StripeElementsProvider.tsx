@@ -5,7 +5,7 @@ import { Elements } from '@stripe/react-stripe-js'
 
 import theme from 'common/theme'
 
-import { useDonationFlow } from './DonationFlowContext'
+import { useDonationFlow } from './DonationFlowProvider'
 
 const appearance: Appearance = {
   theme: 'stripe',

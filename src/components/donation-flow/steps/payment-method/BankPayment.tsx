@@ -13,7 +13,7 @@ import {
 import { ibanNumber } from 'common/iban'
 import theme from 'common/theme'
 import { CopyTextButton } from 'components/common/CopyTextButton'
-import { useDonationFlow } from 'components/donation-flow/DonationFlowContext'
+import { useDonationFlow } from 'components/donation-flow/contexts/DonationFlowProvider'
 
 function BankPayment() {
   const { t } = useTranslation('one-time-donation')

@@ -33,7 +33,7 @@ import {
   initialRegisterFormValues,
   registerFormValidation,
 } from './steps/authentication/InlineRegisterForm'
-import { useDonationFlow } from './DonationFlowContext'
+import { useDonationFlow } from './contexts/DonationFlowProvider'
 import AlertsColumn from './alerts/AlertsColumn'
 import PaymentSummaryAlert from './alerts/PaymentSummaryAlert'
 import {

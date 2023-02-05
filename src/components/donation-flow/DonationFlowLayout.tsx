@@ -12,7 +12,7 @@ import theme from 'common/theme'
 import { routes } from 'common/routes'
 import Layout from 'components/layout/Layout'
 
-import { useDonationFlow } from './DonationFlowContext'
+import { useDonationFlow } from './contexts/DonationFlowProvider'
 
 const StyledBannerWrapper = styled(Box)(() => ({
   '& span': {

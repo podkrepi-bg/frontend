@@ -9,7 +9,7 @@ import theme from 'common/theme'
 import Google from 'common/icons/Google'
 import PasswordField from 'components/common/form/PasswordField'
 import EmailField from 'components/common/form/EmailField'
-import { useDonationFlow } from 'components/donation-flow/DonationFlowContext'
+import { useDonationFlow } from 'components/donation-flow/contexts/DonationFlowProvider'
 import { DonationFormAuthState, DonationFormDataV2 } from 'components/donation-flow/helpers/types'
 import { AlertStore } from 'stores/AlertStore'
 

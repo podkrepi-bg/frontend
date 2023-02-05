@@ -6,7 +6,7 @@ import { endpoints } from 'service/apiEndpoints'
 import { queryFnFactory } from 'service/restRequests'
 import { CampaignResponse } from 'gql/campaigns'
 
-import DonationFlowStatusPage from 'components/donation-flow/DonationFlowStatus'
+import DonationFlowStatusPage from 'components/donation-flow/DonationFlowStatusPage'
 
 export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { slug } = ctx.query

@@ -7,7 +7,7 @@ import { useViewCampaign } from 'common/hooks/campaigns'
 import CenteredSpinner from 'components/common/CenteredSpinner'
 import { stripe } from 'service/stripeClient'
 import { CampaignResponse } from 'gql/campaigns'
-import { DonationFormPaymentStatus } from './helpers/types'
+import { DonationFormPaymentStatus } from '../helpers/types'
 
 type DonationContext = {
   stripePaymentIntent: Stripe.PaymentIntent
