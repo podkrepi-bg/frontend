@@ -32,6 +32,7 @@ import StepSplitter from './common/StepSplitter'
 import { useMutation } from '@tanstack/react-query'
 import { createDonationWish } from 'service/donationWish'
 import { AlertStore } from 'stores/AlertStore'
+import { useCurrentPerson } from 'common/util/useCurrentPerson'
 
 function LinkCard({ href, text }: { href: string; text: string }) {
   return (
@@ -56,6 +57,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
   const router = useRouter()
   const formikRef = useRef<FormikProps<{ wish: string }> | null>(null)
   const session = useSession()
+  const { data: { user: person } = { user: null } } = useCurrentPerson()
   const { mutate: createDonationWishMutate, isLoading: isWishSendLoading } = useMutation(
     createDonationWish,
     {
@@ -126,7 +128,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
               createDonationWishMutate({
                 message: values.wish,
                 campaignId: campaign.id,
-                personId: session.data?.user?.sid ? session.data?.user?.sid : null,
+                personId: person?.id ? person.id : null,
               })
             }}
             validateOnMount
