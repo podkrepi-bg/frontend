@@ -56,6 +56,7 @@ export const routes = {
     create: '/campaigns/create',
     viewCampaignBySlug: (slug: string) => `/campaigns/${slug}`,
     oneTimeDonation: (slug: string) => `/campaigns/donation/${slug}`,
+    donationV2: (slug: string) => `/campaigns/donation-v2/${slug}`,
   },
   donation: {
     viewCertificate: (donationId: string) => `/api/pdf/certificate/${donationId}`,
