@@ -11,8 +11,7 @@ import {
 import theme from 'common/theme'
 import { routes } from 'common/routes'
 import Layout from 'components/layout/Layout'
-
-import { useDonationFlow } from './contexts/DonationFlowProvider'
+import { CampaignResponse } from 'gql/campaigns'
 
 const StyledBannerWrapper = styled(Box)(() => ({
   '& span': {
@@ -51,8 +50,10 @@ const StyledStepsWrapper = styled(Grid2)(() => ({
   maxWidth: '960px',
 }))
 
-function DonationFlowLayout({ children }: PropsWithChildren) {
-  const { campaign } = useDonationFlow()
+function DonationFlowLayout({
+  children,
+  campaign,
+}: PropsWithChildren<{ campaign: CampaignResponse }>) {
   const bannerSource = backgroundCampaignPictureUrl(campaign)
   const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
   const matches = useMediaQuery('sm')

@@ -19,7 +19,7 @@ export default function DonationFlowPage({
   return (
     <DonationFlowProvider paymentIntent={paymentIntent}>
       <StripeElementsProvider>
-        <DonationFlowLayout>
+        <DonationFlowLayout campaign={data.campaign}>
           <DonationFlowForm />
         </DonationFlowLayout>
       </StripeElementsProvider>

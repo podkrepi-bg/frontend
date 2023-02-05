@@ -7,14 +7,11 @@ import { useViewCampaign } from 'common/hooks/campaigns'
 import CenteredSpinner from 'components/common/CenteredSpinner'
 import { stripe } from 'service/stripeClient'
 import { CampaignResponse } from 'gql/campaigns'
-import { DonationFormPaymentStatus } from '../helpers/types'
 
 type DonationContext = {
   stripePaymentIntent: Stripe.PaymentIntent
   paymentError: StripeError | null
   setPaymentError: React.Dispatch<React.SetStateAction<StripeError | null>>
-  paymentStatus: DonationFormPaymentStatus | null
-  setPaymentStatus: React.Dispatch<React.SetStateAction<DonationFormPaymentStatus | null>>
   campaign: CampaignResponse
   stripe: StripeType | null
 }
@@ -31,15 +28,12 @@ export const DonationFlowProvider = ({
   const slug = String(router.query.slug)
   const { data, isLoading } = useViewCampaign(slug)
   const [paymentError, setPaymentError] = React.useState<StripeError | null>(null)
-  const [paymentStatus, setPaymentStatus] = React.useState<DonationFormPaymentStatus | null>(null)
   if (isLoading || !data) return <CenteredSpinner size="2rem" />
   const { campaign } = data
   const value = {
     stripePaymentIntent: paymentIntent,
     paymentError,
     setPaymentError,
-    paymentStatus,
-    setPaymentStatus,
     campaign,
     stripe,
   }

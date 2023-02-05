@@ -40,7 +40,6 @@ import {
   DonationFormAuthState,
   DonationFormPaymentMethod,
   DonationFormDataV2,
-  DonationFormPaymentStatus,
 } from './helpers/types'
 
 const initialGeneralFormValues = {
@@ -91,14 +90,7 @@ export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
 
 export function DonationFlowForm() {
   const { data: session } = useSession()
-  const {
-    campaign,
-    stripePaymentIntent,
-    paymentError,
-    setPaymentError,
-    paymentStatus,
-    setPaymentStatus,
-  } = useDonationFlow()
+  const { campaign, stripePaymentIntent, paymentError, setPaymentError } = useDonationFlow()
   const stripe = useStripe()
   const elements = useElements()
   const router = useRouter()
@@ -137,6 +129,7 @@ export function DonationFlowForm() {
           throw new Error('Stripe payment intent does not exist when trying to submit the form')
         }
 
+        // Update the payment intent with the latest calculated amount
         try {
           await updatePaymentIntentMutation.mutateAsync({
             id: stripePaymentIntent.id,
@@ -157,6 +150,7 @@ export function DonationFlowForm() {
           return
         }
 
+        // Create the payment entity
         try {
           await createStripePaymentMutation.mutateAsync({
             isAnonymous: values.isAnonymous,
@@ -175,6 +169,7 @@ export function DonationFlowForm() {
           return
         }
 
+        // Confirm the payment
         const { error } = await stripe.confirmPayment({
           //`Elements` instance that was used to create the Payment Element
           elements,
@@ -187,9 +182,6 @@ export function DonationFlowForm() {
           setPaymentError(error)
           return
         }
-        const { paymentIntent } = await stripe.retrievePaymentIntent(stripePaymentIntent.id)
-        sessionStorage.removeItem('donation-form')
-        setPaymentStatus((paymentIntent?.status as DonationFormPaymentStatus) || null)
       }}
       validateOnMount
       validateOnBlur>
@@ -274,7 +266,6 @@ export function DonationFlowForm() {
               />
               <Stack direction={'column'}>
                 <Box>{paymentError?.message}</Box>
-                <Box>{paymentStatus || 'No payment status'}</Box>
               </Stack>
               <PersistFormikValues debounce={3000} storage="sessionStorage" name="donation-form" />
             </Form>
