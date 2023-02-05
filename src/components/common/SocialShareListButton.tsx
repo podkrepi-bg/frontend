@@ -5,7 +5,7 @@ import Button from '@mui/material/Button'
 import { List, ListItemButton } from '@mui/material'
 import { Facebook, LinkedIn, Share } from '@mui/icons-material'
 
-export default function SocialShareList({ url }: { url: string }) {
+export default function SocialShareListButton({ url }: { url: string }) {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -33,14 +33,20 @@ export default function SocialShareList({ url }: { url: string }) {
           vertical: 'bottom',
           horizontal: 'left',
         }}>
-        {/* Create a MUI list and use react-share buttons for the share buttons */}
         <List>
           <ListItemButton>
             <Typography>Share on Facebook</Typography>
             <Facebook sx={{ ml: 1, fill: '#4267B2' }} />
           </ListItemButton>
-          <ListItemButton>
+          <ListItemButton
+            href={`
+            https://www.linkedin.com/shareArticle?u=https%253A//${url}
+          `}>
             <Typography>Share on LinkedIn</Typography>
+            <LinkedIn sx={{ ml: 1, fill: '#0077b5' }} />
+          </ListItemButton>
+          <ListItemButton href={``}>
+            <Typography>Share on Twitter</Typography>
             <LinkedIn sx={{ ml: 1, fill: '#0077b5' }} />
           </ListItemButton>
         </List>

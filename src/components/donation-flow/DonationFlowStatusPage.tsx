@@ -1,6 +1,16 @@
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Box, Button, CircularProgress, Typography } from '@mui/material'
+import {
+  Box,
+  CircularProgress,
+  Stack,
+  Typography,
+  Card,
+  CardContent,
+  CardActionArea,
+  Unstable_Grid2 as Grid2,
+} from '@mui/material'
 
 import { stripe } from 'service/stripeClient'
 import { routes } from 'common/routes'
@@ -14,10 +24,24 @@ import { useSession } from 'next-auth/react'
 import { Form, Formik } from 'formik'
 import FormTextField from 'components/common/form/FormTextField'
 import theme from 'common/theme'
-import { Email, Share } from '@mui/icons-material'
+import { Email } from '@mui/icons-material'
 import SubmitButton from 'components/common/form/SubmitButton'
 import StepSplitter from './common/StepSplitter'
-import SocialShareList from 'components/common/SocialShareList'
+import SocialShareListButton from 'components/common/SocialShareListButton'
+
+function LinkCard({ href, text }: { href: string; text: string }) {
+  return (
+    <Card sx={{ backgroundColor: '#eee' }}>
+      <CardActionArea sx={{ p: 3 }} LinkComponent={Link} href={href}>
+        <CardContent>
+          <Typography textAlign="center" variant="h6" component="div">
+            {text}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  )
+}
 
 export default function DonationFlowStatusPage({ slug }: { slug: string }) {
   const { data, isLoading } = useViewCampaign(slug)
@@ -84,7 +108,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
             validateOnBlur>
             {({ handleSubmit }) => (
               <Form onSubmit={handleSubmit}>
-                <Box display="flex" alignItems="flex-end" flexDirection="column">
+                <Stack alignItems="flex-end" direction="column">
                   <Box width="100%">
                     <Typography variant="h5" mb={2} color={theme.palette.primary.dark}>
                       Помогнете на бенефициента/ите със добро пожелание:
@@ -104,22 +128,39 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
                     sx={{ mt: 1 }}
                     label="Изпрати"
                   />
-                </Box>
+                </Stack>
               </Form>
             )}
           </Formik>
           <StepSplitter />
-          <Box>
-            <Typography variant="h5" mb={1}>
-              Подкрепи на кампания като споделиш с приятели.
-            </Typography>
-            <Typography>
-              Кампаниите сподели във вашите социални мрежи могат да съберат много повече средства
-            </Typography>
-            <SocialShareList
+          <Stack alignItems="flex-end">
+            <Box width="100%">
+              <Typography variant="h5" mb={1}>
+                Подкрепи на кампания като споделиш с приятели.
+              </Typography>
+              <Typography mb={1}>
+                Кампаниите сподели във вашите социални мрежи могат да съберат много повече средства
+              </Typography>
+            </Box>
+            <SocialShareListButton
               url={`${window.location.host}${routes.campaigns.viewCampaignBySlug(slug)}`}
             />
-          </Box>
+          </Stack>
+          <StepSplitter />
+          <Grid2 spacing={2} container>
+            <Grid2 xs={6}>
+              <LinkCard href={routes.campaigns.viewCampaignBySlug(slug)} text="Виж кампанията" />
+            </Grid2>
+            <Grid2 xs={6}>
+              <LinkCard href={routes.campaigns.index} text="Виж други кампании" />
+            </Grid2>
+            <Grid2 xs={6}>
+              <LinkCard href={routes.profile.index} text="Твоите дарения" />
+            </Grid2>
+            <Grid2 xs={6}>
+              <LinkCard href={routes.support} text="Стани доброволец" />
+            </Grid2>
+          </Grid2>
         </Box>
       ) : (
         <Box height="calc(100vh - 88px)" display="flex" justifyContent="center" alignItems="center">
