@@ -184,6 +184,7 @@ export function DonationFlowForm() {
           return
         }
         const { paymentIntent } = await stripe.retrievePaymentIntent(stripePaymentIntent.id)
+        sessionStorage.removeItem('donation-form')
         setPaymentStatus((paymentIntent?.status as DonationFormPaymentStatus) || null)
       }}
       validateOnMount

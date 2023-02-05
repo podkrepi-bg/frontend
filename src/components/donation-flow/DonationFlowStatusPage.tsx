@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { Typography } from '@mui/material'
+import { Box, CircularProgress, Typography } from '@mui/material'
 
 import { stripe } from 'service/stripeClient'
 import { routes } from 'common/routes'
 
 import SuccessGraphic from './icons/SuccessGraphic'
 import { DonationFormPaymentStatus } from './helpers/types'
+import CenteredSpinner from 'components/common/CenteredSpinner'
+import Layout from 'components/layout/Layout'
 
 export default function DonationFlowStatusPage({ slug }: { slug: string }) {
-  const [status, setStatus] = useState<DonationFormPaymentStatus>()
+  const [status, setStatus] = useState<DonationFormPaymentStatus | null>(null)
   const router = useRouter()
   const { payment_intent_client_secret, payment_intent_id } = router.query
   useEffect(() => {
@@ -35,9 +37,17 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
       })
   }, [])
   return (
-    <>
-      <Typography variant="h2">{status}</Typography>
-      <SuccessGraphic />
-    </>
+    <Layout>
+      {status ? (
+        <Box>
+          <Typography variant="h2">{status}</Typography>
+          <SuccessGraphic />
+        </Box>
+      ) : (
+        <Box height="calc(100vh - 88px)" display="flex" justifyContent="center" alignItems="center">
+          <CircularProgress size={100} />
+        </Box>
+      )}
+    </Layout>
   )
 }

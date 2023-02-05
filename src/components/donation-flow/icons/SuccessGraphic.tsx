@@ -89,13 +89,7 @@ function SuccessGraphic() {
       x="0px"
       y="0px"
       viewBox="0 0 2760 1840"
-      style={
-        {
-          // enableBackground: 'new 0 0 2760 1840',
-        }
-      }
       xmlSpace="preserve">
-      <rect className="st0" width="2760" height="1840" />
       <g>
         <g>
           <path
