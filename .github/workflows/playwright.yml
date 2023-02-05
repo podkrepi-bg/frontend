@@ -67,11 +67,11 @@ jobs:
 
       - name: Install Frontend Dependencies
         working-directory: ./frontend
-        run: yarn
+        run: yarn install --immutable
         
       - name: Install e2e Dependencies
         working-directory: ./frontend/e2e
-        run: yarn
+        run: yarn install --immutable
 
       - name: Setup env
         working-directory: ./frontend
