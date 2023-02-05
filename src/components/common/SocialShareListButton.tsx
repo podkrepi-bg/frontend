@@ -1,13 +1,27 @@
 import * as React from 'react'
-import Popover from '@mui/material/Popover'
-import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button'
-import { List, ListItemButton } from '@mui/material'
+import {
+  List,
+  ListItemButton,
+  Button,
+  Typography,
+  Popover,
+  PopoverProps,
+  ButtonProps,
+} from '@mui/material'
 import { ContentCopy, Facebook, LinkedIn, Share, Twitter } from '@mui/icons-material'
+
 import { AlertStore } from 'stores/AlertStore'
 import theme from 'common/theme'
 
-export default function SocialShareListButton({ url }: { url: string }) {
+export default function SocialShareListButton({
+  url,
+  buttonProps,
+  popoverProps,
+}: {
+  url: string
+  buttonProps?: ButtonProps
+  popoverProps?: PopoverProps
+}) {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
   const serializedUrl = new URLSearchParams(url).toString()
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -22,8 +36,8 @@ export default function SocialShareListButton({ url }: { url: string }) {
   const id = open ? 'simple-popover' : undefined
 
   return (
-    <div>
-      <Button aria-describedby={id} onClick={handleClick} variant="outlined">
+    <>
+      <Button aria-describedby={id} onClick={handleClick} variant="outlined" {...buttonProps}>
         Сподели в соц. мрежи <Share sx={{ ml: 1 }} />
       </Button>
       <Popover
@@ -34,12 +48,14 @@ export default function SocialShareListButton({ url }: { url: string }) {
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
-        }}>
+        }}
+        {...popoverProps}>
         <List>
           <ListItemButton
             onClick={() => {
               navigator.clipboard.writeText(url)
               AlertStore.show('Campaign link copied to clipboard', 'success')
+              setAnchorEl(null)
             }}>
             <Typography>Copy campaign link</Typography>
             <ContentCopy sx={{ ml: 1, fill: theme.palette.grey[400] }} />
@@ -61,6 +77,6 @@ export default function SocialShareListButton({ url }: { url: string }) {
           </ListItemButton>
         </List>
       </Popover>
-    </div>
+    </>
   )
 }

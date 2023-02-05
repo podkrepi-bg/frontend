@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useSession } from 'next-auth/react'
+import { Form, Formik } from 'formik'
 import {
   Box,
   CircularProgress,
@@ -11,23 +13,22 @@ import {
   CardActionArea,
   Unstable_Grid2 as Grid2,
 } from '@mui/material'
+import { Email } from '@mui/icons-material'
 
 import { stripe } from 'service/stripeClient'
 import { routes } from 'common/routes'
 
+import { useViewCampaign } from 'common/hooks/campaigns'
+import CenteredSpinner from 'components/common/CenteredSpinner'
+import FormTextField from 'components/common/form/FormTextField'
+import SocialShareListButton from 'components/common/SocialShareListButton'
+import SubmitButton from 'components/common/form/SubmitButton'
+import theme from 'common/theme'
+
 import SuccessGraphic from './icons/SuccessGraphic'
 import { DonationFormPaymentStatus } from './helpers/types'
 import DonationFlowLayout from './DonationFlowLayout'
-import { useViewCampaign } from 'common/hooks/campaigns'
-import CenteredSpinner from 'components/common/CenteredSpinner'
-import { useSession } from 'next-auth/react'
-import { Form, Formik } from 'formik'
-import FormTextField from 'components/common/form/FormTextField'
-import theme from 'common/theme'
-import { Email } from '@mui/icons-material'
-import SubmitButton from 'components/common/form/SubmitButton'
 import StepSplitter from './common/StepSplitter'
-import SocialShareListButton from 'components/common/SocialShareListButton'
 
 function LinkCard({ href, text }: { href: string; text: string }) {
   return (
