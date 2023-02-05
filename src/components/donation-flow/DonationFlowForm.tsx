@@ -118,7 +118,11 @@ export function DonationFlowForm() {
       validationSchema={validationSchema}
       onSubmit={async (values) => {
         if (values.payment === DonationFormPaymentMethod.BANK) {
-          // TODO: Handle form after bank transfer
+          router.push(routes.campaigns.donationStauts(campaign.slug), {
+            query: {
+              bank_payment: true,
+            },
+          })
         }
         setSubmitPaymentLoading(true)
         if (!stripe || !elements) {

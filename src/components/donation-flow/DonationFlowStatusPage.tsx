@@ -4,17 +4,20 @@ import { Box, CircularProgress, Typography } from '@mui/material'
 
 import { stripe } from 'service/stripeClient'
 import { routes } from 'common/routes'
+import Layout from 'components/layout/Layout'
 
 import SuccessGraphic from './icons/SuccessGraphic'
 import { DonationFormPaymentStatus } from './helpers/types'
-import CenteredSpinner from 'components/common/CenteredSpinner'
-import Layout from 'components/layout/Layout'
 
 export default function DonationFlowStatusPage({ slug }: { slug: string }) {
   const [status, setStatus] = useState<DonationFormPaymentStatus | null>(null)
   const router = useRouter()
-  const { payment_intent_client_secret, payment_intent_id } = router.query
+  const { payment_intent_client_secret, payment_intent_id, bank_payment } = router.query
   useEffect(() => {
+    if (bank_payment === 'true') {
+      setStatus(DonationFormPaymentStatus.SUCCEEDED)
+      return
+    }
     if (!stripe || !payment_intent_client_secret) {
       throw new Error('Stripe is not loaded or you were not redirected from Stripe')
     }
