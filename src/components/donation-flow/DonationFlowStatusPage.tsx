@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
-import { Form, Formik } from 'formik'
+import { Form, Formik, FormikProps } from 'formik'
 import {
   Box,
   CircularProgress,
@@ -29,6 +29,9 @@ import SuccessGraphic from './icons/SuccessGraphic'
 import { DonationFormPaymentStatus } from './helpers/types'
 import DonationFlowLayout from './DonationFlowLayout'
 import StepSplitter from './common/StepSplitter'
+import { useMutation } from '@tanstack/react-query'
+import { createDonationWish } from 'service/donationWish'
+import { AlertStore } from 'stores/AlertStore'
 
 function LinkCard({ href, text }: { href: string; text: string }) {
   return (
@@ -47,9 +50,26 @@ function LinkCard({ href, text }: { href: string; text: string }) {
 export default function DonationFlowStatusPage({ slug }: { slug: string }) {
   const { data, isLoading } = useViewCampaign(slug)
   if (isLoading || !data) return <CenteredSpinner size="2rem" />
+  const { campaign } = data
   const [status, setStatus] = useState<DonationFormPaymentStatus | null>(null)
+  const [disableWishForm, setDisableWishForm] = useState<boolean>(false)
   const router = useRouter()
+  const formikRef = useRef<FormikProps<{ wish: string }> | null>(null)
   const session = useSession()
+  const { mutate: createDonationWishMutate, isLoading: isWishSendLoading } = useMutation(
+    createDonationWish,
+    {
+      onSuccess: () => {
+        setDisableWishForm(true)
+        AlertStore.show('Благодарим ви за желанието ви!', 'success', 3000)
+        formikRef.current?.resetForm()
+      },
+      onError: () => {
+        setDisableWishForm(false)
+        AlertStore.show('Не можахме да запазим желанието ви. Моля опитайте отново.', 'error')
+      },
+    },
+  )
   const { payment_intent_client_secret, payment_intent_id, bank_payment } = router.query
 
   useEffect(() => {
@@ -86,7 +106,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
   }, [])
 
   return (
-    <DonationFlowLayout campaign={data.campaign}>
+    <DonationFlowLayout campaign={campaign}>
       {status === DonationFormPaymentStatus.SUCCEEDED ? (
         <Box>
           <Typography textAlign="center" variant="h4" mb={1}>
@@ -103,10 +123,15 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
               wish: '',
             }}
             onSubmit={(values) => {
-              console.log(values)
+              createDonationWishMutate({
+                message: values.wish,
+                campaignId: campaign.id,
+                personId: session.data?.user?.sid ? session.data?.user?.sid : null,
+              })
             }}
             validateOnMount
-            validateOnBlur>
+            validateOnBlur
+            innerRef={formikRef}>
             {({ handleSubmit }) => (
               <Form onSubmit={handleSubmit}>
                 <Stack alignItems="flex-end" direction="column">
@@ -120,12 +145,13 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
                       label="Напишете пожелание..."
                       multiline
                       fullWidth
+                      disabled={disableWishForm}
                       rows={7}
                     />
                   </Box>
                   <SubmitButton
-                    // loading={submitPaymentLoading}
-                    // disabled={!isValid || !stripe || !elements || submitPaymentLoading}
+                    loading={isWishSendLoading}
+                    disabled={disableWishForm || isWishSendLoading}
                     sx={{ mt: 1 }}
                     label="Изпрати"
                   />
@@ -149,16 +175,16 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
           </Stack>
           <StepSplitter />
           <Grid2 spacing={2} container>
-            <Grid2 xs={6}>
+            <Grid2 xs={12} md={6}>
               <LinkCard href={routes.campaigns.viewCampaignBySlug(slug)} text="Виж кампанията" />
             </Grid2>
-            <Grid2 xs={6}>
+            <Grid2 xs={12} md={6}>
               <LinkCard href={routes.campaigns.index} text="Виж други кампании" />
             </Grid2>
-            <Grid2 xs={6}>
+            <Grid2 xs={12} md={6}>
               <LinkCard href={routes.profile.index} text="Твоите дарения" />
             </Grid2>
-            <Grid2 xs={6}>
+            <Grid2 xs={12} md={6}>
               <LinkCard href={routes.support} text="Стани доброволец" />
             </Grid2>
           </Grid2>
