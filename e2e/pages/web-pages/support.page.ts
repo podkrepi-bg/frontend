@@ -132,7 +132,8 @@ export class SupportPage extends HomePage {
     await this.setInputFieldBySelector(this.contactFormPhoneInputField, volunteerData[3])
     await this.setInputFieldBySelector(this.contactFormCommentInputField, volunteerData[4])
     await this.selectCheckboxByLabelText([this.agreeWithTerms, this.understandTerms])
-    await this.clickSendSubmitButton()
+    // Stop form submission, because of email sending
+    // await this.clickSendSubmitButton()
   }
 
   /**

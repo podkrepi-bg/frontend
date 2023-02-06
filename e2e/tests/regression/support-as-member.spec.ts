@@ -127,19 +127,20 @@ test.describe.serial('Support page - Join us as member - BG language version', a
     ).toBeFalsy()
   })
 
-  test('"Thank you" step works correctly', async () => {
-    expect
-      .soft(
-        await supportPage.isContactDataStepActive(),
-        'Contact Data step is active, but should not be.',
-      )
-      .toBeFalsy()
-    expect
-      .soft(await supportPage.isParticipationStepActive(), 'Participation step is Not active.')
-      .toBeTruthy()
-    expect(
-      await supportPage.isThankYouSupportH4HeadingVisible(),
-      'Thank you greeting is not visible.',
-    ).toBeTruthy()
-  })
+  // Comment out thank you step because of email sending
+  // test('"Thank you" step works correctly', async () => {
+  //   expect
+  //     .soft(
+  //       await supportPage.isContactDataStepActive(),
+  //       'Contact Data step is active, but should not be.',
+  //     )
+  //     .toBeFalsy()
+  //   expect
+  //     .soft(await supportPage.isParticipationStepActive(), 'Participation step is Not active.')
+  //     .toBeTruthy()
+  //   expect(
+  //     await supportPage.isThankYouSupportH4HeadingVisible(),
+  //     'Thank you greeting is not visible.',
+  //   ).toBeTruthy()
+  // })
 })

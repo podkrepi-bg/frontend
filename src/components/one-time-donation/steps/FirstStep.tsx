@@ -106,7 +106,7 @@ export default function FirstStep() {
           options={paymentOptions}
         />
       </Box>
-      <Collapse in={paymentField.value === 'bank'} timeout="auto">
+      <Collapse unmountOnExit in={paymentField.value === 'bank'} timeout="auto">
         <List component="div" disablePadding>
           <Typography marginTop={theme.spacing(4)} variant="h6">
             {t('third-step.bank-details')}
@@ -173,7 +173,7 @@ export default function FirstStep() {
           <Typography>{t('third-step.message-warning')}</Typography>
         </List>
       </Collapse>
-      <Collapse in={paymentField.value === 'card'} timeout="auto">
+      <Collapse unmountOnExit in={paymentField.value === 'card'} timeout="auto">
         <Typography paragraph={true} variant="body2" sx={{ marginTop: theme.spacing(2) }}>
           {t('third-step.card-fees')}
           <ExternalLink href="https://stripe.com/en-bg/pricing">
@@ -197,7 +197,7 @@ export default function FirstStep() {
                 .concat({ label: t('first-step.other'), value: 'other' }) || []
             }
           />
-          <Collapse in={amount.value === 'other'} timeout="auto">
+          <Collapse unmountOnExit in={amount.value === 'other'} timeout="auto">
             <Grid
               item
               xs={12}
@@ -283,7 +283,7 @@ export default function FirstStep() {
           ) : null}
         </Box>
       </Collapse>
-      <Collapse in={paymentField.value === 'paypal'}>
+      <Collapse unmountOnExit in={paymentField.value === 'paypal'}>
         <Grid container justifyContent="center">
           <Grid my={2} item display="flex" justifyContent="center" xs={9}>
             <Typography>
