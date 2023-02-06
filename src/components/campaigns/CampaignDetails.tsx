@@ -1,18 +1,23 @@
 import React from 'react'
+
+import { useTranslation } from 'next-i18next'
+import dynamic from 'next/dynamic'
+
 import { CampaignResponse } from 'gql/campaigns'
+
+import 'react-quill/dist/quill.bubble.css'
+
+import { Divider, Grid, Typography } from '@mui/material'
+import SecurityIcon from '@mui/icons-material/Security'
+import { styled } from '@mui/material/styles'
+
 import DonationWishes from './DonationWishes'
 import CampaignSlider from './CampaignSlider'
-import { campaignSliderUrls } from 'common/util/campaignImageUrls'
 import CampaignInfo from './CampaignInfo'
-import { styled } from '@mui/material/styles'
-import { Divider, Grid, Typography } from '@mui/material'
 import CampaignInfoCoordinator from './CampaignInfoCoordinator'
-import SecurityIcon from '@mui/icons-material/Security'
-import { useTranslation } from 'next-i18next'
 import LinkButton from 'components/common/LinkButton'
+import { campaignSliderUrls } from 'common/util/campaignImageUrls'
 
-import dynamic from 'next/dynamic'
-import 'react-quill/dist/quill.bubble.css'
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 
 const PREFIX = 'CampaignDetails'
@@ -47,6 +52,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     paddingLeft: '0',
     paddingRight: '0',
   },
+
   [`& .${classes.linkButton}`]: {
     textDecoration: 'underline',
     fontSize: theme.spacing(1.5),
