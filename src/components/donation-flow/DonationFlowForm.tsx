@@ -107,15 +107,14 @@ export function DonationFlowForm() {
       }}
       validationSchema={validationSchema}
       onSubmit={async (values) => {
-        if (values.payment === DonationFormPaymentMethod.BANK) {
-          router.push(routes.campaigns.donationStatus(campaign.slug), {
-            query: {
-              bank_payment: true,
-            },
-          })
-          return
-        }
         setSubmitPaymentLoading(true)
+        if (values.payment === DonationFormPaymentMethod.BANK) {
+          return router.push(
+            `${routes.campaigns.donationStatus(campaign.slug)}?${new URLSearchParams({
+              bank_payment: 'true',
+            }).toString()}`,
+          )
+        }
         if (!stripe || !elements || !stripePaymentIntent) {
           // Stripe.js has not yet loaded.
           // Form should be disabled but TS doesn't know that.
@@ -174,7 +173,7 @@ export function DonationFlowForm() {
           confirmParams: {
             return_url: `${window.location.origin}${routes.campaigns.donationStatus(
               campaign.slug,
-            )}}`,
+            )}`,
           },
         })
         setSubmitPaymentLoading(false)
