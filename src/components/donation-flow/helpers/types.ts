@@ -1,22 +1,34 @@
 import { CardRegion } from 'gql/donations.enums'
 
-export enum DonationFormDataAuthState {
+export enum DonationFormAuthState {
   LOGIN = 'login',
   REGISTER = 'register',
   AUTHENTICATED = 'authenticated',
   NOREGISTER = 'noregister',
 }
 
-export enum DonationFormDataPaymentOption {
+export enum DonationFormPaymentMethod {
   CARD = 'card',
   BANK = 'bank',
 }
 
-export type DonationFormDataV2 = {
+// "canceled" | "processing" | "requires_action" | "requires_capture" | "requires_confirmation" | "requires_payment_method" | "succeeded"
+export enum DonationFormPaymentStatus {
+  SUCCEEDED = 'succeeded',
+  PROCESSING = 'processing',
+  // This values is based on what stripe returns https://stripe.com/docs/payments/accept-a-payment?platform=web&ui=elements&client=react#blik
+  REQUIRES_PAYMENT = 'requires_payment_method',
+  CANCELED = 'canceled',
+  REQUIRES_ACTION = 'requires_action',
+  REQUIRES_CAPTURE = 'requires_capture',
+  REQUIRES_CONFIRMATION = 'requires_confirmation',
+}
+
+export type DonationFormData = {
   //Common fields
   isAnonymous: boolean
-  authentication: DonationFormDataAuthState | null
-  payment: DonationFormDataPaymentOption | null
+  authentication: DonationFormAuthState | null
+  payment: DonationFormPaymentMethod | null
   email: string
   privacy: boolean
   //Card fields

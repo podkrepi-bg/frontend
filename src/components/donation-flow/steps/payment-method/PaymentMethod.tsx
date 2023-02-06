@@ -1,10 +1,9 @@
 import React from 'react'
-import { Alert, Box, Typography, useMediaQuery } from '@mui/material'
-import { useField, useFormikContext } from 'formik'
+import { Alert, Box, Collapse, Typography, useMediaQuery } from '@mui/material'
+import { useField } from 'formik'
 
-import { OneTimeDonation } from 'gql/donations'
 import theme from 'common/theme'
-import { DonationFormDataPaymentOption } from 'components/donation-flow/helpers/types'
+import { DonationFormPaymentMethod } from 'components/donation-flow/helpers/types'
 
 import { TaxesCheckbox } from './TaxesCheckbox'
 import RadioCardGroup from '../../common/RadioCardGroup'
@@ -12,15 +11,13 @@ import RadioAccordionGroup from '../../common/RadioAccordionGroup'
 import CardIcon from '../../icons/CardIcon'
 import BankIcon from '../../icons/BankIcon'
 import PaymentDetailsStripeForm from './PaymentDetailsStripeForm'
-import { useDonationFlow } from 'components/donation-flow/DonationFlowContext'
+import BankPayment from './BankPayment'
 
 export default function PaymentMethod({
   sectionRef,
 }: {
   sectionRef: React.MutableRefObject<HTMLDivElement | null>
 }) {
-  const formik = useFormikContext<OneTimeDonation>()
-  const { stripePaymentIntent } = useDonationFlow()
   const isSmall = useMediaQuery(theme.breakpoints.down('md'))
   const [payment] = useField('payment')
   const options = [
@@ -28,7 +25,6 @@ export default function PaymentMethod({
       value: 'card',
       label: 'Card',
       icon: <CardIcon sx={{ width: 80, height: 80 }} />,
-      disabled: !formik.values.amount,
     },
     {
       value: 'bank',
@@ -40,8 +36,8 @@ export default function PaymentMethod({
   const bankAlertDescription = `Таксата за транзакция при банков превод зависи от индивидуалните условия на Вашата банка. от (0-4лв)`
 
   const paymentMethodAlertMap = {
-    [DonationFormDataPaymentOption.CARD]: cardAlertDescription,
-    [DonationFormDataPaymentOption.BANK]: bankAlertDescription,
+    [DonationFormPaymentMethod.CARD]: cardAlertDescription,
+    [DonationFormPaymentMethod.BANK]: bankAlertDescription,
   }
 
   const mobileOptions = [
@@ -49,20 +45,15 @@ export default function PaymentMethod({
       value: 'card',
       label: 'Card',
       icon: <CardIcon sx={{ width: 80, height: 80 }} />,
-      disabled: !formik.values.amount,
       content: (
-        <>
-          {stripePaymentIntent ? (
-            <Box>
-              <Alert sx={{ mt: 1, mb: 2, mx: -2 }} color="info" icon={false}>
-                <Typography>
-                  {paymentMethodAlertMap[payment.value as DonationFormDataPaymentOption]}
-                </Typography>
-              </Alert>
-              <PaymentDetailsStripeForm />
-            </Box>
-          ) : null}
-        </>
+        <Box>
+          <Alert sx={{ mt: 1, mb: 2, mx: -2 }} color="info" icon={false}>
+            <Typography>
+              {paymentMethodAlertMap[payment.value as DonationFormPaymentMethod]}
+            </Typography>
+          </Alert>
+          <PaymentDetailsStripeForm />
+        </Box>
       ),
     },
     {
@@ -73,10 +64,10 @@ export default function PaymentMethod({
         <Box>
           <Alert sx={{ my: 2, mx: -2 }} color="info" icon={false}>
             <Typography>
-              {paymentMethodAlertMap[payment.value as DonationFormDataPaymentOption]}
+              {paymentMethodAlertMap[payment.value as DonationFormPaymentMethod]}
             </Typography>
           </Alert>
-          TODO: Bank Payment Information here
+          <BankPayment />
         </Box>
       ),
     },
@@ -91,12 +82,13 @@ export default function PaymentMethod({
       ) : (
         <>
           <RadioCardGroup columns={2} name="payment" options={options} />
-          {payment.value === 'card' && stripePaymentIntent ? (
-            <>
-              <PaymentDetailsStripeForm containerProps={{ sx: { my: 3 } }} />
-              <TaxesCheckbox />
-            </>
-          ) : null}
+          <Collapse in={payment.value === DonationFormPaymentMethod.CARD}>
+            <PaymentDetailsStripeForm containerProps={{ sx: { my: 3 } }} />
+            <TaxesCheckbox />
+          </Collapse>
+          <Collapse in={payment.value === DonationFormPaymentMethod.BANK}>
+            <BankPayment />
+          </Collapse>
         </>
       )}
     </Box>

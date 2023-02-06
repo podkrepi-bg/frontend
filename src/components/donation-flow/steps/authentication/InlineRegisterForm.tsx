@@ -12,10 +12,7 @@ import FormTextField from 'components/common/form/FormTextField'
 import PasswordField from 'components/common/form/PasswordField'
 import EmailField from 'components/common/form/EmailField'
 import { RegisterFormData } from 'components/auth/register/RegisterForm'
-import {
-  DonationFormDataAuthState,
-  DonationFormDataV2,
-} from 'components/donation-flow/helpers/types'
+import { DonationFormAuthState, DonationFormData } from 'components/donation-flow/helpers/types'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
@@ -31,31 +28,31 @@ export const initialRegisterFormValues = {
 
 export const registerFormValidation = {
   registerEmail: yup.string().when('authentication', {
-    is: DonationFormDataAuthState.REGISTER,
+    is: DonationFormAuthState.REGISTER,
     then: yup.string().email('one-time-donation:errors-fields.email').required(),
   }),
   registerPassword: yup.string().when('authentication', {
-    is: DonationFormDataAuthState.REGISTER,
+    is: DonationFormAuthState.REGISTER,
     then: yup.string().required(),
   }),
   registerConfirmPassword: yup.string().when('authentication', {
-    is: DonationFormDataAuthState.REGISTER,
+    is: DonationFormAuthState.REGISTER,
     then: yup.string().required(),
   }),
   registerFirstName: yup.string().when('authentication', {
-    is: DonationFormDataAuthState.REGISTER,
+    is: DonationFormAuthState.REGISTER,
     then: yup.string().required(),
   }),
   registerLastName: yup.string().when('authentication', {
-    is: DonationFormDataAuthState.REGISTER,
+    is: DonationFormAuthState.REGISTER,
     then: yup.string().required(),
   }),
   registerGdpr: yup.boolean().when('authentication', {
-    is: DonationFormDataAuthState.REGISTER,
+    is: DonationFormAuthState.REGISTER,
     then: yup.boolean().required(),
   }),
   registerTerms: yup.boolean().when('authentication', {
-    is: DonationFormDataAuthState.REGISTER,
+    is: DonationFormAuthState.REGISTER,
     then: yup.boolean().required(),
   }),
 }
@@ -64,7 +61,7 @@ export default function InlineRegisterForm() {
   const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
   const { mutateAsync: register } = useRegister()
-  const formik = useFormikContext<DonationFormDataV2>()
+  const formik = useFormikContext<DonationFormData>()
 
   const values: RegisterFormData = {
     firstName: formik.values.registerFirstName as string,
@@ -95,7 +92,7 @@ export default function InlineRegisterForm() {
       if (resp?.ok) {
         setLoading(false)
         AlertStore.show(t('auth:alerts.welcome'), 'success')
-        formik.setFieldValue('authentication', DonationFormDataAuthState.AUTHENTICATED)
+        formik.setFieldValue('authentication', DonationFormAuthState.AUTHENTICATED)
       }
     } catch (error) {
       console.error(error)

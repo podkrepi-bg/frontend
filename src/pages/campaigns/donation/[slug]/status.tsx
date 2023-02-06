@@ -1,20 +1,21 @@
-import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { GetServerSideProps, GetServerSidePropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { QueryClient, dehydrate } from '@tanstack/react-query'
 
 import { endpoints } from 'service/apiEndpoints'
 import { queryFnFactory } from 'service/restRequests'
 import { CampaignResponse } from 'gql/campaigns'
 
-import DonationFlowPage from 'components/donation-flow/DonationFlowPage'
+import DonationFlowStatusPage from 'components/donation-flow/DonationFlowStatusPage'
 
 export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const { slug } = ctx.query
   const client = new QueryClient()
   await client.prefetchQuery<CampaignResponse>(
-    [endpoints.campaign.viewCampaign(slug as string)],
+    [endpoints.campaign.viewCampaign(String(slug)).url],
     queryFnFactory<CampaignResponse>(),
   )
+
   return {
     props: {
       slug,
@@ -30,4 +31,4 @@ export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSideP
   }
 }
 
-export default DonationFlowPage
+export default DonationFlowStatusPage

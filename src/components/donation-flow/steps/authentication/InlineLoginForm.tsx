@@ -9,12 +9,10 @@ import theme from 'common/theme'
 import Google from 'common/icons/Google'
 import PasswordField from 'components/common/form/PasswordField'
 import EmailField from 'components/common/form/EmailField'
-import { useDonationFlow } from 'components/donation-flow/DonationFlowContext'
-import {
-  DonationFormDataAuthState,
-  DonationFormDataV2,
-} from 'components/donation-flow/helpers/types'
+import { useDonationFlow } from 'components/donation-flow/contexts/DonationFlowProvider'
+import { DonationFormAuthState, DonationFormData } from 'components/donation-flow/helpers/types'
 import { AlertStore } from 'stores/AlertStore'
+import { routes } from 'common/routes'
 
 export const initialLoginFormValues = {
   loginEmail: '',
@@ -23,21 +21,21 @@ export const initialLoginFormValues = {
 
 export const loginValidation = {
   loginEmail: yup.string().when('authentication', {
-    is: DonationFormDataAuthState.LOGIN,
+    is: DonationFormAuthState.LOGIN,
     then: yup.string().email('one-time-donation:errors-fields.email').required(),
   }),
   loginPassword: yup.string().when('authentication', {
-    is: DonationFormDataAuthState.LOGIN,
+    is: DonationFormAuthState.LOGIN,
     then: yup.string().required(),
   }),
 }
 function InlineLoginForm() {
   const { t } = useTranslation('one-time-donation')
   const [loading, setLoading] = useState(false)
-  const { values, setFieldValue } = useFormikContext<DonationFormDataV2>()
+  const { values, setFieldValue } = useFormikContext<DonationFormData>()
   const { campaign } = useDonationFlow()
   const onGoogleLogin = () => {
-    signIn('google', { callbackUrl: `campaigns/donation-v2/${campaign?.slug}` })
+    signIn('google', { callbackUrl: routes.campaigns.donation(campaign.slug) })
   }
 
   const onClick = async () => {

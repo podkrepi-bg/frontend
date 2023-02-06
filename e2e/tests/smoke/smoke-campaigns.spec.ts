@@ -1,7 +1,7 @@
 import { test, expect, Page } from '@playwright/test'
 
 import { CampaignsPage } from '../../pages/web-pages/campaigns/campaigns.page'
-import { DonationPage } from '../../pages/web-pages/campaigns/donation.page'
+import { DonationPage } from '../../pages/web-pages/campaigns/donation-old.page'
 import { HeaderPage } from '../../pages/web-pages/header.page'
 import { HomePage } from '../../pages/web-pages/home.page'
 

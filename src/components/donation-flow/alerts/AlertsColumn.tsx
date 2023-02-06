@@ -3,9 +3,9 @@ import { AlertProps, Typography } from '@mui/material'
 import { useFormikContext } from 'formik'
 import { AnchoredAlert } from './AnchoredAlert'
 import {
-  DonationFormDataAuthState,
-  DonationFormDataPaymentOption,
-  DonationFormDataV2,
+  DonationFormAuthState,
+  DonationFormPaymentMethod,
+  DonationFormData,
 } from '../helpers/types'
 import { useElements } from '@stripe/react-stripe-js'
 import { AuthenticateAlertContent } from './AlertsContent'
@@ -15,8 +15,8 @@ const cardAlertDescription = `Таксата на Stripe се изчислява
 const bankAlertDescription = `Таксата за транзакция при банков превод зависи от индивидуалните условия на Вашата банка. от (0-4лв)`
 
 const paymentMethodAlertMap = {
-  [DonationFormDataPaymentOption.CARD]: cardAlertDescription,
-  [DonationFormDataPaymentOption.BANK]: bankAlertDescription,
+  [DonationFormPaymentMethod.CARD]: cardAlertDescription,
+  [DonationFormPaymentMethod.BANK]: bankAlertDescription,
 }
 
 function AlertsColumn({
@@ -26,7 +26,7 @@ function AlertsColumn({
 }) {
   const {
     values: { payment, authentication },
-  } = useFormikContext<DonationFormDataV2>()
+  } = useFormikContext<DonationFormData>()
 
   const [updatedRefArray, setUpdatedRefArray] =
     React.useState<React.MutableRefObject<HTMLDivElement | null>[]>(sectionsRefArray)
@@ -50,7 +50,7 @@ function AlertsColumn({
       icon: false,
       sx: {
         display:
-          authentication === DonationFormDataAuthState.AUTHENTICATED || authentication === null
+          authentication === DonationFormAuthState.AUTHENTICATED || authentication === null
             ? 'none'
             : 'flex',
       },

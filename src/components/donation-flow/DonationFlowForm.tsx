@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { useElements, useStripe } from '@stripe/react-stripe-js'
 import * as yup from 'yup'
@@ -9,6 +10,7 @@ import {
   Button,
   Hidden,
   IconButton,
+  Stack,
   Tooltip,
   Typography,
   Unstable_Grid2 as Grid2,
@@ -16,6 +18,10 @@ import {
 import { ArrowBack, Info } from '@mui/icons-material'
 
 import { useCreateStripePayment, useUpdatePaymentIntent } from 'service/donation'
+import { routes } from 'common/routes'
+import CheckboxField from 'components/common/form/CheckboxField'
+import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
+import ConfirmationDialog from 'components/common/ConfirmationDialog'
 import SubmitButton from 'components/common/form/SubmitButton'
 
 import StepSplitter from './common/StepSplitter'
@@ -27,19 +33,11 @@ import {
   initialRegisterFormValues,
   registerFormValidation,
 } from './steps/authentication/InlineRegisterForm'
-import { useDonationFlow } from './DonationFlowContext'
+import { useDonationFlow } from './contexts/DonationFlowProvider'
 import AlertsColumn from './alerts/AlertsColumn'
 import PaymentSummaryAlert from './alerts/PaymentSummaryAlert'
-import {
-  DonationFormDataAuthState,
-  DonationFormDataPaymentOption,
-  DonationFormDataV2,
-} from './helpers/types'
-import CheckboxField from 'components/common/form/CheckboxField'
-import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
-import ConfirmationDialog from 'components/common/ConfirmationDialog'
-import { useRouter } from 'next/router'
-import { routes } from 'common/routes'
+import { DonationFormAuthState, DonationFormPaymentMethod, DonationFormData } from './helpers/types'
+import { useTranslation } from 'react-i18next'
 
 const initialGeneralFormValues = {
   payment: null,
@@ -49,15 +47,22 @@ const initialGeneralFormValues = {
   privacy: false,
 }
 
+const initialValues: DonationFormData = {
+  ...initialGeneralFormValues,
+  ...initialAmountFormValues,
+  ...initialLoginFormValues,
+  ...initialRegisterFormValues,
+}
+
 const generalValidation = {
   payment: yup
     .string()
-    .oneOf(Object.values(DonationFormDataPaymentOption))
-    .required() as yup.SchemaOf<DonationFormDataPaymentOption>,
+    .oneOf(Object.values(DonationFormPaymentMethod))
+    .required() as yup.SchemaOf<DonationFormPaymentMethod>,
   authentication: yup
     .string()
-    .oneOf(Object.values(DonationFormDataAuthState))
-    .required() as yup.SchemaOf<DonationFormDataAuthState>,
+    .oneOf(Object.values(DonationFormAuthState))
+    .required() as yup.SchemaOf<DonationFormAuthState>,
   isAnonymous: yup.boolean().required(),
   email: yup
     .string()
@@ -70,14 +75,7 @@ const generalValidation = {
   privacy: yup.bool().required().isTrue('one-time-donation:errors-fields.privacy'),
 }
 
-const initialValues: DonationFormDataV2 = {
-  ...initialGeneralFormValues,
-  ...initialAmountFormValues,
-  ...initialLoginFormValues,
-  ...initialRegisterFormValues,
-}
-
-export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
+export const validationSchema: yup.SchemaOf<DonationFormData> = yup
   .object()
   .defined()
   .shape({
@@ -88,83 +86,107 @@ export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
   })
 
 export function DonationFlowForm() {
+  const { i18n } = useTranslation()
   const { data: session } = useSession()
-  const { campaign, stripePaymentIntent, setPaymentError } = useDonationFlow()
+  const { campaign, stripePaymentIntent, paymentError, setPaymentError } = useDonationFlow()
   const stripe = useStripe()
   const elements = useElements()
+  const router = useRouter()
   const createStripePaymentMutation = useCreateStripePayment()
   const updatePaymentIntentMutation = useUpdatePaymentIntent()
-
   const paymentMethodSectionRef = React.useRef<HTMLDivElement>(null)
   const authenticationSectionRef = React.useRef<HTMLDivElement>(null)
-
   const [showCancelDialog, setShowCancelDialog] = React.useState(false)
-  const router = useRouter()
+  const [submitPaymentLoading, setSubmitPaymentLoading] = React.useState(false)
+
   return (
     <Formik
       initialValues={{
         ...initialValues,
         email: session?.user?.email ?? '',
-        authentication: session?.user ? DonationFormDataAuthState.AUTHENTICATED : null,
+        authentication: session?.user ? DonationFormAuthState.AUTHENTICATED : null,
+        amountChosen: stripePaymentIntent.amount.toString(),
       }}
       validationSchema={validationSchema}
       onSubmit={async (values) => {
-        if (!stripe || !elements) {
+        setSubmitPaymentLoading(true)
+        if (values.payment === DonationFormPaymentMethod.BANK) {
+          return router.push(
+            `${routes.campaigns.donationStatus(campaign.slug)}?${new URLSearchParams({
+              bank_payment: 'true',
+            }).toString()}`,
+          )
+        }
+        if (!stripe || !elements || !stripePaymentIntent) {
           // Stripe.js has not yet loaded.
-          // Make sure to disable form submission until Stripe.js has loaded.
-          throw new Error('Stripe.js has not loaded when trying to submit the form')
+          // Form should be disabled but TS doesn't know that.
+          setSubmitPaymentLoading(false)
+          setPaymentError({
+            type: 'invalid_request_error',
+            message: "We couldn't submit the form. Please try refreshing the page.",
+          })
+          return
         }
 
-        if (!stripePaymentIntent) {
-          throw new Error('Stripe payment intent does not exist when trying to submit the form')
-        }
-
+        // Update the payment intent with the latest calculated amount
         try {
           await updatePaymentIntentMutation.mutateAsync({
             id: stripePaymentIntent.id,
             payload: {
               amount: Math.round(Number(values.finalAmount)),
               currency: campaign.currency,
+              metadata: {
+                campaignId: campaign.id,
+              },
             },
           })
         } catch (error) {
+          setSubmitPaymentLoading(false)
           setPaymentError({
             type: 'invalid_request_error',
             message: "We couldn't update the payment intent. Please try again later.",
           })
+          return
         }
 
+        // Create the payment entity
         try {
           await createStripePaymentMutation.mutateAsync({
             isAnonymous: values.isAnonymous,
             personEmail: session?.user?.email || values.email,
-            paymentIntentId: stripePaymentIntent?.id,
+            paymentIntentId: stripePaymentIntent.id,
             firstName: session?.user?.given_name || null,
             lastName: session?.user?.family_name || null,
             phone: null,
           })
         } catch (error) {
+          setSubmitPaymentLoading(false)
           setPaymentError({
             type: 'invalid_request_error',
             message: "We couldn't create the payment. Please try again later.",
           })
+          return
         }
 
+        // Confirm the payment
         const { error } = await stripe.confirmPayment({
           //`Elements` instance that was used to create the Payment Element
           elements,
           confirmParams: {
-            return_url: `${window.location.origin}/campaigns/donation-v2/${campaign.slug}`,
+            return_url: `${window.location.origin}/${
+              i18n.language || 'bg'
+            }/${routes.campaigns.donationStatus(campaign.slug)}`,
           },
         })
-
+        setSubmitPaymentLoading(false)
         if (error) {
           setPaymentError(error)
+          return
         }
       }}
       validateOnMount
       validateOnBlur>
-      {({ handleSubmit, values }) => (
+      {({ handleSubmit, values, isValid }) => (
         <Grid2 spacing={4} container>
           <Grid2 sm={12} md={8}>
             <Form
@@ -194,7 +216,7 @@ export function DonationFlowForm() {
               </Button>
               <Box mb={2}>
                 <StepSplitter content="1" active={Boolean(values.amountChosen)} />
-                <Amount />
+                <Amount disabled={values.payment === DonationFormPaymentMethod.BANK} />
                 <StepSplitter
                   content="2"
                   active={Boolean(values.amountChosen) && Boolean(values.payment)}
@@ -237,7 +259,15 @@ export function DonationFlowForm() {
                 />
               </Hidden>
 
-              <SubmitButton label="Donate" fullWidth />
+              <SubmitButton
+                loading={submitPaymentLoading}
+                disabled={!isValid || submitPaymentLoading}
+                label="Donate"
+                fullWidth
+              />
+              <Stack direction={'column'}>
+                <Box>{paymentError?.message}</Box>
+              </Stack>
               <PersistFormikValues debounce={3000} storage="sessionStorage" name="donation-form" />
             </Form>
           </Grid2>

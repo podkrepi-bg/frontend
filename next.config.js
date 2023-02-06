@@ -19,6 +19,10 @@ const moduleExports = {
     tsconfigPath: 'tsconfig.build.json',
   },
   swcMinify: true,
+  webpack: (config) => {
+    config.experiments = { ...config.experiments, topLevelAwait: true }
+    return config
+  },
   env: {
     APP_ENV: process.env.APP_ENV,
     APP_VERSION: version,

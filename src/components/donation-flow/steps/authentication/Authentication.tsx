@@ -3,10 +3,7 @@ import { Box, Typography, Alert, useMediaQuery } from '@mui/material'
 import { useFormikContext } from 'formik'
 import { useSession } from 'next-auth/react'
 
-import {
-  DonationFormDataAuthState,
-  DonationFormDataV2,
-} from 'components/donation-flow/helpers/types'
+import { DonationFormAuthState, DonationFormData } from 'components/donation-flow/helpers/types'
 import theme from 'common/theme'
 import EmailField from 'components/common/form/EmailField'
 
@@ -24,11 +21,11 @@ export default function Authentication({
   const {
     values: { authentication },
     setFieldValue,
-  } = useFormikContext<DonationFormDataV2>()
+  } = useFormikContext<DonationFormData>()
 
   useEffect(() => {
     if (session?.user) {
-      setFieldValue('authentication', DonationFormDataAuthState.AUTHENTICATED)
+      setFieldValue('authentication', DonationFormAuthState.AUTHENTICATED)
     }
   }, [session?.user])
 
@@ -39,7 +36,7 @@ export default function Authentication({
 
   const options = [
     {
-      value: DonationFormDataAuthState.LOGIN,
+      value: DonationFormAuthState.LOGIN,
       label: 'Login',
       disabled: Boolean(session?.user),
       content: (
@@ -60,7 +57,7 @@ export default function Authentication({
       ),
     },
     {
-      value: DonationFormDataAuthState.REGISTER,
+      value: DonationFormAuthState.REGISTER,
       label: 'Register',
       disabled: Boolean(session?.user),
       content: (
@@ -81,7 +78,7 @@ export default function Authentication({
       ),
     },
     {
-      value: DonationFormDataAuthState.NOREGISTER,
+      value: DonationFormAuthState.NOREGISTER,
       label: 'Continue without registration',
       disabled: Boolean(session?.user),
       content: (
@@ -109,7 +106,7 @@ export default function Authentication({
       <Typography mb={3} variant="h5">
         Как предпочитате да продължите?
       </Typography>
-      {authentication === DonationFormDataAuthState.AUTHENTICATED ? (
+      {authentication === DonationFormAuthState.AUTHENTICATED ? (
         <Alert color="info">Вие сте влезли като {session?.user?.email}</Alert>
       ) : (
         <>

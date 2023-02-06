@@ -1,13 +1,11 @@
-import React, { PropsWithChildren, useEffect } from 'react'
+import React, { PropsWithChildren } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Appearance } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 
 import theme from 'common/theme'
-import { useCreatePaymentIntent } from 'service/donation'
-import CenteredSpinner from 'components/common/CenteredSpinner'
 
-import { useDonationFlow } from './DonationFlowContext'
+import { useDonationFlow } from './DonationFlowProvider'
 
 const appearance: Appearance = {
   theme: 'stripe',
@@ -42,41 +40,19 @@ const appearance: Appearance = {
 export function StripeElementsProvider({ children }: PropsWithChildren) {
   const { i18n } = useTranslation()
 
-  const { stripePromise, setStripePaymentIntent, campaign } = useDonationFlow()
-
-  //Initial amount is arbitarary, it will be updated when the user selects an amount
-  const createPaymentIntentMutation = useCreatePaymentIntent()
-
-  useEffect(() => {
-    createPaymentIntentMutation.mutate({
-      amount: 100,
-      currency: 'BGN',
-      metadata: {
-        campaignId: campaign.id,
-      },
-    })
-  }, [])
-
-  useEffect(() => {
-    const intent = createPaymentIntentMutation.data?.data
-    setStripePaymentIntent(intent || null)
-  }, [createPaymentIntentMutation])
+  const { stripe, stripePaymentIntent } = useDonationFlow()
 
   return (
     <>
-      {createPaymentIntentMutation.isLoading ? (
-        <CenteredSpinner />
-      ) : (
-        <Elements
-          stripe={stripePromise}
-          options={{
-            clientSecret: createPaymentIntentMutation.data?.data.client_secret as string,
-            appearance,
-            locale: i18n.language,
-          }}>
-          {children}
-        </Elements>
-      )}
+      <Elements
+        stripe={stripe}
+        options={{
+          clientSecret: stripePaymentIntent.client_secret || undefined,
+          appearance,
+          locale: i18n.language,
+        }}>
+        {children}
+      </Elements>
     </>
   )
 }
