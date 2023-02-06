@@ -2,6 +2,7 @@ import { useTranslation } from 'next-i18next'
 import { Avatar, Box, Typography } from '@mui/material'
 import { dateToTime } from 'components/faq/helpers/utils'
 import { grey } from '@mui/material/colors'
+import { money } from 'common/util/money'
 
 export type NotificationLayoutData = {
   createdAt: string
@@ -28,7 +29,7 @@ export default function DonationNotificationLayout({
         <Typography component="h1" sx={{ fontWeight: 'bold' }}>
           {person ? `${person?.firstName} ${person?.lastName}` : 'unknown'}
         </Typography>
-        <Typography color={grey[600]}>{`${amount} ${currency}  |  ${dateToTime(
+        <Typography color={grey[600]}>{`${money(amount as number)} ${currency}  |  ${dateToTime(
           createdAt,
         )}`}</Typography>
       </Box>
