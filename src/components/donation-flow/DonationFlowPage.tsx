@@ -1,11 +1,11 @@
 import Stripe from 'stripe'
 import { useViewCampaign } from 'common/hooks/campaigns'
-import CenteredSpinner from 'components/common/CenteredSpinner'
 
 import { DonationFlowForm } from './DonationFlowForm'
 import { DonationFlowProvider } from './contexts/DonationFlowProvider'
 import { StripeElementsProvider } from './contexts/StripeElementsProvider'
 import DonationFlowLayout from './DonationFlowLayout'
+import { CampaignResponse } from 'gql/campaigns'
 
 export default function DonationFlowPage({
   slug,
@@ -14,12 +14,14 @@ export default function DonationFlowPage({
   slug: string
   paymentIntent: Stripe.PaymentIntent
 }) {
-  const { data, isLoading } = useViewCampaign(slug)
-  if (isLoading || !data) return <CenteredSpinner size="2rem" />
+  const { data } = useViewCampaign(slug)
+  //This query needs to be prefetched in the pages folder
+  //otherwise on the first render the data will be undefined
+  const campaign = data?.campaign as CampaignResponse
   return (
-    <DonationFlowProvider campaign={data.campaign} paymentIntent={paymentIntent}>
+    <DonationFlowProvider campaign={campaign} paymentIntent={paymentIntent}>
       <StripeElementsProvider>
-        <DonationFlowLayout campaign={data.campaign}>
+        <DonationFlowLayout campaign={campaign}>
           <DonationFlowForm />
         </DonationFlowLayout>
       </StripeElementsProvider>

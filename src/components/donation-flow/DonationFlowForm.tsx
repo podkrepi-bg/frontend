@@ -116,18 +116,18 @@ export function DonationFlowForm() {
               bank_payment: true,
             },
           })
+          return
         }
         setSubmitPaymentLoading(true)
-        if (!stripe || !elements) {
+        if (!stripe || !elements || !stripePaymentIntent) {
           // Stripe.js has not yet loaded.
           // Form should be disabled but TS doesn't know that.
           setSubmitPaymentLoading(false)
-          throw new Error('Stripe.js has not loaded when trying to submit the form')
-        }
-
-        if (!stripePaymentIntent) {
-          setSubmitPaymentLoading(false)
-          throw new Error('Stripe payment intent does not exist when trying to submit the form')
+          setPaymentError({
+            type: 'invalid_request_error',
+            message: "We couldn't submit the form. Please try refreshing the page.",
+          })
+          return
         }
 
         // Update the payment intent with the latest calculated amount
@@ -261,7 +261,7 @@ export function DonationFlowForm() {
 
               <SubmitButton
                 loading={submitPaymentLoading}
-                disabled={!isValid || !stripe || !elements || submitPaymentLoading}
+                disabled={!isValid || submitPaymentLoading}
                 label="Donate"
                 fullWidth
               />

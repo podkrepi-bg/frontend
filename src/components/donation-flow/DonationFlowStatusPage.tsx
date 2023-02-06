@@ -19,7 +19,6 @@ import { stripe } from 'service/stripeClient'
 import { routes } from 'common/routes'
 
 import { useViewCampaign } from 'common/hooks/campaigns'
-import CenteredSpinner from 'components/common/CenteredSpinner'
 import FormTextField from 'components/common/form/FormTextField'
 import SocialShareListButton from 'components/common/SocialShareListButton'
 import SubmitButton from 'components/common/form/SubmitButton'
@@ -33,6 +32,7 @@ import { useMutation } from '@tanstack/react-query'
 import { createDonationWish } from 'service/donationWish'
 import { AlertStore } from 'stores/AlertStore'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
+import { CampaignResponse } from 'gql/campaigns'
 
 function LinkCard({ href, text }: { href: string; text: string }) {
   return (
@@ -49,9 +49,10 @@ function LinkCard({ href, text }: { href: string; text: string }) {
 }
 
 export default function DonationFlowStatusPage({ slug }: { slug: string }) {
-  const { data, isLoading } = useViewCampaign(slug)
-  if (isLoading || !data) return <CenteredSpinner size="2rem" />
-  const { campaign } = data
+  const { data } = useViewCampaign(slug)
+  //This query needs to be prefetched in the pages folder
+  //otherwise on the first render the data will be undefined
+  const campaign = data?.campaign as CampaignResponse
   const [status, setStatus] = useState<DonationFormPaymentStatus | null>(null)
   const [disableWishForm, setDisableWishForm] = useState<boolean>(false)
   const router = useRouter()
