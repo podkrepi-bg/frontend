@@ -106,6 +106,7 @@ export function DonationFlowForm() {
         ...initialValues,
         email: session?.user?.email ?? '',
         authentication: session?.user ? DonationFormAuthState.AUTHENTICATED : null,
+        amountChosen: stripePaymentIntent.amount.toString(),
       }}
       validationSchema={validationSchema}
       onSubmit={async (values) => {

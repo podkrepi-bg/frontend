@@ -29,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSideP
     Stripe.PaymentIntentCreateParams,
     AxiosResponse<Stripe.PaymentIntent>
   >(endpoints.donation.createPaymentIntent.url, {
-    amount: 100,
+    amount: 500,
     currency: Currencies.BGN,
   })
 
