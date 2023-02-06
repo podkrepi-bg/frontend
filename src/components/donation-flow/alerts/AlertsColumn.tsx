@@ -5,7 +5,7 @@ import { AnchoredAlert } from './AnchoredAlert'
 import {
   DonationFormAuthState,
   DonationFormPaymentMethod,
-  DonationFormDataV2,
+  DonationFormData,
 } from '../helpers/types'
 import { useElements } from '@stripe/react-stripe-js'
 import { AuthenticateAlertContent } from './AlertsContent'
@@ -26,7 +26,7 @@ function AlertsColumn({
 }) {
   const {
     values: { payment, authentication },
-  } = useFormikContext<DonationFormDataV2>()
+  } = useFormikContext<DonationFormData>()
 
   const [updatedRefArray, setUpdatedRefArray] =
     React.useState<React.MutableRefObject<HTMLDivElement | null>[]>(sectionsRefArray)

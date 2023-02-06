@@ -12,7 +12,7 @@ import FormTextField from 'components/common/form/FormTextField'
 import PasswordField from 'components/common/form/PasswordField'
 import EmailField from 'components/common/form/EmailField'
 import { RegisterFormData } from 'components/auth/register/RegisterForm'
-import { DonationFormAuthState, DonationFormDataV2 } from 'components/donation-flow/helpers/types'
+import { DonationFormAuthState, DonationFormData } from 'components/donation-flow/helpers/types'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 
@@ -61,7 +61,7 @@ export default function InlineRegisterForm() {
   const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
   const { mutateAsync: register } = useRegister()
-  const formik = useFormikContext<DonationFormDataV2>()
+  const formik = useFormikContext<DonationFormData>()
 
   const values: RegisterFormData = {
     firstName: formik.values.registerFirstName as string,

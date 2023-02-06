@@ -10,8 +10,9 @@ import Google from 'common/icons/Google'
 import PasswordField from 'components/common/form/PasswordField'
 import EmailField from 'components/common/form/EmailField'
 import { useDonationFlow } from 'components/donation-flow/contexts/DonationFlowProvider'
-import { DonationFormAuthState, DonationFormDataV2 } from 'components/donation-flow/helpers/types'
+import { DonationFormAuthState, DonationFormData } from 'components/donation-flow/helpers/types'
 import { AlertStore } from 'stores/AlertStore'
+import { routes } from 'common/routes'
 
 export const initialLoginFormValues = {
   loginEmail: '',
@@ -31,10 +32,10 @@ export const loginValidation = {
 function InlineLoginForm() {
   const { t } = useTranslation('one-time-donation')
   const [loading, setLoading] = useState(false)
-  const { values, setFieldValue } = useFormikContext<DonationFormDataV2>()
+  const { values, setFieldValue } = useFormikContext<DonationFormData>()
   const { campaign } = useDonationFlow()
   const onGoogleLogin = () => {
-    signIn('google', { callbackUrl: `campaigns/donation-v2/${campaign?.slug}` })
+    signIn('google', { callbackUrl: routes.campaigns.donation(campaign.slug) })
   }
 
   const onClick = async () => {

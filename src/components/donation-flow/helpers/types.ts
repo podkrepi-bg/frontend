@@ -24,7 +24,7 @@ export enum DonationFormPaymentStatus {
   REQUIRES_CONFIRMATION = 'requires_confirmation',
 }
 
-export type DonationFormDataV2 = {
+export type DonationFormData = {
   //Common fields
   isAnonymous: boolean
   authentication: DonationFormAuthState | null

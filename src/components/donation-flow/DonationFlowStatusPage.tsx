@@ -90,7 +90,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
       .retrievePaymentIntent(payment_intent_client_secret as string)
       .then(({ paymentIntent, error }) => {
         if (!paymentIntent || paymentIntent.status === DonationFormPaymentStatus.REQUIRES_PAYMENT) {
-          router.push(routes.campaigns.donationV2(slug), {
+          router.push(routes.campaigns.donation(slug), {
             query: {
               payment_intent_id,
               payment_intent_client_secret,

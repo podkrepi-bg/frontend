@@ -36,11 +36,7 @@ import {
 import { useDonationFlow } from './contexts/DonationFlowProvider'
 import AlertsColumn from './alerts/AlertsColumn'
 import PaymentSummaryAlert from './alerts/PaymentSummaryAlert'
-import {
-  DonationFormAuthState,
-  DonationFormPaymentMethod,
-  DonationFormDataV2,
-} from './helpers/types'
+import { DonationFormAuthState, DonationFormPaymentMethod, DonationFormData } from './helpers/types'
 
 const initialGeneralFormValues = {
   payment: null,
@@ -71,14 +67,14 @@ const generalValidation = {
   privacy: yup.bool().required().isTrue('one-time-donation:errors-fields.privacy'),
 }
 
-const initialValues: DonationFormDataV2 = {
+const initialValues: DonationFormData = {
   ...initialGeneralFormValues,
   ...initialAmountFormValues,
   ...initialLoginFormValues,
   ...initialRegisterFormValues,
 }
 
-export const validationSchema: yup.SchemaOf<DonationFormDataV2> = yup
+export const validationSchema: yup.SchemaOf<DonationFormData> = yup
   .object()
   .defined()
   .shape({
@@ -175,7 +171,9 @@ export function DonationFlowForm() {
           //`Elements` instance that was used to create the Payment Element
           elements,
           confirmParams: {
-            return_url: `${window.location.origin}/campaigns/donation-v2/${campaign.slug}/status`,
+            return_url: `${window.location.origin}${routes.campaigns.donationStauts(
+              campaign.slug,
+            )}}`,
           },
         })
         setSubmitPaymentLoading(false)

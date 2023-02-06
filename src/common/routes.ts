@@ -55,9 +55,9 @@ export const routes = {
     index: '/campaigns',
     create: '/campaigns/create',
     viewCampaignBySlug: (slug: string) => `/campaigns/${slug}`,
-    oneTimeDonation: (slug: string) => `/campaigns/donation/${slug}`,
-    donationV2: (slug: string) => `/campaigns/donation-v2/${slug}`,
-    donationStauts: (slug: string) => `/campaigns/donation-v2/${slug}/status`,
+    oneTimeDonation: (slug: string) => `/campaigns/donation-old/${slug}`,
+    donation: (slug: string) => `/campaigns/donation/${slug}`,
+    donationStauts: (slug: string) => `/campaigns/donation/${slug}/status`,
   },
   donation: {
     viewCertificate: (donationId: string) => `/api/pdf/certificate/${donationId}`,

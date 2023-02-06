@@ -13,7 +13,7 @@ import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 import FormTextField from 'components/common/form/FormTextField'
 
 import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../helpers/stripe-fee-calculator'
-import { DonationFormDataV2 } from '../helpers/types'
+import { DonationFormData } from '../helpers/types'
 
 export const initialAmountFormValues = {
   amountChosen: '',
@@ -57,7 +57,7 @@ export default function Amount({
   sectionRef?: React.MutableRefObject<HTMLDivElement | null>
 }) {
   const { data: prices } = useSinglePriceList()
-  const formik = useFormikContext<DonationFormDataV2>()
+  const formik = useFormikContext<DonationFormData>()
   const { t } = useTranslation('one-time-donation')
   const mobile = useMediaQuery('(max-width:600px)')
 

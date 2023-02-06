@@ -3,7 +3,7 @@ import { Box, Typography, Alert, useMediaQuery } from '@mui/material'
 import { useFormikContext } from 'formik'
 import { useSession } from 'next-auth/react'
 
-import { DonationFormAuthState, DonationFormDataV2 } from 'components/donation-flow/helpers/types'
+import { DonationFormAuthState, DonationFormData } from 'components/donation-flow/helpers/types'
 import theme from 'common/theme'
 import EmailField from 'components/common/form/EmailField'
 
@@ -21,7 +21,7 @@ export default function Authentication({
   const {
     values: { authentication },
     setFieldValue,
-  } = useFormikContext<DonationFormDataV2>()
+  } = useFormikContext<DonationFormData>()
 
   useEffect(() => {
     if (session?.user) {
