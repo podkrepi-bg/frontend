@@ -37,6 +37,7 @@ import { useDonationFlow } from './contexts/DonationFlowProvider'
 import AlertsColumn from './alerts/AlertsColumn'
 import PaymentSummaryAlert from './alerts/PaymentSummaryAlert'
 import { DonationFormAuthState, DonationFormPaymentMethod, DonationFormData } from './helpers/types'
+import { useTranslation } from 'react-i18next'
 
 const initialGeneralFormValues = {
   payment: null,
@@ -85,6 +86,7 @@ export const validationSchema: yup.SchemaOf<DonationFormData> = yup
   })
 
 export function DonationFlowForm() {
+  const { i18n } = useTranslation()
   const { data: session } = useSession()
   const { campaign, stripePaymentIntent, paymentError, setPaymentError } = useDonationFlow()
   const stripe = useStripe()
@@ -171,9 +173,9 @@ export function DonationFlowForm() {
           //`Elements` instance that was used to create the Payment Element
           elements,
           confirmParams: {
-            return_url: `${window.location.origin}${routes.campaigns.donationStatus(
-              campaign.slug,
-            )}`,
+            return_url: `${window.location.origin}/${
+              i18n.language || 'bg'
+            }/${routes.campaigns.donationStatus(campaign.slug)}`,
           },
         })
         setSubmitPaymentLoading(false)
