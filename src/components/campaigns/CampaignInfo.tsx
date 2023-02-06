@@ -75,17 +75,7 @@ export default function CampaignInfo({ campaign }: Props) {
               display="block"
               gap="5px"
               className={classes.campaignTextWithIcon}>
-              <strong>
-                {t('campaigns:campaign.type')}
-                {': '}{' '}
-              </strong>
               {campaign.campaignType.name}
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography variant="subtitle2" component="p" className={classes.campaignText}>
-              <strong>{t('campaigns:campaign.status')}</strong>{' '}
-              {t(`campaigns:campaign-status.${campaign.state}`)}
             </Typography>
           </Grid>
           <Grid item>
@@ -103,6 +93,12 @@ export default function CampaignInfo({ campaign }: Props) {
             <Typography variant="subtitle2" component="p" className={classes.campaignTextWithIcon}>
               <strong>{t('campaigns:campaign.end-date')}</strong>{' '}
               {campaign.endDate ? getExactDate(campaign.endDate, locale) : 'безсрочна'}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography variant="subtitle2" component="p" className={classes.campaignText}>
+              <strong>{t('campaigns:campaign.status')}</strong>{' '}
+              {t(`campaigns:campaign-status.${campaign.state}`)}
             </Typography>
           </Grid>
         </Grid>
