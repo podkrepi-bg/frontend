@@ -17,7 +17,7 @@ export default function DonationFlowPage({
   const { data, isLoading } = useViewCampaign(slug)
   if (isLoading || !data) return <CenteredSpinner size="2rem" />
   return (
-    <DonationFlowProvider paymentIntent={paymentIntent}>
+    <DonationFlowProvider campaign={data.campaign} paymentIntent={paymentIntent}>
       <StripeElementsProvider>
         <DonationFlowLayout campaign={data.campaign}>
           <DonationFlowForm />
