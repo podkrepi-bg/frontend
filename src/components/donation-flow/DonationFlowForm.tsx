@@ -46,6 +46,13 @@ const initialGeneralFormValues = {
   privacy: false,
 }
 
+const initialValues: DonationFormData = {
+  ...initialGeneralFormValues,
+  ...initialAmountFormValues,
+  ...initialLoginFormValues,
+  ...initialRegisterFormValues,
+}
+
 const generalValidation = {
   payment: yup
     .string()
@@ -65,13 +72,6 @@ const generalValidation = {
       then: yup.string().email('one-time-donation:errors-fields.email').required(),
     }),
   privacy: yup.bool().required().isTrue('one-time-donation:errors-fields.privacy'),
-}
-
-const initialValues: DonationFormData = {
-  ...initialGeneralFormValues,
-  ...initialAmountFormValues,
-  ...initialLoginFormValues,
-  ...initialRegisterFormValues,
 }
 
 export const validationSchema: yup.SchemaOf<DonationFormData> = yup
@@ -96,6 +96,7 @@ export function DonationFlowForm() {
   const authenticationSectionRef = React.useRef<HTMLDivElement>(null)
   const [showCancelDialog, setShowCancelDialog] = React.useState(false)
   const [submitPaymentLoading, setSubmitPaymentLoading] = React.useState(false)
+
   return (
     <Formik
       initialValues={{
@@ -107,7 +108,7 @@ export function DonationFlowForm() {
       validationSchema={validationSchema}
       onSubmit={async (values) => {
         if (values.payment === DonationFormPaymentMethod.BANK) {
-          router.push(routes.campaigns.donationStauts(campaign.slug), {
+          router.push(routes.campaigns.donationStatus(campaign.slug), {
             query: {
               bank_payment: true,
             },
@@ -171,7 +172,7 @@ export function DonationFlowForm() {
           //`Elements` instance that was used to create the Payment Element
           elements,
           confirmParams: {
-            return_url: `${window.location.origin}${routes.campaigns.donationStauts(
+            return_url: `${window.location.origin}${routes.campaigns.donationStatus(
               campaign.slug,
             )}}`,
           },
