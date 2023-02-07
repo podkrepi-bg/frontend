@@ -108,90 +108,121 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
       })
   }, [])
 
+  const Success = () => (
+    <Box>
+      <Typography textAlign="center" variant="h4" mb={1}>
+        {session.data?.user?.name && ', благодарим ви, за доверието и подкрепата!'}
+        Благодарим ви, за доверието и подкрепата!
+      </Typography>
+      <Typography display="flex" justifyContent="center" alignItems="center">
+        <Email sx={{ mr: 1, fill: theme.palette.grey[400] }} />
+        Пратихме Ви и мейл с повече информация на адреса, който сте посочили.
+      </Typography>
+      <SuccessGraphic />
+      <Formik
+        initialValues={{
+          wish: '',
+        }}
+        onSubmit={(values) => {
+          createDonationWishMutate({
+            message: values.wish,
+            campaignId: campaign.id,
+            personId: person?.id ? person.id : null,
+          })
+        }}
+        validateOnMount
+        validateOnBlur
+        innerRef={formikRef}>
+        {({ handleSubmit }) => (
+          <Form onSubmit={handleSubmit}>
+            <Stack alignItems="flex-end" direction="column">
+              <Box width="100%">
+                <Typography variant="h5" mb={2} color={theme.palette.primary.dark}>
+                  Помогнете на бенефициента/ите със добро пожелание:
+                </Typography>
+                <FormTextField
+                  type="text"
+                  name="wish"
+                  label="Напишете пожелание..."
+                  multiline
+                  fullWidth
+                  disabled={disableWishForm}
+                  rows={7}
+                />
+              </Box>
+              <SubmitButton
+                loading={isWishSendLoading}
+                disabled={disableWishForm || isWishSendLoading}
+                sx={{ mt: 1 }}
+                label="Изпрати"
+              />
+            </Stack>
+          </Form>
+        )}
+      </Formik>
+      <StepSplitter />
+      <Stack alignItems="flex-end">
+        <Box width="100%">
+          <Typography variant="h5" mb={1}>
+            Подкрепи на кампания като споделиш с приятели.
+          </Typography>
+          <Typography mb={1}>
+            Кампаниите сподели във вашите социални мрежи могат да съберат много повече средства
+          </Typography>
+        </Box>
+        <SocialShareListButton
+          url={`${window.location.host}${routes.campaigns.viewCampaignBySlug(slug)}`}
+        />
+      </Stack>
+      <StepSplitter />
+      <Grid2 spacing={2} container>
+        <Grid2 xs={12} md={6}>
+          <LinkCard href={routes.campaigns.viewCampaignBySlug(slug)} text="Виж кампанията" />
+        </Grid2>
+        <Grid2 xs={12} md={6}>
+          <LinkCard href={routes.campaigns.index} text="Виж други кампании" />
+        </Grid2>
+        <Grid2 xs={12} md={6}>
+          <LinkCard href={routes.profile.index} text="Твоите дарения" />
+        </Grid2>
+        <Grid2 xs={12} md={6}>
+          <LinkCard href={routes.support} text="Стани доброволец" />
+        </Grid2>
+      </Grid2>
+    </Box>
+  )
+  const Fail = () => (
+    <Box>
+      <Typography textAlign="center" variant="h4" mb={1}>
+        Нещо се обърка, молим Ви да опитате отново!
+      </Typography>
+      <SuccessGraphic />
+      <StepSplitter />
+      <Grid2 spacing={2} container>
+        <Grid2 xs={12} md={6}>
+          <LinkCard href={routes.campaigns.donation(slug)} text="Опитай пак" />
+        </Grid2>
+        <Grid2 xs={12} md={6}>
+          <LinkCard
+            href={routes.campaigns.viewCampaignBySlug(slug)}
+            text="Върни се към капманията"
+          />
+        </Grid2>
+      </Grid2>
+    </Box>
+  )
+
+  const StatusToRender = () =>
+    status === DonationFormPaymentStatus.SUCCEEDED ? (
+      <Success />
+    ) : status === DonationFormPaymentStatus.REQUIRES_PAYMENT ? (
+      <Fail />
+    ) : null
+
   return (
     <DonationFlowLayout campaign={campaign}>
-      {status === DonationFormPaymentStatus.SUCCEEDED ? (
-        <Box>
-          <Typography textAlign="center" variant="h4" mb={1}>
-            {session.data?.user?.name && ', благодарим ви, за доверието и подкрепата!'}
-            Благодарим ви, за доверието и подкрепата!
-          </Typography>
-          <Typography display="flex" justifyContent="center" alignItems="center">
-            <Email sx={{ mr: 1, fill: theme.palette.grey[400] }} />
-            Пратихме Ви и мейл с повече информация на адреса, който сте посочили.
-          </Typography>
-          <SuccessGraphic />
-          <Formik
-            initialValues={{
-              wish: '',
-            }}
-            onSubmit={(values) => {
-              createDonationWishMutate({
-                message: values.wish,
-                campaignId: campaign.id,
-                personId: person?.id ? person.id : null,
-              })
-            }}
-            validateOnMount
-            validateOnBlur
-            innerRef={formikRef}>
-            {({ handleSubmit }) => (
-              <Form onSubmit={handleSubmit}>
-                <Stack alignItems="flex-end" direction="column">
-                  <Box width="100%">
-                    <Typography variant="h5" mb={2} color={theme.palette.primary.dark}>
-                      Помогнете на бенефициента/ите със добро пожелание:
-                    </Typography>
-                    <FormTextField
-                      type="text"
-                      name="wish"
-                      label="Напишете пожелание..."
-                      multiline
-                      fullWidth
-                      disabled={disableWishForm}
-                      rows={7}
-                    />
-                  </Box>
-                  <SubmitButton
-                    loading={isWishSendLoading}
-                    disabled={disableWishForm || isWishSendLoading}
-                    sx={{ mt: 1 }}
-                    label="Изпрати"
-                  />
-                </Stack>
-              </Form>
-            )}
-          </Formik>
-          <StepSplitter />
-          <Stack alignItems="flex-end">
-            <Box width="100%">
-              <Typography variant="h5" mb={1}>
-                Подкрепи на кампания като споделиш с приятели.
-              </Typography>
-              <Typography mb={1}>
-                Кампаниите сподели във вашите социални мрежи могат да съберат много повече средства
-              </Typography>
-            </Box>
-            <SocialShareListButton
-              url={`${window.location.host}${routes.campaigns.viewCampaignBySlug(slug)}`}
-            />
-          </Stack>
-          <StepSplitter />
-          <Grid2 spacing={2} container>
-            <Grid2 xs={12} md={6}>
-              <LinkCard href={routes.campaigns.viewCampaignBySlug(slug)} text="Виж кампанията" />
-            </Grid2>
-            <Grid2 xs={12} md={6}>
-              <LinkCard href={routes.campaigns.index} text="Виж други кампании" />
-            </Grid2>
-            <Grid2 xs={12} md={6}>
-              <LinkCard href={routes.profile.index} text="Твоите дарения" />
-            </Grid2>
-            <Grid2 xs={12} md={6}>
-              <LinkCard href={routes.support} text="Стани доброволец" />
-            </Grid2>
-          </Grid2>
-        </Box>
+      {status ? (
+        <StatusToRender />
       ) : (
         <Box height="calc(100vh - 88px)" display="flex" justifyContent="center" alignItems="center">
           <CircularProgress size={100} />
