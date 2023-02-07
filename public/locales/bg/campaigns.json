@@ -135,8 +135,9 @@
       "add": "Добавете организатор",
       "create": "Създайте организатор"
     },
-    "podkrepi-bg-coordinator": "Подкрепи.бг Координатор:",
+    "podkrepi-bg-operator": "Подкрепи.бг Оператор:",
     "have-a-question": "Имате въпрос?",
+    "btn-connect": "Пишете ни",
     "write-to-coordinator": "Пишете на Координатор",
     "description": "Описание",
     "start-date": "Начална дата:",

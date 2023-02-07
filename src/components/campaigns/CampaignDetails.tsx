@@ -14,7 +14,7 @@ import { styled } from '@mui/material/styles'
 import DonationWishes from './DonationWishes'
 import CampaignSlider from './CampaignSlider'
 import CampaignInfo from './CampaignInfo'
-import CampaignInfoCoordinator from './CampaignInfoCoordinator'
+import CampaignInfoOperator from './CampaignInfoOperator'
 import LinkButton from 'components/common/LinkButton'
 import { campaignSliderUrls } from 'common/util/campaignImageUrls'
 
@@ -85,7 +85,7 @@ export default function CampaignDetails({ campaign }: Props) {
           <Divider />
         </Grid>
         <Grid item xs={12}>
-          <CampaignInfoCoordinator campaign={campaign} />
+          <CampaignInfoOperator campaign={campaign} />
         </Grid>
         <Grid item xs={12}>
           <DonationWishes campaignId={campaign?.id} />

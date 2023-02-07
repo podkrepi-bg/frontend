@@ -6,8 +6,8 @@ import Image from 'next/image'
 import { CampaignResponse } from 'gql/campaigns'
 
 import { Button, Grid, Typography } from '@mui/material'
-import { styled } from '@mui/material/styles'
 import EmailIcon from '@mui/icons-material/Email'
+import { styled } from '@mui/material/styles'
 
 import { organizerCampaignPictureUrl } from 'common/util/campaignImageUrls'
 
@@ -17,7 +17,6 @@ const classes = {
   infoButtonIcon: `${PREFIX}-infoButtonIcon`,
   personAvatar: `${PREFIX}-personAvatar`,
   avatarWrapper: `${PREFIX}-avatarWrapper`,
-  linkButton: `${PREFIX}-linkButton`,
   trustedButton: `${PREFIX}-trustedButton`,
   organizer: `${PREFIX}-organizer`,
 }
@@ -34,15 +33,6 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.personAvatar}`]: {
     borderRadius: '50%',
     objectFit: 'cover',
-  },
-
-  [`& .${classes.linkButton}`]: {
-    color: theme.palette.primary.main,
-    padding: 0,
-
-    '&:hover': {
-      backgroundColor: 'unset',
-    },
   },
 
   [`& .${classes.trustedButton}`]: {
@@ -63,7 +53,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 
   [`& .${classes.organizer}`]: {
-    fontSize: theme.typography.pxToRem(16),
+    fontSize: theme.typography.pxToRem(14),
     fontWight: 700,
   },
 }))
@@ -106,10 +96,6 @@ export default function CampaignInfoOrganizer({ campaign }: Props) {
           className={classes.trustedButton}>
           {campaign?.organizer?.person.email}
         </Button>
-        {/*TODO: No current implementation of organizer profile */}
-        {/* <Button href={''} className={classes.linkButton}>
-          {t('common:cta.see-profile')}
-        </Button> */}
       </Grid>
     </StyledGrid>
   )

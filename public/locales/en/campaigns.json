@@ -135,8 +135,9 @@
       "add": "Add organizer",
       "create": "Create organizer"
     },
-    "podkrepi-bg-coordinator": "Podkrepi.bg Coordinator:",
+    "podkrepi-bg-operator": "Podkrepi.bg Operator:",
     "have-a-question": "Have a question?",
+    "btn-connect": "Write to us",
     "write-to-coordinator": "Write to Coordinator",
     "description": "Description",
     "start-date": "Start date:",
