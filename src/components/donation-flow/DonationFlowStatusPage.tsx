@@ -33,6 +33,7 @@ import { createDonationWish } from 'service/donationWish'
 import { AlertStore } from 'stores/AlertStore'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import { CampaignResponse } from 'gql/campaigns'
+import FailGraphic from './icons/FailGraphic'
 
 function LinkCard({ href, text }: { href: string; text: string }) {
   return (
@@ -79,7 +80,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
     if (bank_payment === 'true') {
       // If we are redirected on that page means that the payment is a bank payment and we can clear the form state
       sessionStorage.removeItem('donation-form')
-      setStatus(DonationFormPaymentStatus.SUCCEEDED)
+      setStatus(DonationFormPaymentStatus.REQUIRES_PAYMENT)
       return
     }
     if (!stripe || !payment_intent_client_secret) {
@@ -196,7 +197,15 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
       <Typography textAlign="center" variant="h4" mb={1}>
         Нещо се обърка, молим Ви да опитате отново!
       </Typography>
-      <SuccessGraphic />
+      {/* TODO: Provide a better <FailGraphic> instead of just an X */}
+      <FailGraphic
+        sx={{
+          width: '100%',
+          height: 'auto',
+          maxHeight: '220px',
+          my: 2,
+        }}
+      />
       <StepSplitter />
       <Grid2 spacing={2} container>
         <Grid2 xs={12} md={6}>
