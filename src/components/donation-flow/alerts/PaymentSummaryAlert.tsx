@@ -45,8 +45,8 @@ function PaymentSummaryAlert({
 
         <Stack direction={'row'} justifyContent="space-between">
           <StyledTypography>
-            {t('step.summary.transaction')}
-            <Tooltip title={t('step.summary.description')}>
+            {t('step.summary.transaction.title')}
+            <Tooltip title={t('step.summary.transaction.description')}>
               <IconButton sx={{ padding: '5px', height: 30, width: 30 }}>
                 <Info sx={{ height: 20, width: 20 }} />
               </IconButton>

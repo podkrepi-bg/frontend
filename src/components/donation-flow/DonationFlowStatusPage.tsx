@@ -145,7 +145,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
             <Stack alignItems="flex-end" direction="column">
               <Box width="100%">
                 <Typography variant="h5" mb={2} color={theme.palette.primary.dark}>
-                  Помогнете на бенефициента/ите със добро пожелание:
+                  {t('status.success.wish.title')}:
                 </Typography>
                 <FormTextField
                   type="text"

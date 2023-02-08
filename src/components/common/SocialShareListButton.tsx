@@ -12,6 +12,7 @@ import { ContentCopy, Facebook, LinkedIn, Share, Twitter } from '@mui/icons-mate
 
 import { AlertStore } from 'stores/AlertStore'
 import theme from 'common/theme'
+import { useTranslation } from 'react-i18next'
 
 export default function SocialShareListButton({
   url,
@@ -22,6 +23,7 @@ export default function SocialShareListButton({
   buttonProps?: ButtonProps
   popoverProps?: PopoverProps
 }) {
+  const { t } = useTranslation('common')
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null)
   const serializedUrl = new URLSearchParams(url).toString()
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -38,7 +40,7 @@ export default function SocialShareListButton({
   return (
     <>
       <Button aria-describedby={id} onClick={handleClick} variant="outlined" {...buttonProps}>
-        Сподели в соц. мрежи <Share sx={{ ml: 1 }} />
+        {t('cta.share')} <Share sx={{ ml: 1 }} />
       </Button>
       <Popover
         id={id}
