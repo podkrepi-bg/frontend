@@ -9,7 +9,7 @@ import CheckboxField from 'components/common/form/CheckboxField'
 import FormSelectField from 'components/common/form/FormSelectField'
 
 export const TaxesCheckbox = () => {
-  const { t } = useTranslation('one-time-donation')
+  const { t } = useTranslation('donation-flow')
   const [amountWithFees] = useField('finalAmount')
   const [amountWithoutFees] = useField<number>('amountWithoutFees')
   return (
@@ -18,28 +18,32 @@ export const TaxesCheckbox = () => {
         <Grid2 xs={8}>
           <CheckboxField
             name="cardIncludeFees"
-            label={<Typography variant="body2">{t('third-step.card-include-fees')}</Typography>}
+            label={
+              <Typography variant="body2">
+                {t('step.payment-method.field.include-fees.label')}
+              </Typography>
+            }
           />
         </Grid2>
         <Grid2 xs={4}>
           <FormSelectField
             name="cardRegion"
-            label={t('third-step.card-region.title')}
+            label={t('step.payment-method.field.card-region.title')}
             options={[
               {
                 key: CardRegion.EU,
                 value: CardRegion.EU,
-                name: t(`third-step.card-region.${CardRegion.EU}`),
+                name: t(`step.payment-method.field.card-region.${CardRegion.EU}`),
               },
               {
                 key: CardRegion.UK,
                 value: CardRegion.UK,
-                name: t(`third-step.card-region.${CardRegion.UK}`),
+                name: t(`step.payment-method.field.card-region.${CardRegion.UK}`),
               },
               {
                 key: CardRegion.Other,
                 value: CardRegion.Other,
-                name: t(`third-step.card-region.${CardRegion.Other}`),
+                name: t(`step.payment-method.field.card-region.${CardRegion.Other}`),
               },
             ]}
             InputProps={{ style: { fontSize: 14 } }}
@@ -48,7 +52,7 @@ export const TaxesCheckbox = () => {
       </Grid2>
       <Trans
         t={t}
-        i18nKey="third-step.card-calculated-fees"
+        i18nKey="step.payment-method.alert.calculated-fees"
         values={{
           amount: moneyPublicDecimals2(amountWithoutFees.value),
           fees: moneyPublicDecimals2(amountWithFees.value - amountWithoutFees.value),

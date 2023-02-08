@@ -29,7 +29,7 @@ export const initialRegisterFormValues = {
 export const registerFormValidation = {
   registerEmail: yup.string().when('authentication', {
     is: DonationFormAuthState.REGISTER,
-    then: yup.string().email('one-time-donation:errors-fields.email').required(),
+    then: yup.string().email('donation-flow:general.error.email').required(),
   }),
   registerPassword: yup.string().when('authentication', {
     is: DonationFormAuthState.REGISTER,

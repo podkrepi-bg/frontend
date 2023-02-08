@@ -1,95 +1,197 @@
 {
+  "general": {
+    "BGN": "BGN",
+    "error": {
+      "email": "You have to enter a valid email"
+    }
+  },
+  "cancel-dialog": {
+    "title": "Are you sure you want to cancel?",
+    "content": "If you cancel, you will lose all the information you have entered so far.",
+    "btn-cancel": "Cancel",
+    "btn-continue": "Continue"
+  },
+  "action": {
+    "back": "Back",
+    "submit": "Donate"
+  },
+  "step": {
+    "amount": {
+      "title": "How much would you like to donate",
+      "field": {
+        "final-amount": {
+          "error": "You have to select an amount or enter a custom amount"
+        },
+        "other-amount": {
+          "label": "Other amount",
+          "error": "You have to enter a valid amount"
+        }
+      }
+    },
+    "payment-method": {
+      "title": "How would you like to pay",
+      "field": {
+        "method": {
+          "card": "Card",
+          "bank": "Bank transfer",
+          "paypal": "PayPal",
+          "error": "You have to select a payment method"
+        },
+        "tax-box": {
+          "label": "I want to cover transaction fees for card issued in:",
+          "error": "You have to select a region"
+        },
+        "card-region": {
+          "title": "region",
+          "EU": "Europe",
+          "UK": "Great Britain",
+          "Other": "other"
+        },
+        "include-fees": {
+          "label": "I want to cover transaction fees for card issued in:",
+          "error": "You have to select a region"
+        }
+      },
+      "bank": {
+        "bank-payment": "Bank transfer",
+        "bank-instructions1": "To donate via bank transfer, please use your bank recommonded application with entering our bank details from below. The donation will not be updated immediatelly as the implemnetation of the automated bank integration is still pending.",
+        "bank-instructions2": "We trust you to register or to leave an email on the next step, so that we can link your donation to your account. Thank you!!!",
+        "bank-details": "Details of our bank account:",
+        "btn-copy": "Copy",
+        "owner": "Association Podkrepi BG",
+        "bank": "Unicredit Bulbank",
+        "reason-donation": "For payment reference use:",
+        "message-warning": "If you don't enter the exact reference we may not be able to assign the money to the desired campaign.",
+        "recurring-donation": "Donate the same amount every month until the end of the campaign! Cancel anytime."
+      },
+      "alert": {
+        "card-fee": "Stripe tax is calculated based on the region of the card's issuer: 1.2% + 0.5 BGN for the EU Economic Zone",
+        "bank-fee": "Bank fee depends on the individual terms of your bank. Varies from (0-4 BGN)",
+        "calculated-fees": "For your donation of <strong>{{amount}}</strong>, the fee from Stripe will be <strong>{{fees}}</strong>, and the total charged amount will be <strong>{{totalAmount}}</strong>"
+      }
+    },
+    "authentication": {
+      "title": "How would you like to continue",
+      "logged-as": "You are logged in as",
+      "login": {
+        "label": "Log in"
+      },
+      "register": {
+        "label": "Register"
+      },
+      "noregister": {
+        "label": "Continue without registration",
+        "description": "You will not be able to get a donation certificate or a list of your donations. If you still want to receive a receipt, please share your email - it will not be visible in the platform."
+      },
+      "password": "Password",
+      "alert": {
+        "authenticate": {
+          "title": "Choosing to login you will be able to",
+          "create-account": "Create an account",
+          "certificate": "Get a donation certificate",
+          "monthly-donation": "Make a monthly donation",
+          "notification": "Get notifications about campaigns you donated to"
+        }
+      }
+    }
+  },
+  "field": {
+    "anonymous": {
+      "label": "I want to be anonymous",
+      "tooltip": "Anonymous donation means that the organizator and beneficiary would not be aware of your identity"
+    }
+  },
   "step-labels": {
-    "amount": "Изберете сума",
-    "personal-profile": "Личен профил",
-    "wish": "Пожелайте нещо",
-    "payment": "Плащане"
+    "amount": "Select amount",
+    "personal-profile": "Personal profile",
+    "wish": "Send a wish",
+    "payment": "Payment"
   },
   "anonymous-menu": {
-    "checkbox-label": "Дарение без регистрация",
-    "info-start": "При дарение без регистрация, няма да можем да Ви изпратим сертификат за дарение, който да използвате за данъчни облекчения. Ако искате да получите сертификат, регистрирайте се или влезте в профила си.",
-    "firstName": "Име",
-    "lastName": "Фамилия",
-    "phone": "Телефон",
-    "info-end": "Данните Ви няма да бъдат споделяни с никого.",
-    "want-anonymous-donation": "Искам да даря анонимно!"
+    "checkbox-label": "Donate anonymously",
+    "info-start": "When donating without registration we won't be able to send you back a donation certificate or a list of your donations. If you still want to receive a certificate, please share at least your email - it will not be visible in the platform.",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "phone": "Telephone",
+    "info-end": "Your data would not be shared with anyone",
+    "want-anonymous-donation": "I want to donate anonymously!"
   },
   "first-step": {
-    "wish": "Искате ли да пожелаете нещо на бенефициента?",
-    "message": "Вашето послание",
-    "check-box-label": "Анонимно дарение",
-    "info-anonymous": "Анонимно дарение означава, че организаторът и бенефициентът на кампания няма да узнаят Вашето име",
-    "amount": "Каква сума желаете да дарите?",
-    "other": "Друга сума",
-    "BGN": "лв."
+    "wish": "Would you like to wish something to the beneficiary?",
+    "message": "Your wish",
+    "check-box-label": "Anonymous donation",
+    "info-anonymous": "Anonymous donation means that the organisator and beneficiery would not be aware of your identity",
+    "amount": "How much would you like to donate?",
+    "other": "Other amount",
+    "BGN": "BGN"
   },
   "second-step": {
-    "login": "Влизане в профил",
-    "password": "Парола",
-    "checkbox-label": "Запомни",
-    "btn-login": "Влизане",
-    "new-create": "Или",
-    "new-create-profile": "Създайте нов профил",
-    "donate-anonymously": "Дарете анонимно",
-    "intro-text": "Можете да дарите с личен профил или анонимно.",
-    "logged-user": "Вече сте влезли във Вашия профил",
-    "info-logged-user": "Вашето дарение ще бъде свързано с име: {{fullName}} и email: {{email}}, освен ако не решите да дарите анонимно."
+    "login": "Log in",
+    "password": "Password",
+    "checkbox-label": "Remember me",
+    "btn-login": "Log in",
+    "new-create": "Or",
+    "new-create-profile": "Create new profile",
+    "donate-anonymously": "Donate anonymously",
+    "intro-text": "You can donate with personal profile or anonymously.",
+    "logged-user": "You are already logged in to your account",
+    "info-logged-user": "Your donation would be connected with name: {{fullName}} and email: {{email}}, unless you decide to donate anonymously."
   },
   "success": {
-    "title": "Благодарим за доверието и подкрепата!",
-    "title-bank": "Ще очакваме Вашето дарение!",
-    "subtitle": "Вашето дарение ще помогне на кампанията по-бързо да постигне своята цел!",
-    "subtitle-bank": "Благодарим за доверието и запомнете да впишете кода на дарението в основанието на превода си!",
-    "say-to-us": "Вашата обратна връзка е важна за нас!",
-    "share-to": "Подкрепете кампанията, като споделите информация за нея в социалните мрежи.",
-    "btn-generate": "Генерирай Сертификат",
-    "btn-say-to-us": "Oбратна връзка",
-    "btn-other-campaign": "Oще кампании",
-    "btn-back-to-campaign": "Виж кампанията"
+    "title": "We thank you for your help and trust!",
+    "title-bank": "We look forward to your donation!",
+    "subtitle": "Your donation would help the campaign get to it's target sooner!",
+    "subtitle-bank": "Thank you for your trust and don't forget to enter the donation code as the reason for your transfer!",
+    "say-to-us": "Your feedback is important to us!",
+    "share-to": "Please support this campaign by sharing its link to social networks for reaching more people!",
+    "btn-generate": "Generate a certificate",
+    "btn-say-to-us": "Feedback",
+    "btn-other-campaign": "See more campaigns",
+    "btn-back-to-campaign": "See the campaign"
   },
   "third-step": {
-    "title": "Как желаете да дарите?",
-    "card": "Карта",
-    "card-include-fees": "Искам да покрия таксата за карта издадена в: ",
-    "card-fees": "При дарение с карта използваме услугите на Stripe, като за всеки трансфер Stripe начисляват такса според региона на картоиздателя ви. За да се ориентирате за нетното дарение, след като изберете желаната сума, ще ви покажем изчислената такса. Повече за таксите от Страйп вижте тук: ",
-    "card-calculated-fees": "За вашия превод от <strong>{{totalAmount}}</strong>, таксата на Stripe ще е <strong>{{fees}}</strong>, а кампанията ще получи <strong>{{amount}}</strong>",
+    "title": "How would you like to pay",
+    "card": "Card",
+    "card-include-fees": "I want to cover transaction fees for card issued in:",
+    "card-fees": "For donations by card we use the services of Stripe and for every transfer they charge a fee depending on region of your card issuer. To orient you about the net donation, after you choose the desired amount, we will show you the calculated fee below. More details for Stripe fees can be found here: ",
+    "card-calculated-fees": "For your donation of <strong>{{amount}}</strong>, the fee from Stripe will be <strong>{{fees}}</strong>, and the total charged amount will be <strong>{{totalAmount}}</strong>",
     "card-region": {
-      "title": "регион",
-      "EU": "Европа",
-      "UK": "Великобритания",
-      "Other": "други"
+      "title": "region",
+      "EU": "Europe",
+      "UK": "Great Britain",
+      "Other": "other"
     },
-    "bank-payment": "Банков превод",
-    "bank-instructions1": "За дарение по банков път, моля използвайте приложението препоръчано от Вашата банка като въведете данните посочени по-долу. Дарението Ви няма да се отрази веднага в системата, тъй като все още предстои разработка на интеграцията с банката.",
-    "bank-instructions2": "Разчитаме на Вас да си направите профил или да ни оставите email на следващaтa стъпкa, за да можем да свържем дарението с Вашия потребителски профил. Благодарим предварително!!!",
-    "bank-details": "Детайли на банкова сметка:",
-    "btn-copy": "Копирай",
-    "owner": "Сдружение Подкрепи БГ",
-    "bank": "Уникредит Булбанк",
-    "reason-donation": "Като основание за превод въведете:",
-    "message-warning": "Ако не въведете точно основанието, може да не успеем да разпределим парите към предназначената кампания.",
-    "recurring-donation": "Дарявай повторно всеки месец тази сума до края на кампанията! Може да се откажете по всяко време."
+    "bank-payment": "Bank transfer",
+    "bank-instructions1": "To donate via bank transfer, please use your bank recommonded application with entering our bank details from below. The donation will not be updated immediatelly as the implemnetation of the automated bank integration is still pending.",
+    "bank-instructions2": "We trust you to register or to leave an email on the next step, so that we can link your donation to your account. Thank you!!!",
+    "bank-details": "Details of our bank account:",
+    "btn-copy": "Copy",
+    "owner": "Association Podkrepi BG",
+    "bank": "Unicredit Bulbank",
+    "reason-donation": "For payment reference use:",
+    "message-warning": "If you don't enter the exact reference we may not be able to assign the money to the desired campaign.",
+    "recurring-donation": "Donate the same amount every month until the end of the campaign! Cancel anytime."
   },
   "alerts": {
-    "success": "Дарението е направено успешно!",
-    "error": "Възникна грешка в процеса на обработка!"
+    "success": "Donation was processed successfully!",
+    "error": "Error ocurred during processing of the donation!"
   },
   "fail": {
-    "title": "За съжаление, възникна проблем!",
-    "subtitle": "Трансакцията не можа да бъде осъществена. Причините могат да бъдат няколко, включително проблем с Вашата интернет връзка.",
-    "btn-again": "Опитайте пак",
-    "btn-connect": "Пишете ни",
-    "btn-back-to-campaign": "Виж кампанията"
+    "title": "Unfortunately there was a problem!",
+    "subtitle": "The transaction could not be done. The reasons for that many, including a problem with your internet connection.",
+    "btn-again": "Try again",
+    "btn-connect": "Contact us",
+    "btn-back-to-campaign": "See the campaign"
   },
   "errors-fields": {
-    "checkbox-anonymous": "Моля изберете опция Анонимно дарение или Дарение без регистрация ако искате да продължите!",
-    "bank-payment": "Съжаляваме за създаденото неудобство временно може да дарите само чрез банков превод!",
-    "amount": "Моля изберете сумата, която желаете да дарите!",
-    "other-amount": "Минималната сума която може да дарите с карта е 1лв."
+    "checkbox-anonymous": "Please select an option for anonymous donation or donation without registering if you would like to continue!",
+    "bank-payment": "We are sorry for the inconvenience, but you can currently donate only through a bank transfer",
+    "amount": "Please select the amount you would like to donate!",
+    "other-amount": "The minimum amount you can donate with a card is BGN 1."
   },
   "btns": {
-    "back": "Назад",
-    "next": "Напред",
-    "end": "Премини към плащане"
+    "back": "Back",
+    "next": "Next",
+    "end": "Finish"
   }
 }
