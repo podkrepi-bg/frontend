@@ -82,7 +82,7 @@ function InlineLoginForm() {
         {loading ? (
           <CircularProgress color="inherit" size="1.5rem" />
         ) : (
-          t('step.authentication.login')
+          t('step.authentication.login.label')
         )}
       </Button>
       <Button

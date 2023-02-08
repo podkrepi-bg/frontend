@@ -6,6 +6,7 @@ import { moneyPublicDecimals2 } from 'common/util/money'
 import { stripeFeeCalculator } from 'components/one-time-donation/helpers/stripe-fee-calculator'
 import { CardRegion } from 'gql/donations.enums'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
   fontSize: theme.typography.pxToRem(16),
@@ -20,6 +21,7 @@ function PaymentSummaryAlert({
   sx?: BoxProps['sx']
   boxProps?: BoxProps
 }) {
+  const { t } = useTranslation('donation-flow')
   const feeAmount =
     donationAmount !== 0 ? stripeFeeCalculator(donationAmount, CardRegion.EU) : donationAmount
 
@@ -37,14 +39,14 @@ function PaymentSummaryAlert({
           px: 3,
         }}>
         <Stack direction={'row'} justifyContent="space-between">
-          <StyledTypography>Дарение: </StyledTypography>
+          <StyledTypography>{t('step.summary.donation')}: </StyledTypography>
           <StyledTypography>{moneyPublicDecimals2(donationAmount - feeAmount)}</StyledTypography>
         </Stack>
 
         <Stack direction={'row'} justifyContent="space-between">
           <StyledTypography>
-            Трансакция
-            <Tooltip title="Начислената такса трансакция е единствено за покриване на паричния превод и се определя от метода на плащане. “Подкрепи.бг” работи с 0% комисионна.">
+            {t('step.summary.transaction')}
+            <Tooltip title={t('step.summary.description')}>
               <IconButton sx={{ padding: '5px', height: 30, width: 30 }}>
                 <Info sx={{ height: 20, width: 20 }} />
               </IconButton>
@@ -66,7 +68,7 @@ function PaymentSummaryAlert({
         color="info"
         icon={false}>
         <Stack direction={'row'} justifyContent="space-between">
-          <StyledTypography>Общо: </StyledTypography>
+          <StyledTypography>{t('step.summary.total')}: </StyledTypography>
           <StyledTypography>{moneyPublicDecimals2(donationAmount)}</StyledTypography>
         </Stack>
       </Alert>

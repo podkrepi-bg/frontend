@@ -38,17 +38,17 @@
           "error": "You have to select a payment method"
         },
         "tax-box": {
-          "label": "I want to cover transaction fees for card issued in:",
+          "label": "I want to cover transaction fees for card issued in",
           "error": "You have to select a region"
         },
         "card-region": {
-          "title": "region",
+          "title": "Region",
           "EU": "Europe",
           "UK": "Great Britain",
-          "Other": "other"
+          "Other": "Other"
         },
         "include-fees": {
-          "label": "I want to cover transaction fees for card issued in:",
+          "label": "I want to cover transaction fees for card issued in",
           "error": "You have to select a region"
         }
       },
@@ -81,7 +81,7 @@
       },
       "noregister": {
         "label": "Continue without registration",
-        "description": "You will not be able to get a donation certificate or a list of your donations. If you still want to receive a receipt, please share your email - it will not be visible in the platform."
+        "description": "You will not be able to get a donation certificate or a list of your donations. If you still want to receive a receipt, please share your email - it will not be visible in the platform"
       },
       "password": "Password",
       "alert": {
@@ -92,6 +92,45 @@
           "monthly-donation": "Make a monthly donation",
           "notification": "Get notifications about campaigns you donated to"
         }
+      }
+    },
+    "summary": {
+      "donation": "Donation",
+      "transaction": {
+        "title": "Transaction",
+        "description": "The transaction is only to compensate the transfer and is calculated based on your method of payment. \"Podkrepi.bg\" works with 0% commission"
+      },
+      "total": "Total"
+    }
+  },
+  "status": {
+    "success": {
+      "title": "Thank you for your trust and support",
+      "title-logged": ", we thank you for your trust and support",
+      "email": "We have sent you an email with the details of your donation",
+      "wish": {
+        "thanks": "Thank you for your wish",
+        "error": "We could not save your wish. Please try again later",
+        "write": "Write a wish",
+        "send": "Send"
+      },
+      "share": {
+        "title": "Help the campaign by sharing with your friends",
+        "description": "Campaigns that are shared more often are more likely to be successful"
+      },
+      "link": {
+        "see": "See other campaigns",
+        "donations": "See your donations",
+        "volunteer": "Become a volunteer",
+        "return": "Return to the campaign"
+      }
+    },
+    "fail": {
+      "title": "Something went wrong",
+      "description": "We are sorry, but something went wrong. Please try again later",
+      "link": {
+        "return": "Return to the campaign",
+        "retry": "Try again"
       }
     }
   },
@@ -136,18 +175,6 @@
     "intro-text": "You can donate with personal profile or anonymously.",
     "logged-user": "You are already logged in to your account",
     "info-logged-user": "Your donation would be connected with name: {{fullName}} and email: {{email}}, unless you decide to donate anonymously."
-  },
-  "success": {
-    "title": "We thank you for your help and trust!",
-    "title-bank": "We look forward to your donation!",
-    "subtitle": "Your donation would help the campaign get to it's target sooner!",
-    "subtitle-bank": "Thank you for your trust and don't forget to enter the donation code as the reason for your transfer!",
-    "say-to-us": "Your feedback is important to us!",
-    "share-to": "Please support this campaign by sharing its link to social networks for reaching more people!",
-    "btn-generate": "Generate a certificate",
-    "btn-say-to-us": "Feedback",
-    "btn-other-campaign": "See more campaigns",
-    "btn-back-to-campaign": "See the campaign"
   },
   "third-step": {
     "title": "How would you like to pay",
