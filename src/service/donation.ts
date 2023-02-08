@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query'
 
 import {
   BankTransactionsUploadImage,
+  CancelPaymentIntentInput,
   CheckoutSessionInput,
   CheckoutSessionResponse,
   DonationBankInput,
@@ -63,6 +64,19 @@ export function useUpdatePaymentIntent() {
         Stripe.PaymentIntentUpdateParams,
         AxiosResponse<Stripe.PaymentIntent>
       >(endpoints.donation.updatePaymentIntent(id).url, payload, authConfig(session?.accessToken))
+    },
+  })
+}
+
+export function useCancelPaymentIntent() {
+  //Create payment intent useing the react-query mutation
+  const { data: session } = useSession()
+  return useMutation({
+    mutationFn: async ({ id, payload }: CancelPaymentIntentInput) => {
+      return await apiClient.post<
+        Stripe.PaymentIntentCancelParams,
+        AxiosResponse<Stripe.PaymentIntent>
+      >(endpoints.donation.cancelPaymentIntent(id).url, payload, authConfig(session?.accessToken))
     },
   })
 }

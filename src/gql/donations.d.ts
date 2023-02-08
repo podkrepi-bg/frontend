@@ -40,6 +40,11 @@ export type UpdatePaymentIntentInput = {
   payload: Stripe.PaymentIntentUpdateParams
 }
 
+export type CancelPaymentIntentInput = {
+  id: string
+  payload: Stripe.PaymentIntentCancelParams
+}
+
 export type DonationResponse = {
   id: UUID
   type: DonationType

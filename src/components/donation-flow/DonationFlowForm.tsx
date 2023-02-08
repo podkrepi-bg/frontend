@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { useElements, useStripe } from '@stripe/react-stripe-js'
 import * as yup from 'yup'
-import { Form, Formik } from 'formik'
+import { Form, Formik, FormikProps } from 'formik'
 import { PersistFormikValues } from 'formik-persist-values'
 import {
+  Alert,
   Box,
   Button,
   Hidden,
@@ -17,12 +18,17 @@ import {
 } from '@mui/material'
 import { ArrowBack, Info } from '@mui/icons-material'
 
-import { useCreateStripePayment, useUpdatePaymentIntent } from 'service/donation'
+import theme from 'common/theme'
 import { routes } from 'common/routes'
 import CheckboxField from 'components/common/form/CheckboxField'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
 import SubmitButton from 'components/common/form/SubmitButton'
+import {
+  useCancelPaymentIntent,
+  useCreateStripePayment,
+  useUpdatePaymentIntent,
+} from 'service/donation'
 
 import StepSplitter from './common/StepSplitter'
 import PaymentMethod from './steps/payment-method/PaymentMethod'
@@ -86,14 +92,23 @@ export const validationSchema: yup.SchemaOf<DonationFormData> = yup
   })
 
 export function DonationFlowForm() {
+  const formikRef = useRef<FormikProps<DonationFormData> | null>(null)
   const { i18n } = useTranslation()
   const { data: session } = useSession()
+  useEffect(() => {
+    if (session?.user) {
+      formikRef.current?.setFieldValue('email', session.user.email)
+      return
+    }
+    formikRef.current?.setFieldValue('email', '')
+  }, [session])
   const { campaign, stripePaymentIntent, paymentError, setPaymentError } = useDonationFlow()
   const stripe = useStripe()
   const elements = useElements()
   const router = useRouter()
   const createStripePaymentMutation = useCreateStripePayment()
   const updatePaymentIntentMutation = useUpdatePaymentIntent()
+  const cancelPaymentIntentMutation = useCancelPaymentIntent()
   const paymentMethodSectionRef = React.useRef<HTMLDivElement>(null)
   const authenticationSectionRef = React.useRef<HTMLDivElement>(null)
   const [showCancelDialog, setShowCancelDialog] = React.useState(false)
@@ -101,6 +116,7 @@ export function DonationFlowForm() {
 
   return (
     <Formik
+      innerRef={formikRef}
       initialValues={{
         ...initialValues,
         email: session?.user?.email ?? '',
@@ -199,12 +215,22 @@ export function DonationFlowForm() {
               autoComplete="off">
               <ConfirmationDialog
                 isOpen={showCancelDialog}
-                handleCancel={() => router.push(routes.campaigns.viewCampaignBySlug(campaign.slug))}
+                handleCancel={() => {
+                  cancelPaymentIntentMutation.mutate({
+                    id: stripePaymentIntent.id,
+                    payload: {
+                      cancellation_reason: 'requested_by_customer',
+                    },
+                  })
+                  router.push(routes.campaigns.viewCampaignBySlug(campaign.slug))
+                }}
                 title="Наистина ли искате да откажете дарението?"
                 content="Така ще изгубите всички въведени данни."
                 confirmButtonLabel="Продължи дарението"
                 cancelButtonLabel="Откажи дарението"
-                handleConfirm={() => setShowCancelDialog(false)}
+                handleConfirm={() => {
+                  setShowCancelDialog(false)
+                }}
               />
               <Button
                 size="large"
@@ -246,8 +272,6 @@ export function DonationFlowForm() {
                 }
                 name="isAnonymous"
               />
-              {/* TODO: Handle the possible API and Stripe Errors */}
-              {/* {JSON.stringify(paymentError)} */}
               <AcceptPrivacyPolicyField name="privacy" />
               <Hidden mdUp>
                 <PaymentSummaryAlert
@@ -259,16 +283,26 @@ export function DonationFlowForm() {
                 />
               </Hidden>
 
+              <Stack direction={'column'}>
+                {paymentError ? (
+                  <Alert sx={{ fontSize: theme.typography.fontSize, mb: 1 }} severity="error">
+                    {paymentError.message}
+                  </Alert>
+                ) : null}
+              </Stack>
               <SubmitButton
+                disabled={submitPaymentLoading || !isValid}
                 loading={submitPaymentLoading}
-                disabled={!isValid || submitPaymentLoading}
                 label="Donate"
                 fullWidth
               />
-              <Stack direction={'column'}>
-                <Box>{paymentError?.message}</Box>
-              </Stack>
-              <PersistFormikValues debounce={3000} storage="sessionStorage" name="donation-form" />
+              <PersistFormikValues
+                hashInitials={true}
+                ignoreValues={['authentication']}
+                debounce={3000}
+                storage="sessionStorage"
+                name="donation-form"
+              />
             </Form>
           </Grid2>
           <Hidden mdDown>

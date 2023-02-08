@@ -112,8 +112,10 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
   const Success = () => (
     <Box>
       <Typography textAlign="center" variant="h4" mb={1}>
-        {session.data?.user?.name && ', благодарим ви, за доверието и подкрепата!'}
-        Благодарим ви, за доверието и подкрепата!
+        {session.data?.user
+          ? `${session.data?.user?.given_name} ${session.data.user.family_name}, благодарим ви, за доверието и подкрепата`
+          : 'Благодарим ви, за доверието и подкрепата'}
+        !
       </Typography>
       <Typography display="flex" justifyContent="center" alignItems="center">
         <Email sx={{ mr: 1, fill: theme.palette.grey[400] }} />
@@ -192,6 +194,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
       </Grid2>
     </Box>
   )
+
   const Fail = () => (
     <Box>
       <Typography textAlign="center" variant="h4" mb={1}>
