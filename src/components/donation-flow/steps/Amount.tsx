@@ -93,7 +93,7 @@ export default function Amount({
   return (
     <Box ref={sectionRef} component="section" id="select-amount">
       <Typography variant="h5" my={3}>
-        {t('step.amount.title')}
+        {t('step.amount.title')}?
       </Typography>
       <Box>
         <RadioButtonGroup

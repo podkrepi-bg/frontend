@@ -79,6 +79,10 @@
         "youtube": "YouTube",
         "instagram": "Instagram"
       }
+    },
+    "social-share": {
+      "share": "Сподели в",
+      "copy": "Копирай линка"
     }
   },
   "or": "или",

@@ -82,7 +82,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
     if (bank_payment === 'true') {
       // If we are redirected on that page means that the payment is a bank payment and we can clear the form state
       sessionStorage.removeItem('donation-form')
-      setStatus(DonationFormPaymentStatus.REQUIRES_PAYMENT)
+      setStatus(DonationFormPaymentStatus.SUCCEEDED)
       return
     }
     if (!stripe || !payment_intent_client_secret) {

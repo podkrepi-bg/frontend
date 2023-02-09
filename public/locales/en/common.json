@@ -79,6 +79,10 @@
         "youtube": "YouTube",
         "instagram": "Instagram"
       }
+    },
+    "social-share": {
+      "share": "Share in",
+      "copy": "Copy link"
     }
   },
   "or": "or",

@@ -122,6 +122,7 @@ export function DonationFlowForm() {
         email: session?.user?.email ?? '',
         authentication: session?.user ? DonationFormAuthState.AUTHENTICATED : null,
         amountChosen: stripePaymentIntent.amount.toString(),
+        isAnonymous: session?.user ? false : true,
       }}
       validationSchema={validationSchema}
       onSubmit={async (values) => {
@@ -262,8 +263,8 @@ export function DonationFlowForm() {
               <CheckboxField
                 label={
                   <Box display="flex" alignItems="center">
-                    <Typography>{t('field.anonymous.label')}</Typography>
-                    <Tooltip title={t('field.anonymous.tooltip')}>
+                    <Typography>{t('step.summary.field.anonymous.label')}</Typography>
+                    <Tooltip title={t('step.summary.field.anonymous.description')}>
                       <IconButton color="primary">
                         <Info />
                       </IconButton>
@@ -271,6 +272,9 @@ export function DonationFlowForm() {
                   </Box>
                 }
                 name="isAnonymous"
+                checkboxProps={{
+                  disabled: !session?.user,
+                }}
               />
               <AcceptPrivacyPolicyField name="privacy" />
               <Hidden mdUp>
@@ -293,7 +297,7 @@ export function DonationFlowForm() {
               <SubmitButton
                 disabled={submitPaymentLoading || !isValid}
                 loading={submitPaymentLoading}
-                label="Donate"
+                label={t('action.submit')}
                 fullWidth
               />
               <PersistFormikValues

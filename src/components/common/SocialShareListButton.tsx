@@ -59,22 +59,22 @@ export default function SocialShareListButton({
               AlertStore.show('Campaign link copied to clipboard', 'success')
               setAnchorEl(null)
             }}>
-            <Typography>Copy campaign link</Typography>
+            <Typography>{t('components.social-share.copy')}</Typography>
             <ContentCopy sx={{ ml: 1, fill: theme.palette.grey[400] }} />
           </ListItemButton>
           <ListItemButton href={`https://www.facebook.com/sharer/sharer.php?u=${serializedUrl}`}>
-            <Typography>Share on Facebook</Typography>
+            <Typography>{t('components.social-share.share')} Facebook</Typography>
             <Facebook sx={{ ml: 1, fill: '#4267B2' }} />
           </ListItemButton>
           <ListItemButton
             href={`
             http://www.linkedin.com/shareArticle?mini=true&url=${serializedUrl}
           `}>
-            <Typography>Share on LinkedIn</Typography>
+            <Typography>{t('components.social-share.share')} LinkedIn</Typography>
             <LinkedIn sx={{ ml: 1, fill: '#0077b5' }} />
           </ListItemButton>
           <ListItemButton href={`https://twitter.com/intent/tweet?url=${serializedUrl}`}>
-            <Typography>Share on Twitter</Typography>
+            <Typography>{t('components.social-share.share')} Twitter</Typography>
             <Twitter sx={{ ml: 1, fill: '#1DA1F2' }} />
           </ListItemButton>
         </List>

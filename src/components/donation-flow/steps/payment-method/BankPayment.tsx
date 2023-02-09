@@ -91,9 +91,8 @@ function BankPayment() {
 
       <Typography>{t('step.payment-method.bank.message-warning')}</Typography>
       <Alert sx={{ mt: 2, mx: mobile ? -2 : 0 }} severity="error">
-        <AlertTitle>ВАЖНО!</AlertTitle>
-        Моля попълнете следващата стъпка свързана с аутентикацията, за да се свържем с Вас, ако има
-        проблем.
+        <AlertTitle>{t('step.payment-method.bank.alert.important')}!</AlertTitle>
+        {t('step.payment-method.bank.alert.authenticate')}
       </Alert>
     </List>
   )

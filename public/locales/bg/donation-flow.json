@@ -7,7 +7,7 @@
   },
   "cancel-dialog": {
     "title": "Сигурни ли сте, че искате да се откажете",
-    "content": "If you cancel, you will lose all the information you have entered so far.",
+    "content": "Ако се откажете, ще загубите информацията попълнена до сега",
     "btn-cancel": "Откажи Дарението",
     "btn-continue": "Продължи Дарението"
   },
@@ -17,7 +17,7 @@
   },
   "step": {
     "amount": {
-      "title": "How much would you like to donate",
+      "title": "Каква сума желаете да дарите",
       "field": {
         "final-amount": {
           "error": "Трябва да изберете сума или да въведете друга"
@@ -29,7 +29,7 @@
       }
     },
     "payment-method": {
-      "title": "How would you like to pay",
+      "title": "Как желаете да дарите",
       "field": {
         "method": {
           "card": "Карта",
@@ -49,43 +49,48 @@
         }
       },
       "bank": {
-        "bank-payment": "Bank transfer",
-        "bank-instructions1": "To donate via bank transfer, please use your bank recommonded application with entering our bank details from below. The donation will not be updated immediatelly as the implemnetation of the automated bank integration is still pending",
-        "bank-details": "Details of our bank account",
-        "btn-copy": "Copy",
-        "owner": "Association Podkrepi BG",
-        "bank": "Unicredit Bulbank",
-        "reason-donation": "For payment reference use",
-        "message-warning": "If you don't enter the exact reference we may not be able to assign the money to the desired campaign",
-        "recurring-donation": "Donate the same amount every month until the end of the campaign! Cancel anytime"
+        "bank-payment": "Банков превод",
+        "bank-instructions1": "За дарение по банков път, моля използвайте приложението препоръчано от Вашата банка като въведете данните посочени по-долу. Дарението Ви няма да се отрази веднага в системата, тъй като все още предстои разработка на интеграцията с банката",
+        "bank-instructions2": "Разчитаме на Вас да си направите профил или да ни оставите email на следващaтa стъпкa, за да можем да свържем дарението с Вашия потребителски профил. Благодарим предварително!",
+        "bank-details": "Детайли на банкова сметка",
+        "btn-copy": "Копирай",
+        "owner": "Сдружение Подкрепи БГ",
+        "bank": "Уникредит Булбанк",
+        "reason-donation": "Като основание за превод въведете",
+        "message-warning": "Ако не въведете точно основанието, може да не успеем да разпределим парите към предназначената кампания",
+        "recurring-donation": "Дарявай повторно всеки месец тази сума до края на кампанията! Може да се откажете по всяко време",
+        "alert": {
+          "important": "ВАЖНО",
+          "authenticate": "Моля попълнете следващата стъпка свързана с аутентикацията, за да се свържем с Вас, ако има проблем"
+        }
       },
       "alert": {
-        "card-fee": "Stripe tax is calculated based on the region of the card's issuer: 1.2% + 0.5 BGN for the EU Economic Zone",
-        "bank-fee": "Bank fee depends on the individual terms of your bank. Varies from (0-4 BGN)",
-        "calculated-fees": "For your donation of <strong>{{amount}}</strong>, the fee from Stripe will be <strong>{{fees}}</strong>, and the total charged amount will be <strong>{{totalAmount}}</strong>"
+        "card-fee": "Таксата на Stripe се изчислява според района на картодържателя:  1.2% + 0.5лв. за Европейската икономическа зона",
+        "bank-fee": "Таксата за транзакция при банков превод зависи от индивидуалните условия на Вашата банка (от 0 до 4 лв.)",
+        "calculated-fees": "За вашия превод от <strong>{{totalAmount}}</strong>, таксата на Stripe ще е <strong>{{fees}}</strong>, а кампанията ще получи <strong>{{amount}}</strong>"
       }
     },
     "authentication": {
-      "title": "How would you like to continue",
-      "logged-as": "You are logged in as",
+      "title": "Как предпочитате да продължите",
+      "logged-as": "Вие сте влязъл като",
       "login": {
-        "label": "Log in"
+        "label": "Влизане"
       },
       "register": {
-        "label": "Register"
+        "label": "Регистрация"
       },
       "noregister": {
-        "label": "Continue without registration",
-        "description": "You will not be able to get a donation certificate or a list of your donations. If you still want to receive a receipt, please share your email - it will not be visible in the platform"
+        "label": "Продължете без регистрация  ",
+        "description": "Продължавайки без регистрация, нямате възможност да запазите дарението в историята на профила си както и да правите месечни дарения по избрана кампания"
       },
-      "password": "Password",
+      "password": "Парола",
       "alert": {
         "authenticate": {
-          "title": "Choosing to login you will be able to",
-          "create-account": "Create an account",
-          "certificate": "Get a donation certificate",
-          "monthly-donation": "Make a monthly donation",
-          "notification": "Get notifications about campaigns you donated to"
+          "title": "Избирайки да се впишете, ще можете да",
+          "create-account": "създадете акаунт като физическо или юридическо лице",
+          "certificate": "получите сертификат за дарение",
+          "monthly-donation": "правите месечни дарения по избрана кампания",
+          "notification": "можете да получавате и известия за статуса на подкрепени вече кампании"
         }
       }
     },
@@ -93,7 +98,13 @@
       "donation": "Дарение",
       "transaction": {
         "title": "Трансакция",
-        "description": "The transaction is only to compensate the transfer and is calculated based on your method of payment. \"Podkrepi.bg\" works with 0% commission"
+        "description": "Начислената такса трансакция е единствено за покриване на паричния превод и се определя от метода на плащане. “Подкрепи.бг” работи с 0% комисионна."
+      },
+      "field": {
+        "anonymous": {
+          "label": "Искам да съм анонимен",
+          "description": "Ако останете анонимен името ви няма да бъде показано на кампанията"
+        }
       },
       "total": "Общо"
     }
@@ -101,7 +112,7 @@
   "status": {
     "success": {
       "title": "Благодарим ви за доверието и подкрепата",
-      "title-logged": ", благодарим ви за доверието и подкрепата",
+      "title-logged": "благодарим ви за доверието и подкрепата",
       "email": "Изпратихме ви имейл с повече информация",
       "wish": {
         "title": "Помогни с пожелание",

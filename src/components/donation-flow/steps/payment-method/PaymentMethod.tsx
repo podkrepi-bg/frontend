@@ -77,7 +77,7 @@ export default function PaymentMethod({
   return (
     <Box ref={sectionRef} component="section" id="select-payment-method">
       <Typography mb={3} variant="h5">
-        {t('step.payment-method.title')}
+        {t('step.payment-method.title')}?
       </Typography>
       {isSmall ? (
         <RadioAccordionGroup name="payment" options={mobileOptions} />
