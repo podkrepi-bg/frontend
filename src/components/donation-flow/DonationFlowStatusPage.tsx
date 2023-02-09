@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
@@ -34,7 +35,6 @@ import { AlertStore } from 'stores/AlertStore'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import { CampaignResponse } from 'gql/campaigns'
 import FailGraphic from './icons/FailGraphic'
-import { useTranslation } from 'react-i18next'
 
 function LinkCard({ href, text }: { href: string; text: string }) {
   return (
@@ -82,7 +82,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
     if (bank_payment === 'true') {
       // If we are redirected on that page means that the payment is a bank payment and we can clear the form state
       sessionStorage.removeItem('donation-form')
-      setStatus(DonationFormPaymentStatus.SUCCEEDED)
+      setStatus(DonationFormPaymentStatus.REQUIRES_PAYMENT)
       return
     }
     if (!stripe || !payment_intent_client_secret) {

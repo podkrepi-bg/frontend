@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { AlertProps, Typography } from '@mui/material'
 import { useFormikContext } from 'formik'
 import { AnchoredAlert } from './AnchoredAlert'
@@ -9,7 +10,6 @@ import {
 } from '../helpers/types'
 import { useElements } from '@stripe/react-stripe-js'
 import { AuthenticateAlertContent } from './AlertsContent'
-import { useTranslation } from 'react-i18next'
 
 function AlertsColumn({
   sectionsRefArray,

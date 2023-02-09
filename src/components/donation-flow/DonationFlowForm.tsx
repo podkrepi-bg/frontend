@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { useElements, useStripe } from '@stripe/react-stripe-js'
@@ -43,7 +44,6 @@ import { useDonationFlow } from './contexts/DonationFlowProvider'
 import AlertsColumn from './alerts/AlertsColumn'
 import PaymentSummaryAlert from './alerts/PaymentSummaryAlert'
 import { DonationFormAuthState, DonationFormPaymentMethod, DonationFormData } from './helpers/types'
-import { useTranslation } from 'react-i18next'
 
 const initialGeneralFormValues = {
   payment: null,

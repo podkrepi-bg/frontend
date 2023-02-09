@@ -1,5 +1,5 @@
-import { Box, List, ListItem, ListItemText, SxProps, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
+import { Box, List, ListItem, ListItemText, SxProps, Typography } from '@mui/material'
 
 export const AuthenticateAlertContent = () => {
   const { t } = useTranslation('donation-flow')

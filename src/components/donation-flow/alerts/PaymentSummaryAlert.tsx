@@ -1,3 +1,5 @@
+import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { Info } from '@mui/icons-material'
 import { Alert, Box, BoxProps, IconButton, Stack, Tooltip, Typography } from '@mui/material'
 import { styled } from '@mui/styles'
@@ -5,8 +7,6 @@ import theme from 'common/theme'
 import { moneyPublicDecimals2 } from 'common/util/money'
 import { stripeFeeCalculator } from 'components/one-time-donation/helpers/stripe-fee-calculator'
 import { CardRegion } from 'gql/donations.enums'
-import React from 'react'
-import { useTranslation } from 'react-i18next'
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
   fontSize: theme.typography.pxToRem(16),

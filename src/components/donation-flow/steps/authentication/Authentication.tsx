@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Box, Typography, Alert, useMediaQuery } from '@mui/material'
 import { useFormikContext } from 'formik'
 import { useSession } from 'next-auth/react'
@@ -11,7 +12,6 @@ import RadioAccordionGroup from '../../common/RadioAccordionGroup'
 import InlineLoginForm from './InlineLoginForm'
 import InlineRegisterForm from './InlineRegisterForm'
 import { AuthenticateAlertContent } from 'components/donation-flow/alerts/AlertsContent'
-import { useTranslation } from 'react-i18next'
 
 export default function Authentication({
   sectionRef,
