@@ -8,23 +8,23 @@
   "cancel-dialog": {
     "title": "Сигурни ли сте, че искате да се откажете",
     "content": "If you cancel, you will lose all the information you have entered so far.",
-    "btn-cancel": "Cancel",
-    "btn-continue": "Continue"
+    "btn-cancel": "Откажи Дарението",
+    "btn-continue": "Продължи Дарението"
   },
   "action": {
-    "back": "Back",
-    "submit": "Donate"
+    "back": "Назад",
+    "submit": "Дари"
   },
   "step": {
     "amount": {
       "title": "How much would you like to donate",
       "field": {
         "final-amount": {
-          "error": "You have to select an amount or enter a custom amount"
+          "error": "Трябва да изберете сума или да въведете друга"
         },
         "other-amount": {
-          "label": "Other amount",
-          "error": "You have to enter a valid amount"
+          "label": "Друга сума",
+          "error": "Трябва да изберете валидна сума"
         }
       }
     },
@@ -32,37 +32,32 @@
       "title": "How would you like to pay",
       "field": {
         "method": {
-          "card": "Card",
-          "bank": "Bank transfer",
+          "card": "Карта",
+          "bank": "Банков превод",
           "paypal": "PayPal",
-          "error": "You have to select a payment method"
-        },
-        "tax-box": {
-          "label": "I want to cover transaction fees for card issued in",
-          "error": "You have to select a region"
+          "error": "Трябва да изберете начин на плащане"
         },
         "card-region": {
-          "title": "Region",
-          "EU": "Europe",
-          "UK": "Great Britain",
-          "Other": "Other"
+          "title": "Регион",
+          "EU": "Европа",
+          "UK": "Великобритания",
+          "Other": "Друг"
         },
         "include-fees": {
-          "label": "I want to cover transaction fees for card issued in",
-          "error": "You have to select a region"
+          "label": "Искам да покрия таксите за карта издадена в",
+          "error": "Трябва да изберете регион"
         }
       },
       "bank": {
         "bank-payment": "Bank transfer",
-        "bank-instructions1": "To donate via bank transfer, please use your bank recommonded application with entering our bank details from below. The donation will not be updated immediatelly as the implemnetation of the automated bank integration is still pending.",
-        "bank-instructions2": "We trust you to register or to leave an email on the next step, so that we can link your donation to your account. Thank you!!!",
-        "bank-details": "Details of our bank account:",
+        "bank-instructions1": "To donate via bank transfer, please use your bank recommonded application with entering our bank details from below. The donation will not be updated immediatelly as the implemnetation of the automated bank integration is still pending",
+        "bank-details": "Details of our bank account",
         "btn-copy": "Copy",
         "owner": "Association Podkrepi BG",
         "bank": "Unicredit Bulbank",
-        "reason-donation": "For payment reference use:",
-        "message-warning": "If you don't enter the exact reference we may not be able to assign the money to the desired campaign.",
-        "recurring-donation": "Donate the same amount every month until the end of the campaign! Cancel anytime."
+        "reason-donation": "For payment reference use",
+        "message-warning": "If you don't enter the exact reference we may not be able to assign the money to the desired campaign",
+        "recurring-donation": "Donate the same amount every month until the end of the campaign! Cancel anytime"
       },
       "alert": {
         "card-fee": "Stripe tax is calculated based on the region of the card's issuer: 1.2% + 0.5 BGN for the EU Economic Zone",
@@ -95,43 +90,43 @@
       }
     },
     "summary": {
-      "donation": "Donation",
+      "donation": "Дарение",
       "transaction": {
-        "title": "Transaction",
+        "title": "Трансакция",
         "description": "The transaction is only to compensate the transfer and is calculated based on your method of payment. \"Podkrepi.bg\" works with 0% commission"
       },
-      "total": "Total"
+      "total": "Общо"
     }
   },
   "status": {
     "success": {
-      "title": "Thank you for your trust and support",
-      "title-logged": ", we thank you for your trust and support",
-      "email": "We have sent you an email with the details of your donation",
+      "title": "Благодарим ви за доверието и подкрепата",
+      "title-logged": ", благодарим ви за доверието и подкрепата",
+      "email": "Изпратихме ви имейл с повече информация",
       "wish": {
-        "title": "Help the beneficiary with a wish",
-        "thanks": "Thank you for your wish",
-        "error": "We could not save your wish. Please try again later",
-        "write": "Write a wish",
-        "send": "Send"
+        "title": "Помогни с пожелание",
+        "thanks": "Благодарим за пожеланието ви",
+        "error": "Не можахме да запазим пожелнието. Моля опитайте пак",
+        "write": "Напиши пожелание",
+        "send": "Изпрати"
       },
       "share": {
-        "title": "Help the campaign by sharing with your friends",
-        "description": "Campaigns that are shared more often are more likely to be successful"
+        "title": "Помогни на кампанията като споделиш с приятели",
+        "description": "Кампании, които се споделят по-често има по-голям шанс да бъдат завършени"
       },
       "link": {
-        "see": "See other campaigns",
-        "donations": "See your donations",
-        "volunteer": "Become a volunteer",
-        "return": "Return to the campaign"
+        "see": "Виж други кампании",
+        "donations": "Виж твоите дарения",
+        "volunteer": "Стани доброволец",
+        "return": "Върни се към кампанията"
       }
     },
     "fail": {
-      "title": "Something went wrong",
-      "description": "We are sorry, but something went wrong. Please try again later",
+      "title": "Нещо се обърка",
+      "description": "Съжаляваме, но нещо се обърка, моля опитайте пак или се върнете по-късно",
       "link": {
-        "return": "Return to the campaign",
-        "retry": "Try again"
+        "return": "Върни се към кампанията",
+        "retry": "Опитай пак"
       }
     }
   }
