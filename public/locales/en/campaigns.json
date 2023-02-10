@@ -146,14 +146,14 @@
     "date": "Date:"
   },
   "info-graphics": {
-    "donation-title": "100% от дарението отива при нуждаещите се",
-    "donation-text": "Без удържане на такси и комисиони за Подкрепи.бг",
-    "transparency-title": "Прозрачност на даренията с отчети",
-    "transparency-text": "Отчетни документи от страна на бенефициента за изразходваните средства",
-    "approval-title": "Преминаване на процедури по одобрение на кампаниите",
-    "approval-text": "Всяка кампания има гарант и координатор отговарящи за кампанията",
-    "become-volunteer-title": "Стани част от идеята на Подкрепи.бг",
-    "become-volunteer-button": "Дари труд"
+    "donation-title": "100% of the donation goes to those in need",
+    "donation-text": "No withholding of fees and commissions for Podkrepi.bg",
+    "transparency-title": "Donation transparency with reports",
+    "transparency-text": "Reporting documents for the spent funds from the beneficiary",
+    "approval-title": "Going through campaign approval steps",
+    "approval-text": "Each campaign has a guarantor and coordinator responsible for the campaign",
+    "become-volunteer-title": "Become part of the cause of Podkrepi.bg",
+    "become-volunteer-button": "Volunteer"
   },
   "filters": {
     "all": "All",
