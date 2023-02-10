@@ -1,5 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSession } from 'next-auth/react'
 import { Alert, Box, Collapse, Typography, useMediaQuery } from '@mui/material'
 import { useField } from 'formik'
 
@@ -22,6 +23,7 @@ export default function PaymentMethod({
   const { t } = useTranslation('donation-flow')
   const isSmall = useMediaQuery(theme.breakpoints.down('md'))
   const [payment] = useField('payment')
+  const { status } = useSession()
   const options = [
     {
       value: 'card',
@@ -83,7 +85,12 @@ export default function PaymentMethod({
         <RadioAccordionGroup name="payment" options={mobileOptions} />
       ) : (
         <>
-          <RadioCardGroup columns={2} name="payment" options={options} />
+          <RadioCardGroup
+            loading={status === 'loading'}
+            columns={2}
+            name="payment"
+            options={options}
+          />
           <Collapse in={payment.value === DonationFormPaymentMethod.CARD}>
             <PaymentDetailsStripeForm containerProps={{ sx: { my: 3 } }} />
             <TaxesCheckbox />

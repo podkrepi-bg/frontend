@@ -72,11 +72,11 @@ const generalValidation = {
   isAnonymous: yup.boolean().required(),
   email: yup
     .string()
-    .email('donation-flow:errors-fields.email')
+    .email('donation-flow:step.authentication.field.email.error')
     .required()
     .when('authentication', {
       is: 'NOREGISTER',
-      then: yup.string().email('donation-flow:errors-fields.email').required(),
+      then: yup.string().email('donation-flow:step.authentication.field.email.error').required(),
     }),
   privacy: yup.bool().required().isTrue('donation-flow:errors-fields.privacy'),
 }
@@ -98,6 +98,8 @@ export function DonationFlowForm() {
   useEffect(() => {
     if (session?.user) {
       formikRef.current?.setFieldValue('email', session.user.email)
+      formikRef.current?.setFieldValue('authentication', DonationFormAuthState.AUTHENTICATED)
+      formikRef.current?.setFieldValue('isAnonymous', false)
       return
     }
     formikRef.current?.setFieldValue('email', '')
@@ -140,7 +142,7 @@ export function DonationFlowForm() {
           setSubmitPaymentLoading(false)
           setPaymentError({
             type: 'invalid_request_error',
-            message: t('alerts.error'),
+            message: t('step.summary.alerts.error'),
           })
           return
         }
@@ -161,7 +163,7 @@ export function DonationFlowForm() {
           setSubmitPaymentLoading(false)
           setPaymentError({
             type: 'invalid_request_error',
-            message: t('alerts.error'),
+            message: t('step.summary.alerts.error'),
           })
           return
         }
@@ -180,7 +182,7 @@ export function DonationFlowForm() {
           setSubmitPaymentLoading(false)
           setPaymentError({
             type: 'invalid_request_error',
-            message: t('alerts.error'),
+            message: t('step.summary.alerts.error'),
           })
           return
         }

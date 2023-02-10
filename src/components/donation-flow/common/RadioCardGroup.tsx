@@ -10,6 +10,7 @@ import {
   RadioGroupProps,
   Stack,
   Grid,
+  Skeleton,
 } from '@mui/material'
 import { styled, lighten } from '@mui/material/styles'
 import theme from 'common/theme'
@@ -29,10 +30,18 @@ interface StyledRadioCardItemProps extends CardProps {
   control: React.ReactNode
   icon: React.ReactNode
   disabled?: boolean
+  loading?: boolean
   selected?: boolean
 }
 
-function RadioCardItem({ control, icon, selected, disabled, ...rest }: StyledRadioCardItemProps) {
+function RadioCardItem({
+  control,
+  icon,
+  selected,
+  disabled,
+  loading,
+  ...rest
+}: StyledRadioCardItemProps) {
   const selectedStyles = {
     backgroundColor: selected ? lighten(theme.palette.primary.light, 0.7) : 'inherit',
   }
@@ -50,7 +59,9 @@ function RadioCardItem({ control, icon, selected, disabled, ...rest }: StyledRad
     styles = selectedStyles
   }
 
-  return (
+  return loading ? (
+    <Skeleton variant="rounded" width="100%" height={145} />
+  ) : (
     <StyledRadioCardItem sx={styles} {...rest}>
       <Stack justifyContent="center" alignItems="center">
         {icon}
@@ -71,6 +82,7 @@ export interface RadioCardGroupProps extends RadioGroupProps {
   options: Option[]
   name: string
   columns: 1 | 2 | 3 | 4 | 6 | 12
+  loading?: boolean
 }
 
 /**
@@ -91,7 +103,7 @@ export interface RadioCardGroupProps extends RadioGroupProps {
  * icon: <MoneyIcon />,
  * },
  */
-function RadioCardGroup({ options, name, columns }: RadioCardGroupProps) {
+function RadioCardGroup({ options, name, columns, loading }: RadioCardGroupProps) {
   const [field, meta, { setValue }] = useField(name)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
@@ -129,6 +141,7 @@ function RadioCardGroup({ options, name, columns }: RadioCardGroupProps) {
                 icon={option.icon}
                 selected={field.value === option.value && !option.disabled}
                 disabled={option.disabled}
+                loading={loading}
               />
             </Grid>
           ))}
