@@ -5,6 +5,8 @@ import { CampaignsPage } from '../../../pages/web-pages/campaigns/campaigns.page
 import { enLocalizationOneTimeDonation } from '../../../data/localization'
 import { DonationPage } from '../../../pages/web-pages/campaigns/donation-old.page'
 import { DonationRegions } from '../../../data/enums/donation-regions.enum'
+import { StripeCheckoutPage } from '../../../pages/web-pages/external/stripe-checkout.page'
+import { anonDonationTestData } from '../../../data/support-page-tests.data'
 import { LanguagesEnum } from '../../../data/enums/languages.enum'
 
 // This spec contains E2E tests related to anonymous donation flow - fixed amount
@@ -17,15 +19,18 @@ test.describe.serial(
     let headerPage: HeaderPage
     let campaignsPage: CampaignsPage
     let donationPage: DonationPage
+    let stripeCheckoutPage: StripeCheckoutPage
+    const testEmail = 'E2E_Test_Anon_Donation@e2etest.com'
     // Localization texts
     const enCardIncludeFeesText = enLocalizationOneTimeDonation['third-step']['card-include-fees']
 
-    test.beforeAll(async ({ browser }) => {
+    test.beforeAll(async ({ browser, baseURL }) => {
       page = await browser.newPage()
       homepage = new HomePage(page)
       headerPage = new HeaderPage(page)
       campaignsPage = new CampaignsPage(page)
       donationPage = new DonationPage(page)
+      stripeCheckoutPage = new StripeCheckoutPage(page)
       // For local executions use method navigateToLocalhostHomepage();
       // await homepage.navigateToLocalhostHomepage();
       await homepage.navigateToEnvHomepage()
@@ -81,6 +86,57 @@ test.describe.serial(
       expect.soft(donationAmountText).toMatch('20.00')
       expect.soft(feeAmountText).toMatch('0.75')
       expect(totalChargedAmountText).toMatch('20.75')
+    })
+
+    test('The user is able to fill in e-mail for anonymous donation', async () => {
+      await donationPage.clickForwardButton(LanguagesEnum.EN)
+      expect
+        .soft(
+          await donationPage.isPersonalProfileStepActive(LanguagesEnum.EN),
+          'Personal Profile step is not active.',
+        )
+        .toBeTruthy()
+      await donationPage.clickDonateAnonymouslyButton(LanguagesEnum.EN)
+      await donationPage.fillDonateAnonymouslyEmailField(testEmail)
+      await donationPage.clickForwardButton(LanguagesEnum.EN)
+      expect(
+        await donationPage.isSendAWishStepActive(LanguagesEnum.EN),
+        'Send a wish step is not active.',
+      ).toBeTruthy()
+    })
+
+    test('After sending a wish, the user is redirected to Stripe', async () => {
+      await donationPage.fillSendAWishField('E2E test - anonymous donation.')
+      await donationPage.clickFinishButton(LanguagesEnum.EN)
+      const stripeTotalAmount = await stripeCheckoutPage.getTotalAmountText()
+      const actualStripeEmail = await stripeCheckoutPage.getReadonlyEmailText()
+      expect
+        .soft(stripeTotalAmount, 'The Stripe total donation amount is not correct.')
+        .toContain('20.75')
+      expect(actualStripeEmail, 'The user e-mail is not sent correctly to Stripe.').toEqual(
+        testEmail,
+      )
+    })
+
+    test('The user is able to pay via Stripe', async () => {
+      await stripeCheckoutPage.fillPaymentForm([
+        anonDonationTestData.cardNumber,
+        anonDonationTestData.cardExpDate,
+        anonDonationTestData.cardCvc,
+        anonDonationTestData.billingName,
+        anonDonationTestData.country,
+      ])
+      // Now we're redirected to the Donation page
+      expect
+        .soft(
+          await donationPage.isSuccessfulDonationTitleVisible(LanguagesEnum.EN),
+          "'We thank you for your help and trust!' title is not visible.",
+        )
+        .toBeTruthy()
+      expect(
+        await donationPage.isPaymentStepActive(LanguagesEnum.EN),
+        'Payment step is not active.',
+      ).toBeTruthy()
     })
   },
 )

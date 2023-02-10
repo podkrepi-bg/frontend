@@ -94,7 +94,12 @@ export const validationSchema: yup.SchemaOf<DonationFormData> = yup
 export function DonationFlowForm() {
   const formikRef = useRef<FormikProps<DonationFormData> | null>(null)
   const { t, i18n } = useTranslation('donation-flow')
-  const { data: session } = useSession()
+  const { data: session } = useSession({
+    required: false,
+    onUnauthenticated: () => {
+      formikRef.current?.setFieldValue('authentication', null)
+    },
+  })
   useEffect(() => {
     if (session?.user) {
       formikRef.current?.setFieldValue('email', session.user.email)
@@ -103,6 +108,7 @@ export function DonationFlowForm() {
       return
     }
     formikRef.current?.setFieldValue('email', '')
+    formikRef.current?.setFieldValue('isAnonymous', true)
   }, [session])
   const { campaign, stripePaymentIntent, paymentError, setPaymentError } = useDonationFlow()
   const stripe = useStripe()

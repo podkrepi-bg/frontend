@@ -16,6 +16,9 @@ import enLocalizationCampaignsJson from '../../public/locales/en/campaigns.json'
 import bgLocalizationOneTimeDonationJson from '../../public/locales/bg/one-time-donation.json'
 import enLocalizationOneTimeDonationJson from '../../public/locales/en/one-time-donation.json'
 
+import bgLocalizationDonationFlowJson from '../../public/locales/bg/donation-flow.json'
+import enLocalizationDonationFlowJson from '../../public/locales/en/donation-flow.json'
+
 // All these constants are used in the E2E test pages to manipulate web elements in a respective language
 // Common localization terms
 export const bgLocalizationCommon = bgLocalizationCommonJson
@@ -29,9 +32,12 @@ export const enLocalizationSupport = enLocalizationSupportJson
 // Campaigns page
 export const bgLocalizationCampaigns = bgLocalizationCampaignsJson
 export const enLocalizationCampaigns = enLocalizationCampaignsJson
-// Donations
+// Donations - old
 export const bgLocalizationOneTimeDonation = bgLocalizationOneTimeDonationJson
 export const enLocalizationOneTimeDonation = enLocalizationOneTimeDonationJson
+// Donations
+export const bgLocalizationDonationFlow = bgLocalizationDonationFlowJson
+export const enLocalizationDonationFlow = enLocalizationDonationFlowJson
 // Validations
 export const bgLocalizationValidation = bgLocalizationValidationJson
 export const enLocalizationValidation = enLocalizationValidationJson
