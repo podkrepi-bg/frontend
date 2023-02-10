@@ -6,22 +6,36 @@ import Image from 'next/image'
 import { Grid, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
+import LinkButton from 'components/common/LinkButton'
+import { routes } from 'common/routes'
+
 const PREFIX = 'CampaignInfoGraphics'
 
 const classes = {
-  title: `${PREFIX}-title`,
   infoBlock: `${PREFIX}-infoBlock`,
+  title: `${PREFIX}-title`,
+  volunteerButton: `${PREFIX}-volunteerButton`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
+  [`& .${classes.infoBlock}`]: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    padding: theme.spacing(0, 3, 3, 0),
+    alignSelf: 'start',
+  },
+
   [`& .${classes.title}`]: {
     fontWeight: 700,
     fontSize: theme.typography.pxToRem(16),
   },
 
-  [`& .${classes.infoBlock}`]: {
-    display: 'inline-flex',
-    alignItems: 'center',
+  [`& .${classes.volunteerButton}`]: {
+    fontSize: theme.typography.pxToRem(16),
+    lineHeight: theme.spacing(3),
+    letterSpacing: theme.spacing(0.05),
+    color: theme.palette.common.black,
+    border: `2px solid ${theme.palette.secondary.main}`,
   },
 }))
 
@@ -66,7 +80,14 @@ export default function CampaignInfoGraphics() {
           <Typography className={classes.title}>
             {t('campaigns:info-graphics.become-volunteer-title')}
           </Typography>
-          <Typography>{t('campaigns:info-graphics.become-volunteer-button')}</Typography>
+          <Grid textAlign="center" mt={2}>
+            <LinkButton
+              href={routes.support}
+              variant="outlined"
+              className={classes.volunteerButton}>
+              {t('campaigns:info-graphics.become-volunteer-button')}
+            </LinkButton>
+          </Grid>
         </Grid>
       </Grid>
     </StyledGrid>
