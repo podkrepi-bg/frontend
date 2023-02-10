@@ -1,6 +1,9 @@
+import { useTranslation } from 'react-i18next'
 import { Box, List, ListItem, ListItemText, SxProps, Typography } from '@mui/material'
 
 export const AuthenticateAlertContent = () => {
+  const { t } = useTranslation('donation-flow')
+
   const liSx: SxProps = {
     '& .MuiTypography-root': {
       fontSize: '0.875rem',
@@ -10,7 +13,7 @@ export const AuthenticateAlertContent = () => {
 
   return (
     <Box>
-      <Typography>Избирайки да се впишете. ще можете да:</Typography>
+      <Typography>{t('step.authentication.alert.authenticate.title')}:</Typography>
       <List
         sx={{
           listStyleType: 'disc',
@@ -20,16 +23,16 @@ export const AuthenticateAlertContent = () => {
           },
         }}>
         <ListItem sx={liSx}>
-          <ListItemText primary="създадете акаунт като физическо или юридическо лице" />
+          <ListItemText primary={t('step.authentication.alert.authenticate.create-account')} />
         </ListItem>
         <ListItem sx={liSx}>
-          <ListItemText primary="получите сертификат за дарение" />
+          <ListItemText primary={t('step.authentication.alert.authenticate.certificate')} />
         </ListItem>
         <ListItem sx={liSx}>
-          <ListItemText primary="правите месечни дарения по избрана кампания" />
+          <ListItemText primary={t('step.authentication.alert.authenticate.monthly-donation')} />
         </ListItem>
         <ListItem sx={liSx}>
-          <ListItemText primary="получавате и известия за статуса на подкрепени вече кампании" />
+          <ListItemText primary={t('step.authentication.alert.authenticate.notification')} />
         </ListItem>
       </List>
     </Box>

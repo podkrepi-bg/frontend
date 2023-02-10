@@ -3,7 +3,7 @@ import { Button, CircularProgress, Grid } from '@mui/material'
 import { useFormikContext } from 'formik'
 import * as yup from 'yup'
 import { signIn } from 'next-auth/react'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'react-i18next'
 
 import theme from 'common/theme'
 import { useRegister } from 'service/auth'
@@ -29,7 +29,7 @@ export const initialRegisterFormValues = {
 export const registerFormValidation = {
   registerEmail: yup.string().when('authentication', {
     is: DonationFormAuthState.REGISTER,
-    then: yup.string().email('one-time-donation:errors-fields.email').required(),
+    then: yup.string().email('donation-flow:general.error.email').required(),
   }),
   registerPassword: yup.string().when('authentication', {
     is: DonationFormAuthState.REGISTER,

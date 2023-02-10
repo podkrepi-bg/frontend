@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
@@ -50,6 +51,7 @@ function LinkCard({ href, text }: { href: string; text: string }) {
 }
 
 export default function DonationFlowStatusPage({ slug }: { slug: string }) {
+  const { t } = useTranslation('donation-flow')
   const { data } = useViewCampaign(slug)
   //This query needs to be prefetched in the pages folder
   //otherwise on the first render the data will be undefined
@@ -65,12 +67,12 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
     {
       onSuccess: () => {
         setDisableWishForm(true)
-        AlertStore.show('Благодарим ви за желанието ви!', 'success', 3000)
+        AlertStore.show(t('status.success.wish.thanks'), 'success', 3000)
         formikRef.current?.resetForm()
       },
       onError: () => {
         setDisableWishForm(false)
-        AlertStore.show('Не можахме да запазим желанието ви. Моля опитайте отново.', 'error')
+        AlertStore.show(t('status.success.wish.error'), 'error')
       },
     },
   )
@@ -113,13 +115,15 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
     <Box>
       <Typography textAlign="center" variant="h4" mb={1}>
         {session.data?.user
-          ? `${session.data?.user?.given_name} ${session.data.user.family_name}, благодарим ви, за доверието и подкрепата`
-          : 'Благодарим ви, за доверието и подкрепата'}
+          ? `${session.data?.user?.given_name} ${session.data.user.family_name}, ${t(
+              'status.success.title-logged',
+            )}`
+          : t('status.success.title')}
         !
       </Typography>
       <Typography display="flex" justifyContent="center" alignItems="center">
         <Email sx={{ mr: 1, fill: theme.palette.grey[400] }} />
-        Пратихме Ви и мейл с повече информация на адреса, който сте посочили.
+        {t('status.success.email')}
       </Typography>
       <SuccessGraphic />
       <Formik
@@ -141,12 +145,12 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
             <Stack alignItems="flex-end" direction="column">
               <Box width="100%">
                 <Typography variant="h5" mb={2} color={theme.palette.primary.dark}>
-                  Помогнете на бенефициента/ите със добро пожелание:
+                  {t('status.success.wish.title')}:
                 </Typography>
                 <FormTextField
                   type="text"
                   name="wish"
-                  label="Напишете пожелание..."
+                  label={`${t('status.success.wish.write')}...`}
                   multiline
                   fullWidth
                   disabled={disableWishForm}
@@ -157,7 +161,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
                 loading={isWishSendLoading}
                 disabled={disableWishForm || isWishSendLoading}
                 sx={{ mt: 1 }}
-                label="Изпрати"
+                label={t('status.success.wish.send')}
               />
             </Stack>
           </Form>
@@ -167,11 +171,9 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
       <Stack alignItems="flex-end">
         <Box width="100%">
           <Typography variant="h5" mb={1}>
-            Подкрепи на кампания като споделиш с приятели.
+            {t('status.success.share.title')}.
           </Typography>
-          <Typography mb={1}>
-            Кампаниите сподели във вашите социални мрежи могат да съберат много повече средства
-          </Typography>
+          <Typography mb={1}>{t('status.success.share.description')}!</Typography>
         </Box>
         <SocialShareListButton
           url={`${window.location.host}${routes.campaigns.viewCampaignBySlug(slug)}`}
@@ -180,16 +182,19 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
       <StepSplitter />
       <Grid2 spacing={2} container>
         <Grid2 xs={12} md={6}>
-          <LinkCard href={routes.campaigns.viewCampaignBySlug(slug)} text="Виж кампанията" />
+          <LinkCard
+            href={routes.campaigns.viewCampaignBySlug(slug)}
+            text={t('status.success.link.return')}
+          />
         </Grid2>
         <Grid2 xs={12} md={6}>
-          <LinkCard href={routes.campaigns.index} text="Виж други кампании" />
+          <LinkCard href={routes.campaigns.index} text={t('status.success.link.see')} />
         </Grid2>
         <Grid2 xs={12} md={6}>
-          <LinkCard href={routes.profile.index} text="Твоите дарения" />
+          <LinkCard href={routes.profile.index} text={t('status.success.link.donations')} />
         </Grid2>
         <Grid2 xs={12} md={6}>
-          <LinkCard href={routes.support} text="Стани доброволец" />
+          <LinkCard href={routes.support} text={t('status.success.link.volunteer')} />
         </Grid2>
       </Grid2>
     </Box>
@@ -198,7 +203,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
   const Fail = () => (
     <Box>
       <Typography textAlign="center" variant="h4" mb={1}>
-        Нещо се обърка, молим Ви да опитате отново!
+        {t('status.fail.title')}
       </Typography>
       {/* TODO: Provide a better <FailGraphic> instead of just an X */}
       <FailGraphic
@@ -212,12 +217,12 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
       <StepSplitter />
       <Grid2 spacing={2} container>
         <Grid2 xs={12} md={6}>
-          <LinkCard href={routes.campaigns.donation(slug)} text="Опитай пак" />
+          <LinkCard href={routes.campaigns.donation(slug)} text={t('status.fail.link.retry')} />
         </Grid2>
         <Grid2 xs={12} md={6}>
           <LinkCard
             href={routes.campaigns.viewCampaignBySlug(slug)}
-            text="Върни се към капманията"
+            text={t('status.fail.link.return')}
           />
         </Grid2>
       </Grid2>

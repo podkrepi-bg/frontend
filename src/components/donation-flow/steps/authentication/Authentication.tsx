@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Box, Typography, Alert, useMediaQuery } from '@mui/material'
 import { useFormikContext } from 'formik'
 import { useSession } from 'next-auth/react'
@@ -17,6 +18,7 @@ export default function Authentication({
 }: {
   sectionRef: React.MutableRefObject<HTMLDivElement | null>
 }) {
+  const { t } = useTranslation('donation-flow')
   const { data: session } = useSession()
   const {
     values: { authentication },
@@ -37,7 +39,7 @@ export default function Authentication({
   const options = [
     {
       value: DonationFormAuthState.LOGIN,
-      label: 'Login',
+      label: t('step.authentication.login.label'),
       disabled: Boolean(session?.user),
       content: (
         <Box>
@@ -58,7 +60,7 @@ export default function Authentication({
     },
     {
       value: DonationFormAuthState.REGISTER,
-      label: 'Register',
+      label: t('step.authentication.register.label'),
       disabled: Boolean(session?.user),
       content: (
         <Box>
@@ -79,7 +81,7 @@ export default function Authentication({
     },
     {
       value: DonationFormAuthState.NOREGISTER,
-      label: 'Continue without registration',
+      label: t('step.authentication.noregister.label'),
       disabled: Boolean(session?.user),
       content: (
         <Box>
@@ -91,8 +93,7 @@ export default function Authentication({
               color="info"
               icon={false}
               sx={{ mb: 1, mx: -2 }}>
-              Ако не се регистрирате, ще получите само разписка, без сертификат за дарение, който да
-              използвате за данъчни облекчения.
+              {t('step.authentication.noregister.description')}
             </Alert>
           )}
           <EmailField label="Email" name="email" sx={{ mb: 1 }} />
@@ -104,10 +105,12 @@ export default function Authentication({
   return (
     <Box ref={sectionRef} component="section" id="select-authentication">
       <Typography mb={3} variant="h5">
-        Как предпочитате да продължите?
+        {t('step.authentication.title')}?
       </Typography>
       {authentication === DonationFormAuthState.AUTHENTICATED ? (
-        <Alert color="info">Вие сте влезли като {session?.user?.email}</Alert>
+        <Alert color="info">
+          {t('step.authentication.logged-as')} {session?.user?.email}
+        </Alert>
       ) : (
         <>
           <RadioAccordionGroup

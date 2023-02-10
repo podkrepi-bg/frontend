@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { useElements, useStripe } from '@stripe/react-stripe-js'
@@ -43,7 +44,6 @@ import { useDonationFlow } from './contexts/DonationFlowProvider'
 import AlertsColumn from './alerts/AlertsColumn'
 import PaymentSummaryAlert from './alerts/PaymentSummaryAlert'
 import { DonationFormAuthState, DonationFormPaymentMethod, DonationFormData } from './helpers/types'
-import { useTranslation } from 'react-i18next'
 
 const initialGeneralFormValues = {
   payment: null,
@@ -72,13 +72,13 @@ const generalValidation = {
   isAnonymous: yup.boolean().required(),
   email: yup
     .string()
-    .email('one-time-donation:errors-fields.email')
+    .email('donation-flow:errors-fields.email')
     .required()
     .when('authentication', {
       is: 'NOREGISTER',
-      then: yup.string().email('one-time-donation:errors-fields.email').required(),
+      then: yup.string().email('donation-flow:errors-fields.email').required(),
     }),
-  privacy: yup.bool().required().isTrue('one-time-donation:errors-fields.privacy'),
+  privacy: yup.bool().required().isTrue('donation-flow:errors-fields.privacy'),
 }
 
 export const validationSchema: yup.SchemaOf<DonationFormData> = yup
@@ -93,7 +93,7 @@ export const validationSchema: yup.SchemaOf<DonationFormData> = yup
 
 export function DonationFlowForm() {
   const formikRef = useRef<FormikProps<DonationFormData> | null>(null)
-  const { i18n } = useTranslation()
+  const { t, i18n } = useTranslation('donation-flow')
   const { data: session } = useSession()
   useEffect(() => {
     if (session?.user) {
@@ -122,6 +122,7 @@ export function DonationFlowForm() {
         email: session?.user?.email ?? '',
         authentication: session?.user ? DonationFormAuthState.AUTHENTICATED : null,
         amountChosen: stripePaymentIntent.amount.toString(),
+        isAnonymous: session?.user ? false : true,
       }}
       validationSchema={validationSchema}
       onSubmit={async (values) => {
@@ -139,7 +140,7 @@ export function DonationFlowForm() {
           setSubmitPaymentLoading(false)
           setPaymentError({
             type: 'invalid_request_error',
-            message: "We couldn't submit the form. Please try refreshing the page.",
+            message: t('alerts.error'),
           })
           return
         }
@@ -160,7 +161,7 @@ export function DonationFlowForm() {
           setSubmitPaymentLoading(false)
           setPaymentError({
             type: 'invalid_request_error',
-            message: "We couldn't update the payment intent. Please try again later.",
+            message: t('alerts.error'),
           })
           return
         }
@@ -179,7 +180,7 @@ export function DonationFlowForm() {
           setSubmitPaymentLoading(false)
           setPaymentError({
             type: 'invalid_request_error',
-            message: "We couldn't create the payment. Please try again later.",
+            message: t('alerts.error'),
           })
           return
         }
@@ -224,10 +225,10 @@ export function DonationFlowForm() {
                   })
                   router.push(routes.campaigns.viewCampaignBySlug(campaign.slug))
                 }}
-                title="Наистина ли искате да откажете дарението?"
-                content="Така ще изгубите всички въведени данни."
-                confirmButtonLabel="Продължи дарението"
-                cancelButtonLabel="Откажи дарението"
+                title={t('cancel-dialog.title')}
+                content={t('cancel-dialog.content')}
+                confirmButtonLabel={t('cancel-dialog.btn-continue')}
+                cancelButtonLabel={t('cancel-dialog.btn-cancel')}
                 handleConfirm={() => {
                   setShowCancelDialog(false)
                 }}
@@ -238,7 +239,7 @@ export function DonationFlowForm() {
                 onClick={() => {
                   setShowCancelDialog(true)
                 }}>
-                <ArrowBack sx={{ mr: 2 }} /> Назад
+                <ArrowBack sx={{ mr: 2 }} /> {t('action.back')}
               </Button>
               <Box mb={2}>
                 <StepSplitter content="1" active={Boolean(values.amountChosen)} />
@@ -262,8 +263,8 @@ export function DonationFlowForm() {
               <CheckboxField
                 label={
                   <Box display="flex" alignItems="center">
-                    <Typography>Искам да съм анонимен</Typography>
-                    <Tooltip title="Ако дарете анонимно, данните ще останат недостъпни за бенефициента.">
+                    <Typography>{t('step.summary.field.anonymous.label')}</Typography>
+                    <Tooltip title={t('step.summary.field.anonymous.description')}>
                       <IconButton color="primary">
                         <Info />
                       </IconButton>
@@ -271,6 +272,9 @@ export function DonationFlowForm() {
                   </Box>
                 }
                 name="isAnonymous"
+                checkboxProps={{
+                  disabled: !session?.user,
+                }}
               />
               <AcceptPrivacyPolicyField name="privacy" />
               <Hidden mdUp>
@@ -293,7 +297,7 @@ export function DonationFlowForm() {
               <SubmitButton
                 disabled={submitPaymentLoading || !isValid}
                 loading={submitPaymentLoading}
-                label="Donate"
+                label={t('action.submit')}
                 fullWidth
               />
               <PersistFormikValues

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import * as yup from 'yup'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'react-i18next'
 import { signIn } from 'next-auth/react'
 import { useFormikContext } from 'formik'
 import { Box, Button, CircularProgress, Grid } from '@mui/material'
@@ -22,7 +22,7 @@ export const initialLoginFormValues = {
 export const loginValidation = {
   loginEmail: yup.string().when('authentication', {
     is: DonationFormAuthState.LOGIN,
-    then: yup.string().email('one-time-donation:errors-fields.email').required(),
+    then: yup.string().email('donation-flow:general.error.email').required(),
   }),
   loginPassword: yup.string().when('authentication', {
     is: DonationFormAuthState.LOGIN,
@@ -30,7 +30,7 @@ export const loginValidation = {
   }),
 }
 function InlineLoginForm() {
-  const { t } = useTranslation('one-time-donation')
+  const { t } = useTranslation('donation-flow')
   const [loading, setLoading] = useState(false)
   const { values, setFieldValue } = useFormikContext<DonationFormData>()
   const { campaign } = useDonationFlow()
@@ -69,7 +69,7 @@ function InlineLoginForm() {
         <PasswordField
           name="loginPassword"
           type="password"
-          label={t('second-step.password')}
+          label={t('step.authentication.password')}
           fullWidth
         />
       </Grid>
@@ -79,7 +79,11 @@ function InlineLoginForm() {
         fullWidth
         sx={{ marginTop: theme.spacing(3) }}
         onClick={onClick}>
-        {loading ? <CircularProgress color="inherit" size="1.5rem" /> : t('second-step.btn-login')}
+        {loading ? (
+          <CircularProgress color="inherit" size="1.5rem" />
+        ) : (
+          t('step.authentication.login.label')
+        )}
       </Button>
       <Button
         color="primary"

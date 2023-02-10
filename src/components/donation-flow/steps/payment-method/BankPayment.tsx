@@ -16,10 +16,10 @@ import { CopyTextButton } from 'components/common/CopyTextButton'
 import { useDonationFlow } from 'components/donation-flow/contexts/DonationFlowProvider'
 
 function BankPayment() {
-  const { t } = useTranslation('one-time-donation')
+  const { t } = useTranslation('donation-flow')
   const bankAccountInfo = {
-    owner: t('third-step.owner'),
-    bank: t('third-step.bank'),
+    owner: t('step.payment-method.bank.owner'),
+    bank: t('step.payment-method.bank.bank'),
     iban: ibanNumber,
   }
 
@@ -28,20 +28,20 @@ function BankPayment() {
   return (
     <List component="div" disablePadding>
       <Typography marginTop={theme.spacing(4)} variant="h6">
-        {t('third-step.bank-details')}
+        {t('step.payment-method.bank.bank-details')}
       </Typography>
       <Typography variant="body1" marginBottom={theme.spacing(1)}>
-        {t('third-step.bank-instructions1')}
+        {t('step.payment-method.bank.bank-instructions1')}
       </Typography>
       <Typography variant="body1" marginBottom={theme.spacing(1)}>
-        {t('third-step.bank-instructions2')}
+        {t('step.payment-method.bank.bank-instructions2')}
       </Typography>
       <Divider />
       <Grid2 rowSpacing={2} my={2} container justifyContent="center">
         <Grid2 display="flex" alignItems="center" justifyContent="space-between" xs={12}>
           <Typography>{bankAccountInfo.owner}</Typography>
           <CopyTextButton
-            label={t('third-step.btn-copy')}
+            label={t('step.payment-method.bank.btn-copy')}
             text={bankAccountInfo.owner}
             variant="contained"
             size="small"
@@ -51,7 +51,7 @@ function BankPayment() {
         <Grid2 display="flex" alignItems="center" justifyContent="space-between" xs={12}>
           <Typography>{bankAccountInfo.bank}</Typography>
           <CopyTextButton
-            label={t('third-step.btn-copy')}
+            label={t('step.payment-method.bank.btn-copy')}
             text={bankAccountInfo.bank}
             variant="contained"
             size="small"
@@ -61,7 +61,7 @@ function BankPayment() {
         <Grid2 display="flex" alignItems="center" justifyContent="space-between" xs={12}>
           <Typography>{ibanNumber}</Typography>
           <CopyTextButton
-            label={t('third-step.btn-copy')}
+            label={t('step.payment-method.bank.btn-copy')}
             text={bankAccountInfo.iban.replace(/\s+/g, '')} //remove spaces in IBAN on copy
             variant="contained"
             size="small"
@@ -71,7 +71,7 @@ function BankPayment() {
       </Grid2>
 
       <Typography my={1} variant="h6">
-        {t('third-step.reason-donation')}
+        {t('step.payment-method.bank.reason-donation')}
       </Typography>
       <Divider />
       <Grid2 my={1} container justifyContent="center">
@@ -84,16 +84,15 @@ function BankPayment() {
             variant="contained"
             color="info"
             size="small"
-            label={t('third-step.btn-copy')}
+            label={t('step.payment-method.bank.btn-copy')}
           />
         </Grid2>
       </Grid2>
 
-      <Typography>{t('third-step.message-warning')}</Typography>
+      <Typography>{t('step.payment-method.bank.message-warning')}</Typography>
       <Alert sx={{ mt: 2, mx: mobile ? -2 : 0 }} severity="error">
-        <AlertTitle>ВАЖНО!</AlertTitle>
-        Моля попълнете следващата стъпка свързана с аутентикацията, за да се свържем с Вас, ако има
-        проблем.
+        <AlertTitle>{t('step.payment-method.bank.alert.important')}!</AlertTitle>
+        {t('step.payment-method.bank.alert.authenticate')}
       </Alert>
     </List>
   )

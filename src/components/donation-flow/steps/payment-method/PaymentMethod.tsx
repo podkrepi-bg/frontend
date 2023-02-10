@@ -1,4 +1,5 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { Alert, Box, Collapse, Typography, useMediaQuery } from '@mui/material'
 import { useField } from 'formik'
 
@@ -18,22 +19,23 @@ export default function PaymentMethod({
 }: {
   sectionRef: React.MutableRefObject<HTMLDivElement | null>
 }) {
+  const { t } = useTranslation('donation-flow')
   const isSmall = useMediaQuery(theme.breakpoints.down('md'))
   const [payment] = useField('payment')
   const options = [
     {
       value: 'card',
-      label: 'Card',
+      label: t('step.payment-method.field.method.card'),
       icon: <CardIcon sx={{ width: 80, height: 80 }} />,
     },
     {
       value: 'bank',
-      label: 'Bank Transfer',
+      label: t('step.payment-method.field.method.bank'),
       icon: <BankIcon sx={{ width: 80, height: 80 }} />,
     },
   ]
-  const cardAlertDescription = `Таксата на Stripe се изчислява според района на картодържателя: 1.2% + 0.5лв. за Европейската икономическа зона`
-  const bankAlertDescription = `Таксата за транзакция при банков превод зависи от индивидуалните условия на Вашата банка. от (0-4лв)`
+  const cardAlertDescription = t('step.payment-method.alert.card-fee')
+  const bankAlertDescription = t('step.payment-method.alert.bank-fee')
 
   const paymentMethodAlertMap = {
     [DonationFormPaymentMethod.CARD]: cardAlertDescription,
@@ -43,7 +45,7 @@ export default function PaymentMethod({
   const mobileOptions = [
     {
       value: 'card',
-      label: 'Card',
+      label: t('step.payment-method.field.method.card'),
       icon: <CardIcon sx={{ width: 80, height: 80 }} />,
       content: (
         <Box>
@@ -58,7 +60,7 @@ export default function PaymentMethod({
     },
     {
       value: 'bank',
-      label: 'Bank Transfer',
+      label: t('step.payment-method.field.method.bank'),
       icon: <BankIcon sx={{ width: 80, height: 80 }} />,
       content: (
         <Box>
@@ -75,7 +77,7 @@ export default function PaymentMethod({
   return (
     <Box ref={sectionRef} component="section" id="select-payment-method">
       <Typography mb={3} variant="h5">
-        Как желаете да дарите?
+        {t('step.payment-method.title')}?
       </Typography>
       {isSmall ? (
         <RadioAccordionGroup name="payment" options={mobileOptions} />

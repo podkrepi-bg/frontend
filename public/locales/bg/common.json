@@ -79,6 +79,10 @@
         "youtube": "YouTube",
         "instagram": "Instagram"
       }
+    },
+    "social-share": {
+      "share": "Сподели в",
+      "copy": "Копирай линка"
     }
   },
   "or": "или",
@@ -96,6 +100,7 @@
   "cta": {
     "read-more": "Прочетете още",
     "see-profile": "Вижте профил",
-    "question": "Имате въпрос?"
+    "question": "Имате въпрос?",
+    "share": "Споделете"
   }
 }

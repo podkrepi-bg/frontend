@@ -43,7 +43,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSideP
         'auth',
         'validation',
         'campaigns',
-        'one-time-donation',
+        'donation-flow',
       ])),
     },
   }

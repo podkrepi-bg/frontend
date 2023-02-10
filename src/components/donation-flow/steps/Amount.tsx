@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import * as yup from 'yup'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'react-i18next'
 import { useMediaQuery, Box, Collapse, Grid, InputAdornment, Typography } from '@mui/material'
 import { useField, useFormikContext } from 'formik'
 
@@ -30,11 +30,12 @@ export const amountValidation = {
   }),
   finalAmount: yup.number().when('payment', {
     is: 'card',
-    then: () => yup.number().min(1, 'one-time-donation:errors-fields.amount-with-fees').required(),
+    then: () =>
+      yup.number().min(1, 'donation-flow:step.amount.field.final-amount.error').required(),
   }),
   otherAmount: yup.number().when('amountChosen', {
     is: 'other',
-    then: yup.number().min(1, 'one-time-donation:errors-fields.other-amount').required(),
+    then: yup.number().min(1, 'donation-flow:step.amount.field.final-amount.error').required(),
   }),
   cardIncludeFees: yup.boolean().when('payment', {
     is: 'card',
@@ -58,7 +59,7 @@ export default function Amount({
 }) {
   const { data: prices } = useSinglePriceList()
   const formik = useFormikContext<DonationFormData>()
-  const { t } = useTranslation('one-time-donation')
+  const { t } = useTranslation('donation-flow')
   const mobile = useMediaQuery('(max-width:600px)')
 
   const [{ value }] = useField('amountChosen')
@@ -92,7 +93,7 @@ export default function Amount({
   return (
     <Box ref={sectionRef} component="section" id="select-amount">
       <Typography variant="h5" my={3}>
-        {t('first-step.amount')}
+        {t('step.amount.title')}?
       </Typography>
       <Box>
         <RadioButtonGroup
@@ -105,7 +106,7 @@ export default function Amount({
                 label: moneyPublic(Number(v.unit_amount)),
                 value: String(Number(v.unit_amount)),
               }))
-              .concat({ label: t('first-step.other'), value: 'other' }) || []
+              .concat({ label: t('step.amount.field.other-amount.label'), value: 'other' }) || []
           }
         />
         <Collapse unmountOnExit in={value === 'other'} timeout="auto">
@@ -127,12 +128,12 @@ export default function Amount({
             <FormTextField
               name="otherAmount"
               type="number"
-              label={t('first-step.amount')}
+              label={t('step.amount.field.other-amount.label')}
               InputProps={{
                 style: { fontSize: 14, padding: 7 },
                 endAdornment: (
                   <InputAdornment variant="filled" position="end">
-                    {t('first-step.BGN')}
+                    {t('general.BGN')}
                   </InputAdornment>
                 ),
               }}

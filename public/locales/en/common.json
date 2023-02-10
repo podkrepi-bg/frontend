@@ -79,6 +79,10 @@
         "youtube": "YouTube",
         "instagram": "Instagram"
       }
+    },
+    "social-share": {
+      "share": "Share in",
+      "copy": "Copy link"
     }
   },
   "or": "or",
@@ -95,6 +99,7 @@
   "cta": {
     "read-more": "Read more",
     "see-profile": "See profile",
-    "question": "Have a question?"
+    "question": "Have a question?",
+    "share": "Share"
   }
 }
