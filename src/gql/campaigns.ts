@@ -129,6 +129,7 @@ export type CampaignAdminCreateFormData = CampaignCreateFormData & {
 
 export type CampaignEditFormData = {
   title: string
+  slug: string
   campaignTypeId: string
   beneficiaryId: string
   coordinatorId: string
