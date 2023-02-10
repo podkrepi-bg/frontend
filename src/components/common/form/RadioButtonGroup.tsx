@@ -45,7 +45,7 @@ export default function RadioButtonGroup({
   muiRadioGroupProps,
   muiRadioButtonGridProps,
 }: RadioButtonGroup) {
-  const { t } = useTranslation('one-time-donation')
+  const { t } = useTranslation()
   const [field, meta, { setValue }] = useField(name)
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
   return (

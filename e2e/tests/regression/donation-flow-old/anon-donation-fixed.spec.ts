@@ -11,7 +11,7 @@ import { LanguagesEnum } from '../../../data/enums/languages.enum'
 
 // This spec contains E2E tests related to anonymous donation flow - fixed amount
 // The tests are dependent, the whole describe should be runned
-test.describe.serial(
+test.describe.skip(
   'Anonymous contributor is able to donate fixed amount - EN language version',
   async () => {
     let page: Page

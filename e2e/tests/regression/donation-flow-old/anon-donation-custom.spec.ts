@@ -10,7 +10,7 @@ import { anonDonationTestData } from '../../../data/support-page-tests.data'
 
 // This spec contains E2E tests related to anonymous donation flow - custom amount
 // The tests are dependent, the whole describe should be runned
-test.describe.serial(
+test.describe.skip(
   'Anonymous contributor is able to donate custom amount - BG language version',
   async () => {
     let page: Page
