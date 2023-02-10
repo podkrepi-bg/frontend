@@ -67,7 +67,7 @@ export default function CampaignInfoOperator({ campaign }: Props) {
   const coordinatorAvatarSource = coordinatorCampaignPictureUrl(campaign)
 
   return (
-    <StyledGrid container gap={3}>
+    <StyledGrid container gap={3} mb={8}>
       <Grid item className={classes.avatarWrapper} minWidth="max-content" flex={1}>
         <Image
           src={coordinatorAvatarSource}
