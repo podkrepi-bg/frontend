@@ -5,7 +5,7 @@ import { Alert, Box, BoxProps, IconButton, Stack, Tooltip, Typography } from '@m
 import { styled } from '@mui/styles'
 import theme from 'common/theme'
 import { moneyPublicDecimals2 } from 'common/util/money'
-import { stripeFeeCalculator } from 'components/one-time-donation/helpers/stripe-fee-calculator'
+import { stripeFeeCalculator } from 'components/donation-flow/helpers/stripe-fee-calculator'
 import { CardRegion } from 'gql/donations.enums'
 
 const StyledTypography = styled(Typography)(({ theme }) => ({
