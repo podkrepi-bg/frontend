@@ -60,6 +60,7 @@ const validationSchema: yup.SchemaOf<CampaignAdminCreateFormData> = yup
   .defined()
   .shape({
     title: yup.string().trim().min(10).max(200).required(),
+    slug: yup.string().trim().min(10).max(200).optional(),
     description: yup.string().trim().min(50).max(60000).required(),
     targetAmount: yup.number().integer().positive().required(),
     allowDonationOnComplete: yup.bool().optional(),
@@ -80,6 +81,7 @@ const validationSchema: yup.SchemaOf<CampaignAdminCreateFormData> = yup
 
 const defaults: CampaignAdminCreateFormData = {
   title: '',
+  slug: '',
   campaignTypeId: '',
   beneficiaryId: '',
   coordinatorId: '',
@@ -129,7 +131,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
     try {
       const response = await mutation.mutateAsync({
         title: values.title,
-        slug: createSlug(values.title),
+        slug: createSlug(values.slug || values.title),
         description: values.description,
         targetAmount: toMoney(values.targetAmount),
         allowDonationOnComplete: values.allowDonationOnComplete,
@@ -189,6 +191,15 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               autoComplete="title"
             />
           </Grid>
+          {/* <Grid item xs={12}>
+            <FormTextField
+              type="text"
+              label="campaigns:campaign.slug.name"
+              name="slug"
+              placeholder={t('campaigns:campaign.slug.placeholder')}
+              InputLabelProps={{ shrink: true }}
+            />
+          </Grid> */}
           <Grid item xs={12} sm={5}>
             <CampaignTypeSelect />
           </Grid>
