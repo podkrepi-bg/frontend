@@ -20,7 +20,8 @@ const classes = {
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.infoBlock}`]: {
-    display: 'inline-flex',
+    display: 'block',
+    textAlign: 'center',
     alignItems: 'center',
     padding: theme.spacing(0, 3, 5, 0),
     alignSelf: 'start',
@@ -29,6 +30,11 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
       display: 'block',
       textAlign: 'center',
     },
+
+    [theme.breakpoints.up('lg')]: {
+      display: 'inline-flex',
+      textAlign: 'initial',
+    },
   },
 
   [`& .${classes.title}`]: {
@@ -36,16 +42,24 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     fontSize: theme.typography.pxToRem(16),
     fontFamily: "Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif",
     marginBottom: theme.spacing(1),
-    width: theme.spacing(36),
+    width: '100%',
 
     '&:last-of-type': {
       width: '100%',
+    },
+
+    [theme.breakpoints.up('lg')]: {
+      width: theme.spacing(36),
     },
   },
 
   [`& .${classes.subtext}`]: {
     fontFamily: 'Lato',
-    width: theme.spacing(38),
+    width: '100%',
+
+    [theme.breakpoints.up('lg')]: {
+      width: theme.spacing(38),
+    },
   },
 
   [`& .${classes.volunteerButton}`]: {
@@ -66,9 +80,9 @@ export default function CampaignInfoGraphics() {
   const approvalIconSource = '/img/approval-icon.png'
 
   return (
-    <StyledGrid container>
+    <StyledGrid container pl={8}>
       <Grid item xs={12} lg={6} className={classes.infoBlock}>
-        <Image alt="Donation icon" src={donationIconSource} width={95} height={100} />
+        <Image alt="Donation icon" src={donationIconSource} width={90} height={100} />
         <Grid ml={1}>
           <Typography className={classes.title}>
             {t('campaigns:info-graphics.donation-title')}
@@ -79,7 +93,7 @@ export default function CampaignInfoGraphics() {
         </Grid>
       </Grid>
       <Grid item xs={12} lg={6} className={classes.infoBlock}>
-        <Image alt="Transparency icon" src={transparencyIconSource} width={202} height={100} />
+        <Image alt="Transparency icon" src={transparencyIconSource} width={90} height={100} />
         <Grid ml={1}>
           <Typography className={classes.title}>
             {t('campaigns:info-graphics.transparency-title')}
@@ -90,7 +104,7 @@ export default function CampaignInfoGraphics() {
         </Grid>
       </Grid>
       <Grid item xs={12} lg={6} className={classes.infoBlock}>
-        <Image alt="Approval icon" src={approvalIconSource} width={115} height={100} />
+        <Image alt="Approval icon" src={approvalIconSource} width={90} height={100} />
         <Grid ml={1}>
           <Typography className={classes.title}>
             {t('campaigns:info-graphics.approval-title')}
