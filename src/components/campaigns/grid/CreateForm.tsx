@@ -191,7 +191,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               autoComplete="title"
             />
           </Grid>
-          {/* <Grid item xs={12}>
+          <Grid item xs={12}>
             <FormTextField
               type="text"
               label="campaigns:campaign.slug.name"
@@ -199,7 +199,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               placeholder={t('campaigns:campaign.slug.placeholder')}
               InputLabelProps={{ shrink: true }}
             />
-          </Grid> */}
+          </Grid>
           <Grid item xs={12} sm={5}>
             <CampaignTypeSelect />
           </Grid>
