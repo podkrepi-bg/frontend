@@ -54,11 +54,10 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 
   [`& .${classes.subtext}`]: {
-    fontFamily: 'Lato',
     width: '100%',
 
     [theme.breakpoints.up('lg')]: {
-      width: theme.spacing(38),
+      width: theme.spacing(36),
     },
   },
 
@@ -68,7 +67,6 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     letterSpacing: theme.spacing(0.05),
     color: theme.palette.common.black,
     border: `2px solid ${theme.palette.secondary.main}`,
-    fontFamily: 'Lato',
   },
 }))
 
