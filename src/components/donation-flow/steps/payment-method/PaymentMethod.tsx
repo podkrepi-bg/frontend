@@ -57,6 +57,7 @@ export default function PaymentMethod({
             </Typography>
           </Alert>
           <PaymentDetailsStripeForm />
+          <TaxesCheckbox />
         </Box>
       ),
     },

@@ -78,7 +78,7 @@ const generalValidation = {
       is: 'NOREGISTER',
       then: yup.string().email('donation-flow:step.authentication.field.email.error').required(),
     }),
-  privacy: yup.bool().required().isTrue('donation-flow:errors-fields.privacy'),
+  privacy: yup.bool().required().isTrue('donation-flow:step.summary.field.privacy.error'),
 }
 
 export const validationSchema: yup.SchemaOf<DonationFormData> = yup
