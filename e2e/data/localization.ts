@@ -13,9 +13,6 @@ import enLocalizationValidationJson from '../../public/locales/en/validation.jso
 import bgLocalizationCampaignsJson from '../../public/locales/bg/campaigns.json'
 import enLocalizationCampaignsJson from '../../public/locales/en/campaigns.json'
 
-import bgLocalizationOneTimeDonationJson from '../../public/locales/bg/one-time-donation.json'
-import enLocalizationOneTimeDonationJson from '../../public/locales/en/one-time-donation.json'
-
 import bgLocalizationDonationFlowJson from '../../public/locales/bg/donation-flow.json'
 import enLocalizationDonationFlowJson from '../../public/locales/en/donation-flow.json'
 
@@ -32,9 +29,6 @@ export const enLocalizationSupport = enLocalizationSupportJson
 // Campaigns page
 export const bgLocalizationCampaigns = bgLocalizationCampaignsJson
 export const enLocalizationCampaigns = enLocalizationCampaignsJson
-// Donations - old
-export const bgLocalizationOneTimeDonation = bgLocalizationOneTimeDonationJson
-export const enLocalizationOneTimeDonation = enLocalizationOneTimeDonationJson
 // Donations
 export const bgLocalizationDonationFlow = bgLocalizationDonationFlowJson
 export const enLocalizationDonationFlow = enLocalizationDonationFlowJson
