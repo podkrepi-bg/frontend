@@ -26,6 +26,7 @@ export interface Constraints {
 export type UniqueConstraints = Partial<Constraints> & {
   companyNumber?: string
   campaignTypeSlug?: string
+  slug?: string
   postal_code?: string
   country_code?: string
   ext_payment_intent_id?: string
@@ -52,6 +53,10 @@ export const handleUniqueViolation = (
       '{1}',
       t('companies:admin.fields.company-number'),
     )
+  }
+
+  if ('slug' in constraint) {
+    return t('validation:unique-field-violation').replace('{1}', t('campaigns:campaign.slug.name'))
   }
 
   if ('campaignTypeSlug' in constraint) {

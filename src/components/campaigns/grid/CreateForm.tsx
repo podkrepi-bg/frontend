@@ -25,7 +25,7 @@ const FormRichTextField = dynamic(() => import('components/common/form/FormRichT
   ssr: false,
 })
 
-import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
+import { ApiErrors, handleUniqueViolation, isAxiosError, matchValidator } from 'service/apiErrors'
 import { useCreateCampaign, useUploadCampaignFiles } from 'service/campaign'
 import { CampaignFileRole, FileRole, UploadCampaignFiles } from 'components/campaign-file/roles'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
@@ -106,13 +106,24 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
 
   const { t } = useTranslation()
 
+  const handleError = (e: AxiosError<ApiErrors>) => {
+    const error = e.response
+
+    if (error?.status === 409) {
+      const message = error.data.message.map((el) => handleUniqueViolation(el.constraints, t))
+      return AlertStore.show(message.join('/n'), 'error')
+    }
+
+    AlertStore.show(t('common:alerts.error'), 'error')
+  }
+
   const mutation = useMutation<
     AxiosResponse<CampaignResponse>,
     AxiosError<ApiErrors>,
     CampaignInput
   >({
     mutationFn: useCreateCampaign(),
-    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    onError: (error) => handleError(error),
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
   })
 
