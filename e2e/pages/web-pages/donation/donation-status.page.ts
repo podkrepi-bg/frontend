@@ -13,7 +13,6 @@ export class DonationStatusPage extends CampaignsPage {
   private readonly enSuccessTitle = enLocalizationDonationFlow.status.success.title
 
   // -> Wish form <-
-  private readonly wishPlaceholderText = bgLocalizationDonationFlow.status.success.wish.write
   private readonly wishSendText = bgLocalizationDonationFlow.status.success.wish.send
 
   async checkPageUrlByRegExp(urlRegExpAsString?: string, timeoutParam = 10000): Promise<void> {

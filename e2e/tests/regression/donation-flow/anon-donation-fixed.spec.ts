@@ -14,7 +14,7 @@ import { DonationStatusPage } from '../../../pages/web-pages/donation/donation-s
 // This spec contains E2E tests related to anonymous donation flow - custom amount
 // The tests are dependent, the whole describe should be runned
 test.describe.serial(
-  'Anonymous contributor is able to donate custom amount - BG language version',
+  'Anonymous contributor is able to donate fixed amount - BG language version',
   async () => {
     let page: Page
     let homepage: HomePage
