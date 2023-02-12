@@ -6,7 +6,11 @@ import {
 import { stripeFormData } from '../../../data/donation-test.data'
 import { DonationRegions } from '../../../data/enums/donation-regions.enum'
 import { LanguagesEnum } from '../../../data/enums/languages.enum'
-import { bgLocalizationDonationFlow, enLocalizationDonationFlow } from '../../../data/localization'
+import {
+  bgLocalizationDonationFlow,
+  bgLocalizationValidation,
+  enLocalizationDonationFlow,
+} from '../../../data/localization'
 import { SLUG_REGEX } from '../../../utils/helpers'
 import { CampaignsPage } from './campaigns.page'
 export class DonationPage extends CampaignsPage {
@@ -35,6 +39,8 @@ export class DonationPage extends CampaignsPage {
   // -> Summary section <-
   private readonly totalAmountSelector = '[data-testid="total-amount"]'
   private readonly bgSubmitButtonText = bgLocalizationDonationFlow.action.submit
+  private readonly privacyCheckboxText =
+    bgLocalizationValidation['informed-agree-with'] + ' ' + bgLocalizationValidation.gdpr
 
   async checkPageUrlByRegExp(urlRegExpAsString?: string, timeoutParam = 10000): Promise<void> {
     await this.page.waitForTimeout(1000)
@@ -83,9 +89,17 @@ export class DonationPage extends CampaignsPage {
    */
   async selectPaymentMethod(method: DonationFormPaymentMethod): Promise<void> {
     if (method === DonationFormPaymentMethod.BANK) {
-      await this.clickElement(`label:has-text(${this.bgBankTransferText})`)
+      await this.page
+        .getByText(this.bgBankTransferText, {
+          exact: true,
+        })
+        .click()
     } else if (method === DonationFormPaymentMethod.CARD) {
-      await this.clickElement(`label:has-text(${this.bgCardText})`)
+      await this.page
+        .getByText(this.bgCardText, {
+          exact: true,
+        })
+        .click()
     } else {
       throw new Error('Payment method not found!')
     }
@@ -95,17 +109,32 @@ export class DonationPage extends CampaignsPage {
    * Fill in the Stripe form with the test card data
    */
   async fillCardForm(): Promise<void> {
-    const baseLocator = this.page.locator('[data-testid="stripe-payment-form"]')
-    const emailField = baseLocator.locator('input[name="email"]')
-    const cardNumberField = baseLocator.locator('input[name="number"]')
-    const cardExpiryField = baseLocator.locator('input[name="expiry"]')
-    const cvcField = baseLocator.locator('input[name="cvc"]')
-    const countrySelect = baseLocator.locator('input[name="country"]')
-    emailField.fill(stripeFormData.email)
-    cardNumberField.fill(stripeFormData.cardNumber)
-    cardExpiryField.fill(stripeFormData.expiryDate)
-    cvcField.fill(stripeFormData.cvc)
-    countrySelect.fill(stripeFormData.country)
+    const baseEmailLocator = this.page
+      .locator('[data-testid="stripe-payment-form"]')
+      .frameLocator('iframe')
+      .first()
+    const baseCardPaymentLocator = this.page
+      .locator('[data-testid="stripe-payment-form"]')
+      .frameLocator('iframe')
+      .last()
+    const emailField = baseEmailLocator.locator('input[name="email"]')
+    const cardNumberField = baseCardPaymentLocator.locator('input[name="number"]')
+    const cardExpiryField = baseCardPaymentLocator.locator('input[name="expiry"]')
+    const cvcField = baseCardPaymentLocator.locator('input[name="cvc"]')
+    const countrySelect = baseCardPaymentLocator.locator('select[name="country"]')
+    await emailField.fill(stripeFormData.email)
+    await cardNumberField.fill(stripeFormData.cardNumber)
+    await cardExpiryField.fill(stripeFormData.expiryDate)
+    await cvcField.fill(stripeFormData.cvc)
+    await countrySelect.selectOption(stripeFormData.country)
+  }
+
+  /**
+   * Fill in email field on a NOREGISTER authentication step
+   */
+  async fillEmailField(): Promise<void> {
+    const emailField = this.page.locator('.MuiInputBase-root>input[name="email"]')
+    await emailField.fill(stripeFormData.email)
   }
 
   /**
@@ -113,12 +142,23 @@ export class DonationPage extends CampaignsPage {
    * @param {DonationFormAuthState} auth
    */
   async selectAuthentication(auth: DonationFormAuthState): Promise<void> {
+    const baseLocator = this.page.locator('span.MuiFormControlLabel-label')
     if (auth === DonationFormAuthState.LOGIN) {
-      await this.clickElement(`span.MuiFormControlLabel-label:has-text(${this.bgLoginText})`)
+      await baseLocator
+        .getByText(this.bgLoginText, {
+          exact: true,
+        })
+        .click()
     } else if (auth === DonationFormAuthState.REGISTER) {
-      await this.clickElement(`span.MuiFormControlLabel-label:has-text(${this.bgRegisterText})`)
+      await baseLocator.getByText(this.bgRegisterText, {
+        exact: true,
+      })
     } else if (auth === DonationFormAuthState.NOREGISTER) {
-      await this.clickElement(`span.MuiFormControlLabel-label:has-text(${this.bgNoRegitserText})`)
+      await baseLocator
+        .getByText(this.bgNoRegitserText, {
+          exact: true,
+        })
+        .click()
     }
   }
 
@@ -128,11 +168,11 @@ export class DonationPage extends CampaignsPage {
    */
   async checkTotalAmount(amount: number): Promise<void> {
     const totalAmount = await this.page.locator(this.totalAmountSelector).textContent()
-    expect(totalAmount).toBe(`${amount} лв.`)
+    expect(totalAmount).toBe(`${amount.toLocaleString('BG')} лв.`)
   }
 
   async checkPrivacyCheckbox(): Promise<void> {
-    this.page.locator('[data-testid="privacy-checkbox"]').check()
+    await this.selectCheckboxByLabelText([this.privacyCheckboxText])
   }
 
   async submitForm(): Promise<void> {

@@ -5,11 +5,14 @@ import { CampaignsPage } from '../../../pages/web-pages/campaigns/campaigns.page
 import { DonationPage } from '../../../pages/web-pages/campaigns/donation.page'
 import { DonationRegions } from '../../../data/enums/donation-regions.enum'
 import { bgLocalizationDonationFlow } from '../../../data/localization'
-import { DonationFormPaymentMethod } from 'components/donation-flow/helpers/types'
+import {
+  DonationFormAuthState,
+  DonationFormPaymentMethod,
+} from 'components/donation-flow/helpers/types'
 
 // This spec contains E2E tests related to anonymous donation flow - custom amount
 // The tests are dependent, the whole describe should be runned
-test.describe.skip(
+test.describe.serial(
   'Anonymous contributor is able to donate custom amount - BG language version',
   async () => {
     let page: Page
@@ -51,9 +54,6 @@ test.describe.skip(
     test('The total charge, fee tax and donation amount are visible on the Campaign page', async () => {
       await campaignsPage.clickDonationSupportButton()
       await donationPage.checkPageUrlByRegExp()
-      expect
-        .soft(await donationPage.isSelectAmountStepActive(), 'Select Amount step is not active.')
-        .toBeTruthy()
       await donationPage.selectRadioButtonByLabelText([otherAmountText])
       await donationPage.fillOtherAmountInputField('7.50')
       await donationPage.selectPaymentMethod(DonationFormPaymentMethod.CARD)
@@ -63,11 +63,21 @@ test.describe.skip(
 
     test('The total charge, fee tax and donation amount are recalculated correctly when the donation amount is changed', async () => {
       await donationPage.fillOtherAmountInputField('12.90')
-      await donationPage.checkTotalAmount(12.9)
+      await donationPage.checkTotalAmount(13.56)
+    })
+
+    test('Fill in the stripe card form', async () => {
+      await donationPage.fillCardForm()
     })
 
     test('The user is able to fill in e-mail for anonymous donation', async () => {
-      return
+      await donationPage.selectAuthentication(DonationFormAuthState.NOREGISTER)
+      await donationPage.fillEmailField()
+    })
+
+    test('The user can submit the form', async () => {
+      await donationPage.checkPrivacyCheckbox()
+      await donationPage.submitForm()
     })
   },
 )
