@@ -91,7 +91,7 @@ export default function PaymentMethod({
             name="payment"
             options={options}
           />
-          <Collapse in={payment.value === DonationFormPaymentMethod.CARD}>
+          <Collapse unmountOnExit in={payment.value === DonationFormPaymentMethod.CARD}>
             <PaymentDetailsStripeForm containerProps={{ sx: { my: 3 } }} />
             <TaxesCheckbox />
           </Collapse>

@@ -69,7 +69,9 @@ function PaymentSummaryAlert({
         icon={false}>
         <Stack direction={'row'} justifyContent="space-between">
           <StyledTypography>{t('step.summary.total')}: </StyledTypography>
-          <StyledTypography>{moneyPublicDecimals2(donationAmount)}</StyledTypography>
+          <StyledTypography data-testid="total-amount">
+            {moneyPublicDecimals2(donationAmount)}
+          </StyledTypography>
         </Stack>
       </Alert>
     </Box>

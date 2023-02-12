@@ -82,7 +82,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
     if (bank_payment === 'true') {
       // If we are redirected on that page means that the payment is a bank payment and we can clear the form state
       sessionStorage.removeItem('donation-form')
-      setStatus(DonationFormPaymentStatus.REQUIRES_PAYMENT)
+      setStatus(DonationFormPaymentStatus.SUCCEEDED)
       return
     }
     if (!stripe || !payment_intent_client_secret) {
@@ -113,7 +113,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
 
   const Success = () => (
     <Box>
-      <Typography textAlign="center" variant="h4" mb={1}>
+      <Typography textAlign="center" variant="h4" component="h1" mb={1}>
         {session.data?.user
           ? `${session.data?.user?.given_name} ${session.data.user.family_name}, ${t(
               'status.success.title-logged',

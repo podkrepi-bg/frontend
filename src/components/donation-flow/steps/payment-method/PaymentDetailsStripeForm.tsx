@@ -15,7 +15,7 @@ export default function PaymentDetailsStripeForm({
     setEmail(session?.user?.email || '')
   }, [session])
   return (
-    <Box {...containerProps}>
+    <Box data-testid="stripe-payment-form" {...containerProps}>
       <LinkAuthenticationElement
         options={{
           defaultValues: {
