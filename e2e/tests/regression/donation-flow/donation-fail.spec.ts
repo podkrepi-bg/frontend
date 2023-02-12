@@ -9,7 +9,6 @@ import {
   DonationFormAuthState,
   DonationFormPaymentMethod,
 } from 'components/donation-flow/helpers/types'
-import { DonationStatusPage } from '../../../pages/web-pages/donation/donation-status.page'
 
 // This spec contains E2E tests related to anonymous donation flow - custom amount
 // The tests are dependent, the whole describe should be runned
@@ -21,9 +20,7 @@ test.describe.serial(
     let headerPage: HeaderPage
     let campaignsPage: CampaignsPage
     let donationPage: DonationPage
-    let statusPage: DonationStatusPage
     // Localization texts
-    const otherAmountText = bgLocalizationDonationFlow.step.amount.field['other-amount'].label
     const bgCardIncludeFeesText =
       bgLocalizationDonationFlow.step['payment-method'].field['include-fees'].label
 
@@ -33,7 +30,6 @@ test.describe.serial(
       headerPage = new HeaderPage(page)
       campaignsPage = new CampaignsPage(page)
       donationPage = new DonationPage(page)
-      statusPage = new DonationStatusPage(page)
       // For local executions use method navigateToLocalhostHomepage();
       // await homepage.navigateToLocalhostHomepage();
       await homepage.navigateToEnvHomepage()
@@ -57,21 +53,20 @@ test.describe.serial(
     test('The total charge, fee tax and donation amount are visible on the Campaign page', async () => {
       await campaignsPage.clickDonationSupportButton()
       await donationPage.checkPageUrlByRegExp()
-      await donationPage.selectRadioButtonByLabelText([otherAmountText])
-      await donationPage.fillOtherAmountInputField('7.50')
+      await donationPage.selectRadioButtonByLabelText(['10'])
       await donationPage.selectPaymentMethod(DonationFormPaymentMethod.CARD)
       await donationPage.setDonationRegionFromTheDropdown(DonationRegions.EUROPE)
       await donationPage.selectCheckboxByLabelText([bgCardIncludeFeesText])
     })
 
     test('The total charge, fee tax and donation amount are recalculated correctly when the donation amount is changed', async () => {
-      await donationPage.fillOtherAmountInputField('12.90')
-      await donationPage.checkTotalAmount(13.56)
+      await donationPage.selectRadioButtonByLabelText(['20'])
+      await donationPage.checkTotalAmount(20.75)
     })
 
     test('Fill in the stripe card form', async () => {
       await donationPage.fillCardForm({
-        fail: false,
+        fail: true,
       })
     })
 
@@ -83,12 +78,10 @@ test.describe.serial(
     test('The user can submit the form', async () => {
       await donationPage.checkPrivacyCheckbox()
       await donationPage.submitForm()
-      await page.waitForEvent('domcontentloaded')
     })
 
-    test('The user is redirected to succes page', async () => {
-      await statusPage.checkPageUrlByRegExp()
-      expect(await statusPage.isSucceededStatusTitleDisplayed()).toBe(true)
+    test('Submit error is visible', async () => {
+      expect(await donationPage.hasPaymentErrorMessage()).toBe(true)
     })
   },
 )

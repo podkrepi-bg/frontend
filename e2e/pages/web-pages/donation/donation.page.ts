@@ -3,7 +3,10 @@ import {
   DonationFormAuthState,
   DonationFormPaymentMethod,
 } from 'components/donation-flow/helpers/types'
-import { stripeFormData } from '../../../data/donation-test.data'
+import {
+  stripeSuccessFormData,
+  stripeErrorNoBalanceFormData,
+} from '../../../data/donation-test.data'
 import { DonationRegions } from '../../../data/enums/donation-regions.enum'
 import { LanguagesEnum } from '../../../data/enums/languages.enum'
 import {
@@ -41,6 +44,7 @@ export class DonationPage extends CampaignsPage {
   private readonly bgSubmitButtonText = bgLocalizationDonationFlow.action.submit
   private readonly privacyCheckboxText =
     bgLocalizationValidation['informed-agree-with'] + ' ' + bgLocalizationValidation.gdpr
+  private readonly bgStripeErrorNoBalanceText = 'Картата Ви не разполага с достатъчно средства.'
 
   async checkPageUrlByRegExp(urlRegExpAsString?: string, timeoutParam = 10000): Promise<void> {
     await this.page.waitForTimeout(1000)
@@ -108,7 +112,8 @@ export class DonationPage extends CampaignsPage {
   /**
    * Fill in the Stripe form with the test card data
    */
-  async fillCardForm(): Promise<void> {
+  async fillCardForm(options: { fail?: boolean }): Promise<void> {
+    const data = options.fail ? stripeErrorNoBalanceFormData : stripeSuccessFormData
     const baseEmailLocator = this.page
       .locator('[data-testid="stripe-payment-form"]')
       .frameLocator('iframe')
@@ -122,11 +127,11 @@ export class DonationPage extends CampaignsPage {
     const cardExpiryField = baseCardPaymentLocator.locator('input[name="expiry"]')
     const cvcField = baseCardPaymentLocator.locator('input[name="cvc"]')
     const countrySelect = baseCardPaymentLocator.locator('select[name="country"]')
-    await emailField.fill(stripeFormData.email)
-    await cardNumberField.fill(stripeFormData.cardNumber)
-    await cardExpiryField.fill(stripeFormData.expiryDate)
-    await cvcField.fill(stripeFormData.cvc)
-    await countrySelect.selectOption(stripeFormData.country)
+    await emailField.fill(data.email)
+    await cardNumberField.fill(data.cardNumber)
+    await cardExpiryField.fill(data.expiryDate)
+    await cvcField.fill(data.cvc)
+    await countrySelect.selectOption(data.country)
   }
 
   /**
@@ -134,7 +139,16 @@ export class DonationPage extends CampaignsPage {
    */
   async fillEmailField(): Promise<void> {
     const emailField = this.page.locator('.MuiInputBase-root>input[name="email"]')
-    await emailField.fill(stripeFormData.email)
+    await emailField.fill(stripeSuccessFormData.email)
+  }
+
+  /**
+   * Set donation region from the radio cards
+   * @param {number} amount
+   */
+  async hasPaymentErrorMessage(): Promise<boolean> {
+    const errorMessage = this.page.getByText(this.bgStripeErrorNoBalanceText)
+    return errorMessage.isVisible()
   }
 
   /**
