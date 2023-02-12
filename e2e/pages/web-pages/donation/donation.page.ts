@@ -147,8 +147,11 @@ export class DonationPage extends CampaignsPage {
    * @param {number} amount
    */
   async hasPaymentErrorMessage(): Promise<boolean> {
-    const errorMessage = this.page.getByText(this.bgStripeErrorNoBalanceText)
-    return errorMessage.isVisible()
+    const errorAlert = await this.page.locator('.MuiAlert-message', {
+      hasText: this.bgStripeErrorNoBalanceText,
+    })
+    await this.waitForElementToBePresentedByLocator(errorAlert)
+    return errorAlert.isVisible()
   }
 
   /**

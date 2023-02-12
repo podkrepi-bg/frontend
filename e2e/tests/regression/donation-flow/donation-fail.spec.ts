@@ -81,7 +81,9 @@ test.describe.serial(
     })
 
     test('Submit error is visible', async () => {
-      expect(await donationPage.hasPaymentErrorMessage()).toBe(true)
+      await donationPage.submitForm()
+      const message = await donationPage.hasPaymentErrorMessage()
+      expect(message).toBe(true)
     })
   },
 )
