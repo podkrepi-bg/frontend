@@ -2,13 +2,14 @@ import { test, expect, Page } from '@playwright/test'
 import { HeaderPage } from '../../../pages/web-pages/header.page'
 import { HomePage } from '../../../pages/web-pages/home.page'
 import { CampaignsPage } from '../../../pages/web-pages/campaigns/campaigns.page'
-import { DonationPage } from '../../../pages/web-pages/campaigns/donation.page'
+import { DonationPage } from '../../../pages/web-pages/donation/donation.page'
 import { DonationRegions } from '../../../data/enums/donation-regions.enum'
 import { bgLocalizationDonationFlow } from '../../../data/localization'
 import {
   DonationFormAuthState,
   DonationFormPaymentMethod,
 } from 'components/donation-flow/helpers/types'
+import { DonationStatusPage } from '../../../pages/web-pages/donation/donation-status.page'
 
 // This spec contains E2E tests related to anonymous donation flow - custom amount
 // The tests are dependent, the whole describe should be runned
@@ -20,6 +21,7 @@ test.describe.serial(
     let headerPage: HeaderPage
     let campaignsPage: CampaignsPage
     let donationPage: DonationPage
+    let statusPage: DonationStatusPage
     // Localization texts
     const otherAmountText = bgLocalizationDonationFlow.step.amount.field['other-amount'].label
     const bgCardIncludeFeesText =
@@ -31,6 +33,7 @@ test.describe.serial(
       headerPage = new HeaderPage(page)
       campaignsPage = new CampaignsPage(page)
       donationPage = new DonationPage(page)
+      statusPage = new DonationStatusPage(page)
       // For local executions use method navigateToLocalhostHomepage();
       // await homepage.navigateToLocalhostHomepage();
       await homepage.navigateToEnvHomepage()
@@ -78,6 +81,12 @@ test.describe.serial(
     test('The user can submit the form', async () => {
       await donationPage.checkPrivacyCheckbox()
       await donationPage.submitForm()
+      await page.waitForEvent('domcontentloaded')
+    })
+
+    test('The user is redirected to succes page', async () => {
+      await statusPage.checkPageUrlByRegExp()
+      expect(await statusPage.isSucceededStatusTitleDisplayed()).toBe(true)
     })
   },
 )

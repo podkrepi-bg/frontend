@@ -12,7 +12,7 @@ import {
   enLocalizationDonationFlow,
 } from '../../../data/localization'
 import { SLUG_REGEX } from '../../../utils/helpers'
-import { CampaignsPage } from './campaigns.page'
+import { CampaignsPage } from '../campaigns/campaigns.page'
 export class DonationPage extends CampaignsPage {
   constructor(page: Page) {
     super(page)
