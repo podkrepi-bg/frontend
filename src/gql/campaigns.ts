@@ -109,7 +109,7 @@ export type CampaignResponse = BaseCampaignResponse & {
 
 export type CampaignCreateFormData = {
   title: string
-  slug: string | undefined
+  slug?: string | undefined
   campaignTypeId: string
   beneficiaryId: string
   coordinatorId: string
