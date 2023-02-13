@@ -42,6 +42,7 @@ export const routes = {
   login: '/login',
   logout: '/logout',
   contact: '/contact',
+  partners: '/partners',
   support: '/support',
   support_us: '/support_us',
   reports: '/finance-report',
