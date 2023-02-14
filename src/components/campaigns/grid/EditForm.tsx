@@ -23,7 +23,7 @@ const FormRichTextField = dynamic(() => import('components/common/form/FormRichT
   ssr: false,
 })
 
-import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
+import { ApiErrors, handleUniqueViolation, isAxiosError, matchValidator } from 'service/apiErrors'
 import {
   CampaignResponse,
   CampaignInput,
@@ -134,13 +134,24 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
     currency: Currency[campaign.currency as keyof typeof Currency],
   }
 
+  const handleError = (e: AxiosError<ApiErrors>) => {
+    const error = e.response
+
+    if (error?.status === 409) {
+      const message = error.data.message.map((el) => handleUniqueViolation(el.constraints, t))
+      return AlertStore.show(message.join('/n'), 'error')
+    }
+
+    AlertStore.show(t('common:alerts.error'), 'error')
+  }
+
   const mutation = useMutation<
     AxiosResponse<CampaignResponse>,
     AxiosError<ApiErrors>,
     CampaignInput
   >({
     mutationFn: useEditCampaign(campaign.id),
-    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    onError: (error) => handleError(error),
     onSuccess: () => {
       AlertStore.show(t('common:alerts.message-sent'), 'success')
       //invalidate query for getting new values
