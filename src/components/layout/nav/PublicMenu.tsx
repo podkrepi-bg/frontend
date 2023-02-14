@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { styled, lighten } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
-import PersonIcon from '@mui/icons-material/Person'
-import { Grid, Button, Menu, Typography } from '@mui/material'
+import { Grid, Button, Menu, Typography, Avatar } from '@mui/material'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
 
@@ -10,6 +9,7 @@ import { routes } from 'common/routes'
 import LinkMenuItem from 'components/common/LinkMenuItem'
 
 import { useSession } from 'next-auth/react'
+import theme from 'common/theme'
 
 const PREFIX = 'PublicMenu'
 
@@ -43,8 +43,7 @@ export default function PublicMenu() {
   const { t } = useTranslation()
   const { data: session } = useSession()
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
-  const open = Boolean(anchorEl)
-
+  const defaultAvatar = '/podkrepi-bg-logo-avatar-black.svg'
   const handleMenu = (event: React.MouseEvent) => setAnchorEl(event.currentTarget)
   const handleClose = () => setAnchorEl(null)
 
@@ -62,7 +61,15 @@ export default function PublicMenu() {
         endIcon={
           open ? <ArrowDropUpIcon color="primary" /> : <ArrowDropDownIcon color="primary" />
         }>
-        <PersonIcon />
+        <Avatar
+          sx={{
+            bgcolor: theme.palette.success.light,
+            height: theme.spacing(4),
+            width: theme.spacing(4),
+            fontSize: '1rem',
+          }}
+          src={defaultAvatar}
+        />
       </Button>
       <Menu
         disableScrollLock={true}

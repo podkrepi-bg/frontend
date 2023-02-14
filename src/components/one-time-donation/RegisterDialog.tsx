@@ -28,6 +28,7 @@ export default function RegisterForm() {
     confirmPassword: formik.values.confirmPassword as string,
     terms: formik.values.terms as boolean,
     gdpr: formik.values.gdpr as boolean,
+    picture: formik.values.picture as string,
   }
   const onClick = async () => {
     try {

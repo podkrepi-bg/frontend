@@ -81,8 +81,8 @@ export default function AdminMenu() {
           <Avatar
             sx={{
               bgcolor: theme.palette.success.light,
-              height: theme.spacing(4.5),
-              width: theme.spacing(4.5),
+              height: theme.spacing(4),
+              width: theme.spacing(4),
               fontSize: '1rem',
             }}>
             {lettersAvatar}

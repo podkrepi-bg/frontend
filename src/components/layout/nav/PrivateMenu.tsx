@@ -9,6 +9,7 @@ import { routes } from 'common/routes'
 import { isAdmin } from 'common/util/roles'
 import LinkMenuItem from 'components/common/LinkMenuItem'
 import { useRouter } from 'next/router'
+import { getCurrentPerson } from 'common/util/useCurrentPerson'
 
 const PREFIX = 'PrivateMenu'
 
@@ -61,25 +62,32 @@ export default function PrivateMenu() {
   }
 
   const title = `${session?.user?.name}\n(${session?.user?.email})`
-  const lettersAvatar = `${session.user?.given_name?.charAt(0) || session.user?.email?.charAt(0)}${
-    session.user?.family_name?.charAt(0) || session.user?.email?.charAt(1)
-  }`.toUpperCase()
+
+  const getAvatar = () => {
+    const { data: user } = getCurrentPerson(!!router.query?.register)
+    if (user) return user.user.picture as string
+  }
 
   return (
     <StyledGrid item>
       <IconButton onClick={handleMenu} size="medium">
         {session?.user?.picture ? (
-          <Avatar title={title} alt={title} src={session?.user?.picture} />
+          <Avatar
+            sx={{ width: theme.spacing(4), height: theme.spacing(4) }}
+            title={title}
+            alt={title}
+            src={session?.user?.picture}
+          />
         ) : (
           <Avatar
             sx={{
               bgcolor: theme.palette.success.light,
-              height: theme.spacing(4.5),
-              width: theme.spacing(4.5),
+              height: theme.spacing(4),
+              width: theme.spacing(4),
               fontSize: '1rem',
-            }}>
-            {lettersAvatar}
-          </Avatar>
+            }}
+            src={getAvatar()}
+          />
         )}
       </IconButton>
       <Menu
