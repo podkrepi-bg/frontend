@@ -23,7 +23,7 @@ const PartnersContent = () => {
               <SectionTitle>{t(partner.title)}</SectionTitle>
               <Image
                 alt={`${partner.name}-logo`}
-                src={`/img/partners/${partner.name}.svg`}
+                src={partner.image}
                 width={LOGO_WIDTH}
                 height={LOGO_HEIGHT}
                 priority
@@ -49,7 +49,6 @@ const PartnersContent = () => {
                     src={`/img/partners/${partner}.svg`}
                     width={LOGO_WIDTH}
                     height={LOGO_HEIGHT}
-                    priority
                   />
                 </StyledGrid>
               ))}
@@ -67,15 +66,14 @@ const PartnersContent = () => {
           <StyledGrid item xs={12}>
             <PartnersSlider>
               {organizationLogos.map((image) => (
-                <Box
-                  key={image}
-                  sx={{ position: 'relative', width: LOGO_WIDTH, height: LOGO_HEIGHT }}>
+                <Box key={image} width={LOGO_WIDTH} height={LOGO_HEIGHT} position="relative">
                   <Image
+                    key={image}
                     src={`/img/partners/organizations/${image}.svg`}
                     alt={`${image}-logo`}
                     sizes="(max-width: 768px) 100vw,
-                            (max-width: 1200px) 50vw,
-                            33vw"
+                          (max-width: 1200px) 50vw,
+                          33vw"
                     fill
                     priority
                   />

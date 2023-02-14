@@ -1,6 +1,6 @@
 import { Box } from '@mui/material'
 import { FC, ReactNode } from 'react'
-import Slider, { CustomArrowProps } from 'react-slick'
+import Slider, { CustomArrowProps, Settings } from 'react-slick'
 import 'slick-carousel/slick/slick-theme.css'
 import 'slick-carousel/slick/slick.css'
 import { StyledArrow } from './Partners.styled'
@@ -37,13 +37,14 @@ const PartnersSlider: FC<Props> = ({ children }: Props) => {
     />
   )
 
-  const sliderSettings = {
+  const sliderSettings: Settings = {
     infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
     nextArrow: <SlickArrowRight />,
     prevArrow: <SlickArrowLeft />,
+    lazyLoad: 'ondemand',
     responsive: [
       {
         breakpoint: 650,

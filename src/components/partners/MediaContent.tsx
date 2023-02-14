@@ -37,16 +37,14 @@ const MediaContent = () => {
             </Box>
             <Box>
               <Subtitle>{article.title}</Subtitle>
-              <Box textAlign={'center'}>
-                <Link
-                  color="primary"
-                  href={article.url}
-                  underline="none"
-                  target="_blank"
-                  paddingY={1}>
-                  {article.subtitle}
-                </Link>
-              </Box>
+              <Link
+                color="primary"
+                href={article.url}
+                underline="none"
+                target="_blank"
+                paddingY={1}>
+                {article.subtitle}
+              </Link>
               <Description>{article.description}</Description>
             </Box>
           </Grid>

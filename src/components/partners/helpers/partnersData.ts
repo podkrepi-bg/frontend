@@ -1,6 +1,7 @@
 type Partners = {
   title: string
   name: string
+  image: string
 }
 
 type TechAndMarketingPartners = {
@@ -9,9 +10,13 @@ type TechAndMarketingPartners = {
 }
 
 export const partners: Partners[] = [
-  { title: 'partners:sections.hosting', name: 'superhosting' },
-  { title: 'partners:sections.video', name: 'rinkoff' },
-  { title: 'partners:sections.media', name: 'darik' },
+  {
+    title: 'partners:sections.hosting',
+    name: 'superhosting',
+    image: '/img/partners/superhosting.svg',
+  },
+  { title: 'partners:sections.video', name: 'rinkoff', image: '/img/partners/rinkoff.svg' },
+  { title: 'partners:sections.media', name: 'darik', image: '/img/partners/darik.svg' },
 ]
 
 export const techAndMarketingPartners: TechAndMarketingPartners[] = [

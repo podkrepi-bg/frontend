@@ -39,7 +39,9 @@ const GiversAndGuarants = () => {
       <Container maxWidth="md">
         <Grid container>
           <StyledGrid item xs={12}>
-            <Title paddingBottom={2}>{t('partners:guarants.corporateGivers')}</Title>
+            <Title textAlign={'center'} paddingBottom={2}>
+              {t('partners:guarants.corporateGivers')}
+            </Title>
             <Image alt="logo" src="/img/partners/guarants/yotpo.svg" width={181} height={99} />
           </StyledGrid>
 
