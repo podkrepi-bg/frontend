@@ -20,8 +20,10 @@ import 'styles/global.scss'
 import { Provider } from 'mobx-react'
 import { stores } from 'stores/DomainStores/stores'
 import NotificationSnackBar from 'components/layout/NotificationSnackBar/NotificationSnackBar'
-
-import getConfig from 'next/config'
+import {
+  globalSnackbarProps,
+  globalSnackbarContentProps,
+} from 'components/layout/NotificationSnackBar/props/global'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -43,20 +45,6 @@ function CustomApp({
   const router = useRouter()
   const { i18n } = useTranslation()
   const { initialize, trackEvent } = useGTM()
-  const { publicRuntimeConfig } = getConfig()
-  const { socketClientStore, notificationStore } = stores
-
-  useEffect(() => {
-    if (session?.accessToken) {
-      socketClientStore?.initiate(publicRuntimeConfig.API_URL, {
-        transports: ['websocket'],
-        withCredentials: true,
-        query: {
-          token: session?.accessToken || null,
-        },
-      })
-    }
-  }, [session])
 
   useEffect(() => {
     // Init GTM
@@ -111,7 +99,10 @@ function CustomApp({
             <Hydrate state={dehydratedState}>
               <Provider {...stores}>
                 <Component {...pageProps} />
-                <NotificationSnackBar notificationStack={notificationStore?.globalNotifications} />
+                <NotificationSnackBar
+                  mainProps={globalSnackbarProps}
+                  contentProps={globalSnackbarContentProps}
+                />
               </Provider>
             </Hydrate>
           </QueryClientProvider>

@@ -24,10 +24,10 @@ export default function DonationNotificationLayout({
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', maxHeight: '50px' }}>
-      <Avatar sx={{ marginRight: '1rem' }} src={person?.picture} alt="Avatar" />
+      <Avatar sx={{ mr: 1 }} src={person?.picture} alt="Avatar" />
       <Box>
         <Typography component="h1" sx={{ fontWeight: 'bold' }}>
-          {person ? `${person?.firstName} ${person?.lastName}` : 'unknown'}
+          {person ? `${person?.firstName} ${person?.lastName}` : 'Anonymous'}
         </Typography>
         <Typography color={grey[600]}>{`${money(amount as number, currency)}  |  ${dateToTime(
           createdAt,

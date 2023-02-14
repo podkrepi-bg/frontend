@@ -1,21 +1,42 @@
 import React, { useEffect, useState } from 'react'
-import { observer } from 'mobx-react'
-import { Snackbar, SnackbarCloseReason, SnackbarContent } from '@mui/material'
-import { NotificationStack } from 'stores/NotificationStore'
+import {
+  Snackbar,
+  SnackbarCloseReason,
+  SnackbarContent,
+  SnackbarProps,
+  PaperProps,
+} from '@mui/material'
 import DonationNotificationLayout from './DonationNotificationLayout'
+import { NotificationLayoutData } from 'components/layout/NotificationSnackBar/DonationNotificationLayout'
+import getConfig from 'next/config'
+import { io } from 'socket.io-client'
+
+const { publicRuntimeConfig } = getConfig()
 
 function NotificationSnackBar({
-  notificationStack,
+  mainProps,
+  contentProps,
 }: {
-  notificationStack: NotificationStack | undefined
+  mainProps: SnackbarProps
+  contentProps: PaperProps
 }) {
   const [open, setOpen] = useState(true)
+  const [notifications, setNotifications] = useState<NotificationLayoutData[]>([])
 
   useEffect(() => {
-    if (notificationStack?.notifications.length) {
-      setOpen(true)
+    const socketClient = io(publicRuntimeConfig.API_URL, { transports: ['websocket'] })
+    socketClient.on('connect', () => {
+      console.log('Socket connection established')
+    })
+    socketClient?.on('successfulDonation', (notificationData: NotificationLayoutData) => {
+      setNotifications([...notifications, notificationData])
+    })
+    return () => {
+      socketClient.off('connect')
+      socketClient.off('successfulDonation')
+      socketClient.disconnect()
     }
-  }, [notificationStack?.notifications])
+  }, [])
 
   const handleSnackBarClose = (
     _event: React.SyntheticEvent | Event,
@@ -31,31 +52,20 @@ function NotificationSnackBar({
 
   const delayOpen = () => {
     const interval = setTimeout(() => {
-      notificationStack?.remove()
-      if (notificationStack?.notifications.length) setOpen(true)
+      setNotifications(notifications.slice(1))
+      if (notifications.length) setOpen(true)
       clearTimeout(interval)
     }, 2000)
   }
 
   return (
-    <Snackbar
-      {...notificationStack?.snackbarProps}
-      open={open && !!notificationStack?.getNotifications.length}
-      onClose={handleSnackBarClose}>
+    <Snackbar open={open && !!notifications.length} onClose={handleSnackBarClose} {...mainProps}>
       <SnackbarContent
-        message={
-          <DonationNotificationLayout
-            data={
-              notificationStack?.getNotifications.length
-                ? notificationStack?.notifications?.[0]
-                : undefined
-            }
-          />
-        }
-        {...notificationStack?.snackbarContentProps}
+        message={<DonationNotificationLayout data={notifications[0] || ''} />}
+        {...contentProps}
       />
     </Snackbar>
   )
 }
 
-export default observer(NotificationSnackBar)
+export default NotificationSnackBar
