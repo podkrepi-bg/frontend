@@ -8,7 +8,8 @@
       "support_us": "Support us",
       "support-us": "Join us",
       "reports": "Reports",
-      "contacts": "Contacts"
+      "contacts": "Contacts",
+      "partners": "Партньори"
     },
     "campaigns": {
       "index": "Campaigns",
@@ -73,6 +74,7 @@
       "terms-of-service": "Terms of Service",
       "copyrights": "Podkrepi.bg ©2022 All rights reserved.",
       "hosting-partner": "Hosting partner:",
+      "partners": "Partners",
       "social": {
         "facebook": "Facebook",
         "linkedin": "Linkedin",

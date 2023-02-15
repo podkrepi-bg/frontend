@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 import { FormikHelpers } from 'formik'
 import { useRouter } from 'next/router'
-import React, { useMemo, useState } from 'react'
+import React, { ChangeEvent, useMemo, useState } from 'react'
 import { parse, isDate, format } from 'date-fns'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
@@ -23,7 +23,7 @@ const FormRichTextField = dynamic(() => import('components/common/form/FormRichT
   ssr: false,
 })
 
-import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
+import { ApiErrors, handleUniqueViolation, isAxiosError, matchValidator } from 'service/apiErrors'
 import {
   CampaignResponse,
   CampaignInput,
@@ -62,6 +62,7 @@ const validationSchema: yup.SchemaOf<Omit<CampaignEditFormData, 'campaignFiles'>
   .defined()
   .shape({
     title: yup.string().trim().min(10).max(200).required(),
+    slug: yup.string().trim().min(10).max(200).required(),
     description: yup.string().trim().min(50).max(60000).required(),
     targetAmount: yup.number().integer().positive().required(),
     allowDonationOnComplete: yup.bool().optional(),
@@ -93,6 +94,7 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
   const queryClient = useQueryClient()
   const [files, setFiles] = useState<File[]>([])
   const [roles, setRoles] = useState<FileRole[]>([])
+  const [slugWasChanged, setSlugWasChanged] = useState<boolean>(false)
 
   const { t } = useTranslation()
 
@@ -117,6 +119,7 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
 
   const initialValues: CampaignEditFormData = {
     title: campaign?.title || '',
+    slug: campaign?.slug || '',
     coordinatorId: campaign.coordinatorId,
     campaignTypeId: campaign.campaignTypeId,
     beneficiaryId: campaign.beneficiaryId,
@@ -131,13 +134,24 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
     currency: Currency[campaign.currency as keyof typeof Currency],
   }
 
+  const handleError = (e: AxiosError<ApiErrors>) => {
+    const error = e.response
+
+    if (error?.status === 409) {
+      const message = error.data.message.map((el) => handleUniqueViolation(el.constraints, t))
+      return AlertStore.show(message.join('/n'), 'error')
+    }
+
+    AlertStore.show(t('common:alerts.error'), 'error')
+  }
+
   const mutation = useMutation<
     AxiosResponse<CampaignResponse>,
     AxiosError<ApiErrors>,
     CampaignInput
   >({
     mutationFn: useEditCampaign(campaign.id),
-    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    onError: (error) => handleError(error),
     onSuccess: () => {
       AlertStore.show(t('common:alerts.message-sent'), 'success')
       //invalidate query for getting new values
@@ -165,7 +179,7 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
     try {
       await mutation.mutateAsync({
         title: values.title,
-        slug: createSlug(values.title),
+        slug: createSlug(values.slug),
         description: values.description,
         targetAmount: toMoney(values.targetAmount),
         allowDonationOnComplete: values.allowDonationOnComplete,
@@ -228,6 +242,27 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
               name="title"
               autoComplete="title"
             />
+          </Grid>
+          <Grid item xs={12}>
+            <FormTextField
+              type="text"
+              label="campaigns:campaign.slug.name"
+              name="slug"
+              onInput={(e: ChangeEvent<HTMLInputElement>) => {
+                e.target.value !== campaign.slug
+                  ? setSlugWasChanged(true)
+                  : setSlugWasChanged(false)
+              }}
+            />
+            <Typography
+              component="span"
+              sx={(theme) => ({
+                ml: 1,
+                color: theme.palette.error.dark,
+                fontSize: 'small',
+              })}>
+              {slugWasChanged && t('campaigns:campaign.slug.warning')}
+            </Typography>
           </Grid>
           <Grid item xs={12} sm={5}>
             <CampaignTypeSelect />

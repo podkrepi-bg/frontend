@@ -71,6 +71,10 @@ const allNavItems: NavItem[] = [
     label: 'nav.about.contacts',
   },
   {
+    href: routes.partners,
+    label: 'nav.about.partners',
+  },
+  {
     href: routes.termsOfService,
     label: 'components.footer.terms-of-service',
   },

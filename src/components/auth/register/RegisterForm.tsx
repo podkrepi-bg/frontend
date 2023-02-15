@@ -64,7 +64,12 @@ export default function RegisterForm({ initialValues = defaults }: RegisterFormP
       values.email = values.email.trim()
 
       // Register in Keycloak
-      await register(values)
+      const registerResponse = await register(values)
+
+      if (registerResponse.data.data?.errorMessage) {
+        AlertStore.show(t('auth:alerts.duplicate-email'), 'error')
+        return
+      }
 
       // Authenticate
       const resp = await signIn<'credentials'>('credentials', {

@@ -10,7 +10,7 @@ import { Box, Button, Grid, Typography } from '@mui/material'
 import { CityFormData, CityInput, CityResponse } from 'gql/cities'
 import { useCity } from 'common/hooks/cities'
 import { routes } from 'common/routes'
-import { ApiErrors } from 'service/apiErrors'
+import { ApiErrors, handleUniqueViolation } from 'service/apiErrors'
 import { useCreateCity, useEditCity } from 'service/city'
 import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
@@ -39,11 +39,22 @@ export default function EditForm() {
     countryId: data?.countryId,
   }
 
+  const handleError = (e: AxiosError<ApiErrors>) => {
+    const error = e.response
+
+    if (error?.status === 409) {
+      const message = error.data.message.map((el) => handleUniqueViolation({ postalCode: '' }, t))
+      return AlertStore.show(message.join('/n'), 'error')
+    }
+
+    AlertStore.show(t('cities:alerts:error'), 'error')
+  }
+
   const mutationFn = id ? useEditCity(id) : useCreateCity()
 
   const mutation = useMutation<AxiosResponse<CityResponse>, AxiosError<ApiErrors>, CityInput>({
     mutationFn,
-    onError: () => AlertStore.show(t('cities:alerts:error'), 'error'),
+    onError: (error) => handleError(error),
     onSuccess: () => {
       AlertStore.show(t('cities:alerts:edit'), 'success')
       router.push(routes.admin.cities.home)

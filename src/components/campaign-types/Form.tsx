@@ -18,7 +18,7 @@ import {
 
 import { CampaignTypeFormData, CampaignTypesResponse } from 'gql/campaign-types'
 import { routes } from 'common/routes'
-import { ApiErrors } from 'service/apiErrors'
+import { ApiErrors, handleUniqueViolation } from 'service/apiErrors'
 import { useCampaignType, useEditCampaignType, useCreateCampaignType } from 'service/campaignTypes'
 import { createSlug } from 'common/util/createSlug'
 import { AlertStore } from 'stores/AlertStore'
@@ -58,13 +58,26 @@ export default function Form() {
   }
   const mutationFn = id ? useEditCampaignType(id) : useCreateCampaignType()
 
+  const handleError = (e: AxiosError<ApiErrors>) => {
+    const error = e.response
+
+    if (error?.status === 409) {
+      const message = error.data.message.map((el) =>
+        handleUniqueViolation({ campaignTypeSlug: '' }, t),
+      )
+      return AlertStore.show(message.join('/n'), 'error')
+    }
+
+    AlertStore.show(t('documents:alerts:error'), 'error')
+  }
+
   const mutation = useMutation<
     AxiosResponse<CampaignTypesResponse>,
     AxiosError<ApiErrors>,
     CampaignTypeFormData
   >({
     mutationFn,
-    onError: () => AlertStore.show(t('documents:alerts:error'), 'error'),
+    onError: (error) => handleError(error),
     onSuccess: () => {
       AlertStore.show(id ? t('documents:alerts:edit') : t('documents:alerts:create'), 'success')
       router.push(routes.admin.campaignTypes.index)

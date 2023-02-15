@@ -37,6 +37,7 @@ export default function ViewCampaignPage({ slug }: Props) {
               top: 0,
               order: -1,
               marginTop: `-${theme.spacing(4)}`,
+
               [theme.breakpoints.down('sm')]: {
                 marginTop: `-${theme.spacing(3)}`,
               },
@@ -55,6 +56,7 @@ export default function ViewCampaignPage({ slug }: Props) {
             flexWrap="nowrap"
             sx={{
               position: 'sticky',
+
               [theme.breakpoints.down('md')]: {
                 maxWidth: 'max-content',
                 flexBasis: 'fit-content',
@@ -66,7 +68,8 @@ export default function ViewCampaignPage({ slug }: Props) {
               sx={{
                 position: 'sticky',
                 top: theme.spacing(12),
-                width: theme.spacing(50),
+                width: theme.spacing(48),
+                paddingLeft: theme.spacing(2),
 
                 [theme.breakpoints.down('lg')]: {
                   width: 'fit-content',

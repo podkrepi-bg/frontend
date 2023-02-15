@@ -1,42 +1,36 @@
 import React from 'react'
-import Image from 'next/image'
+
+import { useTranslation } from 'next-i18next'
+import dynamic from 'next/dynamic'
+
 import { CampaignResponse } from 'gql/campaigns'
-import { BeneficiaryType } from 'components/beneficiary/BeneficiaryTypes'
+
+import 'react-quill/dist/quill.bubble.css'
+
+import { Divider, Grid, Typography } from '@mui/material'
+import SecurityIcon from '@mui/icons-material/Security'
+import { styled } from '@mui/material/styles'
+
 import DonationWishes from './DonationWishes'
 import CampaignSlider from './CampaignSlider'
-import {
-  backgroundCampaignPictureUrl,
-  beneficiaryCampaignPictureUrl,
-  campaignSliderUrls,
-} from 'common/util/campaignImageUrls'
 import CampaignInfo from './CampaignInfo'
-import { styled } from '@mui/material/styles'
-import { Divider, Grid, Typography } from '@mui/material'
-import CampaignInfoCoordinator from './CampaignInfoCoordinator'
-import SecurityIcon from '@mui/icons-material/Security'
-import { useTranslation } from 'next-i18next'
+import CampaignInfoGraphics from './CampaignInfoGraphics'
+import CampaignInfoOperator from './CampaignInfoOperator'
 import LinkButton from 'components/common/LinkButton'
+import { campaignSliderUrls } from 'common/util/campaignImageUrls'
 
-import dynamic from 'next/dynamic'
-import 'react-quill/dist/quill.bubble.css'
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 
 const PREFIX = 'CampaignDetails'
 
 const classes = {
-  bannerWrapper: `${PREFIX}-bannerWrapper`,
   banner: `${PREFIX}-banner`,
   campaignTitle: `${PREFIX}-campaignTitle`,
-  beneficiaryWrapper: `${PREFIX}-beneficiaryWrapper`,
-  beneficiaryAvatar: `${PREFIX}-beneficiaryAvatar`,
-  beneficiaryName: `${PREFIX}-beneficiaryName`,
   linkButton: `${PREFIX}-linkButton`,
+  securityIcon: `${PREFIX}-securityIcon`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
-  [`& .${classes.bannerWrapper}`]: {
-    position: 'inherit !important',
-  },
   [`& .${classes.banner}`]: {
     zIndex: -1,
     maxHeight: '504px !important',
@@ -48,53 +42,11 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 
   [`& .${classes.campaignTitle}`]: {
-    fontSize: theme.spacing(4),
-    fontWeight: 500,
-    textAlign: 'center',
-    [theme.breakpoints.up('md')]: {
-      textAlign: 'initial',
-    },
+    fontFamily: "Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif",
+    fontSize: theme.typography.pxToRem(45),
+    letterSpacing: '-1.5px',
   },
 
-  [`& .${classes.beneficiaryWrapper}`]: {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column',
-    marginTop: theme.spacing(47),
-
-    [theme.breakpoints.up('md')]: {
-      flexDirection: 'initial',
-    },
-    [theme.breakpoints.up('lg')]: {
-      marginTop: theme.spacing(41),
-    },
-
-    '& span:first-of-type': {
-      minWidth: '250px !important',
-    },
-  },
-
-  [`& .${classes.beneficiaryAvatar}`]: {
-    borderRadius: '50%',
-    textAlign: 'center',
-  },
-
-  [`& .${classes.beneficiaryName}`]: {
-    fontSize: theme.spacing(3),
-    marginTop: theme.spacing(3),
-    textAlign: 'center',
-
-    '&::first-letter': {
-      textTransform: 'uppercase',
-    },
-    [theme.breakpoints.up('md')]: {
-      display: 'table-cell',
-      verticalAlign: 'middle',
-      textAlign: 'left',
-      paddingTop: theme.spacing(10),
-      paddingLeft: theme.spacing(2),
-    },
-  },
   ['& .ql-editor']: {
     fontSize: theme.spacing(2),
     fontWeight: 500,
@@ -102,10 +54,24 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     paddingLeft: '0',
     paddingRight: '0',
   },
+
   [`& .${classes.linkButton}`]: {
+    fontSize: theme.typography.pxToRem(10),
+    letterSpacing: theme.spacing(0.01),
+    lineHeight: '150%',
     textDecoration: 'underline',
-    fontSize: theme.spacing(1.5),
     color: 'initial',
+
+    '&:hover': {
+      textDecoration: 'underline',
+      color: theme.palette.primary.main,
+      backgroundColor: 'transparent',
+    },
+  },
+
+  [`& .${classes.securityIcon}`]: {
+    width: theme.spacing(2.25),
+    height: theme.spacing(2.75),
   },
 }))
 
@@ -115,38 +81,11 @@ type Props = {
 
 export default function CampaignDetails({ campaign }: Props) {
   const { t } = useTranslation()
-  const bannerSource = backgroundCampaignPictureUrl(campaign)
-  const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
   const sliderImages = campaignSliderUrls(campaign)
 
   return (
     <StyledGrid item xs={12} md={8}>
-      <Grid className={classes.bannerWrapper}>
-        {/* A11Y TODO: Translate alt text or get the alt text based on the image */}
-        <Image
-          priority
-          src={bannerSource}
-          alt="Campaign banner image"
-          fill
-          sizes="100vw"
-          className={classes.banner}
-        />
-      </Grid>
-      <Grid item className={classes.beneficiaryWrapper}>
-        <Image
-          src={beneficiaryAvatarSource}
-          alt={campaign.title}
-          width={250}
-          height={250}
-          className={classes.beneficiaryAvatar}
-        />
-        <Typography variant="subtitle2" component="p" className={classes.beneficiaryName}>
-          {campaign.beneficiary.type === BeneficiaryType.individual
-            ? campaign.beneficiary.person?.firstName + ' ' + campaign.beneficiary.person?.lastName
-            : campaign.beneficiary.company.companyName}
-        </Typography>
-      </Grid>
-      <Typography variant="h1" component="h1" my={8} className={classes.campaignTitle}>
+      <Typography variant="h1" component="h1" mb={8} className={classes.campaignTitle}>
         {campaign.title}
       </Typography>
       <CampaignInfo campaign={campaign} />
@@ -161,15 +100,16 @@ export default function CampaignDetails({ campaign }: Props) {
           <Divider />
         </Grid>
         <Grid item xs={12}>
-          <CampaignInfoCoordinator campaign={campaign} />
+          <CampaignInfoOperator campaign={campaign} />
         </Grid>
+        <CampaignInfoGraphics />
         <Grid item xs={12}>
           <DonationWishes campaignId={campaign?.id} />
         </Grid>
         <Grid container item xs={12}>
-          <Grid item xs={12}>
+          <Grid item xs={12} mb={1}>
             <LinkButton
-              startIcon={<SecurityIcon color="action" />}
+              startIcon={<SecurityIcon color="action" className={classes.securityIcon} />}
               href={'/contact'}
               className={classes.linkButton}>
               {t('campaigns:campaign.feedback')}
@@ -177,10 +117,10 @@ export default function CampaignDetails({ campaign }: Props) {
           </Grid>
           <Grid item xs={12}>
             <LinkButton
-              startIcon={<SecurityIcon color="action" />}
+              startIcon={<SecurityIcon color="action" className={classes.securityIcon} />}
               href={`/campaigns/${campaign.slug}/irregularity`}
               className={classes.linkButton}>
-              {t('campaigns:campaign.report-irregularity')}
+              {t('campaigns:campaign.report-campaign')}
             </LinkButton>
           </Grid>
         </Grid>
