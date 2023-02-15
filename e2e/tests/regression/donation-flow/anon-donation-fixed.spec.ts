@@ -67,25 +67,25 @@ test.describe.serial(
       await donationPage.setDonationRegionFromTheDropdown(enDonationRegions.EUROPE)
       await donationPage.selectCheckboxByLabelText([enCardIncludeFeesText])
       // Expected pattern:
-      // For your donation of {donationAmountText}, the fee from Stripe will be {feeAmountText}, and the total charged amount will be {totalChargedAmountText}.
-      const donationAmountText = await donationPage.getTotalChargedAmountsAsText()
+      // For your transfer of {totalChargedAmountText}, the fee from Stripe will be {feeAmountText}, and the campaign will receive {donationAmountText}.
+      const totalChargedAmountText = await donationPage.getTotalChargedAmountsAsText()
       const feeAmountText = await donationPage.getFeeAmountsAsText()
-      const totalChargedAmountText = await donationPage.getDonationAmountsAsText()
-      expect.soft(donationAmountText).toMatch('10.00')
-      expect.soft(feeAmountText).toMatch('0.63')
-      expect(totalChargedAmountText).toMatch('10.63')
+      const donationAmountText = await donationPage.getDonationAmountsAsText()
+      expect.soft(donationAmountText).toMatch('BGN 10.00')
+      expect.soft(feeAmountText).toMatch('BGN 0.63')
+      expect(totalChargedAmountText).toMatch('BGN 10.63')
     })
 
     test('The total charge, fee tax and donation amount are recalculated correctly when the donation amount is changed', async () => {
       await donationPage.selectRadioButtonByLabelText(['20'])
       // Expected pattern:
-      // For your donation of {donationAmountText}, the fee from Stripe will be {feeAmountText}, and the total charged amount will be {totalChargedAmountText}.
-      const donationAmountText = await donationPage.getTotalChargedAmountsAsText()
+      // For your transfer of {totalChargedAmountText}, the fee from Stripe will be {feeAmountText}, and the campaign will receive {donationAmountText}.
+      const totalChargedAmountText = await donationPage.getTotalChargedAmountsAsText()
       const feeAmountText = await donationPage.getFeeAmountsAsText()
-      const totalChargedAmountText = await donationPage.getDonationAmountsAsText()
-      expect.soft(donationAmountText).toMatch('20.00')
-      expect.soft(feeAmountText).toMatch('0.75')
-      expect(totalChargedAmountText).toMatch('20.75')
+      const donationAmountText = await donationPage.getDonationAmountsAsText()
+      expect.soft(donationAmountText).toMatch('BGN 20.00')
+      expect.soft(feeAmountText).toMatch('BGN 0.75')
+      expect(totalChargedAmountText).toMatch('BGN 20.75')
     })
 
     test('The user is able to fill in e-mail for anonymous donation', async () => {
