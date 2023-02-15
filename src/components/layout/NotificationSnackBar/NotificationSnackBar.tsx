@@ -8,10 +8,7 @@ import {
 } from '@mui/material'
 import DonationNotificationLayout from './DonationNotificationLayout'
 import { NotificationLayoutData } from 'components/layout/NotificationSnackBar/DonationNotificationLayout'
-import getConfig from 'next/config'
-import { io } from 'socket.io-client'
-
-const { publicRuntimeConfig } = getConfig()
+import notificationClient from 'common/util/notificationClient'
 
 function NotificationSnackBar({
   mainProps,
@@ -24,17 +21,12 @@ function NotificationSnackBar({
   const [notifications, setNotifications] = useState<NotificationLayoutData[]>([])
 
   useEffect(() => {
-    const socketClient = io(publicRuntimeConfig.API_URL, { transports: ['websocket'] })
-    socketClient.on('connect', () => {
-      console.log('Socket connection established')
+    notificationClient.on('successfulDonation', (notificationData: NotificationLayoutData) => {
+      setNotifications((prevState) => [...prevState, notificationData])
     })
-    socketClient?.on('successfulDonation', (notificationData: NotificationLayoutData) => {
-      setNotifications([...notifications, notificationData])
-    })
+
     return () => {
-      socketClient.off('connect')
-      socketClient.off('successfulDonation')
-      socketClient.disconnect()
+      notificationClient.off('successfulDonation')
     }
   }, [])
 
@@ -49,6 +41,10 @@ function NotificationSnackBar({
     setOpen(false)
     delayOpen()
   }
+
+  useEffect(() => {
+    console.log(notifications)
+  }, [notifications])
 
   const delayOpen = () => {
     const interval = setTimeout(() => {
