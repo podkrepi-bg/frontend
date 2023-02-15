@@ -34,6 +34,7 @@ export const footerLinks: FooterSection[] = [
     links: [
       { label: 'nav.blog', href: routes.blog.index },
       { label: 'components.footer.contact', href: routes.contact },
+      { label: 'components.footer.partners', href: routes.partners },
       { label: 'components.footer.faq', href: routes.faq },
     ],
   },

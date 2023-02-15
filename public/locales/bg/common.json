@@ -8,7 +8,8 @@
       "support_us": "Подкрепете ни",
       "support-us": "Станете доброволец",
       "reports": "Отчети",
-      "contacts": "Контакти"
+      "contacts": "Контакти",
+      "partners": "Партньори"
     },
     "campaigns": {
       "index": "Кампании",
@@ -68,6 +69,7 @@
       "become-a-volunteer": "Станете доброволец",
       "reports": "Отчети",
       "contact": "Контакти",
+      "partners": "Партньори",
       "faq": "Често задавани въпроси",
       "privacy-policy": "Защита на лични данни",
       "terms-of-service": "Общи условия",
