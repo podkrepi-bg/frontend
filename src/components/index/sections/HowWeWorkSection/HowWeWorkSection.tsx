@@ -16,20 +16,24 @@ export default function HowWeWorkSection() {
 
   return (
     <Root>
-      <Heading variant="h4">{t('how-we-work.heading')}</Heading>
-      <InfoText maxWidth="lg">{t('how-we-work.text')}</InfoText>
+      <Heading variant="h4" px={3}>
+        {t('how-we-work.heading')}
+      </Heading>
+      <InfoText maxWidth="lg" px={3}>
+        {t('how-we-work.text')}
+      </InfoText>
       <Grid>
-        <Hidden smUp>
+        <Hidden mdUp>
           {/* A11Y TODO: Render the svg without an <Image /> so screenreaders can read it out */}
-          <Image alt="Podkrepi infographic" src={mobileInfographicPath} width={320} height={1002} />
+          <Image alt="Podkrepi infographic" src={mobileInfographicPath} width={320} height={1000} />
         </Hidden>
-        <Hidden smDown>
+        <Hidden mdDown>
           {/* A11Y TODO: Render the svg without an <Image /> so screenreaders can read it out */}
           <Image
             alt="Podkrepi infographic"
             src={desktopInfographicPath}
-            width={1096}
-            height={1114.6}
+            width={900}
+            height={1000}
           />
         </Hidden>
       </Grid>
