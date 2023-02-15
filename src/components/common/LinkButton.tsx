@@ -15,8 +15,9 @@ const LinkButton = (
     prefetch={prefetch}
     locale={locale}
     passHref
+    tabIndex={disabled ? -1 : 0}
     style={{ pointerEvents: disabled ? 'none' : 'all' }}>
-    <Button ref={ref} disabled={disabled} {...props} />
+    <Button ref={ref} tabIndex={-1} disabled={disabled} {...props} />
   </Link>
 )
 
