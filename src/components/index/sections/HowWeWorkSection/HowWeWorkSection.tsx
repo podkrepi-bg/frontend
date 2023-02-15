@@ -25,7 +25,7 @@ export default function HowWeWorkSection() {
       <Grid>
         <Hidden mdUp>
           {/* A11Y TODO: Render the svg without an <Image /> so screenreaders can read it out */}
-          <Image alt="Podkrepi infographic" src={mobileInfographicPath} width={320} height={1002} />
+          <Image alt="Podkrepi infographic" src={mobileInfographicPath} width={320} height={1000} />
         </Hidden>
         <Hidden mdDown>
           {/* A11Y TODO: Render the svg without an <Image /> so screenreaders can read it out */}
