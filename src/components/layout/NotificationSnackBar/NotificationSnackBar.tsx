@@ -42,16 +42,12 @@ function NotificationSnackBar({
     delayOpen()
   }
 
-  useEffect(() => {
-    console.log(notifications)
-  }, [notifications])
-
   const delayOpen = () => {
     const interval = setTimeout(() => {
       setNotifications(notifications.slice(1))
       if (notifications.length) setOpen(true)
       clearTimeout(interval)
-    }, 2000)
+    }, mainProps.transitionDuration as number)
   }
 
   return (
