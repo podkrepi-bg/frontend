@@ -1,4 +1,4 @@
-import { unstable_getServerSession, Session } from 'next-auth'
+import { getServerSession, Session } from 'next-auth'
 import { authOptions } from '../../pages/api/auth/[...nextauth]'
 import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -11,10 +11,9 @@ export const securedProps: (
   ctx: GetServerSidePropsContext,
   returnUrl?: string,
 ) => Promise<GetServerSidePropsResult<{ session: Session }>> = async (ctx, returnUrl?: string) => {
-  //For getting session on server side the docs recommend using unstable_getServerSession as per
-  //here: https://next-auth.js.org/getting-started/introduction#server-side
-  //the docs say there is noting unstable, it just may change in next versions
-  const session = await unstable_getServerSession(ctx.req, ctx.res, authOptions)
+  //For getting session on server side the docs recommend using getServerSession as per
+  //here: https://next-auth.js.org/configuration/nextjs#getserversession
+  const session = await getServerSession(ctx.req, ctx.res, authOptions)
 
   let url = returnUrl ?? ctx.req.url ?? ''
   if (url.startsWith('/_next') || url.startsWith('/_error')) url = '/'
