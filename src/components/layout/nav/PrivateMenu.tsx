@@ -64,7 +64,7 @@ export default function PrivateMenu() {
   const title = `${session?.user?.name}\n(${session?.user?.email})`
 
   const getAvatar = () => {
-    const { data: user } = getCurrentPerson(!!router.query?.register)
+    const { data: user } = getCurrentPerson(Boolean(router.query?.register))
     if (user) return user.user.picture as string
   }
 
@@ -73,7 +73,7 @@ export default function PrivateMenu() {
       <IconButton onClick={handleMenu} size="medium">
         {session?.user?.picture ? (
           <Avatar
-            sx={{ width: theme.spacing(4), height: theme.spacing(4) }}
+            sx={{ width: 200, height: 200 }}
             title={title}
             alt={title}
             src={session?.user?.picture}

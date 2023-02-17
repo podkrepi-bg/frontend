@@ -43,7 +43,7 @@ export default function PublicMenu() {
   const { t } = useTranslation()
   const { data: session } = useSession()
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
-  const defaultAvatar = '/podkrepi-bg-logo-avatar-black.svg'
+  const open = Boolean(anchorEl)
   const handleMenu = (event: React.MouseEvent) => setAnchorEl(event.currentTarget)
   const handleClose = () => setAnchorEl(null)
 
@@ -64,11 +64,10 @@ export default function PublicMenu() {
         <Avatar
           sx={{
             bgcolor: theme.palette.success.light,
-            height: theme.spacing(4),
-            width: theme.spacing(4),
+            height: 200,
+            width: 200,
             fontSize: '1rem',
           }}
-          src={defaultAvatar}
         />
       </Button>
       <Menu
