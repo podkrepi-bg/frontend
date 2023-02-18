@@ -22,6 +22,7 @@
   "deleteAllContent": "This action will delete selected items permanently!",
   "bankTransactionsFileId": "Number of bank transactions file",
   "addFiles": "Add files",
+  "message": "Message",
   "actions": "Actions",
   "createdAt": "Created at",
   "noOptions": "No results",

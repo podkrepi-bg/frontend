@@ -5,7 +5,7 @@ import { FormikHelpers } from 'formik'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Button, Grid, Typography } from '@mui/material'
+import { Box, Button, Grid, Table, TableCell, TableContainer, Typography } from '@mui/material'
 import Link from 'next/link'
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
@@ -21,8 +21,10 @@ import {
 } from 'components/bank-transactions-file/types'
 import { useUploadBankTransactionsFiles } from 'service/donation'
 import BankTransactionsFileList from 'components/file-upload/BankTransactionsFileList'
-import { BankTransactionsFileFormData, BankTransactionsUploadImage } from 'gql/donations'
-
+import { BankImportStatus, BankTransactionsFileFormData } from 'gql/donations'
+import { TableBody, TableHead, TableRow } from '@mui/material'
+import { getExactDateTime } from 'common/util/date'
+import { money } from 'common/util/money'
 const validationSchema: yup.SchemaOf<BankTransactionsFileFormData> = yup.object().defined().shape({
   bankTransactionsFileId: yup.string().required(),
 })
@@ -30,19 +32,19 @@ const validationSchema: yup.SchemaOf<BankTransactionsFileFormData> = yup.object(
 const defaults: BankTransactionsFileFormData = {
   bankTransactionsFileId: '',
 }
+let data: BankImportStatus[] = []
 
 export type BankTransactionsFileFormProps = { initialValues?: BankTransactionsFileFormData }
 
 export default function BankTransactionsFileForm({
   initialValues = defaults,
 }: BankTransactionsFileFormProps) {
-  const router = useRouter()
   const [files, setFiles] = useState<File[]>([])
   const [types, setTypes] = useState<FileType[]>([])
   const { t } = useTranslation()
 
   const fileUploadMutation = useMutation<
-    AxiosResponse<BankTransactionsUploadImage[]>,
+    AxiosResponse<BankImportStatus[]>,
     AxiosError<ApiErrors>,
     UploadBankTransactionsFiles
   >({
@@ -56,13 +58,12 @@ export default function BankTransactionsFileForm({
     { setFieldError }: FormikHelpers<BankTransactionsFileFormData>,
   ) => {
     try {
-      await fileUploadMutation.mutateAsync({
+      const response = await fileUploadMutation.mutateAsync({
         files,
         types,
         bankTransactionsFileId: values.bankTransactionsFileId,
       })
-
-      router.push(routes.admin.donations.index)
+      data = response.data
     } catch (error) {
       console.error(error)
       if (isAxiosError(error)) {
@@ -93,6 +94,40 @@ export default function BankTransactionsFileForm({
         initialValues={initialValues}
         validationSchema={validationSchema}>
         <Grid container spacing={3}>
+          <Grid item xs={18}>
+            {data?.length ? (
+              <TableContainer>
+                <Table sx={{ minWidth: 650, backgroundColor: 'white' }} aria-label="simple table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>{t('donations:ext-payment-intent-id')}</TableCell>
+                      <TableCell>{t('donations:created-at')}</TableCell>
+                      <TableCell>{t('donations:amount')}</TableCell>
+                      <TableCell>{t('donations:currency')}</TableCell>
+                      <TableCell>{t('donations:status')}</TableCell>
+                      <TableCell>{t('donations:message')}</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {data.map((donation, index) => (
+                      <TableRow
+                        key={index}
+                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                        <TableCell>{donation.extPaymentIntentId}</TableCell>
+                        <TableCell>{getExactDateTime(donation.createdAt)}</TableCell>
+                        <TableCell>{money(donation.amount)}</TableCell>
+                        <TableCell>{donation.currency}</TableCell>
+                        <TableCell>{donation.status}</TableCell>
+                        <TableCell>{donation.message}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            ) : (
+              <Box />
+            )}
+          </Grid>
           <Grid item xs={12}>
             <FormTextField
               type="text"

@@ -2,6 +2,7 @@ import { AxiosResponse } from 'axios'
 import { useSession } from 'next-auth/react'
 
 import {
+  BankImportStatus,
   BankTransactionsUploadImage,
   CheckoutSessionInput,
   CheckoutSessionResponse,
@@ -79,7 +80,7 @@ export const useUploadBankTransactionsFiles = () => {
     filesType.forEach((fileType) => {
       formData.append('types', fileType.type)
     })
-    return await apiClient.post<FormData, AxiosResponse<BankTransactionsUploadImage[]>>(
+    return await apiClient.post<FormData, AxiosResponse<BankImportStatus[]>>(
       endpoints.donation.uploadBankTransactionsFile(bankTransactionsFileId).url,
       formData,
       {

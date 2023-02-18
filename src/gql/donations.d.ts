@@ -162,3 +162,12 @@ export type BankTransactionsUploadImage = {
 export type BankTransactionsFileFormData = {
   bankTransactionsFileId: string
 }
+
+export type BankImportStatus = {
+  status: string
+  message?: string
+  amount: number
+  currency: string
+  createdAt: string
+  extPaymentIntentId: string
+}
