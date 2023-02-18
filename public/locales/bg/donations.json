@@ -24,6 +24,7 @@
   "createdAt": "Направено на",
   "bankTransactionsFileId": "Име на файла с банкови транзакции",
   "addFiles": "Избери файл",
+  "message": "Съобщение",
   "noOptions": "Няма резултати",
   "alerts": {
     "selectRow": "Моля изберете ред",
