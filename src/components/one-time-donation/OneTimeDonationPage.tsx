@@ -14,6 +14,9 @@ import { useViewCampaign } from 'common/hooks/campaigns'
 import CenteredSpinner from 'components/common/CenteredSpinner'
 
 import DonationStepper from './Steps'
+// import RadioAccordionGroup, { testRadioOptions } from 'components/donation-flow/common/RadioAccordionGroup'
+// import RadioCardGroup, { testRadioOptions } from 'components/donation-flow/common/RadioCardGroup'
+// import PaymentDetailsStripeForm from 'components/donations/stripe/PaymentDetailsStripeForm'
 
 const PREFIX = 'OneTimeDonationPage'
 
@@ -74,11 +77,19 @@ const scrollWindow = () => {
 export default function OneTimeDonation({ slug }: { slug: string }) {
   const { data, isLoading } = useViewCampaign(slug)
   const matches = useMediaQuery('sm')
+  // const paymentIntentMutation = useCreatePaymentIntent({
+  //   amount: 100,
+  //   currency: 'BGN',
+  // })
+  // useEffect(() => {
+  //   paymentIntentMutation.mutate()
+  // }, [])
   if (isLoading || !data) return <CenteredSpinner size="2rem" />
   const { campaign } = data
 
   const bannerSource = backgroundCampaignPictureUrl(campaign)
   const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
+
   return (
     <StyledLayout maxWidth={false}>
       <Grid
@@ -98,7 +109,6 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
             className={classes.banner}
           />
         </Box>
-
         <Grid
           item
           xs={12}
@@ -114,6 +124,7 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
             className={classes.beneficiaryAvatar}
           />
         </Grid>
+
         <Grid className={classes.stepperWrapper}>
           <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)} passHref>
             <Typography
@@ -123,7 +134,17 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
               {campaign.title}
             </Typography>
           </Link>
+          {/* {paymentIntentMutation.isLoading ? (
+            <CenteredSpinner size="2rem" />
+          ) : (
+            <PaymentDetailsStripeForm
+              clientSecret={paymentIntentMutation.data?.data.client_secret as string}
+              containerProps={{ maxWidth: 400 }}
+            />
+          )} */}
           <DonationStepper onStepChange={scrollWindow} />
+          {/* <RadioCardGroup options={testRadioOptions} /> */}
+          {/* <RadioAccordionGroup options={testRadioOptions} /> */}
         </Grid>
       </Grid>
     </StyledLayout>

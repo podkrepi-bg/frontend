@@ -9,7 +9,7 @@ import FormTextField from 'components/common/form/FormTextField'
 import { AdminCompanyFormData, AdminCompanyResponse } from 'gql/person'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError, AxiosResponse } from 'axios'
-import { ApiErrors } from 'service/apiErrors'
+import { ApiErrors, handleUniqueViolation } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -41,13 +41,26 @@ export default function CreateForm() {
   const router = useRouter()
   const { t } = useTranslation()
 
+  const handleError = (e: AxiosError<ApiErrors>) => {
+    const error = e.response
+
+    if (error?.status === 409) {
+      const message = error.data.message.map((el) => handleUniqueViolation(el.constraints, t))
+      return AlertStore.show(message.join('/n'), 'error')
+    }
+
+    AlertStore.show(t('common:alerts.error'), 'error')
+  }
+
   const mutation = useMutation<
     AxiosResponse<AdminCompanyResponse>,
     AxiosError<ApiErrors>,
     AdminCompanyFormData
   >({
     mutationFn: useCreateCompany(),
-    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
+    onError: (error) => {
+      handleError(error)
+    },
     onSuccess: () => {
       AlertStore.show(t('common:alerts.success'), 'success')
       router.push(routes.admin.index)

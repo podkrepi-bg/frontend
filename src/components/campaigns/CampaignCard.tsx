@@ -101,9 +101,9 @@ const StyledCard = styled(Card)(({ theme }) => ({
   },
 }))
 
-type Props = { campaign: CampaignResponse }
+type Props = { campaign: CampaignResponse; index: number }
 
-export default function CampaignCard({ campaign }: Props) {
+export default function CampaignCard({ campaign, index }: Props) {
   const { t } = useTranslation()
 
   const {
@@ -123,7 +123,10 @@ export default function CampaignCard({ campaign }: Props) {
 
   return (
     <StyledCard variant="outlined" className={classes.cardWrapper}>
-      <CardActionArea LinkComponent={Link} href={routes.campaigns.viewCampaignBySlug(slug)}>
+      <CardActionArea
+        LinkComponent={Link}
+        href={routes.campaigns.viewCampaignBySlug(slug)}
+        data-testid={`campaign-card-${index}`}>
         <CardMedia className={classes.media} title={title}>
           <div
             style={{ position: 'relative', width: '100%', minHeight: '100%', maxHeight: '100%' }}>

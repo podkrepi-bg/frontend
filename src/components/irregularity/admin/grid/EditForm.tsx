@@ -179,6 +179,7 @@ export default function EditForm({ campaigns, irregularity, irregularityFiles }:
                 label={t('admin.fields.campaign')}
                 name="campaignId"
                 campaigns={campaigns}
+                selectedCampaign={initialValues.campaignId}
               />
             </Grid>
           </Grid>

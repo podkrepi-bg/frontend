@@ -9,7 +9,7 @@ import { useTranslation } from 'next-i18next'
 
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
-import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
+import { ApiErrors, handleUniqueViolation, isAxiosError, matchValidator } from 'service/apiErrors'
 import { useCreateCountry, useEditCountry } from 'service/country'
 import { CountryInput, CountryResponse } from 'gql/countries'
 import { name } from 'common/form/validation'
@@ -42,13 +42,24 @@ export default function CountryForm({ initialValues = defaults, id }: CountryFor
   //if (id) -> edit form, else -> create form
   const { t } = useTranslation('countries')
 
+  const handleError = (e: AxiosError<ApiErrors>) => {
+    const error = e.response
+
+    if (error?.status === 409) {
+      const message = error.data.message.map((el) => handleUniqueViolation(el.constraints, t))
+      return AlertStore.show(message.join('/n'), 'error')
+    }
+
+    AlertStore.show(t('alerts.new-row.error'), 'error')
+  }
+
   const createMutation = useMutation<
     AxiosResponse<CountryResponse>,
     AxiosError<ApiErrors>,
     CountryInput
   >({
     mutationFn: useCreateCountry(),
-    onError: () => AlertStore.show(t('alerts.new-row.error'), 'error'),
+    onError: (error) => handleError(error),
     onSuccess: () => AlertStore.show(t('alerts.new-row.success'), 'success'),
   })
 

@@ -1,5 +1,10 @@
 import type { Currency } from './currency'
 import { UUID } from './types'
+import { VaultResponse } from './vault'
+
+export type Campaign = {
+  title: string
+}
 
 export type RecurringDonationResponse = {
   id: UUID
@@ -9,7 +14,10 @@ export type RecurringDonationResponse = {
   extCustomerId: UUID
   amount: number
   currency: Currency
-  sourceVault: UUID
+  sourceVault: VaultResponse
+  campaign: Campaign
+  person: Person
+  campaignId: UUID
   createdAt: Date
   updatedAt: Date | null
 }
@@ -22,4 +30,6 @@ export type RecurringDonationInput = {
   amount?: number
   currency?: Currency | string
   sourceVault?: UUID
+  money: number
+  campaign: string
 }

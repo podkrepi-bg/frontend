@@ -17,7 +17,7 @@ import {
 } from '@mui/material'
 
 import { routes } from 'common/routes'
-import { ApiErrors } from 'service/apiErrors'
+import { ApiErrors, handleUniqueViolation } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
@@ -93,13 +93,24 @@ export default function EditForm() {
 
   const mutationFn = id ? useEditDonation(id) : useCreateDonation()
 
+  const handleError = (e: AxiosError<ApiErrors>) => {
+    const error = e.response
+
+    if (error?.status === 409) {
+      const message = error.data.message.map((el) => handleUniqueViolation(el.constraints, t))
+      return AlertStore.show(message.join('/n'), 'error')
+    }
+
+    AlertStore.show(t('donations:alerts:error'), 'error')
+  }
+
   const mutation = useMutation<
     AxiosResponse<DonationResponse>,
     AxiosError<ApiErrors>,
     DonationInput
   >({
     mutationFn,
-    onError: () => AlertStore.show(t('donations:alerts:error'), 'error'),
+    onError: (error) => handleError(error),
     onSuccess: () => {
       AlertStore.show(id ? t('donations:alerts:edit') : t('donations:alerts:create'), 'success')
       router.push(routes.admin.donations.index)

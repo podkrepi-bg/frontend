@@ -1,0 +1,45 @@
+{
+  "form-heading": "Add",
+  "edit-form-heading": "Edit",
+  "recurring-donations": "All recurring donations",
+  "recurring-donation": "Recurring donations",
+  "extSubscriptionId": "External subscription ID",
+  "extCustomerId": "External customer ID",
+  "campaign": "Campaign",
+  "currency": "Currency",
+  "amount": "Amount",
+  "status": "Status",
+  "startDate": "Start date",
+  "personId": "Person ID",
+  "person": "Person",
+  "vaultId": "Vault ID",
+  "vault": "Vault",
+  "deleteTitle": "Are you sure?",
+  "deleteContent": "Are you sure you want to delete this recurring donation?",
+  "actions": "Actions",
+  "alerts": {
+    "create": "Recurring donation created successfully",
+    "edit": "Recurring donation edited successfully",
+    "delete": "Recurring donation deleted successfully",
+    "cancel": "Recurring donation cancelled successfully",
+    "error": "Error while processing your request. Please try again later."
+  },
+  "statuses": {
+    "active": "Active",
+    "incomplete": "Incomplete",
+    "incompleteExpired": "Expired",
+    "pastDue": "Past due",
+    "canceled": "Canceled",
+    "trailing": "Trailing",
+    "unpaid": "Unpaid"
+  },
+  "cta": {
+    "add": "Add",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "details": "Details",
+    "submit": "Submit"
+  }
+}

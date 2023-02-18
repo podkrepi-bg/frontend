@@ -8,7 +8,8 @@
       "support_us": "Support us",
       "support-us": "Join us",
       "reports": "Reports",
-      "contacts": "Contacts"
+      "contacts": "Contacts",
+      "partners": "Партньори"
     },
     "campaigns": {
       "index": "Campaigns",
@@ -28,7 +29,7 @@
       "open-source": "Open Source",
       "open-data": "Open Data"
     },
-    "donatе": "Donate",
+    "donate": "Donate",
     "donation-menu": "Campaigns",
     "blog": "Blog",
     "support_us_button": "Support us",
@@ -54,7 +55,6 @@
   },
   "close": "Close",
   "link": "Link",
-  "support": "Donate",
   "components": {
     "footer": {
       "donatе": "Donate",
@@ -74,6 +74,7 @@
       "terms-of-service": "Terms of Service",
       "copyrights": "Podkrepi.bg ©2022 All rights reserved.",
       "hosting-partner": "Hosting partner:",
+      "partners": "Partners",
       "social": {
         "facebook": "Facebook",
         "linkedin": "Linkedin",

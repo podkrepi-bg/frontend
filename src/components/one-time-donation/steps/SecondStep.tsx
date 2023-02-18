@@ -1,7 +1,6 @@
 import { TabContext, TabList } from '@mui/lab'
 import TabPanel from '@mui/lab/TabPanel'
 import { Box, Tab, Typography, useMediaQuery } from '@mui/material'
-import { useFormikContext } from 'formik'
 import { OneTimeDonation } from 'gql/donations'
 import { useSession } from 'next-auth/react'
 import { useTranslation } from 'next-i18next'
@@ -10,6 +9,7 @@ import AnonymousMenu from '../AnonymousForm'
 import LoggedUserDialog from '../LoggedUserDialog'
 import LoginForm from '../LoginForm'
 import RegisterForm from '../RegisterDialog'
+import { useFormikContext } from 'formik'
 
 enum Tabs {
   Login = '1',
@@ -50,7 +50,9 @@ export default function SecondStep() {
             value="2"
             disabled={session && session.accessToken ? true : false}
           />
-          <Tab label={t('second-step.donate-anonymously')} value="3" />
+          {formik.values.isRecurring ? null : (
+            <Tab label={t('second-step.donate-anonymously')} value="3" />
+          )}
         </TabList>
       </Box>
       <TabPanel value="1">
@@ -59,9 +61,11 @@ export default function SecondStep() {
       <TabPanel value="2">
         <RegisterForm />
       </TabPanel>
-      <TabPanel value="3">
-        <AnonymousMenu />
-      </TabPanel>
+      {formik.values.isRecurring ? null : (
+        <TabPanel value="3">
+          <AnonymousMenu />
+        </TabPanel>
+      )}
     </TabContext>
   )
 }

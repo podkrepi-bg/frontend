@@ -17,6 +17,13 @@ lerna-debug.log*
 coverage
 .nyc_output
 
+# E2E
+test-results/
+playwright-report/
+playwright/.cache/
+e2e-reports/
+e2e/.yarn/*
+
 # IDEs and editors
 .idea
 .project
@@ -51,9 +58,6 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
-/test-results/
-/playwright-report/
-/playwright/.cache/
 
 # https://yarnpkg.com/getting-started/qa/#which-files-should-be-gitignored
 .pnp.*

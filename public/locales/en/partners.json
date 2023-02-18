@@ -1,0 +1,24 @@
+{
+  "title": "Podkrepi.bg Partners",
+  "tabs": {
+    "partners": "Partners",
+    "giversAndGuarants": "Donors and Guarantors",
+    "theMediaAboutUs": "The Media about us"
+  },
+  "sections": {
+    "hosting": "Hosting Partner",
+    "video": "Video Partners",
+    "media": "Media Partner",
+    "tech": "Technology Partners",
+    "marketing": "Marketing / PR partners",
+    "organizations": "Organizations / Organizers"
+  },
+  "guarants": {
+    "title": "Guarantors",
+    "corporateGivers": "Corporate Donors",
+    "megaGivers": "Mega Donors",
+    "megaGiversSubtitle": "People donated amounts over 5000lv",
+    "superGivers": "Super Donors",
+    "superGiversSubtitle": "People donated amounts over 500lv"
+  }
+}

@@ -52,7 +52,7 @@
     "card": "Card",
     "card-include-fees": "I want to cover transaction fees for card issued in:",
     "card-fees": "For donations by card we use the services of Stripe and for every transfer they charge a fee depending on region of your card issuer. To orient you about the net donation, after you choose the desired amount, we will show you the calculated fee below. More details for Stripe fees can be found here: ",
-    "card-calculated-fees": "For your donation of <strong>{{amount}}</strong>, the fee from Stripe will be <strong>{{fees}}</strong>, and the total charged amount will be <strong>{{totalAmount}}</strong>",
+    "card-calculated-fees": "For your transfer of <strong>{{totalAmount}}</strong>, the fee from Stripe will be <strong>{{fees}}</strong>, and the campaign will receive <strong>{{amount}}</strong>",
     "card-region": {
       "title": "region",
       "EU": "Europe",
@@ -67,7 +67,8 @@
     "owner": "Association Podkrepi BG",
     "bank": "Unicredit Bulbank",
     "reason-donation": "For payment reference use:",
-    "message-warning": "If you don't enter the exact reference we may not be able to assign the money to the desired campaign."
+    "message-warning": "If you don't enter the exact reference we may not be able to assign the money to the desired campaign.",
+    "recurring-donation": "Donate the same amount every month until the end of the campaign! Cancel anytime."
   },
   "alerts": {
     "success": "Donation was processed successfully!",

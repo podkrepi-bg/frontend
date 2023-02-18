@@ -18,20 +18,14 @@ import { endpoints } from 'service/apiEndpoints'
 import { AlertStore } from 'stores/AlertStore'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
-import CurrencySelect from 'components/currency/CurrencySelect'
-import RecurringDonationStatusSelect from './RecurringDonationStatusSelect'
 import PersonSelectDialog from 'components/person/PersonSelectDialog'
 import { Form, Formik } from 'formik'
-
-export enum RecurringDonationStatus {
-  trialing = 'trialing',
-  active = 'active',
-  canceled = 'canceled',
-  incomplete = 'incomplete',
-  incompleteExpired = 'incompleteExpired',
-  pastDue = 'pastDue',
-  unpaid = 'unpaid',
-}
+import { RecurringDonationStatus } from 'gql/recurring-donation-status.d'
+import { PersonResponse } from 'gql/person'
+import { fromMoney, toMoney } from 'common/util/money'
+import CampaignSelect from 'components/campaigns/CampaignSelect'
+import { useCampaignList } from 'common/hooks/campaigns'
+import { CampaignResponse } from 'gql/campaigns'
 
 const validCurrencies = Object.keys(Currency)
 const validStatuses = Object.keys(RecurringDonationStatus)
@@ -41,10 +35,10 @@ const validationSchema = yup
   .defined()
   .shape({
     status: yup.string().oneOf(validStatuses).required(),
-    personId: yup.string().trim().max(50).required(),
-    extSubscriptionId: yup.string().trim().max(50).required(),
-    extCustomerId: yup.string().trim().max(50).required(),
-    amount: yup.number().positive().integer().required(),
+    personId: yup.string().trim().uuid().required(),
+    extSubscriptionId: yup.string().trim().required(),
+    extCustomerId: yup.string().trim().required(),
+    money: yup.number().min(0).positive().required(),
     currency: yup.string().oneOf(validCurrencies).required(),
     sourceVault: yup.string().trim().uuid().required(),
   })
@@ -53,20 +47,24 @@ export default function EditForm() {
   const router = useRouter()
   const queryClient = useQueryClient()
   const { t } = useTranslation()
-  let id = router.query.id
+  const id = typeof router.query.id === 'object' ? router.query.id[0] || '' : router.query.id || ''
+
+  const isNew = id === undefined
+  const { data: campaigns }: UseQueryResult<CampaignResponse[]> = useCampaignList()
 
   let initialValues: RecurringDonationInput = {
     status: '',
     personId: '',
     extSubscriptionId: '',
     extCustomerId: '',
-    amount: 0,
+    money: 0.0,
     currency: '',
     sourceVault: '',
+    campaign: '',
   }
 
-  if (id) {
-    id = String(id)
+  if (!isNew) {
+    // if id is present, we are editing an existing recurring donation
     const { data }: UseQueryResult<RecurringDonationResponse> = useRecurringDonation(id)
 
     initialValues = {
@@ -74,9 +72,10 @@ export default function EditForm() {
       personId: data?.personId,
       extSubscriptionId: data?.extSubscriptionId,
       extCustomerId: data?.extCustomerId,
-      amount: data?.amount,
+      money: fromMoney(data?.amount || 0),
       currency: data?.currency,
-      sourceVault: data?.sourceVault,
+      sourceVault: data?.sourceVault.id,
+      campaign: data?.sourceVault.campaign.id,
     }
   }
 
@@ -102,7 +101,28 @@ export default function EditForm() {
     },
   })
   async function onSubmit(data: RecurringDonationInput) {
+    data.amount = toMoney(data.money)
+
     mutation.mutate(data)
+  }
+
+  let selectedPerson: PersonResponse | null = null
+  if (id) {
+    //for a new recurring donation, we don't have a person or campaign yet
+    const { data }: UseQueryResult<RecurringDonationResponse> = useRecurringDonation(id)
+
+    selectedPerson = {
+      id: data?.personId || '',
+      firstName: data?.person?.firstName,
+      lastName: data?.person?.lastName,
+      email: data?.person?.email,
+      phone: data?.person?.phone,
+      address: data?.person?.address,
+      createdAt: data?.person?.createdAt,
+      company: data?.person?.company,
+      newsletter: data?.person?.newsletter,
+      emailConfirmed: data?.person?.emailConfirmed,
+    }
   }
 
   return (
@@ -123,6 +143,7 @@ export default function EditForm() {
               <Grid item xs={12}>
                 <PersonSelectDialog
                   error={errors.personId}
+                  selectedPerson={selectedPerson}
                   onConfirm={(person) => {
                     person ? setFieldValue('personId', person.id) : setFieldTouched('personId')
                   }}
@@ -131,34 +152,69 @@ export default function EditForm() {
                   }}
                 />
               </Grid>
+              <Grid item xs={12}>
+                <CampaignSelect
+                  type="Campaign"
+                  label={t('recurring-donation:campaign')}
+                  name="campaign"
+                  disabled={false}
+                  campaigns={campaigns}
+                  selectedCampaign={initialValues.campaign}
+                  handleCampaignSelected={(campaign) => {
+                    campaigns?.forEach((c) => {
+                      if (c.id === campaign && c.vaults) {
+                        setFieldValue('sourceVault', c.vaults[0].id)
+                      }
+                    })
+                  }}
+                />
+              </Grid>
               <Grid item xs={6}>
-                <RecurringDonationStatusSelect />
+                <FormTextField
+                  type="number"
+                  label={t('recurring-donation:amount')}
+                  name="money"
+                  disabled={false}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <FormTextField
+                  type="text"
+                  label={t('recurring-donation:currency')}
+                  name="currency"
+                  disabled={false}
+                />
+              </Grid>
+              <Grid item xs={6}>
+                <FormTextField
+                  type="text"
+                  label={t('recurring-donation:status')}
+                  name="status"
+                  disabled={false}
+                />
               </Grid>
               <Grid item xs={6}>
                 <FormTextField
                   type="text"
                   label={t('recurring-donation:extSubscriptionId')}
                   name="extSubscriptionId"
+                  disabled={false}
                 />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12}>
                 <FormTextField
                   type="text"
                   label={t('recurring-donation:extCustomerId')}
                   name="extCustomerId"
+                  disabled={false}
                 />
               </Grid>
-              <Grid item xs={6}>
-                <FormTextField type="number" label={t('recurring-donation:amount')} name="amount" />
-              </Grid>
-              <Grid item xs={6}>
-                <CurrencySelect />
-              </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12}>
                 <FormTextField
                   type="text"
                   label={t('recurring-donation:vaultId')}
                   name="sourceVault"
+                  disabled={true}
                 />
               </Grid>
               <Grid item xs={6}>

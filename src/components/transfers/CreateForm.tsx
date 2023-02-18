@@ -65,8 +65,8 @@ export default function CreateForm({ campaigns }: Props) {
           params: {},
           message: t('amount-unavailable'),
           test: function (value) {
-            const currentValt = vaults?.find((curr) => curr.id == this.parent.sourceVaultId)
-            const currentAmount = Number(currentValt?.amount) - Number(currentValt?.blockedAmount)
+            const currentVault = vaults?.find((curr) => curr.id == this.parent.sourceVaultId)
+            const currentAmount = Number(currentVault?.amount) - Number(currentVault?.blockedAmount)
             return value ? value < Number(fromMoney(currentAmount)) : false
           },
         }),
@@ -146,6 +146,7 @@ export default function CreateForm({ campaigns }: Props) {
               name="sourceCampaignId"
               label="transfer:sourceCampaign"
               campaigns={campaigns || []}
+              selectedCampaign={initialValues.sourceCampaignId as string}
             />
           </Grid>
           <Grid item xs={12}>
@@ -156,6 +157,7 @@ export default function CreateForm({ campaigns }: Props) {
               name="targetCampaignId"
               label="transfer:targetCampaign"
               campaigns={campaigns || []}
+              selectedCampaign={initialValues.sourceCampaignId as string}
             />
           </Grid>
           <Grid item xs={12}>
