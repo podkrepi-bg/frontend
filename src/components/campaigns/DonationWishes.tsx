@@ -1,12 +1,16 @@
 import React, { useRef, useState } from 'react'
+
 import { useTranslation } from 'next-i18next'
-import { Unstable_Grid2 as Grid2, Stack, Typography } from '@mui/material'
+
+import { Unstable_Grid2 as Grid2, Stack, Typography, Grid } from '@mui/material'
 import RateReviewIcon from '@mui/icons-material/RateReview'
-import { useDonationWishesList } from 'common/hooks/donationWish'
-import { getExactDate } from 'common/util/date'
-import { bg, enUS } from 'date-fns/locale'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import Pagination from '@mui/material/Pagination'
+
+import { bg, enUS } from 'date-fns/locale'
+import { useDonationWishesList } from 'common/hooks/donationWish'
+import { getExactDate } from 'common/util/date'
+import theme from 'common/theme'
 
 type Props = {
   campaignId: string
@@ -14,13 +18,11 @@ type Props = {
 }
 
 export default function DonationWishes({ campaignId, pageSize = 12 }: Props) {
-  const { t, i18n } = useTranslation()
-  const titleRef = useRef<HTMLElement>(null)
+  const { t, i18n } = useTranslation('campaigns')
   const locale = i18n.language == 'bg' ? bg : enUS
-
+  const titleRef = useRef<HTMLElement>(null)
   const [pageIndex, setPageIndex] = useState<number>(0)
   const { data, isSuccess } = useDonationWishesList(campaignId, pageIndex, pageSize)
-
   const numOfPages = isSuccess && data ? Math.ceil(data.totalCount / pageSize) : 0
 
   const handlePageChange = (_e: React.ChangeEvent<unknown>, page: number) => {
@@ -36,12 +38,21 @@ export default function DonationWishes({ campaignId, pageSize = 12 }: Props) {
   }
 
   return (
-    <Grid2 container direction="column" rowGap={2}>
+    <Grid2 container direction="column" rowGap={4}>
       <Grid2>
-        <Stack direction="row" alignItems="center" spacing={2}>
-          <RateReviewIcon color="action" />
-          <Typography variant="h6" ref={titleRef}>
-            {t('campaigns:campaign.messages')}
+        <Stack direction="row" alignItems="center">
+          <RateReviewIcon
+            color="action"
+            sx={{
+              width: theme.spacing(1.75),
+              height: theme.spacing(1.75),
+              marginRight: theme.spacing(1),
+            }}
+          />
+          <Typography
+            ref={titleRef}
+            sx={{ color: '#343434', fontSize: theme.typography.pxToRem(16), fontWeight: 500 }}>
+            {t('campaign.messages')}
           </Typography>
         </Stack>
       </Grid2>
@@ -51,28 +62,49 @@ export default function DonationWishes({ campaignId, pageSize = 12 }: Props) {
           data.items &&
           data.items.map((wish) => (
             <Grid2
-              gap={2}
               container
               key={wish.id}
               direction="row"
-              sx={{ p: 2, bgcolor: 'grey.100', borderRadius: 5 }}>
+              sx={{ p: 2, bgcolor: 'grey.100', borderRadius: theme.spacing(2) }}>
               <Grid2 xs={12}>
                 <Stack direction="row" spacing={2}>
-                  <Stack>
-                    <AccountCircleIcon color="disabled" sx={{ fontSize: '2.3rem' }} />
-                  </Stack>
-                  <Stack direction="column" spacing={1}>
-                    <Stack direction="column">
-                      <Typography variant="caption" fontWeight={600}>
-                        {wish.person
-                          ? wish.person.firstName + ' ' + wish.person.lastName
-                          : t('campaigns:donations.anonymous')}
-                      </Typography>
-                      <Typography variant="caption" sx={{ color: 'gray' }}>
-                        {getExactDate(wish.createdAt, locale)}
-                      </Typography>
-                    </Stack>
-                    <Typography component="blockquote">{wish.message}</Typography>
+                  <Grid pt={0.7}>
+                    <AccountCircleIcon
+                      color="disabled"
+                      sx={{ fontSize: theme.typography.pxToRem(37) }}
+                    />
+                  </Grid>
+                  <Stack direction="column">
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        fontWeight: 700,
+                        fontSize: theme.typography.pxToRem(16),
+                        color: '#343434',
+                      }}>
+                      {wish.person
+                        ? wish.person.firstName + ' ' + wish.person.lastName
+                        : t('donations.anonymous')}
+                    </Typography>
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        fontSize: theme.typography.pxToRem(14),
+                        color: 'rgba(0, 0, 0, 0.54)',
+                      }}>
+                      {getExactDate(wish.createdAt, locale)}
+                    </Typography>
+                    <Typography
+                      component="blockquote"
+                      sx={{
+                        mt: 1,
+                        fontSize: theme.typography.pxToRem(16),
+                        lineHeight: '160%',
+                        '&:before': { content: 'open-quote', verticalAlign: theme.spacing(1.25) },
+                        '&:after': { content: 'close-quote' },
+                      }}>
+                      {wish.message}
+                    </Typography>
                   </Stack>
                 </Stack>
               </Grid2>
