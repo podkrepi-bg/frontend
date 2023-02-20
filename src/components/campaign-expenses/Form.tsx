@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
@@ -15,31 +15,52 @@ import LinkButton from 'components/common/LinkButton'
 import { useViewExpense } from 'common/hooks/expenses'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
-import DeletedCheckbox from 'components/common/DeletedCheckbox'
+//import DeletedCheckbox from 'components/common/DeletedCheckbox'
 import CurrencySelect from 'components/currency/CurrencySelect'
 import FormTextField from 'components/common/form/FormTextField'
 import { useCreateExpense, useEditExpense } from 'service/expense'
-import DocumentSelect from 'components/documents/grid/DocumentSelect'
+//import DocumentSelect from 'components/documents/grid/DocumentSelect'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import { ExpenseInput, ExpenseResponse, ExpenseStatus, ExpenseType } from 'gql/expenses'
+import FileUpload from 'components/file-upload/FileUpload'
 
-import VaultSelect from '../vaults/VaultSelect'
-import ExpenseTypeSelect from './ExpenseTypeSelect'
-import ExpenseStatusSelect from './ExpenseStatusSelect'
-import { useVaultsList } from 'common/hooks/vaults'
-import PersonSelect from 'components/person/PersonSelect'
+import ExpenseTypeSelect from '../expenses/ExpenseTypeSelect'
+// import PersonSelect from 'components/person/PersonSelect'
+import { useViewCampaign } from 'common/hooks/campaigns'
+import { UploadExpenseFile, ExpenseFile } from 'gql/expenses'
+import { useUploadExpenseFiles } from 'service/expense'
+import FileList from 'components/campaign-expenses/grid/FileList'
+import FormDatePicker from 'components/common/form/FormDatePicker'
+import { toMoney, fromMoney } from 'common/util/money'
+import { useCampaignExpenseFiles } from 'common/hooks/expenses'
 
 const validTypes = Object.keys(ExpenseType)
 const validStatuses = Object.keys(ExpenseStatus)
 const validCurrencies = Object.keys(Currency)
 
+interface Props {
+  onFileUpload: (file: File) => void
+}
+
 export default function Form() {
   const queryClient = useQueryClient()
   const router = useRouter()
+  const slug = router.query.slug as string
   const { t } = useTranslation('expenses')
-  let id = router.query.id
+  const { data: campaignResponse } = useViewCampaign(slug)
+  let id = router.query.id as string
+  const [files, setFiles] = useState<File[]>([])
+  const { data: expenseFiles } = useCampaignExpenseFiles(id)
+
+  const fileUploadMutation = useMutation<
+    AxiosResponse<ExpenseFile[]>,
+    AxiosError<ApiErrors>,
+    UploadExpenseFile
+  >({
+    mutationFn: useUploadExpenseFiles(),
+  })
+
   let data: ExpenseResponse | undefined
-  const { data: vaults } = useVaultsList()
   const validationSchema = yup
     .object()
     .defined()
@@ -47,31 +68,12 @@ export default function Form() {
       type: yup.string().trim().oneOf(validTypes).required(),
       status: yup.string().trim().oneOf(validStatuses).required(),
       currency: yup.string().trim().oneOf(validCurrencies).required(),
-      amount: yup.number().when('vaultId', {
-        is: (value: string) => value !== undefined,
-        then: yup
-          .number()
-          .positive()
-          .required()
-          .test({
-            name: 'max',
-            exclusive: false,
-            params: {},
-            message: t('fields-error.amount-unavailable'),
-            test: function (value) {
-              const currentVault = vaults?.find((curr) => curr.id == this.parent.vaultId)
-              const currentAmount =
-                Number(currentVault?.amount) - Number(currentVault?.blockedAmount)
-              return value! < Number(currentAmount)
-            },
-          }),
-        otherwise: yup.number().positive().integer().required(),
-      }),
-      vaultId: yup.string().trim().uuid().required(),
-      deleted: yup.boolean().required(),
+      // money: yup.number().positive().integer().required(),
+      //      vaultId: yup.string().trim().uuid().required(),
+      //      deleted: yup.boolean().required(),
       description: yup.string().trim().notRequired(),
-      documentId: yup.string().trim().uuid().notRequired(),
-      approvedById: yup.string().trim().notRequired(),
+      //      documentId: yup.string().trim().uuid().notRequired(),
+      // approvedById: yup.string().trim().notRequired(),
     })
   if (id) {
     id = String(id)
@@ -82,14 +84,14 @@ export default function Form() {
     type: data?.type || ExpenseType.none,
     status: data?.status || ExpenseStatus.pending,
     currency: data?.currency || Currency.BGN,
+    money: fromMoney(data?.amount as number),
     amount: data?.amount || 0,
-    money: 0,
-    vaultId: data?.vaultId || '',
+    vaultId: data?.vaultId || campaignResponse?.campaign.defaultVault || '',
     deleted: data?.deleted || false,
     description: data?.description || '',
     documentId: data?.documentId || '',
     approvedById: data?.approvedById || '',
-    spentAt: '',
+    spentAt: data?.spentAt || '',
   }
 
   const mutationFn = id ? useEditExpense(id) : useCreateExpense()
@@ -101,7 +103,7 @@ export default function Form() {
         AlertStore.show(id ? t('alerts.edit-row.error') : t('alerts.new-row.error'), 'error'),
       onSuccess: () => {
         queryClient.invalidateQueries([endpoints.expenses.listExpenses.url])
-        router.push(routes.admin.expenses.index)
+        router.push(routes.campaigns.viewExpenses(slug))
         AlertStore.show(id ? t('alerts.edit-row.success') : t('alerts.new-row.success'), 'success')
       },
     },
@@ -115,7 +117,21 @@ export default function Form() {
       if (data.approvedById == '') {
         data.approvedById = null
       }
-      mutation.mutateAsync(data)
+
+      if (data.spentAt.length == 10) {
+        data.spentAt = data.spentAt + 'T00:00:00.000Z'
+      }
+
+      data.amount = toMoney(data.money)
+
+      const response = await mutation.mutateAsync(data)
+
+      if (files.length > 0) {
+        await fileUploadMutation.mutateAsync({
+          files,
+          expenseId: response.data.id,
+        })
+      }
     } catch (error) {
       if (isAxiosError(error)) {
         const { response } = error as AxiosError<ApiErrors>
@@ -124,6 +140,11 @@ export default function Form() {
         })
       }
     }
+  }
+
+  if (!campaignResponse?.campaign.defaultVault) {
+    //return an error if there is no default vault for the campaign
+    return <div> {t('expenses:errors.no-default-vault')} </div>
   }
 
   return (
@@ -140,29 +161,31 @@ export default function Form() {
             <ExpenseTypeSelect />
           </Grid>
           <Grid item xs={6}>
-            <ExpenseStatusSelect />
+            <FormDatePicker name="spentAt" label={t('expenses:fields.date')} />
           </Grid>
           <Grid item xs={6}>
-            <FormTextField
-              disabled={id ? true : false}
-              type="number"
-              name="amount"
-              label="expenses:fields.amount"
+            <FormTextField type="number" name="money" label="expenses:fields.amount" />
+          </Grid>
+          <Grid item xs={6}>
+            <CurrencySelect disabled={true} />
+          </Grid>
+          <Grid item xs={12}>
+            <FileUpload
+              buttonLabel="Добави документи"
+              onUpload={(newFiles) => {
+                setFiles((prevFiles) => [...prevFiles, ...newFiles])
+              }}
             />
-          </Grid>
-          <Grid item xs={6}>
-            <CurrencySelect />
-          </Grid>
-          <Grid item xs={6}>
-            <VaultSelect
-              name="vaultId"
-              label="expenses:fields.vault"
-              disabled={id ? true : false}
-              vaults={vaults}
+            <FileList
+              files={files}
+              filesRole={[]}
+              onDelete={(deletedFile) =>
+                setFiles((prevFiles) => prevFiles.filter((file) => file.name !== deletedFile.name))
+              }
+              onSetFileRole={() => {
+                return undefined
+              }}
             />
-          </Grid>
-          <Grid item xs={6}>
-            <DocumentSelect />
           </Grid>
           <Grid item xs={12}>
             <FormTextField
@@ -173,29 +196,18 @@ export default function Form() {
               rows={5}
             />
           </Grid>
-          {(id && (
-            <Grid item xs={id ? 10 : 12}>
-              <FormTextField
-                type="text"
-                name="approvedById"
-                label={t('expenses:fields:approvedBy')}
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-            </Grid>
-          )) || (
-            <Grid item xs={12}>
-              <PersonSelect name="approvedById" label={t('expenses:fields:approvedBy')} />
-            </Grid>
-          )}
-          {id && (
-            <Grid item xs={2}>
-              <DeletedCheckbox />
-            </Grid>
-          )}
+          <Grid item xs={12}>
+            <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
+              {t('expenses:uploaded-documents')}:
+            </Typography>
+            {expenseFiles?.map((file, key) => (
+              <a key={key} href={endpoints.expenses.downloadFile(file.id).url}>
+                {file.filename}
+              </a>
+            ))}
+          </Grid>
           <Grid item xs={6}>
-            <SubmitButton fullWidth label={id ? 'expenses:btns.save' : 'expenses:btns.submit'} />
+            <SubmitButton fullWidth label={'expenses:btns.save'} />
           </Grid>
           <Grid item xs={6}>
             <LinkButton

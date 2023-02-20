@@ -2,6 +2,9 @@
   "fields-error": {
     "amount-unavailable": "Недостатъчна наличност в трезора!"
   },
+  "errors": {
+    "no-default-vault": "Не е избран трезор по подразбиране!"
+  },
   "fields": {
     "type": "Тип",
     "status": "Статус",
@@ -15,7 +18,26 @@
     "approvedById": "Одобрен от (Id)",
     "approvedBy": "Одобрен от",
     "action": "Действие",
-    "empty": "Празно"
+    "empty": "Празно",
+    "date": "Дата"
+  },
+  "field-types": {
+    "none": "Няма",
+    "internal": "Вътрешен",
+    "operating": "Оперативен",
+    "administrative": "Административен",
+    "medical" : "Медицински",
+    "services" : "Услуги",
+    "groceries" : "Хранителни",
+    "transport" : "Транспорт",
+    "accommodation" : "Жилищни",
+    "shipping" : "Доставки",
+    "utility" : "Комунални",
+    "rental" : "Наеми",
+    "legal" : "Юридически",
+    "bank" : "Банкови",
+    "advertising" : "Рекламни",
+    "other" : "Други"
   },
   "alerts": {
     "new-row": {
@@ -52,6 +74,8 @@
     "info": "Информация за разход"
   },
   "description": "Всички разходи",
+  "reported": "Общо отчетени",
+  "uploaded-documents": "Прикачени документи",
   "tooltips": {
     "add": "Добави",
     "view": "Преглед",

@@ -4,7 +4,8 @@ import { AxiosResponse } from 'axios'
 import { apiClient } from 'service/apiClient'
 import { authConfig } from 'service/restRequests'
 import { endpoints } from 'service/apiEndpoints'
-import { ExpenseInput, ExpenseResponse } from 'gql/expenses'
+import { ExpenseInput, ExpenseResponse, UploadExpenseFile, ExpenseFile } from 'gql/expenses'
+import { Session } from 'next-auth'
 
 export function useCreateExpense() {
   const { data: session } = useSession()
@@ -37,3 +38,42 @@ export function useDeleteExpense() {
     )
   }
 }
+
+export const useUploadExpenseFiles = () => {
+  const { data: session } = useSession()
+  return async ({ files, expenseId }: UploadExpenseFile) => {
+    const formData = new FormData()
+    files.forEach((file: File) => {
+      formData.append('file', file)
+    })
+    return await apiClient.post<FormData, AxiosResponse<ExpenseFile[]>>(
+      endpoints.expenses.uploadFile(expenseId).url,
+      formData,
+      {
+        headers: {
+          ...authConfig(session?.accessToken).headers,
+          'Content-Type': 'multipart/form-data',
+        },
+      },
+    )
+  }
+}
+
+export const downloadCampaignFile = (id: string, session: Session | null) => {
+  return apiClient(endpoints.expenses.downloadFile(id).url, {
+    ...authConfig(session?.accessToken),
+    responseType: 'blob',
+  })
+}
+
+/*
+export const deleteCampaignFile = (id: string) => {
+  const { data: session } = useSession()
+  return async () => {
+    return await apiClient.delete<CampaignFile, AxiosResponse<CampaignFile>>(
+      endpoints.campaign.deleteFile(id).url,
+      authConfig(session?.accessToken),
+    )
+  }
+}
+*/

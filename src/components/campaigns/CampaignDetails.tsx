@@ -19,6 +19,7 @@ import LinkButton from 'components/common/LinkButton'
 
 import dynamic from 'next/dynamic'
 import 'react-quill/dist/quill.bubble.css'
+import { routes } from 'common/routes'
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 
 const PREFIX = 'CampaignDetails'
@@ -162,6 +163,9 @@ export default function CampaignDetails({ campaign }: Props) {
         </Grid>
         <Grid item xs={12}>
           <CampaignInfoCoordinator campaign={campaign} />
+          <h1>
+            [<a href={routes.campaigns.viewExpenses(campaign.slug)}> Разходи </a>]
+          </h1>
         </Grid>
         <Grid item xs={12}>
           <DonationWishes campaignId={campaign?.id} />

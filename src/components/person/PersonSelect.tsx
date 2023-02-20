@@ -4,7 +4,12 @@ import { useField } from 'formik'
 import { usePersonList } from 'common/hooks/person'
 import FormTextField from 'components/common/form/FormTextField'
 
-export default function PersonSelect({ name = 'personId', label = '', ...textFieldProps }) {
+export default function PersonSelect({
+  name = 'personId',
+  label = '',
+  selectedId = '',
+  ...textFieldProps
+}) {
   const [field, meta] = useField(name)
   const { data: personList } = usePersonList()
   if (!personList) {
@@ -21,7 +26,7 @@ export default function PersonSelect({ name = 'personId', label = '', ...textFie
         select
         type="text"
         fullWidth
-        defaultValue=""
+        defaultValue={selectedId}
         label={label}
         {...field}
         {...textFieldProps}>

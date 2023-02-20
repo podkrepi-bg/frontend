@@ -2,6 +2,9 @@
   "fields-error": {
     "amount-unavailable": "Insufficient stock in the vault!"
   },
+  "errors": {
+    "no-default-vault": "No default vault found!"
+  },
   "fields": {
     "type": "Type",
     "status": "Status",
@@ -13,7 +16,8 @@
     "approvedById": "Approved by (Id)",
     "approvedBy": "Approved by",
     "action": "Action",
-    "empty": "Empty"
+    "empty": "Empty",
+    "date": "Date"
   },
   "alerts": {
     "new-row": {
@@ -50,6 +54,8 @@
     "info": "Expense information"
   },
   "description": "All expenses",
+  "reported": "Total reported",
+  "uploaded-documents": "Uploaded documents",
   "tooltips": {
     "add": "Add",
     "view": "View",
