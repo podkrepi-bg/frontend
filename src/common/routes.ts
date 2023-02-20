@@ -56,7 +56,6 @@ export const routes = {
     index: '/campaigns',
     create: '/campaigns/create',
     viewCampaignBySlug: (slug: string) => `/campaigns/${slug}`,
-    oneTimeDonation: (slug: string) => `/campaigns/donation-old/${slug}`,
     donation: (slug: string) => `/campaigns/donation/${slug}`,
     donationStatus: (slug: string) => `/campaigns/donation/${slug}/status`,
   },

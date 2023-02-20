@@ -72,13 +72,13 @@ const generalValidation = {
   isAnonymous: yup.boolean().required(),
   email: yup
     .string()
-    .email('donation-flow:errors-fields.email')
+    .email('donation-flow:step.authentication.field.email.error')
     .required()
     .when('authentication', {
       is: 'NOREGISTER',
-      then: yup.string().email('donation-flow:errors-fields.email').required(),
+      then: yup.string().email('donation-flow:step.authentication.field.email.error').required(),
     }),
-  privacy: yup.bool().required().isTrue('donation-flow:errors-fields.privacy'),
+  privacy: yup.bool().required().isTrue('donation-flow:step.summary.field.privacy.error'),
 }
 
 export const validationSchema: yup.SchemaOf<DonationFormData> = yup
@@ -94,13 +94,21 @@ export const validationSchema: yup.SchemaOf<DonationFormData> = yup
 export function DonationFlowForm() {
   const formikRef = useRef<FormikProps<DonationFormData> | null>(null)
   const { t, i18n } = useTranslation('donation-flow')
-  const { data: session } = useSession()
+  const { data: session } = useSession({
+    required: false,
+    onUnauthenticated: () => {
+      formikRef.current?.setFieldValue('authentication', null)
+    },
+  })
   useEffect(() => {
     if (session?.user) {
       formikRef.current?.setFieldValue('email', session.user.email)
+      formikRef.current?.setFieldValue('authentication', DonationFormAuthState.AUTHENTICATED)
+      formikRef.current?.setFieldValue('isAnonymous', false)
       return
     }
     formikRef.current?.setFieldValue('email', '')
+    formikRef.current?.setFieldValue('isAnonymous', true)
   }, [session])
   const { campaign, stripePaymentIntent, paymentError, setPaymentError } = useDonationFlow()
   const stripe = useStripe()
@@ -140,7 +148,7 @@ export function DonationFlowForm() {
           setSubmitPaymentLoading(false)
           setPaymentError({
             type: 'invalid_request_error',
-            message: t('alerts.error'),
+            message: t('step.summary.alerts.error'),
           })
           return
         }
@@ -161,7 +169,7 @@ export function DonationFlowForm() {
           setSubmitPaymentLoading(false)
           setPaymentError({
             type: 'invalid_request_error',
-            message: t('alerts.error'),
+            message: t('step.summary.alerts.error'),
           })
           return
         }
@@ -180,7 +188,7 @@ export function DonationFlowForm() {
           setSubmitPaymentLoading(false)
           setPaymentError({
             type: 'invalid_request_error',
-            message: t('alerts.error'),
+            message: t('step.summary.alerts.error'),
           })
           return
         }
