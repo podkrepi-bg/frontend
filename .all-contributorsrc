@@ -728,6 +728,16 @@
       "contributions": [
         "code",
         "review"
+        ]
+    },
+    {
+      "login": "BogoCvetkov",
+      "name": "Bogomil Tsvetkov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/78339364?v=4",
+      "profile": "https://github.com/BogoCvetkov",
+      "contributions": [
+        "code",
+        "test"
       ]
     }
   ],
