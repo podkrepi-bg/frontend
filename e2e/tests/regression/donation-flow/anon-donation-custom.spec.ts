@@ -3,8 +3,8 @@ import { HeaderPage } from '../../../pages/web-pages/header.page'
 import { HomePage } from '../../../pages/web-pages/home.page'
 import { CampaignsPage } from '../../../pages/web-pages/campaigns/campaigns.page'
 import { bgLocalizationOneTimeDonation } from '../../../data/localization'
-import { DonationPage } from '../../../pages/web-pages/campaigns/donation.page'
-import { bgDonationRegions } from '../../../data/enums/donation-regions.enum'
+import { DonationPage } from '../../../pages/web-pages/campaigns/donation-old.page'
+import { DonationRegions } from '../../../data/enums/donation-regions.enum'
 import { StripeCheckoutPage } from '../../../pages/web-pages/external/stripe-checkout.page'
 import { anonDonationTestData } from '../../../data/support-page-tests.data'
 
@@ -59,7 +59,7 @@ test.describe.serial(
         .toBeTruthy()
       await donationPage.selectRadioButtonByLabelText([otherAmountText])
       await donationPage.fillOtherAmountInputField('7.50')
-      await donationPage.setDonationRegionFromTheDropdown(bgDonationRegions.EUROPE)
+      await donationPage.setDonationRegionFromTheDropdown(DonationRegions.EUROPE)
       await donationPage.selectCheckboxByLabelText([bgCardIncludeFeesText])
       // Expected pattern:
       // За вашия превод от {totalChargedAmountText} лв., таксата на Stripe ще е {feeAmountText} лв., а кампанията ще получи {donationAmountText} лв.

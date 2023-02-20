@@ -23,6 +23,9 @@ export class CampaignsPage extends HomePage {
   private readonly bgSupportNowActionButtonText = bgLocalizationCampaigns.cta['support-now']
   private readonly enSupportNowActionButtonText = enLocalizationCampaigns.cta['support-now']
 
+  /**
+   * Ovverride the method from the BasePage and add the specific selector for the Campaigns page as default
+   */
   async checkPageUrlByRegExp(urlRegExpAsString?: string, timeoutParam = 10000): Promise<void> {
     await this.page.waitForTimeout(1000)
     await expect(this.page, 'The URL is not correct!').toHaveURL(

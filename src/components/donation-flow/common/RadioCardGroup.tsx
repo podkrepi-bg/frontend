@@ -1,4 +1,5 @@
 import React from 'react'
+import { useField } from 'formik'
 import {
   Card,
   CardProps,
@@ -8,50 +9,49 @@ import {
   RadioGroup,
   RadioGroupProps,
   Stack,
-  Unstable_Grid2 as Grid2,
+  Grid,
 } from '@mui/material'
 import { styled, lighten } from '@mui/material/styles'
 import theme from 'common/theme'
-import CardIcon from '../icons/CardIcon'
-import BankIcon from '../icons/BankIcon'
 
 export const StyledRadioCardItem = styled(Card)(() => ({
   padding: theme.spacing(2),
   margin: 0,
   cursor: 'pointer',
   border: `1px solid ${theme.borders.dark}`,
+  width: '100%',
+  '&:focus-within': {
+    outline: `2px solid ${theme.palette.common.black}`,
+  },
 }))
 
 interface StyledRadioCardItemProps extends CardProps {
   control: React.ReactNode
   icon: React.ReactNode
+  disabled?: boolean
   selected?: boolean
 }
 
-// Temporarily here for testing until the components starts being used
-export const testRadioOptions: Option[] = [
-  {
-    value: 'card',
-    label: 'Card',
-    icon: <CardIcon sx={{ width: 80, height: 80 }} />,
-  },
-  {
-    value: 'bank',
-    label: 'Bank',
-    icon: <BankIcon sx={{ width: 80, height: 80 }} />,
-  },
-  {
-    value: 'paypal',
-    label: 'PayPal',
-    icon: <BankIcon sx={{ width: 80, height: 80 }} />,
-  },
-]
+function RadioCardItem({ control, icon, selected, disabled, ...rest }: StyledRadioCardItemProps) {
+  const selectedStyles = {
+    backgroundColor: selected ? lighten(theme.palette.primary.light, 0.7) : 'inherit',
+  }
+  const disabledStyles = {
+    opacity: 0.7,
+    backgroundColor: `${theme.palette.grey[300]} !important`,
+    pointerEvents: 'none',
+    borderColor: `${theme.palette.grey[500]} !important`,
+  }
 
-function RadioCardItem({ control, icon, selected, ...rest }: StyledRadioCardItemProps) {
+  let styles = {}
+  if (disabled) {
+    styles = disabledStyles
+  } else if (selected) {
+    styles = selectedStyles
+  }
+
   return (
-    <StyledRadioCardItem
-      sx={{ backgroundColor: selected ? lighten(theme.palette.primary.light, 0.7) : 'inherit' }}
-      {...rest}>
+    <StyledRadioCardItem sx={styles} {...rest}>
       <Stack justifyContent="center" alignItems="center">
         {icon}
         {control}
@@ -64,46 +64,62 @@ type Option = {
   value: string
   label: string
   icon: React.ReactNode
+  disabled?: boolean
 }
 
 export interface RadioCardGroupProps extends RadioGroupProps {
   options: Option[]
-  defaultValue?: string
+  name: string
+  columns: 1 | 2 | 3 | 4 | 6 | 12
 }
 
-function RadioCardGroup({ options, defaultValue }: RadioCardGroupProps) {
-  const [value, setValue] = React.useState(defaultValue)
-
+/**
+ * RadioCardGroup is a group of radio buttons that display a card for each option.
+ * The <input> element is hidden, but accessible to screen readers.
+ * @example
+ * <RadioCardGroup
+ *  name="donationAmount"
+ *  options={[
+ *  {
+ *  value: '10',
+ *  label: '$10',
+ *  icon: <MoneyIcon />,
+ * },
+ * {
+ * value: '25',
+ * label: '$25',
+ * icon: <MoneyIcon />,
+ * },
+ */
+function RadioCardGroup({ options, name, columns }: RadioCardGroupProps) {
+  const [field, meta, { setValue }] = useField(name)
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
   }
-
-  console.log(theme.typography.h1)
   return (
-    <FormControl>
-      <RadioGroup
-        aria-labelledby="TODO: Label by the title"
-        name="controlled-radio-buttons-group"
-        value={value}
-        onChange={handleChange}>
-        <Grid2 spacing={2} container>
+    <FormControl
+      fullWidth
+      required
+      component="fieldset"
+      error={Boolean(meta.error) && Boolean(meta.touched)}>
+      <RadioGroup value={field.value} onChange={handleChange}>
+        <Grid columnSpacing={3} container>
           {options.map((option) => (
-            <Grid2 xs={4} key={option.value}>
+            <Grid item xs={12} sm={12 / columns} key={option.value}>
               <RadioCardItem
                 onClick={() => setValue(option.value)}
                 control={
                   <FormControlLabel
                     value={option.value}
                     disableTypography
+                    disabled={option.disabled}
                     sx={{ margin: 0, ...theme.typography.h6 }}
                     control={
                       <Radio
-                        sx={{ opacity: 0, position: 'absolute', width: 0, height: 0 }}
-                        inputProps={{
-                          style: {
-                            width: 0,
-                            height: 0,
-                          },
+                        disabled={option.disabled}
+                        sx={{
+                          clipPath: 'polygon(0 0)',
+                          position: 'absolute',
                         }}
                       />
                     }
@@ -111,11 +127,12 @@ function RadioCardGroup({ options, defaultValue }: RadioCardGroupProps) {
                   />
                 }
                 icon={option.icon}
-                selected={value === option.value}
+                selected={field.value === option.value && !option.disabled}
+                disabled={option.disabled}
               />
-            </Grid2>
+            </Grid>
           ))}
-        </Grid2>
+        </Grid>
       </RadioGroup>
     </FormControl>
   )

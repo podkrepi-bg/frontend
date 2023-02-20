@@ -94,7 +94,7 @@ function CustomApp({
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <SessionProvider session={session} refetchInterval={60} refetchOnWindowFocus={true}>
+        <SessionProvider session={session} refetchInterval={10 * 60} refetchOnWindowFocus={true}>
           <QueryClientProvider client={queryClient}>
             <Hydrate state={dehydratedState}>
               <Provider {...stores}>
