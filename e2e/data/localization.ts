@@ -13,8 +13,8 @@ import enLocalizationValidationJson from '../../public/locales/en/validation.jso
 import bgLocalizationCampaignsJson from '../../public/locales/bg/campaigns.json'
 import enLocalizationCampaignsJson from '../../public/locales/en/campaigns.json'
 
-import bgLocalizationOneTimeDonationJson from '../../public/locales/bg/one-time-donation.json'
-import enLocalizationOneTimeDonationJson from '../../public/locales/en/one-time-donation.json'
+import bgLocalizationDonationFlowJson from '../../public/locales/bg/donation-flow.json'
+import enLocalizationDonationFlowJson from '../../public/locales/en/donation-flow.json'
 
 // All these constants are used in the E2E test pages to manipulate web elements in a respective language
 // Common localization terms
@@ -30,8 +30,8 @@ export const enLocalizationSupport = enLocalizationSupportJson
 export const bgLocalizationCampaigns = bgLocalizationCampaignsJson
 export const enLocalizationCampaigns = enLocalizationCampaignsJson
 // Donations
-export const bgLocalizationOneTimeDonation = bgLocalizationOneTimeDonationJson
-export const enLocalizationOneTimeDonation = enLocalizationOneTimeDonationJson
+export const bgLocalizationDonationFlow = bgLocalizationDonationFlowJson
+export const enLocalizationDonationFlow = enLocalizationDonationFlowJson
 // Validations
 export const bgLocalizationValidation = bgLocalizationValidationJson
 export const enLocalizationValidation = enLocalizationValidationJson

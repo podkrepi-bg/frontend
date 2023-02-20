@@ -9,19 +9,17 @@ import {
   DonationFormAuthState,
   DonationFormPaymentMethod,
 } from 'components/donation-flow/helpers/types'
-import { DonationStatusPage } from '../../../pages/web-pages/donation/donation-status.page'
 
 // This spec contains E2E tests related to anonymous donation flow - custom amount
 // The tests are dependent, the whole describe should be runned
 test.describe.serial(
-  'Anonymous contributor is able to donate fixed amount - BG language version',
+  'Anonymous contributor is able to donate custom amount - BG language version',
   async () => {
     let page: Page
     let homepage: HomePage
     let headerPage: HeaderPage
     let campaignsPage: CampaignsPage
     let donationPage: DonationPage
-    let statusPage: DonationStatusPage
     // Localization texts
     const bgCardIncludeFeesText =
       bgLocalizationDonationFlow.step['payment-method'].field['include-fees'].label
@@ -32,7 +30,6 @@ test.describe.serial(
       headerPage = new HeaderPage(page)
       campaignsPage = new CampaignsPage(page)
       donationPage = new DonationPage(page)
-      statusPage = new DonationStatusPage(page)
       // For local executions use method navigateToLocalhostHomepage();
       // await homepage.navigateToLocalhostHomepage();
       await homepage.navigateToEnvHomepage()
@@ -69,7 +66,7 @@ test.describe.serial(
 
     test('Fill in the stripe card form', async () => {
       await donationPage.fillCardForm({
-        fail: false,
+        fail: true,
       })
     })
 
@@ -81,12 +78,12 @@ test.describe.serial(
     test('The user can submit the form', async () => {
       await donationPage.checkPrivacyCheckbox()
       await donationPage.submitForm()
-      await page.waitForEvent('domcontentloaded')
     })
 
-    test('The user is redirected to succes page', async () => {
-      await statusPage.checkPageUrlByRegExp()
-      expect(await statusPage.isSucceededStatusTitleDisplayed()).toBe(true)
+    test('Submit error is visible', async () => {
+      await donationPage.submitForm()
+      const message = await donationPage.hasPaymentErrorMessage()
+      expect(message).toBe(true)
     })
   },
 )

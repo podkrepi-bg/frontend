@@ -14,6 +14,7 @@ import FormTextField from 'components/common/form/FormTextField'
 
 import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../helpers/stripe-fee-calculator'
 import { DonationFormData } from '../helpers/types'
+import { useSession } from 'next-auth/react'
 
 export const initialAmountFormValues = {
   amountChosen: '',
@@ -57,9 +58,10 @@ export default function Amount({
   disabled?: boolean
   sectionRef?: React.MutableRefObject<HTMLDivElement | null>
 }) {
-  const { data: prices } = useSinglePriceList()
-  const formik = useFormikContext<DonationFormData>()
   const { t } = useTranslation('donation-flow')
+  const { status } = useSession()
+  const formik = useFormikContext<DonationFormData>()
+  const { data: prices } = useSinglePriceList()
   const mobile = useMediaQuery('(max-width:600px)')
 
   const [{ value }] = useField('amountChosen')
@@ -97,6 +99,7 @@ export default function Amount({
       </Typography>
       <Box>
         <RadioButtonGroup
+          loading={status === 'loading'}
           disabled={disabled}
           name="amountChosen"
           options={

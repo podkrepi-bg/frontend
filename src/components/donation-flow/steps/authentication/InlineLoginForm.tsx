@@ -69,7 +69,7 @@ function InlineLoginForm() {
         <PasswordField
           name="loginPassword"
           type="password"
-          label={t('step.authentication.password')}
+          label={t('step.authentication.field.password')}
           fullWidth
         />
       </Grid>

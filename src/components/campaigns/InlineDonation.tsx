@@ -299,7 +299,7 @@ export default function InlineDonation({ campaign }: Props) {
         <Grid item xs={12} mt={2}>
           <LinkButton
             fullWidth
-            href={routes.campaigns.oneTimeDonation(campaignSlug)}
+            href={routes.campaigns.donation(campaignSlug)}
             disabled={campaignState === CampaignState.complete && !allowDonationOnComplete}
             variant="contained"
             endIcon={<Favorite />}

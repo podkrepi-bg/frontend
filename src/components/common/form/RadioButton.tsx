@@ -1,6 +1,6 @@
 import { Check } from '@mui/icons-material'
 import { styled, lighten } from '@mui/material/styles'
-import { FormControlLabel, Radio, Typography, RadioProps } from '@mui/material'
+import { FormControlLabel, Radio, Typography, RadioProps, Skeleton } from '@mui/material'
 import theme from 'common/theme'
 import React from 'react'
 
@@ -84,6 +84,7 @@ type RadioButtonProps = {
   label: string
   value: string | number
   disabled?: boolean
+  loading?: boolean
   muiRadioButtonProps?: Partial<RadioProps>
 }
 
@@ -103,27 +104,45 @@ const disabledCheckStlyes = {
   borderRadius: theme.borders.round,
   color: theme.palette.text.disabled,
 }
-function RadioButton({ checked, label, muiRadioButtonProps, value, disabled }: RadioButtonProps) {
+function RadioButton({
+  checked,
+  label,
+  muiRadioButtonProps,
+  value,
+  disabled,
+  loading,
+}: RadioButtonProps) {
   return (
     <StyledRadioButton>
-      <StyledRadioWrapper
-        value={value}
-        disabled={disabled}
-        checked={checked}
-        label={<StyledLabel>{label}</StyledLabel>}
-        control={
-          <Radio
-            icon={<StyledCircle aria-disabled={disabled} aria-checked={checked} />}
-            checkedIcon={
-              <Check
-                color={disabled ? 'disabled' : 'primary'}
-                sx={disabled ? disabledCheckStlyes : selectedCheckStyles}
-              />
-            }
-            {...muiRadioButtonProps}
-          />
-        }
-      />
+      {loading ? (
+        <Skeleton
+          variant="rectangular"
+          sx={{
+            borderRadius: theme.borders.round,
+          }}
+          width="100%"
+          height={60}
+        />
+      ) : (
+        <StyledRadioWrapper
+          value={value}
+          disabled={disabled}
+          checked={checked}
+          label={<StyledLabel>{label}</StyledLabel>}
+          control={
+            <Radio
+              icon={<StyledCircle aria-disabled={disabled} aria-checked={checked} />}
+              checkedIcon={
+                <Check
+                  color={disabled ? 'disabled' : 'primary'}
+                  sx={disabled ? disabledCheckStlyes : selectedCheckStyles}
+                />
+              }
+              {...muiRadioButtonProps}
+            />
+          }
+        />
+      )}
     </StyledRadioButton>
   )
 }

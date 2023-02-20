@@ -27,4 +27,4 @@ export const expectCopied = async (page: Page, textToCheck: string) => {
  * - (?:-[a-z0-9]+)* matches the characters - and a-z0-9 between one and unlimited times, as many times as possible, giving back as needed (greedy) and does not remember the match
  * - $ asserts position at the end of the string
  */
-export const SLUG_REGEX = `[a-z0-9]+(?:-[a-z0-9]+)*$`
+export const SLUG_REGEX = `[a-z0-9]+(?:-[a-z0-9]+)*`

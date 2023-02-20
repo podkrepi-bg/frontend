@@ -15,7 +15,7 @@ export const TaxesCheckbox = () => {
   return (
     <>
       <Grid2 container>
-        <Grid2 xs={8}>
+        <Grid2 xs={12} sm={8}>
           <CheckboxField
             name="cardIncludeFees"
             label={
@@ -25,7 +25,7 @@ export const TaxesCheckbox = () => {
             }
           />
         </Grid2>
-        <Grid2 xs={4}>
+        <Grid2 xs={12} sm={4} mb={2}>
           <FormSelectField
             name="cardRegion"
             label={t('step.payment-method.field.card-region.title')}

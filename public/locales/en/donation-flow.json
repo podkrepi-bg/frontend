@@ -87,7 +87,12 @@
         "label": "Continue without registration",
         "description": "You will not be able to get a donation certificate or a list of your donations. If you still want to receive a receipt, please share your email - it will not be visible in the platform"
       },
-      "password": "Password",
+      "field": {
+        "password": "Password",
+        "email": {
+          "error": "You have to enter a valid email"
+        }
+      },
       "alert": {
         "authenticate": {
           "title": "Choosing to login you will be able to",
@@ -109,6 +114,9 @@
         "anonymous": {
           "label": "I want to be anonymous",
           "description": "If you choose to be anonymous, your name will not be visible in the campaign"
+        },
+        "privacy": {
+          "error": "You have to accept the privacy policy"
         }
       }
     }
