@@ -1,11 +1,20 @@
 import * as yup from 'yup'
 import { useState } from 'react'
-import { useRouter } from 'next/router'
 import { FormikHelpers } from 'formik'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Box, Button, Grid, Table, TableCell, TableContainer, Typography } from '@mui/material'
+import {
+  Box,
+  Button,
+  Grid,
+  Table,
+  TableCell,
+  TableContainer,
+  TableFooter,
+  TablePagination,
+  Typography,
+} from '@mui/material'
 import Link from 'next/link'
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
@@ -32,6 +41,7 @@ const validationSchema: yup.SchemaOf<BankTransactionsFileFormData> = yup.object(
 const defaults: BankTransactionsFileFormData = {
   bankTransactionsFileId: '',
 }
+
 let data: BankImportStatus[] = []
 
 export type BankTransactionsFileFormProps = { initialValues?: BankTransactionsFileFormData }
@@ -41,6 +51,17 @@ export default function BankTransactionsFileForm({
 }: BankTransactionsFileFormProps) {
   const [files, setFiles] = useState<File[]>([])
   const [types, setTypes] = useState<FileType[]>([])
+  const [page, setPage] = useState(0)
+  const [rowsPerPage, setRowsPerPage] = useState(5)
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage)
+  }
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10))
+    setPage(0)
+  }
+
   const { t } = useTranslation()
 
   const fileUploadMutation = useMutation<
@@ -109,19 +130,39 @@ export default function BankTransactionsFileForm({
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {data.map((donation, index) => (
-                      <TableRow
-                        key={index}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                        <TableCell>{donation.extPaymentIntentId}</TableCell>
-                        <TableCell>{getExactDateTime(donation.createdAt)}</TableCell>
-                        <TableCell>{money(donation.amount)}</TableCell>
-                        <TableCell>{donation.currency}</TableCell>
-                        <TableCell>{donation.status}</TableCell>
-                        <TableCell>{donation.message}</TableCell>
-                      </TableRow>
-                    ))}
+                    {data
+                      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                      .map((donation, index) => (
+                        <TableRow
+                          key={index}
+                          sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                          <TableCell>{donation.extPaymentIntentId}</TableCell>
+                          <TableCell>{getExactDateTime(donation.createdAt)}</TableCell>
+                          <TableCell>{money(donation.amount)}</TableCell>
+                          <TableCell>{donation.currency}</TableCell>
+                          <TableCell>{donation.status}</TableCell>
+                          <TableCell>{donation.message}</TableCell>
+                        </TableRow>
+                      ))}
                   </TableBody>
+                  <TableFooter>
+                    <TableRow>
+                      <TablePagination
+                        rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                        count={data.length}
+                        rowsPerPage={rowsPerPage}
+                        page={page}
+                        SelectProps={{
+                          inputProps: {
+                            'aria-label': 'rows per page',
+                          },
+                          native: true,
+                        }}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                      />
+                    </TableRow>
+                  </TableFooter>
                 </Table>
               </TableContainer>
             ) : (
