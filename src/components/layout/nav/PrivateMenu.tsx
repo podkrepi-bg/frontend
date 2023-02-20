@@ -73,7 +73,7 @@ export default function PrivateMenu() {
       <IconButton onClick={handleMenu} size="medium">
         {session?.user?.picture ? (
           <Avatar
-            sx={{ width: 200, height: 200 }}
+            sx={{ width: '32px', height: '32px' }}
             title={title}
             alt={title}
             src={session?.user?.picture}

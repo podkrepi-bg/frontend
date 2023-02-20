@@ -64,8 +64,8 @@ export default function PublicMenu() {
         <Avatar
           sx={{
             bgcolor: theme.palette.success.light,
-            height: 200,
-            width: 200,
+            height: '32px',
+            width: '32px',
             fontSize: '1rem',
           }}
         />

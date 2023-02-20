@@ -1,5 +1,5 @@
-const path = '/avatars'
-const fileExtension = '.svg'
+const PATH = '/avatars'
+const FILE_EXTENSION = '.svg'
 
 export const assignRandomProfilePicture = () => {
   const avatars = [
@@ -14,6 +14,6 @@ export const assignRandomProfilePicture = () => {
     'avatar-squirrel-yellow',
   ]
   const randomIndex = Math.floor(Math.random() * avatars.length)
-  const constructedPath = (path + '/' + avatars[randomIndex] + fileExtension) as string
+  const constructedPath = (PATH + '/' + avatars[randomIndex] + FILE_EXTENSION) as string
   return constructedPath
 }
