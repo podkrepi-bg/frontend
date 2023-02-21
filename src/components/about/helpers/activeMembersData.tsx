@@ -73,7 +73,7 @@ export const data: TeamData[] = [
     linkedInProfile: 'https://www.linkedin.com/in/slavchoivanov/',
   },
   {
-    img: '/podkrepi-icon.png',
+    img: '/img/team-photos/HristiyanHristov.png',
     name: 'Християн Христов',
     description: 'Финанси',
     linkedInProfile: 'https://www.linkedin.com/in/християн-христов-hristiyan-hristov-433757238/',
