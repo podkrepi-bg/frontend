@@ -53,20 +53,20 @@ export default function PrivateMenu() {
   const { data: session, status } = useSession()
   const router = useRouter()
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
+  const { data: user } = useCurrentPerson()
 
   const handleMenu = (event: React.MouseEvent) => setAnchorEl(event.currentTarget)
   const handleClose = () => setAnchorEl(null)
+  const getAvatar = () => {
+    const person = user?.user
+    if (person?.picture) return person.picture as string
+  }
 
   if (!session) {
     return null
   }
 
   const title = `${session?.user?.name}\n(${session?.user?.email})`
-
-  const getAvatar = () => {
-    const { data: user } = useCurrentPerson()
-    if (user) return user.user.picture as string
-  }
 
   return (
     <StyledGrid item>
