@@ -9,7 +9,7 @@ import { routes } from 'common/routes'
 import { isAdmin } from 'common/util/roles'
 import LinkMenuItem from 'components/common/LinkMenuItem'
 import { useRouter } from 'next/router'
-import { getCurrentPerson } from 'common/util/useCurrentPerson'
+import { useCurrentPerson } from 'common/util/useCurrentPerson'
 
 const PREFIX = 'PrivateMenu'
 
@@ -64,7 +64,7 @@ export default function PrivateMenu() {
   const title = `${session?.user?.name}\n(${session?.user?.email})`
 
   const getAvatar = () => {
-    const { data: user } = getCurrentPerson(Boolean(router.query?.register))
+    const { data: user } = useCurrentPerson()
     if (user) return user.user.picture as string
   }
 
