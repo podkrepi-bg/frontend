@@ -51,7 +51,11 @@ export default function DonationWishes({ campaignId, pageSize = 12 }: Props) {
           />
           <Typography
             ref={titleRef}
-            sx={{ color: '#343434', fontSize: theme.typography.pxToRem(16), fontWeight: 500 }}>
+            sx={{
+              color: theme.palette.grey[800],
+              fontSize: theme.typography.pxToRem(16),
+              fontWeight: 500,
+            }}>
             {t('campaign.messages')}
           </Typography>
         </Stack>
@@ -80,7 +84,7 @@ export default function DonationWishes({ campaignId, pageSize = 12 }: Props) {
                       sx={{
                         fontWeight: 700,
                         fontSize: theme.typography.pxToRem(16),
-                        color: '#343434',
+                        color: theme.palette.grey[800],
                       }}>
                       {wish.person
                         ? wish.person.firstName + ' ' + wish.person.lastName
