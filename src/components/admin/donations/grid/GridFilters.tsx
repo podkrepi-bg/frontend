@@ -1,6 +1,6 @@
 import { Box, TextField } from '@mui/material'
 import Filter from './Filter'
-import { useStores } from './../../../common/hooks/useStores'
+import { useStores } from '../../../../common/hooks/useStores'
 import { observer } from 'mobx-react'
 import { DonationStatus, DonationType } from 'gql/donations.enums'
 import { DateTimePicker, enUS, LocalizationProvider } from '@mui/x-date-pickers'

@@ -9,7 +9,7 @@ import { Button, Grid, Typography } from '@mui/material'
 import Link from 'next/link'
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
-import FileUpload from 'components/file-upload/FileUpload'
+import FileUpload from 'components/common/file-upload/FileUpload'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
@@ -18,9 +18,9 @@ import {
   BankTransactionsFileType,
   FileType,
   UploadBankTransactionsFiles,
-} from 'components/bank-transactions-file/types'
+} from 'components/admin/bank-transactions-file/types'
 import { useUploadBankTransactionsFiles } from 'service/donation'
-import BankTransactionsFileList from 'components/file-upload/BankTransactionsFileList'
+import BankTransactionsFileList from 'components/common/file-upload/BankTransactionsFileList'
 import { BankTransactionsFileFormData, BankTransactionsUploadImage } from 'gql/donations'
 
 const validationSchema: yup.SchemaOf<BankTransactionsFileFormData> = yup.object().defined().shape({

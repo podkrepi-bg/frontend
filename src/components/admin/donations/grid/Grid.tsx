@@ -25,7 +25,7 @@ import { CampaignDonationHistoryResponse } from 'gql/campaigns'
 import { PersonResponse } from 'gql/person'
 import { usePersonList } from 'common/hooks/person'
 import RenderEditPersonCell from './RenderEditPersonCell'
-import { useStores } from './../../../common/hooks/useStores'
+import { useStores } from '../../../../common/hooks/useStores'
 
 interface RenderCellProps {
   params: GridRenderCellParams
