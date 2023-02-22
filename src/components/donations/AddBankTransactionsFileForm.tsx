@@ -52,7 +52,7 @@ export default function BankTransactionsFileForm({
   const [files, setFiles] = useState<File[]>([])
   const [types, setTypes] = useState<FileType[]>([])
   const [page, setPage] = useState(0)
-  const [rowsPerPage, setRowsPerPage] = useState(5)
+  const [rowsPerPage, setRowsPerPage] = useState(10)
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage)
   }
