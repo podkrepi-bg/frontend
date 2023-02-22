@@ -2,7 +2,7 @@ import React from 'react'
 import { useTranslation } from 'next-i18next'
 import { Container } from '@mui/material'
 
-import Layout from 'components/layout/Layout'
+import Layout from 'components/client/layout/Layout'
 
 import SupportForm from './SupportForm'
 
