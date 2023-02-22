@@ -1,6 +1,6 @@
 import { securedAdminProps } from 'middleware/auth/securedProps'
 import { endpoints } from 'service/apiEndpoints'
-import CountriesPage from 'components/countries/CountriesPage'
+import CountriesPage from 'components/admin/countries/CountriesPage'
 
 export const getServerSideProps = securedAdminProps(
   ['common', 'auth', 'validation', 'admin', 'countries'],

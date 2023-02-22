@@ -15,7 +15,7 @@ import { getExactDateTime, getRelativeDate } from 'common/util/date'
 import GridActions from './GridActions'
 import DeleteModal from './modals/DeleteModal'
 import DetailsModal from './modals/DetailsModal'
-import { BeneficiaryType } from 'components/beneficiary/BeneficiaryTypes'
+import { BeneficiaryType } from 'components/admin/beneficiary/BeneficiaryTypes'
 
 interface CampaignCellProps {
   params: GridRenderCellParams<AdminCampaignResponse, AdminCampaignResponse>

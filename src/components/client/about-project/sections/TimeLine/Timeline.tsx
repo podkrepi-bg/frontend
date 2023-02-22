@@ -5,9 +5,9 @@ import { useTranslation } from 'next-i18next'
 import { Grid } from '@mui/material'
 
 import TimelineItem from '../TimelineItem/TimelineItem'
-import { timelineData } from 'components/about-project/helpers/timelineData'
+import { timelineData } from 'components/client/about-project/helpers/timelineData'
 import { Root, TimelineMaterial } from './Timeline.styled'
-import { Heading } from 'components/about-project/AboutProject.styled'
+import { Heading } from 'components/client/about-project/AboutProject.styled'
 
 export default function Timeline() {
   const { t } = useTranslation('about-project')

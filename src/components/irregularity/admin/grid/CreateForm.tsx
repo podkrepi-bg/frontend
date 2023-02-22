@@ -22,7 +22,7 @@ import { AlertStore } from 'stores/AlertStore'
 import { Person } from 'gql/person'
 import { CampaignResponse } from 'gql/campaigns'
 
-import FileUpload from 'components/file-upload/FileUpload'
+import FileUpload from 'components/common/file-upload/FileUpload'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'

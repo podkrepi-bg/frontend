@@ -4,7 +4,7 @@ import { Box, CircularProgress, IconButton, ImageList, Typography } from '@mui/m
 import { useCampaignList } from 'common/hooks/campaigns'
 import CampaignsList from './CampaignsList'
 import { CampaignResponse } from 'gql/campaigns'
-import { CampaignTypeCategory } from 'components/campaign-types/categories'
+import { CampaignTypeCategory } from 'components/admin/campaign-types/categories'
 import { useTranslation } from 'next-i18next'
 import {
   Apartment,

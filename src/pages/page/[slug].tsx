@@ -2,7 +2,7 @@ import * as Sentry from '@sentry/nextjs'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import BlogPage from 'components/blog/BlogPage'
+import BlogPage from 'components/client/blog/BlogPage'
 import { createGhostClient } from 'common/util/ghost-client'
 
 export const getServerSideProps: GetServerSideProps = async ({ params, locale }) => {

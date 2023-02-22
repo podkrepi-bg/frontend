@@ -1,5 +1,5 @@
 import { securedAdminProps } from 'middleware/auth/securedProps'
-import BenefactorPage from 'components/benefactor/BenefactorPage'
+import BenefactorPage from 'components/admin/benefactor/BenefactorPage'
 import { endpoints } from 'service/apiEndpoints'
 
 export const getServerSideProps = securedAdminProps(

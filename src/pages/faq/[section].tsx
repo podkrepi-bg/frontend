@@ -1,7 +1,7 @@
-import FaqPage from '../../components/faq/FaqPage'
+import FaqPage from '../../components/client/faq/FaqPage'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { FaqCategory } from 'components/faq/contents/faq-categories.enum'
+import { FaqCategory } from 'components/client/faq/contents/faq-categories.enum'
 
 export const getStaticProps: GetStaticProps = async ({ locale, params }) => ({
   props: {

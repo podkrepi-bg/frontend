@@ -3,8 +3,8 @@ import { useTranslation } from 'next-i18next'
 import { Container } from '@mui/material'
 
 import Layout from 'components/client/layout/Layout'
-import ContactInfo from 'components/contact/ContactInfo'
-import ContactForm from 'components/contact/ContactForm'
+import ContactInfo from 'components/client/contact/ContactInfo'
+import ContactForm from 'components/client/contact/ContactForm'
 
 export default function ContactPage() {
   const { t } = useTranslation()

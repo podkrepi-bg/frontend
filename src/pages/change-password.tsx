@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import Page from 'components/auth/changePassword/ChangePasswordPage'
+import Page from 'components/client/auth/changePassword/ChangePasswordPage'
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   props: {

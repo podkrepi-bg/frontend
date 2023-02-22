@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@mui/material'
 
 import CampaignFilter from './CampaignFilter'
-import Layout from 'components/layout/Layout'
+import Layout from 'components/client/layout/Layout'
 
 import { styled } from '@mui/material/styles'
 

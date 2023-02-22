@@ -36,14 +36,18 @@ import { CampaignState } from '../helpers/campaign.enums'
 import CampaignTypeSelect from '../CampaignTypeSelect'
 import CoordinatorSelect from './CoordinatorSelect'
 import BeneficiarySelect from './BeneficiarySelect'
-import { CampaignFileRole, FileRole, UploadCampaignFiles } from 'components/campaign-file/roles'
-import FileList from 'components/file-upload/FileList'
-import FileUpload from 'components/file-upload/FileUpload'
+import {
+  CampaignFileRole,
+  FileRole,
+  UploadCampaignFiles,
+} from 'components/admin/campaign-file/roles'
+import FileList from 'components/common/file-upload/FileList'
+import FileUpload from 'components/common/file-upload/FileUpload'
 import CampaignStateSelect from '../CampaignStateSelect'
 import { endpoints } from 'service/apiEndpoints'
 import UploadedCampaignFile from './UploadedCampaignFile'
 import { fromMoney, toMoney } from 'common/util/money'
-import CurrencySelect from 'components/currency/CurrencySelect'
+import CurrencySelect from 'components/common/currency/CurrencySelect'
 import OrganizerSelect from './OrganizerSelect'
 import AllowDonationOnComplete from '../../common/form/AllowDonationOnComplete'
 

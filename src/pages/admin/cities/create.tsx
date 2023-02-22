@@ -1,4 +1,4 @@
-import CityCreatePage from 'components/cities/CityCreatePage'
+import CityCreatePage from 'components/admin/cities/CityCreatePage'
 import { securedPropsWithTranslation } from 'middleware/auth/securedProps'
 
 export const getServerSideProps = securedPropsWithTranslation([

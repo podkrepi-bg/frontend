@@ -5,14 +5,14 @@ import { styled, Theme, CSSObject } from '@mui/material/styles'
 import { IconButton, List, Box, Button, Typography } from '@mui/material'
 import { Notifications, Settings, MenuOpen, ChevronRight, GppGood } from '@mui/icons-material'
 
-import Snackbar from 'components/layout/Snackbar'
+import Snackbar from 'components/client/layout/Snackbar'
 
 import { items } from './adminMenu'
 import HoverMenu from './HoverMenu'
 import PanelFooter from './PanelFooter'
 import CustomListItem from './CustomListItem'
 import { AdminAppBar } from './AdminAppBar'
-import AdminMenu from 'components/layout/nav/AdminMenu'
+import AdminMenu from 'components/client/layout/nav/AdminMenu'
 
 const PREFIX = 'AdminLayout'
 const drawerWidth = 200

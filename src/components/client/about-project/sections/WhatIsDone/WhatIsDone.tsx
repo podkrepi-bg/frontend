@@ -9,14 +9,14 @@ import ExternalLink from 'components/common/ExternalLink'
 import {
   leftColumnLabels,
   rightColumnLabels,
-} from 'components/about-project/helpers/whatIsDoneData'
+} from 'components/client/about-project/helpers/whatIsDoneData'
 
 import ActivityIcon from '../../icons/ActivityIcon'
 import MeetingsIcon from '../../icons/MeetingsIcon'
 import VolunteersIcon from '../../icons/VolunteersIcon'
 import InvestedHoursIcon from '../../icons/InvestedHoursIcon'
 
-import { Heading } from 'components/about-project/AboutProject.styled'
+import { Heading } from 'components/client/about-project/AboutProject.styled'
 import { Checked, IconsWrapper, List, Root } from './WhatIsDone.styled'
 
 type CheckedLineProps = {

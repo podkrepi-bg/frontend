@@ -1,4 +1,4 @@
-import BeneficiaryPage from 'components/beneficiary/BeneficiaryPage'
+import BeneficiaryPage from 'components/admin/beneficiary/BeneficiaryPage'
 import { securedAdminProps } from 'middleware/auth/securedProps'
 import { endpoints } from 'service/apiEndpoints'
 

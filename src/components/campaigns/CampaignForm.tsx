@@ -13,13 +13,17 @@ import { Currency } from 'gql/currency'
 import { PersonFormData } from 'gql/person'
 import { AlertStore } from 'stores/AlertStore'
 import { createSlug } from 'common/util/createSlug'
-import FileList from 'components/file-upload/FileList'
-import PersonDialog from 'components/person/PersonDialog'
-import FileUpload from 'components/file-upload/FileUpload'
+import FileList from 'components/common/file-upload/FileList'
+import PersonDialog from 'components/admin/person/PersonDialog'
+import FileUpload from 'components/common/file-upload/FileUpload'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
-import { CampaignFileRole, FileRole, UploadCampaignFiles } from 'components/campaign-file/roles'
+import {
+  CampaignFileRole,
+  FileRole,
+  UploadCampaignFiles,
+} from 'components/admin/campaign-file/roles'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import { useCreateCampaign, useUploadCampaignFiles } from 'service/campaign'

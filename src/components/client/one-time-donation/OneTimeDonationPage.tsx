@@ -16,7 +16,7 @@ import CenteredSpinner from 'components/common/CenteredSpinner'
 import DonationStepper from './Steps'
 // import RadioAccordionGroup, { testRadioOptions } from 'components/donation-flow/common/RadioAccordionGroup'
 // import RadioCardGroup, { testRadioOptions } from 'components/donation-flow/common/RadioCardGroup'
-// import PaymentDetailsStripeForm from 'components/donations/stripe/PaymentDetailsStripeForm'
+// import PaymentDetailsStripeForm from 'components/admin/donations/stripe/PaymentDetailsStripeForm'
 
 const PREFIX = 'OneTimeDonationPage'
 

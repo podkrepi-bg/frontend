@@ -13,8 +13,8 @@ import { routes } from 'common/routes'
 import { Currency } from 'gql/currency'
 import { AlertStore } from 'stores/AlertStore'
 import { createSlug } from 'common/util/createSlug'
-import FileList from 'components/file-upload/FileList'
-import FileUpload from 'components/file-upload/FileUpload'
+import FileList from 'components/common/file-upload/FileList'
+import FileUpload from 'components/common/file-upload/FileUpload'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
@@ -27,7 +27,11 @@ const FormRichTextField = dynamic(() => import('components/common/form/FormRichT
 
 import { ApiErrors, handleUniqueViolation, isAxiosError, matchValidator } from 'service/apiErrors'
 import { useCreateCampaign, useUploadCampaignFiles } from 'service/campaign'
-import { CampaignFileRole, FileRole, UploadCampaignFiles } from 'components/campaign-file/roles'
+import {
+  CampaignFileRole,
+  FileRole,
+  UploadCampaignFiles,
+} from 'components/admin/campaign-file/roles'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 import {
   CampaignResponse,
@@ -41,7 +45,7 @@ import CoordinatorSelect from './CoordinatorSelect'
 import BeneficiarySelect from './BeneficiarySelect'
 import { CampaignState } from '../helpers/campaign.enums'
 import { toMoney } from 'common/util/money'
-import CurrencySelect from 'components/currency/CurrencySelect'
+import CurrencySelect from 'components/common/currency/CurrencySelect'
 import OrganizerSelect from './OrganizerSelect'
 import AllowDonationOnComplete from 'components/common/form/AllowDonationOnComplete'
 

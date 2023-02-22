@@ -6,7 +6,7 @@ import { useViewCampaign } from 'common/hooks/campaigns'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import theme from 'common/theme'
 import useMobile from 'common/hooks/useMobile'
-import Layout from 'components/layout/Layout'
+import Layout from 'components/client/layout/Layout'
 import CenteredSpinner from 'components/common/CenteredSpinner'
 
 import InlineDonation from './InlineDonation'

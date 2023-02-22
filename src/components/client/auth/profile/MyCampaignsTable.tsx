@@ -16,7 +16,7 @@ import {
   DisplayOrganizer,
   DisplayReachedAmount,
 } from 'components/campaigns/grid/CampaignGrid'
-import DetailsModal from '../../campaigns/grid/modals/DetailsModal'
+import DetailsModal from 'components/campaigns/grid/modals/DetailsModal'
 import ProfileTab from './ProfileTab'
 import { ProfileTabs } from './tabs'
 

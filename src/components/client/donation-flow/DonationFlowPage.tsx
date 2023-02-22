@@ -13,7 +13,7 @@ import Layout from 'components/client/layout/Layout'
 import { useViewCampaign } from 'common/hooks/campaigns'
 import CenteredSpinner from 'components/common/CenteredSpinner'
 // import RadioAccordionGroup, { testRadioOptions } from 'components/donation-flow/RadioAccordionGroup'
-// import PaymentDetailsStripeForm from 'components/donations/stripe/PaymentDetailsStripeForm'
+// import PaymentDetailsStripeForm from 'components/admin/donations/stripe/PaymentDetailsStripeForm'
 
 const PREFIX = 'OneTimeDonationPage'
 

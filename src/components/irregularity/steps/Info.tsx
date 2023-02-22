@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next'
 import { styled } from '@mui/material/styles'
 import { FormControl, Grid, Typography } from '@mui/material'
 
-import FileUpload from 'components/file-upload/FileUpload'
+import FileUpload from 'components/common/file-upload/FileUpload'
 import FormTextField from 'components/common/form/FormTextField'
 
 import Subtitle from '../helpers/Subtitle'

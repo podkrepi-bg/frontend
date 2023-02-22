@@ -1,4 +1,4 @@
-import EditPage from 'components/recurring-donation/EditPage'
+import EditPage from 'components/admin/recurring-donation/EditPage'
 import { securedAdminProps } from 'middleware/auth/securedProps'
 import { endpoints } from 'service/apiEndpoints'
 

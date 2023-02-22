@@ -20,7 +20,7 @@ import { Button, Grid, List, ListItemText } from '@mui/material'
 
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
-import FileUpload from 'components/file-upload/FileUpload'
+import FileUpload from 'components/common/file-upload/FileUpload'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'

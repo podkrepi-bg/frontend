@@ -7,7 +7,7 @@ import {
   PaperProps,
 } from '@mui/material'
 import DonationNotificationLayout from './DonationNotificationLayout'
-import { NotificationLayoutData } from 'components/layout/NotificationSnackBar/DonationNotificationLayout'
+import { NotificationLayoutData } from 'components/client/layout/NotificationSnackBar/DonationNotificationLayout'
 import notificationClient from 'common/util/notificationClient'
 
 function NotificationSnackBar({

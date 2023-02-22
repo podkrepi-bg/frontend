@@ -1,4 +1,4 @@
-import CoordinatorsPage from 'components/coordinators/CoordinatorsPage'
+import CoordinatorsPage from 'components/admin/coordinators/CoordinatorsPage'
 import { endpoints } from 'service/apiEndpoints'
 import { securedAdminProps } from 'middleware/auth/securedProps'
 
