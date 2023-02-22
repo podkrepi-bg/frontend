@@ -9,7 +9,7 @@ import {
   backgroundCampaignPictureUrl,
   beneficiaryCampaignPictureUrl,
 } from 'common/util/campaignImageUrls'
-import Layout from 'components/layout/Layout'
+import Layout from 'components/client/layout/Layout'
 import { useViewCampaign } from 'common/hooks/campaigns'
 import CenteredSpinner from 'components/common/CenteredSpinner'
 // import RadioAccordionGroup, { testRadioOptions } from 'components/donation-flow/RadioAccordionGroup'
