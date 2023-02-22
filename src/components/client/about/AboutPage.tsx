@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next'
 
-import Layout from 'components/layout/Layout'
+import Layout from 'components/client/layout/Layout'
 import ManagementBoardSection from './sections/ManagementBoardSection/ManagementBoardSection'
 import ActiveMembersSection from './sections/ActiveMembersSection/ActiveMembersSection'
 import SupervisoryBoardSection from './sections/SupervisoryBoardSection/SupervisoryBoardSection'

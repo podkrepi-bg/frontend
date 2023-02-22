@@ -13,7 +13,7 @@ import {
   LinkedInIcon,
   LinkedInText,
   TeamMemberName,
-} from 'components/about/AboutPage.styled'
+} from 'components/client/about/AboutPage.styled'
 
 export default function ActiveMembersSection() {
   const { t } = useTranslation('about')

@@ -11,7 +11,7 @@ import {
   LinkedInButton,
   LinkedInIcon,
   LinkedInText,
-} from 'components/about/AboutPage.styled'
+} from 'components/client/about/AboutPage.styled'
 import {
   SupervisoryBoardMembersWrapper,
   TeamMemberWrapper,

@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next'
 import { Grid, Typography } from '@mui/material'
 
 import { DiscordTeamImage } from './AboutTheTeamSection.styled'
-import { AboutHeading } from 'components/about/AboutPage.styled'
+import { AboutHeading } from 'components/client/about/AboutPage.styled'
 
 export default function AboutTheTeamSection() {
   const { t } = useTranslation('about')

@@ -7,7 +7,7 @@ import { Grid } from '@mui/material'
 import PrincipleCard from './PrincipleCard'
 import { principlesData } from '../../helpers/principlesData'
 
-import { AboutHeading } from 'components/about/AboutPage.styled'
+import { AboutHeading } from 'components/client/about/AboutPage.styled'
 
 export default function PrinciplesThatUniteUs() {
   const { t } = useTranslation('about')

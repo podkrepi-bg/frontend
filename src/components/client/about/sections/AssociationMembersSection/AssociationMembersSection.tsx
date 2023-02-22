@@ -2,45 +2,37 @@ import { useTranslation } from 'next-i18next'
 
 import { Grid } from '@mui/material'
 
-import { data } from '../../helpers/managementBoardData'
+import { data } from '../../helpers/associationMembersData'
 
+import { TeamMemberWrapper } from './AssociationMembersSection.styled'
 import {
-  ManagementBoardHeading,
-  ТeamMemberWrapper,
-  LinkedInButton,
-} from './ManagementBoardsection.styled'
-import {
+  AboutHeading,
   AboutWrapper,
   Avatar,
-  TeamMemberName,
+  LinkedInButton,
   LinkedInIcon,
   LinkedInText,
-} from 'components/about/AboutPage.styled'
-import { TeamMemberDescription } from './TeamMemberDescription'
+  TeamMemberName,
+} from 'components/client/about/AboutPage.styled'
 
-export default function ManagementBoardSection() {
+export default function AssociationMembersSection() {
   const { t } = useTranslation('about')
 
   return (
     <Grid component="section">
-      <ManagementBoardHeading variant="h4">
-        {t('about.management-board-members')}
-      </ManagementBoardHeading>
+      <AboutHeading variant="h4">{t('about.association-members')}</AboutHeading>
       <AboutWrapper>
         {data.map((teamMember) => (
-          <ТeamMemberWrapper key={teamMember.name}>
+          <TeamMemberWrapper key={teamMember.name}>
             <Avatar alt="Team member avatar" src={teamMember.img} width={200} height={200} />
-            <TeamMemberName variant="subtitle1" height={50}>
-              {teamMember.name}
-            </TeamMemberName>
-            <TeamMemberDescription description={teamMember.description} />
+            <TeamMemberName variant="subtitle1">{teamMember.name}</TeamMemberName>
             {teamMember.linkedInProfile ? (
               <LinkedInButton href={teamMember.linkedInProfile} target="_blank">
                 <LinkedInIcon color="action" fontSize="large" />
                 <LinkedInText variant="subtitle1">{t('about.linkedIn')}</LinkedInText>
               </LinkedInButton>
             ) : null}
-          </ТeamMemberWrapper>
+          </TeamMemberWrapper>
         ))}
       </AboutWrapper>
     </Grid>
