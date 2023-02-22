@@ -1,5 +1,5 @@
 import React from 'react'
-import { useMutation, UseQueryResult } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import Link from 'next/link'
@@ -8,15 +8,14 @@ import * as yup from 'yup'
 import { Box, Button, Grid, Typography } from '@mui/material'
 
 import { CityFormData, CityInput, CityResponse } from 'gql/cities'
-import { useCity } from 'common/hooks/cities'
 import { routes } from 'common/routes'
 import { ApiErrors, handleUniqueViolation } from 'service/apiErrors'
-import { useCreateCity, useEditCity } from 'service/city'
+import { useCreateCity } from 'service/city'
 import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
-import CountrySelect from 'components/countries/CountrySelect'
+import CountrySelect from 'components/admin/countries/CountrySelect'
 
 const validationSchema: yup.SchemaOf<CityFormData> = yup
   .object()
@@ -29,34 +28,32 @@ const validationSchema: yup.SchemaOf<CityFormData> = yup
 
 export default function EditForm() {
   const router = useRouter()
-  const id = String(router.query.id)
   const { t } = useTranslation()
-  const { data }: UseQueryResult<CityResponse> = useCity(String(id))
 
   const initialValues: CityInput = {
-    name: data?.name,
-    postalCode: data?.postalCode,
-    countryId: data?.countryId,
+    name: '',
+    postalCode: '',
+    countryId: '',
   }
+
+  const mutationFn = useCreateCity()
 
   const handleError = (e: AxiosError<ApiErrors>) => {
     const error = e.response
 
     if (error?.status === 409) {
-      const message = error.data.message.map((el) => handleUniqueViolation({ postalCode: '' }, t))
+      const message = error.data.message.map((el) => handleUniqueViolation(el.constraints, t))
       return AlertStore.show(message.join('/n'), 'error')
     }
 
     AlertStore.show(t('cities:alerts:error'), 'error')
   }
 
-  const mutationFn = id ? useEditCity(id) : useCreateCity()
-
   const mutation = useMutation<AxiosResponse<CityResponse>, AxiosError<ApiErrors>, CityInput>({
     mutationFn,
     onError: (error) => handleError(error),
     onSuccess: () => {
-      AlertStore.show(t('cities:alerts:edit'), 'success')
+      AlertStore.show(t('cities:alerts:create'), 'success')
       router.push(routes.admin.cities.home)
     },
   })
@@ -77,16 +74,16 @@ export default function EditForm() {
       validationSchema={validationSchema}>
       <Box sx={{ marginTop: '5%', height: '62.6vh' }}>
         <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
-          {id ? t('cities:edit-form-heading') : t('cities:form-heading')}
+          {t('cities:form-heading')}
         </Typography>
         <Grid container spacing={2} sx={{ width: 600, margin: '0 auto' }}>
           <Grid item xs={12}>
-            <FormTextField type="text" label="Cities: Име" name="name" autoComplete="name" />
+            <FormTextField type="text" label={t('cities:name')} name="name" autoComplete="name" />
           </Grid>
           <Grid item xs={12}>
             <FormTextField
               type="string"
-              label="Cities:Пощенски код"
+              label={t('cities:postalCode')}
               name="postalCode"
               autoComplete="postal-code"
             />
