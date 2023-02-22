@@ -40,7 +40,6 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.title}`]: {
     fontWeight: 700,
     fontSize: theme.typography.pxToRem(16),
-    fontFamily: "Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif",
     marginBottom: theme.spacing(1),
     width: '100%',
 
