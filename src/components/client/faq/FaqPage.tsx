@@ -3,7 +3,7 @@ import { Stack } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 import React, { useEffect, useMemo, useState } from 'react'
 
-import Layout from 'components/layout/Layout'
+import Layout from 'components/client/layout/Layout'
 
 import ContactUs from './ContactUs'
 import ScrollToTop from './ScrollToTop'
