@@ -16,10 +16,10 @@ import { useViewExpense } from 'common/hooks/expenses'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import DeletedCheckbox from 'components/common/DeletedCheckbox'
-import CurrencySelect from 'components/currency/CurrencySelect'
+import CurrencySelect from 'components/common/currency/CurrencySelect'
 import FormTextField from 'components/common/form/FormTextField'
 import { useCreateExpense, useEditExpense } from 'service/expense'
-import DocumentSelect from 'components/documents/grid/DocumentSelect'
+import DocumentSelect from 'components/admin/documents/grid/DocumentSelect'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
 import { ExpenseInput, ExpenseResponse, ExpenseStatus, ExpenseType } from 'gql/expenses'
 
@@ -27,7 +27,7 @@ import VaultSelect from '../vaults/VaultSelect'
 import ExpenseTypeSelect from './ExpenseTypeSelect'
 import ExpenseStatusSelect from './ExpenseStatusSelect'
 import { useVaultsList } from 'common/hooks/vaults'
-import PersonSelect from 'components/person/PersonSelect'
+import PersonSelect from 'components/admin/person/PersonSelect'
 
 const validTypes = Object.keys(ExpenseType)
 const validStatuses = Object.keys(ExpenseStatus)
