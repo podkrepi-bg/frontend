@@ -2,7 +2,7 @@ import { PropsWithChildren, ReactChildren } from 'react'
 import { Box, Grid, Typography } from '@mui/material'
 
 import Link from 'components/common/Link'
-import Layout from 'components/layout/Layout'
+import Layout from 'components/client/layout/Layout'
 import ExternalLink from 'components/common/ExternalLink'
 
 export interface TitleProps {
