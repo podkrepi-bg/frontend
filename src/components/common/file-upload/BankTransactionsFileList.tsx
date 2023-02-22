@@ -14,7 +14,7 @@ import {
 } from '@mui/material'
 import { SelectChangeEvent } from '@mui/material/Select'
 
-import { BankTransactionsFileType, FileType } from 'components/bank-transactions-file/types'
+import { BankTransactionsFileType, FileType } from 'components/admin/bank-transactions-file/types'
 
 type Props = {
   files: File[]

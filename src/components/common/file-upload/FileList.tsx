@@ -14,7 +14,7 @@ import {
 } from '@mui/material'
 import { SelectChangeEvent } from '@mui/material/Select'
 
-import { CampaignFileRole, FileRole } from 'components/campaign-file/roles'
+import { CampaignFileRole, FileRole } from 'components/admin/campaign-file/roles'
 
 type Props = {
   files: File[]
