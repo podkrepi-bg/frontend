@@ -4,7 +4,7 @@ import { Grid, Typography } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 
 import { routes } from 'common/routes'
-import Layout from 'components/layout/Layout'
+import Layout from 'components/client/layout/Layout'
 import LinkButton from 'components/common/LinkButton'
 
 import NotFoundIllustration from './assets/NotFoundIllustration'
