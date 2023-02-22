@@ -1,5 +1,5 @@
 import { securedAdminProps } from 'middleware/auth/securedProps'
-import TransferPage from 'components/transfers/TransferPage'
+import TransferPage from 'components/admin/transfers/TransferPage'
 import { endpoints } from 'service/apiEndpoints'
 
 export const getServerSideProps = securedAdminProps(

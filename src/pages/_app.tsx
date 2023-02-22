@@ -19,11 +19,11 @@ import 'styles/global.scss'
 
 import { Provider } from 'mobx-react'
 import { stores } from 'stores/DomainStores/stores'
-import NotificationSnackBar from 'components/layout/NotificationSnackBar/NotificationSnackBar'
+import NotificationSnackBar from 'components/client/layout/NotificationSnackBar/NotificationSnackBar'
 import {
   globalSnackbarProps,
   globalSnackbarContentProps,
-} from 'components/layout/NotificationSnackBar/props/global'
+} from 'components/client/layout/NotificationSnackBar/props/global'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()

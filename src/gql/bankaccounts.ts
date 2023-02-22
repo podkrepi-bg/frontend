@@ -1,4 +1,7 @@
-import { BankAccountStatus, AccountHolderType } from 'components/bankaccounts/BankAccountTypes'
+import {
+  BankAccountStatus,
+  AccountHolderType,
+} from 'components/admin/bankaccounts/BankAccountTypes'
 import { UUID } from './types'
 export type BankAccountResponse = {
   id: UUID

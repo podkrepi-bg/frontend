@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { dehydrate, QueryClient } from '@tanstack/react-query'
 
-import CampaignsPage from 'components/campaigns/CampaignsPage'
+import CampaignsPage from 'components/client/campaigns/CampaignsPage'
 import { campaignsOrderQueryFunction } from 'common/hooks/campaigns'
 import { prefetchCampaignTypesList } from 'service/campaignTypes'
 import { endpoints } from 'service/apiEndpoints'

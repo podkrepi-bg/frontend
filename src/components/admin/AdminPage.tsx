@@ -5,10 +5,9 @@ import { useSession } from 'next-auth/react'
 import { Box, Card, CardActionArea, CardContent, Grid, Typography } from '@mui/material'
 
 import { isAdmin } from 'common/util/roles'
-import AdminLayout from 'components/admin/navigation/AdminLayout'
-
-import { adminCards } from './navigation/adminMenu'
-import AdminContainer from './navigation/AdminContainer'
+import AdminLayout from 'components/common/navigation/AdminLayout'
+import { adminCards } from 'components/common/navigation/adminMenu'
+import AdminContainer from 'components/common/navigation/AdminContainer'
 
 export default function AdminPage() {
   const { t } = useTranslation()

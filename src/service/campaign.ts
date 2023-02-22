@@ -4,7 +4,7 @@ import { AxiosResponse } from 'axios'
 import { apiClient } from 'service/apiClient'
 import { authConfig } from 'service/restRequests'
 import { endpoints } from 'service/apiEndpoints'
-import { UploadCampaignFiles } from 'components/campaign-file/roles'
+import { UploadCampaignFiles } from 'components/common/campaign-file/roles'
 import { CampaignResponse, CampaignInput, CampaignUploadImage, CampaignFile } from 'gql/campaigns'
 import { Session } from 'next-auth'
 

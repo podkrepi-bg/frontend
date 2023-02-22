@@ -1,4 +1,4 @@
-import BankAccountsPage from 'components/bankaccounts/BankAccountsPage'
+import BankAccountsPage from 'components/admin/bankaccounts/BankAccountsPage'
 import { securedAdminProps } from 'middleware/auth/securedProps'
 import { endpoints } from 'service/apiEndpoints'
 

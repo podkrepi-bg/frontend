@@ -18,7 +18,7 @@ import {
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
 import { authConfig } from 'service/restRequests'
-import { UploadBankTransactionsFiles } from 'components/bank-transactions-file/types'
+import { UploadBankTransactionsFiles } from 'components/admin/bank-transactions-file/types'
 
 export const createCheckoutSession = async (data: CheckoutSessionInput) => {
   return await apiClient.post<CheckoutSessionInput, AxiosResponse<CheckoutSessionResponse>>(
