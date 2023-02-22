@@ -164,11 +164,11 @@ export type BankTransactionsFileFormData = {
   bankTransactionsFileId: string
 }
 
-export type BankImportStatus = {
+export type BankImportResult = {
   status: string
   message?: string
   amount: number
   currency: string
-  createdAt: string
+  createdAt: Date
   extPaymentIntentId: string
 }

@@ -30,7 +30,7 @@ import {
 } from 'components/bank-transactions-file/types'
 import { useUploadBankTransactionsFiles } from 'service/donation'
 import BankTransactionsFileList from 'components/file-upload/BankTransactionsFileList'
-import { BankImportStatus, BankTransactionsFileFormData } from 'gql/donations'
+import { BankImportResult, BankTransactionsFileFormData } from 'gql/donations'
 import { TableBody, TableHead, TableRow } from '@mui/material'
 import { getExactDateTime } from 'common/util/date'
 import { money } from 'common/util/money'
@@ -42,7 +42,7 @@ const defaults: BankTransactionsFileFormData = {
   bankTransactionsFileId: '',
 }
 
-let data: BankImportStatus[] = []
+let bankImportResults: BankImportResult[] = []
 
 export type BankTransactionsFileFormProps = { initialValues?: BankTransactionsFileFormData }
 
@@ -65,7 +65,7 @@ export default function BankTransactionsFileForm({
   const { t } = useTranslation()
 
   const fileUploadMutation = useMutation<
-    AxiosResponse<BankImportStatus[]>,
+    AxiosResponse<BankImportResult[]>,
     AxiosError<ApiErrors>,
     UploadBankTransactionsFiles
   >({
@@ -84,7 +84,7 @@ export default function BankTransactionsFileForm({
         types,
         bankTransactionsFileId: values.bankTransactionsFileId,
       })
-      data = response.data
+      bankImportResults = response.data
     } catch (error) {
       console.error(error)
       if (isAxiosError(error)) {
@@ -116,7 +116,7 @@ export default function BankTransactionsFileForm({
         validationSchema={validationSchema}>
         <Grid container spacing={3}>
           <Grid item xs={18}>
-            {data?.length ? (
+            {bankImportResults?.length ? (
               <TableContainer>
                 <Table sx={{ minWidth: 650, backgroundColor: 'white' }} aria-label="simple table">
                   <TableHead>
@@ -130,7 +130,7 @@ export default function BankTransactionsFileForm({
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {data
+                    {bankImportResults
                       .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                       .map((donation, index) => (
                         <TableRow
@@ -149,7 +149,7 @@ export default function BankTransactionsFileForm({
                     <TableRow>
                       <TablePagination
                         rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                        count={data.length}
+                        count={bankImportResults.length}
                         rowsPerPage={rowsPerPage}
                         page={page}
                         SelectProps={{
