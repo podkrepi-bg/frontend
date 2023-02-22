@@ -1,5 +1,5 @@
 import { securedAdminProps } from 'middleware/auth/securedProps'
-import WithdrawalsPage from 'components/withdrawals/WithdrawalPage'
+import WithdrawalsPage from 'components/admin/withdrawals/WithdrawalPage'
 import { endpoints } from 'service/apiEndpoints'
 
 export const getServerSideProps = securedAdminProps(

@@ -1,4 +1,4 @@
-import RecurringDonationPage from 'components/recurring-donation/RecurringDonationPage'
+import RecurringDonationPage from 'components/admin/recurring-donation/RecurringDonationPage'
 import { securedAdminProps } from 'middleware/auth/securedProps'
 import { endpoints } from 'service/apiEndpoints'
 

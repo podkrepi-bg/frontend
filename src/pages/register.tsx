@@ -3,7 +3,7 @@ import { getProviders } from 'next-auth/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { routes } from 'common/routes'
-import RegisterPage from 'components/auth/register/RegisterPage'
+import RegisterPage from 'components/client/auth/register/RegisterPage'
 import { getServerSession } from 'next-auth'
 import { authOptions } from './api/auth/[...nextauth]'
 

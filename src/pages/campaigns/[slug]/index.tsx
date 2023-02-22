@@ -2,7 +2,7 @@ import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import ViewCampaignPage from 'components/campaigns/ViewCampaignPage'
+import ViewCampaignPage from 'components/client/campaigns/ViewCampaignPage'
 import { endpoints } from 'service/apiEndpoints'
 import { CampaignResponse } from 'gql/campaigns'
 import { queryFnFactory } from 'service/restRequests'

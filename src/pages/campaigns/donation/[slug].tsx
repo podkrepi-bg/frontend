@@ -2,7 +2,7 @@ import { QueryClient, dehydrate } from '@tanstack/react-query'
 import { GetServerSideProps, GetServerSidePropsContext } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import OneTimeDonation from 'components/one-time-donation/OneTimeDonationPage'
+import OneTimeDonation from 'components/client/one-time-donation/OneTimeDonationPage'
 import { endpoints } from 'service/apiEndpoints'
 import { queryFnFactory } from 'service/restRequests'
 import { CampaignResponse } from 'gql/campaigns'

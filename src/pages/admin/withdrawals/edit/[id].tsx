@@ -1,5 +1,5 @@
 import { securedAdminProps } from 'middleware/auth/securedProps'
-import EditPage from 'components/withdrawals/EditPage'
+import EditPage from 'components/admin/withdrawals/EditPage'
 import { endpoints } from 'service/apiEndpoints'
 
 export const getServerSideProps = securedAdminProps(

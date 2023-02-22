@@ -1,5 +1,5 @@
 import { securedAdminProps } from 'middleware/auth/securedProps'
-import BankAccountsEditPage from 'components/bankaccounts/BankAccountsEditPage'
+import BankAccountsEditPage from 'components/admin/bankaccounts/BankAccountsEditPage'
 import { endpoints } from 'service/apiEndpoints'
 
 export const getServerSideProps = securedAdminProps(

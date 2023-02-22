@@ -3,7 +3,7 @@ import { VaultResponse } from './vault'
 import { Currency } from '././currency'
 import { PersonResponse } from './person'
 import { CampaignResponse } from './campaigns'
-import { TransferStatus } from 'components/transfers/TransferTypes'
+import { TransferStatus } from 'components/admin/transfers/TransferTypes'
 
 export type TransferInput = {
   status: string
