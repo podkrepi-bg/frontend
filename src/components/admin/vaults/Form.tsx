@@ -18,7 +18,7 @@ import { AlertStore } from 'stores/AlertStore'
 import GenericForm from 'components/common/form/GenericForm'
 import FormTextField from 'components/common/form/FormTextField'
 import SubmitButton from 'components/common/form/SubmitButton'
-import CurrencySelect from 'components/currency/CurrencySelect'
+import CurrencySelect from 'components/common/currency/CurrencySelect'
 
 const validCurrencies = Object.keys(Currency)
 
