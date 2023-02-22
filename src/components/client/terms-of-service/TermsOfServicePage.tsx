@@ -1,7 +1,7 @@
 import { PropsWithChildren, ReactChildren } from 'react'
 
 import { Box, Typography } from '@mui/material'
-import Layout from 'components/layout/Layout'
+import Layout from 'components/client/layout/Layout'
 export interface TitleProps {
   children: ReactChildren | string
 }
