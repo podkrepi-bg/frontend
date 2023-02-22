@@ -42,7 +42,6 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 
   [`& .${classes.campaignTitle}`]: {
-    fontFamily: "Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif",
     fontSize: theme.typography.pxToRem(45),
     letterSpacing: '-1.5px',
   },
