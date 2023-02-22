@@ -11,7 +11,7 @@ import {
   DisplayCoordinator,
   DisplayOrganizer,
   DisplayReachedAmount,
-} from 'components/campaigns/grid/CampaignGrid'
+} from 'components/admin/campaigns/grid/CampaignGrid'
 
 export default function MyDonatedToCampaignTable() {
   const { t, i18n } = useTranslation()

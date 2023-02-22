@@ -22,9 +22,9 @@ import { TransferData, TransferInput, TransferResponse } from 'gql/transfer'
 
 import SelectDate from './custom/SelectDate'
 import { TransferStatus } from './TransferTypes'
-import CampaignSelect from '../../campaigns/CampaignSelect'
+import CampaignSelect from '../../client/campaigns/CampaignSelect'
 import { useVaultsList } from 'common/hooks/vaults'
-import PersonSelect from 'components/admin/person/PersonSelect'
+import PersonSelect from 'components/common/person/PersonSelect'
 import { fromMoney, toMoney } from 'common/util/money'
 
 type Props = {

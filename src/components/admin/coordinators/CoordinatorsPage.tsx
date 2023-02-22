@@ -1,5 +1,5 @@
-import AdminLayout from 'components/admin/navigation/AdminLayout'
-import AdminContainer from 'components/admin/navigation/AdminContainer'
+import AdminLayout from 'components/common/navigation/AdminLayout'
+import AdminContainer from 'components/common/navigation/AdminContainer'
 import { ModalStoreImpl } from 'stores/dashboard/ModalStore'
 
 import CoordinatorsGrid from './grid/CoordinatorsGrid'

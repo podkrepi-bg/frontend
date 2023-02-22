@@ -1,8 +1,8 @@
 import { useTranslation } from 'next-i18next'
 
 import { useCountry } from 'common/hooks/countries'
-import AdminLayout from 'components/admin/navigation/AdminLayout'
-import AdminContainer from 'components/admin/navigation/AdminContainer'
+import AdminLayout from 'components/common/navigation/AdminLayout'
+import AdminContainer from 'components/common/navigation/AdminContainer'
 
 import HeadingSeparator from './HeadingSeparator'
 import CountryForm from './CountryForm'

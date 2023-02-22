@@ -25,7 +25,7 @@ import { TransferData, TransferInput, TransferResponse } from 'gql/transfer'
 import SelectDate from './custom/SelectDate'
 import { TransferStatus } from './TransferTypes'
 import TransferStatusSelect from './TransferStatusSelect'
-import CampaignSelect from '../../campaigns/CampaignSelect'
+import CampaignSelect from '../../client/campaigns/CampaignSelect'
 import { fromMoney, toMoney } from 'common/util/money'
 
 const dateParser = (date: Date | undefined) => {

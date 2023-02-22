@@ -4,8 +4,8 @@ import { UseQueryResult } from '@tanstack/react-query'
 
 import { CampaignResponse } from 'gql/campaigns'
 import { useCampaignList } from 'common/hooks/campaigns'
-import AdminLayout from 'components/admin/navigation/AdminLayout'
-import AdminContainer from 'components/admin/navigation/AdminContainer'
+import AdminLayout from 'components/common/navigation/AdminLayout'
+import AdminContainer from 'components/common/navigation/AdminContainer'
 
 import CreateForm from './CreateForm'
 

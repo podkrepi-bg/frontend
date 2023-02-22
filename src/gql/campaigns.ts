@@ -1,9 +1,9 @@
 import { UUID } from './types'
-import type { CampaignFileRole } from 'components/admin/campaign-file/roles'
-import type { CampaignTypeCategory } from 'components/admin/campaign-types/categories'
+import type { CampaignFileRole } from 'components/common/campaign-file/roles'
+import type { CampaignTypeCategory } from 'components/common/campaign-types/categories'
 import { Currency } from './currency'
 import { PaymentProvider } from './donations.enums'
-import { CampaignState } from 'components/campaigns/helpers/campaign.enums'
+import { CampaignState } from 'components/client/campaigns/helpers/campaign.enums'
 import { BeneficiaryType } from '../components/admin/beneficiary/BeneficiaryTypes'
 import { VaultResponse } from './vault'
 

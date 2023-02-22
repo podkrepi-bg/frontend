@@ -27,7 +27,7 @@ import VaultSelect from '../vaults/VaultSelect'
 import ExpenseTypeSelect from './ExpenseTypeSelect'
 import ExpenseStatusSelect from './ExpenseStatusSelect'
 import { useVaultsList } from 'common/hooks/vaults'
-import PersonSelect from 'components/admin/person/PersonSelect'
+import PersonSelect from 'components/common/person/PersonSelect'
 
 const validTypes = Object.keys(ExpenseType)
 const validStatuses = Object.keys(ExpenseStatus)

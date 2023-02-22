@@ -7,7 +7,7 @@ import { getExactDateTime, getRelativeDate } from 'common/util/date'
 import { money } from 'common/util/money'
 import { useGetUserCampaigns } from 'common/hooks/campaigns'
 import Link from 'components/common/Link'
-import GridActions from 'components/campaigns/grid/GridActions'
+import GridActions from 'components/admin/campaigns/grid/GridActions'
 import {
   DisplayBeneficiary,
   DisplayBlockedAmount,
@@ -15,8 +15,8 @@ import {
   DisplayCurrentAmount,
   DisplayOrganizer,
   DisplayReachedAmount,
-} from 'components/campaigns/grid/CampaignGrid'
-import DetailsModal from 'components/campaigns/grid/modals/DetailsModal'
+} from 'components/admin/campaigns/grid/CampaignGrid'
+import DetailsModal from 'components/admin/campaigns/grid/modals/DetailsModal'
 import ProfileTab from './ProfileTab'
 import { ProfileTabs } from './tabs'
 

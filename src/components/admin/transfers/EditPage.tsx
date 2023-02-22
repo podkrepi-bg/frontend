@@ -7,8 +7,8 @@ import { TransferResponse } from 'gql/transfer'
 import { CampaignResponse } from 'gql/campaigns'
 import { useTransfer } from 'common/hooks/transfers'
 import { useCampaignList } from 'common/hooks/campaigns'
-import AdminLayout from 'components/admin/navigation/AdminLayout'
-import AdminContainer from 'components/admin/navigation/AdminContainer'
+import AdminLayout from 'components/common/navigation/AdminLayout'
+import AdminContainer from 'components/common/navigation/AdminContainer'
 
 import EditForm from './EditForm'
 

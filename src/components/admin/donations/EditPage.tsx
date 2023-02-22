@@ -1,8 +1,8 @@
 import { useTranslation } from 'next-i18next'
 import { Container } from '@mui/material'
 
-import AdminContainer from 'components/admin/navigation/AdminContainer'
-import AdminLayout from 'components/admin/navigation/AdminLayout'
+import AdminContainer from 'components/common/navigation/AdminContainer'
+import AdminLayout from 'components/common/navigation/AdminLayout'
 
 import Form from './Form'
 
