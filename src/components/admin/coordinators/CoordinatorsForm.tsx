@@ -13,7 +13,7 @@ import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import { CoorinatorInput, CoordinatorResponse } from 'gql/coordinators'
 
-import PersonSelect from 'components/person/PersonSelect'
+import PersonSelect from 'components/admin/person/PersonSelect'
 
 export default function CoordinatorsForm() {
   const { t } = useTranslation()
