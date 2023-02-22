@@ -15,7 +15,7 @@ import theme from 'common/theme'
 
 import { baseUrl, routes } from 'common/routes'
 import Link from 'components/common/Link'
-import Layout from 'components/layout/Layout'
+import Layout from 'components/client/layout/Layout'
 
 import ReadingTime from './ReadingTime'
 import DateCreated from './DateCreated'

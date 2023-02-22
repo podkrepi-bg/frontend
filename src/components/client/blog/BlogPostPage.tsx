@@ -3,8 +3,8 @@ import { PostOrPage } from '@tryghost/content-api'
 import { Container, Typography, Unstable_Grid2 as Grid2 } from '@mui/material'
 
 import { baseUrl, routes } from 'common/routes'
-import Layout from 'components/layout/Layout'
-import BackButton from 'components/navigation/BackButton'
+import Layout from 'components/client/layout/Layout'
+import BackButton from 'components/common/navigation/BackButton'
 
 import ReadingTime from './ReadingTime'
 import DateCreated from './DateCreated'
@@ -12,44 +12,45 @@ import FeaturedImage from './FeaturedImage'
 import RenderContent from './RenderContent'
 
 type Props = {
-  page: PostOrPage
+  post: PostOrPage
+  referer: string | null
 }
-export default function BlogPage({ page }: Props) {
+export default function BlogPostPage({ post, referer }: Props) {
   return (
     <Layout
-      canonicalUrl={`${baseUrl}${routes.blog.pageBySlug(page.slug)}`}
-      metaTitle={page.title}
-      metaDescription={page.excerpt}
-      ogImage={page.og_image ?? undefined}>
+      canonicalUrl={`${baseUrl}${routes.blog.postBySlug(post.slug)}`}
+      metaTitle={post.title}
+      metaDescription={post.excerpt}
+      ogImage={post.og_image ?? undefined}>
       <Container maxWidth="lg">
         <Grid2 container spacing={2}>
-          <Grid2 xs={12} xsOffset={0} sx={{ pl: 4 }}>
-            <BackButton href={routes.blog.index} />
+          <Grid2 xs={12} xsOffset={0}>
+            <BackButton href={referer ?? routes.blog.index} />
           </Grid2>
           <Grid2 xs={12}>
             <Typography paragraph variant="h3" component="h1" align="center">
-              {page.title}
+              {post.title}
             </Typography>
           </Grid2>
           <Grid2 xs={10} xsOffset={1} textAlign="center">
-            <DateCreated showLabel createdAt={page.created_at} />
-            <ReadingTime showLabel readingTime={page.reading_time} />
+            <DateCreated showLabel createdAt={post.created_at} />
+            <ReadingTime showLabel readingTime={post.reading_time} />
           </Grid2>
           <Grid2 xs={10} xsOffset={1}>
             <FeaturedImage
               priority
               sizes="33vw"
               height="25rem"
-              src={page.feature_image}
-              alt={page.feature_image_alt ?? page.title ?? ''}
-              title={page.feature_image_caption ?? page.title}
+              src={post.feature_image}
+              alt={post.feature_image_alt ?? post.title ?? ''}
+              title={post.feature_image_caption ?? post.title}
             />
           </Grid2>
-          <Grid2 xs={12} sm={10} xsOffset={1}>
-            <RenderContent html={page.html} />
+          <Grid2 xs={12} sm={10} smOffset={1}>
+            <RenderContent html={post.html} />
           </Grid2>
           <Grid2 xs={12} textAlign="center">
-            <BackButton href={routes.index} />
+            <BackButton href={referer ?? routes.blog.index} />
           </Grid2>
         </Grid2>
       </Container>
