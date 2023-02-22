@@ -115,9 +115,76 @@ export default function BankTransactionsFileForm({
         initialValues={initialValues}
         validationSchema={validationSchema}>
         <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <FormTextField
+              type="text"
+              label={t('donations:bankTransactionsFileId')}
+              name="bankTransactionsFileId"
+              autoComplete="bankTransactionsFileId"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <FileUpload
+              onUpload={(newFiles) => {
+                setFiles((prevFiles) => [...prevFiles, ...newFiles])
+                setTypes((prevTypes) => [
+                  ...prevTypes,
+                  ...newFiles.map((file) => ({
+                    file: file.name,
+                    type: BankTransactionsFileType.xml,
+                  })),
+                ])
+              }}
+              buttonLabel={t('donations:addFiles')}
+            />
+            <BankTransactionsFileList
+              filesType={types}
+              files={files}
+              onDelete={(deletedFile) =>
+                setFiles((prevFiles) => prevFiles.filter((file) => file.name !== deletedFile.name))
+              }
+              onSetFileType={(file, type) => {
+                setTypes((prevTypes) => [
+                  ...prevTypes.filter((f) => f.file !== file.name),
+                  { file: file.name, type },
+                ])
+              }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <SubmitButton
+              fullWidth
+              label="donations:cta.submit"
+              loading={fileUploadMutation.isLoading}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Link href={routes.admin.campaigns.index} passHref>
+              <Button fullWidth={true}>{t('donations:cta:cancel')}</Button>
+            </Link>
+          </Grid>
           <Grid item xs={18}>
             {bankImportResults?.length ? (
               <TableContainer>
+                <Typography
+                  variant="h5"
+                  sx={(theme) => ({
+                    mb: 5,
+                    color: theme.palette.primary.dark,
+                    textAlign: 'center',
+                  })}>
+                  {t('donations:bankImprotResults')}
+                </Typography>
+                <Typography
+                  variant="subtitle1"
+                  sx={(theme) => ({
+                    mb: 1,
+                    mt: -2,
+                    color: theme.palette.primary.dark,
+                    textAlign: 'center',
+                  })}>
+                  {t('donations:bankImprotResultsSubtitle')}
+                </Typography>
                 <Table sx={{ minWidth: 650, backgroundColor: 'white' }} aria-label="simple table">
                   <TableHead>
                     <TableRow>
@@ -169,52 +236,6 @@ export default function BankTransactionsFileForm({
               <Box />
             )}
           </Grid>
-          <Grid item xs={12}>
-            <FormTextField
-              type="text"
-              label={t('donations:bankTransactionsFileId')}
-              name="bankTransactionsFileId"
-              autoComplete="bankTransactionsFileId"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FileUpload
-              onUpload={(newFiles) => {
-                setFiles((prevFiles) => [...prevFiles, ...newFiles])
-                setTypes((prevTypes) => [
-                  ...prevTypes,
-                  ...newFiles.map((file) => ({
-                    file: file.name,
-                    type: BankTransactionsFileType.xml,
-                  })),
-                ])
-              }}
-              buttonLabel={t('donations:addFiles')}
-            />
-            <BankTransactionsFileList
-              filesType={types}
-              files={files}
-              onDelete={(deletedFile) =>
-                setFiles((prevFiles) => prevFiles.filter((file) => file.name !== deletedFile.name))
-              }
-              onSetFileType={(file, type) => {
-                setTypes((prevTypes) => [
-                  ...prevTypes.filter((f) => f.file !== file.name),
-                  { file: file.name, type },
-                ])
-              }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <SubmitButton
-              fullWidth
-              label="donations:cta.submit"
-              loading={fileUploadMutation.isLoading}
-            />
-          </Grid>
-          <Link href={routes.admin.campaigns.index} passHref>
-            <Button fullWidth={true}>{t('donations:cta:cancel')}</Button>
-          </Link>
         </Grid>
       </GenericForm>
     </Grid>
