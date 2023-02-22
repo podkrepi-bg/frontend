@@ -5,7 +5,7 @@ import { UseQueryResult } from '@tanstack/react-query'
 
 import AdminContainer from 'components/admin/navigation/AdminContainer'
 import AdminLayout from 'components/admin/navigation/AdminLayout'
-import NotFoundIllustration from 'components/errors/assets/NotFoundIllustration'
+import NotFoundIllustration from 'components/common/errors/assets/NotFoundIllustration'
 import { useRecurringDonation } from 'common/hooks/recurringDonation'
 import { RecurringDonationResponse } from 'gql/recurring-donation'
 import Form from './Form'
