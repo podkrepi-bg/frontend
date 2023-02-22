@@ -7,7 +7,7 @@ import useScrollTrigger from '@mui/material/useScrollTrigger'
 import { AppBar, Toolbar, IconButton, Grid, Hidden, ButtonBase } from '@mui/material'
 
 import { routes } from 'common/routes'
-import PodkrepiLogo from 'components/brand/PodkrepiLogo'
+import PodkrepiLogo from 'components/common/brand/PodkrepiLogo'
 
 import LocaleButton from './LocaleButton'
 import PublicMenu from './nav/PublicMenu'

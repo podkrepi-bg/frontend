@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { SwipeableDrawer, Hidden, Grid } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 
-import PodkrepiLogo from 'components/brand/PodkrepiLogo'
+import PodkrepiLogo from 'components/common/brand/PodkrepiLogo'
 import LocaleButton from '../../LocaleButton'
 import DonationMenuMobile from '../DonationMenuMobile'
 import ProjectMenuMobile from '../ProjectMenuMobile'

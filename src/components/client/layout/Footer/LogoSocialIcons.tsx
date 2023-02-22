@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Grid } from '@mui/material'
 
 import { routes } from 'common/routes'
-import PodkrepiLogo from 'components/brand/PodkrepiLogo'
+import PodkrepiLogo from 'components/common/brand/PodkrepiLogo'
 import { SocialIcons } from './SocialIcons'
 
 export const LogoSocialIcons = () => {

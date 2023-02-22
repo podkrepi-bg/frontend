@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles'
 
 import theme from 'common/theme'
 import CloseModalButton from 'components/common/CloseModalButton'
-import Grid from 'components/recurring-donation/grid/Grid'
+import Grid from 'components/admin/recurring-donation/grid/Grid'
 import LinkButton from 'components/common/LinkButton'
 
 export const CloseButton = styled(CloseModalButton)(() => ({
