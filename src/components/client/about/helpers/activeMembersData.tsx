@@ -37,34 +37,10 @@ export const data: TeamData[] = [
     linkedInProfile: 'https://www.linkedin.com/in/neli-radkova-8771041b6/',
   },
   {
-    img: '/img/team-photos/GeorgiIvanov.jpg',
-    name: 'Георги Иванов',
-    description: 'Маркетинг',
-    linkedInProfile: 'https://www.linkedin.com/in/joroivanoff/',
-  },
-  {
     img: '/img/team-photos/MarianaGeorgieva.png',
     name: 'Мариана Георгиева',
     description: 'Дизайн',
     linkedInProfile: 'https://www.linkedin.com/in/mariana-georgieva-45302615a',
-  },
-  {
-    img: '/img/team-photos/IvanMilchev.jpg',
-    name: 'Иван Милчев',
-    description: 'Софтуерна инфраструктура',
-    linkedInProfile: 'https://www.linkedin.com/in/ivanmilchev/',
-  },
-  {
-    img: '/img/team-photos/StanislavStoychev.jpg',
-    name: 'Станислав Стойчев',
-    description: 'Софтуерна разработка, Продуктов Мениджмънт',
-    linkedInProfile: 'https://www.linkedin.com/in/stanislav-stoychev-61490435/',
-  },
-  {
-    img: '/img/team-photos/ZhanaBorisova.png',
-    name: 'Жана Борисова',
-    description: 'QA',
-    linkedInProfile: 'https://www.linkedin.com/in/zhanab/',
   },
   {
     img: '/img/team-photos/AlexanderAlexandrov.jpg',
@@ -77,5 +53,53 @@ export const data: TeamData[] = [
     name: 'Димитър Низамов',
     description: 'Софтуерна разработка',
     linkedInProfile: 'https://www.linkedin.com/in/dimitar-nizamov-9180121a2/',
+  },
+  {
+    img: '/img/team-photos/JanetaDimitrova.png',
+    name: 'Жанета Димитрова',
+    description: 'Кампании',
+    linkedInProfile: 'https://www.linkedin.com/in/janetadimitrova/',
+  },
+  {
+    img: '/img/team-photos/NeliTancheva.png',
+    name: 'Нели Танчева',
+    description: 'Маркетинг',
+    linkedInProfile: 'https://www.linkedin.com/in/neli-tancheva-703193169/',
+  },
+  {
+    img: '/img/team-photos/SlavchoIvanov.png',
+    name: 'Славчо Иванов',
+    description: 'Софтуерна разработка',
+    linkedInProfile: 'https://www.linkedin.com/in/slavchoivanov/',
+  },
+  {
+    img: '/img/team-photos/HristiyanHristov.png',
+    name: 'Християн Христов',
+    description: 'Финанси',
+    linkedInProfile: 'https://www.linkedin.com/in/християн-христов-hristiyan-hristov-433757238/',
+  },
+  {
+    img: '/img/team-photos/ChavdarChenkov.png',
+    name: 'Чавдар Ченков',
+    description: 'Продуктов мениджмънт',
+    linkedInProfile: 'https://www.linkedin.com/in/chenkov/',
+  },
+  {
+    img: '/img/team-photos/AndreyPetrov.png',
+    name: 'Андрей Петров',
+    description: 'Маркетинг',
+    linkedInProfile: 'https://www.linkedin.com/in/andrey-petrov-977887110/',
+  },
+  {
+    img: '/img/team-photos/YanitaYurukova.png',
+    name: 'Янина Юрукова',
+    description: 'Графичен дизайн',
+    linkedInProfile: 'https://www.linkedin.com/in/yanina-yurukova/',
+  },
+  {
+    img: '/img/team-photos/LianaZafiri.png',
+    name: 'Лиана Зафири',
+    description: 'Дизайн',
+    linkedInProfile: 'https://www.linkedin.com/in/liana-zafiri-612348239/',
   },
 ]
