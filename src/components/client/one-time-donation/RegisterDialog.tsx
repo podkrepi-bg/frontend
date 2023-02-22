@@ -10,7 +10,7 @@ import PasswordField from 'components/common/form/PasswordField'
 import EmailField from 'components/common/form/EmailField'
 import { useFormikContext } from 'formik'
 import { OneTimeDonation } from 'gql/donations'
-import { RegisterFormData } from 'components/auth/register/RegisterForm'
+import { RegisterFormData } from 'components/client/auth/register/RegisterForm'
 import { StepsContext } from './helpers/stepperContext'
 
 export default function RegisterForm() {
