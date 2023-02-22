@@ -53,13 +53,13 @@ export default function PrivateMenu() {
   const { data: session, status } = useSession()
   const router = useRouter()
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
-  const { data: user } = useCurrentPerson()
+  const { data: currentPerson } = useCurrentPerson()
+  const userPicture = currentPerson?.user.picture
 
   const handleMenu = (event: React.MouseEvent) => setAnchorEl(event.currentTarget)
   const handleClose = () => setAnchorEl(null)
   const getAvatar = () => {
-    const person = user?.user
-    if (person?.picture) return person.picture as string
+    if (userPicture) return userPicture as string
   }
 
   if (!session) {
