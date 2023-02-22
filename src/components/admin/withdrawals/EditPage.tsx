@@ -4,7 +4,7 @@ import { Container } from '@mui/material'
 import AdminContainer from 'components/admin/navigation/AdminContainer'
 import AdminLayout from 'components/admin/navigation/AdminLayout'
 
-import EditForm from 'components/withdrawals/EditForm'
+import EditForm from 'components/admin/withdrawals/EditForm'
 
 export default function EditPage() {
   const { t } = useTranslation('withdrawals')
