@@ -95,6 +95,8 @@ jobs:
       - name: Start frontend
         working-directory: ./frontend
         run: yarn start &> frontend.log &
+        env:
+          STRIPE_PUBLIC_KEY: ${{ secrets.STRIPE_PUBLIC_KEY }}
 
       - name: Install Playwright Browsers
         working-directory: ./frontend/e2e
