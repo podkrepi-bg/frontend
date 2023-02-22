@@ -1,5 +1,5 @@
 import { Grid, Tabs, Typography } from '@mui/material'
-import theme from '../../common/theme'
+import theme from '../../../common/theme'
 import { styled } from '@mui/material/styles'
 import Image from 'next/image'
 

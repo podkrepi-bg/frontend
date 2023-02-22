@@ -2,7 +2,7 @@ import { Container, Tab } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 import React, { useMemo } from 'react'
 
-import Layout from 'components/layout/Layout'
+import Layout from 'components/client/layout/Layout'
 import { PartnersTab, PartnersTabs, tabs } from './helpers/tabs'
 import { StyledTabs, Title } from './Partners.styled'
 

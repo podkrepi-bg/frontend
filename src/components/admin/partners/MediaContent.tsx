@@ -1,6 +1,6 @@
 import { Box, Container, Grid, Link } from '@mui/material'
 import Image from 'next/image'
-import useMobile from '../../common/hooks/useMobile'
+import useMobile from '../../../common/hooks/useMobile'
 import { articles } from './helpers/mediaAboutUsData'
 import { Description, Subtitle } from './Partners.styled'
 
