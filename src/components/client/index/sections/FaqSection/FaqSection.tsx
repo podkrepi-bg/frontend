@@ -5,7 +5,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 
 import * as data from '../../../faq/contents'
 import { routes } from 'common/routes'
-import ExpandableListItem from 'components/faq/ExpandableListItem'
+import ExpandableListItem from 'components/client/faq/ExpandableListItem'
 
 import { Heading, OutlinedButton } from '../../IndexPage.styled'
 import { Root, FaqWrapper } from './FaqSection.styled'

@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next'
 import { Grid, Hidden } from '@mui/material'
 
 import { Root } from './HowWeWorkSection.styled'
-import { Heading, InfoText } from 'components/index/IndexPage.styled'
+import { Heading, InfoText } from 'components/client/index/IndexPage.styled'
 
 export default function HowWeWorkSection() {
   const { t, i18n } = useTranslation('index')
