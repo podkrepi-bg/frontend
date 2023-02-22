@@ -15,7 +15,7 @@ import { useSession } from 'next-auth/react'
 
 import theme from 'common/theme'
 import { routes } from 'common/routes'
-import Layout from 'components/layout/Layout'
+import Layout from 'components/client/layout/Layout'
 
 import { ProfileTabs, ProfileTab, tabs } from './tabs'
 

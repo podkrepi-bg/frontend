@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next'
 import { Container, Typography } from '@mui/material'
 import FileDownloadIcon from '@mui/icons-material/FileDownload'
 
-import Layout from 'components/layout/Layout'
+import Layout from 'components/client/layout/Layout'
 import LinkButton from 'components/common/LinkButton'
 
 export default function FinanceReportPage() {

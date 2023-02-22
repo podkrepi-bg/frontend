@@ -10,7 +10,7 @@ import {
 
 import { socialUrls } from 'common/routes'
 import ExternalLink from 'components/common/ExternalLink'
-import PodkrepiIcon from 'components/brand/PodkrepiIcon'
+import PodkrepiIcon from 'components/common/brand/PodkrepiIcon'
 import DiscordIcon from '../icons/DiscordIcon'
 import ChecklistIcon from '../icons/ChecklistIcon'
 import GlobeIcon from '../icons/GlobeIcon'

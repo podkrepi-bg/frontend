@@ -6,7 +6,7 @@ import { Box, Button, Container, Grid } from '@mui/material'
 
 import { baseUrl } from 'common/routes'
 import type { RegisterPageProps } from 'pages/register'
-import Layout from 'components/layout/Layout'
+import Layout from 'components/client/layout/Layout'
 
 import RegisterForm from './RegisterForm'
 
