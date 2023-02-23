@@ -161,8 +161,15 @@ export type BankTransactionsFileFormData = {
   bankTransactionsFileId: string
 }
 
+enum ImportStatus {
+  UNPROCESSED = 'UNPROCESSED',
+  SUCCESS = 'SUCCESS',
+  FAILED = 'FAILED',
+  UPDATED = 'UPDATED',
+}
+
 export type BankImportResult = {
-  status: string
+  status: ImportStatus
   message?: string
   amount: number
   currency: string
