@@ -42,8 +42,13 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   },
 
   [`& .${classes.campaignTitle}`]: {
+    marginTop: theme.spacing(6),
     fontSize: theme.typography.pxToRem(45),
     letterSpacing: '-1.5px',
+
+    [theme.breakpoints.up('md')]: {
+      marginTop: 0,
+    },
   },
 
   ['& .ql-editor']: {
