@@ -1,6 +1,6 @@
 import getConfig from 'next/config'
 import { CampaignFile, CampaignResponse } from 'gql/campaigns'
-import { CampaignFileRole } from 'components/campaign-file/roles'
+import { CampaignFileRole } from 'components/common/campaign-file/roles'
 
 const { publicRuntimeConfig } = getConfig()
 

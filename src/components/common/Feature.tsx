@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react'
 import { Typography } from '@mui/material'
 
-import Layout from 'components/layout/Layout'
+import Layout from 'components/client/layout/Layout'
 import { featureFlagEnabled, Features } from 'common/util/featureFlag'
 
 export { Features }

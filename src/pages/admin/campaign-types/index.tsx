@@ -1,4 +1,4 @@
-import CampaignTypesPage from 'components/campaign-types/CampaignTypesPage'
+import CampaignTypesPage from 'components/common/campaign-types/CampaignTypesPage'
 import { securedAdminProps } from 'middleware/auth/securedProps'
 import { endpoints } from 'service/apiEndpoints'
 

@@ -1,6 +1,6 @@
 import { endpoints } from 'service/apiEndpoints'
 import { securedAdminProps } from 'middleware/auth/securedProps'
-import EditPage from 'components/irregularity/admin/EditPage'
+import EditPage from 'components/admin/irregularity/admin/EditPage'
 
 export const getServerSideProps = securedAdminProps(
   ['common', 'auth', 'validation', 'irregularity', 'admin'],

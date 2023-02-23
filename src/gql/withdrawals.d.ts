@@ -1,4 +1,4 @@
-import { WithdrawalStatus, Currency } from 'components/withdrawals/WithdrawalTypes'
+import { WithdrawalStatus, Currency } from 'components/admin/withdrawals/WithdrawalTypes'
 import { Person } from './person'
 import { UUID } from './types'
 

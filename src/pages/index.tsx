@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { QueryClient } from '@tanstack/react-query'
 
-import IndexPage from 'components/index/IndexPage'
+import IndexPage from 'components/client/index/IndexPage'
 import { campaignsOrderQueryFunction } from 'common/hooks/campaigns'
 import { CampaignResponse } from 'gql/campaigns'
 import { endpoints } from 'service/apiEndpoints'

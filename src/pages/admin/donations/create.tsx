@@ -1,4 +1,4 @@
-import CreatePage from 'components/donations/CreatePage'
+import CreatePage from 'components/admin/donations/CreatePage'
 import { securedPropsWithTranslation } from 'middleware/auth/securedProps'
 
 export const getServerSideProps = securedPropsWithTranslation([

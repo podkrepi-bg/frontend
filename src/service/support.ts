@@ -5,7 +5,7 @@ import { endpoints } from 'service/apiEndpoints'
 import {
   SupportRequestResponse,
   SupportRequestInput,
-} from 'components/support-form/helpers/support-form.types'
+} from 'components/client/support-form/helpers/support-form.types'
 
 export const createSupportRequest = async (data: SupportRequestInput) => {
   return await apiClient.post<SupportRequestInput, AxiosResponse<SupportRequestResponse>>(

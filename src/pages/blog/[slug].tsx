@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/nextjs'
 import { GetServerSideProps } from 'next'
-import BlogPostPage from 'components/blog/BlogPostPage'
+import BlogPostPage from 'components/client/blog/BlogPostPage'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { createGhostClient } from 'common/util/ghost-client'
 

@@ -99,7 +99,7 @@ Watch releases of this repository to be notified about future updates:
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-64-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-65-orange.svg?style=flat-square)](#contributors-)
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
@@ -202,6 +202,8 @@ Thanks goes to these wonderful people:
       <td align="center" valign="top" width="10%"><a href="https://github.com/Katzarov"><img src="https://avatars.githubusercontent.com/u/14837592?v=4?s=100" width="100px;" alt="Lyoubomir Katzarov"/><br /><sub><b>Lyoubomir Katzarov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=Katzarov" title="Code">💻</a></td>
       <td align="center" valign="top" width="10%"><a href="https://github.com/Nnachevvv"><img src="https://avatars.githubusercontent.com/u/44066540?v=4?s=100" width="100px;" alt="Nikolay Nachev"/><br /><sub><b>Nikolay Nachev</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=Nnachevvv" title="Code">💻</a></td>
       <td align="center" valign="top" width="10%"><a href="http://www.intellingencenode.com"><img src="https://avatars.githubusercontent.com/u/99622?v=4?s=100" width="100px;" alt="Slavcho Ivanov"/><br /><sub><b>Slavcho Ivanov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=slavcho" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/pulls?q=is%3Apr+reviewed-by%3Aslavcho" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=slavcho" title="Tests">⚠️</a></td>
+      <td align="center" valign="top" width="10%"><a href="https://github.com/sashko9807"><img src="https://avatars.githubusercontent.com/u/27433690?v=4?s=100" width="100px;" alt="Aleksandar Petkov"/><br /><sub><b>Aleksandar Petkov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=sashko9807" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/pulls?q=is%3Apr+reviewed-by%3Asashko9807" title="Reviewed Pull Requests">👀</a></td>
+      <td align="center" valign="top" width="10%"><a href="https://github.com/BogoCvetkov"><img src="https://avatars.githubusercontent.com/u/78339364?v=4?s=100" width="100px;" alt="Bogomil Tsvetkov"/><br /><sub><b>Bogomil Tsvetkov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=BogoCvetkov" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=BogoCvetkov" title="Tests">⚠️</a></td>
     </tr>
   </tbody>
 </table>

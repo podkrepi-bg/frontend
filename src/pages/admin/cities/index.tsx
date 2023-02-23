@@ -1,4 +1,4 @@
-import CityPage from 'components/cities/CityPage'
+import CityPage from 'components/admin/cities/CityPage'
 import { securedAdminProps } from 'middleware/auth/securedProps'
 import { endpoints } from 'service/apiEndpoints'
 
