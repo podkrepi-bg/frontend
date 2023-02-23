@@ -157,9 +157,6 @@ export type SecondStep = {
 export type ThirdStep = {
   message?: string
 }
-export type BankTransactionsUploadImage = {
-  bankTransactionsFileId: string
-}
 export type BankTransactionsFileFormData = {
   bankTransactionsFileId: string
 }
