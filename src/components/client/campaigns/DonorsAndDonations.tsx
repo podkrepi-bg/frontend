@@ -63,8 +63,7 @@ const Root = styled('div')(({ theme }) => ({
   },
 
   [`& .${classes.donatorAvatar}`]: {
-    width: theme.spacing(4.5),
-    flexBasis: 'fit-content',
+    width: theme.spacing(5.25),
     height: theme.spacing(5.25),
   },
 }))
