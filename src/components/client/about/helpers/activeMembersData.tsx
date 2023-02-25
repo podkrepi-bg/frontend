@@ -102,4 +102,10 @@ export const data: TeamData[] = [
     description: 'Дизайн',
     linkedInProfile: 'https://www.linkedin.com/in/liana-zafiri-612348239/',
   },
+  {
+    img: '/img/team-photos/GeorgiOvcharov.png',
+    name: 'Георги Овчаров',
+    description: 'Продуктов мениджмънт',
+    linkedInProfile: 'https://www.linkedin.com/in/georgi-ovcharov/',
+  },
 ]
