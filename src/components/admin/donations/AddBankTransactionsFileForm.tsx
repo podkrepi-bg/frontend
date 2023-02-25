@@ -160,7 +160,7 @@ export default function BankTransactionsFileForm({
             />
           </Grid>
           <Grid item xs={12}>
-            <Link href={routes.admin.campaigns.index} passHref>
+            <Link href={routes.admin.donations.index} passHref>
               <Button fullWidth={true}>{t('donations:cta:cancel')}</Button>
             </Link>
           </Grid>
