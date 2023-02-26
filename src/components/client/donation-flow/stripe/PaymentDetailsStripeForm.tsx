@@ -1,13 +1,9 @@
-import getConfig from 'next/config'
-import { Appearance, loadStripe } from '@stripe/stripe-js'
+import { Appearance } from '@stripe/stripe-js'
 import { Elements, PaymentElement } from '@stripe/react-stripe-js'
 
 import theme from 'common/theme'
 import { Box, BoxProps } from '@mui/material'
-const {
-  publicRuntimeConfig: { STRIPE_PUBLIC_KEY },
-} = getConfig()
-
+import { stripe } from 'service/stripeClient'
 const appearance: Appearance = {
   theme: 'stripe',
   variables: {
@@ -37,8 +33,6 @@ const appearance: Appearance = {
   },
 }
 
-const stripePromise = loadStripe(STRIPE_PUBLIC_KEY)
-
 export type PaymentDetailsStripeFormProps = {
   clientSecret: string
   containerProps?: BoxProps
@@ -53,7 +47,7 @@ export default function PaymentDetailsStripeForm({
   //   }, [])
   return (
     <Elements
-      stripe={stripePromise}
+      stripe={stripe}
       options={{
         clientSecret: clientSecret,
         appearance,
