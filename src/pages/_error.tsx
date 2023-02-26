@@ -16,9 +16,9 @@ const CustomError = ({ hasGetInitialPropsRun, err }: Props) => {
     // Flushing is not required in this case as it only happens on the client
   }
 
+  console.error('Error', err)
   return <NextErrorComponent statusCode={err?.statusCode || 500} />
 }
-
 CustomError.getInitialProps = async (ctx: NextPageContext) => {
   const { err, asPath } = ctx
   const errorInitialProps = await NextErrorComponent.getInitialProps(ctx)
@@ -28,7 +28,7 @@ CustomError.getInitialProps = async (ctx: NextPageContext) => {
     ...errorInitialProps,
     hasGetInitialPropsRun: true,
   }
-
+  console.error('Error', err)
   // Running on the server, the response object (`res`) is available.
   //
   // Next.js will pass an err on the server if a page's data fetching methods
@@ -43,7 +43,6 @@ CustomError.getInitialProps = async (ctx: NextPageContext) => {
   //    Boundaries: https://reactjs.org/docs/error-boundaries.html
 
   if (err) {
-    console.error('Error in CustomError.getInitialProps', err)
     Sentry.captureException(err)
 
     // Flushing before returning is necessary if deploying to Vercel, see
