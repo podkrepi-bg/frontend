@@ -1,3 +1,5 @@
+import { partnerUrls } from 'common/routes'
+
 type Partners = {
   title: string
   name: string
@@ -21,19 +23,19 @@ export const partners: Partners[] = [
     title: 'partners:sections.hosting',
     name: 'superhosting',
     image: '/img/partners/superhosting.svg',
-    website: 'https://www.superhosting.bg/',
+    website: partnerUrls.superHosting,
   },
   {
     title: 'partners:sections.video',
     name: 'rinkoff',
     image: '/img/partners/rinkoff.svg',
-    website: 'https://www.linkedin.com/company/rinkoff/about/',
+    website: partnerUrls.rinkoff,
   },
   {
     title: 'partners:sections.media',
     name: 'darik',
     image: '/img/partners/darik.svg',
-    website: 'https://dariknews.bg/',
+    website: partnerUrls.darik,
   },
 ]
 
@@ -41,46 +43,42 @@ export const techAndMarketingPartners: TechAndMarketingPartners[] = [
   {
     title: 'partners:sections.tech',
     items: ['softuni', 'mentormate', 'eightyEight'],
-    websites: ['https://softuni.bg/', 'https://mentormate.com/', 'https://www.88studiodesign.com/'],
+    websites: partnerUrls.techPartners,
   },
   {
     title: 'partners:sections.marketing',
     items: ['allChannels', 'brainDonors', 'crossRoads'],
-    websites: [
-      'https://www.all-channels.com/',
-      'https://www.braindonors.agency/',
-      'https://crossroadsbulgaria.com/',
-    ],
+    websites: partnerUrls.marketingPartners,
   },
 ]
 
 export const organizations: Organizations[] = [
   {
     name: 'pulsFoundation',
-    website: 'https://pulsfoundation.org/bg/',
+    website: partnerUrls.puls,
   },
   {
     name: 'yanika',
-    website: 'https://www.yanikabg.com/',
+    website: partnerUrls.yanika,
   },
   {
     name: 'parakids',
-    website: 'https://parakids.org/',
+    website: partnerUrls.parakids,
   },
   {
     name: 'trotoara',
-    website: 'https://trotoara.com/',
+    website: partnerUrls.trotoara,
   },
   {
     name: 'bear',
-    website: 'https://plushenomeche.org/',
+    website: partnerUrls.bear,
   },
   {
     name: 'visuallyImpairedChildren',
-    website: 'http://www.suunzvarna.com/',
+    website: partnerUrls.visuallyImpairedChildren,
   },
   {
     name: 'gorata',
-    website: 'https://gorata.bg/',
+    website: partnerUrls.gorata,
   },
 ]
