@@ -2,7 +2,7 @@ import { Page, expect } from '@playwright/test'
 import {
   DonationFormAuthState,
   DonationFormPaymentMethod,
-} from 'components/donation-flow/helpers/types'
+} from 'components/client/donation-flow/helpers/types'
 import {
   stripeSuccessFormData,
   stripeErrorNoBalanceFormData,

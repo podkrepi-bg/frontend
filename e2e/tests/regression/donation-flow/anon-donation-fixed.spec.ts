@@ -8,7 +8,7 @@ import { bgLocalizationDonationFlow } from '../../../data/localization'
 import {
   DonationFormAuthState,
   DonationFormPaymentMethod,
-} from 'components/donation-flow/helpers/types'
+} from 'components/client/donation-flow/helpers/types'
 import { DonationStatusPage } from '../../../pages/web-pages/donation/donation-status.page'
 
 // This spec contains E2E tests related to anonymous donation flow - custom amount
