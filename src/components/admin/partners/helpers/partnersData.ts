@@ -41,7 +41,7 @@ export const techAndMarketingPartners: TechAndMarketingPartners[] = [
   {
     title: 'partners:sections.tech',
     items: ['softuni', 'mentormate', 'eightyEight'],
-    websites: ['https://softuni.bg/', 'https://mentormate.com/', 'https://google.com'],
+    websites: ['https://softuni.bg/', 'https://mentormate.com/', 'https://www.88studiodesign.com/'],
   },
   {
     title: 'partners:sections.marketing',
@@ -57,7 +57,7 @@ export const techAndMarketingPartners: TechAndMarketingPartners[] = [
 export const organizations: Organizations[] = [
   {
     name: 'pulsFoundation',
-    website: 'https://www.google.bg/',
+    website: 'https://pulsfoundation.org/bg/',
   },
   {
     name: 'yanika',
@@ -77,7 +77,7 @@ export const organizations: Organizations[] = [
   },
   {
     name: 'visuallyImpairedChildren',
-    website: 'https://google.bg/',
+    website: 'http://www.suunzvarna.com/',
   },
   {
     name: 'gorata',

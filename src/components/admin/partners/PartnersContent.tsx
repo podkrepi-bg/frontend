@@ -1,6 +1,6 @@
 import { Box, Container, Grid } from '@mui/material'
 import Image from 'next/image'
-import Link from '../../common/Link'
+import ExternalLink from 'components/common/ExternalLink'
 import { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 import useMobile from '../../../common/hooks/useMobile'
@@ -22,7 +22,7 @@ const PartnersContent = () => {
           {partners.map((partner) => (
             <StyledGrid item xs={12} md={4} paddingTop={8} key={partner.name}>
               <SectionTitle>{t(partner.title)}</SectionTitle>
-              <Link href={partner.website}>
+              <ExternalLink href={partner.website}>
                 <Image
                   alt={`${partner.name}-logo`}
                   src={partner.image}
@@ -30,7 +30,7 @@ const PartnersContent = () => {
                   height={LOGO_HEIGHT}
                   priority
                 />
-              </Link>
+              </ExternalLink>
             </StyledGrid>
           ))}
 
@@ -47,14 +47,14 @@ const PartnersContent = () => {
                   xs={12}
                   md={4}
                   paddingTop={index > 0 && mobile ? 4 : 0}>
-                  <Link href={el.websites[index]}>
+                  <ExternalLink href={el.websites[index]}>
                     <Image
                       alt="logo"
                       src={`/img/partners/${partner}.svg`}
                       width={LOGO_WIDTH}
                       height={LOGO_HEIGHT}
                     />
-                  </Link>
+                  </ExternalLink>
                 </StyledGrid>
               ))}
             </Fragment>
@@ -72,7 +72,7 @@ const PartnersContent = () => {
             <PartnersSlider>
               {organizations.map((org) => (
                 <Box key={org.name} width={LOGO_WIDTH} height={LOGO_HEIGHT} position="relative">
-                  <Link href={org.website}>
+                  <ExternalLink href={org.website}>
                     <Image
                       key={org.name}
                       src={`/img/partners/organizations/${org.name}.svg`}
@@ -83,7 +83,7 @@ const PartnersContent = () => {
                       fill
                       priority
                     />
-                  </Link>
+                  </ExternalLink>
                 </Box>
               ))}
             </PartnersSlider>
