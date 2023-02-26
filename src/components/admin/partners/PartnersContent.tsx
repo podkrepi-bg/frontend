@@ -1,9 +1,10 @@
 import { Box, Container, Grid } from '@mui/material'
 import Image from 'next/image'
+import ExternalLink from 'components/common/ExternalLink'
 import { Fragment } from 'react'
 import { useTranslation } from 'react-i18next'
 import useMobile from '../../../common/hooks/useMobile'
-import { organizationLogos, partners, techAndMarketingPartners } from './helpers/partnersData'
+import { organizations, partners, techAndMarketingPartners } from './helpers/partnersData'
 import { SectionTitle, StyledGrid } from './Partners.styled'
 import PartnersSlider from './PartnersSlider'
 
@@ -21,13 +22,15 @@ const PartnersContent = () => {
           {partners.map((partner) => (
             <StyledGrid item xs={12} md={4} paddingTop={8} key={partner.name}>
               <SectionTitle>{t(partner.title)}</SectionTitle>
-              <Image
-                alt={`${partner.name}-logo`}
-                src={partner.image}
-                width={LOGO_WIDTH}
-                height={LOGO_HEIGHT}
-                priority
-              />
+              <ExternalLink href={partner.website}>
+                <Image
+                  alt={`${partner.name}-logo`}
+                  src={partner.image}
+                  width={LOGO_WIDTH}
+                  height={LOGO_HEIGHT}
+                  priority
+                />
+              </ExternalLink>
             </StyledGrid>
           ))}
 
@@ -44,12 +47,14 @@ const PartnersContent = () => {
                   xs={12}
                   md={4}
                   paddingTop={index > 0 && mobile ? 4 : 0}>
-                  <Image
-                    alt="logo"
-                    src={`/img/partners/${partner}.svg`}
-                    width={LOGO_WIDTH}
-                    height={LOGO_HEIGHT}
-                  />
+                  <ExternalLink href={el.websites[index]}>
+                    <Image
+                      alt="logo"
+                      src={`/img/partners/${partner}.svg`}
+                      width={LOGO_WIDTH}
+                      height={LOGO_HEIGHT}
+                    />
+                  </ExternalLink>
                 </StyledGrid>
               ))}
             </Fragment>
@@ -65,18 +70,20 @@ const PartnersContent = () => {
 
           <StyledGrid item xs={12}>
             <PartnersSlider>
-              {organizationLogos.map((image) => (
-                <Box key={image} width={LOGO_WIDTH} height={LOGO_HEIGHT} position="relative">
-                  <Image
-                    key={image}
-                    src={`/img/partners/organizations/${image}.svg`}
-                    alt={`${image}-logo`}
-                    sizes="(max-width: 768px) 100vw,
+              {organizations.map((org) => (
+                <Box key={org.name} width={LOGO_WIDTH} height={LOGO_HEIGHT} position="relative">
+                  <ExternalLink href={org.website}>
+                    <Image
+                      key={org.name}
+                      src={`/img/partners/organizations/${org.name}.svg`}
+                      alt={`${org.name}-logo`}
+                      sizes="(max-width: 768px) 100vw,
                           (max-width: 1200px) 50vw,
                           33vw"
-                    fill
-                    priority
-                  />
+                      fill
+                      priority
+                    />
+                  </ExternalLink>
                 </Box>
               ))}
             </PartnersSlider>
