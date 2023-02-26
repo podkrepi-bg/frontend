@@ -43,7 +43,7 @@ CustomError.getInitialProps = async (ctx: NextPageContext) => {
   //    Boundaries: https://reactjs.org/docs/error-boundaries.html
 
   if (err) {
-    console.log('Error in CustomError.getInitialProps', err)
+    console.error('Error in CustomError.getInitialProps', err)
     Sentry.captureException(err)
 
     // Flushing before returning is necessary if deploying to Vercel, see
