@@ -54,12 +54,17 @@ const classes = {
 const StyledGrid = styled(Grid)(({ theme }) => ({
   [`&.${classes.inlineDonationWrapper}`]: {
     boxShadow: '2px 4px 5px rgba(0, 0, 0, 0.25)',
-    borderRadius: theme.spacing(2.25),
     backgroundColor: '#EEEEEE',
     height: 'fit-content',
+    borderRadius: 0,
 
-    [theme.breakpoints.down('md')]: {
-      borderRadius: 0,
+    [theme.breakpoints.up('sm')]: {
+      marginTop: theme.spacing(3),
+    },
+
+    [theme.breakpoints.up('md')]: {
+      marginTop: 0,
+      borderRadius: theme.spacing(2.25),
     },
   },
 
@@ -123,6 +128,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     minWidth: theme.spacing(6.35),
     minHeight: theme.spacing(6.35),
     paddingBottom: 'unset',
+    boxShadow: '1px 6px 5px rgb(0 0 0 / 25%)',
   },
 
   [`& .${classes.donateButton}`]: {
