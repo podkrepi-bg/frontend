@@ -17,13 +17,13 @@ jobs:
         env:
           STRIPE_PUBLISHABLE_KEY: ${{ env.STRIPE_PUBLISHABLE_KEY }}
         working-directory: ./frontend
-        run: echo STRIPE_PUBLISHABLE_KEY && echo STRIPE_DEV_PUBLISHABLE_KEY
+        run: echo ${{ env.STRIPE_PUBLISHABLE_KEY }} && echo $STRIPE_PUBLISHABLE_KEY
 
       - name: Log Stripe DPK
         env:
           STRIPE_DEV_PUBLISHABLE_KEY: ${{ env.STRIPE_DEV_PUBLISHABLE_KEY }}
         working-directory: ./frontend
-        run: echo $STRIPE_DEV_PUBLISHABLE_KEY && echo STRIPE_DEV_PUBLISHABLE_KEY
+        run: echo ${{ env.STRIPE_DEV_PUBLISHABLE_KEY }} && echo $STRIPE_DEV_PUBLISHABLE_KEY
 
       - name: Checkout
         uses: actions/checkout@v3
