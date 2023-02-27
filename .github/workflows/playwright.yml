@@ -2,6 +2,9 @@ name: Playwright tests
 on:
   workflow_call:
   workflow_dispatch:
+env:
+# Setting an environment variable with the value of a configuration variable
+  STRIPE_DEV_PUBLISHABLE_KEY: ${{ env.STRIPE_DEV_PUBLISHABLE_KEY }}
 
 jobs:
   run-playwright:
