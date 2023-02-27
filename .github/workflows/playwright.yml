@@ -92,11 +92,17 @@ jobs:
         working-directory: ./frontend
         run: curl http://localhost:5010/api/v1/campaign/list
 
-      - name: Start frontend
-        working-directory: ./frontend
-        run: yarn dev &> frontend.log &
+      - name: Log Stripe PK
         env:
           STRIPE_PUBLISHABLE_KEY: ${{ env.STRIPE_DEV_PUBLISHABLE_KEY }}
+        working-directory: ./frontend
+        run: echo ${{ env.STRIPE_DEV_PUBLISHABLE_KEY }}
+
+      - name: Start frontend
+        env:
+          STRIPE_PUBLISHABLE_KEY: ${{ env.STRIPE_DEV_PUBLISHABLE_KEY }}
+        working-directory: ./frontend
+        run: echo ${{ env.STRIPE_DEV_PUBLISHABLE_KEY }} && yarn dev &> frontend.log &
 
       - name: Install Playwright Browsers
         working-directory: ./frontend/e2e

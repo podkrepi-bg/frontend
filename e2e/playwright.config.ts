@@ -21,9 +21,6 @@ const config: PlaywrightTestConfig = {
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
-  // TODO update here
-  workers: process.env.CI ? 1 : undefined,
   // outputDir: path.resolve(e2eReportsFolder, 'output-tests'),
   reporter: [
     ['html', { outputFolder: path.resolve(e2eReportsFolder, 'html-report'), open: 'never' }],
