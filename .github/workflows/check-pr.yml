@@ -11,7 +11,8 @@ jobs:
     if: |
       !github.event.pull_request.head.repo.fork && github.event.pull_request.user.login != 'dependabot[bot]'
     uses: ./.github/workflows/tests.yml
-    environment: inherit
+    environment: 
+      STRIPE_DEV_PUBLISHABLE_KEY: ${{env.STRIPE_DEV_PUBLISHABLE_KEY}}
     secrets:
       SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
       GHOST_CONTENT_KEY: ${{ secrets.GHOST_CONTENT_KEY }}
