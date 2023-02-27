@@ -3,7 +3,7 @@ on:
   workflow_call:
   workflow_dispatch:
 env:
-  STRIPE_DEV_PUBLISHABLE_KEY: ${{ env.STRIPE_DEV_PUBLISHABLE_KEY }}
+  STRIPE_DEV_PUBLISHABLE_KEY: ${{ vars.STRIPE_DEV_PUBLISHABLE_KEY }}
 
 jobs:
   run-playwright:
