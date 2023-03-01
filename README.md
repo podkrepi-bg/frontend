@@ -103,7 +103,8 @@ Watch releases of this repository to be notified about future updates:
 [![All Contributors](https://img.shields.io/badge/all_contributors-64-orange.svg?style=flat-square)](#contributors-)
 =======
 [![All Contributors](https://img.shields.io/badge/all_contributors-65-orange.svg?style=flat-square)](#contributors-)
->>>>>>> master
+
+> > > > > > > master
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
