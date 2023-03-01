@@ -145,7 +145,7 @@ export default function EditForm() {
                 label={t('donations:type')}
                 id="type"
                 name="type"
-                value={initialValues.type}
+                value={type}
                 onChange={(e) => setType(e.target.value)}
                 disabled={id ? true : false}>
                 {validDonationTypes.map((type) => {
@@ -166,7 +166,7 @@ export default function EditForm() {
                 label={t('donations:status')}
                 id="status"
                 name="status"
-                value={initialValues.status}
+                value={status}
                 onChange={(e) => {
                   setStatus(e.target.value)
                 }}>
@@ -188,7 +188,7 @@ export default function EditForm() {
                 label={t('donations:provider')}
                 id="provider"
                 name="provider"
-                value={initialValues.provider}
+                value={provider}
                 onChange={(e) => setProvider(e.target.value)}
                 disabled={id ? true : false}>
                 {validProviders.map((prov) => {
@@ -209,7 +209,7 @@ export default function EditForm() {
                 label={t('donations:vault')}
                 id="targetVaultId"
                 name="targetVaultId"
-                value={initialValues.targetVaultId}
+                value={vault}
                 onChange={(e) => setVault(e.target.value)}
                 disabled={id ? true : false}>
                 {vaults?.map((vault) => {
@@ -262,7 +262,7 @@ export default function EditForm() {
                 label={t('donations:currency')}
                 id="currency"
                 name="currency"
-                value={initialValues.currency}
+                value={currency}
                 onChange={(e) => setCurrency(e.target.value)}
                 disabled={id ? true : false}>
                 {validCurrencies.map((currency) => {
