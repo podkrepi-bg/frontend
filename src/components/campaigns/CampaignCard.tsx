@@ -57,6 +57,30 @@ const StyledCard = styled(Card)(({ theme }) => ({
     backgroundSize: 'contain',
     height: 200,
     transition: 'filter 0.3s, opacity 0.8s',
+    '@media(min-width: 320px)': {
+      height: 170,
+    },
+    '@media(min-width: 360px)': {
+      height: 200,
+    },
+    '@media(min-width: 375px)': {
+      height: 208,
+    },
+    '@media(min-width: 390px)': {
+      height: 217,
+    },
+    '@media(min-width: 414px)': {
+      height: 233,
+    },
+    '@media(min-width: 600px)': {
+      height: 220,
+    },
+    '@media(min-width: 900px)': {
+      height: 262,
+    },
+    '@media(min-width: 1200px)': {
+      height: 175,
+    },
   },
 
   [`& .${classes.cardActions}`]: {
@@ -127,7 +151,7 @@ export default function CampaignCard({ campaign }: Props) {
         <CardMedia className={classes.media} title={title}>
           <div
             style={{ position: 'relative', width: '100%', minHeight: '100%', maxHeight: '100%' }}>
-            <Image alt={title} src={pictureUrl} fill style={{ objectFit: 'cover' }} />
+            <Image alt={title} src={pictureUrl} fill style={{ objectFit: 'contain' }} />
             {campaignState === CampaignState.complete ? <SuccessfullCampaignTag /> : ''}
           </div>
         </CardMedia>
