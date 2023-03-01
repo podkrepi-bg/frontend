@@ -719,6 +719,26 @@
         "review",
         "test"
       ]
+    },
+    {
+      "login": "sashko9807",
+      "name": "Aleksandar Petkov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/27433690?v=4",
+      "profile": "https://github.com/sashko9807",
+      "contributions": [
+        "code",
+        "review"
+        ]
+    },
+    {
+      "login": "BogoCvetkov",
+      "name": "Bogomil Tsvetkov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/78339364?v=4",
+      "profile": "https://github.com/BogoCvetkov",
+      "contributions": [
+        "code",
+        "test"
+      ]
     }
   ],
   "contributorsPerLine": 10,

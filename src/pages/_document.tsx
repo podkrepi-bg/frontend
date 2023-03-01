@@ -3,7 +3,7 @@ import React from 'react'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 import theme from 'common/theme'
-import FaviconMetadata from 'components/brand/FaviconMetadata'
+import FaviconMetadata from 'components/common/brand/FaviconMetadata'
 import createEmotionServer from '@emotion/server/create-instance'
 import createEmotionCache from 'common/createEmotionCache'
 

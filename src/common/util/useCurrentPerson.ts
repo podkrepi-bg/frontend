@@ -6,9 +6,9 @@ import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
 import { Person, UpdatePerson } from 'gql/person'
 import { authConfig, authQueryFnFactory } from 'service/restRequests'
-import { Credentials } from 'components/auth/profile/UpdatePasswordModal'
-import { ForgottenPasswordForm } from 'components/auth/forgottenPassword/ForgottenPasswordForm'
-import { ChangePasswordFormData } from 'components/auth/changePassword/ChangePasswordForm'
+import { Credentials } from 'components/client/auth/profile/UpdatePasswordModal'
+import { ForgottenPasswordForm } from 'components/client/auth/forgottenPassword/ForgottenPasswordForm'
+import { ChangePasswordFormData } from 'components/client/auth/changePassword/ChangePasswordForm'
 
 type CurrentPerson = {
   user: Person

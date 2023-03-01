@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import SupportFormPage from 'components/support-form/SupportPage'
+import SupportFormPage from 'components/client/support-form/SupportPage'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {

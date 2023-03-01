@@ -75,3 +75,14 @@ export const getExactDate = (value: Date | string | number | undefined, locale?:
   const date = new Date(value)
   return format(date, formatDate, { locale })
 }
+
+export const dateToTime = (dateString: string | undefined) => {
+  if (!dateString) {
+    return
+  }
+
+  const date = new Date(dateString)
+  const localTime = date.toLocaleTimeString()
+
+  return localTime
+}

@@ -11,7 +11,7 @@ import {
   IrregularityResponse,
   IrregularityUploadImage,
   UploadIrregularityFiles,
-} from 'components/irregularity/helpers/irregularity.types'
+} from 'components/client/irregularity/helpers/irregularity.types'
 import { useSession } from 'next-auth/react'
 import { Session } from 'next-auth'
 

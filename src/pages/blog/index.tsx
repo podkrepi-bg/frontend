@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next'
 import * as Sentry from '@sentry/nextjs'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import BlogIndexPage from 'components/blog/BlogIndexPage'
+import BlogIndexPage from 'components/client/blog/BlogIndexPage'
 import { createGhostClient } from 'common/util/ghost-client'
 import { isString } from 'lodash'
 

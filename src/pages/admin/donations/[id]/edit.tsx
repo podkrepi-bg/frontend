@@ -1,4 +1,4 @@
-import EditPage from 'components/donations/EditPage'
+import EditPage from 'components/admin/donations/EditPage'
 import { securedAdminProps } from 'middleware/auth/securedProps'
 import { endpoints } from 'service/apiEndpoints'
 

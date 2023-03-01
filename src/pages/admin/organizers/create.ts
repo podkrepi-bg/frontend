@@ -1,5 +1,5 @@
 import { securedPropsWithTranslation } from 'middleware/auth/securedProps'
-import CreatePage from 'components/organizers/CreatePage'
+import CreatePage from 'components/admin/organizers/CreatePage'
 
 export const getServerSideProps = securedPropsWithTranslation([
   'common',

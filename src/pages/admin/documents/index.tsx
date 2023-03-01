@@ -1,4 +1,4 @@
-import DocumentsPage from 'components/documents/DocumentsPage'
+import DocumentsPage from 'components/admin/documents/DocumentsPage'
 import { securedAdminProps } from 'middleware/auth/securedProps'
 import { endpoints } from 'service/apiEndpoints'
 

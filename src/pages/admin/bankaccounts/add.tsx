@@ -1,4 +1,4 @@
-import BankAccountsAddPage from 'components/bankaccounts/BankAccountsAddPage'
+import BankAccountsAddPage from 'components/admin/bankaccounts/BankAccountsAddPage'
 import { securedPropsWithTranslation } from 'middleware/auth/securedProps'
 
 export const getServerSideProps = securedPropsWithTranslation([

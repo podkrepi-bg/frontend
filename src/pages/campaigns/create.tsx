@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next'
-import CreateCampaignPage from 'components/campaigns/CreateCampaignPage'
+import CreateCampaignPage from 'components/client/campaigns/CreateCampaignPage'
 import { securedPropsWithTranslation } from 'middleware/auth/securedProps'
 import { routes } from 'common/routes'
 

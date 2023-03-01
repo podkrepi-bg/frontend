@@ -1,6 +1,6 @@
 import getConfig from 'next/config'
 import { CampaignFile, CampaignResponse } from 'gql/campaigns'
-import { CampaignFileRole } from 'components/campaign-file/roles'
+import { CampaignFileRole } from 'components/common/campaign-file/roles'
 
 const { publicRuntimeConfig } = getConfig()
 
@@ -42,15 +42,15 @@ export function backgroundCampaignPictureUrl(campaign: CampaignResponse): string
 
 export function coordinatorCampaignPictureUrl(campaign: CampaignResponse): string {
   const file = findFileWithRole(campaign, CampaignFileRole.coordinator)
-  return file ? fileUrl(file) : '/img/support-us-image.png'
+  return file ? fileUrl(file) : '/podkrepi-icon.png'
 }
 
 export function organizerCampaignPictureUrl(campaign: CampaignResponse): string {
   const file = findFileWithRole(campaign, CampaignFileRole.organizerPhoto)
-  return file ? fileUrl(file) : '/img/support-us-image.png'
+  return file ? fileUrl(file) : '/podkrepi-icon.png'
 }
 
 export function beneficiaryCampaignPictureUrl(campaign: CampaignResponse): string {
   const file = findFileWithRole(campaign, CampaignFileRole.beneficiaryPhoto)
-  return file ? fileUrl(file) : '/img/support-us-image.png'
+  return file ? fileUrl(file) : '/podkrepi-icon.png'
 }

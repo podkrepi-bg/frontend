@@ -1,0 +1,24 @@
+{
+  "title": "Партньори на Podkrepi.bg",
+  "tabs": {
+    "partners": "Партньори",
+    "giversAndGuarants": "Дарители и Гаранти",
+    "theMediaAboutUs": "Медиите за нас"
+  },
+  "sections": {
+    "hosting": "Хостинг Партньор",
+    "video": "Видео партньори",
+    "media": "Медиeн партньор",
+    "tech": "Технологични партньори",
+    "marketing": "Маркетинг / PR партньори",
+    "organizations": "Организации / Организатори"
+  },
+  "guarants": {
+    "title": "Гаранти",
+    "corporateGivers": "Корпоративни дарители",
+    "megaGivers": "Мега дарители",
+    "megaGiversSubtitle": "Хора дарили суми над 5000лв",
+    "superGivers": "Супер дарители",
+    "superGiversSubtitle": "Хора дарили суми над 500лв"
+  }
+}

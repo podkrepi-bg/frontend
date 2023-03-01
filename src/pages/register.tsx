@@ -3,8 +3,8 @@ import { getProviders } from 'next-auth/react'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { routes } from 'common/routes'
-import RegisterPage from 'components/auth/register/RegisterPage'
-import { unstable_getServerSession } from 'next-auth'
+import RegisterPage from 'components/client/auth/register/RegisterPage'
+import { getServerSession } from 'next-auth'
 import { authOptions } from './api/auth/[...nextauth]'
 
 export type RegisterPageProps = {
@@ -12,10 +12,9 @@ export type RegisterPageProps = {
 }
 
 export const getServerSideProps: GetServerSideProps<RegisterPageProps> = async (ctx) => {
-  //For getting session on server side the docs recommend using unstable_getServerSession as per
-  //here: https://next-auth.js.org/getting-started/introduction#server-side
-  //the docs say there is noting unstable, it just may change in next versions
-  const session = await unstable_getServerSession(ctx.req, ctx.res, authOptions)
+  //For getting session on server side the docs recommend using getServerSession as per
+  //here: https://next-auth.js.org/configuration/nextjs#getserversession
+  const session = await getServerSession(ctx.req, ctx.res, authOptions)
 
   if (session) {
     return {

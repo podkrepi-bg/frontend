@@ -1,4 +1,4 @@
-import CoordinatorAddPage from 'components/coordinators/CoordinatorAddPage'
+import CoordinatorAddPage from 'components/admin/coordinators/CoordinatorAddPage'
 import { securedPropsWithTranslation } from 'middleware/auth/securedProps'
 
 export const getServerSideProps = securedPropsWithTranslation([

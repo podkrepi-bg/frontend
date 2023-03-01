@@ -1,5 +1,9 @@
-import DonationStore from './DonationStore'
+import { DonationStore } from './DonationStore'
 
-export const stores = {
-  donationStore: new DonationStore(),
+export default class Stores {
+  donationStore = new DonationStore()
 }
+
+const stores = new Stores()
+
+export { stores }

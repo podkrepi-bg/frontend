@@ -1,4 +1,4 @@
-import CampaignsPage from 'components/campaigns/grid/CampaignPage'
+import CampaignsPage from 'components/admin/campaigns/grid/CampaignPage'
 import { securedAdminProps } from 'middleware/auth/securedProps'
 import { endpoints } from 'service/apiEndpoints'
 

@@ -1,4 +1,4 @@
-import EditPage from 'components/documents/EditPage'
+import EditPage from 'components/admin/documents/EditPage'
 import { securedAdminProps } from 'middleware/auth/securedProps'
 import { endpoints } from 'service/apiEndpoints'
 

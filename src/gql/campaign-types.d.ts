@@ -1,4 +1,4 @@
-import type { CampaignTypeCategory } from 'components/campaign-types/categories'
+import type { CampaignTypeCategory } from 'components/common/campaign-types/categories'
 import { UUID } from './types'
 
 export type CampaignTypesType = {

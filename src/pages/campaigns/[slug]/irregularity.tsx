@@ -2,7 +2,7 @@ import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import IrregularityPage from 'components/campaigns/IrregularityPage'
+import IrregularityPage from 'components/client/campaigns/IrregularityPage'
 import { endpoints } from 'service/apiEndpoints'
 import { queryFnFactory } from 'service/restRequests'
 import { CampaignResponse } from 'gql/campaigns'

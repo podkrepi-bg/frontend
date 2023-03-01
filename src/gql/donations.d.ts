@@ -157,9 +157,22 @@ export type SecondStep = {
 export type ThirdStep = {
   message?: string
 }
-export type BankTransactionsUploadImage = {
-  bankTransactionsFileId: string
-}
 export type BankTransactionsFileFormData = {
   bankTransactionsFileId: string
+}
+
+enum ImportStatus {
+  UNPROCESSED = 'UNPROCESSED',
+  SUCCESS = 'SUCCESS',
+  FAILED = 'FAILED',
+  UPDATED = 'UPDATED',
+}
+
+export type BankImportResult = {
+  status: ImportStatus
+  message?: string
+  amount: number
+  currency: string
+  createdAt: Date
+  extPaymentIntentId: string
 }

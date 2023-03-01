@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-import ContactPage from 'components/contact/ContactPage'
+import ContactPage from 'components/client/contact/ContactPage'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({
   props: {
