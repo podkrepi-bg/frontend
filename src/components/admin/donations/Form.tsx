@@ -13,6 +13,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  TextField,
   Typography,
 } from '@mui/material'
 
@@ -26,6 +27,9 @@ import { DonationInput, DonationResponse } from 'gql/donations'
 import { useDonation } from 'common/hooks/donation'
 import { useCreateDonation, useEditDonation } from 'service/donation'
 import { useVaultsList } from 'common/hooks/vaults'
+import { DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { bg, enUS } from 'date-fns/locale'
 
 const validDonationTypes = ['donation']
 const validDonationStatuses = [
@@ -48,13 +52,14 @@ const validationSchema = yup.object().defined().shape({
 })
 
 export default function EditForm() {
+  const { t, i18n } = useTranslation()
   const [type, setType] = useState('donation')
   const [status, setStatus] = useState('initial')
   const [provider, setProvider] = useState('none')
   const [currency, setCurrency] = useState('')
   const [vault, setVault] = useState('')
+  const [date, setToDate] = React.useState<Date | null>(new Date())
   const router = useRouter()
-  const { t } = useTranslation()
 
   let id = router.query.id
 
@@ -66,6 +71,7 @@ export default function EditForm() {
     provider: 'none',
     currency: '',
     amount: 0,
+    createdAt: new Date(),
     targetVaultId: '',
     extCustomerId: '',
     extPaymentIntentId: '',
@@ -81,6 +87,7 @@ export default function EditForm() {
         type: data?.type.toString(),
         status: data?.status.toString(),
         provider: data?.provider.toString(),
+        createdAt: data?.createdAt,
         currency: data?.currency.toString(),
         amount: data?.amount,
         targetVaultId: data?.targetVaultId,
@@ -202,6 +209,18 @@ export default function EditForm() {
             </FormControl>
           </Grid>
           <Grid item xs={6}>
+            <LocalizationProvider
+              adapterLocale={i18n.language === 'bg' ? bg : enUS}
+              dateAdapter={AdapterDateFns}>
+              <DateTimePicker
+                label={t('donations:created-at')}
+                value={date}
+                onChange={setToDate}
+                renderInput={(params) => <TextField size="small" {...params} />}
+              />
+            </LocalizationProvider>
+          </Grid>
+          <Grid item xs={6}>
             <FormControl fullWidth size="small">
               <InputLabel id="labelVault">{t('donations:vault')}</InputLabel>
               <Select
@@ -222,7 +241,7 @@ export default function EditForm() {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={6}>
             <FormTextField
               type="text"
               label={t('donations:ext-customer-id')}
@@ -280,7 +299,7 @@ export default function EditForm() {
           </Grid>
           <Grid item xs={6}>
             <Link passHref href={routes.admin.donations.index}>
-              <Button>{t('donations:cta:cancel')}</Button>
+              <Button fullWidth>{t('donations:cta:cancel')}</Button>
             </Link>
           </Grid>
         </Grid>

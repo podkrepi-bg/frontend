@@ -64,6 +64,7 @@ export type DonationInput = {
   status: string
   provider: string
   currency: string
+  createdAt: Date
   amount: number
   targetVaultId: UUID
   extCustomerId: string
