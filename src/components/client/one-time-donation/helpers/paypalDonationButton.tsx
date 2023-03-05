@@ -73,7 +73,7 @@ export default function PaypalDonationButton({
         }}
         onApprove={(data, actions) => {
           if (actions.order) {
-            return actions.order.capture().then((details) => {
+            return actions.order.capture().then(() => {
               AlertStore.show(t('alerts.success'), 'success')
             })
           } else {

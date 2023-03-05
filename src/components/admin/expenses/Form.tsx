@@ -62,6 +62,7 @@ export default function Form() {
               const currentVault = vaults?.find((curr) => curr.id == this.parent.vaultId)
               const currentAmount =
                 Number(currentVault?.amount) - Number(currentVault?.blockedAmount)
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               return value! < Number(currentAmount)
             },
           }),

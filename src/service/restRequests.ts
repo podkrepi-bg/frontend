@@ -1,7 +1,7 @@
 import getConfig from 'next/config'
 import { Session } from 'next-auth'
 
-import { QueryFunction, QueryFunctionContext } from '@tanstack/react-query'
+import { QueryFunction } from '@tanstack/react-query'
 import { AxiosRequestConfig } from 'axios'
 
 import { apiClient } from 'service/apiClient'
