@@ -74,7 +74,7 @@ export default function DonorsAndDonations({
   donations: CampaignDonation[] | undefined
 }) {
   const { t, i18n } = useTranslation()
-  const [all, setAll] = useState<boolean>(false)
+  const [all] = useState<boolean>(false)
   const shownDonationsNumber = 5
   const donationsToShow = useMemo(() => {
     if (all) {
