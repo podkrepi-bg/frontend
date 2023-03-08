@@ -11,6 +11,8 @@ import { StepsContext } from './helpers/stepperContext'
 import { AlertStore } from 'stores/AlertStore'
 import PasswordField from 'components/common/form/PasswordField'
 
+const onGoogleLogin = () => signIn('google')
+
 function LoginForm() {
   const { t } = useTranslation('one-time-donation')
   const [loading, setLoading] = useState(false)
@@ -74,7 +76,8 @@ function LoginForm() {
         color="primary"
         variant="outlined"
         fullWidth
-        sx={{ marginTop: theme.spacing(3) }}>
+        sx={{ marginTop: theme.spacing(3) }}
+        onClick={onGoogleLogin}>
         <Box display="inline-flex" alignItems="center" marginRight={theme.spacing(2)}>
           <Google /> {t('common:nav.login-with')} Google
         </Box>
