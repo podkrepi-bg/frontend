@@ -35,3 +35,17 @@ export function useCampaignExpenseFiles(id: string) {
     queryFn: authQueryFnFactory(session?.accessToken),
   })
 }
+
+export function useDeleteCampaignExpense(id: string) {
+  const { data: session } = useSession()
+  return useQuery<ExpenseFile[]>([endpoints.expenses.deleteExpense(id).url], {
+    queryFn: authQueryFnFactory(session?.accessToken),
+  })
+}
+
+export function useDeleteExpenseFile(id: string) {
+  const { data: session } = useSession()
+  return useQuery<null>([endpoints.expenses.deleteExpenseFile(id).url], {
+    queryFn: authQueryFnFactory(session?.accessToken),
+  })
+}

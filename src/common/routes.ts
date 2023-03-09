@@ -60,6 +60,7 @@ export const routes = {
     expenses: {
       create: (slug: string) => `/campaigns/${slug}/expenses/create`,
       edit: (slug: string, id: string) => `/campaigns/${slug}/expenses/${id}`,
+      downloadFile: (id: string) => `/expenses/download-files/${id}`,
     },
   },
   donation: {

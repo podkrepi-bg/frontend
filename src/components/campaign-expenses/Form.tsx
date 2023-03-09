@@ -5,7 +5,8 @@ import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import * as yup from 'yup'
 import { FormikHelpers } from 'formik'
-import { Box, Grid, Typography } from '@mui/material'
+
+import { Box, Button, Grid, Tooltip, Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
 import { Currency } from 'gql/currency'
@@ -15,9 +16,9 @@ import LinkButton from 'components/common/LinkButton'
 import { useViewExpense } from 'common/hooks/expenses'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
-//import DeletedCheckbox from 'components/common/DeletedCheckbox'
 import CurrencySelect from 'components/currency/CurrencySelect'
 import FormTextField from 'components/common/form/FormTextField'
+import { Checkbox } from '@mui/material'
 import { useCreateExpense, useEditExpense } from 'service/expense'
 //import DocumentSelect from 'components/documents/grid/DocumentSelect'
 import { ApiErrors, isAxiosError, matchValidator } from 'service/apiErrors'
@@ -25,7 +26,6 @@ import { ExpenseInput, ExpenseResponse, ExpenseStatus, ExpenseType } from 'gql/e
 import FileUpload from 'components/file-upload/FileUpload'
 
 import ExpenseTypeSelect from '../expenses/ExpenseTypeSelect'
-// import PersonSelect from 'components/person/PersonSelect'
 import { useViewCampaign } from 'common/hooks/campaigns'
 import { UploadExpenseFile, ExpenseFile } from 'gql/expenses'
 import { useUploadExpenseFiles } from 'service/expense'
@@ -33,6 +33,10 @@ import FileList from 'components/campaign-expenses/grid/FileList'
 import FormDatePicker from 'components/common/form/FormDatePicker'
 import { toMoney, fromMoney } from 'common/util/money'
 import { useCampaignExpenseFiles } from 'common/hooks/expenses'
+import { downloadCampaignExpenseFile, deleteExpenseFile } from 'service/expense'
+import { useSession } from 'next-auth/react'
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import { useViewPersonByKeylockId } from 'common/hooks/person'
 
 const validTypes = Object.keys(ExpenseType)
 const validStatuses = Object.keys(ExpenseStatus)
@@ -51,6 +55,11 @@ export default function Form() {
   let id = router.query.id as string
   const [files, setFiles] = useState<File[]>([])
   const { data: expenseFiles } = useCampaignExpenseFiles(id)
+  const { data: session } = useSession()
+
+  const isAdmin = session?.user?.realm_access?.roles?.includes('podkrepi-admin')
+
+  const { data: person } = useViewPersonByKeylockId(session?.user?.sub as string)
 
   const fileUploadMutation = useMutation<
     AxiosResponse<ExpenseFile[]>,
@@ -68,12 +77,8 @@ export default function Form() {
       type: yup.string().trim().oneOf(validTypes).required(),
       status: yup.string().trim().oneOf(validStatuses).required(),
       currency: yup.string().trim().oneOf(validCurrencies).required(),
-      // money: yup.number().positive().integer().required(),
-      //      vaultId: yup.string().trim().uuid().required(),
-      //      deleted: yup.boolean().required(),
+      money: yup.number().required(),
       description: yup.string().trim().notRequired(),
-      //      documentId: yup.string().trim().uuid().notRequired(),
-      // approvedById: yup.string().trim().notRequired(),
     })
   if (id) {
     id = String(id)
@@ -91,8 +96,11 @@ export default function Form() {
     description: data?.description || '',
     documentId: data?.documentId || '',
     approvedById: data?.approvedById || '',
+    approved: !!data?.approvedById,
     spentAt: data?.spentAt || '',
   }
+
+  const [approvedBy, setApprovedBy] = useState<string | null | undefined>(data?.approvedById)
 
   const mutationFn = id ? useEditExpense(id) : useCreateExpense()
 
@@ -109,14 +117,31 @@ export default function Form() {
     },
   )
 
+  const downloadFileHandler = async (file: ExpenseFile) => {
+    downloadCampaignExpenseFile(file.id, session)
+      .then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', `${file.filename}`)
+        link.click()
+      })
+      .catch((error) => console.error(error))
+  }
+
+  const deleteFileHandler = async (file: ExpenseFile) => {
+    if (confirm(t('deleteTitle'))) {
+      deleteExpenseFile(file.id, session)
+    }
+  }
+
   async function onSubmit(data: ExpenseInput, { setFieldError }: FormikHelpers<ExpenseInput>) {
     try {
       if (data.documentId == '') {
         data.documentId = null
       }
-      if (data.approvedById == '') {
-        data.approvedById = null
-      }
+
+      data.approvedById = approvedBy
 
       if (data.spentAt.length == 10) {
         data.spentAt = data.spentAt + 'T00:00:00.000Z'
@@ -166,8 +191,20 @@ export default function Form() {
           <Grid item xs={6}>
             <FormTextField type="number" name="money" label="expenses:fields.amount" />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             <CurrencySelect disabled={true} />
+          </Grid>
+          <Grid item xs={3}>
+            {t('expenses:fields.approved')}:
+            <Checkbox
+              name="approved"
+              value={approvedBy ? true : false}
+              checked={approvedBy ? true : false}
+              readOnly={isAdmin}
+              onChange={(checkbox, val) => {
+                setApprovedBy(val && person ? person.id : null)
+              }}
+            />
           </Grid>
           <Grid item xs={12}>
             <FileUpload
@@ -197,13 +234,24 @@ export default function Form() {
             />
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="h5" component="h2" sx={{ marginBottom: 2, textAlign: 'center' }}>
-              {t('expenses:uploaded-documents')}:
+            <Typography component="h4" sx={{ textAlign: 'center' }}>
+              {t('expenses:uploaded-files')}:
             </Typography>
             {expenseFiles?.map((file, key) => (
-              <a key={key} href={endpoints.expenses.downloadFile(file.id).url}>
-                {file.filename}
-              </a>
+              <Typography
+                variant="h5"
+                component="h2"
+                key={key}
+                sx={{ marginBottom: 2, textAlign: 'center' }}>
+                <Tooltip title={t('tooltips.download')}>
+                  <Button onClick={() => downloadFileHandler(file)}>{file.filename}</Button>
+                </Tooltip>
+                <Tooltip title={t('tooltips.delete')}>
+                  <Button onClick={() => deleteFileHandler(file)}>
+                    <DeleteForeverIcon />
+                  </Button>
+                </Tooltip>
+              </Typography>
             ))}
           </Grid>
           <Grid item xs={6}>

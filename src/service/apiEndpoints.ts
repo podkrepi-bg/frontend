@@ -31,6 +31,7 @@ export const endpoints = {
     downloadFile: (fileId: string) => <Endpoint>{ url: `/campaign-file/${fileId}`, method: 'GET' },
     deleteFile: (fileId: string) => <Endpoint>{ url: `/campaign-file/${fileId}`, method: 'DELETE' },
     getDonations: (id: string) => <Endpoint>{ url: `/campaign/donations/${id}`, method: 'GET' },
+    canEdit: (slug: string) => <Endpoint>{ url: `/campaign/can-edit/${slug}`, method: 'GET' },
   },
   campaignType: {
     listCampaignTypes: <Endpoint>{ url: '/campaign-type/list', method: 'GET' },
@@ -137,8 +138,9 @@ export const endpoints = {
     deleteExpense: (id: string) => <Endpoint>{ url: `/expenses/${id}`, method: 'DELETE' },
     uploadFile: (expenseId: string) =>
       <Endpoint>{ url: `/expenses/upload-files/${expenseId}`, method: 'POST' },
-    downloadFile: (fileId: string) => <Endpoint>{ url: `/expenses/file/${fileId}`, method: 'GET' },
+    downloadFile: (fileId: string) => <Endpoint>{ url: `/expenses/download-file/${fileId}`, method: 'GET' },
     listExpenseFiles: (id: string) => <Endpoint>{ url: `/expenses/files/${id}`, method: 'GET' },
+    deleteExpenseFile: (id: string) => <Endpoint>{ url: `/expenses/file/${id}`, method: 'DELETE' },
   },
   benefactor: {
     benefactorList: <Endpoint>{ url: '/benefactor', method: 'GET' },
@@ -173,6 +175,8 @@ export const endpoints = {
     list: <Endpoint>{ url: '/person', method: 'GET' },
     createBeneficiary: <Endpoint>{ url: '/beneficiary/create-beneficiary', method: 'POST' },
     viewPerson: (slug: string) => <Endpoint>{ url: `/person/${slug}`, method: 'GET' },
+    viewPersonByKeylockId: (sub: string) =>
+      <Endpoint>{ url: `/person/by-keylock-id/${sub}`, method: 'GET' },
     editPerson: (id: string) => <Endpoint>{ url: `/person/${id}`, method: 'PUT' },
     createPerson: <Endpoint>{ url: '/person', method: 'POST' },
     deletePerson: (id: string) => <Endpoint>{ url: `/person/${id}`, method: 'DELETE' },

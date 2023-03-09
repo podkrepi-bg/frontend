@@ -5,15 +5,15 @@ import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 import { useTranslation } from 'next-i18next'
 
 import { usePersonList } from 'common/hooks/person'
+
 import { routes } from 'common/routes'
 import GridActions from 'components/admin/GridActions'
 
-import { ModalStore } from 'components/expenses/ExpensesPage'
-//import DetailsModal from './DetailsModal'
-//import DeleteModal from './DeleteModal'
+import DeleteModal from './DeleteModal'
 //import { statusRenderCell } from './GridHelper'
 import { useCampaignExpensesList } from 'common/hooks/expenses'
 import { moneyPublic } from 'common/util/money'
+import { ModalStoreImpl } from 'stores/dashboard/ModalStore'
 
 const PREFIX = 'Grid'
 
@@ -23,6 +23,8 @@ const classes = {
   grid: `${PREFIX}-grid`,
   gridColumn: `${PREFIX}-gridColumn`,
 }
+
+export const ModalStore = new ModalStoreImpl()
 
 // TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
 const Root = styled('div')({
@@ -52,8 +54,6 @@ export default observer(function CampaignExpensesGrid({ slug }: Props) {
 
   const [pageSize, setPageSize] = React.useState<number>(10)
   const { data: personList } = usePersonList()
-
-  //const { isDetailsOpen } = ModalStore
 
   const columns: GridColumns = [
     { field: 'id', headerName: 'ID', hide: true },
@@ -124,8 +124,9 @@ export default observer(function CampaignExpensesGrid({ slug }: Props) {
           <GridActions
             modalStore={ModalStore}
             id={params.row.id}
-            name={params.row.id}
+            name={params.row.description}
             editLink={routes.campaigns.expenses.edit(slug, params.row.id)}
+            disableView={true}
           />
         )
       },
@@ -147,6 +148,7 @@ export default observer(function CampaignExpensesGrid({ slug }: Props) {
         disableSelectionOnClick
       />
       {/* making sure we don't sent requests to the API when not needed */}
+      <DeleteModal />
     </Root>
   )
 })

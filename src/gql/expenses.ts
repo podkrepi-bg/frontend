@@ -12,6 +12,7 @@ export type ExpenseInput = {
   description?: string
   documentId?: UUID | null
   approvedById?: UUID | null
+  approved?: boolean
   spentAt: string
 }
 

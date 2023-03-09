@@ -37,7 +37,8 @@
       "question": "Are you sure you want to delete multiple expenses",
       "error": "Error occurred trying to delete multiple expenses.",
       "success": "Expenses were deleted successfully!!"
-    }
+    },
+    "delete": "Deleted expense"
   },
   "btns": {
     "add": "Add",
@@ -56,10 +57,13 @@
   "description": "All expenses",
   "reported": "Total reported",
   "uploaded-documents": "Uploaded documents",
+  "uploaded-files": "Uploaded files",
+  "deleteTitle": "Delete expense file?",
   "tooltips": {
     "add": "Add",
     "view": "View",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "download": "Download"
   }
 }

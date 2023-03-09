@@ -21,3 +21,12 @@ export function usePerson(id: string) {
     authQueryFnFactory<PersonResponse>(session?.accessToken),
   )
 }
+
+export function useViewPersonByKeylockId(id: string) {
+  const { data: session } = useSession()
+
+  return useQuery(
+    [endpoints.person.viewPersonByKeylockId(id).url],
+    authQueryFnFactory<PersonResponse>(session?.accessToken),
+  )
+}

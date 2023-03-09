@@ -59,21 +59,16 @@ export const useUploadExpenseFiles = () => {
   }
 }
 
-export const downloadCampaignFile = (id: string, session: Session | null) => {
+export const downloadCampaignExpenseFile = (id: string, session: Session | null) => {
   return apiClient(endpoints.expenses.downloadFile(id).url, {
     ...authConfig(session?.accessToken),
     responseType: 'blob',
   })
 }
 
-/*
-export const deleteCampaignFile = (id: string) => {
-  const { data: session } = useSession()
-  return async () => {
-    return await apiClient.delete<CampaignFile, AxiosResponse<CampaignFile>>(
-      endpoints.campaign.deleteFile(id).url,
-      authConfig(session?.accessToken),
-    )
-  }
+export const deleteExpenseFile = (id: string, session: Session | null) => {
+  return apiClient.delete(
+    endpoints.expenses.deleteExpenseFile(id).url,
+    authConfig(session?.accessToken),
+  )
 }
-*/

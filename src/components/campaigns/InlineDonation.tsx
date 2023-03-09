@@ -17,7 +17,8 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
 import { baseUrl, routes } from 'common/routes'
 import { moneyPublic } from 'common/util/money'
-import { useCampaignDonationHistory } from 'common/hooks/campaigns'
+import { useCampaignDonationHistory, useCanEditCampaign } from 'common/hooks/campaigns'
+
 import theme from 'common/theme'
 import { useCopyToClipboard } from 'common/util/useCopyToClipboard'
 import useMobile from 'common/hooks/useMobile'
@@ -232,6 +233,8 @@ export default function InlineDonation({ campaign }: Props) {
 
   const handleClose = () => setAnchorEl(null)
 
+  const canEdit = useCanEditCampaign(campaignSlug)
+
   return (
     <StyledGrid item xs={12} p={3} className={classes.inlineDonationWrapper}>
       {/* //TODO */}
@@ -307,15 +310,17 @@ export default function InlineDonation({ campaign }: Props) {
             {t('cta.support')}
           </LinkButton>
         </Grid>
-        <Grid item xs={12} mt={2}>
-          <LinkButton
-            fullWidth
-            href={routes.campaigns.viewExpenses(campaignSlug)}
-            variant="contained"
-            endIcon={<Assessment />}>
-            {t('campaign.financial-report')}
-          </LinkButton>
-        </Grid>
+        {canEdit && (
+          <Grid item xs={12} mt={2}>
+            <LinkButton
+              fullWidth
+              href={routes.campaigns.viewExpenses(campaignSlug)}
+              variant="contained"
+              endIcon={<Assessment />}>
+              {t('campaign.financial-report')}
+            </LinkButton>
+          </Grid>
+        )}
       </Grid>
       {detailsShown &&
         (donationHistoryError ? (
