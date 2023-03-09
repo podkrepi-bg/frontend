@@ -43,7 +43,7 @@ export default function EditForm() {
     const error = e.response
 
     if (error?.status === 409) {
-      const message = error.data.message.map((el) => handleUniqueViolation({ postalCode: '' }, t))
+      const message = error.data.message.map(() => handleUniqueViolation({ postalCode: '' }, t))
       return AlertStore.show(message.join('/n'), 'error')
     }
 

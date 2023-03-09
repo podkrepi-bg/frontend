@@ -24,7 +24,7 @@ test.describe.serial(
     // Localization texts
     const enCardIncludeFeesText = enLocalizationOneTimeDonation['third-step']['card-include-fees']
 
-    test.beforeAll(async ({ browser, baseURL }) => {
+    test.beforeAll(async ({ browser }) => {
       page = await browser.newPage()
       homepage = new HomePage(page)
       headerPage = new HeaderPage(page)

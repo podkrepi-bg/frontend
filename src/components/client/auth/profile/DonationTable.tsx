@@ -1,6 +1,5 @@
 import {
   Card,
-  Checkbox,
   TableBody,
   TableCell,
   TableContainer,
@@ -13,7 +12,7 @@ import {
   Link,
   Box,
 } from '@mui/material'
-import styled from '@emotion/styled'
+
 import React, { useMemo } from 'react'
 import { bg, enUS } from 'date-fns/locale'
 import { useTranslation } from 'next-i18next'
@@ -31,7 +30,7 @@ import { getExactDateTime } from 'common/util/date'
 export type DonationTableProps = {
   donations: UserDonation[] | undefined
 }
-const CheckboxLabel = styled.label``
+
 function DonationTable({ donations }: DonationTableProps) {
   const { t, i18n } = useTranslation()
   const [fromDate, setFromDate] = React.useState<Date | null>(null)

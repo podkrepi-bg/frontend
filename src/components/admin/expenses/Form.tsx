@@ -59,10 +59,11 @@ export default function Form() {
             params: {},
             message: t('fields-error.amount-unavailable'),
             test: function (value) {
+              if (!value) return false
               const currentVault = vaults?.find((curr) => curr.id == this.parent.vaultId)
               const currentAmount =
                 Number(currentVault?.amount) - Number(currentVault?.blockedAmount)
-              return value! < Number(currentAmount)
+              return value < Number(currentAmount)
             },
           }),
         otherwise: yup.number().positive().integer().required(),

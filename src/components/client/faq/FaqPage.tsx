@@ -1,7 +1,7 @@
 import { TabContext, TabPanel } from '@mui/lab'
 import { Stack } from '@mui/material'
 import { useTranslation } from 'next-i18next'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 
 import Layout from 'components/client/layout/Layout'
 

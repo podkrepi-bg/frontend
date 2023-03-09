@@ -1,23 +1,11 @@
-import { useTranslation } from 'next-i18next'
 import React from 'react'
-import { styled } from '@mui/material/styles'
+
+import { useTranslation } from 'next-i18next'
 import { Grid, List, Typography, Divider } from '@mui/material'
 
 import theme from 'common/theme'
 import { CopyTextButton } from 'components/common/CopyTextButton'
 import { ibanNumber } from 'common/iban'
-
-const PREFIX = 'SupportUs'
-const classes = {
-  divider: `${PREFIX}-divider`,
-}
-
-// TODO jss-to-styled codemod: The Fragment root was replaced by div. Change the tag if needed.
-const Root = styled('div')(() => ({
-  [`& .${classes.divider}`]: {
-    border: '1px solid #000000',
-  },
-}))
 
 export default function SupportUsForm() {
   const { t } = useTranslation('one-time-donation')
@@ -34,7 +22,7 @@ export default function SupportUsForm() {
         {t('support_us:support-info')}
       </Typography>
       <Typography variant="h6">{t('third-step.bank-details')}</Typography>
-      <Divider className={classes.divider} />
+      <Divider />
       <Grid container justifyContent="center">
         <Grid my={1} item display="flex" justifyContent="space-between" xs={9}>
           <Typography>{bankAccountInfo.owner}</Typography>
@@ -68,7 +56,7 @@ export default function SupportUsForm() {
         </Grid>
       </Grid>
       <Typography variant="h6">{t('third-step.reason-donation')}</Typography>
-      <Divider className={classes.divider} />
+      <Divider />
       <Grid container justifyContent="center">
         <Grid my={1} item display="flex" justifyContent="space-between" xs={9}>
           <Typography>{t('support_us:support-us-reference')}</Typography>

@@ -92,10 +92,6 @@ export default function FirstStep() {
     formik.values.isRecurring,
   ])
 
-  function isLogged() {
-    return session && session.accessToken ? true : false
-  }
-
   return (
     <Root>
       <Typography variant="h4">{t('third-step.title')}</Typography>

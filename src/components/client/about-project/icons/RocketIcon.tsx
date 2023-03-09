@@ -1,7 +1,6 @@
 import React from 'react'
-import { SvgIcon, SvgIconProps } from '@mui/material'
 
-import theme from 'common/theme'
+import { SvgIcon, SvgIconProps } from '@mui/material'
 
 export default function RocketIcon({ ...props }: SvgIconProps) {
   return (

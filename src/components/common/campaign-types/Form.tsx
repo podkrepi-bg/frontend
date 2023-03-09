@@ -62,7 +62,7 @@ export default function Form() {
     const error = e.response
 
     if (error?.status === 409) {
-      const message = error.data.message.map((el) =>
+      const message = error.data.message.map(() =>
         handleUniqueViolation({ campaignTypeSlug: '' }, t),
       )
       return AlertStore.show(message.join('/n'), 'error')

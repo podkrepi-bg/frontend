@@ -11,9 +11,7 @@ import { StepsContext } from './helpers/stepperContext'
 import { AlertStore } from 'stores/AlertStore'
 import PasswordField from 'components/common/form/PasswordField'
 
-const onGoogleLogin = () => {
-  const resp = signIn('google')
-}
+const onGoogleLogin = () => signIn('google')
 
 function LoginForm() {
   const { t } = useTranslation('one-time-donation')
