@@ -16,6 +16,7 @@ export default function FinanceReportPage() {
       <Container>
         <Typography>{t('finance-report-page.finance-report-2021')}</Typography>
         <LinkButton
+          locale={false} // shows BG translation of finance report only for now
           endIcon={<FileDownloadIcon />}
           href="/finance-reports/Podkrepi.bg_Financial_Report_2021.pdf">
           {t('finance-report-page.download-from-here')}
@@ -24,6 +25,7 @@ export default function FinanceReportPage() {
       <Container>
         <Typography>{t('finance-report-page.finance-report-2022')}</Typography>
         <LinkButton
+          locale={false} // shows BG translation of finance report only for now
           endIcon={<FileDownloadIcon />}
           href="/finance-reports/Podkrepi.bg_Financial_Report_062022.pdf">
           {t('finance-report-page.download-from-here')}
