@@ -16,7 +16,7 @@ export default observer(function DeleteModal() {
   const { hideDelete, selectedRecord, setSelectedRecord } = ModalStore
   const { t } = useTranslation('common')
 
-  const mutationFn = useDeleteExpense(selectedRecord.id)
+  const mutationFn = useDeleteExpense()
 
   const deleteMutation = useMutation<AxiosResponse<ExpenseResponse>, AxiosError<ApiErrors>, string>(
     {

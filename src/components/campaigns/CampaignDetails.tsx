@@ -11,15 +11,22 @@ import {
 } from 'common/util/campaignImageUrls'
 import CampaignInfo from './CampaignInfo'
 import { styled } from '@mui/material/styles'
-import { Divider, Grid, Typography } from '@mui/material'
+import { Divider, Grid, Tooltip, Typography } from '@mui/material'
 import CampaignInfoCoordinator from './CampaignInfoCoordinator'
 import SecurityIcon from '@mui/icons-material/Security'
 import { useTranslation } from 'next-i18next'
 import LinkButton from 'components/common/LinkButton'
+import { useCanEditCampaign } from 'common/hooks/campaigns'
 
 import dynamic from 'next/dynamic'
 import 'react-quill/dist/quill.bubble.css'
 import { routes } from 'common/routes'
+import { Assessment } from '@mui/icons-material'
+
+import CampaignPublicExpensesGrid from './grid/CampaignPublicExpensesGrid'
+import EditIcon from '@mui/icons-material/Edit'
+import { useCampaignApprovedExpensesList } from 'common/hooks/expenses'
+
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 
 const PREFIX = 'CampaignDetails'
@@ -119,6 +126,8 @@ export default function CampaignDetails({ campaign }: Props) {
   const bannerSource = backgroundCampaignPictureUrl(campaign)
   const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
   const sliderImages = campaignSliderUrls(campaign)
+  const canEditExpenses = useCanEditCampaign(campaign.slug)
+  const { data: expensesList } = useCampaignApprovedExpensesList(campaign.slug)
 
   return (
     <StyledGrid item xs={12} md={8}>
@@ -163,10 +172,32 @@ export default function CampaignDetails({ campaign }: Props) {
         </Grid>
         <Grid item xs={12}>
           <CampaignInfoCoordinator campaign={campaign} />
-          <h1>
-            [<a href={routes.campaigns.viewExpenses(campaign.slug)}> Разходи </a>]
-          </h1>
         </Grid>
+        {expensesList?.length || canEditExpenses ? (
+          <Grid item xs={12}>
+            <Grid item xs={12}>
+              <Typography variant="h4" component="h4" my={8}>
+                {t('campaigns:campaign.financial-report')} <Assessment />
+                {canEditExpenses ? (
+                  <Tooltip title={t('campaigns:cta.edit')}>
+                    <LinkButton
+                      href={routes.campaigns.viewExpenses(campaign.slug)}
+                      variant="contained"
+                      endIcon={<EditIcon />}
+                    />
+                  </Tooltip>
+                ) : (
+                  ''
+                )}
+              </Typography>
+            </Grid>
+            <Grid item xs={12} mt={2}>
+              <CampaignPublicExpensesGrid slug={campaign.slug} />
+            </Grid>
+          </Grid>
+        ) : (
+          ''
+        )}
         <Grid item xs={12}>
           <DonationWishes campaignId={campaign?.id} />
         </Grid>

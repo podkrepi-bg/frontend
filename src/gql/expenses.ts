@@ -28,6 +28,7 @@ export type ExpenseResponse = {
   documentId?: UUID | null
   approvedById?: UUID | null
   spentAt: string
+  expenseFiles: ExpenseFile[]
 }
 
 export enum ExpenseType {

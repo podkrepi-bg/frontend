@@ -17,7 +17,8 @@
     "approvedBy": "Approved by",
     "action": "Action",
     "empty": "Empty",
-    "date": "Date"
+    "date": "Date",
+    "attached-files": "Attached files"
   },
   "alerts": {
     "new-row": {

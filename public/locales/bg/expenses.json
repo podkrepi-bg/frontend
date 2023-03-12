@@ -20,7 +20,8 @@
     "approved": "Одобрен",
     "action": "Действие",
     "empty": "Празно",
-    "date": "Дата"
+    "date": "Дата",
+    "attached-files": "Прикачени файлове"
   },
   "field-types": {
     "none": "Няма",

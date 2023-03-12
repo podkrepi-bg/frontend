@@ -4,16 +4,14 @@ import { observer } from 'mobx-react'
 import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 import { useTranslation } from 'next-i18next'
 
-import { usePersonList } from 'common/hooks/person'
-
-import { routes } from 'common/routes'
-import GridActions from 'components/admin/GridActions'
-
-import DeleteModal from './DeleteModal'
-//import { statusRenderCell } from './GridHelper'
-import { useCampaignExpensesList } from 'common/hooks/expenses'
+import { useCampaignApprovedExpensesList } from 'common/hooks/expenses'
 import { moneyPublic } from 'common/util/money'
 import { ModalStoreImpl } from 'stores/dashboard/ModalStore'
+import { ExpenseFile } from 'gql/expenses'
+import { Button, Tooltip } from '@mui/material'
+import { downloadCampaignExpenseFile } from 'service/expense'
+import { useSession } from 'next-auth/react'
+import FilePresentIcon from '@mui/icons-material/FilePresent'
 
 const PREFIX = 'Grid'
 
@@ -48,12 +46,24 @@ const Root = styled('div')({
   },
 })
 
-export default observer(function CampaignExpensesGrid({ slug }: Props) {
+export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
   const { t } = useTranslation('')
-  const { data: expensesList } = useCampaignExpensesList(slug)
+  const { data: expensesList } = useCampaignApprovedExpensesList(slug)
 
   const [pageSize, setPageSize] = React.useState<number>(10)
-  const { data: personList } = usePersonList()
+  const { data: session } = useSession()
+
+  const downloadFileHandler = async (file: ExpenseFile) => {
+    downloadCampaignExpenseFile(file.id, session)
+      .then((response) => {
+        const url = window.URL.createObjectURL(new Blob([response.data]))
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', `${file.filename}`)
+        link.click()
+      })
+      .catch((error) => console.error(error))
+  }
 
   const columns: GridColumns = [
     { field: 'id', headerName: 'ID', hide: true },
@@ -71,7 +81,7 @@ export default observer(function CampaignExpensesGrid({ slug }: Props) {
       headerName: t('expenses:fields.amount'),
       headerClassName: classes.gridColumn,
       align: 'right',
-      width: 90,
+      width: 120,
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
         if (!params.row.amount) {
           return '0'
@@ -87,48 +97,22 @@ export default observer(function CampaignExpensesGrid({ slug }: Props) {
       flex: 1,
     },
     {
-      field: 'approvedById',
-      headerName: t('expenses:fields.approvedBy'),
-      headerClassName: classes.gridColumn,
-      valueGetter: (p) => {
-        if (personList && p.value) {
-          const found = personList.find((person) => person.id == p.value)
-          return `${found?.firstName} ${found?.lastName}`
-        }
-        return ''
-      },
-      flex: 1,
-    },
-    {
-      field: 'spentAt',
-      headerName: t('expenses:fields.date'),
+      field: 'files',
+      headerName: t('expenses:fields.attached-files'),
       headerClassName: classes.gridColumn,
       flex: 1,
-      renderCell: (params: GridRenderCellParams): React.ReactNode => {
-        if (!params.row.spentAt) {
-          return ''
-        }
-
-        return params.row.spentAt.split('T')[0]
-      },
-    },
-    {
-      field: 'actions',
-      headerName: t('expenses:fields.action'),
-      headerAlign: 'left',
-      width: 120,
-      type: 'actions',
-      headerClassName: classes.gridColumn,
-      renderCell: (params: GridRenderCellParams): React.ReactNode => {
-        return (
-          <GridActions
-            modalStore={ModalStore}
-            id={params.row.id}
-            name={params.row.description}
-            editLink={routes.campaigns.expenses.edit(slug, params.row.id)}
-            disableView={true}
-          />
-        )
+      renderCell: (params: GridRenderCellParams) => {
+        const rows = params.row.expenseFiles.map((file: ExpenseFile) => {
+          console.log(file)
+          return (
+            <Tooltip key={file.id} title={file.filename}>
+              <Button onClick={() => downloadFileHandler(file)}>
+                <FilePresentIcon />
+              </Button>
+            </Tooltip>
+          )
+        })
+        return <div>{rows}</div>
       },
     },
   ]
@@ -141,13 +125,11 @@ export default observer(function CampaignExpensesGrid({ slug }: Props) {
         columns={columns}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-        rowsPerPageOptions={[100]}
-        pagination
+        rowsPerPageOptions={[10, 20, 30]}
+        // pagination
         autoHeight
-        checkboxSelection
         disableSelectionOnClick
       />
-      <DeleteModal />
     </Root>
   )
 })

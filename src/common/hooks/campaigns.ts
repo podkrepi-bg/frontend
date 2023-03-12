@@ -111,11 +111,13 @@ export function useCampaignDonationHistory(
   ])
 }
 
-export async function useCanEditCampaign(slug: string) {
+export function useCanEditCampaign(slug: string) {
   const { data: session } = useSession()
-  const { data: canEdit } = await useQuery<boolean>([endpoints.campaign.canEdit(slug).url], {
+  const { data: canEdit } = useQuery<boolean>([endpoints.campaign.canEdit(slug).url], {
     queryFn: authQueryFnFactory(session?.accessToken),
   })
+
+  console.log('canEdit', canEdit)
 
   return canEdit
 }

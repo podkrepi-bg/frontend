@@ -28,6 +28,13 @@ export function useCampaignExpensesList(slug: string) {
   })
 }
 
+export function useCampaignApprovedExpensesList(slug: string) {
+  const { data: session } = useSession()
+  return useQuery<ExpenseResponse[]>([endpoints.expenses.listCampaignApprovedExpenses(slug).url], {
+    queryFn: authQueryFnFactory(session?.accessToken),
+  })
+}
+
 export function useCampaignExpenseFiles(id: string) {
   const { data: session } = useSession()
 

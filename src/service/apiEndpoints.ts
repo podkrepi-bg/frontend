@@ -132,6 +132,8 @@ export const endpoints = {
     listExpenses: <Endpoint>{ url: '/expenses/list', method: 'GET' },
     listCampaignExpenses: (slug: string) =>
       <Endpoint>{ url: `/expenses/campaign/${slug}`, method: 'GET' },
+    listCampaignApprovedExpenses: (slug: string) =>
+      <Endpoint>{ url: `/expenses/campaign/approved/${slug}`, method: 'GET' },
     createExpense: <Endpoint>{ url: '/expenses/create-expense', method: 'POST' },
     viewExpense: (id: string) => <Endpoint>{ url: `/expenses/${id}`, method: 'GET' },
     editExpense: (id: string) => <Endpoint>{ url: `/expenses/${id}`, method: 'PATCH' },
