@@ -1,9 +1,9 @@
-import { Session, unstable_getServerSession } from 'next-auth'
+import { Session, getServerSession } from 'next-auth'
 import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { QueryClient } from '@tanstack/react-query'
 
-import IndexPage from 'components/index/IndexPage'
+import IndexPage from 'components/client/index/IndexPage'
 import { campaignsOrderQueryFunction } from 'common/hooks/campaigns'
 import { CampaignResponse } from 'gql/campaigns'
 import { endpoints } from 'service/apiEndpoints'
@@ -19,10 +19,9 @@ export const getServerSideProps: GetServerSideProps<{
     campaignsOrderQueryFunction,
   )
 
-  //For getting session on server side the docs recommend using unstable_getServerSession as per
-  //here: https://next-auth.js.org/getting-started/introduction#server-side
-  //the docs say there is noting unstable, it just may change in next versions
-  const session = await unstable_getServerSession(ctx.req, ctx.res, authOptions)
+  //For getting session on server side the docs recommend using getServerSession as per
+  //here: https://next-auth.js.org/configuration/nextjs#getserversession
+  const session = await getServerSession(ctx.req, ctx.res, authOptions)
   return {
     props: {
       ...(await serverSideTranslations(ctx.locale ?? 'bg', ['common', 'index', 'campaigns'])),

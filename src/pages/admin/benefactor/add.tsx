@@ -1,4 +1,4 @@
-import BenefactorAddPage from 'components/benefactor/BenefactorAddPage'
+import BenefactorAddPage from 'components/admin/benefactor/BenefactorAddPage'
 import { securedPropsWithTranslation } from 'middleware/auth/securedProps'
 
 export const getServerSideProps = securedPropsWithTranslation([

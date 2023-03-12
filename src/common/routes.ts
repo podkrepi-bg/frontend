@@ -34,6 +34,29 @@ export const socialUrls = {
   discord: 'https://discord.com/invite/nZAeCb9YzP',
 }
 
+export const partnerUrls = {
+  superHosting: 'https://www.superhosting.bg/',
+  rinkoff: 'https://www.linkedin.com/company/rinkoff/about/',
+  darik: 'https://dariknews.bg/',
+  techPartners: [
+    'https://softuni.bg/',
+    'https://mentormate.com/',
+    'https://www.88studiodesign.com/',
+  ],
+  marketingPartners: [
+    'https://www.all-channels.com/',
+    'https://www.braindonors.agency/',
+    'https://crossroadsbulgaria.com/',
+  ],
+  puls: 'https://pulsfoundation.org/bg/',
+  yanika: 'https://www.yanikabg.com/',
+  parakids: 'https://parakids.org/',
+  trotoara: 'https://trotoara.com/',
+  bear: 'https://plushenomeche.org/',
+  visuallyImpairedChildren: 'http://www.suunzvarna.com/',
+  gorata: 'https://gorata.bg/',
+}
+
 export const routes = {
   index: '/',
   faq: '/faq',
@@ -42,6 +65,7 @@ export const routes = {
   login: '/login',
   logout: '/logout',
   contact: '/contact',
+  partners: '/partners',
   support: '/support',
   support_us: '/support_us',
   reports: '/finance-report',

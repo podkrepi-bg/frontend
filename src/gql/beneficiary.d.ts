@@ -1,4 +1,4 @@
-import { BeneficiaryType, PersonRelation } from '../components/beneficiary/BeneficiaryTypes'
+import { BeneficiaryType, PersonRelation } from '../components/admin/beneficiary/BeneficiaryTypes'
 import { Person } from './person'
 
 export type BeneficiaryListResponse = {

@@ -4,7 +4,7 @@ import { DonationInput } from 'gql/donations'
 
 enableStaticRendering(typeof window === 'undefined')
 
-class DonationStore {
+export class DonationStore {
   donations: DonationInput[] = []
   donationFilters: {
     status: string | null
@@ -65,5 +65,3 @@ class DonationStore {
     return this.donationSearch
   }
 }
-
-export default DonationStore

@@ -7,6 +7,7 @@ const { version } = require('./package.json')
 const { i18n } = require('./next-i18next.config')
 
 /**
+ * NextJS Config Section
  * @type {import('next').NextConfig}
  */
 const moduleExports = {
@@ -61,14 +62,32 @@ const moduleExports = {
       },
     ]
   },
-  experimental: {
-    modularizeImports: {
-      '@mui/material': {
-        transform: '@mui/material/{{member}}',
+  async headers() {
+    const securityHeaders = [
+      {
+        key: 'X-Frame-Options',
+        value: 'SAMEORIGIN',
       },
-      '@mui/icons-material/?(((\\w*)?/?)*)': {
-        transform: '@mui/icons-material/{{ matches.[1] }}/{{member}}',
+      {
+        key: 'X-XSS-Protection',
+        value: '1; mode=block',
       },
+    ]
+
+    return [
+      {
+        // Apply the headers to all routes
+        source: '/:path*',
+        headers: securityHeaders,
+      },
+    ]
+  },
+  modularizeImports: {
+    '@mui/material': {
+      transform: '@mui/material/{{member}}',
+    },
+    '@mui/icons-material/?(((\\w*)?/?)*)': {
+      transform: '@mui/icons-material/{{ matches.[1] }}/{{member}}',
     },
   },
 }

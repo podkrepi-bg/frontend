@@ -27,7 +27,7 @@ module.exports = {
     'next-i18next.config.js',
     'sentry.client.config.js',
     'sentry.server.config.js',
-    'next-sitemap.js',
+    'next-sitemap.config.js',
   ],
   rules: {
     'react/display-name': 'off',

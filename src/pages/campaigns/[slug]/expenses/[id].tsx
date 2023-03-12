@@ -1,6 +1,6 @@
 import { securedAdminProps } from 'middleware/auth/securedProps'
 import { endpoints } from 'service/apiEndpoints'
-import ExpensesEditPage from 'components/campaign-expenses/CampaignExpenseEdit'
+import ExpensesEditPage from 'components/client/campaign-expenses/CampaignExpenseEdit'
 
 export const getServerSideProps = securedAdminProps(
   ['common', 'auth', 'validation', 'expenses'],

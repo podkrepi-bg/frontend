@@ -143,3 +143,11 @@ spec:
               port: 3040
             initialDelaySeconds: 5
             periodSeconds: 5
+          startupProbe:
+            httpGet:
+              path: /api/healthcheck
+              port: 3040
+            failureThreshold: 12
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 1

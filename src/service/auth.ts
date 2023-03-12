@@ -65,7 +65,13 @@ export type ServerUser = ParsedToken & {
   acr: string
   sid: string
 }
-export type RegisterResponse = Person
+
+type RegisterErrorResponse = {
+  data?: { errorMessage?: string }
+}
+
+export type RegisterResponse = Person & RegisterErrorResponse
+
 export type RegisterInput = {
   email: string
   password: string

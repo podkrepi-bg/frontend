@@ -1,5 +1,5 @@
 import { GetStaticProps } from 'next'
-import AboutProjectPage from 'components/about-project/AboutProjectPage'
+import AboutProjectPage from 'components/client/about-project/AboutProjectPage'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => ({

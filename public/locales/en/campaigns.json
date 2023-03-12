@@ -23,6 +23,7 @@
   "withdrawnAmount": "Withdrawn amount",
   "startDate": "Start date",
   "endDate": "End date",
+  "indefinite": "Indefinite",
   "createDate": "Created at",
   "deletedAt": "Deleted at",
   "targetDate": "Target date",
@@ -69,8 +70,7 @@
     "details": "Details about the Campaign",
     "add-files": "Add files",
     "attached-files": "Attached files",
-    "download": "Download",
-    "trusted": "Trusted"
+    "download": "Download"
   },
   "campaign": {
     "subheading": "Your support for the world matters. All supporters through Podkrepi.bg are our partners in supporting the community campaign. As a generous benefactor, you become an important partner in supporting a campaign regarding someone's health or the success of a cause that is close to your heart.",
@@ -94,6 +94,7 @@
     "gallery": "Gallery",
     "report-irregularity": "Report irregularity",
     "financial-report": "Financial report",
+    "report-campaign": "Report the campaign",
     "feedback": "Feedback",
     "images": {
       "add": "Add image",
@@ -136,14 +137,25 @@
       "add": "Add organizer",
       "create": "Create organizer"
     },
-    "podkrepi-bg-coordinator": "Podkrepi.bg Coordinator:",
+    "podkrepi-bg-operator": "Podkrepi.bg Operator:",
     "have-a-question": "Have a question?",
+    "btn-connect": "Write to us",
     "write-to-coordinator": "Write to Coordinator",
     "description": "Description",
     "start-date": "Start date:",
     "end-date": "End date:",
     "tag": "Tag:",
     "date": "Date:"
+  },
+  "info-graphics": {
+    "donation-title": "100% of the donation goes to those in need",
+    "donation-text": "No withholding of fees and commissions for Podkrepi.bg",
+    "transparency-title": "Donation transparency with reports",
+    "transparency-text": "Reporting documents for the spent funds from the beneficiary",
+    "approval-title": "Going through campaign approval steps",
+    "approval-text": "Each campaign has a guarantor and coordinator responsible for the campaign",
+    "become-volunteer-title": "Become part of the cause of Podkrepi.bg",
+    "become-volunteer-button": "Volunteer"
   },
   "filters": {
     "all": "All",
@@ -165,17 +177,17 @@
     "lv": "lv"
   },
   "campaign-status": {
-    "initial": "initial",
-    "draft": "draft",
-    "pending-validation": "pending validation",
-    "approved": "approved",
-    "rejected": "rejected",
-    "active": "active",
-    "active-pending-validation": "active pending validation",
-    "suspended": "suspended",
-    "complete": "complete",
-    "disabled": "disabled",
-    "error": "error",
-    "deleted": "deleted"
+    "initial": "Initial",
+    "draft": "Draft",
+    "pending-validation": "Pending validation",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "active": "Active",
+    "active-pending-validation": "Active pending validation",
+    "suspended": "Suspended",
+    "complete": "Complete",
+    "disabled": "Disabled",
+    "error": "Error",
+    "deleted": "Deleted"
   }
 }

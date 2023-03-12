@@ -7,7 +7,7 @@ import { authQueryFnFactory } from 'service/restRequests'
 import {
   IrregularityFileResponse,
   IrregularityResponse,
-} from 'components/irregularity/helpers/irregularity.types'
+} from 'components/client/irregularity/helpers/irregularity.types'
 
 export function useIrregularityList() {
   const { data: session } = useSession()

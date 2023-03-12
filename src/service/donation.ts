@@ -3,7 +3,7 @@ import { AxiosResponse } from 'axios'
 import { useSession } from 'next-auth/react'
 
 import {
-  BankTransactionsUploadImage,
+  BankImportResult,
   CheckoutSessionInput,
   CheckoutSessionResponse,
   DonationBankInput,
@@ -14,7 +14,7 @@ import {
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
 import { authConfig } from 'service/restRequests'
-import { UploadBankTransactionsFiles } from 'components/bank-transactions-file/types'
+import { UploadBankTransactionsFiles } from 'components/admin/bank-transactions-file/types'
 import { useMutation } from '@tanstack/react-query'
 
 export const createCheckoutSession = async (data: CheckoutSessionInput) => {
@@ -92,7 +92,7 @@ export const useUploadBankTransactionsFiles = () => {
     filesType.forEach((fileType) => {
       formData.append('types', fileType.type)
     })
-    return await apiClient.post<FormData, AxiosResponse<BankTransactionsUploadImage[]>>(
+    return await apiClient.post<FormData, AxiosResponse<BankImportResult[]>>(
       endpoints.donation.uploadBankTransactionsFile(bankTransactionsFileId).url,
       formData,
       {

@@ -1,4 +1,4 @@
-import EditPage from 'components/campaign-types/EditPage'
+import EditPage from 'components/common/campaign-types/EditPage'
 import { securedAdminProps } from 'middleware/auth/securedProps'
 import { endpoints } from 'service/apiEndpoints'
 
