@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 
 import { useTranslation } from 'next-i18next'
 
@@ -74,7 +74,7 @@ export default function DonorsAndDonations({
   donations: CampaignDonation[] | undefined
 }) {
   const { t, i18n } = useTranslation()
-  const [all, setAll] = useState<boolean>(false)
+  const all = false
   const shownDonationsNumber = 5
   const donationsToShow = useMemo(() => {
     if (all) {

@@ -7,6 +7,7 @@ const { version } = require('./package.json')
 const { i18n } = require('./next-i18next.config')
 
 /**
+ * NextJS Config Section
  * @type {import('next').NextConfig}
  */
 const moduleExports = {
@@ -63,6 +64,26 @@ const moduleExports = {
         source: '/profile',
         destination: '/profile/donations',
         permanent: false,
+      },
+    ]
+  },
+  async headers() {
+    const securityHeaders = [
+      {
+        key: 'X-Frame-Options',
+        value: 'SAMEORIGIN',
+      },
+      {
+        key: 'X-XSS-Protection',
+        value: '1; mode=block',
+      },
+    ]
+
+    return [
+      {
+        // Apply the headers to all routes
+        source: '/:path*',
+        headers: securityHeaders,
       },
     ]
   },
