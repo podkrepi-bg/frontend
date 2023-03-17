@@ -42,10 +42,6 @@ const validTypes = Object.keys(ExpenseType)
 const validStatuses = Object.keys(ExpenseStatus)
 const validCurrencies = Object.keys(Currency)
 
-interface Props {
-  onFileUpload: (file: File) => void
-}
-
 export default function Form() {
   const queryClient = useQueryClient()
   const router = useRouter()
@@ -117,7 +113,7 @@ export default function Form() {
     },
   )
 
-  const downloadFileHandler = async (file: ExpenseFile) => {
+  const downloadExpensesFileHandler = async (file: ExpenseFile) => {
     downloadCampaignExpenseFile(file.id, session)
       .then((response) => {
         const url = window.URL.createObjectURL(new Blob([response.data]))
@@ -244,7 +240,7 @@ export default function Form() {
                 key={key}
                 sx={{ marginBottom: 2, textAlign: 'center' }}>
                 <Tooltip title={t('tooltips.download')}>
-                  <Button onClick={() => downloadFileHandler(file)}>{file.filename}</Button>
+                  <Button onClick={() => downloadExpensesFileHandler(file)}>{file.filename}</Button>
                 </Tooltip>
                 <Tooltip title={t('tooltips.delete')}>
                   <Button onClick={() => deleteFileHandler(file)}>

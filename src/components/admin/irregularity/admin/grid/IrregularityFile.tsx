@@ -14,7 +14,6 @@ import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
 import { IrregularityFileResponse } from 'components/client/irregularity/helpers/irregularity.types'
 import { useSession } from 'next-auth/react'
-import { ExpenseFile } from 'gql/expenses'
 
 type Props = {
   irregularityId: string
@@ -36,7 +35,7 @@ export default function IrregularityFile({ file, irregularityId }: Props) {
       router.push(routes.admin.irregularity.index)
     },
   })
-  const downloadFileHandler = async (file: ExpenseFile) => {
+  const downloadFileHandler = async () => {
     download(file.id, session)
       .then((response) => {
         const url = window.URL.createObjectURL(new Blob([response.data]))

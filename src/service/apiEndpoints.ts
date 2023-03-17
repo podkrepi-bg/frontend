@@ -140,7 +140,8 @@ export const endpoints = {
     deleteExpense: (id: string) => <Endpoint>{ url: `/expenses/${id}`, method: 'DELETE' },
     uploadFile: (expenseId: string) =>
       <Endpoint>{ url: `/expenses/upload-files/${expenseId}`, method: 'POST' },
-    downloadFile: (fileId: string) => <Endpoint>{ url: `/expenses/download-file/${fileId}`, method: 'GET' },
+    downloadFile: (fileId: string) =>
+      <Endpoint>{ url: `/expenses/download-file/${fileId}`, method: 'GET' },
     listExpenseFiles: (id: string) => <Endpoint>{ url: `/expenses/files/${id}`, method: 'GET' },
     deleteExpenseFile: (id: string) => <Endpoint>{ url: `/expenses/file/${id}`, method: 'DELETE' },
   },

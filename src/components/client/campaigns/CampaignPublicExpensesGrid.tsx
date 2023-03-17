@@ -53,7 +53,7 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
   const [pageSize, setPageSize] = React.useState<number>(10)
   const { data: session } = useSession()
 
-  const downloadFileHandler = async (file: ExpenseFile) => {
+  const downloadExpenseFileHandler = async (file: ExpenseFile) => {
     downloadCampaignExpenseFile(file.id, session)
       .then((response) => {
         const url = window.URL.createObjectURL(new Blob([response.data]))
@@ -106,7 +106,7 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
           console.log(file)
           return (
             <Tooltip key={file.id} title={file.filename}>
-              <Button onClick={() => downloadFileHandler(file)}>
+              <Button onClick={() => downloadExpenseFileHandler(file)}>
                 <FilePresentIcon />
               </Button>
             </Tooltip>

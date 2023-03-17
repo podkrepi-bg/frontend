@@ -26,7 +26,7 @@ export default function ExpenseTypeSelect({ name = 'type' }) {
         {...field}>
         {values?.map((value, index) => (
           <MenuItem key={index} value={value}>
-            {t("expenses:field-types." + value)}
+            {t('expenses:field-types.' + value)}
           </MenuItem>
         ))}
       </FormTextField>
