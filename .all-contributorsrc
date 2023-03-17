@@ -728,7 +728,7 @@
       "contributions": [
         "code",
         "review"
-        ]
+      ]
     },
     {
       "login": "BogoCvetkov",
@@ -738,6 +738,15 @@
       "contributions": [
         "code",
         "test"
+      ]
+    },
+    {
+      "login": "dzhaniivanov",
+      "name": "Dzhani Ivanov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/68897146?v=4",
+      "profile": "https://github.com/dzhaniivanov",
+      "contributions": [
+        "code"
       ]
     }
   ],
