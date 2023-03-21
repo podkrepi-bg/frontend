@@ -4,6 +4,8 @@ metadata:
   name: frontend
   labels:
     app: frontend
+  annotations:
+    app.komodor.com/app: https://github.com/podkrepi-bg/frontend
 spec:
   replicas: 1
   selector:
