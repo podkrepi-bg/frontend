@@ -58,9 +58,6 @@ export default function PrivateMenu() {
 
   const handleMenu = (event: React.MouseEvent) => setAnchorEl(event.currentTarget)
   const handleClose = () => setAnchorEl(null)
-  const getAvatar = () => {
-    if (userPicture) return userPicture as string
-  }
 
   if (!session) {
     return null
@@ -79,15 +76,17 @@ export default function PrivateMenu() {
             src={session?.user?.picture}
           />
         ) : (
-          <Avatar
-            sx={{
-              bgcolor: theme.palette.success.light,
-              height: theme.spacing(4),
-              width: theme.spacing(4),
-              fontSize: '1rem',
-            }}
-            src={getAvatar()}
-          />
+          userPicture && (
+            <Avatar
+              sx={{
+                bgcolor: theme.palette.success.light,
+                height: theme.spacing(4),
+                width: theme.spacing(4),
+                fontSize: '1rem',
+              }}
+              src={userPicture}
+            />
+          )
         )}
       </IconButton>
       <Menu

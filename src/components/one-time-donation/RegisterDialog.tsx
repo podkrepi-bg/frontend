@@ -20,6 +20,7 @@ export default function RegisterForm() {
   const { mutateAsync: register } = useRegister()
   const formik = useFormikContext<OneTimeDonation>()
   const { setStep } = useContext(StepsContext)
+  const [profilePicture, setProfilePicture] = useState(assignRandomProfilePicture().trim())
 
   const values: RegisterFormData = {
     firstName: formik.values.registerFirstName as string,
@@ -34,7 +35,7 @@ export default function RegisterForm() {
   const onClick = async () => {
     try {
       setLoading(true)
-      values.picture = assignRandomProfilePicture().trim()
+      values.picture = profilePicture
 
       // Register in Keycloak
       await register(values)

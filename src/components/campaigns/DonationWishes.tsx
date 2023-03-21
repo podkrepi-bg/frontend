@@ -1,12 +1,14 @@
 import React, { useRef, useState } from 'react'
 import { useTranslation } from 'next-i18next'
-import { Unstable_Grid2 as Grid2, Stack, Typography } from '@mui/material'
+import { Unstable_Grid2 as Grid2, Stack, Typography, Avatar } from '@mui/material'
 import RateReviewIcon from '@mui/icons-material/RateReview'
 import { useDonationWishesList } from 'common/hooks/donationWish'
 import { getExactDate } from 'common/util/date'
 import { bg, enUS } from 'date-fns/locale'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import Pagination from '@mui/material/Pagination'
+import { useCurrentPerson } from 'common/util/useCurrentPerson'
+import theme from 'common/theme'
 
 type Props = {
   campaignId: string
@@ -20,7 +22,9 @@ export default function DonationWishes({ campaignId, pageSize = 12 }: Props) {
 
   const [pageIndex, setPageIndex] = useState<number>(0)
   const { data, isSuccess } = useDonationWishesList(campaignId, pageIndex, pageSize)
+  const { data: currentPerson } = useCurrentPerson()
 
+  const userPicture = currentPerson?.user.picture
   const numOfPages = isSuccess && data ? Math.ceil(data.totalCount / pageSize) : 0
 
   const handlePageChange = (_e: React.ChangeEvent<unknown>, page: number) => {
@@ -59,7 +63,19 @@ export default function DonationWishes({ campaignId, pageSize = 12 }: Props) {
               <Grid2 xs={12}>
                 <Stack direction="row" spacing={2}>
                   <Stack>
-                    <AccountCircleIcon color="disabled" sx={{ fontSize: '2.3rem' }} />
+                    {userPicture ? (
+                      <Avatar
+                        sx={{
+                          bgcolor: theme.palette.success.light,
+                          height: '32px',
+                          width: '32px',
+                          fontSize: '1rem',
+                        }}
+                        src={userPicture}
+                      />
+                    ) : (
+                      <AccountCircleIcon color="disabled" sx={{ fontSize: '2.3rem' }} />
+                    )}
                   </Stack>
                   <Stack direction="column" spacing={1}>
                     <Stack direction="column">
