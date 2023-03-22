@@ -15,18 +15,12 @@ import {
   UpdatePaymentIntentInput,
   UserDonationInput,
   SubscriptionPaymentInput,
+  UpdateSetupIntentInput,
 } from 'gql/donations'
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
 import { authConfig } from 'service/restRequests'
 import { UploadBankTransactionsFiles } from 'components/admin/bank-transactions-file/types'
-
-export const createCheckoutSession = async (data: CheckoutSessionInput) => {
-  return await apiClient.post<CheckoutSessionInput, AxiosResponse<CheckoutSessionResponse>>(
-    endpoints.donation.createCheckoutSession.url,
-    data,
-  )
-}
 
 export function useCreatePaymentIntent() {
   //Create payment intent useing the react-query mutation
@@ -38,6 +32,18 @@ export function useCreatePaymentIntent() {
         Stripe.PaymentIntentCreateParams,
         AxiosResponse<Stripe.PaymentIntent>
       >(endpoints.donation.createPaymentIntent.url, data, authConfig(session?.accessToken))
+    },
+  })
+}
+export function useUpdateSetupIntent() {
+  //Create payment intent useing the react-query mutation
+  const { data: session } = useSession()
+  return useMutation({
+    mutationFn: async ({ id, payload }: UpdateSetupIntentInput) => {
+      return await apiClient.post<
+        Stripe.SetupIntentUpdateParams,
+        AxiosResponse<Stripe.SetupIntent>
+      >(endpoints.donation.updateSetupIntent(id).url, payload, authConfig(session?.accessToken))
     },
   })
 }

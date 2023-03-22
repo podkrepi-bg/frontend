@@ -29,6 +29,7 @@ import {
   useCancelPaymentIntent,
   useCreateStripePayment,
   useUpdatePaymentIntent,
+  useUpdateSetupIntent,
 } from 'service/donation'
 
 import StepSplitter from './common/StepSplitter'
@@ -110,12 +111,12 @@ export function DonationFlowForm() {
     formikRef.current?.setFieldValue('email', '')
     formikRef.current?.setFieldValue('isAnonymous', true)
   }, [session])
-  const { campaign, stripePaymentIntent, paymentError, setPaymentError } = useDonationFlow()
+  const { campaign, setupIntent, paymentError, setPaymentError } = useDonationFlow()
   const stripe = useStripe()
   const elements = useElements()
   const router = useRouter()
   const createStripePaymentMutation = useCreateStripePayment()
-  const updatePaymentIntentMutation = useUpdatePaymentIntent()
+  const updateSetupIntentMutation = useUpdateSetupIntent()
   const cancelPaymentIntentMutation = useCancelPaymentIntent()
   const paymentMethodSectionRef = React.useRef<HTMLDivElement>(null)
   const authenticationSectionRef = React.useRef<HTMLDivElement>(null)
@@ -129,7 +130,6 @@ export function DonationFlowForm() {
         ...initialValues,
         email: session?.user?.email ?? '',
         authentication: session?.user ? DonationFormAuthState.AUTHENTICATED : null,
-        amountChosen: stripePaymentIntent.amount.toString(),
         isAnonymous: session?.user ? false : true,
       }}
       validationSchema={validationSchema}
@@ -143,7 +143,7 @@ export function DonationFlowForm() {
           )
         }
 
-        if (!stripe || !elements || !stripePaymentIntent) {
+        if (!stripe || !elements || !setupIntent) {
           // Stripe.js has not yet loaded.
           // Form should be disabled but TS doesn't know that.
           setSubmitPaymentLoading(false)
@@ -154,55 +154,70 @@ export function DonationFlowForm() {
           return
         }
 
-        if (!values.isRecurring) {
-          // Update the payment intent with the latest calculated amount
-          try {
-            await updatePaymentIntentMutation.mutateAsync({
-              id: stripePaymentIntent.id,
-              payload: {
-                amount: Math.round(Number(values.finalAmount)),
-                currency: campaign.currency,
-                metadata: {
-                  campaignId: campaign.id,
-                },
-              },
-            })
-          } catch (error) {
-            setSubmitPaymentLoading(false)
-            setPaymentError({
-              type: 'invalid_request_error',
-              message: t('step.summary.alerts.error'),
-            })
-            return
-          }
-          // Create the payment entity
-          try {
-            await createStripePaymentMutation.mutateAsync({
-              isAnonymous: values.isAnonymous,
-              personEmail: session?.user?.email || values.email,
-              paymentIntentId: stripePaymentIntent.id,
-              firstName: session?.user?.given_name || null,
-              lastName: session?.user?.family_name || null,
-              phone: null,
-            })
-          } catch (error) {
-            setSubmitPaymentLoading(false)
-            setPaymentError({
-              type: 'invalid_request_error',
-              message: t('step.summary.alerts.error'),
-            })
-            return
-          }
+        if (!values.finalAmount) {
+          setSubmitPaymentLoading(false)
+          setPaymentError({
+            type: 'invalid_request_error',
+            message: t('step.summary.alerts.error'),
+          })
+          return
         }
 
+        // if (!values.isRecurring) {
+        //   // Update the setup intent with the latest calculated amount
+        //   try {
+        //     await updateSetupIntentMutation.mutateAsync({
+        //       id: setupIntent.id,
+        //       payload: {
+        //         metadata: {
+        //           campaignId: campaign.id,
+        //         },
+        //       },
+        //     })
+        //   } catch (error) {
+        //     setSubmitPaymentLoading(false)
+        //     setPaymentError({
+        //       type: 'invalid_request_error',
+        //       message: t('step.summary.alerts.error'),
+        //     })
+        //     return
+        //   }
+
+        //   // Create the payment entity
+        //   try {
+        //     await createStripePaymentMutation.mutateAsync({
+        //       isAnonymous: values.isAnonymous,
+        //       personEmail: session?.user?.email || values.email,
+        //       setupIntentId: setupIntent.id,
+        //       firstName: session?.user?.given_name || null,
+        //       lastName: session?.user?.family_name || null,
+        //       phone: null,
+        //       amount: values.finalAmount,
+        //     })
+        //   } catch (error) {
+        //     setSubmitPaymentLoading(false)
+        //     setPaymentError({
+        //       type: 'invalid_request_error',
+        //       message: t('step.summary.alerts.error'),
+        //     })
+        //     return
+        //   }
+        // }
+
         // Confirm the payment
-        const { error } = await stripe.confirmPayment({
+        const redirectUrl = new URL(
+          `${window.location.origin}/${routes.campaigns.finalizeDonation}`,
+        )
+        // turn all values into strings
+        const serializableValues = Object.fromEntries(
+          Object.entries(values).map(([key, value]) => [key, String(value)]),
+        )
+        redirectUrl.search = new URLSearchParams(serializableValues).toString()
+        const { error } = await stripe.confirmSetup({
           //`Elements` instance that was used to create the Payment Element
           elements,
           confirmParams: {
-            return_url: `${window.location.origin}/${
-              i18n.language || 'bg'
-            }/${routes.campaigns.donationStatus(campaign.slug)}`,
+            return_url: redirectUrl.toString(),
           },
         })
         setSubmitPaymentLoading(false)
@@ -228,7 +243,7 @@ export function DonationFlowForm() {
                 isOpen={showCancelDialog}
                 handleCancel={() => {
                   cancelPaymentIntentMutation.mutate({
-                    id: stripePaymentIntent.id,
+                    id: setupIntent.id,
                     payload: {
                       cancellation_reason: 'requested_by_customer',
                     },

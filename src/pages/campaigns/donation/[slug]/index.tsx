@@ -25,18 +25,15 @@ export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSideP
   )
 
   //create and prefetch the payment intent
-  const { data: paymentIntent } = await apiClient.post<
-    Stripe.PaymentIntentCreateParams,
-    AxiosResponse<Stripe.PaymentIntent>
-  >(endpoints.donation.createPaymentIntent.url, {
-    amount: 500,
-    currency: Currencies.BGN,
-  })
+  const { data: setupIntent } = await apiClient.post<
+    Stripe.SetupIntentCreateParams,
+    AxiosResponse<Stripe.SetupIntentCreateParams>
+  >(endpoints.donation.createSetupIntent.url)
 
   return {
     props: {
       slug,
-      paymentIntent,
+      setupIntent,
       dehydratedState: dehydrate(client),
       ...(await serverSideTranslations(ctx.locale ?? 'bg', [
         'common',

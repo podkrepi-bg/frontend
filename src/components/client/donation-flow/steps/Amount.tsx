@@ -8,7 +8,6 @@ import { CardRegion } from 'gql/donations.enums'
 import theme from 'common/theme'
 import { useSinglePriceList } from 'common/hooks/donation'
 import { moneyPublic, toMoney } from 'common/util/money'
-import { useDonationFlow } from '../contexts/DonationFlowProvider'
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 import FormTextField from 'components/common/form/FormTextField'
 
@@ -16,10 +15,6 @@ import { stripeFeeCalculator, stripeIncludeFeeCalculator } from '../helpers/stri
 import { DonationFormData } from '../helpers/types'
 import { useSession } from 'next-auth/react'
 import CheckboxField from 'components/common/form/CheckboxField'
-import { useCreateSubscriptionPayment } from 'service/donation'
-import { Currency } from 'gql/currency'
-import { AlertStore } from 'stores/AlertStore'
-import { useElements } from '@stripe/react-stripe-js'
 
 export const initialAmountFormValues = {
   amountChosen: '',
@@ -66,12 +61,9 @@ export default function Amount({
   sectionRef?: React.MutableRefObject<HTMLDivElement | null>
 }) {
   const formik = useFormikContext<DonationFormData>()
-  const { campaign, setPaymentIntent } = useDonationFlow()
-  const elements = useElements()
   const [{ value }] = useField('amountChosen')
   const { t } = useTranslation('donation-flow')
-  const { status, data: session } = useSession()
-  const { mutateAsync, isLoading: isSubscriptionLoading } = useCreateSubscriptionPayment()
+  const { status } = useSession()
   const { data: prices } = useSinglePriceList()
   const mobile = useMediaQuery('(max-width:600px)')
   useEffect(() => {
@@ -100,26 +92,9 @@ export default function Amount({
     formik.values.cardRegion,
   ])
 
-  async function createSubscription() {
-    try {
-      const intentRes = await mutateAsync({
-        campaignId: campaign.id,
-        amount: Number(formik.values.finalAmount),
-        currency: Currency.BGN,
-        email: session?.user?.email || '',
-      })
-      setPaymentIntent(intentRes.data)
-      elements?.fetchUpdates()
-    } catch (error) {
-      formik.setFieldValue('isRecurring', false)
-      AlertStore.show("Couldn't create subscription", 'error')
-    }
-  }
-
   useEffect(() => {
     if (formik.values.isRecurring) {
       formik.setFieldValue('payment', 'card')
-      createSubscription()
     }
   }, [formik.values.isRecurring])
 
@@ -130,7 +105,7 @@ export default function Amount({
       </Typography>
       <Box>
         <RadioButtonGroup
-          loading={status === 'loading' || isSubscriptionLoading}
+          loading={status === 'loading'}
           disabled={disabled}
           name="amountChosen"
           options={
@@ -182,7 +157,7 @@ export default function Amount({
               name="isRecurring"
               label={<Typography variant="body2">{t('third-step.recurring-donation')}</Typography>}
               checkboxProps={{
-                disabled: status !== 'authenticated' || isSubscriptionLoading,
+                disabled: status !== 'authenticated',
               }}
             />
           </Typography>

@@ -6,8 +6,7 @@ import { stripe } from 'service/stripeClient'
 import { CampaignResponse } from 'gql/campaigns'
 
 type DonationContext = {
-  stripePaymentIntent: Stripe.PaymentIntent
-  setPaymentIntent: React.Dispatch<React.SetStateAction<Stripe.PaymentIntent>>
+  setupIntent: Stripe.SetupIntent
   paymentError: StripeError | null
   setPaymentError: React.Dispatch<React.SetStateAction<StripeError | null>>
   campaign: CampaignResponse
@@ -18,17 +17,16 @@ const DonationFlowContext = React.createContext({} as DonationContext)
 
 export const DonationFlowProvider = ({
   campaign,
-  paymentIntent,
+  setupIntent,
   children,
 }: PropsWithChildren<{
   campaign: CampaignResponse
-  paymentIntent: Stripe.PaymentIntent
+  setupIntent: Stripe.SetupIntent
 }>) => {
   const [paymentError, setPaymentError] = React.useState<StripeError | null>(null)
-  const [_paymentIntent, setPaymentIntent] = React.useState<Stripe.PaymentIntent>(paymentIntent)
+
   const value = {
-    stripePaymentIntent: _paymentIntent,
-    setPaymentIntent,
+    setupIntent,
     paymentError,
     setPaymentError,
     campaign,
