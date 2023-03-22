@@ -41,7 +41,6 @@ export function StripeElementsProvider({ children }: PropsWithChildren) {
   const { i18n } = useTranslation()
 
   const { stripe, stripePaymentIntent } = useDonationFlow()
-
   return (
     <>
       <Elements

@@ -14,6 +14,7 @@ import {
   StripePaymentInput,
   UpdatePaymentIntentInput,
   UserDonationInput,
+  SubscriptionPaymentInput,
 } from 'gql/donations'
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
@@ -48,6 +49,20 @@ export function useCreateStripePayment() {
     mutationFn: async (data: StripePaymentInput) => {
       return await apiClient.post<StripePaymentInput, AxiosResponse<Stripe.PaymentIntent>>(
         endpoints.donation.createStripePayment.url,
+        data,
+        authConfig(session?.accessToken),
+      )
+    },
+  })
+}
+
+export function useCreateSubscriptionPayment() {
+  //Create payment intent useing the react-query mutation
+  const { data: session } = useSession()
+  return useMutation({
+    mutationFn: async (data: SubscriptionPaymentInput) => {
+      return await apiClient.post<SubscriptionPaymentInput, AxiosResponse<Stripe.PaymentIntent>>(
+        endpoints.donation.createSubscriptionPayment.url,
         data,
         authConfig(session?.accessToken),
       )

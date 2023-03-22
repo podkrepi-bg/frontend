@@ -7,6 +7,7 @@ import { CampaignResponse } from 'gql/campaigns'
 
 type DonationContext = {
   stripePaymentIntent: Stripe.PaymentIntent
+  setPaymentIntent: React.Dispatch<React.SetStateAction<Stripe.PaymentIntent>>
   paymentError: StripeError | null
   setPaymentError: React.Dispatch<React.SetStateAction<StripeError | null>>
   campaign: CampaignResponse
@@ -24,8 +25,10 @@ export const DonationFlowProvider = ({
   paymentIntent: Stripe.PaymentIntent
 }>) => {
   const [paymentError, setPaymentError] = React.useState<StripeError | null>(null)
+  const [_paymentIntent, setPaymentIntent] = React.useState<Stripe.PaymentIntent>(paymentIntent)
   const value = {
-    stripePaymentIntent: paymentIntent,
+    stripePaymentIntent: _paymentIntent,
+    setPaymentIntent,
     paymentError,
     setPaymentError,
     campaign,

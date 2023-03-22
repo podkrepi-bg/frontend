@@ -35,6 +35,13 @@ export type StripePaymentInput = {
   isAnonymous: boolean
 }
 
+export type SubscriptionPaymentInput = {
+  campaignId: string
+  amount: number
+  currency: Currency
+  email: string
+}
+
 export type UpdatePaymentIntentInput = {
   id: string
   payload: Stripe.PaymentIntentUpdateParams

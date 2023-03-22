@@ -32,6 +32,7 @@ export type DonationFormData = {
   email: string
   privacy: boolean
   //Card fields
+  isRecurring: boolean
   cardRegion?: CardRegion
   cardIncludeFees?: boolean
   finalAmount?: number

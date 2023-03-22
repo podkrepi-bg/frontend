@@ -142,6 +142,7 @@ export function DonationFlowForm() {
             }).toString()}`,
           )
         }
+
         if (!stripe || !elements || !stripePaymentIntent) {
           // Stripe.js has not yet loaded.
           // Form should be disabled but TS doesn't know that.
@@ -153,44 +154,45 @@ export function DonationFlowForm() {
           return
         }
 
-        // Update the payment intent with the latest calculated amount
-        try {
-          await updatePaymentIntentMutation.mutateAsync({
-            id: stripePaymentIntent.id,
-            payload: {
-              amount: Math.round(Number(values.finalAmount)),
-              currency: campaign.currency,
-              metadata: {
-                campaignId: campaign.id,
+        if (!values.isRecurring) {
+          // Update the payment intent with the latest calculated amount
+          try {
+            await updatePaymentIntentMutation.mutateAsync({
+              id: stripePaymentIntent.id,
+              payload: {
+                amount: Math.round(Number(values.finalAmount)),
+                currency: campaign.currency,
+                metadata: {
+                  campaignId: campaign.id,
+                },
               },
-            },
-          })
-        } catch (error) {
-          setSubmitPaymentLoading(false)
-          setPaymentError({
-            type: 'invalid_request_error',
-            message: t('step.summary.alerts.error'),
-          })
-          return
-        }
-
-        // Create the payment entity
-        try {
-          await createStripePaymentMutation.mutateAsync({
-            isAnonymous: values.isAnonymous,
-            personEmail: session?.user?.email || values.email,
-            paymentIntentId: stripePaymentIntent.id,
-            firstName: session?.user?.given_name || null,
-            lastName: session?.user?.family_name || null,
-            phone: null,
-          })
-        } catch (error) {
-          setSubmitPaymentLoading(false)
-          setPaymentError({
-            type: 'invalid_request_error',
-            message: t('step.summary.alerts.error'),
-          })
-          return
+            })
+          } catch (error) {
+            setSubmitPaymentLoading(false)
+            setPaymentError({
+              type: 'invalid_request_error',
+              message: t('step.summary.alerts.error'),
+            })
+            return
+          }
+          // Create the payment entity
+          try {
+            await createStripePaymentMutation.mutateAsync({
+              isAnonymous: values.isAnonymous,
+              personEmail: session?.user?.email || values.email,
+              paymentIntentId: stripePaymentIntent.id,
+              firstName: session?.user?.given_name || null,
+              lastName: session?.user?.family_name || null,
+              phone: null,
+            })
+          } catch (error) {
+            setSubmitPaymentLoading(false)
+            setPaymentError({
+              type: 'invalid_request_error',
+              message: t('step.summary.alerts.error'),
+            })
+            return
+          }
         }
 
         // Confirm the payment
@@ -310,7 +312,7 @@ export function DonationFlowForm() {
               />
               <PersistFormikValues
                 hashInitials={true}
-                ignoreValues={['authentication']}
+                ignoreValues={['authentication', 'isRecurring']}
                 debounce={3000}
                 storage="sessionStorage"
                 name="donation-form"
