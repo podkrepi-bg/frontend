@@ -9,6 +9,7 @@ import { routes } from 'common/routes'
 import { isAdmin } from 'common/util/roles'
 import LinkMenuItem from 'components/common/LinkMenuItem'
 import { useRouter } from 'next/router'
+import { useCurrentPerson } from 'common/util/useCurrentPerson'
 
 const PREFIX = 'PrivateMenu'
 
@@ -52,6 +53,7 @@ export default function PrivateMenu() {
   const { data: session, status } = useSession()
   const router = useRouter()
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
+  const { data: currentPerson } = useCurrentPerson()
 
   const handleMenu = (event: React.MouseEvent) => setAnchorEl(event.currentTarget)
   const handleClose = () => setAnchorEl(null)
@@ -60,26 +62,31 @@ export default function PrivateMenu() {
     return null
   }
 
+  const userPicture = currentPerson?.user.picture
   const title = `${session?.user?.name}\n(${session?.user?.email})`
-  const lettersAvatar = `${session.user?.given_name?.charAt(0) || session.user?.email?.charAt(0)}${
-    session.user?.family_name?.charAt(0) || session.user?.email?.charAt(1)
-  }`.toUpperCase()
 
   return (
     <StyledGrid item>
       <IconButton onClick={handleMenu} size="medium">
         {session?.user?.picture ? (
-          <Avatar title={title} alt={title} src={session?.user?.picture} />
-        ) : (
           <Avatar
-            sx={{
-              bgcolor: theme.palette.success.light,
-              height: theme.spacing(4.5),
-              width: theme.spacing(4.5),
-              fontSize: '1rem',
-            }}>
-            {lettersAvatar}
-          </Avatar>
+            sx={{ width: '32px', height: '32px' }}
+            title={title}
+            alt={title}
+            src={session?.user?.picture}
+          />
+        ) : (
+          userPicture && (
+            <Avatar
+              sx={{
+                bgcolor: theme.palette.success.light,
+                height: '32px',
+                width: '32px',
+                fontSize: '1rem',
+              }}
+              src={userPicture}
+            />
+          )
         )}
       </IconButton>
       <Menu

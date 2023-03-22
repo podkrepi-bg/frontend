@@ -12,6 +12,7 @@ import { useFormikContext } from 'formik'
 import { OneTimeDonation } from 'gql/donations'
 import { RegisterFormData } from 'components/client/auth/register/RegisterForm'
 import { StepsContext } from './helpers/stepperContext'
+import { assignRandomProfilePicture } from '../auth/register/helpers/avatarsData'
 
 export default function RegisterForm() {
   const { t } = useTranslation()
@@ -19,6 +20,7 @@ export default function RegisterForm() {
   const { mutateAsync: register } = useRegister()
   const formik = useFormikContext<OneTimeDonation>()
   const { setStep } = useContext(StepsContext)
+  const [profilePicture, setProfilePicture] = useState(assignRandomProfilePicture().trim())
 
   const values: RegisterFormData = {
     firstName: formik.values.registerFirstName as string,
@@ -28,10 +30,12 @@ export default function RegisterForm() {
     confirmPassword: formik.values.confirmPassword as string,
     terms: formik.values.terms as boolean,
     gdpr: formik.values.gdpr as boolean,
+    picture: '',
   }
   const onClick = async () => {
     try {
       setLoading(true)
+      values.picture = profilePicture
 
       // Register in Keycloak
       await register(values)

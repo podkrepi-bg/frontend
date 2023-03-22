@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 
 import { useTranslation } from 'next-i18next'
 
-import { Unstable_Grid2 as Grid2, Stack, Typography, Grid } from '@mui/material'
+import { Unstable_Grid2 as Grid2, Stack, Typography, Grid, Avatar } from '@mui/material'
 import RateReviewIcon from '@mui/icons-material/RateReview'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import Pagination from '@mui/material/Pagination'
@@ -10,6 +10,7 @@ import Pagination from '@mui/material/Pagination'
 import { bg, enUS } from 'date-fns/locale'
 import { useDonationWishesList } from 'common/hooks/donationWish'
 import { getExactDate } from 'common/util/date'
+import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import theme from 'common/theme'
 
 type Props = {
@@ -24,6 +25,9 @@ export default function DonationWishes({ campaignId, pageSize = 12 }: Props) {
   const [pageIndex, setPageIndex] = useState<number>(0)
   const { data, isSuccess } = useDonationWishesList(campaignId, pageIndex, pageSize)
   const numOfPages = isSuccess && data ? Math.ceil(data.totalCount / pageSize) : 0
+  const { data: currentPerson } = useCurrentPerson()
+
+  const userPicture = currentPerson?.user.picture
 
   const handlePageChange = (_e: React.ChangeEvent<unknown>, page: number) => {
     // <Pagination /> 's impl is 1 index based
@@ -73,10 +77,19 @@ export default function DonationWishes({ campaignId, pageSize = 12 }: Props) {
               <Grid2 xs={12}>
                 <Stack direction="row" spacing={2}>
                   <Grid pt={0.7}>
-                    <AccountCircleIcon
-                      color="disabled"
-                      sx={{ fontSize: theme.typography.pxToRem(37) }}
-                    />
+                    {userPicture ? (
+                      <Avatar
+                        sx={{
+                          bgcolor: theme.palette.success.light,
+                          height: '32px',
+                          width: '32px',
+                          fontSize: '1rem',
+                        }}
+                        src={userPicture}
+                      />
+                    ) : (
+                      <AccountCircleIcon color="disabled" sx={{ fontSize: '2.3rem' }} />
+                    )}
                   </Grid>
                   <Stack direction="column">
                     <Typography

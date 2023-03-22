@@ -16,6 +16,7 @@ import PasswordField from 'components/common/form/PasswordField'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
 import EmailField from 'components/common/form/EmailField'
+import { assignRandomProfilePicture } from './helpers/avatarsData'
 
 export type RegisterFormData = {
   firstName: string
@@ -25,6 +26,7 @@ export type RegisterFormData = {
   confirmPassword: string
   terms: boolean
   gdpr: boolean
+  picture?: string
 }
 
 const validationSchema: yup.SchemaOf<RegisterFormData> = yup
@@ -38,6 +40,7 @@ const validationSchema: yup.SchemaOf<RegisterFormData> = yup
     confirmPassword: confirmPassword.required('validation:password-match'),
     terms: yup.bool().required().oneOf([true], 'validation:terms-of-use'),
     gdpr: yup.bool().required().oneOf([true], 'validation:terms-of-service'),
+    picture: yup.string(),
   })
 
 const defaults: RegisterFormData = {
@@ -48,6 +51,7 @@ const defaults: RegisterFormData = {
   confirmPassword: '',
   terms: false,
   gdpr: false,
+  picture: '',
 }
 export type RegisterFormProps = { initialValues?: RegisterFormData }
 
@@ -56,12 +60,15 @@ export default function RegisterForm({ initialValues = defaults }: RegisterFormP
   const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
   const { mutateAsync: register } = useRegister()
+  const [profilePicture, setProfilePicture] = useState(assignRandomProfilePicture())
+
   const onSubmit = async (values: RegisterFormData) => {
     try {
       setLoading(true)
       values.firstName = values.firstName.trim()
       values.lastName = values.lastName.trim()
       values.email = values.email.trim()
+      values.picture = profilePicture.trim()
 
       // Register in Keycloak
       const registerResponse = await register(values)
