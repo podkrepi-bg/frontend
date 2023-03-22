@@ -54,7 +54,7 @@ export function useCreateStripePayment() {
   return useMutation({
     mutationFn: async (data: StripePaymentInput) => {
       return await apiClient.post<StripePaymentInput, AxiosResponse<Stripe.PaymentIntent>>(
-        endpoints.donation.createStripePayment.url,
+        endpoints.donation.createStripeDonation.url,
         data,
         authConfig(session?.accessToken),
       )

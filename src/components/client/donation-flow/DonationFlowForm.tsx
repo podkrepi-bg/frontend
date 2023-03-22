@@ -163,25 +163,24 @@ export function DonationFlowForm() {
           return
         }
 
-        // if (!values.isRecurring) {
-        //   // Update the setup intent with the latest calculated amount
-        //   try {
-        //     await updateSetupIntentMutation.mutateAsync({
-        //       id: setupIntent.id,
-        //       payload: {
-        //         metadata: {
-        //           campaignId: campaign.id,
-        //         },
-        //       },
-        //     })
-        //   } catch (error) {
-        //     setSubmitPaymentLoading(false)
-        //     setPaymentError({
-        //       type: 'invalid_request_error',
-        //       message: t('step.summary.alerts.error'),
-        //     })
-        //     return
-        //   }
+        // Update the setup intent with the latest calculated amount
+        try {
+          await updateSetupIntentMutation.mutateAsync({
+            id: setupIntent.id,
+            payload: {
+              metadata: {
+                campaignId: campaign.id,
+              },
+            },
+          })
+        } catch (error) {
+          setSubmitPaymentLoading(false)
+          setPaymentError({
+            type: 'invalid_request_error',
+            message: t('step.summary.alerts.error'),
+          })
+          return
+        }
 
         //   // Create the payment entity
         //   try {
@@ -212,9 +211,11 @@ export function DonationFlowForm() {
         const serializableValues = Object.fromEntries(
           Object.entries(values).map(([key, value]) => [key, String(value)]),
         )
-        redirectUrl.search = new URLSearchParams(serializableValues).toString()
+        redirectUrl.search = new URLSearchParams({
+          ...serializableValues,
+          campaignSlug: campaign.slug,
+        }).toString()
         const { error } = await stripe.confirmSetup({
-          //`Elements` instance that was used to create the Payment Element
           elements,
           confirmParams: {
             return_url: redirectUrl.toString(),
