@@ -25,12 +25,7 @@ import CheckboxField from 'components/common/form/CheckboxField'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
 import SubmitButton from 'components/common/form/SubmitButton'
-import {
-  useCancelPaymentIntent,
-  useCreateStripePayment,
-  useUpdatePaymentIntent,
-  useUpdateSetupIntent,
-} from 'service/donation'
+import { useCancelPaymentIntent, useUpdateSetupIntent } from 'service/donation'
 
 import StepSplitter from './common/StepSplitter'
 import PaymentMethod from './steps/payment-method/PaymentMethod'
@@ -50,7 +45,6 @@ const initialGeneralFormValues = {
   payment: null,
   authentication: null,
   isAnonymous: false,
-  email: '',
   privacy: false,
 }
 
@@ -71,14 +65,6 @@ const generalValidation = {
     .oneOf(Object.values(DonationFormAuthState))
     .required() as yup.SchemaOf<DonationFormAuthState>,
   isAnonymous: yup.boolean().required(),
-  email: yup
-    .string()
-    .email('donation-flow:step.authentication.field.email.error')
-    .required()
-    .when('authentication', {
-      is: 'NOREGISTER',
-      then: yup.string().email('donation-flow:step.authentication.field.email.error').required(),
-    }),
   privacy: yup.bool().required().isTrue('donation-flow:step.summary.field.privacy.error'),
 }
 
@@ -94,7 +80,7 @@ export const validationSchema: yup.SchemaOf<DonationFormData> = yup
 
 export function DonationFlowForm() {
   const formikRef = useRef<FormikProps<DonationFormData> | null>(null)
-  const { t, i18n } = useTranslation('donation-flow')
+  const { t } = useTranslation('donation-flow')
   const { data: session } = useSession({
     required: false,
     onUnauthenticated: () => {
@@ -115,7 +101,6 @@ export function DonationFlowForm() {
   const stripe = useStripe()
   const elements = useElements()
   const router = useRouter()
-  const createStripePaymentMutation = useCreateStripePayment()
   const updateSetupIntentMutation = useUpdateSetupIntent()
   const cancelPaymentIntentMutation = useCancelPaymentIntent()
   const paymentMethodSectionRef = React.useRef<HTMLDivElement>(null)
@@ -128,7 +113,6 @@ export function DonationFlowForm() {
       innerRef={formikRef}
       initialValues={{
         ...initialValues,
-        email: session?.user?.email ?? '',
         authentication: session?.user ? DonationFormAuthState.AUTHENTICATED : null,
         isAnonymous: session?.user ? false : true,
       }}

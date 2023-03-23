@@ -9,7 +9,6 @@ import {
   DonationFormData,
 } from 'components/client/donation-flow/helpers/types'
 import { AuthenticateAlertContent } from 'components/client/donation-flow/alerts/AlertsContent'
-import EmailField from 'components/common/form/EmailField'
 import theme from 'common/theme'
 
 import RadioAccordionGroup from '../../common/RadioAccordionGroup'
@@ -99,7 +98,6 @@ export default function Authentication({
               {t('step.authentication.noregister.description')}
             </Alert>
           )}
-          <EmailField label="Email" name="email" sx={{ mb: 1 }} />
         </Box>
       ),
     },

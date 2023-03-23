@@ -48,20 +48,6 @@ export function useUpdateSetupIntent() {
   })
 }
 
-export function useCreateStripePayment() {
-  //Create payment intent useing the react-query mutation
-  const { data: session } = useSession()
-  return useMutation({
-    mutationFn: async (data: StripePaymentInput) => {
-      return await apiClient.post<StripePaymentInput, AxiosResponse<Stripe.PaymentIntent>>(
-        endpoints.donation.createStripeDonation.url,
-        data,
-        authConfig(session?.accessToken),
-      )
-    },
-  })
-}
-
 export function useCreateSubscriptionPayment() {
   //Create payment intent useing the react-query mutation
   const { data: session } = useSession()
