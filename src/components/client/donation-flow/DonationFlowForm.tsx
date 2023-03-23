@@ -170,6 +170,9 @@ export function DonationFlowForm() {
             payload: {
               metadata: {
                 campaignId: campaign.id,
+                amount: values.finalAmount,
+                currency: campaign.currency,
+                isAnonymous: values.isAnonymous.toString(),
               },
             },
           })
@@ -182,37 +185,11 @@ export function DonationFlowForm() {
           return
         }
 
-        //   // Create the payment entity
-        //   try {
-        //     await createStripePaymentMutation.mutateAsync({
-        //       isAnonymous: values.isAnonymous,
-        //       personEmail: session?.user?.email || values.email,
-        //       setupIntentId: setupIntent.id,
-        //       firstName: session?.user?.given_name || null,
-        //       lastName: session?.user?.family_name || null,
-        //       phone: null,
-        //       amount: values.finalAmount,
-        //     })
-        //   } catch (error) {
-        //     setSubmitPaymentLoading(false)
-        //     setPaymentError({
-        //       type: 'invalid_request_error',
-        //       message: t('step.summary.alerts.error'),
-        //     })
-        //     return
-        //   }
-        // }
-
         // Confirm the payment
         const redirectUrl = new URL(
           `${window.location.origin}/${routes.campaigns.finalizeDonation}`,
         )
-        // turn all values into strings
-        const serializableValues = Object.fromEntries(
-          Object.entries(values).map(([key, value]) => [key, String(value)]),
-        )
         redirectUrl.search = new URLSearchParams({
-          ...serializableValues,
           campaignSlug: campaign.slug,
         }).toString()
         const { error } = await stripe.confirmSetup({
