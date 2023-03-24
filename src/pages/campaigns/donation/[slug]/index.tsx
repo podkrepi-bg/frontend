@@ -8,8 +8,6 @@ import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
 import { queryFnFactory } from 'service/restRequests'
 import { CampaignResponse } from 'gql/campaigns'
-
-import { Currencies } from 'components/admin/withdrawals/WithdrawalTypes'
 import DonationFlowPage from 'components/client/donation-flow/DonationFlowPage'
 
 export const getServerSideProps: GetServerSideProps = async (ctx: GetServerSidePropsContext) => {
