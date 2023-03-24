@@ -35,6 +35,7 @@ import { AlertStore } from 'stores/AlertStore'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import { CampaignResponse } from 'gql/campaigns'
 import FailGraphic from './icons/FailGraphic'
+import { StripeError } from '@stripe/stripe-js'
 
 function LinkCard({ href, text }: { href: string; text: string }) {
   return (
@@ -57,6 +58,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
   //otherwise on the first render the data will be undefined
   const campaign = data?.campaign as CampaignResponse
   const [status, setStatus] = useState<DonationFormPaymentStatus | null>(null)
+  const [error, setError] = useState<StripeError | null>(null)
   const [disableWishForm, setDisableWishForm] = useState<boolean>(false)
   const router = useRouter()
   const formikRef = useRef<FormikProps<{ wish: string }> | null>(null)
@@ -76,7 +78,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
       },
     },
   )
-  const { payment_intent_client_secret, payment_intent_id, bank_payment } = router.query
+  const { payment_intent_client_secret, bank_payment } = router.query
 
   const confirmPaymentIntentStatus = async () => {
     if (!stripe || !payment_intent_client_secret) {
@@ -93,14 +95,8 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
       error = paymentIntentResAfterConfirm?.error
     }
     if (!paymentIntent || paymentIntent.status === DonationFormPaymentStatus.REQUIRES_PAYMENT) {
-      router.push(routes.campaigns.donation(slug), {
-        query: {
-          payment_intent_id,
-          payment_intent_client_secret,
-          status: paymentIntent?.status,
-          error: error?.message,
-        },
-      })
+      setError(error || null)
+      setStatus(DonationFormPaymentStatus.REQUIRES_PAYMENT)
       return
     }
     if (paymentIntent?.status === DonationFormPaymentStatus.SUCCEEDED) {
@@ -223,6 +219,9 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
           my: 2,
         }}
       />
+      <Typography color={theme.palette.error.dark} mb={1}>
+        {error?.message}
+      </Typography>
       <StepSplitter />
       <Grid2 spacing={2} container>
         <Grid2 xs={12} md={6}>
@@ -250,7 +249,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
       {status ? (
         <StatusToRender />
       ) : (
-        <Box height="calc(100vh - 88px)" display="flex" justifyContent="center" alignItems="center">
+        <Box height="calc(80vh - 88px)" display="flex" justifyContent="center" alignItems="center">
           <CircularProgress size={100} />
         </Box>
       )}
