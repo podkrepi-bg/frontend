@@ -1,37 +1,59 @@
 import Stripe from 'stripe'
 import { AxiosResponse } from 'axios'
 import { useSession } from 'next-auth/react'
+import { useMutation } from '@tanstack/react-query'
 
 import {
   BankImportResult,
-  CheckoutSessionInput,
-  CheckoutSessionResponse,
   DonationBankInput,
   DonationInput,
   DonationResponse,
   UserDonationInput,
+  SubscriptionPaymentInput,
+  UpdateSetupIntentInput,
 } from 'gql/donations'
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
 import { authConfig } from 'service/restRequests'
 import { UploadBankTransactionsFiles } from 'components/admin/bank-transactions-file/types'
-import { useMutation } from '@tanstack/react-query'
 
-export const createCheckoutSession = async (data: CheckoutSessionInput) => {
-  return await apiClient.post<CheckoutSessionInput, AxiosResponse<CheckoutSessionResponse>>(
-    endpoints.donation.createCheckoutSession.url,
-    data,
-  )
-}
-
-export function useCreatePaymentIntent(params: Stripe.PaymentIntentCreateParams) {
+export function useCreatePaymentIntent() {
   //Create payment intent useing the react-query mutation
   const { data: session } = useSession()
-  return useMutation(async () => {
-    return await apiClient.post<
-      Stripe.PaymentIntentCreateParams,
-      AxiosResponse<Stripe.PaymentIntent>
-    >(endpoints.donation.createPaymentIntent.url, params, authConfig(session?.accessToken))
+  return useMutation({
+    mutationKey: [endpoints.donation.createPaymentIntent.url],
+    mutationFn: async (data: Stripe.PaymentIntentCreateParams) => {
+      return await apiClient.post<
+        Stripe.PaymentIntentCreateParams,
+        AxiosResponse<Stripe.PaymentIntent>
+      >(endpoints.donation.createPaymentIntent.url, data, authConfig(session?.accessToken))
+    },
+  })
+}
+export function useUpdateSetupIntent() {
+  //Create payment intent useing the react-query mutation
+  const { data: session } = useSession()
+  return useMutation({
+    mutationFn: async ({ id, payload }: UpdateSetupIntentInput) => {
+      return await apiClient.post<
+        Stripe.SetupIntentUpdateParams,
+        AxiosResponse<Stripe.SetupIntent>
+      >(endpoints.donation.updateSetupIntent(id).url, payload, authConfig(session?.accessToken))
+    },
+  })
+}
+
+export function useCreateSubscriptionPayment() {
+  //Create payment intent useing the react-query mutation
+  const { data: session } = useSession()
+  return useMutation({
+    mutationFn: async (data: SubscriptionPaymentInput) => {
+      return await apiClient.post<SubscriptionPaymentInput, AxiosResponse<Stripe.PaymentIntent>>(
+        endpoints.donation.createSubscriptionPayment.url,
+        data,
+        authConfig(session?.accessToken),
+      )
+    },
   })
 }
 

@@ -22,7 +22,7 @@ export type CircleCheckboxField = {
 }
 
 export default function CircleCheckboxField({ name, label, labelProps }: CircleCheckboxField) {
-  const { t } = useTranslation('one-time-donation')
+  const { t } = useTranslation()
   const [field, meta] = useField(name)
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
   return (
