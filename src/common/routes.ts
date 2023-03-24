@@ -80,6 +80,7 @@ export const routes = {
     create: '/campaigns/create',
     viewCampaignBySlug: (slug: string) => `/campaigns/${slug}`,
     donation: (slug: string) => `/campaigns/donation/${slug}`,
+    finalizeDonation: `api/donation/finalize`,
     donationStatus: (slug: string) => `/campaigns/donation/${slug}/status`,
   },
   donation: {

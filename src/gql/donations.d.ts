@@ -27,17 +27,30 @@ export type CheckoutSessionInput = {
 }
 
 export type StripePaymentInput = {
-  paymentIntentId: Stripe.PaymentIntent['id']
+  setupIntentId: Stripe.SetupIntent['id']
   firstName: string | null
   lastName: string | null
   phone: string | null
   personEmail: string
   isAnonymous: boolean
+  amount: number
+}
+
+export type SubscriptionPaymentInput = {
+  campaignId: string
+  amount: number
+  currency: Currency
+  email: string
 }
 
 export type UpdatePaymentIntentInput = {
   id: string
   payload: Stripe.PaymentIntentUpdateParams
+}
+
+export type UpdateSetupIntentInput = {
+  id: string
+  payload: Stripe.SetupIntentUpdateParams
 }
 
 export type CancelPaymentIntentInput = {

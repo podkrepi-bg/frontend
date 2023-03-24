@@ -148,7 +148,9 @@ jobs:
 
       - name: Set container versions in manifests
         working-directory: manifests/overlays/development
-        run: kustomize edit set image ghcr.io/podkrepi-bg/frontend=ghcr.io/podkrepi-bg/frontend:$VERSION
+        run: |
+          kustomize edit set image ghcr.io/podkrepi-bg/frontend=ghcr.io/podkrepi-bg/frontend:$VERSION
+          kustomize edit set annotation app.komodor.com/app.ref:$GITHUB_SHA 
 
       - name: Set kubeconfig
         run: echo ${{ secrets.K8S_DEV_CONFIG }} | base64 -d > config.yaml
@@ -198,7 +200,9 @@ jobs:
 
       - name: Set container versions in manifests
         working-directory: manifests/overlays/production
-        run: kustomize edit set image ghcr.io/podkrepi-bg/frontend=ghcr.io/podkrepi-bg/frontend:$VERSION
+        run: |
+          kustomize edit set image ghcr.io/podkrepi-bg/frontend=ghcr.io/podkrepi-bg/frontend:$VERSION
+          kustomize edit set annotation app.komodor.com/app.ref:$GITHUB_SHA 
 
       - name: Set kubeconfig
         run: echo ${{ secrets.K8S_CONFIG }} | base64 -d > config.yaml
