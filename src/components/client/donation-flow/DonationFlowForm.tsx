@@ -25,7 +25,7 @@ import CheckboxField from 'components/common/form/CheckboxField'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
 import SubmitButton from 'components/common/form/SubmitButton'
-import { useCancelPaymentIntent, useUpdateSetupIntent } from 'service/donation'
+import { useUpdateSetupIntent } from 'service/donation'
 
 import StepSplitter from './common/StepSplitter'
 import PaymentMethod from './steps/payment-method/PaymentMethod'
@@ -102,7 +102,6 @@ export function DonationFlowForm() {
   const elements = useElements()
   const router = useRouter()
   const updateSetupIntentMutation = useUpdateSetupIntent()
-  const cancelPaymentIntentMutation = useCancelPaymentIntent()
   const paymentMethodSectionRef = React.useRef<HTMLDivElement>(null)
   const authenticationSectionRef = React.useRef<HTMLDivElement>(null)
   const [showCancelDialog, setShowCancelDialog] = React.useState(false)
@@ -204,12 +203,7 @@ export function DonationFlowForm() {
               <ConfirmationDialog
                 isOpen={showCancelDialog}
                 handleCancel={() => {
-                  cancelPaymentIntentMutation.mutate({
-                    id: setupIntent.id,
-                    payload: {
-                      cancellation_reason: 'requested_by_customer',
-                    },
-                  })
+                  // TODO: Cancel the setup intent
                   router.push(routes.campaigns.viewCampaignBySlug(campaign.slug))
                 }}
                 title={t('cancel-dialog.title')}

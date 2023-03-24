@@ -52,10 +52,6 @@ export const endpoints = {
       <Endpoint>{ url: `/stripe/setup-intent/${id}/finalize`, method: 'POST' },
     updateSetupIntent: (id: string) =>
       <Endpoint>{ url: `/stripe/setup-intent/${id}`, method: 'POST' },
-    updatePaymentIntent: (id: string) =>
-      <Endpoint>{ url: `/stripe/payment-intent/${id}`, method: 'POST' },
-    cancelPaymentIntent: (id: string) =>
-      <Endpoint>{ url: `/stripe/payment-intent/${id}/cancel`, method: 'POST' },
     createDonation: <Endpoint>{ url: '/donation/create-payment', method: 'POST' },
     createBankDonation: <Endpoint>{ url: '/donation/create-bank-payment', method: 'POST' },
     getDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'GET' },

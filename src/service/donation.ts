@@ -4,15 +4,10 @@ import { useSession } from 'next-auth/react'
 import { useMutation } from '@tanstack/react-query'
 
 import {
-  CancelPaymentIntentInput,
   BankImportResult,
-  CheckoutSessionInput,
-  CheckoutSessionResponse,
   DonationBankInput,
   DonationInput,
   DonationResponse,
-  StripePaymentInput,
-  UpdatePaymentIntentInput,
   UserDonationInput,
   SubscriptionPaymentInput,
   UpdateSetupIntentInput,
@@ -58,32 +53,6 @@ export function useCreateSubscriptionPayment() {
         data,
         authConfig(session?.accessToken),
       )
-    },
-  })
-}
-
-export function useUpdatePaymentIntent() {
-  //Create payment intent useing the react-query mutation
-  const { data: session } = useSession()
-  return useMutation({
-    mutationFn: async ({ id, payload }: UpdatePaymentIntentInput) => {
-      return await apiClient.post<
-        Stripe.PaymentIntentUpdateParams,
-        AxiosResponse<Stripe.PaymentIntent>
-      >(endpoints.donation.updatePaymentIntent(id).url, payload, authConfig(session?.accessToken))
-    },
-  })
-}
-
-export function useCancelPaymentIntent() {
-  //Create payment intent useing the react-query mutation
-  const { data: session } = useSession()
-  return useMutation({
-    mutationFn: async ({ id, payload }: CancelPaymentIntentInput) => {
-      return await apiClient.post<
-        Stripe.PaymentIntentCancelParams,
-        AxiosResponse<Stripe.PaymentIntent>
-      >(endpoints.donation.cancelPaymentIntent(id).url, payload, authConfig(session?.accessToken))
     },
   })
 }
