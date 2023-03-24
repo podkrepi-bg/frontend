@@ -156,6 +156,9 @@ export function DonationFlowForm() {
                 amount: values.finalAmount,
                 currency: campaign.currency,
                 isAnonymous: values.isAnonymous.toString(),
+                return_url: `${window.location.origin}/${routes.campaigns.donationStatus(
+                  campaign.slug,
+                )}`,
               },
             },
           })

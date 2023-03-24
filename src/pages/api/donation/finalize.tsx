@@ -14,7 +14,6 @@ const Handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
   const paymentIntentRes = await apiClient.post<null, AxiosResponse<Stripe.PaymentIntent>>(
     endpoints.donation.finalizeSetupIntent(setupIntentId).url,
   )
-  // Confirm the payment
   const urlToRedirect = new URL(
     `${process.env.APP_URL}/${routes.campaigns.donationStatus(campaignSlug as string)}`,
   )

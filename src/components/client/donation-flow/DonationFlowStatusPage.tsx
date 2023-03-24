@@ -78,6 +78,38 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
   )
   const { payment_intent_client_secret, payment_intent_id, bank_payment } = router.query
 
+  const confirmPaymentIntentStatus = async () => {
+    if (!stripe || !payment_intent_client_secret) {
+      throw new Error('Stripe is not loaded or you were not redirected from Stripe')
+    }
+    let { paymentIntent, error } = await stripe.retrievePaymentIntent(
+      payment_intent_client_secret as string,
+    )
+    if (paymentIntent?.status === DonationFormPaymentStatus.REQUIRES_ACTION) {
+      const paymentIntentResAfterConfirm = await stripe?.confirmCardPayment(
+        payment_intent_client_secret as string,
+      )
+      paymentIntent = paymentIntentResAfterConfirm?.paymentIntent
+      error = paymentIntentResAfterConfirm?.error
+    }
+    if (!paymentIntent || paymentIntent.status === DonationFormPaymentStatus.REQUIRES_PAYMENT) {
+      router.push(routes.campaigns.donation(slug), {
+        query: {
+          payment_intent_id,
+          payment_intent_client_secret,
+          status: paymentIntent?.status,
+          error: error?.message,
+        },
+      })
+      return
+    }
+    if (paymentIntent?.status === DonationFormPaymentStatus.SUCCEEDED) {
+      // If the status is succeeded we can clear the form state
+      sessionStorage.removeItem('donation-form')
+    }
+    setStatus(paymentIntent?.status as DonationFormPaymentStatus)
+  }
+
   useEffect(() => {
     if (bank_payment === 'true') {
       // If we are redirected on that page means that the payment is a bank payment and we can clear the form state
@@ -85,30 +117,7 @@ export default function DonationFlowStatusPage({ slug }: { slug: string }) {
       setStatus(DonationFormPaymentStatus.SUCCEEDED)
       return
     }
-    if (!stripe || !payment_intent_client_secret) {
-      throw new Error('Stripe is not loaded or you were not redirected from Stripe')
-    }
-
-    stripe
-      .retrievePaymentIntent(payment_intent_client_secret as string)
-      .then(({ paymentIntent, error }) => {
-        if (!paymentIntent || paymentIntent.status === DonationFormPaymentStatus.REQUIRES_PAYMENT) {
-          router.push(routes.campaigns.donation(slug), {
-            query: {
-              payment_intent_id,
-              payment_intent_client_secret,
-              status: paymentIntent?.status,
-              error: error?.message,
-            },
-          })
-          return
-        }
-        if (paymentIntent?.status === DonationFormPaymentStatus.SUCCEEDED) {
-          // If the status is succeeded we can clear the form state
-          sessionStorage.removeItem('donation-form')
-        }
-        setStatus(paymentIntent?.status as DonationFormPaymentStatus)
-      })
+    confirmPaymentIntentStatus()
   }, [])
 
   const Success = () => (
