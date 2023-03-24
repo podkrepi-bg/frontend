@@ -42,16 +42,16 @@ export const endpoints = {
     infoRequestList: <Endpoint>{ url: '/support/info-request/list', method: 'GET' },
   },
   donation: {
-    prices: <Endpoint>{ url: '/donation/prices', method: 'GET' },
-    singlePrices: <Endpoint>{ url: '/donation/prices/single', method: 'GET' },
-    recurringPrices: <Endpoint>{ url: '/donation/prices/recurring', method: 'GET' },
-    createCheckoutSession: <Endpoint>{ url: '/donation/create-checkout-session', method: 'POST' },
-    createStripePayment: <Endpoint>{ url: '/donation/create-stripe-payment', method: 'POST' },
-    createPaymentIntent: <Endpoint>{ url: '/donation/payment-intent', method: 'POST' },
-    updatePaymentIntent: (id: string) =>
-      <Endpoint>{ url: `/donation/payment-intent/${id}`, method: 'POST' },
-    cancelPaymentIntent: (id: string) =>
-      <Endpoint>{ url: `/donation/payment-intent/${id}/cancel`, method: 'POST' },
+    prices: <Endpoint>{ url: '/stripe/prices', method: 'GET' },
+    singlePrices: <Endpoint>{ url: '/stripe/prices/single', method: 'GET' },
+    recurringPrices: <Endpoint>{ url: '/stripe/prices/recurring', method: 'GET' },
+    createSubscriptionPayment: <Endpoint>{ url: '/donation/subscription', method: 'POST' },
+    createPaymentIntent: <Endpoint>{ url: '/stripe/payment-intent', method: 'POST' },
+    createSetupIntent: <Endpoint>{ url: '/stripe/setup-intent', method: 'POST' },
+    finalizeSetupIntent: (id: string) =>
+      <Endpoint>{ url: `/stripe/setup-intent/${id}/finalize`, method: 'POST' },
+    updateSetupIntent: (id: string) =>
+      <Endpoint>{ url: `/stripe/setup-intent/${id}`, method: 'POST' },
     createDonation: <Endpoint>{ url: '/donation/create-payment', method: 'POST' },
     createBankDonation: <Endpoint>{ url: '/donation/create-bank-payment', method: 'POST' },
     getDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'GET' },

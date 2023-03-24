@@ -1,20 +1,9 @@
 import { useSession } from 'next-auth/react'
-import { useTranslation } from 'react-i18next'
-import { AxiosError, AxiosResponse } from 'axios'
-import { QueryClient, useMutation, useQuery } from '@tanstack/react-query'
+import { QueryClient, useQuery } from '@tanstack/react-query'
 
-import { ApiErrors } from 'service/apiErrors'
-import { AlertStore } from 'stores/AlertStore'
 import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
-import {
-  CheckoutSessionInput,
-  CheckoutSessionResponse,
-  DonationPrice,
-  DonationResponse,
-  UserDonationResult,
-} from 'gql/donations'
-import { createCheckoutSession } from 'service/donation'
+import { DonationPrice, DonationResponse, UserDonationResult } from 'gql/donations'
 import { CampaignDonationHistoryResponse } from 'gql/campaigns'
 import { FilterData, PaginationData } from 'gql/types'
 
@@ -23,27 +12,6 @@ export function usePriceList() {
 }
 export function useSinglePriceList() {
   return useQuery<DonationPrice[]>([endpoints.donation.singlePrices.url])
-}
-
-export function useDonationSession() {
-  const { t } = useTranslation()
-  const mutation = useMutation<
-    AxiosResponse<CheckoutSessionResponse>,
-    AxiosError<ApiErrors>,
-    CheckoutSessionInput
-  >({
-    mutationFn: createCheckoutSession,
-    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
-    onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
-    retry(failureCount, error) {
-      if (failureCount < 4) {
-        return true
-      }
-      return false
-    },
-    retryDelay: 1000,
-  })
-  return mutation
 }
 
 export function useDonationsList(

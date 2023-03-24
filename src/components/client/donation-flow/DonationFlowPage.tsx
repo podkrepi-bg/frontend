@@ -9,17 +9,17 @@ import { CampaignResponse } from 'gql/campaigns'
 
 export default function DonationFlowPage({
   slug,
-  paymentIntent,
+  setupIntent,
 }: {
   slug: string
-  paymentIntent: Stripe.PaymentIntent
+  setupIntent: Stripe.SetupIntent
 }) {
   const { data } = useViewCampaign(slug)
   //This query needs to be prefetched in the pages folder
   //otherwise on the first render the data will be undefined
   const campaign = data?.campaign as CampaignResponse
   return (
-    <DonationFlowProvider campaign={campaign} paymentIntent={paymentIntent}>
+    <DonationFlowProvider campaign={campaign} setupIntent={setupIntent}>
       <StripeElementsProvider>
         <DonationFlowLayout campaign={campaign}>
           <DonationFlowForm />

@@ -40,14 +40,13 @@ const appearance: Appearance = {
 export function StripeElementsProvider({ children }: PropsWithChildren) {
   const { i18n } = useTranslation()
 
-  const { stripe, stripePaymentIntent } = useDonationFlow()
-
+  const { stripe, setupIntent } = useDonationFlow()
   return (
     <>
       <Elements
         stripe={stripe}
         options={{
-          clientSecret: stripePaymentIntent.client_secret || undefined,
+          clientSecret: setupIntent.client_secret || undefined,
           appearance,
           locale: i18n.language,
         }}>

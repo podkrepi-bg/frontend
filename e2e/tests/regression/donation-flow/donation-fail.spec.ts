@@ -72,7 +72,6 @@ test.describe.serial(
 
     test('The user is able to fill in e-mail for anonymous donation', async () => {
       await donationPage.selectAuthentication(DonationFormAuthState.NOREGISTER)
-      await donationPage.fillEmailField()
     })
 
     test('The user can submit the form', async () => {

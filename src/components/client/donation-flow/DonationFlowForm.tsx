@@ -25,11 +25,7 @@ import CheckboxField from 'components/common/form/CheckboxField'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
 import SubmitButton from 'components/common/form/SubmitButton'
-import {
-  useCancelPaymentIntent,
-  useCreateStripePayment,
-  useUpdatePaymentIntent,
-} from 'service/donation'
+import { useUpdateSetupIntent } from 'service/donation'
 
 import StepSplitter from './common/StepSplitter'
 import PaymentMethod from './steps/payment-method/PaymentMethod'
@@ -49,7 +45,6 @@ const initialGeneralFormValues = {
   payment: null,
   authentication: null,
   isAnonymous: false,
-  email: '',
   privacy: false,
 }
 
@@ -70,14 +65,6 @@ const generalValidation = {
     .oneOf(Object.values(DonationFormAuthState))
     .required() as yup.SchemaOf<DonationFormAuthState>,
   isAnonymous: yup.boolean().required(),
-  email: yup
-    .string()
-    .email('donation-flow:step.authentication.field.email.error')
-    .required()
-    .when('authentication', {
-      is: 'NOREGISTER',
-      then: yup.string().email('donation-flow:step.authentication.field.email.error').required(),
-    }),
   privacy: yup.bool().required().isTrue('donation-flow:step.summary.field.privacy.error'),
 }
 
@@ -93,7 +80,7 @@ export const validationSchema: yup.SchemaOf<DonationFormData> = yup
 
 export function DonationFlowForm() {
   const formikRef = useRef<FormikProps<DonationFormData> | null>(null)
-  const { t, i18n } = useTranslation('donation-flow')
+  const { t } = useTranslation('donation-flow')
   const { data: session } = useSession({
     required: false,
     onUnauthenticated: () => {
@@ -110,13 +97,11 @@ export function DonationFlowForm() {
     formikRef.current?.setFieldValue('email', '')
     formikRef.current?.setFieldValue('isAnonymous', true)
   }, [session])
-  const { campaign, stripePaymentIntent, paymentError, setPaymentError } = useDonationFlow()
+  const { campaign, setupIntent, paymentError, setPaymentError } = useDonationFlow()
   const stripe = useStripe()
   const elements = useElements()
   const router = useRouter()
-  const createStripePaymentMutation = useCreateStripePayment()
-  const updatePaymentIntentMutation = useUpdatePaymentIntent()
-  const cancelPaymentIntentMutation = useCancelPaymentIntent()
+  const updateSetupIntentMutation = useUpdateSetupIntent()
   const paymentMethodSectionRef = React.useRef<HTMLDivElement>(null)
   const authenticationSectionRef = React.useRef<HTMLDivElement>(null)
   const [showCancelDialog, setShowCancelDialog] = React.useState(false)
@@ -127,9 +112,7 @@ export function DonationFlowForm() {
       innerRef={formikRef}
       initialValues={{
         ...initialValues,
-        email: session?.user?.email ?? '',
         authentication: session?.user ? DonationFormAuthState.AUTHENTICATED : null,
-        amountChosen: stripePaymentIntent.amount.toString(),
         isAnonymous: session?.user ? false : true,
       }}
       validationSchema={validationSchema}
@@ -142,7 +125,8 @@ export function DonationFlowForm() {
             }).toString()}`,
           )
         }
-        if (!stripe || !elements || !stripePaymentIntent) {
+
+        if (!stripe || !elements || !setupIntent) {
           // Stripe.js has not yet loaded.
           // Form should be disabled but TS doesn't know that.
           setSubmitPaymentLoading(false)
@@ -153,15 +137,28 @@ export function DonationFlowForm() {
           return
         }
 
-        // Update the payment intent with the latest calculated amount
+        if (!values.finalAmount) {
+          setSubmitPaymentLoading(false)
+          setPaymentError({
+            type: 'invalid_request_error',
+            message: t('step.summary.alerts.error'),
+          })
+          return
+        }
+
+        // Update the setup intent with the latest calculated amount
         try {
-          await updatePaymentIntentMutation.mutateAsync({
-            id: stripePaymentIntent.id,
+          await updateSetupIntentMutation.mutateAsync({
+            id: setupIntent.id,
             payload: {
-              amount: Math.round(Number(values.finalAmount)),
-              currency: campaign.currency,
               metadata: {
                 campaignId: campaign.id,
+                amount: values.finalAmount,
+                currency: campaign.currency,
+                isAnonymous: values.isAnonymous.toString(),
+                return_url: `${window.location.origin}/${routes.campaigns.donationStatus(
+                  campaign.slug,
+                )}`,
               },
             },
           })
@@ -174,33 +171,17 @@ export function DonationFlowForm() {
           return
         }
 
-        // Create the payment entity
-        try {
-          await createStripePaymentMutation.mutateAsync({
-            isAnonymous: values.isAnonymous,
-            personEmail: session?.user?.email || values.email,
-            paymentIntentId: stripePaymentIntent.id,
-            firstName: session?.user?.given_name || null,
-            lastName: session?.user?.family_name || null,
-            phone: null,
-          })
-        } catch (error) {
-          setSubmitPaymentLoading(false)
-          setPaymentError({
-            type: 'invalid_request_error',
-            message: t('step.summary.alerts.error'),
-          })
-          return
-        }
-
         // Confirm the payment
-        const { error } = await stripe.confirmPayment({
-          //`Elements` instance that was used to create the Payment Element
+        const redirectUrl = new URL(
+          `${window.location.origin}/${routes.campaigns.finalizeDonation}`,
+        )
+        redirectUrl.search = new URLSearchParams({
+          campaignSlug: campaign.slug,
+        }).toString()
+        const { error } = await stripe.confirmSetup({
           elements,
           confirmParams: {
-            return_url: `${window.location.origin}/${
-              i18n.language || 'bg'
-            }/${routes.campaigns.donationStatus(campaign.slug)}`,
+            return_url: redirectUrl.toString(),
           },
         })
         setSubmitPaymentLoading(false)
@@ -225,12 +206,7 @@ export function DonationFlowForm() {
               <ConfirmationDialog
                 isOpen={showCancelDialog}
                 handleCancel={() => {
-                  cancelPaymentIntentMutation.mutate({
-                    id: stripePaymentIntent.id,
-                    payload: {
-                      cancellation_reason: 'requested_by_customer',
-                    },
-                  })
+                  // TODO: Cancel the setup intent
                   router.push(routes.campaigns.viewCampaignBySlug(campaign.slug))
                 }}
                 title={t('cancel-dialog.title')}
@@ -310,7 +286,7 @@ export function DonationFlowForm() {
               />
               <PersistFormikValues
                 hashInitials={true}
-                ignoreValues={['authentication']}
+                ignoreValues={['authentication', 'isRecurring']}
                 debounce={3000}
                 storage="sessionStorage"
                 name="donation-form"
