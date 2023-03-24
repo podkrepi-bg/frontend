@@ -135,14 +135,6 @@ export class DonationPage extends CampaignsPage {
   }
 
   /**
-   * Fill in email field on a NOREGISTER authentication step
-   */
-  async fillEmailField(): Promise<void> {
-    const emailField = this.page.locator('.MuiInputBase-root>input[name="email"]')
-    await emailField.fill(stripeSuccessFormData.email)
-  }
-
-  /**
    * Set donation region from the radio cards
    * @param {number} amount
    */
