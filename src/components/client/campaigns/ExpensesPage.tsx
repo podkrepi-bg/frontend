@@ -12,12 +12,12 @@ type Props = { slug: string }
 
 export default function ExpensesPage({ slug }: Props) {
   const canEdit = useCanEditCampaign(slug)
+  const { data: campaignResponse } = useViewCampaign(slug)
 
   if (canEdit == false) {
     return <Layout maxWidth={false} />
   }
 
-  const { data: campaignResponse } = useViewCampaign(slug)
   const campaignTitle = campaignResponse?.campaign.title
 
   return (

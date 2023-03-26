@@ -103,7 +103,6 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
       flex: 1,
       renderCell: (params: GridRenderCellParams) => {
         const rows = params.row.expenseFiles.map((file: ExpenseFile) => {
-          console.log(file)
           return (
             <Tooltip key={file.id} title={file.filename}>
               <Button onClick={() => downloadExpenseFileHandler(file)}>
