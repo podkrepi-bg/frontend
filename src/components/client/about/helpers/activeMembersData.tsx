@@ -108,4 +108,10 @@ export const data: TeamData[] = [
     description: 'Продуктов мениджмънт',
     linkedInProfile: 'https://www.linkedin.com/in/georgi-ovcharov/',
   },
+  {
+    img: '/img/team-photos/DilyanaKalinova.png',
+    name: 'Диляна Калинова',
+    description: 'Маркетинг',
+    linkedInProfile: 'https://www.linkedin.com/in/dilyana-kalinova-544762226/',
+  },
 ]
