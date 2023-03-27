@@ -86,6 +86,23 @@ export const endpoints = {
       <Endpoint>{ url: `/bank-transactions-file/${bankTransactionsFileId}`, method: 'POST' },
     exportToExcel: <Endpoint>{ url: '/donation/export-excel', method: 'GET' },
   },
+  bankTransactions: {
+    transactionsList: (
+      paginationData?: PaginationData,
+      filterData?: FilterData,
+      searchData?: string,
+    ) => {
+      const { pageIndex, pageSize } = (paginationData as PaginationData) || {}
+      const { status, type, date } = (filterData as FilterData) || {}
+      const { from, to } = date || {}
+
+      return <Endpoint>{
+        url: `/bank-transaction/list?pageindex=${pageIndex}&pagesize=${pageSize}&status=${status}&type=${type}&from=${from}&to=${to}&search=${searchData}`,
+        method: 'GET',
+      }
+    },
+    exportToExcel: <Endpoint>{ url: '/bank-transaction/export-excel', method: 'GET' },
+  },
   documents: {
     documentsList: <Endpoint>{ url: '/document', method: 'GET' },
     getDocument: (slug: string) => <Endpoint>{ url: `/document/${slug}`, method: 'GET' },
