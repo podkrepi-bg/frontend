@@ -63,6 +63,7 @@ export default function Form() {
     UploadExpenseFile
   >({
     mutationFn: useUploadExpenseFiles(),
+    onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
   })
 
   let data: ExpenseResponse | undefined
@@ -122,7 +123,10 @@ export default function Form() {
         link.setAttribute('download', `${file.filename}`)
         link.click()
       })
-      .catch((error) => console.error(error))
+      .catch((error) => {
+        AlertStore.show(t('common:alerts.error'), 'error')
+        console.error(error)
+      })
   }
 
   const deleteFileHandler = async (file: ExpenseFile) => {
