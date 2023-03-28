@@ -31,6 +31,10 @@ export const endpoints = {
     downloadFile: (fileId: string) => <Endpoint>{ url: `/campaign-file/${fileId}`, method: 'GET' },
     deleteFile: (fileId: string) => <Endpoint>{ url: `/campaign-file/${fileId}`, method: 'DELETE' },
     getDonations: (id: string) => <Endpoint>{ url: `/campaign/donations/${id}`, method: 'GET' },
+    listCampaignExpenses: (slug: string) =>
+      <Endpoint>{ url: `/campaign/${slug}/expenses`, method: 'GET' },
+    listCampaignApprovedExpenses: (slug: string) =>
+      <Endpoint>{ url: `/campaign/${slug}/expenses/approved`, method: 'GET' },
   },
   campaignType: {
     listCampaignTypes: <Endpoint>{ url: '/campaign-type/list', method: 'GET' },
@@ -129,20 +133,16 @@ export const endpoints = {
   },
   expenses: {
     listExpenses: <Endpoint>{ url: '/expenses/list', method: 'GET' },
-    listCampaignExpenses: (slug: string) =>
-      <Endpoint>{ url: `/expenses/campaign/${slug}`, method: 'GET' },
-    listCampaignApprovedExpenses: (slug: string) =>
-      <Endpoint>{ url: `/expenses/campaign/approved/${slug}`, method: 'GET' },
     createExpense: <Endpoint>{ url: '/expenses/create-expense', method: 'POST' },
     viewExpense: (id: string) => <Endpoint>{ url: `/expenses/${id}`, method: 'GET' },
     editExpense: (id: string) => <Endpoint>{ url: `/expenses/${id}`, method: 'PATCH' },
     deleteExpense: (id: string) => <Endpoint>{ url: `/expenses/${id}`, method: 'DELETE' },
     uploadFile: (expenseId: string) =>
-      <Endpoint>{ url: `/expenses/upload-files/${expenseId}`, method: 'POST' },
+      <Endpoint>{ url: `/expenses/${expenseId}/files/`, method: 'POST' },
     downloadFile: (fileId: string) =>
       <Endpoint>{ url: `/expenses/download-file/${fileId}`, method: 'GET' },
-    listExpenseFiles: (id: string) => <Endpoint>{ url: `/expenses/files/${id}`, method: 'GET' },
-    deleteExpenseFile: (id: string) => <Endpoint>{ url: `/expenses/file/${id}`, method: 'DELETE' },
+    listExpenseFiles: (id: string) => <Endpoint>{ url: `/expenses/${id}/files`, method: 'GET' },
+    deleteExpenseFile: (fileId: string) => <Endpoint>{ url: `/expenses/file/${fileId}`, method: 'DELETE' },
   },
   benefactor: {
     benefactorList: <Endpoint>{ url: '/benefactor', method: 'GET' },

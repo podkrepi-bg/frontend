@@ -95,6 +95,9 @@ export default observer(function CampaignExpensesGrid({ slug }: Props) {
           const found = personList.find((person) => person.id == p.value)
           return `${found?.firstName} ${found?.lastName}`
         }
+        if (!personList && p.value) {
+          return 'Administrator'
+        }
         return ''
       },
       flex: 1,
@@ -110,6 +113,19 @@ export default observer(function CampaignExpensesGrid({ slug }: Props) {
         }
 
         return params.row.spentAt.split('T')[0]
+      },
+    },
+    {
+      field: 'no_of_files',
+      headerName: t('expenses:fields.files'),
+      headerClassName: classes.gridColumn,
+      width: 100,
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        if (!params.row.expenseFiles || !params.row.expenseFiles.length) {
+          return ''
+        }
+
+        return params.row.expenseFiles.length
       },
     },
     {
@@ -144,7 +160,6 @@ export default observer(function CampaignExpensesGrid({ slug }: Props) {
         rowsPerPageOptions={[100]}
         pagination
         autoHeight
-        checkboxSelection
         disableSelectionOnClick
       />
       <DeleteModal />

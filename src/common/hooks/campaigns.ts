@@ -127,7 +127,8 @@ export function useCanEditCampaign(slug: string) {
     return false
   }
 
-  const canEdit = userData.user.id === campaignData.campaign.organizer?.id || isAdmin(session)
+  const canEdit =
+    userData.user.id === campaignData.campaign.organizer?.person.id || isAdmin(session)
 
   return canEdit
 }

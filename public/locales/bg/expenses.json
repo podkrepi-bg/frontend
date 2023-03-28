@@ -21,7 +21,8 @@
     "action": "Действие",
     "empty": "Празно",
     "date": "Дата",
-    "attached-files": "Прикачени файлове"
+    "attached-files": "Прикачени файлове",
+    "files": "Файлове"
   },
   "field-types": {
     "none": "Няма",

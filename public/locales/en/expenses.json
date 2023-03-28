@@ -18,7 +18,8 @@
     "action": "Action",
     "empty": "Empty",
     "date": "Date",
-    "attached-files": "Attached files"
+    "attached-files": "Attached files",
+    "files": "Files"
   },
   "alerts": {
     "new-row": {

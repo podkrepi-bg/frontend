@@ -53,7 +53,7 @@ export default function Form() {
   const { data: expenseFiles } = useCampaignExpenseFiles(id)
   const { data: session } = useSession()
 
-  const isAdmin = session?.user?.realm_access?.roles?.includes('podkrepi-admin')
+  const canApprove = !!session?.user?.realm_access?.roles?.includes('podkrepi-admin')
 
   const { data: person } = useViewPersonByKeylockId(session?.user?.sub as string)
 
@@ -196,7 +196,7 @@ export default function Form() {
               name="approved"
               value={approvedBy ? true : false}
               checked={approvedBy ? true : false}
-              readOnly={isAdmin}
+              disabled={!canApprove}
               onChange={(checkbox, val) => {
                 setApprovedBy(val && person ? person.id : null)
               }}

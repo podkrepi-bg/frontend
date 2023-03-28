@@ -22,15 +22,14 @@ export function useViewExpense(id: string) {
 
 export function useCampaignExpensesList(slug: string) {
   const { data: session } = useSession()
-  console.log('Fetch expenses for: ', endpoints.expenses.listCampaignExpenses(slug).url)
-  return useQuery<ExpenseResponse[]>([endpoints.expenses.listCampaignExpenses(slug).url], {
+  return useQuery<ExpenseResponse[]>([endpoints.campaign.listCampaignExpenses(slug).url], {
     queryFn: authQueryFnFactory(session?.accessToken),
   })
 }
 
 export function useCampaignApprovedExpensesList(slug: string) {
   const { data: session } = useSession()
-  return useQuery<ExpenseResponse[]>([endpoints.expenses.listCampaignApprovedExpenses(slug).url], {
+  return useQuery<ExpenseResponse[]>([endpoints.campaign.listCampaignApprovedExpenses(slug).url], {
     queryFn: authQueryFnFactory(session?.accessToken),
   })
 }
