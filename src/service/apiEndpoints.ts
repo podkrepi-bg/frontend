@@ -142,7 +142,8 @@ export const endpoints = {
     downloadFile: (fileId: string) =>
       <Endpoint>{ url: `/expenses/download-file/${fileId}`, method: 'GET' },
     listExpenseFiles: (id: string) => <Endpoint>{ url: `/expenses/${id}/files`, method: 'GET' },
-    deleteExpenseFile: (fileId: string) => <Endpoint>{ url: `/expenses/file/${fileId}`, method: 'DELETE' },
+    deleteExpenseFile: (fileId: string) =>
+      <Endpoint>{ url: `/expenses/file/${fileId}`, method: 'DELETE' },
   },
   benefactor: {
     benefactorList: <Endpoint>{ url: '/benefactor', method: 'GET' },

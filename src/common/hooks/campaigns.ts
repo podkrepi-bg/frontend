@@ -128,7 +128,8 @@ export function useCanEditCampaign(slug: string) {
   }
 
   const canEdit =
-    userData.user.id === campaignData.campaign.organizer?.person.id || isAdmin(session)
+    userData.user.id === campaignData.campaign.organizer?.person.id ||
+    session?.user?.realm_access?.roles?.includes('podkrepi-admin')
 
   return canEdit
 }
