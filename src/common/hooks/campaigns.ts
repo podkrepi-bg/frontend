@@ -13,7 +13,6 @@ import {
 import { DonationStatus } from 'gql/donations.enums'
 import { apiClient } from 'service/apiClient'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
-import { isAdmin } from 'common/util/roles'
 
 // NOTE: shuffling the campaigns so that each gets its fair chance to be on top row
 export const campaignsOrderQueryFunction: QueryFunction<CampaignResponse[]> = async ({

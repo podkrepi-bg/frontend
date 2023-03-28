@@ -132,6 +132,11 @@ export default function Form() {
   }
 
   async function onSubmit(data: ExpenseInput, { setFieldError }: FormikHelpers<ExpenseInput>) {
+    if (files.length == 0) {
+      AlertStore.show(t('expenses:alerts.no-files-uploaded'), 'error')
+      return false
+    }
+
     try {
       if (data.documentId == '') {
         data.documentId = null
@@ -230,9 +235,15 @@ export default function Form() {
             />
           </Grid>
           <Grid item xs={12}>
-            <Typography component="h4" sx={{ textAlign: 'center' }}>
-              {t('expenses:uploaded-files')}:
-            </Typography>
+            {expenseFiles && expenseFiles.length > 0 ? (
+              <Typography component="h4" sx={{ textAlign: 'center' }}>
+                {t('expenses:uploaded-files')}:
+              </Typography>
+            ) : (
+              <Typography component="h4" sx={{ textAlign: 'center', color: 'red' }}>
+                {t('expenses:alerts.no-files-uploaded')}
+              </Typography>
+            )}
             {expenseFiles?.map((file, key) => (
               <Typography
                 variant="h5"

@@ -40,7 +40,8 @@
       "error": "Error occurred trying to delete multiple expenses.",
       "success": "Expenses were deleted successfully!!"
     },
-    "delete": "Deleted expense"
+    "delete": "Deleted expense",
+    "no-files-uploaded": "No files uploaded"
   },
   "btns": {
     "add": "Add",
