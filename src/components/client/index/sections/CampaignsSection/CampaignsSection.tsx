@@ -1,31 +1,31 @@
 import { useTranslation } from 'next-i18next'
 
-import { Grid, Box } from '@mui/material'
+import { Grid } from '@mui/material'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import CampaignCard from 'components/client/campaigns/CampaignCard'
 import { useCampaignList } from 'common/hooks/campaigns'
 import { routes } from 'common/routes'
 
 import { OutlinedButton } from '../../IndexPage.styled'
-import { Root, UrgentCampaignsHeading } from './CampaignsSection.styled'
+import { Root } from './CampaignsSection.styled'
+import { CampaignState } from 'components/client/campaigns/helpers/campaign.enums'
 
 export default function CampaignsSection() {
-  const { data } = useCampaignList()
   const { t } = useTranslation('index')
-  if (data === undefined) {
+  const { data } = useCampaignList()
+  const activeCampaigns = data
+    ?.filter((campaign) => campaign.state === CampaignState.active)
+    .slice(0, 5)
+
+  if (activeCampaigns === undefined) {
     return null
   } else {
     return (
       <Root>
-        <UrgentCampaignsHeading variant="h3">
-          {t('campaign.urgent-campaigns')}
-        </UrgentCampaignsHeading>
         <Grid container justifyContent="center" spacing={4}>
-          {data?.slice(0, 12).map((campaign, index) => (
+          {activeCampaigns?.map((campaign, index) => (
             <Grid key={index} item xs={12} sm={6} lg={3}>
-              <Box>
-                <CampaignCard index={index} campaign={campaign} />
-              </Box>
+              <CampaignCard index={index} campaign={campaign} />
             </Grid>
           ))}
         </Grid>
