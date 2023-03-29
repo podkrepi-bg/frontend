@@ -4,9 +4,10 @@ import Link from 'next/link'
 import { CampaignResponse } from 'gql/campaigns'
 
 import { Favorite } from '@mui/icons-material'
-import { CardActionArea } from '@mui/material'
+import { CardActionArea, Grid } from '@mui/material'
 
 import { routes } from 'common/routes'
+import theme from 'common/theme'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import { CampaignState } from 'components/client/campaigns/helpers/campaign.enums'
 
@@ -28,7 +29,11 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
         background: `url(${pictureUrl})`,
         height: '100%',
         backgroundSize: 'cover',
+        border: `1px solid ${theme.palette.common.white}`,
+
         '&:hover': {
+          opacity: 0.9,
+
           'a button': {
             visibility: 'visible',
             margin: '0 auto',
@@ -37,15 +42,17 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
       }}>
       <Content>
         <CampaignTitle>{title}</CampaignTitle>
-        <SupportNowButton
-          fullWidth
-          href={routes.campaigns.oneTimeDonation(slug)}
-          disabled={campaignState === CampaignState.complete && !allowDonationOnComplete}
-          variant="contained"
-          color="secondary"
-          endIcon={<Favorite color="error" />}>
-          {t('cta.support-now')}
-        </SupportNowButton>
+        <Grid textAlign="center">
+          <SupportNowButton
+            fullWidth
+            href={routes.campaigns.oneTimeDonation(slug)}
+            disabled={campaignState === CampaignState.complete && !allowDonationOnComplete}
+            variant="contained"
+            color="secondary"
+            endIcon={<Favorite color="error" />}>
+            {t('cta.support-now')}
+          </SupportNowButton>
+        </Grid>
       </Content>
     </CardActionArea>
   )
