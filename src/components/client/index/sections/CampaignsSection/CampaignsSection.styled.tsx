@@ -3,19 +3,27 @@ import { styled } from '@mui/material/styles'
 import theme from 'common/theme'
 
 export const Root = styled('section')(() => ({
+  marginTop: theme.spacing(3.875),
   display: 'grid',
-  gridTemplateColumns: '1fr 1fr 1fr 1fr',
+  gridTemplateRows: 'repeat(5, 1fr)',
 
   'a:nth-of-type(1)': {
     minHeight: theme.spacing(60.25),
-    gridRowStart: 1,
-    gridColumnStart: 1,
-    gridRowEnd: 3,
-    gridColumnEnd: 3,
   },
 
   [theme.breakpoints.up('sm')]: {
-    marginTop: theme.spacing(7),
+    gridTemplateColumns: 'repeat(2, 1fr)',
+
+    'a:nth-of-type(1)': {
+      gridRowStart: 1,
+      gridColumnStart: 1,
+      gridRowEnd: 3,
+      gridColumnEnd: 3,
+    },
+  },
+
+  [theme.breakpoints.up('md')]: {
+    gridTemplateColumns: '1fr 1fr 1fr 1fr',
   },
 
   [theme.breakpoints.up(2000)]: {
