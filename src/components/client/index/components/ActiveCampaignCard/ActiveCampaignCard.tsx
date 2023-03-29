@@ -1,5 +1,4 @@
 import { useTranslation } from 'next-i18next'
-import Image from 'next/image'
 import Link from 'next/link'
 
 import { CampaignResponse } from 'gql/campaigns'
@@ -11,7 +10,7 @@ import { routes } from 'common/routes'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import { CampaignState } from 'components/client/campaigns/helpers/campaign.enums'
 
-import { CampaignTitle, Card, CardWrapper, SupportNowButton } from './ActiveCampaignCard.styled'
+import { CampaignTitle, CardWrapper, SupportNowButton } from './ActiveCampaignCard.styled'
 
 type Props = { campaign: CampaignResponse; index: number }
 
@@ -23,16 +22,11 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
   const pictureUrl = campaignListPictureUrl(campaign)
 
   return (
-    <CardWrapper>
+    <CardWrapper sx={{ background: `url(${pictureUrl})`, height: '100%', backgroundSize: 'cover' }}>
       <CardActionArea
         LinkComponent={Link}
         href={routes.campaigns.viewCampaignBySlug(slug)}
         data-testid={`campaign-card-${index}`}>
-        <Card title={title}>
-          <div>
-            <Image alt={title} src={pictureUrl} fill style={{ objectFit: 'contain' }} />
-          </div>
-        </Card>
         <CardContent>
           <CampaignTitle gutterBottom variant="h5">
             {title}

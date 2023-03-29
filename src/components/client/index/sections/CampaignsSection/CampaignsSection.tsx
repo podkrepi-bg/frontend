@@ -1,5 +1,3 @@
-import { Grid } from '@mui/material'
-
 import { useCampaignList } from 'common/hooks/campaigns'
 import { CampaignState } from 'components/client/campaigns/helpers/campaign.enums'
 import ActiveCampaignCard from '../../components/ActiveCampaignCard/ActiveCampaignCard'
@@ -17,14 +15,9 @@ export default function CampaignsSection() {
   } else {
     return (
       <Root>
-        <Grid container justifyContent="center" spacing={4}>
-          {' '}
-          {activeCampaigns?.map((campaign, index) => (
-            <Grid key={index} item xs={12} sm={6} lg={3}>
-              <ActiveCampaignCard index={index} campaign={campaign} />{' '}
-            </Grid>
-          ))}
-        </Grid>
+        {activeCampaigns?.map((campaign, index) => (
+          <ActiveCampaignCard index={index} key={index} campaign={campaign} />
+        ))}
       </Root>
     )
   }

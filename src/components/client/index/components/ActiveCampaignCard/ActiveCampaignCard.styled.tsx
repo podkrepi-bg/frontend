@@ -1,10 +1,10 @@
-import { CardMedia, Typography } from '@mui/material'
+import { Card, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import LinkButton from 'components/common/LinkButton'
 import theme from 'common/theme'
 
-export const CardWrapper = styled(Typography)(() => ({
+export const CardWrapper = styled(Card)(() => ({
   border: 'none',
 
   '&:hover': {
@@ -14,17 +14,14 @@ export const CardWrapper = styled(Typography)(() => ({
   },
 }))
 
-export const Card = styled(CardMedia)(() => ({
-  height: 200,
-}))
-
 export const CampaignTitle = styled(Typography)(() => ({
-  fontWeight: 500,
+  fontSize: theme.typography.pxToRem(16),
+  fontWeight: 600,
   position: 'relative',
   color: theme.palette.common.white,
 }))
 
 export const SupportNowButton = styled(LinkButton)(() => ({
-  display: 'none',
+  //   display: 'none',
   fontWeight: 'bold',
 }))
