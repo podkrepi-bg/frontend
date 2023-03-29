@@ -37,6 +37,7 @@ import { downloadCampaignExpenseFile, deleteExpenseFile } from 'service/expense'
 import { useSession } from 'next-auth/react'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import { useViewPersonByKeylockId } from 'common/hooks/person'
+import { isAdmin } from 'common/util/roles'
 
 const validTypes = Object.keys(ExpenseType)
 const validStatuses = Object.keys(ExpenseStatus)
@@ -53,7 +54,8 @@ export default function Form() {
   const { data: expenseFiles } = useCampaignExpenseFiles(id)
   const { data: session } = useSession()
 
-  const canApprove = !!session?.user?.realm_access?.roles?.includes('podkrepi-admin')
+  const canApprove =
+    !!session?.user?.realm_access?.roles?.includes('podkrepi-admin') || isAdmin(session)
 
   const { data: person } = useViewPersonByKeylockId(session?.user?.sub as string)
 
