@@ -18,6 +18,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import { baseUrl, routes } from 'common/routes'
 import { moneyPublic } from 'common/util/money'
 import { useCampaignDonationHistory } from 'common/hooks/campaigns'
+
 import theme from 'common/theme'
 import { useCopyToClipboard } from 'common/util/useCopyToClipboard'
 import useMobile from 'common/hooks/useMobile'

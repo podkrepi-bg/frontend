@@ -7,7 +7,7 @@ import { CampaignResponse } from 'gql/campaigns'
 
 import 'react-quill/dist/quill.bubble.css'
 
-import { Divider, Grid, Typography } from '@mui/material'
+import { Divider, Grid, Tooltip, Typography } from '@mui/material'
 import SecurityIcon from '@mui/icons-material/Security'
 import { styled } from '@mui/material/styles'
 
@@ -18,6 +18,12 @@ import CampaignInfoGraphics from './CampaignInfoGraphics'
 import CampaignInfoOperator from './CampaignInfoOperator'
 import LinkButton from 'components/common/LinkButton'
 import { campaignSliderUrls } from 'common/util/campaignImageUrls'
+import CampaignPublicExpensesGrid from './CampaignPublicExpensesGrid'
+import EditIcon from '@mui/icons-material/Edit'
+import { useCampaignApprovedExpensesList } from 'common/hooks/expenses'
+import { Assessment } from '@mui/icons-material'
+import { routes } from 'common/routes'
+import { useCanEditCampaign } from 'common/hooks/campaigns'
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 
@@ -86,6 +92,8 @@ type Props = {
 export default function CampaignDetails({ campaign }: Props) {
   const { t } = useTranslation()
   const sliderImages = campaignSliderUrls(campaign)
+  const canEditExpenses = useCanEditCampaign(campaign.slug)
+  const { data: expensesList } = useCampaignApprovedExpensesList(campaign.slug)
 
   return (
     <StyledGrid item xs={12} md={8}>
@@ -107,6 +115,32 @@ export default function CampaignDetails({ campaign }: Props) {
           <CampaignInfoOperator campaign={campaign} />
         </Grid>
         <CampaignInfoGraphics />
+        {expensesList?.length || canEditExpenses ? (
+          <Grid item xs={12}>
+            <Grid item xs={12}>
+              <Typography variant="h4" component="h4" my={8}>
+                {t('campaigns:campaign.financial-report')} <Assessment />
+                {canEditExpenses ? (
+                  <Tooltip title={t('campaigns:cta.edit')}>
+                    <LinkButton
+                      href={routes.campaigns.viewExpenses(campaign.slug)}
+                      variant="contained"
+                      endIcon={<EditIcon />}
+                    />
+                  </Tooltip>
+                ) : (
+                  ''
+                )}
+              </Typography>
+            </Grid>
+            <Grid item xs={12} mt={2}>
+              <CampaignPublicExpensesGrid slug={campaign.slug} />
+            </Grid>
+          </Grid>
+        ) : (
+          ''
+        )}
+
         <Grid item xs={12}>
           <DonationWishes campaignId={campaign?.id} />
         </Grid>

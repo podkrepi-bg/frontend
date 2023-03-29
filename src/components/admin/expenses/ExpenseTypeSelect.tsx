@@ -24,12 +24,9 @@ export default function ExpenseTypeSelect({ name = 'type' }) {
         defaultValue=""
         label={t('fields.' + name)}
         {...field}>
-        <MenuItem value="" disabled>
-          {t('fields.' + name)}
-        </MenuItem>
         {values?.map((value, index) => (
           <MenuItem key={index} value={value}>
-            {value}
+            {t('expenses:field-types.' + value)}
           </MenuItem>
         ))}
       </FormTextField>

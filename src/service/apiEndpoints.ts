@@ -31,6 +31,10 @@ export const endpoints = {
     downloadFile: (fileId: string) => <Endpoint>{ url: `/campaign-file/${fileId}`, method: 'GET' },
     deleteFile: (fileId: string) => <Endpoint>{ url: `/campaign-file/${fileId}`, method: 'DELETE' },
     getDonations: (id: string) => <Endpoint>{ url: `/campaign/donations/${id}`, method: 'GET' },
+    listCampaignExpenses: (slug: string) =>
+      <Endpoint>{ url: `/campaign/${slug}/expenses`, method: 'GET' },
+    listCampaignApprovedExpenses: (slug: string) =>
+      <Endpoint>{ url: `/campaign/${slug}/expenses/approved`, method: 'GET' },
   },
   campaignType: {
     listCampaignTypes: <Endpoint>{ url: '/campaign-type/list', method: 'GET' },
@@ -133,6 +137,13 @@ export const endpoints = {
     viewExpense: (id: string) => <Endpoint>{ url: `/expenses/${id}`, method: 'GET' },
     editExpense: (id: string) => <Endpoint>{ url: `/expenses/${id}`, method: 'PATCH' },
     deleteExpense: (id: string) => <Endpoint>{ url: `/expenses/${id}`, method: 'DELETE' },
+    uploadFile: (expenseId: string) =>
+      <Endpoint>{ url: `/expenses/${expenseId}/files/`, method: 'POST' },
+    downloadFile: (fileId: string) =>
+      <Endpoint>{ url: `/expenses/download-file/${fileId}`, method: 'GET' },
+    listExpenseFiles: (id: string) => <Endpoint>{ url: `/expenses/${id}/files`, method: 'GET' },
+    deleteExpenseFile: (fileId: string) =>
+      <Endpoint>{ url: `/expenses/file/${fileId}`, method: 'DELETE' },
   },
   benefactor: {
     benefactorList: <Endpoint>{ url: '/benefactor', method: 'GET' },
@@ -167,6 +178,8 @@ export const endpoints = {
     list: <Endpoint>{ url: '/person', method: 'GET' },
     createBeneficiary: <Endpoint>{ url: '/beneficiary/create-beneficiary', method: 'POST' },
     viewPerson: (slug: string) => <Endpoint>{ url: `/person/${slug}`, method: 'GET' },
+    viewPersonByKeylockId: (sub: string) =>
+      <Endpoint>{ url: `/person/by-keylock-id/${sub}`, method: 'GET' },
     editPerson: (id: string) => <Endpoint>{ url: `/person/${id}`, method: 'PUT' },
     createPerson: <Endpoint>{ url: '/person', method: 'POST' },
     deletePerson: (id: string) => <Endpoint>{ url: `/person/${id}`, method: 'DELETE' },

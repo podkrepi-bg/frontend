@@ -2,6 +2,9 @@
   "fields-error": {
     "amount-unavailable": "Недостатъчна наличност в трезора!"
   },
+  "errors": {
+    "no-default-vault": "Не е избран трезор по подразбиране!"
+  },
   "fields": {
     "type": "Тип",
     "status": "Статус",
@@ -14,8 +17,30 @@
     "documentId": "Документ Id",
     "approvedById": "Одобрен от (Id)",
     "approvedBy": "Одобрен от",
+    "approved": "Одобрен",
     "action": "Действие",
-    "empty": "Празно"
+    "empty": "Празно",
+    "date": "Дата",
+    "attached-files": "Прикачени файлове",
+    "files": "Файлове"
+  },
+  "field-types": {
+    "none": "Няма",
+    "internal": "Вътрешен",
+    "operating": "Оперативен",
+    "administrative": "Административен",
+    "medical" : "Медицински",
+    "services" : "Услуги",
+    "groceries" : "Хранителни",
+    "transport" : "Транспорт",
+    "accommodation" : "Жилищни",
+    "shipping" : "Доставки",
+    "utility" : "Комунални",
+    "rental" : "Наеми",
+    "legal" : "Юридически",
+    "bank" : "Банкови",
+    "advertising" : "Рекламни",
+    "other" : "Други"
   },
   "alerts": {
     "new-row": {
@@ -35,7 +60,9 @@
       "question": "Желаете ли да изтриете избраните разходи",
       "error": "Възникна грешка при опит за изтриване на разходи.",
       "success": "Разходите са изтрити успешно!"
-    }
+    },
+    "delete": "Изтрит разход",
+    "no-files-uploaded": "Няма прикачени файлове!"
   },
   "btns": {
     "add": "Добави",
@@ -52,10 +79,15 @@
     "info": "Информация за разход"
   },
   "description": "Всички разходи",
+  "reported": "Общо отчетени",
+  "uploaded-documents": "Прикачени документи",
+  "uploaded-files": "Прикачени файлове",
+  "deleteTitle": "Сигурни ли сте, че искате да изтриете файла?",
   "tooltips": {
     "add": "Добави",
     "view": "Преглед",
     "edit": "Редактирай",
-    "delete": "Изтрий"
+    "delete": "Изтрий",
+    "download": "Свали"
   }
 }

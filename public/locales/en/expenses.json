@@ -2,6 +2,9 @@
   "fields-error": {
     "amount-unavailable": "Insufficient stock in the vault!"
   },
+  "errors": {
+    "no-default-vault": "No default vault found!"
+  },
   "fields": {
     "type": "Type",
     "status": "Status",
@@ -13,7 +16,10 @@
     "approvedById": "Approved by (Id)",
     "approvedBy": "Approved by",
     "action": "Action",
-    "empty": "Empty"
+    "empty": "Empty",
+    "date": "Date",
+    "attached-files": "Attached files",
+    "files": "Files"
   },
   "alerts": {
     "new-row": {
@@ -33,7 +39,9 @@
       "question": "Are you sure you want to delete multiple expenses",
       "error": "Error occurred trying to delete multiple expenses.",
       "success": "Expenses were deleted successfully!!"
-    }
+    },
+    "delete": "Deleted expense",
+    "no-files-uploaded": "No files uploaded"
   },
   "btns": {
     "add": "Add",
@@ -50,10 +58,15 @@
     "info": "Expense information"
   },
   "description": "All expenses",
+  "reported": "Total reported",
+  "uploaded-documents": "Uploaded documents",
+  "uploaded-files": "Uploaded files",
+  "deleteTitle": "Delete expense file?",
   "tooltips": {
     "add": "Add",
     "view": "View",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "download": "Download"
   }
 }

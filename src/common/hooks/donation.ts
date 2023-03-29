@@ -35,7 +35,7 @@ export function useDonationSession() {
     mutationFn: createCheckoutSession,
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
     onSuccess: () => AlertStore.show(t('common:alerts.message-sent'), 'success'),
-    retry(failureCount, error) {
+    retry(failureCount) {
       if (failureCount < 4) {
         return true
       }
