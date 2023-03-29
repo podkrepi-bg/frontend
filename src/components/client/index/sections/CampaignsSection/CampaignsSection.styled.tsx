@@ -6,7 +6,8 @@ export const Root = styled('section')(() => ({
   display: 'grid',
   gridTemplateColumns: '1fr 1fr 1fr 1fr',
 
-  'div:nth-of-type(1)': {
+  'a:nth-of-type(1)': {
+    minHeight: theme.spacing(60.25),
     gridRowStart: 1,
     gridColumnStart: 1,
     gridRowEnd: 3,
