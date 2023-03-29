@@ -1,10 +1,10 @@
 import { useCampaignList } from 'common/hooks/campaigns'
 import { CampaignState } from 'components/client/campaigns/helpers/campaign.enums'
-import ActiveCampaignCard from '../../components/ActiveCampaignCard/ActiveCampaignCard'
+import ActiveCampaignCard from './ActiveCampaignCard/ActiveCampaignCard'
 
-import { Root } from './CampaignsSection.styled'
+import { Root } from './ActiveCampaignsSection.styled'
 
-export default function CampaignsSection() {
+export default function ActiveCampaignsSection() {
   const { data } = useCampaignList()
   const activeCampaigns = data
     ?.filter((campaign) => campaign.state === CampaignState.active)

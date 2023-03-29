@@ -1,7 +1,8 @@
 import { useTranslation } from 'next-i18next'
 
 import Layout from 'components/client/layout/Layout'
-import CampaignsSection from './sections/CampaignsSection/CampaignsSection'
+import ActiveCampaignsSection from './sections/ActiveCampaignsSection/ActiveCampaignsSection'
+import CompletedCampaignsSectiom from './sections/CompletedCampaignsSection/CompletedCampaignsSection'
 import HowWeWorkSection from './sections/HowWeWorkSection/HowWeWorkSection'
 import TeamMembersSection from './sections/TeamMembersSection/TeamMembersSection'
 import JoinPodkrepiBgSection from './sections/JoinPodkrepiBgSection/JoinPodkrepiBgSection'
@@ -16,7 +17,8 @@ export default function IndexPage() {
       disableGutters
       title={t('title')}
       metaDescription={t('metaDescription')}>
-      <CampaignsSection />
+      <ActiveCampaignsSection />
+      <CompletedCampaignsSectiom />
       <HowWeWorkSection />
       <TeamMembersSection />
       <JoinPodkrepiBgSection />
