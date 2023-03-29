@@ -8,13 +8,15 @@ export const Root = styled('section')(() => ({
   gridTemplateRows: 'repeat(5, 1fr)',
 
   'a:nth-of-type(1)': {
-    minHeight: theme.spacing(60.25),
+    minHeight: theme.spacing(40),
   },
 
   [theme.breakpoints.up('sm')]: {
     gridTemplateColumns: 'repeat(2, 1fr)',
+    gridTemplateRows: 'repeat(4, 1fr)',
 
     'a:nth-of-type(1)': {
+      minHeight: theme.spacing(61),
       gridRowStart: 1,
       gridColumnStart: 1,
       gridRowEnd: 3,
@@ -24,6 +26,7 @@ export const Root = styled('section')(() => ({
 
   [theme.breakpoints.up('md')]: {
     gridTemplateColumns: '1fr 1fr 1fr 1fr',
+    gridTemplateRows: 'repeat(2, 1fr)',
   },
 
   [theme.breakpoints.up(2000)]: {

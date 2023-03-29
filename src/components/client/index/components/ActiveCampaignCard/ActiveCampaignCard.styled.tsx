@@ -11,20 +11,18 @@ export const Content = styled(CardContent)(() => ({
   bottom: theme.spacing(2),
 
   [theme.breakpoints.up('md')]: {
-    padding: theme.spacing(0, 4),
+    padding: theme.spacing(0, 3),
   },
 }))
 
 export const CampaignTitle = styled('h6')(() => ({
   visibility: 'hidden',
-  width: theme.spacing(36.25),
+  maxWidth: theme.spacing(32),
   height: theme.spacing(5),
   fontWeight: 600,
   fontSize: theme.typography.pxToRem(12),
 
-  [theme.breakpoints.down('md')]: {
-    visibility: 'visible',
-  },
+  [theme.breakpoints.down('lg')]: { visibility: 'visible' },
 }))
 
 export const SupportNowButton = styled(LinkButton)(() => ({
