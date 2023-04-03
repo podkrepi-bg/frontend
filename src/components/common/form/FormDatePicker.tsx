@@ -24,6 +24,11 @@ export default function FormDatePicker({ name, label }: { name: string; label: s
   const updateValue = (newValue: Date) => {
     let formattedValue
     try {
+      if (newValue.getFullYear() < 1900) {
+        // Fix a bug that appears while we type the year
+        // it considers 0020 as a valid year
+        throw new Error('Invalid year')
+      }
       formattedValue = format(newValue, DATE_VALUE_FORMAT)
     } catch {
       formattedValue = field.value
