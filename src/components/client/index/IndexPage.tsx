@@ -2,7 +2,7 @@ import { useTranslation } from 'next-i18next'
 
 import Layout from 'components/client/layout/Layout'
 import ActiveCampaignsSection from './sections/ActiveCampaignsSection/ActiveCampaignsSection'
-import CompletedCampaignsSectiom from './sections/CompletedCampaignsSection/CompletedCampaignsSection'
+import CompletedCampaignsSection from './sections/CompletedCampaignsSection/CompletedCampaignsSection'
 import HowWeWorkSection from './sections/HowWeWorkSection/HowWeWorkSection'
 import TeamMembersSection from './sections/TeamMembersSection/TeamMembersSection'
 import JoinPodkrepiBgSection from './sections/JoinPodkrepiBgSection/JoinPodkrepiBgSection'
@@ -18,7 +18,7 @@ export default function IndexPage() {
       title={t('title')}
       metaDescription={t('metaDescription')}>
       <ActiveCampaignsSection />
-      <CompletedCampaignsSectiom />
+      <CompletedCampaignsSection />
       <HowWeWorkSection />
       <TeamMembersSection />
       <JoinPodkrepiBgSection />
