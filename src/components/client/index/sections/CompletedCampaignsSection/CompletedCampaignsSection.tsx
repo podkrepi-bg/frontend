@@ -1,24 +1,31 @@
 import { useTranslation } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
-
-import { Grid } from '@mui/material'
 import { Settings } from 'react-slick'
+import 'slick-carousel/slick/slick-theme.css'
+import 'slick-carousel/slick/slick.css'
+
+import { Grid, Typography } from '@mui/material'
 
 import { useCampaignList } from 'common/hooks/campaigns'
+import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
+import theme from 'common/theme'
 import { CampaignState } from 'components/client/campaigns/helpers/campaign.enums'
-import CompletedCampaignsCarousel from './Carousel/Carousel'
 
 import { Heading } from '../../IndexPage.styled'
-import { CarouselWrapper } from './Carousel/Carousel.styled'
+import { CarouselWrapper, ReachedMoney, ReachedText } from './Carousel.styled'
+import { CampaignTitle } from '../ActiveCampaignsSection/ActiveCampaignCard/ActiveCampaignCard.styled'
 
 type Props = { campaign: CampaignResponse; index: number }
 
-export default function CompletedCampaignsSection() {
+export default function CompletedCampaignsSection({ campaign, index }: Props) {
   const { t } = useTranslation('campaigns')
   const { data } = useCampaignList()
+
   const completedCampaigns = data?.filter(
     (campaign: CampaignResponse) => campaign.state === CampaignState.complete,
   )
+  const campaignImagesUrl = campaignListPictureUrl(campaign)
+  const testImg = 'img/team-photos/AlbenaGeleva.png'
 
   const settings: Settings = {
     infinite: true,
@@ -58,8 +65,30 @@ export default function CompletedCampaignsSection() {
         {t('completed-campaigns')}
       </Heading>
       <CarouselWrapper {...settings}>
-        {completedCampaigns?.map((campaign, index) => (
-          <CompletedCampaignsCarousel campaign={campaign} index={index} key={index} />
+        {completedCampaigns?.map((campaign) => (
+          <Grid key={index}>
+            <Grid
+              data-testid={`campaign-card-${index}`}
+              sx={{
+                background: `url(${testImg})`,
+                height: theme.spacing(37.5),
+                backgroundSize: 'cover',
+                margin: theme.spacing(0, 1.25),
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+
+                '&:hover': {
+                  opacity: 0.9,
+                },
+              }}>
+              <ReachedMoney>
+                {campaign.summary.reachedAmount}
+                <ReachedText>{t('campaign.reached')}</ReachedText>
+              </ReachedMoney>
+              <CampaignTitle>{campaign.title}</CampaignTitle>
+            </Grid>
+          </Grid>
         ))}
       </CarouselWrapper>
     </Grid>

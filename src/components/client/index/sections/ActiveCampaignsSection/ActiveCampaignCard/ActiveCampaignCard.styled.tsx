@@ -16,8 +16,12 @@ export const Content = styled(CardContent)(() => ({
 }))
 
 export const CampaignTitle = styled('h6')(() => ({
-  fontWeight: 600,
-  fontSize: theme.typography.pxToRem(12),
+  height: theme.spacing(5),
+  margin: theme.spacing(1.8, 1.2),
+  fontWeight: 700,
+  fontSize: theme.typography.pxToRem(16),
+  lineHeight: '150%',
+  color: '#FAFAFA',
 }))
 
 export const SupportNowButton = styled(LinkButton)(() => ({
