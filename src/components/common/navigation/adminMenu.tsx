@@ -12,6 +12,7 @@ import {
   MoveUp,
   VolunteerActivism,
   DisplaySettings,
+  RequestQuote,
 } from '@mui/icons-material'
 import VolunteerActivismOutlinedIcon from '@mui/icons-material/VolunteerActivismOutlined'
 import LocationCityRoundedIcon from '@mui/icons-material/LocationCityRounded'
@@ -72,6 +73,7 @@ export const adminCards = [
   { label: 'Организатори', icon: Group, href: routes.admin.organizers.index },
   { label: 'ЮЛНЦ', icon: Group, href: routes.admin.company.create },
   { label: 'Банкови сметки', icon: Payment, href: routes.admin.bankaccounts.index },
+  { label: 'Банкови транзакции', icon: RequestQuote, href: routes.admin.bankTransactions.index },
   { label: 'Преводи', icon: LocalAtmIcon, href: routes.admin.withdrawals.index },
   { label: 'Разходи', icon: Paid, href: routes.admin.expenses.index },
   { label: 'Трезори', icon: Shield, href: routes.admin.vaults.index },
