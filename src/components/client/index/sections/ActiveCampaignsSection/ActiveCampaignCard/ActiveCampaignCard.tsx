@@ -18,7 +18,7 @@ type Props = { campaign: CampaignResponse; index: number }
 export default function ActiveCampaignCard({ campaign, index }: Props) {
   const { t } = useTranslation('campaigns')
   const { state: campaignState, allowDonationOnComplete, slug, title } = campaign
-  const pictureUrl = campaignListPictureUrl(campaign)
+  const campaignImagesUrl = campaignListPictureUrl(campaign)
 
   return (
     <CardActionArea
@@ -26,7 +26,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
       href={routes.campaigns.viewCampaignBySlug(slug)}
       data-testid={`campaign-card-${index}`}
       sx={{
-        background: `url(${pictureUrl})`,
+        background: `url(${campaignImagesUrl})`,
         height: '100%',
         backgroundSize: 'cover',
         border: `1px solid ${theme.palette.common.white}`,
