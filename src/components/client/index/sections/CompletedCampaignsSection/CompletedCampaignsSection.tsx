@@ -4,7 +4,7 @@ import { Settings } from 'react-slick'
 import 'slick-carousel/slick/slick-theme.css'
 import 'slick-carousel/slick/slick.css'
 
-import { Grid, Typography } from '@mui/material'
+import { Grid } from '@mui/material'
 
 import { useCampaignList } from 'common/hooks/campaigns'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
@@ -12,8 +12,12 @@ import theme from 'common/theme'
 import { CampaignState } from 'components/client/campaigns/helpers/campaign.enums'
 
 import { Heading } from '../../IndexPage.styled'
-import { CarouselWrapper, ReachedMoney, ReachedText } from './Carousel.styled'
-import { CampaignTitle } from '../ActiveCampaignsSection/ActiveCampaignCard/ActiveCampaignCard.styled'
+import {
+  CarouselWrapper,
+  ReachedMoney,
+  ReachedText,
+  CampaignTitle,
+} from './CompletedCampaignsSection.styled'
 
 type Props = { campaign: CampaignResponse; index: number }
 
