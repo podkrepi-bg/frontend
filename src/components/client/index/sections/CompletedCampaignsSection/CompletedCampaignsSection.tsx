@@ -4,7 +4,7 @@ import { Settings } from 'react-slick'
 import 'slick-carousel/slick/slick-theme.css'
 import 'slick-carousel/slick/slick.css'
 
-import { Grid } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 
 import { useCampaignList } from 'common/hooks/campaigns'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
@@ -17,13 +17,13 @@ import { CampaignTitle } from '../ActiveCampaignsSection/ActiveCampaignCard/Acti
 
 type Props = { campaign: CampaignResponse; index: number }
 
-export default function CompletedCampaignsSection({ campaign, index }: Props) {
+export default function CompletedCampaignsSection() {
   const { t } = useTranslation('campaigns')
   const { data } = useCampaignList()
   const completedCampaigns = data?.filter(
     (campaign: CampaignResponse) => campaign.state === CampaignState.complete,
   )
-  const campaignImagesUrl = campaignListPictureUrl(campaign)
+  // const campaignImagesUrl = campaignListPictureUrl(campaign)
   const testImg = 'img/team-photos/AlbenaGeleva.png'
 
   const settings: Settings = {
@@ -65,15 +65,15 @@ export default function CompletedCampaignsSection({ campaign, index }: Props) {
       </Heading>
       <CompletedCampaignsCarousel {...settings}>
         {completedCampaigns?.map((campaign) => (
-          <Grid key={index}>
+          <Grid key={index} data-testid={`campaign-card-${index}`}>
             <Grid
-              data-testid={`campaign-card-${index}`}
               sx={{
                 background: `url(${testImg})`,
                 height: theme.spacing(37.5),
                 backgroundSize: 'cover',
                 margin: theme.spacing(0, 1.25),
               }}>
+              <Typography>{campaign.summary.reachedAmount}</Typography>
               <CampaignTitle>{campaign.title}</CampaignTitle>
             </Grid>
           </Grid>
