@@ -113,6 +113,9 @@ export const routes = {
       add: '/admin/bankaccounts/add',
       edit: (id: string | number) => `/admin/bankaccounts/edit/${id}`,
     },
+    bankTransactions: {
+      index: '/admin/bank-transactions',
+    },
     cities: {
       home: '/admin/cities',
       create: '/admin/cities/create',
