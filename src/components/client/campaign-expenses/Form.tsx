@@ -50,7 +50,8 @@ export default function Form() {
   const { t } = useTranslation('expenses')
   const { data: campaignResponse } = useViewCampaign(slug)
   let id = router.query.id as string
-  const [files, setFiles] = useState<File[]>([])
+  const [filesToUpload, setFilesToUpload] = useState<File[]>([])
+  const [filesToDelete, setFilesToDelete] = useState<string[]>([])
   const { data: expenseFiles } = useCampaignExpenseFiles(id)
   const { data: session } = useSession()
 
@@ -131,14 +132,26 @@ export default function Form() {
       })
   }
 
-  const deleteFileHandler = async (file: ExpenseFile) => {
+  const deleteFileHandler = async (fileToDelete: ExpenseFile) => {
     if (confirm(t('deleteTitle'))) {
-      deleteExpenseFile(file.id, session)
+      setFilesToDelete((prevFiles) => [...prevFiles, fileToDelete.id])
     }
   }
 
+  function expenseFilesFiltered() {
+    if (!expenseFiles) {
+      return []
+    }
+
+    if (filesToDelete.length == 0) {
+      return expenseFiles
+    }
+
+    return expenseFiles?.filter((file) => !filesToDelete.includes(file.id))
+  }
+
   async function onSubmit(data: ExpenseInput, { setFieldError }: FormikHelpers<ExpenseInput>) {
-    if (files.length == 0) {
+    if (filesToUpload.length == 0 && expenseFilesFiltered().length == 0) {
       AlertStore.show(t('expenses:alerts.no-files-uploaded'), 'error')
       return false
     }
@@ -158,11 +171,15 @@ export default function Form() {
 
       const response = await mutation.mutateAsync(data)
 
-      if (files.length > 0) {
+      if (filesToUpload.length > 0) {
         await fileUploadMutation.mutateAsync({
-          files,
+          files: filesToUpload,
           expenseId: response.data.id,
         })
+      }
+
+      for (const fileToDelete of filesToDelete) {
+        await deleteExpenseFile(fileToDelete, session)
       }
     } catch (error) {
       if (isAxiosError(error)) {
@@ -217,14 +234,23 @@ export default function Form() {
             <FileUpload
               buttonLabel="Добави документи"
               onUpload={(newFiles) => {
-                setFiles((prevFiles) => [...prevFiles, ...newFiles])
+                setFilesToUpload((prevFiles) => [...prevFiles, ...newFiles])
               }}
             />
+            {filesToUpload.length > 0 ? (
+              <Typography component="h4" sx={{ textAlign: 'center', paddingTop: 2 }}>
+                {t('expenses:new-files')}:
+              </Typography>
+            ) : (
+              ''
+            )}
             <FileList
-              files={files}
+              files={filesToUpload}
               filesRole={[]}
               onDelete={(deletedFile) =>
-                setFiles((prevFiles) => prevFiles.filter((file) => file.name !== deletedFile.name))
+                setFilesToUpload((prevFiles) =>
+                  prevFiles.filter((file) => file.name !== deletedFile.name),
+                )
               }
               onSetFileRole={() => {
                 return undefined
@@ -241,16 +267,23 @@ export default function Form() {
             />
           </Grid>
           <Grid item xs={12}>
-            {expenseFiles && expenseFiles.length > 0 ? (
+            {expenseFilesFiltered().length > 0 ? (
               <Typography component="h4" sx={{ textAlign: 'center' }}>
                 {t('expenses:uploaded-files')}:
               </Typography>
             ) : (
+              ''
+            )}
+
+            {expenseFilesFiltered().length == 0 && filesToUpload.length == 0 ? (
               <Typography component="h4" sx={{ textAlign: 'center', color: 'red' }}>
                 {t('expenses:alerts.no-files-uploaded')}
               </Typography>
+            ) : (
+              ''
             )}
-            {expenseFiles?.map((file, key) => (
+
+            {expenseFilesFiltered().map((file, key) => (
               <Typography
                 variant="h5"
                 component="h2"
