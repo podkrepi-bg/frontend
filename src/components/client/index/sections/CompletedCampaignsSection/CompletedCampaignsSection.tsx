@@ -22,16 +22,13 @@ import {
   CompletedCampaignLink,
 } from './CompletedCampaignsSection.styled'
 
-type Props = { campaign: CampaignResponse; index: number }
-
-export default function CompletedCampaignsSection({ campaign, index }: Props) {
+export default function CompletedCampaignsSection() {
   const { t } = useTranslation('campaigns')
   const { data } = useCampaignList()
 
   const completedCampaigns = data?.filter(
     (campaign: CampaignResponse) => campaign.state === CampaignState.complete,
   )
-  const campaignImagesUrl = campaignListPictureUrl(campaign)
 
   const onLinkMouseDown = (e) => {
     e.preventDefault()
@@ -43,7 +40,7 @@ export default function CompletedCampaignsSection({ campaign, index }: Props) {
         {t('completed-campaigns')}
       </Heading>
       <CarouselWrapper {...settings}>
-        {completedCampaigns?.map((campaign) => (
+        {completedCampaigns?.map((campaign, index) => (
           <Grid
             key={index}
             data-testid={`campaign-card-${index}`}
@@ -53,7 +50,7 @@ export default function CompletedCampaignsSection({ campaign, index }: Props) {
               onMouseDown={onLinkMouseDown}
               href={routes.campaigns.viewCampaignBySlug(campaign.slug)}
               sx={{
-                background: `url(${campaignImagesUrl})`,
+                background: `url(${campaignListPictureUrl(campaign)})`,
               }}>
               <ReachedMoneyWrapper>
                 <ReachedMoney>
