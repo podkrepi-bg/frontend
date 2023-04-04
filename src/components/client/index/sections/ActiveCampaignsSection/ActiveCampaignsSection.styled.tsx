@@ -1,8 +1,9 @@
+import { Grid } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import theme from 'common/theme'
 
-export const Root = styled('section')(() => ({
+export const Root = styled(Grid)(() => ({
   marginTop: theme.spacing(3.875),
   display: 'grid',
   gridTemplateRows: 'repeat(5, 1fr)',
@@ -33,4 +34,10 @@ export const Root = styled('section')(() => ({
     maxWidth: theme.spacing(165),
     margin: `${theme.spacing(4)} auto`,
   },
+}))
+
+export const SeeAllButton = styled(Grid)(() => ({
+  display: 'flex',
+  placeContent: 'center',
+  fontFamily: 'Montserrat, sans-serif',
 }))
