@@ -30,7 +30,7 @@ export default function CompletedCampaignsSection() {
     (campaign: CampaignResponse) => campaign.state === CampaignState.complete,
   )
 
-  const onLinkMouseDown = (e) => {
+  const onLinkMouseDown = (e: React.ChangeEvent<unknown>) => {
     e.preventDefault()
   }
 
