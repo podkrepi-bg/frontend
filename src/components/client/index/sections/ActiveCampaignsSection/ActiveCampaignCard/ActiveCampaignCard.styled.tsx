@@ -22,11 +22,13 @@ export const CampaignTitle = styled('h6')(() => ({
   fontSize: theme.typography.pxToRem(16),
   lineHeight: '150%',
   color: '#FAFAFA',
+  fontFamily: 'Montserrat, sans-serif',
 }))
 
 export const SupportNowButton = styled(LinkButton)(() => ({
   visibility: 'hidden',
   fontWeight: 'bold',
+  fontFamily: 'Montserrat, sans-serif',
 
   [theme.breakpoints.down('md')]: { visibility: 'visible' },
 }))

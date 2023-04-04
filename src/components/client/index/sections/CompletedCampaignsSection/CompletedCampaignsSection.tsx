@@ -17,6 +17,7 @@ import {
   ReachedMoney,
   ReachedText,
   CampaignTitle,
+  ReachedMoneyWrapper,
 } from './CompletedCampaignsSection.styled'
 
 type Props = { campaign: CampaignResponse; index: number }
@@ -86,10 +87,12 @@ export default function CompletedCampaignsSection({ campaign, index }: Props) {
                   opacity: 0.9,
                 },
               }}>
-              <ReachedMoney>
-                {campaign.summary.reachedAmount}
+              <ReachedMoneyWrapper>
+                <ReachedMoney>
+                  {campaign.summary.reachedAmount} {t('donations.lv')}
+                </ReachedMoney>
                 <ReachedText>{t('campaign.reached')}</ReachedText>
-              </ReachedMoney>
+              </ReachedMoneyWrapper>
               <CampaignTitle>{campaign.title}</CampaignTitle>
             </Grid>
           </Grid>
