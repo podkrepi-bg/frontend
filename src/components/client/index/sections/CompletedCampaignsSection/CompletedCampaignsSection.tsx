@@ -3,14 +3,14 @@ import { CampaignResponse } from 'gql/campaigns'
 
 import 'slick-carousel/slick/slick-theme.css'
 import 'slick-carousel/slick/slick.css'
-import { Grid, Link } from '@mui/material'
+import { Grid } from '@mui/material'
 
 import { useCampaignList } from 'common/hooks/campaigns'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import theme from 'common/theme'
 import { CampaignState } from 'components/client/campaigns/helpers/campaign.enums'
 import { routes } from 'common/routes'
-import { settings } from './CaroucelSettings'
+import { settings } from './helpers/CaroucelSettings'
 
 import { Heading } from '../../IndexPage.styled'
 import {
@@ -19,6 +19,7 @@ import {
   ReachedText,
   CampaignTitle,
   ReachedMoneyWrapper,
+  CompletedCampaignLink,
 } from './CompletedCampaignsSection.styled'
 
 type Props = { campaign: CampaignResponse; index: number }
@@ -31,7 +32,6 @@ export default function CompletedCampaignsSection({ campaign, index }: Props) {
     (campaign: CampaignResponse) => campaign.state === CampaignState.complete,
   )
   const campaignImagesUrl = campaignListPictureUrl(campaign)
-  const testImg = 'img/team-photos/AlbenaGeleva.png'
 
   const onLinkMouseDown = (e) => {
     e.preventDefault()
@@ -49,20 +49,11 @@ export default function CompletedCampaignsSection({ campaign, index }: Props) {
             data-testid={`campaign-card-${index}`}
             margin={theme.spacing(0, 2.25)}
             paddingRight={theme.spacing(2.5)}>
-            <Link
+            <CompletedCampaignLink
               onMouseDown={onLinkMouseDown}
               href={routes.campaigns.viewCampaignBySlug(campaign.slug)}
               sx={{
-                background: `url(${testImg})`,
-                height: theme.spacing(37.5),
-                backgroundSize: 'cover',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-
-                '&:hover': {
-                  opacity: 0.9,
-                },
+                background: `url(${campaignImagesUrl})`,
               }}>
               <ReachedMoneyWrapper>
                 <ReachedMoney>
@@ -71,7 +62,7 @@ export default function CompletedCampaignsSection({ campaign, index }: Props) {
                 <ReachedText>{t('campaign.reached')}</ReachedText>
               </ReachedMoneyWrapper>
               <CampaignTitle>{campaign.title}</CampaignTitle>
-            </Link>
+            </CompletedCampaignLink>
           </Grid>
         ))}
       </CarouselWrapper>

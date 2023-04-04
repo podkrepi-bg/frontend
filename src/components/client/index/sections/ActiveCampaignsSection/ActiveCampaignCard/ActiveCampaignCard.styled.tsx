@@ -21,7 +21,7 @@ export const CampaignTitle = styled('h6')(() => ({
   fontWeight: 700,
   fontSize: theme.typography.pxToRem(16),
   lineHeight: '150%',
-  color: '#FAFAFA',
+  color: theme.palette.secondary.light,
   fontFamily: 'Montserrat, sans-serif',
 }))
 
