@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   heading: {
+    marginTop: '-20',
     fontSize: '36',
     color: '#2A4E84',
     textAlign: 'center',
@@ -30,12 +31,12 @@ const styles = StyleSheet.create({
   subheading: {
     color: '#2A4E84',
     textAlign: 'center',
-    marginTop: '12',
+    marginTop: '10',
     fontSize: '28',
   },
   text1: {
     textAlign: 'center',
-    marginTop: '30',
+    marginTop: '25',
     fontSize: '16',
   },
   text2: {
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
   name: {
     textAlign: 'center',
     fontSize: '30',
-    marginTop: '28',
+    marginTop: '18',
   },
   donationText: {
     textAlign: 'center',
@@ -62,6 +63,12 @@ const styles = StyleSheet.create({
     width: '450',
     height: '55',
     alignSelf: 'center',
+  },
+  donationId: {
+    textAlign: 'center',
+    color: '#2A4E84',
+    fontSize: '20',
+    marginTop: '16',
   },
   dateAndSignView: {
     display: 'flex',
@@ -116,11 +123,12 @@ export default function Certificate({ donation }: Props) {
   return (
     <Document title="Дарение">
       <Page size="LETTER" style={styles.page}>
-        <Image src="public/img/pdf/background.png" style={styles.backgroundImage} />
+        <Image src="public/img/pdf/background-pdf.png" style={styles.backgroundImage} />
         <View>
           <Logo />
           <Text style={styles.heading}>СЕРТИФИКАТ</Text>
-          <Text style={styles.subheading}>за дарение № {donation.id.slice(0, 2)}</Text>
+          <Text style={styles.subheading}>за дарение </Text>
+          <Text style={styles.donationId}>№ {donation.id}</Text>
         </View>
         <View>
           <Text style={styles.text1}>С този сертификат Управителният съвет на</Text>
@@ -135,7 +143,9 @@ export default function Certificate({ donation }: Props) {
             <Text style={styles.donationRow}>{money(donation?.amount ?? 0)}</Text>
           </Text>
           <Text style={styles.donationText}>за кампания:</Text>
-          <Text style={styles.donationRow}>{donation?.targetVault?.campaign?.title ?? '-'}</Text>
+          <Text style={{ ...styles.donationRow, marginTop: '10' }}>
+            {donation?.targetVault?.campaign?.title ?? '-'}
+          </Text>
         </View>
         <View style={styles.dateAndSignView}>
           <View>
