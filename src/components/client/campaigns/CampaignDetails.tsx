@@ -53,11 +53,13 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
 
     [theme.breakpoints.up('xs')]: {
       fontSize: theme.typography.pxToRem(32),
+      marginBottom: theme.spacing(4),
     },
 
     [theme.breakpoints.up('md')]: {
       fontSize: theme.typography.pxToRem(45),
       marginTop: 0,
+      marginBottom: theme.spacing(7),
     },
   },
 
