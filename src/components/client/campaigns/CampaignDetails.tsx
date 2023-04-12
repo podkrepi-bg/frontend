@@ -49,10 +49,14 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
 
   [`& .${classes.campaignTitle}`]: {
     marginTop: theme.spacing(6),
-    fontSize: theme.typography.pxToRem(45),
     letterSpacing: '-1.5px',
 
+    [theme.breakpoints.up('xs')]: {
+      fontSize: theme.typography.pxToRem(32),
+    },
+
     [theme.breakpoints.up('md')]: {
+      fontSize: theme.typography.pxToRem(45),
       marginTop: 0,
     },
   },
