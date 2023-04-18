@@ -16,7 +16,6 @@ export const Content = styled(CardContent)(() => ({
 }))
 
 export const CampaignTitle = styled('h6')(() => ({
-  height: theme.spacing(5),
   margin: theme.spacing(1.8, 1.2),
   fontWeight: 700,
   fontSize: theme.typography.pxToRem(16),

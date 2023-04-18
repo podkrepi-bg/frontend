@@ -55,7 +55,7 @@ export default function CompletedCampaignsSection() {
               }}>
               <ReachedMoneyWrapper>
                 <ReachedMoney>
-                  {moneyPublic(campaign.summary.reachedAmount, campaign.currency)}{' '}
+                  {moneyPublic(campaign.summary.reachedAmount, campaign.currency)}
                 </ReachedMoney>
                 <ReachedText>{t('campaign.reached')}</ReachedText>
               </ReachedMoneyWrapper>
