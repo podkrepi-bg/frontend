@@ -8,7 +8,7 @@ import { Typography } from '@mui/material'
 
 export const Root = styled('section')(() => ({
   position: 'relative',
-  padding: theme.spacing(10, 17),
+  padding: theme.spacing(10, 14),
   marginBottom: theme.spacing(12),
   alignItems: 'center',
   backgroundColor: '#ffecc2',
@@ -36,12 +36,12 @@ export const BecomeVolunteerText = styled(Typography)(() => ({
   letterSpacing: '-1.5px',
   color: '#284E84',
   fontFamily: 'sans-serif',
-  maxWidth: theme.spacing(60),
   textAlign: 'center',
 
   [theme.breakpoints.up('md')]: {
     fontSize: theme.typography.pxToRem(45),
     textAlign: 'left',
+    maxWidth: theme.spacing(57),
   },
 }))
 
