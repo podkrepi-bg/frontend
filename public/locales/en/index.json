@@ -1,7 +1,5 @@
 {
-  "podkrepi": "Podkrepi.bg",
-  "title": "a transparent online donation platform",
-  "title2": "Podkrepi.bg - a transparent online donation platform",
+  "title": "Podkrepi.bg - a transparent online donation platform",
   "metaDescription": "Podkrepi.bg is a transparent online donation platform created by a team of volunteers from the Podkrepi BG organization.",
   "activity-section": {
     "heading": "What do we do?",
@@ -30,8 +28,7 @@
     "goals-text-open-source": "- To create an open-source platform which reduces the chances of misuse."
   },
   "campaign": {
-    "see-all": "See all",
-    "urgent-campaigns": "Urgent campaigns"
+    "see-all": "See all"
   },
   "how-we-work": {
     "heading": "How does Pordkprepi.bg work?",
