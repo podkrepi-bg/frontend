@@ -72,12 +72,3 @@ export const toMoney = (number: number, divisionFactor = 100): number => {
 export const fromMoney = (number: number, divisionFactor = 100): number => {
   return number / divisionFactor
 }
-
-/**
- * Used to make number to string and add 3 space between
- *
- * @param number number
- */
-export const numberWithSpacesBetween = (number?: string | number): string | undefined => {
-  return number?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
-}

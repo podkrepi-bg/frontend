@@ -2,11 +2,12 @@ import React from 'react'
 import { useTranslation } from 'next-i18next'
 import { Divider, Grid } from '@mui/material'
 
-import { fromMoney, numberWithSpacesBetween } from 'common/util/money'
+import { fromMoney } from 'common/util/money'
 import { getAllDonatedMoney } from 'common/hooks/vaults'
 import { useCampaignDonationHistory, useCampaignList } from 'common/hooks/campaigns'
 import { useDonatedUsersCount } from 'common/hooks/donation'
 import { SubtitleSectionNumber, SubtitleSectionText } from './StatisticsSection.styled'
+import { numberWithSpacesBetween } from 'common/util/number'
 
 export default function StatisticsSection() {
   const { t } = useTranslation('index')
@@ -35,15 +36,15 @@ export default function StatisticsSection() {
   ]
 
   return (
-    <Grid item xs={12} md={4}>
-      {sections.map((section) => (
-        <>
+    <Grid item xs={12} md={6}>
+      {sections.map((section, index) => (
+        <React.Fragment key={index}>
           <SubtitleSectionNumber variant="subtitle1">
             {numberWithSpacesBetween(section.value)}+
           </SubtitleSectionNumber>
           <SubtitleSectionText variant="subtitle1">{section.message}</SubtitleSectionText>
           <Divider />
-        </>
+        </React.Fragment>
       ))}
     </Grid>
   )
