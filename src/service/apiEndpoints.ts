@@ -73,16 +73,19 @@ export const endpoints = {
     },
 
     getDonations: (
-      campaignId: string,
       status: DonationStatus,
+      campaignId?: string,
       pageindex?: number,
       pagesize?: number,
     ) =>
       <Endpoint>{
-        url: `/donation/listPublic/?campaignId=${campaignId}&status=${status}&pageindex=${pageindex}&pagesize=${pagesize}`,
+        url: campaignId
+          ? `/donation/listPublic/?campaignId=${campaignId}&status=${status}&pageindex=${pageindex}&pagesize=${pagesize}`
+          : `/donation/listPublic/?status=${status}&pageindex=${pageindex}&pagesize=${pagesize}`,
         method: 'GET',
       },
     getUserDonation: (id: string) => <Endpoint>{ url: `/donation/user/${id}`, method: 'GET' },
+    getDonatedUsers: <Endpoint>{ url: `/donation/users-donated`, method: 'GET' },
     editDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'PATCH' },
     deleteDonation: <Endpoint>{ url: `/donation/delete`, method: 'POST' },
     userDonations: <Endpoint>{ url: 'donation/user-donations', method: 'GET' },
@@ -171,6 +174,7 @@ export const endpoints = {
   },
   vaults: {
     vaultsList: <Endpoint>{ url: '/vault', method: 'GET' },
+    getAllDonatedMoney: <Endpoint>{ url: '/vault/money', method: 'GET' },
     getVault: (slug: string) => <Endpoint>{ url: `/vault/${slug}`, method: 'GET' },
     createVault: <Endpoint>{ url: '/vault', method: 'POST' },
     editVault: (slug: string) => <Endpoint>{ url: `/vault/${slug}`, method: 'PUT' },

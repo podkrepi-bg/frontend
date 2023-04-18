@@ -30,7 +30,7 @@
     "@emotion/react": "^11.8.1",
     "@emotion/server": "^11.4.0",
     "@emotion/styled": "^11.8.1",
-    "@mui/icons-material": "^5.10.14",
+    "@mui/icons-material": "^5.11.11",
     "@mui/lab": "^5.0.0-alpha.69",
     "@mui/material": "^5.10.14",
     "@mui/styles": "^5.10.14",

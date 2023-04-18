@@ -7,6 +7,7 @@ import HowWeWorkSection from './sections/HowWeWorkSection/HowWeWorkSection'
 import TeamMembersSection from './sections/TeamMembersSection/TeamMembersSection'
 import JoinPodkrepiBgSection from './sections/JoinPodkrepiBgSection/JoinPodkrepiBgSection'
 import FaqSection from './sections/FaqSection/FaqSection'
+import PlatformStatisticsSection from './sections/PlatformStatisticsSection/PlatformStatisticsSection'
 
 export default function IndexPage() {
   const { t } = useTranslation('index')
@@ -20,6 +21,7 @@ export default function IndexPage() {
       <ActiveCampaignsSection />
       <CompletedCampaignsSection />
       <HowWeWorkSection />
+      <PlatformStatisticsSection />
       <TeamMembersSection />
       <JoinPodkrepiBgSection />
       <FaqSection />
