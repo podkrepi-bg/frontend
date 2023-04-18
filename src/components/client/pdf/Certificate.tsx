@@ -22,8 +22,10 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
   },
+  logo: {
+    margin: '40 0 50',
+  },
   heading: {
-    marginTop: '-20',
     fontSize: '36',
     color: '#2A4E84',
     textAlign: 'center',
@@ -125,7 +127,9 @@ export default function Certificate({ donation }: Props) {
       <Page size="LETTER" style={styles.page}>
         <Image src="public/img/pdf/background-pdf.png" style={styles.backgroundImage} />
         <View>
-          <Logo />
+          <View style={styles.logo}>
+            <Logo />
+          </View>
           <Text style={styles.heading}>СЕРТИФИКАТ</Text>
           <Text style={styles.subheading}>за дарение </Text>
           <Text style={styles.donationId}>№ {donation.id}</Text>
