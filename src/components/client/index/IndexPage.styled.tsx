@@ -9,6 +9,9 @@ export const Heading = styled(Typography)(() => ({
   textAlign: 'center',
   fontWeight: 500,
   marginBottom: theme.spacing(6),
+  fontFamily: 'Montserrat, sans-serif',
+  fontSize: theme.typography.pxToRem(35),
+  letterSpacing: '-1px',
 }))
 
 export const InfoText = styled(Typography)(() => ({

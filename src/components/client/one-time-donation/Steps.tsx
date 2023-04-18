@@ -67,7 +67,6 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
     return session && session.accessToken ? true : false
   }
 
-  initialValues.isAnonymous = !isLogged()
   initialValues.isRecurring = false
 
   const userEmail = session?.user?.email

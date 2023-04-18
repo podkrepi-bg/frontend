@@ -63,6 +63,7 @@
     "react-dom": "18.2.0",
     "react-gtm-module": "2.0.11",
     "react-i18next": "^11.17.1",
+    "react-material-ui-carousel": "^3.4.2",
     "react-quill": "^2.0.0-beta.4",
     "react-slick": "^0.29.0",
     "sharp": "^0.30.5",
