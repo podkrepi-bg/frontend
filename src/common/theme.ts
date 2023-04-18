@@ -14,9 +14,6 @@ export const montserrat = Montserrat({
   subsets: ['latin', 'cyrillic'],
 })
 
-// Instead of exporting `colors` variable use theme:
-// import theme from 'common/theme'
-// <meta name="theme-color" content={theme.palette.primary.main} />
 const colors = {
   blue: {
     light: '#4AC3FF',
@@ -195,7 +192,7 @@ export const themeOptions: ThemeOptions = {
     button: { textTransform: 'initial' },
   },
 }
-// https://material-ui.com/customization/default-theme/#default-theme
+
 const theme: Theme = createTheme(themeOptions)
 const materialTheme = responsiveFontSizes(theme)
 const podkrepiTheme = {
