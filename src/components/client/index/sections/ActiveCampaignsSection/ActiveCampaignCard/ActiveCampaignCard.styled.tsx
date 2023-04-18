@@ -26,9 +26,9 @@ export const CampaignTitle = styled('h6')(() => ({
 }))
 
 export const SupportNowButton = styled(LinkButton)(() => ({
-  visibility: 'hidden',
+  display: 'none',
   fontWeight: 'bold',
   fontFamily: 'Montserrat, sans-serif',
 
-  [theme.breakpoints.down('md')]: { visibility: 'visible' },
+  [theme.breakpoints.down('md')]: { display: 'flex' },
 }))

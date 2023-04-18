@@ -35,7 +35,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
           opacity: 0.9,
 
           'a button': {
-            visibility: 'visible',
+            display: 'flex',
             margin: '0 auto',
           },
         },
