@@ -39,7 +39,7 @@ export const ReachedMoneyWrapper = styled(Typography)(() => ({
   minHeight: theme.spacing(7.5),
   background: '#323232',
   borderRadius: theme.spacing(0, 0, 0, 2),
-  color: theme.palette.text.primary,
+  color: '#B0E5FF',
   marginLeft: 'auto',
   fontFamily: 'Montserrat, sans-serif',
   fontSize: theme.typography.pxToRem(17),
