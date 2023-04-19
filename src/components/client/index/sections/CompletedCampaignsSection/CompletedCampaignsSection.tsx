@@ -54,10 +54,12 @@ export default function CompletedCampaignsSection() {
                 background: `url(${campaignListPictureUrl(campaign)})`,
               }}>
               <ReachedMoneyWrapper>
-                <ReachedMoney>
-                  {moneyPublic(campaign.summary.reachedAmount, campaign.currency)}
-                </ReachedMoney>
-                <ReachedText>{t('campaign.reached')}</ReachedText>
+                <Grid>
+                  <ReachedMoney>
+                    {moneyPublic(campaign.summary.reachedAmount, campaign.currency)}
+                  </ReachedMoney>
+                  <ReachedText>{t('campaign.reached')}</ReachedText>
+                </Grid>
               </ReachedMoneyWrapper>
               <CampaignTitle>{campaign.title}</CampaignTitle>
             </CompletedCampaignLink>
