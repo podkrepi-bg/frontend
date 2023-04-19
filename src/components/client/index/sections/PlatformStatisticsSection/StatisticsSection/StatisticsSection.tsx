@@ -30,7 +30,7 @@ export default function StatisticsSection() {
       message: t('platform-statistics.donated-users'), //TODO fix this
     },
     {
-      value: fromMoney(donatedMoney?.money ?? 0),
+      value: fromMoney(donatedMoney?.total ?? 0),
       message: t('platform-statistics.donated-leva'),
     },
   ]

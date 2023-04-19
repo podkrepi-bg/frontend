@@ -21,5 +21,5 @@ export type VaultInput = {
 }
 
 export type VaultMoneyResponse = {
-  money: number
+  total: number
 }
