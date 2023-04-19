@@ -2,16 +2,15 @@ import { Svg, Path, StyleSheet } from '@react-pdf/renderer'
 
 const styles = StyleSheet.create({
   logo: {
-    marginLeft: '180',
-    width: '250',
-    height: '250',
-    marginTop: '-90',
+    margin: '0 auto',
+    width: '220',
+    height: '50',
   },
 })
 
 export default function Logo() {
   return (
-    <Svg viewBox="0 0 1240 100" style={styles.logo}>
+    <Svg viewBox="0 0 1240 240" style={styles.logo}>
       <Path
         d="M150.79 73.9693C154.84 23.6893 115.19 -15.5907 116.84 6.10928C121.39 64.8293 115.27 98.6093 88.67 136.159C117.78 136.159 147.66 108.949 150.79 73.9693Z"
         fill="#FFCB57"
