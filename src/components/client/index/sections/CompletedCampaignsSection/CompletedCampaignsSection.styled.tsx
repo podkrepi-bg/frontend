@@ -3,7 +3,7 @@ import Slider from 'react-slick'
 import styled from '@emotion/styled'
 
 import theme from 'common/theme'
-import { Typography, Link } from '@mui/material'
+import { Typography, Link, Grid } from '@mui/material'
 
 export const CarouselWrapper = styled(Slider)(() => ({
   margin: '0 auto',
@@ -23,7 +23,6 @@ export const CompletedCampaignLink = styled(Link)(() => ({
 }))
 
 export const CampaignTitle = styled('h6')(() => ({
-  height: theme.spacing(5),
   margin: theme.spacing(1.8, 1.25),
   fontWeight: 700,
   fontSize: theme.typography.pxToRem(16),
@@ -31,11 +30,11 @@ export const CampaignTitle = styled('h6')(() => ({
   color: theme.palette.secondary.light,
 }))
 
-export const ReachedMoneyWrapper = styled(Typography)(() => ({
+export const ReachedMoneyWrapper = styled(Grid)(() => ({
   display: 'flex',
   flexDirection: 'column',
-  padding: theme.spacing(0.5, 0, 0, 1),
-  minWidth: theme.spacing(12.5),
+  paddingTop: theme.spacing(0.6),
+  minWidth: theme.spacing(17.5),
   minHeight: theme.spacing(7.5),
   background: '#323232',
   borderRadius: theme.spacing(0, 0, 0, 2),
@@ -43,6 +42,7 @@ export const ReachedMoneyWrapper = styled(Typography)(() => ({
   marginLeft: 'auto',
   fontFamily: 'Montserrat, sans-serif',
   fontSize: theme.typography.pxToRem(17),
+  alignItems: 'center',
 }))
 
 export const ReachedMoney = styled(Typography)(() => ({

@@ -26,16 +26,17 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
       href={routes.campaigns.viewCampaignBySlug(slug)}
       data-testid={`campaign-card-${index}`}
       sx={{
-        background: `url(${campaignImagesUrl})`,
+        background: `linear-gradient(180deg, rgba(81, 81, 81, 0) 50%, rgba(0, 0, 0, 0.78) 80%, #000000 100%), url(${campaignImagesUrl})`,
         height: '100%',
         backgroundSize: 'cover',
         border: `1px solid ${theme.palette.common.white}`,
 
         '&:hover': {
-          opacity: 0.9,
+          background: `linear-gradient(180deg, rgba(81, 81, 81, 0) -8.88%, rgba(0, 0, 0, 0.78) 80%, #000000 100%), url(${campaignImagesUrl})`,
+          backgroundSize: 'cover',
 
           'a button': {
-            visibility: 'visible',
+            display: 'flex',
             margin: '0 auto',
           },
         },

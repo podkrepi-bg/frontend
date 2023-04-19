@@ -7,6 +7,6 @@ export const Root = styled('section')(() => ({
   textAlign: 'center',
 
   [theme.breakpoints.up('sm')]: {
-    marginTop: theme.spacing(12),
+    marginTop: theme.spacing(14),
   },
 }))
