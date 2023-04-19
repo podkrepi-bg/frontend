@@ -1,5 +1,7 @@
 import { GetServerSideProps } from 'next'
-import CreateCampaignPage from 'components/client/campaigns/CreateCampaignPage'
+// import CreateCampaignPage from 'components/client/campaigns/CreateCampaignPage'
+import HSCreateCampaignPage from 'components/client/campaigns/HSCreateCampaignPage'
+
 import { securedPropsWithTranslation } from 'middleware/auth/securedProps'
 import { routes } from 'common/routes'
 
@@ -8,4 +10,5 @@ export const getServerSideProps: GetServerSideProps = securedPropsWithTranslatio
   routes.campaigns.create,
 )
 
-export default CreateCampaignPage
+// export default CreateCampaignPage
+export default HSCreateCampaignPage

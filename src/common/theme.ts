@@ -7,11 +7,22 @@ import {
   ThemeOptions,
 } from '@mui/material/styles'
 
-import { Montserrat } from '@next/font/google'
+import { Montserrat, Raleway, Lato } from '@next/font/google'
 
 export const montserrat = Montserrat({
   display: 'auto',
   subsets: ['latin', 'cyrillic'],
+})
+
+export const raleway = Raleway({
+  display: 'auto',
+  subsets: ['latin', 'cyrillic'],
+})
+
+export const lato = Lato({
+  display: 'auto',
+  subsets: ['latin'],
+  weight: '400',
 })
 
 const colors = {
