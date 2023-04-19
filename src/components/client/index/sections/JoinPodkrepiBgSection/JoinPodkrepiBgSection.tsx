@@ -7,7 +7,7 @@ import { routes } from 'common/routes'
 import {
   Root,
   BecomeVolunteerButton,
-  BecomeVolunteerText,
+  BecomeVolunteerHeading,
   JoinIcon,
 } from './JoinPodkrepiBgSection.styled'
 
@@ -18,9 +18,9 @@ export default function WantToHelpPodkrepiBgSection() {
   return (
     <Root>
       <JoinIcon alt="Join icon" src={joinIconSource} width={150} height={100} />
-      <BecomeVolunteerText variant="h3">
+      <BecomeVolunteerHeading variant="h4">
         {t('join-podkrepi-bg-section.heading')}
-      </BecomeVolunteerText>
+      </BecomeVolunteerHeading>
       <Box textAlign="center">
         <BecomeVolunteerButton variant="contained" href={routes.support}>
           {t('join-podkrepi-bg-section.become-volunteer')}

@@ -28,10 +28,9 @@ export const Root = styled('section')(() => ({
   },
 }))
 
-export const BecomeVolunteerText = styled(Typography)(() => ({
+export const BecomeVolunteerHeading = styled(Typography)(() => ({
   fontStyle: 'normal',
   fontWeight: 500,
-  fontSize: theme.typography.pxToRem(35),
   lineHeight: theme.typography.pxToRem(60),
   letterSpacing: '-1.5px',
   color: '#284E84',
