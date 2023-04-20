@@ -36,7 +36,7 @@ export default function StatisticsSection() {
   ]
 
   return (
-    <Grid item xs={12} md={6}>
+    <Grid>
       {sections.map((section, index) => (
         <React.Fragment key={index}>
           <SubtitleSectionNumber variant="subtitle1">

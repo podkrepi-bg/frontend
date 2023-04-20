@@ -13,18 +13,22 @@ export default function PlatformStatisticsSection() {
 
   return (
     <Root>
-      <Grid container direction="row" spacing={2} justifyContent="center">
+      <Grid component="section" justifyContent="center">
         <Grid
-          item
-          xs={8}
           sx={(theme) => ({
+            margin: '0 auto',
+            maxWidth: theme.spacing(162),
             display: 'flex',
             alignItems: 'start',
             [theme.breakpoints.down('md')]: {
               flexWrap: 'wrap',
             },
           })}>
-          <Grid item md={8} pl={1} textAlign="left" xs={10}>
+          <Grid
+            sx={(theme) => ({
+              margin: '0 auto',
+              maxWidth: theme.spacing(100),
+            })}>
             <Heading variant="h5">{t('platform-statistics.heading')}</Heading>
             <Subtitle variant="subtitle1">{t('platform-statistics.text')}</Subtitle>
             <DonateButton
