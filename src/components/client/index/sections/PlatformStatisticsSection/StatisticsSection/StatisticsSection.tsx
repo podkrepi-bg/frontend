@@ -7,7 +7,7 @@ import { getAllDonatedMoney } from 'common/hooks/vaults'
 import { useCampaignDonationHistory, useCampaignList } from 'common/hooks/campaigns'
 import { useDonatedUsersCount } from 'common/hooks/donation'
 import { SubtitleSectionNumber, SubtitleSectionText } from './StatisticsSection.styled'
-import { numberWithSpacesBetween } from 'common/util/number'
+import { toNumberWithSpacesBetween } from 'common/util/number'
 
 export default function StatisticsSection() {
   const { t } = useTranslation('index')
@@ -27,7 +27,7 @@ export default function StatisticsSection() {
     },
     {
       value: donatedUsers?.count,
-      message: t('platform-statistics.donated-users'), //TODO fix this
+      message: t('platform-statistics.donated-users'),
     },
     {
       value: fromMoney(donatedMoney?.total ?? 0),
@@ -40,7 +40,7 @@ export default function StatisticsSection() {
       {sections.map((section, index) => (
         <React.Fragment key={index}>
           <SubtitleSectionNumber variant="subtitle1">
-            {numberWithSpacesBetween(section.value)}+
+            {toNumberWithSpacesBetween(section.value)}+
           </SubtitleSectionNumber>
           <SubtitleSectionText variant="subtitle1">{section.message}</SubtitleSectionText>
           <Divider />

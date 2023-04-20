@@ -1,8 +1,8 @@
 /**
- * Used to make number to string and add 3 space between
+ * Used to add a space every 3 characters in given number
  *
  * @param number number
  */
-export const numberWithSpacesBetween = (number?: string | number): string | undefined => {
+export const toNumberWithSpacesBetween = (number?: string | number): string | undefined => {
   return number?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
 }
