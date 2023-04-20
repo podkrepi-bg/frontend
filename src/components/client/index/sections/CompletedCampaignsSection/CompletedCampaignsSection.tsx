@@ -11,6 +11,7 @@ import theme from 'common/theme'
 import { CampaignState } from 'components/client/campaigns/helpers/campaign.enums'
 import { routes } from 'common/routes'
 import { settings } from './helpers/CaroucelSettings'
+import { moneyPublic } from 'common/util/money'
 
 import { Heading } from '../../IndexPage.styled'
 import {
@@ -53,10 +54,12 @@ export default function CompletedCampaignsSection() {
                 background: `url(${campaignListPictureUrl(campaign)})`,
               }}>
               <ReachedMoneyWrapper>
-                <ReachedMoney>
-                  {campaign.summary.reachedAmount} {t('donations.lv')}
-                </ReachedMoney>
-                <ReachedText>{t('campaign.reached')}</ReachedText>
+                <Grid>
+                  <ReachedMoney>
+                    {moneyPublic(campaign.summary.reachedAmount, campaign.currency)}
+                  </ReachedMoney>
+                  <ReachedText>{t('campaign.reached')}</ReachedText>
+                </Grid>
               </ReachedMoneyWrapper>
               <CampaignTitle>{campaign.title}</CampaignTitle>
             </CompletedCampaignLink>
