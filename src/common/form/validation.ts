@@ -43,6 +43,7 @@ export const customValidators = {
   confirmPassword: () => ({ key: 'validation:password-match' }),
   phone: () => ({ key: 'validation:phone' }),
   name: () => ({ key: 'validation:invalid' }),
+  paymentRef: () => ({ key: 'validation:payment-reference' }),
 }
 
 setLocale({
@@ -84,3 +85,10 @@ export const confirmPassword = string().oneOf(
   [yup.ref('password')],
   customValidators.confirmPassword,
 )
+
+export const paymentRefRegex = /\b[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}\b/g
+export const paymentRef = string()
+  .trim()
+  .matches(paymentRefRegex, customValidators.paymentRef)
+  .min(14)
+  .max(14)

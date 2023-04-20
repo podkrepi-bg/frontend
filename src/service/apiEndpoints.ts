@@ -106,6 +106,8 @@ export const endpoints = {
       }
     },
     exportToExcel: <Endpoint>{ url: '/bank-transaction/export-excel', method: 'GET' },
+    editPaymentRef: (id: string) =>
+      <Endpoint>{ url: `/bank-transaction/${id}/edit-ref`, method: 'PUT' },
   },
   documents: {
     documentsList: <Endpoint>{ url: '/document', method: 'GET' },
