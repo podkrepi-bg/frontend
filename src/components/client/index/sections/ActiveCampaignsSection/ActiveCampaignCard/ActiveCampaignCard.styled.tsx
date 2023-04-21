@@ -16,7 +16,6 @@ export const Content = styled(CardContent)(() => ({
 }))
 
 export const CampaignTitle = styled('h6')(() => ({
-  height: theme.spacing(5),
   margin: theme.spacing(1.8, 1.2),
   fontWeight: 700,
   fontSize: theme.typography.pxToRem(16),
@@ -26,9 +25,9 @@ export const CampaignTitle = styled('h6')(() => ({
 }))
 
 export const SupportNowButton = styled(LinkButton)(() => ({
-  visibility: 'hidden',
+  display: 'none',
   fontWeight: 'bold',
   fontFamily: 'Montserrat, sans-serif',
 
-  [theme.breakpoints.down('md')]: { visibility: 'visible' },
+  [theme.breakpoints.down('md')]: { display: 'flex' },
 }))
