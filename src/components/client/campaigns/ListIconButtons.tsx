@@ -1,11 +1,11 @@
 import { styled } from '@mui/material/styles'
-import { IconButton, ImageList, Typography } from '@mui/material'
+import { IconButton, ImageList, ImageListItem, Typography } from '@mui/material'
 import { Category } from '@mui/icons-material'
 
 const Root = styled('div')(() => ({
   [`& .iconButton`]: {
     display: 'block',
-    height: '80px',
+    height: '90px',
     borderRadius: 0,
     borderBottom: '1px solid transparent',
     position: 'relative',
@@ -19,12 +19,7 @@ const Root = styled('div')(() => ({
       backgroundColor: '#4AC3FF',
       transition: 'height .2s',
     },
-    '&:active': {
-      color: '#4AC3FF',
-    },
-    '&:active:before': {
-      height: '5px',
-    },
+
     '&:hover': {
       backgroundColor: 'white',
       color: '#4AC3FF',
@@ -46,13 +41,21 @@ export default function ListIconButtons({ data, onClick, cols, rowHeight, gap, s
     <Root>
       <ImageList cols={cols} rowHeight={rowHeight} gap={gap} sx={style}>
         {data.map((item) => {
+          const hasCountProperty = Object.keys(item).includes('count')
+
           return (
-            <IconButton key={item.type} className="iconButton" onClick={() => onClick(item)}>
-              {item.icon ?? <Category fontSize="small" />}
-              <Typography>
-                {item.text} ({item.count})
-              </Typography>
-            </IconButton>
+            <ImageListItem key={item.type} sx={{ display: 'inline', margin: '0 auto' }}>
+              <IconButton
+                disabled={item.isDisabled}
+                className="iconButton"
+                onClick={() => onClick(item)}>
+                {item.icon ?? <Category fontSize="small" />}
+
+                <Typography>
+                  {item.text} {hasCountProperty && `(${item.count})`}
+                </Typography>
+              </IconButton>
+            </ImageListItem>
           )
         })}
       </ImageList>

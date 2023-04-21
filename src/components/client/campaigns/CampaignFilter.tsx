@@ -69,6 +69,7 @@ export default function CampaignFilter() {
         text: t(`campaigns:filters.${category}`),
         count: count,
         icon: categoryIcons[category].icon,
+        isDisabled: !count,
       }
     })
 
@@ -77,6 +78,7 @@ export default function CampaignFilter() {
       text: t('campaigns:filters.all'),
       count: campaigns?.length,
       icon: categoryIcons.all.icon,
+      isDisabled: false,
     }
 
     return [...computedCategories, allCategory]

@@ -190,5 +190,7 @@
     "disabled": "Disabled",
     "error": "Error",
     "deleted": "Deleted"
-  }
+  },
+  "steps": {},
+  "note": {}
 }

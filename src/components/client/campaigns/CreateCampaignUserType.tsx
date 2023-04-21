@@ -9,6 +9,19 @@ import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined'
 
 import ListIconButtons from './ListIconButtons'
 
+const users = [
+  {
+    type: 'individual',
+    text: 'individual',
+    icon: <PersonIcon fontSize="large" />,
+  },
+  {
+    type: 'organization',
+    text: 'organization',
+    icon: <PeopleOutlinedIcon fontSize="large" />,
+  },
+]
+
 // TODO: translations / array with data for the ListIconButtons
 export default function CreateCampaignUserType() {
   return (
@@ -16,7 +29,7 @@ export default function CreateCampaignUserType() {
       <Heading>Тип на вашата организация</Heading>
       <Typography variant="h6">Моля, посочете типа на вашата организация:</Typography>
 
-      {/* <ListIconButtons /> */}
+      <ListIconButtons data={users} style={{ width: 426 }} />
     </>
   )
 }

@@ -2,8 +2,12 @@ import { Heading } from './campaigns.styled.tsx'
 import { styled } from '@mui/system'
 import theme, { lato } from 'common/theme'
 import { useTranslation } from 'next-i18next'
+import Link from 'next/link'
 
 // TODO: Ask if Lato is still а valid font
+// TODO: Translate in english the steps
+// TODO: Ask for "CLICK HERE" link in Note component
+
 const StepHeading = styled('strong')(() => ({
   fontWeight: 700,
   fontFamily: lato.style.fontFamily,
@@ -22,6 +26,10 @@ const Note = styled('p')(() => ({
   fontSize: theme.typography.pxToRem(14),
   lineHeight: theme.typography.pxToRem(24),
   letterSpacing: '-0.009em',
+}))
+
+const NoteLink = styled('a')(() => ({
+  color: 'red',
 }))
 
 export default function CreateCampaignSteps() {
@@ -67,9 +75,7 @@ export default function CreateCampaignSteps() {
       </Paragraph>
 
       <Note>
-        След преглед на попълнените и изпратени данни ще бъде изискан и допълнителен пакет от
-        документи, който е съобразен изцяло с вида на вашата кампания. За повече информация относно
-        кандидатстване по кампания, моля вижте ТУК.
+        {t('note')} <NoteLink>ТУК</NoteLink>.
       </Note>
     </>
   )
