@@ -12,7 +12,8 @@ import {
   CheckoutSessionResponse,
   DonationPrice,
   DonationResponse,
-  UsersDonatedResult,
+  DonorsCountResult,
+  TotalDonatedMoneyResponse,
   UserDonationResult,
 } from 'gql/donations'
 import { createCheckoutSession } from 'service/donation'
@@ -84,6 +85,10 @@ export function useUserDonations() {
   })
 }
 
+export function getTotalDonatedMoney() {
+  return useQuery<TotalDonatedMoneyResponse>([endpoints.donation.getTotalDonatedMoney.url])
+}
+
 export function useDonatedUsersCount() {
-  return useQuery<UsersDonatedResult>([endpoints.donation.getDonatedUsers.url])
+  return useQuery<DonorsCountResult>([endpoints.donation.getDonorsCount.url])
 }

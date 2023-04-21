@@ -29,7 +29,7 @@ export default function PlatformStatisticsSection() {
               margin: '0 auto',
               maxWidth: theme.spacing(100),
             })}>
-            <Heading variant="h5">{t('platform-statistics.heading')}</Heading>
+            <Heading variant="h4">{t('platform-statistics.heading')}</Heading>
             <Subtitle variant="subtitle1">{t('platform-statistics.text')}</Subtitle>
             <DonateButton
               href={routes.campaigns.index}

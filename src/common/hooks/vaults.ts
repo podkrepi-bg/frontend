@@ -28,10 +28,6 @@ export async function prefetchVaultsList(client: QueryClient, token?: string) {
   )
 }
 
-export function getAllDonatedMoney() {
-  return useQuery<VaultMoneyResponse>([endpoints.vaults.getAllDonatedMoney.url])
-}
-
 export async function prefetchVaultById(client: QueryClient, slug: string, token?: string) {
   await client.prefetchQuery<VaultResponse>(
     [endpoints.vaults.getVault(slug).url],

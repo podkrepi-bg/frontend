@@ -19,7 +19,3 @@ export type VaultInput = {
   campaignId?: UUID
   currency?: Currency | ''
 }
-
-export type VaultMoneyResponse = {
-  total: number
-}

@@ -85,7 +85,8 @@ export const endpoints = {
         method: 'GET',
       },
     getUserDonation: (id: string) => <Endpoint>{ url: `/donation/user/${id}`, method: 'GET' },
-    getDonatedUsers: <Endpoint>{ url: `/donation/users-donated`, method: 'GET' },
+    getDonorsCount: <Endpoint>{ url: `/donation/donors-count`, method: 'GET' },
+    getTotalDonatedMoney: <Endpoint>{ url: '/donation/money', method: 'GET' },
     editDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'PATCH' },
     deleteDonation: <Endpoint>{ url: `/donation/delete`, method: 'POST' },
     userDonations: <Endpoint>{ url: 'donation/user-donations', method: 'GET' },
@@ -174,7 +175,6 @@ export const endpoints = {
   },
   vaults: {
     vaultsList: <Endpoint>{ url: '/vault', method: 'GET' },
-    getAllDonatedMoney: <Endpoint>{ url: '/vault/money', method: 'GET' },
     getVault: (slug: string) => <Endpoint>{ url: `/vault/${slug}`, method: 'GET' },
     createVault: <Endpoint>{ url: '/vault', method: 'POST' },
     editVault: (slug: string) => <Endpoint>{ url: `/vault/${slug}`, method: 'PUT' },
