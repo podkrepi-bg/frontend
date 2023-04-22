@@ -1,12 +1,12 @@
 import React from 'react'
 import { useTranslation } from 'next-i18next'
-import { Grid } from '@mui/material'
 
 import { fromMoney } from 'common/util/money'
 import { useCampaignDonationHistory, useCampaignList } from 'common/hooks/campaigns'
 import { getTotalDonatedMoney, useDonatedUsersCount } from 'common/hooks/donation'
 import {
   SectionDivider,
+  StatisticsSectionWrapper,
   SubtitleSectionNumber,
   SubtitleSectionText,
 } from './StatisticsSection.styled'
@@ -39,10 +39,7 @@ export default function StatisticsSection() {
   ]
 
   return (
-    <Grid
-      sx={() => ({
-        margin: '0 auto',
-      })}>
+    <StatisticsSectionWrapper>
       {sections.map((section, index) => (
         <React.Fragment key={index}>
           <SubtitleSectionNumber variant="subtitle1">
@@ -52,6 +49,6 @@ export default function StatisticsSection() {
           <SectionDivider />
         </React.Fragment>
       ))}
-    </Grid>
+    </StatisticsSectionWrapper>
   )
 }

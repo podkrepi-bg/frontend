@@ -15,9 +15,9 @@ export const Root = styled('section')(() => ({
 }))
 
 export const SectiongGridWrapper = styled('section')(() => ({
+  display: 'flex',
   margin: '0 auto',
   maxWidth: theme.spacing(162),
-  display: 'flex',
   alignItems: 'start',
   [theme.breakpoints.down('md')]: {
     flexWrap: 'wrap',
@@ -27,8 +27,7 @@ export const SectiongGridWrapper = styled('section')(() => ({
 export const Heading = styled(Typography)(() => ({
   display: 'inline-block',
   color: theme.palette.primary.dark,
-  marginTop: theme.spacing(2),
-  marginLeft: theme.spacing(2),
+  margin: theme.spacing(2),
 
   [theme.breakpoints.up('md')]: {
     marginTop: theme.spacing(5),
@@ -41,10 +40,7 @@ export const Subtitle = styled(Typography)(() => ({
   lineHeight: theme.spacing(3),
   marginTop: theme.spacing(1),
   marginLeft: theme.spacing(2),
-
-  [theme.breakpoints.up('md')]: {
-    fontFamily: 'Raleway',
-  },
+  fontFamily: 'Raleway',
 }))
 
 export const DonateButton = styled(LinkButton)(() => ({
@@ -52,19 +48,10 @@ export const DonateButton = styled(LinkButton)(() => ({
   borderRadius: theme.borders.round,
   backgroundColor: theme.palette.primary.light,
   minWidth: theme.spacing(25),
+  margin: theme.spacing(4),
+  fontSize: theme.typography.pxToRem(17),
 
   '&:hover': {
     backgroundColor: theme.palette.primary.main,
-  },
-
-  [theme.breakpoints.down('md')]: {
-    margin: theme.spacing(4),
-    fontSize: theme.typography.pxToRem(17),
-  },
-
-  [theme.breakpoints.up('sm')]: {
-    marginTop: theme.spacing(4),
-    fontSize: theme.typography.pxToRem(20),
-    minWidth: theme.spacing(40),
   },
 }))
