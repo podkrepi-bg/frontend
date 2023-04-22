@@ -5,7 +5,13 @@ import { Grid } from '@mui/material'
 
 import { routes } from 'common/routes'
 
-import { DonateButton, Heading, Root, Subtitle } from './PlatformStatisticsSection.styled'
+import {
+  DonateButton,
+  Heading,
+  Root,
+  SectiongGridWrapper,
+  Subtitle,
+} from './PlatformStatisticsSection.styled'
 import StatisticsSection from './StatisticsSection/StatisticsSection'
 
 export default function PlatformStatisticsSection() {
@@ -14,20 +20,11 @@ export default function PlatformStatisticsSection() {
   return (
     <Root>
       <Grid component="section" justifyContent="center">
-        <Grid
-          sx={(theme) => ({
-            margin: '0 auto',
-            maxWidth: theme.spacing(162),
-            display: 'flex',
-            alignItems: 'start',
-            [theme.breakpoints.down('md')]: {
-              flexWrap: 'wrap',
-            },
-          })}>
+        <SectiongGridWrapper>
           <Grid
             sx={(theme) => ({
               margin: '0 auto',
-              maxWidth: theme.spacing(100),
+              maxWidth: theme.spacing(62),
             })}>
             <Heading variant="h4">{t('platform-statistics.heading')}</Heading>
             <Subtitle variant="subtitle1">{t('platform-statistics.text')}</Subtitle>
@@ -39,7 +36,7 @@ export default function PlatformStatisticsSection() {
             </DonateButton>
           </Grid>
           <StatisticsSection />
-        </Grid>
+        </SectiongGridWrapper>
       </Grid>
     </Root>
   )
