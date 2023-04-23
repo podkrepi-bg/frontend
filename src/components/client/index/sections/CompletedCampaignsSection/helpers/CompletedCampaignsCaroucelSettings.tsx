@@ -7,7 +7,7 @@ export const settings: Settings = {
   slidesToScroll: 1,
   dots: true,
   lazyLoad: 'ondemand',
-  autoplay: true,
+  autoplay: false,
   autoplaySpeed: 2000,
 
   responsive: [

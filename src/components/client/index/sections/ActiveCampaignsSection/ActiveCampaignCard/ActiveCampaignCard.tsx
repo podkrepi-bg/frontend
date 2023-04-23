@@ -12,6 +12,14 @@ import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import { CampaignState } from 'components/client/campaigns/helpers/campaign.enums'
 
 import { CampaignTitle, Content, SupportNowButton } from './ActiveCampaignCard.styled'
+import { moneyPublic } from 'common/util/money'
+import {
+  MoneyWrapper,
+  MoneyWrapperFlex,
+  MoneyUnit,
+  MoneyFraction,
+  MoneyText,
+} from '../../CompletedCampaignsSection/CompletedCampaignsSection.styled'
 
 type Props = { campaign: CampaignResponse; index: number }
 
@@ -41,6 +49,20 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
           },
         },
       }}>
+      <MoneyWrapper>
+        <MoneyWrapperFlex>
+          <MoneyText px={1}>{t('campaign.reached')}</MoneyText>
+          <MoneyUnit>{moneyPublic(campaign.summary.reachedAmount).split(',')[0]}</MoneyUnit>
+          <MoneyFraction>
+            {moneyPublic(campaign.summary.reachedAmount).split(',')[1].substring(0, 2)}
+          </MoneyFraction>
+          <MoneyText px={1}> от </MoneyText>{' '}
+          <MoneyUnit>{moneyPublic(campaign.targetAmount).split(',')[0]}</MoneyUnit>
+          <MoneyFraction>
+            {moneyPublic(campaign.targetAmount).split(',')[1].substring(0, 2)}
+          </MoneyFraction>
+        </MoneyWrapperFlex>
+      </MoneyWrapper>
       <Content>
         <CampaignTitle>{title}</CampaignTitle>
         <Grid textAlign="center">

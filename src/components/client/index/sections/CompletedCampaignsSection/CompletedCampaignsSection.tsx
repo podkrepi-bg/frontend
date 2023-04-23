@@ -10,17 +10,19 @@ import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import theme from 'common/theme'
 import { CampaignState } from 'components/client/campaigns/helpers/campaign.enums'
 import { routes } from 'common/routes'
-import { settings } from './helpers/CaroucelSettings'
+import { settings } from './helpers/CompletedCampaignsCaroucelSettings'
 import { moneyPublic } from 'common/util/money'
 
 import { Heading } from '../../IndexPage.styled'
 import {
   CarouselWrapper,
-  ReachedMoney,
-  ReachedText,
+  MoneyUnit,
+  MoneyFraction,
+  MoneyWrapper,
+  MoneyText,
   CampaignTitle,
-  ReachedMoneyWrapper,
   CompletedCampaignLink,
+  MoneyWrapperFlex,
 } from './CompletedCampaignsSection.styled'
 
 export default function CompletedCampaignsSection() {
@@ -53,14 +55,15 @@ export default function CompletedCampaignsSection() {
               sx={{
                 background: `url(${campaignListPictureUrl(campaign)})`,
               }}>
-              <ReachedMoneyWrapper>
-                <Grid>
-                  <ReachedMoney>
-                    {moneyPublic(campaign.summary.reachedAmount, campaign.currency)}
-                  </ReachedMoney>
-                  <ReachedText>{t('campaign.reached')}</ReachedText>
-                </Grid>
-              </ReachedMoneyWrapper>
+              <MoneyWrapper>
+                <MoneyWrapperFlex>
+                  <MoneyUnit>{moneyPublic(campaign.summary.reachedAmount).split(',')[0]}</MoneyUnit>
+                  <MoneyFraction>
+                    {moneyPublic(campaign.summary.reachedAmount).split(',')[1].substring(0, 2)}
+                  </MoneyFraction>
+                </MoneyWrapperFlex>
+                <MoneyText>{t('campaign.reached')}</MoneyText>
+              </MoneyWrapper>
               <CampaignTitle>{campaign.title}</CampaignTitle>
             </CompletedCampaignLink>
           </Grid>
