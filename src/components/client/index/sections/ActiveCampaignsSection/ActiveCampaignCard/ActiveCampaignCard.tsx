@@ -56,7 +56,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
           <MoneyFraction>
             {moneyPublic(campaign.summary.reachedAmount).split(',')[1].substring(0, 2)}
           </MoneyFraction>
-          <MoneyText px={1}> от </MoneyText>{' '}
+          <MoneyText px={1}>{t('campaign.from')}</MoneyText>
           <MoneyUnit>{moneyPublic(campaign.targetAmount).split(',')[0]}</MoneyUnit>
           <MoneyFraction>
             {moneyPublic(campaign.targetAmount).split(',')[1].substring(0, 2)}

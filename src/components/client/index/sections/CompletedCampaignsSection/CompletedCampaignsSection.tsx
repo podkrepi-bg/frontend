@@ -53,7 +53,9 @@ export default function CompletedCampaignsSection() {
               onMouseDown={onLinkMouseDown}
               href={routes.campaigns.viewCampaignBySlug(campaign.slug)}
               sx={{
-                background: `url(${campaignListPictureUrl(campaign)})`,
+                background: `linear-gradient(180deg, rgba(81, 81, 81, 0) 50%, rgba(0, 0, 0, 0.78) 80%, #000000 100%), url(${campaignListPictureUrl(
+                  campaign,
+                )})`,
               }}>
               <MoneyWrapper>
                 <MoneyWrapperFlex>

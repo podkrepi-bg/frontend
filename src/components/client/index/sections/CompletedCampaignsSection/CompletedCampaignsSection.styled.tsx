@@ -33,7 +33,7 @@ export const CampaignTitle = styled('h6')(() => ({
 export const MoneyWrapper = styled(Grid)(() => ({
   display: 'flex',
   flexDirection: 'column',
-  paddingTop: theme.spacing(0.6),
+  padding: theme.spacing(0.6, 0),
   minWidth: theme.spacing(17.5),
   background: '#323232',
   borderRadius: theme.spacing(0, 0, 0, 2),
@@ -53,6 +53,10 @@ export const MoneyFraction = styled('span')(() => ({
   fontWeight: 700,
   fontSize: theme.typography.pxToRem(10),
   marginTop: theme.spacing(0.5),
+
+  [theme.breakpoints.up(1270)]: {
+    marginTop: theme.spacing(0.3),
+  },
 }))
 
 export const MoneyWrapperFlex = styled(Stack)(() => ({
