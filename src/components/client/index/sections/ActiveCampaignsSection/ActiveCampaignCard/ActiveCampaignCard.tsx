@@ -27,6 +27,12 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
   const { t } = useTranslation('campaigns')
   const { state: campaignState, allowDonationOnComplete, slug, title } = campaign
   const campaignImagesUrl = campaignListPictureUrl(campaign)
+  const reachedMoneyUnit = moneyPublic(campaign.summary.reachedAmount).split(',')[0]
+  const reachedMoneyFraction = moneyPublic(campaign.summary.reachedAmount)
+    .split(',')[1]
+    .substring(0, 2)
+  const targetMoneyUnit = moneyPublic(campaign.targetAmount).split(',')[0]
+  const targetMoneyFraction = moneyPublic(campaign.targetAmount).split(',')[1].substring(0, 2)
 
   return (
     <CardActionArea
@@ -51,16 +57,12 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
       }}>
       <MoneyWrapper>
         <MoneyWrapperFlex>
-          <MoneyText px={1}>{t('campaign.reached')}</MoneyText>
-          <MoneyUnit>{moneyPublic(campaign.summary.reachedAmount).split(',')[0]}</MoneyUnit>
-          <MoneyFraction>
-            {moneyPublic(campaign.summary.reachedAmount).split(',')[1].substring(0, 2)}
-          </MoneyFraction>
-          <MoneyText px={1}>{t('campaign.from')}</MoneyText>
-          <MoneyUnit>{moneyPublic(campaign.targetAmount).split(',')[0]}</MoneyUnit>
-          <MoneyFraction>
-            {moneyPublic(campaign.targetAmount).split(',')[1].substring(0, 2)}
-          </MoneyFraction>
+          <MoneyText>{t('campaign.reached')}</MoneyText>
+          <MoneyUnit>{reachedMoneyUnit}</MoneyUnit>
+          <MoneyFraction>{reachedMoneyFraction}</MoneyFraction>
+          <MoneyText>{t('campaign.from')}</MoneyText>
+          <MoneyUnit>{targetMoneyUnit}</MoneyUnit>
+          <MoneyFraction>{targetMoneyFraction}</MoneyFraction>
         </MoneyWrapperFlex>
       </MoneyWrapper>
       <Content>
