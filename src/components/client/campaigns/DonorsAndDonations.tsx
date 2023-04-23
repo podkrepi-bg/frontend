@@ -97,8 +97,7 @@ export default function DonorsAndDonations({
                     : t('campaigns:donations.anonymous')}
                 </Typography>
                 <Grid className={classes.donationQuantityAndTimeWrapper}>
-                  {moneyPublic(amount).toString().split(',')[0]}
-                  {moneyPublic(amount).toString().split(',')[1].substring(0, 2)}
+                  <Typography>{moneyPublic(amount, currency)}</Typography>
                   <span className={classes.separatorIcon}>|</span>
                   <Typography>
                     {formatDistanceStrict(parseISO(createdAt), new Date(), {
