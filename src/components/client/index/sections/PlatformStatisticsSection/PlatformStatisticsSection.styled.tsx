@@ -31,10 +31,6 @@ export const Heading = styled(Typography)(() => ({
   display: 'inline-block',
   color: theme.palette.primary.dark,
   margin: theme.spacing(2),
-
-  [theme.breakpoints.up('md')]: {
-    marginTop: theme.spacing(5),
-  },
 }))
 
 export const Subtitle = styled(Typography)(() => ({
@@ -49,9 +45,11 @@ export const HelpThoseInNeedButton = styled(LinkButton)(() => ({
   borderRadius: theme.borders.round,
   backgroundColor: theme.palette.primary.light,
   minWidth: theme.spacing(45),
-  margin: theme.spacing(4),
   fontSize: theme.typography.pxToRem(17),
 
+  [theme.breakpoints.up('md')]: {
+    margin: theme.spacing(4),
+  },
   '&:hover': {
     backgroundColor: theme.palette.primary.main,
   },
