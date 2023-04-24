@@ -27,12 +27,12 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
   const { t } = useTranslation('campaigns')
   const { state: campaignState, allowDonationOnComplete, slug, title } = campaign
   const campaignImagesUrl = campaignListPictureUrl(campaign)
-  const reachedMoneyUnit = moneyPublic(campaign.summary.reachedAmount).split(',')[0]
+  const reachedMoneyUnit = moneyPublic(campaign.summary.reachedAmount).split(/[.,]/)[0]
   const reachedMoneyFraction = moneyPublic(campaign.summary.reachedAmount)
-    .split(',')[1]
+    .split(/[.,]/)[1]
     .substring(0, 2)
-  const targetMoneyUnit = moneyPublic(campaign.targetAmount).split(',')[0]
-  const targetMoneyFraction = moneyPublic(campaign.targetAmount).split(',')[1].substring(0, 2)
+  const targetMoneyUnit = moneyPublic(campaign.targetAmount).split(/[.,]/)[0]
+  const targetMoneyFraction = moneyPublic(campaign.targetAmount).split(/[.,]/)[1].substring(0, 2)
 
   return (
     <CardActionArea

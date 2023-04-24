@@ -59,9 +59,11 @@ export default function CompletedCampaignsSection() {
               }}>
               <MoneyWrapper>
                 <MoneyWrapperFlex>
-                  <MoneyUnit>{moneyPublic(campaign.summary.reachedAmount).split(',')[0]}</MoneyUnit>
+                  <MoneyUnit>
+                    {moneyPublic(campaign.summary.reachedAmount).split(/[.,]/)[0]}
+                  </MoneyUnit>
                   <MoneyFraction>
-                    {moneyPublic(campaign.summary.reachedAmount).split(',')[1].substring(0, 2)}
+                    {moneyPublic(campaign.summary.reachedAmount).split(/[.,]/)[1].substring(0, 2)}
                   </MoneyFraction>
                 </MoneyWrapperFlex>
                 <MoneyText>{t('campaign.reached')}</MoneyText>
