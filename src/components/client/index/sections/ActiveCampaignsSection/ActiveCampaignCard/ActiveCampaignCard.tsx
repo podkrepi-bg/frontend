@@ -28,16 +28,6 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
   const { state: campaignState, allowDonationOnComplete, slug, title } = campaign
   const campaignImagesUrl = campaignListPictureUrl(campaign)
 
-  const reachedMoneyUnitBG = moneyPublic(campaign.summary.reachedAmount).split(',')[0]
-  const reachedMoneyFractionBG = moneyPublic(campaign.summary.reachedAmount).split(',')[1]
-  const targetMoneyUnitBG = moneyPublic(campaign.targetAmount).split(',')[0]
-  const targetMoneyFractionBG = moneyPublic(campaign.targetAmount).split(',')[1]
-
-  const reachedMoneyUnitEN = moneyPublic(campaign.summary.reachedAmount).split('.')[0]
-  const reachedMoneyFractionEN = moneyPublic(campaign.summary.reachedAmount).split('.')[1]
-  const targetMoneyUnitEN = moneyPublic(campaign.targetAmount).split('.')[0]
-  const targetMoneyFractionEN = moneyPublic(campaign.targetAmount).split('.')[1]
-
   return (
     <CardActionArea
       LinkComponent={Link}
@@ -62,14 +52,26 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
       <MoneyWrapper>
         <MoneyWrapperFlex>
           <MoneyText>{t('campaign.reached')}</MoneyText>
-          <MoneyUnit>{i18n.language === 'bg' ? reachedMoneyUnitBG : reachedMoneyUnitEN}</MoneyUnit>
+          <MoneyUnit>
+            {i18n.language === 'bg'
+              ? moneyPublic(campaign.summary.reachedAmount).split(',')[0]
+              : moneyPublic(campaign.summary.reachedAmount).split('.')[0]}
+          </MoneyUnit>
           <MoneyFraction>
-            {i18n.language === 'bg' ? reachedMoneyFractionBG : reachedMoneyFractionEN}
+            {i18n.language === 'bg'
+              ? moneyPublic(campaign.summary.reachedAmount).split(',')[1].substring(0, 2)
+              : moneyPublic(campaign.summary.reachedAmount).split('.')[1]}
           </MoneyFraction>
           <MoneyText>{t('campaign.from')}</MoneyText>
-          <MoneyUnit>{i18n.language === 'bg' ? targetMoneyUnitBG : targetMoneyUnitEN}</MoneyUnit>
+          <MoneyUnit>
+            {i18n.language === 'bg'
+              ? moneyPublic(campaign.targetAmount).split(',')[0]
+              : moneyPublic(campaign.targetAmount).split('.')[0]}
+          </MoneyUnit>
           <MoneyFraction>
-            {i18n.language === 'bg' ? targetMoneyFractionBG : targetMoneyFractionEN}
+            {i18n.language === 'bg'
+              ? moneyPublic(campaign.targetAmount).split(',')[1].substring(0, 2)
+              : moneyPublic(campaign.targetAmount).split('.')[1]}
           </MoneyFraction>
         </MoneyWrapperFlex>
       </MoneyWrapper>
