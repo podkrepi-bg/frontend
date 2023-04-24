@@ -1,4 +1,4 @@
-import { useTranslation } from 'next-i18next'
+import { useTranslation, i18n } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 
 import 'slick-carousel/slick/slick-theme.css'
@@ -60,10 +60,14 @@ export default function CompletedCampaignsSection() {
               <MoneyWrapper>
                 <MoneyWrapperFlex>
                   <MoneyUnit>
-                    {moneyPublic(campaign.summary.reachedAmount).split(/[.,]/)[0]}
+                    {i18n.language === 'bg'
+                      ? moneyPublic(campaign.summary.reachedAmount).split(',')[0]
+                      : moneyPublic(campaign.summary.reachedAmount).split('.')[0]}
                   </MoneyUnit>
                   <MoneyFraction>
-                    {moneyPublic(campaign.summary.reachedAmount).split(/[.,]/)[1].substring(0, 2)}
+                    {i18n.language === 'bg'
+                      ? moneyPublic(campaign.summary.reachedAmount).split(',')[1].substring(0, 2)
+                      : moneyPublic(campaign.summary.reachedAmount).split('.')[1].substring(0, 2)}
                   </MoneyFraction>
                 </MoneyWrapperFlex>
                 <MoneyText>{t('campaign.reached')}</MoneyText>
