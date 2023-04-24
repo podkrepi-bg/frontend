@@ -27,6 +27,8 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
   const { t } = useTranslation('campaigns')
   const { state: campaignState, allowDonationOnComplete, slug, title } = campaign
   const campaignImagesUrl = campaignListPictureUrl(campaign)
+  const reachedAmount = moneyPublic(campaign.summary.reachedAmount)
+  const targetAmount = moneyPublic(campaign.targetAmount)
 
   return (
     <CardActionArea
@@ -53,25 +55,21 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
         <MoneyWrapperFlex>
           <MoneyText>{t('campaign.reached')}</MoneyText>
           <MoneyUnit>
-            {i18n.language === 'bg'
-              ? moneyPublic(campaign.summary.reachedAmount).split(',')[0]
-              : moneyPublic(campaign.summary.reachedAmount).split('.')[0]}
+            {i18n.language === 'bg' ? reachedAmount.split(',')[0] : reachedAmount.split('.')[0]}
           </MoneyUnit>
           <MoneyFraction>
             {i18n.language === 'bg'
-              ? moneyPublic(campaign.summary.reachedAmount).split(',')[1].substring(0, 2)
-              : moneyPublic(campaign.summary.reachedAmount).split('.')[1]}
+              ? reachedAmount.split(',')[1].substring(0, 2)
+              : reachedAmount.split('.')[1]}
           </MoneyFraction>
           <MoneyText>{t('campaign.from')}</MoneyText>
           <MoneyUnit>
-            {i18n.language === 'bg'
-              ? moneyPublic(campaign.targetAmount).split(',')[0]
-              : moneyPublic(campaign.targetAmount).split('.')[0]}
+            {i18n.language === 'bg' ? targetAmount.split(',')[0] : targetAmount.split('.')[0]}
           </MoneyUnit>
           <MoneyFraction>
             {i18n.language === 'bg'
-              ? moneyPublic(campaign.targetAmount).split(',')[1].substring(0, 2)
-              : moneyPublic(campaign.targetAmount).split('.')[1]}
+              ? targetAmount.split(',')[1].substring(0, 2)
+              : targetAmount.split('.')[1]}
           </MoneyFraction>
         </MoneyWrapperFlex>
       </MoneyWrapper>

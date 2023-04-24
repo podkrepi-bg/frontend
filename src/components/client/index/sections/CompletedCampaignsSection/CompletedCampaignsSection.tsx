@@ -15,6 +15,7 @@ import { moneyPublic } from 'common/util/money'
 
 import { Heading } from '../../IndexPage.styled'
 import {
+  Root,
   CarouselWrapper,
   MoneyUnit,
   MoneyFraction,
@@ -38,8 +39,8 @@ export default function CompletedCampaignsSection() {
   }
 
   return (
-    <Grid component="section" marginTop="48px">
-      <Heading variant="h4" px={3} pt={6}>
+    <Root>
+      <Heading variant="h4" px={3}>
         {t('completed-campaigns')}
       </Heading>
       <CarouselWrapper {...settings}>
@@ -77,6 +78,6 @@ export default function CompletedCampaignsSection() {
           </Grid>
         ))}
       </CarouselWrapper>
-    </Grid>
+    </Root>
   )
 }

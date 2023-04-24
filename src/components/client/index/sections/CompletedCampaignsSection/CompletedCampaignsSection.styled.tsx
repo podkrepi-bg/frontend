@@ -5,6 +5,10 @@ import styled from '@emotion/styled'
 import theme from 'common/theme'
 import { Typography, Link, Grid, Stack } from '@mui/material'
 
+export const Root = styled('section')(() => ({
+  marginTop: theme.spacing(12),
+}))
+
 export const CarouselWrapper = styled(Slider)(() => ({
   margin: '0 auto',
   maxWidth: theme.spacing(162),
