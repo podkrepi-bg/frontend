@@ -67,7 +67,7 @@ export default function CompletedCampaignsSection() {
                   <MoneyFraction>
                     {i18n.language === 'bg'
                       ? moneyPublic(campaign.summary.reachedAmount).split(',')[1].substring(0, 2)
-                      : moneyPublic(campaign.summary.reachedAmount).split('.')[1].substring(0, 2)}
+                      : moneyPublic(campaign.summary.reachedAmount).split('.')[1]}
                   </MoneyFraction>
                 </MoneyWrapperFlex>
                 <MoneyText>{t('campaign.reached')}</MoneyText>

@@ -1,4 +1,4 @@
-import { useTranslation } from 'next-i18next'
+import { useTranslation, i18n } from 'next-i18next'
 import Link from 'next/link'
 
 import { CampaignResponse } from 'gql/campaigns'
@@ -27,12 +27,16 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
   const { t } = useTranslation('campaigns')
   const { state: campaignState, allowDonationOnComplete, slug, title } = campaign
   const campaignImagesUrl = campaignListPictureUrl(campaign)
-  const reachedMoneyUnit = moneyPublic(campaign.summary.reachedAmount).split(/[.,]/)[0]
-  const reachedMoneyFraction = moneyPublic(campaign.summary.reachedAmount)
-    .split(/[.,]/)[1]
-    .substring(0, 2)
-  const targetMoneyUnit = moneyPublic(campaign.targetAmount).split(/[.,]/)[0]
-  const targetMoneyFraction = moneyPublic(campaign.targetAmount).split(/[.,]/)[1].substring(0, 2)
+
+  const reachedMoneyUnitBG = moneyPublic(campaign.summary.reachedAmount).split(',')[0]
+  const reachedMoneyFractionBG = moneyPublic(campaign.summary.reachedAmount).split(',')[1]
+  const targetMoneyUnitBG = moneyPublic(campaign.targetAmount).split(',')[0]
+  const targetMoneyFractionBG = moneyPublic(campaign.targetAmount).split(',')[1]
+
+  const reachedMoneyUnitEN = moneyPublic(campaign.summary.reachedAmount).split('.')[0]
+  const reachedMoneyFractionEN = moneyPublic(campaign.summary.reachedAmount).split('.')[1]
+  const targetMoneyUnitEN = moneyPublic(campaign.targetAmount).split('.')[0]
+  const targetMoneyFractionEN = moneyPublic(campaign.targetAmount).split('.')[1]
 
   return (
     <CardActionArea
@@ -58,11 +62,15 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
       <MoneyWrapper>
         <MoneyWrapperFlex>
           <MoneyText>{t('campaign.reached')}</MoneyText>
-          <MoneyUnit>{reachedMoneyUnit}</MoneyUnit>
-          <MoneyFraction>{reachedMoneyFraction}</MoneyFraction>
+          <MoneyUnit>{i18n.language === 'bg' ? reachedMoneyUnitBG : reachedMoneyUnitEN}</MoneyUnit>
+          <MoneyFraction>
+            {i18n.language === 'bg' ? reachedMoneyFractionBG : reachedMoneyFractionEN}
+          </MoneyFraction>
           <MoneyText>{t('campaign.from')}</MoneyText>
-          <MoneyUnit>{targetMoneyUnit}</MoneyUnit>
-          <MoneyFraction>{targetMoneyFraction}</MoneyFraction>
+          <MoneyUnit>{i18n.language === 'bg' ? targetMoneyUnitBG : targetMoneyUnitEN}</MoneyUnit>
+          <MoneyFraction>
+            {i18n.language === 'bg' ? targetMoneyFractionBG : targetMoneyFractionEN}
+          </MoneyFraction>
         </MoneyWrapperFlex>
       </MoneyWrapper>
       <Content>
