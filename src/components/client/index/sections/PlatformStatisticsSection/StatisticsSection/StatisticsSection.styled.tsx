@@ -22,7 +22,6 @@ export const SubtitleSectionNumber = styled(Typography)(() => ({
 
 export const SubtitleSectionText = styled(Typography)(() => ({
   display: 'inline-block',
-  textAlign: 'center',
   marginLeft: theme.spacing(2),
 }))
 

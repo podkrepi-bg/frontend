@@ -6,19 +6,22 @@ import LinkButton from 'components/common/LinkButton'
 
 export const Root = styled('section')(() => ({
   backgroundColor: theme.palette.secondary.light,
+
   [theme.breakpoints.up('sm')]: {
     marginTop: theme.spacing(10),
   },
+
   [theme.breakpoints.up('md')]: {
     padding: theme.spacing(0),
   },
 }))
 
-export const SectiongGridWrapper = styled('section')(() => ({
+export const SectionGridWrapper = styled('section')(() => ({
   display: 'flex',
   margin: '0 auto',
   maxWidth: theme.spacing(162),
   alignItems: 'start',
+
   [theme.breakpoints.down('md')]: {
     flexWrap: 'wrap',
   },
@@ -38,9 +41,7 @@ export const Subtitle = styled(Typography)(() => ({
   display: 'inline-block',
   fontSize: theme.typography.pxToRem(16),
   lineHeight: theme.spacing(3),
-  marginTop: theme.spacing(1),
-  marginLeft: theme.spacing(2),
-  fontFamily: 'Raleway',
+  margin: theme.spacing(1, 2),
 }))
 
 export const DonateButton = styled(LinkButton)(() => ({

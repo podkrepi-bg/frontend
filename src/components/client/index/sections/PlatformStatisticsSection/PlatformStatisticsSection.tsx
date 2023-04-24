@@ -9,7 +9,7 @@ import {
   DonateButton,
   Heading,
   Root,
-  SectiongGridWrapper,
+  SectionGridWrapper,
   Subtitle,
 } from './PlatformStatisticsSection.styled'
 import StatisticsSection from './StatisticsSection/StatisticsSection'
@@ -20,7 +20,7 @@ export default function PlatformStatisticsSection() {
   return (
     <Root>
       <Grid component="section" justifyContent="center">
-        <SectiongGridWrapper>
+        <SectionGridWrapper>
           <Grid
             sx={(theme) => ({
               margin: '0 auto',
@@ -36,7 +36,7 @@ export default function PlatformStatisticsSection() {
             </DonateButton>
           </Grid>
           <StatisticsSection />
-        </SectiongGridWrapper>
+        </SectionGridWrapper>
       </Grid>
     </Root>
   )

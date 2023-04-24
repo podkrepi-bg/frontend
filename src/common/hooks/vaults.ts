@@ -3,7 +3,7 @@ import { QueryClient, useQuery } from '@tanstack/react-query'
 
 import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
-import { VaultMoneyResponse, VaultResponse } from 'gql/vault'
+import { VaultResponse } from 'gql/vault'
 
 export function useVaultsList() {
   const { data: session } = useSession()
