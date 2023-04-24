@@ -44,11 +44,11 @@ export const Subtitle = styled(Typography)(() => ({
   margin: theme.spacing(1, 2),
 }))
 
-export const DonateButton = styled(LinkButton)(() => ({
+export const HelpThoseInNeedButton = styled(LinkButton)(() => ({
   fontWeight: 600,
   borderRadius: theme.borders.round,
   backgroundColor: theme.palette.primary.light,
-  minWidth: theme.spacing(25),
+  minWidth: theme.spacing(45),
   margin: theme.spacing(4),
   fontSize: theme.typography.pxToRem(17),
 

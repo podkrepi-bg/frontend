@@ -6,7 +6,7 @@ import { Grid } from '@mui/material'
 import { routes } from 'common/routes'
 
 import {
-  DonateButton,
+  HelpThoseInNeedButton,
   Heading,
   Root,
   SectionGridWrapper,
@@ -28,12 +28,12 @@ export default function PlatformStatisticsSection() {
             })}>
             <Heading variant="h4">{t('platform-statistics.heading')}</Heading>
             <Subtitle variant="subtitle1">{t('platform-statistics.text')}</Subtitle>
-            <DonateButton
+            <HelpThoseInNeedButton
               href={routes.campaigns.index}
               variant="contained"
               endIcon={<ArrowForwardSharp />}>
               {t('platform-statistics.donate-to-those-in-need')}
-            </DonateButton>
+            </HelpThoseInNeedButton>
           </Grid>
           <StatisticsSection />
         </SectionGridWrapper>
