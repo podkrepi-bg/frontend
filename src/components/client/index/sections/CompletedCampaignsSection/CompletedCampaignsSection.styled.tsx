@@ -3,7 +3,11 @@ import Slider from 'react-slick'
 import styled from '@emotion/styled'
 
 import theme from 'common/theme'
-import { Typography, Link, Grid } from '@mui/material'
+import { Typography, Link, Grid, Stack } from '@mui/material'
+
+export const Root = styled('section')(() => ({
+  marginTop: theme.spacing(12),
+}))
 
 export const CarouselWrapper = styled(Slider)(() => ({
   margin: '0 auto',
@@ -30,12 +34,11 @@ export const CampaignTitle = styled('h6')(() => ({
   color: theme.palette.secondary.light,
 }))
 
-export const ReachedMoneyWrapper = styled(Grid)(() => ({
+export const MoneyWrapper = styled(Grid)(() => ({
   display: 'flex',
   flexDirection: 'column',
-  paddingTop: theme.spacing(0.6),
+  padding: theme.spacing(0.6, 0),
   minWidth: theme.spacing(17.5),
-  minHeight: theme.spacing(7.5),
   background: '#323232',
   borderRadius: theme.spacing(0, 0, 0, 2),
   color: '#B0E5FF',
@@ -45,14 +48,29 @@ export const ReachedMoneyWrapper = styled(Grid)(() => ({
   alignItems: 'center',
 }))
 
-export const ReachedMoney = styled(Typography)(() => ({
+export const MoneyUnit = styled('span')(() => ({
   fontWeight: 700,
   fontSize: theme.typography.pxToRem(17),
 }))
 
-export const ReachedText = styled(Typography)(() => ({
+export const MoneyFraction = styled('span')(() => ({
+  fontWeight: 700,
+  fontSize: theme.typography.pxToRem(10),
+  marginTop: theme.spacing(0.5),
+
+  [theme.breakpoints.up(1270)]: {
+    marginTop: theme.spacing(0.3),
+  },
+}))
+
+export const MoneyWrapperFlex = styled(Stack)(() => ({
+  flexDirection: 'row',
+}))
+
+export const MoneyText = styled(Typography)(() => ({
   color: theme.palette.common.white,
   fontFamily: 'Lato, sans-serif',
   fontWeight: 700,
   fontSize: theme.typography.pxToRem(17),
+  padding: theme.spacing(0, 1),
 }))
