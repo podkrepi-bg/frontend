@@ -61,13 +61,15 @@ export const endpoints = {
       searchData?: string,
     ) => {
       const { pageIndex, pageSize } = (paginationData as PaginationData) || {}
-      const { status, type, date } = (filterData as FilterData) || {}
+      const { status, paymentProvider, date } = (filterData as FilterData) || {}
       const { from, to } = date || {}
 
       return <Endpoint>{
-        url: campaignId
-          ? `/donation/list?campaignId=${campaignId}&pageindex=${pageIndex}&pagesize=${pageSize}&status=${status}&type=${type}&from=${from}&to=${to}&search=${searchData}`
-          : `/donation/list?pageindex=${pageIndex}&pagesize=${pageSize}&status=${status}&type=${type}&from=${from}&to=${to}&search=${searchData}`,
+        url: `/donation/list?campaignId=${
+          campaignId ?? ''
+        }&pageindex=${pageIndex}&pagesize=${pageSize}&status=${status}&provider=${paymentProvider}&from=${from}&to=${to}&search=${searchData}&minAmount=${
+          filterData?.minAmount ?? ''
+        }&maxAmount=${filterData?.maxAmount ?? ''}&sortBy=${filterData?.sortBy ?? ''}`,
         method: 'GET',
       }
     },
@@ -97,11 +99,11 @@ export const endpoints = {
       searchData?: string,
     ) => {
       const { pageIndex, pageSize } = (paginationData as PaginationData) || {}
-      const { status, type, date } = (filterData as FilterData) || {}
+      const { status, date } = (filterData as FilterData) || {}
       const { from, to } = date || {}
 
       return <Endpoint>{
-        url: `/bank-transaction/list?pageindex=${pageIndex}&pagesize=${pageSize}&status=${status}&type=${type}&from=${from}&to=${to}&search=${searchData}`,
+        url: `/bank-transaction/list?pageindex=${pageIndex}&pagesize=${pageSize}&status=${status}&from=${from}&to=${to}&search=${searchData}`,
         method: 'GET',
       }
     },

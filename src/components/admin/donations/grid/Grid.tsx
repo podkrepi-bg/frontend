@@ -50,7 +50,7 @@ export default observer(function Grid() {
   const campaignId = router.query.campaignId as string | undefined
 
   const {
-    data: { items: donations, total: all_rows } = { items: [], total: 0 },
+    data: { items: donations, total: allDonationsCount } = { items: [], total: 0 },
     error: donationHistoryError,
     isLoading: isDonationHistoryLoading,
     refetch,
@@ -210,7 +210,7 @@ export default observer(function Grid() {
           onPageChange={(pageIndex) => setPaginationData({ ...paginationData, pageIndex })}
           onPageSizeChange={(pageSize) => setPaginationData({ ...paginationData, pageSize })}
           paginationMode="server"
-          rowCount={all_rows}
+          rowCount={allDonationsCount}
           disableSelectionOnClick
           isCellEditable={() => true}
         />

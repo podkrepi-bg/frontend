@@ -55,6 +55,10 @@
     "from": "From",
     "to": "To",
     "status": "Status",
-    "type": "Type"
+    "type": "Type",
+    "provider": "Payment",
+    "sortBy": "Sort By",
+    "minAmount": "Min amount",
+    "maxAmount": "Max amount"
   }
 }

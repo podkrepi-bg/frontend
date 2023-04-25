@@ -7,6 +7,9 @@ export type PaginationData = {
 
 export type FilterData = {
   status: DonationStatus
-  type: DonationType
+  paymentProvider: PaymentProvider
   date: { from: Date | null; to: Date | null }
+  minAmount: number
+  maxAmount: number
+  sortBy: string
 }
