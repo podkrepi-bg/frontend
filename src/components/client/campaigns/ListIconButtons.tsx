@@ -1,6 +1,7 @@
 import { styled } from '@mui/material/styles'
 import { IconButton, ImageList, ImageListItem, Typography } from '@mui/material'
 import { Category } from '@mui/icons-material'
+import { CategoryType } from 'gql/types'
 
 const Root = styled('div')(() => ({
   [`& .iconButton`]: {
@@ -30,13 +31,26 @@ const Root = styled('div')(() => ({
     '&:focus': {
       color: '#4AC3FF',
     },
-    '&:selected': {
-      color: '#4AC3FF',
+    '&:focus:before': {
+      height: '5px',
     },
   },
 }))
 
-export default function ListIconButtons({ data, onClick, cols, rowHeight, gap, style }) {
+const IconButtonText = styled(Typography)(() => ({
+  fontFamily: 'Raleway, sans-serif',
+}))
+
+type Props = {
+  data: CategoryType[]
+  onClick: (item: CategoryType) => void
+  cols?: number
+  rowHeight?: number
+  gap?: number
+  style?: React.CSSProperties
+}
+
+export default function ListIconButtons({ data, onClick, cols, rowHeight, gap, style }: Props) {
   return (
     <Root>
       <ImageList cols={cols} rowHeight={rowHeight} gap={gap} sx={style}>
@@ -51,9 +65,9 @@ export default function ListIconButtons({ data, onClick, cols, rowHeight, gap, s
                 onClick={() => onClick(item)}>
                 {item.icon ?? <Category fontSize="small" />}
 
-                <Typography>
+                <IconButtonText>
                   {item.text} {hasCountProperty && `(${item.count})`}
-                </Typography>
+                </IconButtonText>
               </IconButton>
             </ImageListItem>
           )

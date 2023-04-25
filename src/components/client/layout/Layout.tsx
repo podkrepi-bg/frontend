@@ -28,6 +28,7 @@ type LayoutProps = React.PropsWithChildren<
     boxProps?: BoxProps
     metaTitle?: string
     metaDescription?: string
+    minHeight?: string
     profilePage?: boolean
     canonicalUrl?: string
     prevPage?: string
@@ -40,6 +41,7 @@ export default function Layout({
   ogImage,
   children,
   maxWidth = 'lg',
+  minHeight = '100vh',
   disableOffset = false,
   hideFooter = false,
   canonicalUrl,
@@ -65,7 +67,7 @@ export default function Layout({
       disableGutters
       sx={{ backgroundColor: profilePage ? '#E9F6FF' : '' }}>
       <Container
-        sx={{ position: 'relative', minHeight: '100vh' }}
+        sx={{ position: 'relative', minHeight: minHeight }}
         maxWidth={maxWidth}
         {...containerProps}>
         <Head>

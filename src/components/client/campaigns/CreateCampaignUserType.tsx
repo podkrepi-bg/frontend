@@ -1,35 +1,38 @@
-import { Heading } from './campaigns.styled.tsx'
-import { styled } from '@mui/system'
-// import theme, { lato } from 'common/theme'
+import { Heading } from './campaigns.styled'
 import { useTranslation } from 'next-i18next'
-import { Typography, IconButton, Box } from '@mui/material'
-// import { PersonIcon } from '@mui/icons-material'
+import { Typography } from '@mui/material'
+import { CategoryType } from 'gql/types'
+
 import PersonIcon from '@mui/icons-material/Person'
 import PeopleOutlinedIcon from '@mui/icons-material/PeopleOutlined'
-
 import ListIconButtons from './ListIconButtons'
 
-const users = [
-  {
-    type: 'individual',
-    text: 'individual',
-    icon: <PersonIcon fontSize="large" />,
-  },
-  {
-    type: 'organization',
-    text: 'organization',
-    icon: <PeopleOutlinedIcon fontSize="large" />,
-  },
-]
+type Props = {
+  onClick: (item: CategoryType) => void
+}
 
-// TODO: translations / array with data for the ListIconButtons
-export default function CreateCampaignUserType() {
+export default function CreateCampaignUserType({ onClick }: Props) {
+  const { t } = useTranslation('campaigns')
+
+  const users = [
+    {
+      type: 'individual',
+      text: t('individual'),
+      icon: <PersonIcon fontSize="large" />,
+    },
+    {
+      type: 'organization',
+      text: t('organization'),
+      icon: <PeopleOutlinedIcon fontSize="large" />,
+    },
+  ]
+
   return (
     <>
-      <Heading>Тип на вашата организация</Heading>
-      <Typography variant="h6">Моля, посочете типа на вашата организация:</Typography>
+      <Heading>{t('type-of-organization')}</Heading>
+      <Typography variant="h6">{t('please-select-organization')}</Typography>
 
-      <ListIconButtons data={users} style={{ width: 426 }} />
+      <ListIconButtons data={users} onClick={onClick} style={{ width: 426 }} />
     </>
   )
 }

@@ -191,6 +191,33 @@
     "error": "Error",
     "deleted": "Deleted"
   },
-  "steps": {},
-  "note": {}
+  "create-campaign": "Create campaign",
+  "steps": {
+    "step1": "Step 1",
+    "step1-type": "Campaign information",
+    "step1-description": "at this step you must specify the name of your campaign, its type, beneficiary of the campaign, required amount and duration of the campaign",
+    "step2": "Step 2",
+    "step2-type": "Organizer",
+    "step2-description": "here your personal data will be required, as well as it is necessary to familiarize yourself with and agree to the 'Privacy policy' of Podkrepi.bg",
+    "step3": "Step 3",
+    "step3-type": "Campaign description",
+    "step3-description": "at this step you will describe in detail the purpose of your campaign, what has been done so far (if any activities have been carried out), indicate your personal stories, indicate your guarantor(s).",
+    "step4": "Step 4",
+    "step4-type": "Photos/Documents",
+    "step4-description-part1": "download the core package from",
+    "step4-description-link": "necessary documents",
+    "step4-description-part2": "on your computer, fill in, sign. At this step, attach the files . Here you will also be able to attach photos and video related to your campaign and its specific purpose.",
+    "step5": "Step 5",
+    "step5-type": "Campaign overview",
+    "step5-description": "at this step you will be able to review your campaign"
+  },
+  "here": "here",
+  "note": "After reviewing the completed and sent data, an additional package of documents will be requested, which is fully tailored to the type of your campaign. For more information on applying by campaign, please click",
+  "type-of-organization": "Type of your organization",
+  "please-select-organization": "Please select your organization type:",
+  "individual": "Individual",
+  "organization": "Organization",
+  "back": "Back",
+  "next": "Continue",
+  "save-and-next": "Save & Continue"
 }

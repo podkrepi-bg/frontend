@@ -38,7 +38,6 @@ const categoryIcons: {
   animals: { icon: <Pets fontSize="small" /> },
   nature: { icon: <Forest fontSize="small" /> },
   others: { icon: <Category fontSize="small" /> },
-  all: { icon: <FilterNone fontSize="small" /> },
 }
 
 export default function CampaignFilter() {
@@ -77,15 +76,15 @@ export default function CampaignFilter() {
       type: 'ALL',
       text: t('campaigns:filters.all'),
       count: campaigns?.length,
-      icon: categoryIcons.all.icon,
+      icon: <FilterNone fontSize="small" />,
       isDisabled: false,
     }
 
     return [...computedCategories, allCategory]
   }, [campaigns])
 
-  const clickHandler = (category) => {
-    setSelectedCategory(category.type)
+  const clickHandler = (category: CategoryType) => {
+    setSelectedCategory(category?.type)
   }
 
   return (

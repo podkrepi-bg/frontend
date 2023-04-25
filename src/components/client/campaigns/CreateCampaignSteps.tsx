@@ -1,12 +1,11 @@
-import { Heading } from './campaigns.styled.tsx'
+import { Heading } from './campaigns.styled'
 import { styled } from '@mui/system'
 import theme, { lato } from 'common/theme'
 import { useTranslation } from 'next-i18next'
-import Link from 'next/link'
 
-// TODO: Ask if Lato is still а valid font
-// TODO: Translate in english the steps
-// TODO: Ask for "CLICK HERE" link in Note component
+import ExternalLink from 'components/common/ExternalLink'
+
+// TODO: Ask for the URLs
 
 const StepHeading = styled('strong')(() => ({
   fontWeight: 700,
@@ -18,6 +17,11 @@ const Paragraph = styled('p')(() => ({
   fontFamily: lato.style.fontFamily,
   fontSize: theme.typography.pxToRem(14),
   margin: 0,
+
+  '& a': {
+    fontStyle: 'normal',
+    textDecoration: 'underline',
+  },
 }))
 
 const Note = styled('p')(() => ({
@@ -26,10 +30,11 @@ const Note = styled('p')(() => ({
   fontSize: theme.typography.pxToRem(14),
   lineHeight: theme.typography.pxToRem(24),
   letterSpacing: '-0.009em',
-}))
 
-const NoteLink = styled('a')(() => ({
-  color: 'red',
+  '& a': {
+    fontStyle: 'normal',
+    textDecoration: 'underline',
+  },
 }))
 
 export default function CreateCampaignSteps() {
@@ -37,7 +42,7 @@ export default function CreateCampaignSteps() {
 
   return (
     <>
-      <Heading>Създайте кампания</Heading>
+      <Heading>{t('create-campaign')}</Heading>
 
       <Paragraph>
         <StepHeading>
@@ -64,7 +69,9 @@ export default function CreateCampaignSteps() {
         <StepHeading>
           {t('steps.step4')} &quot;{t('steps.step4-type')}&quot;
         </StepHeading>{' '}
-        -{t('steps.step4-description')}
+        -{t('steps.step4-description-part1')}
+        &nbsp;<ExternalLink> {t('steps.step4-description-link')}</ExternalLink>&nbsp;
+        {t('steps.step4-description-part2')}
       </Paragraph>
 
       <Paragraph>
@@ -75,7 +82,7 @@ export default function CreateCampaignSteps() {
       </Paragraph>
 
       <Note>
-        {t('note')} <NoteLink>ТУК</NoteLink>.
+        {t('note')} <ExternalLink style={{ textTransform: 'uppercase' }}>{t('here')}</ExternalLink>.
       </Note>
     </>
   )

@@ -17,5 +17,6 @@ export type CategoryType = {
   text: string
   type: string
   count?: number
+  isDisabled?: boolean
   icon: React.ReactElement
 }
