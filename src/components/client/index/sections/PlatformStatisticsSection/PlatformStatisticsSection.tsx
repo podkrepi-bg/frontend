@@ -24,7 +24,7 @@ export default function PlatformStatisticsSection() {
           <Grid
             sx={(theme) => ({
               margin: '0 auto',
-              maxWidth: theme.spacing(62),
+              maxWidth: theme.spacing(67),
             })}>
             <Heading variant="h4">{t('platform-statistics.heading')}</Heading>
             <Subtitle variant="subtitle1">{t('platform-statistics.text')}</Subtitle>
