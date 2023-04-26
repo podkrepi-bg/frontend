@@ -9,6 +9,7 @@ import CreateCampaignSteps from './CreateCampaignSteps'
 import CreateCampaignUserType from './CreateCampaignUserType'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 
+// TODO: MOBILE VIEW
 export default function CreateCampaignPage() {
   const { t } = useTranslation('campaigns')
   const router = useRouter()
@@ -18,7 +19,7 @@ export default function CreateCampaignPage() {
     console.log('selected user type: ', user)
   }
 
-  const goToNextPage = () => router.push('/about')
+  const goToNextPage = () => router.push('/campaigns/create/steps')
   const goBackToPrevPage = () => router.back()
 
   return (
