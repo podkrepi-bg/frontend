@@ -90,7 +90,15 @@ export const endpoints = {
     userDonations: <Endpoint>{ url: 'donation/user-donations', method: 'GET' },
     uploadBankTransactionsFile: (bankTransactionsFileId: string) =>
       <Endpoint>{ url: `/bank-transactions-file/${bankTransactionsFileId}`, method: 'POST' },
-    exportToExcel: <Endpoint>{ url: '/donation/export-excel', method: 'GET' },
+    exportToExcel: (filterData?: FilterData, searchData?: string) =>
+      <Endpoint>{
+        url: `/donation/export-excel?status=${filterData?.status}&provider=${
+          filterData?.paymentProvider
+        }&from=${filterData?.date.from}&to=${filterData?.date.to}&search=${searchData}&minAmount=${
+          filterData?.minAmount ?? ''
+        }&maxAmount=${filterData?.maxAmount ?? ''}&sortBy=${filterData?.sortBy ?? ''}`,
+        method: 'GET',
+      },
   },
   bankTransactions: {
     transactionsList: (
