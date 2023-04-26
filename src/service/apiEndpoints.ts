@@ -73,16 +73,20 @@ export const endpoints = {
     },
 
     getDonations: (
-      campaignId: string,
       status: DonationStatus,
+      campaignId?: string,
       pageindex?: number,
       pagesize?: number,
     ) =>
       <Endpoint>{
-        url: `/donation/listPublic/?campaignId=${campaignId}&status=${status}&pageindex=${pageindex}&pagesize=${pagesize}`,
+        url: campaignId
+          ? `/donation/listPublic/?campaignId=${campaignId}&status=${status}&pageindex=${pageindex}&pagesize=${pagesize}`
+          : `/donation/listPublic/?status=${status}&pageindex=${pageindex}&pagesize=${pagesize}`,
         method: 'GET',
       },
     getUserDonation: (id: string) => <Endpoint>{ url: `/donation/user/${id}`, method: 'GET' },
+    getDonorsCount: <Endpoint>{ url: `/donation/donors-count`, method: 'GET' },
+    getTotalDonatedMoney: <Endpoint>{ url: '/donation/money', method: 'GET' },
     editDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'PATCH' },
     deleteDonation: <Endpoint>{ url: `/donation/delete`, method: 'POST' },
     userDonations: <Endpoint>{ url: 'donation/user-donations', method: 'GET' },

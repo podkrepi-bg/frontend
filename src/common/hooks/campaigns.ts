@@ -104,12 +104,12 @@ export function useCampaignDetailsPage(id: string) {
 }
 
 export function useCampaignDonationHistory(
-  campaignId: string,
+  campaignId?: string,
   pageindex?: number,
   pagesize?: number,
 ) {
   return useQuery<CampaignDonationHistoryResponse>([
-    endpoints.donation.getDonations(campaignId, DonationStatus.succeeded, pageindex, pagesize).url,
+    endpoints.donation.getDonations(DonationStatus.succeeded, campaignId, pageindex, pagesize).url,
   ])
 }
 
