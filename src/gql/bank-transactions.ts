@@ -25,3 +25,13 @@ export type BankTransactionsHistoryResponse = {
   items: BankTransactionsInput[]
   total: number
 }
+
+export type BankTransactionEditRefInput = {
+  paymentRef: string
+}
+
+export type BankTransactionEditRefResponse = {
+  trxId: string
+  paymentRef: string
+  status: string
+}
