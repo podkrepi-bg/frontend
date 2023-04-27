@@ -18,11 +18,12 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 export default function CreateCampaignPage() {
   const { t } = useTranslation('campaigns')
   const router = useRouter()
-  const [user, setUser] = useState({})
+  // const [user, setUser] = useState({})
+  const [user, setUser] = useState(null)
 
   const userTypeHandler = (selectedUser: CategoryType) => {
     // TODO: store the selection on redirect
-    setUser(selectedUser)
+    setUser(selectedUser) //it shouldn't be null
   }
 
   const goToNextPage = () => router.push('/campaigns/create/steps')

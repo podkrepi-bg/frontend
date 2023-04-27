@@ -5,6 +5,7 @@ import { Button, Grid, Typography } from '@mui/material'
 import { routes } from 'common/routes'
 import { Heading, SectionHeading } from '../campaigns.styled'
 import { CampaignState } from '../../../client/campaigns/helpers/campaign.enums'
+import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 
 // Validations
 import * as yup from 'yup'
@@ -18,6 +19,8 @@ import {
   CampaignAdminCreateFormData,
 } from 'gql/campaigns'
 import { Currency } from 'gql/currency'
+import { CategoryType } from 'gql/types'
+import { CampaignTypeCategory } from 'components/common/campaign-types/categories'
 
 // Components
 import ListIconButtons from '../ListIconButtons'
@@ -53,6 +56,7 @@ export default function CampaignForm() {
   const initialValues = {}
 
   // Validations
+  // TODO: ADD validation for type of campaign
   const validationSchema: yup.SchemaOf<CampaignAdminCreateFormData> = yup
     .object()
     .defined()
@@ -78,9 +82,21 @@ export default function CampaignForm() {
     })
 
   // type of campaign
-  const selectedCampaignTypeHandler = (event) => {
-    console.log('selected campaign: ', event)
+  const [selectedCampaignType, setSelectedCampaignType] = useState<CampaignTypeCategory>(
+    CampaignTypeCategory.all,
+  )
+  const selectedCampaignTypeHandler = (type: CategoryType) => {
+    setSelectedCampaignType(type)
   }
+
+  const beneficiaryTypes = [
+    { value: 'personal', label: 'Кампанията е лична' },
+    {
+      value: 'beneficiary',
+      label: 'Кампанията  се организира  за друг бенефициент - физическо лице',
+    },
+  ]
+
   return (
     <Grid container direction="column" component="section" mt={6}>
       <Grid item xs={12}>
@@ -92,25 +108,58 @@ export default function CampaignForm() {
         onSubmit={onSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}>
-        <Grid item xs={12} mt={5}>
-          <Heading>{t('campaigns:steps.step1-type')}</Heading>
+        <Grid container spacing={3}>
+          {/* Campaign Name */}
 
-          <FormTextField
-            type="text"
-            label="campaigns:campaign.title"
-            name="title"
-            placeholder="Посочете име на вашата кампания. Името трябва да съдържа минимум  5  и максимум 15 думи "
-            autoComplete="title"
-          />
-        </Grid>
+          <Grid item xs={12} mt={5}>
+            <Heading>{t('campaigns:steps.step1-type')}</Heading>
 
-        <Grid item xs={12} mt={5}>
-          <Heading>{t('campaigns:campaignType')}</Heading>
-          <CampaignFilter
-            showCampaigns={false}
-            onClick={selectedCampaignTypeHandler}
-            styles={{ maxWidth: 'lg', margin: 'left' }}
-          />
+            <FormTextField
+              type="text"
+              name="title"
+              label="campaigns:campaign.title"
+              autoComplete="title"
+            />
+          </Grid>
+          {/* Campaign Type */}
+          <Grid item xs={12} mt={5}>
+            <Heading>{t('campaigns:campaignType')}</Heading>
+            <CampaignFilter
+              selected={selectedCampaignType}
+              showCampaigns={false}
+              onClick={selectedCampaignTypeHandler}
+              styles={{ maxWidth: 'md', margin: 'left' }}
+            />
+          </Grid>
+          {/* Campaign Beneficiary */}
+          <Grid item xs={12} mt={5}>
+            <Heading>Бенфициент на кампанията</Heading>
+
+            <RadioButtonGroup name="beneficiary" options={beneficiaryTypes} />
+          </Grid>
+
+          <Grid item xs={12} mt={3}>
+            <FormTextField
+              type="text"
+              label="Три имена на бенефициент"
+              name="beneficiary"
+              autoComplete="beneficiary"
+            />
+          </Grid>
+
+          {/* Amount */}
+
+          <Grid item>
+            <Heading>{t('campaigns:campaign.amount')}</Heading>
+          </Grid>
+          <Grid item xs={2}>
+            <FormTextField
+              type="number"
+              name="targetAmount"
+              autoComplete="target-amount"
+              placeholder="88 000.00"
+            />
+          </Grid>
         </Grid>
       </GenericForm>
     </Grid>

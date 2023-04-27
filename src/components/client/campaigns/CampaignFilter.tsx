@@ -45,9 +45,17 @@ type Props = {
   showCampaigns?: boolean
   selected: CampaignTypeCategory
   onClick: (item: CategoryType) => void
+  styles: React.CSSProperties
+  styleItem?: React.CSSProperties
 }
 
-export default function CampaignFilter({ selected, showCampaigns = true, onClick }: Props) {
+export default function CampaignFilter({
+  selected,
+  styles,
+  styleItem,
+  showCampaigns = true,
+  onClick,
+}: Props) {
   const { t } = useTranslation()
   const { mobile } = useMobile()
   const { data: campaigns, isLoading } = useCampaignList()
@@ -97,7 +105,8 @@ export default function CampaignFilter({ selected, showCampaigns = true, onClick
         <ListIconButtons
           data={categories}
           onClick={onClick}
-          style={{ maxWidth: 'lg', margin: '0 auto' }}
+          style={styles}
+          styleItem={styleItem}
           cols={mobile ? 2 : 6}
         />
       </Box>

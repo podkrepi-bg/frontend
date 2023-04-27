@@ -48,9 +48,18 @@ type Props = {
   rowHeight?: number
   gap?: number
   style?: React.CSSProperties
+  styleItem?: React.CSSProperties
 }
 
-export default function ListIconButtons({ data, onClick, cols, rowHeight, gap, style }: Props) {
+export default function ListIconButtons({
+  data,
+  onClick,
+  cols,
+  rowHeight,
+  gap,
+  style,
+  styleItem = { display: 'inline', margin: '0 auto' },
+}: Props) {
   return (
     <Root>
       <ImageList cols={cols} rowHeight={rowHeight} gap={gap} sx={style}>
@@ -58,7 +67,7 @@ export default function ListIconButtons({ data, onClick, cols, rowHeight, gap, s
           const hasCountProperty = Object.keys(item).includes('count')
 
           return (
-            <ImageListItem key={item.type} sx={{ display: 'inline', margin: '0 auto' }}>
+            <ImageListItem key={item.type} sx={styleItem}>
               <IconButton
                 disabled={item.isDisabled}
                 className="iconButton"

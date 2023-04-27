@@ -95,7 +95,11 @@ export default function CampaignsPage() {
         <Typography variant="h6" component="p" className={classes.support}>
           {t('campaigns:cta.support-cause-today')}
         </Typography>
-        <CampaignFilter selected={selectedCategory} onClick={selectCategoryHandler} />
+        <CampaignFilter
+          styles={{ maxWidth: 'lg', margin: '0 auto' }}
+          selected={selectedCategory}
+          onClick={selectCategoryHandler}
+        />
       </Grid>
     </Root>
   )
