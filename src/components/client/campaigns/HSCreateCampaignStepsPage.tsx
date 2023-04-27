@@ -1,9 +1,10 @@
-import { Box, Grid, Button, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
 import React from 'react'
 import Layout from 'components/client/layout/Layout'
-import CustomHorizontalStepper from 'components/client/campaigns/CustomHorizontalStepper'
+import CustomHorizontalStepper from './CustomHorizontalStepper'
+import HSCreateForm from './stepOne/HSCreateForm'
 
 export default function HSCreateCampaignStepsPage() {
   const { t } = useTranslation()
@@ -13,7 +14,7 @@ export default function HSCreateCampaignStepsPage() {
       0,
       {
         label: t('campaigns:steps.step1-type'),
-        component: <Box>Text 1</Box>,
+        component: <HSCreateForm />,
       },
     ],
     [

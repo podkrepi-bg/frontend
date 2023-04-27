@@ -8,12 +8,9 @@ type StepType = {
   label: 'string'
   component: React.ReactElement
 }
-type StepsMap = {
-  [key: number]: StepType
-}
 
 type Props = {
-  steps: StepsMap
+  steps: Map<number, StepType>
 }
 
 export default function CustomHorizontalStepper({ steps }: Props) {
@@ -30,7 +27,7 @@ export default function CustomHorizontalStepper({ steps }: Props) {
    * In case you need to have optional steps,
    * you can add their index in the optionalSteps array
    * **/
-  const optionalSteps = []
+  const optionalSteps: number[] = []
 
   const isStepOptional = (step: number) => {
     return optionalSteps.includes(step)
@@ -98,7 +95,7 @@ export default function CustomHorizontalStepper({ steps }: Props) {
         </>
       ) : (
         <>
-          {steps.get(activeStep).component}
+          {steps.get(activeStep)?.component}
 
           <Box mt={6}>
             <Grid container spacing={3} justifyContent="flex-start" alignItems="center">

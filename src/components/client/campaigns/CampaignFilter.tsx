@@ -38,30 +38,46 @@ const categoryIcons: {
   animals: { icon: <Pets fontSize="small" /> },
   nature: { icon: <Forest fontSize="small" /> },
   others: { icon: <Category fontSize="small" /> },
+  all: { icon: <FilterNone fontSize="small" /> },
 }
 
-export default function CampaignFilter() {
+type Props = {
+  showCampaigns?: boolean
+  selected: CampaignTypeCategory
+  onClick: (item: CategoryType) => void
+}
+
+export default function CampaignFilter({ selected, showCampaigns = true, onClick }: Props) {
   const { t } = useTranslation()
   const { mobile } = useMobile()
   const { data: campaigns, isLoading } = useCampaignList()
-  const [selectedCategory, setSelectedCategory] = useState<string>('ALL')
 
   // TODO: add filters&sorting of campaigns so people can select based on personal preferences
   const campaignToShow = useMemo<CampaignResponse[]>(() => {
     const filteredCampaigns =
       campaigns?.filter((campaign) => {
-        if (selectedCategory != 'ALL') {
-          return campaign.campaignType.category === selectedCategory
+        if (selected != 'all') {
+          return campaign.campaignType.category === selected
         }
         return campaign
       }) ?? []
     return filteredCampaigns
-  }, [campaigns, selectedCategory])
+  }, [campaigns, selected])
 
   const categories = useMemo<CategoryType[]>(() => {
     const computedCategories = Object.values(CampaignTypeCategory).map((category) => {
       const count =
         campaigns?.filter((campaign) => campaign.campaignType.category === category).length ?? 0
+
+      if (category === 'all') {
+        return {
+          type: 'all',
+          text: t(`campaigns:filters.${category}`),
+          count: campaigns?.length,
+          icon: categoryIcons[category].icon,
+          isDisabled: false,
+        }
+      }
 
       return {
         type: category,
@@ -72,27 +88,15 @@ export default function CampaignFilter() {
       }
     })
 
-    const allCategory = {
-      type: 'ALL',
-      text: t('campaigns:filters.all'),
-      count: campaigns?.length,
-      icon: <FilterNone fontSize="small" />,
-      isDisabled: false,
-    }
-
-    return [...computedCategories, allCategory]
+    return computedCategories
   }, [campaigns])
-
-  const clickHandler = (category: CategoryType) => {
-    setSelectedCategory(category?.type)
-  }
 
   return (
     <>
       <Box my={6}>
         <ListIconButtons
           data={categories}
-          onClick={clickHandler}
+          onClick={onClick}
           style={{ maxWidth: 'lg', margin: '0 auto' }}
           cols={mobile ? 2 : 6}
         />
@@ -103,7 +107,7 @@ export default function CampaignFilter() {
           <CircularProgress size="3rem" />
         </Box>
       ) : (
-        <CampaignsList campaignToShow={campaignToShow} />
+        showCampaigns && <CampaignsList campaignToShow={campaignToShow} />
       )}
     </>
   )

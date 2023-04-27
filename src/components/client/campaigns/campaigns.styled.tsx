@@ -9,3 +9,11 @@ export const Heading = styled(Typography)(() => ({
   fontFamily: 'Montserrat, sans-serif',
   fontSize: theme.typography.pxToRem(25),
 }))
+
+export const SectionHeading = styled(Typography)(() => ({
+  fontWeight: 500,
+  marginBottom: theme.spacing(2),
+  fontFamily: 'Montserrat, sans-serif',
+  fontSize: theme.typography.pxToRem(35),
+  lineHeight: theme.typography.pxToRem(45),
+}))
