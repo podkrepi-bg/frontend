@@ -2,9 +2,6 @@
 <p align="center">
   Open-source Charity Platform Podkrepi.bg
 </p>
-<p align="center">
-  Дарителска Платформа Подкрепи.бг
-</p>
 </h1>
 <p align="center">
   <a href="https://podkrepi.bg/" target="blank"><img src="https://podkrepi.bg/podkrepi-bg-logo-en.svg" width="320" alt="Podkrepi.bg logo" /></a>
