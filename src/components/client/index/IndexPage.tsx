@@ -20,8 +20,8 @@ export default function IndexPage() {
       metaDescription={t('metaDescription')}>
       <ActiveCampaignsSection />
       <CompletedCampaignsSection />
-      <HowWeWorkSection />
       <PlatformStatisticsSection />
+      <HowWeWorkSection />
       <TeamMembersSection />
       <JoinPodkrepiBgSection />
       <FaqSection />
