@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { Box, TextField, Toolbar, Tooltip, Typography } from '@mui/material'
 import { GetApp as DownloadFileIcon } from '@mui/icons-material'

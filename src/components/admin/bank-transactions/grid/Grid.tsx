@@ -6,23 +6,18 @@ import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-
 import { observer } from 'mobx-react'
 
 import { getExactDateTime } from 'common/util/date'
-import { useRouter } from 'next/router'
+
 import { money } from 'common/util/money'
 
 import { useStores } from '../../../../common/hooks/useStores'
 import { BankTransactionsHistoryResponse } from 'gql/bank-transactions'
 import { useBankTransactionsList } from 'common/hooks/bank-transactions'
+import RenderBankDonationStatusCell from './RenderEditBankDonationStatusCell'
 
 interface RenderCellProps {
   params: GridRenderCellParams
 }
-const addIconStyles = {
-  background: '#4ac3ff',
-  borderRadius: '50%',
-  cursor: 'pointer',
-  padding: 0.7,
-  boxShadow: 3,
-}
+
 export default observer(function Grid() {
   const { bankTransactionsStore } = useStores()
   const [paginationData, setPaginationData] = useState({
@@ -36,7 +31,6 @@ export default observer(function Grid() {
     data: { items: bankTransactions, total: all_rows } = { items: [], total: 0 },
     error: bankTransactionsHistoryError,
     isLoading: bankDonationsHistoryLoading,
-    refetch,
   }: UseQueryResult<BankTransactionsHistoryResponse> = useBankTransactionsList(
     paginationData,
     bankTransactionsStore.bankTransactionsFilter,
@@ -120,7 +114,15 @@ export default observer(function Grid() {
     {
       field: 'bankDonationStatus',
       headerName: t('bank-transactions:donation-status'),
-      width: 150,
+      width: 210,
+      renderCell: (params: GridRenderCellParams) => {
+        return <RenderBankDonationStatusCell params={params} />
+      },
+    },
+    {
+      field: 'matchedRef',
+      headerName: t('bank-transactions:matched-ref'),
+      width: 180,
     },
   ]
 

@@ -8,18 +8,24 @@ export class DonationStore {
   donations: DonationInput[] = []
   donationFilters: {
     status: string | null
-    type: string | null
+    paymentProvider: string | null
+    minAmount: number | null
+    maxAmount: number | null
     date: {
       from?: Date | ''
       to?: Date | ''
     }
+    sortBy: string | null
   } = {
     status: '',
-    type: '',
+    paymentProvider: '',
+    minAmount: null,
+    maxAmount: null,
     date: {
       from: '',
       to: '',
     },
+    sortBy: '',
   }
   donationSearch: string | undefined = undefined
 
