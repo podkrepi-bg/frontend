@@ -50,7 +50,7 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
   const { t } = useTranslation('')
   const { data: expensesList } = useCampaignApprovedExpensesList(slug)
 
-  const [pageSize, setPageSize] = React.useState<number>(10)
+  const [pageSize, setPageSize] = React.useState<number>(20)
   const { data: session } = useSession()
 
   const downloadExpenseFileHandler = async (file: ExpenseFile) => {
@@ -95,7 +95,21 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
       field: 'description',
       headerName: t('expenses:fields.description'),
       headerClassName: classes.gridColumn,
+      flex: 2,
+    },
+    {
+      field: 'spentAt',
+      headerName: t('expenses:fields.date'),
+      headerClassName: classes.gridColumn,
+      width: 30,
       flex: 1,
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        if (!params.row.spentAt) {
+          return ''
+        }
+
+        return new Date(params.row.spentAt).toLocaleDateString()
+      },
     },
     {
       field: 'files',
@@ -125,7 +139,7 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
         columns={columns}
         pageSize={pageSize}
         onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-        rowsPerPageOptions={[10, 20, 30]}
+        rowsPerPageOptions={[20, 40, 60]}
         // pagination
         autoHeight
         disableSelectionOnClick

@@ -6,11 +6,12 @@ import { CampaignResponse } from 'gql/campaigns'
 
 import { bg, enUS } from 'date-fns/locale'
 
-import { Grid, Typography, Divider } from '@mui/material'
+import { Button, Grid, Typography, Divider } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import { getExactDate } from 'common/util/date'
 import CampaignInfoOrganizer from './CampaignInfoOrganizer'
+import { Assessment } from '@mui/icons-material'
 
 const PREFIX = 'CampaignInfo'
 
@@ -62,9 +63,10 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
 
 type Props = {
   campaign: CampaignResponse
+  showExpensesLink: boolean
 }
 
-export default function CampaignInfo({ campaign }: Props) {
+export default function CampaignInfo({ campaign, showExpensesLink }: Props) {
   const { t, i18n } = useTranslation()
   const locale = i18n.language == 'bg' ? bg : enUS
 
@@ -99,6 +101,16 @@ export default function CampaignInfo({ campaign }: Props) {
               {t('campaigns:campaign.status')} {t(`campaigns:campaign-status.${campaign.state}`)}
             </Typography>
           </Grid>
+          {showExpensesLink && (
+            <Grid item>
+              <Button
+                startIcon={<Assessment />}
+                href={'#expenses'}
+                className={classes.campaignTextWithIcon}>
+                {t('campaigns:campaign.financial-report')}
+              </Button>
+            </Grid>
+          )}
         </Grid>
         <Divider className={classes.divider} />
         <Grid item xs={12} lg={7}>
