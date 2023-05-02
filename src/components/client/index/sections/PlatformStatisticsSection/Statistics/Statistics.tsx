@@ -9,10 +9,10 @@ import {
   StatisticsSectionWrapper,
   SubtitleSectionNumber,
   SubtitleSectionText,
-} from './StatisticsSection.styled'
+} from './Statistics.styled'
 import { toNumberWithSpacesBetween } from 'common/util/number'
 
-export default function StatisticsSection() {
+export default function Statistics() {
   const { t } = useTranslation('index')
   const { data: campaigns } = useCampaignList()
   const { data: totalDonations } = useCampaignDonationHistory()

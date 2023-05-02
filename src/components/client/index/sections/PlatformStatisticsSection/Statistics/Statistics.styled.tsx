@@ -11,7 +11,7 @@ export const SubtitleSectionNumber = styled(Typography)(() => ({
   display: 'inline-block',
   color: theme.palette.primary.light,
   fontWeight: 'bold',
-  fontSize: theme.typography.pxToRem(40),
+  fontSize: theme.typography.pxToRem(52),
   marginLeft: theme.spacing(3),
 
   [theme.breakpoints.up('md')]: {

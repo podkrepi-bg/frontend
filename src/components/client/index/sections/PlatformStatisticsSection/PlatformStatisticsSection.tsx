@@ -5,11 +5,10 @@ import ArrowForwardSharp from '@mui/icons-material/ArrowForwardSharp'
 import { Grid } from '@mui/material'
 
 import { routes } from 'common/routes'
-import StatisticsSection from './StatisticsSection/StatisticsSection'
+import Statistics from './Statistics/Statistics'
 
 import {
   Heading,
-  HelpButtonWrapper,
   HelpThoseInNeedButton,
   Root,
   SectionGridWrapper,
@@ -29,16 +28,14 @@ export default function PlatformStatisticsSection() {
           })}>
           <Heading variant="h4">{t('platform-statistics.heading')}</Heading>
           <Subtitle>{t('platform-statistics.text')}</Subtitle>
-          <HelpButtonWrapper>
-            <HelpThoseInNeedButton
-              href={routes.campaigns.index}
-              variant="contained"
-              endIcon={<ArrowForwardSharp />}>
-              {t('platform-statistics.donate-to-those-in-need')}
-            </HelpThoseInNeedButton>
-          </HelpButtonWrapper>
+          <HelpThoseInNeedButton
+            href={routes.campaigns.index}
+            variant="contained"
+            endIcon={<ArrowForwardSharp />}>
+            {t('platform-statistics.donate-to-those-in-need')}
+          </HelpThoseInNeedButton>
         </Grid>
-        <StatisticsSection />
+        <Statistics />
       </SectionGridWrapper>
     </Root>
   )
