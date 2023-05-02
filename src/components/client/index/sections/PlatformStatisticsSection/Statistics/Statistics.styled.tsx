@@ -24,11 +24,11 @@ export const SubtitleSectionNumber = styled(Typography)(() => ({
 export const StatisticsWrapper = styled(Stack)(() => ({
   flexDirection: 'row',
   alignItems: 'center',
-  padding: '15px 0',
+  padding: theme.spacing(1.87, 0),
   '&:last-of-type': { flexDirection: 'column' },
 
   [theme.breakpoints.up('md')]: {
-    padding: '15px',
+    padding: theme.spacing(1.87),
     '&:last-of-type': { flexDirection: 'row' },
   },
 }))

@@ -6,7 +6,7 @@ import LinkButton from 'components/common/LinkButton'
 
 export const Root = styled('section')(() => ({
   backgroundColor: theme.palette.secondary.light,
-  marginTop: theme.spacing(10),
+  marginTop: theme.spacing(14),
 
   [theme.breakpoints.up('md')]: {
     padding: theme.spacing(0),
@@ -28,10 +28,14 @@ export const SectionGridWrapper = styled(Grid)(() => ({
 export const Heading = styled(Typography)(() => ({
   color: theme.palette.primary.dark,
   fontWeight: 500,
-  margin: theme.spacing(2, 0),
+  margin: theme.spacing(7, 0, 2),
   fontFamily: 'Montserrat, sans-serif',
   fontSize: theme.typography.pxToRem(35),
   letterSpacing: '-1px',
+
+  [theme.breakpoints.up(841)]: {
+    margin: theme.spacing(0, 0, 2),
+  },
 }))
 
 export const Subtitle = styled(Typography)(() => ({
