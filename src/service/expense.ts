@@ -44,7 +44,11 @@ export const useUploadExpenseFiles = () => {
   return async ({ files, expenseId }: UploadExpenseFile) => {
     const formData = new FormData()
     files.forEach((file: File) => {
-      formData.append('file', file)
+      //encode the name from base64
+      //multi-part form data does not support utf-8 filenames
+      const encodedFilename = Buffer.from(file.name, 'utf-8').toString('base64')
+      const f = new File([file], encodedFilename, { type: file.type })
+      formData.append('file', f)
     })
     return await apiClient.post<FormData, AxiosResponse<ExpenseFile[]>>(
       endpoints.expenses.uploadFile(expenseId).url,

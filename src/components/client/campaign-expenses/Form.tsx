@@ -232,7 +232,7 @@ export default function Form() {
           </Grid>
           <Grid item xs={12}>
             <FileUpload
-              buttonLabel="Добави документи"
+              buttonLabel={t('expenses:add-documents')}
               onUpload={(newFiles) => {
                 setFilesToUpload((prevFiles) => [...prevFiles, ...newFiles])
               }}
