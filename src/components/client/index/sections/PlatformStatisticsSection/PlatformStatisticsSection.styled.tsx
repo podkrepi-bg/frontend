@@ -18,7 +18,7 @@ export const SectionGridWrapper = styled(Grid)(() => ({
   margin: '0 auto',
   padding: theme.spacing(0, 1.8),
   maxWidth: theme.spacing(162),
-  alignItems: 'start',
+  alignItems: 'center',
 
   [theme.breakpoints.down('md')]: {
     flexWrap: 'wrap',
@@ -46,7 +46,7 @@ export const HelpThoseInNeedButton = styled(LinkButton)(() => ({
   backgroundColor: theme.palette.primary.light,
   minWidth: theme.spacing(3.75),
   fontSize: theme.typography.pxToRem(15),
-  margin: theme.spacing(2, 0, 6, 'auto'),
+  margin: theme.spacing(2, 0, 0, 'auto'),
   boxShadow:
     '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)',
 

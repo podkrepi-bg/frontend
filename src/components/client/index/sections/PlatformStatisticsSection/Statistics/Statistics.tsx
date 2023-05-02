@@ -4,13 +4,15 @@ import { useTranslation } from 'next-i18next'
 import { fromMoney } from 'common/util/money'
 import { useCampaignDonationHistory, useCampaignList } from 'common/hooks/campaigns'
 import { getTotalDonatedMoney, useDonatedUsersCount } from 'common/hooks/donation'
+import { toNumberWithSpacesBetween } from 'common/util/number'
+
 import {
   SectionDivider,
   StatisticsSectionWrapper,
+  StatisticsWrapper,
   SubtitleSectionNumber,
   SubtitleSectionText,
 } from './Statistics.styled'
-import { toNumberWithSpacesBetween } from 'common/util/number'
 
 export default function Statistics() {
   const { t } = useTranslation('index')
@@ -42,10 +44,12 @@ export default function Statistics() {
     <StatisticsSectionWrapper>
       {sections.map((section, index) => (
         <React.Fragment key={index}>
-          <SubtitleSectionNumber variant="subtitle1">
-            {toNumberWithSpacesBetween(section.value)}+
-          </SubtitleSectionNumber>
-          <SubtitleSectionText variant="subtitle1">{section.message}</SubtitleSectionText>
+          <StatisticsWrapper>
+            <SubtitleSectionNumber variant="subtitle1">
+              {toNumberWithSpacesBetween(section.value)}+
+            </SubtitleSectionNumber>
+            <SubtitleSectionText variant="subtitle1">{section.message}</SubtitleSectionText>
+          </StatisticsWrapper>
           <SectionDivider />
         </React.Fragment>
       ))}
