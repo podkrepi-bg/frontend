@@ -46,7 +46,7 @@ export default function Statistics() {
         <React.Fragment key={index}>
           <StatisticsWrapper>
             <SubtitleSectionNumber variant="subtitle1">
-              {toNumberWithSpacesBetween(section.value)}+
+              {toNumberWithSpacesBetween(section.value)}
             </SubtitleSectionNumber>
             <SubtitleSectionText variant="subtitle1">{section.message}</SubtitleSectionText>
           </StatisticsWrapper>
