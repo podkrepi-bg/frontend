@@ -10,7 +10,7 @@ import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import theme from 'common/theme'
 import { CampaignState } from 'components/client/campaigns/helpers/campaign.enums'
 import { routes } from 'common/routes'
-import { settings } from './helpers/CompletedCampaignsCaroucelSettings'
+import { settings } from './helpers/CompletedCampaignsCarouselSettings'
 import { moneyPublic } from 'common/util/money'
 
 import { Heading } from '../../IndexPage.styled'

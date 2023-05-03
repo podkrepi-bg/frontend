@@ -12,6 +12,22 @@ export const Root = styled('section')(() => ({
 export const CarouselWrapper = styled(Slider)(() => ({
   margin: '0 auto',
   maxWidth: theme.spacing(162),
+
+  '.slick-list': {
+    paddingBottom: theme.spacing(3),
+  },
+
+  '.slick-dots li button::before': {
+    fontSize: theme.typography.pxToRem(10),
+    color: '#D9D9D9',
+    opacity: 1,
+  },
+
+  '.slick-dots li.slick-active button::before': {
+    fontSize: theme.typography.pxToRem(10),
+    color: '#B0E5FF',
+    opacity: 1,
+  },
 }))
 
 export const CompletedCampaignLink = styled(Link)(() => ({

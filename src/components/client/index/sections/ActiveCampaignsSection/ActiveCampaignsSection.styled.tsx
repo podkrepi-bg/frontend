@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles'
 import theme from 'common/theme'
 
 export const Root = styled(Grid)(() => ({
-  marginTop: theme.spacing(7),
+  marginTop: theme.spacing(3.875),
   display: 'grid',
   gridTemplateRows: 'repeat(5, 1fr)',
 
@@ -15,6 +15,7 @@ export const Root = styled(Grid)(() => ({
   [theme.breakpoints.up('sm')]: {
     gridTemplateColumns: 'repeat(2, 1fr)',
     gridTemplateRows: 'repeat(4, 1fr)',
+    marginTop: theme.spacing(7),
 
     'a:nth-of-type(1)': {
       minHeight: theme.spacing(61),
