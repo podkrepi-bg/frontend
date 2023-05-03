@@ -24,6 +24,7 @@ import {
   CampaignTitle,
   CompletedCampaignLink,
   MoneyWrapperFlex,
+  CardWrapper,
 } from './CompletedCampaignsSection.styled'
 
 export default function CompletedCampaignsSection() {
@@ -45,11 +46,7 @@ export default function CompletedCampaignsSection() {
       </Heading>
       <CarouselWrapper {...settings}>
         {completedCampaigns?.map((campaign, index) => (
-          <Grid
-            key={index}
-            data-testid={`campaign-card-${index}`}
-            margin={theme.spacing(0, 2.25)}
-            paddingRight={theme.spacing(2.5)}>
+          <CardWrapper key={index} data-testid={`campaign-card-${index}`}>
             <CompletedCampaignLink
               onMouseDown={onLinkMouseDown}
               href={routes.campaigns.viewCampaignBySlug(campaign.slug)}
@@ -75,7 +72,7 @@ export default function CompletedCampaignsSection() {
               </MoneyWrapper>
               <CampaignTitle>{campaign.title}</CampaignTitle>
             </CompletedCampaignLink>
-          </Grid>
+          </CardWrapper>
         ))}
       </CarouselWrapper>
     </Root>
