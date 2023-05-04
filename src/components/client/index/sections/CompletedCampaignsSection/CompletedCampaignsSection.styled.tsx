@@ -30,6 +30,13 @@ export const CarouselWrapper = styled(Slider)(() => ({
   },
 }))
 
+export const CardWrapper = styled(Grid)(() => ({
+  [theme.breakpoints.up('sm')]: {
+    margin: theme.spacing(0, 1.25),
+    paddingRight: theme.spacing(2.5),
+  },
+}))
+
 export const CompletedCampaignLink = styled(Link)(() => ({
   height: theme.spacing(37.5),
   backgroundSize: 'cover',
