@@ -16,6 +16,7 @@ import { endpoints } from 'service/apiEndpoints'
 import { authConfig } from 'service/restRequests'
 import { UploadBankTransactionsFiles } from 'components/admin/bank-transactions-file/types'
 import { useMutation } from '@tanstack/react-query'
+import { FilterData } from 'gql/types'
 
 export const createCheckoutSession = async (data: CheckoutSessionInput) => {
   return await apiClient.post<CheckoutSessionInput, AxiosResponse<CheckoutSessionResponse>>(
@@ -105,10 +106,10 @@ export const useUploadBankTransactionsFiles = () => {
   }
 }
 
-export const useExportToExcel = () => {
+export const useExportToExcel = (filterData?: FilterData, searchData?: string) => {
   const { data: session } = useSession()
   return async () => {
-    return await apiClient(endpoints.donation.exportToExcel.url, {
+    return await apiClient(endpoints.donation.exportToExcel(filterData, searchData).url, {
       ...authConfig(session?.accessToken),
       responseType: 'blob',
     })

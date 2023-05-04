@@ -111,6 +111,14 @@ export type UserDonationResult = {
   total: number
 }
 
+export type TotalDonatedMoneyResponse = {
+  total: number
+}
+
+export type DonorsCountResult = {
+  count: number
+}
+
 export type OneTimeDonation = {
   message?: string
   isAnonymous: boolean

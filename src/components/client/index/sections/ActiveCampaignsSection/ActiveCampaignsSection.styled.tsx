@@ -15,6 +15,7 @@ export const Root = styled(Grid)(() => ({
   [theme.breakpoints.up('sm')]: {
     gridTemplateColumns: 'repeat(2, 1fr)',
     gridTemplateRows: 'repeat(4, 1fr)',
+    marginTop: theme.spacing(7),
 
     'a:nth-of-type(1)': {
       minHeight: theme.spacing(61),
@@ -32,7 +33,7 @@ export const Root = styled(Grid)(() => ({
 
   [theme.breakpoints.up(2000)]: {
     maxWidth: theme.spacing(165),
-    margin: `${theme.spacing(4)} auto`,
+    margin: `${theme.spacing(7)} auto ${theme.spacing(4)} auto`,
   },
 }))
 

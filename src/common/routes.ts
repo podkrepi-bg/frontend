@@ -36,7 +36,7 @@ export const socialUrls = {
 
 export const partnerUrls = {
   superHosting: 'https://www.superhosting.bg/',
-  rinkoff: 'https://www.linkedin.com/company/rinkoff/about/',
+  kotaOne: 'https://kota.one/',
   darik: 'https://dariknews.bg/',
   techPartners: [
     'https://softuni.bg/',

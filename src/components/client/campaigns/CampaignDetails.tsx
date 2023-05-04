@@ -103,7 +103,10 @@ export default function CampaignDetails({ campaign }: Props) {
       <Typography variant="h1" component="h1" mb={8} className={classes.campaignTitle}>
         {campaign.title}
       </Typography>
-      <CampaignInfo campaign={campaign} />
+      <CampaignInfo
+        campaign={campaign}
+        showExpensesLink={(expensesList && expensesList?.length > 0) || canEditExpenses}
+      />
       <Grid container spacing={8}>
         <Grid item xs={12}>
           <ReactQuill readOnly theme="bubble" value={campaign.description} />
@@ -119,7 +122,7 @@ export default function CampaignDetails({ campaign }: Props) {
         </Grid>
         <CampaignInfoGraphics />
         {expensesList?.length || canEditExpenses ? (
-          <Grid item xs={12}>
+          <Grid item xs={12} id="expenses">
             <Grid item xs={12}>
               <Typography variant="h4" component="h4" my={8}>
                 {t('campaigns:campaign.financial-report')} <Assessment />

@@ -2,11 +2,12 @@ import { Box, TextField } from '@mui/material'
 import Filter from './Filter'
 import { useStores } from '../../../../common/hooks/useStores'
 import { observer } from 'mobx-react'
-import { DonationStatus, DonationType } from 'gql/donations.enums'
+import { DonationStatus, PaymentProvider } from 'gql/donations.enums'
 import { DateTimePicker, enUS, LocalizationProvider } from '@mui/x-date-pickers'
 import { useTranslation } from 'react-i18next'
 import { bg } from 'date-fns/locale'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { fromMoney, toMoney } from 'common/util/money'
 
 export default observer(function GridFilters() {
   const { donationStore } = useStores()
@@ -18,17 +19,18 @@ export default observer(function GridFilters() {
 
   const donationStatusMenuItems = Object.values(DonationStatus)
 
-  const donationTypeOptions = {
-    name: 'type',
-    label: 'donations:cta.type',
+  const paymentProviderOptions = {
+    name: 'paymentProvider',
+    label: 'donations:cta.provider',
   }
 
-  const donationTypeMenuItems = Object.values(DonationType)
+  const paymentProviderMenuItems = Object.values(PaymentProvider)
 
   const handleChange = (
     filterName: string,
-    filterValue: string | null | { from: Date; to: Date },
+    filterValue: string | number | null | { from: Date; to: Date },
   ) => {
+    console.log('Setting filter:', filterName, filterValue)
     donationStore.setDonationFilters(filterName, filterValue)
   }
 
@@ -64,6 +66,26 @@ export default observer(function GridFilters() {
           minDate={donationStore.donationFilters.date?.from}
         />
       </LocalizationProvider>
+      <TextField
+        label={t('donations:cta.minAmount')}
+        type="number"
+        value={fromMoney(donationStore.donationFilters.minAmount) || null}
+        onChange={(event) => {
+          handleChange('minAmount', event.target.value ? toMoney(Number(event.target.value)) : null)
+        }}
+        variant="outlined"
+        size="small"
+      />
+      <TextField
+        label={t('donations:cta.maxAmount')}
+        type="number"
+        value={fromMoney(donationStore.donationFilters.maxAmount) || null}
+        onChange={(event) => {
+          handleChange('maxAmount', event.target.value ? toMoney(Number(event.target.value)) : null)
+        }}
+        variant="outlined"
+        size="small"
+      />
       <Filter
         value={donationStore.donationFilters.status}
         options={donationStatusOptions}
@@ -71,10 +93,16 @@ export default observer(function GridFilters() {
         menuItems={donationStatusMenuItems}
       />
       <Filter
-        value={donationStore.donationFilters.type}
-        options={donationTypeOptions}
+        value={donationStore.donationFilters.provider}
+        options={paymentProviderOptions}
         onChange={handleChange}
-        menuItems={donationTypeMenuItems}
+        menuItems={paymentProviderMenuItems}
+      />
+      <Filter
+        value={donationStore.donationFilters.sortBy}
+        options={{ name: 'sortBy', label: 'donations:cta.sortBy' }}
+        onChange={handleChange}
+        menuItems={['createdAt', 'amount']}
       />
     </Box>
   )

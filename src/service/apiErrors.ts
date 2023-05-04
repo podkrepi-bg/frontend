@@ -10,6 +10,12 @@ export interface ApiErrors {
   error: string
 }
 
+export interface ApiError {
+  statusCode: number
+  message: string
+  error: string
+}
+
 export interface Message {
   property: string
   children: Message[]

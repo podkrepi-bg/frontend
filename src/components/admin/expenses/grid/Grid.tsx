@@ -13,6 +13,7 @@ import { ModalStore } from '../ExpensesPage'
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 import { statusRenderCell } from './GridHelper'
+import { moneyPublic } from 'common/util/money'
 
 const PREFIX = 'Grid'
 
@@ -61,18 +62,18 @@ export default observer(function Grid() {
       width: 120,
     },
     {
-      field: 'status',
-      headerName: t('expenses:fields.status'),
-      renderCell: statusRenderCell,
-      headerClassName: classes.gridColumn,
-      width: 100,
-    },
-    {
       field: 'amount',
       headerName: t('expenses:fields.amount'),
       headerClassName: classes.gridColumn,
       align: 'right',
       width: 90,
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        if (!params.row.amount) {
+          return '0'
+        }
+
+        return moneyPublic(params.row.amount, params.row.currency)
+      },
     },
     {
       field: 'currency',
@@ -81,22 +82,10 @@ export default observer(function Grid() {
       width: 90,
     },
     {
-      field: 'vaultId',
-      headerName: t('expenses:fields.vaultId'),
-      headerClassName: classes.gridColumn,
-      flex: 1,
-    },
-    {
       field: 'description',
       headerName: t('expenses:fields.description'),
       headerClassName: classes.gridColumn,
-      flex: 1,
-    },
-    {
-      field: 'documentId',
-      headerName: t('expenses:fields.documentId'),
-      headerClassName: classes.gridColumn,
-      flex: 1,
+      flex: 3,
     },
     {
       field: 'approvedById',

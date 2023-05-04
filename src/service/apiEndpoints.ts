@@ -61,34 +61,48 @@ export const endpoints = {
       searchData?: string,
     ) => {
       const { pageIndex, pageSize } = (paginationData as PaginationData) || {}
-      const { status, type, date } = (filterData as FilterData) || {}
+      const { status, paymentProvider, date } = (filterData as FilterData) || {}
       const { from, to } = date || {}
 
       return <Endpoint>{
-        url: campaignId
-          ? `/donation/list?campaignId=${campaignId}&pageindex=${pageIndex}&pagesize=${pageSize}&status=${status}&type=${type}&from=${from}&to=${to}&search=${searchData}`
-          : `/donation/list?pageindex=${pageIndex}&pagesize=${pageSize}&status=${status}&type=${type}&from=${from}&to=${to}&search=${searchData}`,
+        url: `/donation/list?campaignId=${
+          campaignId ?? ''
+        }&pageindex=${pageIndex}&pagesize=${pageSize}&status=${status}&provider=${paymentProvider}&from=${from}&to=${to}&search=${searchData}&minAmount=${
+          filterData?.minAmount ?? ''
+        }&maxAmount=${filterData?.maxAmount ?? ''}&sortBy=${filterData?.sortBy ?? ''}`,
         method: 'GET',
       }
     },
 
     getDonations: (
-      campaignId: string,
       status: DonationStatus,
+      campaignId?: string,
       pageindex?: number,
       pagesize?: number,
     ) =>
       <Endpoint>{
-        url: `/donation/listPublic/?campaignId=${campaignId}&status=${status}&pageindex=${pageindex}&pagesize=${pagesize}`,
+        url: campaignId
+          ? `/donation/listPublic/?campaignId=${campaignId}&status=${status}&pageindex=${pageindex}&pagesize=${pagesize}`
+          : `/donation/listPublic/?status=${status}&pageindex=${pageindex}&pagesize=${pagesize}`,
         method: 'GET',
       },
     getUserDonation: (id: string) => <Endpoint>{ url: `/donation/user/${id}`, method: 'GET' },
+    getDonorsCount: <Endpoint>{ url: `/donation/donors-count`, method: 'GET' },
+    getTotalDonatedMoney: <Endpoint>{ url: '/donation/money', method: 'GET' },
     editDonation: (id: string) => <Endpoint>{ url: `/donation/${id}`, method: 'PATCH' },
     deleteDonation: <Endpoint>{ url: `/donation/delete`, method: 'POST' },
     userDonations: <Endpoint>{ url: 'donation/user-donations', method: 'GET' },
     uploadBankTransactionsFile: (bankTransactionsFileId: string) =>
       <Endpoint>{ url: `/bank-transactions-file/${bankTransactionsFileId}`, method: 'POST' },
-    exportToExcel: <Endpoint>{ url: '/donation/export-excel', method: 'GET' },
+    exportToExcel: (filterData?: FilterData, searchData?: string) =>
+      <Endpoint>{
+        url: `/donation/export-excel?status=${filterData?.status}&provider=${
+          filterData?.paymentProvider
+        }&from=${filterData?.date.from}&to=${filterData?.date.to}&search=${searchData}&minAmount=${
+          filterData?.minAmount ?? ''
+        }&maxAmount=${filterData?.maxAmount ?? ''}&sortBy=${filterData?.sortBy ?? ''}`,
+        method: 'GET',
+      },
   },
   bankTransactions: {
     transactionsList: (
@@ -97,15 +111,17 @@ export const endpoints = {
       searchData?: string,
     ) => {
       const { pageIndex, pageSize } = (paginationData as PaginationData) || {}
-      const { status, type, date } = (filterData as FilterData) || {}
+      const { status, date } = (filterData as FilterData) || {}
       const { from, to } = date || {}
 
       return <Endpoint>{
-        url: `/bank-transaction/list?pageindex=${pageIndex}&pagesize=${pageSize}&status=${status}&type=${type}&from=${from}&to=${to}&search=${searchData}`,
+        url: `/bank-transaction/list?pageindex=${pageIndex}&pagesize=${pageSize}&status=${status}&from=${from}&to=${to}&search=${searchData}`,
         method: 'GET',
       }
     },
     exportToExcel: <Endpoint>{ url: '/bank-transaction/export-excel', method: 'GET' },
+    editPaymentRef: (id: string) =>
+      <Endpoint>{ url: `/bank-transaction/${id}/edit-ref`, method: 'PUT' },
   },
   documents: {
     documentsList: <Endpoint>{ url: '/document', method: 'GET' },
