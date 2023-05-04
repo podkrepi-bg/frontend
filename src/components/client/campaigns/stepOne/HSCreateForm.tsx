@@ -1,11 +1,29 @@
-import { useState } from 'react'
+/**
+ * TODO:
+ * - fix the typescript errors on the functions
+ * - fix the beneficiary data in the context
+ * - fix the validations
+ * - store the data in localStorage in case the user refreshes the page
+ */
+
+import { useState, useContext } from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import { Button, Grid, Typography } from '@mui/material'
+import {
+  Button,
+  Grid,
+  Typography,
+  FormControl,
+  RadioGroup,
+  FormLabel,
+  FormControlLabel,
+  Radio,
+} from '@mui/material'
 import { routes } from 'common/routes'
 import { Heading, SectionHeading } from '../campaigns.styled'
 import { CampaignState } from '../../../client/campaigns/helpers/campaign.enums'
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 
 // Validations
 import * as yup from 'yup'
@@ -35,6 +53,8 @@ import BeneficiarySelect from './BeneficiarySelect'
 import OrganizerSelect from './OrganizerSelect'
 import CampaignFilter from '../CampaignFilter'
 
+import { CampaignContext } from 'context/create-campaign.'
+
 // Validation helpers
 const formatString = 'yyyy-MM-dd'
 
@@ -50,6 +70,9 @@ const parseDateString = (value: string, originalValue: string) => {
 
 export default function CampaignForm() {
   const { t } = useTranslation()
+
+  const ctx = useContext(CampaignContext)
+  const campaignInfo = ctx.campaignData.info
 
   const onSubmit = () => {}
 
@@ -89,14 +112,6 @@ export default function CampaignForm() {
     setSelectedCampaignType(type)
   }
 
-  const beneficiaryTypes = [
-    { value: 'personal', label: 'Кампанията е лична' },
-    {
-      value: 'beneficiary',
-      label: 'Кампанията  се организира  за друг бенефициент - физическо лице',
-    },
-  ]
-
   return (
     <Grid container direction="column" component="section" mt={6}>
       <Grid item xs={12}>
@@ -119,6 +134,8 @@ export default function CampaignForm() {
               name="title"
               label="campaigns:campaign.title"
               autoComplete="title"
+              onChange={ctx.setCampaignInfo('name')}
+              value={campaignInfo.name}
             />
           </Grid>
           {/* Campaign Type */}
@@ -128,6 +145,7 @@ export default function CampaignForm() {
               selected={selectedCampaignType}
               showCampaigns={false}
               onClick={selectedCampaignTypeHandler}
+              onChange={ctx.setCampaignInfo('category')}
               styles={{ maxWidth: 'md', margin: 'left' }}
             />
           </Grid>
@@ -135,7 +153,19 @@ export default function CampaignForm() {
           <Grid item xs={12} mt={5}>
             <Heading>Бенфициент на кампанията</Heading>
 
-            <RadioButtonGroup name="beneficiary" options={beneficiaryTypes} />
+            <RadioGroup
+              aria-labelledby="beneficiary-field"
+              defaultValue="personal"
+              name="radio-buttons-group"
+              value={campaignInfo.beneficiary.type}
+              onChange={ctx.setCampaignInfo('beneficiary')}>
+              <FormControlLabel value="individual" control={<Radio />} label="Кампанията е лична" />
+              <FormControlLabel
+                value="company"
+                control={<Radio />}
+                label="Кампанията  се организира  за друг бенефициент - физическо лице"
+              />
+            </RadioGroup>
           </Grid>
 
           <Grid item xs={12} mt={3}>
@@ -144,6 +174,8 @@ export default function CampaignForm() {
               label="Три имена на бенефициент"
               name="beneficiary"
               autoComplete="beneficiary"
+              value={campaignInfo.beneficiary.name}
+              onChange={ctx.setCampaignInfo('beneficiary')}
             />
           </Grid>
 
@@ -156,9 +188,69 @@ export default function CampaignForm() {
             <FormTextField
               type="number"
               name="targetAmount"
+              label=""
               autoComplete="target-amount"
               placeholder="88 000.00"
+              value={campaignInfo.targetAmount}
+              onChange={ctx.setCampaignInfo('targetAmount')}
             />
+          </Grid>
+
+          {/* End of the campaign */}
+          <Grid item xs={12} mt={5}>
+            <FormControl>
+              <Heading>Желана крайна дата на кампанията:</Heading>
+
+              <RadioGroup
+                aria-labelledby="end-campaign-field"
+                defaultValue="end-date"
+                name="radio-buttons-group"
+                value={campaignInfo.endDate}
+                onChange={ctx.setCampaignInfo('endDate')}>
+                <FormControlLabel
+                  value="one-time"
+                  control={<Radio />}
+                  label="До събиране на необходимите средства"
+                />
+                <FormControlLabel
+                  value="each-month"
+                  control={<Radio />}
+                  label="Ежемесечна кампания"
+                />
+                <FormControlLabel value="specific-date" control={<Radio />} label="До дата" />
+              </RadioGroup>
+            </FormControl>
+
+            {/* TODO: Show this field if 'specific-date' is selected */}
+            <FormTextField
+              type="date"
+              name="endDate"
+              label="campaigns:campaign.end-date"
+              helperText={null}
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </Grid>
+
+          {/* Action Buttons */}
+          <Grid container spacing={3} justifyContent="flex-start" alignItems="center">
+            <Grid item>
+              <Button onClick={ctx.prevPage} variant="outlined">
+                {t('campaigns:back')}
+              </Button>
+            </Grid>
+
+            <Grid item>
+              <Button
+                onClick={ctx.nextPage}
+                disabled={false}
+                variant="contained"
+                color="success"
+                endIcon={<ChevronRightIcon />}>
+                {t('campaigns:next')}
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
       </GenericForm>

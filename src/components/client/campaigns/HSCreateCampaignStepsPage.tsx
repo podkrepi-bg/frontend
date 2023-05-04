@@ -6,51 +6,16 @@ import Layout from 'components/client/layout/Layout'
 import CustomHorizontalStepper from './CustomHorizontalStepper'
 import HSCreateForm from './stepOne/HSCreateForm'
 
+import { CampaignContext, CampaignProvider } from 'context/create-campaign.'
+import CampaignStepper from './CampaignStepper'
+
 export default function HSCreateCampaignStepsPage() {
-  const { t } = useTranslation()
-
-  const steps = new Map([
-    [
-      0,
-      {
-        label: t('campaigns:steps.step1-type'),
-        component: <HSCreateForm />,
-      },
-    ],
-    [
-      1,
-      {
-        label: t('campaigns:steps.step2-type'),
-        component: <Box>Text 2</Box>,
-      },
-    ],
-    [
-      2,
-      {
-        label: t('campaigns:steps.step3-type'),
-        component: <Box>Text 3</Box>,
-      },
-    ],
-    [
-      3,
-      {
-        label: t('campaigns:steps.step4-type'),
-        component: <Box>Text 4</Box>,
-      },
-    ],
-    [
-      4,
-      {
-        label: t('campaigns:steps.step4-type'),
-        component: <Box>Text 5</Box>,
-      },
-    ],
-  ])
-
   return (
     <Layout>
       <Box>
-        <CustomHorizontalStepper steps={steps} />
+        <CampaignProvider>
+          <CustomHorizontalStepper />
+        </CampaignProvider>
       </Box>
     </Layout>
   )
