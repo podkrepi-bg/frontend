@@ -57,9 +57,11 @@ export const CampaignTitle = styled('h6')(() => ({
   color: theme.palette.secondary.light,
 }))
 
-export const MoneyWrapper = styled(Grid)(() => ({
+export const SumWrapper = styled(Grid)(() => ({
   display: 'flex',
-  flexDirection: 'column',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  flexFlow: 'wrap',
   padding: theme.spacing(0.6, 0),
   minWidth: theme.spacing(17.5),
   background: '#323232',
@@ -68,29 +70,19 @@ export const MoneyWrapper = styled(Grid)(() => ({
   marginLeft: 'auto',
   fontFamily: 'Montserrat, sans-serif',
   fontSize: theme.typography.pxToRem(17),
+}))
+
+export const SumWrapperColumn = styled(Stack)(() => ({
+  flexDirection: 'column',
   alignItems: 'center',
 }))
 
-export const MoneyUnit = styled('span')(() => ({
+export const Sum = styled('span')(() => ({
   fontWeight: 700,
   fontSize: theme.typography.pxToRem(17),
 }))
 
-export const MoneyFraction = styled('span')(() => ({
-  fontWeight: 700,
-  fontSize: theme.typography.pxToRem(10),
-  marginTop: theme.spacing(0.5),
-
-  [theme.breakpoints.up(1270)]: {
-    marginTop: theme.spacing(0.3),
-  },
-}))
-
-export const MoneyWrapperFlex = styled(Stack)(() => ({
-  flexDirection: 'row',
-}))
-
-export const MoneyText = styled(Typography)(() => ({
+export const SumText = styled(Typography)(() => ({
   color: theme.palette.common.white,
   fontFamily: 'Lato, sans-serif',
   fontWeight: 700,
