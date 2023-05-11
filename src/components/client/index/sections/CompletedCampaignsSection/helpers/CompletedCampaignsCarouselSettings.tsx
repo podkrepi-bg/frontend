@@ -5,6 +5,7 @@ export const settings: Settings = {
   speed: 500,
   slidesToShow: 4,
   slidesToScroll: 1,
+  arrows: false,
   dots: true,
   lazyLoad: 'ondemand',
   autoplay: true,
@@ -24,7 +25,7 @@ export const settings: Settings = {
       },
     },
     {
-      breakpoint: 500,
+      breakpoint: 600,
       settings: {
         slidesToShow: 1,
       },
