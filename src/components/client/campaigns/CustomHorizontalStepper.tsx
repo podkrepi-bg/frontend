@@ -42,7 +42,7 @@ export default function CustomHorizontalStepper() {
           {ctx.activeStep === 4 && <Box>Page {ctx.activeStep}</Box>}
 
           {/* Action Buttons */}
-          <Grid container spacing={3} justifyContent="flex-start" alignItems="center">
+          {/* <Grid container spacing={3} justifyContent="flex-start" alignItems="center">
             <Grid item>
               <Button onClick={ctx.prevPage} variant="outlined">
                 back
@@ -54,7 +54,7 @@ export default function CustomHorizontalStepper() {
                 next
               </Button>
             </Grid>
-          </Grid>
+          </Grid> */}
         </>
       )}
     </Box>
