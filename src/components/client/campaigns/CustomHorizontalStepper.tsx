@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Box, Grid, Button, Stepper, Step, StepLabel, Typography } from '@mui/material'
-import { CampaignContext } from 'context/create-campaign.'
+import { CampaignContext } from 'context/create-campaign'
 
 import HSCreateForm from 'components/client/campaigns/stepOne/HSCreateForm'
 // TODO: Fix the Typescript errors

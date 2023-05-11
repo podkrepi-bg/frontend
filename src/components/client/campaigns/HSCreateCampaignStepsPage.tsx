@@ -6,7 +6,7 @@ import Layout from 'components/client/layout/Layout'
 import CustomHorizontalStepper from './CustomHorizontalStepper'
 import HSCreateForm from './stepOne/HSCreateForm'
 
-import { CampaignContext, CampaignProvider } from 'context/create-campaign.'
+import { CampaignContext, CampaignProvider } from 'context/create-campaign'
 import CampaignStepper from './CampaignStepper'
 
 export default function HSCreateCampaignStepsPage() {

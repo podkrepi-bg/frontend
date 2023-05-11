@@ -53,7 +53,7 @@ import BeneficiarySelect from './BeneficiarySelect'
 import OrganizerSelect from './OrganizerSelect'
 import CampaignFilter from '../CampaignFilter'
 
-import { CampaignContext } from 'context/create-campaign.'
+import { CampaignContext } from 'context/create-campaign'
 
 // Validation helpers
 const formatString = 'yyyy-MM-dd'
