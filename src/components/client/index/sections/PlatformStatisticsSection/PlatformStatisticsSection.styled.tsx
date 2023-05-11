@@ -69,7 +69,7 @@ export const HelpThoseInNeedButton = styled(LinkButton)(() => ({
     minWidth: theme.spacing(50),
 
     '& span': {
-      display: 'inline-block',
+      display: 'inline-flex',
     },
   },
 }))
