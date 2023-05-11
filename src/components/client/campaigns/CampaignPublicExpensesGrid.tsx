@@ -12,8 +12,6 @@ import { Button, Tooltip } from '@mui/material'
 import { downloadCampaignExpenseFile } from 'service/expense'
 import { useSession } from 'next-auth/react'
 import FilePresentIcon from '@mui/icons-material/FilePresent'
-import Popover from '@mui/material/Popover'
-import Typography from '@mui/material/Typography'
 
 const PREFIX = 'Grid'
 
@@ -51,7 +49,6 @@ const Root = styled('div')({
 export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
   const { t } = useTranslation('')
   const { data: expensesList } = useCampaignApprovedExpensesList(slug)
-  console.log(expensesList)
 
   const [pageSize, setPageSize] = React.useState<number>(20)
   const { data: session } = useSession()
@@ -99,50 +96,6 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
       headerName: t('expenses:fields.description'),
       headerClassName: classes.gridColumn,
       flex: 2,
-      renderCell: (params: GridRenderCellParams): React.ReactNode => {
-        const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null)
-
-        const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
-          setAnchorEl(event.currentTarget)
-        }
-
-        const handlePopoverClose = () => {
-          setAnchorEl(null)
-        }
-        console.log(params)
-
-        const open = Boolean(anchorEl)
-        return (
-          <div>
-            <Typography
-              aria-owns={open ? 'mouse-over-popover' : undefined}
-              aria-haspopup="true"
-              onMouseEnter={handlePopoverOpen}
-              onMouseLeave={handlePopoverClose}>
-              {params?.value.slice(0, 10)}...
-            </Typography>
-            <Popover
-              id="mouse-over-popover"
-              sx={{
-                pointerEvents: 'none',
-              }}
-              open={open}
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              onClose={handlePopoverClose}
-              disableRestoreFocus>
-              <Typography sx={{ p: 1 }}>{params?.value}</Typography>
-            </Popover>
-          </div>
-        )
-      },
     },
     {
       field: 'spentAt',
@@ -190,6 +143,7 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
         // pagination
         autoHeight
         disableSelectionOnClick
+        getRowHeight={() => 'auto'}
       />
     </Root>
   )
