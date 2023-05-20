@@ -49,7 +49,7 @@ const StyledLayout = styled(Layout)(({ theme }) => ({
 const scrollWindow = () => {
   const avatarWrapper = document.getElementsByClassName(classes.beneficiaryAvatarWrapper)[0]
   let calculatedScrollY = 0
-  if ( avatarWrapper) {
+  if (avatarWrapper) {
     calculatedScrollY = avatarWrapper.clientHeight / 2
   }
   window.scrollTo({ top: calculatedScrollY, behavior: 'smooth' })
@@ -72,13 +72,7 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
 
   return (
     <StyledLayout maxWidth={false}>
-      <Grid
-        container
-        component="section"
-        maxWidth="lg"
-        justifyContent="center"
-        m="0 auto"
-        marginTop={theme.spacing(matches ? 20 : 25)}>
+      <Grid container component="section" maxWidth="lg" justifyContent="center" m="0 auto">
         <Grid
           item
           xs={12}
