@@ -1,19 +1,17 @@
 import Link from 'next/link'
 import Image from 'next/image'
+
 import { styled } from '@mui/material/styles'
-import { Grid, Typography, useMediaQuery } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 
 import theme from 'common/theme'
 import { routes } from 'common/routes'
-import {
-  beneficiaryCampaignPictureUrl,
-  backgroundCampaignPictureUrl,
-} from 'common/util/campaignImageUrls'
+import { beneficiaryCampaignPictureUrl } from 'common/util/campaignImageUrls'
 import Layout from 'components/client/layout/Layout'
 import { useViewCampaign } from 'common/hooks/campaigns'
 import CenteredSpinner from 'components/common/CenteredSpinner'
-
 import DonationStepper from './Steps'
+
 // import RadioAccordionGroup, { testRadioOptions } from 'components/donation-flow/common/RadioAccordionGroup'
 // import RadioCardGroup, { testRadioOptions } from 'components/donation-flow/common/RadioCardGroup'
 // import PaymentDetailsStripeForm from 'components/admin/donations/stripe/PaymentDetailsStripeForm'
@@ -29,8 +27,10 @@ const classes = {
 const StyledLayout = styled(Layout)(({ theme }) => ({
   [`& .${classes.beneficiaryAvatarWrapper}`]: {
     textAlign: 'center',
+    padding: theme.spacing(2, 0, 4, 0),
+
     [theme.breakpoints.up('md')]: {
-      textAlign: 'center',
+      paddingTop: theme.spacing(0),
     },
   },
 
@@ -49,15 +49,16 @@ const StyledLayout = styled(Layout)(({ theme }) => ({
 const scrollWindow = () => {
   const avatarWrapper = document.getElementsByClassName(classes.beneficiaryAvatarWrapper)[0]
   let calculatedScrollY = 0
+
   if (avatarWrapper) {
-    calculatedScrollY = avatarWrapper.clientHeight / 2
+    calculatedScrollY = avatarWrapper.clientHeight / 1.5
   }
+
   window.scrollTo({ top: calculatedScrollY, behavior: 'smooth' })
 }
 
 export default function OneTimeDonation({ slug }: { slug: string }) {
   const { data, isLoading } = useViewCampaign(slug)
-  const matches = useMediaQuery('sm')
   // const paymentIntentMutation = useCreatePaymentIntent({
   //   amount: 100,
   //   currency: 'BGN',
