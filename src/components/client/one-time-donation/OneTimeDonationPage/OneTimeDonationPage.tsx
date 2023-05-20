@@ -1,7 +1,5 @@
 import Link from 'next/link'
-import Image from 'next/image'
 
-import { styled } from '@mui/material/styles'
 import { Grid, Typography } from '@mui/material'
 
 import theme from 'common/theme'
@@ -10,51 +8,20 @@ import { beneficiaryCampaignPictureUrl } from 'common/util/campaignImageUrls'
 import Layout from 'components/client/layout/Layout'
 import { useViewCampaign } from 'common/hooks/campaigns'
 import CenteredSpinner from 'components/common/CenteredSpinner'
-import DonationStepper from './Steps'
+import DonationStepper from '../Steps'
+
+import {
+  BeneficiaryAvatar,
+  BeneficiaryAvatarWrapper,
+  StepperWrapper,
+} from './OneTimeDonation.styles'
 
 // import RadioAccordionGroup, { testRadioOptions } from 'components/donation-flow/common/RadioAccordionGroup'
 // import RadioCardGroup, { testRadioOptions } from 'components/donation-flow/common/RadioCardGroup'
 // import PaymentDetailsStripeForm from 'components/admin/donations/stripe/PaymentDetailsStripeForm'
 
-const PREFIX = 'OneTimeDonationPage'
-
-const classes = {
-  beneficiaryAvatarWrapper: `${PREFIX}-beneficiaryAvatarWrapper`,
-  beneficiaryAvatar: `${PREFIX}-beneficiaryAvatar`,
-  stepperWrapper: `${PREFIX}-stepperWrapper`,
-}
-
-const StyledLayout = styled(Layout)(({ theme }) => ({
-  [`& .${classes.beneficiaryAvatarWrapper}`]: {
-    textAlign: 'center',
-    padding: theme.spacing(2, 0, 4, 0),
-
-    [theme.breakpoints.up('md')]: {
-      paddingTop: theme.spacing(0),
-    },
-  },
-
-  [`& .${classes.beneficiaryAvatar}`]: {
-    borderRadius: '50%',
-    border: `4px solid ${theme.palette.common.white} !important`,
-    textAlign: 'center',
-  },
-
-  [`& .${classes.stepperWrapper}`]: {
-    gap: theme.spacing(2),
-    display: 'grid',
-  },
-}))
-
 const scrollWindow = () => {
-  const avatarWrapper = document.getElementsByClassName(classes.beneficiaryAvatarWrapper)[0]
-  let calculatedScrollY = 0
-
-  if (avatarWrapper) {
-    calculatedScrollY = avatarWrapper.clientHeight / 1.5
-  }
-
-  window.scrollTo({ top: calculatedScrollY, behavior: 'smooth' })
+  window.scrollTo({ top: 200, behavior: 'smooth' })
 }
 
 export default function OneTimeDonation({ slug }: { slug: string }) {
@@ -67,29 +34,24 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
   //   paymentIntentMutation.mutate()
   // }, [])
   if (isLoading || !data) return <CenteredSpinner size="2rem" />
+
   const { campaign } = data
 
   const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
 
   return (
-    <StyledLayout maxWidth={false}>
+    <Layout maxWidth={false}>
       <Grid container component="section" maxWidth="lg" justifyContent="center" m="0 auto">
-        <Grid
-          item
-          xs={12}
-          justifyContent="center"
-          p={4}
-          className={classes.beneficiaryAvatarWrapper}>
-          <Image
+        <BeneficiaryAvatarWrapper item xs={12} p={4}>
+          <BeneficiaryAvatar
             src={beneficiaryAvatarSource}
             // A11Y TODO: Translate alt text
             alt={`Image of ${campaign.beneficiary.person?.firstName} ${campaign.beneficiary.person?.lastName}`}
             width={250}
             height={250}
-            className={classes.beneficiaryAvatar}
           />
-        </Grid>
-        <Grid className={classes.stepperWrapper}>
+        </BeneficiaryAvatarWrapper>
+        <StepperWrapper>
           <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)} passHref>
             <Typography
               variant="h4"
@@ -109,8 +71,8 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
           <DonationStepper onStepChange={scrollWindow} />
           {/* <RadioCardGroup options={testRadioOptions} /> */}
           {/* <RadioAccordionGroup options={testRadioOptions} /> */}
-        </Grid>
+        </StepperWrapper>
       </Grid>
-    </StyledLayout>
+    </Layout>
   )
 }
