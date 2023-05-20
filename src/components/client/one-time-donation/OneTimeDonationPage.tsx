@@ -1,13 +1,13 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { styled } from '@mui/material/styles'
-import { Box, Grid, Typography, useMediaQuery } from '@mui/material'
+import { Grid, Typography, useMediaQuery } from '@mui/material'
 
 import theme from 'common/theme'
 import { routes } from 'common/routes'
 import {
-  backgroundCampaignPictureUrl,
   beneficiaryCampaignPictureUrl,
+  backgroundCampaignPictureUrl,
 } from 'common/util/campaignImageUrls'
 import Layout from 'components/client/layout/Layout'
 import { useViewCampaign } from 'common/hooks/campaigns'
@@ -21,30 +21,12 @@ import DonationStepper from './Steps'
 const PREFIX = 'OneTimeDonationPage'
 
 const classes = {
-  bannerWrapper: `${PREFIX}-bannerWrapper`,
-  banner: `${PREFIX}-banner`,
   beneficiaryAvatarWrapper: `${PREFIX}-beneficiaryAvatarWrapper`,
   beneficiaryAvatar: `${PREFIX}-beneficiaryAvatar`,
   stepperWrapper: `${PREFIX}-stepperWrapper`,
 }
 
 const StyledLayout = styled(Layout)(({ theme }) => ({
-  [`& .${classes.bannerWrapper}`]: {
-    '& span': {
-      position: 'inherit !important',
-    },
-  },
-
-  [`& .${classes.banner}`]: {
-    zIndex: -1,
-    maxHeight: '350px !important',
-    marginTop: `${theme.spacing(10)} !important`,
-    [theme.breakpoints.up('md')]: {
-      marginTop: `${theme.spacing(14)} !important`,
-    },
-    objectFit: 'cover',
-  },
-
   [`& .${classes.beneficiaryAvatarWrapper}`]: {
     textAlign: 'center',
     [theme.breakpoints.up('md')]: {
@@ -65,11 +47,10 @@ const StyledLayout = styled(Layout)(({ theme }) => ({
 }))
 
 const scrollWindow = () => {
-  const bannerWrapper = document.getElementsByClassName(classes.bannerWrapper)[0]
   const avatarWrapper = document.getElementsByClassName(classes.beneficiaryAvatarWrapper)[0]
   let calculatedScrollY = 0
-  if (bannerWrapper && avatarWrapper) {
-    calculatedScrollY = bannerWrapper.clientHeight + avatarWrapper.clientHeight / 2
+  if ( avatarWrapper) {
+    calculatedScrollY = avatarWrapper.clientHeight / 2
   }
   window.scrollTo({ top: calculatedScrollY, behavior: 'smooth' })
 }
@@ -87,7 +68,6 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
   if (isLoading || !data) return <CenteredSpinner size="2rem" />
   const { campaign } = data
 
-  const bannerSource = backgroundCampaignPictureUrl(campaign)
   const beneficiaryAvatarSource = beneficiaryCampaignPictureUrl(campaign)
 
   return (
@@ -99,16 +79,6 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
         justifyContent="center"
         m="0 auto"
         marginTop={theme.spacing(matches ? 20 : 25)}>
-        <Box className={classes.bannerWrapper}>
-          {/* A11Y TODO: Translate alt text */}
-          <Image
-            src={bannerSource}
-            alt="Campaign banner image"
-            sizes="100vw"
-            fill
-            className={classes.banner}
-          />
-        </Box>
         <Grid
           item
           xs={12}
@@ -124,7 +94,6 @@ export default function OneTimeDonation({ slug }: { slug: string }) {
             className={classes.beneficiaryAvatar}
           />
         </Grid>
-
         <Grid className={classes.stepperWrapper}>
           <Link href={routes.campaigns.viewCampaignBySlug(campaign.slug)} passHref>
             <Typography
