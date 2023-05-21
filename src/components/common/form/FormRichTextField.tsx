@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo, useRef } from 'react'
 import { Field, FieldInputProps, useField } from 'formik'
 import { useTranslation } from 'next-i18next'
 import { Typography } from '@mui/material'
@@ -22,36 +22,58 @@ export type RegisterFormProps = {
   name: string
 }
 
-const modules = {
-  toolbar: [
-    [{ header: '1' }, { header: '2' }],
-    [{ size: [] }],
-    ['bold', 'italic', 'underline', 'strike', 'blockquote', 'code'],
-    [{ color: [] }],
-    [{ background: [] }],
-    [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
-    [{ align: [] }],
-    ['link', 'video'],
-    ['clean'],
-  ],
-  clipboard: {
-    // toggle to add extra line breaks when pasting HTML:
-    matchVisual: false,
-  },
-  blotFormatter: {
-    overlay: {
-      style: {
-        border: '2px solid red',
-      },
-    },
-  },
-  htmlEditButton: {},
-}
-
 export default function FormRichTextField({ name }: RegisterFormProps) {
   const { t } = useTranslation()
   const [, meta] = useField(name)
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
+
+  const reactQuillRef = useRef<ReactQuill>(null)
+
+  //this image handler inserts the image into the editor as URL to eternally hosted image
+  //TODO: find a way to upload the image to our backend
+  function handleImageInsert() {
+    const imageUrl = prompt('Enter the URL of the image:') // for a better UX find a way to use the Quill Tooltip or a Modal box
+    if (!imageUrl) return
+    const editor = reactQuillRef.current?.getEditor()
+    if (!editor) return
+    const unprivilegedEditor = reactQuillRef.current?.makeUnprivilegedEditor(editor)
+    if (unprivilegedEditor) {
+      const range = unprivilegedEditor.getSelection(true)
+      editor.insertEmbed(range.index, 'image', imageUrl)
+    }
+  }
+
+  const modules = useMemo(
+    () => ({
+      toolbar: {
+        container: [
+          [{ header: '1' }, { header: '2' }],
+          [{ size: [] }],
+          ['bold', 'italic', 'underline', 'strike', 'blockquote', 'code'],
+          [{ color: [] }],
+          [{ background: [] }],
+          [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
+          [{ align: [] }],
+          ['link', 'video', 'image'],
+          ['clean'],
+        ],
+        handlers: { image: handleImageInsert },
+      },
+      clipboard: {
+        // toggle to add extra line breaks when pasting HTML:
+        matchVisual: false,
+      },
+      blotFormatter: {
+        overlay: {
+          style: {
+            border: '2px solid red',
+          },
+        },
+      },
+      htmlEditButton: {},
+    }),
+    [],
+  )
 
   return (
     <div>
@@ -63,6 +85,7 @@ export default function FormRichTextField({ name }: RegisterFormProps) {
       <Field name={name}>
         {({ field }: { field: FieldInputProps<string> }) => (
           <ReactQuill
+            ref={reactQuillRef}
             modules={modules}
             theme="snow"
             value={field.value}

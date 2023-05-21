@@ -8760,7 +8760,7 @@ __metadata:
     react-gtm-module: 2.0.11
     react-i18next: ^11.17.1
     react-material-ui-carousel: ^3.4.2
-    react-quill: ^2.0.0-beta.4
+    react-quill: ^2.0.0
     react-slick: ^0.29.0
     sharp: ^0.30.5
     shx: ^0.3.3
@@ -9260,7 +9260,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-quill@npm:^2.0.0-beta.4":
+"react-quill@npm:^2.0.0":
   version: 2.0.0
   resolution: "react-quill@npm:2.0.0"
   dependencies:
