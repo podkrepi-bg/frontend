@@ -32,12 +32,20 @@ export default function FormRichTextField({ name }: RegisterFormProps) {
   //this image handler inserts the image into the editor as URL to eternally hosted image
   //TODO: find a way to upload the image to our backend
   function handleImageInsert() {
-    const imageUrl = prompt('Enter the URL of the image:') // for a better UX find a way to use the Quill Tooltip or a Modal box
+    let imageUrl = prompt('Enter the URL of the image:') // for a better UX find a way to use the Quill Tooltip or a Modal box
     if (!imageUrl) return
     const editor = reactQuillRef.current?.getEditor()
     if (!editor) return
     const unprivilegedEditor = reactQuillRef.current?.makeUnprivilegedEditor(editor)
     if (unprivilegedEditor) {
+      //check if the link is from google drive and if so, change the link to a direct link
+      const googleDriveLink = imageUrl.match(
+        /https:\/\/drive.google.com\/file\/d\/(.*)\/view\?usp=share_link/,
+      )
+      if (googleDriveLink) {
+        imageUrl = 'https://drive.google.com/uc?export=view&id=' + googleDriveLink[1]
+      }
+
       const range = unprivilegedEditor.getSelection(true)
       editor.insertEmbed(range.index, 'image', imageUrl)
     }
