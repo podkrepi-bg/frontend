@@ -143,6 +143,7 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
         // pagination
         autoHeight
         disableSelectionOnClick
+        getRowHeight={() => 'auto'}
       />
     </Root>
   )
