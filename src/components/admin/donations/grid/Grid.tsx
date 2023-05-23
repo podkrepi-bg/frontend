@@ -39,9 +39,10 @@ const addIconStyles = {
 }
 export default observer(function Grid() {
   const { donationStore } = useStores()
-  const [paginationData, setPaginationData] = useState({
-    pageIndex: 0,
-    pageSize: 20,
+
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
   })
   const [focusedRowId, setFocusedRowId] = useState(null as string | null)
   const { t } = useTranslation()
@@ -56,7 +57,7 @@ export default observer(function Grid() {
     refetch,
   }: UseQueryResult<CampaignDonationHistoryResponse> = useDonationsList(
     campaignId,
-    paginationData,
+    paginationModel,
     donationStore.donationFilters,
     donationStore.donationSearch,
   )
@@ -201,17 +202,16 @@ export default observer(function Grid() {
           }}
           rows={donations || []}
           columns={columns}
-          rowsPerPageOptions={[5, 10, 20]}
-          pageSize={paginationData.pageSize}
+          pageSizeOptions={[5, 10, 20]}
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
           pagination
           loading={isDonationHistoryLoading}
           error={donationHistoryError}
-          page={paginationData.pageIndex}
-          onPageChange={(pageIndex) => setPaginationData({ ...paginationData, pageIndex })}
-          onPageSizeChange={(pageSize) => setPaginationData({ ...paginationData, pageSize })}
+          page={paginationModel.page}
           paginationMode="server"
           rowCount={allDonationsCount}
-          disableSelectionOnClick
+          disableRowSelectionOnClick
           isCellEditable={() => true}
         />
       </Box>

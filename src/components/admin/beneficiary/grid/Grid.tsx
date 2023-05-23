@@ -49,9 +49,12 @@ const DisplayBeneficiaryType = ({ params }: BeneficiaryCellProps) => {
 }
 
 export default observer(function Grid() {
-  const [pageSize, setPageSize] = useState(5)
   const { selectedRecord } = ModalStore
   const { t } = useTranslation()
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 5,
+    page: 0,
+  })
 
   const { data }: UseQueryResult<BeneficiaryListResponse[]> = useBeneficiariesList()
 
@@ -130,10 +133,10 @@ export default observer(function Grid() {
           }}
           rows={data || []}
           columns={columns}
-          rowsPerPageOptions={[5, 10]}
-          pageSize={pageSize}
-          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          disableSelectionOnClick
+          pageSizeOptions={[5, 10]}
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
+          disableRowSelectionOnClick
         />
       </Box>
       {selectedRecord.id && <DetailsModal />}

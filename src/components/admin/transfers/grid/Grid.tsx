@@ -21,7 +21,10 @@ export default observer(function Grid() {
   const { data }: UseQueryResult<TransferResponse[]> = useTransferList()
   const { isDetailsOpen } = ModalStore
 
-  const [pageSize, setPageSize] = useState(5)
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
+  })
 
   const columns: GridColumns = [
     {
@@ -139,11 +142,11 @@ export default observer(function Grid() {
           }}
           rows={data || []}
           columns={columns}
-          rowsPerPageOptions={[5, 10]}
-          pageSize={pageSize}
-          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+          pageSizeOptions={[5, 10]}
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
           autoHeight
-          disableSelectionOnClick
+          disableRowSelectionOnClick
         />
       </Box>
 

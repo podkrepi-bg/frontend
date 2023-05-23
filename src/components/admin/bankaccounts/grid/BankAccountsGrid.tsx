@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { GridColumns, DataGrid, GridRenderCellParams } from '@mui/x-data-grid'
@@ -19,6 +19,10 @@ export default observer(function BankAccountsGrid() {
   const { t } = useTranslation('bankaccounts')
   const { data }: UseQueryResult<BankAccountResponse[]> = useBankAccountsList()
   const { isDetailsOpen } = ModalStore
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
+  })
 
   const columns: GridColumns = [
     { ...commonProps, headerName: t('status'), field: 'status' },
@@ -72,11 +76,12 @@ export default observer(function BankAccountsGrid() {
         }}
         rows={data || []}
         columns={columns}
-        rowsPerPageOptions={[5, 10]}
-        pageSize={10}
+        pageSizeOptions={[5, 10]}
+        paginationModel={paginationModel}
+        onPaginationModelChange={setPaginationModel}
         autoHeight
         autoPageSize
-        disableSelectionOnClick
+        disableRowSelectionOnClick
       />
 
       {/* making sure we don't sent requests to the API when not needed */}

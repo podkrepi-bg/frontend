@@ -143,7 +143,7 @@ export default observer(function Grid() {
           }}
           rows={bankTransactions || []}
           columns={columns}
-          rowsPerPageOptions={[5, 10, 20]}
+          pageSizeOptions={[5, 10, 20]}
           pageSize={paginationData.pageSize}
           pagination
           loading={bankDonationsHistoryLoading}
@@ -153,7 +153,7 @@ export default observer(function Grid() {
           onPageSizeChange={(pageSize) => setPaginationData({ ...paginationData, pageSize })}
           paginationMode="server"
           rowCount={all_rows}
-          disableSelectionOnClick
+          disableRowSelectionOnClick
           isCellEditable={() => true}
         />
       </Box>

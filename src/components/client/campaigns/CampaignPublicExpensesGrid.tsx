@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { styled } from '@mui/material/styles'
 import { observer } from 'mobx-react'
 import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
@@ -49,8 +49,10 @@ const Root = styled('div')({
 export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
   const { t } = useTranslation('')
   const { data: expensesList } = useCampaignApprovedExpensesList(slug)
-
-  const [pageSize, setPageSize] = React.useState<number>(20)
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 20,
+    page: 0,
+  })
   const { data: session } = useSession()
 
   const downloadExpenseFileHandler = async (file: ExpenseFile) => {
@@ -137,12 +139,11 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
         className={classes.grid}
         rows={expensesList || []}
         columns={columns}
-        pageSize={pageSize}
-        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-        rowsPerPageOptions={[20, 40, 60]}
-        // pagination
+        pageSizeOptions={[20, 40, 60]}
+        paginationModel={paginationModel}
+        onPaginationModelChange={setPaginationModel}
         autoHeight
-        disableSelectionOnClick
+        disableRowSelectionOnClick
         getRowHeight={() => 'auto'}
       />
     </Root>

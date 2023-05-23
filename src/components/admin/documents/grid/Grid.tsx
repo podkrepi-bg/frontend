@@ -15,7 +15,10 @@ import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
 
 export default observer(function Grid() {
-  const [pageSize, setPageSize] = useState(5)
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
+  })
   const { t } = useTranslation()
   const { data }: UseQueryResult<DocumentResponse[]> = useDocumentsList()
   const { isDetailsOpen } = ModalStore
@@ -94,12 +97,12 @@ export default observer(function Grid() {
           }}
           rows={data || []}
           columns={columns}
-          rowsPerPageOptions={[5, 10]}
-          pageSize={pageSize}
-          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+          pageSizeOptions={[5, 10]}
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
           autoHeight
           autoPageSize
-          disableSelectionOnClick
+          disableRowSelectionOnClick
         />
       </Box>
 

@@ -16,9 +16,12 @@ import DeleteModal from './DeleteModal'
 
 export default observer(function Grid() {
   const { t } = useTranslation('benefactor')
-  const [pageSize, setPageSize] = useState(5)
   const { data }: UseQueryResult<BenefactorResponse[]> = useBenefactorList()
   const { isDetailsOpen } = ModalStore
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
+  })
 
   const commonProps: Partial<GridColDef> = {
     align: 'left',
@@ -78,12 +81,12 @@ export default observer(function Grid() {
           }}
           rows={data || []}
           columns={columns}
-          rowsPerPageOptions={[5, 10]}
-          pageSize={pageSize}
-          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+          pageSizeOptions={[5, 10]}
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
           autoHeight
           autoPageSize
-          disableSelectionOnClick
+          disableRowSelectionOnClick
         />
       </Box>
 

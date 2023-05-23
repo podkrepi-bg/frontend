@@ -41,7 +41,7 @@ export default function FormDatePicker({ name, label }: { name: string; label: s
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DatePicker
         mask={mask}
-        inputFormat={dateViewFormat}
+        format={dateViewFormat}
         label={label}
         value={field.value}
         onChange={(newValue) => updateValue(newValue)}

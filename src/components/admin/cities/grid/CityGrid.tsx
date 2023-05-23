@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import { DataGrid, GridColumns } from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
@@ -15,6 +15,10 @@ export default observer(function CitiesGrid() {
   const { data } = useCitiesList()
   const { t } = useTranslation()
   const { isDetailsOpen } = ModalStore
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
+  })
 
   const columns: GridColumns = [
     { field: 'id', headerName: 'ID', hide: true },
@@ -73,11 +77,12 @@ export default observer(function CitiesGrid() {
         }}
         rows={data || []}
         columns={columns}
-        pageSize={5}
+        paginationModel={paginationModel}
+        onPaginationModelChange={setPaginationModel}
         editMode="row"
         autoHeight
         autoPageSize
-        disableSelectionOnClick
+        disableRowSelectionOnClick
       />
 
       {/* making sure we don't sent requests to the API when not needed */}

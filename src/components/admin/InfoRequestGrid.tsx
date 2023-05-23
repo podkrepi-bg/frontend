@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { DataGrid, GridColumns } from '@mui/x-data-grid'
 
 import { DialogStore } from 'stores/DialogStore'
@@ -35,14 +35,20 @@ const columns: GridColumns = [
 export default function InfoRequestGrid() {
   const { data } = useInfoRequestList()
 
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
+  })
+
   return (
     <DataGrid
       rows={data || []}
       columns={columns}
-      pageSize={10}
+      paginationModel={paginationModel}
+      onPaginationModelChange={setPaginationModel}
       autoHeight
       autoPageSize
-      disableSelectionOnClick
+      disableRowSelectionOnClick
       onRowClick={(p, event) => {
         const elm = event.target as HTMLInputElement
         if (elm.type != 'checkbox') {

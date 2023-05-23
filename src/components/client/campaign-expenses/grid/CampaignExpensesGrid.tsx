@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { styled } from '@mui/material/styles'
 import { observer } from 'mobx-react'
 import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
@@ -51,8 +51,10 @@ const Root = styled('div')({
 export default observer(function CampaignExpensesGrid({ slug }: Props) {
   const { t } = useTranslation('')
   const { data: expensesList } = useCampaignExpensesList(slug)
-
-  const [pageSize, setPageSize] = React.useState<number>(10)
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
+  })
   const { data: personList } = usePersonList()
 
   const columns: GridColumns = [
@@ -155,12 +157,12 @@ export default observer(function CampaignExpensesGrid({ slug }: Props) {
         className={classes.grid}
         rows={expensesList || []}
         columns={columns}
-        pageSize={pageSize}
-        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-        rowsPerPageOptions={[100]}
+        paginationModel={paginationModel}
+        onPaginationModelChange={setPaginationModel}
+        pageSizeOptions={[100]}
         pagination
         autoHeight
-        disableSelectionOnClick
+        disableRowSelectionOnClick
       />
       <DeleteModal />
     </Root>

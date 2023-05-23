@@ -69,14 +69,20 @@ const columns: GridColumns = [
 export default function SupportersGrid() {
   const { data } = useSupportRequestList()
 
+  const [paginationModel, setPaginationModel] = React.useState({
+    pageSize: 10,
+    page: 0,
+  })
+
   return (
     <DataGrid
       rows={data || []}
       columns={columns}
-      pageSize={10}
+      paginationModel={paginationModel}
+      onPaginationModelChange={setPaginationModel}
       autoHeight
       autoPageSize
-      disableSelectionOnClick
+      disableRowSelectionOnClick
       onRowClick={(p, event) => {
         const elm = event.target as HTMLInputElement
         if (elm.type != 'checkbox') {

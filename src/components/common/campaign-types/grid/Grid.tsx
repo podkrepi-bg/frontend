@@ -15,7 +15,10 @@ import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 
 export default observer(function Grid() {
-  const [pageSize, setPageSize] = useState(10)
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
+  })
   const { t } = useTranslation()
 
   const { data }: UseQueryResult<CampaignTypesResponse[]> = useCampaignTypesList()
@@ -89,10 +92,10 @@ export default observer(function Grid() {
           }}
           rows={data || []}
           columns={columns}
-          rowsPerPageOptions={[5, 10]}
-          pageSize={pageSize}
-          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          disableSelectionOnClick
+          pageSizeOptions={[5, 10]}
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
+          disableRowSelectionOnClick
         />
       </Box>
 
