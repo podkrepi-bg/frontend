@@ -1,6 +1,3 @@
-import React from 'react'
-import { CampaignTypeCategory } from 'components/common/campaign-types/categories'
-
 export type UUID = string
 
 export type PaginationData = {
@@ -19,8 +16,8 @@ export type FilterData = {
 
 export type CategoryType = {
   text: string
-  type: CampaignTypeCategory
+  type: string
   count?: number
   isDisabled?: boolean
-  icon: React.ReactElement
+  icon: ReactElement
 }
