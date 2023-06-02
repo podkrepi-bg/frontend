@@ -7,27 +7,15 @@
  */
 
 import { useState, useContext } from 'react'
-import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
-import {
-  Button,
-  Grid,
-  Typography,
-  FormControl,
-  RadioGroup,
-  FormLabel,
-  FormControlLabel,
-  Radio,
-} from '@mui/material'
-import { routes } from 'common/routes'
+import { Button, Grid, FormControl, RadioGroup, FormControlLabel, Radio } from '@mui/material'
 import { Heading, SectionHeading } from '../campaigns.styled'
 import { CampaignState } from '../../../client/campaigns/helpers/campaign.enums'
-import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 
 // Validations
 import * as yup from 'yup'
-import { format, parse, isDate } from 'date-fns'
+import { parse, isDate } from 'date-fns'
 
 // Types
 import {
@@ -41,16 +29,8 @@ import { CategoryType } from 'gql/types'
 import { CampaignTypeCategory } from 'components/common/campaign-types/categories'
 
 // Components
-import ListIconButtons from '../ListIconButtons'
-import Link from 'next/link'
 import GenericForm from 'components/common/form/GenericForm'
-import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
-import AcceptTermsField from 'components/common/form/AcceptTermsField'
-import CampaignTypeSelect from '../CampaignTypeSelect'
-import CoordinatorSelect from './CoordinatorSelect'
-import BeneficiarySelect from './BeneficiarySelect'
-import OrganizerSelect from './OrganizerSelect'
 import CampaignFilter from '../CampaignFilter'
 
 import { CampaignContext } from 'context/create-campaign'
@@ -74,7 +54,9 @@ export default function CampaignForm() {
   const ctx = useContext(CampaignContext)
   const campaignInfo = ctx.campaignData.info
 
-  const onSubmit = () => {}
+  const onSubmit = () => {
+    console.log('Form submitted')
+  }
 
   const initialValues = {}
 
