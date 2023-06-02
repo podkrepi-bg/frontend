@@ -15,10 +15,10 @@ export default function CustomHorizontalStepper() {
           const labelProps: {
             optional?: React.ReactNode
           } = {}
-          if (ctx.isStepOptional(index)) {
+          if (ctx.isStepOptional && ctx.isStepOptional(index)) {
             labelProps.optional = <Typography variant="caption">Optional</Typography>
           }
-          if (ctx.isStepSkipped(index)) {
+          if (ctx.isStepSkipped && ctx.isStepSkipped(index)) {
             stepProps.completed = false
           }
           return (
