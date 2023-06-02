@@ -16,7 +16,7 @@ export type FilterData = {
 
 export type CategoryType = {
   text: string
-  type: string
+  type: CampaignTypeCategory
   count?: number
   isDisabled?: boolean
   icon: ReactElement
