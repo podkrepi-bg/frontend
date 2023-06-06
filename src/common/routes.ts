@@ -90,6 +90,7 @@ export const routes = {
   donation: {
     viewCertificate: (donationId: string) => `/api/pdf/certificate/${donationId}`,
   },
+  
   profile: {
     index: '/profile/donations',
     donations: '/profile/donations',
