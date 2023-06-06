@@ -12,7 +12,6 @@ import { styled } from '@mui/material/styles'
 import { useCampaignNewsList } from 'common/hooks/campaign-news'
 
 import Link from 'next/link'
-import { CampaignNewsWithPaginationResponse } from 'gql/campaign-news'
 
 import CampaignNewsList from './CampaignNewsList'
 
@@ -116,7 +115,7 @@ export default function CampaignNewsPage({ page, slug = null }: Props) {
                   return <PaginationItem {...item} />
                 }
                 return (
-                  <Link href={routes.campaigns.news.listNewsPaginated(item.page, slug)}>
+                  <Link href={routes.campaigns.news.listNewsPaginated(item.page, slug)} passHref>
                     <PaginationItem {...item} />
                   </Link>
                 )

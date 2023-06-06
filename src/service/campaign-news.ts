@@ -20,16 +20,15 @@ export const useCreateCampaignNews = () => {
 }
 
 export const useEditNewsArticle = (id: string) => {
-    const {data: session} = useSession()
-    return async(data: CampaignNewsInput) => {
-       return await apiClient.put<CampaignNewsInput, AxiosResponse<CampaignNewsResponse>>(
-            endpoints.campaignNews.editNewsArticle(id).url,
-            data,
-            authConfig(session?.accessToken)
-        )
-    }
+  const { data: session } = useSession()
+  return async (data: CampaignNewsInput) => {
+    return await apiClient.put<CampaignNewsInput, AxiosResponse<CampaignNewsResponse>>(
+      endpoints.campaignNews.editNewsArticle(id).url,
+      data,
+      authConfig(session?.accessToken),
+    )
+  }
 }
-
 
 export const useUploadCampaignNewsFiles = () => {
   const { data: session } = useSession()

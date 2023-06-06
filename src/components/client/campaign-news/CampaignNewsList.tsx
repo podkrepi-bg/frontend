@@ -85,10 +85,9 @@ export default function CampaignNewsList({ articles }: Props) {
   const htmlRemoverRegex = /(<([^>]+)>)/gi
   const [isExpanded, expandContent] = useShowMoreContent()
 
-
   return (
     <>
-      {articles?.map((article, index, array) => {
+      {articles?.map((article, index) => {
         const unFormattedText = article.description.replace(htmlRemoverRegex, ' ')
         const documents = GetArticleDocuments(article.articleFiles)
         const images = GetArticleGalleryPhotos(article.articleFiles)
@@ -136,7 +135,9 @@ export default function CampaignNewsList({ articles }: Props) {
                       />
                     )}
                     {unFormattedText.length > CHARACTER_LIMIT && (
-                      <Button className={classes.readMoreButton} onClick={() => expandContent(article.id)}>
+                      <Button
+                        className={classes.readMoreButton}
+                        onClick={() => expandContent(article.id)}>
                         {!isExpanded[article.id] ? `${t('read-more')} >` : `${t('read-less')} <`}
                       </Button>
                     )}

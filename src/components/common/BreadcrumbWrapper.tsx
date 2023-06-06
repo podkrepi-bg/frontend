@@ -21,7 +21,7 @@ export default function BreadcrumbWrapper({ crumb }: Props) {
         return (
           <Box key={index}>
             {!isLast ? (
-              <Link href={crumbItem.url}>
+              <Link href={crumbItem.url} passHref>
                 <Typography variant="body1" color={'text.secondary'} fontSize={14}>
                   {t(`${crumbItem.label}`)}
                 </Typography>

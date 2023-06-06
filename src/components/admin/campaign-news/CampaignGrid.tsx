@@ -15,13 +15,13 @@ import DetailsModal from './modals/DetailsModal'
 import { useCampaignNewsAdminList } from 'common/hooks/campaign-news'
 import { AdminCampaignNewsResponse } from 'gql/campaign-news'
 
-
 export default function CampaignNewsGrid() {
   const { t, i18n } = useTranslation()
-  const { data = [], refetch }: UseQueryResult<AdminCampaignNewsResponse[]> = useCampaignNewsAdminList()
+  const { data = [], refetch }: UseQueryResult<AdminCampaignNewsResponse[]> =
+    useCampaignNewsAdminList()
   const [viewId, setViewId] = useState<string | undefined>()
   const [deleteId, setDeleteId] = useState<string | undefined>()
-  const selectedArticle= useMemo(() => data.find((c) => c.id === viewId), [data, viewId])
+  const selectedArticle = useMemo(() => data.find((c) => c.id === viewId), [data, viewId])
   const commonProps: Partial<GridColDef> = {
     align: 'left',
     width: 100,
@@ -68,7 +68,7 @@ export default function CampaignNewsGrid() {
       ...commonProps,
       align: 'left',
       width: 350,
-      renderCell: (params: GridRenderCellParams) => (<>{params.row.campaign.title}</>)
+      renderCell: (params: GridRenderCellParams) => <>{params.row.campaign.title}</>,
     },
     {
       field: 'author',
@@ -76,7 +76,7 @@ export default function CampaignNewsGrid() {
       ...commonProps,
       align: 'left',
       width: 200,
-      renderCell: (params: GridRenderCellParams) => (<>{params.row.author}</>)
+      renderCell: (params: GridRenderCellParams) => <>{params.row.author}</>,
     },
     {
       field: 'createdAt',
@@ -86,11 +86,9 @@ export default function CampaignNewsGrid() {
       width: 200,
       renderCell: (params: GridRenderCellParams) => (
         <Tooltip title={getExactDateTime(params.row.createdAt)}>
-          <Button color="inherit">
-            {getRelativeDate(params.row.createdAt, i18n.language)}
-          </Button>
+          <Button color="inherit">{getRelativeDate(params.row.createdAt, i18n.language)}</Button>
         </Tooltip>
-      )
+      ),
     },
     {
       field: 'publishedAt',
@@ -99,13 +97,13 @@ export default function CampaignNewsGrid() {
       align: 'left',
       width: 200,
       renderCell: (params: GridRenderCellParams) => {
-        if(!params.row.publishedAt) return ''
+        if (!params.row.publishedAt) return ''
         return (
-        <Tooltip title={getExactDateTime(params.row.publishedAt)}>
-          <Button color="inherit">
-            {getRelativeDate(params.row.publishedAt, i18n.language)}
-          </Button>
-        </Tooltip>        
+          <Tooltip title={getExactDateTime(params.row.publishedAt)}>
+            <Button color="inherit">
+              {getRelativeDate(params.row.publishedAt, i18n.language)}
+            </Button>
+          </Tooltip>
         )
       },
     },
@@ -116,13 +114,11 @@ export default function CampaignNewsGrid() {
       align: 'left',
       width: 250,
       renderCell: (params: GridRenderCellParams) => {
-        if(!params.row.editedAt) return ''
+        if (!params.row.editedAt) return ''
         return (
-      <Tooltip title={getExactDateTime(params.row.editedAt)}>
-          <Button color="inherit">
-            {getRelativeDate(params.row.editedAt, i18n.language)}
-          </Button>
-      </Tooltip>
+          <Tooltip title={getExactDateTime(params.row.editedAt)}>
+            <Button color="inherit">{getRelativeDate(params.row.editedAt, i18n.language)}</Button>
+          </Tooltip>
         )
       },
     },

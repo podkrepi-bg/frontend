@@ -4,7 +4,7 @@ import { endpoints } from 'service/apiEndpoints'
 
 export const getServerSideProps = securedAdminProps(
   ['common', 'auth', 'campaigns', 'news', 'validation'],
-  (ctx) => endpoints.campaignNews.editNewsArticle(ctx.query.id as string).url
+  (ctx) => endpoints.campaignNews.editNewsArticle(ctx.query.id as string).url,
 )
 
 export default EditPage

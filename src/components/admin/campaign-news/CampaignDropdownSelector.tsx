@@ -1,6 +1,14 @@
-import { FormControl, FormHelperText, InputLabel, ListSubheader, MenuItem, Select, Typography } from '@mui/material'
+import {
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  ListSubheader,
+  MenuItem,
+  Select,
+  Typography,
+} from '@mui/material'
 import { TranslatableField, translateError } from 'common/form/validation'
-import { useCampaignList} from 'common/hooks/campaigns'
+import { useCampaignList } from 'common/hooks/campaigns'
 import { useField } from 'formik'
 import { useTranslation } from 'react-i18next'
 import { CampaignTypeCategory } from 'components/common/campaign-types/categories'
@@ -12,18 +20,23 @@ export default function CampaignDropdownSelector({ name = 'campaignId' }) {
 
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
 
-  const GroupCampaignsByCategory= (category: string) => {
-    const items = data?.filter(campaign => campaign.campaignType.category === category).map(({id, title}) => {
-        return  (
-        <MenuItem key={id} value={id} >
+  const GroupCampaignsByCategory = (category: string) => {
+    const items = data
+      ?.filter((campaign) => campaign.campaignType.category === category)
+      .map(({ id, title }) => {
+        return (
+          <MenuItem key={id} value={id}>
             {title}
-        </MenuItem>
+          </MenuItem>
         )
-    })
+      })
     return [
-    <ListSubheader>
-      <Typography fontSize={20}>{t(`campaigns:filters.${category}`)}</Typography>
-      </ListSubheader>, items, <br/>]
+      <ListSubheader key={category}>
+        <Typography fontSize={20}>{t(`campaigns:filters.${category}`)}</Typography>
+      </ListSubheader>,
+      items,
+      <br key={category} />,
+    ]
   }
 
   return (
@@ -36,7 +49,7 @@ export default function CampaignDropdownSelector({ name = 'campaignId' }) {
       <Select fullWidth defaultValue="" label={t('Изберете кампания')} {...field}>
         <MenuItem key="" value="" disabled>
           {t('Изберете кампания')}
-        </MenuItem>     
+        </MenuItem>
         {Object.values(CampaignTypeCategory).map((category) => GroupCampaignsByCategory(category))}
       </Select>
       {helperText && <FormHelperText error>{helperText}</FormHelperText>}

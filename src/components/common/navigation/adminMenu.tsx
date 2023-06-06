@@ -35,7 +35,7 @@ export const menuPeople = [
 ]
 export const menuCampaings = [
   { label: 'Кампании', icon: AssignmentInd, href: routes.admin.campaigns.index },
-  { label: 'Новини', icon:ArticleOutlined, href: routes.admin.news.index},  
+  { label: 'Новини', icon: ArticleOutlined, href: routes.admin.news.index },
   { label: 'Документи', icon: FolderShared, href: routes.admin.documents.index },
   { label: 'Злоупотреби', icon: ReportGmailerrorredIcon, href: routes.admin.irregularity.index },
 ]
@@ -69,7 +69,7 @@ export const items = [
 
 export const adminCards = [
   { label: 'Кампании', icon: AssignmentInd, href: routes.admin.campaigns.index },
-  { label: 'Новини', icon:ArticleOutlined, href: routes.admin.news.index},
+  { label: 'Новини', icon: ArticleOutlined, href: routes.admin.news.index },
   { label: 'Дарения', icon: VolunteerActivismOutlinedIcon, href: routes.admin.donations.index },
   { label: 'Бенефициенти', icon: BeneficiaryIcon, href: routes.admin.beneficiary.index },
   { label: 'Координатори', icon: People, href: routes.admin.coordinators.index },

@@ -11,8 +11,6 @@ import {
 } from '@mui/material'
 import { useTranslation } from 'next-i18next'
 
-import { AdminCampaignResponse } from 'gql/campaigns'
-import { money } from 'common/util/money'
 import { getExactDateTime } from 'common/util/date'
 import { AdminCampaignNewsResponse } from 'gql/campaign-news'
 
@@ -35,12 +33,12 @@ export default function DetailsModal({ article, onClose }: Props) {
           </Typography>
           <Typography variant="body1">Слъг: {article.slug}</Typography>
           <Typography variant="body1">
-          <Typography variant="body1">
-            Автор: {article.author}
-          </Typography>
+            <Typography variant="body1">Автор: {article.author}</Typography>
             Създадена на: {getExactDateTime(article.createdAt)}
           </Typography>
-          <Typography variant="body1">Публикувана на: {getExactDateTime(article.publishedAt)}</Typography>
+          <Typography variant="body1">
+            Публикувана на: {getExactDateTime(article.publishedAt)}
+          </Typography>
           <Typography variant="body1">Кампания: {article.campaign.title}</Typography>
           <Typography variant="body1">Описание: {article.description}</Typography>
         </CardContent>

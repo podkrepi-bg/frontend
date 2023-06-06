@@ -12,7 +12,6 @@ import GridActions from 'components/admin/GridActions'
 import { ModalStore } from '../ExpensesPage'
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
-import { statusRenderCell } from './GridHelper'
 import { moneyPublic } from 'common/util/money'
 
 const PREFIX = 'Grid'

@@ -88,17 +88,15 @@ export const routes = {
     },
     news: {
       index: '/campaigns/news',
-      listNewsForCampaign: (slug:string) => `/campaigns/${slug}/news`,
-      listNewsPaginated: (page: number, slug: string | null) => 
-      slug
-        ? `/campaigns/${slug}/news?page=${page}`
-        :`/campaigns/news?page=${page}`,    
+      listNewsForCampaign: (slug: string) => `/campaigns/${slug}/news`,
+      listNewsPaginated: (page: number, slug: string | null) =>
+        slug ? `/campaigns/${slug}/news?page=${page}` : `/campaigns/news?page=${page}`,
     },
   },
   donation: {
     viewCertificate: (donationId: string) => `/api/pdf/certificate/${donationId}`,
   },
-  
+
   profile: {
     index: '/profile/donations',
     donations: '/profile/donations',
@@ -142,7 +140,7 @@ export const routes = {
       create: '/admin/campaign-news/create',
       viewArticleBySlug: (slug: string) => `admin/campaign-news/${slug}`,
       edit: (id: string) => `/admin/campaign-news/edit/${id}`,
-    },    
+    },
     withdrawals: {
       index: '/admin/withdrawals',
       create: '/admin/withdrawals/create',

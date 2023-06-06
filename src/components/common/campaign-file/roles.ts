@@ -3,7 +3,7 @@ export enum CampaignFileRole {
   coordinator = 'coordinator',
   campaignPhoto = 'campaignPhoto',
   invoice = 'invoice',
-  gallery = 'gallery',  
+  gallery = 'gallery',
   document = 'document',
   profilePhoto = 'profilePhoto',
   campaignListPhoto = 'campaignListPhoto',

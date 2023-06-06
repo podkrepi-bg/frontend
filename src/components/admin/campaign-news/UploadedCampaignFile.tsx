@@ -53,7 +53,7 @@ export default function UploadedCampaignFile({ file, articleId }: Props) {
   }
 
   const deleteFileHandler = () => {
-     mutation.mutate()
+    mutation.mutate()
   }
 
   return (

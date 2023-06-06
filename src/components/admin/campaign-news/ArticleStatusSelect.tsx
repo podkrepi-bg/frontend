@@ -7,7 +7,7 @@ import { ArticleStatus } from './helpers/article-status.enum'
 export default function ArticleStatusSelect({ name = 'state' }) {
   const { t } = useTranslation('news')
   const [field, meta] = useField(name)
- 
+
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
 
   return (
