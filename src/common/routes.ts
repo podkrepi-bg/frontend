@@ -128,6 +128,12 @@ export const routes = {
       viewCampaignBySlug: (slug: string) => `/admin/campaigns/${slug}`,
       edit: (id: string) => `/admin/campaigns/edit/${id}`,
     },
+    news: {
+      index: '/admin/campaign-news',
+      create: '/admin/campaign-news/create',
+      viewArticleBySlug: (slug: string) => `admin/campaign-news/${slug}`,
+      edit: (id: string) => `/admin/campaign-news/edit/${id}`,
+    },    
     withdrawals: {
       index: '/admin/withdrawals',
       create: '/admin/withdrawals/create',

@@ -36,6 +36,16 @@ export const endpoints = {
     listCampaignApprovedExpenses: (slug: string) =>
       <Endpoint>{ url: `/campaign/${slug}/expenses/approved`, method: 'GET' },
   },
+  campaignNews: {
+    createNewsArticle: <Endpoint>{url: '/campaign-news', method: 'POST'},
+    listAdminNews: <Endpoint>{url: '/campaign-news/list-all', method: 'GET'},
+    viewNewsArticleById: (id: string) => <Endpoint>{url: `/campaign-news/byId/${id}`, method: 'GET'},
+    editNewsArticle: (articleId: string) => <Endpoint>{url: `/campaign-news/${articleId}`, method: 'PUT'},
+    deleteNewsArticle: (articleId: string) => <Endpoint>{url: `/campaign-news/${articleId}`, method: 'DELETE'},
+    uploadFile: (articleId: string) => <Endpoint>{ url: `/campaign-news-file/${articleId}`, method: 'POST' },
+    downloadFile: (fileId: string) => <Endpoint>{ url: `/campaign-news-file/${fileId}`, method: 'GET' },
+    deleteFile: (fileId: string) => <Endpoint>{ url: `/campaign-news-file/${fileId}`, method: 'DELETE' },    
+  },
   campaignType: {
     listCampaignTypes: <Endpoint>{ url: '/campaign-type/list', method: 'GET' },
   },
