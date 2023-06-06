@@ -1,7 +1,8 @@
 {
     "news": "News",
     "read-more": "Read more",
-    "read-less": "Read less",    
+    "read-less": "Read less",
+    "see-all-news": "See all news",      
     "status" : {
         "draft": "Draft",
         "published": "Published"

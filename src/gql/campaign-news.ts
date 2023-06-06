@@ -32,6 +32,17 @@ export type CampaignNewsResponse = Omit<BaseCampaignNewsResponse, "|createdAt|ed
     }
 };
 
+export type CampaignNewsPagination = {
+    currentPage: number,
+    nextPage: number,
+    prevPage:number,
+    totalPages: number
+}
+
+export type CampaignNewsWithPaginationResponse = {
+    articles: CampaignNewsResponse[],
+    pagination: CampaignNewsPagination
+}
 
 export type CampaignNewsFile = {
   id: UUID

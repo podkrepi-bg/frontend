@@ -10,12 +10,11 @@ import { routes } from 'common/routes'
 import { OutlinedButton } from "../index/IndexPage.styled";
 
 import {  useTranslation } from "next-i18next";
-import { useState } from "react";
 
 import Image from 'next/image'
 import useMobile from "common/hooks/useMobile";
 import { GetArticleDocuments, GetArticleGalleryPhotos } from "common/util/newsFilesUrls";
-import { useShowMoreContent } from "../campaign-news/hook/useShowMoreContent";
+import { useShowMoreContent } from "../campaign-news/hooks/useShowMoreContent";
 
 
 const PREFIX = 'NewsTimeline'
@@ -84,14 +83,12 @@ const StyledTimeline = styled(Timeline)(({ theme }) => ({
     fontSize: theme.typography.pxToRem(14),
     fontWeight: 400,
     textAlign: 'left',
-    maxWidth: 'fit-content',
-    
   },
+
   [`& .${classes.articleAuthor}`]: {
     fontSize: theme.typography.pxToRem(14),
     fontWeight: 400,
-    textAlign: 'justify',
-    maxWidth: 'fit-content',
+    textAlign: 'left',
   },
 
     [`& .${classes.articleDescription}`]: {
@@ -113,10 +110,11 @@ const StyledTimeline = styled(Timeline)(({ theme }) => ({
   },
 
     [`& .${classes.readAllButton}`]: {
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(5),
     fontWeight: 500,
     color: theme.palette.primary.dark,
-    marginLeft: `calc(18% - ${theme.spacing(2)})`
+    marginLeft: `calc(18% - ${theme.spacing(2)})`,
+    minWidth: theme.spacing(15)
   },
 
     [`& .${classes.articleAttachmentContainer}`]: {
@@ -213,7 +211,7 @@ export default function CampaignNewsSection({campaign} : Props) {
               </Grid>
               <Grid container item direction={'row'}>
             {
-            !isExpanded[index] && unFormattedText.length > CHARACTER_LIMIT 
+            !isExpanded[article.id] && unFormattedText.length > CHARACTER_LIMIT 
               ?<Typography className={classes.articleDescription}>
                 {unFormattedText.slice(0, CHARACTER_LIMIT)+'...'}
               </Typography>
@@ -221,8 +219,8 @@ export default function CampaignNewsSection({campaign} : Props) {
             }   
             {
               unFormattedText.length > CHARACTER_LIMIT &&
-              <Button className={classes.readMoreButton} onClick={()=>expandContent(index)}>
-                {!isExpanded[index]
+              <Button className={classes.readMoreButton} onClick={()=>expandContent(article.id)}>
+                {!isExpanded[article.id]
                 ? `${t('read-more')} >`
                 : `${t('read-less')} <`
               }
@@ -256,6 +254,15 @@ export default function CampaignNewsSection({campaign} : Props) {
         </TimelineItem> 
         ) 
         })}
+        <Grid>
+          <OutlinedButton
+            href={routes.campaigns.news.listNewsForCampaign(campaign.slug)}
+            variant="outlined"
+            className={classes.readAllButton}
+            >
+            {t('see-all-news')}
+          </OutlinedButton>
+        </Grid>        
       </StyledTimeline>        
     </Grid>
     )

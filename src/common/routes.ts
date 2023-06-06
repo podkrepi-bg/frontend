@@ -86,6 +86,14 @@ export const routes = {
       edit: (slug: string, id: string) => `/campaigns/${slug}/expenses/${id}`,
       downloadFile: (id: string) => `/expenses/download-files/${id}`,
     },
+    news: {
+      index: '/campaigns/news',
+      listNewsForCampaign: (slug:string) => `/campaigns/${slug}/news`,
+      listNewsPaginated: (page: number, slug: string | null) => 
+      slug
+        ? `/campaigns/${slug}/news?page=${page}`
+        :`/campaigns/news?page=${page}`,    
+    },
   },
   donation: {
     viewCertificate: (donationId: string) => `/api/pdf/certificate/${donationId}`,
