@@ -1,8 +1,7 @@
 import * as yup from 'yup'
 import { FormikHelpers } from 'formik'
 import { useRouter } from 'next/router'
-import React, { ChangeEvent, useMemo, useState } from 'react'
-import { parse, isDate, format } from 'date-fns'
+import React, { ChangeEvent, useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
@@ -10,9 +9,7 @@ import NextLink from 'next/link'
 import { Button, Grid, List, ListItemText, Typography } from '@mui/material'
 
 import { routes } from 'common/routes'
-import { Currency } from 'gql/currency'
 import { AlertStore } from 'stores/AlertStore'
-import { useEditCampaign, useUploadCampaignFiles } from 'service/campaign'
 import { createSlug } from 'common/util/createSlug'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
@@ -25,9 +22,7 @@ const FormRichTextField = dynamic(() => import('components/common/form/FormRichT
 })
 
 import { ApiErrors, handleUniqueViolation, isAxiosError, matchValidator } from 'service/apiErrors'
-import {
-  CampaignUploadImage,
-} from 'gql/campaigns'
+import { CampaignUploadImage } from 'gql/campaigns'
 import { ArticleStatus } from './helpers/article-status.enum'
 import {
   CampaignFileRole,
@@ -38,7 +33,11 @@ import FileList from 'components/common/file-upload/FileList'
 import FileUpload from 'components/common/file-upload/FileUpload'
 
 import { endpoints } from 'service/apiEndpoints'
-import { AdminCampaignNewsResponse, CampaignNewsInput, CampaignNewsResponse } from 'gql/campaign-news'
+import {
+  AdminCampaignNewsResponse,
+  CampaignNewsInput,
+  CampaignNewsResponse,
+} from 'gql/campaign-news'
 import { useEditNewsArticle, useUploadCampaignNewsFiles } from 'service/campaign-news'
 import ArticleStatusSelect from './ArticleStatusSelect'
 import UploadedCampaignFile from './UploadedCampaignFile'
@@ -53,7 +52,7 @@ const validationSchema: yup.SchemaOf<CampaignNewsInput> = yup
     author: yup.string().required(),
     sourceLink: yup.string().optional(),
     state: yup.mixed().oneOf(Object.values(ArticleStatus)).required(),
-    description: yup.string().required()
+    description: yup.string().required(),
   })
 
 export default function EditForm({ article }: { article: AdminCampaignNewsResponse }) {
@@ -65,7 +64,6 @@ export default function EditForm({ article }: { article: AdminCampaignNewsRespon
 
   const { t } = useTranslation()
 
-
   const initialValues: CampaignNewsInput = {
     title: article?.title || '',
     slug: article?.slug || '',
@@ -73,9 +71,7 @@ export default function EditForm({ article }: { article: AdminCampaignNewsRespon
     author: article?.author || '',
     sourceLink: article?.sourceLink || '',
     state: article?.state,
-    description: article?.description
-
-
+    description: article?.description,
   }
 
   const handleError = (e: AxiosError<ApiErrors>) => {
@@ -164,7 +160,7 @@ export default function EditForm({ article }: { article: AdminCampaignNewsRespon
             color: theme.palette.primary.dark,
             textAlign: 'center',
           })}>
-          {t('campaigns:edit-form-heading')}
+          {t('news:edit-form-heading')}
         </Typography>
       </Grid>
       <GenericForm<CampaignNewsInput>
@@ -175,7 +171,7 @@ export default function EditForm({ article }: { article: AdminCampaignNewsRespon
           <Grid item xs={12}>
             <FormTextField
               type="text"
-              label="campaigns:campaign.title"
+              label="news:article.title"
               name="title"
               autoComplete="title"
             />
@@ -183,7 +179,7 @@ export default function EditForm({ article }: { article: AdminCampaignNewsRespon
           <Grid item xs={12}>
             <FormTextField
               type="text"
-              label="campaigns:campaign.slug.name"
+              label="news:article.slug.name"
               name="slug"
               onInput={(e: ChangeEvent<HTMLInputElement>) => {
                 e.target.value !== article?.slug
@@ -198,7 +194,7 @@ export default function EditForm({ article }: { article: AdminCampaignNewsRespon
                 color: theme.palette.error.dark,
                 fontSize: 'small',
               })}>
-              {slugWasChanged && t('campaigns:campaign.slug.warning')}
+              {slugWasChanged && t('news:article.slug.warning')}
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -212,7 +208,7 @@ export default function EditForm({ article }: { article: AdminCampaignNewsRespon
               placeholder={'Автор'}
               InputLabelProps={{ shrink: true }}
             />
-          </Grid> 
+          </Grid>
           <Grid item xs={12}>
             <FormTextField
               type="text"
@@ -221,11 +217,10 @@ export default function EditForm({ article }: { article: AdminCampaignNewsRespon
               placeholder={'Линк към източник'}
               InputLabelProps={{ shrink: true }}
             />
-          </Grid>   
+          </Grid>
           <Grid item xs={12} sm={4}>
             <ArticleStatusSelect />
           </Grid>
-
           <Grid item xs={12}>
             <Typography>{t('campaigns:campaign.description')}</Typography>
             <FormRichTextField name="description" />

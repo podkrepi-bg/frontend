@@ -32,12 +32,13 @@ import {
   UploadCampaignNewsFiles,
 } from 'components/common/campaign-file/roles'
 import AcceptPrivacyPolicyField from 'components/common/form/AcceptPrivacyPolicyField'
+import { CampaignUploadImage } from 'gql/campaigns'
+
 import {
-  CampaignUploadImage,
-} from 'gql/campaigns'
-
-import { CampaignNewsAdminCreateFormData, CampaignNewsInput, CampaignNewsResponse } from 'gql/campaign-news'
-
+  CampaignNewsAdminCreateFormData,
+  CampaignNewsInput,
+  CampaignNewsResponse,
+} from 'gql/campaign-news'
 
 import { useCreateCampaignNews } from 'service/campaign-news'
 import { ArticleStatus } from './helpers/article-status.enum'
@@ -51,7 +52,7 @@ const validationSchema: yup.SchemaOf<CampaignNewsAdminCreateFormData> = yup
     campaignId: yup.string().uuid().required(),
     author: yup.string().required(),
     sourceLink: yup.string().optional(),
-    description: yup.string().required()
+    description: yup.string().required(),
   })
 
 const defaults: CampaignNewsAdminCreateFormData = {
@@ -113,7 +114,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
         author: values.author,
         sourceLink: values.sourceLink,
         description: values.description,
-        state: ArticleStatus.draft
+        state: ArticleStatus.draft,
       })
       if (files.length > 0) {
         await fileUploadMutation.mutateAsync({
@@ -145,7 +146,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
             color: theme.palette.primary.dark,
             textAlign: 'center',
           })}>
-          {t('Създайте нова новина за кампания')}
+          {t('news:form-heading')}
         </Typography>
       </Grid>
       <GenericForm
@@ -156,9 +157,9 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           <Grid item xs={12}>
             <FormTextField
               type="text"
-              label="Заглавие"
+              label="news:article.title"
               name="title"
-              placeholder='Заглавие на новината'
+              placeholder={t('news:article.title')}
               autoComplete="title"
               InputLabelProps={{ shrink: true }}
             />
@@ -166,9 +167,9 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
           <Grid item xs={12}>
             <FormTextField
               type="text"
-              label="campaigns:campaign.slug.name"
+              label="news:article.slug.name"
               name="slug"
-              placeholder={t('campaigns:campaign.slug.placeholder')}
+              placeholder={t('news:article.slug.placeholder')}
               InputLabelProps={{ shrink: true }}
             />
           </Grid>
@@ -183,7 +184,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               placeholder={'Автор'}
               InputLabelProps={{ shrink: true }}
             />
-          </Grid> 
+          </Grid>
           <Grid item xs={12}>
             <FormTextField
               type="text"
@@ -192,7 +193,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               placeholder={'Линк към източник'}
               InputLabelProps={{ shrink: true }}
             />
-          </Grid>                    
+          </Grid>
           <Grid item xs={12}>
             <Typography>{t('campaigns:campaign.description')}</Typography>
             <FormRichTextField name="description" />
