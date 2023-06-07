@@ -1,4 +1,4 @@
-import { Box, TextField } from '@mui/material'
+import { Box } from '@mui/material'
 import Filter from './Filter'
 import { useStores } from '../../../../common/hooks/useStores'
 import { observer } from 'mobx-react'
@@ -54,14 +54,14 @@ export default observer(function GridFilters() {
           label={t('bank-transactions:cta.from')}
           value={bankTransactionsStore.bankTransactionsFilter.date?.from || null}
           onChange={(date: Date | null | 'Invalid Date') => handleDatePick(date, 'from')}
-          renderInput={(params) => <TextField size="small" sx={{ marginRight: 1 }} {...params} />}
+          slotProps={{ textField: { size: 'small', sx: { marginRight: 1 } } }}
           maxDate={bankTransactionsStore.bankTransactionsFilter.date?.to}
         />
         <DateTimePicker
           label={t('bank-transactions:cta.to')}
           value={bankTransactionsStore.bankTransactionsFilter.date?.to || null}
           onChange={(date: Date | null | 'Invalid Date') => handleDatePick(date, 'to')}
-          renderInput={(params) => <TextField size="small" sx={{ marginRight: 1 }} {...params} />}
+          slotProps={{ textField: { size: 'small', sx: { marginRight: 1 } } }}
           minDate={bankTransactionsStore.bankTransactionsFilter.date?.from}
         />
       </LocalizationProvider>

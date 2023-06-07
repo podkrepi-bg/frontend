@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
-import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { routes } from 'common/routes'
 import { TransferResponse } from 'gql/transfer'
@@ -26,7 +26,7 @@ export default observer(function Grid() {
     page: 0,
   })
 
-  const columns: GridColumns = [
+  const columns: GridColDef[] = [
     {
       field: 'actions',
       type: 'actions',
@@ -47,7 +47,6 @@ export default observer(function Grid() {
     {
       field: 'id',
       headerName: 'ID',
-      hide: true,
     },
     {
       field: 'status',

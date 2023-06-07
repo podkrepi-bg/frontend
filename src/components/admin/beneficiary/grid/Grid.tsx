@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
-import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
@@ -63,7 +63,7 @@ export default observer(function Grid() {
     width: 250,
     headerAlign: 'left',
   }
-  const columns: GridColumns = [
+  const columns: GridColDef[] = [
     {
       field: 'actions',
       headerName: t('beneficiary:actions'),

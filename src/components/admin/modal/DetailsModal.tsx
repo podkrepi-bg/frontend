@@ -40,7 +40,7 @@ function DetailsModal() {
                 <List>
                   <ListItem>
                     <ListItemText
-                      primary={`${row.getValue(row.id, 'name')}`}
+                      primary={`${row.row.person.firstName} ${row.row.person.lastName}`}
                       secondary={row.row.person.company}
                     />
                   </ListItem>

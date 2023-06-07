@@ -13,7 +13,6 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  TextField,
   Typography,
 } from '@mui/material'
 
@@ -216,7 +215,7 @@ export default function EditForm() {
                 label={t('donations:created-at')}
                 value={date}
                 onChange={setToDate}
-                renderInput={(params) => <TextField size="small" {...params} />}
+                slotProps={{ textField: { size: 'small' } }}
               />
             </LocalizationProvider>
           </Grid>

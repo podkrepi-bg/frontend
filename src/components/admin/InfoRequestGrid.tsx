@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { DataGrid, GridColumns } from '@mui/x-data-grid'
+import { DataGrid, GridColDef } from '@mui/x-data-grid'
 
 import { DialogStore } from 'stores/DialogStore'
 import { formatDateString } from 'common/util/date'
 import { useInfoRequestList } from 'common/hooks/infoRequest'
 
-const columns: GridColumns = [
-  { field: 'id', headerName: 'ID', hide: true },
+const columns: GridColDef[] = [
+  { field: 'id', headerName: 'ID' },
   {
     field: 'name',
     headerName: 'Name',
@@ -52,7 +52,8 @@ export default function InfoRequestGrid() {
       onRowClick={(p, event) => {
         const elm = event.target as HTMLInputElement
         if (elm.type != 'checkbox') {
-          DialogStore.show(p, `${p.getValue(p.id, 'name')}`)
+          const name = `${p.row.person.firstName} ${p.row.person.lastName}`
+          DialogStore.show(p, name)
         }
       }}
     />

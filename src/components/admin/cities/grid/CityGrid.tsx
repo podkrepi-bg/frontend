@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'next-i18next'
-import { DataGrid, GridColumns } from '@mui/x-data-grid'
+import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
 
 import { useCitiesList } from 'common/hooks/cities'
@@ -20,8 +20,8 @@ export default observer(function CitiesGrid() {
     page: 0,
   })
 
-  const columns: GridColumns = [
-    { field: 'id', headerName: 'ID', hide: true },
+  const columns: GridColDef[] = [
+    { field: 'id', headerName: 'ID' },
     {
       field: 'name',
       headerName: 'City Name',

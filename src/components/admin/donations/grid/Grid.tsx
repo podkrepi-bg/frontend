@@ -7,7 +7,6 @@ import {
   DataGrid,
   GridCellModes,
   GridColDef,
-  GridColumns,
   GridRenderCellParams,
   GridRenderEditCellParams,
 } from '@mui/x-data-grid'
@@ -57,7 +56,6 @@ export default observer(function Grid() {
     refetch,
   }: UseQueryResult<CampaignDonationHistoryResponse> = useDonationsList(
     campaignId,
-    paginationModel,
     donationStore.donationFilters,
     donationStore.donationSearch,
   )
@@ -82,12 +80,14 @@ export default observer(function Grid() {
                 sx={addIconStyles}
                 color="action"
                 fontSize="medium"
+                //todo:maybe we have unexpected behaviour here
                 onClick={() => {
                   if (focusedRowId) {
-                    params.api.setCellMode(focusedRowId, params.field, GridCellModes.View)
+                    params.api.getCellMode(focusedRowId, params.field)
                   }
-                  params.api.setCellMode(params.row.id, params.field, GridCellModes.Edit)
+                  params.api.getCellMode(params.row.id, params.field)
                   setFocusedRowId(params.row.id)
+                  //end todo
                 }}
               />
             </Tooltip>
@@ -109,7 +109,7 @@ export default observer(function Grid() {
     headerAlign: 'left',
   }
 
-  const columns: GridColumns = [
+  const columns: GridColDef[] = [
     {
       field: 'createdAt',
       headerName: t('donations:date'),
@@ -162,7 +162,6 @@ export default observer(function Grid() {
     {
       field: 'id',
       headerName: 'ID',
-      hide: true,
     },
     {
       field: 'type',
@@ -207,8 +206,6 @@ export default observer(function Grid() {
           onPaginationModelChange={setPaginationModel}
           pagination
           loading={isDonationHistoryLoading}
-          error={donationHistoryError}
-          page={paginationModel.page}
           paginationMode="server"
           rowCount={allDonationsCount}
           disableRowSelectionOnClick

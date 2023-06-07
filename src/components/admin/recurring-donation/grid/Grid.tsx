@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { IconButton, Tooltip, Box } from '@mui/material'
-import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { RecurringDonationResponse } from 'gql/recurring-donation'
 import { useAllRecurringDonations } from 'common/hooks/recurringDonation'
@@ -61,7 +61,7 @@ export default function Grid() {
     router.push(routes.admin.recurringDonation.edit(id))
   }
 
-  const columns: GridColumns = [
+  const columns: GridColDef[] = [
     {
       field: 'status',
       headerName: t('recurring-donation:status'),

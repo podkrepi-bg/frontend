@@ -1,6 +1,6 @@
 import React from 'react'
 import { Check, Clear } from '@mui/icons-material'
-import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { DialogStore } from 'stores/DialogStore'
 import { formatDateString } from 'common/util/date'
@@ -15,8 +15,8 @@ const commonProps: Partial<GridColDef> = {
   renderCell,
 }
 
-const columns: GridColumns = [
-  { field: 'id', headerName: 'ID', hide: true },
+const columns: GridColDef[] = [
+  { field: 'id', headerName: 'ID' },
   {
     field: 'name',
     headerName: 'Name',
@@ -86,7 +86,8 @@ export default function SupportersGrid() {
       onRowClick={(p, event) => {
         const elm = event.target as HTMLInputElement
         if (elm.type != 'checkbox') {
-          DialogStore.show(p, `${p.getValue(p.id, 'name')}`)
+          const name = `${p.row.person.firstName} ${p.row.person.lastName}`
+          DialogStore.show(p, name)
         }
       }}
     />

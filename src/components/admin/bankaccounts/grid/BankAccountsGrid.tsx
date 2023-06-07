@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
-import { GridColumns, DataGrid, GridRenderCellParams } from '@mui/x-data-grid'
+import { GridColDef, DataGrid, GridRenderCellParams } from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
@@ -24,7 +24,7 @@ export default observer(function BankAccountsGrid() {
     page: 0,
   })
 
-  const columns: GridColumns = [
+  const columns: GridColDef[] = [
     { ...commonProps, headerName: t('status'), field: 'status' },
     { ...commonProps, headerName: t('ibanNumber'), field: 'ibanNumber', width: 220 },
     { ...commonProps, headerName: t('accountHolderName'), field: 'accountHolderName', flex: 1 },

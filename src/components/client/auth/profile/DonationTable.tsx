@@ -4,7 +4,6 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TextField,
   Grid,
   Table,
   TableRow,
@@ -71,7 +70,7 @@ function DonationTable({ donations }: DonationTableProps) {
               label={t('profile:donations.fromDate')}
               value={fromDate}
               onChange={setFromDate}
-              renderInput={(params) => <TextField size="small" {...params} />}
+              slotProps={{ textField: { size: 'small' } }}
             />
           </Grid>
           <Grid item xs={12} sm={3}>
@@ -79,7 +78,7 @@ function DonationTable({ donations }: DonationTableProps) {
               label={t('profile:donations.toDate')}
               value={toDate}
               onChange={setToDate}
-              renderInput={(params) => <TextField size="small" {...params} />}
+              slotProps={{ textField: { size: 'small' } }}
             />
           </Grid>
         </LocalizationProvider>

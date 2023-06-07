@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
-import { GridColumns, DataGrid, GridRenderCellParams } from '@mui/x-data-grid'
+import { GridColDef, DataGrid, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { CoordinatorResponse } from 'gql/coordinators'
 import { useCoordinatorsList } from 'common/hooks/coordinators'
@@ -12,7 +12,7 @@ import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
 
 export default function CoordinatorsGrid() {
-  const columns: GridColumns = [
+  const columns: GridColDef[] = [
     {
       ...commonProps,
       headerName: 'Име',

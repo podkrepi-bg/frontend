@@ -55,14 +55,14 @@ export default observer(function GridFilters() {
           label={t('donations:cta.from')}
           value={donationStore.donationFilters.date?.from || null}
           onChange={(date: Date | null | 'Invalid Date') => handleDatePick(date, 'from')}
-          renderInput={(params) => <TextField size="small" sx={{ marginRight: 1 }} {...params} />}
+          slotProps={{ textField: { size: 'small', sx: { marginRight: 1 } } }}
           maxDate={donationStore.donationFilters.date?.to}
         />
         <DateTimePicker
           label={t('donations:cta.to')}
           value={donationStore.donationFilters.date?.to || null}
           onChange={(date: Date | null | 'Invalid Date') => handleDatePick(date, 'to')}
-          renderInput={(params) => <TextField size="small" sx={{ marginRight: 1 }} {...params} />}
+          slotProps={{ textField: { size: 'small', sx: { marginRight: 1 } } }}
           minDate={donationStore.donationFilters.date?.from}
         />
       </LocalizationProvider>

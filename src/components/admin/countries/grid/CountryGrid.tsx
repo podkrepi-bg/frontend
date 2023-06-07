@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { styled } from '@mui/material/styles'
 import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
-import { DataGrid, GridColumns } from '@mui/x-data-grid'
+import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
@@ -38,8 +38,8 @@ export default observer(function Grid() {
   const { data } = useCountriesList()
   const { isDetailsOpen } = ModalStore
 
-  const columns: GridColumns = [
-    { field: 'id', headerName: 'ID', hide: true },
+  const columns: GridColDef[] = [
+    { field: 'id', headerName: 'ID' },
     {
       field: 'name',
       headerName: t('fields.name'),

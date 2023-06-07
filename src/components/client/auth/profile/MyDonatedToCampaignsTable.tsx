@@ -1,5 +1,5 @@
 import { useTranslation } from 'next-i18next'
-import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { Tooltip, Button, Box } from '@mui/material'
 
 import { getExactDateTime, getRelativeDate } from 'common/util/date'
@@ -22,7 +22,7 @@ export default function MyDonatedToCampaignTable() {
     headerAlign: 'left',
   }
 
-  const columns: GridColumns = [
+  const columns: GridColDef[] = [
     {
       field: 'state',
       headerName: t('campaigns:status'),
@@ -175,6 +175,7 @@ export default function MyDonatedToCampaignTable() {
       headerAlign: 'left',
     },
   ]
+  console.log(data, 'dataaa')
   return (
     <>
       {data.length !== 0 ? (
@@ -190,7 +191,7 @@ export default function MyDonatedToCampaignTable() {
           }}
           rows={data || []}
           columns={columns}
-          pageSize={5}
+          initialState={{ pagination: { paginationModel: { pageSize: 5 } } }}
           editMode="row"
           autoHeight
           autoPageSize

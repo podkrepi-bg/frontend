@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { styled } from '@mui/material/styles'
 import { observer } from 'mobx-react'
-import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { useTranslation } from 'next-i18next'
 
 import { useCampaignApprovedExpensesList } from 'common/hooks/expenses'
@@ -68,8 +68,8 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
       .catch((error) => console.error(error))
   }
 
-  const columns: GridColumns = [
-    { field: 'id', headerName: 'ID', hide: true },
+  const columns: GridColDef[] = [
+    { field: 'id', headerName: 'ID' },
     {
       field: 'type',
       headerName: t('expenses:fields.type'),

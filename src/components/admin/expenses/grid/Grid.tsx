@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { styled } from '@mui/material/styles'
 import { observer } from 'mobx-react'
-import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { useTranslation } from 'next-i18next'
 
 import { useExpensesList } from 'common/hooks/expenses'
@@ -12,7 +12,6 @@ import GridActions from 'components/admin/GridActions'
 import { ModalStore } from '../ExpensesPage'
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
-import { statusRenderCell } from './GridHelper'
 import { moneyPublic } from 'common/util/money'
 
 const PREFIX = 'Grid'
@@ -56,8 +55,8 @@ export default observer(function Grid() {
 
   const { isDetailsOpen } = ModalStore
 
-  const columns: GridColumns = [
-    { field: 'id', headerName: 'ID', hide: true },
+  const columns: GridColDef[] = [
+    { field: 'id', headerName: 'ID' },
     {
       field: 'type',
       headerName: t('expenses:fields.type'),

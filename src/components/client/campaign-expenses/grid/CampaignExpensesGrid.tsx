@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { styled } from '@mui/material/styles'
 import { observer } from 'mobx-react'
-import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { useTranslation } from 'next-i18next'
 
 import { usePersonList } from 'common/hooks/person'
@@ -10,7 +10,6 @@ import { routes } from 'common/routes'
 import GridActions from 'components/admin/GridActions'
 
 import DeleteModal from './DeleteModal'
-//import { statusRenderCell } from './GridHelper'
 import { useCampaignExpensesList } from 'common/hooks/expenses'
 import { moneyPublic } from 'common/util/money'
 import { ModalStoreImpl } from 'stores/dashboard/ModalStore'
@@ -57,8 +56,8 @@ export default observer(function CampaignExpensesGrid({ slug }: Props) {
   })
   const { data: personList } = usePersonList()
 
-  const columns: GridColumns = [
-    { field: 'id', headerName: 'ID', hide: true },
+  const columns: GridColDef[] = [
+    { field: 'id', headerName: 'ID' },
     {
       field: 'type',
       headerName: t('expenses:fields.type'),
