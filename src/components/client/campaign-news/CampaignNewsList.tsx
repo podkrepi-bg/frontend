@@ -82,13 +82,11 @@ type Props = {
 export default function CampaignNewsList({ articles }: Props) {
   const { t, i18n } = useTranslation('news')
   const CHARACTER_LIMIT = 350
-  const htmlRemoverRegex = /(<([^>]+)>)/gi
   const [isExpanded, expandContent] = useShowMoreContent()
 
   return (
     <>
       {articles?.map((article, index) => {
-        const unFormattedText = article.description.replace(htmlRemoverRegex, ' ')
         const documents = GetArticleDocuments(article.articleFiles)
         const images = GetArticleGalleryPhotos(article.articleFiles)
         return (
@@ -123,10 +121,12 @@ export default function CampaignNewsList({ articles }: Props) {
                   style={{ maxWidth: '100%' }}>
                   <Typography className={classes.articleHeader}>{article.title}</Typography>
                   <Grid container item>
-                    {!isExpanded[article.id] && unFormattedText.length > CHARACTER_LIMIT ? (
-                      <Typography className={classes.articleDescription}>
-                        {unFormattedText.slice(0, CHARACTER_LIMIT) + '...'}
-                      </Typography>
+                    {!isExpanded[article.id] && article.description.length > CHARACTER_LIMIT ? (
+                      <Typography
+                        component={'div'}
+                        className={classes.articleDescription}
+                        dangerouslySetInnerHTML={{ __html: article.description.slice(0, CHARACTER_LIMIT) + "..." }}
+                      />
                     ) : (
                       <Typography
                         component={'div'}
@@ -134,7 +134,7 @@ export default function CampaignNewsList({ articles }: Props) {
                         dangerouslySetInnerHTML={{ __html: article.description }}
                       />
                     )}
-                    {unFormattedText.length > CHARACTER_LIMIT && (
+                    {article.description.length > CHARACTER_LIMIT && (
                       <Button
                         className={classes.readMoreButton}
                         onClick={() => expandContent(article.id)}>

@@ -147,7 +147,7 @@ export default function CampaignDetails({ campaign }: Props) {
         ) : (
           ''
         )}
-        {campaign.campaignNews.length > 0 && <CampaignNewsSection campaign={campaign} canCreateArticle={canEditCampaign} />}
+        <CampaignNewsSection campaign={campaign} canCreateArticle={canEditCampaign} />
         <Grid item xs={12}>
           <DonationWishes campaignId={campaign?.id} />
         </Grid>

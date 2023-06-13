@@ -150,7 +150,7 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
   const [isExpanded, expandContent] = useShowMoreContent()
 
   return (
-    <Grid container item xs={12} gap={3}>
+    <Grid container item xs={12} spacing={1}>
       <Grid container item flexDirection={'column'}>
       <Typography
         component={'h3'}
@@ -167,10 +167,16 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
       </Link>
       }      
       </Grid>
+      {campaign.campaignNews.length === 0
+      ? (
+        <Grid item>
+          <Typography>Не бяха намерени новини за тази кампания</Typography>
+        </Grid>
+      )
+      : (
+      <Grid item>
       <StyledTimeline>
         {campaign.campaignNews?.map((article) => {
-          //[TODO]: Find a way to do this via the Quill editor??
-          const unFormattedText = article.description.replace(htmlRemoverRegex, ' ')
 
           const documents = GetArticleDocuments(article.articleFiles)
           const images = GetArticleGalleryPhotos(article.articleFiles)
@@ -226,10 +232,12 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                     <Typography className={classes.articleHeader}>{article.title}</Typography>
                   </Grid>
                   <Grid container item direction={'row'}>
-                    {!isExpanded[article.id] && unFormattedText.length > CHARACTER_LIMIT ? (
-                      <Typography className={classes.articleDescription}>
-                        {unFormattedText.slice(0, CHARACTER_LIMIT) + '...'}
-                      </Typography>
+                    {!isExpanded[article.id] && article.description.length > CHARACTER_LIMIT ? (
+                      <Typography
+                        component={'div'}
+                        className={classes.articleDescription}
+                        dangerouslySetInnerHTML={{ __html: article.description.slice(0, CHARACTER_LIMIT) + "..." }}
+                      />
                     ) : (
                       <Typography
                         component={'div'}
@@ -237,7 +245,7 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                         dangerouslySetInnerHTML={{ __html: article.description }}
                       />
                     )}
-                    {unFormattedText.length > CHARACTER_LIMIT && (
+                    {article.description.length > CHARACTER_LIMIT && (
                       <Button
                         className={classes.readMoreButton}
                         onClick={() => expandContent(article.id)}>
@@ -281,6 +289,9 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
           </OutlinedButton>
         </Grid>
       </StyledTimeline>
+      </Grid>
+      )
+      }       
     </Grid>
   )
 }
