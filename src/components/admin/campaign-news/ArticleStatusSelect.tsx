@@ -16,8 +16,8 @@ export default function ArticleStatusSelect({ name = 'state' }) {
       size="small"
       variant="outlined"
       error={Boolean(meta.error) && Boolean(meta.touched)}>
-      <InputLabel>{t('campaigns:campaign.state')}</InputLabel>
-      <Select fullWidth defaultValue="" label={t('campaigns:campaign.state')} {...field}>
+      <InputLabel>{t('news:article.status')}</InputLabel>
+      <Select fullWidth defaultValue="" label={t('news:article.status')} {...field}>
         {Object.values(ArticleStatus).map((value, index) => (
           <MenuItem key={index} value={value}>
             {t(`status.${value}`)}

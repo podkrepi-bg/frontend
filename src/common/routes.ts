@@ -88,9 +88,12 @@ export const routes = {
     },
     news: {
       index: '/campaigns/news',
+      create: (slug: string) => `/campaigns/${slug}/news/create`, 
+      edit: (slug: string) => `/campaigns/${slug}/news/edit`,       
       listNewsForCampaign: (slug: string) => `/campaigns/${slug}/news`,
       listNewsPaginated: (page: number, slug: string | null) =>
         slug ? `/campaigns/${slug}/news?page=${page}` : `/campaigns/news?page=${page}`,
+      newsAdminPanel: (slug:string) => `/campaigns/${slug}/news/admin-panel`      
     },
   },
   donation: {

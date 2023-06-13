@@ -138,9 +138,10 @@ const StyledTimeline = styled(Timeline)(({ theme }) => ({
 
 type Props = {
   campaign: CampaignResponse
+  canCreateArticle: boolean
 }
 
-export default function CampaignNewsSection({ campaign }: Props) {
+export default function CampaignNewsSection({ campaign, canCreateArticle }: Props) {
   const { t, i18n } = useTranslation('news')
   const { small }: { small: boolean } = useMobile()
 
@@ -149,14 +150,23 @@ export default function CampaignNewsSection({ campaign }: Props) {
   const [isExpanded, expandContent] = useShowMoreContent()
 
   return (
-    <Grid container item xs={12}>
+    <Grid container item xs={12} gap={3}>
+      <Grid container item flexDirection={'column'}>
       <Typography
         component={'h3'}
         fontSize={25}
         color="#000000"
-        sx={{ marginBottom: (theme) => theme.spacing(4) }}>
+        >
         {t('news')}
       </Typography>
+      {canCreateArticle &&
+      <Link href={routes.campaigns.news.newsAdminPanel(campaign.slug)}>
+      <Typography color='primary' fontWeight='medium' fontSize={16}>
+        {t('write-new-article')}
+      </Typography>
+      </Link>
+      }      
+      </Grid>
       <StyledTimeline>
         {campaign.campaignNews?.map((article) => {
           //[TODO]: Find a way to do this via the Quill editor??

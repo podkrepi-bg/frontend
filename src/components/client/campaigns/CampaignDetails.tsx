@@ -96,7 +96,7 @@ type Props = {
 export default function CampaignDetails({ campaign }: Props) {
   const { t } = useTranslation()
   const sliderImages = campaignSliderUrls(campaign)
-  const canEditExpenses = useCanEditCampaign(campaign.slug)
+  const canEditCampaign = useCanEditCampaign(campaign.slug)
   const { data: expensesList } = useCampaignApprovedExpensesList(campaign.slug)
 
   return (
@@ -106,7 +106,7 @@ export default function CampaignDetails({ campaign }: Props) {
       </Typography>
       <CampaignInfo
         campaign={campaign}
-        showExpensesLink={(expensesList && expensesList?.length > 0) || canEditExpenses}
+        showExpensesLink={(expensesList && expensesList?.length > 0) || canEditCampaign}
       />
       <Grid container spacing={8}>
         <Grid item xs={12}>
@@ -122,12 +122,12 @@ export default function CampaignDetails({ campaign }: Props) {
           <CampaignInfoOperator campaign={campaign} />
         </Grid>
         <CampaignInfoGraphics />
-        {expensesList?.length || canEditExpenses ? (
+        {expensesList?.length || canEditCampaign ? (
           <Grid item xs={12} id="expenses">
             <Grid item xs={12}>
               <Typography variant="h4" component="h4" my={8}>
                 {t('campaigns:campaign.financial-report')} <Assessment />
-                {canEditExpenses ? (
+                {canEditCampaign ? (
                   <Tooltip title={t('campaigns:cta.edit')}>
                     <LinkButton
                       href={routes.campaigns.viewExpenses(campaign.slug)}
@@ -147,7 +147,7 @@ export default function CampaignDetails({ campaign }: Props) {
         ) : (
           ''
         )}
-        {campaign.campaignNews.length > 0 && <CampaignNewsSection campaign={campaign} />}
+        {campaign.campaignNews.length > 0 && <CampaignNewsSection campaign={campaign} canCreateArticle={canEditCampaign} />}
         <Grid item xs={12}>
           <DonationWishes campaignId={campaign?.id} />
         </Grid>

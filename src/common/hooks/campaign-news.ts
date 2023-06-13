@@ -4,6 +4,7 @@ import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory, authConfig, queryFnFactory } from 'service/restRequests'
 import { AdminCampaignNewsResponse, CampaignNewsWithPaginationResponse } from 'gql/campaign-news'
 import { apiClient } from 'service/apiClient'
+import { CampaignResponse } from 'gql/campaigns'
 
 export function useCampaignNewsAdminList() {
   const { data: session } = useSession()
@@ -39,5 +40,13 @@ export function useViewArticleById(id: string) {
   return useQuery<AdminCampaignNewsResponse>(
     [endpoints.campaignNews.viewNewsArticleById(id).url],
     authQueryFnFactory<AdminCampaignNewsResponse>(session?.accessToken),
+  )
+}
+
+export function useListAdminNews(slug: string) {
+  const { data: session } = useSession()
+  return useQuery<CampaignResponse>(
+    [endpoints.campaignNews.listAllNewsForCampaign(slug).url],
+    authQueryFnFactory<CampaignResponse>(session?.accessToken),
   )
 }

@@ -22,6 +22,7 @@ export const endpoints = {
       method: 'GET',
     },
     createCampaign: <Endpoint>{ url: '/campaign/create-campaign', method: 'POST' },
+    canEditCampaign: (slug:string, keycloakId: string) => <Endpoint>{url: `/campaign/${slug}/${keycloakId}/can-edit`, method: 'GET'},
     viewCampaign: (slug: string) => <Endpoint>{ url: `/campaign/${slug}`, method: 'GET' },
     viewCampaignById: (id: string) => <Endpoint>{ url: `/campaign/byId/${id}`, method: 'GET' },
     editCampaign: (id: string) => <Endpoint>{ url: `/campaign/${id}`, method: 'PUT' },
@@ -42,6 +43,7 @@ export const endpoints = {
   campaignNews: {
     createNewsArticle: <Endpoint>{ url: '/campaign-news', method: 'POST' },
     listAdminNews: <Endpoint>{ url: '/campaign-news/list-all', method: 'GET' },
+    listAllNewsForCampaign: (slug:string) => <Endpoint>{url: `/campaign-news/${slug}/list`, method: 'GET'},
     viewNewsArticleById: (id: string) =>
       <Endpoint>{ url: `/campaign-news/byId/${id}`, method: 'GET' },
     editNewsArticle: (articleId: string) =>
