@@ -2,7 +2,11 @@ import { useSession } from 'next-auth/react'
 import { useQuery } from '@tanstack/react-query'
 import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory, authConfig, queryFnFactory } from 'service/restRequests'
-import { AdminCampaignNewsResponse, CampaignNewsWithPaginationResponse } from 'gql/campaign-news'
+import {
+  AdminCampaignNewsResponse,
+  CampaignNewsResponse,
+  CampaignNewsWithPaginationResponse,
+} from 'gql/campaign-news'
 import { apiClient } from 'service/apiClient'
 import { CampaignResponse } from 'gql/campaigns'
 
@@ -49,4 +53,8 @@ export function useListAdminNews(slug: string) {
     [endpoints.campaignNews.listAllNewsForCampaign(slug).url],
     authQueryFnFactory<CampaignResponse>(session?.accessToken),
   )
+}
+
+export function useFindArticleBySlug(slug: string) {
+  return useQuery<CampaignNewsResponse>([endpoints.campaignNews.viewArticleBySlug(slug).url])
 }

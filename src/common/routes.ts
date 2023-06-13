@@ -90,6 +90,7 @@ export const routes = {
       index: '/campaigns/news',
       create: (slug: string) => `/campaigns/${slug}/news/create`,
       edit: (slug: string) => `/campaigns/${slug}/news/edit`,
+      viewSingleArticle: (slug: string) => `/news/${slug}`,
       listNewsForCampaign: (slug: string) => `/campaigns/${slug}/news`,
       listNewsPaginated: (page: number, slug: string | null) =>
         slug ? `/campaigns/${slug}/news?page=${page}` : `/campaigns/news?page=${page}`,

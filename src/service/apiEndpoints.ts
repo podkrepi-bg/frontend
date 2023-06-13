@@ -46,6 +46,7 @@ export const endpoints = {
     listAdminNews: <Endpoint>{ url: '/campaign-news/list-all', method: 'GET' },
     listAllNewsForCampaign: (slug: string) =>
       <Endpoint>{ url: `/campaign-news/${slug}/list`, method: 'GET' },
+    viewArticleBySlug: (slug: string) => <Endpoint>{ url: `/campaign-news/${slug}`, method: 'GET' },
     viewNewsArticleById: (id: string) =>
       <Endpoint>{ url: `/campaign-news/byId/${id}`, method: 'GET' },
     editNewsArticle: (articleId: string) =>

@@ -59,7 +59,9 @@ export default function CampaignNewsGrid() {
       align: 'left',
       width: 350,
       renderCell: (params: GridRenderCellParams) => (
-        <Link href={`/campaign-news/${params.row.slug}`}>{params.row.title}</Link>
+        <Link href={routes.campaigns.news.viewSingleArticle(params.row.slug)}>
+          {params.row.title}
+        </Link>
       ),
     },
     {

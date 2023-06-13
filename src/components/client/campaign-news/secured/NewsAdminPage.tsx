@@ -50,6 +50,7 @@ export function NewsAdminPage({ slug, isAdmin }: Props) {
 
   const columns: GridColumns = [
     { field: 'id', headerName: 'ID', hide: true },
+    { field: 'slug', headerName: 'slug', hide: true },
     {
       field: 'title',
       headerName: t('article.title'),
@@ -122,9 +123,11 @@ export function NewsAdminPage({ slug, isAdmin }: Props) {
         const cantEdit = params.row.state === 'published' && !isAdmin ? true : false
         return (
           <Box>
-            <IconButton size="small" color="primary">
-              <PageviewOutlinedIcon />
-            </IconButton>
+            <Link href={routes.campaigns.news.viewSingleArticle(params.row.slug)} passHref>
+              <IconButton size="small" color="primary">
+                <PageviewOutlinedIcon />
+              </IconButton>
+            </Link>
             <Tooltip title={cantEdit ? t('article.no-access') : null}>
               <span>
                 <Link
