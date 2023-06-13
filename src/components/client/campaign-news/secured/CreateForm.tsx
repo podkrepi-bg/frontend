@@ -5,7 +5,17 @@ import { FormikHelpers } from 'formik'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Button, FormControl, FormHelperText, Grid, InputAdornment, InputLabel, MenuItem, Select, Tooltip, Typography } from '@mui/material'
+import {
+  Button,
+  FormControl,
+  Grid,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  Select,
+  Tooltip,
+  Typography,
+} from '@mui/material'
 import Link from 'next/link'
 
 import { routes } from 'common/routes'
@@ -17,7 +27,7 @@ import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
 import dynamic from 'next/dynamic'
 const FormRichTextField = dynamic(() => import('components/common/form/FormRichTextField'), {
@@ -56,31 +66,35 @@ const validationSchema: yup.SchemaOf<CampaignNewsAdminCreateFormData> = yup
     description: yup.string().required(),
   })
 
-
-export type CampaignFormProps = { 
-    initialValues?: CampaignNewsAdminCreateFormData,
-    campaignId: string,
-    campaignTitle: string,
-    isAdmin: boolean,
-    slug:string,
+export type CampaignFormProps = {
+  initialValues?: CampaignNewsAdminCreateFormData
+  campaignId: string
+  campaignTitle: string
+  isAdmin: boolean
+  slug: string
 }
 
-export default function CreateForm({ campaignId, campaignTitle, slug, isAdmin }: CampaignFormProps) {
+export default function CreateForm({
+  campaignId,
+  campaignTitle,
+  slug,
+  isAdmin,
+}: CampaignFormProps) {
   const router = useRouter()
   const [files, setFiles] = useState<File[]>([])
   const [roles, setRoles] = useState<FileRole[]>([])
 
   const { t } = useTranslation()
 
-const initialValues: CampaignNewsAdminCreateFormData = {
-  title: '',
-  slug: '',
-  campaignId: campaignId ?? '',
-  author: '',
-  sourceLink: '',
-  description: '',
-}  
-    
+  const initialValues: CampaignNewsAdminCreateFormData = {
+    title: '',
+    slug: '',
+    campaignId: campaignId ?? '',
+    author: '',
+    sourceLink: '',
+    description: '',
+  }
+
   const handleError = (e: AxiosError<ApiErrors>) => {
     const error = e.response
 
@@ -160,8 +174,7 @@ const initialValues: CampaignNewsAdminCreateFormData = {
       <GenericForm
         onSubmit={onSubmit}
         initialValues={initialValues}
-        validationSchema={validationSchema}
-        >
+        validationSchema={validationSchema}>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <FormTextField
@@ -183,18 +196,20 @@ const initialValues: CampaignNewsAdminCreateFormData = {
             />
           </Grid>
           <Grid item xs={12}>
-        <FormControl
-        fullWidth
-        size="small"
-        variant="outlined"
-        >
-        <InputLabel>{t('news:article.select-campaign')}</InputLabel>
-        <Select name="campaignId" fullWidth defaultValue={campaignId} value={campaignId} label={t('news:article.select-campaign')} disabled>
-            <MenuItem key={0} value={campaignId}>
-            {campaignTitle}
-            </MenuItem>
-        </Select>
-        </FormControl>
+            <FormControl fullWidth size="small" variant="outlined">
+              <InputLabel>{t('news:article.select-campaign')}</InputLabel>
+              <Select
+                name="campaignId"
+                fullWidth
+                defaultValue={campaignId}
+                value={campaignId}
+                label={t('news:article.select-campaign')}
+                disabled>
+                <MenuItem key={0} value={campaignId}>
+                  {campaignTitle}
+                </MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12}>
             <FormTextField
@@ -216,19 +231,16 @@ const initialValues: CampaignNewsAdminCreateFormData = {
                 endAdornment: (
                   <InputAdornment position="start">
                     <Tooltip title={t('news:article.source-link.field-description')}>
-                      <InfoOutlinedIcon/>
+                      <InfoOutlinedIcon />
                     </Tooltip>
                   </InputAdornment>
-                )
+                ),
               }}
-              
             />
           </Grid>
           <Grid item xs={12} sm={4}>
-            {isAdmin &&
-            <ArticleStatusSelect />
-            }
-          </Grid>          
+            {isAdmin && <ArticleStatusSelect />}
+          </Grid>
           <Grid item xs={12}>
             <Typography>{t('campaigns:campaign.description')}</Typography>
             <FormRichTextField name="description" />

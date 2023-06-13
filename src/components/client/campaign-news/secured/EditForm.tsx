@@ -6,7 +6,19 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import NextLink from 'next/link'
-import { Button, FormControl, Grid, InputAdornment, InputLabel, List, ListItemText, MenuItem, Select, Tooltip, Typography } from '@mui/material'
+import {
+  Button,
+  FormControl,
+  Grid,
+  InputAdornment,
+  InputLabel,
+  List,
+  ListItemText,
+  MenuItem,
+  Select,
+  Tooltip,
+  Typography,
+} from '@mui/material'
 
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
@@ -14,7 +26,7 @@ import { createSlug } from 'common/util/createSlug'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
 import dynamic from 'next/dynamic'
 const FormRichTextField = dynamic(() => import('components/common/form/FormRichTextField'), {
@@ -56,13 +68,13 @@ const validationSchema: yup.SchemaOf<CampaignNewsInput> = yup
     description: yup.string().required(),
   })
 
- type Props =  {
-    article: AdminCampaignNewsResponse,
-    slug: string,
-    campaignTitle: string,
-    isAdmin: boolean,
- }
-  
+type Props = {
+  article: AdminCampaignNewsResponse
+  slug: string
+  campaignTitle: string
+  isAdmin: boolean
+}
+
 export default function EditForm({ article, slug, campaignTitle, isAdmin }: Props) {
   const router = useRouter()
   const queryClient = useQueryClient()
@@ -206,18 +218,19 @@ export default function EditForm({ article, slug, campaignTitle, isAdmin }: Prop
             </Typography>
           </Grid>
           <Grid item xs={12}>
-        <FormControl
-        fullWidth
-        size="small"
-        variant="outlined"
-        >
-        <InputLabel>{t('news:article.select-campaign')}</InputLabel>
-        <Select name="campaignId" fullWidth defaultValue={article.campaignId}  label={t('news:article.select-campaign')} disabled>
-            <MenuItem key={0} value={article.campaignId}>
-            {campaignTitle}
-            </MenuItem>
-        </Select>
-        </FormControl>
+            <FormControl fullWidth size="small" variant="outlined">
+              <InputLabel>{t('news:article.select-campaign')}</InputLabel>
+              <Select
+                name="campaignId"
+                fullWidth
+                defaultValue={article.campaignId}
+                label={t('news:article.select-campaign')}
+                disabled>
+                <MenuItem key={0} value={article.campaignId}>
+                  {campaignTitle}
+                </MenuItem>
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={12}>
             <FormTextField
@@ -239,17 +252,15 @@ export default function EditForm({ article, slug, campaignTitle, isAdmin }: Prop
                 endAdornment: (
                   <InputAdornment position="start">
                     <Tooltip title={t('news:article.source-link.field-description')}>
-                      <InfoOutlinedIcon/>
+                      <InfoOutlinedIcon />
                     </Tooltip>
                   </InputAdornment>
-                )
-              }}              
+                ),
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={4}>
-            {isAdmin &&
-            <ArticleStatusSelect />
-            }
+            {isAdmin && <ArticleStatusSelect />}
           </Grid>
           <Grid item xs={12}>
             <Typography>{t('campaigns:campaign.description')}</Typography>

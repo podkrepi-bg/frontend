@@ -103,7 +103,9 @@ export default function CampaignNewsPage({ page, slug = null }: Props) {
           <BreadcrumbWrapper crumb={breadcumbData} />
           <Divider orientation="horizontal" />
         </Grid>
-        {data && data?.campaign.campaignNews.length > 0 && <CampaignNewsList articles={data.campaign.campaignNews} />}
+        {data && data?.campaign.campaignNews.length > 0 && (
+          <CampaignNewsList articles={data.campaign.campaignNews} />
+        )}
         <Grid>
           {data && data?.pagination.totalPages > 1 && (
             <Pagination

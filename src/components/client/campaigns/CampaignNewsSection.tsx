@@ -147,152 +147,158 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
   const { small }: { small: boolean } = useMobile()
 
   const CHARACTER_LIMIT = 120
-  const htmlRemoverRegex = /(<([^>]+)>)/gi
   const [isExpanded, expandContent] = useShowMoreContent()
 
   return (
     <Grid container item xs={12} spacing={1}>
       <Grid container item flexDirection={'column'}>
-      <Typography
-        component={'h3'}
-        fontSize={25}
-        color="#000000"
-        >
-        {t('news')}
-      </Typography>
-      {canCreateArticle &&
-      <Link href={routes.campaigns.news.newsAdminPanel(campaign.slug)}>
-      <Typography color='primary' fontWeight='medium' fontSize={16}>
-        {t('write-new-article')}
-      </Typography>
-      </Link>
-      }      
+        <Typography component={'h3'} fontSize={25} color="#000000">
+          {t('news')}
+        </Typography>
+        {canCreateArticle && (
+          <Link href={routes.campaigns.news.newsAdminPanel(campaign.slug)}>
+            <Typography color="primary" fontWeight="medium" fontSize={16}>
+              {t('write-new-article')}
+            </Typography>
+          </Link>
+        )}
       </Grid>
-      {campaign.campaignNews.length === 0
-      ? (
+      {campaign.campaignNews.length === 0 ? (
         <Grid item>
           <Typography>Не бяха намерени новини за тази кампания</Typography>
         </Grid>
-      )
-      : (
-      <Grid item>
-      <StyledTimeline>
-        {campaign.campaignNews?.map((article) => {
-          const documents = GetArticleDocuments(article.articleFiles)
-          const images = GetArticleGalleryPhotos(article.articleFiles)
-          const sanitizedDescription = sanitizeHTML(article.description)
-          return (
-            <TimelineItem key={article.id} className={classes.timelineItem}>
-              {!small && (
-                <TimelineOppositeContent className={classes.timelineOppositeContent}>
-                  <Grid container flexDirection={'column'} wrap="nowrap" gap={1}>
-                    <Grid container item wrap="nowrap" gap={1}>
-                      <AvTimerIcon color="action" />
-                      <Typography className={classes.articlePublishedDate}>
-                        {formatDateString(article.publishedAt, i18n.language)}
-                      </Typography>
-                    </Grid>
-                    <Grid container item wrap="nowrap" gap={1}>
-                      <SupervisedUserCircleOutlinedIcon color="action" />
-                      <Typography className={classes.articleAuthor}>{article.author}</Typography>
-                    </Grid>
-                  </Grid>
-                </TimelineOppositeContent>
-              )}
-              <TimelineSeparator>
-                <TimelineDot className={classes.dot} />
-                <TimelineConnector className={classes.connector} />
-              </TimelineSeparator>
-              <TimelineContent className={classes.timelineContent}>
-                {small && (
-                  <Grid
-                    container
-                    columnGap={2}
-                    rowGap={0}
-                    className={classes.dateAndAuthorContainer}>
-                    <Grid container item gap={1} xs="auto">
-                      <AvTimerIcon color="action" />
-                      <Typography className={classes.articlePublishedDate}>
-                        {formatDateString(article.publishedAt, i18n.language)}
-                      </Typography>
-                    </Grid>
-                    <Grid
-                      container
-                      item
-                      gap={1}
-                      xs="auto"
-                      style={{ maxWidth: '40%' }}
-                      wrap="nowrap">
-                      <SupervisedUserCircleOutlinedIcon color="action" />
-                      <Typography className={classes.articleAuthor}>{article.author}</Typography>
-                    </Grid>
-                  </Grid>
-                )}
-                <Grid container gap={1} direction={'column'} className={classes.articleContent}>
-                  <Grid item>
-                    <Typography className={classes.articleHeader}>{article.title}</Typography>
-                  </Grid>
-                  <Grid container item direction={'row'}>
-                    {!isExpanded[article.id] && sanitizedDescription.length > CHARACTER_LIMIT ? (
-                      <Typography
-                        component={'div'}
-                        className={classes.articleDescription}
-                        dangerouslySetInnerHTML={{ __html: sanitizedDescription.slice(0, CHARACTER_LIMIT) + "..." }}
-                      />
-                    ) : (
-                      <Typography
-                        component={'div'}
-                        className={classes.articleDescription}
-                        dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
-                      />
-                    )}
-                    {sanitizedDescription.length > CHARACTER_LIMIT && (
-                      <Button
-                        className={classes.readMoreButton}
-                        onClick={() => expandContent(article.id)}>
-                        {!isExpanded[article.id] ? `${t('read-more')} >` : `${t('read-less')} <`}
-                      </Button>
-                    )}
-                  </Grid>
-                  {article.articleFiles.length > 0 && (
-                    <Grid container gap={1}>
-                      <Grid container item direction={'column'} gap={0.5}>
-                        {documents.map((file) => (
-                          <Grid item key={file.id}>
-                            <Link href={file.fileUrl} target="_blank">
-                              <Typography color="primary.dark" fontSize={16} fontWeight="700">
-                                {file.fileName}
-                              </Typography>
-                            </Link>
-                          </Grid>
-                        ))}
+      ) : (
+        <Grid item>
+          <StyledTimeline>
+            {campaign.campaignNews?.map((article) => {
+              const documents = GetArticleDocuments(article.articleFiles)
+              const images = GetArticleGalleryPhotos(article.articleFiles)
+              const sanitizedDescription = sanitizeHTML(article.description)
+              return (
+                <TimelineItem key={article.id} className={classes.timelineItem}>
+                  {!small && (
+                    <TimelineOppositeContent className={classes.timelineOppositeContent}>
+                      <Grid container flexDirection={'column'} wrap="nowrap" gap={1}>
+                        <Grid container item wrap="nowrap" gap={1}>
+                          <AvTimerIcon color="action" />
+                          <Typography className={classes.articlePublishedDate}>
+                            {formatDateString(article.publishedAt, i18n.language)}
+                          </Typography>
+                        </Grid>
+                        <Grid container item wrap="nowrap" gap={1}>
+                          <SupervisedUserCircleOutlinedIcon color="action" />
+                          <Typography className={classes.articleAuthor}>
+                            {article.author}
+                          </Typography>
+                        </Grid>
                       </Grid>
-                      <Grid container item gap={1}>
-                        {images.map((file) => (
-                          <Grid item key={file.id}>
-                            <Image src={file.imgSource} width={164} height={120} alt={file.id} />
-                          </Grid>
-                        ))}
-                      </Grid>
-                    </Grid>
+                    </TimelineOppositeContent>
                   )}
-                </Grid>
-              </TimelineContent>
-            </TimelineItem>
-          )
-        })}
-        <Grid>
-          <OutlinedButton
-            href={routes.campaigns.news.listNewsForCampaign(campaign.slug)}
-            variant="outlined"
-            className={classes.readAllButton}>
-            {t('see-all-news')}
-          </OutlinedButton>
+                  <TimelineSeparator>
+                    <TimelineDot className={classes.dot} />
+                    <TimelineConnector className={classes.connector} />
+                  </TimelineSeparator>
+                  <TimelineContent className={classes.timelineContent}>
+                    {small && (
+                      <Grid
+                        container
+                        columnGap={2}
+                        rowGap={0}
+                        className={classes.dateAndAuthorContainer}>
+                        <Grid container item gap={1} xs="auto">
+                          <AvTimerIcon color="action" />
+                          <Typography className={classes.articlePublishedDate}>
+                            {formatDateString(article.publishedAt, i18n.language)}
+                          </Typography>
+                        </Grid>
+                        <Grid
+                          container
+                          item
+                          gap={1}
+                          xs="auto"
+                          style={{ maxWidth: '40%' }}
+                          wrap="nowrap">
+                          <SupervisedUserCircleOutlinedIcon color="action" />
+                          <Typography className={classes.articleAuthor}>
+                            {article.author}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    )}
+                    <Grid container gap={1} direction={'column'} className={classes.articleContent}>
+                      <Grid item>
+                        <Typography className={classes.articleHeader}>{article.title}</Typography>
+                      </Grid>
+                      <Grid container item direction={'row'}>
+                        {!isExpanded[article.id] &&
+                        sanitizedDescription.length > CHARACTER_LIMIT ? (
+                          <Typography
+                            component={'div'}
+                            className={classes.articleDescription}
+                            dangerouslySetInnerHTML={{
+                              __html: sanitizedDescription.slice(0, CHARACTER_LIMIT) + '...',
+                            }}
+                          />
+                        ) : (
+                          <Typography
+                            component={'div'}
+                            className={classes.articleDescription}
+                            dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
+                          />
+                        )}
+                        {sanitizedDescription.length > CHARACTER_LIMIT && (
+                          <Button
+                            className={classes.readMoreButton}
+                            onClick={() => expandContent(article.id)}>
+                            {!isExpanded[article.id]
+                              ? `${t('read-more')} >`
+                              : `${t('read-less')} <`}
+                          </Button>
+                        )}
+                      </Grid>
+                      {article.articleFiles.length > 0 && (
+                        <Grid container gap={1}>
+                          <Grid container item direction={'column'} gap={0.5}>
+                            {documents.map((file) => (
+                              <Grid item key={file.id}>
+                                <Link href={file.fileUrl} target="_blank">
+                                  <Typography color="primary.dark" fontSize={16} fontWeight="700">
+                                    {file.fileName}
+                                  </Typography>
+                                </Link>
+                              </Grid>
+                            ))}
+                          </Grid>
+                          <Grid container item gap={1}>
+                            {images.map((file) => (
+                              <Grid item key={file.id}>
+                                <Image
+                                  src={file.imgSource}
+                                  width={164}
+                                  height={120}
+                                  alt={file.id}
+                                />
+                              </Grid>
+                            ))}
+                          </Grid>
+                        </Grid>
+                      )}
+                    </Grid>
+                  </TimelineContent>
+                </TimelineItem>
+              )
+            })}
+            <Grid>
+              <OutlinedButton
+                href={routes.campaigns.news.listNewsForCampaign(campaign.slug)}
+                variant="outlined"
+                className={classes.readAllButton}>
+                {t('see-all-news')}
+              </OutlinedButton>
+            </Grid>
+          </StyledTimeline>
         </Grid>
-      </StyledTimeline>
-      </Grid>
-      )
-      }       
+      )}
     </Grid>
   )
 }

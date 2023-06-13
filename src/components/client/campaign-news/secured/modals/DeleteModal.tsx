@@ -7,20 +7,17 @@ import { useTranslation } from 'next-i18next'
 import { ApiErrors } from 'service/apiErrors'
 import { endpoints } from 'service/apiEndpoints'
 import { AlertStore } from 'stores/AlertStore'
-import { useRouter } from 'next/router'
-import { routes } from 'common/routes'
 import { useDeleteNewsArticleById } from 'common/hooks/campaign-news'
 
 type Props = {
-  id: string,
-  slug: string,
+  id: string
+  slug: string
   onDelete: () => void
   onClose: () => void
 }
 
 export default function DeleteModal({ id, slug, onClose, onDelete }: Props) {
   const queryClient = useQueryClient()
-  const router = useRouter()
   const { t } = useTranslation()
 
   const mutationFn = useDeleteNewsArticleById(id)
@@ -29,10 +26,10 @@ export default function DeleteModal({ id, slug, onClose, onDelete }: Props) {
     mutationFn,
     onError: () => AlertStore.show(t('campaigns:alerts:error'), 'error'),
     onSuccess: () => {
-        queryClient.invalidateQueries([endpoints.campaignNews.listAllNewsForCampaign(slug).url])
-        onDelete()
-            onClose()
-        // router.push(routes.campaigns.news.newsAdminPanel(slug))
+      queryClient.invalidateQueries([endpoints.campaignNews.listAllNewsForCampaign(slug).url])
+      onDelete()
+      onClose()
+      // router.push(routes.campaigns.news.newsAdminPanel(slug))
       AlertStore.show(t('news:actions.deleted-successfully'), 'success')
     },
   })

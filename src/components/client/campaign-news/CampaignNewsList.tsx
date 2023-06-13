@@ -127,7 +127,9 @@ export default function CampaignNewsList({ articles }: Props) {
                       <Typography
                         component={'div'}
                         className={classes.articleDescription}
-                        dangerouslySetInnerHTML={{ __html: sanitizedDescription.slice(0, CHARACTER_LIMIT) + "..." }}
+                        dangerouslySetInnerHTML={{
+                          __html: sanitizedDescription.slice(0, CHARACTER_LIMIT) + '...',
+                        }}
                       />
                     ) : (
                       <Typography
