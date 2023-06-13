@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next'
 import Image from 'next/image'
 import { GetArticleDocuments, GetArticleGalleryPhotos } from 'common/util/newsFilesUrls'
 import { useShowMoreContent } from './hooks/useShowMoreContent'
+import { sanitizeHTML } from 'common/util/htmlSanitizer'
 
 const PREFIX = 'CampaignNewsSection'
 const classes = {
@@ -89,6 +90,7 @@ export default function CampaignNewsList({ articles }: Props) {
       {articles?.map((article, index) => {
         const documents = GetArticleDocuments(article.articleFiles)
         const images = GetArticleGalleryPhotos(article.articleFiles)
+        const sanitizedDescription = sanitizeHTML(article.description)
         return (
           <Grid
             container
@@ -121,20 +123,20 @@ export default function CampaignNewsList({ articles }: Props) {
                   style={{ maxWidth: '100%' }}>
                   <Typography className={classes.articleHeader}>{article.title}</Typography>
                   <Grid container item>
-                    {!isExpanded[article.id] && article.description.length > CHARACTER_LIMIT ? (
+                    {!isExpanded[article.id] && sanitizedDescription.length > CHARACTER_LIMIT ? (
                       <Typography
                         component={'div'}
                         className={classes.articleDescription}
-                        dangerouslySetInnerHTML={{ __html: article.description.slice(0, CHARACTER_LIMIT) + "..." }}
+                        dangerouslySetInnerHTML={{ __html: sanitizedDescription.slice(0, CHARACTER_LIMIT) + "..." }}
                       />
                     ) : (
                       <Typography
                         component={'div'}
                         className={classes.articleDescription}
-                        dangerouslySetInnerHTML={{ __html: article.description }}
+                        dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
                       />
                     )}
-                    {article.description.length > CHARACTER_LIMIT && (
+                    {sanitizedDescription.length > CHARACTER_LIMIT && (
                       <Button
                         className={classes.readMoreButton}
                         onClick={() => expandContent(article.id)}>

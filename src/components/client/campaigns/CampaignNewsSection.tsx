@@ -23,6 +23,7 @@ import Image from 'next/image'
 import useMobile from 'common/hooks/useMobile'
 import { GetArticleDocuments, GetArticleGalleryPhotos } from 'common/util/newsFilesUrls'
 import { useShowMoreContent } from '../campaign-news/hooks/useShowMoreContent'
+import { sanitizeHTML } from 'common/util/htmlSanitizer'
 
 const PREFIX = 'NewsTimeline'
 
@@ -177,9 +178,9 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
       <Grid item>
       <StyledTimeline>
         {campaign.campaignNews?.map((article) => {
-
           const documents = GetArticleDocuments(article.articleFiles)
           const images = GetArticleGalleryPhotos(article.articleFiles)
+          const sanitizedDescription = sanitizeHTML(article.description)
           return (
             <TimelineItem key={article.id} className={classes.timelineItem}>
               {!small && (
@@ -232,20 +233,20 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                     <Typography className={classes.articleHeader}>{article.title}</Typography>
                   </Grid>
                   <Grid container item direction={'row'}>
-                    {!isExpanded[article.id] && article.description.length > CHARACTER_LIMIT ? (
+                    {!isExpanded[article.id] && sanitizedDescription.length > CHARACTER_LIMIT ? (
                       <Typography
                         component={'div'}
                         className={classes.articleDescription}
-                        dangerouslySetInnerHTML={{ __html: article.description.slice(0, CHARACTER_LIMIT) + "..." }}
+                        dangerouslySetInnerHTML={{ __html: sanitizedDescription.slice(0, CHARACTER_LIMIT) + "..." }}
                       />
                     ) : (
                       <Typography
                         component={'div'}
                         className={classes.articleDescription}
-                        dangerouslySetInnerHTML={{ __html: article.description }}
+                        dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
                       />
                     )}
-                    {article.description.length > CHARACTER_LIMIT && (
+                    {sanitizedDescription.length > CHARACTER_LIMIT && (
                       <Button
                         className={classes.readMoreButton}
                         onClick={() => expandContent(article.id)}>
