@@ -40,7 +40,11 @@ export type CampaignNewsPagination = {
 }
 
 export type CampaignNewsWithPaginationResponse = {
-  articles: CampaignNewsResponse[]
+  campaign: {
+    title:string,
+    slug: string,
+    campaignNews:CampaignNewsResponse[]
+  }
   pagination: CampaignNewsPagination
 }
 

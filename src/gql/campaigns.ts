@@ -106,7 +106,7 @@ export type CampaignResponse = BaseCampaignResponse & {
   campaignFiles?: CampaignFile[]
   vaults?: VaultResponse[]
   defaultVault?: UUID
-  news: CampaignNewsResponse[] | []
+  campaignNews: CampaignNewsResponse[] | []
 }
 
 export type CampaignCreateFormData = {

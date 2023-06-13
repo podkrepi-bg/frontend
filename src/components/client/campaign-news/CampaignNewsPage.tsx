@@ -78,8 +78,8 @@ export default function CampaignNewsPage({ page, slug = null }: Props) {
   ]
   if (slug && data) {
     breadcumbData.splice(1, 0, {
-      label: data.articles[0].campaign.title,
-      url: routes.campaigns.viewCampaignBySlug(data.articles[0].campaign.slug),
+      label: data.campaign.title,
+      url: routes.campaigns.viewCampaignBySlug(data.campaign.slug),
     })
   }
 
@@ -103,7 +103,7 @@ export default function CampaignNewsPage({ page, slug = null }: Props) {
           <BreadcrumbWrapper crumb={breadcumbData} />
           <Divider orientation="horizontal" />
         </Grid>
-        {data && data?.articles.length > 0 && <CampaignNewsList articles={data.articles} />}
+        {data && data?.campaign.campaignNews.length > 0 && <CampaignNewsList articles={data.campaign.campaignNews} />}
         <Grid>
           {data && data?.pagination.totalPages > 1 && (
             <Pagination

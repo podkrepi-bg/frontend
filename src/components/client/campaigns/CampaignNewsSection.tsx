@@ -158,7 +158,7 @@ export default function CampaignNewsSection({ campaign }: Props) {
         {t('news')}
       </Typography>
       <StyledTimeline>
-        {campaign.news?.map((article) => {
+        {campaign.campaignNews?.map((article) => {
           //[TODO]: Find a way to do this via the Quill editor??
           const unFormattedText = article.description.replace(htmlRemoverRegex, ' ')
 
