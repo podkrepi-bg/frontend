@@ -12,6 +12,8 @@ import { Button, Tooltip } from '@mui/material'
 import { downloadCampaignExpenseFile } from 'service/expense'
 import { useSession } from 'next-auth/react'
 import FilePresentIcon from '@mui/icons-material/FilePresent'
+import Link from 'next/link'
+import { expenseFileUrl } from 'common/util/expenseFileUrls'
 
 const PREFIX = 'Grid'
 
@@ -120,9 +122,11 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
         const rows = params.row.expenseFiles.map((file: ExpenseFile) => {
           return (
             <Tooltip key={file.id} title={file.filename}>
-              <Button onClick={() => downloadExpenseFileHandler(file)}>
+              <Link href={expenseFileUrl(file.id)} target='_blank' passHref>
+                <Button>
                 <FilePresentIcon />
-              </Button>
+                </Button>
+              </Link>
             </Tooltip>
           )
         })
