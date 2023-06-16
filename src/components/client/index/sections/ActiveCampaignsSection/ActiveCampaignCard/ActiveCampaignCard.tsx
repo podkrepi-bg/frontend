@@ -3,14 +3,13 @@ import Link from 'next/link'
 
 import { CampaignResponse } from 'gql/campaigns'
 
-import { Favorite } from '@mui/icons-material'
 import { CardActionArea, Grid } from '@mui/material'
 
 import { routes } from 'common/routes'
 import theme from 'common/theme'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 
-import { CampaignTitle, Content, SupportNowButton } from './ActiveCampaignCard.styled'
+import { CampaignTitle, SupportNowButton } from './ActiveCampaignCard.styled'
 import { moneyPublic } from 'common/util/money'
 import { SumWrapper, Sum } from '../../CompletedCampaignsSection/CompletedCampaignsSection.styled'
 
@@ -27,7 +26,8 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
     <CardActionArea
       LinkComponent={Link}
       href={routes.campaigns.viewCampaignBySlug(slug)}
-      data-testid={`campaign-card-${index}`}>
+      data-testid={`campaign-card-${index}`}
+      sx={{ display: 'flex', flexDirection: 'column' }}>
       <SumWrapper>
         <Grid>
           <Sum>
@@ -50,6 +50,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
         sx={{
           background: `url(${campaignImagesUrl})`,
           height: '100%',
+          width: '100%',
           backgroundSize: 'cover',
           border: `1px solid ${theme.palette.common.white}`,
 
@@ -63,9 +64,8 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
             fullWidth
             href={routes.campaigns.oneTimeDonation(slug)}
             variant="contained"
-            color="secondary"
-            endIcon={<Favorite color="error" />}>
-            {t('cta.support-now')}
+            color="secondary">
+            {t('cta.support')}
           </SupportNowButton>
         </Grid>
       </Grid>
