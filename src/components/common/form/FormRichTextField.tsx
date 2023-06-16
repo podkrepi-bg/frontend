@@ -14,24 +14,28 @@ import BlotFormatter from 'quill-blot-formatter/'
 Quill.register('modules/blotFormatter', BlotFormatter)
 
 import htmlEditButton from 'quill-html-edit-button'
+
 Quill.register({
   'modules/htmlEditButton': htmlEditButton,
 })
 
-export type RegisterFormProps = {
+Quill.register({
+  'modules/htmlEditButton': htmlEditButton,
+})
+
+export type FormRichTextFieldProps = {
   name: string
 }
 
-export default function FormRichTextField({ name }: RegisterFormProps) {
+export default function FormRichTextField({ name }: FormRichTextFieldProps) {
   const { t } = useTranslation()
   const [, meta] = useField(name)
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
 
   const reactQuillRef = useRef<ReactQuill>(null)
 
-  //this image handler inserts the image into the editor as URL to eternally hosted image
-  //TODO: find a way to upload the image to our backend
-  function handleImageInsert() {
+  //this image handler inserts the image into the editor as URL to externally hosted image
+  function handleImageUrlInsert() {
     let imageUrl = prompt('Enter the URL of the image:') // for a better UX find a way to use the Quill Tooltip or a Modal box
     if (!imageUrl) return
     const editor = reactQuillRef.current?.getEditor()
@@ -65,7 +69,7 @@ export default function FormRichTextField({ name }: RegisterFormProps) {
           ['link', 'video', 'image'],
           ['clean'],
         ],
-        handlers: { image: handleImageInsert },
+        handlers: { image: handleImageUrlInsert },
       },
       clipboard: {
         // toggle to add extra line breaks when pasting HTML:
