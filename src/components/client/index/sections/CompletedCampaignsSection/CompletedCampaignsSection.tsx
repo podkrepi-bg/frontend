@@ -17,11 +17,9 @@ import {
   CarouselWrapper,
   Sum,
   SumWrapper,
-  SumText,
   CampaignTitle,
   CompletedCampaignLink,
   CardWrapper,
-  SumWrapperColumn,
 } from './CompletedCampaignsSection.styled'
 
 export default function CompletedCampaignsSection() {
@@ -48,19 +46,15 @@ export default function CompletedCampaignsSection() {
               onMouseDown={onLinkMouseDown}
               href={routes.campaigns.viewCampaignBySlug(campaign.slug)}
               sx={{
-                background: `linear-gradient(180deg, rgba(81, 81, 81, 0) 50%, rgba(0, 0, 0, 0.78) 80%, #000000 100%), url(${campaignListPictureUrl(
-                  campaign,
-                )})`,
+                background: `url(${campaignListPictureUrl(campaign)})`,
               }}>
               <SumWrapper>
-                <SumWrapperColumn>
-                  <Sum>
-                    {i18n.language === 'bg'
-                      ? moneyPublic(campaign.summary.reachedAmount).split(',')[0] + ' лв.'
-                      : moneyPublic(campaign.summary.reachedAmount).split('.')[0]}
-                  </Sum>
-                  <SumText sx={{ padding: 0 }}>{t('campaign.reached')}</SumText>
-                </SumWrapperColumn>
+                <Sum>
+                  {t('campaign.reached')}
+                  {i18n.language === 'bg'
+                    ? moneyPublic(campaign.summary.reachedAmount).split(',')[0] + ' лв.'
+                    : moneyPublic(campaign.summary.reachedAmount).split('.')[0]}
+                </Sum>
               </SumWrapper>
               <CampaignTitle>{campaign.title}</CampaignTitle>
             </CompletedCampaignLink>

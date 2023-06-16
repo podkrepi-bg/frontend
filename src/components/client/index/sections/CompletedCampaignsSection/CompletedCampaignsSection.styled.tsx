@@ -3,7 +3,7 @@ import Slider from 'react-slick'
 import styled from '@emotion/styled'
 
 import theme from 'common/theme'
-import { Typography, Link, Grid, Stack } from '@mui/material'
+import { Link, Grid } from '@mui/material'
 
 export const Root = styled('section')(() => ({
   marginTop: theme.spacing(12),
@@ -54,38 +54,20 @@ export const CampaignTitle = styled('h6')(() => ({
   fontWeight: 700,
   fontSize: theme.typography.pxToRem(16),
   lineHeight: '150%',
-  color: theme.palette.secondary.light,
+  color: theme.palette.common.black,
 }))
 
 export const SumWrapper = styled(Grid)(() => ({
   display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
-  flexFlow: 'wrap',
+  justifyContent: 'space-between',
   padding: theme.spacing(0.6, 0),
-  minWidth: theme.spacing(17.5),
-  background: '#323232',
-  borderRadius: theme.spacing(0, 0, 0, 2),
-  color: '#B0E5FF',
-  marginLeft: 'auto',
+  color: theme.palette.common.black,
   fontFamily: 'Montserrat, sans-serif',
   fontSize: theme.typography.pxToRem(17),
-}))
-
-export const SumWrapperColumn = styled(Stack)(() => ({
-  flexDirection: 'column',
-  alignItems: 'center',
 }))
 
 export const Sum = styled('span')(() => ({
   fontWeight: 700,
   fontSize: theme.typography.pxToRem(17),
-}))
-
-export const SumText = styled(Typography)(() => ({
-  color: theme.palette.common.white,
-  fontFamily: 'Lato, sans-serif',
-  fontWeight: 700,
-  fontSize: theme.typography.pxToRem(17),
-  padding: theme.spacing(0, 1),
+  fontFamily: 'sans-serif',
 }))
