@@ -32,23 +32,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
     <CardActionArea
       LinkComponent={Link}
       href={routes.campaigns.viewCampaignBySlug(slug)}
-      data-testid={`campaign-card-${index}`}
-      sx={{
-        background: `linear-gradient(180deg, rgba(81, 81, 81, 0) 50%, rgba(0, 0, 0, 0.78) 80%, #000000 100%), url(${campaignImagesUrl})`,
-        height: '100%',
-        backgroundSize: 'cover',
-        border: `1px solid ${theme.palette.common.white}`,
-
-        '&:hover': {
-          background: `linear-gradient(180deg, rgba(81, 81, 81, 0) -8.88%, rgba(0, 0, 0, 0.78) 80%, #000000 100%), url(${campaignImagesUrl})`,
-          backgroundSize: 'cover',
-
-          'a button': {
-            display: 'flex',
-            margin: '0 auto',
-          },
-        },
-      }}>
+      data-testid={`campaign-card-${index}`}>
       <SumWrapper>
         <SumText>{t('campaign.reached')}</SumText>
         <Sum>
@@ -63,19 +47,35 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
             : targetAmount.split('.')[0]}
         </Sum>
       </SumWrapper>
+      <Grid
+        sx={{
+          background: `url(${campaignImagesUrl})`,
+          height: '100%',
+          backgroundSize: 'cover',
+          border: `1px solid ${theme.palette.common.white}`,
+
+          '&:hover': {
+            backgroundSize: 'cover',
+
+            'a button': {
+              display: 'flex',
+              margin: '0 auto',
+            },
+          },
+        }}
+      />
+      <Grid textAlign="center">
+        <SupportNowButton
+          fullWidth
+          href={routes.campaigns.oneTimeDonation(slug)}
+          variant="contained"
+          color="secondary"
+          endIcon={<Favorite color="error" />}>
+          {t('cta.support-now')}
+        </SupportNowButton>
+      </Grid>
       <Content>
         <CampaignTitle>{title}</CampaignTitle>
-        <Grid textAlign="center">
-          <SupportNowButton
-            fullWidth
-            href={routes.campaigns.oneTimeDonation(slug)}
-            disabled={campaignState === CampaignState.complete && !allowDonationOnComplete}
-            variant="contained"
-            color="secondary"
-            endIcon={<Favorite color="error" />}>
-            {t('cta.support-now')}
-          </SupportNowButton>
-        </Grid>
       </Content>
     </CardActionArea>
   )

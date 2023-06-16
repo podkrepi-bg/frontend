@@ -6,7 +6,6 @@ import theme from 'common/theme'
 
 export const Content = styled(CardContent)(() => ({
   padding: theme.spacing(0, 1),
-  position: 'absolute',
   width: '100%',
   bottom: theme.spacing(2),
 
@@ -20,7 +19,7 @@ export const CampaignTitle = styled('h6')(() => ({
   fontWeight: 700,
   fontSize: theme.typography.pxToRem(16),
   lineHeight: '150%',
-  color: theme.palette.secondary.light,
+  color: theme.palette.common.black,
   fontFamily: 'Montserrat, sans-serif',
 }))
 
