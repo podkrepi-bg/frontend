@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import { CampaignResponse } from 'gql/campaigns'
 
-import { CardActionArea, Grid } from '@mui/material'
+import { Box, CardActionArea, Grid } from '@mui/material'
 
 import { routes } from 'common/routes'
 import theme from 'common/theme'
@@ -12,15 +12,17 @@ import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import { CampaignTitle, SupportNowButton } from './ActiveCampaignCard.styled'
 import { moneyPublic } from 'common/util/money'
 import { SumWrapper, Sum } from '../../CompletedCampaignsSection/CompletedCampaignsSection.styled'
+import CampaignProgress from '../../../../campaigns/CampaignProgress'
 
 type Props = { campaign: CampaignResponse; index: number }
 
 export default function ActiveCampaignCard({ campaign, index }: Props) {
   const { t } = useTranslation('campaigns')
-  const { slug, title } = campaign
+  const { id, slug, title, summary, targetAmount: target } = campaign
   const campaignImagesUrl = campaignListPictureUrl(campaign)
   const reachedAmount = moneyPublic(campaign.summary.reachedAmount)
   const targetAmount = moneyPublic(campaign.targetAmount)
+  const reached = summary ? summary.reachedAmount : 0
 
   return (
     <CardActionArea
@@ -46,6 +48,9 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
           </Sum>
         </Grid>
       </SumWrapper>
+      <Box p={2} width={1}>
+        <CampaignProgress campaignId={id} raised={reached} target={target} />
+      </Box>
       <Grid
         sx={{
           background: `url(${campaignImagesUrl})`,

@@ -36,6 +36,7 @@ type Props = {
 }
 export default function CampaignProgress({ campaignId, raised, target }: Props) {
   const percentage = useMemo(() => (raised / target) * 100, [raised, target])
+
   return (
     <StyledGrid className={classes.donationProgress} container>
       <Grid item xs={12}>

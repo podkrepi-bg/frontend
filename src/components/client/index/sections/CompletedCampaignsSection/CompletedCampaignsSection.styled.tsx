@@ -59,6 +59,7 @@ export const CampaignTitle = styled('h6')(() => ({
 
 export const SumWrapper = styled(Grid)(() => ({
   display: 'flex',
+  width: '100%',
   justifyContent: 'space-between',
   padding: theme.spacing(0.6, 0),
   color: theme.palette.common.black,
