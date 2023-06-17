@@ -3,16 +3,20 @@ import Link from 'next/link'
 
 import { CampaignResponse } from 'gql/campaigns'
 
-import { Box, CardActionArea, Grid } from '@mui/material'
+import { CardActionArea, Grid } from '@mui/material'
 
 import { routes } from 'common/routes'
-import theme from 'common/theme'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
-
-import { CampaignTitle, SupportNowButton } from './ActiveCampaignCard.styled'
+import theme from 'common/theme'
 import { moneyPublic } from 'common/util/money'
-import { SumWrapper, Sum } from '../../CompletedCampaignsSection/CompletedCampaignsSection.styled'
 import CampaignProgress from '../../../../campaigns/CampaignProgress'
+
+import {
+  CampaignProgressWrapper,
+  CampaignTitle,
+  SupportNowButton,
+} from './ActiveCampaignCard.styled'
+import { SumWrapper, Sum } from '../../CompletedCampaignsSection/CompletedCampaignsSection.styled'
 
 type Props = { campaign: CampaignResponse; index: number }
 
@@ -29,7 +33,25 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
       LinkComponent={Link}
       href={routes.campaigns.viewCampaignBySlug(slug)}
       data-testid={`campaign-card-${index}`}
-      sx={{ display: 'flex', flexDirection: 'column' }}>
+      sx={{ display: 'flex', flexDirection: 'column', alignItems: 'initial' }}>
+      <Grid
+        sx={{
+          background: `url(${campaignImagesUrl})`,
+          height: '100%',
+          width: '100%',
+          backgroundSize: 'cover',
+          border: `1px solid ${theme.palette.common.white}`,
+        }}>
+        <Grid textAlign="center">
+          <SupportNowButton
+            fullWidth
+            href={routes.campaigns.oneTimeDonation(slug)}
+            variant="contained"
+            color="secondary">
+            {t('cta.support')}
+          </SupportNowButton>
+        </Grid>
+      </Grid>
       <SumWrapper>
         <Grid>
           <Sum>
@@ -48,32 +70,9 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
           </Sum>
         </Grid>
       </SumWrapper>
-      <Box p={2} width={1}>
+      <CampaignProgressWrapper width={1}>
         <CampaignProgress campaignId={id} raised={reached} target={target} />
-      </Box>
-      <Grid
-        sx={{
-          background: `url(${campaignImagesUrl})`,
-          height: '100%',
-          width: '100%',
-          backgroundSize: 'cover',
-          border: `1px solid ${theme.palette.common.white}`,
-
-          '&:hover a button': {
-            display: 'flex',
-            margin: '0 auto',
-          },
-        }}>
-        <Grid textAlign="center">
-          <SupportNowButton
-            fullWidth
-            href={routes.campaigns.oneTimeDonation(slug)}
-            variant="contained"
-            color="secondary">
-            {t('cta.support')}
-          </SupportNowButton>
-        </Grid>
-      </Grid>
+      </CampaignProgressWrapper>
       <CampaignTitle>{title}</CampaignTitle>
     </CardActionArea>
   )
