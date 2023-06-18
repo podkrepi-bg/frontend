@@ -21,7 +21,7 @@ export function GetArticleDocuments(files: CampaignNewsFile[]) {
 
 export function GetArticleGalleryPhotos(files: CampaignNewsFile[]) {
   return files
-    .filter((file) => file.role === CampaignFileRole.campaignPhoto)
+    .filter((file) => file.role === CampaignFileRole.gallery)
     .map((file) => {
       return {
         id: file.id,

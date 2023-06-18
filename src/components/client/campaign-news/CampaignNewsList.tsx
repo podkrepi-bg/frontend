@@ -88,8 +88,8 @@ export default function CampaignNewsList({ articles }: Props) {
   return (
     <>
       {articles?.map((article, index) => {
-        const documents = GetArticleDocuments(article.articleFiles)
-        const images = GetArticleGalleryPhotos(article.articleFiles)
+        const documents = GetArticleDocuments(article.newsFiles)
+        const images = GetArticleGalleryPhotos(article.newsFiles)
         const sanitizedDescription = sanitizeHTML(article.description)
         return (
           <Grid
@@ -158,7 +158,7 @@ export default function CampaignNewsList({ articles }: Props) {
                     ))}
                   </Grid>
                 </Grid>
-                {article.articleFiles.length > 0 && (
+                {article.newsFiles.length > 0 && (
                   <Grid container item gap={1} xs={'auto'} style={{ maxWidth: '100%' }}>
                     {images.map((file) => (
                       <Grid item key={file.id}>

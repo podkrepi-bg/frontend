@@ -269,7 +269,7 @@ export default function EditForm({ article, slug, campaignTitle, isAdmin }: Prop
           <Grid item xs={12}>
             <List dense>
               <ListItemText primary={t('campaigns:cta.attached-files')} />
-              {(article?.articleFiles || []).map((file, key) => (
+              {(article?.newsFiles || []).map((file, key) => (
                 <UploadedCampaignFile key={key} file={file} articleId={article.id} />
               ))}
             </List>

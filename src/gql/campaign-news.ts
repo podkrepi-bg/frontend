@@ -15,7 +15,7 @@ type BaseCampaignNewsResponse = {
   publishedAt: Date
   editedAt: Date | undefined
   description: string
-  articleFiles: CampaignNewsFile[] | []
+  newsFiles: CampaignNewsFile[] | []
 }
 
 export type AdminCampaignNewsResponse = BaseCampaignNewsResponse & {

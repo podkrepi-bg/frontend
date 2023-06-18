@@ -84,8 +84,8 @@ export default function SingleArticlePage({ slug }: Props) {
 
   if (isLoading || isError) return <Layout />
 
-  const documents = GetArticleDocuments(article.articleFiles)
-  const images = GetArticleGalleryPhotos(article.articleFiles)
+  const documents = GetArticleDocuments(article.newsFiles)
+  const images = GetArticleGalleryPhotos(article.newsFiles)
   const sanitizedDescription = sanitizeHTML(article.description)
   return (
     <Layout>

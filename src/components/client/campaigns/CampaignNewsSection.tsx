@@ -171,8 +171,8 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
         <Grid item>
           <StyledTimeline>
             {campaign.campaignNews?.map((article) => {
-              const documents = GetArticleDocuments(article.articleFiles)
-              const images = GetArticleGalleryPhotos(article.articleFiles)
+              const documents = GetArticleDocuments(article.newsFiles)
+              const images = GetArticleGalleryPhotos(article.newsFiles)
               const sanitizedDescription = sanitizeHTML(article.description)
               return (
                 <TimelineItem key={article.id} className={classes.timelineItem}>
@@ -256,7 +256,7 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                           </Button>
                         )}
                       </Grid>
-                      {article.articleFiles.length > 0 && (
+                      {article.newsFiles.length > 0 && (
                         <Grid container gap={1}>
                           <Grid container item direction={'column'} gap={0.5}>
                             {documents.map((file) => (
