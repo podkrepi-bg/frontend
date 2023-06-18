@@ -165,7 +165,7 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
       </Grid>
       {campaign.campaignNews.length === 0 ? (
         <Grid item>
-          <Typography>Не бяха намерени новини за тази кампания</Typography>
+          <Typography>{t('news-not-found')}</Typography>
         </Grid>
       ) : (
         <Grid item>

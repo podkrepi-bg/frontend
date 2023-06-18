@@ -3,6 +3,7 @@
     "read-more": "Read more",
     "read-less": "Read less",
     "see-all-news": "See all news", 
+    "news-not-found": "No news articles were found for this campaign",
     "write-new-article": "Write an article",            
     "status" : {
         "draft": "Draft",
