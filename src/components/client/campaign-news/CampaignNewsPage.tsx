@@ -13,9 +13,11 @@ import { useCampaignNewsList } from 'common/hooks/campaign-news'
 
 import Link from 'next/link'
 
-import CampaignNewsList from './CampaignNewsList'
+import dynamic from 'next/dynamic'
 
 import BreadcrumbWrapper from 'components/common/BreadcrumbWrapper'
+
+const CampaignNewsList = dynamic(()=>import('./CampaignNewsList'), {ssr: false})
 
 const PREFIX = 'CampaignsNewsPage'
 
