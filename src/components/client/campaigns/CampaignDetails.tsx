@@ -24,9 +24,10 @@ import { useCampaignApprovedExpensesList } from 'common/hooks/expenses'
 import { Assessment } from '@mui/icons-material'
 import { routes } from 'common/routes'
 import { useCanEditCampaign } from 'common/hooks/campaigns'
-import CampaignNewsSection from './CampaignNewsSection'
+
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
+const CampaignNewsSection = dynamic(()=> import('./CampaignNewsSection'), {ssr: false})
 
 const PREFIX = 'CampaignDetails'
 
