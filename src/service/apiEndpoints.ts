@@ -22,8 +22,8 @@ export const endpoints = {
       method: 'GET',
     },
     createCampaign: <Endpoint>{ url: '/campaign/create-campaign', method: 'POST' },
-    canEditCampaign: (slug: string, keycloakId: string) =>
-      <Endpoint>{ url: `/campaign/${slug}/${keycloakId}/can-edit`, method: 'GET' },
+    canEditCampaign: (slug: string) =>
+      <Endpoint>{ url: `/campaign/${slug}/can-edit`, method: 'GET' },
     viewCampaign: (slug: string) => <Endpoint>{ url: `/campaign/${slug}`, method: 'GET' },
     viewCampaignById: (id: string) => <Endpoint>{ url: `/campaign/byId/${id}`, method: 'GET' },
     editCampaign: (id: string) => <Endpoint>{ url: `/campaign/${id}`, method: 'PUT' },

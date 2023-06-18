@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { endpoints } from 'service/apiEndpoints'
-import { queryFnFactory } from 'service/restRequests'
+import { authQueryFnFactory } from 'service/restRequests'
 import { getServerSession } from 'next-auth/next'
 import { authOptions } from 'pages/api/auth/[...nextauth]'
 import { isAdmin } from 'common/util/roles'
@@ -22,8 +22,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
   }
   const isCampaignOrganizer = await client.fetchQuery<boolean>(
-    [endpoints.campaign.canEditCampaign(slug as string, session.user.sub).url],
-    queryFnFactory<boolean>(),
+    [endpoints.campaign.canEditCampaign(slug as string).url],
+    authQueryFnFactory<boolean>(session.accessToken),
   )
   const canEditCampaign = isCampaignOrganizer || isAdmin(session)
   if (!canEditCampaign) {
