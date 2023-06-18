@@ -30,7 +30,7 @@ export default function DeleteModal({ id, slug, onClose, onDelete }: Props) {
       onDelete()
       onClose()
       // router.push(routes.campaigns.news.newsAdminPanel(slug))
-      AlertStore.show(t('news:actions.deleted-successfully'), 'success')
+      AlertStore.show(t('news:article.actions.deleted-successfully'), 'success')
     },
   })
 

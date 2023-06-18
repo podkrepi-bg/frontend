@@ -128,7 +128,7 @@ export function NewsAdminPage({ slug, isAdmin }: Props) {
                 <PageviewOutlinedIcon />
               </IconButton>
             </Link>
-            <Tooltip title={cantEdit ? t('article.no-access') : null}>
+            <Tooltip title={cantEdit ? t('article.actions.no-access') : null}>
               <span>
                 <Link
                   href={{
@@ -144,7 +144,7 @@ export function NewsAdminPage({ slug, isAdmin }: Props) {
                 </Link>
               </span>
             </Tooltip>
-            <Tooltip title={cantEdit ? t('article.no-access') : null}>
+            <Tooltip title={cantEdit ? t('article.actions.no-access') : null}>
               <span>
                 <IconButton
                   size="small"
@@ -189,8 +189,6 @@ export function NewsAdminPage({ slug, isAdmin }: Props) {
           <DataGrid
             rows={data.campaignNews || []}
             columns={columns}
-            pageSize={10}
-            rowsPerPageOptions={[100]}
             pagination
             autoHeight
             disableSelectionOnClick

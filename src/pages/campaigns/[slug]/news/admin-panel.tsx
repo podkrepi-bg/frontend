@@ -3,7 +3,7 @@ import { GetServerSideProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 import { endpoints } from 'service/apiEndpoints'
-import { authQueryFnFactory, queryFnFactory } from 'service/restRequests'
+import { authQueryFnFactory } from 'service/restRequests'
 import { NewsAdminPage } from 'components/client/campaign-news/secured/NewsAdminPage'
 import { getServerSession } from 'next-auth/next'
 import { authOptions } from 'pages/api/auth/[...nextauth]'
