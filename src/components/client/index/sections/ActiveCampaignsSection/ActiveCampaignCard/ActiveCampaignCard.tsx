@@ -1,9 +1,8 @@
 import { useTranslation, i18n } from 'next-i18next'
-import Link from 'next/link'
 
 import { CampaignResponse } from 'gql/campaigns'
 
-import { CardActionArea, Grid } from '@mui/material'
+import { Grid } from '@mui/material'
 
 import { routes } from 'common/routes'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
@@ -23,24 +22,32 @@ type Props = { campaign: CampaignResponse; index: number }
 export default function ActiveCampaignCard({ campaign, index }: Props) {
   const { t } = useTranslation('campaigns')
   const { id, slug, title, summary, targetAmount: target } = campaign
-  const campaignImagesUrl = campaignListPictureUrl(campaign)
+  // const campaignImagesUrl = campaignListPictureUrl(campaign)
+  const campaignImagesUrl = '/img/team-photos/StankaCherkezova.jpg'
   const reachedAmount = moneyPublic(campaign.summary.reachedAmount)
   const targetAmount = moneyPublic(campaign.targetAmount)
   const reached = summary ? summary.reachedAmount : 0
 
   return (
-    <CardActionArea
-      LinkComponent={Link}
-      href={routes.campaigns.viewCampaignBySlug(slug)}
+    <Grid
+      // LinkComponent={Link}
+      // href={routes.campaigns.viewCampaignBySlug(slug)}
       data-testid={`campaign-card-${index}`}
-      sx={{ display: 'flex', flexDirection: 'column', alignItems: 'initial' }}>
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'initial',
+
+        '&:nth-of-type(1)': {
+          minHeight: '600px',
+          gridArea: '1 / 1 / 3 / 3',
+        },
+      }}>
       <Grid
         sx={{
           background: `url(${campaignImagesUrl})`,
           height: '100%',
-          width: '100%',
           backgroundSize: 'cover',
-          border: `1px solid ${theme.palette.common.white}`,
         }}>
         <Grid textAlign="center">
           <SupportNowButton
@@ -74,6 +81,6 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
         <CampaignProgress campaignId={id} raised={reached} target={target} />
       </CampaignProgressWrapper>
       <CampaignTitle>{title}</CampaignTitle>
-    </CardActionArea>
+    </Grid>
   )
 }

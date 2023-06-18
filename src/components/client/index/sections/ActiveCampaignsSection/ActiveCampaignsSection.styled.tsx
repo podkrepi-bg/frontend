@@ -8,22 +8,15 @@ export const Root = styled(Grid)(() => ({
   display: 'grid',
   gridTemplateRows: 'repeat(5, 1fr)',
 
-  'a:nth-of-type(1)': {
-    minHeight: theme.spacing(100),
-  },
+  // 'div:nth-of-type(1)': {
+  //   minHeight: '488px',
+  //   gridArea: '1 / 1 / 3 / 3',
+  // },
 
   [theme.breakpoints.up('sm')]: {
     gridTemplateColumns: 'repeat(2, 1fr)',
     gridTemplateRows: 'repeat(4, 1fr)',
     marginTop: theme.spacing(7),
-
-    'a:nth-of-type(1)': {
-      minHeight: theme.spacing(100),
-      gridRowStart: 1,
-      gridColumnStart: 1,
-      gridRowEnd: 3,
-      gridColumnEnd: 3,
-    },
   },
 
   [theme.breakpoints.up('md')]: {
