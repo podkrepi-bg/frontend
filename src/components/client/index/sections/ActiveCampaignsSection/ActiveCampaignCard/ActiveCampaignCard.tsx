@@ -38,9 +38,21 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
         flexDirection: 'column',
         alignItems: 'initial',
 
-        '&:nth-of-type(1)': {
-          minHeight: '600px',
-          gridArea: '1 / 1 / 3 / 3',
+        [theme.breakpoints.down('md')]: {
+          minHeight: '425px',
+        },
+
+        [theme.breakpoints.up('sm')]: {
+          '&:nth-of-type(1)': {
+            gridArea: '1 / 1 / 3 / 3',
+            height: '570px',
+          },
+        },
+
+        [theme.breakpoints.up('lg')]: {
+          '&:nth-of-type(1)': {
+            minHeight: '550px',
+          },
         },
       }}>
       <Grid
