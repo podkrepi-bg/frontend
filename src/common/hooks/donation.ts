@@ -10,7 +10,6 @@ import { authQueryFnFactory } from 'service/restRequests'
 import {
   CheckoutSessionInput,
   CheckoutSessionResponse,
-  DonationPrice,
   DonationResponse,
   DonorsCountResult,
   TotalDonatedMoneyResponse,
@@ -19,13 +18,6 @@ import {
 import { createCheckoutSession } from 'service/donation'
 import { CampaignDonationHistoryResponse } from 'gql/campaigns'
 import { FilterData, PaginationData } from 'gql/types'
-
-export function usePriceList() {
-  return useQuery<DonationPrice[]>([endpoints.donation.prices.url])
-}
-export function useSinglePriceList() {
-  return useQuery<DonationPrice[]>([endpoints.donation.singlePrices.url])
-}
 
 export function useDonationSession() {
   const { t } = useTranslation()
