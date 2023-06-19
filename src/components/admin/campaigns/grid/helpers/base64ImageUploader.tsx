@@ -32,15 +32,10 @@ export const base64ImageUploader = async function (
   ) => {
     //upload the imageData to the server and get the url
     const fileUrl = await uploadImage(campaignId, base64Data, imageType, fileUploadMutation)
-
-    console.log('uploaded image url', fileUrl)
-
     return fileUrl
   }
 
   //now call the replacer to upload all images and return the urls
-  console.log('Incomming richtext', textWithLinks)
-
   const base64regex = /data:image\/(png|jpg|jpeg|gif);base64,([^"]+)/g
   textWithLinks.replaceAll(base64regex, (m, p1, p2) => {
     urlPromises.push(getReplacementUrls(m, p1, p2))
@@ -50,7 +45,6 @@ export const base64ImageUploader = async function (
   //and wait on all replacement promisses in the array and run the replacer again with the returned urls
   return Promise.all(urlPromises).then((urls) => {
     textWithLinks = textWithLinks.replaceAll(base64regex, () => urls.shift() as string)
-    console.log('New description to be updated ', textWithLinks)
     return textWithLinks
   })
 }
@@ -67,14 +61,11 @@ async function uploadImage(
     unknown
   >,
 ): Promise<string> {
-  console.log('File type: ', imageType)
   const imageBuffer = Buffer.from(base64Data, 'base64')
 
   //we don't know the name so we hash the image for unique name to avoid uploading the same image twice
   const fileName = crypto.createHash('sha256').update(imageBuffer).digest('hex') + '.' + imageType
   const imageFile = new File([imageBuffer], fileName, { type: 'image/' + imageType })
-
-  console.log('fileName: ', fileName)
 
   return await fileUploadMutation
     .mutateAsync({
@@ -83,11 +74,9 @@ async function uploadImage(
       roles: [{ file: imageFile.name, role: CampaignFileRole.campaignPhoto }],
     })
     .then((response) => {
-      console.log('response fileId: ', response)
       return `${publicRuntimeConfig.APP_URL}/api/v1/campaign-file/` + response.data[0]
     })
-    .catch((error) => {
-      console.log('error: ', error)
+    .catch(() => {
       return ''
     })
 }
