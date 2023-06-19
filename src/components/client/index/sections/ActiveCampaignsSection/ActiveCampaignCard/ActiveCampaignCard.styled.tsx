@@ -15,12 +15,12 @@ export const Content = styled(CardContent)(() => ({
 }))
 
 export const CampaignTitle = styled('h6')(() => ({
-  margin: theme.spacing(1.8, 1.2),
-  fontWeight: 700,
+  marginTop: theme.spacing(1),
   fontSize: theme.typography.pxToRem(16),
   lineHeight: '150%',
   color: theme.palette.common.black,
   fontFamily: 'Montserrat, sans-serif',
+  fontWeight: 400,
   minHeight: '66px',
   overflow: 'hidden',
   display: '-webkit-box',

@@ -69,6 +69,6 @@ export const SumWrapper = styled(Grid)(() => ({
 
 export const Sum = styled('span')(() => ({
   fontWeight: 700,
-  fontSize: theme.typography.pxToRem(17),
+  fontSize: theme.typography.pxToRem(16),
   fontFamily: 'sans-serif',
 }))

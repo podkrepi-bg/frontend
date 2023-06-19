@@ -35,4 +35,5 @@ export const Root = styled(Grid)(() => ({
 export const SeeAllButton = styled(Grid)(() => ({
   display: 'flex',
   placeContent: 'center',
+  marginTop: '48px',
 }))

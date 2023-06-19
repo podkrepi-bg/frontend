@@ -80,7 +80,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
           </Sum>
         </Grid>
         <Grid>
-          <Sum>
+          <Sum style={{ fontWeight: 400 }}>
             {t('campaign.target')}{' '}
             {i18n.language === 'bg'
               ? targetAmount.split(',')[0] + ' лв.'

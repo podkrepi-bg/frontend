@@ -32,7 +32,8 @@ export default function ActiveCampaignsSection() {
           <OutlinedButton
             href={routes.campaigns.index}
             variant="outlined"
-            endIcon={<ChevronRightIcon />}>
+            endIcon={<ChevronRightIcon />}
+            sx={{ marginTop: 0 }}>
             {t('campaign.see-all')}
           </OutlinedButton>
         </SeeAllButton>
