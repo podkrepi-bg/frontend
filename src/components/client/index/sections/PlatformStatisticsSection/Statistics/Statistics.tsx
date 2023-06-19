@@ -17,7 +17,7 @@ import {
 export default function Statistics() {
   const { t } = useTranslation('index')
   const { data: campaigns } = useCampaignList()
-  const { data: totalDonations } = useCampaignDonationHistory()
+  const { data: totalDonations } = useCampaignDonationHistory(undefined, 0, 1) //ask only for 1 item to get the total count
   const { data: donorsCount } = useDonatedUsersCount()
   const { data: totalDonatedMoney } = getTotalDonatedMoney()
 
