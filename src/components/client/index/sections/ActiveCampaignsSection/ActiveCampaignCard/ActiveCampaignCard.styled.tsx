@@ -21,10 +21,15 @@ export const CampaignTitle = styled('h6')(() => ({
   lineHeight: '150%',
   color: theme.palette.common.black,
   fontFamily: 'Montserrat, sans-serif',
+  minHeight: '66px',
+  overflow: 'hidden',
+  display: '-webkit-box',
+  '-webkit-box-orient': 'vertical',
+  '-webkit-line-clamp': '3',
+  whiteSpace: 'pre-wrap',
 }))
 
 export const SupportNowButton = styled(LinkButton)(() => ({
-  fontWeight: 'bold',
   fontFamily: 'Montserrat, sans-serif',
   width: '89px',
   height: '36px',
@@ -32,6 +37,9 @@ export const SupportNowButton = styled(LinkButton)(() => ({
   boxShadow:
     '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)',
   borderRadius: '100px',
+  fontWeight: '500',
+  fontSize: '16px',
+  letterSpacing: '0.4px',
 
   '&:hover': {
     boxShadow:

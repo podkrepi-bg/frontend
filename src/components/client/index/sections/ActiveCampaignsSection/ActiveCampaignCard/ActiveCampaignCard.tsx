@@ -51,7 +51,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
 
         [theme.breakpoints.up('lg')]: {
           '&:nth-of-type(1)': {
-            minHeight: '550px',
+            minHeight: '650px',
           },
         },
       }}>
@@ -60,16 +60,17 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
           background: `url(${campaignImagesUrl})`,
           height: '100%',
           backgroundSize: 'cover',
+          display: 'flex',
+          alignItems: 'flex-end',
+          justifyContent: 'flex-end',
         }}>
-        <Grid textAlign="center">
-          <SupportNowButton
-            fullWidth
-            href={routes.campaigns.oneTimeDonation(slug)}
-            variant="contained"
-            color="secondary">
-            {t('cta.support')}
-          </SupportNowButton>
-        </Grid>
+        <SupportNowButton
+          fullWidth
+          href={routes.campaigns.oneTimeDonation(slug)}
+          variant="contained"
+          color="secondary">
+          {t('cta.support')}
+        </SupportNowButton>
       </Grid>
       <SumWrapper>
         <Grid>
