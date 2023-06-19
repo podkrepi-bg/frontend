@@ -10,11 +10,7 @@ import theme from 'common/theme'
 import { moneyPublic } from 'common/util/money'
 import CampaignProgress from '../../../../campaigns/CampaignProgress'
 
-import {
-  CampaignProgressWrapper,
-  CampaignTitle,
-  SupportNowButton,
-} from './ActiveCampaignCard.styled'
+import { CampaignProgressWrapper, CampaignTitle, DonateButton } from './ActiveCampaignCard.styled'
 import { SumWrapper, Sum } from '../../CompletedCampaignsSection/CompletedCampaignsSection.styled'
 
 type Props = { campaign: CampaignResponse; index: number }
@@ -64,13 +60,15 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
           alignItems: 'flex-end',
           justifyContent: 'flex-end',
         }}>
-        <SupportNowButton
-          fullWidth
-          href={routes.campaigns.oneTimeDonation(slug)}
-          variant="contained"
-          color="secondary">
-          {t('cta.support')}
-        </SupportNowButton>
+        <Grid sx={{ margin: '24px' }}>
+          <DonateButton
+            fullWidth
+            href={routes.campaigns.oneTimeDonation(slug)}
+            variant="contained"
+            color="secondary">
+            {t('cta.support')}
+          </DonateButton>
+        </Grid>
       </Grid>
       <SumWrapper>
         <Grid>

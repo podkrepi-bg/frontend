@@ -29,7 +29,7 @@ export const CampaignTitle = styled('h6')(() => ({
   whiteSpace: 'pre-wrap',
 }))
 
-export const SupportNowButton = styled(LinkButton)(() => ({
+export const DonateButton = styled(LinkButton)(() => ({
   fontFamily: 'Montserrat, sans-serif',
   width: '89px',
   height: '36px',
@@ -37,7 +37,7 @@ export const SupportNowButton = styled(LinkButton)(() => ({
   boxShadow:
     '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)',
   borderRadius: '100px',
-  fontWeight: '500',
+  fontWeight: '600',
   fontSize: '16px',
   letterSpacing: '0.4px',
 
