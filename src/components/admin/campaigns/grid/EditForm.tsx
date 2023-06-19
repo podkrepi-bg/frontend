@@ -50,6 +50,7 @@ import { fromMoney, toMoney } from 'common/util/money'
 import CurrencySelect from 'components/common/currency/CurrencySelect'
 import OrganizerSelect from './OrganizerSelect'
 import AllowDonationOnComplete from '../../../common/form/AllowDonationOnComplete'
+import { base64ImageUploader } from './helpers/base64ImageUploader'
 
 const formatString = 'yyyy-MM-dd'
 
@@ -67,7 +68,7 @@ const validationSchema: yup.SchemaOf<Omit<CampaignEditFormData, 'campaignFiles'>
   .shape({
     title: yup.string().trim().min(10).max(200).required(),
     slug: yup.string().trim().min(10).max(200).required(),
-    description: yup.string().trim().min(50).max(60000).required(),
+    description: yup.string().trim().min(50).required(),
     targetAmount: yup.number().integer().positive().required(),
     allowDonationOnComplete: yup.bool().optional(),
     campaignTypeId: yup.string().uuid().required(),
@@ -181,10 +182,23 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
     { setFieldError }: FormikHelpers<CampaignEditFormData>,
   ) => {
     try {
+      //replace base64 images with uploaded images
+      const descriptionWithServerImages = await base64ImageUploader(
+        values.description,
+        campaign.id,
+        fileUploadMutation,
+      )
+
+      //this manual validation is needed because yup validations happen before the base64ImageUploader
+      if (descriptionWithServerImages.length > 60000) {
+        return AlertStore.show(t('Description field should be less than 60,000 symbols'), 'error')
+      }
+
+      //save campaign
       await mutation.mutateAsync({
         title: values.title,
         slug: createSlug(values.slug),
-        description: values.description,
+        description: descriptionWithServerImages,
         targetAmount: toMoney(values.targetAmount),
         allowDonationOnComplete: values.allowDonationOnComplete,
         startDate: values.startDate,
