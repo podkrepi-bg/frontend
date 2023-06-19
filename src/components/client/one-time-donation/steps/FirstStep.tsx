@@ -4,7 +4,6 @@ import { Trans, useTranslation } from 'next-i18next'
 import { useField, useFormikContext } from 'formik'
 import { Box, Collapse, Divider, Grid, InputAdornment, List, Typography } from '@mui/material'
 import theme from 'common/theme'
-import { useSinglePriceList } from 'common/hooks/donation'
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 import { moneyPublic, moneyPublicDecimals2, toMoney } from 'common/util/money'
 import { ibanNumber } from 'common/iban'
@@ -43,7 +42,6 @@ const Root = styled('div')(() => ({
 
 export default function FirstStep() {
   const { data: session } = useSession()
-  const { data: oneTimePrices } = useSinglePriceList()
   const { t } = useTranslation('one-time-donation')
   const mobile = useMediaQuery('(max-width:600px)')
   const paymentOptions = [
@@ -61,6 +59,12 @@ export default function FirstStep() {
   const formik = useFormikContext<OneTimeDonation>()
 
   const { campaign } = useContext(StepsContext)
+
+  const oneTimePrices =
+    campaign.slug === 'petar-v-cambridge' //needed specific prices for this campaign
+      ? [2000, 5000, 10000, 20000, 50000, 100000] //TODO: move this to camapign specific config in db
+      : [1000, 2000, 5000, 10000, 50000, 100000] //these are default values for all other campaigns
+
   const bankAccountInfo = {
     owner: t('third-step.owner'),
     bank: t('third-step.bank'),
@@ -185,10 +189,9 @@ export default function FirstStep() {
             name="amount"
             options={
               oneTimePrices
-                ?.sort((a, b) => Number(a.unit_amount) - Number(b.unit_amount))
                 .map((v) => ({
-                  label: moneyPublic(Number(v.unit_amount)),
-                  value: String(Number(v.unit_amount)),
+                  label: moneyPublic(Number(v)),
+                  value: String(Number(v)),
                 }))
                 .concat({ label: t('first-step.other'), value: 'other' }) || []
             }
