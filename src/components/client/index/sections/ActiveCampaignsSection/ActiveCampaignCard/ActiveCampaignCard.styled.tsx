@@ -54,3 +54,14 @@ export const CampaignProgressWrapper = styled(Box)(() => ({
     height: theme.spacing(2),
   },
 }))
+
+export const LearnMoreButton = styled(LinkButton)(() => ({
+  fontFamily: "'Lato', sans-serif",
+  fontSize: '16px',
+  letterSpacing: '0.4px',
+  color: '#284E84',
+
+  '&:hover': {
+    background: 'transparent',
+  },
+}))

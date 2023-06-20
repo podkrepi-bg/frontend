@@ -3,6 +3,7 @@ import { useTranslation, i18n } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 
 import { Grid } from '@mui/material'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 
 import { routes } from 'common/routes'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
@@ -10,7 +11,12 @@ import theme from 'common/theme'
 import { moneyPublic } from 'common/util/money'
 import CampaignProgress from '../../../../campaigns/CampaignProgress'
 
-import { CampaignProgressWrapper, CampaignTitle, DonateButton } from './ActiveCampaignCard.styled'
+import {
+  CampaignProgressWrapper,
+  CampaignTitle,
+  DonateButton,
+  LearnMoreButton,
+} from './ActiveCampaignCard.styled'
 import { SumWrapper, Sum } from '../../CompletedCampaignsSection/CompletedCampaignsSection.styled'
 
 type Props = { campaign: CampaignResponse; index: number }
@@ -26,8 +32,6 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
 
   return (
     <Grid
-      // LinkComponent={Link}
-      // href={routes.campaigns.viewCampaignBySlug(slug)}
       data-testid={`campaign-card-${index}`}
       sx={{
         display: 'flex',
@@ -92,6 +96,11 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
         <CampaignProgress campaignId={id} raised={reached} target={target} />
       </CampaignProgressWrapper>
       <CampaignTitle>{title}</CampaignTitle>
+      <LearnMoreButton
+        href={routes.campaigns.viewCampaignBySlug(slug)}
+        endIcon={<ArrowForwardIcon color="inherit" fontSize="medium" />}>
+        {t('campaign.learn-more')}
+      </LearnMoreButton>
     </Grid>
   )
 }
