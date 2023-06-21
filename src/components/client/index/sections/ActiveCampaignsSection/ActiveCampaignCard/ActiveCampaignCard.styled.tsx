@@ -1,8 +1,28 @@
-import { Box, CardContent, Typography } from '@mui/material'
+import { Box, CardContent, Grid } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import LinkButton from 'components/common/LinkButton'
 import theme from 'common/theme'
+
+export const Root = styled(Grid)(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'initial',
+  minHeight: theme.spacing(48.75),
+
+  [theme.breakpoints.up('md')]: {
+    '&:nth-of-type(1)': {
+      gridArea: '1 / 1 / 3 / 3',
+      height: theme.spacing(71.25),
+    },
+  },
+
+  [theme.breakpoints.up('lg')]: {
+    '&:nth-of-type(1)': {
+      height: theme.spacing(100),
+    },
+  },
+}))
 
 export const Content = styled(CardContent)(() => ({
   padding: theme.spacing(0, 1),
@@ -15,12 +35,12 @@ export const Content = styled(CardContent)(() => ({
 }))
 
 export const CampaignTitle = styled('h6')(() => ({
-  margin: '8px 0 0',
   fontSize: theme.typography.pxToRem(16),
   color: theme.palette.common.black,
   fontFamily: 'Montserrat, sans-serif',
   fontWeight: 400,
-  minHeight: '50px',
+  margin: theme.spacing(1, 0, 0),
+  minHeight: theme.spacing(6.25),
   overflow: 'hidden',
   display: '-webkit-box',
   WebkitBoxOrient: 'vertical',
@@ -48,15 +68,15 @@ export const CampaignProgressWrapper = styled(Box)(() => ({
 
 export const DonateButton = styled(LinkButton)(() => ({
   fontFamily: 'Montserrat, sans-serif',
-  width: '89px',
-  height: '36px',
+  width: theme.spacing(11.125),
+  height: theme.spacing(4.5),
   marginRight: theme.spacing(1),
-  background: '#FFCB57',
+  backgroundColor: theme.palette.secondary.main,
   boxShadow:
     '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)',
-  borderRadius: '100px',
+  borderRadius: theme.borders.round,
   fontWeight: '500',
-  fontSize: '16px',
+  fontSize: theme.typography.pxToRem(16),
   letterSpacing: '0.4px',
 
   '&:hover': {
@@ -65,23 +85,23 @@ export const DonateButton = styled(LinkButton)(() => ({
   },
 
   [theme.breakpoints.up('md')]: {
-    marginBottom: theme.spacing(1.5),
     display: 'block',
+    marginBottom: theme.spacing(1.5),
   },
 
   [theme.breakpoints.up(1111)]: {
-    marginBottom: 0,
     display: 'inline-flex',
+    marginBottom: 0,
   },
 }))
 
 export const LearnMoreButton = styled(LinkButton)(() => ({
   fontFamily: "'Lato', sans-serif",
-  fontSize: '16px',
+  fontSize: theme.typography.pxToRem(16),
   letterSpacing: '0.4px',
   color: theme.palette.common.black,
-  border: '2px solid #FFCB57',
-  height: '36px',
+  border: `2px solid ${theme.palette.secondary.main}`,
+  height: theme.spacing(4.5),
 
   '&:hover': {
     color: theme.palette.common.black,

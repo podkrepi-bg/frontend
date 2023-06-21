@@ -4,14 +4,14 @@ import { styled } from '@mui/material/styles'
 import theme from 'common/theme'
 
 export const Root = styled(Grid)(() => ({
-  marginTop: theme.spacing(3.875),
   display: 'grid',
-  gap: '37px',
+  marginTop: theme.spacing(3.875),
+  gap: theme.spacing(4.62),
 
   [theme.breakpoints.up('sm')]: {
     gridTemplateColumns: 'repeat(2, 1fr)',
     marginTop: theme.spacing(7),
-    gap: '20px',
+    gap: theme.spacing(2.5),
   },
 
   [theme.breakpoints.up('md')]: {
@@ -28,5 +28,5 @@ export const Root = styled(Grid)(() => ({
 export const SeeAllButton = styled(Grid)(() => ({
   display: 'flex',
   placeContent: 'center',
-  marginTop: '48px',
+  marginTop: theme.spacing(10),
 }))

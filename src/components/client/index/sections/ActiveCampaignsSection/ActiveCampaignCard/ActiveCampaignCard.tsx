@@ -1,5 +1,4 @@
 import { useTranslation, i18n } from 'next-i18next'
-
 import { CampaignResponse } from 'gql/campaigns'
 
 import { Grid } from '@mui/material'
@@ -7,18 +6,18 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 
 import { routes } from 'common/routes'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
-import theme from 'common/theme'
 import { moneyPublic } from 'common/util/money'
+import CampaignProgress from 'components/client/campaigns/CampaignProgress'
 
 import {
   CampaignProgressWrapper,
   CampaignTitle,
   DonateButton,
   LearnMoreButton,
+  Root,
   SumNumber,
 } from './ActiveCampaignCard.styled'
 import { SumWrapper, Sum } from '../../CompletedCampaignsSection/CompletedCampaignsSection.styled'
-import CampaignProgress from 'components/client/campaigns/CampaignProgress'
 
 type Props = { campaign: CampaignResponse; index: number }
 
@@ -31,35 +30,12 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
   const reached = summary ? summary.reachedAmount : 0
 
   return (
-    <Grid
-      data-testid={`campaign-card-${index}`}
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'initial',
-        minHeight: '390px',
-
-        [theme.breakpoints.up('md')]: {
-          '&:nth-of-type(1)': {
-            gridArea: '1 / 1 / 3 / 3',
-            height: '570px',
-          },
-        },
-
-        [theme.breakpoints.up('lg')]: {
-          '&:nth-of-type(1)': {
-            minHeight: '800px',
-          },
-        },
-      }}>
+    <Root data-testid={`campaign-card-${index}`}>
       <Grid
         sx={{
           background: `url(${campaignImagesUrl})`,
           height: '100%',
           backgroundSize: 'cover',
-          display: 'flex',
-          alignItems: 'flex-end',
-          justifyContent: 'flex-end',
         }}
       />
       <SumWrapper>
@@ -98,6 +74,6 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
           {t('campaign.learn-more')}
         </LearnMoreButton>
       </Grid>
-    </Grid>
+    </Root>
   )
 }

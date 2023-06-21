@@ -1,9 +1,9 @@
 import Slider from 'react-slick'
 
+import { Link, Grid } from '@mui/material'
 import styled from '@emotion/styled'
 
 import theme from 'common/theme'
-import { Link, Grid } from '@mui/material'
 
 export const Root = styled('section')(() => ({
   marginTop: theme.spacing(12),
@@ -38,11 +38,11 @@ export const CardWrapper = styled(Grid)(() => ({
 }))
 
 export const CompletedCampaignLink = styled(Link)(() => ({
-  height: theme.spacing(37.5),
-  backgroundSize: 'cover',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
+  height: theme.spacing(37.5),
+  backgroundSize: 'cover',
 
   '&:hover': {
     opacity: 0.9,
