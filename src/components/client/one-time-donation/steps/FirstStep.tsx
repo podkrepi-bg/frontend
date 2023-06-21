@@ -3,10 +3,11 @@ import { styled } from '@mui/material/styles'
 import { Trans, useTranslation } from 'next-i18next'
 import { useField, useFormikContext } from 'formik'
 import { Box, Collapse, Divider, Grid, InputAdornment, List, Typography } from '@mui/material'
+import EventRepeatIcon from '@mui/icons-material/EventRepeat'
 import theme from 'common/theme'
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 import { moneyPublic, moneyPublicDecimals2, toMoney } from 'common/util/money'
-import { ibanNumber } from 'common/iban'
+import { BIC, ibanNumber } from 'common/iban'
 import { CopyTextButton } from 'components/common/CopyTextButton'
 import { StepsContext } from '../helpers/stepperContext'
 import FormTextField from 'components/common/form/FormTextField'
@@ -69,6 +70,7 @@ export default function FirstStep() {
     owner: t('third-step.owner'),
     bank: t('third-step.bank'),
     iban: ibanNumber,
+    bic: BIC,
   }
 
   useEffect(() => {
@@ -118,29 +120,44 @@ export default function FirstStep() {
             {t('third-step.bank-instructions2')}
           </Typography>
           <Divider className={classes.divider} />
-          <Grid container justifyContent="center">
-            <Grid my={2} item display="flex" justifyContent="space-between" xs={9}>
-              <Typography>{bankAccountInfo.owner}</Typography>
+          <Grid container alignItems="center" xs={12}>
+            <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={4}>
+              <Typography paddingLeft={2}>{t('third-step.owner_name')}</Typography>
+            </Grid>
+            <Grid my={1} item xs={5} justifyContent="flex-start">
+              <Typography>{t('third-step.owner_value')}</Typography>
+            </Grid>
+            <Grid my={1} item xs={3} display="flex" justifyContent="center">
               <CopyTextButton
                 label={t('third-step.btn-copy')}
-                text={bankAccountInfo.owner}
+                text={t('third-step.owner_value')}
                 variant="contained"
                 size="small"
                 color="info"
               />
             </Grid>
-            <Grid my={2} item display="flex" justifyContent="space-between" xs={9}>
-              <Typography>{bankAccountInfo.bank}</Typography>
+            <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={4}>
+              <Typography paddingLeft={2}>{t('third-step.bank_name')}</Typography>
+            </Grid>
+            <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={5}>
+              <Typography>{t('third-step.bank_value')}</Typography>
+            </Grid>
+            <Grid my={1} item display="flex" justifyContent="center" xs={3}>
               <CopyTextButton
                 label={t('third-step.btn-copy')}
-                text={bankAccountInfo.bank}
+                text={t('third-step.bank_value')}
                 variant="contained"
                 size="small"
                 color="info"
               />
             </Grid>
-            <Grid my={2} item display="flex" justifyContent="space-between" xs={9}>
+            <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={4}>
+              <Typography paddingLeft={2}>IBAN:</Typography>
+            </Grid>
+            <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={5}>
               <Typography>{ibanNumber}</Typography>
+            </Grid>
+            <Grid my={1} item display="flex" justifyContent="center" xs={3}>
               <CopyTextButton
                 label={t('third-step.btn-copy')}
                 text={bankAccountInfo.iban.replace(/\s+/g, '')} //remove spaces in IBAN on copy
@@ -149,17 +166,32 @@ export default function FirstStep() {
                 color="info"
               />
             </Grid>
-          </Grid>
-
-          <Typography my={1} variant="h6">
-            {t('third-step.reason-donation')}
-          </Typography>
-          <Divider className={classes.divider} />
-          <Grid container justifyContent="center">
-            <Grid my={2} item display="flex" justifyContent="space-between" xs={9}>
-              <Typography data-testid="payment-reference-field" fontWeight="bold">
+            <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={4}>
+              <Typography paddingLeft={2}>BIC:</Typography>
+            </Grid>
+            <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={5}>
+              <Typography>{BIC}</Typography>
+            </Grid>
+            <Grid my={1} item display="flex" justifyContent="center" xs={3}>
+              <CopyTextButton
+                label={t('third-step.btn-copy')}
+                text={bankAccountInfo.bic}
+                variant="contained"
+                size="small"
+                color="info"
+              />
+            </Grid>
+            <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={4}>
+              <Typography paddingLeft={2} my={1}>
+                {t('third-step.reason-donation')}
+              </Typography>
+            </Grid>
+            <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={5}>
+              <Typography data-testid="payment-reference-field">
                 {campaign.paymentReference}
               </Typography>
+            </Grid>
+            <Grid my={1} item display="flex" justifyContent="center" xs={3}>
               <CopyTextButton
                 text={campaign.paymentReference}
                 variant="contained"
@@ -169,7 +201,7 @@ export default function FirstStep() {
               />
             </Grid>
           </Grid>
-
+          <Divider className={classes.divider} />
           <Typography>{t('third-step.message-warning')}</Typography>
         </List>
       </Collapse>
@@ -260,24 +292,38 @@ export default function FirstStep() {
                     InputProps={{ style: { fontSize: 14 } }}
                   />
                 </Grid>
+                <Grid item xs={12}>
+                  <Trans
+                    t={t}
+                    i18nKey="third-step.card-calculated-fees"
+                    values={{
+                      amount: moneyPublicDecimals2(amountWithoutFees.value),
+                      fees: moneyPublicDecimals2(amountWithFees.value - amountWithoutFees.value),
+                      totalAmount: moneyPublicDecimals2(amountWithFees.value),
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="h5" my={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                    {t('third-step.recurring-donation-title')}
+                    <EventRepeatIcon
+                      sx={{ marginLeft: 2 }}
+                      fontSize="medium"
+                      color={formik.values.isRecurring ? 'success' : 'primary'}
+                    />
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <CheckboxField
+                    name="isRecurring"
+                    label={
+                      <Typography variant="body2">
+                        {t('third-step.recurring-donation-info')}
+                      </Typography>
+                    }
+                  />
+                </Grid>
               </Grid>
-              <Trans
-                t={t}
-                i18nKey="third-step.card-calculated-fees"
-                values={{
-                  amount: moneyPublicDecimals2(amountWithoutFees.value),
-                  fees: moneyPublicDecimals2(amountWithFees.value - amountWithoutFees.value),
-                  totalAmount: moneyPublicDecimals2(amountWithFees.value),
-                }}
-              />
-              <Typography variant="h5" sx={{ marginTop: theme.spacing(3) }}>
-                <CheckboxField
-                  name="isRecurring"
-                  label={
-                    <Typography variant="body2">{t('third-step.recurring-donation')}</Typography>
-                  }
-                />
-              </Typography>
             </Box>
           ) : null}
         </Box>
