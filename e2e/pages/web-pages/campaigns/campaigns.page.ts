@@ -14,7 +14,7 @@ export class CampaignsPage extends HomePage {
   private readonly filterButtonsCommonSelector = 'ul button.CampaignFilter-filterButtons'
   // private readonly campaignContainerItem = ".MuiGrid-container .MuiGrid-item";
   private readonly cardActions = '.MuiCardActions-root'
-  private readonly cardActionButtons = this.cardActions + ' button'
+  private readonly cardActionButtons = this.cardActions + ' div'
   // Main headings
   private readonly bgMainCampaignsHeading = bgLocalizationCampaigns.campaigns
   private readonly enMainCampaignsHeading = enLocalizationCampaigns.campaigns
