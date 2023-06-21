@@ -16,10 +16,12 @@ import {
   Root,
   CarouselWrapper,
   Sum,
-  SumWrapper,
   CampaignTitle,
   CompletedCampaignLink,
   CardWrapper,
+  SuccessfulCampaignLabel,
+  CompletedSumWrapper,
+  SuccessfullCampaignIcon,
 } from './CompletedCampaignsSection.styled'
 import { Typography } from '@mui/material'
 
@@ -50,14 +52,17 @@ export default function CompletedCampaignsSection() {
                 background: `url(${campaignListPictureUrl(campaign)})`,
               }}
             />
-            <SumWrapper>
+            <CompletedSumWrapper>
               <Sum>
                 {i18n.language === 'bg'
                   ? moneyPublic(campaign.summary.reachedAmount).split(',')[0] + ' лв.'
                   : moneyPublic(campaign.summary.reachedAmount).split('.')[0]}
               </Sum>
-            </SumWrapper>
-            <Typography>{t('successful')}</Typography>
+              <SuccessfulCampaignLabel>
+                <SuccessfullCampaignIcon />
+                <Typography>{t('successfull-label')}</Typography>
+              </SuccessfulCampaignLabel>
+            </CompletedSumWrapper>
             <CampaignTitle>{campaign.title}</CampaignTitle>
           </CardWrapper>
         ))}

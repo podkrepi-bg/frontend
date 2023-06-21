@@ -15,9 +15,10 @@ import {
   DonateButton,
   LearnMoreButton,
   Root,
+  Sum,
   SumNumber,
+  SumWrapper,
 } from './ActiveCampaignCard.styled'
-import { SumWrapper, Sum } from '../../CompletedCampaignsSection/CompletedCampaignsSection.styled'
 
 type Props = { campaign: CampaignResponse; index: number }
 

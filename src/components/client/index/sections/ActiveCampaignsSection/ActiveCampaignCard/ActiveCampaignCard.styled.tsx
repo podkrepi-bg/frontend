@@ -48,6 +48,22 @@ export const CampaignTitle = styled('h6')(() => ({
   whiteSpace: 'pre-wrap',
 }))
 
+export const SumWrapper = styled(Grid)(() => ({
+  display: 'flex',
+  width: '100%',
+  justifyContent: 'space-between',
+  padding: theme.spacing(0.6, 0),
+  color: theme.palette.common.black,
+  fontFamily: 'Montserrat, sans-serif',
+  fontSize: theme.typography.pxToRem(17),
+}))
+
+export const Sum = styled('span')(() => ({
+  fontWeight: 700,
+  fontSize: theme.typography.pxToRem(16),
+  fontFamily: 'sans-serif',
+}))
+
 export const SumNumber = styled('span')(() => ({
   [theme.breakpoints.up('md')]: {
     display: 'block',
