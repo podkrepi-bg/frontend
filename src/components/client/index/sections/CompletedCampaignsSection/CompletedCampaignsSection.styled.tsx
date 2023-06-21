@@ -50,11 +50,10 @@ export const CompletedCampaignLink = styled(Link)(() => ({
 }))
 
 export const CampaignTitle = styled('h6')(() => ({
-  margin: theme.spacing(1.8, 1.25),
-  fontWeight: 700,
   fontSize: theme.typography.pxToRem(16),
-  lineHeight: '150%',
   color: theme.palette.common.black,
+  fontFamily: 'Montserrat, sans-serif',
+  fontWeight: 400,
 }))
 
 export const SumWrapper = styled(Grid)(() => ({

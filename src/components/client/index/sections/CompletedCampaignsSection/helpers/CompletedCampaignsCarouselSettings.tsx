@@ -8,7 +8,7 @@ export const settings: Settings = {
   arrows: false,
   dots: true,
   lazyLoad: 'ondemand',
-  autoplay: true,
+  autoplay: false,
   autoplaySpeed: 2000,
 
   responsive: [

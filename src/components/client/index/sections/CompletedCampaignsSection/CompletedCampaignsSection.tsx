@@ -21,6 +21,7 @@ import {
   CompletedCampaignLink,
   CardWrapper,
 } from './CompletedCampaignsSection.styled'
+import { Typography } from '@mui/material'
 
 export default function CompletedCampaignsSection() {
   const { t } = useTranslation('campaigns')
@@ -47,17 +48,17 @@ export default function CompletedCampaignsSection() {
               href={routes.campaigns.viewCampaignBySlug(campaign.slug)}
               sx={{
                 background: `url(${campaignListPictureUrl(campaign)})`,
-              }}>
-              <SumWrapper>
-                <Sum>
-                  {t('campaign.reached')}
-                  {i18n.language === 'bg'
-                    ? moneyPublic(campaign.summary.reachedAmount).split(',')[0] + ' лв.'
-                    : moneyPublic(campaign.summary.reachedAmount).split('.')[0]}
-                </Sum>
-              </SumWrapper>
-              <CampaignTitle>{campaign.title}</CampaignTitle>
-            </CompletedCampaignLink>
+              }}
+            />
+            <SumWrapper>
+              <Sum>
+                {i18n.language === 'bg'
+                  ? moneyPublic(campaign.summary.reachedAmount).split(',')[0] + ' лв.'
+                  : moneyPublic(campaign.summary.reachedAmount).split('.')[0]}
+              </Sum>
+            </SumWrapper>
+            <Typography>{t('successful')}</Typography>
+            <CampaignTitle>{campaign.title}</CampaignTitle>
           </CardWrapper>
         ))}
       </CarouselWrapper>

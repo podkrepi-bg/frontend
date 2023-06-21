@@ -2,6 +2,7 @@ import { Grid } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import theme from 'common/theme'
+import LinkButton from 'components/common/LinkButton'
 
 export const Root = styled(Grid)(() => ({
   display: 'grid',
@@ -25,8 +26,23 @@ export const Root = styled(Grid)(() => ({
   },
 }))
 
-export const SeeAllButton = styled(Grid)(() => ({
+export const SeeAllButtonWrapper = styled(Grid)(() => ({
   display: 'flex',
   placeContent: 'center',
   marginTop: theme.spacing(10),
+}))
+
+export const SeeAllButton = styled(LinkButton)(() => ({
+  fontFamily: "'Lato', sans-serif",
+  fontSize: theme.typography.pxToRem(16),
+  fontWeight: 600,
+  color: theme.palette.common.black,
+  letterSpacing: '0.4px',
+  textDecoration: 'underline',
+  marginTop: 0,
+
+  '&:hover': {
+    backgroundColor: 'transparent',
+    textDecoration: 'underline',
+  },
 }))
