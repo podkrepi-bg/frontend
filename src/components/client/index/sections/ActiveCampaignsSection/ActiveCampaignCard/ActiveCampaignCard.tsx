@@ -31,7 +31,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
   const reached = summary ? summary.reachedAmount : 0
 
   return (
-    <Root data-testid={`campaign-card-${index}`}>
+    <Root>
       <Grid
         sx={{
           background: `url(${campaignImagesUrl})`,
