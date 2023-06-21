@@ -123,10 +123,7 @@ export default function CampaignCard({ campaign, index }: Props) {
 
   return (
     <StyledCard variant="outlined" className={classes.cardWrapper}>
-      <CardActionArea
-        LinkComponent={Link}
-        href={routes.campaigns.viewCampaignBySlug(slug)}
-        data-testid={`campaign-card-${index}`}>
+      <CardActionArea LinkComponent={Link} href={routes.campaigns.viewCampaignBySlug(slug)}>
         <CardMedia className={classes.media} title={title}>
           <div
             style={{ position: 'relative', width: '100%', minHeight: '100%', maxHeight: '100%' }}>
