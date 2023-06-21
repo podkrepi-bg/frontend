@@ -63,17 +63,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
           display: 'flex',
           alignItems: 'flex-end',
           justifyContent: 'flex-end',
-        }}>
-        <Grid sx={{ margin: '24px' }}>
-          <DonateButton
-            fullWidth
-            href={routes.campaigns.oneTimeDonation(slug)}
-            variant="contained"
-            color="secondary">
-            {t('cta.support')}
-          </DonateButton>
-        </Grid>
-      </Grid>
+        }}></Grid>
       <SumWrapper>
         <Grid>
           <Sum>
@@ -100,11 +90,20 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
         Да дадем равни възможности за спортуване на децата с увреждания, като изградим игрище за
         ПЕТАНК{' '}
       </CampaignTitle>
-      <LearnMoreButton
-        href={routes.campaigns.viewCampaignBySlug(slug)}
-        endIcon={<ArrowForwardIcon color="inherit" fontSize="medium" />}>
-        {t('campaign.learn-more')}
-      </LearnMoreButton>
+      <Grid>
+        <DonateButton
+          fullWidth
+          href={routes.campaigns.oneTimeDonation(slug)}
+          variant="contained"
+          color="secondary">
+          {t('cta.support')}
+        </DonateButton>
+        <LearnMoreButton
+          href={routes.campaigns.viewCampaignBySlug(slug)}
+          endIcon={<ArrowForwardIcon color="warning" fontSize="medium" />}>
+          {t('campaign.learn-more')}
+        </LearnMoreButton>
+      </Grid>
     </Grid>
   )
 }

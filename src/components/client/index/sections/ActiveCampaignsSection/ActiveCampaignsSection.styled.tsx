@@ -6,6 +6,7 @@ import theme from 'common/theme'
 export const Root = styled(Grid)(() => ({
   marginTop: theme.spacing(3.875),
   display: 'grid',
+  gap: '37px',
 
   [theme.breakpoints.up('sm')]: {
     gridTemplateColumns: 'repeat(2, 1fr)',
