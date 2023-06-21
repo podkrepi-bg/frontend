@@ -9,7 +9,6 @@ import { routes } from 'common/routes'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import theme from 'common/theme'
 import { moneyPublic } from 'common/util/money'
-import CampaignProgress from '../../../../campaigns/CampaignProgress'
 
 import {
   CampaignProgressWrapper,
@@ -18,6 +17,7 @@ import {
   LearnMoreButton,
 } from './ActiveCampaignCard.styled'
 import { SumWrapper, Sum } from '../../CompletedCampaignsSection/CompletedCampaignsSection.styled'
+import CampaignProgress from 'components/client/campaigns/CampaignProgress'
 
 type Props = { campaign: CampaignResponse; index: number }
 
@@ -51,7 +51,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
 
         [theme.breakpoints.up('lg')]: {
           '&:nth-of-type(1)': {
-            minHeight: '650px',
+            minHeight: '800px',
           },
         },
       }}>
@@ -95,7 +95,11 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
       <CampaignProgressWrapper width={1}>
         <CampaignProgress campaignId={id} raised={reached} target={target} />
       </CampaignProgressWrapper>
-      <CampaignTitle>{title}</CampaignTitle>
+      {/* <CampaignTitle>{title}</CampaignTitle> */}
+      <CampaignTitle>
+        Да дадем равни възможности за спортуване на децата с увреждания, като изградим игрище за
+        ПЕТАНК{' '}
+      </CampaignTitle>
       <LearnMoreButton
         href={routes.campaigns.viewCampaignBySlug(slug)}
         endIcon={<ArrowForwardIcon color="inherit" fontSize="medium" />}>
