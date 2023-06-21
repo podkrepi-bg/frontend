@@ -22,8 +22,9 @@ import {
   SuccessfulCampaignLabel,
   CompletedSumWrapper,
   SuccessfullCampaignIcon,
+  CampaignProgressWrapper,
+  SuccessfullCampiagnText,
 } from './CompletedCampaignsSection.styled'
-import { Typography } from '@mui/material'
 
 export default function CompletedCampaignsSection() {
   const { t } = useTranslation('campaigns')
@@ -60,9 +61,10 @@ export default function CompletedCampaignsSection() {
               </Sum>
               <SuccessfulCampaignLabel>
                 <SuccessfullCampaignIcon />
-                <Typography>{t('successfull-label')}</Typography>
+                <SuccessfullCampiagnText>{t('successfull-label')}</SuccessfullCampiagnText>
               </SuccessfulCampaignLabel>
             </CompletedSumWrapper>
+            <CampaignProgressWrapper width={1} />
             <CampaignTitle>{campaign.title}</CampaignTitle>
           </CardWrapper>
         ))}

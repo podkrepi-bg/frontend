@@ -1,6 +1,6 @@
 import Slider from 'react-slick'
 
-import { Link, Grid } from '@mui/material'
+import { Link, Grid, Box, Typography } from '@mui/material'
 import DoneIcon from '@mui/icons-material/Done'
 import styled from '@emotion/styled'
 
@@ -55,6 +55,7 @@ export const CampaignTitle = styled('h6')(() => ({
   color: theme.palette.common.black,
   fontFamily: 'Montserrat, sans-serif',
   fontWeight: 400,
+  margin: theme.spacing(1, 0, 0),
 }))
 
 export const CompletedSumWrapper = styled(Grid)(() => ({
@@ -76,12 +77,21 @@ export const Sum = styled('span')(() => ({
 export const SuccessfulCampaignLabel = styled(Grid)(() => ({
   display: 'flex',
   textTransform: 'uppercase',
+  color: '#616161',
+}))
+
+export const SuccessfullCampiagnText = styled(Typography)(() => ({
   fontWeight: 700,
   fontSize: theme.typography.pxToRem(16),
-  color: '#616161',
 }))
 
 export const SuccessfullCampaignIcon = styled(DoneIcon)(() => ({
   fontSize: theme.typography.pxToRem(21),
   marginRight: theme.spacing(0.5),
+}))
+
+export const CampaignProgressWrapper = styled(Box)(() => ({
+  background: '#62DE88',
+  borderRadius: theme.borders.round,
+  height: theme.spacing(2),
 }))
