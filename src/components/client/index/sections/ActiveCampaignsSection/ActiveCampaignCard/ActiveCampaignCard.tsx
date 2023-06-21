@@ -37,12 +37,9 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'initial',
+        minHeight: '390px',
 
-        [theme.breakpoints.down('md')]: {
-          minHeight: '425px',
-        },
-
-        [theme.breakpoints.up('sm')]: {
+        [theme.breakpoints.up('md')]: {
           '&:nth-of-type(1)': {
             gridArea: '1 / 1 / 3 / 3',
             height: '570px',
@@ -63,7 +60,8 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
           display: 'flex',
           alignItems: 'flex-end',
           justifyContent: 'flex-end',
-        }}></Grid>
+        }}
+      />
       <SumWrapper>
         <Grid>
           <Sum>

@@ -28,6 +28,14 @@ export const CampaignTitle = styled('h6')(() => ({
   whiteSpace: 'pre-wrap',
 }))
 
+export const CampaignProgressWrapper = styled(Box)(() => ({
+  span: {
+    background: '#B0E5FF',
+    borderRadius: theme.borders.round,
+    height: theme.spacing(2),
+  },
+}))
+
 export const DonateButton = styled(LinkButton)(() => ({
   fontFamily: 'Montserrat, sans-serif',
   width: '89px',
@@ -45,13 +53,15 @@ export const DonateButton = styled(LinkButton)(() => ({
     boxShadow:
       '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)',
   },
-}))
 
-export const CampaignProgressWrapper = styled(Box)(() => ({
-  span: {
-    background: '#B0E5FF',
-    borderRadius: theme.borders.round,
-    height: theme.spacing(2),
+  [theme.breakpoints.up('md')]: {
+    marginBottom: theme.spacing(1.5),
+    display: 'block',
+  },
+
+  [theme.breakpoints.up(1111)]: {
+    marginBottom: 0,
+    display: 'inline-block',
   },
 }))
 
