@@ -84,8 +84,6 @@ export const authOptions: NextAuthOptions = {
       session.accessToken = token.accessToken
       session.refreshToken = token.refreshToken
 
-      console.log('Returning session from api/auth')
-
       return session
     },
     async jwt({ token, user, account }) {
