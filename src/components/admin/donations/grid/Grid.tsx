@@ -5,7 +5,6 @@ import { Box, Tooltip } from '@mui/material'
 import { Edit } from '@mui/icons-material'
 import {
   DataGrid,
-  GridCellModes,
   GridColDef,
   GridRenderCellParams,
   GridRenderEditCellParams,
@@ -51,7 +50,7 @@ export default observer(function Grid() {
 
   const {
     data: { items: donations, total: allDonationsCount } = { items: [], total: 0 },
-    error: donationHistoryError,
+    // error: donationHistoryError,
     isLoading: isDonationHistoryLoading,
     refetch,
   }: UseQueryResult<CampaignDonationHistoryResponse> = useDonationsList(

@@ -63,9 +63,9 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
   if (isLoading || !data) return <CenteredSpinner size="2rem" />
   const { campaign } = data
 
-  function isLogged() {
-    return session && session.accessToken ? true : false
-  }
+  // function isLogged() {
+  //   return session && session.accessToken ? true : false
+  // }
 
   initialValues.isRecurring = false
 

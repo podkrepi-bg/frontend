@@ -29,7 +29,7 @@ export default observer(function Grid() {
 
   const {
     data: { items: bankTransactions, total: all_rows } = { items: [], total: 0 },
-    error: bankTransactionsHistoryError,
+    // error: bankTransactionsHistoryError,
     isLoading: bankDonationsHistoryLoading,
   }: UseQueryResult<BankTransactionsHistoryResponse> = useBankTransactionsList(
     bankTransactionsStore.bankTransactionsFilter,
