@@ -1,4 +1,4 @@
-import { Box, CardContent } from '@mui/material'
+import { Box, CardContent, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import LinkButton from 'components/common/LinkButton'
@@ -26,6 +26,16 @@ export const CampaignTitle = styled('h6')(() => ({
   WebkitBoxOrient: 'vertical',
   WebkitLineClamp: '2',
   whiteSpace: 'pre-wrap',
+}))
+
+export const SumNumber = styled('span')(() => ({
+  [theme.breakpoints.up('md')]: {
+    display: 'block',
+  },
+
+  [theme.breakpoints.up('lg')]: {
+    display: 'inline',
+  },
 }))
 
 export const CampaignProgressWrapper = styled(Box)(() => ({
@@ -61,7 +71,7 @@ export const DonateButton = styled(LinkButton)(() => ({
 
   [theme.breakpoints.up(1111)]: {
     marginBottom: 0,
-    display: 'inline-block',
+    display: 'inline-flex',
   },
 }))
 

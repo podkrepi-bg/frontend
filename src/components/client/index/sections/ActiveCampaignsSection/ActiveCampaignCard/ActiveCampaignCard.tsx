@@ -15,6 +15,7 @@ import {
   CampaignTitle,
   DonateButton,
   LearnMoreButton,
+  SumNumber,
 } from './ActiveCampaignCard.styled'
 import { SumWrapper, Sum } from '../../CompletedCampaignsSection/CompletedCampaignsSection.styled'
 import CampaignProgress from 'components/client/campaigns/CampaignProgress'
@@ -24,8 +25,7 @@ type Props = { campaign: CampaignResponse; index: number }
 export default function ActiveCampaignCard({ campaign, index }: Props) {
   const { t } = useTranslation('campaigns')
   const { id, slug, title, summary, targetAmount: target } = campaign
-  // const campaignImagesUrl = campaignListPictureUrl(campaign)
-  const campaignImagesUrl = '/img/team-photos/StankaCherkezova.jpg'
+  const campaignImagesUrl = campaignListPictureUrl(campaign)
   const reachedAmount = moneyPublic(campaign.summary.reachedAmount)
   const targetAmount = moneyPublic(campaign.targetAmount)
   const reached = summary ? summary.reachedAmount : 0
@@ -63,31 +63,27 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
         }}
       />
       <SumWrapper>
-        <Grid>
-          <Sum>
-            {t('campaign.reached')}{' '}
+        <Sum>
+          {t('campaign.reached')}{' '}
+          <SumNumber>
             {i18n.language === 'bg'
               ? reachedAmount.split(',')[0] + ' лв.'
               : reachedAmount.split('.')[0]}
-          </Sum>
-        </Grid>
-        <Grid>
-          <Sum style={{ fontWeight: 400 }}>
-            {t('campaign.target')}{' '}
+          </SumNumber>
+        </Sum>
+        <Sum style={{ fontWeight: 400 }}>
+          {t('campaign.target')}{' '}
+          <SumNumber>
             {i18n.language === 'bg'
               ? targetAmount.split(',')[0] + ' лв.'
               : targetAmount.split('.')[0]}
-          </Sum>
-        </Grid>
+          </SumNumber>
+        </Sum>
       </SumWrapper>
       <CampaignProgressWrapper width={1}>
         <CampaignProgress campaignId={id} raised={reached} target={target} />
       </CampaignProgressWrapper>
-      {/* <CampaignTitle>{title}</CampaignTitle> */}
-      <CampaignTitle>
-        Да дадем равни възможности за спортуване на децата с увреждания, като изградим игрище за
-        ПЕТАНК{' '}
-      </CampaignTitle>
+      <CampaignTitle>{title}</CampaignTitle>
       <Grid>
         <DonateButton
           fullWidth
