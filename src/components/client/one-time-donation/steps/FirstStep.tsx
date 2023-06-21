@@ -3,6 +3,7 @@ import { styled } from '@mui/material/styles'
 import { Trans, useTranslation } from 'next-i18next'
 import { useField, useFormikContext } from 'formik'
 import { Box, Collapse, Divider, Grid, InputAdornment, List, Typography } from '@mui/material'
+import EventRepeatIcon from '@mui/icons-material/EventRepeat'
 import theme from 'common/theme'
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
 import { moneyPublic, moneyPublicDecimals2, toMoney } from 'common/util/money'
@@ -291,24 +292,38 @@ export default function FirstStep() {
                     InputProps={{ style: { fontSize: 14 } }}
                   />
                 </Grid>
+                <Grid item xs={12}>
+                  <Trans
+                    t={t}
+                    i18nKey="third-step.card-calculated-fees"
+                    values={{
+                      amount: moneyPublicDecimals2(amountWithoutFees.value),
+                      fees: moneyPublicDecimals2(amountWithFees.value - amountWithoutFees.value),
+                      totalAmount: moneyPublicDecimals2(amountWithFees.value),
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <Typography variant="h5" my={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                    {t('third-step.recurring-donation-title')}
+                    <EventRepeatIcon
+                      sx={{ marginLeft: 2 }}
+                      fontSize="medium"
+                      color={formik.values.isRecurring ? 'success' : 'primary'}
+                    />
+                  </Typography>
+                </Grid>
+                <Grid item xs={12}>
+                  <CheckboxField
+                    name="isRecurring"
+                    label={
+                      <Typography variant="body2">
+                        {t('third-step.recurring-donation-info')}
+                      </Typography>
+                    }
+                  />
+                </Grid>
               </Grid>
-              <Trans
-                t={t}
-                i18nKey="third-step.card-calculated-fees"
-                values={{
-                  amount: moneyPublicDecimals2(amountWithoutFees.value),
-                  fees: moneyPublicDecimals2(amountWithFees.value - amountWithoutFees.value),
-                  totalAmount: moneyPublicDecimals2(amountWithFees.value),
-                }}
-              />
-              <Typography variant="h5" sx={{ marginTop: theme.spacing(3) }}>
-                <CheckboxField
-                  name="isRecurring"
-                  label={
-                    <Typography variant="body2">{t('third-step.recurring-donation')}</Typography>
-                  }
-                />
-              </Typography>
             </Box>
           ) : null}
         </Box>
