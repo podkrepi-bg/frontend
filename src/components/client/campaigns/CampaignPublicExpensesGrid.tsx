@@ -49,20 +49,6 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
     pageSize: 20,
     page: 0,
   })
-  const { data: session } = useSession()
-
-  const downloadExpenseFileHandler = async (file: ExpenseFile) => {
-    downloadCampaignExpenseFile(file.id, session)
-      .then((response) => {
-        const url = window.URL.createObjectURL(new Blob([response.data]))
-        const link = document.createElement('a')
-        link.href = url
-        link.target = '_blank'
-        link.download = file.filename
-        link.click()
-      })
-      .catch((error) => console.error(error))
-  }
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID' },
