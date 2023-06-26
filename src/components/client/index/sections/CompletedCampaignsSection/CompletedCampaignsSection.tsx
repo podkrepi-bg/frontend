@@ -45,7 +45,7 @@ export default function CompletedCampaignsSection() {
       </Heading>
       <CarouselWrapper {...settings}>
         {completedCampaigns?.map((campaign, index) => (
-          <CardWrapper key={index} data-testid={`campaign-card-${index}`}>
+          <CardWrapper key={index} data-testid={`completed-campaign-${index}`}>
             <CompletedCampaignLink
               onMouseDown={onLinkMouseDown}
               href={routes.campaigns.viewCampaignBySlug(campaign.slug)}
