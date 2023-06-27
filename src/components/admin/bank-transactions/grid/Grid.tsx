@@ -32,6 +32,7 @@ export default observer(function Grid() {
     // error: bankTransactionsHistoryError,
     isLoading: bankDonationsHistoryLoading,
   }: UseQueryResult<BankTransactionsHistoryResponse> = useBankTransactionsList(
+    { pageIndex: paginationModel.page, pageSize: paginationModel.pageSize },
     bankTransactionsStore.bankTransactionsFilter,
     bankTransactionsStore.bankTransactionSearch,
   )

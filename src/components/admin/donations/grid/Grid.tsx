@@ -55,6 +55,7 @@ export default observer(function Grid() {
     refetch,
   }: UseQueryResult<CampaignDonationHistoryResponse> = useDonationsList(
     campaignId,
+    { pageIndex: paginationModel.page, pageSize: paginationModel.pageSize },
     donationStore.donationFilters,
     donationStore.donationSearch,
   )
@@ -79,14 +80,12 @@ export default observer(function Grid() {
                 sx={addIconStyles}
                 color="action"
                 fontSize="medium"
-                //todo:maybe we have unexpected behaviour here
                 onClick={() => {
                   if (focusedRowId) {
-                    params.api.getCellMode(focusedRowId, params.field)
+                    params.api.startCellEditMode({ id: params.row.id, field: params.field })
                   }
                   params.api.getCellMode(params.row.id, params.field)
                   setFocusedRowId(params.row.id)
-                  //end todo
                 }}
               />
             </Tooltip>

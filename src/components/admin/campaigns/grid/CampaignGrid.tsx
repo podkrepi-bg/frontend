@@ -67,6 +67,10 @@ export default function CampaignGrid() {
   const { data = [], refetch }: UseQueryResult<AdminCampaignResponse[]> = useCampaignAdminList()
   const [viewId, setViewId] = useState<string | undefined>()
   const [deleteId, setDeleteId] = useState<string | undefined>()
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
+  })
   const selectedCampaign = useMemo(() => data.find((c) => c.id === viewId), [data, viewId])
   const commonProps: Partial<GridColDef> = {
     align: 'left',
@@ -305,6 +309,7 @@ export default function CampaignGrid() {
         }}
         rows={data || []}
         columns={columns}
+        paginationModel={paginationModel}
         editMode="row"
       />
       <Box>

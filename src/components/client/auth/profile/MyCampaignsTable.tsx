@@ -37,7 +37,6 @@ export default function MyCampaingsTable() {
     () => campaigns.find((c) => c.id === viewId),
     [campaigns, viewId],
   )
-  console.log(campaigns, 'heree')
   const commonProps: Partial<GridColDef> = {
     align: 'left',
     width: 100,

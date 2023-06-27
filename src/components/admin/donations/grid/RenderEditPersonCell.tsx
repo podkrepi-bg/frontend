@@ -54,7 +54,7 @@ export default function RenderEditPersonCell({
     onSuccess: () => {
       AlertStore.show(t('donations:alerts.editDonor'), 'success')
       onUpdate()
-      params.api.getCellMode(params.row.id, params.field)
+      params.api.stopCellEditMode({ id: params.row.id, field: params.field })
     },
   })
 
