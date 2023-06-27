@@ -76,7 +76,7 @@ export const getExactDate = (value: Date | string | number | undefined, locale?:
   return format(date, formatDate, { locale })
 }
 
-export const dateToTime = (dateString: string | Date, locale: string) => {
+export const dateToTime = (dateString: string | Date | undefined, locale: string) => {
   if (!dateString) {
     return
   }
