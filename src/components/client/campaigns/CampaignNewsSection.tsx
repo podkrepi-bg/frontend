@@ -13,7 +13,7 @@ import AvTimerIcon from '@mui/icons-material/AvTimer'
 import SupervisedUserCircleOutlinedIcon from '@mui/icons-material/SupervisedUserCircleOutlined'
 
 import { styled } from '@mui/material/styles'
-import { formatDateString } from 'common/util/date'
+import { dateToTime, formatDateString } from 'common/util/date'
 import { routes } from 'common/routes'
 import { OutlinedButton } from '../index/IndexPage.styled'
 
@@ -89,6 +89,10 @@ const StyledTimeline = styled(Timeline)(({ theme }) => ({
     fontSize: theme.typography.pxToRem(14),
     fontWeight: 400,
     textAlign: 'left',
+
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: '60%',
+    },
   },
 
   [`& .${classes.articleAuthor}`]: {
@@ -178,11 +182,14 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                 <TimelineItem key={article.id} className={classes.timelineItem}>
                   {!small && (
                     <TimelineOppositeContent className={classes.timelineOppositeContent}>
-                      <Grid container flexDirection={'column'} wrap="nowrap" gap={1}>
+                      <Grid container flexDirection={'column'} wrap="nowrap" gap={2}>
                         <Grid container item wrap="nowrap" gap={1}>
                           <AvTimerIcon color="action" />
                           <Typography className={classes.articlePublishedDate}>
-                            {formatDateString(article.publishedAt, i18n.language)}
+                            {`${formatDateString(article.publishedAt, i18n.language)} ${dateToTime(
+                              article.publishedAt,
+                              i18n.language,
+                            )}`}
                           </Typography>
                         </Grid>
                         <Grid container item wrap="nowrap" gap={1}>
@@ -203,12 +210,15 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                       <Grid
                         container
                         columnGap={2}
-                        rowGap={0}
+                        rowGap={1}
                         className={classes.dateAndAuthorContainer}>
                         <Grid container item gap={1} xs="auto">
                           <AvTimerIcon color="action" />
                           <Typography className={classes.articlePublishedDate}>
-                            {formatDateString(article.publishedAt, i18n.language)}
+                            {`${formatDateString(article.publishedAt, i18n.language)} ${dateToTime(
+                              article.publishedAt,
+                              i18n.language,
+                            )}`}
                           </Typography>
                         </Grid>
                         <Grid

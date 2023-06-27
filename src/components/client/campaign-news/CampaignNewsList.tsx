@@ -5,7 +5,7 @@ import 'react-quill/dist/quill.bubble.css'
 import { CampaignNewsResponse } from 'gql/campaign-news'
 
 import { styled } from '@mui/material/styles'
-import { formatDateString } from 'common/util/date'
+import { dateToTime, formatDateString } from 'common/util/date'
 import AvTimerIcon from '@mui/icons-material/AvTimer'
 import SupervisedUserCircleOutlinedIcon from '@mui/icons-material/SupervisedUserCircleOutlined'
 import { useTranslation } from 'react-i18next'
@@ -41,6 +41,10 @@ const ArticleSection = styled(Grid)(({ theme }) => ({
     fontSize: theme.typography.pxToRem(14),
     fontFamily: theme.typography.fontFamily,
     fontWeight: 400,
+
+    [theme.breakpoints.down(450)]: {
+      maxWidth: '20ch',
+    },
   },
 
   [theme.breakpoints.down('sm')]: {
@@ -101,11 +105,12 @@ export default function CampaignNewsList({ articles }: Props) {
               borderColor: index % 2 === 0 ? '#FFFFFF' : '#C4C4C4',
             }}>
             <ArticleSection>
-              <Grid container columnGap={2} rowGap={0} className={classes.dateAndAuthorContainer}>
+              <Grid container columnGap={2} rowGap={1} className={classes.dateAndAuthorContainer}>
                 <Grid container item gap={1} xs="auto">
                   <AvTimerIcon color="primary" />
                   <Typography className={classes.articlepublishedDate}>
-                    {formatDateString(article.publishedAt, i18n.language)}
+                    {formatDateString(article.publishedAt, i18n.language)} &nbsp;
+                    {dateToTime(article.publishedAt, i18n.language)}
                   </Typography>
                 </Grid>
                 <Grid container item gap={1} xs="auto" style={{ maxWidth: '100%' }} wrap="nowrap">
