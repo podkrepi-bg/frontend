@@ -61,7 +61,6 @@ export default function RenderBankDonationStatusCell({ params }: RenderCellProps
 
     const handleError = (e: AxiosError<ApiError>) => {
       const error = e.response?.data?.message
-      console.log(e.response)
       AlertStore.show(error ? error : t('common:alerts.error'), 'error')
     }
 

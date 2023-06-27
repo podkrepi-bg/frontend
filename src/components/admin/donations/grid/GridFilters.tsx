@@ -30,7 +30,6 @@ export default observer(function GridFilters() {
     filterName: string,
     filterValue: string | number | null | { from: Date; to: Date },
   ) => {
-    console.log('Setting filter:', filterName, filterValue)
     donationStore.setDonationFilters(filterName, filterValue)
   }
 
