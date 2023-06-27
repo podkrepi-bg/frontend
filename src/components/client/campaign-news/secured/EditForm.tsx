@@ -292,7 +292,9 @@ export default function EditForm({ article, slug, campaignTitle, isAdmin }: Prop
                   ...prevRoles,
                   ...newFiles.map((file) => ({
                     file: file.name,
-                    role: CampaignFileRole.background,
+                    role: file.type.startsWith('image')
+                      ? CampaignFileRole.gallery
+                      : CampaignFileRole.document,
                   })),
                 ])
               }}

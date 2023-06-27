@@ -225,7 +225,9 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
                   ...prevRoles,
                   ...newFiles.map((file) => ({
                     file: file.name,
-                    role: CampaignFileRole.document,
+                    role: file.type.startsWith('image')
+                      ? CampaignFileRole.gallery
+                      : CampaignFileRole.document,
                   })),
                 ])
               }}

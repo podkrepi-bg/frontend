@@ -269,7 +269,9 @@ export default function EditForm({ article }: { article: AdminCampaignNewsRespon
                   ...prevRoles,
                   ...newFiles.map((file) => ({
                     file: file.name,
-                    role: CampaignFileRole.background,
+                    role: file.type.startsWith('image')
+                      ? CampaignFileRole.gallery
+                      : CampaignFileRole.document,
                   })),
                 ])
               }}
