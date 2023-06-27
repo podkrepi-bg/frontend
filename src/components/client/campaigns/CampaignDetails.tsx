@@ -25,9 +25,8 @@ import { Assessment } from '@mui/icons-material'
 import { routes } from 'common/routes'
 import { useCanEditCampaign } from 'common/hooks/campaigns'
 
-
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
-const CampaignNewsSection = dynamic(()=> import('./CampaignNewsSection'), {ssr: false})
+const CampaignNewsSection = dynamic(() => import('./CampaignNewsSection'), { ssr: false })
 
 const PREFIX = 'CampaignDetails'
 

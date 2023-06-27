@@ -6,7 +6,15 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
 import NextLink from 'next/link'
-import { Button, Grid, List, ListItemText, Typography } from '@mui/material'
+import {
+  Button,
+  Grid,
+  InputAdornment,
+  List,
+  ListItemText,
+  Tooltip,
+  Typography,
+} from '@mui/material'
 
 import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
@@ -41,6 +49,7 @@ import {
 import { useEditNewsArticle, useUploadCampaignNewsFiles } from 'service/campaign-news'
 import ArticleStatusSelect from './ArticleStatusSelect'
 import UploadedCampaignFile from './UploadedCampaignFile'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
 const validationSchema: yup.SchemaOf<CampaignNewsInput> = yup
   .object()
@@ -49,7 +58,7 @@ const validationSchema: yup.SchemaOf<CampaignNewsInput> = yup
     title: yup.string().trim().min(10).max(200).required(),
     slug: yup.string().trim().min(10).max(200).required(),
     campaignId: yup.string().uuid().required(),
-    author: yup.string().required(),
+    author: yup.string().optional(),
     sourceLink: yup.string().optional(),
     state: yup.mixed().oneOf(Object.values(ArticleStatus)).required(),
     description: yup.string().required(),
@@ -207,6 +216,15 @@ export default function EditForm({ article }: { article: AdminCampaignNewsRespon
               name="author"
               placeholder={'Автор'}
               InputLabelProps={{ shrink: true }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">
+                    <Tooltip title={t('news:article.source-link.field-description')}>
+                      <InfoOutlinedIcon />
+                    </Tooltip>
+                  </InputAdornment>
+                ),
+              }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -216,6 +234,15 @@ export default function EditForm({ article }: { article: AdminCampaignNewsRespon
               name="sourceLink"
               placeholder={'Линк към източник'}
               InputLabelProps={{ shrink: true }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">
+                    <Tooltip title={t('news:article.source-link.field-description')}>
+                      <InfoOutlinedIcon />
+                    </Tooltip>
+                  </InputAdornment>
+                ),
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={4}>

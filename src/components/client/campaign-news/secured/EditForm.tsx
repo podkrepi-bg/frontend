@@ -62,7 +62,7 @@ const validationSchema: yup.SchemaOf<CampaignNewsInput> = yup
     title: yup.string().trim().min(10).max(200).required(),
     slug: yup.string().trim().min(10).max(200).required(),
     campaignId: yup.string().uuid().required(),
-    author: yup.string().required(),
+    author: yup.string().optional(),
     sourceLink: yup.string().optional(),
     state: yup.mixed().oneOf(Object.values(ArticleStatus)).required(),
     description: yup.string().required(),
@@ -239,6 +239,15 @@ export default function EditForm({ article, slug, campaignTitle, isAdmin }: Prop
               name="author"
               placeholder={t('news:article.author')}
               InputLabelProps={{ shrink: true }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">
+                    <Tooltip title={t('news:article.source-link.field-description')}>
+                      <InfoOutlinedIcon />
+                    </Tooltip>
+                  </InputAdornment>
+                ),
+              }}
             />
           </Grid>
           <Grid item xs={12}>

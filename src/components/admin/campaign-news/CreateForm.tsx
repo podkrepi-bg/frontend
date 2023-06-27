@@ -5,7 +5,7 @@ import { FormikHelpers } from 'formik'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
-import { Button, Grid, Typography } from '@mui/material'
+import { Button, Grid, InputAdornment, Tooltip, Typography } from '@mui/material'
 import Link from 'next/link'
 
 import { routes } from 'common/routes'
@@ -18,6 +18,7 @@ import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import FormTextField from 'components/common/form/FormTextField'
 import AcceptTermsField from 'components/common/form/AcceptTermsField'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
 import dynamic from 'next/dynamic'
 const FormRichTextField = dynamic(() => import('components/common/form/FormRichTextField'), {
@@ -50,7 +51,7 @@ const validationSchema: yup.SchemaOf<CampaignNewsAdminCreateFormData> = yup
     title: yup.string().trim().min(10).max(200).required(),
     slug: yup.string().trim().min(10).max(200).optional(),
     campaignId: yup.string().uuid().required(),
-    author: yup.string().required(),
+    author: yup.string().optional(),
     sourceLink: yup.string().optional(),
     description: yup.string().required(),
   })
@@ -183,6 +184,15 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               name="author"
               placeholder={'Автор'}
               InputLabelProps={{ shrink: true }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">
+                    <Tooltip title={t('news:article.source-link.field-description')}>
+                      <InfoOutlinedIcon />
+                    </Tooltip>
+                  </InputAdornment>
+                ),
+              }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -192,6 +202,15 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               name="sourceLink"
               placeholder={'Линк към източник'}
               InputLabelProps={{ shrink: true }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">
+                    <Tooltip title={t('news:article.source-link.field-description')}>
+                      <InfoOutlinedIcon />
+                    </Tooltip>
+                  </InputAdornment>
+                ),
+              }}
             />
           </Grid>
           <Grid item xs={12}>

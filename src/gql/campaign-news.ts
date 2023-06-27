@@ -61,7 +61,7 @@ export type CampaignNewsAdminCreateFormData = {
   title: string
   slug: string | undefined
   campaignId: UUID
-  author: string
+  author: string | undefined
   sourceLink: string | undefined
   description: string
 }
@@ -70,7 +70,7 @@ export type CampaignNewsInput = {
   title: string
   slug: string
   campaignId: UUID
-  author: string
+  author: string | undefined
   sourceLink: string | undefined
   description: string
   state: ArticleStatus
