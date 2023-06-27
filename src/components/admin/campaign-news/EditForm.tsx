@@ -34,6 +34,7 @@ import { CampaignUploadImage } from 'gql/campaigns'
 import { ArticleStatus } from './helpers/article-status.enum'
 import {
   CampaignFileRole,
+  CampaignNewsFileRole,
   FileRole,
   UploadCampaignNewsFiles,
 } from 'components/common/campaign-file/roles'
@@ -277,6 +278,7 @@ export default function EditForm({ article }: { article: AdminCampaignNewsRespon
               }}
             />
             <FileList
+              rolesList={CampaignNewsFileRole}
               files={files}
               filesRole={roles}
               onDelete={(deletedFile) =>

@@ -39,6 +39,7 @@ import { ArticleStatus } from 'components/admin/campaign-news/helpers/article-st
 import ArticleStatusSelect from 'components/admin/campaign-news/ArticleStatusSelect'
 import {
   CampaignFileRole,
+  CampaignNewsFileRole,
   FileRole,
   UploadCampaignNewsFiles,
 } from 'components/common/campaign-file/roles'
@@ -300,6 +301,7 @@ export default function EditForm({ article, slug, campaignTitle, isAdmin }: Prop
               }}
             />
             <FileList
+              rolesList={CampaignNewsFileRole}
               files={files}
               filesRole={roles}
               onDelete={(deletedFile) =>

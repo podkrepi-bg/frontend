@@ -29,6 +29,7 @@ import { ApiErrors, handleUniqueViolation, isAxiosError, matchValidator } from '
 import { useUploadCampaignNewsFiles } from 'service/campaign-news'
 import {
   CampaignFileRole,
+  CampaignNewsFileRole,
   FileRole,
   UploadCampaignNewsFiles,
 } from 'components/common/campaign-file/roles'
@@ -234,6 +235,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               buttonLabel={t('campaigns:cta.add-files')}
             />
             <FileList
+              rolesList={CampaignNewsFileRole}
               filesRole={roles}
               files={files}
               onDelete={(deletedFile) =>

@@ -300,6 +300,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               buttonLabel={t('campaigns:cta.add-files')}
             />
             <FileList
+              rolesList={CampaignFileRole}
               filesRole={roles}
               files={files}
               onDelete={(deletedFile) =>
