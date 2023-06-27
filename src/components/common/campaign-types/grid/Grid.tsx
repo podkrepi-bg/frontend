@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { Box, Typography } from '@mui/material'
-import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
 
 import { routes } from 'common/routes'
@@ -15,7 +15,10 @@ import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
 
 export default observer(function Grid() {
-  const [pageSize, setPageSize] = useState(10)
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
+  })
   const { t } = useTranslation()
 
   const { data }: UseQueryResult<CampaignTypesResponse[]> = useCampaignTypesList()
@@ -27,7 +30,7 @@ export default observer(function Grid() {
     headerAlign: 'left',
   }
 
-  const columns: GridColumns = [
+  const columns: GridColDef[] = [
     {
       field: 'actions',
       headerName: t('campaign-types:actions'),
@@ -89,10 +92,10 @@ export default observer(function Grid() {
           }}
           rows={data || []}
           columns={columns}
-          rowsPerPageOptions={[5, 10]}
-          pageSize={pageSize}
-          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          disableSelectionOnClick
+          pageSizeOptions={[5, 10]}
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
+          disableRowSelectionOnClick
         />
       </Box>
 

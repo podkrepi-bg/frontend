@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 import ConfirmationDialog from 'components/common/ConfirmationDialog'
 
-import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { IconButton, Tooltip, Box } from '@mui/material'
 import { money } from 'common/util/money'
 
@@ -49,7 +49,7 @@ export default function MyRecurringCampaignsTable() {
     flex: 1,
     headerAlign: 'left',
   }
-  const columns: GridColumns = [
+  const columns: GridColDef[] = [
     {
       field: 'campaignTitle',
       headerName: t('campaigns:sourceCampaign'),
@@ -133,7 +133,7 @@ export default function MyRecurringCampaignsTable() {
           }}
           rows={recurringDonations || []}
           columns={columns}
-          pageSize={5}
+          initialState={{ pagination: { paginationModel: { pageSize: 5 } } }}
           editMode="row"
           autoHeight
           autoPageSize

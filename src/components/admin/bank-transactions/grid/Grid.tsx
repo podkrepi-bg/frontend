@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { Box } from '@mui/material'
-import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { observer } from 'mobx-react'
 
 import { getExactDateTime } from 'common/util/date'
@@ -20,8 +20,8 @@ interface RenderCellProps {
 
 export default observer(function Grid() {
   const { bankTransactionsStore } = useStores()
-  const [paginationData, setPaginationData] = useState({
-    pageIndex: 0,
+  const [paginationModel, setPaginationModel] = useState({
+    page: 0,
     pageSize: 20,
   })
 
@@ -29,10 +29,10 @@ export default observer(function Grid() {
 
   const {
     data: { items: bankTransactions, total: all_rows } = { items: [], total: 0 },
-    error: bankTransactionsHistoryError,
+    // error: bankTransactionsHistoryError,
     isLoading: bankDonationsHistoryLoading,
   }: UseQueryResult<BankTransactionsHistoryResponse> = useBankTransactionsList(
-    paginationData,
+    { pageIndex: paginationModel.page, pageSize: paginationModel.pageSize },
     bankTransactionsStore.bankTransactionsFilter,
     bankTransactionsStore.bankTransactionSearch,
   )
@@ -47,11 +47,10 @@ export default observer(function Grid() {
     headerAlign: 'left',
   }
 
-  const columns: GridColumns = [
+  const columns: GridColDef[] = [
     {
       field: 'id',
       headerName: t('bank-transactions:id'),
-      hide: false,
       width: 150,
     },
     {
@@ -143,17 +142,14 @@ export default observer(function Grid() {
           }}
           rows={bankTransactions || []}
           columns={columns}
-          rowsPerPageOptions={[5, 10, 20]}
-          pageSize={paginationData.pageSize}
+          pageSizeOptions={[5, 10, 20]}
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
           pagination
           loading={bankDonationsHistoryLoading}
-          error={bankTransactionsHistoryError}
-          page={paginationData.pageIndex}
-          onPageChange={(pageIndex) => setPaginationData({ ...paginationData, pageIndex })}
-          onPageSizeChange={(pageSize) => setPaginationData({ ...paginationData, pageSize })}
           paginationMode="server"
           rowCount={all_rows}
-          disableSelectionOnClick
+          disableRowSelectionOnClick
           isCellEditable={() => true}
         />
       </Box>

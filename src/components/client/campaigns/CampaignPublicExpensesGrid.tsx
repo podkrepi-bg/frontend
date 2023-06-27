@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { styled } from '@mui/material/styles'
 import { observer } from 'mobx-react'
-import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { useTranslation } from 'next-i18next'
 
 import { useCampaignApprovedExpensesList } from 'common/hooks/expenses'
@@ -45,11 +45,13 @@ const Root = styled(Grid)({
 export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
   const { t } = useTranslation('')
   const { data: expensesList } = useCampaignApprovedExpensesList(slug)
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 20,
+    page: 0,
+  })
 
-  const [pageSize, setPageSize] = React.useState<number>(20)
-
-  const columns: GridColumns = [
-    { field: 'id', headerName: 'ID', hide: true },
+  const columns: GridColDef[] = [
+    { field: 'id', headerName: 'ID' },
     {
       field: 'type',
       headerName: t('expenses:fields.type'),
@@ -124,12 +126,11 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
         className={classes.grid}
         rows={expensesList || []}
         columns={columns}
-        pageSize={pageSize}
-        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-        rowsPerPageOptions={[20, 40, 60]}
-        // pagination
+        pageSizeOptions={[20, 40, 60]}
+        paginationModel={paginationModel}
+        onPaginationModelChange={setPaginationModel}
         autoHeight
-        disableSelectionOnClick
+        disableRowSelectionOnClick
         getRowHeight={() => 'auto'}
         sx={{
           '.MuiDataGrid-cell': {

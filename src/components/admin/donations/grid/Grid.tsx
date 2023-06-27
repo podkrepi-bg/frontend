@@ -5,9 +5,7 @@ import { Box, Tooltip } from '@mui/material'
 import { Edit } from '@mui/icons-material'
 import {
   DataGrid,
-  GridCellModes,
   GridColDef,
-  GridColumns,
   GridRenderCellParams,
   GridRenderEditCellParams,
 } from '@mui/x-data-grid'
@@ -39,9 +37,10 @@ const addIconStyles = {
 }
 export default observer(function Grid() {
   const { donationStore } = useStores()
-  const [paginationData, setPaginationData] = useState({
-    pageIndex: 0,
-    pageSize: 20,
+
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
   })
   const [focusedRowId, setFocusedRowId] = useState(null as string | null)
   const { t } = useTranslation()
@@ -51,12 +50,12 @@ export default observer(function Grid() {
 
   const {
     data: { items: donations, total: allDonationsCount } = { items: [], total: 0 },
-    error: donationHistoryError,
+    // error: donationHistoryError,
     isLoading: isDonationHistoryLoading,
     refetch,
   }: UseQueryResult<CampaignDonationHistoryResponse> = useDonationsList(
     campaignId,
-    paginationData,
+    { pageIndex: paginationModel.page, pageSize: paginationModel.pageSize },
     donationStore.donationFilters,
     donationStore.donationSearch,
   )
@@ -83,9 +82,9 @@ export default observer(function Grid() {
                 fontSize="medium"
                 onClick={() => {
                   if (focusedRowId) {
-                    params.api.setCellMode(focusedRowId, params.field, GridCellModes.View)
+                    params.api.startCellEditMode({ id: params.row.id, field: params.field })
                   }
-                  params.api.setCellMode(params.row.id, params.field, GridCellModes.Edit)
+                  params.api.getCellMode(params.row.id, params.field)
                   setFocusedRowId(params.row.id)
                 }}
               />
@@ -108,7 +107,7 @@ export default observer(function Grid() {
     headerAlign: 'left',
   }
 
-  const columns: GridColumns = [
+  const columns: GridColDef[] = [
     {
       field: 'createdAt',
       headerName: t('donations:date'),
@@ -161,7 +160,6 @@ export default observer(function Grid() {
     {
       field: 'id',
       headerName: 'ID',
-      hide: true,
     },
     {
       field: 'type',
@@ -201,17 +199,14 @@ export default observer(function Grid() {
           }}
           rows={donations || []}
           columns={columns}
-          rowsPerPageOptions={[5, 10, 20]}
-          pageSize={paginationData.pageSize}
+          pageSizeOptions={[5, 10, 20]}
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
           pagination
           loading={isDonationHistoryLoading}
-          error={donationHistoryError}
-          page={paginationData.pageIndex}
-          onPageChange={(pageIndex) => setPaginationData({ ...paginationData, pageIndex })}
-          onPageSizeChange={(pageSize) => setPaginationData({ ...paginationData, pageSize })}
           paginationMode="server"
           rowCount={allDonationsCount}
-          disableSelectionOnClick
+          disableRowSelectionOnClick
           isCellEditable={() => true}
         />
       </Box>
