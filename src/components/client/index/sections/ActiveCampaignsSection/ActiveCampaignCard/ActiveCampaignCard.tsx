@@ -7,7 +7,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { routes } from 'common/routes'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import { moneyPublic } from 'common/util/money'
-import CampaignProgress from 'components/client/campaigns/CampaignProgress'
+import CampaignProgress from '../../../../campaigns/CampaignProgress'
 
 import {
   CampaignProgressWrapper,

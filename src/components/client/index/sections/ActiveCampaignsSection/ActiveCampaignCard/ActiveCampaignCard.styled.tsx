@@ -1,4 +1,4 @@
-import { Box, CardContent, Grid } from '@mui/material'
+import { CardContent, Grid } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import LinkButton from 'components/common/LinkButton'
@@ -11,6 +11,8 @@ export const Root = styled(Grid)(() => ({
   minHeight: theme.spacing(48.75),
 
   [theme.breakpoints.up('md')]: {
+    minHeight: theme.spacing(50),
+
     '&:nth-of-type(1)': {
       gridArea: '1 / 1 / 3 / 3',
       height: theme.spacing(71.25),
@@ -18,8 +20,10 @@ export const Root = styled(Grid)(() => ({
   },
 
   [theme.breakpoints.up('lg')]: {
+    minHeight: theme.spacing(35),
+
     '&:nth-of-type(1)': {
-      height: theme.spacing(100),
+      height: theme.spacing(78),
     },
   },
 }))
@@ -74,9 +78,8 @@ export const SumNumber = styled('span')(() => ({
   },
 }))
 
-export const CampaignProgressWrapper = styled(Box)(() => ({
+export const CampaignProgressWrapper = styled(Grid)(() => ({
   span: {
-    background: '#B0E5FF',
     borderRadius: theme.borders.round,
     height: theme.spacing(2),
   },
