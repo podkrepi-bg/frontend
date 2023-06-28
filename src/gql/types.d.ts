@@ -13,3 +13,11 @@ export type FilterData = {
   maxAmount: number
   sortBy: string
 }
+
+export type CategoryType = {
+  text: string
+  type: CampaignTypeCategory
+  count?: number
+  isDisabled?: boolean
+  icon: ReactElement
+}

@@ -10,4 +10,5 @@ export enum CampaignTypeCategory {
   animals = 'animals',
   nature = 'nature',
   others = 'others',
+  all = 'all',
 }
