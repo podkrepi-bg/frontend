@@ -1,13 +1,15 @@
 import { useTranslation } from 'next-i18next'
 
 import { Grid } from '@mui/material'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 
 import { useCampaignList } from 'common/hooks/campaigns'
 import { routes } from 'common/routes'
 import { CampaignState } from 'components/client/campaigns/helpers/campaign.enums'
 import ActiveCampaignCard from './ActiveCampaignCard/ActiveCampaignCard'
 
-import { Root, SeeAllButton, SeeAllButtonWrapper } from './ActiveCampaignsSection.styled'
+import { OutlinedButton } from '../../IndexPage.styled'
+import { Root, SeeAllButton } from './ActiveCampaignsSection.styled'
 
 export default function ActiveCampaignsSection() {
   const { t } = useTranslation('index')
@@ -26,9 +28,14 @@ export default function ActiveCampaignsSection() {
             <ActiveCampaignCard index={index} key={index} campaign={campaign} />
           ))}
         </Root>
-        <SeeAllButtonWrapper>
-          <SeeAllButton href={routes.campaigns.index}>{t('campaign.see-all')}</SeeAllButton>
-        </SeeAllButtonWrapper>
+        <SeeAllButton>
+          <OutlinedButton
+            href={routes.campaigns.index}
+            variant="outlined"
+            endIcon={<ChevronRightIcon />}>
+            {t('campaign.see-all')}
+          </OutlinedButton>
+        </SeeAllButton>
       </Grid>
     )
   }

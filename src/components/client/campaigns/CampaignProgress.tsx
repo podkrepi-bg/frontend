@@ -1,9 +1,7 @@
 import React, { useMemo } from 'react'
-
 import { styled } from '@mui/material/styles'
 import LinearProgress from '@mui/material/LinearProgress'
 import { Grid } from '@mui/material'
-
 import { UUID } from 'gql/types'
 
 const PREFIX = 'CampaignProgress'
@@ -38,7 +36,6 @@ type Props = {
 }
 export default function CampaignProgress({ campaignId, raised, target }: Props) {
   const percentage = useMemo(() => (raised / target) * 100, [raised, target])
-
   return (
     <StyledGrid className={classes.donationProgress} container>
       <Grid item xs={12}>
@@ -52,6 +49,21 @@ export default function CampaignProgress({ campaignId, raised, target }: Props) 
           }}
         />
       </Grid>
+      {/* <Grid item xs={6}>
+        <Typography gutterBottom color="primary" variant="body1" align="left">
+          {money(raised)}
+        </Typography>
+      </Grid>
+      <Grid item xs={6}>
+        <Typography gutterBottom color="primary" variant="body1" align="right">
+          {money(target)}
+        </Typography>
+        {raised > target && (
+          <Typography gutterBottom color="primary" variant="body1" align="right">
+            (+ {money(raised - target)})
+          </Typography>
+        )}
+      </Grid> */}
     </StyledGrid>
   )
 }
