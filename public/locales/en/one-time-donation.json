@@ -64,11 +64,14 @@
     "bank-instructions2": "We trust you to register or to leave an email on the next step, so that we can link your donation to your account. Thank you!!!",
     "bank-details": "Details of our bank account:",
     "btn-copy": "Copy",
-    "owner": "Association Podkrepi BG",
-    "bank": "Unicredit Bulbank",
-    "reason-donation": "For payment reference use:",
+    "owner_name": "Recipient:",
+    "owner_value": "Association Podkrepi BG",
+    "bank_name": "Bank:",
+    "bank_value": "Unicredit Bulbank",
+    "reason-donation": "Payment reference:",
     "message-warning": "If you don't enter the exact reference we may not be able to assign the money to the desired campaign.",
-    "recurring-donation": "Donate the same amount every month until the end of the campaign! Cancel anytime."
+    "recurring-donation-title": "Monthly donation",
+    "recurring-donation-info": "Donate the same amount every month until the end of the campaign! Cancel anytime in your profile!"
   },
   "alerts": {
     "success": "Donation was processed successfully!",

@@ -8,7 +8,7 @@ import { Typography } from '@mui/material'
 
 export const Root = styled('section')(() => ({
   position: 'relative',
-  padding: theme.spacing(10, 14),
+  padding: theme.spacing(10, 0),
   marginBottom: theme.spacing(12),
   alignItems: 'center',
   backgroundColor: '#ffecc2',
@@ -20,6 +20,7 @@ export const Root = styled('section')(() => ({
   [theme.breakpoints.up('md')]: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    padding: theme.spacing(10, 14),
   },
 
   [theme.breakpoints.up(2000)]: {

@@ -14,11 +14,9 @@ import { CampaignState } from 'components/client/campaigns/helpers/campaign.enum
 import { CampaignTitle, Content, SupportNowButton } from './ActiveCampaignCard.styled'
 import { moneyPublic } from 'common/util/money'
 import {
-  MoneyWrapper,
-  MoneyWrapperFlex,
-  MoneyUnit,
-  MoneyFraction,
-  MoneyText,
+  SumWrapper,
+  Sum,
+  SumText,
 } from '../../CompletedCampaignsSection/CompletedCampaignsSection.styled'
 
 type Props = { campaign: CampaignResponse; index: number }
@@ -51,28 +49,20 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
           },
         },
       }}>
-      <MoneyWrapper>
-        <MoneyWrapperFlex>
-          <MoneyText>{t('campaign.reached')}</MoneyText>
-          <MoneyUnit>
-            {i18n.language === 'bg' ? reachedAmount.split(',')[0] : reachedAmount.split('.')[0]}
-          </MoneyUnit>
-          <MoneyFraction>
-            {i18n.language === 'bg'
-              ? reachedAmount.split(',')[1].substring(0, 2)
-              : reachedAmount.split('.')[1]}
-          </MoneyFraction>
-          <MoneyText>{t('campaign.from')}</MoneyText>
-          <MoneyUnit>
-            {i18n.language === 'bg' ? targetAmount.split(',')[0] : targetAmount.split('.')[0]}
-          </MoneyUnit>
-          <MoneyFraction>
-            {i18n.language === 'bg'
-              ? targetAmount.split(',')[1].substring(0, 2)
-              : targetAmount.split('.')[1]}
-          </MoneyFraction>
-        </MoneyWrapperFlex>
-      </MoneyWrapper>
+      <SumWrapper>
+        <SumText>{t('campaign.reached')}</SumText>
+        <Sum>
+          {i18n.language === 'bg'
+            ? reachedAmount.split(',')[0] + ' лв.'
+            : reachedAmount.split('.')[0]}
+        </Sum>
+        <SumText>{t('campaign.from')}</SumText>
+        <Sum>
+          {i18n.language === 'bg'
+            ? targetAmount.split(',')[0] + ' лв.'
+            : targetAmount.split('.')[0]}
+        </Sum>
+      </SumWrapper>
       <Content>
         <CampaignTitle>{title}</CampaignTitle>
         <Grid textAlign="center">

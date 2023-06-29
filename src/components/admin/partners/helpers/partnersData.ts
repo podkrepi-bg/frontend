@@ -27,9 +27,9 @@ export const partners: Partners[] = [
   },
   {
     title: 'partners:sections.video',
-    name: 'rinkoff',
-    image: '/img/partners/rinkoff.svg',
-    website: partnerUrls.rinkoff,
+    name: 'kotaOne',
+    image: '/img/partners/kotaOne.svg',
+    website: partnerUrls.kotaOne,
   },
   {
     title: 'partners:sections.media',

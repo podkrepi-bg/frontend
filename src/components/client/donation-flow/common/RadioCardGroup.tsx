@@ -78,7 +78,6 @@ function RadioCardGroup({ options, defaultValue }: RadioCardGroupProps) {
     setValue(event.target.value)
   }
 
-  console.log(theme.typography.h1)
   return (
     <FormControl>
       <RadioGroup

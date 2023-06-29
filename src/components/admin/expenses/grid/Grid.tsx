@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { styled } from '@mui/material/styles'
 import { observer } from 'mobx-react'
-import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { useTranslation } from 'next-i18next'
 
 import { useExpensesList } from 'common/hooks/expenses'
@@ -12,7 +12,7 @@ import GridActions from 'components/admin/GridActions'
 import { ModalStore } from '../ExpensesPage'
 import DetailsModal from './DetailsModal'
 import DeleteModal from './DeleteModal'
-import { statusRenderCell } from './GridHelper'
+import { moneyPublic } from 'common/util/money'
 
 const PREFIX = 'Grid'
 
@@ -47,13 +47,16 @@ export default observer(function Grid() {
   const { t } = useTranslation('')
   const { data } = useExpensesList()
 
-  const [pageSize, setPageSize] = React.useState<number>(10)
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
+  })
   const { data: personList } = usePersonList()
 
   const { isDetailsOpen } = ModalStore
 
-  const columns: GridColumns = [
-    { field: 'id', headerName: 'ID', hide: true },
+  const columns: GridColDef[] = [
+    { field: 'id', headerName: 'ID' },
     {
       field: 'type',
       headerName: t('expenses:fields.type'),
@@ -61,18 +64,18 @@ export default observer(function Grid() {
       width: 120,
     },
     {
-      field: 'status',
-      headerName: t('expenses:fields.status'),
-      renderCell: statusRenderCell,
-      headerClassName: classes.gridColumn,
-      width: 100,
-    },
-    {
       field: 'amount',
       headerName: t('expenses:fields.amount'),
       headerClassName: classes.gridColumn,
       align: 'right',
       width: 90,
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        if (!params.row.amount) {
+          return '0'
+        }
+
+        return moneyPublic(params.row.amount, params.row.currency)
+      },
     },
     {
       field: 'currency',
@@ -81,22 +84,10 @@ export default observer(function Grid() {
       width: 90,
     },
     {
-      field: 'vaultId',
-      headerName: t('expenses:fields.vaultId'),
-      headerClassName: classes.gridColumn,
-      flex: 1,
-    },
-    {
       field: 'description',
       headerName: t('expenses:fields.description'),
       headerClassName: classes.gridColumn,
-      flex: 1,
-    },
-    {
-      field: 'documentId',
-      headerName: t('expenses:fields.documentId'),
-      headerClassName: classes.gridColumn,
-      flex: 1,
+      flex: 3,
     },
     {
       field: 'approvedById',
@@ -143,13 +134,13 @@ export default observer(function Grid() {
         className={classes.grid}
         rows={data || []}
         columns={columns}
-        pageSize={pageSize}
-        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-        rowsPerPageOptions={[5, 10]}
+        paginationModel={paginationModel}
+        onPaginationModelChange={setPaginationModel}
+        pageSizeOptions={[5, 10]}
         pagination
         autoHeight
         checkboxSelection
-        disableSelectionOnClick
+        disableRowSelectionOnClick
       />
       {/* making sure we don't sent requests to the API when not needed */}
       {isDetailsOpen && <DetailsModal />}

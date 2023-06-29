@@ -3,27 +3,25 @@ import { CampaignResponse } from 'gql/campaigns'
 
 import 'slick-carousel/slick/slick-theme.css'
 import 'slick-carousel/slick/slick.css'
-import { Grid } from '@mui/material'
 
 import { useCampaignList } from 'common/hooks/campaigns'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
-import theme from 'common/theme'
 import { CampaignState } from 'components/client/campaigns/helpers/campaign.enums'
 import { routes } from 'common/routes'
-import { settings } from './helpers/CompletedCampaignsCaroucelSettings'
+import { settings } from './helpers/CompletedCampaignsCarouselSettings'
 import { moneyPublic } from 'common/util/money'
 
 import { Heading } from '../../IndexPage.styled'
 import {
   Root,
   CarouselWrapper,
-  MoneyUnit,
-  MoneyFraction,
-  MoneyWrapper,
-  MoneyText,
+  Sum,
+  SumWrapper,
+  SumText,
   CampaignTitle,
   CompletedCampaignLink,
-  MoneyWrapperFlex,
+  CardWrapper,
+  SumWrapperColumn,
 } from './CompletedCampaignsSection.styled'
 
 export default function CompletedCampaignsSection() {
@@ -45,11 +43,7 @@ export default function CompletedCampaignsSection() {
       </Heading>
       <CarouselWrapper {...settings}>
         {completedCampaigns?.map((campaign, index) => (
-          <Grid
-            key={index}
-            data-testid={`campaign-card-${index}`}
-            margin={theme.spacing(0, 2.25)}
-            paddingRight={theme.spacing(2.5)}>
+          <CardWrapper key={index} data-testid={`campaign-card-${index}`}>
             <CompletedCampaignLink
               onMouseDown={onLinkMouseDown}
               href={routes.campaigns.viewCampaignBySlug(campaign.slug)}
@@ -58,24 +52,19 @@ export default function CompletedCampaignsSection() {
                   campaign,
                 )})`,
               }}>
-              <MoneyWrapper>
-                <MoneyWrapperFlex>
-                  <MoneyUnit>
+              <SumWrapper>
+                <SumWrapperColumn>
+                  <Sum>
                     {i18n.language === 'bg'
-                      ? moneyPublic(campaign.summary.reachedAmount).split(',')[0]
+                      ? moneyPublic(campaign.summary.reachedAmount).split(',')[0] + ' лв.'
                       : moneyPublic(campaign.summary.reachedAmount).split('.')[0]}
-                  </MoneyUnit>
-                  <MoneyFraction>
-                    {i18n.language === 'bg'
-                      ? moneyPublic(campaign.summary.reachedAmount).split(',')[1].substring(0, 2)
-                      : moneyPublic(campaign.summary.reachedAmount).split('.')[1]}
-                  </MoneyFraction>
-                </MoneyWrapperFlex>
-                <MoneyText>{t('campaign.reached')}</MoneyText>
-              </MoneyWrapper>
+                  </Sum>
+                  <SumText sx={{ padding: 0 }}>{t('campaign.reached')}</SumText>
+                </SumWrapperColumn>
+              </SumWrapper>
               <CampaignTitle>{campaign.title}</CampaignTitle>
             </CompletedCampaignLink>
-          </Grid>
+          </CardWrapper>
         ))}
       </CarouselWrapper>
     </Root>

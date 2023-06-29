@@ -2,7 +2,7 @@ import React from 'react'
 import { AxiosError, AxiosResponse } from 'axios'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
-import { GridRenderEditCellParams, GridCellModes } from '@mui/x-data-grid'
+import { GridRenderEditCellParams } from '@mui/x-data-grid'
 import { TextField, Tooltip, Box } from '@mui/material'
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete'
 import { Save } from '@mui/icons-material'
@@ -54,7 +54,7 @@ export default function RenderEditPersonCell({
     onSuccess: () => {
       AlertStore.show(t('donations:alerts.editDonor'), 'success')
       onUpdate()
-      params.api.setCellMode(params.row.id, params.field, GridCellModes.View)
+      params.api.stopCellEditMode({ id: params.row.id, field: params.field })
     },
   })
 
