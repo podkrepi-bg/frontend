@@ -1,7 +1,7 @@
 import { useTranslation, i18n } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 
-import { Grid } from '@mui/material'
+import { CardContent, CardMedia } from '@mui/material'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 
 import { routes } from 'common/routes'
@@ -15,10 +15,12 @@ import {
   DonateButton,
   LearnMoreButton,
   Root,
+  StyledCardActions,
   Sum,
   SumNumber,
   SumWrapper,
 } from './ActiveCampaignCard.styled'
+import theme from 'common/theme'
 
 type Props = { campaign: CampaignResponse; index: number }
 
@@ -32,38 +34,44 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
 
   return (
     <Root data-testid={`completed-campaign-${index}`}>
-      <Grid
+      <CardMedia
+        component="img"
+        height="100%"
+        image={campaignImagesUrl}
+        alt={title}
         sx={{
-          background: `url(${campaignImagesUrl})`,
-          height: '100%',
-          backgroundSize: 'cover',
+          [theme.breakpoints.up('lg')]: {
+            aspectRatio: '2',
+            height: theme.spacing(21.875),
+          },
         }}
       />
-      <SumWrapper>
-        <Sum>
-          {t('campaign.reached')}{' '}
-          <SumNumber>
-            {i18n.language === 'bg'
-              ? reachedAmount.split(',')[0] + ' лв.'
-              : reachedAmount.split('.')[0]}
-          </SumNumber>
-        </Sum>
-        <Sum style={{ fontWeight: 400 }}>
-          {t('campaign.target')}{' '}
-          <SumNumber>
-            {i18n.language === 'bg'
-              ? targetAmount.split(',')[0] + ' лв.'
-              : targetAmount.split('.')[0]}
-          </SumNumber>
-        </Sum>
-      </SumWrapper>
-      <CampaignProgressWrapper width={1}>
-        <CampaignProgress campaignId={id} raised={reached} target={target} />
-      </CampaignProgressWrapper>
-      <CampaignTitle>{title}</CampaignTitle>
-      <Grid>
+      <CardContent sx={{ padding: 0 }}>
+        <SumWrapper>
+          <Sum>
+            {t('campaign.reached')}{' '}
+            <SumNumber>
+              {i18n.language === 'bg'
+                ? reachedAmount.split(',')[0] + ' лв.'
+                : reachedAmount.split('.')[0]}
+            </SumNumber>
+          </Sum>
+          <Sum style={{ fontWeight: 400 }}>
+            {t('campaign.target')}{' '}
+            <SumNumber>
+              {i18n.language === 'bg'
+                ? targetAmount.split(',')[0] + ' лв.'
+                : targetAmount.split('.')[0]}
+            </SumNumber>
+          </Sum>
+        </SumWrapper>
+        <CampaignProgressWrapper width={1}>
+          <CampaignProgress campaignId={id} raised={reached} target={target} />
+        </CampaignProgressWrapper>
+        <CampaignTitle>{title}</CampaignTitle>
+      </CardContent>
+      <StyledCardActions disableSpacing>
         <DonateButton
-          fullWidth
           href={routes.campaigns.oneTimeDonation(slug)}
           variant="contained"
           color="secondary">
@@ -74,7 +82,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
           endIcon={<ArrowForwardIcon color="warning" fontSize="medium" />}>
           {t('campaign.learn-more')}
         </LearnMoreButton>
-      </Grid>
+      </StyledCardActions>
     </Root>
   )
 }

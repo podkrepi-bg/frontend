@@ -16,8 +16,12 @@ export const Root = styled(Grid)(() => ({
   },
 
   [theme.breakpoints.up('md')]: {
+    gridTemplateColumns: '1fr 1fr 1fr',
+  },
+
+  [theme.breakpoints.up('lg')]: {
     gridTemplateColumns: '1fr 1fr 1fr 1fr',
-    gridTemplateRows: 'repeat(2, 1fr)',
+    gap: theme.spacing(0.875),
   },
 
   [theme.breakpoints.up(2000)]: {

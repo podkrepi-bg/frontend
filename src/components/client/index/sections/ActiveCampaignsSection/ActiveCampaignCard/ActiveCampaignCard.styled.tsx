@@ -1,29 +1,22 @@
-import { CardContent, Grid } from '@mui/material'
+import { Card, CardActions, CardContent, Grid } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import LinkButton from 'components/common/LinkButton'
 import theme from 'common/theme'
 
-export const Root = styled(Grid)(() => ({
+export const Root = styled(Card)(() => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'initial',
-  minHeight: theme.spacing(48.75),
-
-  [theme.breakpoints.up('md')]: {
-    minHeight: theme.spacing(50),
-
-    '&:nth-of-type(1)': {
-      gridArea: '1 / 1 / 3 / 3',
-      height: theme.spacing(71.25),
-    },
-  },
+  boxShadow: 'none',
 
   [theme.breakpoints.up('lg')]: {
-    minHeight: theme.spacing(35),
-
     '&:nth-of-type(1)': {
-      height: theme.spacing(78),
+      gridArea: '1 / 1 / 3 / 3',
+
+      img: {
+        height: theme.spacing(63.75),
+      },
     },
   },
 }))
@@ -81,8 +74,14 @@ export const SumNumber = styled('span')(() => ({
 export const CampaignProgressWrapper = styled(Grid)(() => ({
   span: {
     borderRadius: theme.borders.round,
-    height: theme.spacing(2),
+    height: '11px',
   },
+}))
+
+export const StyledCardActions = styled(CardActions)(() => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  padding: theme.spacing(1, 0),
 }))
 
 export const DonateButton = styled(LinkButton)(() => ({
@@ -101,11 +100,6 @@ export const DonateButton = styled(LinkButton)(() => ({
   '&:hover': {
     boxShadow:
       '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)',
-  },
-
-  [theme.breakpoints.up('md')]: {
-    display: 'block',
-    marginBottom: theme.spacing(1.5),
   },
 
   [theme.breakpoints.up(1111)]: {
