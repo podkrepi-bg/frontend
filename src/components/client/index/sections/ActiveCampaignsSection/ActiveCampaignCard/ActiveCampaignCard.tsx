@@ -42,7 +42,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
         sx={{
           [theme.breakpoints.up('lg')]: {
             aspectRatio: '2',
-            height: theme.spacing(21.875),
+            height: theme.spacing(22.5),
           },
         }}
       />

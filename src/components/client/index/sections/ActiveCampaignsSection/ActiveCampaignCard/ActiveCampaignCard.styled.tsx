@@ -15,7 +15,7 @@ export const Root = styled(Card)(() => ({
       gridArea: '1 / 1 / 3 / 3',
 
       img: {
-        height: theme.spacing(63.75),
+        height: theme.spacing(65),
       },
     },
   },
