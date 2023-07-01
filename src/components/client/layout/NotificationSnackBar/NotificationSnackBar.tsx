@@ -21,6 +21,7 @@ function NotificationSnackBar({
   const [notifications, setNotifications] = useState<NotificationLayoutData[]>([])
 
   useEffect(() => {
+    if (!notificationClient.connected) notificationClient.connect()
     notificationClient.on('successfulDonation', (notificationData: NotificationLayoutData) => {
       setNotifications((prevState) => [...prevState, notificationData])
     })
