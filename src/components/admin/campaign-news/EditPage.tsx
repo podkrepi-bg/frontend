@@ -7,19 +7,18 @@ import AdminContainer from 'components/common/navigation/AdminContainer'
 import { useViewArticleById } from 'common/hooks/campaign-news'
 import { AdminCampaignNewsResponse } from 'gql/campaign-news'
 
-import EditForm from './EditForm'
+import EditForm from 'components/client/campaign-news/secured/EditForm'
 
 export default function EditPage() {
   const { query } = useRouter()
   const { data: article }: UseQueryResult<AdminCampaignNewsResponse> = useViewArticleById(
     String(query.id),
   )
-  console.log(article)
   return (
     <AdminLayout>
       <AdminContainer title={'Новини за кампании'}>
         <Container maxWidth="md" sx={{ py: 5 }}>
-          {article && <EditForm article={article} />}
+          {article && <EditForm article={article} campaignId={article.campaignId} />}
         </Container>
       </AdminContainer>
     </AdminLayout>

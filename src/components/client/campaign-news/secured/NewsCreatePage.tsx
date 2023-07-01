@@ -1,6 +1,7 @@
 import { Container } from '@mui/material'
 import Layout from 'components/client/layout/Layout'
 import CreateForm from './CreateForm'
+import { routes } from 'common/routes'
 
 type Props = {
   campaignId: string
@@ -9,16 +10,11 @@ type Props = {
   slug: string
 }
 
-export default function NewsCreatePage({ campaignId, slug, campaignTitle, isAdmin }: Props) {
+export default function NewsCreatePage({ campaignId, isAdmin }: Props) {
   return (
     <Layout>
       <Container maxWidth={'md'}>
-        <CreateForm
-          campaignId={campaignId}
-          campaignTitle={campaignTitle}
-          slug={slug}
-          isAdmin={isAdmin}
-        />
+        <CreateForm campaignId={campaignId} isAdmin={isAdmin} />
       </Container>
     </Layout>
   )

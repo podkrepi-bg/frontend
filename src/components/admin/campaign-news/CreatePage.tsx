@@ -1,4 +1,4 @@
-import CreateForm from './CreateForm'
+import CreateForm from 'components/client/campaign-news/secured/CreateForm'
 import { Container } from '@mui/material'
 import AdminContainer from 'components/common/navigation/AdminContainer'
 import AdminLayout from 'components/common/navigation/AdminLayout'

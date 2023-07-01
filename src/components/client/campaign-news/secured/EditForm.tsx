@@ -5,22 +5,16 @@ import React, { ChangeEvent, useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
-import NextLink from 'next/link'
 import {
   Button,
-  FormControl,
   Grid,
   InputAdornment,
-  InputLabel,
   List,
   ListItemText,
-  MenuItem,
-  Select,
   Tooltip,
   Typography,
 } from '@mui/material'
 
-import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
 import { createSlug } from 'common/util/createSlug'
 import GenericForm from 'components/common/form/GenericForm'
@@ -55,6 +49,7 @@ import {
 import { useEditNewsArticle, useUploadCampaignNewsFiles } from 'service/campaign-news'
 
 import UploadedCampaignFile from 'components/admin/campaign-news/UploadedCampaignFile'
+import CampaignDropdownSelector from 'components/admin/campaign-news/CampaignDropdownSelector'
 
 const validationSchema: yup.SchemaOf<CampaignNewsInput> = yup
   .object()
@@ -71,12 +66,11 @@ const validationSchema: yup.SchemaOf<CampaignNewsInput> = yup
 
 type Props = {
   article: AdminCampaignNewsResponse
-  slug: string
-  campaignTitle: string
-  isAdmin: boolean
+  campaignId?: string
+  isAdmin?: boolean
 }
 
-export default function EditForm({ article, slug, campaignTitle, isAdmin }: Props) {
+export default function EditForm({ article, campaignId = '', isAdmin = true }: Props) {
   const router = useRouter()
   const queryClient = useQueryClient()
   const [files, setFiles] = useState<File[]>([])
@@ -158,7 +152,7 @@ export default function EditForm({ article, slug, campaignTitle, isAdmin }: Prop
 
       //Go back to campaign list
       queryClient.invalidateQueries([endpoints.campaignNews.listAdminNews.url])
-      router.push(routes.campaigns.news.newsAdminPanel(slug))
+      router.back()
     } catch (error) {
       console.error(error)
       if (isAxiosError(error)) {
@@ -219,19 +213,7 @@ export default function EditForm({ article, slug, campaignTitle, isAdmin }: Prop
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <FormControl fullWidth size="small" variant="outlined">
-              <InputLabel>{t('news:article.select-campaign')}</InputLabel>
-              <Select
-                name="campaignId"
-                fullWidth
-                defaultValue={article.campaignId}
-                label={t('news:article.select-campaign')}
-                disabled>
-                <MenuItem key={0} value={article.campaignId}>
-                  {campaignTitle}
-                </MenuItem>
-              </Select>
-            </FormControl>
+            <CampaignDropdownSelector isDisabled={campaignId ? true : false} />
           </Grid>
           <Grid item xs={12}>
             <FormTextField
@@ -317,9 +299,9 @@ export default function EditForm({ article, slug, campaignTitle, isAdmin }: Prop
           </Grid>
           <Grid item xs={12}>
             <SubmitButton fullWidth label="campaigns:cta.submit" loading={mutation.isLoading} />
-            <NextLink href={routes.campaigns.news.newsAdminPanel(slug)} passHref>
-              <Button fullWidth>{t('Отказ')}</Button>
-            </NextLink>
+            <Button onClick={() => router.back()} fullWidth>
+              {t('Отказ')}
+            </Button>
           </Grid>
         </Grid>
       </GenericForm>

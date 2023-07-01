@@ -13,7 +13,15 @@ import { useField } from 'formik'
 import { useTranslation } from 'react-i18next'
 import { CampaignTypeCategory } from 'components/common/campaign-types/categories'
 
-export default function CampaignDropdownSelector({ name = 'campaignId' }) {
+type Props = {
+  name?: string
+  isDisabled: boolean
+}
+
+export default function CampaignDropdownSelector({
+  name = 'campaignId',
+  isDisabled = false,
+}: Props) {
   const { t } = useTranslation()
   const { data } = useCampaignList()
   const [field, meta] = useField(name)
@@ -46,7 +54,12 @@ export default function CampaignDropdownSelector({ name = 'campaignId' }) {
       variant="outlined"
       error={Boolean(meta.error) && Boolean(meta.touched)}>
       <InputLabel>{t('Изберете кампания')}</InputLabel>
-      <Select fullWidth defaultValue="" label={t('Изберете кампания')} {...field}>
+      <Select
+        fullWidth
+        defaultValue=""
+        label={t('Изберете кампания')}
+        {...field}
+        disabled={isDisabled}>
         <MenuItem key="" value="" disabled>
           {t('Изберете кампания')}
         </MenuItem>

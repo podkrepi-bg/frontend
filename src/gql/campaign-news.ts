@@ -64,6 +64,8 @@ export type CampaignNewsAdminCreateFormData = {
   author: string | undefined
   sourceLink: string | undefined
   description: string
+  terms: boolean
+  gdpr: boolean
 }
 
 export type CampaignNewsInput = {

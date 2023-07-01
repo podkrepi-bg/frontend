@@ -12,7 +12,7 @@ import { CampaignNewsResponse } from 'gql/campaign-news'
 import NewsEditPage from 'components/client/campaign-news/secured/NewsEditPage'
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { slug, articleId, campaignTitle } = ctx.query
+  const { slug, articleId } = ctx.query
 
   const client = new QueryClient()
   const session = await getServerSession(ctx.req, ctx.res, authOptions)
@@ -45,8 +45,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     props: {
       isAdmin: isAdmin(session),
       articleId,
-      campaignTitle,
-      slug,
       ...(await serverSideTranslations(ctx.locale ?? 'bg', [
         'common',
         'auth',

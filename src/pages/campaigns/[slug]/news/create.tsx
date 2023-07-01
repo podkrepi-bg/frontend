@@ -10,7 +10,7 @@ import { isAdmin } from 'common/util/roles'
 import NewsCreatePage from 'components/client/campaign-news/secured/NewsCreatePage'
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { slug, campaignId, campaignTitle } = ctx.query
+  const { slug, campaignId } = ctx.query
   const client = new QueryClient()
   const session = await getServerSession(ctx.req, ctx.res, authOptions)
   if (!session || !session.user) {
@@ -38,8 +38,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     props: {
       isAdmin: isAdmin(session),
       campaignId,
-      campaignTitle,
-      slug,
       ...(await serverSideTranslations(ctx.locale ?? 'bg', [
         'common',
         'auth',

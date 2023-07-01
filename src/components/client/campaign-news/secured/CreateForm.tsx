@@ -5,20 +5,8 @@ import { FormikHelpers } from 'formik'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { AxiosError, AxiosResponse } from 'axios'
-import {
-  Button,
-  FormControl,
-  Grid,
-  InputAdornment,
-  InputLabel,
-  MenuItem,
-  Select,
-  Tooltip,
-  Typography,
-} from '@mui/material'
-import Link from 'next/link'
+import { Button, Grid, InputAdornment, Tooltip, Typography } from '@mui/material'
 
-import { routes } from 'common/routes'
 import { AlertStore } from 'stores/AlertStore'
 import { createSlug } from 'common/util/createSlug'
 import FileList from 'components/common/file-upload/FileList'
@@ -54,6 +42,7 @@ import {
 import { useCreateCampaignNews } from 'service/campaign-news'
 import { ArticleStatus } from 'components/admin/campaign-news/helpers/article-status.enum'
 import ArticleStatusSelect from 'components/admin/campaign-news/ArticleStatusSelect'
+import CampaignDropdownSelector from 'components/admin/campaign-news/CampaignDropdownSelector'
 
 const validationSchema: yup.SchemaOf<CampaignNewsAdminCreateFormData> = yup
   .object()
@@ -65,22 +54,17 @@ const validationSchema: yup.SchemaOf<CampaignNewsAdminCreateFormData> = yup
     author: yup.string().optional(),
     sourceLink: yup.string().optional(),
     description: yup.string().required(),
+    terms: yup.bool().required().oneOf([true], 'validation:terms-of-use'),
+    gdpr: yup.bool().required().oneOf([true], 'validation:terms-of-service'),
   })
 
 export type CampaignFormProps = {
   initialValues?: CampaignNewsAdminCreateFormData
-  campaignId: string
-  campaignTitle: string
-  isAdmin: boolean
-  slug: string
+  campaignId?: string
+  isAdmin?: boolean
 }
 
-export default function CreateForm({
-  campaignId,
-  campaignTitle,
-  slug,
-  isAdmin,
-}: CampaignFormProps) {
+export default function CreateForm({ campaignId = '', isAdmin = true }: CampaignFormProps) {
   const router = useRouter()
   const [files, setFiles] = useState<File[]>([])
   const [roles, setRoles] = useState<FileRole[]>([])
@@ -94,6 +78,8 @@ export default function CreateForm({
     author: '',
     sourceLink: '',
     description: '',
+    terms: false,
+    gdpr: false,
   }
 
   const handleError = (e: AxiosError<ApiErrors>) => {
@@ -146,7 +132,7 @@ export default function CreateForm({
           articleId: response.data.id,
         })
       }
-      router.push(routes.campaigns.news.newsAdminPanel(slug))
+      router.back()
     } catch (error) {
       console.error(error)
       if (isAxiosError(error)) {
@@ -197,20 +183,7 @@ export default function CreateForm({
             />
           </Grid>
           <Grid item xs={12}>
-            <FormControl fullWidth size="small" variant="outlined">
-              <InputLabel>{t('news:article.select-campaign')}</InputLabel>
-              <Select
-                name="campaignId"
-                fullWidth
-                defaultValue={campaignId}
-                value={campaignId}
-                label={t('news:article.select-campaign')}
-                disabled>
-                <MenuItem key={0} value={campaignId}>
-                  {campaignTitle}
-                </MenuItem>
-              </Select>
-            </FormControl>
+            <CampaignDropdownSelector isDisabled={campaignId ? true : false} />
           </Grid>
           <Grid item xs={12}>
             <FormTextField
@@ -293,9 +266,9 @@ export default function CreateForm({
           <Grid item xs={12}>
             <SubmitButton fullWidth label="campaigns:cta.submit" loading={mutation.isLoading} />
           </Grid>
-          <Link href={routes.campaigns.news.newsAdminPanel(slug)} passHref>
-            <Button fullWidth={true}>{t('Отказ')}</Button>
-          </Link>
+          <Button onClick={() => router.back()} fullWidth={true}>
+            {t('Отказ')}
+          </Button>
         </Grid>
       </GenericForm>
     </Grid>

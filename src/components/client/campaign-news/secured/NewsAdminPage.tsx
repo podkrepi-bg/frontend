@@ -133,7 +133,7 @@ export function NewsAdminPage({ slug, isAdmin }: Props) {
                 <Link
                   href={{
                     pathname: routes.campaigns.news.edit(slug),
-                    query: { articleId: params.row.id, campaignTitle: data.title, slug: data.slug },
+                    query: { articleId: params.row.id },
                   }}
                   tabIndex={-1}
                   passHref
@@ -174,7 +174,7 @@ export function NewsAdminPage({ slug, isAdmin }: Props) {
           <Link
             href={{
               pathname: routes.campaigns.news.create(slug),
-              query: { campaignTitle: data.title, campaignId: data.id },
+              query: { campaignId: data.id },
             }}
             passHref>
             <Button variant="outlined" endIcon={<AddIcon />}>
