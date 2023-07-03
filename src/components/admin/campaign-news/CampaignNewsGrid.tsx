@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 import AddIcon from '@mui/icons-material/Add'
 import React, { useMemo, useState } from 'react'
 import { Box, Button, Toolbar, Tooltip, Typography } from '@mui/material'
-import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { routes } from 'common/routes'
 import Link from 'components/common/Link'
@@ -27,7 +27,13 @@ export default function CampaignNewsGrid() {
     width: 100,
     headerAlign: 'left',
   }
-  const columns: GridColumns = [
+
+  const [paginationModel, setPaginationModel] = useState({
+    page: 0,
+    pageSize: 20,
+  })
+
+  const columns: GridColDef[] = [
     {
       field: 'actions',
       headerName: t('campaigns:actions'),
@@ -156,7 +162,9 @@ export default function CampaignNewsGrid() {
         }}
         rows={data || []}
         columns={columns}
-        pageSize={10}
+        pageSizeOptions={[5, 10, 20]}
+        paginationModel={paginationModel}
+        onPaginationModelChange={setPaginationModel}
         editMode="row"
       />
       <Box>

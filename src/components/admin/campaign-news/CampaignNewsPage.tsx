@@ -2,7 +2,7 @@ import { useTranslation } from 'next-i18next'
 import dynamic from 'next/dynamic'
 
 import AdminContainer from 'components/common/navigation/AdminContainer'
-import CampaignNewsGrid from './CampaignGrid'
+import CampaignNewsGrid from './CampaignNewsGrid'
 
 const AdminLayout = dynamic(() => import('components/common/navigation/AdminLayout'), {
   ssr: false,

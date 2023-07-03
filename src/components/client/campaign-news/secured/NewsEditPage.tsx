@@ -2,7 +2,6 @@ import { Container } from '@mui/material'
 import Layout from 'components/client/layout/Layout'
 import EditForm from './EditForm'
 import { useViewArticleById } from 'common/hooks/campaign-news'
-import { routes } from 'common/routes'
 
 type Props = {
   articleId: string

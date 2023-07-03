@@ -310,6 +310,7 @@ export default function CampaignGrid() {
         rows={data || []}
         columns={columns}
         paginationModel={paginationModel}
+        onPaginationModelChange={setPaginationModel}
         editMode="row"
       />
       <Box>

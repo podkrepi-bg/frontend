@@ -4,7 +4,7 @@ import { Box, Button, Divider, Grid, IconButton, Tooltip, Typography } from '@mu
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined'
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined'
 import PageviewOutlinedIcon from '@mui/icons-material/PageviewOutlined'
-import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { useTranslation } from 'react-i18next'
 import { styled } from '@mui/material/styles'
 import { useState } from 'react'
@@ -43,14 +43,19 @@ export function NewsAdminPage({ slug, isAdmin }: Props) {
   const { data, isError, isLoading } = useListAdminNews(slug)
   const { t, i18n } = useTranslation('news')
   const [deleteId, setDeleteId] = useState<string | undefined>()
+  const [paginationModel, setPaginationModel] = useState({
+    page: 0,
+    pageSize: 20,
+  })
+
   if (isLoading) return <Layout maxWidth={false} />
   if (isError) {
     return <Layout maxWidth={false} />
   }
 
-  const columns: GridColumns = [
-    { field: 'id', headerName: 'ID', hide: true },
-    { field: 'slug', headerName: 'slug', hide: true },
+  const columns: GridColDef[] = [
+    { field: 'id', headerName: 'ID' },
+    { field: 'slug', headerName: 'slug' },
     {
       field: 'title',
       headerName: t('article.title'),
@@ -189,12 +194,19 @@ export function NewsAdminPage({ slug, isAdmin }: Props) {
           <DataGrid
             rows={data.campaignNews || []}
             columns={columns}
+            columnVisibilityModel={{
+              id: false,
+              slug: false,
+            }}
+            pageSizeOptions={[5, 10, 20]}
+            paginationModel={paginationModel}
+            onPaginationModelChange={setPaginationModel}
             pagination
             autoHeight
-            disableSelectionOnClick
+            disableRowSelectionOnClick
             initialState={{
               sorting: {
-                sortModel: [{ field: 'publishedAt', sort: 'desc' }],
+                sortModel: [{ field: 'createdAt', sort: 'desc' }],
               },
             }}
             getRowHeight={() => 'auto'}

@@ -1,7 +1,6 @@
 import { Container } from '@mui/material'
 import Layout from 'components/client/layout/Layout'
 import CreateForm from './CreateForm'
-import { routes } from 'common/routes'
 
 type Props = {
   campaignId: string
