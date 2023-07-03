@@ -6,6 +6,7 @@ import { PaymentProvider } from './donations.enums'
 import { CampaignState } from 'components/client/campaigns/helpers/campaign.enums'
 import { BeneficiaryType } from '../components/admin/beneficiary/BeneficiaryTypes'
 import { VaultResponse } from './vault'
+import { CampaignNewsResponse } from './campaign-news'
 
 export type CampaignType = {
   id: UUID
@@ -105,6 +106,7 @@ export type CampaignResponse = BaseCampaignResponse & {
   campaignFiles?: CampaignFile[]
   vaults?: VaultResponse[]
   defaultVault?: UUID
+  campaignNews: CampaignNewsResponse[] | []
 }
 
 export type CampaignCreateFormData = {

@@ -86,10 +86,21 @@ export const routes = {
       edit: (slug: string, id: string) => `/campaigns/${slug}/expenses/${id}`,
       downloadFile: (id: string) => `/expenses/download-files/${id}`,
     },
+    news: {
+      index: '/campaigns/news',
+      create: (slug: string) => `/campaigns/${slug}/news/create`,
+      edit: (slug: string) => `/campaigns/${slug}/news/edit`,
+      viewSingleArticle: (slug: string) => `/news/${slug}`,
+      listNewsForCampaign: (slug: string) => `/campaigns/${slug}/news`,
+      listNewsPaginated: (page: number, slug: string | null) =>
+        slug ? `/campaigns/${slug}/news?page=${page}` : `/campaigns/news?page=${page}`,
+      newsAdminPanel: (slug: string) => `/campaigns/${slug}/news/admin-panel`,
+    },
   },
   donation: {
     viewCertificate: (donationId: string) => `/api/pdf/certificate/${donationId}`,
   },
+
   profile: {
     index: '/profile/donations',
     donations: '/profile/donations',
@@ -128,6 +139,12 @@ export const routes = {
       create: '/admin/campaigns/create',
       viewCampaignBySlug: (slug: string) => `/admin/campaigns/${slug}`,
       edit: (id: string) => `/admin/campaigns/edit/${id}`,
+    },
+    news: {
+      index: '/admin/campaign-news',
+      create: '/admin/campaign-news/create',
+      viewArticleBySlug: (slug: string) => `admin/campaign-news/${slug}`,
+      edit: (id: string) => `/admin/campaign-news/edit/${id}`,
     },
     withdrawals: {
       index: '/admin/withdrawals',
