@@ -25,7 +25,7 @@ const addIconStyles = {
   boxShadow: 3,
 }
 
-export default function RenderEditPersonCell({
+export default function RenderEditBillingEmailCell({
   params,
   personList,
   onUpdate,
