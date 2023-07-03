@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import * as yup from 'yup'
 import { Grid } from '@mui/material'
 
-import { customValidators } from 'common/form/useForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import GenericForm from 'components/common/form/GenericForm'
 import { routes } from 'common/routes'
@@ -14,6 +13,7 @@ import PasswordField from 'components/common/form/PasswordField'
 import { resetPassword } from 'common/util/useCurrentPerson'
 import { AlertStore } from 'stores/AlertStore'
 import { useTranslation } from 'next-i18next'
+import { confirmPassword, password } from 'common/form/validation'
 
 export type ChangePasswordFormData = {
   password: string
@@ -25,12 +25,8 @@ const validationSchema: yup.SchemaOf<ChangePasswordFormData> = yup
   .object()
   .defined()
   .shape({
-    password: yup.string().min(6, customValidators.passwordMin).required(),
-    confirmPassword: yup
-      .string()
-      .min(6, customValidators.passwordMin)
-      .required()
-      .oneOf([yup.ref('password'), null], 'validation:password-match'),
+    password: password.required(),
+    confirmPassword: confirmPassword.required('validation:password-match'),
     token: yup.string(),
   })
 
