@@ -10,6 +10,7 @@ import {
   AccountBox as AccountBoxIcon,
   Assignment as CertificateIcon,
   AccountBalance as CampaignIcon,
+  EventRepeat as RecurringDonationIcon,
 } from '@mui/icons-material'
 import { useSession } from 'next-auth/react'
 
@@ -109,6 +110,14 @@ export default function ProfilePage() {
                 aria-label={matches ? t('profile:myCampaigns.index') : undefined}
                 onClick={() => router.push(routes.profile.myCampaigns)}
                 icon={matches ? <CampaignIcon /> : undefined}
+              />
+              <Tab
+                className={matches ? classes.tabMobile : ''}
+                value={ProfileTabs.recurringDonations}
+                label={matches ? undefined : t('profile:donations.recurringDonations')}
+                aria-label={matches ? t('profile:donations.recurringDonations') : undefined}
+                onClick={() => router.push(routes.profile.recurringDonations)}
+                icon={matches ? <RecurringDonationIcon /> : undefined}
               />
               {/* Currently we don't generate donation contract, when such document is generated we can either combine it with the certificate or unhide the contracts section. */}
               {/* <Tab

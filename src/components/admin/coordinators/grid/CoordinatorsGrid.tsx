@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
-import { GridColumns, DataGrid, GridRenderCellParams } from '@mui/x-data-grid'
+import { GridColDef, DataGrid, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { CoordinatorResponse } from 'gql/coordinators'
 import { useCoordinatorsList } from 'common/hooks/coordinators'
@@ -12,7 +12,7 @@ import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
 
 export default function CoordinatorsGrid() {
-  const columns: GridColumns = [
+  const columns: GridColDef[] = [
     {
       ...commonProps,
       headerName: 'Име',
@@ -55,6 +55,10 @@ export default function CoordinatorsGrid() {
 
   const { data }: UseQueryResult<CoordinatorResponse[]> = useCoordinatorsList()
   const { isDetailsOpen } = ModalStore
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
+  })
 
   return (
     <>
@@ -72,11 +76,12 @@ export default function CoordinatorsGrid() {
         }}
         rows={data || []}
         columns={columns}
-        rowsPerPageOptions={[5, 10]}
-        pageSize={10}
+        pageSizeOptions={[5, 10]}
+        paginationModel={paginationModel}
+        onPaginationModelChange={setPaginationModel}
         autoHeight
         autoPageSize
-        disableSelectionOnClick
+        disableRowSelectionOnClick
       />
 
       {/* making sure we don't sent requests to the API when not needed */}

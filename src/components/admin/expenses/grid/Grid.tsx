@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { styled } from '@mui/material/styles'
 import { observer } from 'mobx-react'
-import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { useTranslation } from 'next-i18next'
 
 import { useExpensesList } from 'common/hooks/expenses'
@@ -47,13 +47,16 @@ export default observer(function Grid() {
   const { t } = useTranslation('')
   const { data } = useExpensesList()
 
-  const [pageSize, setPageSize] = React.useState<number>(10)
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
+  })
   const { data: personList } = usePersonList()
 
   const { isDetailsOpen } = ModalStore
 
-  const columns: GridColumns = [
-    { field: 'id', headerName: 'ID', hide: true },
+  const columns: GridColDef[] = [
+    { field: 'id', headerName: 'ID' },
     {
       field: 'type',
       headerName: t('expenses:fields.type'),
@@ -131,13 +134,13 @@ export default observer(function Grid() {
         className={classes.grid}
         rows={data || []}
         columns={columns}
-        pageSize={pageSize}
-        onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-        rowsPerPageOptions={[5, 10]}
+        paginationModel={paginationModel}
+        onPaginationModelChange={setPaginationModel}
+        pageSizeOptions={[5, 10]}
         pagination
         autoHeight
         checkboxSelection
-        disableSelectionOnClick
+        disableRowSelectionOnClick
       />
       {/* making sure we don't sent requests to the API when not needed */}
       {isDetailsOpen && <DetailsModal />}

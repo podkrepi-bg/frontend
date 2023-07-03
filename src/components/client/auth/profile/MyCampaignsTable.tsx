@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next'
 import { useState, useMemo } from 'react'
-import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { Tooltip, Button, Box, Typography } from '@mui/material'
 
 import { getExactDateTime, getRelativeDate } from 'common/util/date'
@@ -42,7 +42,7 @@ export default function MyCampaingsTable() {
     width: 100,
     headerAlign: 'left',
   }
-  const columns: GridColumns = [
+  const columns: GridColDef[] = [
     {
       field: 'actions',
       headerName: t('campaigns:actions'),
@@ -251,7 +251,7 @@ export default function MyCampaingsTable() {
               }}
               rows={campaigns || []}
               columns={columns}
-              pageSize={5}
+              initialState={{ pagination: { paginationModel: { pageSize: 5 } } }}
               editMode="row"
               autoHeight
               autoPageSize

@@ -9,6 +9,7 @@ import {
 import DonationNotificationLayout from './DonationNotificationLayout'
 import { NotificationLayoutData } from 'components/client/layout/NotificationSnackBar/DonationNotificationLayout'
 import notificationClient from 'common/util/notificationClient'
+import { useIsWindowInFocus } from 'service/visibilityApi'
 
 function NotificationSnackBar({
   mainProps,
@@ -19,8 +20,14 @@ function NotificationSnackBar({
 }) {
   const [open, setOpen] = useState(true)
   const [notifications, setNotifications] = useState<NotificationLayoutData[]>([])
+  const isWindowInFocus = useIsWindowInFocus()
 
   useEffect(() => {
+    if (isWindowInFocus && !notificationClient.connected) notificationClient.connect()
+    if (!isWindowInFocus && notificationClient.connected) {
+      notificationClient.disconnect()
+      return
+    }
     notificationClient.on('successfulDonation', (notificationData: NotificationLayoutData) => {
       setNotifications((prevState) => [...prevState, notificationData])
     })
@@ -28,7 +35,7 @@ function NotificationSnackBar({
     return () => {
       notificationClient.off('successfulDonation')
     }
-  }, [])
+  }, [isWindowInFocus])
 
   const handleSnackBarClose = (
     _event: React.SyntheticEvent | Event,

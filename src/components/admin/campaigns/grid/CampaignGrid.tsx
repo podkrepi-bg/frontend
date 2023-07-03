@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next'
 import AddIcon from '@mui/icons-material/Add'
 import React, { useMemo, useState } from 'react'
 import { Box, Button, Toolbar, Tooltip, Typography } from '@mui/material'
-import { DataGrid, GridColDef, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 
 import { routes } from 'common/routes'
 import { money } from 'common/util/money'
@@ -67,13 +67,18 @@ export default function CampaignGrid() {
   const { data = [], refetch }: UseQueryResult<AdminCampaignResponse[]> = useCampaignAdminList()
   const [viewId, setViewId] = useState<string | undefined>()
   const [deleteId, setDeleteId] = useState<string | undefined>()
+  const [paginationModel, setPaginationModel] = useState({
+    pageSize: 10,
+    page: 0,
+  })
   const selectedCampaign = useMemo(() => data.find((c) => c.id === viewId), [data, viewId])
   const commonProps: Partial<GridColDef> = {
     align: 'left',
     width: 100,
     headerAlign: 'left',
   }
-  const columns: GridColumns = [
+
+  const columns: GridColDef[] = [
     {
       field: 'actions',
       headerName: t('campaigns:actions'),
@@ -304,7 +309,7 @@ export default function CampaignGrid() {
         }}
         rows={data || []}
         columns={columns}
-        pageSize={10}
+        paginationModel={paginationModel}
         editMode="row"
       />
       <Box>
