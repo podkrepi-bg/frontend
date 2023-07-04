@@ -5,9 +5,9 @@ import { Typography } from '@mui/material'
 
 import { translateError } from 'common/form/useForm'
 import { TranslatableField } from 'common/form/validation'
+import { styled } from '@mui/material/styles'
 
 import 'react-quill/dist/quill.snow.css'
-
 import ReactQuill, { Quill } from 'react-quill'
 
 import BlotFormatter from 'quill-blot-formatter/'
@@ -26,6 +26,15 @@ Quill.register({
 export type FormRichTextFieldProps = {
   name: string
 }
+
+const StyledGrid = styled('div')(() => ({
+  ['& .ql-toolbar.ql-snow']: {
+    position: 'sticky',
+    top: 0,
+    zIndex: 1,
+    backgroundColor: 'white',
+  },
+}))
 
 export default function FormRichTextField({ name }: FormRichTextFieldProps) {
   const { t } = useTranslation()
@@ -96,13 +105,15 @@ export default function FormRichTextField({ name }: FormRichTextFieldProps) {
       )}
       <Field name={name}>
         {({ field }: { field: FieldInputProps<string> }) => (
-          <ReactQuill
-            ref={reactQuillRef}
-            modules={modules}
-            theme="snow"
-            value={field.value}
-            onChange={field.onChange(field.name)}
-          />
+          <StyledGrid>
+            <ReactQuill
+              ref={reactQuillRef}
+              modules={modules}
+              theme="snow"
+              value={field.value}
+              onChange={field.onChange(field.name)}
+            />
+          </StyledGrid>
         )}
       </Field>
       {meta.touched && meta.error && (
