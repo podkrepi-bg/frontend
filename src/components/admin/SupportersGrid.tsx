@@ -78,6 +78,9 @@ export default function SupportersGrid() {
     <DataGrid
       rows={data || []}
       columns={columns}
+      columnVisibilityModel={{
+        id: false,
+      }}
       paginationModel={paginationModel}
       onPaginationModelChange={setPaginationModel}
       autoHeight

@@ -237,6 +237,9 @@ export default observer(function Grid() {
           }}
           rows={donations || []}
           columns={columns}
+          columnVisibilityModel={{
+            id: false,
+          }}
           pageSizeOptions={[5, 10, 20]}
           paginationModel={paginationModel}
           onPaginationModelChange={setPaginationModel}

@@ -126,6 +126,9 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
         className={classes.grid}
         rows={expensesList || []}
         columns={columns}
+        columnVisibilityModel={{
+          id: false,
+        }}
         pageSizeOptions={[20, 40, 60]}
         paginationModel={paginationModel}
         onPaginationModelChange={setPaginationModel}
