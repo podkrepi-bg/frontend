@@ -134,6 +134,9 @@ export default observer(function Grid() {
         className={classes.grid}
         rows={data || []}
         columns={columns}
+        columnVisibilityModel={{
+          id: false,
+        }}
         paginationModel={paginationModel}
         onPaginationModelChange={setPaginationModel}
         pageSizeOptions={[5, 10]}

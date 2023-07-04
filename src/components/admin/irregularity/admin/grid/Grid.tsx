@@ -137,6 +137,9 @@ export default observer(function Grid() {
           }}
           rows={data || []}
           columns={columns}
+          columnVisibilityModel={{
+            id: false,
+          }}
           paginationModel={paginationModel}
           onPaginationModelChange={setPaginationModel}
           autoHeight
