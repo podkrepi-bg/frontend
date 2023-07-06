@@ -40,9 +40,12 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
         image={campaignImagesUrl}
         alt={title}
         sx={{
+          maxHeight: theme.spacing(42.5),
+
           [theme.breakpoints.up('lg')]: {
             aspectRatio: '2',
             height: theme.spacing(22.5),
+            maxHeight: 'inherit',
           },
         }}
       />
