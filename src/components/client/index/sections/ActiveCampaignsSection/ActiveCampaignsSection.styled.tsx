@@ -2,33 +2,26 @@ import { Grid } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import theme from 'common/theme'
+import LinkButton from 'components/common/LinkButton'
 
 export const Root = styled(Grid)(() => ({
-  marginTop: theme.spacing(3.875),
   display: 'grid',
-  gridTemplateRows: 'repeat(5, 1fr)',
-
-  'a:nth-of-type(1)': {
-    minHeight: theme.spacing(40),
-  },
+  marginTop: theme.spacing(3.875),
+  gap: theme.spacing(4.62),
 
   [theme.breakpoints.up('sm')]: {
     gridTemplateColumns: 'repeat(2, 1fr)',
-    gridTemplateRows: 'repeat(4, 1fr)',
     marginTop: theme.spacing(7),
-
-    'a:nth-of-type(1)': {
-      minHeight: theme.spacing(61),
-      gridRowStart: 1,
-      gridColumnStart: 1,
-      gridRowEnd: 3,
-      gridColumnEnd: 3,
-    },
+    gap: theme.spacing(2.5),
   },
 
   [theme.breakpoints.up('md')]: {
+    gridTemplateColumns: '1fr 1fr 1fr',
+  },
+
+  [theme.breakpoints.up('lg')]: {
     gridTemplateColumns: '1fr 1fr 1fr 1fr',
-    gridTemplateRows: 'repeat(2, 1fr)',
+    gap: theme.spacing(0.875),
   },
 
   [theme.breakpoints.up(2000)]: {
@@ -37,7 +30,23 @@ export const Root = styled(Grid)(() => ({
   },
 }))
 
-export const SeeAllButton = styled(Grid)(() => ({
+export const SeeAllButtonWrapper = styled(Grid)(() => ({
   display: 'flex',
   placeContent: 'center',
+  marginTop: theme.spacing(10),
+}))
+
+export const SeeAllButton = styled(LinkButton)(() => ({
+  fontFamily: "'Lato', sans-serif",
+  fontSize: theme.typography.pxToRem(16),
+  fontWeight: 600,
+  color: theme.palette.common.black,
+  letterSpacing: '0.4px',
+  textDecoration: 'underline',
+  marginTop: 0,
+
+  '&:hover': {
+    backgroundColor: 'transparent',
+    textDecoration: 'underline',
+  },
 }))
