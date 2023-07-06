@@ -79,8 +79,6 @@ export const CampaignProgressWrapper = styled(Grid)(() => ({
 }))
 
 export const StyledCardActions = styled(CardActions)(() => ({
-  display: 'flex',
-  justifyContent: 'space-between',
   padding: theme.spacing(1, 0),
 }))
 
