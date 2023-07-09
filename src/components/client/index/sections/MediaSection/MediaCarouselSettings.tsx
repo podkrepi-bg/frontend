@@ -8,18 +8,24 @@ export const settings: Settings = {
   arrows: false,
   dots: true,
   lazyLoad: 'ondemand',
-  autoplay: false,
+  autoplay: true,
   autoplaySpeed: 2000,
 
   responsive: [
     {
-      breakpoint: 1230,
+      breakpoint: 1000,
+      settings: {
+        slidesToShow: 4,
+      },
+    },
+    {
+      breakpoint: 900,
       settings: {
         slidesToShow: 3,
       },
     },
     {
-      breakpoint: 800,
+      breakpoint: 700,
       settings: {
         slidesToShow: 2,
       },

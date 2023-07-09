@@ -1,4 +1,5 @@
 import theme from 'common/theme'
+import Link from 'components/common/Link'
 import Slider from 'react-slick'
 
 import { styled } from '@mui/material/styles'
@@ -26,4 +27,17 @@ export const CarouselWrapper = styled(Slider)(() => ({
     color: '#B0E5FF',
     opacity: 1,
   },
+
+  [theme.breakpoints.up(2000)]: {
+    maxWidth: theme.spacing(165),
+    margin: `0 auto ${theme.spacing(4)} auto`,
+  },
+}))
+
+export const ArticleLink = styled(Link)(() => ({
+  background: theme.palette.background.default,
+  display: 'flex',
+  alignItems: 'center',
+  boxShadow:
+    '0px 1px 8px 0px rgba(0, 0, 0, 0.12), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 3px 3px -2px rgba(0, 0, 0, 0.20)',
 }))
