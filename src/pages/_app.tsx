@@ -19,12 +19,11 @@ import 'styles/global.scss'
 
 import { Provider } from 'mobx-react'
 import { stores } from 'stores/DomainStores/stores'
-// switching off the Donation notification popups temporarily to compare memory use with and without them
-// import NotificationSnackBar from 'components/client/layout/NotificationSnackBar/NotificationSnackBar'
-// import {
-//   globalSnackbarProps,
-//   globalSnackbarContentProps,
-// } from 'components/client/layout/NotificationSnackBar/props/global'
+import NotificationSnackBar from 'components/client/layout/NotificationSnackBar/NotificationSnackBar'
+import {
+  globalSnackbarProps,
+  globalSnackbarContentProps,
+} from 'components/client/layout/NotificationSnackBar/props/global'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
@@ -100,11 +99,10 @@ function CustomApp({
             <Hydrate state={dehydratedState}>
               <Provider {...stores}>
                 <Component {...pageProps} />
-                {/* Switching off the Donation notification popups temporarily to compare memory use
                 <NotificationSnackBar
                   mainProps={globalSnackbarProps}
                   contentProps={globalSnackbarContentProps}
-                /> */}
+                />
               </Provider>
             </Hydrate>
           </QueryClientProvider>
