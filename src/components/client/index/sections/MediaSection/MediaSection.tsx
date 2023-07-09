@@ -3,11 +3,11 @@ import { useTranslation } from 'next-i18next'
 import { CardMedia } from '@mui/material'
 
 import { articles } from 'components/admin/partners/helpers/mediaAboutUsData'
+import theme from 'common/theme'
+import { settings } from './MediaCarouselSettings'
 
 import { Heading } from '../../IndexPage.styled'
 import { ArticleLink, CarouselWrapper, Root } from './MediaSection.styled'
-import { settings } from './MediaCarouselSettings'
-import theme from 'common/theme'
 
 export default function MediaSection() {
   const { t } = useTranslation('index')
