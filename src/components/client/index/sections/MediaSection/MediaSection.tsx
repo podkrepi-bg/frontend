@@ -1,14 +1,12 @@
 import { useTranslation } from 'next-i18next'
-import Image from 'next/image'
 
-import { Box } from '@mui/material'
+import Image from 'next/image'
 
 import { articles } from 'components/admin/partners/helpers/mediaAboutUsData'
 import Link from 'components/common/Link'
 
 import { Heading } from '../../IndexPage.styled'
-import { Root } from './MediaSection.styled'
-import { CarouselWrapper } from '../CompletedCampaignsSection/CompletedCampaignsSection.styled'
+import { CarouselWrapper, Root } from './MediaSection.styled'
 import { settings } from './MediaCarouselSettings'
 import theme from 'common/theme'
 
@@ -29,9 +27,11 @@ export default function MediaSection() {
               background: theme.palette.background.default,
               display: 'flex',
               alignItems: 'center',
-            }}
-            padding="32px 64px">
-            <Image src={article.img} alt={article.title} width={180} height={60} />
+              padding: theme.spacing(0, 11),
+              boxShadow:
+                '0px 1px 8px 0px rgba(0, 0, 0, 0.12), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 3px 3px -2px rgba(0, 0, 0, 0.20)',
+            }}>
+            <Image src={article.img} alt={article.title} width="150" height="60" />
           </Link>
         ))}
       </CarouselWrapper>
