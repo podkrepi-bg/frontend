@@ -85,10 +85,12 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
     },
     {
       field: 'spentAt',
+      type: 'date',
       headerName: t('expenses:fields.date'),
       headerClassName: classes.gridColumn,
       flex: 1,
       minWidth: 80,
+      valueGetter: ({ value }) => value && new Date(value),
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
         if (!params.row.spentAt) {
           return ''
@@ -108,7 +110,7 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
           return (
             <Tooltip key={file.id} title={file.filename}>
               <Link href={expenseFileUrl(file.id)} target="_blank" passHref>
-                <Button sx={{ minWidth: 0, py: 0, px: 1, paddingBottom: 1 }}>
+                <Button sx={{ minWidth: 0, py: 0, px: 1 }}>
                   <FilePresentIcon />
                 </Button>
               </Link>
@@ -143,7 +145,7 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
             py: '8px',
           },
           '&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell': {
-            paddingTop: '17px',
+            py: '17px',
           },
           '&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell': {
             py: '22px',
