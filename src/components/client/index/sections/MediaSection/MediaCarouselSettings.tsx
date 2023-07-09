@@ -1,0 +1,34 @@
+import { Settings } from 'react-slick'
+
+export const settings: Settings = {
+  infinite: true,
+  speed: 500,
+  slidesToShow: 5,
+  slidesToScroll: 1,
+  arrows: false,
+  dots: true,
+  lazyLoad: 'ondemand',
+  autoplay: false,
+  autoplaySpeed: 2000,
+
+  responsive: [
+    {
+      breakpoint: 1230,
+      settings: {
+        slidesToShow: 3,
+      },
+    },
+    {
+      breakpoint: 800,
+      settings: {
+        slidesToShow: 2,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 1,
+      },
+    },
+  ],
+}

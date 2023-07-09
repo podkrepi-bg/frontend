@@ -82,7 +82,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
         </DonateButton>
         <LearnMoreButton
           href={routes.campaigns.viewCampaignBySlug(slug)}
-          endIcon={<ArrowForwardIcon color="warning" fontSize="medium" />}>
+          endIcon={<ArrowForwardIcon color="inherit" />}>
           {t('campaign.learn-more')}
         </LearnMoreButton>
       </StyledCardActions>

@@ -94,6 +94,7 @@ export const DonateButton = styled(LinkButton)(() => ({
   fontWeight: '500',
   fontSize: theme.typography.pxToRem(16),
   letterSpacing: '0.4px',
+  padding: theme.spacing(0.75, 2),
 
   '&:hover': {
     boxShadow:
@@ -113,6 +114,11 @@ export const LearnMoreButton = styled(LinkButton)(() => ({
   color: theme.palette.common.black,
   border: `2px solid ${theme.palette.secondary.main}`,
   height: theme.spacing(4.5),
+  padding: theme.spacing(0.75, 2),
+
+  svg: {
+    width: theme.spacing(2.12),
+  },
 
   '&:hover': {
     color: theme.palette.common.black,
