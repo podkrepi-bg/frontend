@@ -86,6 +86,7 @@ export const DonateButton = styled(LinkButton)(() => ({
   fontFamily: 'Montserrat, sans-serif',
   width: theme.spacing(11.125),
   height: theme.spacing(4.5),
+  padding: theme.spacing(0.75, 2),
   marginRight: theme.spacing(1),
   backgroundColor: theme.palette.secondary.main,
   boxShadow:
@@ -113,6 +114,12 @@ export const LearnMoreButton = styled(LinkButton)(() => ({
   color: theme.palette.common.black,
   border: `2px solid ${theme.palette.secondary.main}`,
   height: theme.spacing(4.5),
+
+  padding: theme.spacing(0.75, 2),
+
+  svg: {
+    width: theme.spacing(2.12),
+  },
 
   '&:hover': {
     color: theme.palette.common.black,
