@@ -4,7 +4,11 @@ import { styled } from '@mui/material/styles'
 import theme from 'common/theme'
 import LinkButton from 'components/common/LinkButton'
 
-export const Root = styled(Grid)(() => ({
+export const Root = styled('section')(() => ({
+  padding: theme.spacing(0, 2),
+}))
+
+export const ActiveCampaignsWrapper = styled(Grid)(() => ({
   display: 'grid',
   marginTop: theme.spacing(3.875),
   gap: theme.spacing(4.62),

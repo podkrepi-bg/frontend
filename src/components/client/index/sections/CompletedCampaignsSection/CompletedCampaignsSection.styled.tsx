@@ -8,6 +8,7 @@ import theme from 'common/theme'
 
 export const Root = styled('section')(() => ({
   marginTop: theme.spacing(12),
+  padding: theme.spacing(0, 2),
 }))
 
 export const CarouselWrapper = styled(Slider)(() => ({

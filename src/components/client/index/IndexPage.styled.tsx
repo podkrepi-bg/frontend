@@ -5,7 +5,7 @@ import theme from 'common/theme'
 import LinkButton from 'components/common/LinkButton'
 
 export const Heading = styled(Typography)(() => ({
-  color: theme.palette.primary.dark,
+  color: '#212121',
   textAlign: 'center',
   fontWeight: 500,
   marginBottom: theme.spacing(6),
