@@ -1,6 +1,6 @@
 name: Feature Report
 description: Create a feature report
-labels: ['type: enhancement', 'template: enhancement']
+labels: ['type: enhancement']
 body:
   - type: dropdown
     attributes:
