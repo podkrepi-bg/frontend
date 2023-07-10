@@ -21,7 +21,8 @@
     "info-anonymous": "Anonymous donation means that the organisator and beneficiery would not be aware of your identity",
     "amount": "How much would you like to donate?",
     "other": "Other amount",
-    "BGN": "BGN"
+    "BGN": "BGN",
+    "transaction-limit": "Donation can't exceed the sum of "
   },
   "second-step": {
     "login": "Log in",

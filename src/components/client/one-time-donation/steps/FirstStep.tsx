@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { styled } from '@mui/material/styles'
 import { Trans, useTranslation } from 'next-i18next'
-import { useField, useFormikContext } from 'formik'
+import { isInteger, useField, useFormikContext } from 'formik'
 import { Box, Collapse, Divider, Grid, InputAdornment, List, Typography } from '@mui/material'
 import EventRepeatIcon from '@mui/icons-material/EventRepeat'
 import theme from 'common/theme'
@@ -43,13 +43,15 @@ const Root = styled('div')(() => ({
 
 export default function FirstStep() {
   const { data: session } = useSession()
-  const { t } = useTranslation('one-time-donation')
+  const { t, i18n } = useTranslation('one-time-donation')
   const mobile = useMediaQuery('(max-width:600px)')
   const paymentOptions = [
     { value: 'card', label: t('third-step.card') },
     { value: 'paypal', label: 'PayPal', hidden: !isAdmin(session) },
     { value: 'bank', label: t('third-step.bank-payment') },
   ]
+
+  const decimalSeparator = (1.1).toLocaleString(i18n.language).charAt(1)
 
   const [paymentField] = useField('payment')
   const [amount] = useField('amount')
@@ -58,6 +60,9 @@ export default function FirstStep() {
   const [amountWithoutFees] = useField<number>('amountWithoutFees')
 
   const formik = useFormikContext<OneTimeDonation>()
+
+  //Stripe allows up to $1M for a single transaction. This is close enough
+  const SUM_LIMIT_BGN = 1500000
 
   const { campaign } = useContext(StepsContext)
 
@@ -74,6 +79,12 @@ export default function FirstStep() {
   }
 
   useEffect(() => {
+    if (amount.value == 'other' && formik.values.otherAmount === 0) {
+      formik.setFieldValue('otherAmount', 1)
+      formik.setFieldTouched('otherAmount', true)
+      return
+    }
+
     const chosenAmount =
       amount.value === 'other' ? toMoney(formik.values.otherAmount) : Number(formik.values.amount)
 
@@ -232,7 +243,6 @@ export default function FirstStep() {
             <Grid
               item
               xs={12}
-              sm={6}
               style={
                 !mobile
                   ? {
@@ -246,8 +256,58 @@ export default function FirstStep() {
                 name="otherAmount"
                 type="number"
                 label={t('first-step.amount')}
+                lang={i18n.language}
+                onKeyDown={(e) => {
+                  if (
+                    (decimalSeparator === ',' && e.code === 'NumpadDecimal') ||
+                    e.code === 'Period'
+                  ) {
+                    e.preventDefault()
+                    return
+                  }
+                  if (
+                    (e.key.charCodeAt(0) >= 48 && e.key.charCodeAt(0) <= 57) ||
+                    isInteger(formik.values.otherAmount) ||
+                    (e.ctrlKey && e.key === 'v') ||
+                    (e.ctrlKey && e.key === 'c') ||
+                    e.key === 'Backspace' ||
+                    (e.ctrlKey && e.key === 'a')
+                  ) {
+                    return
+                  }
+
+                  e.preventDefault()
+                }}
+                onPaste={async (e) => {
+                  e.preventDefault()
+
+                  const value = e.clipboardData.getData('Text')
+                  const transformedValue: string = value.replace(/ /g, '') as string
+                  formik.setFieldValue('otherAmount', transformedValue)
+                }}
+                onChange={(e) => {
+                  const amount = e.target.value
+                  if (isNaN(Number(amount))) return
+                  if (Number(amount) > SUM_LIMIT_BGN) {
+                    formik.setFieldError(
+                      'otherAmount',
+                      `${t('first-step.transaction-limit')} ${moneyPublic(
+                        SUM_LIMIT_BGN,
+                        'BGN',
+                        1,
+                      )}`,
+                    )
+                    return
+                  } else if (Number(amount) < 1) {
+                    formik.setFieldValue('otherAmount', 1)
+                    return
+                  }
+
+                  formik.setFieldValue('otherAmount', amount)
+                }}
                 InputProps={{
-                  style: { fontSize: 14, padding: 7 },
+                  inputProps: { max: SUM_LIMIT_BGN, inputMode: 'decimal', lang: i18n.language },
+                  style: { padding: 7 },
                   endAdornment: (
                     <InputAdornment variant="filled" position="end">
                       {t('first-step.BGN')}
@@ -289,7 +349,6 @@ export default function FirstStep() {
                         name: t(`third-step.card-region.${CardRegion.Other}`),
                       },
                     ]}
-                    InputProps={{ style: { fontSize: 14 } }}
                   />
                 </Grid>
                 <Grid item xs={12}>
