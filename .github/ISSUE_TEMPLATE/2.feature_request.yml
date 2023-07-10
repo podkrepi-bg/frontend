@@ -1,5 +1,5 @@
-name: Feature Report
-description: Create a feature report
+name: Feature Request
+description: Create a feature request
 labels: ['type: enhancement']
 body:
   - type: dropdown
