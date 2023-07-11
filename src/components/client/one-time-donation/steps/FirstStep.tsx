@@ -51,7 +51,7 @@ export default function FirstStep() {
     { value: 'bank', label: t('third-step.bank-payment') },
   ]
 
-  const decimalSeparator = (1.1).toLocaleString(i18n.language).charAt(1)
+  const decimalSeparator = (1.1).toLocaleString(i18n.lang).charAt(1)
 
   const [paymentField] = useField('payment')
   const [amount] = useField('amount')
@@ -255,23 +255,38 @@ export default function FirstStep() {
               <FormTextField
                 name="otherAmount"
                 type="number"
+                value={formik.values.otherAmount === 1 ? '' : formik.values.otherAmount}
                 label={t('first-step.amount')}
                 lang={i18n.language}
                 onKeyDown={(e) => {
                   if (
-                    (decimalSeparator === ',' && e.code === 'NumpadDecimal') ||
-                    e.code === 'Period'
+                    formik.errors.otherAmount &&
+                    e.key !== 'Backspace' &&
+                    e.key !== 'Delete' &&
+                    e.key.charCodeAt(0) < 48 &&
+                    e.key.charCodeAt(0) > 57
                   ) {
                     e.preventDefault()
                     return
                   }
+                  if (decimalSeparator !== e.key && (e.key === '.' || e.key === ',')) {
+                    e.preventDefault()
+                    return
+                  }
+
                   if (
                     (e.key.charCodeAt(0) >= 48 && e.key.charCodeAt(0) <= 57) ||
-                    isInteger(formik.values.otherAmount) ||
+                    (isInteger(formik.values.otherAmount) && e.key === decimalSeparator) ||
                     (e.ctrlKey && e.key === 'v') ||
                     (e.ctrlKey && e.key === 'c') ||
                     e.key === 'Backspace' ||
-                    (e.ctrlKey && e.key === 'a')
+                    e.key === 'Delete' ||
+                    (e.ctrlKey && e.key === 'a') ||
+                    e.key === 'ArrowUp' ||
+                    e.key === 'ArrowDown' ||
+                    e.key === 'ArrowLeft' ||
+                    e.key === 'ArrowRight' ||
+                    e.code === 'NumpadDecimal'
                   ) {
                     return
                   }
@@ -305,8 +320,12 @@ export default function FirstStep() {
 
                   formik.setFieldValue('otherAmount', amount)
                 }}
+                InputLabelProps={{ shrink: true }}
                 InputProps={{
-                  inputProps: { max: SUM_LIMIT_BGN, inputMode: 'decimal', lang: i18n.language },
+                  inputProps: {
+                    max: SUM_LIMIT_BGN,
+                    inputMode: 'decimal',
+                  },
                   style: { padding: 7 },
                   endAdornment: (
                     <InputAdornment variant="filled" position="end">
@@ -402,6 +421,7 @@ export default function FirstStep() {
             <FormTextField
               name="otherAmount"
               type="number"
+              value={formik.values.otherAmount === 0 ? 1 : formik.values.otherAmount}
               label={t('first-step.amount')}
               InputProps={{
                 style: { fontSize: 14, padding: 7 },
