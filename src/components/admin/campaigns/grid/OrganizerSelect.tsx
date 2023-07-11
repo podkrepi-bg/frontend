@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 export default function OrganizerSelect({ name = 'organizerId', label = 'campaigns:organizer' }) {
   const { t } = useTranslation()
   const { data } = useOrganizersList()
-  const [field, meta, { setValue }] = useField(name)
+  const [, meta, { setValue }] = useField(name)
   const [organizer, setOrganizer] = useState<OrganizerResponse>()
 
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
@@ -25,6 +25,7 @@ export default function OrganizerSelect({ name = 'organizerId', label = 'campaig
       error={Boolean(meta.error) && Boolean(meta.touched)}>
       <Autocomplete
         value={organizer}
+        size="small"
         onChange={(event, newValue: OrganizerResponse | null) => {
           if (!newValue || !newValue.id) return ''
           setOrganizer(newValue)

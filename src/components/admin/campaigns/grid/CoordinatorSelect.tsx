@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 export default function CoordinatorSelect({ name = 'coordinatorId' }) {
   const { t } = useTranslation()
   const { data } = useCoordinatorsList()
-  const [field, meta, { setValue }] = useField(name)
+  const [, meta, { setValue }] = useField(name)
   const [coordinator, setCoordinator] = useState<CoordinatorResponse>()
 
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
@@ -21,6 +21,7 @@ export default function CoordinatorSelect({ name = 'coordinatorId' }) {
       error={Boolean(meta.error) && Boolean(meta.touched)}>
       <Autocomplete
         value={coordinator}
+        size="small"
         onChange={(event, newValue: CoordinatorResponse | null) => {
           if (!newValue || !newValue.id) return ''
           setCoordinator(newValue)

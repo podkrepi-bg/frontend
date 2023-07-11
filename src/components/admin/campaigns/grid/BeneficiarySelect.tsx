@@ -9,7 +9,7 @@ import { useBeneficiariesList } from 'service/beneficiary'
 export default function BeneficiarySelect({ name = 'beneficiaryId' }) {
   const { t } = useTranslation()
   const { data } = useBeneficiariesList()
-  const [field, meta, { setValue }] = useField(name)
+  const [, meta, { setValue }] = useField(name)
   const [beneficiary, setBeneficiary] = useState<BeneficiaryListResponse>()
 
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
@@ -21,6 +21,7 @@ export default function BeneficiarySelect({ name = 'beneficiaryId' }) {
       error={Boolean(meta.error) && Boolean(meta.touched)}>
       <Autocomplete
         value={beneficiary}
+        size="small"
         onChange={(event, newValue: BeneficiaryListResponse | null) => {
           if (!newValue || !newValue.id) return ''
           setBeneficiary(newValue)
