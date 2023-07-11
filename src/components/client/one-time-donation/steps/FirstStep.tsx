@@ -267,8 +267,7 @@ export default function FirstStep() {
                     formik.errors.otherAmount &&
                     e.key !== 'Backspace' &&
                     e.key !== 'Delete' &&
-                    e.key.charCodeAt(0) < 48 &&
-                    e.key.charCodeAt(0) > 57
+                    !isInteger(formik.values.otherAmount)
                   ) {
                     e.preventDefault()
                     return
@@ -434,8 +433,7 @@ export default function FirstStep() {
                   formik.errors.otherAmount &&
                   e.key !== 'Backspace' &&
                   e.key !== 'Delete' &&
-                  e.key.charCodeAt(0) < 48 &&
-                  e.key.charCodeAt(0) > 57
+                  !isInteger(formik.values.otherAmount)
                 ) {
                   e.preventDefault()
                   return
