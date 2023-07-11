@@ -79,7 +79,10 @@ export default function FirstStep() {
   }
 
   useEffect(() => {
-    if (amount.value == 'other' && formik.values.otherAmount === 0) {
+    if (
+      (amount.value == 'other' || paymentField.value === 'paypal') &&
+      formik.values.otherAmount === 0
+    ) {
       formik.setFieldValue('otherAmount', 1)
       formik.setFieldTouched('otherAmount', true)
       return
@@ -107,6 +110,7 @@ export default function FirstStep() {
     formik.values.cardIncludeFees,
     formik.values.cardRegion,
     formik.values.isRecurring,
+    paymentField.value,
   ])
 
   return (
@@ -406,7 +410,7 @@ export default function FirstStep() {
           ) : null}
         </Box>
       </Collapse>
-      <Collapse unmountOnExit in={paymentField.value === 'paypal'}>
+      <Collapse unmountOnExit in={paymentField.value === 'paypal'} timeout="auto">
         <Grid container justifyContent="center">
           <Grid my={2} item display="flex" justifyContent="center" xs={9}>
             <Typography>
@@ -421,10 +425,75 @@ export default function FirstStep() {
             <FormTextField
               name="otherAmount"
               type="number"
-              value={formik.values.otherAmount === 0 ? 1 : formik.values.otherAmount}
+              value={formik.values.otherAmount === 1 ? '' : formik.values.otherAmount}
+              defaultValue={''}
               label={t('first-step.amount')}
+              lang={i18n.language}
+              onKeyDown={(e) => {
+                if (
+                  formik.errors.otherAmount &&
+                  e.key !== 'Backspace' &&
+                  e.key !== 'Delete' &&
+                  e.key.charCodeAt(0) < 48 &&
+                  e.key.charCodeAt(0) > 57
+                ) {
+                  e.preventDefault()
+                  return
+                }
+                if (decimalSeparator !== e.key && (e.key === '.' || e.key === ',')) {
+                  e.preventDefault()
+                  return
+                }
+
+                if (
+                  (e.key.charCodeAt(0) >= 48 && e.key.charCodeAt(0) <= 57) ||
+                  (isInteger(formik.values.otherAmount) && e.key === decimalSeparator) ||
+                  (e.ctrlKey && e.key === 'v') ||
+                  (e.ctrlKey && e.key === 'c') ||
+                  e.key === 'Backspace' ||
+                  e.key === 'Delete' ||
+                  (e.ctrlKey && e.key === 'a') ||
+                  e.key === 'ArrowUp' ||
+                  e.key === 'ArrowDown' ||
+                  e.key === 'ArrowLeft' ||
+                  e.key === 'ArrowRight' ||
+                  e.code === 'NumpadDecimal'
+                ) {
+                  return
+                }
+
+                e.preventDefault()
+              }}
+              onPaste={async (e) => {
+                e.preventDefault()
+
+                const value = e.clipboardData.getData('Text')
+                const transformedValue: string = value.replace(/ /g, '') as string
+                formik.setFieldValue('otherAmount', transformedValue)
+              }}
+              onChange={(e) => {
+                const amount = e.target.value
+                if (isNaN(Number(amount))) return
+                if (Number(amount) > SUM_LIMIT_BGN) {
+                  formik.setFieldError(
+                    'otherAmount',
+                    `${t('first-step.transaction-limit')} ${moneyPublic(SUM_LIMIT_BGN, 'BGN', 1)}`,
+                  )
+                  return
+                } else if (Number(amount) < 1) {
+                  formik.setFieldValue('otherAmount', 1)
+                  return
+                }
+
+                formik.setFieldValue('otherAmount', amount)
+              }}
+              InputLabelProps={{ shrink: true }}
               InputProps={{
-                style: { fontSize: 14, padding: 7 },
+                inputProps: {
+                  max: SUM_LIMIT_BGN,
+                  inputMode: 'decimal',
+                },
+                style: { padding: 7 },
                 endAdornment: (
                   <InputAdornment variant="filled" position="end">
                     {t('first-step.BGN')}
