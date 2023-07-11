@@ -68,7 +68,7 @@ export default function CampaignGrid() {
   const [viewId, setViewId] = useState<string | undefined>()
   const [deleteId, setDeleteId] = useState<string | undefined>()
   const [paginationModel, setPaginationModel] = useState({
-    pageSize: 10,
+    pageSize: 20,
     page: 0,
   })
   const selectedCampaign = useMemo(() => data.find((c) => c.id === viewId), [data, viewId])
@@ -156,6 +156,7 @@ export default function CampaignGrid() {
       ...commonProps,
       align: 'left',
       width: 250,
+      valueGetter: ({ value }) => value && t('campaigns:campaignTypesFields.' + value.name),
       renderCell: (cellValues: GridRenderCellParams) => <>{cellValues.row.campaignType.name}</>,
     },
     {
@@ -312,6 +313,7 @@ export default function CampaignGrid() {
         paginationModel={paginationModel}
         onPaginationModelChange={setPaginationModel}
         editMode="row"
+        pageSizeOptions={[20, 50, 100]}
       />
       <Box>
         {selectedCampaign && (
