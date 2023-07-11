@@ -1,13 +1,16 @@
-import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material'
+import { Autocomplete, Box, FormControl, FormHelperText, TextField } from '@mui/material'
 import { TranslatableField, translateError } from 'common/form/validation'
 import { useCoordinatorsList } from 'common/hooks/coordinators'
 import { useField } from 'formik'
+import { CoordinatorResponse } from 'gql/coordinators'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 export default function CoordinatorSelect({ name = 'coordinatorId' }) {
   const { t } = useTranslation()
   const { data } = useCoordinatorsList()
-  const [field, meta] = useField(name)
+  const [, meta, { setValue }] = useField(name)
+  const [coordinator, setCoordinator] = useState<CoordinatorResponse>()
 
   const helperText = meta.touched ? translateError(meta.error as TranslatableField, t) : ''
   return (
@@ -16,17 +19,30 @@ export default function CoordinatorSelect({ name = 'coordinatorId' }) {
       size="small"
       variant="outlined"
       error={Boolean(meta.error) && Boolean(meta.touched)}>
-      <InputLabel>{t('campaigns:coordinator')}</InputLabel>
-      <Select fullWidth defaultValue="" label={t('campaigns:coordinator')} {...field}>
-        <MenuItem value="" disabled>
-          {t('campaigns:coordinator')}
-        </MenuItem>
-        {data?.map((coordinator, index) => (
-          <MenuItem key={index} value={coordinator.id}>
-            {coordinator.person.firstName} {coordinator.person.lastName}
-          </MenuItem>
-        ))}
-      </Select>
+      <Autocomplete
+        value={coordinator}
+        size="small"
+        onChange={(event, newValue: CoordinatorResponse | null) => {
+          if (!newValue || !newValue.id) return ''
+          setCoordinator(newValue)
+          setValue(newValue?.id)
+        }}
+        options={data || []}
+        getOptionLabel={(option: CoordinatorResponse) => {
+          if (!option.person) return ''
+          return `${option.person.firstName} ${option.person.lastName}`
+        }}
+        renderInput={(params) => <TextField {...params} label={t('campaigns:coordinator')} />}
+        renderOption={(params, option: CoordinatorResponse) => (
+          <Box component="li" {...params} key={option.id}>
+            {`${option.person.firstName} ${option.person.lastName}`}
+          </Box>
+        )}
+        isOptionEqualToValue={(option, value) =>
+          option.person.firstName === value.person.firstName ||
+          option.person.lastName === value.person.lastName
+        }
+      />
       {helperText && <FormHelperText error>{helperText}</FormHelperText>}
     </FormControl>
   )
