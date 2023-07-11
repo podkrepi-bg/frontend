@@ -47,7 +47,8 @@ export default function BeneficiarySelect({ name = 'beneficiaryId' }) {
         }
         isOptionEqualToValue={(option, value) =>
           option.person
-            ? option.person.firstName === value?.person?.firstName
+            ? option.person.firstName === value?.person?.firstName ||
+              option.person.lastName === value?.person?.lastName
             : option.company?.companyName === value.company?.companyName
         }
       />

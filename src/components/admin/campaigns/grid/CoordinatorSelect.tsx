@@ -38,7 +38,10 @@ export default function CoordinatorSelect({ name = 'coordinatorId' }) {
             {`${option.person.firstName} ${option.person.lastName}`}
           </Box>
         )}
-        isOptionEqualToValue={(option, value) => option.person.firstName === value.person.firstName}
+        isOptionEqualToValue={(option, value) =>
+          option.person.firstName === value.person.firstName ||
+          option.person.lastName === value.person.lastName
+        }
       />
       {helperText && <FormHelperText error>{helperText}</FormHelperText>}
     </FormControl>
