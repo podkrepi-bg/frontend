@@ -5,7 +5,7 @@ import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { useTranslation } from 'next-i18next'
 
 import { useCampaignApprovedExpensesList } from 'common/hooks/expenses'
-import { moneyPublic } from 'common/util/money'
+import { moneyPublic, toMoney } from 'common/util/money'
 import { ModalStoreImpl } from 'stores/dashboard/ModalStore'
 import { ExpenseFile } from 'gql/expenses'
 import { Button, Grid, Tooltip } from '@mui/material'
@@ -56,7 +56,9 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
       field: 'type',
       headerName: t('expenses:fields.type'),
       headerClassName: classes.gridColumn,
-      minWidth: 120,
+      flex: 1,
+      minWidth: 160,
+      valueGetter: ({ value }) => value && t('expenses:field-types.' + value),
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
         return t('expenses:field-types.' + params.row.type)
       },
@@ -66,8 +68,8 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
       headerName: t('expenses:fields.amount'),
       headerClassName: classes.gridColumn,
       align: 'right',
-      flex: 1,
-      minWidth: 115,
+      minWidth: 120,
+      valueGetter: ({ value, row }) => value && toMoney(row.amount, 1),
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
         if (!params.row.amount) {
           return '0'
@@ -81,7 +83,7 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
       headerName: t('expenses:fields.description'),
       headerClassName: classes.gridColumn,
       flex: 2,
-      minWidth: 300,
+      minWidth: 250,
     },
     {
       field: 'spentAt',
