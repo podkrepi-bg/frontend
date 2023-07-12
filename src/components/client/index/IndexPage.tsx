@@ -6,6 +6,7 @@ import CompletedCampaignsSection from './sections/CompletedCampaignsSection/Comp
 import PlatformStatisticsSection from './sections/PlatformStatisticsSection/PlatformStatisticsSection'
 import MediaSection from './sections/MediaSection/MediaSection'
 import HowWeWorkSection from './sections/HowWeWorkSection/HowWeWorkSection'
+import PartnersSection from './sections/PartnersSection/PartnersSection'
 import TeamMembersSection from './sections/TeamMembersSection/TeamMembersSection'
 import JoinPodkrepiBgSection from './sections/JoinPodkrepiBgSection/JoinPodkrepiBgSection'
 import FaqSection from './sections/FaqSection/FaqSection'
@@ -24,6 +25,7 @@ export default function IndexPage() {
       <PlatformStatisticsSection />
       <MediaSection />
       <HowWeWorkSection />
+      <PartnersSection />
       <TeamMembersSection />
       <JoinPodkrepiBgSection />
       <FaqSection />

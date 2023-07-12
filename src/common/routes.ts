@@ -55,6 +55,12 @@ export const partnerUrls = {
   bear: 'https://plushenomeche.org/',
   visuallyImpairedChildren: 'http://www.suunzvarna.com/',
   gorata: 'https://gorata.bg/',
+  softuni: 'https://softuni.bg/',
+  mentormate: 'https://mentormate.com/',
+  eightyEight: 'https://www.88studiodesign.com/',
+  allChannels: 'https://www.all-channels.com/',
+  brainDonors: 'https://www.braindonors.agency/',
+  crossroadsBulgaria: 'https://crossroadsbulgaria.com/',
 }
 
 export const routes = {
