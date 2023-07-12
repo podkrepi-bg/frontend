@@ -24,6 +24,8 @@ import { useCampaignApprovedExpensesList } from 'common/hooks/expenses'
 import { Assessment } from '@mui/icons-material'
 import { routes } from 'common/routes'
 import { useCanEditCampaign } from 'common/hooks/campaigns'
+import { moneyPublic } from 'common/util/money'
+import ReceiptIcon from '@mui/icons-material/Receipt'
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 const CampaignNewsSection = dynamic(() => import('./CampaignNewsSection'), { ssr: false })
@@ -98,6 +100,7 @@ export default function CampaignDetails({ campaign }: Props) {
   const sliderImages = campaignSliderUrls(campaign)
   const canEditCampaign = useCanEditCampaign(campaign.slug)
   const { data: expensesList } = useCampaignApprovedExpensesList(campaign.slug)
+  const totalExpenses = expensesList?.reduce((acc, expense) => acc + expense.amount, 0)
 
   return (
     <StyledGrid item xs={12} md={8}>
@@ -125,7 +128,7 @@ export default function CampaignDetails({ campaign }: Props) {
         {expensesList?.length || canEditCampaign ? (
           <Grid item xs={12} id="expenses">
             <Grid item xs={12}>
-              <Typography variant="h4" component="h4" my={8}>
+              <Typography variant="h4" component="h4" my={4}>
                 {t('campaigns:campaign.financial-report')} <Assessment />
                 {canEditCampaign ? (
                   <Tooltip title={t('campaigns:cta.edit')}>
@@ -138,6 +141,13 @@ export default function CampaignDetails({ campaign }: Props) {
                 ) : (
                   ''
                 )}
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography>
+                <ReceiptIcon />{' '}
+                {t('expenses:reported')}:{' '}
+                {moneyPublic(totalExpenses || 0, campaign.currency)}
               </Typography>
             </Grid>
             <Grid item xs={12} mt={2}>
