@@ -25,7 +25,7 @@ import { Assessment } from '@mui/icons-material'
 import { routes } from 'common/routes'
 import { useCanEditCampaign } from 'common/hooks/campaigns'
 import { moneyPublic } from 'common/util/money'
-import ReceiptIcon from '@mui/icons-material/Receipt'
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 const CampaignNewsSection = dynamic(() => import('./CampaignNewsSection'), { ssr: false })
@@ -145,8 +145,7 @@ export default function CampaignDetails({ campaign }: Props) {
             </Grid>
             <Grid item xs={12}>
               <Typography>
-                <ReceiptIcon />{' '}
-                {t('expenses:reported')}:{' '}
+                <ReceiptLongIcon /> {t('expenses:reported')}:{' '}
                 {moneyPublic(totalExpenses || 0, campaign.currency)}
               </Typography>
             </Grid>
