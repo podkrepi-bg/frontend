@@ -1,12 +1,28 @@
-import { CardContent } from '@mui/material'
+import { Card, CardActions, CardContent, Grid } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 import LinkButton from 'components/common/LinkButton'
 import theme from 'common/theme'
 
+export const Root = styled(Card)(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'initial',
+  boxShadow: 'none',
+
+  [theme.breakpoints.up('lg')]: {
+    '&:nth-of-type(1)': {
+      gridArea: '1 / 1 / 3 / 3',
+
+      img: {
+        height: theme.spacing(65),
+      },
+    },
+  },
+}))
+
 export const Content = styled(CardContent)(() => ({
   padding: theme.spacing(0, 1),
-  position: 'absolute',
   width: '100%',
   bottom: theme.spacing(2),
 
@@ -16,18 +32,96 @@ export const Content = styled(CardContent)(() => ({
 }))
 
 export const CampaignTitle = styled('h6')(() => ({
-  margin: theme.spacing(1.8, 1.2),
-  fontWeight: 700,
   fontSize: theme.typography.pxToRem(16),
-  lineHeight: '150%',
-  color: theme.palette.secondary.light,
+  color: theme.palette.common.black,
   fontFamily: 'Montserrat, sans-serif',
+  fontWeight: 400,
+  margin: theme.spacing(1, 0, 0),
+  minHeight: theme.spacing(6.25),
+  overflow: 'hidden',
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: '2',
+  whiteSpace: 'pre-wrap',
 }))
 
-export const SupportNowButton = styled(LinkButton)(() => ({
-  display: 'none',
-  fontWeight: 'bold',
+export const SumWrapper = styled(Grid)(() => ({
+  display: 'flex',
+  width: '100%',
+  justifyContent: 'space-between',
+  padding: theme.spacing(0.6, 0),
+  color: theme.palette.common.black,
   fontFamily: 'Montserrat, sans-serif',
+  fontSize: theme.typography.pxToRem(17),
+}))
 
-  [theme.breakpoints.down('md')]: { display: 'flex' },
+export const Sum = styled('span')(() => ({
+  fontWeight: 700,
+  fontSize: theme.typography.pxToRem(16),
+  fontFamily: 'sans-serif',
+}))
+
+export const SumNumber = styled('span')(() => ({
+  [theme.breakpoints.up('md')]: {
+    display: 'block',
+  },
+
+  [theme.breakpoints.up('lg')]: {
+    display: 'inline',
+  },
+}))
+
+export const CampaignProgressWrapper = styled(Grid)(() => ({
+  span: {
+    borderRadius: theme.borders.round,
+    height: '11px',
+  },
+}))
+
+export const StyledCardActions = styled(CardActions)(() => ({
+  padding: theme.spacing(1, 0),
+}))
+
+export const DonateButton = styled(LinkButton)(() => ({
+  fontFamily: 'Montserrat, sans-serif',
+  width: theme.spacing(11.125),
+  height: theme.spacing(4.5),
+  padding: theme.spacing(0.75, 2),
+  marginRight: theme.spacing(1),
+  backgroundColor: theme.palette.secondary.main,
+  boxShadow:
+    '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)',
+  borderRadius: theme.borders.round,
+  fontWeight: '500',
+  fontSize: theme.typography.pxToRem(16),
+  letterSpacing: '0.4px',
+
+  '&:hover': {
+    boxShadow:
+      '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)',
+  },
+
+  [theme.breakpoints.up(1111)]: {
+    display: 'inline-flex',
+    marginBottom: 0,
+  },
+}))
+
+export const LearnMoreButton = styled(LinkButton)(() => ({
+  fontFamily: "'Lato', sans-serif",
+  fontSize: theme.typography.pxToRem(16),
+  letterSpacing: '0.4px',
+  color: theme.palette.common.black,
+  border: `2px solid ${theme.palette.secondary.main}`,
+  height: theme.spacing(4.5),
+
+  padding: theme.spacing(0.75, 2),
+
+  svg: {
+    width: theme.spacing(2.12),
+  },
+
+  '&:hover': {
+    color: theme.palette.common.black,
+  },
 }))

@@ -24,6 +24,7 @@ import { PersonResponse } from 'gql/person'
 import { usePersonList } from 'common/hooks/person'
 import RenderEditPersonCell from './RenderEditPersonCell'
 import { useStores } from '../../../../common/hooks/useStores'
+import RenderEditBillingEmailCell from './RenderEditBillingEmailCell'
 
 interface RenderCellProps {
   params: GridRenderCellParams
@@ -74,6 +75,34 @@ export default observer(function Grid() {
       <>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
           {firstName + ' ' + lastName}
+          {params.isEditable ? (
+            <Tooltip title={t('donations:cta.edit')}>
+              <Edit
+                sx={addIconStyles}
+                color="action"
+                fontSize="medium"
+                onClick={() => {
+                  if (focusedRowId) {
+                    params.api.startCellEditMode({ id: params.row.id, field: params.field })
+                  }
+                  params.api.getCellMode(params.row.id, params.field)
+                  setFocusedRowId(params.row.id)
+                }}
+              />
+            </Tooltip>
+          ) : (
+            <></>
+          )}
+        </Box>
+      </>
+    )
+  }
+
+  const RenderBillingEmaiCell = ({ params }: RenderCellProps) => {
+    return (
+      <>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+          {params.row.billingEmail}
           {params.isEditable ? (
             <Tooltip title={t('donations:cta.edit')}>
               <Edit
@@ -155,11 +184,20 @@ export default observer(function Grid() {
     {
       field: 'billingEmail',
       headerName: 'Billing Email',
-      width: 250,
+      width: 300,
+      editable: true,
+      renderCell: (params: GridRenderCellParams) => {
+        return <RenderBillingEmaiCell params={params} />
+      },
+
+      renderEditCell: (params: GridRenderEditCellParams) => {
+        return <RenderEditBillingEmailCell params={params} personList={data} onUpdate={refetch} />
+      },
     },
     {
       field: 'id',
       headerName: 'ID',
+      width: 320,
     },
     {
       field: 'type',
@@ -169,7 +207,7 @@ export default observer(function Grid() {
       field: 'provider',
       headerName: t('donations:provider'),
       ...commonProps,
-      width: 250,
+      width: 100,
     },
     {
       field: 'targetVaultId',
@@ -199,6 +237,9 @@ export default observer(function Grid() {
           }}
           rows={donations || []}
           columns={columns}
+          columnVisibilityModel={{
+            id: false,
+          }}
           pageSizeOptions={[5, 10, 20]}
           paginationModel={paginationModel}
           onPaginationModelChange={setPaginationModel}

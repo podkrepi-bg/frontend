@@ -16,12 +16,14 @@ import {
   Root,
   CarouselWrapper,
   Sum,
-  SumWrapper,
-  SumText,
   CampaignTitle,
   CompletedCampaignLink,
   CardWrapper,
-  SumWrapperColumn,
+  SuccessfulCampaignLabel,
+  CompletedSumWrapper,
+  SuccessfullCampaignIcon,
+  CampaignProgressWrapper,
+  SuccessfullCampiagnText,
 } from './CompletedCampaignsSection.styled'
 
 export default function CompletedCampaignsSection() {
@@ -43,27 +45,27 @@ export default function CompletedCampaignsSection() {
       </Heading>
       <CarouselWrapper {...settings}>
         {completedCampaigns?.map((campaign, index) => (
-          <CardWrapper key={index} data-testid={`campaign-card-${index}`}>
+          <CardWrapper key={index} data-testid={`completed-campaign-${index}`}>
             <CompletedCampaignLink
               onMouseDown={onLinkMouseDown}
               href={routes.campaigns.viewCampaignBySlug(campaign.slug)}
               sx={{
-                background: `linear-gradient(180deg, rgba(81, 81, 81, 0) 50%, rgba(0, 0, 0, 0.78) 80%, #000000 100%), url(${campaignListPictureUrl(
-                  campaign,
-                )})`,
-              }}>
-              <SumWrapper>
-                <SumWrapperColumn>
-                  <Sum>
-                    {i18n.language === 'bg'
-                      ? moneyPublic(campaign.summary.reachedAmount).split(',')[0] + ' лв.'
-                      : moneyPublic(campaign.summary.reachedAmount).split('.')[0]}
-                  </Sum>
-                  <SumText sx={{ padding: 0 }}>{t('campaign.reached')}</SumText>
-                </SumWrapperColumn>
-              </SumWrapper>
-              <CampaignTitle>{campaign.title}</CampaignTitle>
-            </CompletedCampaignLink>
+                background: `url(${campaignListPictureUrl(campaign)})`,
+              }}
+            />
+            <CompletedSumWrapper>
+              <Sum>
+                {i18n.language === 'bg'
+                  ? moneyPublic(campaign.summary.reachedAmount).split(',')[0] + ' лв.'
+                  : moneyPublic(campaign.summary.reachedAmount).split('.')[0]}
+              </Sum>
+              <SuccessfulCampaignLabel>
+                <SuccessfullCampaignIcon />
+                <SuccessfullCampiagnText>{t('successfull-label')}</SuccessfullCampiagnText>
+              </SuccessfulCampaignLabel>
+            </CompletedSumWrapper>
+            <CampaignProgressWrapper width={1} />
+            <CampaignTitle>{campaign.title}</CampaignTitle>
           </CardWrapper>
         ))}
       </CarouselWrapper>

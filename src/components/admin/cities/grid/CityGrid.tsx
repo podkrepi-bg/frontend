@@ -77,6 +77,9 @@ export default observer(function CitiesGrid() {
         }}
         rows={data || []}
         columns={columns}
+        columnVisibilityModel={{
+          id: false,
+        }}
         paginationModel={paginationModel}
         onPaginationModelChange={setPaginationModel}
         editMode="row"

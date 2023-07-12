@@ -5,7 +5,7 @@ import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { useTranslation } from 'next-i18next'
 
 import { useCampaignApprovedExpensesList } from 'common/hooks/expenses'
-import { moneyPublic } from 'common/util/money'
+import { moneyPublic, toMoney } from 'common/util/money'
 import { ModalStoreImpl } from 'stores/dashboard/ModalStore'
 import { ExpenseFile } from 'gql/expenses'
 import { Button, Grid, Tooltip } from '@mui/material'
@@ -56,7 +56,9 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
       field: 'type',
       headerName: t('expenses:fields.type'),
       headerClassName: classes.gridColumn,
-      minWidth: 120,
+      flex: 1,
+      minWidth: 160,
+      valueGetter: ({ value }) => value && t('expenses:field-types.' + value),
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
         return t('expenses:field-types.' + params.row.type)
       },
@@ -66,8 +68,8 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
       headerName: t('expenses:fields.amount'),
       headerClassName: classes.gridColumn,
       align: 'right',
-      flex: 1,
-      minWidth: 115,
+      minWidth: 120,
+      valueGetter: ({ value, row }) => value && toMoney(row.amount, 1),
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
         if (!params.row.amount) {
           return '0'
@@ -81,14 +83,16 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
       headerName: t('expenses:fields.description'),
       headerClassName: classes.gridColumn,
       flex: 2,
-      minWidth: 300,
+      minWidth: 250,
     },
     {
       field: 'spentAt',
+      type: 'date',
       headerName: t('expenses:fields.date'),
       headerClassName: classes.gridColumn,
       flex: 1,
       minWidth: 80,
+      valueGetter: ({ value }) => value && new Date(value),
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
         if (!params.row.spentAt) {
           return ''
@@ -108,7 +112,7 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
           return (
             <Tooltip key={file.id} title={file.filename}>
               <Link href={expenseFileUrl(file.id)} target="_blank" passHref>
-                <Button sx={{ minWidth: 0, py: 0, px: 1, paddingBottom: 1 }}>
+                <Button sx={{ minWidth: 0, py: 0, px: 1 }}>
                   <FilePresentIcon />
                 </Button>
               </Link>
@@ -126,6 +130,9 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
         className={classes.grid}
         rows={expensesList || []}
         columns={columns}
+        columnVisibilityModel={{
+          id: false,
+        }}
         pageSizeOptions={[20, 40, 60]}
         paginationModel={paginationModel}
         onPaginationModelChange={setPaginationModel}
@@ -140,7 +147,7 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
             py: '8px',
           },
           '&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell': {
-            paddingTop: '17px',
+            py: '17px',
           },
           '&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell': {
             py: '22px',

@@ -21,6 +21,24 @@
     "attached-files": "Attached files",
     "files": "Files"
   },
+  "field-types": {
+    "none": "none",
+    "internal": "Internal",
+    "operating": "Operating",
+    "administrative": "Administrative",
+    "medical": "Medical",
+    "services": "Services",
+    "groceries": "Groceries",
+    "transport": "Transport",
+    "accommodation": "Accommodation",
+    "shipping": "Shipping",
+    "utility": "Utility",
+    "rental": "Rental",
+    "legal": "Legal",
+    "bank": "Bank",
+    "advertising": "Advertising",
+    "other": "Other"
+  },  
   "alerts": {
     "new-row": {
       "error": "Error occurred trying to create an expense.",

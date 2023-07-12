@@ -1,12 +1,14 @@
 import Slider from 'react-slick'
 
+import { Link, Grid, Box, Typography } from '@mui/material'
+import DoneIcon from '@mui/icons-material/Done'
 import styled from '@emotion/styled'
 
 import theme from 'common/theme'
-import { Typography, Link, Grid, Stack } from '@mui/material'
 
 export const Root = styled('section')(() => ({
   marginTop: theme.spacing(12),
+  padding: theme.spacing(0, 2),
 }))
 
 export const CarouselWrapper = styled(Slider)(() => ({
@@ -38,11 +40,11 @@ export const CardWrapper = styled(Grid)(() => ({
 }))
 
 export const CompletedCampaignLink = styled(Link)(() => ({
-  height: theme.spacing(37.5),
-  backgroundSize: 'cover',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
+  height: theme.spacing(37.5),
+  backgroundSize: 'cover',
 
   '&:hover': {
     opacity: 0.9,
@@ -50,42 +52,47 @@ export const CompletedCampaignLink = styled(Link)(() => ({
 }))
 
 export const CampaignTitle = styled('h6')(() => ({
-  margin: theme.spacing(1.8, 1.25),
-  fontWeight: 700,
   fontSize: theme.typography.pxToRem(16),
-  lineHeight: '150%',
-  color: theme.palette.secondary.light,
+  color: theme.palette.common.black,
+  fontFamily: 'Montserrat, sans-serif',
+  fontWeight: 400,
+  margin: theme.spacing(1, 0, 0),
 }))
 
-export const SumWrapper = styled(Grid)(() => ({
+export const CompletedSumWrapper = styled(Grid)(() => ({
   display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
-  flexFlow: 'wrap',
+  width: '100%',
+  justifyContent: 'space-between',
   padding: theme.spacing(0.6, 0),
-  minWidth: theme.spacing(17.5),
-  background: '#323232',
-  borderRadius: theme.spacing(0, 0, 0, 2),
-  color: '#B0E5FF',
-  marginLeft: 'auto',
+  color: theme.palette.common.black,
   fontFamily: 'Montserrat, sans-serif',
   fontSize: theme.typography.pxToRem(17),
 }))
 
-export const SumWrapperColumn = styled(Stack)(() => ({
-  flexDirection: 'column',
-  alignItems: 'center',
-}))
-
 export const Sum = styled('span')(() => ({
   fontWeight: 700,
-  fontSize: theme.typography.pxToRem(17),
+  fontSize: theme.typography.pxToRem(16),
+  fontFamily: 'sans-serif',
 }))
 
-export const SumText = styled(Typography)(() => ({
-  color: theme.palette.common.white,
-  fontFamily: 'Lato, sans-serif',
+export const SuccessfulCampaignLabel = styled(Grid)(() => ({
+  display: 'flex',
+  textTransform: 'uppercase',
+  color: '#616161',
+}))
+
+export const SuccessfullCampiagnText = styled(Typography)(() => ({
   fontWeight: 700,
-  fontSize: theme.typography.pxToRem(17),
-  padding: theme.spacing(0, 1),
+  fontSize: theme.typography.pxToRem(16),
+}))
+
+export const SuccessfullCampaignIcon = styled(DoneIcon)(() => ({
+  fontSize: theme.typography.pxToRem(21),
+  marginRight: theme.spacing(0.5),
+}))
+
+export const CampaignProgressWrapper = styled(Box)(() => ({
+  background: '#62DE88',
+  borderRadius: theme.borders.round,
+  height: theme.spacing(2),
 }))

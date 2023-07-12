@@ -270,6 +270,7 @@ export default function CampaignForm({ initialValues = defaults }: CampaignFormP
               }}
             />
             <FileList
+              rolesList={CampaignFileRole}
               files={files}
               filesRole={roles}
               onDelete={(deletedFile) =>

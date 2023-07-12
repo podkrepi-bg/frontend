@@ -378,6 +378,7 @@ export default function EditForm({ campaign }: { campaign: AdminSingleCampaignRe
               }}
             />
             <FileList
+              rolesList={CampaignFileRole}
               files={files}
               filesRole={roles}
               onDelete={(deletedFile) =>

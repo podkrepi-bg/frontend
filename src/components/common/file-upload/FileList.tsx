@@ -17,13 +17,14 @@ import { SelectChangeEvent } from '@mui/material/Select'
 import { CampaignFileRole, FileRole } from 'components/common/campaign-file/roles'
 
 type Props = {
+  rolesList: Record<string, keyof typeof CampaignFileRole>
   files: File[]
   onDelete?: (file: File) => void
   onSetFileRole: (file: File, role: CampaignFileRole) => void
   filesRole: FileRole[]
 }
 
-function FileList({ files, onDelete, onSetFileRole, filesRole = [] }: Props) {
+function FileList({ rolesList, files, onDelete, onSetFileRole, filesRole = [] }: Props) {
   const setFileRole = (file: File) => {
     return (event: SelectChangeEvent<CampaignFileRole>) => {
       if (Object.values(CampaignFileRole).includes(event.target.value as CampaignFileRole)) {
@@ -59,7 +60,7 @@ function FileList({ files, onDelete, onSetFileRole, filesRole = [] }: Props) {
                 filesRole.find((f) => f.file === file.name)?.role ?? CampaignFileRole.background
               }
               onChange={setFileRole(file)}>
-              {Object.values(CampaignFileRole).map((role) => (
+              {Object.values(rolesList).map((role) => (
                 <MenuItem key={role} value={role}>
                   {role}
                 </MenuItem>
