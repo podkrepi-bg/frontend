@@ -18,6 +18,6 @@ export const PartnerLink = styled(Link)(() => ({
   '&:hover': {
     filter: 'grayscale(0)',
     opacity: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.4)'
+    backgroundColor: 'rgba(255, 255, 255, 0.4)',
   },
 }))
