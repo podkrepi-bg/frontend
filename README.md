@@ -100,9 +100,7 @@ Watch releases of this repository to be notified about future updates:
 ## Contributors ✨
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-68-orange.svg?style=flat-square)](#contributors-)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-69-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Please check [contributors guide](https://github.com/podkrepi-bg/frontend/blob/master/CONTRIBUTING.md) for:
@@ -208,6 +206,7 @@ Thanks goes to these wonderful people:
       <td align="center" valign="top" width="10%"><a href="https://github.com/BogoCvetkov"><img src="https://avatars.githubusercontent.com/u/78339364?v=4?s=100" width="100px;" alt="Bogomil Tsvetkov"/><br /><sub><b>Bogomil Tsvetkov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=BogoCvetkov" title="Code">💻</a> <a href="https://github.com/podkrepi-bg/frontend/commits?author=BogoCvetkov" title="Tests">⚠️</a></td>
       <td align="center" valign="top" width="10%"><a href="https://github.com/dzhaniivanov"><img src="https://avatars.githubusercontent.com/u/68897146?v=4?s=100" width="100px;" alt="Dzhani Ivanov"/><br /><sub><b>Dzhani Ivanov</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=dzhaniivanov" title="Code">💻</a></td>
       <td align="center" valign="top" width="10%"><a href="https://github.com/mm-hstefanova"><img src="https://avatars.githubusercontent.com/u/91142791?v=4?s=100" width="100px;" alt="mm-hstefanova"/><br /><sub><b>mm-hstefanova</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=mm-hstefanova" title="Code">💻</a></td>
+      <td align="center" valign="top" width="10%"><a href="https://github.com/yg1y"><img src="https://avatars.githubusercontent.com/u/139345579?v=4?s=100" width="100px;" alt="yg1y"/><br /><sub><b>yg1y</b></sub></a><br /><a href="https://github.com/podkrepi-bg/frontend/commits?author=yg1y" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
