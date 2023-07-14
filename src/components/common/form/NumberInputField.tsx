@@ -83,7 +83,6 @@ export default function NumberInputField({
       InputLabelProps={{ shrink: true }}
       InputProps={{
         inputProps: {
-          min: 1,
           max: limit,
           inputMode: 'decimal',
         },
