@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react'
 import { styled } from '@mui/material/styles'
 import { Trans, useTranslation } from 'next-i18next'
-import { isInteger, useField, useFormikContext } from 'formik'
-import { Box, Collapse, Divider, Grid, InputAdornment, List, Typography } from '@mui/material'
+import { useField, useFormikContext } from 'formik'
+import { Box, Collapse, Divider, Grid, List, Typography } from '@mui/material'
 import EventRepeatIcon from '@mui/icons-material/EventRepeat'
 import theme from 'common/theme'
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
@@ -10,7 +10,6 @@ import { moneyPublic, moneyPublicDecimals2, toMoney } from 'common/util/money'
 import { BIC, ibanNumber } from 'common/iban'
 import { CopyTextButton } from 'components/common/CopyTextButton'
 import { StepsContext } from '../helpers/stepperContext'
-import FormTextField from 'components/common/form/FormTextField'
 import { useMediaQuery } from '@mui/material'
 import { OneTimeDonation } from 'gql/donations'
 import ExternalLink from 'components/common/ExternalLink'
@@ -24,6 +23,7 @@ import { useSession } from 'next-auth/react'
 import getConfig from 'next/config'
 
 import dynamic from 'next/dynamic'
+import NumberInputField from 'components/common/form/NumberInputField'
 const PaypalDonationButton = dynamic(() => import('../helpers/paypalDonationButton'), {
   ssr: false,
 })
@@ -43,7 +43,7 @@ const Root = styled('div')(() => ({
 
 export default function FirstStep() {
   const { data: session } = useSession()
-  const { t, i18n } = useTranslation('one-time-donation')
+  const { t } = useTranslation('one-time-donation')
   const mobile = useMediaQuery('(max-width:600px)')
   const paymentOptions = [
     { value: 'card', label: t('third-step.card') },
@@ -51,18 +51,18 @@ export default function FirstStep() {
     { value: 'bank', label: t('third-step.bank-payment') },
   ]
 
-  const decimalSeparator = (1.1).toLocaleString(i18n.lang).charAt(1)
-
   const [paymentField] = useField('payment')
   const [amount] = useField('amount')
-  const [otherAmount] = useField('otherAmount')
   const [amountWithFees] = useField('amountWithFees')
   const [amountWithoutFees] = useField<number>('amountWithoutFees')
 
   const formik = useFormikContext<OneTimeDonation>()
 
   //Stripe allows up to $1M for a single transaction. This is close enough
-  const SUM_LIMIT_BGN = 1500000
+  const STRIPE_LIMIT_BGN = 1500000
+
+  //In best case Paypal allows up to $25k per transaction
+  const PAYPAL_LIMIT_BGN = 40000
 
   const { campaign } = useContext(StepsContext)
 
@@ -256,87 +256,7 @@ export default function FirstStep() {
                     }
                   : { marginTop: theme.spacing(2) }
               }>
-              <FormTextField
-                name="otherAmount"
-                type="number"
-                value={formik.values.otherAmount === 1 ? '' : formik.values.otherAmount}
-                label={t('first-step.amount')}
-                lang={i18n.language}
-                onKeyDown={(e) => {
-                  if (
-                    formik.errors.otherAmount &&
-                    e.key !== 'Backspace' &&
-                    e.key !== 'Delete' &&
-                    !isInteger(formik.values.otherAmount)
-                  ) {
-                    e.preventDefault()
-                    return
-                  }
-                  if (decimalSeparator !== e.key && (e.key === '.' || e.key === ',')) {
-                    e.preventDefault()
-                    return
-                  }
-
-                  if (
-                    (e.key.charCodeAt(0) >= 48 && e.key.charCodeAt(0) <= 57) ||
-                    (isInteger(formik.values.otherAmount) && e.key === decimalSeparator) ||
-                    (e.ctrlKey && e.key === 'v') ||
-                    (e.ctrlKey && e.key === 'c') ||
-                    e.key === 'Backspace' ||
-                    e.key === 'Delete' ||
-                    (e.ctrlKey && e.key === 'a') ||
-                    e.key === 'ArrowUp' ||
-                    e.key === 'ArrowDown' ||
-                    e.key === 'ArrowLeft' ||
-                    e.key === 'ArrowRight' ||
-                    e.code === 'NumpadDecimal'
-                  ) {
-                    return
-                  }
-
-                  e.preventDefault()
-                }}
-                onPaste={async (e) => {
-                  e.preventDefault()
-
-                  const value = e.clipboardData.getData('Text')
-                  const transformedValue: string = value.replace(/ /g, '') as string
-                  formik.setFieldValue('otherAmount', transformedValue)
-                }}
-                onChange={(e) => {
-                  const amount = e.target.value
-                  if (isNaN(Number(amount))) return
-                  if (Number(amount) > SUM_LIMIT_BGN) {
-                    formik.setFieldError(
-                      'otherAmount',
-                      `${t('first-step.transaction-limit')} ${moneyPublic(
-                        SUM_LIMIT_BGN,
-                        'BGN',
-                        1,
-                      )}`,
-                    )
-                    return
-                  } else if (Number(amount) < 1) {
-                    formik.setFieldValue('otherAmount', 1)
-                    return
-                  }
-
-                  formik.setFieldValue('otherAmount', amount)
-                }}
-                InputLabelProps={{ shrink: true }}
-                InputProps={{
-                  inputProps: {
-                    max: SUM_LIMIT_BGN,
-                    inputMode: 'decimal',
-                  },
-                  style: { padding: 7 },
-                  endAdornment: (
-                    <InputAdornment variant="filled" position="end">
-                      {t('first-step.BGN')}
-                    </InputAdornment>
-                  ),
-                }}
-              />
+              <NumberInputField limit={STRIPE_LIMIT_BGN} />
             </Grid>
           </Collapse>
           {amount.value ? (
@@ -421,84 +341,7 @@ export default function FirstStep() {
             </Typography>
           </Grid>
           <Grid my={2} item display="flex" justifyContent="space-between" xs={9}>
-            <FormTextField
-              name="otherAmount"
-              type="number"
-              value={formik.values.otherAmount === 1 ? '' : formik.values.otherAmount}
-              defaultValue={''}
-              label={t('first-step.amount')}
-              lang={i18n.language}
-              onKeyDown={(e) => {
-                if (
-                  formik.errors.otherAmount &&
-                  e.key !== 'Backspace' &&
-                  e.key !== 'Delete' &&
-                  !isInteger(formik.values.otherAmount)
-                ) {
-                  e.preventDefault()
-                  return
-                }
-                if (decimalSeparator !== e.key && (e.key === '.' || e.key === ',')) {
-                  e.preventDefault()
-                  return
-                }
-
-                if (
-                  (e.key.charCodeAt(0) >= 48 && e.key.charCodeAt(0) <= 57) ||
-                  (isInteger(formik.values.otherAmount) && e.key === decimalSeparator) ||
-                  (e.ctrlKey && e.key === 'v') ||
-                  (e.ctrlKey && e.key === 'c') ||
-                  e.key === 'Backspace' ||
-                  e.key === 'Delete' ||
-                  (e.ctrlKey && e.key === 'a') ||
-                  e.key === 'ArrowUp' ||
-                  e.key === 'ArrowDown' ||
-                  e.key === 'ArrowLeft' ||
-                  e.key === 'ArrowRight' ||
-                  e.code === 'NumpadDecimal'
-                ) {
-                  return
-                }
-
-                e.preventDefault()
-              }}
-              onPaste={async (e) => {
-                e.preventDefault()
-
-                const value = e.clipboardData.getData('Text')
-                const transformedValue: string = value.replace(/ /g, '') as string
-                formik.setFieldValue('otherAmount', transformedValue)
-              }}
-              onChange={(e) => {
-                const amount = e.target.value
-                if (isNaN(Number(amount))) return
-                if (Number(amount) > SUM_LIMIT_BGN) {
-                  formik.setFieldError(
-                    'otherAmount',
-                    `${t('first-step.transaction-limit')} ${moneyPublic(SUM_LIMIT_BGN, 'BGN', 1)}`,
-                  )
-                  return
-                } else if (Number(amount) < 1) {
-                  formik.setFieldValue('otherAmount', 1)
-                  return
-                }
-
-                formik.setFieldValue('otherAmount', amount)
-              }}
-              InputLabelProps={{ shrink: true }}
-              InputProps={{
-                inputProps: {
-                  max: SUM_LIMIT_BGN,
-                  inputMode: 'decimal',
-                },
-                style: { padding: 7 },
-                endAdornment: (
-                  <InputAdornment variant="filled" position="end">
-                    {t('first-step.BGN')}
-                  </InputAdornment>
-                ),
-              }}
-            />
+            <NumberInputField limit={PAYPAL_LIMIT_BGN} />
           </Grid>
           <Grid my={2} item display="flex" justifyContent="center" xs={9}>
             <PayPalScriptProvider
@@ -508,7 +351,7 @@ export default function FirstStep() {
               }}>
               <PaypalDonationButton
                 campaignId={campaign.id}
-                amount={otherAmount.value as number}
+                amount={formik.values.otherAmount as number}
                 currency={'EUR'}
               />
             </PayPalScriptProvider>
