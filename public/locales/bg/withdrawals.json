@@ -1,5 +1,5 @@
 {
-  "amount-unavailable": "Недостатъчна наличност в трезора!",
+  "amount-unavailable": "Недостатъчна наличност в подсметката!",
   "documentId": "Номер на документа",
   "amount-available": "Налична сума",
   "amount-input": "Въведете сума",
@@ -18,7 +18,7 @@
   "approvedBy": "Одобрен от",
   "bankAccount": "Банков акаунт",
   "sourceCampaign": "Кампания",
-  "sourceVault": "Трезор",
+  "sourceVault": "Подсметка",
   "campaignId": "ID на кампания",
   "deleteTitle": "Сигурни ли сте?",
   "deleteContent": "Това действие ще изтрие елемента завинаги!",

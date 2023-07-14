@@ -1,5 +1,5 @@
 {
-  "amount-unavailable": "Недостатъчна наличност в трезора!",
+  "amount-unavailable": "Недостатъчна наличност в подсметката!",
   "transfers": "Прехвърляния",
   "transfer": "Прехвърляне",
   "form-heading": "Добави новo прехвърляне",
@@ -14,9 +14,9 @@
   "targetDate": "Срок",
   "approvedBy": "Одобрено oт",
   "sourceCampaign": "От кампания",
-  "sourceVault": "От трезор",
+  "sourceVault": "От подсметка",
   "targetCampaign": "За кампания",
-  "targetVault": "За трезор",
+  "targetVault": "За подсметка",
   "createdAt": "Създаден на",
   "updatedAt": "Обновен на",
   "deleteTitle": "Сигурни ли сте?",
