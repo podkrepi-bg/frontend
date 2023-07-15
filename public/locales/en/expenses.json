@@ -38,7 +38,7 @@
     "bank": "Bank",
     "advertising": "Advertising",
     "other": "Other"
-  },  
+  },
   "alerts": {
     "new-row": {
       "error": "Error occurred trying to create an expense.",
