@@ -35,3 +35,8 @@ export type BankTransactionEditRefResponse = {
   paymentRef: string
   status: string
 }
+
+export type RerunTransactionsDatesInput = {
+  startDate: Date | string
+  endDate: Date | string
+}
