@@ -33,7 +33,7 @@
   "approvedBy": "Одобрен от",
   "bankAccount": "Банкова сметка",
   "sourceCampaign": "Кампания",
-  "sourceVault": "Трезор",
+  "sourceVault": "Подсметка",
   "campaignId": "ID на кампания",
   "deleteTitle": "Сигурни ли сте?",
   "deleteContent": "Това действие ще изтрие елемента завинаги!",

@@ -25,7 +25,7 @@ import BeneficiaryIcon from 'common/icons/Beneficiary'
 
 export const menuPeople = [
   { label: 'Контакти', icon: ContactPhone, href: routes.admin.infoRequests },
-  { label: 'Бенефактори', icon: BeneficiaryIcon, href: routes.admin.benefactor.index },
+  { label: 'Дарители', icon: BeneficiaryIcon, href: routes.admin.benefactor.index },
   { label: 'Бенефициенти', icon: BeneficiaryIcon, href: routes.admin.beneficiary.index },
   { label: 'Координатори', icon: People, href: routes.admin.coordinators.index },
   { label: 'Потребители', icon: Group, href: routes.admin.person.index },
@@ -42,11 +42,11 @@ export const menuCampaings = [
 
 export const menuPayments = [
   { label: 'Дарения', icon: VolunteerActivismOutlinedIcon, href: routes.admin.donations.index },
-  { label: 'Трезори', icon: Shield, href: routes.admin.vaults.index },
+  { label: 'Подсметки', icon: Shield, href: routes.admin.vaults.index },
   { label: 'Банкови сметки', icon: Payment, href: routes.admin.bankaccounts.index },
   { label: 'Преводи', icon: LocalAtmIcon, href: routes.admin.withdrawals.index },
   { label: 'Прехвърляния', icon: MoveUp, href: routes.admin.transfer.index },
-  { label: 'Разходи', icon: Paid, href: routes.admin.expenses.index },
+  { label: 'Финансови отчети', icon: Paid, href: routes.admin.expenses.index },
   {
     label: 'Повтарящи се дарения',
     icon: VolunteerActivism,
@@ -78,8 +78,8 @@ export const adminCards = [
   { label: 'Банкови сметки', icon: Payment, href: routes.admin.bankaccounts.index },
   { label: 'Банкови транзакции', icon: RequestQuote, href: routes.admin.bankTransactions.index },
   { label: 'Преводи', icon: LocalAtmIcon, href: routes.admin.withdrawals.index },
-  { label: 'Разходи', icon: Paid, href: routes.admin.expenses.index },
-  { label: 'Трезори', icon: Shield, href: routes.admin.vaults.index },
+  { label: 'Финансови отчети', icon: Paid, href: routes.admin.expenses.index },
+  { label: 'Подсметки', icon: Shield, href: routes.admin.vaults.index },
   { label: 'Прехвърляния', icon: MoveUp, href: routes.admin.transfer.index },
   {
     label: 'Повтарящо се дарение',
@@ -90,7 +90,7 @@ export const adminCards = [
   { label: 'Контакти', icon: ContactPhone, href: routes.admin.infoRequests },
   { label: 'Потребители', icon: Group, href: routes.admin.person.index },
   { label: 'Документи', icon: FolderShared, href: routes.admin.documents.index },
-  { label: 'Бенефактори', icon: BeneficiaryIcon, href: routes.admin.benefactor.index },
+  { label: 'Дарители', icon: BeneficiaryIcon, href: routes.admin.benefactor.index },
   { label: 'Типове кампании', icon: Class, href: routes.admin.campaignTypes.index },
   { label: 'Градове', icon: LocationCityRoundedIcon, href: routes.admin.cities.home },
   { label: 'Държави', icon: Public, href: routes.admin.countries.index },

@@ -7,7 +7,7 @@
   "type": "Вид",
   "status": "Статус",
   "provider": "Разплащателна система",
-  "vault": "Трезор",
+  "vault": "Подсметка",
   "ext-customer-id": "ID на клиент",
   "ext-payment-intent-id": "ID на транзакция",
   "ext-payment-method-id": "ID на плащане",

@@ -1,17 +1,17 @@
 {
   "fields-error": {
-    "amount-unavailable": "Недостатъчна наличност в трезора!"
+    "amount-unavailable": "Недостатъчна наличност в подсметката!"
   },
   "errors": {
-    "no-default-vault": "Не е избран трезор по подразбиране!"
+    "no-default-vault": "Не е избрана подсметка по подразбиране!"
   },
   "fields": {
     "type": "Тип",
     "status": "Статус",
     "amount": "Стойност",
-    "vault": "Трезор",
-    "sourceVault": "От трезор",
-    "targetVault": "Към трезор",
+    "vault": "Подсметка",
+    "sourceVault": "От подсметка",
+    "targetVault": "Към подсметка",
     "deleted": "Изтрит",
     "description": "Описание",
     "documentId": "Документ Id",
@@ -75,7 +75,7 @@
   "headings": {
     "add": "Добави разход",
     "edit": "Редактирай разход",
-    "expenses": "Разходи",
+    "expenses": "Финансови отчети",
     "info": "Информация за разход"
   },
   "description": "Всички разходи",

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useSession } from 'next-auth/react'
@@ -12,9 +12,18 @@ import AdminContainer from 'components/common/navigation/AdminContainer'
 const colors = ['#0179a8', '#346cb0', '#5f4b8b', '#b76ba3', '#a7c796', '#00a28a', '#3686a0']
 
 export default function AdminPage() {
+  const [isMounted, setIsMounted] = useState(false)
   const { t } = useTranslation()
   const router = useRouter()
   const { data: session, status } = useSession()
+
+  // * workaround for hydratation error
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  if (!isMounted) return null
+  // * end comment
 
   if (status !== 'authenticated') {
     return (
