@@ -1,5 +1,9 @@
 import React from 'react'
 import * as yup from 'yup'
+import {
+  calculateChecksumForNineDigitsEIK,
+  calculateChecksumForThirteenDigitsEIK,
+} from 'components/common/validations/EIKValidator'
 import { Grid } from '@mui/material'
 
 import GenericForm from 'components/common/form/GenericForm'
@@ -19,14 +23,27 @@ import CitySelect from 'components/admin/cities/CitySelect'
 import { useCreateCompany } from 'service/company'
 import Link from 'components/common/Link'
 
-const validationSchema: yup.SchemaOf<AdminCompanyFormData> = yup.object().defined().shape({
-  companyName: companyName.required(),
-  companyNumber: yup.string().required(),
-  legalPersonName: yup.string().required(),
-  address: yup.string().required(),
-  countryId: yup.string().required(),
-  cityId: yup.string().required(),
-})
+const validationSchema: yup.SchemaOf<AdminCompanyFormData> = yup
+  .object()
+  .defined()
+  .shape({
+    companyName: companyName.required(),
+    companyNumber: yup
+      .string()
+      .required()
+      .test('eik-validation', 'Невалидно ЕИК', function (value) {
+        if (!value) {
+          return true
+        }
+        const isValidEIK =
+          calculateChecksumForNineDigitsEIK(value) || calculateChecksumForThirteenDigitsEIK(value)
+        return isValidEIK
+      }),
+    legalPersonName: yup.string().required(),
+    address: yup.string().required(),
+    countryId: yup.string().required(),
+    cityId: yup.string().required(),
+  })
 
 const initialValues: AdminCompanyFormData = {
   companyName: '',
