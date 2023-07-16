@@ -1,10 +1,10 @@
-export function calculateChecksumForNineDigitsEIK(eik: string): boolean {
+export function validateEIK9(eik: string): boolean {
   const digits = checkInput(eik, 9)
   const ninthDigit = calculateNinthDigitInEIK(digits)
   return ninthDigit === digits[8]
 }
 
-export function calculateChecksumForThirteenDigitsEIK(eik: string): boolean {
+export function validateEIK13(eik: string): boolean {
   const digits = checkInput(eik, 13)
   const thirteenDigit = calculateThirteenthDigitInEIK(digits)
   return thirteenDigit === digits[12] && thirteenDigit !== -1

@@ -1,9 +1,6 @@
 import React from 'react'
 import * as yup from 'yup'
-import {
-  calculateChecksumForNineDigitsEIK,
-  calculateChecksumForThirteenDigitsEIK,
-} from 'components/common/validations/EIKValidator'
+import { validateEIK9, validateEIK13 } from 'components/common/validations/EIKValidator'
 import { Grid } from '@mui/material'
 
 import GenericForm from 'components/common/form/GenericForm'
@@ -35,8 +32,7 @@ const validationSchema: yup.SchemaOf<AdminCompanyFormData> = yup
         if (!value) {
           return true
         }
-        const isValidEIK =
-          calculateChecksumForNineDigitsEIK(value) || calculateChecksumForThirteenDigitsEIK(value)
+        const isValidEIK = validateEIK9(value) || validateEIK13(value)
         return isValidEIK
       }),
     legalPersonName: yup.string().required(),
