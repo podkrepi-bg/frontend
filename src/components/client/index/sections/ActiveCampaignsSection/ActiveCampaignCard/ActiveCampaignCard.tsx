@@ -2,8 +2,9 @@ import { useTranslation, i18n } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 
 import { CardContent, CardMedia } from '@mui/material'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 
+import Link from 'components/common/Link'
+import theme from 'common/theme'
 import { routes } from 'common/routes'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import { moneyPublic } from 'common/util/money'
@@ -13,14 +14,12 @@ import {
   CampaignProgressWrapper,
   CampaignTitle,
   DonateButton,
-  LearnMoreButton,
   Root,
   StyledCardActions,
   Sum,
   SumNumber,
   SumWrapper,
 } from './ActiveCampaignCard.styled'
-import theme from 'common/theme'
 
 type Props = { campaign: CampaignResponse; index: number }
 
@@ -34,21 +33,23 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
 
   return (
     <Root data-testid={`completed-campaign-${index}`}>
-      <CardMedia
-        component="img"
-        height="100%"
-        image={campaignImagesUrl}
-        alt={title}
-        sx={{
-          maxHeight: theme.spacing(42.5),
+      <Link href={routes.campaigns.viewCampaignBySlug(slug)}>
+        <CardMedia
+          component="img"
+          height="100%"
+          image={campaignImagesUrl}
+          alt={title}
+          sx={{
+            maxHeight: theme.spacing(42.5),
 
-          [theme.breakpoints.up('lg')]: {
-            aspectRatio: '2',
-            height: theme.spacing(22.5),
-            maxHeight: 'inherit',
-          },
-        }}
-      />
+            [theme.breakpoints.up('lg')]: {
+              aspectRatio: '2',
+              height: theme.spacing(22.5),
+              maxHeight: 'inherit',
+            },
+          }}
+        />
+      </Link>
       <CardContent sx={{ padding: 0 }}>
         <SumWrapper>
           <Sum>
@@ -80,11 +81,6 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
           color="secondary">
           {t('cta.support')}
         </DonateButton>
-        <LearnMoreButton
-          href={routes.campaigns.viewCampaignBySlug(slug)}
-          endIcon={<ArrowForwardIcon color="inherit" />}>
-          {t('campaign.learn-more')}
-        </LearnMoreButton>
       </StyledCardActions>
     </Root>
   )

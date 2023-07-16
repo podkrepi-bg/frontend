@@ -107,21 +107,3 @@ export const DonateButton = styled(LinkButton)(() => ({
   },
 }))
 
-export const LearnMoreButton = styled(LinkButton)(() => ({
-  fontFamily: "'Lato', sans-serif",
-  fontSize: theme.typography.pxToRem(16),
-  letterSpacing: '0.4px',
-  color: theme.palette.common.black,
-  border: `2px solid ${theme.palette.secondary.main}`,
-  height: theme.spacing(4.5),
-
-  padding: theme.spacing(0.75, 2),
-
-  svg: {
-    width: theme.spacing(2.12),
-  },
-
-  '&:hover': {
-    color: theme.palette.common.black,
-  },
-}))

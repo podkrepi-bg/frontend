@@ -1,7 +1,5 @@
 import { useTranslation } from 'next-i18next'
 
-import { Grid } from '@mui/material'
-
 import { useCampaignList } from 'common/hooks/campaigns'
 import { routes } from 'common/routes'
 import { CampaignState } from 'components/client/campaigns/helpers/campaign.enums'
