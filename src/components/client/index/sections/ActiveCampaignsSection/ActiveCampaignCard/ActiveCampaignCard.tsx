@@ -1,7 +1,7 @@
 import { useTranslation, i18n } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 
-import { CardContent, CardMedia } from '@mui/material'
+import { CardMedia } from '@mui/material'
 
 import Link from 'components/common/Link'
 import theme from 'common/theme'
@@ -16,6 +16,7 @@ import {
   DonateButton,
   Root,
   StyledCardActions,
+  StyledContent,
   Sum,
   SumNumber,
   SumWrapper,
@@ -33,7 +34,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
 
   return (
     <Root data-testid={`completed-campaign-${index}`}>
-      <Link href={routes.campaigns.viewCampaignBySlug(slug)}>
+      <Link href={routes.campaigns.viewCampaignBySlug(slug)} sx={{ position: 'relative' }}>
         <CardMedia
           component="img"
           height="100%"
@@ -47,10 +48,22 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
               height: theme.spacing(22.5),
               maxHeight: 'inherit',
             },
+
+            [theme.breakpoints.up(1430)]: {
+              height: theme.spacing(28),
+            },
           }}
         />
+        <StyledCardActions disableSpacing>
+          <DonateButton
+            href={routes.campaigns.oneTimeDonation(slug)}
+            variant="contained"
+            color="secondary">
+            {t('cta.support')}
+          </DonateButton>
+        </StyledCardActions>
       </Link>
-      <CardContent sx={{ padding: 0 }}>
+      <StyledContent>
         <SumWrapper>
           <Sum>
             {t('campaign.reached')}{' '}
@@ -73,15 +86,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
           <CampaignProgress campaignId={id} raised={reached} target={target} />
         </CampaignProgressWrapper>
         <CampaignTitle>{title}</CampaignTitle>
-      </CardContent>
-      <StyledCardActions disableSpacing>
-        <DonateButton
-          href={routes.campaigns.oneTimeDonation(slug)}
-          variant="contained"
-          color="secondary">
-          {t('cta.support')}
-        </DonateButton>
-      </StyledCardActions>
+      </StyledContent>
     </Root>
   )
 }
