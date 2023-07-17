@@ -1,6 +1,12 @@
 import Script from 'next/script'
 import getConfig from 'next/config'
 
+interface HotJar extends Window {
+  hj: object
+}
+
+declare const window: HotJar
+
 export default function HotJar() {
   const { publicRuntimeConfig } = getConfig()
 
