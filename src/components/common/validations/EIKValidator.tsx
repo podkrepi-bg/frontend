@@ -15,7 +15,7 @@ function calculateNinthDigitInEIK(digits: number[]): number {
   for (let i = 0; i < 8; i++) {
     sum += digits[i] * FIRST_SUM_9DIGIT_WEIGHTS[i]
   }
-  let remainder = sum % 11
+  const remainder = sum % 11
   if (remainder !== 10) {
     return remainder
   }
@@ -24,7 +24,7 @@ function calculateNinthDigitInEIK(digits: number[]): number {
   for (let i = 0; i < 8; i++) {
     secondSum += digits[i] * SECOND_SUM_9DIGIT_WEIGHTS[i]
   }
-  let secondRem = secondSum % 11
+  const secondRem = secondSum % 11
   if (secondRem !== 10) {
     return secondRem
   }
@@ -42,7 +42,7 @@ function calculateThirteenthDigitInEIK(digits: number[]): number {
   for (let i = 8, j = 0; j < 4; i++, j++) {
     sum += digits[i] * FIRST_SUM_13DIGIT_WEIGHTS[j]
   }
-  let remainder = sum % 11
+  const remainder = sum % 11
   if (remainder !== 10) {
     return remainder
   }
@@ -51,7 +51,7 @@ function calculateThirteenthDigitInEIK(digits: number[]): number {
   for (let i = 8, j = 0; j < 4; i++, j++) {
     secondSum += digits[i] * SECOND_SUM_13DIGIT_WEIGHTS[j]
   }
-  let secondRem = secondSum % 11
+  const secondRem = secondSum % 11
   if (secondRem !== 10) {
     return secondRem
   }
