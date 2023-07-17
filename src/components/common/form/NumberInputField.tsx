@@ -40,9 +40,12 @@ export default function NumberInputField({
           (isInteger(meta.value) && e.key === decimalSeparator) ||
           (e.ctrlKey && e.key === 'v') ||
           (e.ctrlKey && e.key === 'c') ||
+          (e.ctrlKey && e.key === 'a') ||
+          (e.metaKey && e.key === 'a') ||
+          (e.metaKey && e.key === 'v') ||
+          (e.metaKey && e.key === 'c') ||
           e.key === 'Backspace' ||
           e.key === 'Delete' ||
-          (e.ctrlKey && e.key === 'a') ||
           e.key === 'ArrowUp' ||
           e.key === 'ArrowDown' ||
           e.key === 'ArrowLeft' ||
