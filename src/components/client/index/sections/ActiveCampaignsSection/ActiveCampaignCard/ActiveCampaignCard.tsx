@@ -1,9 +1,10 @@
 import { useTranslation, i18n } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 
-import { CardContent, CardMedia } from '@mui/material'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import { CardMedia } from '@mui/material'
 
+import Link from 'components/common/Link'
+import theme from 'common/theme'
 import { routes } from 'common/routes'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import { moneyPublic } from 'common/util/money'
@@ -13,14 +14,13 @@ import {
   CampaignProgressWrapper,
   CampaignTitle,
   DonateButton,
-  LearnMoreButton,
   Root,
   StyledCardActions,
+  StyledContent,
   Sum,
   SumNumber,
   SumWrapper,
 } from './ActiveCampaignCard.styled'
-import theme from 'common/theme'
 
 type Props = { campaign: CampaignResponse; index: number }
 
@@ -34,22 +34,36 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
 
   return (
     <Root data-testid={`completed-campaign-${index}`}>
-      <CardMedia
-        component="img"
-        height="100%"
-        image={campaignImagesUrl}
-        alt={title}
-        sx={{
-          maxHeight: theme.spacing(42.5),
+      <Link href={routes.campaigns.viewCampaignBySlug(slug)} sx={{ position: 'relative' }}>
+        <CardMedia
+          component="img"
+          height="100%"
+          image={campaignImagesUrl}
+          alt={title}
+          sx={{
+            maxHeight: theme.spacing(42.5),
 
-          [theme.breakpoints.up('lg')]: {
-            aspectRatio: '2',
-            height: theme.spacing(22.5),
-            maxHeight: 'inherit',
-          },
-        }}
-      />
-      <CardContent sx={{ padding: 0 }}>
+            [theme.breakpoints.up('lg')]: {
+              aspectRatio: '2',
+              height: theme.spacing(22.5),
+              maxHeight: 'inherit',
+            },
+
+            [theme.breakpoints.up(1430)]: {
+              height: theme.spacing(28),
+            },
+          }}
+        />
+        <StyledCardActions disableSpacing>
+          <DonateButton
+            href={routes.campaigns.oneTimeDonation(slug)}
+            variant="contained"
+            color="secondary">
+            {t('cta.support')}
+          </DonateButton>
+        </StyledCardActions>
+      </Link>
+      <StyledContent>
         <SumWrapper>
           <Sum>
             {t('campaign.reached')}{' '}
@@ -72,20 +86,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
           <CampaignProgress campaignId={id} raised={reached} target={target} />
         </CampaignProgressWrapper>
         <CampaignTitle>{title}</CampaignTitle>
-      </CardContent>
-      <StyledCardActions disableSpacing>
-        <DonateButton
-          href={routes.campaigns.oneTimeDonation(slug)}
-          variant="contained"
-          color="secondary">
-          {t('cta.support')}
-        </DonateButton>
-        <LearnMoreButton
-          href={routes.campaigns.viewCampaignBySlug(slug)}
-          endIcon={<ArrowForwardIcon color="inherit" />}>
-          {t('campaign.learn-more')}
-        </LearnMoreButton>
-      </StyledCardActions>
+      </StyledContent>
     </Root>
   )
 }

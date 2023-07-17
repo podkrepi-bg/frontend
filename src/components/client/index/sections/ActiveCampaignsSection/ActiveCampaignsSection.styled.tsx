@@ -6,6 +6,10 @@ import LinkButton from 'components/common/LinkButton'
 
 export const Root = styled('section')(() => ({
   padding: theme.spacing(0, 2),
+
+  [theme.breakpoints.up('lg')]: {
+    padding: theme.spacing(0, 5),
+  },
 }))
 
 export const ActiveCampaignsWrapper = styled(Grid)(() => ({
@@ -16,7 +20,7 @@ export const ActiveCampaignsWrapper = styled(Grid)(() => ({
   [theme.breakpoints.up('sm')]: {
     gridTemplateColumns: 'repeat(2, 1fr)',
     marginTop: theme.spacing(7),
-    gap: theme.spacing(2.5),
+    gap: theme.spacing(3),
   },
 
   [theme.breakpoints.up('md')]: {
@@ -25,7 +29,6 @@ export const ActiveCampaignsWrapper = styled(Grid)(() => ({
 
   [theme.breakpoints.up('lg')]: {
     gridTemplateColumns: '1fr 1fr 1fr 1fr',
-    gap: theme.spacing(0.875),
   },
 
   [theme.breakpoints.up(2000)]: {

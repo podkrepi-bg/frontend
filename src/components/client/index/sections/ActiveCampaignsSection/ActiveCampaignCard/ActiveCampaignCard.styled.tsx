@@ -13,22 +13,27 @@ export const Root = styled(Card)(() => ({
   [theme.breakpoints.up('lg')]: {
     '&:nth-of-type(1)': {
       gridArea: '1 / 1 / 3 / 3',
+      marginRight: theme.spacing(1.75),
 
       img: {
-        height: theme.spacing(65),
+        height: theme.spacing(60.625),
+      },
+    },
+  },
+
+  [theme.breakpoints.up(1430)]: {
+    '&:nth-of-type(1)': {
+      img: {
+        height: theme.spacing(71.6),
       },
     },
   },
 }))
 
-export const Content = styled(CardContent)(() => ({
-  padding: theme.spacing(0, 1),
-  width: '100%',
-  bottom: theme.spacing(2),
+export const StyledContent = styled(CardContent)(() => ({
+  padding: 0,
 
-  [theme.breakpoints.up('md')]: {
-    padding: theme.spacing(0, 3),
-  },
+  '&:last-child': { paddingBottom: 0 },
 }))
 
 export const CampaignTitle = styled('h6')(() => ({
@@ -79,7 +84,9 @@ export const CampaignProgressWrapper = styled(Grid)(() => ({
 }))
 
 export const StyledCardActions = styled(CardActions)(() => ({
-  padding: theme.spacing(1, 0),
+  position: 'absolute',
+  bottom: 10,
+  right: 10,
 }))
 
 export const DonateButton = styled(LinkButton)(() => ({
@@ -104,24 +111,5 @@ export const DonateButton = styled(LinkButton)(() => ({
   [theme.breakpoints.up(1111)]: {
     display: 'inline-flex',
     marginBottom: 0,
-  },
-}))
-
-export const LearnMoreButton = styled(LinkButton)(() => ({
-  fontFamily: "'Lato', sans-serif",
-  fontSize: theme.typography.pxToRem(16),
-  letterSpacing: '0.4px',
-  color: theme.palette.common.black,
-  border: `2px solid ${theme.palette.secondary.main}`,
-  height: theme.spacing(4.5),
-
-  padding: theme.spacing(0.75, 2),
-
-  svg: {
-    width: theme.spacing(2.12),
-  },
-
-  '&:hover': {
-    color: theme.palette.common.black,
   },
 }))
