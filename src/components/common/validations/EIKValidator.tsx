@@ -1,3 +1,5 @@
+// Documentation for the EIK algorithm: https://www.nsi.bg/sites/default/files/konkursi/RGP_OPAK_2014_Annex_6.pdf
+
 export function validateEIK9(eik: string): boolean {
   const digits = checkInput(eik, 9)
   const ninthDigit = calculateNinthDigitInEIK(digits)
