@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { useTranslation } from 'next-i18next'
+import { i18n, useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
 
 import { CampaignResponse } from 'gql/campaigns'
@@ -35,7 +35,8 @@ const PREFIX = 'InlineDonation'
 const classes = {
   inlineDonationWrapper: `${PREFIX}-inlineDonationWrapper`,
   reachedAndTargetMoneyWrapper: `${PREFIX}-reachedAndTargetMoneyWrapper`,
-  reachedAndTargetMoney: `${PREFIX}-reachedAndTargetMoney`,
+  moneyUnit: `${PREFIX}-moneyUnit`,
+  moneyFraction: `${PREFIX}-moneyFraction`,
   donorsSharesCount: `${PREFIX}-donorsSharesCount`,
   donationPriceList: `${PREFIX}-donationPriceList`,
   dropdownLinkButton: `${PREFIX}-dropdownLinkButton`,
@@ -72,12 +73,20 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.reachedAndTargetMoneyWrapper}`]: {
     display: 'flex',
     justifyContent: 'space-between',
-    padding: theme.spacing(0, 1.75),
   },
 
-  [`& .${classes.reachedAndTargetMoney}`]: {
+  [`& .${classes.moneyUnit}`]: {
     fontSize: theme.typography.pxToRem(16),
     color: theme.palette.common.black,
+    fontWeight: 500,
+  },
+
+  [`& .${classes.moneyFraction}`]: {
+    display: 'inline-flex',
+    fontSize: theme.typography.pxToRem(11),
+    color: theme.palette.common.black,
+    verticalAlign: 'top',
+    margin: theme.spacing(0.25, 0, 0, 0.25),
   },
 
   [`& .${classes.donorsSharesCount}`]: {
@@ -217,12 +226,12 @@ export default function InlineDonation({ campaign }: Props) {
     id: campaignId,
     targetAmount: target,
     summary,
-    currency,
     allowDonationOnComplete,
     state: campaignState,
     slug: campaignSlug,
   } = campaign
-
+  const reachedAmount = moneyPublic(campaign.summary.reachedAmount)
+  const targetAmount = moneyPublic(campaign.targetAmount)
   const reached = summary?.reachedAmount ?? 0
   const donors = summary?.donors ?? 0
   const {
@@ -241,34 +250,29 @@ export default function InlineDonation({ campaign }: Props) {
 
   return (
     <StyledGrid item xs={12} p={3} className={classes.inlineDonationWrapper}>
-      {/* //TODO */}
-      {/* <Grid className={classes.campaignInfoWrapper}>
-         <Grid>
-          <Typography className={classes.campaignInfoKey}>{t('campaign.documents')}:</Typography>
-          <Typography className={classes.campaignInfoKey}>{t('campaign.guarantor')}:</Typography>
-          <Typography className={classes.campaignInfoKey}>{t('campaign.others')}:</Typography>
+      <Grid className={classes.reachedAndTargetMoneyWrapper}>
+        <Grid>
+          <Typography component="span" className={classes.moneyUnit}>
+            {i18n.language === 'bg' ? reachedAmount.split(',')[0] : reachedAmount.split('.')[0]}
+          </Typography>
+          <Typography component="span" className={classes.moneyFraction}>
+            {i18n.language === 'bg'
+              ? reachedAmount.split(',')[1].substring(0, 2)
+              : reachedAmount.split('.')[1]}
+          </Typography>
         </Grid>
         <Grid>
-          <ExternalLink href={''}>
-            <Typography className={classes.campaignInfoValue}>documents</Typography>
-          </ExternalLink>
-          <ExternalLink href={''}>
-            <Typography className={classes.campaignInfoValue}>guarant</Typography>
-          </ExternalLink>
-          <ExternalLink href={''}>
-            <Typography className={classes.campaignInfoValue}>others</Typography>
-          </ExternalLink>
+          <Typography component="span" className={classes.moneyUnit}>
+            {i18n.language === 'bg' ? targetAmount.split(',')[0] : targetAmount.split('.')[0]}
+          </Typography>
+          <Typography component="span" className={classes.moneyFraction}>
+            {i18n.language === 'bg'
+              ? targetAmount.split(',')[1].substring(0, 2)
+              : targetAmount.split('.')[1]}
+          </Typography>
         </Grid>
-      </Grid> */}
-      <Grid className={classes.reachedAndTargetMoneyWrapper}>
-        <Typography component="span" className={classes.reachedAndTargetMoney}>
-          {moneyPublic(reached, currency)}
-        </Typography>
-        <Typography component="span" className={classes.reachedAndTargetMoney}>
-          {moneyPublic(target, currency)}
-        </Typography>
       </Grid>
-      <Grid>
+      <Grid pt={1}>
         <CampaignProgress campaignId={campaignId} raised={reached} target={target} />
       </Grid>
       <Grid container gap={2} className={classes.buttonContainer}>

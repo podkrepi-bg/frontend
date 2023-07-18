@@ -4,11 +4,11 @@ import { CampaignResponse } from 'gql/campaigns'
 import { CardMedia } from '@mui/material'
 
 import Link from 'components/common/Link'
+import CampaignProgress from 'components/client/campaigns/CampaignProgress'
 import theme from 'common/theme'
 import { routes } from 'common/routes'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import { moneyPublic } from 'common/util/money'
-import CampaignProgress from '../../../../campaigns/CampaignProgress'
 
 import {
   CampaignTitle,
