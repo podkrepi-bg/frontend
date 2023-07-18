@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react'
 import { UUID } from 'gql/types'
 
-import { Root } from './CampaignProgress.styled'
+import ProgressBar from '@ramonak/react-progress-bar'
+
 import theme from 'common/theme'
 
 type Props = {
@@ -14,7 +15,7 @@ export default function CampaignProgress({ campaignId, raised, target }: Props) 
   const percentage = useMemo(() => (raised / target) * 100, [raised, target])
 
   return (
-    <Root
+    <ProgressBar
       completed={percentage > 100 ? 100 : percentage}
       aria-labelledby={`campaign-${campaignId}--donations-progressbar`}
       height={theme.spacing(1.62)}

@@ -8,7 +8,7 @@ import theme from 'common/theme'
 import { routes } from 'common/routes'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import { moneyPublic } from 'common/util/money'
-import CampaignProgress from '../../../../campaigns/CampaignProgress/CampaignProgress'
+import CampaignProgress from '../../../../campaigns/CampaignProgress'
 
 import {
   CampaignTitle,

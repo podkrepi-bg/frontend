@@ -19,7 +19,7 @@ import { CampaignResponse } from 'gql/campaigns'
 import { useTranslation } from 'next-i18next'
 import Image from 'next/image'
 import Link from 'next/link'
-import CampaignProgress from './CampaignProgress/CampaignProgress'
+import CampaignProgress from './CampaignProgress'
 import SuccessfullCampaignTag from './SuccessfullCampaignTag'
 import { CampaignState } from './helpers/campaign.enums'
 
