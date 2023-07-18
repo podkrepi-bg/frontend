@@ -26,7 +26,8 @@ type Props = { campaign: CampaignResponse; index: number }
 export default function ActiveCampaignCard({ campaign, index }: Props) {
   const { t } = useTranslation('campaigns')
   const { id, slug, title, summary, targetAmount: target } = campaign
-  const campaignImagesUrl = campaignListPictureUrl(campaign)
+  // const campaignImagesUrl = campaignListPictureUrl(campaign)
+  const campaignImagesUrl = '/img/team-photos/333.jpg'
 
   const reachedAmount = moneyPublic(campaign.summary.reachedAmount)
   const targetAmount = moneyPublic(campaign.targetAmount)
@@ -45,12 +46,12 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
 
             [theme.breakpoints.up('lg')]: {
               aspectRatio: '2',
-              height: theme.spacing(22.5),
+              height: theme.spacing(22.3),
               maxHeight: 'inherit',
             },
 
             [theme.breakpoints.up(1430)]: {
-              height: theme.spacing(28),
+              height: theme.spacing(27.9),
             },
           }}
         />
