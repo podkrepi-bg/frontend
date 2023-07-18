@@ -83,8 +83,6 @@ export default observer(function CitiesGrid() {
         paginationModel={paginationModel}
         onPaginationModelChange={setPaginationModel}
         editMode="row"
-        autoHeight
-        autoPageSize
         disableRowSelectionOnClick
       />
 

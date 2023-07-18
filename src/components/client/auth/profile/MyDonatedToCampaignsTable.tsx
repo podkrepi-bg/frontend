@@ -194,7 +194,6 @@ export default function MyDonatedToCampaignTable() {
           initialState={{ pagination: { paginationModel: { pageSize: 5 } } }}
           editMode="row"
           autoHeight
-          autoPageSize
         />
       ) : (
         <Box sx={{ fontSize: 20 }}>{t('profile:donations.noDonations')}</Box>

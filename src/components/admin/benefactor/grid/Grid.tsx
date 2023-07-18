@@ -84,8 +84,6 @@ export default observer(function Grid() {
           pageSizeOptions={[5, 10]}
           paginationModel={paginationModel}
           onPaginationModelChange={setPaginationModel}
-          autoHeight
-          autoPageSize
           disableRowSelectionOnClick
         />
       </Box>

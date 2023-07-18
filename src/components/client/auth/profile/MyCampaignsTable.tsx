@@ -254,7 +254,6 @@ export default function MyCampaingsTable() {
               initialState={{ pagination: { paginationModel: { pageSize: 5 } } }}
               editMode="row"
               autoHeight
-              autoPageSize
             />
           </ProfileTab>
         </>
