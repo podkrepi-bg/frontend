@@ -9,6 +9,12 @@ export const Root = styled(Card)(() => ({
   flexDirection: 'column',
   alignItems: 'initial',
   boxShadow: 'none',
+  position: 'relative',
+
+  '&:hover': {
+    filter: 'grayscale(15%)',
+    backgroundColor: '#F8F8F8	',
+  },
 
   [theme.breakpoints.up('lg')]: {
     '&:nth-of-type(1)': {
@@ -84,8 +90,9 @@ export const CampaignProgressWrapper = styled(Grid)(() => ({
 
 export const StyledCardActions = styled(CardActions)(() => ({
   position: 'absolute',
-  bottom: 10,
-  right: 10,
+  bottom: theme.spacing(14.37),
+  right: theme.spacing(0.75),
+  padding: 0,
 }))
 
 export const DonateButton = styled(LinkButton)(() => ({

@@ -54,39 +54,39 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
             },
           }}
         />
-        <StyledCardActions disableSpacing>
-          <DonateButton
-            href={routes.campaigns.oneTimeDonation(slug)}
-            variant="contained"
-            color="secondary">
-            {t('cta.support')}
-          </DonateButton>
-        </StyledCardActions>
+        <StyledContent>
+          <SumWrapper>
+            <Sum>
+              {t('campaign.reached')}{' '}
+              <SumNumber>
+                {i18n.language === 'bg'
+                  ? reachedAmount.split(',')[0] + ' лв.'
+                  : reachedAmount.split('.')[0]}
+              </SumNumber>
+            </Sum>
+            <Sum style={{ fontWeight: 400 }}>
+              {t('campaign.target')}{' '}
+              <SumNumber>
+                {i18n.language === 'bg'
+                  ? targetAmount.split(',')[0] + ' лв.'
+                  : targetAmount.split('.')[0]}
+              </SumNumber>
+            </Sum>
+          </SumWrapper>
+          <CampaignProgressWrapper width={1}>
+            <CampaignProgress campaignId={id} raised={reached} target={target} />
+          </CampaignProgressWrapper>
+          <CampaignTitle>{title}</CampaignTitle>
+        </StyledContent>
       </Link>
-      <StyledContent>
-        <SumWrapper>
-          <Sum>
-            {t('campaign.reached')}{' '}
-            <SumNumber>
-              {i18n.language === 'bg'
-                ? reachedAmount.split(',')[0] + ' лв.'
-                : reachedAmount.split('.')[0]}
-            </SumNumber>
-          </Sum>
-          <Sum style={{ fontWeight: 400 }}>
-            {t('campaign.target')}{' '}
-            <SumNumber>
-              {i18n.language === 'bg'
-                ? targetAmount.split(',')[0] + ' лв.'
-                : targetAmount.split('.')[0]}
-            </SumNumber>
-          </Sum>
-        </SumWrapper>
-        <CampaignProgressWrapper width={1}>
-          <CampaignProgress campaignId={id} raised={reached} target={target} />
-        </CampaignProgressWrapper>
-        <CampaignTitle>{title}</CampaignTitle>
-      </StyledContent>
+      <StyledCardActions disableSpacing>
+        <DonateButton
+          href={routes.campaigns.oneTimeDonation(slug)}
+          variant="contained"
+          color="secondary">
+          {t('cta.support')}
+        </DonateButton>
+      </StyledCardActions>
     </Root>
   )
 }
