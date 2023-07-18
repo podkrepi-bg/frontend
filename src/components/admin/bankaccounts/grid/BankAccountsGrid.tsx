@@ -79,8 +79,6 @@ export default observer(function BankAccountsGrid() {
         pageSizeOptions={[5, 10]}
         paginationModel={paginationModel}
         onPaginationModelChange={setPaginationModel}
-        autoHeight
-        autoPageSize
         disableRowSelectionOnClick
       />
 

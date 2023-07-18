@@ -84,7 +84,6 @@ export default function SupportersGrid() {
       paginationModel={paginationModel}
       onPaginationModelChange={setPaginationModel}
       autoHeight
-      autoPageSize
       disableRowSelectionOnClick
       onRowClick={(p, event) => {
         const elm = event.target as HTMLInputElement

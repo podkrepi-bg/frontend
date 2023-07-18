@@ -136,7 +136,6 @@ export default function MyRecurringCampaignsTable() {
           initialState={{ pagination: { paginationModel: { pageSize: 5 } } }}
           editMode="row"
           autoHeight
-          autoPageSize
         />
       ) : (
         <Box sx={{ fontSize: 20 }}>{t('profile:donations.recurringDonations')}</Box>

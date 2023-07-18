@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { useSession } from 'next-auth/react'
-import { Box, Card, CardActionArea, CardContent, Grid, Typography } from '@mui/material'
+import { Box, Card, CardContent, Grid, Typography } from '@mui/material'
 
 import { isAdmin } from 'common/util/roles'
 import AdminLayout from 'components/common/navigation/AdminLayout'
