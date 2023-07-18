@@ -26,8 +26,7 @@ type Props = { campaign: CampaignResponse; index: number }
 export default function ActiveCampaignCard({ campaign, index }: Props) {
   const { t } = useTranslation('campaigns')
   const { id, slug, title, summary, targetAmount: target } = campaign
-  // const campaignImagesUrl = campaignListPictureUrl(campaign)
-  const campaignImagesUrl = '/img/team-photos/333.jpg'
+  const campaignImagesUrl = campaignListPictureUrl(campaign)
 
   const reachedAmount = moneyPublic(campaign.summary.reachedAmount)
   const targetAmount = moneyPublic(campaign.targetAmount)
