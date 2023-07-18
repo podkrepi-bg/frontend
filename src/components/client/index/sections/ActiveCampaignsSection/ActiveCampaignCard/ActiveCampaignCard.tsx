@@ -8,10 +8,9 @@ import theme from 'common/theme'
 import { routes } from 'common/routes'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import { moneyPublic } from 'common/util/money'
-import CampaignProgress from '../../../../campaigns/CampaignProgress'
+import CampaignProgress from '../../../../campaigns/CampaignProgress/CampaignProgress'
 
 import {
-  CampaignProgressWrapper,
   CampaignTitle,
   DonateButton,
   Root,
@@ -28,6 +27,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
   const { t } = useTranslation('campaigns')
   const { id, slug, title, summary, targetAmount: target } = campaign
   const campaignImagesUrl = campaignListPictureUrl(campaign)
+
   const reachedAmount = moneyPublic(campaign.summary.reachedAmount)
   const targetAmount = moneyPublic(campaign.targetAmount)
   const reached = summary ? summary.reachedAmount : 0
@@ -57,15 +57,13 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
         <StyledContent>
           <SumWrapper>
             <Sum>
-              {t('campaign.reached')}{' '}
               <SumNumber>
                 {i18n.language === 'bg'
                   ? reachedAmount.split(',')[0] + ' лв.'
                   : reachedAmount.split('.')[0]}
               </SumNumber>
             </Sum>
-            <Sum style={{ fontWeight: 400 }}>
-              {t('campaign.target')}{' '}
+            <Sum>
               <SumNumber>
                 {i18n.language === 'bg'
                   ? targetAmount.split(',')[0] + ' лв.'
@@ -73,9 +71,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
               </SumNumber>
             </Sum>
           </SumWrapper>
-          <CampaignProgressWrapper width={1}>
-            <CampaignProgress campaignId={id} raised={reached} target={target} />
-          </CampaignProgressWrapper>
+          <CampaignProgress campaignId={id} raised={reached} target={target} />
           <CampaignTitle>{title}</CampaignTitle>
         </StyledContent>
       </Link>

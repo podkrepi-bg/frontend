@@ -81,13 +81,6 @@ export const SumNumber = styled('span')(() => ({
   },
 }))
 
-export const CampaignProgressWrapper = styled(Grid)(() => ({
-  span: {
-    borderRadius: theme.borders.round,
-    height: '11px',
-  },
-}))
-
 export const StyledCardActions = styled(CardActions)(() => ({
   position: 'absolute',
   bottom: theme.spacing(14.37),
