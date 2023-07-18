@@ -35,7 +35,7 @@ export default function RenderEditBillingEmailCell({
   const initialPerson = {
     firstName: params.row.billingEmail,
     lastName: '',
-    email: params.row.email || params.row.billingEmail || null,
+    email: params.row.email || params.row.billingEmail || '',
   }
   const [person, setPerson] = React.useState<PersonResponse | null>({
     ...initialPerson,
@@ -59,6 +59,7 @@ export default function RenderEditBillingEmailCell({
   const onClick = () => {
     if (person) {
       const donationData: UserDonationInput = params.row
+      donationData.targetPersonId = undefined
       donationData.billingEmail = person.email
       mutation.mutate(donationData)
     } else {

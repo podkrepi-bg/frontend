@@ -37,7 +37,7 @@ export default function RenderEditPersonCell({
       params.row.person && params.row.person.firstName ? params.row.person.firstName : 'Anonymous',
     lastName:
       params.row.person && params.row.person.lastName ? params.row.person.lastName : 'Donor',
-    email: params.row.email || params.row.billingEmail || null,
+    email: params.row.email || params.row.billingEmail || '',
   }
   const [person, setPerson] = React.useState<PersonResponse | null>({
     ...initialPerson,
@@ -62,6 +62,7 @@ export default function RenderEditPersonCell({
     if (person) {
       const donationData: UserDonationInput = params.row
       donationData.targetPersonId = person.id
+      donationData.billingEmail = undefined
       mutation.mutate(donationData)
     } else {
       AlertStore.show(t('donations:alerts.requiredError'), 'error')
