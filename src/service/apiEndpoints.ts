@@ -21,6 +21,10 @@ export const endpoints = {
       url: '/campaign/user-donations-campaigns',
       method: 'GET',
     },
+    getUserCampaigns: <Endpoint>{
+      url: '/campaign/get-user-campaigns',
+      method: 'GET',
+    },
     createCampaign: <Endpoint>{ url: '/campaign/create-campaign', method: 'POST' },
     canEditCampaign: (slug: string) =>
       <Endpoint>{ url: `/campaign/${slug}/can-edit`, method: 'GET' },
