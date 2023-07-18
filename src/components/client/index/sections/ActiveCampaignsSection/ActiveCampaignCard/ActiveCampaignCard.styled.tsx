@@ -13,7 +13,6 @@ export const Root = styled(Card)(() => ({
   [theme.breakpoints.up('lg')]: {
     '&:nth-of-type(1)': {
       gridArea: '1 / 1 / 3 / 3',
-      marginRight: theme.spacing(1.75),
 
       img: {
         height: theme.spacing(60.625),
