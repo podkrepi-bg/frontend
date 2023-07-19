@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { GridRenderEditCellParams } from '@mui/x-data-grid'
 import { TextField, Tooltip, Box } from '@mui/material'
-import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete'
+import Autocomplete from '@mui/material/Autocomplete'
 import { Save } from '@mui/icons-material'
 import { PersonResponse } from 'gql/person'
 import { DonationResponse, UserDonationInput } from 'gql/donations'
@@ -87,12 +87,18 @@ export default function RenderEditPersonCell({
           </Box>
         )}
         isOptionEqualToValue={(option, value) => option.firstName === value.firstName}
-        filterOptions={createFilterOptions<PersonResponse>({
-          matchFrom: 'any',
-          limit: 5,
-          ignoreCase: true,
-          trim: true,
-        })}
+        filterOptions={(options, state) => {
+          const displayOptions = options.filter(
+            (option) =>
+              option.firstName
+                .toLowerCase()
+                .trim()
+                .includes(state.inputValue.toLowerCase().trim()) ||
+              option.email.toLowerCase().trim().includes(state.inputValue.toLowerCase().trim()),
+          )
+
+          return displayOptions
+        }}
         clearText={t('donations:cta.clear')}
         noOptionsText={t('donations:noOptions')}
         openText={t('donations:cta.open')}
