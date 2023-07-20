@@ -11,6 +11,7 @@ import { DonationResponse, UserDonationInput } from 'gql/donations'
 import { useEditDonation } from 'service/donation'
 import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
+import { personFilter } from 'components/common/person/PersonAutoCompleteFilter'
 
 interface RenderEditCellProps {
   params: GridRenderEditCellParams
@@ -35,7 +36,7 @@ export default function RenderEditBillingEmailCell({
   const initialPerson = {
     firstName: params.row.billingEmail,
     lastName: '',
-    email: params.row.email || params.row.billingEmail || null,
+    email: params.row.email || params.row.billingEmail || '',
   }
   const [person, setPerson] = React.useState<PersonResponse | null>({
     ...initialPerson,
@@ -59,6 +60,7 @@ export default function RenderEditBillingEmailCell({
   const onClick = () => {
     if (person) {
       const donationData: UserDonationInput = params.row
+      donationData.targetPersonId = undefined
       donationData.billingEmail = person.email
       mutation.mutate(donationData)
     } else {
@@ -86,18 +88,7 @@ export default function RenderEditBillingEmailCell({
           </Box>
         )}
         isOptionEqualToValue={(option, value) => option.email === value.email}
-        filterOptions={(options, state) => {
-          const displayOptions = options.filter(
-            (option) =>
-              option.firstName
-                .toLowerCase()
-                .trim()
-                .includes(state.inputValue.toLowerCase().trim()) ||
-              option.email.toLowerCase().trim().includes(state.inputValue.toLowerCase().trim()),
-          )
-
-          return displayOptions
-        }}
+        filterOptions={personFilter}
         clearText={t('donations:cta.clear')}
         noOptionsText={t('donations:noOptions')}
         openText={t('donations:cta.open')}
