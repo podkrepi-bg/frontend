@@ -33,7 +33,11 @@
       "first-name": "First name",
       "last-name": "Last name",
       "email": "Email",
-      "phone": "phone"
+      "phone": "phone",
+      "email-confirmed": "Email confirmed",
+      "newsletter": "Newsletter",
+      "company": "Company",
+      "address": "Address"
     },
     "cta": {
       "create": "Create",
