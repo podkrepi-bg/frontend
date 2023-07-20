@@ -14,13 +14,13 @@ export const Root = styled('section')(() => ({
 
 export const ActiveCampaignsWrapper = styled(Grid)(() => ({
   display: 'grid',
-  marginTop: theme.spacing(3.875),
   gap: theme.spacing(4.62),
+  marginTop: theme.spacing(8),
 
   [theme.breakpoints.up('sm')]: {
     gridTemplateColumns: 'repeat(2, 1fr)',
-    marginTop: theme.spacing(7),
     gap: theme.spacing(3),
+    marginTop: theme.spacing(10),
   },
 
   [theme.breakpoints.up('md')]: {

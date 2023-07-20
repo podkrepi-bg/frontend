@@ -20,10 +20,6 @@ const classes = {
 }
 
 const Root = styled(Layout)(({ theme }) => ({
-  [theme.breakpoints.up('sm')]: {
-    paddingTop: theme.spacing(12),
-  },
-
   [theme.breakpoints.up(2000)]: {
     maxWidth: theme.spacing(165),
     paddingTop: theme.spacing(4),

@@ -153,12 +153,11 @@ export default function CampaignCard({ campaign, index }: Props) {
             variant="body1"
             component="p"
             className={classes.progressBar}>
-            {t('campaigns:campaign.reached')}{' '}
             <b>
               {moneyPublic(reached, currency)}
               {' / '}
             </b>
-            {t('campaigns:campaign.target')} <b>{moneyPublic(target, currency)}</b>
+            <b>{moneyPublic(target, currency)}</b>
           </Typography>
           <Grid item xs={12}>
             <Box mx={2} mb={2}>
