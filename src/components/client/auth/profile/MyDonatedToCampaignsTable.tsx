@@ -175,7 +175,6 @@ export default function MyDonatedToCampaignTable() {
       headerAlign: 'left',
     },
   ]
-  console.log(data, 'dataaa')
   return (
     <>
       {data.length !== 0 ? (

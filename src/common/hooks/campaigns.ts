@@ -60,7 +60,7 @@ export function useCampaignAdminList() {
 export const useGetUserCampaigns = () => {
   const { data: session } = useSession()
   return useQuery<AdminCampaignResponse[]>(
-    [endpoints.campaign.getUserDonatedToCampaigns.url],
+    [endpoints.campaign.getUserCampaigns.url],
     authQueryFnFactory<AdminCampaignResponse[]>(session?.accessToken),
   )
 }
