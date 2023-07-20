@@ -126,7 +126,7 @@ export const allPartners = [
   },
   {
     name: 'crossroadsBulgaria',
-    image: '/img/partners/crossroads.svg',
+    image: '/img/partners/crossRoads.svg',
     website: partnerUrls.crossroadsBulgaria,
   },
 ]
