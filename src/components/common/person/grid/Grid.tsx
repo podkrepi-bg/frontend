@@ -2,7 +2,7 @@ import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
-import { Box } from '@mui/material'
+import { Box, Avatar } from '@mui/material'
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import GridActions from 'components/admin/GridActions'
 import DeleteModal from './DeleteModal'
@@ -11,6 +11,8 @@ import { ModalStore } from '../PersonGrid'
 import { usePersonList } from 'common/hooks/person'
 import { routes } from 'common/routes'
 import { PersonResponse } from 'gql/person'
+import CheckIcon from '@mui/icons-material/Check'
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
 
 export default observer(function Grid() {
   const { t } = useTranslation()
@@ -23,6 +25,20 @@ export default observer(function Grid() {
     pageSize: 10,
     page: 0,
   })
+
+  const getColor = (initials: string): string => {
+    const colors = ['#0179a8', '#346cb0', '#5f4b8b', '#b76ba3', '#a7c796', '#00a28a', '#3686a0']
+    const index = initials.charCodeAt(0) % colors.length
+    return colors[index]
+  }
+
+  const getInitials = (name: string): string => {
+    const parts = name.split(' ')
+    if (parts.length > 1) {
+      return parts[0].charAt(0) + parts[parts.length - 1].charAt(0)
+    }
+    return name.slice(0, 2)
+  }
 
   const columns: GridColDef[] = [
     {
@@ -50,31 +66,106 @@ export default observer(function Grid() {
       field: 'name',
       headerName: t('person:admin.fields.name'),
       editable: false,
-      width: 400,
+      minWidth: 210,
       valueGetter: (f) => {
         return `${f.row.firstName} ${f.row.lastName}`
+      },
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        const name = `${params.row.firstName} ${params.row.lastName}`
+        const initials = getInitials(name)
+        const color = getColor(initials)
+
+        return (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <Avatar
+              style={{
+                marginRight: 8,
+                backgroundColor: color,
+                fontWeight: 'bold',
+                fontSize: 14,
+                width: 32,
+                height: 32,
+                borderRadius: '50%',
+                border: '1px solid rgba(0, 0, 0, 0.1)',
+                transition: 'box-shadow 0.3s ease-in-out',
+              }}>
+              {initials}
+            </Avatar>
+            {name}
+          </div>
+        )
       },
     },
     {
       field: 'email',
       headerName: t('person:admin.fields.email'),
       editable: false,
-      width: 400,
-      valueGetter: (f) => f.row.email,
+      minWidth: 240,
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        return (
+          <a
+            href={`mailto:${params.row.email}`}
+            style={{
+              textDecoration: 'underline',
+              color: '#0070f3',
+              cursor: 'pointer',
+            }}>
+            {params.row.email}
+          </a>
+        )
+      },
     },
     {
       field: 'phone',
       headerName: t('person:admin.fields.phone'),
       editable: false,
-      width: 200,
+      minWidth: 140,
       valueGetter: (f) => f.row.phone,
     },
     {
       field: 'createdAt',
       headerName: t('person:admin.fields.createdAt'),
       editable: false,
-      width: 200,
+      minWidth: 130,
       valueGetter: (f) => f.row.createdAt?.toString().slice(0, 10),
+    },
+    {
+      field: 'emailConfirmed',
+      headerName: t('person:admin.fields.email-confirmed'),
+      minWidth: 140,
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        return params.row.emailConfirmed === true ? (
+          <CheckIcon style={{ color: '#00b386' }} />
+        ) : (
+          <CloseOutlinedIcon style={{ color: '#ff5050' }} />
+        )
+      },
+    },
+    {
+      field: 'newsletter',
+      headerName: t('person:admin.fields.newsletter'),
+      minWidth: 130,
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        return params.row.newsletter === true ? (
+          <CheckIcon style={{ color: '#00b386' }} />
+        ) : (
+          <CloseOutlinedIcon style={{ color: '#ff5050' }} />
+        )
+      },
+    },
+    {
+      field: 'company',
+      headerName: t('person:admin.fields.company'),
+      editable: false,
+      minWidth: 200,
+      valueGetter: (f) => f.row.company,
+    },
+    {
+      field: 'address',
+      headerName: t('person:admin.fields.address'),
+      editable: false,
+      minWidth: 250,
+      valueGetter: (f) => f.row.address,
     },
   ]
 
@@ -101,7 +192,6 @@ export default observer(function Grid() {
           pageSizeOptions={[5, 10]}
           paginationModel={paginationModel}
           onPaginationModelChange={setPaginationModel}
-          autoHeight
           disableRowSelectionOnClick
         />
       </Box>

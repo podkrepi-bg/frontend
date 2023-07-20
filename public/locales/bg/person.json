@@ -33,7 +33,11 @@
       "last-name": "Фамилия",
       "email": "Имейл",
       "phone": "Телефон",
-      "createdAt": "Създаден на"
+      "createdAt": "Създаден на",
+      "email-confirmed": "Потвърден имейл",
+      "newsletter": "Известия",
+      "company": "Компания",
+      "address": "Адрес"
     },
     "cta": {
       "create": "Създай",
