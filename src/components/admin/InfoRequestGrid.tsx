@@ -42,6 +42,17 @@ export default function InfoRequestGrid() {
 
   return (
     <DataGrid
+      style={{
+        background: 'white',
+        position: 'absolute',
+        height: 'calc(100vh - 300px)',
+        border: 'none',
+        width: 'calc(100% - 48px)',
+        left: '24px',
+        overflowY: 'auto',
+        overflowX: 'hidden',
+        borderRadius: '0 0 13px 13px',
+      }}
       rows={data || []}
       columns={columns}
       columnVisibilityModel={{
@@ -49,7 +60,6 @@ export default function InfoRequestGrid() {
       }}
       paginationModel={paginationModel}
       onPaginationModelChange={setPaginationModel}
-      autoHeight
       disableRowSelectionOnClick
       onRowClick={(p, event) => {
         const elm = event.target as HTMLInputElement
