@@ -26,7 +26,7 @@ export default function CoordinatorsGrid() {
           <GridActions
             modalStore={ModalStore}
             id={p.row.id}
-            name={`${p.row.person.firstName} ${p.row.person.lastName}`}
+            name={p.row.person.firstName + ' ' + p.row.person.lastName}
           />
         )
       },
@@ -35,15 +35,15 @@ export default function CoordinatorsGrid() {
       ...commonProps,
       headerName: 'Име',
       field: 'status',
-      renderCell: (row) => `${row.row.person.firstName} ${row.row.person.lastName}`,
-      valueGetter: (row) => `${row.row.person.firstName} ${row.row.person.lastName}`,
+      renderCell: (row) => row.row.person.firstName + ' ' + row.row.person.lastName,
+      valueGetter: (row) => row.row.person.firstName + ' ' + row.row.person.lastName,
     },
     {
       ...commonProps,
       headerName: 'Имейл',
       field: 'ibanNumber',
       width: 220,
-      renderCell: (row) => `${row.row.person.email}`,
+      renderCell: (row) => row.row.person.email,
       valueGetter: (row) => row.row.person.email,
     },
     {
@@ -51,7 +51,7 @@ export default function CoordinatorsGrid() {
       headerName: 'Телефон',
       field: 'accountHolderName',
       flex: 1,
-      renderCell: (row) => `${row.row.person.phone}`,
+      renderCell: (row) => row.row.person.phone,
       valueGetter: (row) => row.row.person.phone,
     },
   ]
