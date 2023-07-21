@@ -14,6 +14,24 @@ import DetailsModal from './DetailsModal'
 export default function CoordinatorsGrid() {
   const columns: GridColDef[] = [
     {
+      field: 'others',
+      headerName: 'Действия',
+      headerAlign: 'center',
+      sortable: false,
+      disableColumnMenu: true,
+      resizable: false,
+      width: 120,
+      renderCell: (p: GridRenderCellParams): React.ReactNode => {
+        return (
+          <GridActions
+            modalStore={ModalStore}
+            id={p.row.id}
+            name={`${p.row.person.firstName} ${p.row.person.lastName}`}
+          />
+        )
+      },
+    },
+    {
       ...commonProps,
       headerName: 'Име',
       field: 'status',
@@ -32,24 +50,6 @@ export default function CoordinatorsGrid() {
       field: 'accountHolderName',
       flex: 1,
       renderCell: (row) => `${row.row.person.phone}`,
-    },
-    {
-      field: 'others',
-      headerName: 'Действия',
-      headerAlign: 'center',
-      sortable: false,
-      disableColumnMenu: true,
-      resizable: false,
-      width: 180,
-      renderCell: (p: GridRenderCellParams): React.ReactNode => {
-        return (
-          <GridActions
-            modalStore={ModalStore}
-            id={p.row.id}
-            name={`${p.row.person.firstName} ${p.row.person.lastName}`}
-          />
-        )
-      },
     },
   ]
 

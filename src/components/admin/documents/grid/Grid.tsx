@@ -31,6 +31,23 @@ export default observer(function Grid() {
 
   const columns: GridColDef[] = [
     {
+      field: 'actions',
+      headerName: t('documents:actions'),
+      width: 120,
+      type: 'actions',
+      headerAlign: 'left',
+      renderCell: (cellValues: GridRenderCellParams) => {
+        return (
+          <GridActions
+            modalStore={ModalStore}
+            id={cellValues.row.id}
+            name={cellValues.row.name}
+            editLink={routes.admin.documents.edit(cellValues.row.id)}
+          />
+        )
+      },
+    },
+    {
       field: 'type',
       headerName: t('documents:type'),
       ...commonProps,
@@ -60,23 +77,6 @@ export default observer(function Grid() {
       headerName: t('documents:sourceUrl'),
       ...commonProps,
       flex: 1,
-    },
-    {
-      field: 'actions',
-      headerName: t('documents:actions'),
-      width: 120,
-      type: 'actions',
-      headerAlign: 'left',
-      renderCell: (cellValues: GridRenderCellParams) => {
-        return (
-          <GridActions
-            modalStore={ModalStore}
-            id={cellValues.row.id}
-            name={cellValues.row.name}
-            editLink={routes.admin.documents.edit(cellValues.row.id)}
-          />
-        )
-      },
     },
   ]
 

@@ -63,43 +63,6 @@ export default function Grid() {
 
   const columns: GridColDef[] = [
     {
-      field: 'status',
-      headerName: t('recurring-donation:status'),
-      flex: 1.5,
-      ...commonProps,
-      renderCell: (cellValues: GridRenderCellParams) => (
-        <>{t('statuses.' + cellValues.row.status)}</>
-      ),
-    },
-    {
-      field: 'amount',
-      headerName: t('amount'),
-      flex: 1.5,
-      ...commonProps,
-      renderCell: (cellValues: GridRenderCellParams) => (
-        <>{money(cellValues.row.amount, cellValues.row.currency)}</>
-      ),
-    },
-
-    {
-      field: 'personName',
-      headerName: t('person'),
-      ...commonProps,
-      width: 300,
-      renderCell: (cellValues: GridRenderCellParams) => (
-        <>{cellValues.row.person?.firstName + ' ' + cellValues.row.person?.lastName}</>
-      ),
-    },
-    {
-      field: 'campaignTitle',
-      headerName: t('campaign'),
-      ...commonProps,
-      width: 300,
-      renderCell: (cellValues: GridRenderCellParams) => (
-        <>{cellValues.row.sourceVault.campaign.title}</>
-      ),
-    },
-    {
       field: 'actions',
       headerName: t('actions'),
       width: 120,
@@ -127,6 +90,42 @@ export default function Grid() {
           </div>
         )
       },
+    },
+    {
+      field: 'status',
+      headerName: t('recurring-donation:status'),
+      flex: 1.5,
+      ...commonProps,
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <>{t('statuses.' + cellValues.row.status)}</>
+      ),
+    },
+    {
+      field: 'amount',
+      headerName: t('amount'),
+      flex: 1.5,
+      ...commonProps,
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <>{money(cellValues.row.amount, cellValues.row.currency)}</>
+      ),
+    },
+    {
+      field: 'personName',
+      headerName: t('person'),
+      ...commonProps,
+      width: 300,
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <>{cellValues.row.person?.firstName + ' ' + cellValues.row.person?.lastName}</>
+      ),
+    },
+    {
+      field: 'campaignTitle',
+      headerName: t('campaign'),
+      ...commonProps,
+      width: 300,
+      renderCell: (cellValues: GridRenderCellParams) => (
+        <>{cellValues.row.sourceVault.campaign.title}</>
+      ),
     },
   ]
 

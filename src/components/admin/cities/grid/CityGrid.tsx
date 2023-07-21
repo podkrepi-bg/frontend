@@ -23,6 +23,21 @@ export default observer(function CitiesGrid() {
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID' },
     {
+      field: 'actions',
+      type: 'actions',
+      headerName: t('cities:actions'),
+      width: 120,
+      headerAlign: 'left',
+      renderCell: (p) => (
+        <GridActions
+          modalStore={ModalStore}
+          id={p.row.id}
+          name={p.row.name}
+          editLink={routes.admin.cities.editCityById(p.row.id)}
+        />
+      ),
+    },
+    {
       field: 'name',
       headerName: 'City Name',
       editable: false,
@@ -43,21 +58,6 @@ export default observer(function CitiesGrid() {
       width: 200,
       flex: 1.5,
       valueGetter: (c) => c.row.countryCode.countryCode,
-    },
-    {
-      field: 'actions',
-      type: 'actions',
-      headerName: t('cities:actions'),
-      width: 120,
-      headerAlign: 'left',
-      renderCell: (p) => (
-        <GridActions
-          modalStore={ModalStore}
-          id={p.row.id}
-          name={p.row.name}
-          editLink={routes.admin.cities.editCityById(p.row.id)}
-        />
-      ),
     },
   ]
 
