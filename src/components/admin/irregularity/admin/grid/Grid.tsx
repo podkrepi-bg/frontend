@@ -34,6 +34,23 @@ export default observer(function Grid() {
       headerName: 'ID',
     },
     {
+      field: 'actions',
+      type: 'actions',
+      headerName: t('admin.fields.actions'),
+      width: 120,
+      align: 'center',
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        return (
+          <GridActions
+            modalStore={ModalStore}
+            id={params.row.id}
+            name={params.row.id}
+            editLink={routes.admin.irregularity.view(params.row.id)}
+          />
+        )
+      },
+    },
+    {
       field: 'status',
       headerName: t('admin.fields.status'),
       editable: false,
@@ -100,23 +117,6 @@ export default observer(function Grid() {
       editable: false,
       width: 150,
       valueGetter: (f) => f.row.person.phone,
-    },
-    {
-      field: 'actions',
-      type: 'actions',
-      headerName: t('admin.fields.actions'),
-      width: 200,
-      align: 'center',
-      renderCell: (params: GridRenderCellParams): React.ReactNode => {
-        return (
-          <GridActions
-            modalStore={ModalStore}
-            id={params.row.id}
-            name={params.row.id}
-            editLink={routes.admin.irregularity.view(params.row.id)}
-          />
-        )
-      },
     },
   ]
 
