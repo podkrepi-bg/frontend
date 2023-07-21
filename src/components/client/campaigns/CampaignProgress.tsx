@@ -13,10 +13,11 @@ type Props = {
 
 export default function CampaignProgress({ campaignId, raised, target }: Props) {
   const percentage = useMemo(() => (raised / target) * 100, [raised, target])
+  const percentageRound = Math.floor(percentage)
 
   return (
     <ProgressBar
-      completed={percentage > 100 ? 100 : percentage}
+      completed={percentageRound > 100 ? 100 : percentageRound}
       aria-labelledby={`campaign-${campaignId}--donations-progressbar`}
       height={theme.spacing(1.62)}
       baseBgColor={'#b1defe'}
@@ -24,7 +25,7 @@ export default function CampaignProgress({ campaignId, raised, target }: Props) 
       labelColor={theme.palette.common.black}
       borderRadius={theme.borders.round}
       labelSize={theme.spacing(1.5)}
-      labelAlignment="right"
+      labelAlignment={percentageRound < 10 ? 'left' : 'right'}
       customLabelStyles={{ fontWeight: 400 }}
     />
   )
