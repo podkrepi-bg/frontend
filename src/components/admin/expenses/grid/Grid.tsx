@@ -58,6 +58,24 @@ export default observer(function Grid() {
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID' },
     {
+      field: 'actions',
+      headerName: t('expenses:fields.action'),
+      headerAlign: 'left',
+      width: 120,
+      type: 'actions',
+      headerClassName: classes.gridColumn,
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        return (
+          <GridActions
+            modalStore={ModalStore}
+            id={params.row.id}
+            name={params.row.id}
+            editLink={routes.admin.expenses.view(params.row.id)}
+          />
+        )
+      },
+    },
+    {
       field: 'type',
       headerName: t('expenses:fields.type'),
       headerClassName: classes.gridColumn,
@@ -68,7 +86,7 @@ export default observer(function Grid() {
       headerName: t('expenses:fields.amount'),
       headerClassName: classes.gridColumn,
       align: 'right',
-      width: 90,
+      width: 100,
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
         if (!params.row.amount) {
           return '0'
@@ -102,30 +120,6 @@ export default observer(function Grid() {
       },
       flex: 1,
     },
-    {
-      field: 'deleted',
-      headerName: t('expenses:fields.deleted'),
-      headerClassName: classes.gridColumn,
-      width: 90,
-    },
-    {
-      field: 'actions',
-      headerName: t('expenses:fields.action'),
-      headerAlign: 'left',
-      width: 120,
-      type: 'actions',
-      headerClassName: classes.gridColumn,
-      renderCell: (params: GridRenderCellParams): React.ReactNode => {
-        return (
-          <GridActions
-            modalStore={ModalStore}
-            id={params.row.id}
-            name={params.row.id}
-            editLink={routes.admin.expenses.view(params.row.id)}
-          />
-        )
-      },
-    },
   ]
 
   return (
@@ -142,7 +136,6 @@ export default observer(function Grid() {
         pageSizeOptions={[5, 10]}
         pagination
         autoHeight
-        checkboxSelection
         disableRowSelectionOnClick
       />
       {/* making sure we don't sent requests to the API when not needed */}
