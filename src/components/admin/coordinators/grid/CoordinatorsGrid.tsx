@@ -36,6 +36,7 @@ export default function CoordinatorsGrid() {
       headerName: 'Име',
       field: 'status',
       renderCell: (row) => `${row.row.person.firstName} ${row.row.person.lastName}`,
+      valueGetter: (row) => `${row.row.person.firstName} ${row.row.person.lastName}`,
     },
     {
       ...commonProps,
@@ -43,6 +44,7 @@ export default function CoordinatorsGrid() {
       field: 'ibanNumber',
       width: 220,
       renderCell: (row) => `${row.row.person.email}`,
+      valueGetter: (row) => row.row.person.email,
     },
     {
       ...commonProps,
@@ -50,6 +52,7 @@ export default function CoordinatorsGrid() {
       field: 'accountHolderName',
       flex: 1,
       renderCell: (row) => `${row.row.person.phone}`,
+      valueGetter: (row) => row.row.person.phone,
     },
   ]
 
