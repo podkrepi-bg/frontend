@@ -38,18 +38,6 @@ export default function InfoRequestBottomAppBar() {
       </Box>
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Tooltip title="Преглед">
-            <EventNoteIcon sx={iconStyles} fontSize="medium" color="action" />
-          </Tooltip>
-          <Tooltip title="Запази">
-            <SaveIcon sx={iconStyles} fontSize="medium" color="action" />
-          </Tooltip>
-          <Tooltip title="Принт">
-            <PrintIcon sx={iconStyles} fontSize="medium" color="action" />
-          </Tooltip>
-          <Tooltip title="Сподели">
-            <ShareIcon sx={iconStyles} fontSize="medium" color="action" />
-          </Tooltip>
           <Tooltip title="Добави">
             <AddIcon sx={addIconStyles} fontSize="large" />
           </Tooltip>
