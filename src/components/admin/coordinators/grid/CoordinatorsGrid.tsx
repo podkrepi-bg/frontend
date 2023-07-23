@@ -7,15 +7,16 @@ import { useCoordinatorsList } from 'common/hooks/coordinators'
 import GridActions from 'components/admin/GridActions'
 
 import { ModalStore } from '../CoordinatorsPage'
-import { commonProps } from './CoordinatorsGridHelper'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
+import { useTranslation } from 'next-i18next'
 
 export default function CoordinatorsGrid() {
+  const { t } = useTranslation('coordinator')
   const columns: GridColDef[] = [
     {
       field: 'others',
-      headerName: 'Действия',
+      headerName: t('fields.actions'),
       headerAlign: 'center',
       sortable: false,
       disableColumnMenu: true,
@@ -26,30 +27,44 @@ export default function CoordinatorsGrid() {
           <GridActions
             modalStore={ModalStore}
             id={p.row.id}
-            name={`${p.row.person.firstName} ${p.row.person.lastName}`}
+            name={p.row.person.firstName + ' ' + p.row.person.lastName}
           />
         )
       },
     },
     {
-      ...commonProps,
-      headerName: 'Име',
-      field: 'status',
-      renderCell: (row) => `${row.row.person.firstName} ${row.row.person.lastName}`,
+      headerName: t('fields.name'),
+      field: 'name',
+      renderCell: (p) => p.row.person.firstName + ' ' + p.row.person.lastName,
+      valueGetter: (p) => p.row.person.firstName,
+      width: 200,
     },
     {
-      ...commonProps,
-      headerName: 'Имейл',
-      field: 'ibanNumber',
-      width: 220,
-      renderCell: (row) => `${row.row.person.email}`,
+      headerName: t('fields.email'),
+      field: 'email',
+      valueGetter: (p) => p.row.person.email,
+      width: 250,
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        return (
+          <a
+            href={`mailto:${params.row.person.email}`}
+            style={{
+              textDecoration: 'underline',
+              color: '#0070f3',
+              cursor: 'pointer',
+            }}>
+            {params.row.person.email}
+          </a>
+        )
+      },
     },
     {
-      ...commonProps,
-      headerName: 'Телефон',
-      field: 'accountHolderName',
+      headerName: t('fields.phone'),
+      field: 'phone',
       flex: 1,
-      renderCell: (row) => `${row.row.person.phone}`,
+      renderCell: (p) => p.row.person.phone,
+      valueGetter: (p) => p.row.person.phone,
+      width: 150,
     },
   ]
 

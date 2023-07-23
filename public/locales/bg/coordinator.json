@@ -1,9 +1,14 @@
 {
+  "coordinators": "Координатори",
+  "allCoordinators": "Всички координатори",
   "headings": {
     "info": "Информация"
   },
   "fields": {
-    "name": "Име"
+    "actions": "Действия",
+    "name": "Име",
+    "email": "Имейл",
+    "phone": "Телефон"
   },
   "btns": {
     "add": "Добави",
