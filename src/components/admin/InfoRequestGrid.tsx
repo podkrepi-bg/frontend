@@ -46,8 +46,6 @@ export default function InfoRequestGrid() {
         background: 'white',
         height: 'calc(100vh - 300px)',
         border: 'none',
-        width: 'calc(100% - 48px)',
-        left: '24px',
         overflowY: 'auto',
         overflowX: 'hidden',
         borderRadius: '0 0 13px 13px',
