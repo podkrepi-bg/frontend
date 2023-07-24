@@ -1,12 +1,7 @@
 import { useRouter } from 'next/router'
 import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
-import {
-  Add as AddIcon,
-  Print as PrintIcon,
-  Save as SaveIcon,
-  Share as ShareIcon,
-  EventNote as EventNoteIcon,
-} from '@mui/icons-material'
+import { Add as AddIcon } from '@mui/icons-material'
+import { useTranslation } from 'next-i18next'
 
 import { routes } from 'common/routes'
 
@@ -17,15 +12,9 @@ const addIconStyles = {
   padding: 1.2,
   boxShadow: 3,
 }
-const iconStyles = {
-  background: 'white',
-  borderRadius: '50%',
-  cursor: 'pointer',
-  padding: 0.5,
-  boxShadow: 3,
-  mr: 1,
-}
+
 export default function GridAppbar() {
+  const { t } = useTranslation('coordinator')
   const router = useRouter()
 
   return (
@@ -38,11 +27,11 @@ export default function GridAppbar() {
         height: '72px',
       }}>
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'start', pt: 1 }}>
-        <Typography>Всички координатори</Typography>
+        <Typography>{t('allCoordinators')}</Typography>
       </Box>
       <Box sx={{ height: '64px', display: 'flex', alignItems: 'flex-end', pb: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Tooltip title="Добави">
+          <Tooltip title={t('btns.add')}>
             <AddIcon
               sx={addIconStyles}
               fontSize="large"
