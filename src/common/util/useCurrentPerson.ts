@@ -1,4 +1,4 @@
-import { AxiosResponse } from 'axios'
+import { AxiosError, AxiosResponse } from 'axios'
 import { useQuery } from '@tanstack/react-query'
 import { useSession } from 'next-auth/react'
 
@@ -17,9 +17,16 @@ type CurrentPerson = {
 
 export function getCurrentPerson(isNew = false) {
   const { data: session } = useSession()
-  return useQuery<CurrentPerson>(
+  return useQuery<CurrentPerson, AxiosError>(
     [isNew ? endpoints.account.new.url : endpoints.account.me.url],
     authQueryFnFactory<CurrentPerson>(session?.accessToken),
+    {retry: (count, err) => {
+      if(err.isAxiosError && err.response?.status === 401) {
+        return false
+      }
+      return true
+    }}
+    
   )
 }
 
