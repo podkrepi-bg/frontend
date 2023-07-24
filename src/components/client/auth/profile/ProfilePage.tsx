@@ -2,7 +2,7 @@ import { Box, LinearProgress, useMediaQuery } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo, useRef } from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import {
@@ -12,13 +12,14 @@ import {
   AccountBalance as CampaignIcon,
   EventRepeat as RecurringDonationIcon,
 } from '@mui/icons-material'
-import { useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 
 import theme from 'common/theme'
 import { routes } from 'common/routes'
 import Layout from 'components/client/layout/Layout'
 
 import { ProfileTabs, ProfileTab, tabs } from './tabs'
+import { getCurrentPerson } from 'common/util/useCurrentPerson'
 
 const PREFIX = 'ProfilePage'
 
@@ -46,10 +47,16 @@ const StyledLayout = styled(Layout)({
 export default function ProfilePage() {
   const { t } = useTranslation()
   const { status } = useSession()
+  const timeoutRef = useRef<null | ReturnType<typeof setTimeout>>(null);
 
   const router = useRouter()
   const matches = useMediaQuery(theme.breakpoints.down('sm'))
   const currentTab = router.query.slug ?? ProfileTabs.donations
+
+  const { data: user, error:userError, isError } = getCurrentPerson(!!router.query?.register)
+
+
+  
   const tab = useMemo<ProfileTab>(() => {
     return tabs.find((tab) => tab.slug === currentTab) ?? tabs[0]
   }, [currentTab])
@@ -60,6 +67,12 @@ export default function ProfilePage() {
 
   if (status !== 'authenticated') {
     return <StyledLayout title={t('nav.profile')}>Not authenticated</StyledLayout>
+  }
+
+
+  if(isError && (userError.response && userError.response.status === 401)){
+    signOut()
+    return <StyledLayout title={t('nav.profile')}>The user session has expired. Redirecting to login page</StyledLayout>
   }
 
   const { Component: SelectedTab } = tab
