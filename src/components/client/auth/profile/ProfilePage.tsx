@@ -2,7 +2,7 @@ import { Box, LinearProgress, useMediaQuery } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import {
@@ -47,16 +47,13 @@ const StyledLayout = styled(Layout)({
 export default function ProfilePage() {
   const { t } = useTranslation()
   const { status } = useSession()
-  const timeoutRef = useRef<null | ReturnType<typeof setTimeout>>(null);
 
   const router = useRouter()
   const matches = useMediaQuery(theme.breakpoints.down('sm'))
   const currentTab = router.query.slug ?? ProfileTabs.donations
 
-  const { data: user, error:userError, isError } = getCurrentPerson(!!router.query?.register)
+  const { error: userError, isError } = getCurrentPerson(!!router.query?.register)
 
-
-  
   const tab = useMemo<ProfileTab>(() => {
     return tabs.find((tab) => tab.slug === currentTab) ?? tabs[0]
   }, [currentTab])
@@ -69,10 +66,13 @@ export default function ProfilePage() {
     return <StyledLayout title={t('nav.profile')}>Not authenticated</StyledLayout>
   }
 
-
-  if(isError && (userError.response && userError.response.status === 401)){
+  if (isError && userError.response && userError.response.status === 401) {
     signOut()
-    return <StyledLayout title={t('nav.profile')}>The user session has expired. Redirecting to login page</StyledLayout>
+    return (
+      <StyledLayout title={t('nav.profile')}>
+        The user session has expired. Redirecting to login page
+      </StyledLayout>
+    )
   }
 
   const { Component: SelectedTab } = tab

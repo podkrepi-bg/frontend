@@ -20,13 +20,14 @@ export function getCurrentPerson(isNew = false) {
   return useQuery<CurrentPerson, AxiosError>(
     [isNew ? endpoints.account.new.url : endpoints.account.me.url],
     authQueryFnFactory<CurrentPerson>(session?.accessToken),
-    {retry: (count, err) => {
-      if(err.isAxiosError && err.response?.status === 401) {
-        return false
-      }
-      return true
-    }}
-    
+    {
+      retry: (count, err) => {
+        if (err.isAxiosError && err.response?.status === 401) {
+          return false
+        }
+        return true
+      },
+    },
   )
 }
 
