@@ -1,5 +1,6 @@
 {
-  "all": "All campaign types",
+  "campaignTypes": "Campaign types",
+  "allCampaignTypes": "All campaign types",
   "grid": {
     "name": "Name",
     "category": "Category",
@@ -17,7 +18,7 @@
     "add-heading": "Add campaign type",
     "edit-heading": "Edit campaign type"
   },
-  "actions": "Action",
+  "actions": "Actions",
   "deleteContent": "Are you sure you want to delete this campaign type/s?",
   "deleteTitle": "Removing records"
 }
