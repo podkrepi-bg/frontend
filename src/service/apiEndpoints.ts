@@ -31,6 +31,8 @@ export const endpoints = {
     viewCampaign: (slug: string) => <Endpoint>{ url: `/campaign/${slug}`, method: 'GET' },
     viewCampaignById: (id: string) => <Endpoint>{ url: `/campaign/byId/${id}`, method: 'GET' },
     editCampaign: (id: string) => <Endpoint>{ url: `/campaign/${id}`, method: 'PUT' },
+    subscribeToCampaign: (id: string) =>
+      <Endpoint>{ url: `/campaign/${id}/subscribe`, method: 'POST' },
     deleteCampaign: (id: string) => <Endpoint>{ url: `/campaign/${id}`, method: 'DELETE' },
     uploadFile: (campaignId: string) =>
       <Endpoint>{ url: `/campaign-file/${campaignId}`, method: 'POST' },

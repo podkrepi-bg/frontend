@@ -48,6 +48,7 @@ export type Person = {
   personalNumber: string | null
   keycloakId: string | null
   stripeCustomerId: string | null
+  newsletter: boolean | null
 }
 
 export type UpdatePerson = Partial<
