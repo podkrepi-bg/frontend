@@ -7,7 +7,25 @@ import { Box, Button, Grid } from '@mui/material'
 
 import theme from 'common/theme'
 import useMobile from 'common/hooks/useMobile'
+<<<<<<< HEAD
 import CampaignCard from './CampaignCard/CampaignCard'
+=======
+
+import CampaignCard from './CampaignCard/CampaignCard'
+import { useMemo, useState } from 'react'
+import { useTranslation } from 'next-i18next'
+
+const cardAlignment = (index: number, array: CampaignResponse[]) => {
+  if (index === array.length - 1 && array.length % 2 === 1) {
+    return 'center'
+  }
+  if (index % 2 === 0) {
+    return 'right'
+  } else {
+    return 'left'
+  }
+}
+>>>>>>> dd332ce9 (Update cards on campaigns page - initial changes)
 
 type Props = { campaignToShow: CampaignResponse[] }
 
@@ -69,13 +87,21 @@ export default function CampaignsList({ campaignToShow }: Props) {
         <Box sx={{ my: 10 }}>
           {mobile ? (
             <Image
+<<<<<<< HEAD
               alt="Information artboard mobile"
+=======
+              alt="Informatino artboard mobile"
+>>>>>>> dd332ce9 (Update cards on campaigns page - initial changes)
               src="/img/ArtboardMobile.svg"
               width={300}
               height={300}
             />
           ) : (
+<<<<<<< HEAD
             <Image alt="Information artboard" src="/img/Artboard.png" width={813} height={358} />
+=======
+            <Image alt="Informatino artboard" src="/img/Artboard.png" width={813} height={358} />
+>>>>>>> dd332ce9 (Update cards on campaigns page - initial changes)
           )}
         </Box>
       </Grid>
