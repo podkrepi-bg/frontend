@@ -4,7 +4,7 @@ import { Box, Button, Grid } from '@mui/material'
 import { CampaignResponse } from 'gql/campaigns'
 import useMobile from 'common/hooks/useMobile'
 
-import CampaignCard from './CampaignCard'
+import CampaignCard from './CampaignCard/CampaignCard'
 import { useMemo, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 
@@ -64,10 +64,13 @@ export default function CampaignsList({ campaignToShow }: Props) {
       <Grid>
         <Box sx={{ my: 10 }}>
           {mobile ? (
-            // A11Y TODO: Add alt text
-            <Image alt="" src="/img/ArtboardMobile.svg" width={300} height={300} />
+            <Image
+              alt="Informatino artboard mobile"
+              src="/img/ArtboardMobile.svg"
+              width={300}
+              height={300}
+            />
           ) : (
-            // A11Y TODO: Add alt text
             <Image alt="Informatino artboard" src="/img/Artboard.png" width={813} height={358} />
           )}
         </Box>
