@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import { Button, Grid } from '@mui/material'
+import { Grid } from '@mui/material'
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { signIn } from 'next-auth/react'
@@ -11,10 +11,10 @@ import FormInput from 'components/common/form/FormInput'
 import GenericForm from 'components/common/form/GenericForm'
 import SubmitButton from 'components/common/form/SubmitButton'
 import EmailField from 'components/common/form/EmailField'
-import Google from 'common/icons/Google'
 import PasswordField from 'components/common/form/PasswordField'
 import { email, loginPassword } from 'common/form/validation'
 import LinkButton from 'components/common/LinkButton'
+import GoogleSignInButton from 'components/common/GoogleSignInButton'
 
 export type LoginFormData = {
   email: string
@@ -63,7 +63,6 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
       setLoading(false)
     }
   }
-  const onGoogleLogin = () => signIn('google')
 
   return (
     <GenericForm
@@ -87,9 +86,7 @@ export default function LoginForm({ initialValues = defaults }: LoginFormProps) 
           <SubmitButton fullWidth label="auth:cta.login" loading={loading} />
         </Grid>
         <Grid item xs={12}>
-          <Button variant="outlined" fullWidth onClick={onGoogleLogin}>
-            <Google /> {t('nav.login-with')} Google
-          </Button>
+          <GoogleSignInButton variant="outlined" fullWidth />
         </Grid>
       </Grid>
     </GenericForm>

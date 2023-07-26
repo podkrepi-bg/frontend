@@ -1,17 +1,15 @@
 import React, { useContext, useState } from 'react'
 import { useTranslation } from 'next-i18next'
 import { useFormikContext } from 'formik'
-import { Box, Button, CircularProgress, Grid, Typography } from '@mui/material'
+import { Button, CircularProgress, Grid, Typography } from '@mui/material'
 import theme from 'common/theme'
-import Google from 'common/icons/Google'
 import { OneTimeDonation } from 'gql/donations'
 import EmailField from 'components/common/form/EmailField'
 import { signIn } from 'next-auth/react'
 import { StepsContext } from './helpers/stepperContext'
 import { AlertStore } from 'stores/AlertStore'
 import PasswordField from 'components/common/form/PasswordField'
-
-const onGoogleLogin = () => signIn('google')
+import GoogleSignInButton from 'components/common/GoogleSignInButton'
 
 function LoginForm() {
   const { t } = useTranslation('one-time-donation')
@@ -71,17 +69,13 @@ function LoginForm() {
         onClick={onClick}>
         {loading ? <CircularProgress color="inherit" size="1.5rem" /> : t('second-step.btn-login')}
       </Button>
-      <Button
+      <GoogleSignInButton
         size="large"
         color="primary"
         variant="outlined"
         fullWidth
         sx={{ marginTop: theme.spacing(3) }}
-        onClick={onGoogleLogin}>
-        <Box display="inline-flex" alignItems="center" marginRight={theme.spacing(2)}>
-          <Google /> {t('common:nav.login-with')} Google
-        </Box>
-      </Button>
+      />
     </Grid>
   )
 }

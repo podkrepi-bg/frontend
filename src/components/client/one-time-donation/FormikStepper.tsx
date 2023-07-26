@@ -67,7 +67,7 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
       }
       return false
     },
-    [step],
+    [step, session],
   )
   return (
     <Formik
