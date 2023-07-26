@@ -1,6 +1,6 @@
 import { AxiosError, AxiosResponse } from 'axios'
 import { useQuery } from '@tanstack/react-query'
-import { useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 
 import { apiClient } from 'service/apiClient'
 import { endpoints } from 'service/apiEndpoints'
@@ -15,9 +15,10 @@ type CurrentPerson = {
   status: 'unauthenticated'
 }
 
+//Note: Used only for /profile page
 export function getCurrentPerson(isNew = false) {
   const { data: session } = useSession()
-  return useQuery<CurrentPerson, AxiosError>(
+  const query = useQuery<CurrentPerson, AxiosError>(
     [isNew ? endpoints.account.new.url : endpoints.account.me.url],
     authQueryFnFactory<CurrentPerson>(session?.accessToken),
     {
@@ -29,14 +30,30 @@ export function getCurrentPerson(isNew = false) {
       },
     },
   )
+  if (query.error && query.error.response?.status === 401)
+    signOut({ redirect: true, callbackUrl: '/login' })
+
+  return query
 }
 
+//Note: Used for every other page
 export function useCurrentPerson() {
   const { data: session } = useSession()
-  return useQuery<CurrentPerson>(
+  const query = useQuery<CurrentPerson, AxiosError>(
     [endpoints.account.me.url],
     authQueryFnFactory<CurrentPerson>(session?.accessToken),
+    {
+      retry: (count, err) => {
+        if (err.isAxiosError && err.response?.status === 401) {
+          return false
+        }
+        return true
+      },
+    },
   )
+  if (query.error && query.error.response?.status === 401) signOut({ redirect: false })
+
+  return query
 }
 
 export function updateCurrentPerson() {

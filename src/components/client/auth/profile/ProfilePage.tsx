@@ -12,7 +12,7 @@ import {
   AccountBalance as CampaignIcon,
   EventRepeat as RecurringDonationIcon,
 } from '@mui/icons-material'
-import { signOut, useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 
 import theme from 'common/theme'
 import { routes } from 'common/routes'
@@ -67,7 +67,6 @@ export default function ProfilePage() {
   }
 
   if (isError && userError.response && userError.response.status === 401) {
-    signOut()
     return (
       <StyledLayout title={t('nav.profile')}>
         The user session has expired. Redirecting to login page
