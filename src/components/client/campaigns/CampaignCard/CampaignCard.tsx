@@ -1,14 +1,16 @@
 import { useTranslation, i18n } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 
-import { Box, CardMedia } from '@mui/material'
+import { CardMedia } from '@mui/material'
 
-import Link from 'components/common/Link'
-import CampaignProgress from 'components/client/campaigns/CampaignProgress'
-import theme from 'common/theme'
 import { routes } from 'common/routes'
+import theme from 'common/theme'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import { moneyPublic } from 'common/util/money'
+import Link from 'components/common/Link'
+import CampaignProgress from 'components/client/campaigns/CampaignProgress'
+import { CampaignState } from '../helpers/campaign.enums'
+
 import {
   CampaignTitle,
   DonateButton,
@@ -24,7 +26,15 @@ type Props = { campaign: CampaignResponse; index: number }
 
 export default function ActiveCampaignCard({ campaign, index }: Props) {
   const { t } = useTranslation('campaigns')
-  const { id, slug, title, summary, targetAmount: target } = campaign
+  const {
+    id,
+    slug,
+    title,
+    summary,
+    targetAmount: target,
+    state: campaignState,
+    allowDonationOnComplete,
+  } = campaign
   const campaignImagesUrl = campaignListPictureUrl(campaign)
 
   const reachedAmount = moneyPublic(campaign.summary.reachedAmount)
@@ -78,6 +88,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
         <StyledCardActions disableSpacing>
           <DonateButton
             href={routes.campaigns.oneTimeDonation(slug)}
+            disabled={campaignState === CampaignState.complete && !allowDonationOnComplete}
             variant="contained"
             color="secondary">
             {t('cta.support')}
