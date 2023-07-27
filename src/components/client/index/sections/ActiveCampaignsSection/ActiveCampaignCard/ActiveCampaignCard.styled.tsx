@@ -10,6 +10,7 @@ export const Root = styled(Card)(() => ({
   alignItems: 'initial',
   boxShadow: 'none',
   position: 'relative',
+  borderRadius: theme.spacing(0.37),
 
   '&:hover': {
     filter: 'grayscale(15%)',

@@ -1,7 +1,7 @@
 import { useTranslation, i18n } from 'next-i18next'
 import { CampaignResponse } from 'gql/campaigns'
 
-import { CardMedia } from '@mui/material'
+import { CardActionArea, CardMedia } from '@mui/material'
 
 import { routes } from 'common/routes'
 import theme from 'common/theme'
@@ -43,7 +43,9 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
 
   return (
     <Root data-testid={`completed-campaign-${index}`}>
-      <Link href={routes.campaigns.viewCampaignBySlug(slug)} sx={{ position: 'relative' }}>
+      <CardActionArea
+        href={routes.campaigns.viewCampaignBySlug(slug)}
+        sx={{ position: 'relative' }}>
         <CardMedia
           component="img"
           height="100%"
@@ -83,7 +85,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
           <CampaignProgress campaignId={id} raised={reached} target={target} />
           <CampaignTitle>{title}</CampaignTitle>
         </StyledContent>
-      </Link>
+      </CardActionArea>
       <StyledCardActions disableSpacing>
         <DonateButton
           href={routes.campaigns.oneTimeDonation(slug)}

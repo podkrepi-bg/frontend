@@ -65,7 +65,7 @@ export default function CampaignsList({ campaignToShow }: Props) {
           </Button>
         </Grid>
       )}
-      <Grid>
+      <Grid item xs={12} textAlign="center">
         <Box sx={{ my: 10 }}>
           {mobile ? (
             <Image
