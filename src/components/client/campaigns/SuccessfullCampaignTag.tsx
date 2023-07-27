@@ -11,8 +11,8 @@ export default function SuccessfullCampaignTag() {
     <Grid
       sx={{
         position: 'absolute',
-        right: 15,
-        bottom: 10,
+        right: 5,
+        top: 40,
         zIndex: 20,
         transform: 'rotate(335deg)',
         opacity: 0.8,
