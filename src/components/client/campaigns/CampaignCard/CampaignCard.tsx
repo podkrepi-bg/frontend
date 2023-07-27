@@ -7,7 +7,6 @@ import { routes } from 'common/routes'
 import theme from 'common/theme'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import { moneyPublic } from 'common/util/money'
-import Link from 'components/common/Link'
 import CampaignProgress from 'components/client/campaigns/CampaignProgress'
 import { CampaignState } from '../helpers/campaign.enums'
 
