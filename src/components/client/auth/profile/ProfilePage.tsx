@@ -19,6 +19,7 @@ import { routes } from 'common/routes'
 import Layout from 'components/client/layout/Layout'
 
 import { ProfileTabs, ProfileTab, tabs } from './tabs'
+import { getCurrentPerson } from 'common/util/useCurrentPerson'
 
 const PREFIX = 'ProfilePage'
 
@@ -50,6 +51,9 @@ export default function ProfilePage() {
   const router = useRouter()
   const matches = useMediaQuery(theme.breakpoints.down('sm'))
   const currentTab = router.query.slug ?? ProfileTabs.donations
+
+  const { error: userError, isError } = getCurrentPerson(!!router.query?.register)
+
   const tab = useMemo<ProfileTab>(() => {
     return tabs.find((tab) => tab.slug === currentTab) ?? tabs[0]
   }, [currentTab])
@@ -60,6 +64,14 @@ export default function ProfilePage() {
 
   if (status !== 'authenticated') {
     return <StyledLayout title={t('nav.profile')}>Not authenticated</StyledLayout>
+  }
+
+  if (isError && userError.response && userError.response.status === 401) {
+    return (
+      <StyledLayout title={t('nav.profile')}>
+        The user session has expired. Redirecting to login page
+      </StyledLayout>
+    )
   }
 
   const { Component: SelectedTab } = tab
