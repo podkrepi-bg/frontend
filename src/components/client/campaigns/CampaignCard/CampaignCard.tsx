@@ -41,7 +41,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
   const reached = summary ? summary.reachedAmount : 0
 
   return (
-    <Root data-testid={`completed-campaign-${index}`}>
+    <Root data-testid={`campaign-card-${index}`}>
       <CardActionArea
         href={routes.campaigns.viewCampaignBySlug(slug)}
         sx={{ position: 'relative' }}>
