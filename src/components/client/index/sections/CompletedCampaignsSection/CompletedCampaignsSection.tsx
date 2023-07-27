@@ -31,7 +31,9 @@ export default function CompletedCampaignsSection() {
   const { data } = useCampaignList()
 
   const completedCampaigns = data?.filter(
-    (campaign: CampaignResponse) => campaign.state === CampaignState.complete,
+    (campaign: CampaignResponse) =>
+      campaign.state === CampaignState.complete &&
+      (campaign.summary.reachedAmount / campaign.targetAmount) * 100 >= 100,
   )
 
   const onLinkMouseDown = (e: React.ChangeEvent<unknown>) => {

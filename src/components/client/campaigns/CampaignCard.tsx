@@ -22,6 +22,7 @@ import Link from 'next/link'
 import CampaignProgress from './CampaignProgress'
 import SuccessfullCampaignTag from './SuccessfullCampaignTag'
 import { CampaignState } from './helpers/campaign.enums'
+import { useMemo } from 'react'
 
 const PREFIX = 'CampaignCard'
 
@@ -120,6 +121,7 @@ export default function CampaignCard({ campaign, index }: Props) {
 
   const pictureUrl = campaignListPictureUrl(campaign)
   const reached = summary ? summary.reachedAmount : 0
+  const percentage = useMemo(() => (reached / target) * 100, [reached, target])
 
   return (
     <StyledCard variant="outlined" className={classes.cardWrapper}>
@@ -131,7 +133,11 @@ export default function CampaignCard({ campaign, index }: Props) {
           <div
             style={{ position: 'relative', width: '100%', minHeight: '100%', maxHeight: '100%' }}>
             <Image alt={title} src={pictureUrl} fill style={{ objectFit: 'contain' }} />
-            {campaignState === CampaignState.complete ? <SuccessfullCampaignTag /> : ''}
+            {campaignState === CampaignState.complete && percentage >= 100 ? (
+              <SuccessfullCampaignTag />
+            ) : (
+              ''
+            )}
           </div>
         </CardMedia>
         <CardContent className={classes.cardContent}>
