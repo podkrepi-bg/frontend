@@ -14,6 +14,7 @@ import Image from 'next/image'
 import { GetArticleDocuments, GetArticleGalleryPhotos } from 'common/util/newsFilesUrls'
 import { useShowMoreContent } from './hooks/useShowMoreContent'
 import { sanitizeHTML } from 'common/util/htmlSanitizer'
+import { QuillStypeWrapper } from 'components/common/QuillStyleWrapper'
 
 const PREFIX = 'CampaignNewsSection'
 const classes = {
@@ -75,7 +76,7 @@ const ArticleSection = styled(Grid)(({ theme }) => ({
     margin: 0,
   },
 
-  [`div.${classes.articleDescription} > p`]: {
+  [`& .${classes.articleDescription}`]: {
     margin: 0,
   },
 }))
@@ -127,7 +128,7 @@ export default function CampaignNewsList({ articles }: Props) {
                   xs={'auto'}
                   style={{ maxWidth: '100%' }}>
                   <Typography className={classes.articleHeader}>{article.title}</Typography>
-                  <Grid container item>
+                  <QuillStypeWrapper>
                     {!isExpanded[article.id] && sanitizedDescription.length > CHARACTER_LIMIT ? (
                       <Typography
                         component={'div'}
@@ -150,7 +151,7 @@ export default function CampaignNewsList({ articles }: Props) {
                         {!isExpanded[article.id] ? `${t('read-more')} >` : `${t('read-less')} <`}
                       </Button>
                     )}
-                  </Grid>
+                  </QuillStypeWrapper>
                   <Grid container item direction={'column'} gap={0.5}>
                     {documents.map((file) => (
                       <Grid item key={file.id}>
