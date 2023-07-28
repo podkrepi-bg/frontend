@@ -26,7 +26,7 @@ import { routes } from 'common/routes'
 import { useCanEditCampaign } from 'common/hooks/campaigns'
 import { moneyPublic } from 'common/util/money'
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
-import RenderSubscribeModal from './CampaignSubscribeModal'
+import RenderCampaignSubscribeModal from '../notifications/CampaignSubscribeModal'
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 const CampaignNewsSection = dynamic(() => import('./CampaignNewsSection'), { ssr: false })
@@ -133,7 +133,9 @@ export default function CampaignDetails({ campaign }: Props) {
         campaign={campaign}
         showExpensesLink={(expensesList && expensesList?.length > 0) || canEditCampaign}
       />
-      {subscribeIsOpen && <RenderSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />}
+      {subscribeIsOpen && (
+        <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
+      )}
       <Grid item textAlign="center" pr={15}>
         <Button
           onClick={() => setSubscribeOpen(true)}

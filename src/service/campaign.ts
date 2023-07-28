@@ -5,14 +5,7 @@ import { apiClient } from 'service/apiClient'
 import { authConfig } from 'service/restRequests'
 import { endpoints } from 'service/apiEndpoints'
 import { UploadCampaignFiles } from 'components/common/campaign-file/roles'
-import {
-  CampaignResponse,
-  CampaignInput,
-  CampaignUploadImage,
-  CampaignFile,
-  CampaignSubscribeInput,
-  CampaignSubscribeResponse,
-} from 'gql/campaigns'
+import { CampaignResponse, CampaignInput, CampaignUploadImage, CampaignFile } from 'gql/campaigns'
 import { Session } from 'next-auth'
 
 export const useCreateCampaign = () => {
@@ -87,15 +80,5 @@ export const deleteCampaignFile = (id: string) => {
       endpoints.campaign.deleteFile(id).url,
       authConfig(session?.accessToken),
     )
-  }
-}
-
-export function useSubscribeToCampaign(id: string) {
-  const { data: session } = useSession()
-  return async (data: CampaignSubscribeInput) => {
-    return await apiClient.post<
-      CampaignSubscribeResponse,
-      AxiosResponse<CampaignSubscribeResponse>
-    >(endpoints.campaign.subscribeToCampaign(id).url, data, authConfig(session?.accessToken))
   }
 }

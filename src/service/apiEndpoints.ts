@@ -47,6 +47,10 @@ export const endpoints = {
     listNewsForCampaign: (page: number, slug: string) =>
       <Endpoint>{ url: `/campaign/${slug}/news?page=${page}` },
   },
+  notifications: {
+    sendConfirmationEmail: <Endpoint>{ url: '/notifications/send-confirm-email', method: 'POST' },
+    subscribePublicEmail: <Endpoint>{ url: '/notifications/public/subscribe', method: 'POST' },
+  },
   campaignNews: {
     createNewsArticle: <Endpoint>{ url: '/campaign-news', method: 'POST' },
     listAdminNews: <Endpoint>{ url: '/campaign-news/list-all', method: 'GET' },

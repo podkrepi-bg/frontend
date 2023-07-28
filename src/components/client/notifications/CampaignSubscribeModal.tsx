@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { AxiosError, AxiosResponse } from 'axios'
 import { ApiError } from 'next/dist/server/api-utils'
 import { AlertStore } from 'stores/AlertStore'
-import { useSubscribeToCampaign } from 'service/campaign'
+import { useSubscribeToCampaign } from 'service/notification'
 import { CampaignResponse, CampaignSubscribeInput, CampaignSubscribeResponse } from 'gql/campaigns'
 import { useMutation } from '@tanstack/react-query'
 import { Dialog, DialogContent, DialogTitle, Grid } from '@mui/material'
@@ -17,6 +17,7 @@ import EmailField from 'components/common/form/EmailField'
 import AcceptNewsLetterField from 'components/common/form/AcceptNewsletterField'
 import { useSession } from 'next-auth/react'
 import { getCurrentPerson } from 'common/util/useCurrentPerson'
+import React from 'react'
 
 const PREFIX = 'CampaignSubscribeModal'
 
@@ -56,11 +57,12 @@ const validationSchema: yup.SchemaOf<SubscribeToNotificationsInput> = yup
     consent: yup.bool().required().oneOf([true], 'validation:newsletter'),
   })
 
-export default function RenderSubscribeModal({ campaign, setOpen }: ModalProps) {
+export default function RenderCampaignSubscribeModal({ campaign, setOpen }: ModalProps) {
   const { t } = useTranslation()
   const { status } = useSession()
 
   const [loading, setLoading] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
 
   const handleError = (e: AxiosError<ApiError>) => {
     const error = e.response?.data?.message
@@ -77,7 +79,7 @@ export default function RenderSubscribeModal({ campaign, setOpen }: ModalProps) 
     onSuccess: (response) => {
       AlertStore.show(t('common:alerts.message-sent'), 'success')
 
-      handleClose()
+      setIsSuccess(true)
     },
   })
 
@@ -160,12 +162,23 @@ export default function RenderSubscribeModal({ campaign, setOpen }: ModalProps) 
         <Grid style={{ display: 'flex', justifyContent: 'end', marginRight: '-4rem' }}>
           <CloseModalButton onClose={handleClose} />
         </Grid>
-        <DialogTitle style={{ textAlign: 'center', width: '100%' }}>
-          {t('campaigns:cta.subscribe-campaign')}
-        </DialogTitle>
-        <Grid container direction="column" component="section">
-          {status === 'authenticated' ? <AuthenticatedForm /> : <NonAuthenticatedForm />}
-        </Grid>
+        {!isSuccess ? (
+          <React.Fragment>
+            <DialogTitle style={{ textAlign: 'center', width: '100%' }}>
+              {t('campaigns:subscribe.subscribe-campaign-title')}
+            </DialogTitle>
+            <Grid container direction="column" component="section">
+              {status === 'authenticated' ? <AuthenticatedForm /> : <NonAuthenticatedForm />}
+            </Grid>
+          </React.Fragment>
+        ) : (
+          <DialogContent
+            style={{ textAlign: 'center', fontSize: 20, fontWeight: 600, paddingBottom: 6 }}>
+            {status === 'authenticated'
+              ? t('campaigns:subscribe.confirm-subscribe')
+              : t('campaigns:subscribe.confirm-sent')}
+          </DialogContent>
+        )}
       </DialogContent>
     </Dialog>
   )
