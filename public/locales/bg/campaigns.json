@@ -151,7 +151,15 @@
     "end-date": "Крайна дата:",
     "indefinite": "Безсрочна",
     "tag": "Таг:",
-    "date": "Дата:"
+    "date": "Дата:",
+    "chipsLabels": {
+      "news": "Новини",
+      "docs": "Документи",
+      "experts": "Експертен съвет",
+      "guarantor": "Гарант",
+      "signals": "Сигнали",
+      "others": "Други"
+    }
   },
   "info-graphics": {
     "donation-title": "100% от дарението отива при нуждаещите се",

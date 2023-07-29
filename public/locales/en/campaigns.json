@@ -145,7 +145,15 @@
     "start-date": "Start date:",
     "end-date": "End date:",
     "tag": "Tag:",
-    "date": "Date:"
+    "date": "Date:",
+    "chipsLabels": {
+      "news": "News",
+      "docs": "Documents",
+      "experts": "Experts",
+      "guarantor": "Guarantor",
+      "signals": "Signals",
+      "others": "Others"
+    }
   },
   "info-graphics": {
     "donation-title": "100% of the donation goes to those in need",

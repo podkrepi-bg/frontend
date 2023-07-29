@@ -96,14 +96,21 @@ type Props = {
   campaign: CampaignResponse
 }
 
-const chipsLabel = { news: 'News', experts: 'Experts', expenses: 'Financial Expesnes' }
-
 export default function CampaignDetails({ campaign }: Props) {
   const { t } = useTranslation()
   const sliderImages = campaignSliderUrls(campaign)
   const canEditCampaign = useCanEditCampaign(campaign.slug)
   const { data: expensesList } = useCampaignApprovedExpensesList(campaign.slug)
   const totalExpenses = expensesList?.reduce((acc, expense) => acc + expense.amount, 0)
+
+  const chipsLabel = {
+    news: t('campaigns:campaign.chipsLabels.news'),
+    docs: t('campaigns:campaign.chipsLabels.docs'),
+    experts: t('campaigns:campaign.chipsLabels.experts'),
+    guarantor: t('campaigns:campaign.chipsLabels.guarantor'),
+    signals: t('campaigns:campaign.chipsLabels.signals'),
+    others: t('campaigns:campaign.chipsLabels.others'),
+  }
 
   const scrollToSection = (sectionId: string) => {
     const target = document.getElementById(sectionId)
