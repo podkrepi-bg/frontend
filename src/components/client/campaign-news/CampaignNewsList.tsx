@@ -58,7 +58,6 @@ const ArticleSection = styled(Grid)(({ theme }) => ({
     fontWeight: 700,
   },
 
-
   [`& .${classes.dateAndAuthorContainer}`]: {
     marginBottom: theme.spacing(2),
   },
@@ -70,7 +69,7 @@ const ArticleSection = styled(Grid)(({ theme }) => ({
     padding: 0,
     margin: 0,
     position: 'relative',
-    bottom:5
+    bottom: 5,
   },
 }))
 
@@ -88,7 +87,7 @@ export default function CampaignNewsList({ articles }: Props) {
       {articles?.map((article, index) => {
         const documents = GetArticleDocuments(article.newsFiles)
         const images = GetArticleGalleryPhotos(article.newsFiles)
-        const [,sanitizedDescription] = HTMLContentSeparator(article.description)
+        const [, sanitizedDescription] = HTMLContentSeparator(article.description)
         return (
           <Grid
             container
@@ -97,8 +96,7 @@ export default function CampaignNewsList({ articles }: Props) {
               backgroundColor: index % 2 === 0 ? '#FFFFFF' : '#E3E3E3',
               borderBottom: 1,
               borderColor: index % 2 === 0 ? '#FFFFFF' : '#C4C4C4',
-            }}
-            >
+            }}>
             <ArticleSection>
               <Grid container columnGap={2} rowGap={1} className={classes.dateAndAuthorContainer}>
                 <Grid container item gap={1} xs="auto">
@@ -114,20 +112,20 @@ export default function CampaignNewsList({ articles }: Props) {
                 </Grid>
               </Grid>
               <Grid container rowGap={1} columnGap={4}>
-                <Grid
-                  container
-                  item
-                  direction={'column'}
-                  gap={1}
-                  >
+                <Grid container item direction={'column'} gap={1}>
                   <Typography className={classes.articleHeader}>{article.title}</Typography>
                   <QuillStypeWrapper>
-                      <Typography
-                        component={'div'}                 
-                        className={classes.articleDescription}
-                        dangerouslySetInnerHTML={{ __html: !isExpanded[article.id] && sanitizedDescription.length > CHARACTER_LIMIT ? sanitizedDescription.slice(0, CHARACTER_LIMIT) + "..." : sanitizedDescription }}
-                        sx={{wordBreak: 'break-word'}}
-                        />
+                    <Typography
+                      component={'div'}
+                      className={classes.articleDescription}
+                      dangerouslySetInnerHTML={{
+                        __html:
+                          !isExpanded[article.id] && sanitizedDescription.length > CHARACTER_LIMIT
+                            ? sanitizedDescription.slice(0, CHARACTER_LIMIT) + '...'
+                            : sanitizedDescription,
+                      }}
+                      sx={{ wordBreak: 'break-word' }}
+                    />
                   </QuillStypeWrapper>
                   <Grid container item direction={'column'} gap={0.5}>
                     {documents.map((file) => (
@@ -151,15 +149,15 @@ export default function CampaignNewsList({ articles }: Props) {
                   </Grid>
                 )}
               </Grid>
-                {sanitizedDescription.length > CHARACTER_LIMIT && (
-                  <Button
+              {sanitizedDescription.length > CHARACTER_LIMIT && (
+                <Button
                   key={article.id}
-                    className={classes.readMoreButton}
-                    onClick={(e) => expandContent(article.id)}
-                    sx={{background: 'transperent',width: '100%'}}>
-                    {!isExpanded[article.id] ? `${t('read-more')} >` : `${t('read-less')} <`}
-                  </Button>
-                )}
+                  className={classes.readMoreButton}
+                  onClick={() => expandContent(article.id)}
+                  sx={{ background: 'transperent', width: '100%' }}>
+                  {!isExpanded[article.id] ? `${t('read-more')} >` : `${t('read-less')} <`}
+                </Button>
+              )}
             </ArticleSection>
           </Grid>
         )

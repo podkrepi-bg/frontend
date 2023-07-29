@@ -14,7 +14,6 @@ import BlotFormatter from 'quill-blot-formatter/'
 
 import htmlEditButton from 'quill-html-edit-button'
 
-
 export type FormRichTextFieldProps = {
   name: string
 }
@@ -37,7 +36,7 @@ class ImageFormat extends BaseImageFormat {
       return formats
     }, {})
   }
-  
+
   format(name: string, value: string) {
     if (ImageFormatAttributesList.indexOf(name) > -1) {
       if (value) {
@@ -60,7 +59,7 @@ class VideoFormat extends BaseVideoFormat {
       return formats
     }, {})
   }
-  
+
   format(name: string, value: string) {
     if (ImageFormatAttributesList.indexOf(name) > -1) {
       if (value) {

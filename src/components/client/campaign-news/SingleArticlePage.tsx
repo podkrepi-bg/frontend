@@ -87,7 +87,7 @@ export default function SingleArticlePage({ slug }: Props) {
 
   const documents = GetArticleDocuments(article.newsFiles)
   const images = GetArticleGalleryPhotos(article.newsFiles)
-  const[,sanitizedDescription] = HTMLContentSeparator(article.description)
+  const [, sanitizedDescription] = HTMLContentSeparator(article.description)
   return (
     <Layout>
       <Grid container item xs={12}>
@@ -115,12 +115,12 @@ export default function SingleArticlePage({ slug }: Props) {
               <Typography className={classes.articleHeader}>{article.title}</Typography>
               <Grid container item>
                 <QuillStypeWrapper>
-                <Typography
-                  component={'div'}
-                  className={classes.articleDescription}
-                  dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
-                  sx={{wordBreak: 'break-word'}}
-                />
+                  <Typography
+                    component={'div'}
+                    className={classes.articleDescription}
+                    dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
+                    sx={{ wordBreak: 'break-word' }}
+                  />
                 </QuillStypeWrapper>
               </Grid>
               <Grid container item direction={'column'} gap={0.5}>

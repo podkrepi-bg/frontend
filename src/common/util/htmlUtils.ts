@@ -1,7 +1,7 @@
 import DOMPurify from 'dompurify'
 
 export function sanitizeHTML(htmlContent: string): string {
-  return DOMPurify.sanitize(htmlContent, {ADD_TAGS:['iframe']})
+  return DOMPurify.sanitize(htmlContent, { ADD_TAGS: ['iframe'] })
 }
 
 /**
@@ -9,18 +9,17 @@ export function sanitizeHTML(htmlContent: string): string {
  * @param htmlContent The html content as string
  * @returns iframe HTML as string, sanitized HTML content as a string
  */
-export function HTMLContentSeparator(htmlContent: string, separateIframe:boolean = false) {
+export function HTMLContentSeparator(htmlContent: string, separateIframe = false) {
   const parser = new DOMParser()
-  const articleDescription = sanitizeHTML(htmlContent);
+  const articleDescription = sanitizeHTML(htmlContent)
   const html = parser.parseFromString(articleDescription, 'text/html')
   const articleVideo = html.body.querySelector('.ql-video')
-  articleVideo?.setAttribute('loading', "lazy");
+  articleVideo?.setAttribute('loading', 'lazy')
 
-  if(separateIframe && articleVideo) {
+  if (separateIframe && articleVideo) {
     html.body.removeChild(articleVideo)
     return [articleVideo.outerHTML, html.body.outerHTML]
   }
-  
-  return ['', html.body.outerHTML]
 
+  return ['', html.body.outerHTML]
 }
