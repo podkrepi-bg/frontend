@@ -23,7 +23,7 @@ import Image from 'next/image'
 import useMobile from 'common/hooks/useMobile'
 import { GetArticleDocuments, GetArticleGalleryPhotos } from 'common/util/newsFilesUrls'
 import { useShowMoreContent } from '../campaign-news/hooks/useShowMoreContent'
-import { sanitizeHTML } from 'common/util/htmlSanitizer'
+import { sanitizeHTML } from 'common/util/htmlUtils'
 
 const PREFIX = 'NewsTimeline'
 

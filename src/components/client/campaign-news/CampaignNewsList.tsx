@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next'
 import Image from 'next/image'
 import { GetArticleDocuments, GetArticleGalleryPhotos } from 'common/util/newsFilesUrls'
 import { useShowMoreContent } from './hooks/useShowMoreContent'
-import { sanitizeHTML } from 'common/util/htmlSanitizer'
+import { HTMLContentSeparator } from 'common/util/htmlUtils'
 import { QuillStypeWrapper } from 'components/common/QuillStyleWrapper'
 
 const PREFIX = 'CampaignNewsSection'
@@ -32,7 +32,6 @@ const ArticleSection = styled(Grid)(({ theme }) => ({
   paddingRight: theme.spacing(7),
   paddingTop: theme.spacing(2),
   paddingBottom: theme.spacing(2),
-
   [`& .${classes.articlepublishedDate}`]: {
     fontSize: theme.typography.pxToRem(14),
     fontWeight: 400,
@@ -59,10 +58,6 @@ const ArticleSection = styled(Grid)(({ theme }) => ({
     fontWeight: 700,
   },
 
-  [`& .${classes.articleDescription}`]: {
-    fontSize: theme.typography.pxToRem(16),
-    fontFamily: theme.typography.fontFamily,
-  },
 
   [`& .${classes.dateAndAuthorContainer}`]: {
     marginBottom: theme.spacing(2),
@@ -74,10 +69,8 @@ const ArticleSection = styled(Grid)(({ theme }) => ({
     textDecoration: 'underline',
     padding: 0,
     margin: 0,
-  },
-
-  [`& .${classes.articleDescription}`]: {
-    margin: 0,
+    position: 'relative',
+    bottom:5
   },
 }))
 
@@ -95,7 +88,7 @@ export default function CampaignNewsList({ articles }: Props) {
       {articles?.map((article, index) => {
         const documents = GetArticleDocuments(article.newsFiles)
         const images = GetArticleGalleryPhotos(article.newsFiles)
-        const sanitizedDescription = sanitizeHTML(article.description)
+        const [,sanitizedDescription] = HTMLContentSeparator(article.description)
         return (
           <Grid
             container
@@ -104,7 +97,8 @@ export default function CampaignNewsList({ articles }: Props) {
               backgroundColor: index % 2 === 0 ? '#FFFFFF' : '#E3E3E3',
               borderBottom: 1,
               borderColor: index % 2 === 0 ? '#FFFFFF' : '#C4C4C4',
-            }}>
+            }}
+            >
             <ArticleSection>
               <Grid container columnGap={2} rowGap={1} className={classes.dateAndAuthorContainer}>
                 <Grid container item gap={1} xs="auto">
@@ -125,32 +119,15 @@ export default function CampaignNewsList({ articles }: Props) {
                   item
                   direction={'column'}
                   gap={1}
-                  xs={'auto'}
-                  style={{ maxWidth: '100%' }}>
+                  >
                   <Typography className={classes.articleHeader}>{article.title}</Typography>
                   <QuillStypeWrapper>
-                    {!isExpanded[article.id] && sanitizedDescription.length > CHARACTER_LIMIT ? (
                       <Typography
-                        component={'div'}
+                        component={'div'}                 
                         className={classes.articleDescription}
-                        dangerouslySetInnerHTML={{
-                          __html: sanitizedDescription.slice(0, CHARACTER_LIMIT) + '...',
-                        }}
-                      />
-                    ) : (
-                      <Typography
-                        component={'div'}
-                        className={classes.articleDescription}
-                        dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
-                      />
-                    )}
-                    {sanitizedDescription.length > CHARACTER_LIMIT && (
-                      <Button
-                        className={classes.readMoreButton}
-                        onClick={() => expandContent(article.id)}>
-                        {!isExpanded[article.id] ? `${t('read-more')} >` : `${t('read-less')} <`}
-                      </Button>
-                    )}
+                        dangerouslySetInnerHTML={{ __html: !isExpanded[article.id] && sanitizedDescription.length > CHARACTER_LIMIT ? sanitizedDescription.slice(0, CHARACTER_LIMIT) + "..." : sanitizedDescription }}
+                        sx={{wordBreak: 'break-word'}}
+                        />
                   </QuillStypeWrapper>
                   <Grid container item direction={'column'} gap={0.5}>
                     {documents.map((file) => (
@@ -174,6 +151,15 @@ export default function CampaignNewsList({ articles }: Props) {
                   </Grid>
                 )}
               </Grid>
+                {sanitizedDescription.length > CHARACTER_LIMIT && (
+                  <Button
+                  key={article.id}
+                    className={classes.readMoreButton}
+                    onClick={(e) => expandContent(article.id)}
+                    sx={{background: 'transperent',width: '100%'}}>
+                    {!isExpanded[article.id] ? `${t('read-more')} >` : `${t('read-less')} <`}
+                  </Button>
+                )}
             </ArticleSection>
           </Grid>
         )

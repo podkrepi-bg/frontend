@@ -8,10 +8,11 @@ import { useTranslation } from 'react-i18next'
 
 import Image from 'next/image'
 import { GetArticleDocuments, GetArticleGalleryPhotos } from 'common/util/newsFilesUrls'
-import { sanitizeHTML } from 'common/util/htmlSanitizer'
+import { HTMLContentSeparator } from 'common/util/htmlUtils'
 import { useFindArticleBySlug } from 'common/hooks/campaign-news'
 import Layout from '../layout/Layout'
 import Link from 'next/link'
+import { QuillStypeWrapper } from 'components/common/QuillStyleWrapper'
 
 const PREFIX = 'CampaignNewsSection'
 const classes = {
@@ -86,7 +87,7 @@ export default function SingleArticlePage({ slug }: Props) {
 
   const documents = GetArticleDocuments(article.newsFiles)
   const images = GetArticleGalleryPhotos(article.newsFiles)
-  const sanitizedDescription = sanitizeHTML(article.description)
+  const[,sanitizedDescription] = HTMLContentSeparator(article.description)
   return (
     <Layout>
       <Grid container item xs={12}>
@@ -113,11 +114,14 @@ export default function SingleArticlePage({ slug }: Props) {
               style={{ maxWidth: '100%' }}>
               <Typography className={classes.articleHeader}>{article.title}</Typography>
               <Grid container item>
+                <QuillStypeWrapper>
                 <Typography
                   component={'div'}
                   className={classes.articleDescription}
                   dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
+                  sx={{wordBreak: 'break-word'}}
                 />
+                </QuillStypeWrapper>
               </Grid>
               <Grid container item direction={'column'} gap={0.5}>
                 {documents.map((file) => (
