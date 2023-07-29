@@ -52,7 +52,7 @@ export const QuillStypeWrapper = styled(Grid)(({ theme }) => ({
   ['.ql-editor, .ql-align-right']: {
     textAlign: 'right',
   },
-  
+
   ['blockquote']: {
     borderLeft: '4px solid #ccc',
     marginBottom: 5,

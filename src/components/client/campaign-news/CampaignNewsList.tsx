@@ -16,6 +16,7 @@ import { useShowMoreContent } from './hooks/useShowMoreContent'
 import { HTMLContentSeparator } from 'common/util/htmlUtils'
 import { QuillStypeWrapper } from 'components/common/QuillStyleWrapper'
 import { scrollToTop } from './utils/scrollToTop'
+import { getArticleHeight } from './utils/getArticleHeight'
 
 const PREFIX = 'CampaignNewsSection'
 const classes = {
@@ -80,8 +81,9 @@ type Props = {
 
 export default function CampaignNewsList({ articles }: Props) {
   const { t, i18n } = useTranslation('news')
-  const CHARACTER_LIMIT = 400
+  const INITIAL_HEIGHT_LIMIT = 300
   const [isExpanded, expandContent] = useShowMoreContent()
+
   return (
     <>
       {articles?.map((article, index: number) => {
@@ -111,7 +113,17 @@ export default function CampaignNewsList({ articles }: Props) {
                   <Typography className={classes.articleAuthor}>{article.author}</Typography>
                 </Grid>
               </Grid>
-              <Grid container rowGap={1} columnGap={4}>
+              <Grid
+                container
+                rowGap={1}
+                columnGap={4}
+                sx={{
+                  height:
+                    getArticleHeight(article.id) > INITIAL_HEIGHT_LIMIT && !isExpanded[article.id]
+                      ? INITIAL_HEIGHT_LIMIT
+                      : 'auto',
+                  overflow: 'hidden',
+                }}>
                 <Grid container item direction={'column'} gap={1}>
                   <Typography className={classes.articleHeader}>{article.title}</Typography>
                   <QuillStypeWrapper>
@@ -119,10 +131,7 @@ export default function CampaignNewsList({ articles }: Props) {
                       component={'div'}
                       className={classes.articleDescription}
                       dangerouslySetInnerHTML={{
-                        __html:
-                          !isExpanded[article.id] && sanitizedDescription.length > CHARACTER_LIMIT
-                            ? sanitizedDescription.slice(0, CHARACTER_LIMIT) + '...'
-                            : sanitizedDescription,
+                        __html: sanitizedDescription,
                       }}
                       sx={{ wordBreak: 'break-word' }}
                     />
@@ -149,11 +158,11 @@ export default function CampaignNewsList({ articles }: Props) {
                   </Grid>
                 )}
               </Grid>
-              {sanitizedDescription.length > CHARACTER_LIMIT && (
+              {getArticleHeight(article.id) > INITIAL_HEIGHT_LIMIT && (
                 <Button
                   key={article.id}
                   className={classes.readMoreButton}
-                  onClick={(e) => {
+                  onClick={() => {
                     expandContent(article.id)
                     scrollToTop(article.id)
                   }}
