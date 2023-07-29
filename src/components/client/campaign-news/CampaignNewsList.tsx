@@ -1,7 +1,5 @@
 import { Button, Grid, Link, Typography } from '@mui/material'
 
-import 'react-quill/dist/quill.bubble.css'
-
 import { CampaignNewsResponse } from 'gql/campaign-news'
 
 import { styled } from '@mui/material/styles'
