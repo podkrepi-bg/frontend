@@ -154,7 +154,7 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
   const [isExpanded, expandContent] = useShowMoreContent()
 
   return (
-    <Grid container item xs={12} spacing={1}>
+    <Grid container item xs={12} spacing={1} id="news">
       <Grid container item flexDirection={'column'}>
         <Typography component={'h3'} fontSize={25} color="#000000">
           {t('news')}

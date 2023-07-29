@@ -26,6 +26,7 @@ import { routes } from 'common/routes'
 import { useCanEditCampaign } from 'common/hooks/campaigns'
 import { moneyPublic } from 'common/util/money'
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
+import CampaignDetailsChip from './CampaignDetailsChip'
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 const CampaignNewsSection = dynamic(() => import('./CampaignNewsSection'), { ssr: false })
@@ -95,12 +96,21 @@ type Props = {
   campaign: CampaignResponse
 }
 
+const chipsLabel = { news: 'News', experts: 'Experts', expenses: 'Financial Expesnes' }
+
 export default function CampaignDetails({ campaign }: Props) {
   const { t } = useTranslation()
   const sliderImages = campaignSliderUrls(campaign)
   const canEditCampaign = useCanEditCampaign(campaign.slug)
   const { data: expensesList } = useCampaignApprovedExpensesList(campaign.slug)
   const totalExpenses = expensesList?.reduce((acc, expense) => acc + expense.amount, 0)
+
+  const scrollToSection = (sectionId: string) => {
+    const target = document.getElementById(sectionId)
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
 
   return (
     <StyledGrid item xs={12} md={8}>
@@ -120,6 +130,11 @@ export default function CampaignDetails({ campaign }: Props) {
         </Grid>
         <Grid item xs={12}>
           <Divider />
+        </Grid>
+        <Grid container item xs={12}>
+          {Object.entries(chipsLabel).map(([id, label]) => (
+            <CampaignDetailsChip key={id} chip={label} onClick={() => scrollToSection(id)} />
+          ))}
         </Grid>
         <Grid item xs={12}>
           <CampaignInfoOperator campaign={campaign} />
