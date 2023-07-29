@@ -79,7 +79,7 @@ type Props = {
 
 export default function CampaignNewsList({ articles }: Props) {
   const { t, i18n } = useTranslation('news')
-  const CHARACTER_LIMIT = 350
+  const CHARACTER_LIMIT = 400
   const [isExpanded, expandContent] = useShowMoreContent()
 
   return (
