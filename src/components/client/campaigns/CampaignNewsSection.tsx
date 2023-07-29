@@ -24,6 +24,7 @@ import useMobile from 'common/hooks/useMobile'
 import { GetArticleDocuments, GetArticleGalleryPhotos } from 'common/util/newsFilesUrls'
 import { useShowMoreContent } from '../campaign-news/hooks/useShowMoreContent'
 import { sanitizeHTML } from 'common/util/htmlUtils'
+import { QuillStypeWrapper } from 'components/common/QuillStyleWrapper'
 
 const PREFIX = 'NewsTimeline'
 
@@ -240,22 +241,20 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                         <Typography className={classes.articleHeader}>{article.title}</Typography>
                       </Grid>
                       <Grid container item direction={'row'}>
-                        {!isExpanded[article.id] &&
-                        sanitizedDescription.length > CHARACTER_LIMIT ? (
+                        <QuillStypeWrapper>
                           <Typography
                             component={'div'}
                             className={classes.articleDescription}
                             dangerouslySetInnerHTML={{
-                              __html: sanitizedDescription.slice(0, CHARACTER_LIMIT) + '...',
+                              __html:
+                                !isExpanded[article.id] &&
+                                sanitizedDescription.length > CHARACTER_LIMIT
+                                  ? sanitizedDescription.slice(0, CHARACTER_LIMIT) + '...'
+                                  : sanitizedDescription,
                             }}
+                            sx={{ wordBreak: 'break-word' }}
                           />
-                        ) : (
-                          <Typography
-                            component={'div'}
-                            className={classes.articleDescription}
-                            dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
-                          />
-                        )}
+                        </QuillStypeWrapper>
                         {sanitizedDescription.length > CHARACTER_LIMIT && (
                           <Button
                             className={classes.readMoreButton}
