@@ -25,6 +25,7 @@ import { GetArticleDocuments, GetArticleGalleryPhotos } from 'common/util/newsFi
 import { useShowMoreContent } from '../campaign-news/hooks/useShowMoreContent'
 import { sanitizeHTML } from 'common/util/htmlUtils'
 import { QuillStypeWrapper } from 'components/common/QuillStyleWrapper'
+import { scrollToTop } from '../campaign-news/utils/scrollToTop'
 
 const PREFIX = 'NewsTimeline'
 
@@ -180,7 +181,7 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
               const images = GetArticleGalleryPhotos(article.newsFiles)
               const sanitizedDescription = sanitizeHTML(article.description)
               return (
-                <TimelineItem key={article.id} className={classes.timelineItem}>
+                <TimelineItem key={article.id} className={classes.timelineItem} id={article.id}>
                   {!small && (
                     <TimelineOppositeContent className={classes.timelineOppositeContent}>
                       <Grid container flexDirection={'column'} wrap="nowrap" gap={2}>
@@ -258,7 +259,10 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
                         {sanitizedDescription.length > CHARACTER_LIMIT && (
                           <Button
                             className={classes.readMoreButton}
-                            onClick={() => expandContent(article.id)}>
+                            onClick={() => {
+                              expandContent(article.id)
+                              scrollToTop(article.id)
+                            }}>
                             {!isExpanded[article.id]
                               ? `${t('read-more')} >`
                               : `${t('read-less')} <`}

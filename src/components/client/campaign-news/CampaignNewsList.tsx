@@ -15,6 +15,7 @@ import { GetArticleDocuments, GetArticleGalleryPhotos } from 'common/util/newsFi
 import { useShowMoreContent } from './hooks/useShowMoreContent'
 import { HTMLContentSeparator } from 'common/util/htmlUtils'
 import { QuillStypeWrapper } from 'components/common/QuillStyleWrapper'
+import { scrollToTop } from './utils/scrollToTop'
 
 const PREFIX = 'CampaignNewsSection'
 const classes = {
@@ -81,10 +82,9 @@ export default function CampaignNewsList({ articles }: Props) {
   const { t, i18n } = useTranslation('news')
   const CHARACTER_LIMIT = 400
   const [isExpanded, expandContent] = useShowMoreContent()
-
   return (
     <>
-      {articles?.map((article, index) => {
+      {articles?.map((article, index: number) => {
         const documents = GetArticleDocuments(article.newsFiles)
         const images = GetArticleGalleryPhotos(article.newsFiles)
         const [, sanitizedDescription] = HTMLContentSeparator(article.description)
@@ -97,7 +97,7 @@ export default function CampaignNewsList({ articles }: Props) {
               borderBottom: 1,
               borderColor: index % 2 === 0 ? '#FFFFFF' : '#C4C4C4',
             }}>
-            <ArticleSection>
+            <ArticleSection id={article.id}>
               <Grid container columnGap={2} rowGap={1} className={classes.dateAndAuthorContainer}>
                 <Grid container item gap={1} xs="auto">
                   <AvTimerIcon color="primary" />
@@ -153,7 +153,10 @@ export default function CampaignNewsList({ articles }: Props) {
                 <Button
                   key={article.id}
                   className={classes.readMoreButton}
-                  onClick={() => expandContent(article.id)}
+                  onClick={(e) => {
+                    expandContent(article.id)
+                    scrollToTop(article.id)
+                  }}
                   sx={{ background: 'transperent', width: '100%' }}>
                   {!isExpanded[article.id] ? `${t('read-more')} >` : `${t('read-less')} <`}
                 </Button>
