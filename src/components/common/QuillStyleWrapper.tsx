@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material'
 import { styled } from '@mui/material/styles'
-export const QuillStypeWrapper = styled(Grid)(({theme}) => ({
+export const QuillStypeWrapper = styled(Grid)(({ theme }) => ({
   ['.ql-container']: {
     fontFamily: 'Helvetica,Arial,sans-serif',
     fontSize: 13,
@@ -9,23 +9,17 @@ export const QuillStypeWrapper = styled(Grid)(({theme}) => ({
     boxSizing: 'border-box',
   },
 
-
   ['.ql-editor']: {
     fontSize: theme.spacing(2),
     fontWeight: 500,
     lineHeight: theme.spacing(4),
     paddingLeft: '0',
     paddingRight: '0',
-    maxWidth: '100%'
+    maxWidth: '100%',
   },
 
-  ['p > *']:{
-    maxWidth: '100%',
-    overflowWrap: 'break-word'
-  },
   ['img']: {
     maxWidth: '100%',
-    objectFit: 'scale-down'
   },
 
   ['.ql-editor, .ql-video']: {
@@ -47,10 +41,9 @@ export const QuillStypeWrapper = styled(Grid)(({theme}) => ({
     textAlign: 'left',
   },
 
-    ['.ql-editor, .ql-align-center']: {
+  ['.ql-editor, .ql-align-center']: {
     textAlign: 'center',
-
-},
+  },
 
   ['.ql-editor, .ql-align-justify']: {
     textAlign: 'justify',
@@ -59,6 +52,7 @@ export const QuillStypeWrapper = styled(Grid)(({theme}) => ({
   ['.ql-editor, .ql-align-right']: {
     textAlign: 'right',
   },
+  
   ['blockquote']: {
     borderLeft: '4px solid #ccc',
     marginBottom: 5,
@@ -88,7 +82,7 @@ export const QuillStypeWrapper = styled(Grid)(({theme}) => ({
     fontSize: '1.5em',
   },
 
-['.ql-bubble .ql-editor a '] : {
-    textDecoration: 'none'
-}
+  ['.ql-bubble .ql-editor a ']: {
+    textDecoration: 'none',
+  },
 }))
