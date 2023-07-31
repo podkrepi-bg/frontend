@@ -96,11 +96,7 @@ export default function ActiveCampaignCard({ campaign, index }: Props) {
       <StyledCardActions disableSpacing>
         <DonateButton
           href={routes.campaigns.oneTimeDonation(slug)}
-          disabled={
-            campaignState === CampaignState.complete &&
-            percentage >= 100 &&
-            !allowDonationOnComplete
-          }
+          disabled={campaignState === CampaignState.complete && !allowDonationOnComplete}
           variant="contained"
           color="secondary">
           {t('cta.support')}
