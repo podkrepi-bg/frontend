@@ -11,21 +11,78 @@ import 'react-quill/dist/quill.snow.css'
 import ReactQuill, { Quill } from 'react-quill'
 
 import BlotFormatter from 'quill-blot-formatter/'
-Quill.register('modules/blotFormatter', BlotFormatter)
 
 import htmlEditButton from 'quill-html-edit-button'
-
-Quill.register({
-  'modules/htmlEditButton': htmlEditButton,
-})
-
-Quill.register({
-  'modules/htmlEditButton': htmlEditButton,
-})
 
 export type FormRichTextFieldProps = {
   name: string
 }
+
+const ImageFormatAttributesList = ['alt', 'height', 'width', 'style']
+
+const BaseImageFormat = Quill.import('formats/image')
+const BaseVideoFormat = Quill.import('formats/video')
+
+type ImageProp = {
+  [key: string]: string | null
+}
+
+class ImageFormat extends BaseImageFormat {
+  static formats(domNode: HTMLElement) {
+    return ImageFormatAttributesList.reduce(function (formats: ImageProp, attribute: string) {
+      if (domNode.hasAttribute(attribute)) {
+        formats[attribute] = domNode.getAttribute(attribute)
+      }
+      return formats
+    }, {})
+  }
+
+  format(name: string, value: string) {
+    if (ImageFormatAttributesList.indexOf(name) > -1) {
+      if (value) {
+        this.domNode.setAttribute(name, value)
+      } else {
+        this.domNode.removeAttribute(name)
+      }
+    } else {
+      super.format(name, value)
+    }
+  }
+}
+
+class VideoFormat extends BaseVideoFormat {
+  static formats(domNode: HTMLElement) {
+    return ImageFormatAttributesList.reduce(function (formats: ImageProp, attribute: string) {
+      if (domNode.hasAttribute(attribute)) {
+        formats[attribute] = domNode.getAttribute(attribute)
+      }
+      return formats
+    }, {})
+  }
+
+  format(name: string, value: string) {
+    if (ImageFormatAttributesList.indexOf(name) > -1) {
+      if (value) {
+        this.domNode.setAttribute(name, value)
+      } else {
+        this.domNode.removeAttribute(name)
+      }
+    } else {
+      super.format(name, value)
+    }
+  }
+}
+
+Quill.register(ImageFormat, true)
+Quill.register(VideoFormat, true)
+Quill.register('modules/blotFormatter', BlotFormatter)
+Quill.register({
+  'modules/htmlEditButton': htmlEditButton,
+})
+
+Quill.register({
+  'modules/htmlEditButton': htmlEditButton,
+})
 
 const StyledGrid = styled('div')(() => ({
   ['& .ql-toolbar.ql-snow']: {
