@@ -10,6 +10,7 @@ export const Root = styled(Card)(() => ({
   alignItems: 'initial',
   boxShadow: 'none',
   position: 'relative',
+  borderRadius: theme.spacing(0.37),
 
   '&:hover': {
     filter: 'grayscale(15%)',
@@ -46,6 +47,7 @@ export const CampaignTitle = styled('h6')(() => ({
   color: theme.palette.common.black,
   fontFamily: 'Montserrat, sans-serif',
   fontWeight: 400,
+  textAlign: 'left',
   margin: theme.spacing(1, 0, 0),
   minHeight: theme.spacing(6.25),
   overflow: 'hidden',
