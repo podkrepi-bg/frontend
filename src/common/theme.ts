@@ -7,7 +7,7 @@ import {
   ThemeOptions,
 } from '@mui/material/styles'
 
-import { Montserrat } from "next/font/google"
+import { Montserrat } from 'next/font/google'
 
 export const montserrat = Montserrat({
   display: 'auto',
