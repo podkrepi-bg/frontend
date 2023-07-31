@@ -131,7 +131,7 @@ export default function CampaignNewsList({ articles }: Props) {
                       dangerouslySetInnerHTML={{
                         __html: sanitizedDescription,
                       }}
-                      sx={{ wordBreak: 'break-word' }}
+                      sx={{ wordBreak: 'break-word', maxWidth: 1200 }}
                     />
                   </QuillStypeWrapper>
                   <Grid container item direction={'column'} gap={0.5}>
