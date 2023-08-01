@@ -21,7 +21,7 @@ export default function TeamMembersSection() {
         <Image
           alt="Team image"
           src={teamImagePath}
-          style={{ maxWidth: '100%', height: 'auto', objectFit: 'contain' }}
+          style={{ maxWidth: '100%', height: 'auto' }}
           width={1095}
           height={150}
         />

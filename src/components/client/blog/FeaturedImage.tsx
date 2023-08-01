@@ -10,14 +10,14 @@ const defaultImage = {
 type Props = {
   height: string
   src?: string | null
-  objectFit?: 'fill' | 'contain' | 'cover' | 'none' | 'scale-down'
+  // objectFit?: 'fill' | 'contain' | 'cover' | 'none' | 'scale-down'
   objectPosition?: string
   showPlaceholder?: boolean
 } & Omit<ImageProps, 'src' | 'height'>
 export default function FeaturedImage({
   src,
   height,
-  objectFit = 'contain',
+  // objectFit = 'contain',
   objectPosition = 'center center',
   showPlaceholder = false,
   ...props
@@ -29,7 +29,7 @@ export default function FeaturedImage({
         <Image
           fill
           sizes="100vw"
-          style={{ objectFit, objectPosition: defaultImage.objectPosition }}
+          style={{ objectPosition: defaultImage.objectPosition }}
           src={defaultImage.src}
           {...props}
         />
@@ -38,7 +38,7 @@ export default function FeaturedImage({
   }
   return (
     <ImageWrapper height={height}>
-      <Image fill sizes="100vw" style={{ objectFit, objectPosition }} src={src} {...props} />
+      <Image fill sizes="100vw" style={{ objectPosition }} src={src} {...props} />
     </ImageWrapper>
   )
 }
