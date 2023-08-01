@@ -1,25 +1,15 @@
 import { Grid } from '@mui/material'
 import { styled } from '@mui/material/styles'
+
 export const QuillStypeWrapper = styled(Grid)(({ theme }) => ({
-  ['.ql-container']: {
-    fontFamily: 'Helvetica,Arial,sans-serif',
-    fontSize: 13,
-    margin: 0,
-    maxWidth: '100%',
-    boxSizing: 'border-box',
-  },
-
-  ['.ql-editor']: {
-    fontSize: theme.spacing(2),
-    fontWeight: 500,
-    lineHeight: theme.spacing(4),
-    paddingLeft: '0',
-    paddingRight: '0',
-    maxWidth: '100%',
-  },
-
   ['img']: {
     maxWidth: '100%',
+  },
+
+  ['p']: {
+    fontSize: theme.spacing(2),
+    fontWeight: 400,
+    lineHeight: theme.spacing(2.85),
   },
 
   ['.ql-editor, .ql-video']: {
