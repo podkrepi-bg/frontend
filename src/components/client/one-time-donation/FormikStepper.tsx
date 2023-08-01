@@ -41,7 +41,7 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
   useEffect(() => {
     if (router.query.success === 'true' || router.query.success === 'false') {
       setStep(3)
-      clearDonationSession()
+      router.query.success === 'true' && clearDonationSession()
     }
   }, [router.query.success])
   const currentChild = childrenArray[step]
