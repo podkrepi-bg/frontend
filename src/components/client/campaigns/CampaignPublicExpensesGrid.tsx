@@ -1,21 +1,28 @@
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import { styled } from '@mui/material/styles'
-import { observer } from 'mobx-react'
+
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import { useTranslation } from 'next-i18next'
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
 
 import { useCampaignApprovedExpensesList } from 'common/hooks/expenses'
 import { moneyPublic, toMoney } from 'common/util/money'
 import { ModalStoreImpl } from 'stores/dashboard/ModalStore'
-import { ExpenseFile } from 'gql/expenses'
-import { Button, Grid, Tooltip } from '@mui/material'
+import { ExpenseFile, ExpenseResponse } from 'gql/expenses'
+import { Button, Grid, Tooltip, Typography } from '@mui/material'
 import FilePresentIcon from '@mui/icons-material/FilePresent'
 import Link from 'next/link'
 import { expenseFileUrl } from 'common/util/expenseFileUrls'
+import LinkButton from 'components/common/LinkButton'
+import EditIcon from '@mui/icons-material/Edit'
+import { routes } from 'common/routes'
+import { Assessment } from '@mui/icons-material'
+import { CampaignResponse } from 'gql/campaigns'
 
 const PREFIX = 'Grid'
 
-type Props = { slug: string }
+type GridProps = { expensesList: ExpenseResponse[] }
+type ExpenseSection = { canEditCampaign: boolean; campaign: CampaignResponse }
 
 const classes = {
   grid: `${PREFIX}-grid`,
@@ -42,9 +49,8 @@ const Root = styled(Grid)({
   },
 })
 
-export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
+function CampaignPublicExpensesGrid({ expensesList }: GridProps) {
   const { t } = useTranslation('')
-  const { data: expensesList } = useCampaignApprovedExpensesList(slug)
   const [paginationModel, setPaginationModel] = useState({
     pageSize: 20,
     page: 0,
@@ -155,5 +161,44 @@ export default observer(function CampaignPublicExpensesGrid({ slug }: Props) {
         }}
       />
     </Root>
+  )
+}
+
+export default memo(function CampaignPublicExpensesSection({
+  canEditCampaign,
+  campaign,
+}: ExpenseSection) {
+  const { t } = useTranslation()
+  const { data: expensesList } = useCampaignApprovedExpensesList(campaign.slug)
+  const totalExpenses = expensesList?.reduce((acc, expense) => acc + expense.amount, 0)
+
+  return (
+    <Grid id="expenses">
+      <Grid item xs={12}>
+        <Typography variant="h4" component="h4" my={4}>
+          {t('campaigns:campaign.financial-report')} <Assessment />
+          {canEditCampaign ? (
+            <Tooltip title={t('campaigns:cta.edit')}>
+              <LinkButton
+                href={routes.campaigns.viewExpenses(campaign.slug)}
+                variant="contained"
+                endIcon={<EditIcon />}
+              />
+            </Tooltip>
+          ) : (
+            ''
+          )}
+        </Typography>
+      </Grid>
+      <Grid item xs={12}>
+        <Typography>
+          <ReceiptLongIcon /> {t('expenses:reported')}:{' '}
+          {moneyPublic(totalExpenses || 0, campaign.currency)}
+        </Typography>
+      </Grid>
+      <Grid item xs={12} mt={2}>
+        <CampaignPublicExpensesGrid expensesList={expensesList} />
+      </Grid>
+    </Grid>
   )
 })

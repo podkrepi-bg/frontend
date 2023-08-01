@@ -27,6 +27,7 @@ import { sanitizeHTML } from 'common/util/htmlUtils'
 import { QuillStypeWrapper } from 'components/common/QuillStyleWrapper'
 import { scrollToTop } from '../campaign-news/utils/scrollToTop'
 import { getArticleHeight } from '../campaign-news/utils/getArticleHeight'
+import { memo } from 'react'
 
 const PREFIX = 'NewsTimeline'
 
@@ -152,7 +153,7 @@ type Props = {
   canCreateArticle: boolean
 }
 
-export default function CampaignNewsSection({ campaign, canCreateArticle }: Props) {
+export default memo(function CampaignNewsSection({ campaign, canCreateArticle }: Props) {
   const { t, i18n } = useTranslation('news')
   const { small }: { small: boolean } = useMobile()
 
@@ -160,7 +161,7 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
   const [isExpanded, expandContent] = useShowMoreContent()
 
   return (
-    <Grid container item xs={12} spacing={1}>
+    <Grid spacing={1}>
       <Grid container item flexDirection={'column'}>
         <Typography component={'h3'} fontSize={25} color="#000000">
           {t('news')}
@@ -323,4 +324,4 @@ export default function CampaignNewsSection({ campaign, canCreateArticle }: Prop
       )}
     </Grid>
   )
-}
+})

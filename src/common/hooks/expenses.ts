@@ -31,6 +31,7 @@ export function useCampaignApprovedExpensesList(slug: string) {
   const { data: session } = useSession()
   return useQuery<ExpenseResponse[]>([endpoints.campaign.listCampaignApprovedExpenses(slug).url], {
     queryFn: authQueryFnFactory(session?.accessToken),
+    initialData: [],
   })
 }
 

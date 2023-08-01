@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Grid } from '@mui/material'
 
-import { useViewCampaign } from 'common/hooks/campaigns'
+import { useCanEditCampaign, useViewCampaign } from 'common/hooks/campaigns'
 import { campaignListPictureUrl } from 'common/util/campaignImageUrls'
 import theme from 'common/theme'
 import useMobile from 'common/hooks/useMobile'
@@ -12,9 +12,13 @@ import CenteredSpinner from 'components/common/CenteredSpinner'
 import InlineDonation from './InlineDonation'
 import CampaignDetails from './CampaignDetails'
 import dynamic from 'next/dynamic'
+import DonationWishes from './DonationWishes'
+import CampaignPublicExpensesSection from './CampaignPublicExpensesGrid'
+import FeedbackAndReportSection from './FeedbackAndReportSection'
 
 type Props = { slug: string }
 const HotJar = dynamic(() => import('common/hotjar/HotJar'), { ssr: false })
+const CampaignNewsSection = dynamic(() => import('./CampaignNewsSection'), { ssr: false })
 
 export default function ViewCampaignPage({ slug }: Props) {
   const { data, isLoading } = useViewCampaign(slug)
@@ -23,7 +27,7 @@ export default function ViewCampaignPage({ slug }: Props) {
   const { campaign } = data
   const ogImageUrl = campaignListPictureUrl(campaign)
   const ShouldIncludeHotJar = slug === 'petar-v-cambridge' ? HotJar : () => null
-
+  const canEditCampaign = useCanEditCampaign(slug, data.campaign)
   return (
     <Layout
       maxWidth={false}
@@ -32,7 +36,13 @@ export default function ViewCampaignPage({ slug }: Props) {
       metaDescription={campaign.title}>
       <ShouldIncludeHotJar />
       <Grid container component="section" maxWidth="lg" justifyContent="center" m="0 auto">
-        <CampaignDetails campaign={campaign} />
+        <Grid container item xs={12} md={8} spacing={8} direction={'column'} gap={8}>
+          <CampaignDetails campaign={campaign} />
+          <CampaignPublicExpensesSection campaign={campaign} canEditCampaign={canEditCampaign} />
+          <CampaignNewsSection campaign={campaign} canCreateArticle={canEditCampaign} />
+          <DonationWishes campaignId={campaign.id} />
+          <FeedbackAndReportSection campaign={campaign} />
+        </Grid>
         {mobile || small ? (
           <Grid
             item

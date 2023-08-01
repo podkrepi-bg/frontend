@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, memo } from 'react'
 
 import { i18n, useTranslation } from 'next-i18next'
 import { useRouter } from 'next/router'
@@ -214,7 +214,7 @@ type Props = {
   campaign: CampaignResponse
 }
 
-export default function InlineDonation({ campaign }: Props) {
+export default memo(function InlineDonation({ campaign }: Props) {
   const { t } = useTranslation('campaigns')
   const { asPath } = useRouter()
   const [status, copyUrl] = useCopyToClipboard(baseUrl + asPath, 1000)
@@ -364,4 +364,4 @@ export default function InlineDonation({ campaign }: Props) {
       )}
     </StyledGrid>
   )
-}
+})

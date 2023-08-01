@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, memo } from 'react'
 
 import { useTranslation } from 'next-i18next'
 
@@ -17,7 +17,7 @@ type Props = {
   pageSize?: number
 }
 
-export default function DonationWishes({ campaignId, pageSize = 12 }: Props) {
+export default memo(function DonationWishes({ campaignId, pageSize = 12 }: Props) {
   const { t, i18n } = useTranslation('campaigns')
   const locale = i18n.language == 'bg' ? bg : enUS
   const titleRef = useRef<HTMLElement>(null)
@@ -126,4 +126,4 @@ export default function DonationWishes({ campaignId, pageSize = 12 }: Props) {
       </Grid2>
     </Grid2>
   )
-}
+})

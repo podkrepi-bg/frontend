@@ -8,5 +8,6 @@ export function useDonationWishesList(camapignId: string, pageIndex?: number, pa
   return useQuery<DonationWishPaginatedResponse>({
     queryKey: [endpoints.donationWish.listDonationWishes(camapignId, pageIndex, pageSize).url],
     keepPreviousData: true,
+    initialData: { items: [], totalCount: 0 },
   })
 }

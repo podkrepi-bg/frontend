@@ -1,34 +1,21 @@
-import React from 'react'
+import React, { memo } from 'react'
 
-import { useTranslation } from 'next-i18next'
 import dynamic from 'next/dynamic'
 
 import { CampaignResponse } from 'gql/campaigns'
 
 import 'react-quill/dist/quill.bubble.css'
 
-import { Divider, Grid, Tooltip, Typography } from '@mui/material'
-import SecurityIcon from '@mui/icons-material/Security'
+import { Divider, Grid, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
-import DonationWishes from './DonationWishes'
 import CampaignSlider from './CampaignSlider'
 import CampaignInfo from './CampaignInfo'
 import CampaignInfoGraphics from './CampaignInfoGraphics'
 import CampaignInfoOperator from './CampaignInfoOperator'
-import LinkButton from 'components/common/LinkButton'
 import { campaignSliderUrls } from 'common/util/campaignImageUrls'
-import CampaignPublicExpensesGrid from './CampaignPublicExpensesGrid'
-import EditIcon from '@mui/icons-material/Edit'
-import { useCampaignApprovedExpensesList } from 'common/hooks/expenses'
-import { Assessment } from '@mui/icons-material'
-import { routes } from 'common/routes'
-import { useCanEditCampaign } from 'common/hooks/campaigns'
-import { moneyPublic } from 'common/util/money'
-import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
-const CampaignNewsSection = dynamic(() => import('./CampaignNewsSection'), { ssr: false })
 
 const PREFIX = 'CampaignDetails'
 
@@ -70,47 +57,21 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     paddingLeft: '0',
     paddingRight: '0',
   },
-
-  [`& .${classes.linkButton}`]: {
-    fontSize: theme.typography.pxToRem(10),
-    letterSpacing: theme.spacing(0.01),
-    lineHeight: '150%',
-    textDecoration: 'underline',
-    color: 'initial',
-
-    '&:hover': {
-      textDecoration: 'underline',
-      color: theme.palette.primary.main,
-      backgroundColor: 'transparent',
-    },
-  },
-
-  [`& .${classes.securityIcon}`]: {
-    width: theme.spacing(2.25),
-    height: theme.spacing(2.75),
-  },
 }))
 
 type Props = {
   campaign: CampaignResponse
 }
 
-export default function CampaignDetails({ campaign }: Props) {
-  const { t } = useTranslation()
+export default memo(function CampaignDetails({ campaign }: Props) {
   const sliderImages = campaignSliderUrls(campaign)
-  const canEditCampaign = useCanEditCampaign(campaign.slug)
-  const { data: expensesList } = useCampaignApprovedExpensesList(campaign.slug)
-  const totalExpenses = expensesList?.reduce((acc, expense) => acc + expense.amount, 0)
 
   return (
-    <StyledGrid item xs={12} md={8}>
+    <StyledGrid>
       <Typography variant="h1" component="h1" mb={8} className={classes.campaignTitle}>
         {campaign.title}
       </Typography>
-      <CampaignInfo
-        campaign={campaign}
-        showExpensesLink={(expensesList && expensesList?.length > 0) || canEditCampaign}
-      />
+      <CampaignInfo campaign={campaign} showExpensesLink={true} />
       <Grid container spacing={8}>
         <Grid item xs={12}>
           <ReactQuill readOnly theme="bubble" value={campaign.description} />
@@ -125,60 +86,7 @@ export default function CampaignDetails({ campaign }: Props) {
           <CampaignInfoOperator campaign={campaign} />
         </Grid>
         <CampaignInfoGraphics />
-        {expensesList?.length || canEditCampaign ? (
-          <Grid item xs={12} id="expenses">
-            <Grid item xs={12}>
-              <Typography variant="h4" component="h4" my={4}>
-                {t('campaigns:campaign.financial-report')} <Assessment />
-                {canEditCampaign ? (
-                  <Tooltip title={t('campaigns:cta.edit')}>
-                    <LinkButton
-                      href={routes.campaigns.viewExpenses(campaign.slug)}
-                      variant="contained"
-                      endIcon={<EditIcon />}
-                    />
-                  </Tooltip>
-                ) : (
-                  ''
-                )}
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Typography>
-                <ReceiptLongIcon /> {t('expenses:reported')}:{' '}
-                {moneyPublic(totalExpenses || 0, campaign.currency)}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} mt={2}>
-              <CampaignPublicExpensesGrid slug={campaign.slug} />
-            </Grid>
-          </Grid>
-        ) : (
-          ''
-        )}
-        <CampaignNewsSection campaign={campaign} canCreateArticle={canEditCampaign} />
-        <Grid item xs={12}>
-          <DonationWishes campaignId={campaign?.id} />
-        </Grid>
-        <Grid container item xs={12}>
-          <Grid item xs={12} mb={1}>
-            <LinkButton
-              startIcon={<SecurityIcon color="action" className={classes.securityIcon} />}
-              href={'/contact'}
-              className={classes.linkButton}>
-              {t('campaigns:campaign.feedback')}
-            </LinkButton>
-          </Grid>
-          <Grid item xs={12}>
-            <LinkButton
-              startIcon={<SecurityIcon color="action" className={classes.securityIcon} />}
-              href={`/campaigns/${campaign.slug}/irregularity`}
-              className={classes.linkButton}>
-              {t('campaigns:campaign.report-campaign')}
-            </LinkButton>
-          </Grid>
-        </Grid>
       </Grid>
     </StyledGrid>
   )
-}
+})
