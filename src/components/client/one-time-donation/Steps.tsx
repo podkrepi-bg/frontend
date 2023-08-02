@@ -24,6 +24,7 @@ import Fail from './steps/Fail'
 import { FormikStep, FormikStepper } from './FormikStepper'
 import { validateFirst, validateSecond, validateThird } from './helpers/validation-schema'
 import { StepsContext } from './helpers/stepperContext'
+import { useDonationStepSession } from './helpers/donateSession'
 
 const initialValues: OneTimeDonation = {
   message: '',
@@ -60,6 +61,8 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
   const mutation = useDonationSession()
   const { data: session } = useSession()
   const { data: { user: person } = { user: null } } = useCurrentPerson()
+  const [donateSession, { updateDonationSession, clearDonationSession }] =
+    useDonationStepSession(slug)
   if (isLoading || !data) return <CenteredSpinner size="2rem" />
   const { campaign } = data
 
@@ -152,18 +155,20 @@ export default function DonationStepper({ onStepChange }: DonationStepperProps) 
       validate: null,
     },
   ]
-  const [step, setStep] = React.useState(0)
+
+  const [step, setStep] = React.useState(donateSession?.step ?? 0)
 
   React.useEffect(() => {
     onStepChange()
   }, [step])
 
   return (
-    <StepsContext.Provider value={{ step, setStep, campaign }}>
+    <StepsContext.Provider
+      value={{ step, setStep, campaign, updateDonationSession, clearDonationSession }}>
       {isLoading ? (
         <CircularProgress color="primary" />
       ) : (
-        <FormikStepper onSubmit={onSubmit} initialValues={initialValues}>
+        <FormikStepper onSubmit={onSubmit} initialValues={donateSession?.values ?? initialValues}>
           {steps.map(({ label, component, validate }) => (
             <FormikStep key={label} label={t(`step-labels.${label}`)} validationSchema={validate}>
               {component}

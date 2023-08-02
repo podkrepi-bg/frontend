@@ -35,11 +35,14 @@ export type GenericFormProps<T> = PropsWithChildren<FormikConfig<T>>
 
 export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDonation>) {
   const childrenArray = React.Children.toArray(children) as React.ReactElement<FormikStepProps>[]
-  const { step, setStep } = useContext(StepsContext)
+  const { step, setStep, updateDonationSession, clearDonationSession } = useContext(StepsContext)
   const router = useRouter()
   const mobile = useMediaQuery('(max-width:568px)')
   useEffect(() => {
-    router.query.success === 'false' || router.query.success === 'true' ? setStep(3) : null
+    if (router.query.success === 'true' || router.query.success === 'false') {
+      setStep(3)
+      router.query.success === 'true' && clearDonationSession()
+    }
   }, [router.query.success])
   const currentChild = childrenArray[step]
   const { data: session } = useSession()
@@ -59,6 +62,7 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
 
     return true
   }
+
   const { t } = useTranslation('one-time-donation')
   const hideNextButton = useCallback(
     (isAnonymous: boolean) => {
@@ -67,13 +71,15 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
       }
       return false
     },
-    [step],
+    [step, isLogged()],
   )
+
   return (
     <Formik
       {...props}
       validationSchema={currentChild.props.validationSchema}
       onSubmit={async (values, helpers) => {
+        updateDonationSession(values, step + 1)
         if (isLastStep()) {
           values.isAnonymous = isLogged() === false ? true : values.isAnonymous ?? !isLogged()
           await props.onSubmit(values, helpers)
@@ -84,7 +90,7 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
       }}
       validateOnMount
       validateOnBlur>
-      {({ isSubmitting, handleSubmit, isValid, values: { isAnonymous } }) => (
+      {({ isSubmitting, handleSubmit, isValid, values }) => (
         <Form
           onSubmit={handleSubmit}
           style={{
@@ -117,6 +123,7 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
                   color="error"
                   size="large"
                   onClick={() => {
+                    updateDonationSession(values, step - 1)
                     setStep((s) => s - 1)
                   }}>
                   {t('btns.back')}
@@ -124,7 +131,7 @@ export function FormikStepper({ children, ...props }: GenericFormProps<OneTimeDo
               </Grid>
               <Grid item xs={12} md={6}>
                 <LoadingButton
-                  disabled={!isValid || isSubmitting || hideNextButton(isAnonymous)}
+                  disabled={!isValid || isSubmitting || hideNextButton(values.isAnonymous)}
                   fullWidth
                   type="submit"
                   variant="contained"
