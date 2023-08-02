@@ -18,12 +18,12 @@ export default observer(function DetailsModal() {
   const { t } = useTranslation('campaign-types')
 
   const dataConverted = [
-    { name: 'ID', value: `${data?.id}` },
-    { name: t('grid.name'), value: `${data?.name}` },
-    { name: t('grid.category'), value: parent?.name || `${t('grid.no-parent')}` },
+    { name: 'ID', value: data?.id },
+    { name: t('grid.name'), value: data?.name },
+    { name: t('grid.category'), value: parent?.name || t('grid.no-parent') },
     {
       name: t('grid.description'),
-      value: data?.description || `${t('campaign-types:grid:no-description')}`,
+      value: data?.description || t('campaign-types:grid:no-description'),
     },
   ]
 

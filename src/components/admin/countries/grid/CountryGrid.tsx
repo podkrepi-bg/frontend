@@ -41,20 +41,6 @@ export default observer(function Grid() {
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID' },
     {
-      field: 'name',
-      headerName: t('fields.name'),
-      valueGetter: (p) => p.row.name,
-      headerClassName: classes.gridColumn,
-      flex: 1,
-    },
-    {
-      field: 'countryCode',
-      headerName: t('fields.country-code'),
-      valueGetter: (p) => p.row.countryCode,
-      headerClassName: classes.gridColumn,
-      flex: 1,
-    },
-    {
       field: 'actions',
       headerName: t('fields.action'),
       headerAlign: 'left',
@@ -69,6 +55,20 @@ export default observer(function Grid() {
       width: 120,
       type: 'actions',
       headerClassName: classes.gridColumn,
+    },
+    {
+      field: 'name',
+      headerName: t('fields.name'),
+      valueGetter: (p) => p.row.name,
+      headerClassName: classes.gridColumn,
+      flex: 1,
+    },
+    {
+      field: 'countryCode',
+      headerName: t('fields.country-code'),
+      valueGetter: (p) => p.row.countryCode,
+      headerClassName: classes.gridColumn,
+      flex: 1,
     },
   ]
 

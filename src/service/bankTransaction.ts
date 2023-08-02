@@ -1,5 +1,10 @@
 import { AxiosResponse } from 'axios'
-import { BankTransactionEditRefInput, BankTransactionEditRefResponse } from 'gql/bank-transactions'
+import {
+  BankTransactionEditRefInput,
+  BankTransactionEditRefResponse,
+  BankTransactionsHistoryResponse,
+  RerunTransactionsDatesInput,
+} from 'gql/bank-transactions'
 import { useSession } from 'next-auth/react'
 import { apiClient } from './apiClient'
 import { endpoints } from './apiEndpoints'
@@ -22,5 +27,16 @@ export function useEditTransactionPaymentRef(slug: string) {
       BankTransactionEditRefResponse,
       AxiosResponse<BankTransactionEditRefResponse>
     >(endpoints.bankTransactions.editPaymentRef(slug).url, data, authConfig(session?.accessToken))
+  }
+}
+
+export const useRerunBankImportForDate = () => {
+  const { data: session } = useSession()
+  return async (transactionDates: RerunTransactionsDatesInput) => {
+    return await apiClient.post<string, AxiosResponse<BankTransactionsHistoryResponse>>(
+      endpoints.bankTransactions.rerunDates.url,
+      transactionDates,
+      authConfig(session?.accessToken),
+    )
   }
 }

@@ -25,19 +25,6 @@ export default observer(function BankAccountsGrid() {
   })
 
   const columns: GridColDef[] = [
-    { ...commonProps, headerName: t('status'), field: 'status' },
-    { ...commonProps, headerName: t('ibanNumber'), field: 'ibanNumber', width: 220 },
-    { ...commonProps, headerName: t('accountHolderName'), field: 'accountHolderName', flex: 1 },
-    { ...commonProps, headerName: t('AccountHolderType'), field: 'AccountHolderType' },
-    { ...commonProps, headerName: t('bankName'), field: 'bankName', flex: 1 },
-    { ...commonProps, headerName: t('bankIdCode'), field: 'bankIdCode' },
-    { ...commonProps, headerName: t('fingerprint'), field: 'fingerprint' },
-    {
-      ...commonProps,
-      headerName: t('withdrawals'),
-      field: 'withdrawals',
-      renderCell: renderCellWithdraws,
-    },
     {
       field: 'actions',
       headerName: t('actions'),
@@ -57,6 +44,19 @@ export default observer(function BankAccountsGrid() {
           />
         )
       },
+    },
+    { ...commonProps, headerName: t('status'), field: 'status' },
+    { ...commonProps, headerName: t('ibanNumber'), field: 'ibanNumber', width: 220 },
+    { ...commonProps, headerName: t('accountHolderName'), field: 'accountHolderName', flex: 1 },
+    { ...commonProps, headerName: t('AccountHolderType'), field: 'AccountHolderType' },
+    { ...commonProps, headerName: t('bankName'), field: 'bankName', flex: 1 },
+    { ...commonProps, headerName: t('bankIdCode'), field: 'bankIdCode' },
+    { ...commonProps, headerName: t('fingerprint'), field: 'fingerprint' },
+    {
+      ...commonProps,
+      headerName: t('withdrawals'),
+      field: 'withdrawals',
+      renderCell: renderCellWithdraws,
     },
   ]
 
@@ -79,8 +79,6 @@ export default observer(function BankAccountsGrid() {
         pageSizeOptions={[5, 10]}
         paginationModel={paginationModel}
         onPaginationModelChange={setPaginationModel}
-        autoHeight
-        autoPageSize
         disableRowSelectionOnClick
       />
 

@@ -7,6 +7,7 @@ import CampaignFilter from './CampaignFilter'
 import Layout from 'components/client/layout/Layout'
 
 import { styled } from '@mui/material/styles'
+import dynamic from 'next/dynamic'
 
 const PREFIX = 'CampaignsPage'
 
@@ -19,10 +20,6 @@ const classes = {
 }
 
 const Root = styled(Layout)(({ theme }) => ({
-  [theme.breakpoints.up('sm')]: {
-    paddingTop: theme.spacing(12),
-  },
-
   [theme.breakpoints.up(2000)]: {
     maxWidth: theme.spacing(165),
     paddingTop: theme.spacing(4),
@@ -74,11 +71,14 @@ const Root = styled(Layout)(({ theme }) => ({
   },
 }))
 
+const HotJar = dynamic(() => import('common/hotjar/HotJar'), { ssr: false })
+
 export default function CampaignsPage() {
   const { t } = useTranslation()
 
   return (
     <Root maxWidth={false}>
+      <HotJar />
       <Grid>
         <Typography variant="h1" component="p" className={classes.title}>
           {t('campaigns:campaigns')}

@@ -13,7 +13,7 @@ import DetailsModal from './DetailsModal'
 
 export default observer(function CitiesGrid() {
   const { data } = useCitiesList()
-  const { t } = useTranslation()
+  const { t } = useTranslation('cities')
   const { isDetailsOpen } = ModalStore
   const [paginationModel, setPaginationModel] = useState({
     pageSize: 10,
@@ -23,31 +23,9 @@ export default observer(function CitiesGrid() {
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID' },
     {
-      field: 'name',
-      headerName: 'City Name',
-      editable: false,
-      width: 200,
-      flex: 1,
-    },
-    {
-      field: 'postalCode',
-      headerName: 'Postal Code',
-      editable: false,
-      width: 200,
-      flex: 1,
-    },
-    {
-      field: 'countryCode',
-      headerName: 'Country Code',
-      editable: false,
-      width: 200,
-      flex: 1.5,
-      valueGetter: (c) => c.row.countryCode.countryCode,
-    },
-    {
       field: 'actions',
       type: 'actions',
-      headerName: t('cities:actions'),
+      headerName: t('actions'),
       width: 120,
       headerAlign: 'left',
       renderCell: (p) => (
@@ -58,6 +36,28 @@ export default observer(function CitiesGrid() {
           editLink={routes.admin.cities.editCityById(p.row.id)}
         />
       ),
+    },
+    {
+      field: 'name',
+      headerName: t('name'),
+      editable: false,
+      width: 200,
+      flex: 1,
+    },
+    {
+      field: 'postalCode',
+      headerName: t('postalCode'),
+      editable: false,
+      width: 200,
+      flex: 1,
+    },
+    {
+      field: 'countryCode',
+      headerName: t('countryId'),
+      editable: false,
+      width: 200,
+      flex: 1.5,
+      valueGetter: (c) => c.row.countryCode.countryCode,
     },
   ]
 
@@ -83,8 +83,6 @@ export default observer(function CitiesGrid() {
         paginationModel={paginationModel}
         onPaginationModelChange={setPaginationModel}
         editMode="row"
-        autoHeight
-        autoPageSize
         disableRowSelectionOnClick
       />
 

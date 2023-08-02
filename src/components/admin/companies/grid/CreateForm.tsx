@@ -1,5 +1,6 @@
 import React from 'react'
 import * as yup from 'yup'
+import { validateEIK9, validateEIK13 } from 'components/common/validations/EIKValidator'
 import { Grid } from '@mui/material'
 
 import GenericForm from 'components/common/form/GenericForm'
@@ -19,27 +20,39 @@ import CitySelect from 'components/admin/cities/CitySelect'
 import { useCreateCompany } from 'service/company'
 import Link from 'components/common/Link'
 
-const validationSchema: yup.SchemaOf<AdminCompanyFormData> = yup.object().defined().shape({
-  companyName: companyName.required(),
-  companyNumber: yup.string().required(),
-  legalPersonName: yup.string().required(),
-  address: yup.string().required(),
-  countryId: yup.string().required(),
-  cityId: yup.string().required(),
-})
-
-const initialValues: AdminCompanyFormData = {
-  companyName: '',
-  companyNumber: '',
-  legalPersonName: '',
-  address: '',
-  countryId: '',
-  cityId: '',
-}
-
 export default function CreateForm() {
   const router = useRouter()
   const { t } = useTranslation()
+
+  const validationSchema = yup
+    .object()
+    .defined()
+    .shape({
+      companyName: companyName.required(),
+      companyNumber: yup
+        .string()
+        .required()
+        .test('eik-validation', t('validation:eik-invalid'), function (value) {
+          if (!value) {
+            return true
+          }
+          const isValidEIK = validateEIK9(value) || validateEIK13(value)
+          return isValidEIK
+        }),
+      legalPersonName: yup.string().required(),
+      address: yup.string().required(),
+      countryId: yup.string().required(),
+      cityId: yup.string().required(),
+    })
+
+  const initialValues = {
+    companyName: '',
+    companyNumber: '',
+    legalPersonName: '',
+    address: '',
+    countryId: '',
+    cityId: '',
+  }
 
   const handleError = (e: AxiosError<ApiErrors>) => {
     const error = e.response

@@ -1,7 +1,5 @@
 import { Button, Grid, Link, Typography } from '@mui/material'
 
-import 'react-quill/dist/quill.bubble.css'
-
 import { CampaignNewsResponse } from 'gql/campaign-news'
 
 import { styled } from '@mui/material/styles'
@@ -13,7 +11,10 @@ import { useTranslation } from 'react-i18next'
 import Image from 'next/image'
 import { GetArticleDocuments, GetArticleGalleryPhotos } from 'common/util/newsFilesUrls'
 import { useShowMoreContent } from './hooks/useShowMoreContent'
-import { sanitizeHTML } from 'common/util/htmlSanitizer'
+import { HTMLContentSeparator } from 'common/util/htmlUtils'
+import { QuillStypeWrapper } from 'components/common/QuillStyleWrapper'
+import { scrollToTop } from './utils/scrollToTop'
+import { getArticleHeight } from './utils/getArticleHeight'
 
 const PREFIX = 'CampaignNewsSection'
 const classes = {
@@ -31,7 +32,6 @@ const ArticleSection = styled(Grid)(({ theme }) => ({
   paddingRight: theme.spacing(7),
   paddingTop: theme.spacing(2),
   paddingBottom: theme.spacing(2),
-
   [`& .${classes.articlepublishedDate}`]: {
     fontSize: theme.typography.pxToRem(14),
     fontWeight: 400,
@@ -58,11 +58,6 @@ const ArticleSection = styled(Grid)(({ theme }) => ({
     fontWeight: 700,
   },
 
-  [`& .${classes.articleDescription}`]: {
-    fontSize: theme.typography.pxToRem(16),
-    fontFamily: theme.typography.fontFamily,
-  },
-
   [`& .${classes.dateAndAuthorContainer}`]: {
     marginBottom: theme.spacing(2),
   },
@@ -73,10 +68,8 @@ const ArticleSection = styled(Grid)(({ theme }) => ({
     textDecoration: 'underline',
     padding: 0,
     margin: 0,
-  },
-
-  [`div.${classes.articleDescription} > p`]: {
-    margin: 0,
+    position: 'relative',
+    bottom: 5,
   },
 }))
 
@@ -86,15 +79,15 @@ type Props = {
 
 export default function CampaignNewsList({ articles }: Props) {
   const { t, i18n } = useTranslation('news')
-  const CHARACTER_LIMIT = 350
+  const INITIAL_HEIGHT_LIMIT = 400
   const [isExpanded, expandContent] = useShowMoreContent()
 
   return (
     <>
-      {articles?.map((article, index) => {
+      {articles?.map((article, index: number) => {
         const documents = GetArticleDocuments(article.newsFiles)
         const images = GetArticleGalleryPhotos(article.newsFiles)
-        const sanitizedDescription = sanitizeHTML(article.description)
+        const [, sanitizedDescription] = HTMLContentSeparator(article.description)
         return (
           <Grid
             container
@@ -104,7 +97,7 @@ export default function CampaignNewsList({ articles }: Props) {
               borderBottom: 1,
               borderColor: index % 2 === 0 ? '#FFFFFF' : '#C4C4C4',
             }}>
-            <ArticleSection>
+            <ArticleSection id={article.id}>
               <Grid container columnGap={2} rowGap={1} className={classes.dateAndAuthorContainer}>
                 <Grid container item gap={1} xs="auto">
                   <AvTimerIcon color="primary" />
@@ -118,39 +111,29 @@ export default function CampaignNewsList({ articles }: Props) {
                   <Typography className={classes.articleAuthor}>{article.author}</Typography>
                 </Grid>
               </Grid>
-              <Grid container rowGap={1} columnGap={4}>
-                <Grid
-                  container
-                  item
-                  direction={'column'}
-                  gap={1}
-                  xs={'auto'}
-                  style={{ maxWidth: '100%' }}>
+              <Grid
+                container
+                rowGap={1}
+                columnGap={4}
+                sx={{
+                  height:
+                    getArticleHeight(article.id) > INITIAL_HEIGHT_LIMIT && !isExpanded[article.id]
+                      ? INITIAL_HEIGHT_LIMIT
+                      : 'auto',
+                  overflow: 'hidden',
+                }}>
+                <Grid container item direction={'column'} gap={1}>
                   <Typography className={classes.articleHeader}>{article.title}</Typography>
-                  <Grid container item>
-                    {!isExpanded[article.id] && sanitizedDescription.length > CHARACTER_LIMIT ? (
-                      <Typography
-                        component={'div'}
-                        className={classes.articleDescription}
-                        dangerouslySetInnerHTML={{
-                          __html: sanitizedDescription.slice(0, CHARACTER_LIMIT) + '...',
-                        }}
-                      />
-                    ) : (
-                      <Typography
-                        component={'div'}
-                        className={classes.articleDescription}
-                        dangerouslySetInnerHTML={{ __html: sanitizedDescription }}
-                      />
-                    )}
-                    {sanitizedDescription.length > CHARACTER_LIMIT && (
-                      <Button
-                        className={classes.readMoreButton}
-                        onClick={() => expandContent(article.id)}>
-                        {!isExpanded[article.id] ? `${t('read-more')} >` : `${t('read-less')} <`}
-                      </Button>
-                    )}
-                  </Grid>
+                  <QuillStypeWrapper>
+                    <Typography
+                      component={'div'}
+                      className={classes.articleDescription}
+                      dangerouslySetInnerHTML={{
+                        __html: sanitizedDescription,
+                      }}
+                      sx={{ wordBreak: 'break-word', maxWidth: 1200 }}
+                    />
+                  </QuillStypeWrapper>
                   <Grid container item direction={'column'} gap={0.5}>
                     {documents.map((file) => (
                       <Grid item key={file.id}>
@@ -173,6 +156,18 @@ export default function CampaignNewsList({ articles }: Props) {
                   </Grid>
                 )}
               </Grid>
+              {getArticleHeight(article.id) > INITIAL_HEIGHT_LIMIT && (
+                <Button
+                  key={article.id}
+                  className={classes.readMoreButton}
+                  onClick={() => {
+                    expandContent(article.id)
+                    scrollToTop(article.id)
+                  }}
+                  sx={{ background: 'transperent', width: '100%' }}>
+                  {!isExpanded[article.id] ? `${t('read-more')} >` : `${t('read-less')} <`}
+                </Button>
+              )}
             </ArticleSection>
           </Grid>
         )

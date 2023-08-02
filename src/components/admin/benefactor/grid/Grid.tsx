@@ -31,20 +31,6 @@ export default observer(function Grid() {
 
   const columns: GridColDef[] = [
     {
-      field: 'extCustomerId',
-      headerName: t('extCustomerId'),
-      valueGetter: (p) => p.row.extCustomerId,
-      ...commonProps,
-      flex: 1,
-    },
-    {
-      field: 'personId',
-      headerName: t('personId'),
-      valueGetter: (p) => p.row.personId,
-      ...commonProps,
-      flex: 1,
-    },
-    {
       field: 'actions',
       headerName: t('actions'),
       headerAlign: 'left',
@@ -61,6 +47,20 @@ export default observer(function Grid() {
           />
         )
       },
+    },
+    {
+      field: 'extCustomerId',
+      headerName: t('extCustomerId'),
+      valueGetter: (p) => p.row.extCustomerId,
+      ...commonProps,
+      flex: 1,
+    },
+    {
+      field: 'personId',
+      headerName: t('personId'),
+      valueGetter: (p) => p.row.personId,
+      ...commonProps,
+      flex: 1,
     },
   ]
 
@@ -84,8 +84,6 @@ export default observer(function Grid() {
           pageSizeOptions={[5, 10]}
           paginationModel={paginationModel}
           onPaginationModelChange={setPaginationModel}
-          autoHeight
-          autoPageSize
           disableRowSelectionOnClick
         />
       </Box>

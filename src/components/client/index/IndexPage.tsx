@@ -10,6 +10,9 @@ import PartnersSection from './sections/PartnersSection/PartnersSection'
 import TeamMembersSection from './sections/TeamMembersSection/TeamMembersSection'
 import JoinPodkrepiBgSection from './sections/JoinPodkrepiBgSection/JoinPodkrepiBgSection'
 import FaqSection from './sections/FaqSection/FaqSection'
+import dynamic from 'next/dynamic'
+
+const HotJar = dynamic(() => import('common/hotjar/HotJar'), { ssr: false })
 
 export default function IndexPage() {
   const { t } = useTranslation('index')
@@ -20,6 +23,7 @@ export default function IndexPage() {
       disableGutters
       title={t('title')}
       metaDescription={t('metaDescription')}>
+      <HotJar />
       <ActiveCampaignsSection />
       <CompletedCampaignsSection />
       <PlatformStatisticsSection />

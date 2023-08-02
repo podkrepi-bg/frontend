@@ -21,6 +21,10 @@ export const endpoints = {
       url: '/campaign/user-donations-campaigns',
       method: 'GET',
     },
+    getUserCampaigns: <Endpoint>{
+      url: '/campaign/get-user-campaigns',
+      method: 'GET',
+    },
     createCampaign: <Endpoint>{ url: '/campaign/create-campaign', method: 'POST' },
     canEditCampaign: (slug: string) =>
       <Endpoint>{ url: `/campaign/${slug}/can-edit`, method: 'GET' },
@@ -146,6 +150,7 @@ export const endpoints = {
     exportToExcel: <Endpoint>{ url: '/bank-transaction/export-excel', method: 'GET' },
     editPaymentRef: (id: string) =>
       <Endpoint>{ url: `/bank-transaction/${id}/edit-ref`, method: 'PUT' },
+    rerunDates: <Endpoint>{ url: '/bank-transaction/rerun-dates', method: 'POST' },
   },
   documents: {
     documentsList: <Endpoint>{ url: '/document', method: 'GET' },

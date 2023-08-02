@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { styled } from '@mui/material/styles'
 import { Trans, useTranslation } from 'next-i18next'
 import { useField, useFormikContext } from 'formik'
-import { Box, Collapse, Divider, Grid, InputAdornment, List, Typography } from '@mui/material'
+import { Box, Collapse, Divider, Grid, List, Typography } from '@mui/material'
 import EventRepeatIcon from '@mui/icons-material/EventRepeat'
 import theme from 'common/theme'
 import RadioButtonGroup from 'components/common/form/RadioButtonGroup'
@@ -10,7 +10,6 @@ import { moneyPublic, moneyPublicDecimals2, toMoney } from 'common/util/money'
 import { BIC, ibanNumber } from 'common/iban'
 import { CopyTextButton } from 'components/common/CopyTextButton'
 import { StepsContext } from '../helpers/stepperContext'
-import FormTextField from 'components/common/form/FormTextField'
 import { useMediaQuery } from '@mui/material'
 import { OneTimeDonation } from 'gql/donations'
 import ExternalLink from 'components/common/ExternalLink'
@@ -24,6 +23,7 @@ import { useSession } from 'next-auth/react'
 import getConfig from 'next/config'
 
 import dynamic from 'next/dynamic'
+import NumberInputField from 'components/common/form/NumberInputField'
 const PaypalDonationButton = dynamic(() => import('../helpers/paypalDonationButton'), {
   ssr: false,
 })
@@ -53,11 +53,16 @@ export default function FirstStep() {
 
   const [paymentField] = useField('payment')
   const [amount] = useField('amount')
-  const [otherAmount] = useField('otherAmount')
   const [amountWithFees] = useField('amountWithFees')
   const [amountWithoutFees] = useField<number>('amountWithoutFees')
 
   const formik = useFormikContext<OneTimeDonation>()
+
+  //Stripe allows up to $1M for a single transaction. This is close enough
+  const STRIPE_LIMIT_BGN = 1500000
+
+  //In best case Paypal allows up to $25k per transaction
+  const PAYPAL_LIMIT_BGN = 40000
 
   const { campaign } = useContext(StepsContext)
 
@@ -74,6 +79,15 @@ export default function FirstStep() {
   }
 
   useEffect(() => {
+    if (
+      (amount.value == 'other' || paymentField.value === 'paypal') &&
+      formik.values.otherAmount === 0
+    ) {
+      formik.setFieldValue('otherAmount', 1)
+      formik.setFieldTouched('otherAmount', true)
+      return
+    }
+
     const chosenAmount =
       amount.value === 'other' ? toMoney(formik.values.otherAmount) : Number(formik.values.amount)
 
@@ -96,6 +110,7 @@ export default function FirstStep() {
     formik.values.cardIncludeFees,
     formik.values.cardRegion,
     formik.values.isRecurring,
+    paymentField.value,
   ])
 
   return (
@@ -232,7 +247,6 @@ export default function FirstStep() {
             <Grid
               item
               xs={12}
-              sm={6}
               style={
                 !mobile
                   ? {
@@ -242,19 +256,7 @@ export default function FirstStep() {
                     }
                   : { marginTop: theme.spacing(2) }
               }>
-              <FormTextField
-                name="otherAmount"
-                type="number"
-                label={t('first-step.amount')}
-                InputProps={{
-                  style: { fontSize: 14, padding: 7 },
-                  endAdornment: (
-                    <InputAdornment variant="filled" position="end">
-                      {t('first-step.BGN')}
-                    </InputAdornment>
-                  ),
-                }}
-              />
+              <NumberInputField limit={STRIPE_LIMIT_BGN} />
             </Grid>
           </Collapse>
           {amount.value ? (
@@ -289,7 +291,6 @@ export default function FirstStep() {
                         name: t(`third-step.card-region.${CardRegion.Other}`),
                       },
                     ]}
-                    InputProps={{ style: { fontSize: 14 } }}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -328,7 +329,7 @@ export default function FirstStep() {
           ) : null}
         </Box>
       </Collapse>
-      <Collapse unmountOnExit in={paymentField.value === 'paypal'}>
+      <Collapse unmountOnExit in={paymentField.value === 'paypal'} timeout="auto">
         <Grid container justifyContent="center">
           <Grid my={2} item display="flex" justifyContent="center" xs={9}>
             <Typography>
@@ -340,19 +341,7 @@ export default function FirstStep() {
             </Typography>
           </Grid>
           <Grid my={2} item display="flex" justifyContent="space-between" xs={9}>
-            <FormTextField
-              name="otherAmount"
-              type="number"
-              label={t('first-step.amount')}
-              InputProps={{
-                style: { fontSize: 14, padding: 7 },
-                endAdornment: (
-                  <InputAdornment variant="filled" position="end">
-                    {t('first-step.BGN')}
-                  </InputAdornment>
-                ),
-              }}
-            />
+            <NumberInputField limit={PAYPAL_LIMIT_BGN} />
           </Grid>
           <Grid my={2} item display="flex" justifyContent="center" xs={9}>
             <PayPalScriptProvider
@@ -362,7 +351,7 @@ export default function FirstStep() {
               }}>
               <PaypalDonationButton
                 campaignId={campaign.id}
-                amount={otherAmount.value as number}
+                amount={formik.values.otherAmount as number}
                 currency={'EUR'}
               />
             </PayPalScriptProvider>

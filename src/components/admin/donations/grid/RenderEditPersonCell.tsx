@@ -4,13 +4,14 @@ import { useMutation } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { GridRenderEditCellParams } from '@mui/x-data-grid'
 import { TextField, Tooltip, Box } from '@mui/material'
-import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete'
+import Autocomplete from '@mui/material/Autocomplete'
 import { Save } from '@mui/icons-material'
 import { PersonResponse } from 'gql/person'
 import { DonationResponse, UserDonationInput } from 'gql/donations'
 import { useEditDonation } from 'service/donation'
 import { ApiErrors } from 'service/apiErrors'
 import { AlertStore } from 'stores/AlertStore'
+import { personFilter } from 'components/common/person/PersonAutoCompleteFilter'
 
 interface RenderEditCellProps {
   params: GridRenderEditCellParams
@@ -37,7 +38,7 @@ export default function RenderEditPersonCell({
       params.row.person && params.row.person.firstName ? params.row.person.firstName : 'Anonymous',
     lastName:
       params.row.person && params.row.person.lastName ? params.row.person.lastName : 'Donor',
-    email: params.row.email || params.row.billingEmail || null,
+    email: params.row.email || params.row.billingEmail || '',
   }
   const [person, setPerson] = React.useState<PersonResponse | null>({
     ...initialPerson,
@@ -62,6 +63,7 @@ export default function RenderEditPersonCell({
     if (person) {
       const donationData: UserDonationInput = params.row
       donationData.targetPersonId = person.id
+      donationData.billingEmail = undefined
       mutation.mutate(donationData)
     } else {
       AlertStore.show(t('donations:alerts.requiredError'), 'error')
@@ -86,12 +88,7 @@ export default function RenderEditPersonCell({
           </Box>
         )}
         isOptionEqualToValue={(option, value) => option.firstName === value.firstName}
-        filterOptions={createFilterOptions<PersonResponse>({
-          matchFrom: 'any',
-          limit: 5,
-          ignoreCase: true,
-          trim: true,
-        })}
+        filterOptions={personFilter}
         clearText={t('donations:cta.clear')}
         noOptionsText={t('donations:noOptions')}
         openText={t('donations:cta.open')}

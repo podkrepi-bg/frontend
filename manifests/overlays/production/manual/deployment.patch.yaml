@@ -15,5 +15,5 @@ spec:
         - name: frontend
           resources:
             limits:
-              memory: 350Mi
+              memory: 400Mi
               cpu: 800m

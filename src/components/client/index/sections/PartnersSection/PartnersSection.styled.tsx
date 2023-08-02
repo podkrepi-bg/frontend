@@ -1,5 +1,5 @@
 import theme from 'common/theme'
-import Link from 'components/common/Link'
+import ExternalLink from 'components/common/ExternalLink'
 
 import { styled } from '@mui/material/styles'
 
@@ -9,7 +9,7 @@ export const Root = styled('section')(() => ({
   marginTop: theme.spacing(12),
 }))
 
-export const PartnerLink = styled(Link)(() => ({
+export const PartnerLink = styled(ExternalLink)(() => ({
   display: 'flex',
   alignItems: 'center',
   filter: 'grayscale(80%)',

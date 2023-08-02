@@ -9,26 +9,37 @@ export const Root = styled(Card)(() => ({
   flexDirection: 'column',
   alignItems: 'initial',
   boxShadow: 'none',
+  position: 'relative',
+  borderRadius: theme.spacing(0.37),
+
+  '&:hover': {
+    filter: 'grayscale(15%)',
+    backgroundColor: '#F8F8F8	',
+  },
 
   [theme.breakpoints.up('lg')]: {
     '&:nth-of-type(1)': {
       gridArea: '1 / 1 / 3 / 3',
 
       img: {
-        height: theme.spacing(65),
+        height: theme.spacing(60.625),
+      },
+    },
+  },
+
+  [theme.breakpoints.up(1430)]: {
+    '&:nth-of-type(1)': {
+      img: {
+        height: theme.spacing(71.6),
       },
     },
   },
 }))
 
-export const Content = styled(CardContent)(() => ({
-  padding: theme.spacing(0, 1),
-  width: '100%',
-  bottom: theme.spacing(2),
+export const StyledContent = styled(CardContent)(() => ({
+  padding: 0,
 
-  [theme.breakpoints.up('md')]: {
-    padding: theme.spacing(0, 3),
-  },
+  '&:last-child': { paddingBottom: 0 },
 }))
 
 export const CampaignTitle = styled('h6')(() => ({
@@ -36,6 +47,7 @@ export const CampaignTitle = styled('h6')(() => ({
   color: theme.palette.common.black,
   fontFamily: 'Montserrat, sans-serif',
   fontWeight: 400,
+  textAlign: 'left',
   margin: theme.spacing(1, 0, 0),
   minHeight: theme.spacing(6.25),
   overflow: 'hidden',
@@ -71,15 +83,11 @@ export const SumNumber = styled('span')(() => ({
   },
 }))
 
-export const CampaignProgressWrapper = styled(Grid)(() => ({
-  span: {
-    borderRadius: theme.borders.round,
-    height: '11px',
-  },
-}))
-
 export const StyledCardActions = styled(CardActions)(() => ({
-  padding: theme.spacing(1, 0),
+  position: 'absolute',
+  bottom: theme.spacing(14.37),
+  right: theme.spacing(0.75),
+  padding: 0,
 }))
 
 export const DonateButton = styled(LinkButton)(() => ({
@@ -101,27 +109,13 @@ export const DonateButton = styled(LinkButton)(() => ({
       '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 1px 5px rgba(0, 0, 0, 0.12)',
   },
 
+  '&.Mui-disabled': {
+    backgroundColor: 'rgba(152, 152, 152, 0.8)',
+    color: 'rgba(0, 0, 0, 0.4)',
+  },
+
   [theme.breakpoints.up(1111)]: {
     display: 'inline-flex',
     marginBottom: 0,
-  },
-}))
-
-export const LearnMoreButton = styled(LinkButton)(() => ({
-  fontFamily: "'Lato', sans-serif",
-  fontSize: theme.typography.pxToRem(16),
-  letterSpacing: '0.4px',
-  color: theme.palette.common.black,
-  border: `2px solid ${theme.palette.secondary.main}`,
-  height: theme.spacing(4.5),
-
-  padding: theme.spacing(0.75, 2),
-
-  svg: {
-    width: theme.spacing(2.12),
-  },
-
-  '&:hover': {
-    color: theme.palette.common.black,
   },
 }))

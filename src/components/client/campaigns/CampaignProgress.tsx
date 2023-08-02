@@ -1,57 +1,32 @@
 import React, { useMemo } from 'react'
-
-import { styled } from '@mui/material/styles'
-import LinearProgress from '@mui/material/LinearProgress'
-import { Grid } from '@mui/material'
-
 import { UUID } from 'gql/types'
 
-const PREFIX = 'CampaignProgress'
+import ProgressBar from '@ramonak/react-progress-bar'
 
-const classes = {
-  root: `${PREFIX}-root`,
-  bar: `${PREFIX}-bar`,
-  donationProgress: `${PREFIX}-donationProgress`,
-  cardActions: `${PREFIX}-cardActions`,
-}
-
-const StyledGrid = styled(Grid)(({ theme }) => ({
-  [`&.${classes.donationProgress}`]: {
-    width: '100%',
-    '> div p': {
-      color: theme.palette.text.secondary,
-      padding: theme.spacing(1),
-    },
-  },
-
-  [`& .${classes.cardActions}`]: {
-    padding: '0',
-  },
-}))
-
-const BorderLinearProgress = LinearProgress
+import theme from 'common/theme'
 
 type Props = {
   campaignId: UUID
   raised: number
   target: number
 }
+
 export default function CampaignProgress({ campaignId, raised, target }: Props) {
   const percentage = useMemo(() => (raised / target) * 100, [raised, target])
+  const percentageRound = Math.floor(percentage)
 
   return (
-    <StyledGrid className={classes.donationProgress} container>
-      <Grid item xs={12}>
-        <BorderLinearProgress
-          variant="determinate"
-          value={percentage > 100 ? 100 : percentage}
-          aria-labelledby={`campaign-${campaignId}--donations-progressbar`}
-          classes={{
-            root: classes.root,
-            bar: classes.bar,
-          }}
-        />
-      </Grid>
-    </StyledGrid>
+    <ProgressBar
+      completed={percentageRound > 100 ? 100 : percentageRound}
+      aria-labelledby={`campaign-${campaignId}--donations-progressbar`}
+      height={theme.spacing(1.62)}
+      baseBgColor={'#b1defe'}
+      bgColor={theme.palette.primary.main}
+      labelColor={theme.palette.common.black}
+      borderRadius={theme.borders.round}
+      labelSize={theme.spacing(1.5)}
+      labelAlignment={percentageRound < 10 ? 'left' : 'right'}
+      customLabelStyles={{ fontWeight: 400 }}
+    />
   )
 }

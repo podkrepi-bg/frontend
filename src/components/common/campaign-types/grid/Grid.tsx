@@ -56,6 +56,7 @@ export default observer(function Grid() {
       renderCell: (cellValues: GridRenderCellParams) => {
         return cellValues.row.name
       },
+      valueGetter: (p) => p.row.name,
     },
     {
       field: t('campaign-types:grid.category'),
@@ -64,6 +65,7 @@ export default observer(function Grid() {
       renderCell: (cellValues: GridRenderCellParams) => {
         return <Typography>{t(`campaigns:filters.${cellValues.row.category}`)}</Typography>
       },
+      valueGetter: (p) => t(`campaigns:filters.${p.row.category}`),
     },
     {
       field: t('campaign-types:grid.description'),
@@ -72,6 +74,7 @@ export default observer(function Grid() {
       renderCell: (cellValues: GridRenderCellParams) => {
         return cellValues.row.description
       },
+      valueGetter: (p) => p.row.description,
     },
   ]
 

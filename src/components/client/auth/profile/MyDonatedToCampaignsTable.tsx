@@ -175,7 +175,6 @@ export default function MyDonatedToCampaignTable() {
       headerAlign: 'left',
     },
   ]
-  console.log(data, 'dataaa')
   return (
     <>
       {data.length !== 0 ? (
@@ -194,7 +193,6 @@ export default function MyDonatedToCampaignTable() {
           initialState={{ pagination: { paginationModel: { pageSize: 5 } } }}
           editMode="row"
           autoHeight
-          autoPageSize
         />
       ) : (
         <Box sx={{ fontSize: 20 }}>{t('profile:donations.noDonations')}</Box>

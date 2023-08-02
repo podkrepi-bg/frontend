@@ -33,7 +33,12 @@
       "first-name": "First name",
       "last-name": "Last name",
       "email": "Email",
-      "phone": "phone"
+      "phone": "Phone",
+      "createdAt": "Date of creation",
+      "email-confirmed": "Email confirmed",
+      "newsletter": "Newsletter",
+      "company": "Company",
+      "address": "Address"
     },
     "cta": {
       "create": "Create",

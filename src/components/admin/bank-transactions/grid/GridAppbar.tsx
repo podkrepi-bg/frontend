@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next'
 import { Box, TextField, Toolbar, Tooltip, Typography } from '@mui/material'
-import { GetApp as DownloadFileIcon } from '@mui/icons-material'
+import { GetApp as DownloadFileIcon, RotateLeftOutlined } from '@mui/icons-material'
 
 import { useMutation } from '@tanstack/react-query'
 import { useExportToExcel } from 'service/bankTransaction'
@@ -9,6 +9,7 @@ import { downloadFile } from '../../../../common/util/downloadFile'
 import { useMemo, useState } from 'react'
 import { useStores } from 'common/hooks/useStores'
 import { debounce } from 'lodash'
+import RerunTransactionSyncModal from './RerunTransactionsSyncDialog'
 
 const addIconStyles = {
   background: '#4ac3ff',
@@ -21,6 +22,7 @@ const addIconStyles = {
 export default function GridAppbar() {
   const { bankTransactionsStore } = useStores()
   const { t } = useTranslation()
+
   const exportToExcel = useMutation({
     mutationFn: useExportToExcel(),
     onError: () => AlertStore.show(t('common:alerts.error'), 'error'),
@@ -29,6 +31,7 @@ export default function GridAppbar() {
       AlertStore.show(t('common:alerts.success'), 'success')
     },
   })
+
   const [searchValue, setSearchValue] = useState('')
 
   const debounceSearch = useMemo(
@@ -48,6 +51,15 @@ export default function GridAppbar() {
     const searchText = event.target.value
     setSearchValue(searchText)
     debounceSearch(searchText)
+  }
+
+  const [isRerunSyncOpen, setIsRerunSyncOpen] = useState(false)
+  const handleRerunSyncOpen = () => {
+    setIsRerunSyncOpen(true)
+  }
+  const handleRerunSyncClose = () => {
+    setIsRerunSyncOpen(false)
+    //TODO: refetch() after sync
   }
 
   return (
@@ -80,6 +92,16 @@ export default function GridAppbar() {
               onClick={() => exportToExcel.mutate()}
             />
           </Tooltip>
+        </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Tooltip title={t('bank-transactions:rerun-dates') || ''}>
+            <RotateLeftOutlined
+              sx={addIconStyles}
+              fontSize="large"
+              onClick={() => handleRerunSyncOpen()}
+            />
+          </Tooltip>
+          <RerunTransactionSyncModal isOpen={isRerunSyncOpen} handleClose={handleRerunSyncClose} />
         </Box>
       </Box>
     </Toolbar>

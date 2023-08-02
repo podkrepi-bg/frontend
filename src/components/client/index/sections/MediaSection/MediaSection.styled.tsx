@@ -1,5 +1,5 @@
 import theme from 'common/theme'
-import Link from 'components/common/Link'
+import ExternalLink from 'components/common/ExternalLink'
 import Slider from 'react-slick'
 
 import { styled } from '@mui/material/styles'
@@ -34,7 +34,7 @@ export const CarouselWrapper = styled(Slider)(() => ({
   },
 }))
 
-export const ArticleLink = styled(Link)(() => ({
+export const ArticleLink = styled(ExternalLink)(() => ({
   display: 'flex',
   alignItems: 'center',
   background: theme.palette.background.default,
