@@ -767,6 +767,15 @@
         "code",
         "test"
       ]
+    },
+    {
+      "login": "yyosifov",
+      "name": "yyosifov",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2012493?v=4",
+      "profile": "https://github.com/yyosifov",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 10,
