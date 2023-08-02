@@ -14,6 +14,7 @@ import { DonationStatus } from 'gql/donations.enums'
 import { apiClient } from 'service/apiClient'
 import { useCurrentPerson } from 'common/util/useCurrentPerson'
 import { isAdmin } from 'common/util/roles'
+import { AxiosError, AxiosResponse } from 'axios'
 
 // NOTE: shuffling the campaigns so that each gets its fair chance to be on top row
 export const campaignsOrderQueryFunction: QueryFunction<CampaignResponse[]> = async ({
@@ -77,7 +78,15 @@ export function useCampaignTypesList() {
 }
 
 export function useViewCampaign(slug: string) {
-  return useQuery<{ campaign: CampaignResponse }>([endpoints.campaign.viewCampaign(slug).url])
+  return useQuery<{ campaign: CampaignResponse }, AxiosError>(
+    [endpoints.campaign.viewCampaign(slug).url],
+    {
+      retry(failureCount, error) {
+        if (error.isAxiosError && error.response?.status === 404) return false
+        return true
+      },
+    },
+  )
 }
 
 export function useViewCampaignById(id: string) {
