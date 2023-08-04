@@ -38,7 +38,7 @@ export default function FeaturedImage({
   }
   return (
     <ImageWrapper height={height}>
-      <Image fill sizes="100vw" style={{ objectPosition }} src={src} {...props} />
+      <Image fill sizes="100vw" style={{ objectFit, objectPosition }} src={src} {...props} />
     </ImageWrapper>
   )
 }
