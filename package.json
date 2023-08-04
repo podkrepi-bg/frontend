@@ -30,6 +30,7 @@
     "@emotion/react": "^11.8.1",
     "@emotion/server": "^11.4.0",
     "@emotion/styled": "^11.8.1",
+    "@mdxeditor/editor": "0.10.0-alpha.1",
     "@mui/icons-material": "^5.11.11",
     "@mui/lab": "^5.0.0-alpha.69",
     "@mui/material": "^5.10.14",
@@ -71,6 +72,7 @@
     "slick-carousel": "^1.8.1",
     "slugify": "^1.6.0",
     "socket.io-client": "^4.5.4",
+    "turndown": "^7.1.2",
     "yup": "0.32.9"
   },
   "devDependencies": {
@@ -87,6 +89,7 @@
     "@types/react-gtm-module": "2.0.0",
     "@types/react-slick": "^0.23.10",
     "@types/tryghost__content-api": "^1.3.11",
+    "@types/turndown": "^5.0.1",
     "@types/uuid": "^9.0.0",
     "@types/yup": "0.29.11",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
@@ -109,7 +112,7 @@
     "stripe": "^8.184.0",
     "stylelint": "^15.10.1",
     "stylelint-config-sass-guidelines": "9.0.1",
-    "typescript": "4.8.3"
+    "typescript": "5.1.6"
   },
   "lint-staged": {
     "*.{ts,tsx,js}": [

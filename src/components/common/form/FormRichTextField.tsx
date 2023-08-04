@@ -13,6 +13,7 @@ import ReactQuill, { Quill } from 'react-quill'
 import BlotFormatter from 'quill-blot-formatter/'
 
 import htmlEditButton from 'quill-html-edit-button'
+import { ModernEditor } from './MDXEditor'
 
 export type FormRichTextFieldProps = {
   name: string
@@ -163,6 +164,8 @@ export default function FormRichTextField({ name }: FormRichTextFieldProps) {
       <Field name={name}>
         {({ field }: { field: FieldInputProps<string> }) => (
           <StyledGrid>
+            <ModernEditor html={field.value} />
+            {/*
             <ReactQuill
               ref={reactQuillRef}
               modules={modules}
@@ -170,6 +173,7 @@ export default function FormRichTextField({ name }: FormRichTextFieldProps) {
               value={field.value}
               onChange={field.onChange(field.name)}
             />
+*/}
           </StyledGrid>
         )}
       </Field>
