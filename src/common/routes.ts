@@ -115,6 +115,7 @@ export const routes = {
     contractDonation: '/profile/contract-donation',
     myCampaigns: '/profile/my-campaigns',
     recurringDonations: '/profile/recurring-donations',
+    myNotifications: '/profile/my-notifications',
   },
   register: '/register',
   aboutProject: '/about-project',

@@ -7,8 +7,14 @@ import { authConfig } from './restRequests'
 import {
   SendConfirmationEmailInput,
   SendConfirmationEmailResponse,
+  SubscribeEmailInput,
+  SubscribeEmailResponse,
   SubscribePublicEmailInput,
   SubscribePublicEmailResponse,
+  UNsubscribeEmailInput,
+  UNsubscribeEmailResponse,
+  UNsubscribePublicEmailInput,
+  UNsubscribePublicEmailResponse,
 } from 'gql/notification'
 
 export function useSubscribeToCampaign(id: string) {
@@ -36,5 +42,36 @@ export function useSubscribePublicEmail() {
       SubscribePublicEmailResponse,
       AxiosResponse<SubscribePublicEmailResponse>
     >(endpoints.notifications.subscribePublicEmail.url, data)
+  }
+}
+
+export function useUNSubscribePublicEmail() {
+  return async (data: UNsubscribePublicEmailInput) => {
+    return await apiClient.post<
+      UNsubscribePublicEmailResponse,
+      AxiosResponse<UNsubscribePublicEmailResponse>
+    >(endpoints.notifications.unsubscribePublicEmail.url, data)
+  }
+}
+
+export function useSubscribeEmail() {
+  const { data: session } = useSession()
+  return async (data: SubscribeEmailInput) => {
+    return await apiClient.post<SubscribeEmailResponse, AxiosResponse<SubscribeEmailResponse>>(
+      endpoints.notifications.subscribeEmail.url,
+      data,
+      authConfig(session?.accessToken),
+    )
+  }
+}
+
+export function useUNsubscribeEmail() {
+  const { data: session } = useSession()
+  return async (data: UNsubscribeEmailInput) => {
+    return await apiClient.post<UNsubscribeEmailResponse, AxiosResponse<UNsubscribeEmailResponse>>(
+      endpoints.notifications.unsubscribeEmail.url,
+      data,
+      authConfig(session?.accessToken),
+    )
   }
 }

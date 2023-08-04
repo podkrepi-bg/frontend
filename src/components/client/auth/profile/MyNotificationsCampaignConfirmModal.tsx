@@ -1,29 +1,28 @@
-import * as yup from 'yup'
-import { email } from 'common/form/validation'
-import { useTranslation } from 'react-i18next'
-import { useState } from 'react'
-import { AxiosError, AxiosResponse } from 'axios'
-import { ApiError } from 'next/dist/server/api-utils'
-import { AlertStore } from 'stores/AlertStore'
 import { useMutation } from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
+import { endpoints } from 'service/apiEndpoints'
+import { styled } from '@mui/material/styles'
 import { Dialog, DialogContent, DialogTitle, Grid } from '@mui/material'
+import { AxiosError, AxiosResponse } from 'axios'
+import { UNsubscribeEmailResponse, UNsubscribeEmailInput } from 'gql/notification'
+import { ApiError } from 'next/dist/server/api-utils'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useUNsubscribeEmail } from 'service/notification'
+import { AlertStore } from 'stores/AlertStore'
 import CloseModalButton from 'components/common/CloseModalButton'
 import GenericForm from 'components/common/form/GenericForm'
-import { styled } from '@mui/material/styles'
 import SubmitButton from 'components/common/form/SubmitButton'
-import EmailField from 'components/common/form/EmailField'
-import { useSendConfirmationEmail } from 'service/notification'
-import { SendConfirmationEmailResponse, SendConfirmationEmailInput } from 'gql/notification'
 import React from 'react'
 
-const PREFIX = 'SubscribeModal'
+const PREFIX = 'ProfileCampaignNotificationsModal'
 
 const classes = {
-  subscribeBtn: `${PREFIX}-subscribe`,
+  actionBtn: `${PREFIX}-campaign-subscriptions`,
 }
 
 const StyledGrid = styled(Grid)(({ theme }) => ({
-  [`& .${classes.subscribeBtn}`]: {
+  [`& .${classes.actionBtn}`]: {
     fontSize: theme.typography.pxToRem(16),
     background: `${theme.palette.secondary.main}`,
 
@@ -37,76 +36,55 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
 }))
 
 interface ModalProps {
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+  campaignId: string
+  setOpen: React.Dispatch<React.SetStateAction<string>>
 }
 
-export type SubscribeToNotificationsInput = {
-  email: string
-}
-
-const validationSchema: yup.SchemaOf<SubscribeToNotificationsInput> = yup.object().defined().shape({
-  email: email.required(),
-})
-
-export default function RenderSubscribeModal({ setOpen }: ModalProps) {
+export default function RenderCampaignNotificationsConfirmModal({
+  campaignId,
+  setOpen,
+}: ModalProps) {
   const { t } = useTranslation()
 
   const [loading, setLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState(false)
+
+  // Get QueryClient from the context
+  const queryClient = useQueryClient()
 
   const handleError = (e: AxiosError<ApiError>) => {
     const error = e.response?.data?.message
     AlertStore.show(error ? error : t('common:alerts.error'), 'error')
   }
 
-  const mutation = useMutation<
-    AxiosResponse<SendConfirmationEmailResponse>,
+  const unSubscribeMutation = useMutation<
+    AxiosResponse<UNsubscribeEmailResponse>,
     AxiosError<ApiError>,
-    SendConfirmationEmailInput
+    UNsubscribeEmailInput
   >({
-    mutationFn: useSendConfirmationEmail(),
+    mutationFn: useUNsubscribeEmail(),
     onError: (error) => handleError(error),
     onSuccess: (response) => {
       AlertStore.show(t('common:alerts.message-sent'), 'success')
-
+      //   Update data
+      queryClient.invalidateQueries({
+        queryKey: [endpoints.notifications.getCampaignNotificationSubscriptions.url],
+      })
       setIsSuccess(true)
     },
   })
 
   const handleClose = () => {
-    setOpen(false)
+    setOpen('')
   }
 
-  async function onSubmit(values: { email: string }) {
+  async function onSubmit() {
     setLoading(true)
     try {
-      await mutation.mutateAsync(values)
+      await unSubscribeMutation.mutateAsync({ campaignId })
     } finally {
       setLoading(false)
     }
-  }
-
-  function SubscribeForm() {
-    return (
-      <GenericForm
-        onSubmit={onSubmit}
-        initialValues={{ email: '' }}
-        validationSchema={validationSchema}>
-        <StyledGrid container spacing={2}>
-          <Grid item xs={12}>
-            <EmailField label="common:fields.email" name="email" />
-          </Grid>
-          <Grid item xs={12}>
-            <SubmitButton
-              fullWidth
-              className={classes.subscribeBtn}
-              label="components.footer.subscribe"
-              loading={loading}
-            />
-          </Grid>
-        </StyledGrid>
-      </GenericForm>
-    )
   }
 
   return (
@@ -124,16 +102,27 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
         {!isSuccess ? (
           <React.Fragment>
             <DialogTitle style={{ textAlign: 'center', width: '100%' }}>
-              {t('campaigns:subscribe.subscribe-title')}
+              {t('profile:myNotifications.modal.campaign-title-unsubscribe')}
             </DialogTitle>
             <Grid container direction="column" component="section">
-              <SubscribeForm />
+              <GenericForm onSubmit={onSubmit} initialValues={{}}>
+                <StyledGrid container spacing={2}>
+                  <Grid item xs={12}>
+                    <SubmitButton
+                      fullWidth
+                      className={classes.actionBtn}
+                      label="profile:myNotifications.modal.cta"
+                      loading={loading}
+                    />
+                  </Grid>
+                </StyledGrid>
+              </GenericForm>
             </Grid>
           </React.Fragment>
         ) : (
           <DialogContent
             style={{ textAlign: 'center', fontSize: 20, fontWeight: 600, paddingBottom: 6 }}>
-            {t('campaigns:subscribe.confirm-sent').split('{{email}}')}
+            {t('profile:myNotifications.modal.campaign-unsubscribe-msg')}
           </DialogContent>
         )}
       </DialogContent>

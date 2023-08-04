@@ -50,6 +50,13 @@ export const endpoints = {
   notifications: {
     sendConfirmationEmail: <Endpoint>{ url: '/notifications/send-confirm-email', method: 'POST' },
     subscribePublicEmail: <Endpoint>{ url: '/notifications/public/subscribe', method: 'POST' },
+    unsubscribePublicEmail: <Endpoint>{ url: '/notifications/public/unsubscribe', method: 'POST' },
+    subscribeEmail: <Endpoint>{ url: '/notifications/subscribe', method: 'POST' },
+    unsubscribeEmail: <Endpoint>{ url: '/notifications/unsubscribe', method: 'POST' },
+    getCampaignNotificationSubscriptions: <Endpoint>{
+      url: '/notifications/campaign-notifications',
+      method: 'GET',
+    },
   },
   campaignNews: {
     createNewsArticle: <Endpoint>{ url: '/campaign-news', method: 'POST' },

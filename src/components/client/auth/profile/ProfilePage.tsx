@@ -119,6 +119,14 @@ export default function ProfilePage() {
                 onClick={() => router.push(routes.profile.recurringDonations)}
                 icon={matches ? <RecurringDonationIcon /> : undefined}
               />
+              <Tab
+                className={matches ? classes.tabMobile : ''}
+                value={ProfileTabs.myNotifications}
+                label={matches ? undefined : t('profile:myNotifications.index')}
+                aria-label={matches ? t('profile:myNotifications.index') : undefined}
+                onClick={() => router.push(routes.profile.myNotifications)}
+                icon={matches ? <AccountBoxIcon /> : undefined}
+              />
               {/* Currently we don't generate donation contract, when such document is generated we can either combine it with the certificate or unhide the contracts section. */}
               {/* <Tab
                 className={matches ? classes.tabMobile : ''}
