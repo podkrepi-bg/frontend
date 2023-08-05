@@ -2,6 +2,7 @@ import React from 'react'
 
 import { useTranslation } from 'next-i18next'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 
 import { CampaignResponse } from 'gql/campaigns'
 
@@ -102,14 +103,15 @@ export default function CampaignDetails({ campaign }: Props) {
   const canEditCampaign = useCanEditCampaign(campaign.slug)
   const { data: expensesList } = useCampaignApprovedExpensesList(campaign.slug)
   const totalExpenses = expensesList?.reduce((acc, expense) => acc + expense.amount, 0)
+  const router = useRouter()
 
-  const chipsLabel = {
-    news: t('campaigns:campaign.chipsLabels.news'),
-    docs: t('campaigns:campaign.chipsLabels.docs'),
-    experts: t('campaigns:campaign.chipsLabels.experts'),
-    guarantor: t('campaigns:campaign.chipsLabels.guarantor'),
-    signals: t('campaigns:campaign.chipsLabels.signals'),
-    others: t('campaigns:campaign.chipsLabels.others'),
+  const chipLabelsCampaign = {
+    experts: t('campaigns:campaign.chipLabels.experts'),
+    guarantor: t('campaigns:campaign.chipLabels.guarantor'),
+  }
+  const chipLabelsTransparency = {
+    news: t('campaigns:campaign.chipLabels.news'),
+    reports: t('campaigns:campaign.chipLabels.reports'),
   }
 
   const scrollToSection = (sectionId: string) => {
@@ -117,6 +119,10 @@ export default function CampaignDetails({ campaign }: Props) {
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' })
     }
+  }
+
+  const redirectToExperts = () => {
+    router.push('https://podkrepi.bg/blog/ekspertni-saveti')
   }
 
   return (
@@ -129,8 +135,30 @@ export default function CampaignDetails({ campaign }: Props) {
         showExpensesLink={(expensesList && expensesList?.length > 0) || canEditCampaign}
       />
       <Grid container spacing={8}>
-        <Grid item xs={12}>
-          <ReactQuill readOnly theme="bubble" value={campaign.description} />
+        <Grid container item xs={12}>
+          <Grid item xs={12} display="flex" alignItems="center" marginBottom="8px">
+            <Typography component="p" marginRight="10px">
+              {t('campaigns:campaign.chipLabels.categories.aboutCampaign')}
+            </Typography>
+            {Object.entries(chipLabelsCampaign).map(([id, label]) => (
+              <CampaignDetailsChip
+                key={id}
+                chip={label}
+                onClick={id === 'experts' ? redirectToExperts : () => scrollToSection(id)}
+              />
+            ))}
+          </Grid>
+          <Grid item xs={12} display="flex" alignItems="center">
+            <Typography component="p" marginRight="10px">
+              {t('campaigns:campaign.chipLabels.categories.transparency')}
+            </Typography>
+            {Object.entries(chipLabelsTransparency).map(([id, label]) => (
+              <CampaignDetailsChip key={id} chip={label} onClick={() => scrollToSection(id)} />
+            ))}
+          </Grid>
+          <Grid item xs={12}>
+            <ReactQuill readOnly theme="bubble" value={campaign.description} />
+          </Grid>
         </Grid>
         <Grid item xs={12}>
           <CampaignSlider sliderImages={sliderImages} />
@@ -138,17 +166,13 @@ export default function CampaignDetails({ campaign }: Props) {
         <Grid item xs={12}>
           <Divider />
         </Grid>
-        <Grid container item xs={12}>
-          {Object.entries(chipsLabel).map(([id, label]) => (
-            <CampaignDetailsChip key={id} chip={label} onClick={() => scrollToSection(id)} />
-          ))}
-        </Grid>
+
         <Grid item xs={12}>
           <CampaignInfoOperator campaign={campaign} />
         </Grid>
         <CampaignInfoGraphics />
         {expensesList?.length || canEditCampaign ? (
-          <Grid item xs={12} id="expenses">
+          <Grid item xs={12} id="reports">
             <Grid item xs={12}>
               <Typography variant="h4" component="h4" my={4}>
                 {t('campaigns:campaign.financial-report')} <Assessment />

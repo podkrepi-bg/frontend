@@ -6,6 +6,8 @@ interface CampaingDetailsChipProps {
 }
 
 const CampaignDetailsChip: React.FC<CampaingDetailsChipProps> = ({ chip, onClick }) => {
-  return <Chip label={chip} sx={{ marginX: '2px' }} onClick={onClick} />
+  return (
+    <Chip label={chip} sx={{ marginX: '2px' }} onClick={onClick} color="primary" size="small" />
+  )
 }
 export default CampaignDetailsChip

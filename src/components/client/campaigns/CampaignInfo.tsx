@@ -12,6 +12,7 @@ import { styled } from '@mui/material/styles'
 import { getExactDate } from 'common/util/date'
 import CampaignInfoOrganizer from './CampaignInfoOrganizer'
 import { Assessment } from '@mui/icons-material'
+import CampaignInfoBeneficiary from './CampaignInfoBeneficiary'
 
 const PREFIX = 'CampaignInfo'
 
@@ -55,7 +56,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
 
   [`& .${classes.campaignTextWithIcon}`]: {
     flexWrap: 'wrap',
-    fontSize: theme.typography.pxToRem(16),
+    fontSize: theme.typography.pxToRem(11),
     lineHeight: '150%',
     fontWeight: 700,
   },
@@ -72,36 +73,41 @@ export default function CampaignInfo({ campaign, showExpensesLink }: Props) {
 
   return (
     <StyledGrid mb={5}>
+      <Grid container spacing={2} alignItems="center" marginBottom="15px">
+        <Grid item xs={12} md={3}>
+          <Typography
+            variant="subtitle2"
+            component="span"
+            fontWeight={700}
+            className={classes.campaignTextWithIcon}>
+            {t('campaigns:campaign.type')} {campaign.campaignType.name}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <Typography variant="subtitle2" component="p" className={classes.campaignTextWithIcon}>
+            {t('campaigns:campaign.start-date')} {getExactDate(campaign.startDate, locale)}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <Typography variant="subtitle2" component="p" className={classes.campaignTextWithIcon}>
+            {t('campaigns:campaign.end-date')}{' '}
+            {campaign.endDate
+              ? getExactDate(campaign.endDate, locale)
+              : t('campaigns:campaign.indefinite')}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <Typography variant="subtitle2" component="p" className={classes.campaignTextWithIcon}>
+            {t('campaigns:campaign.status')} {t(`campaigns:campaign-status.${campaign.state}`)}
+          </Typography>
+        </Grid>
+      </Grid>
       <Grid container item xs={12} className={classes.infoBlockWrapper}>
         <Grid item container xs={12} lg={5} spacing={0} className={classes.infoDetailsWrapper}>
           <Grid item>
-            <Typography
-              variant="subtitle2"
-              component="p"
-              fontWeight={700}
-              className={classes.campaignTextWithIcon}>
-              {campaign.campaignType.name}
-            </Typography>
+            <CampaignInfoBeneficiary campaign={campaign} />
           </Grid>
-          <Grid item>
-            <Typography variant="subtitle2" component="p" className={classes.campaignTextWithIcon}>
-              {t('campaigns:campaign.start-date')} {getExactDate(campaign.startDate, locale)}
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography variant="subtitle2" component="p" className={classes.campaignTextWithIcon}>
-              {t('campaigns:campaign.end-date')}{' '}
-              {campaign.endDate
-                ? getExactDate(campaign.endDate, locale)
-                : t('campaigns:campaign.indefinite')}
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Typography variant="subtitle2" component="p" className={classes.campaignTextWithIcon}>
-              {t('campaigns:campaign.status')} {t(`campaigns:campaign-status.${campaign.state}`)}
-            </Typography>
-          </Grid>
-          {showExpensesLink && (
+          {/* {showExpensesLink && (
             <Grid item>
               <Button
                 startIcon={<Assessment />}
@@ -110,7 +116,7 @@ export default function CampaignInfo({ campaign, showExpensesLink }: Props) {
                 {t('campaigns:campaign.financial-report')}
               </Button>
             </Grid>
-          )}
+          )} */}
         </Grid>
         <Divider className={classes.divider} />
         <Grid item xs={12} lg={7}>

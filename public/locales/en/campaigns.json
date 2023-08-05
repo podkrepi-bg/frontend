@@ -17,7 +17,7 @@
   "coordinator": "Coordinator",
   "organizer": "Organizer",
   "beneficiary": "Beneficiary",
-  "campaignType": "Campaign type",
+  "campaignType": "Campaign type:",
   "description": "Description",
   "targetAmount": "Target amount",
   "donationsAmount": "Donations amount",
@@ -96,6 +96,8 @@
     "financial-report": "Financial report",
     "report-campaign": "Report the campaign",
     "feedback": "Feedback",
+    "altImageText": "Image of",
+
     "images": {
       "add": "Add image",
       "add-more": "Add more",
@@ -146,13 +148,15 @@
     "end-date": "End date:",
     "tag": "Tag:",
     "date": "Date:",
-    "chipsLabels": {
+    "chipLabels": {
+      "categories": {
+        "aboutCampaign": "About campaign",
+        "transparency": "Transparency"
+      },
       "news": "News",
-      "docs": "Documents",
-      "experts": "Experts",
-      "guarantor": "Guarantor",
-      "signals": "Signals",
-      "others": "Others"
+      "reports": "Reports",
+      "experts": "Our expert members",
+      "guarantor": "Guarantor"
     }
   },
   "info-graphics": {

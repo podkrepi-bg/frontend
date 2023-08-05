@@ -62,7 +62,7 @@ type Props = {
   campaign: CampaignResponse
 }
 
-export default function CampaignInfoOrganizer({ campaign }: Props) {
+export default function CampaignInfoBeneficiary({ campaign }: Props) {
   const { t } = useTranslation()
   const organizerAvatarSource = organizerCampaignPictureUrl(campaign)
 
@@ -71,8 +71,7 @@ export default function CampaignInfoOrganizer({ campaign }: Props) {
       <Grid item className={classes.avatarWrapper} minWidth="max-content" flex={1}>
         <Image
           src={organizerAvatarSource}
-          //  A11Y TODO: Translate alt text
-          //check fix
+          //TODO check alt
           alt={
             t('campaigns:campaign.organizer.name') +
             `${campaign.organizer?.person.firstName} ${campaign.organizer?.person.lastName}`
@@ -84,13 +83,13 @@ export default function CampaignInfoOrganizer({ campaign }: Props) {
       </Grid>
       <Grid item flex={6}>
         <Typography variant="subtitle2" component="p" className={classes.organizer}>
-          {t('campaigns:campaign.organizer.name')}
+          {t('campaigns:campaign.beneficiary.name')}
         </Typography>
         <Typography variant="subtitle2" component="p" className={classes.organizer}>
-          {campaign.organizer?.person.firstName || ''} {campaign.organizer?.person.lastName || ''}
+          {campaign?.beneficiary?.person
+            ? campaign?.beneficiary?.person?.firstName + campaign?.beneficiary?.person?.lastName
+            : campaign?.beneficiary?.company?.companyName}
         </Typography>
-        {/* //TODO add functionality to the button,discuss with team */}
-        <Button>More about organizer...</Button>
       </Grid>
     </StyledGrid>
   )
