@@ -76,4 +76,5 @@ export type CampaignNewsInput = {
   sourceLink: string | undefined
   description: string
   state: ArticleStatus
+  notify: boolean
 }
