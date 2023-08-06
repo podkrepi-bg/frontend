@@ -1,32 +1,29 @@
 import { MDXEditor } from '@mdxeditor/editor/MDXEditor'
+import { diffSourcePlugin } from '@mdxeditor/editor/plugins/diff-source'
 import { DirectiveDescriptor, directivesPlugin } from '@mdxeditor/editor/plugins/directives'
+import { headingsPlugin } from '@mdxeditor/editor/plugins/headings'
 import { imagePlugin } from '@mdxeditor/editor/plugins/image'
 import { linkPlugin } from '@mdxeditor/editor/plugins/link'
 import { linkDialogPlugin } from '@mdxeditor/editor/plugins/link-dialog'
+import { listsPlugin } from '@mdxeditor/editor/plugins/lists'
+import { quotePlugin } from '@mdxeditor/editor/plugins/quote'
 import { toolbarPlugin } from '@mdxeditor/editor/plugins/toolbar'
+import { BlockTypeSelect } from '@mdxeditor/editor/plugins/toolbar/components/BlockTypeSelect'
 import { BoldItalicUnderlineToggles } from '@mdxeditor/editor/plugins/toolbar/components/BoldItalicUnderlineToggles'
+import { CreateLink } from '@mdxeditor/editor/plugins/toolbar/components/CreateLink'
+import { DiffSourceToggleWrapper } from '@mdxeditor/editor/plugins/toolbar/components/DiffSourceToggleWrapper'
+import { InsertImage } from '@mdxeditor/editor/plugins/toolbar/components/InsertImage'
+import { ListsToggle } from '@mdxeditor/editor/plugins/toolbar/components/ListsToggle'
 import { UndoRedo } from '@mdxeditor/editor/plugins/toolbar/components/UndoRedo'
 import { Separator } from '@mdxeditor/editor/plugins/toolbar/primitives/toolbar'
 import '@mdxeditor/editor/style.css'
-import TurndownService from 'turndown'
+import { htmlToMarkdown, markdownToHtml } from 'lib/markdownUtils'
+import throttle from 'lodash/throttle'
+import React from 'react'
 
 interface ModernEditorProps {
   html: string
 }
-
-const turndownService = new TurndownService()
-
-turndownService.addRule('strikethrough', {
-  filter: ['iframe'],
-  replacement: function (_, node) {
-    const youtubeSrc = (node as HTMLElement).getAttribute('src')
-    if (!youtubeSrc) {
-      throw new Error('Found an iframe without a src')
-    }
-    const youtubeId = new URL(youtubeSrc).pathname.split('/').at(-1)
-    return `::youtube{#${youtubeId}}\n`
-  },
-})
 
 export const YoutubeDirectiveDescriptor: DirectiveDescriptor = {
   name: 'youtube',
@@ -62,23 +59,46 @@ export const YoutubeDirectiveDescriptor: DirectiveDescriptor = {
 }
 
 export const ModernEditor: React.FC<ModernEditorProps> = ({ html }) => {
-  const markdown = turndownService.turndown(html)
+  const markdown = React.useMemo(() => htmlToMarkdown(html), [])
+
+  console.log(markdown)
+  const onChange = React.useCallback(
+    throttle(async (markdown) => {
+      void markdown
+      // const html = await markdownToHtml(markdown)
+      // console.log(html)
+    }, 500),
+    [],
+  )
+
   return (
     <MDXEditor
       markdown={markdown}
+      onChange={onChange}
       plugins={[
         toolbarPlugin({
           toolbarContents: () => (
             <>
-              <UndoRedo />
-              <Separator />
-              <BoldItalicUnderlineToggles />
+              <DiffSourceToggleWrapper>
+                <UndoRedo />
+                <BoldItalicUnderlineToggles />
+                <ListsToggle />
+                <Separator />
+                <BlockTypeSelect />
+                <InsertImage />
+                <CreateLink />
+                <Separator />
+              </DiffSourceToggleWrapper>
             </>
           ),
         }),
         linkPlugin(),
+        listsPlugin(),
+        headingsPlugin(),
+        diffSourcePlugin(),
         linkDialogPlugin(),
         imagePlugin(),
+        quotePlugin(),
         directivesPlugin({ directiveDescriptors: [YoutubeDirectiveDescriptor] }),
       ]}
     />

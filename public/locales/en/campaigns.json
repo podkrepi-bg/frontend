@@ -129,6 +129,10 @@
       "resume": "Resume",
       "retry": "Retry"
     },
+    "rte": {
+      "modern": "New (beta)",
+      "classic": "Classic"
+    },
     "beneficiary": {
       "name": "Beneficiary",
       "label": "Beneficiary:",
