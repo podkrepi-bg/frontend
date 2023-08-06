@@ -12,6 +12,7 @@ import { QuillEditor } from './QuillEditor'
 
 export type FormRichTextFieldProps = {
   name: string
+  fileUploadCallback?: (file: File) => Promise<string>
 }
 
 const StyledGrid = styled('div')(() => ({
@@ -21,6 +22,11 @@ const StyledGrid = styled('div')(() => ({
     zIndex: 1,
     backgroundColor: 'white',
   },
+}))
+
+const EditorSwitch = styled('div')(() => ({
+  display: 'flex',
+  justifyContent: 'flex-end',
 }))
 
 export default function FormRichTextField({ name }: FormRichTextFieldProps) {
@@ -40,7 +46,7 @@ export default function FormRichTextField({ name }: FormRichTextFieldProps) {
       <Field name={name}>
         {({ field }: { field: FieldInputProps<string> }) => (
           <StyledGrid>
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <EditorSwitch>
               <label>
                 <input
                   type="radio"
@@ -61,12 +67,11 @@ export default function FormRichTextField({ name }: FormRichTextFieldProps) {
                 />{' '}
                 {t('campaigns:campaign.rte.classic')}
               </label>
-            </div>
+            </EditorSwitch>
 
             {useMdxEditor ? (
               <>
-                <ModernEditor html={field.value} />
-                <textarea value={field.value} />
+                <ModernEditor html={field.value} onChange={field.onChange(field.name)} />
               </>
             ) : (
               <QuillEditor value={field.value} onChange={field.onChange(field.name)} />

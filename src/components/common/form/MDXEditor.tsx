@@ -17,12 +17,18 @@ import { ListsToggle } from '@mdxeditor/editor/plugins/toolbar/components/ListsT
 import { UndoRedo } from '@mdxeditor/editor/plugins/toolbar/components/UndoRedo'
 import { Separator } from '@mdxeditor/editor/plugins/toolbar/primitives/toolbar'
 import '@mdxeditor/editor/style.css'
+import { Box } from '@mui/material'
+import { styled } from '@mui/material/styles'
 import { htmlToMarkdown, markdownToHtml } from 'lib/markdownUtils'
 import throttle from 'lodash/throttle'
 import React from 'react'
+import { useUploadCampaignFiles } from 'service/campaign'
+import { CampaignFileRole } from '../campaign-file/roles'
+import theme from 'common/theme'
 
 interface ModernEditorProps {
   html: string
+  onChange(html: string): void
 }
 
 export const YoutubeDirectiveDescriptor: DirectiveDescriptor = {
@@ -58,49 +64,82 @@ export const YoutubeDirectiveDescriptor: DirectiveDescriptor = {
   },
 }
 
-export const ModernEditor: React.FC<ModernEditorProps> = ({ html }) => {
+const EditorWrapper = styled(Box)(() => ({
+  borderRadius: theme.borders.semiRound,
+  border: `1px solid ${theme.borders.input}`,
+  maxHeight: '60rem',
+  overflowY: 'auto',
+  maxWidth: '100%',
+  // below is quill's default style
+  ['& .mdxeditor-content-editable']: {
+    ['& li']: {
+      marginLeft: '2rem',
+      listStyleType: 'disc',
+    },
+    ['& blockquote']: {
+      borderLeft: `4px solid #ccc`,
+      paddingLeft: '16px',
+      marginTop: '5px',
+      marginBottom: '5px',
+    },
+  },
+}))
+
+export const ModernEditor: React.FC<ModernEditorProps> = ({ html, onChange }) => {
+  const uploadImage = useUploadCampaignFiles()
   const markdown = React.useMemo(() => htmlToMarkdown(html), [])
 
-  console.log(markdown)
-  const onChange = React.useCallback(
+  const onChangeCallback = React.useCallback(
     throttle(async (markdown) => {
-      void markdown
-      // const html = await markdownToHtml(markdown)
-      // console.log(html)
+      const html = await markdownToHtml(markdown)
+      onChange(html)
     }, 500),
     [],
   )
 
   return (
-    <MDXEditor
-      markdown={markdown}
-      onChange={onChange}
-      plugins={[
-        toolbarPlugin({
-          toolbarContents: () => (
-            <>
-              <DiffSourceToggleWrapper>
-                <UndoRedo />
-                <BoldItalicUnderlineToggles />
-                <ListsToggle />
-                <Separator />
-                <BlockTypeSelect />
-                <InsertImage />
-                <CreateLink />
-                <Separator />
-              </DiffSourceToggleWrapper>
-            </>
-          ),
-        }),
-        linkPlugin(),
-        listsPlugin(),
-        headingsPlugin(),
-        diffSourcePlugin(),
-        linkDialogPlugin(),
-        imagePlugin(),
-        quotePlugin(),
-        directivesPlugin({ directiveDescriptors: [YoutubeDirectiveDescriptor] }),
-      ]}
-    />
+    <EditorWrapper>
+      <MDXEditor
+        markdown={markdown}
+        onChange={onChangeCallback}
+        contentEditableClassName="mdxeditor-content-editable"
+        plugins={[
+          toolbarPlugin({
+            toolbarContents: () => (
+              <>
+                <DiffSourceToggleWrapper>
+                  <UndoRedo />
+                  <BoldItalicUnderlineToggles />
+                  <ListsToggle />
+                  <Separator />
+                  <BlockTypeSelect />
+                  <InsertImage />
+                  <CreateLink />
+                  <Separator />
+                </DiffSourceToggleWrapper>
+              </>
+            ),
+          }),
+          linkPlugin(),
+          listsPlugin(),
+          headingsPlugin(),
+          diffSourcePlugin(),
+          linkDialogPlugin(),
+          imagePlugin({
+            imageUploadHandler: async (file) => {
+              const result = await uploadImage({
+                files: [file],
+                campaignId: '1',
+                roles: [{ file: '1', role: CampaignFileRole.gallery }],
+              })
+              console.log(result)
+              return 'https://picsum.photos/200'
+            },
+          }),
+          quotePlugin(),
+          directivesPlugin({ directiveDescriptors: [YoutubeDirectiveDescriptor] }),
+        ]}
+      />
+    </EditorWrapper>
   )
 }

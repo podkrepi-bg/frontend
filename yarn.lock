@@ -1585,9 +1585,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mdxeditor/editor@npm:0.10.0-alpha.1":
-  version: 0.10.0-alpha.1
-  resolution: "@mdxeditor/editor@npm:0.10.0-alpha.1"
+"@mdxeditor/editor@file:/Users/petyo/w/editor/mdxeditor-editor-0.0.0-development.tgz::locator=podkrepi-bg-frontend%40workspace%3A.":
+  version: 0.0.0-development
+  resolution: "@mdxeditor/editor@file:/Users/petyo/w/editor/mdxeditor-editor-0.0.0-development.tgz::locator=podkrepi-bg-frontend%40workspace%3A."
   dependencies:
     "@codemirror/lang-markdown": ^6.1.1
     "@codemirror/state": ^6.2.1
@@ -1635,7 +1635,7 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
     react-dom: ^18.2.0
-  checksum: 4031c155252d40be64966fc944cf8af185c10b79256d20af6cd9224bb6cb4934f9b0a28c78044e9c62a6356e28f8bc13ca95925c79ded131acf5019001dcc133
+  checksum: 3bdf72a2524a31a03189404fc0f632c76463ea3b16ae7f2cac4624b0ee1f97e3a83b205d6df66cf00ba60be3da502e5d1e7304377ff3e295400daa1243372304
   languageName: node
   linkType: hard
 
@@ -11267,7 +11267,7 @@ __metadata:
     "@emotion/react": ^11.8.1
     "@emotion/server": ^11.4.0
     "@emotion/styled": ^11.8.1
-    "@mdxeditor/editor": 0.10.0-alpha.1
+    "@mdxeditor/editor": /Users/petyo/w/editor/mdxeditor-editor-0.0.0-development.tgz
     "@mui/icons-material": ^5.11.11
     "@mui/lab": ^5.0.0-alpha.69
     "@mui/material": ^5.10.14

@@ -84,12 +84,21 @@ export function htmlToMarkdown(html: string) {
       return false
     },
     replacement: function (content) {
-      // console.log('replacing', { content })
       return content
     },
   })
 
-  let sanitizedHtml = sanitizeHtml(html, {
+  // keep images as html, so that we can have dimensions
+  turndownService.addRule('img', {
+    filter: (node) => {
+      return node.nodeName === 'IMG'
+    },
+    replacement: function (_, node) {
+      return (node as HTMLImageElement).outerHTML
+    },
+  })
+
+  const sanitizedHtml = sanitizeHtml(html, {
     allowedTags: [
       'p',
       'b',
@@ -98,7 +107,7 @@ export function htmlToMarkdown(html: string) {
       'strong',
       'a',
       'iframe',
-      // 'img',
+      'img',
       'blockquote',
       'ul',
       'ol',
@@ -106,31 +115,22 @@ export function htmlToMarkdown(html: string) {
     ],
     allowedAttributes: {
       a: ['href'],
-      img: ['src'],
+      img: ['src', 'alt', 'width', 'height'],
       iframe: ['src'],
     },
     allowedIframeHostnames: ['www.youtube.com'],
   })
+    // normalize to straight quotes. We will use smartyPants to convert to curly quotes later.
+    .replace(/[\u2018\u2019]/g, "'")
+    .replace(/[\u201C\u201D\u201E]/g, '"')
+    // merge adjacent formatting tags
+    // remove accidental formatting, like a single quote or coma being in italics
+    .replace(/(<\/(em)>)(.{0,3})(<(em)>)/g, '$3')
+    .replace(/(<\/(strong)>)(.{0,3})(<(strong)>)/g, '$3')
+    .replace(/(<(em)>)(.{0,3})(<\/(em)>)/g, '$3')
+    .replace(/(<(strong)>)(.{0,3})(<\/(strong)>)/g, '$3')
 
-  sanitizedHtml = mergeAdjacentHtmlTags(sanitizedHtml)
-  sanitizedHtml = removeBogusFormat(sanitizedHtml)
-  sanitizedHtml = toStraightQuotes(sanitizedHtml)
+  console.log(turndownService.turndown(sanitizedHtml))
 
   return turndownService.turndown(sanitizedHtml)
-}
-
-function toStraightQuotes(input: string) {
-  return input.replace(/[\u2018\u2019]/g, "'").replace(/[\u201C\u201D\u201E]/g, '"')
-}
-
-function mergeAdjacentHtmlTags(input: string) {
-  const regex = /(<\/(strong|em)>)(.{0,3})(<(strong|em)>)/g
-  const result = input.replace(regex, '$3')
-  return result
-}
-
-function removeBogusFormat(input: string) {
-  const regex = /(<(strong|em)>)(.{0,3})(<\/(strong|em)>)/g
-  const result = input.replace(regex, '$3')
-  return result
 }
