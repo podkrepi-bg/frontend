@@ -95,7 +95,13 @@
     "others": "други",
     "profile": "Профил:",
     "status": "Статус:",
-    "messages": "Послания:",
+    "messages": "Кампанията подкрепиха:",
+    "sort": {
+      "title" : "Сортирай:",
+      "date" : "Дата",
+      "amount": "Дарение",
+      "search": "Търси..."
+    },
     "gallery": "Галерия",
     "report-irregularity": "Сигнализирай за злоупотреба",
     "financial-report": "Финансови отчети",

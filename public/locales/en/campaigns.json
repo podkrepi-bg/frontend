@@ -89,6 +89,12 @@
     "guarantor": "guarantor",
     "others": "others",
     "messages": "Messages:",
+    "sort": {
+      "title" : "Sort:",
+      "date" : "Date",
+      "amount": "Amount",
+      "search": "Search..."
+    },
     "profile": "Profile:",
     "status": "Status:",
     "gallery": "Gallery",
