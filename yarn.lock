@@ -481,15 +481,15 @@ __metadata:
   linkType: hard
 
 "@codemirror/lang-css@npm:^6.0.0, @codemirror/lang-css@npm:^6.0.1":
-  version: 6.2.0
-  resolution: "@codemirror/lang-css@npm:6.2.0"
+  version: 6.2.1
+  resolution: "@codemirror/lang-css@npm:6.2.1"
   dependencies:
     "@codemirror/autocomplete": ^6.0.0
     "@codemirror/language": ^6.0.0
     "@codemirror/state": ^6.0.0
     "@lezer/common": ^1.0.2
     "@lezer/css": ^1.0.0
-  checksum: d824f169083613b63f04992c24d3fecd45c718cd3deb9da3f332dd3a889a762d05ea812e31ddf7ee4b661722f8c8b49676515cb98609067c53e25ac8b469a5e4
+  checksum: 5a8457ee8a4310030a969f2d3128429f549c4dc9b7907ee8888b42119c80b65af99093801432efdf659b8ec36a147d2a947bc1ecbbf69a759395214e3f4834a8
   languageName: node
   linkType: hard
 
@@ -569,6 +569,17 @@ __metadata:
   version: 6.2.1
   resolution: "@codemirror/state@npm:6.2.1"
   checksum: d12a321d0471b264b9d3259042bff913a8b939e8d28d408ff452004538a71ca9d5329df3f8a1d8a9183f5b42a7ef5b200737bcab1065714f5ae8e0a5ba9d59d3
+  languageName: node
+  linkType: hard
+
+"@codemirror/view@npm:6.15.3":
+  version: 6.15.3
+  resolution: "@codemirror/view@npm:6.15.3"
+  dependencies:
+    "@codemirror/state": ^6.1.4
+    style-mod: ^4.0.0
+    w3c-keyname: ^2.2.4
+  checksum: 048949b1b493a962904a7f77661a939f7c1893a7381022756a135f5dd8daf667f498be1b81da9c37c0e8de85b078ad987c2f75318385c520ed83c95da6313e95
   languageName: node
   linkType: hard
 
@@ -1585,12 +1596,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mdxeditor/editor@file:/Users/petyo/w/editor/mdxeditor-editor-0.0.0-development.tgz::locator=podkrepi-bg-frontend%40workspace%3A.":
-  version: 0.0.0-development
-  resolution: "@mdxeditor/editor@file:/Users/petyo/w/editor/mdxeditor-editor-0.0.0-development.tgz::locator=podkrepi-bg-frontend%40workspace%3A."
+"@mdxeditor/editor@file:/Users/petyo/w/editor/mdxeditor-editor-0.0.1-development.tgz::locator=podkrepi-bg-frontend%40workspace%3A.":
+  version: 0.0.1-development
+  resolution: "@mdxeditor/editor@file:/Users/petyo/w/editor/mdxeditor-editor-0.0.1-development.tgz::locator=podkrepi-bg-frontend%40workspace%3A."
   dependencies:
     "@codemirror/lang-markdown": ^6.1.1
     "@codemirror/state": ^6.2.1
+    "@codemirror/view": 6.15.3
     "@codesandbox/sandpack-react": ^2.6.7
     "@lexical/clipboard": ^0.11.1
     "@lexical/code": ^0.11.1
@@ -1635,7 +1647,7 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
     react-dom: ^18.2.0
-  checksum: 3bdf72a2524a31a03189404fc0f632c76463ea3b16ae7f2cac4624b0ee1f97e3a83b205d6df66cf00ba60be3da502e5d1e7304377ff3e295400daa1243372304
+  checksum: 1124b97c6ee6584b71281aaa2c37c3a57f38a2178a0f8983d55ae5524bc8808522fb2880b7f1792ce8a13ba93cd6aa2479ce937feee400cb52e9a6d36f6b6150
   languageName: node
   linkType: hard
 
@@ -11267,7 +11279,7 @@ __metadata:
     "@emotion/react": ^11.8.1
     "@emotion/server": ^11.4.0
     "@emotion/styled": ^11.8.1
-    "@mdxeditor/editor": /Users/petyo/w/editor/mdxeditor-editor-0.0.0-development.tgz
+    "@mdxeditor/editor": /Users/petyo/w/editor/mdxeditor-editor-0.0.1-development.tgz
     "@mui/icons-material": ^5.11.11
     "@mui/lab": ^5.0.0-alpha.69
     "@mui/material": ^5.10.14
@@ -11836,11 +11848,11 @@ __metadata:
   linkType: hard
 
 "react-hook-form@npm:^7.44.2":
-  version: 7.45.2
-  resolution: "react-hook-form@npm:7.45.2"
+  version: 7.45.4
+  resolution: "react-hook-form@npm:7.45.4"
   peerDependencies:
     react: ^16.8.0 || ^17 || ^18
-  checksum: 023ca091f2bb1f3117d8a694871874c4a344f02c795c6a08b8f78b09b78444451375fbe921d7db4ba7cd78909b1fa5e92d19efd2bfedc43124fdc44540ac036c
+  checksum: 1d84c78dadf561bc9e360272c5c856c724426162e13a74929c0517c3eb8004a7f057561fff3bfd4c1121b36d6cf1437399df1dbfd01d0817b9f922503f407d8f
   languageName: node
   linkType: hard
 

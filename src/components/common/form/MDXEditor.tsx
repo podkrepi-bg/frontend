@@ -1,6 +1,10 @@
 import { MDXEditor } from '@mdxeditor/editor/MDXEditor'
 import { diffSourcePlugin } from '@mdxeditor/editor/plugins/diff-source'
-import { DirectiveDescriptor, directivesPlugin } from '@mdxeditor/editor/plugins/directives'
+import {
+  DirectiveDescriptor,
+  directivesPlugin,
+  directivesPluginHooks,
+} from '@mdxeditor/editor/plugins/directives'
 import { headingsPlugin } from '@mdxeditor/editor/plugins/headings'
 import { imagePlugin } from '@mdxeditor/editor/plugins/image'
 import { linkPlugin } from '@mdxeditor/editor/plugins/link'
@@ -19,12 +23,14 @@ import { Separator } from '@mdxeditor/editor/plugins/toolbar/primitives/toolbar'
 import '@mdxeditor/editor/style.css'
 import { Box } from '@mui/material'
 import { styled } from '@mui/material/styles'
+import { YouTube } from '@mui/icons-material'
 import { htmlToMarkdown, markdownToHtml } from 'lib/markdownUtils'
 import throttle from 'lodash/throttle'
 import React from 'react'
 import { useUploadCampaignFiles } from 'service/campaign'
 import { CampaignFileRole } from '../campaign-file/roles'
 import theme from 'common/theme'
+import { DialogButton } from '@mdxeditor/editor/plugins/toolbar/primitives/DialogButton'
 
 interface ModernEditorProps {
   html: string
@@ -62,6 +68,45 @@ export const YoutubeDirectiveDescriptor: DirectiveDescriptor = {
       </div>
     )
   },
+}
+
+const YoutubeButton = () => {
+  const insertDirective = directivesPluginHooks.usePublisher('insertDirective')
+  const insertYouTube = React.useCallback(
+    (urlString: string) => {
+      const url = new URL(urlString)
+      let id = ''
+      // get the v parameter from the url
+      if (url.host === 'youtu.be') {
+        id = url.pathname.slice(1)
+      } else {
+        const vParam = url.searchParams.get('v')
+        if (!vParam) {
+          alert('Invalid YouTube URL')
+        } else {
+          id = vParam
+        }
+      }
+      if (id) {
+        insertDirective({
+          name: 'youtube',
+          type: 'leafDirective',
+          attributes: { id },
+        })
+      }
+    },
+    [insertDirective],
+  )
+
+  return (
+    <DialogButton
+      buttonContent={<YouTube />}
+      onSubmit={insertYouTube}
+      tooltipTitle="Insert YouTube video"
+      submitButtonTitle="Add video"
+      dialogInputPlaceholder="YouTube URL"
+    />
+  )
 }
 
 const EditorWrapper = styled(Box)(() => ({
@@ -113,8 +158,9 @@ export const ModernEditor: React.FC<ModernEditorProps> = ({ html, onChange }) =>
                   <ListsToggle />
                   <Separator />
                   <BlockTypeSelect />
-                  <InsertImage />
                   <CreateLink />
+                  <InsertImage />
+                  <YoutubeButton />
                   <Separator />
                 </DiffSourceToggleWrapper>
               </>
@@ -123,7 +169,7 @@ export const ModernEditor: React.FC<ModernEditorProps> = ({ html, onChange }) =>
           linkPlugin(),
           listsPlugin(),
           headingsPlugin(),
-          diffSourcePlugin(),
+          diffSourcePlugin({ diffMarkdown: markdown }),
           linkDialogPlugin(),
           imagePlugin({
             imageUploadHandler: async (file) => {

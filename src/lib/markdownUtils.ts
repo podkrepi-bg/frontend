@@ -130,7 +130,5 @@ export function htmlToMarkdown(html: string) {
     .replace(/(<(em)>)(.{0,3})(<\/(em)>)/g, '$3')
     .replace(/(<(strong)>)(.{0,3})(<\/(strong)>)/g, '$3')
 
-  console.log(turndownService.turndown(sanitizedHtml))
-
   return turndownService.turndown(sanitizedHtml)
 }
