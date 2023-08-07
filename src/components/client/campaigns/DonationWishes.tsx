@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 
 import { useTranslation } from 'next-i18next'
 
@@ -23,6 +23,7 @@ import { useDonationWishesList } from 'common/hooks/donationWish'
 import { getExactDate } from 'common/util/date'
 import theme from 'common/theme'
 import { SortData } from 'gql/types'
+import { debounce } from 'lodash'
 
 type SortButton = {
   label: string
@@ -39,16 +40,18 @@ export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
   const locale = i18n.language == 'bg' ? bg : enUS
   const titleRef = useRef<HTMLElement>(null)
   const [pageIndex, setPageIndex] = useState<number>(0)
+  const [searchValue, setSearchValue] = useState('')
 
   const [sort, setSort] = useState<SortData>({
     sortBy: 'createdAt',
     sortOrder: 'desc',
   })
 
-  const { data, isSuccess, refetch } = useDonationWishesList(
+  const { data, isSuccess } = useDonationWishesList(
     campaignId,
     { pageIndex, pageSize },
     sort,
+    searchValue,
   )
   const numOfPages = isSuccess && data ? Math.ceil(data.totalCount / pageSize) : 0
 
@@ -57,8 +60,13 @@ export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
       sortBy: value,
       sortOrder: sort.sortBy === value ? (sort.sortOrder === 'desc' ? 'asc' : 'desc') : 'desc',
     }))
-    refetch()
   }
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(event.target.value)
+  }
+
+  const debounceSearch = useMemo(() => debounce(handleSearch, 300), [])
 
   const handlePageChange = (_e: React.ChangeEvent<unknown>, page: number) => {
     // <Pagination /> 's impl is 1 index based
@@ -94,13 +102,18 @@ export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
           }}>
           {t('campaign.messages')}
         </Typography>
-        <Stack direction="row" alignItems="center">
+        <Stack
+          direction="row"
+          alignItems="center"
+          justifyContent={{ xs: 'center', sm: 'start' }}
+          gap={2}
+          useFlexGap
+          flexWrap="wrap">
           <Typography
             sx={{
               color: theme.palette.grey[900],
               fontSize: theme.typography.pxToRem(12),
               fontWeight: 600,
-              paddingRight: '2rem',
             }}>
             {t('campaign.sort.title')}
           </Typography>
@@ -112,7 +125,6 @@ export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
               sx={{
                 fontSize: theme.typography.pxToRem(14),
                 color: 'rgba(0, 0, 0, 0.54)',
-                '&:after': { content: '"|"', paddingX: '1rem' },
               }}>
               {label}
               {sort.sortBy === value &&
@@ -130,6 +142,7 @@ export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
               ),
             }}
             variant="outlined"
+            onChange={debounceSearch}
           />
         </Stack>
       </Grid2>
@@ -196,6 +209,11 @@ export default function DonationWishes({ campaignId, pageSize = 5 }: Props) {
               </Grid2>
             </Grid2>
           ))}
+        <Grid2 xs={12}>
+          {data?.items?.length === 0 && searchValue !== '' && (
+            <Typography align="center"> {t('campaign.sort.noResults')}</Typography>
+          )}
+        </Grid2>
         <Grid2 xs={12}>
           {numOfPages > 1 && (
             <Pagination

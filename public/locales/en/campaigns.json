@@ -93,7 +93,8 @@
       "title" : "Sort:",
       "date" : "Date",
       "amount": "Amount",
-      "search": "Search..."
+      "search": "Search...",
+      "noResults": "No messages found"
     },
     "profile": "Profile:",
     "status": "Status:",
