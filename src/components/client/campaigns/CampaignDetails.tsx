@@ -35,7 +35,6 @@ const PREFIX = 'CampaignDetails'
 
 const classes = {
   banner: `${PREFIX}-banner`,
-  subscribeBtn: `${PREFIX}-subscribe`,
   campaignTitle: `${PREFIX}-campaignTitle`,
   linkButton: `${PREFIX}-linkButton`,
   securityIcon: `${PREFIX}-securityIcon`,
@@ -91,25 +90,6 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     width: theme.spacing(2.25),
     height: theme.spacing(2.75),
   },
-
-  [`& .${classes.subscribeBtn}`]: {
-    fontSize: theme.typography.pxToRem(16),
-    lineHeight: theme.spacing(3),
-    letterSpacing: theme.spacing(0.05),
-    color: theme.palette.common.black,
-    background: `${theme.palette.secondary.main}`,
-    padding: theme.spacing(1.5),
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2.5),
-    width: '50%',
-
-    '&:hover': {
-      background: theme.palette.primary.main,
-    },
-    '& svg': {
-      color: '#333232 ',
-    },
-  },
 }))
 
 type Props = {
@@ -122,7 +102,6 @@ export default function CampaignDetails({ campaign }: Props) {
   const canEditCampaign = useCanEditCampaign(campaign.slug)
   const { data: expensesList } = useCampaignApprovedExpensesList(campaign.slug)
   const totalExpenses = expensesList?.reduce((acc, expense) => acc + expense.amount, 0)
-  const [subscribeIsOpen, setSubscribeOpen] = useState(false)
 
   return (
     <StyledGrid item xs={12} md={8}>
@@ -133,17 +112,6 @@ export default function CampaignDetails({ campaign }: Props) {
         campaign={campaign}
         showExpensesLink={(expensesList && expensesList?.length > 0) || canEditCampaign}
       />
-      {subscribeIsOpen && (
-        <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
-      )}
-      <Grid item textAlign="center" pr={15}>
-        <Button
-          onClick={() => setSubscribeOpen(true)}
-          className={classes.subscribeBtn}
-          endIcon={<Email />}>
-          {t('campaigns:cta.subscribe')}
-        </Button>
-      </Grid>
       <Grid container spacing={8}>
         <Grid item xs={12}>
           <ReactQuill readOnly theme="bubble" value={campaign.description} />

@@ -61,25 +61,17 @@ export const SocialIconsWrapper = styled(Grid)(() => ({
   marginTop: theme.spacing(2),
 }))
 
-export const SubscribeBtnWrapper = styled(Grid)(({ theme }) => ({
-  [`& button`]: {
+export const SubscribeLinkWrapper = styled(Grid)(({ theme }) => ({
+  [`& p`]: {
     fontWeight: 500,
-    fontSize: theme.typography.pxToRem(16),
-    background: `${theme.palette.secondary.main}`,
-    color: theme.palette.common.black,
-    padding: theme.spacing(0.5),
-    paddingLeft: theme.spacing(1.2),
-    paddingRight: theme.spacing(1.2),
+    fontSize: theme.typography.pxToRem(17),
+    marginRight: theme.spacing(0.7),
+  },
 
-    '&:hover': {
-      background: theme.palette.secondary.main,
-      opacity: 0.9,
-      color: theme.palette.common.black,
-      transform: 'scale(1.05)',
-      transition: 'all 0.3s ease',
-    },
-    '& svg': {
-      color: '#ab2f26',
-    },
+  '&:hover': {
+    'text-decoration': 'underline',
+    transform: 'scale(1.03)',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
   },
 }))

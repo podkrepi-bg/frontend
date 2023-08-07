@@ -1,17 +1,21 @@
-import { Button } from '@mui/material'
+import { , Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
-import { SubscribeBtnWrapper } from './Footer.styled'
+import { SubscribeLinkWrapper } from './Footer.styled'
 import { useState } from 'react'
 import RenderSubscribeModal from 'components/client/notifications/GeneralSubscribeModal'
+import { MarkEmailUnread } from '@mui/icons-material'
 
 export const SubscribeBtn = () => {
   const { t } = useTranslation()
   const [subscribeIsOpen, setSubscribeOpen] = useState(false)
 
   return (
-    <SubscribeBtnWrapper mt={2}>
+    <SubscribeLinkWrapper mt={2} display="flex">
       {subscribeIsOpen && <RenderSubscribeModal setOpen={setSubscribeOpen} />}
-      <Button onClick={() => setSubscribeOpen(true)}>{t('components.footer.subscribe')}</Button>
-    </SubscribeBtnWrapper>
+      <Typography onClick={() => setSubscribeOpen(true)}>
+        {t('components.footer.subscribe')}
+      </Typography>
+      <MarkEmailUnread onClick={() => setSubscribeOpen(true)} cursor="pointer"></MarkEmailUnread>
+    </SubscribeLinkWrapper>
   )
 }
