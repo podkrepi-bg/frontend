@@ -572,7 +572,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@codemirror/view@npm:6.15.3":
+"@codemirror/view@npm:6.15.3, @codemirror/view@npm:^6.0.0, @codemirror/view@npm:^6.2.2, @codemirror/view@npm:^6.6.0, @codemirror/view@npm:^6.7.1":
   version: 6.15.3
   resolution: "@codemirror/view@npm:6.15.3"
   dependencies:
@@ -580,17 +580,6 @@ __metadata:
     style-mod: ^4.0.0
     w3c-keyname: ^2.2.4
   checksum: 048949b1b493a962904a7f77661a939f7c1893a7381022756a135f5dd8daf667f498be1b81da9c37c0e8de85b078ad987c2f75318385c520ed83c95da6313e95
-  languageName: node
-  linkType: hard
-
-"@codemirror/view@npm:^6.0.0, @codemirror/view@npm:^6.2.2, @codemirror/view@npm:^6.6.0, @codemirror/view@npm:^6.7.1":
-  version: 6.16.0
-  resolution: "@codemirror/view@npm:6.16.0"
-  dependencies:
-    "@codemirror/state": ^6.1.4
-    style-mod: ^4.0.0
-    w3c-keyname: ^2.2.4
-  checksum: 54d412b5159716c8a1a9c46fa04ff083e68a663cb887e6e2a4ca86fe9c3930d5255200fe84c65620e0a442f62dc2c13df277bcd1d4eef2e11e3c4e124fcf9d38
   languageName: node
   linkType: hard
 
@@ -1596,9 +1585,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mdxeditor/editor@file:/Users/petyo/w/editor/mdxeditor-editor-0.0.1-development.tgz::locator=podkrepi-bg-frontend%40workspace%3A.":
-  version: 0.0.1-development
-  resolution: "@mdxeditor/editor@file:/Users/petyo/w/editor/mdxeditor-editor-0.0.1-development.tgz::locator=podkrepi-bg-frontend%40workspace%3A."
+"@mdxeditor/editor@npm:0.10.0-alpha.2":
+  version: 0.10.0-alpha.2
+  resolution: "@mdxeditor/editor@npm:0.10.0-alpha.2"
   dependencies:
     "@codemirror/lang-markdown": ^6.1.1
     "@codemirror/state": ^6.2.1
@@ -1647,7 +1636,7 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
     react-dom: ^18.2.0
-  checksum: 1124b97c6ee6584b71281aaa2c37c3a57f38a2178a0f8983d55ae5524bc8808522fb2880b7f1792ce8a13ba93cd6aa2479ce937feee400cb52e9a6d36f6b6150
+  checksum: d2c11eafaa6235e845150b23e017003c294acbc89377a5ab64faa8ffdc2cd5b36e558c6c7178e9fb58f21e4b282bc219316c80a2426a4d194297c7fd094f8f91
   languageName: node
   linkType: hard
 
@@ -7475,7 +7464,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hast-util-raw@npm:^7.0.0":
+"hast-util-raw@npm:^7.0.0, hast-util-raw@npm:^7.2.0":
   version: 7.2.3
   resolution: "hast-util-raw@npm:7.2.3"
   dependencies:
@@ -11279,7 +11268,7 @@ __metadata:
     "@emotion/react": ^11.8.1
     "@emotion/server": ^11.4.0
     "@emotion/styled": ^11.8.1
-    "@mdxeditor/editor": /Users/petyo/w/editor/mdxeditor-editor-0.0.1-development.tgz
+    "@mdxeditor/editor": 0.10.0-alpha.2
     "@mui/icons-material": ^5.11.11
     "@mui/lab": ^5.0.0-alpha.69
     "@mui/material": ^5.10.14
@@ -11351,6 +11340,7 @@ __metadata:
     react-quill: ^2.0.0
     react-slick: ^0.29.0
     rehype-format: ^4.0.1
+    rehype-raw: ^6.1.1
     rehype-stringify: ^9.0.3
     remark-directive: ^2.0.1
     remark-parse: ^10.0.2
@@ -12168,6 +12158,17 @@ __metadata:
     unified: ^10.0.0
     unist-util-is: ^5.0.0
   checksum: 48dc6cd8b66977a8dd67941e144a2e31cfabfea5bf4ebd3e78f7c5b35c66019c937b569bbd4b50ab7cfef5132ea72eecc0217cafdcdff2f38469c336be41bcc7
+  languageName: node
+  linkType: hard
+
+"rehype-raw@npm:^6.1.1":
+  version: 6.1.1
+  resolution: "rehype-raw@npm:6.1.1"
+  dependencies:
+    "@types/hast": ^2.0.0
+    hast-util-raw: ^7.2.0
+    unified: ^10.0.0
+  checksum: a1f9d309e609f49fb1f1e06e722705f4dd2e569653a89f756eaccb33b612cf1bb511216a81d10a619d11d047afc161e4b3cb99b957df05a8ba8fdbd5843f949a
   languageName: node
   linkType: hard
 
@@ -13656,17 +13657,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.0, tslib@npm:^2.3.0, tslib@npm:^2.4.1 || ^1.9.3":
+"tslib@npm:^2.0.0, tslib@npm:^2.1.0, tslib@npm:^2.3.0, tslib@npm:^2.4.0, tslib@npm:^2.4.1 || ^1.9.3, tslib@npm:^2.5.0, tslib@npm:^2.6.0":
   version: 2.6.1
   resolution: "tslib@npm:2.6.1"
   checksum: b0d176d176487905b66ae4d5856647df50e37beea7571c53b8d10ba9222c074b81f1410fb91da13debaf2cbc970663609068bdebafa844ea9d69b146527c38fe
-  languageName: node
-  linkType: hard
-
-"tslib@npm:^2.1.0, tslib@npm:^2.4.0, tslib@npm:^2.5.0, tslib@npm:^2.6.0":
-  version: 2.6.0
-  resolution: "tslib@npm:2.6.0"
-  checksum: c01066038f950016a18106ddeca4649b4d76caa76ec5a31e2a26e10586a59fceb4ee45e96719bf6c715648e7c14085a81fee5c62f7e9ebee68e77a5396e5538f
   languageName: node
   linkType: hard
 

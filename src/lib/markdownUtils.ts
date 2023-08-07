@@ -4,6 +4,7 @@ import remarkDirective from 'remark-directive'
 import remarkRehype from 'remark-rehype'
 import rehypeFormat from 'rehype-format'
 import rehypeStringify from 'rehype-stringify'
+import rehypeRaw from 'rehype-raw'
 import { visit } from 'unist-util-visit'
 import { Plugin } from 'unified'
 import { Root } from 'mdast'
@@ -11,7 +12,7 @@ import TurndownService from 'turndown'
 import sanitizeHtml from 'sanitize-html'
 
 // convert `::youtube` directive into an iframe.
-const myRemarkPlugin: Plugin<[], Root> = () => {
+const youtubePlugin: Plugin<[], Root> = () => {
   return (tree, file) => {
     visit(tree, (node) => {
       if (
@@ -48,8 +49,9 @@ export async function markdownToHtml(markdown: string) {
     await unified()
       .use(remarkParse)
       .use(remarkDirective)
-      .use(myRemarkPlugin)
-      .use(remarkRehype)
+      .use(youtubePlugin)
+      .use(remarkRehype, { allowDangerousHtml: true })
+      .use(rehypeRaw)
       .use(rehypeFormat)
       .use(rehypeStringify)
       .process(markdown),

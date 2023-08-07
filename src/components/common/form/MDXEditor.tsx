@@ -19,18 +19,17 @@ import { DiffSourceToggleWrapper } from '@mdxeditor/editor/plugins/toolbar/compo
 import { InsertImage } from '@mdxeditor/editor/plugins/toolbar/components/InsertImage'
 import { ListsToggle } from '@mdxeditor/editor/plugins/toolbar/components/ListsToggle'
 import { UndoRedo } from '@mdxeditor/editor/plugins/toolbar/components/UndoRedo'
+import { DialogButton } from '@mdxeditor/editor/plugins/toolbar/primitives/DialogButton'
 import { Separator } from '@mdxeditor/editor/plugins/toolbar/primitives/toolbar'
 import '@mdxeditor/editor/style.css'
-import { Box } from '@mui/material'
+import { Delete, YouTube } from '@mui/icons-material'
+import { Box, Button } from '@mui/material'
 import { styled } from '@mui/material/styles'
-import { YouTube } from '@mui/icons-material'
+import theme from 'common/theme'
 import { htmlToMarkdown, markdownToHtml } from 'lib/markdownUtils'
 import throttle from 'lodash/throttle'
 import React from 'react'
 import { useUploadCampaignFiles } from 'service/campaign'
-import { CampaignFileRole } from '../campaign-file/roles'
-import theme from 'common/theme'
-import { DialogButton } from '@mdxeditor/editor/plugins/toolbar/primitives/DialogButton'
 
 interface ModernEditorProps {
   html: string
@@ -47,16 +46,7 @@ export const YoutubeDirectiveDescriptor: DirectiveDescriptor = {
   hasChildren: false,
   Editor: ({ mdastNode, lexicalNode, parentEditor }) => {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-        <button
-          onClick={() => {
-            parentEditor.update(() => {
-              lexicalNode.selectNext()
-              lexicalNode.remove()
-            })
-          }}>
-          delete
-        </button>
+      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
         <iframe
           width="560"
           height="315"
@@ -65,6 +55,16 @@ export const YoutubeDirectiveDescriptor: DirectiveDescriptor = {
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         />
+
+        <Button
+          onClick={() => {
+            parentEditor.update(() => {
+              lexicalNode.selectNext()
+              lexicalNode.remove()
+            })
+          }}>
+          <Delete />
+        </Button>
       </div>
     )
   },
@@ -172,13 +172,14 @@ export const ModernEditor: React.FC<ModernEditorProps> = ({ html, onChange }) =>
           diffSourcePlugin({ diffMarkdown: markdown }),
           linkDialogPlugin(),
           imagePlugin({
-            imageUploadHandler: async (file) => {
-              const result = await uploadImage({
-                files: [file],
-                campaignId: '1',
-                roles: [{ file: '1', role: CampaignFileRole.gallery }],
-              })
-              console.log(result)
+            imageUploadHandler: async (_file) => {
+              // TODO: upload image
+              // const result = await uploadImage({
+              //   files: [file],
+              //   campaignId: '1',
+              //   roles: [{ file: '1', role: CampaignFileRole.gallery }],
+              // })
+              // console.log(result)
               return 'https://picsum.photos/200'
             },
           }),
