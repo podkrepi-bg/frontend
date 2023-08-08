@@ -90,7 +90,7 @@
     "others": "others",
     "messages": "Messages:",
     "sort": {
-      "title" : "Sort:",
+      "title" : "Sort by:",
       "date" : "Date",
       "amount": "Amount",
       "search": "Search...",
