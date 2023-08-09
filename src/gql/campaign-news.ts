@@ -66,6 +66,7 @@ export type CampaignNewsAdminCreateFormData = {
   description: string
   terms: boolean
   gdpr: boolean
+  notify: boolean
 }
 
 export type CampaignNewsInput = {

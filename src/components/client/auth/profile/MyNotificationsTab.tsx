@@ -101,9 +101,8 @@ export default function MyNotificationsTab() {
       {showConfirmModal && (
         <RenderNotificationsConfirmModal
           setOpen={setShowConfirmModal}
-          type={
-            user?.user.newsletter ? 'unsubscribe' : 'subscribe'
-          }></RenderNotificationsConfirmModal>
+          type={user?.user.newsletter ? 'unsubscribe' : 'subscribe'}
+        />
       )}
       <Box className={classes.boxTitle}>
         <Typography className={classes.h3}>{t('profile:myNotifications.status-title')}</Typography>

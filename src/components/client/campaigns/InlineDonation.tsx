@@ -348,7 +348,7 @@ export default function InlineDonation({ campaign }: Props) {
         <Typography onClick={() => setSubscribeOpen(true)} className={classes.subscribeLink}>
           {t('campaigns:cta.subscribe')}
         </Typography>
-        <MarkEmailUnread onClick={() => setSubscribeOpen(true)} cursor="pointer"></MarkEmailUnread>
+        <MarkEmailUnread onClick={() => setSubscribeOpen(true)} cursor="pointer" />
       </Grid>
       {detailsShown &&
         (donationHistoryError ? (

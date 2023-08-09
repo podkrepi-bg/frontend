@@ -262,9 +262,8 @@ export default function EditForm({ article, campaignId = '', isAdmin = true }: P
             {isAdmin && (
               <CheckboxField
                 name="notify"
-                label={
-                  <Typography variant="body2">{t('campaigns:campaign.notify')}</Typography>
-                }></CheckboxField>
+                label={<Typography variant="body2">{t('campaigns:campaign.notify')}</Typography>}
+              />
             )}
           </Grid>
           <Grid item xs={12}>

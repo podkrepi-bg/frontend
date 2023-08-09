@@ -15,7 +15,7 @@ export const SubscribeBtn = () => {
       <Typography onClick={() => setSubscribeOpen(true)}>
         {t('components.footer.subscribe')}
       </Typography>
-      <MarkEmailUnread onClick={() => setSubscribeOpen(true)} cursor="pointer"></MarkEmailUnread>
+      <MarkEmailUnread onClick={() => setSubscribeOpen(true)} cursor="pointer" />
     </SubscribeLinkWrapper>
   )
 }
