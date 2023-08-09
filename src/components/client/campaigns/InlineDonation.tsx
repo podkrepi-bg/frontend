@@ -260,6 +260,7 @@ export default function InlineDonation({ campaign }: Props) {
               ? reachedAmount.split(',')[1].substring(0, 2)
               : reachedAmount.split('.')[1]}
           </Typography>
+          {i18n.language === 'bg' ? <span> {t('donations.lv')}</span> : ''}
         </Grid>
         <Grid>
           <Typography component="span" className={classes.moneyUnit}>
@@ -270,6 +271,7 @@ export default function InlineDonation({ campaign }: Props) {
               ? targetAmount.split(',')[1].substring(0, 2)
               : targetAmount.split('.')[1]}
           </Typography>
+          {i18n.language === 'bg' ? <span> {t('donations.lv')}</span> : ''}
         </Grid>
       </Grid>
       <Grid pt={1}>
