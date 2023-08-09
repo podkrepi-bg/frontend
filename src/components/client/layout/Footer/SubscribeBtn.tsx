@@ -1,4 +1,4 @@
-import { , Typography } from '@mui/material'
+import { Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { SubscribeLinkWrapper } from './Footer.styled'
 import { useState } from 'react'
