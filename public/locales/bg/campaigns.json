@@ -180,7 +180,7 @@
   "donations": {
     "anonymous": "Анонимен",
     "none": "Няма направени дарения",
-    "lv": "лв"
+    "lv": "лв."
   },
   "campaign-status": {
     "initial": "В начален етап",
