@@ -12,6 +12,7 @@ export type DonationWishResponse = {
   donationId?: UUID
   personId?: UUID
   person?: { firstName: string; lastName: string }
+  donation?: { amount: number; currency: string }
   createdAt: DateTime
 }
 

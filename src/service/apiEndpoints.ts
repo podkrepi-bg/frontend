@@ -1,6 +1,6 @@
 import { Method } from 'axios'
 import { DonationStatus } from 'gql/donations.enums'
-import { FilterData, PaginationData } from 'gql/types'
+import { FilterData, PaginationData, SortData } from 'gql/types'
 
 type Endpoint = {
   url: string
@@ -308,10 +308,19 @@ export const endpoints = {
   },
   donationWish: {
     createDonationWish: <Endpoint>{ url: '/donation-wish', method: 'POST' },
-    listDonationWishes: (campaignId?: string, pageIndex?: number, pageSize?: number) =>
-      <Endpoint>{
-        url: `/donation-wish/list/${campaignId}?pageindex=${pageIndex}&pagesize=${pageSize}`,
+    listDonationWishes: (
+      campaignId?: string,
+      paginationData?: PaginationData,
+      sort?: SortData,
+      searchData?: string,
+    ) => {
+      const { pageIndex, pageSize } = (paginationData as PaginationData) || {}
+      const { sortBy, sortOrder } = (sort as SortData) || {}
+
+      return <Endpoint>{
+        url: `/donation-wish/list/${campaignId}?pageindex=${pageIndex}&pagesize=${pageSize}&search=${searchData}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
         method: 'GET',
-      },
+      }
+    },
   },
 }
