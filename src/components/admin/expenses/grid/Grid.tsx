@@ -51,7 +51,7 @@ export default observer(function Grid() {
     pageSize: 10,
     page: 0,
   })
-  const { data: personList } = usePersonList()
+  const { data: { items: personList } = { items: [] } } = usePersonList()
 
   const { isDetailsOpen } = ModalStore
 

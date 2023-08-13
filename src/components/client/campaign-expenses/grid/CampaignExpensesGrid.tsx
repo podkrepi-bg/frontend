@@ -54,7 +54,7 @@ export default observer(function CampaignExpensesGrid({ slug }: Props) {
     pageSize: 10,
     page: 0,
   })
-  const { data: personList } = usePersonList()
+  const { data: { items: personList } = { items: [] } } = usePersonList()
 
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID' },

@@ -11,8 +11,8 @@ export default function PersonSelect({
   ...textFieldProps
 }) {
   const [field, meta] = useField(name)
-  const { data: personList } = usePersonList()
-  if (!personList) {
+  const { data: { items: personList } = { items: [] } } = usePersonList()
+  if (personList.length === 0) {
     return null
   }
 

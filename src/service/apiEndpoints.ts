@@ -237,7 +237,15 @@ export const endpoints = {
       <Endpoint>{ url: `/campaign-types/${id}`, method: 'DELETE' },
   },
   person: {
-    list: <Endpoint>{ url: '/person', method: 'GET' },
+    list: (paginationData?: PaginationData, sort?: SortData, searchData?: string) => {
+      const { pageIndex, pageSize } = (paginationData as PaginationData) || {}
+      const { sortBy, sortOrder } = (sort as SortData) || {}
+
+      return <Endpoint>{
+        url: `/person?pageindex=${pageIndex}&pagesize=${pageSize}&sortBy=${sortBy}&sortOrder=${sortOrder}&search=${searchData}`,
+        method: 'GET',
+      }
+    },
     createBeneficiary: <Endpoint>{ url: '/beneficiary/create-beneficiary', method: 'POST' },
     viewPerson: (slug: string) => <Endpoint>{ url: `/person/${slug}`, method: 'GET' },
     viewPersonByKeylockId: (sub: string) =>
