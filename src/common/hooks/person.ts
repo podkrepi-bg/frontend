@@ -1,16 +1,20 @@
 import { useSession } from 'next-auth/react'
-import { useQuery, UseQueryOptions } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 
-import { PersonResponse } from 'gql/person'
+import { PersonPaginatedResponse, PersonResponse } from 'gql/person'
 import { endpoints } from 'service/apiEndpoints'
 import { authQueryFnFactory } from 'service/restRequests'
+import { PaginationData, SortData } from 'gql/types'
 
-export const usePersonList = (options?: UseQueryOptions<PersonResponse[]>) => {
+export const usePersonList = (
+  paginationData?: PaginationData,
+  sort?: SortData,
+  searchData?: string,
+) => {
   const { data: session } = useSession()
-  return useQuery<PersonResponse[]>(
-    [endpoints.person.list.url],
-    authQueryFnFactory<PersonResponse[]>(session?.accessToken),
-    options,
+  return useQuery<PersonPaginatedResponse>(
+    [endpoints.person.list(paginationData, sort, searchData).url],
+    authQueryFnFactory<PersonPaginatedResponse>(session?.accessToken),
   )
 }
 

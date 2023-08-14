@@ -13,6 +13,11 @@ export type PersonResponse = {
   emailConfirmed: boolean
 }
 
+export type PersonPaginatedResponse = {
+  items: PersonResponse[]
+  total: number
+}
+
 export type PersonFormData = {
   firstName: string
   lastName: string

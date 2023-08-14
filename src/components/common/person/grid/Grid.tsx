@@ -3,28 +3,64 @@ import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { Box, Avatar } from '@mui/material'
-import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
+import {
+  DataGrid,
+  GridColDef,
+  GridPaginationModel,
+  GridRenderCellParams,
+  GridSortDirection,
+  GridSortModel,
+} from '@mui/x-data-grid'
+import CheckIcon from '@mui/icons-material/Check'
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
+
 import GridActions from 'components/admin/GridActions'
 import DeleteModal from './DeleteModal'
 import DetailsModal from './DetailsModal'
 import { ModalStore } from '../PersonGrid'
 import { usePersonList } from 'common/hooks/person'
 import { routes } from 'common/routes'
-import { PersonResponse } from 'gql/person'
-import CheckIcon from '@mui/icons-material/Check'
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined'
+import { PersonPaginatedResponse } from 'gql/person'
+import { PaginationData, SortData } from 'gql/types'
+
+const defaultSort: SortData = {
+  sortBy: 'createdAt',
+  sortOrder: 'desc',
+}
 
 export default observer(function Grid() {
   const { t } = useTranslation()
 
-  const { data }: UseQueryResult<PersonResponse[]> = usePersonList()
-
   const { isDetailsOpen } = ModalStore
 
-  const [paginationModel, setPaginationModel] = useState({
+  const [paginationModel, setPaginationModel] = useState<PaginationData>({
+    pageIndex: 0,
     pageSize: 10,
-    page: 0,
   })
+  const [sortingModel, setSortingModel] = useState<SortData>(defaultSort)
+
+  const {
+    data: { items, total: totalCount } = { items: [], total: 0 },
+  }: UseQueryResult<PersonPaginatedResponse> = usePersonList(paginationModel, sortingModel)
+
+  const handlePaginationModelChange = React.useCallback((paginationModel: GridPaginationModel) => {
+    setPaginationModel({
+      pageIndex: paginationModel.page,
+      pageSize: paginationModel.pageSize,
+    })
+  }, [])
+
+  const handleSortModelChange = React.useCallback((sortModel: GridSortModel) => {
+    const sortData: SortData =
+      sortModel.length !== 0
+        ? {
+            sortBy: sortModel[0].field === 'name' ? 'firstName' : sortModel[0].field,
+            sortOrder: sortModel[0].sort ?? 'desc',
+          }
+        : defaultSort
+
+    setSortingModel(sortData)
+  }, [])
 
   const getColor = (initials: string): string => {
     const colors = ['#0179a8', '#346cb0', '#5f4b8b', '#b76ba3', '#a7c796', '#00a28a', '#3686a0']
@@ -184,14 +220,24 @@ export default observer(function Grid() {
             overflowX: 'hidden',
             borderRadius: '0 0 13px 13px',
           }}
-          rows={data || []}
+          rows={items}
           columns={columns}
           columnVisibilityModel={{
             id: false,
           }}
+          initialState={{
+            sorting: {
+              sortModel: [
+                { field: defaultSort.sortBy, sort: defaultSort.sortOrder as GridSortDirection },
+              ],
+            },
+          }}
           pageSizeOptions={[5, 10]}
-          paginationModel={paginationModel}
-          onPaginationModelChange={setPaginationModel}
+          paginationModel={{ page: paginationModel.pageIndex, pageSize: paginationModel.pageSize }}
+          paginationMode="server"
+          rowCount={totalCount}
+          onPaginationModelChange={handlePaginationModelChange}
+          onSortModelChange={handleSortModelChange}
           disableRowSelectionOnClick
         />
       </Box>

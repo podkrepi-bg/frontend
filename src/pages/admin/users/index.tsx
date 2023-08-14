@@ -4,7 +4,7 @@ import { endpoints } from 'service/apiEndpoints'
 
 export const getServerSideProps = securedAdminProps(
   ['common', 'auth', 'person', 'admin', 'validation'],
-  () => endpoints.person.list.url,
+  () => endpoints.person.list({ pageIndex: 0, pageSize: 20 }).url,
 )
 
 export default PersonGrid

@@ -224,10 +224,10 @@ export const routes = {
       view: (id: string) => `/admin/organizers/${id}`,
     },
     person: {
-      index: '/admin/persons',
-      create: '/admin/persons/create',
-      view: (id: string) => `/admin/persons/${id}`,
-      edit: (id: string) => `/admin/persons/${id}/edit`,
+      index: '/admin/users',
+      create: '/admin/users/create',
+      view: (id: string) => `/admin/users/${id}`,
+      edit: (id: string) => `/admin/users/${id}/edit`,
     },
     company: {
       create: '/admin/companies/create',

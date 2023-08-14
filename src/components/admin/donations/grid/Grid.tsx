@@ -20,7 +20,6 @@ import { getExactDateTime } from 'common/util/date'
 import { useRouter } from 'next/router'
 import { money } from 'common/util/money'
 import { CampaignDonationHistoryResponse } from 'gql/campaigns'
-import { PersonResponse } from 'gql/person'
 import { usePersonList } from 'common/hooks/person'
 import RenderEditPersonCell from './RenderEditPersonCell'
 import { useStores } from '../../../../common/hooks/useStores'
@@ -58,10 +57,10 @@ export default observer(function Grid() {
     campaignId,
     { pageIndex: paginationModel.page, pageSize: paginationModel.pageSize },
     donationStore.donationFilters,
-    donationStore.donationSearch,
+    donationStore.donationSearch ?? '',
   )
 
-  const { data }: UseQueryResult<PersonResponse[]> = usePersonList()
+  const { data: { items: personList } = { items: [] } } = usePersonList()
 
   const RenderVaultCell = ({ params }: RenderCellProps) => {
     return <>{params.row.targetVault.name}</>
@@ -173,7 +172,7 @@ export default observer(function Grid() {
         return <RenderPersonCell params={params} />
       },
       renderEditCell: (params: GridRenderEditCellParams) => {
-        return <RenderEditPersonCell params={params} personList={data} onUpdate={refetch} />
+        return <RenderEditPersonCell params={params} personList={personList} onUpdate={refetch} />
       },
     },
     {
@@ -191,7 +190,9 @@ export default observer(function Grid() {
       },
 
       renderEditCell: (params: GridRenderEditCellParams) => {
-        return <RenderEditBillingEmailCell params={params} personList={data} onUpdate={refetch} />
+        return (
+          <RenderEditBillingEmailCell params={params} personList={personList} onUpdate={refetch} />
+        )
       },
     },
     {
