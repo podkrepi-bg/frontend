@@ -90,8 +90,8 @@
     "others": "others",
     "messages": "Messages:",
     "sort": {
-      "title" : "Sort by:",
-      "date" : "Date",
+      "title": "Sort by:",
+      "date": "Date",
       "amount": "Amount",
       "search": "Search...",
       "noResults": "No messages found"

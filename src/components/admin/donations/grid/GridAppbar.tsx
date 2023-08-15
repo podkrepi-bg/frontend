@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { Box, TextField, Toolbar, Tooltip, Typography } from '@mui/material'
-import { Add as AddIcon, Receipt, GetApp as DownloadFileIcon } from '@mui/icons-material'
+import { Receipt, GetApp as DownloadFileIcon } from '@mui/icons-material'
 
 import { routes } from 'common/routes'
 import { useMutation } from '@tanstack/react-query'

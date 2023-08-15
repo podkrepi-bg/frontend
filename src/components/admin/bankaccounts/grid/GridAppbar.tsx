@@ -1,12 +1,6 @@
 import { useRouter } from 'next/router'
 import { Box, Toolbar, Tooltip, Typography } from '@mui/material'
-import {
-  Add as AddIcon,
-  Print as PrintIcon,
-  Save as SaveIcon,
-  Share as ShareIcon,
-  EventNote as EventNoteIcon,
-} from '@mui/icons-material'
+import { Add as AddIcon } from '@mui/icons-material'
 
 import { routes } from 'common/routes'
 
@@ -16,14 +10,6 @@ const addIconStyles = {
   cursor: 'pointer',
   padding: 1.2,
   boxShadow: 3,
-}
-const iconStyles = {
-  background: 'white',
-  borderRadius: '50%',
-  cursor: 'pointer',
-  padding: 0.5,
-  boxShadow: 3,
-  mr: 1,
 }
 
 export default function GridAppbar() {
