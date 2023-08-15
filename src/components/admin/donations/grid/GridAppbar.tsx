@@ -83,13 +83,6 @@ export default function GridAppbar() {
               onClick={() => router.push(routes.admin.donations.addBankTransactionsFile)}
             />
           </Tooltip>
-          <Tooltip title={t('donations:cta:add') || ''}>
-            <AddIcon
-              sx={addIconStyles}
-              fontSize="large"
-              onClick={() => router.push(routes.admin.donations.create)}
-            />
-          </Tooltip>
           <Tooltip title={t('donations:cta:download') || ''}>
             <DownloadFileIcon
               sx={addIconStyles}
