@@ -8,7 +8,13 @@ import { Assessment } from '@mui/icons-material'
 
 import { getExactDate } from 'common/util/date'
 
-import { StatusText, StatusLabel, RowWrapper, InfoStatusRoot } from './CampaignInfo.styled'
+import {
+  StatusText,
+  StatusLabel,
+  RowWrapper,
+  InfoStatusRoot,
+  ExpensesButton,
+} from './CampaignInfo.styled'
 
 type Props = {
   campaign: CampaignResponse
@@ -43,9 +49,9 @@ export default function CampaignInfo({ campaign, showExpensesLink }: Props) {
         </RowWrapper>
       </Grid>
       {showExpensesLink && (
-        <Button startIcon={<Assessment />} href={'#expenses'}>
+        <ExpensesButton startIcon={<Assessment />} href={'#expenses'}>
           {t('campaigns:campaign.financial-report')}
-        </Button>
+        </ExpensesButton>
       )}
     </InfoStatusRoot>
   )
