@@ -1,9 +1,19 @@
 import Image from 'next/image'
 
 import { styled } from '@mui/material/styles'
-import { Button, Typography } from '@mui/material'
+import { Button, Stack, Typography } from '@mui/material'
 
 import theme from 'common/theme'
+
+export const BeneficiaryOrganizerWrapper = styled(Stack)(() => ({
+  marginBottom: theme.spacing(3),
+  flexDirection: 'column',
+  gap: theme.spacing(3),
+
+  [theme.breakpoints.up('md')]: {
+    flexDirection: 'row',
+  },
+}))
 
 export const Avatar = styled(Image)(() => ({
   borderRadius: '50%',

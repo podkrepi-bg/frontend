@@ -1,11 +1,12 @@
 import React from 'react'
 import { CampaignResponse } from 'gql/campaigns'
 
-import { Stack, Grid } from '@mui/material'
+import { Grid } from '@mui/material'
 
 import CampaignInfoBeneficiary from './CampaignInfoBeneficiary'
 import CampaignInfoOrganizer from './CampaignInfoOrganizer'
 import CampaignInfoStatus from './CampaignInfoStatus/CampaignInfoStatus'
+import { BeneficiaryOrganizerWrapper } from './CampaignInfo.styled'
 
 type Props = {
   campaign: CampaignResponse
@@ -15,10 +16,10 @@ type Props = {
 export default function CampaignInfo({ campaign }: Props) {
   return (
     <Grid mb={5}>
-      <Stack direction="row" mb={5}>
+      <BeneficiaryOrganizerWrapper>
         <CampaignInfoBeneficiary campaign={campaign} />
         <CampaignInfoOrganizer campaign={campaign} />
-      </Stack>
+      </BeneficiaryOrganizerWrapper>
       <CampaignInfoStatus showExpensesLink campaign={campaign} />
     </Grid>
   )
