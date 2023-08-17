@@ -7,7 +7,6 @@ import {
   CheckoutSessionInput,
   CheckoutSessionResponse,
   DonationBankInput,
-  DonationInput,
   DonationResponse,
   UserDonationInput,
 } from 'gql/donations'
@@ -34,17 +33,6 @@ export function useCreatePaymentIntent(params: Stripe.PaymentIntentCreateParams)
       AxiosResponse<Stripe.PaymentIntent>
     >(endpoints.donation.createPaymentIntent.url, params, authConfig(session?.accessToken))
   })
-}
-
-export function useCreateDonation() {
-  const { data: session } = useSession()
-  return async (data: DonationInput) => {
-    return await apiClient.post<DonationResponse, AxiosResponse<DonationResponse>>(
-      endpoints.donation.createDonation.url,
-      data,
-      authConfig(session?.accessToken),
-    )
-  }
 }
 
 export function useCreateBankDonation() {
