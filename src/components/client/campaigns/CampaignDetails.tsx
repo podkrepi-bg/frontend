@@ -13,7 +13,7 @@ import { styled } from '@mui/material/styles'
 
 import DonationWishes from './DonationWishes'
 import CampaignSlider from './CampaignSlider'
-import CampaignInfo from './CampaignInfo'
+import CampaignInfo from './CampaignInfo/CampaignInfo'
 import CampaignInfoGraphics from './CampaignInfoGraphics'
 import CampaignInfoOperator from './CampaignInfoOperator'
 import LinkButton from 'components/common/LinkButton'
