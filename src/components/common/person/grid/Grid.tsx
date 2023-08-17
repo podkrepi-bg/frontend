@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 import { useTranslation } from 'next-i18next'
 import { Box, Avatar } from '@mui/material'
+import { styled } from '@mui/material/styles'
 import {
   DataGrid,
   GridColDef,
@@ -27,6 +28,13 @@ const defaultSort: SortData = {
   sortBy: 'createdAt',
   sortOrder: 'desc',
 }
+
+const Centered = styled('div')({
+  flex: 1,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+})
 
 export default observer(function Grid() {
   const { t } = useTranslation()
@@ -166,14 +174,66 @@ export default observer(function Grid() {
       valueGetter: (f) => f.row.createdAt?.toString().slice(0, 10),
     },
     {
+      field: 'organizer',
+      headerName: t('person:admin.fields.organizer'),
+      minWidth: 130,
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        return (
+          <Centered>
+            {params.row.organizer ? (
+              <CheckIcon style={{ color: '#00b386' }} />
+            ) : (
+              <CloseOutlinedIcon style={{ color: '#ff5050' }} />
+            )}
+          </Centered>
+        )
+      },
+    },
+    {
+      field: 'coordinators',
+      headerName: t('person:admin.fields.coordinator'),
+      minWidth: 130,
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        return (
+          <Centered>
+            {params.row.coordinators ? (
+              <CheckIcon style={{ color: '#00b386' }} />
+            ) : (
+              <CloseOutlinedIcon style={{ color: '#ff5050' }} />
+            )}
+          </Centered>
+        )
+      },
+    },
+    {
+      field: 'beneficiaries',
+      headerName: t('person:admin.fields.beneficiary'),
+      minWidth: 130,
+      renderCell: (params: GridRenderCellParams): React.ReactNode => {
+        return (
+          <Centered>
+            {params.row.beneficiaries.length > 0 ? (
+              <CheckIcon style={{ color: '#00b386' }} />
+            ) : (
+              <CloseOutlinedIcon style={{ color: '#ff5050' }} />
+            )}
+          </Centered>
+        )
+      },
+    },
+    {
       field: 'emailConfirmed',
       headerName: t('person:admin.fields.email-confirmed'),
       minWidth: 140,
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
-        return params.row.emailConfirmed === true ? (
-          <CheckIcon style={{ color: '#00b386' }} />
-        ) : (
-          <CloseOutlinedIcon style={{ color: '#ff5050' }} />
+        return (
+          <Centered>
+            {params.row.emailConfirmed ? (
+              <CheckIcon style={{ color: '#00b386' }} />
+            ) : (
+              <CloseOutlinedIcon style={{ color: '#ff5050' }} />
+            )}
+          </Centered>
         )
       },
     },
@@ -182,10 +242,14 @@ export default observer(function Grid() {
       headerName: t('person:admin.fields.newsletter'),
       minWidth: 130,
       renderCell: (params: GridRenderCellParams): React.ReactNode => {
-        return params.row.newsletter === true ? (
-          <CheckIcon style={{ color: '#00b386' }} />
-        ) : (
-          <CloseOutlinedIcon style={{ color: '#ff5050' }} />
+        return (
+          <Centered>
+            {params.row.newsletter ? (
+              <CheckIcon style={{ color: '#00b386' }} />
+            ) : (
+              <CloseOutlinedIcon style={{ color: '#ff5050' }} />
+            )}
+          </Centered>
         )
       },
     },
@@ -235,6 +299,7 @@ export default observer(function Grid() {
           pageSizeOptions={[5, 10]}
           paginationModel={{ page: paginationModel.pageIndex, pageSize: paginationModel.pageSize }}
           paginationMode="server"
+          sortingMode="server"
           rowCount={totalCount}
           onPaginationModelChange={handlePaginationModelChange}
           onSortModelChange={handleSortModelChange}

@@ -38,7 +38,10 @@
       "email-confirmed": "Email confirmed",
       "newsletter": "Newsletter",
       "company": "Company",
-      "address": "Address"
+      "address": "Address",
+      "organizer": "Organizer",
+      "coordinator": "Coordinator",
+      "beneficiary": "Beneficiary"
     },
     "cta": {
       "create": "Create",
