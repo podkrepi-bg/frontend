@@ -1,9 +1,9 @@
 import React from 'react'
 import { CampaignResponse } from 'gql/campaigns'
 
-import { Grid } from '@mui/material'
+import { Stack, Grid } from '@mui/material'
 
-import CampaignInfoBeneficiary from './CampaignInfoBeneficiary/CampaignInfoBeneficiary'
+import CampaignInfoBeneficiary from './CampaignInfoBeneficiary'
 import CampaignInfoOrganizer from './CampaignInfoOrganizer'
 import CampaignInfoStatus from './CampaignInfoStatus/CampaignInfoStatus'
 
@@ -15,10 +15,10 @@ type Props = {
 export default function CampaignInfo({ campaign }: Props) {
   return (
     <Grid mb={5}>
-      <Grid sx={{ display: 'flex' }}>
+      <Stack direction="row" mb={5}>
         <CampaignInfoBeneficiary campaign={campaign} />
         <CampaignInfoOrganizer campaign={campaign} />
-      </Grid>
+      </Stack>
       <CampaignInfoStatus showExpensesLink campaign={campaign} />
     </Grid>
   )

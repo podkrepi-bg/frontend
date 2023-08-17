@@ -10,6 +10,7 @@ import EmailIcon from '@mui/icons-material/Email'
 import { styled } from '@mui/material/styles'
 
 import { organizerCampaignPictureUrl } from 'common/util/campaignImageUrls'
+import theme from 'common/theme'
 
 const PREFIX = 'CampaignInfoOrganizer'
 
@@ -51,11 +52,6 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
   [`& .${classes.infoButtonIcon}`]: {
     marginRight: theme.spacing(1),
   },
-
-  [`& .${classes.organizer}`]: {
-    fontSize: theme.typography.pxToRem(14),
-    fontWight: 700,
-  },
 }))
 
 type Props = {
@@ -71,15 +67,19 @@ export default function CampaignInfoOrganizer({ campaign }: Props) {
       <Grid item className={classes.avatarWrapper} minWidth="max-content" flex={1}>
         <Image
           src={organizerAvatarSource}
-          //  A11Y TODO: Translate alt text
-          alt={`Image of ${campaign.organizer?.person.firstName} ${campaign.organizer?.person.lastName}`}
+          alt={`${t('campaign.image-of')}  ${campaign.organizer?.person.firstName} ${
+            campaign.organizer?.person.lastName
+          }`}
           width={100}
           height={100}
           className={classes.personAvatar}
         />
       </Grid>
       <Grid item flex={6}>
-        <Typography variant="subtitle2" component="p" className={classes.organizer}>
+        <Typography
+          variant="subtitle2"
+          component="p"
+          sx={{ fontWeight: 600, fontSize: theme.spacing(1.6) }}>
           {t('campaigns:campaign.organizer.name')}
         </Typography>
         <Typography variant="subtitle2" component="p" className={classes.organizer}>
