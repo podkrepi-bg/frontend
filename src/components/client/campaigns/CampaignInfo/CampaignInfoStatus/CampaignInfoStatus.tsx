@@ -11,8 +11,6 @@ import { styled } from '@mui/material/styles'
 import { Assessment } from '@mui/icons-material'
 
 import { getExactDate } from 'common/util/date'
-import CampaignInfoOrganizer from './CampaignInfoOrganizer'
-import CampaignInfoBeneficiary from './CampaignInfoBeneficiary/CampaignInfoBeneficiary'
 
 const PREFIX = 'CampaignInfo'
 
