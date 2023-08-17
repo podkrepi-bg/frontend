@@ -6,7 +6,7 @@ import { Button, Stack, Typography } from '@mui/material'
 import theme from 'common/theme'
 
 export const BeneficiaryOrganizerWrapper = styled(Stack)(() => ({
-  marginBottom: theme.spacing(3),
+  marginBottom: theme.spacing(5),
   flexDirection: 'column',
   gap: theme.spacing(3),
 
@@ -36,4 +36,23 @@ export const EmailButton = styled(Button)(() => ({
     backgroundColor: 'unset',
     textDecoration: 'underline',
   },
+}))
+
+export const InfoStatusRoot = styled(Stack)(() => ({
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+}))
+
+export const RowWrapper = styled(Stack)(() => ({
+  flexDirection: 'row',
+}))
+
+export const StatusLabel = styled(Typography)(() => ({
+  fontSize: theme.typography.pxToRem(14),
+  fontWeight: 700,
+  marginRight: theme.spacing(1),
+}))
+
+export const StatusText = styled('span')(() => ({
+  fontSize: theme.typography.pxToRem(14),
 }))

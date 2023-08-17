@@ -5,7 +5,7 @@ import { Grid } from '@mui/material'
 
 import CampaignInfoBeneficiary from './CampaignInfoBeneficiary'
 import CampaignInfoOrganizer from './CampaignInfoOrganizer'
-import CampaignInfoStatus from './CampaignInfoStatus/CampaignInfoStatus'
+import CampaignInfoStatus from './CampaignInfoStatus'
 import { BeneficiaryOrganizerWrapper } from './CampaignInfo.styled'
 
 type Props = {

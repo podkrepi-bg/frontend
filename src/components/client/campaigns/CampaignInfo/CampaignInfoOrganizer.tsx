@@ -6,7 +6,6 @@ import { Grid, Typography } from '@mui/material'
 import EmailIcon from '@mui/icons-material/Email'
 
 import { organizerCampaignPictureUrl } from 'common/util/campaignImageUrls'
-import theme from 'common/theme'
 
 import { Avatar, EmailButton, Label } from './CampaignInfo.styled'
 
@@ -29,9 +28,7 @@ export default function CampaignInfoOrganizer({ campaign }: Props) {
         height={100}
       />
       <Grid item>
-        <Label variant="subtitle2" sx={{ fontWeight: 600, fontSize: theme.spacing(1.6) }}>
-          {t('campaigns:campaign.organizer.name')}
-        </Label>
+        <Label variant="subtitle2">{t('campaigns:campaign.organizer.name')}</Label>
         <Typography variant="subtitle2" component="p">
           {campaign.organizer?.person.firstName || ''} {campaign.organizer?.person.lastName || ''}
         </Typography>
