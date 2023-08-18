@@ -31,6 +31,8 @@ export const endpoints = {
     viewCampaign: (slug: string) => <Endpoint>{ url: `/campaign/${slug}`, method: 'GET' },
     viewCampaignById: (id: string) => <Endpoint>{ url: `/campaign/byId/${id}`, method: 'GET' },
     editCampaign: (id: string) => <Endpoint>{ url: `/campaign/${id}`, method: 'PUT' },
+    subscribeToCampaign: (id: string) =>
+      <Endpoint>{ url: `/campaign/${id}/subscribe`, method: 'POST' },
     deleteCampaign: (id: string) => <Endpoint>{ url: `/campaign/${id}`, method: 'DELETE' },
     uploadFile: (campaignId: string) =>
       <Endpoint>{ url: `/campaign-file/${campaignId}`, method: 'POST' },
@@ -44,6 +46,17 @@ export const endpoints = {
     listAllNews: (page: number) => <Endpoint>{ url: `/campaign/news?page=${page}`, method: 'GET' },
     listNewsForCampaign: (page: number, slug: string) =>
       <Endpoint>{ url: `/campaign/${slug}/news?page=${page}` },
+  },
+  notifications: {
+    sendConfirmationEmail: <Endpoint>{ url: '/notifications/send-confirm-email', method: 'POST' },
+    subscribePublicEmail: <Endpoint>{ url: '/notifications/public/subscribe', method: 'POST' },
+    unsubscribePublicEmail: <Endpoint>{ url: '/notifications/public/unsubscribe', method: 'POST' },
+    subscribeEmail: <Endpoint>{ url: '/notifications/subscribe', method: 'POST' },
+    unsubscribeEmail: <Endpoint>{ url: '/notifications/unsubscribe', method: 'POST' },
+    getCampaignNotificationSubscriptions: <Endpoint>{
+      url: '/notifications/campaign-notifications',
+      method: 'GET',
+    },
   },
   campaignNews: {
     createNewsArticle: <Endpoint>{ url: '/campaign-news', method: 'POST' },

@@ -60,3 +60,18 @@ export const SocialIconsWrapper = styled(Grid)(() => ({
   gap: theme.spacing(1),
   marginTop: theme.spacing(2),
 }))
+
+export const SubscribeLinkWrapper = styled(Grid)(({ theme }) => ({
+  [`& p`]: {
+    fontWeight: 500,
+    fontSize: theme.typography.pxToRem(17),
+    marginRight: theme.spacing(0.7),
+  },
+
+  '&:hover': {
+    'text-decoration': 'underline',
+    transform: 'scale(1.03)',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+  },
+}))

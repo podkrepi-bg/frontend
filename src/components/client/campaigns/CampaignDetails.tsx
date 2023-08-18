@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { useTranslation } from 'next-i18next'
 import dynamic from 'next/dynamic'
@@ -7,7 +7,7 @@ import { CampaignResponse } from 'gql/campaigns'
 
 import 'react-quill/dist/quill.bubble.css'
 
-import { Divider, Grid, Tooltip, Typography } from '@mui/material'
+import { Button, Divider, Grid, Tooltip, Typography } from '@mui/material'
 import SecurityIcon from '@mui/icons-material/Security'
 import { styled } from '@mui/material/styles'
 
@@ -21,11 +21,12 @@ import { campaignSliderUrls } from 'common/util/campaignImageUrls'
 import CampaignPublicExpensesGrid from './CampaignPublicExpensesGrid'
 import EditIcon from '@mui/icons-material/Edit'
 import { useCampaignApprovedExpensesList } from 'common/hooks/expenses'
-import { Assessment } from '@mui/icons-material'
+import { Assessment, Email } from '@mui/icons-material'
 import { routes } from 'common/routes'
 import { useCanEditCampaign } from 'common/hooks/campaigns'
 import { moneyPublic } from 'common/util/money'
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong'
+import RenderCampaignSubscribeModal from '../notifications/CampaignSubscribeModal'
 
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 const CampaignNewsSection = dynamic(() => import('./CampaignNewsSection'), { ssr: false })
