@@ -1585,9 +1585,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mdxeditor/editor@npm:0.10.0-alpha.2":
-  version: 0.10.0-alpha.2
-  resolution: "@mdxeditor/editor@npm:0.10.0-alpha.2"
+"@mdxeditor/editor@npm:latest":
+  version: 0.14.0
+  resolution: "@mdxeditor/editor@npm:0.14.0"
   dependencies:
     "@codemirror/lang-markdown": ^6.1.1
     "@codemirror/state": ^6.2.1
@@ -1636,7 +1636,7 @@ __metadata:
   peerDependencies:
     react: ^18.2.0
     react-dom: ^18.2.0
-  checksum: d2c11eafaa6235e845150b23e017003c294acbc89377a5ab64faa8ffdc2cd5b36e558c6c7178e9fb58f21e4b282bc219316c80a2426a4d194297c7fd094f8f91
+  checksum: 9047e966a1378d69e2e677febf0680b62700a8cdf475e9fa26d6b01fe66ad696edc8b8ce4859e3ca6ad210df66fae65131989da46c7dac790e8b9af710e31c0c
   languageName: node
   linkType: hard
 
@@ -11257,7 +11257,7 @@ __metadata:
     "@emotion/react": ^11.8.1
     "@emotion/server": ^11.4.0
     "@emotion/styled": ^11.8.1
-    "@mdxeditor/editor": 0.10.0-alpha.2
+    "@mdxeditor/editor": latest
     "@mui/icons-material": ^5.11.11
     "@mui/lab": ^5.0.0-alpha.69
     "@mui/material": ^5.10.14

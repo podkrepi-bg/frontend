@@ -15,6 +15,10 @@ export const QuillStypeWrapper = styled(Grid)(({ theme }) => ({
   ['.ql-editor, .ql-video']: {
     maxWidth: '100%',
   },
+  ['.ql-video']: {
+    maxWidth: '100%',
+    marginInline: 'auto',
+  },
 
   ['.ql-editor, blockquote, .ql-editor h1, .ql-editor h2, .ql-editor h3, .ql-editor h4, .ql-editor h5, .ql-editor h6, .ql-editor ol, .ql-editor p, .ql-editor pre, .ql-editor ul']:
     {

@@ -1,3 +1,4 @@
+import { markdownShortcutPlugin } from '@mdxeditor/editor'
 import { MDXEditor } from '@mdxeditor/editor/MDXEditor'
 import { diffSourcePlugin } from '@mdxeditor/editor/plugins/diff-source'
 import {
@@ -46,7 +47,13 @@ export const YoutubeDirectiveDescriptor: DirectiveDescriptor = {
   hasChildren: false,
   Editor: ({ mdastNode, lexicalNode, parentEditor }) => {
     return (
-      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'flex-start',
+          justifyContent: 'center',
+        }}>
         <iframe
           width="560"
           height="315"
@@ -117,9 +124,13 @@ const EditorWrapper = styled(Box)(() => ({
   maxWidth: '100%',
   // below is quill's default style
   ['& .mdxeditor-content-editable']: {
-    ['& li']: {
+    ['& ul & li']: {
       marginLeft: '2rem',
       listStyleType: 'disc',
+    },
+    ['& ol & li']: {
+      marginLeft: '2rem',
+      listStyleType: 'decimal',
     },
     ['& blockquote']: {
       borderLeft: `4px solid #ccc`,
@@ -171,19 +182,9 @@ export const ModernEditor: React.FC<ModernEditorProps> = ({ html, onChange }) =>
           headingsPlugin(),
           diffSourcePlugin({ diffMarkdown: markdown }),
           linkDialogPlugin(),
-          imagePlugin({
-            imageUploadHandler: async (_file) => {
-              // TODO: upload image
-              // const result = await uploadImage({
-              //   files: [file],
-              //   campaignId: '1',
-              //   roles: [{ file: '1', role: CampaignFileRole.gallery }],
-              // })
-              // console.log(result)
-              return 'https://picsum.photos/200'
-            },
-          }),
+          imagePlugin(),
           quotePlugin(),
+          markdownShortcutPlugin(),
           directivesPlugin({ directiveDescriptors: [YoutubeDirectiveDescriptor] }),
         ]}
       />

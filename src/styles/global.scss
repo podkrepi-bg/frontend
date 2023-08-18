@@ -61,3 +61,8 @@ ul {
     flex-shrink: 1;
   }
 }
+
+// center the videos in campaign pages
+.ql-bubble .ql-video {
+  margin-inline: auto;
+}
