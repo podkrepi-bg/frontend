@@ -16,11 +16,11 @@ type Props = {
 export default function CampaignInfo({ campaign }: Props) {
   return (
     <Grid mb={5}>
+      <CampaignInfoStatus showExpensesLink campaign={campaign} />
       <BeneficiaryOrganizerWrapper>
         <CampaignInfoBeneficiary campaign={campaign} />
         <CampaignInfoOrganizer campaign={campaign} />
       </BeneficiaryOrganizerWrapper>
-      <CampaignInfoStatus showExpensesLink campaign={campaign} />
     </Grid>
   )
 }

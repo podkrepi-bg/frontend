@@ -38,9 +38,10 @@ export const EmailButton = styled(Button)(() => ({
   },
 }))
 
-export const InfoStatusRoot = styled(Stack)(() => ({
+export const InfoStatusWrapper = styled(Stack)(() => ({
   flexDirection: 'column',
   justifyContent: 'space-between',
+  marginBottom: theme.spacing(6),
 
   [theme.breakpoints.up('md')]: {
     flexDirection: 'row',
@@ -64,5 +65,5 @@ export const StatusText = styled('span')(() => ({
 export const ExpensesButton = styled(Button)(() => ({
   fontSize: theme.typography.pxToRem(14),
   justifyContent: 'left',
-  paddingLeft: theme.spacing(0.25),
+  marginBottom: theme.spacing(1),
 }))

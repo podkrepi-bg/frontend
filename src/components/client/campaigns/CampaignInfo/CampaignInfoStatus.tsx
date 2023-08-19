@@ -3,7 +3,7 @@ import { CampaignResponse } from 'gql/campaigns'
 import { useTranslation } from 'next-i18next'
 
 import { bg, enUS } from 'date-fns/locale'
-import { Button, Grid } from '@mui/material'
+import { Grid } from '@mui/material'
 import { Assessment } from '@mui/icons-material'
 
 import { getExactDate } from 'common/util/date'
@@ -12,7 +12,7 @@ import {
   StatusText,
   StatusLabel,
   RowWrapper,
-  InfoStatusRoot,
+  InfoStatusWrapper,
   ExpensesButton,
 } from './CampaignInfo.styled'
 
@@ -26,33 +26,35 @@ export default function CampaignInfo({ campaign, showExpensesLink }: Props) {
   const locale = i18n.language == 'bg' ? bg : enUS
 
   return (
-    <InfoStatusRoot>
-      <Grid>
-        <StatusLabel>{campaign.campaignType.name}</StatusLabel>
-        <RowWrapper>
-          <StatusLabel variant="body2">{t('campaigns:campaign.status')}</StatusLabel>
-          <StatusText>{t(`campaigns:campaign-status.${campaign.state}`)}</StatusText>
-        </RowWrapper>
-      </Grid>
-      <Grid>
-        <RowWrapper>
-          <StatusLabel>{t('campaigns:campaign.start-date')}</StatusLabel>
-          <StatusText>{getExactDate(campaign.startDate, locale)}</StatusText>
-        </RowWrapper>
-        <RowWrapper>
-          <StatusLabel> {t('campaigns:campaign.end-date')}</StatusLabel>
-          <StatusText>
-            {campaign.endDate
-              ? getExactDate(campaign.endDate, locale)
-              : t('campaigns:campaign.indefinite')}
-          </StatusText>
-        </RowWrapper>
-      </Grid>
+    <Grid>
       {showExpensesLink && (
         <ExpensesButton startIcon={<Assessment />} href={'#expenses'}>
           {t('campaigns:campaign.financial-report')}
         </ExpensesButton>
       )}
-    </InfoStatusRoot>
+      <InfoStatusWrapper>
+        <Grid>
+          <StatusLabel>{campaign.campaignType.name}</StatusLabel>
+          <RowWrapper>
+            <StatusLabel variant="body2">{t('campaigns:campaign.status')}</StatusLabel>
+            <StatusText>{t(`campaigns:campaign-status.${campaign.state}`)}</StatusText>
+          </RowWrapper>
+        </Grid>
+        <Grid>
+          <RowWrapper>
+            <StatusLabel>{t('campaigns:campaign.start-date')}</StatusLabel>
+            <StatusText>{getExactDate(campaign.startDate, locale)}</StatusText>
+          </RowWrapper>
+          <RowWrapper>
+            <StatusLabel> {t('campaigns:campaign.end-date')}</StatusLabel>
+            <StatusText>
+              {campaign.endDate
+                ? getExactDate(campaign.endDate, locale)
+                : t('campaigns:campaign.indefinite')}
+            </StatusText>
+          </RowWrapper>
+        </Grid>
+      </InfoStatusWrapper>
+    </Grid>
   )
 }
