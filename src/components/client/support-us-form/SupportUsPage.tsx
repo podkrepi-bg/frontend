@@ -9,7 +9,7 @@ import SupportUsForm from './SupportUsForm'
 export default function SupportPage() {
   const { t } = useTranslation()
   return (
-    <Layout title={t('support_us:title')}>
+    <Layout title={t('support_us:title')} sx={{ padding: 0 }}>
       <Container maxWidth="lg">
         <SupportUsForm />
       </Container>
