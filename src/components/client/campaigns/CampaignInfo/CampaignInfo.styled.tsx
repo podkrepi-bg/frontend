@@ -58,6 +58,7 @@ export const InfoStatusWrapper = styled(Stack)(() => ({
 
   [theme.breakpoints.up('md')]: {
     flexDirection: 'row',
+    gap: theme.spacing(5),
   },
 }))
 

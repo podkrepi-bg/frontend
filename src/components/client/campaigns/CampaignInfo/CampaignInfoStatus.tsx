@@ -21,7 +21,7 @@ type Props = {
   showExpensesLink: boolean
 }
 
-export default function CampaignInfo({ campaign, showExpensesLink }: Props) {
+export default function CampaignInfoStatus({ campaign, showExpensesLink }: Props) {
   const { t, i18n } = useTranslation()
   const locale = i18n.language == 'bg' ? bg : enUS
 
@@ -33,14 +33,14 @@ export default function CampaignInfo({ campaign, showExpensesLink }: Props) {
         </ExpensesButton>
       )}
       <InfoStatusWrapper>
-        <Grid>
+        <Grid item xs={12} md={6}>
           <StatusLabel>{campaign.campaignType.name}</StatusLabel>
           <RowWrapper>
             <StatusLabel variant="body2">{t('campaigns:campaign.status')}</StatusLabel>
             <StatusText>{t(`campaigns:campaign-status.${campaign.state}`)}</StatusText>
           </RowWrapper>
         </Grid>
-        <Grid>
+        <Grid item xs={12} md={6}>
           <RowWrapper>
             <StatusLabel>{t('campaigns:campaign.start-date')}</StatusLabel>
             <StatusText>{getExactDate(campaign.startDate, locale)}</StatusText>
