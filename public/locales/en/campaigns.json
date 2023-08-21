@@ -131,6 +131,7 @@
     },
     "beneficiary": {
       "name": "Beneficiary",
+      "label": "Beneficiary:",
       "add": "Add beneficiary",
       "create": "Create beneficiary"
     },
@@ -144,6 +145,7 @@
       "add": "Add organizer",
       "create": "Create organizer"
     },
+    "image-of": "Image of",
     "podkrepi-bg-operator": "Podkrepi.bg Operator:",
     "have-a-question": "Have a question?",
     "btn-connect": "Write to us",
