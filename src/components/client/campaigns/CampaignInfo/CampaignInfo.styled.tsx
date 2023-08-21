@@ -8,10 +8,23 @@ import theme from 'common/theme'
 export const BeneficiaryOrganizerWrapper = styled(Stack)(() => ({
   marginBottom: theme.spacing(5),
   flexDirection: 'column',
-  gap: theme.spacing(3),
+  justifyContent: 'space-between',
+  gap: theme.spacing(5),
 
   [theme.breakpoints.up('md')]: {
     flexDirection: 'row',
+  },
+}))
+
+export const BeneficiaryOrganizerRoot = styled(Stack)(() => ({
+  justifyContent: 'space-between',
+  flexDirection: 'column',
+  gap: theme.spacing(3),
+  width: '100%',
+
+  [theme.breakpoints.up('md')]: {
+    flexDirection: 'row',
+    width: '50%',
   },
 }))
 
