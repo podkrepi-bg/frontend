@@ -55,10 +55,10 @@ ul {
 
 .sp-cm {
   pre {
+    flex-shrink: 1;
+    overflow-wrap: anywhere;
     white-space: break-spaces;
     word-break: break-word;
-    overflow-wrap: anywhere;
-    flex-shrink: 1;
   }
 }
 
