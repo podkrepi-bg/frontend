@@ -30,7 +30,6 @@ import theme from 'common/theme'
 import { htmlToMarkdown, markdownToHtml } from 'lib/markdownUtils'
 import throttle from 'lodash/throttle'
 import React from 'react'
-import { useUploadCampaignFiles } from 'service/campaign'
 
 interface ModernEditorProps {
   html: string
@@ -142,7 +141,7 @@ const EditorWrapper = styled(Box)(() => ({
 }))
 
 export const ModernEditor: React.FC<ModernEditorProps> = ({ html, onChange }) => {
-  const uploadImage = useUploadCampaignFiles()
+  // const uploadImage = useUploadCampaignFiles()
   const markdown = React.useMemo(() => htmlToMarkdown(html), [])
 
   const onChangeCallback = React.useCallback(

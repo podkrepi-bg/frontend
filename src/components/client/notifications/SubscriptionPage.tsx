@@ -108,7 +108,7 @@ export default function SubscriptionPage(data: Props) {
   >({
     mutationFn: useSubscribePublicEmail(),
     onError: (error) => handleError(error),
-    onSuccess: (response, data) => {
+    onSuccess: () => {
       AlertStore.show(t('common:alerts.message-sent'), 'success')
       setIsSuccess(true)
       setLoading(false)

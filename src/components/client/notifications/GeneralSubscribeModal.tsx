@@ -66,7 +66,7 @@ export default function RenderSubscribeModal({ setOpen }: ModalProps) {
   >({
     mutationFn: useSendConfirmationEmail(),
     onError: (error) => handleError(error),
-    onSuccess: (response) => {
+    onSuccess: () => {
       AlertStore.show(t('common:alerts.message-sent'), 'success')
 
       setIsSuccess(true)

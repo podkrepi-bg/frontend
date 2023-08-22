@@ -64,7 +64,7 @@ export default function RenderCampaignNotificationsConfirmModal({
   >({
     mutationFn: useUNsubscribeEmail(),
     onError: (error) => handleError(error),
-    onSuccess: (response) => {
+    onSuccess: () => {
       AlertStore.show(t('common:alerts.message-sent'), 'success')
       //   Update data
       queryClient.invalidateQueries({

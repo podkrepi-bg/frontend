@@ -76,7 +76,7 @@ export default function RenderCampaignSubscribeModal({ campaign, setOpen }: Moda
   >({
     mutationFn: useSubscribeToCampaign(campaign.id),
     onError: (error) => handleError(error),
-    onSuccess: (response) => {
+    onSuccess: () => {
       AlertStore.show(t('common:alerts.message-sent'), 'success')
 
       setIsSuccess(true)
