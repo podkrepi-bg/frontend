@@ -99,7 +99,7 @@ export default function UNsubscriptionPage(data: Props) {
     UNsubscribePublicEmailInput
   >({
     mutationFn: useUNSubscribePublicEmail(),
-    onError: (error) => handleError(error),
+    onError: () => handleError(),
     onSuccess: () => {
       AlertStore.show(t('common:alerts.message-sent'), 'success')
       setIsSuccess(true)
