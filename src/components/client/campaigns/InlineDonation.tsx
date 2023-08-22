@@ -217,7 +217,7 @@ const StyledGrid = styled(Grid)(({ theme }) => ({
     textAlign: 'center',
 
     '&:hover': {
-      'text-decoration': 'underline',
+      textDecoration: 'underline',
       transform: 'scale(1.01)',
       cursor: 'pointer',
       transition: 'all 0.3s ease',
