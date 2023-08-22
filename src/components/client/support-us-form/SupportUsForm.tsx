@@ -1,11 +1,11 @@
 import React from 'react'
-
 import { useTranslation } from 'next-i18next'
 import { Grid, List, Typography, Divider } from '@mui/material'
 
-import theme from 'common/theme'
 import { CopyTextButton } from 'components/common/CopyTextButton'
 import { ibanNumber, BIC } from 'common/iban'
+
+import { BankDetailsLabel } from './SupportUs.styled'
 
 export default function SupportUsForm() {
   const { t } = useTranslation('one-time-donation')
@@ -22,14 +22,14 @@ export default function SupportUsForm() {
 
   return (
     <List component="div" disablePadding>
-      <Typography variant="body1" marginBottom={theme.spacing(1)}>
-        {t('support_us:support-info')}
+      <Typography variant="body1">{t('support_us:support-info')}</Typography>
+      <Typography variant="h6" mt={4} mb={1}>
+        {t('third-step.bank-details')}
       </Typography>
-      <Typography variant="h6">{t('third-step.bank-details')}</Typography>
       <Divider />
-      <Grid container alignItems="center">
-        <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={4}>
-          <Typography paddingLeft={2}>{t('third-step.owner_name')}</Typography>
+      <Grid container alignItems="center" mt={2} mb={2}>
+        <Grid my={1} item xs={4}>
+          <BankDetailsLabel>{t('third-step.owner_name')}</BankDetailsLabel>
         </Grid>
         <Grid my={1} item xs={5} justifyContent="flex-start">
           <Typography>{t('third-step.owner_value')}</Typography>
@@ -41,12 +41,13 @@ export default function SupportUsForm() {
             variant="contained"
             size="small"
             color="info"
+            sx={{ display: 'flex', justifyContent: 'center' }}
           />
         </Grid>
-        <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={4}>
-          <Typography paddingLeft={2}>{t('third-step.bank_name')}</Typography>
+        <Grid my={1} item xs={4}>
+          <BankDetailsLabel>{t('third-step.bank_name')}</BankDetailsLabel>
         </Grid>
-        <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={5}>
+        <Grid my={1} item xs={5}>
           <Typography>{t('third-step.bank_value')}</Typography>
         </Grid>
         <Grid my={1} item display="flex" justifyContent="center" xs={3}>
@@ -58,10 +59,10 @@ export default function SupportUsForm() {
             color="info"
           />
         </Grid>
-        <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={4}>
-          <Typography paddingLeft={2}>IBAN:</Typography>
+        <Grid my={1} item xs={4}>
+          <BankDetailsLabel>IBAN:</BankDetailsLabel>
         </Grid>
-        <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={5}>
+        <Grid my={1} item xs={5}>
           <Typography>{ibanNumber}</Typography>
         </Grid>
         <Grid my={1} item display="flex" justifyContent="center" xs={3}>
@@ -73,10 +74,10 @@ export default function SupportUsForm() {
             color="info"
           />
         </Grid>
-        <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={4}>
-          <Typography paddingLeft={2}>BIC:</Typography>
+        <Grid my={1} item xs={4}>
+          <BankDetailsLabel>BIC:</BankDetailsLabel>
         </Grid>
-        <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={5}>
+        <Grid my={1} item xs={5}>
           <Typography>{BIC}</Typography>
         </Grid>
         <Grid my={1} item display="flex" justifyContent="center" xs={3}>
@@ -88,12 +89,10 @@ export default function SupportUsForm() {
             color="info"
           />
         </Grid>
-        <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={4}>
-          <Typography paddingLeft={2} my={1}>
-            {t('third-step.reason-donation')}
-          </Typography>
+        <Grid my={1} item xs={4}>
+          <BankDetailsLabel my={1}>{t('third-step.reason-donation')}</BankDetailsLabel>
         </Grid>
-        <Grid my={1} item justifyContent="flex-start" alignItems="center" xs={5}>
+        <Grid my={1} item xs={5}>
           <Typography>{bankAccountInfo.paymentReference}</Typography>
         </Grid>
         <Grid my={1} item display="flex" justifyContent="center" xs={3}>
