@@ -43,6 +43,7 @@ export function useCampaignList() {
   return useQuery<CampaignResponse[]>(
     [endpoints.campaign.listCampaigns.url],
     campaignsOrderQueryFunction,
+    { enabled: false },
   )
 }
 
