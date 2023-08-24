@@ -1,4 +1,4 @@
-import { markdownShortcutPlugin } from '@mdxeditor/editor'
+import { markdownShortcutPlugin } from '@mdxeditor/editor/plugins/markdown-shortcut'
 import { MDXEditor } from '@mdxeditor/editor/MDXEditor'
 import { diffSourcePlugin } from '@mdxeditor/editor/plugins/diff-source'
 import {
@@ -80,6 +80,9 @@ const YoutubeButton = () => {
   const insertDirective = directivesPluginHooks.usePublisher('insertDirective')
   const insertYouTube = React.useCallback(
     (urlString: string) => {
+      if (!urlString) {
+        return
+      }
       const url = new URL(urlString)
       let id = ''
       // get the v parameter from the url
