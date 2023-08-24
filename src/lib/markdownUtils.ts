@@ -33,8 +33,8 @@ const youtubePlugin: Plugin<[], Root> = () => {
         data.hName = 'iframe'
         data.hProperties = {
           src: 'https://www.youtube.com/embed/' + id,
-          width: 200,
-          height: 200,
+          width: 560,
+          height: 315,
           frameBorder: 0,
           allow: 'picture-in-picture',
           allowFullScreen: true,
