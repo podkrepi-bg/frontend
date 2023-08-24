@@ -66,7 +66,7 @@ export default function RenderNotificationsConfirmModal({ type, setOpen }: Modal
   >({
     mutationFn: useSubscribeEmail(),
     onError: (error) => handleError(error),
-    onSuccess: (response) => {
+    onSuccess: () => {
       AlertStore.show(t('common:alerts.message-sent'), 'success')
       //   Update data
       queryClient.invalidateQueries({ queryKey: [endpoints.account.me.url] })
@@ -80,7 +80,7 @@ export default function RenderNotificationsConfirmModal({ type, setOpen }: Modal
   >({
     mutationFn: useUNsubscribeEmail(),
     onError: (error) => handleError(error),
-    onSuccess: (response) => {
+    onSuccess: () => {
       AlertStore.show(t('common:alerts.message-sent'), 'success')
       //   Update data
       queryClient.invalidateQueries({ queryKey: [endpoints.account.me.url] })

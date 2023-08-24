@@ -39,6 +39,7 @@ const borders = {
   light: colors.blue.main,
   round: '60px',
   semiRound: '20px',
+  input: 'rgba(0, 0, 0, 0.23)',
 }
 
 export const themeOptions: ThemeOptions = {

@@ -25,7 +25,7 @@ export const StyledRadioAccordionItem = styled(Box)(() => ({
   cursor: 'pointer',
 }))
 
-interface RadioAccordionItemProps extends BoxProps {
+interface RadioAccordionItemProps extends Omit<BoxProps, 'content'> {
   control: React.ReactNode
   icon: React.ReactNode
   content?: React.ReactNode

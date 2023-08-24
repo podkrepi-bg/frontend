@@ -88,8 +88,7 @@ export default function UNsubscriptionPage(data: Props) {
     callUNsubscribeApiRoute(payload).catch(() => console.log())
   }, [])
 
-  const handleError = (e: AxiosError<ApiError>) => {
-    const error = e.response?.data?.message
+  const handleError = () => {
     setLoading(false)
     setIsSuccess(false)
   }
@@ -100,8 +99,8 @@ export default function UNsubscriptionPage(data: Props) {
     UNsubscribePublicEmailInput
   >({
     mutationFn: useUNSubscribePublicEmail(),
-    onError: (error) => handleError(error),
-    onSuccess: (response, data) => {
+    onError: () => handleError(),
+    onSuccess: () => {
       AlertStore.show(t('common:alerts.message-sent'), 'success')
       setIsSuccess(true)
       setLoading(false)

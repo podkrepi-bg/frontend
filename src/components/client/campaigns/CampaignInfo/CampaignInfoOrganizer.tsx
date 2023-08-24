@@ -2,7 +2,7 @@ import React from 'react'
 import { CampaignResponse } from 'gql/campaigns'
 import { useTranslation } from 'next-i18next'
 
-import { Grid, Stack, Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import EmailIcon from '@mui/icons-material/Email'
 
 import { organizerCampaignPictureUrl } from 'common/util/campaignImageUrls'
