@@ -340,7 +340,8 @@ export default function InlineDonation({ campaign }: Props) {
       {subscribeIsOpen && (
         <RenderCampaignSubscribeModal setOpen={setSubscribeOpen} campaign={campaign} />
       )}
-      <Grid
+      {/* Hide until notifications is ready */}
+      {/* <Grid
         item
         textAlign="center"
         mt={1.8}
@@ -351,7 +352,7 @@ export default function InlineDonation({ campaign }: Props) {
           {t('campaigns:cta.subscribe')}
         </Typography>
         <MarkEmailUnread onClick={() => setSubscribeOpen(true)} cursor="pointer" />
-      </Grid>
+      </Grid> */}
       {detailsShown &&
         (donationHistoryError ? (
           'Error fetching donation history'

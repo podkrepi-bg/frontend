@@ -20,7 +20,8 @@ export const LogoSocialIcons = () => {
         </Link>
       </Grid>
       <SocialIcons />
-      <SubscribeBtn />
+      {/* Hide until notifications is ready */}
+      {/* <SubscribeBtn /> */}
     </Grid>
   )
 }
