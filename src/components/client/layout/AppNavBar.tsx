@@ -80,30 +80,29 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
             <PodkrepiLogo locale={locale} variant="adaptive" />
           </ButtonBase>
         </Link>
-        <Hidden mdDown>
-          <Grid
-            container
-            wrap="nowrap"
-            direction="row"
-            justifyContent="flex-end"
-            sx={(theme) => ({
-              marginLeft: theme.spacing(2),
-              marginRight: theme.spacing(5),
-              [theme.breakpoints.up('lg')]: {
-                marginRight: theme.spacing(10),
-              },
-            })}>
-            <Grid item>
-              <MainNavMenu>
-                {status === 'authenticated' ? <PrivateMenu /> : <PublicMenu />}
-                <Grid item>
-                  <LocaleButton />
-                </Grid>
-              </MainNavMenu>
-            </Grid>
+        <Grid
+          container
+          wrap="nowrap"
+          direction="row"
+          justifyContent="flex-end"
+          sx={(theme) => ({
+            marginLeft: theme.spacing(2),
+            marginRight: theme.spacing(5),
+            [theme.breakpoints.up('lg')]: {
+              marginRight: theme.spacing(10),
+            },
+            display: { md: 'flex', xs: 'none' },
+          })}>
+          <Grid item>
+            <MainNavMenu>
+              {status === 'authenticated' ? <PrivateMenu /> : <PublicMenu />}
+              <Grid item>
+                <LocaleButton />
+              </Grid>
+            </MainNavMenu>
           </Grid>
-        </Hidden>
-        <Hidden mdUp>
+        </Grid>
+        <Grid sx={{ display: { xs: 'flex', md: 'none' } }}>
           <IconButton
             size="small"
             edge="end"
@@ -111,7 +110,7 @@ export default function AppNavBar({ navMenuToggle }: AppBarDeckProps) {
             aria-labelledby="navigation menu">
             <Menu fontSize="large" />
           </IconButton>
-        </Hidden>
+        </Grid>
       </Toolbar>
     </AppBar>
   )
